@@ -9,7 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import RedButton from '../../../components/button/RedButton.component';
 import { formatAsTime } from '../../../datetime';
@@ -83,7 +83,7 @@ export const TempPasswordDialog = (props: Props) => {
 };
 
 export default compose(
-  withNamespaces(['login']),
+  withTranslation(['login']),
   withState('step', 'setStep', STEP_EXPLAIN),
   withProps(({ setStep, generateTempPassword, onClose }) => ({
     requestPassword: () => {

@@ -6,7 +6,7 @@ import { compose, withState } from 'recompose';
 import Collapse from '@material-ui/core/Collapse';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
@@ -172,7 +172,7 @@ export default compose(
       onCreate: () => push('/coach/add'),
     },
   ),
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
   withState('deleteCoachId', 'setDeleteCoachId', null),
   withTitle(({ t }: { t: TFunction }) => t('titles:coach.coachList')),

@@ -11,7 +11,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import Typography from '@material-ui/core/Typography';
 import Menu from '@material-ui/core/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
@@ -154,7 +154,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
   withState('menuAnchor', 'setMenuAnchor', null),
 )(PrivateServiceSelectorWithSlot);

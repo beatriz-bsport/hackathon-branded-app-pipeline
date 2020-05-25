@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import Tooltip from '@material-ui/core/Tooltip';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -127,5 +127,5 @@ const styles = (theme) => ({
 });
 export default compose(
   withStyles(styles),
-  withNamespaces(['emailTemplate']),
+  withTranslation(['emailTemplate']),
 )(EmailCard);

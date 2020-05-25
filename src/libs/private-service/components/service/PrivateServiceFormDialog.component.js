@@ -1,6 +1,6 @@
 // @flow
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import React from 'react';
 import { Form } from 'formik';
@@ -52,6 +52,6 @@ export const PrivateServiceFormDialog = (props: Props) => {
 
 export default compose(
   withMobileDialog(),
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   PrivateServiceFormikHOC,
 )(PrivateServiceFormDialog);

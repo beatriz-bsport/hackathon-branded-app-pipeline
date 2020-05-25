@@ -20,7 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -524,6 +524,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['paymentPack']),
+  withTranslation(['paymentPack']),
   withStyles(styles),
 )(notificationRuleForm);

@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import RedButton from '../../../components/button/RedButton.component';
 
@@ -92,4 +92,4 @@ export function RevertBookingDialog(props: Props) {
   );
 }
 
-export default withNamespaces()(RevertBookingDialog);
+export default withTranslation()(RevertBookingDialog);

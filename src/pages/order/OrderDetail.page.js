@@ -4,7 +4,7 @@ import { withProps, compose } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import withTitle from '../../hocs/with-title.hoc';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -105,6 +105,6 @@ export default compose(
   withProps(({ getMember, order }) => ({
     member: order ? getMember(order.member) : null,
   })),
-  withNamespaces(),
+  withTranslation(),
   withTitle(({ t }) => t('titles:order.orderDetail')),
 )(OrderDetail);

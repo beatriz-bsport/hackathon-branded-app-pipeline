@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import CoachSummaryBanner from './coach-detail/CoachSummaryBanner.component';
 import Description from './coach-detail/Description.component';
@@ -96,4 +96,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces(['coach'])(CoachDetail));
+export default withStyles(styles)(withTranslation(['coach'])(CoachDetail));

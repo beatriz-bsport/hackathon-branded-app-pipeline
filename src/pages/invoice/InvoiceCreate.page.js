@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 import { compose } from 'recompose';
 
@@ -166,7 +166,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withTranslation(),
   routerParamsToProps({
     id: 'id:number',
   }),

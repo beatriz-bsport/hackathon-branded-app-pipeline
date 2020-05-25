@@ -2,7 +2,7 @@
 
 import MUIDataTable from 'mui-datatables';
 import React, { Component } from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import Button from '@material-ui/core/Button';
@@ -259,5 +259,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['member']),
+  withTranslation(['member']),
 )(InvoiceTable);

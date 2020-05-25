@@ -7,7 +7,7 @@ import { push, replace as replaceRouter } from 'connected-react-router';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import memoize from 'memoize-one';
 
@@ -410,7 +410,7 @@ const styles = () => ({
 
 export const MarketplaceCalendarStyled = compose(
   withStyles(styles),
-  withNamespaces(),
+  withTranslation(),
 )(MarketplaceCalendar);
 
 export default compose(
@@ -575,7 +575,7 @@ export default compose(
       }
     },
   }),
-  withNamespaces(),
+  withTranslation(),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:marketplace.marketplaceCalendar'),
   ),

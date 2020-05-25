@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 const toolbarStyles = (theme) => ({
   root: {
@@ -68,5 +68,5 @@ const EnhancedTableToolbar = (props: Props) => {
 };
 
 export default withStyles(toolbarStyles)(
-  withNamespaces()(EnhancedTableToolbar),
+  withTranslation()(EnhancedTableToolbar),
 );

@@ -13,7 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import DatePicker from 'material-ui-pickers/DatePicker';
 
 import AddIcon from '@material-ui/icons/Add';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import EstablishmentSelector from '../establishment/components/EstablishmentSelectorWithCard.component';
 import CoachSelector from '../associated-coach/components/CoachSelectorWithCard.component';
 import { Config } from '../../config';
@@ -560,4 +560,4 @@ export class OfferForm extends Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(withNamespaces()(OfferForm));
+export default withStyles(styles)(withTranslation()(OfferForm));

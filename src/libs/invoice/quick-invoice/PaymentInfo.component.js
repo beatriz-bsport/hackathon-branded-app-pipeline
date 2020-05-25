@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
@@ -168,4 +168,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces()(withStyles(styles)(PaymentInfo));
+export default withTranslation()(withStyles(styles)(PaymentInfo));

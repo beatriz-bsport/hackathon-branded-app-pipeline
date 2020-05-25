@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import type { TFunction } from 'react-i18next';
 import MemberNote from './MemberNote.component';
@@ -140,4 +140,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces(['member'])(withStyles(styles)(MemberNotePanel));
+export default withTranslation(['member'])(withStyles(styles)(MemberNotePanel));

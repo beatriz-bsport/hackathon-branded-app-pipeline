@@ -2,7 +2,7 @@
 import React from 'react';
 
 import type { TFunction } from 'react-i18next';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -159,6 +159,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['paymentPack']),
+  withTranslation(['paymentPack']),
   withStyles(styles),
 )(ConsumerPaymentPackDetail);

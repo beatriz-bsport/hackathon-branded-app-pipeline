@@ -5,7 +5,7 @@ import lodash from 'lodash';
 import React from 'react';
 import { compose } from 'recompose';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import * as Yup from 'yup';
@@ -236,6 +236,6 @@ export const PaymentRuleFormHoc = withFormik({
 });
 
 export default compose(
-  withNamespaces(['paymentRules']),
+  withTranslation(['paymentRules']),
   withStyles(styles),
 )(PaymentRuleFields);

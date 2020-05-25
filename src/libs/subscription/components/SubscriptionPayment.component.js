@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { CardElement, IbanElement, injectStripe } from 'react-stripe-elements';
@@ -280,7 +280,7 @@ const styles = (theme) => ({
 
 export default compose(
   withState('paymentMethod', 'setPaymentMethod', 'sepa_debit'),
-  withNamespaces(['subscripton']),
+  withTranslation(['subscripton']),
   withStyles(styles),
   injectStripe,
 )(SubscriptionPayment);

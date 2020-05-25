@@ -9,7 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import moment from 'moment';
 import type { EmailTemplate } from '../types';
@@ -208,5 +208,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['emailTemplate', 'notificationRule']),
+  withTranslation(['emailTemplate', 'notificationRule']),
 )(EmailEditorPanel);

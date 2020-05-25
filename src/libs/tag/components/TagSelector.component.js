@@ -11,7 +11,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import { compose, withState } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Selector from '../../../components/Selector.component';
@@ -106,7 +106,7 @@ const styles = () => ({
 });
 
 export default compose(
-  withNamespaces(['tag']),
+  withTranslation(['tag']),
   withStyles(styles),
   withState('menuAnchorEl', 'setMenuAnchor', null),
 )(TagSelector);

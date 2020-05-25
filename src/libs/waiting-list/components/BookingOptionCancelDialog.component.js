@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
@@ -41,4 +41,4 @@ export const BookingOptionCancelDialog = (props: Props) => {
   );
 };
 
-export default withNamespaces()(BookingOptionCancelDialog);
+export default withTranslation()(BookingOptionCancelDialog);

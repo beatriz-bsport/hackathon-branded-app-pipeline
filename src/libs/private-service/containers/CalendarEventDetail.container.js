@@ -13,7 +13,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
 import Fade from '@material-ui/core/Fade';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Popover from '@material-ui/core/Popover';
 import { push } from 'connected-react-router';
@@ -507,7 +507,7 @@ const PrivateBookingCancellatorContainer = compose(
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withTranslation(),
   connect(
     (state, { privateBookingId, offerId }) => ({
       privateBooking: withRelatedFields(getPrivateBooking)(

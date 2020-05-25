@@ -2,7 +2,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import {
@@ -30,6 +30,6 @@ const PaymentMethodSelectorField = (props: Props) => {
   );
 };
 
-export default compose(withNamespaces(['translation']))(
+export default compose(withTranslation(['translation']))(
   PaymentMethodSelectorField,
 );

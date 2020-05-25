@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import DatePicker from 'material-ui-pickers/DatePicker';
@@ -137,6 +137,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['smartList']),
+  withTranslation(['smartList']),
   withStyles(styles),
 )(StatsPanel);

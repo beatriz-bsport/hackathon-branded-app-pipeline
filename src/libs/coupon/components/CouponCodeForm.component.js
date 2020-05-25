@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Fab from '@material-ui/core/Fab';
 import type { TFunction } from 'react-i18next';
 
@@ -60,7 +60,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['coupon']),
+  withTranslation(['coupon']),
   withState('code', 'setCode', ''),
   withProps(({ onSubmit, code, setCode }) => ({
     handleChange: (ev) => setCode(ev.target.value),

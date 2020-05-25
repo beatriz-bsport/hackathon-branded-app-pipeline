@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Avatar from '../Avatar.component';
 
 const styles = () => ({
@@ -80,4 +80,4 @@ export class AvatarUploader extends Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(withNamespaces()(AvatarUploader));
+export default withStyles(styles)(withTranslation()(AvatarUploader));

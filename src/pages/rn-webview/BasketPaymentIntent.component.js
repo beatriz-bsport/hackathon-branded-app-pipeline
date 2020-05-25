@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { compose, withState, withProps } from 'recompose';
 import { connect } from 'react-redux';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -54,7 +54,7 @@ const styles = () => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['checkout']),
+  withTranslation(['checkout']),
   routerParamsToProps({ basketId: 'basketId' }),
   withState('basketError', 'setBasketError', null),
   connect(

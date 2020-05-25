@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { compose, withHandlers } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -46,7 +46,7 @@ export class MemberDetailContact extends React.Component<Props> {
 
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
-  withNamespaces(),
+  withTranslation(),
   connect(
     (state, { id }) => ({
       campaignRecipientList: getCampaignAndRecipientByMember(state, id),

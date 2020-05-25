@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import { compose } from 'recompose';
 
@@ -339,5 +339,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['smartList']),
+  withTranslation(['smartList']),
 )(MultipleSelect);

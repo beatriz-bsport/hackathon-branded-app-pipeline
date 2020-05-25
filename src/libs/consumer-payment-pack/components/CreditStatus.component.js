@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import type { ConsumerPaymentPack } from '../types';
@@ -44,4 +44,4 @@ export const CreditStatus = (props: Props) => {
   );
 };
 
-export default withNamespaces(['paymentPack'])(CreditStatus);
+export default withTranslation(['paymentPack'])(CreditStatus);

@@ -8,7 +8,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 import Typography from '@material-ui/core/Typography';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 const ResourceItem = ({
@@ -185,7 +185,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
   withHandlers({
     onUnselectResource: ({ setResourceFiltered, resourceSelectedListIds }) => (

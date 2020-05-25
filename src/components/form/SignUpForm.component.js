@@ -17,7 +17,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { GenderInput } from '../input';
@@ -435,4 +435,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces()(withStyles(styles)(SignUpForm));
+export default withTranslation()(withStyles(styles)(SignUpForm));

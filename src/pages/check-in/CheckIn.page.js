@@ -11,7 +11,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { push } from 'connected-react-router';
 import { Redirect } from 'react-router-dom';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { getPermissions } from '../../libs/role/selectors';
 import type { Permission } from '../../libs/role/types';
@@ -153,7 +153,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['selfCheckIn']),
+  withTranslation(['selfCheckIn']),
   withState('signoutOpen', 'setSignoutOpen', false),
   connect(
     (state) => ({

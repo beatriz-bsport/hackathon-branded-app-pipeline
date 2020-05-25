@@ -13,7 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import PAYMENT_METHODS, {
   CB as PAYMENT_METHOD_CB,
@@ -335,4 +335,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(PaymentForm));
+export default withStyles(styles)(withTranslation()(PaymentForm));

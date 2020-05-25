@@ -3,7 +3,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState, withProps } from 'recompose';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
 
@@ -106,7 +106,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['paymentCombo']),
+  withTranslation(['paymentCombo']),
   withStyles(styles),
   connect(
     (state) => ({

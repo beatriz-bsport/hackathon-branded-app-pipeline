@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
 
 import Selector from '../../../components/Selector.component';
@@ -60,7 +60,7 @@ function SingleValue(props: OptionProps) {
   );
 }
 
-export default withNamespaces(['category'])(
+export default withTranslation(['category'])(
   ({ t, scts, value, placeholder, isDisabled, selectOption }) => {
     return (
       <Selector

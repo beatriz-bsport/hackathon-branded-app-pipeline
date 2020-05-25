@@ -3,7 +3,7 @@
 import React from 'react';
 import moment from 'moment';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Table from '@material-ui/core/Table';
@@ -110,4 +110,4 @@ export function CoachPerformanceTable(props: Props) {
   );
 }
 
-export default withNamespaces(['coachPerformance'])(CoachPerformanceTable);
+export default withTranslation(['coachPerformance'])(CoachPerformanceTable);

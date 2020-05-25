@@ -11,7 +11,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import { push, replace } from 'connected-react-router';
 import { compose, withState } from 'recompose';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import PaginatedListBase from '../../components/PaginatedListBase.component';
@@ -116,7 +116,7 @@ type State = {
 
 const CONSUMER_PAYMENT_PACK_PAGE_SIZE = 6;
 
-const ClickOnConsumerPack = withNamespaces(['paymentPack'])(
+const ClickOnConsumerPack = withTranslation(['paymentPack'])(
   (props: { classes: Object, t: TFunction }) => (
     <div className={props.classes.container}>
       <div className={props.classes.emptyMessageContainer}>
@@ -351,7 +351,7 @@ export default compose(
     id: 'id:number',
     consumerPassId: 'consumerPassId:number',
   }),
-  withNamespaces(['paymentPack']),
+  withTranslation(['paymentPack']),
   withStyles(styles),
   withState('openCreateExtension', 'setOpenCreateExtension', false),
   connect(

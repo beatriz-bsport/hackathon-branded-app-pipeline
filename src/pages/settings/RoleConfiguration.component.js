@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
@@ -96,7 +96,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['role']),
+  withTranslation(['role']),
   connect(
     (state) => ({
       loading: state.role.loading,

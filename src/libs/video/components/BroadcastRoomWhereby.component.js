@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
@@ -37,4 +37,4 @@ export class BroadcastRoomWhereby extends React.Component<Props> {
   }
 }
 
-export default withNamespaces(['offer'])(BroadcastRoomWhereby);
+export default withTranslation(['offer'])(BroadcastRoomWhereby);

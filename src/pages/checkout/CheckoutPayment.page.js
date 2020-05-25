@@ -9,7 +9,7 @@ import { replace as replaceRouter, push, goBack } from 'connected-react-router';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import Typography from '@material-ui/core/Typography';
 import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { getTheme } from '../../theme';
@@ -191,7 +191,7 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   routerParamsToProps({ companyId: 'companyId:number' }),
-  withNamespaces(['checkout']),
+  withTranslation(['checkout']),
   connect(
     (state) => ({
       basket: getCurrentBasket(state),

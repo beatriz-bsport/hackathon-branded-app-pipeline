@@ -5,7 +5,7 @@ import DatePicker from 'material-ui-pickers/DatePicker';
 import moment from 'moment';
 import TextField from '@material-ui/core/TextField';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { formatAsTime } from '../../datetime';
 
 type Props = {
@@ -61,4 +61,4 @@ export function DateTimeForm(props: Props) {
   );
 }
 
-export default withNamespaces()(DateTimeForm);
+export default withTranslation()(DateTimeForm);

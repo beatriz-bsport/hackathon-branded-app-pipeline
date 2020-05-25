@@ -2,7 +2,7 @@
 import React from 'react';
 import { compose, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -137,6 +137,6 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withMobileDialog(),
-  withNamespaces(['consumerSpace']),
+  withTranslation(['consumerSpace']),
   withState('openByButton', 'setOpenByButton', false),
 )(ConsumerDebtRegularizerDialog);

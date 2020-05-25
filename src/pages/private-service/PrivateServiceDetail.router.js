@@ -8,7 +8,7 @@ import { compose } from 'recompose';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import { push } from 'connected-react-router';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import PrivateServiceDetail from './PrivateServiceDetail.page';
@@ -85,7 +85,7 @@ export default compose(
     tab: 'tab',
     id: 'id:number',
   }),
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
   connect(
     null,

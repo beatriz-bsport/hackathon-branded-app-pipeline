@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
 
 import List from '@material-ui/core/List';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 import { compose } from 'recompose';
@@ -331,7 +331,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default compose(
-  withNamespaces(['paymentPack']),
+  withTranslation(['paymentPack']),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:paymentPack.paymentPackList'),
   ),

@@ -4,7 +4,7 @@ import React from 'react';
 import { colors } from '@bsport/common/lib/colors';
 
 import { compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
@@ -139,6 +139,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['shop']),
+  withTranslation(['shop']),
   withStyles(styles),
 )(ProvisionSummary);

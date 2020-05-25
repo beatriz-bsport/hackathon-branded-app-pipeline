@@ -11,7 +11,7 @@ import Receipt from '@material-ui/icons/Receipt';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Stars from '@material-ui/icons/Stars';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 export class RuleCard extends React.Component<{}> {
@@ -265,4 +265,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(RuleCard));
+export default withStyles(styles)(withTranslation()(RuleCard));

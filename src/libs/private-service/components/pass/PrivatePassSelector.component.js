@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
@@ -74,4 +74,4 @@ export function PrivatePassSelector(props: Props) {
   );
 }
 
-export default withNamespaces()(PrivatePassSelector);
+export default withTranslation()(PrivatePassSelector);

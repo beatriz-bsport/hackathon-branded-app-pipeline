@@ -5,7 +5,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Popover from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';
@@ -110,4 +110,4 @@ const styles = () => ({
   },
 });
 
-export default withNamespaces(['search'])(withStyles(styles)(SearchMember));
+export default withTranslation(['search'])(withStyles(styles)(SearchMember));

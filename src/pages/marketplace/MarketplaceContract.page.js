@@ -13,7 +13,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 import { replace as replaceAction } from 'connected-react-router';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
@@ -196,7 +196,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withRouter,
   withStyles(styles),
   withState('paymentDialogOpen', 'setPaymentDialogOpen', false),

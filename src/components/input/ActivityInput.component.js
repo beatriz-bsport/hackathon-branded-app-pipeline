@@ -8,7 +8,7 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import LEVELS from '@bsport/common/lib/master-data/levels';
 
@@ -64,4 +64,4 @@ export function ActivityInput(props: Props) {
   );
 }
 
-export default withStyles(styles)(withNamespaces()(ActivityInput));
+export default withStyles(styles)(withTranslation()(ActivityInput));

@@ -14,7 +14,7 @@ import ScheduleIcon from '@material-ui/icons/Schedule';
 import PeopleIcon from '@material-ui/icons/People';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { splitIntervalList } from '../../utils';
@@ -67,7 +67,7 @@ const Slot = withStyles(stylesSlot)(
     </Button>
   ),
 );
-const SlotList = withNamespaces('privateService')(
+const SlotList = withTranslation('privateService')(
   withStyles(stylesSlot)(
     (props: {
       slots: Array<PrivateSlot>,
@@ -285,6 +285,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
 )(SlotSearcherResult);

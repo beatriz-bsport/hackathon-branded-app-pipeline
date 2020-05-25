@@ -11,7 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import DatePicker from 'material-ui-pickers/DatePicker';
@@ -206,7 +206,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['subscription']),
+  withTranslation(['subscription']),
   withStyles(styles),
   withState('date', 'setDate', moment().format('YYYY-MM-DD')),
   withState('processing', 'setProcessing', false),

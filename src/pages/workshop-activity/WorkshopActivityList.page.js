@@ -6,7 +6,7 @@ import { push } from 'connected-react-router';
 import Collapse from '@material-ui/core/Collapse';
 import Paper from '@material-ui/core/Paper';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withHandlers, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -152,7 +152,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withTranslation(),
   withTitle(({ t }) => t('titles:workshopActivity.workshopActivityList')),
   connect(
     (state) => ({

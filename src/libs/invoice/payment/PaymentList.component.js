@@ -15,7 +15,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -196,7 +196,7 @@ class PaymentListItem extends Component<PaymentItemProps, PaymentItemState> {
 }
 
 const PaymentListItemComposed = withStyles(styles)(
-  withNamespaces()(PaymentListItem),
+  withTranslation()(PaymentListItem),
 );
 
 export function PaymentList(props: Props) {
@@ -237,4 +237,4 @@ export function PaymentList(props: Props) {
   );
 }
 
-export default withNamespaces()(withStyles(styles)(PaymentList));
+export default withTranslation()(withStyles(styles)(PaymentList));

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
@@ -80,4 +80,4 @@ export function SmartListSelector(props: Props) {
   );
 }
 
-export default withNamespaces()(SmartListSelector);
+export default withTranslation()(SmartListSelector);

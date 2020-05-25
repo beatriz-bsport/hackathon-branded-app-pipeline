@@ -4,7 +4,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
@@ -145,7 +145,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['settings']),
+  withTranslation(['settings']),
   withStyles(styles),
   routerParamsToProps({ tab: 'tab' }),
   withRouter,

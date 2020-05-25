@@ -10,7 +10,7 @@ import List from '@material-ui/core/List';
 
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 
@@ -255,7 +255,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['smartList']),
+  withTranslation(['smartList']),
   withStyles(styles),
   routerParamsToProps({ id: 'selectedId:number' }),
   withTitle(({ t }) => t('smart_list.list.title')),

@@ -5,7 +5,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -224,4 +224,4 @@ class MemberTable extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(withNamespaces()(MemberTable));
+export default withStyles(styles)(withTranslation()(MemberTable));

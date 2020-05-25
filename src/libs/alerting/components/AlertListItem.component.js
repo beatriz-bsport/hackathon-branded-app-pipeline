@@ -8,7 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import { Trans, withNamespaces } from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import moment from 'moment';
@@ -66,7 +66,7 @@ const UnevenAlertListItemBase = (props: {
 
 const UnevenAlertListItem = compose(
   withStyles(styles),
-  withNamespaces(['alerting']),
+  withTranslation(['alerting']),
 )(UnevenAlertListItemBase);
 
 const NewOrderAlertListItemBase = (props: {
@@ -104,7 +104,7 @@ const NewOrderAlertListItemBase = (props: {
 
 const NewOrderAlertListItem = compose(
   withStyles(styles),
-  withNamespaces(['alerting']),
+  withTranslation(['alerting']),
 )(NewOrderAlertListItemBase);
 
 const TaskAlertListItemBase = (props: {
@@ -146,7 +146,7 @@ const TaskAlertListItemBase = (props: {
 
 const TaskAlertListItem = compose(
   withStyles(styles),
-  withNamespaces(['alerting']),
+  withTranslation(['alerting']),
 )(TaskAlertListItemBase);
 
 export default function AlertList(props: Props) {

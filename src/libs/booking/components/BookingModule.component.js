@@ -3,7 +3,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
 import moment from 'moment-timezone';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -307,6 +307,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['booking']),
+  withTranslation(['booking']),
   withStyles(styles),
 )(OfferBooking);

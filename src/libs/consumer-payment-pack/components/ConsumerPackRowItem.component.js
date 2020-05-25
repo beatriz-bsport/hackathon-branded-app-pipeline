@@ -13,7 +13,7 @@ import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import moment from 'moment';
 
@@ -257,4 +257,4 @@ export class ConsumerPackRowItem extends Component<Props> {
   }
 }
 
-export default withNamespaces(['paymentPack'])(ConsumerPackRowItem);
+export default withTranslation(['paymentPack'])(ConsumerPackRowItem);

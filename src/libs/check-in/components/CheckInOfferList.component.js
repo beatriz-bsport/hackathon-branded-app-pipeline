@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
@@ -47,7 +47,7 @@ const offerListItemStyle = () => {
   };
 };
 
-const OfferListItem = withNamespaces(['selfCheckIn'])(
+const OfferListItem = withTranslation(['selfCheckIn'])(
   withStyles(offerListItemStyle)((props) => {
     const momentDate = Moment();
     const inProgress = !!momentDate.isBetween(
@@ -192,6 +192,6 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces(['selfCheckIn'])(
+export default withTranslation(['selfCheckIn'])(
   withStyles(styles)(CheckInOfferList),
 );

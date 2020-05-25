@@ -7,7 +7,7 @@ import { push } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 import { compose, withProps } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import { createCoupon } from '../../libs/coupon/actions';
 import withTitle from '../../hocs/with-title.hoc';
@@ -78,7 +78,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
   connect(
     (state) => ({

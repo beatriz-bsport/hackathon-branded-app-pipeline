@@ -3,7 +3,7 @@ import React from 'react';
 
 import { compose, withStateHandlers } from 'recompose';
 // import chroma from 'chroma-js';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import frLocale from '@fullcalendar/core/locales/fr';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Popover from '@material-ui/core/Popover';
@@ -103,7 +103,7 @@ const privateBookingAsEvent = (resourceDatatypeView) => (pb) => {
   };
 };
 
-const AvailabilitySlotForm = withNamespaces(['privateService'])(
+const AvailabilitySlotForm = withTranslation(['privateService'])(
   withStyles(styles)(
     (props: {
       classes: Object,
@@ -503,7 +503,7 @@ export default compose(
       }),
     },
   ),
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withMobileDialog(),
   withStyles(styles, { withTheme: true }),
 )(PrivateCalendar);

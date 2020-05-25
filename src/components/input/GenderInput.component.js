@@ -7,7 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 const styles = () => ({
@@ -48,4 +48,4 @@ export function GenderInput(props: Props) {
 
 GenderInput.defaultProps = { fullWidth: false };
 
-export default withStyles(styles)(withNamespaces()(GenderInput));
+export default withStyles(styles)(withTranslation()(GenderInput));

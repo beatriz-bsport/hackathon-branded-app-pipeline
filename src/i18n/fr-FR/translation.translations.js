@@ -523,6 +523,7 @@ exports.default = {
   },
   navigation: {
     video: 'Bibliothèque vidéo',
+    playlist: 'Parcours',
     podcast: 'Podcasts',
     digital: 'Offre digitale',
     marketing_automation: 'Marketing Auto',
@@ -843,6 +844,7 @@ exports.default = {
     },
   },
   marketplace: {
+    vod: 'VOD',
     substitute: 'Remplaçant',
     substituted: 'Absent',
     teacher: 'Professeur',

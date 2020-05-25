@@ -1,6 +1,6 @@
 // @flow
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import React from 'react';
 
 import { connect } from 'react-redux';
@@ -195,7 +195,7 @@ export class PrivateServiceList extends React.Component<Props> {
 
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withTitle(({ t }) => t('pageTitles.serviceList')),
   connect(
     (state, { id }) => ({

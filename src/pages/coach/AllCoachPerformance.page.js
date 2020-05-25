@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { compose, withProps, withHandlers } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -112,7 +112,7 @@ const styles = (theme) => ({
 
 const CoachPerformanceComposed = compose(
   withStyles(styles),
-  withNamespaces(['paymentRules']),
+  withTranslation(['paymentRules']),
   connect((state, props) => {
     return {
       performance: coachPerformanceSelector.getPerformance(
@@ -274,6 +274,6 @@ export default compose(
       );
     },
   }),
-  withNamespaces(),
+  withTranslation(),
   withTitle(({ t }) => t('titles:coach.allCoachPerformance')),
 )(AllCoachPerformance);

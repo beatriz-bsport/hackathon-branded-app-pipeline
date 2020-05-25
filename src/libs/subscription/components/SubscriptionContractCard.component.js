@@ -11,7 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import moment from 'moment';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
@@ -123,7 +123,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['subscription']),
+  withTranslation(['subscription']),
   withStyles(styles),
   withState('date', 'setDate', moment()),
   withState('acceptContract', 'setAcceptContract', false),

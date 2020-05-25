@@ -5,7 +5,7 @@ import React from 'react';
 import moment from 'moment';
 import { compose } from 'recompose';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
@@ -92,5 +92,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces('dashboard'),
+  withTranslation('dashboard'),
 )(TemporalStatistic);

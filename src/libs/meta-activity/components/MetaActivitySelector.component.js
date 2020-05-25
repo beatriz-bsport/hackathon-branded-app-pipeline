@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import chroma from 'chroma-js';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import { colors } from '@bsport/common/lib/colors';
 
@@ -73,7 +73,7 @@ const metaActivityStyles = {
   }),
 };
 
-export default withNamespaces(['metaActivity'])(
+export default withTranslation(['metaActivity'])(
   ({ t, metaActivities, selectOption, selectedMetaActivities }) => (
     <Select
       closeMenuOnSelect={false}

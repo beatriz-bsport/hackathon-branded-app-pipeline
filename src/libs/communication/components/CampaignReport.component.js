@@ -3,7 +3,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
 import Typography from '@material-ui/core/Typography';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Divider from '@material-ui/core/Divider';
@@ -148,7 +148,7 @@ const CampaignStatistics = withStyles(styles)(
     </div>
   ),
 );
-const CampaignClick = withNamespaces(['communication'])(
+const CampaignClick = withTranslation(['communication'])(
   withStyles(styles)(
     withState('showMore', 'setShowMore', 5)((props) => {
       const sortedTopLinks = Object.entries(props.report.top_links).sort(
@@ -226,7 +226,7 @@ export const CampaignReport = (props: Props) => (
 );
 
 export default compose(
-  withNamespaces(['communication']),
+  withTranslation(['communication']),
   withStyles(styles),
   withState('showMail', 'setShowMail', null),
 )(CampaignReport);

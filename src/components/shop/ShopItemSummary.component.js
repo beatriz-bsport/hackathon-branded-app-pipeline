@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 type Props = {
   // t: (x: string) => string,
@@ -43,4 +43,4 @@ export class ShopItemSummary extends Component<Props> {
   }
 }
 
-export default withNamespaces()(ShopItemSummary);
+export default withTranslation()(ShopItemSummary);

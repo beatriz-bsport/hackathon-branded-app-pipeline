@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -55,5 +55,5 @@ export function ReportColumnSelector(props: Props) {
 }
 
 export default withStyles(styles)(
-  withNamespaces(['reporting'])(ReportColumnSelector),
+  withTranslation(['reporting'])(ReportColumnSelector),
 );

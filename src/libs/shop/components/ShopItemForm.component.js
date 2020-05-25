@@ -13,7 +13,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import type { ShopItem } from '../types';
@@ -422,4 +422,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(ShopItemForm));
+export default withStyles(styles)(withTranslation()(ShopItemForm));

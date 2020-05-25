@@ -6,7 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import AddressForm from '../../../components/form/AddressForm.component';
 import type { Basket } from '../types';
@@ -146,6 +146,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['checkout']),
+  withTranslation(['checkout']),
   withStyles(styles),
 )(BasketDeliveryForm);

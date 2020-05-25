@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
 import { compose, withState } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import RedButton from '../../../components/button/RedButton.component';
@@ -76,7 +76,7 @@ export const CheckInSignout = (props: Props) => {
 };
 
 export default compose(
-  withNamespaces(['selfCheckIn']),
+  withTranslation(['selfCheckIn']),
   withState('password', 'setPassword', ''),
   withState('username', 'setUsername', ''),
 )(CheckInSignout);

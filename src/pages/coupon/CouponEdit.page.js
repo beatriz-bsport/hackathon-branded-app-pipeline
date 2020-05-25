@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -98,7 +98,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withTranslation(),
   routerParamsToProps({ id: 'id:number' }),
   connect(
     (state, { id }) => ({

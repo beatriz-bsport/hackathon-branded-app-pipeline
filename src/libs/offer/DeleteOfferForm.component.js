@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import RecursiveToogle from './form/RecursionToogle.component';
 import RedButton from '../../components/button/RedButton.component';
@@ -162,4 +162,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces()(withStyles(styles)(DeleteOfferForm));
+export default withTranslation()(withStyles(styles)(DeleteOfferForm));

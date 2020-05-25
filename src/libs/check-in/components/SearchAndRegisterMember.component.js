@@ -6,7 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import List from '@material-ui/core/List';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { compose, withState } from 'recompose';
 import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -87,7 +87,7 @@ const RegisterMemberBase = (props: RegisterMemberProps) => (
 );
 
 const RegisterMember = compose(
-  withNamespaces(['selfCheckIn']),
+  withTranslation(['selfCheckIn']),
   withState('processing', 'setProcessing', false),
 )(RegisterMemberBase);
 
@@ -159,6 +159,6 @@ export const SearchAndRegister = (props: Props) => {
 };
 
 export default compose(
-  withNamespaces(['selfCheckIn']),
+  withTranslation(['selfCheckIn']),
   withState('member', 'setMember', null),
 )(SearchAndRegister);

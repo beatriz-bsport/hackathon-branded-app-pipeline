@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import ShopItemSummary from '../../../components/shop/ShopItemSummary.component';
 
@@ -61,4 +61,4 @@ function ShopItemSelector(props: Props) {
   );
 }
 
-export default withNamespaces(['shop'])(ShopItemSelector);
+export default withTranslation(['shop'])(ShopItemSelector);

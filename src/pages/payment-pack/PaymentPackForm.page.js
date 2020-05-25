@@ -6,7 +6,7 @@ import uniqBy from 'lodash/uniqBy';
 
 import { push as pushRouter } from 'connected-react-router';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
@@ -118,7 +118,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:paymentPack.paymentPackFormPage'),
   ),

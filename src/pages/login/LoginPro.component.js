@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { auth as authActions } from '../../actions';
@@ -159,6 +159,6 @@ export default compose(
       login: ({ email, password }) => authActions.requestLogin(email, password),
     },
   ),
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
 )(Login);

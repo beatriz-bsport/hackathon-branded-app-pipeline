@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import {
   replace as replaceRouter,
   push as pushRouter,
@@ -139,6 +139,6 @@ export default compose(
       });
     },
   })),
-  withNamespaces(),
+  withTranslation(),
   withTitle(({ t }) => t('titles:member.mergeMember')),
 )(MemberMergeFormPage);

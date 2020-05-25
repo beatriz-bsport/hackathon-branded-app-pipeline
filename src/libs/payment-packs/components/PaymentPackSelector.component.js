@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
@@ -79,4 +79,4 @@ export function PaymentPackSelector(props: Props) {
   );
 }
 
-export default withNamespaces()(PaymentPackSelector);
+export default withTranslation()(PaymentPackSelector);

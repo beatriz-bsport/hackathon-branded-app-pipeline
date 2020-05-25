@@ -20,7 +20,7 @@ import PlaceIcon from '@material-ui/icons/Place';
 import ViewWeekIcon from '@material-ui/icons/ViewWeek';
 import BarCode from 'react-barcode';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
@@ -350,5 +350,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['translation', 'member']),
+  withTranslation(['translation', 'member']),
 )(MemberSummaryCard);

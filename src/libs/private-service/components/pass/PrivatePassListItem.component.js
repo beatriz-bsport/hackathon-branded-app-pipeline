@@ -8,7 +8,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import type { PrivatePass } from '../../types';
@@ -64,6 +64,6 @@ const styles = () => ({
 });
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
 )(PrivatePassListItem);

@@ -11,7 +11,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 
@@ -209,6 +209,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['order']),
+  withTranslation(['order']),
   withStyles(styles),
 )(OrderDetail);

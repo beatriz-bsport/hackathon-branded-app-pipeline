@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
@@ -377,5 +377,5 @@ export default compose(
       }),
   })),
   withStyles(styles),
-  withNamespaces(['settings']),
+  withTranslation(['settings']),
 )(ActiveCampaignConfiguration);

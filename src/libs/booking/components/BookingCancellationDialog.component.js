@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
 
@@ -71,7 +71,7 @@ export const BookingCancellationDialog = (props: Props) => (
 );
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withMobileDialog(),
   withState('processing', 'setProcessing', false),
 )(BookingCancellationDialog);

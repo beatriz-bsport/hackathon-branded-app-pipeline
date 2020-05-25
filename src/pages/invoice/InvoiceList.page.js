@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { push as routerPush } from 'connected-react-router';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
@@ -52,7 +52,7 @@ const styles = () => ({
 });
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
   connect(
     null,

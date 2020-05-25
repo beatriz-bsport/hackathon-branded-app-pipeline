@@ -8,7 +8,7 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import { compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import NumericInput from '../../../../components/input/NumericInput.component';
@@ -152,6 +152,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
 )(PrivateSlotForm);

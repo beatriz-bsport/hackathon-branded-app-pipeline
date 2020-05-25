@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import type { Establishment } from '../../../api/types';
@@ -37,7 +37,7 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces(['establishment'])(
+export default withTranslation(['establishment'])(
   withStyles(styles)((props: Props) => {
     const { classes, showCapacity, establishment, divider, onClick, t } = props;
     return (

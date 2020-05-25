@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { compose, withState } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -69,7 +69,7 @@ const PayButtonBase = (props: {
 );
 
 const PayButton = withStyles(styles)(
-  withNamespaces(['checkout'])(PayButtonBase),
+  withTranslation(['checkout'])(PayButtonBase),
 );
 
 const ChosenPaymentModule = (props: {
@@ -158,6 +158,6 @@ export const PaymentForm = (props: Props) => {
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['payment', 'checkout']),
+  withTranslation(['payment', 'checkout']),
   withState('paymentMethod', 'setPaymentMethod', null),
 )(PaymentForm);

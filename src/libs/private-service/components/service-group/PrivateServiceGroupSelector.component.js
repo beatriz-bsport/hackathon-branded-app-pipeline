@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import Selector from '../../../../components/Selector.component';
 
@@ -18,7 +18,7 @@ const getGroupOptions = (scts: Array<SCT>) => {
   }));
 };
 
-export default withNamespaces(['privateService'])(
+export default withTranslation(['privateService'])(
   ({ t, serviceGroupList, value, placeholder, isDisabled, selectOption }) => {
     return (
       <Selector

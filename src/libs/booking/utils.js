@@ -18,7 +18,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import SmartphoneIcon from '@material-ui/icons/Smartphone';
 
 import type { TFunction } from 'react-i18next';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { Booking } from './types';
 
 export const getBookingStatusCode = (t: TFunction, booking: Booking) => {
@@ -55,7 +55,7 @@ export const getBookingSourceIcon = (source: number) => {
   }
 };
 
-export const BookingSource = withNamespaces(['booking'])(
+export const BookingSource = withTranslation(['booking'])(
   (props: { t: TFunction, source: number }) => (
     <div
       style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}

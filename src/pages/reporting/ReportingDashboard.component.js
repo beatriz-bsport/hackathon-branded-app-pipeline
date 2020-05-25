@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { push } from 'connected-react-router';
@@ -76,7 +76,7 @@ export default compose(
       goToReport: (r: ReportConfiguration) => push(`/reporting/${r.id}`),
     },
   ),
-  withNamespaces(),
+  withTranslation(),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:dashboard.reportingDashboard'),
   ),

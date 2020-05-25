@@ -1,6 +1,6 @@
 // @flow
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import React from 'react';
 
@@ -204,7 +204,7 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   routerParamsToProps({ privateServiceId: 'privateServiceId:number' }),
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withTitle(({ t }) => t('pageTitles.serviceList')),
   connect(
     (state, { privateServiceId }) => ({

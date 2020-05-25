@@ -12,7 +12,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import DateTimePicker from 'material-ui-pickers/DateTimePicker';
 import DatePicker from 'material-ui-pickers/DatePicker';
 
@@ -413,4 +413,4 @@ FormField.defaultProps = {
   fullWidth: true,
 };
 
-export default withStyles(styles)(withNamespaces()(FormField));
+export default withStyles(styles)(withTranslation()(FormField));

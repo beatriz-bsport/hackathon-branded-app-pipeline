@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import {
@@ -126,6 +126,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['stripe', 'subscription']),
+  withTranslation(['stripe', 'subscription']),
   withStyles(styles),
 )(SubscriptionScheduleChecker);

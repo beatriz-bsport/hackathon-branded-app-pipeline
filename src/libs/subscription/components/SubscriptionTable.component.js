@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import MUIDataTable from 'mui-datatables';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { formatAsDate } from '../../../datetime';
@@ -129,4 +129,4 @@ export class SubscriptionTable extends Component<Props, State> {
   }
 }
 
-export default withNamespaces(['subscription'])(SubscriptionTable);
+export default withTranslation(['subscription'])(SubscriptionTable);

@@ -30,7 +30,6 @@ export class MarketplaceRouter extends React.Component<Props> {
           component={Marketplace}
         />
         <Route
-          exact
           path="/m/:companyName/:companyId/:tab/"
           component={Marketplace}
         />

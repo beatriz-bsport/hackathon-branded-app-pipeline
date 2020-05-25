@@ -2,7 +2,7 @@
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import type { DeliveryFee } from '../types';
@@ -29,4 +29,4 @@ export const DeliveryFeeListItem = (props: Props) => {
   return null;
 };
 
-export default withNamespaces(['order'])(DeliveryFeeListItem);
+export default withTranslation(['order'])(DeliveryFeeListItem);

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import chroma from 'chroma-js';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import { colors } from '@bsport/common/lib/colors';
 
@@ -73,7 +73,7 @@ const establishmentStyles = {
   }),
 };
 
-export default withNamespaces(['establishment'])(
+export default withTranslation(['establishment'])(
   ({
     t,
     establishments,

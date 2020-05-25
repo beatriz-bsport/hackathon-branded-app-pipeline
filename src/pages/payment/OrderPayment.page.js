@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'recompose';
@@ -65,7 +65,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withTranslation(),
   routerParamsToProps({ companyId: 'companyId:number' }),
   connect(
     (state) => ({

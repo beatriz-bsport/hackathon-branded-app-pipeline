@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
@@ -90,7 +90,7 @@ export class CouponCreate extends Component<Props> {
 
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
-  withNamespaces(),
+  withTranslation(),
   connect(
     (state, { id }) => ({
       coupon: getCouponById(state, id),

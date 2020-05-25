@@ -5,7 +5,7 @@ import { compose, withState } from 'recompose';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -75,7 +75,6 @@ export class SearchBar extends Component<Props> {
             Boolean(this.props.memberHistoryAnchor) &&
             !!this.props.memberHistory.length
           }
-          placement="center"
           transition
         >
           {({ TransitionProps }) => (
@@ -169,7 +168,7 @@ function getSearchText(state, location) {
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['search']),
+  withTranslation(['search']),
   withRouter,
   withState('memberHistoryAnchor', 'setMemberHistoryAnchor', null),
   connect(

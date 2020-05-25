@@ -3,7 +3,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState, withProps } from 'recompose';
 
-import { withNamespaces, Trans } from 'react-i18next';
+import { withTranslation, Trans } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
@@ -243,6 +243,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['membership']),
+  withTranslation(['membership']),
   withStyles(styles),
 )(MembershipSelector);

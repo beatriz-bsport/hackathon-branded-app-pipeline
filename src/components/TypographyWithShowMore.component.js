@@ -1,10 +1,11 @@
 // @flow
 import React from 'react';
+import omit from 'lodash/omit';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import TypographyMultiline from './TypographyMultiline.component';
 
@@ -22,11 +23,14 @@ export const TypographyWithSowMore = (props: Props) => {
     ? TypographyMultiline
     : Typography;
   const text = props.children || '';
-  const textIsLong = text.length > 400;
-  const textTruncated = text.slice(0, 400);
+  const maxCharacterCount = props.maxCharacterCount || 400;
+  const textIsLong = text.length > maxCharacterCount;
+  const textTruncated = text.slice(0, maxCharacterCount);
   return (
     <div>
-      <TypographyComponent {...props}>
+      <TypographyComponent
+        {...omit(props, ['setShowFullText', 'showFullText'])}
+      >
         {`${props.showFullText ? text : textTruncated}${
           !props.showFullText && textIsLong ? '...' : ''
         }`}
@@ -37,7 +41,7 @@ export const TypographyWithSowMore = (props: Props) => {
           onClick={() => props.setShowFullText(!props.showFullText)}
         >
           <Typography
-            variant="body1"
+            variant="caption"
             color="secondary"
             className={props.classes.showMoreButton}
           >
@@ -51,8 +55,10 @@ export const TypographyWithSowMore = (props: Props) => {
   );
 };
 
-const styles = () => ({
+const styles = (theme) => ({
   showMoreButton: {
+    marginTop: theme.spacing(-1.5),
+    marginBottom: theme.spacing(1),
     '&:hover': {
       opacity: 0.5,
     },
@@ -65,5 +71,5 @@ const styles = () => ({
 export default compose(
   withStyles(styles),
   withState('showFullText', 'setShowFullText', false),
-  withNamespaces(['common']),
+  withTranslation(['common']),
 )(TypographyWithSowMore);

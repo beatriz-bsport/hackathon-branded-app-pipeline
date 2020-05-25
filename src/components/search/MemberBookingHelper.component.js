@@ -8,7 +8,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
@@ -62,4 +62,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(MemberBookingHelper));
+export default withStyles(styles)(withTranslation()(MemberBookingHelper));

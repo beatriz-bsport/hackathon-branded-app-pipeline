@@ -4,7 +4,7 @@ import React from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { colors } from '@bsport/common/lib/colors';
 import Tooltip from '../../../components/Tooltip.component';
@@ -25,7 +25,7 @@ type Props = {
   t: TFunction,
 };
 
-export default withNamespaces([])(
+export default withTranslation([])(
   withStyles(styles)((props: Props) => {
     const { coach, coach_override, classes, t } = props;
     // eslint-disable-next-line

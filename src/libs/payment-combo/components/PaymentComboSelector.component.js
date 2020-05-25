@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
 import PaymentComboListItem from './PaymentComboListItem.component';
@@ -73,4 +73,4 @@ export function PaymentComboSelector(props: Props) {
   );
 }
 
-export default withNamespaces()(PaymentComboSelector);
+export default withTranslation()(PaymentComboSelector);

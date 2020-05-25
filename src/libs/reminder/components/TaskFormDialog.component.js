@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import TaskFormFields, { TaskFormFormikHOC } from './TaskForm.component';
@@ -44,7 +44,7 @@ export const TaskFormDialog = (props: Props) => {
 };
 
 export default compose(
-  withNamespaces(['reminder']),
+  withTranslation(['reminder']),
   withProps(({ onSubmit, onClose }) => ({
     onSubmit: (data, options) =>
       onSubmit(data, {

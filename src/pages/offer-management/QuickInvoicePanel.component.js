@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import QuickInvoice from '../../libs/invoice/quick-invoice/QuickInvoice.component';
 
@@ -123,4 +123,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(QuickInvoicePanel));
+export default withStyles(styles)(withTranslation()(QuickInvoicePanel));

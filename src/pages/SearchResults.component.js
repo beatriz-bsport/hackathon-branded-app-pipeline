@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import memoize from 'memoize-one';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -154,7 +154,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withStyles(styles)(
-  withNamespaces(['search'])(
+  withTranslation(['search'])(
     connect(
       mapStateToProps,
       mapDispatchToProps,

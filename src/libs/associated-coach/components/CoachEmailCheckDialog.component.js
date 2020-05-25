@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
 import Button from '@material-ui/core/Button';
@@ -45,6 +45,6 @@ export const CoachEmailCheckDialog = (props: Props) => (
 );
 
 export default compose(
-  withNamespaces(['coach']),
+  withTranslation(['coach']),
   withState('email', 'setEmail', ''),
 )(CoachEmailCheckDialog);

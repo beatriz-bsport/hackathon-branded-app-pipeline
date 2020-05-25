@@ -15,7 +15,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import HelpIcon from '@material-ui/icons/Help';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
 import RedIconButton from '../../../components/button/RedIconButton.component';
@@ -111,7 +111,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['alerting']),
+  withTranslation(['alerting']),
   withStyles(styles),
   withState('isExpanded', 'setExpanded', true),
 )(AlertListGroup);

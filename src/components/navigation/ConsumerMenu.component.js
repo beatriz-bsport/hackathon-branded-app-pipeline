@@ -2,7 +2,7 @@
 import React from 'react';
 import type { Node } from 'react';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -196,5 +196,5 @@ function mapStateToProps(state) {
 }
 
 export default withStyles(styles, { withTheme: true })(
-  withNamespaces()(connect(mapStateToProps)(ConsumerMenu)),
+  withTranslation()(connect(mapStateToProps)(ConsumerMenu)),
 );

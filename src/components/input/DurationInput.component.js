@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 const styles = () => ({
@@ -141,4 +141,4 @@ export class DurationInput extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(withNamespaces()(DurationInput));
+export default withStyles(styles)(withTranslation()(DurationInput));

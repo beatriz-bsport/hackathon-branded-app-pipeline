@@ -3,7 +3,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -161,7 +161,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['paymentCombo']),
+  withTranslation(['paymentCombo']),
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
   connect(

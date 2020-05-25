@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import moment from 'moment';
 import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
@@ -84,4 +84,4 @@ export function EmailSelector(props: Props) {
   );
 }
 
-export default withNamespaces()(EmailSelector);
+export default withTranslation()(EmailSelector);

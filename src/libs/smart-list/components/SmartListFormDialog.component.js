@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -137,5 +137,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['smartList']),
+  withTranslation(['smartList']),
 )(SmartListFormDialog);

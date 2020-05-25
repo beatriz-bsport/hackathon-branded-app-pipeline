@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import RedButton from '../../../components/button/RedButton.component';
 
@@ -35,6 +35,6 @@ export const MetaActivityConfirmDeleteDialog = (props: Props) => {
   );
 };
 
-export default withNamespaces(['metaActivity'])(
+export default withTranslation(['metaActivity'])(
   MetaActivityConfirmDeleteDialog,
 );

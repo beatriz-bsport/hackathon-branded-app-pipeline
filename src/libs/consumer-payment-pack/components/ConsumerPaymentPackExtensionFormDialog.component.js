@@ -14,7 +14,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { compose, withState } from 'recompose';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { formatAsDate } from '../../../datetime';
 import NumericInput from '../../../components/input/NumericInput.component';
@@ -129,7 +129,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['paymentPack']),
+  withTranslation(['paymentPack']),
   withState('nbDays', 'setNbDays', 1),
   withState('note', 'setNote', ''),
 )(ConsumerPaymentPackExtensionFormDialog);

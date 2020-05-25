@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
@@ -292,7 +292,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['emailTemplate']),
+  withTranslation(['emailTemplate']),
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
   withTitle(({ t }) => t('listTitle')),

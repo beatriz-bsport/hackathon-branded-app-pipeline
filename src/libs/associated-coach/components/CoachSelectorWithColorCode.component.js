@@ -2,7 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -73,6 +73,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['coach']),
+  withTranslation(['coach']),
   withStyles(styles),
 )(CoachSelectorWithColorCode);

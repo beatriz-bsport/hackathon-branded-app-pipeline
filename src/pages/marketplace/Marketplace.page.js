@@ -19,7 +19,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { replace, push as pushRouter } from 'connected-react-router';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { getTheme } from '../../theme';
@@ -49,8 +49,10 @@ import MarketplaceWorkshopPage from './MarketplaceWorkshop.page';
 import MarketplacePrivateService from './MarketplacePrivateService.page';
 import MarketplaceContractPage from './MarketplaceContract.page';
 import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
+import MarketplaceVodRouter from './MarketplaceVod.router';
 
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
+import Config from '../../config';
 
 import {
   consumer as consumerActions,
@@ -105,6 +107,7 @@ type State = {
 
 const TAB_CALENDAR = 'calendar';
 const TAB_PASS = 'pass';
+const TAB_VOD = 'vod';
 const TAB_CONTRACT = 'subscription';
 const TAB_WORKSHOP = 'workshop';
 const TAB_PRIVATE_SERVICE = 'private-service';
@@ -192,6 +195,8 @@ export class MarketPlace extends Component<Props, State> {
         );
       case TAB_WORKSHOP:
         return <MarketplaceWorkshopPage companyId={this.props.companyId} />;
+      case TAB_VOD:
+        return <MarketplaceVodRouter companyId={this.props.companyId} />;
       case TAB_CALENDAR:
       default: {
         return (
@@ -307,6 +312,10 @@ export class MarketPlace extends Component<Props, State> {
                   label={t('marketplace.private_service')}
                 />
                 <Tab value={TAB_PASS} label={t('marketplace.pass')} />
+                {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+                  this.props.theme.vod) && (
+                  <Tab value={TAB_VOD} label={t('marketplace.vod')} />
+                )}
                 <Tab
                   value={TAB_CONTRACT}
                   label={t('marketplace.contract.tabName')}
@@ -452,7 +461,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withTranslation(),
   withMobileDialog(),
   withRouter,
   routerParamsToProps({

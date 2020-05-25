@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import moment from 'moment';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -29,4 +29,4 @@ export const SubscriptionPauseListItem = (props: Props) => {
   );
 };
 
-export default withNamespaces(['subscription'])(SubscriptionPauseListItem);
+export default withTranslation(['subscription'])(SubscriptionPauseListItem);

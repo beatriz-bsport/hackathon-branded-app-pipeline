@@ -10,7 +10,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
 import type { TFunction } from 'react-i18next';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import moment from 'moment';
 import memoize from 'memoize-one';
 
@@ -105,7 +105,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['metaActivity']),
+  withTranslation(['metaActivity']),
   withStyles(styles),
   withState('dateSelected', 'setDateSelected', null),
   withProps(({ setDateSelected, fetchOffersByDay }) => ({

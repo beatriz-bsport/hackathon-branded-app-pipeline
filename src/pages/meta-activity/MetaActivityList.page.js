@@ -2,7 +2,7 @@
 import React from 'react';
 import { compose, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
@@ -158,7 +158,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withTranslation(),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:metaActivity.metaActivityList'),
   ),

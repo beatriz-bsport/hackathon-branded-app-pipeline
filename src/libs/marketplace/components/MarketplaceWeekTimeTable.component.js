@@ -4,7 +4,7 @@ import React, { PureComponent, Fragment } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
@@ -278,4 +278,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces()(withStyles(styles)(MarketplaceWeekTimetable));
+export default withTranslation()(withStyles(styles)(MarketplaceWeekTimetable));

@@ -10,7 +10,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import BookingConsumerItem from '../../booking/components/BookingConsumerItem.component';
 
@@ -117,6 +117,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['consumerSpace']),
+  withTranslation(['consumerSpace']),
   withStyles(styles),
 )(CongratulationDialog);

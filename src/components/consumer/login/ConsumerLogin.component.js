@@ -10,7 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import PersonIcon from '@material-ui/icons/Person';
 import Button from '@material-ui/core/Button';
 import HelpIcon from '@material-ui/icons/Help';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -225,4 +225,4 @@ export class ConsumerLogin extends Component<Props, State> {
     );
   }
 }
-export default withStyles(styles)(withNamespaces(['login'])(ConsumerLogin));
+export default withStyles(styles)(withTranslation(['login'])(ConsumerLogin));

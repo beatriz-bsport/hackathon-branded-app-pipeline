@@ -1,6 +1,6 @@
 // @flow
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import { goBack, push } from 'connected-react-router';
 import React, { Component } from 'react';
@@ -119,7 +119,7 @@ const styles = () => ({
 });
 
 export default compose(
-  withNamespaces([]),
+  withTranslation([]),
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
   connect(

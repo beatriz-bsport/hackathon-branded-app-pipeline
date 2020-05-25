@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -151,7 +151,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['tag']),
+  withTranslation(['tag']),
   withStyles(styles),
   withState('createMode', 'setCreateMode', false),
   withState('expanded', 'setExpanded', true),

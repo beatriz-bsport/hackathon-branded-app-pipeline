@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddPersonIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
@@ -99,4 +99,4 @@ export const SubscriptionContractListItem = (props: Props) => {
   );
 };
 
-export default withNamespaces(['subscription'])(SubscriptionContractListItem);
+export default withTranslation(['subscription'])(SubscriptionContractListItem);

@@ -12,7 +12,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 import { compose } from 'recompose';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
@@ -81,6 +81,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
 )(MarketplacePrivatePassList);

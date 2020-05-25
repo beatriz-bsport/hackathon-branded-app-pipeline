@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { withProps, compose } from 'recompose';
 
 import { goBack, push as routerPush } from 'connected-react-router';
@@ -93,7 +93,7 @@ export class WorkshopActivityEditPage extends React.Component<Props> {
 }
 
 export default compose(
-  withNamespaces([]),
+  withTranslation([]),
   routerParamsToProps({ id: 'id:number' }),
   connect(
     (state, { id }) => ({

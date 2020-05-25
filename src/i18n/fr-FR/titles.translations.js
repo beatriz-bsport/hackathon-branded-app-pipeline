@@ -1,6 +1,9 @@
 // @flow
 
 exports.default = {
+  video: {
+    videoList: 'Bibliothèque vidéo',
+  },
   banner: {
     isStaging: 'Prendre RDV',
     networkError: "Vous n'êtes pas connecté à internet",

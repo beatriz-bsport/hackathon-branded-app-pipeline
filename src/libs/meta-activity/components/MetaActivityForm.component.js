@@ -5,7 +5,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -186,7 +186,7 @@ const MetaActivitySchema = Yup.object().shape({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withTranslation(),
   withFormik({
     mapPropsToValues: ({ initial }) =>
       Object.assign(

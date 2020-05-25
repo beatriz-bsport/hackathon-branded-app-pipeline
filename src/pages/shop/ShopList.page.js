@@ -31,7 +31,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { push } from 'connected-react-router';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -360,7 +360,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   connect(
     (state) => ({
       loading: state.shop.loading,

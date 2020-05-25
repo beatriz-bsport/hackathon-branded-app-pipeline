@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import chroma from 'chroma-js';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import { colors } from '@bsport/common/lib/colors';
 
@@ -79,16 +79,17 @@ const coachStyles = {
   }),
 };
 
-export default withNamespaces(['coach'])(
+export default withTranslation(['coach'])(
   ({
     t,
     coaches,
     selectedCoaches,
     placeholder,
     noMulti,
-  isDisabled,
-  closeMenuOnSelect,
+    isDisabled,
+    closeMenuOnSelect,
     selectOption,
+    isClearable,
   }) => (
     <Select
       closeMenuOnSelect={closeMenuOnSelect}
@@ -98,6 +99,7 @@ export default withNamespaces(['coach'])(
       onChange={selectOption}
       isDisabled={isDisabled}
       styles={coachStyles}
+      isClearable={isClearable}
       value={
         selectedCoaches
           ? getCoachOptions([

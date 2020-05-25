@@ -8,7 +8,7 @@ import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { pure } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { formatAsDatetime } from '../../../datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import Level from '../../../components/category/Level.component';
@@ -93,5 +93,5 @@ const styles = (theme) => ({
 });
 
 export default pure(
-  withNamespaces(['offer'])(withStyles(styles)(OfferListItem)),
+  withTranslation(['offer'])(withStyles(styles)(OfferListItem)),
 );

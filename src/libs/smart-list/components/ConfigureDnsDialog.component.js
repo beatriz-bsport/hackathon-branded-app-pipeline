@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 // import type { TFunction } from 'react-i18next';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -40,6 +40,6 @@ export class ConfigureDnsDialog extends Component<Props> {
 
 // const styles = (theme) => ({});
 export default compose(
-  withNamespaces(['smartList']),
+  withTranslation(['smartList']),
   // withStyles(styles),
 )(ConfigureDnsDialog);

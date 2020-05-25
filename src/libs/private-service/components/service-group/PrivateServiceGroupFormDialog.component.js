@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { Form } from 'formik';
@@ -45,6 +45,6 @@ export const PrivateServiceGroupFormDialog = (props: Props) => {
 };
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   PrivateServiceGroupFormikHOC,
 )(PrivateServiceGroupFormDialog);

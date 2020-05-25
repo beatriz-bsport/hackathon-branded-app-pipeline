@@ -1,0 +1,50 @@
+/* .video-js {
+     position: relative !important;
+     width: 100% !important;
+     height: 60vh;
+ }
+*/
+
+.video-container-bsport{
+    display: block;
+    width: 100% !important;
+    background-color: 'red' !important;
+    height: auto;
+    max-height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    position: 'relative';
+}
+
+.vjs-16-9 {
+  width: '100%';
+}
+
+.data-vjs-player {
+  background-color: "green";
+}
+
+.video-js {
+  width: '100%';
+}
+
+/*
+.video-container-bsport::before {
+    display: block;
+}
+
+.video-container-bsport, .video-container-bsport div {
+    position: 'absolute';
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+*/
+
+.video-container-bsport-160::before {
+    padding-bottom: 56.25%;
+}

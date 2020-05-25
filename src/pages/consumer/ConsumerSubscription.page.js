@@ -13,7 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 
 import { push } from 'connected-react-router';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
@@ -123,7 +123,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['consumerSpace']),
+  withTranslation(['consumerSpace']),
   withStyles(styles),
   withState('subscriptionSelected', 'selectSubscription', null),
   connect(

@@ -57,7 +57,7 @@ export default function(WrappedComponent) {
           </div>
         );
       }
-      return <WrappedComponent />;
+      return <WrappedComponent {...this.props} />;
     }
   };
 }

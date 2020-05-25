@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { getLevelColorById as getLevelColorByIdDefault } from '@bsport/common/lib/colors';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 const getLevelColorById = (id: number, theme) => {
   if (!theme) return getLevelColorByIdDefault(id);
@@ -69,7 +69,7 @@ export function Level(props: Props) {
   );
 }
 
-export default withNamespaces()(
+export default withTranslation()(
   withStyles(() => {}, { withTheme: true })(Level),
   // Level,
 );

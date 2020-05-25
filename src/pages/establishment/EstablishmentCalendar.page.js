@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { compose, withHandlers, withState } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -178,7 +178,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withStyles(styles),
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withState('periodFilter', 'setPeriodFilter', {
     start: moment()
       .startOf('week')

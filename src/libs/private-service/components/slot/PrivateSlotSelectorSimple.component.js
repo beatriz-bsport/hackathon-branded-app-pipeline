@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Select from 'react-select';
@@ -35,6 +35,6 @@ export const PrivateSlotSelectorSimple = (props: Props) => {
   );
 };
 
-export default compose(withNamespaces(['privateService']))(
+export default compose(withTranslation(['privateService']))(
   PrivateSlotSelectorSimple,
 );

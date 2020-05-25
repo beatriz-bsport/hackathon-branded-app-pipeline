@@ -3,7 +3,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -163,6 +163,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['marketplace']),
+  withTranslation(['marketplace']),
   withStyles(styles),
 )(MarketplacePaymentComboList);

@@ -8,7 +8,7 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import type { Establishment } from '../../api/types';
@@ -68,4 +68,4 @@ export function EstablishmentInput(props: Props) {
   );
 }
 
-export default withStyles(styles)(withNamespaces()(EstablishmentInput));
+export default withStyles(styles)(withTranslation()(EstablishmentInput));

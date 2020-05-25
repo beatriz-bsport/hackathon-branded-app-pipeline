@@ -6,7 +6,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import RedButton from '../../../components/button/RedButton.component';
 
@@ -43,4 +43,4 @@ export function ShopItemDeleteDialog(props: Props) {
   );
 }
 
-export default withNamespaces(['shop'])(ShopItemDeleteDialog);
+export default withTranslation(['shop'])(ShopItemDeleteDialog);

@@ -2,7 +2,7 @@
 import React from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
@@ -528,7 +528,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['consumerSpace']),
+  withTranslation(['consumerSpace']),
   withStyles(styles, { withTheme: true }),
   windowTitleToProps,
 )(withRouter(ResponsiveDrawer));

@@ -3,7 +3,7 @@
 import React from 'react';
 
 import moment from 'moment';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import ListItem from '@material-ui/core/ListItem';
@@ -39,4 +39,4 @@ export const SubscriptionEventListItem = (props: Props) => {
   );
 };
 
-export default withNamespaces(['subscription'])(SubscriptionEventListItem);
+export default withTranslation(['subscription'])(SubscriptionEventListItem);

@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 
 import { Form } from 'formik';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
@@ -65,6 +65,6 @@ const styles = () => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['paymentCombo']),
+  withTranslation(['paymentCombo']),
   PaymentComboFormHoc,
 )(PaymentComboFormDialog);

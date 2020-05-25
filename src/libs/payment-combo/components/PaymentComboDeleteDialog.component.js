@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import RedButton from '../../../components/button/RedButton.component';
 
@@ -32,4 +32,4 @@ export const PaymentComboDeleteDialog = (props: Props) => {
   );
 };
 
-export default withNamespaces(['paymentCombo'])(PaymentComboDeleteDialog);
+export default withTranslation(['paymentCombo'])(PaymentComboDeleteDialog);

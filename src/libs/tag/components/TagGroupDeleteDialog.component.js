@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import RedButton from '../../../components/button/RedButton.component';
@@ -40,4 +40,4 @@ export function TagGroupDeleteDialog(props: Props) {
   );
 }
 
-export default compose(withNamespaces(['tag']))(TagGroupDeleteDialog);
+export default compose(withTranslation(['tag']))(TagGroupDeleteDialog);

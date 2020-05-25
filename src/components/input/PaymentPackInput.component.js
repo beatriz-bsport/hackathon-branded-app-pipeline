@@ -8,7 +8,7 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import PaymentPackSummary from '../payment-pack/PaymentPackSummary.component';
 
@@ -60,4 +60,4 @@ export function PaymentPackInput(props: Props) {
   );
 }
 
-export default withStyles(styles)(withNamespaces()(PaymentPackInput));
+export default withStyles(styles)(withTranslation()(PaymentPackInput));

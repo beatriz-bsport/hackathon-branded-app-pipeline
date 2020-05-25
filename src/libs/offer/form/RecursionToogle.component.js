@@ -11,7 +11,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ExpandIcon from '@material-ui/icons/ExpandMore';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import moment from 'moment';
 // import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 import OfferListItem from '../components/OfferListItemV2.component';
@@ -136,4 +136,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(RecursionToogle));
+export default withStyles(styles)(withTranslation()(RecursionToogle));

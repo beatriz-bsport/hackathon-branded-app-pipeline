@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import CancelIcon from '@material-ui/icons/Cancel';
 import SaveIcon from '@material-ui/icons/Save';
@@ -48,6 +48,6 @@ export const TagGroupCreator = (props: Props) => (
 );
 
 export default compose(
-  withNamespaces(['tag']),
+  withTranslation(['tag']),
   withState('name', 'setName', ''),
 )(TagGroupCreator);

@@ -2,7 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -91,7 +91,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['paymentCombo']),
+  withTranslation(['paymentCombo']),
   withStyles(styles),
   withState('page', 'setPage', 1),
 )(PaymentComboDetail);

@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -44,4 +44,4 @@ export function ModalConfirm(props: Props) {
 
 ModalConfirm.defaultProps = { open: false };
 
-export default withNamespaces(['translation', 'member'])(ModalConfirm);
+export default withTranslation(['translation', 'member'])(ModalConfirm);

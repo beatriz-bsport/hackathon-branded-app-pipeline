@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MUIDataTable from 'mui-datatables';
 import type { TFunction } from 'react-i18next';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import {
   ORDER_STATE_CANCELLED,
   ORDER_STATE_ONSITEDELIVERY,
@@ -200,4 +200,4 @@ export class OrderTable extends Component<Props, State> {
   }
 }
 
-export default withNamespaces(['order'])(OrderTable);
+export default withTranslation(['order'])(OrderTable);

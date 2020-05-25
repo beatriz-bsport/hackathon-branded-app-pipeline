@@ -5,7 +5,7 @@ import { compose, withProps, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { push as pushRouter } from 'connected-react-router';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import CheckInOfferDetail from '../../libs/check-in/components/CheckInOfferDetail.component';
 import {
@@ -176,7 +176,7 @@ const styles = (theme) => ({
 export default compose(
   routerParamsToProps({ offerId: 'offerId:number' }),
   withState('registerModalOpen', 'setRegisterModalOpen', false),
-  withNamespaces(['selfCheckIn']),
+  withTranslation(['selfCheckIn']),
   withStyles(styles),
   connect(
     (state) => ({

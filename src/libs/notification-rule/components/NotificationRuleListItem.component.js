@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 
 import { compose } from 'recompose';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 
@@ -101,6 +101,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['notificationRule']),
+  withTranslation(['notificationRule']),
   withStyles(styles),
 )(NotificationRuleListItem);

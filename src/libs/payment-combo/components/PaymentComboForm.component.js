@@ -3,7 +3,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import omit from 'lodash/omit';
 
@@ -246,6 +246,6 @@ export const PaymentComboFormHoc = withFormik({
 });
 
 export default compose(
-  withNamespaces(['paymentCombo']),
+  withTranslation(['paymentCombo']),
   withStyles(styles),
 )(PaymentComboForm);

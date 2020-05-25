@@ -4,7 +4,7 @@ import React from 'react';
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
@@ -206,7 +206,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['subscription']),
+  withTranslation(['subscription']),
   withStyles(styles),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:subscription.subscriptions'),

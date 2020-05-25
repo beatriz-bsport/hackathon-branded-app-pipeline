@@ -6,7 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import {
   PENDING,
   SUCCEEDED,
@@ -143,4 +143,4 @@ export function SubscriptionSchedule(props: Props) {
   );
 }
 
-export default withNamespaces(['subscription'])(SubscriptionSchedule);
+export default withTranslation(['subscription'])(SubscriptionSchedule);

@@ -4,7 +4,7 @@ import React from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import green from '@material-ui/core/colors/green';
@@ -80,7 +80,7 @@ const mapDispatchToProps = {
   deleteSnackbar,
 };
 
-export default withNamespaces(['snackbar'])(
+export default withTranslation(['snackbar'])(
   withStyles(styles)(
     connect(
       mapStateToProps,

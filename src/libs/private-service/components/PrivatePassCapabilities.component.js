@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import PrivatePassBookerListItem from './booking-module/PrivatePassBookerListItem.component';
@@ -122,7 +122,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
   withState('needRefresh', 'setNeedRefresh', false),
 )(PrivatePassCapabilities);

@@ -3,7 +3,7 @@
 import lodash from 'lodash';
 
 import React, { Component } from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import Icon from '@material-ui/core/Icon';
@@ -92,4 +92,4 @@ function getUrl(previewUrl, value) {
   return previewUrl || (typeof value === 'string' ? value : null);
 }
 
-export default withStyles(styles)(withNamespaces([])(ImageField));
+export default withStyles(styles)(withTranslation([])(ImageField));

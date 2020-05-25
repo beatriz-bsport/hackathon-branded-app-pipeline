@@ -13,7 +13,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
 import type { TFunction } from 'react-i18next';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
 import { formatMinutes } from '../../../datetime';
@@ -116,7 +116,7 @@ const styles = () => ({
 });
 
 export default compose(
-  withNamespaces(['metaActivity', 'datetime']),
+  withTranslation(['metaActivity', 'datetime']),
   withStyles(styles),
   withState('shownImage', 'setShownImage', 0),
 )(MetaActivityCard);

@@ -8,7 +8,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
@@ -57,6 +57,6 @@ export const PasswordInput = (props: Props) => (
 );
 
 export default compose(
-  withNamespaces(['login']),
+  withTranslation(['login']),
   withState('isVisible', 'toogleVisible', false),
 )(PasswordInput);

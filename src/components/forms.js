@@ -6,7 +6,7 @@ import React from 'react';
 
 import { Field, ErrorMessage } from 'formik';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import DatePicker from 'material-ui-pickers/DatePicker';
@@ -51,7 +51,7 @@ const styles = (theme) => ({
   },
 });
 
-export const AlertError = withNamespaces([])(
+export const AlertError = withTranslation([])(
   withStyles(styles)((props: AlertErrorProps) => {
     const { classes, t } = props;
     return (
@@ -197,7 +197,7 @@ export const DateField = (props: DateFieldProps) => {
 };
 
 export const DurationField = withStyles(styles)(
-  withNamespaces(['common'])((props: DateFieldProps) => {
+  withTranslation(['common'])((props: DateFieldProps) => {
     return (
       <Field
         {...props}
@@ -379,7 +379,7 @@ export const AddressFieldsSchema = {
   country: Yup.string().required(),
 };
 
-export const AddressFields = withNamespaces([])((props: AddressFieldsProps) => {
+export const AddressFields = withTranslation([])((props: AddressFieldsProps) => {
   const { t, autoComplete, required, disabled } = props;
   return (
     <div>
@@ -441,7 +441,7 @@ const phoneStyles = () => ({
     left: 0,
   },
 });
-export const PhoneField = withNamespaces([])(
+export const PhoneField = withTranslation([])(
   withStyles(phoneStyles)((props: PhoneFieldProps) => {
     const { t, label, name, classes, fullWidth, required } = props;
     return (
@@ -498,7 +498,7 @@ export const PhoneField = withNamespaces([])(
 );
 
 export const GenderField = withStyles(styles)(
-  withNamespaces([])((props: GenderFieldProps) => {
+  withTranslation([])((props: GenderFieldProps) => {
     const { t, label, fullWidth, classes, required } = props;
     return (
       <Field {...props}>
@@ -547,7 +547,7 @@ export const GenderField = withStyles(styles)(
 );
 
 export const SelectField = withStyles(styles)(
-  withNamespaces([])((props: SelectFieldProps) => {
+  withTranslation([])((props: SelectFieldProps) => {
     const { t, choices, label, fullWidth, classes, required } = props;
     return (
       <Field {...props}>
@@ -629,7 +629,7 @@ const DURATION_CHOICES_LONG = [
   { value: 999999, label: 'form.never' },
 ];
 
-export const DurationMinuteSelectField = withNamespaces()(
+export const DurationMinuteSelectField = withTranslation()(
   (props: SelectFieldProps) => (
     <SelectField
       choices={

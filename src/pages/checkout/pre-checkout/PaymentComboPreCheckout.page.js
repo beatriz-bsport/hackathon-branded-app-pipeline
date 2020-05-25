@@ -2,7 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import Typography from '@material-ui/core/Typography';
@@ -167,7 +167,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
   connect(

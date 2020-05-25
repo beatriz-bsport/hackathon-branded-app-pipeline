@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -48,6 +48,6 @@ export const ProvisionForm = (props: Props) => (
 );
 
 export default compose(
-  withNamespaces(['shop']),
+  withTranslation(['shop']),
   withState('quantity', 'setQuantity', null),
 )(ProvisionForm);

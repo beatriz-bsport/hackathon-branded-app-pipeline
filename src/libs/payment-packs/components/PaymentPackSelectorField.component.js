@@ -4,11 +4,11 @@ import omit from 'lodash/omit';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
 import { Field, ErrorMessage } from 'formik';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import PaymentPackSelector from './PaymentPackSelector.component';
 
-export const SelectField = withNamespaces([])((props) => {
+export const SelectField = withTranslation([])((props) => {
   const { t, fullWidth, required } = props;
   return (
     <Field {...props}>
@@ -56,4 +56,4 @@ export const SelectField = withNamespaces([])((props) => {
   );
 });
 
-export default withNamespaces()(SelectField);
+export default withTranslation()(SelectField);

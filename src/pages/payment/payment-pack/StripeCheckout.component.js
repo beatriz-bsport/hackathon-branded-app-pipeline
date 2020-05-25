@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
 
@@ -177,7 +177,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces([]),
+  withTranslation([]),
   withStyles(styles),
   injectStripe,
 )(StripeCheckout);

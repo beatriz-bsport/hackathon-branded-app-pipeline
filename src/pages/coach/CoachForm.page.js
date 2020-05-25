@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import Dialog from '@material-ui/core/Dialog';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -117,7 +117,7 @@ const styles = () => ({
 });
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   mapRouterParamsToProps({ id: 'coachId:number' }),
   withState('isEmailChecking', 'setIsEmailChecking', true),
   withState('initialEmail', 'setInitialEmail', null),

@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { compose, withProps, withHandlers } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import type { TFunction } from 'react-i18next';
@@ -110,7 +110,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['paymentRules']),
+  withTranslation(['paymentRules']),
   mapParamsToProps(['associatedCoachId']),
   withProps((props) => ({
     associatedCoachId: +props.associatedCoachId,

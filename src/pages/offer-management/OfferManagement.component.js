@@ -29,7 +29,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import TodayIcon from '@material-ui/icons/Today';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import moment from 'moment';
@@ -989,5 +989,5 @@ const styles = (theme) => ({
 export default compose(
   withMobileDialog(),
   withStyles(styles),
-  withNamespaces(['offer', 'translation']),
+  withTranslation(['offer', 'translation']),
 )(OfferManagement);

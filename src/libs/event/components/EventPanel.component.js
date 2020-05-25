@@ -10,7 +10,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import EventListItem from './EventListItem.component';
@@ -151,7 +151,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['event']),
+  withTranslation(['event']),
   withStyles(styles),
   withHandlers({
     fetchEventPage: ({ fetchEventList, eventSpec, extraFetchParams }) => (

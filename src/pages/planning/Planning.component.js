@@ -4,7 +4,7 @@ import memoize from 'memoize-one';
 
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import withWidth, { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';
@@ -654,7 +654,7 @@ export class Planning extends PureComponent<Props, State> {
 }
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withRouter,
   withStyles(styles),
   withWidth(),

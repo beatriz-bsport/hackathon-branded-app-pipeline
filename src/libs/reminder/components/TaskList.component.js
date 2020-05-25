@@ -9,7 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Collapse from '@material-ui/core/Collapse';
 import { compose, withProps, withState } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import moment from 'moment';
 import IconButton from '@material-ui/core/IconButton';
@@ -243,5 +243,5 @@ export default compose(
       },
     }),
   ),
-  withNamespaces(['reminder']),
+  withTranslation(['reminder']),
 )(TaskList);

@@ -7,7 +7,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Typography from '@material-ui/core/Typography';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import TagChip from './TagChip.component';
@@ -129,5 +129,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['tag']),
+  withTranslation(['tag']),
 )(TagChipList);

@@ -12,7 +12,7 @@ import {
   lifecycle,
 } from 'recompose';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
@@ -223,7 +223,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces('dashboard'),
+  withTranslation('dashboard'),
   withState('mainChart', 'changeMainChart', 'turnover'),
   connect(
     (state) => ({

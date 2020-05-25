@@ -2,7 +2,7 @@
 import React from 'react';
 
 import Select from '@material-ui/core/Select';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Fab from '@material-ui/core/Fab';
 
@@ -148,5 +148,5 @@ export default compose(
     tagGroupId: null,
     tagId: null,
   }),
-  withNamespaces(['tag']),
+  withTranslation(['tag']),
 )(TagFilterForm);

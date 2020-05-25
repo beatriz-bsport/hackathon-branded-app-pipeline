@@ -13,7 +13,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { connect } from 'react-redux';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { getPrivatePassAvailable } from '../selectors/private-pass';
 import { getPrivateConsumerPassList } from '../selectors/private-consumer-pass';
@@ -281,7 +281,7 @@ const MemberSearchContainer = connect(
 );
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
   connect(
     (state) => ({

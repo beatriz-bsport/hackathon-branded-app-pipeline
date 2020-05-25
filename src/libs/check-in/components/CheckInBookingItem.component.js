@@ -2,7 +2,7 @@
 
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -84,6 +84,6 @@ const style = (theme) => {
     },
   };
 };
-export default withNamespaces(['selfCheckIn'])(
+export default withTranslation(['selfCheckIn'])(
   withStyles(style)(CheckInBookingItem),
 );

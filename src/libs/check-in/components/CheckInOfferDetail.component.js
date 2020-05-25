@@ -15,7 +15,7 @@ import Switch from '@material-ui/core/Switch';
 import ListItemText from '@material-ui/core/ListItemText';
 import { compose, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import type { Member } from '../../member/types';
 
@@ -212,7 +212,7 @@ const style = (theme) => ({
   },
 });
 export default compose(
-  withNamespaces(['selfCheckIn']),
+  withTranslation(['selfCheckIn']),
   withStyles(style),
   withState('barcodeMode', 'setBarcodeMode', false),
 )(CheckInOffer);

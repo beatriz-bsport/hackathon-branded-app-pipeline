@@ -8,7 +8,7 @@ import { compose, withStateHandlers } from 'recompose';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
 
@@ -184,7 +184,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
   withStateHandlers(
     { privateBookerOpen: false, privateBookingRequestedSlot: null },

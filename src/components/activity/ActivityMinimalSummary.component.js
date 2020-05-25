@@ -8,7 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import Avatar from '../Avatar.component';
 import { formatAsDatetime } from '../../datetime';
@@ -108,4 +108,4 @@ export function ActivityMinimalSummary(props: Props) {
   );
 }
 
-export default withNamespaces()(withStyles(styles)(ActivityMinimalSummary));
+export default withTranslation()(withStyles(styles)(ActivityMinimalSummary));

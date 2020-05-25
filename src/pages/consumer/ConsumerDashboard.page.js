@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import moment from 'moment';
 import { compose, withState, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -220,7 +220,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['consumerSpace']),
+  withTranslation(['consumerSpace']),
   withStyles(styles),
   connect(
     (state, { membership }) => ({

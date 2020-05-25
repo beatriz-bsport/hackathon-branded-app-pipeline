@@ -16,7 +16,7 @@ import DownloadIcon from '@material-ui/icons/Attachment';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PersonIcon from '@material-ui/icons/Person';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT } from '@bsport/common/lib/master-data/payment-methods';
 import sum from 'lodash/sum';
@@ -796,4 +796,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(InvoiceForm));
+export default withStyles(styles)(withTranslation()(InvoiceForm));

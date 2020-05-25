@@ -12,7 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
 
@@ -231,7 +231,7 @@ const styles = (theme) => ({
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withStyles(styles),
-  withNamespaces(['shop']),
+  withTranslation(['shop']),
   connect(
     (state, { id }) => ({
       shopitem: shopSelectors.getShopitem(state, id),

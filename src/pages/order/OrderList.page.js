@@ -4,7 +4,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import OrderTable from '../../libs/order/components/OrderTable.component';
 import { fetchOrders } from '../../libs/order/api';
 import withTitle from '../../hocs/with-title.hoc';
@@ -28,6 +28,6 @@ export default compose(
     null,
     { goToOrderPage: (id: string) => pushRouter(`/order/${id}/`) },
   ),
-  withNamespaces(),
+  withTranslation(),
   withTitle(({ t }) => t('titles:order.orderList')),
 )(OrderList);

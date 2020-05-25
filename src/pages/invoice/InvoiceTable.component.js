@@ -2,7 +2,7 @@
 
 import MUIDataTable from 'mui-datatables';
 import React, { Component } from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -334,4 +334,4 @@ export class InvoiceTable extends Component<Props, State> {
   }
 }
 
-export default withNamespaces()(InvoiceTable);
+export default withTranslation()(InvoiceTable);

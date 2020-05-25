@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 
@@ -45,5 +45,5 @@ const styles = () => ({
 });
 
 export default withStyles(styles)(
-  withNamespaces(['paymentRules'])(PaymentRuleSelector),
+  withTranslation(['paymentRules'])(PaymentRuleSelector),
 );

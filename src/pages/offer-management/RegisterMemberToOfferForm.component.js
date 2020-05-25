@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import WarningIcon from '@material-ui/icons/Warning';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
@@ -258,7 +258,7 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
 }
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   connect(
     (state) => ({
       consumerPacksLoading: state.consumerPaymentPack.byOfferByMember.loading,

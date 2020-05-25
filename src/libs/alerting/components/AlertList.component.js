@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import AlertListGroup from './AlertListGroup.component';
@@ -83,6 +83,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['alerting']),
+  withTranslation(['alerting']),
   withStyles(styles),
 )(AlertList);

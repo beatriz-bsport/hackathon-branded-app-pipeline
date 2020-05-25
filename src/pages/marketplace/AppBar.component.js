@@ -13,7 +13,7 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import Badge from '@material-ui/core/Badge';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import type { Basket } from '../../libs/checkout/types';
@@ -185,4 +185,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(ConsumerAppBar));
+export default withStyles(styles)(withTranslation()(ConsumerAppBar));

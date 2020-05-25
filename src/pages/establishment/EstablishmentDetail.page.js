@@ -3,7 +3,7 @@
 import React from 'react';
 import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -105,7 +105,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withTranslation(),
   routerParamsToProps({ id: 'id:number' }),
   connect(
     (state, { id }) => ({

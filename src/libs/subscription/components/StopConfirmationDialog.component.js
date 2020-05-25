@@ -11,7 +11,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { compose, withState } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import RedButton from '../../../components/button/RedButton.component';
@@ -85,7 +85,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['subscription']),
+  withTranslation(['subscription']),
   withState('also_revert_current', 'set_also_revert_current', false),
   withState('submitting', 'setSubmittin', false),
 )(StopDialog);

@@ -7,7 +7,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { formatMinutes } from '../../../../datetime';
 import withConfirm from '../../../../hocs/with-confirm.hoc';
@@ -68,6 +68,6 @@ export const PrivateSlotListItem = (props: Props) => {
   );
 };
 
-export default withNamespaces(['privateService', 'datetime'])(
+export default withTranslation(['privateService', 'datetime'])(
   PrivateSlotListItem,
 );

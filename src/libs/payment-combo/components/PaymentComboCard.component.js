@@ -7,7 +7,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -218,6 +218,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['paymentCombo']),
+  withTranslation(['paymentCombo']),
   withStyles(styles),
 )(PaymentComboCard);

@@ -2,7 +2,7 @@
 import React from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
@@ -58,7 +58,7 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import HelpIcon from '@material-ui/icons/Help';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
-import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
+import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import LaptopIcon from '@material-ui/icons/Laptop';
 import StorageIcon from '@material-ui/icons/Storage';
 import type { TFunction } from 'react-i18next';
@@ -246,7 +246,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       >
         <Toolbar>
           <Grid
-            zeroMinWidth
             container
             direction="row"
             alignItems="center"
@@ -574,14 +573,14 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             icon: VideoLibraryIcon,
             text: t('navigation.video'),
             disabled: true,
-            to: '/digital/video',
+            to: '/vod/video',
             subtext: t('navigation.alpha'),
           },
           {
-            icon: LibraryMusicIcon,
-            text: t('navigation.podcast'),
+            icon: PlaylistPlayIcon,
+            text: t('navigation.playlist'),
             disabled: true,
-            to: '/digital/podcast',
+            to: '/vod/playlist',
             subtext: t('navigation.alpha'),
           },
         ],
@@ -820,7 +819,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles, { withTheme: true }),
   windowTitleToProps,
 )(withRouter(ResponsiveDrawer));

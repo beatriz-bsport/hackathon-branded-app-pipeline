@@ -9,7 +9,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Tooltip from '@material-ui/core/Tooltip';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -43,7 +43,7 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  withNamespaces(['paymentPack'])((props: Props) => {
+  withTranslation(['paymentPack'])((props: Props) => {
     if (!props.pack) {
       return (
         <ListItem divider={props.divider}>

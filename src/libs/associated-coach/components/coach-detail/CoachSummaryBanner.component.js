@@ -11,7 +11,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
 import Popover from '@material-ui/core/Popover';
 import { compose } from 'recompose';
-import { translate, withNamespaces, TFunction } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import { PaymentRuleSelector } from '../../../payment-rules';
 import type { PaymentRule } from '../../../payment-rules';
@@ -194,7 +194,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['translation', 'paymentRules']),
-  translate(),
+  withTranslation(['translation', 'paymentRules']),
   withStyles(styles),
 )(CoachSummaryCard);

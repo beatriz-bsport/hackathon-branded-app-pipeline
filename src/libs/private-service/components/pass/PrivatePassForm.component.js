@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
@@ -220,7 +220,7 @@ export const PrivatePassFormikHOC = withFormik({
 });
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
   PrivatePassFormikHOC,
 )(PrivatePassForm);

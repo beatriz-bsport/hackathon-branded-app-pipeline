@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { goBack, push as pushRouter } from 'connected-react-router';
 import { compose } from 'recompose';
@@ -182,7 +182,7 @@ export class InvoiceFormPage extends Component<Props, State> {
 }
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withRouter,
   routerParamsToProps({ id: 'uuid' }),
   connect(

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import chroma from 'chroma-js';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Select from 'react-select';
@@ -67,18 +67,28 @@ const levelStyles = {
   }),
 };
 
-export default withNamespaces()(({ t, selectOption, selectedLevels }) => (
-  <Select
-    closeMenuOnSelect={false}
-    isMulti
-    placeholder={t('common.level')}
-    options={levelOptions(LEVELS, t)}
-    value={
-      selectedLevels
-        ? levelOptions(LEVELS.filter((l) => selectedLevels.includes(l.id)), t)
-        : undefined
-    }
-    onChange={selectOption}
-    styles={levelStyles}
-  />
-));
+export default withTranslation()(
+  ({
+    t,
+    isNotMulti,
+    closeMenuOnSelect,
+    isClearable,
+    selectOption,
+    selectedLevels,
+  }) => (
+    <Select
+      closeMenuOnSelect={!!closeMenuOnSelect}
+      isMulti={!isNotMulti}
+      placeholder={t('common.level')}
+      options={levelOptions(LEVELS, t)}
+      isClearable={isClearable}
+      value={
+        selectedLevels
+          ? levelOptions(LEVELS.filter((l) => selectedLevels.includes(l.id)), t)
+          : undefined
+      }
+      onChange={selectOption}
+      styles={levelStyles}
+    />
+  ),
+);

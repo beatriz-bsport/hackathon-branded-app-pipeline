@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import InfoIcon from '@material-ui/icons/Info';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
@@ -49,7 +49,7 @@ type Props = {
 const PAGE_SIZE = 10;
 const CONSUMER_PACKS_PAGE_SIZE = 7;
 
-const ClickOnPaymentPack = withNamespaces(['paymentPack'])(
+const ClickOnPaymentPack = withTranslation(['paymentPack'])(
   (props: { classes: Object, t: TFunction }) => (
     <div className={props.classes.container}>
       <div className={props.classes.emptyMessageContainer}>
@@ -220,7 +220,7 @@ const styles = (theme) => ({
 
 export default compose(
   routerParamsToProps({ id: 'id:number', packId: 'packId:number' }),
-  withNamespaces(['metaActivity']),
+  withTranslation(['metaActivity']),
   withStyles(styles),
   connect(
     (state, { id, packId }) => ({

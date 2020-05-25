@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddIcon from '@material-ui/icons/Add';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import OrderConfigurationForm from '../../libs/order/components/OrderConfigurationForm.component';
@@ -126,7 +126,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['order']),
+  withTranslation(['order']),
   withState('openedFee', 'openEditModal', null),
   withStyles(styles),
   connect(

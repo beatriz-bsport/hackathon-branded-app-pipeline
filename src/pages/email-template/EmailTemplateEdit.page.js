@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
@@ -99,7 +99,7 @@ export class MarketingEmail extends Component<Props> {
 }
 
 export default compose(
-  withNamespaces(['emailTemplate']),
+  withTranslation(['emailTemplate']),
   routerParamsToProps({ id: 'id:number', create: 'create:number' }),
   withTitle(({ t }) => t('editTitle')),
   connect(

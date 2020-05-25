@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
 import Typography from '@material-ui/core/Typography';
@@ -119,6 +119,6 @@ const styles = () => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withState('creditProcessing', 'setCreditProcessing', false),
 )(PrivateConsumerPassBookerListItem);

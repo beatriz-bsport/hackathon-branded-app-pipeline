@@ -8,7 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { push as pushRouter, goBack } from 'connected-react-router';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withFetchDetail from '../../hocs/with-fetch-details.hoc';
@@ -115,7 +115,7 @@ const styles = (theme) => ({
 export default compose(
   routerParamsToProps({ memberId: 'memberId:number' }),
   withStyles(styles),
-  withNamespaces(['subscription']),
+  withTranslation(['subscription']),
   withTitle(({ t }) => t('titles:subscription.subscriptionCreate')),
   connect(
     (state, { memberId }) => ({

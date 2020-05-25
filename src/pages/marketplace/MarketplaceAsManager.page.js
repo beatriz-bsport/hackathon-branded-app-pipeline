@@ -8,7 +8,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import RedButton from '../../components/button/RedButton.component';
 import { disconnect } from '../../actions/auth.actions';
@@ -89,7 +89,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['marketplace']),
+  withTranslation(['marketplace']),
   withStyles(styles),
   connect(
     null,

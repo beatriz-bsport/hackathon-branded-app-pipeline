@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
@@ -450,7 +450,7 @@ const MemberSchema = Yup.object().shape({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['translation', 'member']),
+  withTranslation(['translation', 'member']),
   withState('emailExists', 'setEmailExists', false),
   withState('emailExistsError', 'setemailExistsError', false),
 

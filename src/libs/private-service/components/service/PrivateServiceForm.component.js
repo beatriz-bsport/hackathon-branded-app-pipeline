@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import omit from 'lodash/omit';
 import { withFormik, FieldArray } from 'formik';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Slide from '@material-ui/core/Collapse';
 import Fab from '@material-ui/core/Fab';
@@ -418,6 +418,6 @@ export const PrivateServiceFormikHOC = withFormik({
 });
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
 )(PrivateServiceForm);

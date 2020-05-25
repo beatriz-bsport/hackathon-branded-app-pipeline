@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -99,7 +99,7 @@ const styles = () => ({
 });
 
 export default compose(
-  withNamespaces(['offer']),
+  withTranslation(['offer']),
   withStyles(styles),
 )((props) => (
   <ErrorCatcher t={props.t} classes={props.classes} theme={props.theme}>

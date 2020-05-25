@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Sport from '../../libs/category/components/SCT.component';
@@ -53,4 +53,4 @@ export function MetaActivityMinimalSummary(props: Props) {
   );
 }
 
-export default withNamespaces()(withStyles(styles)(MetaActivityMinimalSummary));
+export default withTranslation()(withStyles(styles)(MetaActivityMinimalSummary));

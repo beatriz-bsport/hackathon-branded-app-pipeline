@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { compose, withState } from 'recompose';
 import { push } from 'connected-react-router';
 import type { TFunction } from 'react-i18next';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -371,7 +371,7 @@ export default compose(
   routerParamsToProps({ id: 'id:number', create: 'create:number' }),
   withState('openSendEmail', 'setOpenSendEmail', false),
   withState('closeMemberTable', 'setCloseMemberTable', true),
-  withNamespaces(['smartList', 'member']),
+  withTranslation(['smartList', 'member']),
   withStyles(styles),
   connect(
     (state, { id }) => ({

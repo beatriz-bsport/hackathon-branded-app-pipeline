@@ -4,7 +4,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { compose } from 'recompose';
@@ -39,4 +39,4 @@ export const MemberRouter = (props: { t: TFunction }) => (
   </div>
 );
 
-export default compose(withNamespaces('titles'))(MemberRouter);
+export default compose(withTranslation('titles'))(MemberRouter);

@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Table from '@material-ui/core/Table';
@@ -74,4 +74,4 @@ export function PaymentRuleTable(props: Props) {
   );
 }
 
-export default withNamespaces(['paymentRules'])(PaymentRuleTable);
+export default withTranslation(['paymentRules'])(PaymentRuleTable);

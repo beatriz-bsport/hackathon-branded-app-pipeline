@@ -4,7 +4,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import { compose, withState } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import type { TFunction } from 'react-i18next';
 import type { Offer } from '../types';
@@ -107,7 +107,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['marketplace']),
+  withTranslation(['marketplace']),
   withStyles(styles),
   withState('offerSelected', 'selectOffer', null),
 )(MarketplaceWorkshop);

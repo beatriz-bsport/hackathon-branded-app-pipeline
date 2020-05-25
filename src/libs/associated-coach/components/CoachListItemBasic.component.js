@@ -4,6 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -23,6 +24,9 @@ type Props = {
 
 export function CoachListItem(props: Props) {
   const { coach, onDelete, onClick } = props;
+  if (!coach) {
+    return <CircularProgress />;
+  }
   return (
     <ListItem
       key={coach.id}

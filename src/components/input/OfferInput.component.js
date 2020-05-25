@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import ActivityInput from './ActivityInput.component';
 import BaseOfferInput from './BaseOfferInput.component';
@@ -73,4 +73,4 @@ export class OfferInput extends Component<Props, State> {
   }
 }
 
-export default withNamespaces()(OfferInput);
+export default withTranslation()(OfferInput);

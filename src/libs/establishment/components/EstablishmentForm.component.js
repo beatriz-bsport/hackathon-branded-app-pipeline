@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import type { TFunction } from 'react-i18next';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -220,4 +220,4 @@ const styles = (theme) => ({
     padding: theme.spacing(3),
   },
 });
-export default withStyles(styles)(withNamespaces()(EstablishmentForm));
+export default withStyles(styles)(withTranslation()(EstablishmentForm));

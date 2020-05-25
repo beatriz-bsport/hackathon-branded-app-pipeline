@@ -5,7 +5,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import Figure from '../../../../components/graph/Figure.component';
 
@@ -54,6 +54,6 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces(['coach'])(
+export default withTranslation(['coach'])(
   withStyles(styles)(CoachPerformanceSummary),
 );

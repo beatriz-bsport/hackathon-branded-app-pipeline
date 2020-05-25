@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import PriceInput from '../../../components/input/PriceInput.component';
@@ -64,4 +64,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(InvoiceVoucher));
+export default withStyles(styles)(withTranslation()(InvoiceVoucher));

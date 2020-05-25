@@ -53,6 +53,8 @@ const PaymentCombo = asyncComponent(() =>
   import('./payment-combo/PaymentCombo.router'),
 );
 
+const VodRouter = asyncComponent(() => import('./video/Vod.router'));
+
 const PlanningRouter = asyncComponent(() =>
   import('./planning/Planning.router'),
 );
@@ -112,37 +114,41 @@ type Props = {
   openCreateMember: () => void,
 };
 
-const BackofficeRoute = withSentryErrorReporting(() => (
-  <Switch>
-    <Route path="/shop" component={Shop} />
-    <Route path="/offer/:id" component={OfferManagement} />
-    <Route exact path="/calendar" component={PlanningRouter} />
-    <Route path="/schedule" component={Schedule} />
-    <Route exact path="/add-offers/:id" component={OfferFormPage} />
-    <Route path="/coach" component={Coach} />
-    <Route path="/payment-pack" component={PaymentPack} />
-    <Route path="/invoice" component={Invoice} />
-    <Route path="/subscription" component={Subscription} />
-    <Route path="/member" component={Member} />
-    <Route path="/activity" component={MetaActivity} />
-    <Route path="/workshop-activity" component={WorkshopActivity} />
-    <Route path="/establishment" component={Establishment} />
-    <Route path="/marketing/rule/:id" component={MarketingRule} />
-    <Route path="/smart-list" component={SmartList} />
-    <Route path="/marketing" component={MarketingDashboard} />
-    <Route path="/email-template" component={EmailTemplate} />
-    <Route path="/reporting/" component={Reporting} />
-    <Route path="/combo/" component={PaymentCombo} />
-    <Route path="/private-service" component={PrivateService} />
-    <Route path="/order" component={Order} />
-    <Route exact path="/dashboard" component={Dashboard} />
-    <Route exact path="/search/results" component={SearchResults} />
-    <Route path="/settings/:tab/" component={Settings} />
-    <Route path="/coupon" component={Coupon} />
-    <Route path="/empty" component={() => <div />} />
-    <Route path="/" component={PlanningRouter} />
-  </Switch>
-));
+const BackofficeRoute = withSentryErrorReporting((props) => {
+  return (
+    <Switch>
+      <Route path="/shop" component={Shop} />
+      <Route path="/offer/:id" component={OfferManagement} />
+      <Route exact path="/calendar" component={PlanningRouter} />
+      <Route path="/schedule" component={Schedule} />
+      <Route exact path="/add-offers/:id" component={OfferFormPage} />
+      <Route path="/coach" component={Coach} />
+      <Route path="/payment-pack" component={PaymentPack} />
+      <Route path="/invoice" component={Invoice} />
+      <Route path="/subscription" component={Subscription} />
+      <Route path="/member" component={Member} />
+      <Route path="/activity" component={MetaActivity} />
+      <Route path="/workshop-activity" component={WorkshopActivity} />
+      <Route path="/establishment" component={Establishment} />
+      <Route path="/marketing/rule/:id" component={MarketingRule} />
+      <Route path="/smart-list" component={SmartList} />
+      <Route path="/marketing" component={MarketingDashboard} />
+      <Route path="/email-template" component={EmailTemplate} />
+      <Route path="/reporting/" component={Reporting} />
+      <Route path="/combo/" component={PaymentCombo} />
+      <Route path="/private-service" component={PrivateService} />
+      <Route path="/order" component={Order} />
+      <Route exact path="/dashboard" component={Dashboard} />
+      <Route exact path="/search/results" component={SearchResults} />
+      <Route path="/settings/:tab/" component={Settings} />
+      <Route path="/coupon" component={Coupon} />
+      <Route path="/empty" component={() => <div />} />
+      {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+        props.vodEnabled) && <Route path="/vod" component={VodRouter} />}
+      <Route path="/" component={PlanningRouter} />
+    </Switch>
+  );
+});
 
 export class Backoffice extends Component<Props, State> {
   refreshInterval: ?Interval;
@@ -233,7 +239,10 @@ export class Backoffice extends Component<Props, State> {
             ) : null}
 
             <main className={classes.content}>
-              <BackofficeRoute />
+              <BackofficeRoute
+                vodEnabled={this.props.theme ? this.props.theme.vod : null}
+              />
+              .
             </main>
           </ResponsiveDrawer>
         </Context.Provider>

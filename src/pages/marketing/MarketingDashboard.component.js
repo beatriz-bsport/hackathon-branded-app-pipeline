@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { Moment } from '../../i18n';
@@ -108,7 +108,7 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  withNamespaces()(
+  withTranslation()(
     withTitle(({ t }: { t: TFunction }) =>
       t('titles:marketing.marketingDashboard'),
     )(MarketingDashboard),

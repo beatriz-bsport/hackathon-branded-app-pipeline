@@ -2,7 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withState, compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -156,7 +156,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['subscription']),
+  withTranslation(['subscription']),
   withStyles(styles),
   withState('createOpen', 'setCreateOpen', false),
   withState('contractToEdit', 'setContractToEdit', null),

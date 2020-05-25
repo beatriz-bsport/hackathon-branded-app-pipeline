@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import moment from 'moment';
@@ -170,6 +170,6 @@ export class RecipientTable extends React.Component<Props> {
 }
 
 export default compose(
-  withNamespaces(['communication']),
+  withTranslation(['communication']),
   withState('showLinkOpened', 'setShowLinkOpened', null),
 )(RecipientTable);

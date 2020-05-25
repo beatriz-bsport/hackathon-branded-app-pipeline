@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { formatAsDatetime } from '../../../datetime';
@@ -62,6 +62,6 @@ export const ConsumerPaymentPackExtensionListItem = (props: Props) => {
   );
 };
 
-export default withNamespaces(['paymentPack'])(
+export default withTranslation(['paymentPack'])(
   ConsumerPaymentPackExtensionListItem,
 );

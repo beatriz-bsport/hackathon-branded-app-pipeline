@@ -5,7 +5,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import {
@@ -63,6 +63,6 @@ const PaymentMethodSelectorField = (props: Props) => {
   );
 };
 
-export default compose(withNamespaces(['translation']))(
+export default compose(withTranslation(['translation']))(
   PaymentMethodSelectorField,
 );

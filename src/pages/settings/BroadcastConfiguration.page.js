@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -69,5 +69,5 @@ export default compose(
     },
   ),
   withStyles(styles),
-  withNamespaces(['theme']),
+  withTranslation(['theme']),
 )(BroadcastConfiguration);

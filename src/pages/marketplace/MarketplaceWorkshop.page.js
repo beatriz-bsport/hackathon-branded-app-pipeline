@@ -7,7 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import Moment from 'moment';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { snackbarSuccess as snackbarSuccessAction } from '../../actions/snackbar.actions';
@@ -218,7 +218,7 @@ export default compose(
         });
     },
   })),
-  withNamespaces(),
+  withTranslation(),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:marketplace.marketplaceWorkshop'),
   ),

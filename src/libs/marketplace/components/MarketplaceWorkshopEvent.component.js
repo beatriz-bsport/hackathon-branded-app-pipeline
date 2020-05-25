@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
 import Typography from '@material-ui/core/Typography';
@@ -154,5 +154,5 @@ const styles = () => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['marketplace', 'datetime']),
+  withTranslation(['marketplace', 'datetime']),
 )(MarketplaceWorkshopEvent);

@@ -15,7 +15,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LinkIcon from '@material-ui/icons/Link';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
@@ -405,5 +405,5 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  withNamespaces(['offer', 'datetime'])(OfferCard),
+  withTranslation(['offer', 'datetime'])(OfferCard),
 );

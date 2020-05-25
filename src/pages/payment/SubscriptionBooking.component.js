@@ -6,7 +6,7 @@ import { compose, withState, withProps } from 'recompose';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import moment from 'moment';
 import {
@@ -67,7 +67,7 @@ export const SubscriptionContractBooking = (props: Props) => (
 );
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withMobileDialog(),
   withState('firstBillingTimestamp', 'setFirstBillingTimestmap', null),
   withState('processing', 'setProcessing', false),

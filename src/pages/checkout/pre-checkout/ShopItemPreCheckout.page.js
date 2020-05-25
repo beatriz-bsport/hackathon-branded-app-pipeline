@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -156,7 +156,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
   routerParamsToProps({ id: 'itemId:number' }),
   connect(

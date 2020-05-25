@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
 import type { TFunction } from 'react-i18next';
@@ -46,4 +46,4 @@ export function MemberSearchModal(props: Props) {
   );
 }
 
-export default compose(withNamespaces(['member']))(MemberSearchModal);
+export default compose(withTranslation(['member']))(MemberSearchModal);

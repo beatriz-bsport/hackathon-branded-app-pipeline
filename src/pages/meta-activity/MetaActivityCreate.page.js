@@ -1,6 +1,6 @@
 // @flow
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import { push, goBack } from 'connected-react-router';
 import React, { Component } from 'react';
@@ -92,7 +92,7 @@ const MetaActivityMap = {
   is_broadcast: 'is_broadcast',
 };
 
-const StepperForm = withNamespaces(['metaActivity'])(
+const StepperForm = withTranslation(['metaActivity'])(
   (props: { t: TFunction, activeStep: { id: number, label: string } }) => (
     <Stepper activeStep={props.activeStep.id} alternativeLabel>
       {STEPS.map((step) => (
@@ -195,7 +195,7 @@ const styles = () => ({
 });
 
 export default compose(
-  withNamespaces([]),
+  withTranslation([]),
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
   withState('step', 'setStep', STEP_ACTIVITY),

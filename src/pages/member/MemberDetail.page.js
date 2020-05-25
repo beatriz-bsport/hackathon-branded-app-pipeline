@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import PaymentIcon from '@material-ui/icons/Payment';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withHandlers, withState } from 'recompose';
 
@@ -282,7 +282,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['member']),
+  withTranslation(['member']),
   routerParamsToProps({ tab: 'tab', id: 'id:number' }),
   connect(
     (state, { id }) => ({

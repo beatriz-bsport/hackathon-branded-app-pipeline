@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 
 import IconButton from '@material-ui/core/IconButton';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
@@ -141,6 +141,6 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['role']),
+  withTranslation(['role']),
   withState('createOpen', 'setCreateOpen', false),
 )(UserWithRoleList);

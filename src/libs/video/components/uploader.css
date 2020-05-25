@@ -1,0 +1,6 @@
+.dzu-previewContainer {
+    flex-direction: column;
+}
+.dzu-inputLabel {
+  padding: 24px;
+}

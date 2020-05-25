@@ -3,7 +3,7 @@
 import lodash from 'lodash';
 
 import React, { Component } from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { Field } from 'formik';
@@ -74,4 +74,4 @@ function getUrl(previewUrl, value) {
   return previewUrl || (typeof value === 'string' ? value : defaultUrl);
 }
 
-export default withStyles(styles)(withNamespaces([])(AvatarField));
+export default withStyles(styles)(withTranslation([])(AvatarField));

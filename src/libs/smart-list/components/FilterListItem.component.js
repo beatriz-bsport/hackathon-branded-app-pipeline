@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Divider from '@material-ui/core/Divider';
@@ -408,5 +408,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['smartList']),
+  withTranslation(['smartList']),
 )(FilterCard);

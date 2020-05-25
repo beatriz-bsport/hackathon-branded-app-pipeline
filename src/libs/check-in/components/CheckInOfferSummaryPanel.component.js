@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import type { TFunction } from 'react-i18next';
@@ -167,4 +167,4 @@ const style = (theme) => ({
   },
 });
 
-export default withNamespaces([])(withStyles(style)(CheckInOfferSummary));
+export default withTranslation([])(withStyles(style)(CheckInOfferSummary));

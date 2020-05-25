@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import PrivateSlotForm from './PrivateSlotForm.component';
@@ -171,7 +171,7 @@ const styles = (theme) => ({
   },
 });
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
   withState('openSlotForm', 'setOpenSlotForm', false),
   withState('editSlotForm', 'setEditSlotForm', null),

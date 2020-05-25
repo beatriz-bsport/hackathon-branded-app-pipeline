@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import type { TFunction } from 'react-i18next';
@@ -106,4 +106,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withNamespaces(['member'])(withStyles(styles)(MemberFilesPanel));
+export default withTranslation(['member'])(withStyles(styles)(MemberFilesPanel));

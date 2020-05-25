@@ -11,7 +11,7 @@ import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import themeSelectors from '../../libs/theme/selectors';
 import parse from '../../query-string';
@@ -187,7 +187,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['login']),
+  withTranslation(['login']),
   withRouter,
   withProps((props) => ({
     membership: parse(props.location.search).membership,

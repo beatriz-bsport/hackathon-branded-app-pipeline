@@ -5,7 +5,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import classnames from 'classnames';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -89,4 +89,4 @@ const styles = (theme) => ({
     cursor: 'pointer',
   },
 });
-export default withNamespaces(['member'])(withStyles(styles)(FileUploader));
+export default withTranslation(['member'])(withStyles(styles)(FileUploader));

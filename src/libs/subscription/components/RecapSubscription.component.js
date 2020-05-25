@@ -2,7 +2,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import withStyle from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import moment from 'moment';
 
@@ -98,5 +98,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyle(styles),
-  withNamespaces(['subscription']),
+  withTranslation(['subscription']),
 )(RecapSubscription);

@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 
 import { Form } from 'formik';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
@@ -57,6 +57,6 @@ export function PaymentRuleSetFormDialog(props: Props) {
 }
 
 export default compose(
-  withNamespaces(['paymentRules']),
+  withTranslation(['paymentRules']),
   PaymentRuleFormHoc,
 )(PaymentRuleSetFormDialog);

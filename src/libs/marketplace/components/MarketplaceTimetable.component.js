@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import moment from 'moment';
 import memoize from 'memoize-one';
@@ -148,4 +148,4 @@ const styles = (theme) => ({
   inlineContainer: { alignItems: 'center', display: 'flex' },
 });
 
-export default withNamespaces()(withStyles(styles)(MarketplaceTimetable));
+export default withTranslation()(withStyles(styles)(MarketplaceTimetable));

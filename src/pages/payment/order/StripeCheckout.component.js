@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
 import { goBack as goBackRouter } from 'connected-react-router';
@@ -167,7 +167,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces([]),
+  withTranslation([]),
   withStyles(styles),
   connect(
     null,

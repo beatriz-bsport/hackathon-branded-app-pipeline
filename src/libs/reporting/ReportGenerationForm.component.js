@@ -9,7 +9,7 @@ import { compose } from 'recompose';
 import * as Yup from 'yup';
 import { withFormik, Form } from 'formik';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -136,7 +136,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
   withFormik({
     mapPropsToValues: ({ initial }) =>

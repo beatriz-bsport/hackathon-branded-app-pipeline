@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import DeleteDialogWithCheck from '../../../components/DeleteDialogWithCheck.component';
@@ -24,4 +24,4 @@ export const MetaActivityDeleteDialog = (props: Props) => (
   />
 );
 
-export default withNamespaces(['metaActivity'])(MetaActivityDeleteDialog);
+export default withTranslation(['metaActivity'])(MetaActivityDeleteDialog);

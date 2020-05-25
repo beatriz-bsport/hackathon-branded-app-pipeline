@@ -2,7 +2,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import withTitle from '../../hocs/with-title.hoc';
 
 import PaymentComboDetail from './PaymentComboDetail.page';
@@ -16,6 +16,6 @@ export const PaymentComboRouter = () => (
 );
 
 export default compose(
-  withNamespaces(['paymentCombo']),
+  withTranslation(['paymentCombo']),
   withTitle(({ t }) => t('pageTitle.list')),
 )(PaymentComboRouter);

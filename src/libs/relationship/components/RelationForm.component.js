@@ -6,7 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
@@ -168,6 +168,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['relationship']),
+  withTranslation(['relationship']),
   withStyles(styles),
 )(RelationForm);

@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';
 import RedButton from '../../../components/button/RedButton.component';
@@ -116,4 +116,4 @@ const styles = () => ({
   },
 });
 
-export default withStyles(styles)(withNamespaces()(BookingOptionListItem));
+export default withStyles(styles)(withTranslation()(BookingOptionListItem));

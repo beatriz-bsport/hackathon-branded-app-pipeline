@@ -15,7 +15,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
@@ -93,7 +93,7 @@ export const MemberRelationListItem = (props: Props) => {
 };
 
 export default compose(
-  withNamespaces(['relationship']),
+  withTranslation(['relationship']),
   withState('menuAnchorEl', 'setMenuAnchorEl', null),
   withProps(({ menuAnchorEl, setMenuAnchorEl }) => ({
     toogleMenu: (ev) => {

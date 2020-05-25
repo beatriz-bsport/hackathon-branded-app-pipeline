@@ -9,7 +9,7 @@ import Collapse from '@material-ui/core/Collapse';
 
 import List from '@material-ui/core/List';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
 import Map from '../../components/map/Map.component';
@@ -190,7 +190,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['establishment']),
+  withTranslation(['establishment']),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:establishment.establishmentList'),
   ),

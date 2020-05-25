@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 
@@ -94,7 +94,7 @@ export function ReportConfigurationForm(props: Props) {
 }
 
 export default compose(
-  withNamespaces(['reporting']),
+  withTranslation(['reporting']),
   withFormik({
     mapPropsToValues: ({ initial }) =>
       initial || {

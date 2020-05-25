@@ -6,7 +6,7 @@ import moment from 'moment';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import Typography from '@material-ui/core/Typography';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import BroadcastRoomJitsi from './BroadcastJitsi.component';
@@ -133,6 +133,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['offer']),
+  withTranslation(['offer']),
   withStyles(styles),
 )(BroadcastRoom);

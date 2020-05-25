@@ -7,7 +7,7 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
@@ -97,7 +97,7 @@ export class EstablishmentFormPage extends Component<Props> {
 }
 
 export default compose(
-  withNamespaces(['establishment']),
+  withTranslation(['establishment']),
   withRouter,
   mapRouterParamsToProps({ id: 'establishmentId:number' }),
   connect(

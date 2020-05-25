@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import Button from '@material-ui/core/Button';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import Collapse from '@material-ui/core/Collapse';
@@ -272,6 +272,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['communication']),
+  withTranslation(['communication']),
   withStyles(styles),
 )(SendMailToMembers);

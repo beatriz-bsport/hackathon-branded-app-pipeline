@@ -7,7 +7,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import { compose } from 'recompose';
 import Slide from '@material-ui/core/Slide';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
@@ -87,6 +87,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['titles']),
+  withTranslation(['titles']),
   withStyles(styles),
 )(Banner);

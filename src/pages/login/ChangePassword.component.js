@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 
@@ -162,7 +162,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withStyles(styles)(
-  withNamespaces()(
+  withTranslation()(
     connect(
       null,
       mapDispatchToProps,

@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import { push } from 'connected-react-router';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { connect } from 'react-redux';
@@ -146,7 +146,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['consumerSpace']),
+  withTranslation(['consumerSpace']),
   withStyles(styles),
   connect(
     (state, { membership }) => ({

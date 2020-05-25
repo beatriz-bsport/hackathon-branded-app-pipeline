@@ -5,7 +5,7 @@ import { compose, withState, withHandlers } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -148,7 +148,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['partnership']),
+  withTranslation(['partnership']),
   withStyles(styles),
   withState('hasRequested', 'setHasRequested', false),
   connect(

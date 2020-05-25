@@ -13,7 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import { formatAsDatetime } from '../../../datetime';
 
@@ -124,5 +124,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(),
+  withTranslation(),
 )(BookingOptionForManager);

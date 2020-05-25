@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import type { PrivatePass } from '../../types';
@@ -43,5 +43,5 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  withNamespaces(['privateService'])(PrivatePassBookerListItem),
+  withTranslation(['privateService'])(PrivatePassBookerListItem),
 );

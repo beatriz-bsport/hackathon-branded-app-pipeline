@@ -5,18 +5,18 @@ import ChainedBackend from 'i18next-chained-backend';
 import LocalStorageBackend from 'i18next-localstorage-backend';
 
 import LanguageDetector from 'i18next-browser-languagedetector';
-import { reactI18nextModule } from 'react-i18next';
+import { initReactI18next } from 'react-i18next';
 import Moment from 'moment';
 import 'moment/locale/fr';
 
 i18n
-  .use(reactI18nextModule)
+  .use(initReactI18next)
   // .use(Backend)
   .use(ChainedBackend)
   .use(LanguageDetector)
   .init({
     backend: {
-      backends: [LocalStorageBackend, HttpBackend],
+      backends: [HttpBackend, LocalStorageBackend],
       backendOptions: [{ expirationTime: 3 * 24 * 60 * 60 * 1000 }, {}],
     },
     /*
@@ -54,6 +54,8 @@ i18n
 
     react: {
       wait: true,
+      useSuspense: false,
+
       bindI18n: 'languageChanged loaded',
       bindStore: 'added removed',
       nsMode: 'default',

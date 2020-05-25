@@ -2,7 +2,7 @@
 //
 import React from 'react';
 import { compose, withState } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -68,7 +68,7 @@ const styles = () => ({
 });
 
 export default compose(
-  withNamespaces(['payment']),
+  withTranslation(['payment']),
   withStyles(styles),
   withState('showTermsAndConditions', 'setShowTermsAndConditions', false),
 )(AcceptTermsAndConditions);

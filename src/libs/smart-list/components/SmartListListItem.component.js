@@ -8,7 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { compose } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
@@ -115,6 +115,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['smartList']),
+  withTranslation(['smartList']),
   withStyles(styles),
 )(SmartListItem);

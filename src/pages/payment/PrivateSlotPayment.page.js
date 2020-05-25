@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { replace } from 'connected-react-router';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
@@ -289,7 +289,7 @@ export default compose(
     privateServiceId: 'privateServiceId:number',
     privateSlotId: 'privateSlotId:number',
   }),
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withRouter,
   withProps(({ location }) => ({
     data: JSON.parse(decodeURIComponent(parse(location.search).data)),

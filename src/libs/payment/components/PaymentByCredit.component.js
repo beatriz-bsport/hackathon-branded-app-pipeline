@@ -8,7 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
 import { CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT } from '@bsport/common/lib/master-data/payment-methods';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import AcceptTermsAndConditions from './AcceptTermsAndConditions.component';
 
@@ -125,7 +125,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['payment']),
+  withTranslation(['payment']),
   withStyles(styles),
   withState('termsAccepted', 'setTermsAccepted', false),
 )(PaymentByCredit);

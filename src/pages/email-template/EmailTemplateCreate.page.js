@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import {
   emailDesignCreate,
@@ -74,7 +74,7 @@ export class EmailTemplateCreate extends Component<Props> {
 }
 
 export default compose(
-  withNamespaces(['emailTemplate']),
+  withTranslation(['emailTemplate']),
   withTitle(({ t }) => t('createTitle')),
   connect(
     (state) => ({

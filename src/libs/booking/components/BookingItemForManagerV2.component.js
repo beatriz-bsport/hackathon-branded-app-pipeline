@@ -24,7 +24,7 @@ import CachedIcon from '@material-ui/icons/Cached';
 import CancelIcon from '@material-ui/icons/Cancel';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as routerPush } from 'connected-react-router';
 import { connect } from 'react-redux';
@@ -495,7 +495,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['booking']),
+  withTranslation(['booking']),
   withStyles(styles),
   connect(
     null,

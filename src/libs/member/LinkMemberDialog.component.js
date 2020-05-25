@@ -9,7 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 type Props = { t: TFunction, onConfirm: () => void, classes: Object };
 
@@ -77,4 +77,4 @@ const styles = () => ({
   },
 });
 
-export default withNamespaces(['member'])(withStyles(styles)(MemberLinkDialog));
+export default withTranslation(['member'])(withStyles(styles)(MemberLinkDialog));

@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { compose } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -65,7 +65,7 @@ type Props = {
 };
 
 const ResourceConfigurationChecker = withStyles(styles)(
-  withNamespaces(['privateService'])((props) => (
+  withTranslation(['privateService'])((props) => (
     <ButtonBase onClick={props.onClick} className={props.classes.row}>
       {props.loading ? (
         <CircularProgress className={props.classes.loading} />
@@ -216,5 +216,5 @@ export const PrivateServiceConfigurationHelper = (props: Props) => {
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
 )(PrivateServiceConfigurationHelper);

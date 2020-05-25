@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { compose, withState } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import PrivateServiceListItem from '../service/PrivateServiceListItem.component';
@@ -226,7 +226,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
   withState('openEditForm', 'setOpenEditForm', false),
   withState(

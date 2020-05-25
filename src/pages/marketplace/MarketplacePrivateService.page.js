@@ -11,7 +11,7 @@ import { push } from 'connected-react-router';
 
 import MomentUtils from '@date-io/moment';
 import moment from 'moment';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import {
   MuiPickersUtilsProvider,
@@ -307,7 +307,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
   connect(
     (state) => ({

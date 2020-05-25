@@ -3,7 +3,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import * as Yup from 'yup';
@@ -143,6 +143,6 @@ export const SubscriptionContractFormHoc = withFormik({
 });
 
 export default compose(
-  withNamespaces(['subscription']),
+  withTranslation(['subscription']),
   withStyles(styles),
 )(SubscriptionContractFields);

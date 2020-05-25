@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import type { ConsumerPaymentPackConsumerView } from '../../../api/types';
 import ConsumerPackRowItem from './ConsumerPackRowItem.component';
@@ -96,4 +96,4 @@ export class ConsumerPaymentPackListItemCheckout extends Component<
   }
 }
 
-export default compose(withNamespaces())(ConsumerPaymentPackListItemCheckout);
+export default compose(withTranslation())(ConsumerPaymentPackListItemCheckout);

@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import parse from '../../query-string';
 
@@ -76,4 +76,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose(withNamespaces(['login']))(DoubleLogin);
+export default compose(withTranslation(['login']))(DoubleLogin);

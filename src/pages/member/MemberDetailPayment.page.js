@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { push } from 'connected-react-router';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -82,7 +82,7 @@ const styles = (theme) => ({
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withStyles(styles),
-  withNamespaces(['member']),
+  withTranslation(['member']),
   connect(
     (state) => ({
       subscriptionList: getSubscriptionListByMember(state),

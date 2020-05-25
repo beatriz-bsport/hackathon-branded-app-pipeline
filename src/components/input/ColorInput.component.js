@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { compose, withState } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -125,6 +125,6 @@ const styles = (theme) => ({
 });
 export default compose(
   withStyles(styles),
-  withNamespaces(['common']),
+  withTranslation(['common']),
   withState('pickerOpen', 'setPickerOpen', false),
 )(ColorInput);

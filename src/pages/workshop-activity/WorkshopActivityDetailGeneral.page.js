@@ -5,7 +5,7 @@ import { push as routerPush } from 'connected-react-router';
 import { compose, withProps } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
@@ -123,7 +123,7 @@ const styles = (theme) => ({
 
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
   connect(
     (state, { id }) => ({

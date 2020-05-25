@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import SPORTS from '@bsport/common/lib/master-data/sports';
 import classnames from 'classnames';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 type Props = {
   parentCategory: number,
@@ -26,9 +27,12 @@ export function Sport(props: Props) {
     paddingLeft,
   } = props;
   const variant = props.variant || 'body2';
-
   const sport = SPORTS.filter((s) => s.id === parentCategory)[0];
   const classes = useStyles();
+
+  if (!sport) {
+    return <CircularProgress />;
+  }
 
   return (
     <div

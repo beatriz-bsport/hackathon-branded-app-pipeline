@@ -2,7 +2,7 @@
 import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -119,5 +119,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['order']),
+  withTranslation(['order']),
 )(DeliveryFeeDialogForm);

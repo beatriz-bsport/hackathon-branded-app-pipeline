@@ -3,7 +3,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -96,7 +96,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['communication']),
+  withTranslation(['communication']),
   withStyles(styles),
   withState('showEmail', 'setShowEmail', null),
 )(CampaignList);

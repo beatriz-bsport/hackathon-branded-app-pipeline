@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import type { TFunction } from 'react-i18next';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -129,7 +129,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withRouter,
   connect(
     mapStateToProps,

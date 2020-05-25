@@ -11,7 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import moment from 'moment';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import type { PrivateBookingPreview } from '../../types';
@@ -76,6 +76,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['privateService']),
+  withTranslation(['privateService']),
   withStyles(styles),
 )(PrivateBookingPreviewListItem);

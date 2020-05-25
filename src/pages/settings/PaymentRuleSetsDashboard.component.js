@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { compose, withState } from 'recompose';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -108,7 +108,7 @@ function mapStateToProps(state) {
 
 export default compose(
   withStyles(styles),
-  withNamespaces(['paymentRules']),
+  withTranslation(['paymentRules']),
   withState('initial', 'setInitial', null),
   connect(
     mapStateToProps,

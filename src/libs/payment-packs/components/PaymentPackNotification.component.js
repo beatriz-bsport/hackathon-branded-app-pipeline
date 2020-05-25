@@ -15,7 +15,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
@@ -283,6 +283,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['paymentPack']),
+  withTranslation(['paymentPack']),
   withStyles(styles),
 )(notificationRule);

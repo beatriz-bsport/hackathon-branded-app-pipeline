@@ -12,7 +12,7 @@ import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { CB as PAYMENT_METHOD_STRIPE_PAYMENT_INTENT } from '@bsport/common/lib/master-data/payment-methods';
@@ -252,7 +252,7 @@ const styles = (theme) => ({
 export const PaymentIntentGatheringComposed = compose(
   injectStripe,
   withStyles(styles),
-  withNamespaces(['checkout', 'stripe']),
+  withTranslation(['checkout', 'stripe']),
 )(PaymentIntentGathering);
 
 export default (props: Props) => (

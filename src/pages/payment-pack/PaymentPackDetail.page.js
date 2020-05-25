@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 import { compose, withProps } from 'recompose';
@@ -344,7 +344,7 @@ function mapStateToProps(state, { id }) {
 }
 
 export default compose(
-  withNamespaces(),
+  withTranslation(),
   withStyles(styles),
   routerParamsToProps({ id: 'id:number' }),
   connect(

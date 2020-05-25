@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { compose, withState, withProps } from 'recompose';
@@ -98,7 +98,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withNamespaces(['coupon']),
+  withTranslation(['coupon']),
   connect(
     (state) => ({
       inactiveCoupons: getInactiveCoupons(state),

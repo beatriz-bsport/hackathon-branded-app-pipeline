@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 
@@ -124,5 +124,5 @@ const styles = (theme) => ({
 });
 
 export default injectStripe(
-  withStyles(styles)(withNamespaces()(StripeCheckout)),
+  withStyles(styles)(withTranslation()(StripeCheckout)),
 );

@@ -47,6 +47,8 @@ import webhook from '../libs/webhook/reducers';
 import notificationRule from '../libs/notification-rule/reducers';
 import partnership from '../libs/partnership/reducers';
 import activeCampaign from '../libs/active-campaign/reducers';
+import video from '../libs/video/reducers';
+import playlist from '../libs/playlist/reducers';
 import event from '../libs/event/reducers';
 
 import type { State, Action } from '../state/types';
@@ -102,6 +104,8 @@ const rootReducer = (history) =>
     partnership,
     activeCampaign,
     event,
+    video,
+    playlist,
   });
 
 export default (history) => (state: State, action: Action) => {

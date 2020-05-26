@@ -33,7 +33,7 @@ const UnevenAlertListItem = (props: {
 }) => {
   const { alerting } = props;
   const { t } = useTranslation(['alerting']);
-  const { classes } = useStyles();
+  const classes = useStyles();
   const { uuid, price_payed, price_due } = alerting.data;
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
@@ -67,7 +67,7 @@ const NewOrderAlertListItem = (props: {
   alerting: NewOrderAlerting,
 }) => {
   const { alerting } = props;
-  const { classes } = useStyles();
+  const classes = useStyles();
   const { order, price, name } = alerting.data;
   const { t } = useTranslation(['alerting']);
   return (
@@ -100,7 +100,7 @@ const TaskAlertListItem = (props: {
   alerting: TaskAlerting,
 }) => {
   const { alerting } = props;
-  const { classes } = useStyles();
+  const classes = useStyles();
   const { name, description, date_due, member } = alerting.data;
   return (
     <ListItem divider style={{ paddingTop: 0 }}>

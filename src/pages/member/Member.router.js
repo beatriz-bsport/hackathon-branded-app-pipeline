@@ -22,7 +22,7 @@ const MemberMergeForm = asyncComponent(() => import('./MemberMergeForm.page'));
 export const MemberRouter = (props: { t: TFunction }) => (
   <div>
     <Helmet>
-      <title>{props.t('member')}</title>
+      <title>{props.t('member.members')}</title>
     </Helmet>
     <Switch>
       <Route exact path="/member" component={MemberList} />

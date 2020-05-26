@@ -125,7 +125,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withTranslation(),
+  withTranslation(['titles', 'member']),
   withStyles(styles),
   withTitle(({ t }: { t: TFunction }) => t('titles:member.members')),
   connect(

@@ -47,7 +47,7 @@ export default function memberReducers(state = initialState, action = {}) {
     }
     case memberBulkActions.success.toString(): {
       return state.setIn(
-        ['all', 'all'],
+        ['all'],
         [
           ...state.all.filter(
             (m) => !action.payload.map((m_) => m_.id).includes(m.id),

@@ -44,6 +44,7 @@ import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
 } from '../../establishment/actions';
+import { fetchMemberBulk } from '../../member/actions';
 
 import { getActiveCoaches } from '../../associated-coach/selectors';
 import { getAllEstablishments } from '../../establishment/selectors';
@@ -541,6 +542,7 @@ export default compose(
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchPrivateService: fetchPrivateServiceAction,
       fetchPrivateSlot: fetchPrivateSlotAction,
+      fetchMemberBulk,
       onOfferClick: (id) => push(`/offer/${id}`),
       goToMember: (memberId) => push(`/member/${memberId}/info`),
       updatePrivateBookingDatetime,
@@ -574,6 +576,7 @@ export default compose(
       fetchPrivateService,
       fetchPrivateSlot,
       fetchPrivateBooking,
+      fetchMemberBulk,
     }) => (id) => {
       fetchPrivateBooking(id, {
         onSuccess: ([booking]) => {
@@ -583,6 +586,7 @@ export default compose(
           }
           fetchPrivateSlot(booking.private_service, booking.private_slot);
           fetchPrivateService(booking.private_service);
+          fetchMemberBulk({ id__in: [booking.member] });
         },
       });
     },

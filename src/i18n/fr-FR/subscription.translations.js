@@ -72,7 +72,8 @@ exports.default = {
     },
   },
   pause: {
-    pausedInterval: '{{start}} → {{ end }} : {{ days }} jours',
+    pausedInterval: '{{start}} → {{ end }} : {{ days }} jours', // deprecated
+    pausedAt: '{{ days }} jours - le {{ date }}',
   },
   plannedInvoice: {
     priceUpdater: {

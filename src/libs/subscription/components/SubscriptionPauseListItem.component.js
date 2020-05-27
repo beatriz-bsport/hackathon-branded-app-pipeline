@@ -19,10 +19,9 @@ export const SubscriptionPauseListItem = (props: Props) => {
     <ListItem divider dense={props.dense}>
       <ListItemText
         primary={props.pause.name}
-        secondary={props.t('pause.pausedInterval', {
+        secondary={props.t('pause.pausedAt', {
           days: props.pause.days,
-          start: moment(props.pause.date_created).format('LL'),
-          end: moment(props.pause.date_ended).format('LL'),
+          date: moment(props.pause.date_created).format('LL'),
         })}
       />
     </ListItem>

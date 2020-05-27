@@ -10,7 +10,7 @@ import {
 } from '../../http';
 
 export async function fetchAllEvents(params) {
-  return getAuth(`${API_V1_URI}/offer/minimal${buildUrlParams(params)}`);
+  return getAuth(`${API_V1_URI}/offer/minimal/${buildUrlParams(params)}`);
 }
 
 export async function fetchOffersByDay(params) {

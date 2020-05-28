@@ -69,6 +69,10 @@ exports.default = {
     },
   },
   paymentPack: {
+    paymentPackDisabled: {
+      success: 'Carte de cours désactivée',
+      error: 'Impossible de désactiver la carte',
+    },
     credit: {
       updated: 'Crédits mis à jour',
       error: "Erreur lors de l'enregistrement",

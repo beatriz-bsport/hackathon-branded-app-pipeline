@@ -156,7 +156,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withTranslation(),
+  withTranslation(['checkout', 'payment']),
   withStyles(styles),
   routerParamsToProps({ id: 'itemId:number' }),
   connect(

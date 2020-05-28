@@ -1518,7 +1518,7 @@
             "explain": "Betaald door <1> {{name}} </1> in de winkel."
         },
         "task": {
-            "name": "{{naam}}"
+            "name": "{{name}}"
         }
     },
     "paymentPack": {
@@ -3296,7 +3296,7 @@
         },
         "slot": {
             "parameters": {
-                "credit": "{{ credits}} credits"
+                "credit": "{{ credits }} credits"
             },
             "form": {
                 "booking_interval_minutes": {
@@ -3740,7 +3740,7 @@
         },
         "dialog": {
             "delete": {
-                "title": "{{Shopitem.name}} verwijderen",
+                "title": "{{ shopitem.name }} verwijderen",
                 "cancel": "Annuleren",
                 "confirm": "Verwijderen",
                 "explain": "Weet je zeker dat je dit item uit de winkel wilt verwijderen? Deze operatie is onomkeerbaar, u heeft geen toegang meer tot de inventarisgeschiedenis."

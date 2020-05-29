@@ -91,7 +91,11 @@ export const getValidityInfo = (pack: PrivatePass, t: TFunction) => {
 
 export const getExpirationDate = (privateConsumerPass: PrivateConsumerPass) => {
   return moment(privateConsumerPass.date_bought)
-    .add('day', privateConsumerPass.private_pass.duration_days)
+    .add(
+      'day',
+      privateConsumerPass.private_pass.duration_days +
+        (privateConsumerPass.extension_days || 0),
+    )
     .add('month', privateConsumerPass.private_pass.duration_months)
     .add('year', privateConsumerPass.private_pass.duration_years)
     .format('YYYY-MM-DD');

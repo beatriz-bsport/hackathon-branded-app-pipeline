@@ -294,13 +294,13 @@ export class SmartListDetailMember extends Component<Props, State> {
               if (response.status === 200) {
                 if (options && options.onSuccess) options.onSuccess();
                 this.props.snackbarSuccess(
-                  this.props.t('communication.send.success'),
+                  this.props.t('communication:send.success'),
                 );
                 // this.props.goToCampaignList(this.props.id);
               } else {
                 if (options && options.onError) options.onError();
                 this.props.snackbarError(
-                  this.props.t('communication.send.error'),
+                  this.props.t('communication:send.error'),
                 );
               }
             }, 3000);
@@ -371,7 +371,7 @@ export default compose(
   routerParamsToProps({ id: 'id:number', create: 'create:number' }),
   withState('openSendEmail', 'setOpenSendEmail', false),
   withState('closeMemberTable', 'setCloseMemberTable', true),
-  withTranslation(['smartList', 'member']),
+  withTranslation(['smartList', 'member', 'communication']),
   withStyles(styles),
   connect(
     (state, { id }) => ({

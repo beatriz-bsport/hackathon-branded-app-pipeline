@@ -34,6 +34,10 @@ exports.default = {
     submit: 'Envoyer',
     refresh: 'Actualiser',
   },
+  send: {
+    success: "Email en cours d'envoi...",
+    error: "Erreur lors de l'envoi",
+  },
   dialogReceiverChoice: {
     reservation: 'Envoyer aux réservations',
     waitingList: "Envoyer à la liste d'attente",

@@ -40,6 +40,9 @@ exports.default = {
     couponEdit: 'Formulaire promotion',
     couponList: 'Codes promotionnels',
   },
+  privateService: {
+    serviceList: 'Sur rendez-vous',
+  },
   establishment: {
     establishmentList: 'Etablissements',
     establishmentFormPage: 'Formulaire établissement',

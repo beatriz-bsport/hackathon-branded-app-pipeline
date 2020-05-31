@@ -35,9 +35,7 @@ const DurationSelector = (props) => {
   let max = 180;
   try {
     [min, max] = props.durationSecondRange.split(',');
-  } catch (err) {
-    console.error(err);
-  }
+  } catch {}
   return (
     <div>
       <ButtonBase
@@ -59,6 +57,7 @@ const DurationSelector = (props) => {
               min !== 0 || max !== 180 ? (
                 <InputAdornment position="end">
                   <IconButton
+                    component="div"
                     aria-label="Clear search"
                     onClick={(ev) => {
                       ev.stopPropagation();
@@ -75,9 +74,8 @@ const DurationSelector = (props) => {
       <Popover
         open={!!anchorMenu}
         anchorEl={anchorMenu}
-        anchorOrigin={{ vertical: 'bottom' }}
+        anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
         onClose={() => setAnchorMenu(null)}
-        anchorPosition="top"
         onExited={() => {
           props.onChange(value);
         }}

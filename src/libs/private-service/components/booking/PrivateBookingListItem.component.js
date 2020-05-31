@@ -67,6 +67,6 @@ const styles = () => ({
 });
 
 export default compose(
-  withTranslation(),
+  withTranslation(['booking']),
   withStyles(styles),
 )(PrivateBookingListItem);

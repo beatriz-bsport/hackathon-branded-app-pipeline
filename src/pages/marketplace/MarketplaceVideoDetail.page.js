@@ -12,6 +12,7 @@ import { fetchAssociatedCoachBulk } from '../../libs/associated-coach/actions';
 import VideoThumbnailList from '../../libs/video/components/VideoThumbnailList.component';
 import VideoPlayerFull from '../../libs/video/components/VideoPlayerFull.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { getMarketplaceRoute } from './routing-utils';
 import {
   retrieveVideo,
   fetchMoreVideo,
@@ -108,7 +109,7 @@ export default compose(
   ),
   withHandlers({
     openVideo: ({ push, companyId, companyName }) => (videoId) => {
-      push(`/m/${companyName}/${companyId}/vod/video/${videoId}`);
+      push(getMarketplaceRoute(companyName, companyId, `vod/video/${videoId}`));
     },
     fetchMoreVideo: ({ videoId, fetchMoreVideo }) => () => {
       fetchMoreVideo({

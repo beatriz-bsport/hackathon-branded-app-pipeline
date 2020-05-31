@@ -383,6 +383,9 @@ exports.default = {
   },
   openCalendar: 'Voir le calendrier',
   service: {
+    navigation: {
+      goToPrivatePass: 'Cartes RDV',
+    },
     selector: {
       placeholder: 'Sélectionnez un rendez-vous',
       isEmpty: 'Aucun type de rendez-vous configuré',

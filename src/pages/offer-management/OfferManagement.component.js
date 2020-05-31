@@ -425,16 +425,18 @@ export class OfferManagement extends Component<Props, State> {
               flexDirection: 'row',
             }}
           >
-            <IconButton
-              onClick={(e) => {
-                e.stopPropagation();
-                this.setState({ openMailChoiceDialog: true });
-              }}
-              color="primary"
-              disabled={this.props.bookingLoading}
-            >
-              <MailIcon />
-            </IconButton>
+            {!!this.props.permission.member.retrieve && (
+              <IconButton
+                onClick={(e) => {
+                  e.stopPropagation();
+                  this.setState({ openMailChoiceDialog: true });
+                }}
+                color="primary"
+                disabled={this.props.bookingLoading}
+              >
+                <MailIcon />
+              </IconButton>
+            )}
             <IconButton onClick={this.openAddMemberModal} color="primary">
               <PersonAddIcon />
             </IconButton>

@@ -7,7 +7,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 import { push } from 'connected-react-router';
 import Collapse from '@material-ui/core/Collapse';
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Hidden from '@material-ui/core/Hidden';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import FuzeSearch from '../../components/FuzeSearch.component';
 
@@ -82,22 +85,36 @@ export class MetaActivityListPage extends React.Component<Props, State> {
       <div className={classes.container}>
         {this.props.loading ? <LinearProgress /> : null}
         {this.props.metaActivities.length > 0 ? (
-          <div className={this.props.classes.search}>
-            <FuzeSearch
-              searchText={this.state.searchText}
-              clearSearch={this.clearSearch}
-              changeSearch={this.changeSearch}
-              items={this.props.metaActivities}
-              placeholder={t('metaActivity:search')}
-              searchFields={['name', 'description']}
-              searchResult={this.state.searchResult}
-            />
+          <div className={classes.search}>
+            <div className={classes.header}>
+              <div className={classes.searchField}>
+                <FuzeSearch
+                  searchText={this.state.searchText}
+                  clearSearch={this.clearSearch}
+                  changeSearch={this.changeSearch}
+                  items={this.props.metaActivities}
+                  placeholder={t('actions.search')}
+                  searchFields={['name', 'description']}
+                  searchResult={this.state.searchResult}
+                />
+              </div>
+              <Hidden smDown>
+                <Button
+                  onClick={this.props.goToPaymentPack}
+                  color="primary"
+                  variant="outlined"
+                >
+                  <ArrowForwardIcon className={classes.leftIcon} />
+                  {t('navigation.goToPaymentPack')}
+                </Button>
+              </Hidden>
+            </div>
             <Paper
               className={
                 this.state.searchResult.length > 0 &&
                 this.state.searchText !== ''
-                  ? this.props.classes.searchPaperDisplayed
-                  : this.props.classes.searchPaperHiden
+                  ? classes.searchPaperDisplayed
+                  : classes.searchPaperHiden
               }
             >
               <Collapse
@@ -130,7 +147,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
           deleteMetaActivity={this.props.deleteMetaActivity}
         />
         <BottomActionButtons
-          onCreateLabel={this.props.t('activity.addActivity')}
+          onCreateLabel={this.props.t('actions.addActivity')}
           onCreate={this.props.onCreate}
         />
       </div>
@@ -154,11 +171,24 @@ const styles = (theme) => ({
     borderTop: '0px',
     boderBottom: '0px',
   },
+  leftIcon: {
+    marginRight: theme.spacing(1),
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  searchField: {
+    flex: 1,
+    marginRight: theme.spacing(1),
+  },
 });
 
 export default compose(
   withStyles(styles),
-  withTranslation(),
+  withTranslation(['metaActivity', 'titles']),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:metaActivity.metaActivityList'),
   ),
@@ -173,6 +203,7 @@ export default compose(
       goToDetail: (metaActivityId) =>
         push(`/activity/${metaActivityId}/general`),
       goToEdit: (metaActivityId) => push(`/activity/${metaActivityId}/edit`),
+      goToPaymentPack: () => push('/payment-pack'),
       deleteMetaActivity,
       onCreate: () => push('/activity/add'),
     },

@@ -124,7 +124,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     const offersRows = this.periodByRow(period);
 
     return _.flattenDeep(period).length ? (
-      <Fragment>
+      <div key={i}>
         <div className={classes.periodTitle}>
           <Typography component="h3" variant="h6" align="center">
             <p>{t(`dayParts.${DAY_PARTS[i]}`)}</p>
@@ -142,8 +142,8 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
           unmountOnExit
           className={classes.sessionsGroup}
         >
-          {offersRows.map((row) => (
-            <div className={classes.offerRow}>
+          {offersRows.map((row, idx) => (
+            <div key={idx} className={classes.offerRow}>
               {row.map((o, index) => (
                 <div className={classes.rowItem}>
                   {o === undefined ? (
@@ -168,7 +168,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
             </div>
           ))}
         </Collapse>
-      </Fragment>
+      </div>
     ) : (
       ''
     );

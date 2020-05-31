@@ -9,6 +9,8 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
+import Button from '@material-ui/core/Button';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { compose, withState, withStateHandlers, withHandlers } from 'recompose';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -115,6 +117,17 @@ export class PrivateServiceList extends React.Component<Props> {
     return (
       <div>
         {this.props.loading ? <LinearProgress /> : null}
+        <div className={classes.header}>
+          <div />
+          <Button
+            onClick={this.props.goToPrivatePass}
+            color="primary"
+            variant="outlined"
+          >
+            <ArrowForwardIcon className={classes.leftIcon} />
+            {t('service.navigation.goToPrivatePass')}
+          </Button>
+        </div>
         <PrivateServiceListWithGroup
           privateServiceAvailableByGroup={
             this.props.privateServiceAvailableByGroup
@@ -165,6 +178,12 @@ export class PrivateServiceList extends React.Component<Props> {
 }
 
 const styles = (theme) => ({
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   leftIcon: {
     marginRight: theme.spacing(1),
   },
@@ -204,8 +223,8 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   routerParamsToProps({ privateServiceId: 'privateServiceId:number' }),
-  withTranslation(['privateService']),
-  withTitle(({ t }) => t('pageTitles.serviceList')),
+  withTranslation(['privateService', 'titles']),
+  withTitle(({ t }) => t('titles:privateService.serviceList')),
   connect(
     (state, { privateServiceId }) => ({
       privateServiceAvailableWithoutGroup: getAvailablePrivateServicesWithoutGroup(
@@ -231,6 +250,7 @@ export default compose(
       fetchAssociatedEstablishments,
       createOrUpdatePrivateService,
       deleteServiceGroup: deleteServiceGroupAction,
+      goToPrivatePass: () => push('/private-pass'),
       goToPrivateService: (id) =>
         push(`/private-service/service/${id}/general`),
       deletePrivateService,

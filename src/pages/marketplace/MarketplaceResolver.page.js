@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { replace } from 'connected-react-router';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { getMarketplaceRoute } from './routing-utils';
 
 import api from '../../api';
 
@@ -53,7 +54,7 @@ export default compose(
   connect(
     null,
     {
-      goToMarketplace: (name, id) => replace(`/m/${name}/${id}/`),
+      goToMarketplace: (name, id) => replace(getMarketplaceRoute(name, id)),
     },
   ),
 )(MarketplaceResolver);

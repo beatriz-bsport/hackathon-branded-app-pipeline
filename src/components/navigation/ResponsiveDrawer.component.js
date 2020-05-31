@@ -395,14 +395,14 @@ class ResponsiveDrawer extends React.Component<Props, State> {
               <VpnKey />
             </ListItemIcon>
             <ListItemText
-              primary={this.props.t('navigation.requestTempPassword')}
+              primary={this.props.t('backofficeMenu.requestTempPassword')}
             />
           </MenuItem>
           <MenuItem onClick={onRefresh}>
             <ListItemIcon>
               {isRefreshing ? <CircularProgress /> : <RefreshIcon />}
             </ListItemIcon>
-            <ListItemText primary={this.props.t('navigation.refresh')} />
+            <ListItemText primary={this.props.t('backofficeMenu.refresh')} />
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -413,7 +413,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             <ListItemIcon>
               <PowerSettingsNewIcon />
             </ListItemIcon>
-            <ListItemText primary={this.props.t('navigation.logoff')} />
+            <ListItemText primary={this.props.t('backofficeMenu.logoff')} />
           </MenuItem>
         </Menu>
       </Grid>
@@ -433,119 +433,131 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     const items = [
       {
         to: '/search/results',
-        text: t('navigation.search'),
+        text: t('backofficeMenu.search'),
         icon: Search,
         className: classes.menuMobile,
       },
       { type: 'divider', className: classes.menuMobile },
       {
         to: '/dashboard',
-        text: t('navigation.dashboard'),
+        text: t('backofficeMenu.dashboard'),
         icon: TrendingUp,
       },
       'divider',
       {
         to: '/calendar',
         icon: DateRangeIcon,
-        text: t('navigation.calendar'),
+        text: t('backofficeMenu.calendar'),
       },
       {
         to: '/private-service/calendar/',
         icon: ScheduleIcon,
-        text: t('navigation.schedule'),
+        text: t('backofficeMenu.schedule'),
       },
       {
         icon: BusinessCenterIcon,
-        text: t('navigation.myClub'),
+        text: t('backofficeMenu.myClub'),
         type: 'nested',
         nestedItems: [
           {
             to: '/activity',
             icon: Star,
-            text: t('navigation.activity'),
+            text: t('backofficeMenu.activity'),
           },
           {
             to: '/workshop-activity',
             icon: TodayIcon,
-            text: t('navigation.workshopActivities'),
+            text: t('backofficeMenu.workshopActivities'),
           },
           {
             to: '/private-service/service/',
             icon: ScheduleIcon,
-            text: t('navigation.privateService.services'),
+            text: t('backofficeMenu.privateService.services'),
           },
           {
             to: '/coach',
             icon: FitnessCenter,
-            text: t('common.coaches'),
+            text: t('backofficeMenu.coaches'),
           },
           {
             to: '/establishment',
             icon: LocationOn,
-            text: t('navigation.establishment'),
+            text: t('backofficeMenu.establishment'),
           },
-          'divider',
+        ],
+      },
+      {
+        icon: ShoppingCartIcon,
+        text: t('backofficeMenu.product'),
+        type: 'nested',
+        nestedItems: [
           {
             to: '/payment-pack',
             icon: VpnKey,
-            text: t('navigation.pass'),
+            text: t('backofficeMenu.pass'),
           },
           {
             to: '/private-service/pass/',
             icon: ScheduleIcon,
-            text: t('navigation.privateService.pass'),
+            text: t('backofficeMenu.privateService.pass'),
           },
           {
             to: '/shop',
             icon: ShoppingCartIcon,
-            text: t('shop.myShop'),
+            text: t('backofficeMenu.myShop'),
           },
           {
             to: '/combo',
             icon: GroupWorkIcon,
-            text: t('navigation.combo'),
+            text: t('backofficeMenu.combo'),
+          },
+          {
+            to: '/coupon/',
+            icon: RedeemIcon,
+            text: t('backofficeMenu.coupon'),
+          },
+          'divider',
+          {
+            to: '/subscription',
+            icon: Payment,
+            text: t('backofficeMenu.contract'),
           },
         ],
       },
       {
         icon: EuroSymbolIcon,
-        text: t('navigation.payment'),
+        text: t('backofficeMenu.payment'),
         type: 'nested',
         defaultTo: '/invoice',
         nestedItems: [
           {
             to: '/invoice',
             icon: ReceiptIcon,
-            text: t('navigation.invoice'),
+            text: t('backofficeMenu.invoice'),
           },
           {
             to: '/subscription',
             icon: Payment,
-            text: t('navigation.subscription'),
+            text: t('backofficeMenu.subscription'),
           },
           {
             to: '/coach/performance',
             icon: PersonIcon,
-            text: t('navigation.coachPerformance'),
-          },
-          {
-            to: '/coupon/',
-            icon: RedeemIcon,
-            text: t('navigation.coupon'),
+            text: t('backofficeMenu.coachPerformance'),
           },
           {
             to: '/order/',
             icon: ShoppingCartIcon,
-            text: t('navigation.order'),
+            text: t('backofficeMenu.order'),
           },
         ],
       },
       {
         icon: Email,
-        text: t('navigation.message'),
+        text: t('backofficeMenu.message'),
         subtext:
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
-            ? t('navigation.beta')
+            ? t('backofficeMenu.beta')
             : null,
         type: 'nested',
         defaultTo: '/smart-list',
@@ -553,66 +565,66 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           {
             to: '/smart-list',
             icon: People,
-            text: t('navigation.smart_list'),
+            text: t('backofficeMenu.smart_list'),
           },
           {
             to: '/email-template',
             icon: Email,
-            text: t('navigation.email_template'),
+            text: t('backofficeMenu.email_template'),
           },
           {
             to: '/marketing',
             icon: StorageIcon,
             subtext:
               Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
-                ? t('navigation.alpha')
+                ? t('backofficeMenu.alpha')
                 : null,
-            text: t('navigation.sequence'),
+            text: t('backofficeMenu.sequence'),
           },
         ],
       },
       {
         icon: LaptopIcon,
-        text: t('navigation.digital'),
+        text: t('backofficeMenu.digital'),
         type: 'nested',
         nestedItems: [
           {
             icon: VideoLibraryIcon,
-            text: t('navigation.video'),
+            text: t('backofficeMenu.video'),
             disabled: true,
             to: '/vod/video',
-            subtext: t('navigation.alpha'),
+            subtext: t('backofficeMenu.alpha'),
           },
           {
             icon: PlaylistPlayIcon,
-            text: t('navigation.playlist'),
+            text: t('backofficeMenu.playlist'),
             disabled: true,
             to: '/vod/playlist',
-            subtext: t('navigation.alpha'),
+            subtext: t('backofficeMenu.alpha'),
           },
         ],
       },
       {
         to: '/member',
         icon: People,
-        text: t('navigation.member'),
+        text: t('backofficeMenu.member'),
       },
       {
         to: '/reporting',
         icon: DescriptionIcon,
-        text: t('navigation.reporting'),
+        text: t('backofficeMenu.reporting'),
       },
       'divider',
       {
         to: '/settings/general',
         icon: SettingsIcon,
-        text: t('navigation.settings'),
+        text: t('backofficeMenu.settings'),
       },
       {
         action: this.props.disconnect,
         to: '#',
         icon: HighlightOff,
-        text: t('navigation.logoff'),
+        text: t('backofficeMenu.logoff'),
       },
     ].map((item, i) => {
       return this.renderMenuItem(item, i, false);
@@ -826,7 +838,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withTranslation(),
+  withTranslation(['navigation']),
   withStyles(styles, { withTheme: true }),
   windowTitleToProps,
 )(withRouter(ResponsiveDrawer));

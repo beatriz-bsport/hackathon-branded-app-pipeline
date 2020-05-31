@@ -9,6 +9,9 @@ import Paper from '@material-ui/core/Paper';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withHandlers, withState } from 'recompose';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import Hidden from '@material-ui/core/Hidden';
+import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import withTitle from '../../hocs/with-title.hoc';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
@@ -77,15 +80,29 @@ export class WorkshopActivityList extends React.Component<Props> {
         {this.props.loading ? <LinearProgress /> : null}
         {this.props.workshopActivities.length > 0 ? (
           <div className={this.props.classes.search}>
-            <FuzeSearch
-              searchText={this.state.searchText}
-              clearSearch={this.clearSearch}
-              changeSearch={this.changeSearch}
-              items={this.props.workshopActivities}
-              placeholder={t('workshop:search')}
-              searchFields={['name', 'description']}
-              searchResult={this.state.searchResult}
-            />
+            <div className={classes.header}>
+              <div className={classes.searchField}>
+                <FuzeSearch
+                  searchText={this.state.searchText}
+                  clearSearch={this.clearSearch}
+                  changeSearch={this.changeSearch}
+                  items={this.props.workshopActivities}
+                  placeholder={t('actions.search')}
+                  searchFields={['name', 'description']}
+                  searchResult={this.state.searchResult}
+                />
+              </div>
+              <Hidden smDown>
+                <Button
+                  onClick={this.props.goToPaymentPack}
+                  color="primary"
+                  variant="outlined"
+                >
+                  <ArrowForwardIcon className={classes.leftIcon} />
+                  {t('navigation.goToPaymentPack')}
+                </Button>
+              </Hidden>
+            </div>
             <Paper
               className={
                 this.state.searchResult.length > 0 &&
@@ -124,7 +141,7 @@ export class WorkshopActivityList extends React.Component<Props> {
           deleteWorkshop={this.props.deleteWorkshop}
         />
         <BottomActionsButton
-          onCreateLabel={this.props.t('workshopActivity.addWorkshopActivity')}
+          onCreateLabel={this.props.t('actions.addWorkshopActivity')}
           onCreate={this.props.onCreate}
         />
       </div>
@@ -148,11 +165,24 @@ const styles = (theme) => ({
     borderTop: '0px',
     boderBottom: '0px',
   },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  searchField: {
+    flex: 1,
+    marginRight: theme.spacing(1),
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1),
+  },
 });
 
 export default compose(
   withStyles(styles),
-  withTranslation(),
+  withTranslation(['workshop', 'titles']),
   withTitle(({ t }) => t('titles:workshopActivity.workshopActivityList')),
   connect(
     (state) => ({
@@ -163,6 +193,7 @@ export default compose(
       fetchAllWorkshops: fetchAllWorkshopsAction,
       makeActivityCopy: makeActivityCopyAction,
       onCreate: () => push('/workshop-activity/add'),
+      goToPaymentPack: () => push('/payment-pack'),
       deleteWorkshop,
       goToDetail: (metaActivityId) =>
         push(`/workshop-activity/${metaActivityId}/general`),

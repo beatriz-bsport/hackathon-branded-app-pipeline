@@ -1,5 +1,12 @@
 exports.default = {
   search: 'Chercher un atelier',
+  actions: {
+    addWorkshopActivity: 'Ajouter un atelier',
+    search: 'Rechercher un atelier',
+  },
+  navigation: {
+    goToPaymentPack: 'Cartes de cours',
+  },
   modal: {
     delete: {
       title: "Suppression de l'atelier",

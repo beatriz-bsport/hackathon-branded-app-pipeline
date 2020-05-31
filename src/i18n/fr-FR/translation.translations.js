@@ -521,6 +521,7 @@ exports.default = {
       cancelOption: 'Annuler',
     },
   },
+  // DEPRECATED
   navigation: {
     video: 'Bibliothèque vidéo',
     playlist: 'Parcours',

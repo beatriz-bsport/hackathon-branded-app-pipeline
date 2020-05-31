@@ -1,6 +1,13 @@
 exports.default = {
   metaActivity: 'Activité',
   search: 'Chercher une activité',
+  actions: {
+    addActivity: 'Ajouter une activité',
+    search: 'Rechercher une activité',
+  },
+  navigation: {
+    goToPaymentPack: 'Cartes de cours',
+  },
   forms: {
     create: {
       compatible_packs: {

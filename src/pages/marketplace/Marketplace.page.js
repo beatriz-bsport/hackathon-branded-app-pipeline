@@ -53,6 +53,7 @@ import MarketplaceVodRouter from './MarketplaceVod.router';
 
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import Config from '../../config';
+import { getMarketplaceRoute } from './routing-utils';
 
 import {
   consumer as consumerActions,
@@ -272,10 +273,15 @@ export class MarketPlace extends Component<Props, State> {
       );
     }
 
-    if (decodeURI(this.props.companyName) !== this.props.theme.company_name) {
+    if (
+      !!this.props.theme.company_name &&
+      decodeURI(this.props.companyName.toLowerCase().replace(/ /g, '-')) !==
+        this.props.theme.company_name.toLowerCase().replace(/ /g, '-')
+    ) {
       this.props.replace(
-        `/m/${this.props.theme.company_name}/${this.props.companyId}/${this
-          .props.tab || ''}`,
+        `/m/${this.props.theme.company_name.toLowerCase().replace(/ /g, '-')}/${
+          this.props.companyId
+        }/${this.props.tab || ''}`,
       );
     }
     return (
@@ -511,7 +517,7 @@ export default compose(
       // navigation
       replace,
       goToTab: (companyName: string, companyId: number, tab: string) =>
-        pushRouter(`/m/${companyName}/${companyId}/${tab}/`),
+        pushRouter(getMarketplaceRoute(companyName, companyId, tab)),
     },
   ),
 )(MarketPlace);

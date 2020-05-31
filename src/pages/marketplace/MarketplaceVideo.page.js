@@ -11,6 +11,8 @@ import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
+import { getMarketplaceRoute } from './routing-utils';
+
 import {
   getVideoList,
   withCategory,
@@ -119,7 +121,7 @@ export default compose(
   ),
   withHandlers({
     openVideo: ({ companyName, companyId, push }) => (videoId) =>
-      push(`/m/${companyName}/${companyId}/vod/video/${videoId}`),
+      push(getMarketplaceRoute(companyName, companyId, `vod/video/${videoId}`)),
     fetchMoreVideo: ({ fetchMoreVideo, companyId, searchParams }) => () => {
       fetchMoreVideo({
         status: 400,

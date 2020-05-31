@@ -1,7 +1,13 @@
 // @flow
 
 import React from 'react';
-import { compose, withState, withProps, withHandlers } from 'recompose';
+import {
+  compose,
+  withState,
+  withProps,
+  withStateHandlers,
+  withHandlers,
+} from 'recompose';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
@@ -9,9 +15,6 @@ import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import moment from 'moment';
-import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-data/planned-invoice-status';
-
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 
@@ -20,6 +23,7 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
+import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -27,8 +31,8 @@ import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/se
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
 import EventPanel from '../../libs/event/components/EventPanel.component';
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
-import PlannedInvoiceList from '../../libs/subscription/components/PlannedInvoiceList.component';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
+import SubscriptionContractFormDialog from '../../libs/subscription/components/SubscriptionContractFormDialog.component';
 import { COMPANY_EVENTS } from '../../libs/subscription/components/event.utils';
 
 import { search as searchMembers } from '../../libs/member/actions';
@@ -37,11 +41,12 @@ import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/p
 
 import {
   getSubscriptionList,
-  getAvailableContractListWithPaymentPack,
+  getAvailableContractListManager,
+  getAvailableContractListCustomer,
   getContract,
   getSubscriptionEventList,
   getSubscriptionEventState,
-  getPlannedInvoiceList,
+  withPaymentPack,
 } from '../../libs/subscription/selectors';
 import {
   createOrUpdateContract,
@@ -50,7 +55,6 @@ import {
   fetchSubscriptionList as fetchSubscriptionListAction,
   fetchSubscriptionBulk as fetchSubscriptionBulkAction,
   fetchSubscriptionEventList as fetchSubscriptionEventListAction,
-  fetchPlannedInvoiceList,
 } from '../../libs/subscription/actions';
 
 type Props = {
@@ -91,8 +95,6 @@ type Props = {
   classes: Object,
 };
 
-const PLANNED_INVOICE_PAGE_SIZE = 10;
-
 export class SubscriptionList extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchContractList();
@@ -115,65 +117,93 @@ export class SubscriptionList extends React.Component<Props> {
   render() {
     return (
       <div className={this.props.classes.container}>
-        <Grid container spacing={1}>
-          <Grid item xs={12} lg={6}>
-            <div className={this.props.classes.divider} />
-            <PlannedInvoiceList
-              count={this.props.plannedInvoiceCount}
-              title={this.props.t('plannedInvoice.list.titleNext')}
-              page={this.props.plannedInvoicePage}
-              loading={this.props.plannedInvoiceLoading}
-              plannedInvoiceList={this.props.plannedInvoiceList}
-              fetchPlannedInvoicePage={this.props.fetchPlannedInvoicePage}
-              onClick={this.props.goToSubscription}
-              itemPerPage={PLANNED_INVOICE_PAGE_SIZE}
-            />
-          </Grid>
-          <Grid item xs={12} lg={6}>
-            <div className={this.props.classes.divider} />
-            <Paper>
-              <EventPanel
-                loading={this.props.eventLoading}
-                eventList={this.props.eventList}
-                page={this.props.eventPage}
-                eventSpec={COMPANY_EVENTS}
-                fetchEventList={this.props.fetchSubscriptionEventList}
-                onEventClick={this.props.goToSubscription}
+        <Grid container spacing={2}>
+          {!!this.props.contractListAvailableAll.length && (
+            <Grid item xs={12} lg={6}>
+              <Typography
+                className={this.props.classes.sectionTitle}
+                variant="h4"
+              >
+                {this.props.t(
+                  'subscription:contract.list.titleCustomerAvailable',
+                )}
+              </Typography>
+              <Divider className={this.props.classes.divider} />
+              <SubscriptionContractList
+                contractList={this.props.contractListAvailableAll}
+                dense
+                divider
+                loading={this.props.contractLoading}
+                onClick={this.onClickContract}
+                selectedContract={this.props.selectedContract}
+                onRegister={this.props.openContractRegister}
+                onEdit={(data, options) => {
+                  this.props.createOrUpdateContract(data, {
+                    onSuccess: () => {
+                      this.props.fetchContractList();
+                      if (options && options.onSuccess) {
+                        options.onSuccess();
+                      }
+                    },
+                  });
+                }}
+                onDelete={(id) =>
+                  this.props.deleteContract(id, {
+                    onSuccess: this.props.fetchContractList,
+                  })
+                }
+                paymentPacks={this.props.paymentPacks}
               />
-            </Paper>
-          </Grid>
+            </Grid>
+          )}
+          {!!this.props.contractListManagerOnly.length && (
+            <Grid item xs={12} lg={6}>
+              <Typography
+                className={this.props.classes.sectionTitle}
+                variant="h4"
+              >
+                {this.props.t('subscription:contract.list.titleManagerOnly')}
+              </Typography>
+              <Divider className={this.props.classes.divider} />
+              <SubscriptionContractList
+                contractList={this.props.contractListManagerOnly}
+                dense
+                divider
+                loading={this.props.contractLoading}
+                onClick={this.onClickContract}
+                selectedContract={this.props.selectedContract}
+                onRegister={this.props.openContractRegister}
+                onEdit={(data, options) => {
+                  this.props.createOrUpdateContract(data, {
+                    onSuccess: () => {
+                      this.props.fetchContractList();
+                      if (options && options.onSuccess) {
+                        options.onSuccess();
+                      }
+                    },
+                  });
+                }}
+                onDelete={(id) =>
+                  this.props.deleteContract(id, {
+                    onSuccess: this.props.fetchContractList,
+                  })
+                }
+                paymentPacks={this.props.paymentPacks}
+              />
+            </Grid>
+          )}
         </Grid>
-        <Typography className={this.props.classes.sectionTitle} variant="h4">
-          {this.props.selectedContract
-            ? this.props.selectedContractData.name || '  - '
-            : this.props.t('subscription.list.title')}
-        </Typography>
-        <Divider className={this.props.classes.divider} />
-        <SubscriptionTable
-          goToSubscription={this.props.goToSubscription}
-          subscriptionList={this.props.subscriptionList}
-          loading={this.props.subscriptionLoading}
-          count={this.props.subscriptionCount}
-          onPageChange={this.props.fetchSubscriptionList}
+        <BottomActionsButton
+          onCreateLabel={this.props.t('subscription:contract.actions.create')}
+          onCreate={this.props.onRequestCreate}
         />
-        {this.props.contractRegisterOpen && this.props.selectedContract ? (
-          <SubscriptionContractRegister
-            open={this.props.contractRegisterOpen}
-            contract={this.props.selectedContractData}
-            searchMembers={this.props.searchMembers}
-            searchedMembers={this.props.searchedMembers}
-            searchLoading={this.props.searchMemberLoading}
-            onChangeMember={this.props.setMemberToBill}
-            member={this.props.memberToBill}
-            onSuccess={this.props.closeContractRegister}
-            onClose={this.props.closeContractRegister}
-            enabledPaymentMethods={[
-              BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-              BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-              BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-            ]}
+        {this.props.createContractFormOpen && (
+          <SubscriptionContractFormDialog
+            paymentPacks={this.props.paymentPacks}
+            open
+            onSubmit={this.props.onCreate}
           />
-        ) : null}
+        )}
       </div>
     );
   }
@@ -193,14 +223,19 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withTranslation(['subscription']),
+  withTranslation(['subscription', 'titles']),
   withStyles(styles),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:subscription.subscriptions'),
   ),
   connect(
     (state) => ({
-      contractList: getAvailableContractListWithPaymentPack(state),
+      contractListManagerOnly: withPaymentPack(getAvailableContractListManager)(
+        state,
+      ),
+      contractListAvailableAll: withPaymentPack(
+        getAvailableContractListCustomer,
+      )(state),
       contractLoading: state.subscription.contract.loading,
       paymentPacks: getPaymentPackEnabled(state),
       subscriptionList: getSubscriptionList(state),
@@ -210,10 +245,6 @@ export default compose(
       eventList: getSubscriptionEventList(state),
       eventPage: getSubscriptionEventState(state).page,
       eventLoading: getSubscriptionEventState(state).loading,
-      plannedInvoiceCount: state.subscription.plannedInvoice.count,
-      plannedInvoiceLoading: state.subscription.plannedInvoice.loading,
-      plannedInvoiceList: getPlannedInvoiceList(state),
-      plannedInvoicePage: state.subscription.plannedInvoice.page,
     }),
     {
       fetchContractList: fetchContractListAction,
@@ -225,7 +256,6 @@ export default compose(
       deleteContract,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       goToSubscription: (id) => pushRouter(`/subscription/${id}`),
-      fetchPlannedInvoiceList,
     },
   ),
   withState('selectedContract', 'setSelectedContract', null),
@@ -246,20 +276,6 @@ export default compose(
     selectedContractData: getContract(state, selectedContract),
   })),
   withHandlers({
-    fetchPlannedInvoicePage: ({ fetchPlannedInvoiceList }) => (
-      page,
-      page_size,
-    ) => {
-      fetchPlannedInvoiceList(
-        page,
-        {
-          status: PLANNED_INVOICE_PENDING.id,
-          billing_plan__active: true,
-          date__gte: moment().format('YYYY-MM-DD'),
-        },
-        page_size,
-      );
-    },
     fetchSubscriptionEventList: ({
       fetchSubscriptionEventList,
       fetchSubscriptionBulk,
@@ -295,4 +311,24 @@ export default compose(
           fetchPaymentPackBulk(contractList.map((c) => c.payment_pack)),
       }),
   })),
+  withStateHandlers(
+    { createContractFormOpen: false },
+    {
+      onRequestCreate: () => () => ({ createContractFormOpen: true }),
+      onCreate: (_, { createOrUpdateContract, fetchContractList }) => (
+        data,
+        options,
+      ) => {
+        createOrUpdateContract(data, {
+          onSuccess: () => {
+            fetchContractList();
+            if (options && options.onSuccess) {
+              options.onSuccess();
+            }
+          },
+        });
+        return { createContractFormOpen: false };
+      },
+    },
+  ),
 )(SubscriptionList);

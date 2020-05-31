@@ -31,6 +31,20 @@ const stop = async (id: number, params: any) => {
   return deleteAuth(`${API_URI}/subscription/billing-plan/${id}/stop/`, params);
 };
 
+export const fetchPlannedInvoiceList = async (
+  page: number,
+  page_size: number,
+  params: any = {},
+) => {
+  return getAuth(
+    `${API_URI}/subscription/planned-invoice/${buildUrlParams({
+      page,
+      page_size,
+      ...params,
+    })}`,
+  );
+};
+
 const fetchContractList = async (params: any = {}) => {
   return getAuth(`${API_URI}/subscription/contract/${buildUrlParams(params)}`);
 };

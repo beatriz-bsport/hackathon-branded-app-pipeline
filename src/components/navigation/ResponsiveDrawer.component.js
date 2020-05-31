@@ -518,7 +518,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           },
           'divider',
           {
-            to: '/subscription',
+            to: '/subscription/contract',
             icon: Payment,
             text: t('backofficeMenu.contract'),
           },

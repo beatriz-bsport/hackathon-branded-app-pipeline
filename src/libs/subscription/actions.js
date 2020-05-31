@@ -9,6 +9,7 @@ import api, {
   freezeSubscription as freezeSubscriptionAPI,
   switchSubscriptionPaymentPack as switchSubscriptionPaymentPackAPI,
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAPI,
+  fetchPlannedInvoiceList as fetchPlannedInvoiceListAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -28,6 +29,39 @@ export const fetchSubscriptionEventList = (params = {}, options) =>
     },
     options,
   );
+
+export const listPlannedInvoiceActions = {
+  error: createAction('SUBSCRIPTION/PLANNED_INVOICE/ERROR'),
+  isLoading: createAction('SUBSCRIPTION/PLANNED_INVOICE/IS_LOADING'),
+  success: createAction('SUBSCRIPTION/PLANNED_INVOICE/SUCCESS'),
+  reset: createAction('SUBSCRIPTION/PLANNED_INVOICE/RESET'),
+};
+
+export const resetPlannedInvoiceList = listPlannedInvoiceActions.reset;
+
+export function fetchPlannedInvoiceList(
+  page: number = 1,
+  params: any = {},
+  pageSize: number = 10,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPlannedInvoiceActions.error(null));
+    dispatch(listPlannedInvoiceActions.isLoading(true));
+    try {
+      const response = await fetchPlannedInvoiceListAPI(page, pageSize, params);
+      dispatch(listPlannedInvoiceActions.success({ ...response.data, page }));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listPlannedInvoiceActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(listPlannedInvoiceActions.isLoading(false));
+  };
+}
 
 export const listSubscriptionActions = {
   error: createAction('SUBSCRIPTION/LIST/ERROR'),
@@ -70,6 +104,8 @@ export function fetchSubscriptionBulk(
   return async (dispatch: Dispatch) => {
     dispatch(subscriptionBulkActions.isLoading(true));
     dispatch(subscriptionBulkActions.error(null));
+
+    if (!ids || ids.length === 0) return;
 
     try {
       const response = await api.fetchSubscriptionList({ id__in: ids });
@@ -435,18 +471,14 @@ export function switchSubscriptionPaymentMethod(
     try {
       const response = await switchSubscriptionPaymentMethodAPI(id, data);
       dispatch(switchPaymentMethodActions.success(response.data));
-      dispatch(
-        snackbarSuccess('subscription.switchPaymentMethod.success'),
-      );
+      dispatch(snackbarSuccess('subscription.switchPaymentMethod.success'));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
     } catch (err) {
       console.error(err);
       dispatch(switchPaymentMethodActions.error(err));
-      dispatch(
-        snackbarError('subscription.switchPaymentMethod.error'),
-      );
+      dispatch(snackbarError('subscription.switchPaymentMethod.error'));
       if (options && options.onError) options.onError(err);
     }
     dispatch(switchPaymentMethodActions.isLoading(false));

@@ -34,7 +34,8 @@ type Props = {
 
   onDelete: (id: number, options: OptionCallback) => void,
   paymentPacks: Array<PaymentPack>,
-  createOrUpdate: (data: *, options: OptionCallback) => void,
+  onEdit: ?(data: *, options: OptionCallback) => void,
+  onCreate: ?(data: *, options: OptionCallback) => void,
 };
 export const SubscriptionContractList = (props: Props) => {
   return (
@@ -64,32 +65,36 @@ export const SubscriptionContractList = (props: Props) => {
           ))}
         </List>
       </Paper>
-      <div className={props.classes.buttonRow}>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={() => props.setCreateOpen(true)}
-        >
-          <AddIcon className={props.classes.leftIcon} />
-          {props.t('contract.list.addButton')}
-        </Button>
-        {props.selectedContract ? (
+      {!!props.onCreate && (
+        <div className={props.classes.buttonRow}>
           <Button
             color="primary"
             variant="contained"
-            onClick={() =>
-              props.onRegister(
-                props.contractList.find((c) => c.id === props.selectedContract),
-              )
-            }
+            onClick={() => props.setCreateOpen(true)}
           >
-            <ReceiptIcon className={props.classes.leftIcon} />
-            {props.t('contract.list.register')}
+            <AddIcon className={props.classes.leftIcon} />
+            {props.t('contract.list.addButton')}
           </Button>
-        ) : (
-          <div />
-        )}
-      </div>
+          {props.selectedContract ? (
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() =>
+                props.onRegister(
+                  props.contractList.find(
+                    (c) => c.id === props.selectedContract,
+                  ),
+                )
+              }
+            >
+              <ReceiptIcon className={props.classes.leftIcon} />
+              {props.t('contract.list.register')}
+            </Button>
+          ) : (
+            <div />
+          )}
+        </div>
+      )}
       {props.createOpen ? (
         <SubscriptionContractFormDialog
           onClose={() => {
@@ -100,7 +105,7 @@ export const SubscriptionContractList = (props: Props) => {
           initial={props.contractToEdit}
           paymentPacks={props.paymentPacks}
           onSubmit={(data, options) => {
-            props.createOrUpdate(data, {
+            props.onCreate(data, {
               onSuccess: () => {
                 props.setCreateOpen(false);
                 if (options && options.onSuccess) options.onSuccess();
@@ -121,7 +126,7 @@ export const SubscriptionContractList = (props: Props) => {
           paymentPacks={props.paymentPacks}
           processing={props.processing}
           onSubmit={(data, options) => {
-            props.createOrUpdate(data, {
+            props.onEdit(data, {
               onSuccess: () => {
                 props.setContractToEdit(null);
                 if (options && options.onSuccess) options.onSuccess();

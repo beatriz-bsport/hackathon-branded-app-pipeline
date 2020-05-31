@@ -76,6 +76,9 @@ exports.default = {
     pausedAt: '{{ days }} jours - le {{ date }}',
   },
   plannedInvoice: {
+    list: {
+      titleNext: 'Prochains prélèvements',
+    },
     priceUpdater: {
       title: 'Modification montant futur',
       price: 'Nouveau montant',
@@ -99,12 +102,15 @@ exports.default = {
     description: 'Description',
     legal: 'Mentions légales',
     actions: {
+      create: 'Ajouter un contrat',
       iAcceptCondition: "J'accepte les conditions ci-dessus",
       iwanttostarton: 'Je souhaite débuter la facturation le : ',
       subscribe: "M'abonner",
     },
     list: {
-      title: 'Contrat disponible à la vente',
+      title: 'Contrats',
+      titleCustomerAvailable: 'Contrats disponibles à la vente',
+      titleManagerOnly: 'Contrats non-disponibles à la vente',
       isEmpty: 'Aucun contrat disponible',
       addButton: 'Définir un contrat',
       register: 'Abonner un membre',

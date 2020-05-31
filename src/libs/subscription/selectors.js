@@ -23,6 +23,16 @@ export const getAvailableContractList = createSelector(
   (ids, data) => ids.map((id) => data[id]),
 );
 
+export const getAvailableContractListManager = createSelector(
+  getAvailableContractList,
+  (contractList) => contractList.filter((c) => !!c.manager_only),
+);
+
+export const getAvailableContractListCustomer = createSelector(
+  getAvailableContractList,
+  (contractList) => contractList.filter((c) => !c.manager_only),
+);
+
 export const getAvailableContractListWithPaymentPack = createSelector(
   [getAvailableContractList, getPaymentPackList],
   (contractsList, packList) =>
@@ -109,6 +119,16 @@ export const getSubscriptionEventList = createSelector(
       subscription: subscriptionData[e.data.billing_plan],
     }));
   },
+);
+
+const _getPlannedInvoiceIds = (state) =>
+  state.subscription.plannedInvoice.allIds;
+const _getPlannedInvoiceData = (state) =>
+  state.subscription.plannedInvoice.byId;
+
+export const getPlannedInvoiceList = createSelector(
+  [_getPlannedInvoiceIds, _getPlannedInvoiceData],
+  (ids, data) => ids.map((id) => data[id]).filter((pl) => !!pl),
 );
 
 export default { get };

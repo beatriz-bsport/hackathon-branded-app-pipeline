@@ -17,6 +17,7 @@ import {
   switchPaymentPackActions,
   switchPaymentMethodActions,
   subscriptionBulkActions,
+  listPlannedInvoiceActions,
 } from './actions';
 
 import type { SubscriptionState } from './types';
@@ -69,6 +70,15 @@ const initialState: SubscriptionState = Immutable({
     page: 1,
   },
 
+  plannedInvoice: {
+    byId: {},
+    loading: false,
+    error: null,
+    allIds: [],
+    nextPage: 1,
+    page: 1,
+  },
+
   contract: {
     loading: false,
     error: null,
@@ -93,6 +103,37 @@ const initialState: SubscriptionState = Immutable({
 
 export default handleActions(
   {
+    [listPlannedInvoiceActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['plannedInvoice', 'loading'], payload);
+    },
+    [listPlannedInvoiceActions.error]: (state, { payload }) => {
+      return state.setIn(['plannedInvoice', 'error'], payload);
+    },
+    [listPlannedInvoiceActions.reset]: (state) => {
+      return state
+        .setIn(['plannedInvoice', 'nextPage'], 1)
+        .setIn(['plannedInvoice', 'allIds'], []);
+    },
+    [listPlannedInvoiceActions.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            plannedInvoice: {
+              byId: payload.results.reduce(
+                (acc, v) => ({ ...acc, [v.id]: v }),
+                {},
+              ),
+            },
+          },
+          {
+            deep: true,
+          },
+        )
+        .setIn(['plannedInvoice', 'allIds'], payload.results.map((pl) => pl.id))
+        .setIn(['plannedInvoice', 'nextPage'], payload.next_page)
+        .setIn(['plannedInvoice', 'page'], payload.page)
+        .setIn(['plannedInvoice', 'count'], payload.count);
+    },
     [subscriptionBulkActions.isLoading]: (state, { payload }) => {
       return state.setIn(['bulk', 'loading'], payload);
     },

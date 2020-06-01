@@ -6,6 +6,22 @@ exports.default = {
   actions: {
     edit: 'Modifier',
     delete: 'Supprimer',
+    scaleCredit: 'Mult/div les crédits',
+  },
+  scaleCredit: {
+    title: 'Modification du total de crédit',
+    explain:
+      'Vous pouvez multiplier les crédit de la carte (3/7 x2 devient 6/14) ou les diviser (3/7 ÷2 devient 1/3).',
+    parameterLegend: 'Paramètres',
+    scaleDown: 'Diviser',
+    scaleUp: 'Multiplier',
+    factor: {
+      label: 'Facteur',
+    },
+    actions: {
+      cancel: 'Annuler',
+      submit: 'Enregistrer',
+    },
   },
   consumerPaymentPack: {
     addExtension: 'Ajouter une extension',
@@ -92,6 +108,8 @@ exports.default = {
   form: {
     paymentPack: {
       from: 'A partir du ',
+      notEditable:
+        "Cette carte de cours est issue d'une migration, certains champs ne sont pas modifiable pour respecter l'historique.",
       until: "Jusqu'au ",
 
       name: {

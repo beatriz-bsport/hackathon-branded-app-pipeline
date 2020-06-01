@@ -379,55 +379,57 @@ export const AddressFieldsSchema = {
   country: Yup.string().required(),
 };
 
-export const AddressFields = withTranslation([])((props: AddressFieldsProps) => {
-  const { t, autoComplete, required, disabled } = props;
-  return (
-    <div>
-      <TextField
-        required={required}
-        name="address_line_1"
-        autoComplete={autoComplete ? 'address-line1' : null}
-        fullWidth
-        disabled={!!disabled}
-        label={t('form.address.addressLine1')}
-      />
-      <TextField
-        name="address_line_2"
-        autoComplete={autoComplete ? 'address-line2' : null}
-        fullWidth
-        disabled={!!disabled}
-        label={t('form.address.addressLine2')}
-      />
-      <Grid container direction="row" spacing={2}>
-        <Grid item>
-          <TextField
-            name="zipcode"
-            autoComplete={autoComplete ? 'zipcode' : null}
-            label={t('form.address.zipcode')}
-            disabled={!!disabled}
-            required={required}
-          />
+export const AddressFields = withTranslation([])(
+  (props: AddressFieldsProps) => {
+    const { t, autoComplete, required, disabled } = props;
+    return (
+      <div>
+        <TextField
+          required={required}
+          name="address_line_1"
+          autoComplete={autoComplete ? 'address-line1' : null}
+          fullWidth
+          disabled={!!disabled}
+          label={t('form.address.addressLine1')}
+        />
+        <TextField
+          name="address_line_2"
+          autoComplete={autoComplete ? 'address-line2' : null}
+          fullWidth
+          disabled={!!disabled}
+          label={t('form.address.addressLine2')}
+        />
+        <Grid container direction="row" spacing={2}>
+          <Grid item>
+            <TextField
+              name="zipcode"
+              autoComplete={autoComplete ? 'zipcode' : null}
+              label={t('form.address.zipcode')}
+              disabled={!!disabled}
+              required={required}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              name="city"
+              autoComplete={autoComplete ? 'city' : null}
+              label={t('form.address.city')}
+              disabled={!!disabled}
+              required={required}
+            />
+          </Grid>
         </Grid>
-        <Grid item>
-          <TextField
-            name="city"
-            autoComplete={autoComplete ? 'city' : null}
-            label={t('form.address.city')}
-            disabled={!!disabled}
-            required={required}
-          />
-        </Grid>
-      </Grid>
-      <TextField
-        name="country"
-        autoComplete={autoComplete ? 'country' : null}
-        required={required}
-        disabled={!!disabled}
-        label={t('form.address.country')}
-      />
-    </div>
-  );
-});
+        <TextField
+          name="country"
+          autoComplete={autoComplete ? 'country' : null}
+          required={required}
+          disabled={!!disabled}
+          label={t('form.address.country')}
+        />
+      </div>
+    );
+  },
+);
 
 type PhoneFieldProps = {};
 
@@ -753,6 +755,7 @@ export const RadioGroupField = (props: RadioFieldProps) => {
               <FormControlLabel
                 key={value}
                 value={value}
+                disabled={props.disabled}
                 control={<Radio checked={`${field.value}` === `${value}`} />}
                 label={l}
               />

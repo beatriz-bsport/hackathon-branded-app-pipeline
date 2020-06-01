@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { compose } from 'recompose';
+import { compose, withStateHandlers } from 'recompose';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
+import HeightIcon from '@material-ui/icons/Height';
 import Hidden from '@material-ui/core/Hidden';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LinkIcon from '@material-ui/icons/Link';
@@ -26,6 +27,8 @@ import EstablishmentSummary from '../../establishment/components/EstablishmentSu
 import Sport from '../../category/components/SCT.component';
 import type { MetaActivity } from '../../../api/types';
 import { getValidityInfo } from '../utils';
+
+import PaymentPackScaleCreditDialog from './PaymentPackScaleCreditDialog.component';
 
 import type { PaymentPack } from '../types';
 
@@ -276,6 +279,40 @@ export class PaymentPackCard extends Component<Props> {
       <CircularProgress />
     );
   };
+  /*
+  renderAdvancedOptions = () => {
+    const { classes, t } = this.props;
+    return (
+      <div className={classes.advancedContainer}>
+        <div className={classes.advancedHeader}>
+          <Typography variant="subtitle">
+            {this.props.t('options.advanced')}
+          </Typography>
+          <IconButton onClick={this.props.toogleAdvanceMenu}>
+            <ExpandMoreIcon />
+          </IconButton>
+        </div>
+        <Collapse in={this.props.advancedMenuOpen}>
+          <div className={classes.advancedContent}>
+            <List disablePadding>
+              <ListItem densebutton>
+                <ListItemText primary={t('options.scaleCredit')} />
+                <ListItemSecondaryAction>
+                  <IconButton
+                    onClick={this.props.toogleScaleMenuOpen}
+                    color="primary"
+                  >
+                    <ArrowForwardIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            </List>
+          </div>
+        </Collapse>
+      </div>
+    );
+  };
+  */
 
   renderEditDeleteButtons = () => {
     const { pack, classes, t } = this.props;
@@ -290,6 +327,10 @@ export class PaymentPackCard extends Component<Props> {
     }
     return (
       <div className={classes.buttonContainer}>
+        <Button color="primary" onClick={this.props.toogleScaleMenuOpen}>
+          <HeightIcon className={classes.iconLeft} />
+          <Hidden xsDown>{t('actions.scaleCredit')}</Hidden>
+        </Button>
         <Button color="primary" onClick={this.props.onEditButtonClick}>
           <EditIcon className={classes.iconLeft} />
           <Hidden xsDown>{t('actions.edit')}</Hidden>
@@ -314,18 +355,26 @@ export class PaymentPackCard extends Component<Props> {
         <div className={classes.horizontalBlock}>
           {this.getPackHeadingInfo()}
         </div>
-        {onlyPublic ? null : (
+        {onlyPublic && (
           <div className={classes.buttonBlock}>
             {this.renderLinkToPaymentPage()}
           </div>
         )}
         {this.renderScope()}
 
-        {onlyPublic ? null : (
+        {!onlyPublic && (
           <div className={classes.buttonBlock}>
             {this.renderEditDeleteButtons()}
           </div>
         )}
+        <PaymentPackScaleCreditDialog
+	  open={this.props.scaleMenuOpen}
+	  loading={this.props.scaleCreditLoading}
+          onClose={this.props.toogleScaleMenuOpen}
+          onSubmit={(data) =>
+            this.props.onScaleCredit(this.props.pack.id, data)
+          }
+        />
       </Paper>
     );
   }
@@ -405,9 +454,26 @@ const styles = (theme) => ({
   linkTypo: {
     paddingLeft: theme.spacing(1),
   },
+  advancedContainer: {
+    width: '100%',
+  },
+  advancedHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 });
 
 export default compose(
   withStyles(styles),
   withTranslation(['paymentPack']),
+  withStateHandlers(
+    { scaleMenuOpen: false },
+    {
+      toogleScaleMenuOpen: ({ scaleMenuOpen }) => () => ({
+        scaleMenuOpen: !scaleMenuOpen,
+      }),
+    },
+  ),
 )(PaymentPackCard);

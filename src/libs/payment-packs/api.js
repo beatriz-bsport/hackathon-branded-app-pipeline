@@ -27,6 +27,13 @@ export async function fetchAllPaymentPacks() {
   return getAuth(`${API_URI}/saas/payment-pack/`);
 }
 
+export const scalePaymentPackCredit = async (id: number, data: any) => {
+  return postAuth(
+    `${API_V1_URI}/payment-pack/payment-pack/${id}/scale_credit/`,
+    data,
+  );
+};
+
 export async function create(data) {
   return postAuth(`${API_URI}/saas/payment-pack/add/`, data);
 }

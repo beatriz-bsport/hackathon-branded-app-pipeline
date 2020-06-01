@@ -77,7 +77,13 @@ export function PaymentPackForm(props: Props) {
     initial,
     classes,
   } = props;
-  const { manager_only, unlimited, start_date_method, timeType } = values;
+  const {
+    manager_only,
+    unlimited,
+    editable,
+    start_date_method,
+    timeType,
+  } = values;
   return (
     <div>
       <Form className={classes.content}>
@@ -91,12 +97,20 @@ export function PaymentPackForm(props: Props) {
               helperText={t('form.paymentPack.name.helperText')}
             />
           </Grid>
+          {!editable && (
+            <Grid item xs={12} className={classes.row}>
+              <Typography color="error">
+                {t('form.paymentPack.notEditable')}
+              </Typography>
+            </Grid>
+          )}
           <Grid item xs={12} md={6}>
             <PriceField
               name="price"
               label={t('form.paymentPack.priceIncludingTax.label')}
               required
               fullWidth
+              disabled={!editable}
               helperText={t('form.paymentPack.priceIncludingTax.helperText')}
             />
           </Grid>
@@ -107,6 +121,7 @@ export function PaymentPackForm(props: Props) {
               type="number"
               required
               fullWidth
+              disabled={!editable}
               max={100}
               InputProps={{
                 inputProps: { min: 0, max: 100, step: 0.01 },
@@ -135,13 +150,14 @@ export function PaymentPackForm(props: Props) {
               label={t('form.paymentPack.credits.label')}
               type="number"
               fullWidth
-              disabled={unlimited}
+              disabled={unlimited || !editable}
               helperText={t('form.paymentPack.credits.helperText')}
             />
           </Grid>
           <Grid item xs={6}>
             <CheckboxField
               name="unlimited"
+              disabled={!editable}
               label={t('form.paymentPack.unlimited')}
             />
           </Grid>
@@ -164,6 +180,7 @@ export function PaymentPackForm(props: Props) {
             <Grid item xs={12} md={6}>
               <RadioGroupField
                 name="timeType"
+                disabled={!editable}
                 choices={[
                   {
                     label: t('form.paymentPack.validByDuration'),
@@ -186,6 +203,7 @@ export function PaymentPackForm(props: Props) {
                       label={t('form.paymentPack.durationDays.label')}
                       helperText={t('form.paymentPack.durationDays.helperText')}
                       type="number"
+                      disabled={!editable}
                       fullWidth
                     />
                   </div>
@@ -194,6 +212,7 @@ export function PaymentPackForm(props: Props) {
                     <TextField
                       name="duration_months"
                       label={t('form.paymentPack.durationMonths.label')}
+                      disabled={!editable}
                       helperText={t(
                         'form.paymentPack.durationMonths.helperText',
                       )}
@@ -205,6 +224,7 @@ export function PaymentPackForm(props: Props) {
                     <AddIcon className={classes.leftIcon} />
                     <TextField
                       name="duration_years"
+                      disabled={!editable}
                       label={t('form.paymentPack.durationYears.label')}
                       helperText={t(
                         'form.paymentPack.durationYears.helperText',
@@ -217,6 +237,7 @@ export function PaymentPackForm(props: Props) {
                 <div style={{ paddingBottom: 24 }}>
                   <RadioGroupField
                     name="start_date_method"
+                    disabled={!editable}
                     choices={[
                       {
                         label: t(
@@ -242,6 +263,7 @@ export function PaymentPackForm(props: Props) {
                 <Collapse in={start_date_method !== `${START_ON_PURCHASE}`}>
                   <TextField
                     name="expiration_days_before_first_use"
+                    disabled={!editable}
                     label={t(
                       'form.paymentPack.expirationDaysBeforeFirstUse.label',
                     )}
@@ -257,11 +279,13 @@ export function PaymentPackForm(props: Props) {
                 <DateField
                   label={t('form.paymentPack.from')}
                   fullWidth
+                  disabled={!editable}
                   name="lower_date"
                 />
                 <DateField
                   label={t('form.paymentPack.until')}
                   fullWidth
+                  disabled={!editable}
                   name="upper_date"
                 />
               </Collapse>
@@ -471,6 +495,7 @@ export default compose(
           theorical_margin_value: 0,
           categories: [],
           metaActivities: [],
+          editable: true,
           establishments: [],
         },
         (initial && {

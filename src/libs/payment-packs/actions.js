@@ -7,6 +7,7 @@ import {
   // Payment-Pack
   // -----------------
   edit as editAPI,
+  scalePaymentPackCredit as scalePaymentPackCreditAPI,
   create as createAPI,
   fetchAllPaymentPacks as fetchAllPaymentPacksAPI,
   patch as patchAPI,
@@ -26,6 +27,38 @@ import { actionTypes as types } from './types';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
+
+export const scalePaymentPackCreditActions = {
+  isLoading: createAction('PAYMENT_PACK/SCALE_CREDIT/IS_LOADING'),
+  error: createAction('PAYMENT_PACK/SCALE_CREDIT/ERROR'),
+  success: createAction('PAYMENT_PACK/SCALE_CREDIT/SUCCESS'),
+};
+
+export function scalePaymentPackCredit(
+  id: number,
+  data: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(scalePaymentPackCreditActions.error(null));
+    dispatch(scalePaymentPackCreditActions.isLoading(true));
+    try {
+      // TODO update reducer after endpoint/serializer cleaning
+      const response = await scalePaymentPackCreditAPI(id, data);
+      dispatch(scalePaymentPackCreditActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(scalePaymentPackCreditActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(scalePaymentPackCreditActions.isLoading(false));
+  };
+}
 
 export const listAllPaymentPackActions = {
   isLoading: createAction('PAYMENT_PACK/LIST/IS_LOADING'),

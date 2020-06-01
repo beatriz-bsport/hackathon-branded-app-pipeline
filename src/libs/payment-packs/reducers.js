@@ -14,6 +14,7 @@ import {
   paymentPackForBookingActions,
   listAllPaymentPackActions,
   updatePaymentPackActions,
+  scalePaymentPackCreditActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -32,6 +33,10 @@ const initialState = Immutable({
   },
   forBooking: {
     allIds: [],
+    loading: false,
+    error: null,
+  },
+  scaleCredit: {
     loading: false,
     error: null,
   },
@@ -141,6 +146,12 @@ export const newPaymentPackReducer = handleActions(
     },
     [listAllPaymentPackActions.error]: (state, { payload }) => {
       return state.set('error', payload);
+    },
+    [scalePaymentPackCreditActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['scaleCredit', 'loading'], payload);
+    },
+    [scalePaymentPackCreditActions.error]: (state, { payload }) => {
+      return state.setIn(['scaleCredit', 'error'], payload);
     },
     [listAllPaymentPackActions.success]: (state, { payload }) => {
       return state.set('allIds', payload.map((pp) => pp.id)).merge(

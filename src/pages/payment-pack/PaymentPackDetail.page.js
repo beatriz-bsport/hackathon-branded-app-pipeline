@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
-import { compose, withProps } from 'recompose';
+import { compose, withProps, withHandlers } from 'recompose';
 
 import PaymentPackNotification from '../../libs/payment-packs/components/PaymentPackNotification.component';
 import PaymentPackCard from '../../libs/payment-packs/components/PaymentPackCard.component';
@@ -40,6 +40,7 @@ import {
   updatePackNotification as updateNotification,
   fetchPackNotifications as fetchNotificationsAction,
   fetchOne as fetchPaymentPack,
+  scalePaymentPackCredit,
 } from '../../libs/payment-packs/actions';
 import {
   withEstablishments,
@@ -200,6 +201,8 @@ export class PaymentPackDetail extends Component<Props, State> {
             onEditButtonClick={() => this.requestEdit(pack)}
             onDeleteButtonClick={() => this.requestDelete(pack)}
             snackbarSuccess={this.props.snackbarSuccess}
+	    onScaleCredit={this.props.scaleCredit}
+	    scaleCreditLoading={this.props.scaleCreditLoading}
           />
           <PaymentPackNotification
             pack={pack}
@@ -318,7 +321,8 @@ function mapStateToProps(state, { id }) {
     pack: withSCT(withMetaActivities(withEstablishments(getPaymentPack)))(
       state,
       id,
-    ),
+	),
+scaleCreditLoading: state.paymentPack.scaleCredit.loading,	
     notifications: {
       items: getPaymentPackNotifications(state, id),
       loading: state.paymentPack.notification.loading,
@@ -385,8 +389,24 @@ export default compose(
       fetchNotifications: fetchNotificationsAction,
       fetchEmailTemplatesSummaries,
       getSmartLists: fetchAllSmartLists,
+      scaleCredit: scalePaymentPackCredit,
     },
   ),
+  withHandlers({
+    scaleCredit: ({
+      scaleCredit,
+      fetchPaymentPack,
+      fetchConsumerPacks,
+      id,
+    }) => (id_, data) => {
+      scaleCredit(id_, data, {
+        onSuccess: () => {
+          fetchPaymentPack(id);
+          fetchConsumerPacks(id, 1, CONSUMER_PACK_PAGINATION_SIZE);
+        },
+      });
+    },
+  }),
   withProps(
     ({
       fetchNotifications,

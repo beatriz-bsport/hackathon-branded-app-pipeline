@@ -334,13 +334,15 @@ export class BookingItemForManager extends Component<Props, State> {
         }
 
         return (
-          <Badge
-            badgeContent={creditsFormatted}
-            color={creditColor}
-            classes={{ badge: classes.badge }}
-          >
-            <Avatar src={this.props.member.photo} />
-          </Badge>
+          <ListItemAvatar>
+            <Badge
+              badgeContent={creditsFormatted}
+              color={creditColor}
+              classes={{ badge: classes.badge }}
+            >
+              <Avatar src={this.props.member.photo} />
+            </Badge>
+          </ListItemAvatar>
         );
       }
     }
@@ -434,15 +436,10 @@ export class BookingItemForManager extends Component<Props, State> {
                 alignItems: 'center',
               }}
             >
-              <ListItemAvatar>{this.getAvatar()}</ListItemAvatar>
+              {this.getAvatar()}
               <ListItemText
                 primary={
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                    }}
-                  >
+                  <div className={this.props.classes.rowPrimary}>
                     <Typography variant="body2">{this.getHeading()}</Typography>
                     <Typography color="primary">
                       {this.getIsFirstIndicator()}
@@ -450,7 +447,7 @@ export class BookingItemForManager extends Component<Props, State> {
                     <Typography color="primary">
                       <strong>{this.getHasNoteIndicator()}</strong>
                     </Typography>
-                    <Typography inline>
+                    <Typography variant="body2" inline>
                       {getBookingStatusCode(t, booking)}
                     </Typography>
                   </div>
@@ -490,6 +487,14 @@ const styles = (theme) => ({
     backgroundColor: '#FFDDDD',
     '&:hover': {
       backgroundColor: '#FFC1C1',
+    },
+  },
+  rowPrimary: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    '&>*': {
+      marginRight: theme.spacing(0.5),
     },
   },
 });

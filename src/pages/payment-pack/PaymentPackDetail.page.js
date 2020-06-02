@@ -201,8 +201,8 @@ export class PaymentPackDetail extends Component<Props, State> {
             onEditButtonClick={() => this.requestEdit(pack)}
             onDeleteButtonClick={() => this.requestDelete(pack)}
             snackbarSuccess={this.props.snackbarSuccess}
-	    onScaleCredit={this.props.scaleCredit}
-	    scaleCreditLoading={this.props.scaleCreditLoading}
+            onScaleCredit={this.props.scaleCredit}
+            scaleCreditLoading={this.props.scaleCreditLoading}
           />
           <PaymentPackNotification
             pack={pack}
@@ -321,8 +321,8 @@ function mapStateToProps(state, { id }) {
     pack: withSCT(withMetaActivities(withEstablishments(getPaymentPack)))(
       state,
       id,
-	),
-scaleCreditLoading: state.paymentPack.scaleCredit.loading,	
+    ),
+    scaleCreditLoading: state.paymentPack.scaleCredit.loading,
     notifications: {
       items: getPaymentPackNotifications(state, id),
       loading: state.paymentPack.notification.loading,
@@ -382,7 +382,10 @@ export default compose(
         page: number,
         pageSize: number,
         options: OptionCallback,
-      ) => fetchByPaymentPackAction(paymentPackId, page, pageSize, options),
+      ) =>
+        fetchByPaymentPackAction(paymentPackId, page, pageSize, options, {
+          reverted: false,
+        }),
       fetchFilteredMembers,
       fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
       fetchSmartListBulk: fetchSmartListBulkAction,

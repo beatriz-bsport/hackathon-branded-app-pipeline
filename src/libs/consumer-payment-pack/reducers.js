@@ -33,6 +33,7 @@ const initialState = Immutable({
   partialRefund: {
     loading: false,
     error: null,
+    items: [],
   },
   extension: {
     items: [],
@@ -81,6 +82,12 @@ export default handleActions(
     },
     [partialRefundActions.success]: (state, { payload }) => {
       return state.setIn(['byId', payload.id], payload);
+    },
+    [partialRefundActions.list]: (state, { payload }) => {
+      return state.setIn(['partialRefund', 'items'], payload);
+    },
+    [partialRefundActions.listReset]: (state) => {
+      return state.setIn(['partialRefund', 'items'], []);
     },
     [extensionCreateActions.isLoading]: (state, { payload }) => {
       return state.setIn(['extension', 'create', 'loading'], payload);

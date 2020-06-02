@@ -133,6 +133,7 @@ exports.default = {
   },
   product_type: {
     payment_pack: 'Carte de cours',
+    refund: 'Remboursement crédit',
     shop_item: 'Magasin',
     top_up: 'Recharge crédit client',
     fee: 'Frais',

@@ -15,6 +15,7 @@ import InvoiceListItem from '../../invoice/InvoiceListItem.component';
 import BookingItemForManagerV2 from '../../booking/components/BookingItemForManagerV2.component';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import ConsumerPaymentPackExtensionListItem from './ConsumerPaymentPackExtensionListItem.component';
+import ConsumerPaymentPackCreditRefundListItem from './ConsumerPaymentPackCreditRefundListItem.component';
 
 import type { ConsumerPaymentPackExtension } from '../types';
 import type { PaymentPack } from '../../payment-packs/types';
@@ -64,10 +65,34 @@ export function ConsumerPaymentPackDetail(props: Props) {
               invoice={props.invoice}
             />
           </Paper>
+          {props.consumerPaymentPackCreditRefundList &&
+            props.consumerPaymentPackCreditRefundList.length > 0 && (
+              <div>
+                <Typography variant="h5" component="h2">
+                  {props.t('details.refundTitle')}
+                </Typography>
+                <Paper className={props.classes.paper}>
+                  {props.consumerPaymentPackCreditRefundList.map((cr) => (
+                    <ConsumerPaymentPackCreditRefundListItem
+                      creditRefund={cr}
+                      key={cr.id}
+                      divider
+                      dense
+                      onClick={() => props.onInvoiceClick(cr.invoice)}
+                    />
+                  ))}
+                </Paper>
+              </div>
+            )}
           <div className={props.classes.rightButton}>
             <Button
               variant="contained"
               color="primary"
+              disabled={
+                props.consumerPack.disabled ||
+                (!props.consumerPack.payment_pack.unlimited &&
+                  !props.consumerPack.available_credits)
+              }
               onClick={() => props.requestRefund(props.consumerPack)}
             >
               {props.t('consumerPaymentPack.details.actions.refund')}

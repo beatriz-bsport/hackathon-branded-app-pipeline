@@ -34,13 +34,13 @@ import {
   deletePackExtension,
   createPackExtension,
   refundConsumerPaymentPack as refundConsumerPaymentPackActions,
+  fetchConsumerPaymentPackCreditRefundList,
 } from '../../libs/consumer-payment-pack/actions';
 import { fetchPaymentPackBulk } from '../../libs/payment-packs/actions';
 import { fetchSpecificInvoice } from '../../actions/invoice.actions';
 
 import RefundConsumerPaymentPackDialog from '../../libs/consumer-payment-pack/components/RefundConsumerPaymentPackDialog.component';
 
-import paymentPackSelectors from '../../libs/payment-packs/selectors';
 import ConsumerPaymentPackExtensionFormDialog from '../../libs/consumer-payment-pack/components/ConsumerPaymentPackExtensionFormDialog.component';
 import {
   getConsumerPaymentPackExtensions,
@@ -55,10 +55,7 @@ import ConsumerPackDetail from '../../libs/consumer-payment-pack/components/Cons
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
 
 import type { Member } from '../../libs/member/types';
-import type {
-  PaymentPack,
-  ConsumerPaymentPack,
-} from '../../libs/payment-packs/types';
+import type { ConsumerPaymentPack } from '../../libs/payment-packs/types';
 import type { Invoice } from '../../libs/invoice/types';
 import type { Booking } from '../../libs/booking/types';
 
@@ -147,6 +144,9 @@ export class MemberDetailPass extends Component<Props, State> {
         onSuccess: ([pass]) => this.props.fetchInvoice(pass.invoice),
       });
     }
+    this.props.fetchConsumerPaymentPackCreditRefundList(
+      this.props.consumerPassId,
+    );
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -168,6 +168,9 @@ export class MemberDetailPass extends Component<Props, State> {
       this.props.fetchInvoice(this.props.selectedConsumerPass.invoice);
       this.props.fetchExtensions(this.props.selectedConsumerPass.id);
       this.fetchBookings(1, 5);
+      this.props.fetchConsumerPaymentPackCreditRefundList(
+        this.props.consumerPassId,
+      );
     }
   }
 
@@ -249,6 +252,9 @@ export class MemberDetailPass extends Component<Props, State> {
               paymentPack={this.props.selectedConsumerPass.payment_pack}
               consumerPack={this.props.selectedConsumerPass}
               bookings={this.props.bookings}
+              consumerPaymentPackCreditRefundList={
+                this.props.consumerPaymentPackCreditRefundList
+              }
               onBookingRequested={(page, page_size) =>
                 this.fetchBookings(page, page_size)
               }
@@ -369,6 +375,8 @@ export default compose(
         consumerPassId,
       ),
       consumerPackInvoice: state.invoice.invoice,
+      consumerPaymentPackCreditRefundList:
+        state.consumerPaymentPack.partialRefund.items,
       consumerPackLoading: state.consumerPaymentPack.byMember.loading,
       passExtensions: getConsumerPaymentPackExtensions(state),
       passExtensionsLoading: state.consumerPaymentPack.extension.loading,
@@ -392,6 +400,7 @@ export default compose(
       createExtension: createPackExtension,
       deleteExtension: deletePackExtension,
       refreshConsumerPack: (id) => retrieveConsumerPackBulk([id]),
+      fetchConsumerPaymentPackCreditRefundList,
       fetchPaymentPackBulk,
 
       discardBookingAttendance,
@@ -411,7 +420,13 @@ export default compose(
         page_size: number,
         options,
       ) =>
-        fetchConsumerPackByMemberAction(memberId, page, page_size, {}, options),
+        fetchConsumerPackByMemberAction(
+          memberId,
+          page,
+          page_size,
+          { with_amortized_price: true },
+          options,
+        ),
       resetConsumerPackByMemberAction,
     },
   ),
@@ -427,6 +442,7 @@ export default compose(
   withHandlers({
     refundConsumerPaymentPack: ({
       refundConsumerPaymentPack,
+      fetchConsumerPaymentPackCreditRefundList,
       id,
       fetchMember,
       closeRefund,
@@ -437,6 +453,8 @@ export default compose(
           fetchMember(id);
           refreshConsumerPack(idPass);
           closeRefund();
+
+          fetchConsumerPaymentPackCreditRefundList(idPass);
         },
       });
     },

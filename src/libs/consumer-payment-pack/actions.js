@@ -14,6 +14,7 @@ import {
   createExtension as createExtensionAPI,
   deleteExtension as deleteExtensionAPI,
   refundConsumerPaymentPack as refundConsumerPaymentPackAPI,
+  fetchConsumerPaymentPackCreditRefundList as fetchConsumerPaymentPackCreditRefundListAPI,
 } from './api';
 
 export const byOfferByMember = {
@@ -102,16 +103,20 @@ export function fetchByPaymentPack(
   page?: number,
   page_size?: number,
   options: OptionCallback,
+  params: any = {},
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(byPaymentPack.isLoading(true));
     dispatch(byPaymentPack.error(null));
     try {
-      const response = await fetchConsumerPaymentPackListAPI({
-        payment_pack: paymentPackId,
-        page,
-        page_size,
-      });
+      const response = await fetchConsumerPaymentPackListAPI(
+        {
+          payment_pack: paymentPackId,
+          page,
+          page_size,
+        },
+        params,
+      );
       dispatch(byPaymentPack.success({ ...response.data, page: page || 1 }));
       if (options && options.onSuccess) {
         if (response.data.results) {
@@ -163,7 +168,37 @@ export const partialRefundActions = {
   isLoading: createAction('CONSUMER_PACK/PARTIAL_REFUND/IS_LOADING'),
   error: createAction('CONSUMER_PACK/PARTIAL_REFUND/ERROR'),
   success: createAction('CONSUMER_PACK/PARTIAL_REFUND/SUCCESS'),
+  list: createAction('CONSUMER_PACK/PARTIAL_REFUND/LIST'),
+  listReset: createAction('CONSUMER_PACK/PARTIAL_REFUND/LIST_RESET'),
 };
+
+export function fetchConsumerPaymentPackCreditRefundList(
+  consumer_payment_pack: number,
+  options: ?OptionCallback = null,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(partialRefundActions.isLoading(true));
+    dispatch(partialRefundActions.listReset());
+    dispatch(partialRefundActions.error(null));
+    try {
+      const response = await fetchConsumerPaymentPackCreditRefundListAPI({
+        consumer_payment_pack,
+        page_size: 10,
+      });
+      dispatch(partialRefundActions.list(response.data.results)); // TODO fix pagination
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(partialRefundActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(partialRefundActions.isLoading(false));
+  };
+}
 
 export function refundConsumerPaymentPack(
   id: number,

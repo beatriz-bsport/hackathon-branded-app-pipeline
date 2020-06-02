@@ -30,11 +30,12 @@ export async function fetchExtensions(consumerPassId: number) {
   );
 }
 
-export async function fetchConsumerPackList(params: any) {
+export async function fetchConsumerPackList(params: any, moreParams: any = {}) {
   return getAuth(
-    `${API_V1_URI}/payment-pack/consumer-payment-pack/${buildUrlParams(
-      params,
-    )}`,
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/${buildUrlParams({
+      ...(params || {}),
+      ...moreParams,
+    })}`,
   );
 }
 
@@ -50,6 +51,12 @@ export async function refundConsumerPaymentPack(id: number, data: any) {
   return postAuth(
     `${API_V1_URI}/payment-pack/consumer-payment-pack/${id}/partial_refund/`,
     data,
+  );
+}
+
+export async function fetchConsumerPaymentPackCreditRefundList(params: any) {
+  return getAuth(
+    `${API_V1_URI}/payment-pack/credit-refund/${buildUrlParams(params)}`,
   );
 }
 

@@ -11,7 +11,7 @@ exports.default = {
   scaleCredit: {
     title: 'Modification du total de crédit',
     explain:
-      'Vous pouvez multiplier les crédit de la carte (3/7 x2 devient 6/14) ou les diviser (3/7 ÷2 devient 1/3).',
+      "Vous pouvez multiplier les crédit de la carte (3/7 x2 devient 6/14) ou les diviser cas d'erreur (3/7 ÷2 devient 1/3) : arrondi à l'inférieur.",
     parameterLegend: 'Paramètres',
     scaleDown: 'Diviser',
     scaleUp: 'Multiplier',
@@ -29,6 +29,11 @@ exports.default = {
       title: 'Remboursement crédit',
       price: {
         label: 'Montant recrédité',
+      },
+      description: '{{ credits }} crédit - {{ note }}',
+      description_plural: '{{ credits }} crédits - {{ note }}',
+      note: {
+        label: 'Note',
       },
       credits: {
         label: 'Crédit à déduire',
@@ -131,7 +136,7 @@ exports.default = {
     paymentPack: {
       from: 'A partir du ',
       notEditable:
-        "Cette carte de cours est issue d'une migration, certains champs ne sont pas modifiable pour respecter l'historique.",
+        "Cette carte de cours est issue d'une migration, certains champs ne sont pas modifiable pour respecter l'historique. Les activités/catégories compatibles restent modifiables.",
       until: "Jusqu'au ",
 
       name: {
@@ -236,6 +241,7 @@ exports.default = {
     pleaseSelectAPack: 'Sélectionnez une carte pour voir le détails',
     shareAPass: 'Partager une carte de cours',
     invoiceTitle: 'Facture associée',
+    refundTitle: 'Remboursement associé',
     bookingsTitle: 'Réservations associées',
     extensionsTitle: 'Extensions de validité',
   },

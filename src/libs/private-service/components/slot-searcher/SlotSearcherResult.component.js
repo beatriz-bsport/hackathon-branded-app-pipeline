@@ -164,6 +164,7 @@ export const SlotGroup = withStyles(stylesSlot)((props) => {
     if (resource) resourceName = resource.name;
     Icon = PeopleIcon;
   }
+  const [resourceDatatype, resourceId] = props.resource_identifier.split(':');
   return (
     <div className={props.classes.slotGroupContainer}>
       <Typography variant="h5">
@@ -171,7 +172,12 @@ export const SlotGroup = withStyles(stylesSlot)((props) => {
         {resourceName}
       </Typography>
       <Divider className={props.classes.divider} />
-      <SlotList onDateClick={props.onDateClick} slots={slots} />
+      <SlotList
+        onDateClick={(date) =>
+          props.onDateClick(date, { [resourceDatatype]: resourceId })
+        }
+        slots={slots}
+      />
     </div>
   );
 });

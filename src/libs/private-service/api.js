@@ -374,11 +374,13 @@ export const registerPrivateBookings = ({
   date_start,
   address,
   coach,
+  associated_coach,
 }: {
   private_slot: number,
   private_consumer_pass: number,
   date_start: string,
   address: ?string,
+  associated_coach?: number,
   coach: number,
 }) => {
   return postAuth(
@@ -388,6 +390,7 @@ export const registerPrivateBookings = ({
       address,
       date_start,
       coach,
+      associated_coach,
     },
   );
 };

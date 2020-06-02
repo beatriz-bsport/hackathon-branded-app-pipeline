@@ -66,6 +66,7 @@ export const PrivateServiceListItem = (props: Props) => {
           props.hideSecondary
             ? null
             : privateService.coaches
+                .filter((c) => c && c.name)
                 .map((c) => (c && c.name) || '')
                 .join(', ') || null
         }

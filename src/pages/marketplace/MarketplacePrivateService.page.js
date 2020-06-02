@@ -239,15 +239,15 @@ export class MarketplacePrivateService extends React.Component<Props, State> {
                     loading={this.props.searchLoading}
                     private_service={this.getSelectedService()}
                     private_slot={this.getSelectedSlot()}
-                    onDateClick={(date) =>
+                    onDateClick={(date, additionalParams) =>
                       this.props.goToPrivateBookingPage(
                         this.state.private_service,
                         this.state.private_slot,
                         this.props.companyId,
                         {
                           date,
-                          coaches: this.state.coaches,
                           establishment: this.state.establishment,
+                          ...(additionalParams || {}),
                         },
                       )
                     }

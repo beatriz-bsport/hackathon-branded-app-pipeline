@@ -21,7 +21,10 @@ import Typography from '@material-ui/core/Typography';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import AddIcon from '@material-ui/icons/Add';
 import Immutable from 'seamless-immutable';
-import { push as pushRouter, goBack as goBackRouter } from 'connected-react-router';
+import {
+  push as pushRouter,
+  goBack as goBackRouter,
+} from 'connected-react-router';
 
 import moment from 'moment';
 
@@ -344,7 +347,10 @@ export class Planning extends PureComponent<Props, State> {
         <Dialog open={editModalOpened}>
           <DialogContent>
             <OfferEditForm
-              offer={selectedOffer}
+	      offer={selectedOffer}
+              metaActivities={this.props.metaActivities.filter(
+                (ma) => ma.customer_enabled && !ma.is_workshop,
+              )}
               coaches={coaches}
               establishments={establishments}
               is_whereby_integration_enabled={

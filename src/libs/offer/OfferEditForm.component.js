@@ -27,6 +27,8 @@ import { Config } from '../../config';
 import LevelInput from '../../components/input/LevelInput.component';
 import Checkbox from '../../components/input/Checkbox.component';
 
+import MetaActivitySelector from '../meta-activity/components/MetaActivitySelector.component';
+
 type Props = {
   processing: boolean,
   similarOfferLoading: boolean,
@@ -320,6 +322,16 @@ export class EditLiveOfferForm extends Component<Props, State> {
         <div className={this.props.classes.groupContainer}>
           <div className={this.props.classes.borderBar} />
           <div className={this.props.classes.columnFullWidth}>
+            {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ? (
+            <div className={this.props.classes.field}>
+              <MetaActivitySelector
+                metaActivities={this.props.metaActivities}
+                value={this.props.metaActivities.find(
+                  (ma) => ma.id === this.props.offer.meta_activity,
+                )}
+              />
+		  </div>
+		    ) : null}
             <div className={this.props.classes.field}>
               <NumericInput
                 required

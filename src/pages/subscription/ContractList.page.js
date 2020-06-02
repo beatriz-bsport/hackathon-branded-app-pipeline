@@ -202,6 +202,7 @@ export class SubscriptionList extends React.Component<Props> {
             paymentPacks={this.props.paymentPacks}
             open
             onSubmit={this.props.onCreate}
+            onClose={this.props.onCloseCreate}
           />
         )}
       </div>
@@ -314,6 +315,7 @@ export default compose(
   withStateHandlers(
     { createContractFormOpen: false },
     {
+      onCloseCreate: () => () => ({ createContractFormOpen: false }),
       onRequestCreate: () => () => ({ createContractFormOpen: true }),
       onCreate: (_, { createOrUpdateContract, fetchContractList }) => (
         data,

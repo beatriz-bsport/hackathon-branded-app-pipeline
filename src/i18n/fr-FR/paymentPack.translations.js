@@ -25,6 +25,28 @@ exports.default = {
   },
   consumerPaymentPack: {
     addExtension: 'Ajouter une extension',
+    refund: {
+      title: 'Remboursement crédit',
+      price: {
+        label: 'Montant recrédité',
+      },
+      credits: {
+        label: 'Crédit à déduire',
+      },
+      explain:
+        "Choisissez le nombre de crédit à rembourser ainsi que la valeur totale qui sera créditée sur l'acompte du membre",
+      warning:
+        'Attention, cette opération est irréversible (génération facture).',
+      actions: {
+        cancel: 'Annuler',
+        submit: 'Enregistrer',
+      },
+    },
+    details: {
+      actions: {
+        refund: 'Remboursement crédit',
+      },
+    },
   },
   notificationToolTip: 'Des notifications sont définies pour cette carte',
   notification: {

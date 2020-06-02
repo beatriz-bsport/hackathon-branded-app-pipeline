@@ -46,6 +46,13 @@ export async function deleteExtension(id: number) {
   return deleteAuth(`${API_V1_URI}/payment-pack/pack-extension/${id}/`);
 }
 
+export async function refundConsumerPaymentPack(id: number, data: any) {
+  return postAuth(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/${id}/partial_refund/`,
+    data,
+  );
+}
+
 export default {
   fetchByOfferByMember,
   fetchExtensions,

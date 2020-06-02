@@ -12,6 +12,7 @@ import {
   byOfferByMember,
   nonCompatibleByOfferByMember,
   forBookingActions,
+  partialRefundActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -29,6 +30,10 @@ const initialState = Immutable({
   loading: false,
   error: null,
   updatingConsumerPacks: [],
+  partialRefund: {
+    loading: false,
+    error: null,
+  },
   extension: {
     items: [],
     loading: false,
@@ -68,6 +73,15 @@ const initialState = Immutable({
 
 export default handleActions(
   {
+    [partialRefundActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['partialRefund', 'loading'], payload);
+    },
+    [partialRefundActions.error]: (state, { payload }) => {
+      return state.setIn(['partialRefund', 'error'], payload);
+    },
+    [partialRefundActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
+    },
     [extensionCreateActions.isLoading]: (state, { payload }) => {
       return state.setIn(['extension', 'create', 'loading'], payload);
     },

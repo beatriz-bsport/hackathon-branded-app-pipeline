@@ -95,6 +95,7 @@ export const withPaymentPack = memoize((selector: (State) => any) =>
   createSelector(
     [selector, getPaymentPackById],
     (consumerPaymentPacks, paymentPackData) => {
+      if (!consumerPaymentPacks) return consumerPaymentPacks;
       if (!Array.isArray(consumerPaymentPacks)) {
         return {
           ...consumerPaymentPacks,

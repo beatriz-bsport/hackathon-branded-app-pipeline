@@ -13,6 +13,7 @@ import {
   fetchExtensions as fetchExtensionListAPI,
   createExtension as createExtensionAPI,
   deleteExtension as deleteExtensionAPI,
+  refundConsumerPaymentPack as refundConsumerPaymentPackAPI,
 } from './api';
 
 export const byOfferByMember = {
@@ -155,6 +156,37 @@ export function updateCredit(consumerPackId: number, nbCredit: number) {
     dispatch(
       updateConsumerPack.isLoading({ id: consumerPackId, loading: false }),
     );
+  };
+}
+
+export const partialRefundActions = {
+  isLoading: createAction('CONSUMER_PACK/PARTIAL_REFUND/IS_LOADING'),
+  error: createAction('CONSUMER_PACK/PARTIAL_REFUND/ERROR'),
+  success: createAction('CONSUMER_PACK/PARTIAL_REFUND/SUCCESS'),
+};
+
+export function refundConsumerPaymentPack(
+  id: number,
+  data: any,
+  options: ?OptionCallback = null,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(partialRefundActions.isLoading(true));
+    dispatch(partialRefundActions.error(null));
+    try {
+      const response = await refundConsumerPaymentPackAPI(id, data);
+      dispatch(partialRefundActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(partialRefundActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(partialRefundActions.isLoading(false));
   };
 }
 

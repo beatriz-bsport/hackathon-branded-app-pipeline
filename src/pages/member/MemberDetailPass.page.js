@@ -9,7 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
 import { push, replace } from 'connected-react-router';
-import { compose, withState } from 'recompose';
+import { compose, withState, withStateHandlers, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -33,9 +33,12 @@ import {
   fetchPackExtensions,
   deletePackExtension,
   createPackExtension,
+  refundConsumerPaymentPack as refundConsumerPaymentPackActions,
 } from '../../libs/consumer-payment-pack/actions';
 import { fetchPaymentPackBulk } from '../../libs/payment-packs/actions';
 import { fetchSpecificInvoice } from '../../actions/invoice.actions';
+
+import RefundConsumerPaymentPackDialog from '../../libs/consumer-payment-pack/components/RefundConsumerPaymentPackDialog.component';
 
 import paymentPackSelectors from '../../libs/payment-packs/selectors';
 import ConsumerPaymentPackExtensionFormDialog from '../../libs/consumer-payment-pack/components/ConsumerPaymentPackExtensionFormDialog.component';
@@ -73,7 +76,6 @@ type Props = {
   consumerPacks: Array<ConsumerPaymentPack>,
   selectedConsumerPass: ?ConsumerPaymentPack,
   onSelectConsumerPass: (memberId: number, consumerPassId: number) => void,
-  getPaymentPack: (id: number) => PaymentPack,
   consumerPackInvoice: Invoice,
   goToInvoice: (uuid: string) => void,
   goToBooking: (memberId: number, bookingId: number) => void,
@@ -240,18 +242,11 @@ export class MemberDetailPass extends Component<Props, State> {
           ) : null}
         </Grid>
         <Grid item xs={12} lg={6}>
-          {this.props.selectedConsumerPass ? (
+          {this.props.selectedConsumerPass &&
+          this.props.selectedConsumerPass.payment_pack ? (
             <ConsumerPackDetail
-              paymentPack={
-                this.props.selectedConsumerPass
-                  ? this.props.getPaymentPack(
-                      parseInt(
-                        this.props.selectedConsumerPass.payment_pack_id,
-                        10,
-                      ),
-                    )
-                  : null
-              }
+              requestRefund={this.props.requestRefund}
+              paymentPack={this.props.selectedConsumerPass.payment_pack}
               consumerPack={this.props.selectedConsumerPass}
               bookings={this.props.bookings}
               onBookingRequested={(page, page_size) =>
@@ -317,6 +312,15 @@ export class MemberDetailPass extends Component<Props, State> {
             this.setState({ bookingToRevert: null })
           }
         />
+        {!!this.props.consumerPaymentPackToRefund && (
+          <RefundConsumerPaymentPackDialog
+            open
+            loading={this.props.refundLoading}
+            consumerPaymentPack={this.props.consumerPaymentPackToRefund}
+            onClose={this.props.closeRefund}
+            onSubmit={this.props.refundConsumerPaymentPack}
+          />
+        )}
       </Grid>
     );
   }
@@ -360,8 +364,10 @@ export default compose(
       consumerPacks: withPaymentPack(getConsumerPaymentPackByMember)(state, id),
       consumerPackCount: state.consumerPaymentPack.byMember.count,
       consumerPackCurrentPage: state.consumerPaymentPack.byMember.page,
-      selectedConsumerPass: getConsumerPack(state, consumerPassId),
-      getPaymentPack: (id_) => paymentPackSelectors.get(state, id_),
+      selectedConsumerPass: withPaymentPack(getConsumerPack)(
+        state,
+        consumerPassId,
+      ),
       consumerPackInvoice: state.invoice.invoice,
       consumerPackLoading: state.consumerPaymentPack.byMember.loading,
       passExtensions: getConsumerPaymentPackExtensions(state),
@@ -370,6 +376,7 @@ export default compose(
       bookingCurrentPage: state.booking.byConsumerPack.page,
       bookingLoading: state.booking.byConsumerPack.loading,
       bookingCount: state.booking.byConsumerPack.count,
+      refundLoading: state.consumerPaymentPack.partialRefund.loading,
     }),
     {
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),
@@ -393,6 +400,7 @@ export default compose(
 
       incrementCredit: (id_: number) => updateCreditAction(id_, 1),
       decrementCredit: (id_: number) => updateCreditAction(id_, -1),
+      refundConsumerPaymentPack: refundConsumerPaymentPackActions,
 
       fetchInvoice: (uuid: string) => fetchSpecificInvoice(uuid),
 
@@ -407,4 +415,30 @@ export default compose(
       resetConsumerPackByMemberAction,
     },
   ),
+  withStateHandlers(
+    { consumerPaymentPackToRefund: null },
+    {
+      closeRefund: () => () => ({ consumerPaymentPackToRefund: null }),
+      requestRefund: () => (consumerPaymentPackToRefund) => ({
+        consumerPaymentPackToRefund,
+      }),
+    },
+  ),
+  withHandlers({
+    refundConsumerPaymentPack: ({
+      refundConsumerPaymentPack,
+      id,
+      fetchMember,
+      closeRefund,
+      refreshConsumerPack,
+    }) => (idPass, data) => {
+      refundConsumerPaymentPack(idPass, data, {
+        onSuccess: () => {
+          fetchMember(id);
+          refreshConsumerPack(idPass);
+          closeRefund();
+        },
+      });
+    },
+  }),
 )(MemberDetailPass);

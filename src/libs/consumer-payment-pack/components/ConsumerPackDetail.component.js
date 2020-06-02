@@ -64,6 +64,15 @@ export function ConsumerPaymentPackDetail(props: Props) {
               invoice={props.invoice}
             />
           </Paper>
+          <div className={props.classes.rightButton}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => props.requestRefund(props.consumerPack)}
+            >
+              {props.t('consumerPaymentPack.details.actions.refund')}
+            </Button>
+          </div>
         </React.Fragment>
       ) : null}
       <Typography variant="h5" component="h2">
@@ -155,6 +164,13 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  rightButton: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
 });
 

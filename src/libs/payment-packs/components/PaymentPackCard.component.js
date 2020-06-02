@@ -355,7 +355,7 @@ export class PaymentPackCard extends Component<Props> {
         <div className={classes.horizontalBlock}>
           {this.getPackHeadingInfo()}
         </div>
-        {onlyPublic && (
+        {!onlyPublic && (
           <div className={classes.buttonBlock}>
             {this.renderLinkToPaymentPage()}
           </div>
@@ -368,8 +368,8 @@ export class PaymentPackCard extends Component<Props> {
           </div>
         )}
         <PaymentPackScaleCreditDialog
-	  open={this.props.scaleMenuOpen}
-	  loading={this.props.scaleCreditLoading}
+          open={this.props.scaleMenuOpen}
+          loading={this.props.scaleCreditLoading}
           onClose={this.props.toogleScaleMenuOpen}
           onSubmit={(data) =>
             this.props.onScaleCredit(this.props.pack.id, data)

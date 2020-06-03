@@ -89,7 +89,8 @@ export default compose(
       loading: state.playlist.loading,
     }),
     {
-      fetchPlaylistList,
+      fetchPlaylistList: (page, options) =>
+        fetchPlaylistList({ mine: true }, page, options),
       deletePlaylist,
       createOrUpdatePlaylist,
       openPlaylist: (id) => push(`/vod/playlist/${id}`),

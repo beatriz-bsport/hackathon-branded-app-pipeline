@@ -1238,6 +1238,9 @@
                     "status": "Status"
                 }
             }
+        },
+        "send": {
+            "success": "E-mail wordt verzonden ..."
         }
     },
     "paymentCombo": {
@@ -1527,7 +1530,13 @@
             "delete": "Verwijderen"
         },
         "consumerPaymentPack": {
-            "addExtension": "Voeg een extensie toe"
+            "addExtension": "Voeg een extensie toe",
+            "refund": {
+                "actions": {
+                    "submit": "Opslaan",
+                    "cancel": "Annuleren"
+                }
+            }
         },
         "notification": {
             "0": {
@@ -1760,7 +1769,14 @@
         "isNonCompatible": "onverenigbaar",
         "boughtConsumerPaymentPacks": "Abonnees",
         "validForNdays1": "Geldig ",
-        "ht": "Excl. Belasting"
+        "ht": "Excl. Belasting",
+        "scaleCredit": {
+            "actions": {
+                "submit": "Opslaan",
+                "cancel": "Annuleren"
+            },
+            "parameterLegend": "Instellingen"
+        }
     },
     "establishment": {
         "capacity": {
@@ -2272,7 +2288,14 @@
         "metaActivity": "Activiteit",
         "search": "Zoek een activiteit",
         "packsAvailable": "Geschikt voor passen:",
-        "reviews": "De mening van klanten: "
+        "reviews": "De mening van klanten: ",
+        "navigation": {
+            "goToPaymentPack": "Cursuskaarten"
+        },
+        "actions": {
+            "search": "Zoek een activiteit",
+            "addActivity": "Voeg een activiteit toe"
+        }
     },
     "offer": {
         "video": {
@@ -2684,6 +2707,9 @@
         "order": {
             "orderList": "Bestellingen",
             "orderDetail": "Details bestelling"
+        },
+        "privateService": {
+            "serviceList": "Op afspraak"
         }
     },
     "event": {
@@ -2760,7 +2786,9 @@
                 "isEmpty": "Geen contract beschikbaar",
                 "addButton": "Definieer een contract",
                 "register": "Abonneer een lid",
-                "title": "Contract beschikbaar voor verkoop"
+                "title": "Contract beschikbaar voor verkoop",
+                "titleManagerOnly": "Contract beschikbaar voor verkoop",
+                "titleCustomerAvailable": "Contract beschikbaar voor verkoop"
             },
             "description": "Beschrijving",
             "legal": "Juridische kennisgeving",
@@ -4487,7 +4515,14 @@
                 }
             }
         },
-        "search": "Vind een workshop"
+        "search": "Vind een workshop",
+        "navigation": {
+            "goToPaymentPack": "Cursuskaarten"
+        },
+        "actions": {
+            "search": "Vind een workshop",
+            "addWorkshopActivity": "Voeg een workshop toe"
+        }
     },
     "tag": {
         "form": {
@@ -4741,5 +4776,45 @@
             }
         },
         "userRoles": "Personeelsaccounts"
+    },
+    "navigation": {
+        "backofficeMenu": {
+            "calendar": "Kalender",
+            "activity": "Mijn activiteiten",
+            "dashboard": "Dashboard",
+            "search": "Zoeken",
+            "reporting": "Rapporten",
+            "consumer": {
+                "order": "Mijn bestellingen",
+                "profile": "Mijn profiel",
+                "bookings": "Mijn reserveringen ",
+                "pass": "Cursuskaarten"
+            },
+            "beta": "bèta",
+            "coachPerformance": "Instructeurs",
+            "myShop": "Winkel",
+            "product": "Producten",
+            "coaches": "Instructeurs",
+            "privateService": {
+                "pass": "Afspraakkaarten",
+                "services": "Op afspraak",
+                "title": "Op afspraak"
+            },
+            "schedule": "Rooster",
+            "alpha": "in ontwikkeling",
+            "invoice": "Facturen",
+            "workshopActivities": "Workshops",
+            "order": "Bestellingen",
+            "email_template": "E-mails",
+            "smart_list": "Smartlists",
+            "sequence": "Strategieën",
+            "requestTempPassword": "Toegang te verlenen",
+            "combo": "Packs",
+            "marketing_automation": "Auto marketing",
+            "digital": "Digitaal aanbod",
+            "podcast": "Podcasts",
+            "playlist": "Parcours",
+            "video": "Videotheek"
+        }
     }
 }

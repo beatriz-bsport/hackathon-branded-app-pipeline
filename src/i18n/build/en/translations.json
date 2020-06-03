@@ -947,7 +947,8 @@
             },
             "workshop": "Workshops",
             "calendar": "Calendar",
-            "sessionThisDay": "Session this day:"
+            "sessionThisDay": "Session this day:",
+            "vod": "VOD"
         },
         "time": {
             "month": {
@@ -1261,7 +1262,8 @@
             "marketing_automation": "Marketing automation",
             "digital": "Digital Offer",
             "podcast": "Podcasts",
-            "video": "Video library"
+            "video": "Video library",
+            "playlist": "Playlist"
         },
         "consumer": {
             "booking": {
@@ -1794,7 +1796,8 @@
             "booking": "Booking",
             "waitingList": "Waiting-list",
             "subscription": "Subscription",
-            "waiting-list": "Waiting-list"
+            "waiting-list": "Waiting-list",
+            "private_booking": "Appointments"
         },
         "emailDesign": {
             "placeholder": "Handled by bsport",
@@ -1864,6 +1867,26 @@
                     "option_payment_url": "Booking link",
                     "option_expiration_date": "Option expiration date"
                 }
+            },
+            "PrivateBooking": {
+                "tags": {
+                    "establishment_practical_info": "Establishment access information (optional)",
+                    "address": "Address",
+                    "date": "Time / Date",
+                    "coach": "Teacher (optional)",
+                    "activity": "Activity"
+                },
+                "name": "Appointments"
+            },
+            "PrivateConsumerPass": {
+                "tags": {
+                    "pass_credit_left": "Number of credits remaining",
+                    "pass_expiration": "Appointment pass end date",
+                    "pass_starting_date": "Start date of appointment pass",
+                    "pass_name": "Name of appointment pass",
+                    "pass_price": "Appointment pass price"
+                },
+                "name": "Appointment pass"
             }
         },
         "eventType": {
@@ -1886,7 +1909,15 @@
             "26": "Subscription paused",
             "27": "Subscription ended or terminated",
             "28": "Payment received",
-            "29": "Live stream - 15 min before notification/instruction"
+            "29": "Live stream - 15 min before notification/instruction",
+            "453": "Modified timetable (student)",
+            "452": "New appointment (student)",
+            "451": "Appointment canceled - refunded (student)",
+            "450": "Appointment - out of time (student)",
+            "403": "Modified timetable (teacher)",
+            "402": "New appointment (teacher)",
+            "401": "Appointment canceled - refunded (teacher)",
+            "400": "Appointment canceled - out of time (teacher)"
         },
         "messages": {
             "createOrUpdate": {
@@ -2139,6 +2170,10 @@
                     "status": "Status"
                 }
             }
+        },
+        "send": {
+            "error": "Error while sending",
+            "success": "Email being sent ..."
         }
     },
     "privateService": {
@@ -2259,7 +2294,15 @@
                     "cancel": "Cancel",
                     "title": "Cancel appointment"
                 }
-            }
+            },
+            "discard": "Cancel the appointment",
+            "updateTime": {
+                "cancel": "Cancel",
+                "submit": "Save",
+                "explainEmail": "An email will be automatically sent to the student to notify him",
+                "title": "Change appointment"
+            },
+            "editTime": "Edit"
         },
         "privateService": {
             "delete": {
@@ -2581,6 +2624,9 @@
                 "last_discard_minutes": {
                     "helperText": "If the reservation is canceled after the deadline, the credit will not be refunded",
                     "label": "Last cancellation refundable up to"
+                },
+                "managerOnly": {
+                    "label": "Unavailable for client purchase"
                 }
             },
             "parameters": {
@@ -2602,6 +2648,9 @@
                 "last_discard_minutes": {
                     "explain": "The last refundable cancellation is possible {{days}} day (s) {{hours}} hour (s) {{minute}} minute (s) before the appointment"
                 }
+            },
+            "navigation": {
+                "goToPrivatePass": "Pass (appointments)"
             }
         },
         "privateEstablishment": {
@@ -3087,6 +3136,13 @@
                 },
                 "title": "Workshop deletion"
             }
+        },
+        "navigation": {
+            "goToPaymentPack": "Pass"
+        },
+        "actions": {
+            "search": "Find a workshop",
+            "addWorkshopActivity": "Add a workshop"
         }
     },
     "tag": {
@@ -3851,14 +3907,17 @@
             "actions": {
                 "iAcceptCondition": "I accept the legal aggreement",
                 "iwanttostarton": "I want to start my subscription on : ",
-                "subscribe": "Subscribe"
+                "subscribe": "Subscribe",
+                "create": "Add a contract"
             },
             "duration": "{{month}} months",
             "list": {
-                "title": "Contracts available to customer",
+                "title": "Contracts",
                 "isEmpty": "No contract",
                 "addButton": "Create a contract",
-                "register": "Subscribe a member"
+                "register": "Subscribe a member",
+                "titleManagerOnly": "Contracts not available for sale",
+                "titleCustomerAvailable": "Contracts available to customer"
             },
             "form": {
                 "title": "Contract form",
@@ -3978,10 +4037,14 @@
                 "explain": "Only this invoice will be modified",
                 "price": "New amount",
                 "title": "Payment modification"
+            },
+            "list": {
+                "titleNext": "Next withdrawals"
             }
         },
         "pause": {
-            "pausedInterval": "{{start}} → {{ end }} : {{ days }} days"
+            "pausedInterval": "{{start}} → {{ end }} : {{ days }} days",
+            "pausedAt": "{{days}} days - {{date}}"
         },
         "messages": {
             "youSubscribed": {
@@ -4140,7 +4203,8 @@
             "top_up": "Top-up",
             "payment_combo": "Pack",
             "private_pass": "Appointment pass",
-            "fee": "Fee"
+            "fee": "Fee",
+            "refund": "Credit refund"
         },
         "report": {
             "delete_message": "Are you sure you want to remove the report {{name}} ?"
@@ -4188,7 +4252,32 @@
     },
     "paymentPack": {
         "consumerPaymentPack": {
-            "addExtension": "Extend validity"
+            "addExtension": "Extend validity",
+            "details": {
+                "actions": {
+                    "refund": "Credit refund"
+                }
+            },
+            "refund": {
+                "actions": {
+                    "submit": "Submit",
+                    "cancel": "Cancel"
+                },
+                "warning": "Please note, this operation is irreversible (invoice generation).",
+                "explain": "Choose the number of credits to be reimbursed as well as the total value that will be credited on the member's deposit",
+                "credits": {
+                    "label": "Credit to deduct"
+                },
+                "note": {
+                    "label": "Note"
+                },
+                "description": "{{credits}} credit - {{note}}",
+                "description_plural": "{{credits}} credits - {{note}}",
+                "price": {
+                    "label": "Amount credited back"
+                },
+                "title": "Credit refund"
+            }
         },
         "notificationToolTip": "Notifications are definied for this pass",
         "notification": {
@@ -4353,7 +4442,8 @@
                     "label": "Price (inc.tax)",
                     "helperText": "Price of the pass"
                 },
-                "startOnFirstUseHelper": "Otherwise it starts at the billing date"
+                "startOnFirstUseHelper": "Otherwise it starts at the billing date",
+                "notEditable": "This course card is the result of a migration, some fields cannot be modified to respect the history. Compatible activities / categories remain modifiable."
             }
         },
         "details": {
@@ -4361,7 +4451,8 @@
             "shareAPass": "Share a pass",
             "invoiceTitle": "Linked invoice",
             "bookingsTitle": "Bookings",
-            "extensionsTitle": "Validity extension"
+            "extensionsTitle": "Validity extension",
+            "refundTitle": "Associated reimbursement"
         },
         "newMemberOnly": "Only available for new membres (with no paiements)",
         "publicPacksTitle": "Pass available for purchase",
@@ -4416,7 +4507,8 @@
         },
         "actions": {
             "delete": "Delete",
-            "edit": "Modify"
+            "edit": "Modify",
+            "scaleCredit": "Mult / div credits"
         },
         "specifications": {
             "price": "{{ price, price }}",
@@ -4433,6 +4525,20 @@
         "paymentPackDisabled": {
             "error": "Impossible to delete",
             "success": "Pass deleted"
+        },
+        "scaleCredit": {
+            "actions": {
+                "submit": "Save",
+                "cancel": "Cancel"
+            },
+            "factor": {
+                "label": "Scale factor"
+            },
+            "scaleUp": "Multiply",
+            "scaleDown": "Divide",
+            "parameterLegend": "Parameters",
+            "explain": "You can multiply the credit on the card (3/7 x2 becomes 6/14) or divide them in case of error (3/7 ÷ 2 becomes 1/3): rounded down.",
+            "title": "Change in total credit"
         }
     },
     "metaActivity": {
@@ -4497,7 +4603,14 @@
             }
         },
         "packsAvailable": "Pass available for this activity :",
-        "reviews": "Customer reviews: "
+        "reviews": "Customer reviews: ",
+        "navigation": {
+            "goToPaymentPack": "Pass"
+        },
+        "actions": {
+            "search": "Search an activity",
+            "addActivity": "Add an activity"
+        }
     },
     "offer": {
         "video": {
@@ -4917,7 +5030,13 @@
         "offerManagement": "Bookings",
         "metaActivityFormPage": "Activity form",
         "offerFormPage": "Add offers",
-        "searchResults": "Search"
+        "searchResults": "Search",
+        "privateService": {
+            "serviceList": "Appointments"
+        },
+        "video": {
+            "videoList": "Video library"
+        }
     },
     "event": {
         "list": {
@@ -5555,6 +5674,10 @@
             "credit": {
                 "error": "Error while saving",
                 "updated": "Credits updated"
+            },
+            "paymentPackDisabled": {
+                "error": "Impossible to disable pass",
+                "success": "Pass disabled"
             }
         },
         "paymentRules": {
@@ -5630,6 +5753,136 @@
                 "error": "Impossible to save the account",
                 "success": "Credits updated"
             }
+        }
+    },
+    "navigation": {
+        "backofficeMenu": {
+            "coupon": "Coupon",
+            "contract": "Contracts",
+            "subscription": "Withdrawals",
+            "myClub": "My Club",
+            "settings": "Parameters",
+            "pass": "Pass",
+            "goBack": "Back",
+            "refresh": "Refresh",
+            "logoff": "Logout",
+            "payment": "Payments",
+            "establishment": "Establishments",
+            "member": "Members",
+            "message": "Marketing",
+            "calendar": "Calendar",
+            "activity": "My activities",
+            "dashboard": "Dashboard",
+            "search": "Search",
+            "reporting": "Reporting",
+            "consumer": {
+                "order": "My orders",
+                "profile": "My profile",
+                "bookings": "My bookings ",
+                "pass": "Pass"
+            },
+            "beta": "beta",
+            "coachPerformance": "Teachers",
+            "myShop": "Shop",
+            "product": "Products",
+            "coaches": "Teachers",
+            "privateService": {
+                "pass": "Pass (appointments)",
+                "services": "Appointments",
+                "title": "Appointments"
+            },
+            "schedule": "Schedule",
+            "alpha": "in development",
+            "invoice": "Invoices",
+            "workshopActivities": "Workshops",
+            "order": "Orders",
+            "email_template": "Emails",
+            "smart_list": "Smart lists",
+            "sequence": "Strategies",
+            "requestTempPassword": "Authorize access",
+            "combo": "Packs",
+            "marketing_automation": "Marketing automation",
+            "digital": "Digital Offer",
+            "podcast": "Podcasts",
+            "playlist": "Playlist",
+            "video": "Video library"
+        }
+    },
+    "video": {
+        "video": {
+            "form": {
+                "coach": {
+                    "isEmpty": "No teacher"
+                },
+                "title": "Video form",
+                "submit": "Save",
+                "cancel": "Cancel",
+                "edit": "Edit"
+            },
+            "upload": {
+                "cancel": "Cancel",
+                "dropHere": "Drag and drop a video here or click to browse your computer",
+                "content": "Drop here or select a video",
+                "title": "Upload a video"
+            },
+            "delete": {
+                "cancel": "Cancel",
+                "confirm": "Confirm",
+                "content": "Are you sure you want to delete this video? This operation is irreversible.",
+                "title": "Deletion"
+            },
+            "status": {
+                "processed": "Watch",
+                "error": "Retry",
+                "processing": "Processing",
+                "submitted": "Draft"
+            },
+            "level": "Level",
+            "description": "Description",
+            "category": "Category",
+            "name": "Last name",
+            "bottomActions": {
+                "create": "Add"
+            },
+            "search": {
+                "isEmpty": "No video :(",
+                "cancel": "Cancel",
+                "placeholder": "Search"
+            },
+            "thumbnailList": {
+                "similarVideoTitle": "Similar videos",
+                "count": "{{count}} videos",
+                "addVideo": "add a video"
+            },
+            "player": {
+                "with": "with"
+            },
+            "durationMinute": "{{minute}} min",
+            "showMore": "See more",
+            "filter": {
+                "duration": {
+                    "explain": "Between {{min}} and {{max}} min",
+                    "all": "Any duration"
+                }
+            },
+            "lock": {
+                "pleaseAuthenticated": "You must login to access this video",
+                "accessDenied": "You do not have access to this video"
+            }
+        },
+        "playlist": {
+            "bottomActions": {
+                "create": "Add"
+            },
+            "form": {
+                "submit": "Save",
+                "cancel": "Cancel"
+            },
+            "open": "Open",
+            "deleteVideo": "Remove",
+            "description": "Description",
+            "name": "Last name",
+            "noVideo": "No video in this playlist"
         }
     }
 }

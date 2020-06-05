@@ -47,6 +47,13 @@ export const RefundConsumerPaymentPack = (props: Props) => {
                 variant="outlined"
                 label={t('consumerPaymentPack.refund.credits.label')}
                 onChange={props.handleCreditChange}
+                onBlur={() =>
+                  props.handleCreditChange({
+                    target: {
+                      value: parseInt(props.credits, 10) || 0,
+                    },
+                  })
+                }
                 type="numeric"
               />
             )}
@@ -131,7 +138,7 @@ export default compose(
         note: ev.target.value,
       }),
       handleCreditChange: () => (ev) => ({
-        credits: parseInt(ev.target.value, 10),
+        credits: ev.target.value,
       }),
       handlePriceChange: () => (ev) => ({
         price: ev.target.value,

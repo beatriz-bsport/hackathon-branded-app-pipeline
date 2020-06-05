@@ -68,7 +68,12 @@ export class SearchBar extends Component<Props> {
     return (
       <div className={`${classes.bar} ${className}`}>
         <Popover
-          style={{ zIndex: 1000000 }}
+          style={{
+            zIndex: 1000000,
+            padding: 8,
+            maxHeight: '70vh',
+            overflowY: 'auto',
+          }}
           disableAutoFocus
           anchorEl={this.props.memberHistoryAnchor}
           open={

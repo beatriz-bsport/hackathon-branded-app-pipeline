@@ -165,7 +165,6 @@ export class PaymentIntentGathering extends Component<Props, State> {
         >
           <CardElement
             onReady={() => this.setState({ cardReady: true })}
-            hidePostalCode
             style={{ base: { fontSize: '18px' } }}
           />
         </div>

@@ -339,17 +339,6 @@ export const fetchCompatiblePrivatePass = (
   );
 };
 
-export const fetchPrivateBookingPreview = (
-  private_slot: number,
-  associated_coach: number,
-  date: string,
-) => {
-  return postAuth(
-    `${API_V1_URI}/private_service/private_booking/preview_booking/`,
-    { private_slot, associated_coach, date },
-  );
-};
-
 export const fetchPrivateBookings = (params: any) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_booking/${buildUrlParams(params)}`,

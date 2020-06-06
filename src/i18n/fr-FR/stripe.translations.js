@@ -50,6 +50,8 @@ exports.default = {
     stolen_card: 'Votre carte a été marquée comme volée par votre banque',
     transaction_not_allowed: 'Votre carte a été refusée par votre banque',
     generic_decline: "La banque n'a pas accepté le paiement",
+    do_not_honor:
+      "Votre banque a refusé le paiement, veuillez contacter votre conseiller bancaire pour l'autoriser",
     withdrawal_count_limit_exceeded: 'Trop de débit sur cette carte, refusée.',
   },
 };

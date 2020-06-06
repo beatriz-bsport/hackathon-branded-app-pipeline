@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@bsport/common": "^1.28.0",
+    "@bsport/common": "^1.29.0",
     "@date-io/moment": "^1.3.11",
     "@fullcalendar/core": "^4.3.1",
     "@fullcalendar/daygrid": "^4.3.1",

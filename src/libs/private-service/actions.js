@@ -50,7 +50,6 @@ import {
   updatePrivateConsumerPassCredits as updatePrivateConsumerPassCreditsAPI,
   fetchPrivateConsumerPassList as fetchPrivateConsumerPassListAPI,
   // private-booking
-  fetchPrivateBookingPreview as fetchPrivateBookingPreviewAPI,
   registerPrivateBookings as registerPrivateBookingsAPI,
   disablePrivateBooking as disablePrivateBookingAPI,
   deletePrivateBooking as deletePrivateBookingAPI,
@@ -1246,38 +1245,6 @@ export function fetchCompatiblePrivatePass(
       if (options && options.onError) options.onError();
     }
     dispatch(privatePassListActions.isLoading(false));
-  };
-}
-
-export const privateBookingPreviewActions = {
-  error: createAction('PRIVATE_BOOKING/PREVIEW/ERROR'),
-  isLoading: createAction('PRIVATE_BOOKING/PREVIEW/IS_LOADING'),
-  success: createAction('PRIVATE_BOOKING/PREVIEW/SUCCESS'),
-};
-
-export function fetchPrivateBookingPreview(
-  privateSlotId: number,
-  associatedCoachId: number,
-  date: string,
-  options: ?{ onSuccess: () => void, onError: ?() => void },
-): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(privateBookingPreviewActions.isLoading(true));
-    dispatch(privateBookingPreviewActions.error(null));
-    try {
-      const response = await fetchPrivateBookingPreviewAPI(
-        privateSlotId,
-        associatedCoachId,
-        date,
-      );
-      dispatch(privateBookingPreviewActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data);
-    } catch (err) {
-      console.error(err);
-      dispatch(privateBookingPreviewActions.error(null));
-      if (options && options.onError) options.onError();
-    }
-    dispatch(privateBookingPreviewActions.isLoading(false));
   };
 }
 

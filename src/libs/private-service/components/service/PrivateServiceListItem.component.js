@@ -73,10 +73,8 @@ export const PrivateServiceListItem = (props: Props) => {
       />
       <ListItemSecondaryAction>
         <IconButton disableRipple>
-          {privateService.manager_only ? (
+          {!!privateService.manager_only && (
             <VisibilityOffIcon color="disabled" />
-          ) : (
-            <VisibilityOnIcon />
           )}
         </IconButton>
         {props.onEdit ? (

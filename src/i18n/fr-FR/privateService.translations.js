@@ -453,7 +453,7 @@ exports.default = {
       coach_consumer_attribution: {
         label: 'Permettre le choix du professeur lors de la réservation',
         helperText:
-          "Le membre voit et choisit le professeur avant la réservation. Si décoché, bsport d'attribuer les réservations au même professeur si possible",
+          'Le membre voit et choisit le professeur avant la réservation. Si décoché, vous devrez choisir le professeur après chaque prise de RDV',
       },
       establishment_consumer_attribution: {
         label: 'Permettre le choix du lieu lors de la réservation',

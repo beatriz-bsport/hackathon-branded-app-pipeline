@@ -15,7 +15,6 @@ import {
   privateServiceRetrieveActions,
   privateServiceCreateOrUpdateActions,
   privateSlotListActions,
-  privateBookingPreviewActions,
   privateBookingListActions,
   privateBookingCreateOrUpdateActions,
   privateBookingDeleteActions,
@@ -94,11 +93,6 @@ const initialState: PrivateServiceState = Immutable({
     loading: false,
     error: null,
     createOrUpdate: {
-      loading: false,
-      error: null,
-    },
-    preview: {
-      data: null,
       loading: false,
       error: null,
     },
@@ -303,15 +297,6 @@ export default handleActions(
         .setIn(['serviceGroup', 'allIds'], payload.map((g) => g.id));
     },
 
-    [privateBookingPreviewActions.error]: (state, { payload }) => {
-      return state.setIn(['privateBooking', 'preview', 'error'], payload);
-    },
-    [privateBookingPreviewActions.isLoading]: (state, { payload }) => {
-      return state.setIn(['privateBooking', 'preview', 'loading'], payload);
-    },
-    [privateBookingPreviewActions.success]: (state, { payload }) => {
-      return state.setIn(['privateBooking', 'preview', 'data'], payload);
-    },
     [privateBookingListActions.error]: (state, { payload }) => {
       return state.setIn(['privateBooking', 'error'], payload);
     },

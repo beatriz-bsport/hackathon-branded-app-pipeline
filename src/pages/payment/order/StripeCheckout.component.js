@@ -116,7 +116,7 @@ export class StripeCheckout extends Component<Props, State> {
         </Grid>
         <Grid item>
           <div className={classes.cardContainer}>
-            <CardElement hidePostalCode />
+            <CardElement />
           </div>
           {error ? (
             <Typography className={classes.error}>{error}</Typography>

@@ -306,7 +306,6 @@ export default compose(
         state.privateService.privateService.loading ||
         state.privateService.privatePass.loading ||
         state.privateService.privateSlot.loading ||
-        state.privateService.privateBooking.preview.loading ||
         state.privateService.privateConsumerPass.loading,
     }),
     {

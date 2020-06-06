@@ -7,6 +7,12 @@ import ListItem from '@material-ui/core/ListItem';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import {
+  UNEVEN_INVOICE_ALERT,
+  NEW_ORDER_ALERT,
+  REMINDER_NOTE_ALERT_KIND,
+  PRIVATE_BOOKING_INCOMPLETE_ALERT,
+} from '@bsport/common/lib/master-data/alerting_kind';
 
 import { Trans, useTranslation } from 'react-i18next';
 import moment from 'moment';
@@ -56,6 +62,47 @@ const UnevenAlertListItem = (props: {
           {t('unevenInvoice.pricePayed', { price_payed })}
           <br />
           {t('unevenInvoice.priceDue', { price_due })}
+        </Typography>
+      </div>
+    </ListItem>
+  );
+};
+
+const PrivateBookingIncompleteListItem = (props: {
+  pushRouter: (string) => void,
+  alerting: PrivateBookingAlerting,
+}) => {
+  const { alerting } = props;
+  const { t } = useTranslation(['alerting']);
+  const classes = useStyles();
+  const { user_name, date_start, name } = alerting.data;
+  return (
+    <ListItem divider style={{ paddingTop: 0 }}>
+      <div style={{ width: '100%' }}>
+        <div className={classes.titleContainer}>
+          <Typography variant="subtitle1" component="h3">
+            {alerting.data.name}
+          </Typography>
+          <IconButton
+            onClick={() =>
+              props.pushRouter(
+                `/member/${alerting.data.member.id}/private-booking/${alerting.data.private_booking}`,
+              )
+            }
+          >
+            <ArrowForwardIcon color="secondary" />
+          </IconButton>
+        </div>
+        <Typography variant="caption" component="p">
+          <Trans t={t} i18nKey="privateBookingIncomplete.explain">
+            The booking for <strong>{{ name }}</strong> has no coach
+          </Trans>
+          <br />
+          {t('privateBookingIncomplete.date', {
+            date_start: moment(date_start).format('LLLL'),
+          })}
+          <br />
+          {t('privateBookingIncomplete.name', { user_name })}
         </Typography>
       </div>
     </ListItem>
@@ -135,16 +182,23 @@ const TaskAlertListItem = (props: {
 export default function AlertList(props: Props) {
   const { alerting, pushRouter } = props;
   switch (alerting.alert_kind) {
-    case 1:
+    case UNEVEN_INVOICE_ALERT.alert_kind:
       return (
         <UnevenAlertListItem alerting={alerting} pushRouter={pushRouter} />
       );
-    case 2:
+    case NEW_ORDER_ALERT.alert_kind:
       return (
         <NewOrderAlertListItem alerting={alerting} pushRouter={pushRouter} />
       );
-    case 3:
+    case REMINDER_NOTE_ALERT_KIND.alert_kind:
       return <TaskAlertListItem alerting={alerting} pushRouter={pushRouter} />;
+    case PRIVATE_BOOKING_INCOMPLETE_ALERT.alert_kind:
+      return (
+        <PrivateBookingIncompleteListItem
+          alerting={alerting}
+          pushRouter={pushRouter}
+        />
+      );
     default:
       return null;
   }

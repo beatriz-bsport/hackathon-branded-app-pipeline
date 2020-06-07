@@ -152,12 +152,13 @@ module.exports = {
           // Process JS with Babel.
           {
             test: /\.(js|jsx|mjs)$/,
-            include: paths.appSrc,
+            include: [paths.appSrc, /node_modules\/i18next-http-backend/],
             loader: require.resolve('babel-loader'),
             options: {
               compact: true,
               plugins: [
                 '@babel/plugin-proposal-class-properties',
+                '@babel/plugin-proposal-object-rest-spread',
                 'babel-plugin-lodash',
               ],
               presets: [
@@ -166,7 +167,12 @@ module.exports = {
                   {
                     targets: {
                       // The % refers to the global coverage of users from browserslist
-                      browsers: ['>0.1%', 'iOS >= 9', 'Safari >= 6'],
+                      browsers: [
+                        '>0.1%',
+                        'iOS >= 9',
+                        'Safari >= 6',
+                        'ie >= 11',
+                      ],
                     },
 
                     useBuiltIns: 'entry',

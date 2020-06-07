@@ -125,7 +125,7 @@ module.exports = {
           // Process JS with Babel.
           {
             test: /\.(js|jsx|mjs)$/,
-            include: paths.appSrc,
+            include: [paths.appSrc, /node_modules\/i18next-http-backend/],
             loader: require.resolve('babel-loader'),
             options: {
               // This is a feature of `babel-loader` for webpack (not Babel itself).
@@ -135,7 +135,24 @@ module.exports = {
 
               plugins: ['@babel/plugin-proposal-class-properties'],
               presets: [
-                '@babel/preset-env',
+                [
+                  '@babel/preset-env',
+
+                  {
+                    targets: {
+                      // The % refers to the global coverage of users from browserslist
+                      browsers: [
+                        '>0.1%',
+                        'iOS >= 9',
+                        'Safari >= 6',
+                        'ie >= 11',
+                      ],
+                    },
+
+                    useBuiltIns: 'entry',
+                    corejs: 3,
+                  },
+                ],
                 '@babel/preset-react',
                 '@babel/preset-flow',
               ],

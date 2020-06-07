@@ -2,12 +2,22 @@
 
 import { createAction } from 'redux-actions';
 
-import { UNEVEN_INVOICE_ALERT } from '@bsport/common/lib/master-data/alerting_kind';
+import {
+  UNEVEN_INVOICE_ALERT,
+  NEW_ORDER_ALERT,
+  REMINDER_NOTE_ALERT_KIND,
+  PRIVATE_BOOKING_INCOMPLETE_ALERT,
+} from '@bsport/common/lib/master-data/alerting_kind';
 import api from './api';
 
 import type { Dispatch, State, ThunkAction } from '../../state/types';
 
-const ALERT_KINDS = [UNEVEN_INVOICE_ALERT.alert_kind, 2, 3];
+const ALERT_KINDS = [
+  UNEVEN_INVOICE_ALERT,
+  NEW_ORDER_ALERT,
+  REMINDER_NOTE_ALERT_KIND,
+  PRIVATE_BOOKING_INCOMPLETE_ALERT,
+].map((ak) => ak.alert_kind);
 
 export const listActions = {
   error: createAction('ALERTING/LIST/ERROR'),

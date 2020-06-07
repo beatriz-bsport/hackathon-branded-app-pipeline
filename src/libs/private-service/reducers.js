@@ -16,9 +16,11 @@ import {
   privateServiceCreateOrUpdateActions,
   privateSlotListActions,
   privateBookingListActions,
+  privateBookingAttachCoachActions,
   privateBookingCreateOrUpdateActions,
   privateBookingDeleteActions,
   privateSlotRetrieveActions,
+  privateBookingRetrieveActions,
   privateServiceResourceRetrieveActions,
   privateSlotCreateOrUpdateActions,
   privatePassListActions,
@@ -295,6 +297,20 @@ export default handleActions(
           { deep: true },
         )
         .setIn(['serviceGroup', 'allIds'], payload.map((g) => g.id));
+    },
+
+    [privateBookingAttachCoachActions.success]: (state, { payload }) => {
+      return state.setIn(['privateBooking', 'byId', payload.id], payload);
+    },
+
+    [privateBookingRetrieveActions.error]: (state, { payload }) => {
+      return state.setIn(['privateBooking', 'error'], payload);
+    },
+    [privateBookingRetrieveActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['privateBooking', 'loading'], payload);
+    },
+    [privateBookingRetrieveActions.success]: (state, { payload }) => {
+      return state.setIn(['privateBooking', 'byId', payload.id], payload);
     },
 
     [privateBookingListActions.error]: (state, { payload }) => {

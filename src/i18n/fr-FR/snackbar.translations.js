@@ -267,6 +267,12 @@ exports.default = {
     success: "Mail en cours d'envoi",
     error: "Problème lors de l'envoi du mail",
   },
+  privateBooking: {
+    attachCoach: {
+      success: 'RDV attribué au professeur',
+      error: "Impossible d'attribuer au professeur",
+    },
+  },
   privateConsumerPass: {
     creditUpdate: {
       success: 'Crédits mis à jour',

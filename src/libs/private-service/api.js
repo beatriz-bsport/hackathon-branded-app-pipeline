@@ -345,6 +345,10 @@ export const fetchPrivateBookings = (params: any) => {
   );
 };
 
+export const fetchPrivateBooking = (id: number) => {
+  return getAuth(`${API_V1_URI}/private_service/private_booking/${id}/`);
+};
+
 export const updatePrivateBookingDatetime = (
   id: number,
   date_start: string,
@@ -396,4 +400,20 @@ export const disablePrivateBooking = (
 
 export const deletePrivateBooking = (id: number) => {
   return deleteAuth(`${API_V1_URI}/private_service/private_booking/${id}/`);
+};
+
+export const attachCoach = (
+  id: number,
+  {
+    coach,
+    notify,
+  }: {
+    coach: number,
+    notify: boolean,
+  },
+) => {
+  return postAuth(
+    `${API_V1_URI}/private_service/private_booking/${id}/attach_coach/`,
+    { coach, notify },
+  );
 };

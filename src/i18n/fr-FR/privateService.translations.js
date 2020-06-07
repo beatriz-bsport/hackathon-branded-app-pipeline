@@ -86,6 +86,15 @@ exports.default = {
     discard: 'Annuler le RDV',
     hardDelete: 'Supprimer',
     isCancelled: 'Annulé',
+    attachCoach: {
+      title: 'Attribution au professeur',
+      explain:
+        "Choisissez un professeur pour lui attribuer ce RDV et l'ajouter à son calendrier",
+      actions: {
+        cancel: 'Annuler',
+        title: 'Attribuer un professeur',
+      },
+    },
     detail: {
       title: 'Réservation',
       registeredOn: 'Réservé le ',
@@ -96,6 +105,8 @@ exports.default = {
       wasRefundedYes: 'Oui',
       wasRefundedNo: 'Non',
       address: 'Adresse',
+      coach: 'Professeur',
+      attachCoach: 'Attribuer à un professeur',
     },
     managerAdd: {
       title: 'Nouvelle réservation',

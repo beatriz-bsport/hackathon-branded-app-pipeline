@@ -10,6 +10,7 @@ import {
   fetchAvailabilitySlots as fetchAvailabilitySlotsAPI,
   checkExistsAvailabilitySlots as checkExistsAvailabilitySlotsAPI,
   fetchPrivateBookings as fetchPrivateBookingsAPI,
+  fetchPrivateBooking as fetchPrivateBookingAPI,
   disableResourceAvailabilitySlot as disableResourceAvailabilitySlotAPI,
   enableResourceAvailabilitySlot as enableResourceAvailabilitySlotAPI,
   searchAvailableSlots as searchAvailableSlotsAPI,
@@ -55,9 +56,47 @@ import {
   deletePrivateBooking as deletePrivateBookingAPI,
   fetchCalendarEventList as fetchCalendarEventListAPI,
   updatePrivateBookingDatetime as updatePrivateBookingDatetimeAPI,
+  attachCoach as attachCoachAPI,
 } from './api';
 
+import { fetchAll as fetchAlerting } from '../alerting/actions';
+
 import type { Dispatch, ThunkAction } from '../../state/types';
+
+export const privateBookingAttachCoachActions = {
+  error: createAction('PRIVATE_BOOKING/ATTACH_COACH/ERROR'),
+  isLoading: createAction('PRIVATE_BOOKING/ATTACH_COACH/IS_LOADING'),
+  success: createAction('PRIVATE_BOOKING/ATTACH_COACH/SUCCESS'),
+};
+
+export function attachCoachToPrivateBooking(
+  id: number,
+  data: {
+    notify: boolean,
+    coach: number,
+  },
+  options: ?{ onSuccess: () => void, onError: ?() => void },
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateBookingAttachCoachActions.isLoading(true));
+    dispatch(privateBookingAttachCoachActions.error(null));
+    try {
+      const response = await attachCoachAPI(id, data);
+      dispatch(privateBookingAttachCoachActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+        dispatch(fetchAlerting());
+      }
+      dispatch(snackbarSuccess('privateBooking.attachCoach.success'));
+    } catch (err) {
+      console.error(err);
+      dispatch(privateBookingAttachCoachActions.error(null));
+      if (options && options.onError) options.onError();
+      dispatch(snackbarError('privateBooking.attachCoach.error'));
+    }
+    dispatch(privateBookingAttachCoachActions.isLoading(false));
+  };
+}
 
 export const calendarEventListActions = {
   error: createAction('CALENDAR_EVENT/LIST/ERROR'),
@@ -1280,8 +1319,34 @@ export function fetchPrivateBookings(
   };
 }
 
-export const fetchPrivateBooking = (id: number, options: OptionCallback) =>
-  fetchPrivateBookings({ id__in: [id] }, options);
+export const privateBookingRetrieveActions = {
+  error: createAction('PRIVATE_BOOKING/RETRIEVE/ERROR'),
+  isLoading: createAction('PRIVATE_BOOKING/RETRIEVE/IS_LOADING'),
+  success: createAction('PRIVATE_BOOKING/RETRIEVE/SUCCESS'),
+};
+
+export function fetchPrivateBooking(
+  id: number,
+  options: ?{
+    onSuccess: (Array<PrivateBooking>) => void,
+    onError: ?() => void,
+  },
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateBookingRetrieveActions.isLoading(true));
+    dispatch(privateBookingRetrieveActions.error(null));
+    try {
+      const response = await fetchPrivateBookingAPI(id);
+      dispatch(privateBookingRetrieveActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(privateBookingRetrieveActions.error(null));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(privateBookingRetrieveActions.isLoading(false));
+  };
+}
 
 export function registerPrivateBooking(
   params: any,

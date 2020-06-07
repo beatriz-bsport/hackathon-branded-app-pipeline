@@ -7,6 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import Button from '@material-ui/core/Button';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
@@ -31,7 +32,7 @@ type Props = {
   goToPrivateConsumerPass: (privateConsumerPassId: number) => void,
 };
 export const PrivateBookingDetail = (props: Props) => {
-  const { t, classes, private_booking } = props;
+  const { t, classes, private_service, private_booking } = props;
   return (
     <div>
       <div className={classes.section}>
@@ -39,42 +40,59 @@ export const PrivateBookingDetail = (props: Props) => {
           {t('privateBooking.detail.title')}
         </Typography>
         <Paper className={classes.paperContainer}>
-          <div>
-            <div className={classes.parameterRow}>
-              <Typography inline>
-                {t('privateBooking.detail.registeredOn')}:
-              </Typography>
-              <Typography inline>
-                {formatAsDatetime(private_booking.date_created)}
-              </Typography>
-            </div>
-            <div className={classes.parameterRow}>
-              <Typography inline>
-                {`${t('privateBooking.detail.source')}: `}
-              </Typography>
-              <BookingSource t={t} source={private_booking.source} />
-            </div>
-            <div className={classes.parameterRow}>
-              <Typography inline>
-                {t('privateBooking.detail.address')}:
-              </Typography>
-              <Typography inline>{private_booking.address}</Typography>
-            </div>
-            {private_booking.booking_status_code !== BOOKING_STATUS_OK.id ? (
-              <div className={classes.parameterRow}>
-                <Typography inline>
-                  {`${t('privateBooking.detail.wasRefunded')}: `}
-                </Typography>
-                <Typography inline>
-                  {t(
-                    private_booking.was_refunded
-                      ? 'privateBooking.detail.wasRefundedYes'
-                      : 'privateBooking.detail.wasRefundedNo',
-                  )}
-                </Typography>
-              </div>
-            ) : null}
+          <div className={classes.parameterRow}>
+            <Typography inline>
+              {t('privateBooking.detail.registeredOn')}:
+            </Typography>
+            <Typography inline>
+              {formatAsDatetime(private_booking.date_created)}
+            </Typography>
           </div>
+          <div className={classes.parameterRow}>
+            <Typography inline>
+              {`${t('privateBooking.detail.source')}: `}
+            </Typography>
+            <BookingSource t={t} source={private_booking.source} />
+          </div>
+          <div className={classes.parameterRow}>
+            <Typography inline>
+              {t('privateBooking.detail.address')}:
+            </Typography>
+            <Typography inline>{private_booking.address}</Typography>
+          </div>
+          {!!private_service && private_service.coaches.length && (
+            <div className={classes.parameterRow}>
+              <Typography inline>
+                {t('privateBooking.detail.coach')}:
+              </Typography>
+              {!!private_booking.coach && (
+                <Typography inline>{private_booking.coach.name}</Typography>
+              )}
+              {private_booking.associated_coach === null && (
+                <Button
+                  color="primary"
+                  onClick={props.onOpenAttachCoach}
+                  variant="outlined"
+                >
+                  {t('privateBooking.detail.attachCoach')}
+                </Button>
+              )}
+            </div>
+          )}
+          {private_booking.booking_status_code !== BOOKING_STATUS_OK.id ? (
+            <div className={classes.parameterRow}>
+              <Typography inline>
+                {`${t('privateBooking.detail.wasRefunded')}: `}
+              </Typography>
+              <Typography inline>
+                {t(
+                  private_booking.was_refunded
+                    ? 'privateBooking.detail.wasRefundedYes'
+                    : 'privateBooking.detail.wasRefundedNo',
+                )}
+              </Typography>
+            </div>
+          ) : null}
         </Paper>
       </div>
       <div className={classes.section}>
@@ -123,6 +141,12 @@ const styles = (theme) => ({
   },
   paperContainer: {
     padding: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    '&>*': {
+      paddingBottom: theme.spacing(0.5),
+      paddingTop: theme.spacing(0.5),
+    },
   },
   parameterRow: {
     display: 'flex',

@@ -13,6 +13,7 @@ import Chip from '@material-ui/core/Chip';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import CallIcon from '@material-ui/icons/Call';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import { Link } from 'react-router-dom';
 
@@ -86,6 +87,11 @@ export function CoachListItem(props: Props) {
         }
       />
       <ListItemSecondaryAction>
+        {!!props.onClick && (
+          <IconButton onClick={props.onClick}>
+            <ArrowForwardIcon color="primary" />
+          </IconButton>
+        )}
         {!props.noEdit && (
           <Link
             to={`/coach/edit/${coach.id}`}

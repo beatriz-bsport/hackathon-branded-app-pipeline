@@ -52,6 +52,9 @@ export const withRelatedFields = memoize((selector) =>
     ) => {
       if (!bookings) return null;
       if (!Array.isArray(bookings)) {
+        console.log(bookings);
+        console.log(bookings.coach);
+        console.log(coachData);
         return {
           ...bookings,
           coach: coachData[bookings.coach],

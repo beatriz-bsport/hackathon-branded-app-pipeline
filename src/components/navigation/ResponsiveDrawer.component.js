@@ -8,8 +8,6 @@ import { withRouter } from 'react-router';
 
 import { compose } from 'recompose';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
-import RefreshIcon from '@material-ui/icons/Refresh';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -78,8 +76,6 @@ import Config from '../../config';
 export const drawerWidth = 260;
 
 type Props = {
-  isRefreshing: boolean,
-  onRefresh: () => void,
   children: Object,
   theme: Object,
   classes: Object,
@@ -100,12 +96,14 @@ type Props = {
   displayLeftMenu: boolean,
   openCreateMember: () => void,
   openCalendar: () => void,
+  push: (path: string) => void,
 };
 
 type State = {
   mobileOpen: boolean,
   open: {},
   openParameters: boolean,
+  tempPasswordDialogOpen: boolean,
 };
 
 class ResponsiveDrawer extends React.Component<Props, State> {
@@ -364,8 +362,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
   };
 
   renderAdditionalButtons = () => {
-    const { isRefreshing, onRefresh } = this.props;
-
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       this.setState({ anchorEl: event.currentTarget });
     };
@@ -397,12 +393,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             <ListItemText
               primary={this.props.t('backofficeMenu.requestTempPassword')}
             />
-          </MenuItem>
-          <MenuItem onClick={onRefresh}>
-            <ListItemIcon>
-              {isRefreshing ? <CircularProgress /> : <RefreshIcon />}
-            </ListItemIcon>
-            <ListItemText primary={this.props.t('backofficeMenu.refresh')} />
           </MenuItem>
           <MenuItem
             onClick={() => {

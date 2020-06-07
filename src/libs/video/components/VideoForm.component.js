@@ -1,9 +1,7 @@
 // @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import pick from 'lodash/pick';
 
@@ -18,11 +16,12 @@ import { TextField } from '../../../components/forms';
 import LevelSelectorField from '../../category/components/LevelSelectorField.component';
 
 type Props = {
-  classes: Object,
-  t: TFunction,
+  coaches: Array<Coach>,
+  SCTs: Array<SCT>,
 };
 export const VideoForm = (props: Props) => {
-  const { classes, coaches, t } = props;
+  const { t } = useTranslation(['video']);
+  const classes = useStyles();
   return (
     <div className={classes.container}>
       <div className={classes.field}>
@@ -89,7 +88,7 @@ export const VideoForm = (props: Props) => {
                   ]}
                   closeMenuOnSelect
                   nullCurrentValue
-                  helperText={props.t('video.form.coach.helperText')}
+                  helperText={t('video.form.coach.helperText')}
                   selectedCoaches={[]}
                   selectOption={(ev) => {
                     if (ev.length) push(ev[0].value);
@@ -115,7 +114,7 @@ export const VideoForm = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     minWidth: 400,
   },
@@ -130,12 +129,9 @@ const styles = (theme) => ({
   emptyCoachText: {
     padding: theme.spacing(1),
   },
-});
+}));
 
-export default compose(
-  withTranslation(['video']),
-  withStyles(styles),
-)(VideoForm);
+export default VideoForm;
 
 export const VideoSchema = Yup.object().shape({
   cover_main: Yup.object().nullable(),

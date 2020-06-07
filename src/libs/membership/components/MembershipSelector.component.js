@@ -22,7 +22,6 @@ import MembershipListItem from './MembershipListItem.component';
 import CompanyListItem from './CompanyListItem.component';
 
 type Props = {
-  t: TFunction,
   membershipList: Array<Membership>,
   classes: Object,
   goToConsumerHome: (company: number) => void,

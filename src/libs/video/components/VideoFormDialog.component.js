@@ -1,23 +1,22 @@
 // @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { compose } from 'recompose';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import { Form } from 'formik';
 import VideoForm, { VideoFormHOC } from './VideoForm.component';
 import { Submit } from '../../../components/forms';
 
 type Props = {
-  t: TFunction,
+  isSubmitting?: boolean,
+  onClose: () => void,
+  open: boolean,
 };
 export const VideoFormDialog = (props: Props) => {
+  const { t } = useTranslation(['video']);
   return (
     <Dialog open={props.open}>
       <Form>
@@ -26,10 +25,10 @@ export const VideoFormDialog = (props: Props) => {
         </DialogContent>
         <DialogActions>
           <Button disabled={props.isSubmitting} onClick={props.onClose}>
-            {props.t('video.form.cancel')}
+            {t('video.form.cancel')}
           </Button>
           <Submit disabled={props.isSubmitting}>
-            {props.t('video.form.submit')}
+            {t('video.form.submit')}
           </Submit>
         </DialogActions>
       </Form>
@@ -37,12 +36,4 @@ export const VideoFormDialog = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
-  container: {},
-});
-
-export default compose(
-  withTranslation(['video']),
-  withStyles(styles),
-  VideoFormHOC,
-)(VideoFormDialog);
+export default VideoFormHOC(VideoFormDialog);

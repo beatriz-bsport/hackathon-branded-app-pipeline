@@ -39,6 +39,7 @@ type Props = {
   workshopToDelete: ?number,
   deleteWorkshop: (number) => void,
   goToDetail: (metaActivityId: number) => void,
+  goToPaymentPack: () => void,
   goToEdit: (metaActivityId: number) => void,
   onCreate: () => void,
   makeActivityCopy: (

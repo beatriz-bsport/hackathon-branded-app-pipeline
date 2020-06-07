@@ -65,6 +65,9 @@ type Props = {
   refreshOffers: () => void,
   refreshPrivateBookings: () => void,
 
+  goToCalendar: () => void,
+  fetchAvailabilitySlots: () => void,
+
   onRequestPrivateBooking: (date: string) => void,
   privateBookingRequestedSlot: ?string,
   resourcesByDatatype: Array<ResourceData>,

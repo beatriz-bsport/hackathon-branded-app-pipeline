@@ -8,15 +8,14 @@ import {
   withStateHandlers,
   withHandlers,
 } from 'recompose';
+import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
-import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-import Paper from '@material-ui/core/Paper';
 
 import {
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
@@ -28,55 +27,37 @@ import BottomActionsButton from '../../components/button/BottomActionsButton.com
 import withTitle from '../../hocs/with-title.hoc';
 
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
-import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
-import EventPanel from '../../libs/event/components/EventPanel.component';
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
-import SubscriptionContractFormDialog from '../../libs/subscription/components/SubscriptionContractFormDialog.component';
-import { COMPANY_EVENTS } from '../../libs/subscription/components/event.utils';
 
 import { search as searchMembers } from '../../libs/member/actions';
 import { getSearchedMembers } from '../../libs/member/selectors';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 
 import {
-  getSubscriptionList,
   getAvailableContractListManager,
   getAvailableContractListCustomer,
   getContract,
-  getSubscriptionEventList,
-  getSubscriptionEventState,
   withPaymentPack,
 } from '../../libs/subscription/selectors';
 import {
-  createOrUpdateContract,
+  createOrUpdateContract as createOrUpdateContractAction,
   fetchContractList as fetchContractListAction,
   deleteContract,
-  fetchSubscriptionList as fetchSubscriptionListAction,
   fetchSubscriptionBulk as fetchSubscriptionBulkAction,
-  fetchSubscriptionEventList as fetchSubscriptionEventListAction,
 } from '../../libs/subscription/actions';
 
 type Props = {
-  goToSubscription: (id: number) => void,
-  fetchSubscriptionList: (page: number) => void,
-  subscriptionList: Array<Subscription>,
-  subscriptionLoading: boolean,
-  subscriptionCount: number,
-
-  eventLoading: boolean,
-  eventPage: number,
-  eventList: Array<EventSubscription>,
-  fetchSubscriptionEventList: ({ page: number, page_size: number }) => void,
-
   fetchContractList: () => void,
   contractLoading: boolean,
   createOrUpdateContract: (data: any, options: OptionCallback) => void,
   deleteContract: (id: number, options: OptionCallback) => void,
   paymentPacks: Array<PaymentPack>,
-  contractList: Array<SubscriptionContract>,
+  contractListAvailableAll: Array<SubscriptionContract>,
+  contractListManagerOnly: Array<SubscriptionContract>,
 
   openContractRegister: (?Contract) => void,
+  onRegisteredBillingPlan: (BillingPlan) => void,
   contractRegisterOpen: boolean,
 
   setMemberToBill: (?Member) => void,
@@ -91,6 +72,8 @@ type Props = {
   setSelectedContract: (?number) => void,
   selectedContractData: ?Contract,
 
+  onRequestCreate: () => void,
+
   t: TFunction,
   classes: Object,
 };
@@ -98,12 +81,6 @@ type Props = {
 export class SubscriptionList extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchContractList();
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (prevProps.selectedContract !== this.props.selectedContract) {
-      this.props.fetchSubscriptionList(1);
-    }
   }
 
   onClickContract = (id: number) => {
@@ -197,14 +174,24 @@ export class SubscriptionList extends React.Component<Props> {
           onCreateLabel={this.props.t('subscription:contract.actions.create')}
           onCreate={this.props.onRequestCreate}
         />
-        {this.props.createContractFormOpen && (
-          <SubscriptionContractFormDialog
-            paymentPacks={this.props.paymentPacks}
-            open
-            onSubmit={this.props.onCreate}
-            onClose={this.props.onCloseCreate}
+        {this.props.contractRegisterOpen && this.props.selectedContract ? (
+          <SubscriptionContractRegister
+            open={this.props.contractRegisterOpen}
+            contract={this.props.selectedContractData}
+            searchMembers={this.props.searchMembers}
+            searchedMembers={this.props.searchedMembers}
+            searchLoading={this.props.searchMemberLoading}
+            onChangeMember={this.props.setMemberToBill}
+            member={this.props.memberToBill}
+            onSuccess={this.props.onRegisteredBillingPlan}
+            onClose={this.props.closeContractRegister}
+            enabledPaymentMethods={[
+              BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+              BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+              BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+            ]}
           />
-        )}
+        ) : null}
       </div>
     );
   }
@@ -239,53 +226,25 @@ export default compose(
       )(state),
       contractLoading: state.subscription.contract.loading,
       paymentPacks: getPaymentPackEnabled(state),
-      subscriptionList: getSubscriptionList(state),
-      subscriptionCount: state.subscription.list.count,
-      subscriptionLoading: state.subscription.list.loading,
       searchedMembers: getSearchedMembers(state),
-      eventList: getSubscriptionEventList(state),
-      eventPage: getSubscriptionEventState(state).page,
-      eventLoading: getSubscriptionEventState(state).loading,
     }),
     {
       fetchContractList: fetchContractListAction,
-      fetchSubscriptionList: fetchSubscriptionListAction,
       fetchSubscriptionBulk: fetchSubscriptionBulkAction,
-      fetchSubscriptionEventList: fetchSubscriptionEventListAction,
-      createOrUpdateContract,
+      createOrUpdateContract: createOrUpdateContractAction,
       searchMembers,
       deleteContract,
+      pushRouter: push,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
-      goToSubscription: (id) => pushRouter(`/subscription/${id}`),
     },
   ),
   withState('selectedContract', 'setSelectedContract', null),
-  withHandlers({
-    fetchSubscriptionList: ({ fetchSubscriptionList, selectedContract }) => (
-      page: number,
-    ) => {
-      fetchSubscriptionList({
-        page,
-        page_size: 10,
-        ...(selectedContract ? { contract: selectedContract } : {}),
-      });
-    },
-  }),
   withState('contractRegisterOpen', 'setContractRegisterOpen', false),
   withState('memberToBill', 'setMemberToBill', null),
   connect((state, { selectedContract }) => ({
     selectedContractData: getContract(state, selectedContract),
   })),
   withHandlers({
-    fetchSubscriptionEventList: ({
-      fetchSubscriptionEventList,
-      fetchSubscriptionBulk,
-    }) => (params) => {
-      fetchSubscriptionEventList(params, {
-        onSuccess: (eventList) =>
-          fetchSubscriptionBulk(eventList.map((e) => e.data.billing_plan)),
-      });
-    },
     openContractRegister: ({
       setContractRegisterOpen,
       setSelectedContract,
@@ -298,11 +257,18 @@ export default compose(
     closeContractRegister: ({
       setMemberToBill,
       setContractRegisterOpen,
-      fetchSubscriptionList,
     }) => () => {
       setContractRegisterOpen(false);
       setMemberToBill(null);
-      fetchSubscriptionList(1);
+    },
+    onRegisteredBillingPlan: ({
+      setMemberToBill,
+      pushRouter,
+      setContractRegisterOpen,
+    }) => (billingPlan) => {
+      setContractRegisterOpen(false);
+      setMemberToBill(null);
+      pushRouter(`/subscription/${billingPlan.id}`);
     },
   }),
   withProps(({ fetchContractList, fetchPaymentPackBulk }) => ({

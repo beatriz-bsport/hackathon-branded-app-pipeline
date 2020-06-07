@@ -34,6 +34,7 @@ type State = {
   password2: ?string,
   error: ?string,
   processing: boolean,
+  hasExpired: boolean,
 };
 
 export class ChangePassword extends Component<Props, State> {
@@ -42,6 +43,7 @@ export class ChangePassword extends Component<Props, State> {
     password2: null,
     error: null,
     processing: false,
+    hasExpired: false,
   };
 
   componentWillMount() {
@@ -84,17 +86,25 @@ export class ChangePassword extends Component<Props, State> {
           this.props.pushToLogin('login.passwordChangedSuccess');
         }
       } catch (e) {
-        this.setState({
-          processing: false,
-          error: t('form.login.passwordTooEasy'),
-        });
+        if (e.response && e.response.data && e.response.data.token) {
+          this.setState({
+            processing: false,
+            hasExpired: true,
+            error: t('form.login.tokenExpired'),
+          });
+        } else {
+          this.setState({
+            processing: false,
+            error: t('form.login.passwordTooEasy'),
+          });
+        }
       }
     }
   };
 
   render() {
     const { t, classes } = this.props;
-    const { processing, password1, error, password2 } = this.state;
+    const { processing, hasExpired, password1, error, password2 } = this.state;
     return (
       <LoginBase>
         <form onSubmit={this.onSubmit} className={classes.formContainer}>
@@ -104,26 +114,30 @@ export class ChangePassword extends Component<Props, State> {
                 {t('form.login.changePasswordTitle')}
               </Typography>
             </Grid>
-            <Grid item>
-              <TextField
-                type="password"
-                name="password"
-                value={password1}
-                required
-                placeholder={t('form.login.password')}
-                onChange={this.handlePassword1Change}
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                type="password"
-                name="passwordConfirm"
-                value={password2}
-                required
-                placeholder={t('form.login.confirmPassword')}
-                onChange={this.handlePassword2Change}
-              />
-            </Grid>
+            {!hasExpired && (
+              <Grid item>
+                <TextField
+                  type="password"
+                  name="password"
+                  value={password1}
+                  required
+                  placeholder={t('form.login.password')}
+                  onChange={this.handlePassword1Change}
+                />
+              </Grid>
+            )}
+            {!hasExpired && (
+              <Grid item>
+                <TextField
+                  type="password"
+                  name="passwordConfirm"
+                  value={password2}
+                  required
+                  placeholder={t('form.login.confirmPassword')}
+                  onChange={this.handlePassword2Change}
+                />
+              </Grid>
+            )}
             {error ? (
               <Grid item>
                 <Typography variant="caption" color="error">
@@ -132,9 +146,8 @@ export class ChangePassword extends Component<Props, State> {
               </Grid>
             ) : null}
             <Grid item>
-              {processing ? (
-                <CircularProgress />
-              ) : (
+              {!!processing && <CircularProgress />}
+              {!processing && !hasExpired && (
                 <Button
                   color="primary"
                   variant="contained"
@@ -142,6 +155,15 @@ export class ChangePassword extends Component<Props, State> {
                   id="btn-new-password-confirm"
                 >
                   OK
+                </Button>
+              )}
+              {!!hasExpired && (
+                <Button
+                  onClick={this.props.requestResetLink}
+                  color="primary"
+                  variant="contained"
+                >
+                  {this.props.t('form.login.resetAgainPassword')}
                 </Button>
               )}
             </Grid>
@@ -154,6 +176,9 @@ export class ChangePassword extends Component<Props, State> {
 
 function mapDispatchToProps(dispatch) {
   return {
+    requestResetLink() {
+      dispatch(pushRouter('/login/reset_password'));
+    },
     pushToLogin(successMessage) {
       dispatch(snackbarSuccess(successMessage));
       dispatch(pushRouter('/login'));

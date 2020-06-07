@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import TextField from '@material-ui/core/TextField';
@@ -12,8 +13,8 @@ import { useTranslation } from 'react-i18next';
 import Popover from '@material-ui/core/Popover';
 import Tooltip from '../../../components/Tooltip.component';
 
-function ValueLabelComponent(props) {
-  const { children, open, value } = props;
+function ValueLabelComponent(props: { children: any, value: string }) {
+  const { children, value } = props;
   return (
     <Tooltip open placement="bottom" title={value}>
       {children}
@@ -21,20 +22,26 @@ function ValueLabelComponent(props) {
   );
 }
 
-const DurationSelector = (props) => {
+type Props = {
+  durationSecondRange: ?string,
+  onChange: (?string) => void,
+};
+
+const DurationSelector = (props: Props) => {
   const [value, setValue] = React.useState([0, 180]);
   const [anchorMenu, setAnchorMenu] = React.useState(null);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const valueLabelFormat = (value) => {
-    return `${value} min`;
+  const valueLabelFormat = (v: any) => {
+    return `${v} min`;
   };
   const { t } = useTranslation(['video']);
   let min = 0;
   let max = 180;
   try {
     [min, max] = props.durationSecondRange.split(',');
+    // eslint-disable-next-line
   } catch {}
   return (
     <div>

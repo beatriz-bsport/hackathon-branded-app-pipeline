@@ -68,10 +68,12 @@ export function updateVideoToPaylist(
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
       }
+      dispatch(snackbarSuccess(`playlist.video.${method}.success`));
     } catch (err) {
       console.error(err);
       dispatch(updatePlaylistItemActions.error(err));
       if (options && options.onError) options.onError();
+      dispatch(snackbarError(`playlist.video.${method}.error`));
     }
     dispatch(updatePlaylistItemActions.isLoading(false));
   };
@@ -135,10 +137,12 @@ export function createOrUpdatePlaylist(data: any, options: OptionCallback) {
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
+      dispatch(snackbarSuccess('playlist.createOrUpdate.success'));
     } catch (err) {
       console.error(err);
       dispatch(createOrUpdatePlaylistActions.error(err));
       if (options && options.onError) options.onError();
+      dispatch(snackbarError('playlist.createOrUpdate.error'));
     }
     dispatch(createOrUpdatePlaylistActions.isLoading(false));
   };
@@ -159,10 +163,12 @@ export function deletePlaylist(id: number, options: OptionCallback) {
       if (options && options.onSuccess) {
         options.onSuccess(id);
       }
+      dispatch(snackbarSuccess('playlist.delete.success'));
     } catch (err) {
       console.error(err);
       dispatch(deletePlaylistActions.error(err));
       if (options && options.onError) options.onError();
+      dispatch(snackbarError('playlist.delete.error'));
     }
     dispatch(deletePlaylistActions.isLoading(false));
   };

@@ -13,7 +13,27 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 
-type Props = {};
+type Props = {
+  open: boolean,
+  loading: boolean,
+  price: string,
+  note: string,
+  credits: number,
+  consumerPaymentPack: ConsumerPaymentPack,
+  handlePriceChange: (SyntheticEvent<HTMLElement>) => void,
+  handleCreditChange: (SyntheticEvent<HTMLEvent>) => void,
+  handleNoteChange: (SyntheticEvent<HTMLEvent>) => void,
+  onSubmit: (
+    consumerPackId: number,
+    data: {
+      credit_to_refund: number,
+      refund_amount: string,
+      note: string,
+    },
+  ) => void,
+  onClose: () => void,
+};
+
 export const RefundConsumerPaymentPack = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['paymentPack']);

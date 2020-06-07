@@ -27,6 +27,8 @@ type Props = {
   selected?: boolean,
   divider?: boolean,
   onUpdateCredit?: (id: number, credits: 1, options: OptionCallback) => void,
+  creditProcessing: boolean,
+  setCreditProcessing: (boolean) => void,
 };
 
 export const PrivateConsumerPassBookerListItem = (props: Props) => {

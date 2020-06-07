@@ -147,7 +147,7 @@ type State = {
 };
 
 const getMemberFromId = (id, membersList) => {
-  const member = membersList.find((member) => member.id === id);
+  const member = membersList.find((m) => m.id === id);
   return { name: member.name, photo: member.photo };
 };
 

@@ -23,11 +23,13 @@ type Props = {
   company_id: number,
   emailDesignCreate: (data: any) => void,
   goToList: () => void,
-  goToListDetail: (id) => void,
+  goToListDetail: (id: number) => void,
   snackbarError: (msg: string) => void,
 
   fetchTagList: () => void,
   tagCategories: { [string]: Array<string> },
+  hasBeenLoadedOnce: boolean,
+  setHasBeenLoaded: (?boolean) => void,
 };
 
 export class EmailTemplateCreate extends Component<Props> {

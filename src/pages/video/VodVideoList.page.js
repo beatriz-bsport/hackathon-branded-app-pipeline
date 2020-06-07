@@ -7,17 +7,13 @@ import { push } from 'connected-react-router';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import flatten from 'lodash/flatten';
 import Divider from '@material-ui/core/Divider';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { mapFormData } from '../form.utils';
-import {
-  fetchAssociatedCoachBulk,
-  fetchAssociatedCoachesList,
-} from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 
 import {
@@ -26,11 +22,11 @@ import {
   withCoach,
 } from '../../libs/video/selectors';
 import {
-  fetchVideoList,
-  createOrUpdateVideo,
+  fetchVideoList as fetchVideoListAction,
+  createOrUpdateVideo as createOrUpdateVideoAction,
   retrieveVideo,
-  deleteVideo,
-  fetchMoreVideo,
+  deleteVideo as deleteVideoAction,
+  fetchMoreVideo as fetchMoreVideoAction,
 } from '../../libs/video/actions';
 
 import VideoCardList from '../../libs/video/components/VideoCardList.component';
@@ -41,6 +37,45 @@ import VideoSearchBar from '../../libs/video/components/VideoSearchBar.component
 
 type Props = {
   t: TFunction,
+  location: Location,
+  classes: Object,
+  loading: boolean,
+
+  searchParams: {
+    coach: string,
+    duration_second_range: string,
+    SCT: string,
+    search: string,
+    level: string,
+  },
+  setSearchParams: (string, string) => void,
+
+  fetchAssociatedCoachesList: () => void,
+  coaches: Array<Coach>,
+  SCTs: Array<SCT>,
+
+  fetchVideoList: () => void,
+  videoToStream: ?Video,
+  hasMoreVideo: boolean,
+  fetchMoreVideo: () => void,
+
+  videoList: Array<Video>,
+  openEditForm: (Video) => void,
+  closeEditForm: () => void,
+  setVideoToStream: (?Video) => void,
+  closeVideoStream: () => void,
+  createOrUpdateVideo: (data: any, options: OptionCallback) => void,
+  deleteVideo: (id: number) => void,
+
+  videoToUpload: ?Video,
+  setVideoToUpload: (?Video) => void,
+
+  retrieveVideo: (id: number) => void,
+  closeUploadVideoForm: () => void,
+  createOpen: boolean,
+  closeCreateDialog: () => void,
+  editVideo: ?Video,
+  openCreateForm: () => void,
 };
 
 const VideoMap = {
@@ -59,7 +94,7 @@ export class VodVideoListPage extends React.PureComponent<Props> {
     this.props.fetchAssociatedCoachesList();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.location.search !== this.props.location.search) {
       this.props.fetchVideoList();
     }
@@ -150,13 +185,7 @@ export default compose(
   withTranslation(['video', 'titles']),
   withTitle(({ t }: { t: TFunction }) => t('titles:video.videoList')),
   withQueryParams([
-    [
-      'coach',
-      'duration_second_range',
-      'SCT',
-      'search',
-      'level',
-    ],
+    ['coach', 'duration_second_range', 'SCT', 'search', 'level'],
     'searchParams',
     'setSearchParams',
   ]),
@@ -169,13 +198,13 @@ export default compose(
       hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
     }),
     {
-      fetchVideoList,
+      fetchVideoList: fetchVideoListAction,
       fetchAssociatedCoachesList,
       retrieveVideo,
       goToDetail: (videoId) => push(`/video/${videoId}/`),
-      deleteVideo,
-      createOrUpdateVideo,
-      fetchMoreVideo,
+      deleteVideo: deleteVideoAction,
+      createOrUpdateVideo: createOrUpdateVideoAction,
+      fetchMoreVideo: fetchMoreVideoAction,
     },
   ),
   withHandlers({

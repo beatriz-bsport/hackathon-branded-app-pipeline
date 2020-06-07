@@ -10,7 +10,6 @@ import invoiceReducers from './invoice';
 import paymentReducers from './payment';
 import consumerReducers from './consumer';
 import snackbarReducer from './snackbar.reducers';
-import refreshReducer from './refresh';
 import searchReducer from './search.reducers';
 import network from '../libs/network/reducers';
 import companiesReducers from './companies.reducers';
@@ -76,7 +75,6 @@ const rootReducer = (history) =>
     category: categoryReducers,
     invoice: invoiceReducers,
     snackbar: snackbarReducer,
-    refresh: refreshReducer,
     search: searchReducer,
     companies: companiesReducers,
     shop: shopReducer,

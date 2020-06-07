@@ -279,4 +279,34 @@ exports.default = {
       error: "Impossible d'enregistrer le crédit",
     },
   },
+  video: {
+    createOrUpdate: {
+      success: 'Vidéo enregistrée avec succès',
+      error: "Impossible d'enregistrer la vidéo",
+    },
+    delete: {
+      success: 'Vidéo supprimée',
+      error: 'Impossible de supprimer la vidéo',
+    },
+  },
+  playlist: {
+    createOrUpdate: {
+      success: 'Playlist enregistrée avec succès',
+      error: "Impossible d'enregistrer la playlist",
+    },
+    delete: {
+      success: 'Playlist supprimée',
+      error: 'Impossible de supprimer la playlist',
+    },
+    video: {
+      add: {
+        success: 'Vidéo ajoutée à la playlist',
+        error: "Impossible d'ajouter la vidéo",
+      },
+      del: {
+        success: 'Vidéo supprimée de la playlist',
+        error: 'Impossible de supprimer la vidéo de la playlist',
+      },
+    },
+  },
 };

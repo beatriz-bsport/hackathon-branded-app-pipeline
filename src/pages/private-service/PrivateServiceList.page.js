@@ -65,6 +65,8 @@ type Props = {
   fetchEstablishments: () => void,
   fetchAssociatedEstablishments: () => void,
 
+  goToPrivatePass: (id: number) => void,
+
   fetchPrivateServiceGroupList: () => void,
 
   privateServiceAvailableWithoutGroup: Array<PrivateService>,

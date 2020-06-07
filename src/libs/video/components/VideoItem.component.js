@@ -1,18 +1,22 @@
 // @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import CoachGroupAvatar from '../../associated-coach/components/CoachGroupAvatar.component';
 
-type Props = {};
+type Props = {
+  openVideo: (id: number) => void,
+  video: Video,
+};
 
 export const VideoItem = (props: Props) => {
   const classes = useStyles();
   return (
     <div
+      role="button"
+      tabIndex={props.video.id}
       onClick={() => props.openVideo(props.video.id)}
-      disableRipple
+      onKeyDown={() => props.openVideo(props.video.id)}
       className={classes.container}
     >
       <div className={classes.imageWrapper}>

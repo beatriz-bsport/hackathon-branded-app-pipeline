@@ -9,6 +9,7 @@ import AddPersonIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Button from '@material-ui/core/Button';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
@@ -51,50 +52,52 @@ export const SubscriptionContractListItem = (props: Props) => {
               })}`
         }`}
       />
-      {props.onBook ? (
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={(ev) => {
-            ev.stopPropagation();
-            props.onBook();
-          }}
-        >
-          <AddShoppingCartIcon />
-        </Button>
-      ) : null}
-      {props.onRegister ? (
-        <IconButton
-          color="primary"
-          onClick={(ev) => {
-            ev.stopPropagation();
-            props.onRegister();
-          }}
-        >
-          <AddPersonIcon />
-        </IconButton>
-      ) : null}
-      {props.onEdit ? (
-        <IconButton
-          color="primary"
-          onClick={(ev) => {
-            ev.stopPropagation();
-            props.onEdit();
-          }}
-        >
-          <EditIcon />
-        </IconButton>
-      ) : null}
-      {props.onDelete ? (
-        <IconButton
-          onClick={(ev) => {
-            ev.stopPropagation();
-            props.onDelete();
-          }}
-        >
-          <DeleteIcon />
-        </IconButton>
-      ) : null}
+      <ListItemSecondaryAction>
+        {props.onBook ? (
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={(ev) => {
+              ev.stopPropagation();
+              props.onBook();
+            }}
+          >
+            <AddShoppingCartIcon />
+          </Button>
+        ) : null}
+        {props.onRegister ? (
+          <IconButton
+            color="primary"
+            onClick={(ev) => {
+              ev.stopPropagation();
+              props.onRegister();
+            }}
+          >
+            <AddPersonIcon />
+          </IconButton>
+        ) : null}
+        {props.onEdit ? (
+          <IconButton
+            color="primary"
+            onClick={(ev) => {
+              ev.stopPropagation();
+              props.onEdit();
+            }}
+          >
+            <EditIcon />
+          </IconButton>
+        ) : null}
+        {props.onDelete ? (
+          <IconButton
+            onClick={(ev) => {
+              ev.stopPropagation();
+              props.onDelete();
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        ) : null}
+      </ListItemSecondaryAction>
     </ListItem>
   );
 };

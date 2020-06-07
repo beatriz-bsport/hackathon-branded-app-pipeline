@@ -218,6 +218,9 @@ exports.default = {
 
       password: 'Mot de passe',
       confirmPassword: 'Confirmer',
+      resetAgainPassword: 'Demande de réinitialisation',
+      tokenExpired:
+        'Cette page a expiré, veuillez refaire une demande de changement de mot de passe',
       passwordTooEasy:
         'Votre mot de passe doit comporter au minimum 6 caractères et inclure un chiffre et des lettres',
       passwordChangedSuccess: 'Mot de passe modifié avec succès !',

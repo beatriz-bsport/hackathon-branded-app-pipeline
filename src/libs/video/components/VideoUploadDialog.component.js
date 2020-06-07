@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -7,8 +9,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation } from 'react-i18next';
-import { compose, withState } from 'recompose';
-// import axios from 'axios';
+import type { TFunction } from 'react-i18next';
+import { compose } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Dropzone from 'react-dropzone';
@@ -48,7 +50,19 @@ const rejectStyle = {
   borderColor: '#ff1744',
 };
 
-export class VideoUploadDialog extends React.Component<Props> {
+type State = {
+  progress: number,
+  isUploading: boolean,
+};
+
+type Props = {
+  onSubmit: () => void,
+  video: Video,
+  t: TFunction,
+  onClose: () => void,
+};
+
+export class VideoUploadDialog extends React.Component<Props, State> {
   state = {
     progress: 0,
     isUploading: false,
@@ -67,7 +81,7 @@ export class VideoUploadDialog extends React.Component<Props> {
     }, 5000);
   };
 
-  prepareRequest = (method, url) => {
+  prepareRequest = (method: string, url: string) => {
     const xhrObj = new XMLHttpRequest();
     // xhrObj.upload.addEventListener("loadstart", this.requestStart, false);
     xhrObj.upload.addEventListener(
@@ -82,7 +96,7 @@ export class VideoUploadDialog extends React.Component<Props> {
     return xhrObj;
   };
 
-  prepareBody = (file, fields = {}, bodyType) => {
+  prepareBody = (file: File, fields = {}, bodyType: string) => {
     if (bodyType === 'binary') {
       return file;
     }

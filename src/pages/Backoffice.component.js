@@ -17,8 +17,17 @@ import withSentryErrorReporting from '../hocs/error-boundary.hoc';
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 import LoadingBackoffice from '../components/navigation/LoadingBackoffice.component';
 
-import { refresh as refreshActions } from '../actions';
 import { fetchCompanyTheme } from '../libs/theme/actions';
+
+// FIXME clean that
+// // -------------------------
+import { fetchSCT } from '../actions/category.actions';
+import { fetchAllPaymentPacks } from '../libs/payment-packs/actions';
+import { fetchShopItemAsManager as fetchShop } from '../libs/shop/actions/shopitem';
+import { fetchPaymentRules } from '../libs/payment-rules/actions';
+import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/associated-coach/actions';
+// -----------------------------
+//
 import { getPermissions } from '../libs/role/selectors';
 
 import { getTempPasswordState } from '../libs/login/selectors';
@@ -88,11 +97,8 @@ const Subscription = asyncComponent(() =>
 );
 
 type Props = {
-  refresh: () => void,
   alertings: Array<Alerting>,
   nbAlerting: number,
-  isRefreshing: boolean,
-  authenticated: boolean,
   permission: Permission,
 
   fetchAccessLevel: (token: string, username: string) => void,
@@ -100,11 +106,11 @@ type Props = {
   deleteAlert: (id: number) => void,
   classes: Object,
   username: string,
-  refreshIfNeeded: () => void,
   fetchMoreAlertingKind: (number) => void,
   fetchCompanyTheme: () => void,
   fetchAllAlertings: () => void,
   theme: any,
+  themeLoading: boolean,
 
   tempPasswordState: TempPasswordState,
   fetchTempPassword: () => void,
@@ -112,6 +118,13 @@ type Props = {
 
   openCalendar: () => void,
   openCreateMember: () => void,
+
+  fetchSCT: () => void,
+  fetchAllPaymentPacks: () => void,
+  fetchShop: () => void,
+  fetchPaymentRules: () => void,
+  fetchAssociatedCoaches: () => void,
+  pushRouter: (string) => void,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -164,9 +177,14 @@ export class Backoffice extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.refreshIfNeeded();
     this.props.fetchCompanyTheme();
     this.setState({ authToken: getAuthToken() });
+    this.props.fetchAllAlertings();
+    this.props.fetchSCT();
+    this.props.fetchAllPaymentPacks();
+    this.props.fetchShop();
+    this.props.fetchPaymentRules();
+    this.props.fetchAssociatedCoaches();
   }
 
   componentWillUnmount() {
@@ -194,14 +212,15 @@ export class Backoffice extends Component<Props, State> {
     ) {
       return (
         <Redirect
-          to={`${'/double-login' + '?membership='}${this.props.theme.company}`}
+          to={`${'/double-login?membership='}${this.props.theme.company}`}
         />
       );
     }
 
-    if (this.props.isRefreshing) {
+    if (this.props.themeLoading) {
       return <LoadingBackoffice />;
     }
+
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <Context.Provider
@@ -212,8 +231,6 @@ export class Backoffice extends Component<Props, State> {
           }}
         >
           <ResponsiveDrawer
-            onRefresh={this.props.refresh}
-            isRefreshing={this.props.isRefreshing}
             logo={this.props.theme ? this.props.theme.cover : null}
             alertings={this.props.alertings}
             nbAlerting={this.props.nbAlerting}
@@ -270,10 +287,9 @@ export default compose(
     (state) => ({
       alertings: alertingSelectors.getByKind(state),
       nbAlerting: alertingSelectors.countAlerting(state),
-      authenticated: state.auth.authenticated,
       username: state.auth.username,
-      isRefreshing: state.refresh.isRefreshing,
       theme: state.theme.theme,
+      themeLoading: state.theme.loading,
       permission: getPermissions(state),
 
       is_consumer: state.auth.is_consumer && !state.auth.is_manager,
@@ -285,12 +301,16 @@ export default compose(
       fetchAccessLevel,
       signout: (companyId) =>
         push(`/login/signout${companyId ? `?membership=${companyId}` : ''}`),
-      refreshIfNeeded: refreshActions.refreshIfNeeded,
-      refresh: refreshActions.forceRefresh,
 
       fetchAllAlertings,
       fetchMoreAlertingKind,
       deleteAlert,
+
+      fetchSCT,
+      fetchAllPaymentPacks,
+      fetchShop,
+      fetchPaymentRules,
+      fetchAssociatedCoaches,
 
       generateTempPassword,
       fetchTempPassword,

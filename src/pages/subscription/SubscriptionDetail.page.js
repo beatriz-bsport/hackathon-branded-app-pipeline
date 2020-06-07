@@ -32,7 +32,7 @@ import {
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction,
   fetchSubscriptionEventList as fetchSubscriptionEventListAction,
 } from '../../libs/subscription/actions';
-import { fetchMember } from '../../libs/member/actions';
+import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 import {
   get as getSubscriptionById,
   getSubscriptionEventList,
@@ -91,6 +91,9 @@ type Props = {
     page_size: number,
     billing_plan: number,
   }) => void,
+
+  member: ?Member,
+  memberLoading: boolean,
 
   openPackSwitcherDialog: () => void,
 
@@ -258,7 +261,7 @@ export default compose(
     }),
     {
       fetchSubscription: fetchSubscriptionAction,
-      fetchMember,
+      fetchMember: fetchMemberAction,
       fetchSubscriptionEventList: fetchSubscriptionEventListAction,
       stop: stopSubscription,
       goToInvoice: (uuid: string) => pushRouter(`/invoice/${uuid}`),

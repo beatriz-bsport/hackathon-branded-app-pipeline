@@ -2,11 +2,9 @@
 import React from 'react';
 import chroma from 'chroma-js';
 import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 
 import Select from 'react-select';
-import LEVELS from '@bsport/common/lib/master-data/levels';
-import { getLevelColorById, colors } from '@bsport/common/lib/colors';
+import { colors } from '@bsport/common/lib/colors';
 
 const getSCTOptions = (scts: Array<Coach>) => {
   scts.sort((c, c_) => {

@@ -41,6 +41,7 @@ type Props = {
   private_consumer_pass_list: Array<PrivateConsumerPass>,
   private_consumer_pass: ?PrivateConsumerPass,
   private_booking_list: Array<PrivateBooking>,
+  updatePrivateConsumerPassCredits: (...any) => void,
   disablePrivateBooking: (
     id: number,
     data: any,

@@ -2,7 +2,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Grid from '@material-ui/core/Grid';
@@ -16,8 +15,18 @@ import DelayedTextField from '../../../components/DelayedTextField.component';
 import DurationSelector from './DurationSelector.component';
 
 type Props = {
-  t: TFunction,
+  searchParams: {
+    level: string,
+    coach: string,
+    SCT: string,
+    duration_second_range: string,
+    search: string,
+  },
+  onChangeSearchParams: (string) => (?string) => void,
+  coaches: Array<Coach>,
+  scts: Array<SCT>,
 };
+
 export const VideoSearchBar = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['video']);

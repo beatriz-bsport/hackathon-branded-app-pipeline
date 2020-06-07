@@ -64,6 +64,7 @@ type Props = {
   companyName: string,
   companyId: number,
   company: MarketPlaceCompany,
+  companyThemeLoading: boolean,
   hideAppBar: ?boolean,
   errorFields: ?{ email: ?string, password: ?string },
 
@@ -219,7 +220,7 @@ export class MarketPlace extends Component<Props, State> {
     this.setState({ currentBasketOpen });
 
   signup = (data: *, callback: () => void) => {
-    const data_ = { ...data, membership: this.props.companyid };
+    const data_ = { ...data, membership: this.props.companyId };
     this.props.signup(data_, callback);
   };
 

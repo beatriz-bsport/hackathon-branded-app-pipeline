@@ -28,8 +28,6 @@ type Props = {
   paymentPacks: *[],
   pushPackCheckout: (number) => void,
   classes: Object,
-  metaActivities: Array<any>,
-  establishments: Array<any>,
 };
 
 const PaymentPackMarketplaceListItem = (props: {

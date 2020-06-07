@@ -27,6 +27,8 @@ type Props = {
   classes: Object,
   private_booking: PrivateBooking,
   private_slot: ?PrivateSlot,
+  private_service: ?PrivateService,
+  onOpenAttachCoach: () => void,
   private_consumer_pass: ?PrivateConsumerPass,
   onPrivateSlotClick: () => void,
   goToPrivateConsumerPass: (privateConsumerPassId: number) => void,

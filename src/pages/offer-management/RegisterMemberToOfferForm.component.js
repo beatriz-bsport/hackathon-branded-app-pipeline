@@ -48,6 +48,7 @@ type Props = {
   fetchConsumerPackByOfferByMember: (offerId: number, memberId: number) => void,
   subscribeToPackAndOffer: (paymentPackId: number) => void,
   subscribeToOffer: (id: number) => void,
+  memberPhoto: string,
 
   fetchPaymentPackBulk: (Array<number>) => void,
   fetchNoncompatibleConsumerPackByOfferByMember: (

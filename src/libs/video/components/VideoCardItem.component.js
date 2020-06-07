@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { compose } from 'recompose';
+
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -12,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import VideoStatus from './VideoStatus.component';
 import withConfirm from '../../../hocs/with-confirm.hoc';
@@ -21,7 +21,13 @@ import SCT from '../../category/components/SCT.component';
 import CoachGroupAvatar from '../../associated-coach/components/CoachGroupAvatar.component';
 
 type Props = {
-  t: TFunction,
+  onClick?: () => void,
+  withStatus: boolean,
+  video: Video,
+  onEdit: (Video) => void,
+  onDelete: (id: number) => void,
+  onRequestUpload: (id: number) => void,
+  onStream: (Video) => void,
 };
 
 const DeleteWithConfirm = withConfirm(IconButton, 'onClick', {
@@ -35,6 +41,7 @@ const DeleteWithConfirm = withConfirm(IconButton, 'onClick', {
 
 export const VideoCardItem = (props: Props) => {
   const classes = useStyles(props);
+  const { t } = useTranslation(['video']);
   const Wrapper = props.onClick ? CardActionArea : (p) => <div {...p} />;
   return (
     <Card style={{ height: '100%' }}>
@@ -66,7 +73,7 @@ export const VideoCardItem = (props: Props) => {
                     variant="body2"
                     component="p"
                   >
-                    {props.t('video.durationMinute', {
+                    {t('video.durationMinute', {
                       minute:
                         parseInt(props.video.duration_second / 60, 10) + 1,
                     })}
@@ -183,4 +190,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose(withTranslation(['video']))(VideoCardItem);
+export default VideoCardItem;

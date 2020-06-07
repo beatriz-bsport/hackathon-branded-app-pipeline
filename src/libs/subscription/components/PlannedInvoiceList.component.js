@@ -13,7 +13,10 @@ import moment from 'moment';
 
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
-const PlannedInvoiceListItem = (props) => {
+const PlannedInvoiceListItem = (props: {
+  plannedInvoice: PlannedInvoice,
+  onClick: (billingPlanId: number) => void,
+}) => {
   const { plannedInvoice } = props;
   return (
     <ListItem divider>
@@ -30,7 +33,17 @@ const PlannedInvoiceListItem = (props) => {
   );
 };
 
-type Props = {};
+type Props = {
+  title: string,
+  count: number,
+  loading: boolean,
+  plannedInvoiceList: Array<PlannedInvoice>,
+  itemPerPage: number,
+  page: number,
+  fetchPlannedInvoicePage: (*) => void,
+  onClick: (billingPlanId: number) => void,
+};
+
 export const PlannedInvoiceList = (props: Props) => {
   const classes = useStyles();
   return (

@@ -161,10 +161,12 @@ export function createOrUpdateVideo(data: any, options: OptionCallback) {
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
+      dispatch(snackbarSuccess('video.createOrUpdate.success'));
     } catch (err) {
       console.error(err);
       dispatch(createOrUpdateVideoActions.error(err));
       if (options && options.onError) options.onError();
+      dispatch(snackbarError('video.createOrUpdate.error'));
     }
     dispatch(createOrUpdateVideoActions.isLoading(false));
   };
@@ -185,10 +187,12 @@ export function deleteVideo(id: number, options: OptionCallback) {
       if (options && options.onSuccess) {
         options.onSuccess(id);
       }
+      dispatch(snackbarSuccess('video.delete.success'));
     } catch (err) {
       console.error(err);
       dispatch(deleteVideoActions.error(err));
       if (options && options.onError) options.onError();
+      dispatch(snackbarError('video.delete.error'));
     }
     dispatch(deleteVideoActions.isLoading(false));
   };

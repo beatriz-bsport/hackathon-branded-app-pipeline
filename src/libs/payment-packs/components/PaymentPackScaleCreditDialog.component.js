@@ -14,7 +14,16 @@ import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
-type Props = {};
+type Props = {
+  open: boolean,
+  toogleScaleDirection: () => void,
+  scaleDirection: boolean,
+  factor: number,
+  onClose: () => void,
+  onSubmit: ({ factor: number }) => void,
+  handleFactorChange: (SyntheticEvent<HTMLEelement>) => void,
+  loading: boolean,
+};
 
 export const PaymentPackScaleCreditDialog = (props: Props) => {
   const classes = useStyles();

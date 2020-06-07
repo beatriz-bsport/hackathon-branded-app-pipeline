@@ -33,7 +33,7 @@ import {
   fetchPrivateService as fetchPrivateServiceAction,
   disablePrivateBooking as disablePrivateBookingAction,
   deletePrivateBooking as deletePrivateBookingAction,
-  updatePrivateBookingDatetime,
+  updatePrivateBookingDatetime as updatePrivateBookingDatetimeAction,
 } from '../actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../meta-activity/actions';
 import {
@@ -44,7 +44,7 @@ import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
 } from '../../establishment/actions';
-import { fetchMemberBulk } from '../../member/actions';
+import { fetchMemberBulk as fetchMemberBulkAction } from '../../member/actions';
 
 import { getActiveCoaches } from '../../associated-coach/selectors';
 import { getAllEstablishments } from '../../establishment/selectors';
@@ -116,6 +116,12 @@ type Props = {
   closeDisablePrivateBookingModal: () => void,
 
   theme: ?CompanyTheme,
+  goToMember: (id: number) => void,
+  privateBookingLoading: boolean,
+
+  openDisablePrivateBookingModal: () => void,
+  updatePrivateBookingDatetime: (date: string, options: OptionCallback) => void,
+  goToCoachCalendar: () => void,
 };
 
 export class CalendarEventDetail extends React.Component<Props> {
@@ -542,10 +548,10 @@ export default compose(
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchPrivateService: fetchPrivateServiceAction,
       fetchPrivateSlot: fetchPrivateSlotAction,
-      fetchMemberBulk,
+      fetchMemberBulk: fetchMemberBulkAction,
       onOfferClick: (id) => push(`/offer/${id}`),
       goToMember: (memberId) => push(`/member/${memberId}/info`),
-      updatePrivateBookingDatetime,
+      updatePrivateBookingDatetime: updatePrivateBookingDatetimeAction,
       goToCoachCalendar: (coachId) =>
         push(`/coach/${coachId}/private-calendar`),
     },

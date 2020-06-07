@@ -44,6 +44,9 @@ type Props = {
 
   fetchTagList: () => void,
   tagCategories: { [string]: Array<string> },
+
+  hasBeenLoadedOnce: boolean,
+  setHasBeenLoaded: (boolean) => void,
 };
 
 export class MarketingEmail extends Component<Props> {
@@ -51,9 +54,9 @@ export class MarketingEmail extends Component<Props> {
     if (this.props.hasBeenLoadedOnce) {
       window.location.reload();
     }
-  if (!this.props.hasBeenLoadedOnce) {
-  this.props.setHasBeenLoaded(true)
-  }
+    if (!this.props.hasBeenLoadedOnce) {
+      this.props.setHasBeenLoaded(true);
+    }
   }
 
   componentDidMount() {
@@ -61,7 +64,7 @@ export class MarketingEmail extends Component<Props> {
     this.props.fetchTagList();
   }
 
-  onSave = (id, data) => {
+  onSave = (id: number, data: any) => {
     if (this.props.create === 1) {
       this.props.emailDesignCreate(data);
       this.props.goToList();

@@ -14,9 +14,19 @@ import './videojs-fullscreen.css';
 
 type Props = {
   t: TFunction,
+  authenticated: boolean,
+  video: Video,
+  rounded: boolean,
+  classes: Object,
 };
 
-export class VideoPlayer extends React.Component<Props> {
+type State = {
+  accessDenied: boolean,
+playbackLoading: boolean,
+playbackUrl: string,
+};
+
+export class VideoPlayer extends React.Component<Props, State> {
   state = { playbackUrl: '', playbackLoading: false, accessDenied: false };
 
   componentDidMount() {
@@ -43,7 +53,7 @@ export class VideoPlayer extends React.Component<Props> {
     }
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (
       this.props.video &&
       ((!prevProps.authenticated && this.props.authenticated) ||

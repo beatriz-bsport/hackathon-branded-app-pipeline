@@ -30,7 +30,6 @@ const persistConfig = {
     'category',
     'refresh',
     'marketplace',
-    'alerting',
     'theme',
     'member',
     'membership',

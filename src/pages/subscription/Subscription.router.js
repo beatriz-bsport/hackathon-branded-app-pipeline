@@ -8,12 +8,10 @@ import SubscriptionList from './SubscriptionList.page';
 import SubscriptionDetail from './SubscriptionDetail.page';
 
 import ContractList from './ContractList.page';
-import ContractDetail from './ContractDetail.page';
 
 export default () => (
   <Switch>
     <Route path="/subscription/contract/" component={ContractList} />
-    <Route path="/subscription/contract/:id" component={ContractDetail} />
     <Route
       exact
       path="/subscription/add/:memberId"

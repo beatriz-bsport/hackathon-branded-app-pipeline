@@ -49,6 +49,9 @@ type Props = {
   onInvoiceClick: (uuid: string) => void,
   t: TFunction,
   classes: Object,
+
+  consumerPaymentPackCreditRefundList: Array<ConsumerPaymentPackCreditRefund>,
+  requestRefund: (ConsumerPaymentPack) => void,
 };
 
 export function ConsumerPaymentPackDetail(props: Props) {

@@ -18,16 +18,17 @@ import {
 
 // marketplace
 // -----------------------------
-import { getAllEstablishments } from '../../libs/establishment/selectors';
-
-import { getMetaActivities } from '../../libs/meta-activity/selectors';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import MarketplacePassList from '../../libs/marketplace/components/MarketplacePassList.component';
 import MarketplacePrivatePassList from '../../libs/marketplace/components/MarketplacePrivatePassList.component';
 import MarketplacePaymentComboList from '../../libs/marketplace/components/MarketplacePaymentComboList.component';
 
-import { getMarketplacePaymentPacks, withMetaActivities, withEstablishments } from '../../libs/payment-packs/selectors';
+import {
+  getMarketplacePaymentPacks,
+  withMetaActivities,
+  withEstablishments,
+} from '../../libs/payment-packs/selectors';
 // checkout
 // -----------------------------
 import { addItemToBasket } from '../../libs/checkout/actions';
@@ -65,9 +66,6 @@ type Props = {
   pushPrivatePassCheckout: (packId: number, basketId: string) => void,
   pushPackCheckout: (packId: number, basketId: string) => void,
   pushComboCheckout: (comboId: number, basketId: string) => void,
-
-  metaActivities: Array<any>,
-  establishments: Array<any>,
 };
 
 export class MarketPlacePassPage extends Component<Props> {
@@ -175,11 +173,11 @@ export default compose(
   withStyles(styles),
   connect(
     (state) => ({
-      paymentPacks: withEstablishments(withMetaActivities(getMarketplacePaymentPacks))(state),
+      paymentPacks: withEstablishments(
+        withMetaActivities(getMarketplacePaymentPacks),
+      )(state),
       currentBasket: getCurrentBasket(state),
       authenticated: state.auth.authenticated,
-      metaActivities: getMetaActivities(state),
-      establishments: getAllEstablishments(state),
       privatePassList: getPrivatePassAsConsumer(state),
       paymentComboList: getPaymentComboListAvailableOnline(state),
       loading: state.paymentPack.loading,

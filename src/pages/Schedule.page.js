@@ -19,7 +19,7 @@ import { fetchEstablishments } from '../libs/establishment/actions';
 import { getActiveCoaches } from '../libs/associated-coach/selectors';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/meta-activity/actions';
 import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
-import { fetchMemberBulk } from '../libs/member/actions';
+import { fetchMemberBulk as fetchMemberBulkAction } from '../libs/member/actions';
 import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 import { getPermissions } from '../libs/role/selectors';
 
@@ -49,6 +49,9 @@ type Props = {
   fetchEstablishments: () => void,
   fetchAssociatedCoachesList: (params: any) => void,
   resourcesByDatatype: Array<ResourceDataGroup>,
+
+  permission: ?Permission,
+  pushToCalendar: () => void,
 };
 
 const styles = (theme) => ({
@@ -146,7 +149,7 @@ export default compose(
       fetchAllOffers: fetchAllOffersAction,
       resetPrivateBookings,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
-      fetchMemberBulk,
+      fetchMemberBulk: fetchMemberBulkAction,
       pushToCalendar: () => push('/calendar'),
     },
   ),

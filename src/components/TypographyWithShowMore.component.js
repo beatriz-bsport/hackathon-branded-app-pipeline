@@ -16,6 +16,7 @@ type Props = {
   children: ?string,
   setShowFullText: (boolean) => void,
   showFullText: boolean,
+  maxCharacterCount?: number,
 };
 
 export const TypographyWithSowMore = (props: Props) => {

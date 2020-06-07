@@ -44,6 +44,7 @@ type Props = {
   onCancel: () => void,
   fetchSimilarOffers: (id: number) => void,
   onConfirm: ({ offerId: number, data: FormData }) => void,
+  metaActivities: Array<MetaActivity>,
 };
 
 type State = {
@@ -323,15 +324,15 @@ export class EditLiveOfferForm extends Component<Props, State> {
           <div className={this.props.classes.borderBar} />
           <div className={this.props.classes.columnFullWidth}>
             {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ? (
-            <div className={this.props.classes.field}>
-              <MetaActivitySelector
-                metaActivities={this.props.metaActivities}
-                value={this.props.metaActivities.find(
-                  (ma) => ma.id === this.props.offer.meta_activity,
-                )}
-              />
-		  </div>
-		    ) : null}
+              <div className={this.props.classes.field}>
+                <MetaActivitySelector
+                  metaActivities={this.props.metaActivities}
+                  value={this.props.metaActivities.find(
+                    (ma) => ma.id === this.props.offer.meta_activity,
+                  )}
+                />
+              </div>
+            ) : null}
             <div className={this.props.classes.field}>
               <NumericInput
                 required

@@ -141,6 +141,8 @@ type Props = {
   offerFilters: OfferFilter,
   setFilters: (OfferFilter) => null,
   toogleFilter: () => void,
+
+  pushToSchedule: () => void,
 };
 
 type State = {
@@ -347,7 +349,7 @@ export class Planning extends PureComponent<Props, State> {
         <Dialog open={editModalOpened}>
           <DialogContent>
             <OfferEditForm
-	      offer={selectedOffer}
+              offer={selectedOffer}
               metaActivities={this.props.metaActivities.filter(
                 (ma) => ma.customer_enabled && !ma.is_workshop,
               )}

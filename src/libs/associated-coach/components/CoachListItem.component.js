@@ -27,6 +27,8 @@ type Props = {
   deleteCoach: () => void,
   divider: ?boolean,
   classes: Object,
+  noEdit?: boolean,
+  onClick?: () => void,
 };
 
 const openPhone = (event, phoneNumber: string) => {

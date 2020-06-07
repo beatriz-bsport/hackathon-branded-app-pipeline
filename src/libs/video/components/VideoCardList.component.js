@@ -10,6 +10,13 @@ import VideoCardItem from './VideoCardItem.component';
 
 type Props = {
   videoList: Array<Video>,
+  onEdit: (Video) => void,
+  onDelete: (id: number) => void,
+  loading: boolean,
+  onRequestUpload: (id: number) => void,
+  hasMoreVideo: boolean,
+  onShowMore: () => void,
+  onStream: (Video) => void,
 };
 
 export const VideoCardList = (props: Props) => {

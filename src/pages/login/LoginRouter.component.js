@@ -27,6 +27,8 @@ type Props = {
   fetchCompanyTheme: (string) => void,
   classes: Object,
   theme: CompanyTheme,
+  loginProcessing: boolean,
+  disconnect: () => void,
 };
 
 export class LoginRouter extends React.Component<Props> {
@@ -36,7 +38,7 @@ export class LoginRouter extends React.Component<Props> {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (
       this.props.membership !== prevProps.membership &&
       this.props.membership

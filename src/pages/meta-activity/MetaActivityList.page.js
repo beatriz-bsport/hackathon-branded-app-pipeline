@@ -44,6 +44,7 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+  goToPaymentPack: (id: number) => void,
 
   makeActivityCopy: (
     id: number,

@@ -1,9 +1,7 @@
 // @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -18,20 +16,33 @@ import VideoThumbnail from './VideoThumbnail.component';
 import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
 
 type Props = {
-  t: TFunction,
+  title: string,
+  count: number,
+  description: string,
+  videoList: Array<Video>,
+  onDeleteVideo?: (id: number) => void,
+
+  onOpenVideo: (id: number) => void,
+  videoPlayingId: number,
+  loading: boolean,
+  hasMoreVideo?: boolean,
+  fetchMoreVideo: () => void,
+  onAddVideo: () => void,
 };
+
 export const VideoThumbnailList = (props: Props) => {
   const classes = useStyles();
+  const { t } = useTranslation(['video']);
   return (
     <div className={classes.container}>
       <div className={classes.header}>
         <Typography variant="h5" component="h4">
-          {props.title || props.t('video.thumbnailList.similarVideoTitle')}
+          {props.title || t('video.thumbnailList.similarVideoTitle')}
         </Typography>
 
         {!!props.count && (
           <Typography color="primary">
-            {props.t('video.thumbnailList.count', { count: props.count })}
+            {t('video.thumbnailList.count', { count: props.count })}
           </Typography>
         )}
         {!!props.description && (
@@ -72,7 +83,7 @@ export const VideoThumbnailList = (props: Props) => {
             variant="outlined"
             color="primary"
           >
-            {props.t('video.showMore')}
+            {t('video.showMore')}
           </Button>
         )}
         {!!props.onAddVideo && (
@@ -80,7 +91,7 @@ export const VideoThumbnailList = (props: Props) => {
             <ListItemIcon>
               <PlaylistAddIcon />
             </ListItemIcon>
-            <ListItemText primary={props.t('video.thumbnailList.addVideo')} />
+            <ListItemText primary={t('video.thumbnailList.addVideo')} />
           </ListItem>
         )}
       </div>
@@ -127,4 +138,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose(withTranslation(['video']))(VideoThumbnailList);
+export default VideoThumbnailList;

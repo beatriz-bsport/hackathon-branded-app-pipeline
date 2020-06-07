@@ -46,6 +46,11 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+  scaleMenuOpen: boolean,
+  scaleCreditLoading: boolean,
+  toogleScaleMenuOpen: () => void,
+  onScaleCredit: (paymentPackId: number, data: any) => void,
+  pack: PaymentPack,
 };
 
 export class PaymentPackCard extends Component<Props> {

@@ -8,15 +8,15 @@ import { connect } from 'react-redux';
 import flatten from 'lodash/flatten';
 import { push as pushRouter } from 'connected-react-router';
 
-import { fetchAssociatedCoachBulk } from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 import VideoThumbnailList from '../../libs/video/components/VideoThumbnailList.component';
 import VideoPlayerFull from '../../libs/video/components/VideoPlayerFull.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getMarketplaceRoute } from './routing-utils';
 import {
-  retrieveVideo,
-  fetchMoreVideo,
-  fetchVideoList,
+  retrieveVideo as retrieveVideoAction,
+  fetchMoreVideo as fetchMoreVideoAction,
+  fetchVideoList as fetchVideoListAction,
 } from '../../libs/video/actions';
 import {
   getVideo,
@@ -25,15 +25,23 @@ import {
   withCoach,
 } from '../../libs/video/selectors';
 
-type Props = {};
+type Props = {
+  retrieveVideo: () => void,
+  classes: Object,
+  fetchVideoListSimilar: () => void,
+  videoListSimilar: Array<Video>,
+  similarVideoLoading: boolean,
+  hasMoreVideo: boolean,
+  fetchMoreVideo: () => void,
+  openVideo: (id: number) => void,
+  video: ?Video,
+  loading: boolean,
+  authenticated: boolean,
+};
 
 export class MarketplaceVideoDetail extends React.Component<Props> {
   componentDidMount() {
-    this.props.retrieveVideo(this.props.videoId, {
-      onSuccess: (video) => {
-        this.props.fetchAssociatedCoachBulk(video.coaches);
-      },
-    });
+    this.props.retrieveVideo();
     this.props.fetchVideoListSimilar();
   }
 
@@ -100,14 +108,25 @@ export default compose(
       similarVideoLoading: state.video.loading,
     }),
     {
-      retrieveVideo,
-      fetchVideoList,
-      fetchMoreVideo,
-      fetchAssociatedCoachBulk,
+      retrieveVideo: retrieveVideoAction,
+      fetchVideoList: fetchVideoListAction,
+      fetchMoreVideo: fetchMoreVideoAction,
+      fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
       push: pushRouter,
     },
   ),
   withHandlers({
+    retrieveVideo: ({
+      retrieveVideo,
+      videoId,
+      fetchAssociatedCoachBulk,
+    }) => () => {
+      retrieveVideo(videoId, {
+        onSuccess: (video) => {
+          fetchAssociatedCoachBulk(video.coaches);
+        },
+      });
+    },
     openVideo: ({ push, companyId, companyName }) => (videoId) => {
       push(getMarketplaceRoute(companyName, companyId, `vod/video/${videoId}`));
     },
@@ -117,7 +136,11 @@ export default compose(
         similar: videoId,
       });
     },
-    fetchVideoListSimilar: ({ fetchVideoList, videoId }) => () => {
+    fetchVideoListSimilar: ({
+      fetchVideoList,
+      videoId,
+      fetchAssociatedCoachBulk,
+    }) => () => {
       fetchVideoList(
         {
           status: 400,

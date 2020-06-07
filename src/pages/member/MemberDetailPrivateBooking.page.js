@@ -18,16 +18,16 @@ import PaginatedListStateful from '../../components/PaginatedListStateful.compon
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import { fetchAssociatedCoachBulk } from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 import {
   deletePrivateBooking as deletePrivateBookingAction,
   disablePrivateBooking as disablePrivateBookingAction,
   fetchPrivateBookings,
-  fetchPrivateBooking,
-  fetchPrivateService,
-  fetchPrivateSlot,
-  fetchPrivateConsumerPass,
-  attachCoachToPrivateBooking as attachCoach,
+  fetchPrivateBooking as fetchPrivateBookingAction,
+  fetchPrivateService as fetchPrivateServiceAction,
+  fetchPrivateSlot as fetchPrivateSlotAction,
+  fetchPrivateConsumerPass as fetchPrivateConsumerPassAction,
+  attachCoachToPrivateBooking as attachCoachAction,
 } from '../../libs/private-service/actions';
 import { getCoaches } from '../../libs/associated-coach/selectors';
 import {
@@ -36,8 +36,6 @@ import {
   withRelatedFields,
 } from '../../libs/private-service/selectors/private-booking';
 import { getPrivateConsumerPassDict } from '../../libs/private-service/selectors/private-consumer-pass';
-import { getPrivateSlot } from '../../libs/private-service/selectors/private-slot';
-import { getPrivateService } from '../../libs/private-service/selectors/private-service';
 
 import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 
@@ -64,16 +62,24 @@ type Props = {
   private_slot: PrivateSlot,
 
   private_service: PrivateService,
-  goToPrivateService: (privateServiceId: number) => void,
   goToPrivateConsumerPass: (
     memberId: number,
     privateConsumerPassId: number,
   ) => void,
 
+  isOpenAttachCoach: boolean,
+  serviceCoaches: Array<Coach>,
+  attachCoach: (data: any) => void,
+  availableCoaches: Array<Coach>,
+  closeAttachCoach: () => void,
+
+  openAttachCoach: () => void,
+  private_consumer_pass: ?PrivateConsumerPass,
+  onPrivateSlotClick: () => void,
+
   private_booking: ?PrivateBooking,
   privateBookingId: ?number,
-  fetchPrivateService: (id: number) => void,
-  fetchPrivateSlot: (id: number) => void,
+  fetchPrivateBookingDetails: () => void,
   fetchPrivateConsumerPass: (id: number) => void,
   privateBookingsLoading: boolean,
   goToPrivateBooking: (memberId: number, privateBookingId: number) => void,
@@ -165,31 +171,33 @@ export class MemberDetailBooking extends Component<Props> {
             onClose={this.props.closeAttachCoach}
           />
         )}
-        <PrivateBookingDisableDialog
-          open={!!this.props.bookingToDelete}
-          private_booking={this.props.bookingToDelete}
-          onSubmit={(force_refund) =>
-            (this.props.bookingToDelete.booking_status_code ===
-              BOOKING_STATUS_OK.id
-              ? this.props.disablePrivateBooking
-              : this.props.deletePrivateBooking)(
-              this.props.bookingToDelete.id,
-              { force_refund },
-              {
-                onSuccess: () => {
-                  this.props.fetchPrivateConsumerPass(
-                    this.props.bookingToDelete.private_consumer_pass,
-                  );
-                  this.props.setBookingToDelete(null);
+        {!!this.props.bookingToDelete && (
+          <PrivateBookingDisableDialog
+            open={!!this.props.bookingToDelete}
+            private_booking={this.props.bookingToDelete}
+            onSubmit={(force_refund) =>
+              (this.props.bookingToDelete.booking_status_code ===
+                BOOKING_STATUS_OK.id
+                ? this.props.disablePrivateBooking
+                : this.props.deletePrivateBooking)(
+                this.props.bookingToDelete.id,
+                { force_refund },
+                {
+                  onSuccess: () => {
+                    this.props.fetchPrivateConsumerPass(
+                      this.props.bookingToDelete.private_consumer_pass,
+                    );
+                    this.props.setBookingToDelete(null);
+                  },
+                  onError: () => {
+                    this.props.setBookingToDelete(null);
+                  },
                 },
-                onError: () => {
-                  this.props.setBookingToDelete(null);
-                },
-              },
-            )
-          }
-          onClose={() => this.props.setBookingToDelete(null)}
-        />
+              )
+            }
+            onClose={() => this.props.setBookingToDelete(null)}
+          />
+        )}
       </Grid>
     );
   }
@@ -207,24 +215,20 @@ export default compose(
         state,
         privateBookingId,
       ),
-
-      // # withRelatedFields(
-      // # (s) =>
-      // # )(state),
       privateBookingsLoading: state.privateService.privateBooking.loading,
       availableCoaches: getCoaches(state),
     }),
     {
       fetchPrivateBookings,
-      fetchPrivateBooking,
-      fetchPrivateService,
-      fetchPrivateSlot,
-      fetchPrivateConsumerPass,
-      fetchAssociatedCoachBulk,
+      fetchPrivateBooking: fetchPrivateBookingAction,
+      fetchPrivateService: fetchPrivateServiceAction,
+      fetchPrivateSlot: fetchPrivateSlotAction,
+      fetchPrivateConsumerPass: fetchPrivateConsumerPassAction,
+      fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
       deletePrivateBooking: deletePrivateBookingAction,
       disablePrivateBooking: disablePrivateBookingAction,
       fetchMember: fetchMemberAction,
-      attachCoach,
+      attachCoach: attachCoachAction,
       goToPrivateService: (privateServiceId) =>
         push(`/private-service/service/${privateServiceId}/`),
       goToPrivateBooking: (memberId, privateBookingId) =>

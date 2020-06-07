@@ -409,7 +409,10 @@ export class PrivateCalendar extends React.Component<Props, State> {
           dateClick={this.dateClick}
           events={events}
           locale={i18n.lng}
-          slotDuration={`00:${15 * 2 ** this.props.zoomLevel}:00`}
+          slotDuration={
+            // eslint-disable-next-line
+            `00:${15 * 2 ** this.props.zoomLevel}:00`
+          }
           locales={[frLocale]}
           minTime="06:00:00"
           maxTime="23:00:00"

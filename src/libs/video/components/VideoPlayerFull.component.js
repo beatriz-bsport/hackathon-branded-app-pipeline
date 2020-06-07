@@ -1,9 +1,7 @@
 // @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
@@ -14,10 +12,12 @@ import SCT from '../../category/components/SCT.component';
 import VideoPlayer from './VideoPlayer.component';
 
 type Props = {
-  t: TFunction,
+  video: Video,
+  authenticated: boolean,
 };
 export const VideoPlayerFull = (props: Props) => {
   const classes = useStyles();
+  const { t } = useTranslation(['video']);
   const coaches = props.video.coaches.filter((c) => !!c);
   return (
     <div className={classes.container}>
@@ -28,7 +28,7 @@ export const VideoPlayerFull = (props: Props) => {
       />
       <div className={classes.inner}>
         <Typography className={classes.videoTitle} variant="h4">
-          {`${props.video.name} - ${props.t('video.durationMinute', {
+          {`${props.video.name} - ${t('video.durationMinute', {
             minute: parseInt(props.video.duration_second / 60, 10) + 1,
           })}`}
         </Typography>
@@ -76,4 +76,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose(withTranslation(['video']))(VideoPlayerFull);
+export default VideoPlayerFull;

@@ -7,7 +7,12 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 
-type Props = {};
+type Props = {
+  creditRefund: ConsumerPaymentPackCreditRefund,
+  onClick: () => void,
+  dense?: boolean,
+  divider?: boolean,
+};
 export const ConsumerPaymentPackCreditRefundListItem = (props: Props) => {
   const { t } = useTranslation(['paymentPack']);
   const description = props.creditRefund.credits

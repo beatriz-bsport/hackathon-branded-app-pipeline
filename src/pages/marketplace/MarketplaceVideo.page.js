@@ -5,7 +5,7 @@ import { compose, withStateHandlers, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
-import { push } from 'connected-react-router';
+import { push as pushRouter } from 'connected-react-router';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import withQueryParams from '../../hocs/with-query-params.hoc';
@@ -20,10 +20,39 @@ import {
 } from '../../libs/video/selectors';
 import VideoSearchBar from '../../libs/video/components/VideoSearchBar.component';
 import VideoItemList from '../../libs/video/components/VideoItemList.component';
-import { fetchVideoList, fetchMoreVideo } from '../../libs/video/actions';
+import {
+  fetchVideoList as fetchVideoListAction,
+  fetchMoreVideo as fetchMoreVideoAction,
+} from '../../libs/video/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 
 import VideoStreamDialog from '../../libs/video/components/VideoStreamDialog.component';
+
+type Props = {
+  fetchVideoList: () => void,
+  videoList: Array<Video>,
+  openVideo: (id: number) => void,
+  fetchMoreVideo: () => void,
+  hasMoreVideo: boolean,
+  coaches: Array<Coach>,
+
+  videoToStream: ?Video,
+  closeVideoStream: () => void,
+  fetchAssociatedCoachesList: (params: any) => void,
+  location: Location,
+  companyId: number,
+  loading: boolean,
+  classes: Object,
+  SCTs: Array<SCT>,
+  setSearchParams: (string, string) => void,
+  searchParams: {
+    coach: string,
+    duration_second_range: string,
+    SCT: string,
+    search: string,
+    level: string,
+  },
+};
 
 export class MarketplaceVideo extends React.Component<Props> {
   componentDidMount() {
@@ -31,7 +60,7 @@ export class MarketplaceVideo extends React.Component<Props> {
     this.props.fetchAssociatedCoachesList({ company: this.props.companyId });
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.location.search !== this.props.location.search) {
       this.props.fetchVideoList();
     }
@@ -113,10 +142,10 @@ export default compose(
       hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
     }),
     {
-      fetchVideoList,
+      fetchVideoList: fetchVideoListAction,
       fetchAssociatedCoachesList,
-      fetchMoreVideo,
-      push,
+      fetchMoreVideo: fetchMoreVideoAction,
+      push: pushRouter,
     },
   ),
   withHandlers({

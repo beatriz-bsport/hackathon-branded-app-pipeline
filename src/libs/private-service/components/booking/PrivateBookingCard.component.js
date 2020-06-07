@@ -29,6 +29,14 @@ type Props = {
   private_booking: PrivateBookingWithRelatedFields,
   goToMember: ?(id: number) => void,
   onDelete: () => void,
+  isUpdateTimeFormOpen: boolean,
+  loading: boolean,
+  setUpdatedTime: (any) => void,
+  closeUpdateTimeForm: () => void,
+  updatedTime: ?string,
+  goToCoachCalendar: (coachId: number) => void,
+  updateTime: (string, OptionCallback) => void,
+  setUpdateTimeForm: () => void,
 };
 export const PrivateBookingCard = (props: Props) => {
   const { private_booking, loading } = props;

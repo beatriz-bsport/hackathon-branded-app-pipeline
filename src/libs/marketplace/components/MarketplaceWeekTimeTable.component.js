@@ -1,6 +1,6 @@
 // @flow
 
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';

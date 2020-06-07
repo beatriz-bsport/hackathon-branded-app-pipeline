@@ -34,7 +34,7 @@ import {
   deletePackExtension,
   createPackExtension,
   refundConsumerPaymentPack as refundConsumerPaymentPackActions,
-  fetchConsumerPaymentPackCreditRefundList,
+  fetchConsumerPaymentPackCreditRefundList as fetchConsumerPaymentPackCreditRefundListAction,
 } from '../../libs/consumer-payment-pack/actions';
 import { fetchPaymentPackBulk } from '../../libs/payment-packs/actions';
 import { fetchSpecificInvoice } from '../../actions/invoice.actions';
@@ -83,16 +83,26 @@ type Props = {
   confirmBookingAttendance: (id: number) => void,
   goToRelationship: (memberId: number) => void,
 
+  fetchPaymentPackBulk: (Array<number>) => void,
+
   consumerPackCount: number,
   consumerPackCurrentPage: number,
+  consumerPaymentPackCreditRefundList: Array<ConsumerPaymentPackRefundCredit>,
 
   bookings: Array<Booking>,
   bookingCurrentPage: number,
   bookingLoading: boolean,
   bookingCount: number,
 
+  requestRefund: (ConsumerPaymentPack) => void,
+
+  consumerPaymentPackToRefund: ?ConsumerPaymentPack,
+  refundLoading: boolean,
+  closeRefund: () => void,
+  refundConsumerPaymentPack: (id: number, data: any) => void,
+
   consumerPassId: ?number,
-  retrieveConsumerPackBulk: (Array<number>) => void,
+  retrieveConsumerPackBulk: (Array<number>, OptionCallback) => void,
   resetConsumerPackByMemberAction: () => void,
 
   passExtensionsLoading: boolean,
@@ -107,6 +117,9 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+
+  fetchConsumerPaymentPackCreditRefundList: (id: number) => void,
+  consumerPassId: ?number,
 };
 
 type State = {
@@ -185,7 +198,7 @@ export class MemberDetailPass extends Component<Props, State> {
     this.props.goToBooking(this.props.id, booking.id);
   };
 
-  fetchBookings = (page, page_size) => {
+  fetchBookings = (page: number, page_size: number) => {
     this.props.fetchBookingsByConsumerPack(
       this.props.selectedConsumerPass.id,
       page,
@@ -400,7 +413,7 @@ export default compose(
       createExtension: createPackExtension,
       deleteExtension: deletePackExtension,
       refreshConsumerPack: (id) => retrieveConsumerPackBulk([id]),
-      fetchConsumerPaymentPackCreditRefundList,
+      fetchConsumerPaymentPackCreditRefundList: fetchConsumerPaymentPackCreditRefundListAction,
       fetchPaymentPackBulk,
 
       discardBookingAttendance,

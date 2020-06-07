@@ -33,7 +33,7 @@ import {
   fetchPrivateBookings as fetchPrivateBookingsAction,
   resetPrivateBookings,
 } from '../../libs/private-service/actions';
-import { fetchMemberBulk } from '../../libs/member/actions';
+import { fetchMemberBulk as fetchMemberBulkAction } from '../../libs/member/actions';
 import { fetchCoachBulk } from '../../libs/associated-coach/actions';
 
 type Props = {
@@ -195,7 +195,7 @@ export default compose(
     }),
     {
       fetchCoach: (id) => fetchCoachBulk([id]),
-      fetchMemberBulk,
+      fetchMemberBulk: fetchMemberBulkAction,
       fetchPrivateBookings: fetchPrivateBookingsAction,
       fetchAllOffers: fetchAllOffersAction,
       resetPrivateBookings,

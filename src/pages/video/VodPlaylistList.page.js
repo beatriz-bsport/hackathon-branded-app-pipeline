@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 import { withTranslation } from 'react-i18next';
@@ -11,9 +10,9 @@ import { push } from 'connected-react-router';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import {
-  fetchPlaylistList,
-  deletePlaylist,
-  createOrUpdatePlaylist,
+  fetchPlaylistList as fetchPlaylistListAction,
+  deletePlaylist as deletePlaylistAction,
+  createOrUpdatePlaylist as createOrUpdatePlaylistAction,
 } from '../../libs/playlist/actions';
 import { mapFormData } from '../form.utils';
 import { getPlaylistList } from '../../libs/playlist/selectors';
@@ -22,6 +21,22 @@ import PlaylistFormDialog from '../../libs/playlist/components/PlaylistFormDialo
 
 type Props = {
   t: TFunction,
+  fetchPlaylistList: () => void,
+  playlistList: Array<VideoPlaylist>,
+  openPlaylist: (id: number) => void,
+
+  loading: boolean,
+
+  deletePlaylist: (Playlist, OptionCallback) => void,
+
+  openEditForm: (VideoPlaylist) => void,
+  editPlaylist: ?Playlist,
+  openCreateForm: () => void,
+  closeEditForm: () => void,
+  closeCreateDialog: () => void,
+  createOpen: boolean,
+
+  createOrUpdatePlaylist: (data: any, options: OptionCallback) => void,
 };
 
 const PlaylistMap = {
@@ -76,13 +91,8 @@ export class VodPlaylistListPage extends React.Component<Props> {
   }
 }
 
-const styles = (theme) => ({
-  container: {},
-});
-
 export default compose(
   withTranslation(['video']),
-  withStyles(styles),
   connect(
     (state) => ({
       playlistList: getPlaylistList(state),
@@ -90,9 +100,9 @@ export default compose(
     }),
     {
       fetchPlaylistList: (page, options) =>
-        fetchPlaylistList({ mine: true }, page, options),
-      deletePlaylist,
-      createOrUpdatePlaylist,
+        fetchPlaylistListAction({ mine: true }, page, options),
+      deletePlaylist: deletePlaylistAction,
+      createOrUpdatePlaylist: createOrUpdatePlaylistAction,
       openPlaylist: (id) => push(`/vod/playlist/${id}`),
     },
   ),

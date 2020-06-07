@@ -7,19 +7,20 @@ import Typography from '@material-ui/core/Typography';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
-import { compose } from 'recompose';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 
 type Props = {
-  playlist: Playlist,
-  t: TFunction,
+  playlist: VideoPlaylist,
+  onEdit?: (VideoPlaylist) => void,
+  onDelete?: (VideoPlaylist) => void,
+  onOpen: (id: number) => void,
 };
 
 const DeleteWithConfirm = withConfirm(IconButton, 'onClick', {
@@ -32,7 +33,8 @@ const DeleteWithConfirm = withConfirm(IconButton, 'onClick', {
 });
 
 export const PaylistCardItem = (props: Props) => {
-  const { playlist, t } = props;
+  const { playlist } = props;
+  const { t } = useTranslation(['video']);
   const classes = useStyles();
   return (
     <Card>
@@ -115,4 +117,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose(withTranslation(['video']))(PaylistCardItem);
+export default PaylistCardItem;

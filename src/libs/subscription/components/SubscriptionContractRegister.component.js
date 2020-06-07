@@ -216,8 +216,9 @@ export default compose(
     ) => {
       const first_billing_timestamp = moment(date, 'YYYY-MM-DD').unix();
       setProcessing(true);
+      let response = null;
       try {
-        await postContractSubscriptionAPI(contract.id, {
+        response = await postContractSubscriptionAPI(contract.id, {
           stripe_source: token,
           member: member.id,
           first_billing_timestamp: moment(first_billing_timestamp).unix(),
@@ -226,7 +227,9 @@ export default compose(
         console.error(err);
       }
       setProcessing(false);
-      onSuccess();
+      if (response && response.data) {
+        onSuccess(response.data);
+      }
     },
   }),
 )(SubscriptionContractRegistrationManagerDialog);

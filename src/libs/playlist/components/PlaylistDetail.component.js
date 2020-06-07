@@ -1,10 +1,6 @@
 // @flow
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
-import type { TFunction } from 'react-i18next';
 
 import VideoThumbnailList from '../../video/components/VideoThumbnailList.component';
 import VideoPlayerFull from '../../video/components/VideoPlayerFull.component';
@@ -12,9 +8,12 @@ import VideoPlayerFull from '../../video/components/VideoPlayerFull.component';
 import PlaylistEmpty from './PlaylistEmpty.component';
 
 type Props = {
-  onAddVideo: (id: number) => void,
-  onDeleteVideo: (id: number) => void,
-  t: TFunction,
+  onAddVideo: (id: number, options: OptionCallback) => void,
+  selectedVideo: ?Video,
+  videoPlayingId: ?number,
+  playlist: VideoPlaylist,
+  onOpenVideo: (id: number) => void,
+  onSubVideo: (id: number, options: OptionCallback) => void,
 };
 export const PlaylistDetail = (props: Props) => {
   return (
@@ -42,4 +41,4 @@ export const PlaylistDetail = (props: Props) => {
   );
 };
 
-export default compose(withTranslation())(PlaylistDetail);
+export default PlaylistDetail;

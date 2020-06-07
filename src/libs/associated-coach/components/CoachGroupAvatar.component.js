@@ -1,16 +1,14 @@
 // @flow
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import CoachChip from './CoachChip.component';
 import Tooltip from '../../../components/Tooltip.component';
 
 type Props = {
-  t: TFunction,
+  coaches: ?Array<Coach>,
+  size?: string,
 };
 export const CoachGroupAvatar = (props: Props) => {
   const classes = useStyles();
@@ -49,4 +47,4 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default compose(withTranslation())(CoachGroupAvatar);
+export default CoachGroupAvatar;

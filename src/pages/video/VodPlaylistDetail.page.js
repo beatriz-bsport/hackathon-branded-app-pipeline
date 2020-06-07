@@ -3,24 +3,22 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import flatten from 'lodash/flatten';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { push, replace } from 'connected-react-router';
 
 import PlaylistDetail from '../../libs/playlist/components/PlaylistDetail.component';
 import VideoSearchModal from '../../libs/video/components/VideoSearchModal.component';
-import { fetchAssociatedCoachBulk } from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 import { getPlaylist, withCoachInVideo } from '../../libs/playlist/selectors';
 import {
-  retrievePlaylist,
-  subVideoToPlaylist,
-  addVideoToPlaylist,
+  retrievePlaylist as retrievePlaylistAction,
+  subVideoToPlaylist as subVideoToPlaylistAction,
+  addVideoToPlaylist as addVideoToPlaylistAction,
 } from '../../libs/playlist/actions';
 import {
-  fetchVideoBulk,
-  retrieveVideo,
-  searchVideo,
+  fetchVideoBulk as fetchVideoBulkAction,
+  retrieveVideo as retrieveVideoAction,
+  searchVideo as searchVideoAction,
 } from '../../libs/video/actions';
 import {
   getVideoSearchList,
@@ -32,7 +30,30 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 type Props = {
-  t: TFunction,
+  id: number,
+  videoId: number,
+
+  loading: boolean,
+  retrievePlaylist: () => void,
+  retrieveVideo: (id: number) => void,
+  replaceToVideoInPlaylist: (playlistId: number, videoId: number) => void,
+  goToVideoInPlaylist: (videoId: number) => void,
+
+  classes: Object,
+  searchVideoText: string,
+  searchVideo: (SyntheticEvent<>) => void,
+  searchLoading: boolean,
+  searchedVideoList: Array<Video>,
+  closeVideoSearch: () => void,
+  addVideoToPlaylist: (Video, OptionCallback) => void,
+
+  videoSearchOpen: boolean,
+
+  openVideoSearch: () => void,
+  subVideoToPlaylist: (Video, OptionCallback) => void,
+  playlist: ?VideoPlaylist,
+  videoId: ?number,
+  selectedVideo: ?Video,
 };
 
 export class VodPlaylistDetailPage extends React.Component<Props> {
@@ -70,6 +91,7 @@ export class VodPlaylistDetailPage extends React.Component<Props> {
     ) {
       return props.playlist.videos[0].id;
     }
+    return null;
   };
 
   render() {
@@ -108,7 +130,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withTranslation(['video']),
   withStyles(styles),
   routerParamsToProps({ id: 'id:number', videoId: 'videoId:number' }),
   connect(
@@ -120,13 +141,13 @@ export default compose(
       selectedVideo: withCategory(withCoach(getVideo))(state, videoId),
     }),
     {
-      retrievePlaylist,
-      retrieveVideo,
-      fetchAssociatedCoachBulk,
-      fetchVideoBulk,
-      addVideoToPlaylist,
-      subVideoToPlaylist,
-      searchVideo,
+      retrievePlaylist: retrievePlaylistAction,
+      retrieveVideo: retrieveVideoAction,
+      fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
+      fetchVideoBulk: fetchVideoBulkAction,
+      addVideoToPlaylist: addVideoToPlaylistAction,
+      subVideoToPlaylist: subVideoToPlaylistAction,
+      searchVideo: searchVideoAction,
       goToVideoInPlaylist: (playlist, video) =>
         push(`/vod/playlist/${playlist}/video/${video}`),
       replaceToVideoInPlaylist: (playlist, video) =>

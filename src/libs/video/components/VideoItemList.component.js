@@ -10,6 +10,10 @@ import VideoItem from './VideoItem.component';
 
 type Props = {
   videoList: Array<Video>,
+  loading: boolean,
+  hasMoreVideo: boolean,
+  onShowMore: () => void,
+  openVideo: (id: number) => void,
 };
 
 export const VideoCardList = (props: Props) => {

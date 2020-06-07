@@ -20,7 +20,6 @@ import Root from './Root';
 import './App.scss';
 
 import initStore from './store';
-import { refresh as refreshActions } from './actions';
 
 import { initLoginFromCookie } from './auth';
 
@@ -48,7 +47,6 @@ export class App extends Component<{}, {}> {
   componentDidMount() {
     if (!this.state.reloaded && window.location.search === '?storeReload') {
       this.setState({ reloaded: true });
-      this.store.dispatch(refreshActions.forceRefresh());
     }
   }
 

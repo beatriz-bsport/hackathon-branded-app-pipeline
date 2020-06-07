@@ -2,8 +2,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { withState, compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import IconButton from '@material-ui/core/IconButton';
@@ -21,12 +20,16 @@ import CoachGroupAvatar from '../../associated-coach/components/CoachGroupAvatar
 
 type Props = {
   video: Video,
-  t: TFunction,
+  onClick: () => void,
+  onDeleteVideo: (id: number) => void,
+  isPlaying: number,
+  menuAchorEl: HTMLElement,
+  setMenuAnchorEl: (?HTMLElement) => void,
 };
 export const VideoThumbnail = (props: Props) => {
   const classes = useStyles();
+  const { t } = useTranslation(['video']);
   const { video } = props;
-  const coaches = video.coaches.filter((c) => !!c).filter((c) => !!c.photo);
   return (
     <div className={classes.container}>
       <ButtonBase
@@ -72,7 +75,7 @@ export const VideoThumbnail = (props: Props) => {
                     fontSize="small"
                   />
                   <Typography variant="body2" color="textSecondary">
-                    {`${props.t('video.durationMinute', {
+                    {`${t('video.durationMinute', {
                       minute:
                         parseInt(props.video.duration_second / 60, 10) + 1,
                     })}`}
@@ -89,7 +92,7 @@ export const VideoThumbnail = (props: Props) => {
               )}
             </div>
           </div>
-          <CoachGroupAvatar size='small' coaches={props.video.coaches} />
+          <CoachGroupAvatar size="small" coaches={video.coaches} />
         </div>
       </ButtonBase>
       <Menu
@@ -106,7 +109,7 @@ export const VideoThumbnail = (props: Props) => {
           <ListItemIcon>
             <DeleteIcon />
           </ListItemIcon>
-          <ListItemText primary={props.t('playlist.deleteVideo')} />
+          <ListItemText primary={t('playlist.deleteVideo')} />
         </MenuItem>
       </Menu>
     </div>
@@ -182,7 +185,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose(
-  withTranslation(['video']),
-  withState('menuAchorEl', 'setMenuAnchorEl', null),
-)(VideoThumbnail);
+export default compose(withState('menuAchorEl', 'setMenuAnchorEl', null))(
+  VideoThumbnail,
+);

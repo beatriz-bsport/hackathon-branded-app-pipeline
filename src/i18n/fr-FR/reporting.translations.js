@@ -72,6 +72,7 @@ exports.default = {
     total_price_notax: 'Montant facturé HT',
     payment_note: 'Note paiement',
     remaining_days: 'Jours restants',
+    bsport_fee: 'Frais de transaction',
     payment_method_stripe: 'CB',
     payment_method_cash: 'Espèce',
     payment_method_check: 'Chèque',

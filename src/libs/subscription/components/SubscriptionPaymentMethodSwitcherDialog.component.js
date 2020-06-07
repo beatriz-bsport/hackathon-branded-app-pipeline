@@ -17,6 +17,8 @@ type Props = {
   onCancel: () => void,
   enabledPaymentMethods: Array<number>,
   processing: boolean,
+  loading: boolean,
+  member: Member,
 };
 
 export const SubscriptionPaymentMethodSwitcherDialog = (props: Props) => {

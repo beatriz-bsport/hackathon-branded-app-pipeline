@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -12,10 +11,12 @@ import Typography from '@material-ui/core/Typography';
 import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
 
 type Props = {
-  t: TFunction,
+  associatedCoachList: Array<Coach>,
+  onSubmit: ({ coach: number }) => void,
+  onClose: () => void,
+  open: boolean,
 };
 export const PrivateBookingAttachCoachDialog = (props: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation(['privateService']);
   return (
     <Dialog open={props.open}>
@@ -39,9 +40,5 @@ export const PrivateBookingAttachCoachDialog = (props: Props) => {
     </Dialog>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  container: {},
-}));
 
 export default PrivateBookingAttachCoachDialog;

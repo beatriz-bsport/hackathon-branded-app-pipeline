@@ -5,16 +5,24 @@ import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 
 type Props = {
-  t: TFunction,
+  rounded: boolean,
+  videojsProps: {
+    ...any,
+    sources: Array<{ src: string }>,
+  },
 };
 
 export class VideoPlayerBase extends React.Component<Props> {
+  player: Object;
+
+  videoNode: HTMLElement;
+
   componentDidMount() {
     // instantiate Video.js
     this.player = videojs(this.videoNode, this.props.videojsProps, () => {});
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (
       this.props.videojsProps.sources[0].src !==
       prevProps.videojsProps.sources[0].src
@@ -32,6 +40,7 @@ export class VideoPlayerBase extends React.Component<Props> {
 
   render() {
     return (
+      /* eslint-disable */
       <div>
         <div data-vjs-player>
           <video
@@ -49,6 +58,7 @@ export class VideoPlayerBase extends React.Component<Props> {
         </div>
       </div>
     );
+    /* eslint-enable */
   }
 }
 

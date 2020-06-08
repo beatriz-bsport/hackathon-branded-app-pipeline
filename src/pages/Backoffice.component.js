@@ -217,7 +217,10 @@ export class Backoffice extends Component<Props, State> {
       );
     }
 
-    if (this.props.themeLoading) {
+    if (
+      this.props.themeLoading &&
+      !this.props.location.pathname.includes('settings')
+    ) {
       return <LoadingBackoffice />;
     }
 

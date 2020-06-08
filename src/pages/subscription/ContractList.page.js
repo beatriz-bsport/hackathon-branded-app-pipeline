@@ -28,6 +28,7 @@ import withTitle from '../../hocs/with-title.hoc';
 
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 import SubscriptionContractList from '../../libs/subscription/components/SubscriptionContractList.component';
+import SubscriptionContractFormDialog from '../../libs/subscription/components/SubscriptionContractFormDialog.component';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
 
 import { search as searchMembers } from '../../libs/member/actions';
@@ -73,6 +74,9 @@ type Props = {
   selectedContractData: ?Contract,
 
   onRequestCreate: () => void,
+  onCreate: (data: any, options: OptionCallback) => void,
+  onCloseCreate: () => void,
+  createContractFormOpen: boolean,
 
   t: TFunction,
   classes: Object,
@@ -192,6 +196,14 @@ export class SubscriptionList extends React.Component<Props> {
             ]}
           />
         ) : null}
+        {this.props.createContractFormOpen && (
+          <SubscriptionContractFormDialog
+            paymentPacks={this.props.paymentPacks}
+            open
+            onSubmit={this.props.onCreate}
+            onClose={this.props.onCloseCreate}
+          />
+        )}
       </div>
     );
   }

@@ -368,13 +368,17 @@ export const registerPrivateBookings = ({
   address,
   coach,
   associated_coach,
+  associated_establishment,
+  establishment,
 }: {
   private_slot: number,
   private_consumer_pass: number,
   date_start: string,
   address: ?string,
   associated_coach?: number,
+  associated_establishment?: number,
   coach: number,
+  establishment?: number,
 }) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_consumer_pass/${private_consumer_pass}/book/`,
@@ -384,6 +388,8 @@ export const registerPrivateBookings = ({
       date_start,
       coach,
       associated_coach,
+      associated_establishment,
+      establishment,
     },
   );
 };

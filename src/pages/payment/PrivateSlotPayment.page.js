@@ -121,6 +121,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
     const {
       associated_establishment,
       associated_coach,
+      establishment,
       date,
     } = this.props.data;
     this.props.registerPrivateBooking(
@@ -132,6 +133,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
         date_start: date,
         associated_coach: associated_coach || null,
         associated_establishment: associated_establishment || null,
+        establishment: establishment || null,
       },
       {
         onSuccess: () => {
@@ -150,6 +152,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
     this.setState({ processing: true });
     const {
       associated_establishment,
+      establishment,
       associated_coach,
       date,
     } = this.props.data;
@@ -165,6 +168,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
             date,
             associated_coach: associated_coach || null,
             associated_establishment: associated_establishment || null,
+            establishment: establishment || null,
             address: this.state.address,
           },
         },

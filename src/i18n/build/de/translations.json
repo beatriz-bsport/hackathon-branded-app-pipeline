@@ -1,1 +1,2657 @@
-{}
+{
+    "waitingList": {
+        "form": {
+            "dumb_delay_minutes": {
+                "helper": "Wenn ein Platz frei wird, hat der Student N Minuten Zeit, um sich anzumelden, bevor der Nächste seinen Platz einnimmt.",
+                "label": "Einfache Verwaltung"
+            }
+        },
+        "explainWaitingListConf": "Z.B : Es sind noch drei Stunden bis zum Kursbeginn, der Schüler hat {{ nbMinutesBeforeBookingOptionExpire }} Minuten um seine Reservierung zu bestätigen, bevor er seinen Platz verlässt.",
+        "dialog": {
+            "delete": {
+                "content": "Sind Sie sich sicher, dass Sie dieses Mitglied von der Warteliste entfernen möchten ? Dieses Mitglied wird per E-Mail benachrichtigt."
+            }
+        }
+    },
+    "subscription": {
+        "parameters": {
+            "member": "Mitglied",
+            "name": "Name",
+            "voucher": "Besonderes Angebot",
+            "payment_method": {
+                "0": "Kreditkarte",
+                "label": "Zahlungsmethoden"
+            },
+            "parameters": "Einstellungen",
+            "autoRenew": "Automatische Verlängerung",
+            "payment_pack": "Kurskarte",
+            "firstBilling": "Erste Einlösung",
+            "dateStart": "Erste Rechnung",
+            "nbMonths": "Anzahl der Monate",
+            "paymentPack": "Kurskarte",
+            "nbInterval": "Anzahl der Monate",
+            "dateCreated": "Erstellungsdatum"
+        },
+        "paymentMethod": {
+            "card": "Kreditkarte"
+        },
+        "contract": {
+            "form": {
+                "description": {
+                    "label": "Beschreibung"
+                }
+            },
+            "description": "Beschreibung"
+        },
+        "subscription": {
+            "actions": {
+                "switchPaymentMethod": "Neue Zahlungsmethode hinzufügen"
+            }
+        }
+    },
+    "translation": {
+        "appbar": {
+            "title": {
+                "subscriptions": "Abonnement",
+                "dashboard": "Dashboard",
+                "marketingRule": "Marketingstrategie",
+                "establishmentFormPage": "Einrichtung-Formular",
+                "establishmentList": "Einrichtungen",
+                "memberFormPage": "Mitglied-Formular",
+                "member": "Mitglied",
+                "members": "Mitglieder",
+                "paymentPackList": "Kurskarten",
+                "paymentPackFormPage": "Erstellung einer Kurskarte",
+                "invoiceList": "Meine Transaktionen",
+                "invoiceCreatePage": "In Rechnung stellen",
+                "coachFormPage": "Lehrer-Formular",
+                "coachPerformance": "Leistung des Lehrers",
+                "offerFormPage": "Erstellung eines Kurses",
+                "metaActivityFormPage": "Aktivität-Formular",
+                "metaActivityEditForm": "Aktivität-Formular",
+                "WorkshopActivityFormPage": "Event-Formular",
+                "workshopActivityList": "Events",
+                "coachList": "Lehrer",
+                "shopManager": "Mein Geschäft",
+                "settings": "Einstellungen",
+                "searchResults": "Suche",
+                "marketingDashboard": "Marketing",
+                "metaActivityList": "Aktivitäten",
+                "metaActivity": "Aktivitäten",
+                "offerManagement": "Buchungen"
+            }
+        },
+        "marketplace": {
+            "showMarketplace": "Den Kalender von ... ansehen ",
+            "selector": {
+                "establishment": {
+                    "placeholder": "Nach Einrichtung sortieren"
+                },
+                "level": {
+                    "placeholder": "Nach Level sortieren"
+                },
+                "coach": {
+                    "placeholder": "Nach Lehrer sortieren"
+                }
+            },
+            "buyPack": "Kaufen",
+            "private_service": "Nach Terminvereinbarung",
+            "pass": "Kurskarten",
+            "checkout": {
+                "dialog": {
+                    "goToPayment": "Zahlen",
+                    "goToDelivery": "Weiter",
+                    "title": "Meine Tasche"
+                }
+            },
+            "shop": {
+                "isEmpty": "Derzeit sind keine Produkte im Geschäft erhältlich.",
+                "addToCard": "In die Tasche",
+                "tabName": "Geschäft",
+                "noDescription": "Keine Beschreibung"
+            },
+            "workshop": "Events",
+            "calendar": "Kalender",
+            "bookButton": {
+                "bookOption": "Warteliste",
+                "book": "Buchen"
+            },
+            "passListTitle": "Gruppenkurskarten",
+            "privatePassListTitle": "Terminkarten",
+            "noSessionToday": "Kein Kurs",
+            "backToCalendar": "Zurück",
+            "teacher": "Lehrer",
+            "substituted": "Abwesend",
+            "substitute": "Vertreter"
+        },
+        "calendar": {
+            "pleaseSelectOffer": "Wählen Sie einen Kurs aus, um die eingeschriebenen Mitglieder zu sehen",
+            "date": "Datum",
+            "day": "Tag",
+            "week": "Woche",
+            "month": "Monat",
+            "today": "heute",
+            "next": ">",
+            "previous": "<",
+            "allDay": "",
+            "deleteOffer": "Stornieren",
+            "modifyOffer": "Ändern"
+        },
+        "common": {
+            "showDetails": "Details ansehen",
+            "show": "Ansehen",
+            "credits": "Kreditpunkte",
+            "credit_s": "Kreditpunkt(e)",
+            "selected": "Ausgewählt(e)",
+            "transactions": "Meine Transaktionen",
+            "merge": "Zusammenfügen",
+            "status": "Status",
+            "NA": "Uninformiert",
+            "previous": "Zurück",
+            "activities": "Aktivitäten",
+            "activity": "Aktivität",
+            "otherGender": "Divers",
+            "female": "Frau",
+            "male": "Mann",
+            "places": "Standorte",
+            "date": "Datum",
+            "offers": "Kurse",
+            "booking_s": "Kurs(e)",
+            "seeMore": "Mehr anzeigen",
+            "show_more": "Mehr anzeigen",
+            "filterBy": "Sortieren ",
+            "sport": "Kategorie",
+            "coaches": "Lehrer",
+            "coach": "Lehrer",
+            "uploadOneImage": {
+                "edit": "Um ein Bild zu wechseln, ziehen Sie das neue Bild mit der Maus oder klicken Sie hier",
+                "new": "Zum Einfügen von Bildern, ziehen Sie das Bild mit der Maus oder klicken Sie hier"
+            },
+            "cancel": "Stornieren",
+            "create": "Erstellen",
+            "sports": "Kategorien",
+            "continue": "Weiter",
+            "paymentPack": "Kurskarte",
+            "datetime": "Kurs",
+            "saveAndAdd": "Speichern und neu hinzufügen",
+            "add": "Hinzufügen",
+            "level": "Level",
+            "notes": "Anmerkungen",
+            "establishments": "Standorte",
+            "tax": "Mehrwertsteuer",
+            "generate": "Erstellen",
+            "export": "Exportieren",
+            "copySuffix": " (Kopie)",
+            "bookings": "Buchungen",
+            "booking": "Buchung",
+            "paymentMethod": "Zahlungsmethoden",
+            "contact": "Kontakt",
+            "sort": "Sortieren",
+            "no": "Nein",
+            "yes": "Ja",
+            "email": "E-mail",
+            "edit": "Ändern",
+            "company": "Unternehmen",
+            "ok": "Ok",
+            "recipients": "Empfänger",
+            "recipient": "Empfänger",
+            "name": "Name",
+            "confirm": "Bestätigen",
+            "or": "oder",
+            "priceIncludingTax": "Preis inkl. Mehrwertsteuer",
+            "price": "Preis",
+            "amount": "Betrag",
+            "from": "Von",
+            "until": "Bis",
+            "save": "Speichern",
+            "lastname": "Nachname",
+            "firstname": "Vorname",
+            "delete": "Löschen",
+            "buy": "Kaufen",
+            "minuteSmall": "Min.",
+            "daySmall": "Tag",
+            "hourSmall": "Std.",
+            "download": "Downloaden",
+            "invoices": "Rechnungen",
+            "description": "Beschreibung",
+            "skip": "Überspringen"
+        },
+        "openSchedule": "Zeitplan ansehen",
+        "login": {
+            "loginAsConsumer": "Ein Schüler",
+            "error": {
+                "invalidEmail": "Diese E-Mail existiert nicht in unserer Datenbank",
+                "invalidPassword": "Das Passwort ist ungültig"
+            },
+            "forgottenPassword": "Haben Sie Ihr Passwort vergessen ?",
+            "authError": "Falsche E-Mail oder falsches Passwort",
+            "password": "Passwort",
+            "noAccount": "Noch kein Konto ? Erstellen Sie eins hier !",
+            "loginAsPro": "Ein Geschäftsleiter",
+            "choseYourUserspace": "Ich bin",
+            "invalidPhone": "Unbekannte Telefonnummer",
+            "signUpConsumer": "Noch kein Konto ?",
+            "welcome": "Herzlich Willkommen !"
+        },
+        "payment": {
+            "noBookingsLeftOnPack": "Karte für diese Woche ausverkauft",
+            "paymentCombo": "Package",
+            "type": "Art",
+            "payWithNCredits2": "Kreditpunkt",
+            "noCreditLeft": "Nicht genügend Kreditpunkte",
+            "topUp": "Kreditpunkt",
+            "credit": "Kreditpunkt",
+            "toBill": "In Rechnung stellen",
+            "createInvoice": "Zahlung",
+            "billingAnchor": "Erste Zahlung",
+            "intervalWeek": "Wöchentlich",
+            "intervalMonth": "Monatlich",
+            "status": "Eingelöst",
+            "addThisPaymentItem": "Diese Zahlung hinzufügen",
+            "paymentMethods": {
+                "OTHER": "Andere",
+                "AMEX": "AMEX",
+                "EVENT_BRITE": "EventBrite",
+                "CASH": "Bargeld",
+                "HOLIDAY_CHECK": "Urlaubsgutscheine",
+                "CHECK": "Scheck",
+                "CB_MANUAL": "Kreditkarte (manuell)",
+                "CB": "Kreditkarte"
+            },
+            "paymentMethod": "Zahlungsmethode",
+            "invoice": "Rechnung",
+            "paymentMethodCash": "Bargeld",
+            "paymentMethodCheck": "Scheck",
+            "paymentMethodStripe": "Kreditkarte",
+            "total": "GESAMT",
+            "voucher": "Rabatt",
+            "updateInvoiceVoucher": "Einen Rabatt hinzufügen",
+            "addPaymentPack": "Kurskarte",
+            "addOffer": "Kurs",
+            "addInvoiceItem": "Zur Rechnung hinzufügen",
+            "paymentDate": "Einkaufsdatum",
+            "consumer": "Kunde",
+            "amount": "Betrag",
+            "pay": "Zahlen",
+            "availablePaymentPacks": " kompatible Kurskarten",
+            "yourBasket": "Meine Tasche",
+            "bookWithUnlimitedPack": "Buchen",
+            "invoiceFinalizedThusNotEditable": "Die Rechnung wurde abgeschlossen und kann deswegen nicht mehr geändert werden",
+            "invoiceRevertedThusNotEditable": "Die Rechnung wurde storniert und kann nicht mehr geändert werden",
+            "products": "Produkte",
+            "privatePass": "Terminkarte",
+            "payment": "Zahlung",
+            "object": "Beschreibung"
+        },
+        "navigation": {
+            "combo": "Packages",
+            "myClub": "Mein Klub",
+            "settings": "Einstellungen",
+            "pass": "Kurskarte",
+            "goBack": "Zurück",
+            "refresh": "Aktualisieren",
+            "logoff": "Abmelden",
+            "payment": "Zahlungen",
+            "establishment": "Einrichtungen",
+            "message": "Marketing",
+            "calendar": "Kalender",
+            "beta": "beta",
+            "coachPerformance": "Lehrer",
+            "privateService": {
+                "pass": "Terminkarten",
+                "services": "Nach Terminvereinbarung",
+                "title": "Nach Terminvereinbarung"
+            },
+            "schedule": "Stundenplan",
+            "invoice": "Rechnungen",
+            "workshopActivities": "Event",
+            "order": "Bestellungen",
+            "email_template": "E-Mails",
+            "smart_list": "Smartlists",
+            "sequence": "Strategien",
+            "requestTempPassword": "Zugang erlauben",
+            "podcast": "Podcasts",
+            "video": "Videothek",
+            "activity": "Meine Aktivitäten",
+            "consumer": {
+                "bookings": "Meine Buchungen ",
+                "order": "Meine Bestellungen",
+                "profile": "Mein Profil",
+                "pass": "Kurskarten"
+            },
+            "dashboard": "Dashboard",
+            "search": "Suche"
+        },
+        "offer": {
+            "noncompatibleConsumerPaymentPacksAre": "Sie besitzen die folgenden Karten, die nicht mit diesem Kurs vereinbar sind :",
+            "broadcast_link": "Link zur Videokonferenz",
+            "disabled": "storniert",
+            "noConsumerPackAvailableForPurchase": "Dieses Mitglied besitzt keine kompatible Kurkarte !",
+            "createBooking": "Angemeldet",
+            "hasntBooked": "Nicht angemeldet",
+            "noCompatiblePacks": "Keine Kurskarte ist mit diesem Kurs vereinbar",
+            "compatiblePacks": "Kompatible Karten",
+            "noPackAvailableForOfferPurchase": "Keine Kurskarte ist mit diesem Kurs vereinbar !",
+            "createBookingOption": "Warteliste",
+            "bill": "In Rechnung stellen",
+            "hasBooked": "Angemeldet",
+            "extraordinaryEstablishment": "(provisorischer Standort)",
+            "nextOffer": "Nächster Kurs",
+            "offersPendingChange": "Kurse, die geändert werden :",
+            "offersPendingDelete": "Kurse, die gelöscht werden :",
+            "sizeOfWaitingList": "Länge der Warteliste",
+            "maxBookingsNb": "Plätze",
+            "manageOffer": "Meine Buchungen verwalten",
+            "myBookings": "Buchungen",
+            "addInvoice": "In Rechnung stellen",
+            "substitute": "Vertreter",
+            "backToCalendar": "Kalender",
+            "nonAttendant": "abwesend",
+            "attendant": "anwesend"
+        },
+        "time": {
+            "monthShort": {
+                "december": "Dez",
+                "november": "Nov",
+                "october": "Okt",
+                "september": "Sep",
+                "august": "Aug",
+                "april": "Apr",
+                "february": "Feb",
+                "january": "Jan",
+                "july": "Juli",
+                "june": "Juni",
+                "may": "Mai",
+                "march": "März"
+            },
+            "month": {
+                "december": "Dezember",
+                "november": "November",
+                "october": "Oktober",
+                "september": "September",
+                "august": "August",
+                "july": "Juli",
+                "june": "Juni",
+                "may": "Mai",
+                "april": "April",
+                "march": "März",
+                "february": "Februar",
+                "january": "Januar"
+            },
+            "weekday": {
+                "satursday": "Samstag",
+                "friday": "Freitag",
+                "thursday": "Donnerstag",
+                "wednesday": "Mittwoch",
+                "tuesday": "Dienstag",
+                "monday": "Montag",
+                "sunday": "Sonntag"
+            }
+        },
+        "form": {
+            "offer": {
+                "delete": {
+                    "explainNotify": "Eine Benachrichtigung an Kunden senden, die eine Buchung haben",
+                    "explainCreditBack": "Rückgabe der Kreditpunkte, die Kunden auf ihrer Kurskarte ausgegeben haben",
+                    "explainModalities": "Achtung, diese Änderung ist endgültig. Ihrer Kurs wird von den Kunden nicht mehr sichtbar sein. Sie werden aber immer noch Zugang dazu haben.",
+                    "buttonHardDelete": "Löschen"
+                },
+                "broadcast_link": {
+                    "error": "Der Link ist falsch. Er muss mit http:// oder https:// beginnen und darf keine Leerzeichen enthalten"
+                },
+                "explainNotificationOnEdit": "Wollen Sie Ihre Kunden über diese Änderung informieren?",
+                "changeEstablishment": "Den Standort ändern",
+                "changeCoach": "Den Lehrer ändern",
+                "cancelTitle": "Den Kurs stornieren",
+                "deleteTitle": "Den Kurs löschen",
+                "substituteEstablishmentLabel": "Einrichtung (provisoricher Standort)",
+                "establishmentLabel": "Einrichtung",
+                "coachLabel": "Lehrer",
+                "substituteCoachLabel": "Vertreter",
+                "establishmentChangeWarning": "Wenn Sie die Einrichtung ändern, wird diese Änderung für alle zukünftigen Kurse wirksam sein. Falls Sie das nicht möchten, müssen Sie das Feld \"provisorische Einrichtung\" benützen. Alle anderen Änderungen, die hier gespeichert sind (Wochentag, Preis, Vertreter, Lehrer, ...) werden für alle Kurse wirksam sein.",
+                "coachChangeWarning": "Wenn Sie den Lehrer ändern, wird diese Änderung für alle zukünftigen Kurse wirksam sein. Falls Sie das nicht möchten, müssen Sie das Feld \"Vertreter\" benützen. Alle anderen Änderungen (Einrichtung, Preis, Wochentag, ...) werden für alle Kurse wirksam sein."
+            },
+            "shop": {
+                "item": {
+                    "deleteExplain": "Vorsicht ! Diese Löschung ist endgültig. Kein Kunde wird dieses Produkt mehr kaufen können, Lagerbestände werden entfernt.",
+                    "createOrUpdate": {
+                        "error": "Fehler beim Speichern"
+                    },
+                    "tva": "Mehrwertsteuer",
+                    "price": "Preis",
+                    "name": "Name",
+                    "provisions": "Bestand",
+                    "subtitle": "Untertitel",
+                    "delete": {
+                        "error": "Fehler beim Löschen"
+                    },
+                    "description": "Beschreibung"
+                },
+                "subShop": {
+                    "delete": {
+                        "error": "Es ist unmöglich die Kategorie zu löschen",
+                        "success": "Die Kategorie wurde gelöscht"
+                    },
+                    "createOrUpdate": {
+                        "error": "Es ist unmöglich diese Kategorie zu speichern",
+                        "success": "Diese Kategorie wurde erfolgreich gespeichert"
+                    },
+                    "namePlaceholder": "Fruchtsaft",
+                    "nameTitle": "Neue Kategorie"
+                }
+            },
+            "default_credits": "Preis (Kreditpunkte)",
+            "credits": "Anzahl der erforderlichen Kurskarte-Kreditpunkte für eine Buchung",
+            "credit_price": "Anzahl der erforderlichen Kurskarte-Kreditpunkte für eine Buchung",
+            "invoice": {
+                "offerHelper": "",
+                "backToInvoiceItemList": "Zurück zur Liste",
+                "dateStartPaymentPack": "Beginn der Kurskarte am",
+                "titleUnevenInvoice": "Unausgeglichene Rechnung",
+                "paymentLabel": "Eine Transaktion hinzufügen",
+                "title": "Eine Zahlung speichern",
+                "activityHelper": "Wählen Sie erst die Aktivität und dann den Kurs"
+            },
+            "quickInvoice": {
+                "paymentDue": "Geschuldete Zahlung",
+                "totalPayment": "Zahlungen",
+                "totalPurchase": "Einkäufe"
+            },
+            "signup": {
+                "emailExistsInDB1": "Diese E-Mail ist bereits gespeichert",
+                "privacyPolicy": "Allgemeine Geschäftsbedingungen",
+                "signupButton": "Sich einschreiben",
+                "communication": {
+                    "sms": "per SMS",
+                    "email": "per E-Mail"
+                },
+                "confirmPassword": "Passwort",
+                "emailExistsInDB2": "Mich einloggen",
+                "typePhone": "Handynummer *"
+            },
+            "member": {
+                "rgpd": {
+                    "email": "Nimmt E-Mail-Benachrichtigungen an"
+                },
+                "birthdayYear": "Geburtsjahr",
+                "phone": "Telefon",
+                "delete": {
+                    "success": "Die Anmerkung wurde gelöscht",
+                    "error": "Fehler bei der Löschung der Anmerkung"
+                },
+                "createOrUpdate": {
+                    "success": "Die Anmerkung wurde gespeichert",
+                    "error": "Fehler beim Speichern der Anmerkung"
+                }
+            },
+            "login": {
+                "confirmPassword": "Bestätigen",
+                "passwordChangedSuccess": "Passwort erfolgreich geändert !",
+                "passwordTooEasy": "Ihr Passwort muss mindestens 6 Zeichen enthalten und darunter eine Zahl und Buchstaben",
+                "password": "Passwort",
+                "changePasswordTitle": "Passwort ändern"
+            },
+            "never": "Nie",
+            "oneMonth": "1 Monat",
+            "twoWeeks": "2 Wochen",
+            "tenDays": "10 Tage",
+            "oneWeek": "1 Woche",
+            "twoDays": "2 Tage",
+            "oneDay": "1 Tag",
+            "twelveHour": "12 Std.",
+            "eightHour": "8 Std.",
+            "sixHour": "6 Std.",
+            "fourHour": "4 Std.",
+            "threeHour": "3 Std.",
+            "twoHour": "2 Std.",
+            "oneHourAndHalf": "1 Std. 30 Min",
+            "halfHour": "30 Min",
+            "twentyMinutes": "20 Min",
+            "quarterHour": "15 Min",
+            "zeroMinute": "0 Min",
+            "halfAndQuarterHour": "45 Min",
+            "oneHour": "1 Std.",
+            "oneHourFifteen": "1 Std. 15 Min",
+            "default_price": "Preis",
+            "SCT": "Kategorie",
+            "name": "Name",
+            "discard": "Stornieren",
+            "send": "Speichern",
+            "email": "E-Mail-Adresse",
+            "phone": "Telefonnummer",
+            "clearDate": "Löschen",
+            "birthday": "Geburtsdatum",
+            "birthdayYear": "Geburtsjahr",
+            "gender": "Geschlecht",
+            "lastname": "Nachname",
+            "firstname": "Vorname",
+            "newCoach": "Neuer Lehrer",
+            "coach": "Lehrer",
+            "establishment": "Einrichtung",
+            "level": "Level",
+            "caracteristics": "Merkmale",
+            "price": "Preis",
+            "priceCategory": "Rechnungsstellung",
+            "duration_minute": "Dauer",
+            "lastSession": "Letzter Kurs am",
+            "firstSessionAt": "um",
+            "firstSessionOn": "Erster Kurs am",
+            "timeSettings": "Zeit & Datum",
+            "monthly": "Monatlich",
+            "weekly": "Wöchentlich",
+            "notRecurrent": "Nur ein Kurs",
+            "offerWillBeGenerated": "Kurs wird erstellt",
+            "offersWillBeGenerated": "Kurse werden erstellt",
+            "generateOffers": "Kurse erstellen",
+            "default_waiting_list_max_size": "Länge der Warteliste",
+            "password": "Passwort",
+            "title": "Titel",
+            "payment": {
+                "additionalInformationLabel": "Information",
+                "noPaymentExtraInfo": "Keine zusätzliche Information",
+                "paid": "Bezahlt"
+            },
+            "booking": {
+                "delete": {
+                    "error": "Fehler beim Löschen",
+                    "success": "Buchung gelöscht"
+                }
+            },
+            "address": {
+                "zipcode": "Postleitzahl",
+                "country": "Land",
+                "city": "Stadt",
+                "addressLine1": "Adresse",
+                "streetNumber": "Nummer"
+            },
+            "newMetaActivity": "Neue Aktivität",
+            "metaActivity": {
+                "cantAddSameName": "Eine Aktivität mit dem selben Namen existiert bereits !"
+            },
+            "waiting_list_max_size": "Länge der Warteliste",
+            "description": "Beschreibung",
+            "specific_info": "Beschreibung"
+        },
+        "booking": {
+            "revertBookingExplain": {
+                "offerIsNotAvailable": "Die Buchung wird gelöscht. Der Kurs wurde bereits storniert und die Kreditpunkte werden nicht zurückerstattet, wenn Sie zum Zeitpunkt der Annullierung nicht \"Rückerstattung\" angekreuzt haben",
+                "offerIsAvailable": "Sind Sie sich sicher, dass Sie diese Buchung löschen möchten ? Verwendete Kreditpunkte werden wieder gutgeschrieben."
+            },
+            "seeCustomers": "Buchungen anzeigen",
+            "waiting": "Warteliste",
+            "lastBooking": "Nächster Kurs",
+            "sources": {
+                "MAN": "Manuell",
+                "WEB": "Web"
+            },
+            "status": {
+                "false": "storniert",
+                "true": "angemeldet",
+                "null": "Warteliste"
+            },
+            "cancelBooking": "Stornieren",
+            "cancelled": "Storniert",
+            "confirm": "Einlösen",
+            "onWaitingList": "Auf Warteliste",
+            "discard": "Stornieren",
+            "doNotAttend": "Abwesend",
+            "attend": "Anwesend",
+            "revertBookingTitle": "Die Einschreibung stornieren"
+        },
+        "consumer": {
+            "booking": {
+                "discardImpossibleExplain": "Sind Sie sich sicher, dass Sie diese Buchung stornieren möchten ? Sie sagen zu spät ab und Ihre Kurskarte wird die Kreditpunkte verlieren (Allgemeine Nutzungsbedingungen des Klubs).",
+                "discardPossibleExplain": "Sind Sie sich sicher, dass Sie diese Buchung stornieren möchten ? Ihre Kreditpunkte wird dann erneut benutzbar sein.",
+                "cancelOption": "Stornieren",
+                "noPastBookings": "Keine vorherige Buchung",
+                "noFutureBookings": "Keine geplante Buchung",
+                "noBookingOptions": "Keine Buchung auf Warteliste",
+                "myOptions": "Buchungen auf Warteliste",
+                "myPastBookings": "Vorherige Kurse",
+                "myFutureBookings": "Zukünftige Kurse",
+                "confirmBooking": "Bestätigen",
+                "cancelBooking": "Buchung stornieren",
+                "myPrivateBooking": "Termin",
+                "discardBookingTitle": "Buchung stornieren"
+            },
+            "help": {
+                "explainCancelBookingOption": "Die Löschung ist endgültig. Wenn Sie wieder diese Option für diesen Kurs wählen, wird Ihr Platz in der Warteliste zurückgesetzt.",
+                "areYouSureCancelBookingOption": "Möchten Sie wirklich ihre Option stornieren ?"
+            },
+            "company": "Klub",
+            "myPaymentPacks": "Meine Kurskarten"
+        },
+        "shop": {
+            "subShop": {
+                "delete": {
+                    "title": "Löschung",
+                    "explain": "Sind Sie sich sicher, dass Sie diese Kategorie löschen möchten ? Ihr ganzes Inhalt wird dann auch gelöscht"
+                }
+            },
+            "supplier_price": "Preis des Lieferanten",
+            "noProvisionUpdates": "Kein Bestand",
+            "myShop": "Mein Geschäft"
+        },
+        "offerManagement": {
+            "forms": {
+                "register": {
+                    "forceNotify": "Eine Bestätigungs-E-Mail senden"
+                }
+            }
+        },
+        "level": {
+            "advanced": "Fortgeschrittener",
+            "intermediary": "Mittler",
+            "intermediate": "Mittler",
+            "beginner": "Einsteiger",
+            "all": "Alle Levels"
+        },
+        "workshopActivity": {
+            "forms": {
+                "update": {
+                    "error": "Es ist unmöglich das Event zu aktualisieren",
+                    "success": "Das Event wurde aktualisiert"
+                },
+                "create": {
+                    "error": "Es ist unmöglich das Event zu speichern",
+                    "success": "Das Event wurde gespeichert"
+                }
+            },
+            "lastDiscardBeforeMinutes": "Vor Beginn des Events, letzte mögliche Stornierung",
+            "lastBookingBeforeMinutes": "Vor Beginn des Events, letzte mögliche Buchung",
+            "imageUploaderRequireEditMessage": "Sobald Ihr Event erstellt ist, haben Sie die Möglichkeit, zusätzliche Bilder hinzuzufügen.",
+            "addWorkshopActivity": "Ein Event hinzufügen"
+        },
+        "activity": {
+            "orNcredits2": " Kredite)",
+            "orNcredits1": "(oder ",
+            "noOfferThisDay": "Kein Kurs, wählen Sie ein anderes Datum im Kalender aus",
+            "offersThisDay": "Heutige Kurse :",
+            "category": "Kategorie",
+            "grossVolume": "Umsatz",
+            "name": "Titel",
+            "addOffers": "Kurse hinzufügen",
+            "lastDiscardBeforeMinutes": "Vor Kursbeginn, letzte mögliche Stornierung",
+            "lastBookingBeforeMinutes": "Vor Kursbeginn, letzte mögliche Reservierung",
+            "is_broadcast": "Live-Streaming-Kurs",
+            "nextSlotAt": "Nächster Kurs am ",
+            "addActivity": "Eine Aktivität hinzufügen",
+            "description": "Beschreibung",
+            "settings": "Einstellungen"
+        },
+        "paginatedList": {
+            "isEmpty": "Keine Daten anzuzeigen"
+        },
+        "invoice": {
+            "explainFinalize": "Vorsicht ! Eine abgeschlossene Rechnung kann nicht mehr geändert werden und alle Zahlungen, die zur Einlösung bereitgehalten werden, werden als eingelöst betrachtet. Sobald die Rechnung fertig gestellt ist, können Sie sie als PDF-Datei exportieren",
+            "finalize": "Die Rechnung abschließen",
+            "invoiceReverted": "Die Rechnung wurde storniert",
+            "revertExplainShop": "Einkäufe im Geschäft werden storniert und der Bestand zurückgesetzt.",
+            "revertExplainPacks": "Kurskarten werden zusammen mit ALLEN damit verbundenen Reservierungen storniert",
+            "explainDateChoser": "Bitte wählen Sie das Rechnungsdatum. Zahlungen per Kreditkarte werden unabhängig vom gewählten Datum sofort eingelöst",
+            "choseDate": "Rechnungsdatum",
+            "revert": "Die Rechnung stornieren",
+            "reverted": "Storniert",
+            "choseDateTitle": "Rechnungsdatum"
+        },
+        "marketing": {
+            "message": "Nachricht",
+            "strategy": "Strategie : ",
+            "notificationsSent": "Gesendete Benachrichtigungen",
+            "EmailSent": "Gesendete E-Mails",
+            "SMSSent": "Gesendete SMS-Nachrichten"
+        },
+        "pagination": {
+            "rowPerPage": "Objekte pro Seite",
+            "outOf": " von "
+        },
+        "dayParts": {
+            "evening": "Abend",
+            "afternoon": "Nachmittag",
+            "morning": "Morgen"
+        },
+        "countdown": {
+            "seconds": "Sekunden",
+            "minutes": "Minuten",
+            "hours": "Stunden"
+        },
+        "metaActivity": {
+            "create": {
+                "success": "Die Aktivität wurde erstellt"
+            },
+            "update": {
+                "imageUploaderRequireEditMessage": "Sobald die Aktivität erstellt ist, haben Sie die Möglichkeit zusätzliche Bilder hinzuzufügen."
+            },
+            "forms": {
+                "create": {
+                    "error": "Fehler beim Eintrag der Aktivität",
+                    "success": "Die Aktivität wurde erstellt"
+                }
+            }
+        },
+        "activityUpdated": "Die Aktivität wurde geändert",
+        "activityCreated": "Die Aktivität wurde hinzugefügt",
+        "errors": {
+            "start_after_end": "Das Beginndatum muss früher als das Enddatum sein",
+            "end_before_start": "Das Enddatum muss später als das Beginndatum sein"
+        },
+        "paymentMethod": {
+            "OTHER": "Anderes",
+            "SUBSCRIPTION_CB": "Automatische Zahlung",
+            "BANK_TRANSFER": "Überweisung",
+            "AMEX": "AMEX",
+            "EVENT_BRITE": "EventBrite",
+            "CASH": "Bargeld",
+            "HOLIDAY_CHECK": "Reisescheck",
+            "CHECK": "Scheck",
+            "CB_MANUAL": "Kreditkarte (manuell)",
+            "CB": "Kreditkarte"
+        },
+        "members": {
+            "form": {
+                "title": "Neues Mitglied"
+            }
+        },
+        "companies": {
+            "bank_details": "Kontoinformationen",
+            "fields": {
+                "bank_account_holder": "Kontoinhaber",
+                "iban": "IBAN-Nummer"
+            },
+            "owner_address": "Adresse des Geschäftsleiters",
+            "general": "Allgemein",
+            "address": "Adresse"
+        },
+        "private_service": "nach Vereinbarung",
+        "bookingConfirmed": "Buchung bestätigt",
+        "button": {
+            "login": "Log in"
+        },
+        "pageTitle": {
+            "myAccount": "Mein Konto"
+        },
+        "hi": "Hallo",
+        "error": {
+            "connectionError": "Netzwerkfehler"
+        }
+    },
+    "smartList": {
+        "filters": {
+            "8": {
+                "first": "Besitzt eine Kurskarte",
+                "name": "Gültigkeit der Kurskarte"
+            },
+            "5": {
+                "women": "Frauen",
+                "explanation": "Ist eine Frau/ein Mann",
+                "men": "Männer",
+                "first": "Wählen Sie nur die",
+                "name": "Geschlecht"
+            },
+            "2": {
+                "explanation": "Seine letzte Buchung war vor ...",
+                "second": "Tagen"
+            },
+            "1": {
+                "explanation": "Hat X Euros auf seinem Konto",
+                "third": "Euros"
+            },
+            "calendarPicker": {
+                "selectduration": {
+                    "7": {
+                        "third": "Tagen und weniger als",
+                        "second": "Tagen",
+                        "first": "In mehr als"
+                    },
+                    "6": {
+                        "second": "Tagen",
+                        "first": "In"
+                    },
+                    "5": {
+                        "second": "Tagen",
+                        "first": "In weniger als"
+                    },
+                    "4": {
+                        "second": "Tagen",
+                        "first": "In mehr als"
+                    },
+                    "selector": {
+                        "6": "In X Tagen",
+                        "5": "In weniger als X Tagen",
+                        "4": "In mehr als X Tagen"
+                    },
+                    "11": {
+                        "third": "Tagen und weniger als",
+                        "second": "Tagen",
+                        "first": "Vor mehr als"
+                    },
+                    "10": {
+                        "second": "Tagen",
+                        "first": "Vor "
+                    },
+                    "9": {
+                        "second": "Tagen",
+                        "first": "Vor mehr als"
+                    },
+                    "8": {
+                        "second": "Tagen",
+                        "first": "Vor weniger als"
+                    }
+                },
+                "text": {
+                    "11": {
+                        "third": "Tagen",
+                        "second": "Tagen und weniger als",
+                        "first": "vor mehr als"
+                    },
+                    "10": {
+                        "second": "Tagen",
+                        "first": "vor "
+                    },
+                    "9": {
+                        "second": "Tagen",
+                        "first": "vor mehr als"
+                    },
+                    "8": {
+                        "second": "Tagen",
+                        "first": "vor weniger als"
+                    },
+                    "7": {
+                        "third": "Tagen",
+                        "second": "Tagen und weniger als",
+                        "first": "in mehr als"
+                    },
+                    "6": {
+                        "second": "Tagen",
+                        "first": "in "
+                    },
+                    "5": {
+                        "second": "Tagen",
+                        "first": "in weniger als"
+                    },
+                    "4": {
+                        "second": "Tagen",
+                        "first": "in mehr als"
+                    },
+                    "3": {
+                        "first": "am"
+                    },
+                    "2": {
+                        "second": "und",
+                        "first": "zwischen"
+                    },
+                    "1": {
+                        "first": "am oder vor dem"
+                    },
+                    "0": {
+                        "first": "am oder nach dem"
+                    }
+                },
+                "select": {
+                    "3": "Am",
+                    "2": "Zwischen zwei Daten",
+                    "1": "Am oder vor dem",
+                    "0": "Am oder nach dem"
+                }
+            },
+            "isEmpty": "Kein Filter wurde eingerichtet. Diese Smartlist enthält also die gesamte Mitgliederdatenbank",
+            "23": {
+                "explanation": "Buchte seinen/ihren ersten Kurs am...",
+                "name": "Erste Buchung"
+            },
+            "22": {
+                "hour": {
+                    "third": "Std.",
+                    "first": "zwischen"
+                },
+                "first": "Hat",
+                "explanation": "Hat X Kurse von A in der Einrichtung B mit der Kurskarte C gebucht ...",
+                "name": "Anzahl der Buchungen",
+                "coach": {
+                    "first": "mit den Lehrern"
+                },
+                "payment_pack": {
+                    "first": "mit den Karten"
+                },
+                "establishment": {
+                    "first": "in den Einrichtungen"
+                },
+                "second": "Kurse",
+                "activity": {
+                    "first": "Aktivitäten"
+                }
+            },
+            "21": {
+                "hour": {
+                    "third": "Std.",
+                    "second": "Std. und",
+                    "first": "Die Zeit des Kurses liegt zwischen"
+                },
+                "date": {
+                    "first": "Das Datum des Kurses ist"
+                },
+                "establishment": {
+                    "first": "in"
+                },
+                "activity": {
+                    "first": "von"
+                },
+                "second_plural": ". Kurs",
+                "second_singular": ". Kurs",
+                "first": "Hat seinen/ihren ",
+                "explanation": "Hat seinen/ihren X. Kurs von A in der Einrichtung B gebucht...",
+                "name": "Buchungsnummer"
+            },
+            "20": {
+                "date": {
+                    "second": "Tage",
+                    "first": "Tasche aufgegeben"
+                },
+                "third": "Euros",
+                "first": "Hat eine Tasche aufgegeben im Wert von",
+                "explanation": "Hat eine Tasche aufgegeben, im Wert von ..."
+            },
+            "19": {
+                "infoIcon": "Unbegrenzte Kurskarten sind immer eingeschlossen",
+                "expiration": {
+                    "first_has_expire": "Ist abgelaufen"
+                },
+                "date_bought": {
+                    "first": "Kaufdatum"
+                },
+                "credits": {
+                    "second": "und",
+                    "first": "Kreditpunkte :"
+                }
+            },
+            "undefined": {
+                "fifth": "Kreditpunkte",
+                "fourth": "und besitzt darauf",
+                "third": "und",
+                "second": "zwischen",
+                "first": "Hat die Kurskarte gekauft",
+                "infoIcon": "Unbegrenzte Kurskarten werden nicht nach Kreditpunkten sortiert",
+                "name": "Einkaufsdatum und Kreditpunkte pro Kurskarte"
+            },
+            "durations_comparators": {
+                "5": "genau",
+                "2": "mehr als (⩾)",
+                "1": "weniger als (⩽)"
+            },
+            "classic_comparators": {
+                "5": "gleich"
+            }
+        },
+        "filterCategory": {
+            "4": "Käufe",
+            "2": "Kurskarten",
+            "1": "Informationen über das Mitglied",
+            "3": "Buchungen"
+        },
+        "smart_list": {
+            "createTitle": "Smartlist",
+            "detail": "Details der Smartlist",
+            "add": "Eine Smartlist hinzufügen",
+            "cancel": "Stornieren",
+            "submit": "Speichern",
+            "name": "Name",
+            "list": {
+                "detailTitle": "Details der Smartlist",
+                "title": "Smartlists"
+            },
+            "actions": {
+                "configure": "Einrichten"
+            },
+            "description": {
+                "isEmpty": "Keine Beschreibung",
+                "label": "Beschreibung"
+            }
+        },
+        "detail": {
+            "statTitle": "Statistiken",
+            "tab": {
+                "statistic": "Statistik",
+                "member": "Allgemein"
+            }
+        },
+        "mail": {
+            "noMailAvailable": "Keine verfügbare E-Mail, erstellen Sie eine",
+            "cancel": "Stornieren",
+            "send": "Senden",
+            "sendMail": "Eine E-Mail senden",
+            "sendMailTitle": "Eine E-Mail senden"
+        },
+        "graphs": {
+            "bookingsSegments": {
+                "label": {
+                    "2": "Mehr als ein Jahr",
+                    "0": "Letzter Monat"
+                },
+                "title": "Letzte Buchung"
+            },
+            "expensesSegments": {
+                "label": {
+                    "3": "Letztes Quartil",
+                    "2": "Durchschnitt",
+                    "1": "Erstes Quartil",
+                    "0": "Keine Ausgabe"
+                },
+                "title": {
+                    "second": "und",
+                    "first": "Ausgaben zwischen"
+                }
+            },
+            "bookings": "Buchungen"
+        },
+        "modal": {
+            "delete": {
+                "confirm": "Löschen",
+                "cancel": "Stornieren",
+                "content": "Sind Sie sich sicher, dass Sie diese Smartlist löschen möchten ? Diese Aktion ist unwiderruflich",
+                "title": "Smartlist löschen"
+            }
+        },
+        "membersInList": "Mitglieder in der Smartlist :",
+        "exportList": "Exportieren Sie die Smartlist",
+        "selectToShowPreview": "Wählen Sie eine Vorlage aus",
+        "multiSelector": {
+            "coaches": {
+                "warning": "Wählen Sie mindestens eine Lehrer aus",
+                "helperAllSelectedText": "Alle Lehrer",
+                "textFieldPlaceholder": "Ein Lehrer suchen"
+            },
+            "metaActivities": {
+                "warning": "Wählen Sie mindestens eine Aktivität",
+                "helperAllSelectedText": "Alle Aktivitäten",
+                "textFieldPlaceholder": "Eine Aktivität suchen",
+                "helperSelectedText": "Ausgewählte Aktivitäten",
+                "helperText": "Aktivitäten auswählen"
+            }
+        },
+        "description": "Beschreibung"
+    },
+    "theme": {
+        "forms": {
+            "gtmId": {
+                "label": "Google Tag ID"
+            },
+            "facebookURL": {
+                "placeholder": "https://facebook.com/mein-studio/",
+                "helperText": "Ihre Facebook-Seite"
+            },
+            "scheduleURL": {
+                "placeholder": "https://studio.com/calendar/"
+            },
+            "websiteURL": {
+                "placeholder": "https://studio.com/"
+            },
+            "secondary_color": {
+                "label": "Sekundäre Farbe"
+            },
+            "primary_color": {
+                "helperText": "Wählen Sie eine Farbe, vermeiden Sie Monochromie",
+                "label": "Hauptfarbe"
+            },
+            "cover": {
+                "label": "Logo"
+            },
+            "themePersonalization": {
+                "default_booking_ordering": {
+                    "lastname": "Nach alphabetischer Reihenfolge der Nachnamen sortieren",
+                    "firstname": "Nach alphabetischer Reihenfolge der Vornamen sortieren"
+                },
+                "calendar": {
+                    "police": {
+                        "helperText": "Die Schriftart ändern",
+                        "label": "Schriftart"
+                    },
+                    "offerCard": {
+                        "helperText": "Den Stil der Kurskarten ändern",
+                        "label": "Kurskarten"
+                    },
+                    "columns": {
+                        "helperText": "Den Stil der Spalten ändern",
+                        "label": "Spalten"
+                    }
+                }
+            }
+        }
+    },
+    "role": {
+        "forms": {
+            "user": {
+                "delete": {
+                    "confirm": "Löschen",
+                    "cancel": "Stornieren",
+                    "content": "SInd Sie sich sicher, dass Sie dieses Konto löschen möchten ?",
+                    "title": "Ein Staffkonto löschen"
+                },
+                "create": {
+                    "submit": "Speichern",
+                    "cancel": "Stornieren",
+                    "role": {
+                        "label": "Rolle"
+                    },
+                    "title": "Ein Staffkonto erstellen",
+                    "buttonLabel": "Einen Zugang hinzufügen",
+                    "email": {
+                        "label": "E-Mail"
+                    }
+                }
+            }
+        },
+        "explainStaffDoNot": "Mit einem Staffzugang kann man sich aber nicht auf die App einloggen (sie ist nur für Lehrer und Schüler)",
+        "explainStaffDo": "Ein Staffzugang ermöglicht eine Verbindung per Handy oder Computer mit dem folgenden Link : https://backoffice.bsport.io"
+    },
+    "paymentPack": {
+        "scaleCredit": {
+            "parameterLegend": "Einstellungen"
+        },
+        "actions": {
+            "delete": "Löschen",
+            "edit": "Ändern"
+        },
+        "details": {
+            "pleaseSelectAPack": "Wählen Sie eine Karte aus, um die Details zu sehen"
+        },
+        "notification": {
+            "form": {
+                "showMail": "E-Mail ansehen",
+                "selectToShowPreview": "Wählen Sie eine E-Mail aus, um eine Vorschau zu sehen",
+                "creditType": "Verbleibende Kreditpunkte",
+                "hideMail": "E-Mail verstecken"
+            },
+            "1": {
+                "second": "Kreditpunkte"
+            }
+        },
+        "link": {
+            "copyLink": "Kopieren Sie den Link zur Zahlungsseite",
+            "copied": "Kopierter Link"
+        },
+        "reverted": "Rechnung storniert",
+        "noConsumerPack": "Keine registrierten Käufe",
+        "form": {
+            "paymentPack": {
+                "validByDaterange": "DIe Karte ist für ein bestimmtes Datum",
+                "delete": {
+                    "thereAreConsumers": "Vorsicht ! Einige Miglieder haben diese Kurskarte gekauft. Wenn Sie sie löschen, können diese Mitglieder ihre verbleibende Kreditpunkte weiterhin verwenden. Sie können sie hier manuell auf Null stellen.\n\nDie Karte wird nicht mehr in Ihrem Geschäft für neue Käufer erscheinen."
+                },
+                "credits": {
+                    "bewareChange": "Wenn Sie die Anzahl der Kreditpunkte erhöhen, werden alle bestehenden Karten betroffen. Dasselbe gilt, wenn Sie die Anzahl der Kreditpunke verringern.",
+                    "helperText": "Anzahl der verfügbaren Kreditpunkte",
+                    "label": "Kreditpunkt"
+                },
+                "unlimited": "Unbegrenzte Kreditpunkte",
+                "activities": "Aktivität"
+            }
+        },
+        "boughtConsumerPaymentPacks": "Abonnenten",
+        "anyActivity": "Alle Aktivitäten",
+        "anySport": "Alle Kategorien",
+        "specifications": {
+            "price": "{{price, price}}",
+            "unlimitedCredits": "Unbegrenzt",
+            "nbCredits": "{{credits}} Kreditpunkte"
+        },
+        "unlimitedCredits": "Unbegrenzt",
+        "never": "Nie",
+        "expirationDate": "Ablaufdatum",
+        "validUntil": "Gültig bis",
+        "noPaymentPackSubscribed": "Kein Abonnement",
+        "addButton": "Eine Karte erstellen",
+        "validTo": " bis ",
+        "validFrom": "Gültig vom ",
+        "validForNdays1": "Gültig ",
+        "consumer": {
+            "bookingsThisWeek": "Buchung(en) diese Woche",
+            "expiresOn": "Ablaufdatum am "
+        },
+        "validity": "Gültig :",
+        "maxNBookingsByWeek1": "Bis ",
+        "paymentPackDisabled": {
+            "error": "Kann nicht gelöscht werden"
+        },
+        "credit": {
+            "updated": "Die Kreditpunkte sind aktualisiert"
+        },
+        "credits": "Kreditpunkte",
+        "consumerPaymentPack": {
+            "refund": {
+                "description": "{{ credits }} Kreditpunkt - {{ note }}",
+                "description_plural": "{{ credits }} Kreditpunkte - {{ note }}"
+            }
+        },
+        "noRestrictionOnActivityType": "Alle Aktivitäten sind mit dieser Karte vereinbar"
+    },
+    "alerting": {
+        "task": {
+            "name": "{{ name }}"
+        },
+        "privateBookingIncomplete": {
+            "name": "Mitglied : {{ user_name }}",
+            "date": "Datum : {{ date_start }}"
+        },
+        "unevenInvoice": {
+            "explainUneven": "Diese Rechnung <1>n°{{uuid, uuid}}</1> ist unausgeglichen.",
+            "title": "Unausgeglichene Rechnung"
+        },
+        "alert_kind": {
+            "4": "Termin, der ergänzen werden muss",
+            "3": "Auftrag",
+            "2": "Bestellung",
+            "1": "Rechnungsstellung"
+        },
+        "list": {
+            "emptyAlerting": "Keine neue Benachrichtigung.",
+            "title": "Benachrichtigungen"
+        },
+        "showMore": "Mehr anzeigen"
+    },
+    "reporting": {
+        "form": {
+            "cancel": "Stornieren",
+            "save": "Bestätigen",
+            "columns": "Spalten",
+            "category": "Kategorie",
+            "name": "Name",
+            "description": "Beschreibung"
+        },
+        "product_type": {
+            "private_pass": "Terminkarte",
+            "payment_combo": "Package",
+            "fee": "Gebühren",
+            "shop_item": "Geschäft",
+            "payment_pack": "Kurskarte"
+        },
+        "payment_method": {
+            "other": "Andere",
+            "subscription_cb": "Geplante Zahlung (Abonnement)",
+            "none": "Keine",
+            "event_brite": "EventBrite",
+            "bank_transfer": "Überweisung",
+            "amex": "AMEX",
+            "holiday_check": "Urlaubsgutschein",
+            "manual_credit_card": "Kreditkarte (manuel)",
+            "stripe": "Kreditkarte",
+            "dispute": "Streitfall",
+            "check": "Scheck"
+        },
+        "columns": {
+            "date_sumup": "Datum",
+            "payment_method_total": "Gesamt",
+            "payment_method_dispute": "Streitfall",
+            "payment_method_other": "Divers",
+            "payment_method_event_brite": "EventBrite",
+            "payment_method_bank_transfer": "Überweisung",
+            "payment_method_amex": "AMEX",
+            "payment_method_holiday_check": "Urlaubsgutschein",
+            "payment_method_manual_credit_card": "Kreditkarte (manuell)",
+            "payment_method_check": "Scheck",
+            "payment_method_cash": "Bargeld",
+            "payment_method_stripe": "Kreditkarte",
+            "remaining_days": "Verbleibende Tage",
+            "product_price": "Preis des Produktes",
+            "voucher": "Rabatt",
+            "tax": "Mehrwertsteuer",
+            "address": "Adresse",
+            "end_date": "Ende der Gültigkeitsdauer",
+            "membership_ID": "ID",
+            "membership_name": "Abonnement",
+            "membership_duration": "Gültigkeitsdauer",
+            "payment_price": "Preis",
+            "price": "Preis",
+            "start_date_date": "Beginndatum",
+            "start_date": "Vollständiges Beginndatum",
+            "product_type": "Produktkategorie",
+            "product_names": "Produkte",
+            "product": "Produkt",
+            "payment_date_date": "Zahlungsdatum",
+            "payment_date": "Vollständiges Zahlungsdatum",
+            "activity_duration": "Dauer",
+            "payment_pack": "Kurskarte",
+            "gender": "Geschlecht",
+            "date_joined": "Anmeldungsdatum",
+            "phonenumber": "Telefonnummer",
+            "last_name": "Nachname",
+            "first_name": "Vorname",
+            "name": "Name",
+            "total_payments": "Gesamte Zahlungen",
+            "nb_non_attendance": "Abwesend",
+            "nb_attendance": "Anwesend",
+            "effectif": "Anzahl der Plätze",
+            "coach": "Lehrer",
+            "attendance": "Anwesend",
+            "duration_minute": "Dauer (Minuten)",
+            "date_start_date": "Datum",
+            "date_start": "Vollständiges Datum",
+            "duration": "Dauer (Minuten)",
+            "pass": "Kurskarte",
+            "concatenated_notes": "Anmerkungen",
+            "next_booking": "Nächste Buchung",
+            "date_start_dow": "Tag",
+            "establishment": "Einrichtung",
+            "slot_date_end": "Ende des Kurses",
+            "private_slot_name": "Kurs",
+            "nb_bookings": "Anzahl der Buchungen",
+            "private_service_name": "Termin",
+            "email": "E-Mail",
+            "available_credits": "Verfügbare Kreditpunkte",
+            "credits": "Gesamte Kreditpunkte",
+            "remaining_credits": "Verbleibende Kreditpunkte",
+            "activity_date": "Datum für die Aktivität",
+            "activity_name": "Aktivität",
+            "activity": "Aktivität",
+            "description": "Beschreibung",
+            "payment_method_readable_identifier": "Zahlungsmethoden",
+            "payment_method": "Zahlungsmethoden"
+        },
+        "no": "Nein",
+        "yes": "Ja"
+    },
+    "snackbar": {
+        "establishment": {
+            "update": {
+                "success": "Einrichtung erfolgreich geändert"
+            },
+            "create": {
+                "success": "Einrichtung erfolgreich erstellt"
+            },
+            "error": "Es ist unmöglich diese Einrichtung zu speichern",
+            "delete": {
+                "error": "Es ist unmöglich diese Einrichtung zu löschen",
+                "success": "Einrichtung gelöscht"
+            }
+        },
+        "coupon": {
+            "attachToBasket": {
+                "error": "Kein kompatibler Werbecode gefunden"
+            },
+            "create": {
+                "success": "Werbecode gespeichert",
+                "error": "Es ist unmöglich diesen Werbecode zu erstellen"
+            },
+            "update": {
+                "success": "Werbecode geändert",
+                "error": "Es ist unmöglich diesen Werbecode zu löschen"
+            },
+            "delete": {
+                "success": "Werbecode gelöscht"
+            }
+        },
+        "paymentPack": {
+            "createOrUpdate": {
+                "fail": "Fehler beim Speichern der Karte",
+                "success": "Kurskarte gespeichert"
+            },
+            "credit": {
+                "error": "Fehler beim Speichern",
+                "updated": "Die Kreditpunkte wurden aktualisiert"
+            },
+            "paymentPackDisabled": {
+                "error": "Es ist unmöglich diese Karte zu sperren",
+                "success": "Kurskarte gesperrt"
+            }
+        },
+        "paymentRules": {
+            "delete": {
+                "success": "Regel gelöscht",
+                "error": "Fehler beim Löschen"
+            },
+            "create": {
+                "success": "Regel hinzugefügt",
+                "error": "Fehler bei der Erstellung"
+            },
+            "update": {
+                "error": "Fehler bei der Änderung",
+                "success": "Standardregel geändert"
+            }
+        },
+        "relationship": {
+            "consumer_payment_pack_links": {
+                "create": {
+                    "error": "Es ist unmöglich diese Karte zu teilen",
+                    "success": "Karte geteilt"
+                }
+            },
+            "createOrUpdate": {
+                "error": "Es ist unmöglich diese Beziehung zu speichern"
+            },
+            "create": {
+                "success": "Beziehung gespeichert"
+            }
+        },
+        "coach": {
+            "delete": {
+                "error": "Es ist unmöglich den Lehrer zu löschen",
+                "success": "Lehrer gelöscht"
+            },
+            "update": {
+                "success": "Lehrer erfolgreich geändert"
+            },
+            "create": {
+                "success": "Lehrer erfolgreich erstellt"
+            },
+            "error": "Es ist unmöglich den Lehrer zu speichern",
+            "error_email_exists": "Es gibt bereits einen Lehrer mit dieser E-Mail, verwenden Sie das Formular zur Erstellung eines Lehrers"
+        },
+        "invoice": {
+            "error": "Fehler beim Speichern - Storniert",
+            "create": {
+                "success": "Rechnung gespeichert"
+            },
+            "update": {
+                "success": "Die Rechnung wurde erfolgreich aktualisiert"
+            }
+        },
+        "member": {
+            "merge": {
+                "seeMemberPage": " Die Mitgliedsseite ansehen"
+            }
+        },
+        "role": {
+            "error": {
+                "errorEmail": "Diese E-Mail wird bereits für ein Schüler- oder Lehrerkonto verwendet"
+            }
+        },
+        "privateConsumerPass": {
+            "creditUpdate": {
+                "success": "Die Kreditpunkte wurden aktualisiert",
+                "error": "Es ist unmöglich die Kreditpunkte zu speichern"
+            }
+        },
+        "email": {
+            "delete": {
+                "error": "Es ist unmöglich diese E-Mail zu löschen",
+                "success": "Diese E-Mail ist gelöscht"
+            },
+            "update": {
+                "error": "Es ist unmöglich diese E-Mail zu ändern",
+                "success": "Diese E-Mail wurde geändert"
+            },
+            "create": {
+                "error": "Es ist unmöglich diese E-Mail zu speichern",
+                "success": "Erstellte E-Mail"
+            }
+        },
+        "activity": {
+            "update": {
+                "error": "Es ist unmöglich die Aktivität zu aktualisieren",
+                "success": "Die Aktivität wurde aktualisiert"
+            },
+            "create": {
+                "error": "Es ist unmöglich die Aktivität zu speichern",
+                "success": "Die Aktivität wurde gespeichert"
+            }
+        }
+    },
+    "invoice": {
+        "configuration": {
+            "submit_stripe_footer": "Aktualisieren"
+        },
+        "returnPayment": {
+            "modal": {
+                "confirm": "Zurückzahlen",
+                "cancel": "Stornieren",
+                "title": "Rückerstattung an Kunden"
+            }
+        }
+    },
+    "payment": {
+        "paymentMethod": {
+            "11": "Andere",
+            "10": "Automatische Zahlung",
+            "8": "EventBrite",
+            "7": "Überweisung",
+            "6": "AMEX",
+            "5": "Urlaubsgutscheine",
+            "4": "Kreditkarte (manuell)",
+            "2": "Scheck",
+            "1": "Bargeld",
+            "0": "Kreditkarte"
+        },
+        "generalTermsAndConditions": {
+            "close": "Schließen"
+        },
+        "forms": {
+            "paymentIntent": {
+                "pay": "Zahlen"
+            },
+            "credit": {
+                "pay": "Bestätigen"
+            },
+            "cancelPayment": "Zurück"
+        },
+        "method": {
+            "CREDIT_ACCOUNT": "Zahlung an Ort und Stelle",
+            "CB": "Kreditkarte"
+        },
+        "paymentComboSectionTitle": "Package",
+        "hasOneOrMoreOption": "Sie sind schon auf die Warteliste",
+        "goBack": "Zurück",
+        "bookAnotherOption": "Mich erneut auf die Warteliste einschreiben",
+        "bookAnOption": "Mich auf die Warteliste einschreiben",
+        "explainOption": "Sobald ein Platz frei wird, werden Sie per E-Mail benachrichtigt"
+    },
+    "paymentRules": {
+        "common": {
+            "from": "Anfang",
+            "until": "Ende"
+        },
+        "select": {
+            "placeholderOverride": "Standard-Regel",
+            "placeholder": "Wählen Sie eine Berechnungsmethode aus"
+        },
+        "addNew": "Neue Vergütungseinrichtung",
+        "cancel": "Stornieren",
+        "addBonus": "Eine neue Regel hinzufügen",
+        "pricePerAdditionalBooking": "Bonus pro Buchung",
+        "calculation_method": "Berechnungsmethode",
+        "base_price": "Basis",
+        "name": "Name",
+        "save": "Speichern",
+        "add": "Hinzufügen",
+        "rules": "Regeln",
+        "modal": {
+            "delete": {
+                "confirm": "Bestätigen",
+                "cancel": "Stornieren",
+                "title": "Eine Regel löschen"
+            }
+        },
+        "setPaymentRuleSetForCoachFirst": "Weisen Sie diesem Lehrer zunächst eine Standardregel für die Vergütung zu.",
+        "coaches": "Lehrer",
+        "label": "Vergütungsregel",
+        "calculate": "Ausrechnen"
+    },
+    "shop": {
+        "shopitem": {
+            "action": {
+                "delete": "Löschen",
+                "addToCard": "In die Tasche",
+                "edit": "Ändern"
+            },
+            "detail": {
+                "onsite_payment_available": "Zahlung an Ort und Stelle",
+                "is_deliverable": "Versandkosten",
+                "marketplace_enabled": "Auf Web-Marketplace verfügbar",
+                "supplier_price": "Preis des Lieferanten",
+                "parameters": "Einstellungen",
+                "provisionHistory": "Entwicklung des Bestandes",
+                "disabled": "Nein",
+                "enabled": "Ja"
+            },
+            "noDescription": "Keine Beschreibung"
+        },
+        "provision": {
+            "action": {
+                "update": "Den Bestand aktualisieren"
+            },
+            "form": {
+                "submit": "Speichern",
+                "cancel": "Stornieren",
+                "quantityLabel": "Einheit(en)",
+                "title": "Änderung des Bestandes"
+            },
+            "noProvisionHistory": "Kein Verkaufsverlauf",
+            "current_stock": "Aktueller Bestand :"
+        },
+        "dialog": {
+            "delete": {
+                "explain": "Sind Sie sich sicher, dass Sie dieses Produkt löschen möchten ? Diese Aktion ist unwiderruflich. Sie werden keinen Zugang mehr auf den Bestandverlauf haben.",
+                "confirm": "Löschen",
+                "cancel": "Stornieren",
+                "title": "{{shopitem.name}} löschen"
+            }
+        },
+        "search": "Ein Produkt suchen",
+        "link": {
+            "copied": "Link kopiert",
+            "copyLink": "Kopieren Sie den Link zur Zahlungsseite"
+        }
+    },
+    "datetime": {
+        "form": {
+            "never": "Nie",
+            "oneMonth": "1 Monat",
+            "twoWeeks": "2 Wochen",
+            "tenDays": "10 Tage",
+            "oneWeek": "1 Woche"
+        },
+        "time": {
+            "monthShort": {
+                "october": "Okt",
+                "september": "Sep",
+                "august": "Aug",
+                "april": "Apr",
+                "february": "Feb",
+                "january": "Jan",
+                "november": "Nov",
+                "december": "Dez",
+                "july": "Juli",
+                "june": "Juni",
+                "may": "Mai",
+                "march": "März"
+            },
+            "weekday": {
+                "satursday": "Samstag",
+                "friday": "Freitag",
+                "thursday": "Donnerstag",
+                "wednesday": "Mittwoch",
+                "tuesday": "Dienstag",
+                "monday": "Montag",
+                "sunday": "Sonntag"
+            }
+        },
+        "shortHourIdentifier": "Std.",
+        "shortMinuteIdentifier": "Min"
+    },
+    "video": {
+        "video": {
+            "showMore": "Mehr anzeigen",
+            "description": "Beschreibung"
+        },
+        "playlist": {
+            "description": "Beschreibung"
+        }
+    },
+    "booking": {
+        "details": {
+            "pleaseSelectABooking": "Wählen Sie eine Buchung aus, um die Details zu sehen"
+        },
+        "bookingModule": {
+            "option": {
+                "isFull": "Der Kurs ist voll. Sie können sich auf die Warteliste eintragen. Sie werden per E-Mail benachrichtigt, sobald ein Platz frei wird."
+            }
+        },
+        "statusCode": {
+            "cancelledByOffer": "Kurs von dem Klub storniert"
+        },
+        "doNotAttend": "Abwesend",
+        "attend": "Anwesend",
+        "customerView": {
+            "cancelled": "Storniert"
+        },
+        "source": {
+            "other": "Divers",
+            "saas": "Backoffice",
+            "app": "App"
+        }
+    },
+    "member": {
+        "exists": {
+            "goTo": "Mitglied ansehen"
+        },
+        "forms": {
+            "merge": {
+                "seeMemberPage": " Mitgliedsseite ansehen"
+            }
+        },
+        "showSubscriptions": "Abonnements ansehen",
+        "showInvoices": "Rechnungen ansehen",
+        "showPaymentPack": "Kurskarten ansehen",
+        "showPreviousBooking": "Bisherige Buchungen ansehen",
+        "showNextBooking": "Zukünftige Buchungen ansehen",
+        "table": {
+            "show": "Anzeigen"
+        },
+        "member": {
+            "existsWithEmail": "Ein Mitglied mit dieser E-Mail-Adresse {{email}} gibt es bereits."
+        },
+        "user": {
+            "existsWithEmail": "Ein Benutzer mit dieser E-Mail-Adresse {{email}} gibt es bereits."
+        },
+        "menu": {
+            "bookings": "Buchungen"
+        }
+    },
+    "common": {
+        "text": {
+            "showMoreText": "Mehr anzeigen",
+            "showLessText": "Weniger anzeigen"
+        }
+    },
+    "coupon": {
+        "detail": {
+            "seeParameters": "Einstellungen ansehen"
+        }
+    },
+    "privateService": {
+        "openCalendar": "Den Kalender ansehen",
+        "bookerModule": {
+            "noPrivateServiceAvailable": "Kein Termin ist angeboten",
+            "error": "An diesem Datum ist eine Buchung nicht möglich",
+            "title": "Terminbuchung",
+            "cancel": "Stornieren",
+            "missingResource": {
+                "establishment": "Bitte wählen Sie den Standort aus",
+                "coach": "Bitte wählen Sie den Lehrer aus",
+                "service": "Bitte geben Sie eine Terminkategorie ein"
+            },
+            "emptySlot": "Keine Verfügbarkeiten",
+            "address": {
+                "helperText": "Geben Sie Ihre Adresse ein, um diesen Termin buchen zu können"
+            },
+            "searchSlot": "Einen Slot suchen",
+            "availableSlots": "Verfügbare Slots",
+            "private_pass": {
+                "credits": "{{ credits }} Krediptunkte"
+            },
+            "bookingCapabilities": {
+                "emptyConsumerPassList": "Sie besitzen keine gütlige Karte mit ausreichenden Kreditpunkten"
+            }
+        },
+        "privateBooking": {
+            "updateTime": {
+                "explainEmail": "Eine E-Mail wird automatisch an den Schülern geschickt, um ihn zu informieren"
+            },
+            "delete": {
+                "explainForceRefund": "Verwendete Kreditpunkte auf der Karte zurückerstatten, um eine neue Buchung zu ermöglichen.",
+                "consumer": {
+                    "content": {
+                        "notDiscardable": "Sind Sie sich sicher, dass Sie den Termin stornieren möchten ? Sie sagen zu spät ab, Ihre Kreditpunkte werden nicht zurückerstattet.",
+                        "discardable": "Sind Sie sich sicher, dass sie den Termin absagen möchten ? Ihre Kreditpunkte werden wieder zur Verfügung stehen."
+                    },
+                    "title": "Buchung stornieren"
+                },
+                "title": "Buchung stornieren"
+            },
+            "detail": {
+                "wasRefunded": "Zurückerstattete Kreditpunkte auf der Kurskarte",
+                "title": "Buchung",
+                "wasRefundedNo": "Nein",
+                "wasRefundedYes": "Ja"
+            },
+            "managerAdd": {
+                "title": "Neue Buchung"
+            }
+        },
+        "service": {
+            "configuration": {
+                "explainSetToHasOwnAvailabilitySlots": "Nur auf bestimmten Slots buchbar",
+                "explainSetToHasNotOwnAvailabilitySlots": "Für jeden Slot buchbar, falls der Lehrer oder der Raum verfügbar sind",
+                "slot": "Kurskategorie",
+                "changeIsAlwaysAvailable": "Ändern",
+                "isAlwaysAvailable": "{{ resourceName}} kann man buchen, sobald die Lehrer und/oder der Raum verfügbar sind",
+                "hasFutureSlot": "Verfügbarkeitskalender OK",
+                "explainHasOwnAvailabilitySlots": "Klicken Sie auf den Stift, um Buchungen auf bestimmte Zeitfenster zu beschränken"
+            },
+            "form": {
+                "establishmentResourceType": {
+                    "isWithoutEstablishment": {
+                        "helperText": "Z.B : Videokonferenzkurse / Outdoor-Kurs / ...",
+                        "label": "Ohne festgelegten Standort"
+                    },
+                    "isWithEstablishment": {
+                        "helperText": "Die Buchung ist nur dann möglich, wenn genügend freie Plätze im Raum vorhanden sind",
+                        "label": "In einer Ihrer Einrichtungen",
+                        "isEmpty": "Kein Raum eingerichtet !"
+                    },
+                    "isHomeService": {
+                        "helperText": "Für jede Buchung wird eine Adresse verlangt",
+                        "label": "Zu Hause"
+                    }
+                },
+                "createButton": "Eine Terminkategorie hinzufügen",
+                "delete": {
+                    "content": "Sind Sie sich sicher, dass Sie diese Terminkategorie löschen möchten ?",
+                    "confirm": "Löschen",
+                    "cancel": "Stornieren",
+                    "title": "Löschung des Termins"
+                },
+                "name": {
+                    "label": "Name der Dienstleistung"
+                },
+                "is_without_coach": "Ohne Lehrer",
+                "is_home_service": {
+                    "helperText": "Für jede Buchung wird eine Adresse verlangt",
+                    "label": "Zu Hause"
+                },
+                "addSlot": "Eine Kurskategorie hinzufügen",
+                "addEstablishment": "Ein Raum hinzufügen",
+                "addCoach": "Ein Lehrer hinzufügen",
+                "title": "Termin",
+                "use_full_establishment_capacity": {
+                    "label": "Benötigt den ganzen Raum"
+                },
+                "color": "Farbcode",
+                "coach_capacity_used": {
+                    "helperText": "Z.B : Ein Lehrer kann zwei Schüler auf zwei gretrennte Maschinen überwachen ",
+                    "label": "Maximale Anzahl von gleichzeitigen Terminen, die ein Lehrer leiten kann"
+                },
+                "establishment_consumer_attribution": {
+                    "helperText": "Das Mitglied sieht und wählt den Standort vor der Buchung aus. Wenn diese Option nicht angekreuzt ist, wird bsport versuchen, die Räume optimal zu füllen",
+                    "label": "Die Auswahl des Standortes bei der Buchung ermöglichen"
+                },
+                "coach_consumer_attribution": {
+                    "helperText": "Das Mitglied sieht und wählt sein Lehrer vor der Buchung aus. Wenn diese Option nicht angekreuzt ist, müssen Sie den Lehrer nach jedem Termin auswählen",
+                    "label": "Die Auswahl des Lehrers bei der Buchung ermöglichen"
+                },
+                "resourceGroup": {
+                    "coach": "Lehrer",
+                    "establishment": "Standort"
+                },
+                "managerOnly": {
+                    "label": "Unsichtbar für die Kunden"
+                },
+                "last_discard_minutes": {
+                    "helperText": "Wenn die Buchung zu spät abgesagt ist, werden die verwendete Kreditpunkte nicht zurückerstattet"
+                }
+            },
+            "parameters": {
+                "slots": {
+                    "isEmpty": "Keine festgelegte Kurskategorie"
+                },
+                "description": "Beschreibung"
+            },
+            "selector": {
+                "isEmpty": "Keine eingerichtete Terminkategorie"
+            },
+            "detail": {
+                "tab": {
+                    "calendar": "Kalender"
+                }
+            }
+        },
+        "slotSearcher": {
+            "search": "Einen Slot suchen",
+            "searchSlot": "Einen Slot suchen",
+            "emptyDateList": "Keine Slots an diesem Tag verfügbar",
+            "bookableSlots": {
+                "isEmpty": "Keine verfügbare Slots",
+                "title": "Verfügbare Slots"
+            },
+            "selectCoach": "Alle Lehrer",
+            "selectPrivateSlot": "Ein Kurs auswählen"
+        },
+        "availabilitySlot": {
+            "form": {
+                "resourceSelector": {
+                    "title": "Änderung eines Slots"
+                }
+            }
+        },
+        "slot": {
+            "form": {
+                "booking_interval_minutes": {
+                    "helperText": "Z.B : 15 bedeutet 15 Minuten, die das Mitglied um 12:00, 12:15, 12:30 usw. reservieren kann. (empfohlen)"
+                },
+                "name": {
+                    "label": "Name des Kurses"
+                },
+                "title": "Kurs",
+                "duration_minutes": {
+                    "helperText": "Passen Sie die erforderlichen Kreditpunkte entsprechend der Dauer des Projekts an"
+                },
+                "credit": {
+                    "helperText": "Anzahl der erforderlichen Kreditpunkte für eine Buchung",
+                    "label": "Anzahl der Kreditpunkte"
+                }
+            },
+            "parameters": {
+                "credit": "{{ credit }} Kreditpunkte"
+            }
+        },
+        "resource": {
+            "datatype": {
+                "private_service": "Allgemein",
+                "associated_coach": "Lehrer",
+                "associated_establishment": "Standorte",
+                "coach": "Lehrer",
+                "establishment": "Standorte"
+            }
+        },
+        "privatePass": {
+            "form": {
+                "credits": {
+                    "helperText": "Jeder Kurs kostet eine bestimmte Anzahl von Kreditpunkten",
+                    "label": "Anzahl der eingeschlossenen Kreditpunkte"
+                }
+            },
+            "parameters": {
+                "nbCredits": "{{ credits }} Kreditpunkte"
+            },
+            "delete": {
+                "explain": "Sind Sie sich sicher, dass Sie diese Karte löschen möchten ? Diejenigen, die noch über Kreditpunkte verfügen, können diese weiterhin benutzen. Diese AKtion ist endgültig"
+            }
+        },
+        "consumerPass": {
+            "current_credits": "{{ current_credits }}/{{credits}} Kreditpunkte"
+        }
+    },
+    "communication": {
+        "recipient": {
+            "showEmail": "E-Mail ansehen",
+            "table": {
+                "columns": {
+                    "email": "E-Mail"
+                }
+            }
+        },
+        "campaign": {
+            "list": {
+                "showMore": "Mehr anzeigen",
+                "isEmpty": "Momentan gibt es keine gesendete E-Mails"
+            },
+            "showMail": "E-Mail ansehen",
+            "sentAt": "Am {{ date_created }} gesendet",
+            "report": {
+                "dateCreated": "Sendedatum",
+                "totalClick": "Klicks"
+            },
+            "clickCount": "Klicks",
+            "recipientCount": "Empfänger : {{ total_recipients }}"
+        },
+        "mail": {
+            "noObject": "Kein Betreff",
+            "title": "Betreff",
+            "missing": "E-Mail nicht vorhanden",
+            "success": "Die E-Mail wurde gesendet",
+            "content": "Inhalt der E-Mail"
+        },
+        "table": {
+            "columns": {
+                "title": "Vorschau",
+                "date_created": "Datum",
+                "member": "Mitglied"
+            }
+        },
+        "send": {
+            "success": "E-Mail wird gesendet...",
+            "error": "Fehler beim Senden"
+        },
+        "dialogReceiverChoice": {
+            "title": "Auswahl der Empfänger"
+        },
+        "common": {
+            "refresh": "Aktualisieren",
+            "submit": "Senden",
+            "cancel": "Stornieren"
+        },
+        "recipients": "Empfänger"
+    },
+    "consumerSpace": {
+        "actions": {
+            "goToSubscription": "Alle Abonnements ansehen",
+            "goToPass": "Alle Kurskarten ansehen",
+            "goToCalendar": "Den vollständigen Kalender ansehen"
+        },
+        "booking": {
+            "showCalendar": "Kalender ansehen",
+            "bookAgain": "Wieder buchen",
+            "discard": "Stornieren",
+            "titlePrivateBooking": "Termin",
+            "titleBooking": "Gruppenkurs"
+        },
+        "congratulation": {
+            "cancel": "Schließen",
+            "content": "Ihr Kauf wurde registriert !"
+        },
+        "dashboard": {
+            "noBooking": "Kein bevorstehender Kurs",
+            "noPackCurrentlyActive": "Keine gültige Kurskarte",
+            "showMore": "Mehr anzeigen",
+            "currentPassTitle": "Aktive Kurskarte",
+            "favoriteTitle": "Vorschlag zur Buchung",
+            "nextBookingTitle": "Meine nächsten Kurse",
+            "optionTitle": "Auf Warteliste"
+        },
+        "debt": {
+            "regularize": "Regularisieren"
+        },
+        "navigation": {
+            "changeMembership": "Den Klub wechseln",
+            "subscription": "Abonnement",
+            "calendar": "Browserverlauf",
+            "logoff": "Abmelden",
+            "profile": "Profil",
+            "invoice": "Rechnung",
+            "pack": "Kurskarte",
+            "dashboard": "Zusammenfassung"
+        },
+        "pack": {
+            "titlePrivatePack": "Termin",
+            "titlePaymentPack": "Gruppenkurs"
+        }
+    },
+    "metaActivity": {
+        "settings": {
+            "lastDiscardBeforeMinutes": "Vor Beginn der Aktivität, letzte mögliche Stornierung",
+            "lastBookingBeforeMinutes": "Vor Beginn der Aktivität, letzte mögliche Buchung",
+            "title": "Einstellungen"
+        },
+        "modal": {
+            "delete": {
+                "confirm": "Löschen",
+                "cancel": "Stornieren",
+                "content": "Sind Sie sich sicher, dass Sie diese Aktivität löschen möchten ? Die Kurse und Buchungen werden von der Löschung nicht betroffen. Diese Aktion ist endgültig.",
+                "title": "Löschung der Aktivität"
+            }
+        },
+        "addOffers": "Kurse hinzufügen",
+        "category": "Kategorie",
+        "name": "Name",
+        "detail": {
+            "tab": {
+                "pack": "Kompatible Kurskarten",
+                "general": "Allgemein"
+            },
+            "pack": {
+                "paymentPacks": "Kompatible Kurskarten",
+                "consumerPacks": "Kurskarten, die Mitglieder besitzen",
+                "noCompatiblePass": "Keine kompatible Kurskarte"
+            }
+        },
+        "forms": {
+            "delete": {
+                "actions": {
+                    "confirm": "Löschen",
+                    "cancel": "Stornieren"
+                },
+                "content": {
+                    "cannotDelete": "Kurse sind in der Zukunft geplant. Prüfen Sie, ob sie gut gelöscht und nicht nur storniert sind.",
+                    "canDelete": "Sind Sie sich sicher, dass Sie diese Aktivität löschen möchten ? Die Kurse und Buchungen werden von der Löschung nicht betroffen. Diese Aktion ist endgültig."
+                },
+                "title": "Löschung der Aktivität"
+            },
+            "create": {
+                "steps": {
+                    "workshop_form": "Erstellung eines Events",
+                    "offer_form": "Erstellung von Kursen (fakultativ)",
+                    "pass_list": "Fertigstellung",
+                    "pass_form": "Erstellung einer Kurskarte (fakultativ)",
+                    "activity_form": "Erstellung der Aktivität"
+                },
+                "compatible_packs": {
+                    "goToActivity": "Zur Aktivität",
+                    "createPass": "Eine Kurskarte erstellen",
+                    "seeMore": "Mehr anzeigen",
+                    "noCompatiblePass": "Keine Kurskarte ist mit dieser Aktivität vereinbar, vergessen Sie nicht eine zu erstellen",
+                    "passHelperText": "Die folgenden Kurskarten sind mit der erstellten Aktivität vereinbar :"
+                }
+            }
+        },
+        "navigation": {
+            "goToPaymentPack": "Kurskarten"
+        },
+        "actions": {
+            "search": "Eine Aktivität suchen",
+            "addActivity": "Eine Aktivität hinzufügen"
+        },
+        "search": "Eine Aktivität suchen",
+        "metaActivity": "Aktivität",
+        "description": "Beschreibung"
+    },
+    "coachPerformance": {
+        "bonus": "Bonus",
+        "remuneration": "Vergütung",
+        "addBonus": "Eine Regel hinzufügen",
+        "table": {
+            "download": "Downloaden"
+        },
+        "fields": {
+            "rule": "Regel",
+            "date": "Datum",
+            "name": "Name des Kurses",
+            "duration": "Dauer",
+            "base": "Basis",
+            "bonus": "Bonus",
+            "nb_bookings": "Buchungen"
+        }
+    },
+    "paymentCombo": {
+        "form": {
+            "selectorPlaceholder": {
+                "paymentPack": "Gruppenkurskarte",
+                "privatePass": "Terminkarte",
+                "shopitem": "Geschäft"
+            },
+            "content": "Inhalt",
+            "actions": {
+                "cancel": "Stornieren",
+                "submit": "Speichern"
+            },
+            "manager_only": {
+                "label": "Für Kunden unsichtbar"
+            },
+            "tax": {
+                "label": "Mehrwertsteuer"
+            },
+            "price": {
+                "label": "Preis"
+            },
+            "name": {
+                "label": "Name"
+            },
+            "title": "Package-Formular",
+            "available_payment_method_identifiers": {
+                "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn die Tasche des Mitglieds Produkte enthält, die mit den Zahlungsmethoden unvereinbar sind, wird die Zahlung per Kreditkarte angeboten.",
+                "label": "Zugelassene Zahlungsmethoden"
+            },
+            "description": {
+                "label": "Beschreibung"
+            }
+        },
+        "list": {
+            "buttons": {
+                "add": "Ein Package erstellen"
+            },
+            "explainIfEmpty": "Hier können Sie die Packages erstellen, die von den Schülern gekauft werden können und die Kurskarten, Produkte des Geschäfts, usw. enthalten können..."
+        },
+        "link": {
+            "copyLink": "Kopieren Sie den Link zur Zahlungsseite",
+            "copied": "Kopierter Link"
+        },
+        "pageTitle": {
+            "list": "Packages"
+        },
+        "delete": {
+            "content": "Sind Sie sich sicher, dass Sie dieses Package löschen möchten ? Diese Aktion ist unwiderruflich. Die bereits abgeschlossene Käufe und die aktuelle Tasche werden nicht davon betroffen.",
+            "title": "Löschung des Packages",
+            "submit": "Löschen",
+            "cancel": "Stornieren"
+        },
+        "detail": {
+            "emptyContent": "Dieses Package ist leer !",
+            "content": "Inhalt",
+            "containsNProducts": "Enthält {{ n }} Produkte",
+            "description": "Beschreibung"
+        }
+    },
+    "authentication": {
+        "resetPassword": {
+            "actions": {
+                "backToLogin": "Zurück",
+                "reset": "OK",
+                "cancel": "Stornieren"
+            },
+            "title": "Passwort wiederherstellen",
+            "emailHasBeenSent": "Eine E-Mail wurde an {{email}} gesendet, um das verlorene Passwort wiederzuerlangen",
+            "explain1": "Was war die Konto-E-Mail ?",
+            "noEmail": "Diese E-Mail ist nicht gespeichert"
+        }
+    },
+    "category": {
+        "sct": {
+            "selector": {
+                "label": "Kategorie",
+                "placeholder": "Eine Kategorie suchen"
+            }
+        }
+    },
+    "reminder": {
+        "task": {
+            "form": {
+                "task_owner": {
+                    "helperText": "Personal, das benachrichtigt werden muss"
+                },
+                "name": {
+                    "label": "Titel"
+                },
+                "description": {
+                    "label": "Nachricht"
+                },
+                "submit": "Bestätigen",
+                "close": "Stornieren",
+                "title": "Auftrag"
+            },
+            "actions": {
+                "cancel": "Archivieren",
+                "restart": "Neu starten",
+                "finish": "Beenden",
+                "addTask": "Einen Auftrag planen"
+            },
+            "author": "Autor",
+            "status": {
+                "20": "Storniert",
+                "10": "Fertig"
+            },
+            "sectionTitle": {
+                "past": "Archivierte Aufträge",
+                "future": "Geplante Aufträge",
+                "pending": "Laufende Aufträge"
+            }
+        }
+    },
+    "notificationRule": {
+        "eventType": {
+            "451": "Termin storniert - zurückgezahlt (Schüler)",
+            "450": "Termin storniert - nach Ablauf (Schüler)",
+            "401": "Termin storniert - zurückgezahlt (Lehrer)",
+            "400": "Termin storniert - nach Ablauf (Lehrer)",
+            "29": "Erinnerung für den Onlinekurs in 15 Minuten",
+            "28": "Zahlung erhalten",
+            "27": "Abonnement gestoppt oder beendet",
+            "24": "Das Abonnement ist erstellt",
+            "453": "Geänderter Zeitplan (Schüler)",
+            "452": "Neuer Termin (Schüler)",
+            "13": "Abmeldung von der Warteliste (Schüler)",
+            "6": "Anmeldung als Mitglied (Schüler)",
+            "18": "Buchung storniert : Kreditpunkte zurückerstattet",
+            "17": "Buchung storniert : die Kreditpunkte werden nicht zurückerstattet",
+            "402": "Neuer Termin (Lehrer)",
+            "25": "Änderung der Zahlungsmethode",
+            "19": "Anmeldung als Mitglied (Manager)",
+            "16": "Der Kurs wurde geändert",
+            "12": "Anmeldung zur Warteliste",
+            "8": "Buchung + gleichzeitiger Kauf von Kurskarten",
+            "7": "Buchung per Kurskarte",
+            "3": "Stornierung des Kurses",
+            "21": "Neue Buchung"
+        },
+        "tag": {
+            "BookingOption": {
+                "tags": {
+                    "option_expiration_date": "Ablaufdatum für einen Wartelistenplatz",
+                    "option_payment_url": "Buchungslink",
+                    "address": "Adresse",
+                    "establishment_practical_info": "Zugang zum Raum",
+                    "establishment": "Standort",
+                    "date": "Zeit/Datum des Kurses",
+                    "coach": "Lehrer",
+                    "activity": "Aktivität"
+                },
+                "name": "Warteliste"
+            },
+            "Booking": {
+                "tags": {
+                    "ics_calendar_link": "Ics-Kalender-Link",
+                    "address": "Adresse",
+                    "establishment_practical_info": "Zugang zum Raum",
+                    "establishment": "Standort",
+                    "date": "Zeit/Datum des Kurses",
+                    "coach": "Lehrer",
+                    "activity": "Aktivität"
+                },
+                "name": "Buchung"
+            },
+            "BillingPlan": {
+                "tags": {
+                    "subscription_flat_fee": "Verwaltungsgebühren",
+                    "subscription_nb_months": "Anzahl der Monate",
+                    "subscription_name": "Name des Abonnements",
+                    "subscription_payment_method": "Zahlungsmethoden"
+                },
+                "name": "Abonnement"
+            },
+            "User": {
+                "tags": {
+                    "lastname": "Nachname des Schülers",
+                    "firstname": "Vorname des Schülers"
+                },
+                "name": "Teilnehmer"
+            },
+            "ConsumerPaymentPack": {
+                "tags": {
+                    "pass_credit_left": "Anzahl der verbleibenden Kreditpunkte",
+                    "pass_expiration": "Enddatum der Kurskarte",
+                    "pass_starting_date": "Beginndatum der Kurskarte",
+                    "pass_name": "Name der Kurskarte",
+                    "pass_price": "Preis der Kurskarte"
+                },
+                "name": "Kurskarte"
+            },
+            "PrivateConsumerPass": {
+                "tags": {
+                    "pass_credit_left": "Anzahl der verbleibenden Kreditpunkte",
+                    "pass_expiration": "Enddatum der Terminkarte",
+                    "pass_starting_date": "Beginndatum der Terminkarte",
+                    "pass_name": "Name der Terminkarte",
+                    "pass_price": "Preis der Terminkarte"
+                },
+                "name": "Terminkarte"
+            },
+            "PrivateBooking": {
+                "tags": {
+                    "establishment_practical_info": "Informationen über den Zugang zur Einrichtung (fakultativ)",
+                    "address": "Adresse",
+                    "date": "Zeit/Datum",
+                    "coach": "Lehrer (fakultativ)",
+                    "activity": "Aktivität"
+                },
+                "name": "Termin"
+            },
+            "Offer": {
+                "tags": {
+                    "address": "Adresse",
+                    "establishment_practical_info": "Zugang zum Raum",
+                    "establishment": "Standort",
+                    "date": "Zeit/Datum des Kurses",
+                    "coach": "Lehrer",
+                    "activity": "Aktivität"
+                },
+                "name": "Kurs"
+            }
+        },
+        "emailDesign": {
+            "closePreview": "Schließen",
+            "placeholder": "Von bsport erzeugt"
+        },
+        "ruleGroup": {
+            "subscription": "Abonnement",
+            "member": "Erstellung eines Schülerkontos",
+            "private_booking": "Termin",
+            "waiting-list": "Warteliste",
+            "offer": "Kurs",
+            "booking": "Buchung"
+        }
+    },
+    "membership": {
+        "selector": {
+            "explainConsumer": "Mit <1>bsport</2> genießen Sie ein einzigartiges Erlebnis bei der Buchung all Ihrer sportlichen Aktivitäten. <3/> Ein einziges Konto und ein einziges Passwort!",
+            "placeholder": "Ein Studio/Raum/Klub/usw. suchen...",
+            "noMatchingCompany": "Kein Ergebnis"
+        }
+    },
+    "selfCheckIn": {
+        "memberList": {
+            "empty": "Kein Schüler ist für diesen Kurs angemeldet",
+            "checkedIn": "Gespeichert",
+            "checkIn": "Check In"
+        },
+        "offerDetail": {
+            "emptyList": "Kein Schüler ist für diesen Kurs angemeldet",
+            "register": "Für diesen Kurs anmelden",
+            "isFull": "Voll",
+            "cancelRegistration": "Abbrechen",
+            "backToOfferList": "Zurück zur Kursen",
+            "noConsumerPaymentPack": "Keine gültige Kurskarte !"
+        },
+        "confirmPage": {
+            "headOnIn": "Alles bereit !",
+            "signIn": "Gespeichert"
+        },
+        "signout": {
+            "form": {
+                "password": {
+                    "label": "Passwort"
+                },
+                "username": {
+                    "label": "E-Mail"
+                }
+            },
+            "signout": "Abmelden",
+            "cancel": "Abbrechen",
+            "passwordError": "Falsches Passwort",
+            "title": "Abmelden"
+        },
+        "offerList": {
+            "emptyList": "Kein Kurs"
+        },
+        "filter": {
+            "establishment": "Nach Standort sortieren"
+        },
+        "addMember": {
+            "button": "Ein Konto erstellen"
+        },
+        "offerStatus": {
+            "startIn": "Beginnt in ",
+            "hasEnded": "Fertig"
+        }
+    },
+    "order": {
+        "state": {
+            "1200": "An Ort und Stelle abholen",
+            "9000": "Versendet",
+            "1100": "Storniert"
+        },
+        "actions": {
+            "flagAsSent": "Versendet",
+            "flagAsOnSiteDelivery": "An Ort und Stelle abholen",
+            "flagAsCancelled": "Stornieren"
+        },
+        "form": {
+            "delivery": {
+                "last_name": "Nachname",
+                "first_name": "Vorname"
+            }
+        },
+        "table": {
+            "qty": "Menge",
+            "name": "Käufer"
+        },
+        "products": {
+            "nbProducts": "Produkte"
+        }
+    },
+    "titles": {
+        "dashboard": {
+            "marketingDashboard": "Marketing"
+        },
+        "marketplace": {
+            "marketplacePass": "Kurskarten",
+            "marketplaceCalendar": "Kalender",
+            "marketplaceWorkshop": "Events",
+            "marketplaceShop": "Geschäft"
+        },
+        "establishment": {
+            "establishmentFormPage": "Einrichtung-Formular",
+            "establishmentList": "Einrichtungen"
+        },
+        "privateService": {
+            "serviceList": "Nach Terminvereinbarung"
+        },
+        "coupon": {
+            "couponList": "Werbecodes",
+            "couponDetail": "{{name}}"
+        },
+        "coach": {
+            "coachFormPage": "Lehrer-Formular",
+            "coachList": "Lehrer"
+        },
+        "invoice": {
+            "invoiceCreate": "In Rechnung stellen",
+            "invoiceList": "Meine Transaktionen"
+        },
+        "metaActivity": {
+            "metaActivityFormPage": "Aktivität-Formular",
+            "metaActivityEditForm": "Aktivität-Formular",
+            "metaActivityList": "Aktivitäten"
+        },
+        "order": {
+            "orderDetail": "Details der Bestellung",
+            "orderList": "Bestellungen"
+        },
+        "member": {
+            "memberFormPage": "Mitglied-Formular",
+            "members": "Mitglieder",
+            "memberForm": "Ein Mitglied hinzufügen"
+        },
+        "banner": {
+            "networkError": "Sie sind nicht mit dem Internet verbunden",
+            "isStaging": "Einen Termin vereinbaren"
+        },
+        "video": {
+            "videoList": "Videothek"
+        },
+        "offerManagement": "Buchungen"
+    },
+    "stripe": {
+        "decline_code": {
+            "do_not_honor": "Ihre Bank hat die Zahlung abgelehnt, bitte kontaktieren Sie Ihren Bankberater",
+            "generic_decline": "Die Bank hat ihre Zahlung abgelehnt",
+            "transaction_not_allowed": "Ihre Karte wurde von Ihrer Bank abgelehnt",
+            "restricted_card": "Ihre Karte wurde von Ihrer Bank abgelehnt",
+            "incorrect_number": "Die Kartennummer ist ungültig.",
+            "card_not_supported": "Ihre Karte wird nicht erkannt."
+        },
+        "error_code": {
+            "unknown": "Netzwerkfehler, bitte versuchen Sie es erneut in wenigen Augenblicken",
+            "payment_intent_payment_attempt_failed": "Die Zahlung wurde von Ihrer Bank abgelehnt.",
+            "payment_intent_authentication_failure": "Die Zahlung wurde von Ihrer Bank abgelehnt.",
+            "expired_card": "Ihre Karte ist abgelaufen.",
+            "invalid_number": "Ihre Kartennummer ist ungültig.",
+            "invalid_expiry_year": "Das Ablaufdatum Ihrer Karte ist ungültig.",
+            "incomplete_expiry": "Das Ablaufdatum Ihrer Karte ist unvollständig.",
+            "incomplete_number": "Die Kartennummer ist unvollständig."
+        },
+        "errors": {
+            "unknown": "Netwerkfehler, bitte versuchen Sie es erneut in wenigen Augenblicken",
+            "payment_intent_authentication_failure": "Die Zahlung wurde von Ihrer Bank abgelehnt.",
+            "expired_card": "Ihre Karte ist abgelaufen.",
+            "card_declined": "Ihre Karte wurde abgelehnt.",
+            "invalid_number": "Ihre Kartennummer ist ungültig."
+        }
+    },
+    "dashboard": {
+        "detailsGraphTitle": "Details",
+        "filterByDateTitle": "Nach Datum sortieren",
+        "dateRange": {
+            "end": "Ende",
+            "start": "Anfang"
+        },
+        "turnover": "Umsatz (€)",
+        "nbOffers": "Kurse",
+        "newMembers": "Neue Mitglieder",
+        "thisMonth": "Dieser Monat",
+        "thisWeek": "Diese Woche",
+        "current_year": "Laufendes Jahr",
+        "last_three_months": "Drei letzten Monate",
+        "current_week": "Laufende Woche",
+        "current_month": "Laufender Monat",
+        "bookings": "Buchungen"
+    },
+    "relationship": {
+        "consumer_payment_pack_links": {
+            "form": {
+                "create": {
+                    "explain": "Diese Kurskarte wird zwischen den beiden Mitgliedern geteilt. Die Kreditpunkte können entweder von dem Einen oder dem Anderen verwendet werden."
+                }
+            }
+        }
+    },
+    "navigation": {
+        "backofficeMenu": {
+            "email_template": "E-Mails",
+            "activity": "Meine Aktivitäten",
+            "consumer": {
+                "bookings": "Meine Buchungen "
+            }
+        }
+    },
+    "emailTemplate": {
+        "editor": {
+            "error": {
+                "content": "Bitte geben Sie den Inhalt der E-Mail ein",
+                "title": "Bitte geben Sie einen Namen ein"
+            },
+            "cancel": "Stornieren",
+            "subject": "Betreff",
+            "save": "Speichern",
+            "title": "Name der Vorlage"
+        },
+        "no_subject": "Kein Betreff",
+        "preview": "Vorschau der E-Mail",
+        "subject": "Betreff :",
+        "modification_date": "Letzte Änderung am",
+        "templateListEmpty": "Keine Vorlage, erstellen Sie ihre erste Vorlage hier.",
+        "create": "Eine Vorlage erstellen",
+        "selectToShowPreview": "Eine Vorlage auswählen",
+        "detail": "Ausführliche Informationen",
+        "search": "Eine Vorlage suchen",
+        "createTitle": "Erstellung der Vorlage",
+        "listTitle": "Meine E-Mail-Vorlagen",
+        "copy": "Kopie",
+        "duplicate": "Duplizieren",
+        "modal": {
+            "delete": {
+                "confirm": "Löschen",
+                "cancel": "Stornieren",
+                "content": "Sind Sie sich sicher, dass Sie diese E-Mail-Vorlage löschen möchten ? Diese Aktion ist endgültig",
+                "title": "Löschung des E-Mail-Vorlage"
+            }
+        }
+    },
+    "coach": {
+        "forms": {
+            "delete": {
+                "content": {
+                    "canDelete": "Sind Sie sich sicher, dass Sie diesen Lehrer entfernen möchten ? Sie werden dann keinen Zugang mehr auf die Berechnung seiner Vergütung haben. Sie können ihn von seiner E-Mail aus erneut hinzufügen."
+                }
+            },
+            "error_email_exists": "Es gibt bereits einen Lehrer mit dieser E-Mail, verwenden Sie das Formular zur Erstellung eines Lehrers",
+            "linkByEmail": {
+                "emailPlaceHolder": "lehrer@bsport.io",
+                "explain": "Wenn es diese E-Mail bereits in unserer Datenbank gibt, werden wir den Lehrer automatisch für Sie erstellen. Wenn Sie die E-Mail Ihres Lehrers nicht kennen, lassen Sie dieses Feld leer.",
+                "emailLabel": "E-Mail",
+                "title": "E-Mail-Adresse des Lehrers",
+                "submit": "Bestätigen",
+                "cancel": "Stornieren"
+            }
+        },
+        "noActivity": "Dieser Lehrer leitet keine Aktivität.",
+        "selfNoActivity": "Sie sind für keine Aktivität zuständig.",
+        "showActivities": "Aktivitäten anzeigen",
+        "performance": {
+            "nbBookings": "Buchungen"
+        },
+        "description": "Beschreibung"
+    },
+    "login": {
+        "error": {
+            "invalidEmail": "Diese E-Mail existiert nicht in unserer Datenbank",
+            "authError": "Falsche E-Mail oder falsches Passwort"
+        }
+    },
+    "marketplace": {
+        "workshop": {
+            "card": {
+                "duration": "Dauer : {{duration}}",
+                "notAvailable": "Storniert",
+                "isPast": "Vergangen",
+                "bookOption": "Warteliste",
+                "book": "Buchen",
+                "showMore": "Mehr Informationen"
+            },
+            "noWorkshopAvailable": "Kein Event ist momentan geplant"
+        },
+        "warning": {
+            "disconnect": "Abmelden"
+        },
+        "paymentCombo": {
+            "addToCart": "In die Tasche"
+        },
+        "selector": {
+            "establishment": {
+                "placeholder": "Einrichtung"
+            },
+            "level": {
+                "placeholder": "Level"
+            },
+            "coach": {
+                "placeholder": "Lehrer"
+            }
+        }
+    },
+    "partnership": {
+        "actions": {
+            "save": "Speichern"
+        },
+        "parameters": {
+            "allEstablishment": "Alle Räume"
+        }
+    },
+    "search": {
+        "member": {
+            "packs": {
+                "title": "Kurskarten"
+            },
+            "sessions": {
+                "title": "Kurse"
+            }
+        },
+        "noResult": "Kein Ergebnis",
+        "go_back": "Zurück zu den Ergebnissen",
+        "input": "Suche..."
+    },
+    "event": {
+        "booking": {
+            "register": {
+                "name": "Neue Buchung"
+            }
+        }
+    },
+    "offer": {
+        "manageOffer": "Meine Buchungen verwalten"
+    }
+}

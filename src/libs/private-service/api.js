@@ -328,6 +328,29 @@ export const updatePrivateConsumerPassCredits = (
   );
 };
 
+export async function fetchPrivateConsumerPassExtensionList(
+  private_consumer_pass: number,
+) {
+  return getAuth(
+    `${API_V1_URI}/private_service/private_consumer_pass_extension/${buildUrlParams(
+      { private_consumer_pass },
+    )}`,
+  );
+}
+
+export async function createPrivateConsumerPassExtension(data: any) {
+  return postAuth(
+    `${API_V1_URI}/private_service/private_consumer_pass_extension/`,
+    data,
+  );
+}
+
+export async function deletePrivateConsumerPassExtension(id: number) {
+  return deleteAuth(
+    `${API_V1_URI}/private_service/private_consumer_pass_extension/${id}/`,
+  );
+}
+
 export const fetchCompatiblePrivatePass = (
   privateSlotId: number,
   params: any,

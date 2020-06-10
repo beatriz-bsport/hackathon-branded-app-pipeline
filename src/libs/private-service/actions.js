@@ -57,6 +57,11 @@ import {
   fetchCalendarEventList as fetchCalendarEventListAPI,
   updatePrivateBookingDatetime as updatePrivateBookingDatetimeAPI,
   attachCoach as attachCoachAPI,
+
+  // extension
+  fetchPrivateConsumerPassExtensionList as fetchPrivateConsumerPassExtensionListAPI,
+  createPrivateConsumerPassExtension as createPrivateConsumerPassExtensionAPI,
+  deletePrivateConsumerPassExtension as deletePrivateConsumerPassExtensionAPI,
 } from './api';
 
 import { fetchAll as fetchAlerting } from '../alerting/actions';
@@ -1433,12 +1438,102 @@ export function deletePrivateBooking(
     try {
       await deletePrivateBookingAPI(id);
       dispatch(privateBookingDeleteActions.success(id));
-      if (options && options.onSuccess) options.onSuccess();
+      if (options && options.onSuccess) options.onSuccess(id);
     } catch (err) {
       console.error(err);
       dispatch(privateBookingDeleteActions.error(null));
       if (options && options.onError) options.onError();
     }
     dispatch(privateBookingDeleteActions.isLoading(false));
+  };
+}
+
+export const listPrivateConsumerPassExtensionActions = {
+  error: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/LIST/ERROR'),
+  isLoading: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/LIST/LOADING'),
+  success: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/LIST/SUCCESS'),
+  reset: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/LIST/RESET'),
+};
+
+export const createPrivateConsumerPassExtensionActions = {
+  error: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/CREATE/ERROR'),
+  isLoading: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/CREATE/LOADING'),
+  success: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/CREATE/SUCCESS'),
+};
+
+export const deletePrivateConsumerPassExtensionActions = {
+  error: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/DELETE/ERROR'),
+  isLoading: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/DELETE/LOADING'),
+  success: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/DELETE/SUCCESS'),
+};
+
+export function deletePrivateConsumerPassExtension(
+  id: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deletePrivateConsumerPassExtensionActions.isLoading(true));
+    dispatch(deletePrivateConsumerPassExtensionActions.error(null));
+    try {
+      await deletePrivateConsumerPassExtensionAPI(id);
+      dispatch(deletePrivateConsumerPassExtensionActions.success(id));
+      if (options && options.onSuccess) options.onSuccess(id);
+    } catch (err) {
+      console.error(err);
+      dispatch(deletePrivateConsumerPassExtensionActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(deletePrivateConsumerPassExtensionActions.isLoading(false));
+  };
+}
+export function createPrivateConsumerPassExtension(
+  data: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createPrivateConsumerPassExtensionActions.isLoading(true));
+    dispatch(createPrivateConsumerPassExtensionActions.error(null));
+    try {
+      const response = await createPrivateConsumerPassExtensionAPI(data);
+      dispatch(
+        createPrivateConsumerPassExtensionActions.success(response.data),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(createPrivateConsumerPassExtensionActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(createPrivateConsumerPassExtensionActions.isLoading(false));
+  };
+}
+
+export function fetchPrivateConsumerPassExtensionList(
+  privateConsumerPassId: number,
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPrivateConsumerPassExtensionActions.reset());
+    dispatch(listPrivateConsumerPassExtensionActions.isLoading(true));
+    dispatch(listPrivateConsumerPassExtensionActions.error(null));
+    try {
+      const response = await fetchPrivateConsumerPassExtensionListAPI(
+        privateConsumerPassId,
+      );
+      // TODO handle pagination
+      dispatch(
+        listPrivateConsumerPassExtensionActions.success(response.data.results),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listPrivateConsumerPassExtensionActions.error(null));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(listPrivateConsumerPassExtensionActions.isLoading(false));
   };
 }

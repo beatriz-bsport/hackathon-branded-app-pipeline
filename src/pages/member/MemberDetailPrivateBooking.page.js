@@ -108,7 +108,7 @@ export class MemberDetailBooking extends Component<Props> {
 
   componentDidUpdate(prevProps: Props) {
     if (
-      !prevProps.privateBookingId ||
+      this.props.privateBookingId &&
       prevProps.privateBookingId !== this.props.privateBookingId
     ) {
       this.props.fetchPrivateBookingDetails();

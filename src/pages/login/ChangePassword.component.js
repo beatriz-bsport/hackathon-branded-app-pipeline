@@ -35,6 +35,7 @@ type State = {
   error: ?string,
   processing: boolean,
   hasExpired: boolean,
+  requestResetLink: () => void,
 };
 
 export class ChangePassword extends Component<Props, State> {

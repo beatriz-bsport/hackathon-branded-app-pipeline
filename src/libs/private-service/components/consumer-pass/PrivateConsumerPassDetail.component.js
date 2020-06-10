@@ -6,12 +6,16 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
 import PaginatedListStateful from '../../../../components/PaginatedListStateful.component';
 import PrivateBookingListItem from '../booking/PrivateBookingListItem.component';
 import PrivateBookingDisableDialog from '../booking/PrivateBookingDisableDialog.component';
+import PrivateConsumerPassExtensionListItem from './PrivateConsumerPassExtensionListItem.component';
 import InvoiceListItem from '../../../invoice/InvoiceListItem.component';
 
 type Props = {
@@ -21,6 +25,9 @@ type Props = {
   privateBookingsLoading: boolean,
   fetchPrivateConsumerPass: (id: number) => void,
   goToPrivateBooking: (privateBookingId: number) => void,
+  private_consumer_pass: ?PrivateConsumerPass,
+  onCreateExtension: (data: any) => void,
+  extensions: Array<PrivateConsumerPassExtension>,
   disablePrivateBooking: (
     id: number,
     data: any,
@@ -62,6 +69,41 @@ export const PrivateConsumerPassDetail = (props: Props) => {
           </Paper>
         </div>
       ) : null}
+      {!!props.extensionsLoading && <LinearProgress />}
+      {props.extensions && props.extensions.length ? (
+        <div className={props.classes.section}>
+          <Typography
+            variant="h5"
+            component="h2"
+            className={props.classes.sectionTitle}
+          >
+            {props.t('consumerPass.detail.extensionsTitle')}
+          </Typography>
+          <Paper className={props.classes.paper}>
+            <List disablePadding>
+              {props.extensions.map((ex) => (
+                <PrivateConsumerPassExtensionListItem
+                  key={ex.id}
+                  extension={ex}
+                  divider
+                  onDelete={() => props.deleteConsumerPass(ex.id)}
+                />
+              ))}
+            </List>
+          </Paper>
+        </div>
+      ) : null}
+      {props.onCreateExtension && !!props.private_consumer_pass && (
+        <div className={props.classes.addButtonContainer}>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={props.onCreateExtension}
+          >
+            {props.t('consumerPass.actions.addExtension')}
+          </Button>
+        </div>
+      )}
       <div className={props.classes.section}>
         <Typography
           variant="h5"
@@ -134,6 +176,14 @@ const styles = (theme) => ({
   },
   sectionTitle: {
     marginBottom: theme.spacing(1),
+  },
+  addButtonContainer: {
+    width: '100%',
+    paddingTop: theme.spacing(2),
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

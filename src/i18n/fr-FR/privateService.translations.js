@@ -304,12 +304,43 @@ exports.default = {
     },
   },
   consumerPass: {
+    extension: {
+      nbDaysAdded: '+{{nb_days}}j',
+      addedOn: 'Ajouté le ',
+      delete: {
+        title: "Suppression de l'extension",
+        explain: "Êtes-vous sûr de vouloir supprimer l'extension de validité ?",
+        cancel: 'Annuler',
+        confirm: 'Confirmer',
+      },
+      create: {
+        title: "Extension d'une carte",
+        cancel: 'Annuler',
+        submit: 'Créer',
+        explain: {
+          oldDate: 'Ancienne date : ',
+          newDate: 'Nouvelle date : ',
+        },
+        warning:
+          "Vérifiez que la nouvelle date ne fait pas dépasser ce pass sur une nouvelle période fiscale. Si c'est le cas, vérifiez avec votre comptable la pertinence de cette opération.",
+        note: {
+          label: 'Notes',
+        },
+        nbDays: {
+          label: 'Nombre de jours additionnels',
+        },
+      },
+    },
+    actions: {
+      addExtension: 'Ajouter une extension',
+    },
     expiresOn: 'Expire le {{ date }}',
     current_credits: '{{ current_credits }}/{{credits}} crédits',
     isReverted: 'Facture annulée',
     detail: {
       invoice: 'Facture liée',
       booking: 'Réservations RDV liées',
+      extensionsTitle: 'Extensions de validité',
     },
   },
   privateServiceCompatibility: {

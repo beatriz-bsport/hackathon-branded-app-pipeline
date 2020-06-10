@@ -70,7 +70,6 @@ exports.default = {
     items: 'éléments',
     skip: 'Passer',
     level: 'Niveau',
-    activePass: 'pass actif',
     invoices: 'Factures',
     download: 'Télécharger',
     description: 'Description',

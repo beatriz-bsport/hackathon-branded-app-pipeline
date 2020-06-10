@@ -34,6 +34,9 @@ import {
   serviceGroupListActions,
   serviceGroupCreateOrUpdateActions,
   serviceGroupDeleteActions,
+  listPrivateConsumerPassExtensionActions,
+  deletePrivateConsumerPassExtensionActions,
+  createPrivateConsumerPassExtensionActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -57,6 +60,19 @@ const initialState: PrivateServiceState = Immutable({
     update: {
       loading: false,
       error: null,
+    },
+    extension: {
+      items: [],
+      loading: false,
+      error: null,
+      create: {
+        loading: false,
+        error: null,
+      },
+      delete: {
+        loading: false,
+        error: null,
+      },
     },
   },
   privateServiceResource: {
@@ -138,6 +154,80 @@ const initialState: PrivateServiceState = Immutable({
 
 export default handleActions(
   {
+    [listPrivateConsumerPassExtensionActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['privateConsumerPass', 'extension', 'items'],
+        payload,
+      );
+    },
+    [listPrivateConsumerPassExtensionActions.reset]: (state) => {
+      return state.setIn(['privateConsumerPass', 'extension', 'items'], []);
+    },
+    [listPrivateConsumerPassExtensionActions.error]: (state, { payload }) => {
+      return state.setIn(
+        ['privateConsumerPass', 'extension', 'error'],
+        payload,
+      );
+    },
+    [listPrivateConsumerPassExtensionActions.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateConsumerPass', 'extension', 'loading'],
+        payload,
+      );
+    },
+    [deletePrivateConsumerPassExtensionActions.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateConsumerPass', 'extension', 'delete', 'loading'],
+        payload,
+      );
+    },
+    [deletePrivateConsumerPassExtensionActions.error]: (state, { payload }) => {
+      return state.setIn(
+        ['privateConsumerPass', 'extension', 'delete', 'error'],
+        payload,
+      );
+    },
+    [deletePrivateConsumerPassExtensionActions.success]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateConsumerPass', 'extension', 'items'],
+        state.privateConsumerPass.extension.items.filter(
+          (e) => e.id !== payload,
+        ),
+      );
+    },
+    [createPrivateConsumerPassExtensionActions.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateConsumerPass', 'extension', 'create', 'loading'],
+        payload,
+      );
+    },
+    [createPrivateConsumerPassExtensionActions.error]: (state, { payload }) => {
+      return state.setIn(
+        ['privateConsumerPass', 'extension', 'create', 'error'],
+        payload,
+      );
+    },
+    [createPrivateConsumerPassExtensionActions.success]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateConsumerPass', 'extension', 'items'],
+        [...state.privateConsumerPass.extension.items, payload],
+      );
+    },
     [updateResourceConfigurationActions.success]: (state, { payload }) => {
       return state.setIn(
         ['privateServiceResource', 'byId', payload.resource_identifier],

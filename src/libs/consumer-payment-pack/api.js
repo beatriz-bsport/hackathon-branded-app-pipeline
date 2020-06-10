@@ -24,11 +24,6 @@ export async function fetchNonCompatibleByOfferByMember(offer, data: any = {}) {
     { offer },
   );
 }
-export async function fetchExtensions(consumerPassId: number) {
-  return getAuth(
-    `${API_V1_URI}/payment-pack/pack-extension/?consumer_payment_pack=${consumerPassId}`,
-  );
-}
 
 export async function fetchConsumerPackList(params: any, moreParams: any = {}) {
   return getAuth(
@@ -36,6 +31,12 @@ export async function fetchConsumerPackList(params: any, moreParams: any = {}) {
       ...(params || {}),
       ...moreParams,
     })}`,
+  );
+}
+
+export async function fetchExtensions(consumerPassId: number) {
+  return getAuth(
+    `${API_V1_URI}/payment-pack/pack-extension/?consumer_payment_pack=${consumerPassId}`,
   );
 }
 

@@ -11,6 +11,9 @@ export const getPrivateConsumerPassDict: (State) => {
   [id: number]: PrivateConsumerPass,
 } = (state) => state.privateService.privateConsumerPass.byId;
 
+export const getPrivateConsumerPass = (state: State, id: number) =>
+  getPrivateConsumerPassDict(state)[id];
+
 export const getPrivateConsumerPassList: (State) => Array<PrivateConsumerPass> = createSelector(
   [_getPrivateConsumerPassIdList, getPrivateConsumerPassDict],
   (ids, data) => ids.map((id) => data[id]),

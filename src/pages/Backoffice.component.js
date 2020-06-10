@@ -112,6 +112,8 @@ type Props = {
   theme: any,
   themeLoading: boolean,
 
+  location: Location,
+
   tempPasswordState: TempPasswordState,
   fetchTempPassword: () => void,
   generateTempPassword: () => void,

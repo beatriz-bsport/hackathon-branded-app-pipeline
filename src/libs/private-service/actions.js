@@ -24,10 +24,6 @@ import {
   fetchPrivateServiceResourceData as fetchPrivateServiceResourceDataAPI,
   updateResourceConfiguration as updateResourceConfigurationAPI,
   // private-coach
-  createPrivateCoach as createPrivateCoachAPI,
-  deletePrivateCoach as deletePrivateCoachAPI,
-  createPrivateEstablishment as createPrivateEstablishmentAPI,
-  deletePrivateEstablishment as deletePrivateEstablishmentAPI,
   // service-group
   fetchServiceGroupList as fetchServiceGroupListAPI,
   createOrUpdateServiceGroup as createOrUpdateServiceGroupAPI,
@@ -521,126 +517,6 @@ export function deletePrivateService(
       if (options && options.onError) options.onError();
     }
     dispatch(privateServiceCreateOrUpdateActions.isLoading(false));
-  };
-}
-
-export const privateCoachCreateActions = {
-  error: createAction('PRIVATE_COACH/CREATE/ERROR'),
-  isLoading: createAction('PRIVATE_COACH/CREATE/IS_LOADING'),
-  success: createAction('PRIVATE_COACH/CREATE/SUCCESS'),
-};
-
-export function createPrivateCoach(
-  associatedCoachId: number,
-  privateServiceId: number,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
-): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(privateCoachCreateActions.isLoading(true));
-    dispatch(privateCoachCreateActions.error(null));
-    try {
-      const response = await createPrivateCoachAPI(
-        associatedCoachId,
-        privateServiceId,
-      );
-      dispatch(privateCoachCreateActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
-    } catch (err) {
-      console.error(err);
-      dispatch(privateCoachCreateActions.error(null));
-      if (options && options.onError) options.onError();
-    }
-    dispatch(privateCoachCreateActions.isLoading(false));
-  };
-}
-
-export const privateCoachDeleteActions = {
-  error: createAction('PRIVATE_COACH/DELETE/ERROR'),
-  isLoading: createAction('PRIVATE_COACH/DELETE/IS_LOADING'),
-  success: createAction('PRIVATE_COACH/DELETE/SUCCESS'),
-};
-
-export function deletePrivateCoach(
-  associatedCoachId: number,
-  privateServiceId: number,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
-): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(privateCoachDeleteActions.isLoading(true));
-    dispatch(privateCoachDeleteActions.error(null));
-    try {
-      const response = await deletePrivateCoachAPI(
-        associatedCoachId,
-        privateServiceId,
-      );
-      dispatch(privateCoachDeleteActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
-    } catch (err) {
-      console.error(err);
-      dispatch(privateCoachDeleteActions.error(null));
-      if (options && options.onError) options.onError();
-    }
-    dispatch(privateCoachDeleteActions.isLoading(false));
-  };
-}
-
-export const privateEstablishmentCreateActions = {
-  error: createAction('PRIVATE_ESTABLISHMENT/CREATE/ERROR'),
-  isLoading: createAction('PRIVATE_ESTABLISHMENT/CREATE/IS_LOADING'),
-  success: createAction('PRIVATE_ESTABLISHMENT/CREATE/SUCCESS'),
-};
-
-export function createPrivateEstablishment(
-  establishmentId: number,
-  privateServiceId: number,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
-): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(privateEstablishmentCreateActions.isLoading(true));
-    dispatch(privateEstablishmentCreateActions.error(null));
-    try {
-      const response = await createPrivateEstablishmentAPI(
-        establishmentId,
-        privateServiceId,
-      );
-      dispatch(privateEstablishmentCreateActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
-    } catch (err) {
-      console.error(err);
-      dispatch(privateEstablishmentCreateActions.error(null));
-      if (options && options.onError) options.onError();
-    }
-    dispatch(privateEstablishmentCreateActions.isLoading(false));
-  };
-}
-
-export const privateEstablishmentDeleteActions = {
-  error: createAction('PRIVATE_ESTABLISHMENT/DELETE/ERROR'),
-  isLoading: createAction('PRIVATE_ESTABLISHMENT/DELETE/IS_LOADING'),
-  success: createAction('PRIVATE_ESTABLISHMENT/DELETE/SUCCESS'),
-};
-
-export function deletePrivateEstablishment(
-  establishmentId: number,
-  privateServiceId: number,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
-): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(privateEstablishmentDeleteActions.isLoading(true));
-    dispatch(privateEstablishmentDeleteActions.error(null));
-    try {
-      const response = await deletePrivateEstablishmentAPI(
-        establishmentId,
-        privateServiceId,
-      );
-      dispatch(privateEstablishmentDeleteActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
-    } catch (err) {
-      console.error(err);
-      dispatch(privateEstablishmentDeleteActions.error(null));
-      if (options && options.onError) options.onError();
-    }
-    dispatch(privateEstablishmentDeleteActions.isLoading(false));
   };
 }
 

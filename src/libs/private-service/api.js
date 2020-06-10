@@ -88,49 +88,6 @@ export const createOrUpdatePrivateServiceSlot = (id: number, data: any) => {
   return postAuth(`${API_V1_URI}/private_service/private_service_slot/`, data);
 };
 
-export const createPrivateCoach = (
-  associatedCoachId: number,
-  privateServiceId: number,
-) => {
-  return postAuth(
-    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_coach/`,
-    {
-      associated_coach: associatedCoachId,
-      private_service: privateServiceId,
-    },
-  );
-};
-
-export const deletePrivateCoach = (
-  associatedCoachId: number,
-  privateServiceId: number,
-) => {
-  return deleteAuth(
-    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_coach/${associatedCoachId}/`,
-  );
-};
-
-export const createPrivateEstablishment = (
-  establishmentId: number,
-  privateServiceId: number,
-) => {
-  return postAuth(
-    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_establishment/`,
-    {
-      associated_establishment: establishmentId,
-      private_service: privateServiceId,
-    },
-  );
-};
-
-export const deletePrivateEstablishment = (
-  establishmentId: number,
-  privateServiceId: number,
-) => {
-  return deleteAuth(
-    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_establishment/${establishmentId}/`,
-  );
-};
 
 export const fetchPrivateSlotList = (privateServiceId: number) => {
   return getAuth(

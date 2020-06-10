@@ -48,6 +48,9 @@ type Props = {
   classes: Object,
   invoice: ?Invoice,
   onInvoiceClick?: (uuid: string) => void,
+
+  extensionsLoading: boolean,
+  deleteConsumerPass: (number) => void,
 };
 export const PrivateConsumerPassDetail = (props: Props) => {
   return (

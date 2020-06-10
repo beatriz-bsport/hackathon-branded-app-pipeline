@@ -27,6 +27,7 @@ type Props = {
   pushToLogin: (successMessage: string) => void,
   t: TFunction,
   classes: Object,
+  requestResetLink: () => void,
 };
 
 type State = {
@@ -35,7 +36,6 @@ type State = {
   error: ?string,
   processing: boolean,
   hasExpired: boolean,
-  requestResetLink: () => void,
 };
 
 export class ChangePassword extends Component<Props, State> {

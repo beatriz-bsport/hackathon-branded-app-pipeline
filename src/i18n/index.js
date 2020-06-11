@@ -79,6 +79,9 @@ const availableLanguages = [
   {
     lang: 'nl',
   },
+  {
+    lang: 'de',
+  },
 ];
 
 i18n.on('languageChanged', (lng) => {

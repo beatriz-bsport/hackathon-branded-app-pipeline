@@ -43,12 +43,16 @@ export const splitIntervalList = (
   interval_list.map(([start, end]) => {
     const slotToGenerate =
       parseInt(
-        (moment(end).add(-duration_minutes, 'minutes') - moment(start)) /
-          (1000 * 60 * booking_interval),
+        (moment(end) - moment(start)) / (1000 * 60 * booking_interval),
         10,
       ) + 1;
     let n = 0;
-    while (n < slotToGenerate) {
+    while (
+      n < slotToGenerate &&
+      moment(start)
+        .add(n * booking_interval + duration_minutes, 'minutes')
+        .isSameOrBefore(moment(end))
+    ) {
       slots.push(
         moment(start)
           .add(n * booking_interval, 'minutes')

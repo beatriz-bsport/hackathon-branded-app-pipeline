@@ -286,6 +286,9 @@ exports.default = {
       credits: '{{ credits }} crédit',
     },
     buyPass: '{{ price }}€',
+    notifyMember: {
+      label: 'Envoyer un email de confirmation',
+    },
     preview: {
       credit_cost: '{{credit_cost}} crédit',
     },

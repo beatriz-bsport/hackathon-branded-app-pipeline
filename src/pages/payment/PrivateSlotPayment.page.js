@@ -134,6 +134,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
         associated_coach: associated_coach || null,
         associated_establishment: associated_establishment || null,
         establishment: establishment || null,
+        notify_member: true,
       },
       {
         onSuccess: () => {

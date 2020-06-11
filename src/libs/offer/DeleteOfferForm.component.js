@@ -90,7 +90,7 @@ export class DeleteOfferForm extends Component<Props, State> {
         </Typography>
         <div className={classes.row}>
           <Switch
-            disabled={this.props.processing}
+            disabled
             checked={cashback}
             onChange={this.onCreditBackSwitch}
           />

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withHandlers } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
 import Dialog from '@material-ui/core/Dialog';
 import moment from 'moment';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -10,6 +10,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import { connect } from 'react-redux';
 
@@ -151,6 +153,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         ...this.state.private_booking_data,
         private_consumer_pass: pcpId,
         date_start: this.state.date_start,
+        notify_member: this.props.notify_member,
       },
 
       {
@@ -226,6 +229,15 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
               }
             />
           </fieldset>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.props.notify_member}
+                onChange={(ev) => this.props.setNotifyMember(ev.target.checked)}
+              />
+            }
+            label={t('bookerModule.notifyMember.label')}
+          />
           {// eslint-disable-next-line
           missingResources.filter((l) => l !== 'address').length === 0 ? (
             this.props.compatiblePassLoading || this.props.processing ? (
@@ -283,6 +295,7 @@ const MemberSearchContainer = connect(
 export default compose(
   withTranslation(['privateService']),
   withStyles(styles),
+  withState('notify_member', 'setNotifyMember', true),
   connect(
     (state) => ({
       private_services: getAvailablePrivateServices(state),

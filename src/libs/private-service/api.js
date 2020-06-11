@@ -88,7 +88,6 @@ export const createOrUpdatePrivateServiceSlot = (id: number, data: any) => {
   return postAuth(`${API_V1_URI}/private_service/private_service_slot/`, data);
 };
 
-
 export const fetchPrivateSlotList = (privateServiceId: number) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/`,
@@ -350,6 +349,7 @@ export const registerPrivateBookings = ({
   associated_coach,
   associated_establishment,
   establishment,
+  notify_member,
 }: {
   private_slot: number,
   private_consumer_pass: number,
@@ -359,6 +359,7 @@ export const registerPrivateBookings = ({
   associated_establishment?: number,
   coach: number,
   establishment?: number,
+  notify_member: boolean,
 }) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_consumer_pass/${private_consumer_pass}/book/`,
@@ -370,6 +371,7 @@ export const registerPrivateBookings = ({
       associated_coach,
       associated_establishment,
       establishment,
+      notify_member,
     },
   );
 };

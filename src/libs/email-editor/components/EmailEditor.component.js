@@ -122,6 +122,7 @@ export class EmailEditorPanel extends Component<Props, State> {
 
   render() {
     const { t, classes } = this.props;
+    const mergeTags = this.getMergeTags();
     return (
       <div>
         <div className={classes.paper}>
@@ -158,28 +159,30 @@ export class EmailEditorPanel extends Component<Props, State> {
           </Button>
         </div>
         <Paper>
-          <EmailEditor
-            ref={(editor) => {
-              this.editor = editor;
-            }}
-            minHeight="80vh"
-            locale={i18n.language}
-            translations={{
-              'fr-FR': {
-                'labels.merge_tags': 'Ajouter une variable',
-              },
-              'en-US': {
-                'labels.merge_tags': 'Add a variable',
-              },
-            }}
-            onLoad={() => this.onLoad()}
-            options={{
-              mergeTags: this.getMergeTags(),
-              designTags: {
-                business_name: this.props.company_name,
-              },
-            }}
-          />
+          {!!Object.entries(mergeTags).length && (
+            <EmailEditor
+              ref={(editor) => {
+                this.editor = editor;
+              }}
+              minHeight="80vh"
+              locale={i18n.language}
+              translations={{
+                'fr-FR': {
+                  'labels.merge_tags': 'Ajouter une variable',
+                },
+                'en-US': {
+                  'labels.merge_tags': 'Add a variable',
+                },
+              }}
+              onLoad={() => this.onLoad()}
+              options={{
+                mergeTags,
+                designTags: {
+                  business_name: this.props.company_name,
+                },
+              }}
+            />
+          )}
         </Paper>
       </div>
     );

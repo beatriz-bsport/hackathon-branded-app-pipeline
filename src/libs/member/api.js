@@ -75,6 +75,10 @@ export async function merge(src: number, dst: number) {
   return postAuth(`${API_URI}/saas/members/members/merge/`, { src, dst });
 }
 
+export async function postUnsubscribe(unsubscribe_uuid: string) {
+  return post(`${API_V1_URI}/member/unsubscribe/`, { unsubscribe_uuid });
+}
+
 export async function regularizeDebt(memberId: number, data: any) {
   return post(`${API_V1_URI}/member/${memberId}/regularize_debt/`, data);
 }

@@ -45,4 +45,11 @@ exports.default = {
     content: 'Votre achat a bien été enregistré !',
     cancel: 'Fermer',
   },
+  unsubscriber: {
+    explain:
+      'Voulez-vous vous désinscrire de toutes les newsletter de votre club ?',
+    doUnsubscribe: 'Me désinscrire',
+    error: 'Erreur lors de la désinscription',
+    success: 'Vous avez bien été désinscrit(e)',
+  },
 };

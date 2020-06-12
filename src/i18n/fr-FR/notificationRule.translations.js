@@ -72,6 +72,7 @@ exports.default = {
       tags: {
         firstname: 'Prénom élève',
         lastname: 'Nom élève',
+        unsubscribe_link: 'Lien de désinscription newsletter',
       },
     },
     Booking: {

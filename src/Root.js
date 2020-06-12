@@ -37,6 +37,9 @@ const RNWebView = asyncComponent(() =>
 );
 
 const CheckIn = asyncComponent(() => import('./pages/check-in/CheckIn.page'));
+const ConsumerUnsubscribe = asyncComponent(() =>
+  import('./pages/consumer/ConsumerUnsubscriber.page'),
+);
 const CompanyExternalRouter = asyncComponent(() =>
   import('./pages/company-external/CompanyExternal.router'),
 );
@@ -84,6 +87,10 @@ export class Root extends Component<Props> {
           <Route path="/sentry" component={SentryTestError} />
           <Route path="/login" component={LoginRouter} />
           <Route path="/double-login" component={DoubleLogin} />
+          <Route
+            path="/c/:companyId/unsubscribe/:unsubscribe_uuid"
+            component={ConsumerUnsubscribe}
+          />
           <Route path="/(|customer/)payment" component={PaymentRouter} />
           <Route path="/customer" component={ConsumerRouter} />
           <Route path="/m/" component={MarketPlace} />

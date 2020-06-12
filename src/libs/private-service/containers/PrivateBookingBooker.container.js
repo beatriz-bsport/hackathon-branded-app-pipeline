@@ -65,6 +65,8 @@ type Props = {
   billMemberPrivatePass: (memberId: number, passId: number) => void,
   compatiblePrivatePass: Array<PrivatePass>,
   compatiblePrivateConsumerPass: Array<ConsumerPrivatePass>,
+  notify_member: boolean,
+  setNotifyMember: (boolean) => void,
 };
 
 type State = {

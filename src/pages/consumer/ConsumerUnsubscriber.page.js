@@ -6,14 +6,16 @@ import CheckIcon from '@material-ui/icons/Check';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { postUnsubscribe } from '../../libs/member/api';
 
 type Props = {
-  t: TFunction,
+  success: boolean,
+  error: ?Error,
+  loading: boolean,
+  doUnsubscribe: () => void,
 };
 export const ConsumerUnsubscriber = (props: Props) => {
   const classes = useStyles();

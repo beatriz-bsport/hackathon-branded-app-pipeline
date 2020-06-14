@@ -19,11 +19,10 @@ import { fetchAll as fetchAllAlerting } from '../../libs/alerting/actions';
 import { mailMembers as mailMemberAction } from '../../libs/communication/actions';
 
 import type { OrderWithProducts } from '../../libs/order/types';
-import type { Member } from '../../libs/member/types';
 
 type Props = {
   order: ?OrderWithProducts,
-  fetchOrder: (id: string) => void,
+  fetchOrder: (id: string, options: OptionCallback) => void,
   fetchByQueryInvoice: (params: *) => void,
   fetchAllAlerting: () => void,
   onInvoiceClick: (uuid: string) => void,
@@ -31,9 +30,9 @@ type Props = {
   patchOrder: (id: string, data: *) => void,
   orderId: string,
   mailMemberAction: () => void,
+  fetchMember: (id: number) => void,
 
   invoice: ?Invoice,
-  member: ?Member,
 };
 
 export class OrderDetail extends Component<Props> {
@@ -60,7 +59,6 @@ export class OrderDetail extends Component<Props> {
     if (!order) {
       return <LinearProgress />;
     }
-    console.log(order);
     return (
       <div>
         <OrderDetailComponent

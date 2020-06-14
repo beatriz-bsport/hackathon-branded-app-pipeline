@@ -40,7 +40,6 @@ type Props = {
 
   order: ?OrderWithProducts,
   invoice: ?Invoice,
-  member: ?Member,
 
   t: TFunction,
   classes: Object,

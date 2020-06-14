@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import 'intl/locale-data/jsonp/fr';
@@ -13,6 +13,7 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider
 import MomentUtils from '@date-io/moment';
 import withSentryErrorReporting from './hocs/error-boundary.hoc';
 import { Moment } from './i18n';
+import LoadingBackoffice from './components/navigation/LoadingBackoffice.component';
 
 import SnackbarPile from './SnackbarPile.component';
 
@@ -56,14 +57,16 @@ export class App extends Component<{}, {}> {
         <MuiThemeProvider theme={theme}>
           <CssBaseline>
             <ConnectedRouter history={this.history}>
-              <MuiPickersUtilsProvider
-                utils={MomentUtils}
-                moment={Moment}
-                locale={Moment.locale()}
-              >
-                <SnackbarPile />
-                <Root />
-              </MuiPickersUtilsProvider>
+              <Suspense fallback={<LoadingBackoffice />}>
+                <MuiPickersUtilsProvider
+                  utils={MomentUtils}
+                  moment={Moment}
+                  locale={Moment.locale()}
+                >
+                  <SnackbarPile />
+                  <Root />
+                </MuiPickersUtilsProvider>
+              </Suspense>
             </ConnectedRouter>
           </CssBaseline>
         </MuiThemeProvider>

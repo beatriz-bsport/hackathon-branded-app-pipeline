@@ -9,6 +9,8 @@ import { initReactI18next } from 'react-i18next';
 import Moment from 'moment';
 import 'moment/locale/fr';
 
+import namespaces from './namespaces.json';
+
 const isDebug = !['production', 'test'].includes(process.env.NODE_ENV);
 
 i18n
@@ -58,7 +60,7 @@ i18n
 
     react: {
       wait: true,
-      useSuspense: false,
+      useSuspense: true,
 
       bindI18n: 'languageChanged loaded',
       bindStore: 'added removed',
@@ -87,6 +89,7 @@ const availableLanguages = [
 i18n.on('languageChanged', (lng) => {
   Moment.locale(lng);
 });
+i18n.loadNamespaces(namespaces);
 
 Moment.locale(i18n.lng);
 

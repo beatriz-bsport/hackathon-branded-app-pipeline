@@ -5,6 +5,7 @@ const {
   LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER,
   GENDER_FILTER_IDENTIFIER,
   HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
+  USER_HAS_PASSWORD_FILTER,
   LTE_COMPARATOR,
   PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER,
   EXPENSES_FILTER_IDENTIFIER,
@@ -119,6 +120,8 @@ exports.default = {
     cancel: 'Annuler',
     sendMail: 'Envoyer un email',
     noMailAvailable: 'Pas de mail disponbile, pensez à en créer un',
+    sendSuccess: "Mail en cours d'envoi",
+    sendError: "Problème lors de l'envoi du mail",
   },
   detail: {
     tab: {
@@ -361,6 +364,12 @@ exports.default = {
       date_bought: { first: "Date d'achat" },
       expiration: { first_will_expire: 'Expire', first_has_expire: 'A expiré' },
       infoIcon: 'Les cartes de cours illimitées seront toujours incluses',
+    },
+
+    [USER_HAS_PASSWORD_FILTER]: {
+      explain: 'possède un mot de passe sur bsport',
+      name: 'Mot de passe',
+      explanation: 'Possède un mot de passe sur bsport',
     },
     [HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER]: {
       name: 'Validité de la carte de cours',

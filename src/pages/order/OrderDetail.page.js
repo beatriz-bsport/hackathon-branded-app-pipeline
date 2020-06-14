@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { withProps, compose } from 'recompose';
+import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -9,10 +9,9 @@ import withTitle from '../../hocs/with-title.hoc';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import memberSelectors from '../../libs/member/selectors';
-import orderSelectors from '../../libs/order/selectors';
+import { getOrder, withMember } from '../../libs/order/selectors';
 
-import { fetchByQueryMember } from '../../libs/member/actions';
+import { fetchMember } from '../../libs/member/actions';
 import { fetchOrder, patchOrder } from '../../libs/order/actions';
 import { fetchByQueryInvoice } from '../../actions/invoice.actions';
 import OrderDetailComponent from '../../libs/order/components/OrderDetail.component';
@@ -25,7 +24,6 @@ import type { Member } from '../../libs/member/types';
 type Props = {
   order: ?OrderWithProducts,
   fetchOrder: (id: string) => void,
-  fetchByQueryMember: (params: *) => void,
   fetchByQueryInvoice: (params: *) => void,
   fetchAllAlerting: () => void,
   onInvoiceClick: (uuid: string) => void,
@@ -45,9 +43,10 @@ export class OrderDetail extends Component<Props> {
 
   fetchData = () => {
     const { orderId } = this.props;
-    this.props.fetchOrder(this.props.orderId);
+    this.props.fetchOrder(this.props.orderId, {
+      onSuccess: (order) => this.props.fetchMember(order.member),
+    });
     this.props.fetchByQueryInvoice({ order: orderId });
-    this.props.fetchByQueryMember({ orders: orderId });
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -57,15 +56,15 @@ export class OrderDetail extends Component<Props> {
   }
 
   render() {
-    const { order, invoice, member, goToMember, onInvoiceClick } = this.props;
+    const { order, invoice, goToMember, onInvoiceClick } = this.props;
     if (!order) {
       return <LinearProgress />;
     }
+    console.log(order);
     return (
       <div>
         <OrderDetailComponent
           order={order}
-          member={member}
           invoice={invoice}
           onInvoiceClick={onInvoiceClick}
           goToMember={goToMember}
@@ -87,13 +86,12 @@ export default compose(
   routerParamsToProps({ id: 'orderId' }),
   connect(
     (state, { orderId }) => ({
-      getMember: (id) => memberSelectors.get(state, id),
-      order: orderSelectors.get(state, orderId),
+      order: withMember(getOrder)(state, orderId),
       invoice: state.invoice.invoice,
     }),
     {
       fetchByQueryInvoice,
-      fetchByQueryMember,
+      fetchMember,
       fetchOrder,
       patchOrder,
       fetchAllAlerting,
@@ -102,9 +100,6 @@ export default compose(
       onInvoiceClick: (uuid: string) => push(`/invoice/${uuid}`),
     },
   ),
-  withProps(({ getMember, order }) => ({
-    member: order ? getMember(order.member) : null,
-  })),
   withTranslation(),
   withTitle(({ t }) => t('titles:order.orderDetail')),
 )(OrderDetail);

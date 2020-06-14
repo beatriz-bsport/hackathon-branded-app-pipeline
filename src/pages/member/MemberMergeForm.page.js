@@ -10,7 +10,7 @@ import {
 } from 'connected-react-router';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
-import memberSelectors from '../../libs/member/selectors';
+import { getMember } from '../../libs/member/selectors';
 import MemberMergeForm from '../../libs/member/components/MemberMergeForm.component';
 import MemberConfirmMergeDialog from '../../libs/member/components/MemberConfirmMergeDialog.component';
 import { MemberMap } from '../../libs/member/utils';
@@ -103,8 +103,8 @@ export default compose(
   routerParamsToProps({ src: 'src:number', dst: 'dst:number' }),
   connect(
     (state, { dst, src }) => ({
-      srcMember: memberSelectors.get(state, src),
-      dstMember: memberSelectors.get(state, dst),
+      srcMember: getMember(state, src),
+      dstMember: getMember(state, dst),
     }),
     {
       fetchMember,

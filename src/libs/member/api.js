@@ -11,37 +11,36 @@ import {
   buildUrlParams,
 } from '../../http';
 
-const PAGE_SIZE = 2000;
+const PAGE_SIZE = 300;
 
-export async function fetchAllMembers({
-  page,
-  page_size,
-  tags_excluded,
-  tags_included,
-}: {
+export async function fetchMemberList(params: {
   page: number,
   page_size: ?number,
+  tags_excluded: ?Array<number>,
+  tags_included: ?Array<number>,
 }) {
   return getAuth(
-    `${API_URI}/saas/members/minimal?page_size=${page_size ||
-      PAGE_SIZE}&page=${page}${
-      tags_included ? `&tags_included=${JSON.stringify(tags_included)}` : ''
-    }${tags_excluded ? `&tags_excluded=${JSON.stringify(tags_excluded)}` : ''}`,
+    `${API_V1_URI}/member/${buildUrlParams({
+      page_size: PAGE_SIZE,
+      ...params,
+    })}`,
   );
 }
 
+export const fetchFilteredMembers = fetchMemberList;
+
 export async function search(text: string) {
-  return postAuth(`${API_URI}/saas/members/members/search/`, { text });
+  return postAuth(`${API_V1_URI}/member/search/`, { text });
 }
 
 export async function tag(memberId: number, tagId: number) {
-  return postAuth(`${API_URI}/saas/members/members/${memberId}/tag/`, {
+  return postAuth(`${API_V1_URI}/member/${memberId}/tag/`, {
     tag: tagId,
   });
 }
 
 export async function untag(memberId: number, tagId: number) {
-  return deleteAuth(`${API_URI}/saas/members/members/${memberId}/tag/`, {
+  return deleteAuth(`${API_V1_URI}/member/${memberId}/tag/`, {
     tag: tagId,
   });
 }
@@ -50,13 +49,8 @@ export async function fetchMember(memberId: number) {
   return getAuth(`${API_V1_URI}/member/${memberId}/`);
 }
 
-export async function fetchByQueryMember(params: *) {
-  const urlParams = buildUrlParams(params);
-  return getAuth(`${API_URI}/saas/members/members/find/${urlParams}`);
-}
-
 export async function getLatest() {
-  return getAuth(`${API_URI}/saas/members/members/latest/`);
+  return getAuth(`${API_V1_URI}/member/latest/`);
 }
 
 export async function addMember(data: Object) {
@@ -72,7 +66,7 @@ export async function updateMember(data: Object) {
 }
 
 export async function merge(src: number, dst: number) {
-  return postAuth(`${API_URI}/saas/members/members/merge/`, { src, dst });
+  return postAuth(`${API_V1_URI}/member/merge/`, { src, dst });
 }
 
 export async function postUnsubscribe(unsubscribe_uuid: string) {
@@ -83,11 +77,6 @@ export async function regularizeDebt(memberId: number, data: any) {
   return post(`${API_V1_URI}/member/${memberId}/regularize_debt/`, data);
 }
 
-export async function fetchFilteredMembers(params: any) {
-  const urlParams = buildUrlParams(params);
-  return getAuth(`${API_V1_URI}/member/${urlParams}&page_size=300`);
-}
-
 export async function createNote(
   id: number,
   text: string,
@@ -95,7 +84,7 @@ export async function createNote(
   highlighted: boolean,
   is_medical: boolean,
 ) {
-  return postAuth(`${API_URI}/saas/member/${memberId}/note`, {
+  return postAuth(`${API_V1_URI}/member_note/${memberId}/`, {
     text,
     member: memberId,
     highlighted,
@@ -109,14 +98,14 @@ export async function updateNote(
   highlighted: boolean,
   is_medical: boolean,
 ) {
-  return patchAuth(`${API_URI}/saas/member/note/${id}`, {
+  return patchAuth(`${API_V1_URI}/member_note/${id}/`, {
     text,
     highlighted,
     is_medical,
   });
 }
 export async function deleteNote(id: number) {
-  return deleteAuth(`${API_URI}/saas/member/note/${id}`);
+  return deleteAuth(`${API_V1_URI}/member_note/${id}/`);
 }
 
 export async function addFile(fileData: any) {
@@ -128,10 +117,8 @@ export async function removeFile(fileId: number) {
 }
 
 export default {
-  fetchAll: fetchAllMembers,
   updateMember,
   fetchMember,
-  fetchByQueryMember,
   addMember,
   createNote,
   updateNote,

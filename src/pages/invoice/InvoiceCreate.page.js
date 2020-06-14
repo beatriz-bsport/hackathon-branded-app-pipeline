@@ -21,7 +21,7 @@ import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { fetchMember } from '../../libs/member/actions';
 
 import type { Member } from '../../libs/member/types';
-import memberSelectors from '../../libs/member/selectors';
+import { getMember } from '../../libs/member/selectors';
 import type { InvoiceDataFront } from '../../components/form/types';
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -176,7 +176,7 @@ export default compose(
         state.member.loading ||
         state.paymentPack.loading ||
         state.privateService.privatePass.loading,
-      member: memberSelectors.get(state, id),
+      member: getMember(state, id),
       paymentPacks: getPaymentPackEnabled(state),
       privatePassList: getPrivatePassAvailable(state),
       creatingInvoice: state.invoice.createOrUpdatePending,

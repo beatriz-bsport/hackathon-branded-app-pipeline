@@ -104,6 +104,7 @@ exports.default = {
         coach: 'Professeur (optionnel)',
         date: 'Heure/Date',
         address: 'Adresse',
+        establishment: 'Etablissement',
         establishment_practical_info:
           "Information d'accès établissement (optionnel)",
       },

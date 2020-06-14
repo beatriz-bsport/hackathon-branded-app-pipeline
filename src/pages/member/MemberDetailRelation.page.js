@@ -31,6 +31,10 @@ import {
   getSharedConsumerPacksByRelation,
 } from '../../libs/relationship/selectors';
 import {
+  getMemberDetail,
+  getSearchedMembers,
+} from '../../libs/member/selectors';
+import {
   fetchFilteredMembers,
   fetchMember,
   search as searchMembers,
@@ -284,8 +288,8 @@ export default compose(
         selectedRelationId,
       ),
       passLoading: state.consumerPaymentPack.byMember.loading,
-      member: state.member.member,
-      searchedMembers: state.member.search.items,
+      member: getMemberDetail(state, memberId),
+      searchedMembers: getSearchedMembers(state),
       searchMembersLoading: state.member.search.loading,
     }),
     {

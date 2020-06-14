@@ -33,7 +33,7 @@ import { fetchAssociatedCoachBulk } from '../../associated-coach/actions';
 
 import SlotSearcherParams from '../components/slot-searcher/SlotSearcherParams.component';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
-import memberSelectors from '../../member/selectors';
+import { getSearchedMembers } from '../../member/selectors';
 import MemberMinimalListItem from '../../member/components/MemberMinimalListItem.component';
 import { search as searchMembers } from '../../member/actions';
 
@@ -287,7 +287,7 @@ const styles = (theme) => ({
 
 const MemberSearchContainer = connect(
   (state) => ({
-    searchedMembers: memberSelectors.getSearched(state),
+    searchedMembers: getSearchedMembers(state),
   }),
   {
     searchMembers,

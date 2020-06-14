@@ -4,14 +4,14 @@ import { createSelector } from 'reselect';
 import type { State } from '../../state/types';
 import type { MemberRelation } from './types';
 
-import { getAll as getAllMember } from '../member/selectors';
+import { getAllMembers } from '../member/selectors';
 import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
 
 const _getMemberRelations = (state: State): Array<MemberRelation> =>
   state.relationship.member_relation.items;
 
 export const getMemberRelations = createSelector(
-  [getAllMember, _getMemberRelations],
+  [getAllMembers, _getMemberRelations],
   (members, relations) =>
     relations.map((r) => {
       const dst_member = members.find((m) => m.id === r.dst_member);

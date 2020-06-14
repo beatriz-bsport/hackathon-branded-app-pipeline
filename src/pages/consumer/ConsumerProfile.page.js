@@ -16,6 +16,7 @@ import { MemberMap } from '../../libs/member/utils';
 import themeSelectors from '../../libs/theme/selectors';
 
 import { mapFormData, unmap } from '../form.utils';
+import { getMemberDetail } from '../../libs/member/selectors';
 
 import type { Membership } from '../../libs/membership/types';
 import type { Member } from '../../libs/member/types';
@@ -92,9 +93,9 @@ export class ConsumerProfile extends React.Component<Props> {
 
 export default compose(
   connect(
-    (state) => ({
+    (state, { membership }) => ({
       memberLoading: state.member.loading,
-      member: state.member.member,
+      member: getMemberDetail(state, membership.id),
       theme: themeSelectors.getTheme(state),
     }),
     {

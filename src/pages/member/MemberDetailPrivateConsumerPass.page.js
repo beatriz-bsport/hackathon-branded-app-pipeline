@@ -8,7 +8,7 @@ import { push } from 'connected-react-router';
 
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import PaginatedListStateful from '../../components/PaginatedListStateful.component';
-import memberSelectors from '../../libs/member/selectors';
+import { getMember } from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
@@ -200,7 +200,7 @@ export default compose(
   }),
   connect(
     (state, { id, privateConsumerPassId }) => ({
-      member: memberSelectors.get(state, id),
+      member: getMember(state, id),
       private_consumer_pass_list: getPrivateConsumerPassList(state),
       private_booking_list: getPrivateBookingListBase(state),
       privateConsumerPassInvoice: state.invoice.invoice,

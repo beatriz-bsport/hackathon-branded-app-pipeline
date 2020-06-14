@@ -5,7 +5,7 @@ import {
   getAll as getPaymentPacks,
   getPaymentPackById,
 } from '../payment-packs/selectors';
-import { getAll as getAllMembers } from '../member/selectors';
+import { getAllMembers } from '../member/selectors';
 import type { State } from '../../state/types';
 
 const getState = (state) => state.consumerPaymentPack;

@@ -22,7 +22,7 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
-import memberSelectors from '../../libs/member/selectors';
+import { getMember } from '../../libs/member/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 
 import { getAvailableContractListWithPaymentPack } from '../../libs/subscription/selectors';
@@ -286,7 +286,7 @@ export default compose(
   routerParamsToProps({ tab: 'tab', id: 'id:number' }),
   connect(
     (state, { id }) => ({
-      member: memberSelectors.get(state, id),
+      member: getMember(state, id),
       contractLoading: state.subscription.contract.loading,
       contractList: getAvailableContractListWithPaymentPack(state),
     }),

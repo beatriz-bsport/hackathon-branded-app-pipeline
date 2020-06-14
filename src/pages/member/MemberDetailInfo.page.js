@@ -26,7 +26,10 @@ import {
   addFileToMember,
   removeFileFromMember,
 } from '../../libs/member/actions';
-import memberSelectors from '../../libs/member/selectors';
+import {
+  getSearchedMembers,
+  getMemberDetail,
+} from '../../libs/member/selectors';
 import type { Member } from '../../libs/member/types';
 import MemberSummaryCard from '../../libs/member/components/MemberSummaryCard.component';
 import TagDeleteDialog from '../../libs/tag/components/TagDeleteDialog.component';
@@ -267,10 +270,10 @@ export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withTranslation(['member']),
   connect(
-    (state) => ({
+    (state, { id }) => ({
       memberLoading: state.member.loading,
-      member: state.member.member,
-      searchedMembers: memberSelectors.getSearched(state),
+      member: getMemberDetail(state, id),
+      searchedMembers: getSearchedMembers(state),
       tagGroups: tagSelectors.getMemberTagGroups(state),
       tagGroupsLoading: state.tag.group.loading,
       taskList: memberTaskListSelector(state),

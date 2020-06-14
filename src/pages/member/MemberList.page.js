@@ -10,7 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { fetchAllMembers } from '../../libs/member/api';
+import { fetchMemberList } from '../../libs/member/api';
 import withTitle from '../../hocs/with-title.hoc';
 import MemberTable from '../../libs/member/MemberTable.component';
 
@@ -96,7 +96,7 @@ export class Members extends Component<Props> {
           <MemberTable
             tagsExcluded={this.state.tagsExcluded}
             tagsIncluded={this.state.tagsIncluded}
-            fetch={fetchAllMembers}
+            fetch={fetchMemberList}
             goToMember={goToMemberPage}
             addMember={addMember}
             customToolBar={this.tagFilterBar}

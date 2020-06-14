@@ -17,7 +17,7 @@ import type { TFunction } from 'react-i18next';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import memberSelectors from '../../libs/member/selectors';
+import { getMember } from '../../libs/member/selectors';
 import {
   cancelBooking as deleteBooking,
   discardAttendance as discardBookingAttendance,
@@ -379,7 +379,7 @@ export default compose(
   withState('openCreateExtension', 'setOpenCreateExtension', false),
   connect(
     (state, { id, consumerPassId }) => ({
-      member: memberSelectors.get(state, id),
+      member: getMember(state, id),
       consumerPacks: withPaymentPack(getConsumerPaymentPackByMember)(state, id),
       consumerPackCount: state.consumerPaymentPack.byMember.count,
       consumerPackCurrentPage: state.consumerPaymentPack.byMember.page,

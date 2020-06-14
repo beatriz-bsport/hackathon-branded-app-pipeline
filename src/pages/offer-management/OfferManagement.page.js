@@ -60,7 +60,11 @@ import {
   createOrUpdateMember,
   search as searchMembersAction,
 } from '../../libs/member/actions';
-import memberSelectors from '../../libs/member/selectors';
+import {
+  getSearchedMembers,
+  getAllMembers,
+  getMemberHistory,
+} from '../../libs/member/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
 import OfferManagementComponent from './OfferManagement.component';
@@ -93,10 +97,10 @@ function mapStateToProps(state, { id }) {
     compatiblePacksLoading: state.offer.compatiblePacks.loading,
     // member
     membersloading: state.member.loading,
-    members: state.member.all,
-    memberHistory: state.member.history.slice(0, 5),
+    members: getAllMembers(state),
+    memberHistory: getMemberHistory(state).slice(0, 5),
     memberSearchLoading: state.member.search.loading,
-    searchedMembers: memberSelectors.getSearched(state),
+    searchedMembers: getSearchedMembers(state),
     memberCreationPending: state.member.upsert.loading,
     memberCreationErrors: state.member.upsert.error,
     // booking

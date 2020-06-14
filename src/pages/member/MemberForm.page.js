@@ -14,7 +14,7 @@ import moment from 'moment';
 import { snackbar } from '../../actions/snackbar.actions';
 import MemberForm from '../../libs/member/MemberForm.component';
 import { createOrUpdateMember, fetchMember } from '../../libs/member/actions';
-import memberSelectors from '../../libs/member/selectors';
+import { getMember } from '../../libs/member/selectors';
 import { getLatest as getLatestMember } from '../../libs/member/api';
 import { MemberMap } from '../../libs/member/utils';
 import themeSelectors from '../../libs/theme/selectors';
@@ -96,7 +96,7 @@ function mapStateToProps(state, nextProps) {
   return {
     id,
     errors: state.member.upsert.error,
-    initial: id !== null ? memberSelectors.get(state, id) : null,
+    initial: id !== null ? getMember(state, id) : null,
     theme: themeSelectors.getTheme(state),
   };
 }

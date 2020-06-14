@@ -219,7 +219,7 @@ export function updateCurrentOrder(id: string, data_: *): ThunkAction {
   };
 }
 
-export function fetchOrder(id: string): ThunkAction {
+export function fetchOrder(id: string, options: OptionCallback): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(orderDetailActions.isLoading(true));
     dispatch(orderDetailActions.error(null));
@@ -227,8 +227,14 @@ export function fetchOrder(id: string): ThunkAction {
     try {
       const { data } = await api.fetchOrder(id);
       dispatch(orderDetailActions.success(data));
+      if (options && options.onSuccess) {
+        options.onSuccess(data);
+      }
     } catch (error) {
       dispatch(orderDetailActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
     }
 
     dispatch(orderDetailActions.isLoading(false));

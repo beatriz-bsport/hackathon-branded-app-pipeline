@@ -17,7 +17,7 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 
 import api from '../../libs/subscription/api';
 import { fetchMember } from '../../libs/member/actions';
-import memberSelectors from '../../libs/member/selectors';
+import { getMember } from '../../libs/member/selectors';
 import SubscriptionCreateComponent from '../../libs/subscription/components/SubscriptionCreate.component';
 import SubscriptionScheduleChecker from '../../libs/subscription/components/SubscriptionScheduleChecker.component';
 import type { SubscriptionData } from '../../libs/subscription/types';
@@ -121,7 +121,7 @@ export default compose(
     (state, { memberId }) => ({
       paymentPacks: getPaymentPackEnabled(state),
       memberLoading: state.member.loading,
-      member: memberSelectors.get(state, memberId),
+      member: getMember(state, memberId),
     }),
     {
       onCancel: goBack,

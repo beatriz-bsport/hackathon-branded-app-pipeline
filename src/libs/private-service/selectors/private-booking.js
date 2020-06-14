@@ -7,7 +7,7 @@ import { BOOKING_STATUS_CANCELLED_BY_CONSUMER } from '@bsport/common/lib/master-
 import type { State } from '../../../state/types';
 import type { PrivateBooking } from '../types';
 
-import { getAll as getAllMembers } from '../../member/selectors';
+import { getAllMembers } from '../../member/selectors';
 
 import { getAllPrivateSlotsDict } from './private-slot';
 import { _getPrivateServicesById } from './private-service';

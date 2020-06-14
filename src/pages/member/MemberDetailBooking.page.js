@@ -39,7 +39,7 @@ import {
   getMemberBookingListWithConsumerPack,
   getMemberBookingWithConsumerPack,
 } from '../../libs/booking/selectors';
-import memberSelectors from '../../libs/member/selectors';
+import { getMember } from '../../libs/member/selectors';
 import paymentPackSelectors, {
   getAll as getAllPaymentPacks,
 } from '../../libs/payment-packs/selectors';
@@ -213,7 +213,7 @@ export default compose(
   routerParamsToProps({ id: 'id:number', bookingId: 'bookingId:number' }),
   connect(
     (state, { id, bookingId }) => ({
-      member: memberSelectors.get(state, id),
+      member: getMember(state, id),
       bookings: getMemberBookingListWithConsumerPack(state),
       selectedBooking: bookingId
         ? getMemberBookingWithConsumerPack(state, bookingId)

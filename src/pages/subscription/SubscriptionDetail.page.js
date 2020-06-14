@@ -92,7 +92,6 @@ type Props = {
     billing_plan: number,
   }) => void,
 
-  member: ?Member,
   memberLoading: boolean,
 
   openPackSwitcherDialog: () => void,
@@ -175,7 +174,6 @@ export class SubscriptionDetail extends Component<Props> {
         {this.props.switchPaymentMethodDialogOpen ? (
           <SubscriptionPaymentMethodSwitcherDialog
             open={this.props.switchPaymentMethodDialogOpen}
-            member={this.props.member}
             loading={this.props.memberLoading}
             onSubmit={this.props.switchPaymentMethod}
             onCancel={() => this.props.setSwitchPaymentMethodDialogOpen(false)}
@@ -249,7 +247,6 @@ export default compose(
   connect(
     (state, { id }) => ({
       subscription: getSubscriptionById(state, id),
-      member: state.member.member,
       memberLoading: state.member.loading,
       loading:
         state.subscription.detail.loading ||

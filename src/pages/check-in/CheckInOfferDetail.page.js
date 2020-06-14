@@ -20,7 +20,7 @@ import {
   registerBooking,
 } from '../../libs/booking/actions';
 import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions';
-import memberSelectors from '../../libs/member/selectors';
+import { getSearchedMembers, getAllMembers } from '../../libs/member/selectors';
 import { getOfferBookingListWithConsumerPack } from '../../libs/booking/selectors';
 import { fetchCompatiblePass as fetchCompatiblePassAction } from '../../actions/payment.actions';
 import SearchAndRegisterMember, {
@@ -181,8 +181,8 @@ export default compose(
   connect(
     (state) => ({
       offer: state.offer.retrieve.data,
-      members: state.member.all,
-      searchedMembers: memberSelectors.getSearched(state),
+      members: getAllMembers(state),
+      searchedMembers: getSearchedMembers(state),
 
       memberBarcode: state.member.barcode.data,
       memberBarcodeLoading: state.member.barcode.loading,

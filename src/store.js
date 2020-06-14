@@ -31,7 +31,6 @@ const persistConfig = {
     'refresh',
     'marketplace',
     'theme',
-    'member',
     'membership',
   ],
   stateReconciler: seamlessImmutableReconciler,

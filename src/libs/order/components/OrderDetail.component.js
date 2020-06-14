@@ -50,7 +50,6 @@ export const OrderDetail = (props: Props) => {
   const {
     order,
     invoice,
-    member,
     t,
     classes,
     onInvoiceClick,
@@ -174,11 +173,11 @@ export const OrderDetail = (props: Props) => {
           >
             {t('detail.section.member')}
           </Typography>
-          {member ? (
+          {order.member ? (
             <MemberSummaryCard
-              memberId={member.id}
-              member={member}
-              goToMember={() => goToMember(member.id)}
+              memberId={order.member.id}
+              member={order.member}
+              goToMember={() => goToMember(order.member.id)}
               mailMember={mailMember}
             />
           ) : null}

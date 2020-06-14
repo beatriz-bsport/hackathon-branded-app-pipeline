@@ -22,6 +22,7 @@ import Popover from '@material-ui/core/Popper';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { getMemberHistory } from '../libs/member/selectors';
 
 import parse from '../query-string';
 import DelayedTextField from './DelayedTextField.component';
@@ -179,7 +180,7 @@ export default compose(
   connect(
     (state, { location }) => ({
       searchText: getSearchText(state, location),
-      memberHistory: state.member.history,
+      memberHistory: getMemberHistory(state),
     }),
     mapDisPatchToProps,
   ),

@@ -17,7 +17,7 @@ import { invoice as invoiceActions } from '../../actions';
 import withTitle from '../../hocs/with-title.hoc';
 import { formatAsDate } from '../../datetime';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import memberSelectors from '../../libs/member/selectors';
+import { getMember } from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
@@ -220,6 +220,6 @@ export default compose(
       } - ${invoice && invoice.date ? formatAsDate(invoice.date) : ''}`,
   ),
   connect((state, { invoice }) => ({
-    member: memberSelectors.get(state, invoice ? invoice.member : null),
+    member: getMember(state, invoice ? invoice.member : null),
   })),
 )(InvoiceFormPage);

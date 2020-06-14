@@ -12,6 +12,7 @@ import type { OptionCallback } from '../../state/types';
 
 import { getMemberBookingWithConsumerPack } from '../../libs/booking/selectors';
 import { retrieveBooking } from '../../libs/booking/actions';
+import { getAllMembers } from '../../libs/member/selectors';
 import { retrieveConsumerPackBulk } from '../../libs/consumer-payment-pack/actions';
 
 type Props = {
@@ -67,7 +68,7 @@ export default compose(
   connect(
     (state, { bookingId }) => ({
       offer: state.offer.retrieve.data,
-      members: state.member.all,
+      members: getAllMembers(state),
       booking: getMemberBookingWithConsumerPack(state, bookingId),
       bookingLoading: state.booking.loading,
     }),

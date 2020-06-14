@@ -13,7 +13,6 @@ import {
   deleteNote as deleteNoteApi,
   fetchMember as fetchMemberApi,
   fetchFilteredMembers as fetchFilteredMembersAPI,
-  fetchByQueryMember as fetchByQueryMemberApi,
   search as searchApi,
   tag as tagApi,
   untag as untagApi,
@@ -243,6 +242,7 @@ export function fetchMember(id: number) {
       const member = response.data;
       dispatch(hasFetchedMember(member));
     } catch (err) {
+      console.error(err);
       dispatch(errorFetchingMember());
     }
   };
@@ -276,20 +276,6 @@ export function regularizeDebt(
       }
     }
     dispatch(memberRegularizeDebtActions.isLoading(false));
-  };
-}
-
-export function fetchByQueryMember(params: *) {
-  return async (dispatch: Dispatch) => {
-    dispatch(startFetchMember());
-
-    try {
-      const response = await fetchByQueryMemberApi(params);
-      const member = response.data.results;
-      dispatch(hasFetchedMember(member[0]));
-    } catch (err) {
-      dispatch(errorFetchingMember());
-    }
   };
 }
 

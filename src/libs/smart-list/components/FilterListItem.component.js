@@ -27,6 +27,7 @@ import {
   BASKET_ABANDONMENT_FILTER_IDENTIFIER,
   BOOKINGS_NUMBER_FILTER_IDENTIFIER,
   BOOKINGS_FILTER_IDENTIFIER,
+  USER_HAS_PASSWORD_FILTER,
   FIRST_BOOKING_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
@@ -43,6 +44,7 @@ import PaymentPackFilter from './filters/PaymentPackFilter.component';
 import BasketAbandonmentFilter from './filters/BasketAbandonmentFilter.component';
 import BookingsFilter from './filters/BookingsFilter.component';
 import FirstBookingFilter from './filters/FirstBookingFilter.component';
+import UserHasPasswordFilter from './filters/UserHasPasswordFilter.component';
 
 import type { PaymentPack } from '../../payment-packs/types';
 import type { Establishment } from '../../establishment/types';
@@ -263,6 +265,18 @@ export class FilterCard extends Component<Props> {
             fetchBulkItems={this.props.fetchBulkItems}
             setNotNullableData={this.setNotNullableData}
             renderSelectorWarning={this.renderSelectorWarning}
+          />
+        );
+      case USER_HAS_PASSWORD_FILTER:
+        return (
+          <UserHasPasswordFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: USER_HAS_PASSWORD_FILTER,
+            }}
+            onChange={this.handleChange}
+            new={this.props.new}
+            setNotNullableData={this.setNotNullableData}
           />
         );
       case BOOKINGS_FILTER_IDENTIFIER:

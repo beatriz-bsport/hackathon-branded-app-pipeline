@@ -27,7 +27,6 @@ import DeliveryInfo from './DeliveryInfo.component';
 import InvoiceSummary from '../../invoice/InvoiceListItem.component';
 
 import type { OrderWithProducts } from '../types';
-import type { Member } from '../../member/types';
 import type { Invoice } from '../../invoice/types';
 
 import DeliveryFeeListItem from './DeliveryFeeListItem.component';

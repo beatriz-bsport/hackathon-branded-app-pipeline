@@ -1,1 +1,29 @@
-{}
+{
+    "translation": {
+        "activityCreated": "Attività aggiunta",
+        "activityUpdated": "Attività modificata",
+        "bookingConfirmed": "Prenotazione confermata",
+        "button": {
+            "login": "Connessione"
+        },
+        "private_service": "Su appuntamento",
+        "openSchedule": "Vedi il tuo programma",
+        "report": {
+            "delete": "Eliminazione di un rapporto"
+        },
+        "metaActivity": {
+            "forms": {
+                "create": {
+                    "success": "Attività creata",
+                    "error": "Errore durante il salvataggio dell'attività"
+                }
+            },
+            "update": {
+                "imageUploaderRequireEditMessage": "Una volta creata la tua attività, sarai in grado di aggiungere altre immagini."
+            },
+            "create": {
+                "success": "Attività creata"
+            }
+        }
+    }
+}

@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Hidden from '@material-ui/core/Hidden';
 import { withTranslation } from 'react-i18next';
 
 import RecursiveToogle from './form/RecursionToogle.component';
@@ -88,16 +89,18 @@ export class DeleteOfferForm extends Component<Props, State> {
         <Typography className={classes.explainText}>
           {t('form.offer.delete.explainModalities')}
         </Typography>
-        <div className={classes.row}>
-          <Switch
-            disabled
-            checked={cashback}
-            onChange={this.onCreditBackSwitch}
-          />
-          <Typography disabled>
-            {t('form.offer.delete.explainCreditBack')}
-          </Typography>
-        </div>
+        <Hidden xsUp>
+          <div className={classes.row}>
+            <Switch
+              disabled
+              checked={cashback}
+              onChange={this.onCreditBackSwitch}
+            />
+            <Typography disabled>
+              {t('form.offer.delete.explainCreditBack')}
+            </Typography>
+          </div>
+        </Hidden>
         <div className={classes.row}>
           <Switch
             disabled={this.props.processing}

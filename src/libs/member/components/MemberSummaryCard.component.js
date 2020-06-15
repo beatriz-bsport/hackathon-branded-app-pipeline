@@ -270,7 +270,7 @@ export class MemberSummaryCard extends Component<Props> {
     const { member, classes } = this.props;
     // ugly FIXME: because loading should never be set to true
     // if member=={}
-    if (member.consumer) {
+    if (member && member.consumer) {
       return (
         <div>
           <Paper>

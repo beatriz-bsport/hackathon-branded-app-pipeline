@@ -34,6 +34,12 @@ STRIPE_PK_KEY='pk_test_lFB5CxcyTCaQcS00MiE1ebEO'
 GOOGLE_MAPS_API_KEY='AIzaSyD5aOL4nVUjsFNIj3jSpCTtqHHkem8NcZM'
 ```
 
+GENERATE TRANSLATIONS
+=====================
+```sh
+yarn updateTranslation
+```
+
 LOGIN
 =====
 

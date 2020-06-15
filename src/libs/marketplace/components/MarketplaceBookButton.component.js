@@ -3,26 +3,26 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import { colors } from '@bsport/common/lib/colors';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
-import { isOfferInThePast } from '../utils';
+import { isOfferInThePast, isOfferBookableYet } from '../utils';
 
 type Props = {
   onClickBook: () => void,
   onClickBookOption: () => void,
   offer: Offer,
-  t: TFunction,
-  classes: any,
   showOfferFilling: boolean,
 };
 
 const MarketplaceBookButton = (props: Props) => {
-  const { t, offer, onClickBook, onClickBookOption } = props;
+  const { offer, onClickBook, onClickBookOption } = props;
+  const classes = useStyles();
+  const { t } = useTranslation();
+
   const onClick = offer.is_full ? onClickBookOption : onClickBook;
   let text = offer.is_full
     ? t('marketplace.bookButton.bookOption')
@@ -33,6 +33,9 @@ const MarketplaceBookButton = (props: Props) => {
   if (!offer.available) {
     text = t('marketplace.bookButton.notAvailable');
   }
+  if (!isOfferBookableYet(offer)) {
+    text = t('marketplace.bookButton.notBookableYet');
+  }
   return (
     <Button
       fullWidth
@@ -41,9 +44,7 @@ const MarketplaceBookButton = (props: Props) => {
       onClick={onClick}
       color="primary"
       className={
-        offer.available
-          ? props.classes.offerAvailable
-          : props.classes.offerNonAvailable
+        offer.available ? classes.offerAvailable : classes.offerNonAvailable
       }
     >
       <Hidden smUp>
@@ -71,13 +72,13 @@ const MarketplaceBookButton = (props: Props) => {
   );
 };
 
-const styles = () => ({
+const useStyles = makeStyles(() => ({
   offerAvailable: {},
   offerNonAvailable: {
     '&:disabled': {
       color: colors.orange,
     },
   },
-});
+}));
 
-export default withStyles(styles)(withTranslation()(MarketplaceBookButton));
+export default MarketplaceBookButton;

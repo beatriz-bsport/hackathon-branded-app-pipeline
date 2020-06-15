@@ -20,6 +20,7 @@ import PaymentComboBuyableItem from '../../payment-combo/components/PaymentCombo
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import ConsumerPaymentPackListItemCheckout from '../../consumer-payment-pack/components/ConsumerPaymentPackListItemCheckout.component';
 import SubscriptionContractListItem from '../../subscription/components/SubscriptionContractListItem.component';
+import { isOfferBookableYet } from '../../marketplace/utils';
 import type { ConsumerPaymentPack } from '../../consumer-payment-pack/types';
 
 import type { OptionCallback } from '../../../state/types';
@@ -117,6 +118,24 @@ export class OfferBooking extends React.PureComponent<Props> {
     );
   };
 
+  renderTooSoon = () => {
+    return (
+      <div className={this.props.classes.innerContainer}>
+        <BlockIcon className={this.props.classes.bigIcon} />
+        <Typography className={this.props.classes.explainText}>
+          {this.props.t('bookingModule.offer.isTooSoon', {
+            date: moment(this.props.offer.date_start)
+              .add(
+                this.props.offer.meta_activity.first_booking_minutes_until,
+                'minutes',
+              )
+              .format('LL'),
+          })}
+        </Typography>
+      </div>
+    );
+  };
+
   renderWaitingListFull = () => {
     return (
       <div className={this.props.classes.innerContainer}>
@@ -149,7 +168,8 @@ export class OfferBooking extends React.PureComponent<Props> {
     const isTooLate = moment(offer.date_start)
       .add('minutes', -offer.meta_activity.last_booking_minutes)
       .isBefore(moment());
-    const isBookable = isAvailable && !isTooLate;
+    const isTooSoon = !isOfferBookableYet(offer);
+    const isBookable = isAvailable && !isTooLate && !isTooSoon;
     const isFull =
       offer.tot_slots >= offer.effectif && !hasBookingOptionConvertible;
     const isWaitingListFull =
@@ -166,6 +186,7 @@ export class OfferBooking extends React.PureComponent<Props> {
         </Paper>
         {!isAvailable ? this.renderIsDisabled() : null}
         {isAvailable && isTooLate ? this.renderTooLate() : null}
+        {isAvailable && isTooSoon ? this.renderTooSoon() : null}
         {isBookable && isFull && !isWaitingListFull ? (
           <BookingOptionRegisterForm
             hasBookingOptionUnConvertible={hasBookingOptionUnConvertible}

@@ -141,6 +141,14 @@ export function MetaActivityForm(props: Props) {
             required
           />
         </div>
+        <div className={classes.field}>
+          <DurationField
+            name="first_booking_minutes_until"
+            label={t('activity.firstBookingMinutesUntil')}
+            fullWidth
+            required
+          />
+        </div>
         <div className={classes.buttonContainer}>
           <Button
             variant="contained"
@@ -179,6 +187,7 @@ const MetaActivitySchema = Yup.object().shape({
   description: Yup.string().required(),
   last_booking_minutes: Yup.number(),
   last_discard_minutes: Yup.number(),
+  first_booking_minutes_until: Yup.number(),
   is_broadcast: Yup.boolean(),
   color: Yup.string(),
   SCT: Yup.number(),
@@ -197,6 +206,7 @@ export default compose(
           SCT: null,
           last_booking_minutes: 0,
           last_discard_minutes: 0,
+          first_booking_minutes_until: 60 * 24 * 30 * 6,
           is_broadcast: false,
           color: '',
         },
@@ -213,6 +223,7 @@ export default compose(
         'SCT',
         'last_booking_minutes',
         'last_discard_minutes',
+        'first_booking_minutes_until',
         'color',
         'is_broadcast',
       ];

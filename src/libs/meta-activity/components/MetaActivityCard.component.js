@@ -83,6 +83,11 @@ export const MetaActivityCard = (props: Props) => {
               'metaActivity:settings.lastDiscardBeforeMinutes',
             )} : ${formatMinutes(metaActivity.last_discard_minutes, t)}`}
           </Typography>
+          <Typography variant="caption" component="h4" align="right">
+            {`${t(
+              'metaActivity:settings.firstBookingMinutesUntil',
+            )} : ${formatMinutes(metaActivity.first_booking_minutes_until, t)}`}
+          </Typography>
         </div>
         <div style={{ marginTop: 16 }}>
           <TypographyMultiline variant="" color="textSecondary">

@@ -51,7 +51,7 @@ type Props = {
   paymentComboList: Array<PaymentCombo>,
 
   goBack: () => void,
-  fetchInvoice: (uuid: string) => void,
+  fetchInvoice: (uuid: string, options: OptionCallback) => void,
   fetchShopItems: () => void,
   fetchAllPaymentPacks: () => void,
   goToMemberPage: (id: number) => void,
@@ -77,27 +77,25 @@ export class InvoiceFormPage extends Component<Props, State> {
 
   fetchData = () => {
     if (this.props.uuid) {
-      this.props.fetchInvoice(this.props.uuid);
+      this.props.fetchInvoice(this.props.uuid, {
+        onSuccess: (invoice) => {
+          this.props.fetchMember(invoice.member);
+        },
+      });
     }
   };
 
   componentDidMount() {
     this.props.resetCreateOrUpdateStatus();
-    this.props.fetchInvoice(this.props.uuid);
     this.props.fetchShopItems();
     this.props.fetchAllPaymentPacks();
+    this.fetchData();
   }
 
   componentDidUpdate(prevProps: Props) {
     const { props } = this;
     if (prevProps.uuid !== props.uuid && props.uuid) {
-      this.props.fetchInvoice(props.uuid);
-    }
-    if (
-      props.invoice &&
-      (!prevProps.invoice || props.invoice.uuid !== prevProps.invoice.uuid)
-    ) {
-      this.props.fetchMember(props.invoice.member);
+      this.fetchData();
     }
   }
 

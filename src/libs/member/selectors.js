@@ -21,9 +21,9 @@ export const getSearchedMembers = createSelector(
 );
 
 export const getMember = (state: State, id: number) => {
-  const detail = getMemberDetailData[id];
+  const detail = getMemberDetailData(state)[id];
   if (detail) return detail;
-  return getMemberListData[id];
+  return getMemberListData(state)[id];
 };
 
 export const getMemberDetail = (state, id) => {

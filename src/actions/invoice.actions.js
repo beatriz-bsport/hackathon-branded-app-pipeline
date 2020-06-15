@@ -196,7 +196,10 @@ export function fetchByQueryInvoice(params: *) {
   };
 }
 
-export function fetchSpecificInvoice(invoiceId: string) {
+export function fetchSpecificInvoice(
+  invoiceId: string,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchSpecificInvoice());
     dispatch(errorFetchingSpeciicInvoice(null));
@@ -204,9 +207,15 @@ export function fetchSpecificInvoice(invoiceId: string) {
     try {
       const response = await api.invoice.fetchSpecific(invoiceId);
       const invoice = response.data;
+      if (options && options.onSuccess) {
+        options.onSuccess(invoice);
+      }
       dispatch(fetchedSpecificInvoice(invoice));
     } catch (err) {
       dispatch(errorFetchingSpeciicInvoice(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
   };
 }

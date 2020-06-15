@@ -60,6 +60,8 @@ export class ThemePersonalize extends Component<Props, State> {
         this.props.theme.show_offers_filling &&
       this.state.theme.last_name_label === this.props.theme.last_name_label &&
       this.state.theme.first_name_label === this.props.theme.first_name_label &&
+      this.state.theme.consumer_regularize_debt ===
+        this.props.theme.consumer_regularize_debt &&
       this.state.theme.default_booking_ordering ===
         this.props.theme.default_booking_ordering &&
       this.state.theme.default_attendance ===
@@ -71,6 +73,7 @@ export class ThemePersonalize extends Component<Props, State> {
     const data = new FormData();
     [
       'show_offers_filling',
+      'consumer_regularize_debt',
       'first_name_label',
       'last_name_label',
       'default_booking_ordering',
@@ -193,6 +196,19 @@ export class ThemePersonalize extends Component<Props, State> {
         ) : null}
         <div className={classes.inputContainer}>
           <Switch
+            checked={this.state.theme.consumer_regularize_debt}
+            onChange={() =>
+              this.handleChange('consumer_regularize_debt')(
+                !this.state.theme.consumer_regularize_debt,
+              )
+            }
+          />
+          <Typography>
+            {t('forms.themePersonalization.consumerRegularizeDebt')}
+          </Typography>
+        </div>
+        <div className={classes.inputContainer}>
+          <Switch
             checked={this.state.theme.show_offers_filling}
             onChange={() =>
               this.handleChange('show_offers_filling')(
@@ -278,7 +294,7 @@ export class ThemePersonalize extends Component<Props, State> {
               label={t('forms.themePersonalization.default_attendance.missing')}
             />
             <FormControlLabel
-              value={true}
+              value
               control={<Radio checked={this.state.theme.default_attendance} />}
               label={t('forms.themePersonalization.default_attendance.present')}
             />

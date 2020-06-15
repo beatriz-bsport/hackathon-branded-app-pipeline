@@ -1,6 +1,7 @@
 exports.default = {
   forms: {
     themePersonalization: {
+      consumerRegularizeDebt: 'Le client peut régulariser son acompte en ligne',
       calendar: {
         title:
           'Introduisez votre propre code CSS pour personnaliser votre calendrier',

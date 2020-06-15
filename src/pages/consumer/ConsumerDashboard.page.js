@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import { push as pushRouter } from 'connected-react-router';
 import TodayIcon from '@material-ui/icons/Today';
 
+import themeSelectors from '../../libs/theme/selectors';
 import ConsumerDebtRegularizerDialog from '../../libs/consumer-space/components/ConsumerDebtRegularizerDialog.component';
 import BookingCancellationDialog from '../../libs/booking/components/BookingCancellationDialog.component';
 import BookingOptionCancelDialog from '../../libs/waiting-list/components/BookingOptionCancelDialog.component';
@@ -141,11 +142,14 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             {this.props.t('actions.goToCalendar')}
           </Button>
         </div>
-        <ConsumerDebtRegularizerDialog
-          withButton
-          member={this.props.membership}
-          submitPayment={this.props.submitPayment}
-        />
+        {!!this.props.companyTheme &&
+          this.props.companyTheme.consumer_regularize_debt && (
+            <ConsumerDebtRegularizerDialog
+              withButton
+              member={this.props.membership}
+              submitPayment={this.props.submitPayment}
+            />
+          )}
         <ConsumerDashboardHeader
           favoriteMetaActivity={this.props.favoriteMetaActivity}
           favoriteEstablishment={this.props.favoriteEstablishment}
@@ -236,6 +240,7 @@ export default compose(
         state.privateService.privateConsumerPass.loading,
       consumerPackLoading: state.consumerPaymentPack.byMember.loading,
 
+      companyTheme: themeSelectors.getTheme(state),
       consumerPackList: getConsumerPacksByMemberWithPaymentPack(
         state,
         membership.member,

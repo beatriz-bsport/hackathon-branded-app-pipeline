@@ -1,12 +1,10 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 
-import { compose } from 'recompose';
-import Tooltip from '@material-ui/core/Tooltip';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -16,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import EditIcon from '@material-ui/icons/Edit';
+import Tooltip from '../../../components/Tooltip.component';
 
 import withConfirm from '../../../hocs/with-confirm.hoc';
 
@@ -25,9 +24,7 @@ type Props = {
   onClickDuplicate: (id: number) => void,
   onClickDelete: (id: number) => void,
   selected: boolean,
-  t: TFunction,
   onClickEdit: (id: number) => void,
-  classes: Object,
 };
 
 const ButtonWithConfirm = withConfirm(IconButton, 'onClick', {
@@ -39,81 +36,71 @@ const ButtonWithConfirm = withConfirm(IconButton, 'onClick', {
   ),
 });
 
-export class EmailCard extends Component<Props, state> {
-  render() {
-    return (
-      <ListItem
-        divider
-        button
-        dense
-        className={this.props.classes.listitem}
-        selected={this.props.selected}
-        onClick={() => this.props.onClick(this.props.email_template.id)}
-      >
-        <ListItemText
-          primary={
-            <Typography component="span" variant="subtitle1">
-              {this.props.email_template.title}
-            </Typography>
-          }
-          secondary={
-            this.props.email_template.subject || this.props.t('no_subject')
-          }
-        />
-        <div className={this.props.classes.actions}>
-          {this.props.onClickEdit ? (
+export const EmailCard = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['emailTemplate']);
+  return (
+    <ListItem
+      divider
+      button
+      dense
+      className={classes.listitem}
+      selected={props.selected}
+      onClick={() => props.onClick(props.email_template.id)}
+    >
+      <ListItemText
+        primary={
+          <Typography component="span" variant="subtitle1">
+            {props.email_template.title}
+          </Typography>
+        }
+        secondary={props.email_template.subject || t('no_subject')}
+      />
+      <div className={classes.actions}>
+        {props.onClickEdit ? (
+          <IconButton
+            onClick={(ev) => {
+              ev.stopPropagation();
+              ev.preventDefault();
+              props.onClickEdit(props.email_template.id);
+            }}
+            color="primary"
+          >
+            <EditIcon />
+          </IconButton>
+        ) : null}
+        {props.onClickDuplicate && (
+          <Tooltip title={t('duplicate')} aria-label="info">
             <IconButton
               onClick={(ev) => {
                 ev.stopPropagation();
                 ev.preventDefault();
-                this.props.onClickEdit(this.props.email_template.id);
+                props.onClickDuplicate(props.email_template.id);
               }}
               color="primary"
             >
-              <EditIcon />
+              <FileCopyIcon />
             </IconButton>
-          ) : null}
-          {this.props.onClickDuplicate ? (
-            <Tooltip
-              title={
-                <Typography variant="subtitle2">
-                  {this.props.t('duplicate')}
-                </Typography>
-              }
-              classes={this.props.classes}
-              aria-label="info"
-            >
-              <IconButton
-                onClick={(ev) => {
-                  ev.stopPropagation();
-                  ev.preventDefault();
-                  this.props.onClickDuplicate(this.props.email_template.id);
-                }}
-                color="primary"
-              >
-                <FileCopyIcon />
-              </IconButton>
-            </Tooltip>
-          ) : null}
-          {this.props.onClickDelete ? (
-            <ButtonWithConfirm
-              onClick={(ev) => {
-                ev.stopPropagation();
-                ev.preventDefault();
-                this.props.onClickDelete(this.props.email_template.id);
-              }}
-              color="secondary"
-            >
-              <DeleteIcon />
-            </ButtonWithConfirm>
-          ) : null}
-        </div>
-      </ListItem>
-    );
-  }
-}
+          </Tooltip>
+        )}
+        {props.onClickDelete && (
+          <ButtonWithConfirm
+            onClick={(ev) => {
+              ev.stopPropagation();
+              ev.preventDefault();
+              props.onClickDelete(props.email_template.id);
+            }}
+            color="secondary"
+          >
+            <DeleteIcon />
+          </ButtonWithConfirm>
+        )}
+      </div>
+    </ListItem>
+  );
+};
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   tooltip: {
     backgroundColor: theme.palette.common.white,
     boxShadow: theme.shadows[2],
@@ -124,8 +111,6 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
   },
   actions: { display: 'flex' },
-});
-export default compose(
-  withStyles(styles),
-  withTranslation(['emailTemplate']),
-)(EmailCard);
+}));
+
+export default EmailCard;

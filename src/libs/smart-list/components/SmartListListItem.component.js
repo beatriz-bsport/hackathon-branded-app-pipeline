@@ -1,20 +1,19 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import { compose } from 'recompose';
 
-import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import DeleteIcon from '@material-ui/icons/Delete';
-import Typography from '@material-ui/core/Typography';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import Tooltip from '../../../components/Tooltip.component';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 
 type Props = {
@@ -37,71 +36,63 @@ const ButtonWithConfirm = withConfirm(IconButton, 'onClick', {
   ),
 });
 
-export class SmartListItem extends Component<Props> {
-  render() {
-    return (
-      <ListItem
-        divider
-        button
-        selected={this.props.selected}
-        onClick={() => this.props.onClick(this.props.smartlist.id)}
-        className={this.props.classes.listitem}
-      >
-        <ListItemText primary={this.props.smartlist.name} />
-        <div className={this.props.classes.actions}>
-          {this.props.onClickEdit ? (
+export const SmartListItem = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['smartList']);
+  return (
+    <ListItem
+      divider
+      button
+      selected={props.selected}
+      onClick={() => props.onClick(props.smartlist.id)}
+      className={classes.listitem}
+    >
+      <ListItemText primary={props.smartlist.name} />
+      <div className={classes.actions}>
+        {props.onClickEdit ? (
+          <IconButton
+            onClick={(ev) => {
+              ev.stopPropagation();
+              ev.preventDefault();
+              props.onClickEdit(props.smartlist.id);
+            }}
+            color="primary"
+          >
+            <ArrowForwardIcon />
+          </IconButton>
+        ) : null}
+        {props.onClickDuplicate ? (
+          <Tooltip title={t('duplicate')} classes={classes} aria-label="info">
             <IconButton
               onClick={(ev) => {
                 ev.stopPropagation();
                 ev.preventDefault();
-                this.props.onClickEdit(this.props.smartlist.id);
+                props.onClickDuplicate(props.smartlist.id);
               }}
               color="primary"
             >
-              <ArrowForwardIcon />
+              <FileCopyIcon />
             </IconButton>
-          ) : null}
-          {this.props.onClickDuplicate ? (
-            <Tooltip
-              title={
-                <Typography variant="subtitle2">
-                  {this.props.t('duplicate')}
-                </Typography>
-              }
-              classes={this.props.classes}
-              aria-label="info"
-            >
-              <IconButton
-                onClick={(ev) => {
-                  ev.stopPropagation();
-                  ev.preventDefault();
-                  this.props.onClickDuplicate(this.props.smartlist.id);
-                }}
-                color="primary"
-              >
-                <FileCopyIcon />
-              </IconButton>
-            </Tooltip>
-          ) : null}
-          {this.props.onClickDelete ? (
-            <ButtonWithConfirm
-              onClick={(ev) => {
-                ev.stopPropagation();
-                ev.preventDefault();
-                this.props.onClickDelete(this.props.smartlist.id);
-              }}
-              color="secondary"
-            >
-              <DeleteIcon />
-            </ButtonWithConfirm>
-          ) : null}
-        </div>
-      </ListItem>
-    );
-  }
-}
+          </Tooltip>
+        ) : null}
+        {props.onClickDelete ? (
+          <ButtonWithConfirm
+            onClick={(ev) => {
+              ev.stopPropagation();
+              ev.preventDefault();
+              props.onClickDelete(props.smartlist.id);
+            }}
+            color="secondary"
+          >
+            <DeleteIcon />
+          </ButtonWithConfirm>
+        ) : null}
+      </div>
+    </ListItem>
+  );
+};
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   tooltip: {
     backgroundColor: theme.palette.common.white,
     boxShadow: theme.shadows[2],
@@ -112,9 +103,6 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
   },
   actions: { display: 'flex' },
-});
+}));
 
-export default compose(
-  withTranslation(['smartList']),
-  withStyles(styles),
-)(SmartListItem);
+export default SmartListItem;

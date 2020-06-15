@@ -189,6 +189,7 @@ export class MarketingEmail extends Component<Props> {
                           onClick={(id) => {
                             this.selected(id);
                           }}
+                          key={email.id}
                           email_template={email}
                           onClickDuplicate={this.onDuplicate}
                           onClickEdit={(id) => this.props.goToEdit(id)}
@@ -215,6 +216,7 @@ export class MarketingEmail extends Component<Props> {
                     onClick={(id) => {
                       this.selected(id);
                     }}
+                    key={email.id}
                     email_template={email}
                     onClickDuplicate={this.onDuplicate}
                     onClickEdit={(id) => this.props.goToEdit(id)}

@@ -28,7 +28,8 @@ Running with the distant (staging) backend server
 -------------------------------------------------
 Set in your `.env` first)
 ```sh
-BASE_URI='http://api.ci.bsport.io'
+BASE_URI='https://back.staging.bsport.io'
+API_URI='https://back.staging.bsport.io/api-v0'
 STRIPE_PK_KEY='pk_test_lFB5CxcyTCaQcS00MiE1ebEO'
 GOOGLE_MAPS_API_KEY='AIzaSyD5aOL4nVUjsFNIj3jSpCTtqHHkem8NcZM'
 ```

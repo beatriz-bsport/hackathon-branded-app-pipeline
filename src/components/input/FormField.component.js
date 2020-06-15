@@ -13,6 +13,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
+import moment from 'moment';
 import DateTimePicker from 'material-ui-pickers/DateTimePicker';
 import DatePicker from 'material-ui-pickers/DatePicker';
 
@@ -283,7 +284,7 @@ export class FormField extends Component<Props, State> {
           <TextField
             style={{ minWidth: 120 }}
             type="time"
-            value={value}
+            value={moment(value, 'LT').format('HH:mm')}
             onChange={this.handleChange}
             required={required}
             disabled={disabled}

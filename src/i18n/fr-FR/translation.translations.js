@@ -713,6 +713,8 @@ exports.default = {
       'Avant le début du cours, dernière réservation possible',
     lastDiscardBeforeMinutes:
       'Avant le début du cours, dernière annulation possible',
+    firstBookingMinutesUntil:
+      'Bloquer les réservations dans le futur au-dessus de ',
     addOffers: 'Ajouter des séances',
     addActivity: 'Ajouter une activité',
     name: 'Titre',
@@ -861,6 +863,7 @@ exports.default = {
       bookOption: "Liste d'attente",
       notAvailable: 'Annulée',
       isPast: 'Passée',
+      notBookableYet: 'Bientôt',
     },
     sessionThisDay: 'Séance ce jour :',
     calendar: 'Calendrier',

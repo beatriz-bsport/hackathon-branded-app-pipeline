@@ -74,6 +74,8 @@ exports.default = {
       "Avant le début de l'activité, dernière réservation possible",
     lastDiscardBeforeMinutes:
       "Avant le début de l'activité, dernière annulation possible",
+    firstBookingMinutesUntil:
+      'Bloquer les réservations dans le futur au-dessus de ',
   },
   packsAvailable: 'Eligible aux pass :',
 

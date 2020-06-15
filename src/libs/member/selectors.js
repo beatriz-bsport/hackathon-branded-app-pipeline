@@ -5,7 +5,7 @@ import type { State } from '../../state/types';
 
 const getMemberDetailData = (state) => state.member.detailData;
 const _getMemberListIds = (state) => state.member.allIds;
-const _getSearchedMemberIds = (state) => state.member.search.allIds;
+const _getSearchedMemberIds = (state) => state.member.search.allIds || [];
 const _getMemberHistoryIds = (state) => state.member.historyListIds;
 
 const getMemberListData = (state) => state.member.listData;

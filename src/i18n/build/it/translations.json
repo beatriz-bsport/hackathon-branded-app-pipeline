@@ -134,7 +134,13 @@
             "myBookings": "Prenotazioni",
             "hasntBooked": "Non iscritto",
             "hasBooked": "Registrato",
-            "createBooking": "Registrare"
+            "createBooking": "Registrare",
+            "bill": "Fattura",
+            "createBookingOption": "Lista d'attesa",
+            "reCreateBooking": "Registrarsi nuovamente",
+            "noQuickInvoiceOpened": "Nessuna fatturazione aperta",
+            "myOpenedInvoices": "Fatture rapide",
+            "manageOffer": "Gestisci le mie prenotazioni"
         },
         "companies": {
             "general": "Generale",
@@ -178,6 +184,414 @@
         "pagination": {
             "rowPerPage": "Elementi per pagina",
             "outOf": " su "
+        },
+        "form": {
+            "shop": {
+                "subShop": {
+                    "createOrUpdate": {
+                        "error": "Impossibile salvare la categoria",
+                        "success": "Categoria registrata correttamente"
+                    },
+                    "delete": {
+                        "error": "Impossibile eliminare la categoria",
+                        "success": "Categoria eliminata"
+                    },
+                    "nameTitle": "Nuova categoria",
+                    "namePlaceholder": "Succo di frutta"
+                },
+                "item": {
+                    "available_payment_method_identifiers": {
+                        "helperText": "Seleziona almeno un metodo di pagamento. Se il carrello del membro contiene articoli per i quali i mezzi di pagamento sono incompatibili, verrà offerto il pagamento attraverso carta di credito.",
+                        "label": "Mezzi di pagamento autorizzati"
+                    },
+                    "updateProvisionExplain": "Inserisci la fornitura al tuo inventario. Questa verrà aggiunta allo stock corrente",
+                    "add": "Aggiungi articolo",
+                    "onsite_payment_available": "Possibilità di pagare in loco",
+                    "sell_only_on_provision": "Offerta in vendita SOLO se disponibile in stock",
+                    "featured": "Evidenziare al momento della convalida del carrello",
+                    "is_deliverable": "Impone costi di consegna predefiniti",
+                    "create": "Aggiungi un articolo",
+                    "unlimitedProvision": "Nessuna gestione delle scorte",
+                    "marketplace_enabled": "Disponibile sul marketplace",
+                    "deleteTitle": "Rimuovi",
+                    "barcode": "Codice a barre",
+                    "deleteExplain": "Attenzione questa cancellazione è definitiva, nessun cliente sarà in grado di acquistare questo prodotto, le scorte verranno eliminate.",
+                    "updateProvisions": {
+                        "success": "Stock aggiornato",
+                        "error": "Errore durante la registrazione dello stock"
+                    },
+                    "modifyProvisions": "Aggiorna stock",
+                    "updateProvisionTitle": "Modifica dello stock",
+                    "createOrUpdate": {
+                        "success": "Salvato",
+                        "error": "Errore durante il salvataggio"
+                    },
+                    "delete": {
+                        "success": "Articolo cancellato",
+                        "error": "Errore durante l'eliminazione"
+                    },
+                    "subtitle": "Sottotitolo",
+                    "description": "Descrizione",
+                    "provisions": "Fornitura",
+                    "name": "Nome",
+                    "price": "Prezzo",
+                    "tva": "I.V.A."
+                }
+            },
+            "member": {
+                "createOrUpdate": {
+                    "error": "Errore durante il salvataggio dell'annotazione",
+                    "success": "Annotazione registrata"
+                },
+                "rgpdTitle": "Mezzi di comunicazione accettati dal membro (promozioni, marketing, smartlist ecc ...)",
+                "barcode": "Codice a barre (carta)",
+                "rgpd": {
+                    "email": "Accetta notifiche e-mail",
+                    "sms": "Accetta notifiche SMS"
+                },
+                "delete": {
+                    "error": "Errore durante l'eliminazione dell'annotazione",
+                    "success": "Annotazione eliminata"
+                },
+                "phone": "Telefono",
+                "birthdayYear": "Anno di nascita",
+                "barcodeHelper": "(facoltativo) usa questo codice per la tua carta d'accesso",
+                "referenceNumber": "Numero d'iscrizione",
+                "referenceNumberHelper": "(facoltativo) se vuoto verrà creato automaticamente un numero"
+            },
+            "offer": {
+                "coachChangeWarning": "Se modifichi l'insegnante, questa modifica sarà efficace per tutte le sessioni future. Se questo non è ciò che desideri, utilizza il campo \"Sostituisci\". Qualsiasi altra modifica registrata qui (palestra, prezzo, giorno della settimana ...) verrà quindi applicata a tutte le sessioni.",
+                "levelChangeWarning": "Se modifichi il livello del corso, questa modifica sarà efficace per tutte le sessioni future. Qualsiasi altra modifica registrata qui (palestra, prezzo, giorno della settimana ...) verrà quindi applicata a tutte le sessioni.",
+                "establishmentChangeWarning": "Se si modifica la palestra, questa modifica sarà effettiva per tutte le sessioni future. Se questo non è ciò che desideri, utilizza il campo \"Palestra temporanea\". Qualsiasi altra modifica registrata qui (giorno della settimana, prezzo, insegnante supplente, insegnante ...) verrà quindi applicata a tutte le sessioni.",
+                "substituteCoachLabel": "Sostituisci",
+                "coachLabel": "Insegnante",
+                "establishmentLabel": "Struttura",
+                "substituteEstablishmentLabel": "Stabilimento (luogo temporaneo)",
+                "warningPackonEdit": "Le modifiche alle sessioni potrebbero renderle incompatibili con determinate schede delle lezioni. Dopo la modifica, prenditi il tempo necessario per verificare che rimangano compatibili con eventuali cambiamenti di posizione / insegnante.",
+                "deleteTitle": "Elimina sessione",
+                "cancelTitle": "Annulla la sessione",
+                "changeDate": "Cambia l'ora / la data",
+                "changeCoach": "Modifica insegnante",
+                "changeEstablishment": "Cambia luogo",
+                "broadcast_link": {
+                    "error": "Il link è sbagliato Deve iniziare con http: // o https: // e non deve contenere spazi"
+                },
+                "explainRecursiveOfferDelete": "Vuoi eliminare TUTTE le sessioni simili?",
+                "explainRecursiveOfferEdit": "Vuoi modificare TUTTE le sessioni simili in base a queste nuove condizioni?",
+                "explainNotificationOnEdit": "Vuoi informare i tuoi clienti di questo cambiamento?",
+                "delete": {
+                    "buttonHardDelete": "Rimuovi",
+                    "explainHardDelete": "Rimuovere la sessione dall'elenco? Si noti che questo diventerà invisibile, questa operazione è irreversibile! Se la sessione contiene prenotazioni, non verrà eliminata.",
+                    "explainCreditBack": "Restituisci i crediti spesi ai clienti sulla scheda del corso",
+                    "explainNotify": "Invia un avviso ai clienti che hanno prenotato",
+                    "explainModalities": "Questa modifica è definitiva. La tua sessione non sarà più visibile ai clienti finali. Puoi ancora accedervi."
+                }
+            },
+            "phone": "Numero di telefono",
+            "name": "Nome",
+            "newMetaActivity": "Nuova attività",
+            "gender": "Sesso",
+            "birthdayYear": "Anno di nascita",
+            "birthday": "Data di nascita",
+            "invoice": {
+                "paymentLabel": "Aggiungi una transazione",
+                "offerHelper": "Questa sessione verrà accreditata al membro",
+                "paymentPackHelper": "Questa carta verrà accreditata al membro",
+                "noPayedObject": "Nessuno",
+                "objectTypeLabel": "Oggetto da accreditare",
+                "dateStartPaymentPack": "La scheda del corso inizia",
+                "backToInvoiceItemList": "Torna all'elenco",
+                "title": "Salva un pagamento",
+                "activityHelper": "Scegli l'attività, quindi la sessione",
+                "titleUnevenInvoice": "Fattura irregolare",
+                "explainUnevenInvoice": "Il totale è {{totalInvoiceItems}} € quando i pagamenti totali sono {{totalPayments}} €. Il conto del membro verrà accreditato / addebitato sul saldo."
+            },
+            "payment": {
+                "status": "Status",
+                "paid": "Pagato",
+                "unpaid": "In attesa",
+                "noPaymentExtraInfo": "Nessuna informazione aggiuntiva",
+                "additionalInformationLabel": "Informazione",
+                "additionalInformationHelper": "(facoltativo) controllare il numero, la data di incasso ..."
+            },
+            "default_credits": "Prezzo (crediti)",
+            "SMSSignInTitle": "Connessione SMS",
+            "signup": {
+                "communication": {
+                    "sms": "per SMS",
+                    "email": "per email"
+                },
+                "typePhone": "Numero di cellulare*",
+                "emailExistsInDB1": "Questa email è già registrata",
+                "emailExistsInDB2": "Accesso",
+                "confirmPasswordLabel": "Conferma",
+                "confirmPassword": "Password",
+                "rgpdTitle": "Come preferiresti che gli insegnanti ti contattassero per cancellazioni / cambi di orario?",
+                "signupButton": "Registrati",
+                "iAcceptPrivacyPolicy": "Accetto ",
+                "privacyPolicy": "i termini e le condizioni d'utilizzo"
+            },
+            "oneHourFifteen": "1h15m",
+            "waiting_list_max_size": "Dimensione della lista d'attesa",
+            "address": {
+                "streetNumber": "No.",
+                "addressLine1": "Indirizzo",
+                "addressLine2": "Indirizzo aggiuntivo",
+                "city": "Città",
+                "country": "Nazione",
+                "zipcode": "Codice postale"
+            },
+            "login": {
+                "changePasswordTitle": "Cambia la password",
+                "password": "Password",
+                "confirmPassword": "Conferma",
+                "passwordChangedSuccess": "Password cambiata con successo!",
+                "passwordMismatch": "Le passwords non corrispondono",
+                "resetAgainPassword": "Reimposta password",
+                "tokenExpired": "Questa pagina è scaduta, ripetere una richiesta di modifica della password",
+                "passwordTooEasy": "La password deve contenere almeno 6 caratteri e includere un numero e delle lettere"
+            },
+            "booking": {
+                "delete": {
+                    "success": "Prenotazione cancellata",
+                    "error": "Errore durante l'eliminazione"
+                }
+            },
+            "metaActivity": {
+                "cantAddSameName": "Un'attività con lo stesso nome esiste già!"
+            },
+            "quickInvoice": {
+                "totalPurchase": "Acquisti",
+                "totalPayment": "Pagamenti",
+                "paymentDue": "Pagamento dovuto"
+            },
+            "establishment": "Struttura",
+            "coach": "Insegnante",
+            "newMember": "Nuovo membro",
+            "newCoach": "Nuovo professore",
+            "firstname": "Nome",
+            "lastname": "Cognome",
+            "clearDate": "Cancella",
+            "email": "Indirizzo email",
+            "description": "Descrizione",
+            "send": "Iscriviti",
+            "discard": "Annulla",
+            "SCT": "Categoria",
+            "default_price": "Prezzo",
+            "default_last_booking_minutes": "Ultima prenotazione",
+            "default_last_discard_minutes": "Ultima cancellazione fino al",
+            "default_duration_minutes": "Durata della sessione",
+            "zeroMinute": "0 minuti",
+            "quarterHour": "15 minuti",
+            "twentyMinutes": "2O min",
+            "halfHour": "30 minuti",
+            "halfAndQuarterHour": "45 minuti",
+            "oneHour": "1h",
+            "oneHourAndHalf": "1h30",
+            "twoHour": "2h",
+            "threeHour": "3h",
+            "fourHour": "4h",
+            "sixHour": "6h",
+            "eightHour": "8h",
+            "twelveHour": "12h",
+            "oneDay": "1 giorno",
+            "twoDays": "2 giorni",
+            "oneWeek": "1 settimana",
+            "tenDays": "10 giorni",
+            "twoWeeks": "2 settimane",
+            "oneMonth": "1 mese",
+            "never": "Mai",
+            "title": "Titolo",
+            "specific_info": "Descrizione",
+            "pleaseEnterYourSMSCode": "Si prega di inserire il codice inviato via SMS",
+            "code": "Codice",
+            "signInPhoneInstruction": "Inserisci il tuo numero di telefono, un codice di conferma ti verrà inviato via SMS",
+            "password": "Password",
+            "default_waiting_list_max_size": "Dimensione della lista d'attesa",
+            "generateOffers": "Crea sessioni",
+            "credit_price": "Numero di carta del corso richiesto per prenotare",
+            "offersWillBeGenerated": "verranno create sessioni",
+            "offerWillBeGenerated": "la sessione verrà creata",
+            "recurrence": "Ricorrenza",
+            "notRecurrent": "Una sola sessione",
+            "weekly": "Settimanale",
+            "monthly": "Mensile",
+            "timeSettings": "Orari e date",
+            "firstSessionOn": "Prima sessione il",
+            "firstSessionAt": "il",
+            "lastSession": "Ultima sessione il",
+            "duration_minute": "Durata",
+            "priceCategory": "Fatturazione",
+            "credits": "Numero di crediti della carta del corso richiesti per la prenotazione",
+            "price": "Prezzo",
+            "caracteristics": "Caratteristiche",
+            "effectif": "Valido",
+            "level": "Livello",
+            "addingSessionFor": "Creazione sessione per: "
+        },
+        "marketing": {
+            "dashboard": "Pannello di controllo",
+            "clientsReached": "Clienti interessati",
+            "conversionRate": "Tasso di conversione",
+            "sales": "Saldi",
+            "averageBuy": "Media acquisti",
+            "totalBuy": "Fatturato totale",
+            "action": "Azione",
+            "SMSSent": "SMS inviato",
+            "EmailSent": "Email inviate",
+            "notificationsSent": "Notifiche inviate",
+            "strategy": "Strategia: ",
+            "estimatedTarget": "Quota di utenti interessati",
+            "after": "Dopo ",
+            "offersMatching": " sessioni simili",
+            "promoTitle": "Promozione",
+            "promo": "Promozione di ",
+            "noPromo": "Nessuna",
+            "criterias": "Criteri",
+            "message": "Messaggio"
+        },
+        "consumer": {
+            "help": {
+                "areYouSureCancelBookingOption": "Sei sicuro di voler annullare la tua scelta?",
+                "explainCancelBookingOption": "L'eliminazione è definitiva, se si sceglie un'altra opzione in questa sessione, il posto nella lista di attesa verrà reinizializzato."
+            },
+            "myPaymentPacks": "Le mie schede delle lezioni",
+            "myPrivatePass": "I miei appuntamenti",
+            "company": "Club",
+            "booking": {
+                "myPrivateBooking": "Appuntamento",
+                "cancelBooking": "Cancella la prenotazione",
+                "discardBookingTitle": "Cancella la prenotazione",
+                "discardPossibleExplain": "Sei sicuro di voler cancellare questa prenotazione? Il tuo credito sarà nuovamente utilizzabile.",
+                "discardImpossibleExplain": "Sei sicuro di voler cancellare questa prenotazione? Se si annulla troppo tardi, la carta del corso non verrà riaccreditata (termini e condizioni del club).",
+                "confirmBooking": "Conferma",
+                "waitingSlot": "In attesa",
+                "myFutureBookings": "Prossime sessioni",
+                "myPastBookings": "Le mie precedenti prenotazioni",
+                "myOptions": "Prenotazioni in lista d'attesa",
+                "noBookingOptions": "Nessuna prenotazione in lista d'attesa",
+                "noFutureBookings": "Nessuna prenotazione pianificata",
+                "noPastBookings": "Nessuna prenotazione effettuata in passato",
+                "cancelOption": "Annulla"
+            }
+        },
+        "navigation": {
+            "playlist": "Percorso",
+            "podcast": "Podcast",
+            "sequence": "Strategie",
+            "consumer": {
+                "pass": "Schede del corso",
+                "bookings": "Le mie prenotazioni ",
+                "profile": "Il mio profilo",
+                "order": "I miei ordini"
+            },
+            "reporting": "Report",
+            "beta": "beta",
+            "combo": "Pacchetto",
+            "video": "Videoteca",
+            "digital": "Offerta digitale",
+            "marketing_automation": "Marketing automatizzato",
+            "requestTempPassword": "Consentire l'accesso",
+            "smart_list": "SmartList",
+            "email_template": "Email",
+            "order": "Ordini",
+            "workshopActivities": "Workshop",
+            "invoice": "Fatture",
+            "alpha": "in via di sviluppo",
+            "schedule": "Calendario",
+            "privateService": {
+                "title": "Su appuntamento",
+                "services": "Su appuntamento",
+                "pass": "Pass per appuntamenti"
+            },
+            "coachPerformance": "Insegnanti",
+            "search": "Ricerca",
+            "dashboard": "Pannello di controllo",
+            "activity": "Le mie attività",
+            "calendar": "Calendario",
+            "message": "Marketing",
+            "member": "Membri",
+            "establishment": "Strutture",
+            "payment": "Pagamenti",
+            "logoff": "Disconnettiti",
+            "refresh": "Ricarica",
+            "goBack": "Indietro",
+            "pass": "Scheda del corso",
+            "settings": "Impostazioni",
+            "myClub": "Il mio club",
+            "subscription": "Abbonamenti",
+            "coupon": "Promozioni"
+        },
+        "payment": {
+            "payWithNCredits1": "Prenota (",
+            "payWithNCredits2": "credito",
+            "paymentMethods": {
+                "HOLIDAY_CHECK": "Buoni vacanze",
+                "CB_MANUAL": "Carta di credito (manuale)",
+                "CB": "Carta di credito",
+                "CHECK": "Conto"
+            },
+            "updateInvoiceVoucher": "Aggiungi un voucher",
+            "paymentMethodStripe": "Carta di credito",
+            "payment": "Pagamento",
+            "credit": "Credito",
+            "privatePass": "Pass per appuntamenti",
+            "return": "Rimborso",
+            "paymentCombo": "Pacchetto",
+            "products": "articoli",
+            "invoiceRevertedThusNotEditable": "La fattura è stata annullata e non può essere più modificata",
+            "topUp": "Credito",
+            "invoiceFinalizedThusNotEditable": "La fattura è stata finalizzata e pertanto non è più modificabile",
+            "actions": "Azioni",
+            "bookWithUnlimitedPack": "Prenota",
+            "noCreditLeft": "Credito insufficiente",
+            "noBookingsLeftOnPack": "La scheda è esaurita per questa settimana",
+            "yourBasket": "Il tuo acquisto",
+            "availablePaymentPacks": " scheda del corso compatibile",
+            "pay": "Pagamento",
+            "type": "Tipo",
+            "amount": "Importo",
+            "fullyPaid": "Status",
+            "consumer": "Cliente",
+            "paymentDate": "Data di acquisto",
+            "object": "Descrizione",
+            "addInvoiceItem": "Aggiungi alla fattura",
+            "addOffer": "Allenamento",
+            "addPaymentPack": "Scheda del corso",
+            "voucher": "Voucher",
+            "total": "TOTALE",
+            "paymentMethodCheck": "Conto",
+            "paymentMethodCash": "Contanti",
+            "invoice": "Fattura",
+            "paymentMethod": "Metodo di pagamento",
+            "creditAccountBalance": "Saldo del conto: "
+        },
+        "shop": {
+            "supplier_price": "Prezzo fornitore",
+            "myShop": "Il mio negozio",
+            "subShop": {
+                "delete": {
+                    "explain": "Sei sicuro di voler eliminare questa categoria? Verranno eliminati anche tutti gli elementi che contiene",
+                    "title": "Rimuovi"
+                }
+            },
+            "ht": "IVA esclusa",
+            "noProvisionUpdates": "Nessuna prestazione"
+        },
+        "invoice": {
+            "choseDateTitle": "Data di fatturazione",
+            "reverted": "Annullato",
+            "revert": "Annulla fattura",
+            "choseDate": "Data di fatturazione",
+            "explainDateChoser": "Scegli la data di fatturazione. I pagamenti con carta di credito verranno immediatamente incassati indipendentemente dalla data scelta",
+            "revertImpossibleExplainSubscription": "Questa fattura fa parte di un abbonamento, non è possibile annullare una fattura ricevuta collegata a un abbonamento, ma è possibile interrompere l'abbonamento",
+            "revertExplainPayment": "I pagamenti con carta di credito verranno rimborsati sul conto del membro. Tutti gli altri metodi di pagamento verranno eliminati.",
+            "revertExplainCredits": "Addebiti / crediti sul conto del membro verranno annullati.",
+            "revertExplainPacks": "Le schede del corso saranno cancellate e TUTTE le prenotazioni associate",
+            "revertExplainShop": "Gli acquisti in negozio verranno annullati e l'inventario ripristinato.",
+            "invoiceReverted": "Fattura annullata",
+            "finalize": "Finalizza la fattura",
+            "explainFinalize": "Attenzione! Una fattura finalizzata non può più essere modificata e tutti i pagamenti contrassegnati in attesa di incasso verranno considerati come riscossi. Una volta finalizzata la fattura, è possibile esportarla come PDF"
         }
     }
 }

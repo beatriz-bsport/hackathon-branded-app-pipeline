@@ -529,7 +529,15 @@
                 "HOLIDAY_CHECK": "Buoni vacanze",
                 "CB_MANUAL": "Carta di credito (manuale)",
                 "CB": "Carta di credito",
-                "CHECK": "Conto"
+                "CHECK": "Conto",
+                "OTHER": "Altro",
+                "CASH": "Contanti",
+                "EVENT_BRITE": "EventBrite",
+                "AMEX": "AMEX (American Express)",
+                "BANK_TRANSFER": "Versamento",
+                "CREDIT_ACCOUNT": "Conto interno (di credito)",
+                "SUBSCRIPTION_CB": "Pagamento programmato",
+                "DISPUTE": "Contenzioso"
             },
             "updateInvoiceVoucher": "Aggiungi un voucher",
             "paymentMethodStripe": "Carta di credito",
@@ -564,7 +572,22 @@
             "paymentMethodCash": "Contanti",
             "invoice": "Fattura",
             "paymentMethod": "Metodo di pagamento",
-            "creditAccountBalance": "Saldo del conto: "
+            "creditAccountBalance": "Saldo del conto: ",
+            "addThisPaymentItem": "Aggiungi questo pagamento",
+            "status": "Incassato",
+            "stillUnpaid": "Ancora da ricevere: ",
+            "paymentItemsListTitle": "Pagamenti registrati",
+            "noPaymentItem": "Nessun pagamento registrato",
+            "isRecurring": "Pagamento a rate",
+            "intervalMonth": "Mensile",
+            "intervalWeek": "Settimanale",
+            "billingAnchor": "Primo versamento",
+            "nbInterval": "Numero di addebiti diretti",
+            "intervalType": "Frequenza di pagamento",
+            "stripePaymentWillBeCashedOutOnInvoiceValidation": "La carta di credito verrà addebitata solo dopo il salvataggio della fattura",
+            "createInvoice": "Pagamento",
+            "toBill": "Fattura",
+            "toSubscribe": "Abbonati"
         },
         "shop": {
             "supplier_price": "Prezzo fornitore",
@@ -592,6 +615,127 @@
             "invoiceReverted": "Fattura annullata",
             "finalize": "Finalizza la fattura",
             "explainFinalize": "Attenzione! Una fattura finalizzata non può più essere modificata e tutti i pagamenti contrassegnati in attesa di incasso verranno considerati come riscossi. Una volta finalizzata la fattura, è possibile esportarla come PDF"
+        },
+        "activity": {
+            "totalCustomers": "Totale prenotazioni",
+            "noOfferThisDay": "Nessuna sessione, selezionare un'altra data sul calendario",
+            "packsAvailable": "Idoneo per pass:",
+            "addOffers": "Aggiungi sessioni",
+            "addActivity": "Aggiungi un'attività",
+            "firstBookingMinutesUntil": "Blocca le prenotazioni fino a ",
+            "name": "Titolo",
+            "color": "Codice colore",
+            "noNextSlot": "Nessuna sessione programmata",
+            "grossVolume": "Fatturato",
+            "fillrate": "Occupazione media",
+            "description": "Descrizione",
+            "category": "Categoria",
+            "offersThisDay": "Sessioni oggi:",
+            "orNcredits1": "(o ",
+            "orNcredits2": " crediti)",
+            "reviews": "Opinione dei clienti: ",
+            "explainImage": "Consigliato: 1920x1080 jpeg (fullHD)",
+            "nextSlotAt": "Prossima sessione il ",
+            "settings": "Impostazioni",
+            "is_broadcast": "Corsi di streaming live",
+            "lastBookingBeforeMinutes": "Prima dell'inizio del corso, ultima prenotazione possibile",
+            "lastDiscardBeforeMinutes": "Prima dell'inizio del corso, ultima cancellazione possibile"
+        },
+        "workshopActivity": {
+            "lastBookingBeforeMinutes": "Prima dell'inizio del workshop, ultima prenotazione possibile",
+            "addWorkshopActivity": "Aggiungi un workshop",
+            "imageUploaderRequireEditMessage": "Una volta creata la tua attività, sarai in grado di aggiungere altre immagini.",
+            "lastDiscardBeforeMinutes": "Prima dell'inizio del workshop, ultima cancellazione possibile",
+            "forms": {
+                "create": {
+                    "success": "Workshop salvato",
+                    "error": "Impossibile salvare il workshop"
+                },
+                "update": {
+                    "success": "Workshop aggiornato",
+                    "error": "Impossibile aggiornare il workshop"
+                }
+            }
+        },
+        "booking": {
+            "revertBookingExplain": {
+                "offerIsAvailable": "Sei sicuro di voler cancellare questa prenotazione? I crediti utilizzati verranno riaccreditati.",
+                "offerIsNotAvailable": "La prenotazione sarà cancellata. La sessione è già stata annullata e i crediti non verranno rimborsati se non si è verificato il \"rimborso\" con l'annullamento"
+            },
+            "revertBookingWithInvoiceImpossibleExplain": "Questa prenotazione è già stata pagata dal membro e non può essere cancellata. Tuttavia è possibile passare la prenotazione in \"Assente\"",
+            "sources": {
+                "MAN": "Manuale",
+                "MOB": "Telefono",
+                "WEB": "Web"
+            },
+            "seeCustomers": "Visualizza le prenotazioni",
+            "wasRefunded": "Rimborsato",
+            "revertBookingTitle": "Annulla la registrazione",
+            "attend": "Presente",
+            "doNotAttend": "Assente",
+            "discard": "Annulla",
+            "onWaitingList": "In lista d'attesa",
+            "onHold": "In attesa",
+            "add": "Inscriviti",
+            "waitingUserConfirmation": "In attesa di conferma da parte del cliente",
+            "validated": "Pagato",
+            "confirm": "Incassa",
+            "pending": "Non incassati",
+            "nb_booking": "Numero di posti",
+            "lastBooking": "Prossima lezione",
+            "waiting": "Lista d'attesa",
+            "confirmed": "Confermato/i",
+            "free": "Posto/i disponibile/i",
+            "status": {
+                "null": "lista d'attesa",
+                "true": "inscritto",
+                "false": "annullato"
+            },
+            "cancelled": "Annullato",
+            "cancelBooking": "Annulla",
+            "noBookingOnThisOffer": "Nessuna prenotazione registrata per questa sessione al momento",
+            "last": "Ultima:",
+            "next": "Il prossimo:",
+            "fillRate": "Tasso di riempimento",
+            "source": "Sorgente"
+        },
+        "calendar": {
+            "previous": "<",
+            "allDay": "tutto il giorno",
+            "showWeek": "Vista settimanale",
+            "event": "allenamento",
+            "modifyOffer": "Modifica",
+            "deleteOffer": "Annulla",
+            "next": ">",
+            "today": "oggi",
+            "month": "mese",
+            "week": "settimana",
+            "day": "giorno",
+            "agenda": "Agenda",
+            "date": "data",
+            "time": "ora",
+            "showMore": "+ {{total}} sessioni aggiuntive",
+            "showMonth": "Vista mensile",
+            "pleaseSelectOffer": "Seleziona una sessione per vedere i membri registrati"
+        },
+        "paginatedList": {
+            "isEmpty": "Nessun dato da visualizzare"
+        },
+        "login": {
+            "welcome": "Benvenuto!",
+            "signUpConsumer": "Non hai ancora un account?",
+            "invalidPhone": "Numero di telefono non valido",
+            "choseYourUserspace": "Io sono",
+            "loginAsPro": "Un gestore",
+            "loginAsConsumer": "Un allievo",
+            "noAccount": "Non hai ancora un account? Creane uno qui!",
+            "password": "Password",
+            "authError": "Email o password errate",
+            "forgottenPassword": "Password dimenticata",
+            "error": {
+                "invalidEmail": "Questa email non esiste nel nostro database",
+                "invalidPassword": "La password non è valida"
+            }
         }
     }
 }

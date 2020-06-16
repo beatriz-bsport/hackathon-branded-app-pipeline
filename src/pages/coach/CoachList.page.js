@@ -11,6 +11,9 @@ import type { TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Button from '@material-ui/core/Button';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import Typography from '@material-ui/core/Typography';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
@@ -112,7 +115,26 @@ export class CoachList extends React.Component<Props, State> {
               </Collapse>
             </Paper>
           </div>
-        ) : null}
+        ) : (
+          <div className={this.props.classes.noCoachMessage}>
+            <div className={this.props.classes.containerMsg}>
+              <InfoOutlinedIcon fontSize="large" />
+              <Typography variant="caption" component="p">
+                {this.props.t('coach:noCoach')}
+              </Typography>
+            </div>
+            <div className={this.props.classes.buttonContainer}>
+              <Button
+                onClick={this.props.onCreate}
+                variant="outlined"
+                color="primary"
+                className="button"
+              >
+                {this.props.t('coach:addCoach')}
+              </Button>
+            </div>
+          </div>
+        )}
         <Paper>
           <List component="nav" dense disablePadding>
             {this.props.associatedCoaches.map((coach) => (
@@ -145,7 +167,7 @@ const styles = (theme) => ({
     paddingBottom: theme.spacing(16),
   },
   searchPaperDisplayed: {
-    border: '1px solid',
+    border: '2px solid',
     borderColor: theme.primary_color,
     borderTop: '0px',
   },
@@ -154,6 +176,34 @@ const styles = (theme) => ({
     borderColor: theme.primary_color,
     borderTop: '0px',
     boderBottom: '0px',
+  },
+  noCoachMessage: {
+    width: '90%',
+    maxWidth: '400px',
+    margin: 'auto',
+    marginTop: theme.spacing(5),
+    textAlign: 'right',
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    border: 'solid 2px #cecece',
+    borderRadius: theme.spacing(1),
+  },
+  containerMsg: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    paddingBottom: theme.spacing(1),
+  },
+  buttonContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  button: {
+    marginRight: theme.spacing(2),
+    paddingRight: theme.spacing(2),
   },
   search: { marginBottom: theme.spacing(2) },
 });

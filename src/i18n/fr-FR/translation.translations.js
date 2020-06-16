@@ -666,7 +666,7 @@ exports.default = {
     toSubscribe: 'Souscrire',
   },
   paginatedList: {
-    isEmpty: 'Aucunes données à afficher',
+    isEmpty: 'Aucune donnée à afficher',
   },
   login: {
     welcome: 'Bienvenue !',

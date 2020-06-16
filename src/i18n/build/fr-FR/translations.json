@@ -547,7 +547,7 @@
       "toBill": "Facturer",
       "toSubscribe": "Souscrire"
     },
-    "paginatedList": { "isEmpty": "Aucunes données à afficher" },
+    "paginatedList": { "isEmpty": "Aucune donnée à afficher" },
     "login": {
       "welcome": "Bienvenue !",
       "signUpConsumer": "Pas encore de compte ?",
@@ -2410,6 +2410,7 @@
   },
   "coach": {
     "detail": { "tab": { "general": "Profil", "calendar": "Calendrier" } },
+    "noCoach": "Il n'y a aucun professeur enregistré pour l'instant",
     "coach": "Professeur",
     "baseCoach": "Habituel",
     "overrider": "Remplaçant",

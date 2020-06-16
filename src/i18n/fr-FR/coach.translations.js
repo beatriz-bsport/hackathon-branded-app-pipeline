@@ -5,6 +5,7 @@ exports.default = {
       calendar: 'Calendrier',
     },
   },
+  noCoach: "Il n'y a aucun professeur enregistré pour l'instant",
   coach: 'Professeur',
   baseCoach: 'Habituel',
   overrider: 'Remplaçant',

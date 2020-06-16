@@ -4,7 +4,6 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
-import { compose } from 'recompose';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -23,8 +22,6 @@ type Props = {
   onClickDelete: (id: number) => void,
   selected: boolean,
   onClickDuplicate: (id: number) => void,
-  classes: Object,
-  t: TFunction,
 };
 
 const ButtonWithConfirm = withConfirm(IconButton, 'onClick', {

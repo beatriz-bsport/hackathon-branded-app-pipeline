@@ -71,6 +71,7 @@ type Props = {
   bookingCount: number,
 
   membership: Membership,
+  companyTheme: CompanyTheme,
 
   fetchPrivateConsumerPassList: () => void,
   privateConsumerPassList: Array<PrivateConsumerPass>,

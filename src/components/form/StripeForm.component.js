@@ -31,7 +31,7 @@ type State = {
   billing_anchor: Object,
 };
 
-export class StripeCheckout extends Component<Props, State> {
+export class StripeForm extends Component<Props, State> {
   state = {
     loading: false,
     isRecurring: false,
@@ -123,6 +123,4 @@ const styles = (theme) => ({
   },
 });
 
-export default injectStripe(
-  withStyles(styles)(withTranslation()(StripeCheckout)),
-);
+export default injectStripe(withStyles(styles)(withTranslation()(StripeForm)));

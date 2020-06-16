@@ -54,30 +54,6 @@ export async function consumerRequestOffer(offerId) {
   return getAuth(`${API_URI}/offer/${offerId}/?noLog=true`);
 }
 
-export async function consumerBuy({
-  token,
-  paymentMethod,
-  objectId,
-  objectClassName,
-  urlParams,
-  offerToBuy,
-}) {
-  let formatParams = '';
-  const data = { token, source: BOOKING_SOURCE_WEB };
-  if (urlParams) {
-    formatParams = Object.keys(urlParams)
-      .map((k) => `${k}=${urlParams[k]}`)
-      .join(',');
-  }
-  if (offerToBuy) {
-    data.offerToBuy = offerToBuy;
-  }
-  return postBaseAuth(
-    `${PAYMENT_URI}/buy/${paymentMethod}/${objectClassName}/${objectId}?${formatParams}`,
-    data,
-  );
-}
-
 export async function consumerRequestPaymentPack(paymentPackId) {
   return getAuth(`${API_URI}/saas/payment-pack/${paymentPackId}`);
 }

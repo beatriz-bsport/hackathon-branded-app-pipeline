@@ -29,9 +29,6 @@ const PaymentPackPreCheckout = asyncComponent(() =>
 const ShopItemPreCheckoutPage = asyncComponent(() =>
   import('./checkout/pre-checkout/ShopItemPreCheckout.page'),
 );
-const OrderPaymentPage = asyncComponent(() =>
-  import('./payment/OrderPayment.page'),
-);
 const CheckoutPage = asyncComponent(() =>
   import('./payment/CheckoutPage.page'),
 );
@@ -159,10 +156,6 @@ export class PaymentRouter extends React.Component<Props> {
         <Route
           path="/(|customer/)payment/shop-item/:id"
           component={ShopItemPreCheckoutPage}
-        />
-        <Route
-          path="/(|customer/)payment/order/:companyId/"
-          component={OrderPaymentPage}
         />
         <Route path="/(|customer/)checkout/" component={CheckoutRouter} />
       </Switch>

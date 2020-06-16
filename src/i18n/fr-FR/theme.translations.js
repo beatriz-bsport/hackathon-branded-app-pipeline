@@ -2,6 +2,7 @@ exports.default = {
   forms: {
     themePersonalization: {
       consumerRegularizeDebt: 'Le client peut régulariser son acompte en ligne',
+      acceptDoubleBooking: 'Accepter la double réservation',
       calendar: {
         title:
           'Introduisez votre propre code CSS pour personnaliser votre calendrier',

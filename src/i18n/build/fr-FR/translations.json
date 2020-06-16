@@ -1697,6 +1697,7 @@
     "forms": {
       "themePersonalization": {
         "consumerRegularizeDebt": "Le client peut régulariser son acompte en ligne",
+        "acceptDoubleBooking": "Accepter la double réservation",
         "calendar": {
           "title": "Introduisez votre propre code CSS pour personnaliser votre calendrier",
           "bookButton": {
@@ -3220,6 +3221,7 @@
   },
   "booking": {
     "bookingModule": {
+      "hasRegistered": "Vous êtes inscrit à cette séance",
       "section": {
         "consumerPacks": "Mes cartes de cours",
         "contracts": "Abonnements",
@@ -3236,7 +3238,8 @@
         "isTooLate": "Les inscriptions ne sont plus possible, le délai de dernière inscription a été dépassé.",
         "isTooSoon": "Les inscriptions sont fermées pour le moment et ouvriront le {{ date }}.",
         "isWaitingListFull": "La séance est complète la liste d'attente est pleine."
-      }
+      },
+      "messages": { "offerLocked": "Vous ne pouvez pas réserver cette séance" }
     },
     "details": {
       "pleaseSelectABooking": "Sélectionnez une réservation pour voir le détails",

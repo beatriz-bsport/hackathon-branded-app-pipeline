@@ -183,6 +183,11 @@ export class OfferBooking extends React.PureComponent<Props> {
         </Typography>
         <Paper>
           <OfferListItemConsumer offer={offer} />
+          {this.props.hasRegistered && (
+            <div className={classes.isRegisteredBanner}>
+              <Typography>{t('bookingModule.hasRegistered')}</Typography>
+            </div>
+          )}
         </Paper>
         {!isAvailable ? this.renderIsDisabled() : null}
         {isAvailable && isTooLate ? this.renderTooLate() : null}
@@ -324,6 +329,13 @@ const styles = (theme) => ({
     paddingRight: theme.spacing(2),
     borderRadius: theme.spacing(1),
     backgroundColor: 'white',
+  },
+  isRegisteredBanner: {
+    color: 'green',
+    padding: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

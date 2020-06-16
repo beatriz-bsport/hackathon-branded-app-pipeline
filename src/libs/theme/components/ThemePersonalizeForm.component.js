@@ -60,6 +60,8 @@ export class ThemePersonalize extends Component<Props, State> {
         this.props.theme.show_offers_filling &&
       this.state.theme.last_name_label === this.props.theme.last_name_label &&
       this.state.theme.first_name_label === this.props.theme.first_name_label &&
+      this.state.theme.accept_double_booking ===
+        this.props.theme.accept_double_booking &&
       this.state.theme.consumer_regularize_debt ===
         this.props.theme.consumer_regularize_debt &&
       this.state.theme.default_booking_ordering ===
@@ -74,6 +76,7 @@ export class ThemePersonalize extends Component<Props, State> {
     [
       'show_offers_filling',
       'consumer_regularize_debt',
+      'accept_double_booking',
       'first_name_label',
       'last_name_label',
       'default_booking_ordering',
@@ -205,6 +208,19 @@ export class ThemePersonalize extends Component<Props, State> {
           />
           <Typography>
             {t('forms.themePersonalization.consumerRegularizeDebt')}
+          </Typography>
+        </div>
+        <div className={classes.inputContainer}>
+          <Switch
+            checked={this.state.theme.accept_double_booking}
+            onChange={() =>
+              this.handleChange('accept_double_booking')(
+                !this.state.theme.accept_double_booking,
+              )
+            }
+          />
+          <Typography>
+            {t('forms.themePersonalization.acceptDoubleBooking')}
           </Typography>
         </div>
         <div className={classes.inputContainer}>

@@ -10,7 +10,10 @@ import Moment from 'moment';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { snackbarSuccess as snackbarSuccessAction } from '../../actions/snackbar.actions';
+import {
+  snackbarSuccess as snackbarSuccessAction,
+  snackbarError as snackbarErrorAction,
+} from '../../actions/snackbar.actions';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
@@ -178,6 +181,7 @@ export default compose(
       goToBook: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
       snackbarSuccess: snackbarSuccessAction,
+      snackbarError: snackbarErrorAction,
       pushRouter: push,
       goToPackPayment: (packId, offerId, companyId) =>
         push(
@@ -206,7 +210,8 @@ export default compose(
         }),
     }),
   ),
-  withProps(({ pushRouter, snackbarSuccess }) => ({
+  withTranslation(['booking', 'titles']),
+  withProps(({ pushRouter, snackbarSuccess, snackbarError, t }) => ({
     onBookOfferFromPack: (offerId, packId) => {
       payWithConsumerPaymentPackAPI(packId, offerId, {})
         .then(() => {
@@ -215,10 +220,12 @@ export default compose(
         })
         .catch((err) => {
           console.error(err);
+          if (err && err.response && err.response.status === 423) {
+            snackbarError(t('booking:bookingModule.messages.offerLocked'));
+          }
         });
     },
   })),
-  withTranslation(),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:marketplace.marketplaceWorkshop'),
   ),

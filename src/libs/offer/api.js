@@ -50,6 +50,10 @@ export async function deleteOffer(offerId, data) {
   return deleteAuth(`${API_URI}/saas/offer/${offerId}/disable/`, data || {});
 }
 
+export const isRegistered = async (offerId) => {
+  return getAuth(`${API_V1_URI}/offer/${offerId}/is_registered/`);
+};
+
 export async function retrieveOffer(offerId) {
   return getAuth(`${API_V1_URI}/offer/${offerId}/?with_full=true`);
 }

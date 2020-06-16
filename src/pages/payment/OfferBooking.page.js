@@ -9,6 +9,7 @@ import {
 } from 'connected-react-router';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { compose, withProps, withState, withHandlers } from 'recompose';
+import { withTranslation } from 'react-i18next';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { fetchCompanyTheme } from '../../libs/theme/actions';
@@ -18,6 +19,7 @@ import {
   withCoach,
   withMetaActivity,
 } from '../../libs/offer/selectors';
+import { snackbarError } from '../../actions/snackbar.actions';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { retrieveOffer as fetchOfferAction } from '../../libs/offer/actions';
 import themeSelectors from '../../libs/theme/selectors';
@@ -73,6 +75,7 @@ import {
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
+import { isRegistered as offerIsRegisteredAPI } from '../../libs/offer/api';
 
 import SubscriptionContractBooking from './SubscriptionBooking.component';
 
@@ -116,7 +119,15 @@ type Props = {
   selectedContract: ?Contract,
 };
 
+type State = {
+  has_registered: boolean,
+};
+
 export class OfferPaymentPage extends Component<Props, State> {
+  state = {
+    has_registered: false,
+  };
+
   fetchData = () => {
     const { offerId } = this.props;
     this.props.fetchBookingOptionForBooking(offerId);
@@ -149,6 +160,9 @@ export class OfferPaymentPage extends Component<Props, State> {
     if (this.props.authenticated) {
       this.props.linkMeToCompany({ offer: this.props.offerId });
     }
+    offerIsRegisteredAPI(this.props.offerId)
+      .then((res) => this.setState({ has_registered: res.data }))
+      .catch(console.error);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -175,6 +189,7 @@ export class OfferPaymentPage extends Component<Props, State> {
             offer={this.props.offer}
             theme={this.props.theme}
             loading={this.props.consumerPaymentPackLoading}
+            hasRegistered={this.state.has_registered}
             buyableItemsLoading={this.props.buyableItemsLoading}
             bookingOptionListConvertible={
               this.props.bookingOptionListConvertible
@@ -211,6 +226,7 @@ export default compose(
   routerParamsToProps({ id: 'offerId:number', offerId: 'offerId:number' }),
   withState('processing', 'setProcessing', false),
   withState('selectedContract', 'setSelectedContract', null),
+  withTranslation(['bookingModule']),
   connect(
     (state, { offerId }) => ({
       authenticated: state.auth.authenticated,
@@ -261,7 +277,7 @@ export default compose(
       fetchCoachBulk: fetchCoachBulkAction,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchOffer: fetchOfferAction,
-
+      snackbarError,
       goBack: goBackRouter,
       push: pushRouter,
       registerOption: registerOptionAction,
@@ -333,7 +349,7 @@ export default compose(
     buyPaymentCombo: ({ offerId, push }) => (paymentComboId: number) =>
       push(`/customer/payment/combo/${paymentComboId}?nextOffer=${offerId}`),
 
-    bookWithConsumerPaymentPack: ({ offer, push }) => (
+    bookWithConsumerPaymentPack: ({ offer, push, t, snackbarError }) => (
       consumerPaymentPackId,
       options,
     ) => {
@@ -344,6 +360,9 @@ export default compose(
         })
         .catch((err) => {
           console.error(err);
+          if (err && err.response && err.response.status === 423) {
+            snackbarError(t('bookingModule.messages.offerLocked'));
+          }
           if (options && options.onError) options.onError(err);
         });
     },

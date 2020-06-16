@@ -1,5 +1,6 @@
 exports.default = {
   bookingModule: {
+    hasRegistered: 'Vous êtes inscrit à cette séance',
     section: {
       consumerPacks: 'Mes cartes de cours',
       contracts: 'Abonnements',
@@ -20,6 +21,9 @@ exports.default = {
         'Les inscriptions sont fermées pour le moment et ouvriront le {{ date }}.',
       isWaitingListFull:
         "La séance est complète la liste d'attente est pleine.",
+    },
+    messages: {
+      offerLocked: 'Vous ne pouvez pas réserver cette séance',
     },
   },
   details: {

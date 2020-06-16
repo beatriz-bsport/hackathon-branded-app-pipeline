@@ -17,6 +17,7 @@ import {
   BUYABLE_ITEM_COMBO_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
+import { snackbarError } from '../../actions/snackbar.actions';
 import { addItemToBasket as addItemToBasketAction } from '../../libs/checkout/actions';
 import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceCalendarComponent from '../../libs/marketplace/components/MarketplaceCalendar.component';
@@ -460,6 +461,7 @@ export default compose(
       theme: themeSelectors.getTheme(state),
     }),
     {
+      snackbarError,
       fetchOfferList: fetchOfferListAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchCoachBulk: fetchCoachBulkAction,
@@ -510,14 +512,21 @@ export default compose(
   withProps(({ location }) => ({
     selectedDate: fromURLtoDate(location.search),
   })),
+  withTranslation(['booking', 'titles']),
   withHandlers({
-    onBookOfferFromPack: ({ onCompletePurchase }) => (offerId, packId) => {
+    onBookOfferFromPack: ({ onCompletePurchase, t, snackbarError }) => (
+      offerId,
+      packId,
+    ) => {
       payWithConsumerPaymentPackAPI(packId, offerId, {})
         .then(() => {
           onCompletePurchase();
         })
         .catch((err) => {
           console.error(err);
+          if (err && err.response && err.response.status === 423) {
+            snackbarError(t('booking:bookingModule.messages.offerLocked'));
+          }
         });
     },
   }),
@@ -575,7 +584,6 @@ export default compose(
       }
     },
   }),
-  withTranslation(),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:marketplace.marketplaceCalendar'),
   ),

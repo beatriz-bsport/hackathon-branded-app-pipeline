@@ -69,7 +69,6 @@ export async function fetchCompatiblePaymentPacks(offerId) {
 }
 
 export default {
-  consumerBuy,
   payWithConsumerPaymentPack: consumerPayWithConsumerPaymentPack,
   fetchOffer: consumerRequestOffer,
   fetchPaymentPack: consumerRequestPaymentPack,

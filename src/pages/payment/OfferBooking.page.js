@@ -19,7 +19,7 @@ import {
   withCoach,
   withMetaActivity,
 } from '../../libs/offer/selectors';
-import { snackbarError } from '../../actions/snackbar.actions';
+import { snackbarError as snackbarErrorActions } from '../../actions/snackbar.actions';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { retrieveOffer as fetchOfferAction } from '../../libs/offer/actions';
 import themeSelectors from '../../libs/theme/selectors';
@@ -277,7 +277,7 @@ export default compose(
       fetchCoachBulk: fetchCoachBulkAction,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchOffer: fetchOfferAction,
-      snackbarError,
+      snackbarError: snackbarErrorActions,
       goBack: goBackRouter,
       push: pushRouter,
       registerOption: registerOptionAction,

@@ -17,7 +17,6 @@ import {
   BUYABLE_ITEM_COMBO_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
-import { snackbarError } from '../../actions/snackbar.actions';
 import { addItemToBasket as addItemToBasketAction } from '../../libs/checkout/actions';
 import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceCalendarComponent from '../../libs/marketplace/components/MarketplaceCalendar.component';
@@ -33,7 +32,10 @@ import { getMetaActivities } from '../../libs/meta-activity/selectors';
 
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import {
+  snackbarSuccess,
+  snackbarError as snackbarErrorActions,
+} from '../../actions/snackbar.actions';
 
 import type {
   Coach,
@@ -461,7 +463,7 @@ export default compose(
       theme: themeSelectors.getTheme(state),
     }),
     {
-      snackbarError,
+      snackbarError: snackbarErrorActions,
       fetchOfferList: fetchOfferListAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchCoachBulk: fetchCoachBulkAction,

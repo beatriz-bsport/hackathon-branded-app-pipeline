@@ -32,6 +32,7 @@ type Props = {
   paymentPackList: Array<PaymentPack>,
   offer: Offer,
   loading: boolean,
+  hasRegistered: boolean,
   bookingOptionListConvertible: Array<BookingOption>,
   bookingOptionListUnconvertible: Array<BookingOption>,
   registerOption: (OptionCallback) => void,

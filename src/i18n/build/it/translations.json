@@ -1244,7 +1244,8 @@
                     "readCount": "Aperture",
                     "lastRead": "Ultima apertura",
                     "clicked": "Click",
-                    "email": "Email"
+                    "email": "Email",
+                    "status": "Status"
                 }
             }
         },
@@ -1316,6 +1317,12 @@
                 "placeholder": "Cerca una categoria",
                 "label": "Categoria"
             }
+        }
+    },
+    "privateService": {
+        "serviceGroup": {
+            "delete": "Rimuovi",
+            "edit": "Modifica"
         }
     }
 }

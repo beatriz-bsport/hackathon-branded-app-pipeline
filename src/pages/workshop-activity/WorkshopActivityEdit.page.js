@@ -45,6 +45,7 @@ const WorkshopActivityMap = {
   name: 'name',
   last_booking_minutes: 'last_booking_minutes',
   last_discard_minutes: 'last_discard_minutes',
+  first_booking_minutes_until: 'first_booking_minutes_until',
   is_workshop: 'is_workshop',
   SCT: 'SCT',
   color: 'color',

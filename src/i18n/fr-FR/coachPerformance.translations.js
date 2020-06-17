@@ -9,7 +9,8 @@ exports.default = {
     rule: 'Régle',
   },
   table: {
-    download: 'Synthèse',
+    download: 'Télécharger',
+    downloadAll: 'Synthèse',
   },
   addBonus: 'Ajouter une règle',
   dateTitle: 'Plage de dates',

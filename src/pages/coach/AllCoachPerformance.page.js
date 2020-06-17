@@ -204,7 +204,7 @@ export class AllCoachPerformance extends React.Component<Props> {
           }}
         >
           <AttachFileIcon />
-          {this.props.t('common.download')}
+          {this.props.t('coachPerformance:table.downloadAll')}
         </Button>
         {this.props.associatedCoachesWithDefaultPaymentRule.map((coach) => (
           <CoachPerformanceComposed

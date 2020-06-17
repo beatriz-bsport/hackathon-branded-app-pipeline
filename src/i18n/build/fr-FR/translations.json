@@ -3645,7 +3645,7 @@
       "date": "Date",
       "rule": "Régle"
     },
-    "table": { "download": "Synthèse" },
+    "table": { "download": "Télécharger", "downloadAll": "Synthèse" },
     "addBonus": "Ajouter une règle",
     "dateTitle": "Plage de dates",
     "remuneration": "Rémunération",

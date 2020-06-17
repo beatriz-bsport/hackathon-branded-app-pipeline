@@ -736,6 +736,586 @@
                 "invalidEmail": "Questa email non esiste nel nostro database",
                 "invalidPassword": "La password non è valida"
             }
+        },
+        "time": {
+            "month": {
+                "june": "Giugno",
+                "january": "Gennaio",
+                "february": "Febbraio",
+                "march": "Marzo",
+                "april": "Aprile",
+                "may": "Maggio",
+                "july": "Luglio",
+                "august": "Agosto",
+                "september": "Settembre",
+                "october": "Ottobre",
+                "november": "Novembre",
+                "december": "Dicembre"
+            },
+            "weekday": {
+                "sunday": "Domenica",
+                "monday": "Lunedi",
+                "tuesday": "Martedì",
+                "wednesday": "Mercoledì",
+                "thursday": "Giovedi",
+                "friday": "Venerdì",
+                "satursday": "Sabato"
+            },
+            "monthShort": {
+                "february": "Feb",
+                "march": "Mar",
+                "january": "Gen",
+                "july": "Lug",
+                "august": "Ago",
+                "september": "Set",
+                "october": "Ott",
+                "november": "Nov",
+                "december": "Dic",
+                "april": "Apr",
+                "may": "Mag",
+                "june": "Giu"
+            }
+        },
+        "marketplace": {
+            "passListTitle": "Schede delle lezioni di gruppo",
+            "shop": {
+                "noDescription": "Nessuna descrizione",
+                "addToCard": "Aggiungi al carrello",
+                "isEmpty": "Nessun prodotto è attualmente disponibile nel negozio.",
+                "tabName": "Negozio"
+            },
+            "checkout": {
+                "dialog": {
+                    "title": "Il mio cestino",
+                    "cancel": "Ritorna al negozio",
+                    "goToDelivery": "Continua",
+                    "goToPayment": "Pagare"
+                }
+            },
+            "vod": "Video su richiesta",
+            "substitute": "Sostituisci",
+            "substituted": "Assente",
+            "teacher": "Insegnante",
+            "backToCalendar": "Precedente",
+            "showMarketplace": "Vedi il calendario di ",
+            "noSessionToday": "Nessuna sessione",
+            "privatePassListTitle": "Pass per appuntamenti",
+            "bookButton": {
+                "book": "Prenota",
+                "bookOption": "Lista d'attesa",
+                "notAvailable": "Annullato",
+                "isPast": "Passato",
+                "notBookableYet": "Prossimamente"
+            },
+            "sessionThisDay": "Sessioni oggi:",
+            "calendar": "Calendario",
+            "workshop": "Workshop",
+            "contract": {
+                "tabName": "Abbonamento"
+            },
+            "welcomeTo": "Benvenuto ",
+            "private_service": "Su appuntamento",
+            "selector": {
+                "coach": {
+                    "placeholder": "Filtra per insegnante"
+                },
+                "level": {
+                    "placeholder": "Filtra per livello"
+                },
+                "establishment": {
+                    "placeholder": "Filtra per struttura"
+                }
+            },
+            "buyPack": "Comprare",
+            "pass": "Scheda del corso"
+        },
+        "level": {
+            "advanced": "Avanzato",
+            "all": "Tutti i livelli",
+            "beginner": "Principiante",
+            "intermediate": "Intermedio",
+            "intermediary": "Intermedio"
+        },
+        "appbar": {
+            "title": {
+                "planning": "Pianificazione",
+                "mergeMember": "Unisci membri",
+                "allCoachPerformance": "Riepilogo insegnante",
+                "dashboard": "Pannello di controllo",
+                "shopManager": "Il mio negozio",
+                "coachList": "Insegnanti",
+                "WorkshopActivityFormPage": "Modulo per workshop",
+                "paymentPackList": "Schede del corso",
+                "metaActivity": "Attività",
+                "workshopActivityList": "Workshop",
+                "metaActivityEditForm": "Modulo di attività",
+                "metaActivityList": "Attività",
+                "metaActivityFormPage": "Modulo per attività",
+                "offerFormPage": "Creazione della sessione",
+                "coachPerformance": "Performance del professore",
+                "coachFormPage": "Modulo per insegnante",
+                "invoiceFormPage": "Modulo per fatturazione",
+                "invoiceCreatePage": "Fattura",
+                "invoiceList": "Le mie transazioni",
+                "paymentPackFormPage": "Creazione della scheda del corso",
+                "members": "Membri",
+                "member": "Membro",
+                "memberFormPage": "Modulo membro",
+                "searchResults": "Ricerca",
+                "settings": "Impostazioni",
+                "orderList": "Ordini",
+                "establishmentList": "Strutture",
+                "establishmentFormPage": "Modulo per palestre",
+                "marketingRule": "Strategie di marketing",
+                "subscriptions": "Abbonamento",
+                "reportingDashboard": "Report",
+                "offerManagement": "Prenotazioni",
+                "orderDetail": "Dettagli dell'ordine",
+                "marketingDashboard": "Marketing"
+            }
+        },
+        "offerManagement": {
+            "forms": {
+                "register": {
+                    "forceNotify": "Invia un'email di conferma",
+                    "registerToOffer": "Registrati per la sessione",
+                    "passOwnedByMember": "Pass di proprietà del membro",
+                    "passCompatibleNotOwnedByMember": "Fatturazione di un nuovo pass"
+                }
+            }
+        },
+        "countdown": {
+            "seconds": "secondi",
+            "hours": "Ore",
+            "minutes": "Minuti"
+        },
+        "dayParts": {
+            "morning": "Mattina",
+            "afternoon": "Pomeriggio",
+            "evening": "Sera"
+        }
+    },
+    "notificationRule": {
+        "tag": {
+            "BookingOption": {
+                "tags": {
+                    "option_expiration_date": "Data di scadenza inserita nella lista d'attesa",
+                    "address": "Indirizzo",
+                    "option_payment_url": "Link per la prenotazione",
+                    "activity": "Attività",
+                    "coach": "Insegnante",
+                    "date": "Ora / data della sessione",
+                    "establishment": "Luogo",
+                    "establishment_practical_info": "Accesso alla sala"
+                },
+                "name": "Lista d'attesa"
+            },
+            "Offer": {
+                "name": "Allenamento",
+                "tags": {
+                    "date": "Ora / data della sessione",
+                    "establishment": "Luogo",
+                    "establishment_practical_info": "Accesso alla sala",
+                    "address": "Indirizzo",
+                    "activity": "Attività",
+                    "coach": "Insegnante"
+                }
+            },
+            "BillingPlan": {
+                "name": "Abbonamento",
+                "tags": {
+                    "subscription_payment_method": "Metodo di pagamento",
+                    "subscription_name": "Nome dell'abbonamento",
+                    "subscription_recurrent_price": "Importo mensile addebitato",
+                    "subscription_nb_months": "Numero di mesi",
+                    "subscription_flat_fee": "Spese amministrative",
+                    "subscription_nb_days_pause": "Pausa: numero di giorni"
+                }
+            },
+            "PrivateConsumerPass": {
+                "tags": {
+                    "pass_starting_date": "Data di inizio della scheda di appuntamento",
+                    "pass_expiration": "Data di fine appuntamento",
+                    "pass_credit_left": "Numero di crediti rimanenti",
+                    "pass_price": "Prezzo della carta per appuntamenti",
+                    "pass_name": "Nome della carta di appuntamento"
+                },
+                "name": "Carta di appuntamento"
+            },
+            "PrivateBooking": {
+                "name": "Appuntamento",
+                "tags": {
+                    "activity": "Attività",
+                    "coach": "Professore (facoltativo)",
+                    "date": "Ora / Data",
+                    "address": "Indirizzo",
+                    "establishment_practical_info": "Informazioni sull'accesso alla struttura (facoltativo)",
+                    "establishment": "Struttura"
+                }
+            },
+            "User": {
+                "name": "Allievo",
+                "tags": {
+                    "firstname": "Nome dello studente",
+                    "lastname": "Nome dello studente",
+                    "unsubscribe_link": "Annulla l'iscrizione alla newsletter"
+                }
+            },
+            "Booking": {
+                "name": "Prenotazioni",
+                "tags": {
+                    "activity": "Attività",
+                    "coach": "Insegnante",
+                    "date": "Ora / data della sessione",
+                    "establishment": "Luogo",
+                    "establishment_practical_info": "Accesso alla sala",
+                    "address": "Indirizzo",
+                    "ics_calendar_link": "Collegamento ics al calendario"
+                }
+            },
+            "ConsumerPaymentPack": {
+                "name": "Scheda del corso",
+                "tags": {
+                    "pass_price": "Prezzo della carta del corso",
+                    "pass_starting_date": "Data di inizio della scheda del corso",
+                    "pass_expiration": "Data di fine della scheda del corso",
+                    "pass_name": "Nome della carta del corso",
+                    "pass_credit_left": "Numero di crediti rimanenti"
+                }
+            }
+        },
+        "eventType": {
+            "400": "Appuntamento annullato - fuori tempo (insegnante)",
+            "3": "Annulla sessione",
+            "6": "Registrazione membro (studente)",
+            "7": "Prenotazione tramite scheda del corso",
+            "8": "Prenotazione + acquisto della tessera del corso simultanea",
+            "13": "Annulla iscrizione alla lista di attesa (studente)",
+            "401": "Appuntamento annullato - rimborsato (insegnante)",
+            "402": "Nuovo appuntamento (insegnante)",
+            "453": "Orario modificato (studente)",
+            "14": "Annulla iscrizione dalla lista di attesa (gestore)",
+            "16": "Sessione modificata",
+            "17": "Prenotazione annullata: credito non rimborsato",
+            "18": "Prenotazione annullata: credito rimborsato",
+            "19": "Registrazione membro (manager)",
+            "21": "Nuova prenotazione",
+            "24": "Abbonamento creato",
+            "25": "Cambio del metodo di pagamento",
+            "28": "Pagamento ricevuto",
+            "29": "Promemoria corso online tra 15 min",
+            "26": "Abbonamento in pausa",
+            "27": "Abbonamento interrotto o terminato",
+            "451": "Appuntamento annullato - rimborsato (studente)",
+            "452": "Nuovo appuntamento (studente)",
+            "9": "Uscita dalla lista d'attesa: prenotazione possibile",
+            "10": "Lista di attesa nuovamente piena",
+            "12": "Registrazione in lista d'attesa",
+            "403": "Orario modificato (insegnante)",
+            "450": "Appuntamento - fuori tempo massimo (studente)"
+        },
+        "ruleGroup": {
+            "private_booking": "Appuntamento",
+            "offer": "Allenamento",
+            "booking": "Prenotazioni",
+            "waiting-list": "Lista d'attesa",
+            "subscription": "Abbonamento",
+            "member": "Creazione account allievo"
+        },
+        "emailDesign": {
+            "placeholder": "Generato da bsport",
+            "closePreview": "Chiuso"
+        }
+    },
+    "consumerSpace": {
+        "dashboard": {
+            "favoriteTitle": "Suggerimento per la prenotazione",
+            "optionTitle": "In lista d'attesa",
+            "nextBookingTitle": "Le mie prossime sessioni",
+            "currentPassTitle": "Scheda del corso attivo",
+            "showMore": "Vedi altro",
+            "noPackCurrentlyActive": "Nessuna carta valida in corso",
+            "noBooking": "Nessuna sessione imminente"
+        },
+        "navigation": {
+            "profile": "Profilo",
+            "logoff": "Disconnetti",
+            "changeMembership": "Cambia club",
+            "dashboard": "Sommario",
+            "calendar": "Storico",
+            "pack": "Scheda del corso",
+            "invoice": "Fattura",
+            "subscription": "Abbonamento"
+        },
+        "debt": {
+            "regularize": "Regolarizza",
+            "title": "Acconto dovuto al club",
+            "titlePaymentDialog": "Acconto regolarizzato",
+            "explainPayment": "Questa somma sarà donata al club per regolarizzare il tuo acconto"
+        },
+        "pack": {
+            "titlePaymentPack": "Lezione collettiva",
+            "titlePrivatePack": "Appuntamento"
+        },
+        "booking": {
+            "showCalendar": "Vedi il calendario",
+            "discard": "Annulla",
+            "titleBooking": "Lezione collettiva",
+            "titlePrivateBooking": "Appuntamento",
+            "bookAgain": "Prenota di nuovo"
+        },
+        "unsubscriber": {
+            "error": "Errore durante l'annullamento dell'iscrizione",
+            "success": "Sei stato cancellato",
+            "explain": "Vuoi annullare l'iscrizione a tutte le newsletter del tuo club?",
+            "doUnsubscribe": "Disiscrivimi"
+        },
+        "actions": {
+            "goToCalendar": "Vedi il calendario completo",
+            "goToPass": "Vedi tutte le schede delle lezioni",
+            "goToSubscription": "Vedi tutti gli abbonamenti"
+        },
+        "congratulation": {
+            "content": "Il tuo acquisto è stato registrato!",
+            "cancel": "Chiuso"
+        }
+    },
+    "search": {
+        "input": "Ricerca...",
+        "go_back": "Ritorna ai risultati",
+        "noResult": "Nessun risultato",
+        "member": {
+            "sessions": {
+                "title": "Sessioni"
+            },
+            "packs": {
+                "title": "Schede del corso"
+            }
+        }
+    },
+    "partnership": {
+        "parameters": {
+            "companyId": "L'ID del tuo club è: {{company}}",
+            "establishmentId": "Gli ID delle sale sono: {{establishmentIdList}}",
+            "enabled": "Attivo",
+            "allEstablishment": "Tutte le sale"
+        },
+        "requestDialog": {
+            "explain": "Hai richiesto l'integrazione di classpass X bsport, il tuo account manager ti contatterà per convalidare questa operazione",
+            "close": "Ricevuto"
+        },
+        "actions": {
+            "save": "Iscriviti",
+            "requestPartnership": "Richiedi una partnership"
+        }
+    },
+    "authentication": {
+        "resetPassword": {
+            "actions": {
+                "reset": "ok",
+                "backToLogin": "Indietro",
+                "cancel": "Annulla"
+            },
+            "title": "Recupero della password",
+            "noEmail": "Questa email non è stata salvata",
+            "explain1": "Qual era l'indirizzo e-mail?",
+            "explain2": "Ti invieremo le istruzioni per il recupero",
+            "emailHasBeenSent": "È stata inviata un'email a {{email}} per recuperare la password"
+        }
+    },
+    "paymentCombo": {
+        "link": {
+            "copyLink": "Copia il link nella pagina di pagamento",
+            "copied": "Link copiato"
+        },
+        "list": {
+            "section": {
+                "unavailableOnline": "Non disponibile per la vendita",
+                "availableOnline": "Disponibile alla vendita"
+            },
+            "explainIfEmpty": "Crea qui pacchetti acquistabili dagli alunni che possono contenere schede lezioni, oggetti del negozio, ecc ...",
+            "buttons": {
+                "add": "Crea un pacchetto"
+            }
+        },
+        "form": {
+            "available_payment_method_identifiers": {
+                "label": "Mezzi di pagamento autorizzati",
+                "helperText": "Seleziona almeno un metodo di pagamento. Se il carrello del membro contiene articoli per i quali i mezzi di pagamento sono incompatibili, verrà offerto il pagamento attraverso carta di credito."
+            },
+            "manager_only": {
+                "label": "Invisibile ai clienti"
+            },
+            "actions": {
+                "submit": "Iscriviti",
+                "cancel": "Annulla"
+            },
+            "content": "Contenuti",
+            "selectorPlaceholder": {
+                "privatePass": "Pass per appuntamenti",
+                "paymentPack": "Schede delle lezioni di gruppo",
+                "shopitem": "Negozio"
+            },
+            "title": "Modulo per pacchetto",
+            "name": {
+                "label": "Nome"
+            },
+            "description": {
+                "label": "Descrizione"
+            },
+            "price": {
+                "label": "Prezzo"
+            },
+            "tax": {
+                "label": "I.V.A."
+            }
+        },
+        "detail": {
+            "containsNProducts": "Contiene {{n}} prodotti",
+            "description": "Descrizione",
+            "content": "Contenuti",
+            "purchases": "Vendite",
+            "emptyContent": "Questo pacchetto non contiene nulla!"
+        },
+        "delete": {
+            "content": "Sei sicuro di voler eliminare questo pacchetto? Questa operazione è irreversibile, gli acquisti già effettuati e i prodotti nei carrelli non saranno interessati.",
+            "cancel": "Annulla",
+            "submit": "Rimuovi",
+            "title": "Rimozione del pacchetto"
+        },
+        "pageTitle": {
+            "list": "Pacchetto"
+        }
+    },
+    "communication": {
+        "table": {
+            "columns": {
+                "member": "Membro",
+                "title": "Panoramica",
+                "date_created": "Data",
+                "status": "Status"
+            }
+        },
+        "mail": {
+            "refreshText": "Ricarica la pagina per aggiornare la modifica dell'email",
+            "title": "Oggetto della mail",
+            "content": "Contenuto dell'email",
+            "missing": "Email assente",
+            "success": "Email inviata",
+            "error": "Mail non inviata",
+            "noObject": "Nessun oggetto"
+        },
+        "campaign": {
+            "list": {
+                "showMore": "Vedi altro",
+                "isEmpty": "Nessuna email ancora inviata"
+            },
+            "report": {
+                "totalRead": "Aperture",
+                "totalClick": "Click",
+                "deliveryRate": "Invio riuscito",
+                "noTopLink": "Nessun clic",
+                "lastOpen": "Ultima apertura",
+                "dateCreated": "Data di invio",
+                "topLinks": "Link più cliccati",
+                "recipientList": "Dettagli per destinatario"
+            },
+            "recipientCount": "Destinatario: {{total_recipients}}",
+            "clickCount": "Click",
+            "showReport": "Report",
+            "showMail": "Vedi email",
+            "sentAt": "Inviato il {{date_created}}",
+            "readCount": "Aperture"
+        },
+        "recipient": {
+            "readCount": "Apertura",
+            "clicksCount": "Click",
+            "showEmail": "Vedi email",
+            "status": {
+                "0": "In corso",
+                "1": "In corso",
+                "2": "Rifiutato",
+                "3": "In attesa",
+                "4": "Ricevuto",
+                "5": "Errore"
+            },
+            "table": {
+                "columns": {
+                    "readCount": "Aperture",
+                    "lastRead": "Ultima apertura",
+                    "clicked": "Click",
+                    "email": "Email"
+                }
+            }
+        },
+        "recipients": "Destinatario",
+        "dialogReceiverChoice": {
+            "waitingList": "Invia a lista d'attesa",
+            "title": "Selezione dei destinatari",
+            "reservation": "Invia a prenotazioni"
+        },
+        "send": {
+            "success": "Email inviata...",
+            "error": "Errore durante l'invio"
+        },
+        "common": {
+            "cancel": "Annulla",
+            "submit": "Invia",
+            "refresh": "Ricarica"
+        }
+    },
+    "membership": {
+        "selector": {
+            "placeholder": "Trova una palestra / sala / club ...",
+            "noMatchingCompany": "Nessun risultato",
+            "explainConsumer": "Con <1> bsport </2> vivi un'esperienza unica per la prenotazione di tutte le tue attività sportive. <3 /> Con un solo account e una password!"
+        }
+    },
+    "reminder": {
+        "task": {
+            "sectionTitle": {
+                "pending": "Attività in corso",
+                "future": "Attività pianificate",
+                "past": "Attività archiviate"
+            },
+            "status": {
+                "10": "Completato",
+                "20": "Annullato",
+                "0": "In corso"
+            },
+            "owners": "Assegnato a ",
+            "author": "Autore",
+            "actions": {
+                "addTask": "Pianifica un'attività",
+                "finish": "Finire",
+                "restart": "Ricomincia",
+                "cancel": "Archivia"
+            },
+            "form": {
+                "title": "Attività",
+                "close": "Annulla",
+                "submit": "Conferma",
+                "description": {
+                    "label": "Messaggio"
+                },
+                "name": {
+                    "label": "Titolo"
+                },
+                "date_due": {
+                    "label": "Data promemoria"
+                },
+                "task_owner": {
+                    "helperText": "Personale da notificare"
+                }
+            }
+        }
+    },
+    "category": {
+        "sct": {
+            "selector": {
+                "placeholder": "Cerca una categoria",
+                "label": "Categoria"
+            }
         }
     }
 }

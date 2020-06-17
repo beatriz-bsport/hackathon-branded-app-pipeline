@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
@@ -57,7 +58,11 @@ export class BookingOptionForManager extends Component<Props> {
       case 'date_start':
         return null;
       default:
-        return <Avatar src={member ? member.photo : ''} />;
+        return (
+          <ListItemAvatar>
+            <Avatar src={member ? member.photo : ''} />
+          </ListItemAvatar>
+        );
     }
   };
 

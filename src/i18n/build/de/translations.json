@@ -35,7 +35,7 @@
             "voucher": "Besonderes Angebot",
             "payment_method": {
                 "0": "Kreditkarte",
-                "label": "Zahlungsmethoden",
+                "label": "Zahlungsmethode",
                 "1": "SEPA-Überweisung",
                 "2": "Auf Kredit"
             },
@@ -88,8 +88,8 @@
                 },
                 "title": "Vertrag-Formular",
                 "contract": {
-                    "placeholder": "Geben Sie hier alle notwendigen rechtlichen Informationen ein, unter anderem zu den Rückerstattungsverfahren.",
-                    "label": "Rechtliche Informationen"
+                    "placeholder": "Geben Sie hier das Impressum ein, unter anderem zu den Rückerstattungsverfahren.",
+                    "label": "Impressum"
                 },
                 "autoRenewal": {
                     "label": "Einstimmige Verlängerung"
@@ -119,7 +119,7 @@
                 "isEmpty": "Kein verfügbarer Vertrag"
             },
             "duration": "{{month}} Monat(e)",
-            "legal": "Rechtliche Informationen"
+            "legal": "Impressum"
         },
         "subscription": {
             "actions": {
@@ -299,13 +299,13 @@
                 "dialog": {
                     "goToPayment": "Zahlen",
                     "goToDelivery": "Weiter",
-                    "title": "Meine Tasche",
+                    "title": "Mein Warenkorb",
                     "cancel": "Zurück zum Geschäft"
                 }
             },
             "shop": {
                 "isEmpty": "Derzeit sind keine Produkte im Geschäft erhältlich.",
-                "addToCard": "In die Tasche",
+                "addToCard": "In den Warenkorb",
                 "tabName": "Geschäft",
                 "noDescription": "Keine Beschreibung"
             },
@@ -315,7 +315,8 @@
                 "bookOption": "Warteliste",
                 "book": "Buchen",
                 "isPast": "Vergangen",
-                "notAvailable": "Storniert"
+                "notAvailable": "Storniert",
+                "notBookableYet": "Bald"
             },
             "passListTitle": "Gruppenkurskarten",
             "privatePassListTitle": "Terminkarten",
@@ -397,7 +398,7 @@
             "copySuffix": " (Kopie)",
             "bookings": "Buchungen",
             "booking": "Buchung",
-            "paymentMethod": "Zahlungsmethoden",
+            "paymentMethod": "Zahlungsmethode",
             "contact": "Kontakt",
             "sort": "Sortieren",
             "no": "Nein",
@@ -564,7 +565,7 @@
             "member": "Mitglieder",
             "reporting": "Quoten",
             "digital": "Digitales Angebot",
-            "playlist": "Entwicklung"
+            "playlist": "Folge"
         },
         "offer": {
             "noncompatibleConsumerPaymentPacksAre": "Sie besitzen die folgenden Karten, die nicht mit diesem Kurs vereinbar sind :",
@@ -697,11 +698,11 @@
                     "marketplace_enabled": "Auf der Web-Marketplace verfügbar",
                     "unlimitedProvision": "Keine Verwaltung des Inventares",
                     "create": "Ein Produkt suchen",
-                    "featured": "Bei der Bestätigung der Tasche in den Vordergrund stellen",
+                    "featured": "Bei der Bestätigung des Warenkorbs in den Vordergrund stellen",
                     "sell_only_on_provision": "NUR dann zum Verkauf anbieten, wenn das Inventar verfügbar ist",
                     "onsite_payment_available": "Es ist möglich an Ort und Stelle zu zahlen",
                     "available_payment_method_identifiers": {
-                        "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn die Tasche des Mitglieds Produkte enthält, die mit den Zahlungsmethoden nicht vereinbar sind, wird eine Zahlung per Kreditkarte angeboten.",
+                        "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn der Warenkorb des Mitglieds Produkte enthält, die mit den Zahlungsmethoden nicht vereinbar sind, wird eine Zahlung per Kreditkarte angeboten.",
                         "label": "Zugelassene Zahlungsmethoden"
                     }
                 },
@@ -809,7 +810,7 @@
             "default_price": "Preis",
             "SCT": "Kategorie",
             "name": "Name",
-            "discard": "Stornieren",
+            "discard": "Abbrechen",
             "send": "Speichern",
             "email": "E-Mail-Adresse",
             "phone": "Telefonnummer",
@@ -1050,7 +1051,7 @@
             "criterias": "Kriterien",
             "clientsReached": "Betroffene Kunden",
             "action": "Maßnahme",
-            "averageBuy": "Durchschnittlicher Wert der Tasche",
+            "averageBuy": "Durchschnittlicher Wert des Warenkorbs",
             "sales": "Verkäufe",
             "conversionRate": "Umwandlungssatz",
             "dashboard": "Dashboard",
@@ -1275,11 +1276,11 @@
             },
             "22": {
                 "hour": {
-                    "third": "Std.",
+                    "third": "Uhr",
                     "first": "zwischen",
-                    "second": "Std. und"
+                    "second": "Uhr und"
                 },
-                "first": "Hat",
+                "first": "Buchte",
                 "explanation": "Hat X Kurse von A in der Einrichtung B mit der Kurskarte C gebucht ...",
                 "name": "Anzahl der Buchungen",
                 "coach": {
@@ -1296,13 +1297,13 @@
                     "first": "Aktivitäten"
                 },
                 "date": {
-                    "first": "in"
+                    "first": ""
                 }
             },
             "21": {
                 "hour": {
-                    "third": "Std.",
-                    "second": "Std. und",
+                    "third": "Uhr",
+                    "second": "Uhr und",
                     "first": "Die Zeit des Kurses liegt zwischen"
                 },
                 "date": {
@@ -1316,19 +1317,19 @@
                 },
                 "second_plural": ". Kurs",
                 "second_singular": ". Kurs",
-                "first": "Hat seinen/ihren ",
+                "first": "Buchte seinen/ihren ",
                 "explanation": "Hat seinen/ihren X. Kurs von A in der Einrichtung B gebucht...",
                 "name": "Buchungsnummer"
             },
             "20": {
                 "date": {
                     "second": "Tage",
-                    "first": "Tasche aufgegeben"
+                    "first": "Warenkorb aufgegeben"
                 },
                 "third": "Euros",
-                "first": "Hat eine Tasche aufgegeben im Wert von",
-                "explanation": "Hat eine Tasche aufgegeben, im Wert von ...",
-                "name": "Aufgegebene Tasche",
+                "first": "Hat einen Warenkorb aufgegeben im Wert von",
+                "explanation": "Hat einen Warenkorb aufgegeben, im Wert von ...",
+                "name": "Aufgegebene Warenkörbe",
                 "second": "um"
             },
             "19": {
@@ -1407,6 +1408,11 @@
                 "explanation": "Besitzt die Markierungen A und B",
                 "name": "Markierungen",
                 "first": "Nach folgenden Markierungen sortieren"
+            },
+            "400": {
+                "name": "Passwort",
+                "explanation": "Besitzt ein Passwort bei bsport",
+                "explain": "besitzt ein Passwort bei bsport"
             }
         },
         "filterCategory": {
@@ -1428,7 +1434,7 @@
             },
             "actions": {
                 "configure": "Einrichten",
-                "campaign": "Aktionen"
+                "campaign": "Kampagnen"
             },
             "description": {
                 "isEmpty": "Keine Beschreibung",
@@ -1440,7 +1446,7 @@
             "tab": {
                 "statistic": "Statistik",
                 "member": "Allgemein",
-                "campaign": "Aktion"
+                "campaign": "Kampagnen"
             }
         },
         "mail": {
@@ -1448,7 +1454,9 @@
             "cancel": "Stornieren",
             "send": "Senden",
             "sendMail": "Eine E-Mail senden",
-            "sendMailTitle": "Eine E-Mail senden"
+            "sendMailTitle": "Eine E-Mail senden",
+            "sendSuccess": "Die E-Mail wird gesendet",
+            "sendError": "Fehler bei der Sendung der E-Mail"
         },
         "graphs": {
             "bookingsSegments": {
@@ -1488,7 +1496,7 @@
             "coaches": {
                 "warning": "Wählen Sie mindestens eine Lehrer aus",
                 "helperAllSelectedText": "Alle Lehrer",
-                "textFieldPlaceholder": "Ein Lehrer suchen",
+                "textFieldPlaceholder": "Einen Lehrer suchen",
                 "helperSelectedText": "Ausgewählte Lehrer",
                 "helperText": "Lehrer auswählen"
             },
@@ -1601,7 +1609,9 @@
                     "title": "Standardstatus einer vom Kunden vorgenommenen Buchung",
                     "missing": "Abwesendes Mitglied",
                     "present": "Anwesendes Mitglied"
-                }
+                },
+                "acceptDoubleBooking": "Doppelte Buchung akzeptieren",
+                "consumerRegularizeDebt": "Der Kunde kann seine Anzahlung online regularisieren"
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -1648,7 +1658,7 @@
         "scaleCredit": {
             "parameterLegend": "Einstellungen",
             "explain": "Sie können die Kreditpunkte der Karte vermehrfachen (3/7x2 wird 6/14) oder sie dividieren im Fall eines Fehlers (3/7 ÷2 wird 1/3) : nach unten abgerundet.",
-            "title": "Änderung des Gesmatkredits",
+            "title": "Änderung des Gesamtkredits",
             "scaleDown": "Dividieren",
             "scaleUp": "Vermehrfachen",
             "factor": {
@@ -1694,7 +1704,7 @@
                 "typeTitle": "Kategorie der Benachrichtigung"
             },
             "1": {
-                "second": "Kreditpunkte",
+                "second": "Kreditpunkte mehr gibt",
                 "first": "Benachrichtigen, wenn es"
             },
             "listItem": {
@@ -2059,21 +2069,21 @@
             "activity_name": "Aktivität",
             "activity": "Aktivität",
             "description": "Beschreibung",
-            "payment_method_readable_identifier": "Zahlungsmethoden",
-            "payment_method": "Zahlungsmethoden",
+            "payment_method_readable_identifier": "Zahlungsmethode",
+            "payment_method": "Zahlungsmethode",
             "payment_status": "Zahlungsstatus",
             "booking_status_code": "Status",
             "date_start_time": "Uhrzeit",
-            "checkout_items": "Inhalt der Tasche",
+            "checkout_items": "Inhalt des Warenkorbs",
             "fee": "Gebühren",
             "was_refunded": "Zurückerstattet",
             "start_date_time": "Startzeit",
-            "total_basket": "Gesamte Tasche",
+            "total_basket": "Gesamter Warenkorb",
             "couponName": "Werbeaktion",
             "supplier_price": "Preis des Händlers",
             "marketplace_enabled": "Auf der Marketplace verfügbar",
             "date_offer": "Datum und Uhrzeit des Kurses",
-            "products": "Inhalt der Tasche",
+            "products": "Inhalt des Warenkorbs",
             "ca": "Erzeugter Umsatz",
             "member_identifier": "Miglieds-ID",
             "disabled": "Storniert",
@@ -2432,7 +2442,7 @@
                 "stripe_footer_placeholder": "Keine weitere Angabe"
             },
             "stripe_footer": "Fußzeile der Rechnung",
-            "explainStripeFooter": "Dieser Text erscheint am Ende Ihrer Rechnungen, die im PDF-Format bearbeitet wurden. Fügen Sie alle notwendige rechtliche Informationen hinzu."
+            "explainStripeFooter": "Dieser Text erscheint am Ende Ihrer Rechnungen, die im PDF-Format bearbeitet wurden. Fügen Sie das notwendige Impressum hinzu."
         },
         "returnPayment": {
             "modal": {
@@ -2531,7 +2541,7 @@
         "shopitem": {
             "action": {
                 "delete": "Löschen",
-                "addToCard": "In die Tasche",
+                "addToCard": "In den Warenkorb",
                 "edit": "Ändern"
             },
             "detail": {
@@ -2743,13 +2753,17 @@
             "offer": {
                 "isDisabled": "Der Kurs wurde leider abgesagt.",
                 "isWaitingListFull": "Der Kurs ist abgeschlossen und die Warteliste ist voll.",
-                "isTooLate": "Anmeldungen sind nicht mehr möglich, die Deadline für die letzte Anmeldung ist überschritten."
+                "isTooLate": "Anmeldungen sind nicht mehr möglich, die Deadline für die letzte Anmeldung ist überschritten.",
+                "isTooSoon": "Die Anmeldungen sind vorläufig geschlossen und werden am {{date}} geöffnet."
             },
             "section": {
                 "consumerPacks": "Meine Kurskarten",
                 "paymentPacks": "Kurskarten",
                 "paymentCombos": "Werbeaktionen",
                 "contracts": "Abonnements"
+            },
+            "messages": {
+                "offerLocked": "Sie können diesen Kurs nicht buchen"
             }
         },
         "statusCode": {
@@ -2948,8 +2962,8 @@
             },
             "applies_to": {
                 "choices": {
-                    "null": "Die ganze Tasche",
-                    "all": "Die ganze Tasche",
+                    "null": "Der ganze Warenkorb",
+                    "all": "Der ganze Warenkorb",
                     "9": "Terminkarte",
                     "6": "Versandkosten",
                     "2": "Geschäft",
@@ -3020,7 +3034,7 @@
             "isEmpty": "Kein gespeicherter Werbecode"
         },
         "card": {
-            "member_use": "Benutzungen pro Mitglied",
+            "member_use": "Benutzung pro Mitglied",
             "expiration": "Ablaufdatum",
             "no_expiration": "Kein Ablaufdatum",
             "validity": "Gültigkeit :",
@@ -3364,7 +3378,7 @@
                     "submit": "Speichern"
                 },
                 "available_payment_method_identifiers": {
-                    "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn die Tasche des Mitglieds Produkte mit inkompatiblen Zahlungsmethoden enthält, wird eine Zahlung per Kreditkarte vorgeschlagen.",
+                    "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn der Warenkorb des Mitglieds Produkte mit inkompatiblen Zahlungsmethoden enthält, wird eine Zahlung per Kreditkarte vorgeschlagen.",
                     "label": "Zugelassene Zahlungsmethoden"
                 },
                 "durationYears": {
@@ -3400,7 +3414,7 @@
                 "price": "{{ price}} €"
             },
             "delete": {
-                "explain": "Sind Sie sich sicher, dass Sie diese Karte löschen möchten ? Diejenigen, die noch über Kreditpunkte verfügen, können diese weiterhin benutzen. Diese AKtion ist unwiderruflich",
+                "explain": "Sind Sie sich sicher, dass Sie diese Karte löschen möchten ? Diejenigen, die noch über Kreditpunkte verfügen, können diese weiterhin benutzen. Diese Aktion ist unwiderruflich",
                 "submit": "Bestätigen",
                 "cancel": "Abbrechen",
                 "title": "Karte löschen"
@@ -3425,7 +3439,7 @@
             "detail": {
                 "extensionsTitle": "Gültigkeitsverlängerung",
                 "booking": "Terminbuchungen verbunden",
-                "invoice": "Rechnung verbunden"
+                "invoice": "Verbundene Rechnung"
             },
             "isReverted": "Rechnung storniert",
             "expiresOn": "Läuft am {{ date }} ab",
@@ -3536,7 +3550,7 @@
             "delete": {
                 "confirm": "Bestätigen",
                 "cancel": "Stornieren",
-                "explain": "SInd Sie sich sicher, dass Sie diesen Kurs löschen möchten ? Frühere Buchungen sind davon nicht betroffen. Diese Operation ist unwiderruflich.",
+                "explain": "SInd Sie sich sicher, dass Sie diesen Kurs löschen möchten ? Frühere Buchungen sind davon nicht betroffen. Diese Aktion ist unwiderruflich.",
                 "title": "Kurs löschen"
             }
         },
@@ -3694,6 +3708,12 @@
         "pack": {
             "titlePrivatePack": "Termin",
             "titlePaymentPack": "Gruppenkurs"
+        },
+        "unsubscriber": {
+            "explain": "Möchten Sie sich von allen Newslettern Ihres Klubs abmelden ?",
+            "doUnsubscribe": "Abmelden",
+            "error": "Fehler beim Abmelden",
+            "success": "Sie wurden abgemeldet"
         }
     },
     "metaActivity": {
@@ -3772,7 +3792,8 @@
         "remuneration": "Lohn",
         "addBonus": "Eine Regel hinzufügen",
         "table": {
-            "download": "Downloaden"
+            "download": "Downloaden",
+            "downloadAll": "Zusammenfassung"
         },
         "fields": {
             "rule": "Regel",
@@ -3819,7 +3840,7 @@
             },
             "title": "Package-Formular",
             "available_payment_method_identifiers": {
-                "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn die Tasche des Mitglieds Produkte enthält, die mit den Zahlungsmethoden unvereinbar sind, wird die Zahlung per Kreditkarte angeboten.",
+                "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn der Warenkorb des Mitglieds Produkte enthält, die mit den Zahlungsmethoden unvereinbar sind, wird die Zahlung per Kreditkarte angeboten.",
                 "label": "Zugelassene Zahlungsmethoden"
             },
             "description": {
@@ -3844,7 +3865,7 @@
             "list": "Packages"
         },
         "delete": {
-            "content": "Sind Sie sich sicher, dass Sie dieses Package löschen möchten ? Diese Aktion ist unwiderruflich. Die bereits abgeschlossene Käufe und die aktuelle Tasche werden nicht davon betroffen.",
+            "content": "Sind Sie sich sicher, dass Sie dieses Package löschen möchten ? Diese Aktion ist unwiderruflich. Die bereits abgeschlossene Käufe und der aktuelle Warenkorb werden nicht davon betroffen.",
             "title": "Löschung des Packages",
             "submit": "Löschen",
             "cancel": "Stornieren"
@@ -3977,10 +3998,10 @@
             },
             "BillingPlan": {
                 "tags": {
-                    "subscription_flat_fee": "Verwaltungsgebühren",
+                    "subscription_flat_fee": "Anmeldegebühren",
                     "subscription_nb_months": "Anzahl der Monate",
                     "subscription_name": "Name des Abonnements",
-                    "subscription_payment_method": "Zahlungsmethoden",
+                    "subscription_payment_method": "Zahlungsmethode",
                     "subscription_recurrent_price": "Monatlich abgebuchter Betrag",
                     "subscription_nb_days_pause": "Pause : Anzahl der Tage"
                 },
@@ -3989,7 +4010,8 @@
             "User": {
                 "tags": {
                     "lastname": "Nachname des Schülers",
-                    "firstname": "Vorname des Schülers"
+                    "firstname": "Vorname des Schülers",
+                    "unsubscribe_link": "Link zur Newsletter-Abmeldung"
                 },
                 "name": "Teilnehmer"
             },
@@ -4019,7 +4041,8 @@
                     "address": "Adresse",
                     "date": "Zeit/Datum",
                     "coach": "Lehrer (fakultativ)",
-                    "activity": "Aktivität"
+                    "activity": "Aktivität",
+                    "establishment": "Einrichtung"
                 },
                 "name": "Termin"
             },
@@ -4141,8 +4164,8 @@
             "section": {
                 "title": "Bestellungsstatus :",
                 "deliveryInfo": "Lieferungsadresse",
-                "productDetail": "Details der Tasche",
-                "invoice": "Rechnung verbunden",
+                "productDetail": "Details des Warenkorbs",
+                "invoice": "Verbundene Rechnung",
                 "member": "Käufer"
             }
         },
@@ -4393,7 +4416,7 @@
             },
             "coupon": "Werbeaktionen",
             "video": "Videothek",
-            "playlist": "Entwicklung",
+            "playlist": "Folge",
             "podcast": "Podcasts",
             "digital": "Digitales Angebot",
             "combo": "Packages",
@@ -4520,7 +4543,7 @@
             "update": "Ändern"
         },
         "addCoach": "Einen Lehrer hinzufügen",
-        "search": "Ein Lehrer suchen",
+        "search": "Einen Lehrer suchen",
         "selector": {
             "label": "Lehrer"
         },
@@ -4539,7 +4562,8 @@
                 "general": "Profil"
             }
         },
-        "showPerformance": "Lohn ausstellen"
+        "showPerformance": "Lohn ausstellen",
+        "noCoach": "Zur Zeit gibt es keine registrierten Lehrer"
     },
     "login": {
         "error": {
@@ -4592,7 +4616,7 @@
             "backToBackoffice": "Manager Website"
         },
         "paymentCombo": {
-            "addToCart": "In die Tasche"
+            "addToCart": "In den Warenkorb"
         },
         "selector": {
             "establishment": {
@@ -4879,21 +4903,21 @@
     "checkout": {
         "myBasket": {
             "actions": {
-                "payZero": "Meine Tasche bestätigen",
+                "payZero": "Meinen Warenkorb bestätigen",
                 "closeBasket": "Weiter einkaufen",
                 "checkoutBasket": "Zahlen"
             },
-            "title": "Meine Tasche",
+            "title": "Mein Warenkorb",
             "finalize": {
                 "steps": {
                     "address": "Adresse",
                     "payment": "Rechnungsstellung"
                 }
             },
-            "isEmpty": "Ihre Tasche ist leer",
+            "isEmpty": "Ihr Warenkorb ist leer",
             "featured": "Wir empfehlen Ihnen",
             "error": {
-                "invalidBasket": "Ihre Tasche enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet"
+                "invalidBasket": "Ihr Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet"
             }
         },
         "forms": {

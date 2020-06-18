@@ -8,6 +8,9 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 import Moment from 'moment';
 import 'moment/locale/fr';
+import 'moment/locale/de';
+import 'moment/locale/nl';
+import 'moment/locale/it';
 
 import namespaces from './namespaces.json';
 

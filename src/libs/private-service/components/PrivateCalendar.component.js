@@ -5,6 +5,9 @@ import { compose, withStateHandlers } from 'recompose';
 // import chroma from 'chroma-js';
 import { withTranslation } from 'react-i18next';
 import frLocale from '@fullcalendar/core/locales/fr';
+import itLocale from '@fullcalendar/core/locales/it';
+import deLocale from '@fullcalendar/core/locales/de';
+import nlLocale from '@fullcalendar/core/locales/nl';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Popover from '@material-ui/core/Popover';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -408,12 +411,12 @@ export class PrivateCalendar extends React.Component<Props, State> {
           select={this.select}
           dateClick={this.dateClick}
           events={events}
-          locale={i18n.lng}
+          locale={i18n.language}
           slotDuration={
             // eslint-disable-next-line
             `00:${15 * 2 ** this.props.zoomLevel}:00`
           }
-          locales={[frLocale]}
+          locales={[frLocale, itLocale, deLocale, nlLocale]}
           minTime="06:00:00"
           maxTime="23:00:00"
           allDaySlot={false}

@@ -72,6 +72,8 @@ export function formatMinutes(minutesNumber, t) {
 }
 
 function getTime(d, fixed = false) {
+  // DEPRECATED
+  //  use moment and handle timezone
   const hour = d.getHours();
   const minute = d.getMinutes();
 
@@ -84,6 +86,8 @@ function getTime(d, fixed = false) {
 }
 
 export function humanizeDate(date) {
+  // DEPRECATED
+  //  use moment and handle timezone
   if (!date) {
     return '';
   }

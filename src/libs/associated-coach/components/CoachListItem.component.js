@@ -88,7 +88,7 @@ export function CoachListItem(props: Props) {
           </React.Fragment>
         }
       />
-      <ListItemSecondaryAction>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         {!!props.onClick && (
           <IconButton onClick={props.onClick}>
             <ArrowForwardIcon color="primary" />
@@ -109,7 +109,7 @@ export function CoachListItem(props: Props) {
             <DeleteIcon />
           </IconButton>
         ) : null}
-      </ListItemSecondaryAction>
+      </div>
     </ListItem>
   );
 }

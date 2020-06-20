@@ -82,9 +82,15 @@ const privateBookingAsEvent = (resourceDatatypeView) => (pb) => {
   let resourceId = null;
   if (resourceDatatypeView === 'establishment') {
     resourceId = pb.establishment;
+    if (pb.establishment && pb.establishment.id) {
+      resourceId = pb.establishment.id;
+    }
   }
   if (resourceDatatypeView === 'coach') {
     resourceId = pb.coach;
+    if (pb.coach && pb.coach.id) {
+      resourceId = pb.coach.id;
+    }
   }
   return {
     start: pb.date_start,

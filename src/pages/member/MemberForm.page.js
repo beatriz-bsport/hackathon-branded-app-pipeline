@@ -11,6 +11,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { push as pushRouter, goBack } from 'connected-react-router';
 import { compose, withProps } from 'recompose';
 import moment from 'moment';
+
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { snackbar } from '../../actions/snackbar.actions';
 import MemberForm from '../../libs/member/MemberForm.component';
 import { createOrUpdateMember, fetchMember } from '../../libs/member/actions';
@@ -90,50 +92,27 @@ export class MemberFormPage extends Component<Props> {
   }
 }
 
-function mapStateToProps(state, nextProps) {
-  const { match } = nextProps;
-  const id = (match && match.params && +match.params.id) || null;
-  return {
-    id,
-    errors: state.member.upsert.error,
-    initial: id !== null ? getMember(state, id) : null,
-    theme: themeSelectors.getTheme(state),
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchMemberInitial(id) {
-      dispatch(fetchMember(id));
-    },
-    upsertMember(id, data, options) {
-      dispatch(createOrUpdateMember(id, data, options));
-    },
-    onCancel() {
-      dispatch(goBack());
-    },
-    goToMember(pk) {
-      dispatch(pushRouter(`/member/${pk}/`));
-    },
-    goToMerge(memberPk, existingMemberPk) {
-      dispatch(
-        pushRouter(`/member/merge/${memberPk}/into/${existingMemberPk}`),
-      );
-    },
-    goToMemberList() {
-      dispatch(pushRouter('/member'));
-    },
-    snackbarSuccess(msg) {
-      dispatch(snackbar.success(msg));
-    },
-  };
-}
-
 export default compose(
   withTranslation(),
   withRouter,
+  routerParamsToProps({ id: 'id:number' }),
   connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    (state, { id }) => ({
+      id,
+      errors: state.member.upsert.error,
+      initial: id !== null ? getMember(state, id) : null,
+      theme: themeSelectors.getTheme(state),
+    }),
+    {
+      fetchMemberInitial: fetchMember,
+      upsertMember: createOrUpdateMember,
+      onCancel: goBack,
+      goToMember: (pk) => pushRouter(`/member/${pk}/`),
+      goToMerge: (memberPk, existingMemberPk) =>
+        pushRouter(`/member/merge/${memberPk}/into/${existingMemberPk}`),
+      goToMemberList: () => pushRouter('/member'),
+      snackbarSuccess: snackbar.success,
+    },
   ),
   withProps(({ upsertMember, initial, goToMember, goToMemberList }) => ({
     onSubmit: (values, options) => {

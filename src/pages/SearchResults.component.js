@@ -7,6 +7,10 @@ import { push } from 'connected-react-router';
 import memoize from 'memoize-one';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
@@ -58,6 +62,14 @@ const styles = (theme) => ({
       flexFlow: 'row',
     },
   },
+  contentInner: {
+    flexDirection: 'column',
+    flex: 'display',
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
+    paddingTop: theme.spacing(1),
+    marginTop: theme.spacing(1),
+  },
   detail: {
     flex: 2,
     width: '100%',
@@ -103,7 +115,7 @@ export class SearchResults extends Component<Props, State> {
     const hasLoaded = member;
     const isLoadingMember = !hasLoaded && selected;
     return (
-      <Paper className={classes.root}>
+      <div className={classes.root}>
         <SearchBar changeLocation className={classes.mobileOnly} />
         {hasLoaded ? (
           <Button
@@ -116,15 +128,23 @@ export class SearchResults extends Component<Props, State> {
           </Button>
         ) : null}
         <div className={classes.content}>
-          <ResultList
-            items={this.props.members}
-            loading={this.props.loading}
-            selected={selected}
-            selectEntity={this.selectEntity}
-            className={selected && !isLoadingMember ? classes.hidden : ''}
-          />
+          <Paper className={classes.contentInner}>
+            <ListItem button divider onClick={this.props.openCreateMember}>
+              <ListItemIcon>
+                <PersonAddIcon />
+              </ListItemIcon>
+              <ListItemText primary={t('actions.addMember')} />
+            </ListItem>
+            <ResultList
+              items={this.props.members}
+              loading={this.props.loading}
+              selected={selected}
+              selectEntity={this.selectEntity}
+              className={selected && !isLoadingMember ? classes.hidden : ''}
+            />
+          </Paper>
         </div>
-      </Paper>
+      </div>
     );
   }
 }
@@ -142,22 +162,15 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    pushToMember(memberId: number) {
-      dispatch(push(`/member/${memberId}/`));
-    },
-    selectEntity(entity) {
-      dispatch(searchActions.selectEntity(entity));
-    },
-  };
-}
-
 export default withStyles(styles)(
   withTranslation(['search'])(
     connect(
       mapStateToProps,
-      mapDispatchToProps,
+      {
+        pushToMember: (memberId: number) => push(`/member/${memberId}/`),
+        selectEntity: searchActions.selectEntity,
+        openCreateMember: () => push('/member/add'),
+      },
     )(
       withTitle(({ t }: { t: TFunction }) => t('titles:searchResults'))(
         SearchResults,

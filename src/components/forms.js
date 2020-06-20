@@ -81,7 +81,7 @@ export const TextField = withStyles(textFieldStyles)((props: Props) => {
         <MuiTextField
           className={classes.field}
           {...field}
-          {...props}
+          {...omit(props, ['field'])}
           error={!!(touched[field.name] && errors[field.name])}
         />
       )}
@@ -98,7 +98,7 @@ export const DelayTextField = withStyles(textFieldStyles)((props: Props) => {
           <DelayedTextField
             className={classes.field}
             {...field}
-            {...props}
+            {...omit(props, ['field'])}
             error={!!(touched[field.name] && errors[field.name])}
           />
         </div>
@@ -115,7 +115,7 @@ export function PriceField(props) {
         startAdornment: <InputAdornment position="start">€</InputAdornment>,
       }}
       type="number"
-      {...props}
+      {...omit(props, ['field'])}
     />
   );
 }
@@ -127,7 +127,7 @@ export function IntegerField(props) {
         inputProps: { min: 0, step: 1 },
       }}
       type="number"
-      {...props}
+      {...omit(props, ['field'])}
     />
   );
 }
@@ -140,7 +140,7 @@ export function PercentField(props: any) {
         endAdornment: <InputAdornment position="end">%</InputAdornment>,
       }}
       type="number"
-      {...props}
+      {...omit(props, ['field'])}
     />
   );
 }

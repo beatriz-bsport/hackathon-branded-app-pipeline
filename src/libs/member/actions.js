@@ -233,7 +233,7 @@ export function search(text: string) {
   };
 }
 
-export function fetchMember(id: number) {
+export function fetchMember(id: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchMember());
 
@@ -241,9 +241,15 @@ export function fetchMember(id: number) {
       const response = await fetchMemberApi(id);
       const member = response.data;
       dispatch(hasFetchedMember(member));
+      if (options && options.onSuccess) {
+        options.onSuccess(member);
+      }
     } catch (err) {
       console.error(err);
       dispatch(errorFetchingMember());
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
   };
 }

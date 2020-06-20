@@ -391,7 +391,7 @@ export function MemberForm(props: Props) {
                       {t('translation:common.cancel')}
                     </Button>
                   ) : null}
-                  <Submit disabled={isSubmitting}>
+                  <Submit disabled={isSubmitting || props.emailExists}>
                     {t('translation:form.send')}
                   </Submit>
                 </Actions>

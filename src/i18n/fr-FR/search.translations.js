@@ -10,4 +10,7 @@ exports.default = {
       title: 'Cartes de cours',
     },
   },
+  actions: {
+    addMember: 'Ajouter un membre',
+  },
 };

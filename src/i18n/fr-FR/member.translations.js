@@ -1,4 +1,8 @@
 exports.default = {
+  search: {
+    createMember: 'Ajouter un membre',
+    cancel: 'Fermer',
+  },
   // eslint-disable-next-line
   name: 'Nom',
   table: {

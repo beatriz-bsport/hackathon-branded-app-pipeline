@@ -9,6 +9,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -16,10 +18,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { withTranslation } from 'react-i18next';
-import { compose, withState } from 'recompose';
+import { compose, withState, withStateHandlers } from 'recompose';
 
 import type { TFunction } from 'react-i18next';
 import SearchMemberInput from '../../../pages/offer-management/SearchMember.component';
+import MemberForm from '../MemberForm.component';
 
 import type { Member } from '../types';
 
@@ -54,6 +57,27 @@ const MemberListItem = (props: { member: Member, onClick: () => void }) => (
 );
 
 export function MemberSearchModal(props: Props) {
+  if (props.isOpenCreateForm) {
+    return (
+      <Dialog open={props.open}>
+        <MemberForm
+          onCancel={props.closeCreateForm}
+          onSubmit={(data, options) =>
+            props.createMember(data, {
+              onSuccess: (member) => {
+                props.handlMemberSelected(member.id, member);
+              },
+              onError: options && options.onError,
+            })
+          }
+          initial={{ birthday: null, rgpd: ['accept_email', 'accept_sms'] }}
+          goToMember={props.goToMember}
+          goToMemberList={() => {}}
+          snackbarSuccess={console.log}
+        />
+      </Dialog>
+    );
+  }
   return (
     <Dialog
       open={props.open}
@@ -80,11 +104,20 @@ export function MemberSearchModal(props: Props) {
             width: '100%',
           }}
         >
+          {!!props.createMember && (
+            <ListItem button onClick={props.openCreateForm}>
+              <ListItemIcon>
+                <PersonAddIcon />
+              </ListItemIcon>
+              <ListItemText primary={props.t('search.createMember')} />
+            </ListItem>
+          )}
           <List>
             {props.loading ? <LinearProgress /> : null}
             {props.searchedMembers.map((member: Member) => (
               <MemberListItem
                 member={member}
+                key={member.id}
                 onClick={() => props.handlMemberSelected(member.id, member)}
               />
             ))}
@@ -94,7 +127,7 @@ export function MemberSearchModal(props: Props) {
       <Divider />
       <DialogActions>
         <Button onClick={props.onClose} color="secondary">
-          {props.t('common.cancel')}
+          {props.t('search.cancel')}
         </Button>
       </DialogActions>
     </Dialog>
@@ -109,6 +142,13 @@ const styles = () => ({
 
 export default compose(
   withStyles(styles),
-  withTranslation(),
+  withTranslation(['member']),
   withState('searchedText', 'setSearchedText', ''),
+  withStateHandlers(
+    { isOpenCreateForm: false },
+    {
+      openCreateForm: () => () => ({ isOpenCreateForm: true }),
+      closeCreateForm: () => () => ({ isOpenCreateForm: false }),
+    },
+  ),
 )(MemberSearchModal);

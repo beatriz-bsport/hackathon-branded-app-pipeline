@@ -7,7 +7,11 @@ import { BOOKING_STATUS_CANCELLED_BY_CONSUMER } from '@bsport/common/lib/master-
 import type { State } from '../../../state/types';
 import type { PrivateBooking } from '../types';
 
-import { getMemberListData, getAllMembers } from '../../member/selectors';
+import {
+  getMemberListData,
+  getMemberDetailData,
+  getAllMembers,
+} from '../../member/selectors';
 
 import { getAllPrivateSlotsDict } from './private-slot';
 import { _getPrivateServicesById } from './private-service';
@@ -41,6 +45,7 @@ export const withRelatedFields = memoize((selector) =>
       getAllPrivateSlotsDict,
 
       getMemberListData,
+      getMemberDetailData,
     ],
     (
       bookings,
@@ -49,6 +54,7 @@ export const withRelatedFields = memoize((selector) =>
       serviceData,
       slotData,
       memberData,
+      memberDetailData,
     ) => {
       if (!bookings) return null;
       if (!Array.isArray(bookings)) {
@@ -58,7 +64,8 @@ export const withRelatedFields = memoize((selector) =>
           establishment: estalbishmentData[bookings.establishment],
           private_service: serviceData[bookings.private_service],
           private_slot: slotData[bookings.private_slot],
-          member: memberData[bookings.member],
+          member:
+            memberData[bookings.member] || memberDetailData[bookings.member],
         };
       }
       return bookings.map((b) => ({
@@ -67,7 +74,7 @@ export const withRelatedFields = memoize((selector) =>
         establishment: estalbishmentData[b.establishment],
         private_service: serviceData[b.private_service],
         private_slot: slotData[b.private_slot],
-        member: memberData[b.member],
+        member: memberData[b.member] || memberDetailData[b.member],
       }));
     },
   ),

@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import type { TFunction } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
@@ -94,7 +93,6 @@ export class MemberFormPage extends Component<Props> {
 
 export default compose(
   withTranslation(),
-  withRouter,
   routerParamsToProps({ id: 'id:number' }),
   connect(
     (state, { id }) => ({

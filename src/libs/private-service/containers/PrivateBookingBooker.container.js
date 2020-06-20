@@ -19,6 +19,8 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { getPrivatePassAvailable } from '../selectors/private-pass';
 import { getPrivateConsumerPassList } from '../selectors/private-consumer-pass';
+import { MemberMap } from '../../member/utils';
+import { mapFormData } from '../../../pages/form.utils';
 import {
   fetchAllPrivateServices,
   fetchAllPrivateSlots,
@@ -37,8 +39,10 @@ import { getSearchedMembers } from '../../member/selectors';
 import MemberMinimalListItem from '../../member/components/MemberMinimalListItem.component';
 import {
   search as searchMembers,
+  createOrUpdateMember,
   fetchMember as fetchMemberAction,
 } from '../../member/actions';
+import { getLatest as getLatestMember } from '../../member/api';
 
 import MissingResourceForBookingHelper from '../components/MissingResourceForBookingHelper.component';
 import PrivatePassCapabilities from '../components/PrivatePassCapabilities.component';
@@ -191,6 +195,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
             (m) => m.id !== this.props.id,
           )}
           open
+          createMember={this.props.createMember}
           onClose={this.onClose}
           handlMemberSelected={(id: number, member: Member) =>
             this.setState({ member })
@@ -288,13 +293,37 @@ const styles = (theme) => ({
   },
 });
 
-const MemberSearchContainer = connect(
-  (state) => ({
-    searchedMembers: getSearchedMembers(state),
+const MemberSearchContainer = compose(
+  connect(
+    (state) => ({
+      searchedMembers: getSearchedMembers(state),
+    }),
+    {
+      searchMembers,
+      createMember: createOrUpdateMember,
+    },
+  ),
+  withHandlers({
+    createMember: ({ createMember, fetchMember }) => (values, options) => {
+      if (!values.birthday) {
+        // eslint-disable-next-line
+        delete values.birthday;
+      }
+      const formData = mapFormData(values, MemberMap);
+
+      createMember(null, formData, {
+        onSuccess: () => {
+          getLatestMember()
+            .then((res) => {
+              fetchMember(res.data, options);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        },
+      });
+    },
   }),
-  {
-    searchMembers,
-  },
 );
 
 export default compose(

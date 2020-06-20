@@ -12,6 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
 
 type Props = {
   items: *[],
@@ -47,27 +48,13 @@ export class ResultList extends Component<Props> {
       return this.props.items.map((item) => renderListComponent(item));
     }
     return this.props.items.map((item) => (
-      <ListItem
+      <MemberMinimalListItem
+        member={item}
         key={item.id}
-        button
-        selected={selected === item.id}
-        className="result-item"
-        divider
         onClick={() => {
           this.props.selectEntity({ data: item, type: 'member' });
         }}
-      >
-        <ListItemText
-          primary={item.name}
-          primaryTypographyProps={{ noWrap: true }}
-          secondary={
-            item.email || item.phone
-              ? `${item.email} ${item.phone ? item.phone : ''}`
-              : null
-          }
-          classes={{ secondary: classes.email }}
-        />
-      </ListItem>
+      />
     ));
   };
 
@@ -104,9 +91,7 @@ const styles = (theme) => ({
   list: {
     maxWidth: '100%',
     flex: '0 360',
-    paddingTop: theme.spacing(1),
     backgroundColor: theme.palette.background.paper,
-    borderRight: '1px solid gray',
   },
   email: {
     [theme.breakpoints.down('md')]: {

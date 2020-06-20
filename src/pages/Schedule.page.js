@@ -2,6 +2,7 @@
 import React from 'react';
 
 import { compose, withState, withHandlers } from 'recompose';
+import uniq from 'lodash/uniq';
 import moment from 'moment';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -10,7 +11,7 @@ import { push } from 'connected-react-router';
 
 import {
   getPrivateBookingListFiltered,
-  withMember,
+  withRelatedFields,
 } from '../libs/private-service/selectors/private-booking';
 import { fetchAllOffers as fetchAllOffersAction } from '../libs/offer/actions';
 import withTitle from '../hocs/with-title.hoc';
@@ -131,7 +132,7 @@ export default compose(
           })),
         },
       ],
-      privateBookingList: withMember(getPrivateBookingListFiltered)(
+      privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
         state,
         null,
         periodFilter,
@@ -193,7 +194,9 @@ export default compose(
         {
           onSuccess: (bookingList) => {
             if (bookingList.length) {
-              fetchMemberBulk({ id__in: bookingList.map((b) => b.member) });
+              fetchMemberBulk({
+                id__in: uniq(bookingList.map((b) => b.member)),
+              });
             }
           },
         },

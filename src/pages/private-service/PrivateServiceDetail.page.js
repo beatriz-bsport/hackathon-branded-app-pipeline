@@ -34,9 +34,9 @@ import {
 } from '../../libs/establishment/actions';
 import {
   fetchAllPrivateServices,
+  fetchAllPrivateSlots,
   fetchPrivateService as fetchPrivateServiceAction,
   createOrUpdatePrivateService,
-  fetchPrivateSlotList,
   switchServiceHasOwnAvailabilitySlots,
   createOrUpdatePrivateSlot,
   deletePrivateSlot as deletePrivateSlotAction,
@@ -53,7 +53,7 @@ type Props = {
     data: *,
     options: { onSuccess: () => void },
   ) => void,
-  fetchPrivateSlotList: (privateServiceId: number) => void,
+  fetchAllPrivateSlots: () => void,
   createOrUpdatePrivateSlot: (any) => void,
   deletePrivateSlot: (privateServiceId: number, privateSlotId: number) => void,
   deletePrivateService: (id: number) => void,
@@ -124,7 +124,7 @@ export class PrivateServiceList extends React.Component<Props> {
         );
       },
     });
-    this.props.fetchPrivateSlotList(this.props.id);
+    this.props.fetchAllPrivateSlots({ private_service: this.props.id });
   };
 
   closeForm = () => {
@@ -217,12 +217,12 @@ export default compose(
         ),
     }),
     {
-      fetchAllPrivateServices,
+      fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
       createOrUpdateServiceGroup: createOrUpdateServiceGroupAction,
       fetchPrivateService: fetchPrivateServiceAction,
       fetchAssociatedCoachesList,
       createOrUpdatePrivateService,
-      fetchPrivateSlotList,
+      fetchAllPrivateSlots,
       switchServiceHasOwnAvailabilitySlots,
 
       fetchEstablishments,

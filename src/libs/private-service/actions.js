@@ -3,6 +3,7 @@
 import { createAction } from 'redux-actions';
 
 import moment from 'moment';
+import uniq from 'lodash/uniq';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 import {
@@ -380,12 +381,12 @@ export const privateServiceListActions = {
   success: createAction('PRIVATE_SERVICE/LIST/SUCCESS'),
 };
 
-export function fetchAllPrivateServices(options: OptionCallback) {
+export function fetchAllPrivateServices(params:any={}, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceListActions.isLoading(true));
     dispatch(privateServiceListActions.error(null));
     try {
-      const response = await fetchAllPrivateServicesAPI();
+      const response = await fetchAllPrivateServicesAPI(params);
       dispatch(privateServiceListActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
@@ -554,27 +555,60 @@ export const privateSlotListActions = {
   all: createAction('PRIVATE_SLOT/LIST/ALL'),
 };
 
-export function fetchPrivateSlotList(privateServiceId: number): ThunkAction {
+export const privateSlotBulkActions = {
+  error: createAction('PRIVATE_SLOT/BULK/ERROR'),
+  isLoading: createAction('PRIVATE_SLOT/BULK/IS_LOADING'),
+  success: createAction('PRIVATE_SLOT/BULK/SUCCESS'),
+};
+
+export function fetchPrivateSlotBulk(
+  ids: Array<number>,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
-    dispatch(privateSlotListActions.isLoading(true));
-    dispatch(privateSlotListActions.error(null));
+    dispatch(privateSlotBulkActions.isLoading(true));
+    dispatch(privateSlotBulkActions.error(null));
     try {
-      const response = await fetchPrivateSlotListAPI(privateServiceId);
-      dispatch(privateSlotListActions.success(response.data));
+      const response = await fetchAllPrivateSlotsAPI({ id__in: uniq(ids) });
+      dispatch(privateSlotBulkActions.success(response.data));
     } catch (err) {
       console.error(err);
-      dispatch(privateSlotListActions.error(null));
+      dispatch(privateSlotBulkActions.error(null));
     }
-    dispatch(privateSlotListActions.isLoading(false));
+    dispatch(privateSlotBulkActions.isLoading(false));
   };
 }
 
-export function fetchAllPrivateSlots(): ThunkAction {
+export const privateServiceBulkActions = {
+  error: createAction('PRIVATE_SERVICE/BULK/ERROR'),
+  isLoading: createAction('PRIVATE_SERVICE/BULK/IS_LOADING'),
+  success: createAction('PRIVATE_SERVICE/BULK/SUCCESS'),
+};
+
+export function fetchPrivateServiceBulk(
+  ids: Array<number>,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateServiceBulkActions.isLoading(true));
+    dispatch(privateServiceBulkActions.error(null));
+    try {
+      const response = await fetchAllPrivateServicesAPI({ id__in: uniq(ids) });
+      dispatch(privateServiceBulkActions.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(privateServiceBulkActions.error(null));
+    }
+    dispatch(privateServiceBulkActions.isLoading(false));
+  };
+}
+
+export function fetchAllPrivateSlots(params:any={}): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateSlotListActions.isLoading(true));
     dispatch(privateSlotListActions.error(null));
     try {
-      const response = await fetchAllPrivateSlotsAPI();
+      const response = await fetchAllPrivateSlotsAPI(params);
       dispatch(privateSlotListActions.all(response.data));
     } catch (err) {
       console.error(err);
@@ -1231,7 +1265,7 @@ export function fetchPrivateBooking(
 
 export function registerPrivateBooking(
   params: any,
-  options: ?{ onSuccess: () => void, onError: ?() => void },
+  options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingCreateOrUpdateActions.isLoading(true));
@@ -1239,7 +1273,7 @@ export function registerPrivateBooking(
     try {
       const response = await registerPrivateBookingsAPI(params);
       dispatch(privateBookingCreateOrUpdateActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privateBookingCreateOrUpdateActions.error(null));

@@ -243,7 +243,8 @@ export default compose(
       selectedPrivateService: getPrivateServiceById(state, privateServiceId),
     }),
     {
-      fetchAllPrivateServices: fetchAllPrivateServicesAction,
+      fetchAllPrivateServices: () =>
+        fetchAllPrivateServicesAction({ mine: true }),
       fetchPrivateServiceGroupList: fetchPrivateServiceGroupListAction,
       fetchPrivateService,
       fetchAssociatedCoachesList,

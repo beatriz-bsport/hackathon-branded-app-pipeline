@@ -5,14 +5,19 @@ import { compose, withHandlers, withState } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-
 import moment from 'moment';
+import uniq from 'lodash/uniq';
+
 import withTitle from '../../hocs/with-title.hoc';
 import { getEstablishment } from '../../libs/establishment/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
-import { getPrivateBookingListFiltered } from '../../libs/private-service/selectors/private-booking';
+import {
+  getPrivateBookingListFiltered,
+  withRelatedFields,
+} from '../../libs/private-service/selectors/private-booking';
+import { fetchMemberBulk as fetchMemberBulkAction } from '../../libs/member/actions';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import PrivateCalendarWithControls from '../../libs/private-service/components/PrivateCalendarWithControls.component';
@@ -31,6 +36,8 @@ import {
   enableEstablishmentAvailabilitySlot,
   fetchPrivateBookings as fetchPrivateBookingsAction,
   resetPrivateBookings,
+  fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
+  fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
 } from '../../libs/private-service/actions';
 import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
 
@@ -192,7 +199,7 @@ export default compose(
     (state, { id, periodFilter }) => ({
       availabilitySlots: getEstablishmentAvailabilitySlots(state, id),
       establishment: getEstablishment(state, id),
-      privateBookingList: getPrivateBookingListFiltered(
+      privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
         state,
         null,
         periodFilter,
@@ -216,6 +223,9 @@ export default compose(
       fetchEstablishmentBulk,
       disableEstablishmentAvailabilitySlot,
       enableEstablishmentAvailabilitySlot,
+      fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
+      fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
+      fetchMemberBulk: fetchMemberBulkAction,
     },
   ),
   withHandlers({
@@ -250,14 +260,26 @@ export default compose(
     fetchPrivateBookingList: ({
       fetchPrivateBookings,
       periodFilter,
+      fetchPrivateServiceBulk,
+      fetchPrivateSlotBulk,
+      fetchMemberBulk,
       id,
     }) => () => {
-      fetchPrivateBookings({
-        establishment: id,
-        date_start__gte: periodFilter.start,
-        date_start__lte: periodFilter.end,
-        page_size: null,
-      });
+      fetchPrivateBookings(
+        {
+          establishment: id,
+          date_start__gte: periodFilter.start,
+          date_start__lte: periodFilter.end,
+          page_size: null,
+        },
+        {
+          onSuccess: (bookingList) => {
+            fetchPrivateServiceBulk(bookingList.map((b) => b.private_service));
+            fetchPrivateSlotBulk(bookingList.map((b) => b.private_slot));
+            fetchMemberBulk({ id__in: uniq(bookingList.map((b) => b.member)) });
+          },
+        },
+      );
     },
   }),
   withTitle(({ establishment }) => {

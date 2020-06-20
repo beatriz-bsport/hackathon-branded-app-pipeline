@@ -7,7 +7,7 @@ import { BOOKING_STATUS_CANCELLED_BY_CONSUMER } from '@bsport/common/lib/master-
 import type { State } from '../../../state/types';
 import type { PrivateBooking } from '../types';
 
-import { getAllMembers } from '../../member/selectors';
+import { getMemberListData, getAllMembers } from '../../member/selectors';
 
 import { getAllPrivateSlotsDict } from './private-slot';
 import { _getPrivateServicesById } from './private-service';
@@ -40,7 +40,7 @@ export const withRelatedFields = memoize((selector) =>
       _getPrivateServicesById,
       getAllPrivateSlotsDict,
 
-      getAllMembers,
+      getMemberListData,
     ],
     (
       bookings,
@@ -48,7 +48,7 @@ export const withRelatedFields = memoize((selector) =>
       estalbishmentData,
       serviceData,
       slotData,
-      members,
+      memberData,
     ) => {
       if (!bookings) return null;
       if (!Array.isArray(bookings)) {
@@ -58,7 +58,7 @@ export const withRelatedFields = memoize((selector) =>
           establishment: estalbishmentData[bookings.establishment],
           private_service: serviceData[bookings.private_service],
           private_slot: slotData[bookings.private_slot],
-          member: members.find((m) => m.id === bookings.member),
+          member: memberData[bookings.member],
         };
       }
       return bookings.map((b) => ({
@@ -67,7 +67,7 @@ export const withRelatedFields = memoize((selector) =>
         establishment: estalbishmentData[b.establishment],
         private_service: serviceData[b.private_service],
         private_slot: slotData[b.private_slot],
-        member: members.find((m) => m.id === b.member),
+        member: memberData[b.member],
       }));
     },
   ),
@@ -96,14 +96,14 @@ export const getPrivateBookingFutureAvailable = createSelector(
 export const getPrivateBookingList: (State) => Array<PrivateBookingWithRelatedFields> = createSelector(
   [
     getPrivateBookingListBase,
-    getAllMembers,
+    getMemberListData,
     _getPrivateServicesById,
     getAllPrivateSlotsDict,
   ],
-  (bookings, members, services, slots) =>
+  (bookings, memberData, services, slots) =>
     bookings.map((b) => ({
       ...b,
-      member: members.find((m) => m.id === b.member),
+      member: memberData[b.member],
       private_service: services[b.private_service],
       private_slot: slots[b.private_slot],
     })),
@@ -113,11 +113,11 @@ const paramFilter = (state, params, periodFilter) => [params, periodFilter];
 
 export const withMember = memoize((selector) =>
   createSelector(
-    [selector, getAllMembers],
-    (bookings, members) =>
+    [selector, getMemberListData],
+    (bookings, memberData) =>
       bookings.map((b) => ({
         ...b,
-        member: members.find((m) => m.id === b.member),
+        member: memberData[b.member],
       })),
   ),
 );

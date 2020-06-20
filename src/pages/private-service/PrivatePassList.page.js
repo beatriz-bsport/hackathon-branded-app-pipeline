@@ -184,7 +184,7 @@ export default compose(
     }),
     {
       fetchPrivatePassList,
-      fetchAllPrivateServices,
+      fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
       createOrUpdatePrivatePass,
       createCompatibleServicePass,
       deleteCompatibleServicePass,

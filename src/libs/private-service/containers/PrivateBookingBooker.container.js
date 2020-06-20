@@ -24,7 +24,7 @@ import {
   fetchAllPrivateSlots,
   fetchCompatiblePrivatePass as fetchCompatiblePrivatePassAction,
   fetchCompatiblePrivateConsumerPass as fetchCompatiblePrivateConsumerPassAction,
-  registerPrivateBooking,
+  registerPrivateBooking as registerPrivateBookingAction,
 } from '../actions';
 import { getAvailablePrivateServices } from '../selectors/private-service';
 
@@ -35,7 +35,10 @@ import SlotSearcherParams from '../components/slot-searcher/SlotSearcherParams.c
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 import { getSearchedMembers } from '../../member/selectors';
 import MemberMinimalListItem from '../../member/components/MemberMinimalListItem.component';
-import { search as searchMembers } from '../../member/actions';
+import {
+  search as searchMembers,
+  fetchMember as fetchMemberAction,
+} from '../../member/actions';
 
 import MissingResourceForBookingHelper from '../components/MissingResourceForBookingHelper.component';
 import PrivatePassCapabilities from '../components/PrivatePassCapabilities.component';
@@ -310,14 +313,16 @@ export default compose(
         state.privateService.privateBooking.createOrUpdate.loading,
     }),
     {
-      fetchAllPrivateServices,
-      fetchAllPrivateSlots,
+      fetchAllPrivateServices: (options) =>
+        fetchAllPrivateServices({ mine: true }, options),
+      fetchAllPrivateSlots: () => fetchAllPrivateSlots({ mine: true }),
       fetchEstablishmentBulk: fetchAssociatedEstablishmentBulk,
       fetchCoachBulk: fetchAssociatedCoachBulk,
+      fetchMember: fetchMemberAction,
 
       fetchCompatiblePrivatePass: fetchCompatiblePrivatePassAction,
       fetchCompatiblePrivateConsumerPass: fetchCompatiblePrivateConsumerPassAction,
-      registerPrivateBooking,
+      registerPrivateBooking: registerPrivateBookingAction,
     },
   ),
   MemberSearchContainer,
@@ -327,6 +332,19 @@ export default compose(
         `/invoice/add/member/${memberId}?withPrivatePass=${privatePassId}`,
       ),
 
+    registerPrivateBooking: ({ registerPrivateBooking, fetchMember }) => (
+      data,
+      options,
+    ) => {
+      registerPrivateBooking(data, {
+        onSuccess: (b) => {
+          fetchMember(b.member);
+          if (options && options.onSuccess) {
+            options.onSuccess(b);
+          }
+        },
+      });
+    },
     fetchPass: ({
       fetchCompatiblePrivatePass,
       fetchCompatiblePrivateConsumerPass,

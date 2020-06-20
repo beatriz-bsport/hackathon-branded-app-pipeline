@@ -7,6 +7,7 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+import uniq from 'lodash/uniq';
 import withTitle from '../../hocs/with-title.hoc';
 import { getCoach } from '../../libs/associated-coach/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -31,6 +32,8 @@ import {
   disableCoachAvailabilitySlot,
   enableCoachAvailabilitySlot,
   fetchPrivateBookings as fetchPrivateBookingsAction,
+  fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
+  fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
   resetPrivateBookings,
 } from '../../libs/private-service/actions';
 import { fetchMemberBulk as fetchMemberBulkAction } from '../../libs/member/actions';
@@ -197,6 +200,8 @@ export default compose(
       fetchCoach: (id) => fetchCoachBulk([id]),
       fetchMemberBulk: fetchMemberBulkAction,
       fetchPrivateBookings: fetchPrivateBookingsAction,
+      fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
+      fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
       fetchAllOffers: fetchAllOffersAction,
       resetPrivateBookings,
       fetchAvailabilitySlots,
@@ -236,6 +241,8 @@ export default compose(
     },
     fetchPrivateBookingList: ({
       fetchPrivateBookings,
+      fetchPrivateSlotBulk,
+      fetchPrivateServiceBulk,
       fetchMemberBulk,
       periodFilter,
       id,
@@ -251,7 +258,13 @@ export default compose(
         {
           onSuccess: (bookingList) => {
             if (bookingList.length) {
-              fetchMemberBulk({ id__in: bookingList.map((b) => b.member) });
+              fetchMemberBulk({
+                id__in: uniq(bookingList.map((b) => b.member)),
+              });
+              fetchPrivateServiceBulk(
+                bookingList.map((b) => b.private_service),
+              );
+              fetchPrivateSlotBulk(bookingList.map((b) => b.private_slot));
             }
           },
         },

@@ -99,10 +99,7 @@ const privateBookingAsEvent = (resourceDatatypeView) => (pb) => {
       pb.booking_status_code !== BOOKING_STATUS_OK.id ? 'cancelledEvent' : '',
     ],
     resourceId,
-    borderColor:
-      pb.private_slot && pb.private_slot.private_service
-        ? pb.private_slot.private_service.color
-        : '',
+    borderColor: pb.private_service ? pb.private_service.color : '',
   };
 };
 

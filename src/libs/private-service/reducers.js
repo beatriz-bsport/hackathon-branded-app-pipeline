@@ -15,6 +15,8 @@ import {
   privateServiceRetrieveActions,
   privateServiceCreateOrUpdateActions,
   privateSlotListActions,
+  privateSlotBulkActions,
+  privateServiceBulkActions,
   privateBookingListActions,
   privateBookingAttachCoachActions,
   privateBookingCreateOrUpdateActions,
@@ -473,6 +475,25 @@ export default handleActions(
     [privateServiceResourceRetrieveActions.error]: (state, { payload }) => {
       return state.setIn(['privateServiceResource', 'error'], payload);
     },
+    [privateServiceBulkActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['privateService', 'loading'], payload);
+    },
+    [privateServiceBulkActions.error]: (state, { payload }) => {
+      return state.setIn(['privateService', 'error'], payload);
+    },
+    [privateServiceBulkActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          privateService: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
+    },
     [privateServiceWithSlotListActions.isLoading]: (state, { payload }) => {
       return state.setIn(['privateService', 'loading'], payload);
     },
@@ -532,6 +553,25 @@ export default handleActions(
       return state.setIn(
         ['privateService', 'createOrUpdate', 'error'],
         payload,
+      );
+    },
+    [privateSlotBulkActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['privateSlot', 'loading'], payload);
+    },
+    [privateSlotBulkActions.error]: (state, { payload }) => {
+      return state.setIn(['privateSlot', 'error'], payload);
+    },
+    [privateSlotBulkActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          privateSlot: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
       );
     },
     [privateSlotListActions.isLoading]: (state, { payload }) => {

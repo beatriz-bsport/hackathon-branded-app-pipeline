@@ -486,7 +486,9 @@ export default compose(
         phonenumber,
       })
         .then(() => {
-          snackbarSuccess('member.link.success');
+          if (snackbarSuccess) {
+            snackbarSuccess('member.link.success');
+          }
           goToMemberList();
         })
         .catch((error) => {

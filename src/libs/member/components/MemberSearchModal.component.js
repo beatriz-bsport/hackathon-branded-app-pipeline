@@ -37,6 +37,12 @@ type Props = {
   handlMemberSelected: (id: number, member: Member) => void,
   classes: Object,
   t: TFunction,
+
+  createMember: (data: any, options: OptionCallback) => void,
+
+  openCreateForm: () => void,
+  closeCreateForm: () => void,
+  isOpenCreateForm: boolean,
 };
 
 const MemberListItem = (props: { member: Member, onClick: () => void }) => (
@@ -71,9 +77,8 @@ export function MemberSearchModal(props: Props) {
             })
           }
           initial={{ birthday: null, rgpd: ['accept_email', 'accept_sms'] }}
-          goToMember={props.goToMember}
+          goToMember={() => {}}
           goToMemberList={() => {}}
-          snackbarSuccess={console.log}
         />
       </Dialog>
     );

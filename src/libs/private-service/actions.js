@@ -29,7 +29,6 @@ import {
   fetchServiceGroupList as fetchServiceGroupListAPI,
   createOrUpdateServiceGroup as createOrUpdateServiceGroupAPI,
   // private-slot
-  fetchPrivateSlotList as fetchPrivateSlotListAPI,
   fetchAllPrivateSlots as fetchAllPrivateSlotsAPI,
   fetchPrivateSlotRetrieve as fetchPrivateSlotRetrieveAPI,
   createOrUpdatePrivateSlot as createOrUpdatePrivateSlotAPI,
@@ -381,7 +380,10 @@ export const privateServiceListActions = {
   success: createAction('PRIVATE_SERVICE/LIST/SUCCESS'),
 };
 
-export function fetchAllPrivateServices(params:any={}, options: OptionCallback) {
+export function fetchAllPrivateServices(
+  params: any = {},
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceListActions.isLoading(true));
     dispatch(privateServiceListActions.error(null));
@@ -571,9 +573,15 @@ export function fetchPrivateSlotBulk(
     try {
       const response = await fetchAllPrivateSlotsAPI({ id__in: uniq(ids) });
       dispatch(privateSlotBulkActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
       console.error(err);
       dispatch(privateSlotBulkActions.error(null));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
     dispatch(privateSlotBulkActions.isLoading(false));
   };
@@ -595,15 +603,21 @@ export function fetchPrivateServiceBulk(
     try {
       const response = await fetchAllPrivateServicesAPI({ id__in: uniq(ids) });
       dispatch(privateServiceBulkActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
       console.error(err);
       dispatch(privateServiceBulkActions.error(null));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
     dispatch(privateServiceBulkActions.isLoading(false));
   };
 }
 
-export function fetchAllPrivateSlots(params:any={}): ThunkAction {
+export function fetchAllPrivateSlots(params: any = {}): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateSlotListActions.isLoading(true));
     dispatch(privateSlotListActions.error(null));

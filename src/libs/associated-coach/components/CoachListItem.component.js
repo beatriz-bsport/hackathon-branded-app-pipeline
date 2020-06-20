@@ -3,7 +3,6 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';

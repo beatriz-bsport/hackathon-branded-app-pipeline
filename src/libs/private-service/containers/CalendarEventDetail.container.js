@@ -25,7 +25,6 @@ import PrivateBookingDisableDialog from '../components/booking/PrivateBookingDis
 import {
   getPrivateBooking,
   withRelatedFields,
-  withMember,
 } from '../selectors/private-booking';
 import { getPermissions } from '../../role/selectors';
 import {

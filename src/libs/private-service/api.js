@@ -88,12 +88,6 @@ export const createOrUpdatePrivateServiceSlot = (id: number, data: any) => {
   return postAuth(`${API_V1_URI}/private_service/private_service_slot/`, data);
 };
 
-export const fetchPrivateSlotList = (privateServiceId: number) => {
-  return getAuth(
-    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/`,
-  );
-};
-
 export const fetchAllPrivateSlots = (params: any) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_slot/${buildUrlParams(params)}`,

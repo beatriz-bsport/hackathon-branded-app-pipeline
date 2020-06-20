@@ -74,6 +74,8 @@ type Props = {
   compatiblePrivateConsumerPass: Array<ConsumerPrivatePass>,
   notify_member: boolean,
   setNotifyMember: (boolean) => void,
+
+  createMember: (data: any, options: OptionCallback) => void,
 };
 
 type State = {

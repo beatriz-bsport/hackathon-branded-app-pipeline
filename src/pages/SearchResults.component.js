@@ -34,6 +34,7 @@ type Props = {
   selectEntity: (*) => void,
   t: TFunction,
   loading: boolean,
+  openCreateMember: () => void,
 };
 type State = {};
 

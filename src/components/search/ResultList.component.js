@@ -17,13 +17,12 @@ import MemberMinimalListItem from '../../libs/member/components/MemberMinimalLis
 type Props = {
   items: *[],
   selectEntity: (*) => void,
-  selected: number,
-  classes: *,
   className: number,
 
   loading: boolean,
   t: TFunction,
   renderListComponent: (*) => Node,
+  classes: Object,
 };
 
 const EmptyResults = (props: { t: TFunction }) => (
@@ -40,7 +39,7 @@ const EmptyResults = (props: { t: TFunction }) => (
 
 export class ResultList extends Component<Props> {
   renderResults = () => {
-    const { renderListComponent, selected, classes } = this.props;
+    const { renderListComponent } = this.props;
     if (this.props.items.length === 0) {
       return <EmptyResults t={this.props.t} />;
     }

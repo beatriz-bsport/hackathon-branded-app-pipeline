@@ -15,8 +15,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 
-import firefox from '../../public/firefox_logo.png';
-import chrome from '../../public/chrome_logo.png';
+import firefox from './browser-icon/firefox_logo.png';
+import chrome from './browser-icon/chrome_logo.png';
 
 type Props = {
   classes: Object,

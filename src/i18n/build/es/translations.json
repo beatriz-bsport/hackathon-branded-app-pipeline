@@ -212,7 +212,9 @@
                 "confirmPassword": "Confirmer",
                 "passwordTooEasy": "Veuillez complexifier votre mot de passe",
                 "passwordChangedSuccess": "Mot de passe modifié avec succès !",
-                "passwordMismatch": "Les mots de passe ne correspondent pas"
+                "passwordMismatch": "Les mots de passe ne correspondent pas",
+                "tokenExpired": "Esta página ha caducado, por favor vuelva a solicitar una solicitud de cambio de contraseña",
+                "resetAgainPassword": "Solicitud de restablecimiento"
             },
             "shop": {
                 "subShop": {
@@ -262,7 +264,8 @@
                     "sell_only_on_provision": "Oferta en venta SOLO si hay disponibilidad",
                     "onsite_payment_available": "Posibilidad de pagar en el acto",
                     "is_deliverable": "Impone cargos de entrega predeterminados",
-                    "featured": "Destacar al validar la cesta"
+                    "featured": "Destacar al validar la cesta",
+                    "barcode": "Código de barras"
                 }
             },
             "booking": {
@@ -288,7 +291,9 @@
                 "rgpdTitle": "Moyen de communication accepté par le membre (alerte annulation, modification, etc...)",
                 "birthdayYear": "Année de naissance",
                 "referenceNumber": "Numéro d'adhérent",
-                "referenceNumberHelper": "(optionnel) si vide un numéro sera automatiquement créé"
+                "referenceNumberHelper": "(optionnel) si vide un numéro sera automatiquement créé",
+                "barcodeHelper": "(opcional) usa este código para sus tarjetas de acceso",
+                "barcode": "Código de barras (tarjeta)"
             },
             "metaActivity": {
                 "cantAddSameName": "Une activité du même nom existe déjà !"
@@ -304,7 +309,9 @@
                 },
                 "signupButton": "S'inscrire",
                 "iAcceptPrivacyPolicy": "J'accepte les ",
-                "privacyPolicy": "Conditions générales d'utilisation"
+                "privacyPolicy": "Conditions générales d'utilisation",
+                "emailExistsInDB2": "Iniciar sesión",
+                "emailExistsInDB1": "Este email ya está registrado"
             },
             "quickInvoice": {
                 "totalPurchase": "Achats",
@@ -355,6 +362,9 @@
                     "explainCreditBack": "Rembourser les crédits dépensés aux clients",
                     "explainNotify": "Envoyer une alerte aux clients ayant réservé",
                     "explainModalities": "Attention, cette modification est définitive. Votre séance ne sera plus visible par les clients finaux. Vous pourrez toujours y accéder."
+                },
+                "broadcast_link": {
+                    "error": "El enlace está mal. Debe comenzar con http:// o https:// y no contener ningún espacio"
                 }
             },
             "paymentPack": {
@@ -456,7 +466,14 @@
             "twoDays": "2 journées",
             "oneWeek": "1 semaine",
             "tenDays": "10 jours",
-            "twoWeeks": "2 semaines"
+            "twoWeeks": "2 semaines",
+            "never": "Nunca",
+            "twelveHour": "12h",
+            "threeHour": "3h",
+            "oneMonth": "1 mes",
+            "oneHourFifteen": "1h15",
+            "twentyMinutes": "20 minutos",
+            "credit_price": "Número de créditos de tarjeta de crédito necesarios para reservar"
         },
         "marketing": {
             "dashboard": "Tableau de bord",
@@ -499,8 +516,10 @@
                 "noBookingOptions": "Aucune réservation sur liste d'attente",
                 "noFutureBookings": "Aucune réservation prévue",
                 "noPastBookings": "Aucune réservation passée",
-                "cancelOption": "Annuler"
-            }
+                "cancelOption": "Annuler",
+                "myPrivateBooking": "Cita"
+            },
+            "myPrivatePass": "Mis tarjetas de cita"
         },
         "navigation": {
             "order": "Pedidas",
@@ -529,7 +548,25 @@
             "pass": "Abonos",
             "settings": "Parametros",
             "myClub": "Mi Club",
-            "subscription": "Suscripciones"
+            "subscription": "Suscripciones",
+            "coupon": "Promociones",
+            "refresh": "Actualizar",
+            "sequence": "Estrategias",
+            "combo": "Packs",
+            "digital": "Oferta digital",
+            "podcast": "Podcasts",
+            "video": "Videoteca",
+            "privateService": {
+                "pass": "Tarjetas de cita",
+                "services": "Sólo con cita previa",
+                "title": "Sólo con cita previa"
+            },
+            "schedule": "Horario",
+            "email_template": "Emails",
+            "smart_list": "Smartlists",
+            "requestTempPassword": "Permitir el acceso",
+            "marketing_automation": "Marketing Auto",
+            "playlist": "Recorrido"
         },
         "invoice": {
             "choseDateTitle": "Date de facturation",
@@ -599,7 +636,8 @@
                 "BANK_TRANSFER": "Virement",
                 "CREDIT_ACCOUNT": "Compte interne (crédit)",
                 "SUBSCRIPTION_CB": "Paiement automatique CB",
-                "OTHER": "Divers"
+                "OTHER": "Divers",
+                "DISPUTE": "Litigio"
             },
             "paymentItemsListTitle": "Paiements enregistrés",
             "noPaymentItem": "Aucun paiement enregistré",
@@ -615,10 +653,14 @@
             "stripePaymentWillBeCashedOutOnInvoiceValidation": "La CB ne sera débitée qu'après la sauvegarde de la facture",
             "createInvoice": "Paiement",
             "toBill": "Facturer",
-            "toSubscribe": "Souscrire"
+            "toSubscribe": "Souscrire",
+            "paymentCombo": "Pack",
+            "return": "Reembolsar",
+            "privatePass": "Tarjeta de cita",
+            "payment": "Pago"
         },
         "paginatedList": {
-            "isEmpty": "Aucunes données à afficher"
+            "isEmpty": "No hay datos que mostrar"
         },
         "login": {
             "welcome": "Bienvenue !",
@@ -630,7 +672,11 @@
             "noAccount": "Pas encore compte ? Créez-en un ici !",
             "password": "Mot de passe",
             "authError": "Email ou mot de passe erroné",
-            "forgottenPassword": "Mot de passe oublié"
+            "forgottenPassword": "Mot de passe oublié",
+            "error": {
+                "invalidPassword": "La contraseña es inválida",
+                "invalidEmail": "Este email no existe en nuestra base de datos"
+            }
         },
         "calendar": {
             "modifyOffer": "Modifier",
@@ -680,7 +726,11 @@
             "orNcredits1": "(ou ",
             "orNcredits2": " credits)",
             "packsAvailable": "Eligible aux pass :",
-            "reviews": "Avis clients: "
+            "reviews": "Avis clients: ",
+            "explainImage": "Recomendado: 1920x1080 jpeg (fullHD)",
+            "color": "Código de colores",
+            "firstBookingMinutesUntil": "Bloquear las reservas en el futuro arriba ",
+            "is_broadcast": "Cursos de streaming en vivo"
         },
         "workshopActivity": {
             "addWorkshopActivity": "Ajouter un atelier",
@@ -733,7 +783,13 @@
             "waiting": "Lista de espera",
             "confirmed": "Confirmados",
             "free": "huecos disponibles",
-            "seeCustomers": "Ver las reservas"
+            "seeCustomers": "Ver las reservas",
+            "source": "Procedencia",
+            "add": "Inscribir",
+            "revertBookingExplain": {
+                "offerIsNotAvailable": "La reserva será eliminada. La sesión ya ha sido cancelada y los créditos no serán reembolsados si no marcaste \"reembolso\" en el momento de la cancelación",
+                "offerIsAvailable": "¿Está seguro de que quieres eliminar esta reserva? Los créditos utilizados serán acreditados de nuevo."
+            }
         },
         "level": {
             "all": "Todos los niveles",
@@ -791,7 +847,8 @@
                 "book": "Reservar",
                 "bookOption": "Liste de espera",
                 "notAvailable": "Cancelada",
-                "isPast": "Pasada"
+                "isPast": "Pasada",
+                "notBookableYet": "Muy pronto"
             },
             "sessionThisDay": "Clases de este día :",
             "calendar": "Calendario",
@@ -823,7 +880,15 @@
                 "establishment": {
                     "placeholder": "Filtrar por locales"
                 }
-            }
+            },
+            "teacher": "Profesor",
+            "contract": {
+                "tabName": "Suscripción"
+            },
+            "private_service": "Sólo con cita previa",
+            "passListTitle": "Tarjetas clases de grupo",
+            "privatePassListTitle": "Tarjetas de cita",
+            "vod": "VOD"
         },
         "appbar": {
             "title": {
@@ -873,7 +938,18 @@
             "afternoon": "Tarde",
             "evening": "Noche"
         },
-        "private_service": "Cita"
+        "private_service": "Cita",
+        "offerManagement": {
+            "forms": {
+                "register": {
+                    "forceNotify": "Enviar un email de confirmación",
+                    "passCompatibleNotOwnedByMember": "Facturación de un nuevo pase",
+                    "passOwnedByMember": "Pase(s) propiedad del miembro",
+                    "registerToOffer": "Registro de la sesión"
+                }
+            }
+        },
+        "openSchedule": "Vea el programa"
     },
     "search": {
         "input": "Buscando...",
@@ -886,6 +962,9 @@
             "packs": {
                 "title": "Abonos"
             }
+        },
+        "actions": {
+            "addMember": "Añadir un miembro"
         }
     },
     "dashboard": {
@@ -1559,6 +1638,37 @@
                 "notAvailable": "Cancelada",
                 "duration": "Duración: {{duration}}"
             }
+        }
+    },
+    "notificationRule": {
+        "ruleGroup": {
+            "waiting-list": "Lista de espera",
+            "offer": "Sesión",
+            "booking": "Reservación",
+            "member": "Creación de una cuenta de estudiante"
+        }
+    },
+    "partnership": {
+        "requestDialog": {
+            "close": "Entendido",
+            "explain": "Has solicitado la integración del bsport X classpass, tu gestor de cuenta se pondrá en contacto contigo para validar esta operación"
+        },
+        "parameters": {
+            "enabled": "Activo",
+            "establishmentId": "Los identificadores de tus salas son : {{ establishmentIdList }}",
+            "allEstablishment": "Todas las salas",
+            "companyId": "El identificador de tu club es: {{ compañía }}"
+        },
+        "actions": {
+            "requestPartnership": "Activar la integración",
+            "save": "Registrar"
+        }
+    },
+    "membership": {
+        "selector": {
+            "explainConsumer": "Con <1>bsport</2> disfruta de una experiencia única para reservar todas tus actividades deportivas. <3/> ¡Una sola cuenta y una sola contraseña!",
+            "noMatchingCompany": "Ningún resultado",
+            "placeholder": "Buscar un estudio/sala/club..."
         }
     }
 }

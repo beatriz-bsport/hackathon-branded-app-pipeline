@@ -784,7 +784,11 @@
       }
     },
     "countdown": { "hours": "Heures", "minutes": "Minutes", "seconds": "Secondes" },
-    "dayParts": { "morning": "Matin", "afternoon": "Après midi", "evening": "Soir" }
+    "dayParts": { "morning": "Matin", "afternoon": "Après midi", "evening": "Soir" },
+    "navigatorError": "Il semblerait que votre navigateur soit trop ancien pour utiliser nos services. Essayez de télécharger une version plus récente.",
+    "downloadFirefox": "Téléchargez gratuitement Mozilla Firefox",
+    "downloadChrome": "Téléchargez gratuitement Google Chrome",
+    "downloadEdge": "Téléchargez gratuitement Microsoft Edge"
   },
   "search": {
     "input": "Rechercher...",
@@ -3756,6 +3760,12 @@
       "subscription": "Prélèvements",
       "contract": "Contrats",
       "coupon": "Promotions"
+    },
+    "deprecatedNavigator": {
+      "navigatorError": "Il semblerait que votre navigateur soit trop ancien pour utiliser nos services. Vous risquez de rencontrer des erreurs, nous vous recommandons de télécharger une version plus récente notamment : ",
+      "downloadFirefox": "Téléchargez gratuitement Mozilla Firefox",
+      "downloadChrome": "Téléchargez gratuitement Google Chrome",
+      "close": "Fermer"
     }
   }
 }

@@ -50,4 +50,11 @@ exports.default = {
     contract: 'Contrats',
     coupon: 'Promotions',
   },
+  deprecatedNavigator: {
+    navigatorError:
+      'Il semblerait que votre navigateur soit trop ancien pour utiliser nos services. Vous risquez de rencontrer des erreurs, nous vous recommandons de télécharger une version plus récente notamment : ',
+    downloadFirefox: 'Téléchargez gratuitement Mozilla Firefox',
+    downloadChrome: 'Téléchargez gratuitement Google Chrome',
+    close: 'Fermer',
+  },
 };

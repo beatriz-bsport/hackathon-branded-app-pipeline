@@ -11,6 +11,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import asyncComponent from './AsyncComponent';
 import Banner from './components/navigation/Banner.component';
 import Config from './config';
+import IEMessage from './components/IEMessage.component';
 
 const MarketPlace = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
@@ -74,34 +75,35 @@ export class Root extends Component<Props> {
     }
 
     return (
-      <div className={classes.root}>
-        <Banner
-          networkAvailable={this.props.networkAvailable}
-          environment={Config.REACT_APP_SENTRY_ENVIRONMENT}
-        />
-        <Switch>
-          <Route
-            path="/external/:companyId/"
-            component={CompanyExternalRouter}
+        <div className={classes.root}>
+          <IEMessage />
+          <Banner
+            networkAvailable={this.props.networkAvailable}
+            environment={Config.REACT_APP_SENTRY_ENVIRONMENT}
           />
-          <Route path="/sentry" component={SentryTestError} />
-          <Route path="/login" component={LoginRouter} />
-          <Route path="/double-login" component={DoubleLogin} />
-          <Route
-            path="/c/:companyId/unsubscribe/:unsubscribe_uuid"
-            component={ConsumerUnsubscribe}
-          />
-          <Route path="/(|customer/)payment" component={PaymentRouter} />
-          <Route path="/customer" component={ConsumerRouter} />
-          <Route path="/m/" component={MarketPlace} />
-          <Route path="/checkout" component={CheckoutRouter} />
-          <Route path="/check-in" component={CheckIn} />
-          <Route path="/rn-webview" component={RNWebView} />
-          <Route path="/c/:companyId" component={ConsumerRouter} />
-          <Route path="/c/" component={ConsumerRouter} />
-          <Route path="/" component={UserspaceSwitcher} />
-        </Switch>
-      </div>
+          <Switch>
+            <Route
+              path="/external/:companyId/"
+              component={CompanyExternalRouter}
+            />
+            <Route path="/sentry" component={SentryTestError} />
+            <Route path="/login" component={LoginRouter} />
+            <Route path="/double-login" component={DoubleLogin} />
+            <Route
+              path="/c/:companyId/unsubscribe/:unsubscribe_uuid"
+              component={ConsumerUnsubscribe}
+            />
+            <Route path="/(|customer/)payment" component={PaymentRouter} />
+            <Route path="/customer" component={ConsumerRouter} />
+            <Route path="/m/" component={MarketPlace} />
+            <Route path="/checkout" component={CheckoutRouter} />
+            <Route path="/check-in" component={CheckIn} />
+            <Route path="/rn-webview" component={RNWebView} />
+            <Route path="/c/:companyId" component={ConsumerRouter} />
+            <Route path="/c/" component={ConsumerRouter} />
+            <Route path="/" component={UserspaceSwitcher} />
+          </Switch>
+        </div>
     );
   }
 }

@@ -1161,7 +1161,8 @@
                 "third": "Euros",
                 "first": "Die Anzahlung des Kundes ist",
                 "name": "Anzahlung",
-                "second": " um   "
+                "second": " um   ",
+                "between": "und"
             },
             "calendarPicker": {
                 "selectduration": {
@@ -1298,13 +1299,14 @@
                 },
                 "date": {
                     "first": " "
-                }
+                },
+                "between": "und"
             },
             "21": {
                 "hour": {
                     "third": "Uhr",
                     "second": "Uhr und",
-                    "first": "Die Zeit des Kurses liegt zwischen"
+                    "first": "Die Zeit des Kursbeginns liegt zwischen"
                 },
                 "date": {
                     "first": "Das Datum des Kurses ist"
@@ -1319,7 +1321,13 @@
                 "second_singular": ". Kurs",
                 "first": "Buchte seinen/ihren ",
                 "explanation": "Hat seinen/ihren X. Kurs von A in der Einrichtung B gebucht...",
-                "name": "Buchungsnummer"
+                "name": "Buchungsnummer",
+                "coach": {
+                    "first": "mit den Lehrern"
+                },
+                "payment_pack": {
+                    "first": "mit den Karten"
+                }
             },
             "20": {
                 "date": {
@@ -1330,13 +1338,14 @@
                 "first": "Hat einen Warenkorb aufgegeben im Wert von",
                 "explanation": "Hat einen Warenkorb aufgegeben, im Wert von ...",
                 "name": "Aufgegebene Warenkörbe",
-                "second": "um"
+                "second": "um",
+                "between": "und"
             },
             "19": {
                 "infoIcon": "Unbegrenzte Kurskarten sind immer eingeschlossen",
                 "expiration": {
-                    "first_has_expire": "Ist abgelaufen",
-                    "first_will_expire": "Läuft ab"
+                    "first_has_expire": "ist abgelaufen",
+                    "first_will_expire": "läuft ab"
                 },
                 "date_bought": {
                     "first": "Kaufdatum"
@@ -1413,6 +1422,24 @@
                 "name": "Passwort",
                 "explanation": "Besitzt ein Passwort bei bsport",
                 "explain": "besitzt ein Passwort bei bsport"
+            },
+            "comparators": {
+                "6": "zwischen",
+                "5": "gleich",
+                "2": "höher (⩾)",
+                "1": "niedriger (⩽)"
+            },
+            "24": {
+                "first": "Gab",
+                "second": "€ aus für die Produkte",
+                "name": "Ausgaben",
+                "workshop": "Kurskarte für Events",
+                "private_pass": "Privatkurs",
+                "between": "und",
+                "combo": "Package",
+                "pack": "Kurskarte",
+                "shop": "Geschäft",
+                "explanation": "Hat die Produkte A und B gekauft"
             }
         },
         "filterCategory": {
@@ -1522,7 +1549,13 @@
                 "warning": "Sie müssen mindestens eine Kurskarte auswählen",
                 "helperAllSelectedText": "Alle Kurskarten"
             },
-            "selectAll": "Alles auswählen"
+            "selectAll": "Alles auswählen",
+            "buyables": {
+                "helperAllSelectedText": "alle Produkte",
+                "textFieldPlaceholder": "Eine Produktkategorie suchen",
+                "helperSelectedText": "ausgewählte Kategorien",
+                "helperText": "Kategorien auswählen"
+            }
         },
         "description": "Beschreibung",
         "mails": "E-Mails",
@@ -2910,7 +2943,11 @@
         "cashoutBalance": "Auszahlen",
         "creditAccountBalance": "Verbleibender Kreditvorschuss",
         "pastBooking": "letzte : ",
-        "offers_joined": "Anzahl der registrierten Kurse"
+        "offers_joined": "Anzahl der registrierten Kurse",
+        "search": {
+            "cancel": "Schließen",
+            "createMember": "Ein Mitglied hinzufügen"
+        }
     },
     "common": {
         "text": {
@@ -4455,6 +4492,11 @@
             "pass": "Kurskarte",
             "establishment": "Einrichtungen",
             "payment": "Zahlungen"
+        },
+        "deprecatedNavigator": {
+            "close": "Schließen",
+            "downloadChrome": "Downloaden Sie kostenlos Google Chrome",
+            "downloadFirefox": "Downloaden Sie Mozilla Firefox kostenlos"
         }
     },
     "emailTemplate": {
@@ -4657,7 +4699,10 @@
         },
         "noResult": "Kein Ergebnis",
         "go_back": "Zurück zu den Ergebnissen",
-        "input": "Suche..."
+        "input": "Suche...",
+        "actions": {
+            "addMember": "Ein Mitglied hinzufügen"
+        }
     },
     "event": {
         "booking": {
@@ -4845,7 +4890,8 @@
             "explain": "Raumkapazität : {{ capacity }} Platz",
             "explain_plural": "Raumkapazität : {{ capacity }} Plätze",
             "label": "Raumkapazität",
-            "helperText": "Wird nur zur Berechnung der Verfügbarkeit für Termine verwendet"
+            "helperText": "Wird nur zur Berechnung der Verfügbarkeit für Termine verwendet",
+            "placeholder": " "
         },
         "detail": {
             "tab": {

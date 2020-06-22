@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import Particles from 'react-particles-js';
+
 import Hidden from '@material-ui/core/Hidden';
 import { withProps, compose } from 'recompose';
 import { connect } from 'react-redux';
@@ -15,12 +16,15 @@ import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { disconnect } from '../../actions/auth.actions';
 import themeSelectors from '../../libs/theme/selectors';
 import { getTheme } from '../../theme';
+import withErrorHidden from '../../hocs/error-boundary-hidden.hoc';
 
 import LoginPro from './LoginPro.component';
 import LoginConsumer from './LoginConsumer.component';
 import Signout from './Signout.component';
 import ResetPassword from './ResetPassword.component';
 import ChangePassword from './ChangePassword.component';
+
+const ParticlesWithoutError = withErrorHidden(Particles);
 
 type Props = {
   membership: ?string,
@@ -68,7 +72,7 @@ export class LoginRouter extends React.Component<Props> {
                   height: '100vh',
                 }}
               >
-                <Particles
+                <ParticlesWithoutError
                   id="particle-js"
                   style={{
                     position: 'fixed',

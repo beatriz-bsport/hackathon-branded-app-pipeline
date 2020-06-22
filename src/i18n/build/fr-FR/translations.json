@@ -784,11 +784,7 @@
       }
     },
     "countdown": { "hours": "Heures", "minutes": "Minutes", "seconds": "Secondes" },
-    "dayParts": { "morning": "Matin", "afternoon": "Après midi", "evening": "Soir" },
-    "navigatorError": "Il semblerait que votre navigateur soit trop ancien pour utiliser nos services. Essayez de télécharger une version plus récente.",
-    "downloadFirefox": "Téléchargez gratuitement Mozilla Firefox",
-    "downloadChrome": "Téléchargez gratuitement Google Chrome",
-    "downloadEdge": "Téléchargez gratuitement Microsoft Edge"
+    "dayParts": { "morning": "Matin", "afternoon": "Après midi", "evening": "Soir" }
   },
   "search": {
     "input": "Rechercher...",
@@ -3412,6 +3408,12 @@
         "helperAllSelectedText": "toutes les cartes de cours",
         "warning": "Sélectionnez au moins une carte de cours"
       },
+      "buyables": {
+        "helperText": "selectionner des catégories",
+        "helperSelectedText": "catégories sélectionnées",
+        "textFieldPlaceholder": "Rechercher une catégorie de produit",
+        "helperAllSelectedText": "tous les produits"
+      },
       "metaActivities": {
         "helperText": "selectionner des activités",
         "helperSelectedText": "activités sélectionnées",
@@ -3487,7 +3489,8 @@
         "first": "L'accompte du client est",
         "second": " à   ",
         "third": "euros",
-        "explanation": "A X euros sur son compte"
+        "explanation": "A X euros sur son compte",
+        "between": "et"
       },
       "2": {
         "name": "Date dernière séance réservée",
@@ -3532,9 +3535,9 @@
         "has_not": "Ne possède pas",
         "second": "et",
         "third": "à",
-        "credits": { "first": "Crédits:", "second": "et" },
-        "date_bought": { "first": "Date d'achat" },
-        "expiration": { "first_will_expire": "Expire", "first_has_expire": "A expiré" },
+        "credits": { "first": "crédits:", "second": "et" },
+        "date_bought": { "first": "date d'achat" },
+        "expiration": { "first_will_expire": "expire", "first_has_expire": "a expiré" },
         "infoIcon": "Les cartes de cours illimitées seront toujours incluses"
       },
       "20": {
@@ -3543,6 +3546,7 @@
         "first": "A abandonné un panier d'un montant",
         "second": "à",
         "third": "euros",
+        "between": "et",
         "date": { "first": "Panier abandonné", "second": "jours" }
       },
       "21": {
@@ -3553,22 +3557,38 @@
         "second_plural": "ème séance",
         "activity": { "first": "de" },
         "establishment": { "first": "dans" },
+        "payment_pack": { "first": "avec les cartes" },
+        "coach": { "first": "avec les professeurs" },
         "date": { "first": "la date de la séance est" },
-        "hour": { "first": "l'heure de la séance est comprise entre", "second": "heures et", "third": "heures" }
+        "hour": { "first": "l'heure de début la séance est comprise entre", "second": "heures et", "third": "heures" }
       },
       "22": {
         "name": "Nombre de réservations",
         "explanation": "A réservé X séances de l'activité A, dans le lieu B, avec la carte de cours C...",
         "first": "A réservé",
         "second": "séances",
+        "between": "et",
         "activity": { "first": "des activités" },
         "establishment": { "first": "dans les établissements" },
         "payment_pack": { "first": "avec les cartes" },
         "coach": { "first": "avec les professeurs" },
         "date": { "first": "ayant lieu" },
-        "hour": { "first": "entre", "second": "heures et", "third": "heures" }
+        "hour": { "first": "débutant entre", "second": "heures et", "third": "heures" }
       },
       "23": { "name": "Première réservation", "explanation": "A réservé sa première séance le..." },
+      "24": {
+        "explanation": "A acheté les produits A et B",
+        "shop": "Magasin",
+        "pack": "Carte de cours",
+        "combo": "Pack",
+        "between": "et",
+        "private_pass": "Cours particulier",
+        "workshop": "Carte de cours spécial atelier",
+        "name": "Dépenses",
+        "first": "A dépensé",
+        "second": "€ pour les produits",
+        "date": { "first": "achats effectués" }
+      },
       "400": {
         "explain": "possède un mot de passe sur bsport",
         "name": "Mot de passe",
@@ -3596,16 +3616,13 @@
           "5": { "first": "Dans moins de", "second": "jours" },
           "6": { "first": "Dans", "second": "jours" },
           "7": { "first": "Dans plus de", "second": "jours", "third": "jours et moins de" },
-          "8": { "first": "Il y a moins de", "second": "jours" },
           "9": { "first": "Il y a plus de", "second": "jours" },
           "10": { "first": "Il y a ", "second": "jours" },
           "11": { "first": "Il y a plus de", "second": "jours", "third": "jours et moins de" },
           "selector": {
             "4": "Dans plus de X jours",
-            "5": "Dans moins de X jours",
             "6": "Dans X jours",
             "7": "Dans plus de X jours et moins de Y jours",
-            "8": "Il y a moins de X jours",
             "9": "Il y a plus de X jours",
             "10": "Il y a X jours",
             "11": "Il y a plus de X jours et moins de Y jours"
@@ -3622,23 +3639,8 @@
       "add": "Ajouter",
       "before": "avant",
       "after": "après",
-      "classic_comparators": {
-        "1": "inférieur (⩽)",
-        "2": "supérieur (⩾)",
-        "3": "strictement inférieur",
-        "4": "strictement supérieur",
-        "5": "égal"
-      },
-      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" },
-      "undefined": {
-        "name": "Date d'achat et crédits par carte de cours",
-        "infoIcon": "Les cartes de cours illimités ne sont pas filtrées sur le crédit",
-        "first": "A acheté la carte de cours",
-        "second": "entre le",
-        "third": "et le",
-        "fourth": "et possède",
-        "fifth": "crédits dessus"
-      }
+      "comparators": { "1": "inférieur (⩽)", "2": "supérieur (⩾)", "5": "égal", "6": "entre deux" },
+      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" }
     }
   },
   "coachPerformance": {

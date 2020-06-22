@@ -125,7 +125,10 @@ export class BookingsNumberFilter extends Component<Props, state> {
                 value: ev.target.value === '' ? null : ev.target.value,
               })
             }
-          />
+          />{' '}
+          {filter_data.comparator === BETWEEN_COMPARATOR
+            ? t(`filters.${filter_data.filter_identifier}.between`)
+            : null}
           {filter_data.comparator === BETWEEN_COMPARATOR ? (
             <DelayedNumericInput
               classes={classes}
@@ -157,7 +160,6 @@ export class BookingsNumberFilter extends Component<Props, state> {
                 : classes.disabled
             }
           >
-            {' '}
             {this.props.t(
               `filters.${filter_data.filter_identifier}.establishment.first`,
             )}

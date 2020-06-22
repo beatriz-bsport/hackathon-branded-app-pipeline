@@ -16,6 +16,9 @@ import Selector from '../MultiSelector.component';
 import CalendarPicker from '../CalendarPicker.component';
 import type { Establishment } from '../../../establishment/types';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
+import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
+
+import CoachListItem from '../../../associated-coach/components/CoachListItemBasic.component';
 
 const DATE_BETWEEN = 2;
 
@@ -27,6 +30,8 @@ type Props = {
   classes: Object,
   onChange: (any) => void,
   new: boolean,
+  payment_packs: Array<any>,
+  coaches: Array<any>,
   fetchBulkItems: any,
   fetchItems: any,
   setNotNullableData: (Array<string>) => void,
@@ -35,18 +40,31 @@ type Props = {
 
 export class BookingsNumberFilter extends Component<Props, state> {
   componentDidMount() {
-    const { meta_activities, establishments } = this.props.filter_data;
+    const {
+      meta_activities,
+      establishments,
+      coaches,
+      payment_packs,
+    } = this.props.filter_data;
     if (meta_activities && meta_activities.length === 1) {
       this.props.fetchBulkItems.meta_activities(meta_activities);
     }
     if (establishments && establishments.length === 1) {
       this.props.fetchBulkItems.establishments(establishments);
     }
+    if (coaches && coaches.length === 1) {
+      this.props.fetchBulkItems.coaches(coaches);
+    }
+    if (payment_packs && payment_packs.length === 1) {
+      this.props.fetchBulkItems.payment_packs(payment_packs);
+    }
     this.props.setNotNullableData(['value']);
     if (this.props.new) {
       this.props.onChange({
         establishments: [],
         meta_activities: [],
+        payment_packs: [],
+        coaches: [],
         value: 1,
         value_second: 2,
         date: moment().format('YYYY-MM-DD'),
@@ -70,6 +88,8 @@ export class BookingsNumberFilter extends Component<Props, state> {
       t,
       classes,
       onChange,
+      payment_packs,
+      coaches,
       meta_activities,
       establishments,
     } = this.props;
@@ -166,7 +186,140 @@ export class BookingsNumberFilter extends Component<Props, state> {
             )}
           </div>
         </div>
-
+        <div className={classes.inlineContainer}>
+          <Switch
+            checked={filter_data.coach_filter_active}
+            onChange={() =>
+              onChange({
+                coach_filter_active: !filter_data.coach_filter_active,
+              })
+            }
+            value="checkedA"
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />
+          <div
+            className={
+              filter_data.coach_filter_active
+                ? classes.inlineContainer
+                : classes.disabled
+            }
+          >
+            {this.props.t(
+              `filters.${filter_data.filter_identifier}.coach.first`,
+            )}
+            <Selector
+              helperText={t('multiSelector.coaches.helperText')}
+              helperSelectedText={t('multiSelector.coaches.helperSelectedText')}
+              textFieldPlaceholder={t(
+                'multiSelector.coaches.textFieldPlaceholder',
+              )}
+              helperAllSelectedText={t(
+                'multiSelector.coaches.helperAllSelectedText',
+              )}
+              selectAll={this.props.filter_data.select_all_coaches}
+              fetchItems={this.props.fetchItems.coaches}
+              renderItem={(item) => {
+                return <CoachListItem coach={item} />;
+              }}
+              nameIdentifier="name"
+              items={coaches}
+              selectedItems={filter_data.coaches}
+              onChange={(items, selectAll) => {
+                if (
+                  filter_data.coaches &&
+                  !(
+                    items.length === filter_data.coaches.length &&
+                    [...items].sort().every((value, index) => {
+                      return value === [...filter_data.coaches].sort()[index];
+                    })
+                  )
+                ) {
+                  onChange({ coaches: items, select_all_coaches: selectAll });
+                }
+                if (!filter_data.coaches && items.length > 0) {
+                  onChange({ coaches: items, select_all_coaches: selectAll });
+                }
+              }}
+            />
+            {this.props.renderSelectorWarning(
+              t('multiSelector.coaches.warning'),
+              filter_data.coach_filter_active,
+              filter_data.coaches,
+            )}
+          </div>
+        </div>
+        <div className={classes.inlineContainer}>
+          <Switch
+            checked={filter_data.payment_pack_filter_active}
+            onChange={() =>
+              onChange({
+                payment_pack_filter_active: !filter_data.payment_pack_filter_active,
+              })
+            }
+            value="checkedA"
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />{' '}
+          <div
+            className={
+              filter_data.payment_pack_filter_active
+                ? classes.inlineContainer
+                : classes.disabled
+            }
+          >
+            {this.props.t(
+              `filters.${filter_data.filter_identifier}.payment_pack.first`,
+            )}
+            <Selector
+              helperText={t('multiSelector.paymentPacks.helperText')}
+              helperSelectedText={t(
+                'multiSelector.paymentPacks.helperSelectedText',
+              )}
+              textFieldPlaceholder={t(
+                'multiSelector.paymentPacks.textFieldPlaceholder',
+              )}
+              renderItem={(item) => {
+                return <PaymentPackListItem pack={item} />;
+              }}
+              helperAllSelectedText={t(
+                'multiSelector.paymentPacks.helperAllSelectedText',
+              )}
+              fetchItems={this.props.fetchItems.payment_packs}
+              nameIdentifier="name"
+              selectAll={this.props.filter_data.select_all_payment_packs}
+              items={payment_packs}
+              selectedItems={filter_data.payment_packs}
+              onChange={(items, selectAll) => {
+                if (
+                  filter_data.payment_packs &&
+                  !(
+                    items.length === filter_data.payment_packs.length &&
+                    [...items].sort().every((value, index) => {
+                      return (
+                        value === [...filter_data.payment_packs].sort()[index]
+                      );
+                    })
+                  )
+                ) {
+                  onChange({
+                    payment_packs: items,
+                    select_all_payment_packs: selectAll,
+                  });
+                }
+                if (!filter_data.payment_packs && items.length > 0) {
+                  onChange({
+                    payment_packs: items,
+                    select_all_payment_packs: selectAll,
+                  });
+                }
+              }}
+            />{' '}
+            {this.props.renderSelectorWarning(
+              t('multiSelector.paymentPacks.warning'),
+              filter_data.payment_pack_filter_active,
+              filter_data.payment_packs,
+            )}
+          </div>
+        </div>
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.activity_filter_active}

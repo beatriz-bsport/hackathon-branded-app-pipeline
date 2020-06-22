@@ -7,17 +7,15 @@ const {
   HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
   USER_HAS_PASSWORD_FILTER,
   LTE_COMPARATOR,
-  PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER,
   EXPENSES_FILTER_IDENTIFIER,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   BASKET_ABANDONMENT_FILTER_IDENTIFIER,
   BOOKINGS_NUMBER_FILTER_IDENTIFIER,
   BOOKINGS_FILTER_IDENTIFIER,
+  EXPENSES_COMPLETE_FILTER_IDENTIFIER,
   GTE_COMPARATOR,
-  LT_COMPARATOR,
   FIRST_BOOKING_FILTER_IDENTIFIER,
-  GT_COMPARATOR,
   TAG_FILTER_IDENTIFIER,
   E_COMPARATOR,
   BETWEEN_COMPARATOR,
@@ -58,7 +56,12 @@ exports.default = {
       helperAllSelectedText: 'toutes les cartes de cours',
       warning: 'Sélectionnez au moins une carte de cours',
     },
-
+    buyables: {
+      helperText: 'selectionner des catégories',
+      helperSelectedText: 'catégories sélectionnées',
+      textFieldPlaceholder: 'Rechercher une catégorie de produit',
+      helperAllSelectedText: 'tous les produits',
+    },
     metaActivities: {
       helperText: 'selectionner des activités',
       helperSelectedText: 'activités sélectionnées',
@@ -199,19 +202,13 @@ exports.default = {
       selectduration: {
         selector: {
           [DURATION_BEFORE_PAST]: 'Il y a plus de X jours',
-          [DURATION_AFTER_PAST]: 'Il y a moins de X jours',
           [DURATION_EXACT_PAST]: 'Il y a X jours',
-          [DURATION_BEFORE]: 'Dans moins de X jours',
           [DURATION_AFTER]: 'Dans plus de X jours',
           [DURATION_EXACT]: 'Dans X jours',
           [DURATION_BETWEEN]: 'Dans plus de X jours et moins de Y jours',
           [DURATION_BETWEEN_PAST]: 'Il y a plus de X jours et moins de Y jours',
         },
         [DURATION_BEFORE_PAST]: { first: 'Il y a plus de', second: 'jours' },
-        [DURATION_AFTER_PAST]: {
-          first: 'Il y a moins de',
-          second: 'jours',
-        },
         [DURATION_EXACT_PAST]: { first: 'Il y a ', second: 'jours' },
         [DURATION_BEFORE]: {
           first: 'Dans moins de',
@@ -247,12 +244,11 @@ exports.default = {
     add: 'Ajouter',
     before: 'avant',
     after: 'après',
-    classic_comparators: {
+    comparators: {
       [GTE_COMPARATOR]: 'supérieur (⩾)',
       [LTE_COMPARATOR]: 'inférieur (⩽)',
       [E_COMPARATOR]: 'égal',
-      [LT_COMPARATOR]: 'strictement inférieur',
-      [GT_COMPARATOR]: 'strictement supérieur',
+      [BETWEEN_COMPARATOR]: 'entre deux',
     },
     durations_comparators: {
       [LTE_COMPARATOR]: 'moins de (⩽)',
@@ -266,6 +262,7 @@ exports.default = {
       second: ' à   ',
       third: 'euros',
       explanation: 'A X euros sur son compte',
+      between: 'et',
     },
     [LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER]: {
       name: 'Date dernière séance réservée',
@@ -289,15 +286,19 @@ exports.default = {
       name: 'Première réservation',
       explanation: 'A réservé sa première séance le...',
     },
-    [PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER]: {
-      name: "Date d'achat et crédits par carte de cours",
-      infoIcon:
-        'Les cartes de cours illimités ne sont pas filtrées sur le crédit',
-      first: 'A acheté la carte de cours',
-      second: 'entre le',
-      third: 'et le',
-      fourth: 'et possède',
-      fifth: 'crédits dessus',
+    [EXPENSES_COMPLETE_FILTER_IDENTIFIER]: {
+      explanation: 'A acheté les produits A et B',
+      shop: 'Magasin',
+      pack: 'Carte de cours',
+      combo: 'Pack',
+      between: 'et',
+
+      private_pass: 'Cours particulier',
+      workshop: 'Carte de cours spécial atelier',
+      name: 'Dépenses',
+      first: 'A dépensé',
+      second: '€ pour les produits',
+      date: { first: 'achats effectués' },
     },
     [BASKET_ABANDONMENT_FILTER_IDENTIFIER]: {
       name: 'Paniers abandonnés',
@@ -305,6 +306,7 @@ exports.default = {
       first: "A abandonné un panier d'un montant",
       second: 'à',
       third: 'euros',
+      between: 'et',
       date: { first: 'Panier abandonné', second: 'jours' },
     },
     [BOOKINGS_NUMBER_FILTER_IDENTIFIER]: {
@@ -320,9 +322,15 @@ exports.default = {
       establishment: {
         first: 'dans',
       },
+      payment_pack: {
+        first: 'avec les cartes',
+      },
+      coach: {
+        first: 'avec les professeurs',
+      },
       date: { first: 'la date de la séance est' },
       hour: {
-        first: "l'heure de la séance est comprise entre",
+        first: "l'heure de début la séance est comprise entre",
         second: 'heures et',
         third: 'heures',
       },
@@ -333,6 +341,8 @@ exports.default = {
         "A réservé X séances de l'activité A, dans le lieu B, avec la carte de cours C...",
       first: 'A réservé',
       second: 'séances',
+      between: 'et',
+
       activity: {
         first: 'des activités',
       },
@@ -347,7 +357,7 @@ exports.default = {
       },
       date: { first: 'ayant lieu' },
       hour: {
-        first: 'entre',
+        first: 'débutant entre',
         second: 'heures et',
         third: 'heures',
       },
@@ -360,12 +370,11 @@ exports.default = {
       has_not: 'Ne possède pas',
       second: 'et',
       third: 'à',
-      credits: { first: 'Crédits:', second: 'et' },
-      date_bought: { first: "Date d'achat" },
-      expiration: { first_will_expire: 'Expire', first_has_expire: 'A expiré' },
+      credits: { first: 'crédits:', second: 'et' },
+      date_bought: { first: "date d'achat" },
+      expiration: { first_will_expire: 'expire', first_has_expire: 'a expiré' },
       infoIcon: 'Les cartes de cours illimitées seront toujours incluses',
     },
-
     [USER_HAS_PASSWORD_FILTER]: {
       explain: 'possède un mot de passe sur bsport',
       name: 'Mot de passe',

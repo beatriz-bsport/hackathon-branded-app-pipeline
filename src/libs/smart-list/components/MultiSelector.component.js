@@ -269,7 +269,7 @@ export class MultipleSelect extends Component<Props, State> {
               }}
             />
           </div>
-          {this.props.fetchItems.loading ? (
+          {this.props.fetchItems && this.props.fetchItems.loading ? (
             <div className={classes.loadingContainer}>
               <CircularProgress size={30} />
             </div>

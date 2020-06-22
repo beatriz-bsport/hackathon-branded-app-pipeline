@@ -9,7 +9,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
+import {
+  DURATION_COMPARATORS_DICT_BETWEEN,
+  BETWEEN_COMPARATOR,
+} from '@bsport/common/lib/master-data/smart-list';
 
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 
@@ -27,7 +30,7 @@ export class CreditAccountFilter extends Component<Props, state> {
     this.props.setNotNullableData(['comparator', 'value']);
 
     if (this.props.new) {
-      this.props.onChange({ comparator: null, value: null });
+      this.props.onChange({ comparator: null, value: null, value_second: 30 });
     }
   }
 
@@ -41,13 +44,15 @@ export class CreditAccountFilter extends Component<Props, state> {
           value={filter_data.comparator}
           onChange={(ev) => onChange({ comparator: ev.target.value })}
         >
-          {COMPARATORS_DICT.map((item) => (
+          {DURATION_COMPARATORS_DICT_BETWEEN.map((item) => (
             <MenuItem key={item.key} value={item.value}>
-              {t(`filters.classic_comparators.${item.value}`)}
+              {t(`filters.comparators.${item.value}`)}
             </MenuItem>
           ))}
         </Select>
-        {t(`filters.${filter_data.filter_identifier}.second`)}
+        {filter_data.comparator === BETWEEN_COMPARATOR
+          ? null
+          : t(`filters.${filter_data.filter_identifier}.second`)}
         <DelayedNumericInput
           classes={classes}
           value={filter_data.value}
@@ -55,6 +60,20 @@ export class CreditAccountFilter extends Component<Props, state> {
             onChange({ value: ev.target.value === '' ? null : ev.target.value })
           }
         />
+        {filter_data.comparator === BETWEEN_COMPARATOR
+          ? t(`filters.${filter_data.filter_identifier}.between`)
+          : null}
+        {filter_data.comparator === BETWEEN_COMPARATOR ? (
+          <DelayedNumericInput
+            classes={classes}
+            value={filter_data.value_second}
+            onChange={(ev) =>
+              onChange({
+                value_second: ev.target.value === '' ? null : ev.target.value,
+              })
+            }
+          />
+        ) : null}
         {t(`filters.${filter_data.filter_identifier}.third`)}
       </div>
     );

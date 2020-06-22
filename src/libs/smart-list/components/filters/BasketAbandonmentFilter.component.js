@@ -10,7 +10,10 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
-import { COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
+import {
+  DURATION_COMPARATORS_DICT_BETWEEN,
+  BETWEEN_COMPARATOR,
+} from '@bsport/common/lib/master-data/smart-list';
 
 import CalendarPicker from '../CalendarPicker.component';
 
@@ -55,13 +58,15 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
           value={filter_data.comparator}
           onChange={(ev) => onChange({ comparator: ev.target.value })}
         >
-          {COMPARATORS_DICT.map((item) => (
+          {DURATION_COMPARATORS_DICT_BETWEEN.map((item) => (
             <MenuItem key={item.key} value={item.value}>
-              {t(`filters.classic_comparators.${item.value}`)}
+              {t(`filters.comparators.${item.value}`)}
             </MenuItem>
           ))}
         </Select>
-        {t(`filters.${filter_data.filter_identifier}.second`)}
+        {filter_data.comparator === BETWEEN_COMPARATOR
+          ? null
+          : t(`filters.${filter_data.filter_identifier}.second`)}
         <DelayedNumericInput
           classes={classes}
           value={filter_data.basket_value}
@@ -71,9 +76,23 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
             })
           }
         />
+        {filter_data.comparator === BETWEEN_COMPARATOR
+          ? t(`filters.${filter_data.filter_identifier}.between`)
+          : null}
+        {filter_data.comparator === BETWEEN_COMPARATOR ? (
+          <DelayedNumericInput
+            classes={classes}
+            value={filter_data.basket_value_second}
+            onChange={(ev) =>
+              onChange({
+                basket_value_second:
+                  ev.target.value === '' ? null : ev.target.value,
+              })
+            }
+          />
+        ) : null}
         {t(`filters.${filter_data.filter_identifier}.third`)}
-
-        <div className={classes.dateBoughtContainer}>
+        <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.date_filter_active}
             onChange={() =>
@@ -83,9 +102,19 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
             }
             value="checkedA"
             inputProps={{ 'aria-label': 'secondary checkbox' }}
-          />
-          {this.props.t(`filters.${filter_data.filter_identifier}.date.first`)}
-          <CalendarPicker filter_data={filter_data} onChange={onChange} />
+          />{' '}
+          <div
+            className={
+              filter_data.coach_filter_active
+                ? classes.inlineContainer
+                : classes.disabled
+            }
+          >
+            {this.props.t(
+              `filters.${filter_data.filter_identifier}.date.first`,
+            )}
+            <CalendarPicker filter_data={filter_data} onChange={onChange} />
+          </div>
         </div>
       </div>
     );
@@ -93,8 +122,15 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
 }
 
 const styles = (theme) => ({
-  dateBoughtContainer: { display: 'flex', alignItems: 'center' },
-
+  disabled: {
+    display: 'flex',
+    alignItems: 'center',
+    pointerEvents: 'none',
+    background: '#f1f1f1',
+    borderRadius: '7px',
+    paddingLeft: theme.spacing.unit,
+  },
+  inlineContainer: { display: 'flex', alignItems: 'center' },
   input: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),

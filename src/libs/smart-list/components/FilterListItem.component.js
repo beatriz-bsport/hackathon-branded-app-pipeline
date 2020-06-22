@@ -16,11 +16,8 @@ import WarningIcon from '@material-ui/icons/Warning';
 
 import {
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
-  LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER,
   GENDER_FILTER_IDENTIFIER,
-  HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
   TAG_FILTER_IDENTIFIER,
-  PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER,
   EXPENSES_FILTER_IDENTIFIER,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
   PAYMENT_PACK_FILTER_IDENTIFIER,
@@ -29,22 +26,20 @@ import {
   BOOKINGS_FILTER_IDENTIFIER,
   USER_HAS_PASSWORD_FILTER,
   FIRST_BOOKING_FILTER_IDENTIFIER,
+  EXPENSES_COMPLETE_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
 import CreditAccountFilter from './filters/CreditAccountFilter.component';
-import LastPreviousBookingFilter from './filters/LastPreviousBookingFilter.component';
 import GenderFilter from './filters/GenderFilter.component';
-import HasValidPackFilter from './filters/HasValidPackFilter.component';
 import BookingsNumberFilter from './filters/BookingsNumberFilter.component';
 import TagFilter from './filters/TagFilter.component';
-import PaymentPackDateCreditFilter from './filters/PaymentPackDateCreditFilter.component';
-import ExpensesPerCategoryFilter from './filters/ExpensesPerCategoryFilter.component';
 import MemberDateJoinedFilter from './filters/MemberDateJoinedFilter.component';
 import PaymentPackFilter from './filters/PaymentPackFilter.component';
 import BasketAbandonmentFilter from './filters/BasketAbandonmentFilter.component';
 import BookingsFilter from './filters/BookingsFilter.component';
 import FirstBookingFilter from './filters/FirstBookingFilter.component';
 import UserHasPasswordFilter from './filters/UserHasPasswordFilter.component';
+import ExpensesCompleteFilter from './filters/ExpensesCompleteFilter.component';
 
 import type { PaymentPack } from '../../payment-packs/types';
 import type { Establishment } from '../../establishment/types';
@@ -150,15 +145,6 @@ export class FilterCard extends Component<Props> {
             setNotNullableData={this.setNotNullableData}
           />
         );
-      case LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER:
-        return (
-          <LastPreviousBookingFilter
-            filter_data={this.state.filter_data}
-            onChange={this.handleChange}
-            new={this.props.new}
-            setNotNullableData={this.setNotNullableData}
-          />
-        );
       case MEMBER_DATE_JOINED_FILTER_IDENTIFIER:
         return (
           <MemberDateJoinedFilter
@@ -175,19 +161,6 @@ export class FilterCard extends Component<Props> {
             onChange={this.handleChange}
             new={this.props.new}
             setNotNullableData={this.setNotNullableData}
-          />
-        );
-      case PAYMENT_PACK_DATE_CREDIT_FILTER_IDENTIFIER:
-        return (
-          <PaymentPackDateCreditFilter
-            filter_data={this.state.filter_data}
-            onChange={this.handleChange}
-            payment_packs={this.props.payment_packs}
-            new={this.props.new}
-            fetchItems={this.props.fetchItems}
-            fetchBulkItems={this.props.fetchBulkItems}
-            setNotNullableData={this.setNotNullableData}
-            renderSelectorWarning={this.renderSelectorWarning}
           />
         );
       case BASKET_ABANDONMENT_FILTER_IDENTIFIER:
@@ -212,19 +185,6 @@ export class FilterCard extends Component<Props> {
             renderSelectorWarning={this.renderSelectorWarning}
           />
         );
-      case HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER:
-        return (
-          <HasValidPackFilter
-            filter_data={this.state.filter_data}
-            onChange={this.handleChange}
-            payment_packs={this.props.payment_packs}
-            new={this.props.new}
-            fetchItems={this.props.fetchItems}
-            fetchBulkItems={this.props.fetchBulkItems}
-            setNotNullableData={this.setNotNullableData}
-            renderSelectorWarning={this.renderSelectorWarning}
-          />
-        );
       case TAG_FILTER_IDENTIFIER:
         return (
           <TagFilter
@@ -245,6 +205,8 @@ export class FilterCard extends Component<Props> {
             meta_activities={this.props.meta_activities}
             new={this.props.new}
             fetchItems={this.props.fetchItems}
+            payment_packs={this.props.payment_packs}
+            coaches={this.props.coaches}
             fetchBulkItems={this.props.fetchBulkItems}
             setNotNullableData={this.setNotNullableData}
             renderSelectorWarning={this.renderSelectorWarning}
@@ -262,6 +224,8 @@ export class FilterCard extends Component<Props> {
             meta_activities={this.props.meta_activities}
             new={this.props.new}
             fetchItems={this.props.fetchItems}
+            payment_packs={this.props.payment_packs}
+            coaches={this.props.coaches}
             fetchBulkItems={this.props.fetchBulkItems}
             setNotNullableData={this.setNotNullableData}
             renderSelectorWarning={this.renderSelectorWarning}
@@ -295,9 +259,9 @@ export class FilterCard extends Component<Props> {
             renderSelectorWarning={this.renderSelectorWarning}
           />
         );
-      case EXPENSES_FILTER_IDENTIFIER:
+      case EXPENSES_COMPLETE_FILTER_IDENTIFIER:
         return (
-          <ExpensesPerCategoryFilter
+          <ExpensesCompleteFilter
             filter_data={this.state.filter_data}
             onChange={this.handleChange}
             new={this.props.new}
@@ -307,31 +271,31 @@ export class FilterCard extends Component<Props> {
                 label: this.props.t(
                   `filters.${EXPENSES_FILTER_IDENTIFIER}.shop`,
                 ),
-                value: SHOP_ITEM_IDENTIFIER,
+                id: SHOP_ITEM_IDENTIFIER,
               },
               {
                 label: this.props.t(
                   `filters.${EXPENSES_FILTER_IDENTIFIER}.pack`,
                 ),
-                value: PAYMENT_PACK_ITEM_IDENTIFIER,
+                id: PAYMENT_PACK_ITEM_IDENTIFIER,
               },
               {
                 label: this.props.t(
                   `filters.${EXPENSES_FILTER_IDENTIFIER}.workshop`,
                 ),
-                value: WORKSHOP_ITEM_IDENTIFIER,
+                id: WORKSHOP_ITEM_IDENTIFIER,
               },
               {
                 label: this.props.t(
                   `filters.${EXPENSES_FILTER_IDENTIFIER}.private_pass`,
                 ),
-                value: PRIVATE_PASS_ITEM_IDENTIFIER,
+                id: PRIVATE_PASS_ITEM_IDENTIFIER,
               },
               {
                 label: this.props.t(
                   `filters.${EXPENSES_FILTER_IDENTIFIER}.combo`,
                 ),
-                value: COMBO_ITEM_IDENTIFIER,
+                id: COMBO_ITEM_IDENTIFIER,
               },
             ]}
           />

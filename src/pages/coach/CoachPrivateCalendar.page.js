@@ -101,11 +101,15 @@ export class CoachPrivateCalendar extends React.Component<Props> {
       prevProps.periodFilter.end !== this.props.periodFilter.end ||
       this.props.id !== prevProps.id
     ) {
-      this.fetchAvailabilitySlots();
-      this.props.fetchPrivateBookingList();
-      this.props.fetchOfferList();
+      this.fetchWeekData();
     }
   }
+
+  fetchWeekData = () => {
+    this.fetchAvailabilitySlots();
+    this.props.fetchPrivateBookingList();
+    this.props.fetchOfferList();
+  };
 
   enableCoachAvailabilitySlot = (
     data: { date_start: string, date_end: string },
@@ -160,6 +164,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           showOfferListToogle
           showPrivateBookingToogle
           fetchAvailabilitySlots={this.fetchAvailabilitySlots}
+          refreshOffers={this.fetchWeekData}
         />
       </div>
     );

@@ -9,7 +9,6 @@ import {
   statIsLoading,
   statLoaded,
   statError,
-  statActivities,
   smartListStats,
 } from '../actions/stats.actions';
 
@@ -53,17 +52,6 @@ export default handleActions(
     },
     [statError]: (state, { payload: { identifier, error } }) => {
       return state.setIn(['stats', identifier, 'error'], error);
-    },
-    [statActivities.isLoading]: (state, { payload }) => {
-      return state.setIn(['bySmartListId', 'loading'], payload);
-    },
-    [statActivities.error]: (state, { payload }) => {
-      return state.setIn(['activities', 'error'], payload);
-    },
-    [statActivities.success]: (state, { payload }) => {
-      return state
-        .setIn(['activities', 'items'], payload)
-        .setIn(['activities', 'lastUpdate'], new Date());
     },
     [smartListStats.isLoading]: (state, { payload }) => {
       return state.setIn(

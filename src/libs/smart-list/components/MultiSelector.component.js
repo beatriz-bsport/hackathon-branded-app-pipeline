@@ -52,21 +52,22 @@ type State = {
 export class MultipleSelect extends Component<Props, State> {
   constructor(props) {
     super(props);
+    const selectedItems = props.selectedItems || [];
     this.state = {
-      selectedItems: props.selectedItems || [],
+      selectedItems,
       open: false,
       anchorEl: null,
       searchedItems:
         [...props.items].sort((item, _item) => {
           if (
-            props.selectedItems.includes(item.id) &&
-            props.selectedItems.includes(_item.id)
+            selectedItems.includes(item.id) &&
+            selectedItems.includes(_item.id)
           ) {
             return 0;
           }
           if (
-            props.selectedItems.includes(item.id) &&
-            !props.selectedItems.includes(_item.id)
+            selectedItems.includes(item.id) &&
+            !selectedItems.includes(_item.id)
           ) {
             return -1;
           }
@@ -80,19 +81,20 @@ export class MultipleSelect extends Component<Props, State> {
 
   componentDidUpdate(prevProps) {
     if (this.props.selectedItems !== prevProps.selectedItems) {
+      const selectedItems = this.props.selectedItems || [];
       this.setState({
-        selectedItems: this.props.selectedItems || [],
+        selectedItems,
         searchedItems:
           [...this.props.items].sort((item, _item) => {
             if (
-              this.props.selectedItems.includes(item.id) &&
-              this.props.selectedItems.includes(_item.id)
+              selectedItems.includes(item.id) &&
+              selectedItems.includes(_item.id)
             ) {
               return 0;
             }
             if (
-              this.props.selectedItems.includes(item.id) &&
-              !this.props.selectedItems.includes(_item.id)
+              selectedItems.includes(item.id) &&
+              !selectedItems.includes(_item.id)
             ) {
               return -1;
             }
@@ -357,7 +359,7 @@ const styles = (theme) => ({
   root: {
     paddingRight: '0px',
     paddingBottom: theme.spacing(1) / 4,
-    paddingTop: (theme.spacing(3)) / 8,
+    paddingTop: theme.spacing(3) / 8,
     marginLeft: theme.spacing(1),
   },
   divider: { borderBottom: '1px solid #909090' },

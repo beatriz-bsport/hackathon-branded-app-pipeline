@@ -1,12 +1,4 @@
-import { API_URI, getAuth, postAuth, getJSONAuth } from '../http';
-
-export async function fetchAllActivitiesStats() {
-  return getAuth(`${API_URI}/saas/stats/meta-activity`);
-}
-
-export async function fetchActivityStats(metaActivityId) {
-  return getAuth(`${API_URI}/saas/stats/meta-activity/${metaActivityId}`);
-}
+import { API_URI, postAuth, getJSONAuth } from '../http';
 
 export async function bookings() {
   return getJSONAuth(`${API_URI}/statistics/bookings`);
@@ -25,8 +17,6 @@ export async function fetchSmartListStatsAPI(params) {
 }
 
 export default {
-  fetchActivities: fetchAllActivitiesStats,
-  fetchActivity: fetchActivityStats,
   bookings,
   newMembers,
   turnover,

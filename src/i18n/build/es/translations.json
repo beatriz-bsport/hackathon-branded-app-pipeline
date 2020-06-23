@@ -1801,7 +1801,9 @@
             "currentPassTitle": "Tarjetas de curso activas",
             "nextBookingTitle": "Mis próximas sesiones",
             "optionTitle": "En lista de espera",
-            "favoriteTitle": "Sugerencia de reserva"
+            "favoriteTitle": "Sugerencia de reserva",
+            "noBooking": "Ninguna próxima sesión",
+            "noPackCurrentlyActive": "Ninguna tarjeta actual válida"
         },
         "booking": {
             "bookAgain": "Reservar de nuevo",
@@ -1829,6 +1831,9 @@
             "pack": "Tarjeta de curso",
             "calendar": "Histórico",
             "dashboard": "Resumen"
+        },
+        "actions": {
+            "goToCalendar": "Ver el calendario completo"
         }
     }
 }

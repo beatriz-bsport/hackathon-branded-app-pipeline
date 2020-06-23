@@ -14,6 +14,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import moment from 'moment';
 
 import DatePicker from 'material-ui-pickers/DatePicker';
+import MomentUtils from '@date-io/moment';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
+
+import { Moment } from '../../../i18n';
 
 type Props = {
   t: TFunction,
@@ -80,31 +84,37 @@ export class RecurrentAvailabilityFormDialog extends React.Component<
             <Typography variant="subtitle2">
               {this.props.t('calendar.form.explain')}
             </Typography>
-            <DatePicker
-              required
-              keyboard
-              value={this.state.date}
-              disablePast
-              format="DD/MM/YYYY"
-              onChange={this.handleDateChange}
-              mask={(value) => {
-                if (value) {
-                  return [
-                    /\d/,
-                    /\d/,
-                    '/',
-                    /\d/,
-                    /\d/,
-                    '/',
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                    /\d/,
-                  ];
-                }
-                return [];
-              }}
-            />
+            <MuiPickersUtilsProvider
+              utils={MomentUtils}
+              moment={Moment}
+              locale={Moment.locale()}
+            >
+              <DatePicker
+                required
+                keyboard
+                value={this.state.date}
+                disablePast
+                format="DD/MM/YYYY"
+                onChange={this.handleDateChange}
+                mask={(value) => {
+                  if (value) {
+                    return [
+                      /\d/,
+                      /\d/,
+                      '/',
+                      /\d/,
+                      /\d/,
+                      '/',
+                      /\d/,
+                      /\d/,
+                      /\d/,
+                      /\d/,
+                    ];
+                  }
+                  return [];
+                }}
+              />
+            </MuiPickersUtilsProvider>
           </DialogContent>
           <DialogActions>
             {this.props.loading ? (

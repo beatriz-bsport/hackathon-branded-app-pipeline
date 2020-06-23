@@ -11,6 +11,8 @@ import InfoIcon from '@material-ui/icons/Info';
 import CalendarIcon from '@material-ui/icons/Today';
 import TextField from '@material-ui/core/TextField';
 import DatePicker from 'material-ui-pickers/DatePicker';
+import MomentUtils from '@date-io/moment';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 
 import AddIcon from '@material-ui/icons/Add';
 import { withTranslation } from 'react-i18next';
@@ -339,135 +341,143 @@ export class OfferForm extends Component<Props, State> {
   renderTimeSettings = () => {
     const { t, classes } = this.props;
     return (
-      <Grid container direction="column" spacing={1}>
-        <Grid item>
-          <Typography variant="h6">{t('form.timeSettings')}</Typography>
-        </Grid>
-        <Grid item>
-          <DurationInput
-            required
-            value={this.state.duration_minute}
-            onChange={this.onFormFieldChange('duration_minute')}
-          />
-        </Grid>
-        <Grid item>
-          <Grid container direction="column">
-            <Grid item>
-              <Typography variant="caption">{t('form.recurrence')}</Typography>
-            </Grid>
-            <Grid item>
-              <FormField
-                id="recurrence"
-                required
-                value={this.state.recurrence}
-                onChange={this.onFormFieldChange}
-              />
-            </Grid>
+      <MuiPickersUtilsProvider
+        utils={MomentUtils}
+        moment={Moment}
+        locale={Moment.locale()}
+      >
+        <Grid container direction="column" spacing={1}>
+          <Grid item>
+            <Typography variant="h6">{t('form.timeSettings')}</Typography>
           </Grid>
-        </Grid>
-        <Grid item>
-          <Grid container direction="row" spacing={2}>
-            <Grid item>
-              <Grid container direction="column">
-                <Grid item>
-                  <Typography variant="caption">
-                    {t('form.firstSessionOn')}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <DatePicker
-                    format="DD/MM/YYYY"
-                    keyboard
-                    required
-                    returnMoment={false}
-                    value={this.state.date_interval_start}
-                    onChange={(e) =>
-                      this.onFormFieldChange('date_interval_start')(e)
-                    }
-                    mask={(value) => {
-                      if (value) {
-                        return [
-                          /\d/,
-                          /\d/,
-                          '/',
-                          /\d/,
-                          /\d/,
-                          '/',
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                        ];
-                      }
-                      return [];
-                    }}
-                  />
-                </Grid>
+          <Grid item>
+            <DurationInput
+              required
+              value={this.state.duration_minute}
+              onChange={this.onFormFieldChange('duration_minute')}
+            />
+          </Grid>
+          <Grid item>
+            <Grid container direction="column">
+              <Grid item>
+                <Typography variant="caption">
+                  {t('form.recurrence')}
+                </Typography>
               </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container direction="column">
-                <Grid item>
-                  <Typography variant="caption">
-                    {t('form.firstSessionAt')}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <FormField
-                    id="hour"
-                    required
-                    onChange={this.onFormFieldChange}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container direction="column">
-                <Grid item>
-                  <Typography variant="caption">
-                    {t('form.lastSession')}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <DatePicker
-                    format="DD/MM/YYYY"
-                    keyboard
-                    required
-                    returnMoment={false}
-                    disabled={this.state.recurrence === NOT_RECURRENT}
-                    error={this.endDateIsInvalid()}
-                    value={this.state.date_interval_end}
-                    minDate={this.state.date_interval_start}
-                    onChange={(e) =>
-                      this.onFormFieldChange('date_interval_end')(e)
-                    }
-                    mask={(value) => {
-                      if (value) {
-                        return [
-                          /\d/,
-                          /\d/,
-                          '/',
-                          /\d/,
-                          /\d/,
-                          '/',
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                        ];
-                      }
-                      return [];
-                    }}
-                  />
-                </Grid>
+              <Grid item>
+                <FormField
+                  id="recurrence"
+                  required
+                  value={this.state.recurrence}
+                  onChange={this.onFormFieldChange}
+                />
               </Grid>
             </Grid>
           </Grid>
+          <Grid item>
+            <Grid container direction="row" spacing={2}>
+              <Grid item>
+                <Grid container direction="column">
+                  <Grid item>
+                    <Typography variant="caption">
+                      {t('form.firstSessionOn')}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <DatePicker
+                      format="DD/MM/YYYY"
+                      keyboard
+                      required
+                      returnMoment={false}
+                      value={this.state.date_interval_start}
+                      onChange={(e) =>
+                        this.onFormFieldChange('date_interval_start')(e)
+                      }
+                      mask={(value) => {
+                        if (value) {
+                          return [
+                            /\d/,
+                            /\d/,
+                            '/',
+                            /\d/,
+                            /\d/,
+                            '/',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                          ];
+                        }
+                        return [];
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Grid container direction="column">
+                  <Grid item>
+                    <Typography variant="caption">
+                      {t('form.firstSessionAt')}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <FormField
+                      id="hour"
+                      required
+                      onChange={this.onFormFieldChange}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Grid container direction="column">
+                  <Grid item>
+                    <Typography variant="caption">
+                      {t('form.lastSession')}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <DatePicker
+                      format="DD/MM/YYYY"
+                      keyboard
+                      required
+                      returnMoment={false}
+                      disabled={this.state.recurrence === NOT_RECURRENT}
+                      error={this.endDateIsInvalid()}
+                      value={this.state.date_interval_end}
+                      minDate={this.state.date_interval_start}
+                      onChange={(e) =>
+                        this.onFormFieldChange('date_interval_end')(e)
+                      }
+                      mask={(value) => {
+                        if (value) {
+                          return [
+                            /\d/,
+                            /\d/,
+                            '/',
+                            /\d/,
+                            /\d/,
+                            '/',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                          ];
+                        }
+                        return [];
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item className={classes.generationSummary}>
+            {this.renderSummary()}
+          </Grid>
         </Grid>
-        <Grid item className={classes.generationSummary}>
-          {this.renderSummary()}
-        </Grid>
-      </Grid>
+      </MuiPickersUtilsProvider>
     );
   };
 
@@ -534,7 +544,7 @@ export class OfferForm extends Component<Props, State> {
       </Grid>
       {Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
         <Grid item>
-          <Checkbox label="Bloquer la réservation aux cartes de cours nouveaux clients" />
+          <Checkbox label={this.props.t('blockBooking')} />
         </Grid>
       ) : null}
     </Grid>

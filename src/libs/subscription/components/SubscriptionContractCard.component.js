@@ -8,11 +8,14 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { compose, withState } from 'recompose';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import MomentUtils from '@date-io/moment';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import moment from 'moment';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { Moment } from '../../../i18n';
 
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
@@ -59,31 +62,37 @@ export const SubscriptionContractCard = (props: Props) => {
           <Typography className={props.classes.buttonLeftText}>
             {props.t('contract.actions.iwanttostarton')}
           </Typography>
-          <DatePicker
-            value={props.date}
-            onChange={props.setDate}
-            format="DD/MM/YYYY"
-            required
-            mask={(value) => {
-              if (value) {
-                return [
-                  /\d/,
-                  /\d/,
-                  '/',
-                  /\d/,
-                  /\d/,
-                  '/',
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                ];
-              }
-              return [];
-            }}
-            returnMoment={false}
-            disablePast
-          />
+          <MuiPickersUtilsProvider
+            utils={MomentUtils}
+            moment={Moment}
+            locale={Moment.locale()}
+          >
+            <DatePicker
+              value={props.date}
+              onChange={props.setDate}
+              format="DD/MM/YYYY"
+              required
+              mask={(value) => {
+                if (value) {
+                  return [
+                    /\d/,
+                    /\d/,
+                    '/',
+                    /\d/,
+                    /\d/,
+                    '/',
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                  ];
+                }
+                return [];
+              }}
+              returnMoment={false}
+              disablePast
+            />
+          </MuiPickersUtilsProvider>
         </div>
         <Button
           variant="contained"

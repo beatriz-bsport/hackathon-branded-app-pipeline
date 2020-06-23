@@ -14,6 +14,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import moment from 'moment';
+import MomentUtils from '@date-io/moment';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DateTimePicker from 'material-ui-pickers/DateTimePicker';
 import DatePicker from 'material-ui-pickers/DatePicker';
 
@@ -254,30 +256,36 @@ export class FormField extends Component<Props, State> {
       case 'lower_date':
       case 'date':
         return (
-          <DatePicker
-            format="DD/MM/YYYY"
-            keyboard
-            disabled={disabled}
-            value={selectedDate}
-            onChange={this.handleDateChange}
-            mask={(value) => {
-              if (value) {
-                return [
-                  /\d/,
-                  /\d/,
-                  '/',
-                  /\d/,
-                  /\d/,
-                  '/',
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                ];
-              }
-              return [];
-            }}
-          />
+          <MuiPickersUtilsProvider
+            utils={MomentUtils}
+            moment={Moment}
+            locale={Moment.locale()}
+          >
+            <DatePicker
+              format="DD/MM/YYYY"
+              keyboard
+              disabled={disabled}
+              value={selectedDate}
+              onChange={this.handleDateChange}
+              mask={(value) => {
+                if (value) {
+                  return [
+                    /\d/,
+                    /\d/,
+                    '/',
+                    /\d/,
+                    /\d/,
+                    '/',
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                    /\d/,
+                  ];
+                }
+                return [];
+              }}
+            />
+          </MuiPickersUtilsProvider>
         );
       case 'hour':
         return (

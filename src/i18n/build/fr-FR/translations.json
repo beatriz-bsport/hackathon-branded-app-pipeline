@@ -784,7 +784,23 @@
       }
     },
     "countdown": { "hours": "Heures", "minutes": "Minutes", "seconds": "Secondes" },
-    "dayParts": { "morning": "Matin", "afternoon": "Après midi", "evening": "Soir" }
+    "dayParts": { "morning": "Matin", "afternoon": "Après midi", "evening": "Soir" },
+    "blockBooking": "Bloquer la réservation aux cartes de cours nouveaux clients",
+    "strategy": {
+      "sport": "Sport",
+      "gender": "Sexe",
+      "location": "Lieu",
+      "sessions": "séances",
+      "gaveUp": "Abandon depuis",
+      "membership": "Abonnement",
+      "offersWithoutMembership": "Séance(s) sans abonnement",
+      "crossfit": "Crossfit",
+      "none": "Aucun",
+      "yoga": "Yoga",
+      "female": "F",
+      "gym": "Gymnase Beaulieu",
+      "strategy": "Stratégie"
+    }
   },
   "search": {
     "input": "Rechercher...",
@@ -3011,7 +3027,8 @@
     "credit": { "updated": "Crédits mis à jour" },
     "noConsumerPack": "Aucun achat enregistré",
     "reverted": "Facture annulée",
-    "link": { "copied": "Lien copié", "copyLink": "Copier le lien vers la page de paiement" }
+    "link": { "copied": "Lien copié", "copyLink": "Copier le lien vers la page de paiement" },
+    "notificationForm": "Formulaire notification"
   },
   "metaActivity": {
     "metaActivity": "Activité",

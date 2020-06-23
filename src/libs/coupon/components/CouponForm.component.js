@@ -5,6 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import MomentUtils from '@date-io/moment';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import Collapse from '@material-ui/core/Collapse';
 import FormControl from '@material-ui/core/FormControl';
@@ -27,6 +29,7 @@ import {
   BUYABLE_ITEM_FEE,
   BUYABLE_ITEM_PRIVATE_PASS,
 } from '@bsport/common/lib/master-data/buyable-items';
+import { Moment } from '../../../i18n';
 
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
@@ -214,27 +217,46 @@ export class CouponForm extends React.Component<Props, State> {
             this.handleChange('with_expiration_date', false)(ev.target.checked)
           }
         />
-        <DatePicker
-          format="DD/MM/YYYY"
-          keyboard
-          mask={(value) => {
-            if (value) {
-              return [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
+        <MuiPickersUtilsProvider
+          utils={MomentUtils}
+          moment={Moment}
+          locale={Moment.locale()}
+        >
+          <DatePicker
+            format="DD/MM/YYYY"
+            keyboard
+            mask={(value) => {
+              if (value) {
+                return [
+                  /\d/,
+                  /\d/,
+                  '/',
+                  /\d/,
+                  /\d/,
+                  '/',
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                ];
+              }
+              return [];
+            }}
+            openToYearSelection
+            clearable
+            disabled={!this.state.with_expiration_date || !this.state.is_active}
+            required={this.state.with_expiration_date && this.state.is_active}
+            value={this.state.expiration_date}
+            label={t('form.expiration_date.label')}
+            returnMoment={false}
+            onChange={(date) =>
+              this.handleChange('expiration_date', false)(date)
             }
-            return [];
-          }}
-          openToYearSelection
-          clearable
-          disabled={!this.state.with_expiration_date || !this.state.is_active}
-          required={this.state.with_expiration_date && this.state.is_active}
-          value={this.state.expiration_date}
-          label={t('form.expiration_date.label')}
-          returnMoment={false}
-          onChange={(date) => this.handleChange('expiration_date', false)(date)}
-          clearLabel={t('form.expiration_date.clear_date')}
-          cancelLabel={t('form.expiration_date.cancel')}
-          initialFocusedDate={moment().format('YYYY-MM-DD')}
-        />
+            clearLabel={t('form.expiration_date.clear_date')}
+            cancelLabel={t('form.expiration_date.cancel')}
+            initialFocusedDate={moment().format('YYYY-MM-DD')}
+          />
+        </MuiPickersUtilsProvider>
       </div>
     );
   };

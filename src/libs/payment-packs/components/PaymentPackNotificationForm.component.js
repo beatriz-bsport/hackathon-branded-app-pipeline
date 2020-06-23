@@ -348,7 +348,7 @@ export class notificationRuleForm extends Component<Props, state> {
 
     return (
       <Dialog open={this.props.open}>
-        <DialogTitle>Formulaire notification</DialogTitle>
+        <DialogTitle>{t('notificationForm')}</DialogTitle>
         <div className={classes.dialogContainer}>
           <div className={classes.fieldContainer}>
             <Typography variant="subtitle2">

@@ -12,8 +12,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import MomentUtils from '@date-io/moment';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import InlineDatePicker from 'material-ui-pickers/DatePicker/DatePickerInline';
 import { DURATION_COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
+import { Moment } from '../../../../i18n';
 import Selector from '../../../../components/Selector.component';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 
@@ -95,30 +98,38 @@ export class ExpensesPerCategoryFilter extends Component<Props, state> {
           }
         />
         {t(`filters.${filter_data.filter_identifier}.second`)}
-        <div className={classes.datePicker}>
-          <InlineDatePicker
-            className={classes.input}
-            keyboard
-            ampm={false}
-            value={filter_data.date_start}
-            onChange={(ev) => onChange({ date_start: ev.format('YYYY-MM-DD') })}
-            onError={console.error}
-            format="YYYY/MM/DD"
-          />
-        </div>
-        {t(`filters.${filter_data.filter_identifier}.third`)}
-        <div className={classes.datePicker}>
-          <InlineDatePicker
-            className={classes.input}
-            minDate={filter_data.date_start}
-            keyboard
-            ampm={false}
-            value={filter_data.date_end}
-            onChange={(ev) => onChange({ date_end: ev.format('YYYY-MM-DD') })}
-            onError={console.error}
-            format="YYYY/MM/DD"
-          />
-        </div>
+        <MuiPickersUtilsProvider
+          utils={MomentUtils}
+          moment={Moment}
+          locale={Moment.locale()}
+        >
+          <div className={classes.datePicker}>
+            <InlineDatePicker
+              className={classes.input}
+              keyboard
+              ampm={false}
+              value={filter_data.date_start}
+              onChange={(ev) =>
+                onChange({ date_start: ev.format('YYYY-MM-DD') })
+              }
+              onError={console.error}
+              format="YYYY/MM/DD"
+            />
+          </div>
+          {t(`filters.${filter_data.filter_identifier}.third`)}
+          <div className={classes.datePicker}>
+            <InlineDatePicker
+              className={classes.input}
+              minDate={filter_data.date_start}
+              keyboard
+              ampm={false}
+              value={filter_data.date_end}
+              onChange={(ev) => onChange({ date_end: ev.format('YYYY-MM-DD') })}
+              onError={console.error}
+              format="YYYY/MM/DD"
+            />
+          </div>
+        </MuiPickersUtilsProvider>
         <div className={classes.textMargin}>
           {t(`filters.${filter_data.filter_identifier}.fourth`)}
         </div>

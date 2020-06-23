@@ -2,7 +2,11 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+import MomentUtils from '@date-io/moment';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
+
+import { Moment } from '../../i18n';
 
 type Props = {
   classes: Object,
@@ -36,17 +40,23 @@ export function DateInput(props: Props) {
   } = props;
 
   return (
-    <DatePicker
-      format="DD/MM/YYYY"
-      value={value}
-      required={required}
-      disabled={disabled}
-      onChange={onChange}
-      minDate={minDate}
-      label={label}
-      error={error}
-      className={`${className || ''} ${classes.container}`}
-    />
+    <MuiPickersUtilsProvider
+      utils={MomentUtils}
+      moment={Moment}
+      locale={Moment.locale()}
+    >
+      <DatePicker
+        format="DD/MM/YYYY"
+        value={value}
+        required={required}
+        disabled={disabled}
+        onChange={onChange}
+        minDate={minDate}
+        label={label}
+        error={error}
+        className={`${className || ''} ${classes.container}`}
+      />
+    </MuiPickersUtilsProvider>
   );
 }
 

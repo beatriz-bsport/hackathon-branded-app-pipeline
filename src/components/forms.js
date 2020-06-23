@@ -9,6 +9,8 @@ import { Field, ErrorMessage } from 'formik';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import MomentUtils from '@date-io/moment';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -36,6 +38,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import { Moment } from '../i18n';
 import DelayedTextField from './DelayedTextField.component';
 import ColorInput from './input/ColorInput.component';
 
@@ -181,16 +184,22 @@ export const DateField = (props: DateFieldProps) => {
     <Field
       {...props}
       render={({ field, form: { touched, errors, setFieldValue } }) => (
-        <DatePicker
-          {...field}
-          {...props}
-          style={{ minWidth: 120 }}
-          onChange={(date) => {
-            setFieldValue(props.name, date);
-          }}
-          format="DD/MM/YYYY"
-          error={!!(touched[field.name] && errors[field.name])}
-        />
+        <MuiPickersUtilsProvider
+          utils={MomentUtils}
+          moment={Moment}
+          locale={Moment.locale()}
+        >
+          <DatePicker
+            {...field}
+            {...props}
+            style={{ minWidth: 120 }}
+            onChange={(date) => {
+              setFieldValue(props.name, date);
+            }}
+            format="DD/MM/YYYY"
+            error={!!(touched[field.name] && errors[field.name])}
+          />
+        </MuiPickersUtilsProvider>
       )}
     />
   );

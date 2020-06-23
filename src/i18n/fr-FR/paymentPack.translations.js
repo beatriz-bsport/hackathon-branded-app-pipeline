@@ -314,4 +314,5 @@ exports.default = {
     copied: 'Lien copié',
     copyLink: 'Copier le lien vers la page de paiement',
   },
+  notificationForm: 'Formulaire notification',
 };

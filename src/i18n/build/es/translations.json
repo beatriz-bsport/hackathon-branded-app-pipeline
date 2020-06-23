@@ -1663,7 +1663,21 @@
             "8": "Reserva + compra simultánea tarjeta de curso",
             "7": "Reserva a través de la tarjeta de curso",
             "6": "Registro miembro (estudiante)",
-            "3": "Cancelación sesión"
+            "3": "Cancelación sesión",
+            "453": "Programa modificado (estudiante)",
+            "452": "Nueva cita (estudiante)",
+            "451": "Cita cancelada - reembolsada (estudiante)",
+            "450": "Cita - fuera de tiempo (estudiante)",
+            "403": "Programa modificado (profesor)",
+            "402": "Nueva cita (profesor)",
+            "401": "Cita cancelada - reembolsada (profesor)",
+            "400": "Cita cancelada - fuera de tiempo (profesor)",
+            "29": "Recordatoria curso en línea en 15 minutos",
+            "28": "Pago recibido",
+            "27": "Suscripción detenida o terminada",
+            "26": "Pausa de la suscripción",
+            "24": "",
+            "25": "Cambio de método de pago"
         },
         "tag": {
             "BookingOption": {
@@ -1779,6 +1793,42 @@
             "explainConsumer": "Con <1>bsport</2> disfruta de una experiencia única para reservar todas tus actividades deportivas. <3/> ¡Una sola cuenta y una sola contraseña!",
             "noMatchingCompany": "Ningún resultado",
             "placeholder": "Buscar un estudio/sala/club..."
+        }
+    },
+    "consumerSpace": {
+        "dashboard": {
+            "showMore": "Ver más",
+            "currentPassTitle": "Tarjetas de curso activas",
+            "nextBookingTitle": "Mis próximas sesiones",
+            "optionTitle": "En lista de espera",
+            "favoriteTitle": "Sugerencia de reserva"
+        },
+        "booking": {
+            "bookAgain": "Reservar de nuevo",
+            "discard": "Cancelar",
+            "showCalendar": "Ver el calendario",
+            "titlePrivateBooking": "Cita",
+            "titleBooking": "Curso de grupo"
+        },
+        "pack": {
+            "titlePrivatePack": "Cita",
+            "titlePaymentPack": "Curso de grupo"
+        },
+        "debt": {
+            "explainPayment": "Esta suma se pagará al club para regularizar tu anticipo",
+            "titlePaymentDialog": "Regularización anticipo",
+            "title": "Anticipo debido al club",
+            "regularize": "Regularizar"
+        },
+        "navigation": {
+            "changeMembership": "Cambiar de club",
+            "logoff": "Desconectar",
+            "profile": "Perfil",
+            "subscription": "Suscripción",
+            "invoice": "Factura",
+            "pack": "Tarjeta de curso",
+            "calendar": "Histórico",
+            "dashboard": "Resumen"
         }
     }
 }

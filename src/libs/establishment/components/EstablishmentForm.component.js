@@ -49,16 +49,18 @@ export class EstablishmentForm extends Component<Props, State> {
     super(props);
 
     if (props.initial) {
-      this.state.title = props.initial.title;
-      this.state.specific_info = props.initial.specific_info;
-      this.state.practical_info = props.initial.practical_info;
-      this.state.address = props.initial.location.address;
-      this.state.capacity = props.initial.capacity;
-      this.state.location = {
-        x: props.initial.location.longitude,
-        y: props.initial.location.latitude,
+      this.state = {
+        title: props.initial.title,
+        specific_info: props.initial.specific_info,
+        practical_info: props.initial.practical_info,
+        address: props.initial.location.address,
+        capacity: props.initial.capacity,
+        location: {
+          x: props.initial.location.longitude,
+          y: props.initial.location.latitude,
+        },
+        cover: props.initial.cover,
       };
-      this.state.cover = props.initial.cover;
     } else {
       this.state = { capacity: 30 };
     }

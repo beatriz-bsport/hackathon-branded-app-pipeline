@@ -498,7 +498,7 @@
             "workshopActivities": "Workshop",
             "invoice": "Fatture",
             "alpha": "in via di sviluppo",
-            "schedule": "Calendario",
+            "schedule": "Programma",
             "privateService": {
                 "title": "Su appuntamento",
                 "services": "Su appuntamento",
@@ -893,7 +893,23 @@
             "morning": "Mattina",
             "afternoon": "Pomeriggio",
             "evening": "Sera"
-        }
+        },
+        "strategy": {
+            "gym": "Palestra di Beaulieu",
+            "strategy": "Strategia",
+            "female": "F",
+            "yoga": "Yoga",
+            "none": "Nessuno",
+            "crossfit": "Crossfit",
+            "offersWithoutMembership": "Sessioni senza abbonamento",
+            "membership": "Abbonamento",
+            "gaveUp": "Abbandonato da",
+            "sessions": "sessioni",
+            "location": "Luogo",
+            "gender": "Sesso",
+            "sport": "Sport"
+        },
+        "blockBooking": "Blocca la prenotazione per le nuove schede del corso del cliente"
     },
     "notificationRule": {
         "tag": {
@@ -1024,7 +1040,7 @@
         },
         "emailDesign": {
             "placeholder": "Generato da bsport",
-            "closePreview": "Chiuso"
+            "closePreview": "Chiudi"
         }
     },
     "consumerSpace": {
@@ -1077,7 +1093,7 @@
         },
         "congratulation": {
             "content": "Il tuo acquisto è stato registrato!",
-            "cancel": "Chiuso"
+            "cancel": "Chiudi"
         }
     },
     "search": {
@@ -1091,6 +1107,9 @@
             "packs": {
                 "title": "Schede del corso"
             }
+        },
+        "actions": {
+            "addMember": "Aggiungi un membro"
         }
     },
     "partnership": {
@@ -1979,7 +1998,7 @@
             "beta": "beta",
             "alpha": "in via di sviluppo",
             "calendar": "Calendario",
-            "schedule": "Calendario",
+            "schedule": "Programma",
             "privateService": {
                 "title": "Su appuntamento",
                 "services": "Su appuntamento",
@@ -2012,6 +2031,12 @@
             "coupon": "Promozioni",
             "logoff": "Disconnettiti",
             "refresh": "Ricarica"
+        },
+        "deprecatedNavigator": {
+            "close": "Chiudi",
+            "downloadChrome": "Download gratuito di Google Chrome",
+            "downloadFirefox": "Scarica Mozilla Firefox gratuitamente",
+            "navigatorError": "Sembra che il tuo browser sia troppo vecchio per utilizzare i nostri servizi. Potresti riscontrare errori, ti consigliamo di scaricare una versione più recente, in particolare: "
         }
     },
     "stripe": {
@@ -3260,7 +3285,8 @@
                 "actions": {
                     "edit": "Modifica",
                     "skip": "Salta",
-                    "create": "Iscriviti"
+                    "create": "Iscriviti",
+                    "cancel": "Annulla"
                 },
                 "name": {
                     "helperText": "Nome della scheda del corso",
@@ -3386,7 +3412,8 @@
         "noRestrictionOnActivityType": "Tutte le attività sono compatibili con questa carta",
         "credit": {
             "updated": "Crediti aggiornati"
-        }
+        },
+        "notificationForm": "Modulo di notifica"
     },
     "metaActivity": {
         "detail": {
@@ -3613,6 +3640,10 @@
                 "actions": "Azioni"
             },
             "update": "Modifica"
+        },
+        "search": {
+            "cancel": "Chiudi",
+            "createMember": "Aggiungi un membro"
         }
     },
     "booking": {
@@ -3725,7 +3756,7 @@
                     "first": "prendere posto"
                 },
                 "hour": {
-                    "first": "fra",
+                    "first": "inizia tra",
                     "second": "ore e",
                     "third": "ore"
                 },
@@ -3738,7 +3769,8 @@
                 },
                 "explanation": "Ho prenotato X allenamenti dell'attività A, nella posizione B, con la scheda del corso C ...",
                 "first": "Ha prenotato",
-                "second": "sessioni"
+                "second": "sessioni",
+                "between": "e"
             },
             "booking_status": {
                 "booked": "prenotato",
@@ -3746,15 +3778,15 @@
             },
             "19": {
                 "expiration": {
-                    "first_has_expire": "Scaduto",
-                    "first_will_expire": "Scaduto"
+                    "first_has_expire": "è scaduto",
+                    "first_will_expire": "scaduto"
                 },
                 "has_not": "Non possiede",
                 "second": "e",
                 "third": "di",
                 "explanation": "Carta del corso acquistata A alla data Y, con X crediti",
                 "credits": {
-                    "first": "Crediti:",
+                    "first": "crediti:",
                     "second": "e"
                 },
                 "infoIcon": "Le schede dei corsi illimitate saranno sempre incluse",
@@ -3762,7 +3794,7 @@
                 "first": "una delle carte del corso",
                 "has": "possiede",
                 "date_bought": {
-                    "first": "Data di acquisto"
+                    "first": "data di acquisto"
                 }
             },
             "11": {
@@ -3892,14 +3924,16 @@
                 },
                 "explanation": "Ha abbandonato un carrello nella quantità di ...",
                 "third": "euro",
-                "second": "di"
+                "second": "di",
+                "between": "e"
             },
             "1": {
                 "name": "Acconto",
                 "first": "L'acconto del cliente è",
                 "second": " a   ",
                 "third": "euro",
-                "explanation": "Ha X euro sul suo conto"
+                "explanation": "Ha X euro sul suo conto",
+                "between": "e"
             },
             "18": {
                 "name": "Data d'iscrizione",
@@ -3909,7 +3943,7 @@
             "21": {
                 "hour": {
                     "third": "ore",
-                    "first": "il tempo dell'allenamento è compreso tra",
+                    "first": "il tempo di inizio dell'allenamento è compreso tra",
                     "second": "ore e"
                 },
                 "establishment": {
@@ -3925,6 +3959,12 @@
                 "second_plural": "allenamento",
                 "activity": {
                     "first": "di"
+                },
+                "coach": {
+                    "first": "con gli insegnanti"
+                },
+                "payment_pack": {
+                    "first": "con le carte"
                 }
             },
             "400": {
@@ -3957,7 +3997,28 @@
                 "5": "pari"
             },
             "all": "Tutti",
-            "add": "Inserisci"
+            "add": "Inserisci",
+            "comparators": {
+                "6": "tra due",
+                "5": "pari",
+                "2": "maggiore (⩾)",
+                "1": "inferiore (⩽)"
+            },
+            "24": {
+                "date": {
+                    "first": "acquisti effettuati"
+                },
+                "second": "€ per i prodotti",
+                "first": "Ha speso",
+                "name": "Spese",
+                "workshop": "Scheda speciale del corso per workshop",
+                "private_pass": "Lezioni private",
+                "between": "e",
+                "combo": "Pacchetto",
+                "pack": "Scheda del corso",
+                "shop": "Negozio",
+                "explanation": "Prodotti acquistati A e B"
+            }
         },
         "smart_list": {
             "list": {
@@ -4038,6 +4099,12 @@
                 "helperText": "selezionare le strutture",
                 "helperSelectedText": "strutture selezionate",
                 "textFieldPlaceholder": "Cerca uno stabilimento"
+            },
+            "buyables": {
+                "helperAllSelectedText": "tutti i prodotti",
+                "textFieldPlaceholder": "Trova una categoria di prodotti",
+                "helperSelectedText": "categorie selezionate",
+                "helperText": "seleziona categorie"
             }
         },
         "detail": {
@@ -4339,7 +4406,8 @@
         },
         "pleaseSelectOne": "Seleziona un club sulla mappa",
         "offers": "Calendario delle sessioni:",
-        "noMoreOffers": "Nessuna sessione programmata"
+        "noMoreOffers": "Nessuna sessione programmata",
+        "cancel": "Annulla"
     },
     "datetime": {
         "time": {
@@ -4446,7 +4514,7 @@
         "generalTermsAndConditions": {
             "iAccept": "Accetto le ",
             "theTermsAndConditions": "termini e condizioni di vendita.",
-            "close": "Chiuso"
+            "close": "Chiudi"
         },
         "explainOption": "Riceverai una notifica via email quando un posto sarà disponibile"
     },
@@ -4542,7 +4610,7 @@
         },
         "tempPassword": {
             "title": "Password temporanea",
-            "close": "Chiuso",
+            "close": "Chiudi",
             "explain": "Questa password è valida fino al {{expirationDate}}. La tua password principale non è cambiata.",
             "explainRequest": "Richiedi una password temporanea valida per 2 ore per consentire, ad esempio, ai nostri team di connettersi al tuo account per un periodo di tempo limitato. La tua password principale non cambierà.",
             "submit": "Creare"
@@ -4714,7 +4782,7 @@
             "showLessText": "Vedi meno",
             "showMoreText": "Vedi altro"
         },
-        "close": "Chiuso"
+        "close": "Chiudi"
     },
     "titles": {
         "metaActivity": {
@@ -4960,7 +5028,7 @@
         "manageOffer": "Gestisci le mie prenotazioni"
     },
     "role": {
-        "userRoles": "Conti del personale",
+        "userRoles": "Contabilità del personale",
         "permissions": "Ruoli autorizzati",
         "explainStaffDoNot": "L'accesso personale non consente la connessione all'applicazione mobile (solo per insegnanti e studenti)",
         "explainStaffDo": "L'accesso personale consente di connettersi a https://backoffice.bsport.io tramite computer o dispositivo mobile",

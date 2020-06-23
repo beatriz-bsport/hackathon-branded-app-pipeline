@@ -952,15 +952,15 @@
         "openSchedule": "Vea el programa"
     },
     "search": {
-        "input": "Buscando...",
+        "input": "Buscar...",
         "go_back": "Volver a los resultados",
-        "noResult": "No hay resultado",
+        "noResult": "Ningún resultado",
         "member": {
             "sessions": {
-                "title": "Clases"
+                "title": "Sesiones"
             },
             "packs": {
-                "title": "Abonos"
+                "title": "Tarjetas de clase"
             }
         },
         "actions": {
@@ -1644,8 +1644,118 @@
         "ruleGroup": {
             "waiting-list": "Lista de espera",
             "offer": "Sesión",
-            "booking": "Reservación",
-            "member": "Creación de una cuenta de estudiante"
+            "booking": "Reserva",
+            "member": "Creación de una cuenta de estudiante",
+            "private_booking": "Cita",
+            "subscription": "Suscripción"
+        },
+        "eventType": {
+            "14": "Cancelación de la inscripción en la lista de espera (mánager)",
+            "21": "Nueva reserva",
+            "19": "Registro miembro (mánager)",
+            "18": "Reserva cancelada: crédito reembolsado",
+            "17": "Reserva cancelada: créditos no reembolsados",
+            "16": "Sesión modificada",
+            "13": "Cancelación de la inscripción en la lista de espera (estudiante)",
+            "12": "Registro en la lista de espera",
+            "10": "Lista de espera llena de nuevo",
+            "9": "Salida de la lista de espera : reserva posible",
+            "8": "Reserva + compra simultánea tarjeta de curso",
+            "7": "Reserva a través de la tarjeta de curso",
+            "6": "Registro miembro (estudiante)",
+            "3": "Cancelación sesión"
+        },
+        "tag": {
+            "BookingOption": {
+                "tags": {
+                    "option_expiration_date": "Fecha de caducidad posición en la lista de espera",
+                    "option_payment_url": "Enlace de reserva",
+                    "address": "Dirección",
+                    "establishment_practical_info": "Acceso a la sala",
+                    "establishment": "Lugar",
+                    "date": "Hora/Fecha sesión",
+                    "coach": "Profesor",
+                    "activity": "Actividad"
+                },
+                "name": "Lista de espera"
+            },
+            "Booking": {
+                "name": "Reserva",
+                "tags": {
+                    "ics_calendar_link": "Enlace ics calendario",
+                    "address": "Dirección",
+                    "establishment_practical_info": "Acceso a la sala",
+                    "establishment": "Lugar",
+                    "date": "Hora/fecha de la sesión",
+                    "coach": "Profesor",
+                    "activity": "Actividad"
+                }
+            },
+            "ConsumerPaymentPack": {
+                "tags": {
+                    "pass_credit_left": "Número de créditos restantes",
+                    "pass_expiration": "Fecha final tarjeta de curso",
+                    "pass_starting_date": "Fecha de inicio tarjeta de curso",
+                    "pass_name": "Apellido tarjeta de curso",
+                    "pass_price": "Precio tarjeta de curso"
+                },
+                "name": "Tarjeta de curso"
+            },
+            "PrivateBooking": {
+                "tags": {
+                    "establishment_practical_info": "Información sobre el acceso a las instalaciones (opcional)",
+                    "establishment": "Establecimiento",
+                    "address": "Dirección",
+                    "date": "Hora/Fecha",
+                    "coach": "Profesor (opcional)",
+                    "activity": "Actividad"
+                },
+                "name": "Cita"
+            },
+            "PrivateConsumerPass": {
+                "tags": {
+                    "pass_credit_left": "Número de créditos restantes",
+                    "pass_expiration": "Fecha final cita",
+                    "pass_starting_date": "Fecha de inicio tarjeta cita",
+                    "pass_name": "Apellido tarjeta cita",
+                    "pass_price": "Precio tarjeta cita"
+                },
+                "name": "Tarjeta cita"
+            },
+            "User": {
+                "tags": {
+                    "unsubscribe_link": "Enlace para cancelar la suscripción a la newsletter",
+                    "lastname": "Apellido estudiante",
+                    "firstname": "Nombre estudiante"
+                },
+                "name": "Estudiante"
+            },
+            "BillingPlan": {
+                "tags": {
+                    "subscription_nb_days_pause": "Pausa: número de días",
+                    "subscription_payment_method": "Método de pago",
+                    "subscription_flat_fee": "Gastos de reserva",
+                    "subscription_nb_months": "Número de meses",
+                    "subscription_recurrent_price": "Cantidad mensual retirada",
+                    "subscription_name": "Nombre de la suscripción"
+                },
+                "name": "Suscripción"
+            },
+            "Offer": {
+                "tags": {
+                    "address": "Dirección",
+                    "establishment_practical_info": "Acceso a la sala",
+                    "establishment": "Lugar",
+                    "date": "Hora/fecha sesión",
+                    "coach": "Profesor",
+                    "activity": "Actividad"
+                },
+                "name": "Sesión"
+            }
+        },
+        "emailDesign": {
+            "closePreview": "Cerrar",
+            "placeholder": "Generado por bsport"
         }
     },
     "partnership": {

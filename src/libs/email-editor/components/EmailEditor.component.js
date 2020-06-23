@@ -141,12 +141,7 @@ export class EmailEditorPanel extends Component<Props, State> {
           />
         </div>
         <div className={classes.buttonsContainer}>
-          <Button
-            color="secondary"
-            variant="contained"
-            className={classes.button}
-            onClick={this.props.goToList}
-          >
+          <Button className={classes.button} onClick={this.props.goToList}>
             {t('emailTemplate:editor.cancel')}
           </Button>
           <Button

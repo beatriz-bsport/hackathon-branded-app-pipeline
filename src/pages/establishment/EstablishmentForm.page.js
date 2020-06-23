@@ -10,8 +10,6 @@ import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import Button from '@material-ui/core/Button';
-
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   createOrUpdateEstablishment,
@@ -34,7 +32,6 @@ type Props = {
   establishmentId: number,
   pending: boolean,
   update: *,
-  t: TFunction,
   isNew: boolean,
 };
 
@@ -67,7 +64,6 @@ export class EstablishmentFormPage extends Component<Props> {
   render() {
     const {
       update,
-      t,
       isNew,
       addImage,
       removeImage,
@@ -81,15 +77,13 @@ export class EstablishmentFormPage extends Component<Props> {
         };
     return (
       <div>
-        <Button onClick={this.props.goToEstablishmentList}>
-          {t('establishment:goBackToList')}
-        </Button>
         <EstablishmentForm
           onSubmit={this.createEstablishment}
           processing={this.props.pending}
           initial={update}
           update={this.props.update}
           imageUploader={imageUploader}
+          onCancel={this.props.goToEstablishmentList}
         />
       </div>
     );

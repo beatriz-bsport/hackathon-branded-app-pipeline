@@ -34,10 +34,14 @@ export const CoachEmailCheckDialog = (props: Props) => (
       />
     </DialogContent>
     <DialogActions>
-      <Button onClick={props.onCancel} color="secondary">
+      <Button onClick={props.onCancel}>
         {props.t('forms.linkByEmail.cancel')}
       </Button>
-      <Button onClick={() => props.submit(props.email)} color="primary">
+      <Button
+        onClick={() => props.submit(props.email)}
+        color="primary"
+        variant="contained"
+      >
         {props.t('forms.linkByEmail.submit')}
       </Button>
     </DialogActions>

@@ -26,8 +26,9 @@ type Props = {
   processing: boolean,
   initial: $Shape<EstablishmentType>,
   onSubmit: ($Shape<EstablishmentType>) => void,
+  onCancel: () => void,
   t: TFunction,
-  classes: { [string]: string },
+  classes: Object,
   imageUploader: ?{
     onAddImage: (image: File) => void,
     onRemoveImage: (image: File) => void,
@@ -44,8 +45,6 @@ type State = {
 };
 
 export class EstablishmentForm extends Component<Props, State> {
-  state = { capacity: 30 };
-
   constructor(props: Props) {
     super(props);
 
@@ -60,6 +59,8 @@ export class EstablishmentForm extends Component<Props, State> {
         y: props.initial.location.latitude,
       };
       this.state.cover = props.initial.cover;
+    } else {
+      this.state = { capacity: 30 };
     }
   }
 
@@ -104,11 +105,14 @@ export class EstablishmentForm extends Component<Props, State> {
       return <CircularProgress />;
     }
     return (
-      <Grid container item direction="row" justify="flex-end" spacing={2}>
+      <div className={this.props.classes.buttonsContainer}>
+        <Button onClick={this.props.onCancel}>
+          {this.props.t('form.discard')}
+        </Button>
         <Button variant="contained" color="primary" type="submit">
           {this.props.t('form.send')}
         </Button>
-      </Grid>
+      </div>
     );
   };
 
@@ -202,7 +206,9 @@ export class EstablishmentForm extends Component<Props, State> {
                   onChange={this.onFormFieldChange('location')}
                 />
               </Grid>
-              <Grid item>{this.renderButton()}</Grid>
+              <Grid item container justify="flex-start">
+                {this.renderButton()}
+              </Grid>
             </Grid>
           </div>
         </Paper>
@@ -218,6 +224,11 @@ const styles = (theme) => ({
   },
   container: {
     padding: theme.spacing(3),
+  },
+  buttonsContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 });
 export default withStyles(styles)(withTranslation()(EstablishmentForm));

@@ -109,6 +109,7 @@ export class SmartListFormDialog extends Component<Props, state> {
                   disabled={this.state.mailContent === ''}
                   type="submit"
                   color="primary"
+                  variant="contained"
                 >
                   {t('smart_list.submit')}
                 </Button>

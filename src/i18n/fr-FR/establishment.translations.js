@@ -22,7 +22,6 @@ exports.default = {
   pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
   offers: 'Calendrier des séances:',
   noMoreOffers: 'Plus aucune séance de prévue',
-  goBackToList: 'Retour aux établissements',
   pleaseFill: 'Veuillez renseigner un établisssement',
   practical_info: {
     label: "Information d'accès",

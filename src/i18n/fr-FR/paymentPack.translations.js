@@ -212,6 +212,7 @@ exports.default = {
       },
       actions: {
         skip: 'Passer',
+        cancel: 'Annuler',
         edit: 'Modifier',
         create: 'Enregistrer',
       },

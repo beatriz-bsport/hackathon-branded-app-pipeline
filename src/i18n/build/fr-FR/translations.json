@@ -1931,7 +1931,7 @@
     "pleaseSelectOne": "Veuillez sélectionner un club sur la carte",
     "offers": "Calendrier des séances:",
     "noMoreOffers": "Plus aucune séance de prévue",
-    "goBackToList": "Retour aux établissements",
+    "cancel": "Annuler",
     "pleaseFill": "Veuillez renseigner un établisssement",
     "practical_info": {
       "label": "Information d'accès",
@@ -2935,7 +2935,7 @@
           "label": "Durée de validité (années) si applicable",
           "helperText": "S'ajoute au nombre de jours et de mois"
         },
-        "actions": { "skip": "Passer", "edit": "Modifier", "create": "Enregistrer" },
+        "actions": { "skip": "Passer", "cancel": "Annuler", "edit": "Modifier", "create": "Enregistrer" },
         "sports": "Catégorie",
         "activities": "Activité",
         "establishments": "Etablissement",

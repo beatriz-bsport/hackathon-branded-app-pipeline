@@ -7,11 +7,9 @@ import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import CancelIcon from '@material-ui/icons/Cancel';
 import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
-import SaveIcon from '@material-ui/icons/Save';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -350,12 +348,19 @@ export class ShopItemForm extends Component<Props, State> {
             />
           </div>
           <div className={classes.buttons}>
-            <Button onClick={this.props.onCancel}>
-              <CancelIcon className={classes.leftIcon} />
+            <Button
+              onClick={this.props.onCancel}
+              className={this.props.classes.button}
+            >
               {t('common.cancel')}
             </Button>
-            <Button color="primary" type="submit">
-              <SaveIcon className={classes.leftIcon} /> {t('common.save')}
+            <Button
+              color="primary"
+              variant="contained"
+              type="submit"
+              className={this.props.classes.button}
+            >
+              {t('common.save')}
             </Button>
           </div>
         </div>
@@ -419,6 +424,9 @@ const styles = (theme) => ({
     border: '1px solid #E2E2E2',
     backgroundColor: '#F8F8F8',
     borderRadius: 8,
+  },
+  button: {
+    margin: theme.spacing(1),
   },
 });
 

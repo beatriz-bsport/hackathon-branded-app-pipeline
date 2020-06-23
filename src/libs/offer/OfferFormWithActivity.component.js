@@ -80,13 +80,14 @@ export class OfferFormWithActivity extends Component<Props, State> {
             />
           )}
           <div className={this.props.classes.buttonContainer}>
-            <Button color="secondary" onClick={onCancel}>
+            <Button onClick={onCancel} className={this.props.classes.button}>
               {t('common.cancel')}
             </Button>
             <Button
               color="primary"
-              variant="outlined"
+              variant="contained"
               onClick={this.onSelectMetaActivity}
+              className={this.props.classes.button}
             >
               {t('common.confirm')}
             </Button>
@@ -118,8 +119,11 @@ const styles = (theme) => ({
   },
   buttonContainer: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     paddingTop: theme.spacing(2),
+  },
+  button: {
+    margin: theme.spacing(1),
   },
 });
 

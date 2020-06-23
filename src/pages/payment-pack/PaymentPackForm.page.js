@@ -47,6 +47,7 @@ type Props = {
   fetchAllActivities: () => void,
   fetchWorkhops: () => void,
   onSubmit: () => void,
+  onCancel: () => void,
   initial: ?PaymentPack,
   classes: Object,
   fetchPaymentPack: (id: number, options: OptionCallback) => void,
@@ -73,6 +74,7 @@ export class PaymentPackFormPage extends React.Component<Props> {
       loading,
       establishments,
       onSubmit,
+      onCancel,
       initial,
       paymentPackId,
     } = this.props;
@@ -103,6 +105,7 @@ export class PaymentPackFormPage extends React.Component<Props> {
               establishments={establishments}
               loading={loading}
               initial={initial}
+              onCancel={onCancel}
             />
           </Paper>
         </Grid>
@@ -164,6 +167,9 @@ export default compose(
           if (options.onSuccess) options.onSuccess();
         },
       });
+    },
+    onCancel: () => {
+      push('/payment-pack');
     },
   })),
 )(PaymentPackFormPage);

@@ -73,9 +73,7 @@ export function CompatiblePaymentPacks(props: Props) {
       </List>
       <div className={props.classes.buttonContainer}>
         <Button
-          variant="contained"
           className={props.classes.button}
-          color="secondary"
           onClick={props.goToPaymentPackCreate}
         >
           {props.t('forms.create.compatible_packs.createPass')}

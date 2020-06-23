@@ -150,12 +150,7 @@ export function MetaActivityForm(props: Props) {
           />
         </div>
         <div className={classes.buttonContainer}>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={props.onCancel}
-            disabled={isSubmitting}
-          >
+          <Button onClick={props.onCancel} disabled={isSubmitting}>
             {t('form.discard')}
           </Button>
           <Submit disabled={isSubmitting}>{t('form.send')}</Submit>
@@ -177,6 +172,7 @@ const styles = (theme) => ({
     paddingBottom: theme.spacing(1),
   },
   buttonContainer: {
+    alignSelf: 'flex-end',
     marginTop: theme.spacing(2),
   },
 });

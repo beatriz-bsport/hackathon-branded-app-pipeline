@@ -382,12 +382,7 @@ export function MemberForm(props: Props) {
               {!disabled ? (
                 <Actions>
                   {props.onCancel ? (
-                    <Button
-                      color="secondary"
-                      onClick={props.onCancel}
-                      disabled={isSubmitting}
-                      variant="contained"
-                    >
+                    <Button onClick={props.onCancel} disabled={isSubmitting}>
                       {t('translation:common.cancel')}
                     </Button>
                   ) : null}

@@ -477,8 +477,6 @@ export class OfferForm extends Component<Props, State> {
       <div className={classes.buttonContainer}>
         <Button
           disabled={processing}
-          variant="contained"
-          color="secondary"
           onClick={onCancel}
           className={classes.buttonLeft}
         >

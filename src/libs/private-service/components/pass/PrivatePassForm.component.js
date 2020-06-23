@@ -148,6 +148,7 @@ const styles = (theme) => ({
     marginTop: theme.spacing(2),
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   leftIcon: {

@@ -157,7 +157,7 @@ exports.default = {
     [NOTIFICATION_SUBSCRIPTION_CREATE]: 'Abonnement créé',
     [NOTIFICATION_SUBSCRIPTION_UPDATE_PAYMENT_METHOD]:
       'Changement de méthode de paiement',
-    [NOTIFICATION_SUBSCRIPTION_PAUSE]: 'Abonnement mise en pause',
+    [NOTIFICATION_SUBSCRIPTION_PAUSE]: 'Abonnement mis en pause',
     [NOTIFICATION_SUBSCRIPTION_STOP]: 'Abonnement stoppé ou terminé',
     [NOTIFICATION_SUBSCRIPTION_PAYMENT_RECEIVED]: 'Paiement reçu',
     [NOTIFICATION_BOOKING_BROADCAST]: 'Rappel cours en ligne dans 15 min',

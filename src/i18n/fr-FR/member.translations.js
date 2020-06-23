@@ -92,7 +92,7 @@ exports.default = {
       srcMember: 'Membre à fusionner (supprimé)',
       dstMember: 'Membre à conserver',
       title: 'Fusion membre',
-      explainCredit: "L'accompte interne du membre sera transféré",
+      explainCredit: "L'acompte interne du membre sera transféré",
       explainBookingsAndPassAndInvoiceAndNotes:
         'Les cartes de cours, réservations, factures et notes seront transférés.',
       explainTags: 'Les tags du membre supprimés ne seront pas transférés',

@@ -258,7 +258,7 @@ exports.default = {
     },
     [CREDIT_ACCOUNT_FILTER_IDENTIFIER]: {
       name: 'Accompte',
-      first: "L'accompte du client est",
+      first: "L'acompte du client est",
       second: ' à   ',
       third: 'euros',
       explanation: 'A X euros sur son compte',

@@ -175,7 +175,7 @@ exports.default = {
       expirationDaysBeforeFirstUse: {
         label: 'Expiration si aucune réservation initiale',
         helperText:
-          "Si le pass n'est pas consommé une première fois pendant ce nb de jour, il est rendu invalide",
+          "Si la carte de cours n'est pas consommé une première fois pendant ce nb de jour, il est rendu invalide",
       },
       managerOnly: 'Invisible pour les clients',
       helper: {

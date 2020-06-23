@@ -223,7 +223,7 @@ exports.default = {
     bsportCredit: 'Accompte client',
     credit: {
       explain:
-        "Le membre sera facturé sur son accompte interne chaque mois. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte bleue ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori.",
+        "Le membre sera facturé sur son acompte interne chaque mois. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte bleue ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori.",
     },
   },
   mandate: {

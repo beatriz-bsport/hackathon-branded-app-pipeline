@@ -472,7 +472,7 @@
       "choseDate": "Date de facturation",
       "explainDateChoser": "Veuillez choisir la date de facturation. Les paiements par CB seront immédiatement encaissés quelle que soit la date choisie",
       "revertImpossibleExplainSubscription": "Cette facture fait partie d'une souscription, vous ne pouvez pas annuler une facture encaissée liée à une souscription, mais vous pouvez arrêter la souscription",
-      "revertExplainPayment": "Les paiements par carte bleue seront reversés sur l'accompte du membre. Tous les autres modes de paiement seront supprimés.",
+      "revertExplainPayment": "Les paiements par carte bleue seront reversés sur l'acompte du membre. Tous les autres modes de paiement seront supprimés.",
       "revertExplainCredits": "Les débit/crédit sur le compte du membre seront inversés.",
       "revertExplainPacks": "Les cartes de cours seront annulés ainsi que TOUTES les réservations associées",
       "revertExplainShop": "Les achats du magasin seront annulés et les stocks réinitialisés.",
@@ -889,7 +889,7 @@
           "pass_name": "Nom carte RDV",
           "pass_starting_date": "Date de début carte RDV",
           "pass_expiration": "Date de fin RDV",
-          "pass_credit_left": "Nombre de crédit restant"
+          "pass_credit_left": "Nombre de crédits restants"
         }
       },
       "PrivateBooking": {
@@ -910,7 +910,7 @@
           "pass_name": "Nom carte de cours",
           "pass_starting_date": "Date de début carte de cours",
           "pass_expiration": "Date de fin carte de cours",
-          "pass_credit_left": "Nombre de crédit restant"
+          "pass_credit_left": "Nombre de crédits restants"
         }
       },
       "BookingOption": {
@@ -938,13 +938,13 @@
       "13": "Désincription de la liste d'attente (élève)",
       "14": "Désinscription de la liste d'attente (manager)",
       "16": "Séance modifiée",
-      "17": "Réservation annulée : crédit non-remboursée",
+      "17": "Réservation annulée : crédit non remboursé",
       "18": "Réservation annulée : crédit remboursé",
       "19": "Inscription membre (manager)",
       "21": "Nouvelle réservation",
       "24": "Abonnement créé",
       "25": "Changement de méthode de paiement",
-      "26": "Abonnement mise en pause",
+      "26": "Abonnement mis en pause",
       "27": "Abonnement stoppé ou terminé",
       "28": "Paiement reçu",
       "29": "Rappel cours en ligne dans 15 min",
@@ -972,8 +972,8 @@
     "debt": {
       "regularize": "Régulariser",
       "title": "Accompte dû au club",
-      "titlePaymentDialog": "Régularisation accompte",
-      "explainPayment": "Cette somme sera reversée au club afin de régulariser votre accompte"
+      "titlePaymentDialog": "Régularisation acompte",
+      "explainPayment": "Cette somme sera reversée au club afin de régulariser votre acompte"
     },
     "pack": { "titlePaymentPack": "Cours collectif", "titlePrivatePack": "Rendez-vous" },
     "booking": {
@@ -2350,7 +2350,7 @@
         "srcMember": "Membre à fusionner (supprimé)",
         "dstMember": "Membre à conserver",
         "title": "Fusion membre",
-        "explainCredit": "L'accompte interne du membre sera transféré",
+        "explainCredit": "L'acompte interne du membre sera transféré",
         "explainBookingsAndPassAndInvoiceAndNotes": "Les cartes de cours, réservations, factures et notes seront transférés.",
         "explainTags": "Les tags du membre supprimés ne seront pas transférés",
         "cancel": "Annuler",
@@ -2630,7 +2630,7 @@
       "card": "Carte bleue",
       "bsportCredit": "Accompte client",
       "credit": {
-        "explain": "Le membre sera facturé sur son accompte interne chaque mois. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte bleue ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori."
+        "explain": "Le membre sera facturé sur son acompte interne chaque mois. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte bleue ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori."
       }
     },
     "mandate": {
@@ -2925,7 +2925,7 @@
         "startOnFirstUseHelper": "Sinon le décompte début le jour de facturation du pass",
         "expirationDaysBeforeFirstUse": {
           "label": "Expiration si aucune réservation initiale",
-          "helperText": "Si le pass n'est pas consommé une première fois pendant ce nb de jour, il est rendu invalide"
+          "helperText": "Si la carte de cours n'est pas consommé une première fois pendant ce nb de jour, il est rendu invalide"
         },
         "managerOnly": "Invisible pour les clients",
         "helper": {
@@ -3212,7 +3212,7 @@
         "srcMember": "Membre à fusionner (supprimé)",
         "dstMember": "Membre à conserver",
         "title": "Fusion membre",
-        "explainCredit": "L'accompte interne du membre sera transféré",
+        "explainCredit": "L'acompte interne du membre sera transféré",
         "explainBookingsAndPassAndInvoiceAndNotes": "Les cartes de cours, réservations, factures et notes seront transférés.",
         "explainTags": "Les tags du membre supprimés ne seront pas transférés",
         "cancel": "Annuler",
@@ -3502,7 +3502,7 @@
     "filters": {
       "1": {
         "name": "Accompte",
-        "first": "L'accompte du client est",
+        "first": "L'acompte du client est",
         "second": " à   ",
         "third": "euros",
         "explanation": "A X euros sur son compte",

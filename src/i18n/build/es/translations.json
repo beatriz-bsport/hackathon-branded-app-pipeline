@@ -2918,11 +2918,13 @@
                 "label": "URL Instagram"
             },
             "gtmId": {
-                "label": "Google Tag ID"
+                "label": "Google Tag ID",
+                "placeholder": "GTM-XXXXXX"
             },
             "general_terms_and_conditions": {
                 "helperText": "Deben ser aceptadas por todo pago y registro",
-                "label": "Condiciones generales de venta"
+                "label": "Condiciones generales de venta",
+                "placeholder": "Certifico que tengo un certificado médico y lo llevaré a mi estudio"
             },
             "facebookURL": {
                 "placeholder": "https://facebook.com/mon-studio/",
@@ -2940,7 +2942,8 @@
                 "label": "URL website"
             },
             "secondary_color": {
-                "helperText": "Color complementario del tema"
+                "helperText": "Color complementario del tema",
+                "label": "Color secundario"
             },
             "primary_color": {
                 "helperText": "Privilegia un color, evita el monocromo",

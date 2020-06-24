@@ -25,7 +25,10 @@ export const currentBasket = {
   success: createAction('CHECKOUT_BASKET/CURRENT/SUCCESS'),
 };
 
-export function fetchCurrentBasket(companyId: number): ThunkAction {
+export function fetchCurrentBasket(
+  companyId: number,
+  options: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(currentBasket.isLoading(true));
     dispatch(currentBasket.error(null));
@@ -33,8 +36,12 @@ export function fetchCurrentBasket(companyId: number): ThunkAction {
     try {
       const response = await fetchCurrentBasketAPI(companyId);
       dispatch(currentBasket.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (error) {
       dispatch(currentBasket.error(error));
+      if (options && options.onError) options.onError(error);
     }
 
     dispatch(currentBasket.isLoading(false));

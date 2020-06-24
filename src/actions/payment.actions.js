@@ -84,7 +84,7 @@ export function errorFetchingPaymentPack(error: ?Error) {
 export function fetchedPaymentPack(paymentPack: PaymentPack) {
   return { type: types.PAYMENT_HAS_FETCHED_PAYMENT_PACK, paymentPack };
 }
-export function fetchPaymentPack(id: number) {
+export function fetchPaymentPack(id: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchPaymentPack());
     dispatch(errorFetchingPaymentPack(null));
@@ -93,8 +93,14 @@ export function fetchPaymentPack(id: number) {
       const response = await api.payment.fetchPaymentPack(id);
       const paymentPack = response.data;
       dispatch(fetchedPaymentPack(paymentPack));
+      if (options && options.onSuccess) {
+        options.onSuccess(paymentPack);
+      }
     } catch (err) {
       dispatch(errorFetchingPaymentPack(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
   };
 }

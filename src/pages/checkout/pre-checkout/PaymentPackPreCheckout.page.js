@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { replace, goBack } from 'connected-react-router';
+import { push, replace, goBack } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
@@ -37,6 +37,7 @@ type Props = {
   goBack: () => void,
   basket: ?Basket,
   packId: number,
+  push: (string) => void,
   fetchCurrentBasket: (companyId: number) => void,
   addItemToBasket: (basketId: number, data: any, option: *) => void,
   goToCheckout: (companyId: number) => void,
@@ -46,66 +47,53 @@ type Props = {
 
 type State = {
   error: ?Error,
-  hasAddedItemToBasket: boolean,
   processing: boolean,
 };
 
 export class PaymentPackPaymentPage extends Component<Props, State> {
   state = {
-    hasAddedItemToBasket: false,
     error: null,
     processing: false,
   };
 
   componentDidMount() {
-    this.props.fetchPaymentPack(this.props.packId);
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (
-      prevProps.paymentPack !== this.props.paymentPack &&
-      this.props.paymentPack
-    ) {
-      this.props.fetchCurrentBasket(this.props.paymentPack.company_id);
-    }
+    this.props.fetchPaymentPack(this.props.packId, {
+      onSuccess: (paymentPack) => {
+        this.props.fetchCurrentBasket(paymentPack.company_id, {
+          onSuccess: (basket) => {
+            if (!this.state.processing) {
+              this.setState({ processing: true });
+              const { nextOffer } = parse(this.props.location.search);
+              this.props.addItemToBasket(
+                basket.id,
+                {
+                  buyable_item_identifier: BUYABLE_ITEM_PASS,
+                  quantity: 1,
+                  buyable_item_id: paymentPack.id,
+                  extra_data: { offer_next: nextOffer },
+                },
+                {
+                  onError: () => this.setState({ error: true }),
+                  onSuccess: () =>
+                    this.props.goToCheckout(paymentPack.company_id),
+                },
+              );
+            }
+          },
+        });
+      },
+    });
   }
 
   goToPassMarketplace = () => {
     if (this.props.theme && this.props.theme.scheduleURL) {
-      window.location.href = this.props.theme.scheduleURL;
+      this.props.push(this.props.theme.scheduleURL);
     } else {
       this.props.goBack();
     }
   };
 
   render() {
-    const { packId, basket } = this.props;
-    if (
-      !this.state.hasAddedItemToBasket &&
-      this.props.paymentPack &&
-      basket &&
-      !this.props.loading &&
-      !this.state.error
-    ) {
-      if (!this.state.processing) {
-        this.setState({ processing: true });
-        const { nextOffer } = parse(this.props.location.search);
-        this.props.addItemToBasket(
-          basket.id,
-          {
-            buyable_item_identifier: BUYABLE_ITEM_PASS,
-            quantity: 1,
-            buyable_item_id: packId,
-            extra_data: { offer_next: nextOffer },
-          },
-          {
-            onError: () => this.setState({ error: true }),
-            onSuccess: () =>
-              this.props.goToCheckout(this.props.paymentPack.company_id),
-          },
-        );
-      }
-    }
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <div className={this.props.classes.container}>
@@ -177,6 +165,7 @@ export default compose(
       goToCheckout: (companyId: number) => replace(`/checkout/${companyId}`),
       fetchPaymentPack: paymentActions.fetchPaymentPack,
       goBack,
+      push,
     },
   ),
 )(PaymentPackPaymentPage);

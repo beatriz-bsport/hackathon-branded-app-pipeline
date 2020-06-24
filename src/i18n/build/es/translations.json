@@ -1097,7 +1097,33 @@
             "password": {
                 "label": "Contraseña"
             }
-        }
+        },
+        "contactUs": "Gerente de estudio, ¿estás interesado en nuestra solución? Contáctanos.",
+        "signup": {
+            "title": "Inscripción"
+        },
+        "doubleLogin": {
+            "disconnect": "Me reconectar",
+            "explain": "Tu sesión ha expirado. ¿Has iniciado sesión en dos cuentas diferentes simultáneamente o has cerrado sesión desde otra pestaña / ventana?"
+        },
+        "error": {
+            "invalidPassword": "La contraseña no es válida",
+            "invalidEmail": "Este email no existe en nuestra base de datos",
+            "authError": "Email o contraseña incorrectos"
+        },
+        "tempPassword": {
+            "explain": "Esta contraseña es válida hasta el {{expirationDate}}. Su contraseña maestra no ha cambiado.",
+            "explainRequest": "Solicita una contraseña temporal válida por 2 horas para permitir, por ejemplo, que nuestros equipos se conecten a tu cuenta por un tiempo limitado. Tu contraseña maestra no cambia.",
+            "submit": "Generar",
+            "close": "Cerrar",
+            "title": "Contraseña temporal"
+        },
+        "actions": {
+            "forgottenPassword": "Contraseña olvidada",
+            "signup": "¿Aún no tienes cuenta?",
+            "signin": "Iniciar sesión"
+        },
+        "or": " o "
     },
     "establishment": {
         "establishment": "Local",
@@ -1126,6 +1152,39 @@
             "update": {
                 "title": "Modificar las informaciones",
                 "success": "Local modificado con éxito"
+            },
+            "delete": {
+                "content": {
+                    "cannotDelete": "No se puede eliminar este establecimiento, las sesiones están planificadas en el futuro. Verifica que hayan sido canceladas y luego suprimidas",
+                    "canDelete": "¿Estás seguro de que quieres suprimir este establecimiento? Esta operación es irreversible. Las sesiones y reservas anteriores no se verán afectadas"
+                },
+                "actions": {
+                    "confirm": "Suprimir",
+                    "cancel": "cancelar"
+                },
+                "title": "Supresión establecimiento"
+            }
+        },
+        "practical_info": {
+            "helperText": "Esta información sólo se mostrará en el momento de la reserva",
+            "placeholder": "Código 1234 puerta derecha",
+            "label": "Información de acceso"
+        },
+        "pleaseFill": "Por favor, informa a un establecimiento",
+        "search": "Buscar un establecimiento",
+        "establishment_override": "Establecimiento de reemplazo",
+        "overrider": "Reemplazo",
+        "baseEstablishment": "Usual",
+        "capacity": {
+            "helperText": "Se usa solo para calcular la disponibilidad de citas",
+            "explain": "Capacidad: {{ capacity }} plaza",
+            "explain_plural": "Capacidad: {{ capacity }} plazas",
+            "label": "Capacidad de la sala"
+        },
+        "detail": {
+            "tab": {
+                "calendar": "Calendario",
+                "general": "General"
             }
         }
     },
@@ -1144,7 +1203,8 @@
             "name": "Comprador",
             "state": "Estatuto",
             "updated_at": "Actualizado",
-            "qty": "Candidad"
+            "qty": "Candidad",
+            "created_at": "Creado en"
         },
         "form": {
             "delivery": {
@@ -1206,7 +1266,76 @@
             "company": "Empresa",
             "invoice": "Facturación",
             "waitingList": "Lista de espera",
-            "shop": "Tienda"
+            "shop": "Tienda",
+            "active_campaign": "ActiveCampaign",
+            "partnership": "Asociación",
+            "webhook": "Webhook",
+            "personalization": "Personalización",
+            "role": "Staff",
+            "notificationRule": "Emails transaccionales",
+            "broadcast": "Videoconferencia",
+            "general": "General"
+        },
+        "active_campaign": {
+            "link": {
+                "listItemText": "Enviar miembros de la smartlist <1> {{smartlist}} </2> a la lista de ActiveCampaign <3> {{list}} </4>",
+                "noList": "LISTA DESCONOCIDA",
+                "helperForm": "Elige una smartlist de bsport y vincúlala a una de tus listas en ActiveCampaign",
+                "listActiveCampaignSelection": "Elegir una lista ActiveCampaign",
+                "smartListSelection": "Elegir una smartlist",
+                "dialogTitle": "Modificar un enlace de listas",
+                "add": "Añadir un enlace entre listas",
+                "title": "Envío de información desde bsport",
+                "helpContent": "Los miembros de la smartlist se envían todas las noches a la lista de ActiveCampaign, aparecen allí como \"activos\". Los miembros que han dejado la smartlist también se eliminan de la lista de ActiveCampaign, su estado es 'no confirmado'.",
+                "helpTitle": "¿Cómo funciona la sincronización?"
+            },
+            "webhooks": {
+                "CONTACT_TAG": "Crear una cuenta de cliente en bsport cuando el proyecto esté etiquetado en 'won' en ActiveCampaign",
+                "CLIENT_WON": "Crear una cuenta de cliente en bsport cuando el prospecto se establece en el estado \"WON\" en un trato",
+                "title": "Integrar las informaciones de ActiveCampaign en bsport",
+                "helpContent": "Las siguientes acciones tienen lugar tan pronto como se produce el evento asociado en ActiveCampaign.",
+                "helpTitle": "¿Cómo funciona la sincronización?"
+            },
+            "account": {
+                "error": "Tus informaciones son incorrectas",
+                "token": "Clave de autenticación",
+                "dialogTitle": "Información de mi cuenta ActiveCampaign",
+                "helper": "¿Dónde encontrar esta información?",
+                "title": "Acceda a la información de tu API de ActiveCampaign",
+                "helpContent": "Puedes acceder a la URL y la clave de autenticación de su cuenta de ActiveCampaign en la configuración de su cuenta, haciendo clic en la pestaña 'Desarrollador'.",
+                "helpTitle": "¿Dónde puedo encontrar la información de mi cuenta?"
+            },
+            "cancel": "Cancelar",
+            "submit": "Confirmar"
+        },
+        "broadcast": {
+            "submit": "Registrar",
+            "explainEnabled": "Activado: bsport gestiona tus salas de videoconferencia, IMPOSIBLE para hacer dos al mismo tiempo.",
+            "explainDisabled": "Desactivado: manejas tus propios enlaces de videoconferencia a configurar para cada sesión (a través del zoom, etc...).",
+            "is_whereby_integration_enabled": {
+                "label": "Activar la integración whereby X bsport"
+            }
+        },
+        "webhook": {
+            "modal": {
+                "delete": {
+                    "content": "¿Está seguro de que quieres suprimir este webhook? Esta operación es definitiva",
+                    "confirm": "Confirmar",
+                    "cancel": "cancelar",
+                    "title": "Supresión del webhook"
+                }
+            },
+            "urlHelper": "Ingresa la url a la cual se enviará la payload",
+            "payload": "Payload",
+            "urlPlaceHolder": "http://wwww.google.com",
+            "url": "URL",
+            "selectEvent": "Seleccionar un evento",
+            "event": "Evento",
+            "test": "Probar",
+            "add": "Añadir un webhook",
+            "createTitle": "Formulario webhook",
+            "submit": "validar",
+            "cancel": "cancelar"
         }
     },
     "datetime": {
@@ -1251,7 +1380,31 @@
                 "november": "Noviembre",
                 "december": "Diciembre"
             }
-        }
+        },
+        "form": {
+            "never": "Nunca",
+            "oneMonth": "1 mes",
+            "twoWeeks": "2 semanas",
+            "tenDays": "10 días",
+            "oneWeek": "1 semana",
+            "twoDays": "2 días",
+            "oneDay": "1 día",
+            "twelveHour": "12h",
+            "eightHour": "8h",
+            "sixHour": "6h",
+            "fourHour": "4h",
+            "threeHour": "3h",
+            "twoHour": "2h",
+            "oneHourAndHalf": "1h30",
+            "oneHourFifteen": "1h15",
+            "oneHour": "1h",
+            "halfAndQuarterHour": "45 min",
+            "halfHour": "30 min",
+            "twentyMinutes": "20 min",
+            "quarterHour": "15 min",
+            "zeroMinute": "0 min"
+        },
+        "never": "Nunca"
     },
     "shop": {
         "select": {
@@ -1289,13 +1442,25 @@
                 "supplier_price": "Precio comprado",
                 "marketplace_enabled": "Vender online si o no?",
                 "is_marketplace_enabled": "Sí",
-                "is_marketplace_disabled": "No"
+                "is_marketplace_disabled": "No",
+                "onsite_payment_available": "Pago en el acto",
+                "is_deliverable": "Gastos de envío",
+                "disabled": "No",
+                "enabled": "Sí"
             },
             "action": {
                 "edit": "Modificar",
                 "addToCard": "Añadir a la cesta",
                 "delete": "Suprimir"
+            },
+            "selector": {
+                "placeholder": "Buscar por nombre o código de barras"
             }
+        },
+        "search": "Buscar un producto",
+        "link": {
+            "copied": "Enlace copiado",
+            "copyLink": "Copiar el enlace a la página de pago"
         }
     },
     "payment": {
@@ -1304,7 +1469,25 @@
         "bookAnOption": "Incluime en la lista de espera",
         "availablePaymentPacks": "Abonos compatibles : ",
         "goBack": "Volver",
-        "hasOneOrMoreOption": "Esta ahora en la lista de espera"
+        "hasOneOrMoreOption": "Esta ahora en la lista de espera",
+        "generalTermsAndConditions": {
+            "iAccept": "Acepto los "
+        },
+        "forms": {
+            "paymentIntent": {
+                "pay": "Pagar"
+            },
+            "credit": {
+                "pay": "Confirmar",
+                "explain": "Tu club será informado del débito, pagarás este pedido en el sitio"
+            },
+            "cancelPayment": "Volver"
+        },
+        "method": {
+            "CREDIT_ACCOUNT": "Pago en el acto",
+            "CB": "Tarjeta de crédito"
+        },
+        "paymentComboSectionTitle": "Pack"
     },
     "invoice": {
         "configuration": {
@@ -2726,7 +2909,46 @@
                     "helperText": "Ingresa la etiqueta para el apellido",
                     "label": "Etiqueta para el apellido"
                 },
-                "offersFilling": "Mostrar el llenado de cursos en el calendario del cliente."
+                "offersFilling": "Mostrar el llenado de cursos en el calendario del cliente"
+            },
+            "submit": "Guardar",
+            "instagramURL": {
+                "placeholder": "https://instagram.com/mon-studio/",
+                "helperText": "Tu página Instagram",
+                "label": "URL Instagram"
+            },
+            "gtmId": {
+                "label": "Google Tag ID"
+            },
+            "general_terms_and_conditions": {
+                "helperText": "Deben ser aceptadas por todo pago y registro",
+                "label": "Condiciones generales de venta"
+            },
+            "facebookURL": {
+                "placeholder": "https://facebook.com/mon-studio/",
+                "helperText": "Tu página Facebook",
+                "label": "URL Facebook"
+            },
+            "scheduleURL": {
+                "placeholder": "https://studio.com/calendar/",
+                "helperText": "Enlace predeterminado del calendario",
+                "label": "URL planning"
+            },
+            "websiteURL": {
+                "placeholder": "https://studio.com/",
+                "helperText": "Se usa si el cliente hace clic en su logo en particular",
+                "label": "URL website"
+            },
+            "secondary_color": {
+                "helperText": "Color complementario del tema"
+            },
+            "primary_color": {
+                "helperText": "Privilegia un color, evita el monocromo",
+                "label": "Color principal"
+            },
+            "cover": {
+                "helperText": "Privilegia las png con fondo transparente",
+                "label": "Logo"
             }
         }
     },
@@ -2777,6 +2999,170 @@
             "selector": {
                 "label": "Categoria",
                 "placeholder": "Buscar una categoria"
+            }
+        }
+    },
+    "paymentRules": {
+        "calculation_methods": {
+            "margin_value": "Sobre el valor marginal de cada reserva",
+            "bookings": "Sobre el número de reservas"
+        },
+        "modal": {
+            "delete": {
+                "content": "Al suprimir esta regla, se disociará de todos los profesores y sesiones a los que está asignada actualmente",
+                "confirm": "Confirmar",
+                "cancel": "Cancelar",
+                "title": "Suprimir una regla"
+            }
+        },
+        "setPaymentRuleSetForCoachFirst": "Primero asigna una regla de pago predeterminada a este profesor.",
+        "coaches": "Profesores",
+        "dateTitle": "Rango de fechas",
+        "label": "Regla de remuneración",
+        "title": "Pago del profesor {{name}}",
+        "calculate": "Calcular",
+        "common": {
+            "until": "Final",
+            "from": "Principio"
+        },
+        "select": {
+            "placeholderOverride": "Regla por defecto",
+            "placeholder": "Elige una regla de cálculo"
+        },
+        "addNew": "Nuevo ajuste de la compensación",
+        "cancel": "Cancelar",
+        "addBonus": "Añadir una nueva regla",
+        "pricePerAdditionalBooking": "Bono por reserva",
+        "bookingThreshold": "Umbral de reserva (excluido)",
+        "actions": "Acciones",
+        "only_attendant": "Restringir el recuento de reservas a los estudiantes presentes",
+        "calculation_method": "Método de calculo",
+        "include_tax": "Cálculo incl. IVA",
+        "base_percent": "Porcentaje de valor",
+        "base_price": "Base",
+        "name": "Apellido",
+        "save": "Registrar",
+        "add": "Añadir",
+        "rules": "Reglas"
+    },
+    "checkout": {
+        "myBasket": {
+            "actions": {
+                "payZero": "Validar mi cesta",
+                "checkoutBasket": "Pagar",
+                "closeBasket": "Seguir comprando"
+            },
+            "error": {
+                "invalidBasket": "Tu cesta contenía artículos que ya no están disponibles para la venta. No se ha registrado ningún pago"
+            },
+            "featured": "Nosotros te recomendamos",
+            "isEmpty": "Su cesta está vacía",
+            "title": "Mi cesta",
+            "finalize": {
+                "steps": {
+                    "payment": "Facturación",
+                    "address": "Dirección"
+                }
+            }
+        },
+        "autoAdd": {
+            "paymentPack": {
+                "locked": "Este producto no está disponible."
+            }
+        },
+        "forms": {
+            "delivery": {
+                "actions": {
+                    "cancel": "Volver",
+                    "submit": "Siguiente"
+                },
+                "last_name": "Apellido",
+                "first_name": "Nombre"
+            }
+        },
+        "paymentIntent": {
+            "isProcessing": "Por favor espera"
+        }
+    },
+    "waitingList": {
+        "dialog": {
+            "delete": {
+                "confirm": "Suprimir",
+                "cancel": "Cancelar",
+                "content": "¿Estás seguro de que quieres suprimir a este miembro de la lista de espera? Serás notificado por email.",
+                "title": "Supresión de la lista de espera"
+            }
+        },
+        "explainWaitingListConf": "Ej: hay 3 horas antes de la sesión, el estudiante tiene {{nbMinutesBeforeBookingOptionExpire}} minutos para confirmar su reserva antes de abandonar su plaza.",
+        "form": {
+            "auto_cancellation_type": {
+                "title": "Gestión de lista de espera"
+            },
+            "submit": "Registrar",
+            "smart_delay_percentage": {
+                "helper": "Si hay una plaza disponible, el estudiante tiene un tiempo proporcional al tiempo restante antes de la sesión.",
+                "label": "Gestión inteligente"
+            },
+            "dumb_delay_minutes": {
+                "helper": "Si hay una plaza disponible, el estudiante tiene N minutos para registrarse, antes de que el siguiente tome su plaza.",
+                "label": "Gestión simple"
+            }
+        },
+        "nbConvertible": "{{nbConvertible}} en espera de confirmación",
+        "nbPending": "{{nbPending}} en la lista",
+        "switchToDisable": "Reactivar la lista de espera",
+        "switchToEnable": "Reactivar la lista de espera"
+    },
+    "workshop": {
+        "forms": {
+            "delete": {
+                "actions": {
+                    "confirm": "Suprimir",
+                    "cancel": "Cancelar"
+                },
+                "content": {
+                    "cannotDelete": "Unas sesiones están programadas para el futuro, verifica que están suprimidas y no sólo canceladas.",
+                    "canDelete": "¿Estás seguro de que quieres suprimir este taller? Las reservas anteriores no se verán afectadas. Esto es definitivo."
+                },
+                "title": "Supresión del taller"
+            }
+        },
+        "modal": {
+            "delete": {
+                "confirm": "Suprimir",
+                "cancel": "Cancelar",
+                "content": "¿Estás seguro de que quieres suprimir este taller? Las reservas anteriores no se verán afectadas. Esto es definitivo.",
+                "title": "Supresión del taller"
+            }
+        },
+        "navigation": {
+            "goToPaymentPack": "Carta de cursos"
+        },
+        "actions": {
+            "search": "Buscar un taller",
+            "addWorkshopActivity": "Añadir un taller"
+        },
+        "search": "Buscar un taller"
+    },
+    "common": {
+        "close": "Cerrar",
+        "text": {
+            "showMoreText": "Ver más",
+            "showLessText": "Ver menos"
+        },
+        "colorPicker": {
+            "validate": "Registrar",
+            "delete": "Borrar",
+            "noColor": "Ninguna color"
+        },
+        "form": {
+            "duration": {
+                "day": "Día:",
+                "day_plural": "Días:",
+                "hour": "Hora:",
+                "hour_plural": "Horas:",
+                "minute": "Minuto:",
+                "minute_plural": "Minutos:"
             }
         }
     }

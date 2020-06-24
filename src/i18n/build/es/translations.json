@@ -2722,7 +2722,9 @@
                 "acceptDoubleBooking": "Aceptar la doble reserva",
                 "consumerRegularizeDebt": "El cliente puede regularizar su anticipo en línea",
                 "last_name_label": {
-                    "placeholder": "Etiqueta para el nombre"
+                    "placeholder": "Etiqueta para el apellido",
+                    "helperText": "Ingresa la etiqueta para el apellido",
+                    "label": "Etiqueta para el apellido"
                 }
             }
         }

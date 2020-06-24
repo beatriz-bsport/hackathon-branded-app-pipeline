@@ -2264,7 +2264,12 @@
         },
         "bookerModule": {
             "step": {
-                "configuration": "Mi cita"
+                "configuration": "Mi cita",
+                "date": "Fecha",
+                "coach": "Profesor",
+                "privateSlot": "Sesión",
+                "privateService": "Cita",
+                "billing": "Facturación"
             },
             "sections": {
                 "coach": "Profesor",
@@ -2302,7 +2307,9 @@
             "emptySlot": "Ninguna disponibilidad",
             "availableSlots": "Plazas disponibles",
             "address": {
-                "helperText": "Ingresa tu dirección para reservar esta cita"
+                "helperText": "Ingresa tu dirección para reservar esta cita",
+                "submit": "Validar",
+                "label": "Dirección"
             }
         },
         "slot": {
@@ -2673,7 +2680,9 @@
         "forms": {
             "themePersonalization": {
                 "first_name_label": {
-                    "helperText": "Ingresa la etiqueta para el nombre"
+                    "helperText": "Ingresa la etiqueta para el nombre",
+                    "label": "Etiqueta de nombre",
+                    "placeholder": "Etiqueta de nombre"
                 },
                 "names_label_info": "Cambiar la etiqueta de los campos Apellido y Nombre en los formularios de registro",
                 "default_booking_ordering": {
@@ -2684,7 +2693,8 @@
                 },
                 "default_attendance": {
                     "title": "Estatuto predeterminado de una reserva realizada por el cliente",
-                    "present": "Miembro presente"
+                    "present": "Miembro presente",
+                    "missing": "Miembro ausente"
                 },
                 "calendar": {
                     "police": {
@@ -2710,7 +2720,10 @@
                     "title": "Ingresa su propio código CSS para personalizar tu calendario"
                 },
                 "acceptDoubleBooking": "Aceptar la doble reserva",
-                "consumerRegularizeDebt": "El cliente puede regularizar su anticipo en línea"
+                "consumerRegularizeDebt": "El cliente puede regularizar su anticipo en línea",
+                "last_name_label": {
+                    "placeholder": "Etiqueta para el nombre"
+                }
             }
         }
     },

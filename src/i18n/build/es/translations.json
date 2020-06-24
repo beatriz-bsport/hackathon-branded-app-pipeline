@@ -2725,7 +2725,8 @@
                     "placeholder": "Etiqueta para el apellido",
                     "helperText": "Ingresa la etiqueta para el apellido",
                     "label": "Etiqueta para el apellido"
-                }
+                },
+                "offersFilling": "Mostrar el llenado de cursos en el calendario del cliente."
             }
         }
     },

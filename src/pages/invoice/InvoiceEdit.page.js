@@ -59,6 +59,7 @@ type Props = {
   memberLoading: boolean,
   invoiceLoading: boolean,
   updatePaymentMethod: (uuid: number, payment_method: number) => void,
+  goToSubscription: (id: number) => void,
   updateInvoice: (invoiceData: InvoiceData) => void,
   revertInvoice: (uuid: string) => void,
 
@@ -150,6 +151,7 @@ export class InvoiceFormPage extends Component<Props, State> {
           updatePaymentMethod={this.props.updatePaymentMethod}
           createOrUpdate={this.updateInvoice}
           onCancel={this.props.goBack}
+          goToSubscription={this.props.goToSubscription}
           isReturningPayment={this.props.isReturningPayment}
           returnPayment={(payment) =>
             this.props.returnPayment(payment, this.props.uuid)
@@ -206,6 +208,7 @@ export default compose(
       returnPayment: invoiceActions.returnPayment,
       updatePaymentMethod: invoiceActions.updatePaymentMethod,
       goToMemberPage: (id) => pushRouter(`/member/${id}/`),
+      goToSubscription: (id) => pushRouter(`/subscription/${id}/`),
       updateInvoice: invoiceActions.createOrUpdateInvoice,
       resetCreateOrUpdateStatus: invoiceActions.createOrUpdateReset,
       revertInvoice: invoiceActions.revertInvoice,

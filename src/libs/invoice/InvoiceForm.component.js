@@ -16,6 +16,7 @@ import DownloadIcon from '@material-ui/icons/Attachment';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PersonIcon from '@material-ui/icons/Person';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT } from '@bsport/common/lib/master-data/payment-methods';
@@ -58,6 +59,7 @@ type Props = {
 
   onCancel: () => void,
   goToMemberPage: () => void,
+  goToSubscription: (billingPlanId: number) => void,
   createOrUpdate: (invoiceData: InvoiceDataFront) => void,
   updatePaymentMethod: (uuid: string, payment_method: number) => void,
   revertInvoice: (uuid: string) => void,
@@ -546,6 +548,26 @@ export class InvoiceForm extends Component<Props, State> {
         </Typography>
       );
     }
+    if (this.props.invoice.plannedinvoice) {
+      return (
+        <div>
+          <Typography style={{ padding: 12 }}>
+            {this.props.t('payment.invoiceFromSubscriptionThusNotEditable')}
+          </Typography>
+          <Button
+            className={this.props.classes.buttonWithMargin}
+            onClick={() =>
+              this.props.goToSubscription(this.props.invoice.billing_plan)
+            }
+            color="primary"
+            variant="outlined"
+          >
+            {this.props.t('payment.goToSubscription')}
+            <ArrowForwardIcon className={this.props.classes.rightIcon} />
+          </Button>
+        </div>
+      );
+    }
     const finalPrice = this.getFinalPrice();
     const totalPayment = this.getTotalPayment();
     return (
@@ -793,6 +815,12 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+  },
+  rightIcon: {
+    marginLeft: theme.spacing(1),
+  },
+  buttonWithMargin: {
+    margin: theme.spacing(1),
   },
 });
 

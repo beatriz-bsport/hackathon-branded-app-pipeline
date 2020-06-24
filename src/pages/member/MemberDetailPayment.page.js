@@ -86,7 +86,7 @@ export default compose(
   connect(
     (state) => ({
       subscriptionList: getSubscriptionListByMember(state),
-      subscriptionLoading: state.subscription.byMember.loading,
+      subscriptionLoading: state.subscription.list.loading,
       subscriptionCount: state.subscription.byMember.count,
     }),
     {

@@ -489,6 +489,8 @@
       "products": "articles",
       "invoiceRevertedThusNotEditable": "La facture a été annulée et n'est plus modifiable",
       "topUp": "Crédit",
+      "invoiceFromSubscriptionThusNotEditable": "Cette facture fait partie d'une souscription et n'est donc pas éditable, veuillez modifier directement la souscription",
+      "goToSubscription": "Voir la souscription",
       "invoiceFinalizedThusNotEditable": "La facture a été finalisée et n'est donc plus modifiable",
       "actions": "Actions",
       "bookWithUnlimitedPack": "Réserver",
@@ -2524,7 +2526,7 @@
       "actions": {
         "freeze": "Mettre en pause",
         "switchPack": "Modifier la carte de cours",
-        "switchPaymentMethod": "Ajouter une méthode paiement"
+        "switchPaymentMethod": "Modifier la méthode paiement"
       }
     },
     "pause": { "pausedInterval": "{{start}} → {{ end }} : {{ days }} jours", "pausedAt": "{{ days }} jours - le {{ date }}" },

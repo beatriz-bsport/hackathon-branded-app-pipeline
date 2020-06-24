@@ -604,6 +604,9 @@ exports.default = {
     invoiceRevertedThusNotEditable:
       "La facture a été annulée et n'est plus modifiable",
     topUp: 'Crédit',
+    invoiceFromSubscriptionThusNotEditable:
+      "Cette facture fait partie d'une souscription et n'est donc pas éditable, veuillez modifier directement la souscription",
+    goToSubscription: 'Voir la souscription',
     invoiceFinalizedThusNotEditable:
       "La facture a été finalisée et n'est donc plus modifiable",
     actions: 'Actions',

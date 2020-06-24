@@ -68,7 +68,7 @@ exports.default = {
     actions: {
       freeze: 'Mettre en pause',
       switchPack: 'Modifier la carte de cours',
-      switchPaymentMethod: 'Ajouter une méthode paiement',
+      switchPaymentMethod: 'Modifier la méthode paiement',
     },
   },
   pause: {

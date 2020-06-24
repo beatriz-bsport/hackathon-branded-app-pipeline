@@ -51,6 +51,7 @@ type Props = {
   createInvoice: () => void,
   resetCreateOrUpdateStatus: () => void,
   goToMemberPage: (id: number) => void,
+  goToSubscription: (id: number) => void,
 
   fetchShopItems: () => void,
   fetchAllPaymentPacks: () => void,
@@ -137,6 +138,7 @@ export class InvoiceCreatePage extends Component<Props, State> {
           uneditableInvoiceItems={[]}
           onCancel={goToInvoiceList}
           processing={creatingInvoice}
+          goToSubscription={this.props.goToSubscription}
           goToMemberPage={() => goToMemberPage(id)}
           editMode={urlParams.get('withCredit') !== null ? 1 : 0}
           withPrivatePass={parseInt(urlParams.get('withPrivatePass'), 10)}
@@ -192,6 +194,7 @@ export default compose(
       createInvoice: invoiceActions.createOrUpdateInvoice,
       resetCreateOrUpdateStatus: invoiceActions.createOrUpdateReset,
       goToMemberPage: (id) => pushRouter(`/member/${id}/`),
+      goToSubscription: (id) => pushRouter(`/subscription/${id}/`),
       fetch: fetchMember,
     },
   ),

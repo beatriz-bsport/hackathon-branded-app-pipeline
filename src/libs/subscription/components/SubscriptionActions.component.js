@@ -64,20 +64,15 @@ export const SubscriptionActions = (props: Props) => {
           </Button>
         </div>
         <div className={props.classes.row}>
-          {props.subscription.payment_method ===
-          BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT ? (
-            <Button
-              color="primary"
-              variant="outlined"
-              onClick={props.requestPaymentMethodSwitch}
-              className={props.classes.button}
-            >
-              <ReceiptIcon className={props.classes.leftIcon} />
-              {props.t('subscription.actions.switchPaymentMethod')}
-            </Button>
-          ) : (
-            <div />
-          )}
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={props.requestPaymentMethodSwitch}
+            className={props.classes.button}
+          >
+            <ReceiptIcon className={props.classes.leftIcon} />
+            {props.t('subscription.actions.switchPaymentMethod')}
+          </Button>
           <RedButton
             className={props.classes.button}
             variant="outlined"

@@ -15,7 +15,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import type { TFunction } from 'react-i18next';
 import { payment as paymentActions } from '../../../actions';
 import parse from '../../../query-string';
-import type { PaymentPack } from '../../../api/types';
 import themeSelectors from '../../../libs/theme/selectors';
 import type { Theme } from '../../../libs/theme/types';
 import { getTheme } from '../../../theme';
@@ -25,17 +24,12 @@ import {
   fetchCurrentBasket,
 } from '../../../libs/checkout/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import { getCurrentBasket } from '../../../libs/checkout/selectors';
-import type { Basket } from '../../../libs/checkout/types';
 
 type Props = {
-  loading: boolean,
   location: Object,
-  paymentPack: ?PaymentPack,
   fetchPaymentPack: (number) => void,
   theme: Theme,
   goBack: () => void,
-  basket: ?Basket,
   packId: number,
   push: (string) => void,
   fetchCurrentBasket: (companyId: number) => void,
@@ -153,10 +147,7 @@ export default compose(
   routerParamsToProps({ id: 'packId:number' }),
   connect(
     (state) => ({
-      paymentPack: state.payment.wantedPaymentPack,
-      loading: state.payment.loading || state.checkout.basket.current.loading,
       theme: themeSelectors.getTheme(state),
-      basket: getCurrentBasket(state),
     }),
     {
       addItemToBasket,

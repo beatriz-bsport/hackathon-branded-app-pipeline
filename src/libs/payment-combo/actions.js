@@ -37,7 +37,10 @@ export const paymentComboRetrieveActions = {
   success: createAction('PAYMENT_COMBO/RETRIEVE/SUCCESS'),
 };
 
-export function fetchPaymentCombo(id: number): ThunkAction {
+export function fetchPaymentCombo(
+  id: number,
+  options: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(paymentComboRetrieveActions.isLoading(true));
     dispatch(paymentComboRetrieveActions.error(null));
@@ -46,9 +49,11 @@ export function fetchPaymentCombo(id: number): ThunkAction {
       const response = await retrievePaymentComboAPI(id);
       dispatch(paymentComboRetrieveActions.success(response.data));
       dispatch(paymentComboRetrieveActions.error(null));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
       dispatch(paymentComboRetrieveActions.error(error));
+      if (options && options.onError) options.onError(error);
     }
 
     dispatch(paymentComboRetrieveActions.isLoading(false));

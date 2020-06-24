@@ -114,17 +114,23 @@ export function errorFetchingShopItem(error: ?Error) {
 export function fetchedShopItem(shopItem: any) {
   return { type: types.PAYMENT_HAS_FETCHED_SHOP_ITEM, shopItem };
 }
-export function fetchShopItem(id: number) {
+export function fetchShopItem(id: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchShopItem());
     dispatch(errorFetchingShopItem(null));
 
     try {
       const response = await api.payment.fetchShopItem(id);
-      const paymentPack = response.data;
-      dispatch(fetchedShopItem(paymentPack));
+      const shopItem = response.data;
+      dispatch(fetchedShopItem(shopItem));
+      if (options && options.onSuccess) {
+        options.onSuccess(shopItem);
+      }
     } catch (err) {
       dispatch(errorFetchingShopItem(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
   };
 }

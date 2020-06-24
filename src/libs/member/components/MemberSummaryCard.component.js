@@ -20,6 +20,8 @@ import PlaceIcon from '@material-ui/icons/Place';
 import ViewWeekIcon from '@material-ui/icons/ViewWeek';
 import BarCode from 'react-barcode';
 
+import moment from 'moment';
+
 import { withTranslation } from 'react-i18next';
 
 import { compose } from 'recompose';
@@ -55,19 +57,26 @@ export class MemberSummaryCard extends Component<Props> {
 
   renderMembershipAndBirthday = () => {
     const { member, t } = this.props;
+
+    const age = moment().diff(moment(member.consumer.birthday), 'years');
+
     return (
       <List dense>
         <ListItem>
           <TodayIcon />
           <ListItemText
             className={this.props.classes.listItemText}
-            primary={`
-              ${t('member:bornIn')} 
-              ${
-                member.consumer.birthday
-                  ? formatAsDate(member.consumer.birthday)
-                  : '  -  '
-              }`}
+            primary={`${
+              member.consumer.birthday
+                ? t('member:birth.bornIn', {
+                    context: member.consumer.gender,
+                    date: moment(member.consumer.birthday).format('L'),
+                    age,
+                  })
+                : t('member:birth.unknown', {
+                    context: member.consumer.gender,
+                  })
+            }`}
           />
         </ListItem>
         <ListItem>

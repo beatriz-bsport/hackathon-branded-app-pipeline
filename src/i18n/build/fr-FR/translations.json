@@ -3151,7 +3151,12 @@
     "subscriptionTitle": "Souscriptions",
     "offers_joined": "Nb séances inscrit(e)",
     "pass_owner": "Carte valide",
-    "bornIn": "Né le ",
+    "birth": {
+      "bornIn": "Né le {{-date}} - {{age}} ans",
+      "bornIn_F": "Née le {{-date}} - {{age}} ans",
+      "unknown": "Né le -",
+      "unknown_F": "Née le -"
+    },
     "barcode": { "none": "aucun", "code": "Code carte", "display": "Afficher le code barre" },
     "memberSince": "Inscrit le ",
     "showNextBooking": "Voir les réservations futures",

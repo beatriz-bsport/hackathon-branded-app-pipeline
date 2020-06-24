@@ -473,7 +473,7 @@
             "oneMonth": "1 mes",
             "oneHourFifteen": "1h15",
             "twentyMinutes": "20 minutos",
-            "credit_price": "Número de créditos de tarjeta de crédito necesarios para reservar"
+            "credit_price": "Número de créditos necesarios carta de curso para reservar"
         },
         "marketing": {
             "dashboard": "Tableau de bord",
@@ -575,7 +575,7 @@
             "choseDate": "Date de facturation",
             "explainDateChoser": "Veuillez choisir la date de facturation. Les paiements par CB seront immédiatement encaissés quelle que soit la date choisie",
             "revertImpossibleExplainSubscription": "Cette facture fait partie d'une souscription, vous ne pouvez pas annuler une facture encaissée liée à une souscription, mais vous pouvez arrêter la souscription",
-            "revertExplainPayment": "Les paiements par carte bleue seront reversés sur l'accompte du membre. Tous les autres modes de paiement seront supprimés.",
+            "revertExplainPayment": "Los pagos con tarjeta de crédito serán devueltos al anticipo del miembro. Todos los demás métodos de pago serán suprimidos.",
             "revertExplainCredits": "Les débit/crédit sur le compte du membre seront inversés.",
             "revertExplainPacks": "Les abonnements seront annulés ainsi que TOUTES les réservations associées",
             "revertExplainShop": "Les achats du magasin seront annulés et les stocks réinitialisés.",
@@ -657,7 +657,9 @@
             "paymentCombo": "Pack",
             "return": "Reembolsar",
             "privatePass": "Tarjeta de cita",
-            "payment": "Pago"
+            "payment": "Pago",
+            "goToSubscription": "Ver la suscripción",
+            "invoiceFromSubscriptionThusNotEditable": "Esta factura forma parte de una suscripción y por lo tanto no es editable, por favor, modifica la suscripción directamente"
         },
         "paginatedList": {
             "isEmpty": "No hay datos que mostrar"
@@ -949,7 +951,23 @@
                 }
             }
         },
-        "openSchedule": "Vea el programa"
+        "openSchedule": "Vea el programa",
+        "strategy": {
+            "strategy": "Estrategia",
+            "gym": "Gimnasio Beaulieu",
+            "female": "F",
+            "yoga": "Yoga",
+            "none": "Ninguno",
+            "crossfit": "Crossfit",
+            "offersWithoutMembership": "Sesión(es) sin suscripción",
+            "membership": "Suscripción",
+            "gaveUp": "Abandono desde",
+            "sessions": "sesiones",
+            "location": "Lugar",
+            "gender": "Sexo",
+            "sport": "Deporte"
+        },
+        "blockBooking": "Bloquear la reserva a las cartas de curso nuevos clientes"
     },
     "search": {
         "input": "Buscar...",
@@ -998,7 +1016,35 @@
             "expired_card": "Su tarjeta es caducada.",
             "incorrect_cvc": "El codigo de seguridad de su tarjeta no es valido.",
             "processing_error": "Hay un error, intentalo de nuevo en algunos minutos.",
-            "insufficient_funds": "No hay suficiente dinero es su cuenta bancaria."
+            "insufficient_funds": "No hay suficiente dinero es su cuenta bancaria.",
+            "unknown": "Error de red, intenta nuevamente en unos instantes",
+            "payment_intent_authentication_failure": "El pago ha sido rechazado por tu banco."
+        },
+        "error_code": {
+            "payment_intent_authentication_failure": "El pago ha sido rechazado por tu banco.",
+            "card_declined": "Tarjeta rechazada",
+            "expired_card": "Tu tarjeta ha expirado.",
+            "invalid_number": "Tu número de tarjeta no es válido.",
+            "incomplete_cvc": "El código de seguridad de tu tarjeta está incompleto.",
+            "invalid_expiry_year": "La fecha de expiración de tu tarjeta no es válida.",
+            "invalid_expiry_year_past": "La fecha de expiración de su tarjeta ha pasado.",
+            "incomplete_expiry": "La fecha de expiración de tu tarjeta está incompleta.",
+            "incomplete_number": "El número de la tarjeta está incompleto.",
+            "unknown": "Error de red, intenta nuevamente en unos instantes",
+            "processing_error": "Se produjo un error durante el registro de tu pago. Por favor intenta nuevamente en unos momentos.",
+            "payment_intent_payment_attempt_failed": "El pago ha sido rechazado por tu banco."
+        },
+        "decline_code": {
+            "withdrawal_count_limit_exceeded": "Demasiado débito en esta tarjeta, rechazada.",
+            "do_not_honor": "Tu banco ha rechazado el pago, por favor contacta con su asesor bancario para autorizarlo",
+            "generic_decline": "El banco no aceptó el pago",
+            "transaction_not_allowed": "Tu tarjeta ha sido rechazada por tu banco",
+            "stolen_card": "Tu tarjeta ha sido marcada como robada por tu banco",
+            "restricted_card": "Tu tarjeta ha sido rechazada por tu banco",
+            "insufficient_funds": "Tu tarjeta no tiene fondos suficientes.",
+            "incorrect_cvc": "El código de seguridad no es válido.",
+            "incorrect_number": "El número de tarjeta no es válido.",
+            "card_not_supported": "Tu tarjeta no es reconocida."
         }
     },
     "tag": {
@@ -1654,7 +1700,7 @@
             "21": "Nueva reserva",
             "19": "Registro miembro (mánager)",
             "18": "Reserva cancelada: crédito reembolsado",
-            "17": "Reserva cancelada: créditos no reembolsados",
+            "17": "Reserva cancelada: crédito no reembolsado",
             "16": "Sesión modificada",
             "13": "Cancelación de la inscripción en la lista de espera (estudiante)",
             "12": "Registro en la lista de espera",
@@ -1676,7 +1722,7 @@
             "28": "Pago recibido",
             "27": "Suscripción detenida o terminada",
             "26": "Pausa de la suscripción",
-            "24": "",
+            "24": "Suscripción creada",
             "25": "Cambio de método de pago"
         },
         "tag": {
@@ -1798,7 +1844,7 @@
     "consumerSpace": {
         "dashboard": {
             "showMore": "Ver más",
-            "currentPassTitle": "Tarjetas de curso activas",
+            "currentPassTitle": "Cartas de curso activas",
             "nextBookingTitle": "Mis próximas sesiones",
             "optionTitle": "En lista de espera",
             "favoriteTitle": "Sugerencia de reserva",
@@ -1833,7 +1879,889 @@
             "dashboard": "Resumen"
         },
         "actions": {
-            "goToCalendar": "Ver el calendario completo"
+            "goToCalendar": "Ver el calendario completo",
+            "goToSubscription": "Ver todas las suscripciones",
+            "goToPass": "Ver todas las cartas de curso"
+        },
+        "congratulation": {
+            "cancel": "Cerrar",
+            "content": "¡Tu compra ha sido registrada!"
+        },
+        "unsubscriber": {
+            "success": "Te has dado de baja",
+            "error": "Error al darse de baja",
+            "doUnsubscribe": "Darme de baja",
+            "explain": "¿Te gustaría darte de baja de todas las newsletters de tu club?"
+        }
+    },
+    "coupon": {
+        "code": {
+            "addCoupon": {
+                "placeholder": "SPECIAL_VUELTA",
+                "label": "Código promocional"
+            }
+        },
+        "createCoupon": "Añadir un código",
+        "form": {
+            "actions": {
+                "submit": "Validar",
+                "cancel": "Cancelar"
+            },
+            "applies_to": {
+                "choices": {
+                    "null": "La cesta en su totalidad",
+                    "all": "La cesta en su totalidad",
+                    "9": "Carta cita",
+                    "6": "Gastos de envío",
+                    "2": "Tienda",
+                    "1": "Carta de curso"
+                }
+            },
+            "minimum_amount": {
+                "label": "Cantidad mínima de compra"
+            },
+            "combinable": {
+                "label": "Utilizable con otros códigos"
+            },
+            "only_on_first_checkout": {
+                "label": "Primera compra solamente"
+            },
+            "usage_total": {
+                "label": "Límite de uso de todos los miembros combinados"
+            },
+            "usage_per_member": {
+                "label": "Límite de uso por cliente"
+            },
+            "expiration_date": {
+                "label": "Fecha de expiración",
+                "cancel": "Cancelar",
+                "clear_date": "Ninguna expiración"
+            },
+            "with_expiration_date": {
+                "label": "Con fecha de expiración"
+            },
+            "is_active": {
+                "helperText": "Un código no activo no es utilizable por los clientes",
+                "label": "Activo"
+            },
+            "amount_off": {
+                "label": "Cantidad de reducción"
+            },
+            "percent_off": {
+                "label": "Reducción porcentual"
+            },
+            "voucher_type": {
+                "amount": "En valor",
+                "percent": "En porcentaje"
+            },
+            "code": {
+                "helperText": "El código que enviarás a los clientes interesados",
+                "label": "Código"
+            },
+            "name": {
+                "label": "Nombre"
+            },
+            "section": {
+                "advanced": "Avanzado",
+                "applies_to": "Parametros",
+                "voucherConfig": "Reducción",
+                "usability": "Uso",
+                "availability": "Disponibilidad",
+                "general": "General"
+            },
+            "selectorPlaceholder": {
+                "shopitem": "Seleccione productos de la tienda (válido en todos los productos si no se selecciona ninguno)",
+                "paymentPack": "Seleccionar cartas de curso (válido en todas las cartas si no se selecciona ninguna)",
+                "privatePass": "Seleccionar cartas de cita (válido en todas las cartas si no se selecciona ninguna)"
+            }
+        },
+        "modal": {
+            "delete": {
+                "actions": {
+                    "submit": "Suprimir",
+                    "cancel": "Cancelar"
+                }
+            }
+        }
+    },
+    "privateService": {
+        "service": {
+            "form": {
+                "establishment": {
+                    "label": "Sala"
+                },
+                "coach": {
+                    "isEmpty": "¡Ningún profesor configurado!",
+                    "label": "Profesor"
+                },
+                "name": {
+                    "placeholder": "Masaje",
+                    "label": "Nombre del servicio"
+                },
+                "is_without_coach": "Sin profesor",
+                "is_home_service": {
+                    "helperText": "Se solicitará una dirección con cada reserva",
+                    "label": "En casa"
+                },
+                "addSlot": "Añadir un tipo sesión",
+                "addEstablishment": "Añadir una sala",
+                "addCoach": "Añadir un profesor",
+                "createButton": "Añadir un tipo de cita",
+                "title": "Cita",
+                "use_full_establishment_capacity": {
+                    "helperText": "Desmarca para autorizar simultáneamente varias actividades / citas en la misma sala si la capacidad lo permite",
+                    "label": "Requiere toda la sala"
+                },
+                "color": "Código color",
+                "coach_capacity_used": {
+                    "helperText": "Ej: un profesor puede monitorear a dos estudiantes por separado en dos máquinas ",
+                    "label": "Número máximo de citas simultáneas que un profesor puede gestionar"
+                },
+                "delete": {
+                    "confirm": "Suprimir",
+                    "cancel": "Cancelar",
+                    "content": "¿Estás seguro de que quieres suprimir este tipo de cita?",
+                    "title": "Supresión de la cita"
+                },
+                "establishment_consumer_attribution": {
+                    "helperText": "El miembro ve y elige el lugar antes de reservar, si no marcado bsport intentará optimizar el llenado de las salas",
+                    "label": "Permitir la elección del lugar al reservar"
+                },
+                "coach_consumer_attribution": {
+                    "label": "Permitir la elección del profesor al reservar",
+                    "helperText": "El miembro ve y elige al profesor antes de reservar. Si no está marcado, tendrás que elegir al profesor después de cada cita"
+                },
+                "resourceGroup": {
+                    "coach": "Profesor",
+                    "establishment": "Lugar"
+                },
+                "establishmentResourceType": {
+                    "isWithEstablishment": {
+                        "label": "En uno de tus establecimientos",
+                        "helperText": "La reserva solo será posible si la sala tiene suficientes plazas libres",
+                        "isEmpty": "¡Ninguna sala configurada!"
+                    },
+                    "isWithoutEstablishment": {
+                        "helperText": "Ej: video / lecciones al aire libre / ...",
+                        "label": "Sin lugar predeterminado"
+                    },
+                    "isHomeService": {
+                        "helperText": "Se solicitará una dirección con cada reserva",
+                        "label": "En casa"
+                    }
+                },
+                "last_discard_minutes": {
+                    "label": "Última cancelación reembolsable hasta",
+                    "helperText": "Si la reserva se cancela después de la fecha límite, no se reembolsará el crédito"
+                },
+                "managerOnly": {
+                    "label": "Invisible para los clientes"
+                }
+            },
+            "configuration": {
+                "noCapacity": "¡Capacidad de la sala no configurada!",
+                "slot": "Tipo de sesión",
+                "changeIsAlwaysAvailable": "Modificar",
+                "isAlwaysAvailable": "{{resourceName}} se puede reservar tan pronto como la sala y/o los profesores estén disponibles",
+                "title": "Disponibilidades horarios",
+                "explainHasOwnAvailabilitySlots": "Haz clic en el lápiz para limitar las reservas a ciertos intervalos de tiempo",
+                "noFutureSlot": "¡No has configurado ninguna disponibilidad para {{resourceName}}! Haz clic aquí.",
+                "totalCapacity": "Capacidad máxima: {{ capacity }}",
+                "hasFutureSlot": "Calendario de disponibilidades futuras OK",
+                "explainSetToHasOwnAvailabilitySlots": "Reservable solo en ciertas plazas",
+                "explainSetToHasNotOwnAvailabilitySlots": "Posibilidad de reservar en cualquier horario si disponibilidad de sala/profesor"
+            },
+            "detail": {
+                "tab": {
+                    "calendar": "Calendario",
+                    "general": "General"
+                }
+            },
+            "selector": {
+                "coach": {
+                    "label": "Profesor"
+                },
+                "isEmpty": "Ningún tipo de cita configurado",
+                "establishment": {
+                    "label": "Sala"
+                },
+                "placeholder": "Seleccionar una cita"
+            },
+            "navigation": {
+                "goToPrivatePass": "Cartas cita"
+            }
+        },
+        "privatePass": {
+            "form": {
+                "durationDays": {
+                    "label": "Período de validez (días) si corresponde",
+                    "helperText": "Período en días durante el cual la carta será válida después de la compra "
+                },
+                "durationYears": {
+                    "label": "Período de validez (años) si corresponde",
+                    "helperText": "Se suma a la cantidad de días y meses"
+                },
+                "tax": {
+                    "label": "IVA"
+                },
+                "actions": {
+                    "cancel": "Cancelar",
+                    "submit": "Registrar"
+                },
+                "available_payment_method_identifiers": {
+                    "helperText": "Seleccione al menos un método de pago. Si la cesta del miembro contiene artículos para los cuales los medios de pago son incompatibles, se ofrecerá el pago por tarjeta.",
+                    "label": "Medios de pago autorizados"
+                },
+                "durationMonths": {
+                    "helperText": "Se suma a la cantidad de días",
+                    "label": "Período de validez (días) si corresponde"
+                },
+                "price": {
+                    "label": "Precio"
+                },
+                "credits": {
+                    "helperText": "Cada sesión cuesta un cierto número de créditos",
+                    "label": "Número de créditos incluidos"
+                },
+                "name": {
+                    "label": "Nombre"
+                },
+                "managerOnly": {
+                    "label": "Invisible para los clientes"
+                },
+                "title": "Carta cita"
+            },
+            "compatibleServices": {
+                "title": "Citas compatibles",
+                "isEmpty": "Ninguna cita es compatible - inutilizable",
+                "add": "Añadir"
+            },
+            "delete": {
+                "submit": "Confirmar",
+                "cancel": "Cancelar",
+                "explain": "¿Estás seguro de que quieres suprimir esta carta ? La gente que aún tiene créditos podrá seguir utilizándolos. Esta operación es definitiva",
+                "title": "Supresión de la carta"
+            },
+            "parameters": {
+                "managerOnly": "Invisible para los clientes",
+                "tax": "IVA: {{ tax }}%",
+                "price": "{{ price}} €",
+                "nbCredits": "{{ credits }} crédito"
+            },
+            "list": {
+                "createButton": "Crea una carta cita"
+            },
+            "validForDuration": {
+                "general": "Válido {{ duration_days }} días {{ duration_months }} meses y {{ duration_years }} año",
+                "years": "Válido {{ duration_years }} año",
+                "months": "Válido {{ duration_months }} meses",
+                "days": "Válido {{ duration_days }} días"
+            }
+        },
+        "privateBooking": {
+            "managerAdd": {
+                "privateConsumerPassNeedRefresh": "Actualizar la lista",
+                "coachSelector": {
+                    "label": "Profesor"
+                },
+                "address": "Dirección",
+                "title": "Nueva reserva",
+                "emptyPrivatePass": "No se posee una carta compatible",
+                "emptyPrivateConsumerPass": "No se posee una carta compatible",
+                "compatiblePrivateConsumerPass": "Cartas cita de propiedad :",
+                "compatiblePrivatePass": "Facturar una carta cita",
+                "cancel": "Cancelar",
+                "pleaseSelectCoachAndSlot": "Primero selecciona el profesor y la sesión"
+            },
+            "delete": {
+                "confirm": "Confirmar",
+                "consumer": {
+                    "confirm": "Confirmar",
+                    "content": {
+                        "notDiscardable": "¿Estás seguro de que quieres cancelar esta cita? Se te ha agotado el tiempo, tus créditos no serán acreditados de nuevo.",
+                        "discardable": "¿Estás seguro de que quieres cancelar esta cita? Tus créditos estarán disponibles de nuevo."
+                    },
+                    "cancel": "Cancelar",
+                    "title": "Cancelación reserva"
+                },
+                "cancel": "Cancelar",
+                "explainForceRefund": "Reembolsar el crédito usado en la carta para permitir una nueva reserva.",
+                "explainHardDelete": "Esta reserva ya ha sido cancelada, al borrarla desaparecerá completamente del calendario y perderás la historia. Será devuelta si no ha sido devuelta anteriormente. Esta operación es irreversible.",
+                "explain": "¿Estás seguro de que quieres cancelar esta reserva? Esta operación es irreversible.",
+                "title": "Cancelación reserva"
+            },
+            "detail": {
+                "address": "Dirección",
+                "wasRefundedNo": "No",
+                "slotTitle": "Sesión",
+                "title": "Reserva",
+                "attachCoach": "Atribuir a un profesor",
+                "coach": "Profesor",
+                "wasRefundedYes": "Sí",
+                "wasRefunded": "Crédito reembolsado en la carta de curso",
+                "passTitle": "Carta de curso",
+                "source": "Canal de reserva ",
+                "registeredOn": "Reservado el "
+            },
+            "isCancelled": "Cancelado",
+            "attachCoach": {
+                "actions": {
+                    "title": "Atribuir un profesor",
+                    "cancel": "Cancelar"
+                },
+                "explain": "Elige un profesor para asignar esta cita y añádelo a tu calendario",
+                "title": "Asignación al profesor"
+            },
+            "hardDelete": "Suprimir",
+            "discard": "Cancelar la cita",
+            "cancel": "Cancelar",
+            "updateTime": {
+                "cancel": "Cancelar",
+                "submit": "Registrar",
+                "explainEmail": "Se enviará automáticamente un email al estudiante para informarle",
+                "title": "Modificar cita"
+            },
+            "editTime": "Modificar"
+        },
+        "consumerPass": {
+            "detail": {
+                "invoice": "Factura vinculada",
+                "extensionsTitle": "Extensiones de validez",
+                "booking": "Reservas citas vinculadas"
+            },
+            "isReverted": "Factura cancelada",
+            "current_credits": "{{ current_credits }}/{{credits}} créditos",
+            "expiresOn": "Expira el {{ date }}",
+            "actions": {
+                "addExtension": "Añadir una extensión"
+            },
+            "extension": {
+                "create": {
+                    "nbDays": {
+                        "label": "Número de días adicionales"
+                    },
+                    "note": {
+                        "label": "Notas"
+                    },
+                    "warning": "Verifica que la nueva fecha no provoque que este pase exceda el nuevo período fiscal. Si este es el caso, verifica con su contador la relevancia de esta operación.",
+                    "explain": {
+                        "newDate": "Nueva fecha: ",
+                        "oldDate": "Fecha antigua: "
+                    },
+                    "submit": "Crear",
+                    "cancel": "Cancelar",
+                    "title": "Extension de una carta"
+                },
+                "delete": {
+                    "confirm": "Confirmar",
+                    "cancel": "Cancelar",
+                    "explain": "¿Estás seguro de que quieres suprimir la extensión?",
+                    "title": "Supresión de la extensión"
+                },
+                "addedOn": "Añadido el ",
+                "nbDaysAdded": "+{{nb_days}}j"
+            }
+        },
+        "bookerModule": {
+            "step": {
+                "configuration": "Mi cita"
+            },
+            "sections": {
+                "coach": "Profesor",
+                "privateSlot": "Sesiones",
+                "establishment": "Lugar"
+            },
+            "preview": {
+                "credit_cost": "{{credit_cost}} crédito"
+            },
+            "error": "No se puede reservar en esta fecha",
+            "notifyMember": {
+                "label": "Envía un email de confirmación"
+            },
+            "buyPass": "{{ price }} €",
+            "private_pass": {
+                "credits": "{{ credits }} crédito"
+            },
+            "useCredit": "Reservar",
+            "bookingCapabilities": {
+                "emptyPassList": "Ninguna carta compatible, por favor contacta a tu club",
+                "compatiblePassTitle": "Cartas válidas para esta sesión",
+                "emptyConsumerPassList": "No tienes una carta válida con suficiente crédito",
+                "compatibleConsumerPassTitle": "Tus cartas válidas"
+            },
+            "isAtHome": "Lecciones en casa, tu dirección será requerida al reservar",
+            "noPrivateServiceAvailable": "Ninguna cita propuesta",
+            "searchSlot": "Buscar une plaza",
+            "title": "Reserva cita",
+            "cancel": "Cancelar",
+            "missingResource": {
+                "establishment": "Por favor selecciona el lugar",
+                "coach": "Por favor selecciona el profesor",
+                "service": "Por favor selecciona un tipo de cita"
+            },
+            "emptySlot": "Ninguna disponibilidad",
+            "availableSlots": "Plazas disponibles",
+            "address": {
+                "helperText": "Ingresa tu dirección para reservar esta cita"
+            }
+        },
+        "slot": {
+            "form": {
+                "duration_minutes": {
+                    "label": "Duración",
+                    "helperText": "Ajustar los créditos necesarios según la duración del proyecto"
+                },
+                "people_capacity_used": {
+                    "label": "Número de personas",
+                    "helperText": "Si una sala está configurada, este número se usará para actualizar su nivel de llenado"
+                },
+                "booking_interval_minutes": {
+                    "label": "Avanzado: intervalo de elección de reserva",
+                    "helperText": "Ej: 15 significa 15 minutos que el miembro puede reservar a las 12h, 12h15, 12h30, etc... (recomendado)"
+                },
+                "name": {
+                    "label": "Nombre de la sesión",
+                    "placeholder": "Sesión doble (2h)"
+                },
+                "title": "Sesión",
+                "submit": "Registrar",
+                "cancel": "Cancelar",
+                "credit": {
+                    "helperText": "Número de créditos necesarios para una reserva",
+                    "label": "Número de créditos"
+                }
+            },
+            "parameters": {
+                "credit": "{{ credit }} crédito"
+            }
+        },
+        "slotSearcher": {
+            "selectCoach": "Todos los profesores",
+            "title": "Cita",
+            "bookableSlots": {
+                "isEmpty": "Ninguna plaza disponible",
+                "title": "Plazas disponibles"
+            },
+            "searchSlot": "Buscar una plaza",
+            "search": "Buscar una plaza",
+            "emptyDateList": "Ninguna plaza disponible hoy",
+            "selectPrivateSlot": "Seleccionar una sesión"
+        },
+        "privateEstablishment": {
+            "delete": {
+                "submit": "Confirmar",
+                "cancel": "Cancelar",
+                "explain": "¿Estás seguro de que quieres cambiar el lugar de esta cita? Sin escuela se considerará como una cita en casa y los estudiantes tendrán que introducir su dirección para completar la reserva. Las reservas ya hechas no se verán afectadas.",
+                "title": "Cancelación de la sala"
+            }
+        },
+        "privateCoach": {
+            "delete": {
+                "submit": "Confirmar",
+                "cancel": "Cancelar",
+                "explain": "¿Estás seguro de que quieres quitarle la tarea a este profesor? No podrá tomar más reservas en esta cita. Las reservas realizadas no se verán afectadas.",
+                "title": "Baja del profesor"
+            }
+        },
+        "privateSlot": {
+            "delete": {
+                "confirm": "Confirmar",
+                "cancel": "Cancelar",
+                "explain": "¿Estás seguro de que quieres cancelar esta sesión? Las reservas anteriores no se verán afectadas. Esto es definitivo.",
+                "title": "Supresión de la sesión"
+            }
+        },
+        "pageTitles": {
+            "calendar": "Calendario",
+            "serviceList": "Sólo con cita previa",
+            "passList": "Cartas"
+        },
+        "resource": {
+            "datatype": {
+                "private_service": "General",
+                "associated_coach": "Profesor",
+                "coach": "Profesor",
+                "associated_establishment": "Lugares",
+                "establishment": "Lugares"
+            },
+            "unGroup": "Ninguno",
+            "groupBy": "Agrupar por",
+            "form": {
+                "actions": {
+                    "submit": "Registrar",
+                    "cancel": "Cancelar"
+                },
+                "color": "Código de colores"
+            }
+        },
+        "serviceGroup": {
+            "form": {
+                "title": "Categoría",
+                "actions": {
+                    "submit": "Registrar",
+                    "cancel": "Cancelar"
+                },
+                "name": {
+                    "label": "Nombre"
+                }
+            },
+            "selector": {
+                "placeholder": "Categoría"
+            },
+            "isEmpty": "Ninguna cita asociada a esta categoría",
+            "edit": "Modificar",
+            "delete": "Suprimir"
+        },
+        "openCalendar": "Ver el calendario",
+        "calendar": {
+            "form": {
+                "interval": {
+                    "explain2": "{{ date_start }} - {{ date_end }}, cada {{ day }}",
+                    "explain1": "Cambio de la disponibilidad : "
+                },
+                "actions": {
+                    "submit": "Registrar",
+                    "cancel": "Cancelar"
+                },
+                "explain": "Cambio hasta :",
+                "title": {
+                    "disable": "Suprimir una disponibilidad",
+                    "enable": "Añadir una disponibilidad"
+                }
+            },
+            "toogle": {
+                "showPrivateBookings": "Mostrar las citas",
+                "showOfferList": "Mostrar los cursos de grupo"
+            },
+            "addBooking": "Registrar una cita",
+            "selectCoachToModifyAvailability": "Seleccionar un profesor",
+            "disableRecurrentAvailability": "Añadir una disponibilidad recurrente",
+            "enableRecurrentAvailability": "Añadir una disponibilidad recurrente",
+            "disableAvailability": "Suprimir la disponibilidad",
+            "enableAvailability": "Añadir una disponibilidad hoy",
+            "header": {
+                "threeDaysView": "3 días"
+            }
+        },
+        "privateServiceCompatibility": {
+            "delete": {
+                "submit": "Suprimir",
+                "cancel": "Cancelar",
+                "explain": "¿Estás seguro de que quieres cambiar las reglas para usar el pass? Este cambio es retroactivo para las compras ya realizadas.",
+                "title": "Modificación citas compatibles"
+            }
+        },
+        "selector": {
+            "privateSlot": "Seleccionar la sesión",
+            "privateService": "Seleccionar la cita"
+        },
+        "privateService": {
+            "delete": {
+                "confirm": "Suprimir",
+                "submit": "Suprimir",
+                "cancel": "Cancelar",
+                "explain": "¿Estás seguro de que quieres cancelar esta cita? Este cambio es definitivo. Las reservas ya hechas no se verán afectadas.",
+                "title": "Supresión de la cita"
+            }
+        },
+        "payment": {
+            "address": {
+                "save": "Registrar",
+                "explain": "Introduce tu dirección para el curso en casa"
+            }
+        },
+        "color": {
+            "form": {
+                "submit": "Registrar",
+                "cancel": "Cancelar",
+                "title": "Código color del profesor"
+            }
+        },
+        "availabilitySlot": {
+            "form": {
+                "resourceSelector": {
+                    "submit": "Registrar",
+                    "cancel": "Cancelar",
+                    "label": "Modificar para :",
+                    "title": "Cambiar franja horaria"
+                }
+            }
+        }
+    },
+    "reminder": {
+        "task": {
+            "status": {
+                "0": "En curso",
+                "20": "Cancelado",
+                "10": "Terminado"
+            },
+            "form": {
+                "date_due": {
+                    "label": "Fecha de recordatorio"
+                },
+                "description": {
+                    "label": "Mensaje"
+                },
+                "submit": "Validar",
+                "task_owner": {
+                    "helperText": "Staff para notificar"
+                },
+                "name": {
+                    "label": "Título"
+                },
+                "close": "Cancelar",
+                "title": "Tarea"
+            },
+            "actions": {
+                "finish": "Terminar",
+                "addTask": "Programar una tarea",
+                "cancel": "Archivar",
+                "restart": "Reiniciar"
+            },
+            "author": "Autor",
+            "sectionTitle": {
+                "past": "Tareas archivadas",
+                "pending": "Tareas en curso",
+                "future": "Tareas planeadas"
+            },
+            "owners": "Atribuido a "
+        }
+    },
+    "communication": {
+        "recipient": {
+            "table": {
+                "columns": {
+                    "lastRead": "Última apertura",
+                    "readCount": "Aperturas",
+                    "status": "Estatuto",
+                    "clicked": "Clicks",
+                    "email": "Email"
+                }
+            },
+            "status": {
+                "5": "Error",
+                "4": "Recibido",
+                "1": "En curso",
+                "0": "En curso",
+                "3": "Espera",
+                "2": "Negado"
+            },
+            "readCount": "Apertura",
+            "showEmail": "Ver el email",
+            "clicksCount": "Click"
+        },
+        "campaign": {
+            "report": {
+                "dateCreated": "Fecha de envío",
+                "lastOpen": "Última apertura",
+                "deliveryRate": "Envíos exitosos",
+                "totalRead": "Aperturas",
+                "noTopLink": "Ningún click",
+                "recipientList": "Detalle por destinatario",
+                "topLinks": "Enlaces más visitados",
+                "totalClick": "Clicks"
+            },
+            "list": {
+                "showMore": "Ver más",
+                "isEmpty": "Ningún email enviado por el momento"
+            },
+            "readCount": "Aperturas",
+            "showReport": "Informe",
+            "clickCount": "Clicks",
+            "sentAt": "Enviado el {{ date_created }}",
+            "showMail": "Ver el email",
+            "recipientCount": "Destinatario: {{ total_recipients }}"
+        },
+        "common": {
+            "refresh": "Actualizar",
+            "submit": "Enviar",
+            "cancel": "Cancelar"
+        },
+        "recipients": "Destinatarios",
+        "mail": {
+            "noObject": "Ningún objeto",
+            "refreshText": "Por favor, recarga la página para actualizar el cambio de email",
+            "error": "Email non enviado",
+            "success": "Email enviado",
+            "missing": "Email ausente",
+            "content": "Contenido del email",
+            "title": "Asunto del email"
+        },
+        "table": {
+            "columns": {
+                "date_created": "Fecha",
+                "member": "Miembro",
+                "status": "Estatuto",
+                "title": "Vistazo"
+            }
+        },
+        "dialogReceiverChoice": {
+            "title": "Selección de los destinatarios",
+            "waitingList": "Enviar a la lista de espera",
+            "reservation": "Enviar a las reservas"
+        },
+        "send": {
+            "error": "Error durante el envío",
+            "success": "Email en curso de envio..."
+        }
+    },
+    "paymentCombo": {
+        "detail": {
+            "purchases": "Ventas",
+            "content": "Contenido",
+            "description": "Descripción",
+            "emptyContent": "¡Este pack no contiene nada!",
+            "containsNProducts": "Contiene {{ n }} productos"
+        },
+        "form": {
+            "selectorPlaceholder": {
+                "shopitem": "Tienda",
+                "paymentPack": "Carta curso de grupo",
+                "privatePass": "Carta cita"
+            },
+            "content": "Contenido",
+            "tax": {
+                "label": "IVA"
+            },
+            "description": {
+                "label": "Descripción"
+            },
+            "available_payment_method_identifiers": {
+                "helperText": "Selecciona al menos un método de pago. Si la cesta del miembro contiene artículos con métodos de pago incompatibles, se propondrá el pago CB.",
+                "label": "Medios de pago autorizados"
+            },
+            "actions": {
+                "cancel": "Cancelar",
+                "submit": "Registrar"
+            },
+            "manager_only": {
+                "label": "Invisible para los clientes"
+            },
+            "price": {
+                "label": "Precio"
+            },
+            "name": {
+                "label": "Apellido"
+            },
+            "title": "Formulario pack"
+        },
+        "list": {
+            "section": {
+                "availableOnline": "Disponible para la venta",
+                "unavailableOnline": "No disponible para la venta"
+            },
+            "buttons": {
+                "add": "Crear un pack"
+            },
+            "explainIfEmpty": "Crear aquí packs que pueden ser comprados por los estudiantes y que pueden contener tarjetas de lecciones, artículos de la tienda, etc..."
+        },
+        "link": {
+            "copied": "Enlace copiado",
+            "copyLink": "Copiar el enlace a la página de pago"
+        },
+        "pageTitle": {
+            "list": "Packs"
+        },
+        "delete": {
+            "submit": "Suprimir",
+            "cancel": "Cancelar",
+            "content": "¿Realmente quieres borrar este pack? Esta operación es irreversible, las compras ya realizadas y las cestas actuales no se verán afectadas.",
+            "title": "Supresión del pack"
+        }
+    },
+    "theme": {
+        "forms": {
+            "themePersonalization": {
+                "first_name_label": {
+                    "helperText": "Ingresa la etiqueta para el nombre"
+                },
+                "names_label_info": "Cambiar la etiqueta de los campos Apellido y Nombre en los formularios de registro",
+                "default_booking_ordering": {
+                    "title": "Elegir el orden de clasificación predeterminado para las reservas en la página de actividad",
+                    "lastname": "Ordenar alfabéticamente por nombre",
+                    "firstname": "Ordenar alfabéticamente por nombre",
+                    "date": "Ordenar por fecha de reserva más reciente"
+                },
+                "default_attendance": {
+                    "title": "Estatuto predeterminado de una reserva realizada por el cliente",
+                    "present": "Miembro presente"
+                },
+                "calendar": {
+                    "police": {
+                        "label": "Fuente",
+                        "helperText": "Cambiar el estilo de la fuente",
+                        "placeholder": "Ingresar el código CSS"
+                    },
+                    "offerCard": {
+                        "helperText": "Cambiar el estilo de las cartas de curso",
+                        "label": "Cartas de curso",
+                        "placeholder": "Ingresar el código CSS"
+                    },
+                    "columns": {
+                        "helperText": "Cambiar el estilo de las columnas",
+                        "label": "Columnas",
+                        "placeholder": "Ingresar el código CSS"
+                    },
+                    "bookButton": {
+                        "helperText": "Cambiar el estilo del botón \"reservar\"",
+                        "label": "Botón \"reservar\"",
+                        "placeholder": "Ingresar el código CSS"
+                    },
+                    "title": "Ingresa su propio código CSS para personalizar tu calendario"
+                },
+                "acceptDoubleBooking": "Aceptar la doble reserva",
+                "consumerRegularizeDebt": "El cliente puede regularizar su anticipo en línea"
+            }
+        }
+    },
+    "role": {
+        "forms": {
+            "user": {
+                "delete": {
+                    "confirm": "Suprimir",
+                    "cancel": "Cancelar",
+                    "content": "¿Estás seguro de que quieres suprimir esta cuenta?",
+                    "title": "Supresión cuenta staff"
+                },
+                "create": {
+                    "submit": "Registrar",
+                    "cancel": "Cancelar",
+                    "role": {
+                        "label": "Papel"
+                    },
+                    "email": {
+                        "label": "Email"
+                    },
+                    "title": "Creación de cuenta staff",
+                    "buttonLabel": "Añadir un acceso"
+                }
+            }
+        },
+        "permissions": "Papeles disponibles",
+        "explainStaffDoNot": "Un acceso staff no permite la conexión a la aplicación móvil (solo profesores y estudiantes)",
+        "explainStaffDo": "Un acceso staff permite la conexión a https://backoffice.bsport.io a través de una computadora o móvil",
+        "userRoles": "Cuentas Staff"
+    },
+    "authentication": {
+        "resetPassword": {
+            "actions": {
+                "backToLogin": "Retorno",
+                "reset": "OK",
+                "cancel": "Cancelar"
+            },
+            "emailHasBeenSent": "Se ha enviado un email a {{email}} para recuperar tu contraseña",
+            "explain2": "Te enviaremos instrucciones de recuperación",
+            "explain1": "¿Cuál era el email de la cuenta?",
+            "noEmail": "Este email no está registrado",
+            "title": "Recuperación de la contraseña"
+        }
+    },
+    "category": {
+        "sct": {
+            "selector": {
+                "label": "Categoria",
+                "placeholder": "Buscar una categoria"
+            }
         }
     }
 }

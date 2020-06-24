@@ -1844,7 +1844,7 @@
                 },
                 "expirationDaysBeforeFirstUse": {
                     "label": "Läuft ab, wenn keine erste Buchung erfolgt",
-                    "helperText": "Wenn diese Karte während dieser Anzahl von Tagen nicht ein erstes Mal verwendet wird, wird sie für ungültig erklärt"
+                    "helperText": "Wenn diese Kurskarte während dieser Anzahl von Tagen nicht ein erstes Mal verwendet wird, wird sie für ungültig erklärt"
                 },
                 "managerOnly": "Für Kunden unsichtbar",
                 "helper": {

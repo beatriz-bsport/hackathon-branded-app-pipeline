@@ -12,8 +12,6 @@ import Button from '@material-ui/core/Button';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 
-import { BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT } from '@bsport/common/lib/master-data/subscription-payment-methods';
-
 import RedButton from '../../../components/button/RedButton.component';
 
 import type { Subscription } from '../types';

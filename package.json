@@ -111,7 +111,7 @@
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
     "format": "find src -name \"*.js\" | xargs yarn prettier --write",
-    "start": "./config-env.sh && node scripts/start.js",
+    "start": "./config-env.sh && yarn updateTranslation && node scripts/start.js",
     "build": "node scripts/build.js",
     "server:build": "webpack -p --progress",
     "test": "node scripts/test.js --env=jsdom",

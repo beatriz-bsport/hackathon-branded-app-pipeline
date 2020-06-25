@@ -548,7 +548,7 @@ export class InvoiceForm extends Component<Props, State> {
         </Typography>
       );
     }
-    if (this.props.invoice.plannedinvoice) {
+    if (this.props.invoice && this.props.invoice.plannedinvoice) {
       return (
         <div>
           <Typography style={{ padding: 12 }}>

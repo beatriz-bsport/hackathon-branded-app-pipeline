@@ -123,7 +123,7 @@
         },
         "subscription": {
             "actions": {
-                "switchPaymentMethod": "Neue Zahlungsmethode hinzufügen",
+                "switchPaymentMethod": "Die Zahlungsmethode ändern",
                 "freeze": "Pausieren",
                 "switchPack": "Kurskarte ändern"
             },
@@ -874,7 +874,7 @@
             "default_last_discard_minutes": "Letzte mögliche Stornierung vor",
             "default_last_booking_minutes": "Letzte mögliche Buchung vor",
             "newMember": "Neues Mitglied",
-            "addingSessionFor": "Erstellung des Kurses für den : ",
+            "addingSessionFor": "Erstellung des Kurses für : ",
             "effectif": "Teilnehmeranzahl",
             "recurrence": "Wiederholung",
             "signInPhoneInstruction": "Bitte geben Sie Ihre Telefonnummer ein, ein Bestätigungscode wird Ihnen per SMS geschickt",
@@ -3738,7 +3738,7 @@
             "noBooking": "Kein bevorstehender Kurs",
             "noPackCurrentlyActive": "Keine gültige Kurskarte",
             "showMore": "Mehr anzeigen",
-            "currentPassTitle": "Aktive Kurskarte",
+            "currentPassTitle": "Aktive Kurskarten",
             "favoriteTitle": "Vorschlag zur Buchung",
             "nextBookingTitle": "Meine nächsten Kurse",
             "optionTitle": "Auf Warteliste"

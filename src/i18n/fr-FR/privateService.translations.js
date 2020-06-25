@@ -1,4 +1,8 @@
 exports.default = {
+  noPrivatePass:
+    'Les cartes RDV permettent aux membres de prendre RDV, définissez ici vos tarifs et modalités.',
+  noPrivateService:
+    'Un rendez-vous est réservable sur le créneau que vous avez choisi, par le membre.',
   serviceGroup: {
     delete: 'Supprimer',
     edit: 'Modifier',

@@ -35,6 +35,7 @@ import SmartListListItem from '../../libs/smart-list/components/SmartListListIte
 import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormDialog.component';
 import type { OptionCallback } from '../../state/types';
 import SmartListCard from '../../libs/smart-list/components/SmartlistCard.component';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 type Props = {
   smartlists: Array<SmartList>,
@@ -52,6 +53,7 @@ type Props = {
   onClickDuplicate: (id: number, options: any) => void,
   goToSmartlistList: () => void,
   smartlistSelected: ?Smartlist,
+  loading: boolean,
 };
 
 type State = {
@@ -111,6 +113,13 @@ export class SmartListList extends Component<Props, State> {
     const { smartlists, classes } = this.props;
     return (
       <div>
+        {this.props.smartlists.length === 0 && !this.props.loading ? (
+          <IsEmptyList
+            text={this.props.t('noSmartLists')}
+            button={this.props.t('smart_list.add')}
+            onCreate={() => this.setState({ openCreateDialog: true })}
+          />
+        ) : null}
         <Grid container direction="row" spacing={3}>
           <Grid item xs={12} md={6}>
             {smartlists.length > 0 ? (
@@ -236,6 +245,21 @@ export class SmartListList extends Component<Props, State> {
 }
 
 const styles = (theme) => ({
+  emptysmartLists: {
+    marginTop: theme.spacing(3),
+    padding: theme.spacing(2),
+    color: 'bleu',
+    fontSize: 'larger',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    border: '2px solid #E2E2E2',
+    borderRadius: theme.spacing(1),
+    textAlign: 'center',
+    width: '400px',
+    marginLeft: '200px',
+  },
   list: {
     display: 'flex',
     flexDirection: 'column',

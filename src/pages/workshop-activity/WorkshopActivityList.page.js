@@ -17,6 +17,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import FuzeSearch from '../../components/FuzeSearch.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import type { MetaActivity } from '../../api/types';
 
@@ -76,6 +77,19 @@ export class WorkshopActivityList extends React.Component<Props> {
   render() {
     const { classes, t } = this.props;
 
+    if (
+      (this.props.workshopActivities || []).length === 0 &&
+      !this.props.loading
+    ) {
+      return (
+        <IsEmptyList
+          text={this.props.t('noWorkshops')}
+          button={this.props.t('actions.addWorkshopActivity')}
+          onCreate={this.props.onCreate}
+          onCreateLabel={this.props.t('actions.addWorkshopActivity')}
+        />
+      );
+    }
     return (
       <div className={classes.container}>
         {this.props.loading ? <LinearProgress /> : null}

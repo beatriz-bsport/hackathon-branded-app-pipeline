@@ -28,8 +28,6 @@ type Props = {
   subShop: SubShop,
   createOrUpdateSubShop: (data: [*]) => void,
   onDelete: (id: number) => void,
-
-  children: any,
 };
 
 type State = {
@@ -169,7 +167,6 @@ export class SubShopList extends Component<Props, State> {
       <div>
         {this.renderTitle()}
         <Divider className={classes.divider} />
-        {this.props.children}
         {this.renderSubShopDeleteDialog()}
       </div>
     );

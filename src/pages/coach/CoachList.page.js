@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import {
   deleteCoach,
@@ -72,6 +73,19 @@ export class CoachList extends React.Component<Props, State> {
   render() {
     const { t } = this.props;
 
+    if (
+      (this.props.associatedCoaches || []).length === 0 &&
+      !this.props.loading
+    ) {
+      return (
+        <IsEmptyList
+          text={this.props.t('coach:noCoachs')}
+          button={this.props.t('coach:addCoach')}
+          onCreate={this.props.onCreate}
+          onCreateLabel={this.props.t('coach:addCoach')}
+        />
+      );
+    }
     return (
       <div className={this.props.classes.container}>
         {this.props.loading ? <LinearProgress /> : null}

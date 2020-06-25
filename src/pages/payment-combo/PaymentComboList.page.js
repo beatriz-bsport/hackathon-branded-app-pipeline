@@ -16,11 +16,13 @@ import {
   getPaymentComboListAvailableOnline,
   getPaymentComboListUnavailableOnline,
 } from '../../libs/payment-combo/selectors';
+
 import type { PaymentCombo } from '../../libs/payment-combo/types';
 import PaymentComboFormDialogContainer from './PaymentComboFormDialog.container';
 import PaymentComboList from '../../libs/payment-combo/components/PaymentComboList.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import type { OptionCallback } from '../../state/types';
 
@@ -74,6 +76,15 @@ export class PaymentComboListPage extends React.Component<Props> {
     return (
       <div className={classes.container}>
         {loading ? <LinearProgress /> : null}
+        {this.props.paymentComboListUnavailableOnline.length === 0 &&
+        this.props.paymentComboListAvailableOnline.length === 0 &&
+        !loading ? (
+          <IsEmptyList
+            text={this.props.t('list.explainIfEmpty')}
+            button={this.props.t('list.buttons.add')}
+            onCreate={() => openCreateOrUpdateForm(null)}
+          />
+        ) : null}
         <PaymentComboList
           paymentComboListAvailableOnline={paymentComboListAvailableOnline}
           paymentComboListUnavailableOnline={paymentComboListUnavailableOnline}
@@ -84,7 +95,7 @@ export class PaymentComboListPage extends React.Component<Props> {
         />
         <BottomActionButtons
           onCreateLabel={t('list.buttons.add')}
-          onCreate={() => openCreateOrUpdateForm()}
+          onCreate={() => openCreateOrUpdateForm(null)}
         />
         {this.props.openForm ? (
           <PaymentComboFormDialogContainer
@@ -100,6 +111,21 @@ export class PaymentComboListPage extends React.Component<Props> {
 }
 
 const styles = (theme) => ({
+  explainIfEmpty: {
+    marginTop: theme.spacing(3),
+    padding: theme.spacing(2),
+    color: 'bleu',
+    fontSize: 'larger',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    border: '2px solid #E2E2E2',
+    borderRadius: theme.spacing(1),
+    textAlign: 'center',
+    width: '400px',
+    marginLeft: '200px',
+  },
   container: {
     paddingBottom: theme.spacing(16),
   },

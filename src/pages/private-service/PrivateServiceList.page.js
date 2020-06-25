@@ -9,13 +9,12 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import Button from '@material-ui/core/Button';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { compose, withState, withStateHandlers, withHandlers } from 'recompose';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import PrivateServiceFormDialog from '../../libs/private-service/components/service/PrivateServiceFormDialog.component';
 import PrivateServiceListWithGroup from '../../libs/private-service/components/service/PrivateServiceListWithGroup.component';
@@ -64,9 +63,6 @@ type Props = {
   availableCoaches: Array<AssociatedCoach>,
   fetchEstablishments: () => void,
   fetchAssociatedEstablishments: () => void,
-
-  goToPrivatePass: (id: number) => void,
-
   fetchPrivateServiceGroupList: () => void,
 
   privateServiceAvailableWithoutGroup: Array<PrivateService>,
@@ -115,20 +111,20 @@ export class PrivateServiceList extends React.Component<Props> {
 
   render() {
     const { classes, t, selectedPrivateService } = this.props;
-
     return (
       <div>
         {this.props.loading ? <LinearProgress /> : null}
+        {this.props.privateServiceAvailableWithoutGroup.length === 0 &&
+        this.props.privateServiceAvailableByGroup.length === 0 &&
+        !this.props.loading ? (
+          <IsEmptyList
+            text={this.props.t('noPrivateService')}
+            button={this.props.t('service.form.createButton')}
+            onCreate={() => this.props.setOpenCreateForm(true)}
+          />
+        ) : null}
         <div className={classes.header}>
           <div />
-          <Button
-            onClick={this.props.goToPrivatePass}
-            color="primary"
-            variant="outlined"
-          >
-            <ArrowForwardIcon className={classes.leftIcon} />
-            {t('service.navigation.goToPrivatePass')}
-          </Button>
         </div>
         <PrivateServiceListWithGroup
           privateServiceAvailableByGroup={

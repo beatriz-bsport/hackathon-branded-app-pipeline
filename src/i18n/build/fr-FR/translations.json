@@ -1128,6 +1128,8 @@
     }
   },
   "privateService": {
+    "noPrivatePass": "Les cartes RDV permettent aux membres de prendre RDV, définissez ici vos tarifs et modalités.",
+    "noPrivateService": "Un rendez-vous est réservable sur le créneau que vous avez choisi, par le membre.",
     "serviceGroup": {
       "delete": "Supprimer",
       "edit": "Modifier",
@@ -1806,6 +1808,7 @@
   "workshop": {
     "search": "Chercher un atelier",
     "actions": { "addWorkshopActivity": "Ajouter un atelier", "search": "Rechercher un atelier" },
+    "noWorkshops": "Gérez ici vos ateliers, un atelier est un évènement dont la date est fixée à l'avance.",
     "navigation": { "goToPaymentPack": "Cartes de cours" },
     "modal": {
       "delete": {
@@ -1947,6 +1950,7 @@
     "search": "Chercher un établissement",
     "addButton": "Ajouter un établissement",
     "pleaseSelectOne": "Veuillez sélectionner un club sur la carte",
+    "noEstablishement": "Gérez ici vos salles, leur localisation, leur remplissage et consultez le calendrier",
     "offers": "Calendrier des séances:",
     "noMoreOffers": "Plus aucune séance de prévue",
     "pleaseFill": "Veuillez renseigner un établisssement",
@@ -2427,6 +2431,7 @@
     }
   },
   "coach": {
+    "noCoachs": "Aucun professeur enregistré, gérez ici vos profs, intervenants, ainsi que leur rémunération.",
     "detail": { "tab": { "general": "Profil", "calendar": "Calendrier" } },
     "noCoach": "Il n'y a aucun professeur enregistré pour l'instant",
     "coach": "Professeur",
@@ -2498,6 +2503,7 @@
     "cancel": "annuler",
     "save": "valider",
     "table": { "noContent": "Aucune souscription enregistrée" },
+    "noContracts": "Les contrats vous permettront de facturer régulièrement (mensuellement) vos membres pour une carte de cours recréditée tous les mois.",
     "subscription": {
       "list": { "title": "Souscription en cours" },
       "actionSection": "Gérer",
@@ -2844,6 +2850,7 @@
       },
       "details": { "actions": { "refund": "Remboursement crédit" } }
     },
+    "noPaymentPack": "Les cartes de cours permettent aux membres de s'inscrire aux activités, il est nécessaire de posséder une carte pour s'inscrire.",
     "notificationToolTip": "Des notifications sont définies pour cette carte",
     "notification": {
       "0": { "first": "Notifier lorsqu'il reste ", "second": "jours de validité sur la carte" },
@@ -3034,6 +3041,7 @@
   "metaActivity": {
     "metaActivity": "Activité",
     "search": "Chercher une activité",
+    "noActivities": "Gérez ici vos activités, une activité permet de regrouper un ensemble de séances (généralement collectives) de la même pratique.",
     "actions": { "addActivity": "Ajouter une activité", "search": "Rechercher une activité" },
     "navigation": { "goToPaymentPack": "Cartes de cours" },
     "forms": {
@@ -3459,6 +3467,7 @@
         "warning": "Sélectionnez au moins un professeur"
       }
     },
+    "noSmartLists": "Utilisez les smartlists afin de filtrer, analyser, et mieux connaitre vos membres.",
     "selectToShowPreview": "Sélectionnez un template",
     "exportList": "Exporter la smartlist",
     "membersInList": "Membres dans la smartlist:",

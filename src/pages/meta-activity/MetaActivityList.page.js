@@ -16,6 +16,7 @@ import FuzeSearch from '../../components/FuzeSearch.component';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
 import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
@@ -82,6 +83,16 @@ export class MetaActivityListPage extends React.Component<Props, State> {
   render() {
     const { classes, t } = this.props;
 
+    if ((this.props.metaActivities || []).length === 0 && !this.props.loading) {
+      return (
+        <IsEmptyList
+          text={this.props.t('noActivities')}
+          button={this.props.t('actions.addActivity')}
+          onCreate={this.props.onCreate}
+          onCreateLabel={this.props.t('actions.addActivity')}
+        />
+      );
+    }
     return (
       <div className={classes.container}>
         {this.props.loading ? <LinearProgress /> : null}

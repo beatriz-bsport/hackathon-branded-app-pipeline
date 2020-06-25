@@ -25,6 +25,7 @@ import {
   getEmailTemplatesDetail,
   getAllEmailTemplatesSummaries,
 } from '../../libs/email-editor/selectors';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -136,15 +137,12 @@ export class MarketingEmail extends Component<Props> {
     const { loading, t, classes } = this.props;
     if (!loading && this.props.email_templates.length === 0) {
       return (
-        <div className={classes.emptyTextContainer}>
-          <Typography align="center" color="textSecondary">
-            {t('templateListEmpty')}
-          </Typography>
-          <BottomActionsButton
-            onCreateLabel={t('create')}
-            onCreate={this.props.goToCreate}
-          />
-        </div>
+        <IsEmptyList
+          text={this.props.t('templateListEmpty')}
+          button={this.props.t('create')}
+          onCreate={this.props.goToCreate}
+          onCreateLabel={t('create')}
+        />
       );
     }
     return (
@@ -274,11 +272,7 @@ const styles = (theme) => ({
   emptyMessageText: {
     marginTop: theme.spacing(2),
   },
-  emptyTextContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    marginTop: theme.spacing(2),
-  },
+
   search: { marginBottom: theme.spacing(2) },
   searchPaperDisplayed: {
     border: '1px solid',

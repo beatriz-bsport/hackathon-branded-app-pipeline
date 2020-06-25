@@ -34,6 +34,7 @@ import SubscriptionContractRegister from '../../libs/subscription/components/Sub
 import { search as searchMembers } from '../../libs/member/actions';
 import { getSearchedMembers } from '../../libs/member/selectors';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import {
   getAvailableContractListManager,
@@ -98,6 +99,15 @@ export class SubscriptionList extends React.Component<Props> {
   render() {
     return (
       <div className={this.props.classes.container}>
+        {this.props.contractListAvailableAll.length === 0 &&
+        this.props.contractListManagerOnly.length === 0 &&
+        !this.props.contractLoading ? (
+          <IsEmptyList
+            text={this.props.t('noContracts')}
+            button={this.props.t('subscription:contract.actions.create')}
+            onCreate={this.props.onRequestCreate}
+          />
+        ) : null}
         <Grid container spacing={2}>
           {!!this.props.contractListAvailableAll.length && (
             <Grid item xs={12} lg={6}>

@@ -53,6 +53,8 @@ exports.default = {
       },
     },
   },
+  noPaymentPack:
+    "Les cartes de cours permettent aux membres de s'inscrire aux activités, il est nécessaire de posséder une carte pour s'inscrire.",
   notificationToolTip: 'Des notifications sont définies pour cette carte',
   notification: {
     listItem: {

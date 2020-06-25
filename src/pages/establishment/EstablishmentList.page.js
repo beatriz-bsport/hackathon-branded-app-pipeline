@@ -3,10 +3,8 @@
 import React from 'react';
 import { compose, withState } from 'recompose';
 import { connect } from 'react-redux';
-import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
-
 import List from '@material-ui/core/List';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
@@ -16,6 +14,7 @@ import Map from '../../components/map/Map.component';
 import FuzeSearch from '../../components/FuzeSearch.component';
 
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
@@ -69,15 +68,12 @@ export class EstablishmentList extends React.Component<Props, State> {
   render() {
     if ((this.props.establishments || []).length === 0 && !this.props.loading) {
       return (
-        <div className={this.props.classes.emptyEstablishment}>
-          <Typography variant="caption">
-            {this.props.t('pleaseSelectOne')}
-          </Typography>
-          <BottomActionsButton
-            onCreate={this.props.onCreate}
-            onCreateLabel={this.props.t('addButton')}
-          />
-        </div>
+        <IsEmptyList
+          text={this.props.t('noEstablishement')}
+          button={this.props.t('addButton')}
+          onCreate={this.props.onCreate}
+          onCreateLabel={this.props.t('addButton')}
+        />
       );
     }
     return (
@@ -167,9 +163,18 @@ const styles = (theme) => ({
     paddingBottom: theme.spacing(16),
   },
   search: { marginBottom: theme.spacing(2) },
-
-  emptyEstablishment: {
-    padding: theme.spacing(3),
+  textAndIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginBottom: theme.spacing(1),
+    '&>*': {
+      marginRight: theme.spacing(),
+    },
+  },
+  buttonEstablishement: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   map: {
     marginTop: theme.spacing(2),

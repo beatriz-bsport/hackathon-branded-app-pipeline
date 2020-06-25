@@ -4,6 +4,8 @@ exports.default = {
     addWorkshopActivity: 'Ajouter un atelier',
     search: 'Rechercher un atelier',
   },
+  noWorkshops:
+    "Gérez ici vos ateliers, un atelier est un évènement dont la date est fixée à l'avance.",
   navigation: {
     goToPaymentPack: 'Cartes de cours',
   },

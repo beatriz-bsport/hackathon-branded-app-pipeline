@@ -2,7 +2,6 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Fab from '@material-ui/core/Fab';
-import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
@@ -11,6 +10,7 @@ import type { TFunction } from 'react-i18next';
 
 import { compose, withState, withProps } from 'recompose';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import withTitle from '../../hocs/with-title.hoc';
 import CouponListComponent from '../../libs/coupon/components/CouponList.component';
@@ -51,12 +51,14 @@ export class CouponList extends React.PureComponent<Props> {
     return (
       <div>
         {this.props.loading ? <LinearProgress /> : null}
-        {!this.props.loading &&
-        this.props.inactiveCoupons.length === 0 &&
-        this.props.activeCoupons.length === 0 ? (
-          <Typography className={classes.emptyText} color="textSecondary">
-            {t('list.isEmpty')}
-          </Typography>
+        {this.props.inactiveCoupons.length === 0 &&
+        this.props.activeCoupons.length === 0 &&
+        !this.props.loading ? (
+          <IsEmptyList
+            text={this.props.t('list.isEmpty')}
+            button={this.props.t('createCoupon')}
+            onCreate={this.props.goToCreate}
+          />
         ) : (
           <CouponListComponent
             inactiveCoupons={this.props.inactiveCoupons}
@@ -87,9 +89,6 @@ export class CouponList extends React.PureComponent<Props> {
 }
 
 const styles = (theme) => ({
-  emptyText: {
-    margin: theme.spacing(3),
-  },
   addButtonContainer: {
     position: 'fixed',
     bottom: theme.spacing(2),
@@ -103,7 +102,7 @@ export default compose(
     (state) => ({
       inactiveCoupons: getInactiveCoupons(state),
       activeCoupons: getActiveCoupons(state),
-      loading: state.coupon.loading,
+      loading: state.coupon.coupon.loading,
     }),
     {
       fetchCouponPage,

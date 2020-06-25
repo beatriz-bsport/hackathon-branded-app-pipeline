@@ -20,6 +20,8 @@ exports.default = {
   search: 'Chercher un établissement',
   addButton: 'Ajouter un établissement',
   pleaseSelectOne: 'Veuillez sélectionner un club sur la carte',
+  noEstablishement:
+    'Gérez ici vos salles, leur localisation, leur remplissage et consultez le calendrier',
   offers: 'Calendrier des séances:',
   noMoreOffers: 'Plus aucune séance de prévue',
   pleaseFill: 'Veuillez renseigner un établisssement',

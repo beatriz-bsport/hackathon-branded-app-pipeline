@@ -84,6 +84,8 @@ exports.default = {
       warning: 'Sélectionnez au moins un professeur',
     },
   },
+  noSmartLists:
+    'Utilisez les smartlists afin de filtrer, analyser, et mieux connaitre vos membres.',
   selectToShowPreview: 'Sélectionnez un template',
   exportList: 'Exporter la smartlist',
   membersInList: 'Membres dans la smartlist:',

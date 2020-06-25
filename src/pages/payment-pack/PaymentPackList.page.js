@@ -14,6 +14,7 @@ import { push as pushRouter } from 'connected-react-router';
 import { compose } from 'recompose';
 import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
 import FuzeSearch from '../../components/FuzeSearch.component';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import PaymentPackListItem from '../../libs/payment-packs/components/PaymentPackListItem.component';
 import PaymentPackDeleteDialog from '../../libs/payment-packs/components/PaymentPackDeleteDialog.component';
@@ -140,17 +141,21 @@ export class PaymentPackList extends Component<Props, State> {
     if (loading) {
       return <LinearProgress />;
     }
-
+    if ((this.props.packs || []).length === 0 && !loading) {
+      return (
+        <IsEmptyList
+          text={this.props.t('noPaymentPack')}
+          button={this.props.t('addButton')}
+          onCreate={this.props.onCreate}
+          onCreateLabel={this.props.t('addButton')}
+        />
+      );
+    }
     const showablePacks = packs.filter((p) => !p.disabled);
     const publicPacks = showablePacks.filter((p) => !p.manager_only);
     const managerPacks = showablePacks.filter((p) => Boolean(p.manager_only));
     return (
-      <Grid
-        container
-        direction="row"
-        spacing={3}
-        className={classes.container}
-      >
+      <Grid container direction="row" spacing={3} className={classes.container}>
         {publicPacks.length || managerPacks.length ? (
           <Grid item xs={12} md={12}>
             <FuzeSearch
@@ -241,7 +246,6 @@ export class PaymentPackList extends Component<Props, State> {
             ) : null
           }
         />
-
         <BottomActionsButton
           onCreateLabel={this.props.t('addButton')}
           onCreate={this.props.onCreate}

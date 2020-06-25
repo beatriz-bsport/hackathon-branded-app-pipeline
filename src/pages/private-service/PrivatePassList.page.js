@@ -15,6 +15,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import withTitle from '../../hocs/with-title.hoc';
 import { getPrivatePassAvailableListWithPrivateService } from '../../libs/private-service/selectors/private-pass';
@@ -36,6 +37,7 @@ import type {
 } from '../../libs/private-service/types';
 
 type Props = {
+  loading: boolean,
   fetchPrivatePassList: () => void,
   fetchAllPrivateServices: () => void,
   privatePassList: Array<PrivatePass>,
@@ -76,6 +78,19 @@ export class PrivatePassList extends React.Component<Props> {
   };
 
   render() {
+    if (
+      (this.props.privatePassList || []).length === 0 &&
+      !this.props.loading
+    ) {
+      return (
+        <IsEmptyList
+          text={this.props.t('noPrivatePass')}
+          button={this.props.t('privatePass.list.createButton')}
+          onCreate={() => this.props.setOpenCreateForm(true)}
+          onCreateLabel={this.props.t('privatePass.list.createButton')}
+        />
+      );
+    }
     return (
       <Grid container>
         <Grid item xs={12} md={6}>
@@ -181,6 +196,7 @@ export default compose(
     (state) => ({
       privatePassList: getPrivatePassAvailableListWithPrivateService(state),
       private_services: getPrivateServices(state),
+      loading: state.privateService.privatePass.loading,
     }),
     {
       fetchPrivatePassList,

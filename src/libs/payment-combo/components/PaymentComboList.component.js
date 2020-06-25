@@ -15,7 +15,6 @@ import PaymentComboListItem from './PaymentComboListItem.component';
 type Props = {
   t: TFunction,
   classes: Object,
-  loading: boolean,
 
   paymentComboListAvailableOnline: Array<PaymentCombo>,
   paymentComboListUnavailableOnline: Array<PaymentCombo>,
@@ -70,19 +69,6 @@ export const PaymentComboList = (props: Props) => {
           </Paper>
         </Grid>
       ) : null}
-      {props.paymentComboListUnavailableOnline.length === 0 &&
-      props.paymentComboListAvailableOnline.length === 0 &&
-      !props.loading ? (
-        <Grid item xs={12}>
-          <Typography
-            className={props.classes.explainIfEmpty}
-            color="textSecondary"
-            align="center"
-          >
-            {props.t('list.explainIfEmpty')}
-          </Typography>
-        </Grid>
-      ) : null}
     </Grid>
   );
 };
@@ -92,7 +78,19 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(1),
   },
   explainIfEmpty: {
-    paddingTop: theme.spacing(5),
+    marginTop: theme.spacing(3),
+    padding: theme.spacing(2),
+    color: 'bleu',
+    fontSize: 'larger',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    border: '2px solid #E2E2E2',
+    borderRadius: theme.spacing(1),
+    textAlign: 'center',
+    width: '400px',
+    marginLeft: '200px',
   },
 });
 

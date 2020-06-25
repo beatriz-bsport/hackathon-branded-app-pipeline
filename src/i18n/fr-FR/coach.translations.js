@@ -1,4 +1,6 @@
 exports.default = {
+  noCoachs:
+    'Aucun professeur enregistré, gérez ici vos profs, intervenants, ainsi que leur rémunération.',
   detail: {
     tab: {
       general: 'Profil',

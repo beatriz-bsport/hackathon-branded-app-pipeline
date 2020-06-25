@@ -30,6 +30,8 @@ exports.default = {
   table: {
     noContent: 'Aucune souscription enregistrée',
   },
+  noContracts:
+    'Les contrats vous permettront de facturer régulièrement (mensuellement) vos membres pour une carte de cours recréditée tous les mois.',
   subscription: {
     list: {
       title: 'Souscription en cours',

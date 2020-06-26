@@ -168,6 +168,7 @@ export class SubShopList extends Component<Props, State> {
         {this.renderTitle()}
         <Divider className={classes.divider} />
         {this.renderSubShopDeleteDialog()}
+        {this.props.children}
       </div>
     );
   }

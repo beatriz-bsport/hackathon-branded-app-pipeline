@@ -28,19 +28,22 @@ export const getShopItemsAvailable = createSelector(
   (shopItems) => shopItems.filter((si) => si.subshop),
 );
 
-const getSubShops = (state: State, as_consumer: ?boolean) => {
-  let shopItems = [];
-  if (as_consumer) {
-    shopItems = _getShopItemsAsConsumer(state);
-  } else {
-    shopItems = _getAllShopItems(state);
-  }
-  const subshops = _getSubShops(state);
-  return subshops.map((sub) => ({
-    ...sub,
-    shopItems: shopItems.filter((si) => si.subshop === sub.id),
-  }));
-};
+const getSubShops = createSelector(
+  [
+    _getShopItemsAsConsumer,
+    _getAllShopItems,
+    _getSubShops,
+    (state, as_consumer) => as_consumer,
+  ],
+  (shopitemListAsConsumer, shopItemsList, subshopList, as_consumer) => {
+    return subshopList.map((sub) => ({
+      ...sub,
+      shopItems: (as_consumer ? shopitemListAsConsumer : shopItemsList).filter(
+        (si) => si.subshop === sub.id,
+      ),
+    }));
+  },
+);
 
 const getSubShopsByCompany = (
   state: State,

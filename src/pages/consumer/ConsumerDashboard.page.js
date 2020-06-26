@@ -366,7 +366,7 @@ export default compose(
     ) =>
       fetchConsumerPacks(
         ...args,
-        { mine: true, reverted: false, current: true },
+        { mine: true, reverted: false, current: true, disabled: false },
         {
           onSuccess: (cpps) => {
             fetchPaymentPackBulk(cpps.map((c) => c.payment_pack));

@@ -39,7 +39,12 @@ type Props = {
   consumerPacks: Array<ConsumerPaymentPack>,
   consumerPackCount: number,
   consumerPackCurrentPage: number,
-  fetchConsumerPacks: (member: number, page: number, page_size: number) => void,
+  fetchConsumerPacks: (
+    member: number,
+    page: number,
+    page_size: number,
+    params: any,
+  ) => void,
   membership: Membership,
   privateBookingsLoading: boolean,
   private_consumer_pass_list: Array<PrivateConsumerPass>,
@@ -89,6 +94,7 @@ export class ConsumerPack extends React.Component<Props> {
                   this.props.membership.id,
                   page,
                   pageSize,
+                  { disabled: false },
                 )
               }
               renderItem={(cpp) => (

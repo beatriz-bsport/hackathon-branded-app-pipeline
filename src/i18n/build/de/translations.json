@@ -518,7 +518,9 @@
             "paymentItemsListTitle": "Gespeicherte Zahlungen",
             "payWithNCredits1": "Buchen (",
             "return": "Zurückzahlen",
-            "isRecurring": "Zahlung in mehreren Etappen"
+            "isRecurring": "Zahlung in mehreren Etappen",
+            "goToSubscription": "Das Abonnement anzeigen",
+            "invoiceFromSubscriptionThusNotEditable": "Diese Rechnung ist Teil eines Abonnements und kann daher nicht bearbeitet werden. Bitte ändern Sie das Abonnement direkt"
         },
         "navigation": {
             "combo": "Packages",
@@ -3637,7 +3639,8 @@
             "isEmpty": "Kein Termin ist mit dieser Kategorie verbunden",
             "edit": "Ändern",
             "delete": "Löschen"
-        }
+        },
+        "noPrivatePass": "Die Terminkarten ermöglichen den Mitgliedern, Termine zu vereinbaren. Definieren Sie hier die Preise und Bedingungen."
     },
     "communication": {
         "recipient": {

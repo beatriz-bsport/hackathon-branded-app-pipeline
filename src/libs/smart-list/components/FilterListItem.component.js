@@ -27,9 +27,11 @@ import {
   USER_HAS_PASSWORD_FILTER,
   FIRST_BOOKING_FILTER_IDENTIFIER,
   EXPENSES_COMPLETE_FILTER_IDENTIFIER,
+  FILTER_BOOKING_LAST,
 } from '@bsport/common/lib/master-data/smart-list';
 
 import CreditAccountFilter from './filters/CreditAccountFilter.component';
+import LastPreviousBookingFilter from './filters/LastPreviousBookingFilter.component';
 import GenderFilter from './filters/GenderFilter.component';
 import BookingsNumberFilter from './filters/BookingsNumberFilter.component';
 import TagFilter from './filters/TagFilter.component';
@@ -172,6 +174,16 @@ export class FilterCard extends Component<Props> {
             setNotNullableData={this.setNotNullableData}
           />
         );
+      case FILTER_BOOKING_LAST:
+        return (
+          <LastPreviousBookingFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            new={this.props.new}
+            setNotNullableData={this.setNotNullableData}
+          />
+        );
+
       case PAYMENT_PACK_FILTER_IDENTIFIER:
         return (
           <PaymentPackFilter

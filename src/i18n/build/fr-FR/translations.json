@@ -3524,12 +3524,6 @@
         "explanation": "A X euros sur son compte",
         "between": "et"
       },
-      "2": {
-        "name": "Date dernière séance réservée",
-        "first": "La dernière séance réservée a eu lieu il y a plus de",
-        "second": "jours",
-        "explanation": "A réservé sa dernière séance il y a..."
-      },
       "5": {
         "name": "Sexe",
         "first": "Selectionner uniquement les",
@@ -3625,6 +3619,12 @@
         "explain": "possède un mot de passe sur bsport",
         "name": "Mot de passe",
         "explanation": "Possède un mot de passe sur bsport"
+      },
+      "501": {
+        "name": "Date dernière séance réservée",
+        "first": "La dernière séance réservée a eu lieu il y a plus de",
+        "second": "jours, et n'a aucun réservation prévue dans le futur.",
+        "explanation": "A réservé sa dernière séance il y a..."
       },
       "isEmpty": "Aucun filtre n'est configuré, cette smartliste représente donc l'ensemble de la base membre",
       "calendarPicker": {

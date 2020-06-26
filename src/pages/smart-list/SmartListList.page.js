@@ -17,6 +17,7 @@ import Collapse from '@material-ui/core/Collapse';
 import FuzeSearch from '../../components/FuzeSearch.component';
 import { getAllSmartList, getSmartList } from '../../libs/smart-list/selectors';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
+import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -113,13 +114,14 @@ export class SmartListList extends Component<Props, State> {
     const { smartlists, classes } = this.props;
     return (
       <div>
-        {this.props.smartlists.length === 0 && !this.props.loading ? (
+        {this.props.smartlists.length === 0 && !this.props.loading && (
           <IsEmptyList
             text={this.props.t('noSmartLists')}
             button={this.props.t('smart_list.add')}
             onCreate={() => this.setState({ openCreateDialog: true })}
           />
-        ) : null}
+        )}
+        {!!this.props.loading && <BackofficeLinearProgress />}
         <Grid container direction="row" spacing={3}>
           <Grid item xs={12} md={6}>
             {smartlists.length > 0 ? (
@@ -288,7 +290,7 @@ export default compose(
     (state, { selectedId }) => ({
       smartlists: getAllSmartList(state),
       smartlistSelected: getSmartList(state, selectedId),
-      loading: state.smartList.isLoading,
+      loading: state.smartList.loading,
       company_id: state.theme.theme.company,
     }),
     {

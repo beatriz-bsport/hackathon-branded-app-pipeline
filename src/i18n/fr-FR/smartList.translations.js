@@ -2,7 +2,7 @@ const SMARTLIST = require('@bsport/common/lib/master-data/smart-list');
 
 const {
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
-  LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER,
+  FILTER_BOOKING_LAST,
   GENDER_FILTER_IDENTIFIER,
   HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER,
   USER_HAS_PASSWORD_FILTER,
@@ -266,10 +266,10 @@ exports.default = {
       explanation: 'A X euros sur son compte',
       between: 'et',
     },
-    [LAST_PREVIOUS_BOOKING_FILTER_IDENTIFIER]: {
+    [FILTER_BOOKING_LAST]: {
       name: 'Date dernière séance réservée',
       first: 'La dernière séance réservée a eu lieu il y a plus de',
-      second: 'jours',
+      second: "jours, et n'a aucun réservation prévue dans le futur.",
       explanation: 'A réservé sa dernière séance il y a...',
     },
     [MEMBER_DATE_JOINED_FILTER_IDENTIFIER]: {

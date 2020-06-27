@@ -1,4 +1,5 @@
 exports.default = {
+  pageTitle: 'Partenariat',
   parameters: {
     companyId: 'Votre identifiant club est : {{ company }}',
     establishmentId: 'Vos identifiant salles sont : {{ establishmentIdList }}',

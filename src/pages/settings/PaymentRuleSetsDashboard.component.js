@@ -17,6 +17,7 @@ import PaymentRuleFormDialog from '../../libs/payment-rules/components/PaymentRu
 import PaymentRuleTable from '../../libs/payment-rules/components/PaymentRuleTable.component';
 
 import type { PaymentRule } from '../../api/types';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   loadPaymentRules: () => void,
@@ -109,6 +110,7 @@ function mapStateToProps(state) {
 export default compose(
   withStyles(styles),
   withTranslation(['paymentRules']),
+  withTitle(({ t }) => t('pageTitle')),
   withState('initial', 'setInitial', null),
   connect(
     mapStateToProps,

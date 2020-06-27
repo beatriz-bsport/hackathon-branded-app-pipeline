@@ -61,6 +61,7 @@ exports.default = {
       dialogTitle: 'Informations de mon compte ActiveCampaign',
       token: "Clé d'authentification",
       error: 'Vos informations sont incorrectes',
+      empty: "Veuillez entrer l'url de votre API",
     },
     webhooks: {
       helpTitle: 'Comment se déroule la synchronisation ?',

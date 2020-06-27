@@ -5,10 +5,11 @@ import { withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import type { Theme } from '../../libs/theme/types';
+import withTitle from '../../hocs/with-title.hoc';
+
 import BroadcastConfigurationForm from '../../libs/video/components/BroadcastConfiguration.component';
 import {
   updateCompanyTheme,
@@ -70,4 +71,5 @@ export default compose(
   ),
   withStyles(styles),
   withTranslation(['theme']),
+  withTitle(({ t }) => t('pageTitles.broadcast')),
 )(BroadcastConfiguration);

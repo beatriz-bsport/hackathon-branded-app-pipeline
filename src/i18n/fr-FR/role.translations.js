@@ -1,4 +1,5 @@
 exports.default = {
+  pageTitle: 'Staff',
   userRoles: 'Comptes Staff',
   permissions: 'Rôles disponibles',
   explainStaffDo:

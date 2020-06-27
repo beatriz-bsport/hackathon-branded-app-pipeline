@@ -1,4 +1,5 @@
 exports.default = {
+  pageTitle: 'Magasin',
   products: {
     nbProducts: 'articles',
   },

@@ -32,6 +32,7 @@ const {
 } = NOTIFICATION_EVENTS;
 
 exports.default = {
+  pageTitle: 'Emails transactionnels',
   ruleGroup: {
     member: 'Création de compte élève',
     offer: 'Séance',

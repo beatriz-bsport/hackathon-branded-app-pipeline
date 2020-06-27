@@ -25,6 +25,7 @@ import {
 import { getAllPageEstablishments } from '../../libs/establishment/selectors';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import PartnershipConfigurationForm from '../../libs/partnership/components/PartnershipConfigurationForm.component';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   t: TFunction,
@@ -149,6 +150,7 @@ const styles = (theme) => ({
 
 export default compose(
   withTranslation(['partnership']),
+  withTitle(({ t }) => t('pageTitle')),
   withStyles(styles),
   withState('hasRequested', 'setHasRequested', false),
   connect(

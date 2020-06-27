@@ -812,6 +812,7 @@
     "actions": { "addMember": "Ajouter un membre" }
   },
   "partnership": {
+    "pageTitle": "Partenariat",
     "parameters": {
       "companyId": "Votre identifiant club est : {{ company }}",
       "establishmentId": "Vos identifiant salles sont : {{ establishmentIdList }}",
@@ -832,6 +833,7 @@
     }
   },
   "notificationRule": {
+    "pageTitle": "Emails transactionnels",
     "ruleGroup": {
       "member": "Création de compte élève",
       "offer": "Séance",
@@ -1691,6 +1693,7 @@
     }
   },
   "role": {
+    "pageTitle": "Staff",
     "userRoles": "Comptes Staff",
     "permissions": "Rôles disponibles",
     "explainStaffDo": "Un accès staff permet de se connecter à https://backoffice.bsport.io via ordinateur ou mobile",
@@ -1715,6 +1718,7 @@
     }
   },
   "theme": {
+    "pageTitles": { "broadcast": "Visioconférence", "personalization": "Personnalisation", "theme": "Général" },
     "forms": {
       "themePersonalization": {
         "consumerRegularizeDebt": "Le client peut régulariser son acompte en ligne",
@@ -2001,6 +2005,7 @@
     }
   },
   "order": {
+    "pageTitle": "Magasin",
     "products": { "nbProducts": "articles" },
     "state": { "0": "En attente", "700": "Payé", "1100": "Annulé", "1200": "A récupérer sur place", "9000": "Expédié" },
     "table": {
@@ -2106,7 +2111,8 @@
         "helper": "Où trouver ces informations ?",
         "dialogTitle": "Informations de mon compte ActiveCampaign",
         "token": "Clé d'authentification",
-        "error": "Vos informations sont incorrectes"
+        "error": "Vos informations sont incorrectes",
+        "empty": "Veuillez entrer l'url de votre API"
       },
       "webhooks": {
         "helpTitle": "Comment se déroule la synchronisation ?",
@@ -2240,6 +2246,7 @@
     }
   },
   "paymentRules": {
+    "pageTitle": "Règles de rémunération",
     "rules": "Règles",
     "add": "Ajouter",
     "save": "Enregistrer",
@@ -3812,7 +3819,22 @@
       "refresh": "Actualiser",
       "goBack": "Retour",
       "pass": "Carte de cours",
-      "settings": "Paramètres",
+      "settings": {
+        "general": "Général",
+        "broadcast": "Visioconférence",
+        "notificationRule": "Emails transactionnels",
+        "paymentRules": "Règles de rémunération",
+        "company": "Entreprise",
+        "invoice": "Facturation",
+        "waitingList": "Liste d'attente",
+        "shop": "Magasin",
+        "role": "Staff",
+        "personalization": "Personnalisation",
+        "webhook": "Webhook",
+        "partnership": "Partenariat",
+        "active_campaign": "ActiveCampaign",
+        "settings": "Paramètres"
+      },
       "myClub": "Mon Club",
       "subscription": "Prélèvements",
       "contract": "Contrats",

@@ -49,6 +49,7 @@ import {
   getAccount,
 } from '../../libs/active-campaign/selectors';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   loading: boolean,
@@ -118,7 +119,7 @@ export class ActiveCampaignConfiguration extends Component<Props> {
                   <div className={classes.accountInlineEdit}>
                     <Typography>
                       {`API url: ${
-                        this.props.account ? this.props.account.api_url : null
+                        this.props.account ? this.props.account.api_url : ' '
                       }`}
                     </Typography>
                     <IconButton
@@ -130,7 +131,7 @@ export class ActiveCampaignConfiguration extends Component<Props> {
                   </div>
                   <Typography className={classes.typoMargin}>
                     {`${this.props.t('active_campaign.account.token')}: ${
-                      this.props.account ? this.props.account.token : null
+                      this.props.account ? this.props.account.token : ' '
                     }`}
                   </Typography>
                   {this.props.account && this.props.errorAccountInfo >= 300 ? (
@@ -144,6 +145,17 @@ export class ActiveCampaignConfiguration extends Component<Props> {
                       </Typography>
                     </div>
                   ) : null}
+                  {!this.props.account && (
+                    <div className={classes.inlineError}>
+                      <WarningIcon
+                        className={classes.warningIcon}
+                        color="secondary"
+                      />
+                      <Typography>
+                        {t('active_campaign.account.empty')}
+                      </Typography>
+                    </div>
+                  )}
                 </div>
               }
             />
@@ -216,11 +228,13 @@ export class ActiveCampaignConfiguration extends Component<Props> {
   render() {
     const { classes } = this.props;
     if (this.props.loading) return <LinearProgress />;
+    const isdisabled = !this.props.account ? 'disabled' : null;
 
     return (
       <div className={classes.container}>
         {this.renderAccountInfos()}
         <ActiveCampaignLinks
+          disabled={isdisabled}
           onClickInfo={() => this.setState({ openListInfoModal: true })}
           onClickEdit={(link) => {
             this.props.getSmartLists();
@@ -241,6 +255,7 @@ export class ActiveCampaignConfiguration extends Component<Props> {
           activeCampaignLists={this.props.activeCampaignLists}
         />
         <ActiveCampaignWebhooks
+          disabled={isdisabled}
           onClickInfo={() => this.setState({ openWebhookInfoModal: true })}
           webhookLoading={this.state.webhookLoading}
           webhooks={this.props.webhooks}
@@ -287,12 +302,15 @@ export class ActiveCampaignConfiguration extends Component<Props> {
                   ...data,
                   company: this.props.company_id,
                 },
-                { onSuccess: (id) => this.props.getActiveCampaignLists(id) },
+                {
+                  onSuccess: (id) => this.props.getActiveCampaignLists(id),
+                },
               );
             }
           }}
           onCancel={() => this.setState({ openEditAccount: false })}
         />
+
         {this.renderAccountHelpModal()}
         {this.renderLinksHelpModal()}
         {this.renderWebhooksHelpModal()}
@@ -378,4 +396,5 @@ export default compose(
   })),
   withStyles(styles),
   withTranslation(['settings']),
+  withTitle(({ t }) => t('tab.active_campaign')),
 )(ActiveCampaignConfiguration);

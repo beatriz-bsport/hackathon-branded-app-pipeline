@@ -23,6 +23,7 @@ type Props = {
   webhookLoading: boolean,
   classes: Object,
   onClickInfo: () => void,
+  disabled: Object,
 };
 
 export function ActiveCampaignWebhooks(props: Props) {
@@ -43,6 +44,7 @@ export function ActiveCampaignWebhooks(props: Props) {
             <CircularProgress className={props.classes.circularProgress} />
           ) : (
             <Switch
+              disabled={props.disabled}
               checked={
                 !!props.webhooks.items.find(
                   (webhook) => webhook.name === 'CLIENT_WON',
@@ -56,6 +58,9 @@ export function ActiveCampaignWebhooks(props: Props) {
           )}
           <ListItemText
             primary={props.t('active_campaign.webhooks.CLIENT_WON')}
+            primaryTypographyProps={{
+              color: props.disabled ? 'default' : 'textSecondary',
+            }}
           />
         </ListItem>
         <ListItem>
@@ -64,6 +69,7 @@ export function ActiveCampaignWebhooks(props: Props) {
             <CircularProgress className={props.classes.circularProgress} />
           ) : (
             <Switch
+              disabled={props.disabled}
               checked={
                 !!props.webhooks.items.find(
                   (webhook) => webhook.name === 'CONTACT_TAG',
@@ -77,6 +83,9 @@ export function ActiveCampaignWebhooks(props: Props) {
           )}
           <ListItemText
             primary={props.t('active_campaign.webhooks.CONTACT_TAG')}
+            primaryTypographyProps={{
+              color: props.disabled ? 'default' : 'textSecondary',
+            }}
           />
         </ListItem>
       </Paper>

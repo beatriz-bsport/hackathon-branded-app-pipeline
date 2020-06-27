@@ -15,6 +15,7 @@ import {
   fetchCompanyTheme,
 } from '../../libs/theme/actions';
 import themeSelectors from '../../libs/theme/selectors';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   theme: Theme,
@@ -70,4 +71,5 @@ export default compose(
   ),
   withStyles(styles),
   withTranslation(['theme']),
+  withTitle(({ t }) => t('pageTitles.personalization')),
 )(ThemePersonalize);

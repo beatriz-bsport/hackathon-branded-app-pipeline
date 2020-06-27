@@ -29,6 +29,7 @@ import {
   emailTemplateDetail as fetchEmailDesignDetailAction,
   emailTemplatesSummaries as fetchEmailDesignList,
 } from '../../libs/email-editor/actions';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   t: TFunction,
@@ -123,6 +124,7 @@ const styles = (theme) => ({
 
 export default compose(
   withTranslation(['notificationRule']),
+  withTitle(({ t }) => t('pageTitle')),
   withStyles(styles),
   withState('previewEmailId', 'setPreviewEmailId', null),
   withState('previewEmailHtml', 'setPreviewEmailHTML', null),

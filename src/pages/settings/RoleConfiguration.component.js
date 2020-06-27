@@ -19,6 +19,7 @@ import {
 } from '../../libs/role/actions';
 import { getUsersWithRole, getPermissionsSet } from '../../libs/role/selectors';
 import type { Permission } from '../../libs/role/types';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   loading: boolean,
@@ -97,6 +98,7 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withTranslation(['role']),
+  withTitle(({ t }) => t('pageTitle')),
   connect(
     (state) => ({
       loading: state.role.loading,

@@ -1,4 +1,9 @@
 exports.default = {
+  pageTitles: {
+    broadcast: 'Visioconférence',
+    personalization: 'Personnalisation',
+    theme: 'Général',
+  },
   forms: {
     themePersonalization: {
       consumerRegularizeDebt: 'Le client peut régulariser son acompte en ligne',

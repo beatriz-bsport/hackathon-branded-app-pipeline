@@ -5,11 +5,13 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { withTranslation } from 'react-i18next';
 import WaitingListConfigurationForm from '../../libs/waiting-list/components/WaitingListConfigurationForm.component';
 import {
   fetchConfiguration,
   patchConfiguration,
 } from '../../libs/waiting-list/actions';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   fetchWaitingListConfiguration: () => void,
@@ -61,6 +63,8 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
+  withTranslation(['settings']),
+  withTitle(({ t }) => t('tab.waitingList')),
   connect(
     (state) => ({
       configuration: state.waitingList.configuration.data,

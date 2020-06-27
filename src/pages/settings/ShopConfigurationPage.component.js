@@ -18,6 +18,7 @@ import DeliveryFeeDialogForm from '../../libs/order/components/DeliveryFeeDialog
 
 import { getDeliveryFeesActive } from '../../libs/order/selectors';
 import type { DeliveryFee } from '../../libs/order/types';
+import withTitle from '../../hocs/with-title.hoc';
 
 import {
   fetchConfiguration,
@@ -127,6 +128,7 @@ const styles = (theme) => ({
 
 export default compose(
   withTranslation(['order']),
+  withTitle(({ t }) => t('pageTitle')),
   withState('openedFee', 'openEditModal', null),
   withStyles(styles),
   connect(

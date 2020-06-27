@@ -22,6 +22,7 @@ import {
 import { getAllWebhooks } from '../../libs/webhook/selectors';
 import { testWebhookUrl as testWebhookUrlAPI } from '../../libs/webhook/api';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   loading: boolean,
@@ -153,4 +154,5 @@ export default compose(
   ),
   withStyles(styles),
   withTranslation(['settings']),
+  withTitle(({ t }) => t('tab.webhook')),
 )(WebhookConfiguration);

@@ -28,6 +28,7 @@ type Props = {
 
   onClickDelete: (id: number) => void,
   activeCampaignLists: any,
+  disabled: Object,
 };
 
 export function ActiveCampaignWebhooks(props: Props) {
@@ -54,6 +55,7 @@ export function ActiveCampaignWebhooks(props: Props) {
       </Paper>
       <div className={props.classes.addButtonContainer}>
         <Button
+          disabled={props.disabled}
           onClick={() => props.onClickAdd()}
           variant="outlined"
           className={props.classes.addButton}
@@ -74,8 +76,10 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(2),
   },
-  addButton: { marginTop: theme.spacing(1) },
-  addButtonContainer: { display: 'flex', justifyContent: 'center' },
+  addButton: {
+    marginTop: theme.spacing(1),
+  },
+  addButtonContainer: { display: 'flex', justifyContent: 'start' },
 });
 
 export default compose(

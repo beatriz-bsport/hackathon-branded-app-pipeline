@@ -156,9 +156,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             selected={isActive}
             key={String(i)}
           >
-            <ListItemIcon>
-              <item.icon />
-            </ListItemIcon>
+            {item.icon ? (
+              <ListItemIcon>
+                <item.icon />
+              </ListItemIcon>
+            ) : null}
             <ListItemText
               primary={item.text}
               secondary={item.subtext}
@@ -205,12 +207,16 @@ class ResponsiveDrawer extends React.Component<Props, State> {
               item.action();
             }
           }}
+          dense={item.dense}
           selected={isActive}
           className={isNested ? classes.nestedItem : null}
         >
-          <ListItemIcon className={isNested ? classes.nestedIcon : null}>
-            <item.icon />
-          </ListItemIcon>
+          {item.icon ? (
+            <ListItemIcon className={isNested ? classes.nestedIcon : null}>
+              <item.icon />
+            </ListItemIcon>
+          ) : null}
+
           <ListItemText
             primary={item.text}
             primaryTypographyProps={{
@@ -606,9 +612,77 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       },
       'divider',
       {
-        to: '/settings/general',
         icon: SettingsIcon,
-        text: t('backofficeMenu.settings'),
+        text: t('backofficeMenu.settings.settings'),
+        type: 'nested',
+        defaultTo: '/settings/general',
+        nestedItems: [
+          {
+            to: '/settings/general',
+            dense: 'true',
+            text: t('backofficeMenu.settings.general'),
+          },
+          {
+            to: '/settings/role',
+            dense: 'true',
+            text: t('backofficeMenu.settings.role'),
+          },
+          {
+            to: '/settings/personalization',
+            dense: 'true',
+            text: t('backofficeMenu.settings.personalization'),
+          },
+          {
+            to: '/settings/broadcast',
+            dense: 'true',
+            text: t('backofficeMenu.settings.broadcast'),
+          },
+          {
+            to: '/settings/notification-rule',
+            dense: 'true',
+            text: t('backofficeMenu.settings.notificationRule'),
+          },
+          {
+            to: '/settings/payment-rules',
+            dense: 'true',
+            text: t('backofficeMenu.settings.paymentRules'),
+          },
+          {
+            to: '/settings/company',
+            dense: 'true',
+            text: t('backofficeMenu.settings.company'),
+          },
+          {
+            to: '/settings/invoice',
+            dense: 'true',
+            text: t('backofficeMenu.settings.invoice'),
+          },
+          {
+            to: '/settings/waiting-list',
+            dense: 'true',
+            text: t('backofficeMenu.settings.waitingList'),
+          },
+          {
+            to: '/settings/shop',
+            dense: 'true',
+            text: t('backofficeMenu.settings.shop'),
+          },
+          {
+            to: '/settings/webhook',
+            dense: 'true',
+            text: t('backofficeMenu.settings.webhook'),
+          },
+          {
+            to: '/settings/partnership',
+            dense: 'true',
+            text: t('backofficeMenu.settings.partnership'),
+          },
+          {
+            to: '/settings/active-campaign',
+            dense: 'true',
+            text: t('backofficeMenu.settings.active_campaign'),
+          },
+        ],
       },
       {
         action: this.props.disconnect,

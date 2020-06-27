@@ -5,11 +5,13 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { withTranslation } from 'react-i18next';
 import InvoiceConfigurationForm from '../../libs/invoice/components/InvoiceConfigurationForm.component';
 import {
   fetchInvoiceConfiguration,
   patchInvoiceConfiguration,
 } from '../../actions/invoice.actions';
+import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   fetchInvoiceConfiguration: () => void,
@@ -59,6 +61,8 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
+  withTranslation(['settings']),
+  withTitle(({ t }) => t('tab.invoice')),
   connect(
     (state) => ({
       configuration: state.invoice.configuration.result,

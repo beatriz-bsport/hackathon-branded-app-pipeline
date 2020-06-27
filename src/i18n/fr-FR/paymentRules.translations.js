@@ -1,6 +1,7 @@
 // @flow
 
 exports.default = {
+  pageTitle: 'Règles de rémunération',
   rules: 'Règles',
   add: 'Ajouter',
   save: 'Enregistrer',

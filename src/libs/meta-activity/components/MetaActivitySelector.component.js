@@ -80,7 +80,7 @@ export default withTranslation(['metaActivity'])(
       isMulti
       placeholder={t('metaActivity')}
       onChange={selectOption}
-      options={getMetaActivityOptions(metaActivities.asMutable())}
+      options={getMetaActivityOptions([...metaActivities])}
       value={
         selectedMetaActivities
           ? getMetaActivityOptions(

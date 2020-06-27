@@ -765,6 +765,9 @@ export class OfferManagement extends Component<Props, State> {
                         confirmOptionToDiscard: true,
                       });
                     }}
+                    disabled={moment(this.props.offer.date_start).isBefore(
+                      moment(),
+                    )}
                     member={this.props.members.find((m) => m.id === bo.member)}
                     onClickRegister={(e) => {
                       const member = getMemberFromId(

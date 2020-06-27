@@ -146,6 +146,7 @@ export const asConsumerActions = {
 
 export function fetchBookingOptionAsConsumer(
   company: number,
+  params: any = {},
   options: OptionCallBack,
 ) {
   return async (dispatch: Dispatch) => {
@@ -154,6 +155,7 @@ export function fetchBookingOptionAsConsumer(
     try {
       const response = await fetchFilteredBookingOptionsAPI({
         company,
+        ...params,
       });
       dispatch(asConsumerActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);

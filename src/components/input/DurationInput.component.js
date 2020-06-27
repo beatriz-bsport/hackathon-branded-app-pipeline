@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { Typography } from '@material-ui/core';
 
 const styles = () => ({
   inputText: {
@@ -19,6 +20,8 @@ type Props = {
   classes: Object,
   value: ?(number | string),
   onChange: (nbMinutes: number) => void,
+  disallowedNullDuration: Object,
+  durationError: Object,
 };
 
 const getMinutes = (totalMinutes) => {
@@ -71,70 +74,83 @@ export class DurationInput extends Component<Props> {
   };
 
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, disallowedNullDuration, durationError } = this.props;
+
     return (
-      <Grid container direction="row">
-        <Grid item>
-          <TextField
-            label="Durée"
-            className={classes.inputText}
-            defaultValue={null}
-            value={getDays(this.props.value)}
-            onChange={this.onChangeDays}
-            type="number"
-            InputProps={{
-              inputProps: {
-                min: 0,
-                max: 30,
-                style: { textAlign: 'right' },
-              },
-              endAdornment: (
-                <InputAdornment position="end">
-                  {t('common.daySmall')}
-                </InputAdornment>
-              ),
-            }}
-          />
+      <Grid direction="column">
+        <Grid container direction="row">
+          <Grid item>
+            <TextField
+              label="Duration"
+              className={classes.inputText}
+              defaultValue={null}
+              value={getDays(this.props.value)}
+              onChange={this.onChangeDays}
+              error={disallowedNullDuration}
+              type="number"
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                  max: 30,
+                  style: { textAlign: 'right' },
+                },
+                endAdornment: (
+                  <InputAdornment position="end">
+                    {t('common.daySmall')}
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              label=" "
+              className={classes.inputText}
+              defaultValue={null}
+              value={getHours(this.props.value)}
+              onChange={this.onChangeHours}
+              error={disallowedNullDuration}
+              type="number"
+              InputProps={{
+                inputProps: {
+                  min: 0,
+                  max: 59,
+                  style: { textAlign: 'right' },
+                },
+                endAdornment: (
+                  <InputAdornment position="end">
+                    {t('common.hourSmall')}
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              label=" "
+              className={classes.inputText}
+              defaultValue={0}
+              value={getMinutes(this.props.value)}
+              error={disallowedNullDuration}
+              onChange={this.onChangeMinutes}
+              type="number"
+              InputProps={{
+                inputProps: { min: 0, max: 59, style: { textAlign: 'right' } },
+                endAdornment: (
+                  <InputAdornment position="end">
+                    {t('common.minuteSmall')}
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
         </Grid>
         <Grid item>
-          <TextField
-            label=" "
-            className={classes.inputText}
-            defaultValue={null}
-            value={getHours(this.props.value)}
-            onChange={this.onChangeHours}
-            type="number"
-            InputProps={{
-              inputProps: {
-                min: 0,
-                max: 59,
-                style: { textAlign: 'right' },
-              },
-              endAdornment: (
-                <InputAdornment position="end">
-                  {t('common.hourSmall')}
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            label=" "
-            className={classes.inputText}
-            defaultValue={0}
-            value={getMinutes(this.props.value)}
-            onChange={this.onChangeMinutes}
-            type="number"
-            InputProps={{
-              inputProps: { min: 0, max: 59, style: { textAlign: 'right' } },
-              endAdornment: (
-                <InputAdornment position="end">
-                  {t('common.minuteSmall')}
-                </InputAdornment>
-              ),
-            }}
-          />
+          {disallowedNullDuration ? (
+            <Typography color="error" variant="caption">
+              {durationError}
+            </Typography>
+          ) : null}
         </Grid>
       </Grid>
     );

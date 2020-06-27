@@ -9,6 +9,7 @@ import Radio from '@material-ui/core/Radio';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Button from '@material-ui/core/Button';
+import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -113,9 +114,14 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
 
   renderUnorderedForm = () => {
     return (
-      <Typography color="textSecondary" variant="caption">
-        {this.props.t(`form.dynamic.${WAITING_LIST_DYNAMIC_UNORDERED}.explain`)}
-      </Typography>
+      <div className={this.props.classes.row}>
+        <InfoOutlineIcon className={this.props.classes.leftIcon} />
+        <Typography color="textSecondary">
+          {this.props.t(
+            `form.dynamic.${WAITING_LIST_DYNAMIC_UNORDERED}.explain`,
+          )}
+        </Typography>
+      </div>
     );
   };
 
@@ -127,51 +133,52 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
     } = this.computeExample();
     return (
       <div>
-        <Typography color="textSecondary" variant="caption">
-          {t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.explain`)}
-        </Typography>
+        <div className={classes.row}>
+          <InfoOutlineIcon className={classes.leftIcon} />
+          <Typography color="textSecondary">
+            {t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.explain`)}
+          </Typography>
+        </div>
+        <div className={classes.field}>
+          <NumericInput
+            helperText={t('form.autokick_delay.helper')}
+            label={t('form.autokick_delay.label')}
+            fullWidth={false}
+            value={this.state.configuration.autokick_delay}
+            InputProps={{
+              inputProps: { min: 1, step: 1, max: 100 },
+            }}
+            onChange={(ev) =>
+              this.handleChange('autokick_delay')(parseInt(ev.target.value, 10))
+            }
+          />
+        </div>
+        <div className={classes.field}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.configuration.auto_consume_pack}
+                onChange={(event) =>
+                  this.handleChange('auto_consume_pack')(event.target.checked)
+                }
+                value={this.state.configuration.auto_consume_pack}
+              />
+            }
+            label={t('form.auto_consume_pack.label')}
+          />
+          <Typography
+            variant="caption"
+            className={classes.helperText}
+            color="textSecondary"
+          >
+            {t('form.auto_consume_pack.helper')}
+          </Typography>
+        </div>
+        <div className={classes.divider} />
         <fieldset className={classes.column}>
           <legend>
-            {t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.settings`)}
+            {t(`form.dynamic.${WAITING_LIST_DYNAMIC_ORDERED}.settingsDelay`)}
           </legend>
-          <div className={classes.field}>
-            <NumericInput
-              helperText={t('form.autokick_delay.helper')}
-              label={t('form.autokick_delay.label')}
-              fullWidth={false}
-              value={this.state.configuration.autokick_delay}
-              InputProps={{
-                inputProps: { min: 1, step: 1, max: 100 },
-              }}
-              onChange={(ev) =>
-                this.handleChange('autokick_delay')(
-                  parseInt(ev.target.value, 10),
-                )
-              }
-            />
-          </div>
-          <div className={classes.field}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.state.configuration.auto_consume_pack}
-                  onChange={(event) =>
-                    this.handleChange('auto_consume_pack')(event.target.checked)
-                  }
-                  value={this.state.configuration.auto_consume_pack}
-                />
-              }
-              label={t('form.auto_consume_pack.label')}
-            />
-            <Typography
-              variant="caption"
-              className={classes.helperText}
-              color="textSecondary"
-            >
-              {t('form.auto_consume_pack.helper')}
-            </Typography>
-          </div>
-          <div className={classes.divider} />
           <div className={classes.field}>
             <FormControlLabel
               control={
@@ -191,24 +198,6 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
                 />
               }
               label={t('form.dumb_delay_minutes.label')}
-            />
-            <NumericInput
-              helperText={t('form.smart_delay_percentage.helper')}
-              fullWidth={false}
-              value={this.state.configuration.smart_delay_percentage}
-              InputProps={{
-                inputProps: { min: 10, step: 1, max: 100 },
-                endAdornment: <InputAdornment position="end">%</InputAdornment>,
-              }}
-              disabled={
-                this.state.configuration.auto_cancellation_type ===
-                WAITING_LIST_AUTO_CANCELLATION_DUMB.id
-              }
-              onChange={(ev) =>
-                this.handleChange('smart_delay_percentage')(
-                  parseInt(ev.target.value, 10),
-                )
-              }
             />
             <NumericInput
               helperText={t('form.dumb_delay_minutes.helper')}
@@ -285,9 +274,6 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
     return (
       <form onSubmit={this.onSubmit} className={classes.root}>
         <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">
-            {t('form.auto_cancellation_type.title')}
-          </FormLabel>
           <div className={classes.field}>
             <FormControlLabel
               control={
@@ -312,7 +298,8 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
             </Typography>
           </div>
 
-          <div className={classes.field}>
+          <FormControl className={classes.field} component="fieldset">
+            <FormLabel component="div">{t('form.dynamic.label')}</FormLabel>
             <RadioGroup
               onChange={(ev) =>
                 this.handleChange('dynamic')(parseInt(ev.target.value, 10))
@@ -337,22 +324,25 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
                 labelPlacement="right"
               />
             </RadioGroup>
+          </FormControl>
+          <div className={classes.settingsInner}>
+            <Collapse
+              in={
+                this.state.configuration.dynamic ===
+                WAITING_LIST_DYNAMIC_ORDERED
+              }
+            >
+              {this.renderOrderedForm()}
+            </Collapse>
+            <Collapse
+              in={
+                this.state.configuration.dynamic ===
+                WAITING_LIST_DYNAMIC_UNORDERED
+              }
+            >
+              {this.renderUnorderedForm()}
+            </Collapse>
           </div>
-          <Collapse
-            in={
-              this.state.configuration.dynamic === WAITING_LIST_DYNAMIC_ORDERED
-            }
-          >
-            {this.renderOrderedForm()}
-          </Collapse>
-          <Collapse
-            in={
-              this.state.configuration.dynamic ===
-              WAITING_LIST_DYNAMIC_UNORDERED
-            }
-          >
-            {this.renderUnorderedForm()}
-          </Collapse>
         </FormControl>
         <Button
           variant="contained"
@@ -389,13 +379,28 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(2),
   },
   field: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
   },
   helperText: {
     marginTop: theme.spacing(-1),
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing(3),
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1),
+  },
+  settingsInner: {
+    backgroundColor: '#F3F3F3',
+    borderRadius: theme.spacing(2),
+    border: '1px solid #F3F3F3',
+    padding: theme.spacing(2),
   },
 });
 

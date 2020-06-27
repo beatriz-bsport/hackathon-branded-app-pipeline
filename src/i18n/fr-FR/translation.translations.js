@@ -168,6 +168,8 @@ exports.default = {
       'Possède les cartes suivantes, non-compatible avec cette séance :',
     noConsumerPackAvailableForPurchase:
       'Aucune carte de cours compatible possédée par ce membre !',
+    noEmptyDuration: 'La durée doit être strictement positive',
+
     backToCalendar: 'Calendrier',
     previousOffer: 'Séance précédente',
     nextOffer: 'Séance suivante',
@@ -204,6 +206,11 @@ exports.default = {
   },
   form: {
     waiting_list_max_size: "Taille de la liste d'attente",
+    noAvailableCredit:
+      "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
+    warningCreditChange:
+      'NB : Les réservations anciennes ne prennent pas en compte les modifications des crédits',
+
     address: {
       streetNumber: 'N°',
       addressLine1: 'Adresse',

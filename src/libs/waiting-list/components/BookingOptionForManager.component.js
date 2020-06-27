@@ -26,16 +26,20 @@ type Props = {
   onDiscard: () => void,
   classes: any,
   onClickRegister: () => void,
+  disabled: boolean,
 };
 
 export class BookingOptionForManager extends Component<Props> {
   renderButton = () => (
     <React.Fragment>
-      <Button variant="outlined" disabled>
+      <Button disabled={this.props.disabled} variant="outlined">
         {this.props.t('booking.onHold')}
       </Button>
       {this.props.onDiscard ? (
-        <IconButton onClick={this.props.onDiscard}>
+        <IconButton
+          disabled={this.props.disabled}
+          onClick={this.props.onDiscard}
+        >
           <CancelIcon />
         </IconButton>
       ) : null}
@@ -96,6 +100,7 @@ export class BookingOptionForManager extends Component<Props> {
           variant="outlined"
           onClick={onClickRegister}
           className={classes.addButton}
+          disabled={this.props.disabled}
         >
           <AddIcon />
           {t('booking.add')}

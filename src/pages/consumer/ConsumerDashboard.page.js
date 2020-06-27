@@ -127,7 +127,9 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
     this.props.fetchEstablishmentFavorite(this.props.membership.company);
     this.props.fetchMetaActivityFavorite(this.props.membership.company);
 
-    this.props.fetchBookingOptionAsConsumer(this.props.membership.company);
+    this.props.fetchBookingOptionAsConsumer(this.props.membership.company, {
+      min_date: moment().format('YYYY-MM-DD'),
+    });
   }
 
   render() {

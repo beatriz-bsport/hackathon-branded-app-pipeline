@@ -10,6 +10,7 @@ exports.default = {
   nbConvertible: '{{ nbConvertible }} en attente de confirmation',
   form: {
     dynamic: {
+      label: "Gestion des priorité de la liste d'attente",
       [WAITING_LIST_DYNAMIC_UNORDERED]: {
         label: 'Premier arrivé premier servi',
         explain:
@@ -17,9 +18,9 @@ exports.default = {
       },
       [WAITING_LIST_DYNAMIC_ORDERED]: {
         label: 'Chacun son tour',
-        settings: 'Paramètres',
+        settingsDelay: "Délai pour s'inscrire",
         explain:
-          "Lorsqu'un membre s'inscrit, une place dans la liste d'attente lui est accordée. Lorsqu'une place est disponible Le premier inscrit sur liste peut s'inscrire, les autres attendent leur tour",
+          "Lorsqu'un membre s'inscrit, une place dans la liste d'attente lui est accordée. Lorsqu'une place est disponible le premier inscrit sur liste peut s'inscrire, les autres attendent leur tour",
       },
     },
     autokick_delay: {

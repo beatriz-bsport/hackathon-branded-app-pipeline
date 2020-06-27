@@ -180,6 +180,8 @@ export class FormField extends Component<Props, State> {
       disabled,
       type,
       name,
+      disallowedCredits,
+      creditError,
       defaultValue,
     } = this.props;
     const { value, error, selectedDate } = this.state;
@@ -203,7 +205,6 @@ export class FormField extends Component<Props, State> {
       case 'default_credits':
       case 'price':
       case 'title':
-      case 'credits':
       case 'effectif':
       case 'waiting_list_max_size':
       case 'password':
@@ -224,6 +225,27 @@ export class FormField extends Component<Props, State> {
             type={type}
           />
         );
+      case 'credits':
+        return (
+          <div>
+            <TextField
+              className={classes.textInput}
+              required={required}
+              value={value}
+              id={id}
+              name={name}
+              label={t(`form.${id}`)}
+              onChange={this.handleChange}
+              error={disallowedCredits}
+              multiline={multiline}
+              fullWidth={fullWidth}
+              InputProps={InputProps}
+              type={type}
+              helperText={disallowedCredits ? creditError : null}
+            />
+          </div>
+        );
+
       case 'specific_info':
         return (
           <TextField

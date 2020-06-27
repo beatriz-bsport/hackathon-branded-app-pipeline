@@ -140,6 +140,7 @@
       "noPackAvailableForOfferPurchase": "Aucune carte de cours compatible avec cette séance !",
       "noncompatibleConsumerPaymentPacksAre": "Possède les cartes suivantes, non-compatible avec cette séance :",
       "noConsumerPackAvailableForPurchase": "Aucune carte de cours compatible possédée par ce membre !",
+      "noEmptyDuration": "La durée doit être strictement positive",
       "backToCalendar": "Calendrier",
       "previousOffer": "Séance précédente",
       "nextOffer": "Séance suivante",
@@ -174,6 +175,8 @@
     },
     "form": {
       "waiting_list_max_size": "Taille de la liste d'attente",
+      "noAvailableCredit": "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
+      "warningCreditChange": "NB : Les réservations anciennes ne prennent pas en compte les modifications des crédits",
       "address": {
         "streetNumber": "N°",
         "addressLine1": "Adresse",
@@ -1905,13 +1908,14 @@
       "dynamic": {
         "0": {
           "label": "Chacun son tour",
-          "settings": "Paramètres",
-          "explain": "Lorsqu'un membre s'inscrit, une place dans la liste d'attente lui est accordée. Lorsqu'une place est disponible Le premier inscrit sur liste peut s'inscrire, les autres attendent leur tour"
+          "settingsDelay": "Délai pour s'inscrire",
+          "explain": "Lorsqu'un membre s'inscrit, une place dans la liste d'attente lui est accordée. Lorsqu'une place est disponible le premier inscrit sur liste peut s'inscrire, les autres attendent leur tour"
         },
         "1": {
           "label": "Premier arrivé premier servi",
           "explain": "La liste d'attente n'est pas ordonnée. Lorsqu'une place est disponible toutes les personnes sur liste reçoivent au même moment un email les invitant à s'inscrire."
-        }
+        },
+        "label": "Gestion des priorité de la liste d'attente"
       },
       "autokick_delay": {
         "label": "Retrait automatique de la liste d'attente",

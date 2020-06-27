@@ -262,6 +262,10 @@ export class EditLiveOfferForm extends Component<Props, State> {
 
   hasChangedLevel = () => this.state.level !== this.initialOfferState.level;
 
+  hasChangedCredit = () =>
+    this.state.credit_price_override !==
+    this.initialOfferState.credit_price_override;
+
   hasChangedEstablishment = () =>
     this.state.establishment !== this.initialOfferState.establishment;
 
@@ -314,250 +318,278 @@ export class EditLiveOfferForm extends Component<Props, State> {
 
   renderBilling = () => null;
 
-  renderChangeForm = () => (
-    <div className={this.props.classes.container}>
-      <div className={this.props.classes.fieldGroup}>
-        <Typography variant="subtitle2">
-          {this.props.t('form.caracteristics')}
-        </Typography>
-        <div className={this.props.classes.groupContainer}>
-          <div className={this.props.classes.borderBar} />
-          <div className={this.props.classes.columnFullWidth}>
-            {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ? (
+  renderChangeForm = () => {
+    const hasErrorCredit =
+      parseInt(this.state.credit_price_override, 10) === 0 ||
+      this.state.credit_price_override > 4;
+    return (
+      <div className={this.props.classes.container}>
+        <div className={this.props.classes.fieldGroup}>
+          <Typography variant="subtitle2">
+            {this.props.t('form.caracteristics')}
+          </Typography>
+          <div className={this.props.classes.groupContainer}>
+            <div className={this.props.classes.borderBar} />
+            <div className={this.props.classes.columnFullWidth}>
+              {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ? (
+                <div className={this.props.classes.field}>
+                  <MetaActivitySelector
+                    metaActivities={this.props.metaActivities || []}
+                    value={(this.props.metaActivities || []).find(
+                      (ma) => ma.id === this.props.offer.meta_activity,
+                    )}
+                  />
+                </div>
+              ) : null}
               <div className={this.props.classes.field}>
-                <MetaActivitySelector
-                  metaActivities={this.props.metaActivities || []}
-                  value={this.props.metaActivities.find(
-                    (ma) => ma.id === this.props.offer.meta_activity,
-                  )}
+                <NumericInput
+                  required
+                  fullWidth
+                  label={this.props.t('offer.effectif')}
+                  value={this.state.effectif}
+                  onChange={(event) =>
+                    this.onFormFieldChange('effectif')(event.target.value)
+                  }
                 />
               </div>
-            ) : null}
-            <div className={this.props.classes.field}>
-              <NumericInput
-                required
-                fullWidth
-                label={this.props.t('offer.effectif')}
-                value={this.state.effectif}
-                onChange={(event) =>
-                  this.onFormFieldChange('effectif')(event.target.value)
-                }
-              />
-            </div>
-            <div className={this.props.classes.field}>
-              <NumericInput
-                required
-                fullWidth
-                value={this.state.waiting_list_max_size}
-                label={this.props.t('offer.sizeOfWaitingList')}
-                onChange={(event) =>
-                  this.onFormFieldChange('waiting_list_max_size')(
-                    event.target.value,
-                  )
-                }
-              />
-            </div>
-            <div className={this.props.classes.field}>
-              <NumericInput
-                required
-                fullWidth
-                label={this.props.t('form.credit_price')}
-                value={this.state.credit_price_override}
-                onChange={(event) =>
-                  this.onFormFieldChange('credit_price_override')(
-                    event.target.value,
-                  )
-                }
-              />
-            </div>
-            {Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
-              <div className={this.props.classes.fieldLeft}>
-                <Checkbox label={this.props.t('blockBooking')} />
+              <div className={this.props.classes.field}>
+                <NumericInput
+                  required
+                  fullWidth
+                  value={this.state.waiting_list_max_size}
+                  label={this.props.t('offer.sizeOfWaitingList')}
+                  onChange={(event) =>
+                    this.onFormFieldChange('waiting_list_max_size')(
+                      event.target.value,
+                    )
+                  }
+                />
               </div>
-            ) : null}
-            <div className={this.props.classes.fieldLeft}>
-              <LevelInput
-                required
-                value={this.state.level}
-                onChange={(e) =>
-                  parseInt(this.onFormFieldChange('level')(e.target.value), 10)
-                }
+              <div className={this.props.classes.field}>
+                <NumericInput
+                  required
+                  fullWidth
+                  label={this.props.t('form.credit_price')}
+                  value={this.state.credit_price_override}
+                  error={hasErrorCredit}
+                  onChange={(event) =>
+                    this.onFormFieldChange('credit_price_override')(
+                      event.target.value,
+                    )
+                  }
+                />
+              </div>
+              {hasErrorCredit ? (
+                <Typography color="error" variant="caption">
+                  {this.props.t('form.noAvailableCredit')}
+                </Typography>
+              ) : null}
+              {this.hasChangedCredit() ? (
+                <Typography color="error" variant="caption">
+                  {this.props.t('form.warningCreditChange')}
+                </Typography>
+              ) : null}
+              {Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
+                <div className={this.props.classes.fieldLeft}>
+                  <Checkbox label="Bloquer la réservation aux cartes de cours nouveaux clients" />
+                </div>
+              ) : null}
+              <div className={this.props.classes.fieldLeft}>
+                <LevelInput
+                  required
+                  value={this.state.level}
+                  onChange={(e) =>
+                    parseInt(
+                      this.onFormFieldChange('level')(e.target.value),
+                      10,
+                    )
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          {this.state.level !== this.initialOfferState.level ? (
+            <div className={this.props.classes.field}>
+              <WarningForceRecursion
+                text={this.props.t('form.offer.levelChangeWarning')}
               />
+            </div>
+          ) : null}
+        </div>
+        <div className={this.props.classes.fieldGroup}>
+          {this.renderBilling()}
+        </div>
+        <div className={this.props.classes.fieldGroup}>
+          <Typography variant="subtitle2">
+            {this.props.t('form.timeSettings')}
+          </Typography>
+          <div className={this.props.classes.groupContainer}>
+            <div className={this.props.classes.borderBar} />
+            <div>
+              <div className={this.props.classes.field}>
+                <DateTimeForm
+                  date={this.state.date}
+                  hour={this.state.hour}
+                  onFormFieldChange={this.onFormFieldChange}
+                />
+              </div>
+              <div className={this.props.classes.field}>
+                <DurationInput
+                  required
+                  value={this.state.duration_minute}
+                  disallowedNullDuration={this.state.duration_minute === 0}
+                  durationError={this.props.t('offer.noEmptyDuration')}
+                  onChange={(e) => {
+                    this.onFormFieldChange('duration_minute')(e || 0);
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
-        {this.state.level !== this.initialOfferState.level ? (
-          <div className={this.props.classes.field}>
-            <WarningForceRecursion
-              text={this.props.t('form.offer.levelChangeWarning')}
+        <div className={this.props.classes.fieldGroup}>
+          <Typography variant="subtitle2">
+            {this.props.t('coach:coach')}
+          </Typography>
+          <div className={this.props.classes.groupContainer}>
+            <div className={this.props.classes.borderBar} />
+            <CoachSubForm
+              coaches={this.props.coaches}
+              coach={this.props.coaches.find((c) => c.id === this.state.coach)}
+              coach_override={this.props.coaches.find(
+                (c) => c.id === this.state.coach_override,
+              )}
+              coachs_override={this.props.coaches.filter(
+                (c) => c.id !== this.state.coach,
+              )}
+              offer={this.props.offer}
+              hasChangedCoach={this.hasChangedCoach()}
+              onChangeCoach={(coach) =>
+                this.onFormFieldChange('coach')(coach ? coach.id : null)
+              }
+              onChangeCoachOverride={(coach) =>
+                this.onFormFieldChange('coach_override')(
+                  coach ? coach.id : null,
+                )
+              }
+              onDeleteCoachSubstitute={() =>
+                this.setState({ coach_override: null })
+              }
             />
           </div>
-        ) : null}
-      </div>
-      <div className={this.props.classes.fieldGroup}>
-        {this.renderBilling()}
-      </div>
-      <div className={this.props.classes.fieldGroup}>
-        <Typography variant="subtitle2">
-          {this.props.t('form.timeSettings')}
-        </Typography>
-        <div className={this.props.classes.groupContainer}>
-          <div className={this.props.classes.borderBar} />
-          <div>
-            <div className={this.props.classes.field}>
-              <DateTimeForm
-                date={this.state.date}
-                hour={this.state.hour}
-                onFormFieldChange={this.onFormFieldChange}
-              />
-            </div>
-            <div className={this.props.classes.field}>
-              <DurationInput
-                required
-                value={this.state.duration_minute}
-                onChange={(e) => {
-                  this.onFormFieldChange('duration_minute')(e || 0);
-                }}
-              />
-            </div>
+        </div>
+        <div className={this.props.classes.fieldGroup}>
+          <Typography variant="subtitle2">
+            {this.props.t('establishment:establishment')}
+          </Typography>
+          <div className={this.props.classes.groupContainer}>
+            <div className={this.props.classes.borderBar} />
+            <EstablishmentSubForm
+              required
+              onChangeEstablishment={(establishment) =>
+                this.onFormFieldChange('establishment')(
+                  establishment ? establishment.id : null,
+                )
+              }
+              onChangeEstablishmentOverride={(establishment) =>
+                this.onFormFieldChange('establishment_override')(
+                  establishment ? establishment.id : null,
+                )
+              }
+              establishment={this.props.establishments.find(
+                (es) => es.id === this.state.establishment,
+              )}
+              establishments={this.props.establishments}
+              establishments_override={this.props.establishments.filter(
+                (e) =>
+                  e.id !==
+                  (this.state.establishment ||
+                    this.props.offer.establishment.id),
+              )}
+              establishment_override={this.props.establishments.find(
+                (es) => es.id === this.state.establishment_override,
+              )}
+              offer={this.props.offer}
+              hasChangedEstablishment={this.hasChangedEstablishment()}
+            />
           </div>
         </div>
-      </div>
-      <div className={this.props.classes.fieldGroup}>
-        <Typography variant="subtitle2">
-          {this.props.t('coach:coach')}
-        </Typography>
-        <div className={this.props.classes.groupContainer}>
-          <div className={this.props.classes.borderBar} />
-          <CoachSubForm
-            coaches={this.props.coaches}
-            coach={this.props.coaches.find((c) => c.id === this.state.coach)}
-            coach_override={this.props.coaches.find(
-              (c) => c.id === this.state.coach_override,
-            )}
-            coachs_override={this.props.coaches.filter(
-              (c) => c.id !== this.state.coach,
-            )}
-            offer={this.props.offer}
-            hasChangedCoach={this.hasChangedCoach()}
-            onChangeCoach={(coach) =>
-              this.onFormFieldChange('coach')(coach ? coach.id : null)
-            }
-            onChangeCoachOverride={(coach) =>
-              this.onFormFieldChange('coach_override')(coach ? coach.id : null)
-            }
-            onDeleteCoachSubstitute={() =>
-              this.setState({ coach_override: null })
-            }
-          />
-        </div>
-      </div>
-      <div className={this.props.classes.fieldGroup}>
-        <Typography variant="subtitle2">
-          {this.props.t('establishment:establishment')}
-        </Typography>
-        <div className={this.props.classes.groupContainer}>
-          <div className={this.props.classes.borderBar} />
-          <EstablishmentSubForm
-            required
-            onChangeEstablishment={(establishment) =>
-              this.onFormFieldChange('establishment')(
-                establishment ? establishment.id : null,
-              )
-            }
-            onChangeEstablishmentOverride={(establishment) =>
-              this.onFormFieldChange('establishment_override')(
-                establishment ? establishment.id : null,
-              )
-            }
-            establishment={this.props.establishments.find(
-              (es) => es.id === this.state.establishment,
-            )}
-            establishments={this.props.establishments}
-            establishments_override={this.props.establishments.filter(
-              (e) =>
-                e.id !==
-                (this.state.establishment || this.props.offer.establishment.id),
-            )}
-            establishment_override={this.props.establishments.find(
-              (es) => es.id === this.state.establishment_override,
-            )}
-            offer={this.props.offer}
-            hasChangedEstablishment={this.hasChangedEstablishment()}
-          />
-        </div>
-      </div>
-      {this.props.offer &&
-      this.props.offer.meta_activity &&
-      this.props.offer.meta_activity.is_broadcast &&
-      !this.props.is_whereby_integration_enabled ? (
+        {this.props.offer &&
+        this.props.offer.meta_activity &&
+        this.props.offer.meta_activity.is_broadcast &&
+        !this.props.is_whereby_integration_enabled ? (
+          <div className={this.props.classes.fieldGroup}>
+            {(() => {
+              const hasError =
+                this.state.broadcast_link &&
+                (!this.state.broadcast_link.startsWith('https://') &&
+                  !this.state.broadcast_link.startsWith('http://'));
+              return (
+                <TextField
+                  variant="outlined"
+                  error={hasError}
+                  value={this.state.broadcast_link}
+                  label={this.props.t('offer.broadcast_link')}
+                  helperText={
+                    hasError
+                      ? this.props.t('form.offer.broadcast_link.error')
+                      : null
+                  }
+                  placeholder="https://zoom.us/123456789"
+                  onChange={(event) => {
+                    this.onFormFieldChange('broadcast_link')(
+                      event.target.value,
+                    );
+                  }}
+                  fullWidth
+                />
+              );
+            })()}
+          </div>
+        ) : null}
         <div className={this.props.classes.fieldGroup}>
-          {(() => {
-            const hasError =
-              this.state.broadcast_link &&
-              (!this.state.broadcast_link.startsWith('https://') &&
-                !this.state.broadcast_link.startsWith('http://'));
-            return (
-              <TextField
-                variant="outlined"
-                error={hasError}
-                value={this.state.broadcast_link}
-                label={this.props.t('offer.broadcast_link')}
-                helperText={
-                  hasError
-                    ? this.props.t('form.offer.broadcast_link.error')
-                    : null
-                }
-                placeholder="https://zoom.us/123456789"
-                onChange={(event) => {
-                  this.onFormFieldChange('broadcast_link')(event.target.value);
-                }}
-                fullWidth
-              />
-            );
-          })()}
+          <div className={this.props.classes.field}>
+            <NotificationToogle
+              notifyConsumers={this.state.notifyConsumers}
+              onNotificationChange={(notifyConsumers) =>
+                this.setState({ notifyConsumers })
+              }
+            />
+          </div>
+          <div className={this.props.classes.field}>
+            <RecursionToogle
+              loading={this.props.similarOfferLoading}
+              similarOffers={this.props.similarOffers.filter(
+                (o) => o.available,
+              )}
+              message={this.props.t('form.offer.explainRecursiveOfferEdit')}
+              listTitle={this.props.t('offer.offersPendingChange')}
+              shouldModifyAllDates={this.shouldModifyAllDates()}
+              dateTimeDiff={Moment(
+                `${pad(this.state.date.date())}/${pad(
+                  this.state.date.month() + 1,
+                )}/${pad(this.state.date.year())} ${pad(
+                  Moment(this.state.hour, 'HH:mm').hour(),
+                )}:${pad(Moment(this.state.hour, 'HH:mm').minute())}`,
+                'DD/MM/YYYY hh:mm',
+              ).diff(this.initialOfferState.date_start)}
+              disabled={
+                this.hasChangedCoach() ||
+                this.hasChangedEstablishment() ||
+                this.hasChangedLevel()
+              }
+              onChangeRecursion={() =>
+                this.setState((prevState) => ({
+                  modifyRecursively: !prevState.modifyRecursively,
+                }))
+              }
+            />
+          </div>
+          {this.renderNextStepButton()}
         </div>
-      ) : null}
-      <div className={this.props.classes.fieldGroup}>
-        <div className={this.props.classes.field}>
-          <NotificationToogle
-            notifyConsumers={this.state.notifyConsumers}
-            onNotificationChange={(notifyConsumers) =>
-              this.setState({ notifyConsumers })
-            }
-          />
-        </div>
-        <div className={this.props.classes.field}>
-          <RecursionToogle
-            loading={this.props.similarOfferLoading}
-            similarOffers={this.props.similarOffers.filter((o) => o.available)}
-            message={this.props.t('form.offer.explainRecursiveOfferEdit')}
-            listTitle={this.props.t('offer.offersPendingChange')}
-            shouldModifyAllDates={this.shouldModifyAllDates()}
-            dateTimeDiff={Moment(
-              `${pad(this.state.date.date())}/${pad(
-                this.state.date.month() + 1,
-              )}/${pad(this.state.date.year())} ${pad(
-                Moment(this.state.hour, 'HH:mm').hour(),
-              )}:${pad(Moment(this.state.hour, 'HH:mm').minute())}`,
-              'DD/MM/YYYY hh:mm',
-            ).diff(this.initialOfferState.date_start)}
-            disabled={
-              this.hasChangedCoach() ||
-              this.hasChangedEstablishment() ||
-              this.hasChangedLevel()
-            }
-            onChangeRecursion={() =>
-              this.setState((prevState) => ({
-                modifyRecursively: !prevState.modifyRecursively,
-              }))
-            }
-          />
-        </div>
-        {this.renderNextStepButton()}
       </div>
-    </div>
-  );
+    );
+  };
 
   renderConfirmChange = () => (
     <Grid container direction="column" spacing={4}>

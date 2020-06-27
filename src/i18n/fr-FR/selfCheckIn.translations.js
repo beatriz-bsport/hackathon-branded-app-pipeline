@@ -1,8 +1,8 @@
 exports.default = {
   offerStatus: {
-    hasEnded: 'Terminé',
-    startIn: 'Débute dans ',
-    inProgress: 'En cours ',
+    hasEnded: 'Terminé depuis',
+    startIn: 'commence dans ',
+    inProgress: 'a commencé depuis',
   },
   addMember: {
     button: 'Créer un compte',

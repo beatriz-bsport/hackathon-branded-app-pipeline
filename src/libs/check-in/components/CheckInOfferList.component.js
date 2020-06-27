@@ -12,14 +12,15 @@ import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
 import Fab from '@material-ui/core/Fab';
 import RefreshIcon from '@material-ui/icons/Refresh';
-
+import Immutable from 'seamless-immutable';
 import Moment from 'moment-timezone';
 
 import Countdown from '../../../components/Countdown.component';
 import OfferItemBase from '../../offer/components/OfferListItem.component';
 
+import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+
 const OFFERS_REFRESH_DURATION = 1000 * 60 * 10;
-const COUNTDOWN_REFRECH_DURATION = 1000;
 
 type Props = {
   classes: any,
@@ -28,10 +29,10 @@ type Props = {
   offersLoading: boolean,
   onOfferSelected: (offerId: number) => void,
   refreshData: () => void,
-};
-
-type State = {
-  currentTime: Moment,
+  offerFilters: OfferFilter,
+  establishments: Array<Establishment>,
+  setFilters: (OfferFilter) => null,
+  setOpen: () => null,
 };
 
 const offerListItemStyle = () => {
@@ -49,7 +50,16 @@ const offerListItemStyle = () => {
 
 const OfferListItem = withTranslation(['selfCheckIn'])(
   withStyles(offerListItemStyle)((props) => {
+    // dates : start, end and moment
     const momentDate = Moment();
+    const dateStart = Moment(props.offer.date_start);
+    const dateEnd = Moment(props.offer.date_start).add(
+      props.offer.duration_minute,
+      'minutes',
+    );
+
+    // boolean : if the activity has started yet or is in progress
+    const notStartedYet = !!momentDate.isBefore(Moment(props.offer.date_start));
     const inProgress = !!momentDate.isBetween(
       Moment(props.offer.date_start),
       Moment(props.offer.date_start).add(
@@ -57,12 +67,23 @@ const OfferListItem = withTranslation(['selfCheckIn'])(
         'minutes',
       ),
     );
-    const timeTillDate = inProgress
-      ? Moment(props.offer.date_start)
-          .add(props.offer.duration_minute, 'minutes')
-          .format()
-      : Moment(props.offer.date_start).format();
+
+    // Color  and time Status
     const color = inProgress ? 'primary' : 'secondary';
+    const notInProgress = notStartedYet ? 'startIn' : 'hasEnded';
+    const timeState = inProgress ? 'inProgress' : notInProgress;
+
+    // time To show in the interface
+    const timeToShowInProgress = momentDate.diff(dateStart, 'seconds');
+    const timeToShowNotStartedYet = dateStart.diff(momentDate, 'seconds');
+    const timeToShowFinished = momentDate.diff(dateEnd, 'seconds');
+    const timeToShowNotInProgress = notStartedYet
+      ? timeToShowNotStartedYet
+      : timeToShowFinished;
+    const timeToShow = inProgress
+      ? timeToShowInProgress
+      : timeToShowNotInProgress;
+
     return (
       <OfferItemBase
         offer={props.offer}
@@ -70,15 +91,16 @@ const OfferListItem = withTranslation(['selfCheckIn'])(
         rightAction={
           <React.Fragment>
             <div className={props.classes.offerStatus}>
-              <Typography variant="button" color="textSecondary">
-                {props.t(
-                  `offerStatus.${inProgress ? 'inProgress' : 'startIn'}`,
-                )}
+              <Typography
+                variant="button"
+                color={notStartedYet || inProgress ? 'textSecondary' : 'error'}
+              >
+                {props.t(`offerStatus.${timeState}`)}
               </Typography>
             </div>
             <div className={props.classes.CountdownWrapper}>
               <Countdown
-                timeTillDate={timeTillDate}
+                timeToShow={timeToShow}
                 currentTime={props.currentTime}
                 color={color}
               />
@@ -95,18 +117,12 @@ export class CheckInOfferList extends Component<Props, State> {
 
   countdownInterval: any;
 
-  state = {
-    currentTime: Moment().format(),
-  };
-
   componentDidMount() {
     this.refreshInterval = setInterval(() => {
       this.props.refreshData();
     }, OFFERS_REFRESH_DURATION);
 
-    this.countdownInterval = setInterval(() => {
-      this.setState({ currentTime: Moment().format() });
-    }, COUNTDOWN_REFRECH_DURATION);
+    this.props.setOpen(true);
   }
 
   componentWillUnmount() {
@@ -121,11 +137,23 @@ export class CheckInOfferList extends Component<Props, State> {
       return <LinearProgress />;
     }
 
-    const { currentTime } = this.state;
+    const establishmentList = this.props.establishments;
+
     return (
       <div className={classes.rootContainer}>
         <div className={classes.header}>
-          <div />
+          <div className={classes.establishmentSelector}>
+            <EstablishmentSelector
+              establishments={Immutable(establishmentList)}
+              selectedEstablishments={this.props.offerFilters.establishments}
+              selectOption={(ev) => {
+                this.props.setFilters({
+                  ...this.props.offerFilters,
+                  establishments: ev.map((e) => e.value),
+                });
+              }}
+            />
+          </div>
           <Fab
             aria-label="refresh"
             color="primary"
@@ -152,7 +180,20 @@ export class CheckInOfferList extends Component<Props, State> {
                     key={offer.id}
                     classes={this.props.classes}
                     onClick={this.props.onOfferSelected}
-                    currentTime={currentTime}
+                  />
+                ))}
+              {offers
+                .filter((o) =>
+                  Moment(o.date_start)
+                    .add('minutes', o.duration_minute)
+                    .isBefore(Moment()),
+                )
+                .map((offer) => (
+                  <OfferListItem
+                    offer={offer}
+                    key={offer.id}
+                    classes={this.props.classes}
+                    onClick={this.props.onOfferSelected}
                   />
                 ))}
             </List>
@@ -171,6 +212,9 @@ export class CheckInOfferList extends Component<Props, State> {
 }
 
 const styles = (theme) => ({
+  establishmentSelector: {
+    width: '30%',
+  },
   rootContainer: { width: '100%' },
   leftIcon: {
     marginRight: theme.spacing(1),

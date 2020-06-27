@@ -5,32 +5,34 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import { Moment } from '../i18n';
 
 type Props = {
-  timeTillDate: string,
+  timeToShow: string,
   classes: any,
   t: TFunction,
-  currentTime: Moment,
   color: ?string,
 };
 
+function getHours(s) {
+  return Math.floor(s / 3600);
+}
+function getMinutes(s) {
+  return Math.floor((s % 3600) / 60);
+}
+function getSeconds(s) {
+  return Math.floor((s % 3600) % 60);
+}
+
 function Countdown(props: Props) {
-  const { classes, t, timeTillDate, currentTime, color } = props;
-  let duration: string;
-  const then = Moment(timeTillDate);
-  const now = Moment(currentTime);
-  if (then.isAfter(now)) duration = Moment(then.diff(now)).format('HH:mm:ss');
-  else duration = Moment(now.diff(then)).format('HH:mm:ss');
-  const timeParts = duration.split(':');
-  const hours = timeParts[0];
-  const minutes = timeParts[1];
-  const seconds = timeParts[2];
+  const { classes, t, timeToShow, color } = props;
+  const hours = getHours(timeToShow);
+  const minutes = getMinutes(timeToShow);
+  const seconds = getSeconds(timeToShow);
 
   if (!seconds) return null;
   return (
     <div className={classes.countdownWrapper}>
-      {hours && (
+      {hours !== null && (
         <div className={classes.countdownItem}>
           <Typography variant="h5" color={color}>
             {hours}
@@ -40,7 +42,7 @@ function Countdown(props: Props) {
           </Typography>
         </div>
       )}
-      {minutes && (
+      {minutes !== null && (
         <div className={classes.countdownItem}>
           <Typography variant="h5" color={color}>
             {minutes}

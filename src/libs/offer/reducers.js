@@ -66,6 +66,9 @@ export default handleActions(
     [offersByMetaActivity.isLoading]: (state, { payload }) => {
       return state.setIn(['calendarByObject', 'loading'], payload);
     },
+    [offersFilterActions.setOpen]: (state, { payload }) => {
+      return state.setIn(['managerFilter', 'open'], payload);
+    },
     [offersFilterActions.toogleOpen]: (state) => {
       return state.setIn(['managerFilter', 'open'], !state.managerFilter.open);
     },

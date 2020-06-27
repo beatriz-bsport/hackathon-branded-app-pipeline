@@ -8,9 +8,14 @@ import { push as routerPush } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 import moment from 'moment';
 
-import { fetchOffersByDay as fetchOffersByDayAction } from '../../libs/offer/actions';
 import {
-  getOffersByDay,
+  fetchOffersByDay as fetchOffersByDayAction,
+  setFilters as setFiltersAction,
+  toogleFilter as toogleFilterAction,
+  offersFilterActions,
+} from '../../libs/offer/actions';
+import {
+  getManagerOffersFiltered,
   withCoach,
   withEstablishment,
 } from '../../libs/offer/selectors';
@@ -27,12 +32,16 @@ import CheckInOfferList from '../../libs/check-in/components/CheckInOfferList.co
 
 type Props = {
   offers: Array<Offer>,
+  selectedOffers: Array<Offer>,
   establishments: Array<Establishment>,
   fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
   fetchEstablishments: () => void,
   onOfferSelected: (*) => void,
   offersLoading: boolean,
   classes: Object,
+  offerFilters: OfferFilter,
+  setFilters: (OfferFilter) => null,
+  setOpen: () => null,
 };
 
 export class CheckInOfferListPage extends React.Component<Props> {
@@ -59,6 +68,10 @@ export class CheckInOfferListPage extends React.Component<Props> {
           establishments={this.props.establishments}
           refreshData={this.refreshData}
           onOfferSelected={this.props.onOfferSelected}
+          offerFilters={this.props.offerFilters}
+          setOpen={this.props.setOpen}
+          setFilters={this.props.setFilters}
+          selectedOffers={this.props.selectedOffers}
         />
       </div>
     );
@@ -76,9 +89,10 @@ export default compose(
   withStyles(styles),
   connect(
     (state) => ({
-      offers: withCoach(withEstablishment(getOffersByDay))(state),
       offersLoading: state.offer.byDay.loading,
-      establishments: getAllEstablishments(state),
+      establishments: withCoach(withEstablishment(getAllEstablishments))(state),
+      offerFilters: state.offer.managerFilter.filters,
+      offers: withCoach(withEstablishment(getManagerOffersFiltered))(state),
     }),
     {
       fetchEstablishments,
@@ -87,6 +101,9 @@ export default compose(
         routerPush(`/check-in/offer/${offerId}`),
       fetchCoachBulk: fetchCoachBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      setFilters: setFiltersAction,
+      setOpen: offersFilterActions.setOpen,
+      toogleFilter: toogleFilterAction,
     },
   ),
   withProps(({ fetchCoachBulk, fetchEstablishmentBulk, fetchOffersByDay }) => ({

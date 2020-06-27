@@ -261,6 +261,7 @@ export function toogleWaitingListFreeze(
 
 export const offersFilterActions = {
   toogleOpen: createAction('OFFER/FILTER/TOOGLE_OPEN'),
+  setOpen: createAction('OFFER/FILTER/TOOGLE_ALWAYS_OPEN'),
   setFilters: createAction('OFFER/FILTER/SET_FILTER'),
 };
 

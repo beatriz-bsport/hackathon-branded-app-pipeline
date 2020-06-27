@@ -1922,7 +1922,7 @@
         "helper": "Nombre de relances avant lequel le membre est automatiquement retiré de la liste d'attente si aucune action de sa part"
       },
       "is_option_blocking": {
-        "label": "Prioriser les personnes sur liste d'attente aux nouveaux inscrits",
+        "label": "Les places laissées disponibles sont réservées exclusivement aux personnes en liste d'attente.",
         "helper": "Tant qu'un membre est sur liste d'attente, une place est bloquée pour lui en attendant qu'il s'inscrive."
       },
       "auto_consume_pack": {
@@ -3360,7 +3360,7 @@
     }
   },
   "selfCheckIn": {
-    "offerStatus": { "hasEnded": "Terminé", "startIn": "Débute dans ", "inProgress": "En cours " },
+    "offerStatus": { "hasEnded": "Terminé depuis", "startIn": "commence dans ", "inProgress": "a commencé depuis" },
     "addMember": { "button": "Créer un compte" },
     "filter": { "establishment": "Filtrer par lieu" },
     "offerList": { "refresh": "Recharger les séances", "emptyList": "Aucune séance" },

@@ -30,7 +30,7 @@ exports.default = {
     },
     is_option_blocking: {
       label:
-        "Prioriser les personnes sur liste d'attente aux nouveaux inscrits",
+        "Les places laissées disponibles sont réservées exclusivement aux personnes en liste d'attente.",
       helper:
         "Tant qu'un membre est sur liste d'attente, une place est bloquée pour lui en attendant qu'il s'inscrive.",
     },

@@ -28,6 +28,7 @@ type Props = {
   subShop: SubShop,
   createOrUpdateSubShop: (data: [*]) => void,
   onDelete: (id: number) => void,
+  children: any,
 };
 
 type State = {

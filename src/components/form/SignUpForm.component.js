@@ -23,6 +23,7 @@ import type { TFunction } from 'react-i18next';
 import { GenderInput } from '../input';
 import AddressForm from './AddressForm.component';
 import DelayedTextField from '../DelayedTextField.component';
+import AcceptTermsAndConditions from '../../libs/payment/components/AcceptTermsAndConditions.component';
 
 import type { ConsumerAddress } from '../../api/types';
 
@@ -220,6 +221,46 @@ export class SignUpForm extends Component<Props, State> {
     this.setState({ email });
   };
 
+  renderPrivacyPolicy = () => {
+    if (!this.props.theme || !this.props.theme.general_terms_and_conditions) {
+      return (
+        <FormControlLabel
+          label={
+            <Typography align="left" variant="body2">
+              {this.props.t('form.signup.iAcceptPrivacyPolicy')}
+              <a
+                href="https://bsport.io/blog/privacy_policy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {this.props.t('form.signup.privacyPolicy').toLowerCase()}
+              </a>
+            </Typography>
+          }
+          control={
+            <Checkbox
+              checked={this.state.acceptPrivacyPolicy}
+              onChange={(event) =>
+                this.setState({
+                  acceptPrivacyPolicy: event.target.checked,
+                })
+              }
+            />
+          }
+        />
+      );
+    }
+    return (
+      <AcceptTermsAndConditions
+        accepted={this.state.acceptPrivacyPolicy}
+        onChecked={(acceptPrivacyPolicy) =>
+          this.setState({ acceptPrivacyPolicy })
+        }
+        termsAndConditions={this.props.theme.general_terms_and_conditions}
+      />
+    );
+  };
+
   render() {
     const { classes, t } = this.props;
     const { passwordEqual, password, passwordConfirm, step } = this.state;
@@ -359,30 +400,7 @@ export class SignUpForm extends Component<Props, State> {
         </Grid>
         <div className={classes.row}>
           <FormGroup aria-label="privacy-policy" name="acceptPrivacyPolicy">
-            <FormControlLabel
-              label={
-                <Typography align="left" variant="body2">
-                  {t('form.signup.iAcceptPrivacyPolicy')}
-                  <a
-                    href="https://bsport.io/blog/privacy_policy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {t('form.signup.privacyPolicy').toLowerCase()}
-                  </a>
-                </Typography>
-              }
-              control={
-                <Checkbox
-                  checked={this.state.acceptPrivacyPolicy}
-                  onChange={(event) =>
-                    this.setState({
-                      acceptPrivacyPolicy: event.target.checked,
-                    })
-                  }
-                />
-              }
-            />
+            {this.renderPrivacyPolicy()}
           </FormGroup>
         </div>
         <div className={classes.actions}>

@@ -3182,7 +3182,9 @@
       "subject": "Objet du mail",
       "cancel": "Annuler",
       "error": { "title": "Veuillez renseigner un nom", "content": "Veuillez introduire du contenu dans le mail" }
-    }
+    },
+    "leaveAlert": "Voulez-vous vraiment quitter cette page ?",
+    "autoSave": "Sauvegarde automatique"
   },
   "member": {
     "search": { "createMember": "Ajouter un membre", "cancel": "Fermer" },

@@ -74,6 +74,10 @@ export class MarketingEmail extends Component<Props> {
     }
   };
 
+  onAutoSave = (id: number, data: any) => {
+    this.props.emailTemplateUpdate(id, data);
+  };
+
   render() {
     if (this.props.loading || !this.props.email_templates_details) {
       return <LinearProgress />;
@@ -84,6 +88,8 @@ export class MarketingEmail extends Component<Props> {
           <EmailEditorPanel
             company_id={this.props.company_id}
             save_email={this.onSave}
+            auto_save_enabled
+            auto_save_email={this.onAutoSave}
             hideLeftMenuAction={context.hideLeftMenuAction}
             showLeftMenuAction={context.showLeftMenuAction}
             emailLoad={{

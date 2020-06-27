@@ -32,4 +32,6 @@ exports.default = {
       content: 'Veuillez introduire du contenu dans le mail',
     },
   },
+  leaveAlert: 'Voulez-vous vraiment quitter cette page ?',
+  autoSave: 'Sauvegarde automatique',
 };

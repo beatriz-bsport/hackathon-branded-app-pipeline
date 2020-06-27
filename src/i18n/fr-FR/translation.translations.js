@@ -206,6 +206,7 @@ exports.default = {
   },
   form: {
     waiting_list_max_size: "Taille de la liste d'attente",
+    signUpTitle: 'Inscription',
     noAvailableCredit:
       "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
     warningCreditChange:

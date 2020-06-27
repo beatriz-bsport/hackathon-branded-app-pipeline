@@ -12,3 +12,7 @@ export function isOfferBookableYet(offer) {
   }
   return null;
 }
+
+export function urlToMarketplace(companyName, companyId) {
+  return `/m/${companyName.replace(' ', '-')}/${companyId}`;
+}

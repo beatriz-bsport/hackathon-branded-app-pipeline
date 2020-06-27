@@ -22,7 +22,9 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
+import themeSelectors from '../../libs/theme/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
+import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -51,6 +53,7 @@ import {
 
 type Props = {
   fetchContractList: () => void,
+  theme: Theme,
   contractLoading: boolean,
   createOrUpdateContract: (data: any, options: OptionCallback) => void,
   deleteContract: (id: number, options: OptionCallback) => void,
@@ -78,6 +81,7 @@ type Props = {
   onCreate: (data: any, options: OptionCallback) => void,
   onCloseCreate: () => void,
   createContractFormOpen: boolean,
+  snackbarSuccess: (string) => void,
 
   t: TFunction,
   classes: Object,
@@ -124,8 +128,14 @@ export class SubscriptionList extends React.Component<Props> {
                 contractList={this.props.contractListAvailableAll}
                 dense
                 divider
+                copy
+                snackbar={this.props.snackbarSuccess}
                 loading={this.props.contractLoading}
                 onClick={this.onClickContract}
+                company={{
+                  id: this.props.theme.company,
+                  name: this.props.theme.company_name,
+                }}
                 selectedContract={this.props.selectedContract}
                 onRegister={this.props.openContractRegister}
                 onEdit={(data, options) => {
@@ -263,9 +273,13 @@ export default compose(
   withState('selectedContract', 'setSelectedContract', null),
   withState('contractRegisterOpen', 'setContractRegisterOpen', false),
   withState('memberToBill', 'setMemberToBill', null),
-  connect((state, { selectedContract }) => ({
-    selectedContractData: getContract(state, selectedContract),
-  })),
+  connect(
+    (state, { selectedContract }) => ({
+      selectedContractData: getContract(state, selectedContract),
+      theme: themeSelectors.getTheme(state),
+    }),
+    { snackbarSuccess },
+  ),
   withHandlers({
     openContractRegister: ({
       setContractRegisterOpen,

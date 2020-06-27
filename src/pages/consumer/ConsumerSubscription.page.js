@@ -19,6 +19,7 @@ import type { TFunction } from 'react-i18next';
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
 import { fetchSubscriptionListByMember } from '../../libs/subscription/actions';
 import { getSubscriptionListByMember } from '../../libs/subscription/selectors';
+import { urlToMarketplace } from '../../libs/marketplace/utils';
 
 import type { Subscription } from '../../libs/subscription/types';
 import type { Membership } from '../../libs/membership/types';
@@ -134,7 +135,8 @@ export default compose(
     }),
     {
       fetchSubscriptionListByMember,
-      goToSubscription: (name, id) => push(`/m/${name}/${id}/subscription`),
+      goToSubscription: (name, id) =>
+        push(`${urlToMarketplace(name, id)}/subscription`),
     },
   ),
 )(ConsumerSubscription);

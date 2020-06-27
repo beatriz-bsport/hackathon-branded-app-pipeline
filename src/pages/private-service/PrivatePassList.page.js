@@ -16,6 +16,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
+import themeSelectors from '../../libs/theme/selectors';
+import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 import { getPrivatePassAvailableListWithPrivateService } from '../../libs/private-service/selectors/private-pass';
@@ -42,6 +44,7 @@ type Props = {
   fetchAllPrivateServices: () => void,
   privatePassList: Array<PrivatePass>,
   private_services: Array<PrivateService>,
+  theme: Theme,
   selectedPassId: number,
   deleteCompatibleServicePass: (id: number) => void,
   createCompatibleServicePass: (any) => void,
@@ -60,6 +63,7 @@ type Props = {
   setOpenDeletePassDialog: (id: number) => void,
   openDeletePassDialog: number,
   deletePrivatePass: (id: number) => void,
+  snackbarSuccess: (string) => void,
 };
 
 export class PrivatePassList extends React.Component<Props> {
@@ -113,6 +117,8 @@ export class PrivatePassList extends React.Component<Props> {
           {this.props.selectedPassId ? (
             <PrivatePassDetail
               private_services={this.props.private_services}
+              theme={this.props.theme}
+              snackbarSuccess={this.props.snackbarSuccess}
               updatePrivatePass={this.props.createOrUpdatePrivatePass}
               onDelete={() =>
                 this.props.setOpenDeletePassDialog(this.props.selectedPassId)
@@ -197,6 +203,7 @@ export default compose(
       privatePassList: getPrivatePassAvailableListWithPrivateService(state),
       private_services: getPrivateServices(state),
       loading: state.privateService.privatePass.loading,
+      theme: themeSelectors.getTheme(state),
     }),
     {
       fetchPrivatePassList,
@@ -205,6 +212,7 @@ export default compose(
       createCompatibleServicePass,
       deleteCompatibleServicePass,
       deletePrivatePass,
+      snackbarSuccess,
     },
   ),
   withState('openCreateForm', 'setOpenCreateForm', false),

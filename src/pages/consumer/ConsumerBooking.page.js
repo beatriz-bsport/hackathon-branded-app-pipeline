@@ -26,6 +26,7 @@ import ConsumerBookingPage from '../../libs/consumer-space/components/ConsumerBo
 import type { Membership } from '../../libs/membership/types';
 import type { Booking } from '../../libs/booking/types';
 import type { PrivateBooking } from '../../libs/private-service/types';
+import { urlToMarketplace } from '../../libs/marketplace/utils';
 
 type Props = {
   membership: Membership,
@@ -95,7 +96,7 @@ export default compose(
       deleteBooking: cancelBookingAction,
       discardBookingAttendance: discardBookingAttendanceAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
-      goToCalendar: (name, id) => push(`/m/${name}/${id}`),
+      goToCalendar: (name, id) => push(urlToMarketplace(name, id)),
     },
   ),
   withHandlers({

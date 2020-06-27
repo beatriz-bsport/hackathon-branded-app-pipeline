@@ -16,6 +16,9 @@ exports.default = {
     paymentPack: {
       locked: "Ce produit n'est pas disponible.",
     },
+    privatePass: {
+      error: "Cette carte de rendez-vous n'est pas disponible",
+    },
   },
   myBasket: {
     finalize: {

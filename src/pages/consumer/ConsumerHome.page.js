@@ -15,6 +15,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import parse from '../../query-string';
 import { buildUrlParams } from '../../http';
 import asyncComponent from '../../AsyncComponent';
+import { urlToMarketplace } from '../../libs/marketplace/utils';
 
 import {
   getConsumerMembershipList,
@@ -271,9 +272,10 @@ export default compose(
     },
     goToCalendar: ({ membership, push }) => (params) =>
       push(
-        `/m/${membership.company_name}/${
-          membership.company
-        }/calendar/${buildUrlParams({ ...params, filtersOpen: true })}`,
+        `${urlToMarketplace(
+          membership.company_name,
+          membership.company,
+        )}/calendar/${buildUrlParams({ ...params, filtersOpen: true })}`,
       ),
     resetCongratulations: ({ location, replace }) => () => {
       const params = location.search.slice(1).split('&');

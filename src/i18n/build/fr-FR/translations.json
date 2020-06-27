@@ -1955,7 +1955,10 @@
     "forms": {
       "delivery": { "first_name": "Prénom", "last_name": "Nom", "actions": { "submit": "Suivant", "cancel": "Précédent" } }
     },
-    "autoAdd": { "paymentPack": { "locked": "Ce produit n'est pas disponible." } },
+    "autoAdd": {
+      "paymentPack": { "locked": "Ce produit n'est pas disponible." },
+      "privatePass": { "error": "Cette carte de rendez-vous n'est pas disponible" }
+    },
     "myBasket": {
       "finalize": { "steps": { "address": "Adresse", "payment": "Facturation" } },
       "title": "Mon panier",

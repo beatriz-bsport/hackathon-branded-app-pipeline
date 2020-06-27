@@ -16,6 +16,7 @@ import PrivateBookingConsumerItem from '../../private-service/components/booking
 import type { Booking } from '../../booking/types';
 import type { Membership } from '../../membership/types';
 import type { PrivateBooking } from '../../private-service/types';
+import { urlToMarketplace } from '../../marketplace/utils';
 
 type Props = {
   t: TFunction,
@@ -91,7 +92,10 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
             onDiscard={this.props.onDiscardPrivateBooking}
             goToCalendar={() =>
               this.props.push(
-                `/m/${this.props.membership.company_name}/${this.props.membership.company}/private-service/`,
+                `${urlToMarketplace(
+                  this.props.membership.company_name,
+                  this.props.membership.company,
+                )}/private-service/`,
               )
             }
             private_booking={b}

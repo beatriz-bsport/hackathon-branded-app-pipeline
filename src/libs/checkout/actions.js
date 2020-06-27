@@ -43,7 +43,6 @@ export function fetchCurrentBasket(
       dispatch(currentBasket.error(error));
       if (options && options.onError) options.onError(error);
     }
-
     dispatch(currentBasket.isLoading(false));
   };
 }

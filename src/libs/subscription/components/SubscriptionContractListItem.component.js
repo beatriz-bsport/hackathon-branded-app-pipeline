@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -12,11 +12,16 @@ import type { TFunction } from 'react-i18next';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Button from '@material-ui/core/Button';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import LinkIcon from '@material-ui/icons/Link';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { buildUrlParams } from '../../../http';
 
 import type { SubscriptionContract } from '../types';
+import { urlToMarketplace } from '../../marketplace/utils';
 
 type Props = {
   t: TFunction,
+  company?: { id: number, name: string },
   contract: SubscriptionContract,
   onDelete: () => void,
   onEdit: () => void,
@@ -26,9 +31,20 @@ type Props = {
   selected?: boolean,
   dense?: boolean,
   divider?: boolean,
+  copy: boolean,
+  snackbar?: (string) => void,
 };
 
 export const SubscriptionContractListItem = (props: Props) => {
+  useEffect(() => {
+    if (props.selected) {
+      const element = document.getElementById(
+        `contract#${props.contract.id.toString()}`,
+      );
+      if (element) element.scrollIntoView();
+    }
+  }, []);
+
   return (
     <ListItem
       onClick={props.onClick}
@@ -36,6 +52,7 @@ export const SubscriptionContractListItem = (props: Props) => {
       selected={props.selected}
       divider={props.divider}
       dense={props.dense}
+      id={`contract#${props.contract.id}`}
     >
       <ListItemText
         primary={`${props.contract.name} - ${props.contract.recurrent_price}€ ${
@@ -53,6 +70,25 @@ export const SubscriptionContractListItem = (props: Props) => {
         }`}
       />
       <ListItemSecondaryAction>
+        {props.copy && props.company ? (
+          <IconButton
+            onClick={() => {
+              if (props.snackbar) props.snackbar('link.copied');
+            }}
+          >
+            <CopyToClipboard
+              text={`${window.location.origin}${urlToMarketplace(
+                props.company.name,
+                props.company.id,
+              )}
+              /subscription${buildUrlParams({
+                selected: props.contract.id,
+              })}`}
+            >
+              <LinkIcon />
+            </CopyToClipboard>
+          </IconButton>
+        ) : null}
         {props.onBook ? (
           <Button
             color="primary"

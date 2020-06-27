@@ -61,6 +61,7 @@ import {
 } from '../../libs/private-service/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchByMember as fetchConsumerPackByMemberAction } from '../../libs/consumer-payment-pack/actions';
+import { urlToMarketplace } from '../../libs/marketplace/utils';
 
 type Props = {
   t: TFunction,
@@ -310,9 +311,10 @@ export default compose(
       push(`/c/${membership.company}/broadcast/${bookingId}/`),
     goToCalendar: ({ membership, push }) => (params) =>
       push(
-        `/m/${membership.company_name}/${
-          membership.company
-        }/calendar/${buildUrlParams({ ...params, filtersOpen: true })}`,
+        `${urlToMarketplace(
+          membership.company_name,
+          membership.company,
+        )}/calendar/${buildUrlParams({ ...params, filtersOpen: true })}`,
       ),
   }),
   withHandlers({

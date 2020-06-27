@@ -30,6 +30,7 @@ import { fetchByMember as fetchConsumerPackByMemberAction } from '../../libs/con
 import type { PrivateConsumerPass } from '../../libs/private-service/types';
 import type { ConsumerPaymentPack } from '../../libs/consumer-payment-pack/types';
 import type { Membership } from '../../libs/membership/types';
+import { urlToMarketplace } from '../../libs/marketplace/utils';
 
 type Props = {
   t: TFunction,
@@ -186,7 +187,8 @@ export default compose(
           options,
         ),
       fetchPrivateConsumerPassList,
-      goToPass: (name: string, id: number) => push(`/m/${name}/${id}/pass`),
+      goToPass: (name: string, id: number) =>
+        push(`${urlToMarketplace(name, id)}/pass`),
     },
   ),
   withProps(({ fetchPaymentPackBulk, fetchConsumerPacks }) => ({

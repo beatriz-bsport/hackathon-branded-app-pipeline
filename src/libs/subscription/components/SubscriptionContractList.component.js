@@ -17,6 +17,7 @@ import SubscriptionContractFormDialog from './SubscriptionContractFormDialog.com
 type Props = {
   t: TFunction,
   classes: Object,
+  company?: { id: number, name: string },
   contractList: Array<Contract>,
   loading: boolean,
   contractToEdit: ?Contract,
@@ -25,6 +26,8 @@ type Props = {
   setCreateOpen: (boolean) => void,
   dense?: boolean,
   divider?: boolean,
+  copy?: boolean,
+  snackbar?: (string) => void,
 
   selectedContract: ?number,
   onClick: (id: number) => void,
@@ -61,6 +64,9 @@ export const SubscriptionContractList = (props: Props) => {
               onDelete={() => {
                 props.onDelete(c.id);
               }}
+              copy={props.copy}
+              company={props.company}
+              snackbar={props.snackbar}
             />
           ))}
         </List>

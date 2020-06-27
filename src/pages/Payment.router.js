@@ -44,6 +44,10 @@ const PaymentComboPreCheckoutPage = asyncComponent(() =>
   import('./checkout/pre-checkout/PaymentComboPreCheckout.page'),
 );
 
+const PrivatePassPreCheckout = asyncComponent(() =>
+  import('./checkout/pre-checkout/PrivatePassPreCheckout.page'),
+);
+
 type Props = {
   classes: Object,
   fetchProfile: () => void,
@@ -125,7 +129,9 @@ export class PaymentRouter extends React.Component<Props> {
       return (
         <Redirect
           to={`/login/customer?next=${encodeURIComponent(
-            `${pathname}${window.location.search ? window.location.search : '?'}&membership=${membership}`,
+            `${pathname}${
+              window.location.search ? window.location.search : '?'
+            }&membership=${membership}`,
           )}&membership=${membership}`}
         />
       );
@@ -158,6 +164,10 @@ export class PaymentRouter extends React.Component<Props> {
           component={ShopItemPreCheckoutPage}
         />
         <Route path="/(|customer/)checkout/" component={CheckoutRouter} />
+        <Route
+          path="/(|customer/)payment/private-pass/:id"
+          component={PrivatePassPreCheckout}
+        />
       </Switch>
     );
   }

@@ -49,6 +49,7 @@ import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 
 import type { Membership } from '../../libs/membership/types';
+import { urlToMarketplace } from '../../libs/marketplace/utils';
 
 export const drawerWidth = 260;
 
@@ -350,7 +351,10 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       'divider',
       this.props.membership
         ? {
-            to: `/m/${this.props.membership.company_name}/${this.props.membership.company}/`,
+            to: `${urlToMarketplace(
+              this.props.membership.company_name,
+              this.props.membership.company,
+            )}/`,
             icon: ExitToAppIcon,
             text: this.props.membership.company_name,
           }

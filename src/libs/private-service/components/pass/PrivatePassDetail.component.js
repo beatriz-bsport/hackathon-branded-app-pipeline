@@ -16,9 +16,14 @@ import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import LinkIcon from '@material-ui/icons/Link';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose, withState } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import type { Theme } from '../../../theme/types';
 
 import PrivateServiceListItem from '../service/PrivateServiceListItem.component';
 import EmptyListWarning from '../EmptyListWarning.component';
@@ -28,7 +33,7 @@ import PrivatePassForm from './PrivatePassForm.component';
 type Props = {
   pass: PrivatePass,
   private_services: Array<PrivateService>,
-
+  theme: Theme,
   onDelete: ?() => void,
   setOpenEditForm: (boolean) => void,
   openEditForm: boolean,
@@ -36,6 +41,7 @@ type Props = {
     passId: number,
     privateServiceId: number,
   ) => void,
+  snackbarSuccess: (string) => void,
 
   setOpenCreateCompatibleServiceForm: (boolean) => void,
   openCompatibleServiceForm: boolean,
@@ -56,7 +62,31 @@ type Props = {
   classes: Object,
   t: TFunction,
 };
+
 export const PrivatePassDetail = (props: Props) => {
+  const { pass, t, snackbarSuccess: snackbar, classes } = props;
+  const companyId = props.theme.company;
+
+  const renderLinkToPaymentPage = () => {
+    return pass.id && companyId ? (
+      <ButtonBase
+        className={classes.link}
+        onClick={() => snackbar('link.copied')}
+      >
+        <LinkIcon />
+        <CopyToClipboard
+          text={`${window.location.origin}/customer/payment/private-pass/${pass.id}/?membership=${companyId}`}
+        >
+          <Typography className={classes.linkTypo}>
+            {t('shop:link.copyLink')}
+          </Typography>
+        </CopyToClipboard>
+      </ButtonBase>
+    ) : (
+      <CircularProgress />
+    );
+  };
+
   if (!props.pass) {
     return null;
   }
@@ -151,6 +181,7 @@ export const PrivatePassDetail = (props: Props) => {
             <AddIcon /> {props.t('privatePass.compatibleServices.add')}
           </Button>
         )}
+        {renderLinkToPaymentPage()}
       </Paper>
       <Dialog open={props.openEditForm}>
         <DialogTitle>{props.t('privatePass.form.title')}</DialogTitle>
@@ -222,6 +253,17 @@ const styles = (theme) => ({
   },
   leftIcon: {
     marginRight: theme.spacing(1),
+  },
+  link: {
+    padding: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+    '&:hover': {
+      backgroundColor: '#EFEFEF',
+      borderRadius: 5,
+    },
+  },
+  linkTypo: {
+    paddingLeft: theme.spacing(1),
   },
 });
 

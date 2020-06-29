@@ -10,12 +10,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import asyncComponent from '../AsyncComponent';
 import { fetchProfile } from '../actions/consumer.actions';
 
-import { getPaymenComboDataDict as getPaymentComboById } from '../libs/payment-combo/selectors';
 import { fetchPaymentCombo } from '../libs/payment-combo/actions';
 
-import { getPaymentPackById } from '../libs/payment-packs/selectors';
 import { fetchOne as fetchPaymentPack } from '../libs/payment-packs/actions';
-import parse from '../query-string';
+import withQueryParams from '../hocs/with-query-params.hoc';
 
 const OfferPaymentPage = asyncComponent(() =>
   import('./payment/OfferBooking.page'),
@@ -52,21 +50,37 @@ type Props = {
   classes: Object,
   fetchProfile: () => void,
   fetchPaymentPack: (id: number) => void,
-  paymentPacks: Array<any>,
   fetchPaymentCombo: (id: number) => void,
-  paymentCombos: Array<any>,
   authenticated: boolean,
   location: Object,
+  urlParams: { [string]: string },
+  setUrlParams: (string) => (string) => void,
 };
-export class PaymentRouter extends React.Component<Props> {
-  state = {
-    paymentPacks: null,
-    paymentCombos: null,
-  };
 
+export class PaymentRouter extends React.Component<Props> {
   componentDidMount() {
     if (this.props.authenticated) {
       this.props.fetchProfile();
+    } else {
+      const { pathname } = this.props.location;
+      if (!this.props.urlParams.membership) {
+        if (pathname.includes('customer/payment/pass')) {
+          const ppId = pathname.split('/')[4];
+
+          this.props.fetchPaymentPack(ppId, {
+            onSuccess: (pp) =>
+              this.props.setUrlParams('membership')(pp.company),
+          });
+        }
+        if (pathname.includes('customer/payment/combo')) {
+          const ppId = pathname.split('/')[4];
+
+          this.props.fetchPaymentCombo(ppId, {
+            onSuccess: (pc) =>
+              this.props.setUrlParams('membership')(pc.company),
+          });
+        }
+      }
     }
   }
 
@@ -74,67 +88,28 @@ export class PaymentRouter extends React.Component<Props> {
     if (!prevProps.authenticated && this.props.authenticated) {
       this.props.fetchProfile();
     }
-    if (prevProps.paymentPacks !== this.props.paymentPacks) {
-      this.setState({ paymentPacks: this.props.paymentPacks });
-    }
-    if (prevProps.paymentCombos !== this.props.paymentCombos) {
-      this.setState({ paymentCombos: this.props.paymentCombos });
-    }
   }
+
+  getLoginUrl = () => {
+    const { pathname } = this.props.location;
+    return `/login/customer?next=${encodeURIComponent(
+      `${pathname}${
+        window.location.search ? window.location.search : '?'
+      }&membership=${this.props.urlParams.membership}`,
+    )}&membership=${this.props.urlParams.membership}`;
+  };
 
   render() {
     const { authenticated } = this.props;
     if (!authenticated) {
-      const { pathname } = this.props.location;
-      let { membership } = parse(this.props.location.search);
-      if (!membership && pathname.includes('customer/payment/pass')) {
-        const ppId = pathname.split('/')[4];
-
-        this.props.fetchPaymentPack(ppId);
-        if (
-          !membership &&
-          this.state.paymentPacks &&
-          this.state.paymentPacks[ppId]
-        ) {
-          membership = this.state.paymentPacks[ppId].company_id;
-        }
-        if (!membership) {
-          return (
-            <div className={this.props.classes.loading}>
-              <CircularProgress />
-            </div>
-          );
-        }
+      if (!this.props.urlParams.membership) {
+        return (
+          <div className={this.props.classes.loading}>
+            <CircularProgress />
+          </div>
+        );
       }
-      if (!membership && pathname.includes('customer/payment/combo')) {
-        const ppId = pathname.split('/')[4];
-
-        this.props.fetchPaymentCombo(ppId);
-        if (
-          !membership &&
-          this.state.paymentCombos &&
-          this.state.paymentCombos[ppId]
-        ) {
-          membership = this.state.paymentCombos[ppId].company;
-        }
-        if (!membership) {
-          return (
-            <div className={this.props.classes.loading}>
-              <CircularProgress />
-            </div>
-          );
-        }
-      }
-
-      return (
-        <Redirect
-          to={`/login/customer?next=${encodeURIComponent(
-            `${pathname}${
-              window.location.search ? window.location.search : '?'
-            }&membership=${membership}`,
-          )}&membership=${membership}`}
-        />
-      );
+      return <Redirect to={this.getLoginUrl()} />;
     }
     return (
       <Switch>
@@ -185,10 +160,9 @@ const styles = () => ({
 
 export default compose(
   withStyles(styles),
+  withQueryParams([['membership'], 'urlParams', 'setUrlParams']),
   connect(
     (state) => ({
-      paymentCombos: getPaymentComboById(state),
-      paymentPacks: getPaymentPackById(state),
       authenticated: state.auth.authenticated,
     }),
     { fetchPaymentCombo, fetchPaymentPack, fetchProfile },

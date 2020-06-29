@@ -31,6 +31,10 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '../../libs/consumer-payment-pack/actions';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 
+import boop from '../../sounds/boop.mp3';
+
+const likeAudio = new Audio(boop);
+
 type Props = {
   classes: Object,
 
@@ -72,6 +76,10 @@ type Props = {
   fetchMemberByBarcode: (string, OptionCallback) => void,
 };
 
+const playSound = (audioFile) => {
+  audioFile.play();
+};
+
 export class CheckInOfferDetailPage extends React.Component<Props> {
   componentWillMount() {
     this.props.resetMemberByBarcode();
@@ -90,6 +98,7 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
           goBack={this.props.goBack}
           refreshData={this.props.fetchOfferData}
           confirmBookingAttendance={(bookingId) => {
+            playSound(likeAudio);
             this.props.confirmBookingAttendance(bookingId);
             this.props.redirectToConfirmPage(this.props.offerId, bookingId);
           }}
@@ -155,6 +164,7 @@ export class CheckInOfferDetailPage extends React.Component<Props> {
                 onSuccess: () => {
                   if (typeof onSuccess === 'function') onSuccess();
                   this.props.setRegisterModalOpen(false);
+                  playSound(likeAudio);
                   this.props.fetchOfferData();
                 },
               },

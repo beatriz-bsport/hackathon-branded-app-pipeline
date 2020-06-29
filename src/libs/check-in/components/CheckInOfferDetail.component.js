@@ -23,7 +23,15 @@ import CheckInOfferSummaryPanel from './CheckInOfferSummaryPanel.component';
 import CheckInBookingItem from './CheckInBookingItem.component';
 import BarcodeLiveReader from '../../../components/BarcodeLiveReader.component';
 
+import boop from '../../../sounds/boop.mp3';
+
 const MEMBER_LIST_REFRESH_DURATION = 1000 * 60 * 2;
+
+const likeAudio = new Audio(boop);
+
+const playSound = (audioFile) => {
+  audioFile.play();
+};
 
 type Props = {
   offer: Object,
@@ -108,7 +116,7 @@ export class CheckInOffer extends Component<Props> {
                   <ListItem
                     button
                     disabled={this.props.offer.is_full}
-                    onClick={this.props.onAddMember}
+                    onClick={() => this.props.onAddMember()}
                     className={this.props.classes.registerListItem}
                   >
                     <ListItemAvatar>
@@ -127,9 +135,10 @@ export class CheckInOffer extends Component<Props> {
                   <CheckInBookingItem
                     member={member}
                     key={member.booking.id}
-                    confirmAttendance={() =>
-                      this.props.confirmBookingAttendance(member.booking.id)
-                    }
+                    confirmAttendance={() => {
+                      playSound(likeAudio);
+                      this.props.confirmBookingAttendance(member.booking.id);
+                    }}
                   />
                 ))}
               </List>

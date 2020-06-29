@@ -87,12 +87,23 @@ export class PrivatePassList extends React.Component<Props> {
       !this.props.loading
     ) {
       return (
-        <IsEmptyList
-          text={this.props.t('noPrivatePass')}
-          button={this.props.t('privatePass.list.createButton')}
-          onCreate={() => this.props.setOpenCreateForm(true)}
-          onCreateLabel={this.props.t('privatePass.list.createButton')}
-        />
+        <div>
+          <IsEmptyList
+            text={this.props.t('noPrivatePass')}
+            button={this.props.t('privatePass.list.createButton')}
+            onCreate={() => this.props.setOpenCreateForm(true)}
+            onCreateLabel={this.props.t('privatePass.list.createButton')}
+          />
+          <Dialog open={this.props.openCreateForm}>
+            <DialogTitle>{this.props.t('privatePass.form.title')}</DialogTitle>
+            <DialogContent>
+              <PrivatePassForm
+                onSubmit={this.createOrUpdatePass}
+                onCancel={() => this.props.setOpenCreateForm(false)}
+              />
+            </DialogContent>
+          </Dialog>
+        </div>
       );
     }
     return (

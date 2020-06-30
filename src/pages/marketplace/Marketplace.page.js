@@ -52,6 +52,8 @@ import {
   auth as authActions,
 } from '../../actions';
 
+import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
+
 const MarketplacePassPage = asyncComponent(() =>
   import('./MarketplacePass.page'),
 );
@@ -69,9 +71,6 @@ const MarketplacePrivateService = asyncComponent(() =>
 );
 const MarketplaceContractPage = asyncComponent(() =>
   import('./MarketplaceContract.page'),
-);
-const MarketplaceBasketDialog = asyncComponent(() =>
-  import('./MarketplaceBasketDialog.component'),
 );
 const MarketplaceVodRouter = asyncComponent(() =>
   import('./MarketplaceVod.router'),

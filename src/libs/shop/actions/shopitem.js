@@ -200,6 +200,42 @@ export function createOrUpdateShopItem(
   };
 }
 
+export const shopItemDuplicateActions = {
+  isLoading: createAction('SHOPITEM/DUPLICATE/LOADING'),
+  error: createAction('SHOPITEM/DUPLICATE/ERROR'),
+  success: createAction('SHOPITEM/DUPLICATE/SUCCESS'),
+};
+
+export function duplicateShopItem(
+  id: number,
+  suffix: string,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(shopItemDuplicateActions.isLoading(true));
+    dispatch(shopItemDuplicateActions.error(null));
+
+    try {
+      const response = await api.duplicateItem(id, suffix);
+
+      dispatch(shopItemDuplicateActions.success(response.data));
+      dispatch(snackbarSuccess('shop.item.duplicate.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (e) {
+      console.error(e);
+      dispatch(snackbarError('shop.item.duplicate.error'));
+      dispatch(shopItemDuplicateActions.error(e));
+      if (options && options.onError) {
+        options.onError(e);
+      }
+    }
+
+    dispatch(shopItemDuplicateActions.isLoading(false));
+  };
+}
+
 export const shopItemDeleteActions = {
   isLoading: createAction('SHOPITEM/DELETE/LOADING'),
   error: createAction('SHOPITEM/DELETE/ERROR'),

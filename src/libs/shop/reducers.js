@@ -12,6 +12,7 @@ import {
   shopItemCreateOrUpdateActions,
   shopItemDeleteActions,
   shopItemFeaturedActions,
+  shopItemDuplicateActions,
 } from './actions/shopitem';
 import {
   provisionByShopItemActions,
@@ -30,6 +31,10 @@ const initialState: ShopState = Immutable({
       loading: false,
       error: null,
       allIds: [],
+    },
+    duplicate: {
+      loading: false,
+      error: null,
     },
     asConsumer: {
       loading: false,
@@ -69,6 +74,12 @@ const initialState: ShopState = Immutable({
 
 export default handleActions(
   {
+    [shopItemDuplicateActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'duplicate', 'loading'], payload);
+    },
+    [shopItemDuplicateActions.error]: (state, { payload }) => {
+      return state.setIn(['shopItem', 'duplicate', 'error'], payload);
+    },
     [shopItemFeaturedActions.isLoading]: (state, { payload }) => {
       return state.setIn(['shopItem', 'featured', 'loading'], payload);
     },

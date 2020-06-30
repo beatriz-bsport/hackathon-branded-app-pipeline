@@ -9,6 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 import List from '@material-ui/core/List';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ListItemText from '@material-ui/core/ListItemText';
 import Dialog from '@material-ui/core/Dialog';
 import ListItem from '@material-ui/core/ListItem';
@@ -34,12 +35,13 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import ShopItemDeleteDialog from '../../libs/shop/components/ShopItemDeleteDialog.component';
 import {
   fetchShopItemAsManager as fetchAllShopItem,
   createOrUpdateShopItem,
   deleteItem as deleteShopItem,
+  duplicateShopItem as duplicateShopItemAction,
 } from '../../libs/shop/actions/shopitem';
 import {
   fetchAllSubShop,
@@ -70,6 +72,7 @@ type Props = {
   goToShopItem: (id: number) => void,
   createOrUpdateSubShop: (data: [*]) => void,
   fullScreen: boolean,
+  duplicateShopItem: (id: number, suffix: string) => void,
   createOrUpdateShopItem: (
     shopItemData: [*],
     id: ?number,
@@ -142,25 +145,14 @@ export class ShopItemList extends Component<Props, State> {
                   <ListItemSecondaryAction>
                     <IconButton disableRipple>
                       {si.marketplace_enabled ? (
-                        <Tooltip
-                          title={
-                            <Typography variant="subtitle2" align="center">
-                              {t('languageToolTip')}
-                            </Typography>
-                          }
-                          aria-label="info"
-                        >
+                        <Tooltip title={t('languageToolTip')} aria-label="info">
                           <IconButton>
                             <LanguageIcon color="secondary" />
                           </IconButton>
                         </Tooltip>
                       ) : (
                         <Tooltip
-                          title={
-                            <Typography variant="subtitle2">
-                              {t('visibilityOfIconToolTip')}
-                            </Typography>
-                          }
+                          title={t('visibilityOfIconToolTip')}
                           aria-label="info"
                         >
                           <IconButton>
@@ -169,6 +161,18 @@ export class ShopItemList extends Component<Props, State> {
                         </Tooltip>
                       )}
                     </IconButton>
+                    <Tooltip title={t('common.duplicate')}>
+                      <IconButton
+                        onClick={() =>
+                          this.props.duplicateShopItem(
+                            si.id,
+                            t('common.copySuffix'),
+                          )
+                        }
+                      >
+                        <FileCopyIcon />
+                      </IconButton>
+                    </Tooltip>
                     <IconButton
                       onClick={() => this.setState({ shopitemToDelete: si })}
                     >
@@ -396,6 +400,7 @@ export default compose(
       fetchSubShop: fetchAllSubShop,
       createOrUpdateShopItem,
       createOrUpdateSubShop,
+      duplicateShopItem: duplicateShopItemAction,
       deleteItem: deleteShopItem,
       deleteSubShop,
       goToShopItem: (id: number) => push(`/shop/${id}`),
@@ -404,4 +409,12 @@ export default compose(
   withMobileDialog(),
   withStyles(styles),
   withtitle(({ t }: { t: TFunction }) => t('titles:shop')),
+  withHandlers({
+    duplicateShopItem: ({ duplicateShopItem, fetchShopItems }) => (
+      id,
+      suffix,
+    ) => {
+      duplicateShopItem(id, suffix, { onSuccess: () => fetchShopItems() });
+    },
+  }),
 )(ShopItemList);

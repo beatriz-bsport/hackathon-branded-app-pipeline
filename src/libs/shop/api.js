@@ -41,6 +41,12 @@ export async function deleteItem(shopItemId: number) {
   return deleteAuth(`${API_V1_URI}/shop/item/${shopItemId}/`);
 }
 
+export async function duplicateItem(shopItemId: number, suffix: string) {
+  return postAuth(`${API_V1_URI}/shop/item/${shopItemId}/duplicate/`, {
+    suffix,
+  });
+}
+
 export async function updateProvisions(qty: number, shopItemId: number) {
   return putAuth(`${API_V1_URI}/shop/item/${shopItemId}/provisions/add`, {
     qty,
@@ -103,4 +109,5 @@ export default {
   deleteSubShop,
   fetchShopItem,
   fetchProvisions,
+  duplicateItem,
 };

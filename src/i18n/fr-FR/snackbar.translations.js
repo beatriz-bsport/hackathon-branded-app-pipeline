@@ -198,6 +198,10 @@ exports.default = {
         success: 'Stock mis à jour',
         error: "Erreur lors de l'enregistrement du stock",
       },
+      duplicate: {
+        success: 'Produit dupliqué avec succès',
+        error: 'Impossible de dupliquer le produit',
+      },
       createOrUpdate: {
         success: 'Enregistré',
         error: "Erreur lors de l'enregistrement",

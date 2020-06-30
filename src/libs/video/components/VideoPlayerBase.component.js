@@ -1,6 +1,9 @@
 // @flow
 import React from 'react';
 import videojs from 'video.js';
+import qualityLevelsPlugin from 'videojs-contrib-quality-levels';
+import sourceSelector from 'videojs-http-source-selector';
+import hlsQuality from 'videojs-hls-quality-selector';
 
 import 'video.js/dist/video-js.css';
 
@@ -19,7 +22,18 @@ export class VideoPlayerBase extends React.Component<Props> {
 
   componentDidMount() {
     // instantiate Video.js
-    this.player = videojs(this.videoNode, this.props.videojsProps, () => {});
+    videojs.registerPlugin('qualityLevels', qualityLevelsPlugin);
+    videojs.registerPlugin('sourceSelector', sourceSelector);
+    videojs.registerPlugin('hlsQuality', hlsQuality);
+
+    this.player = videojs(this.videoNode, this.props.videojsProps, () => {
+      const qualityLevels = this.player.qualityLevelsPlugin();
+      qualityLevels.on('addqualitylevel', (event) => {
+        const { qualityLevel } = event;
+        qualityLevel.enabled = true;
+      });
+      this.player.hlsQuality();
+    });
   }
 
   componentDidUpdate(prevProps: Props) {

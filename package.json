@@ -105,6 +105,9 @@
     "sw-precache-webpack-plugin": "0.11.5",
     "thunk": "^0.0.1",
     "video.js": "^7.7.6",
+    "videojs-contrib-quality-levels": "^2.0.9",
+    "videojs-hls-quality-selector": "^1.1.1",
+    "videojs-http-source-selector": "^1.1.6",
     "whatwg-fetch": "^2.0.3",
     "yup": "^0.26.6"
   },

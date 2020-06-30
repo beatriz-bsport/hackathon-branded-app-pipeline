@@ -42,23 +42,40 @@ import { fetchSCT } from '../../actions/category.actions';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import MarketplacePassPage from './MarketplacePass.page';
-import MarketplaceShopPage from './MarketplaceShop.page';
-import MarketplaceCalendarPage from './MarketplaceCalendar.page';
-import MarketplaceWorkshopPage from './MarketplaceWorkshop.page';
-import MarketplacePrivateService from './MarketplacePrivateService.page';
-import MarketplaceContractPage from './MarketplaceContract.page';
-import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
-import MarketplaceVodRouter from './MarketplaceVod.router';
-
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import Config from '../../config';
 import { getMarketplaceRoute } from './routing-utils';
+import asyncComponent from '../../AsyncComponent';
 
 import {
   consumer as consumerActions,
   auth as authActions,
 } from '../../actions';
+
+const MarketplacePassPage = asyncComponent(() =>
+  import('./MarketplacePass.page'),
+);
+const MarketplaceShopPage = asyncComponent(() =>
+  import('./MarketplaceShop.page'),
+);
+const MarketplaceCalendarPage = asyncComponent(() =>
+  import('./MarketplaceCalendar.page'),
+);
+const MarketplaceWorkshopPage = asyncComponent(() =>
+  import('./MarketplaceWorkshop.page'),
+);
+const MarketplacePrivateService = asyncComponent(() =>
+  import('./MarketplacePrivateService.page'),
+);
+const MarketplaceContractPage = asyncComponent(() =>
+  import('./MarketplaceContract.page'),
+);
+const MarketplaceBasketDialog = asyncComponent(() =>
+  import('./MarketplaceBasketDialog.component'),
+);
+const MarketplaceVodRouter = asyncComponent(() =>
+  import('./MarketplaceVod.router'),
+);
 
 type Props = {
   companyName: string,

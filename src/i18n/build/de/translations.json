@@ -12,6 +12,12 @@
             "submit": "Speichern",
             "auto_cancellation_type": {
                 "title": "Verwaltung der Warteliste"
+            },
+            "dynamic": {
+                "0": {
+                    "settingsDelay": "Deadline für die Anmeldung",
+                    "label": "Einer nach dem anderen"
+                }
             }
         },
         "explainWaitingListConf": "Z.B : Es sind noch drei Stunden bis zum Kursbeginn, der Schüler hat {{ nbMinutesBeforeBookingOptionExpire }} Minuten um seine Reservierung zu bestätigen, bevor er seinen Platz verlässt.",
@@ -599,7 +605,8 @@
             "noQuickInvoiceOpened": "Keine offene Rechnung",
             "reCreateBooking": "Erneut anmelden",
             "previousOffer": "Vorheriger Kurs",
-            "effectif": "Teilnehmeranzahl"
+            "effectif": "Teilnehmeranzahl",
+            "noEmptyDuration": "Die Dauer muss unbedingt positiv sein"
         },
         "time": {
             "monthShort": {
@@ -882,7 +889,10 @@
             "signInPhoneInstruction": "Bitte geben Sie Ihre Telefonnummer ein, ein Bestätigungscode wird Ihnen per SMS geschickt",
             "SMSSignInTitle": "SMS-Verbindung",
             "code": "Code",
-            "pleaseEnterYourSMSCode": "Bitte geben Sie den per SMS gesendeten Code ein"
+            "pleaseEnterYourSMSCode": "Bitte geben Sie den per SMS gesendeten Code ein",
+            "warningCreditChange": "NB : Frühere Buchungen berücksichtigen keine Änderungen der Kreditpunkte",
+            "noAvailableCredit": "Vorsicht, Sie geben keinen Preis ein. Sind Sie sich des Wertes sicher ?",
+            "signUpTitle": "Anmeldung"
         },
         "booking": {
             "revertBookingExplain": {
@@ -1018,7 +1028,8 @@
             "color": "Farbcode",
             "explainImage": "Empfohlen : 1920x1080 jpeg (fullHD)",
             "packsAvailable": "Für Kurskarten berechtigt :",
-            "fillrate": "Durchschnittliche Befüllung"
+            "fillrate": "Durchschnittliche Befüllung",
+            "firstBookingMinutesUntil": "Buchungen beschränken auf Kurse vor oder in "
         },
         "paginatedList": {
             "isEmpty": "Keine Daten anzuzeigen"
@@ -1148,7 +1159,8 @@
             "sessions": "Kurse",
             "location": "Standort",
             "gender": "Geschlecht",
-            "sport": "Sport"
+            "sport": "Sport",
+            "gaveUp": "Aufgegeben seit"
         },
         "blockBooking": "Buchung nur für Kurskarten von neuen Kunden ermöglichen"
     },
@@ -1674,6 +1686,11 @@
                 "helperText": "Sie müssen für die Zahlung und Anmeldung akzeptiert werden",
                 "label": "Allgemeine Verkaufsbedingungen"
             }
+        },
+        "pageTitles": {
+            "theme": "Allgemein",
+            "personalization": "Personalisierung",
+            "broadcast": "Videokonferenz"
         }
     },
     "role": {
@@ -1702,7 +1719,8 @@
         "explainStaffDoNot": "Mit einem Staffzugang kann man sich aber nicht auf die App einloggen (sie ist nur für Lehrer und Schüler)",
         "explainStaffDo": "Ein Staffzugang ermöglicht eine Verbindung per Handy oder Computer mit dem folgenden Link : https://backoffice.bsport.io",
         "permissions": "Verfügbare Rollen",
-        "userRoles": "Staff Kontos"
+        "userRoles": "Staff Kontos",
+        "pageTitle": "Staff"
     },
     "paymentPack": {
         "scaleCredit": {
@@ -3640,7 +3658,8 @@
             "edit": "Ändern",
             "delete": "Löschen"
         },
-        "noPrivatePass": "Die Terminkarten ermöglichen den Mitgliedern, Termine zu vereinbaren. Definieren Sie hier die Preise und Bedingungen."
+        "noPrivatePass": "Die Terminkarten ermöglichen den Mitgliedern, Termine zu vereinbaren. Definieren Sie hier die Preise und Bedingungen.",
+        "noPrivateService": "Ein Termin kann vom Mitglied auf dem von Ihnen gewählten Slot gebucht werden."
     },
     "communication": {
         "recipient": {
@@ -4126,7 +4145,8 @@
             "waiting-list": "Warteliste",
             "offer": "Kurs",
             "booking": "Buchung"
-        }
+        },
+        "pageTitle": "Transaktions-E-Mails"
     },
     "membership": {
         "selector": {
@@ -4641,7 +4661,9 @@
             "explain": "Dieses Passwort ist bis {{expirationDate }} gültig. Ihr Hauptpasswort ändert sich nicht.",
             "submit": "Erzeugen",
             "title": "Provisorisches Passwort",
-            "close": "Schließen"
+            "close": "Schließen",
+            "copied": "Passwort kopiert",
+            "copy": "Kopieren Sie das Passwort in die Zwischenablage"
         },
         "doubleLogin": {
             "explain": "Ihre Sitzung ist abgelaufen. Sie haben sich bei zwei verschiedenen Konten gleichzeitig eingeloggt oder Sie haben sich von einer anderen Rubrik/einem anderen Fenster ausgeloggt.",
@@ -4709,7 +4731,8 @@
         "requestDialog": {
             "close": "Verstanden",
             "explain": "Sie haben die Integration des bsport X classpass beantragt. Ihr Kundenbetreuer wird sich mit Ihnen in Verbindung setzen, um diesen Vorgang zu bestätigen"
-        }
+        },
+        "pageTitle": "Partnerschaft"
     },
     "search": {
         "member": {
@@ -4906,7 +4929,8 @@
             "search": "Ein Event suchen",
             "addWorkshopActivity": "Ein Event hinzufügen"
         },
-        "search": "Ein Event suchen"
+        "search": "Ein Event suchen",
+        "noWorkshops": "Verwalten Sie Ihre Events hier. Ein Event ist eine Veranstaltung, deren Datum im Voraus festgelegt wird."
     },
     "establishment": {
         "capacity": {

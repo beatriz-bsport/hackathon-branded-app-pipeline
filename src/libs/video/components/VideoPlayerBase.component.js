@@ -27,7 +27,7 @@ export class VideoPlayerBase extends React.Component<Props> {
     videojs.registerPlugin('hlsQuality', hlsQuality);
 
     this.player = videojs(this.videoNode, this.props.videojsProps, () => {
-      const qualityLevels = this.player.qualityLevelsPlugin();
+      const qualityLevels = this.player.qualityLevels();
       qualityLevels.on('addqualitylevel', (event) => {
         const { qualityLevel } = event;
         qualityLevel.enabled = true;

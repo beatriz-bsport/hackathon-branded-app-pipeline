@@ -57,6 +57,7 @@ exports.default = {
     purchases: 'Ventes',
     emptyContent: 'Ce pack ne contient rien !',
   },
+  edit: 'Modifier',
   delete: {
     title: 'Suppression du pack',
     content:

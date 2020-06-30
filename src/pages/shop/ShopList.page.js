@@ -57,6 +57,7 @@ import FuzeSearch from '../../components/FuzeSearch.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import withtitle from '../../hocs/with-title.hoc';
+import Tooltip from '../../components/Tooltip.component';
 
 type Props = {
   t: TFunction,
@@ -121,6 +122,8 @@ export class ShopItemList extends Component<Props, State> {
   };
 
   renderSubShop = (subShop: SubShop) => {
+    const { t } = this.props;
+
     return (
       <SubShopList
         key={subShop ? subShop.id : -1}
@@ -139,9 +142,31 @@ export class ShopItemList extends Component<Props, State> {
                   <ListItemSecondaryAction>
                     <IconButton disableRipple>
                       {si.marketplace_enabled ? (
-                        <LanguageIcon color="secondary" />
+                        <Tooltip
+                          title={
+                            <Typography variant="subtitle2" align="center">
+                              {t('languageToolTip')}
+                            </Typography>
+                          }
+                          aria-label="info"
+                        >
+                          <IconButton>
+                            <LanguageIcon color="secondary" />
+                          </IconButton>
+                        </Tooltip>
                       ) : (
-                        <VisibilityOffIcon />
+                        <Tooltip
+                          title={
+                            <Typography variant="subtitle2">
+                              {t('visibilityOfIconToolTip')}
+                            </Typography>
+                          }
+                          aria-label="info"
+                        >
+                          <IconButton>
+                            <VisibilityOffIcon />
+                          </IconButton>
+                        </Tooltip>
                       )}
                     </IconButton>
                     <IconButton

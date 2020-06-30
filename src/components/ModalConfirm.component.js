@@ -31,10 +31,21 @@ export function ModalConfirm(props: Props) {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCancel}>
+        <Button
+          onClick={(ev) => {
+            ev.stopPropagation();
+            handleCancel(ev);
+          }}
+        >
           {t(options.cancel || 'common.cancel')}
         </Button>
-        <Button onClick={handleConfirm} color="primary">
+        <Button
+          onClick={(ev) => {
+            ev.stopPropagation();
+            handleConfirm(ev);
+          }}
+          color="primary"
+        >
           {t(options.confirm || 'common.confirm')}
         </Button>
       </DialogActions>

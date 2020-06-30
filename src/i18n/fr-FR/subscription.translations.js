@@ -50,6 +50,9 @@ exports.default = {
         submit: 'Enregistrer',
       },
     },
+    edit: 'Modifier',
+    register: "S'abonner",
+    delete: 'Supprimer',
     freeze: {
       form: {
         title: 'Mise en pause',

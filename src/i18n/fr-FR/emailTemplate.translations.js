@@ -8,6 +8,8 @@ exports.default = {
       confirm: 'Supprimer',
     },
   },
+  edit: 'Modifier',
+  delete: 'Supprimer',
   duplicate: 'Dupliquer',
   copy: 'copie',
   search: 'Chercher un template',

@@ -6,14 +6,18 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import Tooltip from '../../../components/Tooltip.component';
+import { MenuItem } from '@material-ui/core';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Typography from '@material-ui/core/Typography';
 import withConfirm from '../../../hocs/with-confirm.hoc';
+
+import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 
 type Props = {
   smartlist: SmartList,
@@ -24,7 +28,43 @@ type Props = {
   onClickDuplicate: (id: number) => void,
 };
 
-const ButtonWithConfirm = withConfirm(IconButton, 'onClick', {
+const DeleteButton = (props: { onClick: () => void }) => (
+  <IconButton
+    onClick={(ev) => {
+      ev.stopPropagation();
+      ev.preventDefault();
+      props.onClick();
+    }}
+  >
+    <DeleteIcon />
+  </IconButton>
+);
+const DeleteButtonMenuItem = withTranslation(['smartList'])(
+  (props: { onClick: () => void }) => (
+    <MenuItem
+      onClick={(ev) => {
+        ev.stopPropagation();
+        ev.preventDefault();
+        props.onClick();
+      }}
+    >
+      <ListItemIcon>
+        <DeleteIcon />
+      </ListItemIcon>
+      <Typography>{props.t('delete')}</Typography>
+    </MenuItem>
+  ),
+);
+const ButtonWithConfirm = withConfirm(DeleteButton, 'onClick', {
+  title: 'smartList:modal.delete.title',
+  cancel: 'smartList:modal.delete.cancel',
+  confirm: 'smartList:modal.delete.confirm',
+  Content: ({ t }: { t: TFunction }) => (
+    <p>{t('smartList:modal.delete.content')}</p>
+  ),
+});
+
+const ButtonWithConfirmMenuItem = withConfirm(DeleteButtonMenuItem, 'onClick', {
   title: 'smartList:modal.delete.title',
   cancel: 'smartList:modal.delete.cancel',
   confirm: 'smartList:modal.delete.confirm',
@@ -43,48 +83,45 @@ export const SmartListItem = (props: Props) => {
       selected={props.selected}
       onClick={() => props.onClick(props.smartlist.id)}
       className={classes.listitem}
+      style={{ display: 'flex', flexWrap: 'nowrap' }}
     >
-      <ListItemText primary={props.smartlist.name} />
-      <div className={classes.actions}>
-        {props.onClickEdit ? (
-          <IconButton
-            onClick={(ev) => {
-              ev.stopPropagation();
-              ev.preventDefault();
+      <ListItemText
+        primary={
+          <span>
+            <Typography inline component="span">
+              {props.smartlist.name}
+            </Typography>
+          </span>
+        }
+      />
+      <ListItemResponsiveAction
+        actions={[
+          props.onClickEdit && {
+            icon: ArrowForwardIcon,
+            label: t('edit'),
+            color: 'primary',
+            onClick: () => {
               props.onClickEdit(props.smartlist.id);
-            }}
-            color="primary"
-          >
-            <ArrowForwardIcon />
-          </IconButton>
-        ) : null}
-        {props.onClickDuplicate ? (
-          <Tooltip title={t('duplicate')} classes={classes} aria-label="info">
-            <IconButton
-              onClick={(ev) => {
-                ev.stopPropagation();
-                ev.preventDefault();
-                props.onClickDuplicate(props.smartlist.id);
-              }}
-              color="primary"
-            >
-              <FileCopyIcon />
-            </IconButton>
-          </Tooltip>
-        ) : null}
-        {props.onClickDelete ? (
-          <ButtonWithConfirm
-            onClick={(ev) => {
-              ev.stopPropagation();
-              ev.preventDefault();
+            },
+          },
+          props.onClickDuplicate && {
+            icon: FileCopyIcon,
+            label: t('duplicate'),
+            color: 'primary',
+            onClick: () => {
+              props.onClickDuplicate(props.smartlist.id);
+            },
+          },
+          props.onClickDelete && {
+            iconButtonComponent: ButtonWithConfirm,
+            menuItemComponent: ButtonWithConfirmMenuItem,
+            onClick: () => {
               props.onClickDelete(props.smartlist.id);
-            }}
-            color="secondary"
-          >
-            <DeleteIcon />
-          </ButtonWithConfirm>
-        ) : null}
-      </div>
+            },
+            color: 'secondary',
+          },
+        ]}
+      />
     </ListItem>
   );
 };

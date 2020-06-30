@@ -43,6 +43,7 @@ type Props = {
   setDeleteCoachId: (id: ?number) => void,
 
   goToCoachDetail: (coachId: number) => void,
+  goToCoachEdit: (coachId: number) => void,
   onCreate: () => void,
 
   t: TFunction,
@@ -157,6 +158,7 @@ export class CoachList extends React.Component<Props, State> {
                 coach={coach}
                 onCoachSelected={() => this.props.goToCoachDetail(coach.id)}
                 deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
+                onEditCoach={() => this.props.goToCoachEdit(coach.id)}
               />
             ))}
           </List>
@@ -234,6 +236,7 @@ export default compose(
       goToCreateCoach: () => push('/coach/add'),
       goToCoachDetail: (coachId) => push(`/coach/${coachId}`),
       onCreate: () => push('/coach/add'),
+      goToCoachEdit: (coachId) => push(`/coach/edit/${coachId}`),
     },
   ),
   withTranslation(),

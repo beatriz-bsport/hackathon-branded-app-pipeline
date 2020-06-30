@@ -42,6 +42,8 @@ const DURATION_BETWEEN_PAST = 11;
 
 exports.default = {
   duplicate: 'Dupliquer',
+  edit: 'Configurer',
+  delete: 'Supprimer',
   mails: 'Mails',
   name: 'Nom de la liste',
   search: 'Chercher une smartlist',

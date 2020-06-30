@@ -5,6 +5,8 @@
     "bookingConfirmed": "Réservation confirmée",
     "button": { "login": "Connexion" },
     "openSchedule": "Voir l'emploi du temps",
+    "visibilityOfIconToolTip": "Non visible",
+    "languageToolTip": "Disponible sur marketplace web",
     "private_service": "Sur rendez-vous",
     "report": { "delete": "Suppression d'un rapport" },
     "metaActivity": {
@@ -43,6 +45,7 @@
     },
     "members": { "form": { "title": "Nouveau membre" } },
     "common": {
+      "duplicate": "Dupliquer",
       "isRefreshing": "Votre interface sera prête d'ici un petit instant",
       "copySuffix": " (Copie)",
       "items": "éléments",
@@ -1072,6 +1075,7 @@
       "purchases": "Ventes",
       "emptyContent": "Ce pack ne contient rien !"
     },
+    "edit": "Modifier",
     "delete": {
       "title": "Suppression du pack",
       "content": "Voulez-vous vraiment supprimer ce pack ? Cette opération est irréversible, les achats déjà effectués et les paniers en cours ne seront pas affectés.",
@@ -2002,6 +2006,7 @@
       "imageUploaderRequireEditMessage": "Une fois votre établissement créé, vous aurez la possibilité d'ajouter des images supplémentaires."
     },
     "forms": {
+      "edit": "Modifier",
       "delete": {
         "title": "Suppression établissement",
         "actions": { "cancel": "annuler", "confirm": "Supprimer" },
@@ -2558,6 +2563,9 @@
           "submit": "Enregistrer"
         }
       },
+      "edit": "Modifier",
+      "register": "S'abonner",
+      "delete": "Supprimer",
       "freeze": {
         "form": {
           "title": "Mise en pause",
@@ -3170,6 +3178,8 @@
         "confirm": "Supprimer"
       }
     },
+    "edit": "Modifier",
+    "delete": "Supprimer",
     "duplicate": "Dupliquer",
     "copy": "copie",
     "search": "Chercher un template",
@@ -3467,6 +3477,8 @@
   },
   "smartList": {
     "duplicate": "Dupliquer",
+    "edit": "Configurer",
+    "delete": "Supprimer",
     "mails": "Mails",
     "name": "Nom de la liste",
     "search": "Chercher une smartlist",

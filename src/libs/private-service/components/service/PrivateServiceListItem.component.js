@@ -4,48 +4,27 @@ import { compose } from 'recompose';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import EditIcon from '@material-ui/icons/Edit';
 import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import withStyles from '@material-ui/core/styles/withStyles';
-
-import withConfirm from '../../../../hocs/with-confirm.hoc';
+import type { TFunction } from 'react-i18next';
+import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
 
 import type { PrivateService } from '../../types';
 
 type Props = {
   privateService: PrivateService,
   onClick: () => void,
-  onCancel: () => void,
   onEdit: () => void,
   dense?: boolean,
   selected: boolean,
   hideSecondary: boolean,
   onDelete: () => void,
+  t: TFunction,
 };
 
-const DeleteButton = withConfirm(
-  (props: { onClick: () => void }) => (
-    <IconButton onClick={props.onClick}>
-      <DeleteIcon color="secondary" />
-    </IconButton>
-  ),
-  'onClick',
-  {
-    title: 'privateService:service.form.delete.title',
-    cancel: 'privateService:service.form.delete.cancel',
-    confirm: 'privateService:service.form.delete.confirm',
-    Content: ({ t }: { t: TFunction }) => (
-      <p>{t('privateService:service.form.delete.content')}</p>
-    ),
-  },
-);
-
 export const PrivateServiceListItem = (props: Props) => {
-  const { privateService, onClick } = props;
+  const { privateService, onClick, t } = props;
   return (
     <ListItem
       button={!!onClick}
@@ -70,29 +49,22 @@ export const PrivateServiceListItem = (props: Props) => {
                 .join(', ') || null
         }
       />
-      <ListItemSecondaryAction>
-        <IconButton disableRipple>
-          {!!privateService.manager_only && (
-            <VisibilityOffIcon color="disabled" />
-          )}
-        </IconButton>
-        {props.onEdit ? (
-          <IconButton
-            onClick={(ev) => {
-              ev.stopPropagation();
-              props.onEdit();
-            }}
-          >
-            <EditIcon />
-          </IconButton>
-        ) : null}
-        {props.onDelete ? <DeleteButton onClick={props.onDelete} /> : null}
-        {props.onCancel ? (
-          <IconButton onClick={props.onCancel} color="secondary">
-            <DeleteIcon />
-          </IconButton>
-        ) : null}
-      </ListItemSecondaryAction>
+
+      <ListItemResponsiveAction
+        actions={[
+          props.onEdit && {
+            icon: EditIcon,
+            label: t('serviceGroup.edit'),
+            color: 'primary',
+            onClick: props.onEdit,
+          },
+          props.onDelete && {
+            icon: DeleteIcon,
+            label: t('serviceGroup.delete'),
+            onClick: props.onDelete,
+          },
+        ]}
+      />
     </ListItem>
   );
 };

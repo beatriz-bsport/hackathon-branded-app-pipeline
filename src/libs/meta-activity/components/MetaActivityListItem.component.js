@@ -5,13 +5,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
 import { compose } from 'recompose';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Avatar from '@material-ui/core/Avatar';
-import ClearIcon from '@material-ui/icons/Clear';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import { withTranslation } from 'react-i18next';
@@ -20,6 +17,7 @@ import type { TFunction } from 'react-i18next';
 import type { MetaActivity } from '../../../api/types';
 import { formatAsDatetime } from '../../../datetime';
 import { getSportWithIcon } from '../../../components/category/utils';
+import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 
 type Props = {
   metaActivity: MetaActivity,
@@ -28,7 +26,6 @@ type Props = {
   classes: Object,
   divider: ?boolean,
   dense?: boolean,
-  clearIcon?: boolean,
   goToEdit: (metaActivityId: number) => void,
   onClick: (MetaActivity) => void,
 
@@ -77,32 +74,28 @@ export function MetaActivityListItem(props: Props) {
             : t('activity.noNextSlot')
         }
       />
-      <ListItemSecondaryAction>
-        {props.onClickCopy ? (
-          <IconButton
-            color="primary"
-            onClick={() =>
-              props.onClickCopy(metaActivity.id, t('common.copySuffix'))
-            }
-          >
-            <FileCopyIcon />
-          </IconButton>
-        ) : null}
-        {props.goToEdit ? (
-          <IconButton
-            aria-label={t('common.edit')}
-            color="primary"
-            onClick={() => goToEdit(metaActivity.id)}
-          >
-            <EditIcon />
-          </IconButton>
-        ) : null}
-        {props.deleteMetaActivity ? (
-          <IconButton color="secondary" onClick={props.deleteMetaActivity}>
-            {props.clearIcon ? <ClearIcon /> : <DeleteIcon />}
-          </IconButton>
-        ) : null}
-      </ListItemSecondaryAction>
+      <ListItemResponsiveAction
+        actions={[
+          props.onClickCopy && {
+            icon: FileCopyIcon,
+            label: t('common.duplicate'),
+            color: 'primary',
+            onClick: () =>
+              props.onClickCopy(metaActivity.id, t('common.copySuffix')),
+          },
+          props.goToEdit && {
+            icon: EditIcon,
+            label: t('common.edit'),
+            color: 'primary',
+            onClick: () => goToEdit(metaActivity.id),
+          },
+          props.deleteMetaActivity && {
+            icon: DeleteIcon,
+            label: t('common.delete'),
+            onClick: props.deleteMetaActivity,
+          },
+        ]}
+      />
     </ListItem>
   );
 }

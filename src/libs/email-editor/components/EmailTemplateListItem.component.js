@@ -4,7 +4,7 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation, withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -14,7 +14,9 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import EditIcon from '@material-ui/icons/Edit';
-import Tooltip from '../../../components/Tooltip.component';
+import { MenuItem } from '@material-ui/core';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 
 import withConfirm from '../../../hocs/with-confirm.hoc';
 
@@ -27,7 +29,43 @@ type Props = {
   onClickEdit: (id: number) => void,
 };
 
-const ButtonWithConfirm = withConfirm(IconButton, 'onClick', {
+const DeleteButton = (props: { onClick: () => void }) => (
+  <IconButton
+    onClick={(ev) => {
+      ev.stopPropagation();
+      ev.preventDefault();
+      props.onClick();
+    }}
+  >
+    <DeleteIcon />
+  </IconButton>
+);
+const DeleteButtonMenuItem = withTranslation(['emailTemplate'])(
+  (props: { onClick: () => void }) => (
+    <MenuItem
+      onClick={(ev) => {
+        ev.stopPropagation();
+        ev.preventDefault();
+        props.onClick();
+      }}
+    >
+      <ListItemIcon>
+        <DeleteIcon />
+      </ListItemIcon>
+      <Typography>{props.t('delete')}</Typography>
+    </MenuItem>
+  ),
+);
+const ButtonWithConfirm = withConfirm(DeleteButton, 'onClick', {
+  title: 'emailTemplate:modal.delete.title',
+  cancel: 'emailTemplate:modal.delete.cancel',
+  confirm: 'emailTemplate:modal.delete.confirm',
+  Content: ({ t }: { t: TFunction }) => (
+    <p>{t('emailTemplate:modal.delete.content')}</p>
+  ),
+});
+
+const ButtonWithConfirmMenuItem = withConfirm(DeleteButtonMenuItem, 'onClick', {
   title: 'emailTemplate:modal.delete.title',
   cancel: 'emailTemplate:modal.delete.cancel',
   confirm: 'emailTemplate:modal.delete.confirm',
@@ -57,7 +95,56 @@ export const EmailCard = (props: Props) => {
         secondary={props.email_template.subject || t('no_subject')}
       />
       <div className={classes.actions}>
-        {props.onClickEdit ? (
+        <ListItemResponsiveAction
+          actions={[
+            props.onClickEdit && {
+              icon: EditIcon,
+              label: t('edit'),
+              color: 'primary',
+              onClick: () => {
+                props.onClickEdit(props.email_template.id);
+              },
+            },
+            props.onClickDuplicate && {
+              icon: FileCopyIcon,
+              label: t('duplicate'),
+              color: 'primary',
+              onClick: () => {
+                props.onClickDuplicate(props.email_template.id);
+              },
+            },
+            props.onClickDelete && {
+              iconButtonComponent: ButtonWithConfirm,
+              menuItemComponent: ButtonWithConfirmMenuItem,
+              onClick: () => {
+                props.onClickDelete(props.email_template.id);
+              },
+              color: 'secondary',
+            },
+          ]}
+        />
+      </div>
+    </ListItem>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    boxShadow: theme.shadows[2],
+    fontSize: 11,
+  },
+  listitem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  actions: { display: 'flex', flexWrap: 'nowrap' },
+}));
+
+export default EmailCard;
+
+/*
+ {props.onClickEdit ? (
           <IconButton
             onClick={(ev) => {
               ev.stopPropagation();
@@ -95,22 +182,4 @@ export const EmailCard = (props: Props) => {
             <DeleteIcon />
           </ButtonWithConfirm>
         )}
-      </div>
-    </ListItem>
-  );
-};
-
-const useStyles = makeStyles((theme) => ({
-  tooltip: {
-    backgroundColor: theme.palette.common.white,
-    boxShadow: theme.shadows[2],
-    fontSize: 11,
-  },
-  listitem: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  actions: { display: 'flex' },
-}));
-
-export default EmailCard;
+*/

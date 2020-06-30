@@ -1,10 +1,11 @@
 // @flow
+import { withTranslation } from 'react-i18next';
+
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -12,22 +13,19 @@ import Chip from '@material-ui/core/Chip';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import CallIcon from '@material-ui/icons/Call';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-
-import { Link } from 'react-router-dom';
-
 import type { CoachDetailed as Coach } from '../../../api/types';
+import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 
 import { DEFAULT_AVATAR } from '../utils';
 
 type Props = {
+  t: TFunction,
   coach: Coach,
   onCoachSelected: () => void,
   deleteCoach: () => void,
   divider: ?boolean,
   classes: Object,
-  noEdit?: boolean,
-  onClick?: () => void,
+  onEditCoach: () => void,
 };
 
 const openPhone = (event, phoneNumber: string) => {
@@ -38,8 +36,9 @@ const openEmail = (event, email: string) => {
   event.stopPropagation();
   window.location.href = 'mailto:'.concat(email);
 };
+
 export function CoachListItem(props: Props) {
-  const { coach, classes, onCoachSelected } = props;
+  const { coach, classes, onCoachSelected, t } = props;
   return (
     <ListItem
       key={coach.id}
@@ -87,28 +86,21 @@ export function CoachListItem(props: Props) {
           </React.Fragment>
         }
       />
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        {!!props.onClick && (
-          <IconButton onClick={props.onClick}>
-            <ArrowForwardIcon color="primary" />
-          </IconButton>
-        )}
-        {!props.noEdit && (
-          <Link
-            to={`/coach/edit/${coach.id}`}
-            style={{ textDecoration: 'none' }}
-          >
-            <IconButton aria-label="Edit">
-              <EditIcon color="primary" />
-            </IconButton>
-          </Link>
-        )}
-        {props.deleteCoach ? (
-          <IconButton onClick={props.deleteCoach}>
-            <DeleteIcon />
-          </IconButton>
-        ) : null}
-      </div>
+      <ListItemResponsiveAction
+        actions={[
+          props.onEditCoach && {
+            icon: EditIcon,
+            label: t('common.edit'),
+            color: 'primary',
+            onClick: props.onEditCoach,
+          },
+          props.deleteCoach && {
+            icon: DeleteIcon,
+            label: t('common.delete'),
+            onClick: props.deleteCoach,
+          },
+        ]}
+      />
     </ListItem>
   );
 }
@@ -124,4 +116,4 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(CoachListItem);
+export default withStyles(styles)(withTranslation()(CoachListItem));

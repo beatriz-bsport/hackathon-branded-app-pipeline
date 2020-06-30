@@ -11,11 +11,12 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation } from 'react-i18next';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import Tooltip from '@material-ui/core/Tooltip';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Button from '@material-ui/core/Button';
 import type { TFunction } from 'react-i18next';
+import Tooltip from '../../../components/Tooltip.component';
+import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 
 import { getValidityInfo } from '../utils';
 
@@ -104,26 +105,25 @@ export default withStyles(styles)(
                 </IconButton>
               </Tooltip>
             ) : null}
-            <IconButton
-              color="primary"
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                props.onEdit();
-              }}
-            >
-              <EditIcon />
-            </IconButton>
-            <IconButton
-              color="secondary"
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                props.onDelete();
-              }}
-            >
-              <DeleteIcon />
-            </IconButton>
+            <ListItemResponsiveAction
+              actions={[
+                props.onEdit && {
+                  icon: EditIcon,
+                  label: props.t('actions.edit'),
+                  color: 'primary',
+                  onClick: () => {
+                    props.onEdit();
+                  },
+                },
+                props.onDelete && {
+                  icon: DeleteIcon,
+                  label: props.t('actions.delete'),
+                  onClick: () => {
+                    props.onDelete();
+                  },
+                },
+              ]}
+            />
           </div>
         ) : null}
         {props.onDelete && !props.onEdit ? (

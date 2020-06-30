@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddPersonIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
@@ -14,8 +13,9 @@ import Button from '@material-ui/core/Button';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import LinkIcon from '@material-ui/icons/Link';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import IconButton from '@material-ui/core/IconButton';
 import { buildUrlParams } from '../../../http';
-
+import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import type { SubscriptionContract } from '../types';
 import { urlToMarketplace } from '../../marketplace/utils';
 
@@ -101,39 +101,33 @@ export const SubscriptionContractListItem = (props: Props) => {
             <AddShoppingCartIcon />
           </Button>
         ) : null}
-        {props.onRegister ? (
-          <IconButton
-            color="primary"
-            onClick={(ev) => {
-              ev.stopPropagation();
-              props.onRegister();
-            }}
-          >
-            <AddPersonIcon />
-          </IconButton>
-        ) : null}
-        {props.onEdit ? (
-          <IconButton
-            color="primary"
-            onClick={(ev) => {
-              ev.stopPropagation();
-              props.onEdit();
-            }}
-          >
-            <EditIcon />
-          </IconButton>
-        ) : null}
-        {props.onDelete ? (
-          <IconButton
-            onClick={(ev) => {
-              ev.stopPropagation();
-              props.onDelete();
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
-        ) : null}
       </ListItemSecondaryAction>
+      <ListItemResponsiveAction
+        actions={[
+          props.onRegister && {
+            icon: AddPersonIcon,
+            label: props.t('subscription.register'),
+            color: 'primary',
+            onClick: () => {
+              props.onRegister();
+            },
+          },
+          props.onEdit && {
+            icon: EditIcon,
+            label: props.t('subscription.edit'),
+            onClick: () => {
+              props.onEdit();
+            },
+          },
+          props.onDelete && {
+            icon: DeleteIcon,
+            label: props.t('subscription.delete'),
+            onClick: () => {
+              props.onDelete();
+            },
+          },
+        ]}
+      />
     </ListItem>
   );
 };

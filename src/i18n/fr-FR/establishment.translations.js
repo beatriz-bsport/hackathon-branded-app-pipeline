@@ -43,6 +43,7 @@ exports.default = {
       "Une fois votre établissement créé, vous aurez la possibilité d'ajouter des images supplémentaires.",
   },
   forms: {
+    edit: 'Modifier',
     delete: {
       title: 'Suppression établissement',
       actions: {

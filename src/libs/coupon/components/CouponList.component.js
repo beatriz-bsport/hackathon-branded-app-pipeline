@@ -41,6 +41,7 @@ export const CouponList = (props: Props) => {
                   key={coupon.id}
                   onClick={() => goToCoupon(coupon.id)}
                   onEdit={props.goToEdit}
+                  onEditCoupon={() => goToCoupon(coupon.id)}
                   onDelete={props.setCouponToDelete}
                   coupon={coupon}
                   divider

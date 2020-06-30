@@ -5,6 +5,9 @@ exports.default = {
   button: { login: 'Connexion' },
   openSchedule: "Voir l'emploi du temps",
 
+  visibilityOfIconToolTip: 'Non visible',
+  languageToolTip: 'Disponible sur marketplace web',
+
   private_service: 'Sur rendez-vous',
   report: {
     delete: "Suppression d'un rapport",
@@ -65,6 +68,7 @@ exports.default = {
     },
   },
   common: {
+    duplicate: 'Dupliquer',
     isRefreshing: "Votre interface sera prête d'ici un petit instant",
     copySuffix: ' (Copie)',
     items: 'éléments',

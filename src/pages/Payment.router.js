@@ -53,7 +53,7 @@ type Props = {
   fetchPaymentCombo: (id: number) => void,
   authenticated: boolean,
   location: Object,
-  urlParams: { [string]: string },
+  urlParams: { membership: string },
   setUrlParams: (string) => (string) => void,
 };
 

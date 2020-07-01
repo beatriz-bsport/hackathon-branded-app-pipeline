@@ -127,7 +127,7 @@ export class OfferBooking extends React.PureComponent<Props> {
           {this.props.t('bookingModule.offer.isTooSoon', {
             date: moment(this.props.offer.date_start)
               .add(
-                this.props.offer.meta_activity.first_booking_minutes_until,
+                -this.props.offer.meta_activity.first_booking_minutes_until,
                 'minutes',
               )
               .format('LL'),

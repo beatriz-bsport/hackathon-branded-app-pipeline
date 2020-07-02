@@ -16,8 +16,26 @@
             "dynamic": {
                 "0": {
                     "settingsDelay": "Deadline für die Anmeldung",
-                    "label": "Einer nach dem anderen"
-                }
+                    "label": "Einer nach dem anderen",
+                    "explain": "Wenn sich ein Mitglied anmeldet, erhält es einen Platz auf der Warteliste. Wenn ein Platz frei ist, kann sich die erste Person auf der Liste anmelden, die anderen warten, bis sie an der Reihe sind"
+                },
+                "1": {
+                    "label": "Wer zuerst kommt, mahlt zuerst",
+                    "explain": "Die Warteliste ist nicht geordnet. Wenn ein Platz frei ist, erhalten alle Personen auf der Liste gleichzeitig eine E-Mail, in der sie zur Registrierung eingeladen werden."
+                },
+                "label": "Verwaltung von den Prioritäten auf der Warteliste"
+            },
+            "auto_consume_pack": {
+                "helper": "Hat das Mitglied eine gültige Kurskarte, wenn ein Platz verfügbar ist, wird es automatisch angemeldet und seine Karte belastet. Die Karte, die am frühesten abläuft und das am wenigsten verfügbare Kreditpunkte aufweist, hat den Vorrang.",
+                "label": "Eine Kurskarte automatisch belasten und das Mitglied anmelden, sobald ein Platz verfügbar ist."
+            },
+            "autokick_delay": {
+                "helper": "Anzahl der Erinnerungen, vor denen das Mitglied automatisch von der Warteliste entfernt wird, wenn seinerseits keine Aktion erfolgt",
+                "label": "Automatische Entfernung von der Warteliste"
+            },
+            "is_option_blocking": {
+                "helper": "Solange ein Mitglied auf der Warteliste steht, ist ihm ein Platz reserviert, bis er sich angemeldet hat.",
+                "label": "Die freigewordenen Plätze sind ausschließlich für Personen auf der Warteliste verfügbar."
             }
         },
         "explainWaitingListConf": "Z.B : Es sind noch drei Stunden bis zum Kursbeginn, der Schüler hat {{ nbMinutesBeforeBookingOptionExpire }} Minuten um seine Reservierung zu bestätigen, bevor er seinen Platz verlässt.",
@@ -163,7 +181,10 @@
             "actionSection": "Verwalten",
             "list": {
                 "title": "Laufendes Abonnement"
-            }
+            },
+            "delete": "Löschen",
+            "register": "Abonnieren",
+            "edit": "Ändern"
         },
         "table": {
             "noContent": "Kein gespeichertes Abonnement"
@@ -244,7 +265,8 @@
         "pause": {
             "pausedInterval": "{{start}} → {{ end }} : {{ days }} Tage",
             "pausedAt": "{{ days }} Tage - am {{ date }}"
-        }
+        },
+        "noContracts": "Mit den Verträgen können Sie Ihren Mitgliedern regelmäßig (monatlich) eine Kurskarte in Rechnung stellen, die jeden Monat neu gutgeschrieben wird."
     },
     "translation": {
         "appbar": {
@@ -440,7 +462,8 @@
             "pass": "Kurskarte",
             "members": "Meine Benutzer",
             "items": "Objekte",
-            "isRefreshing": "Ihre Website wird in Kürze bereit sein"
+            "isRefreshing": "Ihre Website wird in Kürze bereit sein",
+            "duplicate": "Duplizieren"
         },
         "openSchedule": "Stundenplan ansehen",
         "login": {
@@ -1162,7 +1185,9 @@
             "sport": "Sport",
             "gaveUp": "Aufgegeben seit"
         },
-        "blockBooking": "Buchung nur für Kurskarten von neuen Kunden ermöglichen"
+        "blockBooking": "Buchung nur für Kurskarten von neuen Kunden ermöglichen",
+        "languageToolTip": "Auf der Web-Marketplace verfügbar",
+        "visibilityOfIconToolTip": "Unsichtbar"
     },
     "smartList": {
         "filters": {
@@ -1468,7 +1493,16 @@
                 "combo": "Package",
                 "pack": "Kurskarte",
                 "shop": "Geschäft",
-                "explanation": "Hat die Produkte A und B gekauft"
+                "explanation": "Hat die Produkte A und B gekauft",
+                "date": {
+                    "first": "durchgeführte Käufe"
+                }
+            },
+            "501": {
+                "explanation": "Buchte seinen/ihren letzten Kurs vor...",
+                "second": "Tagen statt, und keine andere Buchung ist in der Zukunft geplant.",
+                "first": "Der letzte gebucht Kurs fand vor mehr als",
+                "name": "Datum des letzten gebuchten Kurses"
             }
         },
         "filterCategory": {
@@ -1590,7 +1624,10 @@
         "mails": "E-Mails",
         "name": "Name der Liste",
         "search": "Eine Smartlist suchen",
-        "duplicate": "Duplizieren"
+        "duplicate": "Duplizieren",
+        "noSmartLists": "Verwenden Sie Smartlists, um Ihre Mitglieder besser zu sortieren, zu analysieren und kennenzulernen.",
+        "delete": "Löschen",
+        "edit": "Einrichten"
     },
     "theme": {
         "forms": {
@@ -2005,7 +2042,8 @@
         "availableOnFollowingSports": "Wählbare Kategorien : ",
         "availableOnFollowingEstablishments": "Wählbare Einrichtungen : ",
         "availableOnFollowingActivities": "Wählbare Aktivitäten : ",
-        "notificationForm": "Benachrichtigung-Formular"
+        "notificationForm": "Benachrichtigung-Formular",
+        "noPaymentPack": "Kurskarten ermöglichen es den Mitgliedern, sich für Aktivitäten anzumelden; für die Anmeldung ist eine Karte erforderlich."
     },
     "alerting": {
         "task": {
@@ -2491,6 +2529,10 @@
                 "delete": {
                     "success": "Objekt gelöscht",
                     "error": "Fehler beim Löschen"
+                },
+                "duplicate": {
+                    "error": "Es ist unmöglich, dieses Produkt zu duplizieren",
+                    "success": "Das Produkt wurde erfolgreich dupliziert"
                 }
             },
             "subShop": {
@@ -2605,7 +2647,8 @@
         "base_percent": "Prozentsatz des Wertes",
         "only_attendant": "Beschränkung des Buchungsnachweises auf die anwesenden Schüler",
         "bookingThreshold": "Buchungsschwelle (ausgeschlossen)",
-        "title": "Lohnausstellung des Lehrers {{name}}"
+        "title": "Lohnausstellung des Lehrers {{name}}",
+        "pageTitle": "Entlohnungsregel"
     },
     "shop": {
         "shopitem": {
@@ -2834,7 +2877,8 @@
             },
             "messages": {
                 "offerLocked": "Sie können diesen Kurs nicht buchen"
-            }
+            },
+            "hasRegistered": "Sie sind für diesen Kurs angemeldet"
         },
         "statusCode": {
             "cancelledByOffer": "Kurs von dem Klub storniert",
@@ -2984,6 +3028,12 @@
         "search": {
             "cancel": "Schließen",
             "createMember": "Ein Mitglied hinzufügen"
+        },
+        "birth": {
+            "unknown_F": "Geboren am -",
+            "unknown": "Geboren am -",
+            "bornIn_F": "Geboren am {{-date}} - {{age}} Jahre",
+            "bornIn": "Geboren am {{-date}} - {{age}} Jahre"
         }
     },
     "common": {
@@ -3796,7 +3846,8 @@
         "settings": {
             "lastDiscardBeforeMinutes": "Letzte mögliche Stornierung vor Beginn der Aktivität",
             "lastBookingBeforeMinutes": "Letzte mögliche Buchung vor Beginn der Aktivität",
-            "title": "Einstellungen"
+            "title": "Einstellungen",
+            "firstBookingMinutesUntil": "Buchungen beschränken auf Kurse vor oder in "
         },
         "modal": {
             "delete": {
@@ -3861,7 +3912,8 @@
         "description": "Beschreibung",
         "reviews": "Kundenmitteilungen : ",
         "offersThisDay": "Heutige Kurse :",
-        "packsAvailable": "Für Kurskarten berechtigt :"
+        "packsAvailable": "Für Kurskarten berechtigt :",
+        "noActivities": "Verwalten Sie hier Ihre Aktivitäten, eine Aktivität ermöglicht es Ihnen, eine Reihe von Kursen (in der Regel Grupenkurse) derselben Disziplin gemeinsam zu organisieren."
     },
     "coachPerformance": {
         "bonus": "Bonus",
@@ -3952,7 +4004,8 @@
             "containsNProducts": "Enthält {{ n }} Produkte",
             "description": "Beschreibung",
             "purchases": "Verkäufe"
-        }
+        },
+        "edit": "Ändern"
     },
     "authentication": {
         "resetPassword": {
@@ -4204,8 +4257,8 @@
         },
         "offerStatus": {
             "startIn": "Beginnt in ",
-            "hasEnded": "Fertig",
-            "inProgress": "Ongoing "
+            "hasEnded": "Fertig seit",
+            "inProgress": "Ongoing seit"
         }
     },
     "order": {
@@ -4277,7 +4330,8 @@
             "forms": {
                 "onSubmit": "Speichern"
             }
-        }
+        },
+        "pageTitle": "Geschäft"
     },
     "titles": {
         "dashboard": {
@@ -4513,7 +4567,22 @@
             "product": "Produkte",
             "myShop": "Geschäft",
             "beta": "beta",
-            "settings": "Einstellungen",
+            "settings": {
+                "settings": "Einstellungen",
+                "active_campaign": "ActiveCampaign",
+                "partnership": "Partnerschaft",
+                "webhook": "WebHook",
+                "personalization": "Personalisierung",
+                "role": "Staff",
+                "shop": "Geschäft",
+                "waitingList": "Warteliste",
+                "invoice": "Rechnungsstellung",
+                "company": "Unternehmen",
+                "paymentRules": "Entlohnungsregel",
+                "notificationRule": "Transaktions-E-Mails",
+                "broadcast": "Videokonferenz",
+                "general": "Allgemein"
+            },
             "myClub": "Mein Klub",
             "subscription": "Automatische Abbuchungen",
             "contract": "Verträge",
@@ -4574,7 +4643,11 @@
                 "title": "Löschung des E-Mail-Vorlage"
             }
         },
-        "editTitle": "Änderung der Vorlage"
+        "editTitle": "Änderung der Vorlage",
+        "autoSave": "Automatisches Backup",
+        "leaveAlert": "Wollen Sie diese Seite wirklich verlassen ?",
+        "delete": "Löschen",
+        "edit": "Ändern"
     },
     "coach": {
         "forms": {
@@ -4648,7 +4721,8 @@
             }
         },
         "showPerformance": "Lohn ausstellen",
-        "noCoach": "Zur Zeit gibt es keine registrierten Lehrer"
+        "noCoach": "Zur Zeit gibt es keine registrierten Lehrer",
+        "noCoachs": "Keine registrierten Lehrer, verwalten Sie hier Ihre Lehrer, Referenten und deren Entlohnung."
     },
     "login": {
         "error": {
@@ -4837,7 +4911,8 @@
                 "title": "Zugangsnformationen zu Ihrer ActiveCampaign API",
                 "helpContent": "Die URL und der Authentifizierungsschlüssel Ihres ActiveCampaign-Kontos sind in Ihren Kontoeinstellungen verfügbar, indem Sie auf die Rubrik \"Entwickler\" klicken.",
                 "helpTitle": "Wo kann ich meine Kontoinformationen finden?",
-                "token": "Authentifizierungs-Schlüssel"
+                "token": "Authentifizierungs-Schlüssel",
+                "empty": "Bitte geben Sie die URL Ihrer API ein"
             },
             "cancel": "Abbrechen",
             "submit": "Bestätigen",
@@ -4963,7 +5038,8 @@
             },
             "create": {
                 "title": "Neue Einrichtung"
-            }
+            },
+            "edit": "Ändern"
         },
         "establishment": "Einrichtung ",
         "baseEstablishment": "Gewöhnlich",
@@ -4992,7 +5068,8 @@
         "update": {
             "imageUploaderRequireEditMessage": "Sobald Ihre Einrichtung erstellt ist, haben Sie die Möglichkeit, zusätzliche Bilder hinzuzufügen."
         },
-        "cancel": "Abbrechen"
+        "cancel": "Abbrechen",
+        "noEstablishement": "Verwalten Sie hier Ihre Einrichtungen, ihre Lage, ihre Füllung und lesen Sie den Kalender"
     },
     "checkout": {
         "myBasket": {
@@ -5030,6 +5107,9 @@
         "autoAdd": {
             "paymentPack": {
                 "locked": "Dieses Produkt ist nicht vorhanden."
+            },
+            "privatePass": {
+                "error": "Diese Terminkarte ist nicht verfügbar"
             }
         }
     },

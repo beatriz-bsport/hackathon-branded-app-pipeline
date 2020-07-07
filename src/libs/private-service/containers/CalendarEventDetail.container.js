@@ -114,6 +114,7 @@ type Props = {
   disableOrDeletePrivateBooking: (
     privateBookingId: number,
     force_refund: boolean,
+    send_mail: boolean,
     options: OptionCallback,
   ) => void,
   refreshPrivateBookings: () => void,
@@ -331,10 +332,11 @@ export class CalendarEventDetail extends React.Component<Props> {
           <PrivateBookingDisableDialog
             open={this.props.privateBookingDeleteModalOpen}
             private_booking={this.props.privateBooking}
-            onSubmit={(force_refund) =>
+            onSubmit={(force_refund, send_mail) =>
               this.props.disableOrDeletePrivateBooking(
                 this.props.privateBooking,
                 force_refund,
+                send_mail,
                 {
                   onSuccess: () => {
                     this.props.onClose();
@@ -515,7 +517,7 @@ const PrivateBookingCancellatorContainer = compose(
       deletePrivateBooking,
       closeDisablePrivateBookingModal,
       setPrivateBookingProcessing,
-    }) => (private_booking, force_refund, options) => {
+    }) => (private_booking, force_refund, send_mail, options) => {
       setPrivateBookingProcessing(true);
       const isDisabled =
         private_booking.booking_status_code !== BOOKING_STATUS_OK.id;
@@ -525,7 +527,7 @@ const PrivateBookingCancellatorContainer = compose(
       }
       action(
         private_booking.id,
-        { force_refund },
+        { force_refund, send_mail },
         {
           onSuccess: (...args) => {
             closeDisablePrivateBookingModal();

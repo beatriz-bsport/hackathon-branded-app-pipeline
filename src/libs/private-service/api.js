@@ -382,7 +382,7 @@ export const registerPrivateBookings = ({
 
 export const disablePrivateBooking = (
   id: number,
-  data: { force_refund: boolean },
+  data: { force_refund: boolean, send_mail: boolean },
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_booking/${id}/disable/`,

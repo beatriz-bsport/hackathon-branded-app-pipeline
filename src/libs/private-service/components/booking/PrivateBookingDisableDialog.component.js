@@ -15,7 +15,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
-  onSubmit: (force_refund: boolean) => void,
+  onSubmit: (force_refund: boolean, send_email: boolean) => void,
   classes: Object,
   open: boolean,
   fullScreen?: boolean,
@@ -26,16 +26,18 @@ type Props = {
 
 type State = {
   force_refund: boolean,
+  send_email: boolean,
 };
 
 export class PrivateBookingDisableDialog extends React.Component<Props, State> {
   state = {
     force_refund: true,
+    send_email: true,
   };
 
   onSubmit = (ev: SyntheticEvent<any>) => {
     ev.preventDefault();
-    this.props.onSubmit(this.state.force_refund);
+    this.props.onSubmit(this.state.force_refund, this.state.send_email);
   };
 
   render() {
@@ -64,6 +66,20 @@ export class PrivateBookingDisableDialog extends React.Component<Props, State> {
               />
               <Typography>
                 {t('privateBooking.delete.explainForceRefund')}
+              </Typography>
+            </div>
+            <div className={classes.checkboxContainer}>
+              <Checkbox
+                checked={this.state.send_email}
+                disabled={isDisabled}
+                onChange={(ev) =>
+                  this.setState({ send_email: ev.target.checked })
+                }
+              />
+              <Typography>
+                {t('privateBooking.delete.sendCancellationMail', {
+                  name: this.props.private_booking.member.name,
+                })}
               </Typography>
             </div>
           </DialogContent>

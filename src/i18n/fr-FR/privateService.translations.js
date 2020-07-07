@@ -147,6 +147,8 @@ exports.default = {
         "Cette réservation a déjà été annulée, la supprimer la fera disparaitre du calendrier totalement et vous perdrez l'historique. Elle sera remboursée si elle ne l'a pas été précédemment. Cette opération est irréversible.",
       explainForceRefund:
         'Rembourser le crédit utilisé sur la carte pour permettre une nouvelle réservation.',
+      sendCancellationMail:
+        "Prévenir {{name}} de l'annulation du rendez-vous par mail",
       cancel: 'Annuler',
       confirm: 'Confirmer',
     },

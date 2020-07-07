@@ -2,6 +2,7 @@
 import React from 'react';
 
 import { compose, withState, withHandlers } from 'recompose';
+import uniq from 'lodash/uniq';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -9,7 +10,10 @@ import moment from 'moment';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import withTitle from '../../hocs/with-title.hoc';
-import { fetchFilteredMembers } from '../../libs/member/actions';
+import {
+  fetchFilteredMembers,
+  fetchMemberBulk as fetchMemberBulkAction,
+} from '../../libs/member/actions';
 import { getPrivateServiceById } from '../../libs/private-service/selectors/private-service';
 import {
   getPrivateBookingListFiltered,
@@ -294,6 +298,7 @@ export default compose(
       fetchPrivateServiceResourceData,
       fetchPrivateBookings: fetchPrivateBookingListActions,
       fetchFilteredMembers,
+      fetchMemberBulk: fetchMemberBulkAction,
       disableResourceAvailabilitySlot,
       enableResourceAvailabilitySlot,
       onEditResourceConfiguration: updateResourceConfiguration,
@@ -304,6 +309,7 @@ export default compose(
       fetchPrivateBookings,
       periodFilter,
       id,
+      fetchMemberBulk,
     }) => () => {
       fetchPrivateBookings(
         {
@@ -315,8 +321,8 @@ export default compose(
         {
           onSuccess: (bookings) => {
             if (bookings.length) {
-              fetchFilteredMembers({
-                id__in: bookings.map((b) => b.member),
+              fetchMemberBulk({
+                id__in: uniq(bookings.map((b) => b.member)),
               });
             }
           },

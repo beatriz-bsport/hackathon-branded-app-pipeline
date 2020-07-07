@@ -1239,7 +1239,9 @@ export function fetchPrivateBookings(
     try {
       const response = await fetchPrivateBookingsAPI(params);
       dispatch(privateBookingListActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
       console.error(err);
       dispatch(privateBookingListActions.error(null));
@@ -1353,7 +1355,7 @@ export function updatePrivateBookingCoach(
 
 export function disablePrivateBooking(
   id: number,
-  data: { force_refund: boolean } = {},
+  data: { force_refund: boolean, send_mail: boolean } = {},
   options: ?{ onSuccess: () => void, onError: ?() => void },
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
@@ -1380,7 +1382,7 @@ export const privateBookingDeleteActions = {
 
 export function deletePrivateBooking(
   id: number,
-  data: { force_refund: boolean },
+  data: { force_refund: boolean, send_mail: boolean },
   options: ?{ onSuccess: () => void, onError: ?() => void },
 ): ThunkAction {
   return async (dispatch: Dispatch) => {

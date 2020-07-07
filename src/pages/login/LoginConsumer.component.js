@@ -115,7 +115,7 @@ export class ConsumerLoginPage extends Component<Props> {
             requestSignUp={this.switchToSignUp}
           />
           <Hidden smDown>
-            <a href="https://app.hubspot.com/meetings/zmansour">
+            <a href="https://calendly.com/bsport/demo">
               <Typography variant="caption">{t('contactUs')}</Typography>
             </a>
           </Hidden>

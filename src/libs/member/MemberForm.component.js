@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import lodash from 'lodash';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
@@ -9,10 +8,9 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
-import { withFormik, Form, connect as formikConnect } from 'formik';
+import { withFormik, Form } from 'formik';
 
-import { compose, withPropsOnChange, withProps, withState } from 'recompose';
-import { getAuth, postAuth, API_URI } from '../../http';
+import { compose } from 'recompose';
 
 import { Moment } from '../../i18n';
 import AvatarField from '../../components/forms/AvatarField.component';
@@ -28,7 +26,6 @@ import {
   DateField,
   AddressFields,
 } from '../../components/forms';
-import AlertExistingUser from './AlertExistingUser.component';
 import { DATE_FORMAT } from '../../datetime';
 
 const styles = (theme) => ({
@@ -62,82 +59,8 @@ type Props = {
   variant?: 'merge-form' | '',
   disabled?: boolean,
   fromConsumerAccess: ?boolean,
-  memberId: number,
-  emailExistsError: boolean,
   hideManagerStuff: boolean,
   onCancel?: () => void,
-  checkUserExists: ({ email?: string, phonenumber?: string }) => void,
-  goToMember: (number) => void,
-  goToMerge: (number, number) => void,
-
-  linkMember: (number) => void,
-};
-
-const Effect = formikConnect(
-  class __ extends React.Component<{ formik: *, onChange: (*) => void }> {
-    componentDidUpdate(prevProps) {
-      if (prevProps.formik !== this.props.formik) {
-        this.props.onChange(prevProps.formik, this.props.formik);
-      }
-    }
-
-    render() {
-      return null;
-    }
-  },
-);
-
-const MemberExistsBanner = (props: {
-  emailExists: { email: string, exists: boolean },
-  goToMember: () => void,
-  linkMember: () => void,
-  goToMerge: () => void,
-  memberId: number,
-  emailExistsError: boolean,
-}) => {
-  const {
-    emailExists,
-    goToMember,
-    goToMerge,
-    linkMember,
-    memberId,
-    emailExistsError,
-  } = props;
-  if (!emailExists) {
-    return null;
-  }
-  const { email, phonenumber, exists } = emailExists;
-  if (!exists) {
-    return null;
-  }
-
-  if ((exists, emailExistsError)) {
-    return null;
-  }
-
-  return (
-    <AlertExistingUser
-      email={email}
-      memberId={memberId}
-      phonenumber={phonenumber}
-      existingMemberId={exists.member_pk}
-      goToMember={goToMember}
-      goToMerge={goToMerge}
-      linkMember={linkMember}
-    />
-  );
-};
-
-const checkIfMemberExists = (
-  currentFormikState,
-  nextFormikState,
-  checkUserExists,
-) => {
-  const prevEmail = currentFormikState.values.email;
-  const nextEmail = nextFormikState.values.email;
-  if (prevEmail !== nextEmail) {
-    checkUserExists({ email: nextEmail });
-  }
 };
 
 export function MemberForm(props: Props) {
@@ -147,22 +70,11 @@ export function MemberForm(props: Props) {
     disabled,
     isSubmitting,
     variant,
-    checkUserExists,
     hideManagerStuff,
   } = props;
   const mdSize = variant === 'merge-form' ? 12 : 6;
   return (
     <div>
-      {variant === 'merge-form' || hideManagerStuff ? null : (
-        <MemberExistsBanner
-          emailExists={props.emailExists}
-          emailExistsError={props.emailExistsError}
-          linkMember={props.linkMember}
-          goToMember={props.goToMember}
-          goToMerge={props.goToMerge}
-          memberId={props.memberId}
-        />
-      )}
       <div
         className={
           variant === 'merge-form' && disabled
@@ -180,11 +92,6 @@ export function MemberForm(props: Props) {
           </div>
         ) : null}
         <Form>
-          <Effect
-            onChange={(prev, nxt) =>
-              checkIfMemberExists(prev, nxt, checkUserExists)
-            }
-          />
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <div
@@ -195,7 +102,6 @@ export function MemberForm(props: Props) {
             </Grid>
             <Grid item xs={12} md={mdSize}>
               <TextField
-                shrink
                 name="firstname"
                 label={
                   props.theme && props.theme.first_name_label
@@ -210,7 +116,6 @@ export function MemberForm(props: Props) {
             <Grid item xs={12} md={mdSize}>
               <TextField
                 name="lastname"
-                shrink
                 label={
                   props.theme && props.theme.last_name_label
                     ? props.theme.last_name_label
@@ -234,7 +139,6 @@ export function MemberForm(props: Props) {
               {variant === 'merge-form' ? (
                 <TextField
                   name="email"
-                  shrink
                   label={t('translation:form.email')}
                   type="email"
                   fullWidth
@@ -259,7 +163,6 @@ export function MemberForm(props: Props) {
                   label={t('form.member.referenceNumber')}
                   helperText={t('form.member.referenceNumberHelper')}
                   fullWidth
-                  shrink
                   disabled={disabled || !!props.fromConsumerAccess}
                 />
               </Grid>
@@ -268,7 +171,6 @@ export function MemberForm(props: Props) {
               <Grid item xs={12} md={mdSize}>
                 <TextField
                   name="barcode"
-                  shrink
                   label={t('form.member.barcode')}
                   helperText={t('form.member.barcodeHelper')}
                   fullWidth
@@ -400,16 +302,6 @@ export function MemberForm(props: Props) {
           />
         )}
       </div>
-      {variant === 'merge-form' || hideManagerStuff ? null : (
-        <MemberExistsBanner
-          emailExists={props.emailExists}
-          emailExistsError={props.emailExistsError}
-          linkMember={props.linkMember}
-          goToMember={props.goToMember}
-          goToMerge={props.goToMerge}
-          memberId={props.memberId}
-        />
-      )}
     </div>
   );
 }
@@ -446,54 +338,6 @@ const MemberSchema = Yup.object().shape({
 export default compose(
   withStyles(styles),
   withTranslation(['translation', 'member']),
-  withState('emailExists', 'setEmailExists', false),
-  withState('emailExistsError', 'setemailExistsError', false),
-
-  withPropsOnChange(
-    ['setEmailExists', 'setCurrentEmailExist'],
-    ({ setEmailExists, setemailExistsError }) => ({
-      checkUserExists: lodash.debounce(({ email, phonenumber }) => {
-        const q = email
-          ? `email=${email}`
-          : `phonenumber=${encodeURIComponent(phonenumber)}`;
-        getAuth(`${API_URI}/saas/members/members/exists/?${q}`).catch(
-          (error) => {
-            const { status, data } = error.response || {};
-            if (status !== 404) {
-              setEmailExists({ email, phonenumber, exists: data || {} });
-              setemailExistsError(false);
-
-              window.scrollTo(0, 0);
-            }
-            if (status === 404) {
-              setemailExistsError(true);
-            }
-          },
-        );
-      }, 1000),
-    }),
-  ),
-  withProps(({ emailExists, goToMemberList, goToMember, snackbarSuccess }) => ({
-    linkMember: () => {
-      const { email, phonenumber } = emailExists;
-      postAuth(`${API_URI}/saas/members/members/link/`, {
-        email,
-        phonenumber,
-      })
-        .then(() => {
-          if (snackbarSuccess) {
-            snackbarSuccess('member.link.success');
-          }
-          goToMemberList();
-        })
-        .catch((error) => {
-          const { status, data } = error.response || {};
-          if (status === 302) {
-            goToMember(data.member_pk);
-          }
-        });
-    },
-  })),
   withFormik({
     mapPropsToValues: ({ initial }) =>
       initial || {

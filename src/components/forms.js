@@ -77,17 +77,20 @@ const textFieldStyles = (theme) => ({
 });
 
 export const TextField = withStyles(textFieldStyles)((props: Props) => {
-  const { classes } = props;
+  const { classes, shrink } = props;
   return (
     <Field {...props}>
-      {({ field, form: { touched, errors } }) => (
-        <MuiTextField
-          className={classes.field}
-          {...field}
-          {...omit(props, ['field'])}
-          error={!!(touched[field.name] && errors[field.name])}
-        />
-      )}
+      {({ field, form: { touched, errors } }) => {
+        return (
+          <MuiTextField
+            InputLabelProps={field.value ? { shrink } : {}}
+            className={classes.field}
+            {...field}
+            {...omit(props, ['field'])}
+            error={!!(touched[field.name] && errors[field.name])}
+          />
+        );
+      }}
     </Field>
   );
 });

@@ -54,6 +54,7 @@ export class MemberMergeForm extends Component<Props> {
             variant="merge-form"
             goToMember={() => this.props.goToMember(this.props.dstMember.id)}
             initial={prepareData(this.props.dstMember)}
+            ignoreMail="true"
             onSubmit={(data, options) => this.props.onSubmit(data, options)}
           />
           <div className={classes.buttonContainer}>

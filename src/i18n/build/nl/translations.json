@@ -4097,7 +4097,8 @@
             "7": "Storting",
             "8": "EventBrite",
             "9": "Interne rekening (tegoed)",
-            "11": "Diverse"
+            "11": "Diverse",
+            "label": "Betalingsmiddel"
         },
         "explainOption": "Je krijgt per e-mail bericht wanneer er een plaats vrij komt",
         "bookAnotherOption": "Meld u opnieuw aan op de wachtlijst",
@@ -4119,7 +4120,17 @@
             }
         },
         "goBack": "Vorig",
-        "availablePaymentPacks": "Compatibele passen: "
+        "availablePaymentPacks": "Compatibele passen: ",
+        "actions": {
+            "addThisPaymentItem": "Dit betalingsmiddel toevoegen"
+        },
+        "creditAccountBalance": {
+            "current": "Huidige aanbetaling"
+        },
+        "paymentNote": {
+            "helperText": "(optioneel) chequenummer, incassodatum ...",
+            "label": "Notitie"
+        }
     },
     "snackbar": {
         "coach": {
@@ -4997,6 +5008,70 @@
             "forms": {
                 "stripe_footer_placeholder": "Geen aanvullende vermelding"
             }
+        },
+        "section": {
+            "paymentList": {
+                "total": "Totaal betalingen",
+                "isEmpty": "Geen betalingsmiddel geregistreerd",
+                "title": "Betalingsmiddel"
+            },
+            "invoiceItemList": {
+                "total": "Totaal aankoop",
+                "isEmpty": "Geen enkele aankoop",
+                "title": "Aankopen"
+            }
+        },
+        "invoiceItem": {
+            "voucher": "Korting: {{ voucher }} €",
+            "quantity": "Hoeveelheid",
+            "credit": {
+                "label": "Krediet"
+            },
+            "buyableItemIdentifier": {
+                "10": "Pack",
+                "9": "Afspraakkaart",
+                "3": "Krediet",
+                "2": "Winkel",
+                "1": "Cursuskaart"
+            }
+        },
+        "actions": {
+            "finalize": "Afronden (PDF)",
+            "download": "PDF downloaden",
+            "equilibrate": "Saldo (aanbetaling)",
+            "addInvoiceItem": "Toevoegen aan factuur",
+            "save": "Opslaan",
+            "backToInvoiceItemEditor": "Aankoop",
+            "goToPaymentEditor": "Betaling",
+            "goToSubscription": "Zie abonnement",
+            "revert": "Annuleren",
+            "invoiceReverted": "Factuur geannuleerd"
+        },
+        "uneditableMessage": {
+            "invoiceFinalizedThusNotEditable": "De factuur is definitief en kan dus niet meer worden bewerkt",
+            "invoiceFromSubscriptionThusNotEditable": "Deze factuur maakt deel uit van een abonnement en kan daarom niet worden bewerkt, wijzig het abonnement rechtstreeks",
+            "invoiceRevertedThusNotEditable": "De factuur is geannuleerd en kan niet worden gewijzigd"
+        },
+        "invoice": {
+            "header": {
+                "source": {
+                    "label": "Kanaal: {{ source }}",
+                    "3": "Andere",
+                    "2": "Backoffice",
+                    "1": "Web",
+                    "0": "App"
+                },
+                "clientAuthor": "Klant",
+                "author": "Opgemaakt door: {{ name }}",
+                "date": "Datum: {{ date }}"
+            },
+            "editor": {
+                "title": "Uitgave van de factuur"
+            },
+            "title": "Factuur {{ uuid }}"
+        },
+        "creditAccountBalance": {
+            "current": "Huidige aanbetaling"
         }
     },
     "waitingList": {

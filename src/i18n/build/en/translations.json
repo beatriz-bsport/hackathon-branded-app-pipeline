@@ -2135,7 +2135,8 @@
             "content": "Are you sure you want to delete this pack ? This operation is definitive, current purchases and current baskets will not be modified.",
             "cancel": "Cancel",
             "submit": "Delete"
-        }
+        },
+        "edit": "Edit"
     },
     "communication": {
         "table": {

@@ -2563,6 +2563,70 @@
                 "title": "Rückerstattung an Kunden",
                 "content": "Die Zahlung wird auf das BANK-Konto des Kunden überwiesen, eine Anzahlung des gleichen Betrags wird der Rechnung hinzugefügt, um die Zahlung zu repräsentieren."
             }
+        },
+        "section": {
+            "invoiceItemList": {
+                "total": "Gesamte Einkäufe",
+                "isEmpty": "Keine Einkäufe",
+                "title": "Einkäufe"
+            },
+            "paymentList": {
+                "total": "Gesamte Zahlungen",
+                "isEmpty": "Keine registrierte Zahlungsmethode",
+                "title": "Zahlungsmethoden"
+            }
+        },
+        "actions": {
+            "equilibrate": "Ausgleichen (Anzahlung)",
+            "backToInvoiceItemEditor": "Einkauf",
+            "finalize": "Finalisieren (PDF)",
+            "download": "Downloaden PDF",
+            "addInvoiceItem": "Zur Rechnung hinzufügen",
+            "save": "Speichern",
+            "goToPaymentEditor": "Zahlung",
+            "goToSubscription": "Das Abonnement anzeigen",
+            "revert": "Abbrechen",
+            "invoiceReverted": "Die Rechnung wurde storniert"
+        },
+        "invoice": {
+            "editor": {
+                "title": "Erstellung der Rechnung"
+            },
+            "header": {
+                "source": {
+                    "label": "Kanal : {{ source }}",
+                    "3": "Divers",
+                    "2": "Backoffice",
+                    "1": "Web",
+                    "0": "App"
+                },
+                "clientAuthor": "Kunde",
+                "author": "Erstellt von : {{ name }}",
+                "date": "Datum : {{ date }}"
+            },
+            "title": "Rechnung {{ uuid }}"
+        },
+        "invoiceItem": {
+            "voucher": "Rabatt : {{ voucher }} €",
+            "quantity": "Menge",
+            "credit": {
+                "label": "Kredit"
+            },
+            "buyableItemIdentifier": {
+                "10": "Package",
+                "9": "Terminkarte",
+                "3": "Kredit",
+                "2": "Geschäft",
+                "1": "Kurskarte"
+            }
+        },
+        "uneditableMessage": {
+            "invoiceFinalizedThusNotEditable": "Die Rechnung wurde abgeschlossen und kann deswegen nicht mehr geändert werden",
+            "invoiceFromSubscriptionThusNotEditable": "Diese Rechnung ist Teil eines Abonnements und kann daher nicht bearbeitet werden. Bitte ändern Sie das Abonnement direkt",
+            "invoiceRevertedThusNotEditable": "Die Rechnung wurde storniert und kann nicht mehr geändert werden"
+        },
+        "creditAccountBalance": {
+            "current": "Aktuelle Anzahlung"
         }
     },
     "payment": {
@@ -2577,7 +2641,8 @@
             "2": "Scheck",
             "1": "Bargeld",
             "0": "Kreditkarte",
-            "9": "Internes Konto (Kreditpunkte)"
+            "9": "Internes Konto (Kreditpunkte)",
+            "label": "Zahlungsmethode"
         },
         "generalTermsAndConditions": {
             "close": "Schließen",
@@ -2604,7 +2669,17 @@
         "bookAnotherOption": "Mich erneut auf die Warteliste einschreiben",
         "bookAnOption": "Mich auf die Warteliste einschreiben",
         "explainOption": "Sobald ein Platz frei wird, werden Sie per E-Mail benachrichtigt",
-        "availablePaymentPacks": "Kompatible Kurskarten : "
+        "availablePaymentPacks": "Kompatible Kurskarten : ",
+        "actions": {
+            "addThisPaymentItem": "Diese Zahlungsmethode hinzufügen"
+        },
+        "creditAccountBalance": {
+            "current": "Aktuelle Anzahlung"
+        },
+        "paymentNote": {
+            "helperText": "(fakultativ) Schecknummer, Einlösungsdatum...",
+            "label": "Anmerkung"
+        }
     },
     "paymentRules": {
         "common": {

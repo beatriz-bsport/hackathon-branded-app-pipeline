@@ -49,7 +49,7 @@ function ShortMenu(props: Props) {
           </IconButton>
         ))}
       {props.actions
-        .filter((o) => o && !!o.conButtonComponent)
+        .filter((o) => o && !!o.iconButtonComponent)
         .map((option) => (
           <option.iconButtonComponent
             onClick={() => {

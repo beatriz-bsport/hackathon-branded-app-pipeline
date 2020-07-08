@@ -2690,6 +2690,49 @@
                 "confirm": "Rimborso",
                 "content": "Il pagamento verrà trasferito sul conto BANCARIO del cliente, un deposito dello stesso importo verrà aggiunto alla fattura per rappresentare il pagamento."
             }
+        },
+        "invoiceItem": {
+            "buyableItemIdentifier": {
+                "1": "Scheda del corso"
+            }
+        },
+        "actions": {
+            "finalize": "Finalizza (PDF)",
+            "download": "Scarica il pdf",
+            "equilibrate": "Saldo (acconto)",
+            "addInvoiceItem": "Aggiungi alla fattura",
+            "save": "Iscriviti",
+            "backToInvoiceItemEditor": "Acquista",
+            "goToPaymentEditor": "Pagamento",
+            "goToSubscription": "Vedi l'abbonamento",
+            "revert": "Annulla",
+            "invoiceReverted": "Fattura annullata"
+        },
+        "uneditableMessage": {
+            "invoiceFinalizedThusNotEditable": "La fattura è stata finalizzata e pertanto non è più modificabile",
+            "invoiceFromSubscriptionThusNotEditable": "Questa fattura fa parte di un abbonamento e pertanto non è modificabile, si prega di modificare direttamente l'abbonamento",
+            "invoiceRevertedThusNotEditable": "La fattura è stata annullata e non può essere modificata"
+        },
+        "invoice": {
+            "header": {
+                "source": {
+                    "label": "Canale: {{source}}",
+                    "3": "Altro",
+                    "2": "Backoffice",
+                    "1": "Web",
+                    "0": "App"
+                },
+                "clientAuthor": "cliente",
+                "author": "Creato da: {{name}}",
+                "date": "Data: {{date}}"
+            },
+            "editor": {
+                "title": "Edizione della fattura"
+            },
+            "title": "Fattura {{uuid}}"
+        },
+        "creditAccountBalance": {
+            "current": "Acconto presente"
         }
     },
     "coach": {
@@ -4572,7 +4615,8 @@
             "1": "Contanti",
             "9": "Conto interno (di credito)",
             "10": "Pagamento automatico",
-            "11": "Altro"
+            "11": "Altro",
+            "label": "Metodi di pagamento"
         },
         "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
         "method": {
@@ -4584,7 +4628,17 @@
             "theTermsAndConditions": "termini e condizioni di vendita.",
             "close": "Chiudi"
         },
-        "explainOption": "Riceverai una notifica via email quando un posto sarà disponibile"
+        "explainOption": "Riceverai una notifica via email quando un posto sarà disponibile",
+        "actions": {
+            "addThisPaymentItem": "Aggiungi questo metodo di pagamento"
+        },
+        "creditAccountBalance": {
+            "current": "Acconto presente"
+        },
+        "paymentNote": {
+            "helperText": "(facoltativo) numero di conto, data di incasso...",
+            "label": "Nota"
+        }
     },
     "selfCheckIn": {
         "offerDetail": {

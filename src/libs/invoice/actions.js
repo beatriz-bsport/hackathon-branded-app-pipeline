@@ -195,7 +195,7 @@ export const retrieveInvoiceActions = {
   success: createAction('INVOICE/RETRIEVE/SUCCESS'),
 };
 
-export function fetchByQueryInvoice(params: *) {
+export function fetchByQueryInvoice(params: *, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveInvoiceActions.isLoading(true));
     dispatch(retrieveInvoiceActions.error(null));
@@ -204,8 +204,14 @@ export function fetchByQueryInvoice(params: *) {
       const response = await fetchByQueryAPI(params);
       const invoice = response.data[0];
       dispatch(retrieveInvoiceActions.success(invoice));
+      if (options && options.onSuccess) {
+        options.onSuccess(invoice);
+      }
     } catch (err) {
       dispatch(retrieveInvoiceActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
     dispatch(retrieveInvoiceActions.isLoading(false));
   };
@@ -239,6 +245,7 @@ export function fetchSpecificInvoice(
 export function fetchByInvoiceItem(
   buyable_item_identifier: number,
   buyable_item_id: number,
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveInvoiceActions.isLoading(true));
@@ -250,8 +257,14 @@ export function fetchByInvoiceItem(
         buyable_item_id,
       );
       dispatch(retrieveInvoiceActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
       dispatch(retrieveInvoiceActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
     dispatch(retrieveInvoiceActions.isLoading(false));
   };

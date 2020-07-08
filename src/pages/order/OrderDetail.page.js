@@ -1,10 +1,11 @@
 // @flow
 import React, { Component } from 'react';
-import { compose } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withTranslation } from 'react-i18next';
+import { getInvoice } from '../../libs/invoice/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -13,7 +14,7 @@ import { getOrder, withMember } from '../../libs/order/selectors';
 
 import { fetchMember } from '../../libs/member/actions';
 import { fetchOrder, patchOrder } from '../../libs/order/actions';
-import { fetchByQueryInvoice } from '../../libs/invoice/actions';
+import { fetchByQueryInvoice as fetchByQueryInvoiceAction } from '../../libs/invoice/actions';
 import OrderDetailComponent from '../../libs/order/components/OrderDetail.component';
 import { fetchAll as fetchAllAlerting } from '../../libs/alerting/actions';
 import { mailMembers as mailMemberAction } from '../../libs/communication/actions';
@@ -82,13 +83,14 @@ export class OrderDetail extends Component<Props> {
 
 export default compose(
   routerParamsToProps({ id: 'orderId' }),
+  withState('relatedInvoice', 'setRelatedInvoice', null),
   connect(
-    (state, { orderId }) => ({
+    (state, { orderId, relatedInvoice }) => ({
       order: withMember(getOrder)(state, orderId),
-      invoice: state.invoice.invoice,
+      invoice: getInvoice(state, relatedInvoice),
     }),
     {
-      fetchByQueryInvoice,
+      fetchByQueryInvoice: fetchByQueryInvoiceAction,
       fetchMember,
       fetchOrder,
       patchOrder,
@@ -98,6 +100,15 @@ export default compose(
       onInvoiceClick: (uuid: string) => push(`/invoice/${uuid}`),
     },
   ),
+  withHandlers({
+    fetchByQueryInvoice: ({ fetchByQueryInvoice, setRelatedInvoice }) => (
+      id,
+    ) => {
+      fetchByQueryInvoice(id, {
+        onSuccess: (inv) => setRelatedInvoice(inv.uuid),
+      });
+    },
+  }),
   withTranslation(),
   withTitle(({ t }) => t('titles:order.orderDetail')),
 )(OrderDetail);

@@ -24,6 +24,7 @@ import {
   confirmAttendance as confirmBookingAttendance,
   fetchBookingsByConsumerPack,
 } from '../../libs/booking/actions';
+import { getInvoice } from '../../libs/invoice/selectors';
 import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 import {
   resetConsumerPackByMember as resetConsumerPackByMemberAction,
@@ -377,8 +378,9 @@ export default compose(
   withTranslation(['paymentPack']),
   withStyles(styles),
   withState('openCreateExtension', 'setOpenCreateExtension', false),
+  withState('relatedInvoice', 'setRelatedInvoice', null),
   connect(
-    (state, { id, consumerPassId }) => ({
+    (state, { id, consumerPassId, relatedInvoice }) => ({
       member: getMember(state, id),
       consumerPacks: withPaymentPack(getConsumerPaymentPackByMember)(state, id),
       consumerPackCount: state.consumerPaymentPack.byMember.count,
@@ -387,7 +389,7 @@ export default compose(
         state,
         consumerPassId,
       ),
-      consumerPackInvoice: state.invoice.invoice,
+      consumerPackInvoice: getInvoice(state, relatedInvoice),
       consumerPaymentPackCreditRefundList:
         state.consumerPaymentPack.partialRefund.items,
       consumerPackLoading: state.consumerPaymentPack.byMember.loading,
@@ -424,7 +426,8 @@ export default compose(
       decrementCredit: (id_: number) => updateCreditAction(id_, -1),
       refundConsumerPaymentPack: refundConsumerPaymentPackActions,
 
-      fetchInvoice: (uuid: string) => fetchSpecificInvoice(uuid),
+      fetchInvoice: (uuid: string, options) =>
+        fetchSpecificInvoice(uuid, options),
 
       retrieveConsumerPackBulk,
       fetchConsumerPacks: (
@@ -453,6 +456,12 @@ export default compose(
     },
   ),
   withHandlers({
+    fetchInvoice: ({ fetchInvoice, setRelatedInvoice }) => (uuid) => {
+      setRelatedInvoice(null);
+      fetchInvoice(uuid, {
+        onSuccess: (inv) => setRelatedInvoice(inv.uuid),
+      });
+    },
     refundConsumerPaymentPack: ({
       refundConsumerPaymentPack,
       fetchConsumerPaymentPackCreditRefundList,

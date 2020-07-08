@@ -2,11 +2,12 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { compose, withState } from 'recompose';
+import { compose, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import { getInvoice } from '../../libs/invoice/selectors';
 import PaginatedListStateful from '../../components/PaginatedListStateful.component';
 import { getMember } from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
@@ -30,7 +31,7 @@ import { getPrivateBookingListBase } from '../../libs/private-service/selectors/
 import PrivateConsumerPassBookerListItem from '../../libs/private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
 import PrivateConsumerPassExtensionCreateDialog from '../../libs/private-service/components/consumer-pass/PrivateConsumerPassExtensionCreateDialog.component';
 import PrivateConsumerPassDetail from '../../libs/private-service/components/consumer-pass/PrivateConsumerPassDetail.component';
-import { fetchByInvoiceItem as fetchInvoiceByInvoiceItem } from '../../libs/invoice/actions';
+import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '../../libs/invoice/actions';
 
 type Props = {
   fetchPrivateConsumerPassList: (params: any) => void,
@@ -198,12 +199,13 @@ export default compose(
     id: 'id:number',
     privateConsumerPassId: 'privateConsumerPassId:number',
   }),
+  withState('relatedInvoice', 'setRelatedInvoice', null),
   connect(
-    (state, { id, privateConsumerPassId }) => ({
+    (state, { id, privateConsumerPassId, relatedInvoice }) => ({
       member: getMember(state, id),
       private_consumer_pass_list: getPrivateConsumerPassList(state),
       private_booking_list: getPrivateBookingListBase(state),
-      privateConsumerPassInvoice: state.invoice.invoice,
+      privateConsumerPassInvoice: getInvoice(state, relatedInvoice),
       privateConsumerPassExtensionList:
         state.privateService.privateConsumerPass.extension.items,
       privateConsumerPassExtensionLoading:
@@ -219,7 +221,7 @@ export default compose(
     {
       fetchPrivateConsumerPassList,
       fetchPrivateBookings,
-      fetchInvoiceByInvoiceItem,
+      fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
       fetchPrivateConsumerPass,
       fetchPrivateConsumerPassExtensionList,
       updatePrivateConsumerPassCredits,
@@ -238,4 +240,14 @@ export default compose(
     },
   ),
   withState('openCreateExtension', 'setOpenCreateExtension', false),
+  withHandlers({
+    fetchInvoiceByInvoiceItem: ({
+      fetchInvoiceByInvoiceItem,
+      setRelatedInvoice,
+    }) => (uuid, stuff) => {
+      fetchInvoiceByInvoiceItem(uuid, stuff, {
+        onSuccess: (inv) => setRelatedInvoice(inv.uuid),
+      });
+    },
+  }),
 )(MemberDetailPrivateConsumerPass);

@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import type { State } from '../../state/types';
 import type { OrderWithProducts } from './types';
-import { getAllMembers } from '../member/selectors';
+import { getMemberDetailData } from '../member/selectors';
 
 const getAll = (state: State): Array<OrderWithProducts> =>
   state.order.order.items;
@@ -22,18 +22,18 @@ export const getDeliveryFeesActive: (State) => Array<DeliveryFee> = createSelect
 
 export const withMember = memoize((selector) =>
   createSelector(
-    [selector, getAllMembers],
-    (orders, memberList) => {
+    [selector, getMemberDetailData],
+    (orders, memberData) => {
       if (Array.isArray(orders)) {
         return orders.map((o) => ({
           ...o,
-          member: memberList.find((m) => m.id === o.member),
+          member: memberData[o.member],
         }));
       }
       if (orders) {
         return {
           ...orders,
-          member: memberList.find((m) => m.id === orders.member),
+          member: memberData[orders.member],
         };
       }
       return orders;

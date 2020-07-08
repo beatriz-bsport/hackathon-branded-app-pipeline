@@ -916,7 +916,8 @@
                 "book": "Book",
                 "isPast": "Past",
                 "notAvailable": "Cancelled",
-                "bookOption": "Waiting-list"
+                "bookOption": "Waiting-list",
+                "notBookableYet": "Soon"
             },
             "passListTitle": "Pass (class)",
             "privatePassListTitle": "Pass (appointments)",
@@ -1087,7 +1088,8 @@
                     "error": "Impossible to save activity",
                     "success": "Activity saved"
                 }
-            }
+            },
+            "firstBookingMinutesUntil": "Limit bookings to sessions taking place before or in "
         },
         "calendar": {
             "pleaseSelectOffer": "Select a session to show registered member",
@@ -1192,7 +1194,9 @@
             "invoiceRevertedThusNotEditable": "Invoice was cancelled and is not editable anymore",
             "products": "items",
             "paymentCombo": "Pack",
-            "isRecurring": "Installments"
+            "isRecurring": "Installments",
+            "goToSubscription": "See the subscription",
+            "invoiceFromSubscriptionThusNotEditable": "This invoice is part of a subscription and is therefore not editable, please modify the subscription directly"
         },
         "invoice": {
             "forms": {
@@ -1541,7 +1545,9 @@
                 "passwordTooEasy": "Your password must include at least 6 character and both letters and number",
                 "confirmPassword": "Confirm",
                 "password": "Password",
-                "changePasswordTitle": "Password modification"
+                "changePasswordTitle": "Password modification",
+                "tokenExpired": "This page has expired, please redo a password change request",
+                "resetAgainPassword": "Reset request"
             },
             "address": {
                 "zipcode": "Postal code",
@@ -1552,7 +1558,9 @@
                 "streetNumber": "N°"
             },
             "waiting_list_max_size": "Waiting-list size",
-            "oneHourFifteen": "1h15"
+            "oneHourFifteen": "1h15",
+            "warningCreditChange": "NB : Old reservations do not take into account changes in credits",
+            "noAvailableCredit": "Please note that you are not entering a price. Are you sure of the value?"
         },
         "shop": {
             "noProvisionUpdates": "No provision",
@@ -1596,7 +1604,8 @@
             "effectif": "Slot available",
             "maxBookingsNb": "slots",
             "nonAttendant": "absent(s)",
-            "attendant": "attendee(s)"
+            "attendant": "attendee(s)",
+            "noEmptyDuration": "The duration must be strictly positive"
         },
         "pagination": {
             "outOf": " out of ",
@@ -1686,7 +1695,8 @@
             "skip": "Skip",
             "items": "elements",
             "copySuffix": " (Copy)",
-            "isRefreshing": "Your interface will be ready shortly"
+            "isRefreshing": "Your interface will be ready shortly",
+            "duplicate": "Duplicate"
         },
         "members": {
             "form": {
@@ -1751,7 +1761,23 @@
         "bookingConfirmed": "Booking confirmed",
         "activityUpdated": "Activity modified",
         "activityCreated": "Activity created",
-        "openSchedule": "Show schedule"
+        "openSchedule": "Show schedule",
+        "strategy": {
+            "strategy": "Strategy",
+            "gym": "Gymnase Beaulieu",
+            "female": "W",
+            "yoga": "Yoga",
+            "none": "None",
+            "crossfit": "Crossfit",
+            "offersWithoutMembership": "Session(s) without subscription",
+            "membership": "Subscription",
+            "sessions": "sessions",
+            "location": "Location",
+            "gender": "Gender",
+            "sport": "Sport"
+        },
+        "languageToolTip": "Available on the web marketplace",
+        "visibilityOfIconToolTip": "Unavailable"
     },
     "search": {
         "input": "Search...",
@@ -1764,6 +1790,9 @@
             "packs": {
                 "title": "Packs"
             }
+        },
+        "actions": {
+            "addMember": "Add a member"
         }
     },
     "partnership": {
@@ -1780,7 +1809,8 @@
         "actions": {
             "save": "Save",
             "requestPartnership": "Enable integration"
-        }
+        },
+        "pageTitle": "Partnership"
     },
     "membership": {
         "selector": {
@@ -1819,7 +1849,8 @@
                 "name": "Member",
                 "tags": {
                     "firstname": "First name",
-                    "lastname": "Last name"
+                    "lastname": "Last name",
+                    "unsubscribe_link": "Link to unsubscribe from the newsletter"
                 }
             },
             "Booking": {
@@ -1874,7 +1905,8 @@
                     "address": "Address",
                     "date": "Time / Date",
                     "coach": "Teacher (optional)",
-                    "activity": "Activity"
+                    "activity": "Activity",
+                    "establishment": "Establishment"
                 },
                 "name": "Appointments"
             },
@@ -1924,7 +1956,8 @@
                 "success": "Successfully saved",
                 "error": "Impossible to save"
             }
-        }
+        },
+        "pageTitle": "Transactional emails"
     },
     "consumerSpace": {
         "navigation": {
@@ -1951,7 +1984,7 @@
         "dashboard": {
             "favoriteTitle": "My favorite",
             "nextBookingTitle": "My next sessions",
-            "currentPassTitle": "Active pass",
+            "currentPassTitle": "Active passes",
             "showMore": "Show more",
             "noBooking": "No future class",
             "noPackCurrentlyActive": "No valid pass",
@@ -1971,6 +2004,12 @@
             "titlePaymentDialog": "Regulariation",
             "title": "Amount due to the club",
             "regularize": "Regularize"
+        },
+        "unsubscriber": {
+            "success": "You have been unsubscribed",
+            "error": "Error while unsubscribing",
+            "doUnsubscribe": "Unsubscribe",
+            "explain": "Do you want to unsubscribe from all your club's newsletters ?"
         }
     },
     "reminder": {

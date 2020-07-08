@@ -26,7 +26,7 @@ i18n
       backends: isDebug ? [HttpBackend] : [LocalStorageBackend, HttpBackend],
       backendOptions: isDebug
         ? [{}]
-        : [{ expirationTime: 2 * 60 * 60 * 1000 }, {}],
+        : [{ expirationTime: 30 * 60 * 1000 }, {}],
     },
     /*
     backend: {

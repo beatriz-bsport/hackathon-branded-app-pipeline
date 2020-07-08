@@ -122,6 +122,9 @@ export class ConsumerHome extends React.Component<Props> {
           disconnect={this.props.disconnect}
           buildUrl={this.props.buildUrl}
           logo={this.props.theme ? this.props.theme.cover : null}
+          showCredit={
+            this.props.theme && this.props.theme.consumer_regularize_debt
+          }
           membership={this.props.membership}
           hasMultipleMembership={
             this.props.membershipList && this.props.membershipList.length > 1

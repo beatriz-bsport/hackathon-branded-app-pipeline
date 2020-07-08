@@ -5,10 +5,12 @@ import { compose, withHandlers } from 'recompose';
 
 import { connect } from 'react-redux';
 
-import { finalizeInvoice } from '../../libs/invoice/actions';
+import { finalizeInvoice, fetchInvoiceList } from '../../libs/invoice/actions';
 import { regularizeDebt as regularizeDebtAction } from '../../libs/member/actions';
 import InvoiceTable from '../invoice/InvoiceTable.component';
 import { fetchMembership as fetchMembershipAction } from '../../libs/membership/actions';
+import themeSelectors from '../../libs/theme/selectors';
+import { getInvoiceList } from '../../libs/invoice/selectors';
 
 import type { Membership } from '../../libs/membership/types';
 import ConsumerDebtRegularizerDialog from '../../libs/consumer-space/components/ConsumerDebtRegularizerDialog.component';
@@ -18,6 +20,11 @@ type Props = {
   finalizeInvoice: (uuid: string) => void,
   membership: Membership,
   submitPayment: (paymentData: any, options: OptionCallback) => void,
+
+  count: number,
+  invoiceList: Array<Invoice>,
+  loading: boolean,
+  fetchInvoiceList: (params: any, options: OptionCallback) => void,
 };
 
 export class ConsumerInvoice extends React.Component<Props> {
@@ -28,17 +35,32 @@ export class ConsumerInvoice extends React.Component<Props> {
   render() {
     return (
       <div className={this.props.classes.table}>
-        <ConsumerDebtRegularizerDialog
-          withButton
-          member={this.props.membership}
-          submitPayment={this.props.submitPayment}
-        />
+        {this.props.companyTheme &&
+          this.props.companyTheme.consumer_regularize_debt && (
+            <ConsumerDebtRegularizerDialog
+              withButton
+              member={this.props.membership}
+              submitPayment={this.props.submitPayment}
+            />
+          )}
         <InvoiceTable
           finalizeInvoice={this.props.finalizeInvoice}
           downloadInvoice={this.downloadInvoice}
-          queryParams={`reverted=false&member=${this.props.membership.id}`}
           showOnlyCoreColumnsAndFinalize
           autoFinalize
+          count={this.props.count}
+          invoices={this.props.invoiceList}
+          loading={this.props.loading}
+          fetchInvoiceList={(params, options) =>
+            this.props.fetchInvoiceList(
+              {
+                ...(params || {}),
+                reverted: false,
+                member: this.props.membership.id,
+              },
+              options,
+            )
+          }
         />
       </div>
     );
@@ -54,11 +76,17 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   connect(
-    null,
+    (state) => ({
+      invoiceList: getInvoiceList(state),
+      count: state.invoice.list.count,
+      loading: state.invoice.list.loading,
+      companyTheme: themeSelectors.getTheme(state),
+    }),
     {
       finalizeInvoice,
       regularizeDebt: regularizeDebtAction,
       fetchMembership: fetchMembershipAction,
+      fetchInvoiceList,
     },
   ),
   withHandlers({

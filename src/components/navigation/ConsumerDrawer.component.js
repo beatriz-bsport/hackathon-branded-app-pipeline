@@ -294,7 +294,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
     }
 
     const ReceiptIconWithDebt = (props) => {
-      if (membership && membership.credit_account_balance < 0) {
+      if (
+        membership &&
+        membership.credit_account_balance < 0 &&
+        this.props.showCredit
+      ) {
         return (
           <Badge
             color="error"

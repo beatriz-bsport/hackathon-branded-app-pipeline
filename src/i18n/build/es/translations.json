@@ -3330,7 +3330,7 @@
     },
     "snackbar": {
         "invoice": {
-            "error": "Error durante el registro: cancelado",
+            "error": "Error durante el registro - Cancelado",
             "create": {
                 "success": "Factura registrada"
             },

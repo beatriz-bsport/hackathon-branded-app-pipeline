@@ -7,6 +7,12 @@ import { withTranslation } from 'react-i18next';
 import { goBack, push as pushRouter } from 'connected-react-router';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router';
+import Grow from '@material-ui/core/Grow';
+import Hidden from '@material-ui/core/Hidden';
+import { withStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import PersonIcon from '@material-ui/icons/Person';
+import CreditMemberBadge from '../../libs/member/components/CreditMemberBadge.component';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
@@ -157,6 +163,29 @@ export class InvoiceFormPage extends Component<Props, State> {
             this.props.finalizeInvoice(this.props.uuid, options)
           }
         />
+        {this.props.permission.member.retrieve && (
+          <div className={this.props.classes.navigationButton}>
+            <Grow in={this.props.invoice && this.props.invoice.member}>
+              <CreditMemberBadge
+                credit={this.props.invoice.member.credit_account_balance}
+              >
+                <Fab
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.props.goToMemberPage}
+                >
+                  <PersonIcon />
+                  <Hidden xsDown>
+                    <span className={this.props.classes.rightText}>
+                      {this.props.invoice.member.name}
+                    </span>
+                  </Hidden>
+                </Fab>
+              </CreditMemberBadge>
+            </Grow>
+          </div>
+        )}
+
         <RevertInvoiceDialog
           open={this.state.revertDialogOpen}
           hasSubscription={!!invoice.plannedinvoice}
@@ -173,8 +202,20 @@ export class InvoiceFormPage extends Component<Props, State> {
   }
 }
 
+const styles = (theme) => ({
+  navigationButton: {
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(4),
+  },
+  rightText: {
+    marginRight: theme.spacing(1),
+  },
+});
+
 export default compose(
   withTranslation(),
+  withStyles(styles),
   withRouter,
   routerParamsToProps({ id: 'uuid' }),
   connect(

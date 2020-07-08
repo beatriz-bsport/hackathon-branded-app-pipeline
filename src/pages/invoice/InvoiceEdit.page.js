@@ -55,6 +55,8 @@ type Props = {
   updatingInvoice: boolean,
   uuid: string,
 
+  classes: Object,
+
   isReturningPayment: boolean,
   returnPayment: (paymentId: string, invoiceId: string) => void,
 

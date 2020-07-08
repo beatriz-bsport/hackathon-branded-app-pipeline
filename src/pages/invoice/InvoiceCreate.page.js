@@ -47,6 +47,8 @@ type Props = {
   fetchPrivatePassList: () => void,
   fetchPaymentComboList: () => void,
 
+  initialItems: { withPrivatePass: ?string, withCredit: ?string },
+
   creatingInvoice: boolean,
   loading: boolean,
   availableBuyableItems: { [buyable_item_identifier: number]: Array<any> },

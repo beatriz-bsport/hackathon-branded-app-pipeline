@@ -59,6 +59,7 @@ type Props = {
   classes: Object,
   disconnect: () => void,
   logo: ?string,
+  showCredit?: boolean,
   hidden: boolean,
   hasMultipleMembership: boolean,
   t: TFunction,

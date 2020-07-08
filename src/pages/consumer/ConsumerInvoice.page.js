@@ -20,6 +20,7 @@ type Props = {
   finalizeInvoice: (uuid: string) => void,
   membership: Membership,
   submitPayment: (paymentData: any, options: OptionCallback) => void,
+  companyTheme: ?CompanyTheme,
 
   count: number,
   invoiceList: Array<Invoice>,

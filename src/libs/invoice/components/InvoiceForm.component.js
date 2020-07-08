@@ -5,13 +5,11 @@ import { compose, withStateHandlers } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 
 import {
-  BUYABLE_ITEM_PASS,
-  BUYABLE_ITEM_SHOP_ITEM,
   BUYABLE_ITEM_PRIVATE_PASS,
-  BUYABLE_ITEM_COMBO_ITEM,
   BUYABLE_ITEM_CREDIT,
 } from '@bsport/common/lib/master-data/buyable-items';
 import { withTranslation } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import InvoiceContent from './InvoiceContent.component';
 import InvoiceEditor from './InvoiceEditor.component';
 import UnevenInvoiceDialog from '../dialog/UnevenInvoiceDialog.component';
@@ -43,6 +41,8 @@ type Props = {
   isReturningPayment: boolean,
   returnPayment: (uuid: string) => void,
   revertInvoice: () => void,
+  initialItems?: { withPrivatePass?: string, withCredit?: string },
+  t: TFunction,
 };
 
 type State = {

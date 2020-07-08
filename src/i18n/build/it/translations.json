@@ -2694,7 +2694,15 @@
         "invoiceItem": {
             "buyableItemIdentifier": {
                 "1": "Scheda del corso",
-                "2": "Negozio"
+                "2": "Negozio",
+                "10": "Pacchetto",
+                "9": "Pass per appuntamenti",
+                "3": "Credito"
+            },
+            "voucher": "Riduzione: {{voucher}} €",
+            "quantity": "Quantità",
+            "credit": {
+                "label": "Credito"
             }
         },
         "actions": {
@@ -2734,6 +2742,18 @@
         },
         "creditAccountBalance": {
             "current": "Acconto presente"
+        },
+        "section": {
+            "paymentList": {
+                "total": "Pagamenti totali",
+                "isEmpty": "Nessun metodo di pagamento registrato",
+                "title": "Metodi di pagamento"
+            },
+            "invoiceItemList": {
+                "total": "Totale acquisti",
+                "isEmpty": "Nessun acquisto",
+                "title": "Acquisti"
+            }
         }
     },
     "coach": {

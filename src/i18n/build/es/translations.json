@@ -146,7 +146,8 @@
             "recipients": "Destinatarios",
             "recipient": "Beneficiario",
             "copySuffix": " (Copia)",
-            "isRefreshing": "Tu interfaz estará lista en un momento"
+            "isRefreshing": "Tu interfaz estará lista en un momento",
+            "duplicate": "Duplicar"
         },
         "pagination": {
             "rowPerPage": "Eléments par page",
@@ -182,7 +183,8 @@
             "bill": "Facturar",
             "noncompatibleConsumerPaymentPacksAre": "Tiene las siguientes tarjetas, no compatibles con esta sesión:",
             "broadcast_link": "Enlace de videoconferencia",
-            "createBookingOption": "Lista de espera"
+            "createBookingOption": "Lista de espera",
+            "noEmptyDuration": "La duración debe ser estrictamente positiva"
         },
         "shop": {
             "supplier_price": "Prix fournisseur",
@@ -473,7 +475,9 @@
             "oneMonth": "1 mes",
             "oneHourFifteen": "1h15",
             "twentyMinutes": "20 minutos",
-            "credit_price": "Número de créditos necesarios carta de curso para reservar"
+            "credit_price": "Número de créditos necesarios carta de curso para reservar",
+            "warningCreditChange": "NB: las reservas anteriores no tienen en cuenta los cambios en los créditos",
+            "noAvailableCredit": "Tiene en cuenta que no estás ingresando un precio. ¿Estás seguro del valor?"
         },
         "marketing": {
             "dashboard": "Tableau de bord",
@@ -967,7 +971,9 @@
             "gender": "Sexo",
             "sport": "Deporte"
         },
-        "blockBooking": "Bloquear la reserva a las cartas de curso nuevos clientes"
+        "blockBooking": "Bloquear la reserva a las cartas de curso nuevos clientes",
+        "languageToolTip": "Disponible en el marketplace web",
+        "visibilityOfIconToolTip": "No visible"
     },
     "search": {
         "input": "Buscar...",
@@ -1116,7 +1122,9 @@
             "explainRequest": "Solicita una contraseña temporal válida por 2 horas para permitir, por ejemplo, que nuestros equipos se conecten a tu cuenta por un tiempo limitado. Tu contraseña maestra no cambia.",
             "submit": "Generar",
             "close": "Cerrar",
-            "title": "Contraseña temporal"
+            "title": "Contraseña temporal",
+            "copied": "Contraseña copiada",
+            "copy": "Copiar contraseña al portapapeles"
         },
         "actions": {
             "forgottenPassword": "Contraseña olvidada",
@@ -1163,7 +1171,8 @@
                     "cancel": "cancelar"
                 },
                 "title": "Supresión establecimiento"
-            }
+            },
+            "edit": "Modificar"
         },
         "practical_info": {
             "helperText": "Esta información sólo se mostrará en el momento de la reserva",
@@ -1186,7 +1195,8 @@
                 "calendar": "Calendario",
                 "general": "General"
             }
-        }
+        },
+        "noEstablishement": "Administra tus habitaciones, su ubicación, su llenado y consulta el calendario aquí"
     },
     "order": {
         "products": {
@@ -1257,7 +1267,8 @@
             },
             "noDefaultDeliveryFee": "Sin gastos de envío",
             "defaultDeliveryFee": "Gastos de envío aplicados"
-        }
+        },
+        "pageTitle": "Tienda"
     },
     "settings": {
         "pageTitle": "Parametros",
@@ -1303,7 +1314,8 @@
                 "helper": "¿Dónde encontrar esta información?",
                 "title": "Acceda a la información de tu API de ActiveCampaign",
                 "helpContent": "Puedes acceder a la URL y la clave de autenticación de su cuenta de ActiveCampaign en la configuración de su cuenta, haciendo clic en la pestaña 'Desarrollador'.",
-                "helpTitle": "¿Dónde puedo encontrar la información de mi cuenta?"
+                "helpTitle": "¿Dónde puedo encontrar la información de mi cuenta?",
+                "empty": "Por favor ingresa el URL del API"
             },
             "cancel": "Cancelar",
             "submit": "Confirmar"
@@ -1471,7 +1483,9 @@
         "goBack": "Volver",
         "hasOneOrMoreOption": "Esta ahora en la lista de espera",
         "generalTermsAndConditions": {
-            "iAccept": "Acepto los "
+            "iAccept": "Acepto los ",
+            "close": "Cerrar",
+            "theTermsAndConditions": "Condiciones generales de venta."
         },
         "forms": {
             "paymentIntent": {
@@ -1487,7 +1501,31 @@
             "CREDIT_ACCOUNT": "Pago en el acto",
             "CB": "Tarjeta de crédito"
         },
-        "paymentComboSectionTitle": "Pack"
+        "paymentComboSectionTitle": "Pack",
+        "actions": {
+            "addThisPaymentItem": "Añadir este método de pago"
+        },
+        "paymentMethod": {
+            "label": "Medios de pago",
+            "11": "Diverso",
+            "10": "Pago automático",
+            "9": "Cuenta interna (crédito)",
+            "8": "EventBrite",
+            "7": "Transferancia",
+            "6": "AMEX",
+            "5": "Cheque de vacaciones",
+            "4": "Tarjeta de crédito (manual)",
+            "2": "Cheque",
+            "1": "Efectivo",
+            "0": "Tarjeta de crédito"
+        },
+        "creditAccountBalance": {
+            "current": "Anticipo actual"
+        },
+        "paymentNote": {
+            "helperText": "(opcional) número de cheque, fecha de recogida ...",
+            "label": "Nota"
+        }
     },
     "invoice": {
         "configuration": {
@@ -1497,6 +1535,78 @@
             "forms": {
                 "stripe_footer_placeholder": "No hay informaciones adiconal"
             }
+        },
+        "section": {
+            "paymentList": {
+                "total": "Total pago",
+                "isEmpty": "Ningún método de pago registrado",
+                "title": "Medios de pago"
+            },
+            "invoiceItemList": {
+                "total": "Total compra",
+                "isEmpty": "Ninguna compra",
+                "title": "Compras"
+            }
+        },
+        "invoiceItem": {
+            "voucher": "Reducción: {{voucher}} €",
+            "quantity": "Candidad",
+            "credit": {
+                "label": "Crédito"
+            },
+            "buyableItemIdentifier": {
+                "10": "Pack",
+                "9": "Tarjeta de cita",
+                "3": "Crédito",
+                "2": "Tienda",
+                "1": "Tarjeta de curso"
+            }
+        },
+        "returnPayment": {
+            "modal": {
+                "confirm": "Reembolsar",
+                "cancel": "Cancelar",
+                "content": "El pago se transferirá a la cuenta BANCARIA del cliente, se agregará un depósito del mismo monto a la factura para simbolizar el pago.",
+                "title": "Reembolso cliente"
+            }
+        },
+        "actions": {
+            "finalize": "Finalizar (PDF)",
+            "download": "Descargar PDF",
+            "equilibrate": "Equilibrar (anticipo)",
+            "addInvoiceItem": "Añadir a la factura",
+            "save": "Guardar",
+            "backToInvoiceItemEditor": "Compra",
+            "goToPaymentEditor": "Pago",
+            "goToSubscription": "Ver la suscripción",
+            "revert": "Cancelar",
+            "invoiceReverted": "Factura cancelada"
+        },
+        "uneditableMessage": {
+            "invoiceFinalizedThusNotEditable": "La factura se ha finalizado y, por lo tanto, ya no se puede editar",
+            "invoiceFromSubscriptionThusNotEditable": "Esta factura forma parte de una suscripción y por lo tanto no es editable, por favor, modifica la suscripción directamente",
+            "invoiceRevertedThusNotEditable": "La factura ha sido cancelada y no se puede cambiar"
+        },
+        "invoice": {
+            "header": {
+                "source": {
+                    "label": "Canal: {{fuente}}",
+                    "3": "Otro",
+                    "2": "Backoffice",
+                    "1": "Web",
+                    "0": "App"
+                },
+                "clientAuthor": "Cliente",
+                "author": "Creado por: {{name}}",
+                "date": "Fecha: {{date}}"
+            },
+            "editor": {
+                "title": "Edición de la factura"
+            },
+            "title": "Factura {{ uuid }}"
+        },
+        "creditAccountBalance": {
+            "current": "Anticipo actual"
         }
     },
     "coach": {
@@ -2163,8 +2273,22 @@
                 "actions": {
                     "submit": "Suprimir",
                     "cancel": "Cancelar"
-                }
+                },
+                "content": "¿Seguro que quieres eliminar este código promocional? Ya no tendrás acceso al historial de uso. Esta operación es final.",
+                "title": "Supresión"
             }
+        },
+        "noDiscount": "Ninguna compra realizada con el código",
+        "card": {
+            "limitation": "Limitado a",
+            "member_use": "uso por miembro",
+            "member_uses": "usos por miembro",
+            "uses": "Usos",
+            "no_cumulable": "No combinable",
+            "cumulable": "Combinable",
+            "validity": "Validez:",
+            "no_expiration": "Sin fecha de vencimiento",
+            "expiration": "Fecha de expiración"
         }
     },
     "privateService": {
@@ -2953,6 +3077,11 @@
                 "helperText": "Privilegia las png con fondo transparente",
                 "label": "Logo"
             }
+        },
+        "pageTitles": {
+            "theme": "General",
+            "personalization": "Personalización",
+            "broadcast": "Videoconferencia"
         }
     },
     "role": {
@@ -2981,7 +3110,8 @@
         "permissions": "Papeles disponibles",
         "explainStaffDoNot": "Un acceso staff no permite la conexión a la aplicación móvil (solo profesores y estudiantes)",
         "explainStaffDo": "Un acceso staff permite la conexión a https://backoffice.bsport.io a través de una computadora o móvil",
-        "userRoles": "Cuentas Staff"
+        "userRoles": "Cuentas Staff",
+        "pageTitle": "Staff"
     },
     "authentication": {
         "resetPassword": {
@@ -3046,7 +3176,8 @@
         "name": "Apellido",
         "save": "Registrar",
         "add": "Añadir",
-        "rules": "Reglas"
+        "rules": "Reglas",
+        "pageTitle": "Reglas de remuneración"
     },
     "checkout": {
         "myBasket": {
@@ -3071,6 +3202,9 @@
         "autoAdd": {
             "paymentPack": {
                 "locked": "Este producto no está disponible."
+            },
+            "privatePass": {
+                "error": "Esta tarjeta de cita no está disponible"
             }
         },
         "forms": {
@@ -3109,6 +3243,30 @@
             "dumb_delay_minutes": {
                 "helper": "Si hay una plaza disponible, el estudiante tiene N minutos para registrarse, antes de que el siguiente tome su plaza.",
                 "label": "Gestión simple"
+            },
+            "auto_consume_pack": {
+                "helper": "Si el miembro tiene una tarjeta de curso válida cuando hay un lugar disponible, se registra automáticamente y se cobra su tarjeta. La tarjeta que vence antes, y con el menor crédito disponible, se usa como prioridad.",
+                "label": "Debitar automáticamente una tarjeta de lección y registrar el miembro cuando haya un espacio disponible."
+            },
+            "is_option_blocking": {
+                "helper": "Mientras un miembro esté en la lista de espera, se bloqueará un lugar para él mientras espera que se registre.",
+                "label": "Los lugares que quedan disponibles están reservados exclusivamente para las personas en la lista de espera."
+            },
+            "autokick_delay": {
+                "helper": "Número de recordatorios antes de los cuales el miembro se elimina automáticamente de la lista de espera si no hay ninguna acción de su parte",
+                "label": "Retirada automática de la lista de espera"
+            },
+            "dynamic": {
+                "label": "Gestión de prioridades de lista de espera",
+                "1": {
+                    "explain": "La lista de espera no está ordenada. Cuando hay un lugar disponible, todos en la lista reciben un email invitándolos a registrarse al mismo tiempo.",
+                    "label": "Primero llegado, primero servido"
+                },
+                "0": {
+                    "explain": "Cuando un miembro se registra, se otorga un lugar en la lista de espera. Cuando hay un lugar disponible, el primer miembro de la lista puede registrarse, los demás esperan su turno",
+                    "settingsDelay": "Fecha límite para registrarse",
+                    "label": "Cada uno su turno"
+                }
             }
         },
         "nbConvertible": "{{nbConvertible}} en espera de confirmación",
@@ -3145,7 +3303,8 @@
             "search": "Buscar un taller",
             "addWorkshopActivity": "Añadir un taller"
         },
-        "search": "Buscar un taller"
+        "search": "Buscar un taller",
+        "noWorkshops": "Administra tus talleres aquí, un taller es un evento cuya fecha se fija de antemano."
     },
     "common": {
         "close": "Cerrar",
@@ -3166,6 +3325,17 @@
                 "hour_plural": "Horas:",
                 "minute": "Minuto:",
                 "minute_plural": "Minutos:"
+            }
+        }
+    },
+    "snackbar": {
+        "invoice": {
+            "error": "Error durante el registro: cancelado",
+            "create": {
+                "success": "Factura registrada"
+            },
+            "update": {
+                "success": "Factura actualizada exitosamente"
             }
         }
     }

@@ -2693,7 +2693,8 @@
         },
         "invoiceItem": {
             "buyableItemIdentifier": {
-                "1": "Scheda del corso"
+                "1": "Scheda del corso",
+                "2": "Negozio"
             }
         },
         "actions": {

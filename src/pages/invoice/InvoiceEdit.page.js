@@ -4,35 +4,45 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import { goBack, push as pushRouter } from 'connected-react-router';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
-import { getShopItemsAvailable } from '../../libs/shop/selectors';
-import type { PaymentPack } from '../../libs/payment-packs/types';
-import { invoice as invoiceActions } from '../../actions';
+import {
+  createOrUpdateInvoice,
+  revertInvoice,
+  fetchSpecificInvoice,
+  returnPayment,
+  updatePaymentMethod,
+  fetchPaymentList,
+  fetchInvoiceItemList,
+  finalizeInvoice,
+} from '../../libs/invoice/actions';
+import {
+  getInvoice,
+  withMember,
+  withAuthor,
+  withPayment,
+  withInvoiceItem,
+  getBuyableItem,
+} from '../../libs/invoice/selectors';
+import { fetchCompanyRoles } from '../../libs/role/actions';
 import withTitle from '../../hocs/with-title.hoc';
 import { formatAsDate } from '../../datetime';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { getMember } from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { getPermissions } from '../../libs/role/selectors';
-import { getPaymentComboList } from '../../libs/payment-combo/selectors';
 
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
-import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 
 import type { Invoice } from '../../api/types';
 import type { Member } from '../../libs/member/types';
 import type { Permission } from '../../libs/role/types';
-import type { PaymentCombo } from '../../libs/payment-combo/types';
 
-import InvoiceForm from '../../libs/invoice/InvoiceForm.component';
+import InvoiceForm from '../../libs/invoice/components/InvoiceForm.component';
 import RevertInvoiceDialog from '../../libs/invoice/dialog/RevertInvoiceDialog.component';
 
 type Props = {
@@ -43,28 +53,26 @@ type Props = {
   returnPayment: (paymentId: string, invoiceId: string) => void,
 
   invoice: Invoice,
-  shopItems: Array<ShopItem>,
   member: Member,
   permission: Permission,
-
-  paymentPacks: Array<PaymentPack>,
-  paymentComboList: Array<PaymentCombo>,
 
   goBack: () => void,
   fetchInvoice: (uuid: string, options: OptionCallback) => void,
   fetchShopItems: () => void,
   fetchAllPaymentPacks: () => void,
   goToMemberPage: (id: number) => void,
+  finalizeInvoice: (uuid: string, options: OptionCallback) => void,
   fetchMember: (id: number) => void,
-  memberLoading: boolean,
-  invoiceLoading: boolean,
   updatePaymentMethod: (uuid: number, payment_method: number) => void,
   goToSubscription: (id: number) => void,
   updateInvoice: (invoiceData: InvoiceData) => void,
   revertInvoice: (uuid: string) => void,
 
-  t: TFunction,
-  resetCreateOrUpdateStatus: () => void,
+  fetchCompanyRoles: () => void,
+
+  fetchPaymentList: (params: *) => void,
+  fetchInvoiceItemList: (params: *) => void,
+  availableBuyableItems: { [buyable_item_identifier: number]: Array<any> },
 };
 
 type State = {
@@ -78,6 +86,14 @@ export class InvoiceFormPage extends Component<Props, State> {
 
   fetchData = () => {
     if (this.props.uuid) {
+      this.props.fetchPaymentList({
+        invoice__uuid: this.props.uuid,
+        page_size: 100,
+      });
+      this.props.fetchInvoiceItemList({
+        invoice__uuid: this.props.uuid,
+        page_size: 100,
+      });
       this.props.fetchInvoice(this.props.uuid, {
         onSuccess: (invoice) => {
           this.props.fetchMember(invoice.member);
@@ -87,10 +103,10 @@ export class InvoiceFormPage extends Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.resetCreateOrUpdateStatus();
     this.props.fetchShopItems();
     this.props.fetchAllPaymentPacks();
     this.fetchData();
+    this.props.fetchCompanyRoles();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -109,69 +125,45 @@ export class InvoiceFormPage extends Component<Props, State> {
   };
 
   render() {
-    const {
-      invoice,
-      paymentPacks,
-      shopItems,
-      goToMemberPage,
-      updatingInvoice,
-      memberLoading,
-      invoiceLoading,
-      member,
-      t,
-    } = this.props;
-    if (!invoice || memberLoading || invoiceLoading || !member) {
+    const { invoice, goToMemberPage, updatingInvoice } = this.props;
+
+    if (!invoice || !invoice.member) {
       return <LinearProgress />;
     }
 
-    let uneditableInvoiceItems = [];
-    if (invoice.voucher && invoice.voucher.price) {
-      // yea ok fuck me
-      uneditableInvoiceItems = [
-        ...invoice.invoice_items,
-        {
-          id: -1,
-          price: -invoice.voucher,
-          invoice: invoice.uuid,
-          name: t('payment.voucher'),
-        },
-      ];
-    } else {
-      uneditableInvoiceItems = [...(invoice.invoice_items || [])]; // for mutability
-    }
     return (
       <div>
         <InvoiceForm
-          paymentPacks={paymentPacks}
-          shopItems={shopItems}
-          editMode
-          invoice={invoice}
-          uneditableInvoiceItems={uneditableInvoiceItems || []}
-          uneditablePayments={invoice.payments || []}
           updatePaymentMethod={this.props.updatePaymentMethod}
-          createOrUpdate={this.updateInvoice}
+          onSubmit={this.updateInvoice}
           onCancel={this.props.goBack}
+          paymentItemList={this.props.invoice.payments}
+          invoiceItemList={this.props.invoice.invoice_items}
           goToSubscription={this.props.goToSubscription}
           isReturningPayment={this.props.isReturningPayment}
+          processing={updatingInvoice}
+          member={invoice.member}
+          availableBuyableItems={this.props.availableBuyableItems}
+          invoice={invoice}
           returnPayment={(payment) =>
             this.props.returnPayment(payment, this.props.uuid)
           }
-          goToMemberPage={
-            invoice && this.props.permission.member.retrieve
-              ? () => goToMemberPage(invoice.member)
-              : null
-          }
-          processing={updatingInvoice}
-          uneditableVoucher={invoice.voucher || 0}
-          member={this.props.member}
           revertInvoice={() => this.setState({ revertDialogOpen: true })}
-          paymentComboList={this.props.paymentComboList}
+          goToMemberPage={
+            this.props.permission.member.retrieve &&
+            (() => goToMemberPage(invoice.member.id))
+          }
+          finalizeInvoice={(options) =>
+            this.props.finalizeInvoice(this.props.uuid, options)
+          }
         />
         <RevertInvoiceDialog
           open={this.state.revertDialogOpen}
           hasSubscription={!!invoice.plannedinvoice}
           onSubmit={() => {
-            this.props.revertInvoice(this.props.uuid);
+            this.props.revertInvoice(this.props.uuid, {
+              onSuccess: this.fetchData,
+            });
             this.setState({ revertDialogOpen: false });
           }}
           onClose={() => this.setState({ revertDialogOpen: false })}
@@ -186,32 +178,35 @@ export default compose(
   withRouter,
   routerParamsToProps({ id: 'uuid' }),
   connect(
-    (state) => ({
+    (state, { uuid }) => ({
       invoiceLoading: state.invoice.loadingSpecific,
       memberLoading: state.member.loading,
-      paymentPacks: getPaymentPackEnabled(state),
-      shopItems: getShopItemsAvailable(state),
-      invoice: state.invoice.invoice,
+      invoice: withAuthor(withMember(withInvoiceItem(withPayment(getInvoice))))(
+        state,
+        uuid,
+      ),
       updatingInvoice: state.invoice.createOrUpdatePending,
-      privatePassList: getPrivatePassAvailable(state),
       permission: getPermissions(state),
-      paymentComboList: getPaymentComboList(state),
       isReturningPayment: state.invoice.returnPayment.loading,
+      availableBuyableItems: getBuyableItem(state),
     }),
     {
+      fetchPaymentList,
+      fetchInvoiceItemList,
       fetchMember,
       fetchShopItems,
+      fetchCompanyRoles,
       fetchAllPaymentPacks,
       fetchPrivatePassList,
       goBack,
-      fetchInvoice: invoiceActions.fetchSpecificInvoice,
-      returnPayment: invoiceActions.returnPayment,
-      updatePaymentMethod: invoiceActions.updatePaymentMethod,
       goToMemberPage: (id) => pushRouter(`/member/${id}/`),
       goToSubscription: (id) => pushRouter(`/subscription/${id}/`),
-      updateInvoice: invoiceActions.createOrUpdateInvoice,
-      resetCreateOrUpdateStatus: invoiceActions.createOrUpdateReset,
-      revertInvoice: invoiceActions.revertInvoice,
+      updateInvoice: createOrUpdateInvoice,
+      revertInvoice,
+      finalizeInvoice,
+      fetchInvoice: fetchSpecificInvoice,
+      returnPayment,
+      updatePaymentMethod,
     },
   ),
   withTitle(
@@ -220,7 +215,4 @@ export default compose(
         uuid ? uuid.slice(0, 8).toUpperCase() : ''
       } - ${invoice && invoice.date ? formatAsDate(invoice.date) : ''}`,
   ),
-  connect((state, { invoice }) => ({
-    member: getMember(state, invoice ? invoice.member : null),
-  })),
 )(InvoiceFormPage);

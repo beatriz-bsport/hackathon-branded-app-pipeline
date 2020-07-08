@@ -13,7 +13,7 @@ import { getOrder, withMember } from '../../libs/order/selectors';
 
 import { fetchMember } from '../../libs/member/actions';
 import { fetchOrder, patchOrder } from '../../libs/order/actions';
-import { fetchByQueryInvoice } from '../../actions/invoice.actions';
+import { fetchByQueryInvoice } from '../../libs/invoice/actions';
 import OrderDetailComponent from '../../libs/order/components/OrderDetail.component';
 import { fetchAll as fetchAllAlerting } from '../../libs/alerting/actions';
 import { mailMembers as mailMemberAction } from '../../libs/communication/actions';

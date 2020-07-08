@@ -660,8 +660,6 @@ export class InvoiceForm extends Component<Props, State> {
       privatePassInvoiceItems,
       paymentComboInvoiceItems,
       shopItemInvoiceItems,
-      topUp,
-      voucher,
     } = this.state;
 
     return (
@@ -678,9 +676,6 @@ export class InvoiceForm extends Component<Props, State> {
           paymentComboInvoiceItems={paymentComboInvoiceItems}
           shopItemInvoiceItems={shopItemInvoiceItems}
           uneditableInvoiceItems={uneditableInvoiceItems || []}
-          uneditableVoucher={parseFloat(this.props.uneditableVoucher)}
-          voucher={voucher}
-          topUp={topUp}
         />
         <Divider />
         <div className={this.props.classes.totalLine}>

@@ -10,7 +10,7 @@ import InvoiceConfigurationForm from '../../libs/invoice/components/InvoiceConfi
 import {
   fetchInvoiceConfiguration,
   patchInvoiceConfiguration,
-} from '../../actions/invoice.actions';
+} from '../../libs/invoice/actions';
 import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {

@@ -5,7 +5,7 @@ import { compose, withHandlers } from 'recompose';
 
 import { connect } from 'react-redux';
 
-import { invoice as invoiceActions } from '../../actions';
+import { finalizeInvoice } from '../../libs/invoice/actions';
 import { regularizeDebt as regularizeDebtAction } from '../../libs/member/actions';
 import InvoiceTable from '../invoice/InvoiceTable.component';
 import { fetchMembership as fetchMembershipAction } from '../../libs/membership/actions';
@@ -56,7 +56,7 @@ export default compose(
   connect(
     null,
     {
-      finalizeInvoice: invoiceActions.finalizeInvoice,
+      finalizeInvoice,
       regularizeDebt: regularizeDebtAction,
       fetchMembership: fetchMembershipAction,
     },

@@ -6,7 +6,6 @@ import { connectRouter } from 'connected-react-router';
 import authReducers from './auth';
 import statsReducers from './stats';
 import categoryReducers from './category';
-import invoiceReducers from './invoice';
 import paymentReducers from './payment';
 import consumerReducers from './consumer';
 import snackbarReducer from './snackbar.reducers';
@@ -49,6 +48,7 @@ import activeCampaign from '../libs/active-campaign/reducers';
 import video from '../libs/video/reducers';
 import playlist from '../libs/playlist/reducers';
 import event from '../libs/event/reducers';
+import invoiceReducers from '../libs/invoice/reducers';
 
 import type { State, Action } from '../state/types';
 

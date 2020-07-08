@@ -17,11 +17,9 @@ import DownloadIcon from '@material-ui/icons/Attachment';
 
 import FinalizeInvoiceDialog from '../../libs/invoice/dialog/FinalizeInvoiceDialog.component';
 
-import api from '../../api';
-
 import { formatAsDatetime } from '../../datetime';
 
-import type { Invoice } from '../../api/types';
+import type { Invoice } from '../../libs/invoice/types';
 
 const INVOICE_PER_PAGE = 50;
 
@@ -165,16 +163,17 @@ type Props = {
   downloadInvoice: (uuid: string) => void,
   onInvoiceClick: (uuid: string) => void,
   showOnlyCore: ?boolean,
-  queryParams: ?string,
   title?: string,
   autoFinalize?: boolean,
   showOnlyCoreColumnsAndFinalize?: boolean,
+  count: number,
+  invoices: Array<Invoice>,
+
+  fetchInvoiceList: (params: any, options: OptionCallback) => void,
+  loading: boolean,
 };
 
 type State = {
-  invoices: Array<Invoice>,
-  loading: boolean,
-  count: number,
   tableState: { page: number },
   invoiceFinalizing: ?string,
   processing: Array<string>,
@@ -182,9 +181,6 @@ type State = {
 
 export class InvoiceTable extends Component<Props, State> {
   state = {
-    invoices: [],
-    loading: true,
-    count: 0,
     processing: [],
     invoiceFinalizing: null,
     tableState: {
@@ -193,27 +189,22 @@ export class InvoiceTable extends Component<Props, State> {
   };
 
   fetchInvoicePage = (page: number) => {
-    api.invoice
-      .fetchAll({
+    this.props.fetchInvoiceList(
+      {
         page,
-        pageSize: INVOICE_PER_PAGE,
-        queryParams: this.props.queryParams,
-      })
-      .then((response) => {
-        this.setState((prevState) => ({
-          invoices: response.data.results,
-          count: response.data.count,
-          loading: false,
-          tableState: {
-            ...prevState.tableState,
-            page,
-          },
-        }));
-      })
-      .catch((err) => {
-        console.error(err);
-        this.setState({ loading: false });
-      });
+        page_size: INVOICE_PER_PAGE,
+      },
+      {
+        onSuccess: () => {
+          this.setState((prevState) => ({
+            tableState: {
+              ...prevState.tableState,
+              page,
+            },
+          }));
+        },
+      },
+    );
   };
 
   componentDidMount() {
@@ -251,7 +242,7 @@ export class InvoiceTable extends Component<Props, State> {
 
   onRowClick = (rowData, { rowIndex }) => {
     if (this.props.onInvoiceClick) {
-      return this.props.onInvoiceClick(this.state.invoices[rowIndex].uuid);
+      return this.props.onInvoiceClick(this.props.invoices[rowIndex].uuid);
     }
     return null;
   };
@@ -272,14 +263,14 @@ export class InvoiceTable extends Component<Props, State> {
 
   render() {
     const { t } = this.props;
-    const { invoices, processing, loading } = this.state;
+    const { processing } = this.state;
     const options = {
       onRowClick: this.onRowClick,
       serverSide: true,
       rowsPerPage: INVOICE_PER_PAGE,
       rowsPerPageOptions: [INVOICE_PER_PAGE],
-      loading,
-      count: this.state.count,
+      loading: this.props.loading,
+      count: this.props.count,
       tableState: this.state.tableState,
       filter: false,
       search: false,
@@ -292,7 +283,7 @@ export class InvoiceTable extends Component<Props, State> {
       },
       textLabels: {
         body: {
-          noMatch: loading ? (
+          noMatch: this.props.loading ? (
             <CircularProgress />
           ) : (
             'Sorry, there is no invoice data to display'
@@ -308,7 +299,7 @@ export class InvoiceTable extends Component<Props, State> {
       <div>
         <MUIDataTable
           data={renderRows(
-            invoices,
+            this.props.invoices,
             processing,
             {
               finalizeInvoice: this.startFinalizeInvoice,

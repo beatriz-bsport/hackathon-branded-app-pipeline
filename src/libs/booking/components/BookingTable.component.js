@@ -55,7 +55,11 @@ export class BookingTable extends PureComponent<Props> {
     } = this.props;
 
     if (loading || !bookings) {
-      return <CircularProgress className={classes.contentWithMargin} />;
+      return (
+        <div className={classes.loadingContainer}>
+          <CircularProgress className={classes.contentWithMargin} />
+        </div>
+      );
     }
 
     // prettier-ignore
@@ -92,6 +96,11 @@ export class BookingTable extends PureComponent<Props> {
   }
 }
 const styles = (theme) => ({
+  loadingContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
   contentWithMargin: {
     margin: theme.spacing(3),
   },

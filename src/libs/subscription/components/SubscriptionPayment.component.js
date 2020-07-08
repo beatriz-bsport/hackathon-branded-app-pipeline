@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
+import Checkbox from '@material-ui/core/Checkbox';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withTranslation } from 'react-i18next';
@@ -165,9 +166,32 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         <Divider />
         <div className={classes.cardContainer}>
           {paymentMethod === 'bsport:credit' ? (
-            <Typography className={classes.explainCredit}>
-              {t('subscription:paymentMethod.credit.explain')}
-            </Typography>
+            <div>
+              <Typography className={classes.explainCredit}>
+                {t('subscription:paymentMethod.credit.explain')}
+              </Typography>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                <Checkbox />
+                <Typography variant="caption" className={classes.explainCredit}>
+                  iErstellen Sie jeden Monat eine Schuld, die dem Betrag des
+                  Abonnements entspricht
+                </Typography>
+              </div>
+              <TextField
+                fullWidth
+                value="DE91100000000123456789"
+                label="Zusätzliche Information"
+                row={3}
+                multiline
+                variant="outlined"
+              />
+            </div>
           ) : null}
           {paymentMethod === 'sepa_debit' ? (
             <div>

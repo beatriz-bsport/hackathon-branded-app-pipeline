@@ -747,7 +747,7 @@
     "offerManagement": {
       "forms": {
         "register": {
-          "registerToOffer": "Incription à la séance",
+          "registerToOffer": "Inscription à la séance",
           "passOwnedByMember": "Pass possédé(s) par le membre",
           "passCompatibleNotOwnedByMember": "Facturation d'un nouveau pass",
           "forceNotify": "Envoyer un email de confirmation"
@@ -946,7 +946,7 @@
       "9": "Sortie de la liste d'attente : réservation possible",
       "10": "Liste d'attente pleine de nouveau",
       "12": "Inscription à la liste d'attente",
-      "13": "Désincription de la liste d'attente (élève)",
+      "13": "Désinscription de la liste d'attente (élève)",
       "14": "Désinscription de la liste d'attente (manager)",
       "16": "Séance modifiée",
       "17": "Réservation annulée : crédit non remboursé",
@@ -2302,6 +2302,8 @@
     "availablePaymentPacks": "Pass compatibles : ",
     "goBack": "Précédent",
     "hasOneOrMoreOption": "Vous êtes déjà inscrit sur la liste d'attente",
+    "paymentNote": { "label": "Note", "helperText": "(optionnel) numéro du chèque, date d'encaissement..." },
+    "creditAccountBalance": { "current": "Acompte actuel" },
     "paymentComboSectionTitle": "Pack",
     "method": { "CB": "Carte bleue", "CREDIT_ACCOUNT": "Paiement sur place" },
     "forms": {
@@ -2321,10 +2323,40 @@
       "8": "EventBrite",
       "9": "Compte interne (crédit)",
       "10": "Paiement automatique",
-      "11": "Divers"
-    }
+      "11": "Divers",
+      "label": "Moyen de paiement"
+    },
+    "actions": { "addThisPaymentItem": "Ajouter ce moyen de paiement" }
   },
   "invoice": {
+    "creditAccountBalance": { "current": "Acompte actuel" },
+    "invoice": {
+      "title": "Facture {{ uuid }}",
+      "editor": { "title": "Edition de la facture" },
+      "header": {
+        "date": "Date : {{ date }}",
+        "author": "Créé par : {{ name }}",
+        "clientAuthor": "client",
+        "source": { "0": "App", "1": "Web", "2": "Backoffice", "3": "Autre", "label": "Canal : {{ source }}" }
+      }
+    },
+    "uneditableMessage": {
+      "invoiceRevertedThusNotEditable": "La facture a été annulée et n'est plus modifiable",
+      "invoiceFromSubscriptionThusNotEditable": "Cette facture fait partie d'une souscription et n'est donc pas éditable, veuillez modifier directement la souscription",
+      "invoiceFinalizedThusNotEditable": "La facture a été finalisée et n'est donc plus modifiable"
+    },
+    "actions": {
+      "invoiceReverted": "Facture annulée",
+      "revert": "Annuler",
+      "goToSubscription": "Voir la souscription",
+      "goToPaymentEditor": "Paiement",
+      "backToInvoiceItemEditor": "Achat",
+      "save": "Enregistrer",
+      "addInvoiceItem": "Ajouter à la facture",
+      "equilibrate": "Equilibrer (acompte)",
+      "download": "Télécharger PDF",
+      "finalize": "Finaliser (PDF)"
+    },
     "returnPayment": {
       "modal": {
         "title": "Remboursement client",
@@ -2338,6 +2370,16 @@
       "explainStripeFooter": "Ce texte apparaitra en bas de vos factures éditées en PDF, ajoutez toute mention légale nécessaire.",
       "submit_stripe_footer": "Mettre à jour",
       "forms": { "stripe_footer_placeholder": "Aucune mention supplémentaire" }
+    },
+    "invoiceItem": {
+      "buyableItemIdentifier": { "1": "Carte de cours", "2": "Magasin", "3": "Crédit", "9": "Carte RDV", "10": "Pack" },
+      "credit": { "label": "Crédit" },
+      "quantity": "Quantité",
+      "voucher": "Réduction: {{ voucher }} €"
+    },
+    "section": {
+      "invoiceItemList": { "title": "Achats", "isEmpty": "Aucun achat", "total": "Total achat" },
+      "paymentList": { "title": "Moyens de paiement", "isEmpty": "Aucun moyen de paiement enregistré", "total": "Total paiement" }
     }
   },
   "snackbar": {

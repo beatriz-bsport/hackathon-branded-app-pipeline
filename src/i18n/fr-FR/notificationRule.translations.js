@@ -147,7 +147,7 @@ exports.default = {
       "Liste d'attente pleine de nouveau",
     [NOTIFICATION_BOOKING_OPTION_CREATED]: "Inscription à la liste d'attente",
     [NOTIFICATION_BOOKING_OPTION_CANCELLED_BY_CONSUMER]:
-      "Désincription de la liste d'attente (élève)",
+      "Désinscription de la liste d'attente (élève)",
     [NOTIFICATION_BOOKING_OPTION_CANCELLED_BY_MANAGER]:
       "Désinscription de la liste d'attente (manager)",
     [NOTIFICATION_OFFER_IN_BOOKING_MODIFIED]: 'Séance modifiée',

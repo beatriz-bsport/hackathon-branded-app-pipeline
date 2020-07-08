@@ -1,70 +1,36 @@
 // @flow
 import React, { Component } from 'react';
 
-import { compose } from 'recompose';
+import { compose, withStateHandlers, withState } from 'recompose';
 
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Collapse from '@material-ui/core/Collapse';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
-import Radio from '@material-ui/core/Radio';
-import VideocamIcon from '@material-ui/icons/Videocam';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import DialogContent from '@material-ui/core/DialogContent';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import MailIcon from '@material-ui/icons/Mail';
-import TodayIcon from '@material-ui/icons/Today';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 
-import moment from 'moment';
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-import {
-  BOOKING_DATE_ORDER,
-  BOOKING_FIRSTNAME_ORDER,
-  BOOKING_LASTNAME_ORDER,
-} from '@bsport/common/lib/master-data/settings';
-import ResultList from '../../components/search/ResultList.component';
-import MemberBookingHelper from './MemberBookingHelper.component';
 import { mapFormData } from '../form.utils';
 
 import QuickInvoicePanel from './QuickInvoicePanel.component';
-import SearchMember from './SearchMember.component';
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
 import RegisterMemberToOfferForm from './RegisterMemberToOfferForm.component';
-import WaitingListControlHeader from './WaitingListControlHeader.component';
 import MailMembers from './MailMembers.component';
 
 import MemberForm from '../../libs/member/MemberForm.component';
 import { getLatest as getLatestMember } from '../../libs/member/api';
-import BookingTable from '../../libs/booking/components/BookingTable.component';
-import BookingOptionForManager from '../../libs/waiting-list/components/BookingOptionForManager.component';
 import DiscardBookingOptionDialog from '../../libs/waiting-list/components/DiscardBookingOptionDialog.component';
 
-import BroadcastRoom from '../../libs/video/components/BroadcastRoom.component';
+import BookingManagement from './BookingManagement.component';
+import OfferNavigationHeader from './OfferNavigationHeader.component';
+import OfferBroadcastHelper from './OfferBroadcastHelper.component';
 
 import type { PaymentPack } from '../../libs/payment-packs/types';
 import type { Booking, BookingOption } from '../../libs/booking/types';
 import type { Member } from '../../libs/member/types';
 import type { Invoice } from '../../libs/invoice/types';
 import type { Permission } from '../../libs/role/types';
-import type { PrivatePass } from '../../libs/private-service/types';
-import type { PaymentCombo } from '../../libs/payment-combo/types';
 
 type Props = {
   fullScreen: boolean,
@@ -80,17 +46,13 @@ type Props = {
   memberHistory: Array<member>,
   bookingOptionsPending: Array<BookingOption>,
   bookings: Array<Booking>,
-  paymentPacks: Array<PaymentPack>,
-  paymentPacksEnabled: Array<PaymentPack>,
-  shopItemsAvailable: Array<ShopItem>,
   compatiblePacks: Array<PaymentPack>,
   unevenSavedInvoices: Array<Invoice>,
   permission: Permission,
 
   fetchPrivatePassList: () => void,
   fetchPaymentComboList: () => void,
-  privatePassList: Array<PrivatePass>,
-  paymentComboList: Array<PaymentCombo>,
+  fetchShopItems: () => void,
 
   switchWaitingListFreeze: (offerId: number, newFreezeState: boolean) => void,
   fetchMember: (id: number) => void,
@@ -103,10 +65,8 @@ type Props = {
   discardBookingAttendance: (bookingId: number) => void,
   revertQuickInvoiceAndRefreshOffer: (uuid: string, offerId: number) => void,
   goToMember: (id: number) => void,
-  fetchShopItems: () => void,
   snackbarSuccess: (msg: string) => void,
 
-  fetchCompatiblePacks: (offerId: number) => void,
   createMember: (id: ?number, data: [*], options: *, offerId: number) => void,
   createInvoice: ([*], number, number) => void,
   resetQuickInvoices: () => void,
@@ -126,10 +86,29 @@ type Props = {
   fetchOfferData: (id: number) => void,
 
   goToCalendar: (date: any) => void,
-  t: TFunction,
+  availableBuyableItems: {
+    [buyable_item_identifier: number]: Array<BuyableItem>,
+  },
+
+  handleRevertBooking: (Booking) => void,
+
   classes: Object,
   company_theme: Object,
-  refresh: (oredering: string) => void,
+
+  setMemberToRegister: ({
+    name: string,
+    photo: ?string,
+    id: number,
+  }) => void,
+  memberToRegister: ?{
+    name: string,
+    photo: ?string,
+    id: number,
+  },
+  bookingToRevert: ?Booking,
+  closeRevertBookingDialog: () => void,
+  booking_ordering: number,
+  onChangeBookingOrdering: (number) => void,
 };
 
 type State = {
@@ -138,33 +117,19 @@ type State = {
   addMemberModal: boolean,
   mailClients: boolean,
   optionToDiscard: ?number,
-  memberToRegister: ?number,
   searchedText: string,
-  openMailDialog: boolean,
+  communicationDialogIsOpen: boolean,
   receivers: Object,
-  openMailChoiceDialog: boolean,
-  booking_ordering: number,
-};
-
-const getMemberFromId = (id, membersList) => {
-  const member = membersList.find((m) => m.id === id);
-  return { name: member.name, photo: member.photo };
 };
 
 export class OfferManagement extends Component<Props, State> {
   state = {
     quickInvoices: [],
     addMemberModal: false,
-    memberToRegister: null,
-    memberToRegisterName: null,
     optionToDiscard: null,
     confirmOptionToDiscard: null,
     searchedText: '',
-    interval: null,
-    openMailChoiceDialog: false,
     keep_credits: false,
-    booking_ordering:
-      this.props.company_theme.default_booking_ordering || BOOKING_DATE_ORDER,
     notify_member: false,
   };
 
@@ -173,33 +138,26 @@ export class OfferManagement extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.fetchCompatiblePacks(this.props.offerId);
-    this.props.fetchOffer(this.props.offerId);
-    this.props.fetchOfferData(this.props.offerId, this.state.booking_ordering);
+    this.props.fetchOfferData(this.props.booking_ordering);
     this.props.fetchShopItems();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
   }
 
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.company_theme.default_booking_ordering !==
-      prevProps.company_theme.default_booking_ordering
-    ) {
-      this.setState({
-        booking_ordering: this.props.company_theme.default_booking_ordering,
-      });
-      this.props.refresh(this.props.company_theme.default_booking_ordering);
+  fetchOfferAndData = () => {
+    this.props.fetchOffer(this.props.offerId);
+    this.props.fetchOfferData(this.props.booking_ordering);
+  };
+
+  componentDidUpdate(prevProps: Props) {
+    if (!!this.props.offerId && this.props.offerId !== prevProps.offerId) {
+      this.fetchOfferAndData();
     }
   }
 
-  componentWillUnmount() {
-    clearInterval(this.state.interval);
-  }
-
-  closeQuickInvoice = (memberId, invoiceData) => {
+  closeQuickInvoice = (memberId: number, invoiceData: any) => {
     if ((invoiceData.invoiceItems || { offers: [] }).offers.length === 0) {
-      this.setState((prevState) => ({
+      this.setState((prevState: State) => ({
         quickInvoices: prevState.quickInvoices.filter(
           (qi) => qi.memberId !== memberId,
         ),
@@ -226,7 +184,12 @@ export class OfferManagement extends Component<Props, State> {
         confirmOptionToDiscard: null,
       });
     }
-    this.setState({ memberToRegister: null });
+    this.props.setMemberToRegister(null);
+  };
+
+  searchMembers = (searchedText) => {
+    this.setState({ searchedText });
+    this.props.searchMembers(searchedText);
   };
 
   registerMember = async (consumerPaymentPackId: number) => {
@@ -234,7 +197,7 @@ export class OfferManagement extends Component<Props, State> {
       this.props.offerId,
       consumerPaymentPackId,
       this.state.keep_credits,
-      this.state.booking_ordering,
+      this.props.booking_ordering,
       this.state.notify_member,
     );
     this.clearSearch();
@@ -245,7 +208,7 @@ export class OfferManagement extends Component<Props, State> {
         confirmOptionToDiscard: null,
       });
     }
-    this.setState({ memberToRegister: null });
+    this.props.setMemberToRegister(null);
   };
 
   createInvoice = (invoiceData, memberId) => {
@@ -289,10 +252,10 @@ export class OfferManagement extends Component<Props, State> {
           getLatestMember()
             .then((res) => {
               this.props.fetchMember(res.data);
-              this.setState({
-                memberToRegister: res.data,
-                memberToRegisterName: `${data.firstname} ${data.lastname}`,
-                memberToRegisterPhoto: data.photo,
+              this.props.setMemberToRegister({
+                id: res.data,
+                name: `${data.firstname} ${data.lastname}`,
+                photo: data.photo,
               });
             })
             .catch((err) => {
@@ -315,35 +278,18 @@ export class OfferManagement extends Component<Props, State> {
     this.setState({ addMemberModal: false });
   };
 
-  renderSearchedMember = (member: Member) => {
-    const hasBooked = !!this.props.bookings.find((b) => b.member === member.id);
-    return (
-      <MemberBookingHelper
-        key={member.id}
-        isFull={this.props.offer.is_full}
-        onClickBill={() => this.addToQuickInvoicePanel(member.id)}
-        onClickOption={() => {
-          this.props.registerToWaitingList(this.props.offer.id, member.id);
-          this.clearSearch();
-        }}
-        onClickRegister={() => {
-          this.setState({
-            memberToRegisterName: member.name,
-            memberToRegisterPhoto: member.photo,
-            memberToRegister: member.id,
-          });
-        }}
-        onClickListItem={
-          hasBooked ? () => this.addToQuickInvoicePanel(member.id) : null
-        }
-        showMember={
-          this.props.permission.member.retrieve
-            ? () => window.open(`/member/${member.id}/`)
-            : null
-        }
-        member={member}
-        hasBooked={hasBooked}
-      />
+  handleBookingDeletion = (options) => {
+    this.props.deleteBooking(
+      this.props.bookingToRevert.id,
+      this.props.booking_ordering,
+      {
+        onSuccess: () => {
+          this.props.closeRevertBookingDialog();
+          if (options && options.onSuccess) {
+            options.onSuccess();
+          }
+        },
+      },
     );
   };
 
@@ -364,11 +310,13 @@ export class OfferManagement extends Component<Props, State> {
           id: selectedMember.id,
           creditAccount: selectedMember.credit_account_balance,
           invoiceItems: { offers: [] },
+          member: selectedMember,
         }
       : {
           memberName: selectedMember.name,
           memberId: selectedMember.id,
           id: selectedMember.id,
+          member: selectedMember,
           creditAccount: selectedMember.credit_account_balance,
           invoiceItems: { offers: [offer] },
         };
@@ -383,476 +331,157 @@ export class OfferManagement extends Component<Props, State> {
 
   clearSearch = () => this.setState({ searchedText: '' });
 
-  getNbAttendant = () => {
-    if (this.props.bookingLoading) {
-      return '...';
-    }
-    return this.props.bookings.filter(
-      (booking) =>
-        booking.booking_status_code === BOOKING_STATUS_OK.id &&
-        booking.attendance,
-    ).length;
-  };
-
-  getNbNonAttendant = () => {
-    if (this.props.bookingLoading) {
-      return '...';
-    }
-    return this.props.bookings.filter(
-      (booking) =>
-        !booking.attendance &&
-        booking.booking_status_code === BOOKING_STATUS_OK.id,
-    ).length;
-  };
-
-  getMaxBookings = () => {
-    if (this.props.offerLoading) {
-      return '...';
-    }
-    return (this.props.offer && this.props.offer.effectif) || 0;
-  };
-
-  renderBookingHeader = () => {
-    const { classes, t } = this.props;
-    return (
-      <div>
-        <div className={classes.bookingsHeader}>
-          <div />
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              flexDirection: 'row',
-            }}
-          >
-            {!!this.props.permission.member.retrieve && (
-              <IconButton
-                onClick={(e) => {
-                  e.stopPropagation();
-                  this.setState({ openMailChoiceDialog: true });
-                }}
-                color="primary"
-                disabled={this.props.bookingLoading}
-              >
-                <MailIcon />
-              </IconButton>
-            )}
-            <IconButton onClick={this.openAddMemberModal} color="primary">
-              <PersonAddIcon />
-            </IconButton>
-            <SearchMember
-              onChange={(event) => {
-                this.setState({
-                  searchedText: event.target.value,
-                  memberHistoryAnchor: null,
-                });
-                this.props.searchMembers(event.target.value);
-              }}
-              value={this.state.searchedText}
-              onReset={this.clearSearch}
-              memberHistoryAnchor={this.state.memberHistoryAnchor}
-              memberHistory={this.props.memberHistory}
-              setMemberHistoryAnchor={(anchor) =>
-                this.setState({ memberHistoryAnchor: anchor })
-              }
-              onClickRegister={(member) => {
-                this.setState({
-                  memberToRegisterName: member.name,
-                  memberToRegisterPhoto: member.photo,
-                  memberToRegister: member.id,
-                });
-              }}
-            />
-          </div>
-        </div>
-        <div className={classes.bookingOrderingContainer}>
-          <FormControlLabel
-            value={BOOKING_DATE_ORDER}
-            control={
-              <Radio
-                checked={BOOKING_DATE_ORDER === this.state.booking_ordering}
-                onChange={() => {
-                  this.setState({ booking_ordering: BOOKING_DATE_ORDER });
-                  this.props.refresh(BOOKING_DATE_ORDER);
-                }}
-              />
-            }
-            label={
-              <Typography variant="caption">
-                {t('offer:offerManagement.bookingOrder.date')}
-              </Typography>
-            }
-          />
-          <FormControlLabel
-            value={BOOKING_FIRSTNAME_ORDER}
-            control={
-              <Radio
-                checked={
-                  BOOKING_FIRSTNAME_ORDER === this.state.booking_ordering
-                }
-                onChange={() => {
-                  this.setState({ booking_ordering: BOOKING_FIRSTNAME_ORDER });
-                  this.props.refresh(BOOKING_FIRSTNAME_ORDER);
-                }}
-              />
-            }
-            label={
-              <Typography variant="caption">
-                {t('offer:offerManagement.bookingOrder.firstname')}
-              </Typography>
-            }
-          />
-          <FormControlLabel
-            value={BOOKING_LASTNAME_ORDER}
-            control={
-              <Radio
-                checked={BOOKING_LASTNAME_ORDER === this.state.booking_ordering}
-                onChange={() => {
-                  this.setState({ booking_ordering: BOOKING_LASTNAME_ORDER });
-                  this.props.refresh(BOOKING_LASTNAME_ORDER);
-                }}
-              />
-            }
-            label={
-              <Typography variant="caption">
-                {t('offer:offerManagement.bookingOrder.lastname')}
-              </Typography>
-            }
-          />
-        </div>
-      </div>
-    );
-  };
-
-  closeRevertBookingDialog = () => {
-    this.setState({ bookingToRevert: null });
-  };
-
-  handleBookingRevert = (booking: Booking) => {
-    for (const inv of this.props.unevenSavedInvoices) {
-      for (const ii of inv.invoice_items) {
-        if (ii.object_id === booking.consumer_payment_pack.id) {
-          this.props.revertQuickInvoiceAndRefreshOffer(
-            inv.uuid,
-            this.props.offerId,
-            this.state.booking_ordering,
-          );
-          return;
-        }
-      }
-    }
-    this.setState({ bookingToRevert: booking });
-  };
-
-  handleBookingDeletion = () => {
-    this.props.deleteBooking(
-      this.state.bookingToRevert.id,
-      this.state.booking_ordering,
-    );
-    this.closeRevertBookingDialog();
-  };
-
-  goToOffer = (id) => {
-    this.props.fetchCompatiblePacks(id);
-    this.props.fetchOffer(id);
-    this.props.fetchOfferData(id, this.state.booking_ordering);
-    this.props.goToOffer(id);
-  };
-
-  getDateDictionnary = () => {
-    const date = this.props.offer
-      ? moment(this.props.offer.date_start)
-      : moment();
-    return { year: date.year(), month: date.month() + 1, day: date.date() };
-  };
-
-  getNavigationHeader = (loading: boolean) => (
-    <Paper className={this.props.classes.headerContainer}>
-      <div className={this.props.classes.titleBanner}>
-        <Button
-          onClick={() => this.goToOffer(this.props.offer.previous_offer)}
-          disabled={
-            !this.props.offer || this.props.offer.id !== this.props.offerId
-          }
-        >
-          <ChevronLeftIcon className={this.props.classes.leftIcon} />
-          <Hidden xsDown>
-            {this.props.t('translation:offer.previousOffer')}
-          </Hidden>
-        </Button>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            flexDirection: 'row',
-            justifyContent: 'center',
-          }}
-        >
-          <Button
-            onClick={() => this.props.goToCalendar(this.getDateDictionnary())}
-          >
-            <TodayIcon className={this.props.classes.leftIcon} />
-            {this.props.offer &&
-            !this.props.offerLoading &&
-            this.props.offer.date_start
-              ? moment(this.props.offer.date_start).format('LLLL')
-              : ''}
-          </Button>
-          {this.props.bookingLoading ? (
-            <CircularProgress size={16} />
-          ) : (
-            <IconButton
-              onClick={() =>
-                this.props.fetchOfferData(
-                  this.props.offerId,
-                  this.state.booking_ordering,
-                )
-              }
-            >
-              <RefreshIcon />
-            </IconButton>
-          )}
-        </div>
-        <Button
-          onClick={() => this.goToOffer(this.props.offer.next_offer)}
-          disabled={
-            !this.props.offer || this.props.offer.id !== this.props.offerId
-          }
-        >
-          <Hidden xsDown>{this.props.t('translation:offer.nextOffer')}</Hidden>
-          <ChevronRightIcon className={this.props.classes.rightIcon} />
-        </Button>
-      </div>
-      {loading ? <LinearProgress /> : null}
-    </Paper>
-  );
-
-  renderBroadcastPanel = () => {
-    if (this.state.broadcastActivated) {
-      return (
-        <BroadcastRoom
-          userType="coach"
-          date_start={this.props.offer.date_start}
-          duration_minute={this.props.offer.duration_minute}
-          broadcast_info={this.props.offer.broadcast_info}
-        />
-      );
-    }
-    return (
-      <ButtonBase
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          borderRadius: 16,
-          justifyContent: 'center',
-          minHeight: 300,
-          width: '100%',
-          flexDirection: 'column',
-        }}
-        onClick={() => this.setState({ broadcastActivated: true })}
-      >
-        <VideocamIcon style={{ height: '30vh', width: '30vh' }} />
-        <Button variant="outlined" color="primary" style={{ marginBottom: 30 }}>
-          {this.props.t('offer:video.activateVideo')}
-        </Button>
-      </ButtonBase>
-    );
-  };
+  openCommunicationDialog = () =>
+    this.setState({ communicationDialogIsOpen: true });
 
   render() {
     const {
       offer,
-      bookingLoading,
       bookingOptionsPending,
-      t,
       classes,
       bookings,
       fullScreen,
       members,
     } = this.props;
-    const {
-      searchedText,
-      memberToRegister,
-      memberToRegisterName,
-      memberToRegisterPhoto,
-    } = this.state;
-    if (!offer) {
-      return <React.Fragment>{this.getNavigationHeader(true)}</React.Fragment>;
+    if (!this.props.offer) {
+      return (
+        <Grid container direction="row" spacing={2}>
+          <Grid item xs={12}>
+            <OfferNavigationHeader
+              goToOffer={this.props.goToOffer}
+              bookingLoading={this.props.bookingLoading}
+              offer={offer}
+              offerId={this.props.offerId}
+              loading={this.props.offerLoading}
+              offerLoading={this.props.offerLoading || !this.props.offer}
+              goToCalendar={this.props.goToCalendar}
+              refresh={() =>
+                this.props.fetchOfferData(this.props.booking_ordering)
+              }
+            />
+          </Grid>
+        </Grid>
+      );
     }
     return (
       <Grid container direction="row" spacing={2}>
         <Grid item xs={12}>
-          {this.getNavigationHeader(false)}
+          <OfferNavigationHeader
+            goToOffer={this.props.goToOffer}
+            bookingLoading={this.props.bookingLoading}
+            offer={offer}
+            offerId={this.props.offerId}
+            loading={this.props.offerLoading}
+            offerLoading={this.props.offerLoading || !this.props.offer}
+            goToCalendar={this.props.goToCalendar}
+            refresh={() =>
+              this.props.fetchOfferData(this.props.booking_ordering)
+            }
+          />
         </Grid>
         <Grid item xs={12} lg={6}>
-          <Paper className={classes.autoScroll}>
-            <div className={classes.fullWidthRow}>
-              {offer.meta_activity_color ? (
-                <div
-                  style={{
-                    width: '100%',
-                    height: '5px',
-                    backgroundColor: offer.meta_activity_color,
-                  }}
-                />
-              ) : null}
-              {this.renderBookingHeader()}
-              <Divider />
-              <Collapse in={!!searchedText}>
-                <div className={classes.resultListContainer}>
-                  <ResultList
-                    items={this.props.searchedMembers}
-                    loading={this.props.memberSearchLoading}
-                    renderListComponent={this.renderSearchedMember}
-                    redirectToMember={this.props.permission.member.retrieve}
-                  />
-                </div>
-                <Divider />
-              </Collapse>
-              {bookingLoading || this.props.offerLoading ? (
-                <LinearProgress />
-              ) : (
-                <div className={classes.bookingSubHeader}>
-                  <Typography variant="caption" color="primary">
-                    {this.getNbAttendant()} {t('translation:offer.attendant')}
-                  </Typography>
-                  <Typography variant="caption" color="error">
-                    {this.getNbNonAttendant()}{' '}
-                    {t('translation:offer.nonAttendant')}
-                  </Typography>
-                  <Typography variant="caption">
-                    {`${this.getNbAttendant() +
-                      this.getNbNonAttendant()}/${this.getMaxBookings()} ${t(
-                      'translation:offer.maxBookingsNb',
-                    )}`}
-                  </Typography>
-                </div>
-              )}
-              <BookingTable
-                redirectToMember={this.props.permission.member.retrieve}
-                newTab
-                members={this.props.members}
-                paymentPacks={this.props.paymentPacks}
-                loading={bookingLoading || this.props.offerLoading}
-                bookings={bookings}
-                confirmBookingAttendance={this.props.confirmBookingAttendance}
-                discardBookingAttendance={this.props.discardBookingAttendance}
-                showQuickInvoiceButton
-                showRevertBookingButton
-                handleRevert={this.handleBookingRevert}
-                onQuickInvoiceClick={this.addToQuickInvoicePanel}
-              />
-              {bookingOptionsPending && bookingOptionsPending.length ? (
-                <WaitingListControlHeader
-                  switchWaitingListFreeze={() =>
-                    this.props.switchWaitingListFreeze(
-                      this.props.offer.id,
-                      !this.props.offer.waiting_list_disabled,
-                    )
-                  }
-                  bookingOptionsPending={bookingOptionsPending}
-                  isDisabled={this.props.offer.waiting_list_disabled}
-                />
-              ) : null}
-              <List disablePadding>
-                {bookingOptionsPending.map((bo) => (
-                  <BookingOptionForManager
-                    option={bo}
-                    onDiscard={(e) => {
-                      e.stopPropagation();
-                      this.setState({
-                        optionToDiscard: bo.id,
-                        confirmOptionToDiscard: true,
-                      });
-                    }}
-                    disabled={moment(this.props.offer.date_start).isBefore(
-                      moment(),
-                    )}
-                    member={this.props.members.find((m) => m.id === bo.member)}
-                    onClickRegister={(e) => {
-                      const member = getMemberFromId(
-                        bo.member,
-                        this.props.members,
-                      );
-                      e.stopPropagation();
-                      this.setState({
-                        memberToRegisterName: member.name,
-                        memberToRegisterPhoto: member.photo,
-                        memberToRegister: bo.member,
-                      });
-                      this.setState({ optionToDiscard: bo.id });
-                    }}
-                  />
-                ))}
-              </List>
-            </div>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} lg={6}>
-          {this.props.offer.is_broadcast && this.props.offer.broadcast_info
-            ? this.renderBroadcastPanel()
-            : null}
-          <QuickInvoicePanel
+          <BookingManagement
+            registerToWaitingList={this.props.registerToWaitingList}
+            addToQuickInvoicePanel={this.addToQuickInvoicePanel}
+            loading={this.props.offerLoading}
+            bookings={this.props.bookings}
+            offer={this.props.offer}
+            confirmBookingAttendance={this.props.confirmBookingAttendance}
+            discardBookingAttendance={this.props.discardBookingAttendance}
+            refresh={() =>
+              this.props.fetchOfferData(this.props.booking_ordering)
+            }
+            booking_ordering={this.props.booking_ordering}
+            openAddMemberModal={this.openAddMemberModal}
+            onChangeBookingOrdering={this.props.onChangeBookingOrdering}
             members={this.props.members}
+            permission={this.props.permission}
+            company_theme={this.props.company_theme}
+            unevenSavedInvoices={this.props.unevenSavedInvoices}
+            bookingOptionsPending={this.props.bookingOptionsPending}
+            openMailDialog={this.openCommunicationDialog}
+            searchedText={this.state.searchedText}
+            memberSearchLoading={this.props.memberSearchLoading}
+            clearSearch={this.clearSearch}
+            searchMembers={this.searchMembers}
+            searchedMembers={this.props.searchedMembers}
+            memberHistory={this.props.memberHistory}
+            revertQuickInvoice={this.props.revertQuickInvoiceAndRefreshOffer}
+            handleRevertBooking={this.props.handleRevertBooking}
+            handleMemberToRegister={this.props.setMemberToRegister}
+            revertQuickInvoiceAndRefreshOffer={
+              this.props.revertQuickInvoiceAndRefreshOffer
+            }
+            registerOption={(bookingOptionId, member) => {
+              this.props.setMemberToRegister(member);
+              this.setState({
+                optionToDiscard: bookingOptionId,
+                confirmOptionToDiscard: null,
+              });
+            }}
+            discardOption={(bookingOptionId) => {
+              this.setState({
+                optionToDiscard: bookingOptionId,
+                confirmOptionToDiscard: true,
+              });
+            }}
+            switchWaitingListFreeze={this.props.switchWaitingListFreeze}
+          />
+        </Grid>
+        <Grid item xs={12} lg={6}>
+          {!!this.props.offer.is_broadcast &&
+            !!this.props.offer.broadcast_info && (
+              <OfferBroadcastHelper offer={this.props.offer} />
+            )}
+
+          <QuickInvoicePanel
             unevenSavedInvoices={this.props.unevenSavedInvoices}
             revertQuickInvoice={(uuid) =>
               this.props.revertQuickInvoiceAndRefreshOffer(
                 uuid,
                 this.props.offerId,
-                this.state.booking_ordering,
+                this.props.booking_ordering,
               )
             }
             quickInvoices={this.state.quickInvoices}
             createInvoice={this.createInvoice}
             closeQuickInvoice={this.closeQuickInvoice}
             saveQuickInvoice={this.saveQuickInvoice}
-            privatePassList={this.props.privatePassList}
-            paymentComboList={this.props.paymentComboList}
-            paymentPacks={this.props.paymentPacksEnabled}
-            shopItems={this.props.shopItemsAvailable}
+            availableBuyableItems={this.props.availableBuyableItems}
             className={classes.autoScroll}
           />
         </Grid>
-        <Dialog
-          fullScreen={fullScreen}
-          onClose={() => this.setState({ memberToRegister: null })}
-          open={!!memberToRegister}
-        >
-          <DialogContent>
-            {memberToRegister ? (
-              <RegisterMemberToOfferForm
-                offerId={this.props.offerId}
-                memberId={memberToRegister}
-                memberName={memberToRegisterName}
-                memberPhoto={memberToRegisterPhoto}
-                loading={this.props.compatiblePacksLoading}
-                compatiblePacks={this.props.compatiblePacks}
-                keep_credits={this.state.keep_credits}
-                notify_member={this.state.notify_member}
-                changeKeepCreditsOption={() =>
-                  this.setState((prevState) => ({
-                    keep_credits: !prevState.keep_credits,
-                  }))
-                }
-                changeNotifyMemberOption={() =>
-                  this.setState((prevState) => ({
-                    notify_member: !prevState.notify_member,
-                  }))
-                }
-                onCancel={() => this.setState({ memberToRegister: null })}
-                subscribeToOffer={this.registerMember}
-                subscribeToPackAndOffer={(paymentPackId) =>
-                  this.registerMemberAndOpenUnevenInvoice(
-                    memberToRegister,
-                    paymentPackId,
-                    this.state.keep_credits,
-                    this.state.notify_member,
-                  )
-                }
-              />
-            ) : null}
-          </DialogContent>
-        </Dialog>
+        {!!this.props.memberToRegister && (
+          <RegisterMemberToOfferForm
+            offerId={this.props.offerId}
+            member={this.props.memberToRegister}
+            loading={this.props.compatiblePacksLoading}
+            compatiblePacks={this.props.compatiblePacks}
+            keep_credits={this.state.keep_credits}
+            notify_member={this.state.notify_member}
+            changeKeepCreditsOption={() =>
+              this.setState((prevState) => ({
+                keep_credits: !prevState.keep_credits,
+              }))
+            }
+            changeNotifyMemberOption={() =>
+              this.setState((prevState) => ({
+                notify_member: !prevState.notify_member,
+              }))
+            }
+            onCancel={() => this.props.setMemberToRegister(null)}
+            onClose={() => this.props.setMemberToRegister(null)}
+            subscribeToOffer={this.registerMember}
+            subscribeToPackAndOffer={(paymentPackId) =>
+              this.registerMemberAndOpenUnevenInvoice(
+                this.props.memberToRegister.id,
+                paymentPackId,
+                this.state.keep_credits,
+                this.state.notify_member,
+              )
+            }
+          />
+        )}
         <Dialog
           fullScreen={fullScreen}
           open={!!this.state.addMemberModal}
@@ -871,9 +500,9 @@ export class OfferManagement extends Component<Props, State> {
         </Dialog>
         <RevertBookingDialog
           handleBookingDeletion={this.handleBookingDeletion}
-          bookingToRevert={this.state.bookingToRevert}
+          bookingToRevert={this.props.bookingToRevert}
+          closeRevertBookingDialog={this.props.closeRevertBookingDialog}
           offerIsAvailable={this.props.offer.available}
-          closeRevertBookingDialog={this.closeRevertBookingDialog}
         />
         <DiscardBookingOptionDialog
           open={
@@ -893,18 +522,18 @@ export class OfferManagement extends Component<Props, State> {
             })
           }
         />
-        {this.state.openMailChoiceDialog ? (
+        {!!this.state.communicationDialogIsOpen && (
           <MailMembers
             fullscreen={fullScreen}
             bookingOptionsPending={bookingOptionsPending}
             bookings={bookings}
-            openMailChoiceDialog={this.state.openMailChoiceDialog}
-            onClose={() => this.setState({ openMailChoiceDialog: false })}
+            openMailChoiceDialog={this.state.communicationDialogIsOpen}
+            onClose={() => this.setState({ communicationDialogIsOpen: false })}
             members={members}
             mailMembers={this.props.mailMembers}
             mailDefaultTitle={this.props.offer ? this.props.offer.name : ''}
           />
-        ) : null}
+        )}
       </Grid>
     );
   }
@@ -930,64 +559,11 @@ const MemberMap = {
 };
 
 const styles = (theme) => ({
-  bookingsHeader: {
-    padding: theme.spacing(2),
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    width: '100%',
-    flexDirection: 'row',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  emptyTextContainer: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    paddingLeft: theme.spacing(3),
-  },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
-  rightIcon: {
-    marginLight: theme.spacing(1),
-  },
-  headerContainer: {
-    marginTop: -theme.spacing(2),
-  },
-  bookingOrderingContainer: {
-    marginRight: theme.spacing(1),
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
   autoScroll: {
     overflowY: 'auto',
     [theme.breakpoints.up('lg')]: {
       height: `calc(100vh - ${theme.spacing(19)}px)`,
     },
-  },
-  titleBanner: {
-    paddingTop: theme.spacing(1) / 2,
-    paddingBottom: theme.spacing(1) / 2,
-    backgroundColor: theme.palette.background.paper,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  bookingSubHeader: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: theme.spacing(1),
-    paddingBottom: theme.spacing(1) / 2,
-    paddingTop: theme.spacing(1) / 2,
-    background: '#F8F8F8',
-    borderBottom: 'solid 1px #E4E4E4',
-  },
-  fullWidthRow: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch',
   },
 });
 
@@ -995,4 +571,27 @@ export default compose(
   withMobileDialog(),
   withStyles(styles),
   withTranslation(['offer', 'translation']),
+  withStateHandlers(
+    { bookingToRevert: null },
+    {
+      handleRevertBooking: () => (bookingToRevert) => ({ bookingToRevert }),
+      closeRevertBookingDialog: () => () => ({ bookingToRevert: null }),
+    },
+  ),
+  withState('memberToRegister', 'setMemberToRegister', null),
+  withStateHandlers(
+    ({ company_theme }) => ({
+      booking_ordering: company_theme.default_booking_ordering,
+    }),
+    {
+      onChangeBookingOrdering: (_, { fetchOfferData }) => (
+        booking_ordering,
+      ) => {
+        fetchOfferData(booking_ordering);
+        return {
+          booking_ordering,
+        };
+      },
+    },
+  ),
 )(OfferManagement);

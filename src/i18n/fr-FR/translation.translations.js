@@ -913,7 +913,7 @@ exports.default = {
   offerManagement: {
     forms: {
       register: {
-        registerToOffer: 'Incription à la séance',
+        registerToOffer: 'Inscription à la séance',
         passOwnedByMember: 'Pass possédé(s) par le membre',
         passCompatibleNotOwnedByMember: "Facturation d'un nouveau pass",
         forceNotify: 'Envoyer un email de confirmation',

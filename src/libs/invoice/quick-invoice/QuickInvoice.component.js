@@ -9,53 +9,44 @@ import IconButton from '@material-ui/core/IconButton';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import PAYMENT_METHODS, {
   CB as PAYMENT_METHOD_CB,
+  DISPUTE as PAYMENT_METHOD_DISPUTE,
   SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
   CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
 } from '@bsport/common/lib/master-data/payment-methods';
 
 import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
 
-import InvoiceItemList from '../invoice-item/InvoiceItemList.component';
+import InvoiceItem from '../components/InvoiceItem.component';
 import UnevenInvoiceDialog from '../dialog/UnevenInvoiceDialog.component';
-import InvoiceItemSelector, {
-  SELECTOR_SHOP as INVOICE_SELECTOR_SHOP_TAB,
-} from '../invoice-item/InvoiceItemSelector.component';
+import InvoiceItemEditor from '../components/InvoiceItemEditor.component';
 
 import PaymentInfo from './PaymentInfo.component';
-import type { PrivatePass } from '../../private-service/types';
 
 type Props = {
   quickInvoiceTitle: string,
   quickInvoice: { creditAccount: number, member: Member },
-  uneditableInvoiceItems: Array<InvoiceItem>,
   editMode: ?boolean,
   onClose: ?() => void,
   classes: Object,
-  paymentPacks: Array<PaymentPack>,
-  privatePassList: Array<PrivatePass>,
-  paymentComboList: Array<PaymentCombo>,
-  shopItems: Array<ShopItem>,
   createInvoice: (data: [*]) => void,
   updateInvoice: (data: [*]) => void,
-  memberCreditAccountBalance: number,
+  availableBuyableItems: {
+    [buyable_item_identifier: number]: Array<BuyableItem>,
+  },
+  removeInvoiceItem: (number) => void,
+  uneditableInvoiceItems: Array<InvoiceItem>,
 };
 
 type State = {
   payments: Array<{ id: number, text: string, amount: number }>,
-  voucher: number,
   showInvoiceItemSelector: boolean,
-  additionalPaymentPacks: Array<PaymentPack>,
-  additionalShopItems: Array<ShopItem>,
   unevenInvoiceAlertOpen: boolean,
+  invoiceItemList: Array<InvoiceItem>,
 };
 
-function getTotal(acc, invoiceItem) {
-  return acc + parseFloat(invoiceItem.price);
-}
-
-// initiliaze a 0€ payment for all payment method except Stripe CB
 const mapPaymentMethodToState = () =>
   PAYMENT_METHODS.map((pm) => ({
     id: pm.id,
@@ -66,6 +57,7 @@ const mapPaymentMethodToState = () =>
       (pm) =>
         pm.id !== PAYMENT_METHOD_SUBSCRIPTION_CB.id &&
         pm.id !== PAYMENT_METHOD_CB.id &&
+        pm.id !== PAYMENT_METHOD_DISPUTE.id &&
         pm.id !== PAYMENT_METHOD_CREDIT_ACCOUNT.id,
     )
     .sort((pm, pm_) => pm.id - pm_.id);
@@ -75,20 +67,14 @@ export class QuickInvoice extends Component<Props, State> {
     super(props);
     this.state = {
       payments: mapPaymentMethodToState(),
-      voucher: 0,
       showInvoiceItemSelector: !props.editMode,
-      additionalPaymentPacks: [],
-      additionalShopItems: [],
-      additionalPrivatePasses: [],
-      additionalPaymentCombos: [],
-      topUp: 0,
-      unevenInvoiceAlertOpen: false,
+      invoiceItemList: [],
     };
   }
 
   getTotalPayment = () => {
-    const { payments, voucher } = this.state;
-    return sum(payments.map((pm) => pm.amount || 0)) + (voucher || 0);
+    const { payments } = this.state;
+    return sum(payments.map((pm) => pm.amount || 0));
   };
 
   handlePaymentChange = (payment_type: number) => (e: SyntheticEvent) => {
@@ -106,31 +92,16 @@ export class QuickInvoice extends Component<Props, State> {
     });
   };
 
-  handleVoucher = (event) => {
-    this.setState({ voucher: parseFloat(event.target.value) });
-  };
-
   getFinalPrice = () => {
-    const { uneditableInvoiceItems } = this.props;
-    const {
-      additionalShopItems,
-      additionalPaymentCombos,
-      additionalPrivatePasses,
-      additionalPaymentPacks,
-      topUp,
-    } = this.state;
-    const sumPack = additionalPaymentPacks.reduce(getTotal, 0);
-    const sumShop = additionalShopItems.reduce(getTotal, 0);
-    const sumPrivatePass = additionalPrivatePasses.reduce(getTotal, 0);
-    const sumPaymentCombo = additionalPaymentCombos.reduce(getTotal, 0);
-    const sumUneditable = (uneditableInvoiceItems || []).reduce(getTotal, 0);
     return (
-      sumPack +
-      sumShop +
-      sumUneditable +
-      sumPaymentCombo +
-      topUp +
-      sumPrivatePass
+      this.state.invoiceItemList.reduce(
+        (acc, v) => parseFloat(v.price) - parseFloat(v.voucher || 0) + acc,
+        0,
+      ) +
+      (this.props.uneditableInvoiceItems || []).reduce(
+        (acc, ii) => (ii ? parseFloat(ii.price) || 0 : 0) + acc,
+        0,
+      )
     );
   };
 
@@ -140,86 +111,6 @@ export class QuickInvoice extends Component<Props, State> {
 
   closeUnevenInvoiceDialog = () => {
     this.setState({ unevenInvoiceAlertOpen: false });
-  };
-
-  addPaymentPack = (paymentPackId: number) => {
-    const ppToAdd = this.props.paymentPacks.find(
-      (pp) => pp.id === paymentPackId,
-    );
-    this.setState((prevState) => ({
-      additionalPaymentPacks: [
-        ...prevState.additionalPaymentPacks,
-        {
-          name: ppToAdd.name,
-          price: ppToAdd.price,
-          id: ppToAdd.id,
-        },
-      ],
-      showInvoiceItemSelector: false,
-    }));
-  };
-
-  addPaymentCombo = (paymentComboId: number) => {
-    const ppToAdd = this.props.paymentComboList.find(
-      (pp) => pp.id === paymentComboId,
-    );
-    this.setState((prevState) => ({
-      additionalPaymentCombos: [
-        ...prevState.additionalPaymentCombos,
-        {
-          name: ppToAdd.name,
-          price: ppToAdd.price,
-          id: ppToAdd.id,
-        },
-      ],
-      showInvoiceItemSelector: false,
-    }));
-  };
-
-  addPrivatePass = (privatePassId: number) => {
-    const ppToAdd = this.props.privatePassList.find(
-      (pp) => pp.id === privatePassId,
-    );
-    this.setState((prevState) => ({
-      additionalPrivatePasses: [
-        ...prevState.additionalPrivatePasses,
-        {
-          name: ppToAdd.name,
-          price: ppToAdd.price,
-          id: ppToAdd.id,
-        },
-      ],
-      showInvoiceItemSelector: false,
-    }));
-  };
-
-  onTopUp = (amount: number) => {
-    this.setState((prevState) => ({
-      topUp: prevState.topUp + amount,
-      showInvoiceItemSelector: false,
-    }));
-  };
-
-  deleteTopUp = () => {
-    this.setState({ topUp: 0 });
-  };
-
-  addShopItem = (shopItemId: number) => {
-    const shopItem = this.props.shopItems.find((si) => si.id === shopItemId);
-    if (shopItem) {
-      this.setState((prevState) => ({
-        additionalShopItems: [
-          ...prevState.additionalShopItems,
-          {
-            name: shopItem.name,
-            price: shopItem.price,
-            id: shopItem.id,
-            subtitle: shopItem.subtitle,
-          },
-        ],
-        showInvoiceItemSelector: false,
-      }));
-    }
   };
 
   generatePaymentItemsObject = () => {
@@ -233,23 +124,10 @@ export class QuickInvoice extends Component<Props, State> {
   };
 
   onSubmit = () => {
-    const {
-      topUp,
-      additionalShopItems,
-      additionalPaymentPacks,
-      additionalPrivatePasses,
-      additionalPaymentCombos,
-      voucher,
-    } = this.state;
     const { quickInvoice, createInvoice } = this.props;
     const invoiceData = {
-      shop_item_ids: additionalShopItems.map((siii) => siii.id),
-      payment_pack_ids: additionalPaymentPacks.map((ppii) => [ppii.id]),
-      private_pass_ids: additionalPrivatePasses.map((ppii) => ppii.id),
-      payment_combo_ids: additionalPaymentCombos.map((ppii) => ppii.id),
-      voucher,
-      payment_items: this.generatePaymentItemsObject(),
-      top_up: topUp,
+      payment_methods: this.generatePaymentItemsObject(),
+      buyable_items: this.state.invoiceItemList,
       member: quickInvoice.memberId,
     };
     if (this.props.editMode) {
@@ -270,60 +148,28 @@ export class QuickInvoice extends Component<Props, State> {
     }
   };
 
-  deletePaymentPack = (paymentPackId: number) => {
-    const { additionalPaymentPacks } = this.state;
-    additionalPaymentPacks.splice(
-      additionalPaymentPacks.findIndex((pp) => pp.id === paymentPackId),
-      1,
-    );
-    this.setState({ additionalPaymentPacks });
-  };
-
-  deletePrivatePass = (privatePassId: number) => {
-    const { additionalPrivatePasses } = this.state;
-    additionalPrivatePasses.splice(
-      additionalPrivatePasses.findIndex((pp) => pp.id === privatePassId),
-      1,
-    );
-    this.setState({ additionalPrivatePasses });
-  };
-
-  deletePaymentCombo = (paymentComboId: number) => {
-    const { additionalPaymentCombos } = this.state;
-    additionalPaymentCombos.splice(
-      additionalPaymentCombos.findIndex((pp) => pp.id === paymentComboId),
-      1,
-    );
-    this.setState({ additionalPaymentCombos });
-  };
-
-  deleteShopItem = (shopItemId: number) => {
-    const { additionalShopItems } = this.state;
-    additionalShopItems.splice(
-      additionalShopItems.findIndex((siii) => siii.id === shopItemId),
-      1,
-    );
-    this.setState({ additionalShopItems });
+  addBuyableItem = (buyable_item_identifier, buyableItem) => {
+    this.setState((prevState) => ({
+      invoiceItemList: [
+        {
+          ...buyableItem,
+          buyable_item_identifier,
+          editable: true,
+        },
+        ...prevState.invoiceItemList,
+      ],
+      showInvoiceItemSelector: false,
+    }));
   };
 
   render() {
-    const {
-      classes,
-      onClose,
-      quickInvoiceTitle,
-      uneditableInvoiceItems,
-      memberCreditAccountBalance,
-    } = this.props;
-    const {
-      voucher,
-      additionalShopItems,
-      additionalPaymentCombos,
-      additionalPaymentPacks,
-      unevenInvoiceAlertOpen,
-    } = this.state;
+    const { classes, onClose, quickInvoiceTitle, quickInvoice } = this.props;
 
     const finalPrice = this.getFinalPrice();
     const totalPayment = this.getTotalPayment();
+    if (!quickInvoice.member) {
+      return <CircularProgress />;
+    }
     return (
       <div className={classes.container}>
         <Grid
@@ -334,7 +180,9 @@ export class QuickInvoice extends Component<Props, State> {
           className={classes.header}
         >
           <Grid item>
-            <CreditMemberBadge credit={memberCreditAccountBalance}>
+            <CreditMemberBadge
+              credit={quickInvoice.member.credit_account_balance}
+            >
               <Typography variant="h6" inline>
                 {quickInvoiceTitle}
               </Typography>
@@ -351,45 +199,31 @@ export class QuickInvoice extends Component<Props, State> {
         <Divider />
         {this.state.showInvoiceItemSelector ? (
           <div>
-            <InvoiceItemSelector
-              creditAccountBalance={this.props.quickInvoice.creditAccount}
-              shopItems={this.props.shopItems}
-              paymentPacks={this.props.paymentPacks}
-              privatePassList={this.props.privatePassList}
-              paymentComboList={this.props.paymentComboList}
-              onTopUp={this.onTopUp}
-              onAddPaymentPack={this.addPaymentPack}
-              onAddPrivatePass={this.addPrivatePass}
-              onAddShopItem={this.addShopItem}
-              onAddPaymentCombo={this.addPaymentCombo}
-              showCancel={
-                additionalPaymentPacks.length ||
-                additionalShopItems.length ||
-                additionalPaymentCombos.length ||
-                this.state.additionalPrivatePasses.length
-              }
-              defaultTab={INVOICE_SELECTOR_SHOP_TAB}
-              onCancel={() => this.setState({ showInvoiceItemSelector: false })}
+            <InvoiceItemEditor
+              availableBuyableItems={this.props.availableBuyableItems}
+              onAddBuyableItem={this.addBuyableItem}
+              member={quickInvoice.member}
             />
           </div>
         ) : (
           <React.Fragment>
             <Grid container direction="row" alignItems="center">
               <Grid item xs={9} className={classes.invoiceItemListContainer}>
-                <InvoiceItemList
-                  compact
-                  uneditableInvoiceItems={uneditableInvoiceItems}
-                  paymentPackInvoiceItems={additionalPaymentPacks}
-                  privatePassInvoiceItems={this.state.additionalPrivatePasses}
-                  paymentComboInvoiceItems={this.state.additionalPaymentCombos}
-                  shopItemInvoiceItems={additionalShopItems}
-                  topUp={this.state.topUp}
-                  deletePPackInvoiceItem={this.deletePaymentPack}
-                  deletePrivatePassInvoiceItem={this.deletePrivatePass}
-                  deleteShopItemInvoiceItem={this.deleteShopItem}
-                  deletePaymentComboInvoiceItem={this.deletePaymentCombo}
-                  deleteTopUp={this.deleteTopUp}
-                />
+                {[
+                  ...(this.state.invoiceItemList || []),
+                  ...(this.props.uneditableInvoiceItems || []).map((ii) => ({
+                    ...ii,
+                    editable: false,
+                  })),
+                ].map((ii) => (
+                  <div>
+                    <InvoiceItem
+                      invoiceItem={ii}
+                      key={`${ii.buyable_item_identifier}:${ii.id}:${ii.voucher}`}
+                      onDelete={() => this.props.removeInvoiceItem(ii.id)}
+                    />
+                  </div>
+                ))}
               </Grid>
               <Grid item xs={3}>
                 <Grid container item justify="center" alignItems="center">
@@ -409,26 +243,18 @@ export class QuickInvoice extends Component<Props, State> {
               finalPrice={finalPrice}
               totalPayment={totalPayment}
               paymentItems={this.state.payments}
-              voucher={voucher}
               handlePaymentChange={this.handlePaymentChange}
-              handleVoucher={this.handleVoucher}
               onSubmit={this.checkUnvenOrSubmit}
               onClose={onClose}
               disabled={
-                !(
-                  (this.state.additionalPaymentPacks || []).length ||
-                  (this.state.additionalPrivatePasses || []).length ||
-                  (this.state.additionalShopItems || []).length ||
-                  (this.state.additionalPaymentCombos || []).length ||
-                  (this.props.uneditableInvoiceItems || []).length ||
-                  !!this.state.topUp
-                )
+                !this.state.invoiceItemList.length &&
+                !(this.props.uneditableInvoiceItems || []).length
               }
             />
           </React.Fragment>
         )}
         <UnevenInvoiceDialog
-          open={unevenInvoiceAlertOpen}
+          open={this.state.unevenInvoiceAlertOpen}
           onClose={this.closeUnevenInvoiceDialog}
           onSubmit={this.onSubmit}
           totalPayment={totalPayment}

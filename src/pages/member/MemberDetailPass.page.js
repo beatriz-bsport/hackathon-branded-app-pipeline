@@ -37,7 +37,7 @@ import {
   fetchConsumerPaymentPackCreditRefundList as fetchConsumerPaymentPackCreditRefundListAction,
 } from '../../libs/consumer-payment-pack/actions';
 import { fetchPaymentPackBulk } from '../../libs/payment-packs/actions';
-import { fetchSpecificInvoice } from '../../actions/invoice.actions';
+import { fetchSpecificInvoice } from '../../libs/invoice/actions';
 
 import RefundConsumerPaymentPackDialog from '../../libs/consumer-payment-pack/components/RefundConsumerPaymentPackDialog.component';
 

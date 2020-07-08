@@ -14,8 +14,12 @@ import { compose, withProps } from 'recompose';
 import Divider from '@material-ui/core/Divider';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import Dialog from '@material-ui/core/Dialog';
+
 import { Avatar } from '../../components';
+import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
 import {
   fetchByOfferByMember,
   fetchNonCompatibleByOfferByMember,
@@ -34,8 +38,6 @@ type Props = {
   loading: boolean,
   consumerPacksLoading: boolean,
 
-  memberId: Member,
-  memberName: string,
   offerId: number,
   compatiblePacks: Array<PaymentPack>,
   consumerPacks: Array<ConsumerPaymentPack>,
@@ -48,7 +50,7 @@ type Props = {
   fetchConsumerPackByOfferByMember: (offerId: number, memberId: number) => void,
   subscribeToPackAndOffer: (paymentPackId: number) => void,
   subscribeToOffer: (id: number) => void,
-  memberPhoto: string,
+  member: ({ name: string, id: number, photo: ?string }) => void,
 
   fetchPaymentPackBulk: (Array<number>) => void,
   fetchNoncompatibleConsumerPackByOfferByMember: (
@@ -63,13 +65,15 @@ type Props = {
   ) => void,
 
   t: TFunction,
+  fullScreen: boolean,
+  onClose: () => void,
 };
 
 export class RegisterMemberToOfferForm extends PureComponent<Props> {
   componentDidMount() {
     this.props.fetchConsumerPackByOfferByMember(
       this.props.offerId,
-      this.props.memberId,
+      this.props.member.id,
       {
         onSuccess: (cppList) =>
           this.props.fetchPaymentPackBulk(
@@ -79,7 +83,7 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
     );
     this.props.fetchNoncompatibleConsumerPackByOfferByMember(
       this.props.offerId,
-      this.props.memberId,
+      this.props.member.id,
       {
         onSuccess: (cppList) =>
           this.props.fetchPaymentPackBulk(
@@ -201,65 +205,71 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
   };
 
   render() {
-    const {
-      t,
-      onCancel,
-      memberId,
-      consumerPacksLoading,
-      loading,
-      memberName,
-      memberPhoto,
-    } = this.props;
-    if (!memberId || loading || consumerPacksLoading) {
+    const { t, onCancel, consumerPacksLoading, loading, member } = this.props;
+    if (!member || loading || consumerPacksLoading) {
       return <CircularProgress />;
     }
     return (
-      <Grid container spacing={2} direction="column">
-        <Grid item>
-          {!!memberPhoto && (
-            <Avatar size="large" user={{ photo: memberPhoto }} />
-          )}
-          <Typography variant="h4" align="center">
-            {memberName}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="h6" align="center">
-            {t('offerManagement.forms.register.registerToOffer')}
-          </Typography>
-        </Grid>
-        <Divider />
-        <Grid item>
-          <div>
-            {this.renderKeepCredit()}
-            {this.renderNotify()}
-          </div>
-        </Grid>
+      <Dialog
+        fullScreen={this.props.fullScreen}
+        onClose={this.props.onClose}
+        open={!!this.props.member && !!this.props.member.id}
+      >
+        <DialogContent>
+          <Grid container spacing={2} direction="column">
+            <Grid item>
+              {!!this.props.member.photo && (
+                <Avatar
+                  size="large"
+                  user={{ photo: this.props.member.photo }}
+                />
+              )}
+              <Typography variant="h4" align="center">
+                {this.props.member.name}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="h6" align="center">
+                {t('offerManagement.forms.register.registerToOffer')}
+              </Typography>
+            </Grid>
+            <Divider />
+            <Grid item>
+              <div>
+                {this.renderKeepCredit()}
+                {this.renderNotify()}
+              </div>
+            </Grid>
 
-        <Grid item>
-          <Typography variant="h6" component="h4">
-            {t('offerManagement.forms.register.passOwnedByMember')}
-          </Typography>
-        </Grid>
-        <Grid item>{this.renderConsumerPacks()}</Grid>
-        <Grid item>
-          <Typography variant="h6" component="h4">
-            {t('offerManagement.forms.register.passCompatibleNotOwnedByMember')}
-          </Typography>
-        </Grid>
-        <Grid item>{this.renderPaymentPacks()}</Grid>
-        <Grid item>
-          <Button variant="outlined" onClick={onCancel}>
-            {t('common.cancel')}
-          </Button>
-        </Grid>
-      </Grid>
+            <Grid item>
+              <Typography variant="h6" component="h4">
+                {t('offerManagement.forms.register.passOwnedByMember')}
+              </Typography>
+            </Grid>
+            <Grid item>{this.renderConsumerPacks()}</Grid>
+            <Grid item>
+              <Typography variant="h6" component="h4">
+                {t(
+                  'offerManagement.forms.register.passCompatibleNotOwnedByMember',
+                )}
+              </Typography>
+            </Grid>
+            <Grid item>{this.renderPaymentPacks()}</Grid>
+            <Grid item>
+              <Button variant="outlined" onClick={onCancel}>
+                {t('common.cancel')}
+              </Button>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
     );
   }
 }
 
 export default compose(
   withTranslation(),
+  withMobileDialog(),
   connect(
     (state) => ({
       consumerPacksLoading: state.consumerPaymentPack.byOfferByMember.loading,

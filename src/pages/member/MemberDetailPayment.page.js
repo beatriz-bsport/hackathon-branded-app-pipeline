@@ -10,13 +10,14 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import { invoice as invoiceActions } from '../../actions';
+import { finalizeInvoice, fetchInvoiceList } from '../../libs/invoice/actions';
 import InvoiceTable from '../invoice/InvoiceTable.component';
 
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
 import type { Subscription } from '../../libs/subscription/types';
 
 import { getSubscriptionListByMember } from '../../libs/subscription/selectors';
+import { getInvoiceList } from '../../libs/invoice/selectors';
 import { fetchSubscriptionListByMember } from '../../libs/subscription/actions';
 
 type Props = {
@@ -31,6 +32,11 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+
+  count: number,
+  invoiceList: Array<Invoice>,
+  loading: boolean,
+  fetchInvoiceList: (params: any, options: OptionCallback) => void,
 };
 
 export class MemberDetailPayment extends Component<Props> {
@@ -53,8 +59,16 @@ export class MemberDetailPayment extends Component<Props> {
             onInvoiceClick={this.props.goToInvoice}
             finalizeInvoice={this.props.finalizeInvoice}
             downloadInvoice={this.downloadInvoice}
-            queryParams={`memberId=${this.props.id}`}
             title={this.props.t('invoiceTitle')}
+            count={this.props.count}
+            invoices={this.props.invoiceList}
+            loading={this.props.loading}
+            fetchInvoiceList={(params, options) =>
+              this.props.fetchInvoiceList(
+                { ...(params || {}), member: this.props.id },
+                options,
+              )
+            }
           />
         </div>
         <div className={this.props.classes.table}>
@@ -88,12 +102,16 @@ export default compose(
       subscriptionList: getSubscriptionListByMember(state),
       subscriptionLoading: state.subscription.list.loading,
       subscriptionCount: state.subscription.byMember.count,
+      invoiceList: getInvoiceList(state),
+      count: state.invoice.list.count,
+      loading: state.invoice.list.loading,
     }),
     {
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),
       goToSubscription: (id: number) => push(`/subscription/${id}`),
-      finalizeInvoice: invoiceActions.finalizeInvoice,
+      finalizeInvoice,
       fetchSubscriptionListByMember,
+      fetchInvoiceList,
     },
   ),
 )(MemberDetailPayment);

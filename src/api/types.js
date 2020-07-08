@@ -8,20 +8,6 @@ export type OfferPerformance = {
 
 export type Performance = Array<OfferPerformance>;
 
-export type Invoice = {
-  id: string,
-  uuid: string,
-  date: string,
-  name: string,
-  kind: string,
-  price: number,
-  price_due: number,
-  price_payed: number,
-  member: number,
-  content_type: string,
-  object_id: number,
-};
-
 export type Profile = {
   name: string,
   first_name: string,

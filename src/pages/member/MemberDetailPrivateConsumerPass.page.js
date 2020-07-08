@@ -30,7 +30,7 @@ import { getPrivateBookingListBase } from '../../libs/private-service/selectors/
 import PrivateConsumerPassBookerListItem from '../../libs/private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
 import PrivateConsumerPassExtensionCreateDialog from '../../libs/private-service/components/consumer-pass/PrivateConsumerPassExtensionCreateDialog.component';
 import PrivateConsumerPassDetail from '../../libs/private-service/components/consumer-pass/PrivateConsumerPassDetail.component';
-import { fetchByInvoiceItem as fetchInvoiceByInvoiceItem } from '../../actions/invoice.actions';
+import { fetchByInvoiceItem as fetchInvoiceByInvoiceItem } from '../../libs/invoice/actions';
 
 type Props = {
   fetchPrivateConsumerPassList: (params: any) => void,

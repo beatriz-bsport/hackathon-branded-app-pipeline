@@ -19,6 +19,14 @@ exports.default = {
   availablePaymentPacks: 'Pass compatibles : ',
   goBack: 'Précédent',
   hasOneOrMoreOption: "Vous êtes déjà inscrit sur la liste d'attente",
+  paymentNote: {
+    label: 'Note',
+    helperText: "(optionnel) numéro du chèque, date d'encaissement...",
+  },
+
+  creditAccountBalance: {
+    current: 'Acompte actuel',
+  },
 
   paymentComboSectionTitle: 'Pack',
 
@@ -44,6 +52,7 @@ exports.default = {
     close: 'Fermer',
   },
   paymentMethod: {
+    label: 'Moyen de paiement',
     [CB.id]: 'Carte bleue',
     [CB_MANUAL.id]: 'Carte bleue (manuel)',
     [CHECK.id]: 'Chèque',
@@ -55,5 +64,8 @@ exports.default = {
     [CREDIT_ACCOUNT.id]: 'Compte interne (crédit)',
     [SUBSCRIPTION_CB.id]: 'Paiement automatique',
     [OTHER.id]: 'Divers',
+  },
+  actions: {
+    addThisPaymentItem: 'Ajouter ce moyen de paiement',
   },
 };

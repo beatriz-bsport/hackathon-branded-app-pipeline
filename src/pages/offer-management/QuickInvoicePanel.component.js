@@ -8,9 +8,6 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import QuickInvoice from '../../libs/invoice/quick-invoice/QuickInvoice.component';
 
-import type { PrivateService } from '../../libs/private-service/types';
-import type { PaymentCombo } from '../../libs/payment-combo/types';
-
 type Props = {
   classes: Object,
   t: TFunction,
@@ -19,14 +16,9 @@ type Props = {
   createInvoice: (InvoiceData) => void,
   closeQuickInvoice: (memberId: number) => void,
   saveQuickInvoice: (InvoiceData) => void,
-  paymentPacks: Array<PaymentPack>,
-  privatePassList: Array<PrivateService>,
-  paymentComboList: Array<PaymentCombo>,
-  shopItems: Array<ShopItem>,
-  activities: Array<Activity>,
   revertQuickInvoice: (uuid: string) => void,
+  availableBuyableItems: { [buyable_item_identifier: number]: BuyableItem },
 
-  members: Array<Member>,
   className: {},
 };
 
@@ -39,9 +31,6 @@ export function QuickInvoicePanel(props: Props) {
     createInvoice,
     closeQuickInvoice,
     saveQuickInvoice,
-    paymentPacks,
-    shopItems,
-    activities,
     className,
   } = props;
   return (
@@ -53,29 +42,22 @@ export function QuickInvoicePanel(props: Props) {
       {quickInvoices.length || unevenSavedInvoices.length ? (
         <div>
           {unevenSavedInvoices.map((inv) => {
-            const member = props.members.find((m) => m.id === inv.member);
             return (
               <QuickInvoice
-                quickInvoiceTitle={`${member ? member.name : ' - '} (${t(
-                  'common.booking',
-                )})`}
-                memberCreditAccountBalance={
-                  member ? member.credit_account_balance : 0.0
-                }
+                quickInvoiceTitle={`${
+                  inv.member ? inv.member.name : ' - '
+                } (${t('common.booking')})`}
+                member={inv.member}
                 key={inv.uuid}
                 quickInvoice={inv}
                 uneditableInvoiceItems={inv.invoice_items}
                 onSubmit={() => {}}
                 editMode
-                paymentPacks={paymentPacks}
-                shopItems={shopItems}
-                privatePassList={props.privatePassList}
-                paymentComboList={props.paymentComboList}
-                activities={[]}
+                availableBuyableItems={props.availableBuyableItems}
                 createInvoice={() => {}}
                 onClose={() => props.revertQuickInvoice(inv.uuid)}
                 updateInvoice={(invoiceData) =>
-                  createInvoice({ ...inv, ...invoiceData }, inv.member, true)
+                  createInvoice({ ...inv, ...invoiceData }, inv.member.id, true)
                 }
               />
             );
@@ -83,16 +65,13 @@ export function QuickInvoicePanel(props: Props) {
           {quickInvoices.map((qi) => (
             <QuickInvoice
               memberCreditAccountBalance={qi.creditAccount || 0.0}
+              member={qi.member}
               quickInvoiceTitle={qi.memberName}
               key={qi.memberId}
               quickInvoice={qi}
+              availableBuyableItems={props.availableBuyableItems}
               onClose={() => closeQuickInvoice(qi.memberId, qi)}
               onSubmit={saveQuickInvoice}
-              paymentPacks={paymentPacks}
-              shopItems={shopItems}
-              privatePassList={props.privatePassList}
-              paymentComboList={props.paymentComboList}
-              activities={activities}
               createInvoice={(invoiceData) =>
                 createInvoice(invoiceData, qi.memberId)
               }
@@ -100,13 +79,11 @@ export function QuickInvoicePanel(props: Props) {
           ))}
         </div>
       ) : (
-        <Typography
-          variant="caption"
-          color="textSecondary"
-          className={classes.emptyTextContainer}
-        >
-          {t('offer.noQuickInvoiceOpened')}
-        </Typography>
+        <div className={classes.emptyTextContainer}>
+          <Typography variant="caption" color="textSecondary">
+            {t('offer.noQuickInvoiceOpened')}
+          </Typography>
+        </div>
       )}
     </Paper>
   );

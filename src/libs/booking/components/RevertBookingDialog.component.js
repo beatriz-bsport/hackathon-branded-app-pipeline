@@ -8,6 +8,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { compose, withState } from 'recompose';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import RedButton from '../../../components/button/RedButton.component';
 
 import type { Booking } from '../types';
@@ -18,6 +21,9 @@ type Props = {
 
   closeRevertBookingDialog: () => void,
   handleBookingDeletion: () => void,
+
+  loading: boolean,
+  setLoading: (boolean) => void,
 
   t: TFunction,
 };
@@ -55,12 +61,27 @@ export function RevertBookingDialog(props: Props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeRevertBookingDialog} color="secondary">
-            {t('common.cancel')}
-          </Button>
-          <RedButton onClick={handleBookingDeletion} color="primary" autoFocus>
-            {t('common.confirm')}
-          </RedButton>
+          {props.loading ? (
+            <CircularProgress />
+          ) : (
+            <React.Fragment>
+              <Button onClick={closeRevertBookingDialog} color="secondary">
+                {t('common.cancel')}
+              </Button>
+              <RedButton
+                onClick={() => {
+                  props.setLoading(true);
+                  handleBookingDeletion({
+                    onSuccess: () => props.setLoading(false),
+                  });
+                }}
+                color="primary"
+                autoFocus
+              >
+                {t('common.confirm')}
+              </RedButton>
+            </React.Fragment>
+          )}
         </DialogActions>
       </Dialog>
     );
@@ -92,4 +113,7 @@ export function RevertBookingDialog(props: Props) {
   );
 }
 
-export default withTranslation()(RevertBookingDialog);
+export default compose(
+  withState('loading', 'setLoading', false),
+  withTranslation(),
+)(RevertBookingDialog);

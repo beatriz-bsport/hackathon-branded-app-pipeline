@@ -23,10 +23,12 @@ type Props = {
 };
 
 const getDateAtNowHour = (date: ?Object) => {
-  return (date || moment()).set({
-    hour: moment().hour(),
-    minute: moment().minute(),
-  });
+  return (date || moment())
+    .set({
+      hour: moment().hour(),
+      minute: moment().minute(),
+    })
+    .format();
 };
 
 export function FinalizeInvoiceDialog(props: Props) {

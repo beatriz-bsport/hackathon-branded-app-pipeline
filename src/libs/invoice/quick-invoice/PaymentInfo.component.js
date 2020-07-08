@@ -16,10 +16,8 @@ import PriceInput from '../../../components/input/PriceInput.component';
 type Props = {
   finalPrice: number,
   totalPayment: number,
-  voucher: number,
   paymentItems: Array<{ id: number, text: string, amount: number }>,
   handlePaymentChange: (number) => (number) => void,
-  handleVoucher: (number) => void,
   onSubmit: () => void,
   onClose: () => void,
   disabled: boolean,
@@ -34,9 +32,7 @@ export function PaymentInfo(props: Props) {
     paymentItems,
     finalPrice,
     totalPayment,
-    voucher,
     handlePaymentChange,
-    handleVoucher,
     onSubmit,
     onClose,
     disabled,
@@ -63,20 +59,6 @@ export function PaymentInfo(props: Props) {
             </Grid>
           </Grid>
         ))}
-
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-        >
-          <Grid item>
-            <Typography>{t('payment.voucher')}</Typography>
-          </Grid>
-          <Grid item>
-            <PriceInput value={voucher} onChange={handleVoucher} />
-          </Grid>
-        </Grid>
       </div>
       <Divider />
       <Grid

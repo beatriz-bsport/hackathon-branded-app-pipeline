@@ -21,6 +21,7 @@ import type { Member } from '../../libs/member/types';
 import { getMember } from '../../libs/member/selectors';
 import type { InvoiceDataFront } from '../../components/form/types';
 import withTitle from '../../hocs/with-title.hoc';
+import withQueryParams from '../../hocs/with-query-params.hoc';
 
 import { getBuyableItem } from '../../libs/invoice/selectors';
 
@@ -110,16 +111,6 @@ export class InvoiceCreatePage extends Component<Props, State> {
     if (!member || loading) {
       return <LinearProgress />;
     }
-    /*
-    const urlParams = new URLSearchParams(window.location.search.substring(1));
-          editMode={urlParams.get('withCredit') !== null ? 1 : 0}
-          withPrivatePass={parseInt(urlParams.get('withPrivatePass'), 10)}
-          withCredit={
-            urlParams.get('withCredit') !== null
-              ? Number(urlParams.get('withCredit'))
-              : 0
-    }
-    */
     return (
       <div>
         <InvoiceForm
@@ -130,6 +121,7 @@ export class InvoiceCreatePage extends Component<Props, State> {
           availableBuyableItems={this.props.availableBuyableItems}
           goToSubscription={this.props.goToSubscription}
           goToMemberPage={() => goToMemberPage(id)}
+          initialItems={this.props.initialItems}
         />
         <InvoiceDateDialog
           open={this.state.dateDialogOpen}
@@ -177,6 +169,7 @@ export default compose(
       fetch: fetchMember,
     },
   ),
+  withQueryParams([['withCredit', 'withPrivatePass'], 'initialItems']),
   withTitle(
     ({ t, member }: { t: TFunction, member: Member }) =>
       `${t('titles:invoice.invoiceCreate')} - ${formatAsDate(Moment())} - ${

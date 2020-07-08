@@ -162,7 +162,7 @@ export const InvoiceItemEditor = (props: Props) => {
             value={BUYABLE_ITEM_CREDIT}
           />
           <Tab
-            label={t(`invoiceItem.buyableItemIdentifier.${BUYABLE_ITEM_PASS}`)}
+            label={t(`invoiceItem.buyableItemIdentifier.${BUYABLE_ITEM_PRIVATE_PASS}`)}
             value={BUYABLE_ITEM_PRIVATE_PASS}
           />
           <Tab

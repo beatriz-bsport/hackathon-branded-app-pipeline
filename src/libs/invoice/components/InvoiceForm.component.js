@@ -4,6 +4,14 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withStateHandlers } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_SHOP_ITEM,
+  BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_COMBO_ITEM,
+  BUYABLE_ITEM_CREDIT,
+} from '@bsport/common/lib/master-data/buyable-items';
+import { withTranslation } from 'react-i18next';
 import InvoiceContent from './InvoiceContent.component';
 import InvoiceEditor from './InvoiceEditor.component';
 import UnevenInvoiceDialog from '../dialog/UnevenInvoiceDialog.component';
@@ -51,6 +59,31 @@ const asEditable = (editable, items) => {
 
 export class InvoiceForm extends React.Component<Props, State> {
   state = { paymentItemList: [], invoiceItemList: [] };
+
+  componentDidMount() {
+    const { initialItems } = this.props;
+    if (initialItems) {
+      if (initialItems.withPrivatePass) {
+        const privatePass = this.props.availableBuyableItems[
+          BUYABLE_ITEM_PRIVATE_PASS
+        ].find((bi) => bi.id === parseInt(initialItems.withPrivatePass, 10));
+        this.addBuyableItem(BUYABLE_ITEM_PRIVATE_PASS, {
+          ...privatePass,
+          price: parseFloat(privatePass.price).toFixed(2),
+          voucher: '0.00',
+          buyable_item_identifier: privatePass.id,
+        });
+      }
+      if (initialItems.withCredit) {
+        this.addBuyableItem(BUYABLE_ITEM_CREDIT, {
+          buyable_item_id: 0,
+          price: parseFloat(initialItems.withCredit).toFixed(2),
+          voucher: '0.00',
+          name: this.props.t('invoiceItem.credit.label'),
+        });
+      }
+    }
+  }
 
   removeInvoiceItem = (id: number) => {
     this.setState((prevState) => ({
@@ -215,4 +248,5 @@ export default compose(
       }),
     },
   ),
+  withTranslation(['invoice']),
 )(InvoiceForm);

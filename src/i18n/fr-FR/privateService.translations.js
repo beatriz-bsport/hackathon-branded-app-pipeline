@@ -479,6 +479,9 @@ exports.default = {
         helperText:
           'Si la réservation est annulée hors délai le crédit ne sera pas remboursé',
       },
+      last_booking_minutes: {
+        label: 'Avant le début du rendez-vous, dernière réservation possible',
+      },
       establishmentResourceType: {
         isHomeService: {
           label: 'A domicile',
@@ -566,7 +569,11 @@ exports.default = {
       },
       last_discard_minutes: {
         explain:
-          'La dernière annulation remboursable est possible {{ days }} jour(s) {{ hours }} heure(s) {{ minute }} minute(s) avant le rendez-vous',
+          'La dernière annulation remboursable est possible {{ days }} jour(s) {{ hours }} heure(s) {{ minutes }} minute(s) avant le rendez-vous',
+      },
+      last_booking_minutes: {
+        explain:
+          'Dernière réservation possible {{days}} jour(s) {{hours}} heure(s) {{minutes}} minute(s) avant le rendez-vous',
       },
       establishments: {
         title: 'Lieu',

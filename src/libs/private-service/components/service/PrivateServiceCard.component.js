@@ -29,14 +29,30 @@ type Props = {
 
 export const PrivateServiceDetail = (props: Props) => {
   const { t, classes, privateService } = props;
-  const days = parseInt(privateService.last_discard_minutes / (60 * 24), 10);
-  const hours = parseInt(
-    (privateService.last_discard_minutes - days * 60 * 24) / 60,
+  const discardDays = parseInt(
+    privateService.last_discard_minutes / (60 * 24),
     10,
   );
-  const minutes = `${privateService.last_discard_minutes -
-    days * 60 * 24 -
-    hours * 60}`;
+  const discardHours = parseInt(
+    (privateService.last_discard_minutes - discardDays * 60 * 24) / 60,
+    10,
+  );
+  const discardMinutes = `${privateService.last_discard_minutes -
+    discardDays * 60 * 24 -
+    discardHours * 60}`;
+
+  const bookingDays = parseInt(
+    privateService.last_booking_minutes / (60 * 24),
+    10,
+  );
+  const bookingHours = parseInt(
+    (privateService.last_booking_minutes - bookingDays * 60 * 24) / 60,
+    10,
+  );
+  const bookingMinutes = `${privateService.last_booking_minutes -
+    bookingDays * 60 * 24 -
+    bookingHours * 60}`;
+
   return (
     <Card className={classes.paperContainer}>
       {privateService.cover_main ? (
@@ -59,11 +75,24 @@ export const PrivateServiceDetail = (props: Props) => {
           variant="caption"
           color="textSecondary"
           className={classes.subtitle}
+          component="p"
         >
           {t('service.parameters.last_discard_minutes.explain', {
-            days,
-            hours,
-            minutes,
+            days: discardDays,
+            hours: discardHours,
+            minutes: discardMinutes,
+          })}
+        </Typography>
+        <Typography
+          variant="caption"
+          color="textSecondary"
+          className={classes.subtitle}
+          component="p"
+        >
+          {t('service.parameters.last_booking_minutes.explain', {
+            days: bookingDays,
+            hours: bookingHours,
+            minutes: bookingMinutes,
           })}
         </Typography>
         <Typography variant="h6" component="h4" className={classes.subtitle}>

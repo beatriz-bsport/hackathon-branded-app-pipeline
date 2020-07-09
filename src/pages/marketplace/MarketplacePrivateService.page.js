@@ -167,6 +167,9 @@ export class MarketplacePrivateService extends React.Component<Props, State> {
 
   render() {
     const missingResources = this.missingResourceConf();
+    const privateService = this.props.private_services.find(
+      (ps) => ps.id === this.state.private_service,
+    );
 
     return (
       <div className={this.props.classes.container}>
@@ -239,6 +242,7 @@ export class MarketplacePrivateService extends React.Component<Props, State> {
                     loading={this.props.searchLoading}
                     private_service={this.getSelectedService()}
                     private_slot={this.getSelectedSlot()}
+                    last_booking_minutes={privateService.last_booking_minutes}
                     onDateClick={(date, additionalParams) =>
                       this.props.goToPrivateBookingPage(
                         this.state.private_service,

@@ -55,17 +55,27 @@ const stylesSlot = (theme) => ({
   },
 });
 const Slot = withStyles(stylesSlot)(
-  (props: { onDateClick: () => void, classes: Object, date: string }) => (
-    <Button
-      onClick={props.onDateClick}
-      color="primary"
-      disabled={moment(props.date).isBefore(moment())}
-      variant="contained"
-      className={props.classes.slot}
-    >
-      {moment(props.date).format('HH:mm')}
-    </Button>
-  ),
+  (props: {
+    onDateClick: () => void,
+    classes: Object,
+    date: string,
+    last_booking_minutes?: number,
+  }) => {
+    const isTooLate = moment(props.date)
+      .add('minutes', -props.last_booking_minutes)
+      .isBefore(moment());
+    return (
+      <Button
+        onClick={props.onDateClick}
+        color="primary"
+        disabled={moment(props.date).isBefore(moment()) || isTooLate}
+        variant="contained"
+        className={props.classes.slot}
+      >
+        {moment(props.date).format('HH:mm')}
+      </Button>
+    );
+  },
 );
 const SlotList = withTranslation('privateService')(
   withStyles(stylesSlot)(
@@ -74,6 +84,7 @@ const SlotList = withTranslation('privateService')(
       t: TFunction,
       onDateClick: (string) => void,
       classes: Object,
+      last_booking_minutes?: number,
     }) => {
       if (!props.slots.length) {
         return (
@@ -101,6 +112,7 @@ const SlotList = withTranslation('privateService')(
                     onDateClick={() => props.onDateClick(s)}
                     date={s}
                     key={idx}
+                    last_booking_minutes={props.last_booking_minutes}
                   />
                 ),
             )}
@@ -113,6 +125,7 @@ const SlotList = withTranslation('privateService')(
                     date={s}
                     onDateClick={() => props.onDateClick(s)}
                     key={idx}
+                    last_booking_minutes={props.last_booking_minutes}
                   />
                 ),
             )}
@@ -125,6 +138,7 @@ const SlotList = withTranslation('privateService')(
                     date={s}
                     onDateClick={() => props.onDateClick(s)}
                     key={idx}
+                    last_booking_minutes={props.last_booking_minutes}
                   />
                 ),
             )}
@@ -137,6 +151,7 @@ const SlotList = withTranslation('privateService')(
                     date={s}
                     onDateClick={() => props.onDateClick(s)}
                     key={idx}
+                    last_booking_minutes={props.last_booking_minutes}
                   />
                 ),
             )}
@@ -177,6 +192,7 @@ export const SlotGroup = withStyles(stylesSlot)((props) => {
           props.onDateClick(date, { [resourceDatatype]: resourceId })
         }
         slots={slots}
+        last_booking_minutes={props.last_booking_minutes}
       />
     </div>
   );
@@ -190,13 +206,13 @@ type Props = {
   date: ?string,
   bookable_slots: Array<Slot>,
   onDateClick: (string) => void,
+  last_booking_minutes: number,
 };
 
 export const SlotSearcherResult = (props: Props) => {
   if (!props.private_slot || !props.private_service || !props.date) {
     return null;
   }
-
   if (props.loading) {
     return (
       <div className={props.classes.container}>
@@ -226,6 +242,7 @@ export const SlotSearcherResult = (props: Props) => {
           <div className={props.classes.slotGroupContainer}>
             <SlotList
               onDateClick={props.onDateClick}
+              last_booking_minutes={props.last_booking_minutes}
               slots={uniq(
                 props.bookable_slots.reduce(
                   (acc, { slots }) => [
@@ -252,6 +269,7 @@ export const SlotSearcherResult = (props: Props) => {
                 resource_identifier={slotGroup.resource_identifier}
                 slots={slotGroup.slots}
                 key={slotGroup.resource_identifier}
+                last_booking_minutes={props.last_booking_minutes}
               />
             ))
         )}

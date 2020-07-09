@@ -48,7 +48,20 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
   };
 
   renderPrivateService = () => {
-    if (this.props.privateService) {
+    const { privateService } = this.props;
+    if (privateService) {
+      const bookingDays = parseInt(
+        privateService.last_booking_minutes / (60 * 24),
+        10,
+      );
+      const bookingHours = parseInt(
+        (privateService.last_booking_minutes - bookingDays * 60 * 24) / 60,
+        10,
+      );
+      const bookingMinutes = `${privateService.last_booking_minutes -
+        bookingDays * 60 * 24 -
+        bookingHours * 60}`;
+
       return (
         <div className={this.props.classes.section}>
           <Typography
@@ -56,10 +69,17 @@ export class SlotSearcherHelper extends React.PureComponent<Props> {
             component="h4"
             className={this.props.classes.sectionTitle}
           >
-            {this.props.privateService.name}
+            {privateService.name}
           </Typography>
           <TypographyMultiline color="textSecondary">
-            {this.props.privateService.description}
+            {privateService.description}
+          </TypographyMultiline>
+          <TypographyMultiline color="textSecondary">
+            {this.props.t('service.parameters.last_booking_minutes.explain', {
+              days: bookingDays,
+              hours: bookingHours,
+              minutes: bookingMinutes,
+            })}
           </TypographyMultiline>
         </div>
       );

@@ -2782,7 +2782,8 @@
                 },
                 "title": "Relationship",
                 "cancel": "Cancel",
-                "submit": "Save"
+                "submit": "Save",
+                "shareEmail": "Always send a copy email"
             },
             "messages": {
                 "edit": {
@@ -3961,6 +3962,13 @@
                 "2": "Shop",
                 "1": "Pass"
             }
+        },
+        "invoiceInfoDialog": {
+            "actions": {
+                "close": "Close",
+                "show": "See the invoice"
+            },
+            "explain": "One or more payments are not passed correctly, the member's deposit reflects the failure of the payment"
         }
     },
     "coach": {
@@ -4435,6 +4443,10 @@
         "list": {
             "empty": "No reports here? Create a new one now!",
             "button_new": "I create my first report"
+        },
+        "subheader": {
+            "average": "Mean",
+            "total": "Total"
         }
     },
     "alerting": {
@@ -4877,6 +4889,16 @@
                 "lastname": "Sort by last name",
                 "firstname": "Sort by first name"
             }
+        },
+        "massDisabler": {
+            "actions": {
+                "submit": "Confirm",
+                "cancel": "Cancel"
+            },
+            "explainLoading": "Please wait",
+            "explainWarning": "BE CAREFUL this operation is irreversible.",
+            "explain": "Select the date interval over which you wish to cancel your sessions. Members who have booked will be notified by email and their credits automatically refunded to the corresponding pass",
+            "title": "Grouped Cancellation"
         }
     },
     "emailTemplate": {

@@ -4486,7 +4486,12 @@
             "order": "Pedidas",
             "email_template": "Emails",
             "smart_list": "Smartlists",
-            "sequence": "Estrategias"
+            "sequence": "Estrategias",
+            "consumer": {
+                "pass": "Tarjetas de curso"
+            },
+            "beta": "beta",
+            "coachPerformance": "Profesores"
         }
     },
     "video": {

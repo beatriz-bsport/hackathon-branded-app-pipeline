@@ -736,7 +736,7 @@
             "explainImage": "Recomendado: 1920x1080 jpeg (fullHD)",
             "color": "Código de colores",
             "firstBookingMinutesUntil": "Bloquear las reservas en el futuro arriba ",
-            "is_broadcast": "Cursos de streaming en vivo"
+            "is_broadcast": "Curso streaming en vivo"
         },
         "workshopActivity": {
             "addWorkshopActivity": "Ajouter un atelier",
@@ -951,7 +951,7 @@
                     "forceNotify": "Enviar un email de confirmación",
                     "passCompatibleNotOwnedByMember": "Facturación de un nuevo pase",
                     "passOwnedByMember": "Pase(s) propiedad del miembro",
-                    "registerToOffer": "Registro de la sesión"
+                    "registerToOffer": "Inscripción para la sesión"
                 }
             }
         },
@@ -2425,7 +2425,7 @@
             },
             "ConsumerPaymentPack": {
                 "tags": {
-                    "pass_credit_left": "Número de créditos restantes",
+                    "pass_credit_left": "Cantidad de créditos restantes",
                     "pass_expiration": "Fecha final tarjeta de curso",
                     "pass_starting_date": "Fecha de inicio tarjeta de curso",
                     "pass_name": "Apellido tarjeta de curso",
@@ -2446,7 +2446,7 @@
             },
             "PrivateConsumerPass": {
                 "tags": {
-                    "pass_credit_left": "Número de créditos restantes",
+                    "pass_credit_left": "Cantidad de créditos restantes",
                     "pass_expiration": "Fecha final cita",
                     "pass_starting_date": "Fecha de inicio tarjeta cita",
                     "pass_name": "Apellido tarjeta cita",
@@ -2488,7 +2488,8 @@
         "emailDesign": {
             "closePreview": "Cerrar",
             "placeholder": "Generado por bsport"
-        }
+        },
+        "pageTitle": "Emails transaccionales"
     },
     "partnership": {
         "requestDialog": {
@@ -2504,7 +2505,8 @@
         "actions": {
             "requestPartnership": "Activar la integración",
             "save": "Registrar"
-        }
+        },
+        "pageTitle": "Asociación"
     },
     "membership": {
         "selector": {
@@ -2742,6 +2744,13 @@
                 },
                 "managerOnly": {
                     "label": "Invisible para los clientes"
+                },
+                "actions": {
+                    "submit": "Guardar",
+                    "cancel": "Cancelar"
+                },
+                "description": {
+                    "label": "Descripción del servicio"
                 }
             },
             "configuration": {
@@ -2775,6 +2784,26 @@
             },
             "navigation": {
                 "goToPrivatePass": "Cartas cita"
+            },
+            "parameters": {
+                "slots": {
+                    "explainIsEmpty": "Definir tipos de sesiones (duración, costo)",
+                    "isEmpty": "Ningún tipo de sesión definida",
+                    "title": "Sesión"
+                },
+                "coaches": {
+                    "title": "Profesor",
+                    "is_empty": "No se requiere profesor"
+                },
+                "description": "Descripción",
+                "establishments": {
+                    "is_home_service": "En casa",
+                    "is_empty": "Ninguna sala",
+                    "title": "Lugar"
+                },
+                "last_discard_minutes": {
+                    "explain": "La última cancelación reembolsable es posible {{días}} día(s) {{horas}} hora(s) {{minuto}} minuto(s) antes de la cita"
+                }
             }
         },
         "privatePass": {
@@ -3179,7 +3208,9 @@
                     "title": "Cambiar franja horaria"
                 }
             }
-        }
+        },
+        "noPrivateService": "El miembro puede reservar una cita en la plaza que has elegido.",
+        "noPrivatePass": "Las tarjetas de cita permiten a los miembros hacer una cita, definir sus precios y términos aquí."
     },
     "reminder": {
         "task": {
@@ -3360,7 +3391,8 @@
             "cancel": "Cancelar",
             "content": "¿Realmente quieres borrar este pack? Esta operación es irreversible, las compras ya realizadas y las cestas actuales no se verán afectadas.",
             "title": "Supresión del pack"
-        }
+        },
+        "edit": "Modificar"
     },
     "theme": {
         "forms": {
@@ -4429,5 +4461,555 @@
         "noActivities": "Administra tus actividades aquí, una actividad permite agrupar un conjunto de sesiones (generalmente colectivas) de la misma práctica.",
         "search": "Buscar une actividad",
         "metaActivity": "Actividad"
+    },
+    "navigation": {
+        "backofficeMenu": {
+            "requestTempPassword": "Permitir el acceso",
+            "combo": "Packs",
+            "marketing_automation": "Marketing Auto",
+            "digital": "Oferta digital",
+            "podcast": "Podcasts",
+            "playlist": "Recorrido",
+            "video": "Videoteca",
+            "myShop": "Tienda",
+            "product": "Productos",
+            "coaches": "Profesores",
+            "privateService": {
+                "pass": "Tarjetas de cita",
+                "services": "Sólo con cita previa",
+                "title": "Sólo con cita previa"
+            },
+            "schedule": "Horario",
+            "alpha": "en desarollo",
+            "invoice": "Facturas",
+            "workshopActivities": "Talleres",
+            "order": "Pedidas",
+            "email_template": "Emails",
+            "smart_list": "Smartlists",
+            "sequence": "Estrategias"
+        }
+    },
+    "video": {
+        "video": {
+            "form": {
+                "coach": {
+                    "isEmpty": "Ningún profesor"
+                },
+                "title": "Edición de video",
+                "submit": "Guardar",
+                "cancel": "Cancelar",
+                "edit": "Modificar"
+            },
+            "upload": {
+                "cancel": "Cancelar",
+                "dropHere": "Arrastra y suelta un video aquí o haz clic para explorar su computadora",
+                "content": "Envía aquí o selecciona un video",
+                "title": "Subir un video"
+            },
+            "delete": {
+                "content": "¿Estás seguro de que quieres suprimir este video? Esta operación es irreversible.",
+                "cancel": "Cancelar",
+                "confirm": "Confirmar",
+                "title": "Supresión"
+            },
+            "status": {
+                "processed": "Ver",
+                "error": "Intentar de nuevo",
+                "processing": "En curso",
+                "submitted": "Borrador"
+            },
+            "level": "Nivel",
+            "description": "Descripción",
+            "category": "Categoría",
+            "name": "Nombre",
+            "bottomActions": {
+                "create": "Añadir"
+            },
+            "search": {
+                "isEmpty": "Ninguna video :(",
+                "cancel": "Cancelar",
+                "placeholder": "Buscar"
+            },
+            "thumbnailList": {
+                "similarVideoTitle": "Videos similares",
+                "count": "{{ count }} videos",
+                "addVideo": "Añadir un video"
+            },
+            "player": {
+                "with": "con"
+            },
+            "durationMinute": "{{ minute }} min",
+            "showMore": "Ver más",
+            "filter": {
+                "duration": {
+                    "explain": "Entre {{min}} y {{max}} min",
+                    "all": "Cualquier duración"
+                }
+            },
+            "lock": {
+                "pleaseAuthenticated": "Debes iniciar sesión para acceder a este video",
+                "accessDenied": "No tienes acceso a este video"
+            }
+        },
+        "playlist": {
+            "bottomActions": {
+                "create": "Añadir"
+            },
+            "form": {
+                "submit": "Guardar",
+                "cancel": "Cancelar"
+            },
+            "open": "Abrir",
+            "deleteVideo": "Suprimir",
+            "description": "Descripción",
+            "name": "Nombre",
+            "noVideo": "Ninguna video en esta playlist"
+        }
+    },
+    "coachPerformance": {
+        "fixedPriceForAdditionalBookingHelper": "Cantidad fija pagada por cualquier sesión con suficientes registrantes",
+        "fixedPriceForAdditionalBookingLabel": "Fijo por sesión",
+        "pricePerAdditionalBookingHelper": "Cantidad donada para todas las reservas por encima del límite",
+        "pricePerAdditionalBookingLabel": "Variable por reserva",
+        "bookingThresholdHelper": "Una sesión solo se contará si totaliza este número de reservas",
+        "bookingThresholdLabel": "Reserva mínima",
+        "checkboxIncludeABonus": "Incluir un bonus de rendimiento",
+        "bonus": "Bonus",
+        "pricePerOffer": "Cantidad por sesión",
+        "remuneration": "Remuneración",
+        "dateTitle": "Rango de fechas",
+        "addBonus": "Añadir una regla",
+        "table": {
+            "downloadAll": "Síntesis",
+            "download": "Descargar"
+        },
+        "fields": {
+            "rule": "Regla",
+            "date": "Fecha",
+            "name": "Nombre de la sesión",
+            "nb_bookings": "Reservas",
+            "duration": "Duración",
+            "base": "Base",
+            "bonus": "Bonus"
+        }
+    },
+    "smartList": {
+        "filters": {
+            "durations_comparators": {
+                "6": "entre dos",
+                "5": "exactamente",
+                "2": "más de (⩾)",
+                "1": "menos de (⩽)"
+            },
+            "comparators": {
+                "6": "entre dos",
+                "5": "igual",
+                "2": "mayor (⩾)",
+                "1": "inferior (⩽)"
+            },
+            "after": "después",
+            "before": "antes de",
+            "add": "Añadir",
+            "add_filter": "Añadir un filtro",
+            "active_filters": "Filtros activos en la smartlist",
+            "all": "Todos",
+            "booking_status": {
+                "booked": "reservado",
+                "canceled": "cancelada"
+            },
+            "calendarPicker": {
+                "dateTitle": "Fecha",
+                "durationTitle": "Duración",
+                "duration": "días",
+                "selectduration": {
+                    "selector": {
+                        "11": "Hace más de X días y menos de Y días",
+                        "9": "Hace más de X días",
+                        "10": "Hace X días",
+                        "7": "En más de X días y menos de Y días",
+                        "6": "En X dias",
+                        "4": "En más de X días"
+                    },
+                    "9": {
+                        "first": "Hace más de",
+                        "second": "días"
+                    },
+                    "11": {
+                        "first": "Hace más de",
+                        "third": "días y menos de",
+                        "second": "días"
+                    },
+                    "4": {
+                        "first": "En más de",
+                        "second": "días"
+                    },
+                    "5": {
+                        "first": "En menos de",
+                        "second": "días"
+                    },
+                    "7": {
+                        "first": "En más de",
+                        "third": "días y menos de",
+                        "second": "días"
+                    },
+                    "10": {
+                        "second": "días",
+                        "first": "Hay "
+                    },
+                    "6": {
+                        "second": "días",
+                        "first": "En"
+                    }
+                },
+                "text": {
+                    "9": {
+                        "first": "Hace más de",
+                        "second": "días"
+                    },
+                    "8": {
+                        "first": "Hace menos de",
+                        "second": "días"
+                    },
+                    "11": {
+                        "first": "Hace más de",
+                        "second": "días y menos de",
+                        "third": "días"
+                    },
+                    "4": {
+                        "first": "en más de",
+                        "second": "días"
+                    },
+                    "7": {
+                        "first": "en más de",
+                        "third": "días",
+                        "second": "días y menos de"
+                    },
+                    "10": {
+                        "second": "días",
+                        "first": "hay "
+                    },
+                    "6": {
+                        "second": "días",
+                        "first": "en "
+                    },
+                    "5": {
+                        "second": "días",
+                        "first": "en menos de"
+                    },
+                    "3": {
+                        "first": "el"
+                    },
+                    "2": {
+                        "second": "y el",
+                        "first": "entre el"
+                    },
+                    "1": {
+                        "first": "el ou antes el"
+                    },
+                    "0": {
+                        "first": "el o después el"
+                    }
+                },
+                "select": {
+                    "3": "El",
+                    "2": "Entre dos fechas",
+                    "1": "el o antes el",
+                    "0": "el o después el"
+                }
+            },
+            "14": {
+                "third": "y el",
+                "second": "€ entre el",
+                "selector": "Elegir los productos",
+                "fourth": "para los productos",
+                "first": "Ha gastado",
+                "name": "Gastos",
+                "workshop": "Tarjeta de curso especial taller",
+                "private_pass": "Curso particular",
+                "combo": "Pack",
+                "pack": "Tarjeta de curso",
+                "shop": "Tienda",
+                "explanation": "Ha comprado los productos A y B"
+            },
+            "isEmpty": "Ningún filtro configurado, por lo tanto, esta smartlist representa la base de datos de miembros completa",
+            "501": {
+                "explanation": "Ha reservado su última sesión hay ...",
+                "second": "días, y no tiene reservas planificadas en el futuro.",
+                "first": "La última sesión reservada tuvo lugar más de",
+                "name": "Fecha de la última sesión reservada"
+            },
+            "400": {
+                "explanation": "Posee una contraseña en bsport",
+                "name": "Contraseña",
+                "explain": "posee una contraseña en bsport"
+            },
+            "24": {
+                "date": {
+                    "first": "compras realizadas"
+                },
+                "second": "€ para los productos",
+                "first": "Ha gastado",
+                "name": "Gastos",
+                "workshop": "Tarjeta de curso especial taller",
+                "private_pass": "Curso particular",
+                "between": "y",
+                "combo": "Pack",
+                "pack": "Tarjeta de curso",
+                "shop": "Tienda",
+                "explanation": "Ha comprado los productos A y B"
+            },
+            "23": {
+                "explanation": "Ha reservado su primera sesión el ...",
+                "name": "Primera reserva"
+            },
+            "22": {
+                "hour": {
+                    "third": "horas",
+                    "second": "horas y",
+                    "first": "comenzando entre"
+                },
+                "date": {
+                    "first": "teniendo lugar"
+                },
+                "coach": {
+                    "first": "con los profesores"
+                },
+                "payment_pack": {
+                    "first": "con las tarjetas"
+                },
+                "establishment": {
+                    "first": "en los establecimientos"
+                },
+                "activity": {
+                    "first": "de las actividades"
+                },
+                "between": "y",
+                "second": "sesiones",
+                "first": "Ha reservado",
+                "explanation": "Ha reservado X sesiones de actividad A, en el lugar B, con la tarjeta de curso C ...",
+                "name": "Número de reservas"
+            },
+            "21": {
+                "hour": {
+                    "third": "horas",
+                    "second": "horas y",
+                    "first": "la hora de inicio de la sesión es entre"
+                },
+                "date": {
+                    "first": "la fecha de la sesión es"
+                },
+                "coach": {
+                    "first": "con los profesores"
+                },
+                "payment_pack": {
+                    "first": "con las tarjetas"
+                },
+                "establishment": {
+                    "first": "en"
+                },
+                "activity": {
+                    "first": "de"
+                },
+                "second_plural": "a sesión",
+                "second_singular": "ra sesión",
+                "first": "Ha reservado su ",
+                "explanation": "Ha reservado su X a sesión de actividad A, en el establecimiento B ...",
+                "name": "Número de reserva"
+            },
+            "20": {
+                "explanation": "Ha abandonado una cesta de cantidad…",
+                "first": "Ha abandonado una cesta de cantidad",
+                "date": {
+                    "second": "días",
+                    "first": "Cesta abandonada"
+                },
+                "between": "y",
+                "third": "euros",
+                "second": "a",
+                "name": "Cestas abandonadas"
+            },
+            "19": {
+                "infoIcon": "Siempre se incluirán las tarjetas de curso ilimitadas",
+                "expiration": {
+                    "first_has_expire": "ha expirado",
+                    "first_will_expire": "expira"
+                },
+                "date_bought": {
+                    "first": "fecha de compra"
+                },
+                "credits": {
+                    "second": "y",
+                    "first": "créditos:"
+                },
+                "third": "a",
+                "second": "y",
+                "has_not": "No posee",
+                "has": "Posee",
+                "first": "una de las tarjetas de curso",
+                "name": "General",
+                "explanation": "Ha comprado la tarjeta de curso A en la fecha Y, con X créditos"
+            },
+            "18": {
+                "explanation": "Se unió al club el…",
+                "first": "Se unió al club   ",
+                "name": "Fecha de registro"
+            },
+            "11": {
+                "first": "Filtrar en las siguientes etiquetas",
+                "name": "Etiquetas",
+                "explanation": "Tiene las etiquetas A y B"
+            },
+            "8": {
+                "explanation": "Tiene la tarjeta de curso X utilizable",
+                "second": "utilizable (con créditos o ilimitado y no expirado)",
+                "first": "Tiene una tarjeta de curso",
+                "name": "Validez de la tarjeta de curso"
+            },
+            "5": {
+                "women": "mujeres",
+                "explanation": "Es una mujer/un hombre",
+                "men": "hombres",
+                "first": "Seleccionar solo los",
+                "name": "Sexo"
+            },
+            "1": {
+                "between": "y",
+                "explanation": "Tiene X euros en su cuenta",
+                "third": "euros",
+                "second": " a   ",
+                "first": "El anticipo del cliente es",
+                "name": "Anticipo"
+            }
+        },
+        "filterCategory": {
+            "4": "Compras",
+            "3": "Reservas",
+            "2": "Tarjetas de curso",
+            "1": "Informaciones miembro"
+        },
+        "smart_list": {
+            "createTitle": "Smartlist",
+            "detail": "Detalle de la smartlist",
+            "add": "Añadir una smartlist",
+            "cancel": "Cancelar",
+            "submit": "Guardar",
+            "description": {
+                "isEmpty": "Ninguna descripción",
+                "label": "Descripción"
+            },
+            "name": "Nombre",
+            "list": {
+                "detailTitle": "Detalle de la smartlist",
+                "title": "Smartlists"
+            },
+            "actions": {
+                "campaign": "Campañas",
+                "configure": "Configurar"
+            }
+        },
+        "detail": {
+            "statTitle": "Estadísticas",
+            "tab": {
+                "statistic": "Estadística",
+                "campaign": "Campañas",
+                "member": "General"
+            }
+        },
+        "mail": {
+            "sendError": "Problema al enviar el email",
+            "sendSuccess": "Email en curso de envio",
+            "noMailAvailable": "No hay email disponible, recorda crear uno",
+            "sendMail": "Enviar un email",
+            "cancel": "Cancelar",
+            "sendMailTitle": "Enviar un email",
+            "send": "Enviar"
+        },
+        "graphs": {
+            "bookingsSegments": {
+                "label": {
+                    "2": "Mas de un año",
+                    "1": "Entre 1 y 12 meses",
+                    "0": "Último mes"
+                },
+                "title": "Última reserva"
+            },
+            "expensesSegments": {
+                "label": {
+                    "3": "Último cuartil",
+                    "2": "Promedio",
+                    "1": "Primer cuartil",
+                    "0": "Ningún gasto"
+                },
+                "title": {
+                    "second": "y",
+                    "first": "Gastos entre"
+                }
+            },
+            "bookings": "Reservas"
+        },
+        "modal": {
+            "delete": {
+                "confirm": "Suprimir",
+                "cancel": "Cancelar",
+                "content": "¿Seguro de que quieres suprimir esta smartlist? Esta operación es final",
+                "title": "Supresión smartlist"
+            }
+        },
+        "membersInList": "Miembros de la smartlist:",
+        "exportList": "Exportar la smartlist",
+        "selectToShowPreview": "Selecciona un template",
+        "noSmartLists": "Usa las smartlists para filtrar, analizar y conocer mejor a tus miembros.",
+        "multiSelector": {
+            "coaches": {
+                "warning": "Selecciona al menos un profesor",
+                "helperAllSelectedText": "todos los profesores",
+                "textFieldPlaceholder": "Buscar un profesor"
+            }
+        }
+    },
+    "relationship": {
+        "consumer_payment_pack_links": {
+            "list": {
+                "title": "Tarjetas compartidas",
+                "isEmpty": "Ningún reparto de tarjetas",
+                "create": "Compartir una tarjeta de curso"
+            },
+            "form": {
+                "create": {
+                    "submit": "Compartir",
+                    "previous": "Volver",
+                    "cancel": "Cancelar",
+                    "explain": "Esta tarjeta de curso será compartida entre los dos miembros, los créditos pueden ser utilizados por uno u otro.",
+                    "title": "Reparto de tarjetas"
+                }
+            }
+        },
+        "member": {
+            "form": {
+                "submit": "Guardar",
+                "title": "Relación",
+                "dst_name": {
+                    "placeholder": "Hijo"
+                },
+                "src_name": {
+                    "placeholder": "Madre"
+                },
+                "cancel": "Cancelar",
+                "shareEmail": "Siempre envíar una copia por email",
+                "is": " es "
+            },
+            "list": {
+                "title": "Relaciones",
+                "actions": {
+                    "create": "Añadir una relación"
+                },
+                "pleaseSelectOne": "Selecciona una relación para ver las tarjetas de curso compartidas",
+                "isEmpty": "Aún no se ha creado ninguna relación"
+            },
+            "item": {
+                "delete": "Suprimir",
+                "edit": "Modificar"
+            }
+        }
     }
 }

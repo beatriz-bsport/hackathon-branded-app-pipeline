@@ -6,13 +6,16 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import type { TFunction } from 'react-i18next';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
-import { createOrUpdateInvoice } from '../../libs/invoice/actions';
+import {
+  createOrUpdateInvoice,
+  checkInvoiceInfo as checkInvoiceInfoActions,
+} from '../../libs/invoice/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { fetchMember } from '../../libs/member/actions';
@@ -88,15 +91,11 @@ export class InvoiceCreatePage extends Component<Props, State> {
 
   createInvoiceAtDate = (date: string) => {
     this.setState({ dateDialogOpen: false });
-    this.props.createInvoice(
-      {
-        ...this.state.invoiceData,
-        member: this.props.member.id,
-        date,
-      },
-      true,
-      () => this.props.goToMemberPage(this.props.member.id),
-    );
+    this.props.createInvoice({
+      ...this.state.invoiceData,
+      member: this.props.member.id,
+      date,
+    });
     this.setState({ invoiceData: null });
   };
 
@@ -163,6 +162,7 @@ export default compose(
       fetchAllPaymentPacks,
       fetchPrivatePassList,
       fetchPaymentComboList,
+      checkInvoiceInfo: checkInvoiceInfoActions,
       goToInvoiceList: () => pushRouter('/invoice'),
       createInvoice: createOrUpdateInvoice,
 
@@ -171,6 +171,18 @@ export default compose(
       fetch: fetchMember,
     },
   ),
+  withHandlers({
+    createInvoice: ({ createInvoice, checkInvoiceInfo, goToMemberPage }) => (
+      invoiceData,
+    ) => {
+      createInvoice(invoiceData, {
+        onSuccess: (invoice) => {
+          goToMemberPage(invoice.member);
+          checkInvoiceInfo(invoice.uuid);
+        },
+      });
+    },
+  }),
   withQueryParams([['withCredit', 'withPrivatePass'], 'initialItems']),
   withTitle(
     ({ t, member }: { t: TFunction, member: Member }) =>

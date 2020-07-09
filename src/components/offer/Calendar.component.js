@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
+import BlockIcon from '@material-ui/icons/Block';
 
 import Button from '@material-ui/core/Button';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
@@ -225,6 +226,13 @@ export class Calendar extends PureComponent<Props, State> {
               <ViewWeek />
             </IconButton>
           </Grid>
+        )}
+        {!!this.props.onRequestMassDisable && (
+          <IconButton
+            onClick={() => this.props.onRequestMassDisable(this.props.date)}
+          >
+            <BlockIcon />
+          </IconButton>
         )}
         <Grid item>
           <Grid

@@ -10,6 +10,7 @@ import {
   fetchById as fetchByIdAPI,
   toogleWaitingListFreeze as toogleWaitingListFreezeAPI,
   fetchOffersList as fetchOffersListAPI,
+  massDisableOffer as massDisableOfferAPI,
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
 
@@ -380,5 +381,35 @@ export function retrieveOffer(id: number, options: OptionCallback) {
       if (options && options.onError) options.onError(error);
     }
     dispatch(retrieveByIdActions.isLoading(false));
+  };
+}
+
+export const massDisableActions = {
+  success: createAction('OFFER/MASS_DISABLE/SUCCESS'),
+  error: createAction('OFFER/MASS_DISABLE/ERROR'),
+  isLoading: createAction('OFFER/MASS_DISABLE/IS_LOADING'),
+};
+
+export function disableMassOffers(
+  dateInterval: {
+    start: string,
+    end: string,
+  },
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(massDisableActions.isLoading(true));
+    dispatch(massDisableActions.error(null));
+
+    try {
+      const response = await massDisableOfferAPI(dateInterval);
+      dispatch(massDisableActions.success(response.data));
+
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(massDisableActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(massDisableActions.isLoading(false));
   };
 }

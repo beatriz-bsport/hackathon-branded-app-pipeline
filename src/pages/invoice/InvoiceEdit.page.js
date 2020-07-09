@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { goBack, push as pushRouter } from 'connected-react-router';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import { withRouter } from 'react-router';
 import Grow from '@material-ui/core/Grow';
 import Hidden from '@material-ui/core/Hidden';
@@ -24,6 +24,7 @@ import {
   fetchPaymentList,
   fetchInvoiceItemList,
   finalizeInvoice,
+  checkInvoiceInfo as checkInvoiceInfoActions,
 } from '../../libs/invoice/actions';
 import {
   getInvoice,
@@ -124,14 +125,6 @@ export class InvoiceFormPage extends Component<Props, State> {
     }
   }
 
-  updateInvoice = (invoiceData: InvoiceData) => {
-    this.props.updateInvoice(
-      { uuid: this.props.uuid, ...invoiceData },
-      true,
-      () => this.props.goToMemberPage(this.props.member.id),
-    );
-  };
-
   render() {
     const { invoice, goToMemberPage, updatingInvoice } = this.props;
 
@@ -143,7 +136,7 @@ export class InvoiceFormPage extends Component<Props, State> {
       <div>
         <InvoiceForm
           updatePaymentMethod={this.props.updatePaymentMethod}
-          onSubmit={this.updateInvoice}
+          onSubmit={this.props.updateInvoice}
           onCancel={this.props.goBack}
           paymentItemList={this.props.invoice.payments}
           invoiceItemList={this.props.invoice.invoice_items}
@@ -174,7 +167,9 @@ export class InvoiceFormPage extends Component<Props, State> {
                 <Fab
                   variant="contained"
                   color="secondary"
-                  onClick={this.props.goToMemberPage}
+                  onClick={() =>
+                    this.props.goToMemberPage(this.props.invoice.member.id)
+                  }
                 >
                   <PersonIcon />
                   <Hidden xsDown>
@@ -243,6 +238,7 @@ export default compose(
       fetchPrivatePassList,
       goBack,
       goToMemberPage: (id) => pushRouter(`/member/${id}/`),
+      checkInvoiceInfo: checkInvoiceInfoActions,
       goToSubscription: (id) => pushRouter(`/subscription/${id}/`),
       updateInvoice: createOrUpdateInvoice,
       revertInvoice,
@@ -252,6 +248,24 @@ export default compose(
       updatePaymentMethod,
     },
   ),
+  withHandlers({
+    updateInvoice: ({
+      updateInvoice,
+      uuid,
+      checkInvoiceInfo,
+      goToMemberPage,
+    }) => (invoiceData) => {
+      updateInvoice(
+        { ...invoiceData, uuid },
+        {
+          onSuccess: (invoice) => {
+            goToMemberPage(invoice.member);
+            checkInvoiceInfo(invoice.uuid);
+          },
+        },
+      );
+    },
+  }),
   withTitle(
     ({ t, uuid, invoice }) =>
       `${t('titles:invoice.invoiceEdit')} - ${

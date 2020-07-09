@@ -151,6 +151,7 @@ export class MemberDetailRelation extends React.Component<Props> {
       src_name: relation.src_name,
       dst_name: relation.dst_name,
       dst_member: relation.dst_member,
+      share_email: relation.share_email,
       id: relation.id,
     });
   };
@@ -240,22 +241,24 @@ export class MemberDetailRelation extends React.Component<Props> {
             />
           </DialogContent>
         </Dialog>
-        <Dialog open={!!this.props.openRelationFormDialog}>
-          <DialogContent>
-            <RelationForm
-              initial={this.props.openRelationFormDialog}
-              searchMembers={this.props.searchMembers}
-              searchLoading={this.props.searchMembersLoading}
-              searchedMembers={this.props.searchedMembers.filter(
-                (m) =>
-                  m.id !== this.props.memberId &&
-                  !relatedMemberIds.includes(m.id),
-              )}
-              onCancel={() => this.props.setOpenRelationFormDialog(null)}
-              onSubmit={this.createOrUpdateRelation}
-            />
-          </DialogContent>
-        </Dialog>
+        {!!this.props.openRelationFormDialog && (
+          <Dialog open={!!this.props.openRelationFormDialog}>
+            <DialogContent>
+              <RelationForm
+                initial={this.props.openRelationFormDialog}
+                searchMembers={this.props.searchMembers}
+                searchLoading={this.props.searchMembersLoading}
+                searchedMembers={this.props.searchedMembers.filter(
+                  (m) =>
+                    m.id !== this.props.memberId &&
+                    !relatedMemberIds.includes(m.id),
+                )}
+                onCancel={() => this.props.setOpenRelationFormDialog(null)}
+                onSubmit={this.createOrUpdateRelation}
+              />
+            </DialogContent>
+          </Dialog>
+        )}
       </Grid>
     );
   }

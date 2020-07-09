@@ -31,7 +31,14 @@ exports.default = {
         [SOURCE_OTHER]: 'Autre',
       },
     },
-  },
+},
+invoiceInfoDialog: {
+explain: "Un ou plusieurs paiements ne sont pas passés correctement, l'acompte du membre reflète l'echec du paiement",
+actions: {
+show: 'Voir la facture',
+close: 'Fermer',
+},
+},
   uneditableMessage: {
     invoiceRevertedThusNotEditable:
       "La facture a été annulée et n'est plus modifiable",

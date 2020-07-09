@@ -1536,6 +1536,7 @@
       },
       "form": {
         "is": " est ",
+        "shareEmail": "Toujours envoyer une copie email",
         "src_name": { "placeholder": "Mère" },
         "dst_name": { "placeholder": "Fils" },
         "title": "Relation",
@@ -2340,6 +2341,10 @@
         "source": { "0": "App", "1": "Web", "2": "Backoffice", "3": "Autre", "label": "Canal : {{ source }}" }
       }
     },
+    "invoiceInfoDialog": {
+      "explain": "Un ou plusieurs paiements ne sont pas passés correctement, l'acompte du membre reflète l'echec du paiement",
+      "actions": { "show": "Voir la facture", "close": "Fermer" }
+    },
     "uneditableMessage": {
       "invoiceRevertedThusNotEditable": "La facture a été annulée et n'est plus modifiable",
       "invoiceFromSubscriptionThusNotEditable": "Cette facture fait partie d'une souscription et n'est donc pas éditable, veuillez modifier directement la souscription",
@@ -2739,6 +2744,7 @@
     }
   },
   "reporting": {
+    "subheader": { "total": "Total", "average": "Moyenne" },
     "columns": {
       "private_service_name": "Rendez-vous",
       "nb_bookings": "Nombre de réservation",
@@ -3210,7 +3216,14 @@
     "manageOffer": "Gérer mes réservations",
     "forms": { "old_date": "Ancien horaire :", "new_date": "Nouvel horaire :", "delete": { "buttonHardDelete": "Supprimer" } },
     "card": { "copyLink": "Copier le lien vers la page de réservation", "copied": "Lien copié" },
-    "offerManagement": { "bookingOrder": { "date": "Trier par date", "lastname": "Trier par nom", "firstname": "Trier par prénom" } }
+    "offerManagement": { "bookingOrder": { "date": "Trier par date", "lastname": "Trier par nom", "firstname": "Trier par prénom" } },
+    "massDisabler": {
+      "title": "Annulation groupée",
+      "explain": "Sélectionnez l'intervalle de date sur lequel vous souhaitez annuler vos séances. Les membres ayant réservé seront prévenu par email et leur crédits automatiquement remboursés sur la carte de cours correspondante",
+      "explainWarning": "ATTENTION cette opération est irréversible.",
+      "explainLoading": "Veuillez patienter",
+      "actions": { "cancel": "Annuler", "submit": "Confirmer" }
+    }
   },
   "emailTemplate": {
     "modal": {

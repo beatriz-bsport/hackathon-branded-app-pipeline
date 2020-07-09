@@ -6,6 +6,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -36,6 +38,7 @@ export class RelationForm extends React.Component<Props, State> {
     super(props);
     this.state = {
       src_member: props.initial.src_member,
+      share_email: false,
     };
     if (props.initial) {
       this.state = {
@@ -43,6 +46,7 @@ export class RelationForm extends React.Component<Props, State> {
         dst_name: props.initial.dst_name,
         src_member: props.initial.src_member,
         dst_member: props.initial.dst_member,
+        share_email: !!props.initial.share_email,
       };
     }
   }
@@ -55,11 +59,13 @@ export class RelationForm extends React.Component<Props, State> {
       dst_name: this.state.dst_name,
       src_member: this.state.src_member.id,
       dst_member: this.state.dst_member.id,
+      share_email: this.state.share_email,
     });
   };
 
   render() {
     const { t, classes } = this.props;
+
     if (!this.state.dst_member) {
       return (
         <MemberSearchModal
@@ -111,6 +117,19 @@ export class RelationForm extends React.Component<Props, State> {
               placeholder={t('member.form.dst_name.placeholder')}
             />
           </div>
+        </div>
+        <div className={classes.field}>
+          <FormControlLabel
+            label={t('member.form.shareEmail')}
+            control={
+              <Checkbox
+                onChange={(ev) =>
+                  this.setState({ share_email: ev.target.checked })
+                }
+                checked={this.state.share_email}
+              />
+            }
+          />
         </div>
         <div className={classes.buttonContainer}>
           <Button onClick={this.props.onCancel}>

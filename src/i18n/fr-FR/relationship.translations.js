@@ -15,6 +15,7 @@ exports.default = {
     },
     form: {
       is: ' est ',
+      shareEmail: 'Toujours envoyer une copie email',
       src_name: {
         placeholder: 'Mère',
       },

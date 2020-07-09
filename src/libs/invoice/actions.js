@@ -17,6 +17,7 @@ import {
   finalize as finalizeAPI,
   fetchInvoiceItemList as fetchInvoiceItemListAPI,
   fetchPaymentList as fetchPaymentListAPI,
+  checkInvoiceInfo as checkInvoiceInfoAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import { fetchMember } from '../member/actions';
@@ -294,8 +295,7 @@ export function updatePaymentMethod(uuid: string, newMethod: number) {
 
 export function createOrUpdateInvoice(
   invoiceData: [*],
-  noRedirect: ?boolean,
-  callback: number | (() => void),
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(createOrUpdateInvoiceActions.isLoading(true));
@@ -312,20 +312,16 @@ export function createOrUpdateInvoice(
       } else {
         dispatch(snackbarSuccess('invoice.create.success'));
       }
-      if (typeof callback === 'function') {
-        callback();
-      }
-      if (typeof callback === 'number') {
-        // FIXME
-        dispatch(fetchMember(callback));
-      }
-      if (!noRedirect) {
-        dispatch(pushRouter('/invoice'));
+      if (options && options.onSuccess) {
+        options.onSuccess(invoice);
       }
     } catch (e) {
       console.error(e);
       dispatch(snackbarError('invoice.error'));
       dispatch(createOrUpdateInvoiceActions.error(null));
+      if (options && options.onError) {
+        options.onError(e);
+      }
     }
     dispatch(createOrUpdateInvoiceActions.isLoading(false));
     dispatch(fetchAlerting());
@@ -418,5 +414,39 @@ export function fetchInvoiceList(params: * = {}, options: OptionCallback) {
       }
     }
     dispatch(listInvoiceActions.isLoading(false));
+  };
+}
+
+export const checkInvoiceInfoActions = {
+  isLoading: createAction('INVOICE/CHECK_INFO/IS_LOADING'),
+  error: createAction('INVOICE/CHECK_INFO/ERROR'),
+  success: createAction('INVOICE/CHECK_INFO/SUCCESS'),
+  reset: createAction('INVOICE/CHECK_INFO/RESET'),
+};
+
+// a bit dirty all this stuff...
+export function checkInvoiceInfo(uuid: string, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(checkInvoiceInfoActions.isLoading(true));
+    dispatch(checkInvoiceInfoActions.error(null));
+    try {
+      const response = await checkInvoiceInfoAPI(uuid);
+      if (
+        response.data.errors &&
+        response.data.errors.payments &&
+        response.data.errors.payments.length
+      ) {
+        dispatch(checkInvoiceInfoActions.success(response.data));
+        if (options && options.onSuccess) {
+          options.onSuccess(response.data);
+        }
+      }
+    } catch (err) {
+      dispatch(checkInvoiceInfoActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(checkInvoiceInfoActions.isLoading(false));
   };
 }

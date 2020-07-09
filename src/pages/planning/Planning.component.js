@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 import withWidth, { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -49,6 +49,7 @@ import {
   fetchSimilarOffers as fetchSimilarOffersAction,
   setFilters as setFiltersAction,
   toogleFilter as toogleFilterAction,
+  disableMassOffers,
 } from '../../libs/offer/actions';
 import {
   editLiveOffer as editLiveOfferAPI,
@@ -61,6 +62,7 @@ import type { OfferFilter } from '../../libs/offer/types';
 
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 import OfferEditForm from '../../libs/offer/OfferEditForm.component';
+import MassDisablerDialog from '../../libs/offer/components/MassDisablerDialog.component';
 import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
@@ -181,7 +183,7 @@ export class Planning extends PureComponent<Props, State> {
     });
   };
 
-  componentDidMount() {
+  fetchData = () => {
     this.fetchRelevantOffers();
     if (this.props.selectedOffer) {
       this.props.loadOfferData(this.props.selectedOffer);
@@ -189,6 +191,10 @@ export class Planning extends PureComponent<Props, State> {
     if (this.props.date) {
       this.loadDayData();
     }
+  };
+
+  componentDidMount() {
+    this.fetchData();
     if (this.props.offerFilterOpen) {
       this.props.fetchAssociatedCoachesList();
       this.props.fetchEstablishments();
@@ -606,6 +612,7 @@ export class Planning extends PureComponent<Props, State> {
               <Paper style={{ width: '100%' }}>
                 <Calendar
                   showDownloader
+                  onRequestMassDisable={this.props.setMassDisablerStartDate}
                   events={events_}
                   onDateClick={this.loadDayData}
                   date={this.props.date}
@@ -656,6 +663,23 @@ export class Planning extends PureComponent<Props, State> {
         {this.renderEditModal()}
         {this.renderDeleteModal()}
         {this.renderCreateModal()}
+        {!!this.props.massDisablerStartDate && (
+          <MassDisablerDialog
+            startDate={this.props.massDisablerStartDate}
+            onSubmit={(params, options) =>
+              this.props.disableMassOffers(params, {
+                onSuccess: (...args) => {
+                  if (options && options.onSuccess) {
+                    options.onSuccess(...args);
+                    this.fetchData();
+                  }
+                },
+                onError: options && options.onError,
+              })
+            }
+            onClose={() => this.props.setMassDisablerStartDate(null)}
+          />
+        )}
       </Grid>
     );
   }
@@ -704,7 +728,9 @@ export default compose(
       fetchEstablishments,
       fetchAssociatedCoachesList,
       fetchAllActivities,
+      disableMassOffers,
     },
   ),
+  withState('massDisablerStartDate', 'setMassDisablerStartDate', null),
   withTitle(({ t }: { t: TFunction }) => t('titles:planning')),
 )(Planning);

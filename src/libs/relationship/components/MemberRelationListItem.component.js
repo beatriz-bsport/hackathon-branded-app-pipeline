@@ -9,6 +9,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import EditIcon from '@material-ui/icons/Edit';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import EmailIcon from '@material-ui/icons/Email';
 import ListItemText from '@material-ui/core/ListItemText';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Avatar from '@material-ui/core/Avatar';
@@ -40,6 +43,7 @@ export const MemberRelationListItem = (props: Props) => {
       : relation.src_member;
   const relationName =
     relation.src_member.id === memberId ? relation.dst_name : relation.src_name;
+  const classes = useStyles();
   return (
     <ListItem
       selected={props.selected}
@@ -54,7 +58,16 @@ export const MemberRelationListItem = (props: Props) => {
       </ListItemAvatar>
       <ListItemText
         primary={relatedMember.name || '  -'}
-        secondary={relationName}
+        secondary={
+          <div className={classes.secondaryRow}>
+            <Typography variant="caption" color="textSecondary">
+              {relationName}
+            </Typography>
+            {!!relation.share_email && (
+              <EmailIcon className={classes.rightIcon} fontSize="small" />
+            )}
+          </div>
+        }
       />
       {props.goToMember ? (
         <IconButton
@@ -91,6 +104,16 @@ export const MemberRelationListItem = (props: Props) => {
     </ListItem>
   );
 };
+const useStyles = makeStyles((theme) => ({
+  secondaryRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rightIcon: {
+    marginLeft: theme.spacing(1),
+  },
+}));
 
 export default compose(
   withTranslation(['relationship']),

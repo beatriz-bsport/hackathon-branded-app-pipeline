@@ -6,9 +6,18 @@ import React from 'react';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import mean from 'lodash/mean';
+import flow from 'lodash/flow';
+import countBy from 'lodash/countBy';
+import entries from 'lodash/entries';
+import partialRight from 'lodash/partialRight';
+import maxBy from 'lodash/maxBy';
+import last from 'lodash/last';
+import head from 'lodash/head';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Table from '@material-ui/core/Table';
+import Typography from '@material-ui/core/Typography';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
@@ -29,6 +38,13 @@ type Props = {
   classes: { [string]: string },
 };
 
+const findMostFrequent = flow(
+  countBy,
+  entries,
+  partialRight(maxBy, last),
+  head,
+);
+
 function getConverter(column, classes, t) {
   if (!column || !column.datatype) {
     return (value) => ({ value });
@@ -40,6 +56,14 @@ function getConverter(column, classes, t) {
         return {
           cellProps: { className: classes.right },
           value: `${parseFloat(value || 0).toFixed(2)}€`,
+        };
+      }
+    }
+    if (datatype === 'int') {
+      if (typeof value === 'number' || !value) {
+        return {
+          cellProps: { className: classes.right },
+          value: parseInt(value || 0, 10),
         };
       }
     }
@@ -112,6 +136,75 @@ function getColumn(metadata, report, column) {
   );
 }
 
+const TableSubHeader = ({ classes, columnsConfigs, converters, result, t }) => {
+  return (
+    <React.Fragment>
+      {!!columnsConfigs.filter((c) => c.summable).length && (
+        <React.Fragment>
+          <Typography variant="caption">{t('subheader.total')}</Typography>
+          <TableRow classes={{ root: classes.trRootSubheader }}>
+            {columnsConfigs.map((conf, idx) =>
+              conf.summable ? (
+                (() => {
+                  const { value, cellProps } = converters[idx](
+                    result
+                      .map((row) => row[idx])
+                      .reduce((acc, v) => acc + v, 0),
+                  );
+                  return (
+                    <TableCell
+                      key={columnsConfigs[idx].identifier}
+                      {...(cellProps || {})}
+                      classes={{ paddingDense: classes.paddingDense }}
+                    >
+                      {value}
+                    </TableCell>
+                  );
+                })()
+              ) : (
+                <TableCell
+                  key={columnsConfigs[idx].identifier}
+                  classes={{ paddingDense: classes.paddingDense }}
+                />
+              ),
+            )}
+          </TableRow>
+        </React.Fragment>
+      )}
+      {!!columnsConfigs.filter((c) => c.averageable).length && (
+        <React.Fragment>
+          <Typography variant="caption">{t('subheader.average')}</Typography>
+          <TableRow classes={{ root: classes.trRootSubheader }}>
+            {columnsConfigs.map((conf, idx) =>
+              conf.averageable ? (
+                (() => {
+                  const { value, cellProps } = converters[idx](
+                    mean(result.map((row) => row[idx])),
+                  );
+                  return (
+                    <TableCell
+                      key={columnsConfigs[idx].identifier}
+                      {...(cellProps || {})}
+                      classes={{ paddingDense: classes.paddingDense }}
+                    >
+                      {value}
+                    </TableCell>
+                  );
+                })()
+              ) : (
+                <TableCell
+                  key={columnsConfigs[idx].identifier}
+                  classes={{ paddingDense: classes.paddingDense }}
+                />
+              ),
+            )}
+          </TableRow>
+        </React.Fragment>
+      )}
+    </React.Fragment>
+  );
+};
+
 export function ReportTable(props: Props) {
   const { report, result, loading, classes, t, metadata } = props;
   const { columns } = report;
@@ -129,6 +222,15 @@ export function ReportTable(props: Props) {
           </TableRow>
         </TableHead>
         <TableBody>
+          {!loading && !!result && (
+            <TableSubHeader
+              t={t}
+              classes={classes}
+              columnsConfigs={columnsConfigs}
+              converters={converters}
+              result={result}
+            />
+          )}
           {!loading && result
             ? result.map((row) => (
                 <TableRow
@@ -170,6 +272,11 @@ const styles = () => ({
   },
   trRoot: {
     height: 'auto',
+  },
+  trRootSubheader: {
+    height: 'auto',
+    backgroundColor: '#EFEFEF',
+    position: 'relative',
   },
   paddingDense: {},
 });

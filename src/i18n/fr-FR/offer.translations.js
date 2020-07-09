@@ -43,4 +43,15 @@ exports.default = {
       firstname: 'Trier par prénom',
     },
   },
+  massDisabler: {
+    title: 'Annulation groupée',
+    explain:
+      "Sélectionnez l'intervalle de date sur lequel vous souhaitez annuler vos séances. Les membres ayant réservé seront prévenu par email et leur crédits automatiquement remboursés sur la carte de cours correspondante",
+    explainWarning: 'ATTENTION cette opération est irréversible.',
+    explainLoading: 'Veuillez patienter',
+    actions: {
+      cancel: 'Annuler',
+      submit: 'Confirmer',
+    },
+  },
 };

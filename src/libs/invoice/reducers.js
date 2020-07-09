@@ -14,6 +14,7 @@ import {
   listPaymentActions,
   listInvoiceItemActions,
   listInvoiceActions,
+  checkInvoiceInfoActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -62,12 +63,30 @@ const initialState = Immutable({
     error: null,
   },
 
+  invoiceInfo: {
+    loading: false,
+    error: null,
+    data: null,
+  },
+
   quickInvoices: [],
   quickInvoiceLoading: false,
 });
 
 export default handleActions(
   {
+    [checkInvoiceInfoActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['invoiceInfo', 'loading'], payload);
+    },
+    [checkInvoiceInfoActions.error]: (state, { payload }) => {
+      return state.setIn(['invoiceInfo', 'error'], payload);
+    },
+    [checkInvoiceInfoActions.success]: (state, { payload }) => {
+      return state.setIn(['invoiceInfo', 'data'], payload);
+    },
+    [checkInvoiceInfoActions.reset]: (state) => {
+      return state.setIn(['invoiceInfo', 'data'], null);
+    },
     [listInvoiceActions.isLoading]: (state, { payload }) => {
       return state.setIn(['list', 'loading'], payload);
     },

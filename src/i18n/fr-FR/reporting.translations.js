@@ -1,4 +1,8 @@
 exports.default = {
+  subheader: {
+    total: 'Total',
+    average: 'Moyenne',
+  },
   columns: {
     private_service_name: 'Rendez-vous',
     nb_bookings: 'Nombre de réservation',

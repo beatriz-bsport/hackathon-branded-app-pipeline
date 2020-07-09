@@ -97,6 +97,9 @@ export async function fetchInvoiceItemList(params: * = {}) {
   );
 }
 
+export async function checkInvoiceInfo(uuid: string) {
+  return getAuth(`${API_V1_URI}/payment/invoices/${uuid}/info/`);
+}
 export default {
   fetchAll,
   fetchSpecific,

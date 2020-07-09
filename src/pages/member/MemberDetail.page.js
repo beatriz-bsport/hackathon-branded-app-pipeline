@@ -31,10 +31,13 @@ import SubscriptionContractRegister from '../../libs/subscription/components/Sub
 import asyncComponent from '../../AsyncComponent';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+
+import InvoiceInfoDialog from '../../libs/invoice/components/InvoiceInfoDialog.component';
 import {
   fetchAllPaymentPacks,
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
 } from '../../libs/payment-packs/actions';
+import { checkInvoiceInfoActions } from '../../libs/invoice/actions';
 import { fetchContractList as fetchContractListAction } from '../../libs/subscription/actions';
 
 import type { Contract } from '../../libs/subscription/types';
@@ -212,6 +215,15 @@ export class MemberDetail extends React.Component<Props> {
           billMember={() => billMember(id)}
           subscribeMember={this.props.openContractDialog}
         />
+        {!!this.props.invoiceInfo && (
+          <InvoiceInfoDialog
+            invoiceInfo={this.props.invoiceInfo}
+            onClose={this.props.resetInvoiceInfo}
+            goToInvoice={() =>
+              this.props.goToInvoice(this.props.invoiceInfo.uuid)
+            }
+          />
+        )}
         <SubscriptionContractRegister
           initialMember={this.props.member}
           contract={this.props.contractToBill}
@@ -289,6 +301,7 @@ export default compose(
       member: getMember(state, id),
       contractLoading: state.subscription.contract.loading,
       contractList: getAvailableContractListWithPaymentPack(state),
+      invoiceInfo: state.invoice.invoiceInfo.data,
     }),
     {
       fetchAllPaymentPacks,
@@ -297,6 +310,8 @@ export default compose(
       fetchContractList: fetchContractListAction,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       subscribeMember: (id) => pushRouter(`/subscription/add/${id}`),
+      goToInvoice: (uuid) => pushRouter(`/invoice/${uuid}`),
+      resetInvoiceInfo: checkInvoiceInfoActions.reset,
     },
   ),
   withHandlers({

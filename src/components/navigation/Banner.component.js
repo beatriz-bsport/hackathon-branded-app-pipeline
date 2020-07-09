@@ -36,7 +36,7 @@ export const Banner = (props: Props) => {
         <div className={props.classes.infoBanner}>
           <div style={{ visibility: 'visible' }}>
             <a
-              href="https://bsport.io/api-v0/redirect?type=demo&site=https://app.hubspot.com/meetings/zmansour"
+              href="https://calendly.com/bsport/demoen?month=2020-07"
               style={{ textDecoration: 'none' }}
             >
               <Fab variant="extended" color="primary">

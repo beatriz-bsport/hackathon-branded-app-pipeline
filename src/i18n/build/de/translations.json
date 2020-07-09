@@ -2235,6 +2235,10 @@
         },
         "report": {
             "delete_message": "Sind Sie sich sicher, dass Sie die Quote {{name}} löschen möchten ?"
+        },
+        "subheader": {
+            "average": "Durchschnitt",
+            "total": "Gesamt"
         }
     },
     "snackbar": {
@@ -2627,6 +2631,13 @@
         },
         "creditAccountBalance": {
             "current": "Aktuelle Anzahlung"
+        },
+        "invoiceInfoDialog": {
+            "actions": {
+                "close": "Schließen",
+                "show": "Die Rechnung anzeigen"
+            },
+            "explain": "Eine oder mehrere Zahlungen wurden nicht korrekt vorgenommen, die Anzahlung des Mitglieds spiegelt die nicht erfolgte Zahlung wider"
         }
     },
     "payment": {
@@ -4596,7 +4607,8 @@
                 "src_name": {
                     "placeholder": "Mutter"
                 },
-                "is": " ist "
+                "is": " ist ",
+                "shareEmail": "Immer eine Email-Kopie senden"
             },
             "list": {
                 "actions": {
@@ -4968,6 +4980,16 @@
             "fillRate": "Befüllungsrate",
             "confirmed": "Bestätigt",
             "waiting": "Warteliste"
+        },
+        "massDisabler": {
+            "actions": {
+                "submit": "Bestätigen",
+                "cancel": "Abbrechen"
+            },
+            "explainLoading": "Bitte warten Sie",
+            "explainWarning": "VORSICHT diese Aktion ist unwiderruflich.",
+            "explain": "Wählen Sie das Datumsintervall, über das Sie Ihre Kurse stornieren möchten. Mitglieder, die gebucht haben, werden per E-Mail benachrichtigt und ihre Kreditpunkte werden automatisch auf die entsprechende Kurskarte zurückerstattet",
+            "title": "Kollektive Stornierung"
         }
     },
     "settings": {

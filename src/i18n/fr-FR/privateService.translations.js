@@ -86,6 +86,7 @@ exports.default = {
       submit: 'Enregistrer',
       cancel: 'Annuler',
     },
+    updateCoach: 'Choisissez un nouveau professeur pour ce rendez-vous',
     cancel: 'Annuler',
     discard: 'Annuler le RDV',
     hardDelete: 'Supprimer',

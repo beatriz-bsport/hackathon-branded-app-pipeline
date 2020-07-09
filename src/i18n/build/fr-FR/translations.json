@@ -809,7 +809,8 @@
       "female": "F",
       "gym": "Gymnase Beaulieu",
       "strategy": "Stratégie"
-    }
+    },
+    "replaceCoach": "Changer le professeur"
   },
   "search": {
     "input": "Rechercher...",
@@ -1192,6 +1193,7 @@
         "submit": "Enregistrer",
         "cancel": "Annuler"
       },
+      "updateCoach": "Choisissez un nouveau professeur pour ce rendez-vous",
       "cancel": "Annuler",
       "discard": "Annuler le RDV",
       "hardDelete": "Supprimer",
@@ -2512,7 +2514,10 @@
     "booking": { "register": { "success": "Réservation enregistrée" } },
     "order": { "success": "Votre paiement a bien été enregistré" },
     "communication": { "success": "Mail en cours d'envoi", "error": "Problème lors de l'envoi du mail" },
-    "privateBooking": { "attachCoach": { "success": "RDV attribué au professeur", "error": "Impossible d'attribuer au professeur" } },
+    "privateBooking": {
+      "attachCoach": { "success": "RDV attribué au professeur", "error": "Impossible d'attribuer au professeur" },
+      "updateCoach": { "success": "Le professeur a été modifié", "error": "Impossible de modifier le professeur" }
+    },
     "privateConsumerPass": { "creditUpdate": { "success": "Crédits mis à jour", "error": "Impossible d'enregistrer le crédit" } },
     "video": {
       "createOrUpdate": { "success": "Vidéo enregistrée avec succès", "error": "Impossible d'enregistrer la vidéo" },

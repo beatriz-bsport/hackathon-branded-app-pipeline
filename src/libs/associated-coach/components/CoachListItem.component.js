@@ -26,6 +26,7 @@ type Props = {
   divider: ?boolean,
   classes: Object,
   onEditCoach: () => void,
+  selected?: boolean,
 };
 
 const openPhone = (event, phoneNumber: string) => {
@@ -38,13 +39,14 @@ const openEmail = (event, email: string) => {
 };
 
 export function CoachListItem(props: Props) {
-  const { coach, classes, onCoachSelected, t } = props;
+  const { coach, classes, onCoachSelected, t, selected } = props;
   return (
     <ListItem
       key={coach.id}
       button
       divider={props.divider}
       onClick={onCoachSelected}
+      selected={selected}
     >
       <ListItemAvatar>
         <Avatar

@@ -984,4 +984,5 @@ exports.default = {
     gym: 'Gymnase Beaulieu',
     strategy: 'Stratégie',
   },
+  replaceCoach: 'Changer le professeur',
 };

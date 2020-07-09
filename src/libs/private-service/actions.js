@@ -52,6 +52,7 @@ import {
   deletePrivateBooking as deletePrivateBookingAPI,
   fetchCalendarEventList as fetchCalendarEventListAPI,
   updatePrivateBookingDatetime as updatePrivateBookingDatetimeAPI,
+  updatePrivateBookingCoach as updatePrivateBookingCoachAPI,
   attachCoach as attachCoachAPI,
 
   // extension
@@ -1318,6 +1319,32 @@ export function updatePrivateBookingDatetime(
     } catch (err) {
       console.error(err);
       dispatch(privateBookingCreateOrUpdateActions.error(null));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(privateBookingCreateOrUpdateActions.isLoading(false));
+  };
+}
+
+export function updatePrivateBookingCoach(
+  privateBookingId: number,
+  updatedCoachId: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateBookingCreateOrUpdateActions.isLoading(true));
+    dispatch(privateBookingCreateOrUpdateActions.error(null));
+    try {
+      const response = await updatePrivateBookingCoachAPI(
+        privateBookingId,
+        updatedCoachId,
+      );
+      dispatch(privateBookingCreateOrUpdateActions.success(response.data));
+      dispatch(snackbarSuccess('privateBooking.updateCoach.success'));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(privateBookingCreateOrUpdateActions.error(err));
+      dispatch(snackbarError('privateBooking.updateCoach.error'));
       if (options && options.onError) options.onError();
     }
     dispatch(privateBookingCreateOrUpdateActions.isLoading(false));

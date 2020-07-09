@@ -9,6 +9,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -37,6 +40,7 @@ type Props = {
   goToCoachCalendar: (coachId: number) => void,
   updateTime: (string, OptionCallback) => void,
   setUpdateTimeForm: () => void,
+  setIsUpdateCoachFormOpen: (boolean) => void,
 };
 export const PrivateBookingCard = (props: Props) => {
   const { private_booking, loading } = props;
@@ -93,6 +97,7 @@ export const PrivateBookingCard = (props: Props) => {
       </div>
     );
   }
+
   return (
     <div className={classes.container}>
       <div className={classes.header}>
@@ -125,6 +130,11 @@ export const PrivateBookingCard = (props: Props) => {
             'HH:mm',
           )} - ${moment(private_booking.date_end).format('HH:mm')}`}
         />
+        <ListItemSecondaryAction>
+          <IconButton onClick={props.setUpdateTimeForm}>
+            <EditIcon color="primary" />
+          </IconButton>
+        </ListItemSecondaryAction>
       </ListItem>
 
       <MemberListItem
@@ -138,6 +148,7 @@ export const PrivateBookingCard = (props: Props) => {
           }
           noEdit
           coach={private_booking.coach}
+          onEditCoach={() => props.setIsUpdateCoachFormOpen(true)}
         />
       ) : null}
       {private_booking.establishment ? (
@@ -146,11 +157,6 @@ export const PrivateBookingCard = (props: Props) => {
       {props.onDelete &&
       props.private_booking.booking_status_code === BOOKING_STATUS_OK.id ? (
         <div className={classes.buttonContainer}>
-          {!!props.updateTime && (
-            <Button onClick={props.setUpdateTimeForm} color="primary">
-              {t('privateBooking.editTime')}
-            </Button>
-          )}
           <RedButton onClick={props.onDelete}>
             {t('privateBooking.discard')}
           </RedButton>

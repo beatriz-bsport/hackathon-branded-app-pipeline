@@ -276,6 +276,10 @@ exports.default = {
       success: 'RDV attribué au professeur',
       error: "Impossible d'attribuer au professeur",
     },
+    updateCoach: {
+      success: 'Le professeur a été modifié',
+      error: 'Impossible de modifier le professeur',
+    },
   },
   privateConsumerPass: {
     creditUpdate: {

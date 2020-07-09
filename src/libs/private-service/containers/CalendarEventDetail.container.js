@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { compose, withStateHandlers, withHandlers } from 'recompose';
+import { compose, withStateHandlers, withHandlers, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
@@ -22,6 +22,7 @@ import DeleteOfferForm from '../../offer/DeleteOfferForm.component';
 import OfferEditForm from '../../offer/OfferEditForm.component';
 import RedButton from '../../../components/button/RedButton.component';
 import PrivateBookingDisableDialog from '../components/booking/PrivateBookingDisableDialog.component';
+import PrivateBookingUpdateCoachDialog from '../components/booking/PrivateBookingUpdateCoachDialog.component';
 import {
   getPrivateBooking,
   withRelatedFields,
@@ -34,6 +35,7 @@ import {
   disablePrivateBooking as disablePrivateBookingAction,
   deletePrivateBooking as deletePrivateBookingAction,
   updatePrivateBookingDatetime as updatePrivateBookingDatetimeAction,
+  updatePrivateBookingCoach as updatePrivateBookingCoachAction,
 } from '../actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../meta-activity/actions';
 import {
@@ -83,6 +85,8 @@ type Props = {
   privateBooking: ?PrivateBooking,
   offer: Offer,
   selectedPrivateBooking: ?PrivateBooking,
+  isUpdateCoachFormOpen: boolean,
+  setIsUpdateCoachFormOpen: (boolean) => void,
 
   fetchSimilarOffers: (offerId: number) => void,
   similarOfferLoading: boolean,
@@ -121,6 +125,7 @@ type Props = {
 
   openDisablePrivateBookingModal: () => void,
   updatePrivateBookingDatetime: (date: string, options: OptionCallback) => void,
+  updatePrivateBookingCoachHandler: (updatedCoachId: number) => void,
   goToCoachCalendar: () => void,
 };
 
@@ -134,6 +139,10 @@ export class CalendarEventDetail extends React.Component<Props> {
       this.props.privateBookingId !== prevProps.privateBookingId
     ) {
       this.props.fetchPrivateBookingById(this.props.privateBookingId);
+    }
+    if (prevProps.privateBooking && !this.props.privateBooking) {
+      this.props.setIsUpdateCoachFormOpen(false);
+      // close update form dialog when clicked outside
     }
   }
 
@@ -157,7 +166,16 @@ export class CalendarEventDetail extends React.Component<Props> {
       );
     }
     if (privateBooking) {
-      return (
+      return this.props.isUpdateCoachFormOpen ? (
+        <PrivateBookingUpdateCoachDialog
+          privateBooking={privateBooking}
+          coaches={this.props.coaches}
+          updatePrivateBookingCoach={
+            this.props.updatePrivateBookingCoachHandler
+          }
+          setIsUpdateCoachFormOpen={this.props.setIsUpdateCoachFormOpen}
+        />
+      ) : (
         <PrivateBookingCard
           onDelete={this.props.openDisablePrivateBookingModal}
           private_booking={privateBooking}
@@ -165,6 +183,7 @@ export class CalendarEventDetail extends React.Component<Props> {
           loading={this.props.privateBookingLoading}
           updateTime={this.props.updatePrivateBookingDatetime}
           goToCoachCalendar={this.props.goToCoachCalendar}
+          setIsUpdateCoachFormOpen={this.props.setIsUpdateCoachFormOpen}
         />
       );
     }
@@ -526,6 +545,7 @@ const PrivateBookingCancellatorContainer = compose(
 export default compose(
   withStyles(styles),
   withTranslation(['offer']),
+  withState('isUpdateCoachFormOpen', 'setIsUpdateCoachFormOpen', false),
   connect(
     (state, { privateBookingId, offerId }) => ({
       privateBooking: withRelatedFields(getPrivateBooking)(
@@ -552,6 +572,7 @@ export default compose(
       onOfferClick: (id) => push(`/offer/${id}`),
       goToMember: (memberId) => push(`/member/${memberId}/info`),
       updatePrivateBookingDatetime: updatePrivateBookingDatetimeAction,
+      updatePrivateBookingCoach: updatePrivateBookingCoachAction,
       goToCoachCalendar: (coachId) =>
         push(`/coach/${coachId}/private-calendar`),
     },
@@ -575,6 +596,14 @@ export default compose(
         },
         onError: options && options.onError,
       });
+    },
+    updatePrivateBookingCoachHandler: ({
+      updatePrivateBookingCoach,
+      privateBookingId,
+      setIsUpdateCoachFormOpen,
+    }) => (updatedCoachId, options) => {
+      updatePrivateBookingCoach(privateBookingId, updatedCoachId);
+      setIsUpdateCoachFormOpen(false);
     },
     fetchPrivateBookingById: ({
       fetchCoachBulk,

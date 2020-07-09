@@ -334,6 +334,16 @@ export const updatePrivateBookingDatetime = (
   );
 };
 
+export const updatePrivateBookingCoach = (
+  privateBookingId: number,
+  updatedCoachId: number,
+) => {
+  return postAuth(
+    `${API_V1_URI}/private_service/private_booking/${privateBookingId}/update_coach/`,
+    { associated_coach: updatedCoachId },
+  );
+};
+
 export const registerPrivateBookings = ({
   private_slot,
   private_consumer_pass,

@@ -2781,6 +2781,7 @@
       "disabled": "Annulé",
       "nb_non_attendance": "Absents",
       "sum_margin_value": "Apport marginal",
+      "nb_bookings_same_pass": "Nb résa via même pass",
       "checkout_items": "Contenu du panier",
       "total_payments": "Total paiements",
       "name": "Nom",
@@ -3382,6 +3383,7 @@
       },
       "option": {
         "isAlreadyOnWaitingList": "Vous êtes inscrit en liste d'attente",
+        "isAlreadyRegistered": "La séance est complète, félicitations vous êtes bien inscrit !",
         "isFull": "La séance est complète, vous pouvez vous inscrire en liste d'attente, vous serez prévenu par email lorsqu'une place se libèrera.",
         "registerOption": "M'inscrire en liste d'attente"
       },

@@ -58,7 +58,18 @@ const BookingOptionRegisterForm = withState(
     bookingOption: ?BookingOption,
     bookingOptionLoading: boolean,
     hasBookingOptionUnConvertible: boolean,
+    hasRegistered: ?boolean,
   }) => {
+    if (props.hasRegistered) {
+      return (
+        <div className={props.classes.innerContainer}>
+          <LockIcon className={props.classes.bigIcon} />
+          <Typography className={props.classes.explainText}>
+            {props.t('bookingModule.option.isAlreadyRegistered')}
+          </Typography>
+        </div>
+      );
+    }
     if (props.hasBookingOptionUnConvertible) {
       return (
         <div className={props.classes.innerContainer}>
@@ -196,6 +207,7 @@ export class OfferBooking extends React.PureComponent<Props> {
         {isBookable && isFull && !isWaitingListFull ? (
           <BookingOptionRegisterForm
             hasBookingOptionUnConvertible={hasBookingOptionUnConvertible}
+            hasRegistered={this.props.hasRegistered}
             onClick={this.props.registerOption}
             t={this.props.t}
             classes={this.props.classes}

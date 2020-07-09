@@ -9,6 +9,7 @@ exports.default = {
     },
     option: {
       isAlreadyOnWaitingList: "Vous êtes inscrit en liste d'attente",
+      isAlreadyRegistered: 'La séance est complète, félicitations vous êtes bien inscrit !',
       isFull:
         "La séance est complète, vous pouvez vous inscrire en liste d'attente, vous serez prévenu par email lorsqu'une place se libèrera.",
       registerOption: "M'inscrire en liste d'attente",

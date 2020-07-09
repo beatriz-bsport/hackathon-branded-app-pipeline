@@ -29,6 +29,7 @@ exports.default = {
     disabled: 'Annulé',
     nb_non_attendance: 'Absents',
     sum_margin_value: 'Apport marginal',
+    nb_bookings_same_pass: 'Nb résa via même pass',
     checkout_items: 'Contenu du panier',
     total_payments: 'Total paiements',
     name: 'Nom',

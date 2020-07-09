@@ -226,7 +226,7 @@ export default compose(
   routerParamsToProps({ id: 'offerId:number', offerId: 'offerId:number' }),
   withState('processing', 'setProcessing', false),
   withState('selectedContract', 'setSelectedContract', null),
-  withTranslation(['bookingModule']),
+  withTranslation(['booking']),
   connect(
     (state, { offerId }) => ({
       authenticated: state.auth.authenticated,

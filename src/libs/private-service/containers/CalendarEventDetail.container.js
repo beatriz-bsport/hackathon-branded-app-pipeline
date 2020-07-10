@@ -625,7 +625,11 @@ export default compose(
       fetchAvailabilitySlots,
     }) => (updatedCoachId, options) => {
       updatePrivateBookingCoach(privateBookingId, updatedCoachId, {
-        onSuccess: () => fetchAvailabilitySlots(),
+        onSuccess: () => {
+          if (fetchAvailabilitySlots) {
+            fetchAvailabilitySlots();
+          }
+        },
       });
       setIsUpdateCoachFormOpen(false);
     },
@@ -636,7 +640,9 @@ export default compose(
     }) => (id) => {
       deleteCustomEvent(id, {
         onSuccess: () => {
-          fetchAvailabilitySlots();
+          if (fetchAvailabilitySlots) {
+            fetchAvailabilitySlots();
+          }
           onClose();
         },
       });

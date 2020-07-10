@@ -595,7 +595,8 @@ exports.default = {
     actions: {
       delete: 'Supprimer',
     },
-    form: {
+form: {
+title: 'RDV perso',
       name: {
         label: 'Nom',
         placeholder: 'RDV banque',

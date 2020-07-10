@@ -58,14 +58,14 @@ export const CustomEventForm = (props: Props) => {
             {coaches.map((id, i) => (
               <CoachListItemBasic
                 key={`${id}-${i}`}
-                coach={props.coaches
-                  .find((c) => c.id === id)
-                  .filter((c) => !coaches.find((c_) => c_.id === c.id).length)}
+                coach={props.coaches.find((c) => c.id === id)}
                 onDelete={() => remove(i)}
               />
             ))}
             <CoachSelector
-              coaches={props.coaches}
+              coaches={props.coaches.filter(
+                (c) => !(coaches || []).find((c_) => c_.id === c.id),
+              )}
               closeMenuOnSelect
               nullCurrentValue
               selectedCoaches={[]}

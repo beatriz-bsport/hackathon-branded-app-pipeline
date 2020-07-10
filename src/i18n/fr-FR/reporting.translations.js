@@ -50,6 +50,7 @@ exports.default = {
     member_identifier: 'ID Membre',
     payment_date: 'Date complète de paiement',
     payment_date_date: 'Date de paiement',
+    author: 'Auteur',
     payment_date_time: 'Heure de paiement',
     payment_method: 'Méthode de paiement',
     payment_identifier: 'Identifiant de paiement',

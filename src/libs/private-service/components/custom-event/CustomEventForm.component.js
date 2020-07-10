@@ -1,12 +1,11 @@
 // @flow
 import React from 'react';
-import { withStyles } from '@material-ui/core';
-import { compose } from 'recompose';
+import { makeStyles } from '@material-ui/core/styles';
 import * as Yup from 'yup';
 
 import { withFormik, FieldArray } from 'formik';
 
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
@@ -18,15 +17,12 @@ import { TextField, ColorField } from '../../../../components/forms';
 type Props = {
   t: TFunction,
   classes: Object,
-  values: PrivateServiceData,
-  establishments: Array<Establishment>,
   coaches: Array<Coach>,
-  onAddServiceGroup: ?() => void,
-  serviceGroupList: Array<PrivateServiceGroup>,
 };
 
 export const CustomEventForm = (props: Props) => {
-  const { classes, t } = props;
+  const { t } = useTranslation(['privateService']);
+  const classes = useStyles();
   return (
     <div className={classes.container}>
       <TextField
@@ -62,7 +58,9 @@ export const CustomEventForm = (props: Props) => {
             {coaches.map((id, i) => (
               <CoachListItemBasic
                 key={`${id}-${i}`}
-                coach={props.coaches.find((c) => c.id === id)}
+                coach={props.coaches
+                  .find((c) => c.id === id)
+                  .filter((c) => !coaches.find((c_) => c_.id === c.id).length)}
                 onDelete={() => remove(i)}
               />
             ))}
@@ -93,12 +91,15 @@ export const CustomEventForm = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   field: {
     marginBottom: theme.spacing(3),
     marginTop: theme.spacing(2),
   },
-});
+  container: {
+    minWidth: 400,
+  },
+}));
 
 export const CustomEventSchema = Yup.object().shape({
   // cover_main: Yup.object().nullable(),
@@ -131,7 +132,4 @@ export const CustomEventFormikHOC = withFormik({
   },
 });
 
-export default compose(
-  withTranslation(['privateService']),
-  withStyles(styles),
-)(CustomEventForm);
+export default CustomEventForm;

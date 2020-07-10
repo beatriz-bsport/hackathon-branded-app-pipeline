@@ -13,7 +13,7 @@ type Props = {};
 
 export const CustomEventCard = (props: Props) => {
   const classes = useStyles();
-  const { t } = useTranslation();
+  const { t } = useTranslation(['privateService']);
   const { customEvent } = props;
   return (
     <div className={classes.container}>
@@ -40,7 +40,7 @@ export const CustomEventCard = (props: Props) => {
                 });
               }}
             >
-              {t('customEvent.card.actions.delete')}
+              {t('customEvent.actions.delete')}
             </RedButton>
           )}
         </div>

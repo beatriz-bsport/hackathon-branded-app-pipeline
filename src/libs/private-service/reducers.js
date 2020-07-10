@@ -39,12 +39,24 @@ import {
   listPrivateConsumerPassExtensionActions,
   deletePrivateConsumerPassExtensionActions,
   createPrivateConsumerPassExtensionActions,
+  createOrUpdateCustomEventActions,
+  listCustomEventActions,
+  deleteCustomEventActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
 import type { PrivateServiceState } from './types';
 
 const initialState: PrivateServiceState = Immutable({
+  customEvent: {
+    byId: {},
+    loading: false,
+    error: null,
+    createOrUpdate: {
+      loading: false,
+      error: null,
+    },
+  },
   privateSlot: {
     byId: {},
     loading: false,
@@ -156,6 +168,43 @@ const initialState: PrivateServiceState = Immutable({
 
 export default handleActions(
   {
+    [listCustomEventActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          customEvent: {
+            byId: payload.reduce((acc, v) => {
+              acc[v.id] = v;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
+    },
+    [listCustomEventActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['customEvent', 'loading'], payload);
+    },
+    [listCustomEventActions.error]: (state, { payload }) => {
+      return state.setIn(['customEvent', 'error'], payload);
+    },
+    [listCustomEventActions.reset]: (state) => {
+      return state.setIn(['customEvent', 'byId'], {});
+    },
+    [createOrUpdateCustomEventActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['customEvent', 'createOrUpdate', 'loading'], payload);
+    },
+    [createOrUpdateCustomEventActions.success]: (state, { payload }) => {
+      return state.setIn(['customEvent', 'byId', payload.id], payload);
+    },
+    [createOrUpdateCustomEventActions.error]: (state, { payload }) => {
+      return state.setIn(['customEvent', 'createOrUpdate', 'error'], payload);
+    },
+    [deleteCustomEventActions.success]: (state, { payload }) => {
+      return state.setIn(
+        ['customEvent', 'byId'],
+        state.customEvent.byId.without(payload),
+      );
+    },
     [listPrivateConsumerPassExtensionActions.success]: (state, { payload }) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'items'],

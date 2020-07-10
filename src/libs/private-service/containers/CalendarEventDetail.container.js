@@ -23,6 +23,7 @@ import OfferEditForm from '../../offer/OfferEditForm.component';
 import RedButton from '../../../components/button/RedButton.component';
 import PrivateBookingDisableDialog from '../components/booking/PrivateBookingDisableDialog.component';
 import PrivateBookingUpdateCoachDialog from '../components/booking/PrivateBookingUpdateCoachDialog.component';
+import CustomEventCard from '../components/custom-event/CustomEventCard.component';
 import {
   getPrivateBooking,
   withRelatedFields,
@@ -36,6 +37,7 @@ import {
   deletePrivateBooking as deletePrivateBookingAction,
   updatePrivateBookingDatetime as updatePrivateBookingDatetimeAction,
   updatePrivateBookingCoach as updatePrivateBookingCoachAction,
+  deleteCustomEvent as deleteCustomEventAction,
 } from '../actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../meta-activity/actions';
 import {
@@ -66,6 +68,7 @@ import {
   getSimilars as getSimilarsOffers,
   withEstablishment,
 } from '../../offer/selectors';
+import { withAssociatedCoach, getCustomEvent } from '../selectors/custom-event';
 
 import {
   editLiveOffer as editLiveOfferAPI,
@@ -155,6 +158,7 @@ export class CalendarEventDetail extends React.Component<Props> {
       goToMember,
       offer,
       privateBooking,
+      customEvent,
     } = this.props;
     if (
       (this.props.selectedPrivateBooking && !this.props.privateBooking) ||
@@ -185,6 +189,14 @@ export class CalendarEventDetail extends React.Component<Props> {
           updateTime={this.props.updatePrivateBookingDatetime}
           goToCoachCalendar={this.props.goToCoachCalendar}
           setIsUpdateCoachFormOpen={this.props.setIsUpdateCoachFormOpen}
+        />
+      );
+    }
+    if (customEvent) {
+      return (
+        <CustomEventCard
+          customEvent={customEvent}
+          onDelete={() => this.props.deleteCustomEvent(customEvent.id)}
         />
       );
     }
@@ -229,7 +241,12 @@ export class CalendarEventDetail extends React.Component<Props> {
         </div>
       );
     }
-    return null;
+    return (
+      <div>
+        {JSON.stringify(customEvent)}
+        {JSON.stringify(this.props.customEventId)}
+      </div>
+    );
   };
 
   updateOffer = async (data) => {
@@ -549,7 +566,7 @@ export default compose(
   withTranslation(['offer']),
   withState('isUpdateCoachFormOpen', 'setIsUpdateCoachFormOpen', false),
   connect(
-    (state, { privateBookingId, offerId }) => ({
+    (state, { privateBookingId, offerId, customEventId }) => ({
       privateBooking: withRelatedFields(getPrivateBooking)(
         state,
         privateBookingId,
@@ -562,6 +579,7 @@ export default compose(
         state,
         offerId,
       ),
+      customEvent: withAssociatedCoach(getCustomEvent)(state, customEventId),
     }),
     {
       retrieveOfferAsManager: retrieveOfferAsManagerAction,
@@ -575,6 +593,7 @@ export default compose(
       goToMember: (memberId) => push(`/member/${memberId}/info`),
       updatePrivateBookingDatetime: updatePrivateBookingDatetimeAction,
       updatePrivateBookingCoach: updatePrivateBookingCoachAction,
+      deleteCustomEvent: deleteCustomEventAction,
       goToCoachCalendar: (coachId) =>
         push(`/coach/${coachId}/private-calendar`),
     },
@@ -603,9 +622,24 @@ export default compose(
       updatePrivateBookingCoach,
       privateBookingId,
       setIsUpdateCoachFormOpen,
+      fetchAvailabilitySlots,
     }) => (updatedCoachId, options) => {
-      updatePrivateBookingCoach(privateBookingId, updatedCoachId);
+      updatePrivateBookingCoach(privateBookingId, updatedCoachId, {
+        onSuccess: () => fetchAvailabilitySlots(),
+      });
       setIsUpdateCoachFormOpen(false);
+    },
+    deleteCustomEvent: ({
+      deleteCustomEvent,
+      fetchAvailabilitySlots,
+      onClose,
+    }) => (id) => {
+      deleteCustomEvent(id, {
+        onSuccess: () => {
+          fetchAvailabilitySlots();
+          onClose();
+        },
+      });
     },
     fetchPrivateBookingById: ({
       fetchCoachBulk,

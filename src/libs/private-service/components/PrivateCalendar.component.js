@@ -9,6 +9,7 @@ import itLocale from '@fullcalendar/core/locales/it';
 import deLocale from '@fullcalendar/core/locales/de';
 import nlLocale from '@fullcalendar/core/locales/nl';
 import withStyles from '@material-ui/core/styles/withStyles';
+import TodayIcon from '@material-ui/icons/Today';
 import Popover from '@material-ui/core/Popover';
 import CancelIcon from '@material-ui/icons/Cancel';
 import List from '@material-ui/core/List';
@@ -50,6 +51,19 @@ const availabilitySlotAsEvent = (slot) => ({
   rendering: 'background',
   classNames: slot.is_restriction ? ['isRestriction'] : [],
   ...(slot.color ? { backgroundColor: slot.color } : {}),
+});
+
+const customEventAsEvent = (customEvent) => ({
+  start: customEvent.date_start,
+  end: customEvent.date_end,
+  title: customEvent.name,
+  editable: false,
+  textColor: 'black',
+  ...(customEvent.color ? { borderColor: customEvent.color } : {}),
+  extendedProps: {
+    customEventId: customEvent.id,
+  },
+  classNames: [''],
 });
 
 const offerAsEvent = (resourceDatatypeView) => (offer) => {
@@ -119,6 +133,7 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
       onEnableRecurrentAvailability: (any) => void,
       onDisableAvailability: (any) => void,
       onDisableRecurrentAvailability: (any) => void,
+      onCreateCustomEvent?: (any) => void,
       selectInfo: Object,
     }) => {
       return (
@@ -203,6 +218,20 @@ const AvailabilitySlotForm = withTranslation(['privateService'])(
               </ListItem>
             </React.Fragment>
           ) : null}
+          {!!props.onCreateCustomEvent && (
+            <React.Fragment>
+              <ListItem
+                button
+                onClick={props.onCreateCustomEvent}
+                disabled={!props.onCreateCustomEvent}
+              >
+                <ListItemIcon>
+                  <TodayIcon className={props.classes.leftIcon} />
+                </ListItemIcon>
+                <ListItemText primary={props.t('calendar.createCustomEvent')} />
+              </ListItem>
+            </React.Fragment>
+          )}
         </List>
       );
     },
@@ -273,11 +302,13 @@ export class PrivateCalendar extends React.Component<Props, State> {
       privateBookings: Array<PrivateBooking>,
       offerList: Array<Offer>,
       resourceDatatypeView: ?string,
+      customEventList?: Array<CustomEvent>,
     ) => {
       return [
         ...availabilitySlots.map(availabilitySlotAsEvent),
         ...(offerList || []).map(offerAsEvent(resourceDatatypeView)),
         ...privateBookings.map(privateBookingAsEvent(resourceDatatypeView)),
+        ...(customEventList || []).map(customEventAsEvent),
       ];
     },
   );
@@ -285,6 +316,21 @@ export class PrivateCalendar extends React.Component<Props, State> {
   onDisableAvailability = () => {
     const { startStr, endStr } = this.state.eventSlotSelected;
     this.props.disableResourceAvailabilitySlot(
+      {
+        date_start: startStr,
+        date_end: endStr,
+      },
+      {
+        onSuccess: () => {
+          this.setState({ eventSlotSelected: null });
+        },
+      },
+    );
+  };
+
+  onCreateCustomEvent = () => {
+    const { startStr, endStr } = this.state.eventSlotSelected;
+    this.props.createCustomEvent(
       {
         date_start: startStr,
         date_end: endStr,
@@ -369,6 +415,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
       this.props.privateBookings,
       this.props.offerList,
       this.props.resourceDatatypeView,
+      this.props.customEventList,
     );
 
     return (
@@ -474,6 +521,16 @@ export class PrivateCalendar extends React.Component<Props, State> {
               onDisableRecurrentAvailability={
                 this.props.disableResourceAvailabilitySlot
                   ? () => this.setState({ disableWithRecurrence: true })
+                  : null
+              }
+              onCreateCustomEvent={
+                this.props.createCustomEvent
+                  ? () => {
+                      this.onCreateCustomEvent(
+                        this.state.eventSlotSelected.startStr,
+                      );
+                      this.setState({ eventSlotSelected: null });
+                    }
                   : null
               }
             />

@@ -189,6 +189,7 @@ exports.default = {
     disableAvailability: 'Supprimer la disponibilité',
     enableRecurrentAvailability: 'Ajouter une disponibilité récurrente',
     disableRecurrentAvailability: 'Supprimer une disponibilité récurrente',
+    createCustomEvent: 'Créer un RDV perso',
     selectCoachToModifyAvailability: 'Sélectionnez un professeur',
     addBooking: 'Enregistrer un rendez-vous',
 
@@ -587,6 +588,29 @@ exports.default = {
         title: 'Séance',
         isEmpty: 'Aucune type de séance définie',
         explainIsEmpty: 'Définissez des types de séances (durée, coût)',
+      },
+    },
+  },
+  customEvent: {
+    actions: {
+      delete: 'Supprimer',
+    },
+    form: {
+      name: {
+        label: 'Nom',
+        placeholder: 'RDV banque',
+      },
+      color: 'Code couleur',
+      coach: {
+        isEmpty: 'Aucun professeur',
+      },
+      description: {
+        label: 'Description',
+        placeholder: 'Demander M. Charles au 1 Champs Elysées',
+      },
+      actions: {
+        cancel: 'Annuler',
+        submit: 'Enregistrer',
       },
     },
   },

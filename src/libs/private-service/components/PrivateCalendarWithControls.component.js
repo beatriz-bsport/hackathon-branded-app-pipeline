@@ -56,6 +56,7 @@ type Props = {
   availabilitySlotUpdating: boolean,
   goToMember: (id: number) => void,
   disableResourceAvailabilitySlot: () => void,
+  createCustomEvent: () => void,
   enableResourceAvailabilitySlot: () => void,
   availabilitySlots: Array<AvailabilitySlot>,
 
@@ -134,8 +135,10 @@ export const PrivateCalendarMultiResource = (props: Props) => (
     <div className={props.classes.content}>
       <PrivateCalendar
         disableResourceAvailabilitySlot={props.disableResourceAvailabilitySlot}
+        createCustomEvent={props.createCustomEvent}
         resources={props.resourceItemsFilter}
         resourceDatatypeView={props.resourceDatatypeFilter}
+        customEventList={props.customEventList}
         enableResourceAvailabilitySlot={props.enableResourceAvailabilitySlot}
         availabilitySlots={props.availabilitySlots}
         privateBookings={
@@ -155,6 +158,7 @@ export const PrivateCalendarMultiResource = (props: Props) => (
         offerId={props.offerId}
         onClose={props.closePopover}
         refreshOffers={props.refreshOffers}
+        customEventId={props.customEventId}
         refreshPrivateBookings={props.refreshPrivateBookings}
       />
       <PrivateBookingBooker
@@ -227,16 +231,23 @@ export default compose(
     },
   ),
   withStateHandlers(
-    { popoverAnchor: null, privateBookingId: null, offerId: null },
+    {
+      popoverAnchor: null,
+      customEventId: null,
+      privateBookingId: null,
+      offerId: null,
+    },
     {
       closePopover: () => () => ({
         popoverAnchor: null,
         privateBookingId: null,
+        customEventId: null,
         offerId: null,
       }),
       handleEventClick: () => (anchorEl, extendedProps) => {
         return {
           popoverAnchor: anchorEl,
+          customEventId: (extendedProps && extendedProps.customEventId) || null,
           privateBookingId:
             (extendedProps && extendedProps.private_booking) || null,
           offerId: (extendedProps && extendedProps.offer) || null,

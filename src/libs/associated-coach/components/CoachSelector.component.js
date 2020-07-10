@@ -91,22 +91,22 @@ export default withTranslation(['coach'])(
     selectOption,
     isClearable,
   }) => (
-    <Select
-      closeMenuOnSelect={closeMenuOnSelect}
-      isMulti={!noMulti}
-      placeholder={placeholder || t('coach')}
-      options={getCoachOptions([...coaches])}
-      onChange={selectOption}
-      isDisabled={isDisabled}
-      styles={coachStyles}
-      isClearable={isClearable}
-      value={
-        selectedCoaches
-          ? getCoachOptions([
-              ...coaches.filter((c) => selectedCoaches.includes(c.id)),
-            ])
-          : undefined
-      }
-    />
+      <Select
+        closeMenuOnSelect={closeMenuOnSelect}
+        isMulti={!noMulti}
+        placeholder={placeholder || t('coach')}
+        options={getCoachOptions([...coaches])}
+        onChange={selectOption}
+        isDisabled={isDisabled}
+        styles={coachStyles}
+        isClearable={isClearable}
+        value={
+          selectedCoaches
+            ? getCoachOptions([
+                ...coaches.filter((c) => selectedCoaches.includes(c.id)),
+              ])
+            : undefined
+        }
+      />
   ),
 );

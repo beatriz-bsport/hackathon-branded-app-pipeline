@@ -409,3 +409,23 @@ export const attachCoach = (
     { coach, notify },
   );
 };
+
+export const fetchCustomEventList = async (params: any = {}) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/custom_event/${buildUrlParams(params)}`,
+  );
+};
+
+export const createOrUpdateCustomEvent = async (data: *) => {
+  if (!data.id) {
+    return postAuth(`${API_V1_URI}/private_service/custom_event/`, data);
+  }
+  return putAuth(
+    `${API_V1_URI}/private_service/custom_event/${data.id}/`,
+    data,
+  );
+};
+
+export const deleteCustomEvent = async (id: number) => {
+  return deleteAuth(`${API_V1_URI}/private_service/custom_event/${id}/`);
+};

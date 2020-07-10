@@ -59,6 +59,11 @@ import {
   fetchPrivateConsumerPassExtensionList as fetchPrivateConsumerPassExtensionListAPI,
   createPrivateConsumerPassExtension as createPrivateConsumerPassExtensionAPI,
   deletePrivateConsumerPassExtension as deletePrivateConsumerPassExtensionAPI,
+
+  // custom event
+  fetchCustomEventList as fetchCustomEventListAPI,
+  createOrUpdateCustomEvent as createOrUpdateCustomEventAPI,
+  deleteCustomEvent as deleteCustomEventAPI,
 } from './api';
 
 import { fetchAll as fetchAlerting } from '../alerting/actions';
@@ -1488,5 +1493,80 @@ export function fetchPrivateConsumerPassExtensionList(
       if (options && options.onError) options.onError();
     }
     dispatch(listPrivateConsumerPassExtensionActions.isLoading(false));
+  };
+}
+
+export const createOrUpdateCustomEventActions = {
+  error: createAction('CUSTOM_EVENT/CREATE_OR_UPDATE/ERROR'),
+  isLoading: createAction('CUSTOM_EVENT/CREATE_OR_UPDATE/LOADING'),
+  success: createAction('CUSTOM_EVENT/CREATE_OR_UPDATE/SUCCESS'),
+};
+
+export function createOrUpdateCustomEvent(data: any, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOrUpdateCustomEventActions.isLoading(true));
+    dispatch(createOrUpdateCustomEventActions.error(null));
+    try {
+      const response = await createOrUpdateCustomEventAPI(data);
+      dispatch(createOrUpdateCustomEventActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(createOrUpdateCustomEventActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(createOrUpdateCustomEventActions.isLoading(false));
+  };
+}
+
+export const listCustomEventActions = {
+  error: createAction('CUSTOM_EVENT/LIST/ERROR'),
+  isLoading: createAction('CUSTOM_EVENT/LIST/LOADING'),
+  success: createAction('CUSTOM_EVENT/LIST/SUCCESS'),
+  reset: createAction('CUSTOM_EVENT/LIST/RESET'),
+};
+
+export const resetCustomEvent = listCustomEventActions.reset;
+
+export function fetchCustomEventList(
+  params: any = {},
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listCustomEventActions.isLoading(true));
+    dispatch(listCustomEventActions.error(null));
+    try {
+      const response = await fetchCustomEventListAPI(params);
+      dispatch(listCustomEventActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(listCustomEventActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(listCustomEventActions.isLoading(false));
+  };
+}
+
+export const deleteCustomEventActions = {
+  error: createAction('CUSTOM_EVENT/DELETE/ERROR'),
+  isLoading: createAction('CUSTOM_EVENT/DELETE/LOADING'),
+  success: createAction('CUSTOM_EVENT/DELETE/SUCCESS'),
+};
+
+export function deleteCustomEvent(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteCustomEventActions.isLoading(true));
+    dispatch(deleteCustomEventActions.error(null));
+    try {
+      await deleteCustomEventAPI(id);
+      dispatch(deleteCustomEventActions.success(id));
+      if (options && options.onSuccess) options.onSuccess(id);
+    } catch (err) {
+      console.error(err);
+      dispatch(deleteCustomEventActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(deleteCustomEventActions.isLoading(false));
   };
 }

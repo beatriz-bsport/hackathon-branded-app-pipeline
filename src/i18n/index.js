@@ -24,9 +24,7 @@ i18n
   .init({
     backend: {
       backends: isDebug ? [HttpBackend] : [LocalStorageBackend, HttpBackend],
-      backendOptions: isDebug
-        ? [{}]
-        : [{ expirationTime: 30 * 60 * 1000 }, {}],
+      backendOptions: isDebug ? [{}] : [{ expirationTime: 30 * 60 * 1000 }, {}],
     },
     /*
     backend: {
@@ -46,7 +44,7 @@ i18n
     // have a common namespace used around the full app
     defaultNS: 'translation',
 
-    debug: !['production', 'test'].includes(process.env.NODE_ENV),
+    debug: false, // !['production', 'test'].includes(process.env.NODE_ENV),
 
     interpolation: {
       format(value, format) {

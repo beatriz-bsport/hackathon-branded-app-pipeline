@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { compose, withState, withHandlers } from 'recompose';
+import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import uniq from 'lodash/uniq';
 import moment from 'moment';
 import { withTranslation } from 'react-i18next';
@@ -22,13 +22,20 @@ import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/me
 import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
 import { fetchMemberBulk as fetchMemberBulkAction } from '../libs/member/actions';
 import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
+import {
+  fetchCustomEventList as fetchCustomEventListAction,
+  resetCustomEvent,
+} from '../libs/private-service/actions';
+import { getCustomEventList } from '../libs/private-service/selectors/custom-event';
 import { getPermissions } from '../libs/role/selectors';
+import CustomEvenFormDialog from '../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 
 import PrivateCalendarWithControls from '../libs/private-service/components/PrivateCalendarWithControls.component';
 
 import {
   fetchPrivateBookings as fetchPrivateBookingsAction,
   resetPrivateBookings,
+  createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
 } from '../libs/private-service/actions';
 
 type Props = {
@@ -74,7 +81,12 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     ) {
       this.props.fetchPrivateBookingList();
       this.props.fetchOfferList();
+      this.props.fetchCustomEventList();
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetCustomEvent();
   }
 
   render() {
@@ -89,7 +101,9 @@ export class CoachPrivateCalendar extends React.Component<Props> {
               : null
           }
           resourcesByDatatype={this.props.resourcesByDatatype}
+          customEventList={this.props.customEventList}
           privateBookings={this.props.privateBookingList}
+          createCustomEvent={this.props.onRequestCustomEvent}
           disableAvailabilitySlotDisplay
           goToMember={this.props.goToMember}
           onDateChange={this.props.handleDateChange}
@@ -99,6 +113,14 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           showOfferListToogle
           showPrivateBookingToogle
         />
+        {this.props.customEventData && (
+          <CustomEvenFormDialog
+            coaches={this.props.availableCoaches}
+            onSubmit={this.props.createOrUpdateCustomEvent}
+            onClose={this.props.closeCustomEventDialog}
+            open
+          />
+        )}
       </div>
     );
   }
@@ -108,6 +130,13 @@ export default compose(
   withStyles(styles),
   withTranslation(['privateService']),
   withTitle(({ t }) => t('translation:navigation.schedule')),
+  withStateHandlers(
+    { customEventData: null },
+    {
+      closeCustomEventDialog: () => () => ({ customEventData: null }),
+      onRequestCustomEvent: () => (customEventData) => ({ customEventData }),
+    },
+  ),
   withState('periodFilter', 'setPeriodFilter', {
     start: moment()
       .startOf('week')
@@ -129,6 +158,7 @@ export default compose(
           items: getActiveCoaches(state).map((c) => ({
             title: c.name,
             id: c.id,
+            color: c.color,
           })),
         },
       ],
@@ -142,19 +172,40 @@ export default compose(
         null,
         periodFilter,
       ),
+      availableCoaches: getActiveCoaches(state),
+      customEventList: getCustomEventList(state, periodFilter),
     }),
     {
       fetchPrivateBookings: fetchPrivateBookingsAction,
+      fetchCustomEventList: fetchCustomEventListAction,
       fetchEstablishments,
       fetchAssociatedCoachesList,
       fetchAllOffers: fetchAllOffersAction,
       resetPrivateBookings,
+      resetCustomEvent,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchMemberBulk: fetchMemberBulkAction,
       pushToCalendar: () => push('/calendar'),
+      createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
     },
   ),
   withHandlers({
+    createOrUpdateCustomEvent: ({
+      createOrUpdateCustomEvent,
+      customEventData,
+      closeCustomEventDialog,
+    }) => (data, options) => {
+      createOrUpdateCustomEvent(
+        { ...data, ...customEventData },
+        {
+          onSuccess: (...args) => {
+            if (options && options.onSuccess) options.onSuccess(...args);
+            closeCustomEventDialog();
+          },
+          onError: options && options.onError,
+        },
+      );
+    },
     fetchOfferList: ({
       fetchAllOffers,
       fetchMetaActivityBulk,
@@ -201,6 +252,13 @@ export default compose(
           },
         },
       );
+    },
+    fetchCustomEventList: ({ fetchCustomEventList, periodFilter }) => () => {
+      fetchCustomEventList({
+        date_start__gte: periodFilter.start,
+        date_start__lte: periodFilter.end,
+        page_size: null,
+      });
     },
   }),
 )(CoachPrivateCalendar);

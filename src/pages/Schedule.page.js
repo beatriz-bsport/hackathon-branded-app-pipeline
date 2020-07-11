@@ -144,6 +144,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           goToMember={this.props.goToMember}
           onDateChange={this.props.handleDateChange}
           offerList={this.props.offerList}
+          resourcesByDatatype={this.props.resourcesByDatatype}
           refreshOffers={this.props.fetchOfferList}
           refreshPrivateBookings={this.props.fetchPrivateBookingList}
           resourceSelectedListIds={this.props.resourceFiltersArray}

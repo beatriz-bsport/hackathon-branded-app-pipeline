@@ -91,36 +91,38 @@ export const PrivateCalendarMultiResource = (props: Props) => (
           setResourceFiltered={props.setResourceFiltered}
         />
       )}
-      <div className={props.classes.row}>
-        {!!props.showOfferListToogle && (
-          <FormControlLabel
-            label={props.t('calendar.toogle.showOfferList')}
-            control={
-              <Checkbox
-                checked={props.showOfferList}
-                onChange={props.toogleShowOfferList}
-              />
-            }
-          />
-        )}
-        {!!props.showPrivateBookingToogle && (
-          <FormControlLabel
-            label={props.t('calendar.toogle.showPrivateBookings')}
-            control={
-              <Checkbox
-                checked={props.showPrivateBookings}
-                onChange={props.toogleShowPrivateBookings}
-              />
-            }
+      <div className={props.classes.rowBetween}>
+        <div className={props.classes.row}>
+          {!!props.showOfferListToogle && (
+            <FormControlLabel
+              label={props.t('calendar.toogle.showOfferList')}
+              control={
+                <Checkbox
+                  checked={props.showOfferList}
+                  onChange={props.toogleShowOfferList}
+                />
+              }
+            />
+          )}
+          {!!props.showPrivateBookingToogle && (
+            <FormControlLabel
+              label={props.t('calendar.toogle.showPrivateBookings')}
+              control={
+                <Checkbox
+                  checked={props.showPrivateBookings}
+                  onChange={props.toogleShowPrivateBookings}
+                />
+              }
+            />
+          )}
+        </div>
+        {!!props.resourcesByDatatype && !!props.resourcesByDatatype.length && (
+          <ResourceDatatypeFilter
+            resourcesByDatatype={props.resourcesByDatatype}
+            onResourceDatatypeFilterChange={props.setResourceFilter}
           />
         )}
       </div>
-      {!!props.resourcesByDatatype && !!props.resourcesByDatatype.length && (
-        <ResourceDatatypeFilter
-          resourcesByDatatype={props.resourcesByDatatype}
-          onResourceDatatypeFilterChange={props.setResourceFilter}
-        />
-      )}
     </Paper>
     {!!props.goToCalendar && (
       <Button
@@ -186,6 +188,12 @@ const styles = (theme) => ({
   row: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rowBetween: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 });

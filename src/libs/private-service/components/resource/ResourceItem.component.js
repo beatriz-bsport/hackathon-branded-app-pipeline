@@ -39,7 +39,9 @@ export const ResourceItem = (props: Props) => {
           backgroundColor: color || '#DCF3D8',
         }}
       />
-      <Typography className={classes.resourceName}>{name}</Typography>
+      <Typography noWrap className={classes.resourceName}>
+        {name}
+      </Typography>
       {// eslint-disable-next-line
       !!onSelectResource && !!onUnselectResource ? (
         isSelected ? (

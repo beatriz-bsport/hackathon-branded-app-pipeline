@@ -32,6 +32,9 @@ exports.default = {
     },
   },
   resource: {
+    selector: {
+      title: 'Voir les disponibilités',
+    },
     form: {
       color: 'Code couleur',
       actions: {
@@ -595,8 +598,8 @@ exports.default = {
     actions: {
       delete: 'Supprimer',
     },
-form: {
-title: 'RDV perso',
+    form: {
+      title: 'RDV perso',
       name: {
         label: 'Nom',
         placeholder: 'RDV banque',

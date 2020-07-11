@@ -22,8 +22,11 @@ import {
   createOrUpdatePrivateService as createOrUpdatePrivateServiceAPI,
   deleteServiceGroup as deleteServiceGroupAPI,
   deletePrivateService as deletePrivateServiceAPI,
+
+  // resources
   fetchPrivateServiceResourceData as fetchPrivateServiceResourceDataAPI,
-  updateResourceConfiguration as updateResourceConfigurationAPI,
+  fetchResourceList as fetchResourceListAPI,
+  updateServiceResourceConfiguration as updateServiceResourceConfigurationAPI,
   // private-coach
   // service-group
   fetchServiceGroupList as fetchServiceGroupListAPI,
@@ -193,7 +196,7 @@ export const updateResourceConfigurationActions = {
   success: createAction('RESOURCE/UPDATE/SUCCESS'),
 };
 
-export function updateResourceConfiguration(
+export function updateServiceResourceConfiguration(
   privateServiceId: number,
   resourceIdentifier: string,
   data: any,
@@ -203,7 +206,7 @@ export function updateResourceConfiguration(
     dispatch(updateResourceConfigurationActions.isLoading(true));
     dispatch(updateResourceConfigurationActions.error(null));
     try {
-      const response = await updateResourceConfigurationAPI(
+      const response = await updateServiceResourceConfigurationAPI(
         privateServiceId,
         resourceIdentifier,
         data,
@@ -432,10 +435,10 @@ export function fetchPrivateService(
   };
 }
 
-export const privateServiceResourceRetrieveActions = {
-  error: createAction('PRIVATE_SERVICE/RESOURCE/ERROR'),
-  isLoading: createAction('PRIVATE_SERVICE/RESOURCE/IS_LOADING'),
-  success: createAction('PRIVATE_SERVICE/RESOURCE/SUCCESS'),
+export const resourceListActions = {
+  error: createAction('PRIVATE_SERVICE/RESOURCE/LIST/ERROR'),
+  isLoading: createAction('PRIVATE_SERVICE/RESOURCE/LIST/IS_LOADING'),
+  success: createAction('PRIVATE_SERVICE/RESOURCE/LIST/SUCCESS'),
 };
 
 export function fetchPrivateServiceResourceData(
@@ -443,18 +446,38 @@ export function fetchPrivateServiceResourceData(
   options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(privateServiceResourceRetrieveActions.isLoading(true));
-    dispatch(privateServiceResourceRetrieveActions.error(null));
+    dispatch(resourceListActions.isLoading(true));
+    dispatch(resourceListActions.error(null));
     try {
       const response = await fetchPrivateServiceResourceDataAPI(id);
-      dispatch(privateServiceResourceRetrieveActions.success(response.data));
+      dispatch(resourceListActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
-      dispatch(privateServiceResourceRetrieveActions.error(null));
+      dispatch(resourceListActions.error(null));
       if (options && options.onError) options.onError(err);
     }
-    dispatch(privateServiceResourceRetrieveActions.isLoading(false));
+    dispatch(resourceListActions.isLoading(false));
+  };
+}
+
+export function fetchResourceList(
+  params: any = {},
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(resourceListActions.isLoading(true));
+    dispatch(resourceListActions.error(null));
+    try {
+      const response = await fetchResourceListAPI(params);
+      dispatch(resourceListActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(resourceListActions.error(null));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(resourceListActions.isLoading(false));
   };
 }
 

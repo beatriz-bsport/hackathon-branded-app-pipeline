@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { push } from 'connected-react-router';
 
+import flatten from 'lodash/flatten';
 import {
   getPrivateBookingListFiltered,
   withRelatedFields,
@@ -25,18 +26,23 @@ import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 import {
   fetchCustomEventList as fetchCustomEventListAction,
   resetCustomEvent,
+  fetchPrivateBookings as fetchPrivateBookingsAction,
+  resetPrivateBookings,
+  createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
+  fetchResourceList,
+  fetchAvailabilitySlots,
+  resetAvailabilitySlots,
 } from '../libs/private-service/actions';
 import { getCustomEventList } from '../libs/private-service/selectors/custom-event';
 import { getPermissions } from '../libs/role/selectors';
 import CustomEvenFormDialog from '../libs/private-service/components/custom-event/CustomEventFormDialog.component';
+import {
+  getFilteredAvailabilitySlots,
+  withResourceColor,
+  getResourceDataList,
+} from '../libs/private-service/selectors/availability-slot';
 
 import PrivateCalendarWithControls from '../libs/private-service/components/PrivateCalendarWithControls.component';
-
-import {
-  fetchPrivateBookings as fetchPrivateBookingsAction,
-  resetPrivateBookings,
-  createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
-} from '../libs/private-service/actions';
 
 type Props = {
   classes: Object,
@@ -70,6 +76,7 @@ const styles = (theme) => ({
 export class CoachPrivateCalendar extends React.Component<Props> {
   componentDidMount() {
     this.props.resetPrivateBookings();
+    this.props.fetchResourceList();
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList({ disabled: false });
   }
@@ -82,6 +89,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
       this.props.fetchPrivateBookingList();
       this.props.fetchOfferList();
       this.props.fetchCustomEventList();
+      this.fetchAvailabilitySlotsAllResource();
     }
   }
 
@@ -89,27 +97,56 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     this.props.resetCustomEvent();
   }
 
+  fetchAvailabilitySlotsAllResource = () => {
+    this.props.resetAvailabilitySlots();
+    // fetch service's establshments slots
+    this.props.fetchAvailabilitySlots({
+      establishment__in: flatten(
+        (
+          this.props.resourcesByDatatype.find(
+            (rd) => rd.datatype === 'establishment',
+          ).items || []
+        ).map((ae) => ae.id),
+      ),
+      date_start__lte: this.props.periodFilter.end,
+      date_start__gte: this.props.periodFilter.start,
+    });
+    this.props.fetchAvailabilitySlots({
+      coach__in: flatten(
+        (
+          this.props.resourcesByDatatype.find((rd) => rd.datatype === 'coach')
+            .items || []
+        ).map((ac) => ac.id),
+      ),
+      date_start__lte: this.props.periodFilter.end,
+      date_start__gte: this.props.periodFilter.start,
+    });
+  };
+
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.container}>
         <PrivateCalendarWithControls
-          availabilitySlots={[]}
+          availabilitySlots={this.props.availabilitySlots}
           goToCalendar={
             !this.props.permission.navigation && this.props.permission.calendar
               ? this.props.pushToCalendar
               : null
           }
-          resourcesByDatatype={this.props.resourcesByDatatype}
           customEventList={this.props.customEventList}
           privateBookings={this.props.privateBookingList}
           createCustomEvent={this.props.onRequestCustomEvent}
           disableAvailabilitySlotDisplay
+          collapsResourceSelector
+          resourceAvailable={this.props.resourceData}
+          setResourceFiltered={this.props.setResourceFiltersArray}
           goToMember={this.props.goToMember}
           onDateChange={this.props.handleDateChange}
           offerList={this.props.offerList}
           refreshOffers={this.props.fetchOfferList}
           refreshPrivateBookings={this.props.fetchPrivateBookingList}
+          resourceSelectedListIds={this.props.resourceFiltersArray}
           showOfferListToogle
           showPrivateBookingToogle
         />
@@ -130,6 +167,7 @@ export default compose(
   withStyles(styles),
   withTranslation(['privateService']),
   withTitle(({ t }) => t('translation:navigation.schedule')),
+  withState('resourceFiltersArray', 'setResourceFiltersArray', []),
   withStateHandlers(
     { customEventData: null },
     {
@@ -146,8 +184,13 @@ export default compose(
       .format('YYYY-MM-DD'),
   }),
   connect(
-    (state, { periodFilter }) => ({
+    (state, { periodFilter, resourceFiltersArray }) => ({
       permission: getPermissions(state),
+      availabilitySlots: withResourceColor(getFilteredAvailabilitySlots)(
+        state,
+        periodFilter,
+        resourceFiltersArray,
+      ),
       resourcesByDatatype: [
         {
           datatype: 'establishment',
@@ -174,15 +217,23 @@ export default compose(
       ),
       availableCoaches: getActiveCoaches(state),
       customEventList: getCustomEventList(state, periodFilter),
+      resourceData: getResourceDataList(state),
+      resourceDataLoading: state.privateService.resource.loading,
     }),
     {
       fetchPrivateBookings: fetchPrivateBookingsAction,
+      resetAvailabilitySlots,
+      fetchAvailabilitySlots,
       fetchCustomEventList: fetchCustomEventListAction,
       fetchEstablishments,
       fetchAssociatedCoachesList,
       fetchAllOffers: fetchAllOffersAction,
       resetPrivateBookings,
       resetCustomEvent,
+      fetchResourceList: () =>
+        fetchResourceList({
+          datatype: ['associated_establishment', 'associated_coach'],
+        }),
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchMemberBulk: fetchMemberBulkAction,
       pushToCalendar: () => push('/calendar'),

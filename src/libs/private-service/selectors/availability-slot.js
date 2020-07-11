@@ -84,18 +84,23 @@ export const getCoachAvailabilitySlots: (
 
 export const getPrivateServiceResourceData = (state, serviceId) => {
   const stuff = pickBy(
-    state.privateService.privateServiceResource.byId,
+    state.privateService.resource.byId,
     (resource) => `${resource.private_service}` === `${serviceId}`,
   );
   return groupByResourceDatatype(stuff);
 };
 
-const getResourceData = (state) =>
-  state.privateService.privateServiceResource.byId;
+const _getResourceData = (state) => state.privateService.resource.byId;
+const _getResourceIds = (state) => state.privateService.resource.allIds;
+
+export const getResourceDataList = createSelector(
+  [_getResourceData, _getResourceIds],
+  (data, ids) => groupByResourceDatatype(ids.map((id) => data[id])),
+);
 
 export const withResourceColor = memoize((selector) =>
   createSelector(
-    [selector, getResourceData],
+    [selector, _getResourceData],
     (slots, resourceData) =>
       slots.map((s) => {
         const resource = resourceData[s.resource_identifier];

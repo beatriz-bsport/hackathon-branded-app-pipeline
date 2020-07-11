@@ -2,6 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import Typography from '@material-ui/core/Typography';
 import { withTranslation } from 'react-i18next';
@@ -31,34 +32,86 @@ const ResourceGroup = (props: Props) => {
     onEditResourceConfiguration,
     resourceSelectedListIds,
   } = props;
+  let allAreSelected = null;
+  if (
+    resourceList.reduce(
+      (acc, v) =>
+        acc && resourceSelectedListIds.includes(v.resource_identifier),
+      true,
+    )
+  ) {
+    allAreSelected = true;
+  }
+  if (
+    !resourceList.reduce(
+      (acc, v) =>
+        acc || resourceSelectedListIds.includes(v.resource_identifier),
+      false,
+    )
+  ) {
+    allAreSelected = false;
+  }
   return (
     <div className={classes.resourceGroupContainer}>
-      <Typography variant="subtitle2" className={classes.title}>
-        {t(`resource.datatype.${datatype}`)}
-      </Typography>
+      <div className={classes.header}>
+        <Checkbox
+          indeterminate={allAreSelected === null}
+          checked={allAreSelected}
+          onChange={(ev) => {
+            if (ev.target.checked) {
+              onSelectResource(resourceList.map((r) => r.resource_identifier));
+            } else {
+              onUnselectResource(
+                resourceList.map((r) => r.resource_identifier),
+              );
+            }
+          }}
+        />
+        <Typography variant="subtitle2" className={classes.title}>
+          {t(`resource.datatype.${datatype}`)}
+        </Typography>
+      </div>
       <div className={classes.resourceList}>
-        {resourceList.map((resourceData) => (
+        {resourceList.map((resourceData) => {
+          const isSelected = !!resourceSelectedListIds.includes(
+            resourceData.resource_identifier,
+          );
+          return (
             <ResourceItem
               onSelectResource={onSelectResource}
               onUnselectResource={onUnselectResource}
-              onEditResourceConfiguration={(resource) =>
-                onEditResourceConfiguration({ data: resource, datatype })
-              }
-              isSelected={
-                !!resourceSelectedListIds.includes(
-                  resourceData.resource_identifier,
-                )
-              }
+              onEditResourceConfiguration={(resource) => {
+                if (
+                  !onEditResourceConfiguration &&
+                  (!!onSelectResource && !!onUnselectResource)
+                ) {
+                  /* eslint-disable */
+                  if (!isSelected)
+                    onSelectResource(resourceData.resource_identifier);
+                  if (isSelected)
+                    onUnselectResource(resourceData.resource_identifier);
+                } else {
+                  onEditResourceConfiguration({ data: resource, datatype });
+                }
+                /* eslint-enable */
+              }}
+              isSelected={isSelected}
               key={resourceData.resource_id}
               resource={resourceData}
             />
-        ))}
+          );
+        })}
       </div>
     </div>
   );
 };
 
 const styles = (theme) => ({
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   resourceList: {
     display: 'flex',
     flexDirection: 'row',
@@ -68,6 +121,7 @@ const styles = (theme) => ({
   title: {
     marginBottom: theme.spacing(1) / 2,
     marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(1),
   },
 });
 

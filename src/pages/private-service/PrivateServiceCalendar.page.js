@@ -38,7 +38,7 @@ import {
   fetchPrivateServiceResourceData,
   disableResourceAvailabilitySlot,
   enableResourceAvailabilitySlot,
-  updateResourceConfiguration,
+  updateServiceResourceConfiguration,
 } from '../../libs/private-service/actions';
 
 type Props = {
@@ -286,7 +286,7 @@ export default compose(
         state.privateService.privateBooking.loading,
       service: getPrivateServiceById(state, id),
       resourceData: getPrivateServiceResourceData(state, id),
-      resourceDataLoading: state.privateService.privateServiceResource.loading,
+      resourceDataLoading: state.privateService.resource.loading,
       privateBookingList: bookingWithAllRelatedField(
         getPrivateBookingListFiltered,
       )(state, { private_service: id }, periodFilter),
@@ -301,7 +301,7 @@ export default compose(
       fetchMemberBulk: fetchMemberBulkAction,
       disableResourceAvailabilitySlot,
       enableResourceAvailabilitySlot,
-      onEditResourceConfiguration: updateResourceConfiguration,
+      onEditResourceConfiguration: updateServiceResourceConfiguration,
     },
   ),
   withHandlers({

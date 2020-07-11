@@ -1163,6 +1163,7 @@
       }
     },
     "resource": {
+      "selector": { "title": "Voir les disponibilités" },
       "form": { "color": "Code couleur", "actions": { "cancel": "Annuler", "submit": "Enregistrer" } },
       "groupBy": "Grouper par",
       "unGroup": "Aucun",

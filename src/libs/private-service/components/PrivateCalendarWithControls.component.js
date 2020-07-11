@@ -82,6 +82,7 @@ export const PrivateCalendarMultiResource = (props: Props) => (
     <Paper square className={props.classes.header}>
       {!!props.resourceAvailable && (
         <ResourceSelector
+          collapse={props.collapsResourceSelector}
           resourceAvailable={props.resourceAvailable}
           resourceSelectedListIds={props.resourceSelectedListIds}
           resourceDataLoading={props.resourceDataLoading}
@@ -180,9 +181,7 @@ const styles = (theme) => ({
     paddingLeft: theme.spacing(2),
     paddingBottom: theme.spacing(1),
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
+    flexDirection: 'column',
   },
   row: {
     display: 'flex',

@@ -133,6 +133,17 @@ export const deletePrivateSlot = (privateServiceId: number, slotId: number) => {
   );
 };
 
+export const updateServiceResourceConfiguration = (
+  privateServiceId: number,
+  resource_identifier: string,
+  data: { color: string },
+) => {
+  return putAuth(
+    `${API_V1_URI}/private_service/private_service/${privateServiceId}/resource/${resource_identifier}/`,
+    data,
+  );
+};
+
 export const updateResourceConfiguration = (
   privateServiceId: number,
   resource_identifier: string,
@@ -141,6 +152,12 @@ export const updateResourceConfiguration = (
   return putAuth(
     `${API_V1_URI}/private_service/private_service/${privateServiceId}/resource/${resource_identifier}/`,
     data,
+  );
+};
+
+export const fetchResourceList = (params: any = {}) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/resource/${buildUrlParams(params)}`,
   );
 };
 

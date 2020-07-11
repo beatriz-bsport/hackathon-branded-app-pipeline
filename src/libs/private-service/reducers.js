@@ -23,7 +23,7 @@ import {
   privateBookingDeleteActions,
   privateSlotRetrieveActions,
   privateBookingRetrieveActions,
-  privateServiceResourceRetrieveActions,
+  resourceListActions,
   privateSlotCreateOrUpdateActions,
   privatePassListActions,
   privatePassAsConsumerListActions,
@@ -89,8 +89,9 @@ const initialState: PrivateServiceState = Immutable({
       },
     },
   },
-  privateServiceResource: {
+  resource: {
     byId: {},
+    allIds: [],
     loading: false,
     error: null,
   },
@@ -281,7 +282,7 @@ export default handleActions(
     },
     [updateResourceConfigurationActions.success]: (state, { payload }) => {
       return state.setIn(
-        ['privateServiceResource', 'byId', payload.resource_identifier],
+        ['resource', 'byId', payload.resource_identifier],
         payload,
       );
     },
@@ -502,27 +503,32 @@ export default handleActions(
         );
     },
 
-    [privateServiceResourceRetrieveActions.success]: (state, { payload }) => {
-      return state.merge(
-        {
-          privateServiceResource: {
-            byId: payload.reduce(
-              (acc, resource) => ({
-                ...acc,
-                [resource.resource_identifier]: resource,
-              }),
-              {},
-            ),
+    [resourceListActions.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            resource: {
+              byId: payload.reduce(
+                (acc, resource) => ({
+                  ...acc,
+                  [resource.resource_identifier]: resource,
+                }),
+                {},
+              ),
+            },
           },
-        },
-        { deep: true },
-      );
+          { deep: true },
+        )
+        .setIn(
+          ['resource', 'allIds'],
+          payload.map((r) => r.resource_identifier),
+        );
     },
-    [privateServiceResourceRetrieveActions.isLoading]: (state, { payload }) => {
-      return state.setIn(['privateServiceResource', 'loading'], payload);
+    [resourceListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['resource', 'loading'], payload);
     },
-    [privateServiceResourceRetrieveActions.error]: (state, { payload }) => {
-      return state.setIn(['privateServiceResource', 'error'], payload);
+    [resourceListActions.error]: (state, { payload }) => {
+      return state.setIn(['resource', 'error'], payload);
     },
     [privateServiceBulkActions.isLoading]: (state, { payload }) => {
       return state.setIn(['privateService', 'loading'], payload);

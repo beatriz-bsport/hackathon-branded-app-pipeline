@@ -612,7 +612,10 @@ export class Planning extends PureComponent<Props, State> {
               <Paper style={{ width: '100%' }}>
                 <Calendar
                   showDownloader
-                  onRequestMassDisable={this.props.setMassDisablerStartDate}
+                  onRequestMassDisable={
+                    !!this.props.permission.offer.delete &&
+                    this.props.setMassDisablerStartDate
+                  }
                   events={events_}
                   onDateClick={this.loadDayData}
                   date={this.props.date}

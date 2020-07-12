@@ -17,6 +17,8 @@ import {
   fetchWebhooks as getActiveCampaignWebhooksAPI,
 } from './api';
 
+import withIntercomAction from '../../hocs/tracking/dispatch-action.hoc';
+
 // Active campaign Account
 export const activeCampaignAccountListAction = {
   isLoading: createAction('ACTIVE_CAMPAIGN_ACCOUNT/LIST/LOADING'),
@@ -93,7 +95,9 @@ export function deleteActiveCampaignAccount(id: number): ThunkAction {
 export const activeCampaignAccountCreateAction = {
   isLoading: createAction('ACTIVE_CAMPAIGN_ACCOUNT/CREATE/LOADING'),
   error: createAction('ACTIVE_CAMPAIGN_ACCOUNT/CREATE/ERROR'),
-  success: createAction('ACTIVE_CAMPAIGN_ACCOUNT/CREATE/SUCCESS'),
+  success: withIntercomAction('Create ActiveCampaign account')(
+    createAction('ACTIVE_CAMPAIGN_ACCOUNT/CREATE/SUCCESS'),
+  ),
 };
 
 export function createActiveCampaignAccount(
@@ -188,7 +192,9 @@ export function deleteActiveCampaignLinks(id: number): ThunkAction {
 export const activeCampaignLinksCreateAction = {
   isLoading: createAction('ACTIVE_CAMPAIGN_LINKS/CREATE/LOADING'),
   error: createAction('ACTIVE_CAMPAIGN_LINKS/CREATE/ERROR'),
-  success: createAction('ACTIVE_CAMPAIGN_LINKS/CREATE/SUCCESS'),
+  success: withIntercomAction('Create ActiveCampaign list linking')(
+    createAction('ACTIVE_CAMPAIGN_LINKS/CREATE/SUCCESS'),
+  ),
 };
 
 export function createActiveCampaignLinks(data: any): ThunkAction {

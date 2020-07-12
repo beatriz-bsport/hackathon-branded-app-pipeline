@@ -26,6 +26,7 @@ import {
   fetchSmartListBulk as fetchSmartListBulkAction,
   fetchAllSmartLists,
 } from '../../libs/smart-list/actions';
+import withStayEvent from '../../hocs/tracking/stay-event.hoc';
 import ActiveCampaignLinkForm from '../../libs/active-campaign/components/ActiveCampaignLinkForm.component';
 import ActiveCampaignWebhooks from '../../libs/active-campaign/components/ActiveCampaignWebhooks.component';
 import ActiveCampaignAccountFormDialog from '../../libs/active-campaign/components/ActiveCampaignAccountForm.component';
@@ -353,6 +354,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
+  withStayEvent('active-campaign', [10, 30, 90]),
   connect(
     (state) => ({
       links: withSmartlist(getActiveCampaignLinks)(state),

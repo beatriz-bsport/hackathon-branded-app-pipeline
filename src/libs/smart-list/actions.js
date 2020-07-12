@@ -10,6 +10,8 @@ import uniq from 'lodash/uniq';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
+import withIntercomAction from '../../hocs/tracking/dispatch-action.hoc';
+
 import { getFreshSmartListIds } from './selectors';
 import {
   fetchSmartListList as fetchSmartListListAPI,
@@ -142,7 +144,9 @@ export function copySmartList(
 export const createSmartListAction = {
   error: createAction('SMART-LIST/CREATE/ERROR'),
   isLoading: createAction('SMART-LIST/CREATE/IS_LOADING'),
-  success: createAction('SMART-LIST/CREATE/SUCCESS'),
+  success: withIntercomAction('Create Smartlist')(
+    createAction('SMART-LIST/CREATE/SUCCESS'),
+  ),
 };
 
 export function smartListCreate(

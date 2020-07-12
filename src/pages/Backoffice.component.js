@@ -16,6 +16,7 @@ import { getTheme } from '../theme';
 import withSentryErrorReporting from '../hocs/error-boundary.hoc';
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 import LoadingBackoffice from '../components/navigation/LoadingBackoffice.component';
+import withStayEvent from '../hocs/tracking/stay-event.hoc';
 
 import { fetchCompanyTheme } from '../libs/theme/actions';
 
@@ -40,11 +41,14 @@ import {
 import asyncComponent from '../AsyncComponent';
 import Config from '../config';
 
-import { MarketingDashboard, MarketingRule } from './marketing';
 import alertingSelectors from '../libs/alerting/selectors';
 import { fetchAccessLevel } from '../actions/auth.actions';
 
 import type { TempPasswordState } from '../libs/login/types';
+
+const MarketingRouter = asyncComponent(() =>
+  import('./marketing/Marketing.router.js'),
+);
 
 const Dashboard = asyncComponent(() => import('./Dashboard.component'));
 
@@ -145,9 +149,8 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route path="/activity" component={MetaActivity} />
       <Route path="/workshop-activity" component={WorkshopActivity} />
       <Route path="/establishment" component={Establishment} />
-      <Route path="/marketing/rule/:id" component={MarketingRule} />
       <Route path="/smart-list" component={SmartList} />
-      <Route path="/marketing" component={MarketingDashboard} />
+      <Route path="/marketing" component={MarketingRouter} />
       <Route path="/email-template" component={EmailTemplate} />
       <Route path="/reporting/" component={Reporting} />
       <Route path="/combo/" component={PaymentCombo} />
@@ -288,6 +291,9 @@ const styles = (theme: Object) => ({
 const themedBackoffice = withStyles(styles)(Backoffice);
 
 export default compose(
+  withStayEvent(`backoffice ${Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}`, [
+    1,
+  ]),
   connect(
     (state) => ({
       alertings: alertingSelectors.getByKind(state),

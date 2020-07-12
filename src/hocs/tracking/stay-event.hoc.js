@@ -7,7 +7,7 @@ export default (eventName, secondToTrack) =>
   function(WrappedComponent) {
     return class extends React.Component {
       componentDidMount() {
-        (secondToTrack || []).map((second) =>
+        this.timeoutList = (secondToTrack || []).map((second) =>
           setTimeout(() => {
             window.Intercom &&
               window.Intercom(
@@ -21,6 +21,14 @@ export default (eventName, secondToTrack) =>
               );
           }, second * 1000),
         );
+      }
+
+      componentWillUnmount() {
+        try {
+          (this.timeoutList || []).map((timeout) => clearTimeout(timeout));
+        } catch (err) {
+          console.error(err);
+        }
       }
 
       render() {

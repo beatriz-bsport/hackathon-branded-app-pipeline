@@ -66,5 +66,6 @@ export default compose(
   connect((state) => ({
     authenticated: state.auth.authenticated,
     isManager: state.auth.is_manager,
+    username: state.auth.username,
   })),
 )(ConsumerRouter);

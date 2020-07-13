@@ -9,6 +9,7 @@ const tagManagerArgs = {
 
 type Props = {
   theme: ?CompanyTheme,
+  username?: ?string,
 };
 
 export class GoogleTagManager extends React.Component<Props> {
@@ -18,6 +19,7 @@ export class GoogleTagManager extends React.Component<Props> {
         ...tagManagerArgs,
         gtmId: this.props.theme.gtmId || 'GTM-W4G3NQ6',
       });
+      (window.dataLayer || []).push({ email: this.props.username });
     }
   }
 
@@ -30,6 +32,9 @@ export class GoogleTagManager extends React.Component<Props> {
         ...tagManagerArgs,
         gtmId: this.props.theme.gtmId || 'GTM-W4G3NQ6',
       });
+    }
+    if (this.props.username && this.props.username !== prevProps.username) {
+      (window.dataLayer || []).push({ email: this.props.username });
     }
   }
 

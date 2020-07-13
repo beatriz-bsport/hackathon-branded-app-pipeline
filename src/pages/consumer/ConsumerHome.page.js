@@ -11,6 +11,7 @@ import {
   replace as replaceRouter,
 } from 'connected-react-router';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import GoogleTagManager from '../../components/GoogleTagManager.component';
 import withTitle from '../../hocs/with-title.hoc';
 import parse from '../../query-string';
 import { buildUrlParams } from '../../http';
@@ -71,6 +72,7 @@ type Props = {
   buildUrl: (string) => string,
   fetchMembershipListAsConsumer: (params: any) => void,
   membershipList: Array<Membership>,
+  username: ?string,
   setActiveActions: (company: number) => void,
   classes: Object,
   disconnect: () => void,
@@ -141,6 +143,10 @@ export class ConsumerHome extends React.Component<Props> {
             goToCalendar={this.props.goToCalendar}
             open={!!this.props.from_basket || !!this.props.from_direct_booking}
           />
+          <GoogleTagManager
+            username={this.props.username}
+            theme={this.props.theme}
+          />
           <div className={this.props.classes.container}>
             <Switch>
               <Route
@@ -202,6 +208,7 @@ export default compose(
       membership: getMembership(state, companyId),
       theme: themeSelectors.getTheme(state),
       membershipList: getConsumerMembershipList(state),
+      username: state.auth.username,
       basketGeneratedObjects: getBasketGeneratedObjects(state),
       offerBooked: from_direct_booking
         ? getOfferWithRelated(state, parseInt(from_direct_booking, 10))

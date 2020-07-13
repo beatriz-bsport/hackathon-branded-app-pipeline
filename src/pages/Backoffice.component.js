@@ -7,8 +7,9 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { push } from 'connected-react-router';
 import Intercom from 'react-intercom';
 import { compose, withHandlers } from 'recompose';
-
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import GoogleTagManager from '../components/GoogleTagManager.component';
+
 import { Context } from '../context';
 
 import { getAuthToken } from '../http';
@@ -16,7 +17,7 @@ import { getTheme } from '../theme';
 import withSentryErrorReporting from '../hocs/error-boundary.hoc';
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 import LoadingBackoffice from '../components/navigation/LoadingBackoffice.component';
-import withStayEvent from '../hocs/tracking/stay-event.hoc';
+import withOpenEvent from '../hocs/tracking/open-event.hoc';
 
 import { fetchCompanyTheme } from '../libs/theme/actions';
 
@@ -265,6 +266,7 @@ export class Backoffice extends Component<Props, State> {
                 action_color={this.props.theme.primary_color}
               />
             ) : null}
+            <GoogleTagManager username={this.props.username} theme={{}} />
 
             <main className={classes.content}>
               <BackofficeRoute
@@ -293,6 +295,7 @@ const styles = (theme: Object) => ({
 const themedBackoffice = withStyles(styles)(Backoffice);
 
 export default compose(
+  withOpenEvent('backoffice'),
   connect(
     (state) => ({
       alertings: alertingSelectors.getByKind(state),

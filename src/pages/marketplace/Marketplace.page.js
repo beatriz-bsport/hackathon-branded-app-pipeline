@@ -303,7 +303,10 @@ export class MarketPlace extends Component<Props, State> {
     }
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <GoogleTagManager theme={this.props.theme} />
+        <GoogleTagManager
+          username={(this.props.auth && this.props.auth.username) || ''}
+          theme={this.props.theme}
+        />
         <div className={classes.container}>
           <AppBar
             logo={this.props.theme.cover}

@@ -4,6 +4,9 @@ import axios from 'axios';
 
 import Config from './config';
 
+import { getSessionId } from './sentry/session';
+import { setTransactionId } from './sentry/transaction';
+
 const storage = window.localStorage;
 
 export const BASE_URI: string = Config.REACT_APP_BASE_URI;
@@ -45,6 +48,8 @@ export function getAuthToken(): ?string {
 
 export async function postBase(uri: string, data: Object, headers: Object) {
   const baseHeaders = {
+    'X-Transaction-ID': setTransactionId(),
+    'X-Session-ID': getSessionId(),
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
@@ -55,6 +60,8 @@ export async function postBase(uri: string, data: Object, headers: Object) {
 }
 export async function post(uri: string, data: Object, headers: Object) {
   const baseHeaders = {
+    'X-Transaction-ID': setTransactionId(),
+    'X-Session-ID': getSessionId(),
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
@@ -67,6 +74,8 @@ export async function post(uri: string, data: Object, headers: Object) {
 
 export async function put(uri: string, data: Object, headers: Object) {
   const baseHeaders = {
+    'X-Transaction-ID': setTransactionId(),
+    'X-Session-ID': getSessionId(),
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
@@ -78,6 +87,8 @@ export async function put(uri: string, data: Object, headers: Object) {
 
 export async function patch(uri: string, data: Object, headers: Object) {
   const baseHeaders = {
+    'X-Transaction-ID': setTransactionId(),
+    'X-Session-ID': getSessionId(),
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
@@ -89,6 +100,8 @@ export async function patch(uri: string, data: Object, headers: Object) {
 
 export async function delete_(uri: string, data, headers: Object) {
   const baseHeaders = {
+    'X-Transaction-ID': setTransactionId(),
+    'X-Session-ID': getSessionId(),
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
@@ -113,37 +126,65 @@ export async function getAuth(uri: string, token) {
   if (!token_ || token_ === 'null') {
     return get(uri);
   }
-  return get(uri, { Authorization: `Token ${token_}` });
+  return get(uri, {
+    'X-Transaction-ID': setTransactionId(),
+    'X-Session-ID': getSessionId(),
+    Authorization: `Token ${token_}`,
+  });
 }
 
 export async function postAuth(uri: string, data: Object, token): Promise<any> {
   const token_ = token || getAuthToken();
-  return post(uri, data, { Authorization: `Token ${token_}` });
+  return post(uri, data, {
+    'X-Transaction-ID': setTransactionId(),
+    'X-Session-ID': getSessionId(),
+    Authorization: `Token ${token_}`,
+  });
 }
 
 export async function postBaseAuth(uri: string, data: Object, token) {
   const token_ = token || getAuthToken();
-  return postBase(uri, data, { Authorization: `Token ${token_}` });
+  return postBase(uri, data, {
+    'X-Transaction-ID': setTransactionId(),
+    'X-Session-ID': getSessionId(),
+    Authorization: `Token ${token_}`,
+  });
 }
 
 export async function putAuth(uri: string, data: Object) {
   const token = getAuthToken();
-  return put(uri, data, { Authorization: `Token ${token}` });
+  return put(uri, data, {
+    'X-Transaction-ID': setTransactionId(),
+    'X-Session-ID': getSessionId(),
+    Authorization: `Token ${token}`,
+  });
 }
 
 export async function patchAuth(uri: string, data: Object) {
   const token = getAuthToken();
-  return patch(uri, data, { Authorization: `Token ${token}` });
+  return patch(uri, data, {
+    'X-Transaction-ID': setTransactionId(),
+    'X-Session-ID': getSessionId(),
+    Authorization: `Token ${token}`,
+  });
 }
 
 export async function deleteAuth(uri: string, data) {
   const token = getAuthToken();
-  return delete_(uri, data || {}, { Authorization: `Token ${token}` });
+  return delete_(uri, data || {}, {
+    'X-Transaction-ID': setTransactionId(),
+    'X-Session-ID': getSessionId(),
+    Authorization: `Token ${token}`,
+  });
 }
 
 export async function getJSONAuth(uri: string, token) {
   const token_ = token || getAuthToken();
-  const response = await get(uri, { Authorization: `Token ${token_}` });
+  const response = await get(uri, {
+    'X-Transaction-ID': setTransactionId(),
+    'X-Session-ID': getSessionId(),
+    Authorization: `Token ${token_}`,
+  });
 
   if (response.status !== 200 && response.status !== 201) {
     console.error(response);

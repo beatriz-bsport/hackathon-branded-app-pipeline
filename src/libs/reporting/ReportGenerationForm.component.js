@@ -25,6 +25,7 @@ import {
   Actions,
   defaultHandleSubmit,
 } from '../../components/forms';
+import withIntercomAction from '../../hocs/tracking/dispatch-action.hoc';
 
 import { getAuth } from '../../http';
 
@@ -55,7 +56,7 @@ function DownloadButton(props: DownloadButtonProps) {
     <Button
       variant="contained"
       color="secondary"
-      onClick={async () => {
+      onClick={withIntercomAction('Exported a report')(async () => {
         const response = await getAuth(exportLink);
         const link = document.createElement('a');
         link.setAttribute('type', 'hidden');
@@ -64,7 +65,7 @@ function DownloadButton(props: DownloadButtonProps) {
         document.body.appendChild(link);
         link.click();
         link.remove();
-      }}
+      })}
       disabled={!exportLink}
     >
       {t('common.export')}

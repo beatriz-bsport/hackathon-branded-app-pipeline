@@ -260,6 +260,8 @@ export class Backoffice extends Component<Props, State> {
               <Intercom
                 appID="q6foivp2"
                 email={this.props.username}
+                environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
+                role={this.props.permission.name}
                 action_color={this.props.theme.primary_color}
               />
             ) : null}
@@ -291,9 +293,6 @@ const styles = (theme: Object) => ({
 const themedBackoffice = withStyles(styles)(Backoffice);
 
 export default compose(
-  withStayEvent(`backoffice ${Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}`, [
-    1,
-  ]),
   connect(
     (state) => ({
       alertings: alertingSelectors.getByKind(state),

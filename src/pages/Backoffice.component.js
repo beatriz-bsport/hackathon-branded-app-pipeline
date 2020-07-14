@@ -266,8 +266,7 @@ export class Backoffice extends Component<Props, State> {
                 action_color={this.props.theme.primary_color}
               />
             ) : null}
-            <GoogleTagManager username={this.props.username} theme={{}} />
-
+            <GoogleTagManager username={this.props.username} isInternal />
             <main className={classes.content}>
               <BackofficeRoute
                 vodEnabled={this.props.theme ? this.props.theme.vod : null}

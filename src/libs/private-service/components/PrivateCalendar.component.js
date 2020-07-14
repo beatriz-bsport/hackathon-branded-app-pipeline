@@ -77,7 +77,10 @@ const offerAsEvent = (resourceDatatypeView) => (offer) => {
 
   return {
     start: offer.date_start,
-    end: moment(offer.date_start).add(offer.duration_minute, 'minutes'),
+    allDay: offer.duration_minute > 60 * 10,
+    end: moment(offer.date_start)
+      .add(offer.duration_minute, 'minutes')
+      .format(),
     title: offer.meta_activity ? offer.meta_activity.name : '',
     editable: false,
     extendedProps: {
@@ -257,6 +260,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
 
   state = {
     selectInfo: null,
+    allDaySlot: false,
 
     disableWithRecurrence: false,
     enableWithRecurrence: false,
@@ -304,12 +308,19 @@ export class PrivateCalendar extends React.Component<Props, State> {
       resourceDatatypeView: ?string,
       customEventList?: Array<CustomEvent>,
     ) => {
-      return [
+      const events = [
         ...availabilitySlots.map(availabilitySlotAsEvent),
         ...(offerList || []).map(offerAsEvent(resourceDatatypeView)),
         ...privateBookings.map(privateBookingAsEvent(resourceDatatypeView)),
         ...(customEventList || []).map(customEventAsEvent),
       ];
+
+      const allDaySlot = events.reduce((acc, v) => acc || v.allDay, false);
+
+      return {
+        events,
+        allDaySlot,
+      };
     },
   );
 
@@ -410,7 +421,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
 
   render() {
     const { classes, t } = this.props;
-    const events = this.getAvailableSlotAsEvents(
+    const { events, allDaySlot } = this.getAvailableSlotAsEvents(
       this.props.availabilitySlots,
       this.props.privateBookings,
       this.props.offerList,
@@ -469,7 +480,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
           locales={[frLocale, itLocale, deLocale, nlLocale]}
           minTime="06:00:00"
           maxTime="23:00:00"
-          allDaySlot={false}
+          allDaySlot={allDaySlot}
           eventClick={this.handleEventClick}
           datesRender={this.handleIntervalChange}
         />

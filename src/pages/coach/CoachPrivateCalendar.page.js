@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { compose, withState, withHandlers } from 'recompose';
+import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import moment from 'moment';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -35,9 +35,15 @@ import {
   fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
   fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
   resetPrivateBookings,
+  createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
+  fetchCustomEventList as fetchCustomEventListAction,
+  resetCustomEvent,
 } from '../../libs/private-service/actions';
 import { fetchMemberBulk as fetchMemberBulkAction } from '../../libs/member/actions';
 import { fetchCoachBulk } from '../../libs/associated-coach/actions';
+
+import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
+import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 
 type Props = {
   classes: Object,
@@ -73,6 +79,8 @@ type Props = {
 
   fetchCoach: (number) => void,
   periodFilter: { start: string, end: string },
+  fetchCustomEventList: () => void,
+  resetCustomEvent: () => void,
 };
 
 const styles = (theme) => ({
@@ -102,7 +110,12 @@ export class CoachPrivateCalendar extends React.Component<Props> {
       this.props.id !== prevProps.id
     ) {
       this.fetchWeekData();
+      this.props.fetchCustomEventList();
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetCustomEvent();
   }
 
   fetchWeekData = () => {
@@ -165,7 +178,18 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           showPrivateBookingToogle
           fetchAvailabilitySlots={this.fetchAvailabilitySlots}
           refreshOffers={this.fetchWeekData}
+          customEventList={this.props.customEventList}
+          createCustomEvent={this.props.onRequestCustomEvent}
+          showCustomEventsToogle
         />
+        {this.props.customEventData && (
+          <CustomEvenFormDialog
+            coaches={[this.props.coach]}
+            onSubmit={this.props.createOrUpdateCustomEvent}
+            onClose={this.props.closeCustomEventDialog}
+            open
+          />
+        )}
       </div>
     );
   }
@@ -183,10 +207,18 @@ export default compose(
       .endOf('week')
       .format('YYYY-MM-DD'),
   }),
+  withStateHandlers(
+    { customEventData: null },
+    {
+      closeCustomEventDialog: () => () => ({ customEventData: null }),
+      onRequestCustomEvent: () => (customEventData) => ({ customEventData }),
+    },
+  ),
   connect(
     (state, { id, periodFilter }) => ({
       availabilitySlots: getCoachAvailabilitySlots(state, id),
       coach: getCoach(state, id),
+      customEventList: getCustomEventList(state, periodFilter),
       privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
         state,
         null,
@@ -204,19 +236,38 @@ export default compose(
     {
       fetchCoach: (id) => fetchCoachBulk([id]),
       fetchMemberBulk: fetchMemberBulkAction,
+      fetchCustomEventList: fetchCustomEventListAction,
       fetchPrivateBookings: fetchPrivateBookingsAction,
       fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
       fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
       fetchAllOffers: fetchAllOffersAction,
       resetPrivateBookings,
+      resetCustomEvent,
       fetchAvailabilitySlots,
       resetAvailabilitySlots,
       disableCoachAvailabilitySlot,
       enableCoachAvailabilitySlot,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+      createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
     },
   ),
   withHandlers({
+    createOrUpdateCustomEvent: ({
+      createOrUpdateCustomEvent,
+      customEventData,
+      closeCustomEventDialog,
+    }) => (data, options) => {
+      createOrUpdateCustomEvent(
+        { ...data, ...customEventData },
+        {
+          onSuccess: (...args) => {
+            if (options && options.onSuccess) options.onSuccess(...args);
+            closeCustomEventDialog();
+          },
+          onError: options && options.onError,
+        },
+      );
+    },
     fetchOfferList: ({
       fetchAllOffers,
       fetchMetaActivityBulk,
@@ -274,6 +325,18 @@ export default compose(
           },
         },
       );
+    },
+    fetchCustomEventList: ({
+      fetchCustomEventList,
+      periodFilter,
+      id,
+    }) => () => {
+      fetchCustomEventList({
+        date_start__gte: periodFilter.start,
+        date_start__lte: periodFilter.end,
+        page_size: null,
+        coach: id,
+      });
     },
   }),
   withTitle(({ coach }) => {

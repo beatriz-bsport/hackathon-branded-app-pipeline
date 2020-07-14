@@ -1282,7 +1282,7 @@
       "createCustomEvent": "Créer un RDV perso",
       "selectCoachToModifyAvailability": "Sélectionnez un professeur",
       "addBooking": "Enregistrer un rendez-vous",
-      "toogle": { "showOfferList": "Afficher les cours collectifs", "showPrivateBookings": "Afficher les rendez-vous" },
+      "toogle": { "showOfferList": "Cours collectifs", "showPrivateBookings": "Rendez-vous", "showCustomEvents": "RDV perso" },
       "form": {
         "title": { "enable": "Ajouter une disponibilité", "disable": "Supprimer une disponibilité" },
         "explain": "Modification jusqu'au :",

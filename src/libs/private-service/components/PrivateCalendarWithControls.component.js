@@ -36,10 +36,13 @@ type Props = {
   offerList: Array<Offer>,
   showOfferList: boolean,
   showOfferListToogle: boolean,
+  showCustomEventsToogle: boolean,
   toogleShowOfferList: () => void,
   showPrivateBookings: boolean,
   toogleShowPrivateBookings: () => void,
   showPrivateBookingToogle: () => void,
+  showCustomEvents: boolean,
+  toogleShowCustomEvents: () => void,
 
   privateBookerOpen: boolean,
   closePrivateBooker: () => void,
@@ -59,6 +62,7 @@ type Props = {
   createCustomEvent: () => void,
   enableResourceAvailabilitySlot: () => void,
   availabilitySlots: Array<AvailabilitySlot>,
+  customEventList: Array<CustomEvent>,
 
   privateBookingId: number,
   offerId: number,
@@ -115,6 +119,17 @@ export const PrivateCalendarMultiResource = (props: Props) => (
               }
             />
           )}
+          {!!props.showCustomEventsToogle && (
+            <FormControlLabel
+              label={props.t('calendar.toogle.showCustomEvents')}
+              control={
+                <Checkbox
+                  checked={props.showCustomEvents}
+                  onChange={props.toogleShowCustomEvents}
+                />
+              }
+            />
+          )}
         </div>
         {!!props.resourcesByDatatype && !!props.resourcesByDatatype.length && (
           <ResourceDatatypeFilter
@@ -141,7 +156,9 @@ export const PrivateCalendarMultiResource = (props: Props) => (
         createCustomEvent={props.createCustomEvent}
         resources={props.resourceItemsFilter}
         resourceDatatypeView={props.resourceDatatypeFilter}
-        customEventList={props.customEventList}
+        customEventList={
+          props.showCustomEvents ? props.customEventList || [] : []
+        }
         enableResourceAvailabilitySlot={props.enableResourceAvailabilitySlot}
         availabilitySlots={props.availabilitySlots}
         privateBookings={
@@ -227,13 +244,16 @@ export default compose(
     },
   ),
   withStateHandlers(
-    { showPrivateBookings: true, showOfferList: true },
+    { showPrivateBookings: true, showOfferList: true, showCustomEvents: true },
     {
       toogleShowOfferList: ({ showOfferList }) => () => ({
         showOfferList: !showOfferList,
       }),
       toogleShowPrivateBookings: ({ showPrivateBookings }) => () => ({
         showPrivateBookings: !showPrivateBookings,
+      }),
+      toogleShowCustomEvents: ({ showCustomEvents }) => () => ({
+        showCustomEvents: !showCustomEvents,
       }),
     },
   ),

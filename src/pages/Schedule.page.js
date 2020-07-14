@@ -23,16 +23,7 @@ import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/me
 import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
 import { fetchMemberBulk as fetchMemberBulkAction } from '../libs/member/actions';
 import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
-import {
-  fetchCustomEventList as fetchCustomEventListAction,
-  resetCustomEvent,
-  fetchPrivateBookings as fetchPrivateBookingsAction,
-  resetPrivateBookings,
-  createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
-  fetchResourceList,
-  fetchAvailabilitySlots,
-  resetAvailabilitySlots,
-} from '../libs/private-service/actions';
+
 import { getCustomEventList } from '../libs/private-service/selectors/custom-event';
 import { getPermissions } from '../libs/role/selectors';
 import CustomEvenFormDialog from '../libs/private-service/components/custom-event/CustomEventFormDialog.component';
@@ -43,6 +34,17 @@ import {
 } from '../libs/private-service/selectors/availability-slot';
 
 import PrivateCalendarWithControls from '../libs/private-service/components/PrivateCalendarWithControls.component';
+
+import {
+  createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
+  fetchCustomEventList as fetchCustomEventListAction,
+  resetCustomEvent,
+  fetchPrivateBookings as fetchPrivateBookingsAction,
+  resetPrivateBookings,
+  fetchResourceList,
+  fetchAvailabilitySlots,
+  resetAvailabilitySlots,
+} from '../libs/private-service/actions';
 
 type Props = {
   classes: Object,
@@ -66,6 +68,8 @@ type Props = {
 
   permission: ?Permission,
   pushToCalendar: () => void,
+  fetchCustomEventList: () => void,
+  resetCustomEvent: () => void,
 };
 
 const styles = (theme) => ({
@@ -150,6 +154,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           resourceSelectedListIds={this.props.resourceFiltersArray}
           showOfferListToogle
           showPrivateBookingToogle
+          showCustomEventsToogle
         />
         {this.props.customEventData && (
           <CustomEvenFormDialog

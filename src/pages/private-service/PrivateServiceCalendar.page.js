@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { compose, withState, withHandlers } from 'recompose';
+import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import uniq from 'lodash/uniq';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -14,6 +14,7 @@ import {
   fetchFilteredMembers,
   fetchMemberBulk as fetchMemberBulkAction,
 } from '../../libs/member/actions';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { getPrivateServiceById } from '../../libs/private-service/selectors/private-service';
 import {
   getPrivateBookingListFiltered,
@@ -39,12 +40,18 @@ import {
   disableResourceAvailabilitySlot,
   enableResourceAvailabilitySlot,
   updateServiceResourceConfiguration,
+  createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
+  fetchCustomEventList as fetchCustomEventListAction,
+  resetCustomEvent,
 } from '../../libs/private-service/actions';
+import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
+import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
 
 type Props = {
   classes: Object,
   loading: boolean,
   privateBookingList: Array<PrivateBooking>,
+  availableCoaches: Array<Coach>,
   resourceData: ?ResourceData,
   resourceFiltersArray: Array<string>,
   setResourceFiltersArray: (Array<string>) => void,
@@ -80,6 +87,8 @@ type Props = {
   fetchPrivateServiceResourceData: (id: number, OptionCallback) => void,
   setResourceFiltersArray: (Array<string>) => void,
   fetchPrivateBookingList: () => void,
+  fetchCustomEventList: () => void,
+  resetCustomEvent: () => void,
 };
 
 type State = {
@@ -131,10 +140,12 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchPrivateServiceResourceData(this.props.id, {
-      onSuccess: (resourceData) =>
+      onSuccess: (resourceData) => {
         this.props.setResourceFiltersArray(
           resourceData.map((r) => r.resource_identifier),
-        ),
+        );
+        this.props.fetchCustomEventList();
+      },
     });
   }
 
@@ -146,7 +157,12 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     ) {
       this.fetchAvailabilitySlotsAllResource();
       this.props.fetchPrivateBookingList();
+      if (this.props.service) this.props.fetchCustomEventList();
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetCustomEvent();
   }
 
   storeResourceAvailabilityUpdate = (kind: string) => (...data: any) => {
@@ -218,7 +234,18 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           setResourceFiltered={this.props.setResourceFiltersArray}
           onEditResourceConfiguration={this.props.setResourceToEdit}
           fetchAvailabilitySlots={this.fetchAvailabilitySlotsAllResource}
+          customEventList={this.props.customEventList}
+          createCustomEvent={this.props.onRequestCustomEvent}
+          showCustomEventsToogle
         />
+        {this.props.customEventData && (
+          <CustomEvenFormDialog
+            coaches={this.props.service.coaches}
+            onSubmit={this.props.createOrUpdateCustomEvent}
+            onClose={this.props.closeCustomEventDialog}
+            open
+          />
+        )}
         {this.state.updateAvailabilitySlotData ? (
           <AvailabilityUpdateResourceChoserDialog
             resourceAvailable={this.props.resourceData}
@@ -262,6 +289,13 @@ export default compose(
       .endOf('week')
       .format('YYYY-MM-DD'),
   }),
+  withStateHandlers(
+    { customEventData: null },
+    {
+      closeCustomEventDialog: () => () => ({ customEventData: null }),
+      onRequestCustomEvent: () => (customEventData) => ({ customEventData }),
+    },
+  ),
   withHandlers({
     handleDateChange: ({ setPeriodFilter }) => ({
       date_start,
@@ -290,6 +324,8 @@ export default compose(
       privateBookingList: bookingWithAllRelatedField(
         getPrivateBookingListFiltered,
       )(state, { private_service: id }, periodFilter),
+      availableCoaches: getActiveCoaches(state),
+      customEventList: getCustomEventList(state, periodFilter),
     }),
     {
       fetchAvailabilitySlots,
@@ -297,6 +333,9 @@ export default compose(
       fetchPrivateService,
       fetchPrivateServiceResourceData,
       fetchPrivateBookings: fetchPrivateBookingListActions,
+      fetchCustomEventList: fetchCustomEventListAction,
+      resetCustomEvent,
+      createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
       fetchFilteredMembers,
       fetchMemberBulk: fetchMemberBulkAction,
       disableResourceAvailabilitySlot,
@@ -305,6 +344,34 @@ export default compose(
     },
   ),
   withHandlers({
+    createOrUpdateCustomEvent: ({
+      createOrUpdateCustomEvent,
+      customEventData,
+      closeCustomEventDialog,
+    }) => (data, options) => {
+      createOrUpdateCustomEvent(
+        { ...data, ...customEventData },
+        {
+          onSuccess: (...args) => {
+            if (options && options.onSuccess) options.onSuccess(...args);
+            closeCustomEventDialog();
+          },
+          onError: options && options.onError,
+        },
+      );
+    },
+    fetchCustomEventList: ({
+      fetchCustomEventList,
+      periodFilter,
+      service,
+    }) => () => {
+      fetchCustomEventList({
+        date_start__gte: periodFilter.start,
+        date_start__lte: periodFilter.end,
+        page_size: null,
+        associated_coach_in: service.coaches.map((c) => c.id),
+      });
+    },
     fetchPrivateBookingList: ({
       fetchPrivateBookings,
       periodFilter,

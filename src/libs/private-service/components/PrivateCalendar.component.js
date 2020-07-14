@@ -58,12 +58,13 @@ const customEventAsEvent = (customEvent) => ({
   end: customEvent.date_end,
   title: customEvent.name,
   editable: false,
+  resourceId: customEvent.associated_coaches.map((ac) => ac.coach),
   textColor: 'black',
   ...(customEvent.color ? { borderColor: customEvent.color } : {}),
   extendedProps: {
     customEventId: customEvent.id,
   },
-  classNames: [''],
+  resourceIds: customEvent.coaches,
 });
 
 const offerAsEvent = (resourceDatatypeView) => (offer) => {

@@ -197,8 +197,9 @@ exports.default = {
     addBooking: 'Enregistrer un rendez-vous',
 
     toogle: {
-      showOfferList: 'Afficher les cours collectifs',
-      showPrivateBookings: 'Afficher les rendez-vous',
+      showOfferList: 'Cours collectifs',
+      showPrivateBookings: 'Rendez-vous',
+      showCustomEvents: 'RDV perso',
     },
 
     form: {

@@ -26,7 +26,9 @@ export const PrivateBookingAttachCoachDialog = (props: Props) => {
         {props.associatedCoachList.map((c) => (
           <CoachListItem
             noEdit
-            onClick={() => props.onSubmit({ coach: c.id })}
+            onCoachSelected={() => {
+              props.onSubmit({ coach: c.id });
+            }}
             coach={c}
             key={c.id}
           />

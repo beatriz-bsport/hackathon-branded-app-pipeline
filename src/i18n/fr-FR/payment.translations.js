@@ -8,6 +8,7 @@ const {
   AMEX,
   BANK_TRANSFER,
   CREDIT_ACCOUNT,
+  DISPUTE,
   SUBSCRIPTION_CB,
   OTHER,
 } = require('@bsport/common/lib/master-data/payment-methods');
@@ -60,6 +61,7 @@ exports.default = {
     [CASH.id]: 'Espèces',
     [EVENT_BRITE.id]: 'EventBrite',
     [AMEX.id]: 'AMEX',
+    [DISPUTE.id]: 'Litige',
     [BANK_TRANSFER.id]: 'Virement',
     [CREDIT_ACCOUNT.id]: 'Compte interne (crédit)',
     [SUBSCRIPTION_CB.id]: 'Paiement automatique',

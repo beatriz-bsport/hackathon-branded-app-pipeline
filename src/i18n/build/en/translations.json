@@ -2379,8 +2379,9 @@
             "selectCoachToModifyAvailability": "Select a teacher",
             "addBooking": "Register an appointment",
             "toogle": {
-                "showOfferList": "Show group classes",
-                "showPrivateBookings": "Show appointments"
+                "showOfferList": "Group classes",
+                "showPrivateBookings": "Appointments",
+                "showCustomEvents": "Appointments"
             },
             "form": {
                 "title": {
@@ -3906,7 +3907,8 @@
             "2": "Check",
             "1": "Cash",
             "0": "Credit card",
-            "label": "Payment method"
+            "label": "Payment method",
+            "12": "Litigation"
         },
         "actions": {
             "addThisPaymentItem": "Add this payment method"

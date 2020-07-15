@@ -45,27 +45,43 @@ const styles = (theme) => ({
   leftIcon: { marginRight: theme.spacing(1) },
 });
 
-const availabilitySlotAsEvent = (slot) => ({
-  start: slot.date_start,
-  end: slot.date_end,
-  rendering: 'background',
-  classNames: slot.is_restriction ? ['isRestriction'] : [],
-  ...(slot.color ? { backgroundColor: slot.color } : {}),
-});
+const availabilitySlotAsEvent = (resourceDatatypeView) => (slot) => {
+  let resourceId = null;
+  if (resourceDatatypeView === 'establishment') {
+    resourceId = slot.establishment;
+  }
+  if (resourceDatatypeView === 'coach') {
+    resourceId = slot.coach;
+  }
 
-const customEventAsEvent = (customEvent) => ({
-  start: customEvent.date_start,
-  end: customEvent.date_end,
-  title: customEvent.name,
-  editable: false,
-  resourceId: customEvent.associated_coaches.map((ac) => ac.coach),
-  textColor: 'black',
-  ...(customEvent.color ? { borderColor: customEvent.color } : {}),
-  extendedProps: {
-    customEventId: customEvent.id,
-  },
-  resourceIds: customEvent.coaches,
-});
+  return {
+    start: slot.date_start,
+    end: slot.date_end,
+    rendering: 'background',
+    resourceId,
+    classNames: slot.is_restriction ? ['isRestriction'] : [],
+    ...(slot.color ? { backgroundColor: slot.color } : {}),
+  };
+};
+
+const customEventAsEvent = (resourceDatatypeView) => (customEvent) => {
+  let resourceIds = null;
+  if (resourceDatatypeView === 'coach') {
+    resourceIds = customEvent.associated_coaches.map((ac) => ac.coach_id);
+  }
+  return {
+    start: customEvent.date_start,
+    end: customEvent.date_end,
+    title: customEvent.name,
+    editable: false,
+    textColor: 'black',
+    ...(customEvent.color ? { borderColor: customEvent.color } : {}),
+    extendedProps: {
+      customEventId: customEvent.id,
+    },
+    resourceIds,
+  };
+};
 
 const offerAsEvent = (resourceDatatypeView) => (offer) => {
   let resourceId = null;
@@ -310,10 +326,12 @@ export class PrivateCalendar extends React.Component<Props, State> {
       customEventList?: Array<CustomEvent>,
     ) => {
       const events = [
-        ...availabilitySlots.map(availabilitySlotAsEvent),
+        ...availabilitySlots.map(availabilitySlotAsEvent(resourceDatatypeView)),
         ...(offerList || []).map(offerAsEvent(resourceDatatypeView)),
         ...privateBookings.map(privateBookingAsEvent(resourceDatatypeView)),
-        ...(customEventList || []).map(customEventAsEvent),
+        ...(customEventList || []).map(
+          customEventAsEvent(resourceDatatypeView),
+        ),
       ];
 
       const allDaySlot = events.reduce((acc, v) => acc || v.allDay, false);

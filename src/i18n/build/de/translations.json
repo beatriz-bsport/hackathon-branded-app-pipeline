@@ -1187,7 +1187,8 @@
         },
         "blockBooking": "Buchung nur für Kurskarten von neuen Kunden ermöglichen",
         "languageToolTip": "Auf der Web-Marketplace verfügbar",
-        "visibilityOfIconToolTip": "Unsichtbar"
+        "visibilityOfIconToolTip": "Unsichtbar",
+        "replaceCoach": "Den Lehrer ändern"
     },
     "smartList": {
         "filters": {
@@ -2225,7 +2226,9 @@
             "contract": "Vertrag",
             "shop": "Geschäft",
             "stock": "Aktuelles Inventar",
-            "stock_variation": "Änderung im Inventar"
+            "stock_variation": "Änderung im Inventar",
+            "author": "Autor",
+            "nb_bookings_same_pass": "Anzahl der Buchungen mit der gleichen Kurskarte"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -2451,6 +2454,10 @@
             "attachCoach": {
                 "success": "Dem Professor zugeordneter Termin",
                 "error": "Es ist unmöglich, es dem Professor zuzordnen"
+            },
+            "updateCoach": {
+                "error": "Es ist unmöglich, den Lehrer zu ändern",
+                "success": "Der Lehrer wurde geändert"
             }
         },
         "communication": {
@@ -2947,7 +2954,8 @@
             "option": {
                 "isFull": "Der Kurs ist voll. Sie können sich auf die Warteliste eintragen. Sie werden per E-Mail benachrichtigt, sobald ein Platz frei wird.",
                 "isAlreadyOnWaitingList": "Sie sind auf der Warteliste",
-                "registerOption": "Mich auf die Warteliste einschreiben"
+                "registerOption": "Mich auf die Warteliste einschreiben",
+                "isAlreadyRegistered": "Der Kurs ist voll, herzlichen Glückwunsch, Sie sind gut eingeschrieben !"
             },
             "offer": {
                 "isDisabled": "Der Kurs wurde leider abgesagt.",
@@ -3331,7 +3339,8 @@
                 "confirm": "Bestätigen",
                 "cancel": "Abbrechen",
                 "explain": "SInd Sie sich sicher, dass Sie diese Buchung stornieren möchten ? Diese Aktion ist unwiderruflich.",
-                "explainHardDelete": "Diese Buchung wurde bereits gelöscht. Wenn Sie sie löschen, verschwindet sie vollständig aus dem Kalender und Sie verlieren den Verlauf. Sie wird zurückerstattet, wenn s ienicht bereits zuvor zurückerstattet wurde. Diese Aktion ist unwiderruflich."
+                "explainHardDelete": "Diese Buchung wurde bereits gelöscht. Wenn Sie sie löschen, verschwindet sie vollständig aus dem Kalender und Sie verlieren den Verlauf. Sie wird zurückerstattet, wenn s ienicht bereits zuvor zurückerstattet wurde. Diese Aktion ist unwiderruflich.",
+                "sendCancellationMail": "{{name}} über die Stornierung des Termins per E-Mail benachrichtigen"
             },
             "detail": {
                 "wasRefunded": "Zurückerstattete Kreditpunkte auf der Kurskarte",
@@ -3372,7 +3381,8 @@
             "hardDelete": "Löschen",
             "discard": "Den Termin stornieren",
             "cancel": "Stornieren",
-            "editTime": "Ändern"
+            "editTime": "Ändern",
+            "updateCoach": "Einen neuen Lehrer für diesen Termin auswählen"
         },
         "service": {
             "configuration": {
@@ -3465,6 +3475,9 @@
                 "coach": {
                     "isEmpty": "Keine Lehrer eingerichtet !",
                     "label": "Lehrer"
+                },
+                "last_booking_minutes": {
+                    "label": "Letzte mögliche Buchung vor Kursbeginn"
                 }
             },
             "parameters": {
@@ -3480,11 +3493,14 @@
                     "title": "Einrichtung"
                 },
                 "last_discard_minutes": {
-                    "explain": "Die letzte erstattungsfähige Stornierung ist möglich {{ days }} Tag(e) {{ hours }} Std. {{ minute }} Min vor dem Termin"
+                    "explain": "Die letzte erstattungsfähige Stornierung ist möglich {{ days }} Tag(e) {{ hours }} Std. {{ minutes }} Min vor dem Termin"
                 },
                 "coaches": {
                     "is_empty": "Kein Lehrer ist erforderlich",
                     "title": "Lehrer"
+                },
+                "last_booking_minutes": {
+                    "explain": "Die letzte mögliche Buchung ist möglich {{ days }} Tag(e) {{ hours }} Std. {{ minutes }} Min vor dem Termin"
                 }
             },
             "selector": {
@@ -3575,6 +3591,9 @@
                     "cancel": "Stornieren"
                 },
                 "color": "Farbcode"
+            },
+            "selector": {
+                "title": "Verfügbarkeiten anzeigen"
             }
         },
         "privatePass": {
@@ -3729,7 +3748,8 @@
             "enableAvailability": "An diesem Tag eine Verfügbarkeit hinzufügen",
             "header": {
                 "threeDaysView": "3 Tage"
-            }
+            },
+            "createCustomEvent": "Einen Termin erstellen"
         },
         "privateEstablishment": {
             "delete": {
@@ -3795,7 +3815,31 @@
             "delete": "Löschen"
         },
         "noPrivatePass": "Die Terminkarten ermöglichen den Mitgliedern, Termine zu vereinbaren. Definieren Sie hier die Preise und Bedingungen.",
-        "noPrivateService": "Ein Termin kann vom Mitglied auf dem von Ihnen gewählten Slot gebucht werden."
+        "noPrivateService": "Ein Termin kann vom Mitglied auf dem von Ihnen gewählten Slot gebucht werden.",
+        "customEvent": {
+            "form": {
+                "name": {
+                    "placeholder": "Termin mit der Bank",
+                    "label": "Name"
+                },
+                "actions": {
+                    "submit": "Speichern",
+                    "cancel": "Abbrechen"
+                },
+                "description": {
+                    "placeholder": "Fragen Sie nach Herrn Müller auf Währinger Str. 1",
+                    "label": "Beschreibung"
+                },
+                "coach": {
+                    "isEmpty": "Kein Lehrer"
+                },
+                "color": "Farbcode",
+                "title": "Termin"
+            },
+            "actions": {
+                "delete": "Löschen"
+            }
+        }
     },
     "communication": {
         "recipient": {

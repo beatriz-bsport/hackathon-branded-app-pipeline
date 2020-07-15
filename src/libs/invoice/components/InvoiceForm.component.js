@@ -71,7 +71,7 @@ export class InvoiceForm extends React.Component<Props, State> {
           ...privatePass,
           price: parseFloat(privatePass.price).toFixed(2),
           voucher: '0.00',
-          buyable_item_identifier: privatePass.id,
+          buyable_item_id: privatePass.id,
         });
       }
       if (initialItems.withCredit) {

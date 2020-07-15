@@ -413,13 +413,13 @@ export function deleteNote({
         response.status === 204
       ) {
         dispatch(actionDeleteNoteSuccess(noteId, memberId));
-        dispatch(snackbarSuccess('form.member.delete.success'));
+        dispatch(snackbarSuccess('member.delete.success'));
       } else {
-        dispatch(snackbarError('form.member.delete.error'));
+        dispatch(snackbarError('member.delete.error'));
         dispatch(actionDeleteNoteError());
       }
     } catch (e) {
-      dispatch(snackbarError('form.member.delete.error'));
+      dispatch(snackbarError('member.delete.error'));
       dispatch(actionDeleteNoteError());
     }
   };

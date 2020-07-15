@@ -155,6 +155,10 @@ exports.default = {
       title: 'Edition des informations',
       success: 'Membre modifié avec succès',
     },
+    createOrUpdate: {
+      success: 'Informations enregistrées',
+      error: "Erreur lors de l'enregistrement",
+    },
   },
   activity: {
     create: {

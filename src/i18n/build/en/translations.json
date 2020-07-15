@@ -1779,7 +1779,8 @@
         },
         "languageToolTip": "Available on the web marketplace",
         "visibilityOfIconToolTip": "Unavailable",
-        "blockBooking": "Only possible to book with passes of new customers"
+        "blockBooking": "Only possible to book with passes of new customers",
+        "replaceCoach": "Change the teacher"
     },
     "search": {
         "input": "Search...",
@@ -2263,6 +2264,9 @@
                 "associated_establishment": "Locations",
                 "associated_coach": "Teacher",
                 "private_service": "General"
+            },
+            "selector": {
+                "title": "See the availabilities"
             }
         },
         "pageTitles": {
@@ -2337,7 +2341,8 @@
                     "confirm": "Confirm",
                     "cancel": "Cancel",
                     "title": "Cancel appointment"
-                }
+                },
+                "sendCancellationMail": "Notify {{name}} of the appointment's cancellation by email"
             },
             "discard": "Cancel the appointment",
             "updateTime": {
@@ -2354,7 +2359,8 @@
                 },
                 "explain": "Choose a teacher to assign this appointment and add it to his calendar",
                 "title": "Assignment to the teacher"
-            }
+            },
+            "updateCoach": "Choose a new teacher for this appointment"
         },
         "privateService": {
             "delete": {
@@ -2393,7 +2399,8 @@
             },
             "header": {
                 "threeDaysView": "3 days"
-            }
+            },
+            "createCustomEvent": "Create an appointment"
         },
         "selector": {
             "privateService": "Select your appointment",
@@ -2712,6 +2719,9 @@
                 },
                 "managerOnly": {
                     "label": "Unavailable for client purchase"
+                },
+                "last_booking_minutes": {
+                    "label": "Before class, the last booking is possible until"
                 }
             },
             "parameters": {
@@ -2731,7 +2741,10 @@
                     "explainIsEmpty": "Define session types (duration, cost)"
                 },
                 "last_discard_minutes": {
-                    "explain": "The last refundable cancellation is possible {{days}} day (s) {{hours}} hour (s) {{minute}} minute (s) before the appointment"
+                    "explain": "The last refundable cancellation is possible {{days}} day (s) {{hours}} hour (s) {{minutes}} minute (s) before the appointment"
+                },
+                "last_booking_minutes": {
+                    "explain": "The last reservation is possible {{days}} day (s) {{hours}} hour (s) {{minutes}} minute (s) before the appointment"
                 }
             },
             "navigation": {
@@ -2756,7 +2769,31 @@
         },
         "openCalendar": "Show calendar",
         "noPrivateService": "An appointment can be booked by the member on the slot you have chosen.",
-        "noPrivatePass": "Appointment passes allow members to make appointments, define here your rates and terms and conditions."
+        "noPrivatePass": "Appointment passes allow members to make appointments, define here your rates and terms and conditions.",
+        "customEvent": {
+            "form": {
+                "actions": {
+                    "submit": "Save",
+                    "cancel": "Cancel"
+                },
+                "description": {
+                    "placeholder": "Ask for Mr. Smith at Oxford Street 1",
+                    "label": "Description"
+                },
+                "coach": {
+                    "isEmpty": "No teacher"
+                },
+                "color": "Color code",
+                "name": {
+                    "placeholder": "Bank appointment",
+                    "label": "Name"
+                },
+                "title": "Appointment"
+            },
+            "actions": {
+                "delete": "Delete"
+            }
+        }
     },
     "relationship": {
         "member": {
@@ -4399,7 +4436,9 @@
             "start_date_time": "Starting date",
             "start_date_date": "Billing start date",
             "fee": "Fee",
-            "bsport_fee": "Transaction fees"
+            "bsport_fee": "Transaction fees",
+            "author": "Author",
+            "nb_bookings_same_pass": "Number of bookings with the same pass"
         },
         "yes": "Yes",
         "no": "No",
@@ -5088,7 +5127,8 @@
             "option": {
                 "isAlreadyOnWaitingList": "You are enlisted on the waiting-list",
                 "isFull": "The class is full, you can still register to the waiting-list. You will be notified by email if a slot becomes available.",
-                "registerOption": "Register to the waiting-list"
+                "registerOption": "Register to the waiting-list",
+                "isAlreadyRegistered": "The session is full, congratulations you are signed in !"
             },
             "offer": {
                 "isDisabled": "Unfortunately the class has been canceled.",
@@ -6088,6 +6128,10 @@
             "attachCoach": {
                 "error": "It is impossible to assign to the teacher",
                 "success": "Appointment assigned to the teacher"
+            },
+            "updateCoach": {
+                "error": "It is impossible to edit the teacher",
+                "success": "The teacher has been edited"
             }
         },
         "playlist": {

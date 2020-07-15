@@ -2660,7 +2660,8 @@
             "1": "Bargeld",
             "0": "Kreditkarte",
             "9": "Internes Konto (Kreditpunkte)",
-            "label": "Zahlungsmethode"
+            "label": "Zahlungsmethode",
+            "12": "Streitfall"
         },
         "generalTermsAndConditions": {
             "close": "Schließen",
@@ -3737,8 +3738,9 @@
                 }
             },
             "toogle": {
-                "showPrivateBookings": "Termine anzeigen",
-                "showOfferList": "Gruppenkurse anzeigen"
+                "showPrivateBookings": "Termine",
+                "showOfferList": "Gruppenkurse",
+                "showCustomEvents": "Termin"
             },
             "addBooking": "Einen Termin speichern",
             "selectCoachToModifyAvailability": "Einen Lehrer auswählen",

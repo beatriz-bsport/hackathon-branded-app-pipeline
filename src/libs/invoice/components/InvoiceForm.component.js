@@ -103,7 +103,10 @@ export class InvoiceForm extends React.Component<Props, State> {
         ...prevState.invoiceItemList,
         {
           ...item,
-          voucher: Math.min(parseFloat(item.price), item.voucher || 0),
+          voucher:
+            parseFloat(item.price) >= 0
+              ? Math.min(parseFloat(item.price), item.voucher || 0)
+              : 0,
           buyable_item_identifier,
         },
       ],

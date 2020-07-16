@@ -170,27 +170,6 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               <Typography className={classes.explainCredit}>
                 {t('subscription:paymentMethod.credit.explain')}
               </Typography>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
-                <Checkbox />
-                <Typography variant="caption" className={classes.explainCredit}>
-                  iErstellen Sie jeden Monat eine Schuld, die dem Betrag des
-                  Abonnements entspricht
-                </Typography>
-              </div>
-              <TextField
-                fullWidth
-                value="DE91100000000123456789"
-                label="Zusätzliche Information"
-                row={3}
-                multiline
-                variant="outlined"
-              />
             </div>
           ) : null}
           {paymentMethod === 'sepa_debit' ? (

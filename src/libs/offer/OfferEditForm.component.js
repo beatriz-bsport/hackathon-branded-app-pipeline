@@ -391,7 +391,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
               ) : null}
               {Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
                 <div className={this.props.classes.fieldLeft}>
-                  <Checkbox label="Bloquer la réservation aux cartes de cours nouveaux clients" />
+                  <Checkbox label={this.props.t('onlyNewMember')} />
                 </div>
               ) : null}
               <div className={this.props.classes.fieldLeft}>

@@ -553,7 +553,7 @@ export class OfferForm extends Component<Props, State> {
         </Grid>
         {Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
           <Grid item>
-            <Checkbox label="Bloquer la réservation aux cartes de cours nouveaux clients" />
+            <Checkbox label={this.props.t('onlyNewMember')} />
           </Grid>
         ) : null}
       </Grid>

@@ -4,6 +4,7 @@ exports.default = {
   bookingConfirmed: 'Réservation confirmée',
   button: { login: 'Connexion' },
   openSchedule: "Voir l'emploi du temps",
+  onlyNewMember: 'Bloquer la réservation aux cartes de cours nouveaux clients',
 
   visibilityOfIconToolTip: 'Non visible',
   languageToolTip: 'Disponible sur marketplace web',

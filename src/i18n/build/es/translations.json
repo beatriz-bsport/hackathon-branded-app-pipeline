@@ -974,7 +974,8 @@
         "blockBooking": "Bloquear la reserva a las tarjetas de curso nuevos clientes",
         "languageToolTip": "Disponible en el marketplace web",
         "visibilityOfIconToolTip": "No visible",
-        "replaceCoach": "Cambiar el profesor"
+        "replaceCoach": "Cambiar el profesor",
+        "onlyNewMember": "Bloquear la reserva a las tarjetas de curso nuevos clientes"
     },
     "search": {
         "input": "Buscar...",
@@ -1518,7 +1519,8 @@
             "4": "Tarjeta de crédito (manual)",
             "2": "Cheque",
             "1": "Efectivo",
-            "0": "Tarjeta de crédito"
+            "0": "Tarjeta de crédito",
+            "12": "Litigio"
         },
         "creditAccountBalance": {
             "current": "Anticipo actual"
@@ -3156,6 +3158,9 @@
                     "cancel": "Cancelar"
                 },
                 "color": "Código de colores"
+            },
+            "selector": {
+                "title": "Ver las disponibilidades"
             }
         },
         "serviceGroup": {
@@ -3194,8 +3199,9 @@
                 }
             },
             "toogle": {
-                "showPrivateBookings": "Mostrar las citas",
-                "showOfferList": "Mostrar los cursos de grupo"
+                "showPrivateBookings": "Citas",
+                "showOfferList": "Cursos de grupo",
+                "showCustomEvents": "Cita personal"
             },
             "addBooking": "Registrar una cita",
             "selectCoachToModifyAvailability": "Seleccionar un profesor",
@@ -4000,6 +4006,10 @@
             },
             "link": {
                 "success": "Cuenta vinculada exitosamente"
+            },
+            "createOrUpdate": {
+                "error": "Error al guardar",
+                "success": "Informaciones registradas"
             }
         },
         "establishment": {

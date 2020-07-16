@@ -1780,7 +1780,8 @@
         "languageToolTip": "Available on the web marketplace",
         "visibilityOfIconToolTip": "Unavailable",
         "blockBooking": "Only possible to book with passes of new customers",
-        "replaceCoach": "Change the teacher"
+        "replaceCoach": "Change the teacher",
+        "onlyNewMember": "Only possible to book with passes of new customers"
     },
     "search": {
         "input": "Search...",

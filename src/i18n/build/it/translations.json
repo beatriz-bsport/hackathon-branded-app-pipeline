@@ -1750,7 +1750,8 @@
                 "explain": "Sei sicuro di voler eliminare questa carta? Le persone che hanno ancora crediti saranno ancora in grado di usarle. Questa operazione è definitiva",
                 "cancel": "Annulla",
                 "submit": "Conferma",
-                "title": "Cancellazione della carta"
+                "title": "Cancellazione della carta",
+                "delete": "Rimuovi"
             },
             "list": {
                 "createButton": "Crea un appuntamento"
@@ -1760,7 +1761,8 @@
                 "managerOnly": "Invisibile ai clienti",
                 "price": "{{price}} €",
                 "tax": "I.V.A. :{{ tax }}%"
-            }
+            },
+            "edit": "Modifica"
         },
         "openCalendar": "Vedi il calendario",
         "service": {
@@ -1886,7 +1888,7 @@
                     "is_empty": "Nessun insegnante è richiesto"
                 },
                 "last_discard_minutes": {
-                    "explain": "L'ultima cancellazione rimborsabile è possibile {{days}} giorno(i) {{hours}} ora(e) {{minute}} minuto(i) prima dell'appuntamento"
+                    "explain": "L'ultima cancellazione rimborsabile è possibile {{days}} giorno(i) {{hours}} ora(e) {{minutes}} minuto(i) prima dell'appuntamento"
                 },
                 "last_booking_minutes": {
                     "explain": "Ultima prenotazione possibile {{days}} giorno(i) {{hours}} ora e) {{minutes}} minuto(i) prima dell'appuntamento"
@@ -1927,7 +1929,8 @@
             "actions": {
                 "delete": "Rimuovi"
             }
-        }
+        },
+        "noPrivateConsumerPass": "Nessuno ha questa carta per appuntamenti"
     },
     "video": {
         "video": {
@@ -3217,7 +3220,8 @@
             "payment_price": "Prezzo",
             "name": "Nome",
             "payment_method_amex": "AMEX (American Express)",
-            "nb_bookings_same_pass": "Nb prenotazione tramite lo stesso pass"
+            "nb_bookings_same_pass": "Nb prenotazione tramite lo stesso pass",
+            "author": "Autore"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -3852,7 +3856,8 @@
             "option": {
                 "isFull": "La sessione è piena, puoi registrarti nella lista d'attesa, riceverai una notifica via email quando un posto sarà disponibile.",
                 "registerOption": "Iscrivimi nella lista di attesa",
-                "isAlreadyOnWaitingList": "Sei già in lista d'attesa"
+                "isAlreadyOnWaitingList": "Sei già in lista d'attesa",
+                "isAlreadyRegistered": "La sessione è piena, congratulazioni, sei ben registrato!"
             }
         },
         "details": {
@@ -5260,7 +5265,17 @@
             "modifyOffer": "Modifica",
             "deleteOffer": "Annulla"
         },
-        "manageOffer": "Gestisci le mie prenotazioni"
+        "manageOffer": "Gestisci le mie prenotazioni",
+        "massDisabler": {
+            "actions": {
+                "submit": "Conferma",
+                "cancel": "Annulla"
+            },
+            "explain": "Seleziona l'intervallo di date in cui desideri annullare le sessioni. I membri che hanno prenotato riceveranno una notifica via e-mail e i loro crediti verranno automaticamente rimborsati sulla scheda del corso corrispondente",
+            "explainLoading": "Attendere prego",
+            "title": "Annullamento di gruppo",
+            "explainWarning": "ATTENZIONE questa operazione è irreversibile."
+        }
     },
     "role": {
         "userRoles": "Contabilità del personale",

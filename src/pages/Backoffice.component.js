@@ -9,6 +9,7 @@ import Intercom from 'react-intercom';
 import { compose, withHandlers } from 'recompose';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import GoogleTagManager from '../components/GoogleTagManager.component';
+import RELEASE from '../release'
 
 import { Context } from '../context';
 
@@ -261,7 +262,8 @@ export class Backoffice extends Component<Props, State> {
               <Intercom
                 appID="q6foivp2"
                 email={this.props.username}
-                environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
+		environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
+		release={RELEASE}
                 role={this.props.permission.name}
                 action_color={this.props.theme.primary_color}
               />

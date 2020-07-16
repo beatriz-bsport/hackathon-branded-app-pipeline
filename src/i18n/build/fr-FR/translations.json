@@ -2477,7 +2477,8 @@
       },
       "error": "Impossible de sauvegarder le membre",
       "create": { "title": "Nouveau membre", "success": "Membre créé avec succès" },
-      "update": { "title": "Edition des informations", "success": "Membre modifié avec succès" }
+      "update": { "title": "Edition des informations", "success": "Membre modifié avec succès" },
+      "createOrUpdate": { "success": "Informations enregistrées", "error": "Erreur lors de l'enregistrement" }
     },
     "activity": {
       "create": { "success": "Activité sauvegardée", "error": "Impossible de sauvegarder l'activité" },

@@ -1188,7 +1188,8 @@
         "blockBooking": "Buchung nur für Kurskarten von neuen Kunden ermöglichen",
         "languageToolTip": "Auf der Web-Marketplace verfügbar",
         "visibilityOfIconToolTip": "Unsichtbar",
-        "replaceCoach": "Den Lehrer ändern"
+        "replaceCoach": "Den Lehrer ändern",
+        "onlyNewMember": "Buchung nur für Kurskarten von neuen Kunden ermöglichen"
     },
     "smartList": {
         "filters": {

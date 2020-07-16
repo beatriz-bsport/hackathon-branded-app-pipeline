@@ -38,7 +38,7 @@ export const InvoiceItem = (props: Props) => {
       <div className={classes.line} />
       <div className={classes.secondaryAction}>
         <Typography className={invoiceItem.reverted ? classes.revert : null}>
-          {invoiceItem.price - (voucher || 0)} €
+          {parseFloat(invoiceItem.price - (voucher || 0)).toFixed(2)} €
         </Typography>
         {!!invoiceItem.editable && onDelete && (
           <IconButton

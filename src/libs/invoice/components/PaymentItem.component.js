@@ -85,7 +85,7 @@ export const PaymentItem = (props: Props) => {
       <div className={classes.line} />
       <div className={classes.secondaryAction}>
         <div className={paymentItem.reverted ? classes.revert : null}>
-          {`${paymentItem.price} €`}
+          {`${parseFloat(paymentItem.price).toFixed(2)} €`}
         </div>
         {!!paymentItem.editable && !!props.onDelete && (
           <IconButton onClick={props.onDelete}>

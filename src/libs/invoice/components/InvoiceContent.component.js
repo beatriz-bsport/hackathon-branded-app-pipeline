@@ -59,7 +59,9 @@ export const InvoiceContent = (props: Props) => {
               <Typography variant="h6" component="p">
                 {t('section.invoiceItemList.total')}
               </Typography>
-              <Typography variant="h5">{`${props.amountInvoiceitem} €`}</Typography>
+              <Typography variant="h5">{`${parseFloat(
+                props.amountInvoiceitem,
+              ).toFixed(2)} €`}</Typography>
             </div>
           </div>
         </div>

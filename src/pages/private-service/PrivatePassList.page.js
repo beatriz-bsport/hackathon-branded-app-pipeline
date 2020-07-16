@@ -15,6 +15,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { push as pushRouter } from 'connected-react-router';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import themeSelectors from '../../libs/theme/selectors';
 import { snackbarSuccess } from '../../actions/snackbar.actions';
@@ -37,6 +38,7 @@ import type {
   PrivatePass,
   PrivateService,
 } from '../../libs/private-service/types';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 type Props = {
   loading: boolean,
@@ -55,8 +57,6 @@ type Props = {
     id: ?number,
     options: ?{ onSuccess?: () => void, onError?: () => void },
   ) => void,
-  setSelectedPass: (id: number) => void,
-
   classes: Object,
   t: TFunction,
 
@@ -64,6 +64,7 @@ type Props = {
   openDeletePassDialog: number,
   deletePrivatePass: (id: number) => void,
   snackbarSuccess: (string) => void,
+  goToPass: (id: number) => void,
 };
 
 export class PrivatePassList extends React.Component<Props> {
@@ -117,7 +118,11 @@ export class PrivatePassList extends React.Component<Props> {
                     pass={pass}
                     key={pass.id}
                     divider
-                    onClick={() => this.props.setSelectedPass(pass.id)}
+                    onClick={() => {
+                      this.props.goToPass(pass.id);
+                    }}
+                    onDelete={() => this.props.setOpenDeletePassDialog(pass.id)}
+                    updatePrivatePass={this.props.createOrUpdatePrivatePass}
                   />
                 ))}
               </List>
@@ -206,6 +211,9 @@ const styles = (theme) => ({
 });
 
 export default compose(
+  routerParamsToProps({
+    id: 'id:number',
+  }),
   withTranslation(['privateService']),
   withTitle(({ t }) => t('pageTitles.passList')),
   withStyles(styles),
@@ -219,6 +227,7 @@ export default compose(
     {
       fetchPrivatePassList,
       fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
+      goToPass: (id: number) => pushRouter(`/private-service/pass/${id}`),
       createOrUpdatePrivatePass,
       createCompatibleServicePass,
       deleteCompatibleServicePass,

@@ -273,9 +273,9 @@ export const fetchCompatiblePrivateConsumerPass = (
 
 export const fetchPrivateConsumerPassList = (params: any) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_consumer_pass/${buildUrlParams(
-      params,
-    )}`,
+    `${API_V1_URI}/private_service/private_consumer_pass/${buildUrlParams({
+      ...(params || {}),
+    })}`,
   );
 };
 

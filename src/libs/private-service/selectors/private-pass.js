@@ -1,6 +1,7 @@
 // @flow
 
 import { createSelector } from 'reselect';
+import memoize from 'memoize-one';
 import type { State } from '../../../state/types';
 import type { PrivatePass, PrivatePassWithService } from '../types';
 import { _getPrivateServiceDict } from './private-service';
@@ -11,6 +12,15 @@ const _getPrivatePassAsConsumerIds = (state) =>
 
 const _getPrivatePassListIds = (state) =>
   state.privateService.privatePass.allIds;
+
+export const getPrivatePassById = (
+  state: State,
+): Array<PrivatePassWithService> => state.privateService.privatePass.byId;
+
+export const getPrivatePass = (
+  state: State,
+  id: number,
+): PrivatePassWithService => getPrivatePassById(state)[id];
 
 export const getPrivatePassListBase: (State) => Array<PrivatePass> = createSelector(
   [_getPrivatePassData, _getPrivatePassListIds],
@@ -41,4 +51,42 @@ export const getPrivatePassListWithPrivateService: (State) => Array<PrivatePassW
 export const getPrivatePassAvailableListWithPrivateService: (State) => Array<PrivatePassWithService> = createSelector(
   getPrivatePassListWithPrivateService,
   (passList) => passList.filter((p) => p.available),
+);
+
+export const withServices = memoize((selector) =>
+  createSelector(
+    [selector, _getPrivateServiceDict],
+    (passesList, servicesById) => {
+      if (!passesList) {
+        return passesList;
+      }
+      if (Array.isArray(passesList)) {
+        return passesList.map((pass) => ({
+          ...pass,
+          private_services: pass.private_services.map((ps) => servicesById[ps]),
+        }));
+      }
+      if (passesList) {
+        return {
+          ...passesList,
+          private_services: passesList.private_services.map(
+            (ps) => servicesById[ps],
+          ),
+        };
+      }
+      return passesList;
+    },
+  ),
+);
+
+export const withAvailable = memoize((selector) =>
+  createSelector(
+    selector,
+    (passList) => {
+      if (!passList) return passList;
+      if (Array.isArray(passList)) return passList.filter((p) => p.available);
+      if (passList.available) return passList;
+      return null;
+    },
+  ),
 );

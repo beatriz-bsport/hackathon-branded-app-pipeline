@@ -1023,7 +1023,7 @@ export function createOrUpdatePrivatePass(
     try {
       const response = await createOrUpdatePrivatePassAPI(data, id);
       dispatch(privatePassCreateOrUpdateActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
+      if (options && options.onSuccess) options.onSuccess(response.data);
       if (!id) {
         dispatch(fetchPrivatePassList());
       }
@@ -1042,7 +1042,7 @@ export const privatePassDeleteActions = {
   success: createAction('PRIVATE_PASS/DELETE/SUCCESS'),
 };
 
-export function deletePrivatePass(id: number) {
+export function deletePrivatePass(id: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(privatePassDeleteActions.isLoading(true));
     dispatch(privatePassDeleteActions.error(null));
@@ -1050,9 +1050,11 @@ export function deletePrivatePass(id: number) {
       const response = await deletePrivatePassAPI(id);
       dispatch(privatePassDeleteActions.success(response.data));
       dispatch(fetchPrivatePassRetrieve(id));
+      if (options && options.onSuccess) options.onSuccess(id);
     } catch (err) {
       console.error(err);
       dispatch(privatePassDeleteActions.error(err));
+      if (options && options.onError) options.onError(err);
     }
     dispatch(privatePassDeleteActions.isLoading(false));
   };
@@ -1120,6 +1122,12 @@ export const privateConsumerPassListActions = {
   success: createAction('PRIVATE_CONSUMER_PASS/LIST/SUCCESS'),
 };
 
+export const byPrivatePass = {
+  isLoading: createAction('BY_PRIVATE_PASS/IS_LOADING'),
+  error: createAction('BY_PRIVATE_PASS/ERROR'),
+  success: createAction('BY_PRIVATE_PASS/SUCCESS'),
+};
+
 export function fetchPrivateConsumerPassList(
   params: any,
   options: ?{ onSuccess: () => void, onError: ?() => void },
@@ -1139,6 +1147,49 @@ export function fetchPrivateConsumerPassList(
     dispatch(privateConsumerPassListActions.isLoading(false));
   };
 }
+//
+export function fetchByPrivatePass(
+  privatePassId: number,
+  page?: number,
+  page_size?: number,
+  options: OptionCallback,
+  params: any,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(byPrivatePass.isLoading(true));
+    dispatch(byPrivatePass.error(null));
+    try {
+      const response = await fetchPrivateConsumerPassListAPI(
+        {
+          private_pass: privatePassId,
+          page,
+          page_size,
+        },
+        params,
+      );
+
+      // dispatch(byPrivatePass.success({results: response.data,count: 10, page: page || 1,}),);
+      dispatch(byPrivatePass.success({ ...response.data, page: page || 1 }));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(byPrivatePass.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(byPrivatePass.isLoading(false));
+  };
+}
+
+export function resetByPrivatePass() {
+  return async (dispatch: Dispatch) => {
+    dispatch(byPrivatePass.success({ results: [], count: 0, page: 1 }));
+    dispatch(byPrivatePass.isLoading(false));
+  };
+}
+
+// -------------------------
 
 export function fetchCompatiblePrivateConsumerPass(
   privateSlotId: number,

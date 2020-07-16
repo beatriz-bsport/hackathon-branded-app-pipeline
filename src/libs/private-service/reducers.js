@@ -30,6 +30,7 @@ import {
   privatePassCreateOrUpdateActions,
   privatePassRetrieveActions,
   privateConsumerPassListActions,
+  byPrivatePass,
   privateConsumerPassRetrieveActions,
   privateConsumerPassUpdateCreditActions,
   updateResourceConfigurationActions,
@@ -75,6 +76,21 @@ const initialState: PrivateServiceState = Immutable({
       loading: false,
       error: null,
     },
+    byPrivatePass: {
+      error: null,
+      loading: false,
+      privatePassId: null,
+      allIds: [],
+      page: null,
+      count: null,
+    },
+    byMember: {
+      loading: false,
+      error: null,
+      allIds: [],
+      page: 1,
+      count: 0,
+    },
     extension: {
       items: [],
       loading: false,
@@ -87,6 +103,7 @@ const initialState: PrivateServiceState = Immutable({
         loading: false,
         error: null,
       },
+      updatingConsumerPass: [],
     },
   },
   resource: {
@@ -740,6 +757,39 @@ export default handleActions(
       return state.merge(
         { privatePass: { byId: { [payload.id]: payload } } },
         { deep: true },
+      );
+    },
+
+    [byPrivatePass.isLoading]: (state, { payload }) => {
+      return state.setIn(
+        ['privateConsumerPass', 'byPrivatePass', 'loading'],
+        payload,
+      );
+    },
+    [byPrivatePass.success]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['privateConsumerPass', 'byPrivatePass', 'allIds'],
+          payload.results.map((cpp) => cpp.id),
+        )
+        .merge(
+          {
+            privateConsumerPass: {
+              byId: payload.results.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(['privateConsumerPass', 'byPrivatePass', 'count'], payload.count)
+        .setIn(['privateConsumerPass', 'byPrivatePass', 'page'], payload.page);
+    },
+    [byPrivatePass.error]: (state, { payload }) => {
+      return state.setIn(
+        ['privateConsumerPass', 'byPrivatePass', 'error'],
+        payload,
       );
     },
     [privatePassRetrieveActions.isLoading]: (state, { payload }) => {

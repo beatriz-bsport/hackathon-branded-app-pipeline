@@ -1,4 +1,5 @@
 exports.default = {
+  noPrivateConsumerPass: "Personne n'a cette carte de rendez-vous",
   noPrivatePass:
     'Les cartes RDV permettent aux membres de prendre RDV, définissez ici vos tarifs et modalités.',
   noPrivateService:
@@ -368,6 +369,7 @@ exports.default = {
     },
   },
   privatePass: {
+    edit: 'Modifier',
     validForDuration: {
       days: 'Valide {{ duration_days }} jours',
       months: 'Valide {{ duration_months }} mois',
@@ -376,6 +378,7 @@ exports.default = {
         'Valide {{ duration_days }} jours {{ duration_months }} mois et {{ duration_years }} an',
     },
     delete: {
+      delete: 'Supprimer',
       title: 'Suppression de la carte',
       explain:
         'Êtes-vous sûr de vouloir supprimer cette carte ? Les personnes possédant encore des crédits pourront toujours les utiliser. Cette opération est définitive',

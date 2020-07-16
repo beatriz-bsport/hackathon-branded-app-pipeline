@@ -131,16 +131,31 @@ export const PrivateConsumerPassDetail = (props: Props) => {
             )}
           />
         </Paper>
-        <PrivateBookingDisableDialog
-          open={!!props.privateBookingToDelete}
-          private_booking={props.privateBookingToDelete}
-          onClose={() => props.setPrivateBookingToDelete(null)}
-          onSubmit={(force_refund) => {
-            if (
-              props.privateBookingToDelete.booking_status_code ===
-              BOOKING_STATUS_OK.id
-            ) {
-              props.disablePrivateBooking(
+        {!!props.privateBookingToDelete && (
+          <PrivateBookingDisableDialog
+            open={!!props.privateBookingToDelete}
+            private_booking={props.privateBookingToDelete}
+            onClose={() => props.setPrivateBookingToDelete(null)}
+            onSubmit={(force_refund) => {
+              if (
+                props.privateBookingToDelete.booking_status_code ===
+                BOOKING_STATUS_OK.id
+              ) {
+                props.disablePrivateBooking(
+                  props.privateBookingToDelete.id,
+                  { force_refund },
+                  {
+                    onSuccess: () => {
+                      props.fetchPrivateConsumerPass(
+                        props.privateBookingToDelete.private_consumer_pass,
+                      );
+                      props.setPrivateBookingToDelete(null);
+                    },
+                  },
+                );
+                return;
+              }
+              props.deletePrivateBooking(
                 props.privateBookingToDelete.id,
                 { force_refund },
                 {
@@ -152,22 +167,9 @@ export const PrivateConsumerPassDetail = (props: Props) => {
                   },
                 },
               );
-              return;
-            }
-            props.deletePrivateBooking(
-              props.privateBookingToDelete.id,
-              { force_refund },
-              {
-                onSuccess: () => {
-                  props.fetchPrivateConsumerPass(
-                    props.privateBookingToDelete.private_consumer_pass,
-                  );
-                  props.setPrivateBookingToDelete(null);
-                },
-              },
-            );
-          }}
-        />
+            }}
+          />
+        )}
       </div>
     </div>
   );

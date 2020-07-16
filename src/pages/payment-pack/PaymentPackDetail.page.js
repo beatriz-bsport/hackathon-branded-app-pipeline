@@ -216,7 +216,6 @@ export class PaymentPackDetail extends Component<Props, State> {
             goToSmartlist={this.props.goToSmartlist}
           />
         </Grid>
-
         <Grid item xs={12} md={6}>
           <Paper>
             <PaginatedConsumerPackList

@@ -2,7 +2,6 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,11 +9,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
+
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import LinkIcon from '@material-ui/icons/Link';
@@ -34,7 +32,6 @@ type Props = {
   pass: PrivatePass,
   private_services: Array<PrivateService>,
   theme: Theme,
-  onDelete: ?() => void,
   setOpenEditForm: (boolean) => void,
   openEditForm: boolean,
   deleteCompatibleServicePass: (
@@ -94,16 +91,6 @@ export const PrivatePassDetail = (props: Props) => {
     <div>
       <Paper className={props.classes.paperContainer}>
         <Typography variant="h3">{props.pass.name}</Typography>
-        <div className={props.classes.editButton}>
-          <IconButton onClick={() => props.setOpenEditForm(true)}>
-            <EditIcon />
-          </IconButton>
-          {props.onDelete ? (
-            <IconButton onClick={props.onDelete}>
-              <DeleteIcon />
-            </IconButton>
-          ) : null}
-        </div>
         <div className={props.classes.priceParameters}>
           <Typography variant="subtitle" color="textSecondary">
             {props.t('privatePass.parameters.nbCredits', {
@@ -129,6 +116,7 @@ export const PrivatePassDetail = (props: Props) => {
             </div>
           ) : null}
         </div>
+        {renderLinkToPaymentPage()}
         <Typography variant="h6" component="h4">
           {props.t('privatePass.compatibleServices.title')}
         </Typography>
@@ -139,13 +127,14 @@ export const PrivatePassDetail = (props: Props) => {
         ) : null}
         <List>
           {props.pass.private_services
+            .filter((ps) => !!ps)
             .filter((ps) => ps.available)
             .map((ps) => (
               <PrivateServiceListItem
                 hideSecondary
                 privateService={ps}
                 key={ps.id}
-                onCancel={() => props.setOpenDeleteCompatibility(ps.id)}
+                onDelete={() => props.setOpenDeleteCompatibility(ps.id)}
               />
             ))}
         </List>
@@ -181,7 +170,6 @@ export const PrivatePassDetail = (props: Props) => {
             <AddIcon /> {props.t('privatePass.compatibleServices.add')}
           </Button>
         )}
-        {renderLinkToPaymentPage()}
       </Paper>
       <Dialog open={props.openEditForm}>
         <DialogTitle>{props.t('privatePass.form.title')}</DialogTitle>
@@ -230,6 +218,9 @@ const styles = (theme) => ({
     position: 'relative',
     padding: theme.spacing(2),
   },
+  iconLeft: {
+    marginRight: theme.spacing(2),
+  },
   editButton: {
     position: 'absolute',
     top: 0,
@@ -244,6 +235,12 @@ const styles = (theme) => ({
     '&>*': {
       paddingRight: theme.spacing(1),
     },
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    flexWrap: 'nowrap',
   },
   row: {
     display: 'flex',

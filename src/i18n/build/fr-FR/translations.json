@@ -1140,6 +1140,7 @@
     }
   },
   "privateService": {
+    "noPrivateConsumerPass": "Personne n'a cette carte de rendez-vous",
     "noPrivatePass": "Les cartes RDV permettent aux membres de prendre RDV, définissez ici vos tarifs et modalités.",
     "noPrivateService": "Un rendez-vous est réservable sur le créneau que vous avez choisi, par le membre.",
     "serviceGroup": {
@@ -1398,6 +1399,7 @@
       }
     },
     "privatePass": {
+      "edit": "Modifier",
       "validForDuration": {
         "days": "Valide {{ duration_days }} jours",
         "months": "Valide {{ duration_months }} mois",
@@ -1405,6 +1407,7 @@
         "general": "Valide {{ duration_days }} jours {{ duration_months }} mois et {{ duration_years }} an"
       },
       "delete": {
+        "delete": "Supprimer",
         "title": "Suppression de la carte",
         "explain": "Êtes-vous sûr de vouloir supprimer cette carte ? Les personnes possédant encore des crédits pourront toujours les utiliser. Cette opération est définitive",
         "cancel": "Annuler",

@@ -3,6 +3,8 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
 import { withStyles } from '@material-ui/core/styles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -29,12 +31,19 @@ type Props = {
   onUpdateCredit?: (id: number, credits: 1, options: OptionCallback) => void,
   creditProcessing: boolean,
   setCreditProcessing: (boolean) => void,
+  showMember?: boolean,
 };
 
 export const PrivateConsumerPassBookerListItem = (props: Props) => {
-  const { private_consumer_pass, t, classes } = props;
+  const { private_consumer_pass, showMember, t, classes } = props;
   const { private_pass } = private_consumer_pass;
   const expirationDate = getExpirationDate(private_consumer_pass);
+  let { name } = private_pass;
+  if (showMember) {
+    name =
+      (private_consumer_pass.member && private_consumer_pass.member.name) ||
+      ' - ';
+  }
   return (
     <ListItem
       divider={!!props.divider}
@@ -44,10 +53,15 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
       onClick={props.onClick}
       className={private_consumer_pass.reverted ? classes.disabled : null}
     >
+      {showMember && private_consumer_pass && private_consumer_pass.member && (
+        <ListItemAvatar>
+          <Avatar src={private_consumer_pass.member.photo} />
+        </ListItemAvatar>
+      )}
       <ListItemText
         primary={
           <div>
-            <Typography>{private_pass.name}</Typography>
+            <Typography>{name}</Typography>
             <Typography variant="caption">
               {t('consumerPass.current_credits', {
                 credits: private_pass.credits,

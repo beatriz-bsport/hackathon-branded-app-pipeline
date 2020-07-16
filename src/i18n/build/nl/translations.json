@@ -1207,7 +1207,8 @@
         "blockBooking": "Blokkeer reservering voor cursuskaarten voor nieuwe klanten",
         "languageToolTip": "Beschikbaar op marketplace web",
         "visibilityOfIconToolTip": "Niet zichtbaar",
-        "onlyNewMember": "Blokkeer reservering voor cursuskaarten voor nieuwe klanten"
+        "onlyNewMember": "Blokkeer reservering voor cursuskaarten voor nieuwe klanten",
+        "replaceCoach": "Wijzig de instructeur"
     },
     "communication": {
         "mail": {
@@ -1539,13 +1540,19 @@
             "total_price": "Gefactureerd bedrag inclusief belasting",
             "marketplace_enabled": "Beschikbaar op de marktplaats",
             "description": "Beschrijving",
-            "bsport_fee": "Transactiekosten"
+            "bsport_fee": "Transactiekosten",
+            "nb_bookings_same_pass": "Aantal boekingen met dezelfde pas",
+            "author": "Auteur"
         },
         "report": {
             "delete_message": "Weet u zeker dat u het {{name}} - rapport wilt verwijderen?"
         },
         "no": "Nee",
-        "yes": "Ja"
+        "yes": "Ja",
+        "subheader": {
+            "total": "Totaal",
+            "average": "Gemiddelde"
+        }
     },
     "alerting": {
         "list": {
@@ -2481,7 +2488,17 @@
             }
         },
         "substitute": "Vervanger",
-        "manageOffer": "Beheer mijn reserveringen"
+        "manageOffer": "Beheer mijn reserveringen",
+        "massDisabler": {
+            "explainLoading": "Gelieve te wachten",
+            "explain": "Selecteer de periode waarover u uw sessies wilt annuleren. Leden die hebben geboekt, worden per e-mail op de hoogte gebracht en hun tegoed wordt automatisch teruggestort op de bijbehorende cursuskaart",
+            "explainWarning": "LET OP deze handeling is onomkeerbaar.",
+            "actions": {
+                "cancel": "Annuleren",
+                "submit": "Bevestigen"
+            },
+            "title": "Groepsannulering"
+        }
     },
     "emailTemplate": {
         "editTitle": "model bewerken",
@@ -2663,7 +2680,8 @@
             "option": {
                 "registerOption": "Registreer op wachtlijst",
                 "isAlreadyOnWaitingList": "Je staat op de wachtlijst",
-                "isFull": "De sessie is vol, u kunt zich inschrijven op de wachtlijst, u krijgt per e-mail bericht wanneer er plaats vrij komt."
+                "isFull": "De sessie is vol, u kunt zich inschrijven op de wachtlijst, u krijgt per e-mail bericht wanneer er plaats vrij komt.",
+                "isAlreadyRegistered": "De sessie is vol, gefeliciteerd, je bent goed geregistreerd!"
             },
             "offer": {
                 "isDisabled": "De sessie is helaas geannuleerd.",
@@ -3419,7 +3437,8 @@
                 "title": "Annulering reservering",
                 "explain": "Weet u zeker dat u deze reservering wilt annuleren? Deze operatie is onomkeerbaar.",
                 "explainForceRefund": "Restitutie van het tegoed dat op de kaart is gebruikt om een nieuwe reservering mogelijk te maken.",
-                "cancel": "Annuleren"
+                "cancel": "Annuleren",
+                "sendCancellationMail": "Breng {{name}} op de hoogte van de annulering van de afspraak via e-mail"
             },
             "editTime": "Bewerken",
             "updateTime": {
@@ -3452,7 +3471,8 @@
                 },
                 "explain": "Kies een coach om deze afspraak toe te wijzen en voeg deze toe aan zijn/haar agenda",
                 "title": "Toewijzing aan coach"
-            }
+            },
+            "updateCoach": "Kies een nieuwe instructeur voor deze afspraak"
         },
         "privateService": {
             "delete": {
@@ -3488,10 +3508,12 @@
             "disableRecurrentAvailability": "Verwijder terugkerende beschikbaarheid",
             "addBooking": "Bewaar een afspraak",
             "toogle": {
-                "showOfferList": "Toon groepslessen",
-                "showPrivateBookings": "Bekijk afspraken"
+                "showOfferList": "Groepslessen",
+                "showPrivateBookings": "Afspraken",
+                "showCustomEvents": "Persoonlijke afspraak"
             },
-            "enableAvailability": "Voeg een beschikbaarheid voor deze dag toe"
+            "enableAvailability": "Voeg een beschikbaarheid voor deze dag toe",
+            "createCustomEvent": "Maak een persoonlijke afspraak aan"
         },
         "slotSearcher": {
             "selectPrivateSlot": "Selecteer een sessie",
@@ -3682,7 +3704,8 @@
                 "title": "Kaart verwijderen",
                 "explain": "Weet je zeker dat je deze kaart wilt verwijderen? Mensen die nog credits hebben, kunnen deze nog steeds gebruiken. Deze operatie is definitief",
                 "cancel": "Annuleren",
-                "submit": "Bevestigen"
+                "submit": "Bevestigen",
+                "delete": "Verwijderen"
             },
             "list": {
                 "createButton": "Maak een afspraakkaart"
@@ -3697,7 +3720,8 @@
                 "title": "Compatibele afspraken",
                 "add": "Toevoegen",
                 "isEmpty": "Geen enkele afspraak is compatibel - onbruikbaar"
-            }
+            },
+            "edit": "Wijzigen"
         },
         "service": {
             "form": {
@@ -3777,6 +3801,9 @@
                 "actions": {
                     "cancel": "Annuleren",
                     "submit": "Opslaan"
+                },
+                "last_booking_minutes": {
+                    "label": "Voor aanvang van de afspraak, laatste reservering mogelijk"
                 }
             },
             "parameters": {
@@ -3796,10 +3823,10 @@
                     "is_empty": "Geen instructeur nodig"
                 },
                 "last_discard_minutes": {
-                    "explain": "De laatste restitueerbare annulering is mogelijk {{days}} dag (en) {{hours}} uur / uren {{minute}} minuut / minuten voor de afspraak"
+                    "explain": "De laatste restitueerbare annulering is mogelijk {{days}} dag (en) {{hours}} uur / uren {{minutes}} minuut / minuten voor de afspraak"
                 },
                 "last_booking_minutes": {
-                    "explain": "De laatste restitueerbare annulering is mogelijk {{days}} dag (en) {{hours}} uur / uren {{minute}} minuut / minuten voor de afspraak"
+                    "explain": "De laatste restitueerbare annulering is mogelijk {{days}} dag (en) {{hours}} uur / uren {{minutes}} minuut / minuten voor de afspraak"
                 }
             },
             "selector": {
@@ -3879,6 +3906,9 @@
                 "associated_establishment": "Plaatsen",
                 "associated_coach": "Instructeur",
                 "private_service": "Algemeen"
+            },
+            "selector": {
+                "title": "Bekijk beschikbaarheid"
             }
         },
         "privateCoach": {
@@ -3939,7 +3969,8 @@
             "actions": {
                 "delete": "Verwijderen"
             }
-        }
+        },
+        "noPrivateConsumerPass": "Niemand bezit deze afspraakkaart"
     },
     "datetime": {
         "form": {
@@ -4336,6 +4367,10 @@
             "update": {
                 "title": "Informatie bewerken",
                 "success": "Lid succesvol gewijzigd"
+            },
+            "createOrUpdate": {
+                "success": "Informatie opgeslagen",
+                "error": "Fout bij opslaan"
             }
         },
         "activity": {
@@ -4468,6 +4503,10 @@
             "attachCoach": {
                 "error": "Kan niet toewijzen aan instructeur",
                 "success": "Afspraak toegewezen aan instructeur"
+            },
+            "updateCoach": {
+                "error": "Instructeur kan niet gewijzigd worden",
+                "success": "De instructeur werd gewijzigd"
             }
         }
     },

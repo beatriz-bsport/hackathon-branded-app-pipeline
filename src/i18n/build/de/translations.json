@@ -2379,6 +2379,10 @@
             "update": {
                 "title": "Änderung der Informationen",
                 "success": "Mitglied erfolgreich geändert"
+            },
+            "createOrUpdate": {
+                "error": "Fehler beim Speichern",
+                "success": "Informationen gespeichert"
             }
         },
         "role": {

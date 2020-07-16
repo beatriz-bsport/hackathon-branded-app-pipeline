@@ -5982,6 +5982,10 @@
                 "error": "Impossible to merge members",
                 "seeMemberPage": " See member page",
                 "success": "Members merged"
+            },
+            "createOrUpdate": {
+                "error": "Error while saving",
+                "success": "Information saved"
             }
         },
         "establishment": {

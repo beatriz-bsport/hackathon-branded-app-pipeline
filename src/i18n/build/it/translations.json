@@ -918,7 +918,9 @@
         },
         "blockBooking": "Blocca la prenotazione per le nuove schede del corso del cliente",
         "languageToolTip": "Disponibile sul marketplace",
-        "visibilityOfIconToolTip": "Non visibile"
+        "visibilityOfIconToolTip": "Non visibile",
+        "replaceCoach": "Cambia insegnante",
+        "onlyNewMember": "Blocca la prenotazione per le nuove schede del corso del cliente"
     },
     "notificationRule": {
         "tag": {
@@ -1434,6 +1436,9 @@
                     "cancel": "Annulla",
                     "submit": "Iscriviti"
                 }
+            },
+            "selector": {
+                "title": "Verificare la disponibilità"
             }
         },
         "pageTitles": {
@@ -1515,7 +1520,8 @@
                 "confirm": "Conferma",
                 "explainHardDelete": "Questa prenotazione è già stata cancellata, eliminandola scompare completamente dal calendario e si perde la cronologia. Verrà rimborsato se non lo è stato in precedenza. Questa operazione è irreversibile.",
                 "title": "Prenotazione annullata",
-                "explain": "Sei sicuro di voler cancellare questa prenotazione? Questa operazione è irreversibile."
+                "explain": "Sei sicuro di voler cancellare questa prenotazione? Questa operazione è irreversibile.",
+                "sendCancellationMail": "Notifica {{name}} della cancellazione dell'appuntamento via e-mail"
             },
             "attachCoach": {
                 "title": "Affidato all'insegnante",
@@ -1525,7 +1531,8 @@
                     "title": "Assegna un insegnante"
                 }
             },
-            "discard": "Annulla l'appuntamento"
+            "discard": "Annulla l'appuntamento",
+            "updateCoach": "Scegli un nuovo insegnante per questo appuntamento"
         },
         "privateService": {
             "delete": {
@@ -1577,10 +1584,12 @@
             "selectCoachToModifyAvailability": "Seleziona un insegnante",
             "addBooking": "Salva un appuntamento",
             "toogle": {
-                "showOfferList": "Mostra lezioni di gruppo",
-                "showPrivateBookings": "Visualizza gli appuntamenti"
+                "showOfferList": "Lezioni di gruppo",
+                "showPrivateBookings": "Appuntamenti",
+                "showCustomEvents": "Appuntamento personale"
             },
-            "enableAvailability": "Aggiungi disponibilità oggi"
+            "enableAvailability": "Aggiungi disponibilità oggi",
+            "createCustomEvent": "Crea un appuntamento personale"
         },
         "selector": {
             "privateService": "Seleziona il tuo appuntamento",
@@ -1855,7 +1864,10 @@
                     "content": "Sei sicuro di voler eliminare questo tipo di appuntamento?",
                     "cancel": "Annulla"
                 },
-                "color": "Codice colore"
+                "color": "Codice colore",
+                "last_booking_minutes": {
+                    "label": "Prima dell'inizio dell'appuntamento, ultima prenotazione possibile"
+                }
             },
             "parameters": {
                 "description": "Descrizione",
@@ -1874,7 +1886,10 @@
                     "is_empty": "Nessun insegnante è richiesto"
                 },
                 "last_discard_minutes": {
-                    "explain": "L'ultima cancellazione rimborsabile è possibile {{days}} giorno (i) {{hours}} ora (e) {{minute}} minuto (i) prima dell'appuntamento"
+                    "explain": "L'ultima cancellazione rimborsabile è possibile {{days}} giorno(i) {{hours}} ora(e) {{minute}} minuto(i) prima dell'appuntamento"
+                },
+                "last_booking_minutes": {
+                    "explain": "Ultima prenotazione possibile {{days}} giorno(i) {{hours}} ora e) {{minutes}} minuto(i) prima dell'appuntamento"
                 }
             },
             "detail": {
@@ -1888,7 +1903,31 @@
             }
         },
         "noPrivateService": "Un appuntamento è prenotabile nello slot che hai scelto, dal membro.",
-        "noPrivatePass": "Le schede degli appuntamenti consentono ai membri di fissare un appuntamento, definire prezzi e condizioni."
+        "noPrivatePass": "Le schede degli appuntamenti consentono ai membri di fissare un appuntamento, definire prezzi e condizioni.",
+        "customEvent": {
+            "form": {
+                "actions": {
+                    "submit": "Iscriviti",
+                    "cancel": "Annulla"
+                },
+                "description": {
+                    "placeholder": "Chiedi al signor Charles agli Champs Elysées n 1",
+                    "label": "Descrizione"
+                },
+                "coach": {
+                    "isEmpty": "Nessun insegnante"
+                },
+                "color": "Codice colore",
+                "name": {
+                    "placeholder": "Appuntamento bancario",
+                    "label": "Nome"
+                },
+                "title": "Appuntamento personale"
+            },
+            "actions": {
+                "delete": "Rimuovi"
+            }
+        }
     },
     "video": {
         "video": {
@@ -2523,6 +2562,10 @@
             "create": {
                 "success": "Socio creato con successo",
                 "title": "Nuovo membro"
+            },
+            "createOrUpdate": {
+                "error": "Errore durante il salvataggio",
+                "success": "Informazioni registrate"
             }
         },
         "communication": {
@@ -2582,6 +2625,10 @@
             "attachCoach": {
                 "success": "Appuntamento assegnato all'insegnante",
                 "error": "Impossibile assegnare al professore"
+            },
+            "updateCoach": {
+                "error": "Impossibile modificare l'insegnante",
+                "success": "L'insegnante è stato modificato"
             }
         },
         "order": {
@@ -2731,7 +2778,7 @@
                     "1": "Web",
                     "0": "App"
                 },
-                "clientAuthor": "cliente",
+                "clientAuthor": "Cliente",
                 "author": "Creato da: {{name}}",
                 "date": "Data: {{date}}"
             },
@@ -2754,6 +2801,13 @@
                 "isEmpty": "Nessun acquisto",
                 "title": "Acquisti"
             }
+        },
+        "invoiceInfoDialog": {
+            "actions": {
+                "close": "Chiudi",
+                "show": "Visualizza fattura"
+            },
+            "explain": "Uno o più pagamenti non sono stati effettuati correttamente, l'acconto del cliente riflette il mancato pagamento"
         }
     },
     "coach": {
@@ -3162,7 +3216,8 @@
             "price": "Prezzo",
             "payment_price": "Prezzo",
             "name": "Nome",
-            "payment_method_amex": "AMEX (American Express)"
+            "payment_method_amex": "AMEX (American Express)",
+            "nb_bookings_same_pass": "Nb prenotazione tramite lo stesso pass"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -3205,7 +3260,11 @@
             "delete_message": "Sei sicuro di voler eliminare il rapporto {{name}}?"
         },
         "yes": "Sì",
-        "no": "No"
+        "no": "No",
+        "subheader": {
+            "average": "Media",
+            "total": "Totale"
+        }
     },
     "alerting": {
         "unevenInvoice": {
@@ -4274,7 +4333,8 @@
                 "submit": "Iscriviti",
                 "cancel": "Annulla",
                 "is": " è ",
-                "title": "Relazione"
+                "title": "Relazione",
+                "shareEmail": "Invia sempre una copia per email"
             },
             "item": {
                 "edit": "Modifica",
@@ -4637,7 +4697,8 @@
             "9": "Conto interno (di credito)",
             "10": "Pagamento automatico",
             "11": "Altro",
-            "label": "Metodi di pagamento"
+            "label": "Metodi di pagamento",
+            "12": "Contenzioso"
         },
         "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
         "method": {

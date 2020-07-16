@@ -1206,7 +1206,8 @@
         },
         "blockBooking": "Blokkeer reservering voor cursuskaarten voor nieuwe klanten",
         "languageToolTip": "Beschikbaar op marketplace web",
-        "visibilityOfIconToolTip": "Niet zichtbaar"
+        "visibilityOfIconToolTip": "Niet zichtbaar",
+        "onlyNewMember": "Blokkeer reservering voor cursuskaarten voor nieuwe klanten"
     },
     "communication": {
         "mail": {
@@ -3796,6 +3797,9 @@
                 },
                 "last_discard_minutes": {
                     "explain": "De laatste restitueerbare annulering is mogelijk {{days}} dag (en) {{hours}} uur / uren {{minute}} minuut / minuten voor de afspraak"
+                },
+                "last_booking_minutes": {
+                    "explain": "De laatste restitueerbare annulering is mogelijk {{days}} dag (en) {{hours}} uur / uren {{minute}} minuut / minuten voor de afspraak"
                 }
             },
             "selector": {
@@ -3911,7 +3915,31 @@
             }
         },
         "noPrivateService": "Een afspraak kan geboekt worden in de door u gekozen tijdslot, door het lid.",
-        "noPrivatePass": "Met de afspraakkaarten kunnen leden een afspraak maken, hier definieert u uw prijzen en voorwaarden."
+        "noPrivatePass": "Met de afspraakkaarten kunnen leden een afspraak maken, hier definieert u uw prijzen en voorwaarden.",
+        "customEvent": {
+            "form": {
+                "actions": {
+                    "submit": "Opslaan",
+                    "cancel": "Annuleren"
+                },
+                "description": {
+                    "placeholder": "Vraag naar Mr. Charles op 1 Champs Elysées",
+                    "label": "Beschrijving"
+                },
+                "coach": {
+                    "isEmpty": "Geen instructeur"
+                },
+                "color": "Kleurcode",
+                "name": {
+                    "placeholder": "Afspraak bank",
+                    "label": "Naam"
+                },
+                "title": "Persoonlijke afspraak"
+            },
+            "actions": {
+                "delete": "Verwijderen"
+            }
+        }
     },
     "datetime": {
         "form": {
@@ -4098,7 +4126,8 @@
             "8": "EventBrite",
             "9": "Interne rekening (tegoed)",
             "11": "Diverse",
-            "label": "Betalingsmiddel"
+            "label": "Betalingsmiddel",
+            "12": "Procesvoering"
         },
         "explainOption": "Je krijgt per e-mail bericht wanneer er een plaats vrij komt",
         "bookAnotherOption": "Meld u opnieuw aan op de wachtlijst",
@@ -4563,7 +4592,8 @@
                     "placeholder": "Zoon"
                 },
                 "cancel": "Annuleren",
-                "is": " is "
+                "is": " is ",
+                "shareEmail": "Stuur altijd een kopie per e-mail"
             },
             "list": {
                 "pleaseSelectOne": "Selecteer een relatie om gedeelde leskaarten te bekijken",
@@ -5072,6 +5102,13 @@
         },
         "creditAccountBalance": {
             "current": "Huidige aanbetaling"
+        },
+        "invoiceInfoDialog": {
+            "actions": {
+                "close": "Sluiten",
+                "show": "Zie factuur"
+            },
+            "explain": "Een of meer betalingen zijn niet correct uitgevoerd, de aanbetaling van het lid weerspiegelt de betalingsfout"
         }
     },
     "waitingList": {

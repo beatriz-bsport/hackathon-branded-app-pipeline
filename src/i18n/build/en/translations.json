@@ -2552,7 +2552,8 @@
                 "title": "Deleting pass",
                 "explain": "Are you sure you want to delete this pass? People who still have credits will still be able to use them. This operation is final",
                 "cancel": "Cancel",
-                "submit": "Confirm"
+                "submit": "Confirm",
+                "delete": "Delete"
             },
             "list": {
                 "createButton": "Create an appointment pass"
@@ -2612,7 +2613,8 @@
                 "years": "Valid for {{ duration_years }} years",
                 "months": "Valid for {{ duration_months }} months",
                 "days": "Valid for {{ duration_days }} days"
-            }
+            },
+            "edit": "Edit"
         },
         "service": {
             "selector": {
@@ -2795,7 +2797,8 @@
             "actions": {
                 "delete": "Delete"
             }
-        }
+        },
+        "noPrivateConsumerPass": "Nobody has this pass for appointments"
     },
     "relationship": {
         "member": {

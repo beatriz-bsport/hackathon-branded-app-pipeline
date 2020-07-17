@@ -3652,7 +3652,8 @@
                 "explain": "Sind Sie sich sicher, dass Sie diese Karte löschen möchten ? Diejenigen, die noch über Kreditpunkte verfügen, können diese weiterhin benutzen. Diese Aktion ist unwiderruflich",
                 "submit": "Bestätigen",
                 "cancel": "Abbrechen",
-                "title": "Karte löschen"
+                "title": "Karte löschen",
+                "delete": "Löschen"
             },
             "compatibleServices": {
                 "title": "Kompatible Termine",
@@ -3667,7 +3668,8 @@
                 "months": "Gültig für {{ duration_months }} Monat(e)",
                 "years": "Gültig für {{ duration_years }} Jahr(e)",
                 "days": "Gültig für {{ duration_days }} Tage"
-            }
+            },
+            "edit": "Ändern"
         },
         "consumerPass": {
             "current_credits": "{{ current_credits }}/{{credits}} Kreditpunkte",
@@ -3846,7 +3848,8 @@
             "actions": {
                 "delete": "Löschen"
             }
-        }
+        },
+        "noPrivateConsumerPass": "Kein Mitglied hat diese Terminkarte"
     },
     "communication": {
         "recipient": {

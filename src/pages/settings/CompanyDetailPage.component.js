@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
+import { push } from 'connected-react-router';
 
 import { companies as companiesActions } from '../../actions';
+import { attachExternalAccount as attachExternalAccountAction } from '../../libs/company/actions';
 import CompanyDetail from '../../components/companies/CompanyDetail.component';
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -29,7 +31,15 @@ export class CompanyDetailPage extends Component<Props, State> {
     const { company, classes } = this.props;
     return (
       <div className={classes.container}>
-        {company ? <CompanyDetail company={company} /> : <CircularProgress />}
+        {company ? (
+          <CompanyDetail
+            attachExternalAccount={this.props.attachExternalAccount}
+            updateCompanyDetail={this.props.updateCompanyDetail}
+            company={company}
+          />
+        ) : (
+          <CircularProgress />
+        )}
       </div>
     );
   }
@@ -50,6 +60,22 @@ export default compose(
     }),
     {
       fetchCompany: companiesActions.fetchCompanies,
+      updateCompanyDetail: () => push('/settings/company_onboarding'),
+      attachExternalAccount: attachExternalAccountAction,
     },
   ),
+  withHandlers({
+    attachExternalAccount: ({ attachExternalAccount, fetchCompany }) => (
+      data,
+      options,
+    ) => {
+      attachExternalAccount(data, {
+        onSuccess: (...args) => {
+          fetchCompany();
+          if (options && options.onSuccess) options.onSuccess(...args);
+        },
+        onError: options && options.onError,
+      });
+    },
+  }),
 )(CompanyDetailPage);

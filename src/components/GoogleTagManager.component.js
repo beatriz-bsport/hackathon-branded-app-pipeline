@@ -14,19 +14,34 @@ type Props = {
 };
 
 export class GoogleTagManager extends React.Component<Props> {
-  componentDidMount() {
-    if (this.props.isInternal) {
+  initializeGTM = () => {
+    if (!this.props.theme || !this.props.theme.gtmId || this.props.isInternal) {
       TagManager.initialize({
         ...tagManagerArgs,
         gtmId: 'GTM-W4G3NQ6',
       });
-    } else if (this.props.theme) {
+      setTimeout(() => {
+        (window.dataLayer || []).push({
+          config: 'UA-158864226-1',
+          custom_map: { dimension1: 'email' },
+        });
+        (window.dataLayer || []).push({
+          event: 'email_dimension',
+          email: this.props.username,
+        });
+      }, 1000);
+    } else {
       TagManager.initialize({
         ...tagManagerArgs,
-        gtmId: this.props.theme.gtmId || 'GTM-W4G3NQ6',
+        gtmId: this.props.theme.gtmId,
       });
     }
-    (window.dataLayer || []).push({ email: this.props.username });
+  };
+
+  componentDidMount() {
+    if (this.props.isInternal || this.props.theme) {
+      this.initializeGTM();
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -35,14 +50,8 @@ export class GoogleTagManager extends React.Component<Props> {
         this.props.theme &&
         (!prevProps.theme || this.props.theme.gtmId !== prevProps.theme.gtmId)
       ) {
-        TagManager.initialize({
-          ...tagManagerArgs,
-          gtmId: this.props.theme.gtmId || 'GTM-W4G3NQ6',
-        });
+        this.initializeGTM();
       }
-    }
-    if (this.props.username && this.props.username !== prevProps.username) {
-      (window.dataLayer || []).push({ email: this.props.username });
     }
   }
 

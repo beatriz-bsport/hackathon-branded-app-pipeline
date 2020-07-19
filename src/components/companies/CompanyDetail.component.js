@@ -5,9 +5,13 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
+import { compose, withState } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+
+import BankAccountFormDialog from '../../libs/payment/components/BankAccountFormDialog.component';
 
 import AddressDetail from '../AddressDetail.component';
 
@@ -45,38 +49,16 @@ export class CompanyDetail extends Component<Props, State> {
               <Grid item>
                 <Paper className={classes.paper}>
                   <Typography variant="h6" className={classes.title}>
-                    {t('companies.general')}
-                  </Typography>
-                  <strong>
-                    {t('common.firstname')}
-                    {' : '}
-                  </strong>
-                  {company.representative_first_name}
-                  <br />
-                  <strong>
-                    {t('common.lastname')}
-                    {' : '}
-                  </strong>
-                  {company.representative_last_name}
-                  <br />
-                  <strong>
-                    {t('common.email')}
-                    {' : '}
-                  </strong>
-                  {company.email}
-                  <br />
-                </Paper>
-              </Grid>
-              <Grid item>
-                <Paper className={classes.paper}>
-                  <Typography variant="h6" className={classes.title}>
                     {t('companies.address')}
                   </Typography>
                   <AddressDetail address={getAddress(company, '')} />
-                  <Typography variant="h6" className={classes.title}>
-                    {t('companies.owner_address')}
-                  </Typography>
-                  <AddressDetail address={getAddress(company, 'owner')} />
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={this.props.updateCompanyDetail}
+                  >
+                    {t('common.edit')}
+                  </Button>
                 </Paper>
               </Grid>
             </Grid>
@@ -88,15 +70,30 @@ export class CompanyDetail extends Component<Props, State> {
               </Typography>
               <p>
                 <strong>{t('companies.fields.iban')} : </strong>
-                {company.iban}
+                {`*************${company.external_account_last4}`}
                 <br />
                 <strong>{t('companies.fields.bank_account_holder')} : </strong>
                 {company.bank_account_holder}
                 <br />
               </p>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => this.props.setAddExternalAccountOpen(true)}
+              >
+                {t('common.edit')}
+              </Button>
             </Paper>
           </Grid>
         </Grid>
+        <BankAccountFormDialog
+          country={company.country}
+          currency={company.currency}
+          onSubmit={this.props.attachExternalAccount}
+          open={this.props.addExternalAccountOpen}
+          onClose={() => this.props.setAddExternalAccountOpen(false)}
+          company={company}
+        />
       </div>
     );
   }
@@ -114,4 +111,8 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withTranslation()(CompanyDetail));
+export default compose(
+  withStyles(styles),
+  withTranslation(),
+  withState('addExternalAccountOpen', 'setAddExternalAccountOpen', false),
+)(CompanyDetail);

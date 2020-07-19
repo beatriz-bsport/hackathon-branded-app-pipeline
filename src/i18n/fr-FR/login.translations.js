@@ -1,4 +1,15 @@
 exports.default = {
+  emailValidation: {
+    explain:
+      'Nous vous avons envoyé un email de validation, vous y êtes presque !',
+    success:
+      "Votre email a été validé, vous allez être redirigé d'ici quelques secondes.",
+    sendAgain: 'Renvoyer un email de confirmation',
+    hasSentAgain: 'Email envoyé',
+    linkExpired: 'Votre lien de validation a expiré',
+    goToLogin: 'Retour',
+    disconnect: 'Changer de compte',
+  },
   forms: {
     password: {
       label: 'Mot de passe',
@@ -36,4 +47,45 @@ exports.default = {
   },
   contactUs:
     'Manager de studio, vous êtes intéressé par notre solution ? Contactez-nous.',
+  signupCompany: {
+    welcome: {
+      title: 'Bienvenue !',
+      content:
+        'bsport regroupe une communauté de passionnés dont le but est de simplifier vos outils informatiques et vous permettre de mieux comprendre votre communauté.',
+      next: 'Continuer',
+    },
+    form: {
+      title: 'Mes informations',
+      name: {
+        label: 'Nom de votre studio/club/société',
+        placeholder: 'Yoga Shala',
+        helperText: 'Ce nom sera visible par vos membres',
+      },
+      email: {
+        label: 'Email',
+        placeholder: 'me@bsport.io',
+        errorExists: 'Cet email existe déjà, veuillez en choisir un autre.',
+      },
+      password1: {
+        label: 'Mot de passe',
+      },
+      password2: {
+        label: 'Confirmation',
+        error: 'Les mots de passe ne correspondent pas',
+      },
+      country: {
+        label: 'Pays',
+      },
+      previous: 'Précédent',
+      next: 'Confirmer',
+    },
+  },
+  country: {
+    FR: 'France',
+    DE: 'Allemagne',
+    IT: 'Italie',
+    NL: 'Pays-Bas',
+    BE: 'Belgique',
+    ES: 'Espagne',
+  },
 };

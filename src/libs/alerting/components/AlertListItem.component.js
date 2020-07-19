@@ -12,6 +12,7 @@ import {
   NEW_ORDER_ALERT,
   REMINDER_NOTE_ALERT_KIND,
   PRIVATE_BOOKING_INCOMPLETE_ALERT,
+  COMPANY_ONBOARDING_ALERT,
 } from '@bsport/common/lib/master-data/alerting_kind';
 
 import { Trans, useTranslation } from 'react-i18next';
@@ -24,12 +25,15 @@ type Props = {
   pushRouter: (path: string) => void,
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   titleContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  withTopMargin: {
+    marginTop: theme.spacing(1),
   },
 }));
 
@@ -104,6 +108,77 @@ const PrivateBookingIncompleteListItem = (props: {
           <br />
           {t('privateBookingIncomplete.name', { user_name })}
         </Typography>
+      </div>
+    </ListItem>
+  );
+};
+
+const CompanyOnboardingAlertListItem = (props: {
+  pushRouter: (string) => void,
+  alerting: CompanyOnboardingAlerting,
+}) => {
+  const { alerting } = props;
+  const { t } = useTranslation(['alerting']);
+  const classes = useStyles();
+
+  let title = '';
+  let content = null;
+  let resolution_url = '/settings/company_onboarding';
+  if (alerting.data.type === 'verification') {
+    title = t('companyOnboarding.verification.title');
+    resolution_url = '/settings/company_onboarding';
+    const date = moment(alerting.data.date).format('LL');
+    content = (
+      <Typography variant="caption" component="div">
+        <p>
+          <Trans
+            t={t}
+            date={date}
+            i18nKey="companyOnboarding.verification.content"
+          >
+            You have until <strong>{{ date }}</strong>
+            to verify your account
+          </Trans>
+        </p>
+        <p>
+          <Trans t={t} i18nKey="companyOnboarding.verification.warning">
+            Payments may be
+            <strong style={{ color: 'red' }}>disabled</strong>!
+          </Trans>
+        </p>
+      </Typography>
+    );
+  }
+  if (alerting.data.type === 'creation') {
+    title = t('companyOnboarding.creation.title');
+    resolution_url = '/settings/company_onboarding';
+    content = (
+      <Typography variant="caption" component="p">
+        {t('companyOnboarding.creation.content')}
+      </Typography>
+    );
+  }
+  if (alerting.data.type === 'payout') {
+    title = t('companyOnboarding.payout.title');
+    resolution_url = '/settings/company';
+    content = (
+      <Typography variant="caption" component="p">
+        {t('companyOnboarding.payout.content')}
+      </Typography>
+    );
+  }
+  return (
+    <ListItem divider style={{ paddingTop: 0 }}>
+      <div style={{ width: '100%' }}>
+        <div className={classes.titleContainer}>
+          <Typography variant="subtitle1" component="h3">
+            {title}
+          </Typography>
+          <IconButton onClick={() => props.pushRouter(resolution_url)}>
+            <ArrowForwardIcon color="secondary" />
+          </IconButton>
+        </div>
+        {content}
       </div>
     </ListItem>
   );
@@ -192,6 +267,13 @@ export default function AlertList(props: Props) {
       );
     case REMINDER_NOTE_ALERT_KIND.alert_kind:
       return <TaskAlertListItem alerting={alerting} pushRouter={pushRouter} />;
+    case COMPANY_ONBOARDING_ALERT.alert_kind:
+      return (
+        <CompanyOnboardingAlertListItem
+          alerting={alerting}
+          pushRouter={pushRouter}
+        />
+      );
     case PRIVATE_BOOKING_INCOMPLETE_ALERT.alert_kind:
       return (
         <PrivateBookingIncompleteListItem

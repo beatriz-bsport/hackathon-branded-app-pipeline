@@ -205,16 +205,19 @@ export function initiatedLogin(username: string) {
   return { type: types.LOGIN_INITIATED, username };
 }
 
-export function disconnect() {
-  try {
-    Sentry.configureScope((scope) => {
-      scope.setUser({ email: '' });
-    });
-  } catch (err) {
-    console.error(err);
-  }
+export function disconnect(callback: ?() => void) {
+  return async (dispatch: Dispatch) => {
+    try {
+      Sentry.configureScope((scope) => {
+        scope.setUser({ email: '' });
+      });
+    } catch (err) {
+      console.error(err);
+    }
 
-  return { type: types.DISCONNECT };
+    dispatch((() => ({ type: types.DISCONNECT }))());
+    if (callback && typeof callback === 'function') callback();
+  };
 }
 
 export function signup(

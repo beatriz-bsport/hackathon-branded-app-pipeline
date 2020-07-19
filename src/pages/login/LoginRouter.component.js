@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { withRouter, Switch, Route } from 'react-router-dom';
+import { withRouter, Switch, Redirect, Route } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
@@ -19,10 +19,17 @@ import { getTheme } from '../../theme';
 import withErrorHidden from '../../hocs/error-boundary-hidden.hoc';
 
 import LoginPro from './LoginPro.component';
+import ValidateEmailWithTokenPage from './ValidateEmailWithToken.page';
 import LoginConsumer from './LoginConsumer.component';
+import asyncComponent from '../../AsyncComponent';
+
 import Signout from './Signout.component';
 import ResetPassword from './ResetPassword.component';
 import ChangePassword from './ChangePassword.component';
+
+const CompanyOnboardingRouter = asyncComponent(() =>
+  import('./CompanyOnboarding.router'),
+);
 
 const ParticlesWithoutError = withErrorHidden(Particles);
 
@@ -113,7 +120,21 @@ export class LoginRouter extends React.Component<Props> {
                 <Route path="/login/reset_password" component={ResetPassword} />
                 <Route path="/login/pro" component={LoginPro} />
                 <Route path="/login/customer" component={LoginConsumer} />
+                <Route
+                  path="/login/company_onboarding/:activeStep/"
+                  component={CompanyOnboardingRouter}
+                />
+                <Route
+                  path="/login/company_onboarding"
+                  component={() => (
+                    <Redirect to="/login/company_onboarding/welcome" />
+                  )}
+                />
                 <Route path="/login/reset_password" component={ResetPassword} />
+                <Route
+                  path="/login/email_validation/:uid/:token"
+                  component={ValidateEmailWithTokenPage}
+                />
                 <Route path="/login/signout" component={Signout} />
                 <Route
                   path="/login/change_password/:uid/:token"

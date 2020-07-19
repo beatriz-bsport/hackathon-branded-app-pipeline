@@ -1905,6 +1905,15 @@
     }
   },
   "login": {
+    "emailValidation": {
+      "explain": "Nous vous avons envoyé un email de validation, vous y êtes presque !",
+      "success": "Votre email a été validé, vous allez être redirigé d'ici quelques secondes.",
+      "sendAgain": "Renvoyer un email de confirmation",
+      "hasSentAgain": "Email envoyé",
+      "linkExpired": "Votre lien de validation a expiré",
+      "goToLogin": "Retour",
+      "disconnect": "Changer de compte"
+    },
     "forms": { "password": { "label": "Mot de passe" } },
     "or": " ou ",
     "actions": { "signin": "Me connecter", "signup": "Pas encore de compte ?", "forgottenPassword": "Mot de passe oublié" },
@@ -1927,7 +1936,33 @@
       "disconnect": "Me reconnecter"
     },
     "signup": { "title": "Inscription" },
-    "contactUs": "Manager de studio, vous êtes intéressé par notre solution ? Contactez-nous."
+    "contactUs": "Manager de studio, vous êtes intéressé par notre solution ? Contactez-nous.",
+    "signupCompany": {
+      "welcome": {
+        "title": "Bienvenue !",
+        "content": "bsport regroupe une communauté de passionnés dont le but est de simplifier vos outils informatiques et vous permettre de mieux comprendre votre communauté.",
+        "next": "Continuer"
+      },
+      "form": {
+        "title": "Mes informations",
+        "name": {
+          "label": "Nom de votre studio/club/société",
+          "placeholder": "Yoga Shala",
+          "helperText": "Ce nom sera visible par vos membres"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "me@bsport.io",
+          "errorExists": "Cet email existe déjà, veuillez en choisir un autre."
+        },
+        "password1": { "label": "Mot de passe" },
+        "password2": { "label": "Confirmation", "error": "Les mots de passe ne correspondent pas" },
+        "country": { "label": "Pays" },
+        "previous": "Précédent",
+        "next": "Confirmer"
+      }
+    },
+    "country": { "FR": "France", "DE": "Allemagne", "IT": "Italie", "NL": "Pays-Bas", "BE": "Belgique", "ES": "Espagne" }
   },
   "waitingList": {
     "switchToEnable": "Réactiver la liste d'attente",
@@ -2352,7 +2387,16 @@
       "12": "Litige",
       "label": "Moyen de paiement"
     },
-    "actions": { "addThisPaymentItem": "Ajouter ce moyen de paiement" }
+    "actions": { "addThisPaymentItem": "Ajouter ce moyen de paiement" },
+    "bankAccount": {
+      "form": {
+        "content": "Ce compte bancaire sera utilisé pour vous transférer les montants payés en ligne via bsport.",
+        "accountHolderName": { "label": "Titulaire du compte bancaire", "placeholder": "Jacques Chirac" },
+        "invalid": "IBAN invalide. Attention : l'IBAN doit correspondre à un compte bancaire domicilié dans le même pays que votre entreprise",
+        "accountNumber": { "label": "Identifiant bancaire (IBAN)", "placeholder": "FR89370400440532013000" },
+        "actions": { "cancel": "Annuler", "submit": "Confirmer" }
+      }
+    }
   },
   "invoice": {
     "creditAccountBalance": { "current": "Acompte actuel" },
@@ -2932,7 +2976,7 @@
   },
   "alerting": {
     "list": { "title": "Notifications", "emptyAlerting": "Aucune nouvelle notification." },
-    "alert_kind": { "1": "Facturation", "2": "Commande", "3": "Tâche", "4": "RDV à compléter" },
+    "alert_kind": { "1": "Facturation", "2": "Commande", "3": "Tâche", "4": "RDV à compléter", "5": "Informations légales" },
     "showMore": "Voir davantage",
     "unevenInvoice": {
       "title": "Facture non-équilibrée",
@@ -2950,7 +2994,22 @@
       "date": "Date : {{ date_start }}",
       "name": "Membre : {{ user_name }}"
     },
-    "task": { "name": "{{ name }}" }
+    "task": { "name": "{{ name }}" },
+    "companyOnboarding": {
+      "verification": {
+        "title": "Gestion de mon entreprise",
+        "content": "Plusieurs documents sont en attente, vous avez jusqu'au <1>{{ date }}</1> pour vérifier votre compte.",
+        "warning": "Les paiements en ligne risquent d'être <1>désactivés</1> passée cette date !"
+      },
+      "payout": {
+        "title": "Information bancaire manquantes",
+        "content": "Nous ne pouvons pas effectuer les versements sur votre compte bancaire car celui-ci est inexistant ou mal configuré."
+      },
+      "creation": {
+        "title": "Paiement en ligne désactivés",
+        "content": "Pour pouvoir encaisser des paiements CB et SEPA, veuillez vérifier vos informations vos informations légales"
+      }
+    }
   },
   "paymentPack": {
     "actions": { "edit": "Modifier", "delete": "Supprimer", "scaleCredit": "Mult/div les crédits" },

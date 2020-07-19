@@ -9,7 +9,7 @@ import Intercom from 'react-intercom';
 import { compose, withHandlers } from 'recompose';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import GoogleTagManager from '../components/GoogleTagManager.component';
-import RELEASE from '../release'
+import RELEASE from '../release';
 
 import { Context } from '../context';
 
@@ -34,7 +34,11 @@ import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/as
 import { getPermissions } from '../libs/role/selectors';
 
 import { getTempPasswordState } from '../libs/login/selectors';
-import { generateTempPassword, fetchTempPassword } from '../libs/login/actions';
+import {
+  generateTempPassword,
+  fetchTempPassword,
+  checkEmailValidation as checkEmailValidationAction,
+} from '../libs/login/actions';
 import {
   delete_ as deleteAlert,
   fetchMoreAlertingKind,
@@ -186,6 +190,7 @@ export class Backoffice extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchCompanyTheme();
     this.setState({ authToken: getAuthToken() });
+    this.props.checkEmailValidation();
     this.props.fetchAllAlertings();
     this.props.fetchSCT();
     this.props.fetchAllPaymentPacks();
@@ -225,8 +230,9 @@ export class Backoffice extends Component<Props, State> {
     }
 
     if (
-      this.props.themeLoading &&
-      !this.props.location.pathname.includes('settings')
+      (this.props.themeLoading &&
+        !this.props.location.pathname.includes('settings')) ||
+      this.props.checkingEmailValidation
     ) {
       return <LoadingBackoffice />;
     }
@@ -262,8 +268,8 @@ export class Backoffice extends Component<Props, State> {
               <Intercom
                 appID="q6foivp2"
                 email={this.props.username}
-		environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
-		release={RELEASE}
+                environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
+                release={RELEASE}
                 role={this.props.permission.name}
                 action_color={this.props.theme.primary_color}
               />
@@ -304,6 +310,7 @@ export default compose(
       username: state.auth.username,
       theme: state.theme.theme,
       themeLoading: state.theme.loading,
+      checkingEmailValidation: state.login.emailValidation.loading,
       permission: getPermissions(state),
 
       is_consumer: state.auth.is_consumer && !state.auth.is_manager,
@@ -313,6 +320,7 @@ export default compose(
     {
       fetchCompanyTheme,
       fetchAccessLevel,
+      checkEmailValidation: checkEmailValidationAction,
       signout: (companyId) =>
         push(`/login/signout${companyId ? `?membership=${companyId}` : ''}`),
 
@@ -337,6 +345,28 @@ export default compose(
   withHandlers({
     disconnect: ({ signout, theme }) => () => {
       signout(theme.company);
+    },
+    checkEmailValidation: ({
+      checkEmailValidation,
+      pushRouter,
+      username,
+    }) => () => {
+      checkEmailValidation(null, {
+        onError: (err) => {
+          if (
+            err &&
+            err.response &&
+            err.response.data &&
+            !err.response.data.validated
+          ) {
+            pushRouter(
+              `/login/company_onboarding/email_validation/${encodeURIComponent(
+                username,
+              )}`,
+            );
+          }
+        },
+      });
     },
   }),
 )(themedBackoffice);

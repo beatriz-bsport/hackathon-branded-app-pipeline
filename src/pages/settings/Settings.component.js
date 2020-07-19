@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router';
@@ -25,6 +25,7 @@ import WebhookConfigurationPage from './WebhookConfigurationPage.component';
 import NotificationRulePage from './NotificationRule.page';
 import PartnershipPage from './Partnership.page';
 import ActiveCampaignPage from './ActiveCampaignPage.component';
+import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -93,6 +94,15 @@ export const Settings = (props: Props) => {
           exact
           path="/settings/active-campaign"
           component={ActiveCampaignPage}
+        />
+        <Route
+          exact
+          path="/settings/company_onboarding"
+          component={CompanyOnboardingSettingPage}
+        />
+        <Route
+          path="/settings"
+          component={() => <Redirect to="/settings/general" />}
         />
       </Switch>
     </div>

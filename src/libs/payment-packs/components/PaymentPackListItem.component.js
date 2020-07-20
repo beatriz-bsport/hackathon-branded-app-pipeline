@@ -13,6 +13,7 @@ import { withTranslation } from 'react-i18next';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import Button from '@material-ui/core/Button';
 import type { TFunction } from 'react-i18next';
 import Tooltip from '../../../components/Tooltip.component';
@@ -150,6 +151,13 @@ export default withStyles(styles)(
             >
               <AddShoppingCartIcon />
             </Button>
+          </ListItemSecondaryAction>
+        ) : null}
+        {props.goToPack ? (
+          <ListItemSecondaryAction>
+            <IconButton onClick={props.onClick}>
+              <VisibilityIcon color="primary" />
+            </IconButton>
           </ListItemSecondaryAction>
         ) : null}
       </ListItem>

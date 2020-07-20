@@ -9,6 +9,7 @@ import moment from 'moment';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import { isPaused } from '../utils';
 
 import type { Subscription } from '../types';
 
@@ -42,16 +43,7 @@ const renderStatus = (
       </Typography>
     );
   }
-  const is_paused = pauses.reduce(
-    (acc, p) =>
-      acc ||
-      moment().isBetween(
-        moment(p.date_created),
-        moment(p.date_created).add(p.days, 'days'),
-      ),
-    false,
-  );
-  if (is_paused) {
+  if (isPaused(pauses)) {
     return (
       <Typography color="secondary">
         {t('subscriptionStatus.isPaused')}

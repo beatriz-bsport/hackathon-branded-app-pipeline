@@ -8,16 +8,9 @@ import AddPersonIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Button from '@material-ui/core/Button';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import LinkIcon from '@material-ui/icons/Link';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import IconButton from '@material-ui/core/IconButton';
-import { buildUrlParams } from '../../../http';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import type { SubscriptionContract } from '../types';
-import { urlToMarketplace } from '../../marketplace/utils';
 
 type Props = {
   t: TFunction,
@@ -31,8 +24,6 @@ type Props = {
   selected?: boolean,
   dense?: boolean,
   divider?: boolean,
-  copy: boolean,
-  snackbar?: (string) => void,
 };
 
 export const SubscriptionContractListItem = (props: Props) => {
@@ -69,39 +60,6 @@ export const SubscriptionContractListItem = (props: Props) => {
               })}`
         }`}
       />
-      <ListItemSecondaryAction>
-        {props.copy && props.company ? (
-          <IconButton
-            onClick={() => {
-              if (props.snackbar) props.snackbar('link.copied');
-            }}
-          >
-            <CopyToClipboard
-              text={`${window.location.origin}${urlToMarketplace(
-                props.company.name,
-                props.company.id,
-              )}
-              /subscription${buildUrlParams({
-                selected: props.contract.id,
-              })}`}
-            >
-              <LinkIcon />
-            </CopyToClipboard>
-          </IconButton>
-        ) : null}
-        {props.onBook ? (
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={(ev) => {
-              ev.stopPropagation();
-              props.onBook();
-            }}
-          >
-            <AddShoppingCartIcon />
-          </Button>
-        ) : null}
-      </ListItemSecondaryAction>
       <ListItemResponsiveAction
         actions={[
           props.onRegister && {
@@ -124,6 +82,14 @@ export const SubscriptionContractListItem = (props: Props) => {
             label: props.t('subscription.delete'),
             onClick: () => {
               props.onDelete();
+            },
+          },
+          props.onBook && {
+            icon: AddShoppingCartIcon,
+            label: props.t(''),
+            onClick: (ev) => {
+              ev.stopPropagation();
+              props.onBook();
             },
           },
         ]}

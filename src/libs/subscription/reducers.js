@@ -6,6 +6,7 @@ import { handleActions } from 'redux-actions';
 import {
   detailActions,
   contractListActions,
+  contractDetailActions,
   subscriptionForBookingActions,
   contractCreateOrUpdateActions,
   contractMarketplaceListActions,
@@ -265,6 +266,15 @@ export default handleActions(
           },
           { deep: true },
         );
+    },
+    [contractDetailActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['contract', 'loading'], payload);
+    },
+    [contractDetailActions.error]: (state, { payload }) => {
+      return state.setIn(['contract', 'error'], payload);
+    },
+    [contractDetailActions.success]: (state, { payload }) => {
+      return state.merge({ contract: { byId: payload } }, { deep: true });
     },
     [contractCreateOrUpdateActions.isLoading]: (state, { payload }) => {
       return state.setIn(['contract', 'createOrUpdate', 'loading'], payload);

@@ -24,7 +24,6 @@ import {
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 import themeSelectors from '../../libs/theme/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
-import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -55,6 +54,7 @@ type Props = {
   fetchContractList: () => void,
   theme: Theme,
   contractLoading: boolean,
+  goToContractDetail: (contractId: number) => void,
   createOrUpdateContract: (data: any, options: OptionCallback) => void,
   deleteContract: (id: number, options: OptionCallback) => void,
   paymentPacks: Array<PaymentPack>,
@@ -81,7 +81,6 @@ type Props = {
   onCreate: (data: any, options: OptionCallback) => void,
   onCloseCreate: () => void,
   createContractFormOpen: boolean,
-  snackbarSuccess: (string) => void,
 
   t: TFunction,
   classes: Object,
@@ -97,6 +96,9 @@ export class SubscriptionList extends React.Component<Props> {
       this.props.setSelectedContract(null);
     } else {
       this.props.setSelectedContract(id);
+    }
+    if (this.props.goToContractDetail) {
+      this.props.goToContractDetail(id);
     }
   };
 
@@ -128,8 +130,6 @@ export class SubscriptionList extends React.Component<Props> {
                 contractList={this.props.contractListAvailableAll}
                 dense
                 divider
-                copy
-                snackbar={this.props.snackbarSuccess}
                 loading={this.props.contractLoading}
                 onClick={this.onClickContract}
                 company={{
@@ -278,7 +278,10 @@ export default compose(
       selectedContractData: getContract(state, selectedContract),
       theme: themeSelectors.getTheme(state),
     }),
-    { snackbarSuccess },
+    {
+      goToContractDetail: (contractId) =>
+        push(`/subscription/contract/${contractId}`),
+    },
   ),
   withHandlers({
     openContractRegister: ({

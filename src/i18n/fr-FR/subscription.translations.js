@@ -53,6 +53,7 @@ exports.default = {
     edit: 'Modifier',
     register: "S'abonner",
     delete: 'Supprimer',
+    buy: 'Acheter',
     freeze: {
       form: {
         title: 'Mise en pause',
@@ -93,6 +94,8 @@ exports.default = {
     },
   },
   contract: {
+    yes: 'Oui',
+    no: 'Non',
     registerManager: {
       title: 'Paiement récurrent',
       explainChoseContract:
@@ -103,6 +106,7 @@ exports.default = {
         cancel: 'Annuler',
       },
     },
+    paymentPack: 'Carte de cours associée',
     duration: '{{month}} mois',
     description: 'Description',
     legal: 'Mentions légales',
@@ -150,6 +154,14 @@ exports.default = {
         placeholder:
           'Entrez ici toutes les mentions légales nécessaires notamment concernant les procédures de remboursement.',
         label: 'Mentions légales',
+      },
+    },
+    deleteForm: {
+      title: 'Suppression contrat',
+      content: 'Voulez-vous vraiment supprimer ce contrat ?',
+      actions: {
+        cancel: 'Annuler',
+        confirm: 'Supprimer',
       },
     },
   },
@@ -211,7 +223,7 @@ exports.default = {
     dateCreated: 'Date de création',
     nbInterval: 'Nombre de mois',
     recurrent_price: 'Paiement récurrent',
-    flat_fee: "Frais d'engagement/dossier",
+    flat_fee: 'Frais de dossier',
     paymentPack: 'Carte de cours',
     nbMonths: 'Nombre de mois',
     dateStart: 'Première facturation',
@@ -237,4 +249,14 @@ exports.default = {
     content:
       "En donnant votre IBAN et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Un remboursement doit être demandé dans les 8 semaines après le premier débit.",
   },
+  associatedSubscriptions: 'Souscriptions associées à ce contrat',
+  noAssociatedSubscription: 'Aucune souscription enregistrée',
+  listItem: {
+    subscribedOn: 'Souscription débutée le {{- date}}',
+    canceled: 'Stoppée',
+    expired: 'Expirée',
+    paused: 'En pause',
+    valid: 'Valide',
+  },
+  copyLink: 'Copier le lien vers la page de paiement',
 };

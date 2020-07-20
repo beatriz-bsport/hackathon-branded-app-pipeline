@@ -13,7 +13,9 @@ import {
 const _getContractIds = (state: State) => state.subscription.contract.allIds;
 const _getContractData = (state: State) => state.subscription.contract.byId;
 
-export const getContract = (state, id) => state.subscription.contract.byId[id];
+export const getContract = (state: State, id: number) => {
+  return state.subscription.contract.byId[id];
+};
 
 const _getContractMarketplaceIds = (state: State) =>
   state.subscription.contract.byMarketplace.allIds;

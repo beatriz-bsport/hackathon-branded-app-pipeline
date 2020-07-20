@@ -166,7 +166,7 @@ exports.default = {
     broadcast_link: 'Lien de la visioconférence',
     sizeOfWaitingList: "Taille de la liste d'attente",
     offersPendingChange: 'Séances qui seront modifiées :',
-    offersPendingDelete: 'Séances qui seront suprimées :',
+    offersPendingDelete: 'Séances qui seront supprimées :',
     noPackAvailableForOfferPurchase:
       'Aucune carte de cours compatible avec cette séance !',
     noncompatibleConsumerPaymentPacksAre:

@@ -49,6 +49,10 @@ const fetchContractList = async (params: any = {}) => {
   return getAuth(`${API_URI}/subscription/contract/${buildUrlParams(params)}`);
 };
 
+export const fetchContractDetail = async (id: number) => {
+  return getAuth(`${API_URI}/subscription/contract/${id}/`);
+};
+
 const createOrUpdateContract = async (data: any) => {
   if (data.id) {
     return patchAuth(`${API_URI}/subscription/contract/${data.id}/`, data);

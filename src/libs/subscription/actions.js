@@ -10,6 +10,7 @@ import api, {
   switchSubscriptionPaymentPack as switchSubscriptionPaymentPackAPI,
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAPI,
   fetchPlannedInvoiceList as fetchPlannedInvoiceListAPI,
+  fetchContractDetail as fetchContractDetailAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -246,6 +247,30 @@ export function fetchContractList(params: any, options: OptionCallback) {
       if (options && options.onError) options.onError(err);
     }
     dispatch(contractListActions.isLoading(false));
+  };
+}
+
+export const contractDetailActions = {
+  error: createAction('SUBSCRIPTION_CONTRACT/DETAIL/ERROR'),
+  isLoading: createAction('SUBSCRIPTION_CONTRACT/DETAIL/IS_LOADING'),
+  success: createAction('SUBSCRIPTION_CONTRACT/DETAIL/SUCCESS'),
+};
+
+export function fetchContractDetail(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(contractDetailActions.isLoading(true));
+    dispatch(contractDetailActions.error(null));
+    try {
+      const response = await fetchContractDetailAPI(id);
+      const payload = { [response.data.id]: response.data };
+      dispatch(contractDetailActions.success(payload));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(contractDetailActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(contractDetailActions.isLoading(false));
   };
 }
 

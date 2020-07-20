@@ -3363,6 +3363,55 @@
         "doubleLogin": {
             "disconnect": "Login again",
             "explain": "Your session has expired. Have you signed in to two different accounts simultaneously, or have signed out from another tab / window?"
+        },
+        "country": {
+            "ES": "Spain",
+            "BE": "Belgium",
+            "NL": "Netherlands",
+            "IT": "Italy",
+            "DE": "Germany",
+            "FR": "France"
+        },
+        "signupCompany": {
+            "form": {
+                "next": "Confirm",
+                "previous": "Previous",
+                "country": {
+                    "label": "Country"
+                },
+                "password2": {
+                    "error": "Passwords mismatch",
+                    "label": "Confirm"
+                },
+                "password1": {
+                    "label": "Password"
+                },
+                "email": {
+                    "errorExists": "This email already exists, please choose another one.",
+                    "placeholder": "me@bsport.io",
+                    "label": "Email"
+                },
+                "name": {
+                    "helperText": "This name will be visible to your members",
+                    "placeholder": "Yoga Shala",
+                    "label": "Name of your studio / club / company"
+                },
+                "title": "My information"
+            },
+            "welcome": {
+                "next": "Continue",
+                "content": "bsport brings enthusiasts together whose goal is to simplify your IT tools and allow you to better understand your community.",
+                "title": "Welcome!"
+            }
+        },
+        "emailValidation": {
+            "disconnect": "Change account",
+            "goToLogin": "Back",
+            "linkExpired": "Your validation link has expired",
+            "hasSentAgain": "Email sent",
+            "sendAgain": "Send a confirmation email again",
+            "success": "Your email has been validated, you will be redirected within a few seconds.",
+            "explain": "We sent you a validation email, you're almost there!"
         }
     },
     "waitingList": {
@@ -3923,6 +3972,25 @@
         "paymentNote": {
             "helperText": "(optional) check number, cashing date...",
             "label": "Note"
+        },
+        "bankAccount": {
+            "form": {
+                "actions": {
+                    "submit": "Confirm",
+                    "cancel": "Cancel"
+                },
+                "accountNumber": {
+                    "placeholder": "GB89370400440532013000",
+                    "label": "IBAN"
+                },
+                "invalid": "IBAN invalid. Please note: the IBAN must correspond to a bank account domiciled in the same country as your company",
+                "accountHolderName": {
+                    "placeholder": "Tom Smith",
+                    "label": "Bank account owner"
+                },
+                "content": "This bank account will be used to transfer the amounts paid online to you via bsport.",
+                "title": "Bank account"
+            }
         }
     },
     "invoice": {
@@ -4503,7 +4571,8 @@
             "1": "Billing",
             "2": "Order",
             "3": "Task",
-            "4": "Appointment to complete"
+            "4": "Appointment to complete",
+            "5": "Legal information"
         },
         "showMore": "Show more",
         "unevenInvoice": {
@@ -4524,6 +4593,21 @@
             "explain": "The appointment of <1>{{name}}</1> has no assigned teacher.",
             "name": "Member : {{ user_name }}",
             "date": "Date : {{ date_start }}"
+        },
+        "companyOnboarding": {
+            "creation": {
+                "content": "To be able to cash CB and SEPA payments, please check your legal information",
+                "title": "Online payment disabled"
+            },
+            "payout": {
+                "content": "We cannot make payments to your bank account because it does not exist or is improperly configured.",
+                "title": "Missing bank information"
+            },
+            "verification": {
+                "warning": "Online payments may be <1> deactivated </1> after this date!",
+                "content": "Several documents are pending, you have until <1> {{date}} </1> to verify your account.",
+                "title": "Management of my company"
+            }
         }
     },
     "paymentPack": {

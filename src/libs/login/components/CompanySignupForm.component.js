@@ -99,7 +99,6 @@ export const CompanySignupForm = (props: Props) => {
         />
       </div>
       <div className={classes.field}>
-        {JSON.stringify(Config.REACT_APP_RECAPTCHA_V2)}
         <ReCAPTCHA
           ref={recaptchaRef}
           onChange={(v) => {

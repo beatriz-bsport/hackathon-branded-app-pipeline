@@ -1,1 +1,1 @@
-export default '2020-07-16-18-52-01-368c4d06bdca4c1ce8f3281e9457a91ece10c39a';
+export default '2020-07-20-03-17-35-244aa3ffe083d9e82870fcf1e90ef4e0ba741ab3';

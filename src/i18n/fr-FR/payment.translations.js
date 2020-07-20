@@ -72,6 +72,7 @@ exports.default = {
   },
   bankAccount: {
     form: {
+      title: 'Compte bancaire',
       content:
         'Ce compte bancaire sera utilisé pour vous transférer les montants payés en ligne via bsport.',
       accountHolderName: {

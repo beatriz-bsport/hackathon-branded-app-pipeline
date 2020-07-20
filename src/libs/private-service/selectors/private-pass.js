@@ -90,3 +90,8 @@ export const withAvailable = memoize((selector) =>
     },
   ),
 );
+// eslint-disable-next-line
+export const getDisabledPrivatePassAvailableListWithPrivateService: (State) => Array<PrivatePassWithService> = createSelector(
+  getPrivatePassListWithPrivateService,
+  (passList) => passList.filter((p) => !p.available),
+);

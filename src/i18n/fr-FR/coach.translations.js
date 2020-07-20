@@ -79,4 +79,5 @@ exports.default = {
       confirm: 'Supprimer',
     },
   },
+  inactiveCoaches: 'Professeurs archivés',
 };

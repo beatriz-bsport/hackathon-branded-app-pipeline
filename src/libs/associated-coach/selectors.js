@@ -35,6 +35,11 @@ export const getActiveCoaches = createSelector(
   (coaches) => coaches.filter((c) => !c.disabled),
 );
 
+export const getInactiveCoaches = createSelector(
+  getAllCoaches,
+  (coaches) => coaches.filter((c) => c.disabled),
+);
+
 export const getCoach = (state: State, id: number): Coach =>
   state.coach.byId[id];
 

@@ -5,6 +5,11 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import Collapse from '@material-ui/core/Collapse';
 import Paper from '@material-ui/core/Paper';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -21,11 +26,15 @@ import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import type { MetaActivity } from '../../api/types';
 
-import { getEnabledWorkshops } from '../../libs/meta-activity/selectors';
+import {
+  getEnabledWorkshops,
+  getDisabledWorkshops,
+} from '../../libs/meta-activity/selectors';
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
 import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDeleteDialog.component';
 import {
   deleteWorkshop,
+  restoreMetaActivity,
   fetchAll as fetchAllWorkshopsAction,
   makeActivityCopy as makeActivityCopyAction,
 } from '../../libs/meta-activity/actions';
@@ -33,12 +42,14 @@ import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../li
 
 type Props = {
   workshopActivities: Array<MetaActivity>,
+  disabledWorkshopActivities: Array<MetaActivity>,
   loading: boolean,
 
   fetchAllWorkshops: () => void,
   setWorkshopToDelete: (number) => void,
   workshopToDelete: ?number,
   deleteWorkshop: (number) => void,
+  restoreMetaActivity: (id: number) => void,
   goToDetail: (metaActivityId: number) => void,
   goToPaymentPack: () => void,
   goToEdit: (metaActivityId: number) => void,
@@ -53,10 +64,17 @@ type Props = {
   classes: Object,
 };
 
-export class WorkshopActivityList extends React.Component<Props> {
+type State = {
+  searchText: string,
+  searchResult: Array<MetaActivity>,
+  showDisabled: boolean,
+};
+
+export class WorkshopActivityList extends React.Component<Props, State> {
   state = {
     searchText: '',
     searchResult: [],
+    showDisabled: false,
   };
 
   componentDidMount() {
@@ -74,11 +92,24 @@ export class WorkshopActivityList extends React.Component<Props> {
     this.setState({ searchText: '', searchResult: [] });
   };
 
+  onShowDisabled = () => {
+    this.setState((prevState) => ({ showDisabled: !prevState.showDisabled }));
+  };
+
+  restoreMetaActivity = async (id: number) => {
+    if (this.props.disabledWorkshopActivities.length === 1) {
+      this.setState({ showDisabled: false });
+    }
+    this.props.restoreMetaActivity(id);
+  };
+
   render() {
     const { classes, t } = this.props;
 
     if (
-      (this.props.workshopActivities || []).length === 0 &&
+      (this.props.workshopActivities || []).length +
+        (this.props.disabledWorkshopActivities || []).length ===
+        0 &&
       !this.props.loading
     ) {
       return (
@@ -149,6 +180,42 @@ export class WorkshopActivityList extends React.Component<Props> {
           deleteMetaActivity={this.props.setWorkshopToDelete}
           makeActivityCopy={this.props.makeActivityCopy}
         />
+        {(this.props.disabledWorkshopActivities || []).length ? (
+          <div>
+            <ButtonBase
+              className={this.props.classes.buttonTitle}
+              onClick={this.onShowDisabled}
+            >
+              <Typography
+                variant="h5"
+                component="h2"
+                className={this.props.classes.titleContainer}
+              >
+                {`${t('workshop:disabledWorkshops')} (${
+                  (this.props.disabledWorkshopActivities || []).length
+                })`}
+              </Typography>
+
+              {this.state.showDisabled ? (
+                <ExpandLessIcon />
+              ) : (
+                <ExpandMoreIcon />
+              )}
+            </ButtonBase>
+            <Divider />
+            <Collapse in={this.state.showDisabled}>
+              <MetaActivityList
+                metaActivities={this.props.disabledWorkshopActivities}
+                goToDetail={this.props.goToDetail}
+                goToEdit={this.props.goToEdit}
+                deleteMetaActivity={this.props.setWorkshopToDelete}
+                restoreMetaActivity={this.restoreMetaActivity}
+                makeActivityCopy={this.props.makeActivityCopy}
+              />
+            </Collapse>
+          </div>
+        ) : null}
+
         <WorkshopDeleteDialog
           workshopId={this.props.workshopToDelete}
           onClose={() => this.props.setWorkshopToDelete(null)}
@@ -193,6 +260,14 @@ const styles = (theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
   },
+  buttonTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingBottom: theme.spacing(1),
+    marginTop: theme.spacing(3),
+  },
 });
 
 export default compose(
@@ -202,6 +277,7 @@ export default compose(
   connect(
     (state) => ({
       workshopActivities: getEnabledWorkshops(state),
+      disabledWorkshopActivities: getDisabledWorkshops(state),
       loading: state.metaActivity.loading,
     }),
     {
@@ -210,6 +286,7 @@ export default compose(
       onCreate: () => push('/workshop-activity/add'),
       goToPaymentPack: () => push('/payment-pack'),
       deleteWorkshop,
+      restoreMetaActivity,
       goToDetail: (metaActivityId) =>
         push(`/workshop-activity/${metaActivityId}/general`),
       goToEdit: (metaActivityId) =>

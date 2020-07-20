@@ -82,4 +82,5 @@ exports.default = {
   packsAvailable: 'Eligible aux pass :',
 
   reviews: 'Avis clients: ',
+  disabledMetaActivities: 'Activités archivées',
 };

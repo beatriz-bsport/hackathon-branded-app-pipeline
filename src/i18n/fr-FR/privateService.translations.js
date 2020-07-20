@@ -440,6 +440,7 @@ exports.default = {
         cancel: 'Annuler',
       },
     },
+    disabledTitle: 'Cartes de RDV archivées',
   },
   openCalendar: 'Voir le calendrier',
   service: {

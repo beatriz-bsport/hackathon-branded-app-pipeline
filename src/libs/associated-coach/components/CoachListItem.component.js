@@ -9,6 +9,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import Chip from '@material-ui/core/Chip';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import EditIcon from '@material-ui/icons/Edit';
@@ -23,6 +24,7 @@ type Props = {
   coach: Coach,
   onCoachSelected: () => void,
   deleteCoach: () => void,
+  restoreCoach?: (id: number) => void,
   divider: ?boolean,
   classes: Object,
   onEditCoach: () => void,
@@ -90,16 +92,23 @@ export function CoachListItem(props: Props) {
       />
       <ListItemResponsiveAction
         actions={[
-          props.onEditCoach && {
-            icon: EditIcon,
-            label: t('common.edit'),
-            color: 'primary',
-            onClick: props.onEditCoach,
-          },
-          props.deleteCoach && {
-            icon: DeleteIcon,
-            label: t('common.delete'),
-            onClick: props.deleteCoach,
+          !props.coach.disabled &&
+            props.onEditCoach && {
+              icon: EditIcon,
+              label: t('common.edit'),
+              color: 'primary',
+              onClick: props.onEditCoach,
+            },
+          !props.coach.disabled &&
+            props.deleteCoach && {
+              icon: DeleteIcon,
+              label: t('common.delete'),
+              onClick: props.deleteCoach,
+            },
+          props.coach.disabled && {
+            icon: RestoreFromTrashIcon,
+            label: t('common.restore'),
+            onClick: () => props.restoreCoach(),
           },
         ]}
       />

@@ -18,6 +18,7 @@ import {
   deleteMetaActivity as deleteMetaActivityAPI,
   fetchMetaActivityFavorite as fetchMetaActivityFavoriteAPI,
   makeActivityCopy as makeActivityCopyAPI,
+  restoreMetaActivity as restoreMetaActivityAPI,
 } from './api/common';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
@@ -111,10 +112,12 @@ export function deleteMetaActivity(
 
     try {
       await deleteMetaActivityAPI(id);
+      dispatch(snackbarSuccess('metaActivity.del.success'));
       dispatch(fetchAllActivities());
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(deleteAction.error(err));
+      dispatch(snackbarError('metaActivity.del.error'));
       Sentry.captureException(err);
       if (options && options.onError) options.onError();
     }
@@ -324,10 +327,12 @@ export function deleteWorkshop(
     try {
       await deleteMetaActivityAPI(id);
       dispatch(deleteAction.success(id));
+      dispatch(snackbarSuccess('metaActivity.del.success'));
       dispatch(fetchAll());
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(deleteAction.error(err));
+      dispatch(snackbarError('metaActivity.del.error'));
       Sentry.captureException(err);
       if (options && options.onError) options.onError();
     }
@@ -364,5 +369,28 @@ export function removeImageFromWorkshop(id: number, imageId: number) {
       Sentry.captureException(error);
     }
     dispatch(removeImage.isLoading({ id, imageId, loading: false }));
+  };
+}
+
+export const metaActivityRestoreActions = {
+  isLoading: createAction('META_ACTIVITIES/BULK/IS_LOADING'),
+};
+
+export function restoreMetaActivity(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(metaActivityRestoreActions.isLoading(true));
+    try {
+      const response = await restoreMetaActivityAPI(id);
+      const payload = { [response.data.id]: response.data };
+      dispatch(metaActivityDetailActions.success(payload));
+      dispatch(snackbarSuccess('metaActivity.restore.success'));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(metaActivityDetailActions.error(err));
+      dispatch(snackbarSuccess('metaActivity.restore.error'));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(metaActivityRestoreActions.isLoading(false));
   };
 }

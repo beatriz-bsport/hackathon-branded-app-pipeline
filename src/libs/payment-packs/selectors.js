@@ -23,6 +23,18 @@ export const getAll = createSelector(
   (paymentPacks, idList) => idList.map((id) => paymentPacks[id]),
 );
 
+export const getEnabledPaymentPacks = createSelector(
+  [getPaymentPackById, getPaymentPackAllIds],
+  (paymentPacks, idList) =>
+    idList.map((id) => paymentPacks[id]).filter((pack) => !pack.disabled),
+);
+
+export const getDisabledPaymentPacks = createSelector(
+  [getPaymentPackById, getPaymentPackAllIds],
+  (paymentPacks, idList) =>
+    idList.map((id) => paymentPacks[id]).filter((pack) => pack.disabled),
+);
+
 const get = (state: State, id: number) => {
   return state.paymentPack.byId[id];
 };

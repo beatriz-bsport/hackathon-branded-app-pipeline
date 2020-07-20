@@ -7,6 +7,7 @@ import { compose } from 'recompose';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import DeleteIcon from '@material-ui/icons/Delete';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
@@ -32,6 +33,7 @@ type Props = {
   onClickCopy: (id: number, suffix: string) => void,
 
   deleteMetaActivity: () => void,
+  restoreMetaActivity: () => void,
 };
 
 export function MetaActivityListItem(props: Props) {
@@ -76,23 +78,31 @@ export function MetaActivityListItem(props: Props) {
       />
       <ListItemResponsiveAction
         actions={[
-          props.onClickCopy && {
-            icon: FileCopyIcon,
-            label: t('common.duplicate'),
-            color: 'primary',
-            onClick: () =>
-              props.onClickCopy(metaActivity.id, t('common.copySuffix')),
-          },
-          props.goToEdit && {
-            icon: EditIcon,
-            label: t('common.edit'),
-            color: 'primary',
-            onClick: () => goToEdit(metaActivity.id),
-          },
-          props.deleteMetaActivity && {
-            icon: DeleteIcon,
-            label: t('common.delete'),
-            onClick: props.deleteMetaActivity,
+          props.metaActivity.customer_enabled &&
+            props.onClickCopy && {
+              icon: FileCopyIcon,
+              label: t('common.duplicate'),
+              color: 'primary',
+              onClick: () =>
+                props.onClickCopy(metaActivity.id, t('common.copySuffix')),
+            },
+          props.metaActivity.customer_enabled &&
+            props.goToEdit && {
+              icon: EditIcon,
+              label: t('common.edit'),
+              color: 'primary',
+              onClick: () => goToEdit(metaActivity.id),
+            },
+          props.metaActivity.customer_enabled &&
+            props.deleteMetaActivity && {
+              icon: DeleteIcon,
+              label: t('common.delete'),
+              onClick: props.deleteMetaActivity,
+            },
+          !props.metaActivity.customer_enabled && {
+            icon: RestoreFromTrashIcon,
+            label: t('common.restore'),
+            onClick: () => props.restoreMetaActivity(),
           },
         ]}
       />

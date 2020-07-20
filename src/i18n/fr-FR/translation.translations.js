@@ -102,6 +102,7 @@ exports.default = {
     saveAndAdd: 'Enregistrer et ajouter à nouveau',
     booking: 'Réservation',
     from: 'Du',
+    restore: 'Restaurer',
     until: "Jusqu'au",
     paymentMethod: 'Méthode de paiement',
     activity: 'Activité',

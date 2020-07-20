@@ -33,4 +33,5 @@ exports.default = {
       },
     },
   },
+  disabledWorkshops: 'Ateliers archivés',
 };

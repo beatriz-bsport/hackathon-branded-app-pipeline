@@ -238,6 +238,10 @@ export const deletePrivatePass = (id: number) => {
   return deleteAuth(`${API_V1_URI}/private_service/private_pass/${id}/`);
 };
 
+export const restorePrivatePass = (id: number) => {
+  return putAuth(`${API_V1_URI}/private_service/private_pass/${id}/restore/`);
+};
+
 export const deleteCompatibleServicePass = (
   privatePassId: number,
   privateServiceId: number,

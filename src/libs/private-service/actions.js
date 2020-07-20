@@ -41,6 +41,7 @@ import {
   fetchPrivatePass as fetchPrivatePassRetrieveAPI,
   createOrUpdatePrivatePass as createOrUpdatePrivatePassAPI,
   deletePrivatePass as deletePrivatePassAPI,
+  restorePrivatePass as restorePrivatePassAPI,
   createCompatibleServicePass as createCompatibleServicePassAPI,
   deleteCompatibleServicePass as deleteCompatibleServicePassAPI,
   // private-consumer-pass
@@ -1049,14 +1050,33 @@ export function deletePrivatePass(id: number, options: OptionCallback) {
     try {
       const response = await deletePrivatePassAPI(id);
       dispatch(privatePassDeleteActions.success(response.data));
+      dispatch(snackbarSuccess('privatePass.del.success'));
       dispatch(fetchPrivatePassRetrieve(id));
       if (options && options.onSuccess) options.onSuccess(id);
     } catch (err) {
       console.error(err);
       dispatch(privatePassDeleteActions.error(err));
       if (options && options.onError) options.onError(err);
+      dispatch(snackbarError('privatePass.del.error'));
     }
     dispatch(privatePassDeleteActions.isLoading(false));
+  };
+}
+
+export function restorePrivatePass(id: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privatePassCreateOrUpdateActions.isLoading(true));
+    dispatch(privatePassCreateOrUpdateActions.error(null));
+    try {
+      const response = await restorePrivatePassAPI(id);
+      dispatch(privatePassCreateOrUpdateActions.success(response.data));
+      dispatch(snackbarSuccess('privatePass.restore.success'));
+    } catch (err) {
+      console.error(err);
+      dispatch(privatePassCreateOrUpdateActions.error(err));
+      dispatch(snackbarError('privatePass.restore.error'));
+    }
+    dispatch(privatePassCreateOrUpdateActions.isLoading(false));
   };
 }
 

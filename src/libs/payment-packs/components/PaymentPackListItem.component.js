@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation } from 'react-i18next';
@@ -26,6 +27,7 @@ import type { PaymentPack } from '../types';
 type Props = {
   pack: PaymentPack,
   divider: ?boolean,
+  disabled?: boolean,
   onClick: () => void,
   onEdit?: () => void,
   onDelete?: () => void,
@@ -89,7 +91,7 @@ export default withStyles(styles)(
             price: props.pack.price,
           })}${props.showDuration ? ` - ${dateInfo}` : ''}`}
         />
-        {props.onEdit && props.onDelete ? (
+        {!props.disabled && props.onEdit && props.onDelete ? (
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             {props.pack.notifications && props.pack.notifications.length > 0 ? (
               <Tooltip
@@ -127,7 +129,7 @@ export default withStyles(styles)(
             />
           </div>
         ) : null}
-        {props.onDelete && !props.onEdit ? (
+        {!props.disabled && props.onDelete && !props.onEdit ? (
           <ListItemSecondaryAction>
             <IconButton onClick={props.onDelete}>
               <DeleteIcon />
@@ -141,7 +143,7 @@ export default withStyles(styles)(
             </IconButton>
           </ListItemSecondaryAction>
         ) : null}
-        {props.onBook ? (
+        {!props.disabled && props.onBook ? (
           <ListItemSecondaryAction>
             <Button
               className={props.classes.bookButton}
@@ -157,6 +159,13 @@ export default withStyles(styles)(
           <ListItemSecondaryAction>
             <IconButton onClick={props.onClick}>
               <VisibilityIcon color="primary" />
+            </IconButton>
+          </ListItemSecondaryAction>
+        ) : null}
+        {props.disabled ? (
+          <ListItemSecondaryAction>
+            <IconButton color="secondary" onClick={props.onRestore}>
+              <RestoreFromTrashIcon />
             </IconButton>
           </ListItemSecondaryAction>
         ) : null}

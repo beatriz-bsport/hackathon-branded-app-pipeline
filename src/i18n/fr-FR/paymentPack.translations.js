@@ -251,6 +251,7 @@ exports.default = {
   newMemberOnly: 'Disponible uniquement pour les nouveaux inscrits',
   publicPacksTitle: 'Cartes disponibles à la vente',
   privatePacksTitle: 'Cartes non disponibles à la vente',
+  disabledPacksTitle: 'Cartes archivées',
   subscribeToOffer: 'Inscrire',
   use: 'Utiliser',
   isNonCompatible: 'incompatible',
@@ -317,4 +318,8 @@ exports.default = {
     copyLink: 'Copier le lien vers la page de paiement',
   },
   notificationForm: 'Formulaire notification',
+  disabledPacks: {
+    show: 'Afficher les cartes archivées',
+    hide: 'Masquer les cartes archivées',
+  },
 };

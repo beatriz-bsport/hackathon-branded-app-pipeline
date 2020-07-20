@@ -364,7 +364,7 @@ export function PaymentPackForm(props: Props) {
         <Actions>
           {props.onCancel ? (
             <Button onClick={props.onCancel}>
-              {props.onCancelText || t('form.paymentPack.actions.skip')}
+              {props.onCancelText || t('form.paymentPack.actions.cancel')}
             </Button>
           ) : null}
           <Submit disabled={isSubmitting}>

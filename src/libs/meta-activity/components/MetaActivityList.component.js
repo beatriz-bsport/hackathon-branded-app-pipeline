@@ -10,13 +10,14 @@ import type { MetaActivity } from '../types';
 type Props = {
   metaActivities: Array<MetaActivity>,
   goToEdit: (metaActivityId: number) => void,
-  goToDetail: (metaActivityId: number) => void,
+  goToDetail: (id: number) => void,
   makeActivityCopy: (
     id: number,
     suffix: string,
     options?: OptionCallback,
   ) => void,
   deleteMetaActivity: (metaActivityId: number) => void,
+  restoreMetaActivity?: (metaActivityId: number) => Promise<>,
 };
 
 export default function MetaActivityList(props: Props) {
@@ -30,9 +31,10 @@ export default function MetaActivityList(props: Props) {
             key={ma.id}
             metaActivity={ma}
             goToEdit={goToEdit}
-            onClick={(metaActivity) => goToDetail(metaActivity.id)}
+            onClick={ma.customer_enabled ? () => goToDetail(ma.id) : null}
             onClickCopy={props.makeActivityCopy}
             deleteMetaActivity={() => props.deleteMetaActivity(ma.id)}
+            restoreMetaActivity={() => props.restoreMetaActivity(ma.id)}
           />
         ))}
       </List>

@@ -13,6 +13,7 @@ import {
   setPaymentRule,
   sessionPaymentRule,
   bulkRetrieveActions,
+  restoreActions,
 } from './actions';
 
 const initialState: CoachState = Immutable({
@@ -119,6 +120,9 @@ export default handleActions(
         ['performance', payload.associatedCoachId, 'result', index],
         updatedSession,
       );
+    },
+    [restoreActions.isLoading]: (state, { payload }) => {
+      return state.set('loading', payload);
     },
   },
   initialState,

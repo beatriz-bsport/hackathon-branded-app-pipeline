@@ -34,6 +34,14 @@ export const getEnabledMetaActivities = createSelector(
     ),
 );
 
+export const getDisabledMetaActivities = createSelector(
+  getMetaActivitiesDict,
+  (metactivities) =>
+    Immutable(Object.values(metactivities)).filter(
+      (ma) => !ma.customer_enabled,
+    ),
+);
+
 export const getActivitiesByIdList = memoize((state, idList) =>
   createSelector(
     getMetaActivitiesDict,
@@ -54,6 +62,13 @@ export const getPageEnabledMetaActivities = createSelector(
   getPageMetaActivities,
   (metactivities) => {
     return metactivities.filter((ma) => !!ma.customer_enabled);
+  },
+);
+
+export const getPageDisabledMetaActivities = createSelector(
+  getPageMetaActivities,
+  (metactivities) => {
+    return metactivities.filter((ma) => !ma.customer_enabled);
   },
 );
 
@@ -80,6 +95,11 @@ export const getWorkshop = (state: State, id: number): MetaActivity =>
 export const getEnabledWorkshops = createSelector(
   getWorkshops,
   (workshops) => workshops.filter((ma) => !!ma.customer_enabled),
+);
+
+export const getDisabledWorkshops = createSelector(
+  getWorkshops,
+  (workshops) => workshops.filter((ma) => !ma.customer_enabled),
 );
 
 export const getFreshMetaActivityList = createSelector(

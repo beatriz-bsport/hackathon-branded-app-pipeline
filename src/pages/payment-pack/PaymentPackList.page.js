@@ -5,7 +5,11 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Divider from '@material-ui/core/Divider';
 
 import List from '@material-ui/core/List';
 import { withTranslation } from 'react-i18next';
@@ -29,7 +33,10 @@ import {
   fetchAllPaymentPacks,
   patch as patchPaymentPack,
 } from '../../libs/payment-packs/actions';
-import { getAll as getAllPaymentPacks } from '../../libs/payment-packs/selectors';
+import {
+  getEnabledPaymentPacks,
+  getDisabledPaymentPacks,
+} from '../../libs/payment-packs/selectors';
 import type {
   ConsumerPaymentPack,
   PaymentPack,
@@ -40,7 +47,8 @@ type Props = {
   loading: boolean,
   consumerPacksFetching: boolean,
 
-  packs: Array<Object>,
+  enabledPacks: Array<Object>,
+  disabledPacks: Array<Object>,
   updatingConsumerPacks: Array<number>,
   consumerPacks: Array<ConsumerPaymentPack>,
 
@@ -64,6 +72,7 @@ type Props = {
 
 type State = {
   paymentPackToDelete: ?PaymentPack,
+  showDisabled: boolean,
 };
 
 const CONSUMER_PACK_PAGINATION_SIZE = 10;
@@ -73,6 +82,7 @@ export class PaymentPackList extends Component<Props, State> {
     paymentPackToDelete: null,
     searchText: '',
     searchResult: [],
+    showDisabled: false,
   };
 
   componentDidMount() {
@@ -99,6 +109,13 @@ export class PaymentPackList extends Component<Props, State> {
     this.setState({ paymentPackToDelete: null });
   };
 
+  restorePaymentPack = async (id: number) => {
+    if (this.props.disabledPacks.length === 1) {
+      this.setState({ showDisabled: false });
+    }
+    this.props.updatePaymentPack(id, { disabled: false });
+  };
+
   changeSearch = (fuse) => (ev) => {
     this.setState({
       searchText: ev.target.value,
@@ -110,7 +127,7 @@ export class PaymentPackList extends Component<Props, State> {
     this.setState({ searchText: '', searchResult: [] });
   };
 
-  renderPackList = (packs: Array<PaymentPack>) => (
+  renderPackList = (packs: Array<PaymentPack>, disabled: boolean) => (
     <Paper>
       <List disablePadding>
         {packs.map((pack) => (
@@ -119,17 +136,22 @@ export class PaymentPackList extends Component<Props, State> {
             divider
             onEdit={() => this.requestEdit(pack)}
             onDelete={() => this.requestDelete(pack)}
-            onClick={() => this.props.goToPack(pack.id)}
+            onClick={!pack.disabled ? () => this.props.goToPack(pack.id) : null}
+            onRestore={() => this.restorePaymentPack(pack.id)}
             key={pack.id}
+            disabled={disabled}
           />
         ))}
       </List>
     </Paper>
   );
 
+  onShowDisabled = () => {
+    this.setState((prevState) => ({ showDisabled: !prevState.showDisabled }));
+  };
+
   render() {
     const {
-      packs,
       loading,
       updatingConsumerPacks,
       incrementCredit,
@@ -138,10 +160,20 @@ export class PaymentPackList extends Component<Props, State> {
       t,
     } = this.props;
 
+    const publicPacks = this.props.enabledPacks.filter((p) => !p.manager_only);
+    const managerPacks = this.props.enabledPacks.filter(
+      (p) => !!p.manager_only,
+    );
+
     if (loading) {
       return <LinearProgress />;
     }
-    if ((this.props.packs || []).length === 0 && !loading) {
+    if (
+      (this.props.enabledPacks || []).length +
+        (this.props.disabledPacks || []).length ===
+        0 &&
+      !loading
+    ) {
       return (
         <IsEmptyList
           text={this.props.t('noPaymentPack')}
@@ -151,9 +183,7 @@ export class PaymentPackList extends Component<Props, State> {
         />
       );
     }
-    const showablePacks = packs.filter((p) => !p.disabled);
-    const publicPacks = showablePacks.filter((p) => !p.manager_only);
-    const managerPacks = showablePacks.filter((p) => Boolean(p.manager_only));
+
     return (
       <Grid container direction="row" spacing={3} className={classes.container}>
         {publicPacks.length || managerPacks.length ? (
@@ -182,7 +212,7 @@ export class PaymentPackList extends Component<Props, State> {
                   this.state.searchText !== ''
                 }
               >
-                {this.renderPackList(this.state.searchResult)}
+                {this.renderPackList(this.state.searchResult, false)}
               </Collapse>
             </Paper>
           </Grid>
@@ -196,7 +226,7 @@ export class PaymentPackList extends Component<Props, State> {
             >
               {t('publicPacksTitle')}
             </Typography>
-            {this.renderPackList(publicPacks)}
+            {this.renderPackList(publicPacks, false)}
           </Grid>
         ) : null}
 
@@ -209,7 +239,37 @@ export class PaymentPackList extends Component<Props, State> {
             >
               {t('privatePacksTitle')}
             </Typography>
-            {this.renderPackList(managerPacks)}
+            {this.renderPackList(managerPacks, false)}
+          </Grid>
+        ) : null}
+
+        {(this.props.disabledPacks || []).length ? (
+          <Grid item xs={12} md={6}>
+            <ButtonBase
+              className={this.props.classes.buttonTitle}
+              onClick={this.onShowDisabled}
+            >
+              <Typography
+                variant="h5"
+                component="h2"
+                className={classes.titleContainer}
+              >
+                {`${t('disabledPacksTitle')} (${
+                  (this.props.disabledPacks || []).length
+                })`}
+              </Typography>
+
+              {this.state.showDisabled ? (
+                <ExpandLessIcon />
+              ) : (
+                <ExpandMoreIcon />
+              )}
+            </ButtonBase>
+            <Divider />
+            <Collapse in={this.state.showDisabled}>
+              {this.state.showDisabled &&
+                this.renderPackList(this.props.disabledPacks, true)}
+            </Collapse>
           </Grid>
         ) : null}
 
@@ -286,12 +346,20 @@ const styles = (theme) => ({
     borderTop: '0px',
     boderBottom: '0px',
   },
+  buttonTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingBottom: theme.spacing(1),
+  },
 });
 
 function mapStateToProps(state) {
   return {
     loading: state.paymentPack.loading,
-    packs: getAllPaymentPacks(state),
+    enabledPacks: getEnabledPaymentPacks(state),
+    disabledPacks: getDisabledPaymentPacks(state),
     consumerPacks: {
       items: state.consumerPaymentPack.byPaymentPack.items,
       count: state.consumerPaymentPack.byPaymentPack.count,

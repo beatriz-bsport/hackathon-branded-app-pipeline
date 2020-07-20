@@ -13,6 +13,7 @@ import {
   fetchAssociatedCoaches as fetchAssociatedCoachesAPI,
   fetchAssociatedCoach as fetchAssociatedCoachAPI,
   deleteCoach as deleteCoachAPI,
+  restoreCoach as restoreCoachAPI,
   fetchAssociatedCoachPerformance as fetchAssociatedCoachPerformanceAPI,
 } from './api';
 import { getFreshCoachIds } from './selectors';
@@ -67,9 +68,31 @@ export function deleteCoach(
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
-      dispatch(snackbarSuccess('coach.delete.error'));
+      dispatch(snackbarError('coach.delete.error'));
       if (options && options.onError) options.onError();
     }
+  };
+}
+
+export const restoreActions = {
+  isLoading: createAction('COACH/RESTORE/IS_LOADING'),
+};
+
+export function restoreCoach(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(restoreActions.isLoading(true));
+    try {
+      const response = await restoreCoachAPI(id);
+      const payload = { [response.data.id]: response.data };
+      dispatch(coachDetailAction.success(payload));
+      dispatch(snackbarSuccess('coach.restore.success'));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(snackbarError('coach.restore.error'));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(restoreActions.isLoading(false));
   };
 }
 

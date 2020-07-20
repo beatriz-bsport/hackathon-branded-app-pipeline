@@ -12,6 +12,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -25,6 +26,7 @@ type Props = {
   t: TFunction,
   onClick: ?() => void,
   onDelete: ?() => void,
+  onRestore: ?() => void,
   divider?: boolean,
   setOpenEditForm: (boolean) => void,
   openEditForm: boolean,
@@ -76,6 +78,10 @@ export const PrivatePassListItem = (props: Props) => {
               icon: DeleteIcon,
               label: props.t('privatePass.delete.delete'),
               onClick: props.onDelete,
+            },
+            props.onRestore && {
+              icon: RestoreFromTrashIcon,
+              onClick: props.onRestore,
             },
           ]}
         />

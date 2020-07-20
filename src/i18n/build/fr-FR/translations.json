@@ -79,6 +79,7 @@
       "saveAndAdd": "Enregistrer et ajouter à nouveau",
       "booking": "Réservation",
       "from": "Du",
+      "restore": "Restaurer",
       "until": "Jusqu'au",
       "paymentMethod": "Méthode de paiement",
       "activity": "Activité",
@@ -1442,7 +1443,8 @@
           "helperText": "Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement CB sera proposé."
         },
         "actions": { "submit": "Enregistrer", "cancel": "Annuler" }
-      }
+      },
+      "disabledTitle": "Cartes de RDV archivées"
     },
     "openCalendar": "Voir le calendrier",
     "service": {
@@ -1864,7 +1866,8 @@
         },
         "actions": { "cancel": "Annuler", "confirm": "Supprimer" }
       }
-    }
+    },
+    "disabledWorkshops": "Ateliers archivés"
   },
   "tag": {
     "panel": { "title": "Mes tags", "noTagAvailable": "Aucun tag créé" },
@@ -2470,7 +2473,8 @@
       "error_email_exists": "Un professeur avec cet email existe déjà, utilisez le formulaire de création Professeur",
       "create": { "success": "Professeur créé avec succès" },
       "update": { "success": "Professeur modifié avec succès" },
-      "delete": { "success": "Professeur supprimé", "error": "Impossible de supprimer le professeur" }
+      "delete": { "success": "Professeur supprimé", "error": "Impossible de supprimer le professeur" },
+      "restore": { "success": "Professeur restauré avec succès", "error": "Impossible de restaurer le professeur" }
     },
     "relationship": {
       "edit": { "success": "Relation modifiée" },
@@ -2489,6 +2493,7 @@
     },
     "paymentPack": {
       "paymentPackDisabled": { "success": "Carte de cours désactivée", "error": "Impossible de désactiver la carte" },
+      "paymentPackEnabled": { "success": "Carte de cours restaurée", "error": "Impossible de restaurer la carte" },
       "credit": { "updated": "Crédits mis à jour", "error": "Erreur lors de l'enregistrement" },
       "createOrUpdate": { "success": "Carte de cours enregistrée", "fail": "Erreur lors de l'enregistrement de la carte" }
     },
@@ -2595,6 +2600,14 @@
         "add": { "success": "Vidéo ajoutée à la playlist", "error": "Impossible d'ajouter la vidéo" },
         "del": { "success": "Vidéo supprimée de la playlist", "error": "Impossible de supprimer la vidéo de la playlist" }
       }
+    },
+    "metaActivity": {
+      "restore": { "success": "Élément restauré", "error": "Impossible de restaurer cet élément" },
+      "del": { "success": "Élément supprimé", "error": "Impossible de supprimer cet élément" }
+    },
+    "privatePass": {
+      "restore": { "success": "Carte de RDV restaurée", "error": "Impossible de restaurer cette carte de RDV" },
+      "del": { "success": "Carte de RDV supprimée", "error": "Impossible de supprimer cette carte de RDV" }
     }
   },
   "coach": {
@@ -2652,7 +2665,8 @@
         "cancel": "Annuler",
         "confirm": "Supprimer"
       }
-    }
+    },
+    "inactiveCoaches": "Professeurs archivés"
   },
   "subscription": {
     "events": {
@@ -3195,6 +3209,7 @@
     "newMemberOnly": "Disponible uniquement pour les nouveaux inscrits",
     "publicPacksTitle": "Cartes disponibles à la vente",
     "privatePacksTitle": "Cartes non disponibles à la vente",
+    "disabledPacksTitle": "Cartes archivées",
     "subscribeToOffer": "Inscrire",
     "use": "Utiliser",
     "isNonCompatible": "incompatible",
@@ -3243,7 +3258,8 @@
     "noConsumerPack": "Aucun achat enregistré",
     "reverted": "Facture annulée",
     "link": { "copied": "Lien copié", "copyLink": "Copier le lien vers la page de paiement" },
-    "notificationForm": "Formulaire notification"
+    "notificationForm": "Formulaire notification",
+    "disabledPacks": { "show": "Afficher les cartes archivées", "hide": "Masquer les cartes archivées" }
   },
   "metaActivity": {
     "metaActivity": "Activité",
@@ -3305,7 +3321,8 @@
       "firstBookingMinutesUntil": "Bloquer les réservations dans le futur au-dessus de "
     },
     "packsAvailable": "Eligible aux pass :",
-    "reviews": "Avis clients: "
+    "reviews": "Avis clients: ",
+    "disabledMetaActivities": "Activités archivées"
   },
   "offer": {
     "video": {

@@ -98,7 +98,11 @@ export class WorkshopActivity extends Component<Props, State> {
         />
         <BottomActionButtons
           onEdit={() => this.props.onEdit(this.props.id)}
-          onDelete={() => this.setState({ deleteOpen: true })}
+          onDelete={
+            this.props.workshopActivity.customer_enabled
+              ? () => this.setState({ deleteOpen: true })
+              : null
+          }
         />
         <WorkshopDeleteDialog
           workshopId={this.state.deleteOpen ? this.props.id : null}

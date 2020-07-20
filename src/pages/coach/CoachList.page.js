@@ -14,6 +14,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Divider from '@material-ui/core/Divider';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
@@ -21,10 +25,14 @@ import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import {
   deleteCoach,
+  restoreCoach,
   fetchAssociatedCoachesList,
 } from '../../libs/associated-coach/actions';
 import type { Coach } from '../../api/types';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors';
+import {
+  getActiveCoaches,
+  getInactiveCoaches,
+} from '../../libs/associated-coach/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import FuzeSearch from '../../components/FuzeSearch.component';
 
@@ -35,11 +43,13 @@ import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach
 type Props = {
   loading: boolean,
   associatedCoaches: Array<Coach>,
+  inactiveCoaches: Array<Coach>,
 
   fetchAssociatedCoachesList: () => void,
 
   deleteCoachId: ?number,
   deleteCoach: (id: ?number) => void,
+  restoreCoach: (id: ?number) => void,
   setDeleteCoachId: (id: ?number) => void,
 
   goToCoachDetail: (coachId: number) => void,
@@ -54,10 +64,11 @@ export class CoachList extends React.Component<Props, State> {
   state = {
     searchText: '',
     searchResult: [],
+    showDisabled: false,
   };
 
   componentDidMount() {
-    this.props.fetchAssociatedCoachesList({ disabled: false });
+    this.props.fetchAssociatedCoachesList();
   }
 
   changeSearch = (fuse) => (ev) => {
@@ -71,11 +82,20 @@ export class CoachList extends React.Component<Props, State> {
     this.setState({ searchText: '', searchResult: [] });
   };
 
+  onShowDisabled = () => {
+    this.setState((prevState) => ({ showDisabled: !prevState.showDisabled }));
+  };
+
+  goToCoachDetailPage(coach: Coach) {
+    if (!coach.disabled) this.props.goToCoachDetail(coach.id);
+  }
+
   render() {
     const { t } = this.props;
-
     if (
-      (this.props.associatedCoaches || []).length === 0 &&
+      (this.props.associatedCoaches || []).length +
+        (this.props.inactiveCoaches || []).length ===
+        0 &&
       !this.props.loading
     ) {
       return (
@@ -120,8 +140,10 @@ export class CoachList extends React.Component<Props, State> {
                     <CoachListItem
                       divider
                       coach={coach}
-                      onCoachSelected={() =>
-                        this.props.goToCoachDetail(coach.id)
+                      onCoachSelected={
+                        !coach.disabled
+                          ? () => this.goToCoachDetailPage(coach)
+                          : null
                       }
                       deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
                     />
@@ -156,7 +178,7 @@ export class CoachList extends React.Component<Props, State> {
               <CoachListItem
                 divider
                 coach={coach}
-                onCoachSelected={() => this.props.goToCoachDetail(coach.id)}
+                onCoachSelected={() => this.goToCoachDetailPage(coach)}
                 deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
                 onEditCoach={() => this.props.goToCoachEdit(coach.id)}
               />
@@ -169,6 +191,54 @@ export class CoachList extends React.Component<Props, State> {
             deleteCoach={this.props.deleteCoach}
           />
         </Paper>
+
+        {(this.props.inactiveCoaches || []).length ? (
+          <div>
+            <ButtonBase
+              className={this.props.classes.buttonTitle}
+              onClick={this.onShowDisabled}
+              disabled={!(this.props.inactiveCoaches || []).length}
+            >
+              <Typography
+                variant="h5"
+                component="h2"
+                color={
+                  (this.props.inactiveCoaches || []).length
+                    ? 'default'
+                    : 'textSecondary'
+                }
+                className={this.props.classes.titleContainer}
+              >
+                {`${t('coach:inactiveCoaches')} (${
+                  (this.props.inactiveCoaches || []).length
+                })`}
+              </Typography>
+
+              {this.state.showDisabled ? (
+                <ExpandLessIcon />
+              ) : (
+                <ExpandMoreIcon />
+              )}
+            </ButtonBase>
+            <Divider />
+            <Collapse in={this.state.showDisabled}>
+              <Paper>
+                <List component="nav" dense disablePadding>
+                  {this.props.inactiveCoaches.map((coach) => (
+                    <CoachListItem
+                      divider
+                      coach={coach}
+                      onCoachSelected={() => this.goToCoachDetailPage(coach)}
+                      deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
+                      restoreCoach={() => this.props.restoreCoach(coach.id)}
+                    />
+                  ))}
+                </List>
+              </Paper>
+            </Collapse>
+          </div>
+        ) : null}
+
         <BottomActionsButton
           onCreate={this.props.onCreate}
           onCreateLabel={this.props.t('coach:addCoach')}
@@ -221,6 +291,14 @@ const styles = (theme) => ({
     marginRight: theme.spacing(2),
     paddingRight: theme.spacing(2),
   },
+  buttonTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingBottom: theme.spacing(1),
+    marginTop: theme.spacing(3),
+  },
   search: { marginBottom: theme.spacing(2) },
 });
 
@@ -229,10 +307,12 @@ export default compose(
     (state) => ({
       loading: state.coach.loading,
       associatedCoaches: getActiveCoaches(state),
+      inactiveCoaches: getInactiveCoaches(state),
     }),
     {
       fetchAssociatedCoachesList,
       deleteCoach,
+      restoreCoach,
       goToCreateCoach: () => push('/coach/add'),
       goToCoachDetail: (coachId) => push(`/coach/${coachId}`),
       onCreate: () => push('/coach/add'),

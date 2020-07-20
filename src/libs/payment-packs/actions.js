@@ -13,7 +13,6 @@ import {
   patch as patchAPI,
   fetchOne as fetchOneAPI,
   fetchPaymentPackList as fetchPaymentPackListAPI,
-
   // Notifications
   // -----------------
   updatePaymentPackNotifications as updateNotificationAPI,
@@ -103,11 +102,23 @@ export function patch(id: number, data: [*]) {
     try {
       const response = await patchAPI(id, data);
       dispatch(updatePaymentPackActions.success(response.data));
-      dispatch(snackbarSuccess('paymentPack.paymentPackDisabled.success'));
+      dispatch(
+        snackbarSuccess(
+          `paymentPack.paymentPack${
+            data.disabled ? 'Disabled' : 'Enabled'
+          }.success`,
+        ),
+      );
     } catch (err) {
       console.error(err);
       dispatch(updatePaymentPackActions.error(err));
-      dispatch(snackbarError('paymentPack.paymentPackDisabled.error'));
+      dispatch(
+        snackbarError(
+          `paymentPack.paymentPack${
+            data.disabled ? 'Disabled' : 'Enabled'
+          }.error`,
+        ),
+      );
     }
     dispatch(updatePaymentPackActions.isNotLoading(id));
   };

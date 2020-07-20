@@ -10,7 +10,12 @@ import Collapse from '@material-ui/core/Collapse';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Hidden from '@material-ui/core/Hidden';
+import Typography from '@material-ui/core/Typography';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Divider from '@material-ui/core/Divider';
 
 import FuzeSearch from '../../components/FuzeSearch.component';
 
@@ -20,9 +25,13 @@ import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import MetaActivityList from '../../libs/meta-activity/components/MetaActivityList.component';
 import MetaActivityDeleteDialog from '../../libs/meta-activity/components/MetaActivityDeleteDialog.component';
-import { getPageEnabledMetaActivities } from '../../libs/meta-activity/selectors';
+import {
+  getPageEnabledMetaActivities,
+  getPageDisabledMetaActivities,
+} from '../../libs/meta-activity/selectors';
 import {
   deleteMetaActivity,
+  restoreMetaActivity,
   fetchAllActivities as fetchAllMetactivitiesAction,
   makeActivityCopy as makeActivityCopyAction,
 } from '../../libs/meta-activity/actions';
@@ -33,6 +42,7 @@ import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
   metaActivities: Array<MetaActivity>,
+  disabledMetaActivities: Array<MetaActivity>,
   loading: boolean,
 
   fetchAllMetactivities: () => void,
@@ -40,6 +50,7 @@ type Props = {
   goToEdit: (metaActivityId: number) => void,
   onCreate: () => void,
   deleteMetaActivity: (metaActivityId: number) => void,
+  restoreMetaActivity: (MetaActivityId: number) => void,
   setActivityToDelete: (number) => void,
   activityToDelete: (?number) => void,
 
@@ -57,16 +68,18 @@ type Props = {
 type State = {
   searchText: string,
   searchResult: Array<MetaActivity>,
+  showDisabled: boolean,
 };
 
 export class MetaActivityListPage extends React.Component<Props, State> {
   state = {
     searchText: '',
     searchResult: [],
+    showDisabled: false,
   };
 
   componentDidMount() {
-    this.props.fetchAllMetactivities({ customer_enabled: true });
+    this.props.fetchAllMetactivities();
   }
 
   changeSearch = (fuse) => (ev) => {
@@ -80,10 +93,26 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     this.setState({ searchText: '', searchResult: [] });
   };
 
+  onShowDisabled = () => {
+    this.setState((prevState) => ({ showDisabled: !prevState.showDisabled }));
+  };
+
+  restoreMetaActivity = async (id: number) => {
+    if (this.props.disabledMetaActivities.length === 1) {
+      this.setState({ showDisabled: false });
+    }
+    this.props.restoreMetaActivity(id);
+  };
+
   render() {
     const { classes, t } = this.props;
 
-    if ((this.props.metaActivities || []).length === 0 && !this.props.loading) {
+    if (
+      (this.props.metaActivities || []).length +
+        (this.props.disabledMetaActivities || []).length ===
+        0 &&
+      !this.props.loading
+    ) {
       return (
         <IsEmptyList
           text={this.props.t('noActivities')}
@@ -152,6 +181,42 @@ export class MetaActivityListPage extends React.Component<Props, State> {
           deleteMetaActivity={this.props.setActivityToDelete}
           makeActivityCopy={this.props.makeActivityCopy}
         />
+        {(this.props.disabledMetaActivities || []).length ? (
+          <div>
+            <ButtonBase
+              className={this.props.classes.buttonTitle}
+              onClick={this.onShowDisabled}
+            >
+              <Typography
+                variant="h5"
+                component="h2"
+                className={this.props.classes.titleContainer}
+              >
+                {`${t('metaActivity:disabledMetaActivities')} (${
+                  (this.props.disabledMetaActivities || []).length
+                })`}
+              </Typography>
+
+              {this.state.showDisabled ? (
+                <ExpandLessIcon />
+              ) : (
+                <ExpandMoreIcon />
+              )}
+            </ButtonBase>
+            <Divider />
+            <Collapse in={this.state.showDisabled}>
+              <MetaActivityList
+                metaActivities={this.props.disabledMetaActivities}
+                goToDetail={this.props.goToDetail}
+                goToEdit={this.props.goToEdit}
+                deleteMetaActivity={this.props.setActivityToDelete}
+                makeActivityCopy={this.props.makeActivityCopy}
+                restoreMetaActivity={this.restoreMetaActivity}
+              />
+            </Collapse>
+          </div>
+        ) : null}
+
         <MetaActivityDeleteDialog
           metaActivityId={this.props.activityToDelete}
           onClose={() => this.props.setActivityToDelete(null)}
@@ -196,6 +261,14 @@ const styles = (theme) => ({
     flex: 1,
     marginRight: theme.spacing(1),
   },
+  buttonTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingBottom: theme.spacing(1),
+    marginTop: theme.spacing(3),
+  },
 });
 
 export default compose(
@@ -207,6 +280,7 @@ export default compose(
   connect(
     (state) => ({
       metaActivities: getPageEnabledMetaActivities(state),
+      disabledMetaActivities: getPageDisabledMetaActivities(state),
       loading: state.metaActivity.loading || state.metaActivity.delete.loading,
     }),
     {
@@ -217,6 +291,7 @@ export default compose(
       goToEdit: (metaActivityId) => push(`/activity/${metaActivityId}/edit`),
       goToPaymentPack: () => push('/payment-pack'),
       deleteMetaActivity,
+      restoreMetaActivity,
       onCreate: () => push('/activity/add'),
     },
   ),

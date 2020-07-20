@@ -28,6 +28,10 @@ exports.default = {
       success: 'Professeur supprimé',
       error: 'Impossible de supprimer le professeur',
     },
+    restore: {
+      success: 'Professeur restauré avec succès',
+      error: 'Impossible de restaurer le professeur',
+    },
   },
   relationship: {
     edit: {
@@ -72,6 +76,10 @@ exports.default = {
     paymentPackDisabled: {
       success: 'Carte de cours désactivée',
       error: 'Impossible de désactiver la carte',
+    },
+    paymentPackEnabled: {
+      success: 'Carte de cours restaurée',
+      error: 'Impossible de restaurer la carte',
     },
     credit: {
       updated: 'Crédits mis à jour',
@@ -319,6 +327,26 @@ exports.default = {
         success: 'Vidéo supprimée de la playlist',
         error: 'Impossible de supprimer la vidéo de la playlist',
       },
+    },
+  },
+  metaActivity: {
+    restore: {
+      success: 'Élément restauré',
+      error: 'Impossible de restaurer cet élément',
+    },
+    del: {
+      success: 'Élément supprimé',
+      error: 'Impossible de supprimer cet élément',
+    },
+  },
+  privatePass: {
+    restore: {
+      success: 'Carte de RDV restaurée',
+      error: 'Impossible de restaurer cette carte de RDV',
+    },
+    del: {
+      success: 'Carte de RDV supprimée',
+      error: 'Impossible de supprimer cette carte de RDV',
     },
   },
 };

@@ -13,6 +13,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
@@ -21,7 +27,10 @@ import themeSelectors from '../../libs/theme/selectors';
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import withTitle from '../../hocs/with-title.hoc';
-import { getPrivatePassAvailableListWithPrivateService } from '../../libs/private-service/selectors/private-pass';
+import {
+  getPrivatePassAvailableListWithPrivateService,
+  getDisabledPrivatePassAvailableListWithPrivateService,
+} from '../../libs/private-service/selectors/private-pass';
 import { getPrivateServices } from '../../libs/private-service/selectors/private-service';
 import {
   fetchPrivatePassList,
@@ -30,6 +39,7 @@ import {
   deleteCompatibleServicePass,
   createCompatibleServicePass,
   deletePrivatePass,
+  restorePrivatePass,
 } from '../../libs/private-service/actions';
 import PrivatePassListItem from '../../libs/private-service/components/pass/PrivatePassListItem.component';
 import PrivatePassDetail from '../../libs/private-service/components/pass/PrivatePassDetail.component';
@@ -45,6 +55,7 @@ type Props = {
   fetchPrivatePassList: () => void,
   fetchAllPrivateServices: () => void,
   privatePassList: Array<PrivatePass>,
+  disabledPrivatePassList: Array<PrivatePass>,
   private_services: Array<PrivateService>,
   theme: Theme,
   selectedPassId: number,
@@ -62,7 +73,10 @@ type Props = {
 
   setOpenDeletePassDialog: (id: number) => void,
   openDeletePassDialog: number,
+  showDisabled: boolean,
+  setShowDisabled: (show: boolean) => void,
   deletePrivatePass: (id: number) => void,
+  restorePrivatePass: (id: number) => void,
   snackbarSuccess: (string) => void,
   goToPass: (id: number) => void,
 };
@@ -82,9 +96,22 @@ export class PrivatePassList extends React.Component<Props> {
     });
   };
 
+  onShowDisabled = () => {
+    this.props.setShowDisabled(!this.props.showDisabled);
+  };
+
+  restorePrivatePass = async (id: number) => {
+    if (this.props.disabledPrivatePassList.length === 1) {
+      this.props.setShowDisabled(false);
+    }
+    this.props.restorePrivatePass(id);
+  };
+
   render() {
     if (
-      (this.props.privatePassList || []).length === 0 &&
+      (this.props.privatePassList || []).length +
+        (this.props.disabledPrivatePassList || []).length ===
+        0 &&
       !this.props.loading
     ) {
       return (
@@ -151,6 +178,45 @@ export class PrivatePassList extends React.Component<Props> {
             />
           ) : null}
         </Grid>
+        {(this.props.disabledPrivatePassList || []).length ? (
+          <Grid item xs={12} md={6}>
+            <div className={this.props.classes.leftPanel}>
+              <ButtonBase
+                className={this.props.classes.buttonTitle}
+                onClick={this.onShowDisabled}
+              >
+                <Typography
+                  variant="h5"
+                  component="h2"
+                  className={this.props.classes.titleContainer}
+                >
+                  {`${this.props.t('privatePass.disabledTitle')} (${
+                    (this.props.disabledPrivatePassList || []).length
+                  })`}
+                </Typography>
+
+                {this.props.showDisabled ? (
+                  <ExpandLessIcon />
+                ) : (
+                  <ExpandMoreIcon />
+                )}
+              </ButtonBase>
+              <Divider />
+              <Collapse in={this.props.showDisabled}>
+                <List disablePadding>
+                  {this.props.disabledPrivatePassList.map((pass) => (
+                    <PrivatePassListItem
+                      pass={pass}
+                      key={pass.id}
+                      onRestore={() => this.restorePrivatePass(pass.id)}
+                      divider
+                    />
+                  ))}
+                </List>
+              </Collapse>
+            </div>
+          </Grid>
+        ) : null}
         <Dialog open={this.props.openCreateForm}>
           <DialogTitle>{this.props.t('privatePass.form.title')}</DialogTitle>
           <DialogContent>
@@ -208,6 +274,13 @@ const styles = (theme) => ({
       paddingRight: theme.spacing(2),
     },
   },
+  buttonTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingBottom: theme.spacing(1),
+  },
 });
 
 export default compose(
@@ -220,6 +293,9 @@ export default compose(
   connect(
     (state) => ({
       privatePassList: getPrivatePassAvailableListWithPrivateService(state),
+      disabledPrivatePassList: getDisabledPrivatePassAvailableListWithPrivateService(
+        state,
+      ),
       private_services: getPrivateServices(state),
       loading: state.privateService.privatePass.loading,
       theme: themeSelectors.getTheme(state),
@@ -232,10 +308,12 @@ export default compose(
       createCompatibleServicePass,
       deleteCompatibleServicePass,
       deletePrivatePass,
+      restorePrivatePass,
       snackbarSuccess,
     },
   ),
   withState('openCreateForm', 'setOpenCreateForm', false),
   withState('selectedPassId', 'setSelectedPass', null),
   withState('openDeletePassDialog', 'setOpenDeletePassDialog', null),
+  withState('showDisabled', 'setShowDisabled', false),
 )(PrivatePassList);

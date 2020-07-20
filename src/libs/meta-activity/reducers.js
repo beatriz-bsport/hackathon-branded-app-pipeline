@@ -13,6 +13,7 @@ import {
   listingActions,
   metaActivityBulkActions,
   favoriteActions,
+  metaActivityRestoreActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -139,6 +140,9 @@ export default handleActions(
       return state.set('loading', payload);
     },
     [listingActions.error]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+    [metaActivityRestoreActions.isLoading]: (state, { payload }) => {
       return state.set('error', payload);
     },
   },

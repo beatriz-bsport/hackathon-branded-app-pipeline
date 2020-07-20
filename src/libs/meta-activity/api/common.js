@@ -5,6 +5,7 @@ import {
   postAuth,
   getAuth,
   patchAuth,
+  putAuth,
   buildUrlParams,
 } from '../../../http';
 
@@ -26,6 +27,10 @@ export async function deleteMetaActivity(id: number) {
 
 export async function checkCanDeleteMetaActivity(id: number) {
   return getAuth(`${API_V1_URI}/meta-activity/${id}/can_destroy/`);
+}
+
+export async function restoreMetaActivity(id: number) {
+  return putAuth(`${API_V1_URI}/meta-activity/${id}/restore/`);
 }
 
 export async function updateMetaActivity(data: *, id: number) {

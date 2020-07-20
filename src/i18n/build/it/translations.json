@@ -3286,7 +3286,8 @@
             "1": "Fatturazione",
             "2": "Ordini",
             "3": "Attività",
-            "4": "Appuntamento da completare"
+            "4": "Appuntamento da completare",
+            "5": "Informazioni legali"
         },
         "list": {
             "title": "Notifiche",
@@ -3300,6 +3301,21 @@
         "showMore": "Vedi di più",
         "task": {
             "name": "{{name}}"
+        },
+        "companyOnboarding": {
+            "creation": {
+                "content": "Per poter raccogliere pagamenti CB e SEPA, controlla le tue informazioni e le informazioni legali",
+                "title": "Pagamento online disabilitato"
+            },
+            "payout": {
+                "content": "Non possiamo effettuare pagamenti sul tuo conto bancario perché è inesistente o configurato in modo errato.",
+                "title": "Informazioni bancarie mancanti"
+            },
+            "verification": {
+                "warning": "I pagamenti online rischiano di essere <1> disattivati </1> dopo questa data!",
+                "content": "Diversi documenti sono in sospeso, hai tempo fino a <1> {{date}} </1> per verificare il tuo account.",
+                "title": "Gestire la mia attività"
+            }
         }
     },
     "paymentPack": {
@@ -4725,6 +4741,25 @@
         "paymentNote": {
             "helperText": "(facoltativo) numero di conto, data di incasso...",
             "label": "Nota"
+        },
+        "bankAccount": {
+            "form": {
+                "actions": {
+                    "submit": "Conferma",
+                    "cancel": "Annulla"
+                },
+                "accountNumber": {
+                    "placeholder": "FR89370400440532013000",
+                    "label": "Identificativo bancario (IBAN)"
+                },
+                "invalid": "IBAN non valido. Nota: l'IBAN deve corrispondere a un conto bancario domiciliato nello stesso paese della tua azienda",
+                "accountHolderName": {
+                    "placeholder": "Jacques Chirac",
+                    "label": "Titolare del conto bancario"
+                },
+                "content": "Questo conto bancario verrà utilizzato per trasferire gli importi pagati online tramite bsport.",
+                "title": "Conto bancario"
+            }
         }
     },
     "selfCheckIn": {
@@ -4845,7 +4880,56 @@
             "title": "Iscrizione"
         },
         "contactUs": "Manager della palestra, sei interessato alla nostra soluzione? Contattaci.",
-        "or": " o "
+        "or": " o ",
+        "signupCompany": {
+            "form": {
+                "name": {
+                    "placeholder": "Yoga Shala",
+                    "helperText": "Questo nome sarà visibile ai tuoi membri",
+                    "label": "Nome del tuo studio/club/società"
+                },
+                "next": "Conferma",
+                "previous": "Indietro",
+                "country": {
+                    "label": "Nazione"
+                },
+                "password2": {
+                    "error": "Le passwords non corrispondono",
+                    "label": "Conferma"
+                },
+                "password1": {
+                    "label": "Password"
+                },
+                "email": {
+                    "errorExists": "Questa email esiste già, scegline un'altra.",
+                    "placeholder": "me@bsport.io",
+                    "label": "Email"
+                },
+                "title": "Le mie informazioni"
+            },
+            "welcome": {
+                "next": "Continua",
+                "content": "bsport riunisce una community di appassionati il cui obiettivo è semplificare i tuoi strumenti informatici e consentirti di comprendere meglio la tua community.",
+                "title": "Benvenuto!"
+            }
+        },
+        "country": {
+            "ES": "Spagna",
+            "BE": "Belgio",
+            "NL": "Olanda",
+            "IT": "Italia",
+            "DE": "Germania",
+            "FR": "Francia"
+        },
+        "emailValidation": {
+            "disconnect": "Cambia account",
+            "goToLogin": "Indietro",
+            "linkExpired": "Il tuo link di convalida è scaduto",
+            "hasSentAgain": "Email inviata",
+            "sendAgain": "Reinvia mail di conferma",
+            "success": "La tua email è stata convalidata, verrai reindirizzato in pochi secondi.",
+            "explain": "Ti abbiamo inviato un'email di convalida, ci sei quasi!"
+        }
     },
     "waitingList": {
         "nbPending": "{{nbPending}} nell'elenco",

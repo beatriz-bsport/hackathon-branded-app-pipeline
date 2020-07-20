@@ -1133,7 +1133,56 @@
             "signup": "¿Aún no tienes cuenta?",
             "signin": "Iniciar sesión"
         },
-        "or": " o "
+        "or": " o ",
+        "signupCompany": {
+            "form": {
+                "name": {
+                    "placeholder": "Yoga Shala",
+                    "helperText": "Este nombre será visible para tus miembros",
+                    "label": "Nombre de tu estudio/club/empresa"
+                },
+                "next": "Confirmar",
+                "previous": "Volver",
+                "country": {
+                    "label": "País"
+                },
+                "password2": {
+                    "error": "Las contraseñas no coinciden",
+                    "label": "Confirmación"
+                },
+                "password1": {
+                    "label": "Contraseña"
+                },
+                "email": {
+                    "errorExists": "Este email ya existe, elige otro.",
+                    "placeholder": "me@bsport.io",
+                    "label": "Email"
+                },
+                "title": "Mis informaciones"
+            },
+            "welcome": {
+                "next": "Continuar",
+                "content": "bsport reúne a una comunidad de entusiastas cuyo objetivo es simplificar tus herramientas informáticas y permitirle comprender mejor a tu comunidad.",
+                "title": "¡Bienvenido!"
+            }
+        },
+        "country": {
+            "ES": "España",
+            "BE": "Bélgica",
+            "NL": "Países Bajos",
+            "IT": "Italia",
+            "DE": "Alemania",
+            "FR": "Francia"
+        },
+        "emailValidation": {
+            "disconnect": "Cambiar de cuenta",
+            "goToLogin": "Volver",
+            "linkExpired": "Tu enlace de validación ha expirado",
+            "hasSentAgain": "Email enviado",
+            "sendAgain": "Reenviar un email de confirmación",
+            "success": "Tu email ha sido validado, serás redirigido en unos segundos.",
+            "explain": "Te hemos enviado un email de validación, ¡ya casi estás allí!"
+        }
     },
     "establishment": {
         "establishment": "Establecimiento ",
@@ -1528,6 +1577,25 @@
         "paymentNote": {
             "helperText": "(opcional) número de cheque, fecha de recogida ...",
             "label": "Nota"
+        },
+        "bankAccount": {
+            "form": {
+                "accountHolderName": {
+                    "placeholder": "Jacques Chirac",
+                    "label": "Titular de la cuenta bancaria"
+                },
+                "actions": {
+                    "submit": "Confirmar",
+                    "cancel": "Cancelar"
+                },
+                "accountNumber": {
+                    "placeholder": "FR89370400440532013000",
+                    "label": "Identificador bancario (IBAN)"
+                },
+                "invalid": "IBAN inválido. Tiene en cuenta: el IBAN debe corresponder a una cuenta bancaria domiciliada en el mismo país que tu empresa",
+                "content": "Esta cuenta bancaria se utilizará para transferirle los montos pagados en línea a través de bsport.",
+                "title": "Cuenta bancaria"
+            }
         }
     },
     "invoice": {
@@ -2087,7 +2155,8 @@
             "1": "Facturación",
             "2": "Pedida",
             "4": "Cita a completar",
-            "3": "Tarea"
+            "3": "Tarea",
+            "5": "Informaciones legales"
         },
         "showMore": "Ver más",
         "unevenInvoice": {
@@ -2108,6 +2177,21 @@
             "name": "Miembro: {{user_name}}",
             "date": "Fecha: {{date_start}}",
             "explain": "La cita de <1> {{name}} </1> no tiene un profesor designado."
+        },
+        "companyOnboarding": {
+            "creation": {
+                "content": "Para poder cobrar pagos CB y SEPA, verifica tus informaciones legales",
+                "title": "Pago en línea deshabilitado"
+            },
+            "payout": {
+                "content": "No podemos realizar pagos a tu cuenta bancaria porque no existe o está configurada incorrectamente.",
+                "title": "Falta información bancaria"
+            },
+            "verification": {
+                "warning": "¡Los pagos en línea pueden ser <1> desactivados </1> después de esta fecha!",
+                "content": "Hay varios documentos pendientes, tienes hasta <1> {{date}} </1> para verificar su cuenta.",
+                "title": "Gestión de mi negocio"
+            }
         }
     },
     "offer": {
@@ -2897,7 +2981,8 @@
                 "submit": "Confirmar",
                 "cancel": "Cancelar",
                 "explain": "¿Estás seguro de que quieres suprimir esta tarjeta ? La gente que aún tiene créditos podrá seguir utilizándolos. Esta operación es definitiva",
-                "title": "Supresión de la tarjeta"
+                "title": "Supresión de la tarjeta",
+                "delete": "Suprimir"
             },
             "parameters": {
                 "managerOnly": "Invisible para los clientes",
@@ -2913,7 +2998,8 @@
                 "years": "Válido {{ duration_years }} año",
                 "months": "Válido {{ duration_months }} meses",
                 "days": "Válido {{ duration_days }} días"
-            }
+            },
+            "edit": "Modificar"
         },
         "privateBooking": {
             "managerAdd": {
@@ -3283,7 +3369,8 @@
             "actions": {
                 "delete": "Suprimir"
             }
-        }
+        },
+        "noPrivateConsumerPass": "Nadie tiene esta tarjeta de cita"
     },
     "reminder": {
         "task": {

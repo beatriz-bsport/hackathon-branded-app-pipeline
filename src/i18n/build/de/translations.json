@@ -1482,8 +1482,8 @@
             "comparators": {
                 "6": "zwischen",
                 "5": "gleich",
-                "2": "höher (⩾)",
-                "1": "niedriger (⩽)"
+                "2": "mehr als (⩾)",
+                "1": "weniger als (⩽)"
             },
             "24": {
                 "first": "Gab",
@@ -2066,7 +2066,8 @@
             "4": "Termin, der ergänzen werden muss",
             "3": "Auftrag",
             "2": "Bestellung",
-            "1": "Rechnungsstellung"
+            "1": "Rechnungsstellung",
+            "5": "Rechtliche Informationen"
         },
         "list": {
             "emptyAlerting": "Keine neue Benachrichtigung.",
@@ -2077,6 +2078,21 @@
             "explain": "Von <1>{{name}}</1> in dem Geschäft bezahlt.",
             "price": "Betrag : {{ price, price }}.",
             "title": "Bestellung in Bearbeitung"
+        },
+        "companyOnboarding": {
+            "creation": {
+                "content": "Um CB- und SEPA-Zahlungen erhalten zu können, überprüfen Sie bitte Ihre rechtlichen Informationen",
+                "title": "Online-Zahlungen deaktiviert"
+            },
+            "payout": {
+                "content": "Wir können keine Zahlungen auf Ihr Bankkonto vornehmen, weil Ihr Bankkonto nicht existiert oder falsch eingerichtet ist.",
+                "title": "Fehlende Bankinformationen"
+            },
+            "verification": {
+                "warning": "Online-Zahlungen können nach diesem Datum <1>deaktiviert</1> werden !",
+                "content": "Mehrere Dokumente sind ausstehend, Sie haben bis <1>{{ date }}</1> Zeit, um Ihr Konto zu überprüfen.",
+                "title": "Verwaltung meines Unternehmens"
+            }
         }
     },
     "reporting": {
@@ -2703,6 +2719,25 @@
         "paymentNote": {
             "helperText": "(fakultativ) Schecknummer, Einlösungsdatum...",
             "label": "Anmerkung"
+        },
+        "bankAccount": {
+            "form": {
+                "actions": {
+                    "submit": "Bestätigen",
+                    "cancel": "Abbrechen"
+                },
+                "accountNumber": {
+                    "placeholder": "DE89370400440532013000",
+                    "label": "IBAN"
+                },
+                "invalid": "Ungültige IBAN. Achtung: Die IBAN muss einem Bankkonto im gleichen Land wie Ihr Unternehmen entsprechen",
+                "accountHolderName": {
+                    "placeholder": "Paul Müller",
+                    "label": "Bankkontoinhaber"
+                },
+                "content": "Dieses Bankkonto wird verwendet, um Ihnen die online über bsport bezahlten Beträge zu überweisen.",
+                "title": "Bankkonto"
+            }
         }
     },
     "paymentRules": {
@@ -4898,6 +4933,55 @@
             "password": {
                 "label": "Passwort"
             }
+        },
+        "country": {
+            "ES": "Spanien",
+            "BE": "Belgien",
+            "NL": "Niederlande",
+            "IT": "Italien",
+            "DE": "Deutschland",
+            "FR": "Frankreich"
+        },
+        "signupCompany": {
+            "form": {
+                "next": "Bestätigen",
+                "previous": "Zurück",
+                "country": {
+                    "label": "Land"
+                },
+                "password2": {
+                    "error": "Passwörter stimmen nicht überein",
+                    "label": "Bestätigung"
+                },
+                "password1": {
+                    "label": "Passwort"
+                },
+                "email": {
+                    "errorExists": "Diese E-mail existiert bereits, bitte wählen Sie eine andere.",
+                    "placeholder": "me@bsport.io",
+                    "label": "E-Mail"
+                },
+                "name": {
+                    "helperText": "Dieser Name ist für Ihre Mitglieder sichtbar",
+                    "placeholder": "Yoga Shala",
+                    "label": "Name Ihres Studios/Klubs/Unternehmens"
+                },
+                "title": "Meine Informationen"
+            },
+            "welcome": {
+                "next": "Weiter",
+                "content": "bsport ist ein Zusammenschluss von Enthusiasten, deren Ziel es ist, Ihre IT-Tools zu vereinfachen und Ihnen ein besseres Verständnis Ihrer Gemeinschaft zu ermöglichen.",
+                "title": "Herzlich Willkommen !"
+            }
+        },
+        "emailValidation": {
+            "disconnect": "Konto ändern",
+            "goToLogin": "Zurück",
+            "linkExpired": "Ihren Bestätigungslink ist abgelaufen",
+            "hasSentAgain": "Die E-Mail wurde gesendet",
+            "sendAgain": "Eine Bestätigungs-E-Mail nochmals senden",
+            "success": "Ihre Email wurde bestätigt, Sie werden in wenigen Sekunden umgeleitet.",
+            "explain": "Wir haben Ihnen eine Bestätigungs-Email geschickt, Sie haben es fast geschafft !"
         }
     },
     "marketplace": {

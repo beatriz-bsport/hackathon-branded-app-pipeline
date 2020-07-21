@@ -1025,7 +1025,8 @@
                     "forceNotify": "Eine Bestätigungs-E-Mail senden",
                     "passOwnedByMember": "Kurskarte(n), die das Mitglied besitzt",
                     "registerToOffer": "Anmeldung an dem Kurs",
-                    "passCompatibleNotOwnedByMember": "Rechnungsstellung einer neuen Kurskarte"
+                    "passCompatibleNotOwnedByMember": "Rechnungsstellung einer neuen Kurskarte",
+                    "doNotConsumeCredit": "Ziehen Sie keine Kreditpunkte für die Anmedlung von Mitgliedern ab"
                 }
             }
         },

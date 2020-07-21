@@ -917,6 +917,8 @@ exports.default = {
       register: {
         registerToOffer: 'Inscription à la séance',
         passOwnedByMember: 'Pass possédé(s) par le membre',
+        doNotConsumeCredit:
+          "Ne pas décompter de crédits aux membres pour l'inscription",
         passCompatibleNotOwnedByMember: "Facturation d'un nouveau pass",
         forceNotify: 'Envoyer un email de confirmation',
       },

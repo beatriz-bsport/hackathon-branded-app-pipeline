@@ -181,10 +181,9 @@ export class RegisterMemberToOfferForm extends PureComponent<Props> {
             value="checkedG"
           />
         }
-        label={
-          // eslint-disable-next-line
-          "Ne pas décompter de crédits aux membres pour l'inscription"
-        }
+        label={this.props.t(
+          'offerManagement.forms.register.doNotConsumeCredit',
+        )}
       />
     );
   };

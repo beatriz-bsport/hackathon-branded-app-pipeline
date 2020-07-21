@@ -76,7 +76,7 @@
             "subscribeAgain": "Erneut abonnieren",
             "trial_nb": "Anzahl der geschenkten Monate",
             "recurrent_price": "Periodische Zahlung",
-            "flat_fee": "Engagement- und Anmeldegebühren",
+            "flat_fee": "Anmeldegebühren",
             "recurrent_voucher": "Rabatt auf jede Rechnung"
         },
         "paymentMethod": {
@@ -143,7 +143,18 @@
                 "isEmpty": "Kein verfügbarer Vertrag"
             },
             "duration": "{{month}} Monat(e)",
-            "legal": "Impressum"
+            "legal": "Impressum",
+            "deleteForm": {
+                "actions": {
+                    "confirm": "Löschen",
+                    "cancel": "Abbrechen"
+                },
+                "content": "Wollen Sie wirklich diesen Vertrag löschen ?",
+                "title": "Löschung des Vertrags"
+            },
+            "paymentPack": "Verbundene Kurskarte",
+            "no": "Nein",
+            "yes": "Ja"
         },
         "subscription": {
             "actions": {
@@ -184,7 +195,8 @@
             },
             "delete": "Löschen",
             "register": "Abonnieren",
-            "edit": "Ändern"
+            "edit": "Ändern",
+            "buy": "Kaufen"
         },
         "table": {
             "noContent": "Kein gespeichertes Abonnement"
@@ -266,7 +278,17 @@
             "pausedInterval": "{{start}} → {{ end }} : {{ days }} Tage",
             "pausedAt": "{{ days }} Tage - am {{ date }}"
         },
-        "noContracts": "Mit den Verträgen können Sie Ihren Mitgliedern regelmäßig (monatlich) eine Kurskarte in Rechnung stellen, die jeden Monat neu gutgeschrieben wird."
+        "noContracts": "Mit den Verträgen können Sie Ihren Mitgliedern regelmäßig (monatlich) eine Kurskarte in Rechnung stellen, die jeden Monat neu gutgeschrieben wird.",
+        "copyLink": "Kopieren Sie den Link zur Zahlungsseite",
+        "listItem": {
+            "valid": "Gültig",
+            "paused": "Pause",
+            "expired": "Abgelaufen",
+            "canceled": "Gestoppt",
+            "subscribedOn": "Das Abonnement begann am {{- date}}"
+        },
+        "noAssociatedSubscription": "Kein gespeichertes Abonnement",
+        "associatedSubscriptions": "Mit diesem Vertrag verbundene Abonnements"
     },
     "translation": {
         "appbar": {
@@ -463,7 +485,8 @@
             "members": "Meine Benutzer",
             "items": "Objekte",
             "isRefreshing": "Ihre Website wird in Kürze bereit sein",
-            "duplicate": "Duplizieren"
+            "duplicate": "Duplizieren",
+            "restore": "Wiederherstellen"
         },
         "openSchedule": "Stundenplan ansehen",
         "login": {
@@ -2045,7 +2068,12 @@
         "availableOnFollowingEstablishments": "Wählbare Einrichtungen : ",
         "availableOnFollowingActivities": "Wählbare Aktivitäten : ",
         "notificationForm": "Benachrichtigung-Formular",
-        "noPaymentPack": "Kurskarten ermöglichen es den Mitgliedern, sich für Aktivitäten anzumelden; für die Anmeldung ist eine Karte erforderlich."
+        "noPaymentPack": "Kurskarten ermöglichen es den Mitgliedern, sich für Aktivitäten anzumelden; für die Anmeldung ist eine Karte erforderlich.",
+        "disabledPacks": {
+            "hide": "Archivierte Karten verbergen",
+            "show": "Archivierte Karten anzeigen"
+        },
+        "disabledPacksTitle": "Archivierte Karten"
     },
     "alerting": {
         "task": {
@@ -2304,6 +2332,10 @@
             "paymentPackDisabled": {
                 "error": "Es ist unmöglich, diese Karte zu sperren",
                 "success": "Kurskarte gesperrt"
+            },
+            "paymentPackEnabled": {
+                "error": "Es ist unmöglich, diese Karte wiederherzustellen",
+                "success": "Kurskarte wiederhergestellt"
             }
         },
         "paymentRules": {
@@ -2360,6 +2392,10 @@
             "error_email_exists": "Es gibt bereits einen Lehrer mit dieser E-Mail, verwenden Sie das Formular zur Erstellung eines Lehrers",
             "linkByEmail": {
                 "success": "Lehrer erfolgreich verbunden"
+            },
+            "restore": {
+                "error": "Es ist unmöglich, den Lehrer wiederherzustellen",
+                "success": "Lehrer erfolgreich wiederhergestellt"
             }
         },
         "invoice": {
@@ -2576,6 +2612,26 @@
                     "success": "Kategorie gelöscht",
                     "error": "Es ist unmöglich, die Kategorie zu löschen"
                 }
+            }
+        },
+        "privatePass": {
+            "del": {
+                "error": "Es ist unmöglich, diese Terminkarte zu löschen",
+                "success": "Terminkarte gelöscht"
+            },
+            "restore": {
+                "error": "Es ist unmöglich, diese Terminkarte wiederherzustellen",
+                "success": "Terminkarte wiederhergestellt"
+            }
+        },
+        "metaActivity": {
+            "del": {
+                "error": "Es ist unmöglich, dieses Objekt zu löschen",
+                "success": "Objekt gelöscht"
+            },
+            "restore": {
+                "error": "Es ist unmöglich, dieses Objekt wiederherzustellen",
+                "success": "Objekt wiederhergestellt"
             }
         }
     },
@@ -3501,7 +3557,7 @@
                 },
                 "last_discard_minutes": {
                     "helperText": "Wenn die Buchung zu spät abgesagt ist, werden die verwendete Kreditpunkte nicht zurückerstattet",
-                    "label": "Letzte erstattungsfähig Stornierung bis zu"
+                    "label": "Letzte erstattungsfähige Stornierung bis zu"
                 },
                 "actions": {
                     "submit": "Speichern",
@@ -3704,7 +3760,8 @@
                 "years": "Gültig für {{ duration_years }} Jahr(e)",
                 "days": "Gültig für {{ duration_days }} Tage"
             },
-            "edit": "Ändern"
+            "edit": "Ändern",
+            "disabledTitle": "Archivierte Terminkarten"
         },
         "consumerPass": {
             "current_credits": "{{ current_credits }}/{{credits}} Kreditpunkte",
@@ -4088,7 +4145,8 @@
         "reviews": "Kundenmitteilungen : ",
         "offersThisDay": "Heutige Kurse :",
         "packsAvailable": "Für Kurskarten berechtigt :",
-        "noActivities": "Verwalten Sie hier Ihre Aktivitäten, eine Aktivität ermöglicht es Ihnen, eine Reihe von Kursen (in der Regel Grupenkurse) derselben Disziplin gemeinsam zu organisieren."
+        "noActivities": "Verwalten Sie hier Ihre Aktivitäten, eine Aktivität ermöglicht es Ihnen, eine Reihe von Kursen (in der Regel Grupenkurse) derselben Disziplin gemeinsam zu organisieren.",
+        "disabledMetaActivities": "Archivierte Aktivitäten"
     },
     "coachPerformance": {
         "bonus": "Bonus",
@@ -4898,7 +4956,8 @@
         },
         "showPerformance": "Lohn ausstellen",
         "noCoach": "Zur Zeit gibt es keine registrierten Lehrer",
-        "noCoachs": "Keine registrierten Lehrer, verwalten Sie hier Ihre Lehrer, Referenten und deren Entlohnung."
+        "noCoachs": "Keine registrierten Lehrer, verwalten Sie hier Ihre Lehrer, Referenten und deren Entlohnung.",
+        "inactiveCoaches": "Archivierte Lehrer"
     },
     "login": {
         "error": {
@@ -5240,7 +5299,8 @@
             "addWorkshopActivity": "Ein Event hinzufügen"
         },
         "search": "Ein Event suchen",
-        "noWorkshops": "Verwalten Sie Ihre Events hier. Ein Event ist eine Veranstaltung, deren Datum im Voraus festgelegt wird."
+        "noWorkshops": "Verwalten Sie Ihre Events hier. Ein Event ist eine Veranstaltung, deren Datum im Voraus festgelegt wird.",
+        "disabledWorkshops": "Archivierte Events"
     },
     "establishment": {
         "capacity": {

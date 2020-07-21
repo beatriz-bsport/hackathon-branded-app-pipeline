@@ -1696,7 +1696,8 @@
             "items": "elements",
             "copySuffix": " (Copy)",
             "isRefreshing": "Your interface will be ready shortly",
-            "duplicate": "Duplicate"
+            "duplicate": "Duplicate",
+            "restore": "Restore"
         },
         "members": {
             "form": {
@@ -2614,7 +2615,8 @@
                 "months": "Valid for {{ duration_months }} months",
                 "days": "Valid for {{ duration_days }} days"
             },
-            "edit": "Edit"
+            "edit": "Edit",
+            "disabledTitle": "Archived passes (appointments)"
         },
         "service": {
             "selector": {
@@ -3283,7 +3285,8 @@
             "search": "Find a workshop",
             "addWorkshopActivity": "Add a workshop"
         },
-        "noWorkshops": "Manage your workshops here, a workshop is an event whose date is fixed in advance."
+        "noWorkshops": "Manage your workshops here, a workshop is an event whose date is fixed in advance.",
+        "disabledWorkshops": "Archived workshops"
     },
     "tag": {
         "panel": {
@@ -4162,7 +4165,8 @@
             }
         },
         "noCoach": "No teachers is registered yet",
-        "noCoachs": "No registered teachers, manage your teachers here, contributors and their payment."
+        "noCoachs": "No registered teachers, manage your teachers here, contributors and their payment.",
+        "inactiveCoaches": "Archived teachers"
     },
     "subscription": {
         "events": {
@@ -4221,7 +4225,8 @@
             "actionSection": "Manage",
             "delete": "Delete",
             "register": "Subscribe",
-            "edit": "Edit"
+            "edit": "Edit",
+            "buy": "Buy"
         },
         "contract": {
             "registerManager": {
@@ -4279,7 +4284,18 @@
                     "label": "Description",
                     "placeholder": "Annual VIP subscription"
                 }
-            }
+            },
+            "deleteForm": {
+                "actions": {
+                    "confirm": "Delete",
+                    "cancel": "Cancel"
+                },
+                "content": "Do you really want to delete the contract ?",
+                "title": "Delete the contract"
+            },
+            "paymentPack": "Associated pass",
+            "no": "No",
+            "yes": "Yes"
         },
         "recap": {
             "willBecharged": " will be charged ",
@@ -4393,7 +4409,17 @@
         },
         "save": "save",
         "cancel": "cancel",
-        "noContracts": "Contracts will allow you to regularly (monthly) bill your members for a pass that is re-credited every month."
+        "noContracts": "Contracts will allow you to regularly (monthly) bill your members for a pass that is re-credited every month.",
+        "copyLink": "Copy link to payment page",
+        "listItem": {
+            "valid": "Valid",
+            "paused": "Paused",
+            "expired": "Expired",
+            "canceled": "Stopped",
+            "subscribedOn": "Subscription started on {{- date}}"
+        },
+        "noAssociatedSubscription": "No subscription registered yet",
+        "associatedSubscriptions": "Subscriptions associated with this contract"
     },
     "reporting": {
         "columns": {
@@ -4902,7 +4928,12 @@
             "title": "Change in total credit"
         },
         "notificationForm": "Notification form",
-        "noPaymentPack": "Passes allow members to register for activities, it is necessary to have a pass to register."
+        "noPaymentPack": "Passes allow members to register for activities, it is necessary to have a pass to register.",
+        "disabledPacks": {
+            "hide": "Mask the archived passes",
+            "show": "See the archived passes"
+        },
+        "disabledPacksTitle": "Archived passes"
     },
     "metaActivity": {
         "metaActivity": "Activity",
@@ -4975,7 +5006,8 @@
             "search": "Search an activity",
             "addActivity": "Add an activity"
         },
-        "noActivities": "Manage your activities here, an activity allows you to group together a set of sessions (usually collective) of the same disciplin."
+        "noActivities": "Manage your activities here, an activity allows you to group together a set of sessions (usually collective) of the same disciplin.",
+        "disabledMetaActivities": "Archived activities"
     },
     "offer": {
         "video": {
@@ -6132,6 +6164,10 @@
             "paymentPackDisabled": {
                 "error": "Impossible to disable pass",
                 "success": "Pass disabled"
+            },
+            "paymentPackEnabled": {
+                "error": "Unable to restore the pass",
+                "success": "Pass restored"
             }
         },
         "paymentRules": {
@@ -6188,6 +6224,10 @@
             "error": "Unable to save teacher",
             "linkByEmail": {
                 "success": "Teacher successfully linked"
+            },
+            "restore": {
+                "error": "Unable to restore the teacher",
+                "success": "Teacher successfully restored"
             }
         },
         "link": {
@@ -6246,6 +6286,26 @@
             "createOrUpdate": {
                 "error": "It is impossible to save the playlist",
                 "success": "Playlist succesfully saved"
+            }
+        },
+        "privatePass": {
+            "del": {
+                "error": "Unable to delete this pass (appointments)",
+                "success": "Pass (appointments) deleted"
+            },
+            "restore": {
+                "error": "Unable to restore this pass (appointments)",
+                "success": "Pass (appointments) restored"
+            }
+        },
+        "metaActivity": {
+            "del": {
+                "error": "Unable to delete this item",
+                "success": "Item deleted"
+            },
+            "restore": {
+                "error": "Unable to restore this item",
+                "success": "Item restored"
             }
         }
     },

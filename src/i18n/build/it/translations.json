@@ -109,7 +109,8 @@
             "places": "Luoghi",
             "male": "Uomo",
             "female": "Donna",
-            "duplicate": "Duplica"
+            "duplicate": "Duplica",
+            "restore": "Ristabilire"
         },
         "offer": {
             "noPackAvailableForOfferPurchase": "Nessuna scheda del corso compatibile con questa sessione!",
@@ -1762,7 +1763,8 @@
                 "price": "{{price}} €",
                 "tax": "I.V.A. :{{ tax }}%"
             },
-            "edit": "Modifica"
+            "edit": "Modifica",
+            "disabledTitle": "Pass per appuntamenti archiviati"
         },
         "openCalendar": "Vedi il calendario",
         "service": {
@@ -2402,6 +2404,10 @@
             },
             "linkByEmail": {
                 "success": "Insegnante associato con successo"
+            },
+            "restore": {
+                "error": "Impossibile ripristinare l'insegnante",
+                "success": "Professore ripristinato con successo"
             }
         },
         "relationship": {
@@ -2455,6 +2461,10 @@
             "credit": {
                 "updated": "Crediti aggiornati",
                 "error": "Errore durante il salvataggio"
+            },
+            "paymentPackEnabled": {
+                "error": "Impossibile ripristinare la carta",
+                "success": "Scheda del corso ripristinata"
             }
         },
         "coupon": {
@@ -2641,6 +2651,26 @@
             "createOrUpdate": {
                 "success": "Modificato con successo",
                 "error": "Impossibile salvare"
+            }
+        },
+        "privatePass": {
+            "del": {
+                "error": "Impossibile eliminare questo pass per appuntamento",
+                "success": "Pass per appuntamento eliminato"
+            },
+            "restore": {
+                "error": "Impossibile ripristinare questo pass per appuntamento",
+                "success": "Pass per appuntamento ripristinato"
+            }
+        },
+        "metaActivity": {
+            "del": {
+                "error": "Impossibile eliminare questo elemento",
+                "success": "Articolo cancellato"
+            },
+            "restore": {
+                "error": "Impossibile ripristinare questo elemento",
+                "success": "Articolo ripristinato"
             }
         }
     },
@@ -2886,7 +2916,8 @@
         "selfNoActivity": "Non sei responsabile di alcuna attività.",
         "addCoach": "Aggiungi un insegnante",
         "noActivity": "Questo insegnante non gestisce alcuna attività.",
-        "noCoachs": "Nessun insegnante registrato, gestisci qui i tuoi insegnanti, i collaboratori e la loro retribuzione."
+        "noCoachs": "Nessun insegnante registrato, gestisci qui i tuoi insegnanti, i collaboratori e la loro retribuzione.",
+        "inactiveCoaches": "Professori archiviati"
     },
     "subscription": {
         "subscription": {
@@ -2928,7 +2959,8 @@
             "invoicesSection": "Fatture",
             "delete": "Rimuovi",
             "register": "Sottoscrivi",
-            "edit": "Modifica"
+            "edit": "Modifica",
+            "buy": "Compra"
         },
         "paymentMethod": {
             "credit": {
@@ -2959,7 +2991,7 @@
             "autoRenew": "Rinnovo automatico",
             "nbInterval": "Numero di mesi",
             "recurrent_price": "Pagamento ricorrente",
-            "flat_fee": "Quote d'iscrizione / scheda",
+            "flat_fee": "Spese amministrative",
             "paymentPack": "Scheda del corso",
             "dateStart": "Prima fatturazione",
             "firstBilling": "Primo incasso",
@@ -3026,7 +3058,18 @@
                 }
             },
             "legal": "Informazioni legali",
-            "duration": "{{month}} mese"
+            "duration": "{{month}} mese",
+            "deleteForm": {
+                "actions": {
+                    "confirm": "Rimuovi",
+                    "cancel": "Annulla"
+                },
+                "content": "Sei sicuro di voler cancellare questo contratto?",
+                "title": "Cancellazione del contratto"
+            },
+            "paymentPack": "Scheda del corso associata",
+            "no": "No",
+            "yes": "Sì"
         },
         "form": {
             "cancel": "Annulla",
@@ -3102,7 +3145,17 @@
             "email": "Email del titolare",
             "content": "Dando il tuo IBAN e confermando il tuo pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, a inviare le istruzioni di addebito alla tua banca in conformità con il piano di pagamento. Puoi richiedere un rimborso alla tua banca in base ai termini del contratto con essa. Il rimborso deve essere richiesto entro 8 settimane dal primo addebito."
         },
-        "noContracts": "I contratti ti permetteranno di fatturare regolarmente (mensilmente) i tuoi membri per una carta del corso riaccreditata ogni mese."
+        "noContracts": "I contratti ti permetteranno di fatturare regolarmente (mensilmente) i tuoi membri per una carta del corso riaccreditata ogni mese.",
+        "copyLink": "Copia il link nella pagina di pagamento",
+        "listItem": {
+            "valid": "Valido",
+            "paused": "In pausa",
+            "expired": "Scaduto",
+            "canceled": "Fermato",
+            "subscribedOn": "L'iscrizione è iniziata il {{- date}}"
+        },
+        "noAssociatedSubscription": "Nessun abbonamento registrato",
+        "associatedSubscriptions": "Abbonamenti associati a questo contratto"
     },
     "reporting": {
         "columns": {
@@ -3602,7 +3655,12 @@
             "updated": "Crediti aggiornati"
         },
         "notificationForm": "Modulo di notifica",
-        "noPaymentPack": "Le schede del corso consentono ai membri di registrarsi per le attività, è necessario disporre di una scheda per registrarsi."
+        "noPaymentPack": "Le schede del corso consentono ai membri di registrarsi per le attività, è necessario disporre di una scheda per registrarsi.",
+        "disabledPacks": {
+            "hide": "Nascondi le carte archiviate",
+            "show": "Visualizza le carte archiviate"
+        },
+        "disabledPacksTitle": "Carte archiviate"
     },
     "metaActivity": {
         "detail": {
@@ -3675,7 +3733,8 @@
         "offersThisDay": "Sessioni oggi:",
         "packsAvailable": "Idoneo per pass:",
         "reviews": "Opinione dei clienti: ",
-        "noActivities": "Gestisci le tue attività qui, un'attività ti consente di raggruppare una serie di sessioni (generalmente collettive) della stessa pratica."
+        "noActivities": "Gestisci le tue attività qui, un'attività ti consente di raggruppare una serie di sessioni (generalmente collettive) della stessa pratica.",
+        "disabledMetaActivities": "Attività archiviate"
     },
     "emailTemplate": {
         "subject": "Oggetto della mail:",
@@ -4845,7 +4904,8 @@
             }
         },
         "search": "Cerca un workshop",
-        "noWorkshops": "Gestisci qui i tuoi workshop, un workshop è un evento la cui data viene fissata in anticipo."
+        "noWorkshops": "Gestisci qui i tuoi workshop, un workshop è un evento la cui data viene fissata in anticipo.",
+        "disabledWorkshops": "Workshop archiviati"
     },
     "login": {
         "actions": {

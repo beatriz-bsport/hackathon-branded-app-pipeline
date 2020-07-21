@@ -87,8 +87,7 @@ export const SubscriptionContractListItem = (props: Props) => {
           props.onBook && {
             icon: AddShoppingCartIcon,
             label: props.t(''),
-            onClick: (ev) => {
-              ev.stopPropagation();
+            onClick: () => {
               props.onBook();
             },
           },

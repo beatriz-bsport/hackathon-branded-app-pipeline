@@ -9,11 +9,14 @@ import { withFormik, Form } from 'formik';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import InputAdornment from '@material-ui/core/InputAdornment';
+import HelpCircleOutlinedIcon from '@material-ui/icons/HelpOutline';
 import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Tooltip from '../../../components/Tooltip.component';
 import AvatarField from '../../../components/forms/AvatarField.component';
 
 import {
@@ -65,6 +68,20 @@ export function CoachForm(props: Props) {
               name="email"
               label={t('form.email')}
               type="email"
+              disabled={!!props.initial && !!props.initial.email}
+              InputProps={
+                !!props.initial && !!props.initial.email
+                  ? {
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Tooltip title={t('form.explainNoEmailChange')}>
+                            <HelpCircleOutlinedIcon />
+                          </Tooltip>
+                        </InputAdornment>
+                      ),
+                    }
+                  : {}
+              }
               fullWidth
             />
           </Grid>

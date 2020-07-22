@@ -180,6 +180,7 @@
     },
     "form": {
       "waiting_list_max_size": "Taille de la liste d'attente",
+      "explainNoEmailChange": "Changer l'email empêchera le prof de se connecter, lui seul peut modifier son email en se connectant à son compte bsport",
       "signUpTitle": "Inscription",
       "noAvailableCredit": "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
       "warningCreditChange": "NB : Les réservations anciennes ne prennent pas en compte les modifications des crédits",
@@ -638,6 +639,7 @@
       "doNotAttend": "Absent",
       "discard": "Annuler",
       "onWaitingList": "Sur liste d'attente",
+      "cancelledFromWaitingList": "Sorti de la liste d'attente",
       "onHold": "En attente",
       "add": "Inscrire",
       "waitingUserConfirmation": "En attente de confirmation client",

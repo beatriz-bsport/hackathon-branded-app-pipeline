@@ -173,6 +173,11 @@ export default compose(
       goToMember: (id) => routerPush(`/member/${id}/`),
     },
   ),
+  withHandlers({
+    fetchBookingOptionByOffer: ({ fetchBookingOptionByOffer }) => (offerId) => {
+      return fetchBookingOptionByOffer(offerId, { show_cancelled: true });
+    },
+  }),
   withProps(({ id }) => ({
     offerId: id,
   })),

@@ -80,6 +80,22 @@ export class BookingOptionForManager extends Component<Props> {
 
   render() {
     const { option, t, classes, onClickRegister } = this.props;
+    if (option.cancelled) {
+      return (
+        <ListItem
+          divider
+          button
+          disableRipple
+          onClick={this.handleListItemClick}
+        >
+          {this.getAvatar()}
+          <ListItemText
+            primary={this.getHeading()}
+            secondary={t('booking.cancelledFromWaitingList')}
+          />
+        </ListItem>
+      );
+    }
     return (
       <ListItem divider button disableRipple onClick={this.handleListItemClick}>
         <div className={classes.outerRow}>

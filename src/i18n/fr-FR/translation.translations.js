@@ -212,6 +212,8 @@ exports.default = {
   },
   form: {
     waiting_list_max_size: "Taille de la liste d'attente",
+    explainNoEmailChange:
+      "Changer l'email empêchera le professeur de se connecter, lui seul peut modifier son email en se connectant à son compte bsport",
     signUpTitle: 'Inscription',
     noAvailableCredit:
       "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
@@ -786,6 +788,7 @@ exports.default = {
     discard: 'Annuler',
     // eslint-disable-next-line
     onWaitingList: "Sur liste d'attente",
+    cancelledFromWaitingList: "Sorti de la liste d'attente",
     onHold: 'En attente',
     add: 'Inscrire',
     waitingUserConfirmation: 'En attente de confirmation client',

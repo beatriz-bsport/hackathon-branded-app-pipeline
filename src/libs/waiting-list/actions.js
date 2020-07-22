@@ -64,7 +64,11 @@ export const byOfferActions = {
   success: createAction('WAITING_LIST/OPTION/BY_OFFER/SUCCESS'),
 };
 
-export function fetchByOffer(offer: number, options: OptionCallBack) {
+export function fetchByOffer(
+  offer: number,
+  params: any,
+  options: OptionCallBack,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(byOfferActions.error(null));
     dispatch(byOfferActions.isLoading(true));
@@ -72,6 +76,7 @@ export function fetchByOffer(offer: number, options: OptionCallBack) {
       const response = await fetchFilteredBookingOptionsAPI({
         offer,
         as_manager: true,
+        ...(params || {}),
       });
       dispatch(byOfferActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);

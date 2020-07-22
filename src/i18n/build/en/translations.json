@@ -1039,7 +1039,8 @@
             },
             "revertBookingTitle": "Cancel booking",
             "success": "Booking saved",
-            "wasRefunded": "Refunded"
+            "wasRefunded": "Refunded",
+            "cancelledFromWaitingList": "Removed from the waiting list"
         },
         "workshopActivity": {
             "forms": {
@@ -1561,7 +1562,8 @@
             "waiting_list_max_size": "Waiting-list size",
             "oneHourFifteen": "1h15",
             "warningCreditChange": "NB : Old reservations do not take into account changes in credits",
-            "noAvailableCredit": "Please note that you are not entering a price. Are you sure of the value?"
+            "noAvailableCredit": "Please note that you are not entering a price. Are you sure of the value?",
+            "explainNoEmailChange": "Changing the email will hinder the teacher from connecting, only he can modify his email by connecting to his bsport account"
         },
         "shop": {
             "noProvisionUpdates": "No provision",

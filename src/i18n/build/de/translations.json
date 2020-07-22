@@ -938,7 +938,8 @@
             "pleaseEnterYourSMSCode": "Bitte geben Sie den per SMS gesendeten Code ein",
             "warningCreditChange": "NB : Frühere Buchungen berücksichtigen keine Änderungen der Kreditpunkte",
             "noAvailableCredit": "Vorsicht, Sie geben keinen Preis ein. Sind Sie sich des Wertes sicher ?",
-            "signUpTitle": "Anmeldung"
+            "signUpTitle": "Anmeldung",
+            "explainNoEmailChange": "Wenn Sie die E-Mail-Adresse ändern, wird es für den Lehrer unmöglich sein, sich einzuloggen. Nur er kann seine E-Mail-Adresse ändern, indem er sich mit seinem bsport-Konto verbindet"
         },
         "booking": {
             "revertBookingExplain": {
@@ -980,7 +981,8 @@
             "onHold": "In Bearbeitung",
             "revertBookingWithInvoiceImpossibleExplain": "Diese Buchung ist bereits vom Mitglied bezahlt worden und kann nicht storniert werden. Sie können die Buchung jedoch in \"Abwesend\" ändern",
             "wasRefunded": "Zurückerstattet",
-            "fillRate": "Befüllungsrate"
+            "fillRate": "Befüllungsrate",
+            "cancelledFromWaitingList": "Hat die Warteliste verlassen"
         },
         "consumer": {
             "booking": {

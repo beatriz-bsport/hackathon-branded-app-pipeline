@@ -86,9 +86,14 @@ export class InvoiceForm extends React.Component<Props, State> {
   }
 
   removeInvoiceItem = (id: number) => {
-    this.setState((prevState) => ({
-      invoiceItemList: prevState.invoiceItemList.filter((ii) => ii.id !== id),
-    }));
+    this.setState((prevState) => {
+      const idx = prevState.invoiceItemList.findIndex((ii) => ii.id === id);
+      return {
+        invoiceItemList: prevState.invoiceItemList.filter((ii, idx_) => {
+          return idx_ !== idx;
+        }),
+      };
+    });
   };
 
   removePaymentItem = (id: number) => {

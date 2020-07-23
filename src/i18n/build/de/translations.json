@@ -2076,7 +2076,19 @@
             "hide": "Archivierte Karten verbergen",
             "show": "Archivierte Karten anzeigen"
         },
-        "disabledPacksTitle": "Archivierte Karten"
+        "disabledPacksTitle": "Archivierte Karten",
+        "filters": {
+            "hasCreditNull": "Ohne Kreditpunkte",
+            "hasCreditLeft": "Mit Kreditpunkten",
+            "isActive": "Aktiv",
+            "isExpired": "Abgelaufen",
+            "invoice": "Rechnung",
+            "reverted": "Rechnung storniert",
+            "notReverted": "Rechnung nicht storniert",
+            "credits": "Kredit",
+            "expiration": "Gültigkeit",
+            "all": "Alle Karten"
+        }
     },
     "alerting": {
         "task": {
@@ -2276,7 +2288,8 @@
             "stock": "Aktuelles Inventar",
             "stock_variation": "Änderung im Inventar",
             "author": "Autor",
-            "nb_bookings_same_pass": "Anzahl der Buchungen mit der gleichen Kurskarte"
+            "nb_bookings_same_pass": "Anzahl der Buchungen mit der gleichen Kurskarte",
+            "credit_consumed": "Verbrauchte Kreditpunkte"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -3097,7 +3110,23 @@
             "source": "Buchungs-Kanal"
         },
         "loading": "Es lädt ...",
-        "wasRefunded": "Zurückerstattet"
+        "wasRefunded": "Zurückerstattet",
+        "filters": {
+            "cancel": "Stornierung",
+            "notRefunded": "Nicht zurückerstattet",
+            "isRefunded": "Zurückerstattet",
+            "refunded": "Rückerstattung",
+            "pastBooking": "Vergangene Buchungen",
+            "futureBooking": "Zukünftige Buchungen",
+            "time": "Buchungen im Laufe der Zeit",
+            "attendance": "Stornierung",
+            "consumerCanceled": "Stornierung Kunde",
+            "managerCanceled": "Stornierung  Manager",
+            "canceled": "Kurs storniert",
+            "absent": "Abwesend",
+            "present": "Anwesend",
+            "all": "Alle Buchungen"
+        }
     },
     "member": {
         "exists": {
@@ -3944,7 +3973,19 @@
                 "delete": "Löschen"
             }
         },
-        "noPrivateConsumerPass": "Kein Mitglied hat diese Terminkarte"
+        "noPrivateConsumerPass": "Kein Mitglied hat diese Terminkarte",
+        "filters": {
+            "hasCreditNull": "Ohne Kreditpunkte",
+            "hasCreditLeft": "Mit Kreditpunkten",
+            "isActive": "Aktiv",
+            "isExpired": "Abgelaufen",
+            "invoice": "Rechnung",
+            "reverted": "Rechnung storniert",
+            "notReverted": "Rechnung nicht storniert",
+            "credits": "Kredit",
+            "expiration": "Gültigkeit",
+            "all": "Alle Karten"
+        }
     },
     "communication": {
         "recipient": {

@@ -7,7 +7,6 @@ import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -18,6 +17,7 @@ import {
   DURATION_COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
 } from '@bsport/common/lib/master-data/smart-list';
+import Tooltip from '../../../../components/Tooltip.component';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import type { PaymentPack } from '../../../payment-packs/types';
 import Selector from '../MultiSelector.component';
@@ -88,7 +88,7 @@ export class PaymentPackFilter extends Component<Props, state> {
             value={filter_data.has_pack}
             onChange={(ev) => onChange({ has_pack: ev.target.value })}
           >
-            <MenuItem key={true} value={true}>
+            <MenuItem key value>
               {t(`filters.${filter_data.filter_identifier}.has`)}
             </MenuItem>
             <MenuItem key={false} value={false}>

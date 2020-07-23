@@ -7,7 +7,6 @@ import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -16,6 +15,7 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider
 import InlineDatePicker from 'material-ui-pickers/DatePicker/DatePickerInline';
 
 import { COMPARATORS_DICT } from '@bsport/common/lib/master-data/smart-list';
+import Tooltip from '../../../../components/Tooltip.component';
 import { Moment } from '../../../../i18n';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import type { PaymentPack } from '../../../payment-packs/types';

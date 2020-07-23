@@ -1,4 +1,20 @@
 exports.default = {
+  filters: {
+    all: 'Toutes les réservations',
+    present: 'Présent',
+    absent: 'Absent',
+    canceled: 'Séance annulée',
+    managerCanceled: 'Annulation  manager',
+    consumerCanceled: 'Annulation client',
+    cancel: 'Annulation',
+    attendance: 'Présence',
+    time: 'Réservations dans le temps',
+    futureBooking: 'Réservations futures',
+    pastBooking: 'Réservations passées',
+    refunded: 'Remboursement',
+    isRefunded: 'Remboursée',
+    notRefunded: 'Non remboursée',
+  },
   bookingModule: {
     hasRegistered: 'Vous êtes inscrit à cette séance',
     section: {
@@ -9,7 +25,8 @@ exports.default = {
     },
     option: {
       isAlreadyOnWaitingList: "Vous êtes inscrit en liste d'attente",
-      isAlreadyRegistered: 'La séance est complète, félicitations vous êtes bien inscrit !',
+      isAlreadyRegistered:
+        'La séance est complète, félicitations vous êtes bien inscrit !',
       isFull:
         "La séance est complète, vous pouvez vous inscrire en liste d'attente, vous serez prévenu par email lorsqu'une place se libèrera.",
       registerOption: "M'inscrire en liste d'attente",

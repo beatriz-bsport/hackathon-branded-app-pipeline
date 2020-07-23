@@ -3,6 +3,18 @@ const PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT = 1;
 const PAYMENT_PACK_NOTIFICATION_DAY_PAST = 2;
 
 exports.default = {
+  filters: {
+    all: 'Toutes les cartes',
+    expiration: 'Validité',
+    credits: 'Crédit',
+    notReverted: 'Facture non-annulée',
+    reverted: 'Facture annulée',
+    invoice: 'Facture',
+    isExpired: 'Expirée',
+    isActive: 'Active',
+    hasCreditLeft: 'Avec crédit',
+    hasCreditNull: 'Sans crédit',
+  },
   actions: {
     edit: 'Modifier',
     delete: 'Supprimer',

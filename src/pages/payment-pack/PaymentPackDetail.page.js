@@ -2,18 +2,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
+
+import omit from 'lodash/omit';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
-import { withTranslation } from 'react-i18next';
+
 import type { TFunction } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
-import { compose, withProps, withHandlers } from 'recompose';
+import { compose, withProps, withHandlers, withState } from 'recompose';
 
 import PaymentPackNotification from '../../libs/payment-packs/components/PaymentPackNotification.component';
 import PaymentPackCard from '../../libs/payment-packs/components/PaymentPackCard.component';
 import PaginatedConsumerPackList from '../../libs/consumer-payment-pack/components/PaginatedConsumerPackList.component';
 import PaymentPackDeleteDialog from '../../libs/payment-packs/components/PaymentPackDeleteDialog.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import ConsumerPaymentPackFilters from '../../libs/payment-packs/components/ConsumerPaymentPackFilters.component';
 
 import {
   updateCredit as updateCreditAction,
@@ -74,8 +79,6 @@ type Props = {
   loading: boolean,
   id: number,
 
-  fetchFilteredMembers: (params: any) => void,
-
   fetchPaymentPack: (id: number, options: OptionCallback) => void,
   fetchMetaActivityBulk: (Array<number>) => void,
   fetchEstablishmentBulk: (Array<number>) => void,
@@ -103,6 +106,7 @@ type Props = {
     pageSize: number,
     options: OptionCallback,
   ) => void,
+  fetchConsumerPacksList: (page: number, pageSize: number) => void,
   resetConsumerPacks: () => void,
 
   snackbarSuccess: (string) => void,
@@ -126,6 +130,11 @@ type Props = {
   email_templates_details: Array<any>,
   smartLists: Array<any>,
   notifications: Array<any>,
+
+  filters: any,
+  open: any,
+  setOpenValue: (name: string) => void,
+  setFilterValue: (name: string, bool: Boolean) => void,
 };
 
 type State = {
@@ -138,6 +147,24 @@ export class PaymentPackDetail extends Component<Props, State> {
   state = {
     paymentPackToDeleteId: null,
   };
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.filters !== this.props.filters) {
+      this.props.fetchConsumerPacks(
+        this.props.id,
+        1,
+        CONSUMER_PACK_PAGINATION_SIZE,
+        this.props.filters,
+        {
+          onSuccess: (cpps) => {
+            this.props.fetchFilteredMembers({
+              id__in: cpps.map((b) => b.member_id),
+            });
+          },
+        },
+      );
+    }
+  }
 
   componentWillMount() {
     this.props.resetConsumerPacks();
@@ -165,6 +192,7 @@ export class PaymentPackDetail extends Component<Props, State> {
       paymentPack.id,
       1,
       CONSUMER_PACK_PAGINATION_SIZE,
+      this.props.filters,
     );
   };
 
@@ -213,11 +241,20 @@ export class PaymentPackDetail extends Component<Props, State> {
             smartLists={this.props.smartLists}
             smartListLoading={this.props.smartListLoading}
             getSmartLists={this.props.getSmartLists}
+            is_expired
             goToSmartlist={this.props.goToSmartlist}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <Paper>
+            <ConsumerPaymentPackFilters
+              setOpenValue={this.props.setOpenValue}
+              setFiltersValue={this.props.setFilterValue}
+              open={this.props.open}
+              filters={this.props.filters}
+              t={this.props.t}
+            />
+            <Divider />
             <PaginatedConsumerPackList
               paymentPack={this.props.pack}
               incrementCredit={this.props.incrementCredit}
@@ -232,18 +269,7 @@ export class PaymentPackDetail extends Component<Props, State> {
               consumerPacksUpdating={this.props.consumerPacks.updating}
               itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
               onPageRequested={(page: number, pageSize: number) =>
-                this.props.fetchConsumerPacks(
-                  this.props.pack.id,
-                  page,
-                  pageSize,
-                  {
-                    onSuccess: (cpps) => {
-                      this.props.fetchFilteredMembers({
-                        id__in: cpps.map((b) => b.member_id),
-                      });
-                    },
-                  },
-                )
+                this.props.fetchConsumerPacksList(page, pageSize)
               }
             />
           </Paper>
@@ -270,18 +296,7 @@ export class PaymentPackDetail extends Component<Props, State> {
                 page={this.props.consumerPacks.page}
                 itemPerPage={CONSUMER_PACK_PAGINATION_SIZE}
                 onPageRequested={(page: number, pageSize: number) =>
-                  this.props.fetchConsumerPacks(
-                    this.props.pack.id,
-                    page,
-                    pageSize,
-                    {
-                      onSuccess: (cpps) => {
-                        this.props.fetchFilteredMembers({
-                          id__in: cpps.map((b) => b.member_id),
-                        });
-                      },
-                    },
-                  )
+                  this.props.fetchConsumerPacksList(page, pageSize)
                 }
               />
             ) : null
@@ -336,8 +351,10 @@ function mapStateToProps(state, { id }) {
 }
 
 export default compose(
-  withTranslation(),
   withStyles(styles),
+  withTranslation(),
+  withState('filters', 'setFilters', {}),
+  withState('open', 'setOpen', {}),
   routerParamsToProps({ id: 'id:number' }),
   connect(
     mapStateToProps,
@@ -369,11 +386,16 @@ export default compose(
         paymentPackId: number,
         page: number,
         pageSize: number,
+        filters: any,
         options: OptionCallback,
       ) =>
-        fetchByPaymentPackAction(paymentPackId, page, pageSize, options, {
-          reverted: false,
-        }),
+        fetchByPaymentPackAction(
+          paymentPackId,
+          page,
+          pageSize,
+          options,
+          filters,
+        ),
       fetchFilteredMembers,
       fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
       fetchSmartListBulk: fetchSmartListBulkAction,
@@ -384,6 +406,36 @@ export default compose(
     },
   ),
   withHandlers({
+    setOpenValue: ({ setOpen, open }) => (name: string) => {
+      setOpen({
+        ...open,
+        [name]: !open[name],
+      });
+    },
+    setFilterValue: ({ setFilters, filters }) => (name: string, value) => {
+      if (value === null) {
+        setFilters(omit(filters, name));
+      } else {
+        setFilters({
+          ...filters,
+          [name]: value,
+        });
+      }
+    },
+    fetchConsumerPacksList: ({
+      pack,
+      filters,
+      fetchConsumerPacks,
+      fetchFilteredMembers,
+    }) => (page, pageSize) => {
+      fetchConsumerPacks(pack.id, page, pageSize, filters, {
+        onSuccess: (cpps) => {
+          fetchFilteredMembers({
+            id__in: cpps.map((b) => b.member_id),
+          });
+        },
+      });
+    },
     scaleCredit: ({
       scaleCredit,
       fetchPaymentPack,

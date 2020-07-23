@@ -1156,7 +1156,9 @@ export function fetchPrivateConsumerPassList(
     dispatch(privateConsumerPassListActions.isLoading(true));
     dispatch(privateConsumerPassListActions.error(null));
     try {
-      const response = await fetchPrivateConsumerPassListAPI(params);
+      const response = await fetchPrivateConsumerPassListAPI({
+        ...(params || {}),
+      });
       dispatch(privateConsumerPassListActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
@@ -1179,14 +1181,12 @@ export function fetchByPrivatePass(
     dispatch(byPrivatePass.isLoading(true));
     dispatch(byPrivatePass.error(null));
     try {
-      const response = await fetchPrivateConsumerPassListAPI(
-        {
-          private_pass: privatePassId,
-          page,
-          page_size,
-        },
-        params,
-      );
+      const response = await fetchPrivateConsumerPassListAPI({
+        private_pass: privatePassId,
+        page,
+        page_size,
+        ...(params || {}),
+      });
 
       // dispatch(byPrivatePass.success({results: response.data,count: 10, page: page || 1,}),);
       dispatch(byPrivatePass.success({ ...response.data, page: page || 1 }));

@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react';
-
+import { compose } from 'recompose';
 import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -19,13 +19,13 @@ type Props = {
   items: Array<*>,
   renderItem: (*, number, number) => *,
   renderEmpty?: () => void,
-  listProps: {},
-  itemPerPage: number,
+  listProps: Dict,
   nbItems: number,
+  itemPerPage: number,
   unknownNbItems?: boolean,
   page: number,
   loading: ?boolean,
-  onPageRequested: (page: number, pageSize: number) => void,
+  onPageRequested: (number, number) => void,
 
   t: TFunction,
   classes: Object,
@@ -33,7 +33,8 @@ type Props = {
 
 type State = {
   page: number,
-};
+}; 
+
 
 export class PaginatedList extends PureComponent<Props, State> {
   static defaultProps = {
@@ -42,7 +43,10 @@ export class PaginatedList extends PureComponent<Props, State> {
   };
 
   handlePageRequested = (page: number) => {
-    this.props.onPageRequested(page, this.props.itemPerPage);
+    this.props.onPageRequested(
+      page,
+      this.props.itemPerPage,
+    );
   };
 
   componentDidMount() {
@@ -176,4 +180,7 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withTranslation()(PaginatedList));
+export default compose(
+  withStyles(styles),
+  withTranslation(),
+)(PaginatedList);

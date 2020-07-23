@@ -189,6 +189,7 @@ export function fetchBookingsByMember(
   member: number,
   page: number,
   page_size: number,
+  filters,
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -200,6 +201,7 @@ export function fetchBookingsByMember(
         member,
         page,
         page_size,
+        ...filters,
       });
       dispatch(byMemberActions.success({ ...response.data, page }));
       if (options && options.onSuccess) {

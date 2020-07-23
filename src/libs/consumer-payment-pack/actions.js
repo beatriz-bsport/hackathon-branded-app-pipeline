@@ -114,8 +114,8 @@ export function fetchByPaymentPack(
           payment_pack: paymentPackId,
           page,
           page_size,
+          ...(params || {}),
         },
-        params,
       );
       dispatch(byPaymentPack.success({ ...response.data, page: page || 1 }));
       if (options && options.onSuccess) {
@@ -242,8 +242,8 @@ export function fetchByMember(
   member: number,
   page: number,
   page_size: number,
-  params: any = {},
   options: ?OptionCallback = null,
+  params: any = {},
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(byMember.isLoading(true));
@@ -253,7 +253,7 @@ export function fetchByMember(
         member,
         page,
         page_size,
-        ...params,
+        ...(params || {}),
       });
       dispatch(byMember.success({ ...response.data, page }));
       if (options && options.onSuccess) {

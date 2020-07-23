@@ -2,10 +2,13 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 import { compose, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
+import omit from 'lodash/omit';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import { getInvoice } from '../../libs/invoice/selectors';
 import PaginatedListStateful from '../../components/PaginatedListStateful.component';
@@ -32,9 +35,11 @@ import PrivateConsumerPassBookerListItem from '../../libs/private-service/compon
 import PrivateConsumerPassExtensionCreateDialog from '../../libs/private-service/components/consumer-pass/PrivateConsumerPassExtensionCreateDialog.component';
 import PrivateConsumerPassDetail from '../../libs/private-service/components/consumer-pass/PrivateConsumerPassDetail.component';
 import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '../../libs/invoice/actions';
+import PrivateConsumerPassFilters from '../../libs/private-service/components/pass/PrivateConsumerPassFilters.component';
 
 type Props = {
-  fetchPrivateConsumerPassList: (params: any) => void,
+  t: TFunction,
+  fetchPrivateConsumerPassList: (filters: any, params: any) => void,
   id: number,
   fetchMember: (id: number) => void,
   privateConsumerPassId: ?number,
@@ -80,11 +85,19 @@ type Props = {
   goToPrivateConsumerPass: (memberId: number, consumerPassId: number) => void,
   goToPrivateBooking: (memberId: number, privateBookingId: number) => void,
   fetchPrivateConsumerPass: (params: any) => void,
+
+  filters: any,
+  open: any,
+  setOpenValue: (name: string) => void,
+  setFilterValue: (name: string, bool: Boolean) => void,
 };
 
 export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchPrivateConsumerPassList({ member: this.props.id });
+    this.props.fetchPrivateConsumerPassList({
+      ...this.props.filters,
+      member: this.props.id,
+    });
     this.props.fetchMember(this.props.id);
     if (this.props.privateConsumerPassId) {
       this.fetchPrivateConsumerPassDetail();
@@ -92,6 +105,13 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
   }
 
   componentDidUpdate(prevProps: Props) {
+    if (prevProps.filters !== this.props.filters) {
+      this.props.fetchPrivateConsumerPassList({
+        ...this.props.filters,
+        member: this.props.id,
+      });
+      this.props.fetchMember(this.props.id);
+    }
     if (
       this.props.privateConsumerPassId &&
       (!prevProps.privateConsumerPassId ||
@@ -119,6 +139,13 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
       <Grid container direction="row" spacing={3}>
         <Grid item xs={12} lg={6}>
           <Paper>
+            <PrivateConsumerPassFilters
+              setOpenValue={this.props.setOpenValue}
+              setFiltersValue={this.props.setFilterValue}
+              open={this.props.open}
+              filters={this.props.filters}
+            />
+            <Divider />
             <PaginatedListStateful
               itemPerPage={5}
               loading={this.props.privateBookingsLoading}
@@ -200,6 +227,8 @@ export default compose(
     privateConsumerPassId: 'privateConsumerPassId:number',
   }),
   withState('relatedInvoice', 'setRelatedInvoice', null),
+  withState('filters', 'setFilters', {}),
+  withState('open', 'setOpen', {}),
   connect(
     (state, { id, privateConsumerPassId, relatedInvoice }) => ({
       member: getMember(state, id),
@@ -240,6 +269,7 @@ export default compose(
     },
   ),
   withState('openCreateExtension', 'setOpenCreateExtension', false),
+  withTranslation(['privateService']),
   withHandlers({
     fetchInvoiceByInvoiceItem: ({
       fetchInvoiceByInvoiceItem,
@@ -248,6 +278,22 @@ export default compose(
       fetchInvoiceByInvoiceItem(uuid, stuff, {
         onSuccess: (inv) => setRelatedInvoice(inv.uuid),
       });
+    },
+    setOpenValue: ({ setOpen, open }) => (name: string) => {
+      setOpen({
+        ...open,
+        [name]: !open[name],
+      });
+    },
+    setFilterValue: ({ setFilters, filters }) => (name: string, value) => {
+      if (value === null) {
+        setFilters(omit(filters, name));
+      } else {
+        setFilters({
+          ...filters,
+          [name]: value,
+        });
+      }
     },
   }),
 )(MemberDetailPrivateConsumerPass);

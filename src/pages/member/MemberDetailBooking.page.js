@@ -2,11 +2,15 @@
 
 import React, { Component } from 'react';
 
+import omit from 'lodash/omit';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { compose } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
+import { TFunction, withTranslation } from 'react-i18next';
+
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -34,6 +38,7 @@ import type { Booking } from '../../libs/booking/types';
 import BookingItemForManagerV2 from '../../libs/booking/components/BookingItemForManagerV2.component';
 import BookingDetail from '../../libs/booking/components/BookingDetail.component';
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
+import BookingFilters from '../../libs/booking/components/BookingFilters.component';
 
 import {
   getMemberBookingListWithConsumerPack,
@@ -51,6 +56,7 @@ type Props = {
   retrieveBooking: (number, OptionCallback) => void,
   retrieveConsumerPackBulk: (Array<number>) => void,
   member: Member,
+  t: TFunction,
 
   bookings: Array<Booking>,
   bookingCount: number,
@@ -76,6 +82,11 @@ type Props = {
   member: Member,
   consumerPackLoading: boolean,
   offer: ?Offer,
+
+  filters: any,
+  open: any,
+  setOpenValue: (name: string) => void,
+  setFilterValue: (name: string, bool: Boolean) => void,
 };
 
 type State = {
@@ -85,7 +96,9 @@ type State = {
 const BOOKING_PAGE_SIZE = 5;
 
 export class MemberDetailBooking extends Component<Props, State> {
-  state = { bookingToRevert: null };
+  state = {
+    bookingToRevert: null,
+  };
 
   componentDidMount() {
     if (this.props.bookingId) {
@@ -94,6 +107,14 @@ export class MemberDetailBooking extends Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
+    if (prevProps.filters !== this.props.filters) {
+      this.props.fetchMemberBookings(this.props.id, 1, 7, this.props.filters, {
+        onSuccess: (bookings) =>
+          this.props.retrieveConsumerPackBulk(
+            bookings.map((b) => b.consumer_payment_pack),
+          ),
+      });
+    }
     if (
       this.props.bookingId &&
       (!prevProps.bookingId || prevProps.bookingId !== this.props.bookingId)
@@ -129,6 +150,13 @@ export class MemberDetailBooking extends Component<Props, State> {
       <Grid container direction="row" spacing={3}>
         <Grid item xs={12} lg={6}>
           <Paper>
+            <BookingFilters
+              setOpenValue={this.props.setOpenValue}
+              setFiltersValue={this.props.setFilterValue}
+              open={this.props.open}
+              filters={this.props.filters}
+            />
+            <Divider />
             <PaginatedListBase
               itemPerPage={BOOKING_PAGE_SIZE}
               loading={this.props.bookingsLoading}
@@ -137,12 +165,7 @@ export class MemberDetailBooking extends Component<Props, State> {
               nbItems={this.props.bookingCount}
               page={this.props.bookingCurrentPage}
               onPageRequested={(page, page_size) =>
-                this.props.fetchMemberBookings(this.props.id, page, page_size, {
-                  onSuccess: (bookings) =>
-                    this.props.retrieveConsumerPackBulk(
-                      bookings.map((b) => b.consumer_payment_pack),
-                    ),
-                })
+                this.props.fetchMemberBookingsList(page, page_size)
               }
               renderItem={(b) => (
                 <BookingItemForManagerV2
@@ -211,6 +234,9 @@ export class MemberDetailBooking extends Component<Props, State> {
 
 export default compose(
   routerParamsToProps({ id: 'id:number', bookingId: 'bookingId:number' }),
+  withTranslation('booking'),
+  withState('filters', 'setFilters', {}),
+  withState('open', 'setOpen', {}),
   connect(
     (state, { id, bookingId }) => ({
       member: getMember(state, id),
@@ -247,4 +273,35 @@ export default compose(
         push(`/member/${memberId}/bookings/${bookingId}/`),
     },
   ),
+  withHandlers({
+    setOpenValue: ({ setOpen, open }) => (name: string) => {
+      setOpen({
+        ...open,
+        [name]: !open[name],
+      });
+    },
+    fetchMemberBookingsList: ({
+      id,
+      filters,
+      fetchMemberBookings,
+      retrieveConsumerPackBulk,
+    }) => (page, page_size) => {
+      fetchMemberBookings(id, page, page_size, filters, {
+        onSuccess: (bookings) =>
+          retrieveConsumerPackBulk(
+            bookings.map((b) => b.consumer_payment_pack),
+          ),
+      });
+    },
+    setFilterValue: ({ setFilters, filters }) => (name: string, value) => {
+      if (value === null) {
+        setFilters(omit(filters, name));
+      } else {
+        setFilters({
+          ...filters,
+          [name]: value,
+        });
+      }
+    },
+  }),
 )(MemberDetailBooking);

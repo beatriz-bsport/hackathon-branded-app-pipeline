@@ -2,8 +2,10 @@
 
 import React, { Component } from 'react';
 
+import omit from 'lodash/omit';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
@@ -37,7 +39,7 @@ import {
   refundConsumerPaymentPack as refundConsumerPaymentPackActions,
   fetchConsumerPaymentPackCreditRefundList as fetchConsumerPaymentPackCreditRefundListAction,
 } from '../../libs/consumer-payment-pack/actions';
-import { fetchPaymentPackBulk } from '../../libs/payment-packs/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchSpecificInvoice } from '../../libs/invoice/actions';
 
 import RefundConsumerPaymentPackDialog from '../../libs/consumer-payment-pack/components/RefundConsumerPaymentPackDialog.component';
@@ -54,6 +56,7 @@ import { getConsumerPackBookingListWithConsumerPack } from '../../libs/booking/s
 import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
 import ConsumerPackDetail from '../../libs/consumer-payment-pack/components/ConsumerPackDetail.component';
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
+import ConsumerPaymentPackFilters from '../../libs/payment-packs/components/ConsumerPaymentPackFilters.component';
 
 import type { Member } from '../../libs/member/types';
 import type { ConsumerPaymentPack } from '../../libs/payment-packs/types';
@@ -121,6 +124,11 @@ type Props = {
 
   fetchConsumerPaymentPackCreditRefundList: (id: number) => void,
   consumerPassId: ?number,
+
+  filters: any,
+  open: any,
+  setOpenValue: (name: string) => void,
+  setFilterValue: (name: string, bool: Boolean) => void,
 };
 
 type State = {
@@ -173,6 +181,15 @@ export class MemberDetailPass extends Component<Props, State> {
     ) {
       this.props.retrieveConsumerPackBulk([this.props.consumerPassId]);
     }
+    if (prevProps.filters !== this.props.filters) {
+      this.props.fetchConsumerPacks(this.props.id, 1, 7, this.props.filters, {
+        onSuccess: (cppList) =>
+          this.props.fetchPaymentPackBulk(
+            cppList.map((cpp) => cpp.payment_pack),
+          ),
+      });
+    }
+
     if (
       this.props.selectedConsumerPass &&
       (!prevProps.selectedConsumerPass ||
@@ -212,6 +229,13 @@ export class MemberDetailPass extends Component<Props, State> {
       <Grid container direction="row" spacing={2}>
         <Grid item xs={12} lg={6}>
           <Paper>
+            <ConsumerPaymentPackFilters
+              setOpenValue={this.props.setOpenValue}
+              setFiltersValue={this.props.setFilterValue}
+              open={this.props.open}
+              filters={this.props.filters}
+            />
+            <Divider />
             <PaginatedListBase
               itemPerPage={CONSUMER_PAYMENT_PACK_PAGE_SIZE}
               loading={this.props.consumerPackLoading}
@@ -220,12 +244,7 @@ export class MemberDetailPass extends Component<Props, State> {
               nbItems={this.props.consumerPackCount}
               page={this.props.consumerPackCurrentPage}
               onPageRequested={(page, pageSize) =>
-                this.props.fetchConsumerPacks(this.props.id, page, pageSize, {
-                  onSuccess: (cppList) =>
-                    this.props.fetchPaymentPackBulk(
-                      cppList.map((cpp) => cpp.payment_pack),
-                    ),
-                })
+                this.props.fetchConsumerPackList(page, pageSize)
               }
               renderItem={(cpp) => (
                 <ConsumerPackRowItem
@@ -377,6 +396,8 @@ export default compose(
   }),
   withTranslation(['paymentPack']),
   withStyles(styles),
+  withState('filters', 'setFilters', { reverted: false }),
+  withState('open', 'setOpen', {}),
   withState('openCreateExtension', 'setOpenCreateExtension', false),
   withState('relatedInvoice', 'setRelatedInvoice', null),
   connect(
@@ -416,7 +437,7 @@ export default compose(
       deleteExtension: deletePackExtension,
       refreshConsumerPack: (id) => retrieveConsumerPackBulk([id]),
       fetchConsumerPaymentPackCreditRefundList: fetchConsumerPaymentPackCreditRefundListAction,
-      fetchPaymentPackBulk,
+      fetchPaymentPackBulk: fetchPaymentPackBulkAction,
 
       discardBookingAttendance,
       confirmBookingAttendance,
@@ -434,15 +455,13 @@ export default compose(
         memberId: number,
         page: number,
         page_size: number,
+        filters: any,
         options,
       ) =>
-        fetchConsumerPackByMemberAction(
-          memberId,
-          page,
-          page_size,
-          { with_amortized_price: true },
-          options,
-        ),
+        fetchConsumerPackByMemberAction(memberId, page, page_size, options, {
+          ...filters,
+          with_amortized_price: true,
+        }),
       resetConsumerPackByMemberAction,
     },
   ),
@@ -461,6 +480,33 @@ export default compose(
       fetchInvoice(uuid, {
         onSuccess: (inv) => setRelatedInvoice(inv.uuid),
       });
+    },
+    fetchConsumerPackList: ({
+      id,
+      filters,
+      fetchConsumerPacks,
+      fetchPaymentPackBulk,
+    }) => (page, pageSize) => {
+      fetchConsumerPacks(id, page, pageSize, filters, {
+        onSuccess: (cppList) =>
+          fetchPaymentPackBulk(cppList.map((cpp) => cpp.payment_pack)),
+      });
+    },
+    setOpenValue: ({ setOpen, open }) => (name: string) => {
+      setOpen({
+        ...open,
+        [name]: !open[name],
+      });
+    },
+    setFilterValue: ({ setFilters, filters }) => (name: string, value) => {
+      if (value === null) {
+        setFilters(omit(filters, name));
+      } else {
+        setFilters({
+          ...filters,
+          [name]: value,
+        });
+      }
     },
     refundConsumerPaymentPack: ({
       refundConsumerPaymentPack,

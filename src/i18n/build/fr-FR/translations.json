@@ -180,7 +180,7 @@
     },
     "form": {
       "waiting_list_max_size": "Taille de la liste d'attente",
-      "explainNoEmailChange": "Changer l'email empêchera le prof de se connecter, lui seul peut modifier son email en se connectant à son compte bsport",
+      "explainNoEmailChange": "Changer l'email empêchera le professeur de se connecter, lui seul peut modifier son email en se connectant à son compte bsport",
       "signUpTitle": "Inscription",
       "noAvailableCredit": "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
       "warningCreditChange": "NB : Les réservations anciennes ne prennent pas en compte les modifications des crédits",
@@ -1144,6 +1144,18 @@
     }
   },
   "privateService": {
+    "filters": {
+      "all": "Toutes les cartes",
+      "expiration": "Validité",
+      "credits": "Crédit",
+      "notReverted": "Facture non-annulée",
+      "reverted": "Facture annulée",
+      "invoice": "Facture",
+      "isExpired": "Expirée",
+      "isActive": "Active",
+      "hasCreditLeft": "Avec crédit",
+      "hasCreditNull": "Sans crédit"
+    },
     "noPrivateConsumerPass": "Personne n'a cette carte de rendez-vous",
     "noPrivatePass": "Les cartes RDV permettent aux membres de prendre RDV, définissez ici vos tarifs et modalités.",
     "noPrivateService": "Un rendez-vous est réservable sur le créneau que vous avez choisi, par le membre.",
@@ -2883,6 +2895,7 @@
       "sum_margin_value": "Apport marginal",
       "nb_bookings_same_pass": "Nb résa via même pass",
       "checkout_items": "Contenu du panier",
+      "credit_consumed": "Crédit consommé",
       "total_payments": "Total paiements",
       "name": "Nom",
       "identifier": "Identifiant",
@@ -3049,6 +3062,18 @@
     }
   },
   "paymentPack": {
+    "filters": {
+      "all": "Toutes les cartes",
+      "expiration": "Validité",
+      "credits": "Crédit",
+      "notReverted": "Facture non-annulée",
+      "reverted": "Facture annulée",
+      "invoice": "Facture",
+      "isExpired": "Expirée",
+      "isActive": "Active",
+      "hasCreditLeft": "Avec crédit",
+      "hasCreditNull": "Sans crédit"
+    },
     "actions": { "edit": "Modifier", "delete": "Supprimer", "scaleCredit": "Mult/div les crédits" },
     "scaleCredit": {
       "title": "Modification du total de crédit",
@@ -3492,6 +3517,22 @@
     }
   },
   "booking": {
+    "filters": {
+      "all": "Toutes les réservations",
+      "present": "Présent",
+      "absent": "Absent",
+      "canceled": "Séance annulée",
+      "managerCanceled": "Annulation  manager",
+      "consumerCanceled": "Annulation client",
+      "cancel": "Annulation",
+      "attendance": "Présence",
+      "time": "Réservations dans le temps",
+      "futureBooking": "Réservations futures",
+      "pastBooking": "Réservations passées",
+      "refunded": "Remboursement",
+      "isRefunded": "Remboursée",
+      "notRefunded": "Non remboursée"
+    },
     "bookingModule": {
       "hasRegistered": "Vous êtes inscrit à cette séance",
       "section": {

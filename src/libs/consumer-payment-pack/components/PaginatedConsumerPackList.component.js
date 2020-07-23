@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Divider from '@material-ui/core/Divider';
@@ -72,6 +73,7 @@ const styles = (theme) => ({
   },
 });
 
-export default withTranslation(['paymentPack'])(
-  withStyles(styles)(PaginatedConsumerPackList),
-);
+export default compose(
+  withTranslation(['paymentPack']),
+  withStyles(styles),
+)(PaginatedConsumerPackList);

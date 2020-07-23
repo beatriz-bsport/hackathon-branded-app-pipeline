@@ -7,7 +7,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import DialogActions from '@material-ui/core/DialogActions';
+import omit from 'lodash/omit';
 import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -45,6 +47,7 @@ import PaginatedConsumerPrivatePass from '../../libs/private-service/components/
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 import type { privateConsumerPass } from '../../libs/private-service/types';
 import PrivatePassForm from '../../libs/private-service/components/pass/PrivatePassForm.component';
+import PrivateConsumerPassFilters from '../../libs/private-service/components/pass/PrivateConsumerPassFilters.component';
 
 type Props = {
   t: TFunction,
@@ -89,6 +92,11 @@ type Props = {
     options: OptionCallback,
   ) => void,
   updatePrivateConsumerPassCredits: (...any) => void,
+
+  filters: any,
+  open: any,
+  setOpenValue: (name: string) => void,
+  setFilterValue: (name: string, bool: Boolean) => void,
 };
 
 const CONSUMER_PrivatePass_PAGINATION_SIZE = 7;
@@ -101,6 +109,15 @@ export class PrivatePassDetails extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchPrivatePass(this.props.id);
     this.props.fetchAllPrivateServices();
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.filters !== this.props.filters) {
+      this.props.fetchConsumerPrivatePassWithMember(
+        1,
+        CONSUMER_PrivatePass_PAGINATION_SIZE,
+      );
+    }
   }
 
   render() {
@@ -125,6 +142,13 @@ export class PrivatePassDetails extends Component<Props, State> {
         />
         <Grid item xs={12} md={6}>
           <Paper>
+            <PrivateConsumerPassFilters
+              setOpenValue={this.props.setOpenValue}
+              setFiltersValue={this.props.setFilterValue}
+              open={this.props.open}
+              filters={this.props.filters}
+            />
+            <Divider />
             <PaginatedConsumerPrivatePass
               privatePass={this.props.privatePass}
               incrementCredit={this.props.incrementCredit}
@@ -196,6 +220,8 @@ export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withTranslation(['privateService']),
   withStyles(styles),
+  withState('filters', 'setFilters', {}),
+  withState('open', 'setOpen', {}),
   withState('openDeletePassDialog', 'setOpenDeletePassDialog', null),
   withState('openEditForm', 'setOpenEditForm', false),
   connect(
@@ -230,11 +256,9 @@ export default compose(
         privatePassId: number,
         page: number,
         pageSize: number,
+        filters: any,
         options: OptionCallback,
-      ) =>
-        fetchByPrivatePass(privatePassId, page, pageSize, options, {
-          reverted: false,
-        }),
+      ) => fetchByPrivatePass(privatePassId, page, pageSize, options, filters),
       fetchFilteredMembers: fetchFilteredMembersActions,
       resetConsumerPrivatePass: resetByPrivatePassAction,
       goToPrivatePassList: () => pushRouter('/private-service/pass/'),
@@ -245,6 +269,22 @@ export default compose(
       (privatePass && privatePass.name) || t('pageTitles.passList'),
   ),
   withHandlers({
+    setOpenValue: ({ setOpen, open }) => (name: string) => {
+      setOpen({
+        ...open,
+        [name]: !open[name],
+      });
+    },
+    setFilterValue: ({ setFilters, filters }) => (name: string, value) => {
+      if (value === null) {
+        setFilters(omit(filters, name));
+      } else {
+        setFilters({
+          ...filters,
+          [name]: value,
+        });
+      }
+    },
     deletePrivatePass: ({
       deletePrivatePass,
       setOpenDeletePassDialog,
@@ -267,8 +307,9 @@ export default compose(
       id,
       fetchConsumerPrivatePass,
       fetchFilteredMembers,
+      filters,
     }) => (page: number, pageSize: number) =>
-      fetchConsumerPrivatePass(id, page, pageSize, {
+      fetchConsumerPrivatePass(id, page, pageSize, filters, {
         onSuccess: (cpps) =>
           fetchFilteredMembers({
             id__in: cpps.map((b) => b.member),

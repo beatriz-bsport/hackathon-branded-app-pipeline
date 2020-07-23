@@ -1,4 +1,16 @@
 exports.default = {
+  filters: {
+    all: 'Toutes les cartes',
+    expiration: 'Validité',
+    credits: 'Crédit',
+    notReverted: 'Facture non-annulée',
+    reverted: 'Facture annulée',
+    invoice: 'Facture',
+    isExpired: 'Expirée',
+    isActive: 'Active',
+    hasCreditLeft: 'Avec crédit',
+    hasCreditNull: 'Sans crédit',
+  },
   noPrivateConsumerPass: "Personne n'a cette carte de rendez-vous",
   noPrivatePass:
     'Les cartes RDV permettent aux membres de prendre RDV, définissez ici vos tarifs et modalités.',

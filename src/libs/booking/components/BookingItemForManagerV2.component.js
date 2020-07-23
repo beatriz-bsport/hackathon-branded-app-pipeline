@@ -142,7 +142,7 @@ export class BookingItemForManager extends Component<Props, State> {
     const [packDates, soonExpired] = getPackDate(consumer_payment_pack);
     if (payment_pack.unlimited) {
       return [
-        [payment_pack.name, 'secondary'],
+        [`${payment_pack.name} (${booking.credit_consumed} credit)`, 'secondary'],
         [`${packDates} - illimité`, soonExpired ? 'error' : 'primary'],
       ];
     }

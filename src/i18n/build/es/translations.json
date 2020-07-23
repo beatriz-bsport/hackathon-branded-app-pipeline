@@ -147,7 +147,8 @@
             "recipient": "Beneficiario",
             "copySuffix": " (Copia)",
             "isRefreshing": "Tu interfaz estará lista en un momento",
-            "duplicate": "Duplicar"
+            "duplicate": "Duplicar",
+            "restore": "Restaurar"
         },
         "pagination": {
             "rowPerPage": "Elementos por página",
@@ -477,7 +478,8 @@
             "twentyMinutes": "20 min",
             "credit_price": "Número de créditos necesarios tarjeta de curso para reservar",
             "warningCreditChange": "NB: las reservas anteriores no tienen en cuenta los cambios en los créditos",
-            "noAvailableCredit": "Tiene en cuenta que no estás ingresando un precio. ¿Estás seguro del valor?"
+            "noAvailableCredit": "Tiene en cuenta que no estás ingresando un precio. ¿Estás seguro del valor?",
+            "explainNoEmailChange": "Cambiar el email evitará que el maestro se conecte, solo él puede modificar su email conectándose a su cuenta bsport"
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -795,7 +797,8 @@
             "revertBookingExplain": {
                 "offerIsNotAvailable": "La reserva será eliminada. La sesión ya ha sido cancelada y los créditos no serán reembolsados si no marcaste \"reembolso\" en el momento de la cancelación",
                 "offerIsAvailable": "¿Está seguro de que quieres eliminar esta reserva? Los créditos utilizados serán acreditados de nuevo."
-            }
+            },
+            "cancelledFromWaitingList": "Eliminado de la lista de espera"
         },
         "level": {
             "all": "Todos los niveles",
@@ -951,7 +954,8 @@
                     "forceNotify": "Enviar un email de confirmación",
                     "passCompatibleNotOwnedByMember": "Facturación de un nuevo pase",
                     "passOwnedByMember": "Pase(s) propiedad del miembro",
-                    "registerToOffer": "Inscripción para la sesión"
+                    "registerToOffer": "Inscripción para la sesión",
+                    "doNotConsumeCredit": "No deducir créditos a los miembros para registrarse"
                 }
             }
         },
@@ -1762,7 +1766,8 @@
                 "general": "Perfil"
             }
         },
-        "noCoachs": "Ninguno profesor guardado, administre a sus profes, colaboradores y su remuneración aquí."
+        "noCoachs": "Ninguno profesor guardado, administre a sus profes, colaboradores y su remuneración aquí.",
+        "inactiveCoaches": "Profesores archivados"
     },
     "subscription": {
         "table": {
@@ -1820,7 +1825,7 @@
             "dateStart": "Primera facturación",
             "firstBilling": "Primero pago",
             "payment_pack": "Tarjeta de curso",
-            "flat_fee": "Tarifas de entrada/archivo",
+            "flat_fee": "Gastos de reserva",
             "status": "Estado",
             "payment_method": {
                 "label": "Método de pago",
@@ -1903,7 +1908,18 @@
                 "explainCustomSubscriptionForm": "No, quiero definir una suscripción personalizada",
                 "explainChoseContract": "Selecciona un contrato, este último se facturará mensualmente al miembro",
                 "title": "Pago recurrente"
-            }
+            },
+            "deleteForm": {
+                "content": "¿Seguro que quieres suprimir este contrato?",
+                "actions": {
+                    "confirm": "Suprimir",
+                    "cancel": "Cancelar"
+                },
+                "title": "Cancelación contrato"
+            },
+            "paymentPack": "Tarjeta de curso asociada",
+            "no": "No",
+            "yes": "Sí"
         },
         "plannedInvoice": {
             "priceUpdater": {
@@ -1960,7 +1976,8 @@
             "actionSection": "Gestionar",
             "list": {
                 "title": "Suscripción en curso"
-            }
+            },
+            "buy": "Comprar"
         },
         "noContracts": "Los contratos te permitirán facturar a tus miembros regularmente (mensualmente) por una tarjeta de curso que se vuelve a acreditar cada mes.",
         "save": "validar",
@@ -1978,7 +1995,17 @@
             "list": {
                 "title": "Últimos acontecimientos"
             }
-        }
+        },
+        "copyLink": "Copiar el enlace a la página de pago",
+        "listItem": {
+            "valid": "Válido",
+            "paused": "En pausa",
+            "expired": "Expirada",
+            "canceled": "Detenida",
+            "subscribedOn": "Suscripción comenzada el {{- date}}"
+        },
+        "noAssociatedSubscription": "Ninguna suscripción registrada",
+        "associatedSubscriptions": "Suscripciones asociadas a este contrato"
     },
     "reporting": {
         "columns": {
@@ -2097,7 +2124,8 @@
             "nb_bookings": "Numero de reservas",
             "private_service_name": "Cita",
             "author": "Autor",
-            "nb_bookings_same_pass": "Nb reserva a través del mismo pase"
+            "nb_bookings_same_pass": "Nb reserva a través del mismo pase",
+            "credit_consumed": "Crédito consumido"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -2131,7 +2159,7 @@
             "name": "Nombre",
             "description": "Descripción",
             "category": "Categoría",
-            "columns": "Colonumnas",
+            "columns": "Columnas",
             "save": "Confirmar",
             "cancel": "Cancelar"
         },
@@ -2435,6 +2463,22 @@
                 "consumerPacks": "Mis tarjetas de curso"
             },
             "hasRegistered": "Estás registrado para esta sesión"
+        },
+        "filters": {
+            "notRefunded": "No reembolsada",
+            "isRefunded": "Reembolsada",
+            "refunded": "Reembolso",
+            "pastBooking": "Reservas pasadas",
+            "futureBooking": "Reservas futuras",
+            "time": "Reservas a lo largo del tiempo",
+            "attendance": "Presencia",
+            "cancel": "Cancelación",
+            "consumerCanceled": "Cancelación cliente",
+            "managerCanceled": "Cancelación  manager",
+            "canceled": "Sesión cancelada",
+            "absent": "Ausente",
+            "present": "Presente",
+            "all": "Todas las reservas"
         }
     },
     "marketplace": {
@@ -2999,7 +3043,8 @@
                 "months": "Válido {{ duration_months }} meses",
                 "days": "Válido {{ duration_days }} días"
             },
-            "edit": "Modificar"
+            "edit": "Modificar",
+            "disabledTitle": "Tarjetas de citas archivadas"
         },
         "privateBooking": {
             "managerAdd": {
@@ -3370,7 +3415,19 @@
                 "delete": "Suprimir"
             }
         },
-        "noPrivateConsumerPass": "Nadie tiene esta tarjeta de cita"
+        "noPrivateConsumerPass": "Nadie tiene esta tarjeta de cita",
+        "filters": {
+            "hasCreditNull": "Sin crédito",
+            "hasCreditLeft": "Con crédito",
+            "isActive": "Activa",
+            "isExpired": "Expirada",
+            "invoice": "Factura",
+            "reverted": "Factura cancelada",
+            "notReverted": "Factura no cancelada",
+            "credits": "Crédito",
+            "expiration": "Validez",
+            "all": "Todas las tarjetas"
+        }
     },
     "reminder": {
         "task": {
@@ -3875,7 +3932,8 @@
             "addWorkshopActivity": "Añadir un taller"
         },
         "search": "Buscar un taller",
-        "noWorkshops": "Administra tus talleres aquí, un taller es un evento cuya fecha se fija de antemano."
+        "noWorkshops": "Administra tus talleres aquí, un taller es un evento cuya fecha se fija de antemano.",
+        "disabledWorkshops": "Talleres archivados"
     },
     "common": {
         "close": "Cerrar",
@@ -4138,6 +4196,10 @@
             "paymentPackDisabled": {
                 "error": "No es posible desactivar la tarjeta",
                 "success": "Tarjeta de curso desactivada"
+            },
+            "paymentPackEnabled": {
+                "error": "No se puede restaurar la tarjeta",
+                "success": "Tarjeta de curso restaurada"
             }
         },
         "coupon": {
@@ -4211,10 +4273,34 @@
             "error": "No es possible guardar el profesor",
             "linkByEmail": {
                 "success": "Profesor añadido exitosamente"
+            },
+            "restore": {
+                "error": "No se puede restaurar al profesor",
+                "success": "Profesor restaurado exitosamente"
             }
         },
         "link": {
             "copied": "Enlace copiado al portapapeles"
+        },
+        "privatePass": {
+            "del": {
+                "error": "No se puede suprimir esta tarjeta de cita",
+                "success": "Tarjeta de cita suprimida"
+            },
+            "restore": {
+                "error": "No se puede restaurar esta tarjeta de cita",
+                "success": "Tarjeta de cita restaurada"
+            }
+        },
+        "metaActivity": {
+            "del": {
+                "error": "No se puede suprimir este elemento",
+                "success": "Elemento suprimido"
+            },
+            "restore": {
+                "error": "No se puede restaurar este elemento",
+                "success": "Elemento restaurado"
+            }
         }
     },
     "paymentPack": {
@@ -4501,6 +4587,23 @@
             "years": "Válido {{ duration_years }} año",
             "months": "Válido {{ duration_months }} meses",
             "days": "Válido {{ duration_days }} días"
+        },
+        "disabledPacks": {
+            "hide": "Ocultar las tarjetas archivadas",
+            "show": "Ver las tarjetas archivadas"
+        },
+        "disabledPacksTitle": "Tarjetas archivadas",
+        "filters": {
+            "hasCreditNull": "Sin crédito",
+            "hasCreditLeft": "Con crédito",
+            "isActive": "Activa",
+            "isExpired": "Expirada",
+            "invoice": "Factura",
+            "reverted": "Factura cancelada",
+            "notReverted": "Factura no cancelada",
+            "credits": "Crédito",
+            "expiration": "Validez",
+            "all": "Todas las tarjetas"
         }
     },
     "selfCheckIn": {
@@ -4665,7 +4768,8 @@
         },
         "noActivities": "Administra tus actividades aquí, una actividad permite agrupar un conjunto de sesiones (generalmente colectivas) de la misma práctica.",
         "search": "Buscar une actividad",
-        "metaActivity": "Actividad"
+        "metaActivity": "Actividad",
+        "disabledMetaActivities": "Actividades archivadas"
     },
     "navigation": {
         "backofficeMenu": {

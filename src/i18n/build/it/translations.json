@@ -433,7 +433,8 @@
             "addingSessionFor": "Creazione sessione per: ",
             "warningCreditChange": "NB: le vecchie prenotazioni non tengono conto delle modifiche dei crediti",
             "noAvailableCredit": "Attenzione, non stai inserendo un prezzo. Sei sicuro del valore?",
-            "signUpTitle": "Iscrizione"
+            "signUpTitle": "Iscrizione",
+            "explainNoEmailChange": "La modifica dell'e-mail impedirà all'insegnante di connettersi, solo lui può modificare la sua e-mail collegandosi al proprio account bsport"
         },
         "marketing": {
             "dashboard": "Pannello di controllo",
@@ -705,7 +706,8 @@
             "last": "Ultima:",
             "next": "Il prossimo:",
             "fillRate": "Tasso di riempimento",
-            "source": "Sorgente"
+            "source": "Sorgente",
+            "cancelledFromWaitingList": "Rimosso dalla lista di attesa"
         },
         "calendar": {
             "previous": "<",
@@ -888,7 +890,8 @@
                     "forceNotify": "Invia un'email di conferma",
                     "registerToOffer": "Registrati per la sessione",
                     "passOwnedByMember": "Pass di proprietà del membro",
-                    "passCompatibleNotOwnedByMember": "Fatturazione di un nuovo pass"
+                    "passCompatibleNotOwnedByMember": "Fatturazione di un nuovo pass",
+                    "doNotConsumeCredit": "Non detrarre crediti ai membri per la registrazione"
                 }
             }
         },
@@ -1932,7 +1935,19 @@
                 "delete": "Rimuovi"
             }
         },
-        "noPrivateConsumerPass": "Nessuno ha questa carta per appuntamenti"
+        "noPrivateConsumerPass": "Nessuno ha questa carta per appuntamenti",
+        "filters": {
+            "hasCreditNull": "Senza credito",
+            "hasCreditLeft": "Con credito",
+            "isActive": "Attivo",
+            "isExpired": "Scaduto",
+            "invoice": "Fattura",
+            "reverted": "Fattura annullata",
+            "notReverted": "Fattura non annullata",
+            "credits": "Credito",
+            "expiration": "Validità",
+            "all": "Tutte le schede"
+        }
     },
     "video": {
         "video": {
@@ -3274,7 +3289,8 @@
             "name": "Nome",
             "payment_method_amex": "AMEX (American Express)",
             "nb_bookings_same_pass": "Nb prenotazione tramite lo stesso pass",
-            "author": "Autore"
+            "author": "Autore",
+            "credit_consumed": "Credito utilizzato"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -3660,7 +3676,19 @@
             "hide": "Nascondi le carte archiviate",
             "show": "Visualizza le carte archiviate"
         },
-        "disabledPacksTitle": "Carte archiviate"
+        "disabledPacksTitle": "Carte archiviate",
+        "filters": {
+            "hasCreditNull": "Senza credito",
+            "hasCreditLeft": "Con credito",
+            "isActive": "Attivo",
+            "isExpired": "Scaduto",
+            "invoice": "Fattura",
+            "reverted": "Fattura annullata",
+            "notReverted": "Fattura non annullata",
+            "credits": "Credito",
+            "expiration": "Validità",
+            "all": "Tutte le schede"
+        }
     },
     "metaActivity": {
         "detail": {
@@ -3959,7 +3987,23 @@
         "attend": "Presente",
         "doNotAttend": "Assente",
         "loading": "Caricamento in corso",
-        "wasRefunded": "Rimborsato"
+        "wasRefunded": "Rimborsato",
+        "filters": {
+            "notRefunded": "Non rimborsato",
+            "isRefunded": "Rimborsato",
+            "refunded": "Rimborso",
+            "pastBooking": "Prenotazioni passate",
+            "futureBooking": "Prenotazioni future",
+            "time": "Prenotazioni nel tempo",
+            "attendance": "Presenza",
+            "cancel": "Cancellazione",
+            "managerCanceled": "Cancellazione del manager",
+            "consumerCanceled": "Cancellazione del cliente",
+            "canceled": "Sessione annullata",
+            "absent": "Assente",
+            "present": "Presente",
+            "all": "Tutte le prenotazioni"
+        }
     },
     "smartList": {
         "mail": {

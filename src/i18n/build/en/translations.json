@@ -2803,7 +2803,19 @@
                 "delete": "Delete"
             }
         },
-        "noPrivateConsumerPass": "Nobody has this pass for appointments"
+        "noPrivateConsumerPass": "Nobody has this pass for appointments",
+        "filters": {
+            "hasCreditNull": "Without credit",
+            "hasCreditLeft": "With credit",
+            "isActive": "Active",
+            "isExpired": "Expired",
+            "invoice": "Invoice",
+            "reverted": "Invoice cancelled",
+            "notReverted": "Invoice not cancelled",
+            "credits": "Credit",
+            "expiration": "Validity",
+            "all": "All passes"
+        }
     },
     "relationship": {
         "member": {
@@ -4541,7 +4553,8 @@
             "fee": "Fee",
             "bsport_fee": "Transaction fees",
             "author": "Author",
-            "nb_bookings_same_pass": "Number of bookings with the same pass"
+            "nb_bookings_same_pass": "Number of bookings with the same pass",
+            "credit_consumed": "Consumed Credit"
         },
         "yes": "Yes",
         "no": "No",
@@ -4936,7 +4949,19 @@
             "hide": "Mask the archived passes",
             "show": "See the archived passes"
         },
-        "disabledPacksTitle": "Archived passes"
+        "disabledPacksTitle": "Archived passes",
+        "filters": {
+            "hasCreditNull": "Without credit",
+            "hasCreditLeft": "With credit",
+            "isActive": "Active",
+            "isExpired": "Expired",
+            "invoice": "Invoice",
+            "reverted": "Invoice cancelled",
+            "notReverted": "Invoice not cancelled",
+            "credits": "Credit",
+            "expiration": "Validity",
+            "all": "All passes"
+        }
     },
     "metaActivity": {
         "metaActivity": "Activity",
@@ -5295,6 +5320,22 @@
             "cancelledByManager": "Cancelled by manager",
             "cancelledByConsumer": "Cancelled by customer",
             "cancelledByOffer": "Session cancelled"
+        },
+        "filters": {
+            "notRefunded": "Not refunded",
+            "isRefunded": "Refunded",
+            "refunded": "Refund",
+            "pastBooking": "Past bookings",
+            "futureBooking": "Future bookings",
+            "time": "Bookings over time",
+            "attendance": "Presence",
+            "cancel": "Cancellation",
+            "consumerCanceled": "Cancellation client",
+            "managerCanceled": "Cancellation manager",
+            "canceled": "Session cancelled",
+            "absent": "Absent",
+            "present": "Checked in",
+            "all": "All reservations"
         }
     },
     "marketplace": {

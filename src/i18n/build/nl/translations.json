@@ -341,7 +341,8 @@
                     "forceNotify": "Stuur een bevestigingsmail",
                     "passCompatibleNotOwnedByMember": "Een nieuwe pas factureren",
                     "passOwnedByMember": "Pas(sen) die het lid bezit",
-                    "registerToOffer": "Registratie voor de sessie"
+                    "registerToOffer": "Registratie voor de sessie",
+                    "doNotConsumeCredit": "Geen credits aftrekken aan leden voor de inschrijving"
                 }
             }
         },
@@ -839,7 +840,8 @@
             "waiting_list_max_size": "Grootte van de wachtlijst",
             "signUpTitle": "Inschrijving",
             "warningCreditChange": "NB: Oude reservaties houden geen rekening met kredietwijziging",
-            "noAvailableCredit": "Opgelet, u bent geen prijs aan het typen. Bent u zeker van de waarde?"
+            "noAvailableCredit": "Opgelet, u bent geen prijs aan het typen. Bent u zeker van de waarde?",
+            "explainNoEmailChange": "Door de e-mail te wijzigen, kan de instructeur geen verbinding maken, alleen hij/zij kan zijn/haar e-mail wijzigen door verbinding te maken met zijn/haar bsport-account"
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -972,7 +974,8 @@
                 "offerIsAvailable": "Weet u zeker dat u deze reservering wilt verwijderen? De gebruikte credits worden opnieuw gecrediteerd."
             },
             "revertBookingTitle": "Inschrijving annuleren",
-            "wasRefunded": "Terugbetaald"
+            "wasRefunded": "Terugbetaald",
+            "cancelledFromWaitingList": "Verwijderd uit de wachtlijst"
         },
         "workshopActivity": {
             "forms": {
@@ -1123,7 +1126,8 @@
             "items": "elementen",
             "copySuffix": " (Kopiëren)",
             "isRefreshing": "Je interface is zo klaar",
-            "duplicate": "Dupliceren"
+            "duplicate": "Dupliceren",
+            "restore": "Herstellen"
         },
         "members": {
             "form": {
@@ -1386,7 +1390,56 @@
             "title": "inschrijving"
         },
         "contactUs": "Studio manager, bent u geïnteresseerd in onze oplossing? Neem contact met ons op.",
-        "or": " of "
+        "or": " of ",
+        "country": {
+            "ES": "Spanje",
+            "BE": "België",
+            "NL": "Nederland",
+            "IT": "Italië",
+            "DE": "Duitsland",
+            "FR": "Frankrijk"
+        },
+        "signupCompany": {
+            "form": {
+                "next": "Bevestigen",
+                "previous": "Vorig",
+                "country": {
+                    "label": "Land"
+                },
+                "password2": {
+                    "error": "Wachtwoorden komen niet overeen",
+                    "label": "Bevestiging"
+                },
+                "password1": {
+                    "label": "Wachtwoord"
+                },
+                "email": {
+                    "errorExists": "Deze e-mail bestaat al, kies een andere.",
+                    "placeholder": "me@bsport.io",
+                    "label": "E-mail"
+                },
+                "name": {
+                    "helperText": "Deze naam is zichtbaar voor leden",
+                    "placeholder": "Yoga Shala",
+                    "label": "Naam van je studio/club/bedrijf"
+                },
+                "title": "Mijn informatie"
+            },
+            "welcome": {
+                "next": "Doorgaan",
+                "content": "bsport is een gemeenschap van enthousiastelingen wiens doel het is om je IT-tools te vereenvoudigen en je gemeenschap beter te begrijpen.",
+                "title": "Welkom!"
+            }
+        },
+        "emailValidation": {
+            "disconnect": "Van account veranderen",
+            "goToLogin": "Terug",
+            "linkExpired": "Je validatie link is verlopen",
+            "hasSentAgain": "Email verzonden",
+            "sendAgain": "Stuur opnieuw een bevestigingsmail",
+            "success": "Uw e-mail is gevalideerd, u wordt binnen enkele seconden doorverwijst.",
+            "explain": "We hebben je een bevestigingsmail gestuurd, je bent er bijna!"
+        }
     },
     "reporting": {
         "payment_method": {
@@ -1542,7 +1595,8 @@
             "description": "Beschrijving",
             "bsport_fee": "Transactiekosten",
             "nb_bookings_same_pass": "Aantal boekingen met dezelfde pas",
-            "author": "Auteur"
+            "author": "Auteur",
+            "credit_consumed": "Opgenomen krediet"
         },
         "report": {
             "delete_message": "Weet u zeker dat u het {{name}} - rapport wilt verwijderen?"
@@ -1563,7 +1617,8 @@
             "1": "Facturering",
             "2": "Bestelling",
             "3": "Taak",
-            "4": "Afspraak te voltooien"
+            "4": "Afspraak te voltooien",
+            "5": "Legale informatie"
         },
         "showMore": "Bekijk meer",
         "unevenInvoice": {
@@ -1584,6 +1639,21 @@
             "name": "Lid:{{ user_name }}",
             "date": "Datum:{{ date_start }}",
             "explain": "De afspraak van <1> {{name}} </1> heeft geen aangewezen instructeur."
+        },
+        "companyOnboarding": {
+            "creation": {
+                "content": "Controleer uw informatie en juridische informatie om bankkaart- en SEPA-betalingen te kunnen innen",
+                "title": "Online betaling uitgeschakeld"
+            },
+            "payout": {
+                "content": "We kunnen geen betalingen naar uw bankrekening uitvoeren omdat deze niet bestaat of onjuist is geconfigureerd.",
+                "title": "Ontbrekende bankgegevens"
+            },
+            "verification": {
+                "warning": "Online betalingen kunnen na deze datum <1> gedeactiveerd </1> zijn!",
+                "content": "Er zijn verschillende documenten in behandeling, u heeft tot <1> {{date}} </1> de tijd om uw account na te kijken.",
+                "title": "Beheer van mijn bedrijf"
+            }
         }
     },
     "paymentPack": {
@@ -1870,7 +1940,24 @@
             "title": "Wijziging van het totaal krediet"
         },
         "notificationForm": "Kennisgevingsformulier",
-        "noPaymentPack": "Met cursuskaarten kunnen leden zich registreren voor activiteiten, het is noodzakelijk om een kaart te hebben om te registreren."
+        "noPaymentPack": "Met cursuskaarten kunnen leden zich registreren voor activiteiten, het is noodzakelijk om een kaart te hebben om te registreren.",
+        "disabledPacks": {
+            "hide": "Verberg gearchiveerde kaarten",
+            "show": "Toon gearchiveerde kaarten"
+        },
+        "disabledPacksTitle": "Gearchiveerde kaarten",
+        "filters": {
+            "hasCreditNull": "Zonder krediet",
+            "hasCreditLeft": "Met krediet",
+            "isActive": "Actief",
+            "isExpired": "Verlopen",
+            "invoice": "Factuur",
+            "reverted": "Factuur geannuleerd",
+            "notReverted": "Niet-geannuleerde factuur",
+            "credits": "Krediet",
+            "expiration": "Geldigheid",
+            "all": "Alle kaarten"
+        }
     },
     "establishment": {
         "capacity": {
@@ -2445,7 +2532,8 @@
             "search": "Zoek een activiteit",
             "addActivity": "Voeg een activiteit toe"
         },
-        "noActivities": "Beheer hier uw activiteiten, met een activiteit kunt u een reeks sessies (over het algemeen collectief) van dezelfde praktijk groeperen."
+        "noActivities": "Beheer hier uw activiteiten, met een activiteit kunt u een reeks sessies (over het algemeen collectief) van dezelfde praktijk groeperen.",
+        "disabledMetaActivities": "Gearchiveerde activiteiten"
     },
     "offer": {
         "video": {
@@ -2723,6 +2811,22 @@
         "parameters": {
             "registeredOn": "Geboekt op ",
             "source": "Boekingskanaal"
+        },
+        "filters": {
+            "notRefunded": "Niet terugbetaald",
+            "isRefunded": "Terugbetaald",
+            "refunded": "Terugbetaling",
+            "pastBooking": "Verlopen reserveringen",
+            "futureBooking": "Toekomstige reserveringen",
+            "time": "Reserveringen in de tijd",
+            "attendance": "Aanwezigheid",
+            "cancel": "Annulering",
+            "consumerCanceled": "Annulering klant",
+            "managerCanceled": "Annulering manager",
+            "canceled": "Sessie geannuleerd",
+            "absent": "Afwezig",
+            "present": "Aanwezig",
+            "all": "Alle reserveringen"
         }
     },
     "marketplace": {
@@ -2977,7 +3081,18 @@
                 "iwanttostarton": "Ik wil facturering starten op: ",
                 "subscribe": "Inschrijven",
                 "create": "Voeg een contract toe"
-            }
+            },
+            "deleteForm": {
+                "actions": {
+                    "confirm": "Verwijderen",
+                    "cancel": "Annuleren"
+                },
+                "content": "Weet u zeker dat u dit contract wilt verwijderen?",
+                "title": "Annulering contract"
+            },
+            "paymentPack": "Bijbehorende leskaart",
+            "no": "Neen",
+            "yes": "Ja"
         },
         "action": {
             "revertCurrentExplain": "Annuleer de laatst geregistreerde factuur en blokkeer de cursuskaart",
@@ -3055,7 +3170,8 @@
             },
             "delete": "Verwijderen",
             "register": "Zich abonneren",
-            "edit": "Bewerken"
+            "edit": "Bewerken",
+            "buy": "Kopen"
         },
         "pause": {
             "pausedInterval": "{{start}} → {{end}}: {{days}} dagen",
@@ -3093,7 +3209,7 @@
             "recurrent_voucher": "Korting op elke factuur",
             "name": "Naam",
             "recurrent_price": "Terugkomende betaling",
-            "flat_fee": "Toegangsprijzen / dossier",
+            "flat_fee": "Dossierskosten",
             "parameters": "Instellingen",
             "payment_method": {
                 "0": "Bankkaart",
@@ -3134,7 +3250,17 @@
             "provisionalTitle": "Voorlopig schema",
             "paymentMethodTitle": "Debetmethode"
         },
-        "noContracts": "Met de contracten kunt u uw leden regelmatig (maandelijks) factureren voor een leskaart die elke maand opnieuw wordt bijgeschreven."
+        "noContracts": "Met de contracten kunt u uw leden regelmatig (maandelijks) factureren voor een leskaart die elke maand opnieuw wordt bijgeschreven.",
+        "copyLink": "Kopieer de link naar de betalingspagina",
+        "listItem": {
+            "valid": "Geldig",
+            "paused": "In pauze",
+            "expired": "Verlopen",
+            "canceled": "Gestopt",
+            "subscribedOn": "Abonnement gestart op {{- date}}"
+        },
+        "noAssociatedSubscription": "Geen abonnement geregistreerd",
+        "associatedSubscriptions": "Abonnementen verbonden aan dit contract"
     },
     "coachPerformance": {
         "dateTitle": "Datumbereik",
@@ -3721,7 +3847,8 @@
                 "add": "Toevoegen",
                 "isEmpty": "Geen enkele afspraak is compatibel - onbruikbaar"
             },
-            "edit": "Wijzigen"
+            "edit": "Wijzigen",
+            "disabledTitle": "Gearchiveerde afspraakkaarten"
         },
         "service": {
             "form": {
@@ -3970,7 +4097,19 @@
                 "delete": "Verwijderen"
             }
         },
-        "noPrivateConsumerPass": "Niemand bezit deze afspraakkaart"
+        "noPrivateConsumerPass": "Niemand bezit deze afspraakkaart",
+        "filters": {
+            "hasCreditNull": "Zonder krediet",
+            "hasCreditLeft": "Met krediet",
+            "isActive": "Actief",
+            "isExpired": "Verlopen",
+            "invoice": "Factuur",
+            "reverted": "Factuur geannuleerd",
+            "notReverted": "Niet-geannuleerde factuur",
+            "credits": "Krediet",
+            "expiration": "Geldigheid",
+            "all": "Alle kaarten"
+        }
     },
     "datetime": {
         "form": {
@@ -4190,6 +4329,25 @@
         "paymentNote": {
             "helperText": "(optioneel) chequenummer, incassodatum ...",
             "label": "Notitie"
+        },
+        "bankAccount": {
+            "form": {
+                "actions": {
+                    "submit": "Bevestigen",
+                    "cancel": "Annuleren"
+                },
+                "accountNumber": {
+                    "placeholder": "FR89370400440532013000",
+                    "label": "Bank ID (IBAN)"
+                },
+                "invalid": "IBAN ongeldig. Let op: het IBAN moet overeenkomen met een bankrekening die in hetzelfde land als uw bedrijf is gevestigd",
+                "accountHolderName": {
+                    "placeholder": "Jacques Chirac",
+                    "label": "Eigenaar van bankrekening"
+                },
+                "content": "Deze bankrekening wordt gebruikt om de online via bsport betaalde bedragen naar u over te maken.",
+                "title": "Bankrekening"
+            }
         }
     },
     "snackbar": {
@@ -4208,6 +4366,10 @@
             },
             "update": {
                 "success": "Instructeur succesvol aangepast"
+            },
+            "restore": {
+                "error": "Kan instructeur niet herstellen",
+                "success": "Instructeur succesvol hersteld"
             }
         },
         "relationship": {
@@ -4247,6 +4409,10 @@
             "paymentPackDisabled": {
                 "error": "Kan kaart niet deactiveren",
                 "success": "Leskaart uitgeschakeld"
+            },
+            "paymentPackEnabled": {
+                "error": "Kaart kan niet hersteld worden",
+                "success": "Lessenkaart hersteld"
             }
         },
         "coupon": {
@@ -4508,6 +4674,26 @@
                 "error": "Instructeur kan niet gewijzigd worden",
                 "success": "De instructeur werd gewijzigd"
             }
+        },
+        "privatePass": {
+            "del": {
+                "error": "Deze afspraakkaart kan niet verwijderd worden",
+                "success": "Afspraakkaart verwijderd"
+            },
+            "restore": {
+                "error": "Kan deze afsprakenkaart niet herstellen",
+                "success": "Afsprakenkaart hersteld"
+            }
+        },
+        "metaActivity": {
+            "del": {
+                "error": "Kan item niet verwijderen",
+                "success": "Item verwijderd"
+            },
+            "restore": {
+                "error": "Item kan niet hersteld worden",
+                "success": "Item hersteld"
+            }
         }
     },
     "coach": {
@@ -4583,7 +4769,8 @@
         "coach_override": "Vervangende instructeur",
         "coach": "Instructeur",
         "noCoach": "Er zijn nog geen instructeurs geregistreerd",
-        "noCoachs": "Geen geregistreerde instructeur, beheer hier uw instructeurs, medewerkers en hun betaling."
+        "noCoachs": "Geen geregistreerde instructeur, beheer hier uw instructeurs, medewerkers en hun betaling.",
+        "inactiveCoaches": "Gearchiveerde instructeurs"
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -4871,7 +5058,8 @@
             "search": "Vind een workshop",
             "addWorkshopActivity": "Voeg een workshop toe"
         },
-        "noWorkshops": "Beheer hier uw workshops, een workshop is een evenement waarvan de datum vooraf is vastgelegd."
+        "noWorkshops": "Beheer hier uw workshops, een workshop is een evenement waarvan de datum vooraf is vastgelegd.",
+        "disabledWorkshops": "Gearchiveerde workshops"
     },
     "tag": {
         "form": {

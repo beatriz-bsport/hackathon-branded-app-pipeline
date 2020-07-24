@@ -94,6 +94,11 @@ import MetaActivitySelector from '../../libs/meta-activity/components/MetaActivi
 import LevelSelector from '../../libs/category/components/LevelSelector.component';
 
 const styles = (theme) => ({
+  container: {
+    '&>*': {
+      marginBottom: theme.spacing(2),
+    },
+  },
   panel: {
     display: 'flex',
     flexDirection: 'column',
@@ -172,7 +177,7 @@ type Props = {
   goBack: () => void,
   replaceRouter: (path: string) => void,
   loadOfferData: (Object) => void,
-  fetchOffersByDay: ({ year: number, month: number, day: number }) => void,
+  fetchOffersByDay: (params: any) => void,
   fetchEstablishments: () => void,
 
   deleteOffer: (id: number) => void,
@@ -180,7 +185,6 @@ type Props = {
 
   snackbarSuccess: (string) => void,
 
-  offerFilterOpen: boolean,
   offerFilters: OfferFilter,
   setFilters: (OfferFilter) => null,
   toogleFilter: () => void,
@@ -216,21 +220,8 @@ export class Planning extends PureComponent<Props, State> {
     };
   }
 
-  fetchRelevantOffers = () => {
-    this.props.fetchAllOffers({
-      min_date: moment(this.props.date)
-        .startOf('month')
-        .startOf('week')
-        .format('YYYY-MM-DD'),
-      max_date: moment(this.props.date)
-        .endOf('month')
-        .endOf('week')
-        .format('YYYY-MM-DD'),
-    });
-  };
-
   fetchData = () => {
-    this.fetchRelevantOffers();
+    this.props.fetchRelevantOffers();
     if (this.props.selectedOffer) {
       this.props.loadOfferData(this.props.selectedOffer);
     }
@@ -241,25 +232,19 @@ export class Planning extends PureComponent<Props, State> {
 
   componentDidMount() {
     this.fetchData();
-    if (this.props.offerFilterOpen) {
-      this.props.fetchAssociatedCoachesList();
-      this.props.fetchEstablishments();
-      this.props.fetchAllActivities({ customer_enabled: true });
-    }
     this.props.fetchBookingStatsOfTheWeek();
+    this.props.fetchAssociatedCoachesList();
+    this.props.fetchEstablishments();
+    this.props.fetchAllActivities({ customer_enabled: true });
   }
 
   componentDidUpdate(prevProps: Props) {
     if (
-      prevProps.date !== this.props.date &&
-      !moment(prevProps.date).isSame(moment(this.props.date), 'month')
+      (prevProps.date !== this.props.date &&
+        !moment(prevProps.date).isSame(moment(this.props.date), 'month')) ||
+      prevProps.offerFilters !== this.props.offerFilters
     ) {
-      this.fetchRelevantOffers();
-    }
-    if (this.props.offerFilterOpen && !prevProps.offerFilterOpen) {
-      this.props.fetchAssociatedCoachesList();
-      this.props.fetchEstablishments();
-      this.props.fetchAllActivities({ customer_enabled: true });
+      this.fetchData();
     }
     if (
       this.props.selectedOffer &&
@@ -284,11 +269,12 @@ export class Planning extends PureComponent<Props, State> {
     const date = moment(day || this.props.date, DATE_FORMAT);
     this.props.replaceRouter(
       `/calendar/${date.year()}/${date.month() + 1}/${date.date()}`,
-    );
+  );
     this.props.fetchOffersByDay({
       year: date.year(),
       month: date.month() + 1,
       day: date.date(),
+      ...(this.props.offerFilters || {}),
     });
   };
 
@@ -325,7 +311,7 @@ export class Planning extends PureComponent<Props, State> {
     try {
       const response = await editLiveOfferAPI({ offerId, data });
       if (response.status === 200) {
-        this.fetchRelevantOffers();
+        this.props.fetchRelevantOffers();
         this.setState({
           editOfferProcessing: false,
           editModalOpened: false,
@@ -355,7 +341,7 @@ export class Planning extends PureComponent<Props, State> {
         deleteAll,
       });
       if (response.status === 200) {
-        this.fetchRelevantOffers();
+        this.props.fetchRelevantOffers();
         this.setState({
           deletingOffer: false,
           deleteModalOpened: false,
@@ -375,7 +361,7 @@ export class Planning extends PureComponent<Props, State> {
     try {
       const response = await deleteOfferAPI(offerId, data);
       if (response.status === 204) {
-        this.fetchRelevantOffers();
+        this.props.fetchRelevantOffers();
         this.props.deleteOffer(offerId);
         this.loadDayData();
         this.setState({
@@ -478,7 +464,7 @@ export class Planning extends PureComponent<Props, State> {
       const response = await createOffersAPI(metaActivityId, data);
       if (response.status === 200) {
         this.setState({ creatingOffers: false });
-        this.fetchRelevantOffers();
+        this.props.fetchRelevantOffers();
         this.loadDayData(this.props.date);
         this.setState({ createOfferModalOpened: false });
         return;
@@ -592,8 +578,8 @@ export class Planning extends PureComponent<Props, State> {
     }));
     const establishmentList = this.props.establishments;
     return (
-      <Grid container>
-        <Grid item xs={12} md={6} className={this.props.classes.selector}>
+      <Grid container style={{ overflow: 'scroll' }}>
+        <Grid item xs={6} md={4} className={this.props.classes.selector}>
           <CoachSelector
             coaches={Immutable(coachList)}
             selectedCoaches={this.props.offerFilters.coaches}
@@ -605,18 +591,7 @@ export class Planning extends PureComponent<Props, State> {
             }
           />
         </Grid>
-        <Grid item xs={12} md={6} className={this.props.classes.selector}>
-          <LevelSelector
-            selectedLevels={this.props.offerFilters.levels}
-            selectOption={(ev) =>
-              this.props.setFilters({
-                ...this.props.offerFilters,
-                levels: ev.map((e) => e.value),
-              })
-            }
-          />
-        </Grid>
-        <Grid item xs={12} md={6} className={this.props.classes.selector}>
+        <Grid item xs={6} md={4} className={this.props.classes.selector}>
           <EstablishmentSelector
             establishments={Immutable(establishmentList)}
             selectedEstablishments={this.props.offerFilters.establishments}
@@ -628,7 +603,7 @@ export class Planning extends PureComponent<Props, State> {
             }}
           />
         </Grid>
-        <Grid item xs={12} md={6} className={this.props.classes.selector}>
+        <Grid item xs={12} md={4} className={this.props.classes.selector}>
           <MetaActivitySelector
             metaActivities={this.props.metaActivities.filter(
               (ma) => ma.customer_enabled && !ma.is_workshop,
@@ -658,127 +633,129 @@ export class Planning extends PureComponent<Props, State> {
     } = this.props;
     const events_ = this.getDayOffers(events);
     return (
-      <Grid container spacing={3}>
-        {isWidthDown('md', width) && selectedOffer
-          ? this.renderGoBackButton()
-          : null}
-        {isWidthUp('lg', width) || !selectedOffer ? (
+      <div className={classes.container}>
+        {this.searchBar()}
+        <Grid container spacing={3}>
+          {isWidthDown('md', width) && selectedOffer
+            ? this.renderGoBackButton()
+            : null}
+          {isWidthUp('lg', width) || !selectedOffer ? (
+            <Grid item xs={12} lg={6}>
+              <div className={classes.panel}>
+                {!this.props.permission.navigation &&
+                  !!this.props.permission.calendar && (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      style={{ width: '100%', margin: 8 }}
+                      onClick={this.props.pushToSchedule}
+                    >
+                      {this.props.t('openSchedule')}
+                      <ArrowForwardIcon style={{ marginLeft: 8 }} />
+                    </Button>
+                  )}
+                <Paper style={{ width: '100%' }}>
+                  <Calendar
+                    showDownloader
+                    onRequestMassDisable={
+                      !!this.props.permission.offer.delete &&
+                      this.props.setMassDisablerStartDate
+                    }
+                    events={events_}
+                    onDateClick={this.loadDayData}
+                    date={this.props.date}
+                    searchBarOpen={this.props.offerFilterOpen}
+                    toogleSearchBar={this.props.toogleFilter}
+                    filters={this.props.offerFilters}
+                  />
+                  <TimeTable
+                    onOfferSelected={this.selectOffer}
+                    offers={offers}
+                    loading={
+                      offerByDayLoading ||
+                      (timetableLoading && (offers || []).length === 0)
+                    }
+                    selected={selectedOffer ? selectedOffer.id : null}
+                  />
+                </Paper>
+                {this.props.permission.offer.create
+                  ? this.renderAddOffersButton()
+                  : null}
+              </div>
+              {!this.props.selectedOffer ? (
+                <div className={this.props.classes.noOfferMessage}>
+                  {this.renderNoOfferSelected()}
+                </div>
+              ) : (
+                <div className={this.props.classes.paper}>
+                  <BookingStatisticsCard
+                    offerId={selectedOffer.id}
+                    title={moment(selectedOffer.date_start).format('LLLL')}
+                    bookingStatistics={this.props.bookingStatistics}
+                    loading={
+                      this.props.createdBookingStatsLoading ||
+                      this.props.cancelledBookingStatsLoading
+                    }
+                  />
+                </div>
+              )}
+            </Grid>
+          ) : (
+            <Typography />
+          )}
           <Grid item xs={12} lg={6}>
-            <div className={classes.panel}>
-              {!this.props.permission.navigation &&
-                !!this.props.permission.calendar && (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    style={{ width: '100%', margin: 8 }}
-                    onClick={this.props.pushToSchedule}
-                  >
-                    {this.props.t('openSchedule')}
-                    <ArrowForwardIcon style={{ marginLeft: 8 }} />
-                  </Button>
-                )}
-              <Paper style={{ width: '100%' }}>
-                <Calendar
-                  showDownloader
-                  onRequestMassDisable={
-                    !!this.props.permission.offer.delete &&
-                    this.props.setMassDisablerStartDate
+            {selectedOffer ? (
+              <div>
+                <OfferCard
+                  snackbarSuccess={this.props.snackbarSuccess}
+                  offer={selectedOffer}
+                  companyId={this.props.companyId}
+                  onEditButtonClick={this.openEditModal}
+                  onDeleteButtonClick={this.openDeleteModal}
+                  goToOfferManagement={this.props.goToOfferManagement}
+                  permission={this.props.permission}
+                  members={this.props.members}
+                  membersLoading={
+                    this.props.membersLoading || !this.props.members
                   }
-                  events={events_}
-                  onDateClick={this.loadDayData}
-                  date={this.props.date}
-                  searchBar={this.searchBar()}
-                  searchBarOpen={this.props.offerFilterOpen}
-                  toogleSearchBar={this.props.toogleFilter}
-                  filters={this.props.offerFilters}
-                />
-                <TimeTable
-                  onOfferSelected={this.selectOffer}
-                  offers={offers}
-                  loading={
-                    offerByDayLoading ||
-                    (timetableLoading && (offers || []).length === 0)
+                  bookings={this.props.bookings}
+                  bookingsLoading={
+                    this.props.bookingsLoading || !this.props.bookings
                   }
-                  selected={selectedOffer ? selectedOffer.id : null}
                 />
-              </Paper>
-              {this.props.permission.offer.create
-                ? this.renderAddOffersButton()
-                : null}
-            </div>
-            {!this.props.selectedOffer ? (
-              <div className={this.props.classes.noOfferMessage}>
-                {this.renderNoOfferSelected()}
               </div>
             ) : (
-              <div className={this.props.classes.paper}>
-                <BookingStatisticsCard
-                  offerId={selectedOffer.id}
-                  title={moment(selectedOffer.date_start).format('LLLL')}
-                  bookingStatistics={this.props.bookingStatistics}
-                  loading={
-                    this.props.createdBookingStatsLoading ||
-                    this.props.cancelledBookingStatsLoading
-                  }
-                />
-              </div>
-            )}
-          </Grid>
-        ) : (
-          <Typography />
-        )}
-        <Grid item xs={12} lg={6}>
-          {selectedOffer ? (
-            <div>
-              <OfferCard
-                snackbarSuccess={this.props.snackbarSuccess}
-                offer={selectedOffer}
-                companyId={this.props.companyId}
-                onEditButtonClick={this.openEditModal}
-                onDeleteButtonClick={this.openDeleteModal}
-                goToOfferManagement={this.props.goToOfferManagement}
-                permission={this.props.permission}
-                members={this.props.members}
-                membersLoading={
-                  this.props.membersLoading || !this.props.members
-                }
-                bookings={this.props.bookings}
-                bookingsLoading={
-                  this.props.bookingsLoading || !this.props.bookings
+              <BookingStatisticsCard
+                bookingStatistics={this.props.bookingStatistics}
+                loading={
+                  this.props.createdBookingStatsLoading ||
+                  this.props.cancelledBookingStatsLoading
                 }
               />
-            </div>
-          ) : (
-            <BookingStatisticsCard
-              bookingStatistics={this.props.bookingStatistics}
-              loading={
-                this.props.createdBookingStatsLoading ||
-                this.props.cancelledBookingStatsLoading
+            )}
+          </Grid>
+          {this.renderEditModal()}
+          {this.renderDeleteModal()}
+          {this.renderCreateModal()}
+          {!!this.props.massDisablerStartDate && (
+            <MassDisablerDialog
+              startDate={this.props.massDisablerStartDate}
+              onSubmit={(params, options) =>
+                this.props.disableMassOffers(params, this.props.offerFilters, {
+                  onSuccess: (...args) => {
+                    if (options && options.onSuccess) {
+                      options.onSuccess(...args);
+                      this.fetchData();
+                    }
+                  },
+                  onError: options && options.onError,
+                })
               }
+              onClose={() => this.props.setMassDisablerStartDate(null)}
             />
           )}
         </Grid>
-        {this.renderEditModal()}
-        {this.renderDeleteModal()}
-        {this.renderCreateModal()}
-        {!!this.props.massDisablerStartDate && (
-          <MassDisablerDialog
-            startDate={this.props.massDisablerStartDate}
-            onSubmit={(params, options) =>
-              this.props.disableMassOffers(params, {
-                onSuccess: (...args) => {
-                  if (options && options.onSuccess) {
-                    options.onSuccess(...args);
-                    this.fetchData();
-                  }
-                },
-                onError: options && options.onError,
-              })
-            }
-            onClose={() => this.props.setMassDisablerStartDate(null)}
-          />
-        )}
-      </Grid>
+      </div>
     );
   }
 }
@@ -809,7 +786,6 @@ export default compose(
         state.establishment.loading,
       similarOffers: getSimilarsOffers(state),
       permission: getPermissions(state),
-      offerFilterOpen: state.offer.managerFilter.open,
       offerFilters: state.offer.managerFilter.filters,
       offerByDayLoading: state.offer.byDay.loading,
 
@@ -854,6 +830,19 @@ export default compose(
     },
   ),
   withHandlers({
+    fetchRelevantOffers: ({ fetchAllOffers, offerFilters, date }) => () => {
+      fetchAllOffers({
+        min_date: moment(date)
+          .startOf('month')
+          .startOf('week')
+          .format('YYYY-MM-DD'),
+        max_date: moment(date)
+          .endOf('month')
+          .endOf('week')
+          .format('YYYY-MM-DD'),
+        ...(offerFilters || {}),
+      });
+    },
     fetchBookingInOfferStats: ({
       selectedOffer,
       fetchBookingStatistics,
@@ -871,7 +860,11 @@ export default compose(
         ],
       });
     },
-    fetchBookingStatsOfTheWeek: ({ date, fetchBookingStatistics }) => () => {
+    fetchBookingStatsOfTheWeek: ({
+      date,
+      fetchBookingStatistics,
+      offerFilters,
+    }) => () => {
       fetchBookingStatistics('createdBookings', {
         date_key: 'offer__date_start',
         date_min: moment(date)
@@ -880,6 +873,7 @@ export default compose(
         date_max: moment(date)
           .endOf('week')
           .format('YYYY-MM-DD HH:MM[Z]'),
+        ...(offerFilters || {}),
       });
       fetchBookingStatistics('cancelledBookings', {
         date_key: 'offer__date_start',
@@ -889,6 +883,7 @@ export default compose(
         date_max: moment(date)
           .endOf('week')
           .format('YYYY-MM-DD HH:MM[Z]'),
+        ...(offerFilters || {}),
         bsc: [
           BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
           BOOKING_STATUS_CANCELLED_BY_MANAGER.id,

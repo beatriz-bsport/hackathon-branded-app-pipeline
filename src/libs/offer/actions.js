@@ -171,21 +171,16 @@ export function retrieveOfferAsManager(id: number, options: OptionCallback) {
   };
 }
 
-export function refreshOffersByDay(
-  day: {
-    year: number,
-    month: number,
-    day: number,
-  },
-  options: OptionCallback,
-) {
+export function refreshOffersByDay(params: any, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(offerByDay.error(null));
+    const { year, month, day, ...filters } = params;
     try {
       const response = await fetchOffersByDayAPI({
-        date: `${day.year}-${day.month < 10 ? `0${day.month}` : day.month}-${
-          day.day < 10 ? `0${day.day}` : day.day
+        date: `${year}-${month < 10 ? `0${month}` : month}-${
+          day < 10 ? `0${day}` : day
         }`,
+        ...filters,
       });
       dispatch(offerByDay.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
@@ -395,6 +390,7 @@ export function disableMassOffers(
     start: string,
     end: string,
   },
+  filters: any,
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -402,7 +398,7 @@ export function disableMassOffers(
     dispatch(massDisableActions.error(null));
 
     try {
-      const response = await massDisableOfferAPI(dateInterval);
+      const response = await massDisableOfferAPI(dateInterval, filters);
       dispatch(massDisableActions.success(response.data));
 
       if (options && options.onSuccess) options.onSuccess(response.data);

@@ -170,8 +170,7 @@ export const getOffersByDay = createSelector(
 
 export const getManagerOffersFiltered = createSelector(
   [getOffersByDay, getManagerFilters, getManagerFiltersOpen],
-  (offers, filters, open) => {
-    if (!open) return offers;
+  (offers, filters) => {
     let offersFiltered = offers;
     if ((filters.establishments || []).length) {
       offersFiltered = offersFiltered.filter(

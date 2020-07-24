@@ -77,8 +77,8 @@ const PlanningWithDateAndOffer = compose(
       fetchEstablishmentBulk,
       fetchOffersByDay,
       fetchMetaActivityBulk,
-    }) => (...params) => {
-      fetchOffersByDay(...params, {
+    }) => (params) => {
+      fetchOffersByDay(params, {
         onSuccess: (offers) => {
           fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
           fetchCoachBulk([

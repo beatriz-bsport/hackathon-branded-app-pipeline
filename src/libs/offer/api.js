@@ -75,14 +75,20 @@ export async function retrieveOffer(offerId: number) {
   return getAuth(`${API_V1_URI}/offer/${offerId}/?with_full=true`);
 }
 
-export async function massDisableOffer({
-  start,
-  end,
-}: {
-  start: string,
-  end: string,
-}) {
-  return postAuth(`${API_V1_URI}/offer/mass_disable/`, { start, end });
+export async function massDisableOffer(
+  {
+    start,
+    end,
+  }: {
+    start: string,
+    end: string,
+  },
+  filters: any,
+) {
+  return postAuth(
+    `${API_V1_URI}/offer/mass_disable/${buildUrlParams(filters)}`,
+    { start, end },
+  );
 }
 
 export async function toogleWaitingListFreeze(

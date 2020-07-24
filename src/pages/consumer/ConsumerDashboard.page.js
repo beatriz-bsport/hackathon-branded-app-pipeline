@@ -370,12 +370,12 @@ export default compose(
     ) =>
       fetchConsumerPacks(
         ...args,
-        { mine: true, reverted: false, current: true, disabled: false },
         {
           onSuccess: (cpps) => {
             fetchPaymentPackBulk(cpps.map((c) => c.payment_pack));
           },
         },
+        { mine: true, reverted: false, current: true, disabled: false },
       ),
     submitPayment: ({ regularizeDebt, membership, fetchMembership }) => (
       data,

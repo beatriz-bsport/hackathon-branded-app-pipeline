@@ -25,11 +25,10 @@ export async function fetchNonCompatibleByOfferByMember(offer, data: any = {}) {
   );
 }
 
-export async function fetchConsumerPackList(params: any, moreParams: any = {}) {
+export async function fetchConsumerPackList(params: any = {}) {
   return getAuth(
     `${API_V1_URI}/payment-pack/consumer-payment-pack/${buildUrlParams({
       ...(params || {}),
-      ...moreParams,
     })}`,
   );
 }

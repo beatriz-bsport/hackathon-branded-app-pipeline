@@ -176,15 +176,15 @@ export default compose(
         memberId: number,
         page: number,
         page_size: number,
-        params: any,
         options: OptionCallback,
+        params: any,
       ) =>
         fetchConsumerPackByMemberAction(
           memberId,
           page,
           page_size,
-          params,
           options,
+          params,
         ),
       fetchPrivateConsumerPassList,
       goToPass: (name: string, id: number) =>
@@ -192,15 +192,19 @@ export default compose(
     },
   ),
   withProps(({ fetchPaymentPackBulk, fetchConsumerPacks }) => ({
-    fetchConsumerPacks: (...args) =>
+    fetchConsumerPacks: (memberId, page, page_size, options, params) =>
       fetchConsumerPacks(
-        ...args,
-        { mine: true, reverted: false },
+        memberId,
+        page,
+        page_size,
         {
           onSuccess: (cpps) => {
             fetchPaymentPackBulk(cpps.map((c) => c.payment_pack));
+            if (options && options.onSuccess) options.onSuccess(cpps);
           },
+          onError: options && options.onError,
         },
+        { ...(params || {}), mine: true, reverted: false },
       ),
   })),
 )(ConsumerPack);

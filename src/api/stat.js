@@ -1,4 +1,4 @@
-import { API_URI, postAuth, getJSONAuth } from '../http';
+import { API_URI, postAuth, getJSONAuth, buildUrlParams } from '../http';
 
 export async function bookings() {
   return getJSONAuth(`${API_URI}/statistics/bookings`);
@@ -9,6 +9,13 @@ export async function newMembers() {
 export async function turnover() {
   return getJSONAuth(`${API_URI}/statistics/turnover`);
 }
+
+export async function bookingStatistics(params) {
+  return getJSONAuth(
+    `${API_URI}/statistics/booking-statistics${buildUrlParams(params)}`,
+  );
+}
+
 export async function fetchSmartListStatsAPI(params) {
   return postAuth(
     `${API_URI}/statistics/smart_list_stats/get_statistics/`,
@@ -21,4 +28,5 @@ export default {
   newMembers,
   turnover,
   fetchSmartListStatsAPI,
+  bookingStatistics,
 };

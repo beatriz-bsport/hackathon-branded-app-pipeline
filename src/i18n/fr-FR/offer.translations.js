@@ -54,4 +54,6 @@ exports.default = {
       submit: 'Confirmer',
     },
   },
+  bookingList: 'Réservations',
+  bookingListEmpty: 'Aucune réservation',
 };

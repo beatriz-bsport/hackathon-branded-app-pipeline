@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { compose, withState } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
 import withWidth, { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -28,6 +28,11 @@ import {
 
 import moment from 'moment';
 
+import {
+  BOOKING_STATUS_CANCELLED_BY_MANAGER,
+  BOOKING_STATUS_CANCELLED_BY_CONSUMER,
+} from '@bsport/common/lib/master-data/booking_status_code';
+
 import withTitle from '../../hocs/with-title.hoc';
 
 import { getSimilars as getSimilarsOffers } from '../../libs/offer/selectors';
@@ -42,6 +47,7 @@ import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import type { Establishment } from '../../libs/establishment/types';
+import BookingStatisticsCard from '../../libs/booking/components/BookingStatisticsCard.component';
 
 import {
   fetchAllOffers as fetchAllOffersAction,
@@ -56,6 +62,19 @@ import {
   disableOffer as disableOfferAPI,
   deleteOffer as deleteOfferAPI,
 } from '../../libs/offer/api';
+
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
+import { getAllMembers } from '../../libs/member/selectors';
+
+import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '../../libs/booking/actions';
+import { getOfferBookingList } from '../../libs/booking/selectors';
+
+import { fetchBookingStatistics as fetchBookingStatisticsAction } from '../../actions/stats.actions';
+
+import {
+  getBookingRelatedStatisticLoading,
+  getStats,
+} from '../../state/stats/selectors';
 
 import type { Offer, Coach } from '../../api/types';
 import type { OfferFilter } from '../../libs/offer/types';
@@ -96,6 +115,16 @@ const styles = (theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
   },
+  paper: {
+    marginTop: theme.spacing(5),
+  },
+  noOfferMessage: {
+    marginTop: theme.spacing(5),
+    textAlign: 'center',
+  },
+  goBackButton: {
+    paddingLeft: theme.spacing(2),
+  },
 });
 
 type Props = {
@@ -114,9 +143,15 @@ type Props = {
   activitiesLoading: boolean,
   width: string,
   offerByDayLoading: boolean,
+  createdBookingStatsLoading: boolean,
+  cancelledBookingStatsLoading: boolean,
 
   fetchAssociatedCoachesList: () => void,
   fetchAllActivities: () => void,
+  fetchFilteredMembers: (params: any) => void,
+  fetchBookingsByOffer: (params: any) => void,
+  fetchBookingStatsOfTheWeek: () => void,
+  fetchBookingInOfferStats: () => void,
   permission: Permission,
   metaActivities: Array<MetaActivity>,
   offers: Array<Offer>,
@@ -124,6 +159,12 @@ type Props = {
   events: Array<Event>,
   coaches: Array<Coach>,
   establishments: Array<Establishment>,
+  bookingStatistics: {
+    createdBookings: Array<any>,
+    cancelledBookings: Array<any>,
+    start: Moment,
+    end: Moment,
+  },
   companyId: number,
 
   fetchAllOffers: () => void,
@@ -145,6 +186,11 @@ type Props = {
   toogleFilter: () => void,
 
   pushToSchedule: () => void,
+
+  members: Array<Member>,
+  membersLoading: boolean,
+  bookings: Array<Booking>,
+  bookingsLoading: boolean,
 };
 
 type State = {
@@ -200,6 +246,7 @@ export class Planning extends PureComponent<Props, State> {
       this.props.fetchEstablishments();
       this.props.fetchAllActivities({ customer_enabled: true });
     }
+    this.props.fetchBookingStatsOfTheWeek();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -213,6 +260,23 @@ export class Planning extends PureComponent<Props, State> {
       this.props.fetchAssociatedCoachesList();
       this.props.fetchEstablishments();
       this.props.fetchAllActivities({ customer_enabled: true });
+    }
+    if (
+      this.props.selectedOffer &&
+      this.props.selectedOffer !== prevProps.selectedOffer
+    ) {
+      this.props.fetchFilteredMembers({
+        offer: this.props.selectedOffer.id,
+        withNotes: true,
+      });
+      this.props.fetchBookingsByOffer(this.props.selectedOffer.id);
+      this.props.fetchBookingInOfferStats();
+    }
+    if (prevProps.selectedOffer && !this.props.selectedOffer) {
+      this.props.fetchBookingStatsOfTheWeek();
+    }
+    if (!moment(prevProps.date).isSame(moment(this.props.date), 'week')) {
+      this.props.fetchBookingStatsOfTheWeek();
     }
   }
 
@@ -486,14 +550,16 @@ export class Planning extends PureComponent<Props, State> {
     const { width, classes, selectedOffer, t } = this.props;
     if (isWidthDown('md', width) && selectedOffer) {
       return (
-        <Button
-          size="small"
-          className={classes.button}
-          onClick={this.props.goBack}
-        >
-          <KeyboardArrowLeft />
-          {t('offer.backToCalendar')}
-        </Button>
+        <div className={this.props.classes.goBackButton}>
+          <Button
+            size="small"
+            className={classes.button}
+            onClick={this.props.goBack}
+          >
+            <KeyboardArrowLeft />
+            {t('offer.backToCalendar')}
+          </Button>
+        </div>
       );
     }
     return null;
@@ -590,10 +656,12 @@ export class Planning extends PureComponent<Props, State> {
       width,
       selectedOffer,
     } = this.props;
-
     const events_ = this.getDayOffers(events);
     return (
       <Grid container spacing={3}>
+        {isWidthDown('md', width) && selectedOffer
+          ? this.renderGoBackButton()
+          : null}
         {isWidthUp('lg', width) || !selectedOffer ? (
           <Grid item xs={12} lg={6}>
             <div className={classes.panel}>
@@ -638,30 +706,55 @@ export class Planning extends PureComponent<Props, State> {
                 ? this.renderAddOffersButton()
                 : null}
             </div>
+            {!this.props.selectedOffer ? (
+              <div className={this.props.classes.noOfferMessage}>
+                {this.renderNoOfferSelected()}
+              </div>
+            ) : null}
           </Grid>
         ) : (
           <Typography />
         )}
         <Grid item xs={12} lg={6}>
           {selectedOffer ? (
-            <OfferCard
-              snackbarSuccess={this.props.snackbarSuccess}
-              offer={selectedOffer}
-              companyId={this.props.companyId}
-              onEditButtonClick={this.openEditModal}
-              onDeleteButtonClick={this.openDeleteModal}
-              goToOfferManagement={this.props.goToOfferManagement}
-              permission={this.props.permission}
-            />
+            <div>
+              <OfferCard
+                snackbarSuccess={this.props.snackbarSuccess}
+                offer={selectedOffer}
+                companyId={this.props.companyId}
+                onEditButtonClick={this.openEditModal}
+                onDeleteButtonClick={this.openDeleteModal}
+                goToOfferManagement={this.props.goToOfferManagement}
+                permission={this.props.permission}
+                members={this.props.members}
+                membersLoading={
+                  this.props.membersLoading || !this.props.members
+                }
+                bookings={this.props.bookings}
+                bookingsLoading={
+                  this.props.bookingsLoading || !this.props.bookings
+                }
+              />
+              <div className={this.props.classes.paper}>
+                <BookingStatisticsCard
+                  offerId={selectedOffer.id}
+                  bookingStatistics={this.props.bookingStatistics}
+                  loading={
+                    this.props.createdBookingStatsLoading ||
+                    this.props.cancelledBookingStatsLoading
+                  }
+                />
+              </div>
+            </div>
           ) : (
-            this.renderNoOfferSelected()
+            <BookingStatisticsCard
+              bookingStatistics={this.props.bookingStatistics}
+              loading={
+                this.props.createdBookingStatsLoading ||
+                this.props.cancelledBookingStatsLoading
+              }
+            />
           )}
-        </Grid>
-
-        <Grid item xs={12} lg={6}>
-          {isWidthDown('md', width) && selectedOffer
-            ? this.renderGoBackButton()
-            : null}
         </Grid>
         {this.renderEditModal()}
         {this.renderDeleteModal()}
@@ -695,7 +788,7 @@ export default compose(
   withWidth(),
   withMobileDialog(),
   connect(
-    (state) => ({
+    (state, { selectedOffer, date }) => ({
       events: state.offer.calendar,
       timetableLoading: state.offer.byDay.loading,
 
@@ -717,6 +810,27 @@ export default compose(
       offerFilterOpen: state.offer.managerFilter.open,
       offerFilters: state.offer.managerFilter.filters,
       offerByDayLoading: state.offer.byDay.loading,
+
+      members: getAllMembers(state),
+      membersLoading: state.member.loading,
+
+      bookings: getOfferBookingList(state),
+      bookingsLoading: state.booking.byOffer.loading,
+
+      createdBookingStatsLoading: getBookingRelatedStatisticLoading(
+        state,
+        'createdBookings',
+      ),
+      cancelledBookingStatsLoading: getBookingRelatedStatisticLoading(
+        state,
+        'cancelledBookings',
+      ),
+      bookingStatistics: selectedOffer
+        ? getStats(state)
+        : getStats(state, {
+            start: moment(date).startOf('week'),
+            end: moment(date).endOf('week'),
+          }),
     }),
     {
       goBack: goBackRouter,
@@ -728,12 +842,58 @@ export default compose(
       fetchSimilarOffers: fetchSimilarOffersAction,
       setFilters: setFiltersAction,
       toogleFilter: toogleFilterAction,
+      fetchFilteredMembers: fetchFilteredMembersAction,
+      fetchBookingsByOffer: fetchBookingsByOfferAction,
       fetchEstablishments,
       fetchAssociatedCoachesList,
       fetchAllActivities,
       disableMassOffers,
+      fetchBookingStatistics: fetchBookingStatisticsAction,
     },
   ),
+  withHandlers({
+    fetchBookingInOfferStats: ({
+      selectedOffer,
+      fetchBookingStatistics,
+    }) => () => {
+      fetchBookingStatistics('createdBookings', {
+        date_key: 'date_created',
+        offer: selectedOffer.id,
+      });
+      fetchBookingStatistics('cancelledBookings', {
+        date_key: 'date_updated',
+        offer: selectedOffer.id,
+        bsc: [
+          BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
+          BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
+        ],
+      });
+    },
+    fetchBookingStatsOfTheWeek: ({ date, fetchBookingStatistics }) => () => {
+      fetchBookingStatistics('createdBookings', {
+        date_key: 'offer__date_start',
+        date_min: moment(date)
+          .startOf('week')
+          .format('YYYY-MM-DD HH:MM[Z]'),
+        date_max: moment(date)
+          .endOf('week')
+          .format('YYYY-MM-DD HH:MM[Z]'),
+      });
+      fetchBookingStatistics('cancelledBookings', {
+        date_key: 'offer__date_start',
+        date_min: moment(date)
+          .startOf('week')
+          .format('YYYY-MM-DD HH:MM[Z]'),
+        date_max: moment(date)
+          .endOf('week')
+          .format('YYYY-MM-DD HH:MM[Z]'),
+        bsc: [
+          BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
+          BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
+        ],
+      });
+    },
+  }),
   withState('massDisablerStartDate', 'setMassDisablerStartDate', null),
   withTitle(({ t }: { t: TFunction }) => t('titles:planning')),
 )(Planning);

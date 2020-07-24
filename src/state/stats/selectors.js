@@ -17,6 +17,47 @@ export const dateRangeSelector = createSelector(
   }),
 );
 
+export const getStats = (
+  state: State,
+  range?: { start: Moment, end: Moment },
+) => {
+  if (
+    state.stats.stats &&
+    state.stats.stats.createdBookings &&
+    state.stats.stats.createdBookings.data &&
+    state.stats.stats.cancelledBookings &&
+    state.stats.stats.cancelledBookings.data
+  ) {
+    const createdBookings = state.stats.stats.createdBookings.data;
+    const cancelledBookings = state.stats.stats.cancelledBookings.data;
+    if (range) {
+      const { start, end } = range;
+      return { createdBookings, cancelledBookings, start, end };
+    }
+    if (createdBookings.length === 0) {
+      const start = moment().subtract(1, 'year');
+      const end = moment();
+      return { createdBookings, cancelledBookings, start, end };
+    }
+    if (cancelledBookings.length === 0) {
+      const start = moment(createdBookings[0].d);
+      const end = moment(createdBookings[createdBookings.length - 1].d);
+      return { createdBookings, cancelledBookings, start, end };
+    }
+    const start = moment(
+      Math.min(createdBookings[0].d, cancelledBookings[0].d),
+    );
+    const end = moment(
+      Math.max(
+        createdBookings[createdBookings.length - 1].d,
+        cancelledBookings[cancelledBookings.length - 1].d,
+      ),
+    );
+    return { createdBookings, cancelledBookings, start, end };
+  }
+  return null;
+};
+
 function filterDataTable(table, dateRange) {
   return lodash.filter(
     table,
@@ -40,16 +81,18 @@ function addFakeData(table, dateRange) {
 
 function discretizeDataBy(table, dateRange) {
   const duration = moment.duration(dateRange.end.diff(dateRange.start));
-  if (duration.asDays() > 60) {
-    return {
-      table: discretizeByAndFillMissing(
-        dateRange,
-        table,
-        'month',
-        (u, v) => u + v.v,
-      ),
-      formatter: 'month',
-    };
+  if (dateRange.kind === 'all') {
+    if (duration.asDays() > 60) {
+      return {
+        table: discretizeByAndFillMissing(
+          dateRange,
+          table,
+          'month',
+          (u, v) => u + v.v,
+        ),
+        formatter: 'month',
+      };
+    }
   }
   if (duration.asDays() > 15) {
     return {
@@ -62,14 +105,25 @@ function discretizeDataBy(table, dateRange) {
       formatter: 'week',
     };
   }
+  if (duration.asDays() > 1) {
+    return {
+      table: discretizeByAndFillMissing(
+        dateRange,
+        table,
+        'day',
+        (u, v) => u + v.v,
+      ),
+      formatter: 'day',
+    };
+  }
   return {
     table: discretizeByAndFillMissing(
       dateRange,
       table,
-      'day',
+      'hour',
       (u, v) => u + v.v,
     ),
-    formatter: 'day',
+    formatter: 'hour',
   };
 }
 
@@ -98,6 +152,19 @@ function statSelector(identifier) {
 
 function discretizeByAndFillMissing(dateRange, table, duration, reducer) {
   let grouped = {};
+  if (dateRange.kind === 'hour') {
+    grouped = lodash.groupBy(table, (u) => moment(u.d).format('YYYY-MM-DD LT'));
+    for (
+      let m = moment(dateRange.start);
+      m.isBefore(dateRange.end) || m.isSame(dateRange.end);
+      m.add(1, 'hours')
+    ) {
+      if (!grouped[m.format('YYYY-MM-DD LT')]) {
+        grouped[m.format('YYYY-MM-DD LT')] = [{ v: 0 }];
+      }
+    }
+  }
+
   if (duration === 'month') {
     grouped = lodash.groupBy(table, (u) => moment(u.d).format('YYYY-MM'));
 
@@ -154,6 +221,19 @@ function discretizeByAndFillMissing(dateRange, table, duration, reducer) {
     }
   }
 
+  if (duration === 'hour') {
+    grouped = lodash.groupBy(table, (u) => moment(u.d).format('YYYY-MM-DD LT'));
+    for (
+      let m = moment(dateRange.start);
+      m.isBefore(dateRange.end) || m.isSame(dateRange.end);
+      m.add(1, 'hours')
+    ) {
+      if (!grouped[m.format('YYYY-MM-DD LT')]) {
+        grouped[m.format('YYYY-MM-DD LT')] = [{ v: 0 }];
+      }
+    }
+  }
+
   const finalTable = Object.keys(grouped)
     .map((k) => {
       const group = grouped[k];
@@ -172,6 +252,8 @@ function discretizeByAndFillMissing(dateRange, table, duration, reducer) {
 }
 
 export const bookingStatSelector = statSelector('bookings');
+export const createdBookingStatSelector = statSelector('createdBookings');
+export const cancelledBookingStatSelector = statSelector('cancelledBookings');
 export const newMembersStatSelector = statSelector('newMembers');
 export const turnoverStatSelector = statSelector('turnover');
 
@@ -217,6 +299,13 @@ export const getStatisticLoading = (state, smartList, statistic) => {
     state.stats.bySmartListId[smartList][statistic]
   ) {
     return state.stats.bySmartListId[smartList][statistic].loading;
+  }
+  return true;
+};
+
+export const getBookingRelatedStatisticLoading = (state, statistic) => {
+  if (state.stats.stats && state.stats.stats[statistic]) {
+    return state.stats.stats[statistic].isLoading;
   }
   return true;
 };

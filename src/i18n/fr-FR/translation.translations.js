@@ -992,4 +992,19 @@ exports.default = {
     strategy: 'Stratégie',
   },
   replaceCoach: 'Changer le professeur',
+  bookingStatistics: {
+    weekOverview: 'Aperçu de votre semaine',
+    offerFilteredBookingRecap: 'Vos réservations',
+    totalBookings: '{{nb}} réservation au total',
+    totalBookings_plural: '{{nb}} réservations au total',
+    cancelledBookings: '{{nb}} réservation annulée',
+    cancelledBookings_plural: '{{nb}} réservations annulées',
+    maintenedBookings: '{{nb}} réservation maintenue',
+    maintenedBookings_plural: '{{nb}} réservations maintenues',
+    keys: {
+      created: 'Réservations maintenues',
+      cancelled: 'Réservations annulées',
+    },
+    weekOf: 'Semaine du {{date}}',
+  },
 };

@@ -26,6 +26,7 @@ type Props = {
   onChange: (Moment, Moment, ?string) => void,
   start: Moment,
   end: Moment,
+  hideDatePickers: boolean,
 };
 
 export function DateRangeFilter(props: Props) {
@@ -37,29 +38,31 @@ export function DateRangeFilter(props: Props) {
       justify="space-between"
       className={classes.root}
     >
-      <Grid item>
-        <DateInput
-          className={classes.dateInput}
-          id="date"
-          label={t('dateRange.start')}
-          type="date"
-          value={start.format('YYYY-MM-DD')}
-          onChange={(value) => onChange(value, end, null)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <DateInput
-          id="date"
-          label={t('dateRange.end')}
-          type="date"
-          value={end.format('YYYY-MM-DD')}
-          onChange={(value) => onChange(start, value, null)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-      </Grid>
+      {!props.hideDatePickers ? (
+        <Grid item>
+          <DateInput
+            className={classes.dateInput}
+            id="date"
+            label={t('dateRange.start')}
+            type="date"
+            value={start.format('YYYY-MM-DD')}
+            onChange={(value) => onChange(value, end, null)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <DateInput
+            id="date"
+            label={t('dateRange.end')}
+            type="date"
+            value={end.format('YYYY-MM-DD')}
+            onChange={(value) => onChange(start, value, null)}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+        </Grid>
+      ) : null}
       <Grid item>
         {quickRanges.map((range) => {
           const selectedColor = range.selected ? 'primary' : 'default';

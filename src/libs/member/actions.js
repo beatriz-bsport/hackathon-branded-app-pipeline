@@ -114,6 +114,7 @@ export const memberListActions = {
 
 export function refreshFilteredMembers(params: any) {
   return async (dispatch: Dispatch) => {
+    dispatch(memberListActions.isLoading(true));
     try {
       const response = await fetchFilteredMembersAPI(params);
       dispatch(memberListActions.success(response.data.results));
@@ -121,6 +122,7 @@ export function refreshFilteredMembers(params: any) {
       console.error(err);
       dispatch(memberListActions.error(err));
     }
+    dispatch(memberListActions.isLoading(false));
   };
 }
 

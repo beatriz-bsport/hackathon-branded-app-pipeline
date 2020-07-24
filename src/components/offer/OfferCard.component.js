@@ -11,23 +11,23 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Hidden from '@material-ui/core/Hidden';
 import EditIcon from '@material-ui/icons/Edit';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LinkIcon from '@material-ui/icons/Link';
 import { withTranslation } from 'react-i18next';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-
 import { Link } from 'react-router-dom';
-
 import type { TFunction } from 'react-i18next';
+// import BackOfficeLinearProgress from '../navigation/BackofficeLinearProgress.component';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
+
 import { Level } from '../category';
 import Sport from '../../libs/category/components/SCT.component';
-import Avatar from '../Avatar.component';
 import RedButton from '../button/RedButton.component';
 
-import { formatAsTime, formatMinutes } from '../../datetime';
 import type { Offer } from '../../api/types';
 
 import type { Permission } from '../../libs/role/types';
@@ -42,6 +42,10 @@ type Props = {
   permission: Permission,
   companyId: number,
   snackbarSuccess: (string) => void,
+  members: Array<Member>,
+  membersLoading: boolean,
+  bookings: Array<Booking>,
+  bookingsLoading: boolean,
 };
 
 export class OfferCard extends Component<Props> {
@@ -186,119 +190,164 @@ export class OfferCard extends Component<Props> {
     );
   };
 
-  getPracticalInfo = () => {
-    const {
-      t,
-      classes,
-      offer,
-      onEditButtonClick,
-      onDeleteButtonClick,
-    } = this.props;
-    const {
-      available,
-      date_start,
-      coach,
-      coach_override,
-      duration_minute,
-    } = offer;
+  // getPracticalInfo = () => {
+  //   const {
+  //     t,
+  //     classes,
+  //     offer,
+  //     onEditButtonClick,
+  //     onDeleteButtonClick,
+  //   } = this.props;
+  //   const {
+  //     available,
+  //     date_start,
+  //     coach,
+  //     coach_override,
+  //     duration_minute,
+  //   } = offer;
+  //   return (
+  //     <Grid
+  //       container
+  //       alignItems="center"
+  //       direction="row"
+  //       className={classes.footer}
+  //     >
+  //       <Grid item xs={4}>
+  //         <Grid container direction="column" spacing={1} alignItems="center">
+  //           <Grid item>
+  //             <Avatar user={coach_override || coach} />
+  //           </Grid>
+  //           <Grid item>
+  //             {coach_override ? (
+  //               <Typography variant="caption">
+  //                 {t('offer:substitute')}
+  //               </Typography>
+  //             ) : null}
+  //           </Grid>
+  //         </Grid>
+  //       </Grid>
+  //       <Grid item xs={8} style={{ borderLeft: '1px solid #EEEEEE' }}>
+  //         <Grid
+  //           container
+  //           spacing={1}
+  //           justify="center"
+  //           alignItems="flex-start"
+  //           direction="column"
+  //           className={classes.info}
+  //         >
+  //           <ListItem>
+  //             <ListItemIcon>
+  //               <AccessTimeIcon />
+  //             </ListItemIcon>
+  //             <ListItemText variant="h6">
+  //               {`${formatAsTime(date_start)} - ${formatMinutes(
+  //                 duration_minute,
+  //                 t,
+  //               )}`}
+  //             </ListItemText>
+  //           </ListItem>
+
+  //           <ListItem>
+  //             <ListItemIcon>
+  //               <LocationOnIcon />
+  //             </ListItemIcon>
+  //             <ListItemText>{this.renderEstablishment()}</ListItemText>
+  //           </ListItem>
+
+  //           {offer.id && this.props.companyId ? (
+  //             <ButtonBase
+  //               onClick={() => this.props.snackbarSuccess('link.copied')}
+  //               className={classes.link}
+  //             >
+  //               <LinkIcon />
+  //               <CopyToClipboard
+  // eslint-disable-next-line
+  //                 text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
+  //               >
+  //                 <Typography className={classes.linkTypo}>
+  //                   {t('offer:card.copyLink')}
+  //                 </Typography>
+  //               </CopyToClipboard>
+  //             </ButtonBase>
+  //           ) : null}
+  //         </Grid>
+  //         {available ? (
+  //           <Grid
+  //             container
+  //             direction="row"
+  //             spacing={2}
+  //             wrap="nowrap"
+  //             className={classes.modifierButtonsBlock}
+  //           >
+  //             {this.props.permission.offer.edit ? (
+  //               <ListItem>
+  //                 <Button color="primary" onClick={onEditButtonClick}>
+  //                   <EditIcon className={classes.iconLeft} />
+  //                   <Hidden xsDown>{t('offer:calendar.modifyOffer')}</Hidden>
+  //                 </Button>
+  //               </ListItem>
+  //             ) : null}
+  //             {this.props.permission.offer.delete ? (
+  //               <ListItem>
+  //                 <RedButton onClick={onDeleteButtonClick}>
+  //                   <DeleteIcon className={classes.iconLeft} />
+  //                   <Hidden xsDown>{t('offer:calendar.deleteOffer')}</Hidden>
+  //                 </RedButton>
+  //               </ListItem>
+  //             ) : null}
+  //           </Grid>
+  //         ) : null}
+  //       </Grid>
+  //     </Grid>
+  //   );
+  // };
+
+  renderBookingList = () => {
+    const { t } = this.props;
+    if (this.props.bookingsLoading || this.props.membersLoading) {
+      return <LinearProgress />;
+    }
     return (
-      <Grid
-        container
-        alignItems="center"
-        direction="row"
-        className={classes.footer}
-      >
-        <Grid item xs={4}>
-          <Grid container direction="column" spacing={1} alignItems="center">
-            <Grid item>
-              <Avatar user={coach_override || coach} />
-            </Grid>
-            <Grid item>
-              {coach_override ? (
-                <Typography variant="caption">
-                  {t('offer:substitute')}
-                </Typography>
-              ) : null}
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={8} style={{ borderLeft: '1px solid #EEEEEE' }}>
-          <Grid
-            container
-            spacing={1}
-            justify="center"
-            alignItems="flex-start"
-            direction="column"
-            className={classes.info}
+      <div>
+        <Typography className={this.props.classes.bookingListTitle}>
+          {t('offer:bookingList')}
+        </Typography>
+        <Divider />
+        {this.props.bookings.length > 0 ? (
+          <ButtonBase
+            onClick={() => this.props.goToOfferManagement(this.props.offer.id)}
+            className={this.props.classes.listButtonBase}
           >
-            <ListItem>
-              <ListItemIcon>
-                <AccessTimeIcon />
-              </ListItemIcon>
-              <ListItemText variant="h6">
-                {`${formatAsTime(date_start)} - ${formatMinutes(
-                  duration_minute,
-                  t,
-                )}`}
-              </ListItemText>
-            </ListItem>
-
-            <ListItem>
-              <ListItemIcon>
-                <LocationOnIcon />
-              </ListItemIcon>
-              <ListItemText>{this.renderEstablishment()}</ListItemText>
-            </ListItem>
-
-            {offer.id && this.props.companyId ? (
-              <ButtonBase
-                onClick={() => this.props.snackbarSuccess('link.copied')}
-                className={classes.link}
-              >
-                <LinkIcon />
-                <CopyToClipboard
-                  text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
-                >
-                  <Typography className={classes.linkTypo}>
-                    {t('offer:card.copyLink')}
-                  </Typography>
-                </CopyToClipboard>
-              </ButtonBase>
-            ) : null}
-          </Grid>
-          {available ? (
-            <Grid
-              container
-              direction="row"
-              spacing={2}
-              wrap="nowrap"
-              className={classes.modifierButtonsBlock}
-            >
-              {this.props.permission.offer.edit ? (
-                <ListItem>
-                  <Button color="primary" onClick={onEditButtonClick}>
-                    <EditIcon className={classes.iconLeft} />
-                    <Hidden xsDown>{t('offer:calendar.modifyOffer')}</Hidden>
-                  </Button>
-                </ListItem>
-              ) : null}
-              {this.props.permission.offer.delete ? (
-                <ListItem>
-                  <RedButton onClick={onDeleteButtonClick}>
-                    <DeleteIcon className={classes.iconLeft} />
-                    <Hidden xsDown>{t('offer:calendar.deleteOffer')}</Hidden>
-                  </RedButton>
-                </ListItem>
-              ) : null}
-            </Grid>
-          ) : null}
-        </Grid>
-      </Grid>
+            <List dense>
+              {this.props.bookings
+                .filter((b) => b.booking_status_code === 0)
+                .map((b) => (
+                  <MemberMinimalListItem
+                    member={this.props.members.find((m) => m.id === b.member)}
+                    key={b.id}
+                  />
+                ))}
+            </List>
+          </ButtonBase>
+        ) : (
+          <Typography className={this.props.classes.noBookings} align="center">
+            {t('offer:bookingListEmpty')}
+          </Typography>
+        )}
+        <Divider />
+      </div>
     );
   };
 
   render() {
-    const { noHeader, offer, onDeleteButtonClick, classes, t } = this.props;
+    const {
+      noHeader,
+      offer,
+      onDeleteButtonClick,
+      classes,
+      t,
+      onEditButtonClick,
+    } = this.props;
     const { available } = offer;
     if (offer) {
       return (
@@ -306,7 +355,54 @@ export class OfferCard extends Component<Props> {
           <Paper square className={available ? null : classes.disabledPaper}>
             {noHeader ? null : this.getHeader()}
             {this.getStatsBody()}
-            {this.getPracticalInfo()}
+            {this.renderBookingList()}
+            {/* {this.getPracticalInfo()} */}
+
+            {available ? (
+              <div className={this.props.classes.bottomBlock}>
+                {offer.id && this.props.companyId ? (
+                  <div className={this.props.classes.buttonContainer}>
+                    <ButtonBase
+                      onClick={() => this.props.snackbarSuccess('link.copied')}
+                      className={classes.link}
+                    >
+                      <LinkIcon />
+                      <CopyToClipboard
+                        text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
+                      >
+                        <Hidden xsDown>
+                          <Typography className={classes.linkTypo}>
+                            {t('offer:card.copyLink')}
+                          </Typography>
+                        </Hidden>
+                      </CopyToClipboard>
+                    </ButtonBase>
+                  </div>
+                ) : null}
+                <div className={this.props.classes.buttonContainer}>
+                  {this.props.permission.offer.edit ? (
+                    <div className={this.props.classes.button}>
+                      <Button color="primary" onClick={onEditButtonClick}>
+                        <EditIcon className={classes.iconLeft} />
+                        <Hidden xsDown>
+                          {t('offer:calendar.modifyOffer')}
+                        </Hidden>
+                      </Button>
+                    </div>
+                  ) : null}
+                  {this.props.permission.offer.delete ? (
+                    <div className={this.props.classes.button}>
+                      <RedButton onClick={onDeleteButtonClick}>
+                        <DeleteIcon className={classes.iconLeft} />
+                        <Hidden xsDown>
+                          {t('offer:calendar.deleteOffer')}
+                        </Hidden>
+                      </RedButton>
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            ) : null}
           </Paper>
           <Link style={{ textDecoration: 'none' }} to={`/offer/${offer.id}`}>
             <Button
@@ -386,7 +482,7 @@ const styles = (theme) => ({
   },
   link: {
     marginLeft: theme.spacing(1),
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
     '&:hover': {
       backgroundColor: '#EFEFEF',
       borderRadius: 5,
@@ -401,6 +497,28 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     padding: theme.spacing(2),
+  },
+  bookingListTitle: {
+    paddingLeft: theme.spacing(2),
+  },
+  bottomBlock: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  button: {
+    padding: theme.spacing(2),
+  },
+  noBookings: {
+    padding: theme.spacing(2),
+  },
+  listButtonBase: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-start',
   },
 });
 

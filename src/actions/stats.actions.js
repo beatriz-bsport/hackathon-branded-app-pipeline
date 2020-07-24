@@ -29,11 +29,39 @@ async function fetchStats(dispatch, identifier, callee) {
   dispatch(statIsLoading({ identifier, loading: false }));
 }
 
+async function fetchStatsWithTime(dispatch, identifier, callee, params) {
+  dispatch(statIsLoading({ identifier, loading: true }));
+  dispatch(statError({ identifier, error: null }));
+
+  try {
+    const data = (await callee(params))
+      .map((row) => {
+        return { d: moment(row.d, 'YYYY-MM-DD HH').valueOf(), v: row.v };
+      })
+      .sort((u, v) => u.d - v.d);
+    dispatch(statLoaded({ identifier, data }));
+  } catch (error) {
+    dispatch(statError({ identifier, error }));
+  }
+  dispatch(statIsLoading({ identifier, loading: false }));
+}
+
 export function fetchDashboard() {
   return async (dispatch: Dispatch) => {
     fetchStats(dispatch, 'bookings', api.stats.bookings);
     fetchStats(dispatch, 'newMembers', api.stats.newMembers);
     fetchStats(dispatch, 'turnover', api.stats.turnover);
+  };
+}
+
+export function fetchBookingStatistics(identifier: string, params: any) {
+  return async (dispatch: Dispatch) => {
+    fetchStatsWithTime(
+      dispatch,
+      identifier,
+      api.stats.bookingStatistics,
+      params,
+    );
   };
 }
 

@@ -71,29 +71,29 @@ function dateFormatter(kind) {
   return (d) => moment(d).format('ddd DD MMM');
 }
 
-const chartConfigs = {
+const chartConfigs = (t) => ({
   newMembers: {
     color: 'green',
     xFormat: dateFormatter,
     yFormat: (v) => Math.ceil(v),
-    yLabel: 'Nouveaux membres',
+    yLabel: t('newMembers'),
   },
   turnover: {
     color: 'blue',
     xFormat: dateFormatter,
     yFormat: (v) => `${Math.ceil(v)} €`,
-    yLabel: 'CA',
+    yLabel: t('turnover'),
   },
   bookings: {
     color: 'red',
     xFormat: dateFormatter,
     yFormat: (v) => Math.ceil(v),
-    yLabel: 'Réservations',
+    yLabel: t('bookings'),
   },
-};
+});
 
-function createChartOptions(identifier, data, domain) {
-  const options = chartConfigs[identifier];
+function createChartOptions(identifier, data, domain, t) {
+  const options = chartConfigs(t)[identifier];
   return {
     name: identifier,
     count: options.yFormat(data.total),
@@ -126,11 +126,10 @@ export function Dashboard(props: Props) {
       .valueOf(),
   ];
   const stats1 = [
-    createChartOptions('newMembers', newMembers, domain),
-    createChartOptions('turnover', turnover, domain),
-    createChartOptions('bookings', bookings, domain),
+    createChartOptions('newMembers', newMembers, domain, t),
+    createChartOptions('turnover', turnover, domain, t),
+    createChartOptions('bookings', bookings, domain, t),
   ];
-
   return (
     <div className="dashboard">
       <AppBar position="static" color="default" className={classes.bar}>
@@ -245,8 +244,8 @@ export default compose(
       this.props.fetchDashboardStats();
     },
   }),
-  withProps(({ mainChart, miniStats }) => ({
-    mainChartOptions: chartConfigs[mainChart],
+  withProps(({ mainChart, miniStats, t }) => ({
+    mainChartOptions: chartConfigs(t)[mainChart],
     mainChartData: miniStats[mainChart] || { table: [] },
   })),
   withProps(({ dateRange }) => ({

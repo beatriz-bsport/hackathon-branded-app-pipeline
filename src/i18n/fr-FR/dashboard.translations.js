@@ -1,4 +1,5 @@
 exports.default = {
+  current_day: 'Dernières 24 heures',
   current_week: 'Dernière semaine',
   current_month: 'Mois dernier',
   last_three_months: 'Trois derniers mois',

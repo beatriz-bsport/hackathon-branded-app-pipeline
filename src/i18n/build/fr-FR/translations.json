@@ -815,7 +815,19 @@
       "gym": "Gymnase Beaulieu",
       "strategy": "Stratégie"
     },
-    "replaceCoach": "Changer le professeur"
+    "replaceCoach": "Changer le professeur",
+    "bookingStatistics": {
+      "weekOverview": "Aperçu de votre semaine",
+      "offerFilteredBookingRecap": "Vos réservations",
+      "totalBookings": "{{nb}} réservation au total",
+      "totalBookings_plural": "{{nb}} réservations au total",
+      "cancelledBookings": "{{nb}} réservation annulée",
+      "cancelledBookings_plural": "{{nb}} réservations annulées",
+      "maintenedBookings": "{{nb}} réservation maintenue",
+      "maintenedBookings_plural": "{{nb}} réservations maintenues",
+      "keys": { "created": "Réservations maintenues", "cancelled": "Réservations annulées" },
+      "weekOf": "Semaine du {{date}}"
+    }
   },
   "search": {
     "input": "Rechercher...",
@@ -1682,6 +1694,7 @@
     "code": { "addCoupon": { "label": "Code promo", "placeholder": "SPECIAL_RENTREE" } }
   },
   "dashboard": {
+    "current_day": "Dernières 24 heures",
     "current_week": "Dernière semaine",
     "current_month": "Mois dernier",
     "last_three_months": "Trois derniers mois",
@@ -3378,7 +3391,9 @@
       "explainWarning": "ATTENTION cette opération est irréversible.",
       "explainLoading": "Veuillez patienter",
       "actions": { "cancel": "Annuler", "submit": "Confirmer" }
-    }
+    },
+    "bookingList": "Réservations",
+    "bookingListEmpty": "Aucune réservation"
   },
   "emailTemplate": {
     "modal": {

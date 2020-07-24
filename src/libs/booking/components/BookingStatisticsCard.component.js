@@ -5,11 +5,11 @@ import moment from 'moment';
 import type { Moment } from 'moment';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { colors as bsportColors } from '@bsport/common/lib/colors';
+
 import { discretizeByAndFillMissing } from '../../../state/stats/utils';
 import TwoStackedAreasChart from '../../../components/graph/TwoStackedAreasChart.component';
 import StackedBarChart from '../../../components/graph/StackedBarChart.component';
@@ -27,6 +27,7 @@ type Props = {
 
 export function BookingStatisticsCard(props: Props) {
   const classes = useStyles();
+  const theme = useTheme();
   const { t } = useTranslation();
   const { bookingStatistics, loading } = props;
 
@@ -146,7 +147,7 @@ export function BookingStatisticsCard(props: Props) {
               xKey="d"
               yKeyA={t('bookingStatistics.keys.created')}
               yKeyB={t('bookingStatistics.keys.cancelled')}
-              colorA={bsportColors.primary}
+              colorA={theme.palette.primary.main}
               colorB="#E05123"
             />
           </div>
@@ -161,7 +162,7 @@ export function BookingStatisticsCard(props: Props) {
               xKey="d"
               yKeyA={t('bookingStatistics.keys.created')}
               yKeyB={t('bookingStatistics.keys.cancelled')}
-              colorA={bsportColors.primary}
+              colorA={theme.palette.primary.main}
               colorB="#E05123"
             />
           </div>
@@ -202,7 +203,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   greenText: {
-    color: bsportColors.primary,
+    color: theme.palette.primary.main,
   },
   chart: {
     marginBottom: theme.spacing(2),

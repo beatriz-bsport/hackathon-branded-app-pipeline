@@ -1215,7 +1215,22 @@
         "languageToolTip": "Auf der Web-Marketplace verfügbar",
         "visibilityOfIconToolTip": "Unsichtbar",
         "replaceCoach": "Den Lehrer ändern",
-        "onlyNewMember": "Buchung nur für Kurskarten von neuen Kunden ermöglichen"
+        "onlyNewMember": "Buchung nur für Kurskarten von neuen Kunden ermöglichen",
+        "bookingStatistics": {
+            "weekOf": "Woche von {{date}}",
+            "keys": {
+                "cancelled": "Stornierte Buchungen",
+                "created": "Beibehaltene Buchungen"
+            },
+            "maintenedBookings": "{{nb}} Buchung beibehalten",
+            "maintenedBookings_plural": "{{nb}} Buchungen beibehalten",
+            "cancelledBookings": "{{nb}} Buchung storniert",
+            "cancelledBookings_plural": "{{nb}} Buchungen storniert",
+            "totalBookings": "{{nb}} Buchung insgesamt",
+            "totalBookings_plural": "{{nb}} Buchungen insgesamt",
+            "offerFilteredBookingRecap": "Ihre Buchungen",
+            "weekOverview": "Übersicht Ihrer Woche"
+        }
     },
     "smartList": {
         "filters": {
@@ -4754,7 +4769,8 @@
         "current_week": "Laufende Woche",
         "current_month": "Laufender Monat",
         "bookings": "Buchungen",
-        "pageTitle": "Dashboard"
+        "pageTitle": "Dashboard",
+        "current_day": "Letzte 24 Stunden"
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -5231,7 +5247,9 @@
             "explainWarning": "VORSICHT diese Aktion ist unwiderruflich.",
             "explain": "Wählen Sie das Datumsintervall, über das Sie Ihre Kurse stornieren möchten. Mitglieder, die gebucht haben, werden per E-Mail benachrichtigt und ihre Kreditpunkte werden automatisch auf die entsprechende Kurskarte zurückerstattet",
             "title": "Kollektive Stornierung"
-        }
+        },
+        "bookingListEmpty": "Keine Buchung",
+        "bookingList": "Buchungen"
     },
     "settings": {
         "active_campaign": {

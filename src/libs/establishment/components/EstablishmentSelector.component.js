@@ -22,6 +22,7 @@ const getEstablishmentOptions = (establishments: Array<Establishment>) => {
 
 const establishmentStyles = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
     /* eslint-disable */
@@ -92,6 +93,7 @@ export default withTranslation(['establishment'])(
       styles={establishmentStyles}
       onChange={selectOption}
       isDisabled={disabled}
+      menuPortalTarget={document.querySelector('body')}
       value={
         selectedEstablishments
           ? getEstablishmentOptions([

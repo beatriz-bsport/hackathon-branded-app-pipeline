@@ -22,6 +22,7 @@ const getMetaActivityOptions = (metaActivities: Array<MetaActivity>) => {
 
 const metaActivityStyles = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
     /* eslint-disable */
@@ -75,22 +76,25 @@ const metaActivityStyles = {
 
 export default withTranslation(['metaActivity'])(
   ({ t, metaActivities, selectOption, selectedMetaActivities }) => (
-    <Select
-      closeMenuOnSelect={false}
-      isMulti
-      placeholder={t('metaActivity')}
-      onChange={selectOption}
-      options={getMetaActivityOptions([...metaActivities])}
-      value={
-        selectedMetaActivities
-          ? getMetaActivityOptions(
-              metaActivities
-                .filter((ma) => selectedMetaActivities.includes(ma.id))
-                .asMutable(),
-            )
-          : undefined
-      }
-      styles={metaActivityStyles}
-    />
+    <div style={{ zIndex: 9999 }}>
+      <Select
+        closeMenuOnSelect={false}
+        isMulti
+        placeholder={t('metaActivity')}
+        onChange={selectOption}
+        options={getMetaActivityOptions([...metaActivities])}
+        value={
+          selectedMetaActivities
+            ? getMetaActivityOptions(
+                metaActivities
+                  .filter((ma) => selectedMetaActivities.includes(ma.id))
+                  .asMutable(),
+              )
+            : undefined
+        }
+        styles={metaActivityStyles}
+        menuPortalTarget={document.querySelector('body')}
+      />
+    </div>
   ),
 );

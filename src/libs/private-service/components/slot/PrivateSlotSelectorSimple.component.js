@@ -24,9 +24,11 @@ export const PrivateSlotSelectorSimple = (props: Props) => {
     null;
   return (
     <Select
+      menuPortalTarget={document.querySelector('body')}
       placeholder={props.t('selector.privateSlot')}
       value={selectedOption}
       options={privateSlotsOptions}
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
       isDisabled={!!props.isDisabled}
       onChange={(option) => {
         props.onChange(option.value);

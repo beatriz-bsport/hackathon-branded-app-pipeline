@@ -22,6 +22,7 @@ const getSCTOptions = (scts: Array<Coach>) => {
 
 const sctStyles = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
     /* eslint-disable */
@@ -98,6 +99,7 @@ export default withTranslation(['translation'])(
       }
       onChange={selectOption}
       styles={sctStyles}
+      menuPortalTarget={document.querySelector('body')}
     />
   ),
 );

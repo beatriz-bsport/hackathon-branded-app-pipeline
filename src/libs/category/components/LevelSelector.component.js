@@ -17,6 +17,7 @@ const levelOptions = (levels, t: TFunction) =>
 
 const levelStyles = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     const color = chroma(data.color);
     /* eslint-disable */
@@ -89,6 +90,7 @@ export default withTranslation()(
       }
       onChange={selectOption}
       styles={levelStyles}
+      menuPortalTarget={document.querySelector('body')}
     />
   ),
 );

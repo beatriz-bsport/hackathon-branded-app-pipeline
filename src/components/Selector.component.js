@@ -284,6 +284,8 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
         isMulti={isMulti}
         filterOption={props.filterOption}
         isClearable={props.isClearable}
+        menuPortalTarget={document.querySelector('body')}
+        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
       />
     </div>
   );

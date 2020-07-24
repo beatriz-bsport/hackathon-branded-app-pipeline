@@ -26,9 +26,11 @@ export const PrivateSlotSelector = (props: Props) => {
     null;
   return (
     <Select
+      menuPortalTarget={document.querySelector('body')}
       placeholder={props.t('selector.privateService')}
       value={selectedPrivateServiceOption}
       options={privateServiceOptions}
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
       isDisabled={props.isDisabled}
       onChange={(option) => {
         props.onChange(option.value);
@@ -37,4 +39,6 @@ export const PrivateSlotSelector = (props: Props) => {
   );
 };
 
-export default compose(withTranslation(['privateService']))(PrivateSlotSelector);
+export default compose(withTranslation(['privateService']))(
+  PrivateSlotSelector,
+);

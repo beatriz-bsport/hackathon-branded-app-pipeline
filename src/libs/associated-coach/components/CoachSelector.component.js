@@ -28,6 +28,7 @@ const getCoachOptions = (coaches: Array<Coach>) => {
 
 const coachStyles = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
     /* eslint-disable */
@@ -91,22 +92,23 @@ export default withTranslation(['coach'])(
     selectOption,
     isClearable,
   }) => (
-      <Select
-        closeMenuOnSelect={closeMenuOnSelect}
-        isMulti={!noMulti}
-        placeholder={placeholder || t('coach')}
-        options={getCoachOptions([...coaches])}
-        onChange={selectOption}
-        isDisabled={isDisabled}
-        styles={coachStyles}
-        isClearable={isClearable}
-        value={
-          selectedCoaches
-            ? getCoachOptions([
-                ...coaches.filter((c) => selectedCoaches.includes(c.id)),
-              ])
-            : undefined
-        }
-      />
+    <Select
+      closeMenuOnSelect={closeMenuOnSelect}
+      isMulti={!noMulti}
+      placeholder={placeholder || t('coach')}
+      options={getCoachOptions([...coaches])}
+      onChange={selectOption}
+      isDisabled={isDisabled}
+      styles={coachStyles}
+      isClearable={isClearable}
+      menuPortalTarget={document.querySelector('body')}
+      value={
+        selectedCoaches
+          ? getCoachOptions([
+              ...coaches.filter((c) => selectedCoaches.includes(c.id)),
+            ])
+          : undefined
+      }
+    />
   ),
 );

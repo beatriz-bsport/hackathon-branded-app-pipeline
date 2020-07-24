@@ -51,8 +51,10 @@ export const PrivateSlotSelector = (props: Props) => {
   return (
     <div>
       <Select
+        menuPortalTarget={document.querySelector('body')}
         placeholder={props.t('selector.privateService')}
         value={props.selectedPrivateService}
+        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
         options={privateServiceOptions}
         onChange={(option) => {
           props.setSlotEditable(true);
@@ -74,10 +76,12 @@ export const PrivateSlotSelector = (props: Props) => {
         }}
       />
       <Select
+        menuPortalTarget={document.querySelector('body')}
         placeholder={props.t('selector.privateSlot')}
         options={privateSlotOptions}
         isDisabled={!props.selectedPrivateService || !props.slotEditable}
         value={props.selectedPrivateSlot}
+        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
         onChange={(option) => {
           props.setSelectedPrivateSlot(option);
           props.onChange(option);

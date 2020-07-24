@@ -81,18 +81,16 @@ function addFakeData(table, dateRange) {
 
 function discretizeDataBy(table, dateRange) {
   const duration = moment.duration(dateRange.end.diff(dateRange.start));
-  if (dateRange.kind === 'all') {
-    if (duration.asDays() > 60) {
-      return {
-        table: discretizeByAndFillMissing(
-          dateRange,
-          table,
-          'month',
-          (u, v) => u + v.v,
-        ),
-        formatter: 'month',
-      };
-    }
+  if (duration.asDays() > 60) {
+    return {
+      table: discretizeByAndFillMissing(
+        dateRange,
+        table,
+        'month',
+        (u, v) => u + v.v,
+      ),
+      formatter: 'month',
+    };
   }
   if (duration.asDays() > 15) {
     return {
@@ -152,18 +150,6 @@ function statSelector(identifier) {
 
 function discretizeByAndFillMissing(dateRange, table, duration, reducer) {
   let grouped = {};
-  if (dateRange.kind === 'hour') {
-    grouped = lodash.groupBy(table, (u) => moment(u.d).format('YYYY-MM-DD LT'));
-    for (
-      let m = moment(dateRange.start);
-      m.isBefore(dateRange.end) || m.isSame(dateRange.end);
-      m.add(1, 'hours')
-    ) {
-      if (!grouped[m.format('YYYY-MM-DD LT')]) {
-        grouped[m.format('YYYY-MM-DD LT')] = [{ v: 0 }];
-      }
-    }
-  }
 
   if (duration === 'month') {
     grouped = lodash.groupBy(table, (u) => moment(u.d).format('YYYY-MM'));

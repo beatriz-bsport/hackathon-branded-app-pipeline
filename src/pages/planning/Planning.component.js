@@ -710,7 +710,19 @@ export class Planning extends PureComponent<Props, State> {
               <div className={this.props.classes.noOfferMessage}>
                 {this.renderNoOfferSelected()}
               </div>
-            ) : null}
+            ) : (
+              <div className={this.props.classes.paper}>
+                <BookingStatisticsCard
+                  offerId={selectedOffer.id}
+                  title={moment(selectedOffer.date_start).format('LLLL')}
+                  bookingStatistics={this.props.bookingStatistics}
+                  loading={
+                    this.props.createdBookingStatsLoading ||
+                    this.props.cancelledBookingStatsLoading
+                  }
+                />
+              </div>
+            )}
           </Grid>
         ) : (
           <Typography />
@@ -735,16 +747,6 @@ export class Planning extends PureComponent<Props, State> {
                   this.props.bookingsLoading || !this.props.bookings
                 }
               />
-              <div className={this.props.classes.paper}>
-                <BookingStatisticsCard
-                  offerId={selectedOffer.id}
-                  bookingStatistics={this.props.bookingStatistics}
-                  loading={
-                    this.props.createdBookingStatsLoading ||
-                    this.props.cancelledBookingStatsLoading
-                  }
-                />
-              </div>
             </div>
           ) : (
             <BookingStatisticsCard

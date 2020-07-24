@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Hidden from '@material-ui/core/Hidden';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -303,9 +304,19 @@ export class OfferCard extends Component<Props> {
   // };
 
   renderBookingList = () => {
-    const { t } = this.props;
+    const { t, classes } = this.props;
     if (this.props.bookingsLoading || this.props.membersLoading) {
-      return <LinearProgress />;
+      return (
+        <div>
+          <Typography className={this.props.classes.bookingListTitle}>
+            {t('offer:bookingList')}
+          </Typography>
+          <Divider />
+          <div className={classes.loadingContainer}>
+            <CircularProgress />
+          </div>
+        </div>
+      );
     }
     return (
       <div>
@@ -313,27 +324,33 @@ export class OfferCard extends Component<Props> {
           {t('offer:bookingList')}
         </Typography>
         <Divider />
-        {this.props.bookings.length > 0 ? (
-          <ButtonBase
-            onClick={() => this.props.goToOfferManagement(this.props.offer.id)}
-            className={this.props.classes.listButtonBase}
-          >
-            <List dense>
-              {this.props.bookings
-                .filter((b) => b.booking_status_code === 0)
-                .map((b) => (
-                  <MemberMinimalListItem
-                    member={this.props.members.find((m) => m.id === b.member)}
-                    key={b.id}
-                  />
-                ))}
-            </List>
-          </ButtonBase>
-        ) : (
-          <Typography className={this.props.classes.noBookings} align="center">
-            {t('offer:bookingListEmpty')}
-          </Typography>
-        )}
+        <div className={classes.bookingList}>
+          {this.props.bookings.length > 0 ? (
+            <ButtonBase
+              onClick={() =>
+                this.props.goToOfferManagement(this.props.offer.id)
+              }
+              className={this.props.classes.listButtonBase}
+            >
+              <List dense>
+                {this.props.bookings
+                  .filter((b) => b.booking_status_code === 0)
+                  .map((b) => (
+                    <MemberMinimalListItem
+                      member={this.props.members.find((m) => m.id === b.member)}
+                      key={b.id}
+                    />
+                  ))}
+              </List>
+            </ButtonBase>
+          ) : (
+            <div className={this.props.classes.noBookings}>
+              <Typography variant="caption" align="left">
+                {t('offer:bookingListEmpty')}
+              </Typography>
+            </div>
+          )}
+        </div>
         <Divider />
       </div>
     );
@@ -355,30 +372,8 @@ export class OfferCard extends Component<Props> {
           <Paper square className={available ? null : classes.disabledPaper}>
             {noHeader ? null : this.getHeader()}
             {this.getStatsBody()}
-            {this.renderBookingList()}
-            {/* {this.getPracticalInfo()} */}
-
             {available ? (
               <div className={this.props.classes.bottomBlock}>
-                {offer.id && this.props.companyId ? (
-                  <div className={this.props.classes.buttonContainer}>
-                    <ButtonBase
-                      onClick={() => this.props.snackbarSuccess('link.copied')}
-                      className={classes.link}
-                    >
-                      <LinkIcon />
-                      <CopyToClipboard
-                        text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
-                      >
-                        <Hidden xsDown>
-                          <Typography className={classes.linkTypo}>
-                            {t('offer:card.copyLink')}
-                          </Typography>
-                        </Hidden>
-                      </CopyToClipboard>
-                    </ButtonBase>
-                  </div>
-                ) : null}
                 <div className={this.props.classes.buttonContainer}>
                   {this.props.permission.offer.edit ? (
                     <div className={this.props.classes.button}>
@@ -401,8 +396,32 @@ export class OfferCard extends Component<Props> {
                     </div>
                   ) : null}
                 </div>
+                {offer.id && this.props.companyId ? (
+                  <div className={this.props.classes.buttonContainer}>
+                    <ButtonBase
+                      onClick={() => this.props.snackbarSuccess('link.copied')}
+                      className={classes.link}
+                    >
+                      <LinkIcon />
+                      <CopyToClipboard
+                        text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
+                      >
+                        <Hidden xsDown>
+                          <Typography
+                            variant="caption"
+                            align="left"
+                            className={classes.linkTypo}
+                          >
+                            {t('offer:card.copyLink')}
+                          </Typography>
+                        </Hidden>
+                      </CopyToClipboard>
+                    </ButtonBase>
+                  </div>
+                ) : null}
               </div>
             ) : null}
+            {this.renderBookingList()}
           </Paper>
           <Link style={{ textDecoration: 'none' }} to={`/offer/${offer.id}`}>
             <Button
@@ -436,6 +455,9 @@ const styles = (theme) => ({
   footer: {
     borderTop: 'solid 1px #EEEEEE',
     borderBottom: 'solid 1px #EEEEEE',
+  },
+  bookingList: {
+    backgroundColor: '#F8F8F8',
   },
   info: {
     paddingLeft: theme.spacing(1),
@@ -500,6 +522,7 @@ const styles = (theme) => ({
   },
   bookingListTitle: {
     paddingLeft: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
   },
   bottomBlock: {
     display: 'flex',
@@ -513,12 +536,19 @@ const styles = (theme) => ({
     padding: theme.spacing(2),
   },
   noBookings: {
-    padding: theme.spacing(2),
+    margin: theme.spacing(2),
   },
   listButtonBase: {
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
+  },
+  loadingContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: theme.spacing(2),
+    width: '100%',
   },
 });
 

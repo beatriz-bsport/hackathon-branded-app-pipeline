@@ -32,9 +32,9 @@ export function BookingStatisticsCard(props: Props) {
 
   if (!bookingStatistics || loading) {
     return (
-      <Paper className={classes.loaderContainer}>
+      <div className={classes.loaderContainer}>
         <CircularProgress />
-      </Paper>
+      </div>
     );
   }
 
@@ -98,72 +98,76 @@ export function BookingStatisticsCard(props: Props) {
   // Gérer les stacks dans la data, faire une boucle for ici balek
   // chart by week
   return (
-    <Paper>
+    <div>
       <Typography variant="h5" className={classes.title}>
         {props.offerId
-          ? t('bookingStatistics.offerFilteredBookingRecap')
+          ? `${t(
+              'bookingStatistics.offerFilteredBookingRecap',
+            )} ${props.title || ''}`
           : t('bookingStatistics.weekOverview')}
       </Typography>
-      <div className={classes.statContainer}>
-        <div className={classNames(classes.rightBorder, classes.stat)}>
-          <div>
-            <Typography align="center">
-              {t('bookingStatistics.totalBookings', {
-                nb: allBookingsCount,
-                count: allBookingsCount,
+      <Paper>
+        <div className={classes.statContainer}>
+          <div className={classNames(classes.rightBorder, classes.stat)}>
+            <div>
+              <Typography align="center">
+                {t('bookingStatistics.totalBookings', {
+                  nb: allBookingsCount,
+                  count: allBookingsCount,
+                })}
+              </Typography>
+            </div>
+          </div>
+          <div className={classes.stat}>
+            <Typography align="center" className={classes.greenText}>
+              {t('bookingStatistics.maintenedBookings', {
+                nb: allBookingsCount - cancelledBookingsCount,
+                count: allBookingsCount - cancelledBookingsCount,
+              })}
+            </Typography>
+          </div>
+          <div className={classNames(classes.rightBorder, classes.stat)}>
+            <Typography color="error" align="center">
+              {t('bookingStatistics.cancelledBookings', {
+                nb: cancelledBookingsCount,
+                count: cancelledBookingsCount,
               })}
             </Typography>
           </div>
         </div>
-        <div className={classes.stat}>
-          <Typography align="center" className={classes.greenText}>
-            {t('bookingStatistics.maintenedBookings', {
-              nb: allBookingsCount - cancelledBookingsCount,
-              count: allBookingsCount - cancelledBookingsCount,
-            })}
-          </Typography>
-        </div>
-        <div className={classNames(classes.rightBorder, classes.stat)}>
-          <Typography color="error" align="center">
-            {t('bookingStatistics.cancelledBookings', {
-              nb: cancelledBookingsCount,
-              count: cancelledBookingsCount,
-            })}
-          </Typography>
-        </div>
-      </div>
-      {props.offerId ? (
-        <div className={classes.chart}>
-          <TwoStackedAreasChart
-            data={data}
-            height={300}
-            width={600}
-            domain={[start, end]}
-            refreshKey={`${start}:${end}`}
-            xKey="d"
-            yKeyA={t('bookingStatistics.keys.created')}
-            yKeyB={t('bookingStatistics.keys.cancelled')}
-            colorA={bsportColors.primary}
-            colorB="#E05123"
-          />
-        </div>
-      ) : (
-        <div className={classes.chart}>
-          <StackedBarChart
-            data={data}
-            height={300}
-            width={600}
-            domain={[start, end]}
-            refreshKey={`${start}:${end}`}
-            xKey="d"
-            yKeyA={t('bookingStatistics.keys.created')}
-            yKeyB={t('bookingStatistics.keys.cancelled')}
-            colorA={bsportColors.primary}
-            colorB="#E05123"
-          />
-        </div>
-      )}
-    </Paper>
+        {props.offerId ? (
+          <div className={classes.chart}>
+            <TwoStackedAreasChart
+              data={data}
+              height={300}
+              width={600}
+              domain={[start, end]}
+              refreshKey={`${start}:${end}`}
+              xKey="d"
+              yKeyA={t('bookingStatistics.keys.created')}
+              yKeyB={t('bookingStatistics.keys.cancelled')}
+              colorA={bsportColors.primary}
+              colorB="#E05123"
+            />
+          </div>
+        ) : (
+          <div className={classes.chart}>
+            <StackedBarChart
+              data={data}
+              height={300}
+              width={600}
+              domain={[start, end]}
+              refreshKey={`${start}:${end}`}
+              xKey="d"
+              yKeyA={t('bookingStatistics.keys.created')}
+              yKeyB={t('bookingStatistics.keys.cancelled')}
+              colorA={bsportColors.primary}
+              colorB="#E05123"
+            />
+          </div>
+        )}
+      </Paper>
+    </div>
   );
 }
 
@@ -192,8 +196,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   loaderContainer: {
-    padding: theme.spacing(10),
-    textAlign: 'center',
+    padding: theme.spacing(3),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   greenText: {
     color: bsportColors.primary,

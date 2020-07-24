@@ -1785,7 +1785,22 @@
         "visibilityOfIconToolTip": "Unavailable",
         "blockBooking": "Only possible to book with passes of new customers",
         "replaceCoach": "Change the teacher",
-        "onlyNewMember": "Only possible to book with passes of new customers"
+        "onlyNewMember": "Only possible to book with passes of new customers",
+        "bookingStatistics": {
+            "weekOf": "Week of {{date}}",
+            "keys": {
+                "cancelled": "Bookings cancelled",
+                "created": "Bookings maintained"
+            },
+            "maintenedBookings": "{{nb}} booking maintained",
+            "maintenedBookings_plural": "{{nb}} bookings maintained",
+            "cancelledBookings": "{{nb}} booking cancelled",
+            "cancelledBookings_plural": "{{nb}} bookings cancelled",
+            "totalBookings": "{{nb}} booking in total",
+            "totalBookings_plural": "{{nb}} bookings in total",
+            "offerFilteredBookingRecap": "Your bookings",
+            "weekOverview": "Overview of your week"
+        }
     },
     "search": {
         "input": "Search...",
@@ -3048,7 +3063,8 @@
             "end": "End"
         },
         "filterByDateTitle": "Filter by date",
-        "detailsGraphTitle": "Detailed data"
+        "detailsGraphTitle": "Detailed data",
+        "current_day": "Last 24 hours"
     },
     "stripe": {
         "errors": {
@@ -5088,7 +5104,9 @@
             "explainWarning": "BE CAREFUL this operation is irreversible.",
             "explain": "Select the date interval over which you wish to cancel your sessions. Members who have booked will be notified by email and their credits automatically refunded to the corresponding pass",
             "title": "Grouped Cancellation"
-        }
+        },
+        "bookingListEmpty": "No booking",
+        "bookingList": "Bookings"
     },
     "emailTemplate": {
         "modal": {

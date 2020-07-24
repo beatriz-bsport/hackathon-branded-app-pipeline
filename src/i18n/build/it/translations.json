@@ -924,7 +924,22 @@
         "languageToolTip": "Disponibile sul marketplace",
         "visibilityOfIconToolTip": "Non visibile",
         "replaceCoach": "Cambia insegnante",
-        "onlyNewMember": "Blocca la prenotazione per le nuove schede del corso del cliente"
+        "onlyNewMember": "Blocca la prenotazione per le nuove schede del corso del cliente",
+        "bookingStatistics": {
+            "weekOf": "Settimana del {{date}}",
+            "keys": {
+                "cancelled": "Prenotazioni annullate",
+                "created": "Prenotazioni mantenute"
+            },
+            "maintenedBookings": "{{nb}} prenotazione mantenuta",
+            "maintenedBookings_plural": "{{nb}} prenotazioni mantenute",
+            "totalBookings": "{{nb}} prenotazione in totale",
+            "totalBookings_plural": "{{nb}} prenotazioni in totale",
+            "cancelledBookings": "{{nb}} prenotazione annullata",
+            "cancelledBookings_plural": "{{nb}} prenotazioni annullate",
+            "offerFilteredBookingRecap": "Le tue prenotazioni",
+            "weekOverview": "Panoramica della tua settimana"
+        }
     },
     "notificationRule": {
         "tag": {
@@ -5308,7 +5323,8 @@
         "current_week": "La settimana scorsa",
         "current_month": "Lo scorso mese",
         "last_three_months": "Ultimi tre mesi",
-        "current_year": "L'anno scorso"
+        "current_year": "L'anno scorso",
+        "current_day": "Ultime 24 ore"
     },
     "checkout": {
         "myBasket": {
@@ -5463,7 +5479,9 @@
             "explainLoading": "Attendere prego",
             "title": "Annullamento di gruppo",
             "explainWarning": "ATTENZIONE questa operazione è irreversibile."
-        }
+        },
+        "bookingListEmpty": "Nessuna prenotazione",
+        "bookingList": "Prenotazioni"
     },
     "role": {
         "userRoles": "Contabilità del personale",

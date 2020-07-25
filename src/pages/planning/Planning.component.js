@@ -269,7 +269,7 @@ export class Planning extends PureComponent<Props, State> {
     const date = moment(day || this.props.date, DATE_FORMAT);
     this.props.replaceRouter(
       `/calendar/${date.year()}/${date.month() + 1}/${date.date()}`,
-  );
+    );
     this.props.fetchOffersByDay({
       year: date.year(),
       month: date.month() + 1,
@@ -852,7 +852,7 @@ export default compose(
         offer: selectedOffer.id,
       });
       fetchBookingStatistics('cancelledBookings', {
-        date_key: 'date_updated',
+        date_key: 'date_cancelled',
         offer: selectedOffer.id,
         bsc: [
           BOOKING_STATUS_CANCELLED_BY_MANAGER.id,

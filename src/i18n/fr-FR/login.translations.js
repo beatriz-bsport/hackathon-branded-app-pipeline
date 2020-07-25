@@ -87,5 +87,13 @@ exports.default = {
     NL: 'Pays-Bas',
     BE: 'Belgique',
     ES: 'Espagne',
+    CH: 'Suisse',
+  },
+  language: {
+    fr: 'français',
+    de: 'allemand',
+    it: 'italien',
+    nl: 'néerlandais',
+    es: 'espagnol',
   },
 };

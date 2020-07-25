@@ -1993,7 +1993,16 @@
         "next": "Confirmer"
       }
     },
-    "country": { "FR": "France", "DE": "Allemagne", "IT": "Italie", "NL": "Pays-Bas", "BE": "Belgique", "ES": "Espagne" }
+    "country": {
+      "FR": "France",
+      "DE": "Allemagne",
+      "IT": "Italie",
+      "NL": "Pays-Bas",
+      "BE": "Belgique",
+      "ES": "Espagne",
+      "CH": "Suisse"
+    },
+    "language": { "fr": "français", "de": "allemand", "it": "italien", "nl": "néerlandais", "es": "espagnol" }
   },
   "waitingList": {
     "switchToEnable": "Réactiver la liste d'attente",

@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import PasswordInput from '../../../components/input/PasswordInput.component';
-import CountrySelector from '../../../components/input/CountrySelector.component';
+import LocaleSelector from '../../../components/input/LocaleSelector.component';
 import DelayedTextField from '../../../components/DelayedTextField.component';
 
 import Config from '../../../config';
@@ -33,7 +33,6 @@ export const CompanySignupForm = (props: Props) => {
         } else {
           props.onSubmit(recaptchaRef.current.getValue(), {
             onError: () => {
-              alert('a');
               recaptchaRef.reset();
             },
           });
@@ -92,10 +91,10 @@ export const CompanySignupForm = (props: Props) => {
         label={t('signupCompany.form.password2.label')}
       />
       <div className={classes.field}>
-        <CountrySelector
-          value={props.country}
+        <LocaleSelector
+          value={props.locale}
           withCurrency
-          onChange={props.setCountry}
+          onChange={props.setLocale}
         />
       </div>
       <div className={classes.field}>
@@ -163,7 +162,7 @@ export default compose(
       password2: '',
       passwordMismatch: false,
       validatedCaptcha: false,
-      country: 'FR',
+      locale: 'fr_FR',
     },
     {
       setEmail: (_, { checkEmailExists }) => (ev) => {
@@ -178,17 +177,15 @@ export default compose(
         password2: ev.target.value,
       }),
       validateCaptcha: () => (validatedCaptcha) => ({ validatedCaptcha }),
-      setCountry: () => (ev) => ({ country: ev.target.value }),
+      setLocale: () => (ev) => ({ locale: ev.target.value }),
     },
   ),
   withProps(({ password1, password2 }) => ({
     passwordMismatch: password1 !== password2 && (!!password1 || !!password2),
   })),
   withHandlers({
-    onSubmit: ({ onSubmit, email, password1, name, country }) => (
-      recaptcha,
-    ) => {
-      onSubmit({ recaptcha, email, password: password1, name, country });
+    onSubmit: ({ onSubmit, email, password1, name, locale }) => (recaptcha) => {
+      onSubmit({ recaptcha, email, password: password1, name, locale });
     },
   }),
 )(CompanySignupForm);

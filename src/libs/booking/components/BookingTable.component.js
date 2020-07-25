@@ -74,7 +74,10 @@ export class BookingTable extends PureComponent<Props> {
       }
     return (
       <List disablePadding dense>
-        {bookings.map((b) => (
+        {[
+          ...bookings.filter((b) => b.booking_status_code === 0),
+          ...bookings.filter((b) => b.booking_status_code !== 0),
+        ].map((b) => (
           <BookingItemForManagerV2
             member={this.props.members.find((m) => m.id === b.member)}
             redirectToMember={redirectToMember}

@@ -416,6 +416,14 @@ export class BookingItemForManager extends Component<Props, State> {
     // <TableCell>{t(`booking.sources.${b.source}`)}</TableCell>
     const bookingStatus = this.getStatusText();
 
+    let classes = '';
+    if (booking.attendance || !this.props.confirmBookingAttendance) {
+      classes = this.props.classes.disabled;
+    }
+    if (booking.booking_status_code !== 0) {
+      classes = this.props.classes.cancelled;
+    }
+
     return this.wrapToolTip(
       <ListItem
         divider
@@ -424,11 +432,7 @@ export class BookingItemForManager extends Component<Props, State> {
         disableRipple
         disabled={disabled}
         onClick={this.handleListItemClick}
-        className={
-          booking.attendance || !this.props.confirmBookingAttendance
-            ? ''
-            : this.props.classes.disabled
-        }
+        className={classes}
       >
         <Grid
           container
@@ -474,7 +478,9 @@ export class BookingItemForManager extends Component<Props, State> {
               />
             </div>
           </Grid>
-          <Grid item>{this.renderButtons()}</Grid>
+          {booking.booking_status_code === 0 && (
+            <Grid item>{this.renderButtons()}</Grid>
+          )}
         </Grid>
       </ListItem>,
     );
@@ -496,6 +502,10 @@ const styles = (theme) => ({
     '&:hover': {
       backgroundColor: '#FFC1C1',
     },
+  },
+  cancelled: {
+    opacity: 0.5,
+    backgroundColor: '#F8F8F8',
   },
   rowPrimary: {
     display: 'flex',

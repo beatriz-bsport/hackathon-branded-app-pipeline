@@ -34,7 +34,7 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.primary.dark,
   },
   warning: {
-    backgroundColor: amber[700],
+    backgroundColor: amber[900],
   },
 });
 

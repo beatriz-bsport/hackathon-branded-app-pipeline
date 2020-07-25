@@ -11,14 +11,15 @@ import {
   PENDING,
   SUCCEEDED,
   FAILED,
+  PROCESSING,
   CANCELED,
 } from '@bsport/common/lib/master-data/planned-invoice-status';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import CheckIcon from '@material-ui/icons/Check';
 import ErrorIcon from '@material-ui/icons/Error';
 import CancelIcon from '@material-ui/icons/Cancel';
 import EditIcon from '@material-ui/icons/Edit';
-import RefreshIcon from '@material-ui/icons/Refresh';
 
 import type { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-status';
 import type { TFunction } from 'react-i18next';
@@ -49,6 +50,11 @@ const renderStatus = (t: TFunction, status: StatusCode) => {
       return {
         statusText: t('plannedInvoiceStatus.failed'),
         statusIcon: <ErrorIcon color="error" />,
+      };
+    case PROCESSING.id:
+      return {
+        statusText: t('plannedInvoiceStatus.processing'),
+        statusIcon: <RefreshIcon color="error" />,
       };
     default:
       return {

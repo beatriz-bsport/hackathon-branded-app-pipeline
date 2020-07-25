@@ -17,9 +17,7 @@ import Level from '../../../components/category/Level.component';
 
 type Props = {
   offer: Object,
-  t: TFunction,
   onClick: (offerId: number) => void,
-  classes: Object,
   editing_parameters?: any,
 };
 
@@ -87,7 +85,7 @@ export const OfferListItem = (props: Props) => {
             color="textSecondary"
             className={classes.inline}
           >
-            <div className={classes.text}>{props.t('forms.old_date')}</div>
+            <div className={classes.text}>{t('forms.old_date')}</div>
             {formatAsDatetime(offer.date_start)}
           </Typography>
           <Typography
@@ -95,7 +93,7 @@ export const OfferListItem = (props: Props) => {
             color="textSecondary"
             className={classes.inline}
           >
-            <div className={classes.text}>{props.t('forms.new_date')}</div>
+            <div className={classes.text}>{t('forms.new_date')}</div>
             {formatAsDatetime(props.editing_parameters.new_date_start)}
           </Typography>
         </div>

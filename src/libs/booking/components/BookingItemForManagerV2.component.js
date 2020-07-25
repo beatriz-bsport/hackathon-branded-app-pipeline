@@ -144,7 +144,12 @@ export class BookingItemForManager extends Component<Props, State> {
     if (payment_pack.unlimited) {
       return [
         [`${payment_pack.name}`, 'secondary'],
-        [`${packDates} - illimité`, soonExpired ? 'error' : 'primary'],
+        [
+          `${packDates} - illimité${
+            booking.was_refunded ? ` (${t('wasRefunded')})` : ''
+          }`,
+          soonExpired ? 'error' : 'primary',
+        ],
       ];
     }
     const { available_credits } = consumer_payment_pack;
@@ -155,7 +160,8 @@ export class BookingItemForManager extends Component<Props, State> {
         ` ${packDates} - ${available_credits}/${credits}${
           booking.was_refunded ? `, (${t('wasRefunded')})` : ''
         }${
-          credit_consumed !== 1
+          credit_consumed >= 1 ||
+          (credit_consumed === 0 && !booking.was_refunded)
             ? ` (${t('creditConsumed', {
                 credit_consumed,
                 count: credit_consumed,

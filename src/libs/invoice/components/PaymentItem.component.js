@@ -59,9 +59,10 @@ export const PaymentItem = (props: Props) => {
           <CancelIcon color="secondary" />
         )}
         {(paymentItem.payment_method === PAYMENT_METHOD_DISPUTE.id ||
-          paymentItem.payment_method === PAYMENT_METHOD_SUBSCRIPTION_CB.id) && (
-          <HourglassEmpty color="secondary" />
-        )}
+          paymentItem.payment_method === PAYMENT_METHOD_SUBSCRIPTION_CB.id) &&
+          paymentItem.payment_received === null && (
+            <HourglassEmpty color="secondary" />
+          )}
         {!(
           paymentItem.payment_method === PAYMENT_METHOD_DISPUTE.id ||
           paymentItem.payment_method === PAYMENT_METHOD_SUBSCRIPTION_CB.id

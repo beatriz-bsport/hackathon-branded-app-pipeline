@@ -243,6 +243,12 @@ exports.default = {
       success: 'Méthode de paiement mise à jour',
       error: 'Impossible de modifier la méthode de paiement',
     },
+    stop: {
+      success: 'La souscription a été arrétée',
+      warning:
+        "Impossible d'arrêter pour le moment, un paiement est-il en cours de transfert ?",
+      error: "Impossible d'arrêter la souscription pour le moment",
+    },
     switchPack: {
       success: 'Méthode de paiement modifiée',
       error: 'Impossible de modifier la carte de cours',

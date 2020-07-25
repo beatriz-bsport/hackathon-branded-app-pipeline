@@ -1,6 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions';
+import * as Sentry from '@sentry/browser';
 
 import { COMPANY_EVENTS } from './components/event.utils';
 import api, {
@@ -14,7 +15,11 @@ import api, {
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import {
+  snackbarSuccess,
+  snackbarWarning,
+  snackbarError,
+} from '../../actions/snackbar.actions';
 
 import { fetchEventList } from '../event/actions';
 
@@ -205,9 +210,16 @@ export function stop(
       const response = await api.stop(id, params);
 
       dispatch(detailActions.success(response.data));
+      dispatch(snackbarSuccess('subscription.stop.success'));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(stopActions.error(error));
+      if (error.response && error.response.status === 423) {
+        dispatch(snackbarWarning('subscription.stop.warning'));
+      } else {
+        dispatch(snackbarError('subscription.stop.error'));
+        Sentry.captureException(error);
+      }
       if (options && options.onError) options.onError(error);
     }
 

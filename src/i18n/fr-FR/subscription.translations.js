@@ -186,6 +186,7 @@ exports.default = {
   plannedInvoiceStatus: {
     pending: 'En attente',
     canceled: 'Annulé',
+    processing: 'Paiement en cours de transfert',
     failed: 'Paiement refusé',
     succeeded: 'Encaissé',
   },

@@ -2601,7 +2601,7 @@
       "switchPack": { "success": "Méthode de paiement modifiée", "error": "Impossible de modifier la carte de cours" },
       "freeze": {
         "success": "Souscription mise en pause",
-        "alreadyPaused": "Impossible de mettre en pause une souscription déjà pausée",
+        "locked": "Impossible de mettre en pause pour le moment, un paiement est-il en attente ?",
         "error": "Impossible de mettre en pause cette souscription"
       },
       "updatePrice": { "success": "Montant mis à jour", "error": "Impossible de modifier ce montant" },

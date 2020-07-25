@@ -255,8 +255,8 @@ exports.default = {
     },
     freeze: {
       success: 'Souscription mise en pause',
-      alreadyPaused:
-        'Impossible de mettre en pause une souscription déjà pausée',
+      locked:
+        'Impossible de mettre en pause pour le moment, un paiement est-il en attente ?',
       error: 'Impossible de mettre en pause cette souscription',
     },
     updatePrice: {

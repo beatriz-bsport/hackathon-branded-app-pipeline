@@ -450,7 +450,7 @@ export function freezeSubscription(
       console.error(err);
       dispatch(freezeSubscriptionActions.error(err));
       if (err && err.response && err.response.status === 423) {
-        dispatch(snackbarError('subscription.freeze.alreadyPaused'));
+        dispatch(snackbarWarning('subscription.freeze.locked'));
       } else {
         dispatch(snackbarError('subscription.freeze.error'));
       }

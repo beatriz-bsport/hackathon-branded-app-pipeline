@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { compose, withStateHandlers, withState } from 'recompose';
+import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Grid from '@material-ui/core/Grid';
@@ -15,7 +15,7 @@ import { mapFormData } from '../form.utils';
 
 import QuickInvoicePanel from './QuickInvoicePanel.component';
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
-import RegisterMemberToOfferForm from './RegisterMemberToOfferForm.component';
+import BookerModuleManager from './BookerModuleManager.component';
 import MailMembers from './MailMembers.component';
 
 import MemberForm from '../../libs/member/MemberForm.component';
@@ -78,7 +78,7 @@ type Props = {
     },
     offerId: number,
   ) => void,
-  addBooking: (offerId: number, consumerPaymentPackId: number) => void,
+  addBooking: (consumerPaymentPackId: number, data: any) => void,
   discardOption: (id: number) => void,
   deleteBooking: (bookingId: number) => void,
 
@@ -109,28 +109,19 @@ type Props = {
   closeRevertBookingDialog: () => void,
   booking_ordering: number,
   onChangeBookingOrdering: (number) => void,
+  searchedText: string,
 };
 
 type State = {
   quickInvoices: [*], // put here non-saved invoice
   quickInvoiceEdit: [*], // put here invoice to edit
-  addMemberModal: boolean,
   mailClients: boolean,
-  optionToDiscard: ?number,
-  searchedText: string,
-  communicationDialogIsOpen: boolean,
   receivers: Object,
 };
 
 export class OfferManagement extends Component<Props, State> {
   state = {
     quickInvoices: [],
-    addMemberModal: false,
-    optionToDiscard: null,
-    confirmOptionToDiscard: null,
-    searchedText: '',
-    keep_credits: false,
-    notify_member: false,
   };
 
   componentWillMount() {
@@ -165,48 +156,38 @@ export class OfferManagement extends Component<Props, State> {
     }
   };
 
-  registerMemberAndOpenUnevenInvoice = async (
-    memberId: number,
-    paymentPackId: number,
-    keep_credits: boolean,
-    notify_member: boolean,
+  registerToOffer = (
+    memberId,
+    offerId,
+    registererObject,
+    { notify_member, keep_credits },
   ) => {
-    const { offerId } = this.props;
-    this.props.createQuickUnevenInvoice(
-      { memberId, paymentPackId, offerId, keep_credits, notify_member },
-      offerId,
-    );
-    this.clearSearch();
-    if (this.state.optionToDiscard) {
-      this.props.discardOption(this.state.optionToDiscard);
-      this.setState({
-        optionToDiscard: null,
-        confirmOptionToDiscard: null,
-      });
+    if (registererObject.paymentPack) {
+      this.props.createQuickUnevenInvoice(
+        {
+          paymentPackId: registererObject.paymentPack.id,
+          offerId,
+          keep_credits,
+          notify_member,
+          memberId,
+        },
+        offerId,
+      );
+    } else if (registererObject.consumerPaymentPack) {
+      this.props.addBooking(
+        registererObject.consumerPaymentPack.id,
+        {
+          keep_credits,
+          notify_member,
+          offer: offerId,
+        },
+        this.props.booking_ordering,
+      );
     }
-    this.props.setMemberToRegister(null);
-  };
-
-  searchMembers = (searchedText) => {
-    this.setState({ searchedText });
-    this.props.searchMembers(searchedText);
-  };
-
-  registerMember = async (consumerPaymentPackId: number) => {
-    this.props.addBooking(
-      this.props.offerId,
-      consumerPaymentPackId,
-      this.state.keep_credits,
-      this.props.booking_ordering,
-      this.state.notify_member,
-    );
-    this.clearSearch();
-    if (this.state.optionToDiscard) {
-      this.props.discardOption(this.state.optionToDiscard);
-      this.setState({
-        optionToDiscard: null,
-        confirmOptionToDiscard: null,
-      });
+    this.props.clearSearch();
+    if (this.props.optionToDiscard) {
+      this.props.discardOption(this.props.optionToDiscard);
+      this.props.cancelDiscardOption();
     }
     this.props.setMemberToRegister(null);
   };
@@ -266,16 +247,7 @@ export class OfferManagement extends Component<Props, State> {
       },
       this.props.offerId,
     );
-    this.setState({ addMemberModal: false });
-  };
-
-  openAddMemberModal = () => {
-    this.setState({ addMemberModal: true });
-    this.clearSearch();
-  };
-
-  closeAddMemberModal = () => {
-    this.setState({ addMemberModal: false });
+    this.props.closeAddMemberModal();
   };
 
   handleBookingDeletion = (options) => {
@@ -326,13 +298,8 @@ export class OfferManagement extends Component<Props, State> {
         quickInvoices: [...prevState.quickInvoices, quickInvoiceToAdd],
       }));
     }
-    this.clearSearch();
+    this.props.clearSearch();
   };
-
-  clearSearch = () => this.setState({ searchedText: '' });
-
-  openCommunicationDialog = () =>
-    this.setState({ communicationDialogIsOpen: true });
 
   render() {
     const {
@@ -388,22 +355,20 @@ export class OfferManagement extends Component<Props, State> {
             offer={this.props.offer}
             confirmBookingAttendance={this.props.confirmBookingAttendance}
             discardBookingAttendance={this.props.discardBookingAttendance}
-            refresh={() =>
-              this.props.fetchOfferData(this.props.booking_ordering)
-            }
+            refresh={this.props.fetchOfferData}
             booking_ordering={this.props.booking_ordering}
-            openAddMemberModal={this.openAddMemberModal}
+            openAddMemberModal={this.props.openAddMemberModal}
             onChangeBookingOrdering={this.props.onChangeBookingOrdering}
             members={this.props.members}
             permission={this.props.permission}
             company_theme={this.props.company_theme}
             unevenSavedInvoices={this.props.unevenSavedInvoices}
             bookingOptionsPending={this.props.bookingOptionsPending}
-            openMailDialog={this.openCommunicationDialog}
-            searchedText={this.state.searchedText}
+            openMailDialog={this.props.openCommunicationDialog}
+            searchedText={this.props.searchedText}
             memberSearchLoading={this.props.memberSearchLoading}
-            clearSearch={this.clearSearch}
-            searchMembers={this.searchMembers}
+            clearSearch={this.props.clearSearch}
+            searchMembers={this.props.searchMembers}
             searchedMembers={this.props.searchedMembers}
             memberHistory={this.props.memberHistory}
             revertQuickInvoice={this.props.revertQuickInvoiceAndRefreshOffer}
@@ -412,19 +377,8 @@ export class OfferManagement extends Component<Props, State> {
             revertQuickInvoiceAndRefreshOffer={
               this.props.revertQuickInvoiceAndRefreshOffer
             }
-            registerOption={(bookingOptionId, member) => {
-              this.props.setMemberToRegister(member);
-              this.setState({
-                optionToDiscard: bookingOptionId,
-                confirmOptionToDiscard: null,
-              });
-            }}
-            discardOption={(bookingOptionId) => {
-              this.setState({
-                optionToDiscard: bookingOptionId,
-                confirmOptionToDiscard: true,
-              });
-            }}
+            registerOption={this.props.registerOption}
+            discardOption={this.props.discardOption}
             switchWaitingListFreeze={this.props.switchWaitingListFreeze}
           />
         </Grid>
@@ -436,13 +390,7 @@ export class OfferManagement extends Component<Props, State> {
 
           <QuickInvoicePanel
             unevenSavedInvoices={this.props.unevenSavedInvoices}
-            revertQuickInvoice={(uuid) =>
-              this.props.revertQuickInvoiceAndRefreshOffer(
-                uuid,
-                this.props.offerId,
-                this.props.booking_ordering,
-              )
-            }
+            revertQuickInvoice={this.props.revertQuickInvoiceAndRefreshOffer}
             quickInvoices={this.state.quickInvoices}
             createInvoice={this.createInvoice}
             closeQuickInvoice={this.closeQuickInvoice}
@@ -452,44 +400,25 @@ export class OfferManagement extends Component<Props, State> {
           />
         </Grid>
         {!!this.props.memberToRegister && (
-          <RegisterMemberToOfferForm
+          <BookerModuleManager
             offerId={this.props.offerId}
+            offer={this.props.offer}
             member={this.props.memberToRegister}
             loading={this.props.compatiblePacksLoading}
             compatiblePacks={this.props.compatiblePacks}
-            keep_credits={this.state.keep_credits}
-            notify_member={this.state.notify_member}
-            changeKeepCreditsOption={() =>
-              this.setState((prevState) => ({
-                keep_credits: !prevState.keep_credits,
-              }))
-            }
-            changeNotifyMemberOption={() =>
-              this.setState((prevState) => ({
-                notify_member: !prevState.notify_member,
-              }))
-            }
             onCancel={() => this.props.setMemberToRegister(null)}
             onClose={() => this.props.setMemberToRegister(null)}
-            subscribeToOffer={this.registerMember}
-            subscribeToPackAndOffer={(paymentPackId) =>
-              this.registerMemberAndOpenUnevenInvoice(
-                this.props.memberToRegister.id,
-                paymentPackId,
-                this.state.keep_credits,
-                this.state.notify_member,
-              )
-            }
+            registerToOffer={this.registerToOffer}
           />
         )}
         <Dialog
           fullScreen={fullScreen}
           open={!!this.state.addMemberModal}
-          onClose={this.closeAddMemberModal}
+          onClose={this.props.closeAddMemberModal}
         >
           <DialogContent>
             <MemberForm
-              onCancel={this.closeAddMemberModal}
+              onCancel={this.props.closeAddMemberModal}
               onSubmit={this.createMember}
               initial={{ birthday: null, rgpd: ['accept_email', 'accept_sms'] }}
               goToMember={this.props.goToMember}
@@ -506,29 +435,24 @@ export class OfferManagement extends Component<Props, State> {
         />
         <DiscardBookingOptionDialog
           open={
-            !!this.state.optionToDiscard && !!this.state.confirmOptionToDiscard
+            !!this.props.optionToDiscard && !!this.props.confirmOptionToDiscard
           }
           onSubmit={() => {
-            this.props.discardOption(this.state.optionToDiscard);
-            this.setState({
-              optionToDiscard: null,
-              confirmOptionToDiscard: null,
+            this.props.discardOption(this.props.optionToDiscard, {
+              onSuccess: () => {
+                this.props.cancelDiscardOption();
+              },
             });
           }}
-          onClose={() =>
-            this.setState({
-              optionToDiscard: null,
-              confirmOptionToDiscard: null,
-            })
-          }
+          onClose={this.props.cancelDiscardOption}
         />
-        {!!this.state.communicationDialogIsOpen && (
+        {!!this.props.communicationDialogIsOpen && (
           <MailMembers
             fullscreen={fullScreen}
             bookingOptionsPending={bookingOptionsPending}
             bookings={bookings}
-            openMailChoiceDialog={this.state.communicationDialogIsOpen}
-            onClose={() => this.setState({ communicationDialogIsOpen: false })}
+            openMailChoiceDialog={this.props.communicationDialogIsOpen}
+            onClose={this.props.closeCommunicationDialog}
             members={members}
             mailMembers={this.props.mailMembers}
             mailDefaultTitle={this.props.offer ? this.props.offer.name : ''}
@@ -580,6 +504,45 @@ export default compose(
   ),
   withState('memberToRegister', 'setMemberToRegister', null),
   withStateHandlers(
+    {
+      searchedText: '',
+      addMemberModal: false,
+      communicationDialogIsOpen: false,
+      optionToDiscard: null,
+      confirmOptionToDiscard: false,
+    },
+    {
+      closeCommunicationDialog: () => () => ({
+        communicationDialogIsOpen: false,
+      }),
+      openCommunicationDialog: () => () => ({
+        communicationDialogIsOpen: true,
+      }),
+      closeAddMemberModal: () => () => ({ addMemberModal: false }),
+      openAddMemberModal: () => () => ({
+        searchedText: '',
+        addMemberModal: true,
+      }),
+      clearSearch: () => () => ({ searchedText: '' }),
+      searchMembers: (_, { searchMembers }) => (searchedText) => {
+        searchMembers(searchedText);
+        return { searchedText };
+      },
+      registerOption: (_, { setMemberToRegister }) => (optionId, member) => {
+        setMemberToRegister(member);
+        return {
+          optionToDiscard: optionId,
+          confirmOptionToDiscard: false,
+        };
+      },
+      cancelDiscardOption: () => () => ({
+        optionToDiscard: null,
+        confirmOptionToDiscard: null,
+      }),
+    },
+  ),
+
+  withStateHandlers(
     ({ company_theme }) => ({
       booking_ordering: company_theme.default_booking_ordering,
     }),
@@ -594,4 +557,13 @@ export default compose(
       },
     },
   ),
+  withHandlers({
+    revertQuickInvoiceAndRefreshOffer: ({
+      booking_ordering,
+      offerId,
+      revertQuickInvoiceAndRefreshOffer,
+    }) => (uuid) => {
+      revertQuickInvoiceAndRefreshOffer(uuid, offerId, booking_ordering);
+    },
+  }),
 )(OfferManagement);

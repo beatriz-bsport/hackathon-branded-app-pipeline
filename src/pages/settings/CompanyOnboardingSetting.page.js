@@ -2,8 +2,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { injectStripe, Elements, StripeProvider } from 'react-stripe-elements';
-import { connect } from 'react-redux';
-import { push as pushRouter } from 'connected-react-router';
 import { withState, compose, withHandlers } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -15,7 +13,13 @@ import Config from '../../config';
 
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
-type Props = {};
+type Props = {
+  stripe: Stripe,
+  getOnboardingLink: (tokenId: string) => Promise,
+  setError: (?Error) => void,
+  classes: Object,
+  t: TFunction,
+};
 
 export class CompanyOnboardingSettingPage extends React.Component<Props> {
   componentDidMount() {
@@ -63,21 +67,20 @@ const CompanyOnboardingSettingPageComposed = compose(
   withStyles(styles),
   withTranslation(['settings']),
   withState('error', 'setError', null),
-  connect(
-    null,
-    { push: pushRouter },
-  ),
   withHandlers({
-    getOnboardingLink: ({ setError, push }) => (tokenId) =>
+    getOnboardingLink: ({ setError }) => (tokenId) =>
       getOnboardingLinkAPI({ account_token: tokenId })
-        .then((r) => (window.location = r.data.url))
+        .then((r) => {
+          window.location = r.data.url;
+        })
         .catch((err) => {
-          console.error(err), setError(err);
+          console.error(err);
+          setError(err);
         }),
   }),
 )(CompanyOnboardingSettingPage);
 
-export default (props) => (
+export default (props: Props) => (
   <StripeProvider apiKey={STRIPE_KEY}>
     <Elements>
       <CompanyOnboardingSettingPageComposed {...props} />

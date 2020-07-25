@@ -17,6 +17,12 @@ exports.default = {
   },
   bookingModule: {
     hasRegistered: 'Vous êtes inscrit à cette séance',
+    isLoading: 'Recherche des séances...',
+    recurrent: {
+      title: 'Séances futures',
+      bookMultiple: 'Reserver',
+      backToRegistererChoice: 'Retour',
+    },
     section: {
       consumerPacks: 'Mes cartes de cours',
       contracts: 'Abonnements',
@@ -69,6 +75,8 @@ exports.default = {
   doNotAttend: 'Absent',
   loading: 'Chargement',
   wasRefunded: 'Remboursé',
+  creditConsumed: '{{credit_consumed}} crédit',
+  creditConsumed_plural: '{{credit_consumed}} crédits',
   statusCode: {
     cancelledByManager: 'Annulation manager',
     cancelledByConsumer: 'Annulation client',

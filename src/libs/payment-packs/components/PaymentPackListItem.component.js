@@ -10,10 +10,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import EventIcon from '@material-ui/icons/Event';
+import DateRangeIcon from '@material-ui/icons/DateRange';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Button from '@material-ui/core/Button';
 import type { TFunction } from 'react-i18next';
@@ -36,7 +38,7 @@ type Props = {
   selected: boolean,
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   tooltip: {
     backgroundColor: theme.palette.common.white,
     fontSize: 11,
@@ -44,132 +46,156 @@ const styles = (theme) => ({
   bookButton: {
     marginRight: theme.spacing(1),
   },
-});
+}));
 
-export default withStyles(styles)(
-  withTranslation(['paymentPack'])((props: Props) => {
-    if (!props.pack) {
-      return (
-        <ListItem divider={props.divider}>
-          <CircularProgress />
-        </ListItem>
-      );
-    }
-    const dateInfo = getValidityInfo(props.pack, props.t);
+export const PaymentPackListItem = (props: Props) => {
+  const { t } = useTranslation(['paymentPack']);
+  const classes = useStyles();
+  if (!props.pack) {
     return (
-      <ListItem
-        button={!!props.onClick}
-        onClick={props.onClick}
-        divider={props.divider}
-        selected={props.selected}
-      >
-        <ListItemText
-          primary={
-            <span>
-              <Typography inline component="span">
-                {props.pack.name}
-              </Typography>
-              {props.hidePacksNumber ? null : (
-                <Typography
-                  inline
-                  variant="caption"
-                  component="span"
-                  color="primary"
-                >
-                  {` (${props.pack.nb_consumer_payment_packs})`}
-                </Typography>
-              )}
-            </span>
-          }
-          secondary={`${
-            !props.pack.unlimited
-              ? props.t('specifications.nbCredits', {
-                  credits: props.pack.credits,
-                })
-              : props.t('specifications.unlimitedCredits')
-          } - ${props.t('specifications.price', {
-            price: props.pack.price,
-          })}${props.showDuration ? ` - ${dateInfo}` : ''}`}
-        />
-        {!props.disabled && props.onEdit && props.onDelete ? (
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            {props.pack.notifications && props.pack.notifications.length > 0 ? (
-              <Tooltip
-                classes={props.classes}
-                title={
-                  <Typography variant="subtitle2">
-                    {props.t('notificationToolTip')}
-                  </Typography>
-                }
-                aria-label="info"
-              >
-                <IconButton>
-                  <NotificationsIcon />
-                </IconButton>
-              </Tooltip>
-            ) : null}
-            <ListItemResponsiveAction
-              actions={[
-                props.onEdit && {
-                  icon: EditIcon,
-                  label: props.t('actions.edit'),
-                  color: 'primary',
-                  onClick: () => {
-                    props.onEdit();
-                  },
-                },
-                props.onDelete && {
-                  icon: DeleteIcon,
-                  label: props.t('actions.delete'),
-                  onClick: () => {
-                    props.onDelete();
-                  },
-                },
-              ]}
-            />
-          </div>
-        ) : null}
-        {!props.disabled && props.onDelete && !props.onEdit ? (
-          <ListItemSecondaryAction>
-            <IconButton onClick={props.onDelete}>
-              <DeleteIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        ) : null}
-        {!props.onDelete && props.onEdit ? (
-          <ListItemSecondaryAction>
-            <IconButton onClick={props.onEdit}>
-              <EditIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        ) : null}
-        {!props.disabled && props.onBook ? (
-          <ListItemSecondaryAction>
-            <Button
-              className={props.classes.bookButton}
-              variant="contained"
-              color="primary"
-              onClick={props.onBook}
-            >
-              <AddShoppingCartIcon />
-            </Button>
-          </ListItemSecondaryAction>
-        ) : null}
-        {props.goToPack ? (
-          <ListItemSecondaryAction>
-            <IconButton onClick={props.onClick}>
-              <VisibilityIcon color="primary" />
-            </IconButton>
-          </ListItemSecondaryAction>
-        ) : null}
-        {props.disabled ? (
-          <ListItemSecondaryAction>
-            <IconButton color="secondary" onClick={props.onRestore}>
-              <RestoreFromTrashIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        ) : null}
+      <ListItem divider={props.divider}>
+        <CircularProgress />
       </ListItem>
     );
-  }),
-);
+  }
+  const dateInfo = getValidityInfo(props.pack, t);
+  return (
+    <ListItem
+      button={!!props.onClick}
+      onClick={props.onClick}
+      divider={props.divider}
+      selected={props.selected}
+    >
+      <ListItemText
+        primary={
+          <span>
+            <Typography inline component="span">
+              {props.pack.name}
+            </Typography>
+            {props.hidePacksNumber ? null : (
+              <Typography
+                inline
+                variant="caption"
+                component="span"
+                color="primary"
+              >
+                {` (${props.pack.nb_consumer_payment_packs})`}
+              </Typography>
+            )}
+          </span>
+        }
+        secondary={`${
+          !props.pack.unlimited
+            ? t('specifications.nbCredits', {
+                credits: props.pack.credits,
+              })
+            : t('specifications.unlimitedCredits')
+        } - ${t('specifications.price', {
+          price: props.pack.price,
+        })}${props.showDuration ? ` - ${dateInfo}` : ''}`}
+      />
+      {!props.disabled && props.onEdit && props.onDelete ? (
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          {props.pack.notifications && props.pack.notifications.length > 0 ? (
+            <Tooltip
+              classes={classes}
+              title={
+                <Typography variant="subtitle2">
+                  {t('notificationToolTip')}
+                </Typography>
+              }
+              aria-label="info"
+            >
+              <IconButton>
+                <NotificationsIcon />
+              </IconButton>
+            </Tooltip>
+          ) : null}
+          <ListItemResponsiveAction
+            actions={[
+              props.onEdit && {
+                icon: EditIcon,
+                label: t('actions.edit'),
+                color: 'primary',
+                onClick: () => {
+                  props.onEdit();
+                },
+              },
+              props.onDelete && {
+                icon: DeleteIcon,
+                label: t('actions.delete'),
+                onClick: () => {
+                  props.onDelete();
+                },
+              },
+            ]}
+          />
+        </div>
+      ) : null}
+      {!props.disabled && props.onDelete && !props.onEdit ? (
+        <ListItemSecondaryAction>
+          <IconButton onClick={props.onDelete}>
+            <DeleteIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      ) : null}
+      {!props.onDelete && props.onEdit ? (
+        <ListItemSecondaryAction>
+          <IconButton onClick={props.onEdit}>
+            <EditIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      ) : null}
+      {!props.disabled && props.onBook ? (
+        <ListItemSecondaryAction>
+          <Button
+            className={classes.bookButton}
+            variant="contained"
+            color="primary"
+            onClick={props.onBook}
+          >
+            <AddShoppingCartIcon />
+          </Button>
+        </ListItemSecondaryAction>
+      ) : null}
+      {!props.disabled && props.onBookOne ? (
+        <Button
+          className={classes.bookButton}
+          variant="outlined"
+          color="primary"
+          onClick={props.onBookOne}
+        >
+          <EventIcon />
+        </Button>
+      ) : null}
+      {!props.disabled && props.onBookMultiple ? (
+        <Tooltip title={t('multipleBookingTooltip')}>
+          <Button
+            className={classes.bookButton}
+            variant="outlined"
+            color="secondary"
+            onClick={props.onBookMultiple}
+          >
+            <DateRangeIcon />
+          </Button>
+        </Tooltip>
+      ) : null}
+      {props.goToPack ? (
+        <ListItemSecondaryAction>
+          <IconButton onClick={props.onClick}>
+            <VisibilityIcon color="primary" />
+          </IconButton>
+        </ListItemSecondaryAction>
+      ) : null}
+      {props.disabled ? (
+        <ListItemSecondaryAction>
+          <IconButton color="secondary" onClick={props.onRestore}>
+            <RestoreFromTrashIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      ) : null}
+    </ListItem>
+  );
+};
+
+export default PaymentPackListItem;

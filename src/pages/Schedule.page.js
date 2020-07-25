@@ -70,6 +70,22 @@ type Props = {
   pushToCalendar: () => void,
   fetchCustomEventList: () => void,
   resetCustomEvent: () => void,
+
+  customEventData: any,
+  availableCoaches: Array<Coach>,
+  createOrUpdateCustomEvent: (data: any, options: OptionCallback) => void,
+  closeCustomEventDialog: () => void,
+  resetAvailabilitySlots: () => void,
+  fetchAvailabilitySlots: (params: any, options: OptionCallback) => void,
+  availabilitySlots: Array<AvailabilitySlot>,
+  customEventList: Array<CustomEvent>,
+  onRequestCustomEvent: (data: any) => void,
+  resourceData: Array<ResourceData>,
+  setResourceFiltersArray: (Array<Ressource>) => void,
+  fetchResourceList: () => void,
+  closeCustomEventDialog: () => void,
+
+  resourceFiltersArray: Array<Ressource>,
 };
 
 const styles = (theme) => ({

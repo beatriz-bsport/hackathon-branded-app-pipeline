@@ -20,13 +20,17 @@ export const similarOffers = {
   success: createAction('OFFERS/SIMILAR/SUCCESS'),
 };
 
-export function fetchSimilarOffers(offerId: number, options: OptionCallback) {
+export function fetchSimilarOffers(
+  offerId: number,
+  params: any = {},
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(similarOffers.isLoading(true));
     dispatch(similarOffers.error(null));
     dispatch(similarOffers.success([]));
     try {
-      const response = await fetchSimilarOffersAPI(offerId);
+      const response = await fetchSimilarOffersAPI(offerId, params);
       dispatch(similarOffers.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);

@@ -53,7 +53,7 @@ import {
 import { getPaymentComboForBooking } from '../../libs/payment-combo/selectors';
 import type { PaymentCombo } from '../../libs/payment-combo/types';
 
-import BookingModule from '../../libs/booking/components/BookingModule.component';
+import BookerModuleConsumer from '../../libs/booking/components/booker-module/BookerModuleConsumer.component';
 import {
   registerToWaitingList as registerOptionAction,
   fetchBookingOptionForBooking as fetchBookingOptionForBookingAction,
@@ -185,7 +185,7 @@ export class OfferPaymentPage extends Component<Props, State> {
             !this.props.offer.meta_activity
           }
         >
-          <BookingModule
+          <BookerModuleConsumer
             offer={this.props.offer}
             theme={this.props.theme}
             loading={this.props.consumerPaymentPackLoading}

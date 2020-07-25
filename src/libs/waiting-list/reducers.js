@@ -122,8 +122,12 @@ export default handleActions(
     },
     [discardOptionActions.success]: (state, { payload }) => {
       return state.setIn(
-        ['option', 'items'],
-        state.option.items.filter((bo) => bo.id !== payload),
+        [
+          'option',
+          'items',
+          state.option.items.findIndex((bo) => bo.id === payload.id),
+        ],
+        payload,
       );
     },
     [registerOptionActions.isLoading]: (state, { payload }) => {

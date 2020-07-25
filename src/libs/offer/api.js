@@ -32,8 +32,10 @@ export async function editLiveOffer({
   return putAuth(`${API_URI}/saas/offer/${offerId}/edit`, data);
 }
 
-export async function fetchSimilarOffers(offerId: number) {
-  return getAuth(`${API_V1_URI}/offer/${offerId}/similars/`);
+export async function fetchSimilarOffers(offerId: number, params: any) {
+  return getAuth(
+    `${API_V1_URI}/offer/${offerId}/similars/${buildUrlParams(params || {})}`,
+  );
 }
 
 export async function fetchCompatiblePacks(offerId: number) {

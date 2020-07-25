@@ -3087,6 +3087,7 @@
       "hasCreditLeft": "Avec crédit",
       "hasCreditNull": "Sans crédit"
     },
+    "multipleBookingTooltip": "Réservations multiples",
     "actions": { "edit": "Modifier", "delete": "Supprimer", "scaleCredit": "Mult/div les crédits" },
     "scaleCredit": {
       "title": "Modification du total de crédit",
@@ -3550,6 +3551,8 @@
     },
     "bookingModule": {
       "hasRegistered": "Vous êtes inscrit à cette séance",
+      "isLoading": "Recherche des séances...",
+      "recurrent": { "title": "Séances futures", "bookMultiple": "Reserver", "backToRegistererChoice": "Retour" },
       "section": {
         "consumerPacks": "Mes cartes de cours",
         "contracts": "Abonnements",
@@ -3583,6 +3586,8 @@
     "doNotAttend": "Absent",
     "loading": "Chargement",
     "wasRefunded": "Remboursé",
+    "creditConsumed": "{{credit_consumed}} crédit",
+    "creditConsumed_plural": "{{credit_consumed}} crédits",
     "statusCode": {
       "cancelledByManager": "Annulation manager",
       "cancelledByConsumer": "Annulation client",

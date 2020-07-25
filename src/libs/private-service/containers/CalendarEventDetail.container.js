@@ -460,13 +460,17 @@ const OfferEditorContainer = compose(
       fetchCoachBulk,
       fetchSimilarOffers,
     }) => (id) => {
-      fetchSimilarOffers(id, {
-        onSuccess: (oList) => {
-          fetchCoachBulk(oList.map((o) => o.coach));
-          fetchEstablishmentBulk(oList.map((o) => o.establishment));
-          fetchMetaActivityBulk(oList.map((o) => o.meta_activity));
+      fetchSimilarOffers(
+        id,
+        {},
+        {
+          onSuccess: (oList) => {
+            fetchCoachBulk(oList.map((o) => o.coach));
+            fetchEstablishmentBulk(oList.map((o) => o.establishment));
+            fetchMetaActivityBulk(oList.map((o) => o.meta_activity));
+          },
         },
-      });
+      );
     },
   }),
 

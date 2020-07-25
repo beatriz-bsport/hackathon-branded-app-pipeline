@@ -9,6 +9,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
+import { compose } from 'recompose';
+import EventIcon from '@material-ui/icons/Event';
+import DateRangeIcon from '@material-ui/icons/DateRange';
 import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -16,6 +19,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import moment from 'moment';
+
+import { withStyles } from '@material-ui/core/styles';
+import Tooltip from '../../../components/Tooltip.component';
 
 import { formatAsDate } from '../../../datetime';
 import RedButton from '../../../components/button/RedButton.component';
@@ -38,7 +44,7 @@ type Props = {
   onClick: ?() => void,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
-  subscribeToOffer: ?(id: number) => void,
+  onBook: ?(id: number) => void,
 
   t: TFunction,
   isNonCompatible?: boolean,
@@ -51,7 +57,9 @@ export class ConsumerPackRowItem extends Component<Props> {
       consumerPack,
       incrementCredit,
       decrementCredit,
-      subscribeToOffer,
+      onBook,
+      onBookOne,
+      onBookMultiple,
       isNonCompatible,
       loading,
       t,
@@ -68,16 +76,40 @@ export class ConsumerPackRowItem extends Component<Props> {
         </RedButton>
       );
     }
-    if (subscribeToOffer) {
+    if (onBook) {
       return (
         <Button
-          onClick={() => subscribeToOffer(consumerPack.id)}
+          onClick={() => onBook(consumerPack.id)}
           variant="outlined"
           color="primary"
           id={`btn-payment-pack-${consumerPack.id}`}
         >
           {t('use')}
         </Button>
+      );
+    }
+    if (onBookOne && onBookMultiple) {
+      return (
+        <div className={this.props.classes.buttonRow}>
+          <Button
+            onClick={() => onBookOne(consumerPack.id)}
+            variant="outlined"
+            color="primary"
+            id={`btn-payment-pack-${consumerPack.id}`}
+          >
+            <EventIcon />
+          </Button>
+          <Tooltip title={t('multipleBookingTooltip')}>
+            <Button
+              onClick={() => onBookMultiple(consumerPack.id)}
+              variant="outlined"
+              color="secondary"
+              id={`btn-payment-pack-${consumerPack.id}`}
+            >
+              <DateRangeIcon />
+            </Button>
+          </Tooltip>
+        </div>
       );
     }
 
@@ -257,4 +289,15 @@ export class ConsumerPackRowItem extends Component<Props> {
   }
 }
 
-export default withTranslation(['paymentPack'])(ConsumerPackRowItem);
+const styles = (theme) => ({
+  buttonRow: {
+    '&>*': {
+      marginLeft: theme.spacing(1),
+    },
+  },
+});
+
+export default compose(
+  withTranslation(['paymentPack']),
+  withStyles(styles),
+)(ConsumerPackRowItem);

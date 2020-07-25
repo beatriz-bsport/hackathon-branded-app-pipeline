@@ -9,6 +9,7 @@ import { getAllCoachesDict } from '../associated-coach/selectors';
 import {
   getMetaActivitiesDict,
   getWorkshopActivitiesDict,
+  getMetaActivityAbstractDict,
 } from '../meta-activity/selectors';
 import { getAllEstablishmentsDict } from '../establishment/selectors';
 
@@ -45,7 +46,7 @@ export const _getSimilars = (state: State) => state.offer.similarOffers.items;
 
 export const withMetaActivity = memoize((selector: (State) => any) =>
   createSelector(
-    [selector, getMetaActivitiesDict, getWorkshopActivitiesDict],
+    [selector, getMetaActivityAbstractDict, getWorkshopActivitiesDict],
     (offers, metaActivityData, workshopData) => {
       if (!offers) return null;
       if (!Array.isArray(offers)) {

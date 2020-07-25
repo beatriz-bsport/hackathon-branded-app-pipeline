@@ -195,6 +195,10 @@ type Props = {
   membersLoading: boolean,
   bookings: Array<Booking>,
   bookingsLoading: boolean,
+
+  massDisablerStartDate: ?string,
+  disableMassOffers: (data: any, options: OptionCallback) => void,
+  setMassDisablerStartDate: (?string) => void,
 };
 
 type State = {

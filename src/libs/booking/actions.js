@@ -295,23 +295,20 @@ export const registerActions = {
 };
 
 export function registerBooking(
-  offerId: number,
   consumer_payment_pack: number,
+  data: {
+    offer: number|Array<number>,
+    keep_credits: boolean,
+    notify_member: boolean,
+  },
   options: OptionCallback,
-  keep_credits: boolean,
-  notify_member: boolean,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(registerActions.isLoading(true));
     dispatch(registerActions.error(null));
 
     try {
-      const response = await registerBookingAPI(
-        consumer_payment_pack,
-        offerId,
-        keep_credits,
-        notify_member,
-      );
+      const response = await registerBookingAPI(consumer_payment_pack, data);
       const booking = response.data;
       dispatch(registerActions.success(booking));
 

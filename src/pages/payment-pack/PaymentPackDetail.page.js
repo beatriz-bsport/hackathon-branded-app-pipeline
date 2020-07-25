@@ -104,6 +104,7 @@ type Props = {
     paymentPackId: number,
     page: number,
     pageSize: number,
+    params: any,
     options: OptionCallback,
   ) => void,
   fetchConsumerPacksList: (page: number, pageSize: number) => void,
@@ -125,6 +126,8 @@ type Props = {
   emailListLoading: boolean,
   emailDetailLoading: boolean,
   smartListLoading: boolean,
+
+  fetchFilteredMembers: (params: any) => void,
 
   email_templates_list: Array<any>,
   email_templates_details: Array<any>,

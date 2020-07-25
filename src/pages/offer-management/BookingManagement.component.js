@@ -87,8 +87,6 @@ type Props = {
   unevenSavedInvoices: Array<Invoice>,
   revertQuickInvoiceAndRefreshOffer: (
     uuid: string,
-    offerId: number,
-    booking_ordering: number,
   ) => void,
   registerToWaitingList: (offerId: number, memberId: number) => void,
   members: Array<Member>,
@@ -100,7 +98,7 @@ type State = {
   memberHistoryAnchor: ?HTMLElement,
 };
 
-export class BookingManagement extends React.Component<Props, State> {
+export class BookingManagement extends React.PureComponent<Props, State> {
   state = { memberHistoryAnchor: null };
 
   renderSearchedMember = (member: Member) => {
@@ -170,8 +168,6 @@ export class BookingManagement extends React.Component<Props, State> {
         if (ii.object_id === booking.consumer_payment_pack.id) {
           this.props.revertQuickInvoiceAndRefreshOffer(
             inv.uuid,
-            this.props.offerId,
-            this.props.booking_ordering,
           );
           return;
         }
@@ -180,7 +176,8 @@ export class BookingManagement extends React.Component<Props, State> {
     this.props.handleRevertBooking(booking);
   };
 
-  render() {
+	render() {
+	console.log('render')
     const { offer, classes, t } = this.props;
     return (
       <div className={classes.container}>

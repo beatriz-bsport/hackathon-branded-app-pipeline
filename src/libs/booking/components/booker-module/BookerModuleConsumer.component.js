@@ -14,16 +14,16 @@ import LockIcon from '@material-ui/icons/Lock';
 import TodayIcon from '@material-ui/icons/Today';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 
-import OfferListItemConsumer from '../../offer/components/OfferListItemConsumer.component';
+import OfferListItemConsumer from '../../../offer/components/OfferListItemConsumer.component';
 
-import PaymentComboBuyableItem from '../../payment-combo/components/PaymentComboBuyableItem.component';
-import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
-import ConsumerPaymentPackListItemCheckout from '../../consumer-payment-pack/components/ConsumerPaymentPackListItemCheckout.component';
-import SubscriptionContractListItem from '../../subscription/components/SubscriptionContractListItem.component';
-import { isOfferBookableYet } from '../../marketplace/utils';
-import type { ConsumerPaymentPack } from '../../consumer-payment-pack/types';
+import PaymentComboBuyableItem from '../../../payment-combo/components/PaymentComboBuyableItem.component';
+import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
+import ConsumerPaymentPackListItemCheckout from '../../../consumer-payment-pack/components/ConsumerPaymentPackListItemCheckout.component';
+import SubscriptionContractListItem from '../../../subscription/components/SubscriptionContractListItem.component';
+import { isOfferBookableYet } from '../../../marketplace/utils';
+import type { ConsumerPaymentPack } from '../../../consumer-payment-pack/types';
 
-import type { OptionCallback } from '../../../state/types';
+import type { OptionCallback } from '../../../../state/types';
 
 type Props = {
   t: TFunction,
@@ -107,7 +107,7 @@ const BookingOptionRegisterForm = withState(
   },
 );
 
-export class OfferBooking extends React.PureComponent<Props> {
+export class BookerModuleConsumer extends React.PureComponent<Props> {
   renderIsDisabled = () => {
     return (
       <div className={this.props.classes.innerContainer}>
@@ -355,4 +355,4 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['booking']),
   withStyles(styles),
-)(OfferBooking);
+)(BookerModuleConsumer);

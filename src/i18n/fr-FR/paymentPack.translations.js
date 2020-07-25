@@ -15,6 +15,8 @@ exports.default = {
     hasCreditLeft: 'Avec crédit',
     hasCreditNull: 'Sans crédit',
   },
+  multipleBookingTooltip: 'Réservations multiples',
+
   actions: {
     edit: 'Modifier',
     delete: 'Supprimer',

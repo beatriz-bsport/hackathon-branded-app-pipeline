@@ -51,7 +51,7 @@ type Props = {
   classes: Object,
   loading: boolean,
   privateBookingList: Array<PrivateBooking>,
-  availableCoaches: Array<Coach>,
+
   resourceData: ?ResourceData,
   resourceFiltersArray: Array<string>,
   setResourceFiltersArray: (Array<string>) => void,
@@ -69,9 +69,9 @@ type Props = {
   goToResourceCalendar: () => void,
 
   id: number,
-  fetchPrivateService: (id: number) => void,
+  fetchPrivateService: (id: number, options: OptionCallback) => void,
 
-  fetchAvailabilitySlots: (data: { 'private-service': number }) => void,
+  fetchAvailabilitySlots: (params: any) => void,
   availabilitySlots: Array<AvailabilitySlot>,
   availabilitySlotUpdating: boolean,
 
@@ -89,6 +89,12 @@ type Props = {
   fetchPrivateBookingList: () => void,
   fetchCustomEventList: () => void,
   resetCustomEvent: () => void,
+  customEventList: Array<CustomEvent>,
+  onRequestCustomEvent: (data: any) => void,
+  customEventData: any,
+  service: PrivateService,
+  createOrUpdateCustomEvent: (data: any, options: OptionCallback) => void,
+  closeCustomEventDialog: () => void,
 };
 
 type State = {
@@ -185,7 +191,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   onCancelAvailabilityUpdate = () =>
     this.setState({ updateAvailabilitySlotData: null });
 
-  submitAvailabilitySlotUpdate = (resourceData) => {
+  submitAvailabilitySlotUpdate = (resourceData: ResourceData) => {
     const {
       kind,
       data: [slotUpdateData, slotUpdateOptions],

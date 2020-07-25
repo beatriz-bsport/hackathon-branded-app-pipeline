@@ -104,9 +104,9 @@ export function discardBookingOption(
     dispatch(discardOptionActions.error(null));
 
     try {
-      await discardBookingOptionAPI(bookingOptionId);
+      const response = await discardBookingOptionAPI(bookingOptionId);
 
-      dispatch(discardOptionActions.success(bookingOptionId));
+      dispatch(discardOptionActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(bookingOptionId);
     } catch (err) {
       console.error(err);

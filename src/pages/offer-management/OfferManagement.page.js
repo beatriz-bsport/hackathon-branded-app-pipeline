@@ -204,21 +204,12 @@ export default compose(
   }),
   withHandlers({
     addBooking: ({ refresh, registerBooking }) => (
-      offerId,
       consumerPaymentPackId,
-      keep_credits,
-      ordering_field,
-      notify_member,
+      data,
     ) => {
-      registerBooking(
-        offerId,
-        consumerPaymentPackId,
-        {
-          onSuccess: () => refresh(ordering_field),
-        },
-        keep_credits,
-        notify_member,
-      );
+      registerBooking(consumerPaymentPackId, data, {
+        onSuccess: () => refresh(ordering_field),
+      });
     },
     deleteBooking: ({ refresh, cancelBooking }) => (
       bookingId,

@@ -40,3 +40,30 @@ export const getValidityInfo = (pack: PaymentPack, t: TFunction) => {
   }
   return dateInfo;
 };
+
+export const getPaymentPackTimeLimitation = (paymentPack, baseDate) => {
+  const {
+    validity_daterange,
+    duration_days,
+    duration_months,
+    duration_years,
+  } = paymentPack;
+
+  if (!paymentPack) {
+    return { start: null, end: null };
+  }
+  if (validity_daterange) {
+    return {
+      start: moment(JSON.parse(validity_daterange).lower),
+      end: moment(JSON.parse(validity_daterange).upper),
+    };
+  }
+  return {
+    start: moment(baseDate || moment()),
+    end: moment(baseDate || moment())
+      .add('days', duration_days || 0)
+      .add('months', duration_months || 0)
+      .add('years', duration_years || 0)
+      .add('days', -1),
+  };
+};

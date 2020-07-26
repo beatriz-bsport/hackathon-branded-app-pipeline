@@ -1778,6 +1778,19 @@
           "confirm": "Supprimer"
         }
       }
+    },
+    "roleDescription": {
+      "0": { "description": "Accès admin, aucune restriction, peut créer des comptes staff", "name": "Owner" },
+      "1": {
+        "name": "Checkin étendu",
+        "description": "Accès à la gestion de la séance (modification et annulation), aux membres, et au checkin."
+      },
+      "2": { "name": "Checkin restreint", "description": "Accès seulement au checkin." },
+      "3": {
+        "name": "Checkin tablette",
+        "description": "Compte pour application d'auto-checkin (contactez votre chargé de compte bsport)"
+      },
+      "4": { "name": "Admin", "description": "Admin, même accès que Owner mais peut être supprimé/créé" }
     }
   },
   "theme": {
@@ -3553,6 +3566,7 @@
     }
   },
   "booking": {
+    "actions": { "bill": "Facturer", "unregister": "Désinscrire" },
     "filters": {
       "all": "Toutes les réservations",
       "present": "Présent",

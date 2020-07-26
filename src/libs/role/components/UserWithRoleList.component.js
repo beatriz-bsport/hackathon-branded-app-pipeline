@@ -76,7 +76,7 @@ const UserWithRole = (props: {
       >
         {props.permissions.map((perm) => (
           <MenuItem disabled={!perm.editable} key={perm.id} value={perm.id}>
-            {perm.name}
+            {props.t(`roleDescription.${perm.id}.name`)}
           </MenuItem>
         ))}
       </Select>

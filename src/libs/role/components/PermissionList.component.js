@@ -21,8 +21,12 @@ export const PermissionList = (props: Props) => {
       <List dense disablePadding>
         {permissions.map((perm) => (
           <div className={classes.permission} key={perm.id}>
-            <Typography variant="subtitle2">{t(perm.name)}</Typography>
-            <Typography>{t(perm.description)}</Typography>
+            <Typography variant="subtitle2">
+              {t(`roleDescription.${perm.id}.name`)}
+            </Typography>
+            <Typography>
+              {t(`roleDescription.${perm.id}.description`)}
+            </Typography>
           </div>
         ))}
       </List>

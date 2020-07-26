@@ -3,11 +3,13 @@
 import { createSelector } from 'reselect';
 import type { State } from '../../state/types';
 
-const OWNER_ROLE = 0;
-const STAFF_ROLE = 1;
-const RESTRICTED_STAFF_ROLE = 2;
-const CHECKIN_APP_ROLE = 3;
-const ADMIN_ROLE = 4;
+import {
+  OWNER_ROLE,
+  STAFF_ROLE,
+  RESTRICTED_STAFF_ROLE,
+  CHECKIN_APP_ROLE,
+  ADMIN_ROLE,
+} from './role-types';
 
 const getRoleState = (state: State): UserRoleState => state.role;
 
@@ -23,7 +25,7 @@ const defaultPermissions: Permissions = {
   name: 'Owner',
   description: 'Accès admin, aucune restriction, peut créer des comptes staff',
   editable: false,
-  id: 0,
+  id: OWNER_ROLE,
 
   checkin: false,
   offer: {
@@ -47,7 +49,7 @@ const defaultPermissions: Permissions = {
 const OWNER_PERMISSION = {
   ...defaultPermissions,
   editable: true,
-  id: 1,
+  id: STAFF_ROLE,
   navigation: false,
   name: 'Checkin étendu',
   description:
@@ -55,7 +57,7 @@ const OWNER_PERMISSION = {
 };
 const ADMIN_PERMISSION = {
   ...defaultPermissions,
-  id: 4,
+  id: ADMIN_ROLE,
   name: 'Admin',
   description:
     // eslint-disable-next-line
@@ -66,9 +68,9 @@ const ADMIN_PERMISSION = {
 const CHECKIN_PERMISSION = {
   ...defaultPermissions,
   name: 'Checkin restreint',
-  id: 2,
-  editable: true,
   description: 'Accès seulement au checkin.',
+  id: RESTRICTED_STAFF_ROLE,
+  editable: true,
   navigation: false,
   member: {
     create: true,
@@ -86,7 +88,7 @@ const CHECKIN_PERMISSION = {
 };
 const CHECKIN_APP_PERMISSION = {
   ...defaultPermissions,
-  id: 3,
+  id: CHECKIN_APP_ROLE,
   name: 'Checkin tablette',
   description:
     // eslint-disable-next-line

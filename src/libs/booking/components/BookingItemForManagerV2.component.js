@@ -217,7 +217,7 @@ export class BookingItemForManager extends Component<Props, State> {
         >
           {showQuickInvoiceButton ? (
             <MenuItem onClick={closeAndAction(onQuickInvoiceClick)}>
-              <ListItemText>Facturer</ListItemText>
+              <ListItemText>{t('bill')}</ListItemText>
               <ListItemIcon className={classes.iconButton}>
                 <EuroSymbolIcon />
               </ListItemIcon>
@@ -230,7 +230,7 @@ export class BookingItemForManager extends Component<Props, State> {
             </ListItemIcon>
           </MenuItem>
           <MenuItem onClick={closeAndAction(handleRevert)}>
-            <ListItemText>Désinscrire</ListItemText>
+            <ListItemText>{t('unregister')}</ListItemText>
             <ListItemIcon className={classes.iconButton}>
               <CancelIcon />
             </ListItemIcon>

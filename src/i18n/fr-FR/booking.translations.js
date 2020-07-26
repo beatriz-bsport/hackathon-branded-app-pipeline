@@ -1,4 +1,8 @@
 exports.default = {
+  actions: {
+    bill: 'Facturer',
+    unregister: 'Désinscrire',
+  },
   filters: {
     all: 'Toutes les réservations',
     present: 'Présent',

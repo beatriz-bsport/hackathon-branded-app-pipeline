@@ -268,6 +268,7 @@ export class Backoffice extends Component<Props, State> {
               <Intercom
                 appID="q6foivp2"
                 email={this.props.username}
+                user_id={this.props.username}
                 environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
                 release={RELEASE}
                 role={this.props.permission.name}
@@ -279,7 +280,6 @@ export class Backoffice extends Component<Props, State> {
               <BackofficeRoute
                 vodEnabled={this.props.theme ? this.props.theme.vod : null}
               />
-              .
             </main>
           </ResponsiveDrawer>
         </Context.Provider>

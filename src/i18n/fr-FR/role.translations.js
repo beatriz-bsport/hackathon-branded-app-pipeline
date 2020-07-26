@@ -1,3 +1,11 @@
+const {
+  OWNER_ROLE,
+  STAFF_ROLE,
+  RESTRICTED_STAFF_ROLE,
+  CHECKIN_APP_ROLE,
+  ADMIN_ROLE,
+} = require('../../libs/role/role-types');
+
 exports.default = {
   pageTitle: 'Staff',
   userRoles: 'Comptes Staff',
@@ -26,6 +34,37 @@ exports.default = {
         cancel: 'Annuler',
         confirm: 'Supprimer',
       },
+    },
+  },
+  roleDescription: {
+    [CHECKIN_APP_ROLE]: {
+      name: 'Checkin tablette',
+      description:
+        // eslint-disable-next-line
+        "Compte pour application d'auto-checkin (contactez votre chargé de compte bsport)",
+    },
+    [RESTRICTED_STAFF_ROLE]: {
+      name: 'Checkin restreint',
+      description: 'Accès seulement au checkin.',
+    },
+
+    [ADMIN_ROLE]: {
+      name: 'Admin',
+      description:
+        // eslint-disable-next-line
+        'Admin, même accès que Owner mais peut être supprimé/créé',
+    },
+
+    [STAFF_ROLE]: {
+      name: 'Checkin étendu',
+      description:
+        'Accès à la gestion de la séance (modification et annulation), aux membres, et au checkin.',
+    },
+
+    [OWNER_ROLE]: {
+      description:
+        'Accès admin, aucune restriction, peut créer des comptes staff',
+      name: 'Owner',
     },
   },
 };

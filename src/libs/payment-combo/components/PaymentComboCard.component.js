@@ -38,19 +38,19 @@ export const PaymentComboCard = (props: Props) => {
 
   const renderLinkToPaymentPage = () => {
     return paymentCombo.id ? (
-      <ButtonBase
-        className={props.classes.link}
-        onClick={() => snackbarSuccess('link.copied')}
+      <CopyToClipboard
+        text={`${window.location.origin}/customer/payment/combo/${paymentCombo.id}/?membership=${paymentCombo.company}`}
       >
-        <LinkIcon />
-        <CopyToClipboard
-          text={`${window.location.origin}/customer/payment/combo/${paymentCombo.id}/?membership=${paymentCombo.company}`}
+        <ButtonBase
+          className={props.classes.link}
+          onClick={() => snackbarSuccess('link.copied')}
         >
+          <LinkIcon />
           <Typography className={props.classes.linkTypo}>
             {t('paymentCombo:link.copyLink')}
           </Typography>
-        </CopyToClipboard>
-      </ButtonBase>
+        </ButtonBase>
+      </CopyToClipboard>
     ) : null;
   };
 

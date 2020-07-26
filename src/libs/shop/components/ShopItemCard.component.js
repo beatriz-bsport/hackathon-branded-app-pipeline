@@ -38,19 +38,19 @@ const ShopItemCard = (props: {
 
   const renderLinkToPaymentPage = () => {
     return shopitem.id && shopitem.company ? (
-      <ButtonBase
-        className={classes.link}
-        onClick={() => snackbarSuccess('link.copied')}
+      <CopyToClipboard
+        text={`${window.location.origin}/customer/payment/shop-item/${shopitem.id}/?membership=${shopitem.company}`}
       >
-        <LinkIcon />
-        <CopyToClipboard
-          text={`${window.location.origin}/customer/payment/shop-item/${shopitem.id}/?membership=${shopitem.company}`}
+        <ButtonBase
+          className={classes.link}
+          onClick={() => snackbarSuccess('link.copied')}
         >
+          <LinkIcon />
           <Typography className={classes.linkTypo}>
             {t('shop:link.copyLink')}
           </Typography>
-        </CopyToClipboard>
-      </ButtonBase>
+        </ButtonBase>
+      </CopyToClipboard>
     ) : (
       <CircularProgress />
     );

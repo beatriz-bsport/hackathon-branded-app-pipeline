@@ -75,17 +75,17 @@ export const TempPasswordDialog = (props: Props) => {
           {props.tempPassword}
         </Typography>
         <div className={props.classes.clipboard}>
-          <ButtonBase
-            className={props.classes.link}
-            onClick={() => props.setPasswordCopied(true)}
-          >
-            <LinkIcon />
-            <CopyToClipboard text={props.tempPassword}>
+          <CopyToClipboard text={props.tempPassword}>
+            <ButtonBase
+              className={props.classes.link}
+              onClick={() => props.setPasswordCopied(true)}
+            >
+              <LinkIcon />
               <Typography className={props.classes.linkTypo}>
                 {props.t('login:tempPassword:copy')}
               </Typography>
-            </CopyToClipboard>
-          </ButtonBase>
+            </ButtonBase>
+          </CopyToClipboard>
           {props.passwordCopied ? (
             <Typography
               className={props.classes.copied}

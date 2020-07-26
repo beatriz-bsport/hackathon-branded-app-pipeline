@@ -267,19 +267,19 @@ export class PaymentPackCard extends Component<Props> {
   renderLinkToPaymentPage = () => {
     const { pack, t } = this.props;
     return !this.props.onlyPublic && pack.id && pack.company ? (
-      <ButtonBase
-        className={this.props.classes.link}
-        onClick={() => this.props.snackbarSuccess('paymentPack:link.copied')}
+      <CopyToClipboard
+        text={`${window.location.origin}/customer/payment/pass/${pack.id}/?membership=${pack.company}`}
       >
-        <LinkIcon />
-        <CopyToClipboard
-          text={`${window.location.origin}/customer/payment/pass/${pack.id}/?membership=${pack.company}`}
+        <ButtonBase
+          className={this.props.classes.link}
+          onClick={() => this.props.snackbarSuccess('paymentPack:link.copied')}
         >
+          <LinkIcon />
           <Typography className={this.props.classes.linkTypo}>
             {t('link.copyLink')}
           </Typography>
-        </CopyToClipboard>
-      </ButtonBase>
+        </ButtonBase>
+      </CopyToClipboard>
     ) : (
       <CircularProgress />
     );

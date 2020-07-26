@@ -67,25 +67,25 @@ const ContractDetail = (props: Props) => {
         </div>
         {props.company ? (
           <div className={classes.block}>
-            <ButtonBase
-              className={classes.link}
-              onClick={() => props.snackbarSuccess('link.copied')}
-            >
-              <LinkIcon />
-              <CopyToClipboard
-                text={`${window.location.origin}${urlToMarketplace(
-                  props.company.name,
-                  props.company.id,
-                )}
+            <CopyToClipboard
+              text={`${window.location.origin}${urlToMarketplace(
+                props.company.name,
+                props.company.id,
+              )}
               /subscription${buildUrlParams({
                 selected: props.contract.id,
               })}`}
+            >
+              <ButtonBase
+                className={classes.link}
+                onClick={() => props.snackbarSuccess('link.copied')}
               >
+                <LinkIcon />
                 <Typography className={classes.linkTypo}>
                   {t('shop:link.copyLink')}
                 </Typography>
-              </CopyToClipboard>
-            </ButtonBase>
+              </ButtonBase>
+            </CopyToClipboard>
           </div>
         ) : null}
         <div className={classes.block}>

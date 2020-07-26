@@ -66,19 +66,19 @@ export const PrivatePassDetail = (props: Props) => {
 
   const renderLinkToPaymentPage = () => {
     return pass.id && companyId ? (
-      <ButtonBase
-        className={classes.link}
-        onClick={() => snackbar('link.copied')}
+      <CopyToClipboard
+        text={`${window.location.origin}/customer/payment/private-pass/${pass.id}/?membership=${companyId}`}
       >
-        <LinkIcon />
-        <CopyToClipboard
-          text={`${window.location.origin}/customer/payment/private-pass/${pass.id}/?membership=${companyId}`}
+        <ButtonBase
+          className={classes.link}
+          onClick={() => snackbar('link.copied')}
         >
+          <LinkIcon />
           <Typography className={classes.linkTypo}>
             {t('shop:link.copyLink')}
           </Typography>
-        </CopyToClipboard>
-      </ButtonBase>
+        </ButtonBase>
+      </CopyToClipboard>
     ) : (
       <CircularProgress />
     );

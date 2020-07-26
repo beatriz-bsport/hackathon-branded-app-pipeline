@@ -398,14 +398,16 @@ export class OfferCard extends Component<Props> {
                 </div>
                 {offer.id && this.props.companyId ? (
                   <div className={this.props.classes.buttonContainer}>
-                    <ButtonBase
-                      onClick={() => this.props.snackbarSuccess('link.copied')}
-                      className={classes.link}
+                    <CopyToClipboard
+                      text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
                     >
-                      <LinkIcon />
-                      <CopyToClipboard
-                        text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
+                      <ButtonBase
+                        onClick={() =>
+                          this.props.snackbarSuccess('link.copied')
+                        }
+                        className={classes.link}
                       >
+                        <LinkIcon />
                         <Hidden xsDown>
                           <Typography
                             variant="caption"
@@ -415,8 +417,8 @@ export class OfferCard extends Component<Props> {
                             {t('offer:card.copyLink')}
                           </Typography>
                         </Hidden>
-                      </CopyToClipboard>
-                    </ButtonBase>
+                      </ButtonBase>
+                    </CopyToClipboard>
                   </div>
                 ) : null}
               </div>

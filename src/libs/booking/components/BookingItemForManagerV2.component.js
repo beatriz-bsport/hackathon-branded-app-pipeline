@@ -29,7 +29,11 @@ import type { TFunction } from 'react-i18next';
 import { push as routerPush } from 'connected-react-router';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { BOOKING_STATUS_CANCELLED_BY_MANAGER } from '@bsport/common/lib/master-data/booking_status_code';
+import {
+  BOOKING_STATUS_CANCELLED_BY_MANAGER,
+  BOOKING_STATUS_CANCELLED_BY_CONSUMER,
+  BOOKING_STATUS_OK,
+} from '@bsport/common/lib/master-data/booking_status_code';
 import { getBookingStatusCode } from '../utils';
 
 import Tooltip from '../../../components/Tooltip.component';
@@ -258,7 +262,9 @@ export class BookingItemForManager extends Component<Props, State> {
               flexDirection: 'row',
             }}
           >
-            {discardBookingAttendance && confirmBookingAttendance ? (
+            {discardBookingAttendance &&
+            confirmBookingAttendance &&
+            booking.booking_status_code === BOOKING_STATUS_OK.id ? (
               <AttendanceButton
                 attendance={booking.attendance}
                 variant="outlined"
@@ -268,7 +274,8 @@ export class BookingItemForManager extends Component<Props, State> {
                 confirmBookingAttendance={confirmBookingAttendance}
               />
             ) : null}
-            {showQuickInvoiceButton ? (
+            {showQuickInvoiceButton &&
+            booking.booking_status_code === BOOKING_STATUS_OK.id ? (
               <Button
                 variant="outlined"
                 color="secondary"
@@ -281,7 +288,11 @@ export class BookingItemForManager extends Component<Props, State> {
                 <EuroSymbolIcon />
               </Button>
             ) : null}
-            {showRevertBookingButton ? (
+            {showRevertBookingButton &&
+            [
+              BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
+              BOOKING_STATUS_OK.id,
+            ].includes(booking.booking_status_code) ? (
               <IconButton
                 onClick={(e) => {
                   e.stopPropagation();
@@ -484,9 +495,7 @@ export class BookingItemForManager extends Component<Props, State> {
               />
             </div>
           </Grid>
-          {booking.booking_status_code === 0 && (
-            <Grid item>{this.renderButtons()}</Grid>
-          )}
+          <Grid item>{this.renderButtons()}</Grid>
         </Grid>
       </ListItem>,
     );
@@ -504,9 +513,11 @@ const styles = (theme) => ({
     right: '0%',
   },
   disabled: {
-    backgroundColor: '#FFDDDD',
+    // backgroundColor: '#FFDDDD',
+    background: 'linear-gradient(135deg, #FFDDDD, transparent)',
+
     '&:hover': {
-      backgroundColor: '#FFC1C1',
+      background: 'linear-gradient(135deg, #FFC1C1, transparent)',
     },
   },
   cancelled: {

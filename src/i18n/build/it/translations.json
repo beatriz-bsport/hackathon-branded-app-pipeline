@@ -2377,7 +2377,8 @@
             "freeze": {
                 "success": "Abbonamento in pausa",
                 "alreadyPaused": "Impossibile mettere in pausa un abbonamento già in pausa",
-                "error": "Impossibile mettere in pausa questo abbonamento"
+                "error": "Impossibile mettere in pausa questo abbonamento",
+                "locked": "Impossibile mettere in pausa al momento, mettere in attesa un pagamento?"
             },
             "updatePrice": {
                 "error": "Impossibile modificare questo importo",
@@ -2394,6 +2395,11 @@
             "youSubscribed": {
                 "error": "Errore durante l'iscrizione",
                 "success": "Ora sei iscritto"
+            },
+            "stop": {
+                "error": "Impossibile interrompere l'abbonamento per il momento",
+                "warning": "Impossibile interrompere per il momento, trasferire un pagamento?",
+                "success": "L'abbonamento è stato interrotto"
             }
         },
         "webhook": {
@@ -3157,7 +3163,8 @@
             "pending": "In attesa",
             "failed": "Pagamento rifiutato",
             "succeeded": "Incassato",
-            "canceled": "Annullato"
+            "canceled": "Annullato",
+            "processing": "Pagamento in corso di trasferimento"
         },
         "action": {
             "stopExplain": "I pagamenti successivi verranno annullati e le relative fatture verranno eliminate. Se una prenotazione è stata registrata con un abbonamento per il quale la fattura è stata annullata, verrà annullata.",
@@ -3703,7 +3710,8 @@
             "credits": "Credito",
             "expiration": "Validità",
             "all": "Tutte le schede"
-        }
+        },
+        "multipleBookingTooltip": "Prenotazioni multiple"
     },
     "metaActivity": {
         "detail": {
@@ -3976,7 +3984,13 @@
                 "registerOption": "Iscrivimi nella lista di attesa",
                 "isAlreadyOnWaitingList": "Sei già in lista d'attesa",
                 "isAlreadyRegistered": "La sessione è piena, congratulazioni, sei ben registrato!"
-            }
+            },
+            "recurrent": {
+                "backToRegistererChoice": "Indietro",
+                "bookMultiple": "Prenota",
+                "title": "Sessioni future"
+            },
+            "isLoading": "Cerca sessioni..."
         },
         "details": {
             "offerTitle": "Sessione collegata",
@@ -4018,6 +4032,12 @@
             "absent": "Assente",
             "present": "Presente",
             "all": "Tutte le prenotazioni"
+        },
+        "creditConsumed": "{{credit_consumed}} credito",
+        "creditConsumed_plural": "{{credit_consumed}} crediti",
+        "actions": {
+            "unregister": "Annulla l'iscrizione",
+            "bill": "Fattura"
         }
     },
     "smartList": {
@@ -5038,7 +5058,8 @@
             "NL": "Olanda",
             "IT": "Italia",
             "DE": "Germania",
-            "FR": "Francia"
+            "FR": "Francia",
+            "CH": "svizzero"
         },
         "emailValidation": {
             "disconnect": "Cambia account",
@@ -5048,6 +5069,13 @@
             "sendAgain": "Reinvia mail di conferma",
             "success": "La tua email è stata convalidata, verrai reindirizzato in pochi secondi.",
             "explain": "Ti abbiamo inviato un'email di convalida, ci sei quasi!"
+        },
+        "language": {
+            "es": "spagnolo",
+            "nl": "olandese",
+            "it": "italiano",
+            "de": "tedesco",
+            "fr": "francese"
         }
     },
     "waitingList": {
@@ -5510,6 +5538,28 @@
                 }
             }
         },
-        "pageTitle": "Personale"
+        "pageTitle": "Personale",
+        "roleDescription": {
+            "4": {
+                "description": "Admin, stesso accesso del proprietario ma può essere eliminato/creato",
+                "name": "Admin"
+            },
+            "3": {
+                "description": "Account per l'applicazione di check-in automatico (contattare il proprio account manager bsport)",
+                "name": "Checkin tablet"
+            },
+            "2": {
+                "description": "Accesso solamente al check-in.",
+                "name": "Check-in limitato"
+            },
+            "1": {
+                "description": "Accesso alla gestione della sessione (modifica e cancellazione), ai membri e al check-in.",
+                "name": "Check-in esteso"
+            },
+            "0": {
+                "name": "Proprietario",
+                "description": "Accesso amministratore, nessuna restrizione, può creare account staff"
+            }
+        }
     }
 }

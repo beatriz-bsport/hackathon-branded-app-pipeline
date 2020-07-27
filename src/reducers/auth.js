@@ -53,11 +53,13 @@ export default function authReducer(state = initialState, action = {}) {
         is_coach,
         is_consumer,
         role,
+        name,
       } = action;
       setAuthToken(token);
       return state
         .set('username', username)
         .set('token', token)
+        .set('name', name || '')
         .set('is_manager', is_manager)
         .set('is_coach', is_coach)
         .set('is_consumer', is_consumer)

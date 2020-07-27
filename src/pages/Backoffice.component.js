@@ -268,6 +268,7 @@ export class Backoffice extends Component<Props, State> {
               <Intercom
                 appID="q6foivp2"
                 email={this.props.username}
+                {...(this.props.name ? { name: this.props.name } : {})}
                 user_id={this.props.username}
                 environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
                 release={RELEASE}
@@ -308,6 +309,7 @@ export default compose(
       alertings: alertingSelectors.getByKind(state),
       nbAlerting: alertingSelectors.countAlerting(state),
       username: state.auth.username,
+      name: state.auth.name,
       theme: state.theme.theme,
       themeLoading: state.theme.loading,
       checkingEmailValidation: state.login.emailValidation.loading,

@@ -46,12 +46,11 @@ export function fetchAccessLevel(
   return async (dispatch: Dispatch) => {
     try {
       const response = await api.auth.accessLevel(token);
-      const { is_manager, is_consumer, role } = response.data;
+      const { is_manager, is_consumer, role, name } = response.data;
 
       if (!is_manager && is_consumer) {
         dispatch(errorLogin());
       }
-
       dispatch(
         setLogin({
           username,
@@ -59,6 +58,7 @@ export function fetchAccessLevel(
           is_manager,
           is_consumer,
           role,
+          name,
         }),
       );
       if (options && options.next) {
@@ -147,12 +147,14 @@ export function setLogin({
   is_manager,
   is_consumer,
   role,
+  name,
 }: {
   username: string,
   token: string,
   is_manager: boolean,
   is_consumer: boolean,
   role: number,
+  name: string,
 }) {
   try {
     Sentry.configureScope((scope) => {
@@ -164,6 +166,7 @@ export function setLogin({
   return {
     type: types.LOGIN_SUCCESSFUL,
     username,
+    name: name || '',
     token,
     role,
     is_manager,

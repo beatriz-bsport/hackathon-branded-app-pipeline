@@ -9,7 +9,12 @@ import { withState } from 'recompose';
 import CoachListItemBasic from '../../../associated-coach/components/CoachListItemBasic.component';
 import RedButton from '../../../../components/button/RedButton.component';
 
-type Props = {};
+type Props = {
+  customEvent: CustomEvent,
+  onDelete: (OptionCallback) => void,
+  setLoading: (boolean) => void,
+  loading: boolean,
+};
 
 export const CustomEventCard = (props: Props) => {
   const classes = useStyles();
@@ -20,8 +25,14 @@ export const CustomEventCard = (props: Props) => {
       <Typography className={classes.title} variant="h4">
         {customEvent.name}
       </Typography>
-      {customEvent.coaches.map((c) =>
-        c ? <CoachListItemBasic coach={c} key={c.id} /> : <CircularProgress />,
+      {customEvent.coaches.map(
+        // eslint-disable-next-line
+        (c) =>
+          c ? (
+            <CoachListItemBasic coach={c} key={c.id} />
+          ) : (
+            <CircularProgress />
+          ),
       )}
       <Typography className={classes.description}>
         {customEvent.description}

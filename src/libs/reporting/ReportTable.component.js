@@ -7,6 +7,7 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import mean from 'lodash/mean';
+/*
 import flow from 'lodash/flow';
 import countBy from 'lodash/countBy';
 import entries from 'lodash/entries';
@@ -14,6 +15,7 @@ import partialRight from 'lodash/partialRight';
 import maxBy from 'lodash/maxBy';
 import last from 'lodash/last';
 import head from 'lodash/head';
+*/
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Table from '@material-ui/core/Table';
@@ -38,12 +40,14 @@ type Props = {
   classes: { [string]: string },
 };
 
+/*
 const findMostFrequent = flow(
   countBy,
   entries,
   partialRight(maxBy, last),
   head,
 );
+*/
 
 function getConverter(column, classes, t) {
   if (!column || !column.datatype) {
@@ -136,7 +140,20 @@ function getColumn(metadata, report, column) {
   );
 }
 
-const TableSubHeader = ({ classes, columnsConfigs, converters, result, t }) => {
+const TableSubHeader = ({
+  classes,
+  columnsConfigs,
+  converters,
+  result,
+  t,
+}: {
+  classes: Object,
+  columnsConfigs: Array<ColumnConfig>,
+  converters: Array<(Array<any>) => { value: any, cellProps: any }>,
+  result: Array<any>,
+  t: TFunction,
+}) => {
+  /* eslint-disable */
   return (
     <React.Fragment>
       {!!columnsConfigs.filter((c) => c.summable).length && (
@@ -203,6 +220,7 @@ const TableSubHeader = ({ classes, columnsConfigs, converters, result, t }) => {
       )}
     </React.Fragment>
   );
+  /* eslint-enable */
 };
 
 export function ReportTable(props: Props) {

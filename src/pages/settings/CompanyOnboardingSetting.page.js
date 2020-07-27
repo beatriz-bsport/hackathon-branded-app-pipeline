@@ -19,6 +19,7 @@ type Props = {
   setError: (?Error) => void,
   classes: Object,
   t: TFunction,
+  error: ?Error,
 };
 
 export class CompanyOnboardingSettingPage extends React.Component<Props> {

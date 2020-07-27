@@ -86,6 +86,9 @@ type Props = {
   closeContractDialog: () => void,
   setContractToBill: (Contract) => void,
   subscribeMember: (id: number) => void,
+  invoiceInfo: any,
+  resetInvoiceInfo: () => void,
+  goToInvoice: (uuid: string) => void,
 };
 
 const MemberActions = (props: {

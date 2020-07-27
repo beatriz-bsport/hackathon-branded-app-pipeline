@@ -54,7 +54,6 @@ import {
   deleteOffer as deleteOfferAction,
   fetchSimilarOffers as fetchSimilarOffersAction,
   setFilters as setFiltersAction,
-  toogleFilter as toogleFilterAction,
   disableMassOffers,
 } from '../../libs/offer/actions';
 import {
@@ -91,7 +90,6 @@ import { DATE_FORMAT } from '../../datetime';
 import CoachSelector from '../../libs/associated-coach/components/CoachSelector.component';
 import EstablishmentSelector from '../../libs/establishment/components/EstablishmentSelector.component';
 import MetaActivitySelector from '../../libs/meta-activity/components/MetaActivitySelector.component';
-import LevelSelector from '../../libs/category/components/LevelSelector.component';
 
 const styles = (theme) => ({
   container: {
@@ -172,8 +170,8 @@ type Props = {
   },
   companyId: number,
 
-  fetchAllOffers: () => void,
   goToOfferManagement: () => void,
+  fetchRelevantOffers: () => void,
   goBack: () => void,
   replaceRouter: (path: string) => void,
   loadOfferData: (Object) => void,
@@ -187,7 +185,6 @@ type Props = {
 
   offerFilters: OfferFilter,
   setFilters: (OfferFilter) => null,
-  toogleFilter: () => void,
 
   pushToSchedule: () => void,
 
@@ -668,8 +665,6 @@ export class Planning extends PureComponent<Props, State> {
                     events={events_}
                     onDateClick={this.loadDayData}
                     date={this.props.date}
-                    searchBarOpen={this.props.offerFilterOpen}
-                    toogleSearchBar={this.props.toogleFilter}
                     filters={this.props.offerFilters}
                   />
                   <TimeTable
@@ -823,7 +818,6 @@ export default compose(
       deleteOffer: deleteOfferAction,
       fetchSimilarOffers: fetchSimilarOffersAction,
       setFilters: setFiltersAction,
-      toogleFilter: toogleFilterAction,
       fetchFilteredMembers: fetchFilteredMembersAction,
       fetchBookingsByOffer: fetchBookingsByOfferAction,
       fetchEstablishments,

@@ -134,6 +134,12 @@ exports.default = {
       success: 'Établissement modifié avec succès',
     },
   },
+  memberNote: {
+    delete: {
+      success: 'Note supprimée',
+      error: 'Impossible de supprimer la note',
+    },
+  },
   member: {
     link: {
       success: 'Compte lié avec succès',

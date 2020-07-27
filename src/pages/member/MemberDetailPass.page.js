@@ -88,6 +88,7 @@ type Props = {
   goToRelationship: (memberId: number) => void,
 
   fetchPaymentPackBulk: (Array<number>) => void,
+  fetchConsumerPackList: (page: number, pageSize: number) => void,
 
   consumerPackCount: number,
   consumerPackCurrentPage: number,

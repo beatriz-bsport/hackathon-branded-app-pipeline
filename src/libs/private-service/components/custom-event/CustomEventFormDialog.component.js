@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withState } from 'recompose';
+import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -20,7 +19,6 @@ import { Submit } from '../../../../components/forms';
 
 type Props = {
   t: TFunction,
-  classes: Object,
   open: boolean,
   setSelectedResourceIdentifier: string,
   onClose: () => void,
@@ -28,10 +26,11 @@ type Props = {
   selectedResourceIdentifier: string,
   setSelectedResourceIdentifier: (string) => void,
   onSubmit: ({ [resourceDatatype: string]: string }) => void,
+  isSubmitting: boolean,
 };
 
 export const CustomEvenFormDialog = (props: Props) => {
-  const { t, classes } = props;
+  const { t } = props;
   return (
     <Dialog open={props.open}>
       <Form>
@@ -51,8 +50,6 @@ export const CustomEvenFormDialog = (props: Props) => {
     </Dialog>
   );
 };
-
-const styles = () => ({});
 
 export default compose(
   withMobileDialog(),

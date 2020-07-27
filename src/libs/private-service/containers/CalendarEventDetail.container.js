@@ -131,6 +131,9 @@ type Props = {
   updatePrivateBookingDatetime: (date: string, options: OptionCallback) => void,
   updatePrivateBookingCoachHandler: (updatedCoachId: number) => void,
   goToCoachCalendar: () => void,
+
+  customEvent: ?CustomEvent,
+  deleteCustomEvent: (number) => void,
 };
 
 export class CalendarEventDetail extends React.Component<Props> {
@@ -241,12 +244,7 @@ export class CalendarEventDetail extends React.Component<Props> {
         </div>
       );
     }
-    return (
-      <div>
-        {JSON.stringify(customEvent)}
-        {JSON.stringify(this.props.customEventId)}
-      </div>
-    );
+    return null;
   };
 
   updateOffer = async (data) => {
@@ -629,10 +627,12 @@ export default compose(
       fetchAvailabilitySlots,
     }) => (updatedCoachId, options) => {
       updatePrivateBookingCoach(privateBookingId, updatedCoachId, {
+        onError: options && options.onError,
         onSuccess: () => {
           if (fetchAvailabilitySlots) {
             fetchAvailabilitySlots();
           }
+          if (options && options.onSuccess) options.onSuccess();
         },
       });
       setIsUpdateCoachFormOpen(false);

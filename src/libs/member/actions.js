@@ -415,13 +415,14 @@ export function deleteNote({
         response.status === 204
       ) {
         dispatch(actionDeleteNoteSuccess(noteId, memberId));
-        dispatch(snackbarSuccess('member.delete.success'));
+        dispatch(snackbarSuccess('memberNote.delete.success'));
       } else {
-        dispatch(snackbarError('member.delete.error'));
+        dispatch(snackbarError('memberNote.delete.error'));
         dispatch(actionDeleteNoteError());
       }
     } catch (e) {
-      dispatch(snackbarError('member.delete.error'));
+      console.error(e);
+      dispatch(snackbarError('memberNote.delete.error'));
       dispatch(actionDeleteNoteError());
     }
   };

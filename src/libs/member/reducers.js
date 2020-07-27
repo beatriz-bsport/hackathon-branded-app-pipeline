@@ -169,19 +169,19 @@ export default function memberReducers(state = initialState, action = {}) {
         ['detailData', action.note.member, 'notes'],
         [
           action.note,
-          [
-            ...(
-              state.detailData[action.note.member] || { notes: [] }
-            ).notes.filter((n) => n.id !== action.note.id),
-          ],
+          ...(
+            state.detailData[action.note.member] || { notes: [] }
+          ).notes.filter((n) => n.id !== action.note.id),
         ],
       );
     }
     case actionTypes.MEMBER_NOTE_DELETE_SUCCESS: {
       if (state.detailData[action.memberId]) {
         return state.setIn(
-          ['detailData', 'notes'],
-          state.detailData.notes.filter((n) => n.id !== action.noteId),
+          ['detailData', action.memberId, 'notes'],
+          state.detailData[action.memberId].notes.filter(
+            (n) => n.id !== action.noteId,
+          ),
         );
       }
       return state;

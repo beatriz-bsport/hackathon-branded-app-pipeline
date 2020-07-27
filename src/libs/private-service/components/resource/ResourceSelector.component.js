@@ -23,7 +23,20 @@ type Props = {
   resourceAvailable: Array<ResourceGroupType>,
 };
 
-const ResourceSelectorInner = (props) => (
+type PropsSelector = {
+  classes: Object,
+  resourceSelectedListIds: Array<string>,
+  onSelectResource: (string) => void,
+  onUnselectResource: (string) => void,
+  onEditResourceConfiguration: (Resource) => void,
+  resourceAvailable: Array<ResourceGroupType>,
+  collapse: boolean,
+  toogleExand: () => void,
+  expanded: boolean,
+  loading: boolean,
+};
+
+const ResourceSelectorInner = (props: Props) => (
   <div className={props.classes.container}>
     {props.resourceAvailable.map(({ datatype, data }) => (
       <div className={props.classes.row}>
@@ -41,7 +54,7 @@ const ResourceSelectorInner = (props) => (
   </div>
 );
 
-export const ResourceSelector = (props: Props) => {
+export const ResourceSelector = (props: PropsSelector) => {
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
   if (props.collapse) {

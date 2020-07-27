@@ -8,7 +8,12 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import ValidateEmailWithToken from '../../libs/login/components/ValidateEmailWithToken.component';
 import { validateEmail as validateEmailAction } from '../../libs/login/actions';
 
-type Props = {};
+type Props = {
+  uid: string,
+  token: string,
+  validateEmail: (data: any, options: OptionCallback) => void,
+  goToRoot: () => void,
+};
 
 export const ValidateEmailWithTokenPage = (props: Props) => {
   const classes = useStyles();

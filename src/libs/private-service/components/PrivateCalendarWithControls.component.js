@@ -79,6 +79,8 @@ type Props = {
   setResourceFilter: (datatype: string, items: Array<ResourceData>) => void,
   resourceItemsFilter: Array<ResourceData>,
   resourceDatatypeFilter: any,
+  collapsResourceSelector: any,
+  customEventId: ?number,
 };
 
 export const PrivateCalendarMultiResource = (props: Props) => (

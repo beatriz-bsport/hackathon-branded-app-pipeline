@@ -137,6 +137,10 @@ type Props = {
   fetchPaymentRules: () => void,
   fetchAssociatedCoaches: () => void,
   pushRouter: (string) => void,
+
+  checkEmailValidation: () => void,
+  checkingEmailValidation: boolean,
+  name?: string,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {

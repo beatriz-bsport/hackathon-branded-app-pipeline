@@ -12,7 +12,9 @@ import CompanyOnboardingWelcomePage from './CompanyOnboardingWelcome.page';
 import CompanyOnboardingFormPage from './CompanyOnboardingForm.page';
 import EmailValidationPage from './EmailValidation.page';
 
-type Props = {};
+type Props = {
+  activeStep: string,
+};
 
 const WELCOME = 0;
 const FORM = 1;

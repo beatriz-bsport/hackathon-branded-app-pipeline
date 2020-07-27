@@ -5,7 +5,6 @@ import memoize from 'memoize-one';
 import type { State } from '../../../state/types';
 import type { PrivateConsumerPass } from '../types';
 import { getMemberListData } from '../../member/selectors';
-import { getAllMembers } from '../../member/selectors';
 
 const _getPrivateConsumerPassIdList: (State) => Array<number> = (state) =>
   state.privateService.privateConsumerPass.allIds;
@@ -67,4 +66,3 @@ export const getConsumerPrivatePassByPrivatePassWithMember = createSelector(
   (cpps, membersDict) =>
     cpps.map((cpp) => ({ ...cpp, member: membersDict[cpp.member] })),
 );
-const getState = (state) => state.privateService.privateConsumerPass;

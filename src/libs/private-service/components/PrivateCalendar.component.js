@@ -277,7 +277,6 @@ export class PrivateCalendar extends React.Component<Props, State> {
 
   state = {
     selectInfo: null,
-    allDaySlot: false,
 
     disableWithRecurrence: false,
     enableWithRecurrence: false,

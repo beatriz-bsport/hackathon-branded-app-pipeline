@@ -61,7 +61,6 @@ type Props = {
   loading: boolean,
   booking_ordering: string,
   handleRevertBooking: (Booking) => void,
-  offerId: number,
   offerLoading: boolean,
 
   memberHistory: Array<Member>,

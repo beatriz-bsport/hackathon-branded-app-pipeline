@@ -63,7 +63,7 @@ import type {
   PaymentPack,
   ConsumerPaymentPack,
 } from '../../libs/payment-packs/types';
-import { fetchFilteredMembers } from '../../libs/member/actions';
+import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
 import type { OptionCallback } from '../../state/types';
 
 import { snackbarSuccess } from '../../actions/snackbar.actions';
@@ -113,6 +113,7 @@ type Props = {
   snackbarSuccess: (string) => void,
 
   classes: Object,
+  t: TFunction,
 
   // notification
   fetchNotifications: (id: number) => void,
@@ -399,7 +400,7 @@ export default compose(
           options,
           filters,
         ),
-      fetchFilteredMembers,
+      fetchFilteredMembers: fetchFilteredMembersAction,
       fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
       fetchSmartListBulk: fetchSmartListBulkAction,
       fetchNotifications: fetchNotificationsAction,

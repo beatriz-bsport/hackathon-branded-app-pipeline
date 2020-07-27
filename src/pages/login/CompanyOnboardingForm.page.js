@@ -11,7 +11,14 @@ import {
 
 import CompanyOnboardingForm from '../../libs/login/components/CompanySignupForm.component';
 
-type Props = {};
+import type { OptionCallback } from '../../state/types';
+
+type Props = {
+  checkEmailExists: (email: string) => void,
+  checkEmailExistsLoading: boolean,
+  emailExists: boolean,
+  createCompany: (data: any, options: OptionCallback) => void,
+};
 
 export const CompanyOnboardingFormPage = (props: Props) => {
   return (

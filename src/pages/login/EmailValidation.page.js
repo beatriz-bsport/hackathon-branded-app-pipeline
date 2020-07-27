@@ -1,5 +1,7 @@
 // @flow
+
 import React from 'react';
+
 import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 import { push } from 'connected-react-router';
@@ -9,7 +11,13 @@ import { requestValidationEmail as requestValidationEmailAction } from '../../li
 import EmailValidation from '../../libs/login/components/EmailValidation.component';
 import { disconnect as disconnectAction } from '../../actions/auth.actions';
 
-type Props = {};
+import type { OptionCallback } from '../../state/types';
+
+type Props = {
+  requestValidationEmail: (options: OptionCallback) => void,
+  checkEmailValidation: (callback: () => void) => void,
+  disconnect: () => void,
+};
 
 export const EmailValidationPage = (props: Props) => {
   return (

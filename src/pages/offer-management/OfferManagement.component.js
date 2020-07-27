@@ -54,6 +54,8 @@ type Props = {
   fetchPaymentComboList: () => void,
   fetchShopItems: () => void,
 
+  communicationDialogIsOpen: boolean,
+
   switchWaitingListFreeze: (offerId: number, newFreezeState: boolean) => void,
   fetchMember: (id: number) => void,
   registerToWaitingList: (offerId: number, memberId: number) => void,
@@ -79,11 +81,12 @@ type Props = {
     offerId: number,
   ) => void,
   addBooking: (consumerPaymentPackId: number, data: any) => void,
-  discardOption: (id: number) => void,
+  discardOption: (id: number, options: OptionCallback) => void,
   deleteBooking: (bookingId: number) => void,
 
   fetchOffer: (id: number) => void,
   fetchOfferData: (id: number) => void,
+  addMemberModal: boolean,
 
   goToCalendar: (date: any) => void,
   availableBuyableItems: {
@@ -95,11 +98,13 @@ type Props = {
   classes: Object,
   company_theme: Object,
 
-  setMemberToRegister: ({
-    name: string,
-    photo: ?string,
-    id: number,
-  }) => void,
+  setMemberToRegister: (
+    ?{
+      name: string,
+      photo: ?string,
+      id: number,
+    },
+  ) => void,
   memberToRegister: ?{
     name: string,
     photo: ?string,
@@ -109,25 +114,23 @@ type Props = {
   closeRevertBookingDialog: () => void,
   booking_ordering: number,
   onChangeBookingOrdering: (number) => void,
-    searchedText: string,
+  searchedText: string,
 
-    optionToDiscard: number,
-    cancelDiscardOption: () => void,
-    registerOption: (optionId: number, member: number) => void,
+  optionToDiscard: number,
+  confirmOptionToDiscard: ?boolean,
+  cancelDiscardOption: () => void,
+  registerOption: (optionId: number, member: number) => void,
 
-    clearSearch: () => void,
-    closeAddMemberModal: () => void,
-    openAddMemberModal: () => void,
+  clearSearch: () => void,
+  closeAddMemberModal: () => void,
+  openAddMemberModal: () => void,
 
-    openCommunicationDialog: () => void,
-    closeCommunicationDialog: () => void,
+  openCommunicationDialog: () => void,
+  closeCommunicationDialog: () => void,
 };
 
 type State = {
-  quickInvoices: [*], // put here non-saved invoice
-  quickInvoiceEdit: [*], // put here invoice to edit
-  mailClients: boolean,
-  receivers: Object,
+  quickInvoices: Array<QuickInvoice>, // put here non-saved invoice
 };
 
 export class OfferManagement extends Component<Props, State> {
@@ -170,8 +173,11 @@ export class OfferManagement extends Component<Props, State> {
   registerToOffer = (
     memberId: number,
     offerId: number,
-    registererObject: (PaymentPack|ConsumerPaymentPack),
-    { notify_member, keep_credits }: { notify_member: boolean, keep_credits: boolean},
+    registererObject: PaymentPack | ConsumerPaymentPack,
+    {
+      notify_member,
+      keep_credits,
+    }: { notify_member: boolean, keep_credits: boolean },
   ) => {
     if (registererObject.paymentPack) {
       this.props.createQuickUnevenInvoice(
@@ -423,7 +429,7 @@ export class OfferManagement extends Component<Props, State> {
         )}
         <Dialog
           fullScreen={fullScreen}
-          open={!!this.state.addMemberModal}
+          open={!!this.props.addMemberModal}
           onClose={this.props.closeAddMemberModal}
         >
           <DialogContent>

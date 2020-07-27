@@ -81,6 +81,13 @@ type Props = {
   periodFilter: { start: string, end: string },
   fetchCustomEventList: () => void,
   resetCustomEvent: () => void,
+
+  customEventList: Array<CustomEvent>,
+  onRequestCustomEvent: (CustomEventData) => void,
+  customEventData: ?CustomEventData,
+  coach: ?Coach,
+  createOrUpdateCustomEvent: (CustomEventData, OptionCallback) => void,
+  closeCustomEventDialog: () => void,
 };
 
 const styles = (theme) => ({

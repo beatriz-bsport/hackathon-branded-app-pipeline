@@ -10,7 +10,6 @@ import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
-import Checkbox from '@material-ui/core/Checkbox';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withTranslation } from 'react-i18next';

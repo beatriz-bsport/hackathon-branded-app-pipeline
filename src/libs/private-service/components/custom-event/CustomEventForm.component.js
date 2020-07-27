@@ -15,8 +15,6 @@ import CoachSelector from '../../../associated-coach/components/CoachSelector.co
 import { TextField, ColorField } from '../../../../components/forms';
 
 type Props = {
-  t: TFunction,
-  classes: Object,
   coaches: Array<Coach>,
 };
 

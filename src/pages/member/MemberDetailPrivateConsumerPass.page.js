@@ -38,7 +38,6 @@ import { fetchByInvoiceItem as fetchInvoiceByInvoiceItemAction } from '../../lib
 import PrivateConsumerPassFilters from '../../libs/private-service/components/pass/PrivateConsumerPassFilters.component';
 
 type Props = {
-  t: TFunction,
   fetchPrivateConsumerPassList: (filters: any, params: any) => void,
   id: number,
   fetchMember: (id: number) => void,

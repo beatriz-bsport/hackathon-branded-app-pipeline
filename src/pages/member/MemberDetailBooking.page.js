@@ -9,7 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { compose, withState, withHandlers } from 'recompose';
-import { TFunction, withTranslation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 
@@ -27,7 +27,7 @@ import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions
 import { getDetailedOffer } from '../../libs/offer/selectors';
 
 import {
-  retrieveConsumerPackBulk,
+  retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
   updateCredit as updateCreditAction,
 } from '../../libs/consumer-payment-pack/actions';
 
@@ -56,11 +56,11 @@ type Props = {
   retrieveBooking: (number, OptionCallback) => void,
   retrieveConsumerPackBulk: (Array<number>) => void,
   member: Member,
-  t: TFunction,
 
   bookings: Array<Booking>,
   bookingCount: number,
   bookingCurrentPage: number,
+  fetchMemberBookingsList: (page: number, pageSize: number) => void,
 
   goToConsumerPass: (memberId: number, consumerPassId: number) => void,
   bookingsLoading: boolean,
@@ -255,7 +255,7 @@ export default compose(
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
-      retrieveConsumerPackBulk,
+      retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
       retrieveBooking,
       fetchOffer: fetchOfferByIdAction,
 

@@ -20,6 +20,7 @@ type Props = {
   onSubmit: () => void,
   error: ?Error,
   loading: boolean,
+  onClose: () => void,
 };
 
 export const BankAccountForm = (props: Props) => {

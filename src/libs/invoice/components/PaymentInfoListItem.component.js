@@ -1,15 +1,15 @@
 // @flow
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
-type Props = {};
+type Props = {
+  payment: Payment,
+};
 
 export const PaymentInfoListItem = (props: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation(['payment']);
   const { payment } = props;
   return (
@@ -28,9 +28,5 @@ export const PaymentInfoListItem = (props: Props) => {
     </ListItem>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  container: {},
-}));
 
 export default PaymentInfoListItem;

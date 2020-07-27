@@ -23,6 +23,7 @@ type Props = {
   },
   offerId?: number,
   loading: boolean,
+  title?: string,
 };
 
 export function BookingStatisticsCard(props: Props) {

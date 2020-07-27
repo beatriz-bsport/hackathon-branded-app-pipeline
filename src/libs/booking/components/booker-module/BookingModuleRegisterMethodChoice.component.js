@@ -9,7 +9,22 @@ import List from '@material-ui/core/List';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 import ConsumerPackRowItem from '../../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 
-type Props = {};
+import type { ConsumerPaymentPack } from '../../../consumer-payment-pack/types';
+import type { PaymentPack } from '../../../payment-packs/types';
+
+type Props = {
+  consumerPacks: Array<ConsumerPaymentPack>,
+  consumerPacksNonCompatible: Array<ConsumerPaymentPack>,
+  compatiblePacks: Array<PaymentPack>,
+  registerToOffer: ({
+    consumerPaymentPack?: ConsumerPaymentPack,
+    paymentPack?: PaymentPack,
+  }) => void,
+  onBookMultiple: ({
+    consumerPaymentPack?: ConsumerPaymentPack,
+    paymentPack?: PaymentPack,
+  }) => void,
+};
 
 export const BookingModuleRegisterMethodChoice = (props: Props) => {
   const classes = useStyles();

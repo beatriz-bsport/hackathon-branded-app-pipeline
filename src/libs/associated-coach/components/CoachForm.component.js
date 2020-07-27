@@ -34,6 +34,7 @@ type Props = {
   classes: Object,
   t: TFunction,
   onCancel: () => void,
+  initial?: any,
 };
 
 export function CoachForm(props: Props) {

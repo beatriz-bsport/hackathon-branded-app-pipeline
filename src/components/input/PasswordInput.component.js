@@ -18,6 +18,9 @@ type Props = {
   toogleVisible: (boolean) => void,
   onChange: (SyntheticEvent<HTMLElement>) => void,
   t: TFunction,
+  error: ?Error,
+  label?: string,
+  helperText: string,
 };
 
 export const PasswordInput = (props: Props) => (

@@ -28,7 +28,7 @@ export async function fetchByQuery(params: *) {
   return getAuth(`${API_V1_URI}/payment/invoices/${urlParams}`);
 }
 
-export async function fetchSpecific(invoiceId: number) {
+export async function fetchSpecific(invoiceId: string) {
   return getAuth(`${API_V1_URI}/payment/invoices/${invoiceId}/`);
 }
 

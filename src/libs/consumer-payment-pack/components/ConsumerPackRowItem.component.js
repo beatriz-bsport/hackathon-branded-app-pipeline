@@ -48,6 +48,9 @@ type Props = {
 
   t: TFunction,
   isNonCompatible?: boolean,
+  classes: Object,
+  onBookOne: (id: number) => void,
+  onBookMultiple: (id: number) => void,
 };
 
 export class ConsumerPackRowItem extends Component<Props> {

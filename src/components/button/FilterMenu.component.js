@@ -22,6 +22,7 @@ type Props = {
 
   anchorEl: any,
   setAnchorEl: any,
+  emptyLabel?: string,
 };
 
 const ITEM_HEIGHT = 48;

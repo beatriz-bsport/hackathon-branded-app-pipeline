@@ -297,7 +297,7 @@ export const registerActions = {
 export function registerBooking(
   consumer_payment_pack: number,
   data: {
-    offer: number|Array<number>,
+    offer: number | Array<number>,
     keep_credits: boolean,
     notify_member: boolean,
   },

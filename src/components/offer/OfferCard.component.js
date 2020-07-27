@@ -21,8 +21,6 @@ import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { Link } from 'react-router-dom';
 import type { TFunction } from 'react-i18next';
-// import BackOfficeLinearProgress from '../navigation/BackofficeLinearProgress.component';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
 
 import { Level } from '../category';
@@ -47,6 +45,7 @@ type Props = {
   membersLoading: boolean,
   bookings: Array<Booking>,
   bookingsLoading: boolean,
+  goToOfferManagement: (id: number) => void,
 };
 
 export class OfferCard extends Component<Props> {

@@ -15,7 +15,6 @@ type Props = {
   quickInvoices: Array<Invoice>,
   createInvoice: (InvoiceData) => void,
   closeQuickInvoice: (memberId: number) => void,
-  saveQuickInvoice: (InvoiceData) => void,
   revertQuickInvoice: (uuid: string) => void,
   availableBuyableItems: { [buyable_item_identifier: number]: BuyableItem },
 
@@ -30,7 +29,6 @@ export function QuickInvoicePanel(props: Props) {
     quickInvoices,
     createInvoice,
     closeQuickInvoice,
-    saveQuickInvoice,
     className,
   } = props;
   return (
@@ -51,7 +49,6 @@ export function QuickInvoicePanel(props: Props) {
                 key={inv.uuid}
                 quickInvoice={inv}
                 uneditableInvoiceItems={inv.invoice_items}
-                onSubmit={() => {}}
                 editMode
                 availableBuyableItems={props.availableBuyableItems}
                 createInvoice={() => {}}
@@ -71,7 +68,6 @@ export function QuickInvoicePanel(props: Props) {
               quickInvoice={qi}
               availableBuyableItems={props.availableBuyableItems}
               onClose={() => closeQuickInvoice(qi.memberId, qi)}
-              onSubmit={saveQuickInvoice}
               createInvoice={(invoiceData) =>
                 createInvoice(invoiceData, qi.memberId)
               }

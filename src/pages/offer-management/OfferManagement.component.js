@@ -109,7 +109,18 @@ type Props = {
   closeRevertBookingDialog: () => void,
   booking_ordering: number,
   onChangeBookingOrdering: (number) => void,
-  searchedText: string,
+    searchedText: string,
+
+    optionToDiscard: number,
+    cancelDiscardOption: () => void,
+    registerOption: (optionId: number, member: number) => void,
+
+    clearSearch: () => void,
+    closeAddMemberModal: () => void,
+    openAddMemberModal: () => void,
+
+    openCommunicationDialog: () => void,
+    closeCommunicationDialog: () => void,
 };
 
 type State = {
@@ -157,10 +168,10 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   registerToOffer = (
-    memberId,
-    offerId,
-    registererObject,
-    { notify_member, keep_credits },
+    memberId: number,
+    offerId: number,
+    registererObject: (PaymentPack|ConsumerPaymentPack),
+    { notify_member, keep_credits }: { notify_member: boolean, keep_credits: boolean},
   ) => {
     if (registererObject.paymentPack) {
       this.props.createQuickUnevenInvoice(
@@ -192,12 +203,12 @@ export class OfferManagement extends Component<Props, State> {
     this.props.setMemberToRegister(null);
   };
 
-  createInvoice = (invoiceData, memberId) => {
+  createInvoice = (invoiceData: any, memberId: number) => {
     this.props.createInvoice(invoiceData, memberId, null, this.props.offerId);
     this.closeQuickInvoice(memberId, invoiceData);
   };
 
-  createMember = (data: *, options) => {
+  createMember = (data: *, options: OptionCallback) => {
     if (
       !(
         data.address_line_1 ||
@@ -250,7 +261,7 @@ export class OfferManagement extends Component<Props, State> {
     this.props.closeAddMemberModal();
   };
 
-  handleBookingDeletion = (options) => {
+  handleBookingDeletion = (options: OptionCallback) => {
     this.props.deleteBooking(
       this.props.bookingToRevert.id,
       this.props.booking_ordering,
@@ -294,7 +305,7 @@ export class OfferManagement extends Component<Props, State> {
         };
 
     if (!isOpened) {
-      this.setState((prevState) => ({
+      this.setState((prevState: State) => ({
         quickInvoices: [...prevState.quickInvoices, quickInvoiceToAdd],
       }));
     }
@@ -394,7 +405,6 @@ export class OfferManagement extends Component<Props, State> {
             quickInvoices={this.state.quickInvoices}
             createInvoice={this.createInvoice}
             closeQuickInvoice={this.closeQuickInvoice}
-            saveQuickInvoice={this.saveQuickInvoice}
             availableBuyableItems={this.props.availableBuyableItems}
             className={classes.autoScroll}
           />

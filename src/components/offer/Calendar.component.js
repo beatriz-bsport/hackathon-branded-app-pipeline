@@ -42,6 +42,7 @@ type Props = {
   hideSwitchViewButton: ?boolean,
   filters: any,
   showDownloader?: boolean,
+  onRequestMassDisable: (date: string) => void,
 };
 
 type State = {

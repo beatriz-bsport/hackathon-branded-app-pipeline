@@ -9,15 +9,27 @@ import Typography from '@material-ui/core/Typography';
 import CheckIcon from '@material-ui/icons/Check';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
+import type { OptionCallback } from '../../../state/types';
 
 import RedButton from '../../../components/button/RedButton.component';
 
 type Props = {
   t: TFunction,
-  email: string,
+  checkEmailValidation: (callback: () => void) => void,
+  setValidated: (boolean) => void,
+  validated: boolean,
+  hasSentAgain: boolean,
+  setHasSentAgain: (boolean) => void,
+  setSending: (boolean) => void,
+  isSending: boolean,
+  requestValidationEmail: (OptionCallback) => void,
+  classes: Object,
+  disconnect: () => void,
 };
 
 export class ValidateEmail extends React.Component<Props> {
+  interval: ?Interval;
+
   componentDidMount() {
     if (this.props.checkEmailValidation) {
       this.interval = setInterval(() => {

@@ -39,9 +39,15 @@ type Props = {
   setKeepCredits: () => void,
   onCancel: () => void,
   fetchConsumerPackByOfferByMember: (offerId: number, memberId: number) => void,
-  subscribeToPackAndOffer: (paymentPackId: number) => void,
-  subscribeToOffer: (id: number) => void,
   member: ({ name: string, id: number, photo: ?string }) => void,
+
+  similarOffers: Array<Offer>,
+  similarOfferLoading: boolean,
+  fetchSimilarOffers: () => void,
+  registererObject: {
+    paymentPack?: PaymentPack,
+    consumerPaymentPack?: ConsumerPaymentPack,
+  },
 
   fetchPaymentPackBulk: (Array<number>) => void,
   fetchNoncompatibleConsumerPackByOfferByMember: (
@@ -55,9 +61,24 @@ type Props = {
     options: OptionCallback,
   ) => void,
 
+  step: number,
+  setRegistererObject: ({
+    consumerPaymentPack?: ConsumerPaymentPack,
+    paymentPack?: PaymentPack,
+  }) => void,
+  registerToOffer: (
+    offerId: number,
+    registererObject: {
+      consumerPaymentPack?: ConsumerPaymentPack,
+      paymentPack?: PaymentPack,
+    },
+  ) => void,
+
+  backToRegistererChoice: () => void,
   t: TFunction,
   fullScreen: boolean,
   onClose: () => void,
+  classes: Object,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -101,8 +122,7 @@ export class BookingModuleManager extends PureComponent<Props> {
           </DialogContent>
         </Dialog>
       );
-	  }
-	  console.log(this.props.similarOffers)
+    }
     return (
       <Dialog
         fullScreen={this.props.fullScreen}

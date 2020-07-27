@@ -18,7 +18,6 @@ import EventIcon from '@material-ui/icons/Event';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Button from '@material-ui/core/Button';
-import type { TFunction } from 'react-i18next';
 import Tooltip from '../../../components/Tooltip.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 
@@ -33,9 +32,14 @@ type Props = {
   onClick: () => void,
   onEdit?: () => void,
   onDelete?: () => void,
-  t: TFunction,
   hidePacksNumber: boolean,
   selected: boolean,
+  showDuration?: boolean,
+  onBook?: () => void,
+  onBookOne?: () => void,
+  onBookMultiple?: () => void,
+  goToPack?: () => void,
+  onRestore?: () => void,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -187,7 +191,7 @@ export const PaymentPackListItem = (props: Props) => {
           </IconButton>
         </ListItemSecondaryAction>
       ) : null}
-      {props.disabled ? (
+      {props.disabled && props.onRestore ? (
         <ListItemSecondaryAction>
           <IconButton color="secondary" onClick={props.onRestore}>
             <RestoreFromTrashIcon />

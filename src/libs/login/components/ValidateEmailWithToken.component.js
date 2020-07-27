@@ -10,8 +10,20 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import type { OptionCallback } from '../../../state/types';
+
 type Props = {
   t: TFunction,
+  error: boolean,
+  setError: (boolean) => void,
+  validateEmail: (
+    { uid: string, token: string },
+    options: OptionCallback,
+  ) => void,
+  classes: Object,
+  goToLogin: () => void,
+  uid: string,
+  token: string,
 };
 
 export class ValidateEmailWithToken extends React.Component<Props> {
@@ -19,7 +31,7 @@ export class ValidateEmailWithToken extends React.Component<Props> {
     this.props.validateEmail(
       { uid: this.props.uid, token: this.props.token },
       {
-        onError: (err) => {
+        onError: () => {
           this.props.setError(true);
         },
       },

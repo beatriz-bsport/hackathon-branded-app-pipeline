@@ -13,12 +13,36 @@ import Button from '@material-ui/core/Button';
 import OfferListItemV2 from '../../../offer/components/OfferListItemV2.component';
 
 import { getPaymentPackTimeLimitation } from '../../../payment-packs/utils';
+import type { ConsumerPaymentPack } from '../../../consumer-payment-pack/types';
+import type { PaymentPack } from '../../../payment-packs/types';
 
 type Props = {
   t: TFunction,
+  offerId: number,
+  offer: Offer,
+
+  registererObject: {
+    consumerPaymentPack?: ConsumerPaymentPack,
+    paymentPack?: PaymentPack,
+  },
+
+  offersSelected: Array<number>,
+  similarOffers: Array<Offer>,
+  similarOfferLoading: boolean,
+  classes: Object,
+  toogleChecked: (number) => void,
+  registerToOffer: (offerIds: Array<number>) => void,
+  fetchSimilarOffers: (id: number) => void,
+  goBack: () => void,
 };
 
-const getLimitation = ({ paymentPack, consumerPaymentPack }, baseDate) => {
+const getLimitation = (
+  {
+    paymentPack,
+    consumerPaymentPack,
+  }: { paymentPack?: PaymentPack, consumerPaymentPack?: ConsumerPaymentPack },
+  baseDate: string,
+) => {
   if (consumerPaymentPack) {
     return {
       start: consumerPaymentPack.starting_date,
@@ -31,6 +55,7 @@ const getLimitation = ({ paymentPack, consumerPaymentPack }, baseDate) => {
     if (paymentPack.unlimited) {
       credits = 1000;
     } else {
+      // eslint-disable-next-line
       credits = paymentPack.credits;
     }
     const { start, end } = getPaymentPackTimeLimitation(paymentPack, baseDate);

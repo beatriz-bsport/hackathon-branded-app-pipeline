@@ -1,6 +1,5 @@
 // @flow
 
-import { push as pushRouter } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 import {
   revert as revertAPI,
@@ -20,9 +19,8 @@ import {
   checkInvoiceInfo as checkInvoiceInfoAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
-import { fetchMember } from '../member/actions';
 
-import type { Dispatch } from '../../state/types';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 import { fetchAll as fetchAlerting } from '../alerting/actions';
 
@@ -220,7 +218,7 @@ export function fetchByQueryInvoice(params: *, options: OptionCallback) {
 
 export function fetchSpecificInvoice(
   invoiceId: string,
-  options: OptionCallback,
+  options: ?OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveInvoiceActions.isLoading(true));
@@ -356,7 +354,7 @@ export function fetchPaymentList(params: * = {}, options: OptionCallback) {
       console.error(e);
       dispatch(listPaymentActions.error(e));
       if (options && options.onError) {
-        options.onSuccess(e);
+        options.onError(e);
       }
       dispatch(listPaymentActions.isLoading(false));
     }
@@ -384,7 +382,7 @@ export function fetchInvoiceItemList(params: * = {}, options: OptionCallback) {
       console.error(e);
       dispatch(listInvoiceItemActions.error(e));
       if (options && options.onError) {
-        options.onSuccess(e);
+        options.onError(e);
       }
       dispatch(listInvoiceItemActions.isLoading(false));
     }

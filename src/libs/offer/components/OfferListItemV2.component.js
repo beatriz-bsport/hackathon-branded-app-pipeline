@@ -5,7 +5,6 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
-import type { TFunction } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { pure } from 'recompose';
@@ -19,6 +18,8 @@ type Props = {
   offer: Object,
   onClick: (offerId: number) => void,
   editing_parameters?: any,
+  disabled?: boolean,
+  selected?: boolean,
 };
 
 export const OfferListItem = (props: Props) => {

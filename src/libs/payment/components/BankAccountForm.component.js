@@ -11,7 +11,18 @@ import { injectStripe, Elements, StripeProvider } from 'react-stripe-elements';
 
 import Config from '../../../config';
 
-type Props = {};
+type Props = {
+  company: Company,
+  setAccountHolderName: (string) => void,
+  account_holder_name: string,
+  account_number: string,
+  setAccountNumber: (string) => void,
+  onSubmit: () => void,
+  error: ?Error,
+  setError: (boolean) => void,
+  loading: boolean,
+  setLoading: (boolean) => void,
+};
 
 export const BankAccountForm = (props: Props) => {
   const classes = useStyles();

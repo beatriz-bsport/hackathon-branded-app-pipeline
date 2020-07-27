@@ -240,6 +240,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
   } = props;
 
   const selectStyles = {
+    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
     input: (base) => ({
       ...base,
       flex: 1,
@@ -285,7 +286,6 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
         filterOption={props.filterOption}
         isClearable={props.isClearable}
         menuPortalTarget={document.querySelector('body')}
-        styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
       />
     </div>
   );

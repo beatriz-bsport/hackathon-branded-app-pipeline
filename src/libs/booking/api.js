@@ -1,11 +1,5 @@
 // @flow
-import {
-  buildUrlParams,
-  API_V1_URI,
-  API_URI,
-  getAuth,
-  postAuth,
-} from '../../http';
+import { buildUrlParams, API_V1_URI, getAuth, postAuth } from '../../http';
 
 export const fetchFilteredBookingOptions = async (params: any) => {
   return getAuth(

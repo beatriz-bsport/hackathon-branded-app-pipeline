@@ -33,8 +33,7 @@ type Props = {
 
 type State = {
   page: number,
-}; 
-
+};
 
 export class PaginatedList extends PureComponent<Props, State> {
   static defaultProps = {
@@ -43,10 +42,7 @@ export class PaginatedList extends PureComponent<Props, State> {
   };
 
   handlePageRequested = (page: number) => {
-    this.props.onPageRequested(
-      page,
-      this.props.itemPerPage,
-    );
+    this.props.onPageRequested(page, this.props.itemPerPage);
   };
 
   componentDidMount() {

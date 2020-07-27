@@ -17,7 +17,32 @@ import DelayedTextField from '../../../components/DelayedTextField.component';
 
 import Config from '../../../config';
 
-type Props = {};
+type Props = {
+  hasBeenSubmitted: boolean,
+  onNext: () => void,
+  onPrevious: () => void,
+  onSubmit: (string, OptionCallback) => void,
+
+  name: string,
+  setName: (SyntheticEvent<HTMLElement>) => void,
+
+  email: string,
+  setEmail: (SyntheticEvent<HTMLElement>) => void,
+  emailExists: boolean,
+  checkEmailExistsLoading: boolean,
+
+  password1: string,
+  password2: string,
+  setPassword1: (SyntheticEvent<HTMLElement>) => void,
+  setPassword2: (SyntheticEvent<HTMLElement>) => void,
+  passwordMismatch: boolean,
+
+  locale: string,
+  setLocale: (SyntheticEvent<HTMLElement>) => void,
+
+  validateCaptcha: (boolean) => void,
+  validatedCaptcha: boolean,
+};
 
 export const CompanySignupForm = (props: Props) => {
   const classes = useStyles();

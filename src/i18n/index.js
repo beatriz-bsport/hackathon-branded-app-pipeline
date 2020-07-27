@@ -95,7 +95,7 @@ i18n.on('languageChanged', (lng) => {
 });
 i18n.loadNamespaces(namespaces);
 
-Moment.locale(i18n.lng);
+Moment.locale(i18n.language);
 
 export default i18n;
 export { Moment, availableLanguages };

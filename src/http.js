@@ -7,6 +7,8 @@ import Config from './config';
 import { setSessionId } from './sentry/session';
 import { setTransactionId } from './sentry/transaction';
 
+import i18n from './i18n';
+
 const storage = window.localStorage;
 
 export const BASE_URI: string = Config.REACT_APP_BASE_URI;
@@ -127,6 +129,7 @@ export async function getAuth(uri: string, token) {
     return get(uri);
   }
   return get(uri, {
+    'Accept-Language': i18n.language || 'en',
     'X-Transaction-ID': setTransactionId(),
     'X-Session-ID': setSessionId(),
     Authorization: `Token ${token_}`,

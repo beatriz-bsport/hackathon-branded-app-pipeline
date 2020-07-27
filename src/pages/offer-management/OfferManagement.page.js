@@ -206,6 +206,7 @@ export default compose(
     addBooking: ({ refresh, registerBooking }) => (
       consumerPaymentPackId,
       data,
+      ordering_field,
     ) => {
       registerBooking(consumerPaymentPackId, data, {
         onSuccess: () => refresh(ordering_field),

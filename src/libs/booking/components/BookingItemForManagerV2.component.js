@@ -144,7 +144,7 @@ export class BookingItemForManager extends Component<Props, State> {
       return [[t('loading'), 'secondary']];
     }
     const [packDates, soonExpired] = getPackDate(consumer_payment_pack);
-// const { credit_consumed } = booking;
+    // const { credit_consumed } = booking;
     if (payment_pack.unlimited) {
       return [
         [`${payment_pack.name}`, 'secondary'],
@@ -426,7 +426,7 @@ export class BookingItemForManager extends Component<Props, State> {
     const bookingStatus = this.getStatusText();
 
     let classes = '';
-    if (booking.attendance || !this.props.confirmBookingAttendance) {
+    if (!booking.attendance && this.props.confirmBookingAttendance) {
       classes = this.props.classes.disabled;
     }
     if (booking.booking_status_code !== 0) {

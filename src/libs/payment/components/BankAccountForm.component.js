@@ -19,9 +19,7 @@ type Props = {
   setAccountNumber: (string) => void,
   onSubmit: () => void,
   error: ?Error,
-  setError: (boolean) => void,
   loading: boolean,
-  setLoading: (boolean) => void,
 };
 
 export const BankAccountForm = (props: Props) => {

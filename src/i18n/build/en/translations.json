@@ -3145,7 +3145,29 @@
         },
         "explainStaffDoNot": "A staff access can NOT be used on the app (teacher and students only)",
         "explainStaffDo": "A staff access allows to connect to https://backoffice.bsport.io via computer or mobile",
-        "pageTitle": "Staff"
+        "pageTitle": "Staff",
+        "roleDescription": {
+            "2": {
+                "description": "Access only to check-in screen.",
+                "name": "Check-in only"
+            },
+            "1": {
+                "description": "Access to session management (edit and cancel), members, and check-in.",
+                "name": "Wide access check-in"
+            },
+            "4": {
+                "description": "Admin, same access as Owner but can be deleted/added",
+                "name": "Admin"
+            },
+            "3": {
+                "description": "Account for the table check-in app (contact your bsport account manager)",
+                "name": "Check-in tablet"
+            },
+            "0": {
+                "name": "Owner",
+                "description": "Admin access, no restriction, can create staff accounts"
+            }
+        }
     },
     "theme": {
         "forms": {
@@ -3404,7 +3426,8 @@
             "NL": "Netherlands",
             "IT": "Italy",
             "DE": "Germany",
-            "FR": "France"
+            "FR": "France",
+            "CH": "Switzerland"
         },
         "signupCompany": {
             "form": {
@@ -3446,6 +3469,13 @@
             "sendAgain": "Send a confirmation email again",
             "success": "Your email has been validated, you will be redirected within a few seconds.",
             "explain": "We sent you a validation email, you're almost there!"
+        },
+        "language": {
+            "es": "Spanish",
+            "nl": "Deutch",
+            "it": "Italian",
+            "de": "German",
+            "fr": "French"
         }
     },
     "waitingList": {
@@ -4350,7 +4380,8 @@
             "pending": "Pending",
             "canceled": "Discarded",
             "failed": "Payment refused",
-            "succeeded": "Billed"
+            "succeeded": "Billed",
+            "processing": "Payment processing"
         },
         "subscriptionStatus": {
             "pending": "Billing pending",
@@ -4977,7 +5008,8 @@
             "credits": "Credit",
             "expiration": "Validity",
             "all": "All passes"
-        }
+        },
+        "multipleBookingTooltip": "Multiple booking"
     },
     "metaActivity": {
         "metaActivity": "Activity",
@@ -5307,7 +5339,13 @@
             "messages": {
                 "offerLocked": "You can't book this session"
             },
-            "hasRegistered": "You are registered for this session"
+            "hasRegistered": "You are registered for this session",
+            "recurrent": {
+                "backToRegistererChoice": "Back",
+                "bookMultiple": "Book",
+                "title": "Future sessions"
+            },
+            "isLoading": "Looking for sessions..."
         },
         "details": {
             "pleaseSelectABooking": "Select a booking to see its details",
@@ -5354,6 +5392,12 @@
             "absent": "Absent",
             "present": "Checked in",
             "all": "All reservations"
+        },
+        "creditConsumed": "{{ credit_consumed }} credit",
+        "creditConsumed_plural": "{{credit_consumed}} credits",
+        "actions": {
+            "unregister": "Unregister",
+            "bill": "Bill"
         }
     },
     "marketplace": {
@@ -6059,7 +6103,8 @@
             "freeze": {
                 "error": "Impossible to pause this subscription",
                 "alreadyPaused": "Impossible to pause a subscription already paused",
-                "success": "Subscription freezed"
+                "success": "Subscription freezed",
+                "locked": "Impossible to pause for now, is a payment processing ?"
             },
             "switchPack": {
                 "error": "Can't change the pass",
@@ -6068,6 +6113,11 @@
             "switchPaymentMethod": {
                 "error": "Impossible to change payment method",
                 "success": "Payement method updated"
+            },
+            "stop": {
+                "error": "Impossible to stop for now",
+                "warning": "Impossible to stop for now, is a payment processing ?",
+                "success": "Subscription cancelled"
             }
         },
         "smartlist": {

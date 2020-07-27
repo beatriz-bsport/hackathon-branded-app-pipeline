@@ -1212,7 +1212,22 @@
         "languageToolTip": "Beschikbaar op marketplace web",
         "visibilityOfIconToolTip": "Niet zichtbaar",
         "onlyNewMember": "Blokkeer reservering voor cursuskaarten voor nieuwe klanten",
-        "replaceCoach": "Wijzig de instructeur"
+        "replaceCoach": "Wijzig de instructeur",
+        "bookingStatistics": {
+            "weekOf": "Week van {{date}}",
+            "keys": {
+                "cancelled": "Geannuleerde reserveringen",
+                "created": "Reserveringen gehandhaafd"
+            },
+            "maintenedBookings": "{{nb}} gehandhaafde reservering",
+            "maintenedBookings_plural": "{{nb}} gehandhaafde reserveringen",
+            "cancelledBookings": "{{nb}} geannuleerde reservering",
+            "cancelledBookings_plural": "{{nb}} geannuleerde reserveringen",
+            "totalBookings": "{{nb}} reservering in totaal",
+            "totalBookings_plural": "{{nb}} reserveringen in totaal",
+            "offerFilteredBookingRecap": "Uw reserveringen",
+            "weekOverview": "Overzicht van uw week"
+        }
     },
     "communication": {
         "mail": {
@@ -1397,7 +1412,8 @@
             "NL": "Nederland",
             "IT": "Italië",
             "DE": "Duitsland",
-            "FR": "Frankrijk"
+            "FR": "Frankrijk",
+            "CH": "Zwitserland"
         },
         "signupCompany": {
             "form": {
@@ -1439,6 +1455,13 @@
             "sendAgain": "Stuur opnieuw een bevestigingsmail",
             "success": "Uw e-mail is gevalideerd, u wordt binnen enkele seconden doorverwijst.",
             "explain": "We hebben je een bevestigingsmail gestuurd, je bent er bijna!"
+        },
+        "language": {
+            "es": "Spaans",
+            "nl": "Nederlands",
+            "it": "Italiaans",
+            "de": "Duits",
+            "fr": "Frans"
         }
     },
     "reporting": {
@@ -1957,7 +1980,8 @@
             "credits": "Krediet",
             "expiration": "Geldigheid",
             "all": "Alle kaarten"
-        }
+        },
+        "multipleBookingTooltip": "Meerdere reserveringen"
     },
     "establishment": {
         "capacity": {
@@ -2586,7 +2610,9 @@
                 "submit": "Bevestigen"
             },
             "title": "Groepsannulering"
-        }
+        },
+        "bookingListEmpty": "Geen reservering",
+        "bookingList": "Reserveringen"
     },
     "emailTemplate": {
         "editTitle": "model bewerken",
@@ -2780,7 +2806,13 @@
             "messages": {
                 "offerLocked": "Je kan deze sessie niet boeken"
             },
-            "hasRegistered": "Je bent ingeschreven voor deze sessie"
+            "hasRegistered": "Je bent ingeschreven voor deze sessie",
+            "recurrent": {
+                "backToRegistererChoice": "Terug",
+                "bookMultiple": "Reserveren",
+                "title": "Toekomstige sessies"
+            },
+            "isLoading": "Zoeken naar sessies..."
         },
         "details": {
             "pleaseSelectABooking": "Selecteer een reservering om de details te zien",
@@ -2827,6 +2859,12 @@
             "absent": "Afwezig",
             "present": "Aanwezig",
             "all": "Alle reserveringen"
+        },
+        "creditConsumed": "{{credit_consumed}} credit",
+        "creditConsumed_plural": "{{credit_consumed}} credits",
+        "actions": {
+            "unregister": "Uitschrijven",
+            "bill": "In rekening brengen"
         }
     },
     "marketplace": {
@@ -3232,7 +3270,8 @@
             "pending": "In afwachting",
             "canceled": "Geannuleerd",
             "failed": "Geweigerde betaling",
-            "succeeded": "Verzilverd"
+            "succeeded": "Verzilverd",
+            "processing": "Betaling wachtend op overschrijving"
         },
         "form": {
             "check": "Controleren",
@@ -4444,7 +4483,8 @@
             "freeze": {
                 "success": "Onderbroken abonnement",
                 "alreadyPaused": "Kan een reeds onderbroken abonnement niet onderbreken",
-                "error": "Kan dit abonnement niet onderbreken"
+                "error": "Kan dit abonnement niet onderbreken",
+                "locked": "Kan momenteel niet worden gepauzeerd, is er een betaling in behandeling?"
             },
             "updatePrice": {
                 "success": "Bedrag bijgewerkt",
@@ -4453,6 +4493,11 @@
             "youSubscribed": {
                 "success": "Je bent nu geabonneerd",
                 "error": "Fout tijdens inschrijving"
+            },
+            "stop": {
+                "error": "Het abonnement kan momenteel niet worden stopgezet",
+                "warning": "Kan momenteel niet worden stopgezet, betaling in overmaak?",
+                "success": "Het abonnement is stopgezet"
             }
         },
         "invoice": {
@@ -5004,7 +5049,8 @@
         },
         "filterByDateTitle": "Filter op datum",
         "detailsGraphTitle": "In detail",
-        "current_week": "Vorige week"
+        "current_week": "Vorige week",
+        "current_day": "Afgelopen 24 uur"
     },
     "common": {
         "colorPicker": {
@@ -5418,7 +5464,29 @@
             }
         },
         "userRoles": "Personeelsaccounts",
-        "pageTitle": "Staff"
+        "pageTitle": "Staff",
+        "roleDescription": {
+            "4": {
+                "description": "Admin, dezelfde toegang als eigenaar, maar kan worden verwijderd / gemaakt",
+                "name": "Admin"
+            },
+            "3": {
+                "description": "Account voor automatisch inchecken (neem contact op met uw bsport-accountmanager)",
+                "name": "Tablet inchecken"
+            },
+            "2": {
+                "description": "Alleen toegang voor inchecken.",
+                "name": "Beperkt inchecken"
+            },
+            "1": {
+                "description": "Toegang tot sessie beheer (wijziging en annulering), leden en inchecken.",
+                "name": "Checkin uitgebreid"
+            },
+            "0": {
+                "name": "Eigenaar",
+                "description": "Admin toegang, zonder beperking, kan personeelsaccounts maken"
+            }
+        }
     },
     "navigation": {
         "backofficeMenu": {

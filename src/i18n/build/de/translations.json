@@ -227,7 +227,8 @@
             "succeeded": "Eingelöst",
             "failed": "Zahlung abgelehnt",
             "canceled": "Storniert",
-            "pending": "In Bearbeitung"
+            "pending": "In Bearbeitung",
+            "processing": "Zahlung wird überwiesen"
         },
         "plannedInvoice": {
             "list": {
@@ -1800,7 +1801,29 @@
         "explainStaffDo": "Ein Staffzugang ermöglicht eine Verbindung per Handy oder Computer mit dem folgenden Link : https://backoffice.bsport.io",
         "permissions": "Verfügbare Rollen",
         "userRoles": "Staff Kontos",
-        "pageTitle": "Staff"
+        "pageTitle": "Staff",
+        "roleDescription": {
+            "4": {
+                "description": "Administrator, gleicher Zugagng wie der Leiter, kann aber gelöscht/erstellt werden",
+                "name": "Administrator"
+            },
+            "3": {
+                "description": "Konto für das automatische Check-In (wenden Sie sich an Ihren bsport Account Manager)",
+                "name": "Tablett-Check-In"
+            },
+            "2": {
+                "description": "Zugang nur zum Check-In.",
+                "name": "Eingeschränktes Check-In"
+            },
+            "1": {
+                "description": "Kann Kurse (Änderung und Stornierungen) und Mitglieder verwalten, hat Zugang zum Check-In.",
+                "name": "Erweitertes Check-In"
+            },
+            "0": {
+                "name": "Leiter",
+                "description": "Zugang des Administrators, keine Einschränkung, kann Staff-Konten erstellen"
+            }
+        }
     },
     "paymentPack": {
         "scaleCredit": {
@@ -2103,7 +2126,8 @@
             "credits": "Kredit",
             "expiration": "Gültigkeit",
             "all": "Alle Karten"
-        }
+        },
+        "multipleBookingTooltip": "Mehrfach-Buchungen"
     },
     "alerting": {
         "task": {
@@ -2602,11 +2626,17 @@
             "freeze": {
                 "error": "Es ist unmöglich, dieses Abonnement zu pausieren",
                 "success": "Abonnement pausiert",
-                "alreadyPaused": "Es ist unmöglich, ein Abonnement zu pausieren, das schon pausiert ist"
+                "alreadyPaused": "Es ist unmöglich, ein Abonnement zu pausieren, das schon pausiert ist",
+                "locked": "Es ist unmöglich, es momentan zu pausieren. Wird eine Zahlung überwiesen ?"
             },
             "updatePrice": {
                 "success": "Betrag aktualisert",
                 "error": "Es ist unmöglich, diesen Betrag zu ändern"
+            },
+            "stop": {
+                "error": "Es ist unmöglich, das Abonnement momentan zu beenden",
+                "warning": "Es ist unmöglich, es zurzeit zu beenden. Wird eine Zahlung überwiesen ?",
+                "success": "Das Abonnement wurde beendet"
             }
         },
         "notificationRule": {
@@ -3100,7 +3130,13 @@
             "messages": {
                 "offerLocked": "Sie können diesen Kurs nicht buchen"
             },
-            "hasRegistered": "Sie sind für diesen Kurs angemeldet"
+            "hasRegistered": "Sie sind für diesen Kurs angemeldet",
+            "recurrent": {
+                "backToRegistererChoice": "Zurück",
+                "bookMultiple": "Buchen",
+                "title": "Zukünftige Kurse"
+            },
+            "isLoading": "Kurse werden gesucht..."
         },
         "statusCode": {
             "cancelledByOffer": "Kurs von dem Klub storniert",
@@ -3141,6 +3177,12 @@
             "absent": "Abwesend",
             "present": "Anwesend",
             "all": "Alle Buchungen"
+        },
+        "creditConsumed": "{{credit_consumed}} Kreditpunkt",
+        "creditConsumed_plural": "{{credit_consumed}} Kreditpunkte",
+        "actions": {
+            "unregister": "Abmelden",
+            "bill": "In Rechnung stellen"
         }
     },
     "member": {
@@ -5059,7 +5101,8 @@
             "NL": "Niederlande",
             "IT": "Italien",
             "DE": "Deutschland",
-            "FR": "Frankreich"
+            "FR": "Frankreich",
+            "CH": "Schweiz"
         },
         "signupCompany": {
             "form": {
@@ -5101,6 +5144,13 @@
             "sendAgain": "Eine Bestätigungs-E-Mail nochmals senden",
             "success": "Ihre Email wurde bestätigt, Sie werden in wenigen Sekunden umgeleitet.",
             "explain": "Wir haben Ihnen eine Bestätigungs-Email geschickt, Sie haben es fast geschafft !"
+        },
+        "language": {
+            "es": "spanisch",
+            "nl": "niederländisch",
+            "it": "italienisch",
+            "de": "deutsch",
+            "fr": "französisch"
         }
     },
     "marketplace": {

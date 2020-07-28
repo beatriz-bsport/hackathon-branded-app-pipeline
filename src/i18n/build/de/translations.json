@@ -1793,6 +1793,12 @@
                     "buttonLabel": "Einen Zugang hinzufügen",
                     "email": {
                         "label": "E-Mail"
+                    },
+                    "firstName": {
+                        "label": "Vorname"
+                    },
+                    "lastName": {
+                        "label": "Nachname"
                     }
                 }
             }
@@ -2861,6 +2867,9 @@
                 "content": "Dieses Bankkonto wird verwendet, um Ihnen die online über bsport bezahlten Beträge zu überweisen.",
                 "title": "Bankkonto"
             }
+        },
+        "payment": {
+            "return": "Zurückzahlen"
         }
     },
     "paymentRules": {
@@ -3934,7 +3943,7 @@
             "toogle": {
                 "showPrivateBookings": "Termine",
                 "showOfferList": "Gruppenkurse",
-                "showCustomEvents": "Termin"
+                "showCustomEvents": "Personneler Termin"
             },
             "addBooking": "Einen Termin speichern",
             "selectCoachToModifyAvailability": "Einen Lehrer auswählen",
@@ -3945,7 +3954,7 @@
             "header": {
                 "threeDaysView": "3 Tage"
             },
-            "createCustomEvent": "Einen Termin erstellen"
+            "createCustomEvent": "Einen personnellen Termin erstellen"
         },
         "privateEstablishment": {
             "delete": {
@@ -4030,7 +4039,7 @@
                     "isEmpty": "Kein Lehrer"
                 },
                 "color": "Farbcode",
-                "title": "Termin"
+                "title": "Personneller Termin"
             },
             "actions": {
                 "delete": "Löschen"

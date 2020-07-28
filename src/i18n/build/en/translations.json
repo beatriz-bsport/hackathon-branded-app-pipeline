@@ -2401,7 +2401,7 @@
             "toogle": {
                 "showOfferList": "Group classes",
                 "showPrivateBookings": "Appointments",
-                "showCustomEvents": "Appointments"
+                "showCustomEvents": "Personal appointments"
             },
             "form": {
                 "title": {
@@ -2421,7 +2421,7 @@
             "header": {
                 "threeDaysView": "3 days"
             },
-            "createCustomEvent": "Create an appointment"
+            "createCustomEvent": "Create a personnal appointment"
         },
         "selector": {
             "privateService": "Select your appointment",
@@ -2812,7 +2812,7 @@
                     "placeholder": "Bank appointment",
                     "label": "Name"
                 },
-                "title": "Appointment"
+                "title": "Personal appointment"
             },
             "actions": {
                 "delete": "Delete"
@@ -3128,7 +3128,13 @@
                         "label": "Role"
                     },
                     "cancel": "Cancel",
-                    "submit": "Save"
+                    "submit": "Save",
+                    "firstName": {
+                        "label": "First name"
+                    },
+                    "lastName": {
+                        "label": "Last name"
+                    }
                 },
                 "delete": {
                     "title": "Staff user deletion",
@@ -4055,6 +4061,9 @@
                 "content": "This bank account will be used to transfer the amounts paid online to you via bsport.",
                 "title": "Bank account"
             }
+        },
+        "payment": {
+            "return": "Refund"
         }
     },
     "invoice": {

@@ -6,7 +6,6 @@ import * as Yup from 'yup';
 import { withFormik, FieldArray } from 'formik';
 
 import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
 import CoachListItemBasic from '../../../associated-coach/components/CoachListItemBasic.component';

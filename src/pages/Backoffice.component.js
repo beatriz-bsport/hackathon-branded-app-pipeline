@@ -272,7 +272,14 @@ export class Backoffice extends Component<Props, State> {
               <Intercom
                 appID="q6foivp2"
                 email={this.props.username}
-                company_name={this.props.theme && this.props.theme.company_name}
+                company={
+                  this.props.theme && this.props.theme.company_name
+                    ? {
+                        name: this.props.theme.company_name,
+                        id: this.props.theme.company,
+                      }
+                    : {}
+                }
                 {...(this.props.name ? { name: this.props.name } : {})}
                 user_id={this.props.username}
                 environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}

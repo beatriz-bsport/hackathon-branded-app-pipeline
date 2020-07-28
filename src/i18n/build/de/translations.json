@@ -2694,6 +2694,12 @@
                 "error": "Es ist unmöglich, dieses Objekt wiederherzustellen",
                 "success": "Objekt wiederhergestellt"
             }
+        },
+        "memberNote": {
+            "delete": {
+                "success": "Die Anmerkung wurde gelöscht",
+                "error": "Es ist unmöglich, diese Anmerkung zu löschen"
+            }
         }
     },
     "invoice": {

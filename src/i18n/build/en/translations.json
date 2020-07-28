@@ -6419,6 +6419,12 @@
                 "error": "Unable to restore this item",
                 "success": "Item restored"
             }
+        },
+        "memberNote": {
+            "delete": {
+                "success": "Note deleted",
+                "error": "It is impossible to delete the note"
+            }
         }
     },
     "navigation": {

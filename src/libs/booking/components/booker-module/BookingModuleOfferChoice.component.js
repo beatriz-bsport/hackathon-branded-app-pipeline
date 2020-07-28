@@ -47,7 +47,9 @@ const getLimitation = (
     return {
       start: consumerPaymentPack.starting_date,
       end: consumerPaymentPack.ending_date,
-      credits: consumerPaymentPack.available_credits,
+      credits: consumerPaymentPack.payment_pack.unlimited
+        ? 99999
+        : consumerPaymentPack.available_credits,
     };
   }
   if (paymentPack) {

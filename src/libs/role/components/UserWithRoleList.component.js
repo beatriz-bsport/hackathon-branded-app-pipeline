@@ -62,6 +62,11 @@ const UserWithRole = (props: {
       disabled
       value={props.user.email}
     />
+    <TextField
+      className={props.classes.roleField}
+      disabled
+      value={`${props.user.first_name} ${props.user.last_name}`}
+    />
     <FormControl>
       <Select
         className={props.classes.roleField}

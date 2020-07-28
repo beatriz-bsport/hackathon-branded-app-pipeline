@@ -32,6 +32,8 @@ type Props = {
 
 type State = {
   email: ?string,
+  first_name: string,
+  last_name: string,
   password: ?string,
   role: ?number,
 };
@@ -41,14 +43,22 @@ export class CreateStaffUser extends React.Component<Props, State> {
     email: null,
     password: null,
     role: null,
+    last_name: '',
+    first_name: '',
   };
 
   onSubmit = (ev: SyntheticEvent<HTMLElement>) => {
     ev.preventDefault();
-    const { email, password, role } = this.state;
+    const { email, password, role, last_name, first_name } = this.state;
     if (!email || !password || !role) return;
-    this.props.onSubmit({ email, password, role });
-    this.setState({ email: null, password: null, role: null });
+    this.props.onSubmit({ email, password, role, last_name, first_name });
+    this.setState({
+      email: null,
+      password: null,
+      role: null,
+      last_name: '',
+      first_name: '',
+    });
   };
 
   render() {
@@ -58,6 +68,20 @@ export class CreateStaffUser extends React.Component<Props, State> {
         <Dialog open={this.props.open}>
           <DialogTitle>{t('forms.user.create.title')}</DialogTitle>
           <DialogContent>
+            <TextField
+              fullWidth
+              value={this.state.first_name}
+              className={classes.field}
+              onChange={(ev) => this.setState({ first_name: ev.target.value })}
+              label={t('forms.user.create.firstName.label')}
+            />
+            <TextField
+              fullWidth
+              value={this.state.last_name}
+              className={classes.field}
+              onChange={(ev) => this.setState({ last_name: ev.target.value })}
+              label={t('forms.user.create.lastName.label')}
+            />
             <TextField
               fullWidth
               required

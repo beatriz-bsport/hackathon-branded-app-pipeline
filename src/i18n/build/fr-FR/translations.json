@@ -1767,6 +1767,8 @@
           "buttonLabel": "Ajouter un accès",
           "title": "Création de compte staff",
           "email": { "label": "Email" },
+          "firstName": { "label": "Prénom" },
+          "lastName": { "label": "Nom" },
           "role": { "label": "Role" },
           "cancel": "Annuler",
           "submit": "Enregistrer"

@@ -22,6 +22,12 @@ exports.default = {
         email: {
           label: 'Email',
         },
+        firstName: {
+          label: 'Prénom',
+        },
+        lastName: {
+          label: 'Nom',
+        },
         role: {
           label: 'Role',
         },

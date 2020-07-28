@@ -14,6 +14,9 @@ const {
 } = require('@bsport/common/lib/master-data/payment-methods');
 
 exports.default = {
+  payment: {
+    return: 'Rembourser',
+  },
   explainOption: "Vous serez prévenu par email lorsqu'une place se libèrera",
   bookAnotherOption: "Me réinscrire sur liste d'attente",
   bookAnOption: "M'inscrire sur liste d'attente",

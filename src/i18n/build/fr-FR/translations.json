@@ -2409,6 +2409,7 @@
     "calculation_methods": { "bookings": "Sur le nombre de réservations", "margin_value": "Sur la valeur marginale de chaque réservation" }
   },
   "payment": {
+    "payment": { "return": "Rembourser" },
     "explainOption": "Vous serez prévenu par email lorsqu'une place se libèrera",
     "bookAnotherOption": "Me réinscrire sur liste d'attente",
     "bookAnOption": "M'inscrire sur liste d'attente",

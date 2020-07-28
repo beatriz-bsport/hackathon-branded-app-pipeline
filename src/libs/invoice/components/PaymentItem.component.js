@@ -100,6 +100,7 @@ export const PaymentItem = (props: Props) => {
           <ButtonReturnPayment
             onClick={() => props.returnPayment(paymentItem.uuid)}
             variant="outlined"
+            className={classes.refundButton}
           >
             <UndoIcon className={classes.leftIcon} />
             {t('payment.return')}
@@ -171,6 +172,12 @@ const useStyles = makeStyles((theme) => ({
   },
   revert: {
     textDecoration: 'line-through',
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1),
+  },
+  refundButton: {
+    marginLeft: theme.spacing(1),
   },
 }));
 

@@ -2708,6 +2708,12 @@
                 "error": "Impossibile ripristinare questo elemento",
                 "success": "Articolo ripristinato"
             }
+        },
+        "memberNote": {
+            "delete": {
+                "error": "Impossibile eliminare la nota",
+                "success": "Annotazione eliminata"
+            }
         }
     },
     "settings": {
@@ -4898,6 +4904,9 @@
                 "content": "Questo conto bancario verrà utilizzato per trasferire gli importi pagati online tramite bsport.",
                 "title": "Conto bancario"
             }
+        },
+        "payment": {
+            "return": "Rimborso"
         }
     },
     "selfCheckIn": {
@@ -5528,7 +5537,13 @@
                         "label": "Ruolo"
                     },
                     "cancel": "Annulla",
-                    "submit": "Iscriviti"
+                    "submit": "Iscriviti",
+                    "firstName": {
+                        "label": "Nome"
+                    },
+                    "lastName": {
+                        "label": "Cognome"
+                    }
                 },
                 "delete": {
                     "content": "Sei sicuro di voler eliminare questo account?",

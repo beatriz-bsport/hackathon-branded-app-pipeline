@@ -1415,7 +1415,7 @@
                 "coachLabel": "Teacher",
                 "substituteCoachLabel": "Substitute",
                 "establishmentChangeWarning": "If you modify the location, this modification will be propagated to all future sessions. If this is not what you want, use the \"Temporary establishment\" field. Otherwise all other modification saved here ( teacher, price, date...) will be applied to all sessions.",
-                "coachChangeWarning": "If you modify the teacher, this modification will be propagated to all future sessions. If this is not what you want, use the \"Substitute\" field. Otherwise all other modification saved here ( location, price, date...) will be applied to all sessions.",
+                "coachChangeWarning": "If you modify the teacher, this modification will be propagated to all future sessions. If this is not what you want, use the \"Substitute\" field. Otherwise all other modification saved here (location, price, date...) will be applied to all sessions.",
                 "levelChangeWarning": "If you modify the level, this modification will be propagated to all future sessions. All other modifications saved here (location, price, date...) will then be applied to all sessions."
             },
             "payment": {
@@ -5534,7 +5534,7 @@
             "couponList": "Coupons"
         },
         "establishment": {
-            "establishmentList": "Establishements",
+            "establishmentList": "Establishments",
             "establishmentFormPage": "Establishment form"
         },
         "marketplace": {

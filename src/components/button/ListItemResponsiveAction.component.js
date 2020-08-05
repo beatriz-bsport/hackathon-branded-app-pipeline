@@ -78,6 +78,12 @@ function HiddenShortMenu(props: Props) {
     event.stopPropagation();
     setAnchorEl(null);
   };
+  if (
+    !props.actions.filter((o) => !!o && (!!o.onClick || !!o.menuItemComponent))
+      .length
+  ) {
+    return null;
+  }
   return (
     <div>
       <IconButton

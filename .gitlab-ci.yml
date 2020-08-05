@@ -1,86 +1,109 @@
-image: node:10.16.0-alpine
+image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-frontend:latest
 
 variables:
   YARN_CACHE_DIR: "$CI_PROJECT_DIR/yarn-cache"
   CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
 
 #Cache dependencies across all jobs
-cache:
-  key: "$CI_COMMIT_REF_SLUG"
-  paths:
-      - "$YARN_CACHE_DIR"
-      - "$CYPRESS_CACHE_FOLDER/node_modules"
-      - node_modules
 
 stages:
   - lint
   # - unit_tests
-  - build
   # - e2e_tests
-  - deploy
+  - configure_and_deploy
 
 before_script:
   - yarn config set cache-folder $YARN_CACHE_DIR 
   - yarn install --frozen-lockfile
-  - du -hs $YARN_CACHE_DIR
-  - du -hs "$CI_PROJECT_DIR/node_modules"
+  # - du -hs $YARN_CACHE_DIR
+  # - du -hs "$CI_PROJECT_DIR/node_modules"
 
 lint:
   stage: lint
+  tags:
+    - deployment
   script:
     - yarn lint --quiet
 
-# we dont have unit tests yet
-# Unit Tests:
-#   stage: unit_tests
-#   script:
-#     - yarn test
 
-
-# run the build after linting 
-build:
-  stage: build
-  script:
-    - yarn build
-  #  - yarn global add netlify-cli
-    - $CI_PROJECT_DIR/scripts/configure_build.sh
-  #  - netlify deploy --auth=$NETLIFY_TOKEN --site=3d93de4c-10d3-4b08-a9e1-8355d90b56d7 --dir=build
-    - rm build/env.js
-  artifacts:
+.Build and deploy Base:
+  stage: configure_and_deploy
+  cache:
+    key: yarn
     paths:
-      - build
-    expire_in: 1 month
-
-deploy-master:
-  image: python:slim
-  stage: deploy
+        - "$YARN_CACHE_DIR"
+        - "$CYPRESS_CACHE_FOLDER/node_modules"
+        - node_modules
+  tags:
+    - deployment
   only:
     refs:
-      - master
-  variables:
-    AWS_ACCESS_KEY_ID: "${AWS_BUCKET_ACCESS_KEY_BACKOFFICE_STAGING}"
-    AWS_SECRET_ACCESS_KEY: "${AWS_BUCKET_SECRET_KEY_BACKOFFICE_STAGING}"
-  before_script:
-    - pip install awscli
-  script:
-    - rm build/static/js/*.js.map
-    - aws s3 cp build/ s3://bsport-backoffice-asset-staging/ --recursive  --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-
-deploy-dev:
-  image: python:slim
-  stage: deploy
-  only:
-    refs:
-      - master
       - dev
-  variables:
-    AWS_ACCESS_KEY_ID: "${AWS_BUCKET_ACCESS_KEY_BACKOFFICE_DEV}"
-    AWS_SECRET_ACCESS_KEY: "${AWS_BUCKET_SECRET_KEY_BACKOFFICE_DEV}"
-  before_script:
-    - pip install awscli
+      - master
+      - ci-cd/auto-deploy
   script:
-    - rm build/static/js/*.js.map
-    - aws s3 cp build/ s3://bsport-backoffice-asset-dev/ --recursive  --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+    - echo "FAILED" > .job_status
+    - echo "Preparing VERSION:${VERSION} on ${ENVIRONMENT}"
+    - echo "export default '$VERSION';" > src/release.js
+    - yarn updateTranslation
+    - yarn build
+    - mv envs/$ENVIRONMENT build/env.js
+    - yarn add @sentry/cli
+    - export SENTRY_NO_PROGRESS_BAR=1
+    - ./scripts/prepare-sentry-release.sh $VERSION $FRONTEND_URL
+    - rm ./build/static/js/*.js.map
+    - aws s3 cp ./build/ $S3_BUCKET --recursive --only-show-errors
+    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths /index.html /env.js /service-worker.js /manifest.json
+    - scripts/prepare-sentry-deploy.sh $VERSION $ENVIRONMENT
+    - echo "SUCCESS" > .job_status
+    - cat .job_status
+
+  after_script:
+    - STATUS=`echo "$(cat .job_status)"`
+    - cat .job_status
+    - export STATUS
+    - '[[ "$STATUS" = "SUCCESS" ]] && COLOR="#36a64f" || COLOR="#E00201"'
+    - '[[ "$STATUS" = "SUCCESS" ]] && SUCCESS_ICON="https://pluspng.com/img-png/success-png-success-icon-image-23194-400.png" || SUCCESS_ICON="http://www.pngall.com/wp-content/uploads/2016/06/Fail-Stamp-PNG-Clipart.png"'
+    - export SUCCESS_ICON
+    - envsubst < ./slack_template.json > slack_template2.json
+    - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
+
+Buid Deploy Staging:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - master
+  variables:
+    VERSION: "${`date +%Y-%m-%d-%H-%M`}-${CI_COMMIT_SHORT_SHA}"
+    ENVIRONMENT: staging
+    FRONTEND_URL: backoffice.staging.bsport.io
+    S3_BUCKET: s3://bsport-eu-backoffice-staging/ 
+    CLOUDFRONT_ID: E3HVVKK3QMOC4B 
+
+Buid Deploy Dev:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - dev
+      - ci-cd/auto-deploy
+  variables:
+    VERSION: "${`date +%Y-%m-%d-%H-%M`}-${CI_COMMIT_SHORT_SHA}"
+    ENVIRONMENT: dev
+    FRONTEND_URL: backoffice.dev.bsport.io
+    S3_BUCKET: s3://bsport-eu-backoffice-dev/ 
+    CLOUDFRONT_ID: E17M3KEJFTN7MM
+
+# deploy-production:
+#   stage: configure_and_deploy
+#   only:
+#     refs:
+#       - master
+#   script:
+#     - yarn build
+#     - $CI_PROJECT_DIR/config-env.sh production
+#     - rm build/static/js/*.js.map
+#     - aws s3 cp build/ s3://bsport-eu-backoffice-production/ --recursive  
+#     - aws cloudfront create-invalidation --distribution-id E33O54OBR3MCH9 --paths /index.html /env.js /service-worker.js /manifest.json
 
 # release on sentry:
 #   stage: build

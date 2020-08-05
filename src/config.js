@@ -29,6 +29,7 @@ export function setConfigValue(name: string, value: string) {
 }
 
 checkConfigValue('REACT_APP_BASE_URI');
+checkConfigValue('REACT_APP_API_URI');
 checkConfigValue('REACT_APP_STRIPE_PK_KEY');
 checkConfigValue('REACT_APP_GOOGLE_MAPS_API_KEY');
 

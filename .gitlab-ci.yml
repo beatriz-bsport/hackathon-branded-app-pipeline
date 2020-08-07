@@ -137,7 +137,7 @@ Auto Bump Version:
     - export SUCCESS_ICON
 
     - VERSION=`echo "$(cat ./VERSION)"`
-    - '[[ $VERSION != $OLD_VERSION} ]] && CHANGELOG=`git grep -B 200 ${OLD_VERSION} CHANGELOG.md | grep -A ${VERSION} || echo="Unable to find release note";` || CHANGELOG="Technical release";'
+    - '[[ $VERSION != $OLD_VERSION ]] && CHANGELOG=`git grep -B 200 ${OLD_VERSION} CHANGELOG.md | grep -A ${VERSION} || echo="Unable to find release note";` || CHANGELOG="Technical release";'
     - export CHANGELOG
 
     - envsubst < ./slack_template.json > slack_template2.json

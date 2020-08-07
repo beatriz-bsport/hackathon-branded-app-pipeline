@@ -5,7 +5,6 @@ import {
   API_V1_URI,
   getAuth,
   postAuth,
-  postBaseAuth,
   putAuth,
   deleteAuth,
   buildUrlParams,
@@ -14,13 +13,6 @@ import {
 // TO UPDATE TO V1 API
 // -----------------------
 //
-export async function addCoach(data: *) {
-  return postBaseAuth(`${API_URI}/saas/create-coach/`, data);
-}
-
-export async function updateCoach(data: *) {
-  return putAuth(`${API_URI}/saas/coach/${data.get('id')}`, data);
-}
 
 export async function fetchAssociatedCoachPerformance(
   associatedCoachId: number,
@@ -41,6 +33,13 @@ export async function fetchAssociatedCoach(id: number) {
 }
 
 // -----------------------
+export async function addCoach(data: *) {
+  return postAuth(`${API_V1_URI}/coach/`, data);
+}
+
+export async function updateCoach(data: *) {
+  return putAuth(`${API_V1_URI}/coach/${data.get('id')}/`, data);
+}
 
 export async function linkByEmail(email: string) {
   return postAuth(`${API_V1_URI}/coach/link_by_email/`, { email });

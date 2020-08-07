@@ -10,13 +10,12 @@ stages:
   - lint
   # - unit_tests
   # - e2e_tests
+  - auto-bump
   - configure_and_deploy
 
 before_script:
   - yarn config set cache-folder $YARN_CACHE_DIR 
-  - yarn install --frozen-lockfile
-  # - du -hs $YARN_CACHE_DIR
-  # - du -hs "$CI_PROJECT_DIR/node_modules"
+  - yarn install --frozen-lockfile 
 
 lint:
   stage: lint
@@ -25,6 +24,48 @@ lint:
   script:
     - yarn lint --quiet
 
+  except:
+    - master
+    - ci-cd/semantic-versionning
+  
+
+Auto Bump Version:
+  image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:latest
+  stage: auto-bump
+  tags:
+    - deployment
+  only:
+    - dev
+    - ci-cd/semantic-versionning
+
+  before_script:
+    - echo hi
+  script:
+    - echo $CI_COMMIT_REF_NAME
+    - export CHANGELOG_FILE=CHANGELOG.${CI_COMMIT_REF_NAME}
+    - envsubst "$(printf '${%s} ' $(env | sed 's/=.*//'))"  > .cz < .cz
+    - cat .cz
+    - git remote -v
+    - git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/bsport/bsport-saas.git
+    - git config --global user.email "contact@bsport.io"
+    - git config --global user.name "bsport-bot"
+    - 'exists=`git show-ref refs/heads/${CI_COMMIT_REF_NAME}` && if [ -n "$exists" ]; then git branch -D ${CI_COMMIT_REF_NAME}; fi'
+    - git checkout -b $CI_COMMIT_REF_NAME
+
+    - 'cz bump --check-consistency --changelog && SHOULD_PUSH=1 || SHOULD_PUSH=0;'
+
+
+    - VERSION=`echo "$(cat ./VERSION)"`
+    - echo $VERSION
+    - echo "#!/bin/sh" >> variables
+    - echo "export TAG='$VERSION'" >> variables
+
+    - '[[ $SHOULD_PUSH = 1 ]] && git push origin $CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME || echo "no code to push"'
+    - '[[ $SHOULD_PUSH = 1 ]] && git push origin $CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME --tags || echo "no tag to push"'
+
+  artifacts:
+    paths:
+      - variables
 
 .Build and deploy Base:
   stage: configure_and_deploy
@@ -40,9 +81,9 @@ lint:
     refs:
       - dev
       - master
-      - ci-cd/auto-deploy
   script:
     - echo "FAILED" > .job_status
+    - VERSION=`echo "$(cat ./VERSION)"`
     - echo "Preparing VERSION:${VERSION} on ${ENVIRONMENT}"
     - echo "export default '$VERSION';" > src/release.js
     - yarn updateTranslation
@@ -74,7 +115,6 @@ Buid Deploy Staging:
     refs:
       - master
   variables:
-    VERSION: "${`date +%Y-%m-%d-%H-%M`}-${CI_COMMIT_SHORT_SHA}"
     ENVIRONMENT: staging
     FRONTEND_URL: backoffice.staging.bsport.io
     S3_BUCKET: s3://bsport-eu-backoffice-staging/ 
@@ -85,9 +125,7 @@ Buid Deploy Dev:
   only:
     refs:
       - dev
-      - ci-cd/auto-deploy
   variables:
-    VERSION: "${`date +%Y-%m-%d-%H-%M`}-${CI_COMMIT_SHORT_SHA}"
     ENVIRONMENT: dev
     FRONTEND_URL: backoffice.dev.bsport.io
     S3_BUCKET: s3://bsport-eu-backoffice-dev/ 

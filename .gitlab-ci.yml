@@ -17,7 +17,7 @@ stages:
 before_script:
   - yarn config set cache-folder $YARN_CACHE_DIR 
   - yarn install --frozen-lockfile 
-  - OLD_VERSION=`echo "$(cat ./versionning/VERSION)"`
+  - OLD_VERSION=`echo "$(cat ./VERSION)"`
 
 lint:
   stage: lint
@@ -29,7 +29,6 @@ lint:
   except:
     - master
     - production
-    - ci-cd/semantic-versionning
  
 
 Release Staging:
@@ -66,7 +65,6 @@ Auto Bump Version:
     - deployment
   only:
     - dev
-    - ci-cd/semantic-versionning
   before_script:
     - echo 'Overriding default before_script instruction relying on yarn'
 
@@ -138,7 +136,7 @@ Auto Bump Version:
     - '[[ "$STATUS" = "SUCCESS" ]] && SUCCESS_ICON="https://pluspng.com/img-png/success-png-success-icon-image-23194-400.png" || SUCCESS_ICON="http://www.pngall.com/wp-content/uploads/2016/06/Fail-Stamp-PNG-Clipart.png"'
     - export SUCCESS_ICON
 
-    - VERSION=`echo "$(cat ./versionning/VERSION)"`
+    - VERSION=`echo "$(cat ./VERSION)"`
     - '[[ $VERSION != $OLD_VERSION} ]] && CHANGELOG=`git grep -B 200 ${OLD_VERSION} CHANGELOG.md | grep -A ${VERSION} || echo="Unable to find release note";` || CHANGELOG="Technical release";'
     - export CHANGELOG
 

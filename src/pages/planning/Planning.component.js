@@ -154,7 +154,6 @@ type Props = {
   createdBookingStatsLoading: boolean,
   cancelledBookingStatsLoading: boolean,
 
-  setShowCancelledOffers: (boolean) => void,
   fetchAssociatedCoachesList: () => void,
   fetchAllActivities: () => void,
   fetchFilteredMembers: (params: any) => void,
@@ -634,7 +633,6 @@ export class Planning extends PureComponent<Props, State> {
                   : true
               }
               onChange={(e) => {
-                this.props.setShowCancelledOffers(e.target.checked);
                 let filters = { ...this.props.offerFilters };
                 if (!e.target.checked) {
                   filters = { ...filters, available: true };

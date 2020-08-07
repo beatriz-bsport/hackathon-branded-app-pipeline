@@ -99,7 +99,7 @@ type Props = {
   fetchEstablishmentBulk: (Array) => void,
   fetchMetaActivityBulk: (Array) => void,
   fetchCoachBulk: (Array) => void,
-  fetchOfferList: () => void,
+  fetchOfferList: (params: any) => void,
 };
 
 type State = {
@@ -203,7 +203,19 @@ export class MarketplaceCalendar extends Component<Props, State> {
       min_date,
       max_date,
       filters: this.props.filters,
-      is_workshop: false,
+      // is_workshop: false,
+      show_workshops: this.props.theme
+        ? this.props.theme.show_workshops_customer
+        : false,
+      show_cancelled: this.props.theme
+        ? this.props.theme.show_cancelled_offers_customer
+        : false,
+      ...(this.props.theme && this.props.theme.show_workshops_customer
+        ? {}
+        : { is_workshop: false }),
+      ...(this.props.theme && this.props.theme.show_cancelled_offers_customer
+        ? {}
+        : { available: true }),
     });
   };
 

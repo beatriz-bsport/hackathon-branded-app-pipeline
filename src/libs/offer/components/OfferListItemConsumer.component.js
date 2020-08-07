@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import VideocamIcon from '@material-ui/icons/Videocam';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
 import Hidden from '@material-ui/core/Hidden';
@@ -56,7 +57,6 @@ export const MarketplaceOffer = (props: Props) => {
       ? offer.establishment.title
       : ' - ';
   /* eslint-enable */
-
   return (
     <ListItem
       button={isInThePast && !available}
@@ -86,18 +86,23 @@ export const MarketplaceOffer = (props: Props) => {
               !offer.establishment.tzname ? (
                 <MoreHorizIcon fontSize="small" className={classes.icon} />
               ) : (
-                <Typography>
-                  {`${metaActivityName} ${formatAsTime(
-                    offer.date_start,
-                    offer.establishment.tzname,
-                  )}-${formatAsTime(
-                    moment(offer.date_start).add(
-                      offer.duration_minute,
-                      'minute',
-                    ),
-                    offer.establishment.tzname,
-                  )}`}
-                </Typography>
+                <div className={classes.offerTitleText}>
+                  {offer.meta_activity && offer.meta_activity.is_broadcast ? (
+                    <VideocamIcon className={classes.videocamIcon} />
+                  ) : null}
+                  <Typography>
+                    {`${metaActivityName} ${formatAsTime(
+                      offer.date_start,
+                      offer.establishment.tzname,
+                    )}-${formatAsTime(
+                      moment(offer.date_start).add(
+                        offer.duration_minute,
+                        'minute',
+                      ),
+                      offer.establishment.tzname,
+                    )}`}
+                  </Typography>
+                </div>
               )}
             </div>
             <div className={classes.levelCoachContainer}>
@@ -148,6 +153,14 @@ const useStyles = makeStyles((theme) => {
       display: 'flex',
     },
     coachName: { marginLeft: theme.spacing(2) },
+    offerTitleText: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    videocamIcon: {
+      marginRight: theme.spacing(0.5),
+    },
   };
 });
 

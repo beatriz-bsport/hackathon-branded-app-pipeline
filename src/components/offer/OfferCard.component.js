@@ -372,57 +372,59 @@ export class OfferCard extends Component<Props> {
             {noHeader ? null : this.getHeader()}
             {this.getStatsBody()}
             {available ? (
-              <div className={this.props.classes.bottomBlock}>
-                <div className={this.props.classes.buttonContainer}>
-                  {this.props.permission.offer.edit ? (
-                    <div className={this.props.classes.button}>
-                      <Button color="primary" onClick={onEditButtonClick}>
-                        <EditIcon className={classes.iconLeft} />
-                        <Hidden xsDown>
-                          {t('offer:calendar.modifyOffer')}
-                        </Hidden>
-                      </Button>
-                    </div>
-                  ) : null}
-                  {this.props.permission.offer.delete ? (
-                    <div className={this.props.classes.button}>
-                      <RedButton onClick={onDeleteButtonClick}>
-                        <DeleteIcon className={classes.iconLeft} />
-                        <Hidden xsDown>
-                          {t('offer:calendar.deleteOffer')}
-                        </Hidden>
-                      </RedButton>
+              <div>
+                <div className={this.props.classes.bottomBlock}>
+                  <div className={this.props.classes.buttonContainer}>
+                    {this.props.permission.offer.edit ? (
+                      <div className={this.props.classes.button}>
+                        <Button color="primary" onClick={onEditButtonClick}>
+                          <EditIcon className={classes.iconLeft} />
+                          <Hidden xsDown>
+                            {t('offer:calendar.modifyOffer')}
+                          </Hidden>
+                        </Button>
+                      </div>
+                    ) : null}
+                    {this.props.permission.offer.delete ? (
+                      <div className={this.props.classes.button}>
+                        <RedButton onClick={onDeleteButtonClick}>
+                          <DeleteIcon className={classes.iconLeft} />
+                          <Hidden xsDown>
+                            {t('offer:calendar.deleteOffer')}
+                          </Hidden>
+                        </RedButton>
+                      </div>
+                    ) : null}
+                  </div>
+                  {offer.id && this.props.companyId ? (
+                    <div className={this.props.classes.buttonContainer}>
+                      <CopyToClipboard
+                        text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
+                      >
+                        <ButtonBase
+                          onClick={() =>
+                            this.props.snackbarSuccess('link.copied')
+                          }
+                          className={classes.link}
+                        >
+                          <LinkIcon />
+                          <Hidden xsDown>
+                            <Typography
+                              variant="caption"
+                              align="left"
+                              className={classes.linkTypo}
+                            >
+                              {t('offer:card.copyLink')}
+                            </Typography>
+                          </Hidden>
+                        </ButtonBase>
+                      </CopyToClipboard>
                     </div>
                   ) : null}
                 </div>
-                {offer.id && this.props.companyId ? (
-                  <div className={this.props.classes.buttonContainer}>
-                    <CopyToClipboard
-                      text={`${window.location.origin}/customer/payment/offer/${offer.id}?membership=${this.props.companyId}`}
-                    >
-                      <ButtonBase
-                        onClick={() =>
-                          this.props.snackbarSuccess('link.copied')
-                        }
-                        className={classes.link}
-                      >
-                        <LinkIcon />
-                        <Hidden xsDown>
-                          <Typography
-                            variant="caption"
-                            align="left"
-                            className={classes.linkTypo}
-                          >
-                            {t('offer:card.copyLink')}
-                          </Typography>
-                        </Hidden>
-                      </ButtonBase>
-                    </CopyToClipboard>
-                  </div>
-                ) : null}
+                {this.renderBookingList()}
               </div>
             ) : null}
-            {this.renderBookingList()}
           </Paper>
           <Link style={{ textDecoration: 'none' }} to={`/offer/${offer.id}`}>
             <Button
@@ -433,7 +435,7 @@ export class OfferCard extends Component<Props> {
               {t('offer:manageOffer')}
             </Button>
           </Link>
-          {available ? null : (
+          {/* {available ? null : (
             <RedButton
               onClick={onDeleteButtonClick}
               variant="contained"
@@ -441,7 +443,7 @@ export class OfferCard extends Component<Props> {
             >
               {t('offer:forms.delete.buttonHardDelete')}
             </RedButton>
-          )}
+          )} */}
         </div>
       );
     }

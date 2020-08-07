@@ -17,6 +17,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import AddIcon from '@material-ui/icons/Add';
@@ -128,6 +129,10 @@ const styles = (theme) => ({
   goBackButton: {
     paddingLeft: theme.spacing(2),
   },
+  checkboxContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 });
 
 type Props = {
@@ -149,6 +154,7 @@ type Props = {
   createdBookingStatsLoading: boolean,
   cancelledBookingStatsLoading: boolean,
 
+  setShowCancelledOffers: (boolean) => void,
   fetchAssociatedCoachesList: () => void,
   fetchAllActivities: () => void,
   fetchFilteredMembers: (params: any) => void,
@@ -617,6 +623,29 @@ export class Planning extends PureComponent<Props, State> {
               })
             }
           />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <div className={this.props.classes.checkboxContainer}>
+            <Checkbox
+              checked={
+                this.props.offerFilters.available
+                  ? // filter available=true means unchecked checkbox
+                    !this.props.offerFilters.available
+                  : true
+              }
+              onChange={(e) => {
+                this.props.setShowCancelledOffers(e.target.checked);
+                let filters = { ...this.props.offerFilters };
+                if (!e.target.checked) {
+                  filters = { ...filters, available: true };
+                } else {
+                  delete filters.available;
+                }
+                this.props.setFilters(filters);
+              }}
+            />
+            <Typography>{this.props.t('show_cancelled_offers')}</Typography>
+          </div>
         </Grid>
       </Grid>
     );

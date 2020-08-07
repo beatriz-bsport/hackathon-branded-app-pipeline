@@ -6,8 +6,12 @@ exports.default = {
   },
   forms: {
     themePersonalization: {
+      calendarPersonalizationTitle: 'Configuration du calendrier',
       consumerRegularizeDebt: 'Le client peut régulariser son acompte en ligne',
       acceptDoubleBooking: 'Accepter la double réservation',
+      cancelledOffersCustomer:
+        'Afficher les séances annulées sur le calendrier client',
+      workshopsCustomer: 'Afficher les ateliers sur le calendrier client',
       calendar: {
         title:
           'Introduisez votre propre code CSS pour personnaliser votre calendrier',

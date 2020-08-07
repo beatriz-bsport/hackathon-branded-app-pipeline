@@ -242,7 +242,7 @@ export class CalendarEventDetail extends React.Component<Props> {
               {t('manageOffer')}
             </Button>
           </Link>
-          {offer.available ? null : (
+          {/* {offer.available ? null : (
             <RedButton
               onClick={this.props.openOfferDeleteModal}
               variant="contained"
@@ -250,7 +250,7 @@ export class CalendarEventDetail extends React.Component<Props> {
             >
               {t('forms.delete.buttonHardDelete')}
             </RedButton>
-          )}
+          )} */}
         </div>
       );
     }

@@ -1011,4 +1011,5 @@ exports.default = {
     'Choisissez la réduction à appliquer lors de la facturation du pass suivant',
   quickInvoiceNoVoucher:
     'Laissez la valeur de ce champ à 0 si vous ne souhaitez pas appliquer de réduction',
+  show_cancelled_offers: 'Afficher les séances annulées',
 };

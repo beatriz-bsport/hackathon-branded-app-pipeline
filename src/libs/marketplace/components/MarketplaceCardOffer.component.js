@@ -5,6 +5,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import VideocamIcon from '@material-ui/icons/Videocam';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import moment from 'moment-timezone';
 import Level from '../../../components/category/Level.component';
@@ -93,9 +94,14 @@ export const MarketplaceCardOffer = (props: Props) => {
           {props.activityLoading && metaActivityName === ' - ' ? (
             <MoreHorizIcon fontSize="small" />
           ) : (
-            <Typography align="center" variant="subtitle1">
-              {metaActivityName}
-            </Typography>
+            <div className={classes.offerTitleText}>
+              {offer.meta_activity && offer.meta_activity.is_broadcast ? (
+                <VideocamIcon className={classes.videocamIcon} />
+              ) : null}
+              <Typography align="center" variant="subtitle1">
+                {metaActivityName}
+              </Typography>
+            </div>
           )}
         </div>
         <div className={classes.title}>
@@ -181,6 +187,14 @@ const useStyles = makeStyles((theme) => {
     },
     marginIcon: {
       marginRight: theme.spacing(1),
+    },
+    offerTitleText: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    videocamIcon: {
+      marginRight: theme.spacing(1) / 2,
     },
   };
 });

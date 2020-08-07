@@ -35,7 +35,7 @@ exports.default = {
         canDelete:
           'Êtes-vous sûr de vouloir supprimer cette activité ? Les séances et réservations passées ne seront pas affectées. Cette opération est définitive.',
         cannotDelete:
-          "Des séances sont prévues dans le futur, vérifiez qu'elles sont bien supprimées et pas seulement annulées.",
+          "Des séances sont prévues dans le futur, vérifiez qu'elles ont bien été annulées.",
       },
       actions: {
         cancel: 'Annuler',

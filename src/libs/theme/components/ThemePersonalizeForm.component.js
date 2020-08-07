@@ -66,7 +66,11 @@ export class ThemePersonalize extends Component<Props, State> {
       this.state.theme.default_booking_ordering ===
         this.props.theme.default_booking_ordering &&
       this.state.theme.default_attendance ===
-        this.props.theme.default_attendance
+        this.props.theme.default_attendance &&
+      this.state.theme.show_cancelled_offers_customer ===
+        this.props.theme.show_cancelled_offers_customer &&
+      this.state.theme.show_workshops_customer ===
+        this.props.theme.show_workshops_customer
     );
   };
 
@@ -80,6 +84,8 @@ export class ThemePersonalize extends Component<Props, State> {
       'last_name_label',
       'default_booking_ordering',
       'default_attendance',
+      'show_cancelled_offers_customer',
+      'show_workshops_customer',
     ].map((key) => data.append(key, this.state.theme[key]));
     this.props.onSubmit(this.props.theme.company, data);
   };
@@ -151,6 +157,9 @@ export class ThemePersonalize extends Component<Props, State> {
             {t('forms.themePersonalization.acceptDoubleBooking')}
           </Typography>
         </div>
+        <Typography className={classes.namesHeader}>
+          {t('forms.themePersonalization.calendarPersonalizationTitle')}
+        </Typography>
         <div className={classes.inputContainer}>
           <Switch
             checked={this.state.theme.show_offers_filling}
@@ -164,6 +173,32 @@ export class ThemePersonalize extends Component<Props, State> {
           />
           <Typography>
             {t('forms.themePersonalization.offersFilling')}
+          </Typography>
+        </div>
+        <div className={classes.inputContainer}>
+          <Switch
+            checked={this.state.theme.show_cancelled_offers_customer}
+            onChange={() =>
+              this.handleChange('show_cancelled_offers_customer')(
+                !this.state.theme.show_cancelled_offers_customer,
+              )
+            }
+          />
+          <Typography>
+            {t('forms.themePersonalization.cancelledOffersCustomer')}
+          </Typography>
+        </div>
+        <div className={classes.inputContainer}>
+          <Switch
+            checked={this.state.theme.show_workshops_customer}
+            onChange={() =>
+              this.handleChange('show_workshops_customer')(
+                !this.state.theme.show_workshops_customer,
+              )
+            }
+          />
+          <Typography>
+            {t('forms.themePersonalization.workshopsCustomer')}
           </Typography>
         </div>
         <Typography className={classes.namesHeader}>

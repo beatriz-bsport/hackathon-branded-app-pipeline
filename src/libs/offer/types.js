@@ -5,4 +5,5 @@ export type OfferFilter = {
   coaches?: Array<number>,
   levels?: Array<number>,
   metaActivities?: Array<number>,
+  available?: boolean,
 };

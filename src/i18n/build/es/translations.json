@@ -111,7 +111,7 @@
             "or": "o",
             "cancel": "Cancelar",
             "confirm": "Confirmar",
-            "name": "Nombre",
+            "name": "Apellido",
             "status": "Estado",
             "ok": "ok",
             "seeMore": "Mostrar",
@@ -257,7 +257,7 @@
                     "subtitle": "Subtítulo",
                     "description": "Description",
                     "provisions": "Existencias",
-                    "name": "Nombre",
+                    "name": "Apellido",
                     "price": "Precio",
                     "tva": "IVA",
                     "available_payment_method_identifiers": {
@@ -447,7 +447,7 @@
             "description": "Descripción",
             "send": "Guardar",
             "discard": "Cancelar",
-            "name": "Nombre",
+            "name": "Apellido",
             "SCT": "Categoría",
             "default_price": "Precio",
             "default_credits": "Precio (créditos)",
@@ -979,7 +979,22 @@
         "languageToolTip": "Disponible en el marketplace web",
         "visibilityOfIconToolTip": "No visible",
         "replaceCoach": "Cambiar el profesor",
-        "onlyNewMember": "Bloquear la reserva a las tarjetas de curso nuevos clientes"
+        "onlyNewMember": "Bloquear la reserva a las tarjetas de curso nuevos clientes",
+        "bookingStatistics": {
+            "weekOverview": "Resumen de tu semana",
+            "offerFilteredBookingRecap": "Tus reservas",
+            "totalBookings": "{{nb}} reserva en total",
+            "totalBookings_plural": "{{nb}} reservas en total",
+            "cancelledBookings": "{{nb}} reserva cancelada",
+            "cancelledBookings_plural": "{{nb}} reservas canceladas",
+            "maintenedBookings": "{{nb}} reserva mantenida",
+            "maintenedBookings_plural": "{{nb}} reservas mantenidas",
+            "keys": {
+                "created": "Reservas mantenidas",
+                "cancelled": "Reservas canceladas"
+            },
+            "weekOf": "Semana del {{date}}"
+        }
     },
     "search": {
         "input": "Buscar...",
@@ -1014,7 +1029,8 @@
             "end": "Final"
         },
         "filterByDateTitle": "Filtrar por fechas",
-        "detailsGraphTitle": "En detalle"
+        "detailsGraphTitle": "En detalle",
+        "current_day": "Últimas 24 horas"
     },
     "stripe": {
         "errors": {
@@ -1142,7 +1158,7 @@
             "form": {
                 "name": {
                     "placeholder": "Yoga Shala",
-                    "helperText": "Este nombre será visible para tus miembros",
+                    "helperText": "Este apellido será visible por tus miembros",
                     "label": "Nombre de tu estudio/club/empresa"
                 },
                 "next": "Confirmar",
@@ -1176,7 +1192,8 @@
             "NL": "Países Bajos",
             "IT": "Italia",
             "DE": "Alemania",
-            "FR": "Francia"
+            "FR": "Francia",
+            "CH": "Suiza"
         },
         "emailValidation": {
             "disconnect": "Cambiar de cuenta",
@@ -1186,6 +1203,13 @@
             "sendAgain": "Reenviar un email de confirmación",
             "success": "Tu email ha sido validado, serás redirigido en unos segundos.",
             "explain": "Te hemos enviado un email de validación, ¡ya casi estás allí!"
+        },
+        "language": {
+            "fr": "francés",
+            "nl": "holandés",
+            "de": "alemán",
+            "it": "italiano",
+            "es": "español"
         }
     },
     "establishment": {
@@ -1274,7 +1298,7 @@
         "form": {
             "delivery": {
                 "first_name": "Apellido",
-                "last_name": "Nombre"
+                "last_name": "Apellido"
             }
         },
         "actions": {
@@ -1292,7 +1316,7 @@
             }
         },
         "deliveryFee": {
-            "name": "Titulo",
+            "name": "Apellido",
             "fee": "Gastos de envío",
             "free_threshold": "Ofrecidos a partir de",
             "offeredAboveAmount": "Ofrecidos los gastos de envío si hay más de {{ free_threshold, price }} de compras",
@@ -1308,7 +1332,7 @@
                 "create": "Añadir un gastos de envío",
                 "title": "Formulario gastos de envío",
                 "feeLabel": "Gastos de envío",
-                "nameLabel": "Titulo",
+                "nameLabel": "Apellido",
                 "freeThresholdLabel": "Ofrecidos a partir de",
                 "freeThresholdHelper": "Si el importe del pedido supera esta cantidad, los gastos de envío son gratuitos",
                 "onCancel": "Cancelar",
@@ -1600,6 +1624,9 @@
                 "content": "Esta cuenta bancaria se utilizará para transferirle los montos pagados en línea a través de bsport.",
                 "title": "Cuenta bancaria"
             }
+        },
+        "payment": {
+            "return": "Reembolsar"
         }
     },
     "invoice": {
@@ -1795,7 +1822,8 @@
             "pending": "Esperando",
             "canceled": "Cancelado",
             "failed": "Pago rechazado por el banco",
-            "succeeded": "Cobrado"
+            "succeeded": "Cobrado",
+            "processing": "Transferencia de pago"
         },
         "subscriptionStatus": {
             "pending": "En el proceso de facturación",
@@ -1813,15 +1841,15 @@
             "parameters": "Parametros",
             "subscribeAgain": "Suscribir otra vez",
             "voucher": "Oferta especial",
-            "trial_nb": "Numero de mes ofrecidos",
+            "trial_nb": "Numero de meses ofrecidos",
             "recurrent_voucher": "Descuento por cada mes",
-            "name": "Nombre",
+            "name": "Apellido",
             "member": "Miembro",
             "dateCreated": "Fecho de registro",
-            "nbInterval": "Numero de mes",
+            "nbInterval": "Número de meses",
             "recurrent_price": "Suscripción",
             "paymentPack": "Tarjeta de curso",
-            "nbMonths": "Numero de mess",
+            "nbMonths": "Número de meses",
             "dateStart": "Primera facturación",
             "firstBilling": "Primero pago",
             "payment_pack": "Tarjeta de curso",
@@ -1842,7 +1870,7 @@
         "mandate": {
             "content": "Al dar su IBAN y confirmar su pago, autorizas a bsport y Stripe, nuestro sistema de pago, a enviar las instrucciones de débito a su banco de acuerdo con el calendario de pagos. Puedes solicitar un reembolso a su banco de acuerdo con los términos de su contrato con él. Se debe solicitar un reembolso dentro de las 8 semanas posteriores al primer débito.",
             "email": "Email del titular",
-            "name": "Apellido y nombre del titular"
+            "name": "Nombre y apellido del titular"
         },
         "paymentMethod": {
             "credit": {
@@ -2020,10 +2048,10 @@
             "effectif": "Numero de plazas",
             "nb_attendance": "Presentes",
             "nb_non_attendance": "Ausentes",
-            "name": "Nombre",
+            "name": "Apellido",
             "identifier": "Identificador",
-            "first_name": "Apellido",
-            "last_name": "Nombre",
+            "first_name": "Nombre",
+            "last_name": "Apellido",
             "email": "Correo electrónico",
             "phonenumber": "Teléfono",
             "date_joined": "Fecha de registro",
@@ -2067,7 +2095,7 @@
             "shop": "Tienda",
             "contract": "Contrato",
             "interval": "Tipo de recurrencia",
-            "nb_interval": "Numero de recurrencias",
+            "nb_interval": "Número de recurrencias",
             "adjusted_price": "Precio ajustado",
             "payment_status": "Estado de pago",
             "billing_date_start": "Fecha de la primera facturación",
@@ -2082,7 +2110,7 @@
             "percent_off": "Reducción (en %)",
             "expiration_date": "Fecha de expiración",
             "date_created": "Fecha de creación",
-            "total_uses": "Numero de usos",
+            "total_uses": "Número de usos",
             "total_discount": "Reducción total",
             "date_sumup": "Fecha",
             "payment_method_total": "Total",
@@ -2121,7 +2149,7 @@
             "date_start_dow": "Día",
             "slot_date_end": "Fin de sesión",
             "private_slot_name": "Sesión",
-            "nb_bookings": "Numero de reservas",
+            "nb_bookings": "Número de reserva",
             "private_service_name": "Cita",
             "author": "Autor",
             "nb_bookings_same_pass": "Nb reserva a través del mismo pase",
@@ -2156,7 +2184,7 @@
         },
         "form": {
             "title": "Nueve informe",
-            "name": "Nombre",
+            "name": "Apellido",
             "description": "Descripción",
             "category": "Categoría",
             "columns": "Columnas",
@@ -2246,7 +2274,7 @@
         "offerManagement": {
             "bookingOrder": {
                 "firstname": "Ordenar por nombre",
-                "lastname": "Ordenar por nombre",
+                "lastname": "Ordenar por apellido",
                 "date": "Ordenar por fecha"
             }
         },
@@ -2273,7 +2301,9 @@
             "explainWarning": "ATENCIÓN esta operación es irreversible.",
             "explain": "Selecciona el intervalo de fechas durante el cual deseas cancelar tus sesiones. Los miembros que hayan reservado recibirán una notificación por email y sus créditos se reembolsarán automáticamente en la tarjeta de curso correspondiente",
             "title": "Cancelación grupal"
-        }
+        },
+        "bookingList": "Reservas",
+        "bookingListEmpty": "Ninguna reserva"
     },
     "member": {
         "date_joined": "Fecha de registro",
@@ -2375,7 +2405,7 @@
         "regularizeBalance": "Regularizar",
         "file": {
             "drop_file": "Arrastrar y sueltar o hagar clic para añadir un documento",
-            "name": "Nombre",
+            "name": "Apellido",
             "cancel": "Cancelar",
             "upload_file": "Añadir un documento",
             "nofileSaved": "Ningún documento registrado",
@@ -2403,7 +2433,7 @@
         "table": {
             "show": "Ver"
         },
-        "name": "Nombre",
+        "name": "Apellido",
         "search": {
             "cancel": "Cerrar",
             "createMember": "Añadir un miembro"
@@ -2462,7 +2492,13 @@
                 "contracts": "Abonos",
                 "consumerPacks": "Mis tarjetas de curso"
             },
-            "hasRegistered": "Estás registrado para esta sesión"
+            "hasRegistered": "Estás registrado para esta sesión",
+            "recurrent": {
+                "backToRegistererChoice": "Volver",
+                "title": "Sesiones futuras",
+                "bookMultiple": "Reservar"
+            },
+            "isLoading": "Buscar sesiones..."
         },
         "filters": {
             "notRefunded": "No reembolsada",
@@ -2479,7 +2515,13 @@
             "absent": "Ausente",
             "present": "Presente",
             "all": "Todas las reservas"
-        }
+        },
+        "actions": {
+            "bill": "Facturar",
+            "unregister": "Desinscribir"
+        },
+        "creditConsumed": "{{credit_consumed}} crédito",
+        "creditConsumed_plural": "{{credit_consumed}} créditos"
     },
     "marketplace": {
         "selector": {
@@ -2788,7 +2830,7 @@
                 "label": "Código"
             },
             "name": {
-                "label": "Nombre"
+                "label": "Apellido"
             },
             "section": {
                 "advanced": "Avanzado",
@@ -3009,7 +3051,7 @@
                     "label": "Número de créditos incluidos"
                 },
                 "name": {
-                    "label": "Nombre"
+                    "label": "Apellido"
                 },
                 "managerOnly": {
                     "label": "Invisible para los clientes"
@@ -3302,7 +3344,7 @@
                     "cancel": "Cancelar"
                 },
                 "name": {
-                    "label": "Nombre"
+                    "label": "Apellido"
                 }
             },
             "selector": {
@@ -3407,7 +3449,7 @@
                 "color": "Código de colores",
                 "name": {
                     "placeholder": "Cita banca",
-                    "label": "Nombre"
+                    "label": "Apellido"
                 },
                 "title": "Cita personal"
             },
@@ -3619,7 +3661,7 @@
                     "label": "Etiqueta de nombre",
                     "placeholder": "Etiqueta de nombre"
                 },
-                "names_label_info": "Cambiar la etiqueta de los campos Apellido y Nombre en los formularios de registro",
+                "names_label_info": "Cambiar la etiqueta de los campos Nombre y Apellido en los formularios de registro",
                 "default_booking_ordering": {
                     "title": "Elegir el orden de clasificación predeterminado para las reservas en la página de actividad",
                     "lastname": "Ordenar alfabéticamente por nombre",
@@ -3731,7 +3773,13 @@
                         "label": "Email"
                     },
                     "title": "Creación de cuenta staff",
-                    "buttonLabel": "Añadir un acceso"
+                    "buttonLabel": "Añadir un acceso",
+                    "firstName": {
+                        "label": "Nombre"
+                    },
+                    "lastName": {
+                        "label": "Apellido"
+                    }
                 }
             }
         },
@@ -3739,7 +3787,29 @@
         "explainStaffDoNot": "Un acceso staff no permite la conexión a la aplicación móvil (solo profesores y estudiantes)",
         "explainStaffDo": "Un acceso staff permite la conexión a https://backoffice.bsport.io a través de una computadora o móvil",
         "userRoles": "Cuentas Staff",
-        "pageTitle": "Staff"
+        "pageTitle": "Staff",
+        "roleDescription": {
+            "0": {
+                "name": "Owner",
+                "description": "Acceso admin, sin restricciones, puede crear cuentas de personal"
+            },
+            "1": {
+                "name": "Checkin extendido",
+                "description": "Acceso a la gestión de la sesión (modificación y cancelación), a los miembros y al checkin."
+            },
+            "4": {
+                "description": "Admin, mismo acceso que el Owner, pero se puede suprimir/crear",
+                "name": "Admin"
+            },
+            "2": {
+                "name": "Checkin restringido",
+                "description": "Acceso sólo al checkin"
+            },
+            "3": {
+                "name": "Checkin tableta",
+                "description": "Cuenta para la aplicación de auto-checkin (contacta a tu gerente de cuenta de bsport)"
+            }
+        }
     },
     "authentication": {
         "resetPassword": {
@@ -4046,7 +4116,8 @@
             "freeze": {
                 "error": "No es posible pausar esta suscripción",
                 "alreadyPaused": "No es posible pausar una suscripción ya pausada",
-                "success": "Suscripción pausada"
+                "success": "Suscripción pausada",
+                "locked": "No se puede pausar por el momento, ¿hay un pago pendiente?"
             },
             "switchPack": {
                 "error": "No es posible modificar la tarjeta de curso",
@@ -4055,6 +4126,11 @@
             "switchPaymentMethod": {
                 "error": "No es posible modificar el método de pago",
                 "success": "Método de pago actualizado"
+            },
+            "stop": {
+                "success": "La suscripción ha sido detenida",
+                "warning": "No se puede detener por el momento, ¿se está transfiriendo un pago?",
+                "error": "No se puede detener la suscripción por el momento"
             }
         },
         "smartlist": {
@@ -4301,6 +4377,12 @@
                 "error": "No se puede restaurar este elemento",
                 "success": "Elemento restaurado"
             }
+        },
+        "memberNote": {
+            "delete": {
+                "success": "Nota suprimida",
+                "error": "No se puede suprimir la nota"
+            }
         }
     },
     "paymentPack": {
@@ -4418,7 +4500,7 @@
                 },
                 "name": {
                     "helperText": "Nombre de la tarjeta de curso",
-                    "label": "Nombre"
+                    "label": "Apellido"
                 },
                 "until": "Hasta ",
                 "notEditable": "Esta tarjeta de curso es el resultado de una migración, algunos campos no se pueden modificar para respetar el historial. Las actividades/categorías compatibles siguen siendo modificables.",
@@ -4604,7 +4686,8 @@
             "credits": "Crédito",
             "expiration": "Validez",
             "all": "Todas las tarjetas"
-        }
+        },
+        "multipleBookingTooltip": "Reservas múltiples"
     },
     "selfCheckIn": {
         "offerList": {
@@ -4665,7 +4748,7 @@
         "editor": {
             "error": {
                 "content": "Por favor ingresa el contenido en el email",
-                "title": "Por favor ingresa un nombre"
+                "title": "Por favor ingresa un apellido"
             },
             "cancel": "Cancelar",
             "subject": "Asunto del email",
@@ -4718,7 +4801,7 @@
         "offersThisDay": "Sesiones de hoy :",
         "addOffers": "Añadir sesiones",
         "category": "Categoría",
-        "name": "Nombre",
+        "name": "Apellido",
         "detail": {
             "tab": {
                 "pack": "Tarjetas compatibles",
@@ -4877,7 +4960,7 @@
             "level": "Nivel",
             "description": "Descripción",
             "category": "Categoría",
-            "name": "Nombre",
+            "name": "Apellido",
             "bottomActions": {
                 "create": "Añadir"
             },
@@ -4918,7 +5001,7 @@
             "open": "Abrir",
             "deleteVideo": "Suprimir",
             "description": "Descripción",
-            "name": "Nombre",
+            "name": "Apellido",
             "noVideo": "Ninguna video en esta playlist"
         }
     },
@@ -5253,7 +5336,7 @@
                 "isEmpty": "Ninguna descripción",
                 "label": "Descripción"
             },
-            "name": "Nombre",
+            "name": "Apellido",
             "list": {
                 "detailTitle": "Detalle de la smartlist",
                 "title": "Smartlists"

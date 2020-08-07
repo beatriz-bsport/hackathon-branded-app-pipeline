@@ -17,6 +17,7 @@ stages:
 before_script:
   - yarn config set cache-folder $YARN_CACHE_DIR 
   - yarn install --frozen-lockfile 
+  - OLD_VERSION=`echo "$(cat ./versionning/VERSION)"`
 
 lint:
   stage: lint
@@ -33,6 +34,8 @@ lint:
 Release Staging:
   stage: promote
   when: manual
+  tags:
+    - deployment
   only:
     refs:
       - dev
@@ -59,7 +62,7 @@ Auto Bump Version:
     - dev
     - ci-cd/semantic-versionning
   before_script:
-    - echo 'Overrinding default before_script instruction relying on yarn'
+    - echo 'Overriding default before_script instruction relying on yarn'
 
   script:
     - echo $CI_COMMIT_REF_NAME
@@ -127,7 +130,11 @@ Auto Bump Version:
     - '[[ "$STATUS" = "SUCCESS" ]] && COLOR="#36a64f" || COLOR="#E00201"'
     - '[[ "$STATUS" = "SUCCESS" ]] && SUCCESS_ICON="https://pluspng.com/img-png/success-png-success-icon-image-23194-400.png" || SUCCESS_ICON="http://www.pngall.com/wp-content/uploads/2016/06/Fail-Stamp-PNG-Clipart.png"'
     - export SUCCESS_ICON
-    - VERSION=`echo "$(cat ./VERSION)"`
+
+    - VERSION=`echo "$(cat ./versionning/VERSION)"`
+    - '[[ $VERSION != $OLD_VERSION} ]] && CHANGELOG=`git grep -B 200 ${OLD_VERSION} CHANGELOG.md | grep -A ${VERSION} || echo="Unable to find release note";` || CHANGELOG="Technical release";'
+    - export CHANGELOG
+
     - envsubst < ./slack_template.json > slack_template2.json
     - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
 
@@ -141,6 +148,7 @@ Buid Deploy Staging:
     FRONTEND_URL: backoffice.staging.bsport.io
     S3_BUCKET: s3://bsport-eu-backoffice-staging/ 
     CLOUDFRONT_ID: E3HVVKK3QMOC4B 
+    SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
 
 Buid Deploy Dev:
   extends: .Build and deploy Base
@@ -152,6 +160,7 @@ Buid Deploy Dev:
     FRONTEND_URL: backoffice.dev.bsport.io
     S3_BUCKET: s3://bsport-eu-backoffice-dev/ 
     CLOUDFRONT_ID: E17M3KEJFTN7MM
+    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
 
 # deploy-production:
 #   stage: configure_and_deploy

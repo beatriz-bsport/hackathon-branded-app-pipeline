@@ -27,7 +27,7 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "*Release*: ${CI_COMMIT_SHA}\n**${CI_COMMIT_MESSAGE}**"
+				"text": "*Version: ${VERSION}\n*Release*: ${CI_COMMIT_SHA}\n**${CI_COMMIT_MESSAGE}**"
 			}
 		},
 		{

@@ -12,6 +12,7 @@ stages:
   # - e2e_tests
   - auto-bump
   - configure_and_deploy
+  - promote
 
 before_script:
   - yarn config set cache-folder $YARN_CACHE_DIR 
@@ -27,7 +28,27 @@ lint:
   except:
     - master
     - ci-cd/semantic-versionning
-  
+ 
+
+Release Staging:
+  stage: promote
+  when: manual
+  only:
+    refs:
+      - dev
+  script:
+    - git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/bsport/bsport-saas.git
+    - git config --global user.email "contact@bsport.io"
+    - git config --global user.name "bsport-bot"
+    - git fetch
+    - git rebase master
+    - git push -f
+    - git checkout master
+    - git merge dev
+    - git push
+
+
+
 
 Auto Bump Version:
   image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:latest
@@ -38,8 +59,6 @@ Auto Bump Version:
     - dev
     - ci-cd/semantic-versionning
 
-  before_script:
-    - echo hi
   script:
     - echo $CI_COMMIT_REF_NAME
     - export CHANGELOG_FILE=CHANGELOG.${CI_COMMIT_REF_NAME}
@@ -106,6 +125,7 @@ Auto Bump Version:
     - '[[ "$STATUS" = "SUCCESS" ]] && COLOR="#36a64f" || COLOR="#E00201"'
     - '[[ "$STATUS" = "SUCCESS" ]] && SUCCESS_ICON="https://pluspng.com/img-png/success-png-success-icon-image-23194-400.png" || SUCCESS_ICON="http://www.pngall.com/wp-content/uploads/2016/06/Fail-Stamp-PNG-Clipart.png"'
     - export SUCCESS_ICON
+    - VERSION=`echo "$(cat ./VERSION)"`
     - envsubst < ./slack_template.json > slack_template2.json
     - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
 

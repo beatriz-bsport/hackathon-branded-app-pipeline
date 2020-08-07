@@ -19,4 +19,4 @@ style = [
     ["disabled", "fg:#858585 italic"]
 ]
 bump_message = "ci(release): $current_version → $new_version [skip-ci]"
-changelog_file="CHANGELOG"
+changelog_file="CHANGELOG.md"

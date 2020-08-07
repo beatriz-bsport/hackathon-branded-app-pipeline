@@ -58,6 +58,8 @@ Auto Bump Version:
   only:
     - dev
     - ci-cd/semantic-versionning
+  before_script:
+    - echo 'Overrinding default before_script instruction relying on yarn'
 
   script:
     - echo $CI_COMMIT_REF_NAME

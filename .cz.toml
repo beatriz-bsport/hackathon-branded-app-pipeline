@@ -6,17 +6,5 @@ version_files = [
     ".cz.toml:version",
     "VERSION"
 ]
-style = [
-    ["qmark", "fg:#ff9d00 bold"],
-    ["question", "bold"],
-    ["answer", "fg:#ff9d00 bold"],
-    ["pointer", "fg:#ff9d00 bold"],
-    ["highlighted", "fg:#ff9d00 bold"],
-    ["selected", "fg:#cc5454"],
-    ["separator", "fg:#cc5454"],
-    ["instruction", ""],
-    ["text", ""],
-    ["disabled", "fg:#858585 italic"]
-]
 bump_message = "ci(release): $current_version → $new_version [skip-ci]"
 changelog_file="CHANGELOG.md"

@@ -26,6 +26,7 @@ lint:
 
   except:
     - master
+    - production
     - ci-cd/semantic-versionning
   
 
@@ -81,6 +82,7 @@ Auto Bump Version:
     refs:
       - dev
       - master
+      - production
   script:
     - echo "FAILED" > .job_status
     - VERSION=`echo "$(cat ./VERSION)"`
@@ -119,6 +121,19 @@ Buid Deploy Staging:
     FRONTEND_URL: backoffice.staging.bsport.io
     S3_BUCKET: s3://bsport-eu-backoffice-staging/ 
     CLOUDFRONT_ID: E3HVVKK3QMOC4B 
+    SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
+
+Buid Deploy Production:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - production
+  variables:
+    ENVIRONMENT: production
+    FRONTEND_URL: backoffice.production.bsport.io
+    S3_BUCKET: s3://bsport-eu-backoffice-production/ 
+    CLOUDFRONT_ID: E321VOI5045USU
+    SLACK_WEBHOOK_URL: "${SLACK_PRODUCTION_WEBHOOK_URL}"
 
 Buid Deploy Dev:
   extends: .Build and deploy Base
@@ -130,6 +145,7 @@ Buid Deploy Dev:
     FRONTEND_URL: backoffice.dev.bsport.io
     S3_BUCKET: s3://bsport-eu-backoffice-dev/ 
     CLOUDFRONT_ID: E17M3KEJFTN7MM
+    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
 
 # deploy-production:
 #   stage: configure_and_deploy

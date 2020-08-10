@@ -552,7 +552,7 @@
             "logoff": "Cerrar sesión",
             "goBack": "Volver",
             "pass": "Tarjeta de curso",
-            "settings": "Parametros",
+            "settings": "Parámetros",
             "myClub": "Mi Club",
             "subscription": "Suscripciones",
             "coupon": "Promociones",
@@ -717,7 +717,7 @@
                 }
             },
             "nextSlotAt": "Próxima sesión en ",
-            "settings": "Parametros",
+            "settings": "Parámetros",
             "lastBookingBeforeMinutes": "Antes del inicio del curso, última reserva posible",
             "lastDiscardBeforeMinutes": "Antes del inicio del curso, última cancelación posible",
             "addOffers": "Añadir sesiones",
@@ -932,7 +932,7 @@
                 "marketingDashboard": "Marketing",
                 "reportingDashboard": "Informes",
                 "searchResults": "Buscar",
-                "settings": "Parametros",
+                "settings": "Parámetros",
                 "orderList": "Pedidas",
                 "orderDetail": "Detalles de las pedidas"
             }
@@ -1350,7 +1350,7 @@
         "pageTitle": "Tienda"
     },
     "settings": {
-        "pageTitle": "Parametros",
+        "pageTitle": "Parámetros",
         "tab": {
             "paymentRules": "Reglas de remuneración",
             "company": "Empresa",
@@ -1392,7 +1392,7 @@
                 "dialogTitle": "Información de mi cuenta ActiveCampaign",
                 "helper": "¿Dónde encontrar esta información?",
                 "title": "Acceda a la información de tu API de ActiveCampaign",
-                "helpContent": "Puedes acceder a la URL y la clave de autenticación de su cuenta de ActiveCampaign en la configuración de su cuenta, haciendo clic en la pestaña 'Desarrollador'.",
+                "helpContent": "Puedes acceder a la URL y la clave de autenticación de su cuenta de ActiveCampaign en los parámetros de tu cuenta, haciendo clic en la pestaña 'Desarrollador'.",
                 "helpTitle": "¿Dónde puedo encontrar la información de mi cuenta?",
                 "empty": "Por favor ingresa el URL del API"
             },
@@ -1529,7 +1529,7 @@
             "detail": {
                 "title": "Producto",
                 "provisionHistory": "Evolución de las existencias",
-                "parameters": "Parametros",
+                "parameters": "Parámetros",
                 "supplier_price": "Precio comprado",
                 "marketplace_enabled": "Disponible marketplace Web",
                 "is_marketplace_enabled": "Sí",
@@ -1838,7 +1838,7 @@
             "revertCurrentExplain": "Cancelar la última factura guardada y bloquear la tarjeta de curso"
         },
         "parameters": {
-            "parameters": "Parametros",
+            "parameters": "Parámetros",
             "subscribeAgain": "Suscribir otra vez",
             "voucher": "Oferta especial",
             "trial_nb": "Numero de meses ofrecidos",
@@ -2834,7 +2834,7 @@
             },
             "section": {
                 "advanced": "Avanzado",
-                "applies_to": "Parametros",
+                "applies_to": "Parámetros",
                 "voucherConfig": "Reducción",
                 "usability": "Uso",
                 "availability": "Disponibilidad",
@@ -2870,7 +2870,7 @@
             "first_buy": "Utilizable solo en la primera compra"
         },
         "detail": {
-            "seeParameters": "Ver los parametros"
+            "seeParameters": "Ver los parámetros"
         },
         "list": {
             "activeCoupons": "Promociones activas",
@@ -3803,7 +3803,7 @@
             },
             "2": {
                 "name": "Checkin restringido",
-                "description": "Acceso sólo al checkin"
+                "description": "Acceso sólo al checkin."
             },
             "3": {
                 "name": "Checkin tableta",
@@ -4543,7 +4543,7 @@
                 "cancel": "Cancelar",
                 "submit": "Validar",
                 "hideMail": "Esconder el mail",
-                "settingTitle": "Parametros",
+                "settingTitle": "Parámetros",
                 "showMail": "Ver email",
                 "smartListSelection": "Elegir listas (opcional)",
                 "mailSelection": "Elegir un email",
@@ -4620,7 +4620,7 @@
             },
             "scaleUp": "Multiplicar",
             "scaleDown": "Dividir",
-            "parameterLegend": "Parametros",
+            "parameterLegend": "Parámetros",
             "explain": "Puedes multiplicar los créditos en la tarjeta (3/7 x2 se convierte en 6/14) o dividirlos en caso de error (3/7 ÷ 2 se convierte en 1/3): redondeado hacia abajo.",
             "title": "Modificación del total de crédito"
         },
@@ -4787,7 +4787,7 @@
             "firstBookingMinutesUntil": "Bloquear las reservas en el futuro arriba ",
             "lastDiscardBeforeMinutes": "Antes del inicio de la actividad, última cancelación posible",
             "lastBookingBeforeMinutes": "Antes del inicio de la actividad, última reserva posible",
-            "title": "Parametros"
+            "title": "Parámetros"
         },
         "modal": {
             "delete": {
@@ -4894,7 +4894,7 @@
             "subscription": "Muestreos",
             "myClub": "Mi Club",
             "settings": {
-                "settings": "Parametros",
+                "settings": "Parámetros",
                 "active_campaign": "ActiveCampaign",
                 "partnership": "Asociación",
                 "webhook": "Webhook",
@@ -5537,7 +5537,7 @@
         "offerManagement": "Reservas",
         "shop": "Mi tienda",
         "planning": "Planificación",
-        "settings": "Parametros",
+        "settings": "Parámetros",
         "marketing": {
             "marketingRule": "Estrategias marketing",
             "marketingDashboard": "Dashboard"

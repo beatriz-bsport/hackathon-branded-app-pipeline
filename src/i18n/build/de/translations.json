@@ -321,7 +321,7 @@
                 "metaActivityList": "Aktivitäten",
                 "metaActivity": "Aktivitäten",
                 "offerManagement": "Buchungen",
-                "mergeMember": "Mitgliedsverbindung",
+                "mergeMember": "Mitgliedsfusion",
                 "allCoachPerformance": "Übersicht der Lehrer",
                 "orderDetail": "Details der Bestellung",
                 "orderList": "Bestellungen",
@@ -409,7 +409,7 @@
             "credit_s": "Kreditpunkt(e)",
             "selected": "Ausgewählt(e)",
             "transactions": "Meine Transaktionen",
-            "merge": "Verbinden",
+            "merge": "Fusionieren",
             "status": "Status",
             "NA": "Uninformiert",
             "previous": "Zurück",
@@ -627,7 +627,7 @@
             "broadcast_link": "Link zur Videokonferenz",
             "disabled": "storniert",
             "noConsumerPackAvailableForPurchase": "Dieses Mitglied besitzt keine kompatible Kurkarte !",
-            "createBooking": "Angemeldet",
+            "createBooking": "Anmelden",
             "hasntBooked": "Nicht angemeldet",
             "noCompatiblePacks": "Keine Kurskarte ist mit diesem Kurs vereinbar",
             "compatiblePacks": "Kompatible Karten",
@@ -2471,11 +2471,11 @@
         "member": {
             "merge": {
                 "seeMemberPage": " Die Mitgliedsseite ansehen",
-                "submit": "Verbinden",
-                "title": "Mitgliedsverbindung",
-                "srcMember": "Mitglied, das verbunden wird (gelöscht)",
-                "error": "Es ist unmöglich, diese Mitglieder zu verbinden",
-                "success": "Verbundene Mitglieder",
+                "submit": "Fusionieren",
+                "title": "Mitgliedsfusion",
+                "srcMember": "Mitglied, das fusioniert wird (gelöscht)",
+                "error": "Es ist unmöglich, diese Mitglieder zu fusionieren",
+                "success": "Fusionierte Mitglieder",
                 "cancel": "Abbrechen",
                 "explainTags": "Markierungen des gelöschten Mitglieds werden nicht übertragen",
                 "dstMember": "Mitglied, das bewahrt wird",
@@ -3203,17 +3203,17 @@
     "member": {
         "exists": {
             "goTo": "Mitglied ansehen",
-            "merge": "Verbinden",
+            "merge": "Fusionieren",
             "linkUser": "Den Benutzer verbinden"
         },
         "forms": {
             "merge": {
                 "seeMemberPage": " Mitgliedsseite ansehen",
-                "submit": "Verbinden",
-                "title": "Mitgliedsverbindung",
-                "srcMember": "Mitglied, das verbunden wird (gelöscht)",
-                "error": "Es ist unmöglich, diese Mitglieder zu verbinden",
-                "success": "Verbundene Mitglieder",
+                "submit": "Fusionieren",
+                "title": "Mitgliedsfusion",
+                "srcMember": "Mitglied, das fusioniert wird (gelöscht)",
+                "error": "Es ist unmöglich, diese Mitglieder zu fusionieren",
+                "success": "Fusionierte Mitglieder",
                 "dstMember": "Mitglied, das bewahrt wird",
                 "explainCredit": "Die interne Anzahlung des Mitglieds wird übertragen",
                 "explainTags": "Tags des gelöschten Mitglieders werden nicht übertragen",
@@ -3257,7 +3257,7 @@
             "relation": "Beziehungen",
             "info": "Allgemein"
         },
-        "merge": "Verbinden",
+        "merge": "Fusionieren",
         "paymentAction": {
             "toSubscribe": "Abonnieren",
             "toBill": "In Rechnung stellen"
@@ -4731,7 +4731,7 @@
             "memberFormPage": "Mitglied-Formular",
             "members": "Mitglieder",
             "memberForm": "Ein Mitglied hinzufügen",
-            "mergeMember": "Mitgliedsverbindung"
+            "mergeMember": "Mitgliedsfusion"
         },
         "banner": {
             "networkError": "Sie sind nicht mit dem Internet verbunden",

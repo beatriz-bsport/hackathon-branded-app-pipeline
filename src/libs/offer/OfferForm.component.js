@@ -16,18 +16,19 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider
 
 import AddIcon from '@material-ui/icons/Add';
 import { withTranslation } from 'react-i18next';
+import moment from 'moment';
 import EstablishmentSelector from '../establishment/components/EstablishmentSelectorWithCard.component';
 import CoachSelector from '../associated-coach/components/CoachSelectorWithCard.component';
 import { Config } from '../../config';
 import Checkbox from '../../components/input/Checkbox.component';
 
-import { Moment } from '../../i18n';
 import FormField, {
   NOT_RECURRENT,
   WEEKLY,
   MONTHLY,
 } from '../../components/input/FormField.component';
 import DurationInput from '../../components/input/DurationInput.component';
+import DateTimeInput from '../../components/input/DateTimeInput.component';
 import type { Coach, MetaActivity, Establishment } from '../../api/types';
 
 const styles = (theme) => ({
@@ -101,8 +102,10 @@ export class OfferForm extends Component<Props, State> {
     super(props);
     this.state = {
       recurrence: NOT_RECURRENT,
-      date_interval_start: props.selectedDate ? props.selectedDate : Moment(),
-      date_interval_end: props.selectedDate ? props.selectedDate : Moment(),
+      date_interval_start: moment(
+        props.selectedDate ? props.selectedDate : null,
+      ),
+      date_interval_end: moment(props.selectedDate ? props.selectedDate : null),
       broadcast_link: '',
       hour: null,
       effectif: null,
@@ -158,8 +161,8 @@ export class OfferForm extends Component<Props, State> {
     } = this.state;
 
     const firstSession = date_interval_start;
-    firstSession.set('hour', Moment(hour, 'HH:mm').get('hour'));
-    firstSession.set('minute', Moment(hour, 'HH:mm').get('minute'));
+    firstSession.set('hour', moment(hour, 'HH:mm').get('hour'));
+    firstSession.set('minute', moment(hour, 'HH:mm').get('minute'));
 
     const allDates = [];
 
@@ -169,11 +172,11 @@ export class OfferForm extends Component<Props, State> {
       case WEEKLY: {
         let i = 0;
         while (
-          Moment(firstSession)
+          moment(firstSession)
             .add(i, 'week')
             .isSameOrBefore(date_interval_end, 'day')
         ) {
-          allDates.push(Moment(firstSession).add(i, 'week'));
+          allDates.push(moment(firstSession).add(i, 'week'));
           i += 1;
         }
         return allDates;
@@ -181,11 +184,11 @@ export class OfferForm extends Component<Props, State> {
       case MONTHLY: {
         let i = 0;
         while (
-          Moment(firstSession)
+          moment(firstSession)
             .add(i, 'month')
             .isSameOrBefore(date_interval_end, 'day')
         ) {
-          allDates.push(Moment(firstSession).add(i, 'month'));
+          allDates.push(moment(firstSession).add(i, 'month'));
           i += 1;
         }
         return allDates;
@@ -344,8 +347,8 @@ export class OfferForm extends Component<Props, State> {
     return (
       <MuiPickersUtilsProvider
         utils={MomentUtils}
-        moment={Moment}
-        locale={Moment.locale()}
+        moment={moment}
+        locale={moment.locale()}
       >
         <Grid container direction="column" spacing={1}>
           <Grid item>
@@ -386,48 +389,13 @@ export class OfferForm extends Component<Props, State> {
                       </Typography>
                     </Grid>
                     <Grid item>
-                      <DatePicker
-                        format="DD/MM/YYYY"
-                        keyboard
-                        required
-                        returnMoment={false}
-                        value={this.state.date_interval_start}
-                        onChange={(e) =>
-                          this.onFormFieldChange('date_interval_start')(e)
+                      <DateTimeInput
+                        value={moment(this.state.date_interval_start).format()}
+                        onChange={(date_interval_start) =>
+                          this.setState({
+                            date_interval_start: moment(date_interval_start),
+                          })
                         }
-                        mask={(value) => {
-                          if (value) {
-                            return [
-                              /\d/,
-                              /\d/,
-                              '/',
-                              /\d/,
-                              /\d/,
-                              '/',
-                              /\d/,
-                              /\d/,
-                              /\d/,
-                              /\d/,
-                            ];
-                          }
-                          return [];
-                        }}
-                      />
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item>
-                  <Grid container direction="column">
-                    <Grid item>
-                      <Typography variant="caption">
-                        {t('form.firstSessionAt')}
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <FormField
-                        id="hour"
-                        required
-                        onChange={this.onFormFieldChange}
                       />
                     </Grid>
                   </Grid>

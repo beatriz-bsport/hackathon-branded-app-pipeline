@@ -10,13 +10,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import moment from 'moment';
 import { Moment } from '../../i18n';
 import DurationInput from '../../components/input/DurationInput.component';
 import NumericInput from '../../components/input/NumericInput.component';
 import type { Coach, Establishment, Offer } from '../../api/types';
 import { formatAsTime } from '../../datetime';
 
-import DateTimeForm from './form/DateTimeForm.component';
 import RecursionToogle from './form/RecursionToogle.component';
 import EstablishmentSubForm from './form/EstablishmentSubForm.component';
 import CoachSubForm from './form/CoachSubForm.component';
@@ -25,6 +25,7 @@ import WarningForceRecursion from './form/WarningForceRecursion.component';
 import { Config } from '../../config';
 
 import LevelInput from '../../components/input/LevelInput.component';
+import DateTimeInput from '../../components/input/DateTimeInput.component';
 import Checkbox from '../../components/input/Checkbox.component';
 
 import MetaActivitySelector from '../meta-activity/components/MetaActivitySelector.component';
@@ -427,10 +428,16 @@ export class EditLiveOfferForm extends Component<Props, State> {
             <div className={this.props.classes.borderBar} />
             <div>
               <div className={this.props.classes.field}>
-                <DateTimeForm
-                  date={this.state.date}
-                  hour={this.state.hour}
-                  onFormFieldChange={this.onFormFieldChange}
+                <DateTimeInput
+                  value={moment(this.state.date)
+                    .set('hour', this.state.hour.split(':')[0])
+                    .set('minute', this.state.hour.split(':')[1])}
+                  onChange={(date_interval_start) =>
+                    this.setState({
+                      date: moment(date_interval_start),
+                      hour: moment(date_interval_start).format('HH:mm'),
+                    })
+                  }
                 />
               </div>
               <div className={this.props.classes.field}>

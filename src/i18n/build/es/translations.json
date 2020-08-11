@@ -111,7 +111,7 @@
             "or": "o",
             "cancel": "Cancelar",
             "confirm": "Confirmar",
-            "name": "Apellido",
+            "name": "Nombre",
             "status": "Estado",
             "ok": "ok",
             "seeMore": "Mostrar",
@@ -257,7 +257,7 @@
                     "subtitle": "Subtítulo",
                     "description": "Description",
                     "provisions": "Existencias",
-                    "name": "Apellido",
+                    "name": "Nombre",
                     "price": "Precio",
                     "tva": "IVA",
                     "available_payment_method_identifiers": {
@@ -447,7 +447,7 @@
             "description": "Descripción",
             "send": "Guardar",
             "discard": "Cancelar",
-            "name": "Apellido",
+            "name": "Nombre",
             "SCT": "Categoría",
             "default_price": "Precio",
             "default_credits": "Precio (créditos)",
@@ -825,7 +825,7 @@
                 "may": "May",
                 "june": "Jun",
                 "july": "Jul",
-                "august": "Aug",
+                "august": "Agosto",
                 "september": "Sep",
                 "october": "Oct",
                 "november": "Nov",
@@ -839,7 +839,7 @@
                 "may": "Mayo",
                 "june": "Junio",
                 "july": "Julio",
-                "august": "Augusto",
+                "august": "Agosto",
                 "september": "Septiembre",
                 "october": "Octubre",
                 "november": "Noviembre",
@@ -1158,7 +1158,7 @@
             "form": {
                 "name": {
                     "placeholder": "Yoga Shala",
-                    "helperText": "Este apellido será visible por tus miembros",
+                    "helperText": "Este nombre será visible por tus miembros",
                     "label": "Nombre de tu estudio/club/empresa"
                 },
                 "next": "Confirmar",
@@ -1297,7 +1297,7 @@
         },
         "form": {
             "delivery": {
-                "first_name": "Apellido",
+                "first_name": "Nombre",
                 "last_name": "Apellido"
             }
         },
@@ -1316,7 +1316,7 @@
             }
         },
         "deliveryFee": {
-            "name": "Apellido",
+            "name": "Nombre",
             "fee": "Gastos de envío",
             "free_threshold": "Ofrecidos a partir de",
             "offeredAboveAmount": "Ofrecidos los gastos de envío si hay más de {{ free_threshold, price }} de compras",
@@ -1332,7 +1332,7 @@
                 "create": "Añadir un gastos de envío",
                 "title": "Formulario gastos de envío",
                 "feeLabel": "Gastos de envío",
-                "nameLabel": "Apellido",
+                "nameLabel": "Nombre",
                 "freeThresholdLabel": "Ofrecidos a partir de",
                 "freeThresholdHelper": "Si el importe del pedido supera esta cantidad, los gastos de envío son gratuitos",
                 "onCancel": "Cancelar",
@@ -1451,7 +1451,7 @@
                 "may": "May",
                 "june": "Jun",
                 "july": "Jul",
-                "august": "Aug",
+                "august": "Agosto",
                 "september": "Sep",
                 "october": "Oct",
                 "november": "Nov",
@@ -1465,7 +1465,7 @@
                 "may": "Mayo",
                 "june": "Junio",
                 "july": "Julio",
-                "august": "Augusto",
+                "august": "Agosto",
                 "september": "Septiembre",
                 "october": "Octubre",
                 "november": "Noviembre",
@@ -1843,7 +1843,7 @@
             "voucher": "Oferta especial",
             "trial_nb": "Numero de meses ofrecidos",
             "recurrent_voucher": "Descuento por cada mes",
-            "name": "Apellido",
+            "name": "Nombre",
             "member": "Miembro",
             "dateCreated": "Fecho de registro",
             "nbInterval": "Número de meses",
@@ -2048,10 +2048,10 @@
             "effectif": "Numero de plazas",
             "nb_attendance": "Presentes",
             "nb_non_attendance": "Ausentes",
-            "name": "Apellido",
+            "name": "Nombre",
             "identifier": "Identificador",
             "first_name": "Nombre",
-            "last_name": "Apellido",
+            "last_name": "Nombre",
             "email": "Correo electrónico",
             "phonenumber": "Teléfono",
             "date_joined": "Fecha de registro",
@@ -2149,7 +2149,7 @@
             "date_start_dow": "Día",
             "slot_date_end": "Fin de sesión",
             "private_slot_name": "Sesión",
-            "nb_bookings": "Número de reserva",
+            "nb_bookings": "Número de reservas",
             "private_service_name": "Cita",
             "author": "Autor",
             "nb_bookings_same_pass": "Nb reserva a través del mismo pase",
@@ -2184,7 +2184,7 @@
         },
         "form": {
             "title": "Nueve informe",
-            "name": "Apellido",
+            "name": "Nombre",
             "description": "Descripción",
             "category": "Categoría",
             "columns": "Columnas",
@@ -2625,7 +2625,7 @@
                     "pass_credit_left": "Cantidad de créditos restantes",
                     "pass_expiration": "Fecha final tarjeta de curso",
                     "pass_starting_date": "Fecha de inicio tarjeta de curso",
-                    "pass_name": "Apellido tarjeta de curso",
+                    "pass_name": "Nombre tarjeta de curso",
                     "pass_price": "Precio tarjeta de curso"
                 },
                 "name": "Tarjeta de curso"
@@ -2646,7 +2646,7 @@
                     "pass_credit_left": "Cantidad de créditos restantes",
                     "pass_expiration": "Fecha final cita",
                     "pass_starting_date": "Fecha de inicio tarjeta cita",
-                    "pass_name": "Apellido tarjeta cita",
+                    "pass_name": "Nombre tarjeta cita",
                     "pass_price": "Precio tarjeta cita"
                 },
                 "name": "Tarjeta cita"
@@ -2654,7 +2654,7 @@
             "User": {
                 "tags": {
                     "unsubscribe_link": "Enlace para cancelar la suscripción a la newsletter",
-                    "lastname": "Apellido estudiante",
+                    "lastname": "Nombre estudiante",
                     "firstname": "Nombre estudiante"
                 },
                 "name": "Estudiante"
@@ -2830,7 +2830,7 @@
                 "label": "Código"
             },
             "name": {
-                "label": "Apellido"
+                "label": "Nombre"
             },
             "section": {
                 "advanced": "Avanzado",
@@ -3051,7 +3051,7 @@
                     "label": "Número de créditos incluidos"
                 },
                 "name": {
-                    "label": "Apellido"
+                    "label": "Nombre"
                 },
                 "managerOnly": {
                     "label": "Invisible para los clientes"
@@ -3344,7 +3344,7 @@
                     "cancel": "Cancelar"
                 },
                 "name": {
-                    "label": "Apellido"
+                    "label": "Nombre"
                 }
             },
             "selector": {
@@ -3449,7 +3449,7 @@
                 "color": "Código de colores",
                 "name": {
                     "placeholder": "Cita banca",
-                    "label": "Apellido"
+                    "label": "Nombre"
                 },
                 "title": "Cita personal"
             },
@@ -3624,7 +3624,7 @@
                 "label": "Precio"
             },
             "name": {
-                "label": "Apellido"
+                "label": "Nombre"
             },
             "title": "Formulario pack"
         },
@@ -3871,7 +3871,7 @@
         "include_tax": "Cálculo con impuestos incluidos",
         "base_percent": "Porcentaje de valor",
         "base_price": "Base",
-        "name": "Apellido",
+        "name": "Nombre",
         "save": "Guardar",
         "add": "Añadir",
         "rules": "Reglas",
@@ -4444,7 +4444,7 @@
                     "skip": "Pasar"
                 },
                 "durationYears": {
-                    "helperText": "Se suma a la cantidad de días y de mes",
+                    "helperText": "Se suma a la cantidad de días y de meses",
                     "label": "Período de validez (años) si corresponde"
                 },
                 "durationMonths": {
@@ -4500,7 +4500,7 @@
                 },
                 "name": {
                     "helperText": "Nombre de la tarjeta de curso",
-                    "label": "Apellido"
+                    "label": "Nombre"
                 },
                 "until": "Hasta ",
                 "notEditable": "Esta tarjeta de curso es el resultado de una migración, algunos campos no se pueden modificar para respetar el historial. Las actividades/categorías compatibles siguen siendo modificables.",
@@ -4801,7 +4801,7 @@
         "offersThisDay": "Sesiones de hoy :",
         "addOffers": "Añadir sesiones",
         "category": "Categoría",
-        "name": "Apellido",
+        "name": "Nombre",
         "detail": {
             "tab": {
                 "pack": "Tarjetas compatibles",
@@ -4960,7 +4960,7 @@
             "level": "Nivel",
             "description": "Descripción",
             "category": "Categoría",
-            "name": "Apellido",
+            "name": "Nombre",
             "bottomActions": {
                 "create": "Añadir"
             },
@@ -5001,7 +5001,7 @@
             "open": "Abrir",
             "deleteVideo": "Suprimir",
             "description": "Descripción",
-            "name": "Apellido",
+            "name": "Nombre",
             "noVideo": "Ninguna video en esta playlist"
         }
     },
@@ -5336,7 +5336,7 @@
                 "isEmpty": "Ninguna descripción",
                 "label": "Descripción"
             },
-            "name": "Apellido",
+            "name": "Nombre",
             "list": {
                 "detailTitle": "Detalle de la smartlist",
                 "title": "Smartlists"

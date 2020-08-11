@@ -107,7 +107,6 @@ export class OfferForm extends Component<Props, State> {
       ),
       date_interval_end: moment(props.selectedDate ? props.selectedDate : null),
       broadcast_link: '',
-      hour: null,
       effectif: null,
       waiting_list_max_size: 0,
       coach: null,
@@ -153,16 +152,9 @@ export class OfferForm extends Component<Props, State> {
   };
 
   getDates = () => {
-    const {
-      recurrence,
-      hour,
-      date_interval_start,
-      date_interval_end,
-    } = this.state;
+    const { recurrence, date_interval_start, date_interval_end } = this.state;
 
     const firstSession = date_interval_start;
-    firstSession.set('hour', moment(hour, 'HH:mm').get('hour'));
-    firstSession.set('minute', moment(hour, 'HH:mm').get('minute'));
 
     const allDates = [];
 
@@ -173,10 +165,15 @@ export class OfferForm extends Component<Props, State> {
         let i = 0;
         while (
           moment(firstSession)
+            .clone()
             .add(i, 'week')
             .isSameOrBefore(date_interval_end, 'day')
         ) {
-          allDates.push(moment(firstSession).add(i, 'week'));
+          allDates.push(
+            moment(firstSession)
+              .clone()
+              .add(i, 'week'),
+          );
           i += 1;
         }
         return allDates;
@@ -185,10 +182,11 @@ export class OfferForm extends Component<Props, State> {
         let i = 0;
         while (
           moment(firstSession)
+            .clone()
             .add(i, 'month')
             .isSameOrBefore(date_interval_end, 'day')
         ) {
-          allDates.push(moment(firstSession).add(i, 'month'));
+          allDates.push(moment(firstSession.clone()).add(i, 'month'));
           i += 1;
         }
         return allDates;
@@ -335,6 +333,7 @@ export class OfferForm extends Component<Props, State> {
   endDateIsInvalid = () => {
     if (this.state.recurrence !== NOT_RECURRENT) {
       return this.state.date_interval_start
+        .clone()
         .startOf('day')
         .isSameOrAfter(this.state.date_interval_end.startOf('day'));
     }

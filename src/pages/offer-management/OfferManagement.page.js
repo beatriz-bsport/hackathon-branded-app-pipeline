@@ -307,14 +307,11 @@ export default compose(
       isQuickInvoice,
       offer,
     ) => {
-      createOrUpdateInvoice(
-        invoiceData,
-        true,
-        () => {
+      createOrUpdateInvoice(invoiceData, {
+        onSuccess: () => {
           refreshFilteredMembers({ offer });
         },
-        isQuickInvoice,
-      );
+      });
     },
   }),
   withTitle(

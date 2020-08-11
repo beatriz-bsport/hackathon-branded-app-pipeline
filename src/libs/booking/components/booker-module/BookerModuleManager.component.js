@@ -27,7 +27,6 @@ import BookingModuleOfferChoice from './BookingModuleOfferChoice.component';
 type Props = {
   loading: boolean,
   consumerPacksLoading: boolean,
-
   offerId: number,
   offer: ?Offer,
   compatiblePacks: Array<PaymentPack>,
@@ -72,6 +71,7 @@ type Props = {
       consumerPaymentPack?: ConsumerPaymentPack,
       paymentPack?: PaymentPack,
     },
+    voucher?: number,
   ) => void,
 
   backToRegistererChoice: () => void,
@@ -196,10 +196,11 @@ export class BookingModuleManager extends PureComponent<Props> {
                 }
                 consumerPacks={this.props.consumerPacks}
                 onBookMultiple={this.props.setRegistererObject}
-                registerToOffer={(registererObject) =>
+                registerToOffer={(registererObject, voucher?) =>
                   this.props.registerToOffer(
                     this.props.offerId,
                     registererObject,
+                    voucher,
                   )
                 }
               />
@@ -261,7 +262,7 @@ export default compose(
       keep_credits,
       registererObject,
       member,
-    }) => (offerId, registererObjectOverride) => {
+    }) => (offerId, registererObjectOverride, voucher?) => {
       registerToOffer(
         member.id,
         offerId,
@@ -270,6 +271,7 @@ export default compose(
           notify_member,
           keep_credits,
         },
+        voucher,
       );
     },
   }),

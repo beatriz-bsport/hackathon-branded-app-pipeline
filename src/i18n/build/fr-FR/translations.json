@@ -827,7 +827,9 @@
       "maintenedBookings_plural": "{{nb}} réservations maintenues",
       "keys": { "created": "Réservations maintenues", "cancelled": "Réservations annulées" },
       "weekOf": "Semaine du {{date}}"
-    }
+    },
+    "quickInvoiceVoucher": "Choisissez la réduction à appliquer lors de la facturation du pass suivant",
+    "quickInvoiceNoVoucher": "Laissez la valeur de ce champ à 0 si vous ne souhaitez pas appliquer de réduction"
   },
   "search": {
     "input": "Rechercher...",

@@ -7,8 +7,8 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '@material-ui/core/Dialog';
-
 import DialogContent from '@material-ui/core/DialogContent';
+
 import { withTranslation } from 'react-i18next';
 
 import { mapFormData } from '../form.utils';
@@ -178,6 +178,7 @@ export class OfferManagement extends Component<Props, State> {
       notify_member,
       keep_credits,
     }: { notify_member: boolean, keep_credits: boolean },
+    voucher?: number,
   ) => {
     if (registererObject.paymentPack) {
       this.props.createQuickUnevenInvoice(
@@ -187,6 +188,7 @@ export class OfferManagement extends Component<Props, State> {
           keep_credits,
           notify_member,
           memberId,
+          voucher,
         },
         offerId,
       );
@@ -443,6 +445,7 @@ export class OfferManagement extends Component<Props, State> {
             />
           </DialogContent>
         </Dialog>
+
         <RevertBookingDialog
           handleBookingDeletion={this.handleBookingDeletion}
           bookingToRevert={this.props.bookingToRevert}
@@ -505,6 +508,11 @@ const styles = (theme) => ({
       height: `calc(100vh - ${theme.spacing(19)}px)`,
     },
   },
+  voucherField: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingTop: theme.spacing(2),
+  },
 });
 
 export default compose(
@@ -519,6 +527,7 @@ export default compose(
     },
   ),
   withState('memberToRegister', 'setMemberToRegister', null),
+  withState('voucher', 'setVoucher', 0),
   withStateHandlers(
     {
       searchedText: '',

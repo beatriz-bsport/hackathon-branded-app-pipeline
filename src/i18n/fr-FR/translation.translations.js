@@ -1007,4 +1007,8 @@ exports.default = {
     },
     weekOf: 'Semaine du {{date}}',
   },
+  quickInvoiceVoucher:
+    'Choisissez la réduction à appliquer lors de la facturation du pass suivant',
+  quickInvoiceNoVoucher:
+    'Laissez la valeur de ce champ à 0 si vous ne souhaitez pas appliquer de réduction',
 };

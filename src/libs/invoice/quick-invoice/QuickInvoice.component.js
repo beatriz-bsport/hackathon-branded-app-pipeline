@@ -99,7 +99,10 @@ export class QuickInvoice extends Component<Props, State> {
         0,
       ) +
       (this.props.uneditableInvoiceItems || []).reduce(
-        (acc, ii) => (ii ? parseFloat(ii.price) || 0 : 0) + acc,
+        (acc, ii) =>
+          (ii ? parseFloat(ii.price) || 0 : 0) -
+          (ii ? parseFloat(ii.voucher) || 0 : 0) +
+          acc,
         0,
       )
     );

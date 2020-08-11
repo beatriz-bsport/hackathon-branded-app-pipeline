@@ -22,7 +22,6 @@ import EstablishmentSubForm from './form/EstablishmentSubForm.component';
 import CoachSubForm from './form/CoachSubForm.component';
 import NotificationToogle from './form/NotificationToogle.component';
 import WarningForceRecursion from './form/WarningForceRecursion.component';
-import { Config } from '../../config';
 
 import LevelInput from '../../components/input/LevelInput.component';
 import DateTimeInput from '../../components/input/DateTimeInput.component';
@@ -85,6 +84,7 @@ const FIELDS = [
   'credit_price_override',
   'waiting_list_max_size',
   'level',
+  'meta_activity',
 ];
 
 const getModifiedFields = (oldData, newData) => {
@@ -133,6 +133,8 @@ export class EditLiveOfferForm extends Component<Props, State> {
       credit_price_override: props.offer.credit_price_override,
       waiting_list_max_size: props.offer.waiting_list_max_size,
       level: props.offer.level_id,
+      meta_activity:
+        props.offer.meta_activity && this.props.offer.meta_activity.id,
     };
     this.initialOfferState = {
       date_start: Moment(props.offer.date_start),
@@ -143,6 +145,8 @@ export class EditLiveOfferForm extends Component<Props, State> {
         ? props.offer.establishment_override.id
         : null,
       coach: props.offer.coach.id,
+      meta_activity:
+        this.props.offer.meta_activity && this.props.offer.meta_activity.id,
       establishment: props.offer.establishment.id,
       duration_minute: props.offer.duration_minute,
       effectif: props.offer.effectif,
@@ -154,6 +158,20 @@ export class EditLiveOfferForm extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchSimilarOffers(this.props.offer.id);
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (
+      this.props.offer.meta_activity &&
+      (!prevProps.offer.meta_activity ||
+        prevProps.offer.meta_activity.id !== this.props.offer.meta_activity.id)
+    ) {
+      this.initialOfferState = {
+        ...this.initialOfferState,
+        meta_activity: this.props.offer.meta_activity.id,
+      };
+      this.setState({ meta_activity: this.props.offer.meta_activity.id });
+    }
   }
 
   expandSimilarOfferList = () => {
@@ -323,6 +341,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
     const hasErrorCredit =
       parseInt(this.state.credit_price_override, 10) === 0 ||
       this.state.credit_price_override > 4;
+
     return (
       <div className={this.props.classes.container}>
         <div className={this.props.classes.fieldGroup}>
@@ -332,16 +351,21 @@ export class EditLiveOfferForm extends Component<Props, State> {
           <div className={this.props.classes.groupContainer}>
             <div className={this.props.classes.borderBar} />
             <div className={this.props.classes.columnFullWidth}>
-              {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ? (
-                <div className={this.props.classes.field}>
-                  <MetaActivitySelector
-                    metaActivities={this.props.metaActivities || []}
-                    value={(this.props.metaActivities || []).find(
-                      (ma) => ma.id === this.props.offer.meta_activity,
-                    )}
-                  />
-                </div>
-              ) : null}
+              <div className={this.props.classes.field}>
+                <MetaActivitySelector
+                  metaActivities={this.props.metaActivities || []}
+                  closeMenuOnSelect
+                  selectedMetaActivities={
+                    this.state.meta_activity
+                      ? [this.state.meta_activity]
+                      : undefined
+                  }
+                  noMulti
+                  selectOption={({ value }) =>
+                    this.onFormFieldChange('meta_activity')(value)
+                  }
+                />
+              </div>
               <div className={this.props.classes.field}>
                 <NumericInput
                   required
@@ -389,11 +413,6 @@ export class EditLiveOfferForm extends Component<Props, State> {
                 <Typography color="error" variant="caption">
                   {this.props.t('form.warningCreditChange')}
                 </Typography>
-              ) : null}
-              {Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
-                <div className={this.props.classes.fieldLeft}>
-                  <Checkbox label={this.props.t('onlyNewMember')} />
-                </div>
               ) : null}
               <div className={this.props.classes.fieldLeft}>
                 <LevelInput

@@ -3285,7 +3285,7 @@
         },
         "maxBookingPerWeek": { "label": "Utilisation max par semaine", "helperText": "Laisser vide pour ne pas imposer de limite" },
         "maxBookingPerDay": { "label": "Utilisation max par jour", "helperText": "Laisser vide pour ne pas imposer de limite" },
-        "maxPurchasePerMember": { "label": "Achat maximum par member", "helperText": "Laisser vide pour ne pas imposer de limite" },
+        "maxPurchasePerMember": { "label": "Achat maximum par membre", "helperText": "Laisser vide pour ne pas imposer de limite" },
         "newMemberOnly": "Uniquement pour les nouveaux clients",
         "onsitePaymentAvailable": "Possibilité de payer sur place",
         "startOnFirstUse": "Le décompte de validité débute le jour de la première réservation",
@@ -3480,7 +3480,10 @@
     "manageOffer": "Gérer mes réservations",
     "forms": { "old_date": "Ancien horaire :", "new_date": "Nouvel horaire :", "delete": { "buttonHardDelete": "Supprimer" } },
     "card": { "copyLink": "Copier le lien vers la page de réservation", "copied": "Lien copié" },
-    "offerManagement": { "bookingOrder": { "date": "Trier par date", "lastname": "Trier par nom", "firstname": "Trier par prénom" } },
+    "offerManagement": {
+      "bookingOrder": { "date": "Trier par date", "lastname": "Trier par nom", "firstname": "Trier par prénom" },
+      "unevenQuickInvoices": "Des factures sans aucun mode de paiement sont ouvertes sur cette page. Voulez-vous vraiment quitter ?"
+    },
     "menu": {
       "showMonth": "Vision mois",
       "showWeek": "Vision semaine",

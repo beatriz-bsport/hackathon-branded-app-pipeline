@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
-
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
+import { Prompt } from 'react-router-dom';
 
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Grid from '@material-ui/core/Grid';
@@ -10,6 +10,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
 import { withTranslation } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import { mapFormData } from '../form.utils';
 
@@ -33,6 +34,7 @@ import type { Invoice } from '../../libs/invoice/types';
 import type { Permission } from '../../libs/role/types';
 
 type Props = {
+  t: TFunction,
   fullScreen: boolean,
   offerId: number,
   offer: ?Offer,
@@ -415,6 +417,10 @@ export class OfferManagement extends Component<Props, State> {
             closeQuickInvoice={this.closeQuickInvoice}
             availableBuyableItems={this.props.availableBuyableItems}
             className={classes.autoScroll}
+          />
+          <Prompt
+            when={this.props.unevenSavedInvoices.length > 0}
+            message={this.props.t('offerManagement.unevenQuickInvoices')}
           />
         </Grid>
         {!!this.props.memberToRegister && (

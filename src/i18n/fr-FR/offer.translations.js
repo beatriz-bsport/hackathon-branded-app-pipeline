@@ -42,6 +42,8 @@ exports.default = {
       lastname: 'Trier par nom',
       firstname: 'Trier par prénom',
     },
+    unevenQuickInvoices:
+      'Des factures sans aucun mode de paiement sont ouvertes sur cette page. Voulez-vous vraiment quitter ?',
   },
   menu: {
     showMonth: 'Vision mois',

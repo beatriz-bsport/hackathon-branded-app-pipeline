@@ -733,7 +733,7 @@
                 "rgpdTitle": "Hoe wilt u dat instructeurs contact met u opnemen voor annuleringen / tijdwijzigingen?",
                 "confirmPassword": "Wachtwoord",
                 "confirmPasswordLabel": "Bevestiging",
-                "emailExistsInDB2": "Me aanmelden",
+                "emailExistsInDB2": "Aanmelden",
                 "emailExistsInDB1": "Deze email is reeds geregistreerd",
                 "typePhone": "Mobiele telefoon *"
             },
@@ -1388,7 +1388,7 @@
             }
         },
         "actions": {
-            "signin": "Me aanmelden",
+            "signin": "Aanmelden",
             "signup": "Nog geen account?",
             "forgottenPassword": "Je wachtwoord vergeten"
         },
@@ -1826,7 +1826,7 @@
                     "label": "Geldigheidsduur (dagen) indien van toepassing"
                 },
                 "durationMonths": {
-                    "label": "Geldigheidsduur (dagen) indien van toepassing",
+                    "label": "Geldigheidsduur (maanden) indien van toepassing",
                     "helperText": "Voegt toe aan het aantal dagen"
                 },
                 "durationYears": {
@@ -3846,7 +3846,7 @@
                     "label": "VAT"
                 },
                 "durationMonths": {
-                    "label": "Geldigheidsduur (dagen) indien van toepassing",
+                    "label": "Geldigheidsduur (maanden) indien van toepassing",
                     "helperText": "Voegt toe aan het aantal dagen"
                 },
                 "durationYears": {
@@ -4387,6 +4387,9 @@
                 "content": "Deze bankrekening wordt gebruikt om de online via bsport betaalde bedragen naar u over te maken.",
                 "title": "Bankrekening"
             }
+        },
+        "payment": {
+            "return": "Terugbetaling"
         }
     },
     "snackbar": {
@@ -4738,6 +4741,12 @@
             "restore": {
                 "error": "Item kan niet hersteld worden",
                 "success": "Item hersteld"
+            }
+        },
+        "memberNote": {
+            "delete": {
+                "error": "Kan opmerking niet verwijderen",
+                "success": "Opmerking verwijderd"
             }
         }
     },
@@ -5453,7 +5462,13 @@
                         "label": "Rol"
                     },
                     "cancel": "Annuleren",
-                    "submit": "Opslaan"
+                    "submit": "Opslaan",
+                    "lastName": {
+                        "label": "Achternaam"
+                    },
+                    "firstName": {
+                        "label": "Voornaam"
+                    }
                 },
                 "delete": {
                     "title": "Verwijdering van personeelsaccount",

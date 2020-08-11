@@ -229,7 +229,7 @@ export default compose(
         response = await postContractSubscriptionAPI(contract.id, {
           stripe_source: token,
           member: member.id,
-          first_billing_timestamp: moment(first_billing_timestamp).unix(),
+          first_billing_timestamp: moment(first_billing_timestamp).unix() + 20,
         });
       } catch (err) {
         console.error(err);

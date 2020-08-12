@@ -533,7 +533,7 @@
                 "DISPUTE": "Streitfall",
                 "SUBSCRIPTION_CB": "Geplante Zahlung",
                 "BANK_TRANSFER": "Überweisung",
-                "CREDIT_ACCOUNT": "Internes Konto (Kreditpunkte)"
+                "CREDIT_ACCOUNT": "Internes Konto (Kredit)"
             },
             "paymentMethod": "Zahlungsmethode",
             "invoice": "Rechnung",
@@ -1165,7 +1165,7 @@
             "CHECK": "Scheck",
             "CB_MANUAL": "Kreditkarte (manuell)",
             "CB": "Kreditkarte",
-            "CREDIT_ACCOUNT": "Internes Konto (Kreditpunkte)"
+            "CREDIT_ACCOUNT": "Internes Konto (Kredit)"
         },
         "members": {
             "form": {
@@ -1964,7 +1964,7 @@
                     "label": "Gültigkeitsdauer (Jahre), falls zutreffend"
                 },
                 "theoricalMarginValue": {
-                    "label": "Theoretischer Grenzbeitrag einschließlich Steuer (nur bei unbegrenzter Karte)",
+                    "label": "Theoretischer marginaler Beitrag einschließlich Steuer (nur bei unbegrenzter Karte)",
                     "helperText": "Für die Berechnung der Lohne der Lehrer verwendet. 10€ bedeutet, dass eine Buchung, die mit dieser Karte registriert ist, mit 10€ honoriert wird. Wenn dieses Feld leer ist (oder 0€), ist der Betrag einer Karte PREIS/ANZAHL_BUCHUNGEN"
                 },
                 "maxBookingPerWeek": {
@@ -2302,12 +2302,12 @@
             "member_identifier": "Miglieds-ID",
             "disabled": "Storniert",
             "amortized_price": "Verbleibende Schulden",
-            "margin_value": "Geringfügiger Beitrag",
+            "margin_value": "Marginaler Beitrag",
             "identifier": "ID",
             "date": "Datum",
             "sales": "Verkäufe",
             "subshop_name": "Kategorie",
-            "sum_margin_value": "Geringfügiger Beitrag",
+            "sum_margin_value": "Marginaler Beitrag",
             "total_price_notax": "Betrag ausschließlich Mehrwertsteuer",
             "payment_note": "Zahlungsanmerkung",
             "total_price": "Betrag inkl. Mehrwertsteuer",
@@ -2809,7 +2809,7 @@
             "2": "Scheck",
             "1": "Bargeld",
             "0": "Kreditkarte",
-            "9": "Internes Konto (Kreditpunkte)",
+            "9": "Internes Konto (Kredit)",
             "label": "Zahlungsmethode",
             "12": "Streitfall"
         },

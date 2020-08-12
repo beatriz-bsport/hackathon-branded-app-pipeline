@@ -25,7 +25,6 @@ import WarningForceRecursion from './form/WarningForceRecursion.component';
 
 import LevelInput from '../../components/input/LevelInput.component';
 import DateTimeInput from '../../components/input/DateTimeInput.component';
-import Checkbox from '../../components/input/Checkbox.component';
 
 import MetaActivitySelector from '../meta-activity/components/MetaActivitySelector.component';
 

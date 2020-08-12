@@ -19,6 +19,7 @@ import Popover from '@material-ui/core/Popover';
 import { push } from 'connected-react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DeleteOfferForm from '../../offer/DeleteOfferForm.component';
+import { getEnabledMetaActivities } from '../../meta-activity/selectors';
 import OfferEditForm from '../../offer/OfferEditForm.component';
 import RedButton from '../../../components/button/RedButton.component';
 import PrivateBookingDisableDialog from '../components/booking/PrivateBookingDisableDialog.component';
@@ -39,7 +40,10 @@ import {
   updatePrivateBookingCoach as updatePrivateBookingCoachAction,
   deleteCustomEvent as deleteCustomEventAction,
 } from '../actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../meta-activity/actions';
+import {
+  fetchMetaActivityBulk as fetchMetaActivityBulkAction,
+  fetchAllActivities,
+} from '../../meta-activity/actions';
 import {
   fetchCoachBulk as fetchCoachBulkAction,
   fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
@@ -131,12 +135,18 @@ type Props = {
   updatePrivateBookingDatetime: (date: string, options: OptionCallback) => void,
   updatePrivateBookingCoachHandler: (updatedCoachId: number) => void,
   goToCoachCalendar: () => void,
+  fetchAllActivities: () => void,
+  metaActivities: Array<MetaActivity>,
 
   customEvent: ?CustomEvent,
   deleteCustomEvent: (number) => void,
 };
 
 export class CalendarEventDetail extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchAllActivities();
+  }
+
   componentDidUpdate(prevProps: Props) {
     if (this.props.offerId && this.props.offerId !== prevProps.offerId) {
       this.props.fetchOfferById(this.props.offerId);
@@ -373,6 +383,9 @@ export class CalendarEventDetail extends React.Component<Props> {
                   offer={offer}
                   coaches={this.props.coaches}
                   establishments={this.props.establishments}
+                  metaActivities={this.props.metaActivities.filter(
+                    (ma) => ma.customer_enabled && !ma.is_workshop,
+                  )}
                   is_whereby_integration_enabled={
                     this.props.theme &&
                     this.props.theme.is_whereby_integration_enabled &&
@@ -441,6 +454,7 @@ const OfferEditorContainer = compose(
       similarOffers: getSimilarsOffers(state),
       coaches: getActiveCoaches(state),
       establishments: getAllEstablishments(state),
+      metaActivities: getEnabledMetaActivities(state),
     }),
     {
       fetchSimilarOffers: fetchSimilarOffersAction,
@@ -587,6 +601,7 @@ export default compose(
       retrieveOfferAsManager: retrieveOfferAsManagerAction,
       fetchPrivateBooking: fetchPrivateBookingAction,
       fetchCoachBulk: fetchCoachBulkAction,
+      fetchAllActivities,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchPrivateService: fetchPrivateServiceAction,
       fetchPrivateSlot: fetchPrivateSlotAction,

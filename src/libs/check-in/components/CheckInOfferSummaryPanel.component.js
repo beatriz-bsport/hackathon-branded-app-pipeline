@@ -2,83 +2,39 @@
 
 import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation } from 'react-i18next';
+import moment from 'moment';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import type { TFunction } from 'react-i18next';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlaceIcon from '@material-ui/icons/PlaceOutlined';
 
-import { formatAsTime } from '../../../datetime';
 import Level from '../../../components/category/Level.component';
-import Countdown from '../../../components/Countdown.component';
-import { Moment } from '../../../i18n';
 
-const COUNTDOWN_REFRESH_DURATION = 1000;
 type Props = {
-  t: TFunction,
   offer: Object,
   classes: Object,
 };
 
-type State = {
-  currentTime: Moment,
-};
-
-class CheckInOfferSummary extends Component<Props, State> {
+class CheckInOfferSummary extends Component<Props> {
   interval: any;
 
-  state = {
-    currentTime: Moment(),
-  };
-
-  componentDidMount() {
-    this.interval = setInterval(
-      () => this.setState({ currentTime: Moment() }),
-      COUNTDOWN_REFRESH_DURATION,
-    );
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
   render() {
-    const { classes, offer, t } = this.props;
-    const { currentTime } = this.state;
-    const momentDate = Moment();
-    const inProgress = !!momentDate.isBetween(
-      Moment(offer.date_start),
-      Moment(offer.date_end),
+    const { classes, offer } = this.props;
+    const date_end = moment(offer.date_start).add(
+      offer.duration_minute,
+      'minutes',
     );
-    const timeTillDate = inProgress ? offer.date_end : offer.date_start;
-    const color = inProgress ? 'primary' : 'inherit';
     const coach = offer.coach_override || offer.coach;
 
     return (
       <div className={classes.root}>
         <div className={classes.item}>
-          <Typography variant="button" color="textSecondary" align="center">
-            {t(
-              `selfCheckIn:offerStatus.${
-                inProgress ? 'inProgress' : 'startIn'
-              }`,
-            )}
-          </Typography>
-          <Countdown
-            timeFormat="YYYY-MM-DDTHH:mm:ssZ"
-            timeTillDate={timeTillDate}
-            currentTime={currentTime}
-            color={color}
-          />
-        </div>
-        <div className={classes.item}>
           <div className={classes.row}>
             <AccessTimeIcon className={classes.leftIcon} />
             <Typography variant="body2">
-              {`${formatAsTime(offer.date_start)} - ${formatAsTime(
-                offer.date_end,
-              )}`}
+              {`${moment(offer.date_start).format('LT')} - ${moment(
+                date_end,
+              ).format('LT')}`}
             </Typography>
           </div>
         </div>
@@ -167,4 +123,4 @@ const style = (theme) => ({
   },
 });
 
-export default withTranslation([])(withStyles(style)(CheckInOfferSummary));
+export default withStyles(style)(CheckInOfferSummary);

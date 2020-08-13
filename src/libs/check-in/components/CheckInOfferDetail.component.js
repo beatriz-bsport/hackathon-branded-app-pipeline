@@ -1,57 +1,60 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import AddIcon from '@material-ui/icons/Add';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import Fab from '@material-ui/core/Fab';
+
 import Switch from '@material-ui/core/Switch';
-import ListItemText from '@material-ui/core/ListItemText';
-import { compose, withState } from 'recompose';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withHandlers, compose } from 'recompose';
+import { withStyles } from '@material-ui/styles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import RedFab from '../../../components/button/RedFab.component';
 import type { Member } from '../../member/types';
+import BookingList from './BookingList.component';
+
+import FaceIDBooker from '../../face-recognition/components/FaceRecognition.component';
 
 import CheckInOfferSummaryPanel from './CheckInOfferSummaryPanel.component';
-import CheckInBookingItem from './CheckInBookingItem.component';
 import BarcodeLiveReader from '../../../components/BarcodeLiveReader.component';
 
-import boop from '../../../sounds/boop.mp3';
-
 const MEMBER_LIST_REFRESH_DURATION = 1000 * 60 * 2;
-
-const likeAudio = new Audio(boop);
-
-const playSound = (audioFile) => {
-  audioFile.play();
-};
 
 type Props = {
   offer: Object,
   classes: Object,
   t: TFunction,
+
   goBack: () => void,
   members: Array<Member>,
   confirmBookingAttendance: (bookingId: number) => void,
   onAddMember: () => void,
   bookingLoading: boolean,
   refreshData: () => void,
-  barcodeMode: boolean,
-  setBarcodeMode: (boolean) => void,
-  showLiveStream: boolean,
+
+  barcodeDetectorEnabled: boolean,
+  toogleBarcodeDetector: () => void,
+
+  faceIdEnabled: boolean,
+  toogleFaceId: () => void,
+  faceIdAvailable: boolean,
+
   onBarcodeDetected: (string) => void,
+  onFaceDetected: (member: ?Member, imageBlog: ?Blob) => void,
+  registrationDialogOpen: boolean,
+  barcodeDetectorEnabled: boolean,
+  faceIdAvailable: boolean,
+  faceIdEnabled: boolean,
+  closeBarcodeAndFaceID: () => void,
 };
 
-export class CheckInOffer extends Component<Props> {
-  interval: any;
-
+export class CheckInOffer extends React.Component<Props> {
   componentDidMount() {
     this.interval = setInterval(
       this.props.refreshData,
@@ -60,123 +63,106 @@ export class CheckInOffer extends Component<Props> {
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
   }
-
-  previousPage = () => {
-    clearInterval(this.interval);
-    this.props.goBack();
-  };
 
   render() {
     if (!this.props.offer) {
       return <CircularProgress />;
     }
-    const { members, t } = this.props;
+    const { classes, t } = this.props;
+
+    const BookerFab = this.props.offer.is_full ? RedFab : Fab;
+
     return (
-      <div className={this.props.classes.root}>
+      <div className={classes.root}>
         <div
-          className={classNames([
-            this.props.classes.panelContainer,
-            this.props.classes.offerSummary,
-          ])}
+          className={classNames([classes.panelContainer, classes.offerSummary])}
         >
           <CheckInOfferSummaryPanel
             offer={this.props.offer}
-            goBack={this.previousPage}
+            goBack={this.props.goBack}
           />
         </div>
         <div
-          className={classNames([
-            this.props.classes.panelContainer,
-            this.props.classes.memberList,
-          ])}
+          className={classNames([classes.panelContainer, classes.memberList])}
         >
-          <div className={this.props.classes.row}>
+          <div className={classes.row}>
             <Switch
-              checked={this.props.barcodeMode}
-              onChange={(ev) => this.props.setBarcodeMode(ev.target.checked)}
+              checked={!!this.props.barcodeDetectorEnabled}
+              onChange={this.props.toogleBarcodeDetector}
             />
-            <Typography>
-              {this.props.t('offerDetail.activateBarcode')}
-            </Typography>
+
+            <Typography>{t('offerDetail.activateBarcode')}</Typography>
+
+            <Switch
+              checked={!!this.props.faceIdEnabled}
+              onChange={this.props.toogleFaceId}
+              disabled={!this.props.faceIdAvailable}
+            />
+            <Typography>{t('offerDetail.activateFaceId')}</Typography>
           </div>
-          {this.props.barcodeMode ? (
-            <div>
-              {this.props.showLiveStream ? (
-                <BarcodeLiveReader onDetected={this.props.onBarcodeDetected} />
-              ) : null}
-            </div>
-          ) : (
-            <div>
-              <List disablePadding>
-                {this.props.bookingLoading ? (
-                  <LinearProgress />
-                ) : (
-                  <ListItem
-                    button
-                    disabled={this.props.offer.is_full}
-                    onClick={() => this.props.onAddMember()}
-                    className={this.props.classes.registerListItem}
-                  >
-                    <ListItemAvatar>
-                      <AddIcon />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={
-                        this.props.offer.is_full
-                          ? t('offerDetail.isFull')
-                          : t('offerDetail.register')
-                      }
-                    />
-                  </ListItem>
-                )}
-                {(members || []).map((member) => (
-                  <CheckInBookingItem
-                    member={member}
-                    key={member.booking.id}
-                    confirmAttendance={() => {
-                      playSound(likeAudio);
-                      this.props.confirmBookingAttendance(member.booking.id);
-                    }}
-                  />
-                ))}
-              </List>
-              {(members || []).length === 0 && !this.props.bookingLoading ? (
-                <Typography variant="body2" color="textSecondary">
-                  {t('offerDetail.emptyList')}
-                </Typography>
-              ) : null}
-            </div>
-          )}
+
+          <BookingList
+            offer={this.props.offer}
+            confirmBookingAttendance={this.props.confirmBookingAttendance}
+            onAddMember={this.props.onAddMember}
+            bookingLoading={this.props.bookingLoading}
+            members={this.props.members}
+          />
         </div>
-        <Button
-          variant="extendedFab"
-          color="secondary"
-          className={this.props.classes.backButton}
-          onClick={this.previousPage}
-        >
-          <ChevronLeftIcon className={this.props.classes.leftIcon} />
-          {t('offerDetail.backToOfferList')}
-        </Button>
-        <Button
-          onClick={this.props.onAddMember}
-          color="primary"
-          variant="extendedFab"
-          disabled={this.props.offer.is_full}
-          className={this.props.classes.registerButton}
-        >
-          <PersonAddIcon className={this.props.classes.leftIcon} />
-          {this.props.offer.is_full
-            ? t('offerDetail.isFull')
-            : t('offerDetail.register')}
-        </Button>
+
+        <div className={classes.backButton}>
+          <BookerFab
+            onClick={
+              this.props.offer.is_full ? () => {} : this.props.onAddMember
+            }
+            color="primary"
+            variant="extended"
+          >
+            <PersonAddIcon className={classes.leftIcon} />
+            {this.props.offer.is_full
+              ? t('offerDetail.isFull')
+              : t('offerDetail.register')}
+          </BookerFab>
+          <Fab variant="extended" color="secondary" onClick={this.props.goBack}>
+            <ChevronLeftIcon className={classes.leftIcon} />
+            {t('offerDetail.backToOfferList')}
+          </Fab>
+        </div>
+        {!this.props.registrationDialogOpen &&
+          (this.props.barcodeDetectorEnabled || this.props.faceIdEnabled) && (
+            <Dialog open>
+              <div className={classes.modal}>
+                {this.props.barcodeDetectorEnabled && (
+                  <BarcodeLiveReader
+                    onDetected={this.props.onBarcodeDetected}
+                  />
+                )}
+                {this.props.faceIdEnabled && (
+                  <FaceIDBooker
+                    onDetectMember={(member, imageBlob, options) =>
+                      this.props.onFaceDetected(member, imageBlob, options)
+                    }
+                  />
+                )}
+
+                <DialogActions>
+                  <Button onClick={this.props.closeBarcodeAndFaceID}>
+                    {t('offerDetail.actions.close')}
+                  </Button>
+                </DialogActions>
+              </div>
+            </Dialog>
+          )}
       </div>
     );
   }
 }
 
-const style = (theme) => ({
+const styles = (theme) => ({
   root: {
     width: '100%',
     display: 'flex',
@@ -199,6 +185,12 @@ const style = (theme) => ({
     position: 'fixed',
     bottom: theme.spacing(2),
     left: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    '&>*': {
+      marginTop: theme.spacing(2),
+    },
   },
   memberList: {
     width: '60%',
@@ -220,8 +212,30 @@ const style = (theme) => ({
     alignItems: 'center',
   },
 });
+
 export default compose(
   withTranslation(['selfCheckIn']),
-  withStyles(style),
-  withState('barcodeMode', 'setBarcodeMode', false),
+  withStyles(styles),
+  withHandlers({
+    onBarcodeDetected: ({ fetchMemberByBarcode, onMemberSearched }) => (
+      data,
+    ) => {
+      fetchMemberByBarcode(data.codeResult.code, {
+        onSuccess: (member) => {
+          onMemberSearched(member);
+        },
+      });
+    },
+    onFaceDetected: ({ onMemberSearched, openIncompleteMemberForm }) => (
+      member,
+      imageBlob,
+      options,
+    ) => {
+      if (!member) {
+        openIncompleteMemberForm({ avatar: imageBlob }, options);
+      } else {
+        onMemberSearched(member, options);
+      }
+    },
+  }),
 )(CheckInOffer);

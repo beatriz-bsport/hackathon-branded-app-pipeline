@@ -34,6 +34,13 @@ exports.default = {
     isFull: 'Complet',
     register: "M'inscrire à ce cours",
     activateBarcode: 'Détecteur de carte',
+    activateFaceId: 'Face ID',
+    noDetectionResult: 'Aucun résultat',
+    actions: {
+      close: 'Fermer',
+      restartAnalyze: 'Recommencer',
+      createAccount: 'Créer un compte',
+    },
   },
   memberList: {
     checkIn: 'Check-in',

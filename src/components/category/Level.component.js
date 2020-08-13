@@ -50,7 +50,6 @@ export function Level(props: Props) {
     borderRadius: 5,
     backgroundColor: getLevelColorById(levelId, props.theme),
     color: 'white',
-    width: '80%',
   };
   if (noStyle) {
     stylesheet = {
@@ -62,6 +61,7 @@ export function Level(props: Props) {
     <Typography
       align={props.align || 'center'}
       variant={variant}
+      noWrap
       style={stylesheet}
     >
       {t(LEVELS[levelId - 1])}

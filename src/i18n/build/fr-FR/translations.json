@@ -3721,7 +3721,10 @@
       "cancelRegistration": "Annuler",
       "isFull": "Complet",
       "register": "M'inscrire à ce cours",
-      "activateBarcode": "Détecteur de carte"
+      "activateBarcode": "Détecteur de carte",
+      "activateFaceId": "Face ID",
+      "noDetectionResult": "Aucun résultat",
+      "actions": { "close": "Fermer", "restartAnalyze": "Recommencer", "createAccount": "Créer un compte" }
     },
     "memberList": { "checkIn": "Check-in", "checkedIn": "Enregistré", "empty": "Aucun élève inscrit à ce cours" },
     "confirmPage": {

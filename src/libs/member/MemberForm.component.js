@@ -187,11 +187,7 @@ export function MemberForm(props: Props) {
           />
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <div
-                style={props.fromConsumerAccess ? { visibility: 'hidden' } : {}}
-              >
-                <AvatarField name="avatar" disabled={disabled} />
-              </div>
+              <AvatarField name="avatar" disabled={disabled} />
             </Grid>
             <Grid item xs={12} md={mdSize}>
               <TextField
@@ -530,7 +526,27 @@ export default compose(
 
     validationSchema: MemberSchema,
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
-      const { avatar } = values;
+      let { avatar } = values;
+      if (typeof avatar === 'string' && avatar.includes('data:image/')) {
+        const byteString = atob(avatar.split(',')[1]);
+        const mimeString = avatar
+          .split(',')[0]
+          .split(':')[1]
+          .split(';')[0];
+
+        const buffer = new ArrayBuffer(byteString.length);
+        const data = new DataView(buffer);
+
+        // eslint-disable-next-line
+        for (let i = 0; i < byteString.length; i++) {
+          data.setUint8(i, byteString.charCodeAt(i));
+        }
+        avatar = new File(
+          [buffer],
+          `${parseInt(Math.random() * 10000000000000000, 10)}.png`,
+          { type: mimeString },
+        );
+      }
       const data = {
         ...values,
         avatar: typeof avatar !== 'string' ? avatar : undefined,

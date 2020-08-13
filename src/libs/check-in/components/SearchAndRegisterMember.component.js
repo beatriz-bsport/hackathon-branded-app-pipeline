@@ -14,10 +14,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import ConsumerPackCheckout from '../../consumer-payment-pack/components/ConsumerPaymentPackListItemCheckout.component';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
 import { anonymizeEmail } from '../../member/utils';
+import CheckInOfferDetailMemberForm from './CheckInOfferDetailMemberForm.component';
+
+import type { OptionCallback } from '../../../state/types';
 
 type RegisterMemberProps = {
-  open: boolean,
-
   processing: boolean,
   setProcessing: (boolean) => void,
 
@@ -29,7 +30,7 @@ type RegisterMemberProps = {
   ) => void,
 
   member: ?Member,
-  setMember: (?Member) => void,
+  setSearchedMember: (?Member) => void,
   offer: Offer,
 
   onClose: () => void,
@@ -37,14 +38,14 @@ type RegisterMemberProps = {
 };
 
 const RegisterMemberBase = (props: RegisterMemberProps) => (
-  <Dialog open={!!props.open} onClose={props.onClose}>
+  <Dialog open onClose={props.onClose}>
     {props.consumerPacksLoading || props.processing ? (
       <DialogContent>
         <CircularProgress />
       </DialogContent>
     ) : (
       <React.Fragment>
-        <DialogTitle>{props.member.name}</DialogTitle>
+        <DialogTitle>{props.member && props.member.name}</DialogTitle>
         <DialogContent>
           <List disablePadding>
             {props.consumerPaymentPacks.length === 0
@@ -59,7 +60,7 @@ const RegisterMemberBase = (props: RegisterMemberProps) => (
                   props.setProcessing(true);
                   props.registerWithPass(cpp.id, {
                     onSuccess: () => {
-                      props.setMember(null);
+                      props.setSearchedMember(null);
                       props.setProcessing(false);
                     },
                     onError: () => {
@@ -74,7 +75,7 @@ const RegisterMemberBase = (props: RegisterMemberProps) => (
         <DialogActions>
           <Button
             onClick={() => {
-              props.setMember(null);
+              props.setSearchedMember(null);
               props.onClose();
             }}
           >
@@ -92,31 +93,29 @@ const RegisterMember = compose(
 )(RegisterMemberBase);
 
 type Props = {
-  open: boolean,
   loading: boolean,
 
   consumerPacksLoading: boolean,
   consumerPaymentPacks: Array<ConsumerPaymentPack>,
-  fetchCompatiblePass: (memberId: number) => void,
+  setSearchedMember: (member: ?Member) => void,
   registerWithPass: (
     consumerPaymentPackId: number,
     { onSuccess: () => void, onError: () => void },
   ) => void,
 
   member: ?Member,
-  searchedMembers: Array<Member>,
+  searchedMemberList: Array<Member>,
   searchMembers: (txt: string) => void,
 
-  setMember: (?Member) => void,
+  setSearchedMember: (?Member) => void,
   offer: Offer,
 
   onClose: () => void,
+  upsertMember: (id: ?number, FormData, options: OptionCallback) => void,
+  memberDataToComplete: (?{ avatar: string }) => void,
 };
 
 export const SearchAndRegister = (props: Props) => {
-  if (!props.open) {
-    return null;
-  }
   if (props.loading) {
     return (
       <Dialog open>
@@ -126,6 +125,21 @@ export const SearchAndRegister = (props: Props) => {
       </Dialog>
     );
   }
+
+  if (props.memberDataToComplete) {
+    return (
+      <Dialog open>
+        <CheckInOfferDetailMemberForm
+          initial={props.memberDataToComplete}
+          onSubmit={props.upsertMember}
+          onClose={props.onClose}
+          onAlreadyLinkMember={props.onClose}
+          onLinkMember={props.onClose}
+        />
+      </Dialog>
+    );
+  }
+
   if (props.member) {
     return (
       <RegisterMember
@@ -134,31 +148,26 @@ export const SearchAndRegister = (props: Props) => {
         consumerPacksLoading={props.consumerPacksLoading}
         consumerPaymentPacks={props.consumerPaymentPacks}
         offer={props.offer}
-        open={!!props.member}
         member={props.member}
-        setMember={props.setMember}
+        setSearchedMember={props.setSearchedMember}
       />
     );
   }
 
   return (
     <MemberSearchModal
-      open={!props.member}
-      searchedMembers={props.searchedMembers.map((m) => ({
+      open
+      searchedMembers={props.searchedMemberList.map((m) => ({
         ...m,
         email: anonymizeEmail(m.email),
       }))}
       searchMembers={props.searchMembers}
       onClose={props.onClose}
       handlMemberSelected={(memberId, member) => {
-        props.fetchCompatiblePass(memberId);
-        props.setMember(member);
+        props.setSearchedMember(member);
       }}
     />
   );
 };
 
-export default compose(
-  withTranslation(['selfCheckIn']),
-  withState('member', 'setMember', null),
-)(SearchAndRegister);
+export default compose(withTranslation(['selfCheckIn']))(SearchAndRegister);

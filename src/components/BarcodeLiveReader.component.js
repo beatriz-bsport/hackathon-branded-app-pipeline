@@ -11,7 +11,7 @@ type Props = {
 };
 
 export class BarcodeReader extends React.Component<Props> {
-  waiting = false;
+  waiting: boolean = false;
 
   componentWillUnmount() {
     Quagga.stop();
@@ -57,7 +57,6 @@ export class BarcodeReader extends React.Component<Props> {
 
 const styles = () => ({
   container: {
-    height: '100%',
     width: '100%',
   },
 });

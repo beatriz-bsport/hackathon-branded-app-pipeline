@@ -64,7 +64,7 @@ Auto Bump Version:
   tags:
     - deployment
   only:
-    - dev
+    - master
   before_script:
     - echo 'Overriding default before_script instruction relying on yarn'
 

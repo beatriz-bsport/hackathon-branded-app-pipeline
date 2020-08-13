@@ -77,6 +77,7 @@ Auto Bump Version:
     - git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/bsport/bsport-saas.git
     - git config --global user.email "contact@bsport.io"
     - git config --global user.name "bsport-bot"
+    - git fetch --tags
     - 'exists=`git show-ref refs/heads/${CI_COMMIT_REF_NAME}` && if [ -n "$exists" ]; then git branch -D ${CI_COMMIT_REF_NAME}; fi'
     - git checkout -b $CI_COMMIT_REF_NAME
 

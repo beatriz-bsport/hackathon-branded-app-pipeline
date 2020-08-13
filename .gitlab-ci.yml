@@ -88,7 +88,7 @@ Auto Bump Version:
     - echo "#!/bin/sh" >> variables
     - echo "export TAG='$VERSION'" >> variables
 
-    - '[[ $SHOULD_PUSH = 1 ]] && git push origin $CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME || echo "no code to push"'
+    - '[[ $SHOULD_PUSH = 1 ]] && git tag ${VERSION} && git push origin $CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME || echo "no code to push"'
     - '[[ $SHOULD_PUSH = 1 ]] && git push origin $CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME --tags || echo "no tag to push"'
 
   artifacts:

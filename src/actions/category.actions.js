@@ -1,11 +1,14 @@
+// @flow
 import api from '../api';
 import types from './category.types';
 
-export function fetchSCT() {
-  return async (dispatch) => {
+import type { Dispatch } from '../state/types';
+
+export function fetchSCT(params: any = {}) {
+  return async (dispatch: Dispatch) => {
     try {
       const [categories, easyAccessesResponse] = await Promise.all([
-        api.category.fetchSCT(),
+        api.category.fetchSCT(params),
         api.category.fetchEasyAccesses(),
       ]);
       const SCTs = categories.data;
@@ -17,6 +20,6 @@ export function fetchSCT() {
   };
 }
 
-export function fetchedCategories(SCTs, easyAccesses) {
+export function fetchedCategories(SCTs: Array<SCT>, easyAccesses: Array<SCT>) {
   return { SCTs, easyAccesses, type: types.HAS_FETCHED_SCTS };
 }

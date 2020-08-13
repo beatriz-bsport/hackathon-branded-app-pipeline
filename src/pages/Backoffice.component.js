@@ -131,7 +131,7 @@ type Props = {
   openCalendar: () => void,
   openCreateMember: () => void,
 
-  fetchSCT: () => void,
+  fetchSCT: (params: any) => void,
   fetchAllPaymentPacks: () => void,
   fetchShop: () => void,
   fetchPaymentRules: () => void,
@@ -196,7 +196,7 @@ export class Backoffice extends Component<Props, State> {
     this.setState({ authToken: getAuthToken() });
     this.props.checkEmailValidation();
     this.props.fetchAllAlertings();
-    this.props.fetchSCT();
+    this.props.fetchSCT({ as_company: true });
     this.props.fetchAllPaymentPacks();
     this.props.fetchShop();
     this.props.fetchPaymentRules();

@@ -1,6 +1,6 @@
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "42.5.0"
+version = "42.5.1"
 version_files = [
     "src/release.js",
     ".cz.toml:version",

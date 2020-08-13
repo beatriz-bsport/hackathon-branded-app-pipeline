@@ -1,3 +1,10 @@
+## 42.5.1 (2020-08-13)
+
+### Fix
+
+- **version**: fetch tag berfore running cz bump
+- **version**: test bump versionning
+
 ## 42.5.0 (2020-08-13)
 
 ### Feat

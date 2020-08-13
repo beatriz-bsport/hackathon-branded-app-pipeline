@@ -1,3 +1,9 @@
+## 42.6.0 (2020-08-13)
+
+### Feat
+
+- **report**: add first privatebooking report
+
 ## 42.5.1 (2020-08-13)
 
 ### Fix

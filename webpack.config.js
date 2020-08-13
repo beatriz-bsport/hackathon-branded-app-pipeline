@@ -81,6 +81,9 @@ const defaultConfig = {
   resolve: {
     extensions: ['*', '.js', '.jsx'],
     symlinks: false,
+    alias: {
+      react: path.resolve('./node_modules/react'),
+    },
   },
 };
 

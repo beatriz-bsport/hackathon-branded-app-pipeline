@@ -1,31 +1,35 @@
 // @flow
 
-import { Moment } from 'bsport-saas/src/i18n';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
+import { Moment } from 'bsport-saas/src/i18n';
+
 import { MarketplaceCalendarStyled } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendar.page';
 
-import {
-  resetOffersAction,
-  fetchCompanyOffersAction,
-} from 'bsport-saas/src/libs/marketplace/actions';
+import { fetchMarketplaceOfferList as fetchOfferListAction } from 'bsport-saas/src/libs/offer/actions';
 import * as paymentActions from 'bsport-saas/src/actions/payment.actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from 'bsport-saas/src/libs/associated-coach/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from 'bsport-saas/src/libs/establishment/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from 'bsport-saas/src/libs/meta-activity/actions';
 
+import themeSelectors from 'bsport-saas/src/libs/theme/selectors';
 import {
-  getOffersFiltered,
-  isOfferLoading,
-  getOffersCoaches,
-  getOffersEstablishments,
-  getOffersMetaActivities,
-} from 'bsport-saas/src/libs/marketplace/selectors';
+  getMarketplaceOfferList,
+  withMetaActivity,
+  withCoach,
+  withEstablishment,
+} from 'bsport-saas/src/libs/offer/selectors';
+import { getCoaches } from 'bsport-saas/src/libs/associated-coach/selectors';
+import { getMetaActivities } from 'bsport-saas/src/libs/meta-activity/selectors';
+
+import { getAllEstablishments } from 'bsport-saas/src/libs/establishment/selectors';
 
 const BACKOFFICE_URI = 'https://backoffice.bsport.io';
 const DATE_FORMAT = 'YYYY-MM-DD';
 
 type Props = {
   companyId: number,
-  fetchCompanyOffers: () => void,
   getOffersFromFilter: (*) => void,
   loading: ?boolean,
   coaches: [],
@@ -33,7 +37,6 @@ type Props = {
   metaActivities: [],
   compatibleConsumerPacks: [],
   compatiblePaymentPacks: [],
-  resetOffers: () => void,
   goToBook: (bookingId: number, companyId: number) => void,
   goToBookOption: (bookingId: number, companyId: number) => void,
   fetchPaymentPacks: () => void,
@@ -52,18 +55,17 @@ type Props = {
 type State = {
   filtersOpen: boolean,
   filters: any,
-  selectedDate: Moment,
+  selectedDate: Object,
 };
 
 export class CalendarWidget extends Component<Props, State> {
-  state = {
-    filtersOpen: false,
-    filters: {},
-    selectedDate: Moment(),
-  };
-
-  componentDidMount() {
-    this.setFilters(this.props.defaultFilters);
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      filtersOpen: !!props.filtersOpen,
+      filters: props.defaultFilters || {},
+      selectedDate: Moment(),
+    };
   }
 
   setFilters = (filters: any) => {
@@ -85,16 +87,19 @@ export class CalendarWidget extends Component<Props, State> {
         filtersOpen={this.state.filtersOpen}
         filters={this.state.filters}
         setFilters={this.setFilters}
-        fetchCompanyOffers={this.props.fetchCompanyOffers}
+        fetchOfferList={this.props.fetchOfferList}
         handleDateChange={this.handleDateChange}
         selectedDate={this.state.selectedDate}
         compactMode={this.props.compactMode}
-        offers={this.props.getOffersFromFilter(this.state.filters)}
+        offers={this.props.offers}
         toogleFiltersOpen={() =>
           this.setState((prevState) => ({
             filtersOpen: !prevState.filtersOpen,
           }))
         }
+        fetchEstablishmentBulk={this.props.fetchEstablishmentBulk}
+        fetchMetaActivityBulk={this.props.fetchMetaActivityBulk}
+        fetchCoachBulk={this.props.fetchCoachBulk}
         hideMap
         loading={this.props.loading}
         coaches={this.props.coaches}
@@ -102,13 +107,13 @@ export class CalendarWidget extends Component<Props, State> {
         metaActivities={this.props.metaActivities}
         compatibleConsumerPacks={this.props.compatibleConsumerPacks}
         compatiblePaymentPacks={this.props.compatiblePaymentPacks}
-        resetOffers={this.props.resetOffers}
         goToBook={this.props.goToBook}
         goToBookOption={this.props.goToBookOption}
         fetchPaymentPacks={this.props.fetchPaymentPacks}
         fetchCompatiblePass={this.props.fetchCompatiblePass}
         goToPackPayment={this.props.goToPackPayment}
         onCompletePurchase={this.props.onCompletePurchase}
+        theme={this.props.theme}
       />
     );
   }
@@ -117,15 +122,19 @@ export class CalendarWidget extends Component<Props, State> {
 export default compose(
   connect(
     (state) => ({
-      getOffersFromFilter: (filters) => getOffersFiltered(state, filters),
-      loading: isOfferLoading(state),
-      coaches: getOffersCoaches(state),
-      establishments: getOffersEstablishments(state),
-      metaActivities: getOffersMetaActivities(state),
+      offers: withMetaActivity(
+        withCoach(withEstablishment(getMarketplaceOfferList)),
+      )(state),
+      coaches: getCoaches(state),
+      establishments: getAllEstablishments(state),
+      metaActivities: getMetaActivities(state),
+      theme: themeSelectors.getTheme(state),
     }),
     {
-      resetOffers: resetOffersAction,
-      fetchCompanyOffers: fetchCompanyOffersAction,
+      fetchOfferList: fetchOfferListAction,
+      fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      fetchCoachBulk: fetchCoachBulkAction,
+      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
     },
   ),
   // for metaactivity dialog
@@ -138,6 +147,29 @@ export default compose(
       fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
       fetchCompatiblePass: paymentActions.fetchCompatiblePass,
     },
+  ),
+  withProps(
+    ({
+      fetchOfferList,
+      fetchEstablishmentBulk,
+      fetchCoachBulk,
+      fetchMetaActivityBulk,
+    }) => ({
+      fetchOfferList: (params) =>
+        fetchOfferList(params, {
+          onSuccess: (offerList) => {
+            fetchEstablishmentBulk([
+              ...offerList.map((o) => o.establishment),
+              ...offerList.map((o) => o.establishment_override),
+            ]);
+            fetchCoachBulk([
+              ...offerList.map((o) => o.coach),
+              ...offerList.map((o) => o.coach_override),
+            ]);
+            fetchMetaActivityBulk([...offerList.map((o) => o.meta_activity)]);
+          },
+        }),
+    }),
   ),
   withProps(() => ({
     goToPackPayment: (packId, offerId, companyId) => {

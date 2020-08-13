@@ -1,31 +1,28 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import Typography from '@material-ui/core/Typography';
+import { compose, withHandlers } from 'recompose';
 import './App.scss';
 
 // used to init moment correctly
 // eslint-disable-next-line
-import i18n from 'bsport-saas/src/i18n';
 
-import {
-  fetchCompanyAction,
-  fetchCompanyMetaActivitiesAction,
-  fetchCompanyActivitiesAction,
-  fetchCompanyEstablishmentsAction,
-  fetchCompanyCoachesAction,
-} from 'bsport-saas/src/libs/marketplace/actions';
 import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
 import { fetchSCT } from 'bsport-saas/src/actions/category.actions';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { getTheme } from 'bsport-saas/src/theme';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import asyncComponent from './async-component';
+import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 
 /* FOR TESTING PURPOSES
 import WorkshopWidget from './components/Workshop';
 import CalendarWidget from './components/Calendar';
 import ShopWidget from './components/Shop';
+import PassWidget from './components/Pass';
 */
+
+import asyncComponent from './async-component';
+
 const CalendarWidget = asyncComponent(() => import('./components/Calendar'));
 const PassWidget = asyncComponent(() => import('./components/Pass'));
 const ShopWidget = asyncComponent(() => import('./components/Shop'));
@@ -37,7 +34,6 @@ type Props = {
   history: Object,
   widgetType: string,
   fetchSCT: () => void,
-  fetchCompany: (companyId: number) => void,
   fetchCompanyActivities: (companyId: number) => void,
   fetchCompanyMetaActivities: (companyId: number) => void,
   fetchCompanyCoaches: (companyId: number) => void,
@@ -46,6 +42,7 @@ type Props = {
   auth: *,
   consumerProfile: *,
   lang: string,
+  fetchData: () => void,
   compactMode: boolean,
   defaultFilters: {
     coaches: [],
@@ -56,22 +53,18 @@ type Props = {
 };
 
 class BsportWidget extends Component<Props> {
-  fetchData = () => {
-    this.props.fetchSCT();
-    this.props.fetchCompanyTheme(this.props.companyId);
-    this.props.fetchCompany(this.props.companyId);
-    this.props.fetchCompanyActivities(this.props.companyId);
-    this.props.fetchCompanyMetaActivities(this.props.companyId);
-    this.props.fetchCompanyCoaches(this.props.companyId);
-    this.props.fetchCompanyEstablishments(this.props.companyId);
-  };
-
   componentWillMount() {
-    i18n.changeLanguage(this.props.lang || 'fr-FR');
+    if (this.props.lang && this.props.lang !== 'fr-FR') {
+      import('bsport-saas/src/i18n')
+        .then((i18n) => {
+          i18n.default.changeLanguage(this.props.lang);
+        })
+        .catch(console.error);
+    }
   }
 
   componentDidMount() {
-    this.fetchData();
+    this.props.fetchData();
   }
 
   renderWidget() {
@@ -81,6 +74,7 @@ class BsportWidget extends Component<Props> {
       history,
       widgetType,
       defaultFilters,
+      filtersOpen,
       compactMode,
     } = this.props;
     switch (widgetType) {
@@ -90,6 +84,8 @@ class BsportWidget extends Component<Props> {
             companyId={companyId}
             location={history.location}
             store={store}
+            defaultFilters={defaultFilters}
+            filtersOpen={filtersOpen}
           />
         );
       case 'pass':
@@ -116,6 +112,7 @@ class BsportWidget extends Component<Props> {
             compactMode={compactMode}
             store={store}
             defaultFilters={defaultFilters}
+            filtersOpen={filtersOpen}
           />
         );
     }
@@ -123,25 +120,73 @@ class BsportWidget extends Component<Props> {
 
   render() {
     return (
-      <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        {this.renderWidget()}
-      </MuiThemeProvider>
+      <div
+        style={{
+          height: '100%',
+          width: '100%',
+          display: 'flex !important',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <MuiThemeProvider
+          theme={getTheme(this.props.theme)}
+          style={{ height: '100%', width: '100%', display: 'inline-block' }}
+        >
+          {this.renderWidget()}
+          <div className={this.props.classes.poweredByContainer}>
+            <a
+              className={this.props.classes.poweredBy}
+              href="https://pro.bsport.io"
+            >
+              <Typography color="textSecondary" variant="caption">
+                Powered by
+              </Typography>
+              <img
+                alt="bsport"
+                className={this.props.classes.logo}
+                src="https://cdn.bsport.io/bsport_logo_txt.png"
+              />
+            </a>
+          </div>
+        </MuiThemeProvider>
+      </div>
     );
   }
 }
 
+const styles = () => ({
+  poweredByContainer: {
+    width: '100%',
+  },
+  poweredBy: {
+    display: 'flex !important',
+    flexDirection: 'column !important',
+    alignItems: 'flex-end !important',
+    padding: 18,
+    '&>*': {
+      textDecoration: 'none !important', // not working ?
+    },
+  },
+  logo: {
+    maxHeight: '24px !important',
+  },
+});
+
 export default compose(
+  withStyles(styles),
   connect(
     (state) => ({ auth: state.auth, theme: state.theme.theme }),
     {
       // General information
       fetchSCT,
       fetchCompanyTheme,
-      fetchCompany: fetchCompanyAction,
-      fetchCompanyMetaActivities: fetchCompanyMetaActivitiesAction,
-      fetchCompanyActivities: fetchCompanyActivitiesAction,
-      fetchCompanyEstablishments: fetchCompanyEstablishmentsAction,
-      fetchCompanyCoaches: fetchCompanyCoachesAction,
     },
   ),
+  withHandlers({
+    fetchData: ({ companyId, fetchSCT, fetchCompanyTheme }) => () => {
+      fetchSCT();
+      fetchCompanyTheme(companyId);
+    },
+  }),
 )(BsportWidget);

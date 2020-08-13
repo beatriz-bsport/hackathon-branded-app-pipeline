@@ -1,3 +1,9 @@
+## 42.7.0 (2020-08-13)
+
+### Feat
+
+- **invoice**: voucher for quick invoices
+
 ## 42.6.0 (2020-08-13)
 
 ### Feat

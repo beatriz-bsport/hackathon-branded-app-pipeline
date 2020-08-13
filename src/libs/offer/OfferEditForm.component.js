@@ -127,7 +127,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
         : null,
       date: Moment(props.offer.date_start),
       duration_minute: props.offer.duration_minute,
-      hour: formatAsTime(Moment(props.offer.date_start)),
+      hour: moment(props.offer.date_start).format('HH:mm'),
       effectif: props.offer.effectif,
       credit_price_override: props.offer.credit_price_override,
       waiting_list_max_size: props.offer.waiting_list_max_size,

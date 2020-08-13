@@ -52,7 +52,7 @@ export function DateTimeForm(props: Props) {
         <TextField
           style={{ minWidth: 120 }}
           type="time"
-          value={formatAsTime(moment(props.value))}
+          value={moment(props.value).format('HH:mm')}
           required={props.required}
           disabled={props.disabled}
           onChange={(ev) =>

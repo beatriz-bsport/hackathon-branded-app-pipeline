@@ -44,7 +44,7 @@ import Badge from '@material-ui/core/Badge';
 import type { TFunction } from 'react-i18next';
 
 import { colors } from '@bsport/common/lib/colors';
-import { LanguageButton } from '../button/LanguageButton.component';
+import LanguageButton from '../button/LanguageButton.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 

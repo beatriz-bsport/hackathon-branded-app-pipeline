@@ -62,7 +62,7 @@ import StorageIcon from '@material-ui/icons/Storage';
 import type { TFunction } from 'react-i18next';
 
 import { colors } from '@bsport/common/lib/colors';
-import { LanguageButton } from '../button/LanguageButton.component';
+import LanguageButton from '../button/LanguageButton.component';
 import TempPasswordDialog from '../../libs/login/components/TempPasswordDialog.component';
 import SearchBar from '../SearchBar.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';

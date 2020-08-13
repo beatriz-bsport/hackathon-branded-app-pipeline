@@ -5329,7 +5329,7 @@
                 "error": "Ihre Informationen sind falsch",
                 "dialogTitle": "Informationen über mein ActiveCampaign-Konto",
                 "helper": "Wo kann man diese Informationen finden ?",
-                "title": "Zugangsnformationen zu Ihrer ActiveCampaign API",
+                "title": "Zugangsinformationen zu Ihrer ActiveCampaign API",
                 "helpContent": "Die URL und der Authentifizierungsschlüssel Ihres ActiveCampaign-Kontos sind in Ihren Kontoeinstellungen verfügbar, indem Sie auf die Rubrik \"Entwickler\" klicken.",
                 "helpTitle": "Wo kann ich meine Kontoinformationen finden?",
                 "token": "Authentifizierungs-Schlüssel",

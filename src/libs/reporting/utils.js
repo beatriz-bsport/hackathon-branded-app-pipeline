@@ -93,6 +93,10 @@ export const CATEGORIES: ReportCategory[] = [
     icon: PlusOneIcon,
   },
   {
+    id: 'first_privatebooking',
+    icon: PlusOneIcon,
+  },
+  {
     id: 'activities',
     icon: StarIcon,
   },

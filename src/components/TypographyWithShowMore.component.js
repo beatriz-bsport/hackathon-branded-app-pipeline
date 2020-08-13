@@ -40,12 +40,9 @@ export const TypographyWithSowMore = (props: Props) => {
         <ButtonBase
           disableRipple
           onClick={() => props.setShowFullText(!props.showFullText)}
+          className={props.classes.showMoreButton}
         >
-          <Typography
-            variant="caption"
-            color="secondary"
-            className={props.classes.showMoreButton}
-          >
+          <Typography variant="caption" color="secondary">
             {props.showFullText
               ? props.t('text.showLessText')
               : props.t('text.showMoreText')}

@@ -19,8 +19,6 @@ import { withTranslation } from 'react-i18next';
 import moment from 'moment';
 import EstablishmentSelector from '../establishment/components/EstablishmentSelectorWithCard.component';
 import CoachSelector from '../associated-coach/components/CoachSelectorWithCard.component';
-import { Config } from '../../config';
-import Checkbox from '../../components/input/Checkbox.component';
 
 import FormField, {
   NOT_RECURRENT,
@@ -518,11 +516,6 @@ export class OfferForm extends Component<Props, State> {
             onChange={this.onFormFieldChange}
           />
         </Grid>
-        {Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
-          <Grid item>
-            <Checkbox label={this.props.t('onlyNewMember')} />
-          </Grid>
-        ) : null}
       </Grid>
     );
   };

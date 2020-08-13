@@ -19,7 +19,6 @@ import {
   BOOKING_FIRSTNAME_ORDER,
   BOOKING_LASTNAME_ORDER,
 } from '@bsport/common/lib/master-data/settings';
-import Config from '../../../config';
 
 import type { Theme } from '../types';
 
@@ -126,77 +125,6 @@ export class ThemePersonalize extends Component<Props, State> {
             />
           </div>
         </div>
-        {Config.NODE_ENV === 'staging' || Config.NODE_ENV === 'development' ? (
-          <div>
-            <Typography className={classes.namesHeader}>
-              {t('forms.themePersonalization.calendar.title')}
-            </Typography>
-            <div className={classes.inputContainer}>
-              <div className={classes.horizontalInput}>
-                <TextField
-                  multiline
-                  rows={3}
-                  variant="outlined"
-                  placeholder={t(
-                    'forms.themePersonalization.calendar.columns.placeholder',
-                  )}
-                  helperText={t(
-                    'forms.themePersonalization.calendar.columns.helperText',
-                  )}
-                  label={t('forms.themePersonalization.calendar.columns.label')}
-                />
-              </div>
-              <div className={classes.horizontalInput}>
-                <TextField
-                  rows={3}
-                  multiline
-                  variant="outlined"
-                  placeholder={t(
-                    'forms.themePersonalization.calendar.offerCard.placeholder',
-                  )}
-                  helperText={t(
-                    'forms.themePersonalization.calendar.offerCard.helperText',
-                  )}
-                  label={t(
-                    'forms.themePersonalization.calendar.offerCard.label',
-                  )}
-                />
-              </div>
-            </div>
-            <div className={classes.inputContainer}>
-              <div className={classes.horizontalInput}>
-                <TextField
-                  rows={3}
-                  multiline
-                  variant="outlined"
-                  placeholder={t(
-                    'forms.themePersonalization.calendar.bookButton.placeholder',
-                  )}
-                  helperText={t(
-                    'forms.themePersonalization.calendar.bookButton.helperText',
-                  )}
-                  label={t(
-                    'forms.themePersonalization.calendar.bookButton.label',
-                  )}
-                />
-              </div>
-              <div className={classes.horizontalInput}>
-                <TextField
-                  rows={3}
-                  multiline
-                  variant="outlined"
-                  placeholder={t(
-                    'forms.themePersonalization.calendar.police.placeholder',
-                  )}
-                  helperText={t(
-                    'forms.themePersonalization.calendar.police.helperText',
-                  )}
-                  label={t('forms.themePersonalization.calendar.police.label')}
-                />
-              </div>
-            </div>
-          </div>
-        ) : null}
         <div className={classes.inputContainer}>
           <Switch
             checked={this.state.theme.consumer_regularize_debt}

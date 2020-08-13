@@ -10,17 +10,12 @@ import WarningIcon from '@material-ui/icons/Warning';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelectorWithCard.component';
-import WarningForceRecursion from './WarningForceRecursion.component';
 
 type Props = {
   t: TFunction,
   establishment: Establishment,
   establishments: Array<Establishment>,
-  establishment_override: Establishment,
   classes: Object,
-  hasChangedEstablishment: boolean,
-  establishments_override: Array,
-  onChangeEstablishmentOverride: (Establishment) => void,
   onChangeEstablishment: (Establishment) => void,
 };
 
@@ -41,30 +36,10 @@ export class EstablishmentSubForm extends Component<Props> {
     </div>
   );
 
-  renderModifySubstituteEstablishment = () => (
-    <div className={this.props.classes.selector}>
-      <Typography variant="caption" className={this.props.classes.caption}>
-        {this.props.t('establishment:overrider')}
-      </Typography>
-      <EstablishmentSelector
-        id="establishment_override"
-        placeholder={this.props.t('establishment:establishment_override')}
-        establishments={this.props.establishments_override}
-        value={this.props.establishment_override}
-        onChange={this.props.onChangeEstablishmentOverride}
-      />
-    </div>
-  );
-
   render() {
     return (
       <div className={this.props.classes.selector}>
         {this.renderModifyEstablishment()}
-        {this.props.establishment && this.props.hasChangedEstablishment ? (
-          <WarningForceRecursion
-            text={this.props.t('form.offer.establishmentChangeWarning')}
-          />
-        ) : null}
         {this.props.establishment ? null : (
           <div className={this.props.classes.warningContainer}>
             <WarningIcon size={20} />
@@ -76,7 +51,6 @@ export class EstablishmentSubForm extends Component<Props> {
             </Typography>
           </div>
         )}
-        {this.renderModifySubstituteEstablishment()}
       </div>
     );
   }

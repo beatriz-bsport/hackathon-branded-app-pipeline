@@ -9,14 +9,11 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import CoachSelector from '../../associated-coach/components/CoachSelectorWithCard.component';
 
-import WarningForceRecursion from './WarningForceRecursion.component';
-
 type Props = {
   coach: Coach,
   coaches: Array<Coach>,
   coach_override: ?Coach,
   t: TFunction,
-  hasChangedCoach: boolean,
   classes: Object,
   coachs_override: Array,
   onChangeCoachOverride: (Coach) => void,
@@ -52,17 +49,6 @@ export class CoachSubForm extends Component<Props> {
     </div>
   );
 
-  showCoachChangeWarning = () => {
-    if (this.props.hasChangedCoach) {
-      return (
-        <WarningForceRecursion
-          text={this.props.t('form.offer.coachChangeWarning')}
-        />
-      );
-    }
-    return null;
-  };
-
   render() {
     return (
       <div className={this.props.classes.selector}>
@@ -78,7 +64,6 @@ export class CoachSubForm extends Component<Props> {
             </Typography>
           </div>
         )}
-        {this.props.coach ? this.showCoachChangeWarning() : null}
         {this.renderModifySubstituteCoach()}
       </div>
     );

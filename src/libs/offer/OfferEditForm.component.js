@@ -178,11 +178,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
     }));
   };
 
-  shouldModifyAllDates = () =>
-    this.state.modifyRecursively ||
-    this.hasChangedCoach() ||
-    this.hasChangedEstablishment() ||
-    this.hasChangedLevel();
+  shouldModifyAllDates = () => this.state.modifyRecursively;
 
   hasChangedDatetime = () => {
     const { date, hour } = this.state;
@@ -487,7 +483,6 @@ export class EditLiveOfferForm extends Component<Props, State> {
                 (c) => c.id !== this.state.coach,
               )}
               offer={this.props.offer}
-              hasChangedCoach={this.hasChangedCoach()}
               onChangeCoach={(coach) =>
                 this.onFormFieldChange('coach')(coach ? coach.id : null)
               }
@@ -515,24 +510,10 @@ export class EditLiveOfferForm extends Component<Props, State> {
                   establishment ? establishment.id : null,
                 )
               }
-              onChangeEstablishmentOverride={(establishment) =>
-                this.onFormFieldChange('establishment_override')(
-                  establishment ? establishment.id : null,
-                )
-              }
               establishment={this.props.establishments.find(
                 (es) => es.id === this.state.establishment,
               )}
               establishments={this.props.establishments}
-              establishments_override={this.props.establishments.filter(
-                (e) =>
-                  e.id !==
-                  (this.state.establishment ||
-                    this.props.offer.establishment.id),
-              )}
-              establishment_override={this.props.establishments.find(
-                (es) => es.id === this.state.establishment_override,
-              )}
               offer={this.props.offer}
               hasChangedEstablishment={this.hasChangedEstablishment()}
             />
@@ -597,11 +578,6 @@ export class EditLiveOfferForm extends Component<Props, State> {
                 )}:${pad(Moment(this.state.hour, 'HH:mm').minute())}`,
                 'DD/MM/YYYY hh:mm',
               ).diff(this.initialOfferState.date_start)}
-              disabled={
-                this.hasChangedCoach() ||
-                this.hasChangedEstablishment() ||
-                this.hasChangedLevel()
-              }
               onChangeRecursion={() =>
                 this.setState((prevState) => ({
                   modifyRecursively: !prevState.modifyRecursively,

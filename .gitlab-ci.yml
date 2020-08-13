@@ -82,7 +82,6 @@ Auto Bump Version:
 
     - 'cz bump --check-consistency --changelog && SHOULD_PUSH=1 || SHOULD_PUSH=0;'
 
-
     - VERSION=`echo "$(cat ./VERSION)"`
     - echo $VERSION
     - echo "#!/bin/sh" >> variables

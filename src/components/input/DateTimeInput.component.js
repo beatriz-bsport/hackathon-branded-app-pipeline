@@ -10,7 +10,6 @@ import TextField from '@material-ui/core/TextField';
 
 import { withTranslation } from 'react-i18next';
 import { Moment } from '../../i18n';
-import { formatAsTime } from '../../datetime';
 
 type Props = {
   value: string,

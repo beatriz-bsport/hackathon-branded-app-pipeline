@@ -15,7 +15,6 @@ import { Moment } from '../../i18n';
 import DurationInput from '../../components/input/DurationInput.component';
 import NumericInput from '../../components/input/NumericInput.component';
 import type { Coach, Establishment, Offer } from '../../api/types';
-import { formatAsTime } from '../../datetime';
 
 import RecursionToogle from './form/RecursionToogle.component';
 import EstablishmentSubForm from './form/EstablishmentSubForm.component';

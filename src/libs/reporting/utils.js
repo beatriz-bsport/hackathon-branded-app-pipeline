@@ -9,7 +9,10 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import CategoryIcon from '@material-ui/icons/Category';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import EuroIcon from '@material-ui/icons/EuroSymbol';
+import WorkshopIcon from '@material-ui/icons/Today';
+import StarIcon from '@material-ui/icons/Star';
 import PlusOneIcon from '@material-ui/icons/PlusOne';
+import privateServiceIcon from '@material-ui/icons/AccessTime';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
@@ -21,42 +24,34 @@ import type { ReportCategoryEnum, ReportCategory } from './types';
 export const CATEGORIES: ReportCategory[] = [
   {
     id: 'members',
-    name: 'Membres',
     icon: PeopleIcon,
   },
   {
     id: 'offers',
-    name: 'Séances',
     icon: EventIcon,
   },
   {
     id: 'bookings',
-    name: 'Reservations (cours collectif)',
     icon: EventAvailableIcon,
   },
   {
     id: 'payments',
-    name: 'Paiements',
     icon: CreditCardIcon,
   },
   {
     id: 'products',
-    name: 'Products',
     icon: ShoppingBasketIcon,
   },
   {
     id: 'invoices',
-    name: 'Achats',
     icon: ShoppingBasketIcon,
   },
   {
     id: 'memberships',
-    name: 'Cartes de cours',
     icon: AccountBoxIcon,
   },
   {
     id: 'basket',
-    name: 'Panier',
     icon: ShoppingCartIcon,
   },
   {
@@ -71,33 +66,64 @@ export const CATEGORIES: ReportCategory[] = [
   },
   {
     id: 'private_cpasses',
-    name: 'Carte RDV',
     icon: AccountBoxIcon,
   },
   {
     id: 'shop',
-    name: 'Magasin',
     icon: StoreIcon,
   },
   {
     id: 'private_bookings',
-    name: 'Reservations (rendez-vous)',
     icon: EventAvailableIcon,
   },
   {
     id: 'discount',
-    name: 'Promotions',
     icon: CardGiftcardIcon,
   },
   {
     id: 'subscription',
-    name: 'Souscription',
     icon: UpdateIcon,
   },
   {
     id: 'first_booking',
-    name: 'Première séance',
     icon: PlusOneIcon,
+  },
+  {
+    id: 'first_attendance',
+    icon: PlusOneIcon,
+  },
+  {
+    id: 'activities',
+    icon: StarIcon,
+  },
+  {
+    id: 'workshop',
+    name: 'Ateliers ',
+    icon: WorkshopIcon,
+  },
+  {
+    id: 'activityByEst',
+    icon: WorkshopIcon,
+  },
+  {
+    id: 'activityByCoach',
+    icon: WorkshopIcon,
+  },
+  {
+    id: 'privateService',
+    icon: privateServiceIcon,
+  },
+  {
+    id: 'privateService:Coach',
+    icon: privateServiceIcon,
+  },
+  {
+    id: 'privateServiceEst',
+    icon: privateServiceIcon,
+  },
+  {
+    id: 'dayBookings',
+    icon: EventAvailableIcon,
   },
 ];
 
@@ -105,7 +131,6 @@ export function getCategory(categoryID: ReportCategoryEnum): * {
   return (
     CATEGORIES.find((c) => c.id === categoryID) || {
       icon: CategoryIcon,
-      name: categoryID,
       id: categoryID,
     }
   );

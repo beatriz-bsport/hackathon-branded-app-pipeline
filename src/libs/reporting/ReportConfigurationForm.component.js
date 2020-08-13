@@ -22,7 +22,7 @@ import {
 
 import type { ReportCategoryMetadata } from './types';
 
-import ReportCategorySelector from './ReportCategorySelector.component';
+import ReportCategoriesSelector from './ReportCategoriesSelector.component';
 import ReportColumnSelector from './ReportColumnSelector.component';
 
 type Props = {
@@ -32,19 +32,25 @@ type Props = {
   t: TFunction,
   classes: { [string]: string },
   categories: *[],
+  globalCategories: *[],
 };
 
 const ReportConfigurationSchema = Yup.object().shape({
   name: Yup.string().required('required'),
   description: Yup.string().required('required'),
   category: Yup.string().required('required'),
-  columns: Yup.array()
-    .of(Yup.string().required())
-    .min(1),
+  columns: Yup.array().of(Yup.string().required()).min(1),
 });
 
 export function ReportConfigurationForm(props: Props) {
-  const { isSubmitting, onClose, categoryMetadata, categories, t } = props;
+  const {
+    isSubmitting,
+    onClose,
+    categoryMetadata,
+    categories,
+    globalCategories,
+    t,
+  } = props;
   return (
     <Form>
       <TextField required name="name" fullWidth label={t('form.name')} />
@@ -59,16 +65,16 @@ export function ReportConfigurationForm(props: Props) {
       <FormControl label={t('form.category')}>
         <Field name="category">
           {({ field: { value, onChange } }) => (
-            <ReportCategorySelector
+            <ReportCategoriesSelector
               selected={value}
               categories={categories}
+              globalCategories={globalCategories}
               onSelect={onChange('category')}
             />
           )}
         </Field>
         <AlertError name="category" />
       </FormControl>
-
       {categoryMetadata ? (
         <FormControl label={t('form.columns')}>
           <FieldArray name="columns">
@@ -100,7 +106,7 @@ export default compose(
       initial || {
         name: '',
         description: '',
-        category: 'members',
+        category: '',
         columns: [],
       },
     validationSchema: ReportConfigurationSchema,
@@ -109,5 +115,6 @@ export default compose(
   withProps(({ metadata, values: { category } }) => ({
     categoryMetadata: metadata.find((m) => m.category === category),
     categories: metadata.map((c) => c.category),
+    globalCategories: metadata.map((c) => c.global_category),
   })),
 )(ReportConfigurationForm);

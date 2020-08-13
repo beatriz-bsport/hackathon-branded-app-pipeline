@@ -44,7 +44,7 @@ const ReportGenerationSchema = Yup.object().shape({
   dateStart: Yup.date().required('required'),
   dateEnd: Yup.date()
     .required('required')
-    .test('is-after-start', 'errors.end_before_start', function(dateEnd) {
+    .test('is-after-start', 'errors.end_before_start', function (dateEnd) {
       const { dateStart } = this.parent;
       return moment(dateStart).isSameOrBefore(moment(dateEnd));
     }),
@@ -140,10 +140,10 @@ export default compose(
   withTranslation(),
   withStyles(styles),
   withFormik({
-    mapPropsToValues: ({ initial }) =>
+    mapPropsToValues: ({ initial, reportConfiguration }) =>
       initial || {
-        dateStart: moment().subtract(7, 'days'),
-        dateEnd: moment(),
+        dateStart: moment(reportConfiguration.date_start),
+        dateEnd: moment(reportConfiguration.date_end),
       },
     validationSchema: ReportGenerationSchema,
     handleSubmit: defaultHandleSubmit,

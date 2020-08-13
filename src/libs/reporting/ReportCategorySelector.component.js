@@ -1,9 +1,9 @@
 // @flow
 
 import React from 'react';
-import { compose } from 'recompose';
+import { useTranslation } from 'react-i18next';
 
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 
@@ -18,12 +18,13 @@ type Props = {
 };
 
 export function ReportCategorySelector({
-  classes,
   onSelect,
   selected,
   categories,
 }: Props) {
   const cats = categories.map((c) => getCategory(c));
+  const classes = useStyles();
+  const { t } = useTranslation(['reporting']);
   return (
     <div>
       {cats.map((category) => {
@@ -42,7 +43,7 @@ export function ReportCategorySelector({
               ) : null
             }
             color={color}
-            label={category.name}
+            label={t(`categories.${category.id}`)}
             className={classes.chip}
             clickable
             onDelete={onDelete}
@@ -54,10 +55,10 @@ export function ReportCategorySelector({
   );
 }
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   chip: {
     margin: theme.spacing(1) / 2,
   },
-});
+}));
 
-export default compose(withStyles(styles))(ReportCategorySelector);
+export default ReportCategorySelector;

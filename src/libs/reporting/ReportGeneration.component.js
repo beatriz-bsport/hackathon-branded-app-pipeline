@@ -17,7 +17,6 @@ type Props = {
   metadata: ReportMetadata,
   handleGenerate: (*) => void,
   exportLink?: string,
-  dateRange: *,
 };
 
 export default function ReportGeneration(props: Props) {
@@ -28,7 +27,6 @@ export default function ReportGeneration(props: Props) {
     handleGenerate,
     exportLink,
     metadata,
-    dateRange,
   } = props;
 
   if (!report || report.loading || metadata.loading) {
@@ -38,7 +36,6 @@ export default function ReportGeneration(props: Props) {
   return (
     <div>
       <ReportGenerationForm
-        initial={dateRange}
         reportConfiguration={report}
         onSubmit={handleGenerate}
         exportLink={exportLink}

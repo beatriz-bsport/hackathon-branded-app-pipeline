@@ -33,43 +33,51 @@ type Props = {
   fetchReports: () => void,
   fetchReportMetadata: () => void,
   handleGenerate: () => void,
-  dateRange: *,
 };
 
 export class ReportingGeneration extends React.Component<Props> {
   state = { loading: true };
 
   componentWillMount() {
-    const { dateRange } = this.props;
     this.props.fetchReports();
     this.props.fetchReportMetadata();
-    this.props.handleGenerate(dateRange);
   }
 
   componentDidMount() {
     this.setState({ loading: false });
+    this.props.fetchReports();
+    this.props.fetchReportMetadata();
+    if (this.props.report.date_start) {
+      const dateStart = moment(this.props.report.date_start);
+      const dateEnd = moment(this.props.report.date_end);
+      this.props.handleGenerate({ dateStart, dateEnd });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!!this.props.report.date_start && !prevProps.report.date_start) {
+      const dateStart = moment(this.props.report.date_start);
+      const dateEnd = moment(this.props.report.date_end);
+      this.props.handleGenerate({ dateStart, dateEnd });
+      this.props.fetchReports();
+      this.props.fetchReportMetadata();
+    }
   }
 
   render() {
-    const {
-      report,
-      result,
-      handleGenerate,
-      exportLink,
-      metadata,
-      dateRange,
-    } = this.props;
+    const { report, result, handleGenerate, exportLink, metadata } = this.props;
 
     return (
-      <ReportGeneration
-        dateRange={dateRange}
-        report={report}
-        metadata={metadata}
-        resultLoading={report.loading || result.loading || this.state.loading}
-        result={result.value}
-        handleGenerate={handleGenerate}
-        exportLink={exportLink}
-      />
+      <div>
+        <ReportGeneration
+          report={report}
+          metadata={metadata}
+          resultLoading={report.loading || result.loading || this.state.loading}
+          result={result.value}
+          handleGenerate={handleGenerate}
+          exportLink={exportLink}
+        />
+      </div>
     );
   }
 }
@@ -88,38 +96,25 @@ export default compose(
       fetchExtractResult: reportResult.effects.generate,
     },
   ),
-  withState('dateRange', 'setDateRange', {
-    dateStart: moment().subtract(7, 'days'),
-    dateEnd: moment(),
-  }),
   withState('exportLink', 'setExportLink', null),
-  withProps(
-    ({ id, fetchExtractResult, result, setExportLink, setDateRange }) => ({
-      handleGenerate({ dateStart, dateEnd }, options) {
-        setDateRange({ dateStart, dateEnd });
-        fetchExtractResult(
-          id,
-          {
-            dateStart: dateStart.format('YYYY-MM-DD'),
-            dateEnd: dateEnd
-              .clone()
-              .add(1, 'days')
-              .format('YYYY-MM-DD'),
-          },
-          options,
-        );
-        const params = {
-          fileformat: 'xlsx',
+  withProps(({ id, fetchExtractResult, result, setExportLink }) => ({
+    handleGenerate({ dateStart, dateEnd }, options) {
+      fetchExtractResult(
+        id,
+        {
           dateStart: dateStart.format('YYYY-MM-DD'),
-          dateEnd: dateEnd
-            .clone()
-            .add(1, 'days')
-            .format('YYYY-MM-DD'),
-        };
-        const exportLink = result && urls.export(id, params);
-        setExportLink(exportLink);
-      },
-    }),
-  ),
+          dateEnd: dateEnd.clone().format('YYYY-MM-DD'),
+        },
+        options,
+      );
+      const params = {
+        fileformat: 'xlsx',
+        dateStart: dateStart.format('YYYY-MM-DD'),
+        dateEnd: dateEnd.clone().format('YYYY-MM-DD'),
+      };
+      const exportLink = result && urls.export(id, params);
+      setExportLink(exportLink);
+    },
+  })),
   withTitle(({ report }) => (report && report.name) || ''),
 )(ReportingGeneration);

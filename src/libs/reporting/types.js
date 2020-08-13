@@ -5,6 +5,8 @@ export type ReportConfiguration = {
   name: string,
   description: string,
   columns: string[],
+  date_start: date,
+  date_end: date,
 };
 
 export type ReportCategoryEnum = 'members' | 'payments' | 'products';

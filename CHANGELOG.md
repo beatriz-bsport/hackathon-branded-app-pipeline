@@ -1,3 +1,9 @@
+## 42.8.0 (2020-08-14)
+
+### Feat
+
+- **marketplace calendar**: added new theme settings to personalize the manager & customer calendars
+
 ## 42.7.0 (2020-08-13)
 
 ### Feat

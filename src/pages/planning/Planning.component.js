@@ -200,6 +200,7 @@ type Props = {
   massDisablerStartDate: ?string,
   disableMassOffers: (data: any, options: OptionCallback) => void,
   setMassDisablerStartDate: (?string) => void,
+  setShowCancelledOffers: (boolean) => void,
 };
 
 type State = {

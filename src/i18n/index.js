@@ -33,7 +33,10 @@ i18n
       referenceLng: 'fr-FR',
     },
     */
-    fallbackLng: 'fr-FR',
+    fallbackLng: {
+      fr: ['fr-FR'],
+      default: ['en', 'fr-FR'],
+    },
     // lng: 'fr-FR',
     detection: {
       order: ['cookie', 'navigator'],

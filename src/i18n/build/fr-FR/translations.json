@@ -3283,6 +3283,8 @@
           "bewareChange": "Si vous augmentez le nb de crédit, toutes les cartes existantes seront affectées. Idem si vous diminuez le nombre de crédits."
         },
         "maxBookingPerWeek": { "label": "Utilisation max par semaine", "helperText": "Laisser vide pour ne pas imposer de limite" },
+        "maxBookingPerDay": { "label": "Utilisation max par jour", "helperText": "Laisser vide pour ne pas imposer de limite" },
+        "maxPurchasePerMember": { "label": "Achat maximum par member", "helperText": "Laisser vide pour ne pas imposer de limite" },
         "newMemberOnly": "Uniquement pour les nouveaux clients",
         "onsitePaymentAvailable": "Possibilité de payer sur place",
         "startOnFirstUse": "Le décompte de validité débute le jour de la première réservation",

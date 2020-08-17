@@ -186,6 +186,10 @@ exports.default = {
         label: 'Utilisation max par jour',
         helperText: 'Laisser vide pour ne pas imposer de limite',
       },
+      maxPurchasePerMember: {
+        label: 'Achat maximum par membre',
+        helperText: 'Laisser vide pour ne pas imposer de limite',
+      },
       newMemberOnly: 'Uniquement pour les nouveaux clients',
       onsitePaymentAvailable: 'Possibilité de payer sur place',
       startOnFirstUse:

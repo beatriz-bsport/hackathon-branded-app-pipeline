@@ -316,6 +316,17 @@ export function PaymentPackForm(props: Props) {
               />
             </Grid>
             <Grid item xs={12}>
+              <TextField
+                label={t('form.paymentPack.maxPurchasePerMember.label')}
+                type="number"
+                fullWidth
+                name="max_purchase_per_member"
+                helperText={t(
+                  'form.paymentPack.maxPurchasePerMember.helperText',
+                )}
+              />
+            </Grid>
+            <Grid item xs={12}>
               <SwitchField
                 name="new_member_only"
                 disabled={manager_only}
@@ -432,6 +443,9 @@ const PackSchema = Yup.object().shape({
   max_bookings_per_week: Yup.number()
     .min(0)
     .nullable(),
+  max_purchase_per_member: Yup.number()
+    .min(0)
+    .nullable(),
   max_bookings_per_day: Yup.number()
     .min(0)
     .nullable(),
@@ -496,6 +510,7 @@ export default compose(
           duration_months: 1,
           duration_years: 0,
           max_bookings_per_week: null,
+          max_purchase_per_member: null,
           max_bookings_per_day: null,
           lower_date: Moment(),
           upper_date: Moment().add('months', 1),
@@ -539,6 +554,7 @@ export default compose(
         'credits',
         'max_bookings_per_day',
         'max_bookings_per_week',
+        'max_purchase_per_member',
         'id',
         'new_member_only',
         'manager_only',

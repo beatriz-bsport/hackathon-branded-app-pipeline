@@ -46,6 +46,10 @@ const PrivatePassPreCheckout = asyncComponent(() =>
   import('./checkout/pre-checkout/PrivatePassPreCheckout.page'),
 );
 
+const MarketplaceAsManager = asyncComponent(() =>
+  import('./marketplace/MarketplaceAsManager.page'),
+);
+
 type Props = {
   classes: Object,
   fetchProfile: () => void,
@@ -55,6 +59,7 @@ type Props = {
   location: Object,
   urlParams: { membership: string },
   setUrlParams: (string) => (string) => void,
+  is_manager: ?boolean,
 };
 
 export class PaymentRouter extends React.Component<Props> {
@@ -111,6 +116,9 @@ export class PaymentRouter extends React.Component<Props> {
       }
       return <Redirect to={this.getLoginUrl()} />;
     }
+    if (this.props.is_manager) {
+      return <MarketplaceAsManager />;
+    }
     return (
       <Switch>
         <Route path="/(|customer/)payment/checkout/" component={CheckoutPage} />
@@ -164,6 +172,7 @@ export default compose(
   connect(
     (state) => ({
       authenticated: state.auth.authenticated,
+      is_manager: state.auth.is_manager,
     }),
     { fetchPaymentCombo, fetchPaymentPack, fetchProfile },
   ),

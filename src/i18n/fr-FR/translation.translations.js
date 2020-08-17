@@ -69,6 +69,7 @@ exports.default = {
     },
   },
   common: {
+    share: 'Partager',
     duplicate: 'Dupliquer',
     isRefreshing: "Votre interface sera prête d'ici un petit instant",
     copySuffix: ' (Copie)',

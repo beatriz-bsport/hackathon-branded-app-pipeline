@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { compose, withProps } from 'recompose';
+import { compose, withProps, withState } from 'recompose';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
@@ -12,6 +12,7 @@ import type { Establishment, Offer } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
+import WidgetButton from '../../components/button/WidgetButton.component';
 
 import {
   fetchOffersByDay as fetchOffersByDayAction,
@@ -45,6 +46,8 @@ type Props = {
   goToList: () => void,
   deleteEstablishment: (id: number) => void,
   fetchEstablishmentBulk: ([number]) => void,
+  setOpenWidgetDialog: () => void,
+  openWidgetDialog: Boolean,
   events: Array<Event>,
   classes: Object,
 };
@@ -81,6 +84,7 @@ export class EstablishmentDetails extends React.Component<Props, State> {
         <BottomActionButtons
           onEdit={() => this.props.startUpdateEstablishment(this.props.id)}
           onDelete={() => this.setState({ deleteOpen: true })}
+          onShare={() => this.props.setOpenWidgetDialog(true)}
         />
         <EstablishmentDeleteDialog
           establishmentId={this.state.deleteOpen ? this.props.id : null}
@@ -91,6 +95,12 @@ export class EstablishmentDetails extends React.Component<Props, State> {
               onSuccess: this.props.goToList,
             });
           }}
+        />
+        <WidgetButton
+          widgetType="calendar"
+          establishments={this.props.id}
+          setOpenWidgetDialog={this.props.setOpenWidgetDialog}
+          openWidgetDialog={this.props.openWidgetDialog}
         />
       </div>
     );
@@ -106,6 +116,7 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withTranslation(),
+  withState('openWidgetDialog', 'setOpenWidgetDialog', false),
   routerParamsToProps({ id: 'id:number' }),
   connect(
     (state, { id }) => ({
@@ -128,14 +139,8 @@ export default compose(
   withProps(({ fetchOffersByDay, fetchEstablishmentEvents, id }) => ({
     fetchOffersByDay: (momentDate) => {
       fetchEstablishmentEvents(id, {
-        min_date: momentDate
-          .clone()
-          .startOf('month')
-          .format('YYYY-MM-DD'),
-        max_date: momentDate
-          .clone()
-          .endOf('month')
-          .format('YYYY-MM-DD'),
+        min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
+        max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
       });
       fetchOffersByDay({
         year: momentDate.year(),

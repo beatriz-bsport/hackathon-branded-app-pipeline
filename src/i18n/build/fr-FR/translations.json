@@ -46,6 +46,7 @@
     },
     "members": { "form": { "title": "Nouveau membre" } },
     "common": {
+      "share": "Partager",
       "duplicate": "Dupliquer",
       "isRefreshing": "Votre interface sera prête d'ici un petit instant",
       "copySuffix": " (Copie)",
@@ -4224,5 +4225,23 @@
       "downloadChrome": "Téléchargez gratuitement Google Chrome",
       "close": "Fermer"
     }
+  },
+  "widget": {
+    "listDisplay": "Vision semaine liste",
+    "calendarDisplay": "Vision semaine card (calendrier)",
+    "responsiveDisplay": "Affichage responsive",
+    "cancel": "Annuler",
+    "show": "Visualiser",
+    "return": "Retour",
+    "displayType": "Type d'affichage",
+    "widget": "Partagez votre calendrier",
+    "visualisation": "Visualisation",
+    "choice": "Choisissez comment vous voulez afficher votre widget",
+    "code": "Widget sur votre site",
+    "url": "Lien calendrier",
+    "copy": "Copier",
+    "codeSource": "Voir le code que vous devez copier sur votre propre site",
+    "copyUrl": "Accéder au lien de votre calendrier",
+    "ownStyle": "Mode de compatibilité (ignorer le thème du site)"
   }
 }

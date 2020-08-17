@@ -5,6 +5,7 @@ import Hidden from '@material-ui/core/Hidden';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
+import ShareIcon from '@material-ui/icons/Share';
 import Fab from '@material-ui/core/Fab';
 import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
@@ -18,6 +19,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   onEdit: ?() => void,
+  onShare: ?() => void,
   onDelete: ?() => void,
   onCreate: ?() => void,
   onCreateLabel: ?string,
@@ -51,6 +53,21 @@ export const BottomActionButtons = (props: Props) => (
         <Hidden xsDown>
           <div className={props.classes.rightText}>
             {props.t('common.edit')}
+          </div>
+        </Hidden>
+      </Fab>
+    ) : null}
+    {props.onShare ? (
+      <Fab
+        variant="extended"
+        color="secondary"
+        className={props.classes.actionButton}
+        onClick={props.onShare}
+      >
+        <ShareIcon />
+        <Hidden xsDown>
+          <div className={props.classes.rightText}>
+            {props.t('common.share')}
           </div>
         </Hidden>
       </Fab>

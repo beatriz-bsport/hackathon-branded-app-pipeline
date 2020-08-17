@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push as routerPush } from 'connected-react-router';
-import { compose, withProps } from 'recompose';
+import { compose, withProps, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withTranslation } from 'react-i18next';
@@ -15,6 +15,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDeleteDialog.component';
 import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
+import WidgetButton from '../../components/button/WidgetButton.component';
 
 import { getWorkshops } from '../../libs/meta-activity/selectors';
 import {
@@ -49,6 +50,8 @@ type Props = {
   createActivityOffers: (id: number) => void,
   goToOffer: (offer: Offer) => void,
   classes: Object,
+  setOpenWidgetDialog: () => void,
+  openWidgetDialog: Boolean,
 };
 
 type State = {
@@ -95,6 +98,7 @@ export class WorkshopActivity extends Component<Props, State> {
           offersLoading={this.props.offersLoading}
           goToOffer={this.props.goToOffer}
           openCreateOfferForm={this.openCreateOfferForm}
+          activities={this.props.id}
         />
         <BottomActionButtons
           onEdit={() => this.props.onEdit(this.props.id)}
@@ -103,6 +107,7 @@ export class WorkshopActivity extends Component<Props, State> {
               ? () => this.setState({ deleteOpen: true })
               : null
           }
+          onShare={() => this.props.setOpenWidgetDialog(true)}
         />
         <WorkshopDeleteDialog
           workshopId={this.state.deleteOpen ? this.props.id : null}
@@ -113,6 +118,12 @@ export class WorkshopActivity extends Component<Props, State> {
               onSuccess: this.props.goToList,
             });
           }}
+        />
+        <WidgetButton
+          widgetType="workshop"
+          activities={this.props.id}
+          setOpenWidgetDialog={this.props.setOpenWidgetDialog}
+          openWidgetDialog={this.props.openWidgetDialog}
         />
       </div>
     );
@@ -128,6 +139,7 @@ const styles = (theme) => ({
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withTranslation(),
+  withState('openWidgetDialog', 'setOpenWidgetDialog', false),
   withStyles(styles),
   connect(
     (state, { id }) => ({
@@ -152,14 +164,8 @@ export default compose(
   withProps(({ fetchOffersByDay, fetchMetaActivityOffers, id }) => ({
     fetchOffersByDay: (momentDate) => {
       fetchMetaActivityOffers(id, {
-        min_date: momentDate
-          .clone()
-          .startOf('month')
-          .format('YYYY-MM-DD'),
-        max_date: momentDate
-          .clone()
-          .endOf('month')
-          .format('YYYY-MM-DD'),
+        min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
+        max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
       });
       fetchOffersByDay({
         year: momentDate.year(),

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { push as routerPush } from 'connected-react-router';
 import { compose, withState } from 'recompose';
-
+import WidgetButton from '../../components/button/WidgetButton.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
@@ -40,7 +40,8 @@ type Props = {
   deleteOpen: boolean,
   deleteCoach: (id: number) => void,
   loading: boolean,
-
+  setOpenWidgetDialog: () => void,
+  openWidgetDialog: Boolean,
   loadPaymentRules: () => void,
   id: number,
   fetchAssociatedCoach: (number) => void,
@@ -77,6 +78,7 @@ export class Coach extends React.Component<Props> {
         <BottomActionButtons
           onEdit={() => this.props.startUpdateCoach(coach)}
           onDelete={() => this.props.setDeleteModalOpen(true)}
+          onShare={() => this.props.setOpenWidgetDialog(true)}
         />
         <CoachDeleteModal
           coachToDeleteId={this.props.deleteOpen ? this.props.coach.id : null}
@@ -88,6 +90,12 @@ export class Coach extends React.Component<Props> {
             });
           }}
         />
+        <WidgetButton
+          widgetType="calendar"
+          coaches={this.props.coachId}
+          setOpenWidgetDialog={this.props.setOpenWidgetDialog}
+          openWidgetDialog={this.props.openWidgetDialog}
+        />
       </div>
     );
   }
@@ -97,6 +105,7 @@ export default compose(
   withRouter,
   routerParamsToProps({ coachId: 'coachId:number' }),
   withState('deleteOpen', 'setDeleteModalOpen', false),
+  withState('openWidgetDialog', 'setOpenWidgetDialog', false),
   connect(
     (state, { coachId }) => ({
       loading: state.coach.loading,

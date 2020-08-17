@@ -28,7 +28,6 @@ type Props = {
   openCreateOfferForm: () => void,
   offersLoading: boolean,
   goToOffer: (Offer) => void,
-
   classes: Object,
   t: TFunction,
 };

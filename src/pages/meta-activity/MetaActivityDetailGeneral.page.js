@@ -3,9 +3,9 @@ import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
 import { push as routerPush } from 'connected-react-router';
-import { compose, withProps } from 'recompose';
+import { compose, withProps, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-
+import WidgetButton from '../../components/button/WidgetButton.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
@@ -47,7 +47,8 @@ type Props = {
   goToList: () => void,
   onEdit: (id: number) => void,
   deleteMetaActivity: (id: number) => void,
-
+  setOpenWidgetDialog: () => void,
+  openWidgetDialog: Boolean,
   classes: Object,
 };
 
@@ -96,6 +97,7 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
         <BottomActionButtons
           onEdit={() => this.props.onEdit(this.props.id)}
           onDelete={() => this.setState({ deleteOpen: true })}
+          onShare={() => this.props.setOpenWidgetDialog(true)}
         />
         <MetaActivityDeleteDialog
           metaActivityId={this.state.deleteOpen ? this.props.id : null}
@@ -106,6 +108,12 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
               onSuccess: this.props.goToList,
             });
           }}
+        />
+        <WidgetButton
+          widgetType="calendar"
+          activities={this.props.id}
+          setOpenWidgetDialog={this.props.setOpenWidgetDialog}
+          openWidgetDialog={this.props.openWidgetDialog}
         />
       </div>
     );
@@ -121,6 +129,7 @@ const styles = (theme) => ({
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withStyles(styles),
+  withState('openWidgetDialog', 'setOpenWidgetDialog', false),
   connect(
     (state, { id }) => ({
       loading: state.metaActivity.loading,
@@ -143,14 +152,8 @@ export default compose(
   withProps(({ fetchOffersByDay, fetchMetaActivityOffers, id }) => ({
     fetchOffersByDay: (momentDate) => {
       fetchMetaActivityOffers(id, {
-        min_date: momentDate
-          .clone()
-          .startOf('month')
-          .format('YYYY-MM-DD'),
-        max_date: momentDate
-          .clone()
-          .endOf('month')
-          .format('YYYY-MM-DD'),
+        min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
+        max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
       });
       fetchOffersByDay({
         year: momentDate.year(),

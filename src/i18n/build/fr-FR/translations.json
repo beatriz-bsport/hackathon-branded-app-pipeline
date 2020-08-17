@@ -3478,6 +3478,14 @@
     "forms": { "old_date": "Ancien horaire :", "new_date": "Nouvel horaire :", "delete": { "buttonHardDelete": "Supprimer" } },
     "card": { "copyLink": "Copier le lien vers la page de réservation", "copied": "Lien copié" },
     "offerManagement": { "bookingOrder": { "date": "Trier par date", "lastname": "Trier par nom", "firstname": "Trier par prénom" } },
+    "menu": {
+      "showMonth": "Vision mois",
+      "showWeek": "Vision semaine",
+      "showCancelled": "Voir les annulations",
+      "hideCancelled": "Masquer les annulations",
+      "massDisable": "Annulation groupée",
+      "download": "Récapitulatif"
+    },
     "massDisabler": {
       "title": "Annulation groupée",
       "explain": "Sélectionnez l'intervalle de date sur lequel vous souhaitez annuler vos séances. Les membres ayant réservé seront prévenu par email et leur crédits automatiquement remboursés sur la carte de cours correspondante",

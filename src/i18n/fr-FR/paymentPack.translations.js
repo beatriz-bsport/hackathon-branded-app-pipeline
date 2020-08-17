@@ -182,6 +182,10 @@ exports.default = {
         label: 'Utilisation max par semaine',
         helperText: 'Laisser vide pour ne pas imposer de limite',
       },
+      maxBookingPerDay: {
+        label: 'Utilisation max par jour',
+        helperText: 'Laisser vide pour ne pas imposer de limite',
+      },
       newMemberOnly: 'Uniquement pour les nouveaux clients',
       onsitePaymentAvailable: 'Possibilité de payer sur place',
       startOnFirstUse:

@@ -43,6 +43,14 @@ exports.default = {
       firstname: 'Trier par prénom',
     },
   },
+  menu: {
+    showMonth: 'Vision mois',
+    showWeek: 'Vision semaine',
+    showCancelled: 'Voir les annulations',
+    hideCancelled: 'Masquer les annulations',
+    massDisable: 'Annulation groupée',
+    download: 'Récapitulatif',
+  },
   massDisabler: {
     title: 'Annulation groupée',
     explain:

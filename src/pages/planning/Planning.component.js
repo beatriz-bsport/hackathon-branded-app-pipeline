@@ -17,7 +17,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import AddIcon from '@material-ui/icons/Add';
@@ -623,28 +622,6 @@ export class Planning extends PureComponent<Props, State> {
             }
           />
         </Grid>
-        <Grid item xs={12} md={12}>
-          <div className={this.props.classes.checkboxContainer}>
-            <Checkbox
-              checked={
-                this.props.offerFilters.available
-                  ? // filter available=true means unchecked checkbox
-                    !this.props.offerFilters.available
-                  : true
-              }
-              onChange={(e) => {
-                let filters = { ...this.props.offerFilters };
-                if (!e.target.checked) {
-                  filters = { ...filters, available: true };
-                } else {
-                  delete filters.available;
-                }
-                this.props.setFilters(filters);
-              }}
-            />
-            <Typography>{this.props.t('show_cancelled_offers')}</Typography>
-          </div>
-        </Grid>
       </Grid>
     );
   };
@@ -693,6 +670,10 @@ export class Planning extends PureComponent<Props, State> {
                     onDateClick={this.loadDayData}
                     date={this.props.date}
                     filters={this.props.offerFilters}
+                    showCancelledOffers={
+                      this.props.offerFilters.available === undefined
+                    }
+                    setShowCancelledOffers={this.props.setShowCancelledOffers}
                   />
                   <TimeTable
                     onOfferSelected={this.selectOffer}
@@ -855,6 +836,17 @@ export default compose(
     },
   ),
   withHandlers({
+    setShowCancelledOffers: ({ offerFilters, setFilters }) => (
+      showCancelled,
+    ) => {
+      let filters = { ...offerFilters };
+      if (!showCancelled) {
+        filters = { ...filters, available: true };
+      } else {
+        delete filters.available;
+      }
+      setFilters(filters);
+    },
     fetchRelevantOffers: ({ fetchAllOffers, offerFilters, date }) => () => {
       fetchAllOffers({
         min_date: moment(date)

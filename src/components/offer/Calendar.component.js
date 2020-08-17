@@ -2,24 +2,34 @@
 import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 
+import { compose, withState } from 'recompose';
+
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import BlockIcon from '@material-ui/icons/Block';
 
-import Button from '@material-ui/core/Button';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
+import SettingsIcon from '@material-ui/icons/Settings';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Collapse from '@material-ui/core/Collapse';
 import FilterIcon from '@material-ui/icons/FilterList';
 import Typography from '@material-ui/core/Typography';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
+
+import { withTranslation } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';
 import { formatAsTitle, DATE_FORMAT } from '../../datetime';
 import { API_URI, getAuth, buildUrlParams } from '../../http';
@@ -43,6 +53,12 @@ type Props = {
   filters: any,
   showDownloader?: boolean,
   onRequestMassDisable: (date: string) => void,
+  t: TFunction,
+  setMenuAnchorEl: (?HTMLElement) => void,
+  menuAnchorEl: ?HTMLElement,
+
+  setShowCancelledOffers?: (boolean) => void,
+  showCancelledOffers?: boolean,
 };
 
 type State = {
@@ -183,17 +199,6 @@ export class Calendar extends PureComponent<Props, State> {
     );
   }
 
-  renderSearchButton = () => {
-    if (this.props.searchBar) {
-      return (
-        <IconButton onClick={this.props.toogleSearchBar}>
-          <FilterIcon />
-        </IconButton>
-      );
-    }
-    return null;
-  };
-
   renderCalendarTitle = () => {
     const { displayMode } = this.state;
     if (displayMode === MONTHMODE) {
@@ -207,110 +212,150 @@ export class Calendar extends PureComponent<Props, State> {
     return `${formatAsTitle(date_start)} - ${formatAsTitle(date_end)}`;
   };
 
-  renderHeader = () => {
+  renderMenu = () => {
     const { forceMonthDisplay, hideSwitchViewButton, classes } = this.props;
 
     const { displayMode } = this.state;
-
     return (
-      <Grid container justify="space-between" alignItems="center" wrap="nowrap">
-        {forceMonthDisplay || hideSwitchViewButton ? (
-          <Grid item>
-            <div />
-          </Grid>
-        ) : (
-          <Grid item>
-            <IconButton
-              onClick={this.toogleWeekMode}
-              color={displayMode === WEEKMODE ? 'primary' : 'default'}
-            >
-              <ViewWeek />
-            </IconButton>
-          </Grid>
+      <Menu
+        anchorEl={this.props.menuAnchorEl}
+        keepMounted
+        open={!!this.props.menuAnchorEl}
+        onClose={() => this.props.setMenuAnchorEl(null)}
+      >
+        {!forceMonthDisplay &&
+          displayMode !== WEEKMODE &&
+          !hideSwitchViewButton && (
+            <MenuItem onClick={this.toogleDisplayMode}>
+              <ListItemIcon>
+                <ViewWeek />
+              </ListItemIcon>
+              {this.props.t('menu.showWeek')}
+            </MenuItem>
+          )}
+        {!forceMonthDisplay &&
+          displayMode !== MONTHMODE &&
+          !hideSwitchViewButton && (
+            <MenuItem onClick={this.toogleDisplayMode}>
+              <ListItemIcon>
+                <ViewComfy />
+              </ListItemIcon>
+              {this.props.t('menu.showMonth')}
+            </MenuItem>
+          )}
+        {this.props.setShowCancelledOffers && !this.props.showCancelledOffers && (
+          <MenuItem
+            onClick={() =>
+              this.props.setShowCancelledOffers(!this.props.showCancelledOffers)
+            }
+          >
+            <ListItemIcon>
+              <VisibilityIcon />
+            </ListItemIcon>
+            {this.props.t('menu.showCancelled')}
+          </MenuItem>
+        )}
+
+        {this.props.setShowCancelledOffers && this.props.showCancelledOffers && (
+          <MenuItem
+            onClick={() =>
+              this.props.setShowCancelledOffers(!this.props.showCancelledOffers)
+            }
+          >
+            <ListItemIcon>
+              <VisibilityOffIcon />
+            </ListItemIcon>
+            {this.props.t('menu.hideCancelled')}
+          </MenuItem>
         )}
         {!!this.props.onRequestMassDisable && (
-          <IconButton
+          <MenuItem
             onClick={() => this.props.onRequestMassDisable(this.props.date)}
           >
-            <BlockIcon />
-          </IconButton>
+            <ListItemIcon>
+              <BlockIcon />
+            </ListItemIcon>
+            {this.props.t('menu.massDisable')}
+          </MenuItem>
         )}
-        <Grid item>
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-            spacing={2}
-            wrap="nowrap"
+        {this.props.showDownloader ? (
+          <MenuItem
+            onClick={async () => {
+              this.setState({ isDownloading: true });
+              try {
+                const response = await getAuth(
+                  `${API_URI}/reporting/reports/offer_management/${buildUrlParams(
+                    {
+                      ...this.buildFilters(this.props.filters),
+                      date: this.props.date,
+                    },
+                  )}`,
+                );
+                const link = document.createElement('a');
+                link.setAttribute('type', 'hidden');
+                link.href = response.data;
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+              } catch (err) {
+                console.error(err);
+              }
+              this.setState({ isDownloading: false });
+            }}
+            className={classes.actionButton}
           >
-            <Grid item>
-              <IconButton onClick={this.showPrevious}>
-                <ChevronLeftIcon />
-              </IconButton>
-            </Grid>
-            <Grid item>
-              <Typography
-                inline
-                component="h3"
-                variant="h6"
-                className={classes.textCapitalize}
-              >
-                {this.renderCalendarTitle()}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <IconButton id="calendar-next-month" onClick={this.showNext}>
-                <ChevronRightIcon />
-              </IconButton>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>
-          {this.props.showDownloader ? (
-            <Button
-              onClick={async () => {
-                this.setState({ isDownloading: true });
-                try {
-                  const response = await getAuth(
-                    `${API_URI}/reporting/reports/offer_management/${buildUrlParams(
-                      {
-                        ...this.buildFilters(this.props.filters),
-                        date: this.props.date,
-                      },
-                    )}`,
-                  );
-                  const link = document.createElement('a');
-                  link.setAttribute('type', 'hidden');
-                  link.href = response.data;
-                  document.body.appendChild(link);
-                  link.click();
-                  link.remove();
-                } catch (err) {
-                  console.error(err);
-                }
-                this.setState({ isDownloading: false });
-              }}
-              className={classes.actionButton}
-            >
+            <ListItemIcon>
               {this.state.isDownloading ? (
                 <CircularProgress />
               ) : (
                 <CloudDownloadIcon />
               )}
-            </Button>
-          ) : null}
-          {this.renderSearchButton()}
-          {forceMonthDisplay || hideSwitchViewButton ? null : (
-            <IconButton
-              onClick={this.toogleMonthMode}
-              color={displayMode === MONTHMODE ? 'primary' : 'default'}
-            >
-              <ViewComfy />
-            </IconButton>
-          )}
-        </Grid>
-      </Grid>
+            </ListItemIcon>
+            {this.props.t('menu.download')}
+          </MenuItem>
+        ) : null}
+      </Menu>
+    );
+  };
+
+  renderHeader = () => {
+    const { classes } = this.props;
+    return (
+      <div className={classes.rowCentered}>
+        {((!this.props.forceMonthDisplay && !this.props.hideSwitchViewButton) ||
+          !!this.props.setShowCancelledOffers ||
+          !!this.props.onRequestMassDisable ||
+          !!this.props.showDownloader) && (
+          <IconButton
+            className={classes.absoluteLeft}
+            onClick={(ev) => this.props.setMenuAnchorEl(ev.currentTarget)}
+          >
+            <SettingsIcon />
+          </IconButton>
+        )}
+        {!!this.props.searchBar && (
+          <IconButton
+            className={classes.absoluteLeft}
+            onClick={this.props.toogleSearchBar}
+          >
+            <FilterIcon />
+          </IconButton>
+        )}
+        <IconButton onClick={this.showPrevious}>
+          <ChevronLeftIcon />
+        </IconButton>
+        <Typography
+          inline
+          component="h3"
+          variant="h6"
+          className={classes.textCapitalize}
+        >
+          {this.renderCalendarTitle()}
+        </Typography>
+        <IconButton id="calendar-next-month" onClick={this.showNext}>
+          <ChevronRightIcon />
+        </IconButton>
+      </div>
     );
   };
 
@@ -428,6 +473,7 @@ export class Calendar extends PureComponent<Props, State> {
         {!this.props.hideDateBar ? (
           <div className={classes.dayRow}>{this.renderBulkDays()}</div>
         ) : null}
+        {this.renderMenu()}
       </div>
     );
   }
@@ -497,9 +543,24 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
   },
+  rowCentered: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
   weekRow: {
     width: '100%',
   },
+  absoluteLeft: {
+    position: 'absolute',
+    left: 0,
+  },
 });
 
-export default withStyles(styles)(Calendar);
+export default compose(
+  withStyles(styles),
+  withTranslation(['offer']),
+  withState('menuAnchorEl', 'setMenuAnchorEl', null),
+)(Calendar);

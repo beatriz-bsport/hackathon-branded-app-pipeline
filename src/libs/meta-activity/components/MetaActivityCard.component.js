@@ -74,19 +74,19 @@ export const MetaActivityCard = (props: Props) => {
             {metaActivity.name}
           </Typography>
           <Typography variant="caption" component="h4" align="right">
-            {`${t(
-              'metaActivity:settings.lastBookingBeforeMinutes',
-            )} : ${formatMinutes(metaActivity.last_booking_minutes, t)}`}
+            {t('metaActivity:settings.lastBookingBeforeMinutes', {
+              m: formatMinutes(metaActivity.last_booking_minutes, t),
+            })}
           </Typography>
           <Typography variant="caption" component="h4" align="right">
-            {`${t(
-              'metaActivity:settings.lastDiscardBeforeMinutes',
-            )} : ${formatMinutes(metaActivity.last_discard_minutes, t)}`}
+            {t('metaActivity:settings.lastDiscardBeforeMinutes', {
+              m: formatMinutes(metaActivity.last_discard_minutes, t),
+            })}
           </Typography>
           <Typography variant="caption" component="h4" align="right">
-            {`${t(
-              'metaActivity:settings.firstBookingMinutesUntil',
-            )} : ${formatMinutes(metaActivity.first_booking_minutes_until, t)}`}
+            {t('metaActivity:settings.firstBookingMinutesUntil', {
+              m: formatMinutes(metaActivity.first_booking_minutes_until, t),
+            })}
           </Typography>
         </div>
         <div style={{ marginTop: 16 }}>

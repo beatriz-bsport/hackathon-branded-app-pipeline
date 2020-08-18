@@ -31,6 +31,7 @@ import PaymentComboBuyableItem from '../../payment-combo/components/PaymentCombo
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 
 import { isOfferInThePast } from '../utils';
+import { formatMinutes } from '../../../datetime';
 
 import type { PaymentCombo } from '../../payment-combo/types';
 
@@ -225,6 +226,14 @@ export class MarketPlaceActivity extends React.Component<Props> {
             <TypographyMultiline color="textSecondary" variant="body2">
               {offer.meta_activity.description}
             </TypographyMultiline>
+            <Typography variant="h6" className={classes.title}>
+              {t('metaActivity:settings.conditions')}
+            </Typography>
+            <Typography variant="caption" component="h4">
+              {t('metaActivity:settings.lastDiscardBeforeMinutes', {
+                m: formatMinutes(offer.meta_activity.last_discard_minutes, t),
+              })}
+            </Typography>
             {this.renderCoachBanner()}
             {this.props.displayPacksInformation && passToDisplay.length ? (
               <div>

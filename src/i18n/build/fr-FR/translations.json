@@ -3458,10 +3458,11 @@
       }
     },
     "settings": {
+      "conditions": "Conditions",
       "title": "Paramètres",
-      "lastBookingBeforeMinutes": "Avant le début de l'activité, dernière réservation possible",
-      "lastDiscardBeforeMinutes": "Avant le début de l'activité, dernière annulation possible",
-      "firstBookingMinutesUntil": "Bloquer les réservations dans le futur au-dessus de "
+      "lastBookingBeforeMinutes": "Vous pouvez réserver cette activité jusqu'à {{m}}  avant le début de la séance",
+      "lastDiscardBeforeMinutes": "Vous pouvez annuler votre réservation jusqu'à {{m}} avant le début de la séance",
+      "firstBookingMinutesUntil": "Les réservations sont bloquées avant {{m}} du début de la séance"
     },
     "packsAvailable": "Eligible aux pass :",
     "reviews": "Avis clients: ",

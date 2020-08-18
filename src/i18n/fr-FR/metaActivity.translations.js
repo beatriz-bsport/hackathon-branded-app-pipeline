@@ -71,13 +71,14 @@ exports.default = {
   },
 
   settings: {
+    conditions: 'Conditions',
     title: 'Paramètres',
     lastBookingBeforeMinutes:
-      "Avant le début de l'activité, dernière réservation possible",
+      "Les réservations sont possibles sur cette activité jusqu'à {{m}}  avant le début de la séance",
     lastDiscardBeforeMinutes:
-      "Avant le début de l'activité, dernière annulation possible",
+      "Les annulations sont possibles jusqu'à {{m}} avant le début de la séance",
     firstBookingMinutesUntil:
-      'Bloquer les réservations dans le futur au-dessus de ',
+      'Les réservations sont bloquées avant {{m}} du début de la séance',
   },
   packsAvailable: 'Eligible aux pass :',
 

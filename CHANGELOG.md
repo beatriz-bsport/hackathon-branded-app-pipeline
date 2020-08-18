@@ -1,3 +1,23 @@
+## 42.9.0 (2020-08-18)
+
+### Feat
+
+- **invoice**: prompt for uneven invoices in offermanagement.component
+- **widget**: share button for widget and calendar url
+- **payment-pack**: limit purchase per payment-pack per member
+- **payment-pack**: add day limitation
+- **marketplace calendar**: added new theme settings to personalize the manager & customer calendars
+- **SCT**: SCT localized
+
+### Refactor
+
+- **calendar**: clean a bit the UI
+
+### Fix
+
+- **language**: default language is english
+- **payment**: block manager from payment pages
+
 ## 42.8.0 (2020-08-14)
 
 ### Feat

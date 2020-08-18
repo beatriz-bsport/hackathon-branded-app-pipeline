@@ -938,12 +938,13 @@
             "totalBookings_plural": "{{nb}} prenotazioni in totale",
             "cancelledBookings": "{{nb}} prenotazione annullata",
             "cancelledBookings_plural": "{{nb}} prenotazioni annullate",
-            "offerFilteredBookingRecap": "Le tue prenotazioni",
+            "offerFilteredBookingRecap": "Sessione del {{ date }}",
             "weekOverview": "Panoramica della tua settimana"
         },
         "show_cancelled_offers": "Mostra sessioni annullate",
         "quickInvoiceNoVoucher": "Lascia il valore di questo campo uguale a 0 se non vuoi applicare uno sconto",
-        "quickInvoiceVoucher": "Scegli lo sconto da applicare al momento della fatturazione del pass successivo"
+        "quickInvoiceVoucher": "Scegli lo sconto da applicare al momento della fatturazione del pass successivo",
+        "metaActivityNotificationToolTip": "Le notifiche sono impostate per le prenotazioni relative a questo elemento"
     },
     "notificationRule": {
         "tag": {
@@ -4111,6 +4112,44 @@
         "actions": {
             "unregister": "Annulla l'iscrizione",
             "bill": "Fattura"
+        },
+        "notification": {
+            "form": {
+                "listItemPrimary": {
+                    "cancellation": "Annullamento n° {{notify_booking_nb}}",
+                    "attendance": "Partecipazione n° {{notify_booking_nb}}",
+                    "booking": "Prenotazione n° {{notify_booking_nb}}",
+                    "after": "Notifica {{hours}}h prima della sessione",
+                    "before": "Notifica {{hours}} h prima della sessione"
+                },
+                "cancel": "Annulla",
+                "next": "seguente",
+                "help": {
+                    "text": "Aiuto: la notifica verrà inviata al membro durante",
+                    "cancellation": "la sua cancellazione della prenotazione n° {{notify_booking_nb}}",
+                    "attendance": "la sua presenza n° {{notify_booking_nb}}",
+                    "booking": "la sua prenotazione n° {{notify_booking_nb}}"
+                },
+                "submit": "Conferma",
+                "choicesKind": {
+                    "cancellation": "Cancellazione di una prenotazione da parte del membro",
+                    "attendance": "Presenza del membro a una sessione",
+                    "booking": "Creazione di una prenotazione"
+                },
+                "chooseKindTitle": "Evento che attiva la notifica",
+                "chooseTime": {
+                    "second_after": "ore dopo la sessione",
+                    "second_before": "ore prima della sessione",
+                    "first": "Invia una email"
+                },
+                "sendAfterMail": "Invia l'email al membro prima della sessione interessata dalla notifica",
+                "sendBeforeMail": "Invia l'email al membro prima della sessione interessata dalla notifica",
+                "eventNb": "Notifica il membro durante l'evento n °:",
+                "settingTitle": "Impostazioni",
+                "typeTitle": "Tipo di notifica",
+                "title": "Modulo di notifica"
+            },
+            "addNotification": "Aggiungi una notifica"
         }
     },
     "smartList": {
@@ -4831,7 +4870,8 @@
         "offers": "Calendario delle sessioni:",
         "noMoreOffers": "Nessuna sessione programmata",
         "cancel": "Annulla",
-        "noEstablishement": "Gestisci le tue sale, la loro localizzazione, il loro riempimento e consulta il calendario qui"
+        "noEstablishement": "Gestisci le tue sale, la loro localizzazione, il loro riempimento e consulta il calendario qui",
+        "notificationToolTip": "Le notifiche sono impostate per le prenotazioni relative a questa struttura"
     },
     "datetime": {
         "time": {

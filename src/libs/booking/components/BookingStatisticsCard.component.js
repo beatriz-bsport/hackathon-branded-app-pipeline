@@ -42,6 +42,7 @@ export function BookingStatisticsCard(props: Props) {
 
   const start = moment(bookingStatistics.start).format();
   const end = moment(bookingStatistics.end).format();
+
   const tableBookingCreated = discretizeByAndFillMissing(
     bookingStatistics.createdBookings,
     start,
@@ -95,17 +96,13 @@ export function BookingStatisticsCard(props: Props) {
     );
   }
 
-  // xFormatter défini dans TwoStacked OK
-  // dans discretiezed... gérer le groupBy différent selon intervale OK
-  // Gérer les stacks dans la data, faire une boucle for ici balek
-  // chart by week
   return (
     <div>
       <Typography variant="h5" className={classes.title}>
         {props.offerId
-          ? `${t(
-              'bookingStatistics.offerFilteredBookingRecap',
-            )} ${props.title || ''}`
+          ? t('bookingStatistics.offerFilteredBookingRecap', {
+              date: props.title,
+            })
           : t('bookingStatistics.weekOverview')}
       </Typography>
       <Paper>

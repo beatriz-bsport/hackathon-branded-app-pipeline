@@ -995,7 +995,7 @@ exports.default = {
   replaceCoach: 'Changer le professeur',
   bookingStatistics: {
     weekOverview: 'Aperçu de votre semaine',
-    offerFilteredBookingRecap: 'Vos réservations',
+    offerFilteredBookingRecap: 'Séance du {{date}}',
     totalBookings: '{{nb}} réservation au total',
     totalBookings_plural: '{{nb}} réservations au total',
     cancelledBookings: '{{nb}} réservation annulée',

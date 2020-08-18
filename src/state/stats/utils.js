@@ -63,8 +63,8 @@ export function discretizeByAndFillMissing(table, start, end) {
       m.isBefore(end) || m.isSame(end);
       m.add(1, 'hours')
     ) {
-      if (!grouped[m.format('YYYY-MM-DD HH')]) {
-        grouped[m.format('YYYY-MM-DD HH')] = [{ v: 0 }];
+      if (!grouped[m.format('YYYY-MM-DD LT')]) {
+        grouped[m.format('YYYY-MM-DD LT')] = [{ v: 0 }];
       }
     }
   }
@@ -84,5 +84,16 @@ export function discretizeByAndFillMissing(table, start, end) {
       }
       return 1;
     });
+
+  // Prevent from having a single data point
+  if (finalTable.length === 1) {
+    finalTable.unshift({
+      d: moment(finalTable[0].d)
+        .subtract(1, 'hours')
+        .format('YYYY-MM-DD LT'),
+      v: 0,
+    });
+  }
+
   return finalTable;
 }

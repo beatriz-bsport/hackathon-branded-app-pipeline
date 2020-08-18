@@ -1127,7 +1127,8 @@
             "copySuffix": " (Kopiëren)",
             "isRefreshing": "Je interface is zo klaar",
             "duplicate": "Dupliceren",
-            "restore": "Herstellen"
+            "restore": "Herstellen",
+            "share": "Delen"
         },
         "members": {
             "form": {
@@ -1227,7 +1228,10 @@
             "totalBookings_plural": "{{nb}} reserveringen in totaal",
             "offerFilteredBookingRecap": "Uw reserveringen",
             "weekOverview": "Overzicht van uw week"
-        }
+        },
+        "show_cancelled_offers": "Toon geannuleerde sessies",
+        "quickInvoiceNoVoucher": "Laat de waarde van dit veld op 0 staan als je geen reductie wilt toepassen",
+        "quickInvoiceVoucher": "Kies de korting die je wenst toe te passen bij het factureren van de volgende pas"
     },
     "communication": {
         "mail": {
@@ -1619,7 +1623,21 @@
             "bsport_fee": "Transactiekosten",
             "nb_bookings_same_pass": "Aantal boekingen met dezelfde pas",
             "author": "Auteur",
-            "credit_consumed": "Opgenomen krediet"
+            "credit_consumed": "Opgenomen krediet",
+            "effectif_rate": "Bezettingsgraad",
+            "cancel_rate": "Annuleringspercentage",
+            "rate_non_attendance": "Afwezigheidspercentage",
+            "rate_attendance": "Aanwezigheidspercentage",
+            "availability": "geldigheid",
+            "min_credit": "Min krediet",
+            "max_credit": "Max krediet",
+            "canceled_bookings": "Aantal geannuleerde reserveringen",
+            "c": "Instructeur",
+            "private_slot": "Soort sessie",
+            "private_service": "Naam Afspraak",
+            "date_first_privatebooking": "Datum eerste afspraak",
+            "activitiesest": "Activiteiten per vestiging",
+            "coaches": "Instructeurs"
         },
         "report": {
             "delete_message": "Weet u zeker dat u het {{name}} - rapport wilt verwijderen?"
@@ -1629,6 +1647,44 @@
         "subheader": {
             "total": "Totaal",
             "average": "Gemiddelde"
+        },
+        "categories": {
+            "dayBookings": "Reserveringen (groepslessen) per dag",
+            "privateServiceEst": "Afspraak per vestiging",
+            "privateServiceCoach": "Afspraak per instructeur",
+            "privateService": "Afspraak",
+            "activityByCoach": "Activiteiten en workshops per instructeur",
+            "activityByEst": "Activiteiten en workshops per vestiging",
+            "workshop": "Workshops",
+            "activities": "Activiteiten",
+            "first_privatebooking": "Eerste afspraak",
+            "first_attendance": "Eerste aanwezigheid (collectief)",
+            "first_booking": "Eerste sessie (collectief)",
+            "subscription": "Abonnement",
+            "discount": "Promoties",
+            "private_bookings": "Reserveringen (op afspraak)",
+            "shop": "Winkel",
+            "private_cpasses": "Afspraakkaart",
+            "payment_sumup": "Totaal betalingen",
+            "credit": "krediet",
+            "basket": "Winkelmandje",
+            "memberships": "Cursuskaarten",
+            "invoices": "Aankopen",
+            "products": "Producten",
+            "payments": "Betalingen",
+            "bookings": "Reserveringen (groepslessen)",
+            "offers": "Sessies",
+            "members": "Leden"
+        },
+        "globalCategories": {
+            "subheader": {
+                "average": "Gemiddeld",
+                "total": "Totaal"
+            },
+            "Payments": "Betalingen",
+            "Products": "Producten",
+            "Bookings": "Reserveringen",
+            "Club": "Club"
         }
     },
     "alerting": {
@@ -1873,7 +1929,15 @@
                 "startOnFirstUse": "De geldigheidsduur begint op de dag van de eerste reservering",
                 "startOnFirstUseHelper": "Anders begint het aftellen op de dag van facturering van de pas",
                 "sports": "Categorie",
-                "notEditable": "Deze cursuskaart is het resultaat van een migratie, sommige velden kunnen niet worden gewijzigd om de geschiedenis te respecteren. Compatibele activiteiten / categorieën blijven wijzigbaar."
+                "notEditable": "Deze cursuskaart is het resultaat van een migratie, sommige velden kunnen niet worden gewijzigd om de geschiedenis te respecteren. Compatibele activiteiten / categorieën blijven wijzigbaar.",
+                "maxPurchasePerMember": {
+                    "helperText": "Leeg laten om geen limiet op te leggen",
+                    "label": "Maximale aankoop per lid"
+                },
+                "maxBookingPerDay": {
+                    "helperText": "Leeg laten om geen limiet op te leggen",
+                    "label": "Max gebruik per dag"
+                }
             }
         },
         "details": {
@@ -2489,7 +2553,7 @@
         "forms": {
             "delete": {
                 "content": {
-                    "cannotDelete": "Sessies zijn gepland in de toekomst, controleer of ze worden verwijderd en niet alleen worden geannuleerd.",
+                    "cannotDelete": "Sessies zijn gepland in de toekomst, controleer of ze goed werden geannuleerd.",
                     "canDelete": "Weet je zeker dat je deze workshop wilt verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze operatie is definitief."
                 },
                 "actions": {
@@ -2597,7 +2661,8 @@
                 "date": "Sorteren op datum",
                 "lastname": "Sorteren op naam",
                 "firstname": "Sorteer op voornaam"
-            }
+            },
+            "unevenQuickInvoices": "Op deze pagina bevinden zich nog open facturen zonder enig betaalmethode. Weet je zeker dat je wilt stoppen?"
         },
         "substitute": "Vervanger",
         "manageOffer": "Beheer mijn reserveringen",
@@ -2612,7 +2677,15 @@
             "title": "Groepsannulering"
         },
         "bookingListEmpty": "Geen reservering",
-        "bookingList": "Reserveringen"
+        "bookingList": "Reserveringen",
+        "menu": {
+            "download": "Overzicht",
+            "massDisable": "Groepsannulering",
+            "hideCancelled": "Verberg annuleringen",
+            "showCancelled": "Bekijk annuleringen",
+            "showWeek": "Weekoverzicht",
+            "showMonth": "Maandoverzicht"
+        }
     },
     "emailTemplate": {
         "editTitle": "model bewerken",
@@ -2937,7 +3010,14 @@
             "cancelRegistration": "Annuleren",
             "register": "Schrijf je in voor deze cursus",
             "activateBarcode": "Kaartdetector",
-            "isFull": "Volzet"
+            "isFull": "Volzet",
+            "actions": {
+                "createAccount": "Account aanmaken",
+                "restartAnalyze": "Herstarten",
+                "close": "Sluiten"
+            },
+            "noDetectionResult": "Geen resultaat",
+            "activateFaceId": "Face ID"
         },
         "memberList": {
             "checkIn": "Check in",
@@ -5211,7 +5291,10 @@
                 },
                 "offersFilling": "Toon het vullen van cursussen op de klantenkalender",
                 "acceptDoubleBooking": "Dubbele reservering aanvaarden",
-                "consumerRegularizeDebt": "De klant kan zijn aanbetaling online regulariseren"
+                "consumerRegularizeDebt": "De klant kan zijn aanbetaling online regulariseren",
+                "workshopsCustomer": "Toon workshops op de klantenkalender",
+                "cancelledOffersCustomer": "Toon geannuleerde sessies in de kalender van de klant",
+                "calendarPersonalizationTitle": "Kalender configuratie"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -5575,6 +5658,26 @@
             "downloadChrome": "Download gratis Google Chrome",
             "downloadFirefox": "Download gratis Mozilla Firefox",
             "navigatorError": "Het lijkt erop dat uw browser te oud is om onze services te gebruiken. U kan fouten tegenkomen. We raden u aan een recentere versie te downloaden, met name: "
+        }
+    },
+    "widget": {
+        "widget": {
+            "ownStyle": "Compatibiliteitsmodus (negeer thema website)",
+            "copyUrl": "Ga naar je kalender link",
+            "codeSource": "De code zien die je naar je eigen website moet kopiëren",
+            "copy": "Kopiëren",
+            "url": "Link kalender",
+            "code": "Widget op je website",
+            "choice": "Kies hoe je je widget wilt weergeven",
+            "visualisation": "Visualisatie",
+            "widget": "Deel je agenda",
+            "displayType": "Weergavetype",
+            "return": "Terug",
+            "show": "Visualiseren",
+            "cancel": "Annuleren",
+            "responsiveDisplay": "Responsive beeld",
+            "calendarDisplay": "Visie weekkaart (kalender)",
+            "listDisplay": "Overzicht weeklijst"
         }
     }
 }

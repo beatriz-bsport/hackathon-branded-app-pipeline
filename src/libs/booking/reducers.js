@@ -13,6 +13,10 @@ import {
   retrieveBookingBroadcastRoom,
   retrieveActions,
   updateActions,
+  notificationListActions,
+  notificationCreateActions,
+  notificationDeleteActions,
+  notificationUpdateActions,
 } from './actions';
 import type { BookingsState } from './types';
 
@@ -64,6 +68,24 @@ const initialState: BookingsState = Immutable({
     loading: false,
     error: null,
   },
+  notification: {
+    itemsById: {},
+    allIds: [],
+    loading: false,
+    error: null,
+    create: {
+      loading: false,
+      error: null,
+    },
+    delete: {
+      loading: false,
+      error: null,
+    },
+    update: {
+      id: null,
+      error: null,
+    },
+  },
 });
 
 export default handleActions(
@@ -75,10 +97,7 @@ export default handleActions(
       return state.setIn(['broadcast', 'error'], payload);
     },
     [retrieveBookingBroadcastRoom.success]: (state, { payload }) => {
-      return state.setIn(
-        ['broadcast', 'byId', payload.id],
-        payload,
-      );
+      return state.setIn(['broadcast', 'byId', payload.id], payload);
     },
     [updateActions.isLoading]: (state, { payload }) => {
       return state.setIn(['createOrUpdate', 'loading'], payload);
@@ -218,6 +237,56 @@ export default handleActions(
             return acc;
           }, {}),
         },
+        { deep: true },
+      );
+    },
+    [notificationListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['notification', 'loading'], payload);
+    },
+    [notificationListActions.error]: (state, { payload }) => {
+      return state.setIn(['notification', 'error'], payload);
+    },
+    [notificationListActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['notification', 'itemsById'], payload.notifDict)
+        .setIn(['notification', 'allIds'], payload.notifIdList);
+    },
+    [notificationCreateActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['notification', 'create', 'loading'], payload);
+    },
+    [notificationCreateActions.error]: (state, { payload }) => {
+      return state.setIn(['notification', 'create', 'error'], payload);
+    },
+    [notificationCreateActions.success]: (state, { payload }) => {
+      return state.merge(
+        { notification: { itemsById: { [payload.id]: payload } } },
+        { deep: true },
+      );
+    },
+    [notificationDeleteActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['notification', 'delete', 'loading'], payload);
+    },
+    [notificationDeleteActions.error]: (state, { payload }) => {
+      return state.setIn(['notification', 'delete', 'error'], payload);
+    },
+    [notificationDeleteActions.success]: (state, { payload }) => {
+      const items = { ...state.notification.itemsById };
+      const ids = [...state.notification.allIds];
+      delete items[payload];
+      ids.splice(ids.findIndex((id) => id === payload), 1);
+      return state
+        .setIn(['notification', 'itemsById'], items)
+        .setIn(['notification', 'allIds'], ids);
+    },
+    [notificationUpdateActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['notification', 'update', 'id'], payload);
+    },
+    [notificationUpdateActions.error]: (state, { payload }) => {
+      return state.setIn(['notification', 'update', 'error'], payload);
+    },
+    [notificationUpdateActions.success]: (state, { payload }) => {
+      return state.merge(
+        { notification: { itemsById: { [payload.id]: payload } } },
         { deep: true },
       );
     },

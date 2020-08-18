@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { compose, withProps, withState } from 'recompose';
+import { compose, withProps, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
@@ -25,6 +25,12 @@ import {
   deleteEstablishment,
 } from '../../libs/establishment/actions';
 import {
+  fetchFirstTimeNotifications as fetchNotificationsAction,
+  createFirstTimeNotification as createNotificationAction,
+  updateFirstTimeNotification as updateNotification,
+  deleteFirstTimeNotification as deleteNotification,
+} from '../../libs/booking/actions';
+import {
   withEstablishment,
   withCoach,
   getOffersByDay,
@@ -32,7 +38,20 @@ import {
 } from '../../libs/offer/selectors';
 
 import { getEstablishment } from '../../libs/establishment/selectors';
+import { getFirstTimeNotifications } from '../../libs/booking/selectors';
+
 import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api';
+
+import {
+  getAllEmailTemplatesSummaries,
+  getEmailTemplatesDetail,
+} from '../../libs/email-editor/selectors';
+
+import {
+  fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
+  emailTemplateDetail,
+  emailTemplatesSummaries as fetchEmailTemplatesSummaries,
+} from '../../libs/email-editor/actions';
 
 type Props = {
   id: number,
@@ -48,8 +67,21 @@ type Props = {
   fetchEstablishmentBulk: ([number]) => void,
   setOpenWidgetDialog: () => void,
   openWidgetDialog: Boolean,
+  fetchNotificationsAndTemplates: (params: any) => void,
+  fetchEmailTemplatesSummaries: () => void,
+  fetchEmailTemplateDetail: (id: number) => void,
   events: Array<Event>,
   classes: Object,
+
+  email_templates_list: Array<any>,
+  email_templates_details: Array<any>,
+  emailListLoading: boolean,
+  emailDetailLoading: boolean,
+  notifications: Object,
+
+  createNotification: (date: any) => void,
+  updateNotification: (data: any) => void,
+  deleteNotification: (notificationId: number) => void,
 };
 
 type State = {
@@ -63,6 +95,7 @@ export class EstablishmentDetails extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchEstablishmentBulk([this.props.id]);
+    this.props.fetchNotificationsAndTemplates({ establishment: this.props.id });
   }
 
   render() {
@@ -80,6 +113,17 @@ export class EstablishmentDetails extends React.Component<Props, State> {
           goToOffer={this.props.goToOffer}
           establishment={this.props.establishment}
           events={this.props.events}
+          notifications={this.props.notifications}
+          objectId={this.props.establishment.id}
+          getEmails={this.props.fetchEmailTemplatesSummaries}
+          emails={this.props.email_templates_list}
+          getEmailDetail={this.props.fetchEmailTemplateDetail}
+          emailDetails={this.props.email_templates_details}
+          emailListLoading={this.props.emailListLoading}
+          emailDetailLoading={this.props.emailDetailLoading}
+          createNotification={this.props.createNotification}
+          updateNotification={this.props.updateNotification}
+          deleteNotification={this.props.deleteNotification}
         />
         <BottomActionButtons
           onEdit={() => this.props.startUpdateEstablishment(this.props.id)}
@@ -124,6 +168,15 @@ export default compose(
       loading: state.establishment.detail.loading,
       offers: withEstablishment(withCoach(getOffersByDay))(state),
       events: getEventsByEstablishment(state),
+      email_templates_list: getAllEmailTemplatesSummaries(state),
+      email_templates_details: getEmailTemplatesDetail(state),
+      emailListLoading: state.emailTemplate.isLoading,
+      emailDetailLoading: state.emailTemplate.detail.isLoading,
+      notifications: {
+        items: getFirstTimeNotifications(state),
+        loading: state.booking.notification.loading,
+        updating: state.booking.notification.update.id,
+      },
     }),
     {
       fetchEstablishmentBulk,
@@ -134,13 +187,26 @@ export default compose(
       goToList: () => push('/establishment'),
       deleteEstablishment,
       fetchEstablishmentEvents: fetchEstablishmentEventsAction,
+      fetchNotifications: fetchNotificationsAction,
+      fetchEmailTemplatesSummaries,
+      fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
+      fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
+      createNotification: createNotificationAction,
+      updateNotification,
+      deleteNotification,
     },
   ),
   withProps(({ fetchOffersByDay, fetchEstablishmentEvents, id }) => ({
     fetchOffersByDay: (momentDate) => {
       fetchEstablishmentEvents(id, {
-        min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
-        max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
+        min_date: momentDate
+          .clone()
+          .startOf('month')
+          .format('YYYY-MM-DD'),
+        max_date: momentDate
+          .clone()
+          .endOf('month')
+          .format('YYYY-MM-DD'),
       });
       fetchOffersByDay({
         year: momentDate.year(),
@@ -149,6 +215,33 @@ export default compose(
       });
     },
   })),
+  withHandlers({
+    fetchNotificationsAndTemplates: ({
+      fetchNotifications,
+      fetchEmailTemplateSummariesBulk,
+    }) => (params) => {
+      fetchNotifications(params, {
+        onSuccess: (notificationList) => {
+          fetchEmailTemplateSummariesBulk(
+            notificationList.map((notification) => notification.email_design),
+          );
+        },
+      });
+    },
+  }),
+  withHandlers({
+    createNotification: ({
+      fetchNotificationsAndTemplates,
+      createNotification,
+      id,
+    }) => (data) => {
+      createNotification(data, {
+        onSuccess: () => {
+          fetchNotificationsAndTemplates({ establishment: id });
+        },
+      });
+    },
+  }),
   withTitle(({ establishment }) => {
     return establishment ? `${establishment.title}` : '';
   }),

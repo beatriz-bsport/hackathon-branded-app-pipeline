@@ -86,4 +86,44 @@ exports.default = {
     cancelledByConsumer: 'Annulation client',
     cancelledByOffer: 'Séance annulée par le club',
   },
+  notification: {
+    addNotification: 'Ajouter une notification',
+    form: {
+      title: 'Formulaire de notification',
+      typeTitle: 'Type de notification',
+      settingTitle: 'Paramètres',
+      eventNb: "Notifier le membre lors de l'évènement n° :",
+      sendBeforeMail:
+        'Envoyer le mail au membre avant la séance concernée par la notification',
+      sendAfterMail:
+        'Envoyer le mail au membre après la séance concernée par la notification',
+      chooseTime: {
+        first: 'Envoyer un mail',
+        second_before: 'heure(s) avant la séance',
+        second_after: 'heure(s) après la séance',
+      },
+      chooseKindTitle: 'Évènement déclenchant la notification',
+      choicesKind: {
+        booking: "Création d'une réservation",
+        attendance: 'Présence du membre à une séance',
+        cancellation: "Annulation d'une réservation de la part du membre",
+      },
+      help: {
+        text: 'Aide : la notification sera envoyée au membre lors de',
+        booking: 'sa réservation n° {{notify_booking_nb}}',
+        attendance: 'sa présence n° {{notify_booking_nb}}',
+        cancellation: 'son annulation de réservation n° {{notify_booking_nb}}',
+      },
+      submit: 'Valider',
+      next: 'suivant',
+      cancel: 'Annuler',
+      listItemPrimary: {
+        before: 'Notification {{hours}}h avant la séance',
+        after: 'Notification {{hours}}h après la séance',
+        booking: 'Réservation n° {{notify_booking_nb}}',
+        attendance: 'Présence n° {{notify_booking_nb}}',
+        cancellation: 'Annulation n° {{notify_booking_nb}}',
+      },
+    },
+  },
 };

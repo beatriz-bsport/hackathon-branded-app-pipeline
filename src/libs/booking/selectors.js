@@ -21,6 +21,10 @@ const _getConsumerPackBookingId = (state: State) =>
   state.booking.byConsumerPack.allIds;
 const _getConsumerDashboardId = (state: State) =>
   state.booking.consumerDashboard.allIds;
+const _getNotificationsIds = (state: State) =>
+  state.booking.notification.allIds;
+const _getNotifications = (state: State) =>
+  state.booking.notification.itemsById;
 
 export const getMemberBookingList = createSelector(
   [_getData, _getMemberBookingId],
@@ -111,4 +115,9 @@ export const withOfferFull = memoize((selector) =>
         offer: offerData.find((o) => o.id === b.offer),
       })),
   ),
+);
+
+export const getFirstTimeNotifications = createSelector(
+  [_getNotifications, _getNotificationsIds],
+  (data, ids) => ids.map((id) => data[id]),
 );

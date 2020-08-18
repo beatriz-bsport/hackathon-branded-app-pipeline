@@ -12,7 +12,13 @@ import {
   cancelBooking as cancelBookingAPI,
   registerBooking as registerBookingAPI,
   fetchBookingBroadcastRoom as fetchBookingBroadcastRoomAPI,
+  fetchFirstTimeNotifications as fetchFirstTimeNotificationsAPI,
+  createFirstTimeNotifications as createFirstTimeNotificationsAPI,
+  deleteFirstTimeNotifications as deleteFirstTimeNotificationsAPI,
+  updateFirstTimeNotifications as updateFirstTimeNotificationsAPI,
 } from './api';
+import { createDictionnaryById, createIdList } from '../../actions/utils';
+
 import type { Dispatch } from '../../state/types';
 
 export const retrieveActions = {
@@ -350,5 +356,110 @@ export function fetchBookingBulk(ids: Array<number>, options: OptionCallback) {
       if (options && options.onError) options.onError(err);
     }
     dispatch(bulkActions.isLoading(false));
+  };
+}
+
+export const notificationListActions = {
+  isLoading: createAction('NOTIFICATION/LIST/IS_LOADING'),
+  error: createAction('NOTIFICATION/LIST/ERROR'),
+  success: createAction('NOTIFICATION/LIST/SUCCESS'),
+};
+
+export function fetchFirstTimeNotifications(params: Object, options?: any) {
+  return async (dispatch: Dispatch) => {
+    dispatch(notificationListActions.isLoading(true));
+    dispatch(notificationListActions.error(null));
+    try {
+      const response = await fetchFirstTimeNotificationsAPI(params);
+      dispatch(
+        notificationListActions.success({
+          notifDict: createDictionnaryById(response.data),
+          notifIdList: createIdList(response.data),
+        }),
+      );
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(notificationListActions.error(error));
+    }
+    dispatch(notificationListActions.isLoading(false));
+  };
+}
+
+export const notificationCreateActions = {
+  isLoading: createAction('NOTIFICATION/CREATE/IS_LOADING'),
+  error: createAction('NOTIFICATION/CREATE/ERROR'),
+  success: createAction('NOTIFICATION/CREATE/SUCCESS'),
+};
+
+export function createFirstTimeNotification(
+  data: any,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(notificationCreateActions.isLoading(true));
+    dispatch(notificationCreateActions.error(null));
+    try {
+      const response = await createFirstTimeNotificationsAPI(data);
+      dispatch(notificationCreateActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(notificationCreateActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(notificationCreateActions.isLoading(false));
+  };
+}
+
+export const notificationDeleteActions = {
+  isLoading: createAction('NOTIFICATION/DELETE/IS_LOADING'),
+  error: createAction('NOTIFICATION/DELETE/ERROR'),
+  success: createAction('NOTIFICATION/DELETE/SUCCESS'),
+};
+
+export function deleteFirstTimeNotification(
+  notificationId: any,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(notificationDeleteActions.isLoading(true));
+    dispatch(notificationDeleteActions.error(null));
+    try {
+      await deleteFirstTimeNotificationsAPI(notificationId);
+      dispatch(notificationDeleteActions.success(notificationId));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(notificationDeleteActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(notificationDeleteActions.isLoading(false));
+  };
+}
+
+export const notificationUpdateActions = {
+  isLoading: createAction('NOTIFICATION/PATCH/IS_LOADING'),
+  error: createAction('NOTIFICATION/PATCH/ERROR'),
+  success: createAction('NOTIFICATION/PATCH/SUCCESS'),
+};
+
+export function updateFirstTimeNotification(
+  data: any,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(notificationUpdateActions.isLoading(data.id));
+    dispatch(notificationUpdateActions.error(null));
+    try {
+      const response = await updateFirstTimeNotificationsAPI(data);
+      dispatch(notificationUpdateActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(notificationUpdateActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(notificationUpdateActions.isLoading(null));
   };
 }

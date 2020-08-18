@@ -14,6 +14,7 @@ import type { Establishment, Offer } from '../../../api/types';
 
 import { TimeTable, Calendar } from '../../../components';
 import Map from '../../../components/map/Map.component';
+import BookingCreationNotification from '../../booking/components/BookingCreationNotification.component';
 import EasyAccessStack from '../../category/components/EasyAccessStack.component';
 import { DATE_FORMAT } from '../../../datetime';
 
@@ -28,6 +29,17 @@ type Props = {
   classes: Object,
   t: TFunction,
   establishment: Establishment,
+
+  getEmails: () => void,
+  emails: Array<any>,
+  getEmailDetail: (id: number) => void,
+  emailDetails: Array<any>,
+  emailListLoading: boolean,
+  emailDetailLoading: boolean,
+  createNotification: (data: any) => void,
+  updateNotification: (data: any) => void,
+  deleteNotification: (notificationId: number) => void,
+  notifications: Object,
 };
 
 type State = {
@@ -105,7 +117,7 @@ export class EstablishmentDetail extends Component<Props, State> {
   render() {
     const { classes, t, establishment } = this.props;
     return (
-      <Paper>
+      <div>
         <Grid container direction="row">
           <Grid item xs={12} md={6} className={classes.imgBackground}>
             <Grid container direction="column">
@@ -120,43 +132,61 @@ export class EstablishmentDetail extends Component<Props, State> {
 
           <Grid container direction="row">
             <Grid item sm={12} md={6} className={classes.generalInfoBlock}>
-              <Typography variant="h4" gutterBottom>
-                {establishment.title}
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                color="textSecondary"
-                gutterBottom
-              >
-                {t('capacity.explain', {
-                  count: establishment.capacity,
-                  capacity: establishment.capacity,
-                })}
-              </Typography>
-              <EasyAccessStack
-                name={establishment.easy_access.name}
-                lines={establishment.easy_access.lines}
-                size="xs"
-                className={classes.easyAccess}
+              <Paper>
+                <div className={classes.paperContent}>
+                  <Typography variant="h4" gutterBottom>
+                    {establishment.title}
+                  </Typography>
+                  <Typography
+                    variant="subtitle2"
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    {t('capacity.explain', {
+                      count: establishment.capacity,
+                      capacity: establishment.capacity,
+                    })}
+                  </Typography>
+                  <EasyAccessStack
+                    name={establishment.easy_access.name}
+                    lines={establishment.easy_access.lines}
+                    size="xs"
+                    className={classes.easyAccess}
+                  />
+                  <Typography variant="caption">
+                    {establishment.location.address}
+                  </Typography>
+                  <div className={classes.descriptionBlock}>
+                    <Typography variant="h5" gutterBottom>
+                      {t('description')}
+                    </Typography>
+                    <TypographyMultiline>
+                      {establishment.specific_info}
+                    </TypographyMultiline>
+                  </div>
+                </div>
+              </Paper>
+              <BookingCreationNotification
+                notifications={this.props.notifications}
+                objectId={this.props.establishment.id}
+                getEmails={this.props.getEmails}
+                emails={this.props.emails}
+                getEmailDetail={this.props.getEmailDetail}
+                emailDetails={this.props.emailDetails}
+                emailListLoading={this.props.emailListLoading}
+                emailDetailLoading={this.props.emailDetailLoading}
+                createNotification={this.props.createNotification}
+                updateNotification={this.props.updateNotification}
+                deleteNotification={this.props.deleteNotification}
+                identifier="establishment"
               />
-              <Typography variant="caption">
-                {establishment.location.address}
-              </Typography>
-              <div className={classes.descriptionBlock}>
-                <Typography variant="h5" gutterBottom>
-                  {t('description')}
-                </Typography>
-                <TypographyMultiline>
-                  {establishment.specific_info}
-                </TypographyMultiline>
-              </div>
             </Grid>
             <Grid item sm={12} md={6} className={classes.calendarBlock}>
-              {this.renderCalendar(establishment)}
+              <Paper>{this.renderCalendar(establishment)}</Paper>
             </Grid>
           </Grid>
         </Grid>
-      </Paper>
+      </div>
     );
   }
 }
@@ -176,12 +206,12 @@ const styles = (theme) => ({
     marginBottom: -6,
   },
   generalInfoBlock: {
-    padding: 24,
+    padding: theme.spacing(2),
+    paddingLeft: 0,
   },
   calendarBlock: {
-    borderLeft: '1px solid #EEEEEE',
-    borderTop: '1px solid #EEEEEE',
-    padding: 24,
+    padding: theme.spacing(2),
+    paddingRight: 0,
     height: '100%',
   },
   descriptionBlock: {
@@ -189,6 +219,9 @@ const styles = (theme) => ({
   },
   easyAccess: {
     marginBottom: theme.spacing(1),
+  },
+  paperContent: {
+    padding: theme.spacing(2),
   },
 });
 

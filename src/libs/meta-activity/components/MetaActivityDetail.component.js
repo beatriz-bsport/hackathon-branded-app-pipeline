@@ -17,6 +17,7 @@ import memoize from 'memoize-one';
 import Calendar from '../../../components/offer/Calendar.component';
 import TimeTable from '../../../components/offer/TimeTable.component';
 import { DATE_FORMAT } from '../../../datetime';
+import BookingCreationNotification from '../../booking/components/BookingCreationNotification.component';
 import MetaActivityCard from './MetaActivityCard.component';
 
 type Props = {
@@ -28,6 +29,18 @@ type Props = {
   openCreateOfferForm: () => void,
   offersLoading: boolean,
   goToOffer: (Offer) => void,
+
+  getEmails: () => void,
+  emails: Array<any>,
+  getEmailDetail: (id: number) => void,
+  emailDetails: Array<any>,
+  emailListLoading: boolean,
+  emailDetailLoading: boolean,
+  createNotification: (data: any) => void,
+  updateNotification: (data: any) => void,
+  deleteNotification: (notificationId: number) => void,
+  notifications: Object,
+
   classes: Object,
   t: TFunction,
 };
@@ -52,6 +65,20 @@ export const MetaActivityDetail = (props: Props) => {
     <Grid container direction="row" alignItems="stretch">
       <Grid item sm={12} md={6} className={classes.panel}>
         <MetaActivityCard metaActivity={metaActivity} />
+        <BookingCreationNotification
+          notifications={props.notifications}
+          objectId={props.metaActivity.id}
+          getEmails={props.getEmails}
+          emails={props.emails}
+          getEmailDetail={props.getEmailDetail}
+          emailDetails={props.emailDetails}
+          emailListLoading={props.emailListLoading}
+          emailDetailLoading={props.emailDetailLoading}
+          createNotification={props.createNotification}
+          updateNotification={props.updateNotification}
+          deleteNotification={props.deleteNotification}
+          identifier="meta_activity"
+        />
       </Grid>
       <Grid item sm={12} md={6} className={classes.panel}>
         <Paper className={classes.fullWidth}>

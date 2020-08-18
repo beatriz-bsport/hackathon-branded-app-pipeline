@@ -75,3 +75,14 @@ export type BookingsAction =
   | {
       type: 'BOOKING_DELETE_START',
     };
+
+export type Notification = {
+  kind: number,
+  company: number,
+  establishment?: number,
+  meta_activity?: number,
+  notifify_booking_nb: number,
+  active: boolean,
+  email_design: number,
+  hours: number,
+};

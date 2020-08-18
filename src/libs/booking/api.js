@@ -1,5 +1,12 @@
 // @flow
-import { buildUrlParams, API_V1_URI, getAuth, postAuth } from '../../http';
+import {
+  buildUrlParams,
+  API_V1_URI,
+  getAuth,
+  postAuth,
+  deleteAuth,
+  patchAuth,
+} from '../../http';
 
 export const fetchFilteredBookingOptions = async (params: any) => {
   return getAuth(
@@ -48,3 +55,21 @@ export const registerBooking = async (
     data,
   );
 };
+
+export async function fetchFirstTimeNotifications(params: Object) {
+  return getAuth(
+    `${API_V1_URI}/booking/notification/${buildUrlParams(params)}`,
+  );
+}
+
+export async function createFirstTimeNotifications(data: any) {
+  return postAuth(`${API_V1_URI}/booking/notification/`, data);
+}
+
+export async function deleteFirstTimeNotifications(id: number) {
+  return deleteAuth(`${API_V1_URI}/booking/notification/${id}/`);
+}
+
+export async function updateFirstTimeNotifications(data: any) {
+  return patchAuth(`${API_V1_URI}/booking/notification/${data.id}/`, data);
+}

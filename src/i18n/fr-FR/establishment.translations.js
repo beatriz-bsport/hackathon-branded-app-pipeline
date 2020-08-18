@@ -64,4 +64,6 @@ exports.default = {
       title: 'Édition des informations',
     },
   },
+  notificationToolTip:
+    'Des notifications sont définies pour les réservations concernant cet établissement',
 };

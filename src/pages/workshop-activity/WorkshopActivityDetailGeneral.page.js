@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push as routerPush } from 'connected-react-router';
-import { compose, withProps, withState } from 'recompose';
+import { compose, withProps, withHandlers, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withTranslation } from 'react-i18next';
@@ -31,6 +31,25 @@ import {
 import { deleteWorkshop } from '../../libs/meta-activity/actions';
 import { checkCanDeleteMetaActivity as canDeleteWorkshopAPI } from '../../libs/meta-activity/api/common';
 
+import {
+  fetchFirstTimeNotifications as fetchNotificationsAction,
+  createFirstTimeNotification as createNotificationAction,
+  updateFirstTimeNotification as updateNotification,
+  deleteFirstTimeNotification as deleteNotification,
+} from '../../libs/booking/actions';
+import { getFirstTimeNotifications } from '../../libs/booking/selectors';
+
+import {
+  getAllEmailTemplatesSummaries,
+  getEmailTemplatesDetail,
+} from '../../libs/email-editor/selectors';
+
+import {
+  fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
+  emailTemplateDetail,
+  emailTemplatesSummaries as fetchEmailTemplatesSummaries,
+} from '../../libs/email-editor/actions';
+
 type Props = {
   id: number,
   workshopActivity: MetaActivityType,
@@ -52,6 +71,19 @@ type Props = {
   classes: Object,
   setOpenWidgetDialog: () => void,
   openWidgetDialog: Boolean,
+
+  email_templates_list: Array<any>,
+  email_templates_details: Array<any>,
+  emailListLoading: boolean,
+  emailDetailLoading: boolean,
+  notifications: Object,
+  fetchEmailTemplatesSummaries: () => void,
+  fetchEmailTemplateDetail: (id: number) => void,
+
+  fetchNotificationsAndTemplates: (params: any) => void,
+  createNotification: (date: any) => void,
+  updateNotification: (data: any) => void,
+  deleteNotification: (notificationId: number) => void,
 };
 
 type State = {
@@ -68,6 +100,9 @@ export class WorkshopActivity extends Component<Props, State> {
   componentDidMount() {
     if (this.props.id) {
       this.props.fetchMetaActivityOffers(this.props.id);
+      this.props.fetchNotificationsAndTemplates({
+        meta_activity: this.props.id,
+      });
     }
   }
 
@@ -99,6 +134,16 @@ export class WorkshopActivity extends Component<Props, State> {
           goToOffer={this.props.goToOffer}
           openCreateOfferForm={this.openCreateOfferForm}
           activities={this.props.id}
+          notifications={this.props.notifications}
+          getEmails={this.props.fetchEmailTemplatesSummaries}
+          emails={this.props.email_templates_list}
+          getEmailDetail={this.props.fetchEmailTemplateDetail}
+          emailDetails={this.props.email_templates_details}
+          emailListLoading={this.props.emailListLoading}
+          emailDetailLoading={this.props.emailDetailLoading}
+          createNotification={this.props.createNotification}
+          updateNotification={this.props.updateNotification}
+          deleteNotification={this.props.deleteNotification}
         />
         <BottomActionButtons
           onEdit={() => this.props.onEdit(this.props.id)}
@@ -150,6 +195,15 @@ export default compose(
       events: getEventsByMetaActivity(state),
       offers: withEstablishment(withCoach(getOffersByDay))(state),
       offersLoading: state.offer.byDay.loading,
+      email_templates_list: getAllEmailTemplatesSummaries(state),
+      email_templates_details: getEmailTemplatesDetail(state),
+      emailListLoading: state.emailTemplate.isLoading,
+      emailDetailLoading: state.emailTemplate.detail.isLoading,
+      notifications: {
+        items: getFirstTimeNotifications(state),
+        loading: state.booking.notification.loading,
+        updating: state.booking.notification.update.id,
+      },
     }),
     {
       fetchOffersByDay: fetchOffersByDayAction,
@@ -159,13 +213,26 @@ export default compose(
       goToList: () => routerPush('/workshop-activity'),
       onEdit: (id) => routerPush(`/workshop-activity/${id}/edit`),
       createActivityOffers: (id) => routerPush(`/add-offers/${id}`),
+      fetchNotifications: fetchNotificationsAction,
+      fetchEmailTemplatesSummaries,
+      fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
+      fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
+      createNotification: createNotificationAction,
+      updateNotification,
+      deleteNotification,
     },
   ),
   withProps(({ fetchOffersByDay, fetchMetaActivityOffers, id }) => ({
     fetchOffersByDay: (momentDate) => {
       fetchMetaActivityOffers(id, {
-        min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
-        max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
+        min_date: momentDate
+          .clone()
+          .startOf('month')
+          .format('YYYY-MM-DD'),
+        max_date: momentDate
+          .clone()
+          .endOf('month')
+          .format('YYYY-MM-DD'),
       });
       fetchOffersByDay({
         year: momentDate.year(),
@@ -174,6 +241,33 @@ export default compose(
       });
     },
   })),
+  withHandlers({
+    fetchNotificationsAndTemplates: ({
+      fetchNotifications,
+      fetchEmailTemplateSummariesBulk,
+    }) => (params) => {
+      fetchNotifications(params, {
+        onSuccess: (notificationList) => {
+          fetchEmailTemplateSummariesBulk(
+            notificationList.map((notification) => notification.email_design),
+          );
+        },
+      });
+    },
+  }),
+  withHandlers({
+    createNotification: ({
+      fetchNotificationsAndTemplates,
+      createNotification,
+      id,
+    }) => (data) => {
+      createNotification(data, {
+        onSuccess: () => {
+          fetchNotificationsAndTemplates({ meta_activity: id });
+        },
+      });
+    },
+  }),
   withTitle(({ id, workshopActivities }) => {
     if (id) {
       const workshopActivity = (workshopActivities || []).filter(

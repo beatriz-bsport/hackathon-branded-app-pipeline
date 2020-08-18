@@ -183,7 +183,6 @@ export class PaymentPackList extends Component<Props, State> {
         />
       );
     }
-
     return (
       <Grid container direction="row" spacing={3} className={classes.container}>
         {publicPacks.length || managerPacks.length ? (

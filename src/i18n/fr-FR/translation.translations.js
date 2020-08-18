@@ -1013,4 +1013,6 @@ exports.default = {
   quickInvoiceNoVoucher:
     'Laissez la valeur de ce champ à 0 si vous ne souhaitez pas appliquer de réduction',
   show_cancelled_offers: 'Afficher les séances annulées',
+  metaActivityNotificationToolTip:
+    'Des notifications sont définies pour les réservations concernant cet élément',
 };

@@ -10,8 +10,12 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import ClearIcon from '@material-ui/icons/Clear';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import IconButton from '@material-ui/core/IconButton';
+
 import { withTranslation, TFunction } from 'react-i18next';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
+import Tooltip from '../../../components/Tooltip.component';
 
 import type { Establishment } from '../../../api/types';
 
@@ -66,6 +70,22 @@ export default withTranslation(['establishment'])(
               : null
           }
         />
+        {establishment.on_booking_notification &&
+        establishment.on_booking_notification.length > 0 ? (
+          <Tooltip
+            classes={props.classes}
+            title={
+              <Typography variant="subtitle2">
+                {t('notificationToolTip')}
+              </Typography>
+            }
+            aria-label="info"
+          >
+            <IconButton>
+              <NotificationsIcon />
+            </IconButton>
+          </Tooltip>
+        ) : null}
         <ListItemResponsiveAction
           actions={[
             props.onClickEdit && {

@@ -12,6 +12,8 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import IconButton from '@material-ui/core/IconButton';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -19,6 +21,7 @@ import type { MetaActivity } from '../../../api/types';
 import { formatAsDatetime } from '../../../datetime';
 import { getSportWithIcon } from '../../../components/category/utils';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
+import Tooltip from '../../../components/Tooltip.component';
 
 type Props = {
   metaActivity: MetaActivity,
@@ -76,6 +79,22 @@ export function MetaActivityListItem(props: Props) {
             : t('activity.noNextSlot')
         }
       />
+      {props.metaActivity.on_booking_notification &&
+      props.metaActivity.on_booking_notification.length > 0 ? (
+        <Tooltip
+          classes={props.classes}
+          title={
+            <Typography variant="subtitle2">
+              {t('metaActivityNotificationToolTip')}
+            </Typography>
+          }
+          aria-label="info"
+        >
+          <IconButton>
+            <NotificationsIcon />
+          </IconButton>
+        </Tooltip>
+      ) : null}
       <ListItemResponsiveAction
         actions={[
           props.metaActivity.customer_enabled &&

@@ -110,7 +110,8 @@
             "male": "Uomo",
             "female": "Donna",
             "duplicate": "Duplica",
-            "restore": "Ristabilire"
+            "restore": "Ristabilire",
+            "share": "Condividi"
         },
         "offer": {
             "noPackAvailableForOfferPurchase": "Nessuna scheda del corso compatibile con questa sessione!",
@@ -939,7 +940,10 @@
             "cancelledBookings_plural": "{{nb}} prenotazioni annullate",
             "offerFilteredBookingRecap": "Le tue prenotazioni",
             "weekOverview": "Panoramica della tua settimana"
-        }
+        },
+        "show_cancelled_offers": "Mostra sessioni annullate",
+        "quickInvoiceNoVoucher": "Lascia il valore di questo campo uguale a 0 se non vuoi applicare uno sconto",
+        "quickInvoiceVoucher": "Scegli lo sconto da applicare al momento della fatturazione del pass successivo"
     },
     "notificationRule": {
         "tag": {
@@ -2244,7 +2248,10 @@
                     "label": "Etichetta per nome",
                     "helperText": "Inserisci l'etichetta per il nome"
                 },
-                "offersFilling": "Visualizza il riempimento dei corsi sul calendario dei clienti"
+                "offersFilling": "Visualizza il riempimento dei corsi sul calendario dei clienti",
+                "cancelledOffersCustomer": "Mostra le sessioni annullate sul calendario dei clienti",
+                "workshopsCustomer": "Mostra i workshop sul calendario dei clienti",
+                "calendarPersonalizationTitle": "Configurazione del calendario"
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -3318,7 +3325,21 @@
             "payment_method_amex": "AMEX (American Express)",
             "nb_bookings_same_pass": "Nb prenotazione tramite lo stesso pass",
             "author": "Autore",
-            "credit_consumed": "Credito utilizzato"
+            "credit_consumed": "Credito utilizzato",
+            "effectif_rate": "Tasso di riempimento",
+            "cancel_rate": "Tasso di cancellazione",
+            "rate_non_attendance": "Tasso di assenza",
+            "rate_attendance": "Tasso di partecipazione",
+            "availability": "validità",
+            "min_credit": "Credito minimo",
+            "max_credit": "Credito massimo",
+            "canceled_bookings": "Numero di prenotazioni cancellate",
+            "c": "Insegnante",
+            "private_slot": "Tipo di sessione",
+            "private_service": "Nome dell'appuntamento",
+            "date_first_privatebooking": "Data del primo appuntamento",
+            "activitiesest": "Attività per struttura",
+            "coaches": "Insegnanti"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -3365,6 +3386,44 @@
         "subheader": {
             "average": "Media",
             "total": "Totale"
+        },
+        "categories": {
+            "dayBookings": "Prenotazioni (lezione di gruppo) per giorno",
+            "privateServiceCoach": "Appuntamento per insegnante",
+            "privateServiceEst": "Appuntamento per struttura",
+            "privateService": "Appuntamento",
+            "activityByCoach": "Attività e workshop per insegnante",
+            "activityByEst": "Attività e seminari per struttura",
+            "workshop": "Workshop",
+            "activities": "Attività",
+            "first_privatebooking": "Primo appuntamento",
+            "first_booking": "Prima sessione (gruppo)",
+            "first_attendance": "Prima presenza (gruppo)",
+            "subscription": "Abbonamento",
+            "discount": "Promozioni",
+            "private_bookings": "Prenotazioni (appuntamento)",
+            "shop": "Negozio",
+            "private_cpasses": "Pass per appuntamenti",
+            "payment_sumup": "Totale pagamenti",
+            "credit": "Credito",
+            "basket": "Carrello",
+            "memberships": "Schede del corso",
+            "invoices": "Acquisti",
+            "products": "Prodotti",
+            "payments": "Pagamenti",
+            "bookings": "Prenotazioni (lezioni di gruppo)",
+            "offers": "Sessioni",
+            "members": "Membri"
+        },
+        "globalCategories": {
+            "subheader": {
+                "average": "Media",
+                "total": "Totale"
+            },
+            "Payments": "Pagamenti",
+            "Products": "Prodotti",
+            "Bookings": "Prenotazioni",
+            "Club": "Club"
         }
     },
     "alerting": {
@@ -3622,6 +3681,14 @@
                     "label": "Credito",
                     "helperText": "Numero di crediti disponibili",
                     "bewareChange": "Se aumenti il numero di crediti, saranno interessate tutte le carte esistenti. Lo stesso se diminuisci il numero di crediti."
+                },
+                "maxPurchasePerMember": {
+                    "helperText": "Lasciare vuoto per non imporre un limite",
+                    "label": "Acquisto massimo per membro"
+                },
+                "maxBookingPerDay": {
+                    "helperText": "Lasciare vuoto per non imporre un limite",
+                    "label": "Utilizzo massimo al giorno"
                 }
             }
         },
@@ -3766,7 +3833,7 @@
                 "title": "Elimina attività",
                 "content": {
                     "canDelete": "Sei sicuro di voler cancellare questo workshop? Le sessioni e le prenotazioni non saranno interessate. Questa operazione è definitiva.",
-                    "cannotDelete": "Le sessioni sono pianificate per il futuro, verifica che vengano eliminate e non solo annullate."
+                    "cannotDelete": "Le sessioni sono pianificate per il futuro, verifica che siano state annullate."
                 },
                 "actions": {
                     "cancel": "Annulla",
@@ -4917,7 +4984,14 @@
             "cancelRegistration": "Annulla",
             "noConsumerPaymentPack": "Nessuna carta del corso valida!",
             "isFull": "Pieno",
-            "backToOfferList": "Torna alle sessioni"
+            "backToOfferList": "Torna alle sessioni",
+            "actions": {
+                "createAccount": "Crea un account",
+                "restartAnalyze": "Ricomincia",
+                "close": "Chiudi"
+            },
+            "noDetectionResult": "Nessun risultato",
+            "activateFaceId": "Face ID"
         },
         "memberList": {
             "checkIn": "Check-in",
@@ -5489,7 +5563,8 @@
                 "date": "Ordinare per data",
                 "lastname": "Ordina per nome",
                 "firstname": "Ordina per nome"
-            }
+            },
+            "unevenQuickInvoices": "In questa pagina vengono visualizzate le fatture senza alcun metodo di pagamento. Sei sicuro di voler uscire?"
         },
         "video": {
             "cantOpenLink": "Il link della conferenza sembra essere errato, contatta il tuo club {{contact_email}}",
@@ -5518,7 +5593,15 @@
             "explainWarning": "ATTENZIONE questa operazione è irreversibile."
         },
         "bookingListEmpty": "Nessuna prenotazione",
-        "bookingList": "Prenotazioni"
+        "bookingList": "Prenotazioni",
+        "menu": {
+            "download": "Sommario",
+            "massDisable": "Cancellazione di gruppo",
+            "hideCancelled": "Nascondi annullamenti",
+            "showCancelled": "Visualizza gli annullamenti",
+            "showWeek": "Visualizzazione per settimana",
+            "showMonth": "Visualizzazione per mese"
+        }
     },
     "role": {
         "userRoles": "Contabilità del personale",
@@ -5575,6 +5658,26 @@
                 "name": "Proprietario",
                 "description": "Accesso amministratore, nessuna restrizione, può creare account staff"
             }
+        }
+    },
+    "widget": {
+        "widget": {
+            "ownStyle": "Modalità compatibilità (ignora il tema del sito)",
+            "copyUrl": "Vai al link del tuo calendario",
+            "codeSource": "Visualizza il codice che devi copiare sul tuo sito",
+            "copy": "Copia",
+            "url": "Link calendario",
+            "code": "Widget sul tuo sito",
+            "choice": "Scegli come desideri visualizzare il tuo widget",
+            "visualisation": "Visualizzazione",
+            "widget": "Condividi il tuo calendario",
+            "displayType": "Tipo di visualizzazione",
+            "return": "Indietro",
+            "show": "Visualizza",
+            "cancel": "Annulla",
+            "responsiveDisplay": "Display reattivo",
+            "calendarDisplay": "Visualizzazione per scheda settimanale (calendario)",
+            "listDisplay": "Visualizzazione per elenco settimane"
         }
     }
 }

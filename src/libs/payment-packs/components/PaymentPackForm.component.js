@@ -91,6 +91,7 @@ export function PaymentPackForm(props: Props) {
           <Grid item xs={12}>
             <TextField
               name="name"
+              id="textfield_pass_title"
               label={t('form.paymentPack.name.label')}
               required
               fullWidth
@@ -107,6 +108,7 @@ export function PaymentPackForm(props: Props) {
           <Grid item xs={12} md={6}>
             <PriceField
               name="price"
+              id="textfield_pass_price"
               label={t('form.paymentPack.priceIncludingTax.label')}
               required
               fullWidth
@@ -117,6 +119,7 @@ export function PaymentPackForm(props: Props) {
           <Grid item xs={12} md={6}>
             <TextField
               name="tax"
+              id="textfield_pass_VAT"
               label={t('form.paymentPack.tax.label')}
               type="number"
               required
@@ -147,6 +150,7 @@ export function PaymentPackForm(props: Props) {
           <Grid item xs={6}>
             <TextField
               name="credits"
+              id="textfield_pass_credits"
               label={t('form.paymentPack.credits.label')}
               type="number"
               fullWidth
@@ -172,7 +176,7 @@ export function PaymentPackForm(props: Props) {
             />
           </Grid>
         </Grid>
-        <fieldset className={classes.fieldset}>
+        <fieldset className={classes.fieldset} id="pass_availability">
           <legend className={classes.legend}>
             {t('form.paymentPack.timeSettingsTitle')}
           </legend>
@@ -299,6 +303,7 @@ export function PaymentPackForm(props: Props) {
           <Grid container>
             <Grid item xs={12}>
               <TextField
+                id="textfield_restrictions_maxut"
                 label={t('form.paymentPack.maxBookingPerWeek.label')}
                 type="number"
                 fullWidth
@@ -349,6 +354,7 @@ export function PaymentPackForm(props: Props) {
             <Grid item xs={12} md={4}>
               <MultipleCheckboxField
                 name="categories"
+                id="select_pass_category"
                 label={t('form.paymentPack.sports')}
                 helperText={t('form.paymentPack.noneMeansAll')}
                 choices={categories.map((category) => ({
@@ -360,6 +366,7 @@ export function PaymentPackForm(props: Props) {
             <Grid item xs={12} md={4}>
               <MultipleCheckboxField
                 name="metaActivities"
+                id="select_activity_category"
                 label={t('form.paymentPack.activities')}
                 helperText={t('form.paymentPack.noneMeansAll')}
                 choices={metaActivities.map((metaActivity) => ({
@@ -371,6 +378,7 @@ export function PaymentPackForm(props: Props) {
             <Grid item xs={12} md={4}>
               <MultipleCheckboxField
                 name="establishments"
+                id="select_establishment_category"
                 label={t('form.paymentPack.establishments')}
                 helperText={t('form.paymentPack.noneMeansAll')}
                 choices={establishments.map((establishment) => ({
@@ -387,7 +395,7 @@ export function PaymentPackForm(props: Props) {
               {props.onCancelText || t('form.paymentPack.actions.cancel')}
             </Button>
           ) : null}
-          <Submit disabled={isSubmitting}>
+          <Submit disabled={isSubmitting} id="button_payment_pack_onsubmit">
             {initial && initial.id
               ? t('form.paymentPack.actions.edit')
               : t('form.paymentPack.actions.create')}
@@ -405,9 +413,7 @@ const PackSchema = Yup.object().shape({
   name: Yup.string().required(),
   price: Yup.number().min(0),
   tax: Yup.number().min(0),
-  credits: Yup.number()
-    .min(0)
-    .nullable(),
+  credits: Yup.number().min(0).nullable(),
   timeType: Yup.string().required(),
   expiration_days_before_first_use: Yup.number(),
   unlimited: Yup.boolean(),
@@ -415,40 +421,22 @@ const PackSchema = Yup.object().shape({
   start_date_method: Yup.number().required(),
   duration_days: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
-    then: Yup.number()
-      .min(0)
-      .required(),
-    otherwise: Yup.number()
-      .min(0)
-      .nullable(),
+    then: Yup.number().min(0).required(),
+    otherwise: Yup.number().min(0).nullable(),
   }),
   duration_months: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
-    then: Yup.number()
-      .min(0)
-      .required(),
-    otherwise: Yup.number()
-      .min(0)
-      .nullable(),
+    then: Yup.number().min(0).required(),
+    otherwise: Yup.number().min(0).nullable(),
   }),
   duration_years: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
-    then: Yup.number()
-      .min(0)
-      .required(),
-    otherwise: Yup.number()
-      .min(0)
-      .nullable(),
+    then: Yup.number().min(0).required(),
+    otherwise: Yup.number().min(0).nullable(),
   }),
-  max_bookings_per_week: Yup.number()
-    .min(0)
-    .nullable(),
-  max_purchase_per_member: Yup.number()
-    .min(0)
-    .nullable(),
-  max_bookings_per_day: Yup.number()
-    .min(0)
-    .nullable(),
+  max_bookings_per_week: Yup.number().min(0).nullable(),
+  max_purchase_per_member: Yup.number().min(0).nullable(),
+  max_bookings_per_day: Yup.number().min(0).nullable(),
   lower_date: Yup.date().when('timeType', {
     is: VALID_BY_DATERANGE,
     then: Yup.date().required(),

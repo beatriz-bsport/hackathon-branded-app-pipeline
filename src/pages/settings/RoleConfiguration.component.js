@@ -63,7 +63,7 @@ export class RoleConfiguration extends React.Component<Props> {
           />
         </Paper>
         <Typography variant="h5">{t('permissions')}</Typography>
-        <Paper className={classes.paperContainer}>
+        <Paper id="text_staff_roles" className={classes.paperContainer}>
           <PermissionList permissions={permissions} />
         </Paper>
       </div>

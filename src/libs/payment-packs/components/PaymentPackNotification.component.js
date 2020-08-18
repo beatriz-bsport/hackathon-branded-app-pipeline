@@ -226,6 +226,7 @@ export class notificationRule extends Component<Props, state> {
         </Paper>
         <div className={classes.addButtonContainer}>
           <Button
+            id="button_pass_notification"
             variant="outlined"
             color="primary"
             onClick={() => this.setState({ openForm: true })}

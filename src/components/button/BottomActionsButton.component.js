@@ -29,6 +29,7 @@ export const BottomActionButtons = (props: Props) => (
   <div className={props.classes.buttonContainer}>
     {props.onCreate ? (
       <Fab
+        id="bottom_action_add"
         variant="extended"
         color="primary"
         className={props.classes.actionButton}
@@ -44,6 +45,7 @@ export const BottomActionButtons = (props: Props) => (
     ) : null}
     {props.onEdit ? (
       <Fab
+        id="bottom_action_edit"
         variant="extended"
         color="primary"
         className={props.classes.actionButton}
@@ -73,7 +75,11 @@ export const BottomActionButtons = (props: Props) => (
       </Fab>
     ) : null}
     {props.onDelete ? (
-      <RedFab className={props.classes.actionButton} onClick={props.onDelete}>
+      <RedFab
+        id="bottom_action_delete"
+        className={props.classes.actionButton}
+        onClick={props.onDelete}
+      >
         <DeleteIcon />
       </RedFab>
     ) : null}

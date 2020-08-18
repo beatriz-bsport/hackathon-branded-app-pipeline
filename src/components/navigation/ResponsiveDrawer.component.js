@@ -146,6 +146,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       return (
         <React.Fragment key={String(i)}>
           <ListItem
+            id="button_menu_item"
             button
             onClick={() => {
               this.handleClick(item, i);

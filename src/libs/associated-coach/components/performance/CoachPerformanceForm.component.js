@@ -26,18 +26,21 @@ export function CoachPerformanceForm(props: Props) {
   return (
     <Form className={classes.alignCenter}>
       <DateField
+        id="textfield_remuneration_beginning"
         required
         name="dateStart"
         label={t('common.from')}
         className={classes.dateInput}
       />
       <DateField
+        id="textfield_remuneration_end"
         required
         name="dateEnd"
         label={t('common.until')}
         className={classes.dateInput}
       />
       <Submit
+        id="button_remuneration_calculate"
         variant="outlined"
         color="secondary"
         disabled={isSubmitting || !!props.disabled}
@@ -67,9 +70,7 @@ export default compose(
   withTranslation(['paymentRules', 'coachPerformance', 'translation']),
   withFormik({
     mapPropsToValues: () => ({
-      dateStart: Moment()
-        .subtract(1, 'month')
-        .startOf('day'),
+      dateStart: Moment().subtract(1, 'month').startOf('day'),
       dateEnd: Moment().startOf('day'),
     }),
     validationSchema: CoachPerformanceSchema,

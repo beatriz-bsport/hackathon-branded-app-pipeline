@@ -44,6 +44,7 @@ class CoachSummaryCard extends React.Component<Props> {
     const { t, paymentRules, classes, coach, setCoachPaymentRule } = this.props;
     return (
       <Grid
+        id="button_teacher_paymentconfig"
         container
         direction="row"
         justify="flex-end"

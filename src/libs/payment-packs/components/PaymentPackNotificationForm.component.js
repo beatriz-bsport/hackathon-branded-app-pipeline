@@ -350,7 +350,7 @@ export class notificationRuleForm extends Component<Props, state> {
       <Dialog open={this.props.open}>
         <DialogTitle>{t('notificationForm')}</DialogTitle>
         <div className={classes.dialogContainer}>
-          <div className={classes.fieldContainer}>
+          <div className={classes.fieldContainer} id="select_notification_type">
             <Typography variant="subtitle2">
               {t('notification.form.typeTitle')}
             </Typography>
@@ -401,7 +401,10 @@ export class notificationRuleForm extends Component<Props, state> {
               />
             </RadioGroup>
           </div>
-          <div className={classes.fieldContainer}>
+          <div
+            className={classes.fieldContainer}
+            id="textfield_notification_parameters"
+          >
             <Typography variant="subtitle2">
               {t('notification.form.settingTitle')}
             </Typography>
@@ -419,7 +422,10 @@ export class notificationRuleForm extends Component<Props, state> {
           this.state.smartlist_include.length === 0
             ? this.renderWarning()
             : null}
-          <div className={classes.fieldContainer}>
+          <div
+            className={classes.fieldContainer}
+            id="select_notification_template"
+          >
             <Typography variant="subtitle2">
               {t('notification.form.mailTitle')}
             </Typography>
@@ -431,6 +437,7 @@ export class notificationRuleForm extends Component<Props, state> {
               {t('notification.form.cancel')}
             </Button>
             <Button
+              id="button_notification_validate"
               color="primary"
               disabled={!this.checkFormValidity()}
               onClick={() =>

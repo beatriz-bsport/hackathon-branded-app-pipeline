@@ -118,6 +118,7 @@ export const UserWithRoleList = (props: Props) => (
     <Button
       variant="outlined"
       color="primary"
+      id="button_staff_add"
       onClick={() => props.setCreateOpen(true)}
     >
       <AddIcon className={props.classes.leftIcon} />

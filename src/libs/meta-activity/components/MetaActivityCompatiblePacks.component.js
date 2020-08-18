@@ -79,6 +79,7 @@ export function CompatiblePaymentPacks(props: Props) {
           {props.t('forms.create.compatible_packs.createPass')}
         </Button>
         <Button
+          id="button_activity_display"
           variant="contained"
           color="primary"
           className={props.classes.button}

@@ -54,6 +54,7 @@ export function MetaActivityForm(props: Props) {
       </Typography>
       <div className={classes.container}>
         <TextField
+          id="textfield_activity_title"
           label={t('activity.name')}
           name="name"
           required
@@ -63,6 +64,7 @@ export function MetaActivityForm(props: Props) {
         <div className={classes.field}>
           <SCTSelectField
             scts={SCTs}
+            id="select_activity_category"
             label={t('activity.category')}
             fullWidth
             name="SCT"
@@ -71,6 +73,7 @@ export function MetaActivityForm(props: Props) {
         </div>
         <div className={classes.field}>
           <TextField
+            id="textfield_activity_description"
             name="description"
             label={t('activity.description')}
             required
@@ -105,6 +108,7 @@ export function MetaActivityForm(props: Props) {
         <div className={classes.field}>
           <CheckboxField
             name="is_broadcast"
+            id="checkbox_activity_broadcast"
             disabled={!props.is_broadcast_enabled}
             label={t('activity.is_broadcast')}
           />
@@ -113,6 +117,7 @@ export function MetaActivityForm(props: Props) {
           <ColorField
             label={t('activity.color')}
             name="color"
+            id="textfield_activity_color"
             transparentColorAvailable
           />
         </div>
@@ -153,7 +158,9 @@ export function MetaActivityForm(props: Props) {
           <Button onClick={props.onCancel} disabled={isSubmitting}>
             {t('form.discard')}
           </Button>
-          <Submit disabled={isSubmitting}>{t('form.send')}</Submit>
+          <Submit id="button_activity_onsubmit" disabled={isSubmitting}>
+            {t('form.send')}
+          </Submit>
         </div>
       </div>
     </Form>

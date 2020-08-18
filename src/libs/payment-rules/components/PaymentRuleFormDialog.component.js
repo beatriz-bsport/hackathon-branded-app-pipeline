@@ -49,7 +49,9 @@ export function PaymentRuleSetFormDialog(props: Props) {
           >
             {t('cancel')}
           </Button>
-          <Submit disabled={isSubmitting}>{t('save')}</Submit>
+          <Submit id="button_remuneration_save" disabled={isSubmitting}>
+            {t('save')}
+          </Submit>
         </DialogActions>
       </Form>
     </Dialog>

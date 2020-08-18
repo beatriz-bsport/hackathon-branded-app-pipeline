@@ -271,6 +271,7 @@ export class PaymentPackCard extends Component<Props> {
         text={`${window.location.origin}/customer/payment/pass/${pack.id}/?membership=${pack.company}`}
       >
         <ButtonBase
+          id="button_pass_copy"
           className={this.props.classes.link}
           onClick={() => this.props.snackbarSuccess('paymentPack:link.copied')}
         >
@@ -332,15 +333,26 @@ export class PaymentPackCard extends Component<Props> {
     }
     return (
       <div className={classes.buttonContainer}>
-        <Button color="primary" onClick={this.props.toogleScaleMenuOpen}>
+        <Button
+          id="button_pass_multdiv"
+          color="primary"
+          onClick={this.props.toogleScaleMenuOpen}
+        >
           <HeightIcon className={classes.iconLeft} />
           <Hidden xsDown>{t('actions.scaleCredit')}</Hidden>
         </Button>
-        <Button color="primary" onClick={this.props.onEditButtonClick}>
+        <Button
+          id="button_pass_modify"
+          color="primary"
+          onClick={this.props.onEditButtonClick}
+        >
           <EditIcon className={classes.iconLeft} />
           <Hidden xsDown>{t('actions.edit')}</Hidden>
         </Button>
-        <RedButton onClick={this.props.onDeleteButtonClick}>
+        <RedButton
+          id="button_pass_delete"
+          onClick={this.props.onDeleteButtonClick}
+        >
           <DeleteIcon className={classes.iconLeft} />
           <Hidden xsDown>{t('actions.delete')}</Hidden>
         </RedButton>

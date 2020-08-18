@@ -167,11 +167,7 @@ export class OfferForm extends Component<Props, State> {
             .add(i, 'week')
             .isSameOrBefore(date_interval_end, 'day')
         ) {
-          allDates.push(
-            moment(firstSession)
-              .clone()
-              .add(i, 'week'),
-          );
+          allDates.push(moment(firstSession).clone().add(i, 'week'));
           i += 1;
         }
         return allDates;
@@ -298,8 +294,8 @@ export class OfferForm extends Component<Props, State> {
           ? (() => {
               const hasError =
                 this.state.broadcast_link &&
-                (!this.state.broadcast_link.startsWith('https://') &&
-                  !this.state.broadcast_link.startsWith('http://'));
+                !this.state.broadcast_link.startsWith('https://') &&
+                !this.state.broadcast_link.startsWith('http://');
               return (
                 <Grid item>
                   <TextField
@@ -472,6 +468,7 @@ export class OfferForm extends Component<Props, State> {
             variant="contained"
             color="primary"
             type="submit"
+            id="button_sessions_add"
           >
             <AddIcon className={classes.leftIcon} />
             {t('form.generateOffers')}
@@ -524,7 +521,7 @@ export class OfferForm extends Component<Props, State> {
     const { classes } = this.props;
     return (
       <div className={classes.paperContainer}>
-        <form onSubmit={this.generateOffers}>
+        <form onSubmit={this.generateOffers} id="select_sessions_all">
           <div className={classes.fieldGroup}>{this.renderTitle()}</div>
           <div className={classes.fieldGroup}>
             {this.renderCaracteristics()}

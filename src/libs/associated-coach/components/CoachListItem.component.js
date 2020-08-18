@@ -44,6 +44,7 @@ export function CoachListItem(props: Props) {
   const { coach, classes, onCoachSelected, t, selected } = props;
   return (
     <ListItem
+      id="button_teacher"
       key={coach.id}
       button
       divider={props.divider}

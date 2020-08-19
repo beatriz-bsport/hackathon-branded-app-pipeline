@@ -80,6 +80,20 @@ export class CalendarWidget extends Component<Props, State> {
     });
   };
 
+  fetchOfferList = (params) => {
+    this.props.fetchOfferList({
+      ...(params || {}),
+      company: this.props.companyId,
+      filters: this.state.filters,
+      ...(this.props.theme && this.props.theme.show_workshops_customer
+        ? {}
+        : { is_workshop: false }),
+      ...(this.props.theme && this.props.theme.show_cancelled_offers_customer
+        ? {}
+        : { available: true }),
+    });
+  };
+
   render() {
     return (
       <MarketplaceCalendarStyled
@@ -87,7 +101,7 @@ export class CalendarWidget extends Component<Props, State> {
         filtersOpen={this.state.filtersOpen}
         filters={this.state.filters}
         setFilters={this.setFilters}
-        fetchOfferList={this.props.fetchOfferList}
+        fetchOfferList={this.fetchOfferList}
         handleDateChange={this.handleDateChange}
         selectedDate={this.state.selectedDate}
         compactMode={this.props.compactMode}

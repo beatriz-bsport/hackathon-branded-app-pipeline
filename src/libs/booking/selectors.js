@@ -121,3 +121,16 @@ export const getFirstTimeNotifications = createSelector(
   [_getNotifications, _getNotificationsIds],
   (data, ids) => ids.map((id) => data[id]),
 );
+
+export const withBookingNotifications = memoize((selector) =>
+  createSelector(
+    [selector, _getNotifications],
+    (data, notificationList) =>
+      data.map((d) => ({
+        ...d,
+        on_booking_notification: d.on_booking_notification.map(
+          (notifId) => notificationList[notifId],
+        ),
+      })),
+  ),
+);

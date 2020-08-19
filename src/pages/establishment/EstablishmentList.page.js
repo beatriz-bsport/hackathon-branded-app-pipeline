@@ -27,15 +27,19 @@ import {
   fetchEstablishments,
 } from '../../libs/establishment/actions';
 import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api';
+import { fetchFirstTimeNotifications as fetchNotifications } from '../../libs/booking/actions';
+import { withBookingNotifications } from '../../libs/booking/selectors';
 
 type Props = {
   loading: boolean,
+  notificationLoading: boolean,
   establishments: Array<Establishment>,
 
   fetchEstablishments: () => void,
   startUpdateEstablishment: (*) => void,
   goToEstablishment: (id: number) => void,
   establishmentToDelete: ?number,
+  fetchNotifications: (params?: Object) => void,
   setEstablishmentToDelete: (?number) => void,
   deleteEstablishment: (number) => void,
   onCreate: () => void,
@@ -52,6 +56,7 @@ export class EstablishmentList extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchEstablishments();
+    this.props.fetchNotifications({ is_establishment_notification: true });
   }
 
   changeSearch = (fuse) => (ev) => {
@@ -78,7 +83,9 @@ export class EstablishmentList extends React.Component<Props, State> {
     }
     return (
       <div className={this.props.classes.container}>
-        {this.props.loading ? <LinearProgress /> : null}
+        {this.props.loading || this.props.notificationLoading ? (
+          <LinearProgress />
+        ) : null}
         {this.props.establishments.length > 0 ? (
           <div className={this.props.classes.search}>
             <FuzeSearch
@@ -203,7 +210,8 @@ export default compose(
   connect(
     (state) => ({
       loading: state.establishment.loading,
-      establishments: getAllPageEstablishments(state),
+      notificationLoading: state.booking.notification.loading,
+      establishments: withBookingNotifications(getAllPageEstablishments)(state),
     }),
     {
       startUpdateEstablishment: (id: number) =>
@@ -211,6 +219,7 @@ export default compose(
       goToEstablishment: (id) => push(`/establishment/details/${id}`),
       fetchEstablishments,
       deleteEstablishment,
+      fetchNotifications,
       onCreate: () => push('/establishment/add'),
     },
   ),

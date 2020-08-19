@@ -4,6 +4,8 @@ import moment from 'moment';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
+import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+
 import {
   fetchBookingList as fetchBookingListAPI,
   retrieveBooking as retrieveBookingAPI,
@@ -402,10 +404,12 @@ export function createFirstTimeNotification(
     try {
       const response = await createFirstTimeNotificationsAPI(data);
       dispatch(notificationCreateActions.success(response.data));
+      dispatch(snackbarSuccess('bookingNotification.createOrUpdate.success'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       console.error(error);
       dispatch(notificationCreateActions.error(error));
+      dispatch(snackbarError('bookingNotification.createOrUpdate.error'));
       if (options && options.onError) options.onError();
     }
     dispatch(notificationCreateActions.isLoading(false));
@@ -428,10 +432,12 @@ export function deleteFirstTimeNotification(
     try {
       await deleteFirstTimeNotificationsAPI(notificationId);
       dispatch(notificationDeleteActions.success(notificationId));
+      dispatch(snackbarSuccess('bookingNotification.delete.success'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       console.error(error);
       dispatch(notificationDeleteActions.error(error));
+      dispatch(snackbarError('bookingNotification.delete.error'));
       if (options && options.onError) options.onError();
     }
     dispatch(notificationDeleteActions.isLoading(false));
@@ -454,10 +460,12 @@ export function updateFirstTimeNotification(
     try {
       const response = await updateFirstTimeNotificationsAPI(data);
       dispatch(notificationUpdateActions.success(response.data));
+      dispatch(snackbarSuccess('bookingNotification.createOrUpdate.success'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       console.error(error);
       dispatch(notificationUpdateActions.error(error));
+      dispatch(snackbarError('bookingNotification.createOrUpdate.error'));
       if (options && options.onError) options.onError();
     }
     dispatch(notificationUpdateActions.isLoading(null));

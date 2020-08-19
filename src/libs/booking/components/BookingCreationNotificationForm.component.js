@@ -141,7 +141,11 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
           }}
           classes={{ textInput: this.props.classes.textInput }}
           value={this.state.hours}
-          error={!this.state.hours || this.state.hours < 0}
+          error={
+            !this.state.hours ||
+            this.state.hours < 0 ||
+            this.state.hours > 32767
+          }
         />
         <Typography variant="caption">
           {this.props.t('booking:notification.form.chooseTime.second', {
@@ -238,9 +242,19 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
     return (
       !!this.state.hours &&
       this.state.hours > 0 &&
+      this.state.hours < 32767 &&
       !!this.state.selectedMail &&
       !!this.state.notify_booking_nb &&
-      this.state.notify_booking_nb > 0
+      this.state.notify_booking_nb > 0 &&
+      this.state.notify_booking_nb <= 32767
+    );
+  };
+
+  checkPreFormValidity = () => {
+    return (
+      !!this.state.notify_booking_nb &&
+      this.state.notify_booking_nb > 0 &&
+      this.state.notify_booking_nb <= 32767
     );
   };
 
@@ -316,7 +330,8 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
               value={this.state.notify_booking_nb}
               error={
                 !this.state.notify_booking_nb ||
-                this.state.notify_booking_nb <= 0
+                this.state.notify_booking_nb <= 0 ||
+                this.state.notify_booking_nb > 32767
               }
             />
           </div>
@@ -331,7 +346,11 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
           <Button onClick={this.props.onCancel}>
             {t('booking:notification.form.cancel')}
           </Button>
-          <Button color="primary" onClick={this.props.nextStep}>
+          <Button
+            color="primary"
+            onClick={this.props.nextStep}
+            disabled={!this.checkPreFormValidity()}
+          >
             {t('booking:notification.form.next')}
           </Button>
         </DialogActions>

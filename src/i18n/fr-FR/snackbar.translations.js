@@ -361,4 +361,14 @@ exports.default = {
       error: 'Impossible de supprimer cette carte de RDV',
     },
   },
+  bookingNotification: {
+    createOrUpdate: {
+      success: 'Notification enregistrée avec succès',
+      error: "Impossible d'enregistrer la notification",
+    },
+    delete: {
+      success: 'Notification supprimée',
+      error: 'Impossible de supprimer la notification',
+    },
+  },
 };

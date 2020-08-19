@@ -39,11 +39,14 @@ import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../li
 
 import type { MetaActivity } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
+import { fetchFirstTimeNotifications as fetchNotifications } from '../../libs/booking/actions';
+import { withBookingNotifications } from '../../libs/booking/selectors';
 
 type Props = {
   metaActivities: Array<MetaActivity>,
   disabledMetaActivities: Array<MetaActivity>,
   loading: boolean,
+  notificationLoading: boolean,
 
   fetchAllMetactivities: () => void,
   goToDetail: (metaActivityId: number) => void,
@@ -53,6 +56,7 @@ type Props = {
   restoreMetaActivity: (MetaActivityId: number) => void,
   setActivityToDelete: (number) => void,
   activityToDelete: (?number) => void,
+  fetchNotifications: (params?: Object) => void,
 
   t: TFunction,
   classes: Object,
@@ -80,6 +84,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchAllMetactivities();
+    this.props.fetchNotifications({ is_meta_activity_notification: true });
   }
 
   changeSearch = (fuse) => (ev) => {
@@ -124,7 +129,9 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     }
     return (
       <div className={classes.container}>
-        {this.props.loading ? <LinearProgress /> : null}
+        {this.props.loading || this.props.notificationLoading ? (
+          <LinearProgress />
+        ) : null}
         {this.props.metaActivities.length > 0 ? (
           <div className={classes.search}>
             <div className={classes.header}>
@@ -279,9 +286,12 @@ export default compose(
   ),
   connect(
     (state) => ({
-      metaActivities: getPageEnabledMetaActivities(state),
+      metaActivities: withBookingNotifications(getPageEnabledMetaActivities)(
+        state,
+      ),
       disabledMetaActivities: getPageDisabledMetaActivities(state),
       loading: state.metaActivity.loading || state.metaActivity.delete.loading,
+      notificationLoading: state.booking.notification.loading,
     }),
     {
       makeActivityCopy: makeActivityCopyAction,
@@ -292,6 +302,7 @@ export default compose(
       goToPaymentPack: () => push('/payment-pack'),
       deleteMetaActivity,
       restoreMetaActivity,
+      fetchNotifications,
       onCreate: () => push('/activity/add'),
     },
   ),

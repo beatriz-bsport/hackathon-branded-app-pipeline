@@ -43,7 +43,6 @@ const styles = (theme) => ({
 export default withTranslation(['establishment'])(
   withStyles(styles)((props: Props) => {
     const { classes, showCapacity, establishment, divider, onClick, t } = props;
-
     return (
       <ListItem
         divider={divider}
@@ -71,7 +70,8 @@ export default withTranslation(['establishment'])(
           }
         />
         {establishment.on_booking_notification &&
-        establishment.on_booking_notification.length > 0 ? (
+        establishment.on_booking_notification.filter((n) => n.active).length >
+          0 ? (
           <Tooltip
             classes={props.classes}
             title={

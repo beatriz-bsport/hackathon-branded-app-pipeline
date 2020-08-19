@@ -39,13 +39,17 @@ import {
   makeActivityCopy as makeActivityCopyAction,
 } from '../../libs/meta-activity/actions';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../libs/meta-activity/api/common';
+import { fetchFirstTimeNotifications as fetchNotifications } from '../../libs/booking/actions';
+import { withBookingNotifications } from '../../libs/booking/selectors';
 
 type Props = {
   workshopActivities: Array<MetaActivity>,
   disabledWorkshopActivities: Array<MetaActivity>,
   loading: boolean,
+  notificationLoading: boolean,
 
   fetchAllWorkshops: () => void,
+  fetchNotifications: (params?: Object) => void,
   setWorkshopToDelete: (number) => void,
   workshopToDelete: ?number,
   deleteWorkshop: (number) => void,
@@ -79,6 +83,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchAllWorkshops();
+    this.props.fetchNotifications({ is_meta_activity_notification: true });
   }
 
   changeSearch = (fuse) => (ev) => {
@@ -123,7 +128,9 @@ export class WorkshopActivityList extends React.Component<Props, State> {
     }
     return (
       <div className={classes.container}>
-        {this.props.loading ? <LinearProgress /> : null}
+        {this.props.loading || this.props.notificationLoading ? (
+          <LinearProgress />
+        ) : null}
         {this.props.workshopActivities.length > 0 ? (
           <div className={this.props.classes.search}>
             <div className={classes.header}>
@@ -276,9 +283,10 @@ export default compose(
   withTitle(({ t }) => t('titles:workshopActivity.workshopActivityList')),
   connect(
     (state) => ({
-      workshopActivities: getEnabledWorkshops(state),
+      workshopActivities: withBookingNotifications(getEnabledWorkshops)(state),
       disabledWorkshopActivities: getDisabledWorkshops(state),
       loading: state.metaActivity.loading,
+      notificationLoading: state.booking.notification.loading,
     }),
     {
       fetchAllWorkshops: fetchAllWorkshopsAction,
@@ -287,6 +295,7 @@ export default compose(
       goToPaymentPack: () => push('/payment-pack'),
       deleteWorkshop,
       restoreMetaActivity,
+      fetchNotifications,
       goToDetail: (metaActivityId) =>
         push(`/workshop-activity/${metaActivityId}/general`),
       goToEdit: (metaActivityId) =>

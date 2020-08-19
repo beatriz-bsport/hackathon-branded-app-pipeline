@@ -70,8 +70,8 @@ export default withTranslation(['establishment'])(
           }
         />
         {establishment.on_booking_notification &&
-        establishment.on_booking_notification.filter((n) => n.active).length >
-          0 ? (
+        establishment.on_booking_notification.filter((n) => !!n && n.active)
+          .length > 0 ? (
           <Tooltip
             classes={props.classes}
             title={

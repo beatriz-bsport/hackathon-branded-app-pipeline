@@ -80,7 +80,7 @@ export function MetaActivityListItem(props: Props) {
         }
       />
       {props.metaActivity.on_booking_notification &&
-      props.metaActivity.on_booking_notification.filter((n) => n.active)
+      props.metaActivity.on_booking_notification.filter((n) => !!n && n.active)
         .length > 0 ? (
         <Tooltip
           classes={props.classes}

@@ -1226,12 +1226,13 @@
             "cancelledBookings_plural": "{{nb}} geannuleerde reserveringen",
             "totalBookings": "{{nb}} reservering in totaal",
             "totalBookings_plural": "{{nb}} reserveringen in totaal",
-            "offerFilteredBookingRecap": "Uw reserveringen",
+            "offerFilteredBookingRecap": "Sessie van {{date}}",
             "weekOverview": "Overzicht van uw week"
         },
         "show_cancelled_offers": "Toon geannuleerde sessies",
         "quickInvoiceNoVoucher": "Laat de waarde van dit veld op 0 staan als je geen reductie wilt toepassen",
-        "quickInvoiceVoucher": "Kies de korting die je wenst toe te passen bij het factureren van de volgende pas"
+        "quickInvoiceVoucher": "Kies de korting die je wenst toe te passen bij het factureren van de volgende pas",
+        "metaActivityNotificationToolTip": "Er zijn meldingen voor reserveringen met betrekking tot dit item"
     },
     "communication": {
         "mail": {
@@ -2107,7 +2108,8 @@
             }
         },
         "establishment": "Vestiging ",
-        "noEstablishement": "Beheer hier uw zalen, hun locatie, hun vulling en raadpleeg de kalender"
+        "noEstablishement": "Beheer hier uw zalen, hun locatie, hun vulling en raadpleeg de kalender",
+        "notificationToolTip": "Er zijn meldingen voor reserveringen met betrekking tot dit item"
     },
     "smartList": {
         "multiSelector": {
@@ -2938,6 +2940,44 @@
         "actions": {
             "unregister": "Uitschrijven",
             "bill": "In rekening brengen"
+        },
+        "notification": {
+            "form": {
+                "listItemPrimary": {
+                    "cancellation": "Annulering n° {{notify_booking_nb}}",
+                    "attendance": "Aanwezigheid n° {{notify_booking_nb}}",
+                    "booking": "Reservering n° {{notify_booking_nb}}",
+                    "after": "Melding {{hours}} uur na de sessie",
+                    "before": "Melding {{hours}} uur voor de sessie"
+                },
+                "cancel": "Annuleren",
+                "next": "volgende",
+                "submit": "Bevestigen",
+                "help": {
+                    "cancellation": "zijn/haar annulering van de reservering n° {{notify_booking_nb}}",
+                    "attendance": "zijn/haar aanwezigheid n° {{notify_booking_nb}}",
+                    "booking": "zijn/haar reservering n° {{notify_booking_nb}}",
+                    "text": "Hulp: de melding wordt naar het lid gestuurd wanneer"
+                },
+                "choicesKind": {
+                    "cancellation": "Annulering van een reservering door het lid",
+                    "attendance": "Aanwezigheid van lid op een sessie",
+                    "booking": "Reservering maken"
+                },
+                "chooseKindTitle": "Gebeurtenis die de melding activeert",
+                "chooseTime": {
+                    "second_after": "uur (uren) na de sessie",
+                    "second_before": "uur (uren) voor de sessie",
+                    "first": "Stuur een email"
+                },
+                "sendAfterMail": "Stuur de e-mail naar het lid na de sessie waarop de melding betrekking heeft",
+                "sendBeforeMail": "Stuur de e-mail naar het lid vóór de sessie waarop de melding betrekking heeft",
+                "eventNb": "Breng het lid op de hoogte voor evenement n°:",
+                "settingTitle": "Instellingen",
+                "typeTitle": "Melding type",
+                "title": "Kennisgevingsformulier"
+            },
+            "addNotification": "Melding toevoegen"
         }
     },
     "marketplace": {

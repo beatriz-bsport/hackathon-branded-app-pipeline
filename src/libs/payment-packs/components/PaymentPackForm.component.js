@@ -351,7 +351,7 @@ export function PaymentPackForm(props: Props) {
                 disabled={manager_only}
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} id="select_pass_category">
               <MultipleCheckboxField
                 name="categories"
                 id="select_pass_category"
@@ -363,7 +363,7 @@ export function PaymentPackForm(props: Props) {
                 }))}
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} id="select_activity_category">
               <MultipleCheckboxField
                 name="metaActivities"
                 id="select_activity_category"
@@ -375,7 +375,7 @@ export function PaymentPackForm(props: Props) {
                 }))}
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} id="select_establishment_category">
               <MultipleCheckboxField
                 name="establishments"
                 id="select_establishment_category"

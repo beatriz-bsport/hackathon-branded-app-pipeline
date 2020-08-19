@@ -119,11 +119,11 @@ Auto Bump Version:
     - mv envs/$ENVIRONMENT build/env.js
     - yarn add @sentry/cli
     - export SENTRY_NO_PROGRESS_BAR=1
-    - ./scripts/prepare-sentry-release.sh $VERSION $FRONTEND_URL
+    - ./scripts/prepare-sentry-release.sh $VERSION $FRONTEND_URL $CI_COMMIT_SHORT_SHA
     - rm ./build/static/js/*.js.map
     - aws s3 cp ./build/ $S3_BUCKET --recursive --only-show-errors
     - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths /index.html /env.js /service-worker.js /manifest.json
-    - scripts/prepare-sentry-deploy.sh $VERSION $ENVIRONMENT
+    - scripts/prepare-sentry-deploy.sh $VERSION $ENVIRONMENT $CI_COMMIT_SHORT_SHA
     - echo "SUCCESS" > .job_status
     - cat .job_status
 

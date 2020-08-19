@@ -126,11 +126,13 @@ export const withBookingNotifications = memoize((selector) =>
   createSelector(
     [selector, _getNotifications],
     (data, notificationList) =>
-      data.map((d) => ({
-        ...d,
-        on_booking_notification: d.on_booking_notification.map(
-          (notifId) => notificationList[notifId],
-        ),
-      })),
+      data
+        .filter((d) => !!d)
+        .map((d) => ({
+          ...d,
+          on_booking_notification: (d.on_booking_notification || []).map(
+            (notifId) => notificationList[notifId],
+          ),
+        })),
   ),
 );

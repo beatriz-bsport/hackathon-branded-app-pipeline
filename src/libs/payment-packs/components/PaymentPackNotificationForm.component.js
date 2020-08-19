@@ -254,7 +254,10 @@ export class notificationRuleForm extends Component<Props, state> {
         {this.props.emailListLoading ? (
           <LinearProgress className={classes.selectorContainer} />
         ) : (
-          <div className={classes.selectorContainer}>
+          <div
+            className={classes.selectorContainer}
+            id="select_notification_template"
+          >
             <EmailSelector
               emails={this.props.emails}
               value={this.state.selectedMail}

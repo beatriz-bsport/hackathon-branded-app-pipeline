@@ -58,8 +58,9 @@ export class CoachDetail extends Component<Props, State> {
               color="primary"
               variant="contained"
               onClick={this.remunerateCoach}
+              id="button_teacher_remunerate"
             >
-              <EuroSymbolIcon id="button_teacher_remunerate" className={classes.leftIcon} />
+              <EuroSymbolIcon className={classes.leftIcon} />
               {t('showPerformance')}
             </Button>
           </Paper>

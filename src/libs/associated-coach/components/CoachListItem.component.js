@@ -44,8 +44,8 @@ export function CoachListItem(props: Props) {
   const { coach, classes, onCoachSelected, t, selected } = props;
   return (
     <ListItem
-      id="button_teacher"
       key={coach.id}
+      id="button_teacher"
       button
       divider={props.divider}
       onClick={onCoachSelected}
@@ -58,6 +58,7 @@ export function CoachListItem(props: Props) {
         />
       </ListItemAvatar>
       <ListItemText
+        id="button_teacher"
         primary={
           <Typography component="span" variant="subtitle1">
             {coach.name}

@@ -92,7 +92,7 @@ export function CoachPerformanceTable(props: Props) {
               <TableCell>{session.nb_accountable_bookings}</TableCell>
               <TableCell>{session.base.toFixed(2)} €</TableCell>
               <TableCell>{session.bonus} €</TableCell>
-              <TableCell id="list_remuneration_sessionrule">
+              <TableCell>
                 <PaymentRuleSelector
                   paymentRules={paymentRules}
                   selected={session.payment_rule_id}

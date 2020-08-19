@@ -44,13 +44,15 @@ class CoachSummaryCard extends React.Component<Props> {
     const { t, paymentRules, classes, coach, setCoachPaymentRule } = this.props;
     return (
       <Grid
-        id="button_teacher_paymentconfig"
         container
         direction="row"
         justify="flex-end"
         className={classes.ruleContainer}
       >
-        <div ref={this.refPaymentRuleSelector}>
+        <div
+          ref={this.refPaymentRuleSelector}
+          id="button_teacher_paymentconfig"
+        >
           <PaymentRuleSelector
             paymentRules={paymentRules}
             selected={coach.default_payment_rule_id}

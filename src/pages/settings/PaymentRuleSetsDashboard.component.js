@@ -48,6 +48,7 @@ export class PaymentRulesDashboard extends Component<Props, State> {
           onClick={this.props.handleOpen}
           className={classes.button}
           color="primary"
+          id="button_remuneration_add"
         >
           <AddIcon />
         </Fab>
@@ -112,18 +113,15 @@ export default compose(
   withTranslation(['paymentRules']),
   withTitle(({ t }) => t('pageTitle')),
   withState('initial', 'setInitial', null),
-  connect(
-    mapStateToProps,
-    (dispatch, { setInitial }) => ({
-      removePaymentRule: (p) => dispatch(actions.deletePaymentRule(p)),
-      handleOpen: () => dispatch(actions.showDialog(true)),
-      handleClose: () => {
-        dispatch(actions.showDialog(false));
-        setInitial(null);
-      },
-      upsertPaymentRule: (p, options) =>
-        dispatch(actions.upsertPaymentRule(p, options)),
-      loadPaymentRules: (p) => dispatch(actions.fetchPaymentRules(p)),
-    }),
-  ),
+  connect(mapStateToProps, (dispatch, { setInitial }) => ({
+    removePaymentRule: (p) => dispatch(actions.deletePaymentRule(p)),
+    handleOpen: () => dispatch(actions.showDialog(true)),
+    handleClose: () => {
+      dispatch(actions.showDialog(false));
+      setInitial(null);
+    },
+    upsertPaymentRule: (p, options) =>
+      dispatch(actions.upsertPaymentRule(p, options)),
+    loadPaymentRules: (p) => dispatch(actions.fetchPaymentRules(p)),
+  })),
 )(PaymentRulesDashboard);

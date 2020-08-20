@@ -104,25 +104,41 @@ export function SubscriptionSummary(props: Props) {
             }
           />
         </div>
-        <div className={classes.fieldNotPadded}>
-          <Typography variant="body2" inline>
-            {t('parameters.payment_pack')}
-          </Typography>
-          <div className={classes.rowRight}>
-            <IconButton
-              color="primary"
-              onClick={props.requestPaymentPackSwitch}
-              disabled={!subscription.editable}
-            >
-              <EditIcon />
-            </IconButton>
+        {!!subscription.payment_pack && (
+          <div className={classes.fieldNotPadded}>
             <Typography variant="body2" inline>
-              {subscription.payment_pack
-                ? subscription.payment_pack.name
-                : ' - '}
+              {t('parameters.payment_pack')}
             </Typography>
+            <div className={classes.rowRight}>
+              <IconButton
+                color="primary"
+                onClick={props.requestPaymentPackSwitch}
+                disabled={!subscription.editable}
+              >
+                <EditIcon />
+              </IconButton>
+              <Typography variant="body2" inline>
+                {subscription.payment_pack
+                  ? subscription.payment_pack.name
+                  : ' - '}
+              </Typography>
+            </div>
           </div>
-        </div>
+        )}
+        {!!subscription.private_pass && (
+          <div className={classes.fieldNotPadded}>
+            <Typography variant="body2" inline>
+              {t('parameters.private_pass')}
+            </Typography>
+            <div className={classes.rowRight}>
+              <Typography variant="body2" inline>
+                {subscription.private_pass
+                  ? subscription.private_pass.name
+                  : ' - '}
+              </Typography>
+            </div>
+          </div>
+        )}
 
         <div className={classes.field}>
           <Typography variant="body2" inline>

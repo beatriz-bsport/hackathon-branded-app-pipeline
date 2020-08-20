@@ -65,14 +65,15 @@ export const PrivatePassListItem = (props: Props) => {
         ) : null}
         <ListItemResponsiveAction
           actions={[
-            props.setOpenEditForm && {
-              icon: EditIcon,
-              label: props.t('privatePass.edit'),
-              color: 'primary',
-              onClick: () => {
-                props.setOpenEditForm(true);
+            props.updatePrivatePass &&
+              props.setOpenEditForm && {
+                icon: EditIcon,
+                label: props.t('privatePass.edit'),
+                color: 'primary',
+                onClick: () => {
+                  props.setOpenEditForm(true);
+                },
               },
-            },
             props.onDelete && {
               icon: DeleteIcon,
               label: props.t('privatePass.delete.delete'),

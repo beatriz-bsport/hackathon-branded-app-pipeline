@@ -17,6 +17,8 @@ import ContractDeleteDialog from '../../libs/subscription/components/Subscriptio
 import SubscriptionContractFormDialog from '../../libs/subscription/components/SubscriptionContractFormDialog.component';
 import PaginatedSubscriptionList from '../../libs/subscription/components/PaginatedSubscriptionList.component';
 import themeSelectors from '../../libs/theme/selectors';
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
+import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 
 import {
   getContract,
@@ -63,11 +65,15 @@ type Props = {
   ) => void,
   deleteContract: (id: number) => void,
   goToPaymentPackDetail: (id: number) => void,
+  goToPrivatePass: (id: number) => void,
   submitEditForm: (data: any, optionds: OptionsCallback) => void,
   goToSubscription: (id: number) => void,
   goToList: () => void,
   loading: boolean,
   t: TFunction,
+
+  privatePassList: Array<PrivatePass>,
+  fetchPrivatePassList: () => void,
 };
 
 type State = {
@@ -80,6 +86,7 @@ export class ContractDetailPage extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchContractDetail(this.props.contractId);
     this.props.refreshAllPaymentPack();
+    this.props.fetchPrivatePassList();
     this.props.fetchSubscriptionsByContract(1, SUBSCRIPTION_PAGINATION_SIZE);
   }
 
@@ -98,6 +105,7 @@ export class ContractDetailPage extends Component<Props, State> {
           >
             <ContractDetail
               goToPack={this.props.goToPaymentPackDetail}
+              goToPrivatePass={this.props.goToPrivatePass}
               contract={this.props.contract}
               company={{
                 id: this.props.theme.company,
@@ -147,23 +155,26 @@ export class ContractDetailPage extends Component<Props, State> {
             }}
           />
         </Grid>
-        <SubscriptionContractFormDialog
-          onClose={() => this.props.setContractToEdit(null)}
-          initial={this.props.contract}
-          paymentPacks={this.props.paymentPacks}
-          open={!!this.props.contractToEdit}
-          onSubmit={(data, options) => {
-            this.props.submitEditForm(data, {
-              onSuccess: () => {
-                this.props.setContractToEdit(null);
-                if (options && options.onSuccess) options.onSuccess();
-              },
-              onError: (err) => {
-                if (options && options.onError) options.onError(err);
-              },
-            });
-          }}
-        />
+        {!!this.props.contractToEdit && (
+          <SubscriptionContractFormDialog
+            onClose={() => this.props.setContractToEdit(null)}
+            initial={this.props.contract}
+            paymentPacks={this.props.paymentPacks}
+            privatePassList={this.props.privatePassList}
+            open={!!this.props.contractToEdit}
+            onSubmit={(data, options) => {
+              this.props.submitEditForm(data, {
+                onSuccess: () => {
+                  this.props.setContractToEdit(null);
+                  if (options && options.onSuccess) options.onSuccess();
+                },
+                onError: (err) => {
+                  if (options && options.onError) options.onError(err);
+                },
+              });
+            }}
+          />
+        )}
       </div>
     );
   }
@@ -195,12 +206,14 @@ export default compose(
       },
       contract: withPaymentPack(getContract)(state, contractId),
       paymentPacks: getPaymentPackEnabled(state),
+      privatePassList: getPrivatePassAvailable(state),
       theme: themeSelectors.getTheme(state),
     }),
     {
       fetchContractDetail: fetchContractDetailAction,
       deleteContract,
       refreshAllPaymentPack,
+      fetchPrivatePassList,
       createOrUpdateContract: createOrUpdateContractAction,
       fetchSubscriptionList: fetchSubscriptionListAction,
       fetchFilteredMembers: fetchFilteredMembersAction,
@@ -209,6 +222,8 @@ export default compose(
       goToSubscription: (id) => push(`/subscription/${id}`),
       goToPaymentPackDetail: (packId: number) =>
         push(`/payment-pack/${packId}/`),
+      goToPrivatePass: (packId: number) =>
+        push(`/private-service/pass/${packId}/`),
     },
   ),
   withHandlers({

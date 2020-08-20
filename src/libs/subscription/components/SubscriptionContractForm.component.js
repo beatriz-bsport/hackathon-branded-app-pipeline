@@ -2,23 +2,35 @@
 
 import React from 'react';
 import { compose } from 'recompose';
+import Collapse from '@material-ui/core/Collapse';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+
+import omit from 'lodash/omit';
 
 import * as Yup from 'yup';
 import { withFormik } from 'formik';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { TextField, PriceField, SwitchField } from '../../../components/forms';
+import {
+  TextField,
+  PriceField,
+  SwitchField,
+  RadioGroupField,
+} from '../../../components/forms';
 import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
+import PrivatePassSelectorField from '../../private-service/components/pass/PrivatePassSelectorField.component';
 
 import type { SubscriptionContract } from '../types';
 
 type Props = { t: TFunction, classes: * } & SubscriptionContract & {
     onSubmit: (SubscriptionContract) => void,
   };
+
+const OBJECT_TYPE_PAYMENT_PACK = 'payment_pack';
+const OBJECT_TYPE_PRIVATE_PASS = 'private_pass';
 
 export function SubscriptionContractFields(props: Props) {
   const { t, classes } = props;
@@ -31,12 +43,38 @@ export function SubscriptionContractFields(props: Props) {
         fullWidth
         className={classes.field}
       />
-      <PaymentPackSelectorField
-        choices={props.paymentPacks}
-        name="payment_pack"
-        fullWidth
-        className={classes.fieldMain}
-      />
+      <fieldset className={classes.section}>
+        <legend>{t('contract.form.object_type.label')}</legend>
+        <RadioGroupField
+          name="object_type"
+          choices={[
+            {
+              label: t('contract.form.object_type.privatePass'),
+              value: OBJECT_TYPE_PRIVATE_PASS,
+            },
+            {
+              label: t('contract.form.object_type.paymentPack'),
+              value: OBJECT_TYPE_PAYMENT_PACK,
+            },
+          ]}
+        />
+        <Collapse in={props.values.object_type === OBJECT_TYPE_PAYMENT_PACK}>
+          <PaymentPackSelectorField
+            choices={props.paymentPacks}
+            name="payment_pack"
+            fullWidth
+            className={classes.fieldMain}
+          />
+        </Collapse>
+        <Collapse in={props.values.object_type === OBJECT_TYPE_PRIVATE_PASS}>
+          <PrivatePassSelectorField
+            choices={props.privatePassList}
+            name="private_pass"
+            fullWidth
+            className={classes.fieldMain}
+          />
+        </Collapse>
+      </fieldset>
       <TextField
         name="nb_interval"
         label={t('contract.form.nb_interval.label')}
@@ -96,6 +134,12 @@ export function SubscriptionContractFields(props: Props) {
 const styles = (theme) => ({
   field: { marginBottom: theme.spacing(3) },
   fieldMain: { marginBottom: theme.spacing(5) },
+  section: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+  },
 });
 
 export const SubscriptionContractFieldsSchema = Yup.object().shape({
@@ -108,7 +152,18 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
   flat_fee: Yup.number(),
   payment_pack: Yup.number()
     .integer()
-    .required(),
+    .nullable()
+    .test('is-nullable', 'missing', function(payment_pack) {
+      const { object_type } = this.parent;
+      return object_type !== OBJECT_TYPE_PAYMENT_PACK || !!payment_pack;
+    }),
+  private_pass: Yup.number()
+    .integer()
+    .nullable()
+    .test('is-nullable', 'missing', function(private_pass) {
+      const { object_type } = this.parent;
+      return object_type !== OBJECT_TYPE_PRIVATE_PASS || !!private_pass;
+    }),
   description: Yup.string().required(),
   contract: Yup.string().required(),
   manager_only: Yup.boolean(),
@@ -119,7 +174,16 @@ export const SubscriptionContractFormHoc = withFormik({
   // eslint-disable-next-line
   mapPropsToValues: ({ initial }) => {
     if (initial) {
-      return { ...initial, payment_pack: initial.payment_pack.id };
+      return {
+        ...initial,
+        payment_pack: initial.payment_pack ? initial.payment_pack.id : null,
+        private_pass: initial.private_pass
+          ? initial.private_pass.id || initial.private_pass
+          : null,
+        object_type: initial.private_pass
+          ? OBJECT_TYPE_PRIVATE_PASS
+          : OBJECT_TYPE_PAYMENT_PACK,
+      };
     }
     return {
       name: '',
@@ -131,11 +195,24 @@ export const SubscriptionContractFormHoc = withFormik({
       contract: '',
       manager_only: false,
       auto_renewal: false,
+      object_type: OBJECT_TYPE_PAYMENT_PACK,
     };
   },
   validationSchema: SubscriptionContractFieldsSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
-    onSubmit(values, {
+    const valuesCleaned = {
+      ...omit(values, ['object_type']),
+      private_pass:
+        values.object_type === OBJECT_TYPE_PRIVATE_PASS
+          ? values.private_pass
+          : null,
+      payment_pack:
+        values.object_type === OBJECT_TYPE_PAYMENT_PACK
+          ? values.payment_pack
+          : null,
+    };
+
+    onSubmit(valuesCleaned, {
       onSuccess: () => setSubmitting(false),
       onError: () => setSubmitting(false),
     });

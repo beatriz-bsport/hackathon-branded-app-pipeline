@@ -37,6 +37,7 @@ type Props = {
 
   onDelete: (id: number, options: OptionCallback) => void,
   paymentPacks: Array<PaymentPack>,
+  privatePassList: Array<PrivatePass>,
   onEdit: ?(data: *, options: OptionCallback) => void,
   onCreate: ?(data: *, options: OptionCallback) => void,
 };
@@ -110,6 +111,7 @@ export const SubscriptionContractList = (props: Props) => {
           open={props.createOpen}
           initial={props.contractToEdit}
           paymentPacks={props.paymentPacks}
+          privatePassList={props.privatePassList}
           onSubmit={(data, options) => {
             props.onCreate(data, {
               onSuccess: () => {
@@ -130,6 +132,7 @@ export const SubscriptionContractList = (props: Props) => {
           initial={props.contractToEdit}
           open={!!props.contractToEdit}
           paymentPacks={props.paymentPacks}
+          privatePassList={props.privatePassList}
           processing={props.processing}
           onSubmit={(data, options) => {
             props.onEdit(data, {

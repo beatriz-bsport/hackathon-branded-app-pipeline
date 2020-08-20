@@ -12,10 +12,12 @@ import LinkIcon from '@material-ui/icons/Link';
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import { urlToMarketplace } from '../../marketplace/utils';
 import { buildUrlParams } from '../../../http';
+import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
 
 type Props = {
   contract: Contract,
   goToPack: (id: number) => void,
+  goToPrivatePass: (id: number) => void,
   company: { id: number, name: string },
   snackbarSuccess: (string) => void,
 };
@@ -56,15 +58,29 @@ const ContractDetail = (props: Props) => {
             </Typography>
           </div>
         </div>
-        <div className={classes.block}>
-          <Typography variant="h6">{t('contract.paymentPack')}</Typography>
-          <PaymentPackListItem
-            onClick={() => props.goToPack(payment_pack.id)}
-            goToPack
-            pack={payment_pack}
-            divider
-          />
-        </div>
+        {!!props.contract.payment_pack && (
+          <div className={classes.block}>
+            <Typography variant="h6">{t('contract.paymentPack')}</Typography>
+            <PaymentPackListItem
+              onClick={() => props.goToPack(payment_pack.id)}
+              goToPack
+              pack={payment_pack}
+              divider
+            />
+          </div>
+        )}
+        {!!props.contract.private_pass && (
+          <div className={classes.block}>
+            <Typography variant="h6">{t('contract.privatePass')}</Typography>
+            <PrivatePassListItem
+              divider
+              onClick={() =>
+                props.goToPrivatePass(props.contract.private_pass.id)
+              }
+              pass={props.contract.private_pass}
+            />
+          </div>
+        )}
         {props.company ? (
           <div className={classes.block}>
             <CopyToClipboard

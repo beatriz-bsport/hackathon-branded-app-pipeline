@@ -908,6 +908,29 @@ export function fetchPrivatePassList() {
   };
 }
 
+export const privatePassBulkActions = {
+  error: createAction('PRIVATE_PASS/BULK/ERROR'),
+  isLoading: createAction('PRIVATE_PASS/BULK/IS_LOADING'),
+  success: createAction('PRIVATE_PASS/BULK/SUCCESS'),
+};
+
+export function fetchPrivatePassBulk(ids: Array<number>) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privatePassBulkActions.isLoading(true));
+    dispatch(privatePassBulkActions.error(null));
+    try {
+      const response = await fetchPrivatePassListAPI({
+        id__in: uniq(ids.filter((id) => !!id)),
+      });
+      dispatch(privatePassBulkActions.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(privatePassBulkActions.error(err));
+    }
+    dispatch(privatePassBulkActions.isLoading(false));
+  };
+}
+
 export const serviceGroupListActions = {
   error: createAction('SERVICE_GROUP/LIST/ERROR'),
   isLoading: createAction('SERVICE_GROUP/LIST/IS_LOADING'),

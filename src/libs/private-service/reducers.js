@@ -43,6 +43,7 @@ import {
   createOrUpdateCustomEventActions,
   listCustomEventActions,
   deleteCustomEventActions,
+  privatePassBulkActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -722,6 +723,25 @@ export default handleActions(
           },
           { deep: true },
         );
+    },
+    [privatePassBulkActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['privatePass', 'loading'], payload);
+    },
+    [privatePassBulkActions.error]: (state, { payload }) => {
+      return state.setIn(['privatePass', 'error'], payload);
+    },
+    [privatePassBulkActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          privatePass: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
     },
     [privatePassAsConsumerListActions.isLoading]: (state, { payload }) => {
       return state.setIn(['privatePass', 'asConsumer', 'loading'], payload);

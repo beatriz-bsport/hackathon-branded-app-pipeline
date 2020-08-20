@@ -9,6 +9,7 @@ import {
   getPaymentPackById,
   getAllPaymentPacks as getPaymentPackList,
 } from '../payment-packs/selectors';
+import { getPrivatePassById } from '../private-service/selectors/private-pass';
 
 const _getContractIds = (state: State) => state.subscription.contract.allIds;
 const _getContractData = (state: State) => state.subscription.contract.byId;
@@ -45,14 +46,8 @@ export const getAvailableContractListWithPaymentPack = createSelector(
 );
 
 export const getMarketplaceContractList = createSelector(
-  [_getContractData, _getContractMarketplaceIds, getPaymentPackList],
-  (contractData, ids, packList) =>
-    ids
-      .map((id) => contractData[id])
-      .map((c) => ({
-        ...c,
-        payment_pack: packList.find((pp) => pp.id === c.payment_pack),
-      })),
+  [_getContractData, _getContractMarketplaceIds],
+  (contractData, ids) => ids.map((id) => contractData[id]),
 );
 
 const _getSubscriptionIds = (state) => state.subscription.list.allIds;
@@ -72,31 +67,39 @@ export const getSubscriptionListByMember = createSelector(
 );
 
 export const get = createSelector(
-  [_getSubscriptionData, (state, id) => id, getPaymentPackById],
-  (subscriptionData, id, packData) => {
+  [
+    _getSubscriptionData,
+    (state, id) => id,
+    getPaymentPackById,
+    getPrivatePassById,
+  ],
+  (subscriptionData, id, packData, privatePassData) => {
     const subscription = subscriptionData[id];
     if (!subscription) return null;
     return {
       ...subscription,
       payment_pack: packData[subscription.payment_pack],
+      private_pass: privatePassData[subscription.private_pass],
     };
   },
 );
 
 export const withPaymentPack = memoize((selector: (State) => any) =>
   createSelector(
-    [selector, getPaymentPackById],
-    (contracts, paymentPackData) => {
+    [selector, getPaymentPackById, getPrivatePassById],
+    (contracts, paymentPackData, privatePassData) => {
       if (!contracts) return null;
       if (!Array.isArray(contracts)) {
         return {
           ...contracts,
           payment_pack: paymentPackData[contracts.payment_pack],
+          private_pass: privatePassData[contracts.private_pass],
         };
       }
       return contracts.map((c) => ({
         ...c,
         payment_pack: paymentPackData[c.payment_pack],
+        private_pass: privatePassData[c.private_pass],
       }));
     },
   ),

@@ -124,7 +124,7 @@ Auto Bump Version:
     - ./scripts/prepare-sentry-release.sh $VERSION_SHA $FRONTEND_URL 
     - rm ./build/static/js/*.js.map
     - aws s3 cp ./build/ $S3_BUCKET --recursive --only-show-errors
-    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths /index.html /env.js /service-worker.js /manifest.json
+    - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths /index.html /env.js /service-worker.js /manifest.json "/locales/*" "/locales/*/*.json"
     - scripts/prepare-sentry-deploy.sh $VERSION_SHA $ENVIRONMENT 
     - echo "SUCCESS" > .job_status
     - cat .job_status

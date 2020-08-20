@@ -107,6 +107,7 @@ exports.default = {
       },
     },
     paymentPack: 'Carte de cours associée',
+    privatePass: 'Carte RDV associée',
     duration: '{{month}} mois',
     description: 'Description',
     legal: 'Mentions légales',
@@ -128,6 +129,14 @@ exports.default = {
       title: 'Formulaire contrat',
       name: {
         label: 'Nom du contrat',
+      },
+      error: {
+        missingObject: 'Ce champ est obligatoire',
+      },
+      object_type: {
+        label: "Type d'abonnement",
+        privatePass: 'Carte RDV',
+        paymentPack: 'Carte de cours',
       },
       nb_interval: {
         label: 'Nombre de mois',
@@ -226,6 +235,7 @@ exports.default = {
     recurrent_price: 'Paiement récurrent',
     flat_fee: 'Frais de dossier',
     paymentPack: 'Carte de cours',
+    privatePass: 'Carte RDV',
     nbMonths: 'Nombre de mois',
     dateStart: 'Première facturation',
     firstBilling: 'Premier encaissement',

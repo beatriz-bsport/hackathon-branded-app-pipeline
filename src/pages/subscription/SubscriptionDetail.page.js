@@ -20,6 +20,7 @@ import {
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
   fetchAllPaymentPacks as fetchAllPaymentPacksAction,
 } from '../../libs/payment-packs/actions';
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { getEnabled as getEnabledPaymentPackList } from '../../libs/payment-packs/selectors';
 
 import {
@@ -105,6 +106,7 @@ type Props = {
     },
     options: OptionCallback,
   ) => void,
+  fetchPrivatePassList: () => void,
 };
 
 export class SubscriptionDetail extends Component<Props> {
@@ -114,6 +116,10 @@ export class SubscriptionDetail extends Component<Props> {
       page: 1,
       page_size: 10,
     });
+  }
+
+  componentDidMount() {
+    this.props.fetchPrivatePassList();
   }
 
   render() {
@@ -270,6 +276,7 @@ export default compose(
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       switchSubscriptionPaymentPack: switchSubscriptionPaymentPackAction,
       fetchAllPaymentPacks: fetchAllPaymentPacksAction,
+      fetchPrivatePassList,
       switchSubscriptionPaymentMethod: switchSubscriptionPaymentMethodAction,
     },
   ),

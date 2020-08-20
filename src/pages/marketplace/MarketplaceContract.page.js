@@ -23,7 +23,11 @@ import {
 import Config from '../../config';
 
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
-import { getMarketplaceContractList as getContractList } from '../../libs/subscription/selectors';
+import { fetchPrivatePassBulk as fetchPrivatePassBulkAction } from '../../libs/private-service/actions';
+import {
+  getMarketplaceContractList as getContractList,
+  withPaymentPack,
+} from '../../libs/subscription/selectors';
 import { fetchMarketplaceContractList } from '../../libs/subscription/actions';
 import { postContractSubscription as postContractSubscriptionAPI } from '../../libs/subscription/api';
 import SubscriptionContractListItem from '../../libs/subscription/components/SubscriptionContractListItem.component';
@@ -202,7 +206,7 @@ export default compose(
   withState('paymentDialogOpen', 'setPaymentDialogOpen', false),
   connect(
     (state) => ({
-      contractList: getContractList(state),
+      contractList: withPaymentPack(getContractList)(state),
       contractLoading: state.subscription.contract.byMarketplace.loading,
     }),
     {
@@ -210,18 +214,24 @@ export default compose(
       replace: replaceAction,
       fetchContracts: fetchMarketplaceContractList,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
+      fetchPrivatePassBulk: fetchPrivatePassBulkAction,
     },
   ),
-  withProps(({ fetchContracts, fetchPaymentPackBulk }) => ({
-    fetchContracts: (params) =>
-      fetchContracts(params, {
-        onSuccess: (contractList) => {
-          fetchPaymentPackBulk([
-            ...contractList.map((contract) => contract.payment_pack),
-          ]);
-        },
-      }),
-  })),
+  withProps(
+    ({ fetchContracts, fetchPaymentPackBulk, fetchPrivatePassBulk }) => ({
+      fetchContracts: (params) =>
+        fetchContracts(params, {
+          onSuccess: (contractList) => {
+            fetchPaymentPackBulk([
+              ...contractList.map((contract) => contract.payment_pack),
+            ]);
+            fetchPrivatePassBulk([
+              ...contractList.map((contract) => contract.private_pass),
+            ]);
+          },
+        }),
+    }),
+  ),
   withMobileDialog(),
   withProps(({ location, replace }) => ({
     selected: (() => {

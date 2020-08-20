@@ -2722,6 +2722,16 @@
                 "error": "Impossibile eliminare la nota",
                 "success": "Annotazione eliminata"
             }
+        },
+        "bookingNotification": {
+            "delete": {
+                "error": "Impossibile eliminare la notifica",
+                "success": "Notifica eliminata"
+            },
+            "createOrUpdate": {
+                "error": "Impossibile salvare la notifica",
+                "success": "Notifica salvata con successo"
+            }
         }
     },
     "settings": {

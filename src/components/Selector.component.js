@@ -222,6 +222,7 @@ type IntegrationReactSelectProps = {
   isMulti: boolean,
   nullCurrentValue?: boolean,
   filterOption: (option: Suggestion, text: string) => void,
+  autofocus: boolean,
 };
 
 function IntegrationReactSelect(props: IntegrationReactSelectProps) {
@@ -236,6 +237,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
     onCreateOption,
     searchIcon,
     isMulti,
+    autofocus,
     nullCurrentValue,
   } = props;
 
@@ -269,6 +271,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
   return (
     <div className={`${className || ''} ${classes.root}`}>
       <SelectComponent
+        autofocus={autofocus}
         classes={classes}
         styles={selectStyles}
         options={suggestions}

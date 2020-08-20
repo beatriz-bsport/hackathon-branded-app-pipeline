@@ -55,6 +55,7 @@ const BuyableItemSelector = (props) => {
     case BUYABLE_ITEM_PASS:
       return (
         <PaymentPackSelector
+          autofocus
           value={props.value}
           paymentPacks={
             props.availableBuyableItems[props.buyableItemIdentifier]
@@ -66,6 +67,7 @@ const BuyableItemSelector = (props) => {
     case BUYABLE_ITEM_SHOP_ITEM:
       return (
         <ShopItemSelector
+          autofocus
           value={props.value}
           selectorClass={classes.selector}
           shopItemList={
@@ -77,6 +79,7 @@ const BuyableItemSelector = (props) => {
     case BUYABLE_ITEM_PRIVATE_PASS:
       return (
         <PrivatePassSelector
+          autofocus
           value={props.value}
           privatePassList={
             props.availableBuyableItems[props.buyableItemIdentifier]
@@ -88,6 +91,7 @@ const BuyableItemSelector = (props) => {
     case BUYABLE_ITEM_COMBO_ITEM:
       return (
         <PaymentComboSelector
+          autofocus
           value={props.value}
           selectorClass={classes.selector}
           paymentComboList={
@@ -162,7 +166,9 @@ export const InvoiceItemEditor = (props: Props) => {
             value={BUYABLE_ITEM_CREDIT}
           />
           <Tab
-            label={t(`invoiceItem.buyableItemIdentifier.${BUYABLE_ITEM_PRIVATE_PASS}`)}
+            label={t(
+              `invoiceItem.buyableItemIdentifier.${BUYABLE_ITEM_PRIVATE_PASS}`,
+            )}
             value={BUYABLE_ITEM_PRIVATE_PASS}
           />
           <Tab

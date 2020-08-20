@@ -19,6 +19,7 @@ type Props = {
   selectorClass: string,
   isMulti: boolean,
   nullCurrentValue?: boolean,
+  autofocus: boolean,
 };
 
 type OptionProps = {
@@ -53,6 +54,7 @@ export function PaymentPackSelector(props: Props) {
     selectorClass,
     helperText,
     nullCurrentValue,
+    autofocus,
   } = props;
   const suggestions = paymentPacks
     .asMutable()
@@ -60,6 +62,7 @@ export function PaymentPackSelector(props: Props) {
     .map((pp) => ({ value: pp.id, label: pp.name, pp }));
   return (
     <Selector
+      autofocus={autofocus}
       searchIcon
       selected={value}
       nullCurrentValue={nullCurrentValue}

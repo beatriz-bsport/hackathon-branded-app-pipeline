@@ -19,6 +19,7 @@ type Props = {
   helperText: string,
   value: ?number,
   selectorClass: string,
+  autofocus: boolean,
 };
 
 type OptionProps = {
@@ -51,6 +52,7 @@ export function PrivatePassSelector(props: Props) {
     privatePassList,
     classes,
     selectorClass,
+    autofocus,
     helperText,
   } = props;
   const suggestions = privatePassList
@@ -62,6 +64,7 @@ export function PrivatePassSelector(props: Props) {
 
   return (
     <Selector
+      autofocus={autofocus}
       searchIcon
       selected={value}
       nullCurrentValue={props.nullCurrentValue}

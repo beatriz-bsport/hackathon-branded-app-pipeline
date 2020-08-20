@@ -18,6 +18,7 @@ type Props = {
   nullCurrentValue?: boolean,
   value: ?number,
   selectorClass: string,
+  autofocus: boolean,
 };
 
 type OptionProps = {
@@ -53,6 +54,7 @@ export function PaymentComboSelector(props: Props) {
     selectorClass,
     helperText,
     nullCurrentValue,
+    autofocus,
   } = props;
   const suggestions = paymentComboList
     .asMutable()
@@ -61,6 +63,7 @@ export function PaymentComboSelector(props: Props) {
 
   return (
     <Selector
+      autofocus={autofocus}
       searchIcon
       nullCurrentValue={nullCurrentValue}
       selected={value}

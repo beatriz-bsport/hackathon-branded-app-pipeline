@@ -19,6 +19,7 @@ type Props = {
   value: ?number,
   selectorClass: string,
   t: TFunction,
+  autofocus: boolean,
 };
 
 type OptionProps = {
@@ -65,6 +66,7 @@ export function ShopItemSelector(props: Props) {
     selectorClass,
     helperText,
     nullCurrentValue,
+    autofocus,
   } = props;
   const suggestions = shopItemList
     .asMutable()
@@ -73,6 +75,7 @@ export function ShopItemSelector(props: Props) {
 
   return (
     <Selector
+      autofocus={autofocus}
       searchIcon
       nullCurrentValue={nullCurrentValue}
       selected={value}

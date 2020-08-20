@@ -117,6 +117,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
     const { paymentPackId } = this.state;
     return (
       <PaymentPackSelector
+        autofocus
         value={paymentPackId}
         paymentPacks={paymentPacks}
         onChange={this.storePaymentPackId}
@@ -131,6 +132,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
     const { privatePassId } = this.state;
     return (
       <PrivatePassSelector
+        autofocus
         value={privatePassId}
         privatePassList={privatePassList}
         onChange={this.storePrivatePassId}
@@ -141,6 +143,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
 
   renderShopItemSelector = () => (
     <ShopItemSelector
+      autofocus
       value={this.state.shopItemId}
       onChange={this.storeShopItemId}
       selectorClass={this.props.classes.selector}
@@ -150,6 +153,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
 
   renderPaymentComboSelector = () => (
     <PaymentComboSelector
+      autofocus
       value={this.state.paymentComboId}
       onChange={this.storePaymentComboId}
       selectorClass={this.props.classes.selector}

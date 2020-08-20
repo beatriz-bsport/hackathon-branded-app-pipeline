@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { pure } from 'recompose';
@@ -20,13 +21,15 @@ type Props = {
   editing_parameters?: any,
   disabled?: boolean,
   selected?: boolean,
+  similarOffer?: boolean,
+  handleChange?: () => void,
+  checked?: boolean,
 };
 
 export const OfferListItem = (props: Props) => {
   const { offer } = props;
   const { t } = useTranslation(['offer']);
   const classes = useStyles();
-
   return (
     <ListItem
       button={!!props.onClick}
@@ -35,6 +38,9 @@ export const OfferListItem = (props: Props) => {
       selected={props.selected}
       onClick={props.onClick ? () => props.onClick(offer.id) : null}
     >
+      {props.similarOffer ? (
+        <Checkbox checked={props.checked} onChange={props.handleChange} />
+      ) : null}
       <ListItemAvatar>
         <CoachAvatar
           t={t}

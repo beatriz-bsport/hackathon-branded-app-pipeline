@@ -7,16 +7,19 @@ import Switch from '@material-ui/core/Switch';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ExpandIcon from '@material-ui/icons/ExpandMore';
 import { withTranslation } from 'react-i18next';
 import moment from 'moment';
+import type { TFunction } from 'react-i18next';
 // import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 import OfferListItem from '../components/OfferListItemV2.component';
 
 type Props = {
+  t: TFunction,
   loading: boolean,
   disabled: boolean,
   color: ?string,
@@ -25,7 +28,10 @@ type Props = {
   listTitle: string,
 
   shouldModifyAllDates: boolean,
-  similarOffers: Array<Offer>,
+  handleChange: (index: number) => void,
+  similarOffersWithSelectedStatus: Array<Object>,
+  selectAll: () => void,
+  unselectAll: () => void,
 
   onChangeRecursion: ({ modifyRecursively: boolean }) => void,
   dateTimeDiff: number,
@@ -48,9 +54,8 @@ export class RecursionToogle extends Component<Props, State> {
   };
 
   renderSimilarOffers = () => {
-    const { loading, similarOffers, classes } = this.props;
+    const { loading, similarOffersWithSelectedStatus, classes, t } = this.props;
     const { isSimilarOfferListExpanded } = this.state;
-
     return (
       <div>
         <Grid
@@ -76,9 +81,27 @@ export class RecursionToogle extends Component<Props, State> {
         <Divider />
         {loading ? null : (
           <Collapse in={isSimilarOfferListExpanded}>
+            <ButtonBase
+              onClick={this.props.selectAll}
+              className={classes.selectOption}
+            >
+              <Typography variant="caption">
+                {t('offer:liveOfferEdit.selectAll')}
+              </Typography>
+            </ButtonBase>
+            <ButtonBase
+              onClick={this.props.unselectAll}
+              className={classes.selectOption}
+            >
+              <Typography variant="caption">
+                {t('offer:liveOfferEdit.unselectAll')}
+              </Typography>
+            </ButtonBase>
             <List component="nav">
-              {(similarOffers || []).map((so) => (
+              {(similarOffersWithSelectedStatus || []).map((so, index) => (
                 <OfferListItem
+                  similarOffer
+                  disabled={index === 0}
                   offer={so}
                   editing_parameters={{
                     new_date_start: moment(so.date_start).add(
@@ -86,6 +109,12 @@ export class RecursionToogle extends Component<Props, State> {
                       'milliseconds',
                     ),
                   }}
+                  handleChange={
+                    index === 0
+                      ? () => {}
+                      : () => this.props.handleChange(index)
+                  }
+                  checked={so.selected}
                 />
               ))}
             </List>
@@ -133,6 +162,17 @@ const styles = (theme) => ({
   similarListHeader: {
     width: '100%',
     backgroundColor: theme.palette.background.paper,
+  },
+  selectOption: {
+    marginTop: theme.spacing(1),
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    color: 'grey',
+    '&:hover': {
+      color: 'black',
+    },
   },
 });
 

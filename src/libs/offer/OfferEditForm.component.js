@@ -58,6 +58,7 @@ type State = {
   coach_override: ?Coach,
   establishment_override: ?Establishment,
   isSimilarOfferListExpanded: boolean,
+  similarOffersWithSelectedStatus: Array<Object>,
 };
 
 export type FormData = Object;
@@ -133,6 +134,12 @@ export class EditLiveOfferForm extends Component<Props, State> {
       level: props.offer.level_id,
       meta_activity:
         props.offer.meta_activity && this.props.offer.meta_activity.id,
+      similarOffersWithSelectedStatus: (this.props.similarOffers || [])
+        .filter((so) => so.available)
+        .map((so) => ({
+          ...so,
+          selected: true,
+        })),
     };
     this.initialOfferState = {
       date_start: Moment(props.offer.date_start),
@@ -170,7 +177,55 @@ export class EditLiveOfferForm extends Component<Props, State> {
       };
       this.setState({ meta_activity: this.props.offer.meta_activity.id });
     }
+    if (
+      (prevProps.similarOffers || []).length !==
+      (this.props.similarOffers || []).length
+    ) {
+      this.setState({
+        similarOffersWithSelectedStatus: (this.props.similarOffers || [])
+          .filter((so) => so.available)
+          .map((so) => ({
+            ...so,
+            selected: true,
+          })),
+      });
+    }
   }
+
+  handleChangeSelection = (index: number) => {
+    this.setState((prevState) => {
+      const similarOffersWithSelectedStatus = [
+        ...prevState.similarOffersWithSelectedStatus,
+      ];
+      similarOffersWithSelectedStatus[index] = {
+        ...similarOffersWithSelectedStatus[index],
+        selected: !prevState.similarOffersWithSelectedStatus[index].selected,
+      };
+      return { similarOffersWithSelectedStatus };
+    });
+  };
+
+  selectAll = () => {
+    this.setState((prevState) => ({
+      similarOffersWithSelectedStatus: prevState.similarOffersWithSelectedStatus.map(
+        (so) => ({
+          ...so,
+          selected: true,
+        }),
+      ),
+    }));
+  };
+
+  unselectAll = () => {
+    this.setState((prevState) => ({
+      similarOffersWithSelectedStatus: prevState.similarOffersWithSelectedStatus.map(
+        (so, index) => ({
+          ...so,
+          selected: index === 0,
+        }),
+      ),
+    }));
+  };
 
   expandSimilarOfferList = () => {
     this.setState((prevState) => ({
@@ -197,7 +252,16 @@ export class EditLiveOfferForm extends Component<Props, State> {
     const { notifyConsumers, date, hour } = this.state;
     const data: FormData = {
       notifyConsumers,
-      modifyAllDates: this.shouldModifyAllDates(),
+      modifyAllDates:
+        this.shouldModifyAllDates() &&
+        !this.state.similarOffersWithSelectedStatus.filter((so) => !so.selected)
+          .length,
+      custom_selection: !!this.state.similarOffersWithSelectedStatus.filter(
+        (so) => !so.selected,
+      ).length,
+      custom_selection_ids: this.state.similarOffersWithSelectedStatus
+        .filter((so) => so.selected)
+        .map((so) => so.id),
     };
     if (this.hasChangedDatetime()) {
       data.date_start = Moment(
@@ -564,11 +628,8 @@ export class EditLiveOfferForm extends Component<Props, State> {
           <div className={this.props.classes.field}>
             <RecursionToogle
               loading={this.props.similarOfferLoading}
-              similarOffers={this.props.similarOffers.filter(
-                (o) => o.available,
-              )}
-              message={this.props.t('form.offer.explainRecursiveOfferEdit')}
-              listTitle={this.props.t('offer.offersPendingChange')}
+              message={this.props.t('offer:liveOfferEdit.editSimilarOffers')}
+              listTitle={this.props.t('offer:liveOfferEdit.select')}
               shouldModifyAllDates={this.shouldModifyAllDates()}
               dateTimeDiff={Moment(
                 `${pad(this.state.date.date())}/${pad(
@@ -583,6 +644,12 @@ export class EditLiveOfferForm extends Component<Props, State> {
                   modifyRecursively: !prevState.modifyRecursively,
                 }))
               }
+              handleChange={this.handleChangeSelection}
+              similarOffersWithSelectedStatus={
+                this.state.similarOffersWithSelectedStatus
+              }
+              selectAll={this.selectAll}
+              unselectAll={this.unselectAll}
             />
           </div>
           {this.renderNextStepButton()}

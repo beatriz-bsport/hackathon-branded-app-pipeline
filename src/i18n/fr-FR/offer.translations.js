@@ -66,4 +66,11 @@ exports.default = {
   },
   bookingList: 'Réservations',
   bookingListEmpty: 'Aucune réservation',
+  liveOfferEdit: {
+    editSimilarOffers:
+      'Voulez-vous modifier les séances similaires selon ces nouvelles conditions ?',
+    select: 'Sélectionnez les séances qui seront modifiées',
+    selectAll: 'Tout sélectionner',
+    unselectAll: 'Tout désélectionner',
+  },
 };

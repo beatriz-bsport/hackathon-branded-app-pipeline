@@ -93,7 +93,7 @@ exports.default = {
       placeholder: 'https://facebook.com/mon-studio/',
     },
     general_terms_and_conditions: {
-      label: 'Condition générales de ventes',
+      label: 'Conditions générales de vente',
       helperText: 'Doivent être acceptées pour tout paiement et inscription',
       placeholder:
         "J'atteste posséder un certificat médical et l'apporterai à mon studio",

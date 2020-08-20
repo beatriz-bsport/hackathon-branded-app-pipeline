@@ -19,12 +19,15 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import PlaceIcon from '@material-ui/icons/Place';
 import ViewWeekIcon from '@material-ui/icons/ViewWeek';
 import BarCode from 'react-barcode';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 
 import moment from 'moment';
 
 import { withTranslation } from 'react-i18next';
 
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import CreditMemberBadge from './CreditMemberBadge.component';
 
@@ -35,6 +38,7 @@ import type { Member } from '../../../api/types';
 import EmailItem from '../../communication/components/EmailItem.component';
 import PhoneItem from '../../communication/components/PhoneItem.component';
 import MailDialog from '../../communication/components/MailDialog.component';
+import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
 type Props = {
   hideCreditAccount?: boolean,
@@ -47,6 +51,8 @@ type Props = {
   mailMember: () => void,
   goToCreditRegularization: () => void,
   hideContactButton: ?boolean,
+  showTermsAndConditions: boolean,
+  setShowTermsAndConditions: (boolean) => void,
 };
 
 export class MemberSummaryCard extends Component<Props> {
@@ -275,6 +281,55 @@ export class MemberSummaryCard extends Component<Props> {
     );
   };
 
+  renderTermsAndConditions = () => {
+    const {
+      general_terms_and_conditions_date_accepted,
+      general_terms_and_conditions_accepted,
+    } = this.props.member;
+
+    if (
+      general_terms_and_conditions_accepted &&
+      general_terms_and_conditions_date_accepted
+    ) {
+      return (
+        <div className={this.props.classes.termsAndConditions}>
+          <Typography inline component="div" variant="caption" color="default">
+            <ButtonBase
+              onClick={() => this.props.setShowTermsAndConditions(true)}
+            >
+              <Typography inline variant="caption" color="secondary">
+                {this.props.t('member:termsAndConditions')}
+              </Typography>
+            </ButtonBase>
+            {this.props.t('member:memberTermsAccepted', {
+              date: moment(general_terms_and_conditions_date_accepted).format(
+                'L',
+              ),
+            })}
+          </Typography>
+          <Dialog
+            open={this.props.showTermsAndConditions}
+            onClose={() => this.props.setShowTermsAndConditions(false)}
+          >
+            <DialogContent>
+              <TypographyMultiline>
+                {general_terms_and_conditions_accepted}
+              </TypographyMultiline>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => this.props.setShowTermsAndConditions(false)}
+              >
+                {this.props.t('member:search.cancel')}
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      );
+    }
+    return null;
+  };
+
   render() {
     const { member, classes } = this.props;
     // ugly FIXME: because loading should never be set to true
@@ -289,6 +344,7 @@ export class MemberSummaryCard extends Component<Props> {
               {this.renderBarCode()}
               {this.renderAddress()}
               {this.renderNotificationSettings()}
+              {this.renderTermsAndConditions()}
             </div>
             {!this.props.hideCreditAccount && this.renderAccount()}
           </Paper>
@@ -355,9 +411,14 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'flex-end',
   },
+  termsAndConditions: {
+    paddingLeft: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+  },
 });
 
 export default compose(
   withStyles(styles),
   withTranslation(['translation', 'member']),
+  withState('showTermsAndConditions', 'setShowTermsAndConditions', false),
 )(MemberSummaryCard);

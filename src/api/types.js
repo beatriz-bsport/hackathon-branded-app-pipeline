@@ -192,6 +192,8 @@ export type Member = {
   next_booking: ?string,
   previous_booking: ?string,
   id: number,
+  general_terms_and_conditions_date_accepted: string,
+  general_terms_and_conditions_accepted: string,
 };
 
 export type MemberDetailed = {

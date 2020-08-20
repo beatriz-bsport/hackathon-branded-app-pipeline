@@ -136,4 +136,6 @@ exports.default = {
     cancel: 'Annuler',
     confirm: 'Je confirme',
   },
+  termsAndConditions: 'Les conditions générales de vente',
+  memberTermsAccepted: ' ont été acceptées le {{- date}}',
 };

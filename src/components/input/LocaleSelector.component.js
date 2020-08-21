@@ -18,7 +18,7 @@ import NL_FLAG from './flags/NL.png';
 import IT_FLAG from './flags/IT.png';
 import BE_FLAG from './flags/BE.png';
 import DE_FLAG from './flags/DE.png';
-import CH_FLAG from './flags/CH.png';
+// import CH_FLAG from './flags/CH.png';
 import AT_FLAG from './flags/AT.png';
 
 type Props = {
@@ -78,6 +78,7 @@ const localeList: Array<Locale> = [
     currencyCode: 'eur',
     currencyDisplay: '€',
   },
+  /*
   {
     locale: 'fr_CH',
     icon: CH_FLAG,
@@ -96,6 +97,7 @@ const localeList: Array<Locale> = [
     currencyCode: 'chf',
     currencyDisplay: 'CHF',
   },
+  */
 ];
 
 export const CountrySelector = (props: Props) => {

@@ -1,3 +1,30 @@
+## 42.10.0 (2020-08-21)
+
+### Fix
+
+- **sentry**: fix versionning scheme on sentry
+- **bookingnotifications**: fixed undefined
+- **sentry**: change sourcemap url-prefix and version w/ sha
+- **bookingstatistics**: fixed offer graph visuals in planning page
+
+### Feat
+
+- **apm**: first step testing instrumentation w/ elastic RUM
+- **member**: terms and conditions in Member detail
+- **client**: cancel-condition
+- **associated coach api**: changed endpoint for create/update/link_email coach
+- **idds**: chnage some idds
+- **temp-password**: increase temp password validity to 1 week
+- **bookingcreationnotification**: improved tooltips and form validation
+- (fix): idds
+- **bookingcreationnotification**: added booking notifications for establishment and meta_activity
+- (ids): add/ids
+
+### feat
+
+- (client): add-last-discard
+- **change**: idds
+
 ## 42.9.0 (2020-08-18)
 
 ### Feat

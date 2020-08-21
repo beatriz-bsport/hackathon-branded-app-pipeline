@@ -9,7 +9,7 @@ import Config from './config';
 
 import './index.css';
 import App from './App';
-import RELEASE from './release';
+import RELEASE_SHA from './release-sha';
 import registerServiceWorker from './registerServiceWorker';
 import './material-dashboard-react.css';
 
@@ -17,7 +17,7 @@ import { setSessionId } from './sentry/session';
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
-    release: RELEASE,
+    release: RELEASE_SHA,
     dsn: Config.REACT_APP_SENTRY_DSN || null,
     environment: Config.REACT_APP_SENTRY_ENVIRONMENT || 'production',
     integrations: [new ApmIntegrations.Tracing()],

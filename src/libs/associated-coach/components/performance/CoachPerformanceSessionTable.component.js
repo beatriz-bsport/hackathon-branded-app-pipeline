@@ -94,6 +94,7 @@ export function CoachPerformanceTable(props: Props) {
               <TableCell>{session.bonus} €</TableCell>
               <TableCell>
                 <PaymentRuleSelector
+                  id="payment_rule_pur_session"
                   paymentRules={paymentRules}
                   selected={session.payment_rule_id}
                   isOverride

@@ -17,6 +17,7 @@ type Props = {
   classes: { [string]: string },
   paymentRules: PaymentRuleSet[],
   isOverride?: boolean,
+  id: string,
 };
 
 export function PaymentRuleSelector(props: Props) {
@@ -26,8 +27,9 @@ export function PaymentRuleSelector(props: Props) {
     label: s.name,
   }));
   return (
-    <div id="selector">
+    <div>
       <Selector
+        id={props.id}
         className={classes.root}
         suggestions={suggestions}
         selected={selected}

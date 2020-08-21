@@ -13,8 +13,8 @@ import FR_FLAG from '../input/flags/FR.png';
 import ES_FLAG from '../input/flags/ES.png';
 import NL_FLAG from '../input/flags/NL.png';
 import IT_FLAG from '../input/flags/IT.png';
-import BE_FLAG from '../input/flags/BE.png';
 import DE_FLAG from '../input/flags/DE.png';
+import EN_FLAG from '../input/flags/EN.png';
 
 type Props = {
   closeMenu: () => void,
@@ -24,7 +24,7 @@ type Props = {
 const countryFlag = {
   'fr-FR': FR_FLAG,
   de: DE_FLAG,
-  en: BE_FLAG,
+  en: EN_FLAG,
   nl: NL_FLAG,
   it: IT_FLAG,
   es: ES_FLAG,

@@ -665,6 +665,7 @@ export const CheckboxField = (props: Props) => {
         render={({ field, form: { setFieldValue } }) => (
           <FormControlLabel
             label={label}
+            id="checkbox"
             helperText={helperText}
             control={
               <Checkbox

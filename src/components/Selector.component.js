@@ -223,6 +223,7 @@ type IntegrationReactSelectProps = {
   nullCurrentValue?: boolean,
   filterOption: (option: Suggestion, text: string) => void,
   autofocus: boolean,
+  id: string,
 };
 
 function IntegrationReactSelect(props: IntegrationReactSelectProps) {
@@ -271,6 +272,7 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
   return (
     <div className={`${className || ''} ${classes.root}`}>
       <SelectComponent
+        id={props.id}
         autofocus={autofocus}
         classes={classes}
         styles={selectStyles}

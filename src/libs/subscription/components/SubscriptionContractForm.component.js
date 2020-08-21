@@ -148,7 +148,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
     .integer()
     .min(2)
     .required(),
-  recurrent_price: Yup.number().min(1),
+  recurrent_price: Yup.number().min(0),
   flat_fee: Yup.number(),
   payment_pack: Yup.number()
     .integer()

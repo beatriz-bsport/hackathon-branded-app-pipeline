@@ -46,7 +46,12 @@ const ReportGenerationSchema = Yup.object().shape({
     .required('required')
     .test('is-after-start', 'errors.end_before_start', function (dateEnd) {
       const { dateStart } = this.parent;
-      return moment(dateStart).isSameOrBefore(moment(dateEnd));
+      const { dateType } = this.parent;
+      return (
+        (dateType === 'range' &&
+          moment(dateStart).isSameOrBefore(moment(dateEnd))) ||
+        dateType === 'single' || dateType === 'none'
+      );
     }),
 });
 
@@ -144,6 +149,7 @@ export default compose(
       initial || {
         dateStart: moment(reportConfiguration.date_start),
         dateEnd: moment(reportConfiguration.date_end),
+        dateType: reportConfiguration.date_type,
       },
     validationSchema: ReportGenerationSchema,
     handleSubmit: defaultHandleSubmit,

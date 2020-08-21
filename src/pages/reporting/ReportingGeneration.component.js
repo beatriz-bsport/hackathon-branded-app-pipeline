@@ -97,14 +97,18 @@ export default compose(
     },
   ),
   withState('exportLink', 'setExportLink', null),
-  withProps(({ id, fetchExtractResult, result, setExportLink }) => ({
+  withProps(({ id, fetchExtractResult, result, setExportLink, report }) => ({
     handleGenerate({ dateStart, dateEnd }, options) {
       fetchExtractResult(
         id,
-        {
-          dateStart: dateStart.format('YYYY-MM-DD'),
-          dateEnd: dateEnd.clone().format('YYYY-MM-DD'),
-        },
+        report.date_type === 'range'
+          ? {
+              dateStart: dateStart.format('YYYY-MM-DD'),
+              dateEnd: dateEnd.clone().format('YYYY-MM-DD'),
+            }
+          : {
+              dateStart: dateStart.format('YYYY-MM-DD'),
+            },
         options,
       );
       const params = {

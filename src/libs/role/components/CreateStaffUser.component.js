@@ -69,6 +69,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
           <DialogTitle>{t('forms.user.create.title')}</DialogTitle>
           <DialogContent>
             <TextField
+              id="textfield_role_firstname"
               fullWidth
               value={this.state.first_name}
               className={classes.field}
@@ -76,6 +77,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
               label={t('forms.user.create.firstName.label')}
             />
             <TextField
+              id="textfield_role_lastname"
               fullWidth
               value={this.state.last_name}
               className={classes.field}
@@ -83,6 +85,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
               label={t('forms.user.create.lastName.label')}
             />
             <TextField
+              id="textfield_role_email"
               fullWidth
               required
               type="email"
@@ -105,6 +108,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
                 {t('forms.user.create.role.label')}
               </InputLabel>
               <Select
+                id="textfield_role_role"
                 className={classes.selectRole}
                 value={this.state.role}
                 required
@@ -127,7 +131,12 @@ export class CreateStaffUser extends React.Component<Props, State> {
             <Button onClick={this.props.onClose} color="secondary">
               {t('forms.user.create.cancel')}
             </Button>
-            <Button type="submit" onClick={this.onSubmit} color="primary">
+            <Button
+              type="submit"
+              onClick={this.onSubmit}
+              color="primary"
+              id="button_role_save"
+            >
               {t('forms.user.create.submit')}
             </Button>
           </DialogActions>

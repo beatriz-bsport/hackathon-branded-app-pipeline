@@ -25,6 +25,7 @@ type Props = {
 
 export const PasswordInput = (props: Props) => (
   <TextField
+    id="textfield_password"
     value={props.value}
     fullWidth={props.fullWidth}
     autoComplete="current-password"

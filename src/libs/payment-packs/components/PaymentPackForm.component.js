@@ -158,7 +158,7 @@ export function PaymentPackForm(props: Props) {
               helperText={t('form.paymentPack.credits.helperText')}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} id="checkbox_pass_unlimitedoption">
             <CheckboxField
               name="unlimited"
               disabled={!editable}
@@ -303,7 +303,7 @@ export function PaymentPackForm(props: Props) {
           <Grid container>
             <Grid item xs={12}>
               <TextField
-                id="textfield_restrictions_maxut"
+                id="textfield_restrictions_maxuser"
                 label={t('form.paymentPack.maxBookingPerWeek.label')}
                 type="number"
                 fullWidth
@@ -313,6 +313,7 @@ export function PaymentPackForm(props: Props) {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                id="textfield_restrictions_dailymaxuse"
                 label={t('form.paymentPack.maxBookingPerDay.label')}
                 type="number"
                 fullWidth
@@ -322,6 +323,7 @@ export function PaymentPackForm(props: Props) {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                id="textfield_restrictions_maxpurchase"
                 label={t('form.paymentPack.maxPurchasePerMember.label')}
                 type="number"
                 fullWidth

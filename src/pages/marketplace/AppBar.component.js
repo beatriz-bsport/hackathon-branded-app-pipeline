@@ -31,6 +31,7 @@ type Props = {
   requestLogin: () => void,
   websiteURL: ?string,
   logo: ?string,
+  paper: Boolean,
 
   t: TFunction,
   classes: Object,
@@ -93,65 +94,83 @@ export class ConsumerAppBar extends Component<Props, State> {
     return <Typography color="inherit">{auth.username}</Typography>;
   };
 
-  render() {
+  renderUserMenu = () => {
     const { classes, title } = this.props;
     const { isMenuOpen } = this.state;
     return (
-      <div className={classes.root}>
-        <AppBar position="static" color="white">
-          <Toolbar>
-            {this.props.logo ? (
-              <ButtonBase
-                onClick={() => {
-                  if (this.props.websiteURL) {
-                    window.location.href = this.props.websiteURL;
-                  }
-                }}
-              >
-                <img height={40} src={this.props.logo} alt="bsport logo" />
-              </ButtonBase>
-            ) : (
-              <Typography
-                className={classes.title}
-                variant="h6"
-                color="inherit"
-                noWrap
-              >
-                {title}
-              </Typography>
-            )}
-            <div className={classes.grow} />
-            {this.props.currentBasket ? (
-              <ButtonBase
-                onClick={this.props.openCurrentBasket}
-                className={classes.iconLeft}
-              >
-                <Badge
-                  color="primary"
-                  badgeContent={this.props.currentBasket.checkout_items.reduce(
-                    (s, a) => s + a.quantity,
-                    0,
-                  )}
-                >
-                  <ShoppingBasketIcon />
-                </Badge>
-              </ButtonBase>
-            ) : null}
+      <div>
+        <Toolbar>
+          {this.props.logo ? (
             <ButtonBase
-              className={classes.loginButton}
-              onClick={this.handleProfileMenuOpen}
+              onClick={() => {
+                if (this.props.websiteURL) {
+                  window.location.href = this.props.websiteURL;
+                }
+              }}
             >
-              <AccountCircleIcon
-                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                aria-haspopup="true"
-                color="inherit"
-                className={classes.accountIcon}
-              />
-              {this.renderAuthenticationInfo()}
+              <img height={40} src={this.props.logo} alt="bsport logo" />
             </ButtonBase>
-          </Toolbar>
-        </AppBar>
-        {this.renderProfileMenu()}
+          ) : (
+            <Typography
+              className={classes.title}
+              variant="h6"
+              color="inherit"
+              noWrap
+            >
+              {title}
+            </Typography>
+          )}
+          <div className={classes.grow} />
+          {this.props.currentBasket ? (
+            <ButtonBase
+              onClick={this.props.openCurrentBasket}
+              className={classes.iconLeft}
+            >
+              <Badge
+                color="primary"
+                badgeContent={this.props.currentBasket.checkout_items.reduce(
+                  (s, a) => s + a.quantity,
+                  0,
+                )}
+              >
+                <ShoppingBasketIcon />
+              </Badge>
+            </ButtonBase>
+          ) : null}
+          <ButtonBase
+            className={classes.loginButton}
+            onClick={this.handleProfileMenuOpen}
+          >
+            <AccountCircleIcon
+              aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+              aria-haspopup="true"
+              color="inherit"
+              className={classes.accountIcon}
+            />
+            {this.renderAuthenticationInfo()}
+          </ButtonBase>
+        </Toolbar>
+      </div>
+    );
+  };
+
+  render() {
+    const { classes, paper } = this.props;
+    return (
+      <div>
+        {paper ? (
+          <div className={classes.root2}>
+            {this.renderUserMenu()}
+            {this.renderProfileMenu()}
+          </div>
+        ) : (
+          <div className={classes.root}>
+            <AppBar position="static" color="white">
+              {this.renderUserMenu()}
+            </AppBar>
+            {this.renderProfileMenu()}
+          </div>
+        )}
       </div>
     );
   }
@@ -160,6 +179,10 @@ export class ConsumerAppBar extends Component<Props, State> {
 const styles = (theme) => ({
   root: {
     width: '100%',
+  },
+  root2: {
+    position: 'absolute',
+    right: 0,
   },
   iconLeft: {
     marginRight: theme.spacing(3),

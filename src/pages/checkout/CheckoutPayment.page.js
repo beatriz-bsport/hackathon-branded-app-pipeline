@@ -5,7 +5,13 @@ import { compose, withState, withProps, withHandlers } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
-import { replace as replaceRouter, push, goBack } from 'connected-react-router';
+
+import {
+  replace as replaceRouter,
+  push,
+  goBack,
+  push as pushRouter,
+} from 'connected-react-router';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
@@ -34,6 +40,13 @@ import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { getShopItemFeaturedList } from '../../libs/shop/selectors';
 import { fetchShopItemFeatured } from '../../libs/shop/actions/shopitem';
 
+import AppBar from '../marketplace/AppBar.component';
+
+import {
+  consumer as consumerActions,
+  auth as authActions,
+} from '../../actions';
+
 type Props = {
   basket: ?Basket,
   loading: boolean,
@@ -60,6 +73,14 @@ type Props = {
   fetchShopItemFeatured: (companyId: number) => void,
 
   addShopItemToBasket: (shopitemId: number) => void,
+  fetchProfile: () => void,
+  goToUserSpace: () => void,
+  disconnect: () => void,
+  auth: *,
+
+  fetchCurrentBasket: (companyId: number) => void,
+  removeItemFromBasket: (basketId: string, data: any) => void,
+  addItemToBasket: (basketId: string, data: any) => void,
 };
 
 export class CheckoutPayment extends React.Component<Props> {
@@ -89,6 +110,9 @@ export class CheckoutPayment extends React.Component<Props> {
   }
 
   componentDidMount() {
+    if (this.props.auth.authenticated) {
+      this.props.fetchProfile();
+    }
     if (this.props.basket) {
       try {
         (window.dataLayer || []).push({
@@ -143,6 +167,14 @@ export class CheckoutPayment extends React.Component<Props> {
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <GoogleTagManager theme={this.props.theme} />
         <div className={this.props.classes.container}>
+          <AppBar
+            paper
+            auth={this.props.auth}
+            goToUserSpace={() => this.props.goToUserSpace(this.props.companyId)}
+            disconnect={() => {
+              this.props.disconnect(this.props.goBack);
+            }}
+          />
           <div className={this.props.classes.checkoutFlow}>
             <CheckoutFlow
               basket={this.props.basket}
@@ -158,7 +190,6 @@ export class CheckoutPayment extends React.Component<Props> {
               shopItemList={this.props.shopItemList}
               patchBasket={this.props.patchCurrentBasket}
             />
-
             {this.renderError()}
           </div>
         </div>
@@ -194,6 +225,7 @@ export default compose(
   withTranslation(['checkout']),
   connect(
     (state) => ({
+      auth: state.auth,
       basket: getCurrentBasket(state),
       loading: state.checkout.basket.current.loading,
       processing: state.checkout.basket.current.updating,
@@ -201,6 +233,10 @@ export default compose(
       shopItemList: getShopItemFeaturedList(state),
     }),
     {
+      disconnect: authActions.disconnect,
+      goToUserSpace: (id) => pushRouter(`/c/${id}/`),
+      fetchProfile: consumerActions.fetchProfile,
+
       addItemToBasket: addItemToBasketAction,
       removeItemFromBasket,
       goBack,

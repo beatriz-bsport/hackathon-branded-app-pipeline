@@ -8,11 +8,27 @@ import {
   goBack as goBackRouter,
 } from 'connected-react-router';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+
+import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withProps, withState, withHandlers } from 'recompose';
 import { withTranslation } from 'react-i18next';
+import AppBar from '../marketplace/AppBar.component';
+
+import MarketplaceBasketDialog from '../marketplace/MarketplaceBasketDialog.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import {
+  consumer as consumerActions,
+  auth as authActions,
+} from '../../actions';
+import { getCurrentBasket } from '../../libs/checkout/selectors';
 
 import { fetchCompanyTheme } from '../../libs/theme/actions';
+import {
+  addItemToBasket,
+  removeItemFromBasket,
+  fetchCurrentBasket,
+} from '../../libs/checkout/actions';
 import {
   getOfferById,
   withEstablishment,
@@ -85,7 +101,6 @@ type Props = {
   buyableItemsLoading: boolean,
   contractList: Array<Contract>,
 
-  authenticated: boolean,
   linkMeToCompany: (data: { offer: number }) => void,
 
   bookingOptionListConvertible: Array<BookingOption>,
@@ -104,6 +119,8 @@ type Props = {
   goBack: () => void,
   fetchBookingOptionForBooking: (offer: number) => void,
   fetchOffer: (number) => void,
+  disconnect: () => void,
+  auth: *,
 
   fetchContactForBooking: (number, number) => void,
   fetchConsumerPaymentPackForBooking: (number) => void,
@@ -117,19 +134,35 @@ type Props = {
   consumerPaymentPackLoading: boolean,
   setSelectedContract: (?Contract) => void,
   selectedContract: ?Contract,
+
+  fetchCurrentBasket: (companyId: number) => void,
+  currentBasket: ?Basket,
+  currentBasketLoading: boolean,
+  removeItemFromBasket: (basketId: string, data: any) => void,
+  addItemToBasket: (basketId: string, data: any) => void,
+  goToCheckout: (companyId: number) => void,
+
+  fetchProfile: () => void,
+  goToUserSpace: () => void,
 };
 
 type State = {
   has_registered: boolean,
+  currentBasketOpen: boolean,
 };
 
 export class OfferPaymentPage extends Component<Props, State> {
   state = {
     has_registered: false,
+    currentBasketOpen: false,
   };
 
   fetchData = () => {
     const { offerId } = this.props;
+    if (this.props.auth.authenticated) {
+      this.props.fetchCurrentBasket(this.props.offer.company);
+      this.props.fetchProfile();
+    }
     this.props.fetchBookingOptionForBooking(offerId);
     this.props.fetchOffer();
     this.props.fetchConsumerPaymentPackForBooking(offerId);
@@ -157,7 +190,7 @@ export class OfferPaymentPage extends Component<Props, State> {
 
   componentDidMount() {
     this.fetchData();
-    if (this.props.authenticated) {
+    if (this.props.auth.authenticated) {
       this.props.linkMeToCompany({ offer: this.props.offerId });
     }
     offerIsRegisteredAPI(this.props.offerId)
@@ -169,10 +202,16 @@ export class OfferPaymentPage extends Component<Props, State> {
     if (prevProps.offer !== this.props.offer && this.props.offer) {
       this.fetchCompanyData();
     }
-    if (this.props.authenticated && !prevProps.authenticated) {
+    if (this.props.auth.authenticated && !prevProps.auth.authenticated) {
       this.props.linkMeToCompany({ offer: this.props.offerId });
     }
+    if (this.props.auth.authenticated !== prevProps.auth.authenticated) {
+      this.fetchData();
+    }
   }
+
+  toogleCurrentBasketOpen = (currentBasketOpen: boolean) =>
+    this.setState({ currentBasketOpen });
 
   render() {
     return (
@@ -185,6 +224,18 @@ export class OfferPaymentPage extends Component<Props, State> {
             !this.props.offer.meta_activity
           }
         >
+          <AppBar
+            paper
+            auth={this.props.auth}
+            goToUserSpace={() =>
+              this.props.goToUserSpace(this.props.offer.company)
+            }
+            currentBasket={this.props.currentBasket}
+            openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
+            disconnect={() => {
+              this.props.disconnect();
+            }}
+          />
           <BookerModuleConsumer
             offer={this.props.offer}
             theme={this.props.theme}
@@ -217,24 +268,57 @@ export class OfferPaymentPage extends Component<Props, State> {
             onCancel={() => this.props.setSelectedContract(null)}
           />
         </PaymentContainer>
+
+        <MarketplaceBasketDialog
+          open={!!this.state.currentBasketOpen}
+          basket={this.props.currentBasket}
+          onCancel={() => this.toogleCurrentBasketOpen(false)}
+          loading={this.props.currentBasketLoading}
+          onRemoveCheckoutItem={(data) =>
+            this.props.removeItemFromBasket(this.props.currentBasket.id, data)
+          }
+          onAddCheckoutItem={(data) =>
+            this.props.addItemToBasket(this.props.currentBasket.id, data)
+          }
+          goToCheckout={() =>
+            this.props.goToCheckout(this.props.currentBasket.company)
+          }
+        />
       </MuiThemeProvider>
     );
   }
 }
 
+const styles = (theme) => ({
+  accountIcon: {
+    marginRight: theme.spacing(1),
+  },
+  loginButton: {
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    borderRadius: theme.shape.borderRadius,
+    padding: theme.spacing(1),
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+  },
+});
 export default compose(
   routerParamsToProps({ id: 'offerId:number', offerId: 'offerId:number' }),
   withState('processing', 'setProcessing', false),
   withState('selectedContract', 'setSelectedContract', null),
+  withStyles(styles),
   withTranslation(['booking']),
   connect(
     (state, { offerId }) => ({
-      authenticated: state.auth.authenticated,
+      auth: state.auth,
+      currentBasket: getCurrentBasket(state),
+      currentBasketLoading: state.checkout.basket.current.loading,
       offer: withMetaActivity(withCoach(withEstablishment(getOfferById)))(
         state,
         offerId,
       ),
-
       contractList: withPaymentPackForContract(getContractForBooking)(state),
       consumerPaymentPackList: withPaymentPack(
         getConsumerPaymentPackForBooking,
@@ -259,6 +343,14 @@ export default compose(
     {
       linkMeToCompany,
       fetchCompanyTheme,
+      disconnect: authActions.disconnect,
+      goToUserSpace: (id) => pushRouter(`/c/${id}/`),
+      goToCheckout: (companyId) => pushRouter(`/checkout/${companyId}/`),
+
+      fetchCurrentBasket,
+      fetchProfile: consumerActions.fetchProfile,
+      addItemToBasket,
+      removeItemFromBasket,
 
       fetchConsumerPaymentPackForBooking: fetchConsumerPaymentPackForBookingAction,
       resetConsumerPackForBooking: resetConsumerPackForBookingAction,

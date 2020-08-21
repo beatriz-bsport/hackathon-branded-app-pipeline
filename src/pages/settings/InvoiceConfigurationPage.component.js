@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import Paper from '@material-ui/core/Paper';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -37,13 +36,11 @@ export class InvoiceConfigurationPage extends Component<Props> {
     }
     return (
       <div className={classes.container}>
-        <Paper className={classes.paper}>
-          <InvoiceConfigurationForm
-            configuration={configuration}
-            processing={processing}
-            onSubmit={this.props.patchInvoiceConfiguration}
-          />
-        </Paper>
+        <InvoiceConfigurationForm
+          configuration={configuration}
+          processing={processing}
+          onSubmit={this.props.patchInvoiceConfiguration}
+        />
       </div>
     );
   }
@@ -53,9 +50,6 @@ const styles = (theme) => ({
   container: {
     padding: theme.spacing(2),
     paddingTop: theme.spacing(1),
-  },
-  paper: {
-    padding: theme.spacing(2),
   },
 });
 

@@ -2509,7 +2509,10 @@
       "stripe_footer": "Bas de page facture",
       "explainStripeFooter": "Ce texte apparaitra en bas de vos factures éditées en PDF, ajoutez toute mention légale nécessaire.",
       "submit_stripe_footer": "Mettre à jour",
-      "forms": { "stripe_footer_placeholder": "Aucune mention supplémentaire" }
+      "forms": { "stripe_footer_placeholder": "Aucune mention supplémentaire" },
+      "nf525": "Certification",
+      "nf525Explain": "Bsport suit les procédures de mise en confiormité NF525, vous pouvez ici télécharger notre attestation officielle.",
+      "nf525Button": "Télécharger"
     },
     "invoiceItem": {
       "buyableItemIdentifier": { "1": "Carte de cours", "2": "Magasin", "3": "Crédit", "9": "Carte RDV", "10": "Pack" },
@@ -3464,8 +3467,8 @@
     "settings": {
       "conditions": "Conditions",
       "title": "Paramètres",
-      "lastBookingBeforeMinutes": "Vous pouvez réserver cette activité jusqu'à {{m}}  avant le début de la séance",
-      "lastDiscardBeforeMinutes": "Vous pouvez annuler votre réservation jusqu'à {{m}} avant le début de la séance",
+      "lastBookingBeforeMinutes": "Les réservations sont possibles sur cette activité jusqu'à {{m}}  avant le début de la séance",
+      "lastDiscardBeforeMinutes": "Les annulations sont possibles jusqu'à {{m}} avant le début de la séance",
       "firstBookingMinutesUntil": "Les réservations sont bloquées avant {{m}} du début de la séance"
     },
     "packsAvailable": "Eligible aux pass :",
@@ -3647,7 +3650,9 @@
       "content": "Ce compte a initialement été utilisé dans un autre club, il sera désormais connecté à un nouveau club.",
       "cancel": "Annuler",
       "confirm": "Je confirme"
-    }
+    },
+    "termsAndConditions": "Les conditions générales de vente",
+    "memberTermsAccepted": " ont été acceptées le {{- date}}"
   },
   "booking": {
     "actions": { "bill": "Facturer", "unregister": "Désinscrire" },

@@ -31,14 +31,15 @@ exports.default = {
         [SOURCE_OTHER]: 'Autre',
       },
     },
-},
-invoiceInfoDialog: {
-explain: "Un ou plusieurs paiements ne sont pas passés correctement, l'acompte du membre reflète l'echec du paiement",
-actions: {
-show: 'Voir la facture',
-close: 'Fermer',
-},
-},
+  },
+  invoiceInfoDialog: {
+    explain:
+      "Un ou plusieurs paiements ne sont pas passés correctement, l'acompte du membre reflète l'echec du paiement",
+    actions: {
+      show: 'Voir la facture',
+      close: 'Fermer',
+    },
+  },
   uneditableMessage: {
     invoiceRevertedThusNotEditable:
       "La facture a été annulée et n'est plus modifiable",
@@ -76,6 +77,10 @@ close: 'Fermer',
     forms: {
       stripe_footer_placeholder: 'Aucune mention supplémentaire',
     },
+    nf525: 'Certification',
+    nf525Explain:
+      'Bsport suit les procédures de mise en confiormité NF525, vous pouvez ici télécharger notre attestation officielle.',
+    nf525Button: 'Télécharger',
   },
   invoiceItem: {
     buyableItemIdentifier: {

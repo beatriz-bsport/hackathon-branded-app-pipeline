@@ -43,6 +43,7 @@ type Props = {
   loading: boolean,
   notificationLoading: boolean,
   establishments: Array<Establishment>,
+  establishmentsArchived: Array<Establishment>,
 
   fetchEstablishments: () => void,
   startUpdateEstablishment: (*) => void,

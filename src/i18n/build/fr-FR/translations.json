@@ -2099,6 +2099,7 @@
     }
   },
   "establishment": {
+    "list": { "section": { "archived": "Etablissement archivé" } },
     "detail": { "tab": { "general": "Général", "calendar": "Calendrier" } },
     "establishment": "Établissement ",
     "capacity": {
@@ -2574,6 +2575,7 @@
       "delete": { "success": "Email supprimé", "error": "Impossible de supprimer l'email" }
     },
     "establishment": {
+      "restore": { "success": "Etablissement restoré", "error": "Impossible de restaurer cet établissement" },
       "delete": { "success": "Etablissement supprimé", "error": "Impossible de supprimer cet établissement" },
       "error": "Impossible de sauvegarder l'établissement",
       "create": { "success": "Établissement créé avec succès" },

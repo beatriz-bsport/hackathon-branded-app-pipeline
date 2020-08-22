@@ -10,7 +10,6 @@ type Props = {
   t: TFunction,
   coachToDeleteId: ?number,
   onClose: () => void,
-  checkCanDeleteCoach: (id: number) => Promise<void>,
   deleteCoach: (id: number) => void,
 };
 
@@ -18,7 +17,6 @@ export const CoachDeleteDialog = (props: Props) => (
   <DeleteDialogWithCheck
     idToDelete={props.coachToDeleteId}
     onClose={props.onClose}
-    checkCanDeleteObjectAPI={props.checkCanDeleteCoach}
     deleteObject={() => props.deleteCoach(props.coachToDeleteId)}
     t={props.t}
   />

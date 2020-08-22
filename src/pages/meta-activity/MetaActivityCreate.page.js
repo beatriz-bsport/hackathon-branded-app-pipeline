@@ -38,7 +38,7 @@ import {
 import CompatiblePaymentPacks from '../../libs/meta-activity/components/MetaActivityCompatiblePacks.component';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
-import { getAllEstablishments } from '../../libs/establishment/selectors';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import type { Establishment } from '../../libs/establishment/types';
 import type { PaymentPack } from '../../libs/payment-packs/types';
 
@@ -202,7 +202,7 @@ export default compose(
   withState('step', 'setStep', STEP_ACTIVITY),
   connect(
     (state) => ({
-      establishments: getAllEstablishments(state),
+      establishments: getAvailableEstablishmentList(state),
       SCTs: state.category.SCTs,
       loading: state.metaActivity.loading,
       metaActivityNames: [

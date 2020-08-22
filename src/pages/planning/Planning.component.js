@@ -44,7 +44,7 @@ import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { fetchAllActivities } from '../../libs/meta-activity/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
-import { getAllEstablishments } from '../../libs/establishment/selectors';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import type { Establishment } from '../../libs/establishment/types';
 import BookingStatisticsCard from '../../libs/booking/components/BookingStatisticsCard.component';
@@ -782,7 +782,7 @@ export default compose(
       coaches: getActiveCoaches(state),
       coachesLoading: state.coach.loading,
 
-      establishments: getAllEstablishments(state),
+      establishments: getAvailableEstablishmentList(state),
       companyId: state.theme.theme.company,
       theme: state.theme.theme,
       metaActivities: getEnabledMetaActivities(state),

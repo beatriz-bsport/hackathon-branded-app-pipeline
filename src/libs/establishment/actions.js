@@ -14,11 +14,12 @@ import {
   addEstablishment as addEstablishmentAPI,
   deleteEstablishment as deleteEstablishmentAPI,
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAPI,
+  restoreEstablishment as restoreEstablishmentAPI,
 } from './api';
 import { API_URI, postAuth, deleteAuth } from '../../http';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
-import type { Dispatch } from '../../state/types';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { getFreshEstablishmentIds } from './selectors';
@@ -56,6 +57,30 @@ export const resetAction = createAction('ESTABLISHMENT/RESET/SUCCESS');
 export function resetEstablishments() {
   return async (dispatch: Dispatch) => {
     dispatch(resetAction(true));
+  };
+}
+
+export const restoreActions = {
+  isLoading: createAction('ESTABLISHMENT/RESTORE/IS_LOADING'),
+  error: createAction('ESTABLISHMENT/RESTORE/IS_LOADING'),
+  success: createAction('ESTABLISHMENT/RESTORE/IS_LOADING'),
+};
+
+export function restoreEstablishment(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(restoreActions.isLoading(true));
+    try {
+      const response = await restoreEstablishmentAPI(id);
+      const payload = { [response.data.id]: response.data };
+      dispatch(detailActions.success(payload));
+      dispatch(snackbarSuccess('establishment.restore.success'));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(snackbarError('establishment.restore.error'));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(restoreActions.isLoading(false));
   };
 }
 

@@ -1,4 +1,9 @@
 exports.default = {
+  list: {
+    section: {
+      archived: 'Etablissement archivé',
+    },
+  },
   detail: {
     tab: {
       general: 'Général',

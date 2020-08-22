@@ -24,6 +24,18 @@ export const getAllPageEstablishments = createSelector(
   (Ids, establishments) => Ids.map((id) => establishments[id]),
 );
 
+export const getAvailableEstablishmentList = createSelector(
+  [getAllIds, getAllEstablishmentsDict],
+  (Ids, establishments) =>
+    Ids.map((id) => establishments[id]).filter((e) => !e.disabled),
+  );
+
+export const getDisabledEstablishmentList = createSelector(
+  [getAllIds, getAllEstablishmentsDict],
+  (Ids, establishments) =>
+    Ids.map((id) => establishments[id]).filter((e) => e.disabled),
+);
+
 export const getEstablishment = (state: State, id: number): Establishment =>
   state.establishment.byId[id];
 

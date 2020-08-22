@@ -10,7 +10,6 @@ type Props = {
   t: TFunction,
   establishmentId: ?number,
   onClose: () => void,
-  canDeleteEstablishmentChecker: (id: number) => Promise<void>,
   deleteEstablishment: () => void,
 };
 
@@ -18,7 +17,6 @@ export const EstablishmentDeleteDialog = (props: Props) => (
   <DeleteDialogWithCheck
     idToDelete={props.establishmentId}
     onClose={props.onClose}
-    checkCanDeleteObjectAPI={props.canDeleteEstablishmentChecker}
     deleteObject={() => props.deleteEstablishment(props.establishmentId)}
     t={props.t}
   />

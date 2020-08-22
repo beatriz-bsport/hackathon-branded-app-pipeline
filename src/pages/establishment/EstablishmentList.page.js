@@ -1,11 +1,16 @@
 // @flow
 
 import React from 'react';
-import { compose, withState } from 'recompose';
+import { withHandlers, compose, withState } from 'recompose';
 import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
 import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -21,10 +26,14 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import EstablishmentListItem from '../../libs/establishment/components/EstablishmentListItem.component';
 import EstablishmentDeleteDialog from '../../libs/establishment/components/EstablishmentDeleteDialog.component';
 import type { Establishment } from '../../libs/establishment/types';
-import { getAllPageEstablishments } from '../../libs/establishment/selectors';
+import {
+  getAvailableEstablishmentList,
+  getDisabledEstablishmentList,
+} from '../../libs/establishment/selectors';
 import {
   deleteEstablishment,
-  fetchEstablishments,
+  restoreEstablishment as restoreEstablishmentAction,
+  fetchEstablishments as fetchEstablishmentsAction,
 } from '../../libs/establishment/actions';
 import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api';
 import { fetchFirstTimeNotifications as fetchNotifications } from '../../libs/booking/actions';
@@ -43,6 +52,7 @@ type Props = {
   setEstablishmentToDelete: (?number) => void,
   deleteEstablishment: (number) => void,
   onCreate: () => void,
+  restoreEstablishment: (id: number) => void,
 
   classes: Object,
   t: TFunction,
@@ -52,6 +62,7 @@ export class EstablishmentList extends React.Component<Props, State> {
   state = {
     searchText: '',
     searchResult: [],
+    showDisabled: false,
   };
 
   componentDidMount() {
@@ -150,6 +161,54 @@ export class EstablishmentList extends React.Component<Props, State> {
         <Paper className={this.props.classes.map}>
           <Map markers={this.props.establishments} markerClicked={() => {}} />
         </Paper>
+        {(this.props.establishmentsArchived || []).length ? (
+          <div>
+            <ButtonBase
+              className={this.props.classes.buttonTitle}
+              onClick={() =>
+                this.setState((prevState) => ({
+                  showDisabled: !prevState.showDisabled,
+                }))
+              }
+              disabled={!(this.props.establishmentsArchived || []).length}
+            >
+              <Typography
+                variant="h5"
+                component="h2"
+                color={
+                  (this.props.establishmentsArchived || []).length
+                    ? 'default'
+                    : 'textSecondary'
+                }
+              >
+                {`${this.props.t('list.section.archived')} (${
+                  (this.props.establishmentsArchived || []).length
+                })`}
+              </Typography>
+
+              {this.state.showDisabled ? (
+                <ExpandLessIcon />
+              ) : (
+                <ExpandMoreIcon />
+              )}
+            </ButtonBase>
+            <Divider />
+            <Collapse in={this.state.showDisabled}>
+              <Paper>
+                <List component="nav" disablePadding>
+                  {this.props.establishmentsArchived.map((e) => (
+                    <EstablishmentListItem
+                      key={e.id}
+                      divider
+                      establishment={e}
+                      onRestore={() => this.props.restoreEstablishment(e.id)}
+                    />
+                  ))}
+                </List>
+              </Paper>
+            </Collapse>
+          </div>
+        ) : null}
         <EstablishmentDeleteDialog
           establishmentId={this.props.establishmentToDelete}
           onClose={() => this.props.setEstablishmentToDelete(null)}
@@ -198,6 +257,14 @@ const styles = (theme) => ({
     borderTop: '0px',
     boderBottom: '0px',
   },
+  buttonTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingBottom: theme.spacing(1),
+    marginTop: theme.spacing(3),
+  },
 });
 
 export default compose(
@@ -211,16 +278,27 @@ export default compose(
     (state) => ({
       loading: state.establishment.loading,
       notificationLoading: state.booking.notification.loading,
-      establishments: withBookingNotifications(getAllPageEstablishments)(state),
+      establishments: withBookingNotifications(getAvailableEstablishmentList)(
+        state,
+      ),
+      establishmentsArchived: getDisabledEstablishmentList(state),
     }),
     {
       startUpdateEstablishment: (id: number) =>
         push(`/establishment/edit/${id}`),
       goToEstablishment: (id) => push(`/establishment/details/${id}`),
-      fetchEstablishments,
+      fetchEstablishments: fetchEstablishmentsAction,
       deleteEstablishment,
+      restoreEstablishment: restoreEstablishmentAction,
       fetchNotifications,
       onCreate: () => push('/establishment/add'),
     },
   ),
+  withHandlers({
+    restoreEstablishment: ({ restoreEstablishment, fetchEstablishments }) => (
+      id,
+    ) => {
+      restoreEstablishment(id, { onSuccess: () => fetchEstablishments() });
+    },
+  }),
 )(EstablishmentList);

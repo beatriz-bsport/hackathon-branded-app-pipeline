@@ -41,21 +41,25 @@ export class DeleteDialoWithCheck extends React.Component<Props, State> {
   }
 
   checkCanDeleteObject = () => {
-    this.setState({
-      loading: true,
-    });
-    this.props
-      .checkCanDeleteObjectAPI(this.props.idToDelete)
-      .then((res) => {
-        this.setState({
-          loading: false,
-          canDeleteObject: res.data.can_destroy,
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-        this.setState({ loading: false, canDeleteObject: false });
+    if (this.props.checkCanDeleteObjectAPI) {
+      this.setState({
+        loading: true,
       });
+      this.props
+        .checkCanDeleteObjectAPI(this.props.idToDelete)
+        .then((res) => {
+          this.setState({
+            loading: false,
+            canDeleteObject: res.data.can_destroy,
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+          this.setState({ loading: false, canDeleteObject: false });
+        });
+    } else {
+      this.setState({ canDeleteObject: true });
+    }
   };
 
   deleteObject = () => {

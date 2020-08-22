@@ -122,6 +122,10 @@ exports.default = {
     },
   },
   establishment: {
+    restore: {
+      success: 'Etablissement restoré',
+      error: 'Impossible de restaurer cet établissement',
+    },
     delete: {
       success: 'Etablissement supprimé',
       error: 'Impossible de supprimer cet établissement',

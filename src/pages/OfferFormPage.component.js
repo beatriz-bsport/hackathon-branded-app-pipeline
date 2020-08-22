@@ -17,7 +17,7 @@ import withTitle from '../hocs/with-title.hoc';
 import OfferForm from '../libs/offer/OfferForm.component';
 import { getActiveCoaches } from '../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../libs/meta-activity/api/meta-activity';
-import { getAllEstablishments } from '../libs/establishment/selectors';
+import { getAvailableEstablishmentList } from '../libs/establishment/selectors';
 import { fetchEstablishments } from '../libs/establishment/actions';
 import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 import {
@@ -127,7 +127,7 @@ export default withTranslation()(
       ],
       coaches: getActiveCoaches(state),
       theme: state.theme.theme,
-      establishments: getAllEstablishments(state),
+      establishments: getAvailableEstablishmentList(state),
       loading: state.metaActivity.loading,
     }),
     {

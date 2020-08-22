@@ -340,10 +340,10 @@ export class SignUpForm extends Component<Props, State> {
               {this.props.emailExists ? (
                 <ButtonBase onClick={this.props.backToLogin}>
                   <div className={classes.emailExists}>
-                    <Typography color="error" align="center">
+                    <Typography variant="caption" color="error" align="left">
                       {t('form.signup.emailExistsInDB1')}
                     </Typography>
-                    <Typography color="error" align="center">
+                    <Typography color="primary" align="right">
                       {t('form.signup.emailExistsInDB2')}
                     </Typography>
                   </div>
@@ -448,8 +448,9 @@ const styles = (theme) => ({
   },
   emailExists: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     flexDirection: 'column',
+    width: '100%',
   },
 });
 

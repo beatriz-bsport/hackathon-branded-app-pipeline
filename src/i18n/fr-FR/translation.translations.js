@@ -332,7 +332,8 @@ exports.default = {
     },
     signup: {
       typePhone: 'Tél. portable *',
-      emailExistsInDB1: 'Cet email est déjà enregistré',
+      emailExistsInDB1:
+        'Cet e-mail est déjà enregistré car vous êtes inscrit(e) dans un club ou un studio utilisant bsport. Vous pouvez utiliser les memes identifiants.',
       emailExistsInDB2: 'Me connecter',
       confirmPasswordLabel: 'Confirmation',
       confirmPassword: 'Mot de passe',

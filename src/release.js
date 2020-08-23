@@ -1,1 +1,1 @@
-export default '42.10.0';
+export default '42.11.0';

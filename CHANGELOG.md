@@ -1,3 +1,33 @@
+## 42.11.0 (2020-08-24)
+
+### Feat
+
+- **offeredit**: custom offer selection for recursive edit of similar offers
+- **archive**: delete and restore coach/establshment even if future offers planned
+- **nf525**: upload doc in settings for NF525
+- **subscription**: allow 0e subscription w/ credit payment
+- **subscription**: private-pass (RDV) subscription
+- **apm**: first step testing instrumentation w/ elastic RUM
+- test(producttour): add/ids
+
+### fix
+
+- **cleanup**: can not unselect first offer + fix translation loading
+
+### Fix
+
+- **login**: change translation when email exists
+- **flag**: england
+- **localization**: remove la suisse from locale created
+- **sentry**: fix versionning scheme on sentry
+- **report**: bug
+- **lint**: appbar
+
+### feat
+
+- **subscription**: private pass (RDV) available for subscription
+- **appbar**: user/menu
+
 ## 42.10.0 (2020-08-21)
 
 ### Fix

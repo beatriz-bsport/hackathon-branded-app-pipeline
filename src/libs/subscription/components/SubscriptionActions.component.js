@@ -37,15 +37,17 @@ export const SubscriptionActions = (props: Props) => {
       <Divider className={props.classes.divider} />
       <div className={props.classes.actionsContainer}>
         <div className={props.classes.row}>
-          <Button
-            className={props.classes.button}
-            variant="outlined"
-            onClick={props.requestPaymentPackSwitch}
-            disabled={!props.subscription.editable}
-          >
-            <RefreshIcon className={props.classes.leftIcon} />
-            {props.t('subscription.actions.switchPack')}
-          </Button>
+          {!!props.subscription.payment_pack && (
+            <Button
+              className={props.classes.button}
+              variant="outlined"
+              onClick={props.requestPaymentPackSwitch}
+              disabled={!props.subscription.editable}
+            >
+              <RefreshIcon className={props.classes.leftIcon} />
+              {props.t('subscription.actions.switchPack')}
+            </Button>
+          )}
           <Button
             className={props.classes.button}
             color="primary"

@@ -1867,7 +1867,7 @@
         "placeholder": "https://facebook.com/mon-studio/"
       },
       "general_terms_and_conditions": {
-        "label": "Condition générales de ventes",
+        "label": "Conditions générales de vente",
         "helperText": "Doivent être acceptées pour tout paiement et inscription",
         "placeholder": "J'atteste posséder un certificat médical et l'apporterai à mon studio"
       },
@@ -2910,7 +2910,8 @@
       "nbMonths": "Nombre de mois",
       "dateStart": "Première facturation",
       "firstBilling": "Premier encaissement",
-      "payment_pack": "Carte de cours"
+      "payment_pack": "Carte de cours",
+      "private_pass": "Carte RDV"
     },
     "schedule": { "provisionalTitle": "Echéancier prévisionnel", "paymentMethodTitle": "Méthode de débit" },
     "paymentMethod": {
@@ -3516,7 +3517,13 @@
       "actions": { "cancel": "Annuler", "submit": "Confirmer" }
     },
     "bookingList": "Réservations",
-    "bookingListEmpty": "Aucune réservation"
+    "bookingListEmpty": "Aucune réservation",
+    "liveOfferEdit": {
+      "editSimilarOffers": "Voulez-vous modifier les séances similaires selon ces nouvelles conditions ?",
+      "select": "Sélectionnez les séances qui seront modifiées",
+      "selectAll": "Tout sélectionner",
+      "unselectAll": "Tout désélectionner"
+    }
   },
   "emailTemplate": {
     "modal": {

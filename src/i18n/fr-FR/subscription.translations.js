@@ -240,6 +240,7 @@ exports.default = {
     dateStart: 'Première facturation',
     firstBilling: 'Premier encaissement',
     payment_pack: 'Carte de cours',
+    private_pass: 'Carte RDV',
   },
   schedule: {
     provisionalTitle: 'Echéancier prévisionnel',

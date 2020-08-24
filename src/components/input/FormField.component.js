@@ -324,6 +324,7 @@ export class FormField extends Component<Props, State> {
         return (
           <FormControl component="fieldset">
             <RadioGroup
+              id="recurrence_checkbox"
               aria-label={t('form.recurrence')}
               row
               name={id}

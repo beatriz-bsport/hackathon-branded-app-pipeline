@@ -326,7 +326,7 @@
                     "email": "per email"
                 },
                 "typePhone": "Numero di cellulare*",
-                "emailExistsInDB1": "Questa email è già registrata",
+                "emailExistsInDB1": "Questa e-mail è già registrata perché sei registrato/a ad un club o studio utilizzando bsport. Puoi utilizzare gli stessi identificativi.",
                 "emailExistsInDB2": "Accesso",
                 "confirmPasswordLabel": "Conferma",
                 "confirmPassword": "Password",
@@ -2592,6 +2592,10 @@
             "error": "Impossibile salvare la struttura",
             "create": {
                 "success": "Struttura creata con successo"
+            },
+            "restore": {
+                "error": "Impossibile ripristinare questa struttura",
+                "success": "Struttura ripristinata"
             }
         },
         "member": {
@@ -2821,7 +2825,10 @@
             "submit_stripe_footer": "Aggiorna",
             "forms": {
                 "stripe_footer_placeholder": "Nessuna menzione aggiuntiva"
-            }
+            },
+            "nf525Button": "Scarica",
+            "nf525Explain": "Bsport segue le procedure di conformità NF525, puoi scaricare il nostro certificato ufficiale qui.",
+            "nf525": "Certificazione"
         },
         "returnPayment": {
             "modal": {
@@ -3060,7 +3067,9 @@
             "subscribeAgain": "Iscriviti di nuovo",
             "voucher": "Offerta speciale",
             "trial_nb": "Numero di mesi offerti",
-            "recurrent_voucher": "Sconto su ogni fattura"
+            "recurrent_voucher": "Sconto su ogni fattura",
+            "private_pass": "Pass per appuntamenti",
+            "privatePass": "Pass per appuntamenti"
         },
         "contract": {
             "registerManager": {
@@ -3115,6 +3124,14 @@
                 },
                 "autoRenewal": {
                     "label": "Rinnovo tacito"
+                },
+                "object_type": {
+                    "paymentPack": "Scheda del corso",
+                    "privatePass": "Pass per appuntamenti",
+                    "label": "Tipo di abbonamento"
+                },
+                "error": {
+                    "missingObject": "Questo campo è obbligatorio"
                 }
             },
             "legal": "Informazioni legali",
@@ -3129,7 +3146,8 @@
             },
             "paymentPack": "Scheda del corso associata",
             "no": "No",
-            "yes": "Sì"
+            "yes": "Sì",
+            "privatePass": "Pass appuntamento associato"
         },
         "form": {
             "cancel": "Annulla",
@@ -3818,10 +3836,11 @@
             }
         },
         "settings": {
-            "lastDiscardBeforeMinutes": "Prima dell'inizio dell'attività, ultima cancellazione possibile",
+            "lastDiscardBeforeMinutes": "Le cancellazioni sono possibili fino al {{m}} prima dell'inizio della sessione",
             "title": "Impostazioni",
-            "lastBookingBeforeMinutes": "Prima dell'inizio dell'attività, ultima prenotazione possibile",
-            "firstBookingMinutesUntil": "Blocca le prenotazioni fino a "
+            "lastBookingBeforeMinutes": "È possibile prenotare questa attività fino a {{m}} prima dell'inizio della sessione",
+            "firstBookingMinutesUntil": "Le prenotazioni vengono bloccate entro {{m}} dall'inizio della sessione",
+            "conditions": "Condizioni"
         },
         "forms": {
             "create": {
@@ -4038,7 +4057,9 @@
             "unknown": "Nato il -",
             "bornIn_F": "Nato il {{-date}} - {{age}} anni",
             "bornIn": "Nato il {{-date}} - {{age}} anni"
-        }
+        },
+        "memberTermsAccepted": " sono stati accettati il {{- date}}",
+        "termsAndConditions": "Condizioni generali di vendita"
     },
     "booking": {
         "statusCode": {
@@ -4881,7 +4902,12 @@
         "noMoreOffers": "Nessuna sessione programmata",
         "cancel": "Annulla",
         "noEstablishement": "Gestisci le tue sale, la loro localizzazione, il loro riempimento e consulta il calendario qui",
-        "notificationToolTip": "Le notifiche sono impostate per le prenotazioni relative a questa struttura"
+        "notificationToolTip": "Le notifiche sono impostate per le prenotazioni relative a questa struttura",
+        "list": {
+            "section": {
+                "archived": "Struttura archiviata"
+            }
+        }
     },
     "datetime": {
         "time": {
@@ -5129,7 +5155,7 @@
             "title": "Password temporanea",
             "close": "Chiudi",
             "explain": "Questa password è valida fino al {{expirationDate}}. La tua password principale non è cambiata.",
-            "explainRequest": "Richiedi una password temporanea valida per 2 ore per consentire, ad esempio, ai nostri team di connettersi al tuo account per un periodo di tempo limitato. La tua password principale non cambierà.",
+            "explainRequest": "Richiedi una password temporanea valida per una settimana per consentire, ad esempio, ai nostri team di connettersi al tuo account per un tempo limitato. La tua password principale non cambia.",
             "submit": "Creare",
             "copied": "Password copiata",
             "copy": "Copia la password negli appunti"
@@ -5651,6 +5677,12 @@
             "showCancelled": "Visualizza gli annullamenti",
             "showWeek": "Visualizzazione per settimana",
             "showMonth": "Visualizzazione per mese"
+        },
+        "liveOfferEdit": {
+            "unselectAll": "Deseleziona tutto",
+            "selectAll": "Seleziona tutto",
+            "select": "Seleziona le sessioni che verranno modificate",
+            "editSimilarOffers": "Vuoi modificare TUTTE le sessioni simili in base a queste nuove condizioni?"
         }
     },
     "role": {

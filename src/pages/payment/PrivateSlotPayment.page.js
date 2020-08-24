@@ -9,31 +9,14 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose, withProps } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  replace,
-  push as pushRouter,
-  goBack as goBackRouter,
-} from 'connected-react-router';
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { replace } from 'connected-react-router';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
-
-import themeSelectors from '../../libs/theme/selectors';
-import AppBar from '../marketplace/AppBar.component';
-
-import MarketplaceBasketDialog from '../marketplace/MarketplaceBasketDialog.component';
-import { fetchCompanyTheme } from '../../libs/theme/actions';
-
-import {
-  consumer as consumerActions,
-  auth as authActions,
-} from '../../actions';
 import parse from '../../query-string';
-
-import { linkMeToCompany } from '../../libs/member/actions';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
@@ -105,19 +88,6 @@ type Props = {
   privateService: ?PrivateService,
 
   classes: Object,
-
-  fetchCurrentBasket: (companyId: number) => void,
-  currentBasket: ?Basket,
-  currentBasketLoading: boolean,
-  removeItemFromBasket: (basketId: string, data: any) => void,
-  addItemToBasket: (basketId: string, data: any) => void,
-  goToCheckout: (companyId: number) => void,
-
-  fetchProfile: () => void,
-  goToUserSpace: () => void,
-
-  disconnect: () => void,
-  auth: *,
 };
 
 type State = {
@@ -144,10 +114,6 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
     this.props.fetchCompatiblePrivateConsumerPass(this.props.privateSlotId, {
       date: moment(this.props.data.date).format('YYYY-MM-DD'),
     });
-
-    if (this.props.auth.authenticated) {
-      this.props.fetchProfile();
-    }
   }
 
   handleConsumerPassClick = (consumerPassId: number) => {
@@ -221,9 +187,6 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
     );
   };
 
-  toogleCurrentBasketOpen = (currentBasketOpen: boolean) =>
-    this.setState({ currentBasketOpen });
-
   render() {
     if (
       this.props.loading ||
@@ -240,85 +203,53 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
     const needAddress = this.props.privateService.is_home_service;
 
     return (
-      <div className={this.props.classes.subContainer}>
-        <AppBar
-          paper
-          auth={this.props.auth}
-          goToUserSpace={() => this.props.goToUserSpace(this.props.company)}
-          currentBasket={this.props.currentBasket}
-          openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
-          disconnect={() => {
-            this.props.disconnect();
-          }}
-        />
-        <div className={this.props.classes.container}>
-          <div className={this.props.classes.titleContainer}>
-            <ScheduleIcon
-              fontSize="large"
-              className={this.props.classes.leftIcon}
+      <div className={this.props.classes.container}>
+        <div className={this.props.classes.titleContainer}>
+          <ScheduleIcon
+            fontSize="large"
+            className={this.props.classes.leftIcon}
+          />
+          <Typography variant="h4">
+            {moment(this.props.data.date).format('LLLL')}
+          </Typography>
+        </div>
+        <div className={this.props.classes.paper}>
+          <Paper>
+            <PrivateServiceListItem
+              privateService={this.props.privateService}
             />
-            <Typography variant="h4">
-              {moment(this.props.data.date).format('LLLL')}
-            </Typography>
-          </div>
-          <div className={this.props.classes.paper}>
-            <Paper>
-              <PrivateServiceListItem
-                privateService={this.props.privateService}
-              />
-              <PrivateSlotListItem slot={this.props.privateSlot} />
-            </Paper>
-            <div className={this.props.classes.bookingCapabilities}>
-              {needAddress && !this.state.addressValidated ? (
-                <div className={this.props.classes.addressContainer}>
-                  <TextField
-                    label={this.props.t('bookerModule.address.label')}
-                    helperText={this.props.t('bookerModule.address.helperText')}
-                    onChange={(ev) =>
-                      this.setState({ address: ev.target.value })
-                    }
-                    value={this.state.address}
-                    variant="outlined"
-                    fullWidth
-                    multiline
-                    rows={5}
-                  />
-                  <Button
-                    onClick={() => this.setState({ addressValidated: true })}
-                  >
-                    {this.props.t('bookerModule.address.submit')}
-                  </Button>
-                </div>
-              ) : (
-                <BookingCapabilities
-                  loading={this.state.processing}
-                  privateConsumerPassList={
-                    this.props.compatiblePrivateConsumerPass
-                  }
-                  privatePassList={this.props.compatiblePrivatePass}
-                  onConsumerPassClick={this.handleConsumerPassClick}
-                  onPrivatePassClick={this.handlePrivatePassClick}
+            <PrivateSlotListItem slot={this.props.privateSlot} />
+          </Paper>
+          <div className={this.props.classes.bookingCapabilities}>
+            {needAddress && !this.state.addressValidated ? (
+              <div className={this.props.classes.addressContainer}>
+                <TextField
+                  label={this.props.t('bookerModule.address.label')}
+                  helperText={this.props.t('bookerModule.address.helperText')}
+                  onChange={(ev) => this.setState({ address: ev.target.value })}
+                  value={this.state.address}
+                  variant="outlined"
+                  fullWidth
+                  multiline
+                  rows={5}
                 />
-              )}
-            </div>
-            <MarketplaceBasketDialog
-              open={!!this.state.currentBasketOpen}
-              basket={this.props.currentBasket}
-              onCancel={() => this.toogleCurrentBasketOpen(false)}
-              loading={this.props.currentBasketLoading}
-              onRemoveCheckoutItem={(data) =>
-                this.props.removeItemFromBasket(
-                  this.props.currentBasket.id,
-                  data,
-                )
-              }
-              onAddCheckoutItem={(data) =>
-                this.props.addItemToBasket(this.props.currentBasket.id, data)
-              }
-              goToCheckout={() =>
-                this.props.goToCheckout(this.props.currentBasket.company)
-              }
-            />
+                <Button
+                  onClick={() => this.setState({ addressValidated: true })}
+                >
+                  {this.props.t('bookerModule.address.submit')}
+                </Button>
+              </div>
+            ) : (
+              <BookingCapabilities
+                loading={this.state.processing}
+                privateConsumerPassList={
+                  this.props.compatiblePrivateConsumerPass
+                }
+                privatePassList={this.props.compatiblePrivatePass}
+                onConsumerPassClick={this.handleConsumerPassClick}
+                onPrivatePassClick={this.handlePrivatePassClick}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -327,18 +258,6 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
 }
 
 const styles = (theme) => ({
-  subContainer: {
-    width: '100vw',
-    height: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flexDirection: 'column',
-    backgroundColor: '#efefef',
-    overflow: 'auto',
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(4),
-  },
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -367,19 +286,6 @@ const styles = (theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
   },
-  accountIcon: {
-    marginRight: theme.spacing(1),
-  },
-  loginButton: {
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    borderRadius: theme.shape.borderRadius,
-    padding: theme.spacing(1),
-    paddingRight: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-  },
 });
 
 export default compose(
@@ -396,11 +302,6 @@ export default compose(
   })),
   connect(
     (state, { privateServiceId, privateSlotId }) => ({
-      auth: state.auth,
-      currentBasket: getCurrentBasket(state),
-      currentBasketLoading: state.checkout.basket.current.loading,
-      theme: themeSelectors.getTheme(state),
-
       compatiblePrivateConsumerPass: getPrivateConsumerPassList(state),
       compatiblePrivatePass: getPrivatePassListWithPrivateService(state),
       privateSlot: getPrivateSlot(state, privateSlotId),
@@ -413,13 +314,6 @@ export default compose(
         state.privateService.privateConsumerPass.loading,
     }),
     {
-      linkMeToCompany,
-      fetchCompanyTheme,
-      disconnect: authActions.disconnect,
-      goToUserSpace: (id) => pushRouter(`/c/${id}/`),
-      goBack: goBackRouter,
-      fetchProfile: consumerActions.fetchProfile,
-
       fetchPrivateSlot,
       fetchPrivateService,
       fetchCompatiblePrivatePass,

@@ -159,6 +159,7 @@ exports.default = {
         label: 'Nom',
         helperText: 'Nom de la carte de cours',
       },
+      full_vod_access: 'Donne accès à la VOD tant que valable dans le temps',
       tax: {
         label: 'TVA',
       },

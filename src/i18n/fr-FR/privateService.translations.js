@@ -413,6 +413,9 @@ exports.default = {
     },
     form: {
       title: 'Carte RDV',
+      full_vod_access: {
+        label: 'Donne accès à la VOD tant que valable dans le temps',
+      },
       managerOnly: {
         label: 'Invisible pour les clients',
       },

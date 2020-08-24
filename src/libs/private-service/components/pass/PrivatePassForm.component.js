@@ -76,6 +76,12 @@ export const PrivatePassForm = (props: Props) => {
             label={t('privatePass.form.managerOnly.label')}
           />
         </div>
+        <div className={classes.field}>
+          <SwitchField
+            name="full_vod_access"
+            label={t('privatePass.form.full_vod_access.label')}
+          />
+        </div>
         <div className={classes.durationNbBlock}>
           <div className={classes.field}>
             <PaymentMethodSelectorField
@@ -178,6 +184,7 @@ export const PrivatePassSchema = Yup.object().shape({
   tax: Yup.number().required(),
   price: Yup.number().required(),
   manager_only: Yup.boolean().required(),
+  full_vod_access: Yup.boolean().required(),
   duration_days: Yup.number()
     .required()
     .integer()
@@ -205,6 +212,7 @@ export const PrivatePassFormikHOC = withFormik({
       credits: 1,
       price: null,
       manager_only: false,
+      full_vod_access: true,
       duration_days: 0,
       duration_months: 0,
       duration_years: 1,

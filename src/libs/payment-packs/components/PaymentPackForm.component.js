@@ -301,6 +301,13 @@ export function PaymentPackForm(props: Props) {
             {t('form.paymentPack.restrictionsTitle')}
           </legend>
           <Grid container>
+            <Grid item xs={12} id="full_vod_access">
+              <CheckboxField
+                name="full_vod_access"
+                disabled={!editable}
+                label={t('form.paymentPack.full_vod_access')}
+              />
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 id="textfield_restrictions_maxuser"
@@ -415,7 +422,9 @@ const PackSchema = Yup.object().shape({
   name: Yup.string().required(),
   price: Yup.number().min(0),
   tax: Yup.number().min(0),
-  credits: Yup.number().min(0).nullable(),
+  credits: Yup.number()
+    .min(0)
+    .nullable(),
   timeType: Yup.string().required(),
   expiration_days_before_first_use: Yup.number(),
   unlimited: Yup.boolean(),
@@ -423,22 +432,40 @@ const PackSchema = Yup.object().shape({
   start_date_method: Yup.number().required(),
   duration_days: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
-    then: Yup.number().min(0).required(),
-    otherwise: Yup.number().min(0).nullable(),
+    then: Yup.number()
+      .min(0)
+      .required(),
+    otherwise: Yup.number()
+      .min(0)
+      .nullable(),
   }),
   duration_months: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
-    then: Yup.number().min(0).required(),
-    otherwise: Yup.number().min(0).nullable(),
+    then: Yup.number()
+      .min(0)
+      .required(),
+    otherwise: Yup.number()
+      .min(0)
+      .nullable(),
   }),
   duration_years: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
-    then: Yup.number().min(0).required(),
-    otherwise: Yup.number().min(0).nullable(),
+    then: Yup.number()
+      .min(0)
+      .required(),
+    otherwise: Yup.number()
+      .min(0)
+      .nullable(),
   }),
-  max_bookings_per_week: Yup.number().min(0).nullable(),
-  max_purchase_per_member: Yup.number().min(0).nullable(),
-  max_bookings_per_day: Yup.number().min(0).nullable(),
+  max_bookings_per_week: Yup.number()
+    .min(0)
+    .nullable(),
+  max_purchase_per_member: Yup.number()
+    .min(0)
+    .nullable(),
+  max_bookings_per_day: Yup.number()
+    .min(0)
+    .nullable(),
   lower_date: Yup.date().when('timeType', {
     is: VALID_BY_DATERANGE,
     then: Yup.date().required(),
@@ -507,6 +534,7 @@ export default compose(
           new_member_only: false,
           manager_only: false,
           onsite_payment_available: false,
+          full_vod_access: true,
           start_date_method: `${START_ON_FIRST_BOOKING}`,
           expiration_days_before_first_use: 365,
           unlimited: false,
@@ -549,6 +577,7 @@ export default compose(
         'new_member_only',
         'manager_only',
         'onsite_payment_available',
+        'full_vod_access',
         'expiration_days_before_first_use',
         'start_date_method',
         'categories',

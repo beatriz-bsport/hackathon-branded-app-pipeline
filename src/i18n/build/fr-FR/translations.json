@@ -1456,6 +1456,7 @@
       "compatibleServices": { "title": "RDV compatibles", "add": "Ajouter", "isEmpty": "Aucun rendez-vous n'est compatible - inutilisable" },
       "form": {
         "title": "Carte RDV",
+        "full_vod_access": { "label": "Donne accès à la VOD tant que valable dans le temps" },
         "managerOnly": { "label": "Invisible pour les clients" },
         "name": { "label": "Nom" },
         "credits": { "label": "Nombre de crédit inclu", "helperText": "Chaque séance coûte un certain nombre de crédit" },
@@ -3287,6 +3288,7 @@
         "notEditable": "Cette carte de cours est issue d'une migration, certains champs ne sont pas modifiable pour respecter l'historique. Les activités/catégories compatibles restent modifiables.",
         "until": "Jusqu'au ",
         "name": { "label": "Nom", "helperText": "Nom de la carte de cours" },
+        "full_vod_access": "Donne accès à la VOD tant que valable dans le temps",
         "tax": { "label": "TVA" },
         "priceIncludingTax": { "helperText": "Prix pour le client pour la carte", "label": "Prix TTC" },
         "unlimited": "Crédits illimités",

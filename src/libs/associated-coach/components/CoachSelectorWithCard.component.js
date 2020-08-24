@@ -17,6 +17,7 @@ type Props = {
   placeholder: string,
   value: any,
   coaches: any,
+  id: number,
 };
 
 export class CoachSelector extends Component<Props, State> {
@@ -64,6 +65,7 @@ export class CoachSelector extends Component<Props, State> {
         ) : (
           <div>
             <Button
+              id={this.props.id}
               onClick={() => {
                 if (this.state.searchText === '') {
                   this.setState((prevstate) => ({

@@ -44,7 +44,7 @@ export function MetaActivityForm(props: Props) {
   const images = (props.initial || {}).images || [];
   return (
     <Form>
-      <ImageField name="cover_main" />
+      <ImageField id="button_activity_image" name="cover_main" />
       <Typography
         style={{ margin: 12 }}
         variant="caption"

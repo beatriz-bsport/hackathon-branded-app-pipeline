@@ -81,6 +81,7 @@ export class DurationInput extends Component<Props> {
         <Grid container direction="row">
           <Grid item>
             <TextField
+              id="duration_day"
               label="Duration"
               className={classes.inputText}
               defaultValue={null}
@@ -104,6 +105,7 @@ export class DurationInput extends Component<Props> {
           </Grid>
           <Grid item>
             <TextField
+              id="duration_hour"
               label=" "
               className={classes.inputText}
               defaultValue={null}
@@ -127,6 +129,7 @@ export class DurationInput extends Component<Props> {
           </Grid>
           <Grid item>
             <TextField
+              id="duration_minute"
               label=" "
               className={classes.inputText}
               defaultValue={0}

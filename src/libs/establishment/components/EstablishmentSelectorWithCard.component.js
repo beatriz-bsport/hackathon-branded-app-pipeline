@@ -16,6 +16,7 @@ type Props = {
   onChange: (?number) => void,
   placeholder: string,
   value: any,
+  id: number,
 };
 
 export class EstablishmentSelector extends Component<Props, State> {
@@ -71,6 +72,7 @@ export class EstablishmentSelector extends Component<Props, State> {
                   }));
                 }
               }}
+              id={this.props.id}
               className={this.props.classes.button}
             >
               <FuzeSearch

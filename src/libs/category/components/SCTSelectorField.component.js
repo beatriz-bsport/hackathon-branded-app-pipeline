@@ -25,6 +25,7 @@ export default (props: SelectFieldProps) => {
             </div>
           ) : null}
           <SCTSelector
+            id={props.id}
             nameCypress={`select-${props.name}`}
             {...field}
             {...omit(props, [

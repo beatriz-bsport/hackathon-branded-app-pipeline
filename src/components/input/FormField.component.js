@@ -332,16 +332,19 @@ export class FormField extends Component<Props, State> {
               onChange={this.handleChange}
             >
               <FormControlLabel
+                id="not_recurrent"
                 value={NOT_RECURRENT}
                 control={<Radio />}
                 label={t('form.notRecurrent')}
               />
               <FormControlLabel
+                id="weekly"
                 value={WEEKLY}
                 control={<Radio />}
                 label={t('form.weekly')}
               />
               <FormControlLabel
+                id="monthly"
                 value={MONTHLY}
                 control={<Radio />}
                 label={t('form.monthly')}
@@ -376,7 +379,12 @@ export class FormField extends Component<Props, State> {
             margin="normal"
           >
             <InputLabel htmlFor={`${id}-helper`}>{t('form.level')}</InputLabel>
-            <Select name="level" value={value} onChange={this.handleChange}>
+            <Select
+              id={this.props.id}
+              name="level"
+              value={value}
+              onChange={this.handleChange}
+            >
               {LEVELS.map((l) => (
                 <MenuItem value={l.id}>
                   <Level levelId={l.id} />

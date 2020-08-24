@@ -37,7 +37,7 @@ export class ColorInput extends Component<Props> {
               backgroundColor: this.props.color,
             }}
           />
-          <Typography color="textSecondary">
+          <Typography id={this.props.id} color="textSecondary">
             {this.props.color ? this.props.color : t('colorPicker.noColor')}
           </Typography>
         </ButtonBase>

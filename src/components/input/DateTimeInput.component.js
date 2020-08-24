@@ -19,10 +19,7 @@ type Props = {
 };
 
 const rebuildDatetime = (date, hour, minute) => {
-  return moment(date)
-    .set('hour', hour)
-    .set('minute', minute)
-    .format();
+  return moment(date).set('hour', hour).set('minute', minute).format();
 };
 
 export function DateTimeForm(props: Props) {
@@ -34,6 +31,7 @@ export function DateTimeForm(props: Props) {
         locale={Moment.locale()}
       >
         <DatePicker
+          id="date_picker"
           format="DD/MM/YYYY"
           keyboard
           disabled={props.disabled}
@@ -49,6 +47,7 @@ export function DateTimeForm(props: Props) {
           }
         />
         <TextField
+          id="time_picker"
           style={{ minWidth: 120 }}
           type="time"
           value={moment(props.value).format('HH:mm')}

@@ -402,6 +402,7 @@ export class OfferForm extends Component<Props, State> {
                     </Grid>
                     <Grid item>
                       <DatePicker
+                        id="last_date_picker"
                         format="DD/MM/YYYY"
                         keyboard
                         required
@@ -468,10 +469,9 @@ export class OfferForm extends Component<Props, State> {
             variant="contained"
             color="primary"
             type="submit"
-            id="button_sessions_add"
           >
             <AddIcon className={classes.leftIcon} />
-            {t('form.generateOffers')}
+            <div id="button_sessions_add">{t('form.generateOffers')}</div>
           </Button>
         )}
       </div>

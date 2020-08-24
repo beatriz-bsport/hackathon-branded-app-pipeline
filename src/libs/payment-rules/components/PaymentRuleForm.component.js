@@ -176,7 +176,6 @@ export function PaymentRuleFields(props: Props) {
                     </TableBody>
                   </Table>
                   <Button
-                    id="button_remuneration_add_new"
                     onClick={() => {
                       const max = lodash.maxBy(bonuses, 'variable_bonus');
                       push({
@@ -189,7 +188,7 @@ export function PaymentRuleFields(props: Props) {
                     color="secondary"
                   >
                     <AddIcon className={classes.leftButton} />
-                    {t('addBonus')}
+                    <div id="button_remuneration_add_new">{t('addBonus')}</div>
                   </Button>
                 </div>
               )}

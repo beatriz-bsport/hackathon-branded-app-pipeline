@@ -366,6 +366,7 @@ export const ColorField = (props: ColorFieldProps) => {
       {...props}
       render={({ field, form: { setFieldValue } }) => (
         <ColorInput
+          id={props.id}
           {...field}
           {...props}
           onChange={(color) => setFieldValue(props.name, color)}

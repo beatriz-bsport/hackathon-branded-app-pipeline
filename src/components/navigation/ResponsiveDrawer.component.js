@@ -163,6 +163,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
               </ListItemIcon>
             ) : null}
             <ListItemText
+              id={item.id}
               primary={item.text}
               secondary={item.subtext}
               secondaryTypographyProps={{
@@ -219,6 +220,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           ) : null}
 
           <ListItemText
+            id={item.id}
             primary={item.text}
             primaryTypographyProps={{
               style: { color: 'initial' },
@@ -473,6 +475,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           },
           {
             to: '/coach',
+            id: 'button_menu_teachers',
             icon: FitnessCenter,
             text: t('backofficeMenu.coaches'),
           },

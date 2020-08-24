@@ -23,6 +23,7 @@ type Props = {
   t: TFunction,
   classes: *,
   onChange: (*) => void,
+  id: number,
 };
 type State = {
   previewUrl: string,
@@ -77,7 +78,10 @@ export class ImageField extends Component<Props, State> {
                   />
                 ) : (
                   <Icon style={{ width: 140, height: 140 }}>
-                    <InsertPhotoIcon style={{ width: 140, height: 140 }} />
+                    <InsertPhotoIcon
+                      id={this.props.id}
+                      style={{ width: 140, height: 140 }}
+                    />
                   </Icon>
                 )}
               </Grid>

@@ -5,7 +5,6 @@ import { withRouter, Switch, Redirect, Route } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
-import Particles from 'react-particles-js';
 
 import Hidden from '@material-ui/core/Hidden';
 import { withProps, compose } from 'recompose';
@@ -16,7 +15,6 @@ import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { disconnect } from '../../actions/auth.actions';
 import themeSelectors from '../../libs/theme/selectors';
 import { getTheme } from '../../theme';
-import withErrorHidden from '../../hocs/error-boundary-hidden.hoc';
 
 import LoginPro from './LoginPro.component';
 import ValidateEmailWithTokenPage from './ValidateEmailWithToken.page';
@@ -30,8 +28,6 @@ import ChangePassword from './ChangePassword.component';
 const CompanyOnboardingRouter = asyncComponent(() =>
   import('./CompanyOnboarding.router'),
 );
-
-const ParticlesWithoutError = withErrorHidden(Particles);
 
 type Props = {
   membership: ?string,
@@ -78,28 +74,7 @@ export class LoginRouter extends React.Component<Props> {
                   width: '100vw',
                   height: '100vh',
                 }}
-              >
-                <ParticlesWithoutError
-                  id="particle-js"
-                  style={{
-                    position: 'fixed',
-                    zIndex: 0,
-                    width: '100%',
-                    height: '100vh',
-                  }}
-                  params={{
-                    particles: {
-                      number: {
-                        value: 20,
-                        density: {
-                          enable: true,
-                          value_area: 150,
-                        },
-                      },
-                    },
-                  }}
-                />
-              </div>
+              />
               <Fade in>
                 <img
                   src={

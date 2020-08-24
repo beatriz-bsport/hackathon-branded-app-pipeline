@@ -163,7 +163,7 @@ Buid Deploy Production:
       - production
   variables:
     ENVIRONMENT: production
-    FRONTEND_URL: backoffice.production.bsport.io
+    FRONTEND_URL: backoffice.bsport.io
     S3_BUCKET: s3://bsport-eu-backoffice-production/ 
     CLOUDFRONT_ID: E321VOI5045USU
     SLACK_WEBHOOK_URL: "${SLACK_PRODUCTION_WEBHOOK_URL}"

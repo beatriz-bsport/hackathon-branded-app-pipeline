@@ -137,7 +137,11 @@ export default compose(
     (state) => ({
       videoList: withCoach(withCategory(getVideoList))(state),
       loading: state.video.loading,
-      SCTs: state.category.SCTs,
+      SCTs: state.category.SCTs.filter((sct) =>
+        getVideoList(state)
+          .map((v) => v.SCT)
+          .includes(sct.id),
+      ),
       coaches: getActiveCoaches(state),
       hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
     }),

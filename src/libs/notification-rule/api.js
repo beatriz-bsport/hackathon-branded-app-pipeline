@@ -29,3 +29,11 @@ export const fetchEventTypeList = async () => {
 export const fetchTagList = async () => {
   return getAuth(`${NOTIFICATION_RULE_ENDPOINT}/rule/tags/`);
 };
+
+export const fetchSettingsList = async () => {
+  return getAuth(`${NOTIFICATION_RULE_ENDPOINT}/settings/`);
+};
+
+export const updateSettings = async (data: any) => {
+  return putAuth(`${NOTIFICATION_RULE_ENDPOINT}/settings/${data.id}/`, data);
+};

@@ -865,6 +865,12 @@
   },
   "notificationRule": {
     "pageTitle": "Emails transactionnels",
+    "caption": {
+      "active": "Activé",
+      "sendCopy": "Recevoir une copie du mail",
+      "event": "Événement",
+      "emailDesign": "Mail à envoyer"
+    },
     "ruleGroup": {
       "member": "Création de compte élève",
       "offer": "Séance",
@@ -2066,7 +2072,7 @@
         "helper": "Si une place se libère, l'élève dispose de N minutes pour s'inscrire, avant que le prochain ne prenne sa place."
       },
       "smart_delay_percentage": {
-        "label": "Gestion intellligente",
+        "label": "Gestion intelligente",
         "helper": "Si une place se libère, l'élève dispose d'un temps proportionnel au temps restant avant la séance."
       },
       "submit": "Enregistrer",
@@ -4105,6 +4111,30 @@
         "second": "€ pour les produits",
         "date": { "first": "achats effectués" }
       },
+      "25": {
+        "explanation": "A acheté la carte RDV A à Y date, avec X credits",
+        "name": "Cartes RDV",
+        "first": "une des cartes de RDV",
+        "has": "Possède",
+        "has_not": "Ne possède pas",
+        "second": "et",
+        "third": "à",
+        "credits": { "first": "crédits:", "second": "et" },
+        "date_bought": { "first": "date d'achat" },
+        "expiration": { "first_will_expire": "expire", "first_has_expire": "a expiré" }
+      },
+      "26": {
+        "name": "Nombre de rendez-vous",
+        "explanation": "A réservé X rendez-vous avec le professeur A, dans le lieu B, avec la carte RDV C...",
+        "first": "A réservé",
+        "second": "rendez-vous",
+        "between": "et",
+        "establishment": { "first": "dans les établissements", "second": "ou", "third": "à domicile" },
+        "private_pass": { "first": "avec les cartes RDV" },
+        "coach": { "first": "avec les professeurs" },
+        "date": { "first": "ayant lieu" },
+        "hour": { "first": "débutant entre", "second": "heures et", "third": "heures" }
+      },
       "400": {
         "explain": "possède un mot de passe sur bsport",
         "name": "Mot de passe",
@@ -4162,19 +4192,7 @@
       "before": "avant",
       "after": "après",
       "comparators": { "1": "inférieur (⩽)", "2": "supérieur (⩾)", "5": "égal", "6": "entre deux" },
-      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" },
-      "undefined": {
-        "explanation": "A acheté la carte RDV A à Y date, avec X credits",
-        "name": "Cartes RDV",
-        "first": "une des cartes de RDV",
-        "has": "Possède",
-        "has_not": "Ne possède pas",
-        "second": "et",
-        "third": "à",
-        "credits": { "first": "crédits:", "second": "et" },
-        "date_bought": { "first": "date d'achat" },
-        "expiration": { "first_will_expire": "expire", "first_has_expire": "a expiré" }
-      }
+      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" }
     }
   },
   "coachPerformance": {

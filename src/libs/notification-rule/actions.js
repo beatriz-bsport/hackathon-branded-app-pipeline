@@ -10,6 +10,8 @@ import {
   fetchEventTypeList as fetchEventTypeListAPI,
   fetchTagList as fetchTagListAPI,
   deleteNotificationRule as deleteNotificationRuleAPI,
+  fetchSettingsList as fetchSettingsListAPI,
+  updateSettings as updateSettingsAPI,
 } from './api';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
@@ -179,5 +181,54 @@ export function fetchEventTypeList() {
     }
 
     dispatch(eventTypeListActions.isLoading(false));
+  };
+}
+
+export const notificationRuleSettingsListActions = {
+  error: createAction('NOTIFICATION_RULE_SETTINGS/LIST/ERROR'),
+  isLoading: createAction('NOTIFICATION_RULE_SETTINGS/LIST/IS_LOADING'),
+  success: createAction('NOTIFICATION_RULE_SETTINGS/LIST/SUCCESS'),
+};
+
+export function fetchSettingsList() {
+  return async (dispatch: Dispatch) => {
+    dispatch(notificationRuleSettingsListActions.isLoading(true));
+    dispatch(notificationRuleSettingsListActions.error(null));
+
+    try {
+      const response = await fetchSettingsListAPI();
+      dispatch(notificationRuleSettingsListActions.success(response.data));
+      dispatch(notificationRuleSettingsListActions.error(null));
+    } catch (error) {
+      console.error(error);
+      dispatch(notificationRuleSettingsListActions.error(error));
+    }
+
+    dispatch(notificationRuleSettingsListActions.isLoading(false));
+  };
+}
+
+export const notificationRuleSettingUpdateActions = {
+  error: createAction('NOTIFICATION_RULE_SETTINGS/UPDATE/ERROR'),
+  isLoading: createAction('NOTIFICATION_RULE_SETTINGS/UPDATE/IS_LOADING'),
+  success: createAction('NOTIFICATION_RULE_SETTINGS/UPDATE/SUCCESS'),
+};
+
+export function updateSettings(data: any) {
+  return async (dispatch: Dispatch) => {
+    dispatch(notificationRuleSettingUpdateActions.isLoading(true));
+    dispatch(notificationRuleSettingUpdateActions.error(null));
+
+    try {
+      const response = await updateSettingsAPI(data);
+      dispatch(notificationRuleSettingUpdateActions.success(response.data));
+      dispatch(notificationRuleSettingUpdateActions.error(null));
+      dispatch(snackbarSuccess('notificationRule.createOrUpdate.success'));
+    } catch (error) {
+      console.error(error);
+      dispatch(notificationRuleSettingUpdateActions.error(error));
+    }
+
+    dispatch(notificationRuleSettingUpdateActions.isLoading(false));
   };
 }

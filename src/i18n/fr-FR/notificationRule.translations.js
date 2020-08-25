@@ -33,6 +33,12 @@ const {
 
 exports.default = {
   pageTitle: 'Emails transactionnels',
+  caption: {
+    active: 'Activé',
+    sendCopy: 'Recevoir une copie du mail',
+    event: 'Événement',
+    emailDesign: 'Mail à envoyer',
+  },
   ruleGroup: {
     member: 'Création de compte élève',
     offer: 'Séance',

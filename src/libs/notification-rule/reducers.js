@@ -9,6 +9,8 @@ import {
   eventTypeListActions,
   deleteNotificationRuleActions,
   tagAvailableListActions,
+  notificationRuleSettingsListActions,
+  notificationRuleSettingUpdateActions,
 } from './actions';
 
 import type { NotificationRuleState } from './types';
@@ -33,6 +35,15 @@ const initialState: NotificationRuleState = Immutable({
     data: [],
     loading: false,
     error: null,
+  },
+  settings: {
+    data: [],
+    loading: false,
+    error: null,
+    update: {
+      loading: false,
+      error: null,
+    },
   },
 });
 
@@ -88,6 +99,24 @@ export default handleActions(
     },
     [eventTypeListActions.error]: (state, { payload }) => {
       return state.setIn(['eventType', 'error'], payload);
+    },
+    [notificationRuleSettingsListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['settings', 'loading'], payload);
+    },
+    [notificationRuleSettingsListActions.error]: (state, { payload }) => {
+      return state.setIn(['settings', 'error'], payload);
+    },
+    [notificationRuleSettingsListActions.success]: (state, { payload }) => {
+      return state.setIn(['settings', 'data'], payload);
+    },
+    [notificationRuleSettingUpdateActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['settings', 'update', 'loading'], payload);
+    },
+    [notificationRuleSettingUpdateActions.error]: (state, { payload }) => {
+      return state.setIn(['settings', 'update', 'error'], payload);
+    },
+    [notificationRuleSettingUpdateActions.success]: (state, { payload }) => {
+      return state.setIn(['settings', 'data'], [payload]);
     },
   },
   initialState,

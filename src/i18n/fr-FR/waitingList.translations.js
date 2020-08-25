@@ -46,7 +46,7 @@ exports.default = {
         "Si une place se libère, l'élève dispose de N minutes pour s'inscrire, avant que le prochain ne prenne sa place.",
     },
     smart_delay_percentage: {
-      label: 'Gestion intellligente',
+      label: 'Gestion intelligente',
       helper:
         "Si une place se libère, l'élève dispose d'un temps proportionnel au temps restant avant la séance.",
     },

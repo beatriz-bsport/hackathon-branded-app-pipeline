@@ -560,15 +560,15 @@
                 "myFutureBookings": "Volgende sessies",
                 "waitingSlot": "Aan het wachten",
                 "confirmBooking": "Bevestigen",
-                "discardImpossibleExplain": "Weet u zeker dat u deze reservering wilt annuleren? Je annuleert te laat en je cursuskaart wordt niet opnieuw gecrediteerd (clubvoorwaarden).",
-                "discardPossibleExplain": "Weet u zeker dat u deze reservering wilt annuleren? Uw tegoed is weer bruikbaar.",
+                "discardImpossibleExplain": "Weet je zeker dat je deze reservering wil annuleren? Je annuleert te laat en je cursuskaart wordt niet opnieuw gecrediteerd (clubvoorwaarden).",
+                "discardPossibleExplain": "Weet je zeker dat je deze reservering wil annuleren? Uw tegoed is weer bruikbaar.",
                 "discardBookingTitle": "Annuleer de reservering",
                 "cancelBooking": "Annuleer de reservering",
                 "myPrivateBooking": "Afspraak"
             },
             "help": {
                 "explainCancelBookingOption": "De verwijdering is definitief, als u opnieuw een optie op deze sessie neemt, wordt uw plaats op de wachtlijst opnieuw geïnitialiseerd.",
-                "areYouSureCancelBookingOption": "Weet u zeker dat u uw optie wilt annuleren?"
+                "areYouSureCancelBookingOption": "Weet je zeker dat je je optie wil annuleren?"
             },
             "company": "Club",
             "myPrivatePass": "Mijn afspraakkaarten",
@@ -676,8 +676,8 @@
                     "explainHardDelete": "De sessie uit de lijst verwijderen? Let op: dit wordt onzichtbaar, deze handeling is onomkeerbaar! Als de sessie reserveringen bevat, wordt deze niet verwijderd.",
                     "buttonHardDelete": "Verwijderen"
                 },
-                "explainNotificationOnEdit": "Wilt je je klanten informeren over deze wijziging?",
-                "explainRecursiveOfferEdit": "Wilt je ALLE vergelijkbare sessies aanpassen aan deze nieuwe voorwaarden?",
+                "explainNotificationOnEdit": "Wil je je klanten informeren over deze wijziging?",
+                "explainRecursiveOfferEdit": "Wil je ALLE vergelijkbare sessies aanpassen aan deze nieuwe voorwaarden?",
                 "explainRecursiveOfferDelete": "Wil je ALLE vergelijkbare sessies verwijderen?",
                 "broadcast_link": {
                     "error": "De link is verkeerd. Het moet beginnen met http: // of https: // en mag geen spaties bevatten"
@@ -730,11 +730,11 @@
                     "sms": "via sms",
                     "email": "per email"
                 },
-                "rgpdTitle": "Hoe wilt u dat instructeurs contact met u opnemen voor annuleringen / tijdwijzigingen?",
+                "rgpdTitle": "Hoe wil je dat instructeurs contact met je opnemen voor annuleringen / tijdwijzigingen?",
                 "confirmPassword": "Wachtwoord",
                 "confirmPasswordLabel": "Bevestiging",
                 "emailExistsInDB2": "Aanmelden",
-                "emailExistsInDB1": "Deze email is reeds geregistreerd",
+                "emailExistsInDB1": "Deze email is reeds geregistreerd, omdat je via bsport reeds ingeschreven bent bij een club of studio. Je kan hetzelfde ID gebruiken.",
                 "typePhone": "Mobiele telefoon *"
             },
             "metaActivity": {
@@ -849,7 +849,7 @@
             "subShop": {
                 "delete": {
                     "title": "Verwijdering",
-                    "explain": "Weet je zeker dat je deze categorie wilt verwijderen? Alle elementen die het bevat, worden ook verwijderd"
+                    "explain": "Weet je zeker dat je deze categorie wenst te verwijderen? Alle elementen die het bevat, worden ook verwijderd"
                 }
             },
             "myShop": "Mijn winkel",
@@ -971,7 +971,7 @@
             "revertBookingWithInvoiceImpossibleExplain": "Deze reservering is reeds betaald door het lid en kan niet worden geannuleerd. U kunt de reservering echter doorgeven in \"Afwezig\"",
             "revertBookingExplain": {
                 "offerIsNotAvailable": "De reservering wordt verwijderd. De sessie is al geannuleerd en tegoeden worden niet terugbetaald als je \"teruggave\" niet hebt aangevinkt bij het annuleren",
-                "offerIsAvailable": "Weet u zeker dat u deze reservering wilt verwijderen? De gebruikte credits worden opnieuw gecrediteerd."
+                "offerIsAvailable": "Weet je zeker dat u deze reservering wil verwijderen? De gebruikte credits worden opnieuw gecrediteerd."
             },
             "revertBookingTitle": "Inschrijving annuleren",
             "wasRefunded": "Terugbetaald",
@@ -1230,7 +1230,7 @@
             "weekOverview": "Overzicht van uw week"
         },
         "show_cancelled_offers": "Toon geannuleerde sessies",
-        "quickInvoiceNoVoucher": "Laat de waarde van dit veld op 0 staan als je geen reductie wilt toepassen",
+        "quickInvoiceNoVoucher": "Laat de waarde van dit veld op 0 staan als je geen reductie wil toepassen",
         "quickInvoiceVoucher": "Kies de korting die je wenst toe te passen bij het factureren van de volgende pas",
         "metaActivityNotificationToolTip": "Er zijn meldingen voor reserveringen met betrekking tot dit item"
     },
@@ -1316,7 +1316,7 @@
         "delete": {
             "submit": "Verwijderen",
             "cancel": "Annuleren",
-            "content": "Weet je zeker dat je dit pakket wilt verwijderen? Deze operatie is onomkeerbaar, de reeds gedane aankopen en de lopende manden worden niet beïnvloed.",
+            "content": "Weet je zeker dat je dit pakket wil verwijderen? Deze operatie is onomkeerbaar, de reeds gedane aankopen en de actieve winkelmanden worden niet beïnvloed.",
             "title": "Pack verwijderen"
         },
         "detail": {
@@ -1383,7 +1383,7 @@
             "close": "sluiten",
             "submit": "Genereer",
             "explain": "Dit wachtwoord is geldig tot {{expirationDate}}. Uw hoofdwachtwoord is niet gewijzigd.",
-            "explainRequest": "Vraag een tijdelijk wachtwoord aan dat 2 uur geldig is, zodat bijvoorbeeld onze teams gedurende een beperkte tijd verbinding kunnen maken met uw account. Uw hoofdwachtwoord verandert niet.",
+            "explainRequest": "Vraag een tijdelijk wachtwoord aan dat een week geldig is, zodat bijvoorbeeld onze teams gedurende een beperkte tijd verbinding kunnen maken met je account. Je oorspronkelijk wachtwoord verandert niet.",
             "copied": "Wachtwoord gekopieerd",
             "copy": "Kopieer wachtwoord naar klembord"
         },
@@ -1641,7 +1641,7 @@
             "coaches": "Instructeurs"
         },
         "report": {
-            "delete_message": "Weet u zeker dat u het {{name}} - rapport wilt verwijderen?"
+            "delete_message": "Weet je zeker dat je het {{name}} - rapport wil verwijderen?"
         },
         "no": "Nee",
         "yes": "Ja",
@@ -1789,7 +1789,7 @@
                     "cancel": "annuleren",
                     "title": "Verwijderen melding",
                     "confirm": "Verwijderen",
-                    "content": "Weet je zeker dat je deze melding wilt verwijderen? Deze operatie is definitief"
+                    "content": "Weet je zeker dat je deze melding wil verwijderen? Deze operatie is definitief"
                 },
                 "smartListInclude": "Lijsten inbegrepen",
                 "smartList": "Uitgesloten lijsten"
@@ -1822,7 +1822,7 @@
             "addedOn": "Toegevoegd op ",
             "delete": {
                 "title": "De extensie verwijderen",
-                "explain": "Weet u zeker dat u de geldigheidsuitbreiding wilt verwijderen?",
+                "explain": "Weet je zeker dat je de geldigheidsuitbreiding wil verwijderen?",
                 "cancel": "Annuleren",
                 "confirm": "Bevestigen"
             },
@@ -1938,7 +1938,8 @@
                 "maxBookingPerDay": {
                     "helperText": "Leeg laten om geen limiet op te leggen",
                     "label": "Max gebruik per dag"
-                }
+                },
+                "full_vod_access": "Geeft toegang tot VOD zolang deze beschikbaar is"
             }
         },
         "details": {
@@ -2062,7 +2063,7 @@
         "forms": {
             "delete": {
                 "content": {
-                    "canDelete": "Weet u zeker dat u dit etablissement wilt verwijderen? Deze operatie is onomkeerbaar. Eerdere sessies en reserveringen worden niet beïnvloed",
+                    "canDelete": "Weet je zeker dat je deze vestiging wil verwijderen? Deze operatie is onomkeerbaar. Eerdere sessies en reserveringen worden niet beïnvloed",
                     "cannotDelete": "Kan dit etablissement niet verwijderen, er zijn sessies gepland in de toekomst. Controleer of ze zijn geannuleerd en vervolgens zijn verwijderd"
                 },
                 "title": "Vestiging verwijderen",
@@ -2109,7 +2110,12 @@
         },
         "establishment": "Vestiging ",
         "noEstablishement": "Beheer hier uw zalen, hun locatie, hun vulling en raadpleeg de kalender",
-        "notificationToolTip": "Er zijn meldingen voor reserveringen met betrekking tot dit item"
+        "notificationToolTip": "Er zijn meldingen voor reserveringen met betrekking tot dit item",
+        "list": {
+            "section": {
+                "archived": "Gearchiveerde vestiging"
+            }
+        }
     },
     "smartList": {
         "multiSelector": {
@@ -2152,7 +2158,7 @@
         },
         "modal": {
             "delete": {
-                "content": "Weet je zeker dat je deze smartlist wilt verwijderen? Deze operatie is definitief",
+                "content": "Weet je zeker dat je deze smartlist wil verwijderen? Deze operatie is definitief",
                 "cancel": "Annuleren",
                 "confirm": "Verwijderen",
                 "title": "Verwijdering van smartlist"
@@ -2556,7 +2562,7 @@
             "delete": {
                 "content": {
                     "cannotDelete": "Sessies zijn gepland in de toekomst, controleer of ze goed werden geannuleerd.",
-                    "canDelete": "Weet je zeker dat je deze workshop wilt verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze operatie is definitief."
+                    "canDelete": "Weet je zeker dat je deze workshop wil verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze operatie is definitief."
                 },
                 "actions": {
                     "cancel": "Annuleren",
@@ -2601,15 +2607,16 @@
             "delete": {
                 "cancel": "Annuleren",
                 "title": "Activiteit verwijderen",
-                "content": "Weet je zeker dat je deze workshop wilt verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze operatie is definitief.",
+                "content": "Weet je zeker dat je deze workshop wil verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze operatie is definitief.",
                 "confirm": "Verwijderen"
             }
         },
         "settings": {
-            "lastBookingBeforeMinutes": "Voor aanvang van de workshop, laatste reservering mogelijk",
-            "lastDiscardBeforeMinutes": "Voor aanvang van de workshop, laatste annulering mogelijk",
+            "lastBookingBeforeMinutes": "Reserveren voor deze activiteit is mogelijk tot {{m}}  voor aanvang van de sessie",
+            "lastDiscardBeforeMinutes": "Annuleren is mogelijk tot {{m}} voor aanvang van de sessie",
             "title": "Instellingen",
-            "firstBookingMinutesUntil": "Blokkeer in de toekomst reserveringen van meer dan "
+            "firstBookingMinutesUntil": "Reserveringen zijn geblokkeerd vóór {{m}} voor het begin van de sessie",
+            "conditions": "Voorwaarden"
         },
         "metaActivity": "Activiteit",
         "search": "Zoek een activiteit",
@@ -2664,13 +2671,13 @@
                 "lastname": "Sorteren op naam",
                 "firstname": "Sorteer op voornaam"
             },
-            "unevenQuickInvoices": "Op deze pagina bevinden zich nog open facturen zonder enig betaalmethode. Weet je zeker dat je wilt stoppen?"
+            "unevenQuickInvoices": "Op deze pagina bevinden zich nog open facturen zonder enig betaalmethode. Weet je zeker dat je wil stoppen?"
         },
         "substitute": "Vervanger",
         "manageOffer": "Beheer mijn reserveringen",
         "massDisabler": {
             "explainLoading": "Gelieve te wachten",
-            "explain": "Selecteer de periode waarover u uw sessies wilt annuleren. Leden die hebben geboekt, worden per e-mail op de hoogte gebracht en hun tegoed wordt automatisch teruggestort op de bijbehorende cursuskaart",
+            "explain": "Selecteer de periode waarover je je sessies wil annuleren. Leden die hebben geboekt, worden per e-mail op de hoogte gebracht en hun tegoed wordt automatisch teruggestort op de bijbehorende cursuskaart",
             "explainWarning": "LET OP deze handeling is onomkeerbaar.",
             "actions": {
                 "cancel": "Annuleren",
@@ -2687,6 +2694,12 @@
             "showCancelled": "Bekijk annuleringen",
             "showWeek": "Weekoverzicht",
             "showMonth": "Maandoverzicht"
+        },
+        "liveOfferEdit": {
+            "editSimilarOffers": "Wil je alle vergelijkbare sessies aanpassen aan deze nieuwe voorwaarden?",
+            "unselectAll": "Deselecteer alles",
+            "selectAll": "Alles selecteren",
+            "select": "Selecteer de te wijzigen sessies"
         }
     },
     "emailTemplate": {
@@ -2696,7 +2709,7 @@
             "delete": {
                 "confirm": "Verwijderen",
                 "title": "E-mailsjabloon verwijderen",
-                "content": "Weet u zeker dat u deze e-mailsjabloon wilt verwijderen? Deze operatie is definitief",
+                "content": "Weet je zeker dat je dit e-mail model wil verwijderen? Deze operatie is definitief",
                 "cancel": "Annuleren"
             }
         },
@@ -2723,7 +2736,7 @@
         },
         "copy": "kopie",
         "autoSave": "Automatische back-up",
-        "leaveAlert": "Weet je zeker dat je deze pagina wilt verlaten?",
+        "leaveAlert": "Weet je zeker dat je deze pagina wil verlaten?",
         "delete": "Verwijderen",
         "edit": "Wijzigen"
     },
@@ -2745,7 +2758,7 @@
             "deletion": "Verwijdering",
             "imported": "Document geïmporteerd!",
             "title": "Mijn Documenten",
-            "deleteFileMessage": "Weet u zeker dat u dit document wilt verwijderen?",
+            "deleteFileMessage": "Weet je zeker dat je dit document wil verwijderen?",
             "confirm": "Bevestigen",
             "add": "Voeg een document toe",
             "nofileSaved": "Geen documenten opgeslagen",
@@ -2856,7 +2869,9 @@
         "search": {
             "cancel": "Sluiten",
             "createMember": "Voeg een lid toe"
-        }
+        },
+        "memberTermsAccepted": " werden aanvaard op {{- date}}",
+        "termsAndConditions": "Algemene verkoopvoorwaarden"
     },
     "booking": {
         "bookingModule": {
@@ -3213,6 +3228,14 @@
                 },
                 "recurrent_price": {
                     "label": "Maandelijkse betaling"
+                },
+                "object_type": {
+                    "paymentPack": "Cursuskaart",
+                    "privatePass": "Afspraakkaart",
+                    "label": "Type abonnement"
+                },
+                "error": {
+                    "missingObject": "Dit veld is verplicht"
                 }
             },
             "registerManager": {
@@ -3245,12 +3268,13 @@
                     "confirm": "Verwijderen",
                     "cancel": "Annuleren"
                 },
-                "content": "Weet u zeker dat u dit contract wilt verwijderen?",
+                "content": "Weet je zeker dat je dit contract wil verwijderen?",
                 "title": "Annulering contract"
             },
             "paymentPack": "Bijbehorende leskaart",
             "no": "Neen",
-            "yes": "Ja"
+            "yes": "Ja",
+            "privatePass": "Bijbehorende afspraakkaart"
         },
         "action": {
             "revertCurrentExplain": "Annuleer de laatst geregistreerde factuur en blokkeer de cursuskaart",
@@ -3300,7 +3324,7 @@
                 "form": {
                     "title": "Verandering van cursuskaart",
                     "explain": "Deze cursuskaart wordt gefactureerd in plaats van de oude op alle toekomstige facturen. Sessies die met de oude kaart zijn geboekt, worden overgezet naar de nieuwe, zelfs als deze niet compatibel zou moeten zijn.",
-                    "warning": "De facturatie blijft hetzelfde, als u het maandelijkse bedrag wilt verhogen / verlagen, wijzig dan elke maandelijkse betaling afzonderlijk.",
+                    "warning": "De facturatie blijft hetzelfde, als je het maandelijkse bedrag wil verhogen / verlagen, wijzig dan elke maandelijkse betaling afzonderlijk.",
                     "cancel": "Annuleren",
                     "submit": "Opslaan"
                 }
@@ -3383,7 +3407,9 @@
             "nbMonths": "Aantal maanden",
             "dateStart": "Eerste facturering",
             "firstBilling": "Eerste incassering",
-            "payment_pack": "Cursuskaart"
+            "payment_pack": "Cursuskaart",
+            "private_pass": "Afspraakkaart",
+            "privatePass": "Afspraakkaart"
         },
         "cancel": "annuleren",
         "plannedInvoiceStatus": {
@@ -3503,7 +3529,7 @@
             },
             "delete": {
                 "title": "Verwijdering",
-                "content": "Weet je zeker dat je deze video wilt verwijderen? Deze operatie is onomkeerbaar.",
+                "content": "Weet je zeker dat je deze video wil verwijderen? Deze operatie is onomkeerbaar.",
                 "confirm": "Bevestigen",
                 "cancel": "Annuleren"
             },
@@ -3618,7 +3644,7 @@
             "urlHelper": "Voer de url in waarnaar de payload wordt verzonden",
             "modal": {
                 "delete": {
-                    "content": "Weet u zeker dat u deze webhook wilt verwijderen, dan is deze bewerking definitief",
+                    "content": "Weet je zeker dat je deze webhook wil verwijderen, deze bewerking is definitief",
                     "title": "Webhook verwijderen",
                     "cancel": "annuleren",
                     "confirm": "Bevestigen"
@@ -3686,7 +3712,7 @@
         },
         "privateSlot": {
             "delete": {
-                "explain": "Weet je zeker dat je deze sessie wilt verwijderen? Eerdere reserveringen worden niet beïnvloed. Deze operatie is definitief.",
+                "explain": "Weet je zeker dat je deze sessie wil verwijderen? Eerdere reserveringen worden niet beïnvloed. Deze operatie is definitief.",
                 "title": "Sessie verwijderen",
                 "cancel": "Annuleren",
                 "confirm": "Bevestigen"
@@ -3710,8 +3736,8 @@
             "delete": {
                 "consumer": {
                     "content": {
-                        "discardable": "Weet u zeker dat u deze afspraak wilt annuleren? Uw tegoed is weer beschikbaar.",
-                        "notDiscardable": "Weet u zeker dat u deze afspraak wilt annuleren? U heeft geen tijd meer, uw tegoed wordt niet bijgeschreven."
+                        "discardable": "Weet je zeker dat je deze afspraak wil annuleren? Je tegoed is weer beschikbaar.",
+                        "notDiscardable": "Weet je zeker dat je deze afspraak wil annuleren? Je hebt geen tijd meer, je tegoed wordt niet bijgeschreven."
                     },
                     "title": "Annulering reservering",
                     "cancel": "Annuleren",
@@ -3720,7 +3746,7 @@
                 "explainHardDelete": "Deze reservering is al geannuleerd. Als je de reservering verwijdert, verdwijnt deze volledig uit de agenda en verlies je de geschiedenis. Het wordt vergoed als het niet eerder was. Deze operatie is onomkeerbaar.",
                 "confirm": "Bevestigen",
                 "title": "Annulering reservering",
-                "explain": "Weet u zeker dat u deze reservering wilt annuleren? Deze operatie is onomkeerbaar.",
+                "explain": "Weet je zeker dat je deze reservering wil annuleren? Deze operatie is onomkeerbaar.",
                 "explainForceRefund": "Restitutie van het tegoed dat op de kaart is gebruikt om een nieuwe reservering mogelijk te maken.",
                 "cancel": "Annuleren",
                 "sendCancellationMail": "Breng {{name}} op de hoogte van de annulering van de afspraak via e-mail"
@@ -3761,7 +3787,7 @@
         },
         "privateService": {
             "delete": {
-                "explain": "Weet je zeker dat je deze afspraak wilt verwijderen? Deze wijziging is definitief. Reeds geregistreerde reserveringen worden niet beïnvloed.",
+                "explain": "Weet je zeker dat je deze afspraak wil verwijderen? Deze wijziging is definitief. Reeds geregistreerde reserveringen worden niet beïnvloed.",
                 "title": "De afspraak verwijderen",
                 "cancel": "Annuleren",
                 "submit": "Verwijderen",
@@ -3924,7 +3950,7 @@
                 "delete": {
                     "confirm": "Bevestigen",
                     "cancel": "Annuleren",
-                    "explain": "Bent u zeker dat u de geldigheidsextensie wilt verwijderen?",
+                    "explain": "Ben je zeker dat je de geldigheidsextensie wil verwijderen?",
                     "title": "Verwijderen van de extensie"
                 },
                 "addedOn": "Toegevoegd op ",
@@ -3933,7 +3959,7 @@
         },
         "privateServiceCompatibility": {
             "delete": {
-                "explain": "Weet u zeker dat u de gebruiksregels voor passen wilt wijzigen? Deze wijziging heeft terugwerkende kracht voor reeds gedane aankopen.",
+                "explain": "Weet je zeker dat je de gebruiksregels voor passen wil wijzigen? Deze wijziging heeft terugwerkende kracht voor reeds gedane aankopen.",
                 "title": "Compatibele afspraakwijziging",
                 "cancel": "Annuleren",
                 "submit": "Verwijderen"
@@ -3983,11 +4009,14 @@
                 },
                 "price": {
                     "label": "Prijs"
+                },
+                "full_vod_access": {
+                    "label": "Geeft toegang tot VOD zolang deze beschikbaar is"
                 }
             },
             "delete": {
                 "title": "Kaart verwijderen",
-                "explain": "Weet je zeker dat je deze kaart wilt verwijderen? Mensen die nog credits hebben, kunnen deze nog steeds gebruiken. Deze operatie is definitief",
+                "explain": "Weet je zeker dat je deze kaart wil verwijderen? Mensen die nog credits hebben, kunnen deze nog steeds gebruiken. Deze operatie is definitief",
                 "cancel": "Annuleren",
                 "submit": "Bevestigen",
                 "delete": "Verwijderen"
@@ -4068,7 +4097,7 @@
                 },
                 "delete": {
                     "title": "De afspraak verwijderen",
-                    "content": "Weet u zeker dat u dit type afspraak wilt verwijderen?",
+                    "content": "Weet je zeker dat je dit type afspraak wil verwijderen?",
                     "cancel": "Annuleren",
                     "confirm": "Verwijderen"
                 },
@@ -4200,7 +4229,7 @@
         "privateCoach": {
             "delete": {
                 "title": "Instructeur uitschrijven",
-                "explain": "Weet je zeker dat je de opdracht van deze instructeur wilt verwijderen? Hij kan op deze afspraak geen reserveringen meer aannemen. Opgenomen reserveringen worden niet beïnvloed.",
+                "explain": "Weet je zeker dat je de opdracht van deze instructeur wil verwijderen? Hij kan op deze afspraak geen reserveringen meer aannemen. Opgenomen reserveringen worden niet beïnvloed.",
                 "cancel": "Annuleren",
                 "submit": "Bevestigen"
             }
@@ -4208,7 +4237,7 @@
         "privateEstablishment": {
             "delete": {
                 "title": "Uitschrijven van de zaal",
-                "explain": "Weet je zeker dat je de locatie van deze afspraak wilt wijzigen? Zonder vestiging wordt het beschouwd als een afspraak thuis en moeten de cursisten hun adres invoeren om de reservering te voltooien. Reeds geregistreerde reserveringen worden niet beïnvloed.",
+                "explain": "Weet je zeker dat je de locatie van deze afspraak wil wijzigen? Zonder vestiging wordt het beschouwd als een afspraak thuis en moeten de cursisten hun adres invoeren om de reservering te voltooien. Reeds geregistreerde reserveringen worden niet beïnvloed.",
                 "cancel": "Annuleren",
                 "submit": "Bevestigen"
             }
@@ -4348,7 +4377,7 @@
                 "title": "{{ shopitem.name }} verwijderen",
                 "cancel": "Annuleren",
                 "confirm": "Verwijderen",
-                "explain": "Weet je zeker dat je dit item uit de winkel wilt verwijderen? Deze operatie is onomkeerbaar, u heeft geen toegang meer tot de inventarisgeschiedenis."
+                "explain": "Weet je zeker dat je dit item uit de winkel wil verwijderen? Deze operatie is onomkeerbaar, je hebt geen toegang meer tot de inventarisgeschiedenis."
             }
         },
         "shopitem": {
@@ -4674,6 +4703,10 @@
             },
             "update": {
                 "success": "Vestiging succesvol gewijzigd"
+            },
+            "restore": {
+                "error": "De vestiging kan niet worden geactiveerd",
+                "success": "Vestiging opnieuw actief"
             }
         },
         "member": {
@@ -4868,6 +4901,16 @@
                 "error": "Kan opmerking niet verwijderen",
                 "success": "Opmerking verwijderd"
             }
+        },
+        "bookingNotification": {
+            "delete": {
+                "error": "Melding kan niet verwijderd worden",
+                "success": "Melding verwijderd"
+            },
+            "createOrUpdate": {
+                "error": "Melding kan niet opgeslagen worden",
+                "success": "Melding succesvol opgeslagen"
+            }
         }
     },
     "coach": {
@@ -4887,7 +4930,7 @@
             "error_email_exists": "Er bestaat al een instructeur met dit e-mailadres. Gebruik het formulier voor het aanmaken \"Instructeur\"",
             "delete": {
                 "content": {
-                    "canDelete": "Weet je zeker dat je deze instructeur wilt verwijderen? U heeft geen toegang meer tot de berekening van zijn bezoldiging. Je kunt dit opnieuw toevoegen vanuit zijn e-mail.",
+                    "canDelete": "Weet je zeker dat je deze instructeur wil verwijderen? Je hebt geen toegang meer tot de berekening van de betalingen. Je kan hem\\haar opnieuw toevoegen via zijn/haar e-mail.",
                     "cannotDelete": "Je kunt deze instructeur niet verwijderen omdat er in de toekomst sessies zijn gepland!"
                 },
                 "actions": {
@@ -5008,7 +5051,7 @@
     "coupon": {
         "modal": {
             "delete": {
-                "content": "Weet je zeker dat je deze promotiecode wilt verwijderen? Je hebt geen toegang meer tot de gebruiksgeschiedenis. Deze operatie is definitief.",
+                "content": "Weet je zeker dat je deze promotiecode wil verwijderen? Je hebt geen toegang meer tot de gebruiksgeschiedenis. Deze operatie is definitief.",
                 "title": "Verwijdering",
                 "actions": {
                     "cancel": "Annuleren",
@@ -5208,7 +5251,7 @@
             "delete": {
                 "cancel": "Annuleren",
                 "title": "Schrapping van de workshop",
-                "content": "Weet je zeker dat je deze workshop wilt verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze operatie is definitief.",
+                "content": "Weet je zeker dat je deze workshop wil verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze operatie is definitief.",
                 "confirm": "Verwijderen"
             }
         },
@@ -5220,7 +5263,7 @@
                 },
                 "title": "Schrapping van de workshop",
                 "content": {
-                    "canDelete": "Weet je zeker dat je deze workshop wilt verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze operatie is definitief.",
+                    "canDelete": "Weet je zeker dat je deze workshop wil verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze operatie is definitief.",
                     "cannotDelete": "Sessies zijn gepland in de toekomst, controleer of ze worden verwijderd en niet alleen worden geannuleerd."
                 }
             }
@@ -5442,7 +5485,10 @@
             "submit_stripe_footer": "Update",
             "forms": {
                 "stripe_footer_placeholder": "Geen aanvullende vermelding"
-            }
+            },
+            "nf525Button": "Downloaden",
+            "nf525Explain": "Bsport volgt de NF525-nalevingsprocedures, je kan het officiële certificaat hier downloaden.",
+            "nf525": "Certificatie"
         },
         "section": {
             "paymentList": {
@@ -5563,7 +5609,7 @@
         "dialog": {
             "delete": {
                 "title": "Verwijdering van de wachtlijst",
-                "content": "Weet je zeker dat je dit lid van de wachtlijst wilt verwijderen? Het wordt per e-mail gemeld.",
+                "content": "Weet je zeker dat je dit lid van de wachtlijst wil verwijderen? Het wordt per e-mail gemeld.",
                 "cancel": "Annuleren",
                 "confirm": "Verwijderen"
             }
@@ -5595,7 +5641,7 @@
                 },
                 "delete": {
                     "title": "Verwijdering van personeelsaccount",
-                    "content": "Weet je zeker dat je dit account wilt verwijderen?",
+                    "content": "Weet je zeker dat je dit account wil verwijderen?",
                     "cancel": "Annuleren",
                     "confirm": "Verwijderen"
                 }
@@ -5708,7 +5754,7 @@
             "copy": "Kopiëren",
             "url": "Link kalender",
             "code": "Widget op je website",
-            "choice": "Kies hoe je je widget wilt weergeven",
+            "choice": "Kies hoe je je widget wil weergeven",
             "visualisation": "Visualisatie",
             "widget": "Deel je agenda",
             "displayType": "Weergavetype",

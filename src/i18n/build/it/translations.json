@@ -1768,6 +1768,9 @@
                 "credits": {
                     "label": "Numero di crediti inclusi",
                     "helperText": "Ogni sessione costa un certo numero di crediti"
+                },
+                "full_vod_access": {
+                    "label": "Fornisce accesso al video on demand finché è valido nel tempo"
                 }
             },
             "delete": {
@@ -3718,7 +3721,8 @@
                 "maxBookingPerDay": {
                     "helperText": "Lasciare vuoto per non imporre un limite",
                     "label": "Utilizzo massimo al giorno"
-                }
+                },
+                "full_vod_access": "Fornisce accesso al video on demand finché è valido nel tempo"
             }
         },
         "details": {

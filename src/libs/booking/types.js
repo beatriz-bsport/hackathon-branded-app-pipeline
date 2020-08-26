@@ -81,7 +81,7 @@ export type Notification = {
   company: number,
   establishment?: number,
   meta_activity?: number,
-  notifify_booking_nb: number,
+  notify_booking_nb: number,
   active: boolean,
   email_design: number,
   hours: number,

@@ -26,9 +26,10 @@ import NumericInput from '../../../components/input/NumericInput.component';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import type { Notification } from '../types';
 
-const BOOKING_CREATION_NOTIFICATION_BOOKING = 0;
-const BOOKING_CREATION_NOTIFICATION_ATTENDANCE = 1;
-const BOOKING_CREATION_NOTIFICATION_CANCELLATION = 2;
+const BOOKING_NOTIFICATION_VALID_ATTENDANCE = 3;
+const BOOKING_NOTIFICATION_VALID_ABSENCE = 4;
+const BOOKING_NOTIFICATION_CANCELLED_REFUNDED = 5;
+const BOOKING_NOTIFICATION_CANCELLED_NOT_REFUNDED = 6;
 
 type Props = {
   t: TFunction,
@@ -45,11 +46,13 @@ type Props = {
   notification?: Notification,
   onSubmit: (data: any) => void,
   nextStep: () => void,
+  update: boolean,
 };
 
 export class BookingCreationNotificationForm extends Component<Props, State> {
   state = {
-    kind: BOOKING_CREATION_NOTIFICATION_BOOKING,
+    bookingStatus: 'valid',
+    kind: BOOKING_NOTIFICATION_VALID_ATTENDANCE,
     when: 'before',
     displayMailPreview: false,
     selectedMail: null,
@@ -62,13 +65,16 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
   };
 
   computeKind = () => {
-    if (this.state.kind === BOOKING_CREATION_NOTIFICATION_BOOKING) {
-      return 'booking';
-    }
-    if (this.state.kind === BOOKING_CREATION_NOTIFICATION_ATTENDANCE) {
+    if (this.state.kind === BOOKING_NOTIFICATION_VALID_ATTENDANCE) {
       return 'attendance';
     }
-    return 'cancellation';
+    if (this.state.kind === BOOKING_NOTIFICATION_VALID_ABSENCE) {
+      return 'absence';
+    }
+    if (this.state.kind === BOOKING_NOTIFICATION_CANCELLED_REFUNDED) {
+      return 'refunded';
+    }
+    return 'notRefunded';
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -79,9 +85,6 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
       this.props.getEmails();
       this.setState({
         when: this.props.notification ? this.computeWhen() : 'before',
-        kind: this.props.notification
-          ? this.props.notification.kind
-          : BOOKING_CREATION_NOTIFICATION_BOOKING,
         displayMailPreview: false,
         hours: this.props.notification
           ? Math.abs(this.props.notification.hours)
@@ -96,12 +99,18 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
               ).id
             : null,
       });
+      if (this.props.update && !prevProps.update) {
+        this.setState({
+          kind: this.props.notification
+            ? this.props.notification.kind
+            : BOOKING_NOTIFICATION_VALID_ATTENDANCE,
+          notify_booking_nb: this.props.notification
+            ? this.props.notification.notify_booking_nb
+            : 1,
+        });
+      }
     }
   }
-
-  handleChange = (ev: any) => {
-    this.setState({ [ev.target.name]: ev.target.checked });
-  };
 
   renderLoadingOrEmpty = (loading: boolean, emails: Array<any>) => {
     if (loading) {
@@ -243,10 +252,7 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
       !!this.state.hours &&
       this.state.hours > 0 &&
       this.state.hours < 32767 &&
-      !!this.state.selectedMail &&
-      !!this.state.notify_booking_nb &&
-      this.state.notify_booking_nb > 0 &&
-      this.state.notify_booking_nb <= 32767
+      !!this.state.selectedMail
     );
   };
 
@@ -262,9 +268,44 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
     const { t, classes } = this.props;
     return (
       <div className={classes.dialogContainer}>
+        <Typography variant="body2" className={this.props.classes.explain}>
+          {t('booking:notification.form.explain')}
+        </Typography>
         <div className={classes.fieldContainer}>
           <Typography variant="subtitle2">
-            {t('booking:notification.form.chooseKindTitle')}
+            {t('booking:notification.form.chooseStatus.title')}
+          </Typography>
+          <RadioGroup
+            value={this.state.bookingStatus}
+            onChange={(ev) =>
+              this.setState({
+                bookingStatus: ev.target.value,
+                kind:
+                  ev.target.value === 'valid'
+                    ? BOOKING_NOTIFICATION_VALID_ATTENDANCE
+                    : BOOKING_NOTIFICATION_CANCELLED_REFUNDED,
+              })
+            }
+          >
+            <FormControlLabel
+              value="valid"
+              control={<Radio checked={this.state.bookingStatus === 'valid'} />}
+              label={t('booking:notification.form.chooseStatus.valid')}
+              classes={{ label: classes.label }}
+            />
+            <FormControlLabel
+              value="cancelled"
+              control={
+                <Radio checked={this.state.bookingStatus === 'cancelled'} />
+              }
+              label={t('booking:notification.form.chooseStatus.cancelled')}
+              classes={{ label: classes.label }}
+            />
+          </RadioGroup>
+        </div>
+        <div className={classes.fieldContainer}>
+          <Typography variant="subtitle2">
+            {t('booking:notification.form.chooseKind.title')}
           </Typography>
           <RadioGroup
             aria-label="Applies to "
@@ -276,43 +317,64 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
               })
             }
           >
-            <FormControlLabel
-              value={BOOKING_CREATION_NOTIFICATION_BOOKING}
-              control={
-                <Radio
-                  checked={
-                    this.state.kind === BOOKING_CREATION_NOTIFICATION_BOOKING
+            {this.state.bookingStatus === 'valid' ? (
+              <>
+                <FormControlLabel
+                  value={BOOKING_NOTIFICATION_VALID_ATTENDANCE}
+                  control={
+                    <Radio
+                      checked={
+                        this.state.kind ===
+                        BOOKING_NOTIFICATION_VALID_ATTENDANCE
+                      }
+                    />
                   }
+                  label={t('booking:notification.form.chooseKind.attendance')}
+                  classes={{ label: classes.label }}
                 />
-              }
-              label={t('booking:notification.form.choicesKind.booking')}
-              classes={{ label: classes.label }}
-            />
-            <FormControlLabel
-              value={BOOKING_CREATION_NOTIFICATION_ATTENDANCE}
-              control={
-                <Radio
-                  checked={
-                    this.state.kind === BOOKING_CREATION_NOTIFICATION_ATTENDANCE
+                <FormControlLabel
+                  value={BOOKING_NOTIFICATION_VALID_ABSENCE}
+                  control={
+                    <Radio
+                      checked={
+                        this.state.kind === BOOKING_NOTIFICATION_VALID_ABSENCE
+                      }
+                    />
                   }
+                  label={t('booking:notification.form.chooseKind.absence')}
+                  classes={{ label: classes.label }}
                 />
-              }
-              label={t('booking:notification.form.choicesKind.attendance')}
-              classes={{ label: classes.label }}
-            />
-            <FormControlLabel
-              value={BOOKING_CREATION_NOTIFICATION_CANCELLATION}
-              control={
-                <Radio
-                  checked={
-                    this.state.kind ===
-                    BOOKING_CREATION_NOTIFICATION_CANCELLATION
+              </>
+            ) : (
+              <>
+                <FormControlLabel
+                  value={BOOKING_NOTIFICATION_CANCELLED_REFUNDED}
+                  control={
+                    <Radio
+                      checked={
+                        this.state.kind ===
+                        BOOKING_NOTIFICATION_CANCELLED_REFUNDED
+                      }
+                    />
                   }
+                  label={t('booking:notification.form.chooseKind.refunded')}
+                  classes={{ label: classes.label }}
                 />
-              }
-              label={t('booking:notification.form.choicesKind.cancellation')}
-              classes={{ label: classes.label }}
-            />
+                <FormControlLabel
+                  value={BOOKING_NOTIFICATION_CANCELLED_NOT_REFUNDED}
+                  control={
+                    <Radio
+                      checked={
+                        this.state.kind ===
+                        BOOKING_NOTIFICATION_CANCELLED_NOT_REFUNDED
+                      }
+                    />
+                  }
+                  label={t('booking:notification.form.chooseKind.notRefunded')}
+                  classes={{ label: classes.label }}
+                />
+              </>
+            )}
           </RadioGroup>
           <div className={classes.inlineContainer}>
             <Typography variant="caption">
@@ -452,7 +514,7 @@ const styles = (theme) => ({
   },
   bottomButtons: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
   },
   smartListSelector: {
     marginTop: theme.spacing(2),
@@ -518,6 +580,10 @@ const styles = (theme) => ({
   },
   example: {
     color: 'grey',
+  },
+  explain: {
+    paddingLeft: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 });
 

@@ -27,8 +27,13 @@ import type { Notification } from '../types';
 
 import BookingCreationNotificationForm from './BookingCreationNotificationForm.component';
 
-const BOOKING_CREATION_NOTIFICATION_BOOKING = 0;
-const BOOKING_CREATION_NOTIFICATION_ATTENDANCE = 1;
+const BOOKING_CREATION_NOTIFICATION_BOOKING_DEPRECATED = 0;
+const BOOKING_CREATION_NOTIFICATION_ATTENDANCE_DEPRECATED = 1;
+const BOOKING_CREATION_NOTIFICATION_CANCELLATION_DEPRECATED = 2;
+
+const BOOKING_NOTIFICATION_VALID_ATTENDANCE = 3;
+const BOOKING_NOTIFICATION_VALID_ABSENCE = 4;
+const BOOKING_NOTIFICATION_CANCELLED_REFUNDED = 5;
 
 type Props = {
   classes: Object,
@@ -52,6 +57,7 @@ type State = {
   openPreForm: boolean,
   openForm: boolean,
   openDeleteModal: boolean,
+  update: boolean,
 };
 
 class BookingCreationNotification extends Component<Props, State> {
@@ -60,6 +66,7 @@ class BookingCreationNotification extends Component<Props, State> {
     openPreForm: false,
     openForm: false,
     openDeleteModal: false,
+    update: false,
   };
 
   onformSubmit = (data) => {
@@ -73,6 +80,7 @@ class BookingCreationNotification extends Component<Props, State> {
         selectedNotification: null,
         openForm: false,
         openPreForm: false,
+        update: false,
       });
     } else {
       this.props.createNotification({
@@ -83,6 +91,7 @@ class BookingCreationNotification extends Component<Props, State> {
         selectedNotification: null,
         openForm: false,
         openPreForm: false,
+        update: false,
       });
     }
   };
@@ -90,13 +99,27 @@ class BookingCreationNotification extends Component<Props, State> {
   nextStep = () => this.setState({ openPreForm: false, openForm: true });
 
   computeKind = (notif) => {
-    if (notif.kind === BOOKING_CREATION_NOTIFICATION_BOOKING) {
-      return 'booking';
+    // Deprecated stuff, for compatibilité reasons
+    if (notif.kind === BOOKING_CREATION_NOTIFICATION_BOOKING_DEPRECATED) {
+      return 'bookingDeprecated';
     }
-    if (notif.kind === BOOKING_CREATION_NOTIFICATION_ATTENDANCE) {
+    if (notif.kind === BOOKING_CREATION_NOTIFICATION_CANCELLATION_DEPRECATED) {
+      return 'cancelledDeprecated';
+    }
+    // ---------------------------------------------------------------------------
+    if (
+      notif.kind === BOOKING_NOTIFICATION_VALID_ATTENDANCE ||
+      notif.kind === BOOKING_CREATION_NOTIFICATION_ATTENDANCE_DEPRECATED
+    ) {
       return 'attendance';
     }
-    return 'cancellation';
+    if (notif.kind === BOOKING_NOTIFICATION_VALID_ABSENCE) {
+      return 'absence';
+    }
+    if (notif.kind === BOOKING_NOTIFICATION_CANCELLED_REFUNDED) {
+      return 'refunded';
+    }
+    return 'notRefunded';
   };
 
   renderPrimaryNotifText = (notif) => {
@@ -154,10 +177,12 @@ class BookingCreationNotification extends Component<Props, State> {
                 }
                 inputProps={{ 'aria-label': 'secondary checkbox' }}
               />
-              <ListItemText
-                primary={this.renderPrimaryNotifText(notif)}
-                secondary={this.renderSecondaryNotifText(notif)}
-              />
+              <div className={this.props.classes.text}>
+                <ListItemText
+                  primary={this.renderPrimaryNotifText(notif)}
+                  secondary={this.renderSecondaryNotifText(notif)}
+                />
+              </div>
               <ListItemSecondaryAction>
                 <IconButton
                   edge="end"
@@ -167,6 +192,7 @@ class BookingCreationNotification extends Component<Props, State> {
                     this.setState({
                       openForm: true,
                       selectedNotification: notif,
+                      update: true,
                     })
                   }
                 >
@@ -205,6 +231,7 @@ class BookingCreationNotification extends Component<Props, State> {
               selectedNotification: null,
               openForm: false,
               openPreForm: false,
+              update: false,
             })
           }
           emails={this.props.emails}
@@ -215,6 +242,7 @@ class BookingCreationNotification extends Component<Props, State> {
           emailDetailLoading={this.props.emailDetailLoading}
           onSubmit={this.onformSubmit}
           nextStep={this.nextStep}
+          update={this.state.update}
         />
         <Dialog open={this.state.openDeleteModal}>
           <DialogTitle>
@@ -278,6 +306,9 @@ const styles = (theme) => ({
   bottomButtons: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  text: {
+    width: '70%',
   },
 });
 

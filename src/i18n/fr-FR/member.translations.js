@@ -56,7 +56,7 @@ exports.default = {
   },
   regularizeBalance: 'Régulariser',
   cashoutBalance: 'Décaisser',
-  creditAccountBalance: 'Accompte crédit restant',
+  creditAccountBalance: 'Acompte crédit restant',
   showPaymentPack: 'Voir les cartes de cours',
   showInvoices: 'Voir les factures',
   showSubscriptions: 'Voir les souscriptions',

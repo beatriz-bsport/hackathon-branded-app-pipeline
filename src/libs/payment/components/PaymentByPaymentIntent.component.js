@@ -7,6 +7,8 @@ import {
   StripeProvider,
   Elements,
 } from 'react-stripe-elements';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
@@ -39,12 +41,14 @@ type Props = {
 type State = {
   processing: boolean,
   stripe_error_code: ?string,
+  savePaymentMethod: boolean,
 };
 
 export class PaymentIntentGathering extends Component<Props, State> {
   state = {
     cardReady: false,
     processing: false,
+    savePaymentMethod: false,
     stripe_error_code: null,
   };
 
@@ -70,6 +74,7 @@ export class PaymentIntentGathering extends Component<Props, State> {
             this.props.submitPaymentIntent(
               {
                 payment_method: PAYMENT_METHOD_STRIPE_PAYMENT_INTENT.id,
+                save_payment_method: this.state.savePaymentMethod,
                 payment_data: {
                   payment_intent_id: result.paymentIntent.id,
                 },
@@ -112,6 +117,7 @@ export class PaymentIntentGathering extends Component<Props, State> {
       } else {
         this.props.submitPaymentIntent(
           {
+            save_payment_method: this.state.savePaymentMethod,
             payment_method: PAYMENT_METHOD_STRIPE_PAYMENT_INTENT.id,
             payment_data: {
               payment_method_id: paymentMethod.id,
@@ -181,6 +187,17 @@ export class PaymentIntentGathering extends Component<Props, State> {
             termsAndConditions={this.props.termsAndConditions}
           />
         ) : null}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={this.state.savePaymentMethod}
+              onChange={(ev) =>
+                this.setState({ savePaymentMethod: ev.target.checked })
+              }
+            />
+          }
+          label={this.props.t('payment:forms.savePaymentMethod.label')}
+        />
         <div className={this.props.classes.buttonContainer}>
           {!this.props.hideCancelButton && (
             <Button

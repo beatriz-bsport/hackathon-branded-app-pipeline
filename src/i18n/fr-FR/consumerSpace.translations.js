@@ -11,7 +11,7 @@ exports.default = {
   },
   debt: {
     regularize: 'Régulariser',
-    title: 'Accompte dû au club',
+    title: 'Acompte dû au club',
     titlePaymentDialog: 'Régularisation acompte',
     explainPayment:
       'Cette somme sera reversée au club afin de régulariser votre acompte',

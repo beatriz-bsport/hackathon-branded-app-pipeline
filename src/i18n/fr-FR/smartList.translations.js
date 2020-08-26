@@ -261,7 +261,7 @@ exports.default = {
       [BETWEEN_COMPARATOR]: 'entre deux',
     },
     [CREDIT_ACCOUNT_FILTER_IDENTIFIER]: {
-      name: 'Accompte',
+      name: 'Acompte',
       first: "L'acompte du client est",
       second: ' à   ',
       third: 'euros',

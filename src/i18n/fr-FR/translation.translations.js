@@ -654,7 +654,7 @@ exports.default = {
     paymentMethodCash: 'Espèces',
     invoice: 'Facture',
     paymentMethod: 'Mode de paiement',
-    creditAccountBalance: 'Accompte actuel : ',
+    creditAccountBalance: 'Acompte actuel : ',
     paymentMethods: {
       CB: 'Carte bleue',
       CB_MANUAL: 'Carte bleue (manuel)',

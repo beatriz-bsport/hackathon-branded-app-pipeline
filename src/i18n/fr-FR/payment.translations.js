@@ -74,6 +74,7 @@ exports.default = {
   generalTermsAndConditions: {
     iAccept: "J'accepte les ",
     theTermsAndConditions: 'conditions générales de ventes.',
+    generalTermsOfUse: " conditions générales d'utilisation",
     close: 'Fermer',
   },
   paymentMethod: {

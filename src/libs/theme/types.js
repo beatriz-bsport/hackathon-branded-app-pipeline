@@ -11,6 +11,7 @@ export type Theme = {
   company: number,
   company_name: string,
   general_terms_and_conditions: string,
+  general_terms_of_use: string,
 };
 
 export type ThemeState = {

@@ -24,6 +24,7 @@ type Props = {
   onChecked: (accepted: boolean) => void,
   termsAndConditions: string,
   classes: Object,
+  generalTermsOfUse?: boolean,
 };
 
 export const AcceptTermsAndConditions = (props: Props) => {
@@ -37,7 +38,13 @@ export const AcceptTermsAndConditions = (props: Props) => {
         <span>{props.t('generalTermsAndConditions.iAccept')}</span>
         <ButtonBase onClick={() => props.setShowTermsAndConditions(true)}>
           <Typography inline variant="caption" color="secondary">
-            {props.t('generalTermsAndConditions.theTermsAndConditions')}
+            {props.t(
+              `generalTermsAndConditions.${
+                props.generalTermsOfUse
+                  ? 'generalTermsOfUse'
+                  : 'theTermsAndConditions'
+              }`,
+            )}
           </Typography>
         </ButtonBase>
       </Typography>

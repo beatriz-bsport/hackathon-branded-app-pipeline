@@ -80,6 +80,7 @@ export class CheckoutPayment extends React.Component<Props> {
           data: {
             totalPrice: this.props.basket.total_price,
             memberId: this.props.basket.member,
+            basketId: this.props.basket.id,
           },
         });
       } catch (err) {
@@ -96,6 +97,7 @@ export class CheckoutPayment extends React.Component<Props> {
           data: {
             totalPrice: this.props.basket.total_price,
             memberId: this.props.basket.member,
+            basketId: this.props.basket.id,
           },
         });
       } catch (err) {

@@ -88,6 +88,7 @@ const SubShopComponent = (props: {
                                 id: si.id,
                                 name: si.name,
                                 price: si.price,
+                                type: 'shop_item',
                               },
                             });
                           } catch (err) {

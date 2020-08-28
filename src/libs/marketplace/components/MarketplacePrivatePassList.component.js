@@ -55,6 +55,7 @@ export const MarketplacePrivatePassList = (props: Props) => {
                           id: pp.id,
                           name: pp.name,
                           price: pp.price,
+                          type: 'private_pass',
                         },
                       });
                     } catch (err) {

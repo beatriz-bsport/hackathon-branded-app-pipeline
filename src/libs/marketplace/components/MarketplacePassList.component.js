@@ -89,6 +89,7 @@ export function MarketplacePassList(props: Props) {
                       id: pp.id,
                       name: pp.name,
                       price: pp.price,
+                      type: 'payment_pack',
                     },
                   });
                 } catch (err) {
@@ -104,6 +105,7 @@ export function MarketplacePassList(props: Props) {
                       id: pp.id,
                       name: pp.name,
                       price: pp.price,
+                      type: 'payment_pack',
                     },
                   });
                 } catch (err) {
@@ -135,6 +137,7 @@ export function MarketplacePassList(props: Props) {
                       id: selectedPass.id,
                       name: selectedPass.name,
                       price: selectedPass.price,
+                      type: 'payment_pack',
                     },
                   });
                 } catch (err) {

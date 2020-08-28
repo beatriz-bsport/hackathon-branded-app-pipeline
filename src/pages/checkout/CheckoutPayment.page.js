@@ -224,12 +224,21 @@ export default compose(
       }),
     onBasketFinalized: ({ replace }) => (basket) => {
       try {
+        const data = {
+          totalPrice: basket.total_price,
+          memberId: basket.member,
+          basketId: basket.id,
+          checkout_items: basket.checkout_items.map((ci) => ({
+            buyable_item_id: ci.buyable_item_id,
+            buyable_item_identifier: ci.buyable_item_identifier,
+            name: ci.name,
+            quantity: ci.quantity,
+            unit_price: ci.unit_price,
+          })),
+        };
         (window.dataLayer || []).push({
           event: 'bsport:basket:payment-success',
-          data: {
-            totalPrice: basket.total_price,
-            memberId: basket.member,
-          },
+          data,
         });
       } catch (err) {
         console.error(err);

@@ -104,6 +104,7 @@ export const MarketplacePaymentComboList = (props: Props) => {
                       id: pc.id,
                       name: pc.name,
                       price: pc.price,
+                      type: 'payment_combo',
                     },
                   });
                 } catch (err) {

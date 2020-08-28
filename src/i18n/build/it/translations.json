@@ -1770,7 +1770,7 @@
                     "helperText": "Ogni sessione costa un certo numero di crediti"
                 },
                 "full_vod_access": {
-                    "label": "Fornisce accesso al video on demand finché è valido nel tempo"
+                    "label": "Fornisci accesso ai video on demand finché risulta valido nel tempo"
                 }
             },
             "delete": {

@@ -202,7 +202,7 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
             <NumericInput
               helperText={t('form.dumb_delay_minutes.helper')}
               InputProps={{
-                inputProps: { min: 60, step: 1, max: 32000 },
+                inputProps: { min: 15, step: 1, max: 32000 },
                 endAdornment: (
                   <InputAdornment position="end">min</InputAdornment>
                 ),

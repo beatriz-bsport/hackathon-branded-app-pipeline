@@ -108,13 +108,13 @@ export class ConsumerHome extends React.Component<Props> {
     this.props.setActiveActions(this.props.companyId);
   }
 
-componentDidMount() {
-if (this.props.membership) {
-    this.props.fetchSubscriptionListByMember(this.props.membership.id, {
-      page: 1,
-      page_size: 10,
-});
-}
+  componentDidMount() {
+    if (this.props.membership) {
+      this.props.fetchSubscriptionListByMember(this.props.membership.id, {
+        page: 1,
+        page_size: 10,
+      });
+    }
   }
 
   buildPath = (path) => this.props.push(this.props.buildUrl(path));

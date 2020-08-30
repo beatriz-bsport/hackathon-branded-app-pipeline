@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { compose } from 'recompose';
 import { Redirect, Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -9,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
+import WarningIcon from '@material-ui/icons/HelpOutlined';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -21,6 +23,7 @@ type Props = {
   classes: Object,
   resetError: ?Error,
   t: TFunction,
+  last_password_reset_request: string,
 };
 
 type State = {
@@ -99,6 +102,37 @@ export class ResetPassword extends Component<Props, State> {
           email: this.state.email,
         })}
       </Typography>
+      {this.props.last_password_reset_request &&
+        moment(this.props.last_password_reset_request).isAfter(
+          moment().add(-4, 'hours'),
+        ) && (
+          <div className={this.props.classes.helpReset}>
+            <WarningIcon
+              fontSize="large"
+              color="secondary"
+              className={this.props.classes.helpIcon}
+            />
+            <div>
+              <Typography color="error">
+                {this.props.t('resetPassword.hasProblem')}
+              </Typography>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography style={{ marginRight: 12 }}>
+                  {this.props.t('resetPassword.contactUs')}
+                </Typography>
+                <a href="mailto:contact+reset-password@bsport.io">
+                  contact+reset-password@bsport.io
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
       <div style={{ paddingTop: 20 }}>
         <Button
           color="primary"
@@ -172,6 +206,17 @@ const styles = (theme) => ({
     marginTop: '10vh',
     maxWidth: 600,
   },
+  helpReset: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  helpIcon: {
+    height: 90,
+    width: 90,
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(4),
+  },
 });
 
 export default compose(
@@ -180,6 +225,8 @@ export default compose(
     (state) => ({
       resetError: state.auth.resetPassword.error,
       loading: state.auth.resetPassword.loading,
+      last_password_reset_request:
+        state.auth.resetPassword.last_password_reset_request,
     }),
     { resetPassword },
   ),

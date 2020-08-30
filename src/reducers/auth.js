@@ -22,6 +22,7 @@ const initialState = Immutable({
   resetPassword: {
     loading: false,
     error: null,
+    last_password_reset_request: null,
   },
 });
 
@@ -44,7 +45,11 @@ export default function authReducer(state = initialState, action = {}) {
 
     case actionTypes.PASSWORD_RESET_ERROR:
       return state.setIn(['resetPassword', 'error'], action.payload);
-
+    case actionTypes.RESET_PASSWORD_SENT:
+      return state.setIn(
+        ['resetPassword', 'last_password_reset_request'],
+        action.payload.last_password_reset_request,
+      );
     case actionTypes.LOGIN_SUCCESSFUL: {
       const {
         username,

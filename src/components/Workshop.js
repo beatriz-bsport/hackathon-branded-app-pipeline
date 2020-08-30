@@ -93,6 +93,7 @@ export default compose(
       fetchEstablishmentBulk,
       fetchCoachBulk,
       fetchMetaActivityBulk,
+      theme,
     }) => ({
       fetchOfferList: (params = {}) =>
         fetchOfferList(
@@ -104,6 +105,12 @@ export default compose(
               ? defaultFilters.establishments
               : [],
             level__in: defaultFilters ? defaultFilters.levels : [],
+            ...(theme && theme.show_workshops_customer
+              ? {}
+              : { is_workshop: false }),
+            ...(theme && theme.show_cancelled_offers_customer
+              ? {}
+              : { available: true }),
           },
           {
             onSuccess: (offerList) => {

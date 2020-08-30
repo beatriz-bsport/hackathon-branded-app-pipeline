@@ -119,6 +119,7 @@ class BsportWidget extends Component<Props> {
   }
 
   render() {
+    const { theme } = this.props;
     return (
       <div
         style={{
@@ -134,21 +135,27 @@ class BsportWidget extends Component<Props> {
           style={{ height: '100%', width: '100%', display: 'inline-block' }}
         >
           {this.renderWidget()}
-          <div className={this.props.classes.poweredByContainer}>
-            <a
-              className={this.props.classes.poweredBy}
-              href="https://pro.bsport.io"
-            >
-              <Typography color="textSecondary" variant="caption">
-                Powered by
-              </Typography>
-              <img
-                alt="bsport"
-                className={this.props.classes.logo}
-                src="https://cdn.bsport.io/bsport_logo_txt.png"
-              />
-            </a>
-          </div>
+          {!!theme && (
+            <div className={this.props.classes.poweredByContainer}>
+              <div className={this.props.classes.centerRight}>
+                <a
+                  className={this.props.classes.poweredBy}
+                  href={`https://pro.bsport.io?utm_source=widget&utm_medium=referral&utm_content=bsport_logo&utm_campaign=${(
+                    theme.company_name || ''
+                  ).replace(/\//gi, '-')}`}
+                >
+                  <Typography color="textSecondary" variant="caption">
+                    Powered by
+                  </Typography>
+                  <img
+                    alt="bsport"
+                    className={this.props.classes.logo}
+                    src="https://cdn.bsport.io/bsport_logo_txt.png"
+                  />
+                </a>
+              </div>
+            </div>
+          )}
         </MuiThemeProvider>
       </div>
     );
@@ -158,6 +165,12 @@ class BsportWidget extends Component<Props> {
 const styles = () => ({
   poweredByContainer: {
     width: '100%',
+  },
+  centerRight: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   poweredBy: {
     display: 'flex !important',

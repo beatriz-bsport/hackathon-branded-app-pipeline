@@ -26,8 +26,7 @@ const renderRows = (subscriptions) => {
       subscriptionId: sub.id,
       hasEnded: sub.has_ended || !!sub.canceled_at,
     },
-}));
-addPayment: (id: number) => void,
+  }));
 };
 
 const getColumnData = (
@@ -112,6 +111,7 @@ type Props = {
   t: TFunction,
   loading: boolean,
 
+  addPayment: (id: number) => void,
   count: number,
 };
 

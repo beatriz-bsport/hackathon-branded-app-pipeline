@@ -67,6 +67,7 @@ type Props = {
   title: string,
   buildUrl: (path: string) => string,
   membership: ?Membership,
+  subscriptionPendingActionCount: number,
 };
 
 type State = {
@@ -311,6 +312,19 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       }
       return <ReceiptIcon />;
     };
+    const SubscriptionIconWithPendingAction = (props) => {
+      if (this.props.subscriptionPendingActionCount) {
+        return (
+          <Badge
+            color="error"
+            badgeContent={this.props.subscriptionPendingActionCount}
+          >
+            <Payment {...props} />
+          </Badge>
+        );
+      }
+      return <Payment />;
+    };
     const MENU = [
       { type: 'divider', className: classes.menuMobile },
       {
@@ -331,7 +345,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       },
       {
         to: '/subscription/',
-        icon: Payment,
+        icon: SubscriptionIconWithPendingAction,
         text: t('navigation.subscription'),
       },
       'divider',

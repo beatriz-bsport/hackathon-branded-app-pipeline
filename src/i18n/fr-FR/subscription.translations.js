@@ -218,7 +218,7 @@ exports.default = {
     autoRenew: 'Renouvellement automatique',
     parameters: 'Paramètres',
     payment_method: {
-      label: 'Méthode de paiement',
+      label: 'Moyen de paiement',
       [BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT]: 'A crédit',
       [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]: 'Carte bleue',
       [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]: 'Virement SEPA',

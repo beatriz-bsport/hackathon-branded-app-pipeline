@@ -5,6 +5,8 @@ import MUIDataTable from 'mui-datatables';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import AddIcon from '@material-ui/icons/Add';
+import RedButton from '../../../components/button/RedButton.component';
 
 import { formatAsDate } from '../../../datetime';
 import type { Subscription } from '../types';
@@ -19,10 +21,20 @@ const renderRows = (subscriptions) => {
     recurrent_price_with_voucher: `${parseFloat(sub.recurrent_price).toFixed(
       2,
     )}  €`,
-  }));
+    paymentMethodInfo: {
+      id: sub.payment_method,
+      subscriptionId: sub.id,
+      hasEnded: sub.has_ended || !!sub.canceled_at,
+    },
+}));
+addPayment: (id: number) => void,
 };
 
-const getColumnData = (t: TFunction, showOnlyCoreColumns: boolean) => {
+const getColumnData = (
+  t: TFunction,
+  showOnlyCoreColumns: boolean,
+  addPayment,
+) => {
   const coreColumns = [
     {
       name: 'name',
@@ -39,6 +51,42 @@ const getColumnData = (t: TFunction, showOnlyCoreColumns: boolean) => {
     {
       name: 'recurrent_price_with_voucher',
       label: t('parameters.recurrent_price'),
+    },
+    {
+      name: 'paymentMethodInfo',
+      label: t('parameters.payment_method.label'),
+      options: {
+        customBodyRender: (value) => {
+          if (value.id === 2) {
+            return (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  '&>*': { marginRight: 8 },
+                }}
+              >
+                {addPayment && !value.hasEnded ? (
+                  <RedButton
+                    variant="outlined"
+                    onClick={(ev) => {
+                      ev.stopPropagation();
+                      addPayment(value.subscriptionId);
+                    }}
+                  >
+                    <AddIcon />
+                    {t(`parameters.payment_method.${value.id}`)}
+                  </RedButton>
+                ) : (
+                  t(`parameters.payment_method.${value.id}`)
+                )}
+              </div>
+            );
+          }
+          return 'Paiement en ligne';
+        },
+      },
     },
   ];
 
@@ -122,7 +170,11 @@ export class SubscriptionTable extends Component<Props, State> {
       <MUIDataTable
         title={this.props.title}
         data={this.props.loading ? [] : renderRows(this.props.subscriptionList)}
-        columns={getColumnData(this.props.t, !!this.props.showOnlyCore)}
+        columns={getColumnData(
+          this.props.t,
+          !!this.props.showOnlyCore,
+          this.props.addPayment,
+        )}
         options={options}
       />
     );

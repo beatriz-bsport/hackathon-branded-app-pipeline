@@ -46,6 +46,8 @@ import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-co
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 
 import CongratulationDialog from '../../libs/consumer-space/components/CongratulationDialog.component';
+import { fetchSubscriptionListByMember } from '../../libs/subscription/actions';
+import { getSubscriptionByMemberPendingAction } from '../../libs/subscription/selectors';
 
 const ConsumerDashboard = asyncComponent(() =>
   import('./ConsumerDashboard.page'),
@@ -89,6 +91,8 @@ type Props = {
   basketGeneratedObjects: ?BasketObjects,
 
   fetchOfferBulk: (ids: Array<number>) => void,
+  subscriptionPendingActionCount: number,
+  fetchSubscriptionListByMember: (params: any) => void,
 };
 export class ConsumerHome extends React.Component<Props> {
   componentWillMount() {
@@ -102,6 +106,13 @@ export class ConsumerHome extends React.Component<Props> {
     this.props.fetchCompanyTheme(this.props.companyId);
     this.props.fetchMembershipListAsConsumer({ page_size: 2 });
     this.props.setActiveActions(this.props.companyId);
+  }
+
+  componentDidMount() {
+    this.props.fetchSubscriptionListByMember(this.props.membership.id, {
+      page: 1,
+      page_size: 10,
+    });
   }
 
   buildPath = (path) => this.props.push(this.props.buildUrl(path));
@@ -128,6 +139,9 @@ export class ConsumerHome extends React.Component<Props> {
             this.props.theme && this.props.theme.consumer_regularize_debt
           }
           membership={this.props.membership}
+          subscriptionPendingActionCount={
+            this.props.subscriptionPendingActionCount
+          }
           hasMultipleMembership={
             this.props.membershipList && this.props.membershipList.length > 1
           }
@@ -210,6 +224,9 @@ export default compose(
       membershipList: getConsumerMembershipList(state),
       username: state.auth.username,
       basketGeneratedObjects: getBasketGeneratedObjects(state),
+      subscriptionPendingActionCount: getSubscriptionByMemberPendingAction(
+        state,
+      ).length,
       offerBooked: from_direct_booking
         ? getOfferWithRelated(state, parseInt(from_direct_booking, 10))
         : null,
@@ -227,6 +244,7 @@ export default compose(
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchCoachBulk: fetchCoachBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      fetchSubscriptionListByMember,
     },
   ),
   withHandlers({

@@ -105,6 +105,15 @@ export const withPaymentPack = memoize((selector: (State) => any) =>
   ),
 );
 
+export const getSubscriptionByMemberPendingAction = createSelector(
+  getSubscriptionListByMember,
+  (subList) =>
+    subList.filter(
+      (sub) =>
+        sub.payment_method === 2 && !(sub.has_ended || !!sub.canceled_at),
+    ),
+);
+
 const _getContractForBookingIds = (state: State) =>
   state.subscription.contract.forBooking.allIds;
 

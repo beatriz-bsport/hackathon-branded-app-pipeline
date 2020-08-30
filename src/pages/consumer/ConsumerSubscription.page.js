@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { compose, withState } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
 
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -16,10 +16,18 @@ import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import {
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
-import { fetchSubscriptionListByMember } from '../../libs/subscription/actions';
+import {
+  fetchSubscriptionListByMember,
+  switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction,
+} from '../../libs/subscription/actions';
 import { getSubscriptionListByMember } from '../../libs/subscription/selectors';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
+import SubscriptionPaymentMethodSwitcherDialog from '../../libs/subscription/components/SubscriptionPaymentMethodSwitcherDialog.component';
 
 import type { Subscription } from '../../libs/subscription/types';
 import type { Membership } from '../../libs/membership/types';
@@ -38,6 +46,8 @@ type Props = {
   goToSubscription: (string, number) => void,
   subscriptionSelected: ?Subscription,
   selectSubscription: (?Subscription) => void,
+  setSwitchPaymentMethodDialogOpen: (?number) => void,
+  switchPaymentMethodDialogOpen: number,
 };
 
 export class ConsumerSubscription extends React.Component<Props> {
@@ -79,6 +89,7 @@ export class ConsumerSubscription extends React.Component<Props> {
           goToSubscription={this.selectSubscription}
           count={this.props.subscriptionCount}
           onPageChange={this.fetchSubscriptionList}
+          addPayment={this.props.setSwitchPaymentMethodDialogOpen}
         />
         <Dialog open={!!this.props.subscriptionSelected}>
           {this.props.subscriptionSelected ? (
@@ -104,6 +115,17 @@ export class ConsumerSubscription extends React.Component<Props> {
             </Button>
           </DialogActions>
         </Dialog>
+        {this.props.switchPaymentMethodDialogOpen ? (
+          <SubscriptionPaymentMethodSwitcherDialog
+            open={this.props.switchPaymentMethodDialogOpen}
+            onSubmit={this.props.switchPaymentMethod}
+            onCancel={() => this.props.setSwitchPaymentMethodDialogOpen(false)}
+            enabledPaymentMethods={[
+              BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+              BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+            ]}
+          />
+        ) : null}
       </div>
     );
   }
@@ -137,6 +159,34 @@ export default compose(
       fetchSubscriptionListByMember,
       goToSubscription: (name, id) =>
         push(`${urlToMarketplace(name, id)}/subscription`),
+      switchSubscriptionPaymentMethod: switchSubscriptionPaymentMethodAction,
     },
   ),
+  withState(
+    'switchPaymentMethodDialogOpen',
+    'setSwitchPaymentMethodDialogOpen',
+    false,
+  ),
+  withHandlers({
+    switchPaymentMethod: ({
+      switchPaymentMethodDialogOpen,
+      switchSubscriptionPaymentMethod,
+      setSwitchPaymentMethodDialogOpen,
+    }) => (source, options) => {
+      switchSubscriptionPaymentMethod(
+        switchPaymentMethodDialogOpen,
+        {
+          source,
+          payment_method_identifier: BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+        },
+        {
+          onSuccess: (sub) => {
+            if (options && options.onSuccess) options.onSuccess(sub);
+            setSwitchPaymentMethodDialogOpen(null);
+          },
+          onError: options ? options.onError : null,
+        },
+      );
+    },
+  }),
 )(ConsumerSubscription);

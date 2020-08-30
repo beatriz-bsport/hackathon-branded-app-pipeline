@@ -2894,7 +2894,7 @@
     "parameters": {
       "autoRenew": "Renouvellement automatique",
       "parameters": "Paramètres",
-      "payment_method": { "0": "Carte bleue", "1": "Virement SEPA", "2": "A crédit", "label": "Méthode de paiement" },
+      "payment_method": { "0": "Carte bleue", "1": "Virement SEPA", "2": "A crédit", "label": "Moyen de paiement" },
       "status": "Statut",
       "subscribeAgain": "Souscrire à nouveau",
       "voucher": "Offre spéciale",

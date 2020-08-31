@@ -36,11 +36,15 @@ export const BookingCancellationDialog = (props: Props) => (
   >
     <DialogTitle>{props.t('consumer.booking.discardBookingTitle')}</DialogTitle>
     <DialogContent>
-      <DialogContentText>
-        {(props.booking || {}).is_discardable
-          ? props.t('consumer.booking.discardPossibleExplain')
-          : props.t('consumer.booking.discardImpossibleExplain')}
-      </DialogContentText>
+      {!props.booking ? (
+        <CircularProgress />
+      ) : (
+        <DialogContentText>
+          {(props.booking || {}).is_discardable
+            ? props.t('consumer.booking.discardPossibleExplain')
+            : props.t('consumer.booking.discardImpossibleExplain')}
+        </DialogContentText>
+      )}
     </DialogContent>
     <DialogActions>
       <Button

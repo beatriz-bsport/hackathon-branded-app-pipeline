@@ -266,7 +266,6 @@ export default compose(
     {
       fetchOfferById: fetchOfferByIdAction,
       fetchFilteredMembers: fetchFilteredMembersAction,
-      fetchBookingsByOfferAction,
       fetchBookingsByOffer: fetchBookingsByOfferAction,
       fetchCompatiblePass: fetchCompatiblePassAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
@@ -299,11 +298,16 @@ export default compose(
       fetchBookingsByOffer,
       retrieveConsumerPackBulk,
     }) => () => {
-      fetchBookingsByOffer(offerId, {
-        onSuccess: (bs) => {
-          retrieveConsumerPackBulk(bs.map((b) => b.consumer_payment_pack));
+      fetchBookingsByOffer(
+        offerId,
+        {
+          onSuccess: (bs) => {
+            retrieveConsumerPackBulk(bs.map((b) => b.consumer_payment_pack));
+          },
         },
-      });
+        null,
+        { booking_status_code: 0 },
+      );
       fetchFilteredMembers({ offer: offerId });
     },
     upsertMember: ({ upsertMember, closeRegistrationFlow }) => (

@@ -81,26 +81,37 @@ export class RecursionToogle extends Component<Props, State> {
         <Divider />
         {loading ? null : (
           <Collapse in={isSimilarOfferListExpanded}>
-            <ButtonBase
-              onClick={this.props.selectAll}
-              className={classes.selectOption}
-            >
-              <Typography variant="caption">
-                {t('offer:liveOfferEdit.selectAll')}
-              </Typography>
-            </ButtonBase>
-            <ButtonBase
-              onClick={this.props.unselectAll}
-              className={classes.selectOption}
-            >
-              <Typography variant="caption">
-                {t('offer:liveOfferEdit.unselectAll')}
-              </Typography>
-            </ButtonBase>
+            {!!this.props.selectAll && !!this.props.unselectAll && (
+              <React.Fragment>
+                <ButtonBase
+                  onClick={this.props.selectAll}
+                  className={classes.selectOption}
+                >
+                  <Typography variant="caption">
+                    {t('offer:liveOfferEdit.selectAll')}
+                  </Typography>
+                </ButtonBase>
+                }
+                <ButtonBase
+                  onClick={this.props.unselectAll}
+                  className={classes.selectOption}
+                >
+                  <Typography variant="caption">
+                    {t('offer:liveOfferEdit.unselectAll')}
+                  </Typography>
+                </ButtonBase>
+              </React.Fragment>
+            )}
             <List component="nav">
-              {(similarOffersWithSelectedStatus || []).map((so, index) => (
+              {(
+                similarOffersWithSelectedStatus ||
+                this.props.similarOffers ||
+                []
+              ).map((so, index) => (
                 <OfferListItem
-                  similarOffer
+                  similarOffer={
+                    !!this.props.selectAll && !!this.props.unselectAll
+                  }
                   disabled={index === 0}
                   offer={so}
                   editing_parameters={{

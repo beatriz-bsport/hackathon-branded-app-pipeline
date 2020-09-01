@@ -110,7 +110,7 @@ exports.default = {
   email: {
     create: {
       success: 'Email créé',
-      error: "Impossible d'enrregistrer l'email",
+      error: "Impossible d'enregistrer l'email",
     },
     update: {
       success: 'Email modifié',

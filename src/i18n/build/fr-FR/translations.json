@@ -2573,7 +2573,7 @@
       "attachToBasket": { "error": "Aucun code promo compatible trouvé" }
     },
     "email": {
-      "create": { "success": "Email créé", "error": "Impossible d'enrregistrer l'email" },
+      "create": { "success": "Email créé", "error": "Impossible d'enregistrer l'email" },
       "update": { "success": "Email modifié", "error": "Impossible de modifier l'email" },
       "delete": { "success": "Email supprimé", "error": "Impossible de supprimer l'email" }
     },

@@ -12,7 +12,7 @@ exports.default = {
   calculation_method: 'Méthode de calcul',
   only_attendant: 'Restreindre le décompte de réservation aux élèves présents',
   actions: 'Actions',
-  bookingThreshold: 'Seuil de réservations (exclu)',
+  bookingThreshold: 'Seuil de réservations (inclu)',
   pricePerAdditionalBooking: 'Bonus par réservation',
   addBonus: 'Ajouter une nouvelle règle',
   cancel: 'Annuler',

@@ -1,14 +1,42 @@
 import lodash from 'lodash';
 import { PAYMENT_RULE_CALCULATION_BOOKINGS } from '@bsport/common/lib/master-data/payment-rule';
 
+const findBonusValue = (booking, bonusIntervalList) => {
+  let computedBonus = 0;
+  bonusIntervalList.map((bonusInterval) => {
+    if (booking < bonusInterval.max && booking >= bonusInterval.min) {
+      computedBonus = bonusInterval.bonusValue;
+    }
+    return null;
+  });
+  return computedBonus;
+};
+
 export function computeBonus(session, rate) {
   const nbBookings = rate.only_attendant
     ? session.nb_attendances
     : session.nb_bookings;
-  const min = rate.bonuses.reduce((m, r) => Math.min(m, r.threshold), 10000000);
-  const level = lodash.findLast(rate.bonuses, (r) => r.threshold <= nbBookings);
-  const variable = level ? +level.variable_bonus : 0;
-  return (nbBookings - min) * variable;
+  const bonusIntervalList = (rate.bonuses || []).reduce(
+    (bInterval, bonus, idx) => {
+      if (idx === rate.bonuses.length - 1) return bInterval;
+      return [
+        ...bInterval,
+        {
+          min: bonus.threshold,
+          bonusValue: bonus.variable_bonus,
+          max:
+            (idx >= rate.bonuses.length && 100000) ||
+            rate.bonuses[idx + 1].threshold,
+        },
+      ];
+    },
+    [],
+  );
+  let sumBonus = 0;
+  for (let b = 1; b <= nbBookings; b++) {
+    sumBonus += parseFloat(findBonusValue(b, bonusIntervalList));
+  }
+  return sumBonus;
 }
 
 export function setRateForSession(session, rates, defaultRate) {

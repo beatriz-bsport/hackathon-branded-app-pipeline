@@ -1,7 +1,9 @@
 // @flow
 import React, { Component } from 'react';
+import { compose } from 'recompose';
 import classNames from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -435,7 +437,7 @@ export class OfferCard extends Component<Props> {
               {t('offer:manageOffer')}
             </Button>
           </Link>
-          {/* {available ? null : (
+          {!available && (
             <RedButton
               onClick={onDeleteButtonClick}
               variant="contained"
@@ -443,7 +445,7 @@ export class OfferCard extends Component<Props> {
             >
               {t('offer:forms.delete.buttonHardDelete')}
             </RedButton>
-          )} */}
+          )}
         </div>
       );
     }
@@ -555,6 +557,7 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(
-  withTranslation(['offer', 'datetime'])(OfferCard),
-);
+export default compose(
+  withStyles(styles),
+  withTranslation(['offer', 'datetime']),
+)(OfferCard);

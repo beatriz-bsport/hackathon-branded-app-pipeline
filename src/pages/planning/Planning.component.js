@@ -8,6 +8,10 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withState, withHandlers } from 'recompose';
 import withWidth, { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';
+
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Fab from '@material-ui/core/Fab';
@@ -201,6 +205,8 @@ type Props = {
   disableMassOffers: (data: any, options: OptionCallback) => void,
   setMassDisablerStartDate: (?string) => void,
   setShowCancelledOffers: (boolean) => void,
+  setOpenDeleteDialog: () => void,
+  openDeleteDialog: boolean,
 };
 
 type State = {
@@ -377,6 +383,11 @@ export class Planning extends PureComponent<Props, State> {
         return;
       }
     } catch (err) {
+      if (err.response && err.response.status === 403) {
+        alert(
+          "Des réservations (annulées) ou liste d'attente ont été enregistrées, impossible de supprimer.",
+        );
+      }
       console.error(err);
     }
     this.setState({ deletingOffer: false });
@@ -510,6 +521,7 @@ export class Planning extends PureComponent<Props, State> {
               }}
               onCancel={this.onCancelModal}
               processing={deletingOffer}
+              setOpenDeleteDialog={this.props.setOpenDeleteDialog}
               similarOffers={this.props.similarOffers}
               similarOfferLoading={this.props.similarOfferLoading}
             />
@@ -742,6 +754,29 @@ export class Planning extends PureComponent<Props, State> {
               />
             )}
           </Grid>
+          <Dialog
+            open={this.props.openDeleteDialog}
+            onClose={() => this.props.setOpenDeleteDialog(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {this.props.t('offer:deleteImpossibleTitle')}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                {this.props.t('offer:deleteImpossibleText')}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => this.props.setOpenDeleteDialog(false)}
+                color="primary"
+              >
+                {this.props.t('offer:close')}
+              </Button>
+            </DialogActions>
+          </Dialog>
           {this.renderEditModal()}
           {this.renderDeleteModal()}
           {this.renderCreateModal()}
@@ -909,6 +944,7 @@ export default compose(
       });
     },
   }),
+  withState('openDeleteDialog', 'setOpenDeleteDialog', false),
   withState('massDisablerStartDate', 'setMassDisablerStartDate', null),
   withTitle(({ t }: { t: TFunction }) => t('titles:planning')),
 )(Planning);

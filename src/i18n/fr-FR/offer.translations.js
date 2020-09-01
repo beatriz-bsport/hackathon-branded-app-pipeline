@@ -1,4 +1,8 @@
 exports.default = {
+  deleteImpossibleTitle: 'Impossible de supprimer la séance',
+  deleteImpossibleText:
+    "Vous ne pouvez pas supprimer cette séance parcequ'elle a des réservations en cours.",
+  close: 'Fermer',
   video: {
     cantOpenLink:
       'Le lien vers conférence semble erroné, veuillez contacter votre club {{ contact_email }}',

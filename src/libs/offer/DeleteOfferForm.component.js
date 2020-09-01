@@ -26,6 +26,8 @@ type Props = {
   similarOfferLoading: boolean,
   similarOffers: Array<Offer>,
   classes: Object,
+  setOpenDeleteDialog: () => void,
+  offer: Offer,
 };
 
 type State = {
@@ -142,7 +144,17 @@ export class DeleteOfferForm extends Component<Props, State> {
           {processing ? (
             <CircularProgress />
           ) : (
-            <RedButton onClick={this.onConfirm}>
+            <RedButton
+              onClick={() => {
+                if (
+                  offerWasCancelled &&
+                  (this.props.offer.nb_bookings > 0 ||
+                    this.props.offer.nb_option > 0)
+                ) {
+                  this.props.setOpenDeleteDialog(true);
+                } else this.onConfirm();
+              }}
+            >
               {t('common.confirm')}
             </RedButton>
           )}

@@ -18,6 +18,15 @@ export function computeBonus(session, rate) {
     : session.nb_bookings;
   const bonusIntervalList = (rate.bonuses || []).reduce(
     (bInterval, bonus, idx) => {
+      if (idx === rate.bonuses.length - 1 && rate.bonuses.length === 1) {
+        return [
+          {
+            min: bonus.threshold,
+            max: 10000,
+            bonusValue: bonus.variable_bonus,
+          },
+        ];
+      }
       if (idx === rate.bonuses.length - 1) return bInterval;
       return [
         ...bInterval,

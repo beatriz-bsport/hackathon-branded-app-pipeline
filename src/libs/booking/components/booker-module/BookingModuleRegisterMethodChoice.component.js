@@ -12,6 +12,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 
 import PriceInput from '../../../../components/input/PriceInput.component';
+import PercentInput from '../../../../components/input/PercentInput.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 import ConsumerPackRowItem from '../../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 
@@ -138,13 +139,32 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
               hidePacksNumber
               pack={selectedPack}
             />
-            <PriceInput
-              variant="outlined"
-              value={voucher}
-              onChange={(ev) => setVoucher(parseFloat(ev.target.value))}
-              label={t('translation:payment.voucher')}
-              error={Number.isNaN(voucher) || voucher < 0}
-            />
+            <div className={classes.voucherRight}>
+              <PriceInput
+                variant="outlined"
+                value={voucher}
+                onChange={(ev) => setVoucher(parseFloat(ev.target.value))}
+                label={t('translation:payment.voucher')}
+                error={Number.isNaN(voucher) || voucher < 0}
+              />
+              <PercentInput
+                variant="outlined"
+                style={{ minWidth: 480 }}
+                value={
+                  selectedPack
+                    ? parseInt((voucher / selectedPack.price) * 100, 10)
+                    : 0
+                }
+                onChange={(ev) =>
+                  setVoucher(
+                    selectedPack
+                      ? (parseFloat(ev.target.value) * selectedPack.price) / 100
+                      : voucher,
+                  )
+                }
+                label={t('translation:payment.voucher')}
+              />
+            </div>
           </div>
         </DialogContent>
         <DialogActions>
@@ -195,8 +215,17 @@ const useStyles = makeStyles((theme) => ({
   },
   voucherField: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    flexDirection: 'row',
     paddingTop: theme.spacing(2),
+  },
+  voucherRight: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    '&>*': {
+      marginBottom: theme.spacing(1.5),
+    },
   },
 }));
 

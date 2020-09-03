@@ -105,7 +105,7 @@ export class BasketAbandonmentFilter extends Component<Props, state> {
           />{' '}
           <div
             className={
-              filter_data.coach_filter_active
+              filter_data.date_filter_active
                 ? classes.inlineContainer
                 : classes.disabled
             }

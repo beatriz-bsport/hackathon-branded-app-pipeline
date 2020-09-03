@@ -110,7 +110,9 @@ export const getSubscriptionByMemberPendingAction = createSelector(
   (subList) =>
     subList.filter(
       (sub) =>
-        sub.payment_method === 2 && !(sub.has_ended || !!sub.canceled_at),
+        sub.payment_method === 2 &&
+        !!sub.recurrent_price &&
+        !(sub.has_ended || !!sub.canceled_at),
     ),
 );
 

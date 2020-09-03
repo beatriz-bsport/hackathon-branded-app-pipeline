@@ -36,6 +36,7 @@ type Props = {
   onChangeRecursion: ({ modifyRecursively: boolean }) => void,
   dateTimeDiff: number,
   classes: Object,
+  similarOffers: ?Array<Offer>,
 };
 
 type State = {
@@ -91,7 +92,6 @@ export class RecursionToogle extends Component<Props, State> {
                     {t('offer:liveOfferEdit.selectAll')}
                   </Typography>
                 </ButtonBase>
-                }
                 <ButtonBase
                   onClick={this.props.unselectAll}
                   className={classes.selectOption}

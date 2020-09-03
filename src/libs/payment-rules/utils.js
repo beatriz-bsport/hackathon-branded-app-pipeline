@@ -42,6 +42,7 @@ export function computeBonus(session, rate) {
     [],
   );
   let sumBonus = 0;
+  // eslint-disable-next-line
   for (let b = 1; b <= nbBookings; b++) {
     sumBonus += parseFloat(findBonusValue(b, bonusIntervalList));
   }

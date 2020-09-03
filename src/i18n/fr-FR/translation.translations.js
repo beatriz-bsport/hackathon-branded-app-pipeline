@@ -707,6 +707,8 @@ exports.default = {
   },
   calendar: {
     modifyOffer: 'Modifier',
+    canDeleteWithBooking:
+      "Des réservations (annulées) ou liste d'attente ont été enregistrées, impossible de supprimer.",
     deleteOffer: 'Annuler',
     allDay: 'journée',
     previous: '<',

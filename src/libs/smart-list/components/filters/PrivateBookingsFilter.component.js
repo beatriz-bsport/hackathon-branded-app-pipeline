@@ -5,76 +5,74 @@ import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import Switch from '@material-ui/core/Switch';
 import moment from 'moment';
 import TextField from '@material-ui/core/TextField';
 
-import MetaActivityListItem from '../../../meta-activity/components/MetaActivityListItem.component';
+import {
+  DURATION_COMPARATORS_DICT_BETWEEN,
+  BETWEEN_COMPARATOR,
+} from '@bsport/common/lib/master-data/smart-list';
+
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import Selector from '../MultiSelector.component';
 import CalendarPicker from '../CalendarPicker.component';
 import type { Establishment } from '../../../establishment/types';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
-import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
-
 import CoachListItem from '../../../associated-coach/components/CoachListItemBasic.component';
-
-const DATE_BETWEEN = 2;
+import PrivatePassListItem from '../../../private-service/components/pass/PrivatePassListItem.component';
+import type { PrivatePass } from '../../../private-service/types';
 
 type Props = {
   filter_data: any,
   t: TFunction,
   establishments: Array<Establishment>,
-  meta_activities: Array<any>,
   classes: Object,
   onChange: (any) => void,
-  new: boolean,
-  payment_packs: Array<any>,
-  coaches: Array<any>,
-  fetchBulkItems: any,
   fetchItems: any,
+  new: boolean,
+  fetchBulkItems: any,
+  private_passes: Array<PrivatePass>,
+  coaches: Array<any>,
   setNotNullableData: (Array<string>) => void,
   renderSelectorWarning: (string, boolean) => void,
 };
 
-export class BookingsNumberFilter extends Component<Props, state> {
+export class PrivateBookingsFilter extends Component<Props, state> {
   componentDidMount() {
-    const {
-      meta_activities,
-      establishments,
-      coaches,
-      payment_packs,
-    } = this.props.filter_data;
-    if (meta_activities && meta_activities.length === 1) {
-      this.props.fetchBulkItems.meta_activities(meta_activities);
+    const { establishments, private_passes, coaches } = this.props.filter_data;
+    if (coaches && coaches.length === 1) {
+      this.props.fetchBulkItems.coaches(coaches);
     }
     if (establishments && establishments.length === 1) {
       this.props.fetchBulkItems.establishments(establishments);
     }
-    if (coaches && coaches.length === 1) {
-      this.props.fetchBulkItems.coaches(coaches);
+    if (private_passes && private_passes.length === 1) {
+      this.props.fetchBulkItems.private_passes(private_passes);
     }
-    if (payment_packs && payment_packs.length === 1) {
-      this.props.fetchBulkItems.payment_packs(payment_packs);
-    }
-    this.props.setNotNullableData(['value']);
+    this.props.setNotNullableData(['comparator', 'value']);
     if (this.props.new) {
       this.props.onChange({
+        at_home: false,
         establishments: [],
-        meta_activities: [],
-        payment_packs: [],
+        private_passes: [],
         coaches: [],
+        coach_filter_active: false,
+        private_pass_filter_active: false,
+        comparator: 2,
         value: 1,
         value_second: 2,
         date: moment().format('YYYY-MM-DD'),
         date_second: moment().format('YYYY-MM-DD'),
-        duration: 5,
-        duration_second: 6,
-        date_filter_type: DATE_BETWEEN,
+        duration: -5,
+        duration_second: -10,
+        date_filter_type: 0,
         date_filter_active: false,
         establishment_filter_active: false,
-        activity_filter_active: false,
         hour: '08:00',
         hour_second: '18:00',
         hour_filter_active: false,
@@ -88,34 +86,50 @@ export class BookingsNumberFilter extends Component<Props, state> {
       t,
       classes,
       onChange,
-      payment_packs,
-      coaches,
-      meta_activities,
       establishments,
+      private_passes,
+      coaches,
     } = this.props;
     return (
       <div>
         <div className={classes.wrapper}>
           {this.props.t(`filters.${filter_data.filter_identifier}.first`)}
+          <Select
+            className={classes.input}
+            required
+            value={filter_data.comparator}
+            onChange={(ev) => onChange({ comparator: ev.target.value })}
+          >
+            {DURATION_COMPARATORS_DICT_BETWEEN.map((item) => (
+              <MenuItem key={item.key} value={item.value}>
+                {t(`filters.durations_comparators.${item.value}`)}
+              </MenuItem>
+            ))}
+          </Select>
           <DelayedNumericInput
             classes={classes}
             value={filter_data.value}
-            onChange={(ev) => {
+            onChange={(ev) =>
               onChange({
-                value:
-                  ev.target.value === ''
-                    ? null
-                    : Math.max(parseInt(ev.target.value, 10), 1),
-              });
-            }}
-          />
-          {filter_data.value === '1' || filter_data.value === 1
-            ? this.props.t(
-                `filters.${filter_data.filter_identifier}.second_singular`,
-              )
-            : this.props.t(
-                `filters.${filter_data.filter_identifier}.second_plural`,
-              )}
+                value: ev.target.value === '' ? null : ev.target.value,
+              })
+            }
+          />{' '}
+          {filter_data.comparator === BETWEEN_COMPARATOR
+            ? t(`filters.${filter_data.filter_identifier}.between`)
+            : null}
+          {filter_data.comparator === BETWEEN_COMPARATOR ? (
+            <DelayedNumericInput
+              classes={classes}
+              value={filter_data.value_second}
+              onChange={(ev) =>
+                onChange({
+                  value_second: ev.target.value === '' ? null : ev.target.value,
+                })
+              }
+            />
+          ) : null}
+          {this.props.t(`filters.${filter_data.filter_identifier}.second`)}
         </div>
         <div className={classes.inlineContainer}>
           <Switch
@@ -143,18 +157,18 @@ export class BookingsNumberFilter extends Component<Props, state> {
               helperSelectedText={t(
                 'multiSelector.establishments.helperSelectedText',
               )}
-              textFieldPlaceholder={t(
-                'multiSelector.establishments.textFieldPlaceholder',
-              )}
               helperAllSelectedText={t(
                 'multiSelector.establishments.helperAllSelectedText',
               )}
+              textFieldPlaceholder={t(
+                'multiSelector.establishments.textFieldPlaceholder',
+              )}
+              selectAll={this.props.filter_data.select_all_establishments}
+              fetchItems={this.props.fetchItems.establishments}
               renderItem={(item) => {
                 return <EstablishmentListItem establishment={item} />;
               }}
-              selectAll={this.props.filter_data.select_all_establishments}
               nameIdentifier="title"
-              fetchItems={this.props.fetchItems.establishments}
               items={establishments}
               selectedItems={filter_data.establishments}
               onChange={(items, selectAll) => {
@@ -182,10 +196,15 @@ export class BookingsNumberFilter extends Component<Props, state> {
                 }
               }}
             />
-            {this.props.renderSelectorWarning(
-              t('multiSelector.establishments.warning'),
-              filter_data.establishment_filter_active,
-              filter_data.establishments,
+            {this.props.t(
+              `filters.${filter_data.filter_identifier}.establishment.second`,
+            )}
+            <Checkbox
+              checked={filter_data.at_home}
+              onChange={() => onChange({ at_home: !filter_data.at_home })}
+            />
+            {this.props.t(
+              `filters.${filter_data.filter_identifier}.establishment.third`,
             )}
           </div>
         </div>
@@ -253,10 +272,10 @@ export class BookingsNumberFilter extends Component<Props, state> {
         </div>
         <div className={classes.inlineContainer}>
           <Switch
-            checked={filter_data.payment_pack_filter_active}
+            checked={filter_data.private_pass_filter_active}
             onChange={() =>
               onChange({
-                payment_pack_filter_active: !filter_data.payment_pack_filter_active,
+                private_pass_filter_active: !filter_data.private_pass_filter_active,
               })
             }
             value="checkedA"
@@ -264,131 +283,62 @@ export class BookingsNumberFilter extends Component<Props, state> {
           />{' '}
           <div
             className={
-              filter_data.payment_pack_filter_active
+              filter_data.private_pass_filter_active
                 ? classes.inlineContainer
                 : classes.disabled
             }
           >
             {this.props.t(
-              `filters.${filter_data.filter_identifier}.payment_pack.first`,
+              `filters.${filter_data.filter_identifier}.private_pass.first`,
             )}
             <Selector
-              helperText={t('multiSelector.paymentPacks.helperText')}
+              helperText={t('multiSelector.privatePass.helperText')}
               helperSelectedText={t(
-                'multiSelector.paymentPacks.helperSelectedText',
+                'multiSelector.privatePass.helperSelectedText',
               )}
               textFieldPlaceholder={t(
-                'multiSelector.paymentPacks.textFieldPlaceholder',
+                'multiSelector.privatePass.textFieldPlaceholder',
               )}
               renderItem={(item) => {
-                return <PaymentPackListItem pack={item} />;
+                return <PrivatePassListItem pass={item} />;
               }}
               helperAllSelectedText={t(
-                'multiSelector.paymentPacks.helperAllSelectedText',
+                'multiSelector.privatePass.helperAllSelectedText',
               )}
-              fetchItems={this.props.fetchItems.payment_packs}
+              fetchItems={this.props.fetchItems.private_passes}
               nameIdentifier="name"
-              selectAll={this.props.filter_data.select_all_payment_packs}
-              items={payment_packs}
-              selectedItems={filter_data.payment_packs}
+              selectAll={this.props.filter_data.select_all_private_passes}
+              items={private_passes}
+              selectedItems={filter_data.private_passes}
               onChange={(items, selectAll) => {
                 if (
-                  filter_data.payment_packs &&
+                  filter_data.private_passes &&
                   !(
-                    items.length === filter_data.payment_packs.length &&
+                    items.length === filter_data.private_passes.length &&
                     [...items].sort().every((value, index) => {
                       return (
-                        value === [...filter_data.payment_packs].sort()[index]
+                        value === [...filter_data.private_passes].sort()[index]
                       );
                     })
                   )
                 ) {
                   onChange({
-                    payment_packs: items,
-                    select_all_payment_packs: selectAll,
+                    private_passes: items,
+                    select_all_private_passes: selectAll,
                   });
                 }
-                if (!filter_data.payment_packs && items.length > 0) {
+                if (!filter_data.private_passes && items.length > 0) {
                   onChange({
-                    payment_packs: items,
-                    select_all_payment_packs: selectAll,
+                    private_passes: items,
+                    select_all_private_passes: selectAll,
                   });
                 }
               }}
             />{' '}
             {this.props.renderSelectorWarning(
-              t('multiSelector.paymentPacks.warning'),
-              filter_data.payment_pack_filter_active,
-              filter_data.payment_packs,
-            )}
-          </div>
-        </div>
-        <div className={classes.inlineContainer}>
-          <Switch
-            checked={filter_data.activity_filter_active}
-            onChange={() =>
-              onChange({
-                activity_filter_active: !filter_data.activity_filter_active,
-              })
-            }
-            value="checkedA"
-            inputProps={{ 'aria-label': 'secondary checkbox' }}
-          />
-          <div
-            className={
-              filter_data.activity_filter_active
-                ? classes.inlineContainer
-                : classes.disabled
-            }
-          >
-            {this.props.t(
-              `filters.${filter_data.filter_identifier}.activity.first`,
-            )}
-            <Selector
-              helperText={t('multiSelector.metaActivities.helperText')}
-              helperSelectedText={t(
-                'multiSelector.metaActivities.helperSelectedText',
-              )}
-              textFieldPlaceholder={t(
-                'multiSelector.metaActivities.textFieldPlaceholder',
-              )}
-              renderItem={(item) => {
-                return <MetaActivityListItem metaActivity={item} />;
-              }}
-              selectAll={this.props.filter_data.select_all_activities}
-              nameIdentifier="name"
-              items={meta_activities}
-              fetchItems={this.props.fetchItems.meta_activities}
-              selectedItems={filter_data.meta_activities}
-              onChange={(items, selectAll) => {
-                if (
-                  filter_data.meta_activities &&
-                  !(
-                    items.length === filter_data.meta_activities.length &&
-                    [...items].sort().every((value, index) => {
-                      return (
-                        value === [...filter_data.meta_activities].sort()[index]
-                      );
-                    })
-                  )
-                ) {
-                  onChange({
-                    meta_activities: items,
-                    select_all_activities: selectAll,
-                  });
-                }
-                if (!filter_data.meta_activities && items.length > 0) {
-                  onChange({
-                    meta_activities: items,
-                    select_all_activities: selectAll,
-                  });
-                }
-              }}
-            />
-            {this.props.renderSelectorWarning(
-              t('multiSelector.metaActivities.warning'),
-              filter_data.activity_filter_active,
-              filter_data.meta_activities,
+              t('multiSelector.privatePass.warning'),
+              filter_data.private_pass_filter_active,
+              filter_data.private_passes,
             )}
           </div>
         </div>
@@ -475,12 +425,12 @@ export class BookingsNumberFilter extends Component<Props, state> {
 }
 
 const styles = (theme) => ({
+  calendarAntiMargin: {
+    marginLeft: -theme.spacing(1),
+  },
   hourPicker: {
     marginRight: theme.spacing(1),
     marginLeft: theme.spacing(1),
-  },
-  calendarAntiMargin: {
-    marginLeft: -theme.spacing(1),
   },
   disabled: {
     display: 'flex',
@@ -491,14 +441,6 @@ const styles = (theme) => ({
     paddingLeft: theme.spacing(1),
   },
   inlineContainer: { display: 'flex', alignItems: 'center' },
-  tooltip: {
-    backgroundColor: theme.palette.common.white,
-
-    fontSize: 11,
-  },
-  selectorGrow: {
-    flexGrow: 0,
-  },
   input: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
@@ -516,14 +458,9 @@ const styles = (theme) => ({
     alignItems: 'center',
     flexWrap: 'wrap',
   },
-  selector: {
-    minWidth: '300px',
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
 });
 
 export default compose(
   withTranslation(['smartList']),
   withStyles(styles),
-)(BookingsNumberFilter);
+)(PrivateBookingsFilter);

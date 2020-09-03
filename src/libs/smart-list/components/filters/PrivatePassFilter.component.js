@@ -5,9 +5,6 @@ import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import Typography from '@material-ui/core/Typography';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Switch from '@material-ui/core/Switch';
@@ -17,11 +14,10 @@ import {
   DURATION_COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
 } from '@bsport/common/lib/master-data/smart-list';
-import Tooltip from '../../../../components/Tooltip.component';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
-import type { PaymentPack } from '../../../payment-packs/types';
+import type { PrivatePass } from '../../../private-service/types';
 import Selector from '../MultiSelector.component';
-import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
+import PrivatePassListItem from '../../../private-service/components/pass/PrivatePassListItem.component';
 import CalendarPicker from '../CalendarPicker.component';
 
 const DATE_BETWEEN = 2;
@@ -30,31 +26,30 @@ const DURATION_AFTER = 4;
 type Props = {
   filter_data: any,
   t: TFunction,
-  payment_packs: Array<PaymentPack>,
+  private_passes: Array<PrivatePass>,
   classes: Object,
   onChange: (any) => void,
   new: boolean,
   fetchItems: (any) => void,
   fetchBulkItems: (any) => void,
   renderSelectorWarning: (string, boolean) => void,
-
   setNotNullableData: (Array<string>) => void,
 };
 
-export class PaymentPackFilter extends Component<Props, state> {
+export class PrivatePassFilter extends Component<Props, state> {
   componentDidMount() {
     if (
-      this.props.filter_data.payment_packs &&
-      this.props.filter_data.payment_packs.length === 1
+      this.props.filter_data.private_passes &&
+      this.props.filter_data.private_passes.length === 1
     ) {
-      this.props.fetchBulkItems.payment_packs(
-        this.props.filter_data.payment_packs,
+      this.props.fetchBulkItems.private_passes(
+        this.props.filter_data.private_passes,
       );
     }
-    this.props.setNotNullableData(['payment_packs']);
+    this.props.setNotNullableData(['private_passes']);
     if (this.props.new) {
       this.props.onChange({
-        payment_packs: null,
+        private_passes: null,
         has_pack: true,
         credit_comparator: 2,
         credit_value: 1,
@@ -77,7 +72,7 @@ export class PaymentPackFilter extends Component<Props, state> {
   }
 
   render() {
-    const { filter_data, t, classes, onChange, payment_packs } = this.props;
+    const { filter_data, t, classes, onChange, private_passes } = this.props;
     return (
       <div>
         <div className={classes.wrapper}>
@@ -96,53 +91,53 @@ export class PaymentPackFilter extends Component<Props, state> {
           </Select>
           {t(`filters.${filter_data.filter_identifier}.first`)}
           <Selector
-            helperText={t('multiSelector.paymentPacks.helperText')}
+            helperText={t('multiSelector.privatePass.helperText')}
             helperSelectedText={t(
-              'multiSelector.paymentPacks.helperSelectedText',
+              'multiSelector.privatePass.helperSelectedText',
             )}
             textFieldPlaceholder={t(
-              'multiSelector.paymentPacks.textFieldPlaceholder',
+              'multiSelector.privatePass.textFieldPlaceholder',
             )}
             renderItem={(item) => {
-              return <PaymentPackListItem pack={item} />;
+              return <PrivatePassListItem pass={item} />;
             }}
             helperAllSelectedText={t(
-              'multiSelector.paymentPacks.helperAllSelectedText',
+              'multiSelector.privatePass.helperAllSelectedText',
             )}
-            fetchItems={this.props.fetchItems.payment_packs}
+            fetchItems={this.props.fetchItems.private_passes}
             nameIdentifier="name"
-            selectAll={this.props.filter_data.select_all_payment_packs}
-            items={payment_packs}
-            selectedItems={filter_data.payment_packs}
+            selectAll={this.props.filter_data.select_all_private_passes}
+            items={private_passes}
+            selectedItems={filter_data.private_passes}
             onChange={(items, selectAll) => {
               if (
-                filter_data.payment_packs &&
+                filter_data.private_passes &&
                 !(
-                  items.length === filter_data.payment_packs.length &&
+                  items.length === filter_data.private_passes.length &&
                   [...items].sort().every((value, index) => {
                     return (
-                      value === [...filter_data.payment_packs].sort()[index]
+                      value === [...filter_data.private_passes].sort()[index]
                     );
                   })
                 )
               ) {
                 onChange({
-                  payment_packs: items,
-                  select_all_payment_packs: selectAll,
+                  private_passes: items,
+                  select_all_private_passes: selectAll,
                 });
               }
-              if (!filter_data.payment_packs && items.length > 0) {
+              if (!filter_data.private_passes && items.length > 0) {
                 onChange({
-                  payment_packs: items,
-                  select_all_payment_packs: selectAll,
+                  private_passes: items,
+                  select_all_private_passes: selectAll,
                 });
               }
             }}
           />
           {this.props.renderSelectorWarning(
-            t('multiSelector.paymentPacks.warning'),
+            t('multiSelector.privatePass.warning'),
             true,
-            filter_data.payment_packs,
+            filter_data.private_passes,
           )}
         </div>
         <div className={classes.dateBoughtContainer}>
@@ -296,21 +291,6 @@ export class PaymentPackFilter extends Component<Props, state> {
               />
             ) : null}
           </div>
-          <Tooltip
-            classes={classes}
-            title={
-              <Typography variant="subtitle2">
-                {this.props.t(
-                  `filters.${filter_data.filter_identifier}.infoIcon`,
-                )}
-              </Typography>
-            }
-            aria-label="info"
-          >
-            <IconButton>
-              <InfoIcon />
-            </IconButton>
-          </Tooltip>
         </div>
       </div>
     );
@@ -362,4 +342,4 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['smartList']),
   withStyles(styles),
-)(PaymentPackFilter);
+)(PrivatePassFilter);

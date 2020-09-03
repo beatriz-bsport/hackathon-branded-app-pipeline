@@ -384,9 +384,7 @@ export class Planning extends PureComponent<Props, State> {
       }
     } catch (err) {
       if (err.response && err.response.status === 403) {
-        alert(
-          "Des réservations (annulées) ou liste d'attente ont été enregistrées, impossible de supprimer.",
-        );
+        alert(this.props.t('calendar.canDeleteWithBooking'));
       }
       console.error(err);
     }

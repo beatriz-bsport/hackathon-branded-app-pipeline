@@ -29,7 +29,9 @@ export const getPrivatePassListBase: (State) => Array<PrivatePass> = createSelec
 
 export const getPrivatePassAvailable = createSelector(
   getPrivatePassListBase,
-  (pp) => pp.filter((p) => p.available),
+  (pp) => {
+    return pp.filter((p) => p.available);
+  },
 );
 
 export const getPrivatePassAsConsumer = createSelector(

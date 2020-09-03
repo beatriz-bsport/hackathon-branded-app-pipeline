@@ -21,8 +21,6 @@ import {
   restoreMetaActivity as restoreMetaActivityAPI,
 } from './api/common';
 
-import { createDictionnaryById, createIdList } from '../../actions/utils';
-
 import { fetchAll as fetchAllAPI } from './api/workshop-activity';
 
 export const metaActivityBulkActions = {
@@ -211,12 +209,7 @@ export function fetchCompanyActivities(id: number): ThunkAction {
         page_size: null,
         company: id,
       });
-      dispatch(
-        metaActivityListActions.success({
-          metaActivitiesDict: createDictionnaryById(response.data),
-          idList: createIdList(response.data),
-        }),
-      );
+      dispatch(metaActivityListActions.success(response.data));
     } catch (err) {
       console.error(err);
       dispatch(metaActivityListActions.error(err));

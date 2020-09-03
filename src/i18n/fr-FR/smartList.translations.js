@@ -19,6 +19,8 @@ const {
   TAG_FILTER_IDENTIFIER,
   E_COMPARATOR,
   BETWEEN_COMPARATOR,
+  PRIVATE_PASS_FILTER_IDENTIFIER,
+  PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
 } = SMARTLIST;
 
 const MEMBER_INFO = 1;
@@ -57,6 +59,13 @@ exports.default = {
       textFieldPlaceholder: 'Rechercher une carte de cours',
       helperAllSelectedText: 'toutes les cartes de cours',
       warning: 'Sélectionnez au moins une carte de cours',
+    },
+    privatePass: {
+      helperText: 'selectionner des cartes RDV',
+      helperSelectedText: 'cartes de RDV sélectionnées',
+      textFieldPlaceholder: 'Rechercher une carte RDV',
+      helperAllSelectedText: 'toutes les cartes RDV',
+      warning: 'Sélectionnez au moins une carte RDV',
     },
     buyables: {
       helperText: 'selectionner des catégories',
@@ -366,6 +375,31 @@ exports.default = {
         third: 'heures',
       },
     },
+    [PRIVATE_BOOKINGS_FILTER_IDENTIFIER]: {
+      name: 'Nombre de rendez-vous',
+      explanation:
+        'A réservé X rendez-vous avec le professeur A, dans le lieu B, avec la carte RDV C...',
+      first: 'A réservé',
+      second: 'rendez-vous',
+      between: 'et',
+      establishment: {
+        first: 'dans les établissements',
+        second: 'ou',
+        third: 'à domicile',
+      },
+      private_pass: {
+        first: 'avec les cartes RDV',
+      },
+      coach: {
+        first: 'avec les professeurs',
+      },
+      date: { first: 'ayant lieu' },
+      hour: {
+        first: 'débutant entre',
+        second: 'heures et',
+        third: 'heures',
+      },
+    },
     [PAYMENT_PACK_FILTER_IDENTIFIER]: {
       explanation: 'A acheté la carte de cours A à Y date, avec X credits',
       name: 'Général',
@@ -378,6 +412,18 @@ exports.default = {
       date_bought: { first: "date d'achat" },
       expiration: { first_will_expire: 'expire', first_has_expire: 'a expiré' },
       infoIcon: 'Les cartes de cours illimitées seront toujours incluses',
+    },
+    [PRIVATE_PASS_FILTER_IDENTIFIER]: {
+      explanation: 'A acheté la carte RDV A à Y date, avec X credits',
+      name: 'Cartes RDV',
+      first: 'une des cartes de RDV',
+      has: 'Possède',
+      has_not: 'Ne possède pas',
+      second: 'et',
+      third: 'à',
+      credits: { first: 'crédits:', second: 'et' },
+      date_bought: { first: "date d'achat" },
+      expiration: { first_will_expire: 'expire', first_has_expire: 'a expiré' },
     },
     [USER_HAS_PASSWORD_FILTER]: {
       explain: 'possède un mot de passe sur bsport',

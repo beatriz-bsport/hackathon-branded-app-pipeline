@@ -14,6 +14,8 @@ const {
   TAG_FILTER_IDENTIFIER,
   E_COMPARATOR,
   BETWEEN_COMPARATOR,
+  PRIVATE_PASS_FILTER_IDENTIFIER,
+  PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
 } = require('@bsport/common/lib/master-data/smart-list');
 
 const MEMBER_INFO = 1;
@@ -67,6 +69,13 @@ exports.default = {
       helperSelectedText: 'selected establishments',
       textFieldPlaceholder: 'Search an establishment',
       helperAllSelectedText: 'all establishments',
+    },
+    privatePass: {
+      helperText: 'select private passes',
+      helperSelectedText: 'selected private passes',
+      textFieldPlaceholder: 'Search a private pass',
+      helperAllSelectedText: 'all private passes',
+      warning: 'Select at least one',
     },
     coaches: {
       helperText: 'select coaches',
@@ -285,6 +294,31 @@ exports.default = {
       exlanation: 'Has register to the club the...',
       first: 'Has register to the club  ',
     },
+    [PRIVATE_BOOKINGS_FILTER_IDENTIFIER]: {
+      name: 'Number of private bookings',
+      explanation:
+        'Has booked X private bookings with coach A, in location B, with booking card C...',
+      first: 'Has booked',
+      second: 'private bookings',
+      between: 'and',
+      establishment: {
+        first: 'in establishments',
+        second: 'or',
+        third: 'at home',
+      },
+      private_pass: {
+        first: 'with private cards',
+      },
+      coach: {
+        first: 'with coaches',
+      },
+      date: { first: 'filter by date' },
+      hour: {
+        first: 'the hour of the lesson is between',
+        second: 'hour and',
+        third: 'hour',
+      },
+    },
     [BOOKINGS_NUMBER_FILTER_IDENTIFIER]: {
       name: 'Booking number',
       first: 'Has booked his ',
@@ -351,6 +385,21 @@ exports.default = {
         first_has_expire: 'has expired',
       },
       infoIcon: "Filter on credit doesn't apply to unlimited passes",
+    },
+    [PRIVATE_PASS_FILTER_IDENTIFIER]: {
+      name: 'Private passes',
+      first: 'one of private passes',
+      has: 'Has',
+      has_not: "Doesn't have",
+      second: 'and',
+      third: 'à',
+      explanation: 'Has bought private pass A at date B and has C credits...',
+      credits: { first: 'credits:' },
+      date_bought: { first: 'purchase date' },
+      expiration: {
+        first_will_expire: 'expires',
+        first_has_expire: 'has expired',
+      },
     },
     [BASKET_ABANDONMENT_FILTER_IDENTIFIER]: {
       explanation: 'Has abandonned a basket of X €',

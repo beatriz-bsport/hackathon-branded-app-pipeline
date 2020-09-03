@@ -39,10 +39,13 @@ import {
   FILTER_BOOKING_LAST,
   FIRST_BOOKING_FILTER_IDENTIFIER,
   EXPENSES_COMPLETE_FILTER_IDENTIFIER,
+  PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
+  PRIVATE_PASS_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 import Config from '../../../config';
 
 import type { Establishment } from '../../establishment/types';
+import type { PrivatePass } from '../../private-service/types';
 
 import FilterCard from './FilterListItem.component';
 
@@ -64,8 +67,12 @@ const filtersList = {
     BOOKINGS_NUMBER_FILTER_IDENTIFIER,
     BOOKINGS_FILTER_IDENTIFIER,
     FILTER_BOOKING_LAST,
+    PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   ],
-  [PAYMENT_PACK]: [PAYMENT_PACK_FILTER_IDENTIFIER],
+  [PAYMENT_PACK]: [
+    PAYMENT_PACK_FILTER_IDENTIFIER,
+    PRIVATE_PASS_FILTER_IDENTIFIER,
+  ],
   [BUY]: [
     EXPENSES_COMPLETE_FILTER_IDENTIFIER,
     BASKET_ABANDONMENT_FILTER_IDENTIFIER,
@@ -83,6 +90,7 @@ type Props = {
   payment_packs: Array<PaymentPack>,
   establishments: Array<Establishment>,
   meta_activities: Array<any>,
+  private_passes: Array<PrivatePass>,
   tags: Array<any>,
   tag_groups: Array<any>,
   updateFilter: (
@@ -317,6 +325,7 @@ export class FiltersPanel extends Component<Props> {
                   onClickEdit={this.props.updateFilter}
                   onClickDelete={this.props.deleteFilter}
                   payment_packs={this.props.payment_packs}
+                  private_passes={this.props.private_passes}
                   meta_activities={this.props.meta_activities}
                   establishments={this.props.establishments}
                   tag_groups={this.props.tag_groups}
@@ -331,6 +340,7 @@ export class FiltersPanel extends Component<Props> {
                   filter={this.state.new_filter}
                   onClickDelete={this.cancelFilter}
                   payment_packs={this.props.payment_packs}
+                  private_passes={this.props.private_passes}
                   meta_activities={this.props.meta_activities}
                   establishments={this.props.establishments}
                   new

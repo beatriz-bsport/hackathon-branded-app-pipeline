@@ -559,7 +559,7 @@ const styles = (theme) => ({
   root: {
     paddingRight: '0px',
     paddingBottom: theme.spacing(1) / 4,
-    paddingTop: (theme.spacing(3)) / 8,
+    paddingTop: theme.spacing(3) / 8,
     marginLeft: theme.spacing(1),
   },
   divider: { borderBottom: '1px solid #909090' },

@@ -28,6 +28,8 @@ import {
   FIRST_BOOKING_FILTER_IDENTIFIER,
   EXPENSES_COMPLETE_FILTER_IDENTIFIER,
   FILTER_BOOKING_LAST,
+  PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
+  PRIVATE_PASS_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
 import CreditAccountFilter from './filters/CreditAccountFilter.component';
@@ -42,13 +44,17 @@ import BookingsFilter from './filters/BookingsFilter.component';
 import FirstBookingFilter from './filters/FirstBookingFilter.component';
 import UserHasPasswordFilter from './filters/UserHasPasswordFilter.component';
 import ExpensesCompleteFilter from './filters/ExpensesCompleteFilter.component';
+import PrivatePassFilter from './filters/PrivatePassFilter.component';
+import PrivateBookingsFilter from './filters/PrivateBookingsFilter.component';
 
 import type { PaymentPack } from '../../payment-packs/types';
 import type { Establishment } from '../../establishment/types';
 import type { Coach } from '../../associated-coach/types';
+import type { PrivatePass } from '../../private-service/types';
 
 type Props = {
   payment_packs: Array<PaymentPack>,
+  private_passes: Array<PrivatePass>,
   meta_activities: Array<any>,
   coaches: Array<Coach>,
   establishments: Array<Establishment>,
@@ -197,6 +203,19 @@ export class FilterCard extends Component<Props> {
             renderSelectorWarning={this.renderSelectorWarning}
           />
         );
+      case PRIVATE_PASS_FILTER_IDENTIFIER:
+        return (
+          <PrivatePassFilter
+            filter_data={this.state.filter_data}
+            onChange={this.handleChange}
+            private_passes={this.props.private_passes}
+            fetchItems={this.props.fetchItems}
+            fetchBulkItems={this.props.fetchBulkItems}
+            new={this.props.new}
+            setNotNullableData={this.setNotNullableData}
+            renderSelectorWarning={this.renderSelectorWarning}
+          />
+        );
       case TAG_FILTER_IDENTIFIER:
         return (
           <TagFilter
@@ -263,6 +282,21 @@ export class FilterCard extends Component<Props> {
             onChange={this.handleChange}
             payment_packs={this.props.payment_packs}
             meta_activities={this.props.meta_activities}
+            new={this.props.new}
+            coaches={this.props.coaches}
+            fetchItems={this.props.fetchItems}
+            fetchBulkItems={this.props.fetchBulkItems}
+            setNotNullableData={this.setNotNullableData}
+            renderSelectorWarning={this.renderSelectorWarning}
+          />
+        );
+      case PRIVATE_BOOKINGS_FILTER_IDENTIFIER:
+        return (
+          <PrivateBookingsFilter
+            filter_data={this.state.filter_data}
+            establishments={this.props.establishments}
+            onChange={this.handleChange}
+            private_passes={this.props.private_passes}
             new={this.props.new}
             coaches={this.props.coaches}
             fetchItems={this.props.fetchItems}

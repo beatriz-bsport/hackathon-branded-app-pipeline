@@ -45,7 +45,10 @@ import {
   sendMail,
   getMemberTable,
 } from '../../libs/smart-list/api';
-import { fetchPrivatePassList } from '../../libs/private-service/actions';
+import {
+  fetchPrivatePassList,
+  fetchPrivatePassBulk,
+} from '../../libs/private-service/actions';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import { getMetaActivities } from '../../libs/meta-activity/selectors';
 import {
@@ -90,6 +93,7 @@ type Props = {
   smartlist: any,
   fetchSmartListFilters: (id: number) => void,
   fetchAllPaymentPacks: () => void,
+  fetchPrivatePassList: () => void,
   fetchAllActivities: () => void,
   fetchEmailTemplateDetail: (id: number) => void,
   fetchEmailTemplatesSummaries: () => void,
@@ -120,7 +124,7 @@ type Props = {
   smartlist_filters: Array<Filter>,
   payment_packs: Array<PaymentPack>,
   establishments: Array<Establishment>,
-  // privatePassList: Array<PrivatePass>,
+  privatePassList: Array<PrivatePass>,
   meta_activities: Array<MetaActivity>,
   email_templates_details: any,
   email_templates_list: any,
@@ -138,10 +142,12 @@ type Props = {
   metaActivityLoading: boolean,
   coachLoading: boolean,
   paymentPackLoading: boolean,
+  privatePassLoading: boolean,
   fetchEstablishmentBulk: () => void,
   fetchMetaActivityBulk: () => void,
   fetchCoachBulk: () => void,
   fetchPaymentPackBulk: () => void,
+  fetchPrivatePassBulk: () => void,
   fetchCoaches: () => void,
   coaches: Array<Coach>,
   smartListUpdate: () => void,
@@ -219,6 +225,10 @@ export class SmartListDetailMember extends Component<Props, State> {
         fetchAction: this.props.fetchEstablishments,
         loading: this.props.establishmentLoading,
       },
+      private_passes: {
+        fetchAction: this.props.fetchPrivatePassList,
+        loading: this.props.privatePassLoading,
+      },
     };
 
     const fetchBulkItems = {
@@ -226,8 +236,8 @@ export class SmartListDetailMember extends Component<Props, State> {
       coaches: this.props.fetchCoachBulk,
       payment_packs: this.props.fetchPaymentPackBulk,
       establishments: this.props.fetchEstablishmentBulk,
+      private_passes: this.props.fetchPrivatePassBulk,
     };
-
     return (
       <div>
         <FiltersPanel
@@ -237,6 +247,7 @@ export class SmartListDetailMember extends Component<Props, State> {
           updateFilter={this.updateFilter}
           deleteFilter={this.deleteFilter}
           payment_packs={this.props.payment_packs}
+          private_passes={this.props.privatePassList}
           createFilter={this.createFilter}
           coaches={this.props.coaches}
           meta_activities={this.props.meta_activities}
@@ -380,6 +391,7 @@ export default compose(
       loading: state.smartList.loading || state.smartList.filter.loading,
       payment_packs: getPaymentPackEnabled(state),
       privatePassList: getPrivatePassAvailable(state),
+      privatePassLoading: state.privateService.privatePass.loading,
       meta_activities: getMetaActivities(state),
       metaActivityLoading: state.metaActivity.loading,
       establishmentLoading: state.establishment.loading,
@@ -398,6 +410,7 @@ export default compose(
       fetchSmartListFilters,
       fetchCoachBulk,
       fetchCoaches,
+      fetchPrivatePassBulk,
       fetchAllPaymentPacks,
       fetchPaymentPackBulk,
       fetchEstablishmentBulk,

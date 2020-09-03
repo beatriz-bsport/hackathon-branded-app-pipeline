@@ -135,8 +135,9 @@ export class SendEmailDialog extends Component<Props> {
                   emails={this.props.emails}
                   value={this.state.selectedMail}
                   onChange={(ev) => {
-                    this.setState({ selectedMail: ev.value });
-                    this.props.getEmailDetail(ev.value);
+                    const { value } = ev;
+                    this.setState({ selectedMail: value });
+                    this.props.getEmailDetail(value);
                   }}
                   helperText={t('mails')}
                 />

@@ -529,7 +529,7 @@
       "paymentMethodCash": "Espèces",
       "invoice": "Facture",
       "paymentMethod": "Mode de paiement",
-      "creditAccountBalance": "Accompte actuel : ",
+      "creditAccountBalance": "Acompte actuel : ",
       "paymentMethods": {
         "CB": "Carte bleue",
         "CB_MANUAL": "Carte bleue (manuel)",
@@ -576,6 +576,7 @@
     },
     "calendar": {
       "modifyOffer": "Modifier",
+      "canDeleteWithBooking": "Des réservations (annulées) ou liste d'attente ont été enregistrées, impossible de supprimer.",
       "deleteOffer": "Annuler",
       "allDay": "journée",
       "previous": "<",
@@ -1005,7 +1006,7 @@
     },
     "debt": {
       "regularize": "Régulariser",
-      "title": "Accompte dû au club",
+      "title": "Acompte dû au club",
       "titlePaymentDialog": "Régularisation acompte",
       "explainPayment": "Cette somme sera reversée au club afin de régulariser votre acompte"
     },
@@ -2920,7 +2921,7 @@
     "paymentMethod": {
       "sepa": "Prélèvement SEPA",
       "card": "Carte bleue",
-      "bsportCredit": "Accompte client",
+      "bsportCredit": "Acompte client",
       "credit": {
         "explain": "Le membre sera facturé sur son acompte interne chaque mois. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte bleue ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori."
       }
@@ -3615,7 +3616,7 @@
     },
     "regularizeBalance": "Régulariser",
     "cashoutBalance": "Décaisser",
-    "creditAccountBalance": "Accompte crédit restant",
+    "creditAccountBalance": "Acompte crédit restant",
     "showPaymentPack": "Voir les cartes de cours",
     "showInvoices": "Voir les factures",
     "showSubscriptions": "Voir les souscriptions",
@@ -3921,6 +3922,13 @@
         "helperAllSelectedText": "toutes les cartes de cours",
         "warning": "Sélectionnez au moins une carte de cours"
       },
+      "privatePass": {
+        "helperText": "selectionner des cartes RDV",
+        "helperSelectedText": "cartes de RDV sélectionnées",
+        "textFieldPlaceholder": "Rechercher une carte RDV",
+        "helperAllSelectedText": "toutes les cartes RDV",
+        "warning": "Sélectionnez au moins une carte RDV"
+      },
       "buyables": {
         "helperText": "selectionner des catégories",
         "helperSelectedText": "catégories sélectionnées",
@@ -3999,7 +4007,7 @@
     "filterCategory": { "1": "Informations membre", "2": "Cartes de cours", "3": "Réservations", "4": "Achats" },
     "filters": {
       "1": {
-        "name": "Accompte",
+        "name": "Acompte",
         "first": "L'acompte du client est",
         "second": " à   ",
         "third": "euros",
@@ -4154,7 +4162,19 @@
       "before": "avant",
       "after": "après",
       "comparators": { "1": "inférieur (⩽)", "2": "supérieur (⩾)", "5": "égal", "6": "entre deux" },
-      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" }
+      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" },
+      "undefined": {
+        "explanation": "A acheté la carte RDV A à Y date, avec X credits",
+        "name": "Cartes RDV",
+        "first": "une des cartes de RDV",
+        "has": "Possède",
+        "has_not": "Ne possède pas",
+        "second": "et",
+        "third": "à",
+        "credits": { "first": "crédits:", "second": "et" },
+        "date_bought": { "first": "date d'achat" },
+        "expiration": { "first_will_expire": "expire", "first_has_expire": "a expiré" }
+      }
     }
   },
   "coachPerformance": {

@@ -48,6 +48,7 @@ type Props = {
   selectSubscription: (?Subscription) => void,
   setSwitchPaymentMethodDialogOpen: (?number) => void,
   switchPaymentMethodDialogOpen: number,
+  switchPaymentMethod: ?(*) => void,
 };
 
 export class ConsumerSubscription extends React.Component<Props> {

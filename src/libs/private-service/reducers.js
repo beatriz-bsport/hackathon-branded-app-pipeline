@@ -731,17 +731,25 @@ export default handleActions(
       return state.setIn(['privatePass', 'error'], payload);
     },
     [privatePassBulkActions.success]: (state, { payload }) => {
-      return state.merge(
-        {
-          privatePass: {
-            byId: payload.reduce((acc, ps) => {
-              acc[ps.id] = ps;
-              return acc;
-            }, {}),
+      return state
+        .merge(
+          {
+            privatePass: {
+              byId: payload.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
           },
-        },
-        { deep: true },
-      );
+          { deep: true },
+        )
+        .updateIn(
+          ['privatePass', 'allIds'],
+          (myList, newId) => {
+            return myList.concat(newId);
+          },
+          payload.map((pp) => pp.id),
+        );
     },
     [privatePassAsConsumerListActions.isLoading]: (state, { payload }) => {
       return state.setIn(['privatePass', 'asConsumer', 'loading'], payload);

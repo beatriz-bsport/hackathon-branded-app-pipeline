@@ -24,7 +24,7 @@ i18n
   .init({
     backend: {
       backends: isDebug ? [HttpBackend] : [LocalStorageBackend, HttpBackend],
-      backendOptions: isDebug ? [{}] : [{ expirationTime: 30 * 60 * 1000 }, {}],
+      backendOptions: isDebug ? [{}] : [{ expirationTime: 5 * 60 * 1000 }, {}],
     },
     /*
     backend: {

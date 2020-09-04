@@ -43,6 +43,9 @@ export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Pro
             onSubmit={this.props.onSubmit}
             onCancel={this.props.onCancel}
             enabledPaymentMethods={this.props.enabledPaymentMethods}
+            refreshSavedPaymentMethodList={
+              this.props.refreshSavedPaymentMethodList
+            }
             member={this.props.member}
             processing={this.props.processing}
             savedPaymentMethodList={this.props.savedPaymentMethodList}

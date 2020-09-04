@@ -28,6 +28,9 @@ import {
 import { getSubscriptionListByMember } from '../../libs/subscription/selectors';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 import SubscriptionPaymentMethodSwitcherDialog from '../../libs/subscription/components/SubscriptionPaymentMethodSwitcherDialog.component';
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 
 import type { Subscription } from '../../libs/subscription/types';
 import type { Membership } from '../../libs/membership/types';
@@ -49,6 +52,10 @@ type Props = {
   setSwitchPaymentMethodDialogOpen: (?number) => void,
   switchPaymentMethodDialogOpen: number,
   switchPaymentMethod: ?(*) => void,
+
+  requestSetupIntentSecret: () => void,
+  fetchPaymentMethodList: () => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
 };
 
 export class ConsumerSubscription extends React.Component<Props> {
@@ -120,6 +127,9 @@ export class ConsumerSubscription extends React.Component<Props> {
           <SubscriptionPaymentMethodSwitcherDialog
             open={this.props.switchPaymentMethodDialogOpen}
             onSubmit={this.props.switchPaymentMethod}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
+            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
             onCancel={() => this.props.setSwitchPaymentMethodDialogOpen(false)}
             enabledPaymentMethods={[
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
@@ -155,8 +165,10 @@ export default compose(
       subscriptionList: getSubscriptionListByMember(state),
       subscriptionLoading: state.subscription.byMember.loading,
       subscriptionCount: state.subscription.byMember.count,
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
+      fetchPaymentMethodList: fetchPaymentMethodListAction,
       fetchSubscriptionListByMember,
       goToSubscription: (name, id) =>
         push(`${urlToMarketplace(name, id)}/subscription`),
@@ -169,6 +181,10 @@ export default compose(
     false,
   ),
   withHandlers({
+    requestSetupIntentSecret: ({ membership }) => () =>
+      requestSetupIntentSecretAPI(null, membership.company),
+    fetchPaymentMethodList: ({ membership, fetchPaymentMethodList }) => () =>
+      fetchPaymentMethodList({ company: membership.company }),
     switchPaymentMethod: ({
       switchPaymentMethodDialogOpen,
       switchSubscriptionPaymentMethod,

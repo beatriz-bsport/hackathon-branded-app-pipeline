@@ -15,6 +15,9 @@ import { getInvoiceList } from '../../libs/invoice/selectors';
 import type { Membership } from '../../libs/membership/types';
 import ConsumerDebtRegularizerDialog from '../../libs/consumer-space/components/ConsumerDebtRegularizerDialog.component';
 
+import { fetchPaymentMethodList } from '../../libs/payment/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+
 type Props = {
   classes: Object,
   finalizeInvoice: (uuid: string) => void,
@@ -26,9 +29,18 @@ type Props = {
   invoiceList: Array<Invoice>,
   loading: boolean,
   fetchInvoiceList: (params: any, options: OptionCallback) => void,
+
+  fetchPaymentMethodList: (params: any) => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
 };
 
 export class ConsumerInvoice extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchPaymentMethodList({
+      company: this.props.membership.company,
+    });
+  }
+
   downloadInvoice = (invoice: Invoice) => {
     window.location.href = invoice.stripe_invoice_pdf;
   };
@@ -42,6 +54,7 @@ export class ConsumerInvoice extends React.Component<Props> {
               withButton
               member={this.props.membership}
               submitPayment={this.props.submitPayment}
+              savedPaymentMethodList={this.props.savedPaymentMethodList}
             />
           )}
         <InvoiceTable
@@ -82,12 +95,14 @@ export default compose(
       count: state.invoice.list.count,
       loading: state.invoice.list.loading,
       companyTheme: themeSelectors.getTheme(state),
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
       finalizeInvoice,
       regularizeDebt: regularizeDebtAction,
       fetchMembership: fetchMembershipAction,
       fetchInvoiceList,
+      fetchPaymentMethodList,
     },
   ),
   withHandlers({

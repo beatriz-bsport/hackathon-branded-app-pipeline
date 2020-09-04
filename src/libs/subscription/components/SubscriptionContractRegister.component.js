@@ -13,7 +13,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { Elements, StripeProvider } from 'react-stripe-elements';
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
@@ -21,13 +20,10 @@ import { Moment } from '../../../i18n';
 
 import SubscriptionPayment from './SubscriptionPayment.component';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
-import Config from '../../../config';
 
 import { postContractSubscription as postContractSubscriptionAPI } from '../api';
 
 import SubscriptionContractListItem from './SubscriptionContractListItem.component';
-
-const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
 type Props = {
   t: TFunction,
@@ -53,6 +49,10 @@ type Props = {
 
   onSubmit: (token: string) => void,
   onClose: () => void,
+
+  requestSetupIntentSecret: () => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
+  refreshSavedPaymentMethodList: () => void,
 };
 
 const ContractPickerDialog = (props: {
@@ -177,18 +177,17 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
         </div>
 
         <Divider />
-        <StripeProvider apiKey={STRIPE_KEY}>
-          <Elements>
-            <SubscriptionPayment
-              contract={props.contract}
-              onCancel={props.onClose}
-              member={props.member}
-              onSubmit={props.onSubmit}
-              processing={props.processing}
-              enabledPaymentMethods={props.enabledPaymentMethods}
-            />
-          </Elements>
-        </StripeProvider>
+        <SubscriptionPayment
+          contract={props.contract}
+          onCancel={props.onClose}
+          member={props.member}
+          onSubmit={props.onSubmit}
+          processing={props.processing}
+          requestSetupIntentSecret={props.requestSetupIntentSecret}
+          savedPaymentMethodList={props.savedPaymentMethodList}
+          refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
+          enabledPaymentMethods={props.enabledPaymentMethods}
+        />
       </DialogContent>
     </Dialog>
   );
@@ -221,6 +220,7 @@ export default compose(
   withHandlers({
     onSubmit: ({ date, setProcessing, member, contract, onSuccess }) => async (
       token: string,
+      paymentMethodId?: string,
     ) => {
       const first_billing_timestamp = moment(date, 'YYYY-MM-DD').unix();
       setProcessing(true);
@@ -229,6 +229,7 @@ export default compose(
         response = await postContractSubscriptionAPI(contract.id, {
           stripe_source: token,
           member: member.id,
+          payment_method_id: paymentMethodId,
           first_billing_timestamp: moment(first_billing_timestamp).unix() + 20,
         });
       } catch (err) {

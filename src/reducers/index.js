@@ -49,6 +49,7 @@ import video from '../libs/video/reducers';
 import playlist from '../libs/playlist/reducers';
 import event from '../libs/event/reducers';
 import invoiceReducers from '../libs/invoice/reducers';
+import paymentBackend from '../libs/payment/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -74,6 +75,7 @@ const rootReducer = (history) =>
     consumerPaymentPack: consumerPaymentPackReducers,
     category: categoryReducers,
     invoice: invoiceReducers,
+    paymentBackend,
     snackbar: snackbarReducer,
     search: searchReducer,
     companies: companiesReducers,

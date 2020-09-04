@@ -13,6 +13,7 @@ import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
@@ -45,6 +46,8 @@ import PlannedInvoicePriceUpdater from '../../libs/subscription/components/Plann
 import SubscriptionPaymentPackSwitcherDialog from '../../libs/subscription/components/SubscriptionPaymentPackSwitcherDialog.component';
 import SubscriptionPaymentMethodSwitcherDialog from '../../libs/subscription/components/SubscriptionPaymentMethodSwitcherDialog.component';
 import StopConfirmationDialog from '../../libs/subscription/components/StopConfirmationDialog.component';
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 
 import type {
   Subscription,
@@ -107,6 +110,10 @@ type Props = {
     options: OptionCallback,
   ) => void,
   fetchPrivatePassList: () => void,
+
+  requestSetupIntentSecret: () => void,
+  fetchPaymentMethodList: () => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
 };
 
 export class SubscriptionDetail extends Component<Props> {
@@ -183,6 +190,9 @@ export class SubscriptionDetail extends Component<Props> {
             loading={this.props.memberLoading}
             onSubmit={this.props.switchPaymentMethod}
             onCancel={() => this.props.setSwitchPaymentMethodDialogOpen(false)}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
             enabledPaymentMethods={[
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
@@ -261,6 +271,7 @@ export default compose(
       eventList: getSubscriptionEventList(state),
       eventPage: getSubscriptionEventState(state).page,
       eventLoading: getSubscriptionEventState(state).loading,
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
       fetchSubscription: fetchSubscriptionAction,
@@ -271,6 +282,7 @@ export default compose(
       goToMember: (id: number) => pushRouter(`/member/${id}/`),
       goToSubscribe: (id: number) => pushRouter(`/subscription/add/${id}`),
       updatePlannedInvoicePrice: updatePlannedInvoicePriceAction,
+      fetchPaymentMethodList: fetchPaymentMethodListAction,
       updateSubscriptionRenewal: updateSubscriptionRenewalAction,
       freezeSubscription: freezeSubscriptionAction,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
@@ -281,6 +293,10 @@ export default compose(
     },
   ),
   withHandlers({
+    requestSetupIntentSecret: ({ subscription }) => () =>
+      requestSetupIntentSecretAPI(subscription.member),
+    fetchPaymentMethodList: ({ subscription, fetchPaymentMethodList }) => () =>
+      fetchPaymentMethodList({ member: subscription.member }),
     fetchSubscriptionEventList: ({ fetchSubscriptionEventList, id }) => (
       params = {},
     ) => fetchSubscriptionEventList({ ...params, object_id: id }),
@@ -291,11 +307,12 @@ export default compose(
       id,
       switchSubscriptionPaymentMethod,
       setSwitchPaymentMethodDialogOpen,
-    }) => (source, options) => {
+    }) => (source, options, payment_method_id) => {
       switchSubscriptionPaymentMethod(
         id,
         {
           source,
+          payment_method_id,
           payment_method_identifier: BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
         },
         {

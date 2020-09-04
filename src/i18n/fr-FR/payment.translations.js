@@ -41,6 +41,10 @@ exports.default = {
 
   forms: {
     cancelPayment: 'Précédent',
+    savePaymentMethod: {
+      label: 'Sauvegarder ce moyen de paiement',
+      section: 'Mes moyens de paiement ({{count}})',
+    },
     credit: {
       explain:
         'Votre club sera informé du débit, vous règlerez cette commande sur place',
@@ -48,6 +52,22 @@ exports.default = {
     },
     paymentIntent: {
       pay: 'Payer',
+    },
+    paymentMethod: {
+      message: {
+        success: 'Méthode de paiement sauvegardée avec succès !',
+        error: "Impossible d'enregistrer cette méthode de paiement",
+      },
+      collect: {
+        content:
+          'Ce moyen de paiement sera sauvegardé dans votre compte pour être facturé conformément au contrat.',
+      },
+      actions: {
+        close: 'Fermer',
+        collect: 'Sauvegarder',
+        retry: 'Réessayer',
+        addPaymentMethod: 'Ajouter un moyen de paiement',
+      },
     },
   },
   generalTermsAndConditions: {

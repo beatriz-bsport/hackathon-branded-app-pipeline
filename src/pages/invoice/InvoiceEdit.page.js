@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { goBack, push as pushRouter } from 'connected-react-router';
-import { compose, withHandlers } from 'recompose';
+import { compose, withHandlers, withProps } from 'recompose';
 import { withRouter } from 'react-router';
 import Grow from '@material-ui/core/Grow';
 import Hidden from '@material-ui/core/Hidden';
@@ -26,6 +26,7 @@ import {
   finalizeInvoice,
   checkInvoiceInfo as checkInvoiceInfoActions,
 } from '../../libs/invoice/actions';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import {
   getInvoice,
   withMember,
@@ -41,6 +42,8 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchMember } from '../../libs/member/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import { fetchPaymentMethodList } from '../../libs/payment/actions';
 import { getPermissions } from '../../libs/role/selectors';
 
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
@@ -82,6 +85,11 @@ type Props = {
   fetchPaymentList: (params: *) => void,
   fetchInvoiceItemList: (params: *) => void,
   availableBuyableItems: { [buyable_item_identifier: number]: Array<any> },
+  memberId: number,
+  fetchPaymentMethodList: (params: any) => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
+  id: ?number,
+  requestSetupIntentSecret: () => void,
 };
 
 type State = {
@@ -116,12 +124,18 @@ export class InvoiceFormPage extends Component<Props, State> {
     this.props.fetchAllPaymentPacks();
     this.fetchData();
     this.props.fetchCompanyRoles();
+    if (this.props.memberId) {
+      this.props.fetchPaymentMethodList({ member: this.props.memberId });
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
     const { props } = this;
     if (prevProps.uuid !== props.uuid && props.uuid) {
       this.fetchData();
+    }
+    if (this.props.memberId && this.props.memberId !== prevProps.memberId) {
+      this.props.fetchPaymentMethodList({ member: this.props.memberId });
     }
   }
 
@@ -146,6 +160,13 @@ export class InvoiceFormPage extends Component<Props, State> {
           member={invoice.member}
           availableBuyableItems={this.props.availableBuyableItems}
           invoice={invoice}
+          savedPaymentMethodList={this.props.savedPaymentMethodList}
+          requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+          refreshSavedPaymentMethodList={() => {
+            this.props.fetchPaymentMethodList({
+              member: this.props.invoice.member.id,
+            });
+          }}
           returnPayment={(payment) =>
             this.props.returnPayment(payment, this.props.uuid)
           }
@@ -227,6 +248,7 @@ export default compose(
       permission: getPermissions(state),
       isReturningPayment: state.invoice.returnPayment.loading,
       availableBuyableItems: getBuyableItem(state),
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
       fetchPaymentList,
@@ -246,9 +268,15 @@ export default compose(
       fetchInvoice: fetchSpecificInvoice,
       returnPayment,
       updatePaymentMethod,
+      fetchPaymentMethodList,
     },
   ),
+  withProps(({ invoice }) => ({
+    memberId: invoice && invoice.member && invoice.member.id,
+  })),
   withHandlers({
+    requestSetupIntentSecret: ({ memberId }) => () =>
+      requestSetupIntentSecretAPI(memberId),
     updateInvoice: ({
       updateInvoice,
       uuid,

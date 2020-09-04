@@ -8,7 +8,6 @@ import {
   Elements,
 } from 'react-stripe-elements';
 import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
@@ -18,10 +17,11 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { CB as PAYMENT_METHOD_STRIPE_PAYMENT_INTENT } from '@bsport/common/lib/master-data/payment-methods';
-import Config from '../../../config';
+import Config from '../../../../config';
 
 import StripeErrorCode from './StripeErrorCode.component';
-import AcceptTermsAndConditions from './AcceptTermsAndConditions.component';
+import AcceptTermsAndConditions from '../AcceptTermsAndConditions.component';
+import PaymentMethodList from '../PaymentMethodList.component';
 
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
@@ -36,12 +36,17 @@ type Props = {
   customPayStyle: any,
   customContainerStyle: any,
   hideCancelButton?: boolean,
+
+  processing: boolean,
+  savedPaymentMethodList: Array<PaymentMethod>,
+  stripe: Stripe,
 };
 
 type State = {
   processing: boolean,
   stripe_error_code: ?string,
   savePaymentMethod: boolean,
+  selectedSavedPaymentMethodId: ?string,
 };
 
 export class PaymentIntentGathering extends Component<Props, State> {
@@ -50,6 +55,7 @@ export class PaymentIntentGathering extends Component<Props, State> {
     processing: false,
     savePaymentMethod: false,
     stripe_error_code: null,
+    selectedSavedPaymentMethodId: null,
   };
 
   handleServerResponse = (response) => {
@@ -84,7 +90,16 @@ export class PaymentIntentGathering extends Component<Props, State> {
                 onError: (err) => {
                   this.setState({
                     processing: false,
-                    stripe_error_code: err.response.data.error_code,
+                    stripe_error_code:
+                      (err.response &&
+                        err.response.data &&
+                        err.response.data.error_code) ||
+                      null,
+                    stripe_decline_code:
+                      (err.response &&
+                        err.response.data &&
+                        err.response.data.decline_code) ||
+                      null,
                   });
                 },
               },
@@ -105,37 +120,77 @@ export class PaymentIntentGathering extends Component<Props, State> {
       stripe_error_code: null,
       stripe_decline_code: null,
     });
+    const { selectedSavedPaymentMethodId } = this.state;
 
-    this.props.stripe.createPaymentMethod('card').then(({ paymentMethod }) => {
-      // create a paymentMethod and submit it to the server, it will return a PaymentIntent
-      // if the paymentMethod needs an authentication
-      if (!paymentMethod) {
-        this.setState({
-          stripe_error_code: 'invalid_number',
-          processing: false,
+    if (!selectedSavedPaymentMethodId) {
+      this.props.stripe
+        .createPaymentMethod('card')
+        .then(({ paymentMethod }) => {
+          // create a paymentMethod and submit it to the server, it will return a PaymentIntent
+          // if the paymentMethod needs an authentication
+          if (!paymentMethod) {
+            this.setState({
+              stripe_error_code: 'invalid_number',
+              processing: false,
+            });
+          } else {
+            this.props.submitPaymentIntent(
+              {
+                save_payment_method: this.state.savePaymentMethod,
+                payment_method: PAYMENT_METHOD_STRIPE_PAYMENT_INTENT.id,
+                payment_data: {
+                  payment_method_id:
+                    selectedSavedPaymentMethodId || paymentMethod.id,
+                },
+              },
+              {
+                onSuccess: (res) => this.handleServerResponse(res),
+                onError: (err) => {
+                  this.setState({
+                    processing: false,
+                    stripe_error_code:
+                      (err.response &&
+                        err.response.data &&
+                        err.response.data.code) ||
+                      null,
+                    stripe_decline_code:
+                      (err.response &&
+                        err.response.data &&
+                        err.response.data.decline_code) ||
+                      null,
+                  });
+                },
+              },
+            );
+          }
         });
-      } else {
-        this.props.submitPaymentIntent(
-          {
-            save_payment_method: this.state.savePaymentMethod,
-            payment_method: PAYMENT_METHOD_STRIPE_PAYMENT_INTENT.id,
-            payment_data: {
-              payment_method_id: paymentMethod.id,
-            },
+    } else {
+      this.props.submitPaymentIntent(
+        {
+          save_payment_method: this.state.savePaymentMethod,
+          payment_method: PAYMENT_METHOD_STRIPE_PAYMENT_INTENT.id,
+          payment_data: {
+            payment_method_id: selectedSavedPaymentMethodId,
           },
-          {
-            onSuccess: (res) => this.handleServerResponse(res),
-            onError: (err) => {
-              this.setState({
-                processing: false,
-                stripe_error_code: err.response.data.code,
-                stripe_decline_code: err.response.data.decline_code,
-              });
-            },
+        },
+        {
+          onSuccess: (res) => this.handleServerResponse(res),
+          onError: (err) => {
+            this.setState({
+              processing: false,
+              stripe_error_code:
+                (err.response && err.response.data && err.response.data.code) ||
+                null,
+              stripe_decline_code:
+                (err.response &&
+                  err.response.data &&
+                  err.response.data.decline_code) ||
+                null,
+            });
           },
-        );
-      }
-    });
+        },
+      );
+    }
   };
 
   renderProcessing = () => {
@@ -165,21 +220,48 @@ export class PaymentIntentGathering extends Component<Props, State> {
         }
       >
         {this.state.processing ? this.renderProcessing() : null}
-        <div
-          style={this.state.processing ? { display: 'none' } : {}}
-          className={this.props.classes.cardElementContainer}
-        >
-          <CardElement
-            onReady={() => this.setState({ cardReady: true })}
-            style={{ base: { fontSize: '18px' } }}
-          />
-        </div>
+        {!this.state.selectedSavedPaymentMethodId && (
+          <React.Fragment>
+            <div
+              style={this.state.processing ? { display: 'none' } : {}}
+              className={this.props.classes.cardElementContainer}
+            >
+              <CardElement
+                onReady={() => this.setState({ cardReady: true })}
+                style={{ base: { fontSize: '18px' } }}
+              />
+            </div>
+            <div className={this.props.classes.savePaymentMethodCheckbox}>
+              <Checkbox
+                checked={this.state.savePaymentMethod}
+                onChange={(ev) =>
+                  this.setState({ savePaymentMethod: ev.target.checked })
+                }
+              />
+              <Typography variant="caption">
+                {this.props.t('payment:forms.savePaymentMethod.label')}
+              </Typography>
+            </div>
+          </React.Fragment>
+        )}
         {this.state.stripe_error_code || this.state.stripe_decline_code ? (
           <StripeErrorCode
             errorCode={this.state.stripe_error_code}
             declineCode={this.state.stripe_decline_code}
           />
         ) : null}
+        <PaymentMethodList
+          isExpandable
+          savedPaymentMethodList={this.props.savedPaymentMethodList}
+          paymentMethodType="card"
+          selectedSavedPaymentMethodId={this.state.selectedSavedPaymentMethodId}
+          onSelect={(selectedSavedPaymentMethodId) =>
+            this.setState({
+              selectedSavedPaymentMethodId,
+            })
+          }
+          disabled={this.props.loading || this.props.processing}
+        />
         {this.props.termsAndConditions ? (
           <AcceptTermsAndConditions
             accepted={this.state.termsAccepted}
@@ -187,17 +269,6 @@ export class PaymentIntentGathering extends Component<Props, State> {
             termsAndConditions={this.props.termsAndConditions}
           />
         ) : null}
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={this.state.savePaymentMethod}
-              onChange={(ev) =>
-                this.setState({ savePaymentMethod: ev.target.checked })
-              }
-            />
-          }
-          label={this.props.t('payment:forms.savePaymentMethod.label')}
-        />
         <div className={this.props.classes.buttonContainer}>
           {!this.props.hideCancelButton && (
             <Button
@@ -213,7 +284,8 @@ export class PaymentIntentGathering extends Component<Props, State> {
             color="primary"
             disabled={
               !!(
-                !this.state.cardReady ||
+                (!this.state.cardReady &&
+                  !this.state.selectedSavedPaymentMethodId) ||
                 this.props.loading ||
                 this.state.processing ||
                 (this.props.termsAndConditions && !this.state.termsAccepted)
@@ -250,7 +322,7 @@ const styles = (theme) => ({
     border: '2px solid #efefef',
     borderRadius: theme.spacing(1),
     padding: theme.spacing(1),
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(0.5),
   },
   buttonContainer: {
     width: '100%',
@@ -260,8 +332,24 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
   },
+  savePaymentMethodCheckbox: {
+    marginLeft: -theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+    '&>*': {
+      marginRight: theme.spacing(0),
+    },
+  },
   payButton: {
     marginTop: theme.spacing(2),
+  },
+  row: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(1),
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
 

@@ -2444,8 +2444,24 @@
     "method": { "CB": "Carte bleue", "CREDIT_ACCOUNT": "Paiement sur place" },
     "forms": {
       "cancelPayment": "Précédent",
+      "savePaymentMethod": { "label": "Sauvegarder ce moyen de paiement", "section": "Mes moyens de paiement ({{count}})" },
       "credit": { "explain": "Votre club sera informé du débit, vous règlerez cette commande sur place", "pay": "Confirmer" },
-      "paymentIntent": { "pay": "Payer" }
+      "paymentIntent": { "pay": "Payer" },
+      "paymentMethod": {
+        "message": {
+          "success": "Méthode de paiement sauvegardée avec succès !",
+          "error": "Impossible d'enregistrer cette méthode de paiement"
+        },
+        "collect": {
+          "content": "Ce moyen de paiement sera sauvegardé dans votre compte pour être facturé conformément au contrat."
+        },
+        "actions": {
+          "close": "Fermer",
+          "collect": "Sauvegarder",
+          "retry": "Réessayer",
+          "addPaymentMethod": "Ajouter un moyen de paiement"
+        }
+      }
     },
     "generalTermsAndConditions": { "iAccept": "J'accepte les ", "theTermsAndConditions": "conditions générales de ventes.", "close": "Fermer" },
     "paymentMethod": {
@@ -3743,6 +3759,7 @@
       "addNotification": "Ajouter une notification",
       "form": {
         "title": "Formulaire de notification",
+        "explain": "Vous pouvez prévenir vos clients avant ou après certaines séances, en fonction de différents critères comme le nombre de présences, d'absences ou encore d'annulations.",
         "typeTitle": "Type de notification",
         "settingTitle": "Paramètres",
         "eventNb": "Notifier le membre lors de l'évènement n° :",
@@ -3753,17 +3770,24 @@
           "second_before": "heure(s) avant la séance",
           "second_after": "heure(s) après la séance"
         },
-        "chooseKindTitle": "Évènement déclenchant la notification",
-        "choicesKind": {
-          "booking": "Création d'une réservation",
+        "chooseStatus": {
+          "title": "Choisissez le type de réservation que vous voulez notifier",
+          "valid": "Réservation valide",
+          "cancelled": "Réservation annulée par le client"
+        },
+        "chooseKind": {
+          "title": "Évènement déclenchant la notification",
           "attendance": "Présence du membre à une séance",
-          "cancellation": "Annulation d'une réservation de la part du membre"
+          "absence": "Absence du membre à une séance",
+          "refunded": "Annulation remboursée",
+          "notRefunded": "Annulation hors délai"
         },
         "help": {
           "text": "Aide : la notification sera envoyée au membre lors de",
-          "booking": "sa réservation n° {{notify_booking_nb}}",
           "attendance": "sa présence n° {{notify_booking_nb}}",
-          "cancellation": "son annulation de réservation n° {{notify_booking_nb}}"
+          "absence": "son absence n° {{notify_booking_nb}}",
+          "refunded": "son annulation remboursée n° {{notify_booking_nb}}",
+          "notRefunded": "son annulation hors délai n° {{notify_booking_nb}}"
         },
         "submit": "Valider",
         "next": "suivant",
@@ -3771,9 +3795,12 @@
         "listItemPrimary": {
           "before": "Notification {{hours}}h avant la séance",
           "after": "Notification {{hours}}h après la séance",
-          "booking": "Réservation n° {{notify_booking_nb}}",
           "attendance": "Présence n° {{notify_booking_nb}}",
-          "cancellation": "Annulation n° {{notify_booking_nb}}"
+          "absence": "Absence n° {{notify_booking_nb}}",
+          "refunded": "Annulation remboursée n° {{notify_booking_nb}}",
+          "notRefunded": "Annulation hors délai n° {{notify_booking_nb}}",
+          "bookingDeprecated": "Réservation n° {{notify_booking_nb}}",
+          "cancelledDeprecated": "Annulation n° {{notify_booking_nb}}"
         }
       }
     }

@@ -8,20 +8,18 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
-import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { CardElement, IbanElement, injectStripe } from 'react-stripe-elements';
-
 import {
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
+import PaymentMethodList from '../../payment/components/PaymentMethodList.component';
 
 const PaymentMethodSwitcher = (props: {
   classes: Object,
@@ -70,18 +68,20 @@ const PaymentMethodSwitcher = (props: {
 );
 
 type Props = {
-  member: ?Member,
   onCancel: () => void,
   processing: boolean,
   setPaymentMethod: (string) => void,
   paymentMethod: string,
   enabledPaymentMethods: Array<number>,
 
-  stripe: Stripe,
   onSubmit: (source: string) => void,
 
   classes: Object,
   t: TFunction,
+
+  requestSetupIntentSecret: () => void,
+  refreshSavedPaymentMethodList: () => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
 };
 
 type State = {
@@ -95,49 +95,31 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     super(props);
     this.state = {
       loading: false,
-      name: (props.member && props.member.name) || '',
-      email: (props.member && props.member.email) || '',
     };
   }
 
-  getSourceData = () => {
-    if (this.props.paymentMethod === 'sepa_debit') {
-      return {
-        type: 'sepa_debit',
-        currency: 'eur',
-        owner: {
-          name: this.state.name,
-          email: this.state.email,
-        },
-        mandate: {
-          // Automatically send a mandate notification email to your customer
-          // once the source is charged.
-          notification_method: 'manual',
-        },
-      };
+  componentDidMount() {
+    if (this.props.refreshSavedPaymentMethodList) {
+      this.props.refreshSavedPaymentMethodList();
     }
-    return {
-      type: 'card',
-      currency: 'eur',
-    };
-  };
+  }
 
   submit = async () => {
     if (this.props.paymentMethod === 'bsport:credit') {
       this.props.onSubmit('bsport:credit');
     } else {
       this.setState({ loading: true });
-      try {
-        const tokenizer = await this.props.stripe.createSource(
-          this.getSourceData(),
-        );
-        const { source } = tokenizer;
-        this.props.onSubmit(source.id);
-      } catch (error) {
-        console.error(error);
-      }
-      this.setState({
-        loading: false,
+      this.props.onSubmit(null, this.state.selectedSavedPaymentMethodId, {
+        onSuccess: () => {
+          this.setState({
+            loading: false,
+          });
+        },
+        onError: () => {
+          this.setState({
+            loading: false,
+          });
+        },
       });
     }
   };
@@ -152,14 +134,16 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       setPaymentMethod,
       classes,
     } = this.props;
-    const { name, email } = this.state;
     return (
       <div>
         <PaymentMethodSwitcher
           classes={classes}
           t={t}
           payment_method={paymentMethod}
-          onChange={setPaymentMethod}
+          onChange={(value) => {
+            setPaymentMethod(value);
+            this.setState({ selectedSavedPaymentMethodId: null });
+          }}
           enabledPaymentMethods={enabledPaymentMethods}
         />
         <Divider />
@@ -171,48 +155,27 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               </Typography>
             </div>
           ) : null}
-          {paymentMethod === 'sepa_debit' ? (
-            <div>
-              <div className={classes.nameAndEmailContainer}>
-                <TextField
-                  required
-                  fullWidth
-                  value={name}
-                  variant="outlined"
-                  placeholder={t('subscription:mandate.name')}
-                  onChange={(ev) => this.setState({ name: ev.target.value })}
-                />
-                <TextField
-                  type="email"
-                  required
-                  fullWidth
-                  variant="outlined"
-                  value={email}
-                  placeholder={t('subscription:mandate.email')}
-                  onChange={(ev) => this.setState({ email: ev.target.value })}
-                />
-              </div>
-              <div className={classes.sensitiveDataContainer}>
-                <div className={classes.sensitiveData}>
-                  <IbanElement supportedCountries={['SEPA']} />
-                </div>
-              </div>
-              <Typography
-                color="textSecondary"
-                variant="caption"
-                className={classes.mandate}
-              >
-                {t('subscription:mandate.content')}
-              </Typography>
-            </div>
-          ) : null}
-          {paymentMethod === 'card' ? (
-            <div className={classes.sensitiveDataContainer}>
-              <div className={classes.sensitiveData}>
-                <CardElement />
-              </div>
-            </div>
-          ) : null}
+          {['card', 'sepa_debit'].includes(paymentMethod) && (
+            <PaymentMethodList
+              showEmpty
+              isExpanded
+              savedPaymentMethodList={this.props.savedPaymentMethodList}
+              selectedSavedPaymentMethodId={
+                this.state.selectedSavedPaymentMethodId
+              }
+              requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+              refreshSavedPaymentMethodList={
+                this.props.refreshSavedPaymentMethodList
+              }
+              paymentMethodType={paymentMethod}
+              onSelect={(selectedSavedPaymentMethodId) =>
+                this.setState({
+                  selectedSavedPaymentMethodId,
+                })
+              }
+              disabled={this.state.loading || this.props.processing}
+            />
+          )}
         </div>
         <div className={classes.buttonContainer}>
           <Button
@@ -226,7 +189,10 @@ export class SubscriptionPayment extends React.Component<Props, State> {
             onClick={this.submit}
             id="stripe-pay"
             color="primary"
-            disabled={(!name || !email) && paymentMethod === 'sepa_debit'}
+            disabled={
+              ['sepa_debit', 'card'].includes(paymentMethod) &&
+              !this.state.selectedSavedPaymentMethodId
+            }
           >
             {this.state.loading || processing ? (
               <CircularProgress />
@@ -284,5 +250,4 @@ export default compose(
   withState('paymentMethod', 'setPaymentMethod', 'sepa_debit'),
   withTranslation(['subscripton']),
   withStyles(styles),
-  injectStripe,
 )(SubscriptionPayment);

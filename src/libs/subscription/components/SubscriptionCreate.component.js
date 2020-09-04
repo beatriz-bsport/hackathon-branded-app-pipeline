@@ -6,8 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 
 import { withTranslation } from 'react-i18next';
@@ -19,7 +17,6 @@ import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelec
 import NumericInput from '../../../components/input/NumericInput.component';
 import PriceInput from '../../../components/input/PriceInput.component';
 import DateInput from '../../../components/input/DateInput.component';
-import Config from '../../../config';
 
 import RecapSubscription from './RecapSubscription.component';
 
@@ -143,6 +140,7 @@ export class SubscriptionCreate extends Component<Props, State> {
               value={this.state.nb_interval}
               label={t('parameters.nbMonths')}
               onChange={this.updateNbInterval}
+              fullWidth
             />
           </div>
           <div className={classes.field}>
@@ -154,14 +152,6 @@ export class SubscriptionCreate extends Component<Props, State> {
             />
           </div>
           <div className={classes.field}>
-            {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ? null : (
-              <FormControlLabel
-                control={<Checkbox value="autoRenew" />}
-                label={this.props.t('parameters.autoRenew')}
-              />
-            )}
-          </div>
-          <div className={classes.field}>
             <div className={classes.voucherFields}>
               <Typography variant="subtitle1" className={classes.voucherTitle}>
                 {t('parameters.voucher')}
@@ -171,6 +161,7 @@ export class SubscriptionCreate extends Component<Props, State> {
                   value={this.state.recurrent_voucher}
                   label={t('parameters.recurrent_voucher')}
                   onChange={this.updateRecurrentVoucher}
+                  fullWidth
                 />
               </div>
             </div>
@@ -185,6 +176,7 @@ export class SubscriptionCreate extends Component<Props, State> {
               subscriptionContentName={
                 paymentPackSelected && paymentPackSelected.name
               }
+              dateStart={this.state.first_billing_timestamp * 1000}
             />
           </div>
           <div>
@@ -210,6 +202,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
+    minWidth: 480,
   },
   recap: {
     backgroundColor: '#F8F8F8',
@@ -217,6 +210,7 @@ const styles = (theme) => ({
     borderRadius: theme.spacing(1),
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+    width: '100%',
   },
   voucherFields: {
     padding: theme.spacing(2),
@@ -224,16 +218,19 @@ const styles = (theme) => ({
     marginLeft: 0,
     border: '1px solid #DDDDDD',
     borderRadius: 6,
+    width: '100%',
   },
   field: {
     marginBottom: theme.spacing(1),
+    width: '100%',
   },
   inlineField: {
     marginRight: theme.spacing(1),
     marginTop: theme.spacing(1),
+    width: '100%',
   },
   selector: {
-    width: 260,
+    width: '100%',
   },
 });
 

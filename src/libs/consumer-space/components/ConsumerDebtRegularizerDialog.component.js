@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { compose, withState } from 'recompose';
+import { compose, withStateHandlers } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -24,79 +24,84 @@ type Props = {
   fullScreen: boolean,
   open?: boolean,
   onClose: ?() => void,
-  setOpenByButton: (boolean) => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
+  openDialog: () => void,
+  closeDialog: () => void,
 };
 
-export const ConsumerDebtRegularizerDialog = (props: Props) => {
-  if (props.member && props.member.credit_account_balance < 0) {
-    return (
-      <Paper className={props.classes.container}>
-        <Typography variant="h6" inline>
-          {props.t('debt.title')}
-        </Typography>
-        <div className={props.classes.row}>
-          <Typography variant="h6" inline color="error">
-            {`${props.member.credit_account_balance} €`}
+export class ConsumerDebtRegularizerDialog extends React.Component<Props> {
+  render() {
+    if (this.props.member && this.props.member.credit_account_balance < 0) {
+      return (
+        <Paper className={this.props.classes.container}>
+          <Typography variant="h6" inline>
+            {this.props.t('debt.title')}
           </Typography>
-          <Button
-            color="primary"
-            onClick={() => props.setOpenByButton(true)}
-            variant="contained"
-            className={props.classes.buttonContainer}
+          <div className={this.props.classes.row}>
+            <Typography variant="h6" inline color="error">
+              {`${this.props.member.credit_account_balance} €`}
+            </Typography>
+            <Button
+              color="primary"
+              onClick={() => this.props.openDialog()}
+              variant="contained"
+              className={this.props.classes.buttonContainer}
+            >
+              {this.props.t('debt.regularize')}
+            </Button>
+          </div>
+          <Dialog
+            fullScreen={this.props.fullScreen}
+            open={this.props.open || this.props.openByButton}
           >
-            {props.t('debt.regularize')}
-          </Button>
-        </div>
-        <Dialog
-          fullScreen={props.fullScreen}
-          open={props.open || props.openByButton}
-        >
-          <DialogTitle>{props.t('debt.titlePaymentDialog')}</DialogTitle>
-          <DialogContent>
-            {props.member ? (
-              <div>
-                <div className={props.classes.priceContainer}>
-                  <Typography variant="h4">
-                    {-props.member.credit_account_balance} €
+            <DialogTitle>{this.props.t('debt.titlePaymentDialog')}</DialogTitle>
+            <DialogContent>
+              {this.props.member ? (
+                <div>
+                  <div className={this.props.classes.priceContainer}>
+                    <Typography variant="h4">
+                      {-this.props.member.credit_account_balance} €
+                    </Typography>
+                  </div>
+                  <Typography
+                    color="textSecondary"
+                    className={this.props.classes.contentExplain}
+                  >
+                    {this.props.t('debt.explainPayment')}
                   </Typography>
+                  <PaymentForm
+                    onCancel={() => {
+                      if (this.props.onClose) this.props.onClose();
+                      this.props.closeDialog();
+                    }}
+                    savedPaymentMethodList={this.props.savedPaymentMethodList}
+                    availablePaymentMethods={[0]}
+                    submitPayment={(data, options) =>
+                      this.props.submitPayment(data, {
+                        onSuccess: (response) => {
+                          if (options && options.onSuccess) {
+                            options.onSuccess(response);
+                          }
+                          this.props.closeDialog();
+                        },
+                        onError: (err) => {
+                          if (options && options.onError) options.onError(err);
+                        },
+                      })
+                    }
+                  />
                 </div>
-                <Typography
-                  color="textSecondary"
-                  className={props.classes.contentExplain}
-                >
-                  {props.t('debt.explainPayment')}
-                </Typography>
-                <PaymentForm
-                  onCancel={() => {
-                    if (props.onClose) props.onClose();
-                    props.setOpenByButton(false);
-                  }}
-                  availablePaymentMethods={[0]}
-                  submitPayment={(data, options) =>
-                    props.submitPayment(data, {
-                      onSuccess: (response) => {
-                        if (options && options.onSuccess) {
-                          options.onSuccess(response);
-                        }
-                        props.setOpenByButton(false);
-                      },
-                      onError: (err) => {
-                        if (options && options.onError) options.onError(err);
-                      },
-                    })
-                  }
-                />
-              </div>
-            ) : (
-              <CircularProgress />
-            )}
-          </DialogContent>
-        </Dialog>
-      </Paper>
-    );
+              ) : (
+                <CircularProgress />
+              )}
+            </DialogContent>
+          </Dialog>
+        </Paper>
+      );
+    }
+    return null;
   }
-  return null;
-};
+}
 
 const styles = (theme) => ({
   priceContainer: {
@@ -138,5 +143,16 @@ export default compose(
   withStyles(styles),
   withMobileDialog(),
   withTranslation(['consumerSpace']),
-  withState('openByButton', 'setOpenByButton', false),
+  withStateHandlers(
+    { openByButton: false },
+    {
+      openDialog: (_, { refreshPaymentMethodList }) => () => {
+        if (refreshPaymentMethodList) {
+          refreshPaymentMethodList();
+        }
+        return { openByButton: true };
+      },
+      closeDialog: () => () => ({ openByButton: false }),
+    },
+  ),
 )(ConsumerDebtRegularizerDialog);

@@ -30,6 +30,9 @@ type Props = {
   t: TFunction,
   classes: Object,
   member: Member,
+  refreshSavedPaymentMethodList: (params: any) => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
+  requestSetupIntentSecret: () => void,
 };
 
 type State = {
@@ -55,6 +58,10 @@ const getScheduledInvoicesFromSubscriptionData = (
   );
 
 export class SubscriptionScheduleChecker extends Component<Props, State> {
+  componentDidMount() {
+    this.props.refreshSavedPaymentMethodList();
+  }
+
   render() {
     const { subscriptionData, classes, t } = this.props;
     if (!subscriptionData) {
@@ -78,7 +85,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
           <Typography variant="h5" className={classes.title}>
             {t('subscription:schedule.paymentMethodTitle')}
           </Typography>
-          <Paper>
+          <Paper className={classes.paymentContainer}>
             <SubscriptionPayment
               onSubmit={this.props.onSubmit}
               processing={this.props.processing}
@@ -88,6 +95,11 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
                 BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
                 BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
               ]}
+              requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+              savedPaymentMethodList={this.props.savedPaymentMethodList}
+              refreshSavedPaymentMethodList={
+                this.props.refreshSavedPaymentMethodList
+              }
             />
           </Paper>
         </Grid>
@@ -98,6 +110,9 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
 
 const styles = (theme) => ({
   title: {
+    padding: theme.spacing(2),
+  },
+  paymentContainer: {
     padding: theme.spacing(2),
   },
   buttonContainer: {

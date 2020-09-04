@@ -9,41 +9,53 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import PaymentByPaymentIntent from '../../libs/payment/components/PaymentByPaymentIntent.component';
+import PaymentByCardStripe from '../../libs/payment/components/payment-backend-stripe/PaymentByCard.component';
 import { attachPaymentToBasketId as attachPaymentAction } from '../../libs/checkout/actions';
+import { fetchPaymentMethodList } from '../../libs/payment/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 
 type Props = {
   t: TFunction,
   classes: Object,
+  basketId: string,
   basketError: any,
   submitPaymentIntent: (data: any, option: OptionCallback) => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
+  fetchPaymentMethodList: (params: any) => void,
 };
 
-export const BasketPaymentIntent = (props: Props) => {
-  return (
-    <div className={props.classes.container}>
-      <PaymentByPaymentIntent
-        hideCancelButton
-        customPayStyle={{ padding: 12, width: '100%' }}
-        customContainerStyle={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'stretch',
-          flexDirection: 'column',
-          height: '100%',
-        }}
-        submitPaymentIntent={props.submitPaymentIntent}
-      />
-      {props.basketError &&
-        props.basketError.response &&
-        props.basketError.response.status === 423 && (
-          <Typography color="error">
-            {props.t('myBasket.error.invalidBasket')}
-          </Typography>
-        )}
-    </div>
-  );
-};
+export class BasketPaymentIntent extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchPaymentMethodList({ basket: this.props.basketId });
+  }
+
+  render() {
+    return (
+      <div className={this.props.classes.container}>
+        <PaymentByCardStripe
+          hideCancelButton
+          customPayStyle={{ padding: 12, width: '100%' }}
+          customContainerStyle={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'stretch',
+            flexDirection: 'column',
+            height: '100%',
+          }}
+          submitPaymentIntent={this.props.submitPaymentIntent}
+          savedPaymentMethodList={this.props.savedPaymentMethodList}
+        />
+        {this.props.basketError &&
+          this.props.basketError.response &&
+          this.props.basketError.response.status === 423 && (
+            <Typography color="error">
+              {this.props.t('myBasket.error.invalidBasket')}
+            </Typography>
+          )}
+      </div>
+    );
+  }
+}
 
 const styles = () => ({
   container: {
@@ -58,8 +70,8 @@ export default compose(
   routerParamsToProps({ basketId: 'basketId' }),
   withState('basketError', 'setBasketError', null),
   connect(
-    null,
-    { attachPayment: attachPaymentAction },
+    (state) => ({ savedPaymentMethodList: getSavedPaymentMethodList(state) }),
+    { attachPayment: attachPaymentAction, fetchPaymentMethodList },
   ),
   withProps(({ attachPayment, setBasketError, basketId }) => ({
     submitPaymentIntent: (data, options) =>

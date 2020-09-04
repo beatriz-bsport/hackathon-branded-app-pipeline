@@ -16,7 +16,7 @@ import PAYMENT_METHODS, {
   CB as PAYMENT_METHOD_STRIPE_PAYMENT_INTENT,
 } from '@bsport/common/lib/master-data/payment-methods';
 
-import PaymentByPaymentIntent from '../../payment/components/PaymentByPaymentIntent.component';
+import PaymentByCardStripe from '../../payment/components/payment-backend-stripe/PaymentByCard.component';
 import PaymentByCredit from '../../payment/components/PaymentByCredit.component';
 
 type Props = {
@@ -31,6 +31,7 @@ type Props = {
   processing: boolean,
   termsAndConditions: string,
   onCancel: () => void,
+  savedPaymentMethodList: ?Array<PaymentMethod>,
 };
 
 const styles = (theme) => ({
@@ -93,12 +94,13 @@ const ChosenPaymentModule = (props: {
     case PAYMENT_METHOD_STRIPE_PAYMENT_INTENT.id:
     default:
       return (
-        <PaymentByPaymentIntent
+        <PaymentByCardStripe
           processing={props.processing}
           loading={props.loading}
           submitPaymentIntent={props.submitPayment}
           termsAndConditions={props.termsAndConditions}
           onCancel={props.onCancel}
+          savedPaymentMethodList={props.savedPaymentMethodList}
         />
       );
   }
@@ -146,6 +148,7 @@ export const PaymentForm = (props: Props) => {
       ) : null}
       <ChosenPaymentModule
         paymentMethod={chosenPaymentMethod}
+        savedPaymentMethodList={props.savedPaymentMethodList}
         submitPayment={props.submitPayment}
         loading={props.loading}
         processing={props.processing}

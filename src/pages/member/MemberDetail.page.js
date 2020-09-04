@@ -21,6 +21,9 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 
 import { getMember } from '../../libs/member/selectors';
 import withTitle from '../../hocs/with-title.hoc';
@@ -89,6 +92,10 @@ type Props = {
   invoiceInfo: any,
   resetInvoiceInfo: () => void,
   goToInvoice: (uuid: string) => void,
+
+  requestSetupIntentSecret: () => void,
+  fetchPaymentMethodList: () => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
 };
 
 const MemberActions = (props: {
@@ -122,6 +129,7 @@ const MemberActions = (props: {
 export class MemberDetail extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAllPaymentPacks();
+    this.props.fetchPaymentMethodList();
   }
 
   render() {
@@ -233,33 +241,29 @@ export class MemberDetail extends React.Component<Props> {
           contractList={this.props.contractList}
           contractLoading={this.props.contractLoading}
           onChangeContract={this.props.setContractToBill}
-          goToCustomSubscriptionForm={() =>
-            this.props.subscribeMember(this.props.id)
-          }
+          requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+          refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
+          savedPaymentMethodList={this.props.savedPaymentMethodList}
           member={this.props.member}
           open={this.props.contractDialogOpen}
           onClose={this.props.closeContractDialog}
-          onSuccess={() => {
-            this.props.closeContractDialog();
-            this.props.pushToTab(id, 'payment');
-          }}
           enabledPaymentMethods={[
             BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
             BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
             BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
           ]}
+          goToCustomSubscriptionForm={() =>
+            this.props.subscribeMember(this.props.id)
+          }
+          onSuccess={() => {
+            this.props.closeContractDialog();
+            this.props.pushToTab(id, 'payment');
+          }}
         />
       </div>
     );
   }
 }
-/*
-            <Route
-              exact
-              path="/member/:id/contact"
-              component={MemberDetailContact}
-  />
-*/
 
 const styles = (theme) => ({
   container: {
@@ -305,6 +309,7 @@ export default compose(
       contractLoading: state.subscription.contract.loading,
       contractList: getAvailableContractListWithPaymentPack(state),
       invoiceInfo: state.invoice.invoiceInfo.data,
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
       fetchAllPaymentPacks,
@@ -315,9 +320,12 @@ export default compose(
       subscribeMember: (id) => pushRouter(`/subscription/add/${id}`),
       goToInvoice: (uuid) => pushRouter(`/invoice/${uuid}`),
       resetInvoiceInfo: checkInvoiceInfoActions.reset,
+      fetchPaymentMethodList: fetchPaymentMethodListAction,
     },
   ),
   withHandlers({
+    requestSetupIntentSecret: ({ id }) => () => requestSetupIntentSecretAPI(id),
+
     fetchContractList: (props) => () => {
       props.fetchContractList(
         {},
@@ -347,6 +355,8 @@ export default compose(
       setContractDialogOpen(true);
       setContractToBill(null);
     },
+    fetchPaymentMethodList: ({ id, fetchPaymentMethodList }) => () =>
+      fetchPaymentMethodList({ member: id }),
   }),
   withTitle(({ member }) => (member ? member.name : '')),
 )(MemberDetail);

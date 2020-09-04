@@ -16,9 +16,11 @@ export const StripeErrorCode = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <Typography variant="caption" color="error">
-        {props.t(`error_code.${props.errorCode}`)}
-      </Typography>
+      {!!props.errorCode && (
+        <Typography variant="caption" color="error">
+          {props.t(`error_code.${props.errorCode}`)}
+        </Typography>
+      )}
       <Typography variant="caption" color="error">
         {props.t(`decline_code.${props.declineCode || 'none'}`)}
       </Typography>

@@ -25,6 +25,9 @@ import {
 import themeSelectors from '../../libs/theme/selectors';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
@@ -90,6 +93,10 @@ type Props = {
 
   fetchPrivatePassList: () => void,
   privatePassList: Array<PrivatePass>,
+
+  requestSetupIntentSecret: () => void,
+  fetchPaymentMethodList: () => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
 };
 
 export class SubscriptionList extends React.Component<Props> {
@@ -218,6 +225,9 @@ export class SubscriptionList extends React.Component<Props> {
             member={this.props.memberToBill}
             onSuccess={this.props.onRegisteredBillingPlan}
             onClose={this.props.closeContractRegister}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
             enabledPaymentMethods={[
               BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
@@ -270,6 +280,7 @@ export default compose(
       paymentPacks: getPaymentPackEnabled(state),
       privatePassList: getPrivatePassAvailable(state),
       searchedMembers: getSearchedMembers(state),
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
       fetchContractList: fetchContractListAction,
@@ -280,6 +291,7 @@ export default compose(
       pushRouter: push,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       fetchPrivatePassList,
+      fetchPaymentMethodList: fetchPaymentMethodListAction,
     },
   ),
   withState('selectedContract', 'setSelectedContract', null),
@@ -320,6 +332,14 @@ export default compose(
       setContractRegisterOpen(false);
       setMemberToBill(null);
       pushRouter(`/subscription/${billingPlan.id}`);
+    },
+    requestSetupIntentSecret: ({ memberToBill }) => () =>
+      requestSetupIntentSecretAPI(memberToBill.id),
+    fetchPaymentMethodList: ({
+      memberToBill,
+      fetchPaymentMethodList,
+    }) => () => {
+      fetchPaymentMethodList({ member: memberToBill.id });
     },
   }),
   withProps(({ fetchContractList, fetchPaymentPackBulk }) => ({

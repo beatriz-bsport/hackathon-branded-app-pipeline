@@ -12,6 +12,7 @@ import type { TFunction } from 'react-i18next';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../datetime';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import {
   createOrUpdateInvoice,
   checkInvoiceInfo as checkInvoiceInfoActions,
@@ -19,6 +20,8 @@ import {
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { fetchMember } from '../../libs/member/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import { fetchPaymentMethodList } from '../../libs/payment/actions';
 
 import type { Member } from '../../libs/member/types';
 import { getMember } from '../../libs/member/selectors';
@@ -55,6 +58,10 @@ type Props = {
   creatingInvoice: boolean,
   loading: boolean,
   availableBuyableItems: { [buyable_item_identifier: number]: Array<any> },
+
+  fetchPaymentMethodList: (params: any) => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
+  requestSetupIntentSecret: () => void,
 };
 
 type State = {
@@ -74,6 +81,9 @@ export class InvoiceCreatePage extends Component<Props, State> {
     this.props.fetchAllPaymentPacks();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
+    if (this.props.id) {
+      this.props.fetchPaymentMethodList({ member: this.props.id });
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -121,8 +131,13 @@ export class InvoiceCreatePage extends Component<Props, State> {
           processing={creatingInvoice}
           availableBuyableItems={this.props.availableBuyableItems}
           goToSubscription={this.props.goToSubscription}
-          goToMemberPage={() => goToMemberPage(id)}
           initialItems={this.props.initialItems}
+          savedPaymentMethodList={this.props.savedPaymentMethodList}
+          requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+          goToMemberPage={() => goToMemberPage(id)}
+          refreshSavedPaymentMethodList={() => {
+            this.props.fetchPaymentMethodList({ member: this.props.id });
+          }}
         />
         <InvoiceDateDialog
           open={this.state.dateDialogOpen}
@@ -156,12 +171,14 @@ export default compose(
         state.privateService.privatePass.loading,
       member: getMember(state, id),
       availableBuyableItems: getBuyableItem(state),
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
       fetchShopItems,
       fetchAllPaymentPacks,
       fetchPrivatePassList,
       fetchPaymentComboList,
+      fetchPaymentMethodList,
       checkInvoiceInfo: checkInvoiceInfoActions,
       goToInvoiceList: () => pushRouter('/invoice'),
       createInvoice: createOrUpdateInvoice,
@@ -182,6 +199,7 @@ export default compose(
         },
       });
     },
+    requestSetupIntentSecret: ({ id }) => () => requestSetupIntentSecretAPI(id),
   }),
   withQueryParams([['withCredit', 'withPrivatePass'], 'initialItems']),
   withTitle(

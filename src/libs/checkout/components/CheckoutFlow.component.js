@@ -34,6 +34,8 @@ type Props = {
 
   classes: Object,
   t: TFunction,
+
+  savedPaymentMethodList: ?Array<PaymentMethod>,
 };
 
 export const CheckoutFlow = (props: Props) => (
@@ -75,6 +77,7 @@ export const CheckoutFlow = (props: Props) => (
           loading={props.loading}
           termsAndConditions={props.termsAndConditions}
           backToCalendar={props.backToCalendar}
+          savedPaymentMethodList={props.savedPaymentMethodList}
         />
       </Paper>
     ) : null}

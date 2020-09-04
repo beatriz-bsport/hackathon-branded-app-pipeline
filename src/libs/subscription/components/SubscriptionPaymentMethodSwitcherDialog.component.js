@@ -4,12 +4,8 @@ import { compose, withState, withHandlers } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import SubscriptionPayment from './SubscriptionPayment.component';
-import Config from '../../../config';
-
-const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
 type Props = {
   open: boolean,
@@ -19,46 +15,61 @@ type Props = {
   processing: boolean,
   loading: boolean,
   member: Member,
+
+  requestSetupIntentSecret: () => void,
+  refreshSavedPaymentMethodList: () => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
 };
 
-export const SubscriptionPaymentMethodSwitcherDialog = (props: Props) => {
-  if (props.loading) {
+export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Props> {
+  componentDidMount() {
+    this.props.refreshSavedPaymentMethodList();
+  }
+
+  render() {
+    if (this.props.loading) {
+      return (
+        <Dialog open={this.props.open}>
+          <DialogContent>
+            <CircularProgress />
+          </DialogContent>
+        </Dialog>
+      );
+    }
     return (
-      <Dialog open={props.open}>
+      <Dialog open={this.props.open}>
         <DialogContent>
-          <CircularProgress />
+          <SubscriptionPayment
+            onSubmit={this.props.onSubmit}
+            onCancel={this.props.onCancel}
+            enabledPaymentMethods={this.props.enabledPaymentMethods}
+            member={this.props.member}
+            processing={this.props.processing}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+          />
         </DialogContent>
       </Dialog>
     );
   }
-  return (
-    <Dialog open={props.open}>
-      <DialogContent>
-        <StripeProvider apiKey={STRIPE_KEY}>
-          <Elements>
-            <SubscriptionPayment
-              onSubmit={props.onSubmit}
-              onCancel={props.onCancel}
-              enabledPaymentMethods={props.enabledPaymentMethods}
-              member={props.member}
-              processing={props.processing}
-            />
-          </Elements>
-        </StripeProvider>
-      </DialogContent>
-    </Dialog>
-  );
-};
+}
 
 export default compose(
   withState('processing', 'setProcessing', false),
   withHandlers({
-    onSubmit: ({ onSubmit, setProcessing }) => (source: string) => {
+    onSubmit: ({ onSubmit, setProcessing }) => (
+      source: string,
+      payment_method_id,
+    ) => {
       setProcessing(true);
-      onSubmit(source, {
-        onSuccess: () => setProcessing(false),
-        onError: () => setProcessing(false),
-      });
+      onSubmit(
+        source,
+        {
+          onSuccess: () => setProcessing(false),
+          onError: () => setProcessing(false),
+        },
+        payment_method_id,
+      );
     },
   }),
 )(SubscriptionPaymentMethodSwitcherDialog);

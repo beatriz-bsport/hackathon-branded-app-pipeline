@@ -27,14 +27,27 @@ import { Elements, StripeProvider } from 'react-stripe-elements';
 import Config from '../../../config';
 import PriceInput from '../../../components/input/PriceInput.component';
 import StripeForm from '../../../components/form/StripeForm.component';
+import PaymentMethodList from '../../payment/components/PaymentMethodList.component';
 
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
-const PaymentItemForm = (props) => {
+type Props = {
+  price: string,
+  paymentMethodIdentifier: number,
+  requestSetupIntentSecret: () => void,
+  refreshSavedPaymentMethodList: () => void,
+  onAddPaymentItem: (paramsDict: any) => void,
+  savedPaymentMethodList: ?Array<PaymentMethodList>,
+};
+
+const PaymentItemForm = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
   switch (props.paymentMethodIdentifier) {
     case PAYMENT_METHOD_CB.id: {
+      const relevantSavedPaymentMethodList = (
+        props.savedPaymentMethodList || []
+      ).filter((pm) => pm.payment_backend_identifier === 1);
       return (
         <div className={classes.stripeFormContainer}>
           <StripeProvider apiKey={STRIPE_KEY}>
@@ -50,6 +63,20 @@ const PaymentItemForm = (props) => {
               />
             </Elements>
           </StripeProvider>
+          <PaymentMethodList
+            paymentMethod={relevantSavedPaymentMethodList}
+            isExpandable
+            showEmpty
+            refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
+            savedPaymentMethodList={relevantSavedPaymentMethodList}
+            paymentMethodType="card"
+            requestSetupIntentSecret={props.requestSetupIntentSecret}
+            onSelect={(payment_method_id) => {
+              props.onAddPaymentItem({
+                stripe_charge_id: payment_method_id,
+              });
+            }}
+          />
         </div>
       );
     }
@@ -88,6 +115,9 @@ export const PaymentEditor = (props: {
   setPrice: (string) => void,
   setPaymentNote: (string) => void,
   onSubmit: (PaymentMethod) => void,
+  refreshSavedPaymentMethodList: () => void,
+  savedPaymentMethodList: ?Array<PaymentMethodList>,
+  requestSetupIntentSecret: () => void,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
@@ -148,15 +178,18 @@ export const PaymentEditor = (props: {
       <PaymentItemForm
         price={price}
         paymentMethodIdentifier={paymentMethod}
-        onAddPaymentItem={(extraData) =>
+        savedPaymentMethodList={props.savedPaymentMethodList}
+        requestSetupIntentSecret={props.requestSetupIntentSecret}
+        refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
+        onAddPaymentItem={(extraData) => {
           props.onSubmit({
             payment_method: props.paymentMethod,
             price: parseFloat(props.price).toFixed(2),
             payment_received: true,
             payment_note: props.payment_note,
             ...(extraData || {}),
-          })
-        }
+          });
+        }}
         payment_note={props.payment_note}
         setPaymentNote={props.setPaymentNote}
       />
@@ -210,43 +243,4 @@ export default compose(
   withState('price', 'setPrice', ({ amountDue }) => amountDue || 0),
   withState('payment_note', 'setPaymentNote', ''),
   withState('paymentMethod', 'setPaymentMethod', PAYMENT_METHOD_CB.id),
-  /*
-      this.props.onSubmit({
-        payment_received: true,
-        price,
-        stripe_charge_id: tokenId,
-        payment_note: payment_note_override || payment_note,
-        payment_method: payment_method_override || payment_method,
-        id,
-        ...(extraData || {}),
-      });
-      this.setState((prevState) => ({
-        ...initialState,
-        payment_method: prevState.payment_method,
-      }));
-    }
-  };
-  */
-
-  /*
-  receiveStripeToken = (token, recurringData) => {
-    if ((token || {}).id) {
-      if (recurringData) {
-        const payment_note = 'Payment auto';
-        this.addPayment(
-          token.id,
-          PAYMENT_METHOD_SUBSCRIPTION_CB.id,
-          payment_note,
-          {
-            interval: recurringData.interval,
-            nb_interval: recurringData.nb_interval,
-            billing_anchor: recurringData.billing_anchor,
-          },
-        );
-      } else {
-        this.addPayment(token.id);
-      }
-    }
-  };
-  */
 )(PaymentEditor);

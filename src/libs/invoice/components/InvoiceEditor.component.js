@@ -23,6 +23,7 @@ type Props = {
   availableBuyableItems: { [buyableItemIdentifier: string]: Array<any> },
   onAddBuyableItem: (InvoiceItem) => void,
   onAddPaymentItem: (PaymentItem) => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
 
   goToSubscription: (id: number) => void,
   finalizeInvoice: (uuid: string) => void,
@@ -36,6 +37,9 @@ type Props = {
   onSubmit: () => void,
   invoice: ?Invoice,
   member: Member,
+
+  requestSetupIntentSecret: () => void,
+  refreshSavedPaymentMethodList: () => void,
 };
 
 const NonEditableMessage = ({
@@ -116,7 +120,12 @@ export const InvoiceEditor = (props: Props) => {
             )}
             {(!!props.invoice || props.step === STEP_PAYMENT) && (
               <PaymentForm
+                requestSetupIntentSecret={props.requestSetupIntentSecret}
+                refreshSavedPaymentMethodList={
+                  props.refreshSavedPaymentMethodList
+                }
                 onCancel={() => props.setStep(STEP_INVOICE_ITEM)}
+                savedPaymentMethodList={props.savedPaymentMethodList}
                 onSubmit={props.onAddPaymentItem}
                 amountDue={
                   Math.max(

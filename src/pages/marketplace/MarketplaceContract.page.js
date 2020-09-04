@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withProps, withState } from 'recompose';
+import { compose, withProps, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
@@ -9,6 +9,7 @@ import { Elements, StripeProvider } from 'react-stripe-elements';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Collapse from '@material-ui/core/Collapse';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
@@ -34,6 +35,10 @@ import SubscriptionContractListItem from '../../libs/subscription/components/Sub
 import SubscriptionContractCard from '../../libs/subscription/components/SubscriptionContractCard.component';
 import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
 
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+
 type Props = {
   companyId: number,
   fetchContracts: () => void,
@@ -53,6 +58,10 @@ type Props = {
 
   paymentDialogOpen: boolean,
   setPaymentDialogOpen: (boolean) => void,
+
+  requestSetupIntentSecret: () => void,
+  fetchPaymentMethodList: () => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
 };
 
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
@@ -66,14 +75,14 @@ export class MarketplaceContract extends React.Component<Props> {
     this.props.fetchContracts(this.props.companyId);
   }
 
-  onSubmit = async (token: string) => {
+  onSubmit = async (_, payment_method_id: string, options: OptionCallback) => {
     this.setState({ processing: true });
     try {
       const first_billing_timestamp = moment(
         this.state.first_billing_timestamp,
       ).unix();
       await postContractSubscriptionAPI(this.props.selected, {
-        stripe_source: token,
+        payment_method_id,
         first_billing_timestamp,
       });
 
@@ -87,6 +96,10 @@ export class MarketplaceContract extends React.Component<Props> {
       this.props.goToUserSpace();
     } catch (err) {
       console.error(err);
+      if (options && options.onError) options.onError(err);
+    }
+    if (options && options.onSuccess) {
+      options.onSuccess();
     }
     this.setState({ processing: false });
   };
@@ -167,19 +180,26 @@ export class MarketplaceContract extends React.Component<Props> {
           fullScreen={this.props.fullScreen}
           open={this.props.selected && this.props.paymentDialogOpen}
         >
-          <StripeProvider apiKey={STRIPE_KEY}>
-            <Elements>
-              <SubscriptionPayment
-                onCancel={() => this.props.setPaymentDialogOpen(false)}
-                onSubmit={this.onSubmit}
-                processing={this.state.processing}
-                enabledPaymentMethods={[
-                  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-                  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-                ]}
-              />
-            </Elements>
-          </StripeProvider>
+          <DialogContent>
+            <StripeProvider apiKey={STRIPE_KEY}>
+              <Elements>
+                <SubscriptionPayment
+                  onCancel={() => this.props.setPaymentDialogOpen(false)}
+                  onSubmit={this.onSubmit}
+                  processing={this.state.processing}
+                  requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+                  savedPaymentMethodList={this.props.savedPaymentMethodList}
+                  refreshSavedPaymentMethodList={
+                    this.props.fetchPaymentMethodList
+                  }
+                  enabledPaymentMethods={[
+                    BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+                    BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+                  ]}
+                />
+              </Elements>
+            </StripeProvider>
+          </DialogContent>
         </Dialog>
       </div>
     );
@@ -208,6 +228,7 @@ export default compose(
     (state) => ({
       contractList: withPaymentPack(getContractList)(state),
       contractLoading: state.subscription.contract.byMarketplace.loading,
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
       fetchMarketplaceContractList,
@@ -215,8 +236,15 @@ export default compose(
       fetchContracts: fetchMarketplaceContractList,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       fetchPrivatePassBulk: fetchPrivatePassBulkAction,
+      fetchPaymentMethodList: fetchPaymentMethodListAction,
     },
   ),
+  withHandlers({
+    requestSetupIntentSecret: ({ companyId }) => () =>
+      requestSetupIntentSecretAPI(null, companyId),
+    fetchPaymentMethodList: ({ companyId, fetchPaymentMethodList }) => () =>
+      fetchPaymentMethodList({ company: companyId }),
+  }),
   withProps(
     ({ fetchContracts, fetchPaymentPackBulk, fetchPrivatePassBulk }) => ({
       fetchContracts: (params) =>

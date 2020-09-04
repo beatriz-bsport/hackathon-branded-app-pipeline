@@ -30,6 +30,8 @@ import type { Theme } from '../../libs/theme/types';
 
 import themeSelectors from '../../libs/theme/selectors';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import { fetchPaymentMethodList } from '../../libs/payment/actions';
 
 import { getShopItemFeaturedList } from '../../libs/shop/selectors';
 import { fetchShopItemFeatured } from '../../libs/shop/actions/shopitem';
@@ -50,6 +52,8 @@ type Props = {
   classes: Object,
   fetchCurrentBasket: (companyId: number) => void,
   patchCurrentBasket: (data: any) => void,
+  fetchPaymentMethodList: (params: any) => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
   attachCoupon: (
     code: string,
     options?: { onSuccess?: () => void, onError?: () => void },
@@ -72,6 +76,7 @@ export class CheckoutPayment extends React.Component<Props> {
   componentDidUpdate(prevProps: Props) {
     if (prevProps.companyId !== this.props.companyId && this.props.companyId) {
       this.props.fetchCurrentBasket(this.props.companyId);
+      this.props.fetchPaymentMethodList({ company: this.props.companyId });
     }
     if (this.props.basket && !prevProps.basket) {
       try {
@@ -103,6 +108,9 @@ export class CheckoutPayment extends React.Component<Props> {
       } catch (err) {
         console.error(err);
       }
+    }
+    if (this.props.companyId) {
+      this.props.fetchPaymentMethodList({ company: this.props.companyId });
     }
   }
 
@@ -159,6 +167,7 @@ export class CheckoutPayment extends React.Component<Props> {
               backToCalendar={this.backToCalendar}
               shopItemList={this.props.shopItemList}
               patchBasket={this.props.patchCurrentBasket}
+              savedPaymentMethodList={this.props.savedPaymentMethodList}
             />
 
             {this.renderError()}
@@ -201,6 +210,7 @@ export default compose(
       processing: state.checkout.basket.current.updating,
       theme: themeSelectors.getTheme(state),
       shopItemList: getShopItemFeaturedList(state),
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
       addItemToBasket: addItemToBasketAction,
@@ -214,6 +224,7 @@ export default compose(
       attachCoupon,
       fetchCompanyTheme,
       fetchShopItemFeatured,
+      fetchPaymentMethodList,
     },
   ),
   withHandlers({

@@ -1,11 +1,10 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withProps } from 'recompose';
+import { withHandlers, compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 
 import { withRouter } from 'react-router-dom';
-import { Elements, StripeProvider } from 'react-stripe-elements';
 import moment from 'moment';
 
 import {
@@ -13,8 +12,10 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import { fetchPaymentMethodList } from '../../libs/payment/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import Config from '../../config';
 import parse from '../../query-string';
 import { attachPaymentToBasketId as attachPaymentAction } from '../../libs/checkout/actions';
 import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
@@ -27,17 +28,19 @@ type Props = {
   date: string,
   memberId: number,
   contractId: number,
+  fetchPaymentMethodList: (params: any) => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
+  requestSetupIntentSecret: () => void,
 };
 
 type State = {
   processing: boolean,
 };
-const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
 
 export class ContractPayment extends React.Component<Props, State> {
   state = { processing: false };
 
-  onSubmit = async (token: string) => {
+  onSubmit = async (_, payment_method_id: string) => {
     this.setState({ processing: true });
     try {
       const first_billing_timestamp = moment(
@@ -45,9 +48,9 @@ export class ContractPayment extends React.Component<Props, State> {
         'YYYY-MM-DD',
       ).unix();
       await postContractSubscriptionUnauthenticatedAPI(this.props.contractId, {
-        stripe_source: token,
         first_billing_timestamp,
         member: this.props.memberId,
+        payment_method_id,
       });
       this.props.onSuccess();
     } catch (err) {
@@ -59,19 +62,20 @@ export class ContractPayment extends React.Component<Props, State> {
   render() {
     return (
       <div className={this.props.classes.container}>
-        <StripeProvider apiKey={STRIPE_KEY}>
-          <Elements>
-            <SubscriptionPayment
-              onCancel={this.props.onCancel}
-              onSubmit={this.onSubmit}
-              processing={this.state.processing}
-              enabledPaymentMethods={[
-                BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-                BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-              ]}
-            />
-          </Elements>
-        </StripeProvider>
+        <SubscriptionPayment
+          onCancel={this.props.onCancel}
+          onSubmit={this.onSubmit}
+          processing={this.state.processing}
+          savedPaymentMethodList={this.props.savedPaymentMethodList}
+          requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+          refreshSavedPaymentMethodList={() => {
+            this.props.fetchPaymentMethodList({ member: this.props.memberId });
+          }}
+          enabledPaymentMethods={[
+            BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+            BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+          ]}
+        />
       </div>
     );
   }
@@ -94,9 +98,15 @@ export default compose(
   withStyles(styles),
   routerParamsToProps({ contractId: 'contractId' }),
   connect(
-    null,
-    { attachPayment: attachPaymentAction },
+    (state) => ({
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
+    }),
+    { attachPayment: attachPaymentAction, fetchPaymentMethodList },
   ),
+  withHandlers({
+    requestSetupIntentSecret: ({ memberId }) => () =>
+      requestSetupIntentSecretAPI(memberId),
+  }),
   withProps(() => ({
     onSuccess: () => {
       window.ReactNativeWebView.postMessage(

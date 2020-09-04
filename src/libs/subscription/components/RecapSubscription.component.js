@@ -15,13 +15,14 @@ type RecapProps = {
   nbPeriod: ?number,
   subscriptionContentName: ?string,
   recurrentVoucher: ?number,
+  dateStart: number,
 
   classes: Object,
   t: TFunction,
 };
 
 const RecapSubscription = (props: RecapProps) => (
-  <div>
+  <div style={{ width: '100%' }}>
     <div className={props.classes.section}>
       <Typography
         className={props.classes.highlightText}
@@ -59,7 +60,7 @@ const RecapSubscription = (props: RecapProps) => (
         color="primary"
         inline
       >
-        {moment().format('DD/MM/YYYY') || '--/--/----'}
+        {moment(props.dateStart).format('DD/MM/YYYY') || '--/--/----'}
       </Typography>
       <Typography inline>{`${props.t('recap.to')}`}</Typography>
       <Typography
@@ -68,7 +69,7 @@ const RecapSubscription = (props: RecapProps) => (
         inline
       >
         {props.nbPeriod
-          ? moment()
+          ? moment(props.dateStart)
               .add('months', props.nbPeriod)
               .format('DD/MM/YYYY')
           : '--/--/----'}
@@ -93,6 +94,13 @@ const styles = (theme) => ({
   },
   section: {
     marginBottom: theme.spacing(1),
+    width: '100%',
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    '&>*': {
+      marginRight: theme.spacing(1),
+    },
   },
 });
 

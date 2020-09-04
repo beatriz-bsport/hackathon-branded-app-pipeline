@@ -62,6 +62,8 @@ import {
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchByMember as fetchConsumerPackByMemberAction } from '../../libs/consumer-payment-pack/actions';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 
 type Props = {
   t: TFunction,
@@ -107,6 +109,9 @@ type Props = {
   goToBroadcast: (bookingId: number) => void,
   submitPayment: (data: PaymentData, options: OptionCallback) => void,
   discardPrivateBooking: (id: numebr) => void,
+
+  fetchPaymentMethodList: (params: any) => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
 };
 
 const BOOKING_PAGE_SIZE = 5;
@@ -152,6 +157,8 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
               withButton
               member={this.props.membership}
               submitPayment={this.props.submitPayment}
+              savedPaymentMethodList={this.props.savedPaymentMethodList}
+              refreshPaymentMethodList={this.props.fetchPaymentMethodList}
             />
           )}
         <ConsumerDashboardHeader
@@ -251,9 +258,11 @@ export default compose(
       ),
       favoriteMetaActivity: getFavoriteMetaActivity(state),
       favoriteEstablishment: getFavoriteEstablishment(state),
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
       push: pushRouter,
+      fetchPaymentMethodList: fetchPaymentMethodListAction,
       cancelBooking: cancelBookingAction,
       discardPrivateBooking: disablePrivateBooking,
       fetchPrivateBookings: fetchPrivateBookingsAction,
@@ -288,6 +297,9 @@ export default compose(
   ),
   withState('optionToCancel', 'setOptionToCancel', null),
   withHandlers({
+    fetchPaymentMethodList: ({ membership, fetchPaymentMethodList }) => () =>
+      fetchPaymentMethodList({ company: membership.company }),
+
     cancelBookingOption: ({
       cancelBookingOption,
       optionToCancel,

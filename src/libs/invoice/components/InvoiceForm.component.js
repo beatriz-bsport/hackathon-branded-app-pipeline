@@ -43,6 +43,10 @@ type Props = {
   revertInvoice: () => void,
   initialItems?: { withPrivatePass?: string, withCredit?: string },
   t: TFunction,
+
+  savedPaymentMethodList: Array<PaymentMethod>,
+  requestSetupIntentSecret: () => void,
+  refreshSavedPaymentMethodList: () => void,
 };
 
 type State = {
@@ -198,6 +202,11 @@ export class InvoiceForm extends React.Component<Props, State> {
         </Grid>
         <Grid item xs={12} md={6}>
           <InvoiceEditor
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            refreshSavedPaymentMethodList={
+              this.props.refreshSavedPaymentMethodList
+            }
             availableBuyableItems={this.props.availableBuyableItems}
             onAddBuyableItem={this.addBuyableItem}
             onAddPaymentItem={this.addPaymentItem}

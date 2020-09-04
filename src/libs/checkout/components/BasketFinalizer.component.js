@@ -35,6 +35,7 @@ type Props = {
   submitPayment: (data: *) => void,
   attachCoupon: (basketId: string, code: string) => void,
   termsAndConditions: string,
+  savedPaymentMethodList: ?Array<PaymentMethod>,
 
   t: TFunction,
   classes: Object,
@@ -89,6 +90,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
             onSuccess={this.props.onBasketFinalized}
             submitPayment={this.props.submitPayment}
             termsAndConditions={this.props.termsAndConditions}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
             onCancel={() => {
               if (this.props.basket.need_address) {
                 this.setState({ currentStep: ADDRESS_STEP.id });

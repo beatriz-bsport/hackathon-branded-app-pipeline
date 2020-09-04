@@ -2453,6 +2453,7 @@
           "error": "Impossible d'enregistrer cette méthode de paiement"
         },
         "collect": {
+          "title": "Ajouter un moyen de paiement",
           "content": "Ce moyen de paiement sera sauvegardé dans votre compte pour être facturé conformément au contrat."
         },
         "actions": {

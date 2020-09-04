@@ -77,6 +77,8 @@ import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-co
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import { isRegistered as offerIsRegisteredAPI } from '../../libs/offer/api';
 
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+
 import SubscriptionContractBooking from './SubscriptionBooking.component';
 
 type Props = {
@@ -136,19 +138,26 @@ export class OfferPaymentPage extends Component<Props, State> {
   };
 
   fetchCompanyData = () => {
-    this.props.fetchCompanyTheme(this.props.offer.company);
-    this.props.fetchPaymentPackForBooking(
-      this.props.offer.id,
-      this.props.offer.company,
-    );
-    this.props.fetchPaymentComboForBooking(
-      this.props.offer.company,
-      this.props.offerId,
-    );
-    this.props.fetchContactForBooking(
-      this.props.offerId,
-      this.props.offer.company,
-    );
+    if (this.props.offer) {
+      this.props.fetchCompanyTheme(this.props.offer.company);
+      this.requestSetupIntentSecret();
+      this.props.fetchPaymentPackForBooking(
+        this.props.offer.id,
+        this.props.offer.company,
+      );
+      this.props.fetchPaymentComboForBooking(
+        this.props.offer.company,
+        this.props.offerId,
+      );
+      this.props.fetchContactForBooking(
+        this.props.offerId,
+        this.props.offer.company,
+      );
+    }
+  };
+
+  requestSetupIntentSecret = () => {
+    return this.props.requestSetupIntentSecret(this.props.offer.company);
   };
 
   componentWillMount() {
@@ -157,6 +166,7 @@ export class OfferPaymentPage extends Component<Props, State> {
 
   componentDidMount() {
     this.fetchData();
+    this.fetchCompanyData();
     if (this.props.authenticated) {
       this.props.linkMeToCompany({ offer: this.props.offerId });
     }
@@ -166,7 +176,10 @@ export class OfferPaymentPage extends Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps.offer !== this.props.offer && this.props.offer) {
+    if (
+      (!prevProps.offer && !!this.props.offer) ||
+      (this.props.offer && this.props.offer.id !== prevProps.offer.id)
+    ) {
       this.fetchCompanyData();
     }
     if (this.props.authenticated && !prevProps.authenticated) {
@@ -215,6 +228,8 @@ export class OfferPaymentPage extends Component<Props, State> {
               this.props.setSelectedContract(null);
             }}
             onCancel={() => this.props.setSelectedContract(null)}
+            requestSetupIntentSecret={this.requestSetupIntentSecret}
+            companyId={this.props.offer && this.props.offer.company}
           />
         </PaymentContainer>
       </MuiThemeProvider>
@@ -226,7 +241,7 @@ export default compose(
   routerParamsToProps({ id: 'offerId:number', offerId: 'offerId:number' }),
   withState('processing', 'setProcessing', false),
   withState('selectedContract', 'setSelectedContract', null),
-  withTranslation(['booking']),
+  withTranslation(['booking', 'subscription', 'payment']),
   connect(
     (state, { offerId }) => ({
       authenticated: state.auth.authenticated,
@@ -289,6 +304,8 @@ export default compose(
     buyableItemsLoading: paymentPackLoading || contractLoading || comboLoading,
   })),
   withHandlers({
+    requestSetupIntentSecret: () => (companyId) =>
+      requestSetupIntentSecretAPI(null, companyId),
     resetBuyableItems: ({
       resetPaymentComboForBooking,
       resetBookingOptionForBooking,

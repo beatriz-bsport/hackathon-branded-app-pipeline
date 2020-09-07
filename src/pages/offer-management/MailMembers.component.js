@@ -36,6 +36,7 @@ type State = {
   mailToWaitingList: boolean,
   mailToBookings: boolean,
   openMailChoiceDialog: boolean,
+  mailToCanceledBookings: boolean,
 };
 
 export class MailDialog extends Component<Props, State> {
@@ -43,6 +44,7 @@ export class MailDialog extends Component<Props, State> {
     receiversList: [],
     mailToWaitingList: false,
     mailToBookings: false,
+    mailToCanceledBookings: false,
     openMailChoiceDialog: true,
   };
 
@@ -133,6 +135,33 @@ export class MailDialog extends Component<Props, State> {
                 button
                 onClick={() =>
                   this.setState((prevState) => ({
+                    mailToCanceledBookings: !prevState.mailToCanceledBookings,
+                  }))
+                }
+                className={classes.mailChoiceDialogEnd}
+              >
+                <ListItemText
+                  id="CanceledBookings"
+                  primary={t(
+                    'communication:dialogReceiverChoice.canceledReservation',
+                  )}
+                />
+                <ListItemSecondaryAction>
+                  <Checkbox
+                    edge="end"
+                    onChange={() =>
+                      this.setState((prevState) => ({
+                        mailToCanceledBookings: !prevState.mailToCanceledBookings,
+                      }))
+                    }
+                    checked={this.state.mailToCanceledBookings}
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
+              <ListItem
+                button
+                onClick={() =>
+                  this.setState((prevState) => ({
                     mailToWaitingList: !prevState.mailToWaitingList,
                   }))
                 }
@@ -176,11 +205,15 @@ export class MailDialog extends Component<Props, State> {
                 onClick={() =>
                   this.setState((prevState) => ({
                     receiversList: (prevState.mailToBookings
-                      ? bookings.map((booking) => ({
-                          id: booking.member,
-                          name: this.getBookingMember(booking).name,
-                          email: this.getBookingMember(booking).email,
-                        }))
+                      ? bookings
+                          .filter(
+                            (booking) => booking.booking_status_code === 0,
+                          )
+                          .map((booking) => ({
+                            id: booking.member,
+                            name: this.getBookingMember(booking).name,
+                            email: this.getBookingMember(booking).email,
+                          }))
                       : []
                     )
                       .concat(
@@ -190,6 +223,19 @@ export class MailDialog extends Component<Props, State> {
                               name: this.getBookingMember(booking).name,
                               email: this.getBookingMember(booking).email,
                             }))
+                          : [],
+                      )
+                      .concat(
+                        prevState.mailToCanceledBookings
+                          ? bookings
+                              .filter(
+                                (booking) => booking.booking_status_code !== 0,
+                              )
+                              .map((booking) => ({
+                                id: booking.member,
+                                name: this.getBookingMember(booking).name,
+                                email: this.getBookingMember(booking).email,
+                              }))
                           : [],
                       )
                       .filter(this.onlyUnique),
@@ -215,6 +261,7 @@ export class MailDialog extends Component<Props, State> {
               openMailDialog: false,
               mailToWaitingList: false,
               mailToBookings: false,
+              mailToCanceledBookings: false,
             });
           }}
           sendMailAction={mailMembers}
@@ -234,7 +281,4 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(
-  withTranslation(),
-  withStyles(styles),
-)(MailDialog);
+export default compose(withTranslation(), withStyles(styles))(MailDialog);

@@ -40,6 +40,7 @@ exports.default = {
   },
   dialogReceiverChoice: {
     reservation: 'Envoyer aux réservations',
+    canceledReservation: 'Envoyer aux réservations annulées',
     waitingList: "Envoyer à la liste d'attente",
     title: 'Sélection des destinataires',
   },

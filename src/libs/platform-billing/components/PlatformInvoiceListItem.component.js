@@ -16,12 +16,12 @@ export const PlatformInvoiceListItem = (props: Props) => {
   const { t } = useTranslation(['platformBilling']);
 
   const { platformInvoice } = props;
-  const { pdf_url, month, year, success, price_cts } = platformInvoice;
+  const { pdf_url, month, year, success, total_price_cts } = platformInvoice;
   return (
     <ListItem>
       <ListItemText
         primary={t('platformInvoice.label', { month, year })}
-        secondary={`${price_cts / 100} €`}
+        secondary={`${total_price_cts / 100} €`}
       />
       {!!pdf_url && (
         <ListItemSecondaryAction>

@@ -29,6 +29,7 @@ export const PaymentMethodListItem = (props: Props) => {
       button={!!props.onClick}
       selected={props.selected}
       onClick={() => {
+        if (!props.onClick) return;
         if (props.selected) {
           props.onClick();
         } else {

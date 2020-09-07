@@ -11,7 +11,10 @@ import AlarmAddIcon from '@material-ui/icons/AlarmAdd';
 import Button from '@material-ui/core/Button';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import ReceiptIcon from '@material-ui/icons/Receipt';
-
+import {
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import RedButton from '../../../components/button/RedButton.component';
 
 import type { Subscription } from '../types';
@@ -69,6 +72,13 @@ export const SubscriptionActions = (props: Props) => {
             variant="outlined"
             onClick={props.requestPaymentMethodSwitch}
             className={props.classes.button}
+            disabled={
+              !props.subscription.stripe_payment_method_id &&
+              [
+                BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+                BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+              ].includes(props.subscription.payment_method)
+            }
           >
             <ReceiptIcon className={props.classes.leftIcon} />
             {props.t('subscription.actions.switchPaymentMethod')}

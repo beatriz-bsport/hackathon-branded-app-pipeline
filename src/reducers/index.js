@@ -50,6 +50,7 @@ import playlist from '../libs/playlist/reducers';
 import event from '../libs/event/reducers';
 import invoiceReducers from '../libs/invoice/reducers';
 import paymentBackend from '../libs/payment/reducers';
+import platformBilling from '../libs/platform-billing/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -106,6 +107,7 @@ const rootReducer = (history) =>
     event,
     video,
     playlist,
+    platformBilling,
   });
 
 export default (history) => (state: State, action: Action) => {

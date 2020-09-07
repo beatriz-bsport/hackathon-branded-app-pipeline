@@ -23,6 +23,8 @@ import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { Link } from 'react-router-dom';
 import type { TFunction } from 'react-i18next';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
 import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
 
 import { Level } from '../category';
@@ -368,11 +370,22 @@ export class OfferCard extends Component<Props> {
     } = this.props;
     const { available } = offer;
     if (offer) {
+      const coach = offer.coach_override || offer.coach || null;
       return (
         <div style={{ width: '100%' }}>
           <Paper square className={available ? null : classes.disabledPaper}>
             {noHeader ? null : this.getHeader()}
             {this.getStatsBody()}
+            {!!coach && (
+              <div className={classes.row}>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar src={coach.photo} />{' '}
+                  </ListItemAvatar>
+                  <ListItemText primary={coach.name} />
+                </ListItem>
+              </div>
+            )}
             {available ? (
               <div>
                 <div className={this.props.classes.bottomBlock}>

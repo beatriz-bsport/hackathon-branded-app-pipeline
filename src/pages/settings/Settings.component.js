@@ -26,6 +26,7 @@ import NotificationRulePage from './NotificationRule.page';
 import PartnershipPage from './Partnership.page';
 import ActiveCampaignPage from './ActiveCampaignPage.component';
 import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page';
+import PlatformBillingSettingPage from './PlatformBillingSetting.page';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -99,6 +100,11 @@ export const Settings = (props: Props) => {
           exact
           path="/settings/company_onboarding"
           component={CompanyOnboardingSettingPage}
+        />
+        <Route
+          exact
+          path="/settings/platform_billing"
+          component={PlatformBillingSettingPage}
         />
         <Route
           path="/settings"

@@ -4384,5 +4384,12 @@
       "copyUrl": "Accéder au lien de votre calendrier",
       "ownStyle": "Mode de compatibilité (ignorer le thème du site)"
     }
+  },
+  "platformBilling": {
+    "platformInvoice": { "label": "Facture {{ month }}/{{year}}", "sectionTitle": "Mes factures", "noInvoice": "Aucune facture" },
+    "paymentMethod": {
+      "sectionTitle": "Moyen de paiement",
+      "actions": { "createSepa": "Ajouter un IBAN", "createCard": "Ajouter une CB" }
+    }
   }
 }

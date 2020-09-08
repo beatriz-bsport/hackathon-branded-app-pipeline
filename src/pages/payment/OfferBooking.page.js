@@ -119,6 +119,8 @@ type Props = {
   consumerPaymentPackLoading: boolean,
   setSelectedContract: (?Contract) => void,
   selectedContract: ?Contract,
+
+  requestSetupIntentSecret: (id: number) => void,
 };
 
 type State = {

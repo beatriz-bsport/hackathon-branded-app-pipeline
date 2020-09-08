@@ -27,9 +27,18 @@ type Props = {
   fullScreen: boolean,
   onCancel: () => void,
   onSubmit: (any) => void,
+  companyId: number,
+  requestSetupIntentSecret: () => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
+  fetchPaymentMethodList: (params: any) => void,
 };
 
-export class SubscriptionContractBooking extends React.Component<Props> {
+type State = {
+  processing: boolean,
+  firstBillingTimestamp: ?number,
+};
+
+export class SubscriptionContractBooking extends React.Component<Props, State> {
   state = {
     firstBillingTimestamp: null,
     processing: false,

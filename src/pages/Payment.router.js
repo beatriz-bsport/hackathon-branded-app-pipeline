@@ -13,6 +13,7 @@ import { fetchProfile } from '../actions/consumer.actions';
 import { fetchPaymentCombo } from '../libs/payment-combo/actions';
 
 import { fetchOne as fetchPaymentPack } from '../libs/payment-packs/actions';
+import { fetchOfferBulk } from '../libs/offer/actions';
 import withQueryParams from '../hocs/with-query-params.hoc';
 
 const OfferPaymentPage = asyncComponent(() =>
@@ -53,8 +54,9 @@ const MarketplaceAsManager = asyncComponent(() =>
 type Props = {
   classes: Object,
   fetchProfile: () => void,
-  fetchPaymentPack: (id: number) => void,
-  fetchPaymentCombo: (id: number) => void,
+  fetchPaymentPack: (id: number, OptionCallback) => void,
+  fetchPaymentCombo: (id: number, OptionCallback) => void,
+  fetchOfferBulk: (Array<number>, OptionCallback) => void,
   authenticated: boolean,
   location: Object,
   urlParams: { membership: string },
@@ -69,7 +71,7 @@ export class PaymentRouter extends React.Component<Props> {
     } else {
       const { pathname } = this.props.location;
       if (!this.props.urlParams.membership) {
-        if (pathname.includes('customer/payment/pass')) {
+        if (pathname.includes('payment/pass')) {
           const ppId = pathname.split('/')[4];
 
           this.props.fetchPaymentPack(ppId, {
@@ -77,7 +79,15 @@ export class PaymentRouter extends React.Component<Props> {
               this.props.setUrlParams('membership')(pp.company),
           });
         }
-        if (pathname.includes('customer/payment/combo')) {
+        if (pathname.includes('payment/offer')) {
+          const offerId = pathname.split('/')[3];
+
+          this.props.fetchOfferBulk([offerId], {
+            onSuccess: ([offer]) =>
+              this.props.setUrlParams('membership')(offer.company),
+          });
+        }
+        if (pathname.includes('payment/combo')) {
           const ppId = pathname.split('/')[4];
 
           this.props.fetchPaymentCombo(ppId, {
@@ -174,6 +184,6 @@ export default compose(
       authenticated: state.auth.authenticated,
       is_manager: state.auth.is_manager,
     }),
-    { fetchPaymentCombo, fetchPaymentPack, fetchProfile },
+    { fetchPaymentCombo, fetchPaymentPack, fetchOfferBulk, fetchProfile },
   ),
 )(PaymentRouter);

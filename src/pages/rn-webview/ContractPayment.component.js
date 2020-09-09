@@ -12,7 +12,7 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import { requestSetupIntentSecretNoAuth as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { fetchPaymentMethodList } from '../../libs/payment/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

@@ -1110,7 +1110,8 @@
             "previous": "<",
             "allDay": "day",
             "deleteOffer": "Cancel",
-            "modifyOffer": "Modify"
+            "modifyOffer": "Modify",
+            "canDeleteWithBooking": "Bookings (canceled) or waiting list have been registered, cannot be deleted."
         },
         "login": {
             "error": {
@@ -1456,7 +1457,7 @@
                 "confirmPassword": "Password",
                 "confirmPasswordLabel": "Confirm",
                 "emailExistsInDB2": "Login",
-                "emailExistsInDB1": "This email is already registered",
+                "emailExistsInDB1": "This email is already registered as you are a member of studio using bsport. You can use these same credentials.",
                 "typePhone": "Phone number *"
             },
             "metaActivity": {
@@ -1700,7 +1701,8 @@
             "copySuffix": " (Copy)",
             "isRefreshing": "Your interface will be ready shortly",
             "duplicate": "Duplicate",
-            "restore": "Restore"
+            "restore": "Restore",
+            "share": "Share"
         },
         "members": {
             "form": {
@@ -1798,9 +1800,13 @@
             "cancelledBookings_plural": "{{nb}} bookings cancelled",
             "totalBookings": "{{nb}} booking in total",
             "totalBookings_plural": "{{nb}} bookings in total",
-            "offerFilteredBookingRecap": "Your bookings",
+            "offerFilteredBookingRecap": "Session: {{date}}",
             "weekOverview": "Overview of your week"
-        }
+        },
+        "metaActivityNotificationToolTip": "Some notifications are set for bookings regarding this item",
+        "show_cancelled_offers": "Show canceled sessions",
+        "quickInvoiceNoVoucher": "Leave the value of this field at 0 if you do not want to apply a discount",
+        "quickInvoiceVoucher": "Choose the discount to apply when billing the next pass"
     },
     "search": {
         "input": "Search...",
@@ -1980,7 +1986,13 @@
                 "error": "Impossible to save"
             }
         },
-        "pageTitle": "Transactional emails"
+        "pageTitle": "Transactional emails",
+        "caption": {
+            "emailDesign": "Mail to send",
+            "event": "Event",
+            "sendCopy": "Receive a copy of this email",
+            "active": "Enabled"
+        }
     },
     "consumerSpace": {
         "navigation": {
@@ -2093,7 +2105,9 @@
                 "cancel": "Cancel",
                 "reset": "OK",
                 "backToLogin": "Back"
-            }
+            },
+            "contactUs": "Contact us via ",
+            "hasProblem": "Are you having a problem resetting?"
         }
     },
     "paymentCombo": {
@@ -2625,6 +2639,9 @@
                 "durationDays": {
                     "helperText": "Duration (days) for which the pass will be valid after purchase date ",
                     "label": "Validity duration (days) if applicable"
+                },
+                "full_vod_access": {
+                    "label": "Provides access to VOD as long as it is valid over time"
                 }
             },
             "validForDuration": {
@@ -3225,7 +3242,10 @@
                     "title": "Include your own CSS code to customize your schedule"
                 },
                 "consumerRegularizeDebt": "The customer can regularize his deposit online",
-                "acceptDoubleBooking": "Accept double bookings"
+                "acceptDoubleBooking": "Accept double bookings",
+                "workshopsCustomer": "Show workshops on the customer calendar",
+                "cancelledOffersCustomer": "Show canceled sessions on the client calendar",
+                "calendarPersonalizationTitle": "Calendar configuration"
             },
             "cover": {
                 "label": "Logo",
@@ -3402,7 +3422,7 @@
             "title": "Temp password",
             "close": "Close",
             "submit": "Generate",
-            "explainRequest": "Ask for a temporary password available for 2h and send it to a tier to give him an access to your account for a limited amount of time. Your main password will not be affected.",
+            "explainRequest": "Ask for a temporary password available for one week and send it to a tier to give him an access to your account for a limited amount of time. Your main password will not be affected.",
             "explain": "This password is valid until {{expirationDate }}. You main password has not changed.",
             "copied": "Password copied",
             "copy": "Copy the password to the clipboard"
@@ -3647,7 +3667,13 @@
                 "general": "General"
             }
         },
-        "noEstablishement": "Manage here your rooms, their location, their occupancy and consult the calendar"
+        "noEstablishement": "Manage here your rooms, their location, their occupancy and consult the calendar",
+        "notificationToolTip": "Some notifications are set for bookings regarding this item",
+        "list": {
+            "section": {
+                "archived": "Archived establishment"
+            }
+        }
     },
     "order": {
         "products": {
@@ -3943,7 +3969,7 @@
         "calculation_method": "Calculation method",
         "only_attendant": "Count only attendants",
         "actions": "Actions",
-        "bookingThreshold": "Threshold (excluded)",
+        "bookingThreshold": "Threshold (included)",
         "pricePerAdditionalBooking": "Bonus per booking",
         "addBonus": "Add rule",
         "cancel": "Cancel",
@@ -4010,6 +4036,26 @@
             },
             "paymentIntent": {
                 "pay": "Pay"
+            },
+            "paymentMethod": {
+                "actions": {
+                    "addPaymentMethod": "Add a payment method",
+                    "retry": "Try again",
+                    "collect": "Save",
+                    "close": "Close"
+                },
+                "collect": {
+                    "content": "This payment method will be saved in your account to be invoiced in accordance with the contract.",
+                    "title": "Add a payment method"
+                },
+                "message": {
+                    "error": "Cannot register this payment method",
+                    "success": "Payment method saved successfully!"
+                }
+            },
+            "savePaymentMethod": {
+                "section": "My payment methods ({{count}})",
+                "label": "Save this payment method"
             }
         },
         "generalTermsAndConditions": {
@@ -4081,7 +4127,10 @@
             "submit_stripe_footer": "Update",
             "forms": {
                 "stripe_footer_placeholder": "No additional legal information"
-            }
+            },
+            "nf525Button": "Download",
+            "nf525Explain": "Bsport follows the NF525 compliance procedures, you can download our official certificate here.",
+            "nf525": "Certification"
         },
         "actions": {
             "equilibrate": "Regularize (deposit)",
@@ -4353,6 +4402,14 @@
                 "description": {
                     "label": "Description",
                     "placeholder": "Annual VIP subscription"
+                },
+                "object_type": {
+                    "paymentPack": "Pass",
+                    "privatePass": "Pass (appointments)",
+                    "label": "Subscription type"
+                },
+                "error": {
+                    "missingObject": "This field is required"
                 }
             },
             "deleteForm": {
@@ -4365,7 +4422,8 @@
             },
             "paymentPack": "Associated pass",
             "no": "No",
-            "yes": "Yes"
+            "yes": "Yes",
+            "privatePass": "Associated appointment card"
         },
         "recap": {
             "willBecharged": " will be charged ",
@@ -4428,7 +4486,9 @@
                 "2": "Credit",
                 "1": "SEPA transfer",
                 "0": "Credit card"
-            }
+            },
+            "private_pass": "Pass (appointments)",
+            "privatePass": "Pass (appointments)"
         },
         "schedule": {
             "provisionalTitle": "Provisional schedule",
@@ -4610,7 +4670,21 @@
             "bsport_fee": "Transaction fees",
             "author": "Author",
             "nb_bookings_same_pass": "Number of bookings with the same pass",
-            "credit_consumed": "Consumed Credit"
+            "credit_consumed": "Consumed Credit",
+            "effectif_rate": "Filling rate",
+            "cancel_rate": "Cancellation rate",
+            "rate_non_attendance": "Absence rate",
+            "rate_attendance": "Attendance rate",
+            "availability": "validity",
+            "min_credit": "Min credit",
+            "max_credit": "Max credit",
+            "canceled_bookings": "Number of canceled reservations",
+            "c": "Teacher",
+            "private_slot": "Type of session",
+            "private_service": "Appointment name",
+            "date_first_privatebooking": "First appointment date",
+            "activitiesest": "Activities by establishment",
+            "coaches": "Teachers"
         },
         "yes": "Yes",
         "no": "No",
@@ -4658,6 +4732,44 @@
         "subheader": {
             "average": "Mean",
             "total": "Total"
+        },
+        "categories": {
+            "dayBookings": "Reservations (group lesson) per day",
+            "privateServiceEst": "Appointment by establishment",
+            "privateServiceCoach": "Appointment by teacher",
+            "privateService": "Appointment",
+            "activityByCoach": "Activities and workshops per teacher",
+            "activityByEst": "Activities and workshops by establishment",
+            "workshop": "Workshops",
+            "activities": "Activities",
+            "first_privatebooking": "First appointment",
+            "first_attendance": "First presence (collective)",
+            "first_booking": "First session (collective)",
+            "subscription": "Subscription",
+            "discount": "Coupon",
+            "private_bookings": "Reservations (appointment)",
+            "shop": "Shop",
+            "private_cpasses": "Pass (appointments)",
+            "payment_sumup": "Payment totals",
+            "credit": "Credit",
+            "basket": "Basket",
+            "memberships": "Pass",
+            "invoices": "Purchases",
+            "products": "Products",
+            "payments": "Payments",
+            "bookings": "Reservations (group lesson)",
+            "offers": "Sessions",
+            "members": "Members"
+        },
+        "globalCategories": {
+            "subheader": {
+                "average": "Mean",
+                "total": "Total"
+            },
+            "Payments": "Payments",
+            "Products": "Products",
+            "Bookings": "Bookings",
+            "Club": "Club"
         }
     },
     "alerting": {
@@ -4902,7 +5014,16 @@
                     "helperText": "Price of the pass"
                 },
                 "startOnFirstUseHelper": "Otherwise it starts at the billing date",
-                "notEditable": "This course card is the result of a migration, some fields cannot be modified to respect the history. Compatible activities / categories remain modifiable."
+                "notEditable": "This course card is the result of a migration, some fields cannot be modified to respect the history. Compatible activities / categories remain modifiable.",
+                "maxPurchasePerMember": {
+                    "helperText": "Booking quota per week, empty means no limit",
+                    "label": "Maximum purchase per member"
+                },
+                "maxBookingPerDay": {
+                    "helperText": "Booking quota per week, empty means no limit",
+                    "label": "Max use per day"
+                },
+                "full_vod_access": "Provides access to VOD as long as it is valid over time"
             }
         },
         "details": {
@@ -5046,7 +5167,7 @@
                     "cancel": "Cancel"
                 },
                 "content": {
-                    "cannotDelete": "Sessions are planned in the future, please check they are deleted and not only cancelled.",
+                    "cannotDelete": "Sessions are planned in the future, please check they are cancelled.",
                     "canDelete": "Are you sure you want to delete this activity ? Sessions and past bookings will not be modified. This operation can not be reverted."
                 },
                 "title": "Activity deletion"
@@ -5070,9 +5191,10 @@
         "description": "Description",
         "settings": {
             "title": "Settings",
-            "lastBookingBeforeMinutes": "Last booking is possible until",
-            "lastDiscardBeforeMinutes": "Last discard booking is possible until",
-            "firstBookingMinutesUntil": "Limit bookings to sessions taking place before or in "
+            "lastBookingBeforeMinutes": "Last booking is possible until {{m}} before the start of the session",
+            "lastDiscardBeforeMinutes": "Last discard booking is possible until {{ m }} before start of the session",
+            "firstBookingMinutesUntil": "Customers can book only {{m }} at least before the session",
+            "conditions": "Conditions"
         },
         "modal": {
             "delete": {
@@ -5134,7 +5256,8 @@
                 "date": "Sort by date",
                 "lastname": "Sort by last name",
                 "firstname": "Sort by first name"
-            }
+            },
+            "unevenQuickInvoices": "Invoices without any method of payment are opened on this page. Are you sure you want to quit?"
         },
         "massDisabler": {
             "actions": {
@@ -5147,7 +5270,24 @@
             "title": "Grouped Cancellation"
         },
         "bookingListEmpty": "No booking",
-        "bookingList": "Bookings"
+        "bookingList": "Bookings",
+        "liveOfferEdit": {
+            "unselectAll": "Unselect all",
+            "selectAll": "Select all",
+            "select": "Select the sessions that will be modified",
+            "editSimilarOffers": "Do you want to modify ALL similar sessions under these new conditions ?"
+        },
+        "menu": {
+            "download": "Summary",
+            "massDisable": "Grouped Cancellation",
+            "hideCancelled": "Hide cancellations",
+            "showCancelled": "View cancellations",
+            "showWeek": "Week view",
+            "showMonth": "Month view"
+        },
+        "close": "Close",
+        "deleteImpossibleText": "You cannot delete this session because it has open reservations.",
+        "deleteImpossibleTitle": "Cannot delete the session"
     },
     "emailTemplate": {
         "modal": {
@@ -5323,7 +5463,9 @@
         "search": {
             "cancel": "Close",
             "createMember": "Add a member"
-        }
+        },
+        "memberTermsAccepted": " were accepted on {{- date}}",
+        "termsAndConditions": "General conditions of sale"
     },
     "booking": {
         "bookingModule": {
@@ -5407,6 +5549,55 @@
         "actions": {
             "unregister": "Unregister",
             "bill": "Bill"
+        },
+        "notification": {
+            "form": {
+                "listItemPrimary": {
+                    "cancelledDeprecated": "Cancellation n ° {{notify_booking_nb}}",
+                    "bookingDeprecated": "Booking n ° {{notify_booking_nb}}",
+                    "notRefunded": "Cancellation after deadline n ° {{notify_booking_nb}}",
+                    "refunded": "Cancellation refunded n ° {{notify_booking_nb}}",
+                    "absence": "Absence n ° {{notify_booking_nb}}",
+                    "attendance": "Attendance n ° {{notify_booking_nb}}",
+                    "after": "Notification {{hours}} h after the session",
+                    "before": "Notification {{hours}} h before the session"
+                },
+                "cancel": "Cancel",
+                "next": "Next",
+                "submit": "Submit",
+                "help": {
+                    "notRefunded": "his cancellation after deadline n ° {{notify_booking_nb}}",
+                    "refunded": "his cancellation refunded n ° {{notify_booking_nb}}",
+                    "absence": "his absence n ° {{notify_booking_nb}}",
+                    "attendance": "his presence n ° {{notify_booking_nb}}",
+                    "text": "Help: the notification will be sent to the member when"
+                },
+                "chooseKind": {
+                    "notRefunded": "Cancellation after deadline",
+                    "refunded": "Cancellation refunded",
+                    "absence": "Member's absence from a session",
+                    "attendance": "Member's presence at a session",
+                    "title": "Event triggering the notification"
+                },
+                "chooseStatus": {
+                    "cancelled": "Booking canceled by the customer",
+                    "valid": "Valid booking",
+                    "title": "Choose the type of booking you want to notify"
+                },
+                "chooseTime": {
+                    "second_after": "hour (s) after the session",
+                    "second_before": "hour (s) before the session",
+                    "first": "Send email"
+                },
+                "sendAfterMail": "Send the email to the member AFTER the session concerned by the notification",
+                "sendBeforeMail": "Send the email to the member BEFORE the session concerned by the notification",
+                "eventNb": "Notify the member for event n °:",
+                "settingTitle": "Settings",
+                "typeTitle": "Notification type",
+                "explain": "You can notify your clients before or after certain sessions, depending on various criteria such as the number of attendances, absences or even cancellations.",
+                "title": "Notification form"
+            },
+            "addNotification": "Add a notification"
         }
     },
     "marketplace": {
@@ -5479,7 +5670,14 @@
             "cancelRegistration": "Cancel",
             "isFull": "Session full",
             "register": "Register myself to the class",
-            "activateBarcode": "Barcode detector"
+            "activateBarcode": "Barcode detector",
+            "actions": {
+                "createAccount": "Create an account",
+                "restartAnalyze": "Restart",
+                "close": "Close"
+            },
+            "noDetectionResult": "No result",
+            "activateFaceId": "Face ID"
         },
         "memberList": {
             "checkIn": "Check in",
@@ -5650,6 +5848,13 @@
                 "textFieldPlaceholder": "Search for a product category",
                 "helperSelectedText": "selected categories",
                 "helperText": "select categories"
+            },
+            "privatePass": {
+                "warning": "Select at least one appointment pass",
+                "helperAllSelectedText": "all appointment pass",
+                "textFieldPlaceholder": "Find an appointment pass",
+                "helperSelectedText": "selected appointment pass",
+                "helperText": "select appointment pass"
             }
         },
         "selectToShowPreview": "Please select a template",
@@ -6045,6 +6250,52 @@
                 "explanation": "Has a password on bsport",
                 "name": "Password",
                 "explain": "has a password on bsport"
+            },
+            "26": {
+                "hour": {
+                    "third": "hours",
+                    "second": "hours and",
+                    "first": "beginning between"
+                },
+                "date": {
+                    "first": "occurring on"
+                },
+                "coach": {
+                    "first": "with the teachers"
+                },
+                "private_pass": {
+                    "first": "with appointment pass"
+                },
+                "establishment": {
+                    "third": "at home",
+                    "second": "or",
+                    "first": "in establishments"
+                },
+                "between": "and",
+                "second": "appointment",
+                "first": "Has booked",
+                "explanation": "A booked X appointments with teacher A, in location B, with the pass C ...",
+                "name": "Number of appointments"
+            },
+            "25": {
+                "expiration": {
+                    "first_has_expire": "has expired",
+                    "first_will_expire": "expires"
+                },
+                "date_bought": {
+                    "first": "purchase date"
+                },
+                "credits": {
+                    "second": "and",
+                    "first": "credits:"
+                },
+                "third": "at",
+                "second": "and",
+                "has_not": "Does not have",
+                "has": "Has",
+                "first": "one of the appointment pass",
+                "name": "Pass (appointments)",
+                "explanation": "Has bought appointment pass X at date Y, with Z credits remaining"
             }
         },
         "noSmartLists": "Use smartlists to filter, analyze, and get to know your members better.",
@@ -6240,6 +6491,10 @@
             "delete": {
                 "error": "Impossible to delete this establishment",
                 "success": "Establishment deleted"
+            },
+            "restore": {
+                "error": "Unable to restore this establishment",
+                "success": "Restored establishment"
             }
         },
         "email": {
@@ -6434,6 +6689,16 @@
                 "success": "Note deleted",
                 "error": "It is impossible to delete the note"
             }
+        },
+        "bookingNotification": {
+            "delete": {
+                "error": "Unable to delete notification",
+                "success": "Notification deleted"
+            },
+            "createOrUpdate": {
+                "error": "Unable to save notification",
+                "success": "Notification saved successfully"
+            }
         }
     },
     "navigation": {
@@ -6585,6 +6850,40 @@
             "description": "Description",
             "name": "Last name",
             "noVideo": "No video in this playlist"
+        }
+    },
+    "platformBilling": {
+        "paymentMethod": {
+            "actions": {
+                "createCard": "Add a CB",
+                "createSepa": "Add an IBAN"
+            },
+            "sectionTitle": "Payment method"
+        },
+        "platformInvoice": {
+            "noInvoice": "No bills",
+            "sectionTitle": "My bills",
+            "label": "Invoice {{month}} / {{year}}"
+        }
+    },
+    "widget": {
+        "widget": {
+            "ownStyle": "Compatibility mode (ignore site theme)",
+            "copyUrl": "Go to your calendar link",
+            "codeSource": "See the code you need to copy to your own site",
+            "copy": "Copy",
+            "url": "Calendar link",
+            "code": "Widget on your site",
+            "choice": "Choose how you want to display your widget",
+            "visualisation": "Preview",
+            "widget": "Share your calendar",
+            "displayType": "Display type",
+            "return": "Back",
+            "show": "Preview",
+            "cancel": "Cancel",
+            "responsiveDisplay": "Responsive display",
+            "calendarDisplay": "Week card (calendar)",
+            "listDisplay": "Week view list"
         }
     }
 }

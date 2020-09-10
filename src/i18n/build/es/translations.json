@@ -704,7 +704,8 @@
             "showMore": "+ {{total}} séance(s) supplémentaire(s)",
             "showMonth": "Visualización mes",
             "showWeek": "Visualización semana",
-            "pleaseSelectOffer": "Selecciona una sesión para ver los miembros registrados"
+            "pleaseSelectOffer": "Selecciona una sesión para ver los miembros registrados",
+            "canDeleteWithBooking": "Reservas (canceladas) o en lista de espera han sido registradas, no se pueden borrar."
         },
         "activity": {
             "forms": {
@@ -2818,7 +2819,13 @@
             "closePreview": "Cerrar",
             "placeholder": "Generado por bsport"
         },
-        "pageTitle": "Emails transaccionales"
+        "pageTitle": "Emails transaccionales",
+        "caption": {
+            "emailDesign": "Correo electrónico para enviar",
+            "event": "Evento",
+            "sendCopy": "Recibe copia",
+            "active": "Activado"
+        }
     },
     "partnership": {
         "requestDialog": {
@@ -3960,7 +3967,9 @@
             "explain2": "Te enviaremos instrucciones de recuperación",
             "explain1": "¿Cuál era el email de la cuenta?",
             "noEmail": "Este email no está registrado",
-            "title": "Recuperación de la contraseña"
+            "title": "Recuperación de la contraseña",
+            "contactUs": "Ponte en contacto con nosotros a través de ",
+            "hasProblem": "¿Tienes problemas para reiniciar?"
         }
     },
     "category": {

@@ -75,6 +75,8 @@ export class ThemeForm extends Component<Props, State> {
       this.state.theme.websiteURL === this.props.theme.websiteURL &&
       this.state.theme.scheduleURL === this.props.theme.scheduleURL &&
       this.state.theme.gtmId === this.props.theme.gtmId &&
+      this.state.theme.android_app_url === this.props.theme.android_app_url &&
+      this.state.theme.ios_app_url === this.props.theme.ios_app_url &&
       this.state.theme.instagramURL === this.props.theme.instagramURL &&
       this.state.theme.general_terms_and_conditions ===
         this.props.theme.general_terms_and_conditions &&
@@ -96,6 +98,8 @@ export class ThemeForm extends Component<Props, State> {
       'websiteURL',
       'scheduleURL',
       'facebookURL',
+      'ios_app_url',
+      'android_app_url',
       'gtmId',
       'instagramURL',
       'general_terms_and_conditions',
@@ -144,6 +148,7 @@ export class ThemeForm extends Component<Props, State> {
         </div>
         <div className={classes.inputContainer}>
           <TextField
+            className={classes.textfield}
             variant="outlined"
             placeholder={t('forms.websiteURL.placeholder')}
             helperText={t('forms.websiteURL.helperText')}
@@ -154,6 +159,7 @@ export class ThemeForm extends Component<Props, State> {
         </div>
         <div className={classes.inputContainer}>
           <TextField
+            className={classes.textfield}
             variant="outlined"
             placeholder={t('forms.scheduleURL.placeholder')}
             helperText={t('forms.scheduleURL.helperText')}
@@ -166,6 +172,35 @@ export class ThemeForm extends Component<Props, State> {
           <div className={classes.horizontalInput}>
             <TextField
               variant="outlined"
+              className={classes.textfield}
+              placeholder={t('forms.android_app_url.placeholder')}
+              helperText={t('forms.android_app_url.helperText')}
+              label={t('forms.android_app_url.label')}
+              value={this.state.theme.android_app_url}
+              onChange={(ev) =>
+                this.handleChange('android_app_url')(ev.target.value)
+              }
+            />
+          </div>
+          <div className={classes.horizontalInput}>
+            <TextField
+              className={classes.textfield}
+              variant="outlined"
+              placeholder={t('forms.ios_app_url.placeholder')}
+              helperText={t('forms.ios_app_url.helperText')}
+              label={t('forms.ios_app_url.label')}
+              value={this.state.theme.ios_app_url}
+              onChange={(ev) =>
+                this.handleChange('ios_app_url')(ev.target.value)
+              }
+            />
+          </div>
+        </div>
+        <div className={classes.inputContainer}>
+          <div className={classes.horizontalInput}>
+            <TextField
+              className={classes.textfield}
+              variant="outlined"
               placeholder={t('forms.instagramURL.placeholder')}
               helperText={t('forms.instagramURL.helperText')}
               label={t('forms.instagramURL.label')}
@@ -177,6 +212,7 @@ export class ThemeForm extends Component<Props, State> {
           </div>
           <div className={classes.horizontalInput}>
             <TextField
+              className={classes.textfield}
               variant="outlined"
               placeholder={t('forms.facebookURL.placeholder')}
               helperText={t('forms.facebookURL.helperText')}
@@ -190,6 +226,7 @@ export class ThemeForm extends Component<Props, State> {
         </div>
         <div className={classes.inputContainer}>
           <TextField
+            className={classes.textfield}
             variant="outlined"
             multiline
             rows={5}
@@ -204,6 +241,7 @@ export class ThemeForm extends Component<Props, State> {
         </div>
         <div className={classes.inputContainer}>
           <TextField
+            className={classes.textfield}
             variant="outlined"
             placeholder={t('forms.gtmId.placeholder')}
             label={t('forms.gtmId.label')}
@@ -230,6 +268,9 @@ export class ThemeForm extends Component<Props, State> {
 }
 
 const styles = (theme) => ({
+  textfield: {
+    minWidth: 480,
+  },
   horizontalInput: {
     marginRight: theme.spacing(3),
   },

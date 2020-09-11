@@ -59,10 +59,11 @@ type Props = {
 };
 
 export class ConsumerSubscription extends React.Component<Props> {
-  fetchSubscriptionList = (page: number) => {
+  fetchSubscriptionList = (page: number, params) => {
     this.props.fetchSubscriptionListByMember(this.props.membership.id, {
       page,
       page_size: 10,
+      ...params,
     });
   };
 

@@ -148,10 +148,14 @@ export default compose(
     },
   ),
   withHandlers({
-    fetchSubscriptionList: ({ fetchSubscriptionList }) => (page: number) => {
+    fetchSubscriptionList: ({ fetchSubscriptionList }) => (
+      page: number,
+      params: any = {},
+    ) => {
       fetchSubscriptionList({
         page,
         page_size: 10,
+        ...params,
       });
     },
   }),

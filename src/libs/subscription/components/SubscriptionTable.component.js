@@ -11,16 +11,25 @@ import RedButton from '../../../components/button/RedButton.component';
 import { formatAsDate } from '../../../datetime';
 import type { Subscription } from '../types';
 
-const renderRows = (subscriptions) => {
+const BILLING_PLAN_STATUS_HAS_STARTED = 2;
+const BILLING_PLAN_STATUS_HAS_STOPPED = 3;
+const BILLING_PLAN_STATUS_HAS_ENDED = 4;
+
+const getStatus = (status, t) => {
+  if (status === BILLING_PLAN_STATUS_HAS_STARTED) return t('status.hasStarted');
+  if (status === BILLING_PLAN_STATUS_HAS_ENDED) return t('status.hasEnded');
+  if (status === BILLING_PLAN_STATUS_HAS_STOPPED) return t('status.hasStopped');
+  return t('status.hasNotStartedYet');
+};
+const renderRows = (subscriptions, t) => {
   return subscriptions.map((sub) => ({
     key: sub.id,
     member: sub.memberName,
     name: sub.name,
     nb_interval: parseInt(sub.nb_interval, 10),
     first_billing_date: formatAsDate(sub.first_billing_date),
-    recurrent_price_with_voucher: `${parseFloat(sub.recurrent_price).toFixed(
-      2,
-    )}  €`,
+    status: getStatus(sub.status, t),
+    recurrent_price: `${parseFloat(sub.recurrent_price).toFixed(2)}  €`,
     paymentMethodInfo: {
       id: sub.payment_method,
       subscriptionId: sub.id,
@@ -44,11 +53,15 @@ const getColumnData = (
       label: t('parameters.dateStart'),
     },
     {
+      name: 'status',
+      label: t('parameters.status'),
+    },
+    {
       name: 'nb_interval',
       label: t('parameters.nbInterval'),
     },
     {
-      name: 'recurrent_price_with_voucher',
+      name: 'recurrent_price',
       label: t('parameters.recurrent_price'),
     },
     {
@@ -154,7 +167,16 @@ export class SubscriptionTable extends Component<Props, State> {
       count: this.props.count,
       tableState: this.state.tableState,
       onTableChange: (action, tableState) => {
-        this.props.onPageChange(tableState.page + 1);
+        const ordering = tableState.columns.reduce((acc, v) => {
+          if (v.sortDirection === 'asc') {
+            return v.name;
+          }
+          if (v.sortDirection === 'desc') {
+            return `-${v.name}`;
+          }
+          return acc;
+        }, '');
+        this.props.onPageChange(tableState.page + 1, { ordering });
       },
       textLabels: {
         body: {
@@ -169,7 +191,7 @@ export class SubscriptionTable extends Component<Props, State> {
     return (
       <MUIDataTable
         title={this.props.title}
-        data={this.props.loading ? [] : renderRows(this.props.subscriptionList)}
+        data={this.props.loading ? [] : renderRows(this.props.subscriptionList, this.props.t)}
         columns={getColumnData(
           this.props.t,
           !!this.props.showOnlyCore,

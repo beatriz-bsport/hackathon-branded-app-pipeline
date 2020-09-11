@@ -44,10 +44,11 @@ export class MemberDetailPayment extends Component<Props> {
     window.location.href = invoice.stripe_invoice_pdf;
   };
 
-  fetchSubscriptionList = (page: number) => {
+  fetchSubscriptionList = (page: number, params: any = {}) => {
     this.props.fetchSubscriptionListByMember(this.props.id, {
       page,
       page_size: 10,
+      ...params,
     });
   };
 

@@ -2773,6 +2773,12 @@
     "inactiveCoaches": "Professeurs archivés"
   },
   "subscription": {
+    "status": {
+      "hasStarted": "En cours",
+      "hasNotStartedYet": "Pas encore commencé",
+      "hasStopped": "Stoppé",
+      "hasEnded": "Terminé"
+    },
     "events": {
       "list": { "title": "Derniers évènements" },
       "billing_plan-pause": "Pause",

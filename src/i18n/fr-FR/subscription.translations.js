@@ -11,6 +11,12 @@ const {
 } = require('@bsport/common/lib/master-data/events');
 
 exports.default = {
+  status: {
+    hasStarted: 'En cours',
+    hasNotStartedYet: 'Pas encore commencé',
+    hasStopped: 'Stoppé',
+    hasEnded: 'Terminé',
+  },
   events: {
     list: {
       title: 'Derniers évènements',

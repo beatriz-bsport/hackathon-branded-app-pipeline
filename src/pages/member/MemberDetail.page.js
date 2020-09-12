@@ -129,7 +129,9 @@ const MemberActions = (props: {
 export class MemberDetail extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAllPaymentPacks();
-    this.props.fetchPaymentMethodList();
+    if (Number.isInteger(this.props.id)) {
+      this.props.fetchPaymentMethodList();
+    }
   }
 
   render() {

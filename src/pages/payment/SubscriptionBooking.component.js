@@ -1,13 +1,14 @@
 // @flow
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import { Elements, StripeProvider } from 'react-stripe-elements';
-import { compose, withState, withProps } from 'recompose';
+import DialogContent from '@material-ui/core/DialogContent';
+import { compose } from 'recompose';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
@@ -17,83 +18,108 @@ import { postContractSubscription as postContractSubscriptionAPI } from '../../l
 
 import SubscriptionContractCard from '../../libs/subscription/components/SubscriptionContractCard.component';
 import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
-
-import Config from '../../config';
-
-const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 
 type Props = {
   t: TFunction,
   contract: ?Contract,
   fullScreen: boolean,
-  firstBillingTimestamp: ?number,
-  setFirstBillingTimestmap: (?number) => void,
   onCancel: () => void,
-  processing: boolean,
   onSubmit: (any) => void,
+  companyId: number,
+  requestSetupIntentSecret: () => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
+  fetchPaymentMethodList: (params: any) => void,
 };
 
-export const SubscriptionContractBooking = (props: Props) => (
-  <Dialog fullScreen={props.fullScreen} open={!!props.contract}>
-    {!props.firstBillingTimestamp ? (
-      <div>
-        <SubscriptionContractCard
-          contract={props.contract}
-          onPayRequest={props.setFirstBillingTimestmap}
-        />
-        <DialogActions>
-          <Button onClick={props.onCancel}>{props.t('common.cancel')}</Button>
-        </DialogActions>
-      </div>
-    ) : (
-      <StripeProvider apiKey={STRIPE_KEY}>
-        <Elements>
+type State = {
+  processing: boolean,
+  firstBillingTimestamp: ?number,
+};
+
+export class SubscriptionContractBooking extends React.Component<Props, State> {
+  state = {
+    firstBillingTimestamp: null,
+    processing: false,
+  };
+
+  onSubmit = async (token: string, payment_method_id: string) => {
+    this.setState({ processing: true });
+    try {
+      const first_billing_timestamp = moment(
+        this.state.firstBillingTimestamp,
+      ).unix();
+      await postContractSubscriptionAPI(this.props.contract.id, {
+        stripe_source: token,
+        first_billing_timestamp,
+        payment_method_id,
+      });
+      this.props.onSubmit();
+      // this.setState({ firstBillingTimestamp });
+    } catch (err) {
+      console.error(err);
+    }
+    this.setState({ processing: false });
+  };
+
+  render() {
+    if (!this.state.firstBillingTimestamp) {
+      return (
+        <Dialog fullScreen={this.props.fullScreen} open={!!this.props.contract}>
+          <div>
+            <SubscriptionContractCard
+              contract={this.props.contract}
+              onPayRequest={(firstBillingTimestamp) => {
+                this.setState({ firstBillingTimestamp });
+              }}
+            />
+            <DialogActions>
+              <Button onClick={this.props.onCancel}>
+                {this.props.t('cancel')}
+              </Button>
+            </DialogActions>
+          </div>
+        </Dialog>
+      );
+    }
+    return (
+      <Dialog fullScreen={this.props.fullScreen} open={!!this.props.contract}>
+        <DialogContent>
           <SubscriptionPayment
-            processing={props.processing}
+            processing={this.state.processing}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
+            refreshSavedPaymentMethodList={() =>
+              this.props.fetchPaymentMethodList({
+                company: this.props.companyId,
+              })
+            }
             onCancel={() => {
-              props.setFirstBillingTimestmap(null);
-              props.onCancel();
+              this.setState({ firstBillingTimestamp: null });
+              this.props.onCancel();
             }}
-            onSubmit={props.onSubmit}
+            onSubmit={this.onSubmit}
             enabledPaymentMethods={[
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
             ]}
           />
-        </Elements>
-      </StripeProvider>
-    )}
-  </Dialog>
-);
+        </DialogContent>
+      </Dialog>
+    );
+  }
+}
 
 export default compose(
-  withTranslation(),
+  withTranslation(['subscription']),
   withMobileDialog(),
-  withState('firstBillingTimestamp', 'setFirstBillingTimestmap', null),
-  withState('processing', 'setProcessing', false),
-  withProps(
-    ({
-      contract,
-      onSubmit,
-      firstBillingTimestamp,
-      setFirstBillingTimestmap,
-      setProcessing,
-    }) => ({
-      onSubmit: async (token: string) => {
-        setProcessing(true);
-        try {
-          const first_billing_timestamp = moment(firstBillingTimestamp).unix();
-          await postContractSubscriptionAPI(contract.id, {
-            stripe_source: token,
-            first_billing_timestamp,
-          });
-          onSubmit();
-          setFirstBillingTimestmap(null);
-        } catch (err) {
-          console.error(err);
-        }
-        setProcessing(false);
-      },
+  connect(
+    (state) => ({
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
+    {
+      fetchPaymentMethodList: fetchPaymentMethodListAction,
+    },
   ),
 )(SubscriptionContractBooking);

@@ -131,6 +131,7 @@ Auto Bump Version:
 
   after_script:
     - STATUS=`echo "$(cat .job_status)"`
+    - echo "$STATUS"
     - cat .job_status
     - export STATUS
     - '[[ "$STATUS" = "SUCCESS" ]] && COLOR="#36a64f" || COLOR="#E00201"'
@@ -142,6 +143,7 @@ Auto Bump Version:
     - export CHANGELOG
 
     - envsubst < ./slack_template.json > slack_template2.json
+    - cat slack_template2.json
     - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
 
 Buid Deploy Staging:

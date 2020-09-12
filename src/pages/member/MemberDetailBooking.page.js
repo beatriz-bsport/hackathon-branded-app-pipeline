@@ -132,8 +132,8 @@ export class MemberDetailBooking extends Component<Props, State> {
     });
   };
 
-  handleBookingDeletion = () => {
-    this.props.deleteBooking(this.state.bookingToRevert.id);
+  handleBookingDeletion = (options: OptionCallback) => {
+    this.props.deleteBooking(this.state.bookingToRevert.id, null, options);
     this.setState({ bookingToRevert: null });
   };
 

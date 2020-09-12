@@ -205,8 +205,8 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
           open={this.props.bookingToCancel}
           booking={this.props.bookingToCancel}
           onCancel={() => this.props.setBookingToCancel(null)}
-          onSubmit={() =>
-            this.props.cancelBooking(this.props.bookingToCancel.id)
+          onSubmit={(options) =>
+            this.props.cancelBooking(this.props.bookingToCancel.id, options)
           }
         />
       </div>
@@ -316,8 +316,16 @@ export default compose(
 
   withState('bookingToCancel', 'setBookingToCancel', null),
   withHandlers({
-    cancelBooking: ({ cancelBooking, setBookingToCancel }) => (id, data) => {
-      cancelBooking(id, data, { onSuccess: () => setBookingToCancel(null) });
+    cancelBooking: ({ cancelBooking, setBookingToCancel }) => (id, options) => {
+      cancelBooking(id, null, {
+        onSuccess: () => {
+          setBookingToCancel(null);
+          if (options && options.onSuccess) options.onSuccess();
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
+      });
     },
     goToBroadcast: ({ membership, push }) => (bookingId) =>
       push(`/c/${membership.company}/broadcast/${bookingId}/`),

@@ -41,7 +41,7 @@ type Props = {
   bookingsLoading: boolean,
   bookingCurrentPage: number,
   fetchBookingList: (member: number, page: number, page_size: number) => void,
-  cancelBooking: (number) => void,
+  cancelBooking: (number, OptionCallback) => void,
 
   privateBookingsLoading: boolean,
   private_booking_list: Array<PrivateBooking>,
@@ -120,7 +120,9 @@ export const ConsumerBookingPage = (props: Props) => (
         open={props.bookingToCancel}
         booking={props.bookingToCancel}
         onCancel={() => props.setBookingToCancel(null)}
-        onSubmit={() => props.cancelBooking(props.bookingToCancel.id)}
+        onSubmit={(options) =>
+          props.cancelBooking(props.bookingToCancel.id, options)
+        }
       />
     </Grid>
   </div>
@@ -147,8 +149,16 @@ export default compose(
   withStyles(styles),
   withState('bookingToCancel', 'setBookingToCancel', null),
   withHandlers({
-    cancelBooking: ({ cancelBooking, setBookingToCancel }) => (id, data) => {
-      cancelBooking(id, data, { onSuccess: () => setBookingToCancel(null) });
+    cancelBooking: ({ cancelBooking, setBookingToCancel }) => (id, options) => {
+      cancelBooking(id, null, {
+        onSuccess: () => {
+          setBookingToCancel(null);
+          if (options && options.onSuccess) options.onSuccess();
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
+      });
     },
   }),
 )(ConsumerBookingPage);

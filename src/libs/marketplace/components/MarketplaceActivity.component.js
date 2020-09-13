@@ -213,7 +213,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
               disabled={!isOfferInThePast(offer) || !offer.available}
               onClick={() => this.props.goToOfferPayment(offer)}
             >
-              Réserver
+              {t('marketplace.bookButton.book')}
             </Button>
           ) : null}
           <div>
@@ -308,7 +308,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
               disabled={!isOfferInThePast(offer) || !offer.available}
               onClick={() => this.props.goToOfferPayment(offer)}
             >
-              Réserver
+              {t('marketplace.bookButton.book')}
             </Button>
           </CardActions>
         ) : null}

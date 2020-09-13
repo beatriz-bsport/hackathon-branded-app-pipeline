@@ -36,7 +36,6 @@ type Props = {
   availableBuyableItems: {
     [buyable_item_identifier: number]: Array<BuyableItem>,
   },
-  removeInvoiceItem: (number) => void,
   uneditableInvoiceItems: Array<InvoiceItem>,
 };
 
@@ -165,6 +164,17 @@ export class QuickInvoice extends Component<Props, State> {
     }));
   };
 
+  removeInvoiceItem = (id: number) => {
+    this.setState((prevState) => {
+      const idx = prevState.invoiceItemList.findIndex((ii) => ii.id === id);
+      return {
+        invoiceItemList: prevState.invoiceItemList.filter((ii, idx_) => {
+          return idx_ !== idx;
+        }),
+      };
+    });
+  };
+
   render() {
     const { classes, onClose, quickInvoiceTitle, quickInvoice } = this.props;
 
@@ -223,7 +233,7 @@ export class QuickInvoice extends Component<Props, State> {
                     <InvoiceItem
                       invoiceItem={ii}
                       key={`${ii.buyable_item_identifier}:${ii.id}:${ii.voucher}`}
-                      onDelete={() => this.props.removeInvoiceItem(ii.id)}
+                      onDelete={() => this.removeInvoiceItem(ii.id)}
                     />
                   </div>
                 ))}

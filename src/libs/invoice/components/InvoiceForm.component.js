@@ -16,6 +16,7 @@ import UnevenInvoiceDialog from '../dialog/UnevenInvoiceDialog.component';
 import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
 // import InvoiceActions from './InvoiceActions.component';
 import InvoiceHeader from './InvoiceHeader.component';
+import type { OptionCallback } from '../../../state/types';
 
 type Props = {
   classes: Object,
@@ -29,10 +30,13 @@ type Props = {
   goToSubscription: (id: number) => void,
   unevenInvoiceAlertOpen: boolean,
   closeUnevenInvoiceDialog: () => void,
-  onSubmit: ({
-    buyable_items: Array<BuyableItem>,
-    payment_methods: Array<PaymentMethod>,
-  }) => void,
+  onSubmit: (
+    {
+      buyable_items: Array<BuyableItem>,
+      payment_methods: Array<PaymentMethod>,
+    },
+    options: OptionCallback,
+  ) => void,
   availableBuyableItems: { [identifier: number]: Array<any> },
   openUnevenInvoiceDialog: () => void,
   finalizeInvoiceAlertOpen: boolean,
@@ -156,7 +160,7 @@ export class InvoiceForm extends React.Component<Props, State> {
     );
   };
 
-  onSubmit = () => {
+  onSubmit = (options?: OptionCallback) => {
     const invoiceItemAmount = this.getInvoiceItemAmount();
     const paymentAmount = this.getPaymentItemAmount();
     if (
@@ -167,10 +171,13 @@ export class InvoiceForm extends React.Component<Props, State> {
     }
     this.props.closeUnevenInvoiceDialog();
 
-    this.props.onSubmit({
-      buyable_items: this.state.invoiceItemList,
-      payment_methods: this.state.paymentItemList,
-    });
+    this.props.onSubmit(
+      {
+        buyable_items: this.state.invoiceItemList,
+        payment_methods: this.state.paymentItemList,
+      },
+      options,
+    );
     return null;
   };
 

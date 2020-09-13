@@ -3,7 +3,6 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
-import Typography from '@material-ui/core/Typography';
 
 import { withTranslation } from 'react-i18next';
 
@@ -54,7 +53,6 @@ type Props = {
 
   openFeatureRequest: boolean,
   setOpenFeatureRequest: (boolean) => void,
-  t: TFunction,
 };
 
 export class PlatformBillingSettings extends React.Component<Props> {

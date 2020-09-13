@@ -68,6 +68,7 @@ type Props = {
   buildUrl: (path: string) => string,
   membership: ?Membership,
   subscriptionPendingActionCount: number,
+  infosOfMember: dict,
 };
 
 type State = {
@@ -117,7 +118,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
               <item.icon />
             </ListItemIcon>
             <ListItemText
-              primary={item.text}
+              primary={`${item.text} ${item.count || ''}`}
               primaryTypographyProps={{ color: 'initial' }}
               secondary={item.subtext}
               secondaryTypographyProps={{
@@ -165,7 +166,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             <item.icon />
           </ListItemIcon>
           <ListItemText
-            primary={item.text}
+            primary={`${item.text} ${item.count || ''}`}
             secondary={item.subtext}
             primaryTypographyProps={{
               style: { color: 'initial' },
@@ -285,7 +286,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, theme, t, hidden, membership } = this.props;
+    const { classes, theme, t, hidden, membership, infosOfMember } = this.props;
     if (hidden) {
       return (
         <div style={{ width: '100%' }}>
@@ -336,22 +337,49 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       {
         to: '/booking/',
         icon: DateRangeIcon,
+        count: `${
+          infosOfMember &&
+          infosOfMember.nb_reservations + infosOfMember.nb_private_bookings !==
+            0
+            ? `(${infosOfMember.nb_reservations +
+                infosOfMember.nb_private_bookings})`
+            : ''
+        } `,
         text: t('navigation.calendar'),
       },
       {
         to: '/pack/',
         icon: VpnKey,
+        count: `${
+          infosOfMember &&
+          infosOfMember.nb_consumer_payment_pack +
+            infosOfMember.nb_private_consumer_pass !==
+            0
+            ? `(${infosOfMember.nb_consumer_payment_pack +
+                infosOfMember.nb_private_consumer_pass})`
+            : ''
+        }`,
         text: t('navigation.pack'),
       },
       {
         to: '/subscription/',
         icon: SubscriptionIconWithPendingAction,
+        count: `${
+          infosOfMember && infosOfMember.nb_subscriptions !== 0
+            ? `(${infosOfMember.nb_subscriptions})`
+            : ''
+        }`,
         text: t('navigation.subscription'),
       },
       'divider',
       {
         to: '/invoice/',
         icon: ReceiptIconWithDebt,
+        count: `${
+          infosOfMember && infosOfMember.nb_invoices !== 0
+            ? `(${infosOfMember.nb_invoices})`
+            : ''
+        }`,
         text: t('navigation.invoice'),
       },
       {

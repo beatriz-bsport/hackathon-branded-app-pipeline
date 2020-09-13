@@ -49,6 +49,10 @@ export async function fetchMember(memberId: number) {
   return getAuth(`${API_V1_URI}/member/${memberId}/`);
 }
 
+export async function fetchCountObject(memberId: number) {
+  return getAuth(`${API_V1_URI}/member/${memberId}/count_objects/`);
+}
+
 export async function getLatest() {
   return getAuth(`${API_V1_URI}/member/latest/`);
 }

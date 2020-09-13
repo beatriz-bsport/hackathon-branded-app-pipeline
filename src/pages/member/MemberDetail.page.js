@@ -26,6 +26,7 @@ import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../li
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 
 import { getMember } from '../../libs/member/selectors';
+import { fetchCountObjects as fetchCountObjectsAction } from '../../libs/member/actions';
 import withTitle from '../../hocs/with-title.hoc';
 
 import { getAvailableContractListWithPaymentPack } from '../../libs/subscription/selectors';
@@ -96,6 +97,8 @@ type Props = {
   requestSetupIntentSecret: () => void,
   fetchPaymentMethodList: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
+  fetchCountObjects: (id: number) => void,
+  infosOfMember: dict,
 };
 
 const MemberActions = (props: {
@@ -131,11 +134,21 @@ export class MemberDetail extends React.Component<Props> {
     this.props.fetchAllPaymentPacks();
     if (Number.isInteger(this.props.id)) {
       this.props.fetchPaymentMethodList();
+      this.props.fetchCountObjects(this.props.id);
     }
   }
 
   render() {
-    const { t, classes, pushToTab, billMember, tab, id, member } = this.props;
+    const {
+      t,
+      classes,
+      pushToTab,
+      billMember,
+      tab,
+      id,
+      member,
+      infosOfMember,
+    } = this.props;
     return (
       <div className={classes.container}>
         <Helmet>
@@ -147,17 +160,57 @@ export class MemberDetail extends React.Component<Props> {
             value={tab}
             onChange={(e, newTab) => {
               pushToTab(id, newTab);
+              this.props.fetchCountObjects(id);
             }}
           >
             <Tab label={t('menu.info')} value="info" />
-            <Tab label={t('menu.bookings')} value="bookings" />
-            <Tab label={t('menu.paymentPack')} value="pass" />
-            <Tab label={t('menu.payment')} value="payment" />
-            <Tab label={t('menu.contact')} value="contact" />
-            <Tab label={t('menu.relation')} value="relation" />
-            <Tab label={t('menu.privateBooking')} value="private-booking" />
             <Tab
-              label={t('menu.privateConsumerPass')}
+              label={`${t('menu.bookings')} ${
+                infosOfMember && infosOfMember.nb_reservations !== 0
+                  ? `(${infosOfMember.nb_reservations})`
+                  : ''
+              } `}
+              value="bookings"
+            />
+            <Tab
+              label={`${t('menu.paymentPack')} ${
+                infosOfMember && infosOfMember.nb_consumer_payment_pack !== 0
+                  ? `(${infosOfMember.nb_consumer_payment_pack})`
+                  : ''
+              }`}
+              value="pass"
+            />
+            <Tab
+              label={`${t('menu.payment')} ${
+                infosOfMember && infosOfMember.nb_invoices !== 0
+                  ? `(${infosOfMember.nb_invoices})`
+                  : ''
+              }`}
+              value="payment"
+            />
+            <Tab label={t('menu.contact')} value="contact" />
+            <Tab
+              label={`${t('menu.relation')} ${
+                infosOfMember && infosOfMember.nb_relations !== 0
+                  ? `(${infosOfMember.nb_relations})`
+                  : ''
+              }`}
+              value="relation"
+            />
+            <Tab
+              label={`${t('menu.privateBooking')} ${
+                infosOfMember && infosOfMember.nb_private_bookings !== 0
+                  ? `(${infosOfMember.nb_private_bookings})`
+                  : ''
+              }`}
+              value="private-booking"
+            />
+            <Tab
+              label={`${t('menu.privateConsumerPass')} ${
+                infosOfMember && infosOfMember.nb_private_consumer_pass !== 0
+                  ? `(${infosOfMember.nb_private_consumer_pass})`
+                  : ''
+              }`}
               value="private-consumer-pass"
             />
           </Tabs>
@@ -308,6 +361,7 @@ export default compose(
   connect(
     (state, { id }) => ({
       member: getMember(state, id),
+      infosOfMember: state.member.count.data,
       contractLoading: state.subscription.contract.loading,
       contractList: getAvailableContractListWithPaymentPack(state),
       invoiceInfo: state.invoice.invoiceInfo.data,
@@ -323,6 +377,8 @@ export default compose(
       goToInvoice: (uuid) => pushRouter(`/invoice/${uuid}`),
       resetInvoiceInfo: checkInvoiceInfoActions.reset,
       fetchPaymentMethodList: fetchPaymentMethodListAction,
+      fetchCountObjects: (memberId: number) =>
+        fetchCountObjectsAction(memberId),
     },
   ),
   withHandlers({

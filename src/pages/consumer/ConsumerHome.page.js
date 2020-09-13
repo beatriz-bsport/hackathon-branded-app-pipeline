@@ -35,6 +35,7 @@ import { getBasketGeneratedObjects } from '../../libs/checkout/selectors';
 
 import { getTheme } from '../../theme';
 import themeSelectors from '../../libs/theme/selectors';
+import { fetchCountObjects as fetchCountObjectsAction } from '../../libs/member/actions';
 import ConsumerLoading from '../../libs/consumer-space/components/ConsumerLoading.component';
 import ConsumerDrawer from '../../components/navigation/ConsumerDrawer.component';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
@@ -49,17 +50,17 @@ import CongratulationDialog from '../../libs/consumer-space/components/Congratul
 import { fetchSubscriptionListByMember } from '../../libs/subscription/actions';
 import { getSubscriptionByMemberPendingAction } from '../../libs/subscription/selectors';
 
-const ConsumerDashboard = asyncComponent(() =>
-  import('./ConsumerDashboard.page'),
+const ConsumerDashboard = asyncComponent(
+  () => import('./ConsumerDashboard.page'),
 );
 const ConsumerBooking = asyncComponent(() => import('./ConsumerBooking.page'));
-const ConsumerBookingBroadcast = asyncComponent(() =>
-  import('./ConsumerBookingBroadcast.page'),
+const ConsumerBookingBroadcast = asyncComponent(
+  () => import('./ConsumerBookingBroadcast.page'),
 );
 const ConsumerPack = asyncComponent(() => import('./ConsumerPack.page'));
 const ConsumerInvoice = asyncComponent(() => import('./ConsumerInvoice.page'));
-const ConsumerSubscription = asyncComponent(() =>
-  import('./ConsumerSubscription.page'),
+const ConsumerSubscription = asyncComponent(
+  () => import('./ConsumerSubscription.page'),
 );
 const ConsumerProfile = asyncComponent(() => import('./ConsumerProfile.page'));
 
@@ -93,6 +94,9 @@ type Props = {
   fetchOfferBulk: (ids: Array<number>) => void,
   subscriptionPendingActionCount: number,
   fetchSubscriptionListByMember: (params: any) => void,
+
+  fetchCountObjects: () => void,
+  infosOfMember: dict,
 };
 export class ConsumerHome extends React.Component<Props> {
   componentWillMount() {
@@ -110,6 +114,7 @@ export class ConsumerHome extends React.Component<Props> {
 
   componentDidMount() {
     if (this.props.membership) {
+      this.props.fetchCountObjects(this.props.membership.id);
       this.props.fetchSubscriptionListByMember(this.props.membership.id, {
         page: 1,
         page_size: 10,
@@ -131,10 +136,12 @@ export class ConsumerHome extends React.Component<Props> {
     if (!this.props.membership) {
       return <ConsumerLoading />;
     }
+
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <ConsumerDrawer
           disconnect={this.props.disconnect}
+          infosOfMember={this.props.infosOfMember}
           buildUrl={this.props.buildUrl}
           logo={this.props.theme ? this.props.theme.cover : null}
           showCredit={
@@ -223,6 +230,7 @@ export default compose(
     (state, { companyId, from_direct_booking }) => ({
       membership: getMembership(state, companyId),
       theme: themeSelectors.getTheme(state),
+      infosOfMember: state.member.count.data,
       membershipList: getConsumerMembershipList(state),
       username: state.auth.username,
       basketGeneratedObjects: getBasketGeneratedObjects(state),
@@ -247,6 +255,9 @@ export default compose(
       fetchCoachBulk: fetchCoachBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchSubscriptionListByMember,
+
+      fetchCountObjects: (memberId: number) =>
+        fetchCountObjectsAction(memberId),
     },
   ),
   withHandlers({

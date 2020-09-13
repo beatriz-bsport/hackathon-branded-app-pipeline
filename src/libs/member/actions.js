@@ -21,6 +21,7 @@ import {
   regularizeDebt as regularizeDebtAPI,
   removeFile as removeFileAPI,
   linkMeToCompany as linkMeToCompanyAPI,
+  fetchCountObject as fetchCountObjectAPI,
 } from './api';
 
 import type { Member } from './types';
@@ -131,6 +132,26 @@ export const memberBulkActions = {
   error: createAction('MEMBER/BULK/ERROR'),
   success: createAction('MEMBER/BULK/SUCCESS'),
 };
+
+export const memberCountObject = {
+  isLoading: createAction('MEMBER/COUNT/LOADING'),
+  error: createAction('MEMBER/COUNT/ERROR'),
+  success: createAction('MEMBER/COUNT/SUCCESS'),
+};
+
+export function fetchCountObjects(id: Number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(memberCountObject.isLoading(true));
+    try {
+      const response = await fetchCountObjectAPI(id);
+      dispatch(memberCountObject.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(memberCountObject.error(err));
+    }
+    dispatch(memberCountObject.isLoading(false));
+  };
+}
 
 export function fetchMemberBulk(params: any) {
   return async (dispatch: Dispatch) => {

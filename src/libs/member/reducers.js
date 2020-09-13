@@ -6,6 +6,7 @@ import {
   memberListActions,
   barcodeRetrieveAction,
   memberBulkActions,
+  memberCountObject,
 } from './actions';
 
 const initialState = Immutable({
@@ -32,6 +33,11 @@ const initialState = Immutable({
   bulk: {
     loading: false,
     error: null,
+  },
+  count: {
+    loading: false,
+    error: null,
+    data: null,
   },
   historyListIds: [],
 });
@@ -73,13 +79,28 @@ export default function memberReducers(state = initialState, action = {}) {
           },
           { deep: true },
         )
-        .setIn(['allIds'], action.payload.map((m) => m.id));
+        .setIn(
+          ['allIds'],
+          action.payload.map((m) => m.id),
+        );
     }
     case memberListActions.error.toString(): {
       return state.set('error', action.payload);
     }
     case memberListActions.isLoading.toString(): {
       return state.set('loading', action.payload);
+    }
+
+    case memberCountObject.success.toString(): {
+      return state.setIn(['count', 'data'], action.payload);
+    }
+
+    case memberCountObject.isLoading.toString(): {
+      return state.setIn(['count', 'loading'], action.payload);
+    }
+
+    case memberCountObject.error.toString(): {
+      return state.setIn(['count', 'error'], action.payload);
     }
 
     case barcodeRetrieveAction.success.toString(): {
@@ -114,7 +135,10 @@ export default function memberReducers(state = initialState, action = {}) {
           ['search', 'allIds'],
           state.search.allIds.filter((m) => m.id !== action.src),
         )
-        .set('allIds', state.allIds.filter((m) => m.id !== action.src));
+        .set(
+          'allIds',
+          state.allIds.filter((m) => m.id !== action.src),
+        );
     }
     case actionTypes.MEMBER_SEARCH_ERROR: {
       return state
@@ -123,7 +147,10 @@ export default function memberReducers(state = initialState, action = {}) {
     }
     case actionTypes.MEMBER_SEARCH_SUCCESS: {
       return state
-        .setIn(['search', 'allIds'], action.members.map((m) => m.id))
+        .setIn(
+          ['search', 'allIds'],
+          action.members.map((m) => m.id),
+        )
         .setIn(['search', 'loading'], false)
         .merge(
           {

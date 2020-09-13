@@ -79,15 +79,13 @@ export class PlatformBillingSettings extends React.Component<Props> {
       !this.props.platformSubscription
     ) {
       return (
-        <div className={classes.isEmpty}>
-          <Typography
-            color="textSecondary"
-            variant="h6"
-            align="center"
-            component="p"
-          >
-            {this.props.t('platformBillingGroup.soonAvailable')}
-          </Typography>
+        <div className={classes.container}>
+          <CompanyPlatformBillingPaymentDetail
+            paymentMethodList={this.props.savedPaymentMethodList}
+            platformInvoiceList={this.props.platformInvoiceList}
+            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+          />
         </div>
       );
     }

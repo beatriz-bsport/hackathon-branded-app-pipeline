@@ -3,9 +3,22 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { listPlatformInvoiceActions } from './actions';
+import {
+  listPlatformInvoiceActions,
+  retrieveSubscriptionActions,
+  listUpsellPackageActions,
+  listBillingPlanActions,
+  listBillingStageActions,
+  listUpsellPackageSubscribedActions,
+  retrievePlatformBillingPlanGroupActions,
+} from './actions';
 
 const initialState = Immutable({
+  platformSubscription: {
+    data: null,
+    loading: false,
+    error: null,
+  },
   platformInvoice: {
     byId: {},
     list: {
@@ -14,15 +27,65 @@ const initialState = Immutable({
       nextPage: 1,
     },
   },
+  upsellPackage: {
+    byId: {},
+    allIds: [],
+    loading: false,
+    error: null,
+  },
+  upsellPackageSubscribed: {
+    byId: {},
+    allIds: [],
+    loading: false,
+    error: null,
+  },
+  platformBillingGroup: {
+    data: null,
+    loading: false,
+    error: null,
+  },
+  billingPlan: {
+    byId: {},
+    allIds: [],
+    loading: false,
+    error: null,
+  },
+  billingStage: {
+    byId: {},
+    allIds: [],
+    loading: false,
+    error: null,
+  },
 });
 
 export default handleActions(
   {
+    [retrievePlatformBillingPlanGroupActions.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['platformBillingGroup', 'loading'], payload);
+    },
+    [retrievePlatformBillingPlanGroupActions.error]: (state, { payload }) => {
+      return state.setIn(['platformBillingGroup', 'error'], payload);
+    },
+    [retrievePlatformBillingPlanGroupActions.success]: (state, { payload }) => {
+      return state.setIn(['platformBillingGroup', 'data'], payload);
+    },
+    [retrieveSubscriptionActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['platformSubscription', 'loading'], payload);
+    },
+    [retrieveSubscriptionActions.error]: (state, { payload }) => {
+      return state.setIn(['platformSubscription', 'error'], payload);
+    },
+    [retrieveSubscriptionActions.success]: (state, { payload }) => {
+      return state.setIn(['platformSubscription', 'data'], payload);
+    },
     [listPlatformInvoiceActions.isLoading]: (state, { payload }) => {
-      return state.setIn(['platformInvoice', 'loading', payload]);
+      return state.setIn(['platformInvoice', 'loading'], payload);
     },
     [listPlatformInvoiceActions.error]: (state, { payload }) => {
-      return state.set(['platformInvoice', 'error', payload]);
+      return state.set(['platformInvoice', 'error'], payload);
     },
     [listPlatformInvoiceActions.success]: (state, { payload }) => {
       return state
@@ -50,6 +113,93 @@ export default handleActions(
         )
         .setIn(['platformInvoice', 'list', 'page'], payload.page)
         .setIn(['platformInvoice', 'list', 'nextPage'], payload.next_page);
+    },
+    [listUpsellPackageActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['upsellPackage', 'loading'], payload);
+    },
+    [listUpsellPackageActions.error]: (state, { payload }) => {
+      return state.set(['upsellPackage', 'error'], payload);
+    },
+    [listUpsellPackageActions.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            upsellPackage: {
+              byId: payload.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(['upsellPackage', 'allIds'], payload.map((up) => up.id));
+    },
+    [listUpsellPackageSubscribedActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['upsellPackageSubscribed', 'loading'], payload);
+    },
+    [listUpsellPackageSubscribedActions.error]: (state, { payload }) => {
+      return state.set(['upsellPackageSubscribed', 'error'], payload);
+    },
+    [listUpsellPackageSubscribedActions.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            upsellPackageSubscribed: {
+              byId: payload.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(
+          ['upsellPackageSubscribed', 'allIds'],
+          payload.map((ups) => ups.id),
+        );
+    },
+    [listBillingPlanActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['billingPlan', 'loading'], payload);
+    },
+    [listBillingPlanActions.error]: (state, { payload }) => {
+      return state.set(['billingPlan', 'error'], payload);
+    },
+    [listBillingPlanActions.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            billingPlan: {
+              byId: payload.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(['billingPlan', 'allIds'], payload.map((up) => up.id));
+    },
+    [listBillingStageActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['billingStage', 'loading'], payload);
+    },
+    [listBillingStageActions.error]: (state, { payload }) => {
+      return state.set(['billingStage', 'error'], payload);
+    },
+    [listBillingStageActions.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            billingStage: {
+              byId: payload.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(['billingStage', 'allIds'], payload.map((ups) => ups.id));
     },
   },
   initialState,

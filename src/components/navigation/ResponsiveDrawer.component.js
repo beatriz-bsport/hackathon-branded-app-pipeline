@@ -686,6 +686,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             dense: 'true',
             text: t('backofficeMenu.settings.active_campaign'),
           },
+          {
+            to: '/settings/platform-billing',
+            dense: 'true',
+            text: t('backofficeMenu.settings.platform_billing'),
+          },
         ],
       },
       {

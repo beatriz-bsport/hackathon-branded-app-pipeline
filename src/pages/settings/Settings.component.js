@@ -103,7 +103,7 @@ export const Settings = (props: Props) => {
         />
         <Route
           exact
-          path="/settings/platform_billing"
+          path="/settings/platform-billing"
           component={PlatformBillingSettingPage}
         />
         <Route

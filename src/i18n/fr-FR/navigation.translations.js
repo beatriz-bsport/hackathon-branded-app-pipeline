@@ -59,6 +59,7 @@ exports.default = {
       partnership: 'Partenariat',
       active_campaign: 'ActiveCampaign',
       settings: 'Paramètres',
+      platform_billing: 'Abonnement bsport',
     },
 
     myClub: 'Mon Club',

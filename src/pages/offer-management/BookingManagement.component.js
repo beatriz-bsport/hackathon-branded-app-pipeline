@@ -99,7 +99,9 @@ export class BookingManagement extends React.PureComponent<Props, State> {
   state = { memberHistoryAnchor: null };
 
   renderSearchedMember = (member: Member) => {
-    const hasBooked = !!this.props.bookings.find((b) => b.member === member.id);
+    const hasBooked = !!this.props.bookings
+      .filter((b) => b.booking_status_code === BOOKING_STATUS_OK)
+      .find((b) => b.member === member.id);
     return (
       <MemberBookingHelper
         key={member.id}

@@ -19,6 +19,9 @@ import LinkIcon from '@material-ui/icons/Link';
 import { withTranslation } from 'react-i18next';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import TimeIcon from '@material-ui/icons/AccessTime';
+import moment from 'moment';
 import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { Link } from 'react-router-dom';
@@ -376,6 +379,18 @@ export class OfferCard extends Component<Props> {
           <Paper square className={available ? null : classes.disabledPaper}>
             {noHeader ? null : this.getHeader()}
             {this.getStatsBody()}
+            <Divider />
+            <div className={classes.row}>
+              <ListItem>
+                <ListItemIcon>
+                  <TimeIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={moment(offer.date_start).format('LT')}
+                  secondary={moment(offer.date_start).format('LL')}
+                />
+              </ListItem>
+            </div>
             {!!coach && (
               <div className={classes.row}>
                 <ListItem>
@@ -386,6 +401,26 @@ export class OfferCard extends Component<Props> {
                 </ListItem>
               </div>
             )}
+            {!!offer.establishment && (
+              <div className={classes.row}>
+                <ListItem>
+                  <ListItemIcon>
+                    <LocationOnIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      offer.establishment ? offer.establishment.title : '  -  '
+                    }
+                    secondary={
+                      offer.establishment && offer.establishment.location
+                        ? offer.establishment.location.address
+                        : '  -  '
+                    }
+                  />
+                </ListItem>
+              </div>
+            )}
+            <Divider />
             {available ? (
               <div>
                 <div className={this.props.classes.bottomBlock}>
@@ -554,7 +589,7 @@ const styles = (theme) => ({
     padding: theme.spacing(2),
   },
   noBookings: {
-    margin: theme.spacing(2),
+    padding: theme.spacing(2), // : theme.spacing(2),
   },
   listButtonBase: {
     width: '100%',

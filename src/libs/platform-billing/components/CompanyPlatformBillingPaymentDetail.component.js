@@ -46,26 +46,30 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
         <Typography variant="h4" className={classes.sectionTitle}>
           {t('paymentMethod.sectionTitle')}
         </Typography>
-        {props.paymentMethodList.length ? (
+        {!!props.paymentMethodList.length && (
           <Paper>
-            <PaymentMethodListItem paymentMethod={props.paymentMethodList[0]} />
+            {props.paymentMethodList.map((paymentMethod) => (
+              <PaymentMethodListItem
+                paymentMethod={paymentMethod}
+                key={paymentMethod.id}
+              />
+            ))}
           </Paper>
-        ) : (
-          <div className={classes.addPaymentMethodButtonRow}>
-            <Button
-              onClick={() => props.setCollectPaymentMethodSepaIsOpen(true)}
-              variant="outlined"
-            >
-              {t('paymentMethod.actions.createSepa')}
-            </Button>
-            <Button
-              onClick={() => props.setCollectPaymentMethodCBIsOpen(true)}
-              variant="outlined"
-            >
-              {t('paymentMethod.actions.createCard')}
-            </Button>
-          </div>
         )}
+        <div className={classes.addPaymentMethodButtonRow}>
+          <Button
+            onClick={() => props.setCollectPaymentMethodSepaIsOpen(true)}
+            variant="outlined"
+          >
+            {t('paymentMethod.actions.createSepa')}
+          </Button>
+          <Button
+            onClick={() => props.setCollectPaymentMethodCBIsOpen(true)}
+            variant="outlined"
+          >
+            {t('paymentMethod.actions.createCard')}
+          </Button>
+        </div>
         {props.collectPaymentMethodSepaIsOpen && (
           <CollectPaymentMethod
             requestSetupIntentSecret={props.requestSetupIntentSecret}
@@ -100,6 +104,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: theme.spacing(2),
     '&>*': {
       marginRight: theme.spacing(2),
     },

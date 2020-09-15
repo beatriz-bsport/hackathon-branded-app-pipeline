@@ -1,5 +1,19 @@
 exports.default = {
   backofficeMenu: {
+    cashBook: {
+      close: 'Fermer',
+      cashDialogTitle: 'Livret de caisse',
+      todayStartAmount: 'Montant initial dans la caisse',
+      addAmount: 'Montant à ajouter à la caisse',
+      todayEndAmount: 'Montant à la fin de la journée',
+      expectedAmount: 'Vous êtes censé avoir : ',
+      lastUpdated: 'Dernière modification le',
+      amount: 'Gain de la journée :',
+      onSpotPaymentReport: 'Accéder au rapport des paiements',
+      of: 'Du',
+      at: 'à',
+      save: 'Enregister',
+    },
     video: 'Bibliothèque vidéo',
     playlist: 'Parcours',
     podcast: 'Podcasts',

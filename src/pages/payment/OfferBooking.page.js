@@ -8,11 +8,27 @@ import {
   goBack as goBackRouter,
 } from 'connected-react-router';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+
+import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withProps, withState, withHandlers } from 'recompose';
 import { withTranslation } from 'react-i18next';
+import MarketplaceAppBar from '../marketplace/MarketplaceAppBar.component';
+
+import MarketplaceBasketDialog from '../marketplace/MarketplaceBasketDialog.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import {
+  consumer as consumerActions,
+  auth as authActions,
+} from '../../actions';
+import { getCurrentBasket } from '../../libs/checkout/selectors';
 
 import { fetchCompanyTheme } from '../../libs/theme/actions';
+import {
+  addItemToBasket,
+  removeItemFromBasket,
+  fetchCurrentBasket,
+} from '../../libs/checkout/actions';
 import {
   getOfferById,
   withEstablishment,
@@ -88,7 +104,6 @@ type Props = {
   buyableItemsLoading: boolean,
   contractList: Array<Contract>,
 
-  authenticated: boolean,
   linkMeToCompany: (data: { offer: number }) => void,
 
   bookingOptionListConvertible: Array<BookingOption>,
@@ -107,6 +122,8 @@ type Props = {
   goBack: () => void,
   fetchBookingOptionForBooking: (offer: number) => void,
   fetchOffer: (number) => void,
+  disconnect: () => void,
+  auth: *,
 
   fetchContactForBooking: (number, number) => void,
   fetchConsumerPaymentPackForBooking: (number) => void,
@@ -122,19 +139,38 @@ type Props = {
   selectedContract: ?Contract,
 
   requestSetupIntentSecret: (id: number) => void,
+  fetchCurrentBasket: (companyId: number) => void,
+  currentBasket: ?Basket,
+  currentBasketLoading: boolean,
+  removeItemFromBasket: (basketId: string, data: any) => void,
+  addItemToBasket: (basketId: string, data: any) => void,
+  goToCheckout: (companyId: number) => void,
+
+  fetchProfile: () => void,
+  goToUserSpace: () => void,
+
+  classes: Object,
 };
 
 type State = {
   has_registered: boolean,
+  currentBasketOpen: boolean,
 };
 
 export class OfferPaymentPage extends Component<Props, State> {
   state = {
     has_registered: false,
+    currentBasketOpen: false,
   };
 
   fetchData = () => {
     const { offerId } = this.props;
+    if (this.props.auth.authenticated) {
+      if (this.props.offer) {
+        this.props.fetchCurrentBasket(this.props.offer.company);
+      }
+      this.props.fetchProfile();
+    }
     this.props.fetchBookingOptionForBooking(offerId);
     this.props.fetchOffer();
     this.props.fetchConsumerPaymentPackForBooking(offerId);
@@ -170,7 +206,7 @@ export class OfferPaymentPage extends Component<Props, State> {
   componentDidMount() {
     this.fetchData();
     this.fetchCompanyData();
-    if (this.props.authenticated) {
+    if (this.props.auth.authenticated) {
       this.props.linkMeToCompany({ offer: this.props.offerId });
     }
     offerIsRegisteredAPI(this.props.offerId)
@@ -185,75 +221,152 @@ export class OfferPaymentPage extends Component<Props, State> {
     ) {
       this.fetchCompanyData();
     }
-    if (this.props.authenticated && !prevProps.authenticated) {
+    if (this.props.auth.authenticated && !prevProps.auth.authenticated) {
       this.props.linkMeToCompany({ offer: this.props.offerId });
     }
+    if (this.props.auth.authenticated !== prevProps.auth.authenticated) {
+      this.fetchData();
+    }
   }
+
+  toogleCurrentBasketOpen = (currentBasketOpen: boolean) =>
+    this.setState({ currentBasketOpen });
 
   render() {
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <GoogleTagManager theme={this.props.theme} />
-        <PaymentContainer
-          hidePaper
-          loading={
-            !this.props.offer ||
-            !this.props.offer.establishment ||
-            !this.props.offer.meta_activity
-          }
-        >
-          <BookerModuleConsumer
-            offer={this.props.offer}
-            theme={this.props.theme}
-            loading={this.props.consumerPaymentPackLoading}
-            hasRegistered={this.state.has_registered}
-            buyableItemsLoading={this.props.buyableItemsLoading}
-            bookingOptionListConvertible={
-              this.props.bookingOptionListConvertible
+        <div className={this.props.classes.subContainer}>
+          <MarketplaceAppBar
+            paper
+            auth={this.props.auth}
+            logo={this.props.theme && this.props.theme.cover}
+            goToUserSpace={() =>
+              this.props.offer &&
+              this.props.goToUserSpace(this.props.offer.company)
             }
-            bookingOptionListUnconvertible={
-              this.props.bookingOptionListUnconvertible
-            }
-            comboList={this.props.paymentComboList}
-            contractList={this.props.contractList}
-            consumerPaymentPackList={this.props.consumerPaymentPackList}
-            paymentPackList={this.props.paymentPackList}
-            registerOption={this.props.registerOption}
-            bookWithConsumerPaymentPack={this.props.bookWithConsumerPaymentPack}
-            buyPaymentCombo={this.props.buyPaymentCombo}
-            buyPaymentPack={this.props.buyPaymentPack}
-            buyContract={this.props.setSelectedContract}
-            goBack={this.props.goBack}
-          />
-          <SubscriptionContractBooking
-            contract={this.props.selectedContract}
-            onSubmit={() => {
-              this.props.fetchConsumerPaymentPackForBooking(this.props.offerId);
-              this.props.setSelectedContract(null);
+            currentBasket={this.props.currentBasket}
+            openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
+            disconnect={() => {
+              this.props.disconnect();
             }}
             onCancel={() => this.props.setSelectedContract(null)}
             requestSetupIntentSecret={this.requestSetupIntentSecret}
             companyId={this.props.offer && this.props.offer.company}
           />
-        </PaymentContainer>
+
+          <div className={this.props.classes.container}>
+            <PaymentContainer
+              hidePaper
+              loading={
+                !this.props.offer ||
+                !this.props.offer.establishment ||
+                !this.props.offer.meta_activity
+              }
+            >
+              <BookerModuleConsumer
+                offer={this.props.offer}
+                theme={this.props.theme}
+                loading={this.props.consumerPaymentPackLoading}
+                hasRegistered={this.state.has_registered}
+                buyableItemsLoading={this.props.buyableItemsLoading}
+                bookingOptionListConvertible={
+                  this.props.bookingOptionListConvertible
+                }
+                bookingOptionListUnconvertible={
+                  this.props.bookingOptionListUnconvertible
+                }
+                comboList={this.props.paymentComboList}
+                contractList={this.props.contractList}
+                consumerPaymentPackList={this.props.consumerPaymentPackList}
+                paymentPackList={this.props.paymentPackList}
+                registerOption={this.props.registerOption}
+                bookWithConsumerPaymentPack={
+                  this.props.bookWithConsumerPaymentPack
+                }
+                buyPaymentCombo={this.props.buyPaymentCombo}
+                buyPaymentPack={this.props.buyPaymentPack}
+                buyContract={this.props.setSelectedContract}
+                goBack={this.props.goBack}
+              />
+              <SubscriptionContractBooking
+                contract={this.props.selectedContract}
+                onSubmit={() => {
+                  this.props.fetchConsumerPaymentPackForBooking(
+                    this.props.offerId,
+                  );
+                  this.props.setSelectedContract(null);
+                }}
+                onCancel={() => this.props.setSelectedContract(null)}
+              />
+            </PaymentContainer>
+          </div>
+          <MarketplaceBasketDialog
+            open={!!this.state.currentBasketOpen}
+            basket={this.props.currentBasket}
+            onCancel={() => this.toogleCurrentBasketOpen(false)}
+            loading={this.props.currentBasketLoading}
+            onRemoveCheckoutItem={(data) =>
+              this.props.removeItemFromBasket(this.props.currentBasket.id, data)
+            }
+            onAddCheckoutItem={(data) =>
+              this.props.addItemToBasket(this.props.currentBasket.id, data)
+            }
+            goToCheckout={() =>
+              this.props.goToCheckout(this.props.currentBasket.company)
+            }
+          />
+        </div>
       </MuiThemeProvider>
     );
   }
 }
 
+const styles = (theme) => ({
+  subContainer: {
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    backgroundColor: '#efefef',
+    overflow: 'auto',
+    paddingBottom: theme.spacing(20),
+  },
+  container: {
+    paddingBottom: theme.spacing(32),
+    paddingTop: theme.spacing(6),
+  },
+  accountIcon: {
+    marginRight: theme.spacing(1),
+  },
+  loginButton: {
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    borderRadius: theme.shape.borderRadius,
+    padding: theme.spacing(1),
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+  },
+});
 export default compose(
   routerParamsToProps({ id: 'offerId:number', offerId: 'offerId:number' }),
   withState('processing', 'setProcessing', false),
   withState('selectedContract', 'setSelectedContract', null),
   withTranslation(['booking', 'subscription', 'payment']),
+  withStyles(styles),
   connect(
     (state, { offerId }) => ({
-      authenticated: state.auth.authenticated,
+      auth: state.auth,
+      currentBasket: getCurrentBasket(state),
+      currentBasketLoading: state.checkout.basket.current.loading,
       offer: withMetaActivity(withCoach(withEstablishment(getOfferById)))(
         state,
         offerId,
       ),
-
       contractList: withPaymentPackForContract(getContractForBooking)(state),
       consumerPaymentPackList: withPaymentPack(
         getConsumerPaymentPackForBooking,
@@ -278,6 +391,14 @@ export default compose(
     {
       linkMeToCompany,
       fetchCompanyTheme,
+      disconnect: authActions.disconnect,
+      goToUserSpace: (id) => pushRouter(`/c/${id}/`),
+      goToCheckout: (companyId) => pushRouter(`/checkout/${companyId}/`),
+
+      fetchCurrentBasket,
+      fetchProfile: consumerActions.fetchProfile,
+      addItemToBasket,
+      removeItemFromBasket,
 
       fetchConsumerPaymentPackForBooking: fetchConsumerPaymentPackForBookingAction,
       resetConsumerPackForBooking: resetConsumerPackForBookingAction,

@@ -1,12 +1,14 @@
 // @flow
 import React from 'react';
 
+import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import { push as pushRouter } from 'connected-react-router';
 
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -27,7 +29,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import { Dialog } from '@material-ui/core';
 import RedeemIcon from '@material-ui/icons/Redeem';
 import TodayIcon from '@material-ui/icons/Today';
 import ScheduleIcon from '@material-ui/icons/Schedule';
@@ -64,6 +70,7 @@ import type { TFunction } from 'react-i18next';
 import { colors } from '@bsport/common/lib/colors';
 import LanguageButton from '../button/LanguageButton.component';
 import TempPasswordDialog from '../../libs/login/components/TempPasswordDialog.component';
+import CashBookForm from '../../libs/cashbook/components/CashBookForm.component';
 import SearchBar from '../SearchBar.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import AlertButtonMenu from '../../libs/alerting/components/AlertButtonMenu.component';
@@ -97,6 +104,15 @@ type Props = {
   openCreateMember: () => void,
   openCalendar: () => void,
   push: (path: string) => void,
+  openCash: boolean,
+  setOpenCash: () => void,
+  cashBook: dict,
+  fetchCashBook: (id: number) => void,
+  loading: boolean,
+  onSubmit: () => void,
+  onSpotPaymentReportId: number,
+  handleOpenOnSpotPaymentReport: () => void,
+  fetchOnSpotPaymentReport: () => void,
 };
 
 type State = {
@@ -339,6 +355,21 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                   </React.Fragment>
                 ) : null}
                 <Grid item>
+                  <IconButton
+                    onClick={() => {
+                      this.props.fetchOnSpotPaymentReport({
+                        name: this.props.t(
+                          'reporting:categories.on_spot_payments',
+                        ),
+                      });
+                      this.props.setOpenCash(true);
+                      this.props.fetchCashBook(this.props.theme.company);
+                    }}
+                  >
+                    <BusinessCenterIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item>
                   <IconButton onClick={this.props.openCreateMember}>
                     <PersonAddIcon />
                   </IconButton>
@@ -366,7 +397,39 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             </Grid>
           </Grid>
         </Toolbar>
+        {this.props.loading ? null : this.openCashDialog()}
       </AppBar>
+    );
+  };
+
+  openCashDialog = () => {
+    return (
+      <Dialog open={this.props.openCash}>
+        <DialogTitle>
+          <Typography variant="h4">
+            {this.props.t('backofficeMenu.cashBook.cashDialogTitle')}
+          </Typography>
+          <Typography variant="h6">
+            {`${this.props.t('backofficeMenu.cashBook.of')} : ${
+              this.props.cashBook.date
+            }`}
+          </Typography>
+        </DialogTitle>
+        <DialogContent>
+          <CashBookForm
+            initial={this.props.cashBook}
+            onSubmit={this.props.onSubmit}
+            setOpenCash={this.props.setOpenCash}
+            handleOpenOnSpotPaymentReport={
+              this.props.onSpotPaymentReportId &&
+              (() =>
+                this.props.handleOpenOnSpotPaymentReport(
+                  this.props.onSpotPaymentReportId,
+                ))
+            }
+          />
+        </DialogContent>
+      </Dialog>
     );
   };
 
@@ -911,6 +974,14 @@ const styles = (theme) => ({
 });
 
 export default compose(
+  connect(
+    (state) => ({
+      loading: state.cashbook.loading,
+      cashBook: state.cashbook.infos,
+    }),
+    { handleOpenOnSpotPaymentReport: (id) => pushRouter(`/reporting/${id}`) },
+  ),
+  withState('openCash', 'setOpenCash', false),
   withTranslation(['navigation']),
   withStyles(styles, { withTheme: true }),
   windowTitleToProps,

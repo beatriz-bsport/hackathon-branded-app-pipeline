@@ -256,7 +256,8 @@ export class SignUpForm extends Component<Props, State> {
         onChecked={(acceptPrivacyPolicy) =>
           this.setState({ acceptPrivacyPolicy })
         }
-        termsAndConditions={this.props.theme.general_terms_and_conditions}
+        termsAndConditions={this.props.theme.general_terms_of_use}
+        generalTermsOfUse
       />
     );
   };

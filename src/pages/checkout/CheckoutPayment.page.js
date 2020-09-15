@@ -5,7 +5,13 @@ import { compose, withState, withProps, withHandlers } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
-import { replace as replaceRouter, push, goBack } from 'connected-react-router';
+
+import {
+  replace as replaceRouter,
+  push,
+  goBack,
+  push as pushRouter,
+} from 'connected-react-router';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
@@ -36,6 +42,13 @@ import { fetchPaymentMethodList } from '../../libs/payment/actions';
 import { getShopItemFeaturedList } from '../../libs/shop/selectors';
 import { fetchShopItemFeatured } from '../../libs/shop/actions/shopitem';
 
+import MarketplaceAppBar from '../marketplace/MarketplaceAppBar.component';
+
+import {
+  consumer as consumerActions,
+  auth as authActions,
+} from '../../actions';
+
 type Props = {
   basket: ?Basket,
   loading: boolean,
@@ -64,6 +77,14 @@ type Props = {
   fetchShopItemFeatured: (companyId: number) => void,
 
   addShopItemToBasket: (shopitemId: number) => void,
+  fetchProfile: () => void,
+  goToUserSpace: () => void,
+  disconnect: () => void,
+  auth: *,
+
+  fetchCurrentBasket: (companyId: number) => void,
+  removeItemFromBasket: (basketId: string, data: any) => void,
+  addItemToBasket: (basketId: string, data: any) => void,
 };
 
 export class CheckoutPayment extends React.Component<Props> {
@@ -95,6 +116,9 @@ export class CheckoutPayment extends React.Component<Props> {
   }
 
   componentDidMount() {
+    if (this.props.auth.authenticated) {
+      this.props.fetchProfile();
+    }
     if (this.props.basket) {
       try {
         (window.dataLayer || []).push({
@@ -151,26 +175,41 @@ export class CheckoutPayment extends React.Component<Props> {
     }
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <GoogleTagManager theme={this.props.theme} />
-        <div className={this.props.classes.container}>
-          <div className={this.props.classes.checkoutFlow}>
-            <CheckoutFlow
-              basket={this.props.basket}
-              loading={this.props.loading}
-              processing={this.props.processing}
-              submitPayment={this.props.submitPayment}
-              addItemToBasket={this.props.addItemToBasket}
-              addShopItemToBasket={this.props.addShopItemToBasket}
-              removeItemFromBasket={this.props.removeItemFromBasket}
-              termsAndConditions={this.props.theme.general_terms_and_conditions}
-              attachCoupon={this.props.attachCoupon}
-              backToCalendar={this.backToCalendar}
-              shopItemList={this.props.shopItemList}
-              patchBasket={this.props.patchCurrentBasket}
-              savedPaymentMethodList={this.props.savedPaymentMethodList}
-            />
-
-            {this.renderError()}
+        <div className={this.props.classes.subContainer}>
+          <MarketplaceAppBar
+            paper
+            auth={this.props.auth}
+            logo={this.props.theme && this.props.theme.cover}
+            goToUserSpace={() =>
+              this.props.companyId &&
+              this.props.goToUserSpace(this.props.companyId)
+            }
+            disconnect={() => {
+              this.props.disconnect(this.props.goBack);
+            }}
+          />
+          <GoogleTagManager theme={this.props.theme} />
+          <div className={this.props.classes.container}>
+            <div className={this.props.classes.checkoutFlow}>
+              <CheckoutFlow
+                basket={this.props.basket}
+                loading={this.props.loading}
+                processing={this.props.processing}
+                submitPayment={this.props.submitPayment}
+                addItemToBasket={this.props.addItemToBasket}
+                addShopItemToBasket={this.props.addShopItemToBasket}
+                removeItemFromBasket={this.props.removeItemFromBasket}
+                termsAndConditions={
+                  this.props.theme.general_terms_and_conditions
+                }
+                attachCoupon={this.props.attachCoupon}
+                backToCalendar={this.backToCalendar}
+                shopItemList={this.props.shopItemList}
+                patchBasket={this.props.patchCurrentBasket}
+                savedPaymentMethodList={this.props.savedPaymentMethodList}
+              />
+              {this.renderError()}
+            </div>
           </div>
         </div>
       </MuiThemeProvider>
@@ -179,6 +218,17 @@ export class CheckoutPayment extends React.Component<Props> {
 }
 
 const styles = (theme) => ({
+  subContainer: {
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    backgroundColor: '#efefef',
+    overflow: 'auto',
+    paddingBottom: theme.spacing(3),
+  },
   container: {
     width: '100vw',
     height: '100vh',
@@ -188,7 +238,7 @@ const styles = (theme) => ({
     flexDirection: 'column',
     backgroundColor: '#efefef',
     overflow: 'auto',
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(4),
   },
   checkoutFlow: {
@@ -205,6 +255,7 @@ export default compose(
   withTranslation(['checkout']),
   connect(
     (state) => ({
+      auth: state.auth,
       basket: getCurrentBasket(state),
       loading: state.checkout.basket.current.loading,
       processing: state.checkout.basket.current.updating,
@@ -213,6 +264,10 @@ export default compose(
       savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
+      disconnect: authActions.disconnect,
+      goToUserSpace: (id) => pushRouter(`/c/${id}/`),
+      fetchProfile: consumerActions.fetchProfile,
+
       addItemToBasket: addItemToBasketAction,
       removeItemFromBasket,
       goBack,

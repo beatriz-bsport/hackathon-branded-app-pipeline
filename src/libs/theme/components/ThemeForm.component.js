@@ -80,7 +80,9 @@ export class ThemeForm extends Component<Props, State> {
       this.state.theme.instagramURL === this.props.theme.instagramURL &&
       this.state.theme.general_terms_and_conditions ===
         this.props.theme.general_terms_and_conditions &&
-      this.state.theme.facebookURL === this.props.theme.facebookURL
+      this.state.theme.facebookURL === this.props.theme.facebookURL &&
+      this.state.theme.general_terms_of_use ===
+        this.props.theme.general_terms_of_use
     );
   };
 
@@ -103,6 +105,7 @@ export class ThemeForm extends Component<Props, State> {
       'gtmId',
       'instagramURL',
       'general_terms_and_conditions',
+      'general_terms_of_use',
     ].map((key) => data.append(key, this.state.theme[key]));
     if (this.state.theme.cover && typeof this.state.theme.cover !== 'string') {
       data.append('cover', this.state.theme.cover);
@@ -224,9 +227,9 @@ export class ThemeForm extends Component<Props, State> {
             />
           </div>
         </div>
-        <div className={classes.inputContainer}>
+        <div className={classes.textField}>
           <TextField
-            className={classes.textfield}
+            fullWidth
             variant="outlined"
             multiline
             rows={5}
@@ -236,6 +239,21 @@ export class ThemeForm extends Component<Props, State> {
             value={this.state.theme.general_terms_and_conditions}
             onChange={(ev) =>
               this.handleChange('general_terms_and_conditions')(ev.target.value)
+            }
+          />
+        </div>
+        <div className={classes.textField}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            multiline
+            rows={5}
+            placeholder={t('forms.general_terms_of_use.placeholder')}
+            helperText={t('forms.general_terms_of_use.helperText')}
+            label={t('forms.general_terms_of_use.label')}
+            value={this.state.theme.general_terms_of_use}
+            onChange={(ev) =>
+              this.handleChange('general_terms_of_use')(ev.target.value)
             }
           />
         </div>
@@ -289,6 +307,13 @@ const styles = (theme) => ({
   },
   progress: {
     marginLeft: theme.spacing(1),
+  },
+  textField: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginBottom: theme.spacing(3),
+    width: '90%',
+    maxWidth: 400,
   },
 });
 

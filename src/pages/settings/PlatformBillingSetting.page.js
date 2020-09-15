@@ -71,22 +71,6 @@ export class PlatformBillingSettings extends React.Component<Props> {
     if (loading) {
       return <BackofficeLinearProgress />;
     }
-    if (
-      !loading &&
-      !this.props.platformBillingGroup &&
-      !this.props.platformSubscription
-    ) {
-      return (
-        <div className={classes.container}>
-          <CompanyPlatformBillingPaymentDetail
-            paymentMethodList={this.props.savedPaymentMethodList}
-            platformInvoiceList={this.props.platformInvoiceList}
-            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
-            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-          />
-        </div>
-      );
-    }
     return (
       <div className={classes.container}>
         <CompanyPlatformBillingPaymentDetail

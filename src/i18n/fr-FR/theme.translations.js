@@ -104,9 +104,14 @@ exports.default = {
     },
     general_terms_and_conditions: {
       label: 'Conditions générales de vente',
-      helperText: 'Doivent être acceptées pour tout paiement et inscription',
+      helperText: 'Doivent être acceptées pour tout paiement',
       placeholder:
         "J'atteste posséder un certificat médical et l'apporterai à mon studio",
+    },
+    general_terms_of_use: {
+      label: "Conditions générales d'utilisation",
+      helperText: 'Doivent être acceptées pour toute inscription',
+      placeholder: "J'atteste avoir plus de 13 ans",
     },
     gtmId: {
       placeholder: 'GTM-XXXXXX',

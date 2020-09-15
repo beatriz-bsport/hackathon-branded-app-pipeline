@@ -2,8 +2,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { compose, withHandlers } from 'recompose';
+import { compose, withProps, withHandlers } from 'recompose';
 import { createCompany as createCompanyAction } from '../../libs/company/actions';
+import parse from '../../query-string';
 import {
   checkEmailExists,
   requestLogin as requestLoginAction,
@@ -49,19 +50,27 @@ export default compose(
         ),
     },
   ),
+  withProps({
+    access_code: parse(window.location.search || '').access_code || null,
+  }),
   withHandlers({
-    createCompany: ({ createCompany, requestLogin, goToEmailValidation }) => (
-      data,
-      options,
-    ) => {
-      createCompany(data, {
-        onSuccess: (...args) => {
-          requestLogin(data.email, data.password);
-          goToEmailValidation(data.email);
-          if (options && options.onSuccess) options.onSuccess(...args);
+    createCompany: ({
+      createCompany,
+      access_code,
+      requestLogin,
+      goToEmailValidation,
+    }) => (data, options) => {
+      createCompany(
+        { ...data, access_code },
+        {
+          onSuccess: (...args) => {
+            requestLogin(data.email, data.password);
+            goToEmailValidation(data.email);
+            if (options && options.onSuccess) options.onSuccess(...args);
+          },
+          onError: options && options.onError,
         },
-        onError: options && options.onError,
-      });
+      );
     },
   }),
 )(CompanyOnboardingFormPage);

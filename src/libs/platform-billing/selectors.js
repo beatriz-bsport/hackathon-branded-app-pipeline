@@ -43,7 +43,7 @@ export const getPlatformSubscription = (state) => {
       state,
       platformSubscription.current_platform_billing_plan,
     ),
-    upsell_packages: platformSubscription.upsell_packages.map((up) =>
+    upsell_packages: (platformSubscription.upsell_packages || []).map((up) =>
       _getUpsellPackage(state, up),
     ),
   };

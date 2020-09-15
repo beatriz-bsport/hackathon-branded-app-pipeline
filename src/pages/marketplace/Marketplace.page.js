@@ -27,7 +27,7 @@ import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 
 import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
-import AppBar from './AppBar.component';
+import MarketplaceAppBar from './MarketplaceAppBar.component';
 import SignUpForm from '../../components/form/SignUpForm.component';
 import GoogleTagManager from '../../components/GoogleTagManager.component';
 
@@ -313,7 +313,7 @@ export class MarketPlace extends Component<Props, State> {
           theme={this.props.theme}
         />
         <div className={classes.container}>
-          <AppBar
+          <MarketplaceAppBar
             logo={this.props.theme.cover}
             websiteURL={this.props.theme.websiteURL}
             auth={this.props.auth}

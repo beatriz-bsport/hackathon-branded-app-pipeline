@@ -4417,7 +4417,7 @@
       "otherAddonTitle": "Add-ons disponibles",
       "vod": { "explainBilling": "  +1€ /client actif" }
     },
-    "platformBillingGroup": { "myGroup": "Mon forfait", "soonAvailable": "Bientôt disponible" },
+    "platformBillingGroup": { "myGroup": "Mon forfait", "soonAvailable": "Bientôt disponible !" },
     "platformBillingPlan": {
       "max_coach": {
         "label": "Jusqu'à {{ max_coach }} professeurs",

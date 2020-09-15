@@ -40,5 +40,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default connect(
   null,
-  { goNext: () => push('/login/company_onboarding/form') },
+  {
+    goNext: () =>
+      push(`/login/company_onboarding/form${window.location.search}`),
+  },
 )(CompanyOnboardingWelcomePage);

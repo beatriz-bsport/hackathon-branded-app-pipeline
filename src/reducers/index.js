@@ -31,6 +31,7 @@ import communicationReducers from '../libs/communication/reducers';
 import couponReducers from '../libs/coupon/reducers';
 import relationship from '../libs/relationship/reducers';
 import login from '../libs/login/reducers';
+import cashBookReducers from '../libs/cashbook/reducers';
 import paymentPack from '../libs/payment-packs/reducers';
 import privateService from '../libs/private-service/reducers';
 import smartListReducer from '../libs/smart-list/reducers';
@@ -108,6 +109,7 @@ const rootReducer = (history) =>
     video,
     playlist,
     platformBilling,
+    cashbook: cashBookReducers,
   });
 
 export default (history) => (state: State, action: Action) => {

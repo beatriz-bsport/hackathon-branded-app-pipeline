@@ -18,7 +18,7 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 import UpdateIcon from '@material-ui/icons/Update';
 import StoreIcon from '@material-ui/icons/Store';
-
+import CashBookIcon from '@material-ui/icons/BusinessCenter';
 import type { ReportCategoryEnum, ReportCategory } from './types';
 
 export const CATEGORIES: ReportCategory[] = [
@@ -36,6 +36,10 @@ export const CATEGORIES: ReportCategory[] = [
   },
   {
     id: 'payments',
+    icon: CreditCardIcon,
+  },
+  {
+    id: 'on_spot_payments',
     icon: CreditCardIcon,
   },
   {
@@ -128,6 +132,10 @@ export const CATEGORIES: ReportCategory[] = [
   {
     id: 'dayBookings',
     icon: EventAvailableIcon,
+  },
+  {
+    id: 'cashbook',
+    icon: CashBookIcon,
   },
 ];
 

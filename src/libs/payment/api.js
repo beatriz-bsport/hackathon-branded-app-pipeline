@@ -4,6 +4,7 @@ import {
   API_V1_URI,
   getAuth,
   post,
+  API_URI,
   postAuth,
   buildUrlParams,
 } from '../../http';
@@ -11,6 +12,12 @@ import {
 export const fetchPaymentMethodList = async (params: any = {}) => {
   return getAuth(
     `${API_V1_URI}/payment/payment_method/${buildUrlParams(params)}`,
+  );
+};
+
+export const fetchOnSpotPaymentReport = async (params: any = {}) => {
+  return getAuth(
+    `${API_URI}/reporting/on-spot-payment/${buildUrlParams(params)}`,
   );
 };
 

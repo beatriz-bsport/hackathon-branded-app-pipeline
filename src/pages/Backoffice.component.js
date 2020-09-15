@@ -21,6 +21,7 @@ import LoadingBackoffice from '../components/navigation/LoadingBackoffice.compon
 import withOpenEvent from '../hocs/tracking/open-event.hoc';
 
 import { fetchCompanyTheme } from '../libs/theme/actions';
+import { fetchCashBook, updateCashBook } from '../libs/cashbook/actions';
 
 // FIXME clean that
 // // -------------------------
@@ -28,6 +29,7 @@ import { fetchSCT } from '../actions/category.actions';
 import { fetchAllPaymentPacks } from '../libs/payment-packs/actions';
 import { fetchShopItemAsManager as fetchShop } from '../libs/shop/actions/shopitem';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
+import { fetchOnSpotPaymentReport as fetchOnSpotPaymentReportAction } from '../libs/payment/actions';
 import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/associated-coach/actions';
 // -----------------------------
 //
@@ -52,58 +54,58 @@ import { fetchAccessLevel } from '../actions/auth.actions';
 
 import type { TempPasswordState } from '../libs/login/types';
 
-const MarketingRouter = asyncComponent(() =>
-  import('./marketing/Marketing.router.js'),
+const MarketingRouter = asyncComponent(
+  () => import('./marketing/Marketing.router.js'),
 );
 
 const Dashboard = asyncComponent(() => import('./Dashboard.component'));
 
 const OfferFormPage = asyncComponent(() => import('./OfferFormPage.component'));
 const Settings = asyncComponent(() => import('./settings/Settings.component'));
-const OfferManagement = asyncComponent(() =>
-  import('./offer-management/OfferManagement.page'),
+const OfferManagement = asyncComponent(
+  () => import('./offer-management/OfferManagement.page'),
 );
 const SearchResults = asyncComponent(() => import('./SearchResults.component'));
 const Shop = asyncComponent(() => import('./shop/Shop.router'));
-const Reporting = asyncComponent(() =>
-  import('./reporting/Reporting.component'),
+const Reporting = asyncComponent(
+  () => import('./reporting/Reporting.component'),
 );
-const PaymentCombo = asyncComponent(() =>
-  import('./payment-combo/PaymentCombo.router'),
+const PaymentCombo = asyncComponent(
+  () => import('./payment-combo/PaymentCombo.router'),
 );
 
 const VodRouter = asyncComponent(() => import('./video/Vod.router'));
 
-const PlanningRouter = asyncComponent(() =>
-  import('./planning/Planning.router'),
+const PlanningRouter = asyncComponent(
+  () => import('./planning/Planning.router'),
 );
 const Schedule = asyncComponent(() => import('./Schedule.page'));
-const Establishment = asyncComponent(() =>
-  import('./establishment/Establishment.router'),
+const Establishment = asyncComponent(
+  () => import('./establishment/Establishment.router'),
 );
 const Coach = asyncComponent(() => import('./coach/Coach.router'));
-const MetaActivity = asyncComponent(() =>
-  import('./meta-activity/MetaActivity.router'),
+const MetaActivity = asyncComponent(
+  () => import('./meta-activity/MetaActivity.router'),
 );
-const PaymentPack = asyncComponent(() =>
-  import('./payment-pack/PaymentPack.router'),
+const PaymentPack = asyncComponent(
+  () => import('./payment-pack/PaymentPack.router'),
 );
 const Member = asyncComponent(() => import('./member/Member.router'));
-const WorkshopActivity = asyncComponent(() =>
-  import('./workshop-activity/WorkshopActivity.router'),
+const WorkshopActivity = asyncComponent(
+  () => import('./workshop-activity/WorkshopActivity.router'),
 );
 const Invoice = asyncComponent(() => import('./invoice/Invoice.router'));
 const Coupon = asyncComponent(() => import('./coupon/Coupon.router'));
 const Order = asyncComponent(() => import('./order/Order.router'));
-const PrivateService = asyncComponent(() =>
-  import('./private-service/PrivateService.router'),
+const PrivateService = asyncComponent(
+  () => import('./private-service/PrivateService.router'),
 );
-const EmailTemplate = asyncComponent(() =>
-  import('./email-template/EmailTemplate.router'),
+const EmailTemplate = asyncComponent(
+  () => import('./email-template/EmailTemplate.router'),
 );
 const SmartList = asyncComponent(() => import('./smart-list/SmartList.router'));
-const Subscription = asyncComponent(() =>
-  import('./subscription/Subscription.router'),
+const Subscription = asyncComponent(
+  () => import('./subscription/Subscription.router'),
 );
 
 type Props = {
@@ -118,6 +120,7 @@ type Props = {
   username: string,
   fetchMoreAlertingKind: (number) => void,
   fetchCompanyTheme: () => void,
+  fetchCashBook: () => void,
   fetchAllAlertings: () => void,
   theme: any,
   themeLoading: boolean,
@@ -141,6 +144,10 @@ type Props = {
   checkEmailValidation: () => void,
   checkingEmailValidation: boolean,
   name?: string,
+  cashBook: dict,
+  updateCashBook: () => void,
+  fetchOnSpotPaymentReport: () => void,
+  onSpotPaymentReportId: number,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -252,6 +259,10 @@ export class Backoffice extends Component<Props, State> {
         >
           <ResponsiveDrawer
             logo={this.props.theme ? this.props.theme.cover : null}
+            fetchCashBook={this.props.fetchCashBook}
+            onSpotPaymentReportId={this.props.onSpotPaymentReportId}
+            theme={this.props.theme}
+            onSubmit={(data) => this.props.updateCashBook(data)}
             alertings={this.props.alertings}
             nbAlerting={this.props.nbAlerting}
             deleteAlert={this.props.deleteAlert}
@@ -266,6 +277,7 @@ export class Backoffice extends Component<Props, State> {
             openCreateMember={this.props.openCreateMember}
             openCalendar={this.props.openCalendar}
             push={this.props.pushRouter}
+            fetchOnSpotPaymentReport={this.props.fetchOnSpotPaymentReport}
           >
             {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
             Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
@@ -327,6 +339,7 @@ export default compose(
       themeLoading: state.theme.loading,
       checkingEmailValidation: state.login.emailValidation.loading,
       permission: getPermissions(state),
+      onSpotPaymentReportId: state.paymentBackend.onSpotPaymentReport.id,
 
       is_consumer: state.auth.is_consumer && !state.auth.is_manager,
 
@@ -336,6 +349,7 @@ export default compose(
       fetchCompanyTheme,
       fetchAccessLevel,
       checkEmailValidation: checkEmailValidationAction,
+      fetchOnSpotPaymentReport: fetchOnSpotPaymentReportAction,
       signout: (companyId) =>
         push(`/login/signout${companyId ? `?membership=${companyId}` : ''}`),
 
@@ -355,6 +369,9 @@ export default compose(
       openCalendar: () => push('/calendar'),
       openCreateMember: () => push('/member/add'),
       pushRouter: push,
+
+      fetchCashBook,
+      updateCashBook,
     },
   ),
   withHandlers({

@@ -2992,6 +2992,7 @@
       "subheader": { "total": "Total", "average": "Moyenne" }
     },
     "categories": {
+      "on_spot_payments": "Paiements sur place",
       "members": "Membres",
       "offers": "Séances",
       "bookings": "Reservations (cours collectif)",
@@ -3015,6 +3016,7 @@
       "activityByEst": "Activités et ateliers par etablissement",
       "activityByCoach": "Activités et ateliers par professeur",
       "privateService": "Rendez-vous",
+      "cashbook": "Livret de caisse",
       "privateServiceCoach": "Rendez-vous par professeur",
       "privateServiceEst": "Rendez-vous par etablissement",
       "dayBookings": "Réservations (cours collectif) par jour"
@@ -3024,6 +3026,8 @@
       "private_service_name": "Rendez-vous",
       "nb_bookings": "Nombre de réservation",
       "private_slot_name": "Séance",
+      "amount": "Gain de la journée",
+      "date_last_update": "Date",
       "slot_date_end": "Fin de la séance",
       "establishment": "Etablissement",
       "date_start_dow": "Jour",
@@ -3033,6 +3037,8 @@
       "date_first_privatebooking": "Date premier RDV",
       "private_service": "Nom RDV",
       "private_slot": "Type de séance",
+      "today_start_amount": "Montant début de journée",
+      "today_end_amount": "Montant fin de journée",
       "c": "Professeur",
       "canceled_bookings": "Nombre de réservations annulées",
       "max_credit": "Crédit max",
@@ -4314,6 +4320,20 @@
   },
   "navigation": {
     "backofficeMenu": {
+      "cashBook": {
+        "close": "Fermer",
+        "cashDialogTitle": "Livret de caisse",
+        "todayStartAmount": "Montant initial dans la caisse",
+        "addAmount": "Montant à ajouter à la caisse",
+        "todayEndAmount": "Montant à la fin de la journée",
+        "expectedAmount": "Vous êtes censé avoir : ",
+        "lastUpdated": "Dernière modification le",
+        "amount": "Gain de la journée :",
+        "onSpotPaymentReport": "Accéder au rapport des paiements",
+        "of": "Du",
+        "at": "à",
+        "save": "Enregister"
+      },
       "video": "Bibliothèque vidéo",
       "playlist": "Parcours",
       "podcast": "Podcasts",

@@ -159,7 +159,7 @@
             "attendant": "presente(s)",
             "nonAttendant": "ausente(s)",
             "maxBookingsNb": "lugares",
-            "effectif": "Plantilla",
+            "effectif": "Aforo disponible",
             "sizeOfWaitingList": "Tamaño de la lista de espera",
             "offersPendingChange": "Sesiones que serán modificadas :",
             "offersPendingDelete": "Sesiones que serán suprimidas :",
@@ -430,7 +430,7 @@
             "credits": "Número de créditos de tarjeta de curso necesarios para reservar",
             "price": "Precio",
             "caracteristics": "Características",
-            "effectif": "Plantilla",
+            "effectif": "Aforo disponible",
             "level": "Nivel",
             "addingSessionFor": "Creación de sesión para: ",
             "establishment": "Establecimiento",
@@ -631,7 +631,7 @@
             "paymentMethodCash": "Efectivo",
             "invoice": "Factura",
             "paymentMethod": "Método de pago",
-            "creditAccountBalance": "Anticipo actual: ",
+            "creditAccountBalance": "Cuenta corriente: ",
             "paymentMethods": {
                 "CB": "Tarjeta de crédito",
                 "CB_MANUAL": "Tarjeta de crédito (manual)",
@@ -1586,7 +1586,27 @@
                 "pay": "Confirmar",
                 "explain": "Tu club será informado del débito, pagarás este pedido en el sitio"
             },
-            "cancelPayment": "Volver"
+            "cancelPayment": "Volver",
+            "paymentMethod": {
+                "actions": {
+                    "addPaymentMethod": "Añadir un método de pago",
+                    "retry": "Inténtalo de nuevo",
+                    "collect": "Guardar",
+                    "close": "Cerrar"
+                },
+                "collect": {
+                    "content": "Esta forma de pago se guardará en su cuenta para ser facturada de acuerdo con el contrato.",
+                    "title": "Añadir un método de pago"
+                },
+                "message": {
+                    "error": "No se puede registrar este método de pago",
+                    "success": "¡Método de pago guardado con éxito!"
+                }
+            },
+            "savePaymentMethod": {
+                "section": "Mis métodos de pago ({{count}})",
+                "label": "Guarda este método de pago"
+            }
         },
         "method": {
             "CREDIT_ACCOUNT": "Pago en el acto",
@@ -2059,7 +2079,13 @@
             "subscribedOn": "Suscripción comenzada el {{- date}}"
         },
         "noAssociatedSubscription": "Ninguna suscripción registrada",
-        "associatedSubscriptions": "Suscripciones asociadas a este contrato"
+        "associatedSubscriptions": "Suscripciones asociadas a este contrato",
+        "status": {
+            "hasEnded": "Terminado",
+            "hasStopped": "Detenido",
+            "hasNotStartedYet": "Aún no ha empezado",
+            "hasStarted": "En proceso"
+        }
     },
     "reporting": {
         "columns": {
@@ -2193,7 +2219,11 @@
             "private_service": "Nombre cita",
             "date_first_privatebooking": "Fecha primera cita",
             "activitiesest": "Actividades por establecimiento",
-            "coaches": "Profesores"
+            "coaches": "Profesores",
+            "today_end_amount": "Cantidad al final del día",
+            "today_start_amount": "Cantidad al comienzo del día",
+            "date_last_update": "Fecha",
+            "amount": "Ganancias del día"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -2267,7 +2297,9 @@
             "payments": "Pagos",
             "bookings": "Reservas (curso de grupo)",
             "offers": "Sesiones",
-            "members": "Miembros"
+            "members": "Miembros",
+            "cashbook": "Libro de caja",
+            "on_spot_payments": "Pagos en persona"
         },
         "globalCategories": {
             "subheader": {
@@ -2396,7 +2428,10 @@
             "showCancelled": "Ver las cancelaciones",
             "showWeek": "Visión semana",
             "showMonth": "Visión mes"
-        }
+        },
+        "close": "Cerrar",
+        "deleteImpossibleText": "No puede borrar esta sesión porque tiene reservas abiertas.",
+        "deleteImpossibleTitle": "No se puede eliminar la sesión"
     },
     "member": {
         "date_joined": "Fecha de registro",
@@ -2419,7 +2454,7 @@
             "healthNotes": "Informaciones médicales",
             "is_medical": "Nota médica"
         },
-        "creditAccountBalance": "Sueldo",
+        "creditAccountBalance": "Anticipo de crédito restante",
         "showPaymentPack": "Ver las tarjetas de curso",
         "showInvoices": "Ver las facturas",
         "showSubscriptions": "Ver las subscripciones",
@@ -2624,7 +2659,12 @@
                     "attendance": "Asistencia n° {{notify_booking_nb}}",
                     "booking": "Reserva n° {{notify_booking_nb}}",
                     "after": "Notificación {{hours}}h después de la sesión",
-                    "before": "Notificación {{hours}}h antes de la sesión"
+                    "before": "Notificación {{hours}}h antes de la sesión",
+                    "cancelledDeprecated": "Cancelación n° {{notify_booking_nb}}",
+                    "bookingDeprecated": "Booking  n° {{notify_booking_nb}}",
+                    "notRefunded": "Cancelación después de la fecha límite n° {{notify_booking_nb}}",
+                    "refunded": "Cancelación reembolsada n° {{notify_booking_nb}}",
+                    "absence": "Ausencia n° {{notify_booking_nb}}"
                 },
                 "cancel": "Cancelar",
                 "next": "siguiente",
@@ -2633,7 +2673,10 @@
                     "cancellation": "su cancelación de la reserva n° {{notify_booking_nb}}",
                     "attendance": "su presencia n° {{notify_booking_nb}}",
                     "booking": "su reserva n° {{notify_booking_nb}}",
-                    "text": "Ayuda: la notificación se enviará al miembro durante"
+                    "text": "Ayuda: la notificación se enviará al miembro durante",
+                    "notRefunded": "su cancelación después de la fecha límite n° {{notify_booking_nb}}",
+                    "refunded": "su cancelación fue reembolsada n° {{notify_booking_nb}}",
+                    "absence": "su ausencia n° {{notify_booking_nb}}"
                 },
                 "choicesKind": {
                     "cancellation": "Cancelación de una reserva por parte del miembro",
@@ -2651,7 +2694,20 @@
                 "eventNb": "Notificar al miembro durante el evento n °:",
                 "settingTitle": "Parámetros",
                 "typeTitle": "Tipo de notificación",
-                "title": "Formulario de notificación"
+                "title": "Formulario de notificación",
+                "chooseKind": {
+                    "notRefunded": "Cancelación después de la fecha límite",
+                    "refunded": "Reembolso de la cancelación",
+                    "absence": "La ausencia de un miembro en una sesión",
+                    "attendance": "La presencia de un miembro en una sesión",
+                    "title": "Evento que desencadena la notificación"
+                },
+                "chooseStatus": {
+                    "cancelled": "Reserva cancelada por el cliente",
+                    "valid": "Reserva válida",
+                    "title": "Elija el tipo de reserva que desea notificar"
+                },
+                "explain": "Puede notificar a sus clientes antes o después de ciertas sesiones, dependiendo de varios criterios como el número de asistencias, ausencias o incluso cancelaciones."
             },
             "addNotification": "Añadir una notificación"
         }
@@ -3723,7 +3779,8 @@
         "dialogReceiverChoice": {
             "title": "Selección de los destinatarios",
             "waitingList": "Enviar a la lista de espera",
-            "reservation": "Enviar a las reservas"
+            "reservation": "Enviar a las reservas",
+            "canceledReservation": "Enviar a reservas canceladas"
         },
         "send": {
             "error": "Error durante el envío",
@@ -3891,6 +3948,16 @@
             "cover": {
                 "helperText": "Privilegia las png con fondo transparente",
                 "label": "Logo"
+            },
+            "android_app_url": {
+                "placeholder": "https://play.google.com/store/apps/details?id=com.bsport",
+                "helperText": "Tu aplicación para Android",
+                "label": "URL de la aplicación Android"
+            },
+            "ios_app_url": {
+                "placeholder": "https://apps.apple.com/es/app/id1356621554",
+                "helperText": "Tu aplicación iOS",
+                "label": "URL de la aplicación iOS"
             }
         },
         "pageTitles": {
@@ -5085,7 +5152,8 @@
                 "paymentRules": "Reglas de remuneración",
                 "notificationRule": "Emails transaccionales",
                 "broadcast": "Videoconferencia",
-                "general": "General"
+                "general": "General",
+                "platform_billing": "Suscripción a bsport"
             },
             "pass": "Tarjeta de curso",
             "goBack": "Volver",
@@ -5097,7 +5165,21 @@
             "message": "Marketing",
             "calendar": "Calendario",
             "activity": "Mis actividades",
-            "dashboard": "Dashboard"
+            "dashboard": "Dashboard",
+            "cashBook": {
+                "save": "Guardar",
+                "at": "En",
+                "of": "De",
+                "onSpotPaymentReport": "Acceder al informe de pagos",
+                "amount": "Ganancias del día :",
+                "lastUpdated": "Última modificación el",
+                "expectedAmount": "Deberías tener: ",
+                "todayEndAmount": "Cantidad al final del día",
+                "addAmount": "Cantidad a añadir al libro de caja",
+                "todayStartAmount": "La cantidad inicial en el libro de caja",
+                "cashDialogTitle": "Libro de caja",
+                "close": "Cerrar"
+            }
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -5352,7 +5434,7 @@
             "501": {
                 "explanation": "Ha reservado su última sesión hay ...",
                 "second": "días, y no tiene reservas planificadas en el futuro.",
-                "first": "La última sesión reservada tuvo lugar más de",
+                "first": "La última sesión reservada tuvo lugar hace más de",
                 "name": "Fecha de la última sesión reservada"
             },
             "400": {
@@ -5496,6 +5578,52 @@
                 "second": " a   ",
                 "first": "El anticipo del cliente es",
                 "name": "Anticipo"
+            },
+            "26": {
+                "hour": {
+                    "third": "horas",
+                    "second": "horas y",
+                    "first": "comenzando entre"
+                },
+                "date": {
+                    "first": "que ocurre en"
+                },
+                "coach": {
+                    "first": "con los profesores"
+                },
+                "private_pass": {
+                    "first": "con tarjeta de curso"
+                },
+                "establishment": {
+                    "third": "en casa",
+                    "second": "o",
+                    "first": "en establecimientos"
+                },
+                "between": "y",
+                "second": "cita",
+                "first": "Ha reservado",
+                "explanation": "A reservo X citas con el profesor A, en la ubicación B, con el pase C ...",
+                "name": "Número de citas"
+            },
+            "25": {
+                "expiration": {
+                    "first_has_expire": "ha caducado",
+                    "first_will_expire": "expira"
+                },
+                "date_bought": {
+                    "first": "fecha de compra"
+                },
+                "credits": {
+                    "second": "y",
+                    "first": "créditos:"
+                },
+                "third": "en",
+                "second": "y",
+                "has_not": "No tiene",
+                "has": "Tiene",
+                "first": "Una de las tarjetas de curso",
+                "name": "Pase (citas)",
+                "explanation": "Ha comprado el pase de cita X en la fecha Y, con los créditos Z restantes"
             }
         },
         "filterCategory": {
@@ -5612,7 +5740,14 @@
                 "helperText": "seleccionar tarjetas de curso"
             },
             "selectNothing": "Deseleccionar todo",
-            "selectAll": "Seleccionar todo"
+            "selectAll": "Seleccionar todo",
+            "privatePass": {
+                "warning": "Seleccione al menos una tarjeta de curso",
+                "helperAllSelectedText": "Todas las tarjetas de curso",
+                "textFieldPlaceholder": "Encuentra tarjeta de curso",
+                "helperSelectedText": "seleccione tarjeta de curso",
+                "helperText": "seleccione tarjeta de curso"
+            }
         },
         "description": "Descripción",
         "search": "Buscar una smartlist",
@@ -5809,6 +5944,52 @@
             "responsiveDisplay": "Pantalla responsiva",
             "calendarDisplay": "Visión semana card (calendario)",
             "listDisplay": "Visión semana lista"
+        }
+    },
+    "platformBilling": {
+        "upsellPackage": {
+            "vod": {
+                "explainBilling": "  +1€ /cliente activo"
+            },
+            "billRecurrent": "{{price_cts }} € / mes",
+            "billOnce": "{{precio_cts }} €",
+            "otherAddonTitle": "Complementos disponibles",
+            "myAddonTitle": "Mis complementos",
+            "knowMore": "Más información"
+        },
+        "featureRequest": {
+            "close": "Cerrar",
+            "content": "Su interés ha sido notado, ¡gracias por su interés! Su gerente de cuenta se pondrá en contacto con usted muy pronto con más información.",
+            "title": "Complemento"
+        },
+        "platformBillingStage": {
+            "maxBooking": "Hasta {{ max_booking_per_month }} reservas / mes",
+            "monthlyPrice": "{{ price }} € / mes"
+        },
+        "platformBillingPlan": {
+            "max_establishment": {
+                "label": "Hasta {{ max_establishment }} establecimientos"
+            },
+            "max_coach": {
+                "help": "Un profesor se cuenta a partir de 8 sesiones mensuales",
+                "label": "Hasta {{ max_coach }} profesores"
+            }
+        },
+        "platformBillingGroup": {
+            "soonAvailable": "Disponible pronto!",
+            "myGroup": "Mi paquete"
+        },
+        "paymentMethod": {
+            "actions": {
+                "createCard": "Añade un CB",
+                "createSepa": "Añade un IBAN"
+            },
+            "sectionTitle": "Método de pago"
+        },
+        "platformInvoice": {
+            "noInvoice": "No hay facturas",
+            "sectionTitle": "Mis facturas",
+            "label": "Factura {{month}} / {{year}}"
         }
     }
 }

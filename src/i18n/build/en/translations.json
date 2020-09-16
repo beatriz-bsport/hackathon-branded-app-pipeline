@@ -2202,7 +2202,8 @@
         "dialogReceiverChoice": {
             "reservation": "Send to bookings",
             "waitingList": "Send to waiting-list",
-            "title": "Selection of recipients"
+            "title": "Selection of recipients",
+            "canceledReservation": "Send to cancelled bookings"
         },
         "campaign": {
             "recipientCount": "Recipient: {{ total_recipients }}",
@@ -3299,6 +3300,16 @@
                 "placeholder": "I confirm I do not have any medical contraindication",
                 "helperText": "Must be accepted on all payment and signup",
                 "label": "General terms and conditions"
+            },
+            "android_app_url": {
+                "placeholder": "https://play.google.com/store/apps/details?id=com.bsport",
+                "helperText": "Your Android App",
+                "label": "Android App URL"
+            },
+            "ios_app_url": {
+                "placeholder": "https://apps.apple.com/en/app/id1356621554",
+                "helperText": "Your iOS App",
+                "label": "iOS App URL"
             }
         },
         "general_terms_and_conditions": {
@@ -4550,7 +4561,13 @@
             "subscribedOn": "Subscription started on {{- date}}"
         },
         "noAssociatedSubscription": "No subscription registered yet",
-        "associatedSubscriptions": "Subscriptions associated with this contract"
+        "associatedSubscriptions": "Subscriptions associated with this contract",
+        "status": {
+            "hasEnded": "Ended",
+            "hasStopped": "Stopped",
+            "hasNotStartedYet": "Not started yet",
+            "hasStarted": "In process"
+        }
     },
     "reporting": {
         "columns": {
@@ -4675,7 +4692,7 @@
             "cancel_rate": "Cancellation rate",
             "rate_non_attendance": "Absence rate",
             "rate_attendance": "Attendance rate",
-            "availability": "validity",
+            "availability": "Validity",
             "min_credit": "Min credit",
             "max_credit": "Max credit",
             "canceled_bookings": "Number of canceled reservations",
@@ -4684,7 +4701,11 @@
             "private_service": "Appointment name",
             "date_first_privatebooking": "First appointment date",
             "activitiesest": "Activities by establishment",
-            "coaches": "Teachers"
+            "coaches": "Teachers",
+            "today_end_amount": "Amount at end of day",
+            "today_start_amount": "Amount at beginning of day",
+            "date_last_update": "Date",
+            "amount": "Day earnings"
         },
         "yes": "Yes",
         "no": "No",
@@ -4759,7 +4780,9 @@
             "payments": "Payments",
             "bookings": "Reservations (group lesson)",
             "offers": "Sessions",
-            "members": "Members"
+            "members": "Members",
+            "cashbook": "Cash book",
+            "on_spot_payments": "Payments in person"
         },
         "globalCategories": {
             "subheader": {
@@ -6721,7 +6744,8 @@
                 "shop": "Shop",
                 "waitingList": "Waiting-list",
                 "invoice": "Billing",
-                "company": "Company"
+                "company": "Company",
+                "platform_billing": "Bsport subscription"
             },
             "pass": "Pass",
             "goBack": "Back",
@@ -6766,7 +6790,21 @@
             "digital": "Digital Offer",
             "podcast": "Podcasts",
             "playlist": "Playlist",
-            "video": "Video library"
+            "video": "Video library",
+            "cashBook": {
+                "save": "Save",
+                "at": "At",
+                "of": "Of",
+                "onSpotPaymentReport": "Access payment report",
+                "amount": "Day earnings :",
+                "lastUpdated": "Last modification on",
+                "expectedAmount": "You should have: ",
+                "todayEndAmount": "Amount at end of day",
+                "addAmount": "Amount to add to cash book",
+                "todayStartAmount": "Start amount in cash book",
+                "cashDialogTitle": "Cash book",
+                "close": "Close"
+            }
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -6864,6 +6902,36 @@
             "noInvoice": "No bills",
             "sectionTitle": "My bills",
             "label": "Invoice {{month}} / {{year}}"
+        },
+        "upsellPackage": {
+            "billOnce": "{{price_cts }} €",
+            "vod": {
+                "explainBilling": "  +1€ /active client"
+            },
+            "billRecurrent": "{{price_cts }} € / month",
+            "otherAddonTitle": "Available Add-ons",
+            "myAddonTitle": "My Add-ons",
+            "knowMore": "More information"
+        },
+        "platformBillingStage": {
+            "monthlyPrice": "{{ price }} € / month",
+            "maxBooking": "Up to {{ max_booking_per_month }} reservations / month"
+        },
+        "featureRequest": {
+            "close": "Close",
+            "content": "Your interest has been noted, thank you for your interest! Your account manager will be in touch with you very soon with more information.",
+            "title": "Add-on"
+        },
+        "platformBillingPlan": {
+            "max_establishment": {
+                "label": "Up to {{ max_establishment }} establishments"
+            },
+            "max_coach": {
+                "label": "Up to {{ max_coach }} teachers"
+            }
+        },
+        "platformBillingGroup": {
+            "soonAvailable": "Available Soon !"
         }
     },
     "widget": {

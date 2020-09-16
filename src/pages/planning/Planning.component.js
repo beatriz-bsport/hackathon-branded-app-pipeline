@@ -35,6 +35,7 @@ import moment from 'moment';
 import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
+  BOOKING_STATUS_CANCELLED_BY_OFFER,
 } from '@bsport/common/lib/master-data/booking_status_code';
 
 import withTitle from '../../hocs/with-title.hoc';
@@ -252,11 +253,14 @@ export class Planning extends PureComponent<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     if (
-      (prevProps.date !== this.props.date &&
-        !moment(prevProps.date).isSame(moment(this.props.date), 'month')) ||
-      prevProps.offerFilters !== this.props.offerFilters
+      prevProps.date !== this.props.date &&
+      !moment(prevProps.date).isSame(moment(this.props.date), 'month')
     ) {
       this.fetchData();
+    }
+    if (prevProps.offerFilters !== this.props.offerFilters) {
+      this.fetchData();
+      this.props.fetchBookingStatsOfTheWeek();
     }
     if (
       this.props.selectedOffer &&
@@ -714,6 +718,7 @@ export class Planning extends PureComponent<Props, State> {
                       this.props.createdBookingStatsLoading ||
                       this.props.cancelledBookingStatsLoading
                     }
+                    filters={this.props.offerFilters}
                   />
                 </div>
               )}
@@ -899,16 +904,19 @@ export default compose(
       fetchBookingStatistics,
     }) => () => {
       fetchBookingStatistics('createdBookings', {
-        date_key: 'date_created',
         offer: selectedOffer.id,
+        date_field: 'date_created',
+        kind: 'count',
       });
       fetchBookingStatistics('cancelledBookings', {
-        date_key: 'date_cancelled',
         offer: selectedOffer.id,
-        bsc: [
+        booking_status_code__in: [
           BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
           BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
+          BOOKING_STATUS_CANCELLED_BY_OFFER.id,
         ],
+        date_field: 'date_updated',
+        kind: 'count',
       });
     },
     fetchBookingStatsOfTheWeek: ({
@@ -917,28 +925,31 @@ export default compose(
       offerFilters,
     }) => () => {
       fetchBookingStatistics('createdBookings', {
-        date_key: 'offer__date_start',
-        date_min: moment(date)
+        min_date: moment(date)
           .startOf('week')
-          .format('YYYY-MM-DD HH:MM[Z]'),
-        date_max: moment(date)
+          .format('YYYY-MM-DD'),
+        max_date: moment(date)
           .endOf('week')
-          .format('YYYY-MM-DD HH:MM[Z]'),
+          .format('YYYY-MM-DD'),
         ...(offerFilters || {}),
+        date_field: 'offer__date_start',
+        kind: 'count',
       });
       fetchBookingStatistics('cancelledBookings', {
-        date_key: 'offer__date_start',
-        date_min: moment(date)
+        min_date: moment(date)
           .startOf('week')
-          .format('YYYY-MM-DD HH:MM[Z]'),
-        date_max: moment(date)
+          .format('YYYY-MM-DD'),
+        max_date: moment(date)
           .endOf('week')
-          .format('YYYY-MM-DD HH:MM[Z]'),
-        ...(offerFilters || {}),
-        bsc: [
+          .format('YYYY-MM-DD'),
+        booking_status_code__in: [
           BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
           BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
+          BOOKING_STATUS_CANCELLED_BY_OFFER.id,
         ],
+        ...(offerFilters || {}),
+        date_field: 'offer__date_start',
+        kind: 'count',
       });
     },
   }),

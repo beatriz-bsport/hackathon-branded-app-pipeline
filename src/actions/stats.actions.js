@@ -59,7 +59,7 @@ export function fetchBookingStatistics(identifier: string, params: any) {
     fetchStatsWithTime(
       dispatch,
       identifier,
-      api.stats.bookingStatistics,
+      api.stats.fetchBookingStatistics,
       params,
     );
   };

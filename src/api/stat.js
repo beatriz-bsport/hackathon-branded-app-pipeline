@@ -23,10 +23,15 @@ export async function fetchSmartListStatsAPI(params) {
   );
 }
 
+export async function fetchBookingStatistics(params) {
+  return getJSONAuth(`${API_URI}/statistics/booking/${buildUrlParams(params)}`);
+}
+
 export default {
   bookings,
   newMembers,
   turnover,
   fetchSmartListStatsAPI,
   bookingStatistics,
+  fetchBookingStatistics,
 };

@@ -15,7 +15,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Dialog from '@material-ui/core/Dialog';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTransaction } from '@elastic/apm-rum-react';
 
 import { connect } from 'react-redux';
 import { replace, push as pushRouter } from 'connected-react-router';
@@ -55,30 +54,26 @@ import {
 
 import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
 
-const MarketplacePassPage = withTransaction('MarketplacePass', 'component')(
-  asyncComponent(() => import('./MarketplacePass.page')),
+const MarketplacePassPage = asyncComponent(() =>
+  import('./MarketplacePass.page'),
 );
-const MarketplaceShopPage = withTransaction('MarketplaceShop', 'component')(
-  asyncComponent(() => import('./MarketplaceShop.page')),
+const MarketplaceShopPage = asyncComponent(() =>
+  import('./MarketplaceShop.page'),
 );
-const MarketplaceCalendarPage = withTransaction(
-  'MarketplaceCalendarPage',
-  'component',
-)(asyncComponent(() => import('./MarketplaceCalendar.page')));
-const MarketplaceWorkshopPage = withTransaction(
-  'MarketplaceWorkshopPage',
-  'component',
-)(asyncComponent(() => import('./MarketplaceWorkshop.page')));
-const MarketplacePrivateService = withTransaction(
-  'MarketplacePrivateService',
-  'component',
-)(asyncComponent(() => import('./MarketplacePrivateService.page')));
-const MarketplaceContractPage = withTransaction(
-  'MarketplaceContractPage',
-  'component',
-)(asyncComponent(() => import('./MarketplaceContract.page')));
-const MarketplaceVodRouter = withTransaction('MarketplaceVod', 'component')(
-  asyncComponent(() => import('./MarketplaceVod.router')),
+const MarketplaceCalendarPage = asyncComponent(() =>
+  import('./MarketplaceCalendar.page'),
+);
+const MarketplaceWorkshopPage = asyncComponent(() =>
+  import('./MarketplaceWorkshop.page'),
+);
+const MarketplacePrivateService = asyncComponent(() =>
+  import('./MarketplacePrivateService.page'),
+);
+const MarketplaceContractPage = asyncComponent(() =>
+  import('./MarketplaceContract.page'),
+);
+const MarketplaceVodRouter = asyncComponent(() =>
+  import('./MarketplaceVod.router'),
 );
 
 type Props = {

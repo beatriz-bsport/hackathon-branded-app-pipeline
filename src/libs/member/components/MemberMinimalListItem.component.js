@@ -14,6 +14,7 @@ type Props = {
   member: Member,
   onEdit?: () => void,
   onClick?: () => void,
+  firstBooking?: boolean,
 };
 export const MemberMinimalListItem = (props: Props) => {
   if (!props.member) {
@@ -37,7 +38,7 @@ export const MemberMinimalListItem = (props: Props) => {
         </CreditMemberBadge>
       </ListItemAvatar>
       <ListItemText
-        primary={props.member.name}
+        primary={props.member.name + (props.firstBooking ? ' ★' : '')}
         secondary={
           props.member.phone || props.member.email
             ? `${props.member.phone || ''} ${props.member.email}` || ''

@@ -9,6 +9,7 @@ import omit from 'lodash/omit';
 
 import * as Yup from 'yup';
 import { withFormik, FieldArray } from 'formik';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import PaymentMethodSelectorField from '../../payment/components/PaymentMethodSelectorField.component';
 
@@ -146,14 +147,20 @@ export const PaymentComboForm = (props: Props) => (
                 if (id) push(id);
               }}
             />
-            {private_pass_ids.map((id, i) => (
-              <PrivatePassListItem
-                key={`${id}-${i}`}
-                dense
-                pass={props.privatePassList.find((pp) => pp.id === id)}
-                onDelete={() => remove(i)}
-              />
-            ))}
+            {private_pass_ids.map((id, i) => {
+              const pass = props.privatePassList.find((pp) => pp.id === id);
+              if (pass) {
+                return (
+                  <PrivatePassListItem
+                    key={`${id}-${i}`}
+                    dense
+                    pass={pass}
+                    onDelete={() => remove(i)}
+                  />
+                );
+              }
+              return <CircularProgress />;
+            })}
           </div>
         )}
       </FieldArray>

@@ -1889,8 +1889,13 @@
       },
       "general_terms_and_conditions": {
         "label": "Conditions générales de vente",
-        "helperText": "Doivent être acceptées pour tout paiement et inscription",
+        "helperText": "Doivent être acceptées pour tout paiement",
         "placeholder": "J'atteste posséder un certificat médical et l'apporterai à mon studio"
+      },
+      "general_terms_of_use": {
+        "label": "Conditions générales d'utilisation",
+        "helperText": "Doivent être acceptées pour toute inscription",
+        "placeholder": "J'atteste avoir plus de 13 ans"
       },
       "gtmId": { "placeholder": "GTM-XXXXXX", "label": "Google Tag ID" },
       "instagramURL": {
@@ -2475,7 +2480,12 @@
         }
       }
     },
-    "generalTermsAndConditions": { "iAccept": "J'accepte les ", "theTermsAndConditions": "conditions générales de ventes.", "close": "Fermer" },
+    "generalTermsAndConditions": {
+      "iAccept": "J'accepte les ",
+      "theTermsAndConditions": "conditions générales de ventes.",
+      "generalTermsOfUse": " conditions générales d'utilisation",
+      "close": "Fermer"
+    },
     "paymentMethod": {
       "0": "Carte bleue",
       "1": "Espèces",
@@ -3714,7 +3724,7 @@
       "cancel": "Annuler",
       "confirm": "Je confirme"
     },
-    "termsAndConditions": "Les conditions générales de vente",
+    "termsAndConditions": "Les conditions générales d'utilisation",
     "memberTermsAccepted": " ont été acceptées le {{- date}}"
   },
   "booking": {

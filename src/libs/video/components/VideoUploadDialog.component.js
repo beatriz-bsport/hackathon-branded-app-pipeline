@@ -7,6 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -182,6 +183,9 @@ export class VideoUploadDialog extends React.Component<Props, State> {
           {this.state.isUploading && (
             <LinearProgress variant="determinate" value={this.state.progress} />
           )}
+          <Typography variant="caption" color="textSecondary">
+            {'mp4, mov, avi, mkv, etc...'}
+          </Typography>
         </DialogContent>
         <DialogActions>
           {this.state.isUploading ? (

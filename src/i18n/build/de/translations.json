@@ -7,7 +7,7 @@
             },
             "smart_delay_percentage": {
                 "label": "Smarte Verwaltung",
-                "helper": "Wenn ein Platz frei wird, hat der Student eine Zeit, die proportional zur verbleibenden Zeit vor dem Kurs ist."
+                "helper": "Wenn ein Platz frei wird, hat der Student ein Zeitfenster, welches proportional zur verbleibenden Zeit vor dem Kurs ist, um sich anzumelden."
             },
             "submit": "Speichern",
             "auto_cancellation_type": {
@@ -15,7 +15,7 @@
             },
             "dynamic": {
                 "0": {
-                    "settingsDelay": "Deadline für die Anmeldung",
+                    "settingsDelay": "Anmeldefrist",
                     "label": "Einer nach dem anderen",
                     "explain": "Wenn sich ein Mitglied anmeldet, erhält es einen Platz auf der Warteliste. Wenn ein Platz frei ist, kann sich die erste Person auf der Liste anmelden, die anderen warten, bis sie an der Reihe sind"
                 },
@@ -77,7 +77,9 @@
             "trial_nb": "Anzahl der geschenkten Monate",
             "recurrent_price": "Periodische Zahlung",
             "flat_fee": "Anmeldegebühren",
-            "recurrent_voucher": "Rabatt auf jede Rechnung"
+            "recurrent_voucher": "Rabatt auf jede Rechnung",
+            "private_pass": "Terminkarte",
+            "privatePass": "Terminkarte"
         },
         "paymentMethod": {
             "card": "Kreditkarte",
@@ -120,7 +122,8 @@
                 },
                 "object_type": {
                     "paymentPack": "Kurskarte",
-                    "label": "Abonnement-Typ"
+                    "label": "Abonnement-Typ",
+                    "privatePass": "Terminkarte"
                 },
                 "error": {
                     "missingObject": "Pflichtfeld"
@@ -161,7 +164,8 @@
             },
             "paymentPack": "Verbundene Kurskarte",
             "no": "Nein",
-            "yes": "Ja"
+            "yes": "Ja",
+            "privatePass": "Zugehörige Terminkarte"
         },
         "subscription": {
             "actions": {
@@ -338,7 +342,7 @@
                 "allCoachPerformance": "Übersicht der Lehrer",
                 "orderDetail": "Details der Bestellung",
                 "orderList": "Bestellungen",
-                "reportingDashboard": "Quoten",
+                "reportingDashboard": "Reports",
                 "planning": "Planning",
                 "invoiceFormPage": "Änderung der Rechnung"
             }
@@ -357,7 +361,7 @@
                 }
             },
             "buyPack": "Kaufen",
-            "private_service": "Nach Terminvereinbarung",
+            "private_service": "Terminvereinbarungen",
             "pass": "Kurskarten",
             "checkout": {
                 "dialog": {
@@ -606,8 +610,8 @@
             "coachPerformance": "Lehrer",
             "privateService": {
                 "pass": "Terminkarten",
-                "services": "Nach Terminvereinbarung",
-                "title": "Nach Terminvereinbarung"
+                "services": "Terminvereinbarungen",
+                "title": "Terminvereinbarungen"
             },
             "schedule": "Stundenplan",
             "invoice": "Rechnungen",
@@ -633,7 +637,7 @@
             "coupon": "Werbeaktionen",
             "subscription": "Abonnements",
             "member": "Mitglieder",
-            "reporting": "Quoten",
+            "reporting": "Reports",
             "digital": "Digitales Angebot",
             "playlist": "Folge"
         },
@@ -1247,7 +1251,7 @@
             "offerFilteredBookingRecap": "Ihre Buchung am  {{date}}",
             "weekOverview": "Übersicht Ihrer Woche"
         },
-        "show_cancelled_offers": "Abgebrochene Stunden anzeigen",
+        "show_cancelled_offers": "Abgesagte Stunden anzeigen",
         "quickInvoiceVoucher": "Wählen Sie den Rabatt, der bei der Abrechnung des nächsten Passes angewendet werden soll",
         "metaActivityNotificationToolTip": "Benachrichtigungen sind für diese Buchungen aktiviert",
         "quickInvoiceNoVoucher": "Lassen Sie den Wert dieses Feldes auf 0, wenn Sie keinen Rabatt anwenden möchten"
@@ -1810,7 +1814,7 @@
                 },
                 "first_name_label": {
                     "helperText": "Geben Sie die Label für den Vornamen ein",
-                    "label": "Label für den Nachnamen",
+                    "label": "Label für den Vornamen",
                     "placeholder": "Label für den Vornamen"
                 },
                 "names_label_info": "Ändern Sie das Label der Felder Vorname und Nachname in den Anmeldeformularen",
@@ -1821,7 +1825,7 @@
                 },
                 "acceptDoubleBooking": "Doppelte Buchung akzeptieren",
                 "consumerRegularizeDebt": "Der Kunde kann seine Anzahlung online regularisieren",
-                "workshopsCustomer": "Workshops im Kundenkalender anzeigen",
+                "workshopsCustomer": "Einrichtungen im Kundenkalender anzeigen",
                 "cancelledOffersCustomer": "Abgebrochene Stunden im Kunden-Kalender anzeigen",
                 "calendarPersonalizationTitle": "Kalender Einstellungen"
             },
@@ -1833,7 +1837,7 @@
             },
             "general_terms_and_conditions": {
                 "placeholder": "Ich bestätige, dass ich ein ärztliches Attest besitze und es in mein Studio mitbringen werde",
-                "helperText": "Sie müssen für die Zahlung und Anmeldung akzeptiert werden",
+                "helperText": "Müssen für die Zahlung und Anmeldung akzeptiert werden",
                 "label": "Allgemeine Verkaufsbedingungen"
             },
             "android_app_url": {
@@ -1843,6 +1847,11 @@
             "ios_app_url": {
                 "helperText": "Ihre iOS-App",
                 "label": "URL der iOS-App"
+            },
+            "general_terms_of_use": {
+                "placeholder": "Ich bestätige, dass ich über 13 Jahre alt bin",
+                "helperText": "Muss für jede Registrierung akzeptiert werden",
+                "label": "Allgemeine Geschäftsbedingungen"
             }
         },
         "pageTitles": {
@@ -2255,7 +2264,7 @@
         },
         "companyOnboarding": {
             "creation": {
-                "content": "Um CB- und SEPA-Zahlungen erhalten zu können, überprüfen Sie bitte Ihre rechtlichen Informationen",
+                "content": "Um Kredikarten- und SEPA-Zahlungen erhalten zu können, überprüfen Sie bitte Ihre rechtlichen Informationen",
                 "title": "Online-Zahlungen deaktiviert"
             },
             "payout": {
@@ -2977,7 +2986,8 @@
         "generalTermsAndConditions": {
             "close": "Schließen",
             "iAccept": "Ich akzeptiere die ",
-            "theTermsAndConditions": "allgemeine Verkaufsbedingungen."
+            "theTermsAndConditions": "allgemeine Verkaufsbedingungen.",
+            "generalTermsOfUse": " Allgemeine Geschäftsbedingungen"
         },
         "forms": {
             "paymentIntent": {
@@ -3228,7 +3238,7 @@
                 "processed": "Ansehen",
                 "error": "Noch ein Mal versuchen",
                 "processing": "Ongoing",
-                "submitted": "Entwurf"
+                "submitted": "Video hochladen"
             },
             "delete": {
                 "title": "Löschen",
@@ -3238,7 +3248,7 @@
             },
             "upload": {
                 "title": "Ein Video uploaden",
-                "content": "Reichen Sie hier ein oder wählen Sie ein Video aus",
+                "content": "Video hierher ziehen oder Video zum Hochladen auswählen",
                 "dropHere": "Ziehen Sie hier ein Video per Drag & Drop oder klicken Sie hier, um Ihren Computer zu durchsuchen",
                 "cancel": "Abbrechen"
             },
@@ -3314,7 +3324,7 @@
             "offer": {
                 "isDisabled": "Der Kurs wurde leider abgesagt.",
                 "isWaitingListFull": "Der Kurs ist abgeschlossen und die Warteliste ist voll.",
-                "isTooLate": "Anmeldungen sind nicht mehr möglich, die Deadline für die letzte Anmeldung ist überschritten.",
+                "isTooLate": "Anmeldungen sind nicht mehr möglich, die Anmeldefrist ist überschritten.",
                 "isTooSoon": "Die Anmeldungen sind vorläufig geschlossen und werden am {{date}} geöffnet."
             },
             "section": {
@@ -3518,7 +3528,7 @@
             "noNoteSaved": "Keine gespeicherte Information"
         },
         "memberList": "Liste der Mitglieder",
-        "addMember": "Einen Mitgliedereintrag hinzufügen",
+        "addMember": "Einen Mitgliederprofil hinzufügen",
         "engagement": "Engagement",
         "nextBooking": "nächste : ",
         "memberSince": "Angemeldet am ",
@@ -3554,7 +3564,7 @@
             "bornIn": "Geboren am {{-date}} - {{age}} Jahre"
         },
         "memberTermsAccepted": " wurden am {{- date}} akzeptiert",
-        "termsAndConditions": "Allgemeine Verkaufsbedingungen"
+        "termsAndConditions": "Allgemeine Geschäftsbedingungen"
     },
     "common": {
         "text": {
@@ -4226,7 +4236,7 @@
         },
         "pageTitles": {
             "calendar": "Kalender",
-            "serviceList": "Nach Terminvereinbarung",
+            "serviceList": "Terminvereinbarungen",
             "passList": "Karten"
         },
         "serviceGroup": {
@@ -4931,7 +4941,7 @@
         "dashboard": {
             "marketingDashboard": "Marketing",
             "dashboard": "Dashboard",
-            "reportingDashboard": "Quoten"
+            "reportingDashboard": "Reports"
         },
         "marketplace": {
             "marketplacePass": "Kurskarten",
@@ -4944,7 +4954,7 @@
             "establishmentList": "Einrichtungen"
         },
         "privateService": {
-            "serviceList": "Nach Terminvereinbarung"
+            "serviceList": "Terminvereinbarungen"
         },
         "coupon": {
             "couponList": "Werbecodes",
@@ -5156,9 +5166,9 @@
             "marketing_automation": "Automatisches Marketing",
             "schedule": "Stundenplan",
             "privateService": {
-                "services": "Nach Terminvereinbarung",
+                "services": "Terminvereinbarungen",
                 "pass": "Terminkarten",
-                "title": "Nach Terminvereinbarung"
+                "title": "Terminvereinbarungen"
             },
             "product": "Produkte",
             "myShop": "Shop",
@@ -5188,7 +5198,7 @@
             "requestTempPassword": "Zugang erlauben",
             "smart_list": "Smartlists",
             "alpha": "in Entwicklung",
-            "reporting": "Quoten",
+            "reporting": "Reports",
             "search": "Suchen",
             "dashboard": "Dashboard",
             "calendar": "Kalender",
@@ -5628,7 +5638,7 @@
         },
         "broadcast": {
             "submit": "Speichern",
-            "explainEnabled": "Aktiviert: bsport verwaltet Ihre Videokonferenzräume, wobei es unmöglich ist, zwei davon gleichzeitig zu nutzen.",
+            "explainEnabled": "Aktiviert: bsport verwaltet Ihre Videokonferenzräume. Es ist nicht mögliche zwei Videokonferenzen gleichzeitig zu nutzen.",
             "explainDisabled": "Deaktiviert: Sie verwalten selbst Ihre Videokonferenz-Links, die für jeden Kurs konfiguriert werden müssen (über Zoom, usw.).",
             "is_whereby_integration_enabled": {
                 "label": "Integration whereby X bsport aktivieren"

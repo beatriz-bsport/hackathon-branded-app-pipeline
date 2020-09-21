@@ -27,7 +27,7 @@
                 }
             },
             "update": {
-                "imageUploaderRequireEditMessage": "Una vez tu actividad creada, puedes añadir más fotografías."
+                "imageUploaderRequireEditMessage": "Una vez tu creada tu actividad, puedes añadir más fotografías."
             },
             "create": {
                 "success": "Actividad creada"
@@ -1576,7 +1576,8 @@
         "generalTermsAndConditions": {
             "iAccept": "Acepto los ",
             "close": "Cerrar",
-            "theTermsAndConditions": "Condiciones generales de venta."
+            "theTermsAndConditions": "Condiciones generales de venta.",
+            "generalTermsOfUse": " condiciones de uso"
         },
         "forms": {
             "paymentIntent": {
@@ -3958,6 +3959,11 @@
                 "placeholder": "https://apps.apple.com/es/app/id1356621554",
                 "helperText": "Tu aplicación iOS",
                 "label": "URL de la aplicación iOS"
+            },
+            "general_terms_of_use": {
+                "placeholder": "Certifico que soy mayor de 13 años de edad",
+                "helperText": "Para la inscripción se debe aceptar lo siguiente",
+                "label": "Condiciones de uso"
             }
         },
         "pageTitles": {

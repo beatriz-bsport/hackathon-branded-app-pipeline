@@ -10,7 +10,9 @@
                 "reset": "OK",
                 "cancel": "Annuleren"
             },
-            "emailHasBeenSent": "Er is een e-mail gestuurd naar {{email}} om je wachtwoord op te halen"
+            "emailHasBeenSent": "Er is een e-mail gestuurd naar {{email}} om je wachtwoord op te halen",
+            "contactUs": "Contacteer ons via ",
+            "hasProblem": "Ervaart u problemen met het resetten?"
         }
     },
     "category": {
@@ -244,7 +246,13 @@
             "offer": "Sessie",
             "member": "Creëren van een studentenaccount"
         },
-        "pageTitle": "Transactionele e-mails"
+        "pageTitle": "Transactionele e-mails",
+        "caption": {
+            "emailDesign": "E-mail versturen",
+            "event": "Evenement",
+            "sendCopy": "Een kopie van deze e-mail ontvangen",
+            "active": "Geactiveerd"
+        }
     },
     "membership": {
         "selector": {
@@ -1035,7 +1043,8 @@
             "previous": "<",
             "allDay": "dag",
             "deleteOffer": "Annuleren",
-            "modifyOffer": "Bewerken"
+            "modifyOffer": "Bewerken",
+            "canDeleteWithBooking": "Reserveringen, annuleringen en wachtlijsten worden opgeslagen en kunnen niet worden verwijderd."
         },
         "pagination": {
             "outOf": " zeker ",
@@ -1255,7 +1264,8 @@
         "dialogReceiverChoice": {
             "reservation": "Verzenden naar reserveringen",
             "waitingList": "Verzenden naar wachtlijst",
-            "title": "Selectie van ontvangers"
+            "title": "Selectie van ontvangers",
+            "canceledReservation": "Voeg aan annuleringen toe"
         },
         "recipients": "Ontvangers",
         "common": {
@@ -1638,7 +1648,11 @@
             "private_service": "Naam Afspraak",
             "date_first_privatebooking": "Datum eerste afspraak",
             "activitiesest": "Activiteiten per vestiging",
-            "coaches": "Instructeurs"
+            "coaches": "Instructeurs",
+            "today_end_amount": "Eindbedrag van vandaag",
+            "today_start_amount": "Beginbedrag van vandaag",
+            "date_last_update": "Datum",
+            "amount": "Daginkomsten"
         },
         "report": {
             "delete_message": "Weet je zeker dat je het {{name}} - rapport wil verwijderen?"
@@ -1675,7 +1689,9 @@
             "payments": "Betalingen",
             "bookings": "Reserveringen (groepslessen)",
             "offers": "Sessies",
-            "members": "Leden"
+            "members": "Leden",
+            "cashbook": "Kasboek",
+            "on_spot_payments": "Persoonlijke betalingen"
         },
         "globalCategories": {
             "subheader": {
@@ -2154,6 +2170,13 @@
                 "textFieldPlaceholder": "Zoek een productcategorie",
                 "helperSelectedText": "geselecteerde categorieën",
                 "helperText": "Selecteer categorieën"
+            },
+            "privatePass": {
+                "warning": "Selecteer ten minste één afspraakkaart",
+                "helperAllSelectedText": "Alles afspraakkaarten",
+                "textFieldPlaceholder": "Vind een afspraakkaart",
+                "helperSelectedText": "Geselecteerde afspraakkaarten",
+                "helperText": "Kies een afspraakkaart"
             }
         },
         "modal": {
@@ -2539,6 +2562,51 @@
                 "pack": "Cursuskaart",
                 "shop": "Winkel",
                 "explanation": "Kocht de producten A en B"
+            },
+            "25": {
+                "third": "om",
+                "expiration": {
+                    "first_has_expire": "is verlopen",
+                    "first_will_expire": "verloopt op"
+                },
+                "date_bought": {
+                    "first": "Aankoopdatum"
+                },
+                "credits": {
+                    "second": "en",
+                    "first": "saldo:"
+                },
+                "second": "en",
+                "has_not": "Beschikt niet over",
+                "has": "Beschikt over",
+                "first": "een van de afspraakkaarten",
+                "name": "Afspraakkaarten",
+                "explanation": "U heeft afspraakkaart X voor Y gekocht. Uw overige krediet is Z"
+            },
+            "26": {
+                "hour": {
+                    "third": "uur",
+                    "first": "begint tussen"
+                },
+                "date": {
+                    "first": "vindt plaats op"
+                },
+                "coach": {
+                    "first": "met de leraren of leraressen"
+                },
+                "private_pass": {
+                    "first": "met afspraakkaarten"
+                },
+                "establishment": {
+                    "third": "thuis",
+                    "second": "of",
+                    "first": "in de vestigingen"
+                },
+                "between": "en",
+                "second": "afspraken",
+                "first": "gereserveerd",
+                "explanation": "Reservering X met leraar/lerares A in B met afspraakkaart C...",
+                "name": "Aantal afspraken"
             }
         },
         "mails": "Mails",
@@ -2700,7 +2768,10 @@
             "unselectAll": "Deselecteer alles",
             "selectAll": "Alles selecteren",
             "select": "Selecteer de te wijzigen sessies"
-        }
+        },
+        "close": "Sluiten",
+        "deleteImpossibleText": "U kunt deze sessie niet verwijderen, omdat er open reserveringen in staan",
+        "deleteImpossibleTitle": "Deze sessie kan niet verwijderd worden"
     },
     "emailTemplate": {
         "editTitle": "model bewerken",
@@ -2963,7 +3034,12 @@
                     "attendance": "Aanwezigheid n° {{notify_booking_nb}}",
                     "booking": "Reservering n° {{notify_booking_nb}}",
                     "after": "Melding {{hours}} uur na de sessie",
-                    "before": "Melding {{hours}} uur voor de sessie"
+                    "before": "Melding {{hours}} uur voor de sessie",
+                    "notRefunded": "Annuleringen na deadline {{notify_booking_nb}}",
+                    "cancelledDeprecated": "Aantal annuleringen {{notify_booking_nb}}",
+                    "bookingDeprecated": "Aantal reserveringen {{notify_booking_nb}}",
+                    "refunded": "Aantal terugbetaalde annuleringen {{notify_booking_nb}}",
+                    "absence": "Aantal afwezigen {{notify_booking_nb}}"
                 },
                 "cancel": "Annuleren",
                 "next": "volgende",
@@ -2972,7 +3048,10 @@
                     "cancellation": "zijn/haar annulering van de reservering n° {{notify_booking_nb}}",
                     "attendance": "zijn/haar aanwezigheid n° {{notify_booking_nb}}",
                     "booking": "zijn/haar reservering n° {{notify_booking_nb}}",
-                    "text": "Hulp: de melding wordt naar het lid gestuurd wanneer"
+                    "text": "Hulp: de melding wordt naar het lid gestuurd wanneer",
+                    "notRefunded": "Aantal annuleringen na deadline {{notify_booking_nb}}",
+                    "refunded": "Aantal terugbetaalde annuleringen {{notify_booking_nb}}",
+                    "absence": "Aantal afwezigen {{notify_booking_nb}}"
                 },
                 "choicesKind": {
                     "cancellation": "Annulering van een reservering door het lid",
@@ -2990,7 +3069,20 @@
                 "eventNb": "Breng het lid op de hoogte voor evenement n°:",
                 "settingTitle": "Instellingen",
                 "typeTitle": "Melding type",
-                "title": "Kennisgevingsformulier"
+                "title": "Kennisgevingsformulier",
+                "chooseKind": {
+                    "notRefunded": "Annuleringen na deadline",
+                    "refunded": "Annulering terugbetaald",
+                    "absence": "Afwezigheid van een lid bij een sessie",
+                    "attendance": "Aanwezigheid van lid bij een sessie",
+                    "title": "Mededeling met betrekking tot evenement"
+                },
+                "chooseStatus": {
+                    "cancelled": "Reservering door klant geannuleerd",
+                    "valid": "Geldige reservering",
+                    "title": "Kies het type reservering waar u meldingen van wilt ontvangen"
+                },
+                "explain": "U kunt uw klanten voor of na specifieke sessies contacteren aan de hand van verschillende criteria, waaronder het aantal deelnemers, het aantal afwezigen of annuleringen."
             },
             "addNotification": "Melding toevoegen"
         }
@@ -3445,7 +3537,13 @@
             "subscribedOn": "Abonnement gestart op {{- date}}"
         },
         "noAssociatedSubscription": "Geen abonnement geregistreerd",
-        "associatedSubscriptions": "Abonnementen verbonden aan dit contract"
+        "associatedSubscriptions": "Abonnementen verbonden aan dit contract",
+        "status": {
+            "hasEnded": "Afgelopen",
+            "hasStopped": "Gepauzeerd",
+            "hasNotStartedYet": "Inactief",
+            "hasStarted": "Actief"
+        }
     },
     "coachPerformance": {
         "dateTitle": "Datumbereik",
@@ -4470,7 +4568,8 @@
         "generalTermsAndConditions": {
             "theTermsAndConditions": "Algemene verkoopvoorwaarden",
             "iAccept": "Ik aanvaard ",
-            "close": "sluiten"
+            "close": "sluiten",
+            "generalTermsOfUse": " Servicevoorwaarden"
         },
         "paymentMethod": {
             "2": "Cheque",
@@ -4504,6 +4603,26 @@
             },
             "paymentIntent": {
                 "pay": "Betalen"
+            },
+            "paymentMethod": {
+                "actions": {
+                    "addPaymentMethod": "Betaalmethode toevoegen",
+                    "retry": "Opnieuw proberen",
+                    "collect": "Opslaan",
+                    "close": "Sluiten"
+                },
+                "collect": {
+                    "content": "Deze betaalmethode wordt in uw account conform het contract toegevoegd.",
+                    "title": "Voeg betaalmethode toe"
+                },
+                "message": {
+                    "error": "Deze betaalmethode kan niet worden toegevoegd",
+                    "success": "Betaalmethode succesvol opgeslagen!"
+                }
+            },
+            "savePaymentMethod": {
+                "section": "Mijn betaalmethoden ({{count}})",
+                "label": "Deze betaalmethode opslaan"
             }
         },
         "goBack": "Vorig",
@@ -5420,6 +5539,21 @@
                 "label": "Algemene verkoopvoorwaarden",
                 "helperText": "Moet worden geaccepteerd voor alle betalingen en registratie",
                 "placeholder": "Ik verklaar dat ik een medische verklaring heb en deze naar mijn atelier zal brengen"
+            },
+            "general_terms_of_use": {
+                "placeholder": "Ik bevestig dat ik 13 jaar of ouder ben",
+                "helperText": "Elke inschrijving behoort dit te accepteren",
+                "label": "Algemene gebruiksvoorwaarden"
+            },
+            "android_app_url": {
+                "label": "URL naar Android-app",
+                "placeholder": "https://play.google.com/store/apps/details?id=com.bsport",
+                "helperText": "Uw Android-app"
+            },
+            "ios_app_url": {
+                "helperText": "Uw iOS-app",
+                "placeholder": "https://apps.apple.com/nl/app/id1356621554",
+                "label": "URL naar iOS-app"
             }
         },
         "pageTitles": {
@@ -5728,7 +5862,8 @@
                 "paymentRules": "Remuneratieregels",
                 "notificationRule": "Transactionele e-mails",
                 "broadcast": "Videoconferentie",
-                "general": "Algemeen"
+                "general": "Algemeen",
+                "platform_billing": "bsport-abonnement"
             },
             "pass": "Cursuskaart",
             "goBack": "Terug",
@@ -5737,7 +5872,20 @@
             "payment": "Betalingen",
             "establishment": "Vestigingen",
             "member": "Leden",
-            "message": "Marketing"
+            "message": "Marketing",
+            "cashBook": {
+                "onSpotPaymentReport": "Toegang tot betalingsoverzicht",
+                "save": "Registreren",
+                "of": "van",
+                "amount": "Daginkomsten",
+                "lastUpdated": "Laatste wijziging op",
+                "expectedAmount": "Uw saldo zou het volgende moeten zijn: ",
+                "todayEndAmount": "Eindbedrag van vandaag",
+                "addAmount": "Bedrag dat aan het kasboek toegevoegd moet worden",
+                "todayStartAmount": "Beginbedrag in kasboek",
+                "cashDialogTitle": "Kasboeken",
+                "close": "Sluiten"
+            }
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -5764,6 +5912,52 @@
             "responsiveDisplay": "Responsive beeld",
             "calendarDisplay": "Visie weekkaart (kalender)",
             "listDisplay": "Overzicht weeklijst"
+        }
+    },
+    "platformBilling": {
+        "platformBillingPlan": {
+            "max_coach": {
+                "help": "Een leraar of lerares wordt na 8 maandelijkse sessies uitbetaald",
+                "label": "Tot {{max_coach}} leraren en leraressen"
+            },
+            "max_establishment": {
+                "help": "Een vestiging wordt na 8 maandelijkse sessies uitbetaald",
+                "label": "Tot {{max_establishment}} vestigingen"
+            }
+        },
+        "featureRequest": {
+            "close": "Sluiten",
+            "content": "We hebben uw bericht ontvangen, hartelijk voor uw interesse! Uw accountbeheerder zal u zo spoedig mogelijk contacteren.",
+            "title": "Add-On"
+        },
+        "platformBillingStage": {
+            "maxBooking": "Tot {{max_booking_per_month}} reserveringen / maand",
+            "monthlyPrice": "{{price}} € / maand"
+        },
+        "platformBillingGroup": {
+            "soonAvailable": "Binnenkort beschikbaar!"
+        },
+        "upsellPackage": {
+            "vod": {
+                "explainBilling": "  + 1 € / actieve klant"
+            },
+            "otherAddonTitle": "Beschikbare Add-Ons",
+            "myAddonTitle": "Mijn Add-Ons",
+            "knowMore": "Meer informatie",
+            "billRecurrent": "{{price_cts}}  € / maand",
+            "billOnce": "€ {{price_cts }}"
+        },
+        "paymentMethod": {
+            "actions": {
+                "createCard": "Voeg een creditcard toe",
+                "createSepa": "Voeg uw IBAN toe"
+            },
+            "sectionTitle": "Betaalmethoden"
+        },
+        "platformInvoice": {
+            "noInvoice": "Geen facturen",
+            "sectionTitle": "Mijn facturen",
+            "label": "Factuur {{month}} / {{year}}"
         }
     }
 }

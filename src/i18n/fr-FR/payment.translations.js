@@ -110,6 +110,8 @@ exports.default = {
         label: 'Identifiant bancaire (IBAN)',
         placeholder: 'FR89370400440532013000',
       },
+      unknownCountry:
+        'Opération manuelle pour ce pays, veuillez contacter bsport via contact@bsport.io',
       actions: {
         cancel: 'Annuler',
         submit: 'Confirmer',

@@ -3310,6 +3310,11 @@
                 "placeholder": "https://apps.apple.com/en/app/id1356621554",
                 "helperText": "Your iOS App",
                 "label": "iOS App URL"
+            },
+            "general_terms_of_use": {
+                "placeholder": "I certify that I'm over the age of 13",
+                "helperText": "Must be accepted for any registration",
+                "label": "General terms of use"
             }
         },
         "general_terms_and_conditions": {
@@ -3888,6 +3893,15 @@
                 "october": "October",
                 "november": "November",
                 "december": "December"
+            },
+            "weekdayNumber": {
+                "6": "Sunday",
+                "5": "Saturday",
+                "4": "Friday",
+                "3": "Thursday",
+                "2": "Wednesday",
+                "1": "Tuesday",
+                "0": "Monday"
             }
         },
         "form": {
@@ -4072,7 +4086,8 @@
         "generalTermsAndConditions": {
             "iAccept": "I accept the ",
             "theTermsAndConditions": "general terms and conditions.",
-            "close": "Close"
+            "close": "Close",
+            "generalTermsOfUse": " General terms of use"
         },
         "paymentComboSectionTitle": "Pack",
         "paymentMethod": {
@@ -5621,6 +5636,46 @@
                 "title": "Notification form"
             },
             "addNotification": "Add a notification"
+        },
+        "recurrenceRule": {
+            "actions": {
+                "save": "Save",
+                "close": "Close"
+            },
+            "form": {
+                "delayWeek": {
+                    "helperText": "Indicate how many weeks in advance the member will be registered",
+                    "label": "Number of weeks"
+                },
+                "metaActivity": {
+                    "helperText": "Activity",
+                    "label": "Activity"
+                },
+                "minute": {
+                    "label": "minute"
+                },
+                "hour": {
+                    "label": "hour"
+                },
+                "dayOfWeek": {
+                    "label": "Day of the week"
+                },
+                "at": " at ",
+                "timeGroup": "Date of the session",
+                "title": "Schedule a recurrence"
+            },
+            "recurrentRuleBooking": "Recurrent booking",
+            "item": {
+                "explain": "All the {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}} weeks before"
+            },
+            "needConsumerPack": "This member does not have a compatible class pass, it is impossible to schedule a recurrence",
+            "recurrentBookings": "Recurrent bookings",
+            "deleteModal": {
+                "content": "Deleting the recurrence rule will result in the cancelation of future reservations that used this rule.",
+                "title": "Delete recurrence rule",
+                "cancel": "Cancel",
+                "confirm": "Delete"
+            }
         }
     },
     "marketplace": {

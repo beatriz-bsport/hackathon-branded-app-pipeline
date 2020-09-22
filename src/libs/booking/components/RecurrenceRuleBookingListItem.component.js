@@ -8,11 +8,21 @@ import Avatar from '@material-ui/core/Avatar';
 import { IconButton, Typography } from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import withConfirm from '../../../hocs/with-confirm.hoc';
 
 type Props = {
   recurrenceRuleBooking: Array,
   onDelete: (id: number) => void,
 };
+
+const IconButtonWithConfirm = withConfirm(IconButton, 'onClick', {
+  title: 'booking:recurrenceRule.deleteModal.title',
+  cancel: 'booking:recurrenceRule.deleteModal.cancel',
+  confirm: 'booking:recurrenceRule.deleteModal.confirm',
+  Content: ({ t }: { t: TFunction }) => (
+    <p>{t('booking:recurrenceRule.deleteModal.content')}</p>
+  ),
+});
 
 export const RecurrenceRuleBookingListItem = (props: Props) => {
   const { t } = useTranslation(['booking', 'datetime']);
@@ -30,9 +40,11 @@ export const RecurrenceRuleBookingListItem = (props: Props) => {
         primaryTypographyProps={{ variant: 'body2' }}
         secondary={
           <div>
-            <Typography variant="body2">
-              {meta_activity ? meta_activity.name : ' - '}
-            </Typography>
+            {!!meta_activity && (
+              <Typography color="primary" variant="body2">
+                {meta_activity.name}
+              </Typography>
+            )}
             <Typography variant="body2">
               {t('booking:recurrenceRule.item.explain', {
                 dayOfWeek: t(
@@ -47,9 +59,11 @@ export const RecurrenceRuleBookingListItem = (props: Props) => {
         }
       />
       <ListItemSecondaryAction>
-        <IconButton onClick={() => onDelete(recurrenceRuleBooking.id)}>
+        <IconButtonWithConfirm
+          onClick={() => onDelete(recurrenceRuleBooking.id)}
+        >
           <CancelIcon />
-        </IconButton>
+        </IconButtonWithConfirm>
       </ListItemSecondaryAction>
     </ListItem>
   );

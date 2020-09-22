@@ -62,6 +62,7 @@ import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/se
 
 import {
   fetchFilteredMembers as fetchFilteredMembersAction,
+  fetchMemberBulk as fetchMemberBulkAction,
   refreshFilteredMembers as refreshFilteredMembersAction,
   fetchMember as fetchMemberAction,
   createOrUpdateMember,
@@ -167,6 +168,7 @@ export default compose(
       fetchMember: fetchMemberAction,
       refreshFilteredMembers: refreshFilteredMembersAction,
       fetchFilteredMembers: fetchFilteredMembersAction,
+      fetchMemberBulk: fetchMemberBulkAction,
       searchMembers: (txt) => searchMembersAction(txt),
       mailMembers: mailMembersAction,
 
@@ -250,6 +252,7 @@ export default compose(
       retrieveConsumerPackBulk,
       fetchCompatiblePacks,
       fetchFilteredMembers,
+      fetchMemberBulk,
       offerId,
     }) => (ordering_field) => {
       fetchOffer(offerId);
@@ -272,7 +275,7 @@ export default compose(
         {
           onSuccess: (recurrenceRuleList) => {
             if (recurrenceRuleList.length) {
-              fetchFilteredMembers({
+              fetchMemberBulk({
                 id__in: recurrenceRuleList.map((nr) => nr.member),
               });
             }

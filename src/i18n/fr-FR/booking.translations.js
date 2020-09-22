@@ -4,6 +4,13 @@ exports.default = {
     unregister: 'Désinscrire',
   },
   recurrenceRule: {
+    deleteModal: {
+      confirm: 'Supprimer',
+      cancel: 'Annuler',
+      content:
+        "Supprimer la règle de récurrence entrainera l'annulation des réservations futures effectuées via cette règle.",
+      title: 'Suppression règle de récurrence',
+    },
     recurrentBookings: 'Réservations récurrentes',
     needConsumerPack:
       'Ce membre ne possède aucune carte de cours compatible, impossible de programmer une récurrence',

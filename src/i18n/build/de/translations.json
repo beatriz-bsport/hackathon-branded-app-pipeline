@@ -1842,11 +1842,13 @@
             },
             "android_app_url": {
                 "helperText": "Ihre Android-App",
-                "label": "URL der Android-App"
+                "label": "URL der Android-App",
+                "placeholder": "https://play.google.com/store/apps/details?id=com.bsport"
             },
             "ios_app_url": {
                 "helperText": "Ihre iOS-App",
-                "label": "URL der iOS-App"
+                "label": "URL der iOS-App",
+                "placeholder": "https://apps.apple.com/de/app/id1356621554"
             },
             "general_terms_of_use": {
                 "placeholder": "Ich bestätige, dass ich über 13 Jahre alt bin",
@@ -3223,6 +3225,15 @@
                 "september": "September",
                 "october": "Oktober",
                 "november": "November"
+            },
+            "weekdayNumber": {
+                "6": "Sonntag",
+                "5": "Samstag",
+                "4": "Freitag",
+                "3": "Donnerstag",
+                "2": "Mittwoch",
+                "1": "Dienstag",
+                "0": "Montag"
             }
         },
         "shortHourIdentifier": "Std.",
@@ -3431,6 +3442,12 @@
                 "title": "Benachrichtigung-Formular"
             },
             "addNotification": "Eine Benachrichtigung hinzufügen"
+        },
+        "recurrenceRule": {
+            "deleteModal": {
+                "cancel": "Stornieren",
+                "confirm": "Löschen"
+            }
         }
     },
     "member": {

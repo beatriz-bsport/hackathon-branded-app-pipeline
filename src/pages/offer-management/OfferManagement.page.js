@@ -37,6 +37,10 @@ import {
   cancelBooking as cancelBookingAction,
   confirmAttendance as confirmBookingAttendanceAction,
   discardAttendance as discardBookingAttendanceAction,
+  fetchRecurrenceRuleBooking as fetchRecurrenceRuleBookingAction,
+  createRecurrenceRuleBooking,
+  deleteRecurrenceRuleBooking,
+  updateRecurrenceRuleBooking,
 } from '../../libs/booking/actions';
 import {
   discardBookingOption as discardBookingOptionAction,
@@ -44,7 +48,10 @@ import {
   fetchByOffer as fetchBookingOptionByOfferAction,
 } from '../../libs/waiting-list/actions';
 import { getPermissions } from '../../libs/role/selectors';
-import { getOfferBookingListWithConsumerPack } from '../../libs/booking/selectors';
+import {
+  getOfferBookingListWithConsumerPack,
+  getRecurrenceRuleBookingList,
+} from '../../libs/booking/selectors';
 import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '../../libs/consumer-payment-pack/actions';
 
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
@@ -114,6 +121,7 @@ export default compose(
       bookings: getOfferBookingListWithConsumerPack(state),
       bookingLoading: state.booking.loading,
       bookingOptionsPending: state.waitingList.option.items,
+      recurrenceRuleBooking: getRecurrenceRuleBookingList(state),
       // invoice
       unevenSavedInvoices: withMember(withInvoiceItem(getQuickInvoiceList))(
         state,
@@ -143,6 +151,10 @@ export default compose(
       refreshBookingsByOffer: refreshBookingsByOfferAction,
       retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
       fetchCompatiblePacks: fetchCompatiblePacksAction,
+      fetchRecurrenceRuleBooking: fetchRecurrenceRuleBookingAction,
+      createRecurrenceRuleBooking,
+      deleteRecurrenceRuleBooking,
+      updateRecurrenceRuleBooking,
 
       // modify booking
       registerBooking: registerBookingAction,
@@ -233,6 +245,7 @@ export default compose(
     fetchOfferData: ({
       fetchOffer,
       fetchBookingsByOffer,
+      fetchRecurrenceRuleBooking,
       fetchBookingOptionByOffer,
       retrieveConsumerPackBulk,
       fetchCompatiblePacks,
@@ -254,6 +267,18 @@ export default compose(
       fetchFilteredMembers({ offer: offerId, withNotes: true });
       fetchBookingOptionByOffer(offerId);
       fetchCompatiblePacks(offerId);
+      fetchRecurrenceRuleBooking(
+        { offer: offerId },
+        {
+          onSuccess: (recurrenceRuleList) => {
+            if (recurrenceRuleList.length) {
+              fetchFilteredMembers({
+                id__in: recurrenceRuleList.map((nr) => nr.member),
+              });
+            }
+          },
+        },
+      );
     },
     switchWaitingListFreeze: ({
       toogleWaitingListFreeze,

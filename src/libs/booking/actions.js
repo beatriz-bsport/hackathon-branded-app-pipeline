@@ -18,6 +18,10 @@ import {
   createFirstTimeNotifications as createFirstTimeNotificationsAPI,
   deleteFirstTimeNotifications as deleteFirstTimeNotificationsAPI,
   updateFirstTimeNotifications as updateFirstTimeNotificationsAPI,
+  fetchRecurrenceRuleBookingList as fetchRecurrenceRuleBookingListAPI,
+  createRecurrenceRuleBooking as createRecurrenceRuleBookingAPI,
+  deleteRecurrenceRuleBooking as deleteRecurrenceRuleBookingAPI,
+  updateRecurrenceRuleBooking as updateRecurrenceRuleBookingAPI,
 } from './api';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 
@@ -480,5 +484,118 @@ export function updateFirstTimeNotification(
       if (options && options.onError) options.onError();
     }
     dispatch(notificationUpdateActions.isLoading(null));
+  };
+}
+
+export const listRecurrenceRuleBookingActions = {
+  isLoading: createAction('RECURENCE_RULE_BOOKING/LIST/IS_LOADING'),
+  error: createAction('RECURENCE_RULE_BOOKING/LIST/ERROR'),
+  success: createAction('RECURENCE_RULE_BOOKING/LIST/SUCCESS'),
+};
+
+export function fetchRecurrenceRuleBooking(
+  params: any = {},
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listRecurrenceRuleBookingActions.isLoading(true));
+    dispatch(listRecurrenceRuleBookingActions.error(null));
+    try {
+      const response = await fetchRecurrenceRuleBookingListAPI(params);
+      dispatch(listRecurrenceRuleBookingActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(listRecurrenceRuleBookingActions.error(error));
+
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(listRecurrenceRuleBookingActions.isLoading(false));
+  };
+}
+
+export const createRecurrenceRuleBookingActions = {
+  isLoading: createAction('RECURENCE_RULE_BOOKING/CREATE/IS_LOADING'),
+  error: createAction('RECURENCE_RULE_BOOKING/CREATE/ERROR'),
+  success: createAction('RECURENCE_RULE_BOOKING/CREATE/SUCCESS'),
+};
+
+export function createRecurrenceRuleBooking(data: *, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createRecurrenceRuleBookingActions.isLoading(true));
+    dispatch(createRecurrenceRuleBookingActions.error(null));
+    try {
+      const response = await createRecurrenceRuleBookingAPI(data);
+      dispatch(createRecurrenceRuleBookingActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(createRecurrenceRuleBookingActions.error(error));
+
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(createRecurrenceRuleBookingActions.isLoading(false));
+  };
+}
+
+export const deleteRecurrenceRuleBookingActions = {
+  isLoading: createAction('RECURENCE_RULE_BOOKING/DELETE/IS_LOADING'),
+  error: createAction('RECURENCE_RULE_BOOKING/DELETE/ERROR'),
+  success: createAction('RECURENCE_RULE_BOOKING/DELETE/SUCCESS'),
+};
+
+export function deleteRecurrenceRuleBooking(
+  id: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteRecurrenceRuleBookingActions.isLoading(true));
+    dispatch(deleteRecurrenceRuleBookingActions.error(null));
+    try {
+      const response = await deleteRecurrenceRuleBookingAPI(id);
+      dispatch(deleteRecurrenceRuleBookingActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(deleteRecurrenceRuleBookingActions.error(error));
+
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(deleteRecurrenceRuleBookingActions.isLoading(false));
+  };
+}
+export const updateRecurrenceRuleBookingActions = {
+  isLoading: createAction('RECURENCE_RULE_BOOKING/DELETE/IS_LOADING'),
+  error: createAction('RECURENCE_RULE_BOOKING/DELETE/ERROR'),
+  success: createAction('RECURENCE_RULE_BOOKING/DELETE/SUCCESS'),
+};
+
+export function updateRecurrenceRuleBooking(data: *, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateRecurrenceRuleBookingActions.isLoading(true));
+    dispatch(updateRecurrenceRuleBookingActions.error(null));
+    try {
+      const response = await updateRecurrenceRuleBookingAPI(data);
+      dispatch(updateRecurrenceRuleBookingActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(updateRecurrenceRuleBookingActions.error(error));
+
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(updateRecurrenceRuleBookingActions.isLoading(false));
   };
 }

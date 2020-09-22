@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import { Prompt } from 'react-router-dom';
+import moment from 'moment-timezone';
 
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Grid from '@material-ui/core/Grid';
@@ -26,6 +27,7 @@ import DiscardBookingOptionDialog from '../../libs/waiting-list/components/Disca
 import BookingManagement from './BookingManagement.component';
 import OfferNavigationHeader from './OfferNavigationHeader.component';
 import OfferBroadcastHelper from './OfferBroadcastHelper.component';
+import RecurrenceRuleBookingFormDialog from '../../libs/booking/components/RecurrenceRuleBookingFormDialog.component';
 
 import type { PaymentPack } from '../../libs/payment-packs/types';
 import type { Booking, BookingOption } from '../../libs/booking/types';
@@ -129,6 +131,12 @@ type Props = {
 
   openCommunicationDialog: () => void,
   closeCommunicationDialog: () => void,
+  deleteRecurrenceRuleBooking: () => void,
+  createRecurrenceRuleBooking: () => void,
+  deleteRecurrenceRuleBooking: (id: number) => void,
+  setBookerInAvanceDialog: () => void,
+  bookerInAvanceDialog: boolean,
+  recurrenceRuleBooking: Array,
 };
 
 type State = {
@@ -353,6 +361,41 @@ export class OfferManagement extends Component<Props, State> {
     }
     return (
       <Grid container direction="row" spacing={2}>
+        {!!this.props.offer && this.props.bookerInAvanceDialog && (
+          <RecurrenceRuleBookingFormDialog
+            offerSet
+            refresh={() => {
+              this.props.fetchOfferData(this.props.booking_ordering);
+              this.props.clearSearch();
+              this.props.setMemberToRegister(null);
+              this.props.setBookerInAvanceDialog(false);
+            }}
+            onClose={() => this.props.setBookerInAvanceDialog(false)}
+            initial={{
+              meta_activity: {
+                id: this.props.offer.meta_activity_id,
+                name: this.props.offer.name,
+              },
+              hour: moment(this.props.offer.date_start).hours(),
+              minute: moment(this.props.offer.date_start).minutes(),
+              day_of_week: moment().isoWeekday() - 1,
+            }}
+            metaActivityList={[
+              {
+                id: this.props.offer.meta_activity_id,
+                name: this.props.offer.name,
+              },
+            ]}
+            onSubmit={(data, options) => {
+              if (this.props.memberToRegister) {
+                this.props.createRecurrenceRuleBooking(
+                  { ...data, member: this.props.memberToRegister.id },
+                  options,
+                );
+              }
+            }}
+          />
+        )}
         <Grid item xs={12}>
           <OfferNavigationHeader
             goToOffer={this.props.goToOffer}
@@ -401,6 +444,16 @@ export class OfferManagement extends Component<Props, State> {
             registerOption={this.props.registerOption}
             discardOption={this.props.discardOption}
             switchWaitingListFreeze={this.props.switchWaitingListFreeze}
+            recurrenceRuleBookingList={this.props.recurrenceRuleBooking}
+            onDeleteRecurrenceRuleBooking={(id) => {
+              this.props.deleteRecurrenceRuleBooking(id, {
+                onSuccess: () => {
+                  this.props.fetchOfferData(this.props.booking_ordering);
+                  this.props.clearSearch();
+                  this.props.setBookerInAvanceDialog(false);
+                },
+              });
+            }}
           />
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -433,6 +486,7 @@ export class OfferManagement extends Component<Props, State> {
             onCancel={() => this.props.setMemberToRegister(null)}
             onClose={() => this.props.setMemberToRegister(null)}
             registerToOffer={this.registerToOffer}
+            setBookerInAvanceDialog={this.props.setBookerInAvanceDialog}
           />
         )}
         <Dialog
@@ -451,7 +505,6 @@ export class OfferManagement extends Component<Props, State> {
             />
           </DialogContent>
         </Dialog>
-
         <RevertBookingDialog
           handleBookingDeletion={this.handleBookingDeletion}
           bookingToRevert={this.props.bookingToRevert}
@@ -532,6 +585,7 @@ export default compose(
       closeRevertBookingDialog: () => () => ({ bookingToRevert: null }),
     },
   ),
+  withState('bookerInAvanceDialog', 'setBookerInAvanceDialog', false),
   withState('memberToRegister', 'setMemberToRegister', null),
   withState('voucher', 'setVoucher', 0),
   withStateHandlers(

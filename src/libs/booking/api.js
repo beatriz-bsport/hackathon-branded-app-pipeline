@@ -73,3 +73,24 @@ export async function deleteFirstTimeNotifications(id: number) {
 export async function updateFirstTimeNotifications(data: any) {
   return patchAuth(`${API_V1_URI}/booking/notification/${data.id}/`, data);
 }
+
+export async function fetchRecurrenceRuleBookingList(params: any = {}) {
+  return getAuth(
+    `${API_V1_URI}/booking/recurrence_rule_booking/${buildUrlParams(params)}`,
+  );
+}
+
+export async function createRecurrenceRuleBooking(data: *) {
+  return postAuth(`${API_V1_URI}/booking/recurrence_rule_booking/`, data);
+}
+
+export async function deleteRecurrenceRuleBooking(id: number) {
+  return deleteAuth(`${API_V1_URI}/booking/recurrence_rule_booking/${id}/`);
+}
+
+export async function updateRecurrenceRuleBooking(data: *) {
+  return patchAuth(
+    `${API_V1_URI}/booking/recurrence_rule_booking/${data.id}/`,
+    data,
+  );
+}

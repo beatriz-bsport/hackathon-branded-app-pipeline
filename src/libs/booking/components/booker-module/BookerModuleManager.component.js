@@ -9,6 +9,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withState, withHandlers, withProps } from 'recompose';
 import Divider from '@material-ui/core/Divider';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -16,6 +17,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
 
 import { Avatar } from '../../../../components';
+import Tooltip from '../../../../components/Tooltip.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 import ConsumerPackRowItem from '../../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 
@@ -79,6 +81,7 @@ type Props = {
   fullScreen: boolean,
   onClose: () => void,
   classes: Object,
+  setBookerInAvanceDialog: () => void,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -181,6 +184,26 @@ export class BookingModuleManager extends PureComponent<Props> {
                 consumerPack={this.props.registererObject.consumerPaymentPack}
               />
             )}
+            <div className={this.props.classes.bookButtonWideContainer}>
+              <Button
+                className={this.props.classes.bookButtonWide}
+                disabled={
+                  !this.props.consumerPacks ||
+                  this.props.consumerPacks.length === 0
+                }
+                variant="outlined"
+                onClick={() => this.props.setBookerInAvanceDialog(true)}
+              >
+                {t('booking:recurrenceRule.recurrentRuleBooking')}
+              </Button>
+              {(!this.props.consumerPacks ||
+                this.props.consumerPacks.length === 0) && (
+                <Tooltip title={t('booking:recurrenceRule.needConsumerPack')}>
+                  <InfoOutlinedIcon className={this.props.classes.icon} />
+                </Tooltip>
+              )}
+            </div>
+
             {!!this.props.registererObject.paymentPack && (
               <PaymentPackListItem
                 showDuration
@@ -234,6 +257,19 @@ const styles = (theme) => ({
     '&>*': {
       marginBottom: theme.spacing(2),
     },
+  },
+  bookButtonWideContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'noWrap',
+  },
+  bookButtonWide: {
+    width: '100%',
+  },
+  icon: {
+    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(2),
   },
 });
 

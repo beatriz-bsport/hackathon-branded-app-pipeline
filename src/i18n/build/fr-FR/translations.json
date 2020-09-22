@@ -2316,6 +2316,7 @@
         "friday": "Vendredi",
         "satursday": "Samedi"
       },
+      "weekdayNumber": { "0": "Lundi", "1": "Mardi", "2": "Mercredi", "3": "Jeudi", "4": "Vendredi", "5": "Samedi", "6": "Dimanche" },
       "monthShort": {
         "january": "Jan",
         "february": "Fév",
@@ -3729,6 +3730,24 @@
   },
   "booking": {
     "actions": { "bill": "Facturer", "unregister": "Désinscrire" },
+    "recurrenceRule": {
+      "recurrentBookings": "Réservations récurrentes",
+      "needConsumerPack": "Ce membre ne possède aucune carte de cours compatible, impossible de programmer une récurrence",
+      "item": { "explain": "Tous les {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}} semaines avant" },
+      "recurrentRuleBooking": "Réservation récurrente",
+      "form": {
+        "title": "Programmer une récurrence",
+        "timeGroup": "Date de la séance",
+        "at": " à ",
+        "dayOfWeek": { "label": "Jour de la semaine" },
+        "hour": { "label": "heure" },
+        "minute": { "label": "minute" },
+        "metaActivity": { "label": "Activité", "helperText": "Activité" },
+        "delayWeek": { "label": "Nombre de semaines", "helperText": "Indique combien de semaine en avance le membre sera inscrit" }
+      },
+      "actions": { "close": "Fermer", "save": "Enregistrer" },
+      "explain": "Le membre sera toujours inscrit {{ delayWeek }} semaines en avance aux cours du {{ dayOfWeek}} à {{hour}}:{{minute}}. Il ne sera inscrit que s'il possède une carte de cours valide."
+    },
     "filters": {
       "all": "Toutes les réservations",
       "present": "Présent",

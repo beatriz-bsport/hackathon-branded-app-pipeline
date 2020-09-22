@@ -75,21 +75,30 @@ const metaActivityStyles = {
 };
 
 export default withTranslation(['metaActivity'])(
-  ({ t, metaActivities, noMulti, selectOption, closeMenuOnSelect, selectedMetaActivities }) => (
+  ({
+    t,
+    metaActivities,
+    noMulti,
+    disabled,
+    selectOption,
+    closeMenuOnSelect,
+    selectedMetaActivities,
+  }) => (
     <div style={{ zIndex: 9999 }}>
       <Select
         closeMenuOnSelect={closeMenuOnSelect}
         isMulti={!noMulti}
         placeholder={t('metaActivity')}
         onChange={selectOption}
+        isDisabled={disabled}
         options={getMetaActivityOptions([...metaActivities])}
         value={
           selectedMetaActivities
-            ? getMetaActivityOptions(
-                metaActivities
-                  .filter((ma) => selectedMetaActivities.includes(ma.id))
-                  .asMutable(),
-              )
+            ? getMetaActivityOptions([
+                ...metaActivities.filter((ma) =>
+                  selectedMetaActivities.includes(ma.id),
+                ),
+              ])
             : undefined
         }
         styles={metaActivityStyles}

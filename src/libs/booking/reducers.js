@@ -17,6 +17,10 @@ import {
   notificationCreateActions,
   notificationDeleteActions,
   notificationUpdateActions,
+  listRecurrenceRuleBookingActions,
+  createRecurrenceRuleBookingActions,
+  updateRecurrenceRuleBookingActions,
+  deleteRecurrenceRuleBookingActions,
 } from './actions';
 import type { BookingsState } from './types';
 
@@ -86,6 +90,20 @@ const initialState: BookingsState = Immutable({
       error: null,
     },
   },
+  recurrenceRule: {
+    byId: {},
+    allIds: [],
+    loading: false,
+    error: null,
+    delete: {
+      error: null,
+      loading: false,
+    },
+    edit: {
+      loading: false,
+      error: null,
+    },
+  },
 });
 
 export default handleActions(
@@ -118,7 +136,10 @@ export default handleActions(
       return state
         .setIn(['asConsumer', 'page'], payload.page)
         .setIn(['asConsumer', 'count'], payload.count)
-        .setIn(['asConsumer', 'allIds'], payload.results.map((b) => b.id))
+        .setIn(
+          ['asConsumer', 'allIds'],
+          payload.results.map((b) => b.id),
+        )
         .merge(
           {
             byId: payload.results.reduce((acc, ps) => {
@@ -139,7 +160,10 @@ export default handleActions(
       return state
         .setIn(['byMember', 'page'], payload.page)
         .setIn(['byMember', 'count'], payload.count)
-        .setIn(['byMember', 'allIds'], payload.results.map((b) => b.id))
+        .setIn(
+          ['byMember', 'allIds'],
+          payload.results.map((b) => b.id),
+        )
         .merge(
           {
             byId: payload.results.reduce((acc, ps) => {
@@ -160,7 +184,10 @@ export default handleActions(
       return state
         .setIn(['byConsumerPack', 'page'], payload.page)
         .setIn(['byConsumerPack', 'count'], payload.count)
-        .setIn(['byConsumerPack', 'allIds'], payload.results.map((b) => b.id))
+        .setIn(
+          ['byConsumerPack', 'allIds'],
+          payload.results.map((b) => b.id),
+        )
         .merge(
           {
             byId: payload.results.reduce((acc, ps) => {
@@ -184,7 +211,10 @@ export default handleActions(
       return state
         .setIn(['byOffer', 'page'], payload.page)
         .setIn(['byOffer', 'count'], payload.count)
-        .setIn(['byOffer', 'allIds'], payload.results.map((b) => b.id))
+        .setIn(
+          ['byOffer', 'allIds'],
+          payload.results.map((b) => b.id),
+        )
         .merge(
           {
             byId: payload.results.reduce((acc, ps) => {
@@ -273,7 +303,10 @@ export default handleActions(
       const items = { ...state.notification.itemsById };
       const ids = [...state.notification.allIds];
       delete items[payload];
-      ids.splice(ids.findIndex((id) => id === payload), 1);
+      ids.splice(
+        ids.findIndex((id) => id === payload),
+        1,
+      );
       return state
         .setIn(['notification', 'itemsById'], items)
         .setIn(['notification', 'allIds'], ids);
@@ -289,6 +322,50 @@ export default handleActions(
         { notification: { itemsById: { [payload.id]: payload } } },
         { deep: true },
       );
+    },
+    [createRecurrenceRuleBookingActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['recurrenceRule', 'byId', payload.id], payload)
+        .setIn(
+          ['recurrenceRule', 'allIds'],
+          [...state.recurrenceRule.allIds, payload.id],
+        );
+    },
+    [updateRecurrenceRuleBookingActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['recurrenceRule', 'edit', 'loading'], payload);
+    },
+    [updateRecurrenceRuleBookingActions.error]: (state, { payload }) => {
+      return state.setIn(['recurrenceRule', 'edit', 'error'], payload);
+    },
+    [deleteRecurrenceRuleBookingActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['recurrenceRule', 'delete', 'loading'], payload);
+    },
+    [deleteRecurrenceRuleBookingActions.error]: (state, { payload }) => {
+      return state.setIn(['recurrenceRule', 'delete', 'error'], payload);
+    },
+    [listRecurrenceRuleBookingActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['recurrenceRule', 'loading'], payload);
+    },
+    [listRecurrenceRuleBookingActions.error]: (state, { payload }) => {
+      return state.setIn(['recurrenceRule', 'error'], payload);
+    },
+    [listRecurrenceRuleBookingActions.success]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['recurrenceRule', 'allIds'],
+          payload.results.map((rb) => rb.id),
+        )
+        .merge(
+          {
+            recurrenceRule: {
+              byId: payload.results.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
     },
   },
   initialState,

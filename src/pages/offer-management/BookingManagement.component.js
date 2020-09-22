@@ -34,6 +34,7 @@ import SearchMember from './SearchMember.component';
 import WaitingListControlHeader from './WaitingListControlHeader.component';
 
 import BookingTable from '../../libs/booking/components/BookingTable.component';
+import RecurrenceRuleBookingListItem from '../../libs/booking/components/RecurrenceRuleBookingListItem.component';
 import BookingOptionForManager from '../../libs/waiting-list/components/BookingOptionForManager.component';
 
 import type { Booking, BookingOption } from '../../libs/booking/types';
@@ -88,6 +89,8 @@ type Props = {
   registerToWaitingList: (offerId: number, memberId: number) => void,
   members: Array<Member>,
   switchWaitingListFreeze: (offerId: number, freezeStatus: boolean) => void,
+  recurrenceRuleBookingList: Array,
+  onDeleteRecurrenceRuleBooking: (id: number) => void,
 };
 
 type State = {
@@ -364,6 +367,27 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                   />
                 ))}
               </List>
+              {!!this.props.recurrenceRuleBookingList.length && (
+                <div>
+                  <div className={classes.containerRecurrentBooking}>
+                    <div className={classes.titleRecurrenceRule}>
+                      <Typography variant="caption">
+                        {t('booking:recurrenceRule.recurrentBookings')}
+                      </Typography>
+                    </div>
+                    <Divider />
+                    <List disablePadding>
+                      {this.props.recurrenceRuleBookingList.map((r) => (
+                        <RecurrenceRuleBookingListItem
+                          key={r.id}
+                          recurrenceRuleBooking={r}
+                          onDelete={this.props.onDeleteRecurrenceRuleBooking}
+                        />
+                      ))}
+                    </List>
+                  </div>
+                </div>
+              )}
             </div>
           </Paper>
         )}
@@ -372,6 +396,24 @@ export class BookingManagement extends React.PureComponent<Props, State> {
   }
 }
 const styles = (theme) => ({
+  containerRecurrentBooking: {
+    width: '100%',
+  },
+  titleRecurrenceRule: {
+    background: '#F8F8F8',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: theme.spacing(1),
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: theme.spacing(1),
+  },
   container: {
     width: '100%',
   },

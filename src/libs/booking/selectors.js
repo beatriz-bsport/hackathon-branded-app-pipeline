@@ -10,6 +10,8 @@ import {
   withCoach,
   withEstablishment,
 } from '../offer/selectors';
+import { getMemberListData } from '../member/selectors';
+import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
 
 const _getData = (state: State) => state.booking.byId;
 
@@ -135,4 +137,26 @@ export const withBookingNotifications = memoize((selector) =>
           ),
         })),
   ),
+);
+
+const _getRecurrenceRuleBookingData = (state) =>
+  state.booking.recurrenceRule.byId;
+const _getRecurrenceRuleBookingListIds = (state) =>
+  state.booking.recurrenceRule.allIds;
+
+export const getRecurrenceRuleBookingList = createSelector(
+  [
+    _getRecurrenceRuleBookingListIds,
+    _getRecurrenceRuleBookingData,
+    getMemberListData,
+    getMetaActivityData,
+  ],
+  (ids, data, memberData, metaActivityData) =>
+    ids
+      .map((id) => data[id])
+      .map((rb) => ({
+        ...rb,
+        meta_activity: metaActivityData[rb.meta_activity],
+        member: memberData[rb.member],
+      })),
 );

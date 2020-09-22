@@ -3085,6 +3085,15 @@
                 "explain": "U kunt uw klanten voor of na specifieke sessies contacteren aan de hand van verschillende criteria, waaronder het aantal deelnemers, het aantal afwezigen of annuleringen."
             },
             "addNotification": "Melding toevoegen"
+        },
+        "recurrenceRule": {
+            "form": {
+                "title": "Plan een herhalende reservering"
+            },
+            "deleteModal": {
+                "cancel": "Annuleren",
+                "confirm": "Verwijderen"
+            }
         }
     },
     "marketplace": {
@@ -4461,6 +4470,15 @@
                 "december": "December",
                 "february": "Februari",
                 "march": "Maart"
+            },
+            "weekdayNumber": {
+                "6": "Zondag",
+                "5": "Zaterdag",
+                "4": "Vrijdag",
+                "3": "Donderdag",
+                "2": "Woensdag",
+                "1": "Dinsdag",
+                "0": "Maandag"
             }
         },
         "shortDayIdentifier": "j"

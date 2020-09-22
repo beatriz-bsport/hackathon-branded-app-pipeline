@@ -2500,6 +2500,7 @@
       "10": "Paiement automatique",
       "11": "Divers",
       "12": "Litige",
+      "13": "SEPA",
       "label": "Moyen de paiement"
     },
     "actions": { "addThisPaymentItem": "Ajouter ce moyen de paiement" },

@@ -19,6 +19,7 @@ import UndoIcon from '@material-ui/icons/Undo';
 import PAYMENT_METHODS, {
   SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
   DISPUTE as PAYMENT_METHOD_DISPUTE,
+  SEPA as PAYMENT_METHOD_SEPA,
   CB as PAYMENT_METHOD_CB,
 } from '@bsport/common/lib/master-data/payment-methods';
 
@@ -47,7 +48,12 @@ export const PaymentItem = (props: Props) => {
   const [changeMethodAnchorEl, setChangeMethodAnchorEl] = React.useState(null);
 
   const editable =
-    ![PAYMENT_METHOD_DISPUTE, PAYMENT_METHOD_SUBSCRIPTION_CB, PAYMENT_METHOD_CB]
+    ![
+      PAYMENT_METHOD_DISPUTE,
+      PAYMENT_METHOD_SUBSCRIPTION_CB,
+      PAYMENT_METHOD_CB,
+      PAYMENT_METHOD_SEPA,
+    ]
       .map((pm) => pm.id)
       .includes(paymentItem.payment_method) && !paymentItem.reverted;
 
@@ -59,12 +65,14 @@ export const PaymentItem = (props: Props) => {
           <CancelIcon color="secondary" />
         )}
         {(paymentItem.payment_method === PAYMENT_METHOD_DISPUTE.id ||
+          paymentItem.payment_method === PAYMENT_METHOD_SEPA.id ||
           paymentItem.payment_method === PAYMENT_METHOD_SUBSCRIPTION_CB.id) &&
           paymentItem.payment_received === null && (
             <HourglassEmpty color="secondary" />
           )}
         {!(
           paymentItem.payment_method === PAYMENT_METHOD_DISPUTE.id ||
+          paymentItem.payment_method === PAYMENT_METHOD_SEPA.id ||
           paymentItem.payment_method === PAYMENT_METHOD_SUBSCRIPTION_CB.id
         ) &&
           paymentItem.payment_received === null && (

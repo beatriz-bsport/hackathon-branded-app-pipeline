@@ -10,6 +10,7 @@ const {
   CREDIT_ACCOUNT,
   DISPUTE,
   SUBSCRIPTION_CB,
+  SEPA,
   OTHER,
 } = require('@bsport/common/lib/master-data/payment-methods');
 
@@ -91,6 +92,7 @@ exports.default = {
     [CREDIT_ACCOUNT.id]: 'Compte interne (crédit)',
     [SUBSCRIPTION_CB.id]: 'Paiement automatique',
     [OTHER.id]: 'Divers',
+    [SEPA.id]: 'SEPA',
   },
   actions: {
     addThisPaymentItem: 'Ajouter ce moyen de paiement',

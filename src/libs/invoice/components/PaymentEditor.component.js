@@ -17,6 +17,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import PAYMENT_METHODS, {
   CB as PAYMENT_METHOD_CB,
+  SEPA as PAYMENT_METHOD_SEPA,
   CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
   DISPUTE as PAYMENT_METHOD_DISPUTE,
   SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
@@ -45,9 +46,7 @@ const PaymentItemForm = (props: Props) => {
   const { t } = useTranslation(['payment']);
   switch (props.paymentMethodIdentifier) {
     case PAYMENT_METHOD_CB.id: {
-      const relevantSavedPaymentMethodList = (
-        props.savedPaymentMethodList || []
-      ).filter((pm) => pm.payment_backend_identifier === 1);
+      const relevantSavedPaymentMethodList = props.savedPaymentMethodList || [];
       return (
         <div className={classes.stripeFormContainer}>
           <StripeProvider apiKey={STRIPE_KEY}>
@@ -70,6 +69,26 @@ const PaymentItemForm = (props: Props) => {
             refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
             savedPaymentMethodList={relevantSavedPaymentMethodList}
             paymentMethodType="card"
+            requestSetupIntentSecret={props.requestSetupIntentSecret}
+            onSelect={(payment_method_id) => {
+              props.onAddPaymentItem({
+                stripe_charge_id: payment_method_id,
+              });
+            }}
+          />
+        </div>
+      );
+    }
+    case PAYMENT_METHOD_SEPA.id: {
+      const relevantSavedPaymentMethodList = props.savedPaymentMethodList || [];
+      return (
+        <div className={classes.stripeFormContainer}>
+          <PaymentMethodList
+            paymentMethod={relevantSavedPaymentMethodList}
+            showEmpty
+            refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
+            savedPaymentMethodList={relevantSavedPaymentMethodList}
+            paymentMethodType="sepa_debit"
             requestSetupIntentSecret={props.requestSetupIntentSecret}
             onSelect={(payment_method_id) => {
               props.onAddPaymentItem({

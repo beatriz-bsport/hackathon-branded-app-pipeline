@@ -15,6 +15,7 @@ import PAYMENT_METHODS, {
   DISPUTE as PAYMENT_METHOD_DISPUTE,
   SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
   CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
+  SEPA as PAYMENT_METHOD_SEPA,
 } from '@bsport/common/lib/master-data/payment-methods';
 
 import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
@@ -57,7 +58,8 @@ const mapPaymentMethodToState = () =>
         pm.id !== PAYMENT_METHOD_SUBSCRIPTION_CB.id &&
         pm.id !== PAYMENT_METHOD_CB.id &&
         pm.id !== PAYMENT_METHOD_DISPUTE.id &&
-        pm.id !== PAYMENT_METHOD_CREDIT_ACCOUNT.id,
+        pm.id !== PAYMENT_METHOD_CREDIT_ACCOUNT.id &&
+        pm.id !== PAYMENT_METHOD_SEPA.id,
     )
     .sort((pm, pm_) => pm.id - pm_.id);
 

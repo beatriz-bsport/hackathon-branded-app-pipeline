@@ -67,7 +67,7 @@
             "paymentMethod": "Metodo di pagamento",
             "activity": "Attività",
             "datetime": "Allenamento",
-            "paymentPack": "Scheda del corso",
+            "paymentPack": "Tessera",
             "amount": "Importo",
             "continue": "Continua",
             "credit_s": "Crediti",
@@ -114,8 +114,8 @@
             "share": "Condividi"
         },
         "offer": {
-            "noPackAvailableForOfferPurchase": "Nessuna scheda del corso compatibile con questa sessione!",
-            "noConsumerPackAvailableForPurchase": "Nessuna scheda didattica acquistabile disponibile!",
+            "noPackAvailableForOfferPurchase": "Nessuna tessera compatibile con questa sessione!",
+            "noConsumerPackAvailableForPurchase": "Nessuna tessera compatibile è posseduta da questo membro!",
             "attendant": "Presente/i",
             "nonAttendant": "Assente/i",
             "maxBookingsNb": "posti",
@@ -131,7 +131,7 @@
             "disabled": "disattivato",
             "substitute": "Rimpiazza",
             "compatiblePacks": "Carte compatibili",
-            "noCompatiblePacks": "Nessuna scheda del corso è compatibile con questa sessione",
+            "noCompatiblePacks": "Nessuna tessera è compatibile con questa sessione",
             "extraordinaryEstablishment": "(luogo temporaneo)",
             "addInvoice": "Aggiungi fattura",
             "myBookings": "Prenotazioni",
@@ -286,7 +286,7 @@
                 "delete": {
                     "buttonHardDelete": "Rimuovi",
                     "explainHardDelete": "Rimuovere la sessione dall'elenco? Si noti che questo diventerà invisibile, questa operazione è irreversibile! Se la sessione contiene prenotazioni, non verrà eliminata.",
-                    "explainCreditBack": "Restituisci i crediti spesi ai clienti sulla scheda del corso",
+                    "explainCreditBack": "Restituire i crediti sulla tessera",
                     "explainNotify": "Invia un avviso ai clienti che hanno prenotato",
                     "explainModalities": "Questa modifica è definitiva. La tua sessione non sarà più visibile ai clienti finali. Puoi ancora accedervi."
                 }
@@ -303,7 +303,7 @@
                 "paymentPackHelper": "Questa carta verrà accreditata al membro",
                 "noPayedObject": "Nessuno",
                 "objectTypeLabel": "Oggetto da accreditare",
-                "dateStartPaymentPack": "La scheda del corso inizia",
+                "dateStartPaymentPack": "Inizio della tessera",
                 "backToInvoiceItemList": "Torna all'elenco",
                 "title": "Salva un pagamento",
                 "activityHelper": "Scegli l'attività, quindi la sessione",
@@ -524,7 +524,7 @@
             "logoff": "Disconnettiti",
             "refresh": "Ricarica",
             "goBack": "Indietro",
-            "pass": "Scheda del corso",
+            "pass": "Tessera",
             "settings": "Impostazioni",
             "myClub": "Il mio club",
             "subscription": "Abbonamenti",
@@ -561,9 +561,9 @@
             "actions": "Azioni",
             "bookWithUnlimitedPack": "Prenota",
             "noCreditLeft": "Credito insufficiente",
-            "noBookingsLeftOnPack": "La scheda è esaurita per questa settimana",
+            "noBookingsLeftOnPack": "La tessera è esaurita per questa settimana",
             "yourBasket": "Il tuo acquisto",
-            "availablePaymentPacks": " scheda del corso compatibile",
+            "availablePaymentPacks": " Tessera compatibile",
             "pay": "Pagamento",
             "type": "Tipo",
             "amount": "Importo",
@@ -839,7 +839,7 @@
                 }
             },
             "buyPack": "Comprare",
-            "pass": "Scheda del corso"
+            "pass": "Tessera"
         },
         "level": {
             "advanced": "Avanzato",
@@ -869,7 +869,7 @@
                 "invoiceFormPage": "Modulo per fatturazione",
                 "invoiceCreatePage": "Fattura",
                 "invoiceList": "Le mie transazioni",
-                "paymentPackFormPage": "Creazione della scheda del corso",
+                "paymentPackFormPage": "Creazione della tessera",
                 "members": "Membri",
                 "member": "Membro",
                 "memberFormPage": "Modulo membro",
@@ -986,7 +986,7 @@
             },
             "PrivateConsumerPass": {
                 "tags": {
-                    "pass_starting_date": "Data di inizio della scheda di appuntamento",
+                    "pass_starting_date": "Data di inizio del pass per appuntamenti",
                     "pass_expiration": "Data di fine appuntamento",
                     "pass_credit_left": "Numero di crediti rimanenti",
                     "pass_price": "Prezzo della carta per appuntamenti",
@@ -1026,11 +1026,11 @@
                 }
             },
             "ConsumerPaymentPack": {
-                "name": "Scheda del corso",
+                "name": "Tessera",
                 "tags": {
                     "pass_price": "Prezzo della carta del corso",
-                    "pass_starting_date": "Data di inizio della scheda del corso",
-                    "pass_expiration": "Data di fine della scheda del corso",
+                    "pass_starting_date": "Data di inizio della tessera",
+                    "pass_expiration": "Data di fine della tessera",
                     "pass_name": "Nome della carta del corso",
                     "pass_credit_left": "Numero di crediti rimanenti"
                 }
@@ -1040,7 +1040,7 @@
             "400": "Appuntamento annullato - fuori tempo (insegnante)",
             "3": "Annulla sessione",
             "6": "Registrazione membro (studente)",
-            "7": "Prenotazione tramite scheda del corso",
+            "7": "Prenotazione tramite tessera",
             "8": "Prenotazione + acquisto della tessera del corso simultanea",
             "13": "Annulla iscrizione alla lista di attesa (studente)",
             "401": "Appuntamento annullato - rimborsato (insegnante)",
@@ -1102,13 +1102,13 @@
             "changeMembership": "Cambia club",
             "dashboard": "Sommario",
             "calendar": "Storico",
-            "pack": "Scheda del corso",
+            "pack": "Tessera",
             "invoice": "Fattura",
             "subscription": "Abbonamento"
         },
         "debt": {
             "regularize": "Regolarizza",
-            "title": "Acconto dovuto al club",
+            "title": "Importo dovuto al club",
             "titlePaymentDialog": "Acconto regolarizzato",
             "explainPayment": "Questa somma sarà versata al club per regolarizzare il tuo acconto"
         },
@@ -1515,11 +1515,11 @@
             "detail": {
                 "title": "Prenotazioni",
                 "registeredOn": "Prenotato il ",
-                "wasRefunded": "Credito rimborsato sulla scheda del corso",
+                "wasRefunded": "Credito rimborsato sulla tessera",
                 "wasRefundedYes": "Sì",
                 "wasRefundedNo": "No",
                 "slotTitle": "Allenamento",
-                "passTitle": "Scheda del corso",
+                "passTitle": "Tessera",
                 "address": "Indirizzo",
                 "coach": "Insegnante",
                 "attachCoach": "Assegna un insegnante",
@@ -2129,7 +2129,7 @@
             "member": "Membri",
             "establishment": "Strutture",
             "goBack": "Indietro",
-            "pass": "Scheda del corso",
+            "pass": "Tessera",
             "settings": {
                 "settings": "Impostazioni",
                 "active_campaign": "ActiveCampaign",
@@ -2440,7 +2440,7 @@
                 "error": "Impossibile modificare il metodo di pagamento"
             },
             "switchPack": {
-                "error": "Impossibile modificare la scheda del corso",
+                "error": "Impossibile modificare la tessera",
                 "success": "Metodo di pagamento modificato"
             },
             "youSubscribed": {
@@ -2538,12 +2538,12 @@
         },
         "paymentPack": {
             "createOrUpdate": {
-                "success": "Scheda del corso registrata",
+                "success": "Tessera registrata",
                 "fail": "Errore durante il salvataggio della carta"
             },
             "paymentPackDisabled": {
-                "success": "Scheda del corso disabilitata",
-                "error": "Impossibile disattivare la scheda"
+                "success": "Tessera disabilitata",
+                "error": "Impossibile disattivare la tessera"
             },
             "credit": {
                 "updated": "Crediti aggiornati",
@@ -2551,7 +2551,7 @@
             },
             "paymentPackEnabled": {
                 "error": "Impossibile ripristinare la carta",
-                "success": "Scheda del corso ripristinata"
+                "success": "Tessera ripristinata"
             }
         },
         "coupon": {
@@ -2883,7 +2883,7 @@
         },
         "invoiceItem": {
             "buyableItemIdentifier": {
-                "1": "Scheda del corso",
+                "1": "Tessera",
                 "2": "Negozio",
                 "10": "Pacchetto",
                 "9": "Pass per appuntamenti",
@@ -3050,17 +3050,17 @@
             "pauseSection": "Pausa",
             "switchPack": {
                 "form": {
-                    "title": "Cambio scheda del corso",
+                    "title": "Cambio tessera",
                     "submit": "Iscriviti",
                     "cancel": "Annulla",
                     "warning": "La fatturazione rimarrà la stessa, se si desidera aumentare / ridurre l'importo mensile, modificare ogni pagamento mensile separatamente.",
-                    "explain": "Questa scheda del corso verrà fatturata al posto di quella precedente per tutte le fatture future. Le sessioni prenotate con la vecchia carta verranno trasferite a quella nuova anche se non si suppone che sia compatibile."
+                    "explain": "Questa tessera verrà fatturata al posto di quella precedente per tutte le fatture future. Le sessioni prenotate con la vecchia tessera verranno trasferite a quella nuova anche se non compatibile."
                 }
             },
             "actions": {
                 "switchPaymentMethod": "Modifica il metodo di pagamento",
                 "freeze": "Mettere in pausa",
-                "switchPack": "Modifica la scheda del corso"
+                "switchPack": "Modifica la tessera"
             },
             "list": {
                 "title": "Abbonamento in corso"
@@ -3102,10 +3102,10 @@
             "nbInterval": "Numero di mesi",
             "recurrent_price": "Pagamento ricorrente",
             "flat_fee": "Spese amministrative",
-            "paymentPack": "Scheda del corso",
+            "paymentPack": "Tessera",
             "dateStart": "Prima fatturazione",
             "firstBilling": "Primo incasso",
-            "payment_pack": "Scheda del corso",
+            "payment_pack": "Tessera",
             "status": "Status",
             "subscribeAgain": "Iscriviti di nuovo",
             "voucher": "Offerta speciale",
@@ -3163,13 +3163,13 @@
                 },
                 "flat_fee": {
                     "helperText": "Questa commissione verrà aggiunta alla prima fattura",
-                    "label": "Quote d'iscrizione / scheda"
+                    "label": "Quote d'iscrizione"
                 },
                 "autoRenewal": {
                     "label": "Rinnovo tacito"
                 },
                 "object_type": {
-                    "paymentPack": "Scheda del corso",
+                    "paymentPack": "Tessera",
                     "privatePass": "Pass per appuntamenti",
                     "label": "Tipo di abbonamento"
                 },
@@ -3187,7 +3187,7 @@
                 "content": "Sei sicuro di voler cancellare questo contratto?",
                 "title": "Cancellazione del contratto"
             },
-            "paymentPack": "Scheda del corso associata",
+            "paymentPack": "Tessera associata",
             "no": "No",
             "yes": "Sì",
             "privatePass": "Pass appuntamento associato"
@@ -3199,7 +3199,7 @@
             "submit": "Fattura"
         },
         "events": {
-            "billing_plan-update_payment_pack": "Scheda del corso modificata",
+            "billing_plan-update_payment_pack": "Tessera modificata",
             "billing_plan-update_payment_method": "Metodo di pagamento modificato",
             "billing_plan-renew": "Rinnovo",
             "billing_plan-payment_dispute": "Contenzioso",
@@ -3253,7 +3253,7 @@
         },
         "action": {
             "stopExplain": "I pagamenti successivi verranno annullati e le relative fatture verranno eliminate. Se una prenotazione è stata registrata con un abbonamento per il quale la fattura è stata annullata, verrà annullata.",
-            "revertCurrentExplain": "Annulla l'ultima fattura registrata e blocca la scheda del corso",
+            "revertCurrentExplain": "Annulla l'ultima fattura registrata e blocca la tessera",
             "revertCurrentExplainHelper": "Se il pagamento è valido, verrà creato un credito, è possibile rimborsarlo al cliente inserendo la fattura e facendo clic su \"Rimborso\". Se il pagamento non è andato a buon fine, il debito verrà cancellato.",
             "stop": "Stop"
         },
@@ -3375,7 +3375,7 @@
             "last_booking": "Prenotazione precedente",
             "next_booking": "Prossima prenotazione",
             "concatenated_notes": "Annotazioni",
-            "pass": "Scheda del corso",
+            "pass": "Tessera",
             "date_start": "Data completa",
             "date_start_date": "Data",
             "date_start_time": "Ora",
@@ -3389,7 +3389,7 @@
             "email": "Email",
             "phonenumber": "Telefono",
             "date_joined": "Data di registrazione",
-            "payment_pack": "Scheda del corso",
+            "payment_pack": "Tessera",
             "activity_duration": "Durata",
             "payment_method": "Metodo di pagamento",
             "product": "Prodotto",
@@ -3446,7 +3446,7 @@
             "shop_item": "Negozio",
             "fee": "Spesa",
             "refund": "Rimborso del credito",
-            "payment_pack": "Scheda del corso",
+            "payment_pack": "Tessera",
             "top_up": "Ricarica del credito del cliente",
             "payment_combo": "Pacchetto",
             "private_pass": "Pass per appuntamenti"
@@ -3589,7 +3589,7 @@
         },
         "notification": {
             "form": {
-                "warning": "Non selezionando alcuna smartlist rischi di avvisare i soci che hanno già acquistato un'altra scheda del corso",
+                "warning": "Non selezionando alcuna smartlist rischi di avvisare i membri che hanno già acquistato un'altra tessera",
                 "creditType": "Crediti rimanenti",
                 "submit": "Conferma",
                 "cancel": "Annulla",
@@ -3691,11 +3691,11 @@
                 },
                 "noneMeansAll": "Lascia vuoto per consentire tutto",
                 "update": {
-                    "success": "Scheda del corso: operazione eseguita con successo",
-                    "error": "Scheda del corso: errore durante il funzionamento"
+                    "success": "Tessera: operazione eseguita con successo",
+                    "error": "Tessera: errore durante l'operazione"
                 },
                 "delete": {
-                    "thereAreConsumers": "Attenzione! I membri hanno acquistato questa scheda del corso, se la elimini potranno comunque utilizzare i crediti rimanenti. Puoi ridurli manualmente a zero qui.\n\nLa carta non apparirà più nel tuo negozio per i nuovi acquirenti.",
+                    "thereAreConsumers": "Attenzione! I membri hanno acquistato questa tessera, se la elimini potranno comunque utilizzare i crediti rimanenti. Puoi ridurli manualmente a zero qui.\n\nLa tessera non apparirà più nel tuo negozio per i nuovi acquirenti.",
                     "actions": {
                         "submit": "Rimuovi",
                         "cancel": "Annulla"
@@ -3717,7 +3717,7 @@
                     "cancel": "Annulla"
                 },
                 "name": {
-                    "helperText": "Nome della scheda del corso",
+                    "helperText": "Nome della tessera",
                     "label": "Nome"
                 },
                 "validByDuration": "Carta valida N giorni dopo l'acquisto",
@@ -3740,7 +3740,7 @@
                 "activities": "Attività",
                 "establishments": "Struttura",
                 "restrictionsTitle": "Restrizioni",
-                "notEditable": "Questa scheda del corso è il risultato di una migrazione, alcuni campi non possono essere modificati per rispettare la cronologia. Le attività / categorie compatibili rimangono modificabili.",
+                "notEditable": "Questa tessera è il risultato di una migrazione, alcuni campi non sono modificabili per rispettare la cronologia. Le attività / categorie compatibili rimangono modificabili.",
                 "until": "Fino a ",
                 "tax": {
                     "label": "I.V.A."
@@ -3779,7 +3779,7 @@
         },
         "details": {
             "pleaseSelectAPack": "Seleziona una carta per vedere i dettagli",
-            "shareAPass": "Condividi una scheda di lezione",
+            "shareAPass": "Condividi una tessera",
             "invoiceTitle": "Fattura associata",
             "refundTitle": "Rimborso associato",
             "bookingsTitle": "Prenotazioni associate",
@@ -3827,7 +3827,7 @@
         "use": "Utilizza",
         "isNonCompatible": "incompatibile",
         "paymentPackDisabled": {
-            "success": "Scheda del corso cancellata",
+            "success": "Tessera cancellata",
             "error": "Impossibile eliminare"
         },
         "disabled": "Disabilitato",
@@ -3851,7 +3851,7 @@
             "updated": "Crediti aggiornati"
         },
         "notificationForm": "Modulo di notifica",
-        "noPaymentPack": "Le schede del corso consentono ai membri di registrarsi per le attività, è necessario disporre di una scheda per registrarsi.",
+        "noPaymentPack": "Le tessere consentono ai membri di registrarsi alle attività, è necessario possedere una tessera per iscriversi.",
         "disabledPacks": {
             "hide": "Nascondi le carte archiviate",
             "show": "Visualizza le carte archiviate"
@@ -3874,8 +3874,8 @@
     "metaActivity": {
         "detail": {
             "pack": {
-                "consumerPacks": "Scheda del corso di proprietà dei soci",
-                "noCompatiblePass": "Nessuna scheda del corso compatibile",
+                "consumerPacks": "Tessera posseduta dai membri",
+                "noCompatiblePass": "Nessuna tessera compatibile",
                 "paymentPacks": "Carte compatibili"
             },
             "tab": {
@@ -3904,14 +3904,14 @@
                     "workshop_form": "Creazione di workshop",
                     "activity_form": "Creazione di attività",
                     "offer_form": "Creazione di sessioni (opzionale)",
-                    "pass_form": "Creazione di una scheda del corso (opzionale)",
+                    "pass_form": "Creazione di una tessera (opzionale)",
                     "pass_list": "Finalizzazione"
                 },
                 "compatible_packs": {
                     "createPass": "Crea una carta di lezione",
                     "goToActivity": "Vai all'attività",
                     "passHelperText": "Le seguenti schede lezioni sono compatibili con l'attività creata:",
-                    "noCompatiblePass": "Nessuna scheda didattica compatibile con questa attività, ricordati di crearne una",
+                    "noCompatiblePass": "Nessuna tessera compatibile con questa attività, ricordati di crearne una",
                     "seeMore": "Vedi altro"
                 }
             },
@@ -4157,7 +4157,7 @@
             "offerTitle": "Sessione collegata",
             "pleaseSelectABooking": "Seleziona una carta per vedere i dettagli",
             "title": "Dettagli della prenotazione",
-            "consumerPaymentPackTitle": "Scheda del corso utilizzata"
+            "consumerPaymentPackTitle": "Tessera utilizzata"
         },
         "parameters": {
             "registeredOn": "Prenotato il ",
@@ -4258,6 +4258,46 @@
                 "explain": "Puoi avvisare i tuoi clienti prima o dopo determinate sessioni, in base a diversi criteri come il numero di presenze, assenze o anche cancellazioni."
             },
             "addNotification": "Aggiungi una notifica"
+        },
+        "recurrenceRule": {
+            "actions": {
+                "save": "Registra",
+                "close": "Chiudi"
+            },
+            "form": {
+                "delayWeek": {
+                    "helperText": "Indica la settimana di anticipo per l'iscrizione",
+                    "label": "Numero delle settimane"
+                },
+                "metaActivity": {
+                    "helperText": "Attività",
+                    "label": "Attività"
+                },
+                "minute": {
+                    "label": "minuto"
+                },
+                "hour": {
+                    "label": "ora"
+                },
+                "dayOfWeek": {
+                    "label": "Giorno della settimana"
+                },
+                "at": " a ",
+                "timeGroup": "Data della sessione",
+                "title": "Programma una ricorrenza"
+            },
+            "recurrentRuleBooking": "Prenotazione ricorrente",
+            "item": {
+                "explain": "Tutte le {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}} settimane prima"
+            },
+            "needConsumerPack": "Questo membro non possiede una tessera compatibile, è impossibile programmare una ricorrenza",
+            "recurrentBookings": "Prenotazioni ricorrenti",
+            "deleteModal": {
+                "title": "Elimina regola di ricorrenza",
+                "content": "Eliminare la regola di ricorrenza comporterà la cancellazione delle future prenotazioni effettuate tramite questa regola.",
+                "cancel": "Annulla",
+                "confirm": "Elimina"
+            }
         }
     },
     "smartList": {
@@ -4274,7 +4314,7 @@
             "8": {
                 "explanation": "Hai una carta del corso X utilizzabile",
                 "name": "Validità della carta del corso",
-                "first": "Hai una scheda del corso",
+                "first": "Hai una tessera",
                 "second": "utilizzabile (con crediti o illimitata e non scaduta)"
             },
             "2": {
@@ -4291,11 +4331,11 @@
                 "women": "donna"
             },
             "14": {
-                "workshop": "Scheda speciale del corso per workshop",
+                "workshop": "Tessera speciale per workshop",
                 "first": "Ha speso",
                 "explanation": "Prodotti acquistati: A e B",
                 "shop": "Negozio",
-                "pack": "Scheda del corso",
+                "pack": "Tessera",
                 "combo": "Pacchetto",
                 "private_pass": "Lezioni private",
                 "name": "Spese",
@@ -4326,7 +4366,7 @@
                 "coach": {
                     "first": "con gli insegnanti"
                 },
-                "explanation": "Ho prenotato X allenamenti dell'attività A, nella posizione B, con la scheda del corso C ...",
+                "explanation": "Ho prenotato X allenamenti dell'attività A, nella posizione B, con la tessera C ...",
                 "first": "Ha prenotato",
                 "second": "sessioni",
                 "between": "e"
@@ -4570,11 +4610,11 @@
                 "second": "€ per i prodotti",
                 "first": "Ha speso",
                 "name": "Spese",
-                "workshop": "Scheda speciale del corso per workshop",
+                "workshop": "Tessera speciale per workshop",
                 "private_pass": "Lezioni private",
                 "between": "e",
                 "combo": "Pacchetto",
-                "pack": "Scheda del corso",
+                "pack": "Tessera",
                 "shop": "Negozio",
                 "explanation": "Prodotti acquistati A e B"
             },
@@ -4693,7 +4733,7 @@
             "paymentPacks": {
                 "helperText": "seleziona le carte dei corsi",
                 "helperSelectedText": "carte del corso selezionate",
-                "textFieldPlaceholder": "Cerca una scheda del corso",
+                "textFieldPlaceholder": "Cerca una tessera",
                 "helperAllSelectedText": "tutte le schede dei corsi",
                 "warning": "Seleziona almeno una carta del corso"
             },
@@ -4784,14 +4824,14 @@
         "consumer_payment_pack_links": {
             "list": {
                 "title": "Carte condivise",
-                "create": "Condividi una scheda di lezione",
+                "create": "Condividi una tessera",
                 "isEmpty": "Nessuna condivisione di carte"
             },
             "form": {
                 "create": {
                     "title": "Condivisione della carta",
                     "noConsumerPackToLink": "Nessuna carta condivisibile",
-                    "explain": "Questa scheda del corso sarà condivisa tra i due membri, i crediti possono essere utilizzati dall'uno o dall'altro.",
+                    "explain": "Questa tessera sarà condivisa tra i due membri, i crediti possono essere utilizzati dall'uno o dall'altro.",
                     "cancel": "Annulla",
                     "previous": "Indietro",
                     "submit": "Condividi",
@@ -4885,7 +4925,7 @@
                     "9": "Pass per appuntamenti",
                     "all": "Applica a tutto",
                     "null": "Applica a tutto",
-                    "1": "Scheda del corso"
+                    "1": "Tessera"
                 }
             },
             "actions": {
@@ -5077,6 +5117,15 @@
                 "sunday": "Domenica",
                 "monday": "Lunedi",
                 "tuesday": "Martedì"
+            },
+            "weekdayNumber": {
+                "6": "Domenica",
+                "5": "Sabato",
+                "4": "Venerdì",
+                "3": "Giovedì",
+                "2": "Mercoledì",
+                "1": "Martedì",
+                "0": "Lunedì"
             }
         },
         "form": {
@@ -5156,7 +5205,8 @@
             "10": "Pagamento automatico",
             "11": "Altro",
             "label": "Metodi di pagamento",
-            "12": "Contenzioso"
+            "12": "Contenzioso",
+            "13": "SEPA"
         },
         "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
         "method": {
@@ -5405,7 +5455,7 @@
             },
             "auto_consume_pack": {
                 "helper": "Se il membro ha una carta del corso valida quando un posto diventa disponibile, viene automaticamente registrato e la sua carta viene addebitata. La carta che scade prima, e quella con meno credito disponibile, viene utilizzata per prima.",
-                "label": "Addebita automaticamente una scheda del corso e registra il membro quando uno spazio diventa disponibile."
+                "label": "Addebita automaticamente una tessera e registra il membro quando si libera un posto."
             },
             "is_option_blocking": {
                 "helper": "Finché un membro è nella lista d'attesa, un posto viene tenuto bloccato per lui mentre si aspetta che si registri.",
@@ -5464,7 +5514,7 @@
                 "disabled": "No",
                 "provisionHistory": "Sviluppo delle scorte",
                 "parameters": "Impostazioni",
-                "title": "Scheda prodotto",
+                "title": "Prodotto",
                 "supplier_price": "Prezzo fornitore",
                 "is_deliverable": "Spese di spedizione",
                 "onsite_payment_available": "Pagamento in loco"
@@ -5814,7 +5864,7 @@
                 "submit": "Conferma",
                 "cancel": "Annulla"
             },
-            "explain": "Seleziona l'intervallo di date in cui desideri annullare le sessioni. I membri che hanno prenotato riceveranno una notifica via e-mail e i loro crediti verranno automaticamente rimborsati sulla scheda del corso corrispondente",
+            "explain": "Seleziona l'intervallo di date in cui desideri annullare le sessioni. I membri che hanno prenotato riceveranno una notifica via e-mail e i loro crediti verranno automaticamente rimborsati sulla tessera corrispondente",
             "explainLoading": "Attendere prego",
             "title": "Annullamento di gruppo",
             "explainWarning": "ATTENZIONE questa operazione è irreversibile."

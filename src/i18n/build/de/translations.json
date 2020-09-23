@@ -639,7 +639,7 @@
             "member": "Mitglieder",
             "reporting": "Reports",
             "digital": "Digitales Angebot",
-            "playlist": "Folge"
+            "playlist": "Playlist"
         },
         "offer": {
             "noncompatibleConsumerPaymentPacksAre": "Sie besitzen die folgenden Karten, die nicht mit diesem Kurs kompatibel sind :",
@@ -775,7 +775,7 @@
                     "create": "Ein Produkt hinzufügen",
                     "featured": "Bei der Bestätigung des Warenkorbs in den Vordergrund stellen",
                     "sell_only_on_provision": "NUR dann zum Verkauf anbieten, wenn das Inventar verfügbar ist",
-                    "onsite_payment_available": "Es ist möglich an Ort und Stelle zu zahlen",
+                    "onsite_payment_available": "Es ist möglich vor Ort zu bezahlen",
                     "available_payment_method_identifiers": {
                         "helperText": "Wählen Sie mindestens eine Zahlungsmethode aus. Wenn der Warenkorb des Mitglieds Produkte enthält, die mit den Zahlungsmethoden nicht vereinbar sind, wird eine Zahlung per Kreditkarte angeboten.",
                         "label": "Zugelassene Zahlungsmethoden"
@@ -1592,7 +1592,10 @@
                 "coach": {
                     "first": "mit den Lehrern"
                 },
-                "first": "gebucht"
+                "first": "gebucht",
+                "second": "Termin",
+                "explanation": "X  gebuchte Termine mit Professor A an Platz B mit der Terminkarte C ...",
+                "name": "Anzahl der Termine"
             },
             "25": {
                 "first": "eine der Terminkarten",
@@ -1611,7 +1614,8 @@
                 "third": "um",
                 "second": "und",
                 "has_not": "Verfügt nicht über",
-                "has": "Verfügt über"
+                "has": "Verfügt über",
+                "explanation": "Hat die Terminkarte A gekauft an dem Datum Y mit X Credits"
             }
         },
         "filterCategory": {
@@ -1731,7 +1735,9 @@
             "privatePass": {
                 "helperAllSelectedText": "Alle Terminkarten",
                 "helperSelectedText": "ausgewählte Terminkarten",
-                "helperText": "Wählen Sie Terminkarten"
+                "helperText": "Wählen Sie Terminkarten",
+                "warning": "Sie müssen mindestens eine Terminkarte auswählen",
+                "textFieldPlaceholder": "Finden Sie eine Terminkarte"
             }
         },
         "description": "Beschreibung",
@@ -2069,7 +2075,7 @@
                     "ending_date": "Ende der Gültigkeit der Kurskarte, lassen Sie das Feld leer, sodass sie immer aktiv bleibt"
                 },
                 "newMemberOnly": "Nur für neue Kunden",
-                "onsitePaymentAvailable": "Es ist möglich an Ort und Stelle zu zahlen",
+                "onsitePaymentAvailable": "Zahlungsmöglichkeit vor Ort",
                 "startOnFirstUse": "Die Gültigkeitsabrechnung beginnt am Tag der ersten Buchung",
                 "start_date_method": {
                     "on_purchase": "Beginnt bei der Rechnungsstellung",
@@ -2983,7 +2989,8 @@
             "0": "Kreditkarte",
             "9": "Internes Konto (Kredit)",
             "label": "Zahlungsmethode",
-            "12": "Streitfall"
+            "12": "Streitfall",
+            "13": "SEPA"
         },
         "generalTermsAndConditions": {
             "close": "Schließen",
@@ -2997,7 +3004,7 @@
             },
             "credit": {
                 "pay": "Bestätigen",
-                "explain": "Ihr Klub wird über die Abbuchung informiert, Sie bezahlen diese Bestellung an Ort und Stelle"
+                "explain": "Ihr Club wird über die Abbuchung informiert, Sie bezahlen diese Bestellung vor Ort"
             },
             "cancelPayment": "Zurück",
             "paymentMethod": {
@@ -3022,7 +3029,7 @@
             }
         },
         "method": {
-            "CREDIT_ACCOUNT": "Zahlung an Ort und Stelle",
+            "CREDIT_ACCOUNT": "Zahlung vor Ort",
             "CB": "Kreditkarte"
         },
         "paymentComboSectionTitle": "Package",
@@ -3117,7 +3124,7 @@
                 "edit": "Ändern"
             },
             "detail": {
-                "onsite_payment_available": "Zahlung an Ort und Stelle",
+                "onsite_payment_available": "Zahlung vor Ort",
                 "is_deliverable": "Versandkosten",
                 "marketplace_enabled": "Auf Web-Marketplace verfügbar",
                 "supplier_price": "Preis des Lieferanten",
@@ -3406,13 +3413,19 @@
                 "listItemPrimary": {
                     "after": "Benachrichtigung {{hours}} h nach der Session",
                     "before": "Benachrichtigung {{hours}} h vor der Session",
-                    "refunded": "Anzahl der erstatteten Stornierungen: {{notify_booking_nb}}"
+                    "refunded": "Anzahl der erstatteten Stornierungen: {{notify_booking_nb}}",
+                    "cancelledDeprecated": "Anzahl der Stornierungen:",
+                    "bookingDeprecated": "Buchungsnummer {{notify_booking_nb}}",
+                    "notRefunded": "Anzahl der Stornierungen nach Ablauf der Frist:",
+                    "attendance": "Anzahl der Anwesenheiten:  {{notify_booking_nb}}",
+                    "absence": "Anzahl der Abwesenheiten:  {{notify_booking_nb}}"
                 },
                 "chooseKind": {
                     "absence": "Abwesenheit des Mitglieds bei einer Session",
                     "attendance": "Anwesenheit des Mitglieds bei einer Session",
                     "notRefunded": "Stornierung nach Ablauf der Frist",
-                    "refunded": "Stornierung erstattet"
+                    "refunded": "Stornierung erstattet",
+                    "title": "Ereignis, das die Benachrichtigung auslöst"
                 },
                 "chooseTime": {
                     "second_after": "Stunde (n) nach der Session",
@@ -3439,15 +3452,51 @@
                 },
                 "settingTitle": "Einstellungen",
                 "typeTitle": "Benachrichtigungstyp",
-                "title": "Benachrichtigung-Formular"
+                "title": "Benachrichtigung-Formular",
+                "eventNb": "Benachrichtigen Sie das Mitglied während der Veranstaltung Nr.:"
             },
             "addNotification": "Eine Benachrichtigung hinzufügen"
         },
         "recurrenceRule": {
             "deleteModal": {
                 "cancel": "Stornieren",
-                "confirm": "Löschen"
-            }
+                "confirm": "Löschen",
+                "content": "Die Streichung der Wiederholungsregel wird zur Stornierung künftiger Reservierungen führen, die über diese Regel vorgenommen wurden.",
+                "title": "Wiederholungsregel löschen"
+            },
+            "explain": "Das Mitglied wird immer {{delayWeek}} Wochen im Voraus für Klassen von {{dayOfWeek}} bis {{hour}}: {{minute}} registriert. Sie werden nur registriert, wenn sie eine gültige Kurskarte haben.",
+            "actions": {
+                "save": "Speichern",
+                "close": "Schließen"
+            },
+            "form": {
+                "delayWeek": {
+                    "helperText": "Gibt an, wie viele Wochen im Voraus das Mitglied registriert wird",
+                    "label": "Anzahl der Wochen"
+                },
+                "metaActivity": {
+                    "helperText": "Aktivität",
+                    "label": "Aktivität"
+                },
+                "hour": {
+                    "label": "Stunde"
+                },
+                "minute": {
+                    "label": "Minute"
+                },
+                "dayOfWeek": {
+                    "label": "Wochentag"
+                },
+                "at": " bei ",
+                "timeGroup": "Datum des Kurses",
+                "title": "Planen Sie eine Wiederholung"
+            },
+            "recurrentRuleBooking": "Wiederkehrende Buchung",
+            "item": {
+                "explain": "Alle {{dayOfWeek}} - {{hour}}: {{minute}}, {{delayWeek}} Wochen zuvor"
+            },
+            "recurrentBookings": "Wiederkehrende Buchungen",
+            "needConsumerPack": "Dieses Mitglied hat keine kompatible Kurskarte, es ist nicht möglich, eine Wiederholungsregel zu planen"
         }
     },
     "member": {
@@ -4884,7 +4933,7 @@
     },
     "order": {
         "state": {
-            "1200": "An Ort und Stelle abholen",
+            "1200": "Abholung vor Ort",
             "9000": "Versendet",
             "1100": "Storniert",
             "700": "Bezahlt",
@@ -4892,7 +4941,7 @@
         },
         "actions": {
             "flagAsSent": "Versendet",
-            "flagAsOnSiteDelivery": "An Ort und Stelle abholen",
+            "flagAsOnSiteDelivery": "Abholung vor Ort",
             "flagAsCancelled": "Stornieren"
         },
         "form": {
@@ -5172,7 +5221,7 @@
             },
             "coupon": "Werbeaktionen",
             "video": "Videothek",
-            "playlist": "Folge",
+            "playlist": "Playlist",
             "podcast": "Podcasts",
             "digital": "Digitales Angebot",
             "combo": "Packages",
@@ -5237,7 +5286,9 @@
                 "onSpotPaymentReport": "Greifen Sie auf den Zahlungsbericht zu",
                 "lastUpdated": "Zuletzt geändert am",
                 "cashDialogTitle": "Kassenbuch",
-                "close": "Schließen"
+                "close": "Schließen",
+                "addAmount": "Betrag, der dem Kassenbuch hinzugefügt werden muss",
+                "todayStartAmount": "Anfangsbetrag im Kassenbuch"
             }
         },
         "deprecatedNavigator": {
@@ -5952,7 +6003,8 @@
             "show": "Anzeigen",
             "calendarDisplay": "Wochenübersicht anzeigen (Kalender)",
             "listDisplay": "Wochenübersicht anzeigen",
-            "cancel": "Abbrechen"
+            "cancel": "Abbrechen",
+            "responsiveDisplay": "Ansprechbare Anzeige"
         }
     }
 }

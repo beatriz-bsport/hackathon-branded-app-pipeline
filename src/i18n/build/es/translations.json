@@ -1482,6 +1482,15 @@
                 "october": "Octubre",
                 "november": "Noviembre",
                 "december": "Diciembre"
+            },
+            "weekdayNumber": {
+                "6": "Domingo",
+                "5": "Sábado",
+                "4": "Viernes",
+                "3": "Jueves",
+                "2": "Miércoles",
+                "1": "Martes",
+                "0": "Lunes"
             }
         },
         "form": {
@@ -1630,7 +1639,8 @@
             "2": "Cheque",
             "1": "Efectivo",
             "0": "Tarjeta de crédito",
-            "12": "Litigio"
+            "12": "Litigio",
+            "13": "SEPA"
         },
         "creditAccountBalance": {
             "current": "Anticipo actual"
@@ -2568,7 +2578,7 @@
             "createMember": "Añadir un miembro"
         },
         "memberTermsAccepted": " fueron aceptadas el {{- date}}",
-        "termsAndConditions": "Condiciones generales de venta"
+        "termsAndConditions": "Condiciones generales de uso"
     },
     "booking": {
         "details": {
@@ -2711,6 +2721,47 @@
                 "explain": "Puede notificar a sus clientes antes o después de ciertas sesiones, dependiendo de varios criterios como el número de asistencias, ausencias o incluso cancelaciones."
             },
             "addNotification": "Añadir una notificación"
+        },
+        "recurrenceRule": {
+            "explain": "El miembro siempre estará registrado {{ delayWeek }} semanas antes de la clase de {{ dayOfWeek}} at {{hour}}:{{minute}}. Sólo se registrarán si poseen un pase válido.",
+            "actions": {
+                "save": "Guardar",
+                "close": "Cerrar"
+            },
+            "form": {
+                "delayWeek": {
+                    "helperText": "Indique con cuántas semanas de antelación se registrará el miembro",
+                    "label": "Número de semanas"
+                },
+                "metaActivity": {
+                    "helperText": "Actividad",
+                    "label": "Actividad"
+                },
+                "minute": {
+                    "label": "minuto"
+                },
+                "hour": {
+                    "label": "hora"
+                },
+                "dayOfWeek": {
+                    "label": "Día de la semana"
+                },
+                "at": " en ",
+                "timeGroup": "Fecha de la sesión",
+                "title": "Programar una recurrencia"
+            },
+            "recurrentRuleBooking": "Reserva recurrente",
+            "item": {
+                "explain": "Todos los {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}} semanas antes"
+            },
+            "needConsumerPack": "Este miembro no tiene un pase de clase compatible, es imposible programar una repetición",
+            "recurrentBookings": "Reservas recurrentes",
+            "deleteModal": {
+                "title": "Eliminar la regla de recurrencia",
+                "content": "La supresión de la regla de recurrencia dará lugar a la cancelación de futuras reservas que hayan utilizado esta regla.",
+                "cancel": "Cancelar",
+                "confirm": "Eliminar"
+            }
         }
     },
     "marketplace": {
@@ -3919,7 +3970,7 @@
                 "placeholder": "GTM-XXXXXX"
             },
             "general_terms_and_conditions": {
-                "helperText": "Deben ser aceptadas por todo pago y registro",
+                "helperText": "Debe ser aceptado para todos los pagos",
                 "label": "Condiciones generales de venta",
                 "placeholder": "Certifico que tengo un certificado médico y lo llevaré a mi estudio"
             },
@@ -5974,7 +6025,8 @@
         },
         "platformBillingPlan": {
             "max_establishment": {
-                "label": "Hasta {{ max_establishment }} establecimientos"
+                "label": "Hasta {{ max_establishment }} establecimientos",
+                "help": "Un establecimiento se cuenta a partir de 8 sesiones mensuales"
             },
             "max_coach": {
                 "help": "Un profesor se cuenta a partir de 8 sesiones mensuales",

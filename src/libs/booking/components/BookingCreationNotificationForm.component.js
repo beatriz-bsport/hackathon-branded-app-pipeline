@@ -11,6 +11,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Collapse from '@material-ui/core/Collapse';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import Checkbox from '@material-ui/core/Checkbox';
 import InfoIcon from '@material-ui/icons/Info';
 
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -58,6 +59,7 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
     selectedMail: null,
     hours: null,
     notify_booking_nb: 1,
+    notifyAllEvents: false,
   };
 
   computeWhen = () => {
@@ -377,10 +379,16 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
             )}
           </RadioGroup>
           <div className={classes.inlineContainer}>
-            <Typography variant="caption">
+            <Typography
+              variant="caption"
+              className={
+                this.state.notifyAllEvents ? this.props.classes.greyText : null
+              }
+            >
               {t('booking:notification.form.eventNb')}
             </Typography>
             <NumericInput
+              disabled={this.state.notifyAllEvents}
               onChange={(ev) => {
                 this.setState({
                   notify_booking_nb: ev.target.value
@@ -397,11 +405,27 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
               }
             />
           </div>
-          <Typography variant="caption" className={classes.example}>
-            {`${t('booking:notification.form.help.text')} ${t(
-              `booking:notification.form.help.${this.computeKind()}`,
-              { notify_booking_nb: this.state.notify_booking_nb },
-            )}`}
+          <div className={this.props.classes.inlineContainer}>
+            <Checkbox
+              className={this.props.classes.checkbox}
+              checked={this.state.notifyAllEvents}
+              onChange={(ev) =>
+                this.setState({ notifyAllEvents: ev.target.checked })
+              }
+            />
+            <Typography variant="caption">
+              {t('booking:notification.form.notifyAllEvents')}
+            </Typography>
+          </div>
+          <Typography variant="caption" className={classes.greyText}>
+            {this.state.notifyAllEvents
+              ? t(
+                  `booking:notification.form.help.allEvents.${this.computeKind()}`,
+                )
+              : `${t('booking:notification.form.help.text')} ${t(
+                  `booking:notification.form.help.${this.computeKind()}`,
+                  { notify_booking_nb: this.state.notify_booking_nb },
+                )}`}
           </Typography>
         </div>
         <DialogActions className={classes.bottomButtons}>
@@ -463,6 +487,8 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
         <DialogActions className={classes.bottomButtons}>
           <Button
             onClick={() => {
+              // reset notify_booking_nb to 1 to avoid having a 0 displayed in form in some cases
+              this.setState({ notify_booking_nb: 1 });
               this.props.onCancel();
             }}
           >
@@ -479,7 +505,9 @@ export class BookingCreationNotificationForm extends Component<Props, State> {
                   this.state.when === 'before'
                     ? this.state.hours * -1
                     : this.state.hours,
-                notify_booking_nb: this.state.notify_booking_nb,
+                notify_booking_nb: this.state.notifyAllEvents
+                  ? 0
+                  : this.state.notify_booking_nb,
               });
             }}
           >
@@ -578,12 +606,15 @@ const styles = (theme) => ({
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
   },
-  example: {
+  greyText: {
     color: 'grey',
   },
   explain: {
     paddingLeft: theme.spacing(2),
     paddingBottom: theme.spacing(2),
+  },
+  checkbox: {
+    marginLeft: -theme.spacing(1.35),
   },
 });
 

@@ -124,11 +124,24 @@ class BookingCreationNotification extends Component<Props, State> {
 
   renderPrimaryNotifText = (notif) => {
     const { t } = this.props;
+    const { notify_booking_nb } = notif;
+
     return (
       <Typography>
-        {`${t(`notification.form.listItemPrimary.${this.computeKind(notif)}`, {
-          notify_booking_nb: notif.notify_booking_nb,
-        })} | ${t(
+        {`${
+          notify_booking_nb === 0
+            ? t(
+                `notification.form.listItemPrimary.notifyAllEvents.${this.computeKind(
+                  notif,
+                )}`,
+              )
+            : t(
+                `notification.form.listItemPrimary.${this.computeKind(notif)}`,
+                {
+                  notify_booking_nb,
+                },
+              )
+        } | ${t(
           `notification.form.listItemPrimary.${
             notif.hours > 0 ? 'after' : 'before'
           }`,

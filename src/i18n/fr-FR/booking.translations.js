@@ -141,6 +141,7 @@ exports.default = {
       typeTitle: 'Type de notification',
       settingTitle: 'Paramètres',
       eventNb: "Notifier le membre lors de l'évènement n° :",
+      notifyAllEvents: 'Notifier le membre à chaque évènement',
       sendBeforeMail:
         'Envoyer le mail au membre avant la séance concernée par la notification',
       sendAfterMail:
@@ -168,6 +169,16 @@ exports.default = {
         absence: 'son absence n° {{notify_booking_nb}}',
         refunded: 'son annulation remboursée n° {{notify_booking_nb}}',
         notRefunded: 'son annulation hors délai n° {{notify_booking_nb}}',
+        allEvents: {
+          attendance:
+            'Aide : la notification sera envoyée au membre à chacune de ses présences',
+          absence:
+            'Aide : la notification sera envoyée au membre à chacune de ses absences',
+          refunded:
+            'Aide : la notification sera envoyée au membre à chacune de ses annulations remboursées',
+          notRefunded:
+            'Aide : la notification sera envoyée au membre à chacune de ses annulations hors délai',
+        },
       },
       submit: 'Valider',
       next: 'suivant',
@@ -181,6 +192,12 @@ exports.default = {
         notRefunded: 'Annulation hors délai n° {{notify_booking_nb}}',
         bookingDeprecated: 'Réservation n° {{notify_booking_nb}}',
         cancelledDeprecated: 'Annulation n° {{notify_booking_nb}}',
+        notifyAllEvents: {
+          attendance: 'À chaque présence',
+          absence: 'À chaque absence',
+          refunded: 'À chaque annulation remboursée',
+          notRefunded: 'À chaque annulation hors délai',
+        },
       },
     },
   },

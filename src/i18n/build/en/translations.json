@@ -3298,7 +3298,7 @@
             "submit": "Save",
             "general_terms_and_conditions": {
                 "placeholder": "I confirm I do not have any medical contraindication",
-                "helperText": "Must be accepted on all payment and signup",
+                "helperText": "Must be accepted for all payments",
                 "label": "General terms and conditions"
             },
             "android_app_url": {
@@ -4103,7 +4103,8 @@
             "1": "Cash",
             "0": "Credit card",
             "label": "Payment method",
-            "12": "Litigation"
+            "12": "Litigation",
+            "13": "SEPA"
         },
         "actions": {
             "addThisPaymentItem": "Add this payment method"
@@ -5503,7 +5504,7 @@
             "createMember": "Add a member"
         },
         "memberTermsAccepted": " were accepted on {{- date}}",
-        "termsAndConditions": "General conditions of sale"
+        "termsAndConditions": "General conditions of use"
     },
     "booking": {
         "bookingModule": {
@@ -5580,7 +5581,7 @@
             "canceled": "Session cancelled",
             "absent": "Absent",
             "present": "Checked in",
-            "all": "All reservations"
+            "all": "All bookings"
         },
         "creditConsumed": "{{ credit_consumed }} credit",
         "creditConsumed_plural": "{{credit_consumed}} credits",
@@ -5675,7 +5676,8 @@
                 "title": "Delete recurrence rule",
                 "cancel": "Cancel",
                 "confirm": "Delete"
-            }
+            },
+            "explain": "The member will always be registered {{ delayWeek }} weeks in advance of class on {{ dayOfWeek}} at {{hour}}:{{minute}}. They will only be registered if they possess a valid pass."
         }
     },
     "marketplace": {
@@ -6979,14 +6981,17 @@
         },
         "platformBillingPlan": {
             "max_establishment": {
-                "label": "Up to {{ max_establishment }} establishments"
+                "label": "Up to {{ max_establishment }} establishments",
+                "help": "An establishment is considered as active starting from 8 monthly sessions"
             },
             "max_coach": {
-                "label": "Up to {{ max_coach }} teachers"
+                "label": "Up to {{ max_coach }} teachers",
+                "help": "A teacher is considered as active starting from 8 monthly sessions"
             }
         },
         "platformBillingGroup": {
-            "soonAvailable": "Available Soon !"
+            "soonAvailable": "Available Soon !",
+            "myGroup": "My subscription"
         }
     },
     "widget": {

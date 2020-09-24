@@ -329,7 +329,7 @@
                 "metaActivityFormPage": "Aktivität-Formular",
                 "metaActivityEditForm": "Aktivität-Formular",
                 "WorkshopActivityFormPage": "Event-Formular",
-                "workshopActivityList": "Events",
+                "workshopActivityList": "Workshops",
                 "coachList": "Lehrer",
                 "shopManager": "Mein Shop",
                 "settings": "Einstellungen",
@@ -377,7 +377,7 @@
                 "tabName": "Shop",
                 "noDescription": "Keine Beschreibung"
             },
-            "workshop": "Events",
+            "workshop": "Workshops",
             "calendar": "Kalender",
             "bookButton": {
                 "bookOption": "Warteliste",
@@ -736,7 +736,7 @@
                 "substituteCoachLabel": "Vertreter",
                 "establishmentChangeWarning": "Wenn Sie die Einrichtung ändern, wird diese Änderung für alle zukünftigen Kurse wirksam sein. Falls Sie das nicht möchten, müssen Sie das Feld \"temporäre Einrichtung\" benützen. Alle anderen Änderungen, die hier gespeichert sind (Wochentag, Preis, Vertreter, Lehrer, ...) werden für alle Kurse wirksam sein.",
                 "coachChangeWarning": "Wenn Sie den Lehrer ändern, wird diese Änderung für alle zukünftigen Kurse wirksam sein. Falls Sie das nicht möchten, müssen Sie das Feld \"Vertreter\" benützen. Alle anderen Änderungen (Einrichtung, Preis, Wochentag, ...) werden für alle Kurse wirksam sein.",
-                "explainRecursiveOfferEdit": "Wollen Sie ALLE ähnlichen Kurse an diesen neuen Bedingungen anpassen ?",
+                "explainRecursiveOfferEdit": "Wollen Sie ALLE ähnlichen Kurse an diesen neuen Bedingungen anpassen?",
                 "explainRecursiveOfferDelete": "Wollen Sie ALLE ähnlichen Kurse löschen?",
                 "changeDate": "Uhrzeit/Datum ändern",
                 "warningPackonEdit": "Änderungen an den Kursen können dazu führen, dass diese mit einigen Kurskarten nicht mehr kompatibel sind. Bitte prüfen Sie, ob sie mit den möglichen Orts-/Lehrerwechseln kompatibel bleiben.",
@@ -1002,7 +1002,8 @@
             "revertBookingWithInvoiceImpossibleExplain": "Diese Buchung ist bereits vom Mitglied bezahlt worden und kann nicht storniert werden. Sie können die Buchung jedoch in \"Abwesend\" ändern",
             "wasRefunded": "Zurückerstattet",
             "fillRate": "Befüllungsrate",
-            "cancelledFromWaitingList": "Hat die Warteliste verlassen"
+            "cancelledFromWaitingList": "Hat die Warteliste verlassen",
+            "notifyRevert": "Stornierungs-E-Mail senden"
         },
         "consumer": {
             "booking": {
@@ -1070,8 +1071,8 @@
                     "success": "Das Event wurde gespeichert"
                 }
             },
-            "lastDiscardBeforeMinutes": "Letzte mögliche Stornierung vor Beginn des Events",
-            "lastBookingBeforeMinutes": "Letzte mögliche Buchung vor Beginn des Events",
+            "lastDiscardBeforeMinutes": "Letzte mögliche Stornierung vor Beginn des Workshops",
+            "lastBookingBeforeMinutes": "Letzte mögliche Buchung vor Beginn des Workshops",
             "imageUploaderRequireEditMessage": "Sobald Ihr Event erstellt ist, haben Sie die Möglichkeit, zusätzliche Bilder hinzuzufügen.",
             "addWorkshopActivity": "Ein Event hinzufügen"
         },
@@ -1527,7 +1528,7 @@
                 "second": "€ ausgegeben zwischen",
                 "first": "Hat",
                 "name": "Ausgaben",
-                "workshop": "Kurskarte für Events",
+                "workshop": "Kurskarte für Workshops",
                 "private_pass": "Privatkurse",
                 "combo": "Package",
                 "pack": "Kurskarte",
@@ -1554,7 +1555,7 @@
                 "first": "Gab",
                 "second": "€ aus für die Produkte",
                 "name": "Ausgaben",
-                "workshop": "Kurskarte für Events",
+                "workshop": "Kurskarte für Workshops",
                 "private_pass": "Privatkurs",
                 "between": "und",
                 "combo": "Package",
@@ -3459,7 +3460,7 @@
         },
         "recurrenceRule": {
             "deleteModal": {
-                "cancel": "Stornieren",
+                "cancel": "Abbrechen",
                 "confirm": "Löschen",
                 "content": "Die Streichung der Wiederholungsregel wird zur Stornierung künftiger Reservierungen führen, die über diese Regel vorgenommen wurden.",
                 "title": "Wiederholungsregel löschen"
@@ -3678,7 +3679,7 @@
         "form": {
             "actions": {
                 "submit": "Bestätigen",
-                "cancel": "Stornieren"
+                "cancel": "Abbrechen"
             },
             "applies_to": {
                 "choices": {
@@ -3882,7 +3883,7 @@
             "isCancelled": "Storniert",
             "hardDelete": "Löschen",
             "discard": "Den Termin stornieren",
-            "cancel": "Stornieren",
+            "cancel": "Abbrechen",
             "editTime": "Ändern",
             "updateCoach": "Einen neuen Lehrer für diesen Termin auswählen"
         },
@@ -3890,7 +3891,7 @@
             "configuration": {
                 "explainSetToHasOwnAvailabilitySlots": "Nur auf bestimmten Slots buchbar",
                 "explainSetToHasNotOwnAvailabilitySlots": "Für jeden Slot buchbar, falls der Lehrer oder der Raum verfügbar sind",
-                "slot": "Kurskategorie",
+                "slot": "Kurs-Einstellungen",
                 "changeIsAlwaysAvailable": "Ändern",
                 "isAlwaysAvailable": "{{ resourceName}} kann man buchen, sobald die Lehrer und/oder der Raum verfügbar sind",
                 "hasFutureSlot": "Verfügbarkeitskalender OK",
@@ -3932,7 +3933,7 @@
                     "helperText": "Für jede Buchung wird eine Adresse verlangt",
                     "label": "Zu Hause"
                 },
-                "addSlot": "Eine Kurskategorie hinzufügen",
+                "addSlot": "Kurs-Einstellungen hinzufügen",
                 "addEstablishment": "Ein Raum hinzufügen",
                 "addCoach": "Ein Lehrer hinzufügen",
                 "title": "Termin",
@@ -3984,8 +3985,8 @@
             },
             "parameters": {
                 "slots": {
-                    "isEmpty": "Keine festgelegte Kurskategorie",
-                    "explainIsEmpty": "Legen Sie die Kurskategorien fest (Dauer, Kosten)",
+                    "isEmpty": "Keine festgelegten Kurs-Einstellungen hinterlegt",
+                    "explainIsEmpty": "Legen Sie die Kurs-Einstellungen fest (Dauer, Kosten)",
                     "title": "Kurs"
                 },
                 "description": "Beschreibung",
@@ -4043,7 +4044,7 @@
                     "title": "Änderung eines Slots",
                     "label": "Ändern :",
                     "submit": "Speichern",
-                    "cancel": "Stornieren"
+                    "cancel": "Abbrechen"
                 }
             }
         },
@@ -4090,7 +4091,7 @@
             "form": {
                 "actions": {
                     "submit": "Speichern",
-                    "cancel": "Stornieren"
+                    "cancel": "Abbrechen"
                 },
                 "color": "Farbcode"
             },
@@ -4247,7 +4248,7 @@
             "toogle": {
                 "showPrivateBookings": "Termine",
                 "showOfferList": "Gruppenkurse",
-                "showCustomEvents": "Einzelsession"
+                "showCustomEvents": "persönlicher Termin"
             },
             "addBooking": "Einen Termin speichern",
             "selectCoachToModifyAvailability": "Einen Lehrer auswählen",
@@ -4296,7 +4297,7 @@
         "color": {
             "form": {
                 "submit": "Speichern",
-                "cancel": "Stornieren",
+                "cancel": "Abbrechen",
                 "title": "Farbcode des Lehrers"
             }
         },
@@ -4309,7 +4310,7 @@
             "form": {
                 "actions": {
                     "submit": "Speichern",
-                    "cancel": "Stornieren"
+                    "cancel": "Abbrechen"
                 },
                 "name": {
                     "label": "Name"
@@ -4438,7 +4439,7 @@
         "common": {
             "refresh": "Aktualisieren",
             "submit": "Senden",
-            "cancel": "Stornieren"
+            "cancel": "Abbrechen"
         },
         "recipients": "Empfänger"
     },
@@ -4451,7 +4452,7 @@
         "booking": {
             "showCalendar": "Kalender ansehen",
             "bookAgain": "Wieder buchen",
-            "discard": "Stornieren",
+            "discard": "Abbrechen",
             "titlePrivateBooking": "Termin",
             "titleBooking": "Gruppenkurs"
         },
@@ -4539,7 +4540,7 @@
             },
             "create": {
                 "steps": {
-                    "workshop_form": "Erstellung eines Events",
+                    "workshop_form": "Erstellung eines Kurses",
                     "offer_form": "Erstellung von Kursen (fakultativ)",
                     "pass_list": "Finalisierung",
                     "pass_form": "Erstellung einer Kurskarte (fakultativ)",
@@ -4606,7 +4607,7 @@
             },
             "content": "Inhalt",
             "actions": {
-                "cancel": "Stornieren",
+                "cancel": "Abbrechen",
                 "submit": "Speichern"
             },
             "manager_only": {
@@ -4651,7 +4652,7 @@
             "content": "Sind Sie sich sicher, dass Sie dieses Package löschen möchten ? Diese Aktion ist unwiderruflich. Die bereits abgeschlossene Käufe und der aktuelle Warenkorb werden nicht davon betroffen.",
             "title": "Löschung des Packages",
             "submit": "Löschen",
-            "cancel": "Stornieren"
+            "cancel": "Abbrechen"
         },
         "detail": {
             "emptyContent": "Dieses Package ist leer !",
@@ -5012,7 +5013,7 @@
         "marketplace": {
             "marketplacePass": "Kurskarten",
             "marketplaceCalendar": "Kalender",
-            "marketplaceWorkshop": "Events",
+            "marketplaceWorkshop": "Workshops",
             "marketplaceShop": "Shop"
         },
         "establishment": {
@@ -5077,7 +5078,7 @@
             "subscriptions": "Abonnements"
         },
         "workshopActivity": {
-            "workshopActivityList": "Events",
+            "workshopActivityList": "Workshops",
             "workshopActivityCreate": "Ein Event erstellen",
             "workshopActivityFormPage": "Event-Formular"
         },
@@ -5227,7 +5228,7 @@
             "combo": "Packages",
             "sequence": "Kampagnen",
             "order": "Bestellungen",
-            "workshopActivities": "Events",
+            "workshopActivities": "Workshops",
             "invoice": "Rechnungen",
             "marketing_automation": "Automatisches Marketing",
             "schedule": "Stundenplan",
@@ -5347,7 +5348,7 @@
                 "cancel": "Abbrechen",
                 "actions": {
                     "confirm": "Löschen",
-                    "cancel": "Stornieren"
+                    "cancel": "Abbrechen"
                 },
                 "title": "Lehrer löschen"
             },
@@ -5429,7 +5430,7 @@
         },
         "doubleLogin": {
             "explain": "Ihre Sitzung ist abgelaufen. Sie haben sich bei zwei verschiedenen Konten gleichzeitig eingeloggt oder Sie haben sich von einer anderen Rubrik/einem anderen Fenster ausgeloggt.",
-            "disconnect": "Mich erneut einloggen"
+            "disconnect": "Erneut einloggen"
         },
         "signup": {
             "title": "Anmeldung"
@@ -5759,7 +5760,7 @@
                 },
                 "actions": {
                     "confirm": "Löschen",
-                    "cancel": "Stornieren"
+                    "cancel": "Abbrechen"
                 },
                 "title": "Ein Event löschen"
             }
@@ -5780,8 +5781,8 @@
             "addWorkshopActivity": "Ein Event hinzufügen"
         },
         "search": "Ein Event suchen",
-        "noWorkshops": "Verwalten Sie Ihre Events hier. Ein Event ist eine Veranstaltung, deren Datum im Voraus festgelegt wird.",
-        "disabledWorkshops": "Archivierte Events"
+        "noWorkshops": "Verwalten Sie Ihre Workshops hier. Ein Workshop ist eine Veranstaltung, deren Datum im Voraus festgelegt wird.",
+        "disabledWorkshops": "Archivierte Workshops"
     },
     "establishment": {
         "capacity": {
@@ -5991,7 +5992,7 @@
         "widget": {
             "ownStyle": "Kompatibilitätsmodus (Seiten-Thema ignorieren)",
             "copyUrl": "Gehen Sie zu Ihrem Kalenderlink",
-            "codeSource": "Sehen Sie sich den Code an, den Sie auf Ihre eigene Seite kopieren müssen",
+            "codeSource": "Code anzeigen, der auf Website eingefügt werden muss",
             "copy": "Kopieren",
             "url": "Kalenderlink",
             "code": "Widget auf Ihrer Website",

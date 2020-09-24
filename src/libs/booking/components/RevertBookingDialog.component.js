@@ -26,6 +26,8 @@ type Props = {
 
   loading: boolean,
   setLoading: (boolean) => void,
+  force_notify: boolean,
+  toogleForceNotify: (boolean) => void,
 
   t: TFunction,
 };

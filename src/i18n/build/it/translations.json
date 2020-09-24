@@ -4297,7 +4297,8 @@
                 "content": "Eliminare la regola di ricorrenza comporterà la cancellazione delle future prenotazioni effettuate tramite questa regola.",
                 "cancel": "Annulla",
                 "confirm": "Elimina"
-            }
+            },
+            "explain": "Il membro sarà sempre registrato {{ delayWeek }} settimane in anticipo prima del {{ dayOfWeek}} a {{hour}}:{{minute}}. Sarà registrato solo se possiede una tessera del corso valida."
         }
     },
     "smartList": {

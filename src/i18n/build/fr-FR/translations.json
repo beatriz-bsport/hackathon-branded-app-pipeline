@@ -2511,6 +2511,7 @@
         "accountHolderName": { "label": "Titulaire du compte bancaire", "placeholder": "Jacques Chirac" },
         "invalid": "IBAN invalide. Attention : l'IBAN doit correspondre à un compte bancaire domicilié dans le même pays que votre entreprise",
         "accountNumber": { "label": "Identifiant bancaire (IBAN)", "placeholder": "FR89370400440532013000" },
+        "unknownCountry": "Opération manuelle pour ce pays, veuillez contacter bsport via contact@bsport.io",
         "actions": { "cancel": "Annuler", "submit": "Confirmer" }
       }
     }

@@ -789,6 +789,7 @@ exports.default = {
       'Cette réservation a déjà été payée par le membre et ne peut être annulée. Toutefois vous pouvez passer la réservation en "Absent"',
     attend: 'Présent',
     doNotAttend: 'Absent',
+    notifyRevert: "Envoyer un email d'annulation",
     discard: 'Annuler',
     // eslint-disable-next-line
     onWaitingList: "Sur liste d'attente",

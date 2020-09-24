@@ -86,7 +86,7 @@ type Props = {
   ) => void,
   addBooking: (consumerPaymentPackId: number, data: any) => void,
   discardOption: (id: number, options: OptionCallback) => void,
-  deleteBooking: (bookingId: number) => void,
+  deleteBooking: (bookingId: number, data: any) => void,
 
   fetchOffer: (id: number) => void,
   fetchOfferData: (id: number) => void,
@@ -279,7 +279,7 @@ export class OfferManagement extends Component<Props, State> {
     this.props.closeAddMemberModal();
   };
 
-  handleBookingDeletion = (options: OptionCallback) => {
+  handleBookingDeletion = (data: any, options: OptionCallback) => {
     this.props.deleteBooking(
       this.props.bookingToRevert.id,
       this.props.booking_ordering,
@@ -291,6 +291,7 @@ export class OfferManagement extends Component<Props, State> {
           }
         },
       },
+      data,
     );
   };
 

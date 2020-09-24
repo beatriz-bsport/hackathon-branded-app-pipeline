@@ -65,7 +65,7 @@ type Props = {
   goToConsumerPass: (memberId: number, consumerPassId: number) => void,
   bookingsLoading: boolean,
   fetchMemberBookings: (id: number) => void,
-  deleteBooking: (id: number) => void,
+  deleteBooking: (id: number, data: any, options: OptionCallback) => void,
   discardBookingAttendance: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
 
@@ -132,8 +132,8 @@ export class MemberDetailBooking extends Component<Props, State> {
     });
   };
 
-  handleBookingDeletion = (options: OptionCallback) => {
-    this.props.deleteBooking(this.state.bookingToRevert.id, null, options);
+  handleBookingDeletion = (data: any, options: OptionCallback) => {
+    this.props.deleteBooking(this.state.bookingToRevert.id, data, options);
     this.setState({ bookingToRevert: null });
   };
 

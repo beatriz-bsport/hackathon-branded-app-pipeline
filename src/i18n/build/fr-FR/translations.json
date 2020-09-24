@@ -639,6 +639,7 @@
       "revertBookingWithInvoiceImpossibleExplain": "Cette réservation a déjà été payée par le membre et ne peut être annulée. Toutefois vous pouvez passer la réservation en \"Absent\"",
       "attend": "Présent",
       "doNotAttend": "Absent",
+      "notifyRevert": "Envoyer un email d'annulation",
       "discard": "Annuler",
       "onWaitingList": "Sur liste d'attente",
       "cancelledFromWaitingList": "Sorti de la liste d'attente",

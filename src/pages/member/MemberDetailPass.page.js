@@ -80,7 +80,7 @@ type Props = {
   consumerPackInvoice: Invoice,
   goToInvoice: (uuid: string) => void,
   goToBooking: (memberId: number, bookingId: number) => void,
-  deleteBooking: (id: number) => void,
+  deleteBooking: (id: number, data: any) => void,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
   discardBookingAttendance: (id: number) => void,
@@ -342,8 +342,12 @@ export class MemberDetailPass extends Component<Props, State> {
           }}
         />
         <RevertBookingDialog
-          handleBookingDeletion={() => {
-            this.props.deleteBooking(this.state.bookingToRevert.id);
+          handleBookingDeletion={(data, options) => {
+            this.props.deleteBooking(
+              this.state.bookingToRevert.id,
+              data,
+              options,
+            );
             this.setState({ bookingToRevert: null });
           }}
           bookingToRevert={this.state.bookingToRevert}

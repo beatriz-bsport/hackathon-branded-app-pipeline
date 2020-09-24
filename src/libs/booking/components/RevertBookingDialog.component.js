@@ -6,9 +6,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { compose, withState } from 'recompose';
+import { compose, withState, withStateHandlers } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import RedButton from '../../../components/button/RedButton.component';
@@ -34,6 +36,8 @@ export function RevertBookingDialog(props: Props) {
     bookingToRevert,
     closeRevertBookingDialog,
     handleBookingDeletion,
+    force_notify,
+    toogleForceNotify,
   } = props;
   if (!bookingToRevert) {
     return null;
@@ -59,6 +63,12 @@ export function RevertBookingDialog(props: Props) {
               }`,
             )}
           </DialogContentText>
+          <FormControlLabel
+            control={
+              <Checkbox checked={force_notify} onChange={toogleForceNotify} />
+            }
+            label={t('booking.notifyRevert')}
+          />
         </DialogContent>
         <DialogActions>
           {props.loading ? (
@@ -71,9 +81,12 @@ export function RevertBookingDialog(props: Props) {
               <RedButton
                 onClick={() => {
                   props.setLoading(true);
-                  handleBookingDeletion({
-                    onSuccess: () => props.setLoading(false),
-                  });
+                  handleBookingDeletion(
+                    { force_notify },
+                    {
+                      onSuccess: () => props.setLoading(false),
+                    },
+                  );
                 }}
                 color="primary"
                 autoFocus
@@ -115,5 +128,13 @@ export function RevertBookingDialog(props: Props) {
 
 export default compose(
   withState('loading', 'setLoading', false),
+  withStateHandlers(
+    { force_notify: false },
+    {
+      toogleForceNotify: ({ force_notify }) => () => ({
+        force_notify: !force_notify,
+      }),
+    },
+  ),
   withTranslation(),
 )(RevertBookingDialog);

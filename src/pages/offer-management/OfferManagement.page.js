@@ -230,19 +230,16 @@ export default compose(
       bookingId,
       ordering_field,
       options,
+      data,
     ) => {
-      cancelBooking(
-        bookingId,
-        {},
-        {
-          onSuccess: () => {
-            refresh(ordering_field);
-            if (options && options.onSuccess) {
-              options.onSuccess();
-            }
-          },
+      cancelBooking(bookingId, data || {}, {
+        onSuccess: () => {
+          refresh(ordering_field);
+          if (options && options.onSuccess) {
+            options.onSuccess();
+          }
         },
-      );
+      });
     },
     fetchOfferData: ({
       fetchOffer,

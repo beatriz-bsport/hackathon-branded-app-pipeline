@@ -2779,7 +2779,7 @@
         "workshop": {
             "noWorkshopAvailable": "No hay mas eventos previstos",
             "card": {
-                "showMore": "Más informaciones",
+                "showMore": "Más informacion",
                 "book": "Reservar",
                 "bookOption": "Lista de espera",
                 "isPast": "Pasada",

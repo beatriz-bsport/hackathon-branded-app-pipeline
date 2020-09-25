@@ -1833,7 +1833,7 @@
                 "acceptDoubleBooking": "Doppelte Buchung akzeptieren",
                 "consumerRegularizeDebt": "Der Kunde kann seine Anzahlung online regularisieren",
                 "workshopsCustomer": "Einrichtungen im Kundenkalender anzeigen",
-                "cancelledOffersCustomer": "Abgebrochene Stunden im Kunden-Kalender anzeigen",
+                "cancelledOffersCustomer": "Stornierte Stunden im Kunden-Kalender anzeigen",
                 "calendarPersonalizationTitle": "Kalender Einstellungen"
             },
             "submit": "Speichern",
@@ -5663,7 +5663,7 @@
         "deleteImpossibleTitle": "Die Sitzung kann nicht gelöscht werden",
         "menu": {
             "download": "Zusammenfassung",
-            "massDisable": "Gruppenstornierung",
+            "massDisable": "Massenstornierungen",
             "hideCancelled": "Stornierungen ausblenden",
             "showCancelled": "Stornierungen anzeigen",
             "showWeek": "Woche anzeigen",

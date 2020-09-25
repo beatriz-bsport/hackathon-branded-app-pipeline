@@ -401,7 +401,7 @@
             "privatePassListTitle": "Afspraakkaarten",
             "noSessionToday": "Geen sessie",
             "showMarketplace": "Zie de kalender van ",
-            "backToCalendar": "Vorige",
+            "backToCalendar": "Terug",
             "teacher": "Instructeur",
             "substituted": "Afwezig",
             "substitute": "Plaatsvervanger",
@@ -1390,10 +1390,10 @@
     "login": {
         "tempPassword": {
             "title": "Tijdelijk wachtwoord",
-            "close": "sluiten",
-            "submit": "Genereer",
+            "close": "Sluiten",
+            "submit": "Aanmaken",
             "explain": "Dit wachtwoord is geldig tot {{expirationDate}}. Uw hoofdwachtwoord is niet gewijzigd.",
-            "explainRequest": "Vraag een tijdelijk wachtwoord aan dat een week geldig is, zodat bijvoorbeeld onze teams gedurende een beperkte tijd verbinding kunnen maken met je account. Je oorspronkelijk wachtwoord verandert niet.",
+            "explainRequest": "Vraag een tijdelijk wachtwoord dat een geldigheid van één week heeft. Zo kunnen onze technici voor een beperkte tijd met je account verbinden. Je oorspronkelijke wachtwoord verandert niet.",
             "copied": "Wachtwoord gekopieerd",
             "copy": "Kopieer wachtwoord naar klembord"
         },
@@ -1405,21 +1405,21 @@
         "actions": {
             "signin": "Aanmelden",
             "signup": "Nog geen account?",
-            "forgottenPassword": "Je wachtwoord vergeten"
+            "forgottenPassword": "Wachtwoord vergeten"
         },
         "error": {
-            "authError": "verkeerde email of wachtwoord",
+            "authError": "E-mail of wachtwoord is verkeerd",
             "invalidEmail": "Deze e-mail bestaat niet in onze database",
-            "invalidPassword": "Het wachtwoord is ongeldig"
+            "invalidPassword": "Ongeldig wachtwoord"
         },
         "doubleLogin": {
-            "explain": "Uw sessie is verlopen. Heeft u zich tegelijkertijd bij twee verschillende accounts aangemeld of heeft u zich afgemeld bij een ander tabblad / venster?",
+            "explain": "Uw sessie is verlopen. Heeft u zich tegelijkertijd bij twee verschillende accounts aangemeld of heeft u zich afgemeld in een ander tabblad/venster?",
             "disconnect": "Verbind me opnieuw"
         },
         "signup": {
-            "title": "inschrijving"
+            "title": "Inschrijving"
         },
-        "contactUs": "Studio manager, bent u geïnteresseerd in onze oplossing? Neem contact met ons op.",
+        "contactUs": "Eigenaar of manager van een studio en bent u in onze oplossing geïnteresseerd? Contacteer ons.",
         "or": " of ",
         "country": {
             "ES": "Spanje",
@@ -1433,7 +1433,7 @@
         "signupCompany": {
             "form": {
                 "next": "Bevestigen",
-                "previous": "Vorig",
+                "previous": "Terug",
                 "country": {
                     "label": "Land"
                 },
@@ -1457,18 +1457,18 @@
                 "title": "Mijn informatie"
             },
             "welcome": {
-                "next": "Doorgaan",
-                "content": "bsport is een gemeenschap van enthousiastelingen wiens doel het is om je IT-tools te vereenvoudigen en je gemeenschap beter te begrijpen.",
+                "next": "Verder",
+                "content": "Bsport bestaat uit enthousiastelingen wiens doel het is om het managen van uw studio te vereenvoudigen zodat u uw leden beter kunt begrijpen.",
                 "title": "Welkom!"
             }
         },
         "emailValidation": {
             "disconnect": "Van account veranderen",
             "goToLogin": "Terug",
-            "linkExpired": "Je validatie link is verlopen",
-            "hasSentAgain": "Email verzonden",
-            "sendAgain": "Stuur opnieuw een bevestigingsmail",
-            "success": "Uw e-mail is gevalideerd, u wordt binnen enkele seconden doorverwijst.",
+            "linkExpired": "Je validatielink is verlopen",
+            "hasSentAgain": "E-mail verzonden",
+            "sendAgain": "Stuur bevestigingsmail opnieuw",
+            "success": "Je e-mail is gevalideerd! Je wordt binnen enkele seconden doorverwezen.",
             "explain": "We hebben je een bevestigingsmail gestuurd, je bent er bijna!"
         },
         "language": {
@@ -4648,7 +4648,7 @@
             "CREDIT_ACCOUNT": "Betaal ter plaatse"
         },
         "forms": {
-            "cancelPayment": "Vorig",
+            "cancelPayment": "Terug",
             "credit": {
                 "explain": "Uw club wordt geïnformeerd over de afschrijving, u betaalt deze bestelling ter plaatse",
                 "pay": "Bevestigen"
@@ -4677,7 +4677,7 @@
                 "label": "Deze betaalmethode opslaan"
             }
         },
-        "goBack": "Vorig",
+        "goBack": "Terug",
         "availablePaymentPacks": "Compatibele passen: ",
         "actions": {
             "addThisPaymentItem": "Dit betalingsmiddel toevoegen"
@@ -5171,7 +5171,7 @@
                 "create": {
                     "explain": "Deze cursuskaart wordt gedeeld tussen de twee leden; beiden kunnen het beschikbare krediet gebruiken.",
                     "title": "Cursuskaart delen",
-                    "previous": "Vorige",
+                    "previous": "Terug",
                     "submit": "Delen",
                     "linkButton": "Delen",
                     "noConsumerPackToLink": "Geen deelbare cursuskaart",
@@ -5398,7 +5398,7 @@
     "common": {
         "colorPicker": {
             "noColor": "Geen kleur",
-            "delete": "Uitwissen",
+            "delete": "Verwijderen",
             "validate": "Opslaan"
         },
         "form": {
@@ -5412,17 +5412,17 @@
             }
         },
         "text": {
-            "showLessText": "Zie minder",
-            "showMoreText": "Meer zien"
+            "showLessText": "Toon minder",
+            "showMoreText": "Toon meer"
         },
-        "close": "sluiten"
+        "close": "Sluiten"
     },
     "workshop": {
         "modal": {
             "delete": {
                 "cancel": "Annuleren",
-                "title": "Schrapping van de workshop",
-                "content": "Weet je zeker dat je deze workshop wil verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze operatie is definitief.",
+                "title": "Verwijder workshop",
+                "content": "Weet je zeker dat je deze workshop wilt verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze actie is definitief.",
                 "confirm": "Verwijderen"
             }
         },
@@ -5432,10 +5432,10 @@
                     "confirm": "Verwijderen",
                     "cancel": "Annuleren"
                 },
-                "title": "Schrapping van de workshop",
+                "title": "Verwijder workshop",
                 "content": {
-                    "canDelete": "Weet je zeker dat je deze workshop wil verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze operatie is definitief.",
-                    "cannotDelete": "Sessies zijn gepland in de toekomst, controleer of ze worden verwijderd en niet alleen worden geannuleerd."
+                    "canDelete": "Weet je zeker dat je deze workshop wilt verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze actie is definitief.",
+                    "cannotDelete": "Er staan toekomstige sessies in de planning. Controleer of ze worden verwijderd en niet alleen worden geannuleerd."
                 }
             }
         },
@@ -5447,28 +5447,28 @@
             "search": "Vind een workshop",
             "addWorkshopActivity": "Voeg een workshop toe"
         },
-        "noWorkshops": "Beheer hier uw workshops, een workshop is een evenement waarvan de datum vooraf is vastgelegd.",
+        "noWorkshops": "Beheer hier uw workshops. Een workshop is een evenement waarvan de datum vooraf is vastgelegd.",
         "disabledWorkshops": "Gearchiveerde workshops"
     },
     "tag": {
         "form": {
             "group": {
                 "delete": {
-                    "explain": "Houd er rekening mee dat het verwijderen van deze categorie gevolgen heeft voor alle leden. Deze operatie is onomkeerbaar",
-                    "title": "Verwijdering",
+                    "explain": "Let op: het verwijderen van deze categorie heeft gevolgen voor alle leden. Deze actie is onomkeerbaar",
+                    "title": "Verwijderen",
                     "submit": "Verwijderen",
                     "cancel": "Annuleren"
                 },
-                "namePlaceholder": "Categorie naam",
-                "addTagGroup": "Maak een categorie",
+                "namePlaceholder": "Naam van de categorie",
+                "addTagGroup": "Maak een categorie aan",
                 "edit": "Bewerk tags",
                 "deleteCategory": "Categorie verwijderen"
             },
             "tag": {
-                "namePlaceholder": "Tagnaam",
+                "namePlaceholder": "Naam van de tag",
                 "delete": {
-                    "title": "Verwijdering",
-                    "explain": "Let op, deze tag wordt verwijderd van ALLE leden. Deze operatie is onomkeerbaar",
+                    "title": "Verwijder",
+                    "explain": "Let op: deze tag wordt van ALLE leden verwijderd. Deze actie is definitief",
                     "submit": "Verwijderen",
                     "cancel": "Annuleren"
                 }
@@ -5479,14 +5479,14 @@
                 "exclude": "Bevat niet de tag",
                 "tagGroupLabel": "Tag (categorie)",
                 "tagLabel": "Tag (waarde)",
-                "addFilter": "Filteren",
+                "addFilter": "Sorteren op",
                 "include": "Inclusief tag",
                 "cancel": "Annuleren"
             }
         },
         "panel": {
             "title": "Mijn tags",
-            "noTagAvailable": "Geen tags gemaakt"
+            "noTagAvailable": "Nog geen tags aangemaakt"
         },
         "filter": {
             "addATagFilter": "Filteren op tag ..."
@@ -5500,7 +5500,7 @@
             "themePersonalization": {
                 "calendar": {
                     "offerCard": {
-                        "helperText": "Verander de stijl van leskaarten",
+                        "helperText": "Verander de stijl van cursuskaarten",
                         "label": "Cursuskaarten",
                         "placeholder": "Voer CSS-code in"
                     },
@@ -5512,13 +5512,13 @@
                     "police": {
                         "placeholder": "Voer CSS-code in",
                         "label": "Lettertype",
-                        "helperText": "Wijzig de lettertypestijl"
+                        "helperText": "Wijzig lettertype"
                     },
                     "title": "Voer uw eigen CSS-code in om uw agenda aan te passen",
                     "bookButton": {
                         "placeholder": "Voer CSS-code in",
-                        "label": "\"Boek\" knop",
-                        "helperText": "Verander de stijl van de \"boek\" knop"
+                        "label": "\"Reserveer\" knop",
+                        "helperText": "Verander de stijl van de \"reserveer\" knop"
                     }
                 },
                 "default_attendance": {
@@ -5527,44 +5527,44 @@
                     "title": "Standaardstatus van een reservering gemaakt door de klant"
                 },
                 "default_booking_ordering": {
-                    "date": "Sorteer op meest recente boekingsdatum",
-                    "firstname": "Sorteer alfabetisch op voornamen",
-                    "lastname": "Sorteer alfabetisch op voornamen",
+                    "date": "Sorteer op meest recente reserveringsdatum",
+                    "firstname": "Sorteer voornamen alfabetisch",
+                    "lastname": "Sorteer familienaam alfabetisch",
                     "title": "Kies de standaard sorteervolgorde voor reserveringen op de activiteitenpagina"
                 },
-                "names_label_info": "Wijzig het label van de velden Achternaam en Voornaam in de registratieformulieren",
+                "names_label_info": "Wijzig het label van de velden Familienaam en Voornaam in de registratieformulieren",
                 "first_name_label": {
                     "placeholder": "Voornaam label",
                     "label": "Voornaam label",
                     "helperText": "Voer het label in voor de voornaam"
                 },
                 "last_name_label": {
-                    "placeholder": "Label voor de naam",
-                    "label": "Label voor de naam",
-                    "helperText": "Voer het label in voor de voornaam"
+                    "placeholder": "Label voor de familienaam",
+                    "label": "Label voor de familienaam",
+                    "helperText": "Voer het label in voor de familienaam"
                 },
-                "offersFilling": "Toon het vullen van cursussen op de klantenkalender",
+                "offersFilling": "Toon aantal plaatsen van een cursus op de kalender van de klant",
                 "acceptDoubleBooking": "Dubbele reservering aanvaarden",
-                "consumerRegularizeDebt": "De klant kan zijn aanbetaling online regulariseren",
-                "workshopsCustomer": "Toon workshops op de klantenkalender",
+                "consumerRegularizeDebt": "Klanten kunnen hun betalingen online regelen",
+                "workshopsCustomer": "Toon workshops op de kalender van de klant",
                 "cancelledOffersCustomer": "Toon geannuleerde sessies in de kalender van de klant",
-                "calendarPersonalizationTitle": "Kalender configuratie"
+                "calendarPersonalizationTitle": "Configureer kalender"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
                 "label": "Google Tag-ID"
             },
             "instagramURL": {
-                "label": "Instagram-URL",
-                "helperText": "Je Instagram-pagina",
+                "label": "Link naar Instagram",
+                "helperText": "Uw Instagram-pagina",
                 "placeholder": "https://instagram.com/mijn-studio/"
             },
             "cover": {
                 "label": "Logo",
-                "helperText": "Liever png met transparante achtergrond"
+                "helperText": "Upload een .png-bestand met transparante achtergrond"
             },
             "primary_color": {
-                "label": "Hoofdkleur",
+                "label": "Primaire kleur",
                 "helperText": "Kies een kleur, vermijd zwart-wit"
             },
             "secondary_color": {
@@ -5572,25 +5572,25 @@
                 "helperText": "Complementaire themakleur"
             },
             "websiteURL": {
-                "label": "Website URL",
+                "label": "Link naar website (URL)",
                 "helperText": "Wordt gebruikt als de klant met name op uw logo klikt",
                 "placeholder": "https://studio.com/"
             },
             "scheduleURL": {
                 "label": "URL-planning",
-                "helperText": "Standaard kalenderlink",
+                "helperText": "Standaard link naar uw kalender",
                 "placeholder": "https://studio.com/calendar/"
             },
             "submit": "Opslaan",
             "facebookURL": {
-                "label": "Facebook URL",
+                "label": "Facebook-link (URL)",
                 "helperText": "Uw Facebook-pagina",
                 "placeholder": "https://facebook.com/mijn-studio/"
             },
             "general_terms_and_conditions": {
                 "label": "Algemene verkoopvoorwaarden",
                 "helperText": "Dit moet voor alle betalingen en registraties worden geaccepteerd",
-                "placeholder": "Ik verklaar dat ik een medische verklaring heb en deze naar mijn atelier zal brengen"
+                "placeholder": "Ik verklaar dat ik een medische verklaring heb en deze naar mijn studio zal brengen"
             },
             "general_terms_of_use": {
                 "placeholder": "Ik bevestig dat ik 13 jaar of ouder ben",
@@ -5598,14 +5598,14 @@
                 "label": "Algemene gebruiksvoorwaarden"
             },
             "android_app_url": {
-                "label": "URL naar Android-app",
+                "label": "Link naar Android-app",
                 "placeholder": "https://play.google.com/store/apps/details?id=com.bsport",
                 "helperText": "Uw Android-app"
             },
             "ios_app_url": {
                 "helperText": "Uw iOS-app",
                 "placeholder": "https://apps.apple.com/nl/app/id1356621554",
-                "label": "URL naar iOS-app"
+                "label": "Link naar iOS-app"
             }
         },
         "pageTitles": {
@@ -5619,7 +5619,7 @@
             "delivery": {
                 "actions": {
                     "submit": "Volgende",
-                    "cancel": "Vorig"
+                    "cancel": "Terug"
                 },
                 "first_name": "Voornaam",
                 "last_name": "Naam"
@@ -5751,7 +5751,7 @@
     "waitingList": {
         "switchToEnable": "Activeer de wachtlijst opnieuw",
         "switchToDisable": "Activeer de wachtlijst opnieuw",
-        "nbPending": "{{nbPending}} in de lijst",
+        "nbPending": "{{nbPending}} leden in de wachtlijst",
         "nbConvertible": "{{nbConvertible}} in afwachting van bevestiging",
         "form": {
             "dumb_delay_minutes": {
@@ -5767,35 +5767,35 @@
                 "title": "Wachtlijstbeheer"
             },
             "auto_consume_pack": {
-                "helper": "Als het lid een geldige leskaart heeft wanneer een plaats vrij komt, wordt hij/zij automatisch geregistreerd en wordt zijn/haar kaart gedebiteerd. De kaart die het eerst vervalt en met het minste beschikbare krediet, wordt als prioriteit gebruikt.",
-                "label": "Debiteer automatisch een leskaart en registreer het lid wanneer er een plaats vrij komt."
+                "helper": "Als een lid een geldige cursuskaart heeft wanneer er een plaats vrijkomt, wordt het lid automatisch ingeschreven en zijn/haar cursuskaart automatisch belast. De cursuskaart die het eerst vervalt en het minste krediet heeft wordt eerst belast.",
+                "label": "Belast automatisch een cursuskaart en meld het lid aan wanneer er een plaats vrij komt."
             },
             "is_option_blocking": {
-                "helper": "Zolang een lid op de wachtlijst staat, wordt een plaats voor hem/haar geblokkeerd tot hij/zij zich registreert.",
-                "label": "De nog beschikbare plaatsen zijn exclusief gereserveerd voor mensen op de wachtlijst."
+                "helper": "Zolang een lid op de wachtlijst staat, wordt een plaats voor hem/haar gereserveerd tot hij/zij zich aanmeldt.",
+                "label": "Beschikbare plaatsen die exclusief voor leden die op de wachtlijst zijn gereserveerd."
             },
             "autokick_delay": {
                 "helper": "Aantal follow-ups waarvoor het lid automatisch van de wachtlijst wordt verwijderd als hij/zij niets onderneemt",
-                "label": "Automatische terugtrekking van de wachtlijst"
+                "label": "Automatische afmelding van de wachtlijst"
             },
             "dynamic": {
                 "label": "Beheer van wachtlijstprioriteit",
                 "1": {
-                    "explain": "De wachtlijst is niet geordend. Wanneer een plaats beschikbaar is, ontvangt iedereen op de lijst een e-mail waarin ze worden uitgenodigd om zich tegelijkertijd te registreren.",
+                    "explain": "De wachtlijst is niet gesorteerd. Wanneer er een plaats beschikbaar is, ontvangen alle wachtenden een e-mail met een uitnodiging om zich aan te melden voor de beschikbare plaats.",
                     "label": "Wie het eerst komt, het eerst maalt"
                 },
                 "0": {
-                    "explain": "Als een lid zich aanmeldt, krijgt hij/zij een plaats op de wachtlijst. Wanneer een plaats beschikbaar is, kan het eerste lid van de lijst zich registreren, de anderen wachten op hun beurt",
-                    "settingsDelay": "Deadline om te registreren",
-                    "label": "Elk zijn beurt"
+                    "explain": "Als een lid zich aanmeldt, krijgt hij/zij een plaats op de wachtlijst. Wanneer een plaats beschikbaar komt, wordt de eerste op de wachtlijst hiervan geïnformeerd. De anderen wachten op hun beurt",
+                    "settingsDelay": "Deadline om te aan te melden",
+                    "label": "Eén voor één"
                 }
             }
         },
-        "explainWaitingListConf": "Bijv .: er zijn 3 uur voor de sessie, de cursist heeft {{nbMinutesBeforeBookingOptionExpire}} minuten om zijn reservering te bevestigen voordat hij zijn plaats verlaat.",
+        "explainWaitingListConf": "Voorbeeld: een sessie begint over 3 uur. Een lid heeft dan nog {{nbMinutesBeforeBookingOptionExpire}} om zijn reservering te bevestigen voordat zijn/haar plaats vergaat.",
         "dialog": {
             "delete": {
-                "title": "Verwijdering van de wachtlijst",
-                "content": "Weet je zeker dat je dit lid van de wachtlijst wil verwijderen? Het wordt per e-mail gemeld.",
+                "title": "Verwijder wachtlijst",
+                "content": "Weet je zeker dat je dit lid van de wachtlijst wilt verwijderen? Het lid wordt per e-mail geïnformeerd.",
                 "cancel": "Annuleren",
                 "confirm": "Verwijderen"
             }
@@ -5826,8 +5826,8 @@
                     }
                 },
                 "delete": {
-                    "title": "Verwijdering van personeelsaccount",
-                    "content": "Weet je zeker dat je dit account wil verwijderen?",
+                    "title": "Verwijder personeelsaccount",
+                    "content": "Weet je zeker dat je dit account wilt verwijderen?",
                     "cancel": "Annuleren",
                     "confirm": "Verwijderen"
                 }
@@ -5837,24 +5837,24 @@
         "pageTitle": "Personeel",
         "roleDescription": {
             "4": {
-                "description": "Admin, dezelfde toegang als eigenaar, maar kan worden verwijderd / gemaakt",
-                "name": "Admin"
+                "description": "Systeembeheerder, dezelfde toegang als eigenaar, maar kan worden verwijderd/aangemaakt",
+                "name": "Systeembeheerder"
             },
             "3": {
                 "description": "Account voor automatisch inchecken (neem contact op met uw bsport-accountmanager)",
-                "name": "Tablet inchecken"
+                "name": "Inchecken via tabletten"
             },
             "2": {
                 "description": "Alleen toegang voor inchecken.",
                 "name": "Beperkt inchecken"
             },
             "1": {
-                "description": "Toegang tot sessie beheer (wijziging en annulering), leden en inchecken.",
-                "name": "Checkin uitgebreid"
+                "description": "Toegang tot sessiebeheer (wijziging en annulering), leden en kan inchecken.",
+                "name": "Uitgebreide check-ins"
             },
             "0": {
                 "name": "Eigenaar",
-                "description": "Admin toegang, zonder beperking, kan personeelsaccounts maken"
+                "description": "Toegang voor systeembeheerders, zonder beperking, kan personeelsaccounts maken"
             }
         }
     },

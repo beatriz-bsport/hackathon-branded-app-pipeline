@@ -1040,7 +1040,8 @@
             "revertBookingTitle": "Cancel booking",
             "success": "Booking saved",
             "wasRefunded": "Refunded",
-            "cancelledFromWaitingList": "Removed from the waiting list"
+            "cancelledFromWaitingList": "Removed from the waiting list",
+            "notifyRevert": "Send a cancellation email"
         },
         "workshopActivity": {
             "forms": {
@@ -4132,7 +4133,8 @@
                     "label": "Bank account owner"
                 },
                 "content": "This bank account will be used to transfer the amounts paid online to you via bsport.",
-                "title": "Bank account"
+                "title": "Bank account",
+                "unknownCountry": "Manual operation for this country, please contact bsport via contact@bsport.io"
             }
         },
         "payment": {

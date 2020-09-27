@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import omit from 'lodash/omit';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import * as Yup from 'yup';
 import { withFormik, FieldArray } from 'formik';

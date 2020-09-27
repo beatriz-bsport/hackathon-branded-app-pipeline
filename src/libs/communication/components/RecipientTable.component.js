@@ -13,7 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import type { Recipient } from '../types';

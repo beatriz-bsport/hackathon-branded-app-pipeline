@@ -3,7 +3,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withState, withHandlers } from 'recompose';
 import Dialog from '@material-ui/core/Dialog';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -76,6 +76,7 @@ type Props = {
   setNotifyMember: (boolean) => void,
 
   createMember: (data: any, options: OptionCallback) => void,
+  timezone: string,
 };
 
 type State = {
@@ -210,11 +211,14 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
     return (
       <Dialog open={open}>
         <DialogTitle>
-          {moment(this.state.date_start).format('LLLL')}
+          {moment(this.state.date_start)
+            .tz(this.props.timezone)
+            .format('LLLL')}
         </DialogTitle>
         <DialogContent>
           <MemberMinimalListItem member={this.state.member} />
           <DateTimeForm
+            timezone={this.props.timezone}
             value={this.state.date_start}
             onChange={(date_start) => this.setState({ date_start })}
           />
@@ -340,6 +344,7 @@ export default compose(
         state.privateService.privateConsumerPass.loading,
       compatiblePrivatePass: getPrivatePassAvailable(state),
       compatiblePrivateConsumerPass: getPrivateConsumerPassList(state),
+      timezone: state.theme.theme.timezone_name,
       bookingProcessing:
         state.privateService.privateBooking.createOrUpdate.loading,
     }),

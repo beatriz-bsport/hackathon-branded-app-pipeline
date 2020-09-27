@@ -21,7 +21,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import TimeIcon from '@material-ui/icons/AccessTime';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { Link } from 'react-router-dom';
@@ -387,8 +387,12 @@ export class OfferCard extends Component<Props> {
                   <TimeIcon />
                 </ListItemIcon>
                 <ListItemText
-                  primary={moment(offer.date_start).format('LT')}
-                  secondary={moment(offer.date_start).format('LL')}
+                  primary={moment(offer.date_start)
+                    .tz(offer.timezone_name)
+                    .format('LT')}
+                  secondary={moment(offer.date_start)
+                    .tz(offer.timezone_name)
+                    .format('LL')}
                 />
               </ListItem>
             </div>

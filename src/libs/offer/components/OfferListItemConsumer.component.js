@@ -9,7 +9,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles } from '@material-ui/core/styles';
 import { pure } from 'recompose';
@@ -93,13 +93,13 @@ export const MarketplaceOffer = (props: Props) => {
                   <Typography>
                     {`${metaActivityName} ${formatAsTime(
                       offer.date_start,
-                      offer.establishment.tzname,
+                      offer.timezone_name,
                     )}-${formatAsTime(
                       moment(offer.date_start).add(
                         offer.duration_minute,
                         'minute',
                       ),
-                      offer.establishment.tzname,
+                      offer.timezone_name,
                     )}`}
                   </Typography>
                 </div>

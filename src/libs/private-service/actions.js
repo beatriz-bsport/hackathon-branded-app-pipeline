@@ -2,7 +2,7 @@
 
 import { createAction } from 'redux-actions';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 

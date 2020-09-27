@@ -2,7 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { withTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import type { TFunction } from 'react-i18next';
@@ -25,6 +25,7 @@ type Props = {
   private_booking: PrivateBooking,
   goToCalendar: () => void,
   onDiscard: (id: number) => void,
+  timezone: string,
 };
 
 const DiscardButtonGetter = (discardable) =>
@@ -62,8 +63,12 @@ export const PrivateBookingConsumerItem = (props: Props) => {
           <AccessTimeIcon />
         </ListItemIcon>
         <ListItemText
-          primary={moment(private_booking.date_start).format('LL')}
-          secondary={moment(private_booking.date_start).format('LT')}
+          primary={moment(private_booking.date_start)
+            .tz(props.timezone)
+            .format('LL')}
+          secondary={moment(private_booking.date_start)
+            .tz(props.timezone)
+            .format('LT')}
         />
       </ListItem>
       {private_booking.address ? (

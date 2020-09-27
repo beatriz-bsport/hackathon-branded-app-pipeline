@@ -11,7 +11,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import Moment from 'moment';
+import Moment from 'moment-timezone';
 import { Submit, DateField } from '../../../../components/forms';
 
 type Props = {

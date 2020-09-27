@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { pure } from 'recompose';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { formatAsDatetime } from '../../../datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import Level from '../../../components/category/Level.component';
@@ -57,7 +57,9 @@ export const OfferListItem = (props: Props) => {
                 : offer.name}
             </Typography>
             <Typography inline variant="caption">
-              {moment(offer.date_start).format('llll')}
+              {moment(offer.date_start)
+                .tz(offer.timezone_format)
+                .format('llll')}
             </Typography>
             <div className={classes.row}>
               <Level
@@ -93,7 +95,7 @@ export const OfferListItem = (props: Props) => {
             className={classes.inline}
           >
             <div className={classes.text}>{t('forms.old_date')}</div>
-            {formatAsDatetime(offer.date_start)}
+            {formatAsDatetime(offer.date_start, offer.timezone_name)}
           </Typography>
           <Typography
             variant="caption"
@@ -101,7 +103,10 @@ export const OfferListItem = (props: Props) => {
             className={classes.inline}
           >
             <div className={classes.text}>{t('forms.new_date')}</div>
-            {formatAsDatetime(props.editing_parameters.new_date_start)}
+            {formatAsDatetime(
+              props.editing_parameters.new_date_start,
+              offer.timezone_name,
+            )}
           </Typography>
         </div>
       ) : null}

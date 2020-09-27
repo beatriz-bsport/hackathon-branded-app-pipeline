@@ -29,6 +29,7 @@ import type { PrivateBooking } from '../../libs/private-service/types';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 
 type Props = {
+  timezone: string,
   membership: Membership,
 
   bookings: Array<Booking>,
@@ -67,6 +68,7 @@ export class ConsumerBooking extends React.Component<Props> {
         private_booking_list={this.props.private_booking_list}
         fetchPrivateBookings={this.props.fetchPrivateBookings}
         goToCalendar={this.props.goToCalendar}
+        timezone={this.props.timezone}
       />
     );
   }
@@ -81,6 +83,7 @@ export default compose(
       bookingCount: state.booking.asConsumer.count,
       consumerPackLoading: state.consumerPaymentPack.loading,
       getPass: (id_: number) => getConsumerPack(state, id_),
+      timezone: state.theme.theme.timezone_name,
 
       private_booking_list: getPrivateBookingListBase(state),
       privateBookingsLoading: state.privateService.privateBooking.loading,

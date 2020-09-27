@@ -10,7 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { Moment } from '../../i18n';
 import DurationInput from '../../components/input/DurationInput.component';
 import NumericInput from '../../components/input/NumericInput.component';
@@ -506,6 +506,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
             <div>
               <div className={this.props.classes.field}>
                 <DateTimeInput
+                  timezone={this.props.offer.timezone_name}
                   value={moment(this.state.date)
                     .set('hour', this.state.hour.split(':')[0])
                     .set('minute', this.state.hour.split(':')[1])}

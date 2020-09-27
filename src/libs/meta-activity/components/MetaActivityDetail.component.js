@@ -11,7 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 import type { TFunction } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 
 import Calendar from '../../../components/offer/Calendar.component';

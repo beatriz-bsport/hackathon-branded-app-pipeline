@@ -7,7 +7,7 @@ import SPORTS from '@bsport/common/lib/master-data/sports';
 import Paper from '@material-ui/core/Paper';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import Moment from 'moment';
+import Moment from 'moment-timezone';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
 import type { Establishment, Offer } from '../../../api/types';

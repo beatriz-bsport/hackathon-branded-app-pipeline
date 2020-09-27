@@ -4,7 +4,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import type { Moment } from 'moment';
+import type { Moment } from 'moment-timezone';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';

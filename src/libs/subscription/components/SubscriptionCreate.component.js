@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import NumericInput from '../../../components/input/NumericInput.component';

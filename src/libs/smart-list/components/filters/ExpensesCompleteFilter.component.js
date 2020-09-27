@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Switch from '@material-ui/core/Switch';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 
 import Select from '@material-ui/core/Select';

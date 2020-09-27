@@ -14,7 +14,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { isPaused } from '../utils';
 import { formatAsDate } from '../../../datetime';
 

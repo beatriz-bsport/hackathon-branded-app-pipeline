@@ -23,7 +23,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import { withTranslation } from 'react-i18next';
 

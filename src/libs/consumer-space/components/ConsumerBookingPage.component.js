@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TodayIcon from '@material-ui/icons/Today';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
@@ -46,6 +46,7 @@ type Props = {
   privateBookingsLoading: boolean,
   private_booking_list: Array<PrivateBooking>,
   goToCalendar: (string, number) => void,
+  timezone: string,
 };
 
 export const ConsumerBookingPage = (props: Props) => (
@@ -91,6 +92,7 @@ export const ConsumerBookingPage = (props: Props) => (
                 disabled={b.booking_status_code !== BOOKING_STATUS_OK.id}
                 key={b.id}
                 booking={b}
+                timezone={props.timezone}
                 heading="date_start"
                 member={props.membership.id}
                 handleRevert={() => props.setBookingToCancel(b)}
@@ -111,7 +113,12 @@ export const ConsumerBookingPage = (props: Props) => (
             listProps={{ disablePadding: true }}
             items={props.private_booking_list}
             renderItem={(b) => (
-              <PrivateBookingListItem divider key={b.id} private_booking={b} />
+              <PrivateBookingListItem
+                timezone={props.timezone}
+                divider
+                key={b.id}
+                private_booking={b}
+              />
             )}
           />
         </Paper>

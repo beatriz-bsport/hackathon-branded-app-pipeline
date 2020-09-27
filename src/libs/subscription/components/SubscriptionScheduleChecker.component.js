@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import { compose } from 'recompose';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';

@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
 
 import Switch from '@material-ui/core/Switch';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import TextField from '@material-ui/core/TextField';
 
 import {

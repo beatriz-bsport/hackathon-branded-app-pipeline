@@ -11,8 +11,10 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
+import moment from 'moment-timezone';
 import PasswordInput from '../../../components/input/PasswordInput.component';
 import LocaleSelector from '../../../components/input/LocaleSelector.component';
+import TimezoneSelector from '../../../components/input/TimezoneSelector.component';
 import DelayedTextField from '../../../components/DelayedTextField.component';
 
 import Config from '../../../config';
@@ -42,6 +44,9 @@ type Props = {
 
   validateCaptcha: (boolean) => void,
   validatedCaptcha: boolean,
+
+  timezone_name: string,
+  setTimezone: (string) => void,
 };
 
 export const CompanySignupForm = (props: Props) => {
@@ -118,8 +123,18 @@ export const CompanySignupForm = (props: Props) => {
       <div className={classes.field}>
         <LocaleSelector
           value={props.locale}
-          withCurrency
+          label={t('signupCompany.form.country.label')}
           onChange={props.setLocale}
+        />
+        <TimezoneSelector
+          fullWidth
+          value={props.timezone_name}
+          label={t('signupCompany.form.timezone.label')}
+          timezoneList={moment.tz.zonesForCountry(
+            props.locale.slice(3, 6),
+            true,
+          )}
+          onChange={props.setTimezone}
         />
       </div>
       <div className={classes.field}>
@@ -166,6 +181,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    '&>*': {
+      marginRight: theme.spacing(2),
+    },
   },
   captcha: {
     marginBottom: theme.spacing(1),
@@ -188,6 +206,7 @@ export default compose(
       passwordMismatch: false,
       validatedCaptcha: false,
       locale: 'fr_FR',
+      timezone_name: 'Europe/Paris',
     },
     {
       setEmail: (_, { checkEmailExists }) => (ev) => {
@@ -195,6 +214,7 @@ export default compose(
         return { email: ev.target.value };
       },
       setName: () => (ev) => ({ name: ev.target.value }),
+      setTimezone: () => (ev) => ({ timezone_name: ev.target.value }),
       setPassword1: () => (ev) => ({
         password1: ev.target.value,
       }),
@@ -202,7 +222,12 @@ export default compose(
         password2: ev.target.value,
       }),
       validateCaptcha: () => (validatedCaptcha) => ({ validatedCaptcha }),
-      setLocale: () => (ev) => ({ locale: ev.target.value }),
+      setLocale: () => (ev) => ({
+        locale: ev.target.value,
+        timezone_name: moment.tz.zonesForCountry(
+          ev.target.value.slice(3, 6),
+        )[0],
+      }),
     },
   ),
   withProps(({ password1, password2 }) => ({

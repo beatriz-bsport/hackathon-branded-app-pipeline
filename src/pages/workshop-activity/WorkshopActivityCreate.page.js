@@ -76,6 +76,7 @@ type Props = {
   fetchAssociatedCoachesList: () => void,
 
   t: TFunction,
+  companyTheme: CompanyTheme,
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -150,6 +151,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
       metaActivity={this.props.upsertedWorkshop}
       coaches={this.props.associatedCoaches}
       establishments={this.props.establishments}
+      timezone={this.props.companyTheme.timezone_name}
       error={this.props.offerHadError}
       onSubmit={this.props.createOffers}
       processing={this.props.offerIsProcessing}

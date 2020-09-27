@@ -5,7 +5,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { Helmet } from 'react-helmet';
 import { compose } from 'recompose';
 

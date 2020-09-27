@@ -30,7 +30,7 @@ import {
   goBack as goBackRouter,
 } from 'connected-react-router';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
@@ -459,6 +459,7 @@ export class Planning extends PureComponent<Props, State> {
         <DialogContent>
           <OfferFormWithActivity
             selectedDate={moment(this.props.date, DATE_FORMAT)}
+            timezone={this.props.theme.timezone_name}
             metaActivities={metaActivities}
             activitiesLoading={this.props.activitiesLoading}
             coaches={coaches}
@@ -712,7 +713,9 @@ export class Planning extends PureComponent<Props, State> {
                 <div className={this.props.classes.paper}>
                   <BookingStatisticsCard
                     offerId={selectedOffer.id}
-                    title={moment(selectedOffer.date_start).format('LLLL')}
+                    title={moment(selectedOffer.date_start)
+                      .tz(selectedOffer.timezone_name)
+                      .format('LLLL')}
                     bookingStatistics={this.props.bookingStatistics}
                     loading={
                       this.props.createdBookingStatsLoading ||

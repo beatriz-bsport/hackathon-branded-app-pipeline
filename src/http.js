@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 
+import moment from 'moment-timezone';
 import Config from './config';
 
 import { setSessionId } from './sentry/session';
@@ -44,6 +45,10 @@ export function getCookie(name) {
   return item && item[1];
 }
 
+const getTimezoneName = () => {
+  return moment().tz() || 'Europe/Paris';
+};
+
 export function getAuthToken(): ?string {
   return storage.getItem('http:token') || getCookie('auth_token');
 }
@@ -51,6 +56,7 @@ export function getAuthToken(): ?string {
 export async function postBase(uri: string, data: Object, headers: Object) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
+    'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -63,6 +69,7 @@ export async function postBase(uri: string, data: Object, headers: Object) {
 export async function post(uri: string, data: Object, headers: Object) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
+    'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -77,6 +84,7 @@ export async function post(uri: string, data: Object, headers: Object) {
 export async function put(uri: string, data: Object, headers: Object) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
+    'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -90,6 +98,7 @@ export async function put(uri: string, data: Object, headers: Object) {
 export async function patch(uri: string, data: Object, headers: Object) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
+    'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -103,6 +112,7 @@ export async function patch(uri: string, data: Object, headers: Object) {
 export async function delete_(uri: string, data, headers: Object) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
+    'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -131,6 +141,7 @@ export async function getAuth(uri: string, token) {
   return get(uri, {
     'Accept-Language': i18n.language || 'en',
     'X-Transaction-ID': setTransactionId(),
+    'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
     Authorization: `Token ${token_}`,
   });
@@ -140,6 +151,7 @@ export async function postAuth(uri: string, data: Object, token): Promise<any> {
   const token_ = token || getAuthToken();
   return post(uri, data, {
     'X-Transaction-ID': setTransactionId(),
+    'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
     Authorization: `Token ${token_}`,
   });
@@ -149,6 +161,7 @@ export async function postBaseAuth(uri: string, data: Object, token) {
   const token_ = token || getAuthToken();
   return postBase(uri, data, {
     'X-Transaction-ID': setTransactionId(),
+    'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
     Authorization: `Token ${token_}`,
   });
@@ -158,6 +171,7 @@ export async function putAuth(uri: string, data: Object) {
   const token = getAuthToken();
   return put(uri, data, {
     'X-Transaction-ID': setTransactionId(),
+    'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
     Authorization: `Token ${token}`,
   });
@@ -167,6 +181,7 @@ export async function patchAuth(uri: string, data: Object) {
   const token = getAuthToken();
   return patch(uri, data, {
     'X-Transaction-ID': setTransactionId(),
+    'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
     Authorization: `Token ${token}`,
   });
@@ -176,6 +191,7 @@ export async function deleteAuth(uri: string, data) {
   const token = getAuthToken();
   return delete_(uri, data || {}, {
     'X-Transaction-ID': setTransactionId(),
+    'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
     Authorization: `Token ${token}`,
   });
@@ -185,6 +201,7 @@ export async function getJSONAuth(uri: string, token) {
   const token_ = token || getAuthToken();
   const response = await get(uri, {
     'X-Transaction-ID': setTransactionId(),
+    'X-Timezone-Name': getTimezoneName(),
     'X-Session-ID': setSessionId(),
     Authorization: `Token ${token_}`,
   });

@@ -5,7 +5,7 @@ import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import TextField from '@material-ui/core/TextField';
 
 import { withTranslation } from 'react-i18next';
@@ -16,10 +16,15 @@ type Props = {
   onChange: (string) => void,
   required?: boolean,
   disabled?: boolean,
+  timezone?: string,
 };
 
-const rebuildDatetime = (date, hour, minute) => {
-  return moment(date).set('hour', hour).set('minute', minute).format();
+const rebuildDatetime = (date, hour, minute, timezone) => {
+  return moment(date)
+    .tz(timezone)
+    .set('hour', hour)
+    .set('minute', minute)
+    .format();
 };
 
 export function DateTimeForm(props: Props) {
@@ -40,8 +45,13 @@ export function DateTimeForm(props: Props) {
             props.onChange(
               rebuildDatetime(
                 date,
-                moment(props.value).get('hour'),
-                moment(props.value).get('minute'),
+                moment(props.value)
+                  .tz(props.timezone)
+                  .get('hour'),
+                moment(props.value)
+                  .tz(props.timezone)
+                  .get('minute'),
+                props.timezone,
               ),
             )
           }
@@ -50,16 +60,24 @@ export function DateTimeForm(props: Props) {
           id="time_picker"
           style={{ minWidth: 120 }}
           type="time"
-          value={moment(props.value).format('HH:mm')}
+          value={moment(props.value)
+            .tz(props.timezone)
+            .format('HH:mm')}
           required={props.required}
           disabled={props.disabled}
           onChange={(ev) =>
             props.onChange(
               rebuildDatetime(
                 props.value,
-
-                ev.target.value.split(':')[0] || moment().get('hour'),
-                ev.target.value.split(':')[1] || moment().get('minute'),
+                ev.target.value.split(':')[0] ||
+                  moment()
+                    .tz(props.timezone)
+                    .get('hour'),
+                ev.target.value.split(':')[1] ||
+                  moment()
+                    .tz(props.timezone)
+                    .get('minute'),
+                props.timezone,
               ),
             )
           }

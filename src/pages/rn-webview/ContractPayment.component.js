@@ -5,7 +5,7 @@ import { withHandlers, compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 
 import { withRouter } from 'react-router-dom';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,

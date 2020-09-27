@@ -1,7 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import type { Dispatch, ThunkAction } from '../state/types';
 

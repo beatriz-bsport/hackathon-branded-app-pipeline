@@ -7,7 +7,7 @@ import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import Switch from '@material-ui/core/Switch';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import TextField from '@material-ui/core/TextField';
 
 import MetaActivityListItem from '../../../meta-activity/components/MetaActivityListItem.component';

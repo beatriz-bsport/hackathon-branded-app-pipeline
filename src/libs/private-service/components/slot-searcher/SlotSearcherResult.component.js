@@ -1,5 +1,5 @@
 // @flow
-import moment from 'moment';
+import moment from 'moment-timezone';
 import React from 'react';
 import uniq from 'lodash/uniq';
 import Button from '@material-ui/core/Button';

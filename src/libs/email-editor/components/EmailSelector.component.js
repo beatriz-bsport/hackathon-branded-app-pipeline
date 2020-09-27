@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { withTranslation } from 'react-i18next';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import classNames from 'classnames';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';

@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
 import groupBy from 'lodash/groupBy';
 
 export function discretizeByAndFillMissing(table, start, end) {

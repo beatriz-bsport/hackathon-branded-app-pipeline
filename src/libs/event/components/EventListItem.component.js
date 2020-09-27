@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 

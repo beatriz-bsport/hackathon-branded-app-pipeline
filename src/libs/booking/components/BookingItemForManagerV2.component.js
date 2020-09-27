@@ -28,7 +28,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as routerPush } from 'connected-react-router';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
@@ -61,6 +61,8 @@ type Props = {
   redirectToOffer: ?boolean,
   newTab: ?boolean,
   selected?: boolean,
+
+  timezone?: string,
 
   push: (path: string) => void,
   onClick: ?() => void,
@@ -306,11 +308,12 @@ export class BookingItemForManager extends Component<Props, State> {
   };
 
   getHeading = () => {
-    const { heading, booking } = this.props;
+    const { heading, booking, timezone } = this.props;
     switch (heading) {
       case 'date_start':
         return `${booking.name || ''} - ${formatAsDatetime(
           booking.offer_date_start,
+          timezone,
         )}`;
       default:
         return this.props.member ? this.props.member.name : '';

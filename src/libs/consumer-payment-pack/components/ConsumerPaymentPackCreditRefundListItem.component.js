@@ -5,7 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { useTranslation } from 'react-i18next';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 type Props = {
   creditRefund: ConsumerPaymentPackCreditRefund,

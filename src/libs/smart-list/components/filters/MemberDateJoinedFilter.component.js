@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import CalendarPicker from '../CalendarPicker.component';
 

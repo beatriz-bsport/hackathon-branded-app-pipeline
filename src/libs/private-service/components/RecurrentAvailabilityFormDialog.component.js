@@ -11,13 +11,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
-import moment from 'moment';
 
 import DatePicker from 'material-ui-pickers/DatePicker';
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 
-import { Moment } from '../../../i18n';
+import moment from 'moment-timezone';
 
 type Props = {
   t: TFunction,
@@ -86,8 +85,8 @@ export class RecurrentAvailabilityFormDialog extends React.Component<
             </Typography>
             <MuiPickersUtilsProvider
               utils={MomentUtils}
-              moment={Moment}
-              locale={Moment.locale()}
+              moment={moment}
+              locale={moment.locale()}
             >
               <DatePicker
                 required

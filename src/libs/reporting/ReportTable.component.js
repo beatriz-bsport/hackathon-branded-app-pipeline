@@ -1,6 +1,6 @@
 // @flow
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import React from 'react';
 
@@ -86,7 +86,7 @@ function getConverter(column, classes, t) {
     }
     if (datatype === 'date') {
       return {
-        value: moment(value, 'DD/MM/YYYY').format('DD/MM/YYYY'),
+        value: moment(value, 'YYYY-MM-DD').format('DD/MM/YYYY'),
       };
     }
     if (datatype === 'dow') {
@@ -103,7 +103,7 @@ function getConverter(column, classes, t) {
     if (datatype === 'datetime') {
       if (value) {
         return {
-          value: moment(value, 'DD/MM/YYYY[,] HH[:]mm').format(
+          value: moment(value, 'YYYY-MM-DD[,] HH[:]mm').format(
             'DD MMM YYYY HH[h]mm',
           ),
         };

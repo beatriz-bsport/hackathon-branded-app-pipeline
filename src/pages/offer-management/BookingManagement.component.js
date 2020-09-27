@@ -20,7 +20,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import {
   BOOKING_DATE_ORDER,

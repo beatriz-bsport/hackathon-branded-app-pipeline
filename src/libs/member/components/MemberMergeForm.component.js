@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 import Button from '@material-ui/core/Button';
 import { unmap } from '../../../pages/form.utils';

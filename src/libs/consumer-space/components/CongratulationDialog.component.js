@@ -8,7 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';

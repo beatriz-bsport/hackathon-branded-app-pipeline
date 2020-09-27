@@ -6,7 +6,7 @@ import uniq from 'lodash/uniq';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import withTitle from '../../hocs/with-title.hoc';
@@ -95,6 +95,8 @@ type Props = {
   service: PrivateService,
   createOrUpdateCustomEvent: (data: any, options: OptionCallback) => void,
   closeCustomEventDialog: () => void,
+
+  theme: CompanyTheme,
 };
 
 type State = {
@@ -233,6 +235,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
           privateBookings={this.props.privateBookingList}
           resourceAvailable={this.props.resourceData}
           resourceSelectedListIds={this.props.resourceFiltersArray}
+          timezone={this.props.theme.timezone_name}
           resourceDataLoading={this.props.resourceDataLoading}
           availabilitySlotUpdating={this.props.availabilitySlotUpdating}
           goToMember={this.props.goToMember}
@@ -332,6 +335,7 @@ export default compose(
       )(state, { private_service: id }, periodFilter),
       availableCoaches: getActiveCoaches(state),
       customEventList: getCustomEventList(state, periodFilter),
+      theme: state.theme.theme,
     }),
     {
       fetchAvailabilitySlots,

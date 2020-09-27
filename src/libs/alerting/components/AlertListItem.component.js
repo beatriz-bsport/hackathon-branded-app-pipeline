@@ -16,7 +16,7 @@ import {
 } from '@bsport/common/lib/master-data/alerting_kind';
 
 import { Trans, useTranslation } from 'react-i18next';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import type { Alerting, UnevenInvoiceAlerting } from '../types';
 

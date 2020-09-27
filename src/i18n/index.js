@@ -6,7 +6,7 @@ import LocalStorageBackend from 'i18next-localstorage-backend';
 
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
-import Moment from 'moment';
+import Moment from 'moment-timezone';
 import 'moment/locale/fr';
 import 'moment/locale/de';
 import 'moment/locale/nl';

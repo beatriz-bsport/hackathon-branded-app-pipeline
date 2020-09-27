@@ -76,6 +76,9 @@ exports.default = {
       country: {
         label: 'Pays',
       },
+      timezone: {
+        label: 'Fuseau horaire',
+      },
       previous: 'Précédent',
       next: 'Confirmer',
     },
@@ -83,14 +86,17 @@ exports.default = {
   country: {
     FR: 'France',
     DE: 'Allemagne',
+    AT: 'Autriche',
     IT: 'Italie',
     NL: 'Pays-Bas',
+    IE: 'Irlande',
     BE: 'Belgique',
     ES: 'Espagne',
     CH: 'Suisse',
   },
   language: {
     fr: 'français',
+    en: 'anglais',
     de: 'allemand',
     it: 'italien',
     nl: 'néerlandais',

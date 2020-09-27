@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import VisibilityOnIcon from '@material-ui/icons/Visibility';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import MailIcon from '@material-ui/icons/Mail';
 import Divider from '@material-ui/core/Divider';
 

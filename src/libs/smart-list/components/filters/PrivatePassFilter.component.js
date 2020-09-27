@@ -8,7 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Switch from '@material-ui/core/Switch';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import {
   DURATION_COMPARATORS_DICT_BETWEEN,

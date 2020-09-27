@@ -13,7 +13,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 
 import { DATE_FORMAT } from '../../../datetime';

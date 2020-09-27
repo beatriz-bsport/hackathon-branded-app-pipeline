@@ -27,6 +27,7 @@ type Props = {
   selectedDate: Object,
   classes: Object,
   is_whereby_integration_enabled: boolean,
+  timezone: string,
 };
 
 type State = {
@@ -99,6 +100,7 @@ export class OfferFormWithActivity extends Component<Props, State> {
       <OfferForm
         selectedDate={this.props.selectedDate}
         coaches={coaches}
+        timezone={this.props.timezone}
         establishments={establishments}
         metaActivity={selectedMetaActivity}
         onSubmit={this.onSubmit}

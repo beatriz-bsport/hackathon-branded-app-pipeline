@@ -3,7 +3,6 @@ import LanguageButton from './button/LanguageButton.component';
 import OfferCard from './offer/OfferCard.component';
 import Avatar from './Avatar.component';
 import ActionButton from './button/ActionButton.component';
-import ActivityMinimalSummary from './activity/ActivityMinimalSummary.component';
 import PaymentTable from './PaymentTable.component';
 import FeatureTable from './FeatureTable';
 import PackMinimalSummary from './PackMinimalSummary.component';
@@ -37,7 +36,6 @@ export {
   OfferCard,
   Avatar,
   ActionButton,
-  ActivityMinimalSummary,
   PaymentTable,
   FeatureTable,
 };

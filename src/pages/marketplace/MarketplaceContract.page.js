@@ -11,7 +11,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { withRouter } from 'react-router-dom';
 import { replace as replaceAction } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';

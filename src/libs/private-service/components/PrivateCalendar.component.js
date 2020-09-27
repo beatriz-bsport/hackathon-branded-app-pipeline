@@ -30,7 +30,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import resourceTimeGrid from '@fullcalendar/resource-timegrid';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import i18n from '../../../i18n';
 
@@ -285,9 +285,17 @@ export class PrivateCalendar extends React.Component<Props, State> {
   select = (eventSlotSelected: EventSlot) => {
     if (this.props.disableAvailabilitySlotDisplay) return;
     const { startStr, endStr } = eventSlotSelected;
-    if (moment(startStr).isSame(endStr, 'day')) {
+
+    const start = moment.tz(startStr, this.props.timezone);
+    const end = moment.tz(endStr, this.props.timezone);
+
+    if (start.isSame(end, 'day')) {
       this.setState({
-        eventSlotSelected,
+        eventSlotSelected: {
+          ...eventSlotSelected,
+          startStr: start.format(),
+          endStr: end.format(),
+        },
       });
     }
   };
@@ -307,11 +315,13 @@ export class PrivateCalendar extends React.Component<Props, State> {
   }
 
   dateClick = (eventSlotSelected: EventSlot) => {
+    const start = moment.tz(eventSlotSelected.dateStr, this.props.timezone);
+
     this.setState({
       eventSlotSelected: {
         ...eventSlotSelected,
-        startStr: eventSlotSelected.dateStr,
-        endStr: moment(eventSlotSelected.dateStr).add(30, 'minutes'),
+        startStr: start.format(),
+        endStr: start.add(30, 'minutes').format(),
       },
     });
   };
@@ -457,6 +467,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
               : 'timeGridWeek'
           }
           plugins={[interactionPlugin, timeGridPlugin, resourceTimeGrid]}
+          timeZone={this.props.timezone}
           customButtons={{
             zoomIn: {
               text: '+',
@@ -581,6 +592,14 @@ export class PrivateCalendar extends React.Component<Props, State> {
             })
           }
         />
+        {JSON.stringify(
+          this.state.eventSlotSelected
+            ? [
+                this.state.eventSlotSelected.startStr,
+                this.state.eventSlotSelected.endStr,
+              ]
+            : null,
+        )}
       </div>
     );
   }

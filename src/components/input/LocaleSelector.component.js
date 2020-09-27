@@ -17,6 +17,7 @@ import ES_FLAG from './flags/ES.png';
 import NL_FLAG from './flags/NL.png';
 import IT_FLAG from './flags/IT.png';
 import BE_FLAG from './flags/BE.png';
+import IE_FLAG from './flags/IE.png';
 import DE_FLAG from './flags/DE.png';
 // import CH_FLAG from './flags/CH.png';
 import AT_FLAG from './flags/AT.png';
@@ -57,6 +58,20 @@ const localeList: Array<Locale> = [
   {
     locale: 'fr_BE',
     icon: BE_FLAG,
+    currencyCode: 'eur',
+    currencyDisplay: '€',
+    showLang: true,
+  },
+  {
+    locale: 'nl_BE',
+    icon: BE_FLAG,
+    currencyCode: 'eur',
+    currencyDisplay: '€',
+    showLang: true,
+  },
+  {
+    locale: 'en_IE',
+    icon: IE_FLAG,
     currencyCode: 'eur',
     currencyDisplay: '€',
   },
@@ -106,7 +121,7 @@ export const CountrySelector = (props: Props) => {
   return (
     <FormControl className={classes.formControl}>
       {!!props.label && (
-        <InputLabel id="demo-simple-select-label">{props.label}</InputLabel>
+        <InputLabel id="locale-simple-select-label">{props.label}</InputLabel>
       )}
       <Select value={props.value} onChange={props.onChange}>
         {localeList.map((localeContainer) => {
@@ -123,7 +138,7 @@ export const CountrySelector = (props: Props) => {
                 src={localeContainer.icon}
               />
               {t(`country.${country}`)}
-              {lang.toUpperCase() !== country && ` ${t(`language.${lang}`)}`}
+              {localeContainer.showLang && ` - ${t(`language.${lang}`)}`}
               {!!props.withCurrency && ` (${localeContainer.currencyDisplay})`}
             </MenuItem>
           );

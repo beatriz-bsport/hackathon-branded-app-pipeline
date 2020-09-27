@@ -78,6 +78,7 @@ type Props = {
   t: TFunction,
   goToPaymentPackCreate: () => void,
   resetPaymentPacks: () => void,
+  companyTheme: CompanyTheme,
 };
 
 const MetaActivityMap = {
@@ -135,6 +136,7 @@ export class MetaActivityFormPage extends Component<Props> {
       processing={this.props.offerIsProcessing}
       discardButtonText={this.props.t('common.skip')}
       onCancel={() => this.props.setStep(STEP_PASS)}
+      timezone={this.props.companyTheme.timezone_name}
     />
   );
 

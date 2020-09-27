@@ -2039,6 +2039,7 @@
         "password1": { "label": "Mot de passe" },
         "password2": { "label": "Confirmation", "error": "Les mots de passe ne correspondent pas" },
         "country": { "label": "Pays" },
+        "timezone": { "label": "Fuseau horaire" },
         "previous": "Précédent",
         "next": "Confirmer"
       }
@@ -2046,13 +2047,15 @@
     "country": {
       "FR": "France",
       "DE": "Allemagne",
+      "AT": "Autriche",
       "IT": "Italie",
       "NL": "Pays-Bas",
+      "IE": "Irlande",
       "BE": "Belgique",
       "ES": "Espagne",
       "CH": "Suisse"
     },
-    "language": { "fr": "français", "de": "allemand", "it": "italien", "nl": "néerlandais", "es": "espagnol" }
+    "language": { "fr": "français", "en": "anglais", "de": "allemand", "it": "italien", "nl": "néerlandais", "es": "espagnol" }
   },
   "waitingList": {
     "switchToEnable": "Réactiver la liste d'attente",

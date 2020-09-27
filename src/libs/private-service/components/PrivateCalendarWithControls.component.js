@@ -24,6 +24,7 @@ import type { ResourceData } from '../types';
 
 type Props = {
   t: TFunction,
+  timezone: string,
   classes: Object,
 
   onEditResourceConfiguration: Array<ResourceData>,
@@ -155,6 +156,7 @@ export const PrivateCalendarMultiResource = (props: Props) => (
     <div className={props.classes.content}>
       <PrivateCalendar
         disableResourceAvailabilitySlot={props.disableResourceAvailabilitySlot}
+        timezone={props.timezone}
         createCustomEvent={props.createCustomEvent}
         resources={props.resourceItemsFilter}
         resourceDatatypeView={props.resourceDatatypeFilter}

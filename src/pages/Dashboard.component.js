@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import moment from 'moment';
-import type { Moment } from 'moment';
+import moment from 'moment-timezone';
+import type { Moment } from 'moment-timezone';
 import {
   compose,
   withProps,

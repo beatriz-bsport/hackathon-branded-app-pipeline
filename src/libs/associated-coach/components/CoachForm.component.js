@@ -3,7 +3,7 @@ import React from 'react';
 import { compose } from 'recompose';
 
 import * as Yup from 'yup';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { withFormik, Form } from 'formik';
 
 import { withTranslation } from 'react-i18next';

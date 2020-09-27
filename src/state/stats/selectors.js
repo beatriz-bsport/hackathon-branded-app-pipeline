@@ -1,7 +1,7 @@
 // @flow
 
 import lodash from 'lodash';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 

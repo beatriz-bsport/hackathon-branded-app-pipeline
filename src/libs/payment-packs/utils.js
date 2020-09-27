@@ -1,6 +1,6 @@
 // @flow
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { formatAsDate } from '../../datetime';
 
 export const getValidityInfo = (pack: PaymentPack, t: TFunction) => {

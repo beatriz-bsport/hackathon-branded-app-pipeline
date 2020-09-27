@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import withStyle from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import type { TFunction } from 'react-i18next';
 

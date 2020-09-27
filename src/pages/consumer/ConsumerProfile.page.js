@@ -5,7 +5,7 @@ import { compose, withState, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import Dialog from '@material-ui/core/Dialog';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import MemberSummaryCard from '../../libs/member/components/MemberSummaryCard.component';
 import MemberForm from '../../libs/member/MemberForm.component';
 import {

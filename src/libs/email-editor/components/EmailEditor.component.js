@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import Checkbox from '../../../components/input/Checkbox.component';
 import type { EmailTemplate } from '../types';
 import i18n from '../../../i18n';

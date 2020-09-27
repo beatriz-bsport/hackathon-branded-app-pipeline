@@ -1,6 +1,6 @@
 // @flow
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 import pickBy from 'lodash/pickBy';
 import groupBy from 'lodash/groupBy';

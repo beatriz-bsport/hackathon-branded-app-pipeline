@@ -52,6 +52,7 @@ import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
 
 type Props = {
   id: number,
+  timezone: string,
   bookingId: ?number,
   retrieveBooking: (number, OptionCallback) => void,
   retrieveConsumerPackBulk: (Array<number>) => void,
@@ -171,6 +172,7 @@ export class MemberDetailBooking extends Component<Props, State> {
                 <BookingItemForManagerV2
                   onClick={() => this.selectBooking(b)}
                   showRevertBookingButton
+                  timezone={this.props.timezone}
                   button
                   selected={
                     this.props.selectedBooking &&
@@ -252,6 +254,7 @@ export default compose(
       offer: getDetailedOffer(state),
       getPaymentPack: (id_: number) => paymentPackSelectors.get(state, id_),
       getPass: (id_: number) => getConsumerPack(state, id_),
+      timezone: state.theme.theme.timezone_name,
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,

@@ -5,7 +5,7 @@ import { compose, withHandlers, withState } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
 
 import withTitle from '../../hocs/with-title.hoc';
@@ -42,6 +42,7 @@ import {
 import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
 
 type Props = {
+  theme: CompanyTheme,
   classes: Object,
   fetchAvailabilitySlots: (data: any) => void,
   loading: boolean,
@@ -177,6 +178,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           onDateChange={this.props.handleDateChange}
           refreshOffers={this.fetchWeekData}
           refreshPrivateBookings={this.fetchWeekData}
+          timezone={this.props.theme.timezone_name}
         />
       </div>
     );
@@ -198,6 +200,7 @@ export default compose(
   connect(
     (state, { id, periodFilter }) => ({
       availabilitySlots: getEstablishmentAvailabilitySlots(state, id),
+      theme: state.theme.theme,
       establishment: getEstablishment(state, id),
       privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
         state,

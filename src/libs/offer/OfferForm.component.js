@@ -16,7 +16,7 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider
 
 import AddIcon from '@material-ui/icons/Add';
 import { withTranslation } from 'react-i18next';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import EstablishmentSelector from '../establishment/components/EstablishmentSelectorWithCard.component';
 import CoachSelector from '../associated-coach/components/CoachSelectorWithCard.component';
 
@@ -79,6 +79,7 @@ type Props = {
   }) => void,
 
   is_whereby_integration_enabled: boolean,
+  timezone: string,
 };
 
 type State = {
@@ -163,11 +164,17 @@ export class OfferForm extends Component<Props, State> {
         let i = 0;
         while (
           moment(firstSession)
+            .tz(this.props.timezone)
             .clone()
             .add(i, 'week')
             .isSameOrBefore(date_interval_end, 'day')
         ) {
-          allDates.push(moment(firstSession).clone().add(i, 'week'));
+          allDates.push(
+            moment(firstSession)
+              .tz(this.props.timezone)
+              .clone()
+              .add(i, 'week'),
+          );
           i += 1;
         }
         return allDates;
@@ -176,11 +183,16 @@ export class OfferForm extends Component<Props, State> {
         let i = 0;
         while (
           moment(firstSession)
+            .tz(this.props.timezone)
             .clone()
             .add(i, 'month')
             .isSameOrBefore(date_interval_end, 'day')
         ) {
-          allDates.push(moment(firstSession.clone()).add(i, 'month'));
+          allDates.push(
+            moment(firstSession.clone())
+              .tz(this.props.timezone)
+              .add(i, 'month'),
+          );
           i += 1;
         }
         return allDates;
@@ -384,6 +396,7 @@ export class OfferForm extends Component<Props, State> {
                     <Grid item>
                       <DateTimeInput
                         value={moment(this.state.date_interval_start).format()}
+                        timezone={this.props.timezone}
                         onChange={(date_interval_start) =>
                           this.setState({
                             date_interval_start: moment(date_interval_start),

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { compose, withState, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
@@ -175,6 +175,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
               bookingCount={this.props.bookingCount}
               bookingLoading={this.props.bookingLoading}
               showMoreBooking={this.props.fetchConsumerDashboardBookingList}
+              timezone={this.props.companyTheme.timezone_name}
               push={this.props.push}
               membership={this.props.membership}
               privateBookingList={this.props.privateBookingList}

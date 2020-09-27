@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import MomentUtils from '@date-io/moment';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import {
   MuiPickersUtilsProvider,
   Calendar,

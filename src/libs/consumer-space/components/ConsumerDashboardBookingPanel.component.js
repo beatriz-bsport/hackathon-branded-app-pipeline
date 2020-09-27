@@ -36,6 +36,7 @@ type Props = {
 
   onDiscardBooking: (?Booking) => void,
   onDiscardPrivateBooking: (id: number) => void,
+  timezone: string,
 };
 
 const BookingFooter = (props: {
@@ -99,11 +100,13 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
               )
             }
             private_booking={b}
+            timezone={this.props.timezone}
             key={b.id}
           />
         ))}
         {this.props.bookingList.map((b) => (
           <BookingConsumerItem
+            timezone={this.props.timezone}
             booking={b}
             key={b.id}
             goToBroadcast={() => this.props.goToBroadcast(b.id)}

@@ -377,9 +377,16 @@ export class OfferManagement extends Component<Props, State> {
                 id: this.props.offer.meta_activity_id,
                 name: this.props.offer.name,
               },
-              hour: moment(this.props.offer.date_start).hours(),
-              minute: moment(this.props.offer.date_start).minutes(),
-              day_of_week: moment(this.props.offer.date_start).isoWeekday() - 1,
+              hour: moment(this.props.offer.date_start)
+                .tz(this.props.offer.timezone_name)
+                .hours(),
+              minute: moment(this.props.offer.date_start)
+                .tz(this.props.offer.timezone_name)
+                .minutes(),
+              day_of_week:
+                moment(this.props.offer.date_start)
+                  .tz(this.props.offer.timezone_name)
+                  .isoWeekday() - 1,
             }}
             metaActivityList={[
               {

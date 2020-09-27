@@ -1,6 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions';
+import moment from 'moment-timezone';
 import api from './api';
 import type { Dispatch } from '../../state/types';
 
@@ -23,6 +24,7 @@ export function fetchCompanyTheme(companyId: ?number) {
     try {
       const response = await api.fetchCompanyTheme(companyId);
       const theme = response.data;
+      moment.tz.setDefault(theme.timezone_name);
       dispatch(themeDetail.success(theme));
       dispatch(themeDetail.isLoading(false));
     } catch (err) {

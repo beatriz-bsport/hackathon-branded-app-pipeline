@@ -44,7 +44,11 @@ export const PrivateBookingListItem = (props: Props) => {
         }
         secondary={`${formatAsDatetime(
           props.private_booking.date_start,
-        )} -> ${formatAsTime(props.private_booking.date_end)}`}
+          props.private_booking.timezone_name,
+        )} -> ${formatAsTime(
+          props.private_booking.date_end,
+          props.private_booking.timezone_name,
+        )}`}
       />
       <ListItemSecondaryAction>
         {props.onDelete ? (

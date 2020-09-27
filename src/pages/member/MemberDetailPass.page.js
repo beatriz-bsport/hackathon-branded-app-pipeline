@@ -89,6 +89,7 @@ type Props = {
 
   fetchPaymentPackBulk: (Array<number>) => void,
   fetchConsumerPackList: (page: number, pageSize: number) => void,
+  timezone: string,
 
   consumerPackCount: number,
   consumerPackCurrentPage: number,
@@ -250,6 +251,7 @@ export class MemberDetailPass extends Component<Props, State> {
               renderItem={(cpp) => (
                 <ConsumerPackRowItem
                   hideConsumer
+                  timezone={this.props.timezone}
                   key={cpp.id}
                   selected={
                     this.props.selectedConsumerPass &&
@@ -426,6 +428,7 @@ export default compose(
       bookingLoading: state.booking.byConsumerPack.loading,
       bookingCount: state.booking.byConsumerPack.count,
       refundLoading: state.consumerPaymentPack.partialRefund.loading,
+      timezone: state.theme.theme.timezone_name,
     }),
     {
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),

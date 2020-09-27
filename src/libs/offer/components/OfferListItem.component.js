@@ -39,10 +39,7 @@ export const OfferListItem = (props: Props) => {
             <Typography inline>
               {offer && offer.name ? offer.name : ''}
               {offer && offer.date_start
-                ? ` - ${formatAsTime(
-                    offer.date_start,
-                    offer.establishment ? offer.establishment.tzname : null,
-                  )} `
+                ? ` - ${formatAsTime(offer.date_start, offer.timezone_name)} `
                 : ''}
             </Typography>
             <Level

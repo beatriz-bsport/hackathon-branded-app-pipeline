@@ -208,10 +208,10 @@ export function OfferMinimalSummary(props: Props) {
                     <Typography variant="inherit">{formattedName}</Typography>
                   </div>
                 }
-                secondary={`${dateFormatter(date_start)} - ${formatMinutes(
-                  duration_minute,
-                  t,
-                )}`}
+                secondary={`${dateFormatter(
+                  date_start,
+                  offer.timezone_name,
+                )} - ${formatMinutes(duration_minute, t)}`}
               />
             </Grid>
           </Grid>

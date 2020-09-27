@@ -16,10 +16,12 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { compose } from 'recompose';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 const getDateDictionnary = (offer) => {
-  const date = offer ? moment(offer.date_start) : moment();
+  const date = offer
+    ? moment(offer.date_start).tz(offer.timezone_name)
+    : moment();
   return { year: date.year(), month: date.month() + 1, day: date.date() };
 };
 
@@ -59,7 +61,9 @@ export const OfferNavigationHeader = (props: Props) => (
         >
           <TodayIcon className={props.classes.leftIcon} />
           {props.offer && !props.offerLoading && props.offer.date_start
-            ? moment(props.offer.date_start).format('LLLL')
+            ? moment(props.offer.date_start)
+                .tz(props.offer.timezone_name)
+                .format('LLLL')
             : ''}
         </Button>
         {props.bookingLoading ? (

@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import Button from '@material-ui/core/Button';
 import OfferListItemV2 from '../../../offer/components/OfferListItemV2.component';

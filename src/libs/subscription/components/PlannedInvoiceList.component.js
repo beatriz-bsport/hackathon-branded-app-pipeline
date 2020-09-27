@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 

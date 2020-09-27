@@ -1,6 +1,6 @@
 import React from 'react';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { action } from '@storybook/addon-actions';
 import { object } from '@storybook/addon-knobs';
 

@@ -1,5 +1,5 @@
 // @flow
-import moment from 'moment';
+import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
 import type { TFunction } from 'react-i18next';
 import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods';

@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withState } from 'recompose';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import DateInput from '../../../components/input/DateInput.component';
 
 type Props = {

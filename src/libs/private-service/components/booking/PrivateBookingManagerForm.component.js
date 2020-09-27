@@ -17,7 +17,7 @@ import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import MemberSearchModal from '../../../member/components/MemberSearchModal.component';
 import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
 import CoachInput from '../../../../components/input/CoachInput.component';

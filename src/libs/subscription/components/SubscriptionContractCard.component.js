@@ -11,7 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';

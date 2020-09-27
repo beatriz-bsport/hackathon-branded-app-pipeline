@@ -1,6 +1,6 @@
 // @flow
 import { createAction } from 'redux-actions';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 

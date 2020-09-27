@@ -56,7 +56,7 @@
     "material-ui-pickers": "^2",
     "memoize-one": "^4.0.2",
     "moment": "^2.22.1",
-    "moment-timezone": "^0.5.27",
+    "moment-timezone": "^0.5.31",
     "mui-datatables": "^2.0.0-beta.59",
     "object-assign": "^4.1.1",
     "object-fit-images": "^3.2.3",

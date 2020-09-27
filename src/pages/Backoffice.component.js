@@ -54,58 +54,58 @@ import { fetchAccessLevel } from '../actions/auth.actions';
 
 import type { TempPasswordState } from '../libs/login/types';
 
-const MarketingRouter = asyncComponent(
-  () => import('./marketing/Marketing.router.js'),
+const MarketingRouter = asyncComponent(() =>
+  import('./marketing/Marketing.router.js'),
 );
 
 const Dashboard = asyncComponent(() => import('./Dashboard.component'));
 
 const OfferFormPage = asyncComponent(() => import('./OfferFormPage.component'));
 const Settings = asyncComponent(() => import('./settings/Settings.component'));
-const OfferManagement = asyncComponent(
-  () => import('./offer-management/OfferManagement.page'),
+const OfferManagement = asyncComponent(() =>
+  import('./offer-management/OfferManagement.page'),
 );
 const SearchResults = asyncComponent(() => import('./SearchResults.component'));
 const Shop = asyncComponent(() => import('./shop/Shop.router'));
-const Reporting = asyncComponent(
-  () => import('./reporting/Reporting.component'),
+const Reporting = asyncComponent(() =>
+  import('./reporting/Reporting.component'),
 );
-const PaymentCombo = asyncComponent(
-  () => import('./payment-combo/PaymentCombo.router'),
+const PaymentCombo = asyncComponent(() =>
+  import('./payment-combo/PaymentCombo.router'),
 );
 
 const VodRouter = asyncComponent(() => import('./video/Vod.router'));
 
-const PlanningRouter = asyncComponent(
-  () => import('./planning/Planning.router'),
+const PlanningRouter = asyncComponent(() =>
+  import('./planning/Planning.router'),
 );
 const Schedule = asyncComponent(() => import('./Schedule.page'));
-const Establishment = asyncComponent(
-  () => import('./establishment/Establishment.router'),
+const Establishment = asyncComponent(() =>
+  import('./establishment/Establishment.router'),
 );
 const Coach = asyncComponent(() => import('./coach/Coach.router'));
-const MetaActivity = asyncComponent(
-  () => import('./meta-activity/MetaActivity.router'),
+const MetaActivity = asyncComponent(() =>
+  import('./meta-activity/MetaActivity.router'),
 );
-const PaymentPack = asyncComponent(
-  () => import('./payment-pack/PaymentPack.router'),
+const PaymentPack = asyncComponent(() =>
+  import('./payment-pack/PaymentPack.router'),
 );
 const Member = asyncComponent(() => import('./member/Member.router'));
-const WorkshopActivity = asyncComponent(
-  () => import('./workshop-activity/WorkshopActivity.router'),
+const WorkshopActivity = asyncComponent(() =>
+  import('./workshop-activity/WorkshopActivity.router'),
 );
 const Invoice = asyncComponent(() => import('./invoice/Invoice.router'));
 const Coupon = asyncComponent(() => import('./coupon/Coupon.router'));
 const Order = asyncComponent(() => import('./order/Order.router'));
-const PrivateService = asyncComponent(
-  () => import('./private-service/PrivateService.router'),
+const PrivateService = asyncComponent(() =>
+  import('./private-service/PrivateService.router'),
 );
-const EmailTemplate = asyncComponent(
-  () => import('./email-template/EmailTemplate.router'),
+const EmailTemplate = asyncComponent(() =>
+  import('./email-template/EmailTemplate.router'),
 );
 const SmartList = asyncComponent(() => import('./smart-list/SmartList.router'));
-const Subscription = asyncComponent(
-  () => import('./subscription/Subscription.router'),
+const Subscription = asyncComponent(() =>
+  import('./subscription/Subscription.router'),
 );
 
 type Props = {

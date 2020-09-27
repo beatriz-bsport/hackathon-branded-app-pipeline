@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -46,6 +46,7 @@ import { getCustomEventList } from '../../libs/private-service/selectors/custom-
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 
 type Props = {
+  theme: CompanyTheme,
   classes: Object,
   fetchAvailabilitySlots: (data: { coach: number }) => void,
   availabilitySlots: Array<AvailabilitySlot>,
@@ -177,6 +178,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           enableResourceAvailabilitySlot={this.enableCoachAvailabilitySlot}
           availabilitySlots={this.props.availabilitySlots}
           privateBookings={this.props.privateBookingList}
+          timezone={this.props.theme.timezone_name}
           availabilitySlotUpdating={this.props.availabilitySlotUpdating}
           goToMember={this.props.goToMember}
           onDateChange={this.props.handleDateChange}
@@ -226,6 +228,7 @@ export default compose(
       availabilitySlots: getCoachAvailabilitySlots(state, id),
       coach: getCoach(state, id),
       customEventList: getCustomEventList(state, periodFilter),
+      theme: state.theme.theme,
       privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
         state,
         null,

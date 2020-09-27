@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 import { getCoaches } from '../../associated-coach/selectors';
 

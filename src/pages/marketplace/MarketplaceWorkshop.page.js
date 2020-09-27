@@ -6,7 +6,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import Moment from 'moment';
+import Moment from 'moment-timezone';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 

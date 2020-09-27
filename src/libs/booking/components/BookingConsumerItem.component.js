@@ -2,7 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, pure } from 'recompose';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { withTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import type { TFunction } from 'react-i18next';
@@ -53,8 +53,20 @@ export const BookingConsumerItem = (props: Props) => {
           <AccessTimeIcon />
         </ListItemIcon>
         <ListItemText
-          primary={offer ? moment(offer.date_start).format('LL') : ' - '}
-          secondary={offer ? moment(offer.date_start).format('LT') : ' - '}
+          primary={
+            offer
+              ? moment(offer.date_start)
+                  .tz(offer.timezone_name)
+                  .format('LL')
+              : ' - '
+          }
+          secondary={
+            offer
+              ? moment(offer.date_start)
+                  .tz(offer.timezone_name)
+                  .format('LT')
+              : ' - '
+          }
         />
       </ListItem>
       <ListItem dense className={classes.translucentPaper}>

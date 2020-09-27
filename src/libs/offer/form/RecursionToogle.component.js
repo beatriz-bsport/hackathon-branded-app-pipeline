@@ -13,7 +13,7 @@ import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ExpandIcon from '@material-ui/icons/ExpandMore';
 import { withTranslation } from 'react-i18next';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import type { TFunction } from 'react-i18next';
 // import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 import OfferListItem from '../components/OfferListItemV2.component';

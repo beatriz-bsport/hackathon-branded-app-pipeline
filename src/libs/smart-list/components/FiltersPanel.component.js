@@ -6,7 +6,7 @@ import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Menu from '@material-ui/core/Menu';
 import { compose } from 'recompose';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
 import BarChartIcon from '@material-ui/icons/BarChart';

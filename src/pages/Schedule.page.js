@@ -3,7 +3,7 @@ import React from 'react';
 
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import uniq from 'lodash/uniq';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -84,6 +84,7 @@ type Props = {
   setResourceFiltersArray: (Array<Ressource>) => void,
   fetchResourceList: () => void,
   closeCustomEventDialog: () => void,
+  theme: CompanyTheme,
 
   resourceFiltersArray: Array<Ressource>,
 };
@@ -154,6 +155,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
               ? this.props.pushToCalendar
               : null
           }
+          timezone={this.props.theme.timezone_name}
           customEventList={this.props.customEventList}
           privateBookings={this.props.privateBookingList}
           createCustomEvent={this.props.onRequestCustomEvent}
@@ -208,6 +210,7 @@ export default compose(
   connect(
     (state, { periodFilter, resourceFiltersArray }) => ({
       permission: getPermissions(state),
+      theme: state.theme.theme,
       availabilitySlots: withResourceColor(getFilteredAvailabilitySlots)(
         state,
         periodFilter,

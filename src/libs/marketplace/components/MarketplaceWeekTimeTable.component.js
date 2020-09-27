@@ -9,7 +9,7 @@ import type { TFunction } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import _ from 'lodash';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';

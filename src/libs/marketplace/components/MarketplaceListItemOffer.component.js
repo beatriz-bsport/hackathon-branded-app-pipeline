@@ -13,7 +13,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { makeStyles } from '@material-ui/core/styles';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import MarketplaceBookButton from './MarketplaceBookButton.component';
 import Level from '../../../components/category/Level.component';
 

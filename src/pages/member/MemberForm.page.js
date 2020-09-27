@@ -9,7 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { push as pushRouter, goBack } from 'connected-react-router';
 import { compose, withProps } from 'recompose';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { snackbar } from '../../actions/snackbar.actions';

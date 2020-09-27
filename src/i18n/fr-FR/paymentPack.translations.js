@@ -54,8 +54,10 @@ exports.default = {
       },
       explain:
         "Choisissez le nombre de crédit à rembourser ainsi que la valeur totale qui sera créditée sur l'acompte du membre",
-      warning:
+      warningFirst:
         'Attention, cette opération est irréversible (génération facture).',
+      warningSecond:
+        'Si vous souhaitez rembourser le client par virement avec le moyen de paiement utilisé annulez la facturation et ne le remboursez pas en crédit !',
       actions: {
         cancel: 'Annuler',
         submit: 'Enregistrer',

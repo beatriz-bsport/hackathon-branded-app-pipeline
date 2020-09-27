@@ -55,7 +55,12 @@ export const RefundConsumerPaymentPack = (props: Props) => {
           <div className={classes.warningRow}>
             <WarningIcon className={classes.leftIcon} />
             <Typography variant="caption">
-              {t('consumerPaymentPack.refund.warning')}
+              {t('consumerPaymentPack.refund.warningFirst')}
+            </Typography>
+          </div>
+          <div className={classes.warningRow}>
+            <Typography>
+              {t('consumerPaymentPack.refund.warningSecond')}
             </Typography>
           </div>
           <div className={classes.fieldContainer}>

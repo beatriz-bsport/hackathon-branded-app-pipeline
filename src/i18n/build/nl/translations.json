@@ -2069,7 +2069,7 @@
         "capacity": {
             "explain": "Capaciteit: {{capacity}} plaats",
             "explain_plural": "Capaciteit: {{capacity}} plaatsen",
-            "helperText": "Wordt alleen gebruikt om de beschikbaarheid voor afspraken te berekenen",
+            "helperText": "Dit wordt alleen gebruikt om de beschikbaarheid voor afspraken te berekenen",
             "label": "Zaalcapaciteit"
         },
         "goBackToList": "Keer terug naar vestigingen",
@@ -2079,8 +2079,8 @@
         "forms": {
             "delete": {
                 "content": {
-                    "canDelete": "Weet je zeker dat je deze vestiging wil verwijderen? Deze operatie is onomkeerbaar. Eerdere sessies en reserveringen worden niet beïnvloed",
-                    "cannotDelete": "Kan dit etablissement niet verwijderen, er zijn sessies gepland in de toekomst. Controleer of ze zijn geannuleerd en vervolgens zijn verwijderd"
+                    "canDelete": "Weet je zeker dat je deze vestiging wilt verwijderen? Deze actie is definitief. Eerdere sessies en reserveringen worden niet gewijzigd",
+                    "cannotDelete": "Deze vestiging kan niet verwijderd worden, omdat er sessies in de toekomst gepland zijn. Controleer of deze sessies zijn geannuleerd en verwijder ze"
                 },
                 "title": "Vestiging verwijderen",
                 "actions": {
@@ -2097,18 +2097,18 @@
             "edit": "Bewerken"
         },
         "baseEstablishment": "Gebruikelijk",
-        "overrider": "Vervanging",
-        "establishment_override": "Vervangende vestiging",
+        "overrider": "Plaatsvervanger",
+        "establishment_override": "Plaatsvervangende vestiging",
         "search": "Zoek een vestiging",
         "addButton": "Voeg een bedrijf toe",
-        "pleaseSelectOne": "Selecteer een club op de kaart",
+        "pleaseSelectOne": "Selecteer een studio op de kaart",
         "offers": "Kalender van sessies:",
         "noMoreOffers": "Geen geplande sessies meer",
         "pleaseFill": "Voer een vestiging in",
         "practical_info": {
             "label": "Toegang tot informatie",
-            "placeholder": "Code 1234 rechter deur",
-            "helperText": "Deze informatie wordt alleen weergegeven tijdens het boeken"
+            "placeholder": "Code 1234 rechterdeur",
+            "helperText": "Deze informatie wordt alleen weergegeven tijdens het reserveren"
         },
         "form": {
             "new": {
@@ -2125,7 +2125,7 @@
             }
         },
         "establishment": "Vestiging ",
-        "noEstablishement": "Beheer hier uw zalen, hun locatie, hun vulling en raadpleeg de kalender",
+        "noEstablishement": "Beheer hier uw zalen, hun locatie, hun bezetting en raadpleeg de kalender",
         "notificationToolTip": "Er zijn meldingen voor reserveringen met betrekking tot dit item",
         "list": {
             "section": {
@@ -3696,29 +3696,29 @@
             "forms": {
                 "freeThresholdHelper": "Indien het bedrag van de bestelling dit bedrag overschrijdt, zijn de bezorgkosten gratis",
                 "create": "Voeg verzendkosten toe",
-                "title": "Bezorgkosten formulier",
-                "feeLabel": "Transportkosten",
+                "title": "Formulier verzendkosten",
+                "feeLabel": "Verzendkosten",
                 "nameLabel": "Naam",
                 "freeThresholdLabel": "Aangeboden vanaf",
                 "onCancel": "Annuleren",
                 "onSubmit": "Opslaan"
             },
             "name": "Naam",
-            "fee": "Transportkosten",
-            "free_threshold": "Aangeboden vanaf",
+            "fee": "Verzendkosten",
+            "free_threshold": "Verkrijgbaar vanaf",
             "offeredAboveAmount": "Gratis na {{free_threshold, price}} aankoop",
             "modal": {
                 "delete": {
-                    "title": "Bezorgkosten verwijderen",
-                    "content": "Houd er rekening mee dat deze bewerking definitief is, oude bestellingen die deze vergoeding gebruiken, worden niet gewijzigd.",
+                    "title": "Verzendkosten verwijderen",
+                    "content": "Houd er rekening mee dat deze bewerking definitief is. Voormalige bestellingen die deze vergoeding gebruiken, worden niet gewijzigd.",
                     "cancel": "Annuleren",
                     "confirm": "Verwijderen"
                 }
             }
         },
         "table": {
-            "created_at": "Gemaakt op",
-            "qty": "hoeveelheid",
+            "created_at": "Aangemaakt op",
+            "qty": "Hoeveelheid",
             "name": "Koper",
             "state": "Status",
             "updated_at": "Bijgewerkt op"
@@ -3747,12 +3747,12 @@
             "forms": {
                 "onSubmit": "Opslaan"
             },
-            "noDefaultDeliveryFee": "Geen bezorgkosten",
-            "defaultDeliveryFee": "Standaard bezorgkosten",
-            "deliveryFee": "Transportkosten"
+            "noDefaultDeliveryFee": "Geen verzendkosten",
+            "defaultDeliveryFee": "Standaard verzendkosten",
+            "deliveryFee": "Verzendkosten"
         },
         "products": {
-            "nbProducts": "Artikels"
+            "nbProducts": "artikelen"
         },
         "state": {
             "0": "In afwachting",
@@ -3769,7 +3769,7 @@
             "general": "Algemeen",
             "broadcast": "Videoconferentie",
             "notificationRule": "Transactionele e-mails",
-            "paymentRules": "Remuneratieregels",
+            "paymentRules": "Vergoedingsregels",
             "company": "Onderneming",
             "invoice": "Facturering",
             "waitingList": "Wachtlijst",
@@ -3781,10 +3781,10 @@
         },
         "webhook": {
             "cancel": "annuleren",
-            "urlHelper": "Voer de url in waarnaar de payload wordt verzonden",
+            "urlHelper": "Voer de URL in waarnaar de payload wordt verzonden",
             "modal": {
                 "delete": {
-                    "content": "Weet je zeker dat je deze webhook wil verwijderen, deze bewerking is definitief",
+                    "content": "Weet je zeker dat je deze webhook wilt verwijderen, deze actie is definitief",
                     "title": "Webhook verwijderen",
                     "cancel": "annuleren",
                     "confirm": "Bevestigen"
@@ -3794,27 +3794,27 @@
             "selectEvent": "Selecteer een evenement",
             "url": "URL",
             "urlPlaceHolder": "http://wwww.google.com",
-            "payload": "Laadvermogen",
+            "payload": "Payload",
             "submit": "bevestigen",
-            "createTitle": "Webhook-formulier",
+            "createTitle": "Formulier Webhook",
             "add": "Voeg een webhook toe",
             "test": "Test"
         },
         "active_campaign": {
             "account": {
-                "helpContent": "De url en de authenticatiesleutel van uw ActiveCampaign-account zijn toegankelijk in uw accountinstellingen door op het tabblad 'Developper' te klikken.",
-                "helpTitle": "Waar vind ik mijn accountgegevens?",
+                "helpContent": "De link en de authenticatiemiddel van uw ActiveCampaign-account zijn toegankelijk in uw profielinstellingen door op het tabblad 'Developper' te klikken.",
+                "helpTitle": "Waar vind ik mijn profielgegevens?",
                 "title": "Toegangsinformatie tot uw ActiveCampaign API",
-                "helper": "Waar vind je deze informatie?",
-                "dialogTitle": "ActiveCampaign-accountgegevens",
+                "helper": "Waar vind ik deze informatie?",
+                "dialogTitle": "ActiveCampaign-profielgegevens",
                 "token": "Verificatiesleutel",
                 "error": "Uw gegevens zijn onjuist",
-                "empty": "Voer uw API-url in"
+                "empty": "Voer URL van uw API in"
             },
             "webhooks": {
                 "CLIENT_WON": "Maak een klantaccount aan op bsport wanneer het propect de 'WON'-status heeft gekregen voor een deal",
                 "helpContent": "De onderstaande acties vinden plaats zodra de bijbehorende gebeurtenis plaatsvindt op ActiveCampaign.",
-                "title": "Integreer ActiveCampaign-informatie over bsport",
+                "title": "Integreer ActiveCampaign-informatie met bsport",
                 "CONTACT_TAG": "Maak een klantaccount aan op bsport wanneer het prospect is getagd in 'won' op ActiveCampaign",
                 "helpTitle": "Hoe werkt synchronisatie?"
             },
@@ -3838,8 +3838,8 @@
             "is_whereby_integration_enabled": {
                 "label": "Activeer waarbij X bsport integratie"
             },
-            "explainDisabled": "Uitgeschakeld: u beheert uw videoconferentielinks om voor elke sessie te configureren (via zoom, enz.).",
-            "explainEnabled": "Geactiveerd: bsport beheert uw videoconferentieruimtes, ONMOGELIJK om er twee tegelijkertijd te maken.",
+            "explainDisabled": "Uitgeschakeld: u beheert uw videoconferentielinks zelf, deze moeten voor elke sessie geconfigureerd worden (via zoom, enz.).",
+            "explainEnabled": "Ingeschakeld: bsport beheert uw videoconferentielinks. Het is NIET mogelijk om er twee tegelijkertijd te gebruiken.",
             "submit": "Opslaan"
         }
     },
@@ -5622,7 +5622,7 @@
                     "cancel": "Terug"
                 },
                 "first_name": "Voornaam",
-                "last_name": "Naam"
+                "last_name": "Familienaam"
             }
         },
         "autoAdd": {
@@ -5630,7 +5630,7 @@
                 "locked": "Dit product is niet beschikbaar."
             },
             "privatePass": {
-                "error": "Deze afsprakenkaart is niet beschikbaar"
+                "error": "Deze afspraakaart is niet beschikbaar"
             }
         },
         "myBasket": {
@@ -5640,8 +5640,8 @@
                     "payment": "Facturering"
                 }
             },
-            "title": "Mijn winkelmandje",
-            "isEmpty": "Je winkelmandje is leeg",
+            "title": "Mijn winkelmand",
+            "isEmpty": "Je winkelmand is leeg",
             "featured": "We raden je aan",
             "error": {
                 "invalidBasket": "Uw mandje bevatte artikelen die niet meer te koop zijn. Er is geen betaling geregistreerd"
@@ -5653,7 +5653,7 @@
             }
         },
         "paymentIntent": {
-            "isProcessing": "Wacht alsjeblieft"
+            "isProcessing": "Een moment geduld alstublieft"
         }
     },
     "invoice": {

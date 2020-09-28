@@ -4887,7 +4887,9 @@
                 "price": {
                     "label": "Amount credited back"
                 },
-                "title": "Credit refund"
+                "title": "Credit refund",
+                "warningSecond": "If you wish to reimburse the client via transfer with the payment method used cancel the billing and do not reimburse him/her in credit !",
+                "warningFirst": "Warning, this operation is irreversible (invoice generation)."
             }
         },
         "notificationToolTip": "Notifications are definied for this pass",

@@ -58,7 +58,7 @@ export const OfferListItem = (props: Props) => {
             </Typography>
             <Typography inline variant="caption">
               {moment(offer.date_start)
-                .tz(offer.timezone_format)
+                .tz(offer.timezone_name)
                 .format('llll')}
             </Typography>
             <div className={classes.row}>

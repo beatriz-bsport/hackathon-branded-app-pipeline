@@ -36,7 +36,6 @@ export const SubscriptionContractListItem = (props: Props) => {
     }
   }, []);
 
-
   return (
     <ListItem
       onClick={props.onClick}
@@ -54,7 +53,9 @@ export const SubscriptionContractListItem = (props: Props) => {
         }`}
         secondary={`${(props.contract.payment_pack &&
           props.contract.payment_pack.name) ||
-          (props.contract.private_pass && props.contract.private_pass.name)}${
+          (props.contract.private_pass && props.contract.private_pass.name) ||
+          (props.contract.payment_combo && props.contract.payment_combo.name) ||
+          ''}${
           props.contract.auto_renewal
             ? ''
             : `- ${props.t('contract.duration', {

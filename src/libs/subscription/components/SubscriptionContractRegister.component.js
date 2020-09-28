@@ -187,6 +187,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
           savedPaymentMethodList={props.savedPaymentMethodList}
           refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
           enabledPaymentMethods={props.enabledPaymentMethods}
+          withNote
         />
       </DialogContent>
     </Dialog>
@@ -221,6 +222,9 @@ export default compose(
     onSubmit: ({ date, setProcessing, member, contract, onSuccess }) => async (
       token: string,
       paymentMethodId?: string,
+      options,
+      coupon,
+      note,
     ) => {
       const first_billing_timestamp = moment(date, 'YYYY-MM-DD').unix();
       setProcessing(true);
@@ -231,6 +235,7 @@ export default compose(
           member: member.id,
           payment_method_id: paymentMethodId,
           first_billing_timestamp: moment(first_billing_timestamp).unix() + 20,
+          note,
         });
       } catch (err) {
         console.error(err);

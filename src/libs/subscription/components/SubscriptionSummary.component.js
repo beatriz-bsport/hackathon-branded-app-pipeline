@@ -151,6 +151,12 @@ export function SubscriptionSummary(props: Props) {
             subscription.pauses,
           )}
         </div>
+        <div className={classes.field}>
+          <Typography variant="body2" inline>
+            {props.t('parameters.note')}
+          </Typography>
+          {subscription.note}
+        </div>
       </fieldset>
     </div>
   );

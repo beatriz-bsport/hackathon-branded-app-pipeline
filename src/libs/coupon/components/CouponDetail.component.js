@@ -21,6 +21,7 @@ type Props = {
   discountLoading: boolean,
   discounts: Array<Discount>,
   goToInvoice: (uuid: string) => void,
+  goToBillingPlan: (id: number) => void,
   classes: Object,
   goToEdit: () => void,
   t: TFunction,
@@ -34,6 +35,7 @@ export class CouponDetail extends React.PureComponent<Props> {
       divider
       discount={discount}
       goToInvoice={this.props.goToInvoice}
+      goToBillingPlan={this.props.goToBillingPlan}
     />
   );
 

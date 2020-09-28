@@ -10,6 +10,7 @@ import {
   getAllPaymentPacks as getPaymentPackList,
 } from '../payment-packs/selectors';
 import { getPrivatePassById } from '../private-service/selectors/private-pass';
+import { getPaymenComboDataDict as getPaymentComboById } from '../payment-combo/selectors';
 
 const _getContractIds = (state: State) => state.subscription.contract.allIds;
 const _getContractData = (state: State) => state.subscription.contract.byId;
@@ -72,34 +73,38 @@ export const get = createSelector(
     (state, id) => id,
     getPaymentPackById,
     getPrivatePassById,
+    getPaymentComboById,
   ],
-  (subscriptionData, id, packData, privatePassData) => {
+  (subscriptionData, id, packData, privatePassData, paymentComboData) => {
     const subscription = subscriptionData[id];
     if (!subscription) return null;
     return {
       ...subscription,
       payment_pack: packData[subscription.payment_pack],
       private_pass: privatePassData[subscription.private_pass],
+      payment_combo: paymentComboData[subscription.payment_combo],
     };
   },
 );
 
 export const withPaymentPack = memoize((selector: (State) => any) =>
   createSelector(
-    [selector, getPaymentPackById, getPrivatePassById],
-    (contracts, paymentPackData, privatePassData) => {
+    [selector, getPaymentPackById, getPrivatePassById, getPaymentComboById],
+    (contracts, paymentPackData, privatePassData, paymentComboData) => {
       if (!contracts) return null;
       if (!Array.isArray(contracts)) {
         return {
           ...contracts,
           payment_pack: paymentPackData[contracts.payment_pack],
           private_pass: privatePassData[contracts.private_pass],
+          payment_combo: paymentComboData[contracts.payment_combo],
         };
       }
       return contracts.map((c) => ({
         ...c,
         payment_pack: paymentPackData[c.payment_pack],
         private_pass: privatePassData[c.private_pass],
+        payment_combo: paymentComboData[c.payment_combo],
       }));
     },
   ),

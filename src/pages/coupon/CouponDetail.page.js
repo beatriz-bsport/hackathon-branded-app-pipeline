@@ -30,6 +30,7 @@ type Props = {
   fetchCouponDiscounts: (id: number) => void,
   setDeleteModalOpen: (open: boolean) => void,
   goToInvoice: (uuid: string) => void,
+  goToBillingPlan: (id: number) => void,
   deleteModalOpen: boolean,
   loading: boolean,
   discountLoading: boolean,
@@ -69,6 +70,7 @@ export class CouponCreate extends Component<Props> {
           coupon={this.props.coupon}
           discounts={this.props.discounts}
           goToInvoice={this.props.goToInvoice}
+          goToBillingPlan={this.props.goToBillingPlan}
           discountLoading={this.props.discountLoading}
           goToEdit={this.props.goToEdit}
           itemPerPage={PAGE_SIZE}
@@ -105,6 +107,7 @@ export default compose(
     {
       goToCouponList: () => pushRouter('/coupon'),
       goToInvoice: (uuid: string) => pushRouter(`/invoice/${uuid}`),
+      goToBillingPlan: (id: number) => pushRouter(`/subscription/${id}`),
       fetchCouponPage,
       fetchCouponDiscounts,
       deleteCouponAction: deleteCoupon,

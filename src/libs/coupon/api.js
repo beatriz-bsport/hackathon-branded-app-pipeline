@@ -27,6 +27,16 @@ export const createCoupon = async (data: *) => {
   return postAuth(COUPON_URI, data);
 };
 
+export const appliesToContract = async (
+  coupon_code: string,
+  contract: number,
+) => {
+  return postAuth(`${COUPON_URI}applies_to_contract/`, {
+    coupon_code,
+    contract,
+  });
+};
+
 export const updateCoupon = (id: string, data: *) => {
   return patchAuth(`${COUPON_URI}${id}/`, data);
 };

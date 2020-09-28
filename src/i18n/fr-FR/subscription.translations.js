@@ -197,6 +197,9 @@ exports.default = {
     submit: 'Facturer',
     title: 'Nouveau paiement récurrent',
     cancel: 'Annuler',
+    note: {
+      label: 'Note',
+    },
   },
   plannedInvoiceStatus: {
     pending: 'En attente',
@@ -221,6 +224,7 @@ exports.default = {
       'Les prochains paiements seront annulés et les factures correspondantes seront supprimées. Si une réservation a été enregistrée avec un abonnement dont la facture a été annulée, elle sera également annulée.',
   },
   parameters: {
+    note: 'Note',
     autoRenew: 'Renouvellement automatique',
     parameters: 'Paramètres',
     payment_method: {

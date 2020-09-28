@@ -75,7 +75,12 @@ export class MarketplaceContract extends React.Component<Props> {
     this.props.fetchContracts(this.props.companyId);
   }
 
-  onSubmit = async (_, payment_method_id: string, options: OptionCallback) => {
+  onSubmit = async (
+    _,
+    payment_method_id: string,
+    options: OptionCallback,
+    coupon?: string,
+  ) => {
     this.setState({ processing: true });
     try {
       const first_billing_timestamp = moment(
@@ -84,6 +89,7 @@ export class MarketplaceContract extends React.Component<Props> {
       await postContractSubscriptionAPI(this.props.selected, {
         payment_method_id,
         first_billing_timestamp,
+        coupon,
       });
 
       (window.dataLayer || []).push({
@@ -189,6 +195,10 @@ export class MarketplaceContract extends React.Component<Props> {
                   processing={this.state.processing}
                   requestSetupIntentSecret={this.props.requestSetupIntentSecret}
                   savedPaymentMethodList={this.props.savedPaymentMethodList}
+                  withCoupon
+                  contract={this.props.contractList.find(
+                    (c) => c.id === this.props.selected,
+                  )}
                   refreshSavedPaymentMethodList={
                     this.props.fetchPaymentMethodList
                   }

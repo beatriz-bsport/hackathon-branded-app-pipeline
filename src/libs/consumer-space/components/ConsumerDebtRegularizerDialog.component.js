@@ -31,7 +31,10 @@ type Props = {
 
 export class ConsumerDebtRegularizerDialog extends React.Component<Props> {
   render() {
-    if (this.props.member && this.props.member.credit_account_balance < 0) {
+    if (
+      this.props.member &&
+      parseFloat(this.props.member.credit_account_balance) < 0
+    ) {
       return (
         <Paper className={this.props.classes.container}>
           <Typography variant="h6" inline>
@@ -60,7 +63,7 @@ export class ConsumerDebtRegularizerDialog extends React.Component<Props> {
                 <div>
                   <div className={this.props.classes.priceContainer}>
                     <Typography variant="h4">
-                      {-this.props.member.credit_account_balance} €
+                      {-parseFloat(this.props.member.credit_account_balance)} €
                     </Typography>
                   </div>
                   <Typography

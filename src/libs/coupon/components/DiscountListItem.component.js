@@ -14,6 +14,7 @@ import type { Discount } from '../types';
 type Props = {
   discount: Discount,
   goToInvoice: (uuid: string) => void,
+  goToBillingPlan: (id: number) => void,
   divider: ?boolean,
 };
 
@@ -24,7 +25,17 @@ export const DiscountListItem = (props: Props) => (
       secondary={`${props.discount.voucher}€`}
     />
     <ListItemSecondaryAction>
-      <IconButton onClick={() => props.goToInvoice(props.discount.invoice)}>
+      <IconButton
+        onClick={() => {
+          if (props.discount.invoice) {
+            return props.goToInvoice(props.discount.invoice);
+          }
+          if (props.discount.billing_plan) {
+            return props.goToBillingPlan(props.discount.billing_plan);
+          }
+          return null;
+        }}
+      >
         <ArrowForwardIcon />
       </IconButton>
     </ListItemSecondaryAction>

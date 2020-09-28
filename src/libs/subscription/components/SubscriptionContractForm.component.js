@@ -22,6 +22,7 @@ import {
 } from '../../../components/forms';
 import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
 import PrivatePassSelectorField from '../../private-service/components/pass/PrivatePassSelectorField.component';
+import PaymentComboSelectorField from '../../payment-combo/components/PaymentComboSelectorField.component';
 
 import type { SubscriptionContract } from '../types';
 
@@ -31,6 +32,7 @@ type Props = { t: TFunction, classes: * } & SubscriptionContract & {
 
 const OBJECT_TYPE_PAYMENT_PACK = 'payment_pack';
 const OBJECT_TYPE_PRIVATE_PASS = 'private_pass';
+const OBJECT_TYPE_PAYMENT_COMBO = 'payment_combo';
 
 export function SubscriptionContractFields(props: Props) {
   const { t, classes } = props;
@@ -56,6 +58,10 @@ export function SubscriptionContractFields(props: Props) {
               label: t('contract.form.object_type.paymentPack'),
               value: OBJECT_TYPE_PAYMENT_PACK,
             },
+            {
+              label: t('contract.form.object_type.paymentCombo'),
+              value: OBJECT_TYPE_PAYMENT_COMBO,
+            },
           ]}
         />
         <Collapse in={props.values.object_type === OBJECT_TYPE_PAYMENT_PACK}>
@@ -70,6 +76,14 @@ export function SubscriptionContractFields(props: Props) {
           <PrivatePassSelectorField
             choices={props.privatePassList}
             name="private_pass"
+            fullWidth
+            className={classes.fieldMain}
+          />
+        </Collapse>
+        <Collapse in={props.values.object_type === OBJECT_TYPE_PAYMENT_COMBO}>
+          <PaymentComboSelectorField
+            choices={props.paymentComboList}
+            name="payment_combo"
             fullWidth
             className={classes.fieldMain}
           />
@@ -164,6 +178,13 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
       const { object_type } = this.parent;
       return object_type !== OBJECT_TYPE_PRIVATE_PASS || !!private_pass;
     }),
+  payment_combo: Yup.number()
+    .integer()
+    .nullable()
+    .test('is-nullable', 'missing', function(payment_combo) {
+      const { object_type } = this.parent;
+      return object_type !== OBJECT_TYPE_PAYMENT_COMBO || !!payment_combo;
+    }),
   description: Yup.string().required(),
   contract: Yup.string().required(),
   manager_only: Yup.boolean(),
@@ -180,9 +201,15 @@ export const SubscriptionContractFormHoc = withFormik({
         private_pass: initial.private_pass
           ? initial.private_pass.id || initial.private_pass
           : null,
+        private_combo: initial.payment_combo
+          ? initial.payment_combo.id || initial.payment_combo
+          : null,
+        // eslint-disable-next-line
         object_type: initial.private_pass
           ? OBJECT_TYPE_PRIVATE_PASS
-          : OBJECT_TYPE_PAYMENT_PACK,
+          : initial.payment_pack
+          ? OBJECT_TYPE_PAYMENT_PACK
+          : OBJECT_TYPE_PAYMENT_COMBO,
       };
     }
     return {
@@ -191,6 +218,8 @@ export const SubscriptionContractFormHoc = withFormik({
       flat_fee: 0,
       nb_interval: 12,
       payment_pack: null,
+      private_pass: null,
+      payment_combo: null,
       description: '',
       contract: '',
       manager_only: false,
@@ -205,6 +234,10 @@ export const SubscriptionContractFormHoc = withFormik({
       private_pass:
         values.object_type === OBJECT_TYPE_PRIVATE_PASS
           ? values.private_pass
+          : null,
+      payment_combo:
+        values.object_type === OBJECT_TYPE_PAYMENT_COMBO
+          ? values.payment_combo
           : null,
       payment_pack:
         values.object_type === OBJECT_TYPE_PAYMENT_PACK

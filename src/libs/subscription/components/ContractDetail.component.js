@@ -13,6 +13,7 @@ import PaymentPackListItem from '../../payment-packs/components/PaymentPackListI
 import { urlToMarketplace } from '../../marketplace/utils';
 import { buildUrlParams } from '../../../http';
 import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
+import PaymentComboListItem from '../../payment-combo/components/PaymentComboListItem.component';
 
 type Props = {
   contract: Contract,
@@ -20,6 +21,7 @@ type Props = {
   goToPrivatePass: (id: number) => void,
   company: { id: number, name: string },
   snackbarSuccess: (string) => void,
+  goToCombo: (number) => void,
 };
 
 const ContractDetail = (props: Props) => {
@@ -78,6 +80,16 @@ const ContractDetail = (props: Props) => {
                 props.goToPrivatePass(props.contract.private_pass.id)
               }
               pass={props.contract.private_pass}
+            />
+          </div>
+        )}
+        {!!props.contract.payment_combo && (
+          <div className={classes.block}>
+            <Typography variant="h6">{t('contract.paymentCombo')}</Typography>
+            <PaymentComboListItem
+              onClick={() => props.goToCombo(props.contract.payment_combo.id)}
+              paymentCombo={props.contract.payment_combo}
+              divider
             />
           </div>
         )}

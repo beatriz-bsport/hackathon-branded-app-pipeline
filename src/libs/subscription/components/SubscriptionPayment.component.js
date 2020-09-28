@@ -9,16 +9,19 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Radio from '@material-ui/core/Radio';
+import TextField from '@material-ui/core/TextField';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-
 import {
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
+import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
+import { appliesToContract as appliesToContractAPI } from '../../coupon/api';
+
 import PaymentMethodList from '../../payment/components/PaymentMethodList.component';
 
 const PaymentMethodSwitcher = (props: {
@@ -82,6 +85,10 @@ type Props = {
   requestSetupIntentSecret: () => void,
   refreshSavedPaymentMethodList: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
+
+  contract?: Contract,
+  withCoupon?: boolean,
+  withNote?: boolean,
 };
 
 type State = {
@@ -94,6 +101,9 @@ export class SubscriptionPayment extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      voucher: 0,
+      note: '',
+      coupon_code: '',
       loading: false,
     };
   }
@@ -106,21 +116,27 @@ export class SubscriptionPayment extends React.Component<Props, State> {
 
   submit = async () => {
     if (this.props.paymentMethod === 'bsport:credit') {
-      this.props.onSubmit('bsport:credit');
+      this.props.onSubmit('bsport:credit', null, null, null, this.state.note);
     } else {
       this.setState({ loading: true });
-      this.props.onSubmit(null, this.state.selectedSavedPaymentMethodId, {
-        onSuccess: () => {
-          this.setState({
-            loading: false,
-          });
+      this.props.onSubmit(
+        null,
+        this.state.selectedSavedPaymentMethodId,
+        {
+          onSuccess: () => {
+            this.setState({
+              loading: false,
+            });
+          },
+          onError: () => {
+            this.setState({
+              loading: false,
+            });
+          },
         },
-        onError: () => {
-          this.setState({
-            loading: false,
-          });
-        },
-      });
+        (this.state.voucher && this.state.coupon_code) || null,
+        this.state.note,
+      );
     }
   };
 
@@ -136,6 +152,48 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     } = this.props;
     return (
       <div>
+        {this.props.contract && (
+          <div className={classes.priceContainer}>
+            <Typography variant="h4">
+              {`${this.props.contract.recurrent_price -
+                (this.state.voucher || 0)} €`}
+            </Typography>
+          </div>
+        )}
+        {this.props.withCoupon && (
+          <div className={classes.couponContainer}>
+            {!!this.state.voucher && (
+              <Typography color="textSecondary">
+                {`${this.state.coupon_code}   -${this.state.voucher} €`}
+              </Typography>
+            )}
+            <CouponCodeForm
+              onSubmit={async (coupon_code) => {
+                const { data } = await appliesToContractAPI(
+                  coupon_code,
+                  this.props.contract.id,
+                );
+                if (data.can_be_applied) {
+                  this.setState({
+                    coupon_code,
+                    voucher: data.voucher,
+                  });
+                }
+              }}
+            />
+            <Divider />
+          </div>
+        )}
+        {!!this.props.withNote && (
+          <TextField
+            fullWidth
+            variant="outlined"
+            rows={3}
+            label={t('subscription:form.note.label')}
+            value={this.state.note}
+            onChange={(ev) => this.setState({ note: ev.target.value })}
+          />
+        )}
         <PaymentMethodSwitcher
           classes={classes}
           t={t}
@@ -243,6 +301,25 @@ const styles = (theme) => ({
   },
   explainCredit: {
     padding: theme.spacing(2),
+  },
+  priceContainer: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
+    backgroundColor: '#EFEFEF',
+    padding: theme.spacing(2),
+    borderRadius: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  couponContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    width: '100%',
+    '&>*': {
+      marginBottom: theme.spacing(2),
+    },
   },
 });
 

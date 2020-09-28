@@ -15,6 +15,8 @@ import {
 import { requestSetupIntentSecretNoAuth as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { fetchPaymentMethodList } from '../../libs/payment/actions';
+import { fetchContractDetail } from '../../libs/subscription/actions';
+import { getContract } from '../../libs/subscription/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import parse from '../../query-string';
 import { attachPaymentToBasketId as attachPaymentAction } from '../../libs/checkout/actions';
@@ -31,6 +33,8 @@ type Props = {
   fetchPaymentMethodList: (params: any) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   requestSetupIntentSecret: () => void,
+  contract: ?Contract,
+  fetchContractDetail: (number) => void,
 };
 
 type State = {
@@ -38,6 +42,10 @@ type State = {
 };
 
 export class ContractPayment extends React.Component<Props, State> {
+  componentDidMount() {
+    this.props.fetchContractDetail(this.props.contractId);
+  }
+
   state = { processing: false };
 
   onSubmit = async (_, payment_method_id: string) => {
@@ -68,6 +76,8 @@ export class ContractPayment extends React.Component<Props, State> {
           processing={this.state.processing}
           savedPaymentMethodList={this.props.savedPaymentMethodList}
           requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+          withCoupon
+          contract={this.props.contract}
           refreshSavedPaymentMethodList={() => {
             this.props.fetchPaymentMethodList({ member: this.props.memberId });
           }}
@@ -98,10 +108,15 @@ export default compose(
   withStyles(styles),
   routerParamsToProps({ contractId: 'contractId' }),
   connect(
-    (state) => ({
+    (state, { contractId }) => ({
+      contract: getContract(state, parseInt(contractId, 10)),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
-    { attachPayment: attachPaymentAction, fetchPaymentMethodList },
+    {
+      attachPayment: attachPaymentAction,
+      fetchContractDetail,
+      fetchPaymentMethodList,
+    },
   ),
   withHandlers({
     requestSetupIntentSecret: ({ memberId }) => () =>

@@ -18,6 +18,7 @@ import SubscriptionContractFormDialog from '../../libs/subscription/components/S
 import PaginatedSubscriptionList from '../../libs/subscription/components/PaginatedSubscriptionList.component';
 import themeSelectors from '../../libs/theme/selectors';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
+import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 
 import {
@@ -74,6 +75,8 @@ type Props = {
 
   privatePassList: Array<PrivatePass>,
   fetchPrivatePassList: () => void,
+  fetchPaymentComboList: () => void,
+  goToCombo: (number) => void,
 };
 
 type State = {
@@ -87,6 +90,7 @@ export class ContractDetailPage extends Component<Props, State> {
     this.props.fetchContractDetail(this.props.contractId);
     this.props.refreshAllPaymentPack();
     this.props.fetchPrivatePassList();
+    this.props.fetchPaymentComboList();
     this.props.fetchSubscriptionsByContract(1, SUBSCRIPTION_PAGINATION_SIZE);
   }
 
@@ -106,6 +110,7 @@ export class ContractDetailPage extends Component<Props, State> {
             <ContractDetail
               goToPack={this.props.goToPaymentPackDetail}
               goToPrivatePass={this.props.goToPrivatePass}
+              goToCombo={this.props.goToCombo}
               contract={this.props.contract}
               company={{
                 id: this.props.theme.company,
@@ -214,6 +219,7 @@ export default compose(
       deleteContract,
       refreshAllPaymentPack,
       fetchPrivatePassList,
+      fetchPaymentComboList,
       createOrUpdateContract: createOrUpdateContractAction,
       fetchSubscriptionList: fetchSubscriptionListAction,
       fetchFilteredMembers: fetchFilteredMembersAction,
@@ -224,6 +230,7 @@ export default compose(
         push(`/payment-pack/${packId}/`),
       goToPrivatePass: (packId: number) =>
         push(`/private-service/pass/${packId}/`),
+      goToCombo: (id: number) => push(`/combo/${id}/`),
     },
   ),
   withHandlers({

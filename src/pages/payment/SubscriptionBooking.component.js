@@ -44,7 +44,12 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
     processing: false,
   };
 
-  onSubmit = async (token: string, payment_method_id: string) => {
+  onSubmit = async (
+    token: string,
+    payment_method_id: string,
+    options,
+    coupon,
+  ) => {
     this.setState({ processing: true });
     try {
       const first_billing_timestamp = moment(
@@ -54,6 +59,7 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
         stripe_source: token,
         first_billing_timestamp,
         payment_method_id,
+        coupon,
       });
       this.props.onSubmit();
       // this.setState({ firstBillingTimestamp });
@@ -88,8 +94,10 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
         <DialogContent>
           <SubscriptionPayment
             processing={this.state.processing}
+            contract={this.props.contract}
             requestSetupIntentSecret={this.props.requestSetupIntentSecret}
             savedPaymentMethodList={this.props.savedPaymentMethodList}
+            withCoupon
             refreshSavedPaymentMethodList={() =>
               this.props.fetchPaymentMethodList({
                 company: this.props.companyId,

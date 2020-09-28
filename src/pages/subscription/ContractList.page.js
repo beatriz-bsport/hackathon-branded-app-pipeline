@@ -29,6 +29,8 @@ import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../li
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
+import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
+import { getPaymentComboList } from '../../libs/payment-combo/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -94,6 +96,9 @@ type Props = {
   fetchPrivatePassList: () => void,
   privatePassList: Array<PrivatePass>,
 
+  fetchPaymentComboList: () => void,
+  paymentComboList: Array<PaymentCombo>,
+
   requestSetupIntentSecret: () => void,
   fetchPaymentMethodList: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
@@ -103,6 +108,7 @@ export class SubscriptionList extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchContractList();
     this.props.fetchPrivatePassList();
+    this.props.fetchPaymentComboList();
   }
 
   onClickContract = (id: number) => {
@@ -169,6 +175,7 @@ export class SubscriptionList extends React.Component<Props> {
                 }
                 paymentPacks={this.props.paymentPacks}
                 privatePassList={this.props.privatePassList}
+                paymentComboList={this.props.paymentComboList}
               />
             </Grid>
           )}
@@ -206,6 +213,7 @@ export class SubscriptionList extends React.Component<Props> {
                 }
                 paymentPacks={this.props.paymentPacks}
                 privatePassList={this.props.privatePassList}
+                paymentComboList={this.props.paymentComboList}
               />
             </Grid>
           )}
@@ -239,6 +247,7 @@ export class SubscriptionList extends React.Component<Props> {
           <SubscriptionContractFormDialog
             paymentPacks={this.props.paymentPacks}
             privatePassList={this.props.privatePassList}
+            paymentComboList={this.props.paymentComboList}
             open
             onSubmit={this.props.onCreate}
             onClose={this.props.onCloseCreate}
@@ -279,12 +288,14 @@ export default compose(
       contractLoading: state.subscription.contract.loading,
       paymentPacks: getPaymentPackEnabled(state),
       privatePassList: getPrivatePassAvailable(state),
+      paymentComboList: getPaymentComboList(state),
       searchedMembers: getSearchedMembers(state),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
       fetchContractList: fetchContractListAction,
       fetchSubscriptionBulk: fetchSubscriptionBulkAction,
+      fetchPaymentComboList,
       createOrUpdateContract: createOrUpdateContractAction,
       searchMembers,
       deleteContract,

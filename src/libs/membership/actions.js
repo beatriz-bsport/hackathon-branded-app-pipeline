@@ -46,11 +46,14 @@ export function fetchMembershipListAsConsumer(
     try {
       const response = await fetchMembershipListAPI({
         ...params,
-        page: next_page,
+        page: next_page || 1,
         page_size: 100,
       });
       dispatch(
-        listAsConsumerActions.success({ ...response.data, page: next_page }),
+        listAsConsumerActions.success({
+          ...response.data,
+          page: next_page || 1,
+        }),
       );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);

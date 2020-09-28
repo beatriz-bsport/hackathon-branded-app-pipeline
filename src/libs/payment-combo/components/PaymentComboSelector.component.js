@@ -56,8 +56,7 @@ export function PaymentComboSelector(props: Props) {
     nullCurrentValue,
     autofocus,
   } = props;
-  const suggestions = paymentComboList
-    .asMutable()
+  const suggestions = [...(paymentComboList || [])]
     .sort((pp, pp_) => pp.name > pp_.name)
     .map((pp) => ({ value: pp.id, label: pp.name, pp }));
 

@@ -529,7 +529,7 @@
             "myPrivatePass": "Mis tarjetas de cita"
         },
         "navigation": {
-            "order": "Pedidas",
+            "order": "Pedidos",
             "workshopActivities": "Talleres",
             "invoice": "Facturas",
             "alpha": "en desarollo",
@@ -539,7 +539,7 @@
                 "pass": "Tarjetas de curso",
                 "bookings": "Mis reservas ",
                 "profile": "Mi perfil",
-                "order": "Mis pedidas"
+                "order": "Mis pedidos"
             },
             "reporting": "Informes",
             "search": "Buscar",
@@ -800,7 +800,8 @@
                 "offerIsNotAvailable": "La reserva será eliminada. La sesión ya ha sido cancelada y los créditos no serán reembolsados si no marcaste \"reembolso\" en el momento de la cancelación",
                 "offerIsAvailable": "¿Está seguro de que quieres eliminar esta reserva? Los créditos utilizados serán acreditados de nuevo."
             },
-            "cancelledFromWaitingList": "Eliminado de la lista de espera"
+            "cancelledFromWaitingList": "Eliminado de la lista de espera",
+            "notifyRevert": "Enviar un email de cancelación"
         },
         "level": {
             "all": "Todos los niveles",
@@ -935,8 +936,8 @@
                 "reportingDashboard": "Informes",
                 "searchResults": "Buscar",
                 "settings": "Parámetros",
-                "orderList": "Pedidas",
-                "orderDetail": "Detalles de las pedidas"
+                "orderList": "Pedidos",
+                "orderDetail": "Detalles de las pedidos"
             }
         },
         "countdown": {
@@ -1184,7 +1185,10 @@
                     "placeholder": "me@bsport.io",
                     "label": "Email"
                 },
-                "title": "Mis informaciones"
+                "title": "Mis informaciones",
+                "timezone": {
+                    "label": "Zona horaria"
+                }
             },
             "welcome": {
                 "next": "Continuar",
@@ -1199,7 +1203,9 @@
             "IT": "Italia",
             "DE": "Alemania",
             "FR": "Francia",
-            "CH": "Suiza"
+            "CH": "Suiza",
+            "IE": "Irlanda",
+            "AT": "Austria"
         },
         "emailValidation": {
             "disconnect": "Cambiar de cuenta",
@@ -1215,7 +1221,8 @@
             "nl": "holandés",
             "de": "alemán",
             "it": "italiano",
-            "es": "español"
+            "es": "español",
+            "en": "Inglés"
         }
     },
     "establishment": {
@@ -1335,7 +1342,7 @@
             "modal": {
                 "delete": {
                     "title": "Suprimir un gastos de envío",
-                    "content": "Tiene en cuenta que esta operación es definitiva. Las antiguas pedidas utilizando estos gastos de envío no serán cambiadas.",
+                    "content": "Tiene en cuenta que esta operación es definitiva. Los antiguos pedidos utilizando estos gastos de envío no serán cambiados.",
                     "cancel": "Cancelar",
                     "confirm": "Suprimir"
                 }
@@ -1665,7 +1672,8 @@
                 },
                 "invalid": "IBAN inválido. Tiene en cuenta: el IBAN debe corresponder a una cuenta bancaria domiciliada en el mismo país que tu empresa",
                 "content": "Esta cuenta bancaria se utilizará para transferirle los montos pagados en línea a través de bsport.",
-                "title": "Cuenta bancaria"
+                "title": "Cuenta bancaria",
+                "unknownCountry": "Operación manual para este país, por favor contacte a bsport a través de contact@bsport.io"
             }
         },
         "payment": {
@@ -1862,7 +1870,10 @@
             "check": "Comprobar",
             "submit": "Facturar",
             "title": "Nueva suscripción",
-            "cancel": "Cancelar"
+            "cancel": "Cancelar",
+            "note": {
+                "label": "Nota"
+            }
         },
         "plannedInvoiceStatus": {
             "pending": "Esperando",
@@ -1909,7 +1920,8 @@
             },
             "autoRenew": "Renovación automática",
             "private_pass": "Tarjeta de cita",
-            "privatePass": "Tarjeta de cita"
+            "privatePass": "Tarjeta de cita",
+            "note": "Nota"
         },
         "schedule": {
             "provisionalTitle": "Calendario estimativo",
@@ -2675,7 +2687,13 @@
                     "bookingDeprecated": "Booking  n° {{notify_booking_nb}}",
                     "notRefunded": "Cancelación después de la fecha límite n° {{notify_booking_nb}}",
                     "refunded": "Cancelación reembolsada n° {{notify_booking_nb}}",
-                    "absence": "Ausencia n° {{notify_booking_nb}}"
+                    "absence": "Ausencia n° {{notify_booking_nb}}",
+                    "notifyAllEvents": {
+                        "notRefunded": "En cada cancelación tardía",
+                        "refunded": "En cada cancelación reembolsada",
+                        "absence": "En cada ausencia",
+                        "attendance": "En cada asistencia"
+                    }
                 },
                 "cancel": "Cancelar",
                 "next": "siguiente",
@@ -2687,7 +2705,13 @@
                     "text": "Ayuda: la notificación se enviará al miembro durante",
                     "notRefunded": "su cancelación después de la fecha límite n° {{notify_booking_nb}}",
                     "refunded": "su cancelación fue reembolsada n° {{notify_booking_nb}}",
-                    "absence": "su ausencia n° {{notify_booking_nb}}"
+                    "absence": "su ausencia n° {{notify_booking_nb}}",
+                    "allEvents": {
+                        "notRefunded": "Ayuda: la notificación será enviada al miembro por cada una de sus cancelaciones tardías",
+                        "refunded": "Ayuda: la notificación será enviada al miembro por cada una de sus cancelaciones reembolsadas",
+                        "absence": "Ayuda: la notificación será enviada al miembro cada vez que esté ausente",
+                        "attendance": "Ayuda: la notificación será enviada al miembro cada vez que asista"
+                    }
                 },
                 "choicesKind": {
                     "cancellation": "Cancelación de una reserva por parte del miembro",
@@ -2718,7 +2742,8 @@
                     "valid": "Reserva válida",
                     "title": "Elija el tipo de reserva que desea notificar"
                 },
-                "explain": "Puede notificar a sus clientes antes o después de ciertas sesiones, dependiendo de varios criterios como el número de asistencias, ausencias o incluso cancelaciones."
+                "explain": "Puede notificar a sus clientes antes o después de ciertas sesiones, dependiendo de varios criterios como el número de asistencias, ausencias o incluso cancelaciones.",
+                "notifyAllEvents": "Notificar al miembro en cada evento"
             },
             "addNotification": "Añadir una notificación"
         },
@@ -4900,7 +4925,9 @@
                 "price": {
                     "label": "Cantidad reacreditada"
                 },
-                "title": "Reembolso de crédito"
+                "title": "Reembolso de crédito",
+                "warningSecond": "Si desea reembolsar al cliente por transferencia con el método de pago utilizado, cancele la facturación y no le reembolse a crédito!",
+                "warningFirst": "Advertencia, esta operación es irreversible (generación de factura)."
             },
             "addExtension": "Añadir una extensión"
         },
@@ -5177,13 +5204,13 @@
             "alpha": "en desarollo",
             "invoice": "Facturas",
             "workshopActivities": "Talleres",
-            "order": "Pedidas",
+            "order": "Pedidos",
             "email_template": "Emails",
             "smart_list": "Smartlists",
             "sequence": "Estrategias",
             "consumer": {
                 "pass": "Tarjetas de curso",
-                "order": "Mis pedidas",
+                "order": "Mis pedidos",
                 "profile": "Mi perfil",
                 "bookings": "Mis reservas "
             },
@@ -5967,7 +5994,7 @@
         },
         "order": {
             "orderDetail": "Detalles pedida",
-            "orderList": "Pedidas"
+            "orderList": "Pedidos"
         },
         "member": {
             "memberFormPage": "Formulario Miembro",

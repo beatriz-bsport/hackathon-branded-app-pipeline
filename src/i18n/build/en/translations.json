@@ -3470,7 +3470,9 @@
             "IT": "Italy",
             "DE": "Germany",
             "FR": "France",
-            "CH": "Switzerland"
+            "CH": "Switzerland",
+            "IE": "Ireland",
+            "AT": "Austria"
         },
         "signupCompany": {
             "form": {
@@ -3496,7 +3498,10 @@
                     "placeholder": "Yoga Shala",
                     "label": "Name of your studio / club / company"
                 },
-                "title": "My information"
+                "title": "My information",
+                "timezone": {
+                    "label": "Time zone"
+                }
             },
             "welcome": {
                 "next": "Continue",
@@ -3518,7 +3523,8 @@
             "nl": "Deutch",
             "it": "Italian",
             "de": "German",
-            "fr": "French"
+            "fr": "French",
+            "en": "English"
         }
     },
     "waitingList": {
@@ -4470,7 +4476,10 @@
             "check": "Check",
             "submit": "Bill",
             "title": "New recurring invoice",
-            "cancel": "Discard"
+            "cancel": "Discard",
+            "note": {
+                "label": "Note"
+            }
         },
         "plannedInvoiceStatus": {
             "pending": "Pending",
@@ -4517,7 +4526,8 @@
                 "0": "Credit card"
             },
             "private_pass": "Pass (appointments)",
-            "privatePass": "Pass (appointments)"
+            "privatePass": "Pass (appointments)",
+            "note": "Note"
         },
         "schedule": {
             "provisionalTitle": "Provisional schedule",
@@ -5603,7 +5613,13 @@
                     "absence": "Absence n ° {{notify_booking_nb}}",
                     "attendance": "Attendance n ° {{notify_booking_nb}}",
                     "after": "Notification {{hours}} h after the session",
-                    "before": "Notification {{hours}} h before the session"
+                    "before": "Notification {{hours}} h before the session",
+                    "notifyAllEvents": {
+                        "notRefunded": "At each late cancellation",
+                        "refunded": "At each reimbursed cancellation",
+                        "absence": "At each absence",
+                        "attendance": "At each attendance"
+                    }
                 },
                 "cancel": "Cancel",
                 "next": "Next",
@@ -5613,7 +5629,13 @@
                     "refunded": "his cancellation refunded n ° {{notify_booking_nb}}",
                     "absence": "his absence n ° {{notify_booking_nb}}",
                     "attendance": "his presence n ° {{notify_booking_nb}}",
-                    "text": "Help: the notification will be sent to the member when"
+                    "text": "Help: the notification will be sent to the member when",
+                    "allEvents": {
+                        "notRefunded": "Help: the notification will be sent to the member for each of their late cancellations",
+                        "refunded": "Help: the notification will be sent to the member for each of their reimbursed cancellations",
+                        "absence": "Help: the notification will be sent to the member each time they are absent",
+                        "attendance": "Help: the notification will be sent to the member each time they attend"
+                    }
                 },
                 "chooseKind": {
                     "notRefunded": "Cancellation after deadline",
@@ -5638,7 +5660,8 @@
                 "settingTitle": "Settings",
                 "typeTitle": "Notification type",
                 "explain": "You can notify your clients before or after certain sessions, depending on various criteria such as the number of attendances, absences or even cancellations.",
-                "title": "Notification form"
+                "title": "Notification form",
+                "notifyAllEvents": "Notify the member at each event"
             },
             "addNotification": "Add a notification"
         },

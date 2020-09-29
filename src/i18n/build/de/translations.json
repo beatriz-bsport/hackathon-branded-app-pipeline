@@ -79,7 +79,8 @@
             "flat_fee": "Anmeldegebühren",
             "recurrent_voucher": "Rabatt auf jede Rechnung",
             "private_pass": "Terminkarte",
-            "privatePass": "Terminkarte"
+            "privatePass": "Terminkarte",
+            "note": "Anmerkung"
         },
         "paymentMethod": {
             "card": "Kreditkarte",
@@ -284,7 +285,10 @@
             "cancel": "Abbrechen",
             "check": "Überprüfen",
             "submit": "In Rechnung stellen",
-            "title": "Neue periodische Zahlung"
+            "title": "Neue periodische Zahlung",
+            "note": {
+                "label": "Anmerkung"
+            }
         },
         "pause": {
             "pausedInterval": "{{start}} → {{ end }} : {{ days }} Tage",
@@ -845,9 +849,9 @@
                     "success": "Die Anmerkung wurde gespeichert",
                     "error": "Fehler beim Speichern der Anmerkung"
                 },
-                "referenceNumberHelper": "(fakultativ) wenn dieses Feld leer ist, wird eine Nummer automatisch erzeugt",
+                "referenceNumberHelper": "(optional) wenn dieses Feld leer ist, wird eine Nummer automatisch erzeugt",
                 "referenceNumber": "Mitgliedsnummer",
-                "barcodeHelper": "(fakultativ) verwenden Sie diesen Code für Ihre Zugangskarten",
+                "barcodeHelper": "(optional) verwenden Sie diesen Code für Ihre Zugangskarten",
                 "barcode": "Barcode (Karte)",
                 "rgpdTitle": "Vom Mitglied akzeptierte Kommunikationsmittel (Werbeaktionen, Marketing, Smartlist, usw.)"
             },
@@ -922,7 +926,7 @@
                 "paid": "Bezahlt",
                 "unpaid": "In Bearbeitung",
                 "status": "Status",
-                "additionalInformationHelper": "(fakultativ) Schecknummer, Einlösungsdatum..."
+                "additionalInformationHelper": "(optional) Schecknummer, Einlösungsdatum..."
             },
             "booking": {
                 "delete": {
@@ -1964,7 +1968,7 @@
                 "noMailAvailable": "Keine verfügbare E-Mail, erstellen Sie eine",
                 "daysType": "Verbleibende Gültigkeitstage",
                 "mailSelection": "E-Mail auswählen",
-                "smartListSelection": "Liste auswählen (fakultativ)",
+                "smartListSelection": "Liste auswählen (optional)",
                 "settingTitle": "Einstellungen",
                 "submit": "Bestätigen",
                 "cancel": "Abbrechen",
@@ -2158,7 +2162,9 @@
                 },
                 "credits": {
                     "label": "Abzuziehender Kredit"
-                }
+                },
+                "warningSecond": "Wenn Sie den Kunden per Banküberweisung mit dem verwendeten Zahlungsmittel entschädigen möchten, stornieren Sie die Rechnung und erstatten Sie keine Guthaben-Rückerstattung!",
+                "warningFirst": "Achtung! Dieser Vorgang ist unwiderruflich (Erstellung einer Rechnung)."
             },
             "addExtension": "Eine Verlängerung hinzufügen",
             "details": {
@@ -3047,7 +3053,7 @@
             "current": "Aktuelle Anzahlung"
         },
         "paymentNote": {
-            "helperText": "(fakultativ) Schecknummer, Einlösungsdatum...",
+            "helperText": "(optional) Schecknummer, Einlösungsdatum...",
             "label": "Anmerkung"
         },
         "bankAccount": {
@@ -3066,7 +3072,8 @@
                     "label": "Bankkontoinhaber"
                 },
                 "content": "Dieses Bankkonto wird verwendet, um Ihnen die online über bsport bezahlten Beträge zu überweisen.",
-                "title": "Bankkonto"
+                "title": "Bankkonto",
+                "unknownCountry": "Manueller Vorgang für dieses Land, bitte kontaktieren Sie bsport über contact@bsport.io"
             }
         },
         "payment": {
@@ -3419,7 +3426,13 @@
                     "bookingDeprecated": "Buchungsnummer {{notify_booking_nb}}",
                     "notRefunded": "Anzahl der Stornierungen nach Ablauf der Frist:",
                     "attendance": "Anzahl der Anwesenheiten:  {{notify_booking_nb}}",
-                    "absence": "Anzahl der Abwesenheiten:  {{notify_booking_nb}}"
+                    "absence": "Anzahl der Abwesenheiten:  {{notify_booking_nb}}",
+                    "notifyAllEvents": {
+                        "notRefunded": "Für jede Stornierung nach Ablauf der Frist",
+                        "refunded": "Für jede erstattete Stornierung",
+                        "absence": "Bei jeder Abwesenheit",
+                        "attendance": "Bei jeder Anwesenheit"
+                    }
                 },
                 "chooseKind": {
                     "absence": "Abwesenheit des Mitglieds bei einer Session",
@@ -3441,7 +3454,13 @@
                     "attendance": "Anzahl der Anwesenheit: {{notify_booking_nb}}",
                     "notRefunded": "Anzahl der Kündigungen nach Ablauf der Frist: {{notify_booking_nb}}",
                     "refunded": "Anzahl der erstatteten Stornierungen: {{notify_booking_nb}}",
-                    "text": "Hilfe: Die Benachrichtigung wird an das Mitglied gesendet, wenn"
+                    "text": "Hilfe: Die Benachrichtigung wird an das Mitglied gesendet, wenn",
+                    "allEvents": {
+                        "notRefunded": "Hilfe: Die Benachrichtigung wird dem Mitglied für jede verspätete Stornierung gesendet",
+                        "refunded": "Hilfe: Die Benachrichtigung wird dem Mitglied für jede erstattete Stornierung gesendet",
+                        "absence": "Hilfe: Die Benachrichtigung wird bei jeder Abwesenheit an das Mitglied gesendet",
+                        "attendance": "Hilfe: Die Benachrichtigung wird bei jeder Teilnahme an das Mitglied gesendet"
+                    }
                 },
                 "cancel": "Abbrechen",
                 "next": "Weiter",
@@ -3454,7 +3473,8 @@
                 "settingTitle": "Einstellungen",
                 "typeTitle": "Benachrichtigungstyp",
                 "title": "Benachrichtigung-Formular",
-                "eventNb": "Benachrichtigen Sie das Mitglied während der Veranstaltung Nr.:"
+                "eventNb": "Benachrichtigen Sie das Mitglied während der Veranstaltung Nr.:",
+                "notifyAllEvents": "Benachrichtigen Sie das Mitglied bei jeder Veranstaltung"
             },
             "addNotification": "Eine Benachrichtigung hinzufügen"
         },
@@ -4541,9 +4561,9 @@
             "create": {
                 "steps": {
                     "workshop_form": "Erstellung eines Kurses",
-                    "offer_form": "Erstellung von Kursen (fakultativ)",
+                    "offer_form": "Erstellung von Kursen (optional)",
                     "pass_list": "Finalisierung",
-                    "pass_form": "Erstellung einer Kurskarte (fakultativ)",
+                    "pass_form": "Erstellung einer Kurskarte (optional)",
                     "activity_form": "Erstellung der Aktivität"
                 },
                 "compatible_packs": {
@@ -4824,10 +4844,10 @@
             },
             "PrivateBooking": {
                 "tags": {
-                    "establishment_practical_info": "Informationen über den Zugang zur Einrichtung (fakultativ)",
+                    "establishment_practical_info": "Informationen über den Zugang zur Einrichtung (optional)",
                     "address": "Adresse",
                     "date": "Uhrzeit/Datum",
-                    "coach": "Lehrer (fakultativ)",
+                    "coach": "Lehrer (optional)",
                     "activity": "Aktivität",
                     "establishment": "Einrichtung"
                 },
@@ -5454,7 +5474,9 @@
             "IT": "Italien",
             "DE": "Deutschland",
             "FR": "Frankreich",
-            "CH": "Schweiz"
+            "CH": "Schweiz",
+            "IE": "Irland",
+            "AT": "Österreich"
         },
         "signupCompany": {
             "form": {
@@ -5480,7 +5502,10 @@
                     "placeholder": "Yoga Shala",
                     "label": "Name Ihres Studios/Klubs/Unternehmens"
                 },
-                "title": "Meine Informationen"
+                "title": "Meine Informationen",
+                "timezone": {
+                    "label": "Zeitzone"
+                }
             },
             "welcome": {
                 "next": "Weiter",
@@ -5502,7 +5527,8 @@
             "nl": "niederländisch",
             "it": "italienisch",
             "de": "deutsch",
-            "fr": "französisch"
+            "fr": "französisch",
+            "en": "Englisch"
         }
     },
     "marketplace": {

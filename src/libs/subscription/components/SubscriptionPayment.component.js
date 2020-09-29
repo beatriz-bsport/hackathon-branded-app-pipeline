@@ -155,8 +155,9 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         {this.props.contract && (
           <div className={classes.priceContainer}>
             <Typography variant="h4">
-              {`${this.props.contract.recurrent_price -
-                (this.state.voucher || 0)} €`}
+              {`${parseFloat(
+                this.props.contract.recurrent_price - (this.state.voucher || 0),
+              ).toFixed(2)} €`}
             </Typography>
           </div>
         )}
@@ -164,7 +165,9 @@ export class SubscriptionPayment extends React.Component<Props, State> {
           <div className={classes.couponContainer}>
             {!!this.state.voucher && (
               <Typography color="textSecondary">
-                {`${this.state.coupon_code}   -${this.state.voucher} €`}
+                {`${this.state.coupon_code}   -${(
+                  this.state.voucher || 0
+                ).toFixed(2)} €`}
               </Typography>
             )}
             <CouponCodeForm

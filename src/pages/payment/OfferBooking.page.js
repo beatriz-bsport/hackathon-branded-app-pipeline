@@ -292,6 +292,7 @@ export class OfferPaymentPage extends Component<Props, State> {
               <SubscriptionContractBooking
                 contract={this.props.selectedContract}
                 companyId={this.props.offer && this.props.offer.company}
+                requestSetupIntentSecret={this.requestSetupIntentSecret}
                 onSubmit={() => {
                   this.props.fetchConsumerPaymentPackForBooking(
                     this.props.offerId,

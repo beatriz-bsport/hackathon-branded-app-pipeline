@@ -573,7 +573,7 @@
             "object": "Descrizione",
             "addInvoiceItem": "Aggiungi alla fattura",
             "addOffer": "Allenamento",
-            "addPaymentPack": "Scheda del corso",
+            "addPaymentPack": "Tessera",
             "voucher": "Voucher",
             "total": "TOTALE",
             "paymentMethodCheck": "Assegno bancario",
@@ -708,7 +708,8 @@
             "next": "Il prossimo:",
             "fillRate": "Tasso di riempimento",
             "source": "Sorgente",
-            "cancelledFromWaitingList": "Rimosso dalla lista di attesa"
+            "cancelledFromWaitingList": "Rimosso dalla lista di attesa",
+            "notifyRevert": "Invia una email di cancellazione"
         },
         "calendar": {
             "previous": "<",
@@ -2203,7 +2204,8 @@
             "incomplete_number": "Il numero della carta è incompleto.",
             "incomplete_cvc": "Il codice di sicurezza della tua carta è incompleto.",
             "payment_intent_authentication_failure": "Il pagamento è stato rifiutato dalla tua banca.",
-            "payment_intent_payment_attempt_failed": "Il pagamento è stato rifiutato dalla tua banca."
+            "payment_intent_payment_attempt_failed": "Il pagamento è stato rifiutato dalla tua banca.",
+            "none": "."
         },
         "decline_code": {
             "incorrect_cvc": "Il codice di sicurezza non è valido.",
@@ -2215,7 +2217,8 @@
             "transaction_not_allowed": "La tua carta è stata rifiutata dalla tua banca",
             "generic_decline": "La banca non ha accettato il pagamento",
             "do_not_honor": "La tua banca ha rifiutato il pagamento, contatta il tuo consulente bancario per autorizzarlo",
-            "withdrawal_count_limit_exceeded": "Troppi debiti su questa carta, rifiutata."
+            "withdrawal_count_limit_exceeded": "Troppi debiti su questa carta, rifiutata.",
+            "none": "."
         }
     },
     "theme": {
@@ -3112,7 +3115,8 @@
             "trial_nb": "Numero di mesi offerti",
             "recurrent_voucher": "Sconto su ogni fattura",
             "private_pass": "Pass per appuntamenti",
-            "privatePass": "Pass per appuntamenti"
+            "privatePass": "Pass per appuntamenti",
+            "note": "Nota"
         },
         "contract": {
             "registerManager": {
@@ -3196,7 +3200,10 @@
             "cancel": "Annulla",
             "title": "Nuovo pagamento ricorrente",
             "check": "Verifica",
-            "submit": "Fattura"
+            "submit": "Fattura",
+            "note": {
+                "label": "Nota"
+            }
         },
         "events": {
             "billing_plan-update_payment_pack": "Tessera modificata",
@@ -3578,7 +3585,9 @@
                 "credits": {
                     "label": "Credito da detrarre"
                 },
-                "explain": "Scegli il numero di crediti da rimborsare e il valore totale che verrà accreditato sul deposito del socio"
+                "explain": "Scegli il numero di crediti da rimborsare e il valore totale che verrà accreditato sul deposito del socio",
+                "warningSecond": "Se vuoi rimborsare il cliente tramite bonifico con il metodo di pagamento usato, annulla la fatturazione e non rimborsare il credito!",
+                "warningFirst": "Attenzione, questo operazione é irreversibile (generazione di fatture)."
             },
             "addExtension": "Aggiungi un'estensione",
             "details": {
@@ -4212,7 +4221,13 @@
                     "bookingDeprecated": "Prenotazione n° {{notify_booking_nb}}",
                     "notRefunded": "Annullamento dopo la scadenza del termine n° {{notify_booking_nb}}",
                     "refunded": "Cancellazione rimborsata n° {{notify_booking_nb}}",
-                    "absence": "Assenza n° {{notify_booking_nb}}"
+                    "absence": "Assenza n° {{notify_booking_nb}}",
+                    "notifyAllEvents": {
+                        "notRefunded": "a ogni cancellazione oltre il termine limite",
+                        "refunded": "a ogni cancellazione rimborsata",
+                        "absence": "a ogni assenza",
+                        "attendance": "a ogni presenza"
+                    }
                 },
                 "cancel": "Annulla",
                 "next": "seguente",
@@ -4223,7 +4238,13 @@
                     "booking": "la sua prenotazione n° {{notify_booking_nb}}",
                     "notRefunded": "suo annullamento dopo la scadenza del termine n°{{notify_booking_nb}}",
                     "refunded": "sua cancellazione rimborsata n° {{notify_booking_nb}}",
-                    "absence": "sua assenza n° {{notify_booking_nb}}"
+                    "absence": "sua assenza n° {{notify_booking_nb}}",
+                    "allEvents": {
+                        "notRefunded": "Aiuto: la notifica sarà inviata al membro per ciascuno delle cancellazioni annullate",
+                        "refunded": "Aiuto: la notifica sarà inviata al membro per ogni sua cancellazione rimborsata",
+                        "absence": "Aiuto: la notifica sarà inviata al membro ogni volta che sarà assente",
+                        "attendance": "Aiuto: la notifica sarà inviata al membro ogni volta che sarà presente"
+                    }
                 },
                 "submit": "Conferma",
                 "choicesKind": {
@@ -4255,7 +4276,8 @@
                     "valid": "Prenotazione valida",
                     "title": "Scegli il tipo di prenotazione che vuoi notificare"
                 },
-                "explain": "Puoi avvisare i tuoi clienti prima o dopo determinate sessioni, in base a diversi criteri come il numero di presenze, assenze o anche cancellazioni."
+                "explain": "Puoi avvisare i tuoi clienti prima o dopo determinate sessioni, in base a diversi criteri come il numero di presenze, assenze o anche cancellazioni.",
+                "notifyAllEvents": "Notifica il membro per ogni evento"
             },
             "addNotification": "Aggiungi una notifica"
         },
@@ -5016,7 +5038,8 @@
             "helperText": "Utilizzato solo per calcolare la disponibilità per gli appuntamenti",
             "label": "Capacità della sala",
             "explain": "Capacità: {{capacity}} posto",
-            "explain_plural": "Capacità: {{capacity}} posti"
+            "explain_plural": "Capacità: {{capacity}} posti",
+            "placeholder": "."
         },
         "forms": {
             "delete": {
@@ -5247,7 +5270,8 @@
                     "label": "Titolare del conto bancario"
                 },
                 "content": "Questo conto bancario verrà utilizzato per trasferire gli importi pagati online tramite bsport.",
-                "title": "Conto bancario"
+                "title": "Conto bancario",
+                "unknownCountry": "Operazione manuale per questo paese, per favore contatta bsport a contact@bsport.io"
             }
         },
         "payment": {
@@ -5405,7 +5429,10 @@
                     "placeholder": "me@bsport.io",
                     "label": "Email"
                 },
-                "title": "Le mie informazioni"
+                "title": "Le mie informazioni",
+                "timezone": {
+                    "label": "Fuso orario"
+                }
             },
             "welcome": {
                 "next": "Continua",
@@ -5420,7 +5447,9 @@
             "IT": "Italia",
             "DE": "Germania",
             "FR": "Francia",
-            "CH": "svizzero"
+            "CH": "svizzero",
+            "IE": "Irlanda",
+            "AT": "Austria"
         },
         "emailValidation": {
             "disconnect": "Cambia account",
@@ -5436,7 +5465,8 @@
             "nl": "olandese",
             "it": "italiano",
             "de": "tedesco",
-            "fr": "francese"
+            "fr": "francese",
+            "en": "Inglese"
         }
     },
     "waitingList": {

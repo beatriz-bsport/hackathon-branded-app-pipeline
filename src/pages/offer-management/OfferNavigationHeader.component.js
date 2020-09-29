@@ -62,7 +62,7 @@ export const OfferNavigationHeader = (props: Props) => (
           <TodayIcon className={props.classes.leftIcon} />
           {props.offer && !props.offerLoading && props.offer.date_start
             ? moment(props.offer.date_start)
-                .tz(props.offer.timezone_name)
+                .tz(props.offer.timezone_name || 'Europe/Paris')
                 .format('LLLL')
             : ''}
         </Button>

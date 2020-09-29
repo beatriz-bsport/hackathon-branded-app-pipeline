@@ -36,6 +36,7 @@ type Props = {
   fetchEstablishments: () => void,
   fetchAssociatedCoachesList: () => void,
   goBack: () => void,
+  timezone: string,
 };
 
 type State = {
@@ -110,6 +111,7 @@ export class OfferFormPage extends Component<Props, State> {
               processing={processing}
               error={error}
               onCancel={goBack}
+              timezone={this.props.timezone}
             />
           </Paper>
         </Grid>
@@ -129,6 +131,7 @@ export default withTranslation()(
       theme: state.theme.theme,
       establishments: getAvailableEstablishmentList(state),
       loading: state.metaActivity.loading,
+      timezone: state.theme.theme.timezone_name,
     }),
     {
       fetchEstablishments,

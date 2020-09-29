@@ -53,20 +53,8 @@ export const BookingConsumerItem = (props: Props) => {
           <AccessTimeIcon />
         </ListItemIcon>
         <ListItemText
-          primary={
-            offer
-              ? moment(offer.date_start)
-                  .tz(offer.timezone_name)
-                  .format('LL')
-              : ' - '
-          }
-          secondary={
-            offer
-              ? moment(offer.date_start)
-                  .tz(offer.timezone_name)
-                  .format('LT')
-              : ' - '
-          }
+          primary={offer ? moment(offer.date_start).format('LL') : ' - '}
+          secondary={offer ? moment(offer.date_start).format('LT') : ' - '}
         />
       </ListItem>
       <ListItem dense className={classes.translucentPaper}>

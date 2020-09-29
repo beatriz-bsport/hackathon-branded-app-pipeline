@@ -143,6 +143,7 @@ exports.default = {
         label: "Type d'abonnement",
         privatePass: 'Carte RDV',
         paymentPack: 'Carte de cours',
+        paymentCombo: 'Pack',
       },
       nb_interval: {
         label: 'Nombre de mois',

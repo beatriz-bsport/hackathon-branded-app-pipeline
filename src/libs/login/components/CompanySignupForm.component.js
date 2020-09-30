@@ -234,8 +234,8 @@ export default compose(
     passwordMismatch: password1 !== password2 && (!!password1 || !!password2),
   })),
   withHandlers({
-    onSubmit: ({ onSubmit, email, password1, name, locale }) => (recaptcha) => {
-      onSubmit({ recaptcha, email, password: password1, name, locale });
+    onSubmit: ({ onSubmit, email, password1, name, locale, timezone_name }) => (recaptcha) => {
+      onSubmit({ recaptcha, email, password: password1, name, locale, timezone_name });
     },
   }),
 )(CompanySignupForm);

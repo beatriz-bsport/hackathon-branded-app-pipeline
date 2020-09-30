@@ -6310,8 +6310,8 @@
                 "5": "equal"
             },
             "durations_comparators": {
-                "1": "more than (⩾)",
-                "2": "less than (⩽)",
+                "1": "less than (⩽)",
+                "2": "more than (⩾)",
                 "5": "exactly",
                 "6": "between two"
             },

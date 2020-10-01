@@ -255,7 +255,8 @@ export class EditLiveOfferForm extends Component<Props, State> {
       modifyAllDates:
         this.shouldModifyAllDates() &&
         !this.state.similarOffersWithSelectedStatus.filter((so) => !so.selected)
-          .length,
+          .length &&
+        !!this.state.similarOffersWithSelectedStatus.length,
       custom_selection: !!this.state.similarOffersWithSelectedStatus.filter(
         (so) => !so.selected,
       ).length,
@@ -628,9 +629,10 @@ export class EditLiveOfferForm extends Component<Props, State> {
           </div>
           <div className={this.props.classes.field}>
             <RecursionToogle
+              edit
               loading={this.props.similarOfferLoading}
               message={this.props.t('offer:liveOfferEdit.editSimilarOffers')}
-              listTitle={this.props.t('offer:liveOfferEdit.select')}
+              listTitle={this.props.t('offer:liveOfferEdit.selectEdit')}
               shouldModifyAllDates={this.shouldModifyAllDates()}
               dateTimeDiff={Moment(
                 `${pad(this.state.date.date())}/${pad(

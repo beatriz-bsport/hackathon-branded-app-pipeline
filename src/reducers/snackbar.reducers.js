@@ -3,10 +3,16 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { snackbarDisplay, snackbarDestroy } from '../actions/snackbar.actions';
+import {
+  snackbarDisplay,
+  snackbarDestroy,
+  backgroundSnackbarDestroy,
+  backgroundSnackbarDisplay,
+} from '../actions/snackbar.actions';
 
 const initialState = Immutable({
   messages: [],
+  backgroundMessages: [],
 });
 
 export default handleActions(
@@ -29,6 +35,24 @@ export default handleActions(
       }
       messages.splice(pos, 1);
       return state.merge({ messages: messages || [] });
+    },
+    [backgroundSnackbarDisplay]: (state, { payload }) => {
+      const backgroundMessages = state.backgroundMessages.asMutable();
+      backgroundMessages.push({
+        backgroundMessage: payload.backgroundMessage,
+        uuid: payload.uuid,
+        kind: payload.kind,
+      });
+      return state.merge({ backgroundMessages });
+    },
+    [backgroundSnackbarDestroy]: (state, { payload }) => {
+      const backgroundMessages = state.backgroundMessages.asMutable();
+      const pos = backgroundMessages.findIndex((k) => k.uuid === payload);
+      if (pos === -1) {
+        return state;
+      }
+      backgroundMessages.splice(pos, 1);
+      return state.merge({ backgroundMessages: backgroundMessages || [] });
     },
   },
   initialState,

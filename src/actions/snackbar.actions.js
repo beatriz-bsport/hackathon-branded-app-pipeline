@@ -1,7 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions';
-import type { SnackKind } from '../libs/snackbar/types';
+import type { SnackKind, BackgroundSnackKind } from '../libs/snackbar/types';
 import type { Dispatch } from '../state/types';
 
 export const snackbarDisplay = createAction('SNACKBAR/DISPLAY');
@@ -40,3 +40,45 @@ export const snackbar = {
   info: snackbarInfo,
   warning: snackbarWarning,
 };
+
+export const backgroundSnackbarDestroy = createAction(
+  'BACKGROUND_SNACKBAR/DESTROY',
+);
+export const backgroundSnackbarDisplay = createAction(
+  'BACKGROUND_SNACKBAR/DISPLAY',
+);
+
+export function pendingBackgroundSnackbar(
+  uuid: string,
+  backgroundMessage: string,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      backgroundSnackbarDisplay({
+        uuid,
+        backgroundMessage,
+        kind: 'pending',
+      }),
+    );
+  };
+}
+
+export function displayBackgroundSnackbar(kind: BackgroundSnackKind) {
+  return (uuid: string, backgroundMessage: string) => async (
+    dispatch: Dispatch,
+  ) => {
+    dispatch(backgroundSnackbarDisplay({ uuid, backgroundMessage, kind }));
+    await sleep(5000);
+    dispatch(backgroundSnackbarDestroy(uuid));
+  };
+}
+
+export function deleteBackgroundSnackbar(uuid: string) {
+  return async (dispatch: Dispatch) => {
+    dispatch(backgroundSnackbarDestroy(uuid));
+  };
+}
+
+export const backgroundSnackbarSuccess = displayBackgroundSnackbar('success');
+export const backgroundSnackbarError = displayBackgroundSnackbar('error');
+export const backgroundSnackbarWarning = displayBackgroundSnackbar('warning');

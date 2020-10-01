@@ -20,7 +20,7 @@ type Props = {
   onCancel: () => void,
   offerWasCancelled: ?boolean,
   processing: ?boolean,
-  onHardDelete: () => void,
+  onHardDelete: (data: any) => void,
   onCancelOffer: ({ cashback: boolean, notify: boolean }) => void,
   fetchSimilarOffers: () => void,
   similarOfferLoading: boolean,
@@ -34,6 +34,7 @@ type State = {
   notify: boolean,
   cashback: boolean,
   deleteAll: boolean,
+  similarOffersWithSelectedStatus: Array<Object>,
 };
 
 export class DeleteOfferForm extends Component<Props, State> {
@@ -41,6 +42,60 @@ export class DeleteOfferForm extends Component<Props, State> {
     notify: true,
     cashback: true,
     deleteAll: false,
+    similarOffersWithSelectedStatus: (this.props.similarOffers || []).map(
+      (so) => ({
+        ...so,
+        selected: true,
+      }),
+    ),
+  };
+
+  componentDidUpdate(prevProps: Props) {
+    if (
+      (prevProps.similarOffers || []).length !==
+      (this.props.similarOffers || []).length
+    ) {
+      this.setState({
+        similarOffersWithSelectedStatus: (this.props.similarOffers || []).map(
+          (so) => ({ ...so, selected: true }),
+        ),
+      });
+    }
+  }
+
+  handleChangeSelection = (index: number) => {
+    this.setState((prevState) => {
+      const similarOffersWithSelectedStatus = [
+        ...prevState.similarOffersWithSelectedStatus,
+      ];
+      similarOffersWithSelectedStatus[index] = {
+        ...similarOffersWithSelectedStatus[index],
+        selected: !prevState.similarOffersWithSelectedStatus[index].selected,
+      };
+      return { similarOffersWithSelectedStatus };
+    });
+  };
+
+  selectAll = () => {
+    this.setState((prevState) => ({
+      similarOffersWithSelectedStatus: prevState.similarOffersWithSelectedStatus.map(
+        (so) => ({
+          ...so,
+          selected: true,
+        }),
+      ),
+    }));
+  };
+
+  unselectAll = () => {
+    this.setState((prevState) => ({
+      similarOffersWithSelectedStatus: prevState.similarOffersWithSelectedStatus.map(
+        (so, index) => ({
+          ...so,
+          selected: index === 0,
+        }),
+      ),
+    }));
   };
 
   componentWillMount() {
@@ -57,11 +112,46 @@ export class DeleteOfferForm extends Component<Props, State> {
 
   onConfirm = () => {
     const { offerWasCancelled } = this.props;
-    const { notify, cashback, deleteAll } = this.state;
+    const { notify, cashback } = this.state;
+    let { deleteAll } = this.state;
     if (offerWasCancelled) {
-      return this.props.onHardDelete({ deleteAll });
+      deleteAll =
+        deleteAll &&
+        !this.state.similarOffersWithSelectedStatus.filter(
+          (so) => !so.available && !so.selected,
+        ).length &&
+        !!this.state.similarOffersWithSelectedStatus.length;
+      const custom_selection = !!this.state.similarOffersWithSelectedStatus.filter(
+        (so) => !so.available && !so.selected,
+      ).length;
+      const custom_selection_ids = this.state.similarOffersWithSelectedStatus
+        .filter((so) => !so.available && so.selected)
+        .map((so) => so.id);
+      return this.props.onHardDelete({
+        deleteAll,
+        custom_selection,
+        custom_selection_ids,
+      });
     }
-    return this.props.onCancelOffer({ notify, cashback, deleteAll });
+    deleteAll =
+      deleteAll &&
+      !this.state.similarOffersWithSelectedStatus.filter(
+        (so) => so.available && !so.selected,
+      ).length &&
+      !!this.state.similarOffersWithSelectedStatus.length;
+    const custom_selection = !!this.state.similarOffersWithSelectedStatus.filter(
+      (so) => so.available && !so.selected,
+    ).length;
+    const custom_selection_ids = this.state.similarOffersWithSelectedStatus
+      .filter((so) => so.available && so.selected)
+      .map((so) => so.id);
+    return this.props.onCancelOffer({
+      notify,
+      cashback,
+      deleteAll,
+      custom_selection,
+      custom_selection_ids,
+    });
   };
 
   renderInside = () => {
@@ -74,13 +164,19 @@ export class DeleteOfferForm extends Component<Props, State> {
             color="secondary"
             disabled={this.props.processing}
             shouldModifyAllDates={this.state.deleteAll}
-            message={this.props.t('form.offer.explainRecursiveOfferDelete')}
-            listTitle={this.props.t('offer.offersPendingDelete')}
+            message={this.props.t('offer:liveOfferEdit.deleteSimilarOffers')}
+            listTitle={this.props.t('offer:liveOfferEdit.selectDelete')}
             loading={this.props.similarOfferLoading}
-            similarOffers={this.props.similarOffers}
+            // similarOffers={this.props.similarOffers}
             onChangeRecursion={({ modifyRecursively }) =>
               this.setState({ deleteAll: modifyRecursively })
             }
+            similarOffersWithSelectedStatus={this.state.similarOffersWithSelectedStatus.filter(
+              (so) => !so.available,
+            )}
+            selectAll={this.selectAll}
+            unselectAll={this.unselectAll}
+            handleChange={this.handleChangeSelection}
           />
         </div>
       );
@@ -109,19 +205,26 @@ export class DeleteOfferForm extends Component<Props, State> {
             checked={notify}
             onChange={this.onNotifySwitch}
           />
-          <Typography>{t('form.offer.delete.explainNotify')}</Typography>
+          <Typography className={classes.explainNotify}>
+            {t('form.offer.delete.explainNotify')}
+          </Typography>
         </div>
         <RecursiveToogle
           color="secondary"
           disabled={this.props.processing}
           shouldModifyAllDates={deleteAll}
-          message={this.props.t('form.offer.explainRecursiveOfferDelete')}
-          listTitle={this.props.t('offer.offersPendingDelete')}
+          message={this.props.t('offer:liveOfferEdit.cancelSimilarOffers')}
+          listTitle={this.props.t('offer:liveOfferEdit.selectCancel')}
           loading={this.props.similarOfferLoading}
-          similarOffers={this.props.similarOffers.filter((o) => o.available)}
           onChangeRecursion={({ modifyRecursively }) =>
             this.setState({ deleteAll: modifyRecursively })
           }
+          similarOffersWithSelectedStatus={this.state.similarOffersWithSelectedStatus.filter(
+            (so) => so.available,
+          )}
+          selectAll={this.selectAll}
+          unselectAll={this.unselectAll}
+          handleChange={this.handleChangeSelection}
         />
       </div>
     );
@@ -174,6 +277,9 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  explainNotify: {
+    marginLeft: theme.spacing(2),
   },
 });
 

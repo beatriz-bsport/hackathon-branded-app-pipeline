@@ -22,6 +22,7 @@ type Props = {
   t: TFunction,
   loading: boolean,
   disabled: boolean,
+  edit?: boolean,
   color: ?string,
 
   message: string,
@@ -30,6 +31,7 @@ type Props = {
   shouldModifyAllDates: boolean,
   handleChange: (index: number) => void,
   similarOffersWithSelectedStatus: Array<Object>,
+  similarOffers: Array<Offer>,
   selectAll: () => void,
   unselectAll: () => void,
 
@@ -102,33 +104,43 @@ export class RecursionToogle extends Component<Props, State> {
                 </ButtonBase>
               </React.Fragment>
             )}
-            <List component="nav">
-              {(
-                similarOffersWithSelectedStatus ||
-                this.props.similarOffers ||
-                []
-              ).map((so, index) => (
-                <OfferListItem
-                  similarOffer={
-                    !!this.props.selectAll && !!this.props.unselectAll
-                  }
-                  disabled={index === 0}
-                  offer={so}
-                  editing_parameters={{
-                    new_date_start: moment(so.date_start).add(
-                      this.props.dateTimeDiff,
-                      'milliseconds',
-                    ),
-                  }}
-                  handleChange={
-                    index === 0
-                      ? () => {}
-                      : () => this.props.handleChange(index)
-                  }
-                  checked={so.selected}
-                />
-              ))}
-            </List>
+            {!(similarOffersWithSelectedStatus || []).length ? (
+              <div className={classes.noSimilarOfferMessage}>
+                <Typography variant="body">
+                  {t('offer:liveOfferEdit.noSimilarOffer')}
+                </Typography>
+              </div>
+            ) : (
+              <List component="nav">
+                {(
+                  similarOffersWithSelectedStatus ||
+                  this.props.similarOffers ||
+                  []
+                ).map((so, index) => (
+                  <OfferListItem
+                    similarOffer={
+                      !!this.props.selectAll && !!this.props.unselectAll
+                    }
+                    disabled={index === 0}
+                    offer={so}
+                    editing_parameters={
+                      this.props.edit && {
+                        new_date_start: moment(so.date_start).add(
+                          this.props.dateTimeDiff,
+                          'milliseconds',
+                        ),
+                      }
+                    }
+                    handleChange={
+                      index === 0
+                        ? () => {}
+                        : () => this.props.handleChange(index)
+                    }
+                    checked={so.selected}
+                  />
+                ))}
+              </List>
+            )}
           </Collapse>
         )}
       </div>
@@ -184,6 +196,10 @@ const styles = (theme) => ({
     '&:hover': {
       color: 'black',
     },
+  },
+  noSimilarOfferMessage: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 });
 

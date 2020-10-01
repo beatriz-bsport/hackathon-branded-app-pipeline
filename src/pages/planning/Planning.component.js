@@ -83,7 +83,7 @@ import {
 import type { Offer, Coach } from '../../api/types';
 import type { OfferFilter } from '../../libs/offer/types';
 
-import { snackbarSuccess } from '../../actions/snackbar.actions';
+import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import OfferEditForm from '../../libs/offer/OfferEditForm.component';
 import MassDisablerDialog from '../../libs/offer/components/MassDisablerDialog.component';
 import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';
@@ -95,6 +95,8 @@ import { DATE_FORMAT } from '../../datetime';
 import CoachSelector from '../../libs/associated-coach/components/CoachSelector.component';
 import EstablishmentSelector from '../../libs/establishment/components/EstablishmentSelector.component';
 import MetaActivitySelector from '../../libs/meta-activity/components/MetaActivitySelector.component';
+
+import { monitorBackgroundTask } from '../../libs/background-task/actions';
 
 const styles = (theme) => ({
   container: {
@@ -187,10 +189,10 @@ type Props = {
   fetchOffersByDay: (params: any) => void,
   fetchEstablishments: () => void,
 
-  deleteOffer: (id: number) => void,
   fetchSimilarOffers: (offerId: number) => void,
 
   snackbarSuccess: (string) => void,
+  snackbarError: (string) => void,
 
   offerFilters: OfferFilter,
   setFilters: (OfferFilter) => null,
@@ -208,6 +210,8 @@ type Props = {
   setShowCancelledOffers: (boolean) => void,
   setOpenDeleteDialog: () => void,
   openDeleteDialog: boolean,
+
+  monitorBackgroundTask: (uuid: string, options?: OptionCallback) => void,
 };
 
 type State = {
@@ -346,26 +350,40 @@ export class Planning extends PureComponent<Props, State> {
     cashback: ?boolean,
     notify: ?boolean,
     deleteAll: ?boolean,
+    custom_selection: ?boolean,
+    custom_selection_ids: ?Array<number>,
   }) => {
     this.setState({ deletingOffer: true });
     try {
-      const { notify, cashback, deleteAll, offerId } = data;
+      const {
+        notify,
+        cashback,
+        deleteAll,
+        offerId,
+        custom_selection,
+        custom_selection_ids,
+      } = data;
       const response = await disableOfferAPI({
         offerId,
         cashback,
         notify,
         deleteAll,
+        custom_selection,
+        custom_selection_ids,
       });
       if (response.status === 200) {
-        this.props.fetchRelevantOffers();
-        this.setState({
-          deletingOffer: false,
-          deleteModalOpened: false,
+        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+        this.setState({ deletingOffer: false, deleteModalOpened: false });
+        this.props.monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            this.loadDayData();
+          },
         });
-        this.loadDayData();
         return;
       }
     } catch (err) {
+      this.setState({ deletingOffer: false, deleteModalOpened: false });
+      this.props.snackbarError('background.cannotFetch');
       console.error(err);
       throw err;
     }
@@ -377,18 +395,21 @@ export class Planning extends PureComponent<Props, State> {
     try {
       const response = await deleteOfferAPI(offerId, data);
       if (response.status === 204) {
-        this.props.fetchRelevantOffers();
-        this.props.deleteOffer(offerId);
-        this.loadDayData();
-        this.setState({
-          deletingOffer: false,
-          deleteModalOpened: false,
+        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+        this.setState({ deletingOffer: false, deleteModalOpened: false });
+        this.props.monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            this.props.fetchRelevantOffers();
+            this.loadDayData();
+          },
         });
         return;
       }
     } catch (err) {
       if (err.response && err.response.status === 403) {
         alert(this.props.t('calendar.canDeleteWithBooking'));
+      } else {
+        this.props.snackbarError('background.cannotFetch');
       }
       console.error(err);
     }
@@ -506,12 +527,20 @@ export class Planning extends PureComponent<Props, State> {
             <DeleteOfferForm
               offer={selectedOffer}
               offerWasCancelled={!selectedOffer.available}
-              onCancelOffer={({ cashback, notify, deleteAll }) =>
+              onCancelOffer={({
+                cashback,
+                notify,
+                deleteAll,
+                custom_selection,
+                custom_selection_ids,
+              }) =>
                 this.onCancelOffer({
                   offerId: selectedOffer.id,
                   cashback,
                   notify,
                   deleteAll,
+                  custom_selection,
+                  custom_selection_ids,
                 })
               }
               onHardDelete={(data) =>
@@ -863,6 +892,7 @@ export default compose(
       goBack: goBackRouter,
       pushToSchedule: () => pushRouter('/schedule'),
       snackbarSuccess,
+      snackbarError,
       goToOfferManagement: (offerId) => pushRouter(`/offer/${offerId}`),
       fetchAllOffers: fetchAllOffersAction,
       deleteOffer: deleteOfferAction,
@@ -875,6 +905,7 @@ export default compose(
       fetchAllActivities,
       disableMassOffers,
       fetchBookingStatistics: fetchBookingStatisticsAction,
+      monitorBackgroundTask,
     },
   ),
   withHandlers({

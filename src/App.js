@@ -16,6 +16,7 @@ import { Moment } from './i18n';
 import LoadingBackoffice from './components/navigation/LoadingBackoffice.component';
 
 import SnackbarPile from './SnackbarPile.component';
+import BackgroundSnackbar from './BackgroundSnackbar.component';
 
 import Root from './Root';
 import './App.scss';
@@ -64,6 +65,7 @@ export class App extends Component<{}, {}> {
                   locale={Moment.locale()}
                 >
                   <SnackbarPile />
+                  <BackgroundSnackbar />
                   <Root />
                 </MuiPickersUtilsProvider>
               </Suspense>

@@ -375,4 +375,13 @@ exports.default = {
       error: 'Impossible de supprimer la notification',
     },
   },
+  background: {
+    pending: 'Traitement en cours, veuillez patienter',
+    success: 'Terminé',
+    error: 'Une erreur est survenue, réessayez plus tard',
+    timeout:
+      'Le serveur a mis trop longtemps à répondre. Essayez de rafraîchir la page',
+    cannotFetch:
+      'Une erreur est survenue. Vérifiez votre connexion et essayez de rafraîchir la page',
+  },
 };

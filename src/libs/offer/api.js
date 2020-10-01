@@ -51,17 +51,23 @@ export async function disableOffer({
   notify,
   cashback,
   deleteAll,
+  custom_selection,
+  custom_selection_ids,
 }: {
   offerId: number,
   notify: ?boolean,
   cashback: ?boolean,
   deleteAll: ?boolean,
+  custom_selection: ?boolean,
+  custom_selection_ids: ?Array<number>,
 }) {
   return patchAuth(`${API_URI}/saas/offer/${offerId}/disable/`, {
     available: false,
     notify,
     cashback,
     deleteAll,
+    custom_selection,
+    custom_selection_ids,
   });
 }
 

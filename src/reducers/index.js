@@ -52,6 +52,7 @@ import event from '../libs/event/reducers';
 import invoiceReducers from '../libs/invoice/reducers';
 import paymentBackend from '../libs/payment/reducers';
 import platformBilling from '../libs/platform-billing/reducers';
+import backgroundTaskReducers from '../libs/background-task/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -110,6 +111,7 @@ const rootReducer = (history) =>
     playlist,
     platformBilling,
     cashbook: cashBookReducers,
+    backgroundTask: backgroundTaskReducers,
   });
 
 export default (history) => (state: State, action: Action) => {

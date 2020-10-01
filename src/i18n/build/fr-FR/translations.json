@@ -576,7 +576,7 @@
     },
     "calendar": {
       "modifyOffer": "Modifier",
-      "canDeleteWithBooking": "Des réservations (annulées) ou liste d'attente ont été enregistrées, impossible de supprimer.",
+      "canDeleteWithBooking": "Des réservations (annulées) ou des listes d'attente ont été enregistrées, impossible de supprimer cette séance.",
       "deleteOffer": "Annuler",
       "allDay": "journée",
       "previous": "<",
@@ -2740,6 +2740,13 @@
     "bookingNotification": {
       "createOrUpdate": { "success": "Notification enregistrée avec succès", "error": "Impossible d'enregistrer la notification" },
       "delete": { "success": "Notification supprimée", "error": "Impossible de supprimer la notification" }
+    },
+    "background": {
+      "pending": "Traitement en cours, veuillez patienter",
+      "success": "Terminé",
+      "error": "Une erreur est survenue, réessayez plus tard",
+      "timeout": "Le serveur a mis trop longtemps à répondre. Essayez de rafraîchir la page",
+      "cannotFetch": "Une erreur est survenue. Vérifiez votre connexion et essayez de rafraîchir la page"
     }
   },
   "coach": {
@@ -3561,7 +3568,7 @@
   },
   "offer": {
     "deleteImpossibleTitle": "Impossible de supprimer la séance",
-    "deleteImpossibleText": "Vous ne pouvez pas supprimer cette séance parcequ'elle a des réservations en cours.",
+    "deleteImpossibleText": "Vous ne pouvez pas supprimer cette séance parce qu'elle a des réservations en cours.",
     "close": "Fermer",
     "video": {
       "cantOpenLink": "Le lien vers conférence semble erroné, veuillez contacter votre club {{ contact_email }}",

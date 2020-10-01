@@ -1,7 +1,7 @@
 exports.default = {
   deleteImpossibleTitle: 'Impossible de supprimer la séance',
   deleteImpossibleText:
-    "Vous ne pouvez pas supprimer cette séance parcequ'elle a des réservations en cours.",
+    "Vous ne pouvez pas supprimer cette séance parce qu'elle a des réservations en cours.",
   close: 'Fermer',
   video: {
     cantOpenLink:
@@ -73,8 +73,14 @@ exports.default = {
   liveOfferEdit: {
     editSimilarOffers:
       'Voulez-vous modifier les séances similaires selon ces nouvelles conditions ?',
-    select: 'Sélectionnez les séances qui seront modifiées',
+    selectEdit: 'Sélectionnez les séances qui seront modifiées',
     selectAll: 'Tout sélectionner',
     unselectAll: 'Tout désélectionner',
+    deleteSimilarOffers: 'Voulez-vous supprimer les séances similaires ?',
+    selectDelete: 'Sélectionnez les séances qui seront supprimées',
+    cancelSimilarOffers: 'Voulez-vous annuler les séances similaires ?',
+    selectCancel: 'Sélectionnez les séances qui seront annulées',
+    noSimilarOffer:
+      'Aucune séance similaire trouvée. Seule cette séance sera affectée.',
   },
 };

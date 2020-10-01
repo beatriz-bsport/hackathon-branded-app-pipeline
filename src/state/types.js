@@ -25,6 +25,7 @@ import type { MembershipState } from '../libs/membership/types';
 import type { CompanyState } from '../libs/company/types';
 import type { NotificationRuleState } from '../libs/notification-rule/types';
 import type { PartnershipState } from '../libs/partnership/types';
+import type { BackgroundTaskState } from '../libs/background-task/types';
 
 export type State = {
   paymentRules: PaymentRulesState,
@@ -52,6 +53,7 @@ export type State = {
   company: CompanyState,
   notificationRule: NotificationRuleState,
   partnership: PartnershipState,
+  backgroundTask: BackgroundTaskState,
 };
 export type Action = SearchAction | AuthAction;
 

@@ -836,7 +836,7 @@
             },
             "member": {
                 "rgpd": {
-                    "email": "Nimmt E-Mail-Benachrichtigungen an",
+                    "email": "Akzeptiert E-Mail-Benachrichtigungen",
                     "sms": "Akzeptiert SMS-Benachrichtigungen"
                 },
                 "birthdayYear": "Geburtsjahr",
@@ -1058,8 +1058,8 @@
             }
         },
         "level": {
-            "advanced": "Fortgeschrittener",
-            "intermediary": "Mittler",
+            "advanced": "Profi",
+            "intermediary": "Fortgeschritten",
             "intermediate": "Mittler",
             "beginner": "Einsteiger",
             "all": "Alle Levels"
@@ -4498,12 +4498,12 @@
         "navigation": {
             "changeMembership": "Den Klub wechseln",
             "subscription": "Abonnement",
-            "calendar": "Browserverlauf",
+            "calendar": "Vergangene Buchungen",
             "logoff": "Abmelden",
             "profile": "Profil",
             "invoice": "Rechnung",
             "pack": "Kurskarte",
-            "dashboard": "Zusammenfassung"
+            "dashboard": "Überblick"
         },
         "pack": {
             "titlePrivatePack": "Termin",

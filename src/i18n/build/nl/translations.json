@@ -5109,6 +5109,13 @@
                 "error": "Melding kan niet worden opgeslagen",
                 "success": "Melding opgeslagen"
             }
+        },
+        "background": {
+            "cannotFetch": "Er is iets misgegaan! Controleer je verbinding en ververs de pagina alsjeblieft",
+            "timeout": "Server reageert niet. Ververs de pagina alsjeblieft",
+            "error": "Er is iets misgegaan! Probeer het later opnieuw alsjeblieft",
+            "success": "Compleet",
+            "pending": "Een moment geduld alsjeblieft"
         }
     },
     "coach": {

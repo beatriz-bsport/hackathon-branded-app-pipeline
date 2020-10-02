@@ -28,6 +28,7 @@ type Props = {
   divider?: boolean,
   copy?: boolean,
   snackbar?: (string) => void,
+  paymentComboList: Array<PaymentCombo>,
 
   selectedContract: ?number,
   onClick: (id: number) => void,
@@ -111,6 +112,7 @@ export const SubscriptionContractList = (props: Props) => {
           open={props.createOpen}
           initial={props.contractToEdit}
           paymentPacks={props.paymentPacks}
+          paymentComboList={props.paymentComboList}
           privatePassList={props.privatePassList}
           onSubmit={(data, options) => {
             props.onCreate(data, {
@@ -132,6 +134,7 @@ export const SubscriptionContractList = (props: Props) => {
           initial={props.contractToEdit}
           open={!!props.contractToEdit}
           paymentPacks={props.paymentPacks}
+          paymentComboList={props.paymentComboList}
           privatePassList={props.privatePassList}
           processing={props.processing}
           onSubmit={(data, options) => {

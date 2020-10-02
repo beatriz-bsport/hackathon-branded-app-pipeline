@@ -738,26 +738,26 @@
                     "sms": "via sms",
                     "email": "per e-mail"
                 },
-                "rgpdTitle": "Hoe wil je dat instructeurs contact met je opnemen voor annuleringen / tijdwijzigingen?",
+                "rgpdTitle": "Hoe wil je dat instructeurs contact met je opnemen voor annuleringen/tijdwijzigingen?",
                 "confirmPassword": "Wachtwoord",
                 "confirmPasswordLabel": "Bevestiging",
                 "emailExistsInDB2": "Aanmelden",
-                "emailExistsInDB1": "Dit e-mailadres is reeds geregistreerd, omdat je via bsport al bij een studio of club staat ingeschreven. Je kan hetzelfde inloggegevens blijven gebruiken.",
+                "emailExistsInDB1": "Dit e-mailadres is reeds geregistreerd, omdat je via bsport al bij een studio of club staat ingeschreven. Je kan dezelfde inloggegevens blijven gebruiken.",
                 "typePhone": "Mobiel *"
             },
             "metaActivity": {
                 "cantAddSameName": "Er bestaat al een activiteit met dezelfde naam!"
             },
             "member": {
-                "referenceNumberHelper": "(optioneel) er zal automatisch een nummer aangemaakt worden als dit veld leeg is",
+                "referenceNumberHelper": "(optioneel) er zal automatisch een lidmaatschapsnummer aangemaakt worden als dit veld leeg is",
                 "referenceNumber": "Lidmaatschapsnummer",
-                "barcodeHelper": "(optioneel) gebruik deze code voor uw toegangskaart",
-                "barcode": "Streepjescode (kaart)",
+                "barcodeHelper": "(optioneel) gebruik deze streepjescode voor uw toegangskaart",
+                "barcode": "Streepjescode (cursuskaart)",
                 "birthdayYear": "Geboortejaar",
                 "rgpdTitle": "Door het lid geaccepteerde communicatiemiddelen (promoties, marketing, smartlist enz ...)",
                 "phone": "Telefoon",
                 "delete": {
-                    "success": "Opmerking verwijderd",
+                    "success": "Notitie verwijderd",
                     "error": "Fout bij verwijderen van notitie"
                 },
                 "createOrUpdate": {
@@ -799,13 +799,13 @@
                         "error": "Fout bij het registreren van de voorraad",
                         "success": "Voorraad bijgewerkt"
                     },
-                    "deleteExplain": "Let op! Deze verwijdering is definitief. Geen enkele klant kan dit product kopen en de voorraden worden verwijderd.",
+                    "deleteExplain": "Let op! Deze actie is definitief. Geen enkele klant kan dit product kopen en de voorraden worden verwijderd.",
                     "barcode": "Streepjescode",
                     "deleteTitle": "Verwijdering",
                     "marketplace_enabled": "Beschikbaar op de webwinkel",
                     "unlimitedProvision": "Geen voorraadbeheer",
                     "create": "Voeg een artikel toe",
-                    "is_deliverable": "Voeg bezorgkosten toe",
+                    "is_deliverable": "Voeg verzendkosten toe",
                     "featured": "Benadruk dit product wanneer leden hun winkelmandje valideren",
                     "sell_only_on_provision": "Aanbieding ALLEEN te koop indien voorraad beschikbaar is",
                     "onsite_payment_available": "Mogelijkheid om ter plaatse te betalen",
@@ -830,12 +830,12 @@
             "login": {
                 "passwordMismatch": "Wachtwoorden komen niet overeen",
                 "passwordChangedSuccess": "Wachtwoord succesvol gewijzigd!",
-                "passwordTooEasy": "Uw wachtwoord moet uit ten minste 6 tekens en ten minste één cijfer en één letter bestaan",
+                "passwordTooEasy": "Je wachtwoord moet uit ten minste 6 tekens en ten minste één cijfer en één letter bestaan",
                 "confirmPassword": "Bevestigen",
                 "password": "Wachtwoord",
                 "changePasswordTitle": "Wachtwoord wijzigen",
                 "tokenExpired": "Deze pagina is niet meer geldig. Stel uw wachtwoord opnieuw in alstublieft",
-                "resetAgainPassword": "Reset verzoek"
+                "resetAgainPassword": "Herstelaanvraag"
             },
             "address": {
                 "zipcode": "Postcode",
@@ -847,13 +847,13 @@
             },
             "waiting_list_max_size": "Grootte van de wachtlijst",
             "signUpTitle": "Inschrijving",
-            "warningCreditChange": "NB: Oude reserveringen houden geen rekening met wijzigingen in uw saldo",
+            "warningCreditChange": "NB: oude reserveringen houden geen rekening met wijzigingen in uw saldo",
             "noAvailableCredit": "Weet u zeker dat u geen prijs wilt invoeren?",
             "explainNoEmailChange": "Als de e-mail gewijzigd wordt, kan de instructeur geen verbinding meer maken. De instructeur kan zijn/haar e-mail wijzigen door met zijn/haar bsport-account in te loggen"
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
-            "ht": "Excl. btw",
+            "ht": "(excl. btw)",
             "subShop": {
                 "delete": {
                     "title": "Verwijdering",
@@ -875,7 +875,7 @@
             "hasntBooked": "Niet ingeschreven",
             "myBookings": "Reserveringen",
             "addInvoice": "In rekening brengen",
-            "extraordinaryEstablishment": "(tijdelijke plaats)",
+            "extraordinaryEstablishment": "(tijdelijke vestiging)",
             "noCompatiblePacks": "Geen enkele cursuskaart is compatibel met deze sessie",
             "compatiblePacks": "Compatibele cursuskaarten",
             "substitute": "Plaatsvervanger",
@@ -1052,10 +1052,10 @@
             "rowPerPage": "Elementen per pagina"
         },
         "common": {
-            "otherGender": "Andere",
+            "otherGender": "Diverse",
             "female": "Vrouw",
             "male": "Man",
-            "places": "Plaatsen",
+            "places": "Vestigingen",
             "bookings": "Reserveringen",
             "nothing": "Geen",
             "date": "Datum",
@@ -1090,12 +1090,12 @@
             "cancel": "Annuleren",
             "or": "of",
             "create": "Aanmaken",
-            "credits": "Credits",
+            "credits": "Kredieten",
             "sports": "Categorieën",
             "priceIncludingTax": "Prijs (incl. btw)",
             "price": "Prijs",
             "NA": "Niet gespecificeerd",
-            "credit_s": "Saldo",
+            "credit_s": "Krediet(en)",
             "continue": "Doorgaan",
             "amount": "Bedrag",
             "paymentPack": "Cursuskaarten",
@@ -1109,20 +1109,20 @@
             "save": "Opslaan",
             "lastname": "Familienaam",
             "firstname": "Voornaam",
-            "previous": "Ga terug",
+            "previous": "Terug",
             "delete": "Verwijderen",
             "show": "Zien",
             "loading": "Laden...",
             "add": "Toevoegen",
-            "notes": "Opmerkingen",
-            "establishments": "Plaatsen",
+            "notes": "Notities",
+            "establishments": "Vestigingen",
             "buy": "Kopen",
             "uploadOneImage": {
                 "edit": "Sleep en zet neer of klik hier om de afbeelding te wijzigen",
                 "new": "Sleep en zet neer of klik hier om een afbeelding toe te voegen"
             },
             "tax": "btw",
-            "generate": "Genereer",
+            "generate": "Aanmaken",
             "export": "Exporteren",
             "minuteSmall": "min",
             "daySmall": "d",
@@ -1147,20 +1147,20 @@
         },
         "errors": {
             "start_after_end": "De startdatum moet vóór de einddatum zijn",
-            "end_before_start": "Einddatum moet na de startdatum zijn"
+            "end_before_start": "Einddatum moet ná de startdatum zijn"
         },
         "paymentMethod": {
             "OTHER": "Diverse",
             "SUBSCRIPTION_CB": "Automatische betaling",
-            "CREDIT_ACCOUNT": "Interne rekening (tegoed)",
-            "BANK_TRANSFER": "Storting",
+            "CREDIT_ACCOUNT": "Interne rekening (krediet)",
+            "BANK_TRANSFER": "Afdracht",
             "AMEX": "AMEX",
             "EVENT_BRITE": "EventBrite",
             "CASH": "Contant geld",
             "HOLIDAY_CHECK": "Vakantiecheques",
             "CHECK": "Cheque",
             "CB_MANUAL": "Creditcard (handmatig)",
-            "CB": "Bankkaart"
+            "CB": "Creditcard"
         },
         "pageTitle": {
             "myAccount": "Mijn account"
@@ -1220,7 +1220,7 @@
             "sport": "Sport"
         },
         "blockBooking": "Blokkeer reservering van cursuskaarten van nieuwe klanten",
-        "languageToolTip": "Beschikbaar op marketplace web",
+        "languageToolTip": "Beschikbaar op de webshop",
         "visibilityOfIconToolTip": "Niet zichtbaar",
         "onlyNewMember": "Reservering alleen mogelijk voor cursuskaarten van nieuwe klanten",
         "replaceCoach": "Wijzig de instructeur",
@@ -1659,7 +1659,9 @@
             "today_end_amount": "Eindbedrag van vandaag",
             "today_start_amount": "Beginbedrag van vandaag",
             "date_last_update": "Datum",
-            "amount": "Daginkomsten"
+            "amount": "Daginkomsten",
+            "nb_offers": "Aantal sessies",
+            "nb_offers_cancelled": "Aantal geannuleerde sessies"
         },
         "report": {
             "delete_message": "Weet je zeker dat je dit rapport ({{name}}) wilt verwijderen?"

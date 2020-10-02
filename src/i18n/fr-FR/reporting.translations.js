@@ -14,7 +14,7 @@ exports.default = {
     },
   },
   categories: {
-    on_spot_payments: "Paiements sur place",
+    on_spot_payments: 'Paiements sur place',
     members: 'Membres',
     offers: 'Séances',
     bookings: 'Reservations (cours collectif)',
@@ -47,6 +47,8 @@ exports.default = {
     coaches: 'Professeurs',
     private_service_name: 'Rendez-vous',
     nb_bookings: 'Nombre de réservation',
+    nb_offers: 'Nombre de séances',
+    nb_offers_cancelled: 'Nombre de séances annulées',
     private_slot_name: 'Séance',
     amount: 'Gain de la journée',
     date_last_update: 'Date',

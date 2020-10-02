@@ -1112,7 +1112,7 @@
             "allDay": "day",
             "deleteOffer": "Cancel",
             "modifyOffer": "Modify",
-            "canDeleteWithBooking": "Bookings (canceled) or waiting list have been registered, cannot be deleted."
+            "canDeleteWithBooking": "Bookings (cancelled) or waiting lists have been registered, this session cannot be deleted."
         },
         "login": {
             "error": {
@@ -5339,7 +5339,7 @@
             "showMonth": "Month view"
         },
         "close": "Close",
-        "deleteImpossibleText": "You cannot delete this session because it has open reservations.",
+        "deleteImpossibleText": "You cannot delete this session because it has bookings that are open.",
         "deleteImpossibleTitle": "Cannot delete the session"
     },
     "emailTemplate": {
@@ -6806,6 +6806,13 @@
                 "error": "Unable to save notification",
                 "success": "Notification saved successfully"
             }
+        },
+        "background": {
+            "cannotFetch": "An error has occurred. Check your connection and try refreshing the page",
+            "timeout": "The server took too long to respond. Try refreshing the page",
+            "error": "An error has occurred, try again later",
+            "success": "Completed",
+            "pending": "Processing, please wait"
         }
     },
     "navigation": {

@@ -35,7 +35,10 @@ import type { Member } from '../../libs/member/types';
 import type { Invoice } from '../../libs/invoice/types';
 import type { Permission } from '../../libs/role/types';
 
+const RECURRENT_BOOKING_PAGE_SIZE = 10;
+
 type Props = {
+  goToMemberBooking: (id: number) => void,
   t: TFunction,
   fullScreen: boolean,
   offerId: number,
@@ -131,12 +134,17 @@ type Props = {
 
   openCommunicationDialog: () => void,
   closeCommunicationDialog: () => void,
-  deleteRecurrenceRuleBooking: () => void,
   createRecurrenceRuleBooking: () => void,
-  deleteRecurrenceRuleBooking: (id: number) => void,
+  onDeleteRecurrenceRuleBooking: (id: number) => void,
   setBookerInAvanceDialog: () => void,
   bookerInAvanceDialog: boolean,
+  fetchMetaActivityBulk: (ids: Array) => void,
+  metaActivities: Array,
   recurrenceRuleBooking: Array,
+  recurrentBookingCurrentPage: number,
+  recurrentBookingNextPage: number,
+  recurrentBookingOnPageRequested: () => void,
+  recurrentBookingCount: number,
 };
 
 type State = {
@@ -157,6 +165,9 @@ export class OfferManagement extends Component<Props, State> {
     this.props.fetchShopItems();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
+    if (this.props.offer) {
+      this.props.fetchMetaActivityBulk([this.props.offer.meta_activity_id]);
+    }
   }
 
   fetchOfferAndData = () => {
@@ -388,12 +399,7 @@ export class OfferManagement extends Component<Props, State> {
                   .tz(this.props.offer.timezone_name)
                   .isoWeekday() - 1,
             }}
-            metaActivityList={[
-              {
-                id: this.props.offer.meta_activity_id,
-                name: this.props.offer.name,
-              },
-            ]}
+            metaActivityList={this.props.metaActivities}
             onSubmit={(data, options) => {
               if (this.props.memberToRegister) {
                 this.props.createRecurrenceRuleBooking(
@@ -453,15 +459,17 @@ export class OfferManagement extends Component<Props, State> {
             discardOption={this.props.discardOption}
             switchWaitingListFreeze={this.props.switchWaitingListFreeze}
             recurrenceRuleBookingList={this.props.recurrenceRuleBooking}
-            onDeleteRecurrenceRuleBooking={(id) => {
-              this.props.deleteRecurrenceRuleBooking(id, {
-                onSuccess: () => {
-                  this.props.fetchOfferData(this.props.booking_ordering);
-                  this.props.clearSearch();
-                  this.props.setBookerInAvanceDialog(false);
-                },
-              });
-            }}
+            recurrentBookingCount={this.props.recurrentBookingCount}
+            recurrentBookingItemPerPage={RECURRENT_BOOKING_PAGE_SIZE}
+            recurrentBookingCurrentPage={this.props.recurrentBookingCurrentPage}
+            recurrentBookingNextPage={this.props.recurrentBookingNextPage}
+            recurrentBookingOnPageRequested={
+              this.props.recurrentBookingOnPageRequested
+            }
+            goToMemberBooking={this.props.goToMemberBooking}
+            onDeleteRecurrenceRuleBooking={
+              this.props.onDeleteRecurrenceRuleBooking
+            }
           />
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -651,6 +659,44 @@ export default compose(
     },
   ),
   withHandlers({
+    goToMemberBooking: () => (memberId) => {
+      const url = `/member/${memberId}/bookings`;
+      const win = window.open(url);
+      win.focus();
+    },
+    onDeleteRecurrenceRuleBooking: ({
+      deleteRecurrenceRuleBooking,
+      fetchOfferData,
+      clearSearch,
+      setBookerInAvanceDialog,
+      booking_ordering,
+    }) => (id, data) => {
+      deleteRecurrenceRuleBooking(id, data, {
+        onSuccess: () => {
+          fetchOfferData(booking_ordering);
+          clearSearch();
+          setBookerInAvanceDialog(false);
+        },
+      });
+    },
+    recurrentBookingOnPageRequested: ({
+      fetchRecurrenceRuleBooking,
+      fetchMemberBulk,
+      offerId,
+    }) => (page, page_size) => {
+      fetchRecurrenceRuleBooking(
+        { offer: offerId, page, page_size },
+        {
+          onSuccess: (recurrenceRuleList) => {
+            if (recurrenceRuleList.length) {
+              fetchMemberBulk({
+                id__in: recurrenceRuleList.map((nr) => nr.member),
+              });
+            }
+          },
+        },
+      );
+    },
     revertQuickInvoiceAndRefreshOffer: ({
       booking_ordering,
       offerId,

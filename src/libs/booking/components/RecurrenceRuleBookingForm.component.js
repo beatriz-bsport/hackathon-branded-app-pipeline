@@ -1,11 +1,14 @@
 // @flow
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormGroup from '@material-ui/core/FormGroup';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import * as Yup from 'yup';
 import { withFormik } from 'formik';
@@ -17,12 +20,24 @@ import { IntegerField, SelectField } from '../../../components/forms';
 type Props = {
   values: any,
   offerSet: boolean,
+  memberSet: boolean,
   metaActivityList: Array,
+  setFieldValue: () => void,
+  initial: Object,
 };
 
 export function RecurrenceRuleBookingForm(props: Props) {
   const { t } = useTranslation(['booking', 'datetime']);
   const classes = useStyles();
+  const [checked, setChecked] = useState(
+    props.initial ? props.initial.notify_if_booked : false,
+  );
+
+  const handleChangeChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+    props.setFieldValue('notify_if_booked', event.target.checked);
+  };
+
   return (
     <div>
       <div className={classes.field}>
@@ -66,11 +81,15 @@ export function RecurrenceRuleBookingForm(props: Props) {
           id="meta_activity"
           name="meta_activity"
           label={t('booking:recurrenceRule.form.metaActivity.label')}
-          disabled={props.offerSet}
+          disabled={props.offerSet || props.memberSet}
           noMulti
           required
           fullWidth
           metaActivityList={props.metaActivityList}
+          helperText={(days) =>
+            t('booking:recurrenceRule.blockedBookings', { days })
+          }
+          showHelperText={(days) => days > props.values.delay_week * 7}
         />
       </div>
       <div className={classes.field}>
@@ -93,6 +112,21 @@ export function RecurrenceRuleBookingForm(props: Props) {
             delayWeek: props.values.delay_week,
           })}
         </Typography>
+      </div>
+      <div className={classes.field}>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="notify_if_booked"
+                name="notify_if_booked"
+                checked={checked}
+                onChange={handleChangeChecked}
+              />
+            }
+            label={t('booking:recurrenceRule.notify')}
+          />
+        </FormGroup>
       </div>
     </div>
   );
@@ -123,23 +157,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RecurrenceRuleBookingSchema = Yup.object().shape({
-  day_of_week: Yup.number()
-    .min(0)
-    .max(6)
-    .required(),
-  minute: Yup.number()
-    .min(0)
-    .max(59)
-    .required(),
-  hour: Yup.number()
-    .min(0)
-    .max(23)
-    .required(),
-  delay_week: Yup.number()
-    .min(1)
-    .max(8)
-    .required(),
+  day_of_week: Yup.number().min(0).max(6).required(),
+  minute: Yup.number().min(0).max(59).required(),
+  hour: Yup.number().min(0).max(23).required(),
+  delay_week: Yup.number().min(1).max(8).required(),
   meta_activity: Yup.number().required(),
+  notify_if_booked: Yup.boolean(),
 });
 
 export const RecurrenceRuleBookingFormikHOC = withFormik({
@@ -149,13 +172,14 @@ export const RecurrenceRuleBookingFormikHOC = withFormik({
       ? {
           ...initial,
           meta_activity: initial.meta_activity.id,
-          delay_week: 4,
+          delay_week: initial.delay_week ? initial.delay_week : 4,
         }
       : {
           delay_week: 4,
           hour: 11,
           minute: 0,
           day_of_week: 0,
+          notify_if_booked: false,
         },
   validationSchema: RecurrenceRuleBookingSchema,
   handleSubmit: (values, { props: { onSubmit, refresh }, setSubmitting }) => {
@@ -164,7 +188,10 @@ export const RecurrenceRuleBookingFormikHOC = withFormik({
         setSubmitting(false);
         refresh();
       },
-      onError: () => setSubmitting(false),
+      onError: () => {
+        setSubmitting(false);
+        refresh();
+      },
     });
   },
 });

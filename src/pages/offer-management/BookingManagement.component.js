@@ -13,6 +13,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
@@ -48,6 +49,7 @@ const getMemberFromId = (id: number, membersList: Array<Member>) => {
 };
 
 type Props = {
+  goToMemberBooking: (id: number) => void,
   t: TFunction,
   classes: Object,
   bookings: Array<Booking>,
@@ -91,6 +93,12 @@ type Props = {
   switchWaitingListFreeze: (offerId: number, freezeStatus: boolean) => void,
   recurrenceRuleBookingList: Array,
   onDeleteRecurrenceRuleBooking: (id: number) => void,
+
+  recurrentBookingOnPageRequested: (page: number, page_size: number) => void,
+  recurrentBookingNextPage: number,
+  recurrentBookingCurrentPage: number,
+  recurrentBookingItemPerPage: number,
+  recurrentBookingCount: number,
 };
 
 type State = {
@@ -174,6 +182,25 @@ export class BookingManagement extends React.PureComponent<Props, State> {
       }
     }
     this.props.handleRevertBooking(booking);
+  };
+
+  handlePageRequested = (page: number) => {
+    this.props.recurrentBookingOnPageRequested(
+      page,
+      this.props.recurrentBookingItemPerPage,
+    );
+  };
+
+  componentDidMount() {
+    this.handlePageRequested(1);
+  }
+
+  hasNext = () => {
+    return this.props.recurrentBookingNextPage !== null;
+  };
+
+  goNext = () => {
+    this.handlePageRequested(this.props.recurrentBookingCurrentPage + 1);
   };
 
   render() {
@@ -382,11 +409,32 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                           key={r.id}
                           recurrenceRuleBooking={r}
                           onDelete={this.props.onDeleteRecurrenceRuleBooking}
+                          onClick={
+                            r.member && this.props.permission.member.retrieve
+                              ? () => this.props.goToMemberBooking(r.member.id)
+                              : null
+                          }
                         />
                       ))}
                     </List>
                   </div>
                 </div>
+              )}
+            </div>
+            <div className={this.props.classes.bookButtonWideContainer}>
+              {this.hasNext() && (
+                <Button
+                  className={this.props.classes.bookButtonWide}
+                  color="primary"
+                  onClick={this.goNext}
+                >
+                  {t('booking:recurrenceRule.showMore', {
+                    count:
+                      this.props.recurrentBookingCount -
+                      this.props.recurrentBookingItemPerPage *
+                        this.props.recurrentBookingCurrentPage,
+                  })}
+                </Button>
               )}
             </div>
           </Paper>
@@ -398,6 +446,18 @@ export class BookingManagement extends React.PureComponent<Props, State> {
 const styles = (theme) => ({
   containerRecurrentBooking: {
     width: '100%',
+  },
+  bookButtonWideContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'noWrap',
+  },
+  bookButtonWide: {
+    width: '40%',
+    alignItems: 'center',
+    marginRight: 'auto',
+    marginLeft: 'auto',
   },
   titleRecurrenceRule: {
     background: '#F8F8F8',

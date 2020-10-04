@@ -4,12 +4,27 @@ exports.default = {
     unregister: 'Désinscrire',
   },
   recurrenceRule: {
+    showMore: 'Afficher plus ({{count}})',
+    showLess: 'Afficher moins',
+    notify: "Envoyer un mail de confirmation lors de l'inscription du membre",
+    notifyIfCanceled: "Envoyer un mail d'annulation des réservations",
+    blockedBookings:
+      "Vos élèves peuvent réserver jusqu'à {{days}} jours avant le début des séances de cette activité, par conséquent nous vous recommandons de programmer la récurrence sur une durée plus longue pour éviter le surchargement.",
     deleteModal: {
       confirm: 'Supprimer',
       cancel: 'Annuler',
       content:
         "Supprimer la règle de récurrence entrainera l'annulation des réservations futures effectuées via cette règle.",
       title: 'Suppression règle de récurrence',
+      success: 'La réservation récurrente a bien été supprimée',
+    },
+    editModal: {
+      success: 'La réservation récurrente a bien été modifié',
+    },
+    createModal: {
+      success: 'La réservation récurrente a bien été crée.',
+      info: 'Impossible de recréer une réservation récurrente qui éxiste déja',
+      create: 'Créer une réservation récurrente',
     },
     recurrentBookings: 'Réservations récurrentes',
     needConsumerPack:
@@ -64,6 +79,9 @@ exports.default = {
     refunded: 'Remboursement',
     isRefunded: 'Remboursée',
     notRefunded: 'Non remboursée',
+    recurrentBooking: 'Réservation récurrente',
+    withRecurrentBookings: 'Réservations récurrentes',
+    withoutRecurrentBookings: 'Réservations non récurrentes',
   },
   bookingModule: {
     hasRegistered: 'Vous êtes inscrit à cette séance',

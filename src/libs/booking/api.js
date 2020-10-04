@@ -84,13 +84,16 @@ export async function createRecurrenceRuleBooking(data: *) {
   return postAuth(`${API_V1_URI}/booking/recurrence_rule_booking/`, data);
 }
 
-export async function deleteRecurrenceRuleBooking(id: number) {
-  return deleteAuth(`${API_V1_URI}/booking/recurrence_rule_booking/${id}/`);
+export async function deleteRecurrenceRuleBooking(id: number, data: *) {
+  return deleteAuth(
+    `${API_V1_URI}/booking/recurrence_rule_booking/${id}/`,
+    data,
+  );
 }
 
-export async function updateRecurrenceRuleBooking(data: *) {
+export async function updateRecurrenceRuleBooking(data: *, id: number) {
   return patchAuth(
-    `${API_V1_URI}/booking/recurrence_rule_booking/${data.id}/`,
+    `${API_V1_URI}/booking/recurrence_rule_booking/${id}/`,
     data,
   );
 }

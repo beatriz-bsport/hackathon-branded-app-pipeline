@@ -28,7 +28,7 @@ export const RecurrenceRuleBookingFormDialog = (props: Props) => {
           <RecurrenceRuleBookingFields {...props} />
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.onClose}>
+          <Button disabled={props.isSubmitting} onClick={props.onClose}>
             {t('recurrenceRule.actions.close')}
           </Button>
           <Submit disabled={props.isSubmitting}>

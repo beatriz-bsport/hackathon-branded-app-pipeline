@@ -23,6 +23,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CachedIcon from '@material-ui/icons/Cached';
 import CancelIcon from '@material-ui/icons/Cancel';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
+import UpdateIcon from '@material-ui/icons/Update';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -321,6 +322,14 @@ export class BookingItemForManager extends Component<Props, State> {
   };
 
   getIsFirstIndicator = () => (this.props.booking.first_in_company ? '★' : '');
+
+  getIsRecurrentBooking = () => {
+    if (this.props.booking.recurrence_rule_booking) {
+      return <UpdateIcon color="primary" fontSize="small" />;
+    }
+    return '';
+  };
+
   // eslint-disable-next-line
   getHasNoteIndicator = () =>
     this.props.member &&
@@ -435,7 +444,6 @@ export class BookingItemForManager extends Component<Props, State> {
     if (booking.booking_status_code !== 0) {
       classes = this.props.classes.cancelled;
     }
-
     return this.wrapToolTip(
       <ListItem
         divider
@@ -468,6 +476,7 @@ export class BookingItemForManager extends Component<Props, State> {
                     <Typography color="primary">
                       {this.getIsFirstIndicator()}
                     </Typography>
+                    {this.getIsRecurrentBooking()}
                     <Typography color="primary">
                       <strong>{this.getHasNoteIndicator()}</strong>
                     </Typography>
@@ -532,10 +541,7 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['booking']),
   withStyles(styles),
-  connect(
-    null,
-    {
-      push: routerPush,
-    },
-  ),
+  connect(null, {
+    push: routerPush,
+  }),
 )(BookingItemForManager);

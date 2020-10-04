@@ -11,6 +11,8 @@ import RefundedIcon from '@material-ui/icons/CheckCircleOutline';
 import NotRefundedIcon from '@material-ui/icons/CancelOutlined';
 import FutureIcon from '@material-ui/icons/UpdateOutlined';
 import PastIcon from '@material-ui/icons/Restore';
+import RecurrentBookingIcon from '@material-ui/icons/Autorenew';
+import NotRecurrentBookingIcon from '@material-ui/icons/Close';
 import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
@@ -49,6 +51,31 @@ export default function BookingFilters(props: Props) {
               label: t('filters.absent'),
               icon: AbsentIcon,
               show: props.filters.attendance === false,
+            },
+          ],
+        },
+        {
+          openFunction: () => props.setOpenValue('recurrentBooking'),
+          label: t('filters.recurrentBooking'),
+          open: props.open.recurrentBooking,
+          subMenu: [
+            {
+              onClick: () =>
+                props.setFiltersValue('recurrence_rule_booking', true),
+              onDelete: () =>
+                props.setFiltersValue('recurrence_rule_booking', null),
+              label: t('filters.withRecurrentBookings'),
+              icon: RecurrentBookingIcon,
+              show: props.filters.recurrence_rule_booking,
+            },
+            {
+              onClick: () =>
+                props.setFiltersValue('recurrence_rule_booking', false),
+              onDelete: () =>
+                props.setFiltersValue('recurrence_rule_booking', null),
+              label: t('filters.withoutRecurrentBookings'),
+              icon: NotRecurrentBookingIcon,
+              show: props.filters.recurrence_rule_booking === false,
             },
           ],
         },

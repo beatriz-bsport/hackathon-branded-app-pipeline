@@ -73,6 +73,10 @@ import {
   getAllMembers,
   getMemberHistory,
 } from '../../libs/member/selectors';
+
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
+import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
+
 import {
   withInvoiceItem,
   withMember,
@@ -84,6 +88,8 @@ import withTitle from '../../hocs/with-title.hoc';
 import OfferManagementComponent from './OfferManagement.component';
 
 import type { Offer } from '../../api/types';
+
+const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
 const formatTitle = (offer: Offer, offerLoading: boolean) => {
   if (!offer || offerLoading) {
@@ -123,6 +129,11 @@ export default compose(
       bookingLoading: state.booking.loading,
       bookingOptionsPending: state.waitingList.option.items,
       recurrenceRuleBooking: getRecurrenceRuleBookingList(state),
+      metaActivities: getEnabledMetaActivities(state),
+      recurrentBookingCurrentPage: state.booking.recurrenceRule.page,
+      recurrentBookingNextPage: state.booking.recurrenceRule.next_page,
+      recurrentBookingCount: state.booking.recurrenceRule.count,
+
       // invoice
       unevenSavedInvoices: withMember(withInvoiceItem(getQuickInvoiceList))(
         state,
@@ -156,6 +167,7 @@ export default compose(
       createRecurrenceRuleBooking,
       deleteRecurrenceRuleBooking,
       updateRecurrenceRuleBooking,
+      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
 
       // modify booking
       registerBooking: registerBookingAction,
@@ -268,7 +280,7 @@ export default compose(
       fetchBookingOptionByOffer(offerId);
       fetchCompatiblePacks(offerId);
       fetchRecurrenceRuleBooking(
-        { offer: offerId },
+        { offer: offerId, page: 1, page_size: RECURRENT_BOOKING_PAGE_SIZE },
         {
           onSuccess: (recurrenceRuleList) => {
             if (recurrenceRuleList.length) {

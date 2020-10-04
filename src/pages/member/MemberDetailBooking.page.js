@@ -10,6 +10,11 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { compose, withState, withHandlers } from 'recompose';
 import { withTranslation } from 'react-i18next';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+
+import Button from '@material-ui/core/Button';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 
@@ -21,15 +26,27 @@ import {
   confirmAttendance as confirmBookingAttendanceAction,
   fetchBookingsByMember as fetchBookingsByMemberAction,
   retrieveBooking,
+  fetchRecurrenceRuleBooking as fetchRecurrenceRuleBookingAction,
+  deleteRecurrenceRuleBooking as deleteRecurrenceRuleBookingAction,
+  createRecurrenceRuleBooking as createRecurrenceRuleBookingAction,
+  updateRecurrenceRuleBooking as updateRecurrenceRuleBookingAction,
 } from '../../libs/booking/actions';
 import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions';
 
 import { getDetailedOffer } from '../../libs/offer/selectors';
 
+import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
+
 import {
   retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
   updateCredit as updateCreditAction,
 } from '../../libs/consumer-payment-pack/actions';
+import {
+  fetchMetaActivityBulk as fetchMetaActivityBulkAction,
+  fetchAllActivities as fetchAllActivitiesAction,
+} from '../../libs/meta-activity/actions';
+
+import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 
 import type { Member } from '../../libs/member/types';
 import type { PaymentPack } from '../../libs/payment-packs/types';
@@ -37,12 +54,15 @@ import type { Booking } from '../../libs/booking/types';
 
 import BookingItemForManagerV2 from '../../libs/booking/components/BookingItemForManagerV2.component';
 import BookingDetail from '../../libs/booking/components/BookingDetail.component';
+import RecurrenceRuleBookingFormDialog from '../../libs/booking/components/RecurrenceRuleBookingFormDialog.component';
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
 import BookingFilters from '../../libs/booking/components/BookingFilters.component';
+import RecurrenceRuleBookingListItem from '../../libs/booking/components/RecurrenceRuleBookingListItem.component';
 
 import {
   getMemberBookingListWithConsumerPack,
   getMemberBookingWithConsumerPack,
+  getRecurrenceRuleBookingList,
 } from '../../libs/booking/selectors';
 import { getMember } from '../../libs/member/selectors';
 import paymentPackSelectors, {
@@ -51,8 +71,9 @@ import paymentPackSelectors, {
 import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
 
 type Props = {
+  classes: *,
+  t: TFunction,
   id: number,
-  timezone: string,
   bookingId: ?number,
   retrieveBooking: (number, OptionCallback) => void,
   retrieveConsumerPackBulk: (Array<number>) => void,
@@ -88,6 +109,20 @@ type Props = {
   open: any,
   setOpenValue: (name: string) => void,
   setFilterValue: (name: string, bool: Boolean) => void,
+  recurrenceRuleBooking: Array,
+  onDeleteRecurrenceRuleBooking: (r: Dict) => void,
+  recurrentBookingCurrentPage: number,
+  setBookerInAvanceDialog: () => void,
+  bookerInAvanceDialog: boolean,
+  fetchAllActivities: () => void,
+  metaActivities: Array,
+  setSelectedRecurrentBooking: () => void,
+  selectedRecurrentBooking: boolean,
+  RecurrentBookingOnPageRequested: (page: number) => void,
+  recurrentBookingNextPage: number,
+  recurrentBookingCount: number,
+  refresh: () => void,
+  onSubmitRecurrentBooking: () => void,
 };
 
 type State = {
@@ -95,17 +130,35 @@ type State = {
 };
 
 const BOOKING_PAGE_SIZE = 5;
+const RECURRENT_BOOKING_PAGE_SIZE = 5;
 
 export class MemberDetailBooking extends Component<Props, State> {
   state = {
     bookingToRevert: null,
   };
 
+  handlePageRequested = (page: number) => {
+    this.props.RecurrentBookingOnPageRequested(
+      page,
+      RECURRENT_BOOKING_PAGE_SIZE,
+    );
+  };
+
   componentDidMount() {
     if (this.props.bookingId) {
       this.fetchBookingDetails();
     }
+    this.props.fetchAllActivities();
+    this.handlePageRequested(1);
   }
+
+  hasNext = () => {
+    return this.props.recurrentBookingNextPage !== null;
+  };
+
+  goNext = () => {
+    this.handlePageRequested(this.props.recurrentBookingCurrentPage + 1);
+  };
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.filters !== this.props.filters) {
@@ -149,50 +202,146 @@ export class MemberDetailBooking extends Component<Props, State> {
   render() {
     return (
       <Grid container direction="row" spacing={3}>
-        <Grid item xs={12} lg={6}>
-          <Paper>
-            <BookingFilters
-              setOpenValue={this.props.setOpenValue}
-              setFiltersValue={this.props.setFilterValue}
-              open={this.props.open}
-              filters={this.props.filters}
-            />
-            <Divider />
-            <PaginatedListBase
-              itemPerPage={BOOKING_PAGE_SIZE}
-              loading={this.props.bookingsLoading}
-              listProps={{ disablePadding: true }}
-              items={this.props.bookings}
-              nbItems={this.props.bookingCount}
-              page={this.props.bookingCurrentPage}
-              onPageRequested={(page, page_size) =>
-                this.props.fetchMemberBookingsList(page, page_size)
-              }
-              renderItem={(b) => (
-                <BookingItemForManagerV2
-                  onClick={() => this.selectBooking(b)}
-                  showRevertBookingButton
-                  timezone={this.props.timezone}
-                  button
-                  selected={
-                    this.props.selectedBooking &&
-                    this.props.selectedBooking.id === b.id
-                  }
-                  key={b.id}
-                  booking={b}
-                  heading="date_start"
-                  member={this.props.member}
-                  handleRevert={() => this.setState({ bookingToRevert: b })}
-                  discardBookingAttendance={() =>
-                    this.props.discardBookingAttendance(b.id)
-                  }
-                  confirmBookingAttendance={() =>
-                    this.props.confirmBookingAttendance(b.id)
-                  }
-                />
-              )}
-            />
-          </Paper>
+        <Grid container item xs={12} lg={6} direction="column" spacing={3}>
+          <Grid item>
+            <Paper>
+              <BookingFilters
+                setOpenValue={this.props.setOpenValue}
+                setFiltersValue={this.props.setFilterValue}
+                open={this.props.open}
+                filters={this.props.filters}
+              />
+              <Divider />
+              <PaginatedListBase
+                itemPerPage={BOOKING_PAGE_SIZE}
+                loading={this.props.bookingsLoading}
+                listProps={{ disablePadding: true }}
+                items={this.props.bookings}
+                nbItems={this.props.bookingCount}
+                page={this.props.bookingCurrentPage}
+                onPageRequested={(page, page_size) =>
+                  this.props.fetchMemberBookingsList(page, page_size)
+                }
+                renderItem={(b) => (
+                  <BookingItemForManagerV2
+                    onClick={() => this.selectBooking(b)}
+                    showRevertBookingButton
+                    button
+                    selected={
+                      this.props.selectedBooking &&
+                      this.props.selectedBooking.id === b.id
+                    }
+                    key={b.id}
+                    booking={b}
+                    heading="date_start"
+                    member={this.props.member}
+                    handleRevert={() => this.setState({ bookingToRevert: b })}
+                    discardBookingAttendance={() =>
+                      this.props.discardBookingAttendance(b.id)
+                    }
+                    confirmBookingAttendance={() =>
+                      this.props.confirmBookingAttendance(b.id)
+                    }
+                  />
+                )}
+              />
+            </Paper>
+          </Grid>
+          <Grid item>
+            {!!this.props.recurrenceRuleBooking.length && (
+              <Paper>
+                <Typography variant="caption" style={{ padding: 10 }}>
+                  {this.props.t('booking:recurrenceRule.recurrentBookings')}
+                </Typography>
+                <Divider />
+                <List disablePadding>
+                  {this.props.recurrenceRuleBooking.map((r) => (
+                    <RecurrenceRuleBookingListItem
+                      notShowMember
+                      key={r.id}
+                      recurrenceRuleBooking={{
+                        ...r,
+                        member: this.props.member,
+                      }}
+                      onDelete={(id, data) =>
+                        this.props.onDeleteRecurrenceRuleBooking(
+                          r,
+                          this.props.id,
+                          data,
+                        )
+                      }
+                      onEdit={() => {
+                        this.props.fetchAllActivities();
+                        this.props.setBookerInAvanceDialog(true);
+                        this.props.setSelectedRecurrentBooking(r);
+                      }}
+                    />
+                  ))}
+                </List>
+                <div className={this.props.classes.bookButtonWideContainer}>
+                  {this.hasNext() && (
+                    <Button
+                      className={this.props.classes.bookButtonWide}
+                      color="primary"
+                      onClick={this.goNext}
+                    >
+                      {this.props.t('booking:recurrenceRule.showMore', {
+                        count:
+                          this.props.recurrentBookingCount -
+                          RECURRENT_BOOKING_PAGE_SIZE *
+                            this.props.recurrentBookingCurrentPage,
+                      })}
+                    </Button>
+                  )}
+                </div>
+              </Paper>
+            )}
+
+            <div className={this.props.classes.createRecurrentBooking}>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  this.props.setBookerInAvanceDialog(true);
+                  this.props.fetchAllActivities();
+                }}
+                color="primary"
+              >
+                {this.props.t('booking:recurrenceRule.createModal.create')}
+              </Button>
+            </div>
+            {!!this.props.offer && this.props.bookerInAvanceDialog && (
+              <RecurrenceRuleBookingFormDialog
+                refresh={this.props.refresh}
+                initial={
+                  this.props.selectedRecurrentBooking &&
+                  this.props.selectedRecurrentBooking.meta_activity
+                    ? {
+                        meta_activity: {
+                          id: this.props.selectedRecurrentBooking.meta_activity
+                            .id,
+                          name: this.props.selectedRecurrentBooking
+                            .meta_activity.name,
+                        },
+                        delay_week: this.props.selectedRecurrentBooking
+                          .delay_week,
+                        hour: this.props.selectedRecurrentBooking.hour,
+                        minute: this.props.selectedRecurrentBooking.minute,
+                        day_of_week: this.props.selectedRecurrentBooking
+                          .day_of_week,
+                        notify_if_booked: this.props.selectedRecurrentBooking
+                          .notify_if_booked,
+                      }
+                    : null
+                }
+                metaActivityList={this.props.metaActivities}
+                onClose={() => {
+                  this.props.setBookerInAvanceDialog(false);
+                  this.props.setSelectedRecurrentBooking(null);
+                }}
+                onSubmit={this.props.onSubmitRecurrentBooking}
+              />
+            )}
+          </Grid>
         </Grid>
         <Grid item xs={12} lg={6}>
           <BookingDetail
@@ -234,11 +383,39 @@ export class MemberDetailBooking extends Component<Props, State> {
   }
 }
 
+const styles = (theme) => ({
+  containerRecurrentBooking: {
+    width: '100%',
+  },
+  bookButtonWideContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'noWrap',
+  },
+  bookButtonWide: {
+    width: '30%',
+    alignItems: 'center',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+  },
+  createRecurrentBooking: {
+    paddingTop: theme.spacing(3),
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+});
 export default compose(
   routerParamsToProps({ id: 'id:number', bookingId: 'bookingId:number' }),
   withTranslation('booking'),
+  withStyles(styles),
   withState('filters', 'setFilters', {}),
   withState('open', 'setOpen', {}),
+  withState('bookerInAvanceDialog', 'setBookerInAvanceDialog', false),
+  withState('selectedRecurrentBooking', 'setSelectedRecurrentBooking', null),
   connect(
     (state, { id, bookingId }) => ({
       member: getMember(state, id),
@@ -252,6 +429,12 @@ export default compose(
       paymentPacks: getAllPaymentPacks(state),
       consumerPackLoading: state.consumerPaymentPack.loading,
       offer: getDetailedOffer(state),
+      recurrenceRuleBooking: getRecurrenceRuleBookingList(state),
+      recurrentBookingCurrentPage: state.booking.recurrenceRule.page,
+      recurrentBookingNextPage: state.booking.recurrenceRule.next_page,
+      recurrentBookingCount: state.booking.recurrenceRule.count,
+      recurrentBookingLoading: state.booking.recurrenceRule.loading,
+      metaActivities: getEnabledMetaActivities(state),
       getPaymentPack: (id_: number) => paymentPackSelectors.get(state, id_),
       getPass: (id_: number) => getConsumerPack(state, id_),
       timezone: state.theme.theme.timezone_name,
@@ -262,6 +445,14 @@ export default compose(
       retrieveBooking,
       fetchOffer: fetchOfferByIdAction,
 
+      fetchRecurrenceRuleBooking: fetchRecurrenceRuleBookingAction,
+      deleteRecurrenceRuleBooking: deleteRecurrenceRuleBookingAction,
+      fetchMember: fetchMemberAction,
+      createRecurrenceRuleBooking: createRecurrenceRuleBookingAction,
+      fetchAllActivities: fetchAllActivitiesAction,
+      updateRecurrenceRuleBooking: updateRecurrenceRuleBookingAction,
+
+      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       deleteBooking: cancelBookingAction,
       discardBookingAttendance: discardBookingAttendanceAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
@@ -277,10 +468,124 @@ export default compose(
     },
   ),
   withHandlers({
+    onSubmitRecurrentBooking: ({
+      id,
+      updateRecurrenceRuleBooking,
+      selectedRecurrentBooking,
+      setSelectedRecurrentBooking,
+      createRecurrenceRuleBooking,
+    }) => (data, options) => {
+      if (id && selectedRecurrentBooking) {
+        updateRecurrenceRuleBooking(
+          {
+            ...data,
+            member: id,
+          },
+          selectedRecurrentBooking.id,
+          options,
+        );
+      }
+      if (id && !selectedRecurrentBooking) {
+        createRecurrenceRuleBooking({ ...data, member: id }, options);
+      }
+      setSelectedRecurrentBooking(null);
+    },
+    refresh: ({
+      fetchRecurrenceRuleBooking,
+      fetchMember,
+      fetchMetaActivityBulk,
+      fetchMemberBookings,
+      filters,
+      retrieveConsumerPackBulk,
+      setBookerInAvanceDialog,
+      id,
+    }) => () => {
+      fetchRecurrenceRuleBooking(
+        {
+          member: id,
+          page: 1,
+          page_size: RECURRENT_BOOKING_PAGE_SIZE,
+        },
+        {
+          onSuccess: (recurrenceRuleList) => {
+            if (recurrenceRuleList.length) {
+              fetchMember(id);
+              fetchMetaActivityBulk([
+                ...recurrenceRuleList.map((o) => o.meta_activity),
+              ]);
+            }
+          },
+        },
+      );
+      fetchMemberBookings(id, 1, 7, filters, {
+        onSuccess: (bookings) =>
+          retrieveConsumerPackBulk(
+            bookings.map((b) => b.consumer_payment_pack),
+          ),
+      });
+      setBookerInAvanceDialog(false);
+    },
+    RecurrentBookingOnPageRequested: ({
+      fetchRecurrenceRuleBooking,
+      fetchMember,
+      fetchMetaActivityBulk,
+      id,
+    }) => (page, page_size) => {
+      fetchRecurrenceRuleBooking(
+        { member: id, page, page_size },
+        {
+          onSuccess: (recurrenceRuleList) => {
+            if (recurrenceRuleList.length) {
+              fetchMember(this.props.id);
+              fetchMetaActivityBulk([
+                ...recurrenceRuleList.map((o) => o.meta_activity),
+              ]);
+            }
+          },
+        },
+      );
+    },
     setOpenValue: ({ setOpen, open }) => (name: string) => {
       setOpen({
         ...open,
         [name]: !open[name],
+      });
+    },
+    onDeleteRecurrenceRuleBooking: ({
+      deleteRecurrenceRuleBooking,
+      fetchMemberBookings,
+      retrieveConsumerPackBulk,
+      fetchRecurrenceRuleBooking,
+      fetchMember,
+      fetchMetaActivityBulk,
+      filters,
+    }) => (r, memberId, data) => {
+      deleteRecurrenceRuleBooking(r.id, data, {
+        onSuccess: () => {
+          fetchRecurrenceRuleBooking(
+            {
+              member: memberId,
+              page: 1,
+              page_size: RECURRENT_BOOKING_PAGE_SIZE,
+            },
+            {
+              onSuccess: (recurrenceRuleList) => {
+                if (recurrenceRuleList.length) {
+                  fetchMember(this.props.id);
+                  fetchMetaActivityBulk([
+                    ...recurrenceRuleList.map((o) => o.meta_activity),
+                  ]);
+                }
+              },
+            },
+          );
+          fetchMemberBookings(memberId, 1, 7, filters, {
+            onSuccess: (bookings) =>
+              retrieveConsumerPackBulk(
+                bookings.map((b) => b.consumer_payment_pack),
+              ),
+          });
+        },
       });
     },
     fetchMemberBookingsList: ({
@@ -308,3 +613,51 @@ export default compose(
     },
   }),
 )(MemberDetailBooking);
+
+/*
+ <PaginatedListBase
+                itemPerPage={RECURRENT_BOOKING_PAGE_SIZE}
+                loading={this.props.recurrentBookingLoading}
+                listProps={{ disablePadding: true }}
+                items={this.props.recurrenceRuleBooking}
+                nbItems={this.props.recurrentBookingCount}
+                page={this.props.recurrentBookingCurrentPage}
+                onPageRequested={(page, page_size) =>
+                  this.props.fetchRecurrenceRuleBooking(
+                    { member: this.props.id, page, page_size },
+                    {
+                      onSuccess: (recurrenceRuleList) => {
+                        if (recurrenceRuleList.length) {
+                          this.props.fetchMember(this.props.id);
+                          this.props.fetchMetaActivityBulk([
+                            ...recurrenceRuleList.map((o) => o.meta_activity),
+                          ]);
+                        }
+                      },
+                    },
+                  )
+                }
+                renderItem={(r) => (
+                  <RecurrenceRuleBookingListItem
+                    notShowMember
+                    key={r.id}
+                    recurrenceRuleBooking={{
+                      ...r,
+                      member: this.props.member,
+                    }}
+                    onDelete={(id, data) =>
+                      this.props.onDeleteRecurrenceRuleBooking(
+                        r,
+                        this.props.id,
+                        data,
+                      )
+                    }
+                    onEdit={() => {
+                      this.props.fetchAllActivities();
+                      this.props.setBookerInAvanceDialog(true);
+                      this.props.setSelectedRecurrentBooking(r);
+                    }}
+                  />
+                )}
+              />
+*/

@@ -3,16 +3,24 @@ import React from 'react';
 import omit from 'lodash/omit';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import WarningIcon from '@material-ui/icons/Warning';
 import { Field, ErrorMessage } from 'formik';
 import { withTranslation } from 'react-i18next';
 
 import MetaActivitySelector from './MetaActivitySelector.component';
 
 export const SelectField = withTranslation([])((props) => {
-  const { t, fullWidth, required } = props;
+  const { t, fullWidth, required, helperText, showHelperText } = props;
   return (
     <Field {...props}>
       {({ field, form: { setFieldValue, touched, errors } }) => {
+        const metaActivitySelected = props.metaActivityList.find(
+          (activity) => activity.id === field.value,
+        );
+        const blockedBookingsDays =
+          metaActivitySelected &&
+          metaActivitySelected.first_booking_minutes_until / 1440;
         return (
           <FormControl
             fullWidth={fullWidth}
@@ -32,8 +40,8 @@ export const SelectField = withTranslation([])((props) => {
                 'reportNS',
               ])}
               selectedMetaActivities={[field.value]}
-              onChange={(option) => {
-                setFieldValue(field.name, option);
+              selectOption={(option) => {
+                setFieldValue(field.name, option.value);
               }}
             />
             {!props.disabled && (
@@ -50,6 +58,22 @@ export const SelectField = withTranslation([])((props) => {
                 <Typography variant="body1">{t(message)}</Typography>
               )}
             </ErrorMessage>
+            {showHelperText(blockedBookingsDays) &&
+              helperText &&
+              blockedBookingsDays && (
+                <FormHelperText
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'align-items',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <WarningIcon fontSize="small" color="disabled" />
+                  <Typography variant="caption">
+                    {helperText(blockedBookingsDays)}
+                  </Typography>
+                </FormHelperText>
+              )}
           </FormControl>
         );
       }}

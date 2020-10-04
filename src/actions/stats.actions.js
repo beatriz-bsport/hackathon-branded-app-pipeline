@@ -6,6 +6,13 @@ import moment from 'moment-timezone';
 import type { Dispatch, ThunkAction } from '../state/types';
 
 import api from '../api';
+import {
+  fetchBookingStatistics as fetchBookingStatisticsAPI,
+  fetchBookingTimeslotStatistics as fetchBookingTimeslotStatisticsAPI,
+  fetchMemberStatistics as fetchMemberStatisticsAPI,
+  fetchPaymentStatistics as fetchPaymentStatisticsAPI,
+  fetchPlannedInvoiceStatistics as fetchPlannedInvoiceStatisticsAPI,
+} from '../api/stat';
 
 export const dateRangeChange = createAction('STATISTICS/DATE_RANGE/CHANGE');
 export const statIsLoading = createAction('STATISTICS/IS_LOADING');
@@ -103,6 +110,81 @@ export function fetchSmartListStats(params: any): ThunkAction {
         statistic_identifier,
         isLoading: false,
       }),
+    );
+  };
+}
+
+async function fetchStatistics(
+  dispatch: Dispatch,
+  identifier: string,
+  params: any,
+  callee: (any) => void,
+) {
+  dispatch(statIsLoading({ identifier, loading: true }));
+  dispatch(statError({ identifier, error: null }));
+
+  try {
+    const data = await callee(params);
+    dispatch(statLoaded({ identifier, data }));
+  } catch (error) {
+    console.error(error);
+    dispatch(statError({ identifier, error }));
+  }
+
+  dispatch(statIsLoading({ identifier, loading: false }));
+}
+
+export function fetchBookingStatistics2(
+  identifier: string,
+  params: any,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    fetchStatistics(dispatch, identifier, params, fetchBookingStatisticsAPI);
+  };
+}
+
+export function fetchBookingTimeslotStatistics(
+  identifier: string,
+  params: any,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    fetchStatistics(
+      dispatch,
+      identifier,
+      params,
+      fetchBookingTimeslotStatisticsAPI,
+    );
+  };
+}
+
+export function fetchMemberStatistics(
+  identifier: string,
+  params: any,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    fetchStatistics(dispatch, identifier, params, fetchMemberStatisticsAPI);
+  };
+}
+
+export function fetchPaymentStatistics(
+  identifier: string,
+  params: any,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    fetchStatistics(dispatch, identifier, params, fetchPaymentStatisticsAPI);
+  };
+}
+
+export function fetchPlannedInvoiceStatistics(
+  identifier: string,
+  params: any,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    fetchStatistics(
+      dispatch,
+      identifier,
+      params,
+      fetchPlannedInvoiceStatisticsAPI,
     );
   };
 }

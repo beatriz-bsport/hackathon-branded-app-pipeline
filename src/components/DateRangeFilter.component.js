@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import moment from 'moment-timezone';
 import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -12,25 +13,42 @@ import Grid from '@material-ui/core/Grid';
 
 import DateInput from './input/DateInput.component';
 
-type QuickRange = {
-  key: string,
-  start: Moment,
-  end: Moment,
-  selected: boolean,
-  onClick: (Moment, Moment, ?string) => void,
-};
 type Props = {
   classes: { [string]: string },
   t: TFunction,
-  quickRanges: QuickRange[],
+  dateRange: { start: Moment, end: Moment, kind: string },
   onChange: (Moment, Moment, ?string) => void,
-  start: Moment,
-  end: Moment,
   hideDatePickers: boolean,
 };
 
 export function DateRangeFilter(props: Props) {
-  const { start, end, classes, quickRanges, t, onChange } = props;
+  const { classes, t, onChange, dateRange } = props;
+  const quickRanges = [
+    {
+      key: 'current_week',
+      start: moment().subtract(7, 'days'),
+      end: moment(),
+      selected: dateRange.kind === 'current_week',
+    },
+    {
+      key: 'current_month',
+      start: moment().subtract(1, 'month'),
+      end: moment(),
+      selected: dateRange.kind === 'current_month',
+    },
+    {
+      key: 'last_three_months',
+      start: moment().subtract(3, 'months'),
+      end: moment(),
+      selected: dateRange.kind === 'last_three_months',
+    },
+    {
+      key: 'current_year',
+      start: moment().subtract(1, 'year'),
+      end: moment(),
+      selected: dateRange.kind === 'current_year',
+    },
+  ];
   return (
     <Grid
       container
@@ -45,8 +63,8 @@ export function DateRangeFilter(props: Props) {
             id="date"
             label={t('dateRange.start')}
             type="date"
-            value={start.format('YYYY-MM-DD')}
-            onChange={(value) => onChange(value, end, null)}
+            value={dateRange.start.format('YYYY-MM-DD')}
+            onChange={(value) => onChange(value, dateRange.end, null)}
             InputLabelProps={{
               shrink: true,
             }}
@@ -55,8 +73,8 @@ export function DateRangeFilter(props: Props) {
             id="date"
             label={t('dateRange.end')}
             type="date"
-            value={end.format('YYYY-MM-DD')}
-            onChange={(value) => onChange(start, value, null)}
+            value={dateRange.end.format('YYYY-MM-DD')}
+            onChange={(value) => onChange(dateRange.start, value, null)}
             InputLabelProps={{
               shrink: true,
             }}
@@ -70,6 +88,7 @@ export function DateRangeFilter(props: Props) {
             <Button
               key={range.key}
               variant="outlined"
+              size="small"
               color={selectedColor}
               className={classes.button}
               onClick={() => onChange(range.start, range.end, range.key)}

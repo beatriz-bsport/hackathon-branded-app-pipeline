@@ -22,6 +22,15 @@ exports.default = {
       4: 'Vendredi',
       5: 'Samedi',
     },
+    isoWeekdayNumber: {
+      7: 'Dimanche',
+      1: 'Lundi',
+      2: 'Mardi',
+      3: 'Mercredi',
+      4: 'Jeudi',
+      5: 'Vendredi',
+      6: 'Samedi',
+    },
     monthShort: {
       january: 'Jan',
       february: 'Fév',

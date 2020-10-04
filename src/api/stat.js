@@ -27,6 +27,26 @@ export async function fetchBookingStatistics(params) {
   return getJSONAuth(`${API_URI}/statistics/booking/${buildUrlParams(params)}`);
 }
 
+export async function fetchBookingTimeslotStatistics(params) {
+  return getJSONAuth(
+    `${API_URI}/statistics/booking-timeslot/${buildUrlParams(params)}`,
+  );
+}
+
+export async function fetchMemberStatistics(params) {
+  return getJSONAuth(`${API_URI}/statistics/member/${buildUrlParams(params)}`);
+}
+
+export async function fetchPaymentStatistics(params) {
+  return getJSONAuth(`${API_URI}/statistics/payment/${buildUrlParams(params)}`);
+}
+
+export async function fetchPlannedInvoiceStatistics(params) {
+  return getJSONAuth(
+    `${API_URI}/statistics/planned-invoice/${buildUrlParams(params)}`,
+  );
+}
+
 export default {
   bookings,
   newMembers,

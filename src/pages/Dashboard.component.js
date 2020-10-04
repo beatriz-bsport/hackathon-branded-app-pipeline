@@ -1,313 +1,399 @@
 // @flow
-
-import React from 'react';
+import React, { Component } from 'react';
+import chroma from 'chroma-js';
 
 import moment from 'moment-timezone';
 import type { Moment } from 'moment-timezone';
-import {
-  compose,
-  withProps,
-  withPropsOnChange,
-  withState,
-  lifecycle,
-} from 'recompose';
 import { connect } from 'react-redux';
+import { compose, withHandlers, withState, withStateHandlers } from 'recompose';
 import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import withStyles from '@material-ui/core/styles/withStyles';
 
-import {
-  bookingStatSelector,
-  newMembersStatSelector,
-  turnoverStatSelector,
-  dateRangeSelector,
-} from '../state/stats/selectors';
+import withStyles from '@material-ui/core/styles/withStyles';
+import type { TFunction } from 'react-i18next';
 
 import DateRangeFilter from '../components/DateRangeFilter.component';
-import {
-  dateRangeChange,
-  fetchDashboard as fetchDashboardStats,
-} from '../actions/stats.actions';
-import Figure from '../components/graph/Figure.component';
-import {
-  ComposedChart,
-  SimpleBarChart,
-} from '../components/graph/Charts.component';
+import BookingFilters from '../libs/booking/components/BookingFilters.component';
+import TemporalAreaChart from '../components/graph/TemporalAreaChart.component';
+import TemporalBarChart from '../components/graph/TemporalBarChart.component';
+import TimeslotGridChart from '../components/graph/TimeslotGridChart.component';
 
 import withTitle from '../hocs/with-title.hoc';
+import {
+  // fetchBookingStatistics2 as fetchBookingStatisticsAction,
+  fetchBookingTimeslotStatistics as fetchBookingTimeslotStatisticsAction,
+  fetchMemberStatistics as fetchMemberStatisticsAction,
+  fetchPaymentStatistics as fetchPaymentStatisticsAction,
+  fetchPlannedInvoiceStatistics as fetchPlannedInvoiceStatisticsAction,
+} from '../actions/stats.actions';
+import {
+  getStatisticTemporal,
+  getStatisticTemporalGrid,
+} from '../state/stats/selectors';
+import themeSelectors from '../libs/theme/selectors';
+import type { Theme } from '../libs/theme/types';
+import DashboardChart from '../components/graph/DashboardChart.component';
 
-type ChartData = {
-  d: number,
-  v: number,
-}[];
-
-type Props = {
-  classes: Object,
-  t: TFunction,
-  tab: ?number,
-  setTab: (value: number) => void,
-  dateRange: { start: Moment, end: Moment, kind: string },
-  miniStats: { [string]: { table: ChartData, total: number } },
-  quickDateFilters: *[],
-  changeDateRange: (Moment, Moment, ?string) => void,
-  mainChartButtons: *[],
-  mainChartData: ChartData,
-  mainChartOptions: Object,
+type range = {
+  start: Moment,
+  end: Moment,
+  kind: string,
 };
 
-function dateFormatter(kind) {
-  if (kind === 'month') {
-    return (d) => moment(d).format('MMM YYYY');
+type Props = {
+  t: TFunction,
+  classes: Object,
+  theme: Theme,
+  dateRange: range,
+  onDateRangeChange: (Moment, Moment, string) => void,
+  makeRefreshKey: (
+    identifier: string,
+  ) => (dateRange: range, filters: any) => string,
+
+  chartFilters: any,
+  setChartFilters: (any) => void,
+
+  // fetchStatBooking_1: () => void,
+  fetchStatMember_1: () => void,
+  fetchStatBookingTemporalGrid: () => void,
+  booking_timeslot: { loading: boolean, data: Array<{ d: string, v: number }> },
+  fetchStatPayment_1: () => void,
+  fetchStatPlannedInvoice_1: () => void,
+  booking_1: { loading: boolean, data: Array<{ d: string, v: number }> },
+  member_1: { loading: boolean, data: Array<{ d: string, v: number }> },
+  payment_1: { loading: boolean, data: Array<{ d: string, v: number }> },
+  plannedInvoice_1: { loading: boolean, data: Array<{ d: string, v: number }> },
+};
+
+export class Dashboard extends Component<Props> {
+  componentDidMount() {
+    // this.props.fetchStatBooking_1();
+    this.props.fetchStatBookingTemporalGrid();
+    this.props.fetchStatMember_1();
+    this.props.fetchStatPayment_1();
+    this.props.fetchStatPlannedInvoice_1();
   }
-  if (kind === 'week') {
-    return (d) => `Semaine du ${moment(d).format('DD MMM YYYY')}`;
+
+  componentDidUpdate(prevProps: Props) {
+    if (
+      prevProps.chartFilters !== this.props.chartFilters ||
+      prevProps.dateRange !== this.props.dateRange
+    ) {
+      // this.props.fetchStatBooking_1();
+      this.props.fetchStatBookingTemporalGrid();
+    }
+    if (prevProps.dateRange !== this.props.dateRange) {
+      this.props.fetchStatMember_1();
+      this.props.fetchStatPayment_1();
+      // this.props.fetchStatPlannedInvoice_1();
+    }
   }
-  return (d) => moment(d).format('ddd DD MMM');
-}
 
-const chartConfigs = (t) => ({
-  newMembers: {
-    color: 'green',
-    xFormat: dateFormatter,
-    yFormat: (v) => Math.ceil(v),
-    yLabel: t('newMembers'),
-  },
-  turnover: {
-    color: 'blue',
-    xFormat: dateFormatter,
-    yFormat: (v) => `${Math.ceil(v)} €`,
-    yLabel: t('turnover'),
-  },
-  bookings: {
-    color: 'red',
-    xFormat: dateFormatter,
-    yFormat: (v) => Math.ceil(v),
-    yLabel: t('bookings'),
-  },
-});
-
-function createChartOptions(identifier, data, domain, t) {
-  const options = chartConfigs(t)[identifier];
-  return {
-    name: identifier,
-    count: options.yFormat(data.total),
-    color: options.color,
-    chart: (
-      <SimpleBarChart
-        height={80}
-        data={data.table}
-        domain={domain}
-        xFormatter={options.xFormat(data.formatter)}
-        yFormatter={options.yFormat}
-        xKey="d"
-        yKey="v"
-        color="darkBackground"
-      />
-    ),
-  };
-}
-
-export function Dashboard(props: Props) {
-  const { t, classes, dateRange, miniStats, tab, setTab } = props;
-  const { mainChartOptions } = props;
-  const { newMembers, turnover, bookings } = miniStats;
-  const domain = [
-    moment(dateRange.start)
-      .subtract(0.5, 'day')
-      .valueOf(),
-    moment(dateRange.end)
-      .add(0.5, 'day')
-      .valueOf(),
-  ];
-  const stats1 = [
-    createChartOptions('newMembers', newMembers, domain, t),
-    createChartOptions('turnover', turnover, domain, t),
-    createChartOptions('bookings', bookings, domain, t),
-  ];
-  return (
-    <div className="dashboard">
-      <AppBar position="static" color="default" className={classes.bar}>
-        <DateRangeFilter
-          quickRanges={props.quickDateFilters}
-          onChange={props.changeDateRange}
-          start={dateRange.start}
-          end={dateRange.end}
-        />
-      </AppBar>
-      <div className={classes.block}>
-        <Grid container direction="row" spacing={2}>
-          {stats1.map((stat) => {
-            return (
-              <Grid key={stat.name} item xs={12} md={4}>
-                <Figure
-                  name={t(stat.name)}
-                  count={stat.count}
-                  color={stat.color}
-                >
-                  {stat.chart}
-                </Figure>
-              </Grid>
-            );
-          })}
+  render() {
+    const {
+      classes,
+      // booking_1,
+      member_1,
+      payment_1,
+      plannedInvoice_1,
+      t,
+      makeRefreshKey,
+      theme,
+    } = this.props;
+    const colorScale = chroma
+      .scale([theme.primary_color, theme.secondary_color])
+      .mode('lab');
+    return (
+      <div>
+        <AppBar position="static" color="default" className={classes.bar}>
+          <DateRangeFilter
+            dateRange={this.props.dateRange}
+            onChange={this.props.onDateRangeChange}
+          />
+        </AppBar>
+        <Grid container direction="row" spacing={3} className={classes.gridRow}>
+          {/*
+           <Grid item xs={12} lg={6}>
+            <DashboardChart
+              title={t('bookings')}
+              loading={booking_1.loading}
+              filtersComponent={BookingFilters}
+              setChartFilters={(f) =>
+                this.props.setChartFilters('booking_1', f)
+              }
+            >
+              <TemporalAreaChart
+                height={280}
+                data={booking_1.data}
+                chartOptions={[
+                  {
+                    dataKey: 'v',
+                    caption: t('bookings'),
+                    stroke: colorScale(0),
+                    fill: colorScale(0),
+                  },
+                ]}
+                yLabel={t('bookings')}
+                refreshKey={makeRefreshKey('bookings_1')}
+                tooltip
+              />
+            </DashboardChart>
+          </Grid>
+          */}
+          <Grid item xs={12} lg={6}>
+            <DashboardChart title={t('newMembers')} loading={member_1.loading}>
+              <TemporalBarChart
+                height={329}
+                data={member_1.data}
+                chartOptions={[
+                  {
+                    dataKey: 'v',
+                    caption: t('newMembers'),
+                    stroke: colorScale(0.33),
+                    fill: colorScale(0.33),
+                  },
+                ]}
+                yLabel={t('newMembers')}
+                refreshKey={makeRefreshKey('member_1')}
+                tooltip
+              />
+            </DashboardChart>
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            <DashboardChart
+              title={t('bookingsWeektimeSlot')}
+              loading={this.props.booking_timeslot.loading}
+              filtersComponent={BookingFilters}
+              setChartFilters={(f) =>
+                this.props.setChartFilters('booking_timeslot', f)
+              }
+            >
+              <TimeslotGridChart
+                height={280}
+                data={this.props.booking_timeslot.data}
+                tooltip
+              />
+            </DashboardChart>
+          </Grid>
+        </Grid>
+        <Grid container direction="row" spacing={3} className={classes.gridRow}>
+          <Grid item xs={12} lg={6}>
+            <DashboardChart
+              title={t('turnoverTitle')}
+              loading={payment_1.loading}
+              popoverText={t('popover.turnover')}
+            >
+              <TemporalAreaChart
+                height={329}
+                data={payment_1.data}
+                chartOptions={[
+                  {
+                    dataKey: 'v',
+                    caption: t('turnover'),
+                    stroke: colorScale(0.66),
+                    fill: colorScale(0.66),
+                  },
+                ]}
+                yLabel={t('turnover')}
+                refreshKey={makeRefreshKey('payment_1')}
+                tooltip
+              />
+            </DashboardChart>
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            <DashboardChart
+              title={t('billedSubscriptions')}
+              loading={plannedInvoice_1.loading}
+              popoverText={t('popover.billedSubscriptions')}
+            >
+              <TemporalBarChart
+                height={329}
+                data={plannedInvoice_1.data}
+                chartOptions={[
+                  {
+                    dataKey: 'v',
+                    caption: t('billedSubscriptions'),
+                    stroke: colorScale(0.99),
+                    fill: colorScale(0.99),
+                  },
+                ]}
+                yLabel={t('billedSubscriptions')}
+                refreshKey={makeRefreshKey('plannedInvoice_1')}
+                tooltip
+              />
+            </DashboardChart>
+          </Grid>
         </Grid>
       </div>
-      <div className={classes.block}>
-        <AppBar position="static" color="default">
-          <Tabs
-            value={tab}
-            onChange={(event, value) => {
-              setTab(value);
-              props.mainChartButtons[value].onClick();
-            }}
-            indicatorColor="primary"
-            textColor="primary"
-          >
-            {props.mainChartButtons.map((button) => (
-              <Tab key={button.title} label={button.title} />
-            ))}
-          </Tabs>
-        </AppBar>
-        <Paper className={classes.mainChartPaper}>
-          <ComposedChart
-            data={props.mainChartData.table}
-            height={400}
-            domain={domain}
-            xKey="d"
-            yKey="v"
-            yLabel={mainChartOptions.yLabel}
-            yFormatter={mainChartOptions.yFormat}
-            xFormatter={mainChartOptions.xFormat(props.mainChartData.formatter)}
-            color={mainChartOptions.color}
-          />
-        </Paper>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 const styles = (theme) => ({
-  container: {},
-  statPaper: {
-    padding: theme.spacing(3),
-  },
-  headerButton: {
-    margin: theme.spacing(1),
-  },
-  header: {
-    marginBottom: theme.spacing(2),
-  },
-  block: {
-    marginBottom: theme.spacing(4),
-  },
-  title: {
-    marginBottom: theme.spacing(1),
-  },
   bar: {
     width: `calc(100% + ${theme.spacing(6)}px)`,
     marginTop: -theme.spacing(2),
     marginRight: -theme.spacing(3),
     marginLeft: -theme.spacing(3),
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(2),
   },
-  mainChartPaper: {
-    borderRadius: '0 0 4px 4px',
+  graph: {
+    paddingRight: theme.spacing(2),
+  },
+  filter: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+  gridRow: {
+    marginTop: theme.spacing(0.5),
+    marginBottom: theme.spacing(0.5),
+  },
+  skeleton: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  title: {
+    paddingLeft: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+    display: 'flex',
+    alignItems: 'center',
+  },
+  infoIcon: {
+    marginLeft: theme.spacing(2),
+  },
+  popover: {
+    pointerEvents: 'none',
+  },
+  paper: {
+    padding: theme.spacing(1),
   },
 });
 
 export default compose(
+  withTranslation(['dashboard']),
   withStyles(styles),
-  withTranslation('dashboard'),
-  withState('mainChart', 'changeMainChart', 'turnover'),
-  connect(
-    (state) => ({
-      miniStats: {
-        bookings: bookingStatSelector(state),
-        newMembers: newMembersStatSelector(state),
-        turnover: turnoverStatSelector(state),
+  withState('dateRange', 'setDateRange', {
+    start: moment().subtract(1, 'years'),
+    end: moment(),
+    kind: 'current_year',
+  }),
+  withStateHandlers(
+    { chartFilters: {} },
+    {
+      setChartFilters: ({ chartFilters }) => (identifier, filters) => {
+        return {
+          chartFilters: {
+            ...chartFilters,
+            [identifier]: filters,
+          },
+        };
       },
-      dateRange: dateRangeSelector(state),
+    },
+  ),
+  withState('open', 'setOpen', {}),
+  connect(
+    (state, { dateRange }) => ({
+      theme: themeSelectors.getTheme(state),
+      // booking_1: getStatisticTemporal(state, 'booking_1', dateRange),
+      booking_timeslot: getStatisticTemporalGrid(
+        state,
+        'booking_timeslot',
+        dateRange,
+      ),
+      member_1: getStatisticTemporal(state, 'member-1', dateRange),
+      payment_1: getStatisticTemporal(state, 'payment-1', dateRange),
+      plannedInvoice_1: getStatisticTemporal(state, 'planned-invoice-1', {
+        start: moment()
+          .subtract(1, 'years')
+          .startOf('month'),
+        end: moment().endOf('month'),
+      }),
     }),
     {
-      fetchDashboardStats,
-      changeDateRange: (start, end, kind = 'custom') =>
-        dateRangeChange({ start, end, kind }),
+      //   fetchBookingStatistics: fetchBookingStatisticsAction,
+      fetchBookingTimeslotStatistics: fetchBookingTimeslotStatisticsAction,
+      fetchMemberStatistics: fetchMemberStatisticsAction,
+      fetchPaymentStatistics: fetchPaymentStatisticsAction,
+      fetchPlannedInvoiceStatistics: fetchPlannedInvoiceStatisticsAction,
     },
   ),
-  lifecycle({
-    componentDidMount() {
-      this.props.fetchDashboardStats();
+  withHandlers({
+    onDateRangeChange: ({ setDateRange }) => (start, end, kind = 'custom') => {
+      setDateRange({ start, end, kind });
+    },
+    setOpenValue: ({ setOpen, open }) => (name: string) => {
+      setOpen({
+        ...open,
+        [name]: !open[name],
+      });
+    },
+    makeRefreshKey: ({ dateRange, chartFilters }) => (identifier) => () => {
+      return `${dateRange.start.format('YYYY-MM-DD')}:${dateRange.end.format(
+        'YYYY-MM-DD',
+      )}/${Object.keys(chartFilters[identifier]).join('-')}:${Object.values(
+        chartFilters[identifier],
+      ).join('-')}`;
+    },
+    // fetchStatBooking_1: ({
+    //   dateRange,
+    //   chartFilters,
+    //   fetchBookingStatistics,
+    // }) => () => {
+    //   fetchBookingStatistics('booking_1', {
+    //     ...(chartFilters.booking_1 || {}),
+    //     min_date: dateRange.start.format('YYYY-MM-DD'),
+    //     max_date: dateRange.end.format('YYYY-MM-DD'),
+    //     date_field: 'offer__date_start',
+    //     kind: 'count',
+    //   });
+    // },
+    fetchStatBookingTemporalGrid: ({
+      dateRange,
+      chartFilters,
+      fetchBookingTimeslotStatistics,
+    }) => () => {
+      fetchBookingTimeslotStatistics('booking_timeslot', {
+        ...(chartFilters.booking_timeslot || {}),
+        min_date: dateRange.start.format('YYYY-MM-DD'),
+        max_date: dateRange.end.format('YYYY-MM-DD'),
+        date_field: 'offer__date_start',
+      });
+    },
+    fetchStatMember_1: ({ dateRange, fetchMemberStatistics }) => () => {
+      fetchMemberStatistics('member-1', {
+        date_field: 'date_joined',
+        date_joined__gte: dateRange.start.format('YYYY-MM-DD'),
+        date_joined__lte: dateRange.end.format('YYYY-MM-DD'),
+        kind: 'count',
+        aggregate_period: 'day',
+      });
+    },
+    fetchStatPayment_1: ({ dateRange, fetchPaymentStatistics }) => () => {
+      fetchPaymentStatistics('payment-1', {
+        date_field: 'date',
+        date__gte: dateRange.start.format('YYYY-MM-DD'),
+        date__lte: dateRange.end.format('YYYY-MM-DD'),
+        kind: 'field_value',
+        field_value: 'price',
+        aggregate_period: 'day',
+        aggregate_function: 'sum',
+      });
+    },
+    fetchStatPlannedInvoice_1: ({
+      // dateRange,
+      fetchPlannedInvoiceStatistics,
+    }) => () => {
+      fetchPlannedInvoiceStatistics('planned-invoice-1', {
+        date_field: 'invoice__date',
+        date_month_inclusive__gte: moment()
+          .subtract(1, 'years')
+          .format('YYYY-MM-DD'),
+        date_month_inclusive__lte: moment().format('YYYY-MM-DD'),
+        kind: 'count',
+      });
     },
   }),
-  withProps(({ mainChart, miniStats, t }) => ({
-    mainChartOptions: chartConfigs(t)[mainChart],
-    mainChartData: miniStats[mainChart] || { table: [] },
-  })),
-  withProps(({ dateRange }) => ({
-    quickDateFilters: [
-      {
-        key: 'current_week',
-        start: moment().subtract(7, 'days'),
-        end: moment(),
-        selected: dateRange.kind === 'current_week',
-      },
-      {
-        key: 'current_month',
-        start: moment().subtract(1, 'month'),
-        end: moment(),
-        selected: dateRange.kind === 'current_month',
-      },
-      {
-        key: 'last_three_months',
-        start: moment().subtract(3, 'months'),
-        end: moment(),
-        selected: dateRange.kind === 'last_three_months',
-      },
-      {
-        key: 'current_year',
-        start: moment().subtract(1, 'year'),
-        end: moment(),
-        selected: dateRange.kind === 'current_year',
-      },
-    ],
-  })),
-  withState(
-    'tab',
-    'setTab',
-    ({ mainChart }) =>
-      ({
-        newMembers: 0,
-        turnover: 1,
-        bookings: 2,
-      }[mainChart]),
-  ),
-  // Add buttons to select main chart
-  withPropsOnChange(
-    ['t', 'changeMainChart', 'mainChart'],
-    ({ t, mainChart, changeMainChart }) => ({
-      mainChartButtons: [
-        {
-          title: t('newMembers'),
-          onClick: () => changeMainChart('newMembers'),
-          selected: mainChart === 'newMembers',
-        },
-        {
-          title: t('turnover'),
-          onClick: () => changeMainChart('turnover'),
-          selected: mainChart === 'turnover',
-        },
-        {
-          title: t('bookings'),
-          onClick: () => changeMainChart('bookings'),
-          selected: mainChart === 'bookings',
-        },
-      ],
-    }),
-  ),
   withTitle(({ t }: { t: TFunction }) => t('titles:dashboard.dashboard')),
 )(Dashboard);

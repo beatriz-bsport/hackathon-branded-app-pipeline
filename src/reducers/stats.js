@@ -5,11 +5,11 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import {
+  smartListStats,
   dateRangeChange,
   statIsLoading,
   statLoaded,
   statError,
-  smartListStats,
 } from '../actions/stats.actions';
 
 import authActionTypes from '../actions/auth.types';

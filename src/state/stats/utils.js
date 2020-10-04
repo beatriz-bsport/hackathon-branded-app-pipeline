@@ -5,7 +5,7 @@ export function discretizeByAndFillMissing(table, start, end) {
   const duration = moment.duration(moment(end).diff(moment(start)));
   let grouped = {};
 
-  if (duration.asDays() > 60) {
+  if (duration.asDays() > 100) {
     grouped = groupBy(table, (u) => moment(u.d).format('YYYY-MM'));
     for (
       let m = moment(start);
@@ -94,6 +94,19 @@ export function discretizeByAndFillMissing(table, start, end) {
       v: 0,
     });
   }
-
   return finalTable;
 }
+
+export const dateFormatter = (domain) => {
+  const duration = moment.duration(moment(domain[1]).diff(moment(domain[0])));
+  if (duration.asDays() > 100) {
+    return (d) => moment(d).format('MMM YYYY');
+  }
+  if (duration.asDays() > 15) {
+    return (d) => moment(d).format('DD MMM');
+  }
+  if (duration.asDays() > 1) {
+    return (d) => moment(d).format('ddd DD MMM');
+  }
+  return (d) => moment(d).format('LT');
+};

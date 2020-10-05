@@ -3083,7 +3083,13 @@
         },
         "filterByDateTitle": "Filter by date",
         "detailsGraphTitle": "Detailed data",
-        "current_day": "Last 24 hours"
+        "current_day": "Last 24 hours",
+        "popover": {
+            "bookingsWeektimeSlot": "Average number of sessions per time slot",
+            "billedSubscriptions": "Number of invoices linked to a non-cancelled subscription",
+            "turnover": "Sum of all payments received on invoices"
+        },
+        "billedSubscriptions": "Billed subscriptions"
     },
     "stripe": {
         "errors": {
@@ -3909,6 +3915,15 @@
                 "2": "Wednesday",
                 "1": "Tuesday",
                 "0": "Monday"
+            },
+            "isoWeekdayNumber": {
+                "7": "Sunday",
+                "6": "Saturday",
+                "5": "Friday",
+                "4": "Thursday",
+                "3": "Wednesday",
+                "2": "Tuesday",
+                "1": "Monday"
             }
         },
         "form": {
@@ -4441,7 +4456,8 @@
                 "object_type": {
                     "paymentPack": "Pass",
                     "privatePass": "Pass (appointments)",
-                    "label": "Subscription type"
+                    "label": "Subscription type",
+                    "paymentCombo": "Pack"
                 },
                 "error": {
                     "missingObject": "This field is required"
@@ -4733,7 +4749,9 @@
             "today_end_amount": "Amount at end of day",
             "today_start_amount": "Amount at beginning of day",
             "date_last_update": "Date",
-            "amount": "Day earnings"
+            "amount": "Day earnings",
+            "nb_offers_cancelled": "Number of sessions cancelled",
+            "nb_offers": "Number of sessions"
         },
         "yes": "Yes",
         "no": "No",
@@ -5328,7 +5346,13 @@
             "unselectAll": "Unselect all",
             "selectAll": "Select all",
             "select": "Select the sessions that will be modified",
-            "editSimilarOffers": "Do you want to modify ALL similar sessions under these new conditions ?"
+            "editSimilarOffers": "Do you want to modify ALL similar sessions under these new conditions ?",
+            "noSimilarOffer": "No similar sessions found. Only this session will be affected.",
+            "selectCancel": "Select the sessions that will be cancelled",
+            "cancelSimilarOffers": "Would you like to cancel similar sessions?",
+            "selectDelete": "Select the sessions that will be deleted",
+            "deleteSimilarOffers": "Would you like to delete similar sessions?",
+            "selectEdit": "Select the sessions that will be modified"
         },
         "menu": {
             "download": "Summary",
@@ -5595,7 +5619,10 @@
             "canceled": "Session cancelled",
             "absent": "Absent",
             "present": "Checked in",
-            "all": "All bookings"
+            "all": "All bookings",
+            "withoutRecurrentBookings": "Non-recurrent bookings",
+            "withRecurrentBookings": "Recurrent bookings",
+            "recurrentBooking": "Recurrent booking"
         },
         "creditConsumed": "{{ credit_consumed }} credit",
         "creditConsumed_plural": "{{credit_consumed}} credits",
@@ -5702,9 +5729,23 @@
                 "content": "Deleting the recurrence rule will result in the cancelation of future reservations that used this rule.",
                 "title": "Delete recurrence rule",
                 "cancel": "Cancel",
-                "confirm": "Delete"
+                "confirm": "Delete",
+                "success": "The recurrent booking has been deleted"
             },
-            "explain": "The member will always be registered {{ delayWeek }} weeks in advance of class on {{ dayOfWeek}} at {{hour}}:{{minute}}. They will only be registered if they possess a valid pass."
+            "explain": "The member will always be registered {{ delayWeek }} weeks in advance of class on {{ dayOfWeek}} at {{hour}}:{{minute}}. They will only be registered if they possess a valid pass.",
+            "editModal": {
+                "success": "The recurrent booking has been modified"
+            },
+            "createModal": {
+                "success": "The recurrent booking has been created.",
+                "info": "Cannot recreate a recurrent booking that already exists",
+                "create": "Create a recurrent booking"
+            },
+            "blockedBookings": "Your students can book up to {{days}} days before the start of the sessions for this activity, therefore we recommend that you schedule the recurrence over a longer period to avoid overcrowding.",
+            "notifyIfCanceled": "Send a reservation cancellation email",
+            "notify": "Send a confirmation email upon the member's registration",
+            "showLess": "Show less",
+            "showMore": "Show more ({{count}})"
         }
     },
     "marketplace": {

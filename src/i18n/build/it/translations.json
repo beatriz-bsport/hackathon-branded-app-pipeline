@@ -729,7 +729,7 @@
             "showMore": "+ {{total}} sessioni aggiuntive",
             "showMonth": "Vista mensile",
             "pleaseSelectOffer": "Seleziona una sessione per vedere i membri registrati",
-            "canDeleteWithBooking": "Prenotazioni (cancellate) o liste d'attesa sono state registrate, impossibile eliminarle."
+            "canDeleteWithBooking": "Prenotazioni (cancellate) o liste d'attesa sono state registrate, impossibile eliminare questa sessione."
         },
         "paginatedList": {
             "isEmpty": "Nessun dato da visualizzare"
@@ -2782,6 +2782,13 @@
                 "error": "Impossibile salvare la notifica",
                 "success": "Notifica salvata con successo"
             }
+        },
+        "background": {
+            "cannotFetch": "Si è verificato un errore. Controlla la connessione e prova ad aggiornare la pagina",
+            "timeout": "Il server ci ha messo troppo a rispondere. Prova ad aggiornare la pagina",
+            "error": "Si è verificato un errore, riprovare più tardi",
+            "success": "Completato",
+            "pending": "Trattamento in corso, attendere"
         }
     },
     "settings": {
@@ -3175,7 +3182,8 @@
                 "object_type": {
                     "paymentPack": "Tessera",
                     "privatePass": "Pass per appuntamenti",
-                    "label": "Tipo di abbonamento"
+                    "label": "Tipo di abbonamento",
+                    "paymentCombo": "Pacchetto"
                 },
                 "error": {
                     "missingObject": "Questo campo è obbligatorio"
@@ -3428,7 +3436,9 @@
             "today_end_amount": "Saldo fine giornata",
             "today_start_amount": "Saldo inizio giornata",
             "date_last_update": "Data",
-            "amount": "Guadagno della giornata"
+            "amount": "Guadagno della giornata",
+            "nb_offers_cancelled": "Numero delle sessioni annullate",
+            "nb_offers": "Numero delle sessioni"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -4201,7 +4211,10 @@
             "canceled": "Sessione annullata",
             "absent": "Assente",
             "present": "Presente",
-            "all": "Tutte le prenotazioni"
+            "all": "Tutte le prenotazioni",
+            "withoutRecurrentBookings": "Prenotazioni non ricorrenti",
+            "withRecurrentBookings": "Prenotazioni ricorrenti",
+            "recurrentBooking": "Prenotazione ricorrente"
         },
         "creditConsumed": "{{credit_consumed}} credito",
         "creditConsumed_plural": "{{credit_consumed}} crediti",
@@ -4318,9 +4331,23 @@
                 "title": "Elimina regola di ricorrenza",
                 "content": "Eliminare la regola di ricorrenza comporterà la cancellazione delle future prenotazioni effettuate tramite questa regola.",
                 "cancel": "Annulla",
-                "confirm": "Elimina"
+                "confirm": "Elimina",
+                "success": "La prenotazione ricorrente è stata eliminata"
             },
-            "explain": "Il membro sarà sempre registrato {{ delayWeek }} settimane in anticipo prima del {{ dayOfWeek}} a {{hour}}:{{minute}}. Sarà registrato solo se possiede una tessera del corso valida."
+            "explain": "Il membro sarà sempre registrato {{ delayWeek }} settimane in anticipo prima del {{ dayOfWeek}} a {{hour}}:{{minute}}. Sarà registrato solo se possiede una tessera del corso valida.",
+            "createModal": {
+                "create": "Crea una prenotazione ricorrente",
+                "info": "Impossibile ricreare una prenotazione ricorrente che esiste già",
+                "success": "La prenotazione ricorrente è stata creata."
+            },
+            "editModal": {
+                "success": "La prenotazione ricorrente è stata effettivamente modificata"
+            },
+            "blockedBookings": "I tuoi studenti possono prenotare fino a {{days}} giorni prima dell'inizio delle sessioni di questa attività, quindi si consiglia di programmare la ricorrenza per un periodo più lungo per evitare il sovraccarico.",
+            "notifyIfCanceled": "Invia una mail di cancellazione delle prenotazioni",
+            "notify": "Invia una mail di conferma al momento della registrazione del membro",
+            "showLess": "Mostra meno",
+            "showMore": "Mostra dettagli ({{count}})"
         }
     },
     "smartList": {
@@ -5150,6 +5177,15 @@
                 "2": "Mercoledì",
                 "1": "Martedì",
                 "0": "Lunedì"
+            },
+            "isoWeekdayNumber": {
+                "7": "Domenica",
+                "6": "Sabato",
+                "5": "Venerdì",
+                "4": "Giovedì",
+                "3": "Mercoledì",
+                "2": "Martedì",
+                "1": "Lunedì"
             }
         },
         "form": {
@@ -5743,7 +5779,15 @@
         "current_month": "Lo scorso mese",
         "last_three_months": "Ultimi tre mesi",
         "current_year": "L'anno scorso",
-        "current_day": "Ultime 24 ore"
+        "current_day": "Ultime 24 ore",
+        "popover": {
+            "bookingsWeektimeSlot": "Numero medio di sessioni per fascia oraria",
+            "billedSubscriptions": "Numero di fatture relative a un'iscrizione non annullata",
+            "turnover": "Somma di tutti i pagamenti ricevuti nelle fatture"
+        },
+        "bookingsWeektimeSlot": "Media effettiva",
+        "billedSubscriptions": "Abbonamenti fatturati",
+        "turnoverTitle": "Incasso"
     },
     "checkout": {
         "myBasket": {
@@ -5914,7 +5958,13 @@
             "unselectAll": "Deseleziona tutto",
             "selectAll": "Seleziona tutto",
             "select": "Seleziona le sessioni che verranno modificate",
-            "editSimilarOffers": "Vuoi modificare TUTTE le sessioni simili in base a queste nuove condizioni?"
+            "editSimilarOffers": "Vuoi modificare TUTTE le sessioni simili in base a queste nuove condizioni?",
+            "noSimilarOffer": "Nessuna sessione simile trovata. Solo questa sessione sarà modificata.",
+            "selectCancel": "Seleziona le sessioni che verranno cancellate",
+            "cancelSimilarOffers": "Vuole annullare le sedute?",
+            "selectDelete": "Seleziona le sessioni che verranno eliminate",
+            "deleteSimilarOffers": "Eliminare sessioni simili?",
+            "selectEdit": "Seleziona le sessioni da modificare"
         },
         "close": "Chiudi",
         "deleteImpossibleText": "Non puoi cancellare questa sessione perché ha delle prenotazioni in corso.",

@@ -550,7 +550,7 @@
             "smart_list": "Smartlists",
             "sequence": "Strategieën",
             "requestTempPassword": "Toegang verlenen",
-            "combo": "Packs",
+            "combo": "Pakketten",
             "marketing_automation": "Marketingautomatisering",
             "digital": "Digitaal aanbod",
             "podcast": "Podcasts",
@@ -884,7 +884,7 @@
             "previousOffer": "Vorige sessie",
             "backToCalendar": "Kalender",
             "noConsumerPackAvailableForPurchase": "Dit lid heeft geen compatibele cursuskaart!",
-            "noncompatibleConsumerPaymentPacksAre": "Bezit de volgende cursuskaarten die niet compatibel met de sessie zijn :",
+            "noncompatibleConsumerPaymentPacksAre": "Bezit de volgende cursuskaarten die niet compatibel met de sessie zijn:",
             "noPackAvailableForOfferPurchase": "Geen cursuskaart compatibel met deze sessie!",
             "offersPendingDelete": "Te verwijderen sessies:",
             "offersPendingChange": "Te wijzigen sessies:",
@@ -1220,7 +1220,7 @@
             "sport": "Sport"
         },
         "blockBooking": "Blokkeer reservering van cursuskaarten van nieuwe klanten",
-        "languageToolTip": "Beschikbaar op de webshop",
+        "languageToolTip": "Beschikbaar op de webwinkel",
         "visibilityOfIconToolTip": "Niet zichtbaar",
         "onlyNewMember": "Reservering alleen mogelijk voor cursuskaarten van nieuwe klanten",
         "replaceCoach": "Wijzig de instructeur",
@@ -1384,7 +1384,7 @@
             "copied": "Link gekopieerd"
         },
         "pageTitle": {
-            "list": "Packs"
+            "list": "Pakketten"
         },
         "edit": "Wijzigen"
     },
@@ -1747,7 +1747,7 @@
         },
         "companyOnboarding": {
             "creation": {
-                "content": "Controleer uw persoonsgegevens en juridische informatie om creditcard- en SEPA-betalingen te kunnen innen",
+                "content": "Om creditcardbetalingen en automatische incasso's (SEPA) te ontvangen, dien je je wettelijke gegevens te controleren",
                 "title": "Online betalen uitgeschakeld"
             },
             "payout": {
@@ -2656,7 +2656,7 @@
                     "seeMore": "Meer zien",
                     "createPass": "Nieuwe cursuskaart aanmaken",
                     "goToActivity": "Ga naar activiteit",
-                    "noCompatiblePass": "Geen enkele cursuskaart die compatibel is met deze activiteit. Vergeet niet er een te maken"
+                    "noCompatiblePass": "Geen enkele cursuskaart die compatibel is met deze activiteit. Vergeet niet om er een te maken"
                 },
                 "steps": {
                     "activity_form": "Nieuwe activiteit aanmaken",
@@ -2779,7 +2779,13 @@
             "editSimilarOffers": "Wil je alle vergelijkbare sessies aanpassen aan deze nieuwe voorwaarden?",
             "unselectAll": "Deselecteer alles",
             "selectAll": "Alles selecteren",
-            "select": "Selecteer de te wijzigen sessies"
+            "select": "Selecteer de te wijzigen sessies",
+            "noSimilarOffer": "Geen soortgelijke sessies gevonden. Alleen deze sessie zal worden gewijzigd.",
+            "selectCancel": "Selecteer de te annuleren sessies",
+            "cancelSimilarOffers": "Wil je soortgelijke sessies annuleren?",
+            "selectDelete": "Selecteer de te verwijderen sessies",
+            "deleteSimilarOffers": "Wil je soortgelijke sessies verwijderen?",
+            "selectEdit": "Selecteer de te wijzigen sessies"
         },
         "close": "Sluiten",
         "deleteImpossibleText": "Je kunt deze sessie niet verwijderen, omdat er open reserveringen in staan.",
@@ -3031,7 +3037,10 @@
             "canceled": "Sessie geannuleerd",
             "absent": "Afwezig",
             "present": "Aanwezig",
-            "all": "Alle reserveringen"
+            "all": "Alle reserveringen",
+            "withoutRecurrentBookings": "Niet-herhaal-reserveringen",
+            "withRecurrentBookings": "Herhaal-reserveringen",
+            "recurrentBooking": "Herhaal-reservering"
         },
         "creditConsumed": "{{credit_consumed}} krediet",
         "creditConsumed_plural": "{{credit_consumed}} kredieten",
@@ -3138,7 +3147,8 @@
                 "cancel": "Annuleren",
                 "confirm": "Verwijderen",
                 "content": "Het verwijderen van de herhalingsregel resulteert in de annulering van alle toekomstige reserveringen die deze regel volgen.",
-                "title": "Verwijder herhalingsregel"
+                "title": "Verwijder herhalingsregel",
+                "success": "De herhaal-reservering is verwijderd"
             },
             "item": {
                 "explain": "Alle voorgaande weken {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}}"
@@ -3150,7 +3160,20 @@
                 "save": "Opslaan",
                 "close": "Sluit"
             },
-            "recurrentRuleBooking": "Herhalende reservering"
+            "recurrentRuleBooking": "Herhalende reservering",
+            "createModal": {
+                "create": "Een herhaal-reservering aanmaken",
+                "info": "Niet mogelijk een herhaal-reservering aan te maken die al bestaat",
+                "success": "De herhaal-reservering is aangemaakt."
+            },
+            "editModal": {
+                "success": "De herhaal-reservering is gewijzigd"
+            },
+            "blockedBookings": "Je leden kunnen zich tot {{days}} dagen voor het begin van deze activiteit inschrijven. We raden je aan om herhalingen voor lange(re) tijden toe te staan om overboekingen te voorkomen.",
+            "notifyIfCanceled": "Stuur een annuleringsmail",
+            "notify": "Stuur een bevestigingsmail wanneer een lid zich registreert",
+            "showLess": "Toon minder",
+            "showMore": "Toon meer ({{count}})"
         }
     },
     "marketplace": {
@@ -3390,7 +3413,8 @@
                 "object_type": {
                     "paymentPack": "Cursuskaart",
                     "privatePass": "Afspraakkaart",
-                    "label": "Type abonnement"
+                    "label": "Type abonnement",
+                    "paymentCombo": "Pakket"
                 },
                 "error": {
                     "missingObject": "Dit veld is verplicht"
@@ -3444,7 +3468,7 @@
             "credit": {
                 "explain": "Het lid wordt maandelijks gefactureerd op zijn interne rekening. Gebruik deze betaalmethode als u (nog) geen toegang heeft tot een betaalmethode zoals een creditcard of IBAN-overschrijving. U kunt de betaling achteraf bijwerken."
             },
-            "sepa": "SEPA-incasso",
+            "sepa": "Automatische incasso (SEPA)",
             "card": "Creditcard",
             "bsportCredit": "Aanbetaling van de klant"
         },
@@ -3553,7 +3577,7 @@
             "parameters": "Instellingen",
             "payment_method": {
                 "0": "Creditcard",
-                "1": "SEPA-overschrijving",
+                "1": "Automatische incasso (SEPA)",
                 "2": "Op krediet",
                 "label": "Betaalmethode"
             },
@@ -4540,6 +4564,15 @@
                 "2": "Woensdag",
                 "1": "Dinsdag",
                 "0": "Maandag"
+            },
+            "isoWeekdayNumber": {
+                "7": "Zondag",
+                "6": "Zaterdag",
+                "5": "Vrijdag",
+                "4": "Donderdag",
+                "3": "Woensdag",
+                "2": "Dinsdag",
+                "1": "Maandag"
             }
         },
         "shortDayIdentifier": "d"
@@ -5429,7 +5462,15 @@
         "filterByDateTitle": "Filter op datum",
         "detailsGraphTitle": "Gedetailleerd",
         "current_week": "Vorige week",
-        "current_day": "Afgelopen 24 uur"
+        "current_day": "Afgelopen 24 uur",
+        "popover": {
+            "bookingsWeektimeSlot": "Gemiddeld aantal sessies per tijdsperiode",
+            "billedSubscriptions": "Het aantal facturen met betrekking tot een niet-uitgeschreven abonnement",
+            "turnover": "Som van alle ontvangen betalingen zoals vermeld op de facturen"
+        },
+        "bookingsWeektimeSlot": "Aantal medewerkers",
+        "billedSubscriptions": "Gefactureerde abonnementen",
+        "turnoverTitle": "Verzameling"
     },
     "common": {
         "colorPicker": {

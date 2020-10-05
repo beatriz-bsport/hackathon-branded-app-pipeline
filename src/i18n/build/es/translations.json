@@ -705,7 +705,7 @@
             "showMonth": "Visualización mes",
             "showWeek": "Visualización semana",
             "pleaseSelectOffer": "Selecciona una sesión para ver los miembros registrados",
-            "canDeleteWithBooking": "Reservas (canceladas) o en lista de espera han sido registradas, no se pueden borrar."
+            "canDeleteWithBooking": "Se han registrado reservas (canceladas) o listas de espera, esta sesión no puede ser eliminada."
         },
         "activity": {
             "forms": {
@@ -1037,7 +1037,15 @@
         },
         "filterByDateTitle": "Filtrar por fechas",
         "detailsGraphTitle": "En detalle",
-        "current_day": "Últimas 24 horas"
+        "current_day": "Últimas 24 horas",
+        "bookingsWeektimeSlot": "Promedio de empleados",
+        "popover": {
+            "bookingsWeektimeSlot": "Número medio de sesiones por franja horaria",
+            "billedSubscriptions": "Número de facturas vinculadas a una suscripción no cancelada",
+            "turnover": "Suma de todos los pagos recibidos en facturas"
+        },
+        "billedSubscriptions": "Suscripciones facturadas",
+        "turnoverTitle": "Colección"
     },
     "stripe": {
         "errors": {
@@ -1498,6 +1506,15 @@
                 "2": "Miércoles",
                 "1": "Martes",
                 "0": "Lunes"
+            },
+            "isoWeekdayNumber": {
+                "7": "Domingo",
+                "6": "Sábado",
+                "5": "Viernes",
+                "4": "Jueves",
+                "3": "Miércoles",
+                "2": "Martes",
+                "1": "Lunes"
             }
         },
         "form": {
@@ -1974,7 +1991,8 @@
                 "object_type": {
                     "paymentPack": "Tarjeta de curso",
                     "privatePass": "Tarjeta de cita",
-                    "label": "Tipo de suscripción"
+                    "label": "Tipo de suscripción",
+                    "paymentCombo": "Pack"
                 },
                 "error": {
                     "missingObject": "Este campo es obligatorio"
@@ -2246,7 +2264,9 @@
             "today_end_amount": "Cantidad al final del día",
             "today_start_amount": "Cantidad al comienzo del día",
             "date_last_update": "Fecha",
-            "amount": "Ganancias del día"
+            "amount": "Ganancias del día",
+            "nb_offers_cancelled": "Número de sesiones canceladas",
+            "nb_offers": "Número de sesiones"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -2442,7 +2462,13 @@
             "unselectAll": "Deseleccionar todo",
             "selectAll": "Seleccionar todo",
             "select": "Selecciona las sesiones que se modificarán",
-            "editSimilarOffers": "¿Deseas modificar las sesiones similares de acuerdo con estas nuevas condiciones?"
+            "editSimilarOffers": "¿Deseas modificar las sesiones similares de acuerdo con estas nuevas condiciones?",
+            "noSimilarOffer": "No se han encontrado sesiones similares. Sólo esta sesión se verá afectada.",
+            "selectCancel": "Seleccione las sesiones que serán canceladas",
+            "cancelSimilarOffers": "Le gustaría cancelar sesiones similares?",
+            "selectDelete": "Seleccione las sesiones que serán eliminadas",
+            "deleteSimilarOffers": "Desea eliminar sesiones similares?",
+            "selectEdit": "Seleccione las sesiones que serán modificadas"
         },
         "menu": {
             "download": "Resumen",
@@ -2667,7 +2693,10 @@
             "canceled": "Sesión cancelada",
             "absent": "Ausente",
             "present": "Presente",
-            "all": "Todas las reservas"
+            "all": "Todas las reservas",
+            "withoutRecurrentBookings": "Reservas no recurrentes",
+            "withRecurrentBookings": "Reservas recurrentes",
+            "recurrentBooking": "Reserva recurrente"
         },
         "actions": {
             "bill": "Facturar",
@@ -2785,8 +2814,22 @@
                 "title": "Eliminar la regla de recurrencia",
                 "content": "La supresión de la regla de recurrencia dará lugar a la cancelación de futuras reservas que hayan utilizado esta regla.",
                 "cancel": "Cancelar",
-                "confirm": "Eliminar"
-            }
+                "confirm": "Eliminar",
+                "success": "La reserva recurrente ha sido eliminada"
+            },
+            "createModal": {
+                "create": "Crear una reserva recurrente",
+                "info": "No se puede recrear una reserva recurrente que ya existe",
+                "success": "La reserva recurrente ha sido creada."
+            },
+            "editModal": {
+                "success": "La reserva recurrente ha sido modificada"
+            },
+            "blockedBookings": "Sus estudiantes pueden reservar hasta {{days}} días antes del comienzo de las sesiones para esta actividad, por lo que recomendamos que programe la repetición en un período más largo para evitar el hacinamiento.",
+            "notifyIfCanceled": "Enviar un correo electrónico de cancelación de reserva",
+            "notify": "Envíe un correo electrónico de confirmación al registrarse como miembro",
+            "showLess": "Mostrar menos",
+            "showMore": "Mostrar más ({{count}})"
         }
     },
     "marketplace": {
@@ -4693,6 +4736,13 @@
                 "error": "No se pudo guardar la notificación",
                 "success": "Notificación guardada correctamente"
             }
+        },
+        "background": {
+            "cannotFetch": "Se ha producido un error. Compruebe su conexión e intente actualizar la página",
+            "timeout": "El servidor tardó mucho en responder. Intenta refrescar la página",
+            "error": "Ha ocurrido un error, inténtelo de nuevo más tarde",
+            "success": "Completado",
+            "pending": "Procesando, por favor espere"
         }
     },
     "paymentPack": {

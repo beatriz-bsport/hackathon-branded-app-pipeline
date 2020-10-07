@@ -878,7 +878,8 @@
       "booking": "Réservation",
       "waiting-list": "Liste d'attente",
       "subscription": "Abonnement",
-      "private_booking": "Rendez-vous"
+      "private_booking": "Rendez-vous",
+      "invoice": "Facturation"
     },
     "emailDesign": { "placeholder": "Généré par bsport", "closePreview": "Fermer" },
     "tag": {
@@ -975,7 +976,7 @@
       "7": "Réservation via carte de cours",
       "8": "Réservation + achat carte de cours simultané",
       "9": "Sortie de la liste d'attente : réservation possible",
-      "10": "Liste d'attente pleine de nouveau",
+      "10": "La place en liste d'attente, convertible, a expiré pour ce tour",
       "12": "Inscription à la liste d'attente",
       "13": "Désinscription de la liste d'attente (élève)",
       "14": "Désinscription de la liste d'attente (manager)",
@@ -984,12 +985,14 @@
       "18": "Réservation annulée : crédit remboursé",
       "19": "Inscription membre (manager)",
       "21": "Nouvelle réservation",
+      "22": "Confirmation facture",
       "24": "Abonnement créé",
       "25": "Changement de méthode de paiement",
       "26": "Abonnement mis en pause",
       "27": "Abonnement stoppé ou terminé",
       "28": "Paiement reçu",
       "29": "Rappel cours en ligne dans 15 min",
+      "300": "Kick (non-validé dans les temps trop de fois)",
       "400": "Rendez-vous annulé - hors-délai (professeur)",
       "401": "Rendez-vous annulé - remboursé (professeur)",
       "402": "Nouveau rendez-vous (professeur)",

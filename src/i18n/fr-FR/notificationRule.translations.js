@@ -8,6 +8,8 @@ const {
   NOTIFICATION_BOOKING_PLUS_PASS_STRIPE_CHECKOUT,
   NOTIFICATION_BOOKING_OPTION_CONVERTIBLE,
   NOTIFICATION_BOOKING_OPTION_NOT_CONVERTIBLE_ANYMORE,
+  NOTIFICATION_INVOICE_CREATE,
+  NOTIFICATION_BOOKING_OPTION_KICKED,
   NOTIFICATION_BOOKING_OPTION_CREATED,
   NOTIFICATION_BOOKING_OPTION_CANCELLED_BY_CONSUMER,
   NOTIFICATION_BOOKING_OPTION_CANCELLED_BY_MANAGER,
@@ -46,6 +48,7 @@ exports.default = {
     'waiting-list': "Liste d'attente",
     subscription: 'Abonnement',
     private_booking: 'Rendez-vous',
+    invoice: 'Facturation',
   },
   emailDesign: {
     placeholder: 'Généré par bsport',
@@ -150,7 +153,10 @@ exports.default = {
     [NOTIFICATION_BOOKING_OPTION_CONVERTIBLE]:
       "Sortie de la liste d'attente : réservation possible",
     [NOTIFICATION_BOOKING_OPTION_NOT_CONVERTIBLE_ANYMORE]:
-      "Liste d'attente pleine de nouveau",
+      "La place en liste d'attente, convertible, a expiré pour ce tour",
+    [NOTIFICATION_INVOICE_CREATE]: 'Confirmation facture',
+    [NOTIFICATION_BOOKING_OPTION_KICKED]:
+      'Kick (non-validé dans les temps trop de fois)',
     [NOTIFICATION_BOOKING_OPTION_CREATED]: "Inscription à la liste d'attente",
     [NOTIFICATION_BOOKING_OPTION_CANCELLED_BY_CONSUMER]:
       "Désinscription de la liste d'attente (élève)",

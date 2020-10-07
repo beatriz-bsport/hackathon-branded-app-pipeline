@@ -331,12 +331,14 @@ export class Planning extends PureComponent<Props, State> {
     try {
       const response = await editLiveOfferAPI({ offerId, data });
       if (response.status === 200) {
-        this.props.fetchRelevantOffers();
-        this.setState({
-          editOfferProcessing: false,
-          editModalOpened: false,
+        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+        this.setState({ editOfferProcessing: false, editModalOpened: false });
+        this.props.monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            this.props.fetchRelevantOffers();
+            this.loadDayData();
+          },
         });
-        this.loadDayData();
         return;
       }
     } catch (err) {
@@ -504,10 +506,14 @@ export class Planning extends PureComponent<Props, State> {
     try {
       const response = await createOffersAPI(metaActivityId, data);
       if (response.status === 200) {
-        this.setState({ creatingOffers: false });
-        this.props.fetchRelevantOffers();
-        this.loadDayData(this.props.date);
-        this.setState({ createOfferModalOpened: false });
+        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+        this.setState({ creatingOffers: false, createOfferModalOpened: false });
+        this.props.monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            this.props.fetchRelevantOffers();
+            this.loadDayData(this.props.date);
+          },
+        });
         return;
       }
       this.setState({ creatingOffers: false });

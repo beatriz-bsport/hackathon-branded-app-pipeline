@@ -53,7 +53,7 @@ export function monitorBackgroundTask(uuid: string, options: OptionCallback) {
   };
 }
 
-const checkFetchSetTimeoutRecursive = (
+const checkFetchSetTimeoutRecursive = async (
   dispatch,
   getState,
   timeout_index,
@@ -70,6 +70,7 @@ const checkFetchSetTimeoutRecursive = (
     dispatch(backgroundSnackbarError(uuid, 'background.cannotFetch'));
     return;
   }
+  await fetchBackgroundTask(uuid)(dispatch);
   if (
     uuid in getState().backgroundTask.byUuid &&
     getState().backgroundTask.byUuid[uuid].status !==
@@ -90,7 +91,6 @@ const checkFetchSetTimeoutRecursive = (
       if (options && options.onError) options.onError();
     }
   } else {
-    fetchBackgroundTask(uuid)(dispatch);
     setTimeout(
       () =>
         checkFetchSetTimeoutRecursive(

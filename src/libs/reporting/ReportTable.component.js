@@ -86,7 +86,7 @@ function getConverter(column, classes, t) {
     }
     if (datatype === 'date') {
       return {
-        value: moment(value, 'YYYY-MM-DD').format('DD/MM/YYYY'),
+        value: value ? moment(value, 'YYYY-MM-DD').format('DD/MM/YYYY') : '',
       };
     }
     if (datatype === 'dow') {
@@ -172,17 +172,13 @@ const TableSubHeader = ({
                     <TableCell
                       key={columnsConfigs[idx].identifier}
                       {...(cellProps || {})}
-                      classes={{ paddingDense: classes.paddingDense }}
                     >
                       {value}
                     </TableCell>
                   );
                 })()
               ) : (
-                <TableCell
-                  key={columnsConfigs[idx].identifier}
-                  classes={{ paddingDense: classes.paddingDense }}
-                />
+                <TableCell key={columnsConfigs[idx].identifier} />
               ),
             )}
           </TableRow>
@@ -202,17 +198,13 @@ const TableSubHeader = ({
                     <TableCell
                       key={columnsConfigs[idx].identifier}
                       {...(cellProps || {})}
-                      classes={{ paddingDense: classes.paddingDense }}
                     >
                       {value}
                     </TableCell>
                   );
                 })()
               ) : (
-                <TableCell
-                  key={columnsConfigs[idx].identifier}
-                  classes={{ paddingDense: classes.paddingDense }}
-                />
+                <TableCell key={columnsConfigs[idx].identifier} />
               ),
             )}
           </TableRow>
@@ -261,7 +253,6 @@ export function ReportTable(props: Props) {
                       <TableCell
                         key={columnsConfigs[i].identifier}
                         {...(cellProps || {})}
-                        classes={{ paddingDense: classes.paddingDense }}
                       >
                         {value}
                       </TableCell>
@@ -296,6 +287,5 @@ const styles = () => ({
     backgroundColor: '#EFEFEF',
     position: 'relative',
   },
-  paddingDense: {},
 });
 export default withStyles(styles)(withTranslation(['reporting'])(ReportTable));

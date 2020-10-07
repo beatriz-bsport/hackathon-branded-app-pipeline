@@ -48,6 +48,8 @@ exports.default = {
     private_service_name: 'Rendez-vous',
     nb_bookings: 'Nombre de réservation',
     nb_offers: 'Nombre de séances',
+    birthday: 'Date de naissance',
+    full_address: 'Adresse complète',
     nb_offers_cancelled: 'Nombre de séances annulées',
     private_slot_name: 'Séance',
     amount: 'Gain de la journée',

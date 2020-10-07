@@ -64,6 +64,13 @@ exports.default = {
       },
       offersFilling:
         'Afficher le remplissage des cours sur le calendrier client',
+      basket_expiration_days: {
+        label: "Expiration du panier d'achat",
+        helperText:
+          "Nombre de jours avant lequel le panier d'un client est automatiquement vidé",
+        placeholder: 'Jours avant expiration',
+        alert: "Remplissez les jours d'expiration du panier!",
+      },
     },
     cover: {
       label: 'Logo',

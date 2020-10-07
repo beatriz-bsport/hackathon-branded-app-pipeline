@@ -20,6 +20,7 @@ import {
   BOOKING_LASTNAME_ORDER,
 } from '@bsport/common/lib/master-data/settings';
 
+import NumericInput from '../../../components/input/NumericInput.component';
 import type { Theme } from '../types';
 
 type Props = {
@@ -70,7 +71,9 @@ export class ThemePersonalize extends Component<Props, State> {
       this.state.theme.show_cancelled_offers_customer ===
         this.props.theme.show_cancelled_offers_customer &&
       this.state.theme.show_workshops_customer ===
-        this.props.theme.show_workshops_customer
+        this.props.theme.show_workshops_customer &&
+      this.state.theme.basket_expiration_days ===
+        this.props.theme.basket_expiration_days
     );
   };
 
@@ -86,8 +89,18 @@ export class ThemePersonalize extends Component<Props, State> {
       'default_attendance',
       'show_cancelled_offers_customer',
       'show_workshops_customer',
+      'basket_expiration_days',
     ].map((key) => data.append(key, this.state.theme[key]));
-    this.props.onSubmit(this.props.theme.company, data);
+    if (
+      !!this.state.theme.basket_expiration_days ||
+      this.state.theme.basket_expiration_days === 0
+    ) {
+      this.props.onSubmit(this.props.theme.company, data);
+    } else {
+      alert(
+        this.props.t('forms.themePersonalization.basket_expiration_days.alert'),
+      );
+    }
   };
 
   render() {
@@ -156,6 +169,40 @@ export class ThemePersonalize extends Component<Props, State> {
           <Typography>
             {t('forms.themePersonalization.acceptDoubleBooking')}
           </Typography>
+        </div>
+        <div className={classes.formControlContain}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.theme.basket_expiration_days !== 0}
+                onChange={() =>
+                  this.handleChange('basket_expiration_days')(
+                    this.state.theme.basket_expiration_days === 0 ? '' : 0,
+                  )
+                }
+              />
+            }
+            label={t('forms.themePersonalization.basket_expiration_days.label')}
+          />
+          <NumericInput
+            helperText={t(
+              'forms.themePersonalization.basket_expiration_days.helperText',
+            )}
+            label={t(
+              'forms.themePersonalization.basket_expiration_days.placeholder',
+            )}
+            fullWidth={false}
+            disabled={this.state.theme.basket_expiration_days === 0}
+            value={this.state.theme.basket_expiration_days}
+            InputProps={{
+              inputProps: { min: 1, step: 1, max: 100 },
+            }}
+            onChange={(ev) =>
+              this.handleChange('basket_expiration_days')(
+                parseInt(ev.target.value, 10),
+              )
+            }
+          />
         </div>
         <Typography className={classes.namesHeader}>
           {t('forms.themePersonalization.calendarPersonalizationTitle')}
@@ -319,6 +366,12 @@ const styles = (theme) => ({
   },
   progress: {
     marginLeft: theme.spacing(1),
+  },
+  formControlContain: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginLeft: theme.spacing(1.5),
+    marginBottom: theme.spacing(2),
   },
 });
 

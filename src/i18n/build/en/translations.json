@@ -3089,7 +3089,8 @@
             "billedSubscriptions": "Number of invoices linked to a non-cancelled subscription",
             "turnover": "Sum of all payments received on invoices"
         },
-        "billedSubscriptions": "Billed subscriptions"
+        "billedSubscriptions": "Billed subscriptions",
+        "turnoverTitle": "Revenue"
     },
     "stripe": {
         "errors": {

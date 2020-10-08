@@ -53,6 +53,7 @@ import invoiceReducers from '../libs/invoice/reducers';
 import paymentBackend from '../libs/payment/reducers';
 import platformBilling from '../libs/platform-billing/reducers';
 import backgroundTaskReducers from '../libs/background-task/reducers';
+import marketingNotification from '../libs/marketing/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -112,6 +113,7 @@ const rootReducer = (history) =>
     platformBilling,
     cashbook: cashBookReducers,
     backgroundTask: backgroundTaskReducers,
+    marketingNotification,
   });
 
 export default (history) => (state: State, action: Action) => {

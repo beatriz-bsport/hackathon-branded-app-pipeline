@@ -49,10 +49,14 @@ exports.default = {
     subscription: 'Abonnement',
     private_booking: 'Rendez-vous',
     invoice: 'Facturation',
+    marketing: 'Marketing',
   },
   emailDesign: {
     placeholder: 'Généré par bsport',
     closePreview: 'Fermer',
+  },
+  marketingNotification: {
+    birthday: "Courriel d'anniversaire",
   },
   tag: {
     Offer: {

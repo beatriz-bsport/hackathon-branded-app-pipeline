@@ -24,7 +24,9 @@ import type { ReminderState } from '../libs/reminder/types';
 import type { MembershipState } from '../libs/membership/types';
 import type { CompanyState } from '../libs/company/types';
 import type { NotificationRuleState } from '../libs/notification-rule/types';
+import type { MarketingNotificationState } from '../libs/marketing/types';
 import type { PartnershipState } from '../libs/partnership/types';
+
 import type { BackgroundTaskState } from '../libs/background-task/types';
 
 export type State = {
@@ -54,6 +56,7 @@ export type State = {
   notificationRule: NotificationRuleState,
   partnership: PartnershipState,
   backgroundTask: BackgroundTaskState,
+  marketingNotification: MarketingNotificationState,
 };
 export type Action = SearchAction | AuthAction;
 

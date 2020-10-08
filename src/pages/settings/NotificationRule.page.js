@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -23,6 +24,15 @@ import { getEventByGroup } from '../../libs/notification-rule/selectors';
 import NotificationRuleListItem from '../../libs/notification-rule/components/NotificationRuleListItem.component';
 
 import {
+  fetchMarketingNotificationList,
+  createOrUpdateMarketingNotification,
+  deleteMarketingNotification,
+} from '../../libs/marketing/actions';
+import { getCelebrationBirthday } from '../../libs/marketing/selectors';
+import BirthdayNotification from '../../libs/marketing/components/BirthdayNotification.component';
+import type { MarketingNotification } from '../../libs/marketing/types';
+
+import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
@@ -32,6 +42,11 @@ import {
   emailTemplatesSummaries as fetchEmailDesignList,
 } from '../../libs/email-editor/actions';
 import withTitle from '../../hocs/with-title.hoc';
+
+const BRIRTHDAY_NOTIFICATION = {
+  kind: 0,
+  is_event_based: false,
+};
 
 type Props = {
   t: TFunction,
@@ -57,6 +72,12 @@ type Props = {
   fetchSettingsList: () => void,
   handleSettingsDisable: (notification_event: number, ev: Object) => void,
   handleSettingsCopy: (notification_event: number, ev: Object) => void,
+
+  birthdayNotification: MarketingNotification,
+  fetchMarketingNotificationList: () => void,
+  createOrUpdateMarketingNotification: (data: any) => void,
+  deleteMarketingNotification: (id: number) => void,
+  company: number,
 };
 
 export class NotificationRule extends React.Component<Props> {
@@ -65,6 +86,7 @@ export class NotificationRule extends React.Component<Props> {
     this.props.fetchNotificationRuleList();
     this.props.fetchEmailDesignList();
     this.props.fetchSettingsList();
+    this.props.fetchMarketingNotificationList();
   }
 
   render() {
@@ -146,6 +168,42 @@ export class NotificationRule extends React.Component<Props> {
             </div>
           ),
         )}
+        {!this.props.loading && (
+          <div className={this.props.classes.group} key="marketing">
+            <Typography variant="h6" className={this.props.classes.title}>
+              {this.props.t('ruleGroup.marketing')}
+            </Typography>
+            <div className={this.props.classes.row}>
+              <div className={this.props.classes.rightContainer}>
+                <Typography
+                  variant="caption"
+                  className={this.props.classes.event}
+                >
+                  {this.props.t('caption.event')}
+                </Typography>
+                <Typography
+                  variant="caption"
+                  className={this.props.classes.email}
+                >
+                  {this.props.t('caption.emailDesign')}
+                </Typography>
+              </div>
+            </div>
+            <BirthdayNotification
+              event={this.props.birthdayNotification}
+              company={this.props.company}
+              kind={BRIRTHDAY_NOTIFICATION.kind}
+              is_event_based={BRIRTHDAY_NOTIFICATION.is_event_based}
+              emailDesignList={this.props.emailDesignList}
+              showEmailPreview={this.props.showEmailPreview}
+              onChangeEmailDesign={
+                this.props.createOrUpdateMarketingNotification
+              }
+              onDeleteNotification={this.props.deleteMarketingNotification}
+            />
+          </div>
+        )}
+
         {this.props.previewEmailHtml ||
         (this.props.previewEmail && this.props.previewEmail.html) ? (
           <Dialog open>
@@ -224,8 +282,11 @@ export default compose(
       loading:
         state.notificationRule.rule.loading ||
         state.emailTemplate.isLoading ||
-        state.notificationRule.settings.loading,
+        state.notificationRule.settings.loading ||
+        state.marketingNotification.loading,
       settingsData: state.notificationRule.settings.data,
+      birthdayNotification: getCelebrationBirthday(state),
+      company: state.theme.theme.company,
     }),
     {
       fetchEventTypeList,
@@ -236,6 +297,9 @@ export default compose(
       deleteNotificationRule,
       fetchSettingsList,
       updateSettings: updateSettingsAction,
+      fetchMarketingNotificationList,
+      createOrUpdateMarketingNotification,
+      deleteMarketingNotification,
     },
   ),
   withHandlers({

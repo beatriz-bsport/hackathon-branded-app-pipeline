@@ -879,9 +879,11 @@
       "waiting-list": "Liste d'attente",
       "subscription": "Abonnement",
       "private_booking": "Rendez-vous",
-      "invoice": "Facturation"
+      "invoice": "Facturation",
+      "marketing": "Marketing"
     },
     "emailDesign": { "placeholder": "Généré par bsport", "closePreview": "Fermer" },
+    "marketingNotification": { "birthday": "Courriel d'anniversaire" },
     "tag": {
       "Offer": {
         "name": "Séance",

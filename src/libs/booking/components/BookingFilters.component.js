@@ -17,6 +17,7 @@ import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_CANCELLED_BY_OFFER,
+  BOOKING_STATUS_OK,
 } from '@bsport/common/lib/master-data/booking_status_code';
 import FilterMenu from '../../../components/button/FilterMenu.component';
 
@@ -84,6 +85,25 @@ export default function BookingFilters(props: Props) {
           label: t('filters.cancel'),
           open: props.open.cancel,
           subMenu: [
+            {
+              onClick: () =>
+                props.setFiltersValue('booking_status_code__in', [
+                  ...(props.filters.booking_status_code__in || []),
+                  BOOKING_STATUS_OK.id,
+                ]),
+              onDelete: () =>
+                props.setFiltersValue(
+                  'booking_status_code__in',
+                  (props.filters.booking_status_code__in || []).filter(
+                    (v) => v !== BOOKING_STATUS_OK.id,
+                  ),
+                ),
+              label: t('filters.notCancelled'),
+              icon: ConsumerIcon,
+              show: (props.filters.booking_status_code__in || []).includes(
+                BOOKING_STATUS_OK.id,
+              ),
+            },
             {
               onClick: () =>
                 props.setFiltersValue('booking_status_code__in', [

@@ -71,6 +71,7 @@ exports.default = {
     canceled: 'Séance annulée',
     managerCanceled: 'Annulation  manager',
     consumerCanceled: 'Annulation client',
+    notCancelled: 'Non-annulé',
     cancel: 'Annulation',
     attendance: 'Présence',
     time: 'Réservations dans le temps',

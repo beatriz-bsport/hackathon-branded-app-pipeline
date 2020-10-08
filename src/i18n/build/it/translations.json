@@ -2283,7 +2283,13 @@
                 "offersFilling": "Visualizza il riempimento dei corsi sul calendario dei clienti",
                 "cancelledOffersCustomer": "Mostra le sessioni annullate sul calendario dei clienti",
                 "workshopsCustomer": "Mostra i workshop sul calendario dei clienti",
-                "calendarPersonalizationTitle": "Configurazione del calendario"
+                "calendarPersonalizationTitle": "Configurazione del calendario",
+                "basket_expiration_days": {
+                    "alert": "Compila i giorni di scadenza del carrello!",
+                    "placeholder": "Giorni prima della scadenza",
+                    "helperText": "Numero di giorni prima del quale il carrello di un cliente viene svuotato automaticamente",
+                    "label": "Scadenza del pacchetto d'acquisto"
+                }
             },
             "instagramURL": {
                 "label": "URL di Instagram",

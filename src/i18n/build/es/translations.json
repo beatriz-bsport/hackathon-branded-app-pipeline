@@ -2871,7 +2871,8 @@
             "booking": "Reserva",
             "member": "Creación de una cuenta de estudiante",
             "private_booking": "Cita",
-            "subscription": "Suscripción"
+            "subscription": "Suscripción",
+            "marketing": "Marketing"
         },
         "eventType": {
             "14": "Cancelación de la inscripción en la lista de espera (mánager)",
@@ -3001,6 +3002,9 @@
             "event": "Evento",
             "sendCopy": "Recibe copia",
             "active": "Activado"
+        },
+        "marketingNotification": {
+            "birthday": "Email de cumpleaños"
         }
     },
     "partnership": {

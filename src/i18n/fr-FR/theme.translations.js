@@ -11,6 +11,8 @@ exports.default = {
       acceptDoubleBooking: 'Accepter la double réservation',
       cancelledOffersCustomer:
         'Afficher les séances annulées sur le calendrier client',
+      cancelledOffersManager:
+        'Par défaut afficher les séances annulées sur le calendrier manager',
       workshopsCustomer: 'Afficher les ateliers sur le calendrier client',
       calendar: {
         title:

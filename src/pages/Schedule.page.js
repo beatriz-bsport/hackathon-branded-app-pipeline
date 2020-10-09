@@ -239,7 +239,12 @@ export default compose(
         state,
         null,
         periodFilter,
-      ),
+      ).filter((o) => {
+        if (!state.theme.theme.show_cancelled_offers_manager) {
+          return o.available;
+        }
+        return true;
+      }),
       availableCoaches: getActiveCoaches(state),
       customEventList: getCustomEventList(state, periodFilter),
       resourceData: getResourceDataList(state),

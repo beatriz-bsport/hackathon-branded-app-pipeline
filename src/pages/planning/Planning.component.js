@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose, withState, withHandlers } from 'recompose';
+import omit from 'lodash/omit';
 import withWidth, { isWidthUp, isWidthDown } from '@material-ui/core/withWidth';
 
 import DialogActions from '@material-ui/core/DialogActions';
@@ -723,6 +724,8 @@ export class Planning extends PureComponent<Props, State> {
                     filters={this.props.offerFilters}
                     showCancelledOffers={
                       this.props.offerFilters.available === undefined
+                        ? this.props.theme.show_cancelled_offers_manager
+                        : !this.props.offerFilters.available
                     }
                     setShowCancelledOffers={this.props.setShowCancelledOffers}
                   />
@@ -919,11 +922,7 @@ export default compose(
       showCancelled,
     ) => {
       let filters = { ...offerFilters };
-      if (!showCancelled) {
-        filters = { ...filters, available: true };
-      } else {
-        delete filters.available;
-      }
+      filters = { ...filters, available: !showCancelled };
       setFilters(filters);
     },
     fetchRelevantOffers: ({ fetchAllOffers, offerFilters, date }) => () => {
@@ -936,7 +935,7 @@ export default compose(
           .endOf('month')
           .endOf('week')
           .format('YYYY-MM-DD'),
-        ...(offerFilters || {}),
+        ...omit(offerFilters || {}, 'available'),
       });
     },
     fetchBookingInOfferStats: ({
@@ -971,7 +970,7 @@ export default compose(
         max_date: moment(date)
           .endOf('week')
           .format('YYYY-MM-DD'),
-        ...(offerFilters || {}),
+        ...omit(offerFilters || {}, 'available'),
         date_field: 'offer__date_start',
         kind: 'count',
       });
@@ -987,7 +986,7 @@ export default compose(
           BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
           BOOKING_STATUS_CANCELLED_BY_OFFER.id,
         ],
-        ...(offerFilters || {}),
+        ...omit(offerFilters || {}, 'available'),
         date_field: 'offer__date_start',
         kind: 'count',
       });

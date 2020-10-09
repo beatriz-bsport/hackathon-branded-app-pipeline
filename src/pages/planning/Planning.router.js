@@ -5,6 +5,7 @@ import { Route, Switch, Redirect } from 'react-router';
 import { compose, withProps, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push, replace } from 'connected-react-router';
+import omit from 'lodash/omit';
 import Planning from './Planning.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { Moment } from '../../i18n';
@@ -78,7 +79,7 @@ const PlanningWithDateAndOffer = compose(
       fetchOffersByDay,
       fetchMetaActivityBulk,
     }) => (params) => {
-      fetchOffersByDay(params, {
+      fetchOffersByDay(omit(params, 'available'), {
         onSuccess: (offers) => {
           fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
           fetchCoachBulk([

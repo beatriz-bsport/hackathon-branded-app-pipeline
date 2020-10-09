@@ -68,6 +68,8 @@ export class ThemePersonalize extends Component<Props, State> {
         this.props.theme.default_booking_ordering &&
       this.state.theme.default_attendance ===
         this.props.theme.default_attendance &&
+      this.state.theme.show_cancelled_offers_manager ===
+        this.props.theme.show_cancelled_offers_manager &&
       this.state.theme.show_cancelled_offers_customer ===
         this.props.theme.show_cancelled_offers_customer &&
       this.state.theme.show_workshops_customer ===
@@ -88,6 +90,7 @@ export class ThemePersonalize extends Component<Props, State> {
       'default_booking_ordering',
       'default_attendance',
       'show_cancelled_offers_customer',
+      'show_cancelled_offers_manager',
       'show_workshops_customer',
       'basket_expiration_days',
     ].map((key) => data.append(key, this.state.theme[key]));
@@ -233,6 +236,19 @@ export class ThemePersonalize extends Component<Props, State> {
           />
           <Typography>
             {t('forms.themePersonalization.cancelledOffersCustomer')}
+          </Typography>
+        </div>
+        <div className={classes.inputContainer}>
+          <Switch
+            checked={this.state.theme.show_cancelled_offers_manager}
+            onChange={() =>
+              this.handleChange('show_cancelled_offers_manager')(
+                !this.state.theme.show_cancelled_offers_manager,
+              )
+            }
+          />
+          <Typography>
+            {t('forms.themePersonalization.cancelledOffersManager')}
           </Typography>
         </div>
         <div className={classes.inputContainer}>

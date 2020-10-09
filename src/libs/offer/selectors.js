@@ -12,6 +12,7 @@ import {
   getMetaActivityAbstractDict,
 } from '../meta-activity/selectors';
 import { getAllEstablishmentsDict } from '../establishment/selectors';
+import themeSelectors from '../theme/selectors';
 
 const getState = (state: State) => state.offer;
 
@@ -170,8 +171,8 @@ export const getOffersByDay = createSelector(
 );
 
 export const getManagerOffersFiltered = createSelector(
-  [getOffersByDay, getManagerFilters, getManagerFiltersOpen],
-  (offers, filters) => {
+  [getOffersByDay, getManagerFilters, themeSelectors.getTheme],
+  (offers, filters, theme) => {
     let offersFiltered = offers;
     if ((filters.establishments || []).length) {
       offersFiltered = offersFiltered.filter(
@@ -198,6 +199,13 @@ export const getManagerOffersFiltered = createSelector(
       offersFiltered = offersFiltered.filter((o) =>
         filters.metaActivities.includes(o.meta_activity),
       );
+    }
+    if (filters.available === undefined) {
+      if (!theme.show_cancelled_offers_manager) {
+        offersFiltered = offersFiltered.filter((o) => o.available);
+      }
+    } else if (filters.available) {
+      offersFiltered = offersFiltered.filter((o) => o.available);
     }
     return offersFiltered;
   },

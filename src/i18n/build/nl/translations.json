@@ -244,7 +244,8 @@
             "waiting-list": "Wachtlijst",
             "booking": "Reservering",
             "offer": "Sessie",
-            "member": "Maak een studentenaccount aan"
+            "member": "Maak een studentenaccount aan",
+            "marketing": "Marketing"
         },
         "pageTitle": "Transactionele e-mails",
         "caption": {
@@ -252,6 +253,9 @@
             "event": "Evenement",
             "sendCopy": "Een kopie van deze e-mail ontvangen",
             "active": "Geactiveerd"
+        },
+        "marketingNotification": {
+            "birthday": "Verjaardagsmail"
         }
     },
     "membership": {
@@ -1590,7 +1594,7 @@
             "payment_price": "Prijs",
             "membership_duration": "Geldigheidsduur",
             "membership_name": "Abonnement",
-            "membership_ID": "ID",
+            "membership_ID": "Lid-ID",
             "amortized_price": "Resterende schulden",
             "end_date": "Einde geldigheid",
             "credits": "Totaal krediet",
@@ -1661,7 +1665,8 @@
             "date_last_update": "Datum",
             "amount": "Daginkomsten",
             "nb_offers": "Aantal sessies",
-            "nb_offers_cancelled": "Aantal geannuleerde sessies"
+            "nb_offers_cancelled": "Aantal geannuleerde sessies",
+            "pk": "ID"
         },
         "report": {
             "delete_message": "Weet je zeker dat je dit rapport ({{name}}) wilt verwijderen?"
@@ -3040,7 +3045,8 @@
             "all": "Alle reserveringen",
             "withoutRecurrentBookings": "Niet-herhaal-reserveringen",
             "withRecurrentBookings": "Herhaal-reserveringen",
-            "recurrentBooking": "Herhaal-reservering"
+            "recurrentBooking": "Herhaal-reservering",
+            "notCancelled": "Niet-geannuleerd"
         },
         "creditConsumed": "{{credit_consumed}} krediet",
         "creditConsumed_plural": "{{credit_consumed}} kredieten",
@@ -3317,7 +3323,7 @@
         "dashboard": {
             "marketingDashboard": "Marketing",
             "reportingDashboard": "Rapporten",
-            "dashboard": "dashboard"
+            "dashboard": "Dashboard"
         },
         "subscription": {
             "subscriptionCreate": "Maak een abonnement aan",
@@ -5468,9 +5474,9 @@
             "billedSubscriptions": "Het aantal facturen met betrekking tot een niet-uitgeschreven abonnement",
             "turnover": "Som van alle ontvangen betalingen zoals vermeld op de facturen"
         },
-        "bookingsWeektimeSlot": "Aantal medewerkers",
+        "bookingsWeektimeSlot": "Gemiddeld aantal reserveringen per tijdsperiode",
         "billedSubscriptions": "Gefactureerde abonnementen",
-        "turnoverTitle": "Verzameling"
+        "turnoverTitle": "Omzet"
     },
     "common": {
         "colorPicker": {
@@ -5625,7 +5631,14 @@
                 "consumerRegularizeDebt": "Klanten kunnen hun betalingen online regelen",
                 "workshopsCustomer": "Toon workshops op de kalender van de klant",
                 "cancelledOffersCustomer": "Toon geannuleerde sessies in de kalender van de klant",
-                "calendarPersonalizationTitle": "Configureer kalender"
+                "calendarPersonalizationTitle": "Configureer kalender",
+                "basket_expiration_days": {
+                    "alert": "Geef de vervaldagen van het mandje op!",
+                    "placeholder": "Aantal dagen voor vervaldatum",
+                    "helperText": "Aantal dagen voordat het winkelmandje van een klant automatisch wordt geleegd",
+                    "label": "Vervaldatum van het winkelmandje"
+                },
+                "cancelledOffersManager": "Geannuleerde sessies standaard op eigen kalender weergeven"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",

@@ -1839,7 +1839,14 @@
                 "consumerRegularizeDebt": "Der Kunde kann seine Einzahlung online regulieren",
                 "workshopsCustomer": "Einrichtungen im Kundenkalender anzeigen",
                 "cancelledOffersCustomer": "Stornierte Stunden im Kunden-Kalender anzeigen",
-                "calendarPersonalizationTitle": "Kalender Einstellungen"
+                "calendarPersonalizationTitle": "Kalender Einstellungen",
+                "basket_expiration_days": {
+                    "alert": "Trage die Ablauftage des Einkaufswagens ein!",
+                    "placeholder": "Tage vor Ablauf",
+                    "helperText": "Anzahl der Tage, vor denen der Warenkorb eines Kunden automatisch geleert wird",
+                    "label": "Ablauf des Einkaufswagens"
+                },
+                "cancelledOffersManager": "Standardmäßig werden stornierte Kurse im Manager-Kalender angezeigt"
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -2347,7 +2354,7 @@
             "tax": "Mehrwertsteuer",
             "address": "Adresse",
             "end_date": "Ende der Gültigkeitsdauer",
-            "membership_ID": "ID",
+            "membership_ID": "Mitgliedsnummer",
             "membership_name": "Abonnement",
             "membership_duration": "Gültigkeitsdauer",
             "payment_price": "Preis",
@@ -2465,7 +2472,8 @@
             "date_last_update": "Datum",
             "coaches": "Lehrer",
             "nb_offers_cancelled": "Anzahl der stornierten Kurse",
-            "nb_offers": "Anzahl der Kurse"
+            "nb_offers": "Anzahl der Kurse",
+            "pk": "ID"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -3430,7 +3438,8 @@
             "all": "Alle Buchungen",
             "withoutRecurrentBookings": "Einmalige Buchung",
             "withRecurrentBookings": "Wiederkehrende Buchung",
-            "recurrentBooking": "Wiederkehrende Buchungen"
+            "recurrentBooking": "Wiederkehrende Buchungen",
+            "notCancelled": "Nicht storniert"
         },
         "creditConsumed": "{{credit_consumed}} Credits",
         "creditConsumed_plural": "{{credit_consumed}} Credits",
@@ -4911,7 +4920,8 @@
             "private_booking": "Termin",
             "waiting-list": "Warteliste",
             "offer": "Kurs",
-            "booking": "Buchung"
+            "booking": "Buchung",
+            "marketing": "Marketing"
         },
         "pageTitle": "Transaktions-E-Mails",
         "caption": {
@@ -4919,6 +4929,9 @@
             "emailDesign": "Zu versendende E-Mail",
             "sendCopy": "Erhalte eine Kopie der E-Mail",
             "active": "Aktiviert"
+        },
+        "marketingNotification": {
+            "birthday": "Geburtstags-E-Mail"
         }
     },
     "membership": {

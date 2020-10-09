@@ -62,21 +62,21 @@ export default function BookingFilters(props: Props) {
           subMenu: [
             {
               onClick: () =>
-                props.setFiltersValue('recurrence_rule_booking', true),
+                props.setFiltersValue('recurrence_rule_booking__isnull', false),
               onDelete: () =>
-                props.setFiltersValue('recurrence_rule_booking', null),
+                props.setFiltersValue('recurrence_rule_booking__isnull', null),
               label: t('filters.withRecurrentBookings'),
               icon: RecurrentBookingIcon,
-              show: props.filters.recurrence_rule_booking,
+              show: props.filters.recurrence_rule_booking__isnull === false,
             },
             {
               onClick: () =>
-                props.setFiltersValue('recurrence_rule_booking', false),
+                props.setFiltersValue('recurrence_rule_booking__isnull', true),
               onDelete: () =>
-                props.setFiltersValue('recurrence_rule_booking', null),
+                props.setFiltersValue('recurrence_rule_booking__isnull', null),
               label: t('filters.withoutRecurrentBookings'),
               icon: NotRecurrentBookingIcon,
-              show: props.filters.recurrence_rule_booking === false,
+              show: props.filters.recurrence_rule_booking__isnull === true,
             },
           ],
         },

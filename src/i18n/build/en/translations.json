@@ -1857,7 +1857,8 @@
             "waitingList": "Waiting-list",
             "subscription": "Subscription",
             "waiting-list": "Waiting-list",
-            "private_booking": "Appointments"
+            "private_booking": "Appointments",
+            "marketing": "Marketing"
         },
         "emailDesign": {
             "placeholder": "Handled by bsport",
@@ -1993,6 +1994,9 @@
             "event": "Event",
             "sendCopy": "Receive a copy of this email",
             "active": "Enabled"
+        },
+        "marketingNotification": {
+            "birthday": "Birthday email"
         }
     },
     "consumerSpace": {
@@ -3090,7 +3094,8 @@
             "turnover": "Sum of all payments received on invoices"
         },
         "billedSubscriptions": "Billed subscriptions",
-        "turnoverTitle": "Revenue"
+        "turnoverTitle": "Revenue",
+        "bookingsWeektimeSlot": "Average number of bookings per time slot"
     },
     "stripe": {
         "errors": {
@@ -3254,7 +3259,14 @@
                 "acceptDoubleBooking": "Accept double bookings",
                 "workshopsCustomer": "Show workshops on the customer calendar",
                 "cancelledOffersCustomer": "Show canceled sessions on the client calendar",
-                "calendarPersonalizationTitle": "Calendar configuration"
+                "calendarPersonalizationTitle": "Calendar configuration",
+                "basket_expiration_days": {
+                    "alert": "Add the shopping cart expiration days",
+                    "placeholder": "Days before expiration",
+                    "helperText": "Number of days before a client's shopping cart is automatically emptied",
+                    "label": "Shopping cart expiration"
+                },
+                "cancelledOffersManager": "By default display cancelled sessions on the manager calendar"
             },
             "cover": {
                 "label": "Logo",
@@ -4670,7 +4682,7 @@
             "price": "Price",
             "membership_duration": "Duration",
             "membership_name": "Payment pack name",
-            "membership_ID": "ID",
+            "membership_ID": "Member ID",
             "amortized_price": "Deffered amount",
             "end_date": "End of validity",
             "credits": "Total credits",
@@ -4752,7 +4764,8 @@
             "date_last_update": "Date",
             "amount": "Day earnings",
             "nb_offers_cancelled": "Number of sessions cancelled",
-            "nb_offers": "Number of sessions"
+            "nb_offers": "Number of sessions",
+            "pk": "ID"
         },
         "yes": "Yes",
         "no": "No",
@@ -5623,7 +5636,8 @@
             "all": "All bookings",
             "withoutRecurrentBookings": "Non-recurrent bookings",
             "withRecurrentBookings": "Recurrent bookings",
-            "recurrentBooking": "Recurrent booking"
+            "recurrentBooking": "Recurrent booking",
+            "notCancelled": "Not cancelled"
         },
         "creditConsumed": "{{ credit_consumed }} credit",
         "creditConsumed_plural": "{{credit_consumed}} credits",

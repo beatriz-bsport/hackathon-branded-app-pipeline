@@ -20,6 +20,9 @@ exports.default = {
     vod: {
       explainBilling: '  +1€ /client actif',
     },
+    sms: {
+      explainBilling: '{{ price_cts }} € / SMS',
+    },
   },
   platformBillingGroup: {
     myGroup: 'Mon forfait',

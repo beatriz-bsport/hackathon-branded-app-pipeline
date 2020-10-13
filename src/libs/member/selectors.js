@@ -1,6 +1,7 @@
 // @flow
 
 import { createSelector } from 'reselect';
+
 import type { State } from '../../state/types';
 
 export const getMemberDetailData = (state) => state.member.detailData;
@@ -36,3 +37,12 @@ export const getMemberHistory = createSelector(
 );
 
 export default { getAllMembers };
+export const getMemberDict = (state: State) => state.member.byId;
+
+export const getMemberListId = (state: State) =>
+  state.member.communication.allPageIds;
+
+export const getPaginatedMembers = createSelector(
+  [getMemberDict, getMemberListId],
+  (memberDict, IdList) => IdList.map((id) => memberDict[id]),
+);

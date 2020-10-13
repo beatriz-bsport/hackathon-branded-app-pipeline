@@ -7,6 +7,11 @@ import Button from '@material-ui/core/Button';
 import VisibilityOnIcon from '@material-ui/icons/Visibility';
 import moment from 'moment-timezone';
 import MailIcon from '@material-ui/icons/Mail';
+import {
+  COMMUNICATION_KIND_EMAIL,
+  COMMUNICATION_KIND_SMS,
+} from '@bsport/common/lib/master-data/communication-kind';
+import SmsIcon from '@material-ui/icons/Sms';
 import Divider from '@material-ui/core/Divider';
 
 import { withTranslation } from 'react-i18next';
@@ -28,24 +33,33 @@ const MultiRecipientStat = (props: {
   total_click: number,
   total_recipients: number,
   onClickReport: () => void,
+  kind: number,
 }) => (
   <React.Fragment>
-    <div className={props.classes.counters}>
-      <Typography variant="subtitle2">
-        {`${((props.total_read / props.total_recipients) * 100).toFixed(1)}%`}
-      </Typography>
-      <Typography color="textSecondary">
-        {props.t('campaign.readCount')}
-      </Typography>
-    </div>
-    <div className={props.classes.counters}>
-      <Typography variant="subtitle2">
-        {`${((props.total_click / props.total_recipients) * 100).toFixed(1)}%`}
-      </Typography>
-      <Typography color="textSecondary">
-        {props.t('campaign.clickCount')}
-      </Typography>
-    </div>
+    {props.kind === COMMUNICATION_KIND_EMAIL && (
+      <React.Fragment>
+        <div className={props.classes.counters}>
+          <Typography variant="subtitle2">
+            {`${((props.total_read / props.total_recipients) * 100).toFixed(
+              1,
+            )}%`}
+          </Typography>
+          <Typography color="textSecondary">
+            {props.t('campaign.readCount')}
+          </Typography>
+        </div>
+        <div className={props.classes.counters}>
+          <Typography variant="subtitle2">
+            {`${((props.total_click / props.total_recipients) * 100).toFixed(
+              1,
+            )}%`}
+          </Typography>
+          <Typography color="textSecondary">
+            {props.t('campaign.clickCount')}
+          </Typography>
+        </div>
+      </React.Fragment>
+    )}
     <Button
       onClick={props.onClickReport}
       variant="outlined"
@@ -63,30 +77,42 @@ const SingleRecipientInfo = (props: {
   links_opened_count: number,
   recipient: Recipient,
   body: string,
+  kind: number,
   onClickShow: (body: string) => void,
+  campaign: Compaign,
 }) => (
   <React.Fragment>
-    <div className={props.classes.counter}>
-      <Typography variant="subtitle2">{props.recipient.read_count}</Typography>
-      <Typography color="textSecondary">
-        {props.t('recipient.readCount')}
-      </Typography>
-    </div>
-    <div className={props.classes.counter}>
-      <Typography variant="subtitle2">
-        {props.recipient.links_opened_count}
-      </Typography>
-      <Typography color="textSecondary">
-        {props.t('recipient.clicksCount')}
-      </Typography>
-    </div>
+    {props.kind === COMMUNICATION_KIND_EMAIL && (
+      <React.Fragment>
+        <div className={props.classes.counter}>
+          <Typography variant="subtitle2">
+            {props.recipient.read_count}
+          </Typography>
+          <Typography color="textSecondary">
+            {props.t('recipient.readCount')}
+          </Typography>
+        </div>
+        <div className={props.classes.counter}>
+          <Typography variant="subtitle2">
+            {props.recipient.links_opened_count}
+          </Typography>
+          <Typography color="textSecondary">
+            {props.t('recipient.clicksCount')}
+          </Typography>
+        </div>
+      </React.Fragment>
+    )}
     <Button
-      onClick={() => props.onClickShow(props.body)}
+      onClick={() => props.onClickShow(props.body || props.campaign.sms_text)}
       variant="outlined"
       className={props.classes.button}
     >
       <VisibilityOnIcon className={props.classes.leftIcon} />
-      {props.t('recipient.showEmail')}
+      {props.t(
+        props.kind === COMMUNICATION_KIND_EMAIL
+          ? 'recipient.showEmail'
+          : 'recipient.showSms',
+      )}
     </Button>
   </React.Fragment>
 );
@@ -99,6 +125,7 @@ export const CampaignListItem = (props: Props) => {
     total_recipients,
     total_read,
     total_click,
+    kind,
   } = campaign;
 
   const { subject, body } = data;
@@ -106,10 +133,15 @@ export const CampaignListItem = (props: Props) => {
     <div>
       <div className={classes.container}>
         <div className={classes.firstLeftPanel}>
-          <MailIcon className={classes.mailIcon} />
+          {kind === COMMUNICATION_KIND_EMAIL && (
+            <MailIcon className={classes.mailIcon} />
+          )}
+          {kind === COMMUNICATION_KIND_SMS && (
+            <SmsIcon className={classes.mailIcon} />
+          )}
           <div className={classes.leftPanel}>
             <Typography variant="h6" color="primary">
-              {subject}
+              {subject || props.t(`campaign.kind.${kind}`)}
             </Typography>
             {props.singleRecipientData ? (
               <Typography>
@@ -129,21 +161,25 @@ export const CampaignListItem = (props: Props) => {
             </Typography>
           </div>
         </div>
-        {props.singleRecipientData ? (
+        {props.singleRecipientData || kind === COMMUNICATION_KIND_SMS ? (
           <SingleRecipientInfo
             recipient={props.singleRecipientData}
+            campaign={campaign}
             body={body}
             onClickShow={props.onClickShow}
             classes={classes}
+            kind={kind}
             t={t}
           />
         ) : (
           <MultiRecipientStat
             classes={classes}
             t={t}
+            campaign={campaign}
             total_read={total_read}
             total_recipients={total_recipients}
             total_click={total_click}
+            kind={kind}
             onClickReport={props.onClickReport}
           />
         )}

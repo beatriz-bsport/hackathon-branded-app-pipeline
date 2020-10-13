@@ -57,7 +57,20 @@ import type { OptionCallback } from '../../state/types';
 import { memberTaskListSelector } from '../../libs/reminder/selectors';
 import { fetchCompanyRoles } from '../../libs/role/actions';
 
-import { mailMembers } from '../../libs/communication/actions';
+import {
+  mailMembers,
+  mailMembersFromTemplate as mailMembersFromTemplateAction,
+  sendSms as sendSmsAction,
+} from '../../libs/communication/actions';
+import {
+  emailTemplateDetail,
+  emailTemplatesSummaries as fetchEmailTemplatesSummaries,
+} from '../../libs/email-editor/actions';
+
+import {
+  getAllEmailTemplatesSummaries,
+  getEmailTemplatesDetail,
+} from '../../libs/email-editor/selectors';
 
 type Props = {
   // GENERAL
@@ -89,6 +102,14 @@ type Props = {
 
   // MAIL
   mailMember: () => void,
+  fetchEmailTemplatesSummaries: () => void,
+  fetchEmailTemplateDetail: (id: number) => void,
+  emailListLoading: boolean,
+  emailDetailLoading: boolean,
+  email_templates_list: Array<any>,
+  email_templates_details: Array<any>,
+  mailMembersFromTemplate: (data: any) => void,
+  sendSms: (data: any) => void,
 
   // TASK
   taskList: Array<Task>,
@@ -177,8 +198,18 @@ export class MemberDetailPage extends Component<Props, State> {
             member={this.props.member}
             editMember={() => this.props.editMember(this.props.id)}
             mergeMember={() => this.setState({ searchModalOpen: true })}
-            mailMember={this.props.mailMember}
             goToCreditRegularization={this.goToCreditRegularization}
+            getEmails={this.props.fetchEmailTemplatesSummaries}
+            emails={this.props.email_templates_list}
+            getEmailDetail={this.props.fetchEmailTemplateDetail}
+            emailDetails={this.props.email_templates_details}
+            emailListLoading={this.props.emailListLoading}
+            emailDetailLoading={this.props.emailDetailLoading}
+            sendAction={{
+              writtedMail: this.props.mailMember,
+              templateMail: this.props.mailMembersFromTemplate,
+              sms: this.props.sendSms,
+            }}
           />
           <TaskList
             taskList={this.props.taskList}
@@ -278,6 +309,11 @@ export default compose(
       tagGroupsLoading: state.tag.group.loading,
       taskList: memberTaskListSelector(state),
       staffList: getUsersWithRole(state),
+      // email emailTemplatesSummaries
+      email_templates_list: getAllEmailTemplatesSummaries(state),
+      email_templates_details: getEmailTemplatesDetail(state),
+      emailListLoading: state.emailTemplate.isLoading,
+      emailDetailLoading: state.emailTemplate.detail.isLoading,
     }),
     {
       fetchRoles: fetchCompanyRoles,
@@ -287,6 +323,10 @@ export default compose(
       untagMember,
       fetchTags,
       mailMember: mailMembers,
+      mailMembersFromTemplate: mailMembersFromTemplateAction,
+      sendSms: sendSmsAction,
+      fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
+      fetchEmailTemplatesSummaries,
       mergeInto: (src: number, dst: number) =>
         routerPush(`/member/merge/${src}/into/${dst}`),
       editMember: (id) => routerPush(`/member/edit/${id}`),

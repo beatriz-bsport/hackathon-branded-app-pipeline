@@ -132,9 +132,9 @@ exports.default = {
 
   mail: {
     send: 'Envoyer',
-    sendMailTitle: 'Envoyer un email',
+    sendMailTitle: 'Envoyer une communication',
     cancel: 'Annuler',
-    sendMail: 'Envoyer un email',
+    sendMail: 'Envoyer une communication',
     noMailAvailable: 'Pas de mail disponbile, pensez à en créer un',
     sendSuccess: "Mail en cours d'envoi",
     sendError: "Problème lors de l'envoi du mail",

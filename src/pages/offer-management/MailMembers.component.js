@@ -15,8 +15,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import SendMailToMembersDialog from '../../libs/communication/components/MailDialog.component';
+import CommunicationDialog from '../../libs/communication/components/CommunicationDialog.component';
 import type { Booking, BookingOption } from '../../libs/booking/types';
+import Config from '../../config';
 
 type Props = {
   fullScreen: boolean,
@@ -25,7 +26,13 @@ type Props = {
   bookings: Array<Booking>,
   members: Array<Member>,
   onClose: () => void,
-  mailMembers: boolean,
+  fetchEmailTemplatesSummaries: () => void,
+  fetchEmailTemplateDetail: (id: number) => void,
+  sendCommunication: (any) => void,
+  emailListLoading: boolean,
+  emails: Array<any>,
+  emailDetailLoading: boolean,
+  emailDetails: Array<any>,
 
   t: TFunction,
   classes: Object,
@@ -46,6 +53,7 @@ export class MailDialog extends Component<Props, State> {
     mailToBookings: false,
     mailToCanceledBookings: false,
     openMailChoiceDialog: true,
+    page: 1,
   };
 
   getBookingMember = (bookingMember) => {
@@ -83,7 +91,6 @@ export class MailDialog extends Component<Props, State> {
       classes,
       fullScreen,
       onClose,
-      mailMembers,
     } = this.props;
 
     return (
@@ -213,16 +220,17 @@ export class MailDialog extends Component<Props, State> {
                             id: booking.member,
                             name: this.getBookingMember(booking).name,
                             email: this.getBookingMember(booking).email,
+                            phone: this.getBookingMember(booking).phone,
                           }))
                       : []
                     )
                       .concat(
                         prevState.mailToWaitingList
-                          ? bookingOptionsPending.map((booking) => ({
-                              id: booking.member,
-                              name: this.getBookingMember(booking).name,
-                              email: this.getBookingMember(booking).email,
-                            }))
+                          ? bookingOptionsPending.map((booking) =>
+                              this.props.members.find(
+                                (member) => member.id === booking.member,
+                              ),
+                            )
                           : [],
                       )
                       .concat(
@@ -235,6 +243,7 @@ export class MailDialog extends Component<Props, State> {
                                 id: booking.member,
                                 name: this.getBookingMember(booking).name,
                                 email: this.getBookingMember(booking).email,
+                                phone: this.getBookingMember(booking).phone,
                               }))
                           : [],
                       )
@@ -250,11 +259,18 @@ export class MailDialog extends Component<Props, State> {
             </DialogActions>
           </DialogContent>
         </Dialog>
-        <SendMailToMembersDialog
+        <CommunicationDialog
+          getEmails={this.props.fetchEmailTemplatesSummaries}
+          emails={this.props.emails}
+          getEmailDetail={this.props.fetchEmailTemplateDetail}
+          emailDetails={this.props.emailDetails}
+          emailListLoading={this.props.emailListLoading}
+          emailDetailLoading={this.props.emailDetailLoading}
           fullScreen={fullScreen}
           open={this.state.openMailDialog}
           receiverInfo={this.state.receiversList}
           mailDefaultTitle={this.props.mailDefaultTitle}
+          hideSms={Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'}
           onCancel={() => {
             onClose();
             this.setState({
@@ -264,7 +280,46 @@ export class MailDialog extends Component<Props, State> {
               mailToCanceledBookings: false,
             });
           }}
-          sendMailAction={mailMembers}
+          membersToDisplay={[...this.state.receiversList].splice(
+            (this.state.page - 1) * 5,
+            this.state.page * 5,
+          )}
+          page_size={5}
+          allIds={this.state.receiversList.map((member) => member.id)}
+          allIdsWithEmail={this.state.receiversList
+            .filter((member) => member.email)
+            .map((member) => member.id)}
+          allIdsWithPhone={this.state.receiversList
+            .filter((member) => member.phone)
+            .map((member) => member.id)}
+          fetchPreviousPage={(page, page_size) => {
+            if (page - 1 === 0) {
+              this.setState((prevState) => ({
+                page:
+                  parseInt(prevState.receiversList.length / page_size, 10) + 1,
+              }));
+            } else {
+              this.setState({ page });
+            }
+          }}
+          fetchNextPage={(page, page_size) => {
+            if (
+              page > parseInt(this.state.receiversList.length / page_size, 10)
+            ) {
+              this.setState({
+                page: 1,
+              });
+            } else {
+              this.setState({ page: page + 1 });
+            }
+          }}
+          page={this.state.page}
+          membersAllLoading={
+            this.state.resetMembersFetchForCommunication &&
+            this.props.members.loading
+          }
+          membersByPageLoading={this.props.members.loading}
+          send={this.props.sendCommunication}
         />
       </div>
     );
@@ -281,4 +336,7 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(withTranslation(), withStyles(styles))(MailDialog);
+export default compose(
+  withTranslation(),
+  withStyles(styles),
+)(MailDialog);

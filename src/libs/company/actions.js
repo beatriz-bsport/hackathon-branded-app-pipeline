@@ -5,6 +5,7 @@ import {
   fetchCompanyList as fetchCompanyListAPI,
   createCompany as createCompanyAPI,
   attachExternalAccount as attachExternalAccountAPI,
+  getFeatureList as getFeatureListAPI,
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
 
@@ -88,5 +89,31 @@ export function attachExternalAccount(token: string, options: OptionCallback) {
       if (options && options.onError) options.onError(err);
     }
     dispatch(attachExternalAccountActions.isLoading(false));
+  };
+}
+
+export const listFeatureActions = {
+  success: createAction('COMPANY/LIST_FEATURE/SUCCESS'),
+  isLoading: createAction('COMPANY/LIST_FEATURE/IS_LOADING'),
+  error: createAction('COMPANY/LIST_FEATURE/ERROR'),
+};
+
+export function getFeatureList(options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listFeatureActions.isLoading(true));
+    dispatch(listFeatureActions.error(null));
+
+    try {
+      const response = await getFeatureListAPI();
+      dispatch(listFeatureActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listFeatureActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(listFeatureActions.isLoading(false));
   };
 }

@@ -21,6 +21,7 @@ import LoadingBackoffice from '../components/navigation/LoadingBackoffice.compon
 import withOpenEvent from '../hocs/tracking/open-event.hoc';
 
 import { fetchCompanyTheme } from '../libs/theme/actions';
+import { getFeatureList } from '../libs/company/actions';
 import { fetchCashBook, updateCashBook } from '../libs/cashbook/actions';
 
 // FIXME clean that
@@ -120,10 +121,12 @@ type Props = {
   username: string,
   fetchMoreAlertingKind: (number) => void,
   fetchCompanyTheme: () => void,
+  getFeatureList: () => void,
   fetchCashBook: () => void,
   fetchAllAlertings: () => void,
   theme: any,
   themeLoading: boolean,
+  featureListLoading: boolean,
 
   location: Location,
 
@@ -200,6 +203,7 @@ export class Backoffice extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchCompanyTheme();
+    this.props.getFeatureList();
     this.setState({ authToken: getAuthToken() });
     this.props.checkEmailValidation();
     this.props.fetchAllAlertings();
@@ -241,7 +245,7 @@ export class Backoffice extends Component<Props, State> {
     }
 
     if (
-      (this.props.themeLoading &&
+      ((this.props.themeLoading || this.props.featureListLoading) &&
         !this.props.location.pathname.includes('settings')) ||
       this.props.checkingEmailValidation
     ) {
@@ -337,6 +341,7 @@ export default compose(
       name: state.auth.name,
       theme: state.theme.theme,
       themeLoading: state.theme.loading,
+      featureListLoading: state.company.feature.loading,
       checkingEmailValidation: state.login.emailValidation.loading,
       permission: getPermissions(state),
       onSpotPaymentReportId: state.paymentBackend.onSpotPaymentReport.id,
@@ -347,6 +352,7 @@ export default compose(
     }),
     {
       fetchCompanyTheme,
+      getFeatureList,
       fetchAccessLevel,
       checkEmailValidation: checkEmailValidationAction,
       fetchOnSpotPaymentReport: fetchOnSpotPaymentReportAction,

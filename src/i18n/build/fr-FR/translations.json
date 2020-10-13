@@ -1123,12 +1123,26 @@
   "communication": {
     "table": { "columns": { "member": "Membre", "title": "Aperçu", "date_created": "Date", "status": "Status" } },
     "mail": {
+      "dialogTitle": "Communication",
       "title": "Objet du mail",
+      "writeMail": "Ecrire un mail",
+      "selectTemplate": "Sélectionner un template",
       "content": "Contenu du mail",
-      "missing": "Email absent",
-      "success": "Mail Envoyé",
-      "error": "Mail non envoyé",
+      "contentSms": "Contenu du sms",
+      "numberSms": "sms",
+      "mailMissing": "Email absent",
+      "phoneMissing": "Téléphone absent",
+      "success": "Communication envoyée",
+      "error": "Communication non envoyé, veuillez réessayer un peu plus tard",
+      "noMailAvailable": "Aucun mail disponible, pensez à en créer un",
+      "selectToShowPreview": "Sélectionnez un mail pour avoir son apperçu",
+      "mailSelection": "Choisir un mail",
+      "showMail": "Voir le mail",
+      "count": "caractères",
+      "hideMail": "Cacher le mail",
+      "sendSms": "Envoyer un sms",
       "refreshText": "Veuillez recharger la page pour actualiser le changement d'email",
+      "refreshTextPhone": "Veuillez recharger la page pour actualiser le changement de téléphone",
       "noObject": "Pas d'objet"
     },
     "recipients": "Destinataires",
@@ -1157,12 +1171,14 @@
         "topLinks": "Liens les plus cliqués",
         "recipientList": "Détail par destinataire",
         "noTopLink": "Aucun clic"
-      }
+      },
+      "kind": { "0": "Email", "1": "SMS" }
     },
     "recipient": {
       "readCount": "Ouverture",
       "clicksCount": "Clic",
       "showEmail": "Voir l'email",
+      "showSms": "Voir le SMS",
       "status": { "0": "En cours", "1": "En cours", "2": "Refusé", "3": "Attente", "4": "Reçu", "5": "Erreur" },
       "table": {
         "columns": {
@@ -4161,9 +4177,9 @@
     },
     "mail": {
       "send": "Envoyer",
-      "sendMailTitle": "Envoyer un email",
+      "sendMailTitle": "Envoyer une communication",
       "cancel": "Annuler",
-      "sendMail": "Envoyer un email",
+      "sendMail": "Envoyer une communication",
       "noMailAvailable": "Pas de mail disponbile, pensez à en créer un",
       "sendSuccess": "Mail en cours d'envoi",
       "sendError": "Problème lors de l'envoi du mail"
@@ -4557,7 +4573,8 @@
       "knowMore": "En savoir +",
       "myAddonTitle": "Mes Add-ons",
       "otherAddonTitle": "Add-ons disponibles",
-      "vod": { "explainBilling": "  +1€ /client actif" }
+      "vod": { "explainBilling": "  +1€ /client actif" },
+      "sms": { "explainBilling": "{{ price_cts }} € / SMS" }
     },
     "platformBillingGroup": { "myGroup": "Mon forfait", "soonAvailable": "Bientôt disponible !" },
     "platformBillingPlan": {

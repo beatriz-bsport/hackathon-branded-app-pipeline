@@ -1,3 +1,8 @@
+const {
+  COMMUNICATION_KIND_EMAIL,
+  COMMUNICATION_KIND_SMS,
+} = require('@bsport/common/lib/master-data/communication-kind');
+
 const RECIPIENT_STATUS = require('@bsport/common/lib/master-data/recipient-status');
 
 const {
@@ -19,13 +24,30 @@ exports.default = {
     },
   },
   mail: {
+    dialogTitle: 'Communication',
     title: 'Objet du mail',
+    writeMail: 'Ecrire un mail',
+    selectTemplate: 'Sélectionner un template',
     content: 'Contenu du mail',
-    missing: 'Email absent',
-    success: 'Mail Envoyé',
-    error: 'Mail non envoyé',
+    contentSms: 'Contenu du sms',
+    numberSms: 'sms',
+    mailMissing: 'Email absent',
+    phoneMissing: 'Téléphone absent',
+
+    success: 'Communication envoyée',
+    error: 'Communication non envoyé, veuillez réessayer un peu plus tard',
+    noMailAvailable: 'Aucun mail disponible, pensez à en créer un',
+    selectToShowPreview: 'Sélectionnez un mail pour avoir son apperçu',
+    mailSelection: 'Choisir un mail',
+
+    showMail: 'Voir le mail',
+    count: 'caractères',
+    hideMail: 'Cacher le mail',
+    sendSms: 'Envoyer un sms',
     refreshText:
       "Veuillez recharger la page pour actualiser le changement d'email",
+    refreshTextPhone:
+      'Veuillez recharger la page pour actualiser le changement de téléphone',
     noObject: "Pas d'objet",
   },
   recipients: 'Destinataires',
@@ -65,11 +87,16 @@ exports.default = {
       recipientList: 'Détail par destinataire',
       noTopLink: 'Aucun clic',
     },
+    kind: {
+      [COMMUNICATION_KIND_EMAIL]: 'Email',
+      [COMMUNICATION_KIND_SMS]: 'SMS',
+    },
   },
   recipient: {
     readCount: 'Ouverture',
     clicksCount: 'Clic',
     showEmail: "Voir l'email",
+    showSms: 'Voir le SMS',
 
     status: {
       [EMAIL_RECIPIENT_DELIVERED]: 'Reçu',

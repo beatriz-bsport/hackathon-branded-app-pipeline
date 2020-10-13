@@ -37,8 +37,9 @@ import type { Member } from '../../../api/types';
 
 import EmailItem from '../../communication/components/EmailItem.component';
 import PhoneItem from '../../communication/components/PhoneItem.component';
-import MailDialog from '../../communication/components/MailDialog.component';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import CommunicationDialog from '../../communication/components/CommunicationDialog.component';
+import Config from '../../../config';
 
 type Props = {
   hideCreditAccount?: boolean,
@@ -48,11 +49,18 @@ type Props = {
   member: Member,
   t: TFunction,
   classes: Object,
-  mailMember: () => void,
   goToCreditRegularization: () => void,
   hideContactButton: ?boolean,
   showTermsAndConditions: boolean,
   setShowTermsAndConditions: (boolean) => void,
+
+  getEmails: () => void,
+  getEmailDetail: (id: number) => void,
+  emailListLoading: boolean,
+  emails: Array<any>,
+  emailDetailLoading: boolean,
+  emailDetails: Array<any>,
+  sendAction: () => void,
 };
 
 export class MemberSummaryCard extends Component<Props> {
@@ -123,7 +131,7 @@ export class MemberSummaryCard extends Component<Props> {
   };
 
   renderNotificationSettings = () => {
-    const { member, mailMember } = this.props;
+    const { member } = this.props;
     return (
       <List dense>
         <PhoneItem
@@ -142,19 +150,23 @@ export class MemberSummaryCard extends Component<Props> {
           openMailDialog={() => this.setState({ displayMailDialog: true })}
           hideContactButton={this.props.hideContactButton}
         />
-        <MailDialog
+        <CommunicationDialog
+          getEmails={this.props.getEmails}
+          emails={this.props.emails}
+          getEmailDetail={this.props.getEmailDetail}
+          emailDetails={this.props.emailDetails}
+          emailListLoading={this.props.emailListLoading}
+          emailDetailLoading={this.props.emailDetailLoading}
+          sendAction={this.props.sendAction}
           open={this.state.displayMailDialog}
-          sendMailAction={mailMember}
           fullscreen
-          receiverInfo={[
-            {
-              id: member.id,
-              name: `${member.consumer.first_name} ${member.consumer.last_name}`,
-              email: member.consumer.email,
-            },
-          ]}
+          membersToDisplay={[{ ...member, phone: member.phone_number }]}
+          allIds={[member.id]}
+          allIdsWithEmail={member.email ? [member.id] : []}
+          allIdsWithPhone={member.phone_number ? [member.id] : []}
           onCancel={() => this.setState({ displayMailDialog: false })}
           receiversNotEditable
+          hideSms={Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'}
         />
       </List>
     );

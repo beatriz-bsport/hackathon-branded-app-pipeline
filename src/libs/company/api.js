@@ -29,3 +29,7 @@ export const attachExternalAccount = (token: string) => {
     { external_account: token },
   );
 };
+
+export const getFeatureList = () => {
+  return getAuth(`${API_V1_URI}/company/features/`);
+};

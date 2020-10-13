@@ -26,10 +26,9 @@ import {
 } from '../../libs/offer/selectors';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { mailMembers as mailMembersAction } from '../../libs/communication/actions';
+import { sendCommunication } from '../../libs/communication/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import themeSelectors from '../../libs/theme/selectors';
-
 import {
   registerBooking as registerBookingAction,
   fetchBookingsByOffer as fetchBookingsByOfferAction,
@@ -56,7 +55,15 @@ import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '../.
 
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
+import {
+  emailTemplateDetail,
+  emailTemplatesSummaries as fetchEmailTemplatesSummaries,
+} from '../../libs/email-editor/actions';
 
+import {
+  getAllEmailTemplatesSummaries,
+  getEmailTemplatesDetail,
+} from '../../libs/email-editor/selectors';
 import { snackbar } from '../../actions/snackbar.actions';
 import { getEnabled as getPaymentPackEnabled } from '../../libs/payment-packs/selectors';
 
@@ -133,6 +140,9 @@ export default compose(
       recurrentBookingCurrentPage: state.booking.recurrenceRule.page,
       recurrentBookingNextPage: state.booking.recurrenceRule.next_page,
       recurrentBookingCount: state.booking.recurrenceRule.count,
+      email_templates_list: getAllEmailTemplatesSummaries(state),
+
+      email_templates_details: getEmailTemplatesDetail(state),
 
       // invoice
       unevenSavedInvoices: withMember(withInvoiceItem(getQuickInvoiceList))(
@@ -147,6 +157,9 @@ export default compose(
     {
       fetchOffer: fetchOfferByIdAction,
       snackbarSuccess: snackbar.success,
+
+      fetchEmailTemplatesSummaries,
+      fetchEmailTemplateDetail: emailTemplateDetail,
 
       toogleWaitingListFreeze: toogleWaitingListFreezeAction,
       registerToWaitingListAction: registerToWaitingListAction_,
@@ -182,7 +195,8 @@ export default compose(
       fetchFilteredMembers: fetchFilteredMembersAction,
       fetchMemberBulk: fetchMemberBulkAction,
       searchMembers: (txt) => searchMembersAction(txt),
-      mailMembers: mailMembersAction,
+
+      sendCommunication,
 
       // invoice actions
       revertQuickInvoice: revertQuickInvoiceAction,

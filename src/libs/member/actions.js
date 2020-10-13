@@ -22,6 +22,7 @@ import {
   removeFile as removeFileAPI,
   linkMeToCompany as linkMeToCompanyAPI,
   fetchCountObject as fetchCountObjectAPI,
+  fetchCommunicationsPaginatedMembers as fetchCommunicationsPaginatedMembersAPI,
 } from './api';
 
 import type { Member } from './types';
@@ -172,6 +173,40 @@ export function fetchFilteredMembers(params: any) {
     dispatch(memberListActions.isLoading(true));
     dispatch(refreshFilteredMembers(params));
     dispatch(memberListActions.isLoading(false));
+  };
+}
+
+export const memberListPaginatedActions = {
+  isLoading: createAction('MEMBER/LIST_PAGINATED/LOADING'),
+  error: createAction('MEMBER/LIST_PAGINATED/ERROR'),
+  success: createAction('MEMBER/LIST_PAGINATED/SUCCESS'),
+};
+
+export function fetchCommunicationsPaginatedMembers(
+  params: any,
+  id__in: Array,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(memberListPaginatedActions.isLoading(true));
+    try {
+      const response = await fetchCommunicationsPaginatedMembersAPI(
+        params,
+        id__in,
+      );
+      dispatch(
+        memberListPaginatedActions.success({
+          ...response.data,
+          page: params.page || 1,
+        }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (error) {
+      dispatch(memberListPaginatedActions.error(error));
+    }
+    dispatch(memberListPaginatedActions.isLoading(false));
   };
 }
 

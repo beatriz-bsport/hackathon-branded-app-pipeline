@@ -63,12 +63,20 @@ type Props = {
 
   communicationDialogIsOpen: boolean,
 
+  fetchEmailTemplatesSummaries: () => void,
+  fetchEmailTemplateDetail: (id: number) => void,
+  emailListLoading: boolean,
+  emailDetailLoading: boolean,
+  email_templates_list: Array<any>,
+  email_templates_details: Array<any>,
+
   switchWaitingListFreeze: (offerId: number, newFreezeState: boolean) => void,
   fetchMember: (id: number) => void,
   registerToWaitingList: (offerId: number, memberId: number) => void,
   memberSearchLoading: boolean,
   searchMembers: (txt: string) => void,
-  mailMembers: (data: any) => void,
+  sendCommunication: (any) => void,
+
   searchedMembers: Array<Member>,
   confirmBookingAttendance: (bookingId: number) => void,
   discardBookingAttendance: (bookingId: number) => void,
@@ -542,14 +550,22 @@ export class OfferManagement extends Component<Props, State> {
         />
         {!!this.props.communicationDialogIsOpen && (
           <MailMembers
+            fetchEmailTemplatesSummaries={
+              this.props.fetchEmailTemplatesSummaries
+            }
+            emails={this.props.email_templates_list}
+            fetchEmailTemplateDetail={this.props.fetchEmailTemplateDetail}
+            emailDetails={this.props.email_templates_details}
+            emailListLoading={this.props.emailListLoading}
+            emailDetailLoading={this.props.emailDetailLoading}
             fullscreen={fullScreen}
             bookingOptionsPending={bookingOptionsPending}
             bookings={bookings}
             openMailChoiceDialog={this.props.communicationDialogIsOpen}
             onClose={this.props.closeCommunicationDialog}
             members={members}
-            mailMembers={this.props.mailMembers}
             mailDefaultTitle={this.props.offer ? this.props.offer.name : ''}
+            sendCommunication={this.props.sendCommunication}
           />
         )}
       </Grid>

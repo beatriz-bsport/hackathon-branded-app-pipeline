@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { compose, withState } from 'recompose';
+import { compose, withHandlers, withState } from 'recompose';
 import { push } from 'connected-react-router';
 import type { TFunction } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
@@ -12,8 +12,6 @@ import Collapse from '@material-ui/core/Collapse';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-// import Paper from '@material-ui/core/Paper';
-
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import IconButton from '@material-ui/core/IconButton';
@@ -27,6 +25,7 @@ import {
   fetchAllPaymentPacks,
   fetchPaymentPackBulk,
 } from '../../libs/payment-packs/actions';
+
 import {
   getSmartListFilters,
   getSmartList,
@@ -42,13 +41,15 @@ import {
 } from '../../libs/smart-list/actions';
 import {
   fetchSmartListMembers as fetchSmartListMembersAPI,
-  sendMail,
   getMemberTable,
 } from '../../libs/smart-list/api';
 import {
   fetchPrivatePassList,
   fetchPrivatePassBulk,
 } from '../../libs/private-service/actions';
+import { sendCommunication as sendCommunicationAction } from '../../libs/communication/actions';
+import { fetchCommunicationsPaginatedMembers } from '../../libs/member/actions';
+import { getPaginatedMembers } from '../../libs/member/selectors';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 import { getMetaActivities } from '../../libs/meta-activity/selectors';
 import {
@@ -59,9 +60,9 @@ import { fetchTags } from '../../libs/tag/actions';
 import tagSelectors from '../../libs/tag/selectors';
 
 import FiltersPanel from '../../libs/smart-list/components/FiltersPanel.component';
-import SendEmailDialog from '../../libs/smart-list/components/SendEmailDialog.component';
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+
 import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormDialog.component';
+import CommunicationDialog from '../../libs/communication/components/CommunicationDialog.component';
 
 import {
   getAllEmailTemplatesSummaries,
@@ -86,6 +87,7 @@ import {
 import type { Coach } from '../../libs/associated-coach/types';
 
 import { getCoaches } from '../../libs/associated-coach/selectors';
+import Config from '../../config';
 
 type Props = {
   id: number,
@@ -125,6 +127,7 @@ type Props = {
   payment_packs: Array<PaymentPack>,
   establishments: Array<Establishment>,
   privatePassList: Array<PrivatePass>,
+  // privatePassList: Array<PrivatePass>,
   meta_activities: Array<MetaActivity>,
   email_templates_details: any,
   email_templates_list: any,
@@ -135,9 +138,6 @@ type Props = {
   tag_groups: any,
   setOpenSendEmail: (boolean) => void,
   openSendEmail: boolean,
-  goToEmailCreate: () => void,
-  snackbarSuccess: (string) => void,
-  snackbarError: (string) => void,
   establishmentLoading: boolean,
   metaActivityLoading: boolean,
   coachLoading: boolean,
@@ -151,7 +151,9 @@ type Props = {
   fetchCoaches: () => void,
   coaches: Array<Coach>,
   smartListUpdate: () => void,
-
+  members: any,
+  fetchCommunicationsPaginatedMembers: () => void,
+  sendCommunication: (data: any) => void,
   // statistics
   setCloseMemberTable: () => void,
   closeMemberTable: boolean,
@@ -165,7 +167,11 @@ type State = {
 };
 
 export class SmartListDetailMember extends Component<Props, State> {
-  state = { onValueChangeActiveMemberFetch: false, openEditDialog: false };
+  state = {
+    onValueChangeActiveMemberFetch: false,
+    openEditDialog: false,
+    resetMembersFetchForCommunication: true,
+  };
 
   componentDidMount() {
     this.props.fetchSmartListFilters(this.props.id);
@@ -201,6 +207,33 @@ export class SmartListDetailMember extends Component<Props, State> {
   updateSmartList = (smartlist) => {
     this.setState({ openEditDialog: false });
     this.props.smartListUpdate(this.props.smartlist.id, smartlist);
+  };
+
+  fetchPaginatedMembers = (page, page_size) => {
+    if (this.state.resetMembersFetchForCommunication) {
+      this.props.fetchCommunicationsPaginatedMembers(
+        {
+          smartlist: this.props.id,
+          page,
+          page_size,
+        },
+        null,
+        {
+          onSuccess: () =>
+            this.setState({
+              resetMembersFetchForCommunication: false,
+            }),
+        },
+      );
+    } else {
+      this.props.fetchCommunicationsPaginatedMembers(
+        {
+          page,
+          page_size,
+        },
+        this.props.members.allIds,
+      );
+    }
   };
 
   render() {
@@ -296,33 +329,57 @@ export class SmartListDetailMember extends Component<Props, State> {
             )}
           </Collapse>
         </div>
-        <SendEmailDialog
+        <CommunicationDialog
           open={this.props.openSendEmail}
           onClose={() => this.props.setOpenSendEmail(false)}
-          onSubmit={async (email_template_id, options) => {
-            const response = await sendMail(this.props.id, email_template_id);
-            setTimeout(() => {
-              if (response.status === 200) {
-                if (options && options.onSuccess) options.onSuccess();
-                this.props.snackbarSuccess(
-                  this.props.t('communication:send.success'),
-                );
-                // this.props.goToCampaignList(this.props.id);
-              } else {
-                if (options && options.onError) options.onError();
-                this.props.snackbarError(
-                  this.props.t('communication:send.error'),
-                );
-              }
-            }, 3000);
-          }}
           getEmails={this.props.fetchEmailTemplatesSummaries}
           emails={this.props.email_templates_list}
           getEmailDetail={this.props.fetchEmailTemplateDetail}
           emailDetails={this.props.email_templates_details}
           emailListLoading={this.props.emailListLoading}
           emailDetailLoading={this.props.emailDetailLoading}
-          goToEmailCreate={this.props.goToEmailCreate}
+          onCancel={() => {
+            this.props.setOpenSendEmail(false);
+            this.setState({ resetMembersFetchForCommunication: true });
+          }}
+          hideSms={Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'}
+          membersToDisplay={this.props.members.displayItems}
+          allIds={this.props.members.allIds}
+          allIdsWithEmail={this.props.members.allIds.filter(
+            (memberId) =>
+              !this.props.members.allIdsWithoutEmail.includes(memberId),
+          )}
+          allIdsWithPhone={this.props.members.allIds.filter(
+            (memberId) =>
+              !this.props.members.allIdsWithoutPhone.includes(memberId),
+          )}
+          fetchPreviousPage={(page, page_size) =>
+            this.fetchPaginatedMembers(
+              page - 1
+                ? page - 1
+                : parseInt(this.props.members.allIds.length / page_size, 10) +
+                    1,
+              page_size,
+            )
+          }
+          fetchNextPage={(page, page_size) =>
+            this.fetchPaginatedMembers(
+              page > parseInt(this.props.members.allIds.length / page_size, 10)
+                ? 1
+                : page + 1,
+              page_size,
+            )
+          }
+          initMembers={(page, page_size) =>
+            this.fetchPaginatedMembers(page, page_size)
+          }
+          page={this.props.members.page}
+          membersAllLoading={
+            this.state.resetMembersFetchForCommunication &&
+            this.props.members.loading
+          }
+          membersByPageLoading={this.props.members.loading}
+          send={this.props.sendCommunication}
         />
         <SmartListEditDialog
           open={this.state.openEditDialog}
@@ -404,6 +461,15 @@ export default compose(
       email_templates_list: getAllEmailTemplatesSummaries(state),
       email_templates_details: getEmailTemplatesDetail(state),
       emailListLoading: state.emailTemplate.isLoading,
+      members: {
+        displayItems: getPaginatedMembers(state),
+        page: state.member.communication.page,
+        allIds: state.member.communication.allIds,
+        allIdsWithoutPhone: state.member.communication.allIdsWithoutPhone,
+        allIdsWithoutEmail: state.member.communication.allIdsWithoutEmail,
+        loading: state.member.communication.loading,
+      },
+
       emailDetailLoading: state.emailTemplate.detail.isLoading,
     }),
     {
@@ -417,15 +483,14 @@ export default compose(
       fetchPrivatePassList,
       fetchTags,
       updateFilter,
-      sendMail,
-      snackbarSuccess,
       fetchEstablishments,
       fetchMetaActivityBulk,
       deleteFilter,
       smartListCreate,
       smartListUpdate,
       createFilter,
-      snackbarError,
+      fetchCommunicationsPaginatedMembers,
+      sendCommunication: sendCommunicationAction,
       fetchEmailTemplatesSummaries: () => emailTemplatesSummaries(),
       fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
       fetchAllActivities: fetchAllActivitiesAction,
@@ -435,4 +500,8 @@ export default compose(
       goToEmailCreate: () => push('/email-template/create'),
     },
   ),
+  withHandlers({
+    sendCommunication: ({ sendCommunication, id }) => (data) =>
+      sendCommunication({ ...data, smartlist_id: id }),
+  }),
 )(SmartListDetailMember);

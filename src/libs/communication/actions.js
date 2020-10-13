@@ -7,6 +7,9 @@ import {
   fetchCampaignReport as fetchCampaignReportAPI,
   fetchCampaignList as fetchCampaignListAPI,
   fetchRecipientList as fetchRecipientListAPI,
+  sendMailToMembersFromTemplate as sendMailToMembersFromTemplateAPI,
+  sendSmsToMembers as sendSmsToMembersAPI,
+  sendCommunication as sendCommunicationAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -19,12 +22,56 @@ export const membersMailAction = {
   isloading: createAction('MEMBERS/SEND-MAIL/IS_LOADING'),
 };
 
+export function sendCommunication(data: any): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(membersMailAction.isloading(true));
+    dispatch(membersMailAction.error(null));
+    try {
+      await sendCommunicationAPI(data);
+      dispatch(snackbarSuccess('communication:mail.success'));
+    } catch (error) {
+      dispatch(membersMailAction.error(error));
+      dispatch(snackbarError('communication:mail.error'));
+    }
+    dispatch(membersMailAction.isloading(false));
+  };
+}
+
 export function mailMembers(data: MemberMailData): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(membersMailAction.isloading(true));
     dispatch(membersMailAction.error(null));
     try {
       await sendMailToMembersAPI(data);
+      dispatch(snackbarSuccess('communication:mail.success'));
+    } catch (error) {
+      dispatch(membersMailAction.error(error));
+      dispatch(snackbarError('communication:mail.error'));
+    }
+    dispatch(membersMailAction.isloading(false));
+  };
+}
+export function mailMembersFromTemplate(data: MemberMailData): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(membersMailAction.isloading(true));
+    dispatch(membersMailAction.error(null));
+    try {
+      await sendMailToMembersFromTemplateAPI(data);
+      dispatch(snackbarSuccess('communication:mail.success'));
+    } catch (error) {
+      dispatch(membersMailAction.error(error));
+      dispatch(snackbarError('communication:mail.error'));
+    }
+    dispatch(membersMailAction.isloading(false));
+  };
+}
+
+export function sendSms(data: any): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(membersMailAction.isloading(true));
+    dispatch(membersMailAction.error(null));
+    try {
+      await sendSmsToMembersAPI(data);
       dispatch(snackbarSuccess('communication:mail.success'));
     } catch (error) {
       dispatch(membersMailAction.error(error));

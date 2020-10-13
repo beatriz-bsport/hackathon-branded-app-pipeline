@@ -7,6 +7,7 @@ import {
   barcodeRetrieveAction,
   memberBulkActions,
   memberCountObject,
+  memberListPaginatedActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -40,6 +41,17 @@ const initialState = Immutable({
     data: null,
   },
   historyListIds: [],
+  byId: {},
+  communication: {
+    loading: false,
+    error: null,
+    allPageIds: [],
+    allIdsWithoutPhone: [],
+    allIdsWithoutEmail: [],
+    allIds: [],
+    page: 1,
+  },
+  history: [],
 });
 
 export default function memberReducers(state = initialState, action = {}) {
@@ -79,10 +91,7 @@ export default function memberReducers(state = initialState, action = {}) {
           },
           { deep: true },
         )
-        .setIn(
-          ['allIds'],
-          action.payload.map((m) => m.id),
-        );
+        .setIn(['allIds'], action.payload.map((m) => m.id));
     }
     case memberListActions.error.toString(): {
       return state.set('error', action.payload);
@@ -90,7 +99,40 @@ export default function memberReducers(state = initialState, action = {}) {
     case memberListActions.isLoading.toString(): {
       return state.set('loading', action.payload);
     }
+    case memberListPaginatedActions.isLoading.toString(): {
+      return state.setIn(['communication', 'loading'], action.payload);
+    }
+    case memberListPaginatedActions.error.toString(): {
+      return state.setIn(['communication', 'error'], action.payload);
+    }
+    case memberListPaginatedActions.success.toString(): {
+      return state
+        .setIn(['communication', 'page'], action.payload.page)
+        .setIn(['communication', 'allIds'], action.payload.allIds)
 
+        .setIn(
+          ['communication', 'allIdsWithoutPhone'],
+          action.payload.allIdsWithoutPhone,
+        )
+        .setIn(
+          ['communication', 'allIdsWithoutEmail'],
+          action.payload.allIdsWithoutEmail,
+        )
+
+        .setIn(
+          ['communication', 'allPageIds'],
+          action.payload.results.map((member) => member.id),
+        )
+        .merge(
+          {
+            byId: action.payload.results.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
+    }
     case memberCountObject.success.toString(): {
       return state.setIn(['count', 'data'], action.payload);
     }
@@ -135,10 +177,7 @@ export default function memberReducers(state = initialState, action = {}) {
           ['search', 'allIds'],
           state.search.allIds.filter((m) => m.id !== action.src),
         )
-        .set(
-          'allIds',
-          state.allIds.filter((m) => m.id !== action.src),
-        );
+        .set('allIds', state.allIds.filter((m) => m.id !== action.src));
     }
     case actionTypes.MEMBER_SEARCH_ERROR: {
       return state
@@ -147,10 +186,7 @@ export default function memberReducers(state = initialState, action = {}) {
     }
     case actionTypes.MEMBER_SEARCH_SUCCESS: {
       return state
-        .setIn(
-          ['search', 'allIds'],
-          action.members.map((m) => m.id),
-        )
+        .setIn(['search', 'allIds'], action.members.map((m) => m.id))
         .setIn(['search', 'loading'], false)
         .merge(
           {

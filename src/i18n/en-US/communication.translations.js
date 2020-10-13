@@ -17,11 +17,28 @@ exports.default = {
     },
   },
   mail: {
+    dialogTitle: 'Communication',
+    contentSms: 'Sms content',
+    mailMissing: 'Missing email',
+    phoneMissing: 'Missing pgone number',
+    numberSms: 'sms',
     title: 'Mail object',
     content: 'Mail content',
     missing: 'Missing email',
     success: 'Mail sent',
+    writeMail: 'Write an email',
+    selectTemplate: 'Select a template',
+    noMailAvailable: 'No mail available, think about creating one',
+    count: 'caracters',
+    selectToShowPreview: 'Select a mail to show preview',
+
+    mailSelection: 'Select mail',
+
+    showMail: 'See mail',
+    hideMail: 'Hide mail preview',
+
     error: 'Mail not sent',
+    refreshTextPhone: 'Please refresh page to integrate phone number change',
     refreshText: 'Please refresh page to integrate email change',
     noObject: 'No object',
   },

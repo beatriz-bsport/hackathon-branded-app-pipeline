@@ -81,6 +81,17 @@ export async function regularizeDebt(memberId: number, data: any) {
   return post(`${API_V1_URI}/member/${memberId}/regularize_debt/`, data);
 }
 
+export async function fetchCommunicationsPaginatedMembers(
+  params: any,
+  id__in = Array,
+) {
+  const urlParams = buildUrlParams(params);
+  return postAuth(
+    `${API_V1_URI}/member/members_for_communication/${urlParams}`,
+    { id__in },
+  );
+}
+
 export async function createNote(
   id: number,
   text: string,

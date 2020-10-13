@@ -197,6 +197,11 @@ exports.default = {
     noQuickInvoiceOpened: 'Aucune facturation ouverte',
     myOpenedInvoices: 'Factures rapides',
     manageOffer: 'Gérer mes réservations',
+    restoreModal: {
+      title: 'Restaurer la séance',
+      explain:
+        'Cette séance sera désannulée et de nouveau ouverte à vos clients. En revanche, les réservations précédemment annulées ne seront pas rétablies.',
+    },
   },
   shop: {
     supplier_price: 'Prix fournisseur',

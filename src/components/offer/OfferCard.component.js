@@ -53,6 +53,7 @@ type Props = {
   bookings: Array<Booking>,
   bookingsLoading: boolean,
   goToOfferManagement: (id: number) => void,
+  onRestoreButtonClick: () => void,
 };
 
 export class OfferCard extends Component<Props> {
@@ -491,13 +492,23 @@ export class OfferCard extends Component<Props> {
             </Button>
           </Link>
           {!available && (
-            <RedButton
-              onClick={onDeleteButtonClick}
-              variant="contained"
-              className={classes.manageButton}
-            >
-              {t('offer:forms.delete.buttonHardDelete')}
-            </RedButton>
+            <>
+              <Button
+                color="secondary"
+                variant="contained"
+                className={classes.manageButton}
+                onClick={this.props.onRestoreButtonClick}
+              >
+                {t('offer:restoreOffer')}
+              </Button>
+              <RedButton
+                onClick={onDeleteButtonClick}
+                variant="contained"
+                className={classes.manageButton}
+              >
+                {t('offer:forms.delete.buttonHardDelete')}
+              </RedButton>
+            </>
           )}
         </div>
       );

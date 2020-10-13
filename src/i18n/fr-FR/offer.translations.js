@@ -29,6 +29,7 @@ exports.default = {
     deleteOffer: 'Annuler',
   },
   manageOffer: 'Gérer mes réservations',
+  restoreOffer: 'Restaurer la séance',
   forms: {
     old_date: 'Ancien horaire :',
     new_date: 'Nouvel horaire :',

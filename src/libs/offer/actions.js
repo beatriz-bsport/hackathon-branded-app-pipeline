@@ -11,9 +11,11 @@ import {
   toogleWaitingListFreeze as toogleWaitingListFreezeAPI,
   fetchOffersList as fetchOffersListAPI,
   massDisableOffer as massDisableOfferAPI,
+  restoreOffer as restoreOfferAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
 
+import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const similarOffers = {
@@ -424,5 +426,18 @@ export function disableMassOffers(
       if (options && options.onError) options.onError(error);
     }
     dispatch(massDisableActions.isLoading(false));
+  };
+}
+
+export function restoreOffer(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    try {
+      await restoreOfferAPI(id);
+      dispatch(snackbarSuccess('offer.restore.success'));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      console.error(error);
+      dispatch(snackbarError('offer.restore.error'));
+    }
   };
 }

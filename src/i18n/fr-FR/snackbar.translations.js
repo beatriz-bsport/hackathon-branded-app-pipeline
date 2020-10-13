@@ -1,4 +1,10 @@
 exports.default = {
+  offer: {
+    restore: {
+      success: 'Séance restaurée',
+      error: 'Impossible de restaurer cette séance',
+    },
+  },
   invoice: {
     update: {
       success: 'Facture mise à jour avec succès',

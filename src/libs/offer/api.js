@@ -111,6 +111,10 @@ export async function toogleWaitingListFreeze(
   );
 }
 
+export async function restoreOffer(offerId: number) {
+  return putAuth(`${API_V1_URI}/offer/${offerId}/restore/`);
+}
+
 export default {
   fetchAllEvents,
   editLiveOffer,

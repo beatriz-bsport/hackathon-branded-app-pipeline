@@ -61,6 +61,7 @@ import {
   fetchSimilarOffers as fetchSimilarOffersAction,
   setFilters as setFiltersAction,
   disableMassOffers,
+  restoreOffer,
 } from '../../libs/offer/actions';
 import {
   editLiveOffer as editLiveOfferAPI,
@@ -217,6 +218,7 @@ type Props = {
   openDeleteDialog: boolean,
 
   monitorBackgroundTask: (uuid: string, options?: OptionCallback) => void,
+  restoreOffer: (offerId: number, options: any) => void,
 };
 
 type State = {
@@ -226,6 +228,7 @@ type State = {
   deletingOffer: boolean,
   createOfferModalOpened: boolean,
   creatingOffers: boolean,
+  restoreModalOpen: boolean,
 };
 
 export class Planning extends PureComponent<Props, State> {
@@ -239,6 +242,7 @@ export class Planning extends PureComponent<Props, State> {
       deletingOffer: false,
       createOfferModalOpened: false,
       creatingOffers: false,
+      restoreModalOpen: false,
     };
   }
 
@@ -311,6 +315,10 @@ export class Planning extends PureComponent<Props, State> {
 
   openDeleteModal = () => {
     this.setState({ deleteModalOpened: true });
+  };
+
+  openRestoreModal = () => {
+    this.setState({ restoreModalOpen: true });
   };
 
   onCancelModal = () => {
@@ -575,6 +583,43 @@ export class Planning extends PureComponent<Props, State> {
     return null;
   };
 
+  renderRestoreModal = () => {
+    const { restoreModalOpen } = this.state;
+    const { selectedOffer, t } = this.props;
+
+    if (selectedOffer) {
+      return (
+        <Dialog open={restoreModalOpen}>
+          <DialogTitle>
+            <Typography variant="h6">
+              {t('offer.restoreModal.title')}
+            </Typography>
+          </DialogTitle>
+          <DialogContent>
+            <Typography>{t('offer.restoreModal.explain')}</Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => this.setState({ restoreModalOpen: false })}>
+              {t('common.cancel')}
+            </Button>
+            <Button
+              color="primary"
+              onClick={() => {
+                this.props.restoreOffer(selectedOffer.id, {
+                  onSuccess: () => this.loadDayData(),
+                });
+                this.setState({ restoreModalOpen: false });
+              }}
+            >
+              {t('common.confirm')}
+            </Button>
+          </DialogActions>
+        </Dialog>
+      );
+    }
+    return null;
+  };
+
   renderAddOffersButton = () => {
     const { classes, t } = this.props;
     return (
@@ -780,6 +825,7 @@ export class Planning extends PureComponent<Props, State> {
                   companyId={this.props.companyId}
                   onEditButtonClick={this.openEditModal}
                   onDeleteButtonClick={this.openDeleteModal}
+                  onRestoreButtonClick={this.openRestoreModal}
                   goToOfferManagement={this.props.goToOfferManagement}
                   permission={this.props.permission}
                   members={this.props.members}
@@ -828,6 +874,7 @@ export class Planning extends PureComponent<Props, State> {
           {this.renderEditModal()}
           {this.renderDeleteModal()}
           {this.renderCreateModal()}
+          {this.renderRestoreModal()}
           {!!this.props.massDisablerStartDate && (
             <MassDisablerDialog
               startDate={this.props.massDisablerStartDate}
@@ -915,6 +962,7 @@ export default compose(
       disableMassOffers,
       fetchBookingStatistics: fetchBookingStatisticsAction,
       monitorBackgroundTask,
+      restoreOffer,
     },
   ),
   withHandlers({

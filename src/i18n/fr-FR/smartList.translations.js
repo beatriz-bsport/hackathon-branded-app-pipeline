@@ -176,6 +176,9 @@ exports.default = {
   filters: {
     isEmpty:
       "Aucun filtre n'est configuré, cette smartliste représente donc l'ensemble de la base membre",
+    attendanceTrue: 'présent',
+    attendanceFalse: 'absent',
+    attendanceWarning: 'Sélectionnez un statut',
     calendarPicker: {
       text: {
         [DATE_BEFORE]: { first: 'le ou avant le' },
@@ -347,6 +350,7 @@ exports.default = {
         second: 'heures et',
         third: 'heures',
       },
+      attendance: 'avec le statut',
     },
     [BOOKINGS_FILTER_IDENTIFIER]: {
       name: 'Nombre de réservations',
@@ -374,6 +378,7 @@ exports.default = {
         second: 'heures et',
         third: 'heures',
       },
+      attendance: 'avec le statut',
     },
     [PRIVATE_BOOKINGS_FILTER_IDENTIFIER]: {
       name: 'Nombre de rendez-vous',

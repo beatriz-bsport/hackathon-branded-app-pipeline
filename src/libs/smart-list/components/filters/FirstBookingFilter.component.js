@@ -9,6 +9,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Switch from '@material-ui/core/Switch';
 import moment from 'moment-timezone';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import MetaActivityListItem from '../../../meta-activity/components/MetaActivityListItem.component';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
@@ -35,6 +37,7 @@ type Props = {
   fetchBulkItems: any,
   fetchItems: any,
   renderSelectorWarning: (string, boolean) => void,
+  renderAttendanceSelectorWarning: (string, boolean | null) => void,
 };
 
 export class BookingsNumberFilter extends Component<Props, state> {
@@ -76,6 +79,8 @@ export class BookingsNumberFilter extends Component<Props, state> {
         hour: '08:00',
         hour_second: '18:00',
         hour_filter_active: false,
+        attendance_filter_active: false,
+        attendance: true,
       });
     }
   }
@@ -111,6 +116,51 @@ export class BookingsNumberFilter extends Component<Props, state> {
             : this.props.t(
                 `filters.${filter_data.filter_identifier}.second_plural`,
               )}
+        </div>
+        <div className={classes.inlineContainer}>
+          <Switch
+            checked={
+              filter_data.attendance_filter_active === undefined
+                ? false
+                : filter_data.attendance_filter_active
+            }
+            onChange={() =>
+              onChange({
+                attendance_filter_active: !filter_data.attendance_filter_active,
+              })
+            }
+            value="checkedA"
+            required
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />
+          <div
+            className={
+              filter_data.attendance_filter_active
+                ? classes.inlineContainer
+                : classes.disabled
+            }
+          >
+            {this.props.t(
+              `filters.${filter_data.filter_identifier}.attendance`,
+            )}
+            <Select
+              className={classes.input}
+              required
+              value={
+                filter_data.attendance === undefined
+                  ? true
+                  : filter_data.attendance
+              }
+              onChange={(ev) => onChange({ attendance: ev.target.value })}
+            >
+              <MenuItem value={true}>{t('filters.attendanceTrue')}</MenuItem>
+              <MenuItem value={false}>{t('filters.attendanceFalse')}</MenuItem>
+            </Select>
+            {this.props.renderAttendanceSelectorWarning(
+              filter_data.attendance_filter_active,
+              filter_data.attendance,
+            )}
+          </div>
         </div>
         <div className={classes.inlineContainer}>
           <Switch

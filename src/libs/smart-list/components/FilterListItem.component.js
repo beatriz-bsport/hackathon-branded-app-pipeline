@@ -142,6 +142,27 @@ export class FilterCard extends Component<Props> {
     return null;
   };
 
+  renderAttendanceSelectorWarning = (
+    active: boolean,
+    value: boolean | null,
+  ) => {
+    if (active && value === null) {
+      return (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <WarningIcon
+            color="error"
+            size={15}
+            className={this.props.classes.warningIcon}
+          />
+          <Typography variant="body1">
+            {this.props.t('filters.attendanceWarning')}
+          </Typography>
+        </div>
+      );
+    }
+    return null;
+  };
+
   filterTypeSelector = () => {
     switch (this.state.filter_data.filter_identifier) {
       case CREDIT_ACCOUNT_FILTER_IDENTIFIER:
@@ -241,6 +262,9 @@ export class FilterCard extends Component<Props> {
             fetchBulkItems={this.props.fetchBulkItems}
             setNotNullableData={this.setNotNullableData}
             renderSelectorWarning={this.renderSelectorWarning}
+            renderAttendanceSelectorWarning={
+              this.renderAttendanceSelectorWarning
+            }
           />
         );
       case FIRST_BOOKING_FILTER_IDENTIFIER:
@@ -260,6 +284,9 @@ export class FilterCard extends Component<Props> {
             fetchBulkItems={this.props.fetchBulkItems}
             setNotNullableData={this.setNotNullableData}
             renderSelectorWarning={this.renderSelectorWarning}
+            renderAttendanceSelectorWarning={
+              this.renderAttendanceSelectorWarning
+            }
           />
         );
       case USER_HAS_PASSWORD_FILTER:
@@ -288,6 +315,9 @@ export class FilterCard extends Component<Props> {
             fetchBulkItems={this.props.fetchBulkItems}
             setNotNullableData={this.setNotNullableData}
             renderSelectorWarning={this.renderSelectorWarning}
+            renderAttendanceSelectorWarning={
+              this.renderAttendanceSelectorWarning
+            }
           />
         );
       case PRIVATE_BOOKINGS_FILTER_IDENTIFIER:

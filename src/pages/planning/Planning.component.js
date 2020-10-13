@@ -206,7 +206,11 @@ type Props = {
   bookingsLoading: boolean,
 
   massDisablerStartDate: ?string,
-  disableMassOffers: (data: any, options: OptionCallback) => void,
+  disableMassOffers: (
+    params: any,
+    filters: any,
+    options: OptionCallback,
+  ) => void,
   setMassDisablerStartDate: (?string) => void,
   setShowCancelledOffers: (boolean) => void,
   setOpenDeleteDialog: () => void,
@@ -827,15 +831,11 @@ export class Planning extends PureComponent<Props, State> {
           {!!this.props.massDisablerStartDate && (
             <MassDisablerDialog
               startDate={this.props.massDisablerStartDate}
-              onSubmit={(params, options) =>
+              onSubmit={(params) =>
                 this.props.disableMassOffers(params, this.props.offerFilters, {
-                  onSuccess: (...args) => {
-                    if (options && options.onSuccess) {
-                      options.onSuccess(...args);
-                      this.fetchData();
-                    }
+                  onSuccess: () => {
+                    this.fetchData();
                   },
-                  onError: options && options.onError,
                 })
               }
               onClose={() => this.props.setMassDisablerStartDate(null)}

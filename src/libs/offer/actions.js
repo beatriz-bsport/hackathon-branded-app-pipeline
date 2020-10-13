@@ -12,6 +12,8 @@ import {
   fetchOffersList as fetchOffersListAPI,
   massDisableOffer as massDisableOfferAPI,
 } from './api';
+import { monitorBackgroundTask } from '../background-task/actions';
+
 import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const similarOffers = {
@@ -403,9 +405,20 @@ export function disableMassOffers(
 
     try {
       const response = await massDisableOfferAPI(dateInterval, filters);
-      dispatch(massDisableActions.success(response.data));
+      if (response.status === 200) {
+        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+        if (options && options.onSuccess) {
+          dispatch(
+            monitorBackgroundTask(backgroundTaskUuid, {
+              onSuccess: options.onSuccess,
+            }),
+          );
+        } else {
+          dispatch(monitorBackgroundTask(backgroundTaskUuid));
+        }
+      }
 
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      dispatch(massDisableActions.success(response.data));
     } catch (error) {
       dispatch(massDisableActions.error(error));
       if (options && options.onError) options.onError(error);

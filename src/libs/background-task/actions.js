@@ -44,7 +44,7 @@ export function fetchBackgroundTask(uuid: string) {
   };
 }
 
-export function monitorBackgroundTask(uuid: string, options: OptionCallback) {
+export function monitorBackgroundTask(uuid: string, options?: OptionCallback) {
   return (dispatch: Dispatch, getState: () => State) => {
     fetchFailedCounter = 0;
     dispatch(pendingBackgroundSnackbar(uuid, 'background.pending'));

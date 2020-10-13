@@ -32,6 +32,8 @@ type Props = {
 
   onClose: () => void,
   onSubmit: ({ start: string, end: string }, OptionCallback) => void,
+  secondWarningOpen: boolean,
+  setSecondWarningOpen: (boolean) => void,
 };
 
 export const MassDisablerDialog = (props: Props) => {
@@ -39,86 +41,110 @@ export const MassDisablerDialog = (props: Props) => {
   const { t } = useTranslation(['offer']);
   const { startDate, endDate } = props;
   return (
-    <Dialog open>
-      <DialogTitle>{t('massDisabler.title')}</DialogTitle>
-      <DialogContent>
-        <Typography>{t('massDisabler.explain')}</Typography>
-        <Typography color="error">
-          {t('massDisabler.explainWarning')}
-        </Typography>
+    <>
+      <Dialog open>
+        <DialogTitle>{t('massDisabler.title')}</DialogTitle>
+        <DialogContent>
+          <Typography>{t('massDisabler.explain')}</Typography>
+          <Typography color="error">
+            {t('massDisabler.explainWarning')}
+          </Typography>
 
-        <MuiPickersUtilsProvider
-          utils={MomentUtils}
-          moment={moment}
-          locale={moment.locale()}
-        >
-          <div className={classes.calendarsContainer}>
-            <BasePicker disabled={props.loading}>
-              {() => (
-                <div className={classes.picker}>
-                  <Calendar
-                    disabled={props.loading}
-                    autoOk
-                    date={moment(startDate, 'YYYY-MM-DD')}
-                    maxDate={moment(endDate, 'YYYY-MM-DD').add(-1, 'days')}
-                    onChange={(ev) =>
-                      props.setStartDate(ev.format('YYYY-MM-DD'))
-                    }
-                  />
-                </div>
-              )}
-            </BasePicker>
-            <BasePicker disabled={props.loading}>
-              {() => (
-                <div className={classes.picker}>
-                  <Calendar
-                    disabled={props.loading}
-                    minDate={moment(startDate, 'YYYY-MM-DD').add(1, 'days')}
-                    date={moment(endDate, 'YYYY-MM-DD')}
-                    onChange={(ev) => props.setEndDate(ev.format('YYYY-MM-DD'))}
-                  />
-                </div>
-              )}
-            </BasePicker>
-          </div>
-        </MuiPickersUtilsProvider>
-      </DialogContent>
-      <DialogActions>
-        {props.loading ? (
-          <React.Fragment>
-            <Typography variant="caption">
-              {t('massDisabler.explainLoading')}
-            </Typography>
-            <CircularProgress />
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <Button onClick={props.onClose}>
+          <MuiPickersUtilsProvider
+            utils={MomentUtils}
+            moment={moment}
+            locale={moment.locale()}
+          >
+            <div className={classes.calendarsContainer}>
+              <BasePicker disabled={props.loading}>
+                {() => (
+                  <div className={classes.picker}>
+                    <Calendar
+                      disabled={props.loading}
+                      autoOk
+                      date={moment(startDate, 'YYYY-MM-DD')}
+                      maxDate={moment(endDate, 'YYYY-MM-DD').add(-1, 'days')}
+                      onChange={(ev) =>
+                        props.setStartDate(ev.format('YYYY-MM-DD'))
+                      }
+                    />
+                  </div>
+                )}
+              </BasePicker>
+              <BasePicker disabled={props.loading}>
+                {() => (
+                  <div className={classes.picker}>
+                    <Calendar
+                      disabled={props.loading}
+                      minDate={moment(startDate, 'YYYY-MM-DD').add(1, 'days')}
+                      date={moment(endDate, 'YYYY-MM-DD')}
+                      onChange={(ev) =>
+                        props.setEndDate(ev.format('YYYY-MM-DD'))
+                      }
+                    />
+                  </div>
+                )}
+              </BasePicker>
+            </div>
+          </MuiPickersUtilsProvider>
+        </DialogContent>
+        <DialogActions>
+          {props.loading ? (
+            <React.Fragment>
+              <Typography variant="caption">
+                {t('massDisabler.explainLoading')}
+              </Typography>
+              <CircularProgress />
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Button onClick={props.onClose}>
+                {t('massDisabler.actions.cancel')}
+              </Button>
+              <Button
+                onClick={() => {
+                  props.setSecondWarningOpen(true);
+                }}
+              >
+                {t('massDisabler.actions.continue')}
+              </Button>
+            </React.Fragment>
+          )}
+        </DialogActions>
+      </Dialog>
+      <Dialog open={props.secondWarningOpen}>
+        <DialogTitle>{t('massDisabler.title')}</DialogTitle>
+        <DialogContent>
+          <Typography>{t('massDisabler.secondWarningConfirm')}</Typography>
+          <Typography color="error">
+            {t('massDisabler.secondWarning')}
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <>
+            <Button
+              onClick={() => {
+                props.setSecondWarningOpen(false);
+                props.onClose();
+              }}
+            >
               {t('massDisabler.actions.cancel')}
             </Button>
             <Button
               onClick={() => {
                 props.setLoading(true);
-                props.onSubmit(
-                  { start: props.startDate, end: props.endDate },
-                  {
-                    onSuccess: () => {
-                      props.setLoading(false);
-                      props.onClose();
-                    },
-                    onError: () => {
-                      props.setLoading(false);
-                    },
-                  },
-                );
+                props.onSubmit({ start: props.startDate, end: props.endDate });
+                props.setLoading(false);
+                props.setSecondWarningOpen(false);
+                props.onClose();
               }}
             >
               {t('massDisabler.actions.submit')}
             </Button>
-          </React.Fragment>
-        )}
-      </DialogActions>
-    </Dialog>
+          </>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 
@@ -142,4 +168,5 @@ export default compose(
         .add(1, 'days')
         .format('YYYY-MM-DD'),
   ),
+  withState('secondWarningOpen', 'setSecondWarningOpen', false),
 )(MassDisablerDialog);

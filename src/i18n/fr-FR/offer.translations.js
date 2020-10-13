@@ -63,9 +63,13 @@ exports.default = {
       "Sélectionnez l'intervalle de date sur lequel vous souhaitez annuler vos séances. Les membres ayant réservé seront prévenu par email et leur crédits automatiquement remboursés sur la carte de cours correspondante",
     explainWarning: 'ATTENTION cette opération est irréversible.',
     explainLoading: 'Veuillez patienter',
+    secondWarning:
+      "En cliquant sur 'CONFIRMER', les séances comprises dans l'intervalle sélectionné seront annulées et vous ne pourrrez plus revenir en arrière.",
+    secondWarningConfirm: 'Voulez-vous vraiment continuer ?',
     actions: {
       cancel: 'Annuler',
       submit: 'Confirmer',
+      continue: 'Continuer',
     },
   },
   bookingList: 'Réservations',

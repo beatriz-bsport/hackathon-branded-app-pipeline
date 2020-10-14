@@ -150,24 +150,26 @@ export class MemberSummaryCard extends Component<Props> {
           openMailDialog={() => this.setState({ displayMailDialog: true })}
           hideContactButton={this.props.hideContactButton}
         />
-        <CommunicationDialog
-          getEmails={this.props.getEmails}
-          emails={this.props.emails}
-          getEmailDetail={this.props.getEmailDetail}
-          emailDetails={this.props.emailDetails}
-          emailListLoading={this.props.emailListLoading}
-          emailDetailLoading={this.props.emailDetailLoading}
-          send={this.props.sendCommunication}
-          open={this.state.displayMailDialog}
-          fullscreen
-          membersToDisplay={[{ ...member, phone: member.phone_number }]}
-          allIds={[member.id]}
-          allIdsWithEmail={member.email ? [member.id] : []}
-          allIdsWithPhone={member.phone_number ? [member.id] : []}
-          onCancel={() => this.setState({ displayMailDialog: false })}
-          receiversNotEditable
-          hideSms={Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'}
-        />
+        {this.state.displayMailDialog && (
+          <CommunicationDialog
+            getEmails={this.props.getEmails}
+            emails={this.props.emails}
+            getEmailDetail={this.props.getEmailDetail}
+            emailDetails={this.props.emailDetails}
+            emailListLoading={this.props.emailListLoading}
+            emailDetailLoading={this.props.emailDetailLoading}
+            send={this.props.sendCommunication}
+            open={this.state.displayMailDialog}
+            fullscreen
+            membersToDisplay={[{ ...member, phone: member.phone_number }]}
+            allIds={[member.id]}
+            allIdsWithEmail={member.email ? [member.id] : []}
+            allIdsWithPhone={member.phone_number ? [member.id] : []}
+            onCancel={() => this.setState({ displayMailDialog: false })}
+            receiversNotEditable
+            hideSms={Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'}
+          />
+        )}
       </List>
     );
   };

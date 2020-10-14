@@ -60,7 +60,7 @@ type Props = {
   emails: Array<any>,
   emailDetailLoading: boolean,
   emailDetails: Array<any>,
-  sendAction: () => void,
+  sendCommunication: (any) => void,
 };
 
 export class MemberSummaryCard extends Component<Props> {
@@ -157,7 +157,7 @@ export class MemberSummaryCard extends Component<Props> {
           emailDetails={this.props.emailDetails}
           emailListLoading={this.props.emailListLoading}
           emailDetailLoading={this.props.emailDetailLoading}
-          sendAction={this.props.sendAction}
+          send={this.props.sendCommunication}
           open={this.state.displayMailDialog}
           fullscreen
           membersToDisplay={[{ ...member, phone: member.phone_number }]}

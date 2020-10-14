@@ -35,10 +35,18 @@ type Props = {
   onInvoiceClick: (uuid: string) => void,
   goToMember: (id: number) => void,
   updateOrderState: (id: number) => void,
-  mailMember: () => void,
+  sendCommunication: (any) => void,
 
   order: ?OrderWithProducts,
   invoice: ?Invoice,
+
+  getEmails: () => void,
+  getEmailDetail: (id: number) => void,
+  emailListLoading: boolean,
+  emailDetailLoading: boolean,
+  emails: Array<any>,
+  emailDetails: Array<any>,
+  sendCommunication: (any) => void,
 
   t: TFunction,
   classes: Object,
@@ -53,7 +61,7 @@ export const OrderDetail = (props: Props) => {
     onInvoiceClick,
     updateOrderState,
     goToMember,
-    mailMember,
+    sendCommunication,
   } = props;
   return (
     <div>
@@ -176,7 +184,13 @@ export const OrderDetail = (props: Props) => {
               memberId={order.member.id}
               member={order.member}
               goToMember={() => goToMember(order.member.id)}
-              mailMember={mailMember}
+              sendCommunication={sendCommunication}
+              getEmails={props.getEmails}
+              emails={props.emails}
+              getEmailDetail={props.getEmailDetail}
+              emailDetails={props.emailDetails}
+              emailListLoading={props.emailListLoading}
+              emailDetailLoading={props.emailDetailLoading}
             />
           ) : null}
         </Grid>

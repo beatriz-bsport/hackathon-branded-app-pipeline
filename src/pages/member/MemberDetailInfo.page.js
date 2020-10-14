@@ -57,11 +57,7 @@ import type { OptionCallback } from '../../state/types';
 import { memberTaskListSelector } from '../../libs/reminder/selectors';
 import { fetchCompanyRoles } from '../../libs/role/actions';
 
-import {
-  mailMembers,
-  mailMembersFromTemplate as mailMembersFromTemplateAction,
-  sendSms as sendSmsAction,
-} from '../../libs/communication/actions';
+import { sendCommunication } from '../../libs/communication/actions';
 import {
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
@@ -101,15 +97,13 @@ type Props = {
   deleteNote: ({ memberId: number, noteId: number }) => void,
 
   // MAIL
-  mailMember: () => void,
   fetchEmailTemplatesSummaries: () => void,
   fetchEmailTemplateDetail: (id: number) => void,
   emailListLoading: boolean,
   emailDetailLoading: boolean,
   email_templates_list: Array<any>,
   email_templates_details: Array<any>,
-  mailMembersFromTemplate: (data: any) => void,
-  sendSms: (data: any) => void,
+  sendCommunication: (any) => void,
 
   // TASK
   taskList: Array<Task>,
@@ -205,11 +199,7 @@ export class MemberDetailPage extends Component<Props, State> {
             emailDetails={this.props.email_templates_details}
             emailListLoading={this.props.emailListLoading}
             emailDetailLoading={this.props.emailDetailLoading}
-            sendAction={{
-              writtedMail: this.props.mailMember,
-              templateMail: this.props.mailMembersFromTemplate,
-              sms: this.props.sendSms,
-            }}
+            sendCommunication={this.props.sendCommunication}
           />
           <TaskList
             taskList={this.props.taskList}
@@ -316,15 +306,13 @@ export default compose(
       emailDetailLoading: state.emailTemplate.detail.isLoading,
     }),
     {
+      sendCommunication,
       fetchRoles: fetchCompanyRoles,
       fetchMember,
       searchMembers,
       tagMember,
       untagMember,
       fetchTags,
-      mailMember: mailMembers,
-      mailMembersFromTemplate: mailMembersFromTemplateAction,
-      sendSms: sendSmsAction,
       fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
       fetchEmailTemplatesSummaries,
       mergeInto: (src: number, dst: number) =>

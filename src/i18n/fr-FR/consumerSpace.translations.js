@@ -26,6 +26,7 @@ exports.default = {
     showCalendar: 'Voir le calendrier',
     discard: 'Annuler',
     bookAgain: 'Réserver de nouveau',
+    accessLive: 'Accéder au live',
   },
   dashboard: {
     favoriteTitle: 'Suggestion de réservation',

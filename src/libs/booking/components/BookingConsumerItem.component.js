@@ -89,7 +89,7 @@ export const BookingConsumerItem = (props: Props) => {
             onClick={props.goToBroadcast}
           >
             <VideoCamIcon className={classes.leftIcon} />
-            ACCEDER AU LIVE
+            {t('booking.accessLive')}
           </Button>
         ) : null}
         {props.goToCalendar ? (

@@ -87,7 +87,6 @@ import {
 import type { Coach } from '../../libs/associated-coach/types';
 
 import { getCoaches } from '../../libs/associated-coach/selectors';
-import Config from '../../config';
 
 type Props = {
   id: number,

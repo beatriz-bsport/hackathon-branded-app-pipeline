@@ -17,7 +17,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import CommunicationDialog from '../../libs/communication/components/CommunicationDialog.component';
 import type { Booking, BookingOption } from '../../libs/booking/types';
-import Config from '../../config';
 
 type Props = {
   fullScreen: boolean,

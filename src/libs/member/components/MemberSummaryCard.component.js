@@ -39,7 +39,6 @@ import EmailItem from '../../communication/components/EmailItem.component';
 import PhoneItem from '../../communication/components/PhoneItem.component';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 import CommunicationDialog from '../../communication/components/CommunicationDialog.component';
-import Config from '../../../config';
 
 type Props = {
   hideCreditAccount?: boolean,

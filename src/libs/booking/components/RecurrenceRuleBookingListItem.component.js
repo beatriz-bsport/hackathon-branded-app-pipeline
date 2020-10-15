@@ -32,7 +32,7 @@ type Props = {
 export const RecurrenceRuleBookingListItem = (props: Props) => {
   const { t } = useTranslation(['booking', 'datetime']);
   const { recurrenceRuleBooking, onDelete, onEdit, notShowMember } = props;
-  const { member, meta_activity } = recurrenceRuleBooking;
+  const { member, meta_activity, establishment } = recurrenceRuleBooking;
 
   const [checked, setChecked] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -118,6 +118,11 @@ export const RecurrenceRuleBookingListItem = (props: Props) => {
             {!notShowMember && !!meta_activity && (
               <Typography color="primary" variant="body2">
                 {meta_activity.name}
+              </Typography>
+            )}
+            {!!establishment && (
+              <Typography color="secondary" variant="body2">
+                {establishment.title}
               </Typography>
             )}
             <Typography variant="body2">

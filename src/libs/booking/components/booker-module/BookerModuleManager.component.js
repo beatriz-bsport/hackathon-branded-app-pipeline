@@ -81,7 +81,7 @@ type Props = {
   fullScreen: boolean,
   onClose: () => void,
   classes: Object,
-  setBookerInAvanceDialog: () => void,
+  openRecurrenceRuleForm: () => void,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -192,7 +192,7 @@ export class BookingModuleManager extends PureComponent<Props> {
                   this.props.consumerPacks.length === 0
                 }
                 variant="outlined"
-                onClick={() => this.props.setBookerInAvanceDialog(true)}
+                onClick={() => this.props.openRecurrenceRuleForm()}
               >
                 {t('booking:recurrenceRule.recurrentRuleBooking')}
               </Button>

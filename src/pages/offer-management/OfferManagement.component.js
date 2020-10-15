@@ -77,6 +77,9 @@ type Props = {
   searchMembers: (txt: string) => void,
   sendCommunication: (any) => void,
 
+  establishmentList: Array<Establishment>,
+  fetchEstablishmentList: () => void,
+
   searchedMembers: Array<Member>,
   confirmBookingAttendance: (bookingId: number) => void,
   discardBookingAttendance: (bookingId: number) => void,
@@ -350,6 +353,11 @@ export class OfferManagement extends Component<Props, State> {
     this.props.clearSearch();
   };
 
+  openRecurrenceRuleForm = () => {
+    this.props.fetchEstablishmentList();
+    this.props.setBookerInAvanceDialog(true);
+  };
+
   render() {
     const {
       offer,
@@ -396,6 +404,7 @@ export class OfferManagement extends Component<Props, State> {
                 id: this.props.offer.meta_activity_id,
                 name: this.props.offer.name,
               },
+              establishment: this.props.offer.etablissement,
               hour: moment(this.props.offer.date_start)
                 .tz(this.props.offer.timezone_name)
                 .hours(),
@@ -408,6 +417,7 @@ export class OfferManagement extends Component<Props, State> {
                   .isoWeekday() - 1,
             }}
             metaActivityList={this.props.metaActivities}
+            establishmentList={this.props.establishmentList}
             onSubmit={(data, options) => {
               if (this.props.memberToRegister) {
                 this.props.createRecurrenceRuleBooking(
@@ -510,7 +520,7 @@ export class OfferManagement extends Component<Props, State> {
             onCancel={() => this.props.setMemberToRegister(null)}
             onClose={() => this.props.setMemberToRegister(null)}
             registerToOffer={this.registerToOffer}
-            setBookerInAvanceDialog={this.props.setBookerInAvanceDialog}
+            openRecurrenceRuleForm={this.openRecurrenceRuleForm}
           />
         )}
         <Dialog

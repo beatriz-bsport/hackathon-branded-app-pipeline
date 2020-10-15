@@ -60,6 +60,9 @@ import {
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
 } from '../../libs/email-editor/actions';
 
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
@@ -144,6 +147,8 @@ export default compose(
 
       email_templates_details: getEmailTemplatesDetail(state),
 
+      establishmentList: getAvailableEstablishmentList(state),
+
       // invoice
       unevenSavedInvoices: withMember(withInvoiceItem(getQuickInvoiceList))(
         state,
@@ -160,6 +165,8 @@ export default compose(
 
       fetchEmailTemplatesSummaries,
       fetchEmailTemplateDetail: emailTemplateDetail,
+
+      fetchEstablishmentList: fetchEstablishments,
 
       toogleWaitingListFreeze: toogleWaitingListFreezeAction,
       registerToWaitingListAction: registerToWaitingListAction_,

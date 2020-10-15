@@ -1858,7 +1858,8 @@
             "subscription": "Subscription",
             "waiting-list": "Waiting-list",
             "private_booking": "Appointments",
-            "marketing": "Marketing"
+            "marketing": "Marketing",
+            "invoice": "Billing"
         },
         "emailDesign": {
             "placeholder": "Handled by bsport",
@@ -1980,7 +1981,9 @@
             "403": "Modified timetable (teacher)",
             "402": "New appointment (teacher)",
             "401": "Appointment canceled - refunded (teacher)",
-            "400": "Appointment canceled - out of time (teacher)"
+            "400": "Appointment canceled - out of time (teacher)",
+            "300": "Kick (Not validated in time too many times)",
+            "22": "Invoice confirmation"
         },
         "messages": {
             "createOrUpdate": {
@@ -2194,9 +2197,22 @@
             "content": "Mail content",
             "missing": "Missing email",
             "success": "Mail sent",
-            "error": "Mail not sent",
+            "error": "Mail not sent, please try again later",
             "refreshText": "Please refresh page to integrate email change",
-            "noObject": "No object"
+            "noObject": "No object",
+            "refreshTextPhone": "Please reload the page to update phone",
+            "sendSms": "Send an sms",
+            "hideMail": "Hide email",
+            "count": "characters",
+            "mailSelection": "Select an email",
+            "selectToShowPreview": "Select an email to preview it",
+            "phoneMissing": "Phone missing",
+            "mailMissing": "Email missing",
+            "numberSms": "sms",
+            "contentSms": "Sms content",
+            "selectTemplate": "Select a template",
+            "writeMail": "Write an email",
+            "dialogTitle": "Communication"
         },
         "recipients": "Recipients",
         "common": {
@@ -2230,7 +2246,11 @@
                 "recipientList": "Recipient Detail",
                 "noTopLink": "No click"
             },
-            "showMail": "Show email"
+            "showMail": "Show email",
+            "kind": {
+                "1": "SMS",
+                "0": "Email"
+            }
         },
         "recipient": {
             "readCount": "Open",
@@ -2252,7 +2272,8 @@
                     "clicked": "Clicks",
                     "status": "Status"
                 }
-            }
+            },
+            "showSms": "View SMS"
         },
         "send": {
             "error": "Error while sending",

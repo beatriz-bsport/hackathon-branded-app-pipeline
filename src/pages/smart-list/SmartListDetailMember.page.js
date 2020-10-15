@@ -377,7 +377,12 @@ export class SmartListDetailMember extends Component<Props, State> {
             this.props.members.loading
           }
           membersByPageLoading={this.props.members.loading}
-          send={this.props.sendCommunication}
+          send={(data) =>
+            this.props.sendCommunication({
+              ...data,
+              smartlist_id: this.props.id,
+            })
+          }
         />
         <SmartListEditDialog
           open={this.state.openEditDialog}

@@ -83,16 +83,19 @@ export default withTranslation(['establishment'])(
     closeMenuOnSelect,
     nullCurrentValue,
     disabled,
+    noMulti,
+    isClearable,
   }) => (
     <Select
       closeMenuOnSelect={!!closeMenuOnSelect}
       nullCurrentValue={!!nullCurrentValue}
-      isMulti
+      isMulti={!noMulti}
       placeholder={t('establishment')}
       options={getEstablishmentOptions([...establishments])}
       styles={establishmentStyles}
       onChange={selectOption}
       isDisabled={disabled}
+      isClearable={isClearable}
       menuPortalTarget={document.querySelector('body')}
       value={
         selectedEstablishments

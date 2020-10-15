@@ -14,6 +14,7 @@ import * as Yup from 'yup';
 import { withFormik } from 'formik';
 
 import MetaActivitySelectorField from '../../meta-activity/components/MetaActivitySelectorField.component';
+import EstablishmentSelectorField from '../../establishment/components/EstablishmentSelectorField.component';
 
 import { IntegerField, SelectField } from '../../../components/forms';
 
@@ -24,6 +25,7 @@ type Props = {
   metaActivityList: Array,
   setFieldValue: () => void,
   initial: Object,
+  establishmentList: Array<Establishment>,
 };
 
 export function RecurrenceRuleBookingForm(props: Props) {
@@ -75,6 +77,16 @@ export function RecurrenceRuleBookingForm(props: Props) {
             />
           </div>
         </fieldset>
+      </div>
+      <div className={classes.field}>
+        <EstablishmentSelectorField
+          id="establishment"
+          name="establishment"
+          label={t('booking:recurrenceRule.form.establishment.label')}
+          noMulti
+          fullWidth
+          establishmentList={props.establishmentList}
+        />
       </div>
       <div className={classes.field}>
         <MetaActivitySelectorField
@@ -157,11 +169,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RecurrenceRuleBookingSchema = Yup.object().shape({
-  day_of_week: Yup.number().min(0).max(6).required(),
-  minute: Yup.number().min(0).max(59).required(),
-  hour: Yup.number().min(0).max(23).required(),
-  delay_week: Yup.number().min(1).max(8).required(),
+  day_of_week: Yup.number()
+    .min(0)
+    .max(6)
+    .required(),
+  minute: Yup.number()
+    .min(0)
+    .max(59)
+    .required(),
+  hour: Yup.number()
+    .min(0)
+    .max(23)
+    .required(),
+  delay_week: Yup.number()
+    .min(1)
+    .max(8)
+    .required(),
   meta_activity: Yup.number().required(),
+  establishment: Yup.number().nullable(),
   notify_if_booked: Yup.boolean(),
 });
 
@@ -171,7 +196,12 @@ export const RecurrenceRuleBookingFormikHOC = withFormik({
     initial
       ? {
           ...initial,
-          meta_activity: initial.meta_activity.id,
+          meta_activity: initial.meta_activity
+            ? initial.meta_activity.id
+            : null,
+          establishment: initial.establishment
+            ? initial.establishment.id
+            : null,
           delay_week: initial.delay_week ? initial.delay_week : 4,
         }
       : {
@@ -179,6 +209,8 @@ export const RecurrenceRuleBookingFormikHOC = withFormik({
           hour: 11,
           minute: 0,
           day_of_week: 0,
+          establishment: null,
+          meta_activity: null,
           notify_if_booked: false,
         },
   validationSchema: RecurrenceRuleBookingSchema,

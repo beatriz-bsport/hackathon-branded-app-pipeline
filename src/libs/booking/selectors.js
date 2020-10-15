@@ -12,6 +12,7 @@ import {
 } from '../offer/selectors';
 import { getMemberListData } from '../member/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
+import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
 
 const _getData = (state: State) => state.booking.byId;
 
@@ -150,13 +151,17 @@ export const getRecurrenceRuleBookingList = createSelector(
     _getRecurrenceRuleBookingData,
     getMemberListData,
     getMetaActivityData,
+    getEstablishmentData,
   ],
-  (ids, data, memberData, metaActivityData) =>
+  (ids, data, memberData, metaActivityData, establishmentData) =>
     ids
       .map((id) => data[id])
       .map((rb) => ({
         ...rb,
         meta_activity: metaActivityData[rb.meta_activity],
+        establishment: rb.establishment
+          ? establishmentData[rb.establishment]
+          : null,
         member: memberData[rb.member],
       })),
 );

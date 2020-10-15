@@ -3,6 +3,7 @@
 public/env.js
 ./public/locales
 ./src/i18n/en-US/*js
+.Rhistory
 
 # dependencies
 /node_modules

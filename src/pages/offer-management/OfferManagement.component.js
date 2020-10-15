@@ -86,6 +86,7 @@ type Props = {
   revertQuickInvoiceAndRefreshOffer: (uuid: string, offerId: number) => void,
   goToMember: (id: number) => void,
   snackbarSuccess: (msg: string) => void,
+  country: string,
 
   createMember: (id: ?number, data: [*], options: *, offerId: number) => void,
   createInvoice: ([*], number, number) => void,
@@ -536,6 +537,7 @@ export class OfferManagement extends Component<Props, State> {
               goToMember={this.props.goToMember}
               goToMemberList={() => {}}
               snackbarSuccess={this.props.snackbarSuccess}
+              country={this.props.country}
             />
           </DialogContent>
         </Dialog>

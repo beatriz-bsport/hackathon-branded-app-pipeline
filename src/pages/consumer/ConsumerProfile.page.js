@@ -31,6 +31,7 @@ type Props = {
   theme: Theme,
   onUpdateMember: (data: *) => void,
   snackbarSuccess: (string) => void,
+  country: string,
 };
 
 export class ConsumerProfile extends React.Component<Props> {
@@ -84,6 +85,7 @@ export class ConsumerProfile extends React.Component<Props> {
             onSubmit={this.props.onUpdateMember}
             initial={initialData}
             snackbarSuccess={this.props.snackbarSuccess}
+            country={this.props.country}
           />
         </Dialog>
       </div>
@@ -97,6 +99,7 @@ export default compose(
       memberLoading: state.member.loading,
       member: getMemberDetail(state, membership.id),
       theme: themeSelectors.getTheme(state),
+      country: state.theme.theme.locale.split('_')[1],
     }),
     {
       fetchMember: fetchMemberAction,

@@ -77,6 +77,7 @@ type Props = {
 
   createMember: (data: any, options: OptionCallback) => void,
   timezone: string,
+  country: string,
 };
 
 type State = {
@@ -203,6 +204,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
           handlMemberSelected={(id: number, member: Member) =>
             this.setState({ member })
           }
+          country={this.props.country}
         />
       );
     }
@@ -347,6 +349,7 @@ export default compose(
       timezone: state.theme.theme.timezone_name,
       bookingProcessing:
         state.privateService.privateBooking.createOrUpdate.loading,
+      country: state.theme.theme.locale.split('_')[1],
     }),
     {
       fetchAllPrivateServices: (options) =>

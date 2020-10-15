@@ -16,6 +16,7 @@ type Props = {
   srcMember: ?Member,
   classes: Object,
   goToMember: () => void,
+  country: string,
 
   onSubmit: (data: *, options: any) => void,
   switchSrcDst: (src: number, dst: number) => void,
@@ -56,6 +57,7 @@ export class MemberMergeForm extends Component<Props> {
             initial={prepareData(this.props.dstMember)}
             ignoreMail="true"
             onSubmit={(data, options) => this.props.onSubmit(data, options)}
+            country={this.props.country}
           />
           <div className={classes.buttonContainer}>
             <Button size="large" onClick={() => this.props.switchSrcDst()}>

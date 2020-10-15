@@ -165,7 +165,11 @@
       "reCreateBooking": "Réinscrire",
       "noQuickInvoiceOpened": "Aucune facturation ouverte",
       "myOpenedInvoices": "Factures rapides",
-      "manageOffer": "Gérer mes réservations"
+      "manageOffer": "Gérer mes réservations",
+      "restoreModal": {
+        "title": "Restaurer la séance",
+        "explain": "Cette séance sera désannulée et de nouveau ouverte à vos clients. En revanche, les réservations précédemment annulées ne seront pas rétablies."
+      }
     },
     "shop": {
       "supplier_price": "Prix fournisseur",
@@ -987,12 +991,14 @@
       "18": "Réservation annulée : crédit remboursé",
       "19": "Inscription membre (manager)",
       "21": "Nouvelle réservation",
+      "22": "Confirmation facture",
       "24": "Abonnement créé",
       "25": "Changement de méthode de paiement",
       "26": "Abonnement mis en pause",
       "27": "Abonnement stoppé ou terminé",
       "28": "Paiement reçu",
       "29": "Rappel cours en ligne dans 15 min",
+      "300": "Kick (non-validé dans les temps trop de fois)",
       "400": "Rendez-vous annulé - hors-délai (professeur)",
       "401": "Rendez-vous annulé - remboursé (professeur)",
       "402": "Nouveau rendez-vous (professeur)",
@@ -1000,8 +1006,7 @@
       "450": "Rendez-vous - hors-délai (élève)",
       "451": "Rendez-vous annulé - remboursé (élève)",
       "452": "Nouveau rendez-vous (élève)",
-      "453": "Horaire modifié (élève)",
-      "undefined": "Kick (non-validé dans les temps trop de fois)"
+      "453": "Horaire modifié (élève)"
     }
   },
   "consumerSpace": {
@@ -2618,6 +2623,7 @@
     }
   },
   "snackbar": {
+    "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
     "invoice": {
       "update": { "success": "Facture mise à jour avec succès" },
       "create": { "success": "Facture enregistrée" },
@@ -3629,6 +3635,7 @@
     "substitute": "Remplaçant",
     "calendar": { "modifyOffer": "Modifier", "deleteOffer": "Annuler" },
     "manageOffer": "Gérer mes réservations",
+    "restoreOffer": "Restaurer la séance",
     "forms": { "old_date": "Ancien horaire :", "new_date": "Nouvel horaire :", "delete": { "buttonHardDelete": "Supprimer" } },
     "card": { "copyLink": "Copier le lien vers la page de réservation", "copied": "Lien copié" },
     "offerManagement": {
@@ -3648,7 +3655,9 @@
       "explain": "Sélectionnez l'intervalle de date sur lequel vous souhaitez annuler vos séances. Les membres ayant réservé seront prévenu par email et leur crédits automatiquement remboursés sur la carte de cours correspondante",
       "explainWarning": "ATTENTION cette opération est irréversible.",
       "explainLoading": "Veuillez patienter",
-      "actions": { "cancel": "Annuler", "submit": "Confirmer" }
+      "secondWarning": "En cliquant sur 'CONFIRMER', les séances comprises dans l'intervalle sélectionné seront annulées et vous ne pourrrez plus revenir en arrière.",
+      "secondWarningConfirm": "Voulez-vous vraiment continuer ?",
+      "actions": { "cancel": "Annuler", "submit": "Confirmer", "continue": "Continuer" }
     },
     "bookingList": "Réservations",
     "bookingListEmpty": "Aucune réservation",

@@ -167,7 +167,6 @@ export class MemberSummaryCard extends Component<Props> {
             allIdsWithPhone={member.phone_number ? [member.id] : []}
             onCancel={() => this.setState({ displayMailDialog: false })}
             receiversNotEditable
-            hideSms={Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'}
           />
         )}
       </List>

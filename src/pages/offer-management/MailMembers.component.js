@@ -270,7 +270,6 @@ export class MailDialog extends Component<Props, State> {
           open={this.state.openMailDialog}
           receiverInfo={this.state.receiversList}
           mailDefaultTitle={this.props.mailDefaultTitle}
-          hideSms={Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'}
           onCancel={() => {
             onClose();
             this.setState({

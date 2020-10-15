@@ -342,7 +342,6 @@ export class SmartListDetailMember extends Component<Props, State> {
             this.props.setOpenSendEmail(false);
             this.setState({ resetMembersFetchForCommunication: true });
           }}
-          hideSms={Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'}
           membersToDisplay={this.props.members.displayItems}
           allIds={this.props.members.allIds}
           allIdsWithEmail={this.props.members.allIds.filter(

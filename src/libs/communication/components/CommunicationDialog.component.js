@@ -45,7 +45,6 @@ type Props = {
   open: boolean,
   mailDefaultTitle: ?string,
   mailDefaultTitle: string,
-  hideSms: boolean,
   hideTemplateMail: boolean,
   hideWrittenMail: boolean,
 
@@ -74,11 +73,7 @@ export class SendMailToMembers extends Component<Props> {
       mailTitle: props.mailDefaultTitle || null,
       mailContent: '',
       // eslint-disable-next-line
-      actionType: props.hideTemplateMail
-        ? props.hideSms
-          ? WRITE_EMAIL
-          : SEND_SMS
-        : SELECT_EMAIL,
+      actionType: props.hideTemplateMail ? WRITE_EMAIL : SELECT_EMAIL,
       selectedTemplate: null,
       smsContent: '',
       page_size: props.page_size || MEMBER_PAGE_SIZE,
@@ -161,33 +156,31 @@ export class SendMailToMembers extends Component<Props> {
             labelPlacement="bottom"
           />
         )}
-        {this.props.hideSms ? null : (
-          <FeatureListProvider>
-            {(featureList) => (
-              <FormControlLabel
-                control={
-                  <Radio
-                    checked={this.state.actionType === SEND_SMS}
-                    disabled={
-                      !featureList.upsell ||
-                      !featureList.upsell.find(
-                        (f) => f.readable_identifier === 'sms',
-                      )
-                    }
-                    onChange={() =>
-                      this.setState({
-                        actionType: SEND_SMS,
-                        unCheckedMembers: [],
-                      })
-                    }
-                  />
-                }
-                label={this.props.t('mail.sendSms')}
-                labelPlacement="bottom"
-              />
-            )}
-          </FeatureListProvider>
-        )}
+        <FeatureListProvider>
+          {(featureList) => (
+            <FormControlLabel
+              control={
+                <Radio
+                  checked={this.state.actionType === SEND_SMS}
+                  disabled={
+                    !featureList.upsell ||
+                    !featureList.upsell.find(
+                      (f) => f.readable_identifier === 'sms',
+                    )
+                  }
+                  onChange={() =>
+                    this.setState({
+                      actionType: SEND_SMS,
+                      unCheckedMembers: [],
+                    })
+                  }
+                />
+              }
+              label={this.props.t('mail.sendSms')}
+              labelPlacement="bottom"
+            />
+          )}
+        </FeatureListProvider>
       </div>
     );
   };
@@ -198,11 +191,7 @@ export class SendMailToMembers extends Component<Props> {
       mailTitle: this.props.mailDefaultTitle || null,
       mailContent: '',
       // eslint-disable-next-line
-      actionType: this.props.hideTemplateMail
-        ? this.props.hideSms
-          ? WRITE_EMAIL
-          : SEND_SMS
-        : SELECT_EMAIL,
+      actionType: this.props.hideTemplateMail ? WRITE_EMAIL : SELECT_EMAIL,
       selectedTemplate: null,
       smsContent: '',
     });
@@ -391,7 +380,7 @@ export class SendMailToMembers extends Component<Props> {
                   onChangeTitle={(text) => this.setState({ mailTitle: text })}
                 />
               ) : null}
-              {this.state.actionType === SEND_SMS && !this.props.hideSms ? (
+              {this.state.actionType === SEND_SMS ? (
                 <WriteSMS
                   smsContent={this.state.smsContent}
                   countReceivers={

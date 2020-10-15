@@ -39,6 +39,7 @@ type Props = {
   t: TFunction,
 
   createMember: (data: any, options: OptionCallback) => void,
+  country: string,
 
   openCreateForm: () => void,
   closeCreateForm: () => void,
@@ -79,6 +80,7 @@ export function MemberSearchModal(props: Props) {
           initial={{ birthday: null, rgpd: ['accept_email', 'accept_sms'] }}
           goToMember={() => {}}
           goToMemberList={() => {}}
+          country={props.country}
         />
       </Dialog>
     );

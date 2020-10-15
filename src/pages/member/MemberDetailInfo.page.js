@@ -80,6 +80,7 @@ type Props = {
   searchMembers: (text: string) => void,
   searchedMembers: Array<Member>,
   mergeInto: (src: number, dst: number) => void,
+  country: string,
 
   // FILES
   addFile: (file: any) => void,
@@ -247,6 +248,7 @@ export class MemberDetailPage extends Component<Props, State> {
           handlMemberSelected={(id: number) =>
             this.props.mergeInto(this.props.id, id)
           }
+          country={this.props.country}
         />
         <TagDeleteDialog
           open={!!this.state.tagToDelete}
@@ -304,6 +306,7 @@ export default compose(
       email_templates_details: getEmailTemplatesDetail(state),
       emailListLoading: state.emailTemplate.isLoading,
       emailDetailLoading: state.emailTemplate.detail.isLoading,
+      country: state.theme.theme.locale.split('_')[1],
     }),
     {
       sendCommunication,

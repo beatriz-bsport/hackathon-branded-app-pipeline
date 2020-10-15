@@ -15,6 +15,7 @@ type Props = {
   snackbarSuccess: (msg: string) => void,
   onSubmit: (*) => void,
   goBack: () => void,
+  country: string,
 };
 export const CompanyExternalAddMember = (props: Props) => {
   const initialData = {
@@ -30,6 +31,7 @@ export const CompanyExternalAddMember = (props: Props) => {
       goToMemberList={props.goBack}
       snackbarSuccess={props.snackbarSuccess}
       fromConsumerAccess
+      country={props.country}
     />
   );
 };
@@ -38,6 +40,7 @@ export default compose(
   connect(
     (state) => ({
       errors: state.member.upsert.error,
+      country: state.theme.theme.locale.split('_')[1],
     }),
     {
       goBack: goBackAction,

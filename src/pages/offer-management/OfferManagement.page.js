@@ -134,6 +134,7 @@ export default compose(
       searchedMembers: getSearchedMembers(state),
       memberCreationPending: state.member.upsert.loading,
       memberCreationErrors: state.member.upsert.error,
+      country: state.theme.theme.locale.split('_')[1],
       // booking
       bookings: getOfferBookingListWithConsumerPack(state),
       bookingLoading: state.booking.loading,

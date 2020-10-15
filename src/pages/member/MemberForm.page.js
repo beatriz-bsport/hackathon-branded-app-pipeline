@@ -34,6 +34,7 @@ type Props = {
   snackbarSuccess: (msg: string) => void,
   onSubmit: (*) => void,
   onCancel: () => void,
+  country: string,
 };
 
 export class MemberFormPage extends Component<Props> {
@@ -85,6 +86,7 @@ export class MemberFormPage extends Component<Props> {
           goToMerge={this.props.goToMerge}
           goToMemberList={this.props.goToMemberList}
           snackbarSuccess={this.props.snackbarSuccess}
+          country={this.props.country}
         />
       </Paper>
     );
@@ -100,6 +102,7 @@ export default compose(
       errors: state.member.upsert.error,
       initial: id !== null ? getMember(state, id) : null,
       theme: themeSelectors.getTheme(state),
+      country: state.theme.theme.locale.split('_')[1],
     }),
     {
       fetchMemberInitial: fetchMember,

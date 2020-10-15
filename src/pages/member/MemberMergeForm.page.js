@@ -31,6 +31,7 @@ type Props = {
   fetchMember: (id: number) => void,
   onSubmit: (data: *, options: any) => void,
   replace: (path: string) => void,
+  country: string,
 };
 
 type State = {
@@ -88,6 +89,7 @@ export class MemberMergeFormPage extends Component<Props, State> {
           switchSrcDst={this.switchSrcDst}
           goToMember={this.props.goToMember}
           onSubmit={this.preSubmit}
+          country={this.props.country}
         />
         <MemberConfirmMergeDialog
           open={this.state.showConfirmDialog}
@@ -105,6 +107,7 @@ export default compose(
     (state, { dst, src }) => ({
       srcMember: getMember(state, src),
       dstMember: getMember(state, dst),
+      country: state.theme.theme.locale.split('_')[1],
     }),
     {
       fetchMember,

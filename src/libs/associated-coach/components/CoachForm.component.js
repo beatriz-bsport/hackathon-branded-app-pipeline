@@ -35,6 +35,7 @@ type Props = {
   t: TFunction,
   onCancel: () => void,
   initial?: any,
+  country: string,
 };
 
 export function CoachForm(props: Props) {
@@ -87,7 +88,12 @@ export function CoachForm(props: Props) {
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <PhoneField name="phone" label={t('form.phone')} fullWidth />
+            <PhoneField
+              name="phone"
+              label={t('form.phone')}
+              fullWidth
+              country={props.country}
+            />
           </Grid>
           <Grid item xs={12} md={6}>
             <GenderField

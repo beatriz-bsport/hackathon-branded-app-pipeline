@@ -144,7 +144,8 @@
             "8": "Reservering + aankoop van gelijktijdige cursuskaart",
             "7": "Reserveren via cursuskaart",
             "6": "Ledenregistratie (cursist)",
-            "3": "Sessie geannuleerd"
+            "3": "Sessie geannuleerd",
+            "22": "Bevestig factuur"
         },
         "tag": {
             "BookingOption": {
@@ -245,7 +246,8 @@
             "booking": "Reservering",
             "offer": "Sessie",
             "member": "Maak een studentenaccount aan",
-            "marketing": "Marketing"
+            "marketing": "Marketing",
+            "invoice": "Facturering"
         },
         "pageTitle": "Transactionele e-mails",
         "caption": {
@@ -1256,7 +1258,22 @@
             "content": "Inhoud van de e-mail",
             "title": "Onderwerp e-mail",
             "refreshText": "Laad de pagina opnieuw om de wijziging van de e-mail bij te werken",
-            "noObject": "Geen onderwerp"
+            "noObject": "Geen onderwerp",
+            "refreshTextPhone": "Ververs de pagina om de wijziging door te voeren",
+            "sendSms": "Een SMS versturen",
+            "hideMail": "Verberg de e-mail",
+            "count": "tekens",
+            "showMail": "Zie de e-mail",
+            "mailSelection": "Kies een e-mail",
+            "selectToShowPreview": "Selecteer een e-mail voor een voorvertoning",
+            "noMailAvailable": "Nog geen e-mail beschikbaar. Maak er een aan",
+            "mailMissing": "Nog geen e-mail ingevoerd",
+            "phoneMissing": "Nog geen telefoonnummer ingevoerd",
+            "numberSms": "SMS",
+            "contentSms": "Inhoud van de SMS",
+            "selectTemplate": "Selecteer een sjabloon",
+            "writeMail": "Schrijf een e-mail",
+            "dialogTitle": "Communicatie"
         },
         "table": {
             "columns": {
@@ -1298,7 +1315,11 @@
                 "recipientList": "Details ontvanger",
                 "noTopLink": "Niet aangeklikt"
             },
-            "recipientCount": "Ontvanger(s): {{total_recipients}}"
+            "recipientCount": "Ontvanger(s): {{total_recipients}}",
+            "kind": {
+                "1": "SMS",
+                "0": "E-mail"
+            }
         },
         "recipient": {
             "readCount": "Openingen",
@@ -1320,7 +1341,8 @@
                     "clicked": "Klikken",
                     "status": "Status"
                 }
-            }
+            },
+            "showSms": "Bekijk de SMS"
         },
         "send": {
             "success": "E-mail wordt verzonden...",
@@ -6089,7 +6111,10 @@
             "myAddonTitle": "Mijn Add-Ons",
             "knowMore": "Meer informatie",
             "billRecurrent": "{{price_cts }} € / maand",
-            "billOnce": "€ {{price_cts }}"
+            "billOnce": "€ {{price_cts }}",
+            "sms": {
+                "explainBilling": "{{ price_cts }} € / SMS"
+            }
         },
         "paymentMethod": {
             "actions": {

@@ -96,12 +96,13 @@ Auto Bump Version:
 
 .Build and deploy Base:
   stage: configure_and_deploy
-  cache:
-    key: yarn
-    paths:
-        - "$YARN_CACHE_DIR"
-        - "$CYPRESS_CACHE_FOLDER/node_modules"
-        - node_modules
+  # cache:
+  #   files:
+  #     - yarn.lock
+  #   paths:
+  #       - "$YARN_CACHE_DIR"
+  #       - "$CYPRESS_CACHE_FOLDER/node_modules"
+  #       - node_modules
   tags:
     - deployment
   only:

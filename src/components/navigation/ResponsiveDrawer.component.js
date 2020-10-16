@@ -225,7 +225,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
               item.action();
             }
           }}
-          dense={item.dense}
+          dense={item.dense || isNested}
           selected={isActive}
           className={isNested ? classes.nestedItem : null}
         >
@@ -521,6 +521,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('backofficeMenu.myClub'),
         type: 'nested',
         nestedItems: [
+          'divider',
           {
             to: '/activity',
             icon: Star,
@@ -554,6 +555,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('backofficeMenu.product'),
         type: 'nested',
         nestedItems: [
+          'divider',
           {
             to: '/payment-pack',
             icon: VpnKey,
@@ -593,6 +595,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         type: 'nested',
         defaultTo: '/invoice',
         nestedItems: [
+          'divider',
           {
             to: '/invoice',
             icon: ReceiptIcon,
@@ -625,6 +628,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         type: 'nested',
         defaultTo: '/smart-list',
         nestedItems: [
+          'divider',
           {
             to: '/smart-list',
             icon: People,
@@ -651,6 +655,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('backofficeMenu.digital'),
         type: 'nested',
         nestedItems: [
+          'divider',
           {
             icon: VideoLibraryIcon,
             text: t('backofficeMenu.video'),
@@ -684,6 +689,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         type: 'nested',
         defaultTo: '/settings/general',
         nestedItems: [
+          'divider',
           {
             to: '/settings/general',
             dense: 'true',

@@ -186,7 +186,11 @@
             "noncompatibleConsumerPaymentPacksAre": "Posee las siguientes tarjetas, no compatibles con esta sesión:",
             "broadcast_link": "Enlace de videoconferencia",
             "createBookingOption": "Lista de espera",
-            "noEmptyDuration": "La duración debe ser estrictamente positiva"
+            "noEmptyDuration": "La duración debe ser estrictamente positiva",
+            "restoreModal": {
+                "explain": "Esta sesión ya no será cancelada y sera abierta de nuevo para tus clientes. Sin embargo, las reservas previamente canceladas no serán restablecidas.",
+                "title": "Restablecer la sesión"
+            }
         },
         "shop": {
             "supplier_price": "Precio proveedor",
@@ -2220,7 +2224,7 @@
             "payment_method_stripe": "Tarjeta de crédito",
             "bsport_fee": "Tarifas de transacción",
             "address": "Dirección",
-            "membership_ID": "Identificación",
+            "membership_ID": "ID de miembro",
             "start_date_time": "Hora de inicio",
             "start_date_date": "Fecha de inicio",
             "payment_date_time": "Hora de pago",
@@ -2266,7 +2270,12 @@
             "date_last_update": "Fecha",
             "amount": "Ganancias del día",
             "nb_offers_cancelled": "Número de sesiones canceladas",
-            "nb_offers": "Número de sesiones"
+            "nb_offers": "Número de sesiones",
+            "private_pass": "Tarjeta de cita",
+            "note": "Nota",
+            "pk": "ID",
+            "full_address": "Dirección completa",
+            "birthday": "Fecha de nacimiento"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -2449,12 +2458,15 @@
         "massDisabler": {
             "actions": {
                 "submit": "Confirmar",
-                "cancel": "Cancelar"
+                "cancel": "Cancelar",
+                "continue": "Continuar"
             },
             "explainLoading": "Por favor espera",
             "explainWarning": "ATENCIÓN esta operación es irreversible.",
             "explain": "Selecciona el intervalo de fechas durante el cual deseas cancelar tus sesiones. Los miembros que hayan reservado recibirán una notificación por email y sus créditos se reembolsarán automáticamente en la tarjeta de curso correspondiente",
-            "title": "Cancelación grupal"
+            "title": "Cancelación grupal",
+            "secondWarningConfirm": "Estás seguro de que quieres continuar?",
+            "secondWarning": "Al hacer clic en \"CONFIRMAR\", las sesiones incluidas en el intervalo seleccionado se cancelarán y no podrá volver atrás."
         },
         "bookingList": "Reservas",
         "bookingListEmpty": "Ninguna reserva",
@@ -2480,7 +2492,8 @@
         },
         "close": "Cerrar",
         "deleteImpossibleText": "No puede borrar esta sesión porque tiene reservas abiertas.",
-        "deleteImpossibleTitle": "No se puede eliminar la sesión"
+        "deleteImpossibleTitle": "No se puede eliminar la sesión",
+        "restoreOffer": "Restablecer la sesión"
     },
     "member": {
         "date_joined": "Fecha de registro",
@@ -2696,7 +2709,8 @@
             "all": "Todas las reservas",
             "withoutRecurrentBookings": "Reservas no recurrentes",
             "withRecurrentBookings": "Reservas recurrentes",
-            "recurrentBooking": "Reserva recurrente"
+            "recurrentBooking": "Reserva recurrente",
+            "notCancelled": "No cancelado"
         },
         "actions": {
             "bill": "Facturar",
@@ -2872,7 +2886,8 @@
             "member": "Creación de una cuenta de estudiante",
             "private_booking": "Cita",
             "subscription": "Suscripción",
-            "marketing": "Marketing"
+            "marketing": "Marketing",
+            "invoice": "Facturación"
         },
         "eventType": {
             "14": "Cancelación de la inscripción en la lista de espera (mánager)",
@@ -2902,7 +2917,9 @@
             "27": "Suscripción detenida o terminada",
             "26": "Pausa de la suscripción",
             "24": "Suscripción creada",
-            "25": "Cambio de método de pago"
+            "25": "Cambio de método de pago",
+            "300": "Kick (No validada a tiempo demasiadas veces)",
+            "22": "Confirmación de factura"
         },
         "tag": {
             "BookingOption": {
@@ -3853,7 +3870,8 @@
             },
             "readCount": "Apertura",
             "showEmail": "Ver el email",
-            "clicksCount": "Click"
+            "clicksCount": "Click",
+            "showSms": "Ver SMS"
         },
         "campaign": {
             "report": {
@@ -3875,7 +3893,11 @@
             "clickCount": "Clicks",
             "sentAt": "Enviado el {{ date_created }}",
             "showMail": "Ver el email",
-            "recipientCount": "Destinatario: {{ total_recipients }}"
+            "recipientCount": "Destinatario: {{ total_recipients }}",
+            "kind": {
+                "1": "SMS",
+                "0": "Email"
+            }
         },
         "common": {
             "refresh": "Actualizar",
@@ -3886,11 +3908,26 @@
         "mail": {
             "noObject": "Ningún objeto",
             "refreshText": "Por favor, recarga la página para actualizar el cambio de email",
-            "error": "Email non enviado",
-            "success": "Email enviado",
+            "error": "No se ha enviado el email, por favor inténtelo de nuevo más tarde.",
+            "success": "Comunicación enviada",
             "missing": "Email ausente",
             "content": "Contenido del email",
-            "title": "Asunto del email"
+            "title": "Asunto del email",
+            "refreshTextPhone": "Por favor, recargue la página para actualizar el teléfono",
+            "sendSms": "Envía un sms",
+            "hideMail": "Ocultar el email",
+            "count": "caracteres",
+            "showMail": "Ver el email",
+            "mailSelection": "Selecciona un email",
+            "selectToShowPreview": "Selecciona un email para verlo de antemano",
+            "noMailAvailable": "No hay email disponible, considere la posibilidad de crear uno",
+            "phoneMissing": "Falta el teléfono",
+            "mailMissing": "Falta el email",
+            "numberSms": "sms",
+            "contentSms": "Contenido de los SMS",
+            "selectTemplate": "Seleccione una plantilla",
+            "writeMail": "Escribir un email",
+            "dialogTitle": "Comunicación"
         },
         "table": {
             "columns": {
@@ -4029,7 +4066,14 @@
                 "offersFilling": "Mostrar el llenado de cursos en el calendario del cliente",
                 "workshopsCustomer": "Mostrar talleres en el calendario del cliente",
                 "cancelledOffersCustomer": "Mostrar sesiones canceladas en el calendario del cliente",
-                "calendarPersonalizationTitle": "Configuración del calendario"
+                "calendarPersonalizationTitle": "Configuración del calendario",
+                "basket_expiration_days": {
+                    "alert": "Añada los días de caducidad de la cesta de la compra!",
+                    "placeholder": "Días antes de la expiración",
+                    "helperText": "Número de días antes de que el carro de compras de un cliente se vacíe automáticamente",
+                    "label": "Caducidad de la cesta de la compra"
+                },
+                "cancelledOffersManager": "Por defecto, mostrar las sesiones canceladas en el calendario del administrador"
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -4747,6 +4791,12 @@
             "error": "Ha ocurrido un error, inténtelo de nuevo más tarde",
             "success": "Completado",
             "pending": "Procesando, por favor espere"
+        },
+        "offer": {
+            "restore": {
+                "error": "No es posible restablecer la sesión",
+                "success": "Sesión restablecida"
+            }
         }
     },
     "paymentPack": {
@@ -5802,9 +5852,9 @@
             "sendError": "Problema al enviar el email",
             "sendSuccess": "Email en curso de envio",
             "noMailAvailable": "No hay email disponible, recorda crear uno",
-            "sendMail": "Enviar un email",
+            "sendMail": "Enviar una comunicación",
             "cancel": "Cancelar",
-            "sendMailTitle": "Enviar un email",
+            "sendMailTitle": "Enviar una comunicación",
             "send": "Enviar"
         },
         "graphs": {
@@ -6093,7 +6143,10 @@
             "billOnce": "{{precio_cts }} €",
             "otherAddonTitle": "Complementos disponibles",
             "myAddonTitle": "Mis complementos",
-            "knowMore": "Más información"
+            "knowMore": "Más información",
+            "sms": {
+                "explainBilling": "{{ price_cts }} € / SMS"
+            }
         },
         "featureRequest": {
             "close": "Cerrar",

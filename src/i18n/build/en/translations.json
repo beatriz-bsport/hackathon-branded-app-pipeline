@@ -1610,7 +1610,11 @@
             "maxBookingsNb": "slots",
             "nonAttendant": "absent(s)",
             "attendant": "attendee(s)",
-            "noEmptyDuration": "The duration must be strictly positive"
+            "noEmptyDuration": "The duration must be strictly positive",
+            "restoreModal": {
+                "explain": "This session will be uncanceled and open again for your clients. However, previously canceled bookings will not be reinstated.",
+                "title": "Restore session"
+            }
         },
         "pagination": {
             "outOf": " out of ",
@@ -2212,7 +2216,8 @@
             "contentSms": "Sms content",
             "selectTemplate": "Select a template",
             "writeMail": "Write an email",
-            "dialogTitle": "Communication"
+            "dialogTitle": "Communication",
+            "noMailAvailable": "No mail available, consider creating one"
         },
         "recipients": "Recipients",
         "common": {
@@ -4786,7 +4791,11 @@
             "amount": "Day earnings",
             "nb_offers_cancelled": "Number of sessions cancelled",
             "nb_offers": "Number of sessions",
-            "pk": "ID"
+            "pk": "ID",
+            "private_pass": "Appointment Pass",
+            "note": "Note",
+            "full_address": "Complete Address",
+            "birthday": "Birth date"
         },
         "yes": "Yes",
         "no": "No",
@@ -5368,12 +5377,15 @@
         "massDisabler": {
             "actions": {
                 "submit": "Confirm",
-                "cancel": "Cancel"
+                "cancel": "Cancel",
+                "continue": "Continue"
             },
             "explainLoading": "Please wait",
             "explainWarning": "BE CAREFUL this operation is irreversible.",
             "explain": "Select the date interval over which you wish to cancel your sessions. Members who have booked will be notified by email and their credits automatically refunded to the corresponding pass",
-            "title": "Grouped Cancellation"
+            "title": "Grouped Cancellation",
+            "secondWarningConfirm": "Are you sure you want to continue?",
+            "secondWarning": "By clicking on 'CONFIRM', the sessions included in the interval selected will be canceled and you won't be able to go back."
         },
         "bookingListEmpty": "No booking",
         "bookingList": "Bookings",
@@ -5399,7 +5411,8 @@
         },
         "close": "Close",
         "deleteImpossibleText": "You cannot delete this session because it has bookings that are open.",
-        "deleteImpossibleTitle": "Cannot delete the session"
+        "deleteImpossibleTitle": "Cannot delete the session",
+        "restoreOffer": "Restore session"
     },
     "emailTemplate": {
         "modal": {
@@ -6890,6 +6903,12 @@
             "error": "An error has occurred, try again later",
             "success": "Completed",
             "pending": "Processing, please wait"
+        },
+        "offer": {
+            "restore": {
+                "error": "Not possible to restore session",
+                "success": "Session restored"
+            }
         }
     },
     "navigation": {
@@ -7079,7 +7098,10 @@
             "billRecurrent": "{{price_cts }} € / month",
             "otherAddonTitle": "Available Add-ons",
             "myAddonTitle": "My Add-ons",
-            "knowMore": "More information"
+            "knowMore": "More information",
+            "sms": {
+                "explainBilling": "{{ price_cts }} € / SMS"
+            }
         },
         "platformBillingStage": {
             "monthlyPrice": "{{ price }} € / month",

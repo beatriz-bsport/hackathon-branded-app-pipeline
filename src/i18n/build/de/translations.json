@@ -677,7 +677,11 @@
             "reCreateBooking": "Erneut anmelden",
             "previousOffer": "Vorheriger Kurs",
             "effectif": "Teilnehmeranzahl",
-            "noEmptyDuration": "Die Dauer muss unbedingt positiv sein"
+            "noEmptyDuration": "Die Dauer muss unbedingt positiv sein",
+            "restoreModal": {
+                "explain": "Dieser Kurs wird storniert und für Deine Kunden wieder geöffnet. Zuvor stornierte Buchungen werden jedoch nicht wieder hergestellt.",
+                "title": "Kurs wiederherstellen"
+            }
         },
         "time": {
             "monthShort": {
@@ -2473,7 +2477,11 @@
             "coaches": "Lehrer",
             "nb_offers_cancelled": "Anzahl der stornierten Kurse",
             "nb_offers": "Anzahl der Kurse",
-            "pk": "ID"
+            "pk": "ID",
+            "private_pass": "Terminkarte",
+            "note": "Anmerkung",
+            "full_address": "Vollständige Adresse",
+            "birthday": "Geburtsdatum"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -2906,6 +2914,12 @@
             "error": "Ein Fehler ist aufgetreten. Versuche es später erneut",
             "success": "Fertig",
             "pending": "in Bearbeitung ... Bitte warten"
+        },
+        "offer": {
+            "restore": {
+                "error": "Dieser Kurs kann nicht wiederhergestellt werden",
+                "success": "Wiederherstellung des Kurses"
+            }
         }
     },
     "invoice": {
@@ -4450,7 +4464,8 @@
                 "0": "Ongoing"
             },
             "clicksCount": "Klick",
-            "readCount": "Öffnung"
+            "readCount": "Öffnung",
+            "showSms": "SMS anzeigen"
         },
         "campaign": {
             "list": {
@@ -4472,7 +4487,11 @@
             "clickCount": "Klicks",
             "recipientCount": "Empfänger : {{ total_recipients }}",
             "showReport": "Quote",
-            "readCount": "Anzahl der Öffnungen"
+            "readCount": "Anzahl der Öffnungen",
+            "kind": {
+                "1": "SMS",
+                "0": "E-mail"
+            }
         },
         "mail": {
             "noObject": "Kein Betreff",
@@ -4481,7 +4500,22 @@
             "success": "Die E-Mail wurde gesendet",
             "content": "Inhalt der E-Mail",
             "refreshText": "Bitte lade die Seite neu, um die E-Mail-Änderung zu aktualisieren",
-            "error": "E-Mail nicht verschickt"
+            "error": "E-Mail wurde nicht versendet, versuche es später erneut",
+            "refreshTextPhone": "Bitte lade die Seite neu, um die Telefonänderung zu aktualisieren",
+            "sendSms": "Sende eine SMS",
+            "hideMail": "E-Mail verstecken",
+            "count": "Zeichen",
+            "showMail": "E-Mail ansehen",
+            "mailSelection": "E-Mail auswählen",
+            "selectToShowPreview": "Wähle eine E-Mail aus, um eine Vorschau zu sehen",
+            "noMailAvailable": "Keine verfügbare E-Mail, bitte erstelle eine E-Mail",
+            "phoneMissing": "Fehlende Telefonnummer",
+            "mailMissing": "E-Mail nicht vorhanden",
+            "numberSms": "SMS",
+            "contentSms": "SMS-Inhalt",
+            "selectTemplate": "Eine Vorlage auswählen",
+            "writeMail": "Eine E-Mail schreiben",
+            "dialogTitle": "Kommunikation"
         },
         "table": {
             "columns": {
@@ -4820,7 +4854,9 @@
             "26": "Abonnement unterbrochen",
             "14": "Abmeldung von der Warteliste (Manager)",
             "9": "Die Warteliste verlassen : Buchung möglich",
-            "10": "Warteliste ist wieder voll"
+            "10": "Der Wartelistenplatz ist abgelaufen",
+            "300": "Kick (nicht zu oft rechtzeitig validiert)",
+            "22": "Rechnungsbestätigung"
         },
         "tag": {
             "BookingOption": {
@@ -4921,7 +4957,8 @@
             "waiting-list": "Warteliste",
             "offer": "Kurs",
             "booking": "Buchung",
-            "marketing": "Marketing"
+            "marketing": "Marketing",
+            "invoice": "Abrechnung"
         },
         "pageTitle": "Transaktions-E-Mails",
         "caption": {
@@ -5225,7 +5262,8 @@
             "bookingsWeektimeSlot": "Durchschnittliche Anzahl von Buchungen pro Zeitfenster",
             "billedSubscriptions": "Die Anzahl der Rechnungen, die mit einem nicht gekündigten Abonnement verknüpft sind"
         },
-        "billedSubscriptions": "Abonnements in Rechnung gestellt"
+        "billedSubscriptions": "Abonnements in Rechnung gestellt",
+        "bookingsWeektimeSlot": "Wöchentliche Übersicht"
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -5726,12 +5764,15 @@
         "massDisabler": {
             "actions": {
                 "submit": "Bestätigen",
-                "cancel": "Abbrechen"
+                "cancel": "Abbrechen",
+                "continue": "Weiter"
             },
             "explainLoading": "Bitte warten",
             "explainWarning": "VORSICHT diese Aktion ist unwiderruflich.",
             "explain": "Wähle das Datumsintervall, über das Du Deine Kurse stornieren möchtest. Mitglieder, die gebucht haben, werden per E-Mail benachrichtigt und ihre Credits werden automatisch auf die entsprechende Kurskarte zurückerstattet",
-            "title": "Kollektive Stornierung"
+            "title": "Kollektive Stornierung",
+            "secondWarningConfirm": "Bist du dir sicher, dass du weitermachen willst?",
+            "secondWarning": "Wenn Du auf \"BESTÄTIGEN\" klickst, werden die im ausgewählten Intervall enthaltenen Kurse storniert und Du kannst sie nicht mehr wiederherstellen."
         },
         "bookingListEmpty": "Keine Buchung",
         "bookingList": "Buchungen",
@@ -5757,7 +5798,8 @@
             "showWeek": "Woche anzeigen",
             "showMonth": "Monat anzeigen"
         },
-        "close": "Schließen"
+        "close": "Schließen",
+        "restoreOffer": "Kurs wiederherstellen"
     },
     "settings": {
         "active_campaign": {
@@ -6061,7 +6103,10 @@
             "myAddonTitle": "Meine Add-Ons",
             "knowMore": "Mehr erfahren",
             "billRecurrent": "{{price_cts}} € / Monat",
-            "billOnce": "{{price_cts}} €"
+            "billOnce": "{{price_cts}} €",
+            "sms": {
+                "explainBilling": "{{price_cts}} € / SMS"
+            }
         },
         "paymentMethod": {
             "actions": {

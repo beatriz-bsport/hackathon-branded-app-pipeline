@@ -139,13 +139,14 @@
             "14": "Afmelden van de wachtlijst (manager)",
             "13": "Afmelden van de wachtlijst (cursist)",
             "12": "Registratie op de wachtlijst",
-            "10": "Wachtlijst opnieuw vol",
+            "10": "De wachtlijst is verlopen",
             "9": "Verlaten van de wachtlijst: reserveren mogelijk",
             "8": "Reservering + aankoop van gelijktijdige cursuskaart",
             "7": "Reserveren via cursuskaart",
             "6": "Ledenregistratie (cursist)",
             "3": "Sessie geannuleerd",
-            "22": "Bevestig factuur"
+            "22": "Factuurbevestiging",
+            "300": "Kick (niet tijdig bevestigd)"
         },
         "tag": {
             "BookingOption": {
@@ -900,7 +901,11 @@
             "maxBookingsNb": "plaatsen",
             "nonAttendant": "afwezig(en)",
             "attendant": "aanwezig(en)",
-            "noEmptyDuration": "De duur kan enkel positief zijn"
+            "noEmptyDuration": "De duur kan enkel positief zijn",
+            "restoreModal": {
+                "explain": "De annulering van deze sessie ongedaan gemaakt; leden kunnen deze sessie dus weer boeken. Reeds geannuleerde reserveringen worden echter niet hersteld.",
+                "title": "Herstel sessie"
+            }
         },
         "time": {
             "month": {
@@ -1252,8 +1257,8 @@
     },
     "communication": {
         "mail": {
-            "error": "E-mail niet verzonden",
-            "success": "E-mail verzonden",
+            "error": "De e-mail is niet verzonden, probeer het later opnieuw",
+            "success": "E-mail wordt verzonden",
             "missing": "Geen e-mail beschikbaar",
             "content": "Inhoud van de e-mail",
             "title": "Onderwerp e-mail",
@@ -1688,7 +1693,11 @@
             "amount": "Daginkomsten",
             "nb_offers": "Aantal sessies",
             "nb_offers_cancelled": "Aantal geannuleerde sessies",
-            "pk": "ID"
+            "pk": "ID",
+            "private_pass": "Afspraakkaart",
+            "note": "Notitie",
+            "full_address": "Volledig adres",
+            "birthday": "Geboortedatum"
         },
         "report": {
             "delete_message": "Weet je zeker dat je dit rapport ({{name}}) wilt verwijderen?"
@@ -2253,8 +2262,8 @@
             }
         },
         "mail": {
-            "sendMailTitle": "Stuur een e-mail",
-            "sendMail": "Stuur een e-mail",
+            "sendMailTitle": "Een e-mail versturen",
+            "sendMail": "Een e-mail versturen",
             "send": "Verzenden",
             "noMailAvailable": "Geen e-mail beschikbaar. Vergeet niet om er een aan te maken",
             "cancel": "Annuleren",
@@ -2788,9 +2797,12 @@
             "explainWarning": "Waarschuwing! Deze actie is definitief.",
             "actions": {
                 "cancel": "Annuleren",
-                "submit": "Bevestigen"
+                "submit": "Bevestigen",
+                "continue": "Verdergaan"
             },
-            "title": "Groepsannulering"
+            "title": "Groepsannulering",
+            "secondWarningConfirm": "Weet je zeker dat je verder wilt gaan?",
+            "secondWarning": "Door op \"BEVESTIGEN\" te klikken worden de sessies binnen het geselecteerde periode geannuleerd. Deze actie is definitief."
         },
         "bookingListEmpty": "Geen reservering",
         "bookingList": "Reserveringen",
@@ -2816,7 +2828,8 @@
         },
         "close": "Sluiten",
         "deleteImpossibleText": "Je kunt deze sessie niet verwijderen, omdat er open reserveringen in staan.",
-        "deleteImpossibleTitle": "Deze sessie kan niet worden verwijderd"
+        "deleteImpossibleTitle": "Deze sessie kan niet worden verwijderd",
+        "restoreOffer": "Sessie herstellen"
     },
     "emailTemplate": {
         "editTitle": "sjabloon bewerken",
@@ -5179,6 +5192,12 @@
             "error": "Er is iets misgegaan! Probeer het later opnieuw alsjeblieft",
             "success": "Compleet",
             "pending": "Een moment geduld alsjeblieft"
+        },
+        "offer": {
+            "restore": {
+                "error": "Niet mogelijk om sessie te herstellen",
+                "success": "Sessie hersteld"
+            }
         }
     },
     "coach": {

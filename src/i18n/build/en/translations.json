@@ -2217,7 +2217,8 @@
             "selectTemplate": "Select a template",
             "writeMail": "Write an email",
             "dialogTitle": "Communication",
-            "noMailAvailable": "No mail available, consider creating one"
+            "noMailAvailable": "No mail available, consider creating one",
+            "showMail": "View mail"
         },
         "recipients": "Recipients",
         "common": {
@@ -6097,8 +6098,8 @@
             "statTitle": "Statistics"
         },
         "mail": {
-            "sendMail": "Send email",
-            "sendMailTitle": "Send mail to the list",
+            "sendMail": "Send a mail",
+            "sendMailTitle": "Send a mail",
             "cancel": "Cancel",
             "send": "Send",
             "noMailAvailable": "No mail available, think about creating one",

@@ -5,7 +5,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Divider from '@material-ui/core/Divider';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Typography from '@material-ui/core/Typography';
 import { withTranslation } from 'react-i18next';
 import {
   PENDING,
@@ -64,50 +66,79 @@ const renderStatus = (t: TFunction, status: StatusCode) => {
   }
 };
 
-const PlannedInvoiceItem = (props: {
+export const PlannedInvoiceItem = (props: {
   invoice: PlannedInvoice,
   onClick: (event: *) => void,
   t: TFunction,
   showUpdatePriceButton: boolean,
   requestUpdatePrice: ?() => void,
+  selected: ?boolean,
+  subscriptionHasEnded: ?boolean,
 }) => {
   const { statusText, statusIcon } = renderStatus(
     props.t,
     props.invoice.status,
   );
   return (
-    <ListItem button={!!props.onClick} onClick={props.onClick} divider>
-      {props.showUpdatePriceButton ? (
-        <ListItemIcon>
-          <IconButton
-            disabled={!props.requestUpdatePrice}
-            color="primary"
-            onClick={(ev) => {
-              ev.stopPropagation();
-              props.requestUpdatePrice();
+    <>
+      <ListItem
+        button={!!props.onClick}
+        onClick={props.onClick}
+        selected={props.selected}
+        divider
+      >
+        {props.showUpdatePriceButton ? (
+          <ListItemIcon>
+            <IconButton
+              disabled={!props.requestUpdatePrice}
+              color="primary"
+              onClick={(ev) => {
+                ev.stopPropagation();
+                props.requestUpdatePrice();
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          </ListItemIcon>
+        ) : null}
+        <ListItemText
+          primary={formatAsDate(props.invoice.date)}
+          secondary={
+            (props.invoice.uuid && props.invoice.uuid.slice(0, 8)) || ''
+          }
+        />
+        <ListItemText
+          primary={
+            props.invoice.price !== undefined
+              ? `${props.invoice.price} €`
+              : ' - '
+          }
+          secondary={statusText}
+          primaryTypographyProps={{ align: 'right' }}
+          secondaryTypographyProps={{ align: 'right' }}
+          style={{ marginRight: 8 }}
+        />
+        <ListItemSecondaryAction>
+          <IconButton disabled>{statusIcon}</IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+      {props.invoice.is_last_invoice_before_scheduled_stop &&
+      !props.subscriptionHasEnded ? (
+        <div>
+          <div
+            style={{
+              width: '100%',
+              textAlign: 'center',
             }}
           >
-            <EditIcon />
-          </IconButton>
-        </ListItemIcon>
+            <Typography color="error">
+              {props.t('subscription.scheduledStop.listItem')}
+            </Typography>
+          </div>
+          <Divider />
+        </div>
       ) : null}
-      <ListItemText
-        primary={formatAsDate(props.invoice.date)}
-        secondary={(props.invoice.uuid && props.invoice.uuid.slice(0, 8)) || ''}
-      />
-      <ListItemText
-        primary={
-          props.invoice.price !== undefined ? `${props.invoice.price} €` : ' - '
-        }
-        secondary={statusText}
-        primaryTypographyProps={{ align: 'right' }}
-        secondaryTypographyProps={{ align: 'right' }}
-        style={{ marginRight: 8 }}
-      />
-      <ListItemSecondaryAction>
-        <IconButton disabled>{statusIcon}</IconButton>
-      </ListItemSecondaryAction>
-    </ListItem>
+    </>
   );
 };
 
@@ -116,6 +147,7 @@ type Props = {
   onPlannedInvoiceClick: (uuid: string) => void,
   scheduledInvoices: Array<PlannedInvoice>,
   requestUpdatePrice: (PlannedInvoice) => void,
+  subscriptionHasEnded?: boolean,
 };
 
 export function SubscriptionSchedule(props: Props) {
@@ -143,6 +175,7 @@ export function SubscriptionSchedule(props: Props) {
               ? () => props.onPlannedInvoiceClick(si.uuid)
               : null
           }
+          subscriptionHasEnded={props.subscriptionHasEnded}
         />
       )}
     />

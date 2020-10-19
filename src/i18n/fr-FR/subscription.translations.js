@@ -77,6 +77,13 @@ exports.default = {
         submit: 'Enregistrer',
       },
     },
+    scheduledStop: {
+      title: "Programmer l'arrêt de la souscription",
+      explain: 'Choisissez le dernier encaissement de la souscription.',
+      listItem: 'Arrêt programmé de la souscription',
+      summary:
+        'Arrêt programmé de la souscription après la facture du {{-date}}',
+    },
     actions: {
       freeze: 'Mettre en pause',
       switchPack: 'Modifier la carte de cours',
@@ -217,6 +224,7 @@ exports.default = {
   },
   action: {
     stop: 'Arrêter',
+    planStop: "Programmer l'arrêt de la souscription",
     revertCurrentExplain:
       'Annuler la dernière facture enregistrée et bloquer la carte de cours',
     revertCurrentExplainHelper:

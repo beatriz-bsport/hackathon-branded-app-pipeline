@@ -8,6 +8,7 @@ import {
   postAuth,
   post,
   patchAuth,
+  putAuth,
 } from '../../http';
 
 const fetchAll = async (params: any) => {
@@ -116,6 +117,16 @@ export const switchSubscriptionPaymentMethod = async (
   return postAuth(
     `${API_URI}/subscription/billing-plan/${id}/switch_payment_provider/`,
     data,
+  );
+};
+
+export const flagPlannedInvoiceAsLast = async (id: number) => {
+  return putAuth(`${API_URI}/subscription/planned-invoice/${id}/flag_as_last/`);
+};
+
+export const unflagPlannedInvoiceAsLast = async (id: number) => {
+  return putAuth(
+    `${API_URI}/subscription/planned-invoice/${id}/unflag_as_last/`,
   );
 };
 

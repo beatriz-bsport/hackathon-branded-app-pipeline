@@ -12,6 +12,8 @@ import api, {
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAPI,
   fetchPlannedInvoiceList as fetchPlannedInvoiceListAPI,
   fetchContractDetail as fetchContractDetailAPI,
+  flagPlannedInvoiceAsLast as flagPlannedInvoiceAsLastAPI,
+  unflagPlannedInvoiceAsLast as unflagPlannedInvoiceAsLastAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -558,5 +560,36 @@ export function fetchContractForBooking(
     }
 
     dispatch(subscriptionForBookingActions.isLoading(false));
+  };
+}
+
+export function flagPlannedInvoiceAsLast(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    try {
+      await flagPlannedInvoiceAsLastAPI(id);
+      if (options && options.onSuccess) options.onSuccess();
+      dispatch(snackbarSuccess('subscriptionScheduledStop.create.success'));
+    } catch (error) {
+      console.error(error);
+      if (options && options.onError) options.onError();
+      dispatch(snackbarError('subscriptionScheduledStop.create.error'));
+    }
+  };
+}
+
+export function unflagPlannedInvoiceAsLast(
+  id: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      await unflagPlannedInvoiceAsLastAPI(id);
+      if (options && options.onSuccess) options.onSuccess();
+      dispatch(snackbarSuccess('subscriptionScheduledStop.delete.success'));
+    } catch (error) {
+      console.error(error);
+      if (options && options.onError) options.onError();
+      dispatch(snackbarError('subscriptionScheduledStop.delete.error'));
+    }
   };
 }

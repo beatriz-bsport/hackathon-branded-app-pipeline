@@ -390,4 +390,14 @@ exports.default = {
     cannotFetch:
       'Une erreur est survenue. Vérifiez votre connexion et essayez de rafraîchir la page',
   },
+  subscriptionScheduledStop: {
+    create: {
+      success: 'Arrêt de la souscription programmé',
+      error: "Impossible de programmer l'arrêt de la souscription",
+    },
+    delete: {
+      success: "L'arrêt programmé de la souscription a été supprimé",
+      error: "Impossible de supprimer l'arrêt programmé de la souscription",
+    },
+  },
 };

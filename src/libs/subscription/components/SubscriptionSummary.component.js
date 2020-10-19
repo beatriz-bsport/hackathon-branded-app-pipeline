@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -20,6 +21,7 @@ type Props = {
   updateRenewal: ({ auto_renewal: boolean }) => void,
   requestPaymentPackSwitch: () => void,
   loading: boolean,
+  unflagPlannedInvoiceAsLast: (id: number) => void,
 };
 
 const renderStatus = (
@@ -57,6 +59,9 @@ const renderStatus = (
 
 export function SubscriptionSummary(props: Props) {
   const { subscription, t, classes } = props;
+  const lastInvoice = subscription.planned_invoices.find(
+    (invoice) => invoice.is_last_invoice_before_scheduled_stop,
+  );
   if (!subscription) {
     return null;
   }
@@ -157,6 +162,23 @@ export function SubscriptionSummary(props: Props) {
           </Typography>
           {subscription.note}
         </div>
+        {lastInvoice && !(subscription.has_ended || subscription.canceled_at) && (
+          <div className={classes.field}>
+            <Typography className={classes.scheduledStop} variant="body2">
+              {t('subscription.scheduledStop.summary', {
+                date: moment(lastInvoice.date).format('L'),
+              })}
+            </Typography>
+            <Button
+              variant="outlined"
+              disabled={moment(lastInvoice.date).isBefore(moment())}
+              onClick={() => props.unflagPlannedInvoiceAsLast(lastInvoice.id)}
+              color="error"
+            >
+              {t('form.cancel')}
+            </Button>
+          </div>
+        )}
       </fieldset>
     </div>
   );
@@ -204,6 +226,9 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     paddingTop: theme.spacing(2),
     right: 0,
+  },
+  scheduledStop: {
+    marginRight: theme.spacing(4),
   },
 });
 

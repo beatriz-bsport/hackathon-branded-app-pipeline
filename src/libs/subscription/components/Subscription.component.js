@@ -28,6 +28,7 @@ type Props = {
   requestPaymentPackSwitch: () => void,
   requestPaymentMethodSwitch: () => void,
   requestStop: () => void,
+  requestScheduledStop: () => void,
 
   goToInvoice: (uuid: string) => void,
   goToSubscribe: (id: number) => void,
@@ -41,6 +42,7 @@ type Props = {
     page_size: number,
     billing_plan: number,
   }) => void,
+  unflagPlannedInvoiceAsLast: (id: number) => void,
 
   classes: Object,
   t: TFunction,
@@ -63,6 +65,9 @@ export function SubscriptionComponent(props: Props) {
               scheduledInvoices={props.subscription.planned_invoices}
               onPlannedInvoiceClick={props.goToInvoice}
               requestUpdatePrice={props.requestUpdatePrice}
+              subscriptionHasEnded={
+                props.subscription.has_ended || props.subscription.canceled_at
+              }
             />
           </Paper>
           <div className={props.classes.divider} />
@@ -87,6 +92,7 @@ export function SubscriptionComponent(props: Props) {
               loading={props.loading}
               requestPaymentPackSwitch={props.requestPaymentPackSwitch}
               requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
+              unflagPlannedInvoiceAsLast={props.unflagPlannedInvoiceAsLast}
             />
           </div>
           <SubscriptionActions
@@ -95,6 +101,7 @@ export function SubscriptionComponent(props: Props) {
             requestPaymentMethodSwitch={props.requestPaymentMethodSwitch}
             requestPaymentPackSwitch={props.requestPaymentPackSwitch}
             requestStop={props.requestStop}
+            requestScheduledStop={props.requestScheduledStop}
           />
 
           {props.subscription.pauses.length ? (

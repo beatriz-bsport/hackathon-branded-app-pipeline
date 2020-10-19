@@ -11,6 +11,7 @@ import AlarmAddIcon from '@material-ui/icons/AlarmAdd';
 import Button from '@material-ui/core/Button';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import EventBusyIcon from '@material-ui/icons/EventBusy';
 import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
@@ -29,9 +30,13 @@ type Props = {
   requestPaymentMethodSwitch: () => void,
   requestPaymentPackSwitch: () => void,
   requestStop: () => void,
+  requestScheduledStop: () => void,
 };
 
 export const SubscriptionActions = (props: Props) => {
+  const scheduledStop = props.subscription.planned_invoices.some(
+    (invoice) => invoice.is_last_invoice_before_scheduled_stop,
+  );
   return (
     <div>
       <Typography variant="h5" component="h3">
@@ -94,6 +99,21 @@ export const SubscriptionActions = (props: Props) => {
             onClick={props.requestStop}
           >
             {props.t('action.stop')}
+          </RedButton>
+        </div>
+        <div className={props.classes.row}>
+          <RedButton
+            className={props.classes.button}
+            variant="outlined"
+            disabled={
+              props.subscription.has_ended ||
+              props.subscription.canceled_at ||
+              scheduledStop
+            }
+            onClick={props.requestScheduledStop}
+          >
+            <EventBusyIcon className={props.classes.leftIcon} />
+            {props.t('action.planStop')}
           </RedButton>
         </div>
       </div>

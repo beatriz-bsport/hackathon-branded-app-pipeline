@@ -332,17 +332,24 @@ export default compose(
     })),
   })),
   withHandlers({
-    registerWithPass: ({ fetchOfferData, registerBooking, offerId }) => (
-      consumerPaymentPackId,
-      options,
-    ) => {
-      registerBooking(offerId, consumerPaymentPackId, {
-        onError: options && options.onError,
-        onSuccess: () => {
-          if (options && options.onSuccess) options.onSucces();
-          fetchOfferData();
+    registerWithPass: ({
+      fetchOfferData,
+      registerBooking,
+      offerId,
+      closeRegistrationFlow,
+    }) => (consumerPaymentPackId, options) => {
+      registerBooking(
+        consumerPaymentPackId,
+        { offer: offerId },
+        {
+          onError: options && options.onError,
+          onSuccess: () => {
+            fetchOfferData();
+            closeRegistrationFlow();
+            if (options && options.onSuccess) options.onSuccess();
+          },
         },
-      });
+      );
     },
   }),
 )(CheckInOfferDetailPage);

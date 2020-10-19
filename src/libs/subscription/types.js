@@ -6,6 +6,7 @@ export type PlannedInvoice = {
   price: number,
   voucher: number,
   uuid: ?string,
+  is_last_invoice_before_scheduled_stop: boolean,
 };
 
 export type Subscription = {

@@ -33,6 +33,8 @@ import {
   switchSubscriptionPaymentPack as switchSubscriptionPaymentPackAction,
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction,
   fetchSubscriptionEventList as fetchSubscriptionEventListAction,
+  flagPlannedInvoiceAsLast as flagPlannedInvoiceAsLastAction,
+  unflagPlannedInvoiceAsLast as unflagPlannedInvoiceAsLastAction,
 } from '../../libs/subscription/actions';
 import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 import {
@@ -46,6 +48,7 @@ import PlannedInvoicePriceUpdater from '../../libs/subscription/components/Plann
 import SubscriptionPaymentPackSwitcherDialog from '../../libs/subscription/components/SubscriptionPaymentPackSwitcherDialog.component';
 import SubscriptionPaymentMethodSwitcherDialog from '../../libs/subscription/components/SubscriptionPaymentMethodSwitcherDialog.component';
 import StopConfirmationDialog from '../../libs/subscription/components/StopConfirmationDialog.component';
+import SubscriptionScheduledStopDialog from '../../libs/subscription/components/SubscriptionScheduledStopDialog.component';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 
@@ -114,6 +117,10 @@ type Props = {
   requestSetupIntentSecret: () => void,
   fetchPaymentMethodList: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
+  scheduledStopDialogOpen: boolean,
+  setScheduledStopDialogOpen: (boolean) => void,
+  flagPlannedInvoiceAsLast: (id: number) => void,
+  unflagPlannedInvoiceAsLast: (id: number) => void,
 };
 
 export class SubscriptionDetail extends Component<Props> {
@@ -157,7 +164,11 @@ export class SubscriptionDetail extends Component<Props> {
           requestUpdatePrice={this.props.setPlannedInvoiceToUpdate}
           requestPaymentPackSwitch={this.props.openPackSwitcherDialog}
           requestStop={() => this.props.setStopDialogOpen(true)}
+          requestScheduledStop={() =>
+            this.props.setScheduledStopDialogOpen(true)
+          }
           requestFreeze={() => this.props.setFreezeDialogOpen(true)}
+          unflagPlannedInvoiceAsLast={this.props.unflagPlannedInvoiceAsLast}
         />
         {this.props.plannedInvoiceToUpdate ? (
           <PlannedInvoicePriceUpdater
@@ -204,6 +215,15 @@ export class SubscriptionDetail extends Component<Props> {
             open={this.props.stopDialogOpen}
             onSubmit={this.props.stop}
             onCancel={() => this.props.setStopDialogOpen(false)}
+          />
+        ) : null}
+        {this.props.scheduledStopDialogOpen ? (
+          <SubscriptionScheduledStopDialog
+            subscription={subscription}
+            open={this.props.scheduledStopDialogOpen}
+            onCancel={() => this.props.setScheduledStopDialogOpen(false)}
+            loading={loading}
+            onSubmit={this.props.flagPlannedInvoiceAsLast}
           />
         ) : null}
         {this.props.subscription ? (
@@ -260,6 +280,7 @@ export default compose(
     'setSwitchPaymentMethodDialogOpen',
     false,
   ),
+  withState('scheduledStopDialogOpen', 'setScheduledStopDialogOpen', false),
   connect(
     (state, { id }) => ({
       subscription: getSubscriptionById(state, id),
@@ -290,6 +311,8 @@ export default compose(
       fetchAllPaymentPacks: fetchAllPaymentPacksAction,
       fetchPrivatePassList,
       switchSubscriptionPaymentMethod: switchSubscriptionPaymentMethodAction,
+      flagPlannedInvoiceAsLast: flagPlannedInvoiceAsLastAction,
+      unflagPlannedInvoiceAsLast: unflagPlannedInvoiceAsLastAction,
     },
   ),
   withHandlers({
@@ -399,6 +422,18 @@ export default compose(
           if (options && options.onError) options.onError(err);
         },
       });
+    },
+    flagPlannedInvoiceAsLast: ({
+      flagPlannedInvoiceAsLast,
+      fetchSubscription,
+    }) => (id) => {
+      flagPlannedInvoiceAsLast(id, { onSuccess: () => fetchSubscription() });
+    },
+    unflagPlannedInvoiceAsLast: ({
+      unflagPlannedInvoiceAsLast,
+      fetchSubscription,
+    }) => (id) => {
+      unflagPlannedInvoiceAsLast(id, { onSuccess: () => fetchSubscription() });
     },
     updatePlannedInvoicePrice: ({
       updatePlannedInvoicePrice,

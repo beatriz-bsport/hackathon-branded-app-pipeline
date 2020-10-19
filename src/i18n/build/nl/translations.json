@@ -280,8 +280,8 @@
         "parameters": {
             "allEstablishment": "Alle zalen",
             "enabled": "Actief",
-            "establishmentId": "Uw zaal-ID's zijn: {{establishmentIdList}}",
-            "companyId": "Uw club-ID is: {{company}}"
+            "establishmentId": "Je zaal-ID's zijn: {{establishmentIdList}}",
+            "companyId": "Je club-ID is: {{company}}"
         },
         "pageTitle": "Partnerschap"
     },
@@ -354,7 +354,7 @@
             "forms": {
                 "register": {
                     "forceNotify": "Stuur een bevestigingsmail",
-                    "passCompatibleNotOwnedByMember": "Een nieuwe pas factureren",
+                    "passCompatibleNotOwnedByMember": "Een nieuwe cursuskaart factureren",
                     "passOwnedByMember": "Cursuskaart(en) die het lid bezit",
                     "registerToOffer": "Registratie voor de sessie",
                     "doNotConsumeCredit": "Geen credits aftrekken aan leden voor de inschrijving"
@@ -503,7 +503,7 @@
             "invoiceFromSubscriptionThusNotEditable": "Deze factuur maakt deel uit van een abonnement en kan daarom niet worden bewerkt, wijzig het abonnement rechtstreeks"
         },
         "invoice": {
-            "explainFinalize": "Let op: en definitieve factuur kan niet meer worden gewijzigd en alle betalingen die in afwachting van incasso zijn gemarkeerd, worden als geïncasseerd beschouwd. Zodra de factuur is afgerond, kunt u deze exporteren als pdf",
+            "explainFinalize": "Let op: een definitieve factuur kan niet meer worden gewijzigd. Alle betalingen die in afwachting van incasso zijn gemarkeerd, worden als geïncasseerd beschouwd. Zodra de factuur is afgerond, kun je deze exporteren als .PDF",
             "finalize": "Voltooi de factuur",
             "invoiceReverted": "Factuur geannuleerd",
             "revertExplainShop": "Winkelaankopen worden geannuleerd en de voorraad wordt gereset.",
@@ -582,7 +582,7 @@
                 "myPrivateBooking": "Afspraak"
             },
             "help": {
-                "explainCancelBookingOption": "Deze verwijdering is definitief. Als u zich opnieuw voor deze sessie aanmeldt, dan sluit u zich achteraan de wachtlijst aan.",
+                "explainCancelBookingOption": "Deze verwijdering is definitief. Als je je opnieuw voor deze sessie aanmeldt, dan sluit je je achteraan de wachtlijst aan.",
                 "areYouSureCancelBookingOption": "Weet je zeker dat je je optie wil annuleren?"
             },
             "company": "Club",
@@ -636,7 +636,7 @@
             "default_duration_minutes": "Duur van de sessie",
             "default_last_discard_minutes": "Annuleren is mogelijk tot",
             "default_last_booking_minutes": "Laatste reservering mogelijk op",
-            "default_credits": "Prijs (credits)",
+            "default_credits": "Prijs (in kredieten)",
             "default_price": "Prijs",
             "SCT": "Categorie",
             "name": "Naam",
@@ -660,7 +660,7 @@
             "effectif": "Beschikbare plaatsen",
             "caracteristics": "Kenmerken",
             "price": "Prijs",
-            "credits": "Aantal cursuskaartcredits dat vereist is om te boeken",
+            "credits": "Aantal krediet dat vereist is om te boeken",
             "priceCategory": "Facturatie",
             "duration_minute": "Duur",
             "lastSession": "Laatste sessie op",
@@ -809,7 +809,7 @@
                     "deleteExplain": "Let op! Deze actie is definitief. Geen enkele klant kan dit product kopen en de voorraden worden verwijderd.",
                     "barcode": "Streepjescode",
                     "deleteTitle": "Verwijdering",
-                    "marketplace_enabled": "Beschikbaar op de webwinkel",
+                    "marketplace_enabled": "Beschikbaar op de webshop",
                     "unlimitedProvision": "Geen voorraadbeheer",
                     "create": "Voeg een artikel toe",
                     "is_deliverable": "Voeg verzendkosten toe",
@@ -854,8 +854,8 @@
             },
             "waiting_list_max_size": "Grootte van de wachtlijst",
             "signUpTitle": "Inschrijving",
-            "warningCreditChange": "NB: oude reserveringen houden geen rekening met wijzigingen in uw saldo",
-            "noAvailableCredit": "Weet u zeker dat u geen prijs wilt invoeren?",
+            "warningCreditChange": "N.B.: oude reserveringen houden geen rekening met wijzigingen in uw saldo",
+            "noAvailableCredit": "Weet je zeker dat je geen prijs wilt invoeren?",
             "explainNoEmailChange": "Als de e-mail gewijzigd wordt, kan de instructeur geen verbinding meer maken. De instructeur kan zijn/haar e-mail wijzigen door met zijn/haar bsport-account in te loggen"
         },
         "shop": {
@@ -990,7 +990,7 @@
             "revertBookingWithInvoiceImpossibleExplain": "Deze reservering is reeds betaald en kan niet worden geannuleerd. Je kunt je wel als \"Afwezig\" melden",
             "revertBookingExplain": {
                 "offerIsNotAvailable": "De reservering wordt verwijderd. De sessie is al geannuleerd en tegoeden worden niet terugbetaald als je \"teruggave\" niet hebt aangevinkt bij het annuleren",
-                "offerIsAvailable": "Weet je zeker dat je deze reservering wilt verwijderen? De gebruikte credits worden opnieuw gecrediteerd."
+                "offerIsAvailable": "Weet je zeker dat je deze reservering wilt verwijderen? De gebruikte kredieten worden opnieuw gecrediteerd."
             },
             "revertBookingTitle": "Inschrijving annuleren",
             "wasRefunded": "Terugbetaald",
@@ -1231,7 +1231,7 @@
             "sport": "Sport"
         },
         "blockBooking": "Blokkeer reservering van cursuskaarten van nieuwe klanten",
-        "languageToolTip": "Beschikbaar op de webwinkel",
+        "languageToolTip": "Beschikbaar in de webshop",
         "visibilityOfIconToolTip": "Niet zichtbaar",
         "onlyNewMember": "Reservering alleen mogelijk voor cursuskaarten van nieuwe klanten",
         "replaceCoach": "Wijzig de instructeur",
@@ -4107,7 +4107,7 @@
                 "coach": "Selecteer een instructeur",
                 "establishment": "Selecteer de locatie"
             },
-            "isAtHome": "Thuislessen, uw adres is vereist bij het boeken",
+            "isAtHome": "Uw adres is vereist bij het reserveren van thuislessen",
             "title": "Reserveer sessie",
             "address": {
                 "label": "Adres",
@@ -4123,7 +4123,7 @@
             "bookingCapabilities": {
                 "compatibleConsumerPassTitle": "Uw geldige cursuskaarten",
                 "compatiblePassTitle": "Cursuskaarten geldig voor deze sessie",
-                "emptyPassList": "Geen compatibele kaart, neem contact met uw club op",
+                "emptyPassList": "Geen compatibele kaart. Neem contact met uw club op",
                 "emptyConsumerPassList": "Je hebt geen geldige cursuskaart met voldoende krediet"
             },
             "private_pass": {
@@ -4303,7 +4303,7 @@
                     },
                     "isWithEstablishment": {
                         "isEmpty": "Geen zaal geconfigureerd!",
-                        "label": "In een van uw vestigingen",
+                        "label": "In een van je vestigingen",
                         "helperText": "Reserveren is alleen mogelijk als de zaal voldoende vrije plaatsen heeft"
                     }
                 },

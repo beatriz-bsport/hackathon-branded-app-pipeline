@@ -318,7 +318,7 @@ export class MemberDetailBooking extends Component<Props, State> {
                 {this.props.t('booking:recurrenceRule.createModal.create')}
               </Button>
             </div>
-            {!!this.props.offer && this.props.bookerInAvanceDialog && (
+            {this.props.bookerInAvanceDialog && (
               <RecurrenceRuleBookingFormDialog
                 refresh={this.props.refresh}
                 initial={this.props.selectedRecurrentBooking}

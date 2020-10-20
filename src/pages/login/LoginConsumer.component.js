@@ -20,6 +20,7 @@ import { openIntercomHelp } from '../../intercom';
 import { auth as authActions } from '../../actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 
+import GoogleTagManager from '../../components/GoogleTagManager.component';
 import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
 import SignUpForm from '../../components/form/SignUpForm.component';
 
@@ -39,6 +40,7 @@ type Props = {
   emailExists: boolean,
   checkEmailExistsLoading: boolean,
   checkEmailExists: (email: string) => void,
+  membership: ?number,
 
   fetchCompanyTheme: (companyId: number) => void,
   theme: Theme,
@@ -56,9 +58,8 @@ export class ConsumerLoginPage extends Component<Props> {
   };
 
   componentDidMount() {
-    const { membership } = parse(this.props.location.search);
-    if (membership) {
-      this.props.fetchCompanyTheme(membership);
+    if (this.props.membership) {
+      this.props.fetchCompanyTheme(this.props.membership);
     }
   }
 
@@ -75,9 +76,8 @@ export class ConsumerLoginPage extends Component<Props> {
   };
 
   signup = (data: *) => {
-    const { membership } = parse(this.props.location.search);
-    if (membership) {
-      this.props.signup({ ...data, membership });
+    if (this.props.membership) {
+      this.props.signup({ ...data, membership: this.props.membership });
     } else {
       this.props.signup(data);
     }
@@ -107,6 +107,9 @@ export class ConsumerLoginPage extends Component<Props> {
     if (step === STEPS.WELCOME) {
       return (
         <div className={classes.container}>
+          {!!this.props.theme && this.props.membership && (
+            <GoogleTagManager username="" theme={this.props.theme} />
+          )}
           <ConsumerLogin
             doEmailLogin={doEmailLogin}
             error={errorLogin}
@@ -125,6 +128,9 @@ export class ConsumerLoginPage extends Component<Props> {
 
     return (
       <div className={classes.container}>
+        {!!this.props.theme && this.props.membership && (
+          <GoogleTagManager username="" theme={this.props.theme} />
+        )}
         <div>
           <div
             style={{

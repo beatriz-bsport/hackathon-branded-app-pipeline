@@ -2487,7 +2487,7 @@
         "yes": "Ja",
         "list": {
             "empty": "Keine Reports? Erstelle den ersten Report!",
-            "button_new": "Ich erstelle meine erste Quote"
+            "button_new": "Erstelle meinen erstern Report"
         },
         "report": {
             "delete_message": "Bist Du Dir sicher, dass Du den Report {{name}} löschen möchtest?"

@@ -5771,7 +5771,7 @@
             },
             "recurrentRuleBooking": "Recurrent booking",
             "item": {
-                "explain": "All the {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}} weeks before"
+                "explain": "Every {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}} weeks before"
             },
             "needConsumerPack": "This member does not have a compatible class pass, it is impossible to schedule a recurrence",
             "recurrentBookings": "Recurrent bookings",

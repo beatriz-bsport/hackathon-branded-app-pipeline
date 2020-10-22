@@ -82,7 +82,7 @@ exports.default = {
       explain: 'Choisissez le dernier encaissement de la souscription.',
       listItem: 'Arrêt programmé de la souscription',
       summary:
-        'Arrêt programmé de la souscription après la facture du {{-date}}',
+        'Le dernier encaissement programmé sera daté du {{-date}}, il correspondera à la dernière carte valide.',
     },
     actions: {
       freeze: 'Mettre en pause',

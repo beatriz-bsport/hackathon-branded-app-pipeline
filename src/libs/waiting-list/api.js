@@ -21,9 +21,10 @@ export const fetchFilteredBookingOptions = async (params: any) => {
   );
 };
 
-export async function discardBookingOption(optionId: number) {
+export async function discardBookingOption(optionId: number, params: any = {}) {
   return postAuth(
     `${API_V1_URI}/waiting-list/booking-option/${optionId}/discard/`,
+    params,
   );
 }
 

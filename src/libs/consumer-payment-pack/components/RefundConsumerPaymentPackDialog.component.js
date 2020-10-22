@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -28,6 +27,7 @@ type Props = {
   handleNoteChange: (SyntheticEvent<HTMLEvent>) => void,
   showCreditRefund: boolean,
   blockUnlimited: boolean,
+  toogleBlockUnlimited: () => void,
   onSubmit: (
     consumerPackId: number,
     data: {

@@ -306,7 +306,7 @@ export default compose(
       optionToCancel,
       setOptionToCancel,
     }) => () => {
-      cancelBookingOption(optionToCancel, {
+      cancelBookingOption(optionToCancel, null, {
         onSuccess: () => setOptionToCancel(null),
       });
     },

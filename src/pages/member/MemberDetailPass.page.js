@@ -91,6 +91,8 @@ type Props = {
   fetchConsumerPackList: (page: number, pageSize: number) => void,
   timezone: string,
 
+  showCreditRefund: boolean,
+
   consumerPackCount: number,
   consumerPackCurrentPage: number,
   consumerPaymentPackCreditRefundList: Array<ConsumerPaymentPackRefundCredit>,

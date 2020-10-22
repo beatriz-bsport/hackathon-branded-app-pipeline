@@ -51,6 +51,19 @@ export class PaymentPrivatePassPage extends Component<Props, State> {
   addItem = (basket: Basket) => {
     const { privatePassId } = this.props;
     const companyId = this.props.urlParams.membership;
+    try {
+      (window.dataLayer || []).push({
+        event: 'bsport:basket:add-to-cart:pass',
+        data: {
+          privatePassId,
+          name: '', // TODO GTM
+          price: null, // TODO GTM
+          type: 'private_pass',
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
     this.props.addItemToBasket(
       basket.id,
       {

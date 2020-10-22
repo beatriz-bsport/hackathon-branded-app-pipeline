@@ -58,6 +58,19 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
             if (!this.state.processing) {
               this.setState({ processing: true });
               const { nextOffer } = parse(this.props.location.search);
+              try {
+                (window.dataLayer || []).push({
+                  event: 'bsport:basket:add-to-cart:pass',
+                  data: {
+                    id: paymentPack.id,
+                    name: paymentPack.name,
+                    price: paymentPack.price,
+                    type: 'payment_pack',
+                  },
+                });
+              } catch (err) {
+                console.error(err);
+              }
               this.props.addItemToBasket(
                 basket.id,
                 {

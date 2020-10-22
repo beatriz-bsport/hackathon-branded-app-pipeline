@@ -52,6 +52,19 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
       onSuccess: (shopItem) => {
         this.props.fetchCurrentBasket(shopItem.company, {
           onSuccess: (basket) => {
+            try {
+              (window.dataLayer || []).push({
+                event: 'bsport:basket:add-to-cart:shop-item',
+                data: {
+                  id: shopItem.id,
+                  name: shopItem.name,
+                  price: shopItem.price,
+                  type: 'shop_item',
+                },
+              });
+            } catch (err) {
+              console.error(err);
+            }
             this.props.addItemToBasket(
               basket.id,
               {

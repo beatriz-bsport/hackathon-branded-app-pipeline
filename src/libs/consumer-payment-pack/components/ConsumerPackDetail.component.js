@@ -51,7 +51,7 @@ type Props = {
   classes: Object,
 
   consumerPaymentPackCreditRefundList: Array<ConsumerPaymentPackCreditRefund>,
-  requestRefund: (ConsumerPaymentPack) => void,
+  requestRefund: (ConsumerPaymentPack, showCredit: boolean) => void,
 };
 
 export function ConsumerPaymentPackDetail(props: Props) {
@@ -96,7 +96,19 @@ export function ConsumerPaymentPackDetail(props: Props) {
                 (!props.consumerPack.payment_pack.unlimited &&
                   !props.consumerPack.available_credits)
               }
-              onClick={() => props.requestRefund(props.consumerPack)}
+              onClick={() => props.requestRefund(props.consumerPack, false)}
+            >
+              {props.t('consumerPaymentPack.details.actions.applyVoucher')}
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={
+                props.consumerPack.disabled ||
+                (!props.consumerPack.payment_pack.unlimited &&
+                  !props.consumerPack.available_credits)
+              }
+              onClick={() => props.requestRefund(props.consumerPack, true)}
             >
               {props.t('consumerPaymentPack.details.actions.refund')}
             </Button>
@@ -199,6 +211,9 @@ const styles = (theme) => ({
     justifyContent: 'flex-end',
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(2),
+    '&>*': {
+      marginLeft: theme.spacing(1),
+    },
   },
 });
 

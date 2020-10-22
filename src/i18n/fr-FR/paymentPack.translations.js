@@ -40,9 +40,10 @@ exports.default = {
   consumerPaymentPack: {
     addExtension: 'Ajouter une extension',
     refund: {
-      title: 'Remboursement crédit',
+      title: 'Remboursement',
+      blockUnlimited: 'Bloquer la carte',
       price: {
-        label: 'Montant recrédité',
+        label: 'Montant à recréditer',
       },
       description: '{{ credits }} crédit - {{ note }}',
       description_plural: '{{ credits }} crédits - {{ note }}',
@@ -65,7 +66,8 @@ exports.default = {
     },
     details: {
       actions: {
-        refund: 'Remboursement crédit',
+        refund: 'Transformation acompte',
+        applyVoucher: 'Appliquer réduction',
       },
     },
   },

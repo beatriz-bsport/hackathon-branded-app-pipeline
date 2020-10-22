@@ -363,6 +363,7 @@ export class MemberDetailPass extends Component<Props, State> {
             open
             loading={this.props.refundLoading}
             consumerPaymentPack={this.props.consumerPaymentPackToRefund}
+            showCreditRefund={this.props.showCreditRefund}
             onClose={this.props.closeRefund}
             onSubmit={this.props.refundConsumerPaymentPack}
           />
@@ -474,11 +475,12 @@ export default compose(
     },
   ),
   withStateHandlers(
-    { consumerPaymentPackToRefund: null },
+    { consumerPaymentPackToRefund: null, showCreditRefund: true },
     {
       closeRefund: () => () => ({ consumerPaymentPackToRefund: null }),
-      requestRefund: () => (consumerPaymentPackToRefund) => ({
+      requestRefund: () => (consumerPaymentPackToRefund, showCreditRefund) => ({
         consumerPaymentPackToRefund,
+        showCreditRefund,
       }),
     },
   ),

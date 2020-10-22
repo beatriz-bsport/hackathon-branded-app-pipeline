@@ -9,6 +9,9 @@ import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -23,6 +26,8 @@ type Props = {
   handlePriceChange: (SyntheticEvent<HTMLElement>) => void,
   handleCreditChange: (SyntheticEvent<HTMLEvent>) => void,
   handleNoteChange: (SyntheticEvent<HTMLEvent>) => void,
+  showCreditRefund: boolean,
+  blockUnlimited: boolean,
   onSubmit: (
     consumerPackId: number,
     data: {
@@ -44,14 +49,19 @@ export const RefundConsumerPaymentPack = (props: Props) => {
         onSubmit={(ev) => {
           ev.preventDefault();
           props.onSubmit(props.consumerPaymentPack.id, {
-            credit_to_refund: props.credits,
+            credit_to_refund: props.showCreditRefund ? props.credits : 0,
             refund_amount: props.price,
             note: props.note,
+            block_unlimited: props.showCreditRefund
+              ? props.blockUnlimited
+              : false,
           });
         }}
       >
         <DialogContent>
-          <Typography>{t('consumerPaymentPack.refund.explain')}</Typography>
+          {props.showCreditRefund && (
+            <Typography>{t('consumerPaymentPack.refund.explain')}</Typography>
+          )}
           <div className={classes.warningRow}>
             <WarningIcon className={classes.leftIcon} />
             <Typography variant="caption">
@@ -64,24 +74,25 @@ export const RefundConsumerPaymentPack = (props: Props) => {
             </Typography>
           </div>
           <div className={classes.fieldContainer}>
-            {!props.consumerPaymentPack.payment_pack.unlimited && (
-              <TextField
-                value={props.credits}
-                className={classes.field}
-                InputProps={{ inputProps: { step: 1, min: 1 } }}
-                variant="outlined"
-                label={t('consumerPaymentPack.refund.credits.label')}
-                onChange={props.handleCreditChange}
-                onBlur={() =>
-                  props.handleCreditChange({
-                    target: {
-                      value: parseInt(props.credits, 10) || 0,
-                    },
-                  })
-                }
-                type="numeric"
-              />
-            )}
+            {!props.consumerPaymentPack.payment_pack.unlimited &&
+              props.showCreditRefund && (
+                <TextField
+                  value={props.credits}
+                  className={classes.field}
+                  InputProps={{ inputProps: { step: 1, min: 1 } }}
+                  variant="outlined"
+                  label={t('consumerPaymentPack.refund.credits.label')}
+                  onChange={props.handleCreditChange}
+                  onBlur={() =>
+                    props.handleCreditChange({
+                      target: {
+                        value: parseInt(props.credits, 10) || 0,
+                      },
+                    })
+                  }
+                  type="numeric"
+                />
+              )}
             <TextField
               label={t('consumerPaymentPack.refund.price.label')}
               value={props.price}
@@ -108,6 +119,18 @@ export const RefundConsumerPaymentPack = (props: Props) => {
               rows={3}
               onChange={props.handleNoteChange}
             />
+            {props.consumerPaymentPack.payment_pack.unlimited &&
+              props.showCreditRefund && (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={props.blockUnlimited}
+                      onChange={props.toogleBlockUnlimited}
+                    />
+                  }
+                  label={t('consumerPaymentPack.refund.blockUnlimited')}
+                />
+              )}
           </div>
         </DialogContent>
         <DialogActions>
@@ -157,6 +180,7 @@ export default compose(
       credits: Math.max(parseInt(consumerPaymentPack.available_credits, 10), 0),
       price: 0,
       note: '',
+      blockUnlimited: true,
     }),
     {
       handleNoteChange: () => (ev) => ({
@@ -167,6 +191,9 @@ export default compose(
       }),
       handlePriceChange: () => (ev) => ({
         price: ev.target.value,
+      }),
+      toogleBlockUnlimited: ({ blockUnlimited }) => () => ({
+        blockUnlimited: !blockUnlimited,
       }),
     },
   ),

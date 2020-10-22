@@ -97,6 +97,7 @@ export const discardOptionActions = {
 
 export function discardBookingOption(
   bookingOptionId: number,
+  params: any,
   options: OptionCallBack,
 ) {
   return async (dispatch: Dispatch) => {
@@ -104,7 +105,7 @@ export function discardBookingOption(
     dispatch(discardOptionActions.error(null));
 
     try {
-      const response = await discardBookingOptionAPI(bookingOptionId);
+      const response = await discardBookingOptionAPI(bookingOptionId, params);
 
       dispatch(discardOptionActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(bookingOptionId);

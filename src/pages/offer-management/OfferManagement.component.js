@@ -100,7 +100,7 @@ type Props = {
     offerId: number,
   ) => void,
   addBooking: (consumerPaymentPackId: number, data: any) => void,
-  discardOption: (id: number, options: OptionCallback) => void,
+  discardOption: (id: number, params: any, options: OptionCallback) => void,
   deleteBooking: (bookingId: number, data: any) => void,
 
   fetchOffer: (id: number) => void,
@@ -238,7 +238,9 @@ export class OfferManagement extends Component<Props, State> {
     }
     this.props.clearSearch();
     if (this.props.optionToDiscard) {
-      this.props.discardOption(this.props.optionToDiscard);
+      this.props.discardOption(this.props.optionToDiscard, {
+        disable_notification: true,
+      });
       this.props.cancelDiscardOption();
     }
     this.props.setMemberToRegister(null);
@@ -552,7 +554,7 @@ export class OfferManagement extends Component<Props, State> {
             !!this.props.optionToDiscard && !!this.props.confirmOptionToDiscard
           }
           onSubmit={() => {
-            this.props.discardOption(this.props.optionToDiscard, {
+            this.props.discardOption(this.props.optionToDiscard, null, {
               onSuccess: () => {
                 this.props.cancelDiscardOption();
               },

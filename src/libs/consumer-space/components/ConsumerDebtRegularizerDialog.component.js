@@ -78,7 +78,7 @@ export class ConsumerDebtRegularizerDialog extends React.Component<Props> {
                       this.props.closeDialog();
                     }}
                     savedPaymentMethodList={this.props.savedPaymentMethodList}
-                    availablePaymentMethods={[0, 13]}
+                    availablePaymentMethods={[0]}
                     submitPayment={(data, options) =>
                       this.props.submitPayment(data, {
                         onSuccess: (response) => {

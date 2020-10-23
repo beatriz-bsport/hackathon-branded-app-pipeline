@@ -10,6 +10,7 @@ import Moment from 'moment-timezone';
 import 'moment/locale/fr';
 import 'moment/locale/de';
 import 'moment/locale/nl';
+import 'moment/locale/es';
 import 'moment/locale/it';
 
 import namespaces from './namespaces.json';

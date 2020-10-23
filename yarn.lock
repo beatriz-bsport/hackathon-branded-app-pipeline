@@ -1956,10 +1956,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@bsport/common@^1.29.11":
-  version "1.29.11"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.29.11.tgz#d2868e877a1a046a59a7e9718271e404b30b3859"
-  integrity sha512-4Gajxlaugh5VAaOrpVh95ftOfYctS/96AIkajr1L4cD7DT1aIqHkGcRsCAh+k3+oWvGRbl2vlcLVihu83x/i8A==
+"@bsport/common@^1.29.12":
+  version "1.29.12"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.29.12.tgz#8afcaa35a80bc11e06dc9e57b52d0a2518a3fd90"
+  integrity sha512-3hHX1hJvMeW0pwzukXJYgS2gQfQBvkHEJenCcealKuC15HnUH/Hr2YfuCXwjIQtLXdn5epvqjlYr4z1H1BU5nQ==
 
 "@commitlint/execute-rule@^9.1.1":
   version "9.1.1"

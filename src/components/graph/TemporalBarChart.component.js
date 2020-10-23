@@ -10,7 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { dateFormatter } from '../../state/stats/utils';
+import { dateFormatter, numberFormatter } from '../../state/stats/utils';
 
 type Props = {
   height?: number | string,
@@ -47,7 +47,6 @@ export function TemporalBarChart(props: Props) {
     noGrid,
     barSize,
   } = props;
-
   const start = moment(data[0].d);
   const end = moment(data[data.length - 1].d);
   const xFormatter = dateFormatter([start, end]);
@@ -68,11 +67,12 @@ export function TemporalBarChart(props: Props) {
         <YAxis
           allowDecimals={!!allowDecimals}
           key={refreshKey}
+          tickFormatter={numberFormatter(false)}
           label={{
             value: yLabel,
             angle: -90,
             position: 'insideLeft',
-            offset: -5,
+            offset: -20,
           }}
         />
         {props.tooltip && <Tooltip />}

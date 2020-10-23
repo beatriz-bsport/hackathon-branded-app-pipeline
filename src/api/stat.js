@@ -47,6 +47,18 @@ export async function fetchPlannedInvoiceStatistics(params) {
   );
 }
 
+export async function fetchBookingQualitative(params) {
+  return getJSONAuth(
+    `${API_URI}/statistics/booking_qualitative/${buildUrlParams(params)}`,
+  );
+}
+
+export async function fetchInvoiceItemQualitative(params) {
+  return getJSONAuth(
+    `${API_URI}/statistics/invoice_item/${buildUrlParams(params)}`,
+  );
+}
+
 export default {
   bookings,
   newMembers,

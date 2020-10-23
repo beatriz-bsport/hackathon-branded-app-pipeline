@@ -12,6 +12,8 @@ import {
   fetchMemberStatistics as fetchMemberStatisticsAPI,
   fetchPaymentStatistics as fetchPaymentStatisticsAPI,
   fetchPlannedInvoiceStatistics as fetchPlannedInvoiceStatisticsAPI,
+  fetchBookingQualitative as fetchBookingQualitativeAPI,
+  fetchInvoiceItemQualitative as fetchInvoiceItemQualitativeAPI,
 } from '../api/stat';
 
 export const dateRangeChange = createAction('STATISTICS/DATE_RANGE/CHANGE');
@@ -185,6 +187,29 @@ export function fetchPlannedInvoiceStatistics(
       identifier,
       params,
       fetchPlannedInvoiceStatisticsAPI,
+    );
+  };
+}
+
+export function fetchBookingQualitative(
+  identifier: string,
+  params: any,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    fetchStatistics(dispatch, identifier, params, fetchBookingQualitativeAPI);
+  };
+}
+
+export function fetchInvoiceItemQualitative(
+  identifier: string,
+  params: any,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    fetchStatistics(
+      dispatch,
+      identifier,
+      params,
+      fetchInvoiceItemQualitativeAPI,
     );
   };
 }

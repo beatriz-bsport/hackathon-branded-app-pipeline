@@ -1,14 +1,14 @@
 // @flow
 import * as React from 'react';
-import omit from 'lodash/omit';
 import { withStateHandlers } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Skeleton from '@material-ui/lab/Skeleton';
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import Popover from '@material-ui/core/Popover';
 import { makeStyles } from '@material-ui/core/styles';
+import ChartRange from '../../libs/dashboard/components/ChartRange.component';
 
 type Props = {
   title: string,
@@ -20,6 +20,8 @@ type Props = {
   setFilters: (any) => void,
   children: any,
   filtersComponent?: React.Element<any>,
+  range: { start: string, end: string, kind: string },
+  setRange: ({ start: string, end: string }) => void,
 };
 
 const DashboardChart = (props: Props) => {
@@ -35,19 +37,28 @@ const DashboardChart = (props: Props) => {
 
   const classes = useStyles();
   const open = anchorEl;
-
   return (
-    <Paper>
-      <div className={classes.title}>
-        <Typography variant="h6">{props.title}</Typography>
-        {props.popoverText && (
-          <InfoOutlineIcon
-            className={classes.infoIcon}
-            onMouseEnter={handlePopoverOpen}
-            onMouseLeave={handlePopoverClose}
-            fontSize="small"
+    <>
+      <div className={classes.titleRow}>
+        <div className={classes.title}>
+          <Typography variant="h6">{props.title}</Typography>
+          {props.popoverText && (
+            <InfoOutlineIcon
+              className={classes.infoIcon}
+              onMouseEnter={handlePopoverOpen}
+              onMouseLeave={handlePopoverClose}
+              fontSize="small"
+            />
+          )}
+        </div>
+        {props.range ? (
+          <ChartRange
+            start_date={props.range.start}
+            end_date={props.range.end}
+            kind={props.range.kind}
+            setRange={props.setRange}
           />
-        )}
+        ) : null}
       </div>
       {props.popoverText && (
         <Popover
@@ -100,14 +111,20 @@ const DashboardChart = (props: Props) => {
       ) : (
         <div className={classes.graph}>{props.children}</div>
       )}
-    </Paper>
+    </>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  title: {
-    paddingLeft: theme.spacing(2),
+  titleRow: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingTop: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+  title: {
     display: 'flex',
     alignItems: 'center',
   },
@@ -122,7 +139,6 @@ const useStyles = makeStyles((theme) => ({
   },
   filter: {
     paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
   },
   skeleton: {
     display: 'flex',
@@ -134,7 +150,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default withStateHandlers(
-  { openFilters: {}, filtersValue: {} },
+  ({ filters }) => ({ openFilters: {}, filtersValue: filters }),
   {
     setOpenFiltersValue: ({ openFilters }) => (name: string) => {
       return {
@@ -148,11 +164,9 @@ export default withStateHandlers(
       name: string,
       value: any,
     ) => {
-      let newFilters = filtersValue;
+      let newFilters = { ...filtersValue };
       if (value === null) {
-        newFilters = {
-          filtersValue: omit(filtersValue, name),
-        };
+        delete newFilters[name];
       } else {
         newFilters = {
           ...filtersValue,

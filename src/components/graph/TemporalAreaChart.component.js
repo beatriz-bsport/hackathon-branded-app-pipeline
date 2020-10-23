@@ -10,7 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { dateFormatter } from '../../state/stats/utils';
+import { dateFormatter, numberFormatter } from '../../state/stats/utils';
 
 type Props = {
   height?: number | string,
@@ -92,6 +92,7 @@ export function TemporalAreaChart(props: Props) {
         <YAxis
           allowDecimals={!!allowDecimals}
           key={refreshKey}
+          tickFormatter={numberFormatter(false)}
           label={{
             value: yLabel,
             angle: -90,

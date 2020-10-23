@@ -2,6 +2,7 @@
 
 import lodash from 'lodash';
 import moment from 'moment-timezone';
+import Immutable from 'seamless-immutable';
 import type { Moment } from 'moment-timezone';
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
@@ -72,11 +73,12 @@ export const getStatisticTemporal = (
     state.stats.stats[identifier] &&
     state.stats.stats[identifier].data
   ) {
-    ({ data } = state.stats.stats[identifier]);
+    // ({ data } = state.stats.stats[identifier]);
+    data = Immutable(state.stats.stats[identifier].data);
     loading = state.stats.stats[identifier].isLoading;
   }
-  data = discretizeAndFillMissing(data, range.start, range.end);
-  return { data, loading };
+  const processedData = discretizeAndFillMissing(data, range.start, range.end);
+  return { data: processedData, loading };
 };
 
 export const getStatisticTemporalGrid = (state: State, identifier: string) => {

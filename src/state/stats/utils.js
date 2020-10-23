@@ -1,7 +1,8 @@
 import moment from 'moment-timezone';
+import memoize from 'memoize-one';
 import groupBy from 'lodash/groupBy';
 
-export function discretizeByAndFillMissing(table, start, end) {
+export const discretizeByAndFillMissing = memoize((table, start, end) => {
   const duration = moment.duration(moment(end).diff(moment(start)));
   let grouped = {};
 
@@ -9,7 +10,8 @@ export function discretizeByAndFillMissing(table, start, end) {
     grouped = groupBy(table, (u) => moment(u.d).format('YYYY-MM'));
     for (
       let m = moment(start);
-      m.isBefore(end) || m.isSame(end);
+      m.isBefore(moment(end).endOf('month')) ||
+      m.isSame(moment(end).endOf('month'));
       m.add(1, 'months')
     ) {
       if (!grouped[m.format('YYYY-MM')]) {
@@ -26,7 +28,8 @@ export function discretizeByAndFillMissing(table, start, end) {
     });
     for (
       let m = moment(start);
-      m.isBefore(end) || m.isSame(end);
+      m.isBefore(moment(end).endOf('week')) ||
+      m.isSame(moment(end).endOf('week'));
       m.add(7, 'days')
     ) {
       if (
@@ -49,7 +52,8 @@ export function discretizeByAndFillMissing(table, start, end) {
     grouped = groupBy(table, (u) => moment(u.d).format('YYYY-MM-DD'));
     for (
       let m = moment(start);
-      m.isBefore(end) || m.isSame(end);
+      m.isBefore(moment(end).endOf('day')) ||
+      m.isSame(moment(end).endOf('day'));
       m.add(1, 'days')
     ) {
       if (!grouped[m.format('YYYY-MM-DD')]) {
@@ -60,7 +64,8 @@ export function discretizeByAndFillMissing(table, start, end) {
     grouped = groupBy(table, (u) => moment(u.d).format('YYYY-MM-DD LT'));
     for (
       let m = moment(start);
-      m.isBefore(end) || m.isSame(end);
+      m.isBefore(moment(end).endOf('hour')) ||
+      m.isSame(moment(end).endOf('hour'));
       m.add(1, 'hours')
     ) {
       if (!grouped[m.format('YYYY-MM-DD LT')]) {
@@ -95,7 +100,7 @@ export function discretizeByAndFillMissing(table, start, end) {
     });
   }
   return finalTable;
-}
+});
 
 export const dateFormatter = (domain) => {
   const duration = moment.duration(moment(domain[1]).diff(moment(domain[0])));
@@ -109,4 +114,14 @@ export const dateFormatter = (domain) => {
     return (d) => moment(d).format('ddd DD MMM');
   }
   return (d) => moment(d).format('LT');
+};
+
+// add spaces and if float, makes sure that displayd with 2 decimal digits
+export const numberFormatter = (isCurrencyFormat) => (x) => {
+  const parts = parseInt(x, 10)
+    .toString()
+    .split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  if (parts.length === 2 && parts[1].length === 1) parts[1] += '0';
+  return `${parts.join('.')}${isCurrencyFormat ? '€' : ''}`;
 };

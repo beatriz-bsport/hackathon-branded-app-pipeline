@@ -1032,7 +1032,8 @@
       "titlePrivateBooking": "Rendez-vous",
       "showCalendar": "Voir le calendrier",
       "discard": "Annuler",
-      "bookAgain": "Réserver de nouveau"
+      "bookAgain": "Réserver de nouveau",
+      "accessLive": "Accéder au live"
     },
     "dashboard": {
       "favoriteTitle": "Suggestion de réservation",
@@ -1746,18 +1747,46 @@
     "newMembers": "Nouveaux membres",
     "nbOffers": "Séances",
     "pageTitle": "Tableau de bord",
-    "turnover": "Chiffre d'affaire (€)",
-    "turnoverTitle": "Encaissement",
+    "turnover": {
+      "title": "Encaissements",
+      "caption": "Chiffre d'affaire (€)",
+      "popover": "Somme de tous les paiements reçus figurant sur les factures"
+    },
     "bookings": "Réservations",
     "dateRange": { "start": "Début", "end": "Fin" },
     "filterByDateTitle": "Filtrer par date",
     "detailsGraphTitle": "En détails",
-    "billedSubscriptions": "Souscriptions facturées",
-    "bookingsWeektimeSlot": "Effectif moyen",
-    "popover": {
-      "turnover": "Somme de tous les paiements reçus figurant sur les factures",
-      "billedSubscriptions": "Le nombre de factures liées à une souscription non annulée",
-      "bookingsWeektimeSlot": "Effectif moyen des séances par créneau horaire"
+    "billedSubscriptions": {
+      "title": "Nombre de souscriptions facturées",
+      "caption": "Souscriptions",
+      "popover": "Le nombre de factures liées à une souscription non annulée"
+    },
+    "bookingsWeektimeSlot": { "title": "Effectif moyen", "popover": "Effectif moyen des séances par créneau horaire" },
+    "dateFilter": { "customSelect": "Sélectionner une plage de dates", "quickSelect": "Choix rapide" },
+    "noData": "Aucune donnée à afficher",
+    "bookingSource": {
+      "title": "Origine des réservations",
+      "app": "Application",
+      "web": "Web",
+      "saas": "Backoffice bsport",
+      "other": "Autre",
+      "migration": "Migration de données"
+    },
+    "plannedPayment": {
+      "title": "Encaissements des soucriptions",
+      "caption": "Encaissement (€)",
+      "popover": "Somme de tous les paiements reçus concernant les souscriptions"
+    },
+    "invoiceItems": {
+      "title": "Ventes par type de produit",
+      "contentType": {
+        "1": "Cartes de cours",
+        "2": "Produits du magasin",
+        "6": "Frais de livraison",
+        "7": "Promotion",
+        "9": "Carte de RDV",
+        "10": "Packs"
+      }
     }
   },
   "stripe": {
@@ -2789,6 +2818,16 @@
       "error": "Une erreur est survenue, réessayez plus tard",
       "timeout": "Le serveur a mis trop longtemps à répondre. Essayez de rafraîchir la page",
       "cannotFetch": "Une erreur est survenue. Vérifiez votre connexion et essayez de rafraîchir la page"
+    },
+    "subscriptionScheduledStop": {
+      "create": {
+        "success": "Arrêt de la souscription programmé",
+        "error": "Impossible de programmer l'arrêt de la souscription"
+      },
+      "delete": {
+        "success": "L'arrêt programmé de la souscription a été supprimé",
+        "error": "Impossible de supprimer l'arrêt programmé de la souscription"
+      }
     }
   },
   "coach": {
@@ -2901,6 +2940,12 @@
           "submit": "Enregistrer"
         }
       },
+      "scheduledStop": {
+        "title": "Programmer l'arrêt de la souscription",
+        "explain": "Choisissez le dernier encaissement de la souscription.",
+        "listItem": "Arrêt programmé de la souscription",
+        "summary": "Le dernier encaissement programmé sera daté du {{-date}}, il correspondera à la dernière carte valide."
+      },
       "actions": {
         "freeze": "Mettre en pause",
         "switchPack": "Modifier la carte de cours",
@@ -3007,6 +3052,7 @@
     },
     "action": {
       "stop": "Arrêter",
+      "planStop": "Programmer l'arrêt de la souscription",
       "revertCurrentExplain": "Annuler la dernière facture enregistrée et bloquer la carte de cours",
       "revertCurrentExplainHelper": "Si le paiement est valide, un crédit sera créé, vous pouvez le rembourser au client en entrant dans la facture et en cliquant \"Rembourser\". Si le paiement avait échoué, la dette sera annulée.",
       "stopExplain": "Les prochains paiements seront annulés et les factures correspondantes seront supprimées. Si une réservation a été enregistrée avec un abonnement dont la facture a été annulée, elle sera également annulée."
@@ -4281,7 +4327,8 @@
         "payment_pack": { "first": "avec les cartes" },
         "coach": { "first": "avec les professeurs" },
         "date": { "first": "la date de la séance est" },
-        "hour": { "first": "l'heure de début la séance est comprise entre", "second": "heures et", "third": "heures" }
+        "hour": { "first": "l'heure de début la séance est comprise entre", "second": "heures et", "third": "heures" },
+        "attendance": "avec le statut"
       },
       "22": {
         "name": "Nombre de réservations",
@@ -4294,7 +4341,8 @@
         "payment_pack": { "first": "avec les cartes" },
         "coach": { "first": "avec les professeurs" },
         "date": { "first": "ayant lieu" },
-        "hour": { "first": "débutant entre", "second": "heures et", "third": "heures" }
+        "hour": { "first": "débutant entre", "second": "heures et", "third": "heures" },
+        "attendance": "avec le statut"
       },
       "23": { "name": "Première réservation", "explanation": "A réservé sa première séance le..." },
       "24": {
@@ -4346,6 +4394,9 @@
         "explanation": "A réservé sa dernière séance il y a..."
       },
       "isEmpty": "Aucun filtre n'est configuré, cette smartliste représente donc l'ensemble de la base membre",
+      "attendanceTrue": "présent",
+      "attendanceFalse": "absent",
+      "attendanceWarning": "Sélectionnez un statut",
       "calendarPicker": {
         "text": {
           "0": { "first": "le ou après le" },

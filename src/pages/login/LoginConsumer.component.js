@@ -107,9 +107,6 @@ export class ConsumerLoginPage extends Component<Props> {
     if (step === STEPS.WELCOME) {
       return (
         <div className={classes.container}>
-          {!!this.props.theme && this.props.membership && (
-            <GoogleTagManager username="" theme={this.props.theme} />
-          )}
           <ConsumerLogin
             doEmailLogin={doEmailLogin}
             error={errorLogin}
@@ -117,6 +114,9 @@ export class ConsumerLoginPage extends Component<Props> {
             loading={loginProcessing}
             requestSignUp={this.switchToSignUp}
           />
+          {!!this.props.theme && this.props.membership && (
+            <GoogleTagManager username="" theme={this.props.theme} />
+          )}
           <Hidden smDown>
             <a href="https://calendly.com/bsport/demo">
               <Typography variant="caption">{t('contactUs')}</Typography>
@@ -128,9 +128,6 @@ export class ConsumerLoginPage extends Component<Props> {
 
     return (
       <div className={classes.container}>
-        {!!this.props.theme && this.props.membership && (
-          <GoogleTagManager username="" theme={this.props.theme} />
-        )}
         <div>
           <div
             style={{
@@ -156,6 +153,9 @@ export class ConsumerLoginPage extends Component<Props> {
             backToLogin={() => this.setState({ step: STEPS.WELCOME })}
           />
         </div>
+        {!!this.props.theme && this.props.membership && (
+          <GoogleTagManager username="" theme={this.props.theme} />
+        )}
       </div>
     );
   }

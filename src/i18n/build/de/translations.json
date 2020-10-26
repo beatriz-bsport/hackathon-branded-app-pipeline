@@ -5292,7 +5292,6 @@
             "billedSubscriptions": "Die Anzahl der Rechnungen, die mit einem nicht gekündigten Abonnement verknüpft sind"
         },
         "billedSubscriptions": "Abonnements in Rechnung gestellt",
-        "bookingsWeektimeSlot": "Wöchentliche Übersicht"
         "billedSubscriptions": {
             "title": "Anzahl der in Rechnung gestellten Abonnements",
             "caption": "Abonnements",

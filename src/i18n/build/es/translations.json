@@ -1035,7 +1035,8 @@
         "pageTitle": "Tablero de mando",
         "turnover": {
             "caption": "Volumen de negocios (€)",
-            "popover": "Suma de todos los pagos recibidos que figuran en las facturas"
+            "popover": "Suma de todos los pagos recibidos que figuran en las facturas",
+            "title": "Volumen de negocios"
         },
         "bookings": "Reservas",
         "dateRange": {
@@ -1046,7 +1047,8 @@
         "detailsGraphTitle": "En detalle",
         "current_day": "Últimas 24 horas",
         "bookingsWeektimeSlot": {
-            "title": "Resumen semanal"
+            "title": "Resumen semanal",
+            "popover": "Número medio de sesiones por franja horaria"
         },
         "popover": {
             "bookingsWeektimeSlot": "Número medio de sesiones por franja horaria",
@@ -1074,7 +1076,8 @@
         },
         "plannedPayment": {
             "caption": "Ingresos (€)",
-            "popover": "Suma de todos los pagos recibidos en relación con las suscripciones"
+            "popover": "Suma de todos los pagos recibidos en relación con las suscripciones",
+            "title": "Recibos de suscripción"
         },
         "invoiceItems": {
             "title": "Ventas por tipo de producto",
@@ -2138,7 +2141,8 @@
             "scheduledStop": {
                 "title": "Programe la terminación de la suscripción",
                 "listItem": "Terminación programada de la suscripción",
-                "summary": "El último pago programado tendrá la fecha {{-date}}, corresponderá a la última tarjeta válida."
+                "summary": "El último pago programado tendrá la fecha {{-date}}, corresponderá a la última tarjeta válida.",
+                "explain": "Elija el último pago de la suscripción."
             }
         },
         "noContracts": "Los contratos te permitirán facturar a tus miembros regularmente (mensualmente) por una tarjeta de curso que se vuelve a acreditar cada mes.",
@@ -5730,7 +5734,8 @@
                 "second": "sesiones",
                 "first": "Ha reservado",
                 "explanation": "Ha reservado X sesiones de actividad A, en el lugar B, con la tarjeta de curso C ...",
-                "name": "Número de reservas"
+                "name": "Número de reservas",
+                "attendance": "con estado"
             },
             "21": {
                 "hour": {
@@ -5758,7 +5763,7 @@
                 "first": "Ha reservado su ",
                 "explanation": "Ha reservado su X a sesión de actividad A, en el establecimiento B ...",
                 "name": "Número de reserva",
-                "attendance": ""
+                "attendance": "con estado"
             },
             "20": {
                 "explanation": "Ha abandonado una cesta de cantidad…",

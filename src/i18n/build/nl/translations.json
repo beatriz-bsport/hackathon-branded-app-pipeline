@@ -1532,7 +1532,7 @@
             "other": "Overige",
             "cash": "Contant geld",
             "check": "Cheque",
-            "dispute": "Processen"
+            "dispute": "Dispuut"
         },
         "product_type": {
             "shop_item": "Winkel",
@@ -1643,7 +1643,7 @@
             "payment_method_event_brite": "EventBrite",
             "payment_method_subscription_cb": "Abonnementen",
             "payment_method_other": "Overige",
-            "payment_method_dispute": "Processen",
+            "payment_method_dispute": "Dispuut",
             "payment_method_total": "Totaal",
             "date_sumup": "Datum",
             "total_discount": "Totale korting",
@@ -2150,7 +2150,7 @@
         "overrider": "Plaatsvervanger",
         "establishment_override": "Plaatsvervangende vestiging",
         "search": "Zoek een vestiging",
-        "addButton": "Voeg een bedrijf toe",
+        "addButton": "Voeg een zaal of studio toe",
         "pleaseSelectOne": "Selecteer een studio op de kaart",
         "offers": "Kalender van sessies:",
         "noMoreOffers": "Geen geplande sessies meer",
@@ -3535,7 +3535,7 @@
             "billing_plan-create": "Aanmaken",
             "billing_plan-stop": "Stop",
             "billing_plan-renew": "Vernieuwing",
-            "billing_plan-payment_dispute": "Processen",
+            "billing_plan-payment_dispute": "Betwiste betaling",
             "billing_plan-payment_success": "Betaling gelukt",
             "billing_plan-payment_failure": "Betaling geweigerd",
             "billing_plan-update_payment_method": "Betaalmethode gewijzigd",
@@ -3954,7 +3954,7 @@
     "privateService": {
         "payment": {
             "address": {
-                "explain": "Voer uw adres in voor de thuiscursus",
+                "explain": "Voer je adres in voor de thuiscursus",
                 "save": "Opslaan"
             }
         },
@@ -4122,12 +4122,12 @@
                 "coach": "Selecteer een instructeur",
                 "establishment": "Selecteer de locatie"
             },
-            "isAtHome": "Uw adres is vereist bij het reserveren van thuislessen",
+            "isAtHome": "Je adres is vereist bij het reserveren van thuislessen",
             "title": "Reserveer sessie",
             "address": {
                 "label": "Adres",
                 "submit": "Bevestigen",
-                "helperText": "Voer uw adres in om deze les te boeken"
+                "helperText": "Voer je adres in om je voor deze les in te schrijven"
             },
             "availableSlots": "Beschikbare plaatsen",
             "emptySlot": "Niet beschikbaar",
@@ -5545,7 +5545,7 @@
             "turnover": "Som van alle ontvangen betalingen zoals vermeld op de facturen"
         },
         "bookingsWeektimeSlot": {
-            "title": "Gemiddeld aantal reserveringen per tijdsperiode",
+            "title": "Wekelijks overzicht",
             "popover": "Gemiddeld aantal reserveringen per tijdsperiode"
         },
         "billedSubscriptions": {

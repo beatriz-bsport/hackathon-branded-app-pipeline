@@ -1773,7 +1773,7 @@
       "migration": "Migration de données"
     },
     "plannedPayment": {
-      "title": "Encaissements des soucriptions",
+      "title": "Encaissements des souscriptions",
       "caption": "Encaissement (€)",
       "popover": "Somme de tous les paiements reçus concernant les souscriptions"
     },

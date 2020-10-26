@@ -86,7 +86,8 @@
             "discard": "Annuleren",
             "showCalendar": "Zie de kalender",
             "titlePrivateBooking": "Afspraak",
-            "titleBooking": "Groepsles"
+            "titleBooking": "Groepsles",
+            "accessLive": "Toegang tot livestream"
         },
         "pack": {
             "titlePrivatePack": "Afspraak",
@@ -605,7 +606,7 @@
             "SMSSent": "sms verzonden",
             "action": "Actie",
             "totalBuy": "Totale omzet",
-            "averageBuy": "Gemiddelde winkelmandwaarde",
+            "averageBuy": "Gemiddelde waarde van de winkelmand",
             "sales": "Verkoop",
             "conversionRate": "Conversiepercentage",
             "dashboard": "Dashboard"
@@ -1022,7 +1023,7 @@
             "offersThisDay": "Sessies vandaag:",
             "category": "Categorie",
             "description": "Beschrijving",
-            "fillrate": "Gemiddelde opvulling",
+            "fillrate": "Gemiddelde bezetting",
             "totalCustomers": "Totaal aantal reserveringen",
             "grossVolume": "Omzet",
             "noNextSlot": "Geen geplande sessies meer",
@@ -1821,15 +1822,17 @@
                 "description": "{{ credits }} krediet - {{ note }}",
                 "description_plural": "{{ credits }} kredieten - {{ note }}",
                 "price": {
-                    "label": "Teruggevorderd bedrag"
+                    "label": "Te verrekenen bedrag"
                 },
-                "title": "Terugbetaling krediet",
+                "title": "Terugbetaling",
                 "warningSecond": "Als je de klant wenst te vergoeden via een bankoverschrijving met de gebruikte betaalmethode, annuleer dan de factuur en betaal hem niet terug in krediet!",
-                "warningFirst": "Waarschuwing! Deze actie is definitief (opstellen van een factuur)."
+                "warningFirst": "Waarschuwing! Deze actie is definitief (opstellen van een factuur).",
+                "blockUnlimited": "Cursuskaart blokkeren"
             },
             "details": {
                 "actions": {
-                    "refund": "Kredietaflossing"
+                    "refund": "Terugbetaling",
+                    "applyVoucher": "Korting toepassing"
                 }
             }
         },
@@ -2401,7 +2404,8 @@
                 },
                 "payment_pack": {
                     "first": "met de cursuskaarten"
-                }
+                },
+                "attendance": "met status"
             },
             "22": {
                 "name": "Aantal reserveringen",
@@ -2428,7 +2432,8 @@
                     "second": "uur en",
                     "third": "uur"
                 },
-                "between": "en"
+                "between": "en",
+                "attendance": "met status"
             },
             "isEmpty": "Deze Smartlist vertegenwoordigd de volledige database, omdat er geen actieve filters zijn toegevoegd",
             "calendarPicker": {
@@ -2655,7 +2660,10 @@
                 "first": "Gereserveerd",
                 "explanation": "Reservering X met instructeur A in vestiging B met cursuskaart C...",
                 "name": "Aantal afspraken"
-            }
+            },
+            "attendanceTrue": "aanwezig",
+            "attendanceFalse": "afwezig",
+            "attendanceWarning": "Kies een status"
         },
         "mails": "E-mails",
         "exportList": "Exporteer de Smartlist",
@@ -3503,7 +3511,8 @@
             "revertCurrentExplain": "Annuleer de laatste factuur en blokkeer de cursuskaart",
             "revertCurrentExplainHelper": "Als de betaling geldig was dan zal de klant een tegoed ontvangen. U kunt het tegoed aan de klant terugbetalen door op \"Terugbetalen\" op de factuur te klikken. Als de betaling mislukte wordt de schuld kwijt gescholden.",
             "stopExplain": "De volgende betalingen worden geannuleerd en de bijbehorende facturen worden verwijderd. Als een reservering is geregistreerd met een abonnement waarvoor de factuur is geannuleerd, wordt deze ook geannuleerd.",
-            "stop": "Stoppen"
+            "stop": "Stoppen",
+            "planStop": "Plan de beëindiging van het abonnement in"
         },
         "paymentMethod": {
             "credit": {
@@ -3576,7 +3585,13 @@
             "delete": "Verwijderen",
             "register": "Abonneren",
             "edit": "Bewerken",
-            "buy": "Kopen"
+            "buy": "Kopen",
+            "scheduledStop": {
+                "title": "Plan de beëindiging van het abonnement in",
+                "explain": "Selecteer de laatste betaling voor het abonnement.",
+                "summary": "De laatste geprogrammeerde betaling is op {{-date}} en komt overeen met de laatste geldige cursuskaart.",
+                "listItem": "Geplande opzegging van het abonnement"
+            }
         },
         "pause": {
             "pausedInterval": "{{start}} → {{end}}: {{days}} dagen",
@@ -5198,6 +5213,16 @@
                 "error": "Niet mogelijk om sessie te herstellen",
                 "success": "Sessie hersteld"
             }
+        },
+        "subscriptionScheduledStop": {
+            "create": {
+                "error": "De beëindiging van het abonnement kan niet worden ingepland",
+                "success": "Geplande beëindiging van het abonnement"
+            },
+            "delete": {
+                "success": "De geplande opzegging van het abonnement is verwijderd",
+                "error": "De geplande opzegging van het abonnement kan niet worden verwijderd"
+            }
         }
     },
     "coach": {
@@ -5500,7 +5525,11 @@
         "newMembers": "Nieuwe leden",
         "nbOffers": "Sessies",
         "pageTitle": "Dashboard",
-        "turnover": "Omzet (€)",
+        "turnover": {
+            "popover": "Som van alle gefactureerde betalingen",
+            "caption": "Omzet (in €)",
+            "title": "Ontvangen betalingen"
+        },
         "bookings": "Reserveringen",
         "dateRange": {
             "start": "Begin",
@@ -5515,9 +5544,45 @@
             "billedSubscriptions": "Het aantal facturen met betrekking tot een niet-uitgeschreven abonnement",
             "turnover": "Som van alle ontvangen betalingen zoals vermeld op de facturen"
         },
-        "bookingsWeektimeSlot": "Gemiddeld aantal reserveringen per tijdsperiode",
-        "billedSubscriptions": "Gefactureerde abonnementen",
-        "turnoverTitle": "Omzet"
+        "bookingsWeektimeSlot": {
+            "title": "Gemiddeld aantal reserveringen per tijdsperiode",
+            "popover": "Gemiddeld aantal reserveringen per tijdsperiode"
+        },
+        "billedSubscriptions": {
+            "title": "Aantal gefactureerde abonnementen",
+            "caption": "Abonnementen",
+            "popover": "Het aantal facturen voor niet-opgezegde abonnementen"
+        },
+        "turnoverTitle": "Omzet",
+        "dateFilter": {
+            "customSelect": "Kies een datumbereik",
+            "quickSelect": "Snel selecteren"
+        },
+        "plannedPayment": {
+            "popover": "Som van alle betalingen voor abonnementen",
+            "title": "Omzet van abonnementen",
+            "caption": "Incasso (in €)"
+        },
+        "noData": "Geen gegevens om weer te geven",
+        "bookingSource": {
+            "title": "Herkomst van de reserveringen",
+            "saas": "Backoffice BSPORT",
+            "other": "Anders",
+            "migration": "Gegevensoverdracht",
+            "app": "Toepassing",
+            "web": "Web"
+        },
+        "invoiceItems": {
+            "title": "Verkoop per productsoort",
+            "contentType": {
+                "1": "Cursuskaarten",
+                "6": "Verzendkosten",
+                "9": "Afspraakkaarten",
+                "10": "Pakketten",
+                "2": "Producten",
+                "7": "Promotie"
+            }
+        }
     },
     "common": {
         "colorPicker": {

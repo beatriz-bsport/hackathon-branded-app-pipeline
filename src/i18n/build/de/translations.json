@@ -209,7 +209,13 @@
             "delete": "Löschen",
             "register": "Abonnieren",
             "edit": "Ändern",
-            "buy": "Kaufen"
+            "buy": "Kaufen",
+            "scheduledStop": {
+                "title": "Plane die Beendigung des Abonnements",
+                "explain": "Wähle die letzte Zahlung für das Abonnement.",
+                "listItem": "Geplante Kündigung des Abonnements",
+                "summary": "Die zuletzt programmierte Zahlung ist mit {{-date}} datiert und entspricht der zuletzt gültigen Karte."
+            }
         },
         "table": {
             "noContent": "Kein gespeichertes Abonnement"
@@ -271,7 +277,8 @@
             "stop": "Stoppen",
             "revertCurrentExplain": "Die letzte gespeicherte Rechnung stornieren und die Kurskarte sperren",
             "revertCurrentExplainHelper": "Wenn die Zahlung gültig ist, wird eine Gutschrift erstellt, die Du dem Kunden zurückerstatten kannst, indem Du die Rechnung eingeben und auf \"Zurückzahlen\" klickst. Wenn die Zahlung fehlgeschlagen ist, wird die Schuld storniert.",
-            "stopExplain": "Die zukünftigen Zahlungen werden storniert und die entsprechenden Rechnungen werden gelöscht. Wenn eine Buchung mit einem Abonnement gebucht wurde, dessen Rechnung storniert wurde, wird diese ebenfalls storniert."
+            "stopExplain": "Die zukünftigen Zahlungen werden storniert und die entsprechenden Rechnungen werden gelöscht. Wenn eine Buchung mit einem Abonnement gebucht wurde, dessen Rechnung storniert wurde, wird diese ebenfalls storniert.",
+            "planStop": "Plane die Beendigung des Abonnements"
         },
         "mandate": {
             "name": "Name und Vorname des Inhabers",
@@ -1431,7 +1438,8 @@
                 "date": {
                     "first": " "
                 },
-                "between": "und"
+                "between": "und",
+                "attendance": "mit Status"
             },
             "21": {
                 "hour": {
@@ -1458,7 +1466,8 @@
                 },
                 "payment_pack": {
                     "first": "mit den Karten"
-                }
+                },
+                "attendance": "mit Status"
             },
             "20": {
                 "date": {
@@ -1626,7 +1635,10 @@
                 "has_not": "Verfügt nicht über",
                 "has": "Verfügt über",
                 "explanation": "Hat die Terminkarte A gekauft an dem Datum Y mit X Credits"
-            }
+            },
+            "attendanceTrue": "Anwesend",
+            "attendanceFalse": "Abwesend",
+            "attendanceWarning": "Wähle einen Status"
         },
         "filterCategory": {
             "4": "Käufe",
@@ -2170,18 +2182,20 @@
                 },
                 "title": "Rückerstattung der Credits",
                 "price": {
-                    "label": "Wiedergutgeschriebener Betrag"
+                    "label": "Gutzuschreibender Betrag"
                 },
                 "credits": {
                     "label": "Abzuziehender Kredit"
                 },
                 "warningSecond": "Wenn Du den Kunden per Banküberweisung mit dem verwendeten Zahlungsmittel entschädigen möchtest, storniere die Rechnung und erstatten keine Guthaben-Rückerstattung!",
-                "warningFirst": "Achtung! Dieser Vorgang ist unwiderruflich (Erstellung einer Rechnung)."
+                "warningFirst": "Achtung! Dieser Vorgang ist unwiderruflich (Erstellung einer Rechnung).",
+                "blockUnlimited": "Blockiere die Karte"
             },
             "addExtension": "Eine Verlängerung hinzufügen",
             "details": {
                 "actions": {
-                    "refund": "Rückerstattung der Credits"
+                    "refund": "Rückerstattung",
+                    "applyVoucher": "Gutschein anwenden"
                 }
             }
         },
@@ -2919,6 +2933,16 @@
             "restore": {
                 "error": "Dieser Kurs kann nicht wiederhergestellt werden",
                 "success": "Wiederherstellung des Kurses"
+            }
+        },
+        "subscriptionScheduledStop": {
+            "create": {
+                "success": "Geplante Abonnementbeendigung",
+                "error": "Die Beendigung des Abonnements kann nicht programmiert werden"
+            },
+            "delete": {
+                "success": "Die geplante Kündigung des Abonnements wurde entfernt",
+                "error": "Die geplante Kündigung des Abonnements kann nicht entfernt werden"
             }
         }
     },
@@ -4553,7 +4577,8 @@
             "bookAgain": "Wieder buchen",
             "discard": "Abbrechen",
             "titlePrivateBooking": "Termin",
-            "titleBooking": "Gruppenkurs"
+            "titleBooking": "Gruppenkurs",
+            "accessLive": "Livestream beitreten"
         },
         "congratulation": {
             "cancel": "Schließen",
@@ -5244,7 +5269,11 @@
             "end": "Ende",
             "start": "Anfang"
         },
-        "turnover": "Umsatz (€)",
+        "turnover": {
+            "title": "Eingegangene Zahlungen",
+            "caption": "Umsatz (€)",
+            "popover": "Summe aller auf Rechnungen eingegangenen Zahlungen"
+        },
         "nbOffers": "Kurse",
         "newMembers": "Neue Mitglieder",
         "thisMonth": "Dieser Monat",
@@ -5264,6 +5293,44 @@
         },
         "billedSubscriptions": "Abonnements in Rechnung gestellt",
         "bookingsWeektimeSlot": "Wöchentliche Übersicht"
+        "billedSubscriptions": {
+            "title": "Anzahl der in Rechnung gestellten Abonnements",
+            "caption": "Abonnements",
+            "popover": "Die Anzahl der Rechnungen, die mit einem nicht gekündigten Abonnement verknüpft sind"
+        },
+        "bookingsWeektimeSlot": {
+            "title": "Wöchentliche Übersicht",
+            "popover": "Durchschnittliche Anzahl von Buchungen pro Zeitfenster"
+        },
+        "dateFilter": {
+            "customSelect": "Wähle einen Datumsbereich",
+            "quickSelect": "Schnelle Auswahl"
+        },
+        "noData": "Keine Daten verfügbar",
+        "plannedPayment": {
+            "caption": "Eingegangene Zahlungen",
+            "title": "Umsatz von Abonnements",
+            "popover": "Summe aller Zahlungen für Abonnements"
+        },
+        "bookingSource": {
+            "title": "Herkunft der Buchung",
+            "app": "Applikation",
+            "web": "Web",
+            "saas": "Bsport Backoffice",
+            "other": "Andere",
+            "migration": "Datenmigration"
+        },
+        "invoiceItems": {
+            "title": "Verkäufe nach Produkttyp",
+            "contentType": {
+                "1": "Kurskarten",
+                "2": "Produkte",
+                "6": "Versandkosten",
+                "7": "Werbeaktion",
+                "9": "Terminkarte",
+                "10": "Packages"
+            }
+        }
     },
     "relationship": {
         "consumer_payment_pack_links": {

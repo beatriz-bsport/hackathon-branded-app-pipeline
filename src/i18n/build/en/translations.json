@@ -2026,7 +2026,8 @@
             "titlePrivateBooking": "Appointments",
             "showCalendar": "See calendar",
             "discard": "Cancel",
-            "bookAgain": "Book again"
+            "bookAgain": "Book again",
+            "accessLive": "Access Live"
         },
         "dashboard": {
             "favoriteTitle": "My favorite",
@@ -3106,7 +3107,10 @@
         "newMembers": "New members",
         "nbOffers": "Sessions",
         "pageTitle": "Dashboard",
-        "turnover": "Turnover (€)",
+        "turnover": {
+            "title": "Turnover",
+            "popover": "Sum of all payments received on invoices"
+        },
         "bookings": "Bookings",
         "dateRange": {
             "start": "Start",
@@ -3120,9 +3124,45 @@
             "billedSubscriptions": "Number of invoices linked to a non-cancelled subscription",
             "turnover": "Sum of all payments received on invoices"
         },
-        "billedSubscriptions": "Billed subscriptions",
+        "billedSubscriptions": {
+            "title": "Number of invoiced subscriptions",
+            "caption": "Subscriptions",
+            "popover": "The number of invoices linked to a non-canceled subscription"
+        },
         "turnoverTitle": "Revenue",
-        "bookingsWeektimeSlot": "Average number of bookings per time slot"
+        "bookingsWeektimeSlot": {
+            "popover": "Average number of sessions per time slot",
+            "title": "Average"
+        },
+        "dateFilter": {
+            "customSelect": "Select a data range",
+            "quickSelect": "Quick select"
+        },
+        "noData": "No data to display",
+        "bookingSource": {
+            "title": "Source of bookings",
+            "app": "Application",
+            "web": "Web",
+            "saas": "Backoffice bsport",
+            "other": "Other",
+            "migration": "Data migration"
+        },
+        "plannedPayment": {
+            "title": "Turnover of subscriptions",
+            "caption": "Turnover (€)",
+            "popover": "Sum of all payments received for subscriptions"
+        },
+        "invoiceItems": {
+            "title": "Sales by product type",
+            "contentType": {
+                "1": "Passes",
+                "2": "Shop products",
+                "6": "Shipping costs",
+                "7": "Promotion",
+                "9": "Appointment pass",
+                "10": "Packs"
+            }
+        }
     },
     "stripe": {
         "errors": {
@@ -4435,7 +4475,13 @@
             "delete": "Delete",
             "register": "Subscribe",
             "edit": "Edit",
-            "buy": "Buy"
+            "buy": "Buy",
+            "scheduledStop": {
+                "title": "Program the termination of the subscription",
+                "explain": "Choose the last payment for the subscription.",
+                "listItem": "Termination of the subscription programmed",
+                "summary": "The date of the last programmed payment will be {{-date}}, it will correspond to the last valid card."
+            }
         },
         "contract": {
             "registerManager": {
@@ -4554,7 +4600,8 @@
             "stop": "Stop",
             "stopExplain": "Next payments will be discarded and corresponding bills will be deleted. If a booking has been registered with a pass bought with a discarded invoice, it would also be deleted.",
             "revertCurrentExplain": "Cancel last past invoice and block the pass",
-            "revertCurrentExplainHelper": "If the payment was valid, a credit will be attributed to the customer, you can also enter the invoice and click refund on the payment. If the payment was failed, the debt will be cancelled."
+            "revertCurrentExplainHelper": "If the payment was valid, a credit will be attributed to the customer, you can also enter the invoice and click refund on the payment. If the payment was failed, the debt will be cancelled.",
+            "planStop": "Program the termination of the subscription"
         },
         "parameters": {
             "parameters": "Parameters",
@@ -4939,7 +4986,8 @@
             "addExtension": "Extend validity",
             "details": {
                 "actions": {
-                    "refund": "Credit refund"
+                    "refund": "Credit refund",
+                    "applyVoucher": "Apply discount"
                 }
             },
             "refund": {
@@ -4958,11 +5006,12 @@
                 "description": "{{credits}} credit - {{note}}",
                 "description_plural": "{{credits}} credits - {{note}}",
                 "price": {
-                    "label": "Amount credited back"
+                    "label": "Amount to be credited back"
                 },
-                "title": "Credit refund",
+                "title": "Refund",
                 "warningSecond": "If you wish to reimburse the client via transfer with the payment method used cancel the billing and do not reimburse him/her in credit !",
-                "warningFirst": "Warning, this operation is irreversible (invoice generation)."
+                "warningFirst": "Warning, this operation is irreversible (invoice generation).",
+                "blockUnlimited": "Block pass"
             }
         },
         "notificationToolTip": "Notifications are definied for this pass",
@@ -6245,7 +6294,8 @@
                 },
                 "payment_pack": {
                     "first": "with the passes"
-                }
+                },
+                "attendance": "with status"
             },
             "22": {
                 "name": "booking number",
@@ -6272,7 +6322,8 @@
                     "first": "occurring on"
                 },
                 "explanation": "Has booked X class of activity A, in establishment Y, with pass Z...",
-                "between": "and"
+                "between": "and",
+                "attendance": "with status"
             },
             "23": {
                 "name": "First booking",
@@ -6494,7 +6545,10 @@
                 "first": "one of the appointment pass",
                 "name": "Pass (appointments)",
                 "explanation": "Has bought appointment pass X at date Y, with Z credits remaining"
-            }
+            },
+            "attendanceTrue": "present",
+            "attendanceFalse": "absent",
+            "attendanceWarning": "Select a status"
         },
         "noSmartLists": "Use smartlists to filter, analyze, and get to know your members better.",
         "delete": "Delete",
@@ -6909,6 +6963,16 @@
             "restore": {
                 "error": "Not possible to restore session",
                 "success": "Session restored"
+            }
+        },
+        "subscriptionScheduledStop": {
+            "create": {
+                "success": "Scheduled termination of subscription",
+                "error": "Cannot program the termination of the subscription"
+            },
+            "delete": {
+                "success": "The scheduled termination of the subscription has been removed",
+                "error": "Cannot remove the scheduled termination of the subscription"
             }
         }
     },

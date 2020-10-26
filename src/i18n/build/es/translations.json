@@ -1033,7 +1033,10 @@
         "newMembers": "Nuevos miembros",
         "nbOffers": "Sesiones",
         "pageTitle": "Tablero de mando",
-        "turnover": "Volumen de negocios (€)",
+        "turnover": {
+            "caption": "Volumen de negocios (€)",
+            "popover": "Suma de todos los pagos recibidos que figuran en las facturas"
+        },
         "bookings": "Reservas",
         "dateRange": {
             "start": "Inicio",
@@ -1042,14 +1045,48 @@
         "filterByDateTitle": "Filtrar por fechas",
         "detailsGraphTitle": "En detalle",
         "current_day": "Últimas 24 horas",
-        "bookingsWeektimeSlot": "Promedio de empleados",
+        "bookingsWeektimeSlot": {
+            "title": "Resumen semanal"
+        },
         "popover": {
             "bookingsWeektimeSlot": "Número medio de sesiones por franja horaria",
             "billedSubscriptions": "Número de facturas vinculadas a una suscripción no cancelada",
             "turnover": "Suma de todos los pagos recibidos en facturas"
         },
-        "billedSubscriptions": "Suscripciones facturadas",
-        "turnoverTitle": "Colección"
+        "billedSubscriptions": {
+            "title": "Número de suscripciones facturadas",
+            "caption": "Suscripciones",
+            "popover": "El número de facturas relacionadas con una suscripción no cancelada"
+        },
+        "turnoverTitle": "Colección",
+        "dateFilter": {
+            "customSelect": "Seleccione un rango de fechas",
+            "quickSelect": "Elección rápida"
+        },
+        "noData": "No hay datos para mostrar",
+        "bookingSource": {
+            "title": "Origen de las reservas",
+            "app": "Aplicación",
+            "web": "Web",
+            "saas": "Backoffice bsport",
+            "other": "Otros",
+            "migration": "Migración de datos"
+        },
+        "plannedPayment": {
+            "caption": "Ingresos (€)",
+            "popover": "Suma de todos los pagos recibidos en relación con las suscripciones"
+        },
+        "invoiceItems": {
+            "title": "Ventas por tipo de producto",
+            "contentType": {
+                "1": "Tarjetas de curso",
+                "2": "Productos de la tienda",
+                "6": "Gastos de envío",
+                "7": "Promoción",
+                "10": "Packs",
+                "9": "Tarjeta de cita"
+            }
+        }
     },
     "stripe": {
         "errors": {
@@ -1913,7 +1950,8 @@
             "stop": "Acabar",
             "stopExplain": "Los próximos serian cancelada y las facturas suprimidas. Si habia abonos o reservas, serian suprimidos.",
             "revertCurrentExplainHelper": "Si el pago es válido, se creará un crédito, puedes reembolsarlo al cliente ingresando la factura y haciendo clic en \"Reembolsar\". Si el pago hubiera fallado, la deuda será cancelada.",
-            "revertCurrentExplain": "Cancelar la última factura guardada y bloquear la tarjeta de curso"
+            "revertCurrentExplain": "Cancelar la última factura guardada y bloquear la tarjeta de curso",
+            "planStop": "Programe la terminación de la suscripción"
         },
         "parameters": {
             "parameters": "Parámetros",
@@ -2096,7 +2134,12 @@
             "list": {
                 "title": "Suscripción en curso"
             },
-            "buy": "Comprar"
+            "buy": "Comprar",
+            "scheduledStop": {
+                "title": "Programe la terminación de la suscripción",
+                "listItem": "Terminación programada de la suscripción",
+                "summary": "El último pago programado tendrá la fecha {{-date}}, corresponderá a la última tarjeta válida."
+            }
         },
         "noContracts": "Los contratos te permitirán facturar a tus miembros regularmente (mensualmente) por una tarjeta de curso que se vuelve a acreditar cada mes.",
         "save": "validar",
@@ -3063,7 +3106,8 @@
             "discard": "Cancelar",
             "showCalendar": "Ver el calendario",
             "titlePrivateBooking": "Cita",
-            "titleBooking": "Curso de grupo"
+            "titleBooking": "Curso de grupo",
+            "accessLive": "Acceder a la clase en vivo"
         },
         "pack": {
             "titlePrivatePack": "Cita",
@@ -4797,6 +4841,16 @@
                 "error": "No es posible restablecer la sesión",
                 "success": "Sesión restablecida"
             }
+        },
+        "subscriptionScheduledStop": {
+            "create": {
+                "success": "Detener la suscripción programada",
+                "error": "No se puede programar la terminación de la suscripción"
+            },
+            "delete": {
+                "success": "Se ha eliminado la terminación programada de la suscripción",
+                "error": "No se puede eliminar la terminación programada de la suscripción"
+            }
         }
     },
     "paymentPack": {
@@ -5008,7 +5062,8 @@
         "consumerPaymentPack": {
             "details": {
                 "actions": {
-                    "refund": "Reembolso de crédito"
+                    "refund": "Reembolso de crédito",
+                    "applyVoucher": "Aplicar reducción"
                 }
             },
             "refund": {
@@ -5027,11 +5082,12 @@
                 "description": "{{ credits }} crédito - {{ note }}",
                 "description_plural": "{{ credits }} créditos - {{ note }}",
                 "price": {
-                    "label": "Cantidad reacreditada"
+                    "label": "Cantidad a acreditar"
                 },
-                "title": "Reembolso de crédito",
+                "title": "Reembolso",
                 "warningSecond": "Si desea reembolsar al cliente por transferencia con el método de pago utilizado, cancele la facturación y no le reembolse a crédito!",
-                "warningFirst": "Advertencia, esta operación es irreversible (generación de factura)."
+                "warningFirst": "Advertencia, esta operación es irreversible (generación de factura).",
+                "blockUnlimited": "Bloquear la tarjeta"
             },
             "addExtension": "Añadir una extensión"
         },
@@ -5701,7 +5757,8 @@
                 "second_singular": "ra sesión",
                 "first": "Ha reservado su ",
                 "explanation": "Ha reservado su X a sesión de actividad A, en el establecimiento B ...",
-                "name": "Número de reserva"
+                "name": "Número de reserva",
+                "attendance": ""
             },
             "20": {
                 "explanation": "Ha abandonado una cesta de cantidad…",
@@ -5812,7 +5869,10 @@
                 "first": "Una de las tarjetas de curso",
                 "name": "Pase (citas)",
                 "explanation": "Ha comprado el pase de cita X en la fecha Y, con los créditos Z restantes"
-            }
+            },
+            "attendanceTrue": "presente",
+            "attendanceFalse": "ausente",
+            "attendanceWarning": "Seleccione un estado"
         },
         "filterCategory": {
             "4": "Compras",

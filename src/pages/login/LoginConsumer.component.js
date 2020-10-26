@@ -22,7 +22,6 @@ import { fetchCompanyTheme } from '../../libs/theme/actions';
 
 import GoogleTagManager from '../../components/GoogleTagManager.component';
 import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
-import GoogleTagManager from '../../components/GoogleTagManager.component';
 import SignUpForm from '../../components/form/SignUpForm.component';
 
 type Props = {

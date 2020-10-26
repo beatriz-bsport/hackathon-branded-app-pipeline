@@ -219,7 +219,7 @@ export function fetchCampaignByMember(
       const response = await fetchCampaignListAPI({
         member,
         page,
-        page_size: 3,
+        page_size: 6,
       });
       dispatch(campaignByMemberActions.success({ ...response.data, page }));
       if (options && options.onSuccess) {

@@ -90,15 +90,27 @@ export class MarketplaceContract extends React.Component<Props> {
         payment_method_id,
         first_billing_timestamp,
         coupon,
-...(_ === 'bsport:credit' ? { stripe_source: 'bsport:credit' } : {}), // TODO: payment refacto
+        ...(_ === 'bsport:credit' ? { stripe_source: 'bsport:credit' } : {}), // TODO: payment refacto
       });
 
-      (window.dataLayer || []).push({
-        event: 'bsport:contract:payment-success',
-        data: {
-          id: this.props.selected,
-        },
-      });
+      try {
+        const contract = this.props.contractList.find(
+          (c) => c.id === this.props.selected,
+        );
+        (window.dataLayer || []).push({
+          event: 'bsport:contract:payment-success',
+          data: {
+            id: this.props.selected,
+            name: contract.name,
+            price: contract.recurrent_price,
+            flatFee: contract.flat_fee,
+            autoRenewal: contract.auto_renewal,
+            duration: contract.nb_interval,
+          },
+        });
+      } catch (err) {
+        console.error(err);
+      }
 
       this.props.goToUserSpace();
     } catch (err) {

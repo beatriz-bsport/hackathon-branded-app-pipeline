@@ -114,11 +114,17 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     }
   }
 
-  isZeroPrice = () =>
-    this.props.contract.recurrent_price -
-      (this.state.voucher || 0) +
-      (this.props.contract.flat_fee || 0) <=
-    0;
+  isZeroPrice = () => {
+    if (this.props.contract) {
+      return (
+        this.props.contract.recurrent_price -
+          (this.state.voucher || 0) +
+          (this.props.contract.flat_fee || 0) <=
+        0
+      );
+    }
+    return false;
+  };
 
   submit = async () => {
     if (this.props.paymentMethod === 'bsport:credit' || this.isZeroPrice()) {

@@ -27,6 +27,7 @@ exports.default = {
   editor: {
     title: 'Nom du modèle',
     save: 'Enregistrer',
+    exportHtml: 'Exporter HTML',
     subject: 'Objet du mail',
     cancel: 'Annuler',
     error: {

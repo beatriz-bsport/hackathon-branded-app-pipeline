@@ -134,6 +134,14 @@ export class EmailEditorPanel extends Component<Props, State> {
     this.exportHtml();
   };
 
+  handleExportClick = () => {
+    const url = window.URL.createObjectURL(new Blob([this.props.emailLoad.html]));
+    const tempEl = document.createElement('a');
+    tempEl.href = url;
+    tempEl.download = `${this.state.title}.html`;
+    tempEl.click();
+  };
+
   componentDidUpdate(prevProps: Props, prevState: State) {
     if (this.props.tags && !prevProps.tags) {
       window.unlayer.setMergeTags(this.getMergeTags);
@@ -226,6 +234,14 @@ export class EmailEditorPanel extends Component<Props, State> {
               onClick={this.handlSaveClick}
             >
               {t('emailTemplate:editor.save')}
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              className={classes.button}
+              onClick={this.handleExportClick}
+            >
+              {t('emailTemplate:editor.exportHtml')}
             </Button>
           </div>
         </div>

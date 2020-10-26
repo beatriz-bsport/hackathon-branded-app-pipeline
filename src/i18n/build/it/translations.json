@@ -144,7 +144,11 @@
             "noQuickInvoiceOpened": "Nessuna fatturazione aperta",
             "myOpenedInvoices": "Fatture rapide",
             "manageOffer": "Gestisci le mie prenotazioni",
-            "noEmptyDuration": "La durata deve essere rigorosamente positiva"
+            "noEmptyDuration": "La durata deve essere rigorosamente positiva",
+            "restoreModal": {
+                "title": "Ripristina sessione",
+                "explain": "Questa sessione sarà annullata e nuovamente aperta ai vostri clienti. Tuttavia, le prenotazioni precedentemente cancellate non verranno ripristinate."
+            }
         },
         "companies": {
             "general": "Generale",
@@ -1062,10 +1066,12 @@
             "451": "Appuntamento annullato - rimborsato (studente)",
             "452": "Nuovo appuntamento (studente)",
             "9": "Uscita dalla lista d'attesa: prenotazione possibile",
-            "10": "Lista di attesa nuovamente piena",
+            "10": "Il posto in lista d'attesa, convertibile, è scaduto per questo tour",
             "12": "Registrazione in lista d'attesa",
             "403": "Orario modificato (insegnante)",
-            "450": "Appuntamento - fuori tempo massimo (studente)"
+            "450": "Appuntamento - fuori tempo massimo (studente)",
+            "22": "Conferma fattura",
+            "300": "Kick (non validato in tempo troppe volte)"
         },
         "ruleGroup": {
             "private_booking": "Appuntamento",
@@ -1073,7 +1079,9 @@
             "booking": "Prenotazioni",
             "waiting-list": "Lista d'attesa",
             "subscription": "Abbonamento",
-            "member": "Creazione account allievo"
+            "member": "Creazione account allievo",
+            "marketing": "Marketing",
+            "invoice": "Fatturazione"
         },
         "emailDesign": {
             "placeholder": "Generato da bsport",
@@ -1085,6 +1093,9 @@
             "event": "Evento",
             "sendCopy": "Ricevere una copia di questa email",
             "active": "Abilitato"
+        },
+        "marketingNotification": {
+            "birthday": "E-mail di compleanno"
         }
     },
     "consumerSpace": {
@@ -1122,7 +1133,8 @@
             "discard": "Annulla",
             "titleBooking": "Lezione collettiva",
             "titlePrivateBooking": "Appuntamento",
-            "bookAgain": "Prenota di nuovo"
+            "bookAgain": "Prenota di nuovo",
+            "accessLive": "Accesso live"
         },
         "unsubscriber": {
             "error": "Errore durante l'annullamento dell'iscrizione",
@@ -1268,9 +1280,24 @@
             "title": "Oggetto della mail",
             "content": "Contenuto dell'email",
             "missing": "Email assente",
-            "success": "Email inviata",
-            "error": "Mail non inviata",
-            "noObject": "Nessun oggetto"
+            "success": "Comunicazione inviata",
+            "error": "Mail non inviata, riprova più tardi",
+            "noObject": "Nessun oggetto",
+            "count": "caratteri",
+            "hideMail": "Nascondi la email",
+            "dialogTitle": "Comunicazione",
+            "writeMail": "Scrivere una e-mail",
+            "selectTemplate": "Selezionare un template",
+            "contentSms": "Contenuto del messaggio",
+            "numberSms": "sms",
+            "mailMissing": "Email mancante",
+            "phoneMissing": "Telefono assente",
+            "noMailAvailable": "Nessuna mail disponibile, creane una",
+            "selectToShowPreview": "Seleziona una email per visualizzarla in anteprima",
+            "mailSelection": "Seleziona una email",
+            "showMail": "Visualizza email",
+            "sendSms": "Invia un sms",
+            "refreshTextPhone": "Ricaricare la pagina per aggiornare il numero di telefono"
         },
         "campaign": {
             "list": {
@@ -1292,7 +1319,11 @@
             "showReport": "Report",
             "showMail": "Vedi email",
             "sentAt": "Inviato il {{date_created}}",
-            "readCount": "Aperture"
+            "readCount": "Aperture",
+            "kind": {
+                "0": "Email",
+                "1": "SMS"
+            }
         },
         "recipient": {
             "readCount": "Apertura",
@@ -1314,7 +1345,8 @@
                     "email": "Email",
                     "status": "Status"
                 }
-            }
+            },
+            "showSms": "Visualizza SMS"
         },
         "recipients": "Destinatario",
         "dialogReceiverChoice": {
@@ -2289,7 +2321,8 @@
                     "placeholder": "Giorni prima della scadenza",
                     "helperText": "Numero di giorni prima del quale il carrello di un cliente viene svuotato automaticamente",
                     "label": "Scadenza del pacchetto d'acquisto"
-                }
+                },
+                "cancelledOffersManager": "Per impostazione predefinita mostra le sessioni annullate sul calendario del manager"
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -2795,6 +2828,22 @@
             "error": "Si è verificato un errore, riprovare più tardi",
             "success": "Completato",
             "pending": "Trattamento in corso, attendere"
+        },
+        "offer": {
+            "restore": {
+                "success": "Sessione restaurata",
+                "error": "Impossibile restaurare la sessione"
+            }
+        },
+        "subscriptionScheduledStop": {
+            "create": {
+                "success": "Risoluzione dell'iscrizione programmata",
+                "error": "Impossibile programmare la risoluzione dell'iscrizione"
+            },
+            "delete": {
+                "success": "La risoluzione programmata dell'iscrizione è stata rimossa",
+                "error": "Impossibile rimuovere la risoluzione programmata dell'iscrizione"
+            }
         }
     },
     "settings": {
@@ -3086,7 +3135,13 @@
             "delete": "Rimuovi",
             "register": "Sottoscrivi",
             "edit": "Modifica",
-            "buy": "Compra"
+            "buy": "Compra",
+            "scheduledStop": {
+                "summary": "L'ultimo incasso programmato sarà datato dal {{-date}}, che corrisponderà all'ultima tessera valida.",
+                "title": "Programma la risoluzione dell'iscrizione",
+                "explain": "Scegli l'ultimo pagamento dell'iscrizione.",
+                "listItem": "Risoluzione dell'iscrizione programmata"
+            }
         },
         "paymentMethod": {
             "credit": {
@@ -3276,7 +3331,8 @@
             "stopExplain": "I pagamenti successivi verranno annullati e le relative fatture verranno eliminate. Se una prenotazione è stata registrata con un abbonamento per il quale la fattura è stata annullata, verrà annullata.",
             "revertCurrentExplain": "Annulla l'ultima fattura registrata e blocca la tessera",
             "revertCurrentExplainHelper": "Se il pagamento è valido, verrà creato un credito, è possibile rimborsarlo al cliente inserendo la fattura e facendo clic su \"Rimborso\". Se il pagamento non è andato a buon fine, il debito verrà cancellato.",
-            "stop": "Stop"
+            "stop": "Stop",
+            "planStop": "Programma la risoluzione dell'iscrizione"
         },
         "cancel": "annulla",
         "schedule": {
@@ -3334,7 +3390,7 @@
             "payment_identifier": "ID pagamento",
             "membership_duration": "Periodo di validità",
             "membership_name": "Abbonamento",
-            "membership_ID": "ID",
+            "membership_ID": "ID membro",
             "available_credits": "Crediti disponibili",
             "voucher": "Riduzione",
             "private_service_name": "Appuntamento",
@@ -3444,7 +3500,12 @@
             "date_last_update": "Data",
             "amount": "Guadagno della giornata",
             "nb_offers_cancelled": "Numero delle sessioni annullate",
-            "nb_offers": "Numero delle sessioni"
+            "nb_offers": "Numero delle sessioni",
+            "pk": "ID",
+            "birthday": "Data di nascita",
+            "full_address": "Indirizzo completo",
+            "note": "Nota",
+            "private_pass": "Pass per appuntamento"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -3594,7 +3655,7 @@
                 "note": {
                     "label": "Nota"
                 },
-                "title": "Rimborso del credito",
+                "title": "Rimborso",
                 "price": {
                     "label": "Importo riaccreditato"
                 },
@@ -3603,12 +3664,14 @@
                 },
                 "explain": "Scegli il numero di crediti da rimborsare e il valore totale che verrà accreditato sul deposito del socio",
                 "warningSecond": "Se vuoi rimborsare il cliente tramite bonifico con il metodo di pagamento usato, annulla la fatturazione e non rimborsare il credito!",
-                "warningFirst": "Attenzione, questo operazione é irreversibile (generazione di fatture)."
+                "warningFirst": "Attenzione, questo operazione é irreversibile (generazione di fatture).",
+                "blockUnlimited": "Bloccare la tessera"
             },
             "addExtension": "Aggiungi un'estensione",
             "details": {
                 "actions": {
-                    "refund": "Rimborso del credito"
+                    "refund": "Trasformazione dell'acconto",
+                    "applyVoucher": "Applica sconto"
                 }
             }
         },
@@ -4220,7 +4283,8 @@
             "all": "Tutte le prenotazioni",
             "withoutRecurrentBookings": "Prenotazioni non ricorrenti",
             "withRecurrentBookings": "Prenotazioni ricorrenti",
-            "recurrentBooking": "Prenotazione ricorrente"
+            "recurrentBooking": "Prenotazione ricorrente",
+            "notCancelled": "Non annullato"
         },
         "creditConsumed": "{{credit_consumed}} credito",
         "creditConsumed_plural": "{{credit_consumed}} crediti",
@@ -4425,7 +4489,8 @@
                 "explanation": "Ho prenotato X allenamenti dell'attività A, nella posizione B, con la tessera C ...",
                 "first": "Ha prenotato",
                 "second": "sessioni",
-                "between": "e"
+                "between": "e",
+                "attendance": "con lo status"
             },
             "booking_status": {
                 "booked": "prenotato",
@@ -4620,7 +4685,8 @@
                 },
                 "payment_pack": {
                     "first": "con le carte"
-                }
+                },
+                "attendance": "con lo status"
             },
             "400": {
                 "explain": "ha una password su bsport",
@@ -4725,7 +4791,10 @@
                 "first": "uno dei pass per appuntamenti",
                 "name": "Pass (appuntamenti)",
                 "explanation": "Hai comprato un pass per appuntamenti X alla data Y, con Z crediti rimasti"
-            }
+            },
+            "attendanceTrue": "presente",
+            "attendanceFalse": "assente",
+            "attendanceWarning": "Seleziona uno status"
         },
         "smart_list": {
             "list": {
@@ -5773,7 +5842,11 @@
         "newMembers": "Nuovi membri",
         "nbOffers": "Sessioni",
         "pageTitle": "Pannello di controllo",
-        "turnover": "Fatturato (€)",
+        "turnover": {
+            "title": "Incassi",
+            "caption": "Fatturato",
+            "popover": "Somma di tutti i pagamenti ricevuti nelle fatture"
+        },
         "bookings": "Prenotazioni",
         "dateRange": {
             "start": "Inizio",
@@ -5791,9 +5864,45 @@
             "billedSubscriptions": "Numero di fatture relative a un'iscrizione non annullata",
             "turnover": "Somma di tutti i pagamenti ricevuti nelle fatture"
         },
-        "bookingsWeektimeSlot": "Media effettiva",
-        "billedSubscriptions": "Abbonamenti fatturati",
-        "turnoverTitle": "Incasso"
+        "bookingsWeektimeSlot": {
+            "title": "Media effettiva",
+            "popover": "Numero medio di sessioni per fascia oraria"
+        },
+        "billedSubscriptions": {
+            "title": "Numero di iscrizioni fatturate",
+            "caption": "Iscrizioni",
+            "popover": "Numero di fatture relative a una iscrizione non annullata"
+        },
+        "turnoverTitle": "Incasso",
+        "dateFilter": {
+            "customSelect": "Seleziona un intervallo di date",
+            "quickSelect": "Scelta rapida"
+        },
+        "bookingSource": {
+            "title": "Fonte delle prenotazioni",
+            "app": "Applicazione",
+            "web": "Web",
+            "other": "Altro",
+            "migration": "Migrazione di data",
+            "saas": "Backoffice bsport"
+        },
+        "plannedPayment": {
+            "title": "Incasso delle iscrizioni",
+            "caption": "Incasso (€)",
+            "popover": "Somma di tutti i pagamenti ricevuti per le iscrizioni"
+        },
+        "noData": "Nessun dato da visualizzare",
+        "invoiceItems": {
+            "title": "Vendita per tipo di prodotto",
+            "contentType": {
+                "1": "Tessere dei corsi",
+                "2": "Prodotti del negozio",
+                "6": "Costi di spedizione",
+                "7": "Promozione",
+                "9": "Pass per appuntamento",
+                "10": "Pacchetti"
+            }
+        }
     },
     "checkout": {
         "myBasket": {
@@ -5943,12 +6052,15 @@
         "massDisabler": {
             "actions": {
                 "submit": "Conferma",
-                "cancel": "Annulla"
+                "cancel": "Annulla",
+                "continue": "Continua"
             },
             "explain": "Seleziona l'intervallo di date in cui desideri annullare le sessioni. I membri che hanno prenotato riceveranno una notifica via e-mail e i loro crediti verranno automaticamente rimborsati sulla tessera corrispondente",
             "explainLoading": "Attendere prego",
             "title": "Annullamento di gruppo",
-            "explainWarning": "ATTENZIONE questa operazione è irreversibile."
+            "explainWarning": "ATTENZIONE questa operazione è irreversibile.",
+            "secondWarning": "Cliccando su \"Conferma\", le sessioni comprese nell'intervallo selezionato saranno annullate e non potrai più tornare indietro.",
+            "secondWarningConfirm": "Sicuro di voler continuare?"
         },
         "bookingListEmpty": "Nessuna prenotazione",
         "bookingList": "Prenotazioni",
@@ -5974,7 +6086,8 @@
         },
         "close": "Chiudi",
         "deleteImpossibleText": "Non puoi cancellare questa sessione perché ha delle prenotazioni in corso.",
-        "deleteImpossibleTitle": "Impossibile eliminare la sessione"
+        "deleteImpossibleTitle": "Impossibile eliminare la sessione",
+        "restoreOffer": "Ripristinare la sessione"
     },
     "role": {
         "userRoles": "Contabilità del personale",
@@ -6085,7 +6198,10 @@
             "myAddonTitle": "I miei Add-ons",
             "knowMore": "Più informazioni",
             "billRecurrent": "{{price_cts }} € / mese",
-            "billOnce": "{{price_cts }} €"
+            "billOnce": "{{price_cts }} €",
+            "sms": {
+                "explainBilling": "{{ price_cts }} € / SMS"
+            }
         },
         "paymentMethod": {
             "actions": {

@@ -840,7 +840,7 @@
                     "email": "per E-Mail"
                 },
                 "confirmPassword": "Passwort",
-                "emailExistsInDB2": "Mich einloggen",
+                "emailExistsInDB2": "Einloggen",
                 "typePhone": "Handynummer *",
                 "iAcceptPrivacyPolicy": "Ich akzeptiere die ",
                 "rgpdTitle": "Wie möchtest du von LehrerInnen aufgrund von Stornierungen/Zeitänderungen kontaktiert werden?",
@@ -5291,7 +5291,6 @@
             "bookingsWeektimeSlot": "Durchschnittliche Anzahl von Buchungen pro Zeitfenster",
             "billedSubscriptions": "Die Anzahl der Rechnungen, die mit einem nicht gekündigten Abonnement verknüpft sind"
         },
-        "billedSubscriptions": "Abonnements in Rechnung gestellt",
         "billedSubscriptions": {
             "title": "Anzahl der in Rechnung gestellten Abonnements",
             "caption": "Abonnements",
@@ -5618,7 +5617,7 @@
         "contactUs": "Du bist als Studio-Manager an unserer Lösung interessiert? Dann kontaktiere uns.",
         "or": " oder ",
         "actions": {
-            "signin": "Mich einloggen",
+            "signin": "Einloggen",
             "signup": "Noch kein Konto ?",
             "forgottenPassword": "Passwort vergessen?"
         },

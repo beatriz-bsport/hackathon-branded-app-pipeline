@@ -6298,7 +6298,7 @@
                 "attendance": "with status"
             },
             "22": {
-                "name": "booking number",
+                "name": "Number of bookings",
                 "first": "Has booked",
                 "second": "lessons",
                 "activity": {
@@ -6321,7 +6321,7 @@
                 "date": {
                     "first": "occurring on"
                 },
-                "explanation": "Has booked X class of activity A, in establishment Y, with pass Z...",
+                "explanation": "Has booked X classes of activity A, in establishment Y, with pass Z...",
                 "between": "and",
                 "attendance": "with status"
             },

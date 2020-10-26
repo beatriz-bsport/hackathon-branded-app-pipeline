@@ -114,8 +114,14 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     }
   }
 
+  isZeroPrice = () =>
+    this.props.contract.recurrent_price -
+      (this.state.voucher || 0) +
+      (this.props.contract.flat_fee || 0) <=
+    0;
+
   submit = async () => {
-    if (this.props.paymentMethod === 'bsport:credit') {
+    if (this.props.paymentMethod === 'bsport:credit' || this.isZeroPrice()) {
       this.props.onSubmit('bsport:credit', null, null, null, this.state.note);
     } else {
       this.setState({ loading: true });
@@ -154,11 +160,19 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       <div>
         {this.props.contract && (
           <div className={classes.priceContainer}>
-            <Typography variant="h4">
-              {`${parseFloat(
-                this.props.contract.recurrent_price - (this.state.voucher || 0),
-              ).toFixed(2)} €`}
-            </Typography>
+            <div className={classes.priceInner}>
+              <Typography variant="h4">
+                {`${parseFloat(
+                  this.props.contract.recurrent_price -
+                    (this.state.voucher || 0),
+                ).toFixed(2)} €`}
+              </Typography>
+              {!!parseInt(this.props.contract.flat_fee, 10) && (
+                <Typography variant="caption">
+                  {`+${parseFloat(this.props.contract.flat_fee).toFixed(2)} €`}
+                </Typography>
+              )}
+            </div>
           </div>
         )}
         {this.props.withCoupon && (
@@ -197,47 +211,51 @@ export class SubscriptionPayment extends React.Component<Props, State> {
             onChange={(ev) => this.setState({ note: ev.target.value })}
           />
         )}
-        <PaymentMethodSwitcher
-          classes={classes}
-          t={t}
-          payment_method={paymentMethod}
-          onChange={(value) => {
-            setPaymentMethod(value);
-            this.setState({ selectedSavedPaymentMethodId: null });
-          }}
-          enabledPaymentMethods={enabledPaymentMethods}
-        />
-        <Divider />
-        <div className={classes.cardContainer}>
-          {paymentMethod === 'bsport:credit' ? (
-            <div>
-              <Typography className={classes.explainCredit}>
-                {t('subscription:paymentMethod.credit.explain')}
-              </Typography>
-            </div>
-          ) : null}
-          {['card', 'sepa_debit'].includes(paymentMethod) && (
-            <PaymentMethodList
-              showEmpty
-              isExpanded
-              savedPaymentMethodList={this.props.savedPaymentMethodList}
-              selectedSavedPaymentMethodId={
-                this.state.selectedSavedPaymentMethodId
-              }
-              requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-              refreshSavedPaymentMethodList={
-                this.props.refreshSavedPaymentMethodList
-              }
-              paymentMethodType={paymentMethod}
-              onSelect={(selectedSavedPaymentMethodId) =>
-                this.setState({
-                  selectedSavedPaymentMethodId,
-                })
-              }
-              disabled={this.state.loading || this.props.processing}
+        {!this.isZeroPrice() && (
+          <>
+            <PaymentMethodSwitcher
+              classes={classes}
+              t={t}
+              payment_method={paymentMethod}
+              onChange={(value) => {
+                setPaymentMethod(value);
+                this.setState({ selectedSavedPaymentMethodId: null });
+              }}
+              enabledPaymentMethods={enabledPaymentMethods}
             />
-          )}
-        </div>
+            <Divider />
+            <div className={classes.cardContainer}>
+              {paymentMethod === 'bsport:credit' ? (
+                <div>
+                  <Typography className={classes.explainCredit}>
+                    {t('subscription:paymentMethod.credit.explain')}
+                  </Typography>
+                </div>
+              ) : null}
+              {['card', 'sepa_debit'].includes(paymentMethod) && (
+                <PaymentMethodList
+                  showEmpty
+                  isExpanded
+                  savedPaymentMethodList={this.props.savedPaymentMethodList}
+                  selectedSavedPaymentMethodId={
+                    this.state.selectedSavedPaymentMethodId
+                  }
+                  requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+                  refreshSavedPaymentMethodList={
+                    this.props.refreshSavedPaymentMethodList
+                  }
+                  paymentMethodType={paymentMethod}
+                  onSelect={(selectedSavedPaymentMethodId) =>
+                    this.setState({
+                      selectedSavedPaymentMethodId,
+                    })
+                  }
+                  disabled={this.state.loading || this.props.processing}
+                />
+              )}
+            </div>
+          </>
+        )}
         <div className={classes.buttonContainer}>
           <Button
             onClick={onCancel}
@@ -252,7 +270,8 @@ export class SubscriptionPayment extends React.Component<Props, State> {
             color="primary"
             disabled={
               ['sepa_debit', 'card'].includes(paymentMethod) &&
-              !this.state.selectedSavedPaymentMethodId
+              !this.state.selectedSavedPaymentMethodId &&
+              !this.isZeroPrice()
             }
           >
             {this.state.loading || processing ? (
@@ -314,6 +333,11 @@ const styles = (theme) => ({
     padding: theme.spacing(2),
     borderRadius: theme.spacing(2),
     marginBottom: theme.spacing(2),
+  },
+  priceInner: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
   couponContainer: {
     display: 'flex',

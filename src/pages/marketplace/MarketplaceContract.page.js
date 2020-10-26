@@ -90,6 +90,7 @@ export class MarketplaceContract extends React.Component<Props> {
         payment_method_id,
         first_billing_timestamp,
         coupon,
+...(_ === 'bsport:credit' ? { stripe_source: 'bsport:credit' } : {}), // TODO: payment refacto
       });
 
       (window.dataLayer || []).push({

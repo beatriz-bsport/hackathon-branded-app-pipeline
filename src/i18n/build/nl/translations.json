@@ -239,7 +239,7 @@
         },
         "emailDesign": {
             "closePreview": "Sluiten",
-            "placeholder": "Gegenereerd door bsport"
+            "placeholder": "Sjabloon van BSPORT"
         },
         "ruleGroup": {
             "private_booking": "Afspraak",
@@ -247,15 +247,15 @@
             "waiting-list": "Wachtlijst",
             "booking": "Reservering",
             "offer": "Sessie",
-            "member": "Maak een studentenaccount aan",
+            "member": "Ledenregistratie",
             "marketing": "Marketing",
             "invoice": "Facturering"
         },
         "pageTitle": "Transactionele e-mails",
         "caption": {
-            "emailDesign": "E-mail versturen",
+            "emailDesign": "Selecteer de te versturen e-mail",
             "event": "Evenement",
-            "sendCopy": "Een kopie van deze e-mail ontvangen",
+            "sendCopy": "Zelf een kopie ontvangen",
             "active": "Geactiveerd"
         },
         "marketingNotification": {
@@ -264,7 +264,7 @@
     },
     "membership": {
         "selector": {
-            "explainConsumer": "Met <1> bsport </2> geniet u van een unieke ervaring voor het boeken van al uw sportactiviteiten. <3 /> Eén account en één wachtwoord!",
+            "explainConsumer": "Met <1> BSPORT </2> geniet u van een unieke ervaring voor het boeken van al uw activiteiten. <3 /> Eén account, één wachtwoord!",
             "noMatchingCompany": "Geen resultaat",
             "placeholder": "Zoek een studio/zaal/club..."
         }
@@ -276,7 +276,7 @@
         },
         "requestDialog": {
             "close": "Begrepen",
-            "explain": "Je hebt de integratie van bsport X classpass aangevraagd. Je accountmanager neemt spoedig contact met je op om deze aanvraag te valideren"
+            "explain": "Je hebt de integratie van BSPORT X classpass aangevraagd. Je accountmanager neemt spoedig contact met je op om deze aanvraag te valideren"
         },
         "parameters": {
             "allEstablishment": "Alle zalen",
@@ -600,7 +600,7 @@
             "estimatedTarget": "Aandeel betrokken gebruikers",
             "strategy": "Strategie: ",
             "criterias": "Criteria",
-            "clientsReached": "Getroffen klanten",
+            "clientsReached": "Getroffen leden",
             "notificationsSent": "Meldingen verzonden",
             "EmailSent": "E-mails verzonden",
             "SMSSent": "sms verzonden",
@@ -667,15 +667,15 @@
             "lastSession": "Laatste sessie op",
             "firstSessionAt": "in",
             "firstSessionOn": "Eerste sessie op",
-            "timeSettings": "Tijden en data",
+            "timeSettings": "Tijd & datum",
             "monthly": "Maandelijks",
             "weekly": "Wekelijks",
             "notRecurrent": "Een sessie",
             "recurrence": "Herhaling",
             "offerWillBeGenerated": "sessie zal worden aangemaakt",
-            "offersWillBeGenerated": "sessies zullen worden aangemaakt",
+            "offersWillBeGenerated": "sessies worden ingepland",
             "credit_price": "Het aantal credits op de cursuskaart dat nodig is om een reservering te maken",
-            "generateOffers": "Maak sessies aan",
+            "generateOffers": "Maak sessie(s) aan",
             "default_waiting_list_max_size": "Grootte van de wachtlijst",
             "password": "Wachtwoord",
             "signInPhoneInstruction": "Voer je telefoonnummer in, je ontvangt per sms een bevestigingscode",
@@ -686,13 +686,13 @@
             "title": "Titel",
             "offer": {
                 "delete": {
-                    "explainModalities": "Let op: deze wijziging is definitief. Je sessie zal niet langer zichtbaar zijn voor je klanten, maar jij hebt er nog wel toegang toe.",
-                    "explainNotify": "Stuur een melding naar klanten die hebben geboekt",
+                    "explainModalities": "Let op: deze wijziging is definitief. Je sessie zal niet langer zichtbaar zijn voor je leden, maar jij hebt er nog wel toegang toe.",
+                    "explainNotify": "Stuur een melding naar de leden die zich hebben ingeschreven",
                     "explainCreditBack": "Stort het tegoed op de cursuskaart terug",
                     "explainHardDelete": "Deze sessie uit de lijst verwijderen? Let op: de sessie wordt onzichtbaar en deze handeling is onomkeerbaar! Als de sessie reserveringen bevat, worden deze niet verwijderd.",
                     "buttonHardDelete": "Verwijderen"
                 },
-                "explainNotificationOnEdit": "Wil je je klanten informeren over deze wijziging?",
+                "explainNotificationOnEdit": "Wil je je leden over deze wijziging informeren?",
                 "explainRecursiveOfferEdit": "Wil je ALLE vergelijkbare sessies aanpassen aan deze nieuwe voorwaarden?",
                 "explainRecursiveOfferDelete": "Wil je ALLE vergelijkbare sessies verwijderen?",
                 "broadcast_link": {
@@ -750,7 +750,7 @@
                 "confirmPassword": "Wachtwoord",
                 "confirmPasswordLabel": "Bevestiging",
                 "emailExistsInDB2": "Aanmelden",
-                "emailExistsInDB1": "Dit e-mailadres is reeds geregistreerd, omdat je via bsport al bij een studio of club staat ingeschreven. Je kan dezelfde inloggegevens blijven gebruiken.",
+                "emailExistsInDB1": "Dit e-mailadres is reeds geregistreerd, omdat je via BSPORT al bij een studio of club staat ingeschreven. Je kan dezelfde inloggegevens blijven gebruiken.",
                 "typePhone": "Mobiel *"
             },
             "metaActivity": {
@@ -857,7 +857,7 @@
             "signUpTitle": "Inschrijving",
             "warningCreditChange": "N.B.: oude reserveringen houden geen rekening met wijzigingen in uw saldo",
             "noAvailableCredit": "Weet je zeker dat je geen prijs wilt invoeren?",
-            "explainNoEmailChange": "Als de e-mail gewijzigd wordt, kan de instructeur geen verbinding meer maken. De instructeur kan zijn/haar e-mail wijzigen door met zijn/haar bsport-account in te loggen"
+            "explainNoEmailChange": "Als de e-mail gewijzigd wordt, kan de instructeur geen verbinding meer maken. De instructeur kan zijn/haar e-mail wijzigen door met zijn/haar BSPORT-account in te loggen"
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -1231,10 +1231,10 @@
             "gender": "Geslacht",
             "sport": "Sport"
         },
-        "blockBooking": "Blokkeer reservering van cursuskaarten van nieuwe klanten",
+        "blockBooking": "Blokkeer reservering van cursuskaarten van nieuwe leden",
         "languageToolTip": "Beschikbaar in de webshop",
         "visibilityOfIconToolTip": "Niet zichtbaar",
-        "onlyNewMember": "Reservering alleen mogelijk voor cursuskaarten van nieuwe klanten",
+        "onlyNewMember": "Reservering alleen mogelijk voor cursuskaarten van nieuwe leden",
         "replaceCoach": "Wijzig de instructeur",
         "bookingStatistics": {
             "weekOf": "Week van {{date}}",
@@ -1385,7 +1385,7 @@
                 "submit": "Opslaan"
             },
             "manager_only": {
-                "label": "Onzichtbaar voor klanten"
+                "label": "Onzichtbaar voor leden"
             },
             "tax": {
                 "label": "btw"
@@ -1496,7 +1496,7 @@
             },
             "welcome": {
                 "next": "Verder",
-                "content": "Bsport bestaat uit enthousiastelingen wiens doel het is om het managen van uw studio te vereenvoudigen zodat u uw leden beter kunt begrijpen.",
+                "content": "BSPORT bestaat uit enthousiastelingen wiens doel het is om het managen van uw studio te vereenvoudigen zodat u uw leden beter kunt begrijpen.",
                 "title": "Welkom!"
             }
         },
@@ -1924,13 +1924,13 @@
                     "helperText": "Laat dit veld leeg om geen limiet op te leggen",
                     "label": "Maximaal gebruik per week"
                 },
-                "newMemberOnly": "Alleen voor nieuwe klanten",
+                "newMemberOnly": "Alleen voor nieuwe leden",
                 "onsitePaymentAvailable": "Mogelijk om ter plaatse te betalen",
                 "expirationDaysBeforeFirstUse": {
                     "label": "Vervaldatum indien er geen geen eerste reservering wordt gemaakt",
                     "helperText": "Deze cursuskaart wordt ongeldig verklaart als er niet binnen zoveel dagen een reservering wordt gemaakt"
                 },
-                "managerOnly": "Niet zichtbaar voor klanten",
+                "managerOnly": "Niet zichtbaar voor leden",
                 "helper": {
                     "starting_date": "Begin van de geldigheid van de cursuskaart. Laat dit veld leeg om het meteen geldig te verklaren",
                     "ending_date": "Einde van de geldigheid van de cursuskaart. Als dit veld leeg is blijft de cursuskaart geldig"
@@ -2071,7 +2071,7 @@
             "copied": "Link gekopieerd",
             "copyLink": "Kopieer de link naar de betalingspagina"
         },
-        "newMemberOnly": "Alleen beschikbaar voor nieuwe klanten",
+        "newMemberOnly": "Alleen beschikbaar voor nieuwe leden",
         "publicPacksTitle": "Cursuskaarten die te koop zijn",
         "privatePacksTitle": "Cursuskaarten die niet te koop zijn",
         "subscribeToOffer": "Inschrijven",
@@ -2146,7 +2146,7 @@
             },
             "edit": "Bewerken"
         },
-        "baseEstablishment": "Gebruikelijk",
+        "baseEstablishment": "Standaard",
         "overrider": "Plaatsvervanger",
         "establishment_override": "Plaatsvervangende vestiging",
         "search": "Zoek een vestiging",
@@ -2596,9 +2596,9 @@
                 "name": "Datum van de laatste reservering"
             },
             "400": {
-                "explanation": "Heeft een wachtwoord bij bsport",
+                "explanation": "Heeft een wachtwoord bij BSPORT",
                 "name": "Wachtwoord",
-                "explain": "heeft een wachtwoord bij bsport"
+                "explain": "heeft een wachtwoord bij BSPORT"
             },
             "24": {
                 "date": {
@@ -2724,7 +2724,7 @@
         },
         "name": "Naam",
         "category": "Categorie",
-        "addOffers": "Sessies toevoegen",
+        "addOffers": "Sessie(s) toevoegen",
         "offersThisDay": "Sessies vandaag:",
         "description": "Beschrijving",
         "modal": {
@@ -3164,7 +3164,7 @@
                     "valid": "Geldige reservering",
                     "title": "Kies het type reservering waar u meldingen van wilt ontvangen"
                 },
-                "explain": "U kunt uw klanten vóór of ná specifieke sessies contacteren aan de hand van verschillende criteria, bijvoorbeeld het aantal deelnemers, het aantal afwezigen of annuleringen.",
+                "explain": "Je kunt je leden vóór of ná specifieke sessies contacteren aan de hand van verschillende criteria, bijvoorbeeld het aantal deelnemers, het aantal afwezigen of annuleringen.",
                 "notifyAllEvents": "Stel het lid op de hoogte van elk evenement"
             },
             "addNotification": "Melding toevoegen"
@@ -3240,7 +3240,7 @@
         "warning": {
             "disconnect": "Uitloggen",
             "backToBackoffice": "Interface-manager",
-            "isManager": "Momenteel ben je als manager ingelogd. Log uit om toegang tot de klantenweergave te zien"
+            "isManager": "Momenteel ben je als manager ingelogd. Log uit om de leden-weergave te zien"
         },
         "workshop": {
             "noWorkshopAvailable": "Momenteel geen workshops gepland",
@@ -3408,7 +3408,7 @@
         "member": {
             "register": {
                 "name": "Nieuw lid",
-                "description": "Wordt geactiveerd wanneer een nieuw lid van de club aan bsport wordt toegevoegd"
+                "description": "Wordt geactiveerd wanneer een nieuw lid van de club aan BSPORT wordt toegevoegd"
             }
         },
         "booking": {
@@ -3451,7 +3451,7 @@
                     "label": "Juridische kennisgeving"
                 },
                 "managerOnly": {
-                    "label": "Niet zichtbaar voor klanten"
+                    "label": "Niet zichtbaar voor leden"
                 },
                 "autoRenewal": {
                     "label": "Automatisch verlengen"
@@ -3523,7 +3523,7 @@
             "bsportCredit": "Aanbetaling van de klant"
         },
         "mandate": {
-            "content": "Door uw IBAN op te geven en uw betaling te bevestigen, geeft u bsport en Stripe, ons betaalsysteem, toestemming om de incasso-instructies volgens het betalingsschema naar uw bank te sturen. U kunt bij uw bank een terugbetaling aanvragen volgens de voorwaarden van uw contract met deze bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
+            "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT en Stripe, ons betaalsysteem, toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen volgens de voorwaarden van je contract met deze bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
             "name": "Volledige naam",
             "email": "E-mailadres"
         },
@@ -3920,17 +3920,17 @@
                 "empty": "Voer URL van uw API in"
             },
             "webhooks": {
-                "CLIENT_WON": "Maak een account voor Bsport aan wanneer een prospect de 'WON' status heeft gekregen voor een deal",
+                "CLIENT_WON": "Maak een account voor BSPORT aan wanneer een prospect de 'WON' status heeft gekregen voor een deal",
                 "helpContent": "De onderstaande acties vinden plaats zodra de bijbehorende gebeurtenis plaatsvindt op ActiveCampaign.",
-                "title": "Integreer ActiveCampaign-informatie met bsport",
-                "CONTACT_TAG": "Maak een account voor Bsport aan wanneer een prospect als 'WON' is getagd voor ActiveCampaign",
+                "title": "Integreer ActiveCampaign met BSPORT",
+                "CONTACT_TAG": "Maak een account voor BSPORT aan wanneer een prospect als 'WON' is getagd voor ActiveCampaign",
                 "helpTitle": "Hoe werkt synchronisatie?"
             },
             "link": {
                 "helpContent": "Leden van de Smartlist ontvangen elke avond een lijst van ActiveCampaign; hun status is dan 'actief'. Leden die de Smartlist hebben verlaten worden ook van de lijst van ActiveCampaign verwijderd; hun status is dan 'onbevestigd'.",
-                "helperForm": "Kies een bsport Smartlist en koppel deze aan een van je lijsten op ActiveCampaign",
+                "helperForm": "Kies een Smartlist van BSPORT en koppel deze aan een van je lijsten op ActiveCampaign",
                 "helpTitle": "Hoe werkt synchronisatie?",
-                "title": "Informatie verzenden vanuit bsport",
+                "title": "Informatie verzenden vanuit BSPORT",
                 "add": "Voeg een link tussen lijsten toe",
                 "dialogTitle": "Wijzig de link van een lijst",
                 "smartListSelection": "Kies een Smartlist",
@@ -3944,10 +3944,10 @@
         "pageTitle": "Instellingen",
         "broadcast": {
             "is_whereby_integration_enabled": {
-                "label": "Activeer integratie van X met Bsport"
+                "label": "Activeer integratie van X met BSPORT"
             },
             "explainDisabled": "Uitgeschakeld: u beheert uw videoconferentielinks zelf, deze moeten voor elke sessie geconfigureerd worden (via zoom, enz.).",
-            "explainEnabled": "Ingeschakeld: bsport beheert uw videoconferentielinks. Het is NIET mogelijk om er twee tegelijkertijd te gebruiken.",
+            "explainEnabled": "Ingeschakeld: BSPORT beheert de links van je online lessen/livestreams. Het zal NIET mogelijk om er twee tegelijkertijd te organiseren.",
             "submit": "Opslaan"
         }
     },
@@ -4231,7 +4231,7 @@
                 },
                 "title": "Afspraakkaart",
                 "managerOnly": {
-                    "label": "Onzichtbaar voor klanten"
+                    "label": "Onzichtbaar voor leden"
                 },
                 "name": {
                     "label": "Naam"
@@ -4276,7 +4276,7 @@
                 "nbCredits": "{{ credits}} krediet",
                 "price": "{{price}} €",
                 "tax": "btw: {{ tax }}%",
-                "managerOnly": "Onzichtbaar voor klanten"
+                "managerOnly": "Onzichtbaar voor leden"
             },
             "compatibleServices": {
                 "title": "Compatibele afspraken",
@@ -4293,7 +4293,7 @@
                     "label": "Sta de keuze van de instructeur toe bij het reserveren"
                 },
                 "establishment_consumer_attribution": {
-                    "helperText": "Het lid ziet en kiest de vestiging voordat hij reserveert. Als geen keuze is gemaakt, zal bsport de zaalopvulling te proberen te optimaliseren",
+                    "helperText": "Het lid ziet en kiest de vestiging voordat hij reserveert. Als geen keuze is gemaakt, zal BSPORT de zaalopvulling te proberen te optimaliseren",
                     "label": "Sta vestigingskeuze toe tijdens het reserveren"
                 },
                 "name": {
@@ -4301,7 +4301,7 @@
                     "label": "Naam van de dienst"
                 },
                 "managerOnly": {
-                    "label": "Onzichtbaar voor klanten"
+                    "label": "Onzichtbaar voor leden"
                 },
                 "last_discard_minutes": {
                     "label": "Laatste annulering terugbetaalbaar tot",
@@ -4821,7 +4821,7 @@
                     "placeholder": "Jacques Chirac",
                     "label": "Eigenaar van bankrekening"
                 },
-                "content": "Deze bankrekening wordt gebruikt om de online via bsport betaalde bedragen naar u over te maken.",
+                "content": "Deze bankrekening wordt gebruikt om de online via BSPORT betaalde bedragen naar je over te maken.",
                 "title": "Bankrekening",
                 "unknownCountry": "Dit moet handmatig gecontroleerd worden. Contacteer contact@bsport.io"
             }
@@ -5292,7 +5292,7 @@
             "update": "Bewerken"
         },
         "noActivity": "Deze instructeur beheert geen enkele activiteit.",
-        "baseCoach": "Gebruikelijk",
+        "baseCoach": "Standaard",
         "addCoach": "Voeg een instructeur toe",
         "description": "Beschrijving",
         "coach_override": "Plaatsvervanger",
@@ -5399,7 +5399,7 @@
                 "label": "Naam"
             },
             "code": {
-                "helperText": "De code die naar de geselecteerde klanten gestuurd wordt",
+                "helperText": "De code die naar de geselecteerde leden gestuurd wordt",
                 "label": "Code"
             },
             "voucher_type": {
@@ -5428,7 +5428,7 @@
                 "label": "Minimaal aankoopbedrag"
             },
             "is_active": {
-                "helperText": "Inactieve code kan niet door klanten worden gebruikt",
+                "helperText": "Inactieve code kan niet door leden worden gebruikt",
                 "label": "Actief"
             },
             "percent_off": {
@@ -5566,7 +5566,7 @@
         "noData": "Geen gegevens om weer te geven",
         "bookingSource": {
             "title": "Herkomst van de reserveringen",
-            "saas": "Backoffice BSPORT",
+            "saas": "BSPORT Back Office",
             "other": "Anders",
             "migration": "Gegevensoverdracht",
             "app": "Toepassing",
@@ -5734,7 +5734,7 @@
                 },
                 "offersFilling": "Toon aantal plaatsen van een cursus op de kalender van de klant",
                 "acceptDoubleBooking": "Dubbele reservering aanvaarden",
-                "consumerRegularizeDebt": "Klanten kunnen hun betalingen online regelen",
+                "consumerRegularizeDebt": "Leden kunnen hun betalingen online regelen",
                 "workshopsCustomer": "Toon workshops op de kalender van de klant",
                 "cancelledOffersCustomer": "Toon geannuleerde sessies in de kalender van de klant",
                 "calendarPersonalizationTitle": "Configureer kalender",
@@ -6037,7 +6037,7 @@
                 "name": "Systeembeheerder"
             },
             "3": {
-                "description": "Account voor automatisch inchecken (neem contact op met uw bsport-accountmanager)",
+                "description": "Account voor automatisch inchecken (neem contact op met uw BSPORT-accountmanager)",
                 "name": "Inchecken via tabletten"
             },
             "2": {
@@ -6111,7 +6111,7 @@
                 "notificationRule": "Transactionele e-mails",
                 "broadcast": "Videoconferentie",
                 "general": "Algemeen",
-                "platform_billing": "Bsport-abonnement"
+                "platform_billing": "BSPORT-abonnement"
             },
             "pass": "Cursuskaart",
             "goBack": "Terug",
@@ -6176,7 +6176,7 @@
         },
         "featureRequest": {
             "close": "Sluiten",
-            "content": "We hebben uw bericht ontvangen, hartelijk voor uw interesse! Uw accountbeheerder zal u zo spoedig mogelijk contacteren.",
+            "content": "We hebben je bericht ontvangen, hartelijk voor je interesse! Je accountbeheerder zal je zo snel mogelijk contacteren.",
             "title": "Add-On"
         },
         "platformBillingStage": {

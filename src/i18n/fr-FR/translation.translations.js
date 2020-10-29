@@ -19,6 +19,15 @@ exports.default = {
         success: 'Activité créée',
         error: "Erreur lors de l'enregistrement de l'activité",
       },
+      autoDiscard: {
+        checkbox: "M'avertir lorqu'une séance est trop peu remplie",
+        explain:
+          "Envoyer une notification par mail s'il y a {{bookings_nb}} réservation(s) ou moins {{hours}}h avant le début de la séance.",
+        emailRecipients:
+          "Ce mail sera envoyé aux comptes ayant le rôle Owner ou Admin, ainsi qu'au professeur (ou professeur remplaçant) de la séance en question.",
+        min_bookings_nb: 'Nombre de réservation(s) :',
+        hours_before_start: 'Heure(s) avant la séance :',
+      },
     },
     update: {
       imageUploaderRequireEditMessage:

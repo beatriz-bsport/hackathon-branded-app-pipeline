@@ -33,6 +33,9 @@ const {
   NOTIFICATION_PRIVATE_BOOKING_UPDATETIME_CONSUMER,
 } = NOTIFICATION_EVENTS;
 
+// should import that from common
+const NOTIFICATION_OFFER_AUTO_DISCARD = 601;
+
 exports.default = {
   pageTitle: 'Emails transactionnels',
   caption: {
@@ -194,5 +197,7 @@ exports.default = {
       'Rendez-vous annulé - hors-délai (professeur)',
     [NOTIFICATION_PRIVATE_BOOKING_CANCEL_REFUNDED_COACH]:
       'Rendez-vous annulé - remboursé (professeur)',
+    [NOTIFICATION_OFFER_AUTO_DISCARD]:
+      'Trop peu de réservations N heures avant le début de la séance',
   },
 };

@@ -21,6 +21,7 @@ import {
   DurationField,
   ColorField,
   CheckboxField,
+  IntegerField,
 } from '../../../components/forms';
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
 
@@ -37,11 +38,17 @@ type Props = {
     onAddImage: (image: File) => void,
     onRemoveImage: (image: File) => void,
   },
+  values: any,
 };
 
 export function MetaActivityForm(props: Props) {
   const { isSubmitting, SCTs, classes, t, imageUploader, variant } = props;
   const images = (props.initial || {}).images || [];
+  const {
+    auto_discard_hours_before_start,
+    auto_discard_min_bookings_nb,
+    auto_discard_active,
+  } = props.values;
   return (
     <Form>
       <ImageField id="button_activity_image" name="cover_main" />
@@ -154,6 +161,49 @@ export function MetaActivityForm(props: Props) {
             required
           />
         </div>
+        <div classNamre={classes.field}>
+          <CheckboxField
+            name="auto_discard_active"
+            id="checkbox_auto_discard_active"
+            label={t('metaActivity.forms.autoDiscard.checkbox')}
+          />
+        </div>
+        {auto_discard_active ? (
+          <>
+            <Typography className={classes.field}>
+              {t('metaActivity.forms.autoDiscard.explain', {
+                hours: auto_discard_hours_before_start,
+                bookings_nb: auto_discard_min_bookings_nb,
+              })}
+            </Typography>
+            <div className={classes.paramContainer}>
+              <div className={classes.inlineNumericField}>
+                <Typography variant="caption" className={classes.params}>
+                  {t('metaActivity.forms.autoDiscard.min_bookings_nb')}
+                </Typography>
+                <IntegerField
+                  name="auto_discard_min_bookings_nb"
+                  className={classes.numericField}
+                />
+              </div>
+              <div className={classes.inlineNumericField}>
+                <Typography variant="caption" className={classes.params}>
+                  {t('metaActivity.forms.autoDiscard.hours_before_start')}
+                </Typography>
+                <IntegerField
+                  name="auto_discard_hours_before_start"
+                  className={classes.numericField}
+                />
+              </div>
+            </div>
+            <Typography
+              className={`${classes.field} ${classes.grey}`}
+              variant="caption"
+            >
+              {t('metaActivity.forms.autoDiscard.emailRecipients')}
+            </Typography>
+          </>
+        ) : null}
         <div className={classes.buttonContainer}>
           <Button onClick={props.onCancel} disabled={isSubmitting}>
             {t('form.discard')}
@@ -182,6 +232,24 @@ const styles = (theme) => ({
     alignSelf: 'flex-end',
     marginTop: theme.spacing(2),
   },
+  inlineNumericField: {
+    paddingRight: theme.spacing(3),
+    display: 'flex',
+    alignItems: 'baseline',
+  },
+  params: {
+    paddingRight: theme.spacing(2),
+  },
+  numericField: {
+    width: 40,
+  },
+  paramContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  grey: {
+    color: '#808080',
+  },
 });
 
 const MetaActivitySchema = Yup.object().shape({
@@ -194,6 +262,9 @@ const MetaActivitySchema = Yup.object().shape({
   is_broadcast: Yup.boolean(),
   color: Yup.string(),
   SCT: Yup.number(),
+  auto_discard_active: Yup.boolean(),
+  auto_discard_hours_before_start: Yup.number(),
+  auto_discard_min_bookings_nb: Yup.number(),
 });
 
 export default compose(
@@ -212,6 +283,9 @@ export default compose(
           first_booking_minutes_until: 60 * 24 * 30 * 6,
           is_broadcast: false,
           color: '',
+          auto_discard_active: false,
+          auto_discard_hours_before_start: 6,
+          auto_discard_min_bookings_nb: 1,
         },
         { ...initial } || {},
       ),
@@ -229,6 +303,9 @@ export default compose(
         'first_booking_minutes_until',
         'color',
         'is_broadcast',
+        'auto_discard_active',
+        'auto_discard_hours_before_start',
+        'auto_discard_min_bookings_nb',
       ];
       const { cover_main } = values;
       const data = {
@@ -237,6 +314,7 @@ export default compose(
       if (typeof cover_main !== 'string' && !!cover_main) {
         data.cover_main = cover_main;
       }
+
       onSubmit(data, {
         onSuccess: () => {
           if (onSuccess && typeof onSuccess === 'function') onSuccess();

@@ -88,6 +88,14 @@ export const MetaActivityCard = (props: Props) => {
               m: formatMinutes(metaActivity.first_booking_minutes_until, t),
             })}
           </Typography>
+          {metaActivity.auto_discard_active ? (
+            <Typography variant="caption" component="h4" align="right">
+              {t('metaActivity:settings.autoDiscard', {
+                nb_bookings: metaActivity.auto_discard_min_bookings_nb,
+                hours: metaActivity.auto_discard_hours_before_start,
+              })}
+            </Typography>
+          ) : null}
         </div>
         <div style={{ marginTop: 16 }}>
           <TypographyMultiline variant="" color="textSecondary">

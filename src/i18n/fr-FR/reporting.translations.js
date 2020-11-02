@@ -155,6 +155,7 @@ exports.default = {
     payment_method_event_brite: 'EventBrite',
     payment_method_subscription_cb: 'Souscription',
     payment_method_other: 'Autre',
+    payment_method_sepa: 'SEPA',
     payment_method_dispute: 'Litige',
     payment_method_total: 'Total',
     date_sumup: 'Date',

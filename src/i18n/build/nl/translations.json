@@ -1698,7 +1698,8 @@
             "private_pass": "Afspraakkaart",
             "note": "Notitie",
             "full_address": "Volledig adres",
-            "birthday": "Geboortedatum"
+            "birthday": "Geboortedatum",
+            "payment_method_sepa": "SEPA"
         },
         "report": {
             "delete_message": "Weet je zeker dat je dit rapport ({{name}}) wilt verwijderen?"
@@ -2869,7 +2870,8 @@
             "title": "Naam sjabloon",
             "save": "Opslaan",
             "subject": "Onderwerp e-mail",
-            "cancel": "Annuleren"
+            "cancel": "Annuleren",
+            "exportHtml": "Als HTML exporteren"
         },
         "copy": "kopie",
         "autoSave": "Automatische back-up",

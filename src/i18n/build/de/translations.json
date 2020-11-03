@@ -20,7 +20,7 @@
                     "explain": "Wenn sich ein Mitglied anmeldet, erhält es einen Platz auf der Warteliste. Wenn ein Platz frei ist, kann sich die erste Person auf der Liste anmelden, die anderen warten, bis sie an der Reihe sind"
                 },
                 "1": {
-                    "label": "Wer zuerst kommt, mahlt zuerst",
+                    "label": "Es kann derjenige sich anmelden, der am schnellsten agiert",
                     "explain": "Die Warteliste ist nicht geordnet. Wenn ein Platz frei ist, erhalten alle Personen auf der Liste gleichzeitig eine E-Mail, in der sie zur Registrierung eingeladen werden."
                 },
                 "label": "Verwaltung von den Prioritäten auf der Warteliste"
@@ -2495,7 +2495,8 @@
             "private_pass": "Terminkarte",
             "note": "Anmerkung",
             "full_address": "Vollständige Adresse",
-            "birthday": "Geburtsdatum"
+            "birthday": "Geburtsdatum",
+            "payment_method_sepa": "SEPA"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -5487,7 +5488,8 @@
             "cancel": "Abbrechen",
             "subject": "Betreff",
             "save": "Speichern",
-            "title": "Name der Vorlage"
+            "title": "Name der Vorlage",
+            "exportHtml": "HTML exportieren"
         },
         "no_subject": "Kein Betreff",
         "preview": "Vorschau der E-Mail",

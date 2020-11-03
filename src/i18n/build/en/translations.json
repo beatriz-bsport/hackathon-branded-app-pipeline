@@ -4843,7 +4843,8 @@
             "private_pass": "Appointment Pass",
             "note": "Note",
             "full_address": "Complete Address",
-            "birthday": "Birth date"
+            "birthday": "Birth date",
+            "payment_method_sepa": "SEPA"
         },
         "yes": "Yes",
         "no": "No",
@@ -5495,7 +5496,8 @@
             "error": {
                 "title": "Please fill the title",
                 "content": "Please fill some content in the mail"
-            }
+            },
+            "exportHtml": "Export HTML"
         },
         "autoSave": "Automatic back-up",
         "leaveAlert": "Do you really want to quit this page ?",

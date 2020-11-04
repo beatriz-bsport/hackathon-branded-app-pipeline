@@ -571,7 +571,7 @@
                 "noPastBookings": "Geen vorige reservering",
                 "noFutureBookings": "Geen reservering gepland",
                 "noBookingOptions": "Geen reserveringen op wachtlijst",
-                "myOptions": "Wachtlijstreserveringen",
+                "myOptions": "Reserveringen op de wachtlijst",
                 "myPastBookings": "Mijn eerdere reserveringen",
                 "myFutureBookings": "Volgende sessies",
                 "waitingSlot": "Gepauzeerd",
@@ -674,7 +674,7 @@
             "recurrence": "Herhaling",
             "offerWillBeGenerated": "sessie zal worden aangemaakt",
             "offersWillBeGenerated": "sessies worden ingepland",
-            "credit_price": "Het aantal credits op de cursuskaart dat nodig is om een reservering te maken",
+            "credit_price": "Het aantal kredieten op de cursuskaart dat nodig is om een reservering te maken",
             "generateOffers": "Maak sessie(s) aan",
             "default_waiting_list_max_size": "Grootte van de wachtlijst",
             "password": "Wachtwoord",
@@ -746,7 +746,7 @@
                     "sms": "via sms",
                     "email": "per e-mail"
                 },
-                "rgpdTitle": "Hoe wil je dat instructeurs contact met je opnemen voor annuleringen/tijdwijzigingen?",
+                "rgpdTitle": "Hoe wil je dat instructeurs contact met je opnemen voor annuleringen/tijdswijzigingen?",
                 "confirmPassword": "Wachtwoord",
                 "confirmPasswordLabel": "Bevestiging",
                 "emailExistsInDB2": "Aanmelden",
@@ -855,7 +855,7 @@
             },
             "waiting_list_max_size": "Grootte van de wachtlijst",
             "signUpTitle": "Inschrijving",
-            "warningCreditChange": "N.B.: oude reserveringen houden geen rekening met wijzigingen in uw saldo",
+            "warningCreditChange": "N.B. oude reserveringen houden geen rekening met wijzigingen in uw saldo",
             "noAvailableCredit": "Weet je zeker dat je geen prijs wilt invoeren?",
             "explainNoEmailChange": "Als de e-mail gewijzigd wordt, kan de instructeur geen verbinding meer maken. De instructeur kan zijn/haar e-mail wijzigen door met zijn/haar BSPORT-account in te loggen"
         },
@@ -872,7 +872,7 @@
             "supplier_price": "Leveranciersprijs"
         },
         "offer": {
-            "manageOffer": "Beheer mijn reserveringen",
+            "manageOffer": "Mijn reserveringen beheren",
             "myOpenedInvoices": "Snel factureren",
             "noQuickInvoiceOpened": "Geen openstaande facturen",
             "reCreateBooking": "Schrijf je opnieuw in",
@@ -904,7 +904,7 @@
             "attendant": "aanwezig(en)",
             "noEmptyDuration": "De duur kan enkel positief zijn",
             "restoreModal": {
-                "explain": "De annulering van deze sessie ongedaan gemaakt; leden kunnen deze sessie dus weer boeken. Reeds geannuleerde reserveringen worden echter niet hersteld.",
+                "explain": "De annulering van deze sessie ongedaan gemaakt; leden kunnen zich dus weer voor deze sessie inschrijven. Reeds geannuleerde reserveringen worden echter niet hersteld.",
                 "title": "Herstel sessie"
             }
         },
@@ -1010,7 +1010,7 @@
                 }
             },
             "lastDiscardBeforeMinutes": "Voor aanvang van de workshop, laatste annulering mogelijk tot",
-            "lastBookingBeforeMinutes": "Voor aanvang van de workshop, laatste reservering mogelijk tot",
+            "lastBookingBeforeMinutes": "Voor de aanvang van de workshop is de laatste reservering mogelijk tot",
             "imageUploaderRequireEditMessage": "Zodra je activiteit is aangemaakt, heb je de mogelijkheid om extra afbeeldingen toe te voegen.",
             "addWorkshopActivity": "Voeg een workshop toe"
         },
@@ -1032,12 +1032,12 @@
             "addActivity": "Voeg een activiteit toe",
             "addOffers": "Sessie(s) toevoegen",
             "lastDiscardBeforeMinutes": "Voor aanvang van de cursus, laatste annulering mogelijk tot",
-            "lastBookingBeforeMinutes": "Voor aanvang van de cursus, laatste reservering mogelijk tot",
+            "lastBookingBeforeMinutes": "Voor de aanvang van de sessie is de laatste reservering mogelijk tot",
             "is_broadcast": "Livestreaming cursussen",
             "settings": "Instellingen",
             "nextSlotAt": "Volgende sessie op ",
             "explainImage": "Aanbevolen: 1920 x 1080 jpeg (fullHD)",
-            "firstBookingMinutesUntil": "Blokkeer in de toekomst reserveringen boven "
+            "firstBookingMinutesUntil": "Beperk reserveringen tot sessies die plaatsvinden over "
         },
         "calendar": {
             "pleaseSelectOffer": "Selecteer een sessie om de geregistreerde leden te zien",
@@ -1231,7 +1231,7 @@
             "gender": "Geslacht",
             "sport": "Sport"
         },
-        "blockBooking": "Blokkeer reservering van cursuskaarten van nieuwe leden",
+        "blockBooking": "Blokkeer reserveringen van cursuskaarten van nieuwe leden",
         "languageToolTip": "Beschikbaar in de webshop",
         "visibilityOfIconToolTip": "Niet zichtbaar",
         "onlyNewMember": "Reservering alleen mogelijk voor cursuskaarten van nieuwe leden",
@@ -2807,9 +2807,9 @@
             "actions": {
                 "cancel": "Annuleren",
                 "submit": "Bevestigen",
-                "continue": "Verdergaan"
+                "continue": "Bevestigen"
             },
-            "title": "Groepsannulering",
+            "title": "In bulk annuleren",
             "secondWarningConfirm": "Weet je zeker dat je verder wilt gaan?",
             "secondWarning": "Door op \"BEVESTIGEN\" te klikken worden de sessies binnen het geselecteerde periode geannuleerd. Deze actie is definitief."
         },
@@ -2817,7 +2817,7 @@
         "bookingList": "Reserveringen",
         "menu": {
             "download": "Overzicht",
-            "massDisable": "Groepsannulering",
+            "massDisable": "In bulk annuleren",
             "hideCancelled": "Verberg annuleringen",
             "showCancelled": "Bekijk annuleringen",
             "showWeek": "Weekoverzicht",
@@ -2856,7 +2856,7 @@
         "listTitle": "Mijn e-mailsjablonen",
         "detail": "Gedetailleerde informatie",
         "selectToShowPreview": "Selecteer een sjabloon",
-        "create": "Nieuwe sjabloon aanmaken",
+        "create": "Nieuwe e-mail ontwerpen",
         "templateListEmpty": "Nog geen sjablonen. Maak nu je eerste sjabloon.",
         "modification_date": "Laatste wijziging op",
         "subject": "Onderwerp e-mail:",
@@ -3010,7 +3010,7 @@
             "createMember": "Voeg een lid toe"
         },
         "memberTermsAccepted": " werden aanvaard op {{- date}}",
-        "termsAndConditions": "Servicevoorwaarden"
+        "termsAndConditions": "de servicevoorwaarden"
     },
     "booking": {
         "bookingModule": {
@@ -3126,15 +3126,15 @@
                     "cancellation": "zijn/haar annulering van de reservering n° {{notify_booking_nb}}",
                     "attendance": "aantal aanwezigen {{notify_booking_nb}}",
                     "booking": "zijn/haar reservering n° {{notify_booking_nb}}",
-                    "text": "Hulp: de melding wordt naar het lid gestuurd wanneer",
+                    "text": "Weetje: leden ontvangen deze melding na",
                     "notRefunded": "aantal annuleringen na deadline {{notify_booking_nb}}",
                     "refunded": "aantal terugbetaalde annuleringen {{notify_booking_nb}}",
                     "absence": "Aantal afwezigen {{notify_booking_nb}}",
                     "allEvents": {
-                        "notRefunded": "Hulp: de melding wordt verstuurd elke keer dit lid te laat annuleert",
-                        "refunded": "Hulp: de melding wordt verstuurd elke keer dit lid wordt terugbetaald voor een annulering",
-                        "absence": "Hulp: de melding wordt verstuurd elke keer dit lid afwezig is",
-                        "attendance": "Hulp: de melding wordt verstuurd elke keer dit lid aanwezig is"
+                        "notRefunded": "Weetje: leden ontvangen deze melding elke keer dat zij te laat annuleren",
+                        "refunded": "Weetje: de melding wordt verstuurd elke keer een lid wordt terugbetaald voor een annulering",
+                        "absence": "Weetje: de melding wordt verstuurd elke keer dit lid afwezig is",
+                        "attendance": "Weetje: de melding wordt verstuurd elke keer dit lid aanwezig is"
                     }
                 },
                 "choicesKind": {
@@ -3148,26 +3148,26 @@
                     "second_before": "uur/uren voor de sessie",
                     "first": "Stuur e-mail"
                 },
-                "sendAfterMail": "Stuur de e-mail naar het lid ná deze specifieke sessie",
-                "sendBeforeMail": "Stuur de e-mail naar het lid vóór deze specifieke sessie",
-                "eventNb": "Stel het lid op de hoogte van evenement:",
+                "sendAfterMail": "Verstuur deze e-mail na het einde van de sessie(s)",
+                "sendBeforeMail": "Verstuur deze e-mail voor het begin van de sessie(s)",
+                "eventNb": "Informeer leden over sessie:",
                 "settingTitle": "Instellingen",
                 "typeTitle": "Type melding",
                 "title": "Formulier melding",
                 "chooseKind": {
-                    "notRefunded": "Annulering na de deadline",
-                    "refunded": "Annulering terugbetaald",
-                    "absence": "Afwezigheid van een lid bij een sessie",
-                    "attendance": "Aanwezigheid van lid bij een sessie",
-                    "title": "Mededeling met betrekking tot evenement"
+                    "notRefunded": "Te late annulering",
+                    "refunded": "Terugbetaalde annulering",
+                    "absence": "Een lid is afwezig bij een sessie",
+                    "attendance": "Een lid is aanwezig bij een sessie",
+                    "title": "Mededeling over deze activiteit"
                 },
                 "chooseStatus": {
-                    "cancelled": "Reservering door klant geannuleerd",
-                    "valid": "Geldige reservering",
-                    "title": "Kies het type reservering waar u meldingen van wilt ontvangen"
+                    "cancelled": "Door leden geannuleerde reserveringen",
+                    "valid": "Geldige reserveringen",
+                    "title": "Kies het type reservering die je wilt contacteren"
                 },
                 "explain": "Je kunt je leden vóór of ná specifieke sessies contacteren aan de hand van verschillende criteria, bijvoorbeeld het aantal deelnemers, het aantal afwezigen of annuleringen.",
-                "notifyAllEvents": "Stel het lid op de hoogte van elk evenement"
+                "notifyAllEvents": "Informeer leden over alle sessies"
             },
             "addNotification": "Melding toevoegen"
         },
@@ -4739,7 +4739,7 @@
             "theTermsAndConditions": "Algemene verkoopvoorwaarden",
             "iAccept": "Ik aanvaard ",
             "close": "Sluiten",
-            "generalTermsOfUse": " Servicevoorwaarden"
+            "generalTermsOfUse": " de servicevoorwaarden"
         },
         "paymentMethod": {
             "2": "Cheque",
@@ -5958,7 +5958,7 @@
             },
             "smart_delay_percentage": {
                 "label": "Intelligent beheer",
-                "helper": "Als er een plaats vrij komt, heeft de cursist een tijd die evenredig is met de resterende tijd voor de sessie."
+                "helper": "Als er een plaats vrijkomt, heeft het lid de tijd die evenredig is met de resterende tijd voor de sessie om zich in te schrijven."
             },
             "submit": "Opslaan",
             "auto_cancellation_type": {
@@ -5984,7 +5984,7 @@
                 },
                 "0": {
                     "explain": "Als een lid zich aanmeldt, krijgt hij/zij een plaats op de wachtlijst. Wanneer een plaats beschikbaar komt, wordt de eerste op de wachtlijst hiervan geïnformeerd. De anderen wachten op hun beurt",
-                    "settingsDelay": "Deadline om te aan te melden",
+                    "settingsDelay": "Deadline om aan te melden",
                     "label": "Eén voor één"
                 }
             }

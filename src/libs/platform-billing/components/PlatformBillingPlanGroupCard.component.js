@@ -14,15 +14,28 @@ import TypographyMultiline from '../../../components/TypographyMultiline.compone
 
 const PlatformBillingStageCard = (props: {
   platformBillingStage: PlatformBillingStage,
+  couponCts: number,
 }) => {
   const { price_cts, max_booking_per_month } = props.platformBillingStage;
   const { t } = useTranslation(['platformBilling']);
   const classes = useStyles();
   return (
     <Paper className={classes.stageCard}>
+      {!!props.couponCts && (
+        <Typography
+          style={{ textDecoration: 'line-through' }}
+          color="error"
+          noWrap
+          variant="h6"
+        >
+          {t('platformBillingStage.monthlyPrice', {
+            price: (price_cts / 100).toFixed(2),
+          })}
+        </Typography>
+      )}
       <Typography className={classes.stageHeaderPrice} noWrap variant="h6">
         {t('platformBillingStage.monthlyPrice', {
-          price: (price_cts / 100).toFixed(2),
+          price: ((price_cts - props.couponCts) / 100).toFixed(2),
         })}
       </Typography>
       <Typography
@@ -39,6 +52,7 @@ const PlatformBillingStageCard = (props: {
 const PlatformBillingPlanCard = (props: {
   platformBillingPlan: PlatformBillingPlan,
   currentPlatformBillingStageId: number,
+  couponCts: number,
 }) => {
   const { platformBillingPlan } = props;
   const { t } = useTranslation(['platformBilling']);
@@ -100,6 +114,7 @@ const PlatformBillingPlanCard = (props: {
               <PlatformBillingStageCard
                 isSelected={props.currentPlatformBillingStageId === ps.id}
                 platformBillingStage={ps}
+                couponCts={props.couponCts}
               />
             </div>
           ))}
@@ -112,6 +127,7 @@ const PlatformBillingPlanGroup = (props: {
   platformBillingGroup: PlatformBillingPlanGroup,
   currentPlatformBillingPlanId: number,
   currentPlatformBillingStageId: number,
+  couponCts: number,
 }) => {
   const classes = useStyles();
   return (
@@ -126,6 +142,7 @@ const PlatformBillingPlanGroup = (props: {
                 props.currentPlatformBillingStageId
               }
               platformBillingPlan={plan}
+              couponCts={props.couponCts}
             />
           </div>
         ))}

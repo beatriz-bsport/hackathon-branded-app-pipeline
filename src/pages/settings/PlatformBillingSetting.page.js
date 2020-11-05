@@ -18,7 +18,6 @@ import {
 } from '../../libs/platform-billing/actions';
 import {
   getPlatformInvoiceList,
-  getPlatformBillingGroup,
   getPlatformSubscription,
 } from '../../libs/platform-billing/selectors';
 
@@ -47,7 +46,6 @@ type Props = {
   fetchUpsellPackageList: () => void,
 
   classes: Object,
-  platformBillingGroup: ?PlatformBillingPlanGroup,
   platformSubscription: ?PlatformSubscription,
   onRequestUpsell: (id: number) => void,
 
@@ -81,7 +79,6 @@ export class PlatformBillingSettings extends React.Component<Props> {
         />
         <CompanyPlatformBillinGroupDetail
           platformSubscription={this.props.platformSubscription}
-          platformBillingGroup={this.props.platformBillingGroup}
           onRequestUpsell={this.props.onRequestUpsell}
           onKnowMore={this.props.onRequestUpsell}
         />
@@ -109,7 +106,6 @@ export default compose(
       platformInvoiceList: getPlatformInvoiceList(state),
       loading: state.paymentBackend.paymentMethod.loading,
       platformSubscription: getPlatformSubscription(state),
-      platformBillingGroup: getPlatformBillingGroup(state),
     }),
     {
       fetchPlatformInvoiceList,

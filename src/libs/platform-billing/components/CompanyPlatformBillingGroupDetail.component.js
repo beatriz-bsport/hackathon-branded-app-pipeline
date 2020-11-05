@@ -44,7 +44,6 @@ const UpsellPackageList = (props: {
 };
 
 type Props = {
-  platformBillingGroup: PlatformBillingPlanGroup,
   onKnowMore: (id: number) => void,
   onRequestUpsell: (id: number) => void,
   platformSubscription: PlatformSubscription,
@@ -53,11 +52,13 @@ type Props = {
 export const CompanyPlatformBillinGroupDetail = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['platformBilling']);
-  if (!props.platformBillingGroup) return null;
-  const myUpsellPackageList = props.platformBillingGroup.upsell_packages.filter(
+  if (!props.platformSubscription) return null;
+  const { platformBillingGroup } = props.platformSubscription;
+  if (!platformBillingGroup) return null;
+  const myUpsellPackageList = platformBillingGroup.upsell_packages.filter(
     (up) => !!up.subscribed,
   );
-  const otherUpsellPackageList = props.platformBillingGroup.upsell_packages.filter(
+  const otherUpsellPackageList = platformBillingGroup.upsell_packages.filter(
     (up) => !up.subscribed,
   );
   return (
@@ -92,7 +93,8 @@ export const CompanyPlatformBillinGroupDetail = (props: Props) => {
       </Typography>
       <Divider className={classes.sectionDivider} />
       <PlatformBillingPlanGroupCard
-        platformBillingGroup={props.platformBillingGroup}
+        platformBillingGroup={platformBillingGroup}
+        couponCts={props.platformSubscription.coupon_cts}
         currentPlatformBillingStageId={
           props.platformSubscription &&
           props.platformSubscription.current_platform_billing_stage &&

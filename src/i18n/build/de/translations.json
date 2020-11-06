@@ -1053,7 +1053,7 @@
                     "explain": "Bist du sicher, dass diese Kategorie gelöscht werden soll? Der gesamte Inhalt wird ebenfalls gelöscht."
                 }
             },
-            "supplier_price": "Preis des Lieferanten",
+            "supplier_price": "Einkaufspreis",
             "noProvisionUpdates": "Kein Inventar",
             "myShop": "Mein Shop",
             "ht": "Ausschließlich Steuern"
@@ -3192,7 +3192,7 @@
                 "onsite_payment_available": "Zahlung vor Ort",
                 "is_deliverable": "Versandkosten",
                 "marketplace_enabled": "Auf Web-Marketplace verfügbar",
-                "supplier_price": "Preis des Lieferanten",
+                "supplier_price": "Einkaufspreis",
                 "parameters": "Einstellungen",
                 "provisionHistory": "Entwicklung des Inventares",
                 "disabled": "Nein",

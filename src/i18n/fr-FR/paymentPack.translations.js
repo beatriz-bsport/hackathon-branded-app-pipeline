@@ -274,6 +274,7 @@ exports.default = {
     refundTitle: 'Remboursement associé',
     bookingsTitle: 'Réservations associées',
     extensionsTitle: 'Extensions de validité',
+    trackModifiedCreditTitle: 'Historique des crédits modifiés',
   },
   newMemberOnly: 'Disponible uniquement pour les nouveaux inscrits',
   publicPacksTitle: 'Cartes disponibles à la vente',

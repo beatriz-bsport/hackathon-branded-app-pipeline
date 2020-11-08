@@ -289,6 +289,7 @@ export class MemberDetailPass extends Component<Props, State> {
               requestRefund={this.props.requestRefund}
               paymentPack={this.props.selectedConsumerPass.payment_pack}
               consumerPack={this.props.selectedConsumerPass}
+              timezone={this.props.timezone}
               bookings={this.props.bookings}
               consumerPaymentPackCreditRefundList={
                 this.props.consumerPaymentPackCreditRefundList

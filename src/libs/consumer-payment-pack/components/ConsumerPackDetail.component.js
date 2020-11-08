@@ -9,6 +9,11 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
+import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 
 import { compose } from 'recompose';
 import InvoiceListItem from '../../invoice/InvoiceListItem.component';
@@ -22,6 +27,7 @@ import type { PaymentPack } from '../../payment-packs/types';
 import type { Booking } from '../../booking/types';
 import type { Invoice } from '../../invoice/types';
 import type { Member } from '../../member/types';
+import { formatAsDatetime } from '../../../datetime';
 
 type Props = {
   bookings: Array<Booking>,
@@ -52,6 +58,8 @@ type Props = {
 
   consumerPaymentPackCreditRefundList: Array<ConsumerPaymentPackCreditRefund>,
   requestRefund: (ConsumerPaymentPack, showCredit: boolean) => void,
+
+  timezone: ?string,
 };
 
 export function ConsumerPaymentPackDetail(props: Props) {
@@ -148,6 +156,24 @@ export function ConsumerPaymentPackDetail(props: Props) {
           )}
         />
       </Paper>
+      {!!props.consumerPack.track_modified_credit &&
+      props.consumerPack.track_modified_credit.length ? (
+        <div>
+          <Typography variant="h5" component="h2">
+            {props.t('details.trackModifiedCreditTitle')}
+          </Typography>
+          <Paper className={props.classes.paper}>
+            {props.consumerPack.track_modified_credit.map((modifiedCredit) =>
+              <ListItem dense divider>
+                <ListItemIcon>
+                  {modifiedCredit[1] > 0 ? <ExposurePlus1Icon /> : <ExposureNeg1Icon />}
+                </ListItemIcon>
+                <ListItemText primary={`${formatAsDatetime(modifiedCredit[0] * 1000, props.timezone)}`} />
+              </ListItem>,
+              )}
+          </Paper>
+        </div>
+      ) : null}
       {props.extensionsLoading ? <LinearProgress /> : null}
       {props.extensions &&
       props.extensions.length &&

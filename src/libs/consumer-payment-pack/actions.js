@@ -2,7 +2,6 @@
 
 import { createAction } from 'redux-actions';
 
-import paymentPackAPI from '../payment-packs/api';
 import type { Dispatch, OptionCallback } from '../../state/types';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
@@ -15,6 +14,8 @@ import {
   deleteExtension as deleteExtensionAPI,
   refundConsumerPaymentPack as refundConsumerPaymentPackAPI,
   fetchConsumerPaymentPackCreditRefundList as fetchConsumerPaymentPackCreditRefundListAPI,
+  addCreditToConsumerPack as addCreditAPI,
+  subCreditToConsumerPack as subCreditAPI,
 } from './api';
 
 export const byOfferByMember = {
@@ -145,7 +146,7 @@ export function updateCredit(consumerPackId: number, nbCredit: number) {
       updateConsumerPack.isLoading({ id: consumerPackId, loading: true }),
     );
     try {
-      const apiCall = paymentPackAPI[nbCredit >= 0 ? 'addCredit' : 'subCredit'];
+      const apiCall = nbCredit >= 0 ? addCreditAPI : subCreditAPI;
       const response = await apiCall(
         consumerPackId,
         nbCredit >= 0 ? nbCredit : -nbCredit,

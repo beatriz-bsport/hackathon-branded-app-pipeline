@@ -57,7 +57,7 @@ export class ConsumerPaymentPackListItemCheckout extends Component<
       !payment_pack.max_bookings_per_week;
     const hasBookingsLeftThisMonth =
       payment_pack.max_bookings_per_month > bookings_within_month ||
-      !payment_pack.max_bookings_per_month;
+      (!payment_pack.max_bookings_per_month || !bookings_within_month);
 
     if (!hasEnoughCredits) {
       // the backend should not return these cases, handling them anyway
@@ -67,7 +67,9 @@ export class ConsumerPaymentPackListItemCheckout extends Component<
       return <Button disabled>{t('payment.noBookingsLeftOnPack')}</Button>;
     }
     if (!hasBookingsLeftThisMonth) {
-      return <Button disabled>{t('payment.noBookingsLeftOnPackInMonth')}</Button>;
+      return (
+        <Button disabled>{t('payment.noBookingsLeftOnPackInMonth')}</Button>
+      );
     }
 
     const buyButtonText = this.getBuyText();

@@ -53,9 +53,9 @@ export class ConsumerPackCheckout extends Component<Props, State> {
     const hasBookingsLeftThisWeek =
       payment_pack.max_bookings_per_week > bookings_this_week ||
       !payment_pack.max_bookings_per_week;
-      const hasBookingsLeftThisMonth =
+    const hasBookingsLeftThisMonth =
       payment_pack.max_bookings_per_month > bookings_within_month ||
-      !payment_pack.max_bookings_per_month;
+      (!payment_pack.max_bookings_per_month || !bookings_within_month);
 
     if (!hasEnoughCredits) {
       // the backend should not return these cases, handling them anyway

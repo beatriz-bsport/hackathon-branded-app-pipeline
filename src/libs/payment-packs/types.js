@@ -17,6 +17,7 @@ export type PaymentPack = {
   tax: string,
   company: { name: string },
   max_bookings_per_week: number,
+  max_bookings_per_month: number,
   validity_daterange: ?{ upper: string, lower: string },
   duration_days: ?number,
   duration_months: ?number,

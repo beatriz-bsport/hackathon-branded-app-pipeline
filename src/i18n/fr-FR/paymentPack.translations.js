@@ -183,6 +183,10 @@ exports.default = {
         bewareChange:
           'Si vous augmentez le nb de crédit, toutes les cartes existantes seront affectées. Idem si vous diminuez le nombre de crédits.',
       },
+      maxBookingPerMonth: {
+        label: 'Utilisation max par mois',
+        helperText: 'Laisser vide pour ne pas imposer de limite',
+      },
       maxBookingPerWeek: {
         label: 'Utilisation max par semaine',
         helperText: 'Laisser vide pour ne pas imposer de limite',
@@ -293,6 +297,7 @@ exports.default = {
   enableConsumer: 'Débloquer',
   maxNBookingsByWeek1: "Jusqu'à ",
   maxNBookingsByWeek2: ' réservations par semaine',
+  maxNBookingsByMonth2: ' réservations par mois',
   validity: 'Valide :',
   consumer: {
     isFromShare: 'Partagé depuis un autre compte',

@@ -636,6 +636,7 @@ exports.default = {
     bookWithUnlimitedPack: 'Réserver',
     noCreditLeft: 'Pas assez de crédit',
     noBookingsLeftOnPack: 'Carte épuisée pour cette semaine',
+    noBookingsLeftOnPackInMonth: 'Carte épuisée pour ce mois',
     yourBasket: 'Votre achat',
     availablePaymentPacks: ' carte de cours compatibles',
     payWithNCredits1: 'Réserver (',

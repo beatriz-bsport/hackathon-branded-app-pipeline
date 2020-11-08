@@ -310,6 +310,16 @@ export function PaymentPackForm(props: Props) {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                id="textfield_restrictions_monthlymaxuser"
+                label={t('form.paymentPack.maxBookingPerMonth.label')}
+                type="number"
+                fullWidth
+                name="max_bookings_per_month"
+                helperText={t('form.paymentPack.maxBookingPerMonth.helperText')}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
                 id="textfield_restrictions_maxuser"
                 label={t('form.paymentPack.maxBookingPerWeek.label')}
                 type="number"
@@ -457,6 +467,9 @@ const PackSchema = Yup.object().shape({
       .min(0)
       .nullable(),
   }),
+  max_bookings_per_month: Yup.number()
+    .min(0)
+    .nullable(),
   max_bookings_per_week: Yup.number()
     .min(0)
     .nullable(),
@@ -526,6 +539,7 @@ export default compose(
           duration_days: 0,
           duration_months: 1,
           duration_years: 0,
+          max_bookings_per_month: null,
           max_bookings_per_week: null,
           max_purchase_per_member: null,
           max_bookings_per_day: null,
@@ -572,6 +586,7 @@ export default compose(
         'credits',
         'max_bookings_per_day',
         'max_bookings_per_week',
+        'max_bookings_per_month',
         'max_purchase_per_member',
         'id',
         'new_member_only',

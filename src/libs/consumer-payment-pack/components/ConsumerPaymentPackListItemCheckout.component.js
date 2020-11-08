@@ -47,6 +47,7 @@ export class ConsumerPaymentPackListItemCheckout extends Component<
       payment_pack,
       available_credits,
       bookings_this_week,
+      bookings_within_month,
     } = consumerPack;
 
     const hasEnoughCredits =
@@ -54,6 +55,9 @@ export class ConsumerPaymentPackListItemCheckout extends Component<
     const hasBookingsLeftThisWeek =
       payment_pack.max_bookings_per_week > bookings_this_week ||
       !payment_pack.max_bookings_per_week;
+    const hasBookingsLeftThisMonth =
+      payment_pack.max_bookings_per_month > bookings_within_month ||
+      !payment_pack.max_bookings_per_month;
 
     if (!hasEnoughCredits) {
       // the backend should not return these cases, handling them anyway
@@ -61,6 +65,9 @@ export class ConsumerPaymentPackListItemCheckout extends Component<
     }
     if (!hasBookingsLeftThisWeek) {
       return <Button disabled>{t('payment.noBookingsLeftOnPack')}</Button>;
+    }
+    if (!hasBookingsLeftThisMonth) {
+      return <Button disabled>{t('payment.noBookingsLeftOnPackInMonth')}</Button>;
     }
 
     const buyButtonText = this.getBuyText();

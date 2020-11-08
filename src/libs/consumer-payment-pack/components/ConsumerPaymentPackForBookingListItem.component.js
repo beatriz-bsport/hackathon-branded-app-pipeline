@@ -45,6 +45,7 @@ export class ConsumerPackCheckout extends Component<Props, State> {
       payment_pack,
       available_credits,
       bookings_this_week,
+      bookings_within_month,
     } = consumerPack;
 
     const hasEnoughCredits =
@@ -52,12 +53,15 @@ export class ConsumerPackCheckout extends Component<Props, State> {
     const hasBookingsLeftThisWeek =
       payment_pack.max_bookings_per_week > bookings_this_week ||
       !payment_pack.max_bookings_per_week;
+      const hasBookingsLeftThisMonth =
+      payment_pack.max_bookings_per_month > bookings_within_month ||
+      !payment_pack.max_bookings_per_month;
 
     if (!hasEnoughCredits) {
       // the backend should not return these cases, handling them anyway
       return <Button disabled>{t('payment.noCreditLeft')}</Button>;
     }
-    if (!hasBookingsLeftThisWeek) {
+    if (!hasBookingsLeftThisWeek || !hasBookingsLeftThisMonth) {
       return <Button disabled>{t('payment.noBookingsLeftOnPack')}</Button>;
     }
 

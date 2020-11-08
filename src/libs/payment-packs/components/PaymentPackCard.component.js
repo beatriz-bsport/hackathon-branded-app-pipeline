@@ -155,6 +155,23 @@ export class PaymentPackCard extends Component<Props> {
     return null;
   };
 
+  renderMaxMonthBookings = () => {
+    const { t, classes, pack } = this.props;
+    const { max_bookings_per_month } = pack;
+    if (max_bookings_per_month) {
+      return (
+        <div className={classes.restrictionBlock}>
+          <Typography>
+            {t('maxNBookingsByWeek1')}
+            <b>{max_bookings_per_month}</b>
+            {t('maxNBookingsByMonth2')}
+          </Typography>
+        </div>
+      );
+    }
+    return null;
+  };
+
   renderTimeInfo = () => {
     const { pack, classes, t } = this.props;
     return (
@@ -169,6 +186,7 @@ export class PaymentPackCard extends Component<Props> {
     const {
       unlimited,
       max_bookings_per_week,
+      max_bookings_per_month,
       new_member_only,
       base_price,
       name,
@@ -185,6 +203,9 @@ export class PaymentPackCard extends Component<Props> {
     }
     if (unlimited && !!max_bookings_per_week) {
       creditsFormatted = this.renderMaxWeekBookings();
+    }
+    if (unlimited && !max_bookings_per_week && !!max_bookings_per_month) {
+      creditsFormatted = this.renderMaxMonthBookings();
     }
     return (
       <div>
@@ -215,6 +236,7 @@ export class PaymentPackCard extends Component<Props> {
               <div>
                 {this.renderTimeInfo()}
                 {!unlimited && this.renderMaxWeekBookings()}
+                {!unlimited && this.renderMaxMonthBookings()}
               </div>
             </div>
           </Grid>

@@ -214,6 +214,7 @@ export type PaymentPack = {
   tax: number,
   company: { name: string },
   max_bookings_per_week: number,
+  max_bookings_per_month: number,
   validity_daterange: ?{ upper: string, lower: string },
   duration_days: ?number,
   duration_months: ?number,
@@ -227,12 +228,14 @@ export type ConsumerPaymentPackConsumerView = {
   name: string,
   used_credits: number,
   bookings_this_week: number,
+  bookings_within_month: number,
   ending_date: string,
 };
 
 export type ConsumerPaymentPackManagerView = {
   id: number,
   bookings_this_week: number,
+  bookings_within_month: number,
   ending_date: string,
 };
 
@@ -250,6 +253,7 @@ export type PaymentPackManagerView = {
   categories: Array<Category>,
   activities: Array<Object>,
   max_bookings_per_week: number,
+  max_bookings_per_month: number,
   validity_daterange: ?{ upper: string, lower: string },
   duration_days: ?number,
 };

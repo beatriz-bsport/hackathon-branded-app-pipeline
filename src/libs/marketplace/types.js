@@ -77,6 +77,7 @@ export type PaymentPack = {
   credits: number,
   unlimited: boolean,
   max_bookings_per_week: number,
+  max_bookings_per_month: number,
   validity_daterange: *,
   duration_days: ?number,
   duration_months: ?number,

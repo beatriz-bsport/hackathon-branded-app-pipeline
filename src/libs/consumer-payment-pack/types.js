@@ -11,6 +11,7 @@ export type ConsumerPaymentPackExtension = {
 export type ConsumerPaymentPack = {
   id: number,
   bookings_this_week: number,
+  bookings_this_month: number,
   ending_date: string,
   starting_date: string,
   available_credits: number,

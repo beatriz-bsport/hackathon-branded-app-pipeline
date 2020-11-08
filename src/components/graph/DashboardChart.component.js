@@ -1,10 +1,12 @@
 // @flow
 import * as React from 'react';
-import { withStateHandlers } from 'recompose';
+import { withStateHandlers, withState, withHandlers, compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Skeleton from '@material-ui/lab/Skeleton';
-// import Paper from '@material-ui/core/Paper';
+import Chip from '@material-ui/core/Chip';
+import { useTranslation } from 'react-i18next';
+import SaveIcon from '@material-ui/icons/Save';
 import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import Popover from '@material-ui/core/Popover';
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,6 +24,9 @@ type Props = {
   filtersComponent?: React.Element<any>,
   range: { start: string, end: string, kind: string },
   setRange: ({ start: string, end: string }) => void,
+  save: () => void,
+  showSaveButton: (boolean) => void,
+  timeSettings: string,
 };
 
 const DashboardChart = (props: Props) => {
@@ -35,6 +40,7 @@ const DashboardChart = (props: Props) => {
     setAnchorEl(null);
   };
 
+  const { t } = useTranslation(['dashboard']);
   const classes = useStyles();
   const open = anchorEl;
   return (
@@ -51,14 +57,29 @@ const DashboardChart = (props: Props) => {
             />
           )}
         </div>
-        {props.range ? (
-          <ChartRange
-            start_date={props.range.start}
-            end_date={props.range.end}
-            kind={props.range.kind}
-            setRange={props.setRange}
-          />
-        ) : null}
+        <div className={classes.inlineContainer}>
+          {props.showSaveButton ? (
+            <Chip
+              className={classes.saveChip}
+              icon={<SaveIcon />}
+              color="primary"
+              label={t('save')}
+              onClick={props.save}
+              size="small"
+              clickable
+            />
+          ) : null}
+
+          {props.range ? (
+            <ChartRange
+              start_date={props.range.start}
+              end_date={props.range.end}
+              kind={props.range.kind}
+              setRange={props.setRange}
+              timeSettings={props.timeSettings}
+            />
+          ) : null}
+        </div>
       </div>
       {props.popoverText && (
         <Popover
@@ -147,34 +168,57 @@ const useStyles = makeStyles((theme) => ({
   graph: {
     paddingRight: theme.spacing(2),
   },
+  inlineContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  saveChip: {
+    marginRight: theme.spacing(2),
+  },
 }));
 
-export default withStateHandlers(
-  ({ filters }) => ({ openFilters: {}, filtersValue: filters }),
-  {
-    setOpenFiltersValue: ({ openFilters }) => (name: string) => {
-      return {
-        openFilters: {
-          ...openFilters,
-          [name]: !openFilters[name],
-        },
-      };
-    },
-    setFilters: ({ filtersValue }, { setChartFilters }) => (
-      name: string,
-      value: any,
-    ) => {
-      let newFilters = { ...filtersValue };
-      if (value === null) {
-        delete newFilters[name];
-      } else {
-        newFilters = {
-          ...filtersValue,
-          [name]: value,
+export default compose(
+  withState('showSaveButton', 'setShowSaveButton', false),
+  withStateHandlers(
+    ({ filters }) => ({ openFilters: {}, filtersValue: filters }),
+    {
+      setOpenFiltersValue: ({ openFilters }) => (name: string) => {
+        return {
+          openFilters: {
+            ...openFilters,
+            [name]: !openFilters[name],
+          },
         };
-      }
-      setChartFilters(newFilters);
-      return { filtersValue: newFilters };
+      },
+      setFilters: (
+        { filtersValue },
+        { setChartFilters, setShowSaveButton },
+      ) => (name: string, value: any) => {
+        setShowSaveButton(true);
+        let newFilters = { ...filtersValue };
+        if (value === null) {
+          delete newFilters[name];
+        } else {
+          newFilters = {
+            ...filtersValue,
+            [name]: value,
+          };
+        }
+        setChartFilters(newFilters);
+        return { filtersValue: newFilters };
+      },
     },
-  },
+  ),
+  withHandlers({
+    setRange: ({ setRange, setShowSaveButton }) => (r) => {
+      if (setRange) {
+        setShowSaveButton(true);
+        setRange(r);
+      }
+    },
+    save: ({ save, setShowSaveButton }) => () => {
+      setShowSaveButton(false);
+      save();
+    },
+  }),
 )(DashboardChart);

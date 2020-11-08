@@ -30,7 +30,7 @@ type Props = {
   xLabel?: string,
   yLabel?: string,
   allowDecimals?: boolean,
-  refreshKey: string,
+  refreshKey?: string,
 };
 
 export function TemporalAreaChart(props: Props) {

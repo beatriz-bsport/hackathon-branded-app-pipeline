@@ -30,7 +30,7 @@ type Props = {
   yLabel?: string,
   barSize?: number,
   allowDecimals?: boolean,
-  refreshKey: string,
+  refreshKey?: string,
 };
 
 export function TemporalBarChart(props: Props) {

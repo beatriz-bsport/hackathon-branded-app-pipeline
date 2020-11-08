@@ -1,4 +1,13 @@
+const BOOKING_SOURCES = require('@bsport/common/lib/master-data/booking_source');
 const BUYABLE_ITEM = require('@bsport/common/lib/master-data/buyable-items');
+
+const {
+  BOOKING_SOURCE_APP,
+  BOOKING_SOURCE_WEB,
+  BOOKING_SOURCE_SAAS,
+  BOOKING_SOURCE_OTHER,
+  BOOKING_SOURCE_MIGRATION,
+} = BOOKING_SOURCES;
 
 const {
   BUYABLE_ITEM_PASS,
@@ -10,6 +19,14 @@ const {
 } = BUYABLE_ITEM;
 
 exports.default = {
+  save: 'Sauvegarder',
+  resetModal: {
+    title: 'Réinitialiser les paramètres',
+    content:
+      'Les paramètres des différents graphes reviendront à leur valeur par défaut, voulez-vous continuer ?',
+    cancel: 'Annuler',
+    confirm: 'Continuer',
+  },
   current_day: 'Dernières 24 heures',
   current_week: 'Dernière semaine',
   current_month: 'Mois dernier',
@@ -23,7 +40,7 @@ exports.default = {
   // eslint-disable-next-line
   turnover: {
     title: 'Encaissements',
-    caption: "Chiffre d'affaire (€)",
+    caption: 'Encaissements (€)',
     popover: 'Somme de tous les paiements reçus figurant sur les factures',
   },
   bookings: 'Réservations',
@@ -49,11 +66,6 @@ exports.default = {
   noData: 'Aucune donnée à afficher',
   bookingSource: {
     title: 'Origine des réservations',
-    app: 'Application',
-    web: 'Web',
-    saas: 'Backoffice bsport',
-    other: 'Autre',
-    migration: 'Migration de données',
   },
   plannedPayment: {
     title: 'Encaissements des souscriptions',
@@ -62,6 +74,17 @@ exports.default = {
   },
   invoiceItems: {
     title: 'Ventes par type de produit',
+  },
+  bookingDropdown: {
+    source: {
+      [BOOKING_SOURCE_APP.id.toString()]: 'Application',
+      [BOOKING_SOURCE_WEB.id.toString()]: 'Web',
+      [BOOKING_SOURCE_SAAS.id.toString()]: 'Backoffice bsport',
+      [BOOKING_SOURCE_OTHER.id.toString()]: 'Autre',
+      [BOOKING_SOURCE_MIGRATION.id.toString()]: 'Migration de données',
+    },
+  },
+  invoiceItemDropdown: {
     contentType: {
       [BUYABLE_ITEM_PASS]: 'Cartes de cours',
       [BUYABLE_ITEM_SHOP_ITEM]: 'Produits du magasin',

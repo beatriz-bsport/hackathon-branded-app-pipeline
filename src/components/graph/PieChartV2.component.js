@@ -20,15 +20,15 @@ import { getPalette, getAnalogColors } from './color-utils';
 type Props = {
   height?: number | string,
   width?: number | string,
-  data: Array<any>,
+  data: Array<{ name: string, value: number }>,
   baseColor: string,
-  chartOptions: Array<{ dataKey: string, caption: string }>,
   innerRadius?: number | string,
   outerRadius?: number | string,
   tooltip?: boolean,
   legend?: boolean,
   margin?: { top: number, right: number, bottom: number, left: number },
   isCurrencyFormat?: boolean,
+  translationKey?: string,
 };
 
 const RenderLegend = (props: { payload: any }) => {
@@ -89,33 +89,33 @@ export function PieChartV2(props: Props) {
     width,
     height,
     margin,
-    chartOptions,
     innerRadius,
     outerRadius,
     tooltip,
     baseColor,
     legend,
     isCurrencyFormat,
+    translationKey,
   } = props;
   const classes = useStyles(height);
-  const { t } = useTranslation(['dashboard']);
+  const { t } = useTranslation();
   const total = props.data.reduce((x, y) => x + y.value, 0);
 
-  const data = props.data
-    .map((entry) => ({
-      name: (
-        chartOptions.find((option) => entry.name === option.dataKey) || {
-          caption: '...',
-        }
-      ).caption,
-      value: Math.abs(entry.value),
-    }))
+  let data = props.data
+    .map((entry) => ({ ...entry, value: Math.abs(entry.value) }))
     .filter((entry) => entry.value > 0);
+
+  if (translationKey) {
+    data = data.map((entry) => ({
+      ...entry,
+      name: t(`${translationKey}.${entry.name}`),
+    }));
+  }
 
   if (data && data.length === 0) {
     return (
       <div className={classes.noDataMessage}>
-        <Typography variant="h6">{t('noData')}</Typography>
+        <Typography variant="h6">{t('dashboard:noData')}</Typography>
       </div>
     );
   }

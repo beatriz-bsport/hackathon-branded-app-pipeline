@@ -400,4 +400,10 @@ exports.default = {
       error: "Impossible de supprimer l'arrêt programmé de la souscription",
     },
   },
+  dashboard: {
+    save: {
+      success: 'Les modifications ont été enregistrées',
+      error: "Impossible d'enregistrer les modifications",
+    },
+  },
 };

@@ -26,6 +26,7 @@ import type { CompanyState } from '../libs/company/types';
 import type { NotificationRuleState } from '../libs/notification-rule/types';
 import type { MarketingNotificationState } from '../libs/marketing/types';
 import type { PartnershipState } from '../libs/partnership/types';
+import type { DashboardSettingsState } from '../libs/dashboard/types';
 
 import type { BackgroundTaskState } from '../libs/background-task/types';
 
@@ -57,6 +58,7 @@ export type State = {
   partnership: PartnershipState,
   backgroundTask: BackgroundTaskState,
   marketingNotification: MarketingNotificationState,
+  dashboardSettings: DashboardSettingsState,
 };
 export type Action = SearchAction | AuthAction;
 

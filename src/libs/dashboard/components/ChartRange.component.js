@@ -21,7 +21,8 @@ type Props = {
   kind: ?string,
   start_date: ?string,
   end_date: ?string,
-  setRange: ?({ start: string, end: string }) => void,
+  setRange: ?({ start: string, end: string, kind: string }) => void,
+  timeSettings: string,
 };
 
 type State = {
@@ -83,7 +84,7 @@ class ChartRange extends React.Component<Props, State> {
 
   handleChangeInterval = (start, end, custom) => {
     this.setState({ start_date: start, end_date: end, kind: custom });
-    this.props.setRange({ start, end });
+    this.props.setRange({ start, end, kind: custom });
   };
 
   render() {
@@ -103,7 +104,7 @@ class ChartRange extends React.Component<Props, State> {
           variant="outlined"
           size="small"
           clickable={!!this.props.setRange}
-          disabled={!this.props.setRange}
+          disabled={this.props.timeSettings !== 'range'}
         />
         <Popover
           open={Boolean(anchorEl)}

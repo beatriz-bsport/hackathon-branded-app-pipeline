@@ -1,3 +1,4 @@
+// @flow
 import moment from 'moment-timezone';
 import {
   fetchMemberStatistics as fetchMemberStatisticsAction,
@@ -14,51 +15,54 @@ import {
 } from '../../state/stats/selectors';
 
 import { TemporalBarChart } from '../../components/graph/TemporalBarChart.component';
+import { TemporalAreaChart } from '../../components/graph/TemporalAreaChart.component';
 import { TimeslotGridChart } from '../../components/graph/TimeslotGridChart.component';
+import { QualitativeBarChart } from '../../components/graph/QualitativeBarChart.component';
 import { PieChartV2 } from '../../components/graph/PieChartV2.component';
 
 import BookingFilters from '../booking/components/BookingFilters.component';
+import type { Tab, Graph } from './types';
 
 export const graphRessources = {
-  temporalBarChartMember: {
+  temporalMember: {
     action: fetchMemberStatisticsAction,
     selector: getStatisticTemporal,
-    chartComponent: TemporalBarChart,
+    chartComponents: { bar: TemporalBarChart, area: TemporalAreaChart },
     filtersComponent: null,
     timeSettings: 'range',
   },
   temporalTimeslotBooking: {
     action: fetchBookingTimeslotStatisticsAction,
     selector: getStatisticTemporalGrid,
-    chartComponent: TimeslotGridChart,
+    chartComponents: { grid: TimeslotGridChart },
     filtersComponent: BookingFilters,
     timeSettings: 'range',
   },
-  temporalBarChartPayment: {
+  temporalPayment: {
     action: fetchPaymentStatisticsAction,
     selector: getStatisticTemporal,
-    chartComponent: TemporalBarChart,
+    chartComponents: { bar: TemporalBarChart, area: TemporalAreaChart },
     filtersComponent: null,
     timeSettings: 'range',
   },
-  temporalBarChartPlannedInvoice: {
+  temporalPlannedInvoice: {
     action: fetchPlannedInvoiceStatisticsAction,
     selector: getStatisticTemporal,
-    chartComponent: TemporalBarChart,
+    chartComponents: { bar: TemporalBarChart, area: TemporalAreaChart },
     filtersComponent: null,
     timeSettings: 'unique',
   },
-  pieChartBooking: {
+  qualitativeBooking: {
     action: fetchBookingQualitativeAction,
     selector: getStatisticTemporalGrid,
-    chartComponent: PieChartV2,
+    chartComponents: { pie: PieChartV2, bar: QualitativeBarChart },
     filtersComponent: BookingFilters,
     timeSettings: 'range',
   },
-  pieChartInvoiceItem: {
+  qualitativeInvoiceItem: {
     action: fetchInvoiceItemQualitativeAction,
     selector: getStatisticTemporalGrid,
-    chartComponent: PieChartV2,
+    chartComponents: { pie: PieChartV2, bar: QualitativeBarChart },
     filtersComponent: null,
     timeSettings: 'range',
   },
@@ -66,12 +70,9 @@ export const graphRessources = {
 
 // timeSettings: 'range', 'unique' or 'none'
 
-// this function will be used in a selector when fetching the JSON graph data
-// from the backend
-// not used yet
-export const replaceDates = (dashboardGraphs) => {
-  return dashboardGraphs.map((graph) => {
-    const { defaultRange } = graph;
+const replaceDates = (graphList: Array<Graph>) => {
+  return graphList.map((graph) => {
+    const defaultRange = { ...graph.defaultRange };
     if (defaultRange.kind !== 'custom') {
       switch (defaultRange.kind) {
         case 'current_year':
@@ -102,6 +103,12 @@ export const replaceDates = (dashboardGraphs) => {
           break;
       }
     }
-    return { ...graph, ...defaultRange };
+    return { ...graph, defaultRange };
   });
+};
+
+export const processDashboard = (tabList: Array<Tab>) => {
+  // takes an array of tabs, each tab is an array of graphs
+  // for each tab, apply replaceDates function
+  return tabList.map((tab) => ({ ...tab, graphs: replaceDates(tab.graphs) }));
 };

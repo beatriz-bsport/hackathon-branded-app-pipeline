@@ -54,6 +54,7 @@ import paymentBackend from '../libs/payment/reducers';
 import platformBilling from '../libs/platform-billing/reducers';
 import backgroundTaskReducers from '../libs/background-task/reducers';
 import marketingNotification from '../libs/marketing/reducers';
+import dashboardSettings from '../libs/dashboard/reducers';
 
 import type { State, Action } from '../state/types';
 
@@ -114,6 +115,7 @@ const rootReducer = (history) =>
     cashbook: cashBookReducers,
     backgroundTask: backgroundTaskReducers,
     marketingNotification,
+    dashboardSettings,
   });
 
 export default (history) => (state: State, action: Action) => {

@@ -10,9 +10,8 @@ stages:
   - lint
   # - unit_tests
   # - e2e_tests
-  - auto-bump
+  - bump-version
   - configure_and_deploy
-  - promote
 
 before_script:
   - yarn config set cache-folder $YARN_CACHE_DIR 
@@ -29,48 +28,22 @@ lint:
   except:
     - master
     - production
- 
 
-Release Staging:
-  stage: promote
+
+.Auto Bump Version Base:
   image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:latest
-  when: manual
-  tags:
-    - deployment
-  only:
-    refs:
-      - dev
-
-  before_script:
-    - echo 'Overriding yarn before_script'
-
-  script:
-    - git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/bsport/bsport-saas.git
-    - git config --global user.email "contact@bsport.io"
-    - git config --global user.name "bsport-bot"
-    - git fetch
-    - git rebase master
-    - git push -f
-    - git checkout master
-    - git merge dev
-    - git push
-
-
-
-
-Auto Bump Version:
-  image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:latest
-  stage: auto-bump
+  stage: bump-version
   tags:
     - deployment
   only:
     - master
+    - production
+    - dev
   before_script:
     - echo 'Overriding default before_script instruction relying on yarn'
 
   script:
     - echo $CI_COMMIT_REF_NAME
-    - export CHANGELOG_FILE=CHANGELOG.${CI_COMMIT_REF_NAME}
     - envsubst "$(printf '${%s} ' $(env | sed 's/=.*//'))"  > .cz < .cz
     - cat .cz
     - git remote -v
@@ -81,18 +54,42 @@ Auto Bump Version:
     - 'exists=`git show-ref refs/heads/${CI_COMMIT_REF_NAME}` && if [ -n "$exists" ]; then git branch -D ${CI_COMMIT_REF_NAME}; fi'
     - git checkout -b $CI_COMMIT_REF_NAME
 
-    - 'cz bump --check-consistency --changelog && SHOULD_PUSH=1 || SHOULD_PUSH=0;'
+    - '[[ $PRERELEASE ]] && cz bump --check-consistency --yes --changelog --prerelease $PRERELEASE && SHOULD_PUSH=1 || SHOULD_PUSH=0;'
+    - 'cz bump --check-consistency --yes --changelog --prerelease $PRERELEASE && SHOULD_PUSH=1 || SHOULD_PUSH=0;'
     - VERSION=`echo "$(cat ./VERSION)"`
     - echo $VERSION
     - echo "#!/bin/sh" >> variables
     - echo "export TAG='$VERSION'" >> variables
 
-    - '[[ $SHOULD_PUSH = 1 ]] && git push origin $CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME || echo "no code to push"'
-    - '[[ $SHOULD_PUSH = 1 ]] && git push origin $CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME --tags || echo "no tag to push"'
+    - 'git push origin $CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME --follow-tags || echo "no code to push"'
+    - ./scripts/release-gitlab.sh $VERSION  $CI_PROJECT_ID
 
   artifacts:
     paths:
       - variables
+
+Auto Bump Dev:
+  extends: .Auto Bump Version Base
+  only:
+    refs:
+      - dev
+  variables:
+    PRERELEASE: alpha
+
+Auto Bump Staging:
+  extends: .Auto Bump Version Base
+  only:
+    refs:
+      - master
+  variables:
+    PRERELEASE: beta 
+
+Auto Bump Staging:
+  extends: .Auto Bump Version Base
+  only:
+    refs:
+      - production
+
 
 .Build and deploy Base:
   stage: configure_and_deploy

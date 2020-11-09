@@ -415,6 +415,12 @@ export const deletePrivateBooking = (id: number) => {
   return deleteAuth(`${API_V1_URI}/private_service/private_booking/${id}/`);
 };
 
+export const restorePrivateBooking = (id: number) => {
+  return putAuth(
+    `${API_V1_URI}/private_service/private_booking/${id}/restore/`,
+  );
+};
+
 export const attachCoach = (
   id: number,
   {

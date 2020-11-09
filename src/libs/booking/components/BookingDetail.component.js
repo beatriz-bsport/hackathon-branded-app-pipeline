@@ -65,6 +65,14 @@ export class BookingDetail extends Component<Props> {
               <Typography inline>{t('parameters.registeredOn')}:</Typography>
               <Typography inline>{formatAsDatetime(booking.date)}</Typography>
             </div>
+            {booking.date_canceled && (
+              <div className={classes.parameter}>
+                <Typography inline>{t('parameters.cancelledOn')}:</Typography>
+                <Typography inline>
+                  {formatAsDatetime(booking.date_canceled)}
+                </Typography>
+              </div>
+            )}
             <div className={classes.parameter}>
               <Typography inline>{`${t('parameters.source')}: `}</Typography>
               <BookingSource t={this.props.t} source={booking.source} />

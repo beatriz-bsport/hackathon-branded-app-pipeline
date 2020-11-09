@@ -54,7 +54,7 @@ export class PrivateBookingDisableDialog extends React.Component<Props, State> {
             <Typography>
               {isDisabled
                 ? t('privateBooking.delete.explainHardDelete')
-                : t('privateBooking.delete.explain')}
+                : t('privateBooking.delete.explainWithRestore')}
             </Typography>
             <div className={classes.checkboxContainer}>
               <Checkbox

@@ -127,6 +127,7 @@ exports.default = {
   },
   parameters: {
     registeredOn: 'Réservé le ',
+    cancelledOn: 'Annulé le ',
     source: 'Canal de réservation',
   },
   source: {
@@ -148,8 +149,11 @@ exports.default = {
   creditConsumed_plural: '{{credit_consumed}} crédits',
   statusCode: {
     cancelledByManager: 'Annulation manager',
+    cancelledByManagerDate: 'Annulation manager le {{-date}} à {{time}}',
     cancelledByConsumer: 'Annulation client',
+    cancelledByConsumerDate: 'Annulation client le {{-date}} à {{time}}',
     cancelledByOffer: 'Séance annulée par le club',
+    cancelledByOfferDate: 'Séance annulée par le club le {{-date}} à {{time}}',
   },
   notification: {
     addNotification: 'Ajouter une notification',

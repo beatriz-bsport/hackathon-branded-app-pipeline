@@ -106,7 +106,9 @@ exports.default = {
     cancel: 'Annuler',
     discard: 'Annuler le RDV',
     hardDelete: 'Supprimer',
+    restore: 'Restaurer le RDV',
     isCancelled: 'Annulé',
+    isCancelledDate: 'Annulé le {{-date}} à {{time}}',
     attachCoach: {
       title: 'Attribution au professeur',
       explain:
@@ -119,6 +121,7 @@ exports.default = {
     detail: {
       title: 'Réservation',
       registeredOn: 'Réservé le ',
+      cancelledOn: 'Annulé le ',
       source: 'Canal de réservation ',
       slotTitle: 'Séance',
       passTitle: 'Carte de cours',
@@ -159,6 +162,8 @@ exports.default = {
       title: 'Annulation réservation',
       explain:
         'Êtes- vous sûr de vouloir annuler cette réservation ? Cette opération est irréversible.',
+      explainWithRestore:
+        'Êtes- vous sûr de vouloir annuler cette réservation ? Vous pourrez annuler cette opération plus tard.',
       explainHardDelete:
         "Cette réservation a déjà été annulée, la supprimer la fera disparaitre du calendrier totalement et vous perdrez l'historique. Elle sera remboursée si elle ne l'a pas été précédemment. Cette opération est irréversible.",
       explainForceRefund:

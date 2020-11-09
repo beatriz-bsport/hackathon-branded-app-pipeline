@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
@@ -24,11 +25,34 @@ import type { Booking } from './types';
 export const getBookingStatusCode = (t: TFunction, booking: Booking) => {
   switch (booking.booking_status_code) {
     case BOOKING_STATUS_CANCELLED_BY_MANAGER.id:
-      return ` (${t('booking:statusCode.cancelledByManager')})`;
+      return ` (${
+        booking.date_canceled
+          ? t('booking:statusCode.cancelledByManagerDate', {
+              date: moment(booking.date_canceled).format('L'),
+              time: moment(booking.date_canceled).format('LT'),
+            })
+          : t('booking:statusCode.cancelledByManager')
+      })`;
     case BOOKING_STATUS_CANCELLED_BY_CONSUMER.id:
-      return ` (${t('booking:statusCode.cancelledByConsumer')})`;
+      return ` (${
+        booking.date_canceled
+          ? t('booking:statusCode.cancelledByConsumerDate', {
+              date: moment(booking.date_canceled).format('L'),
+              time: moment(booking.date_canceled).format('LT'),
+            })
+          : t('booking:statusCode.cancelledByConsumer')
+      })`;
+
     case BOOKING_STATUS_CANCELLED_BY_OFFER.id:
-      return ` (${t('booking:statusCode.cancelledByOffer')})`;
+      return ` (${
+        booking.date_canceled
+          ? t('booking:statusCode.cancelledByOfferDate', {
+              date: moment(booking.date_canceled).format('L'),
+              time: moment(booking.date_canceled).format('LT'),
+            })
+          : t('booking:statusCode.cancelledByOffer')
+      })`;
+
     default:
       return '';
   }

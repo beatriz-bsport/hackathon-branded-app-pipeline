@@ -32,6 +32,7 @@ type Props = {
   private_booking: PrivateBookingWithRelatedFields,
   goToMember: ?(id: number) => void,
   onDelete: () => void,
+  onRestore: () => void,
   isUpdateTimeFormOpen: boolean,
   loading: boolean,
   setUpdatedTime: (any) => void,
@@ -103,7 +104,12 @@ export const PrivateBookingCard = (props: Props) => {
       <div className={classes.header}>
         {props.private_booking.booking_status_code !== BOOKING_STATUS_OK.id ? (
           <Typography variant="h6" color="error">
-            {t('privateBooking.isCancelled')}
+            {private_booking.date_canceled
+              ? t('privateBooking.isCancelledDate', {
+                  date: moment(private_booking.date_canceled).format('L'),
+                  time: moment(private_booking.date_canceled).format('LT'),
+                })
+              : t('privateBooking.isCancelled')}
           </Typography>
         ) : null}
         <Typography variant="h4">
@@ -163,6 +169,9 @@ export const PrivateBookingCard = (props: Props) => {
         </div>
       ) : (
         <div className={classes.buttonContainer}>
+          <Button onClick={props.onRestore}>
+            {t('privateBooking.restore')}
+          </Button>
           <RedButton onClick={props.onDelete}>
             {t('privateBooking.hardDelete')}
           </RedButton>

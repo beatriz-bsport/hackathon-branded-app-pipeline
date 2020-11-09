@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
+import UndoIcon from '@material-ui/icons/Undo';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
@@ -23,6 +24,7 @@ type Props = {
   private_booking: PrivateBooking,
   classes: Object,
   onDelete?: () => void,
+  onRestore?: () => void,
 };
 export const PrivateBookingListItem = (props: Props) => {
   return (
@@ -51,6 +53,14 @@ export const PrivateBookingListItem = (props: Props) => {
         )}`}
       />
       <ListItemSecondaryAction>
+        {props.onRestore &&
+          props.private_booking.booking_status_code !==
+            BOOKING_STATUS_OK.id && (
+            <IconButton onClick={props.onRestore}>
+              <UndoIcon />
+            </IconButton>
+          )}
+
         {props.onDelete ? (
           <IconButton onClick={props.onDelete}>
             <CancelIcon />

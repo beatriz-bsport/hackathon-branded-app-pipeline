@@ -10,6 +10,7 @@ export type Booking = {
   member: number,
   booking_status_code: number,
   date: string,
+  date_canceled: string,
   status: boolean,
   invoice: ?string,
   attendance: boolean,

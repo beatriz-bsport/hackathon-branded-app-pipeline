@@ -54,6 +54,7 @@ import {
   registerPrivateBookings as registerPrivateBookingsAPI,
   disablePrivateBooking as disablePrivateBookingAPI,
   deletePrivateBooking as deletePrivateBookingAPI,
+  restorePrivateBooking as restorePrivateBookingAPI,
   fetchCalendarEventList as fetchCalendarEventListAPI,
   updatePrivateBookingDatetime as updatePrivateBookingDatetimeAPI,
   updatePrivateBookingCoach as updatePrivateBookingCoachAPI,
@@ -72,7 +73,7 @@ import {
 
 import { fetchAll as fetchAlerting } from '../alerting/actions';
 
-import type { Dispatch, ThunkAction } from '../../state/types';
+import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
 export const privateBookingAttachCoachActions = {
   error: createAction('PRIVATE_BOOKING/ATTACH_COACH/ERROR'),
@@ -1491,6 +1492,27 @@ export function disablePrivateBooking(
       console.error(err);
       dispatch(privateBookingCreateOrUpdateActions.error(null));
       if (options && options.onError) options.onError();
+    }
+    dispatch(privateBookingCreateOrUpdateActions.isLoading(false));
+  };
+}
+
+export function restorePrivateBooking(
+  id: number,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateBookingCreateOrUpdateActions.isLoading(true));
+    dispatch(privateBookingCreateOrUpdateActions.error(null));
+    try {
+      const response = await restorePrivateBookingAPI(id);
+      dispatch(privateBookingCreateOrUpdateActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+      dispatch(snackbarSuccess('privateBooking.restore.success'));
+    } catch (error) {
+      if (error.response && error.response.status === 403) {
+        dispatch(snackbarError('privateBooking.restore.error'));
+      }
     }
     dispatch(privateBookingCreateOrUpdateActions.isLoading(false));
   };

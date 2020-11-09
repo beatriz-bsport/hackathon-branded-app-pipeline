@@ -28,6 +28,7 @@ import {
   fetchPrivateSlot as fetchPrivateSlotAction,
   fetchPrivateConsumerPass as fetchPrivateConsumerPassAction,
   attachCoachToPrivateBooking as attachCoachAction,
+  restorePrivateBooking,
 } from '../../libs/private-service/actions';
 import { getCoaches } from '../../libs/associated-coach/selectors';
 import {
@@ -95,6 +96,7 @@ type Props = {
     data: any,
     options: { onSuccess?: (PrivateBooking) => void, onError: (Error) => void },
   ) => void,
+  restorePrivateBooking: (id: number) => void,
 };
 
 export class MemberDetailBooking extends Component<Props> {
@@ -139,6 +141,7 @@ export class MemberDetailBooking extends Component<Props> {
                   key={b.id}
                   private_booking={b}
                   onDelete={() => this.props.setBookingToDelete(b)}
+                  onRestore={() => this.props.restorePrivateBooking(b.id)}
                 />
               )}
             />
@@ -229,6 +232,7 @@ export default compose(
       disablePrivateBooking: disablePrivateBookingAction,
       fetchMember: fetchMemberAction,
       attachCoach: attachCoachAction,
+      restorePrivateBooking,
       goToPrivateService: (privateServiceId) =>
         push(`/private-service/service/${privateServiceId}/`),
       goToPrivateBooking: (memberId, privateBookingId) =>

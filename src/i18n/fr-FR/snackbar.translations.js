@@ -314,6 +314,11 @@ exports.default = {
       success: 'Le professeur a été modifié',
       error: 'Impossible de modifier le professeur',
     },
+    restore: {
+      success: 'Le rendez-vous a été restauré',
+      error:
+        "Impossible de restaurer le rendez-vous, il n'y a pas assez de crédits sur cette carte de rendez-vous.",
+    },
   },
   privateConsumerPass: {
     creditUpdate: {

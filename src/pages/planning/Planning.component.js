@@ -1003,6 +1003,7 @@ export default compose(
           BOOKING_STATUS_CANCELLED_BY_OFFER.id,
         ],
         date_field: 'date_updated',
+        // date_field: 'date_canceled',
         kind: 'count',
       });
     },

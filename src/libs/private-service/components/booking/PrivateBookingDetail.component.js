@@ -50,6 +50,16 @@ export const PrivateBookingDetail = (props: Props) => {
               {formatAsDatetime(private_booking.date_created)}
             </Typography>
           </div>
+          {private_booking.date_canceled && (
+            <div className={classes.parameterRow}>
+              <Typography inline>
+                {t('privateBooking.detail.cancelledOn')}:
+              </Typography>
+              <Typography inline>
+                {formatAsDatetime(private_booking.date_canceled)}
+              </Typography>
+            </div>
+          )}
           <div className={classes.parameterRow}>
             <Typography inline>
               {`${t('privateBooking.detail.source')}: `}

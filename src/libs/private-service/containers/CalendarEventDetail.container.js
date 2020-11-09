@@ -36,6 +36,7 @@ import {
   fetchPrivateService as fetchPrivateServiceAction,
   disablePrivateBooking as disablePrivateBookingAction,
   deletePrivateBooking as deletePrivateBookingAction,
+  restorePrivateBooking as restorePrivateBookingAction,
   updatePrivateBookingDatetime as updatePrivateBookingDatetimeAction,
   updatePrivateBookingCoach as updatePrivateBookingCoachAction,
   deleteCustomEvent as deleteCustomEventAction,
@@ -125,6 +126,7 @@ type Props = {
     options: OptionCallback,
   ) => void,
   refreshPrivateBookings: () => void,
+  restorePrivateBooking: (id: number) => void,
   closeDisablePrivateBookingModal: () => void,
 
   theme: ?CompanyTheme,
@@ -195,6 +197,7 @@ export class CalendarEventDetail extends React.Component<Props> {
         />
       ) : (
         <PrivateBookingCard
+          onRestore={() => this.props.restorePrivateBooking(privateBooking.id)}
           onDelete={this.props.openDisablePrivateBookingModal}
           private_booking={privateBooking}
           goToMember={goToMember}
@@ -525,6 +528,7 @@ const PrivateBookingCancellatorContainer = compose(
     {
       disablePrivateBooking: disablePrivateBookingAction,
       deletePrivateBooking: deletePrivateBookingAction,
+      restorePrivateBooking: restorePrivateBookingAction,
     },
   ),
   withStateHandlers(
@@ -573,6 +577,13 @@ const PrivateBookingCancellatorContainer = compose(
           },
         },
       );
+    },
+    restorePrivateBooking: ({ restorePrivateBooking, onClose }) => (
+      privateBookingId,
+    ) => {
+      restorePrivateBooking(privateBookingId, {
+        onSuccess: () => onClose(),
+      });
     },
   }),
 );

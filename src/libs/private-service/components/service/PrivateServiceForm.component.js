@@ -292,6 +292,37 @@ export const PrivateServiceForm = (props: Props) => {
           label={props.t('service.form.last_booking_minutes.label')}
         />
       </div>
+      <Typography>{t('service.form.paddingTitle')}</Typography>
+      <div>
+        <IntegerField
+          name="availability_padding_start_minutes"
+          className={classes.integerField}
+          fullWidth
+          label={t('service.form.paddingStart.label')}
+          helperText={
+            props.values.availability_padding_start_minutes
+              ? t('service.form.paddingStart.helperText', {
+                  minutes: props.values.availability_padding_start_minutes,
+                })
+              : t('service.form.paddingStart.helperText0')
+          }
+          required
+        />
+        <IntegerField
+          name="availability_padding_end_minutes"
+          className={classes.integerField}
+          fullWidth
+          label={t('service.form.paddingEnd.label')}
+          helperText={
+            props.values.availability_padding_end_minutes
+              ? t('service.form.paddingEnd.helperText', {
+                  minutes: props.values.availability_padding_end_minutes,
+                })
+              : t('service.form.paddingEnd.helperText0')
+          }
+          required
+        />
+      </div>
     </div>
   );
 };
@@ -336,6 +367,10 @@ const styles = (theme) => ({
     border: '1px solid white',
     borderRadius: 8,
   },
+  integerField: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
 });
 
 export const PrivateServiceSchema = Yup.object().shape({
@@ -350,6 +385,8 @@ export const PrivateServiceSchema = Yup.object().shape({
     .max(12),
   coaches: Yup.array().of(Yup.number()),
   establishments: Yup.array().of(Yup.number()),
+  availability_padding_start_minutes: Yup.number(),
+  availability_padding_end_minutes: Yup.number(),
 });
 
 export const PrivateServiceFormikHOC = withFormik({
@@ -389,6 +426,8 @@ export const PrivateServiceFormikHOC = withFormik({
       coach_consumer_attribution: RESOURCE_ATTRIBUTION_CONSUMER,
       last_discard_minutes: 24 * 60,
       last_booking_minutes: 0,
+      availability_padding_start_minutes: 0,
+      availability_padding_end_minutes: 0,
     };
   },
   validationSchema: PrivateServiceSchema,

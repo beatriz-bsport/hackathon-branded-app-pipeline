@@ -530,6 +530,21 @@ exports.default = {
             'La réservation ne sera possible que si la salle dispose de suffisamment de places libres',
         },
       },
+      paddingTitle: 'Gestion des disponibilités',
+      paddingStart: {
+        label: 'Nombre de minutes avant le début du RDV',
+        helperText:
+          'Sur le calendrier, le professeur et/ou la salle seront marqués comme non disponibles {{minutes}} minutes avant le début du RDV',
+        helperText0:
+          "Sur le calendrier, le professeur et/ou la salle seront marqués comme non disponibles à l'heure de début du RDV",
+      },
+      paddingEnd: {
+        label: 'Nombre de minutes après la fin du RDV',
+        helperText:
+          'Sur le calendrier, le professeur et/ou la salle seront de nouveau marqués comme disponibles {{minutes}} minutes après la fin du RDV',
+        helperText0:
+          "Sur le calendrier, le professeur et/ou la salle seront de nouveau marqués comme disponibles à l'heure de fin du RDV",
+      },
       resourceGroup: {
         establishment: 'Lieu',
         coach: 'Professeur',

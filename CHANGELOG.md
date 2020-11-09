@@ -1,3 +1,249 @@
+## 42.14.0a16 (2020-11-09)
+
+### Feat
+
+- **meta_activity**: auto_discard in MetaActivityForm and new notification rule
+- **payment-packs**: add max bookings per month field
+- **dashboard**: qualitative barchart and saving
+- **consumer_payment_pack**: show history of modifying credit
+- **exporthtml**: add button to export html file from email editor
+- **platform-billing**: show max/min stage and coupon in settings
+- **subscription**: auto-set subscription 0€ to credit + display flat fee
+- **booking-option**: disable notification on discard booking-option when converting as booking
+- **booking-option**: disable notification on discard booking-option when converting as booking
+- **partial-refund**: improve pack partial refund
+- **partial-refund**: improve pack partial refund
+- **subscription**: scheduled stop for subscriptions
+- **subscription**: scheduled stop for subscriptions
+- **menu**: denser responsive drawer nested menu item
+- **menu**: denser responsive drawer nested menu item
+- **phone**: translate phone in other countries
+- **phone**: translate phone in other countries
+- **smartlist**: add attendance option for BookingsFilters and BookingsNumberFilter
+- **recurrence-rule**: add establishment in recurrence rule booking
+- **smartlist**: add attendance option for BookingsFilters and BookingsNumberFilter
+- **recurrence-rule**: add establishment in recurrence rule booking
+- **gtm**: add gtm on custom login pages
+- **offer**: restore offer button
+- **mass_disable**: add background task for mass disable
+- **communication-dialog**: add sms and email-template email
+- **rum**: disable elasticsearch RUM
+- **booking**: filter on recurrence-rule-booking-isnull
+- **offer**: chose default view cancelled offer (manager space)
+- **offer**: background task for offer edit and offer create
+- **component birthday email**: add new component to birthday celebration email
+- **booking**: add filter not cancelled
+- **report**: addres/birthday in reports
+- **notification-rule**: add invoice notif and waiting-list kick
+- **dashboard**: new dashboard page
+- **recurrent-booking**: add recurrent booking on member page and fix pagination
+- **report**: add nb_offer and nb_offer_cancelled
+- **background-task**: background task monitoring and background task for disabling/deleting offers
+- **timezone**: return timezone_name in company onboarding
+- **timezone**: handle multitimezone
+- **bookingstatistics**: bookingStatistics filtered by offerFilters in calendar page
+- **bookingnotification**: notify every attendance / absence / cancellation ... for booking notif
+- **coupon**: add to subscription
+- **refund**: more explicit refund message
+- **booking-revert**: notify or not client about cancellation of their booking
+- **sepa**: allow oneshot sepa payment
+- **offer**: add recurrence rule for booking
+- **offer-card**: show if was first booking w/ ★
+- **bank-account**: support spanish bank accounts for companies
+- **platform-billing**: add multiple payment methods
+- **report**: add on spot payment report and add a button to generate it from cashbook
+- **offer-card**: back more info on card
+- **theme**: add general_terms_of_use
+- **marketplace**: add an appbar w/ email+basket on payment pages
+- **access-code**: add access codes to company onboarding
+- **platform-billing**: add payment method even if no subscription/billing-group
+- **platform-billing**: add new screen platform billing
+- **member**: count objects in tabs
+- **gtm**: add gtm in offer payment/booking page
+- **emails**: add checkbox to send emails to canceled Bookings
+- **settings**: make editable the ios and adroids's urls
+- **subscription**: sort the subscription in manager interface
+- **platform-billing**: basic plaformbilling setting page
+- **payment-method**: save payment method
+- **notification-rule**: disable and/or send copy to the company
+- **bookingnotification**: booking notification form reorganization
+- **smartlist**: private filters
+- **smartlist**: bug basket date select
+- **kube**: full switch to kubernetes servers
+- **voucher**: add percent selector along price selector
+- **offer**: reactivate delete button on offercard
+- **reset-password**: propose help if reset password twice in 4h
+- **subscription**: consumer can and must pay their credit subscrtipion
+- **gtm**: add basketId on some missing gtm event
+- **gtm**: add checkout-items to basket event, type on add-to-card events
+- **vod**: pass give access to VOD
+- **offeredit**: custom offer selection for recursive edit of similar offers
+- **archive**: delete and restore coach/establshment even if future offers planned
+- **nf525**: upload doc in settings for NF525
+- **subscription**: allow 0e subscription w/ credit payment
+- **subscription**: private-pass (RDV) subscription
+- **apm**: first step testing instrumentation w/ elastic RUM
+- test(producttour): add/ids
+- **member**: terms and conditions in Member detail
+- **client**: cancel-condition
+- **associated coach api**: changed endpoint for create/update/link_email coach
+- **idds**: chnage some idds
+- **temp-password**: increase temp password validity to 1 week
+- **bookingcreationnotification**: improved tooltips and form validation
+- (fix): idds
+- **bookingcreationnotification**: added booking notifications for establishment and meta_activity
+- (ids): add/ids
+
+### Perf
+
+- **payment-pack**: optional check on bookings_within_month because annotation was removed on backend
+- **email-tempaltes**: load templates only when dialog is open on membersummarycard
+- **particlejs**: rmeove particlejs for error cleaning and perf
+
+### Fix
+
+- **subscription**: fix stupid error
+- **gtm**: add price in gtm
+- **translation**: lol
+- **dashboard**: correctly filter invoiceitem
+- **login**: center login form
+- **i18n**: import es locale for moment
+- **i18n**: import es locale for moment
+- **recurrence-booking**: open recurrence booking form when no booking selected
+- **recurrence-booking**: open recurrence booking form when no booking selected
+- **login**: center login form
+- **timezone**: fix a bug when no timezone on offerlistv2
+- **gtm**: add event on pre-checkout pages
+- **check-in**: register on check-in app without pb
+- **communication**: link smartlist commuinication to smartlist in back
+- **communication**: fixes on member detail + order page
+- **contract**: edit a contract to set a combo
+- **subscription**: fix some modal on payment in marketplace
+- **voucher**: format cts in subscription
+- **timezone**: fix offer header
+- **i18n**: add ireland bank account
+- **timezone**: remove timezone reference in useless ref
+- **timezone**: micro fix
+- **quickfix**: random quickfix
+- **payment-combo**: fix refresh error whenusing private-pass
+- **rum**: disable rum bullshit
+- **waiting-list**: register cancelled bookings on waiting-list
+- **quickinvoice**: fix remove invoice item and UnevenInvoiceDialog float display
+- **payment-method**: fetch payument methods only if valid member id
+- **booking-revert**: set loading to false after action
+- **random**: random fixes post-merge
+- **random**: random fixes post-merge
+- **random**: random fixes post-merge
+- **payment-method**: fix some pb when registering sepa on mobile
+- **offer-direct-payment**: remove abd infinite loading page
+- **platform-billing**: show right price on platform invoice
+- **payment-method**: disable payment-method switch on old subscription
+- **offer-card**: show coach on offer-card
+- **subscription**: pay on offerbooking page
+- **payment-method**: better refresh of methods on subscription paymebnt form
+- **subscription**: do not ask for payment on 0e subscription
+- **payment-rule**: bug when 1 bonus in rules
+- **payment-rule**: ability to par pallier
+- **disable-offer**: show mass offer being disabled
+- **booking-discard**: attempt to fix error message on refund booking
+- **self-checkin**: do not show cancelled bookings in tablet
+- **qf**: qffix
+- **booking**: is_discardable is kind of broken
+- **kube**: back to no-kube for security
+- **stupidity**: so much stupidity
+- **kube**: switch env
+- **waitinglist**: allow 15 minutes delay
+- **booking**: revert is_discardable
+- **vod**: category proposed in marketplace are bounded to videos
+- **sct**: localization of SCT
+- **login**: change translation when email exists
+- **flag**: england
+- **localization**: remove la suisse from locale created
+- **sentry**: fix versionning scheme on sentry
+- **report**: bug
+- **lint**: appbar
+- **bookingnotifications**: fixed undefined
+- **sentry**: change sourcemap url-prefix and version w/ sha
+- **bookingstatistics**: fixed offer graph visuals in planning page
+
+### feat
+
+- **recurrent-booking**: add recurrent booking on member page and fix pagination
+- **timezone**: add timezones in manager interface display
+- **CashBook**: add report for cashBook
+- **Member**: count objects in tabs
+- **emails**: add checkbox for canceledBooking in sending emails
+- **settings**: make editable the ios and adroids's urls
+- **offercard**: reactivate button delete
+- **subscription**: private pass (RDV) available for subscription
+- **appbar**: user/menu
+- (client): add-last-discard
+- **change**: idds
+
+### Refactor
+
+- **ids**: add more ids
+- **ids**: add more ids
+
+### fix
+
+- **cleanup**: can not unselect first offer + fix translation loading
+
+## 42.9.0 (2020-08-18)
+
+### Feat
+
+- **invoice**: prompt for uneven invoices in offermanagement.component
+- **widget**: share button for widget and calendar url
+- **payment-pack**: limit purchase per payment-pack per member
+- **payment-pack**: add day limitation
+- **marketplace calendar**: added new theme settings to personalize the manager & customer calendars
+- **SCT**: SCT localized
+
+### Refactor
+
+- **calendar**: clean a bit the UI
+
+### Fix
+
+- **language**: default language is english
+- **payment**: block manager from payment pages
+
+## 42.8.0 (2020-08-14)
+
+### Feat
+
+- **marketplace calendar**: added new theme settings to personalize the manager & customer calendars
+
+## 42.7.0 (2020-08-13)
+
+### Feat
+
+- **invoice**: voucher for quick invoices
+
+## 42.6.0 (2020-08-13)
+
+### Feat
+
+- **report**: add first privatebooking report
+
+## 42.5.1 (2020-08-13)
+
+### Fix
+
+- **version**: fetch tag berfore running cz bump
+- **version**: test bump versionning
+
+## 42.5.0 (2020-08-13)
+
+### Feat
+
+- **face-id**: FaceID working on tablet interface
+
+### feat
+
+- **face-id**: working flow, UX to be improved (+member form)
+
 ## 42.14.0a14 (2020-11-08)
 
 ### Perf

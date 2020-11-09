@@ -35,10 +35,10 @@ lint:
   stage: bump-version
   tags:
     - deployment
+  allow_failure: true
   only:
     - master
     - production
-    - dev
   before_script:
     - echo 'Overriding default before_script instruction relying on yarn'
 
@@ -68,13 +68,13 @@ lint:
     paths:
       - variables
 
-Auto Bump Dev:
-  extends: .Auto Bump Version Base
-  only:
-    refs:
-      - dev
-  variables:
-    PRERELEASE: alpha
+#Auto Bump Dev:
+#  extends: .Auto Bump Version Base
+#  only:
+#    refs:
+#      - dev
+#  variables:
+#    PRERELEASE: alpha
 
 Auto Bump Staging:
   extends: .Auto Bump Version Base
@@ -84,7 +84,7 @@ Auto Bump Staging:
   variables:
     PRERELEASE: beta 
 
-Auto Bump Staging:
+Auto Bump Production:
   extends: .Auto Bump Version Base
   only:
     refs:

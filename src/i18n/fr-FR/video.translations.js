@@ -16,6 +16,7 @@ exports.default = {
     },
   },
   video: {
+    creditPrice: 'Coût (crédit)',
     lock: {
       accessDenied: "Vous n'avez pas accès à cette vidéo",
       pleaseAuthenticated:
@@ -76,6 +77,11 @@ exports.default = {
       title: 'Edition vidéo',
       coach: {
         isEmpty: 'Aucun professeur',
+      },
+      creditPrice: {
+        label: 'Coût en crédit',
+        helperText:
+          'Laissé à zéro pour que la vidéo soit accessible à tous vos adhérents',
       },
     },
   },

@@ -456,3 +456,12 @@ export const createOrUpdateCustomEvent = async (data: *) => {
 export const deleteCustomEvent = async (id: number) => {
   return deleteAuth(`${API_V1_URI}/private_service/custom_event/${id}/`);
 };
+
+// used for video, soon for everything TODO
+export const fetchPrivateConsumerPassCompatibleList = (params: any) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/private_consumer_pass/compatible/${buildUrlParams(
+      params,
+    )}`,
+  );
+};

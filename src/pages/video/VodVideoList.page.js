@@ -86,6 +86,7 @@ const VideoMap = {
   SCT: 'SCT',
   level: 'level',
   coaches: 'coaches',
+  credit_price: 'credit_price',
 };
 
 export class VodVideoListPage extends React.PureComponent<Props> {

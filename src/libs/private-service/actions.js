@@ -50,6 +50,7 @@ import {
   retrievePrivateConsumerPass as retrievePrivateConsumerPassAPI,
   updatePrivateConsumerPassCredits as updatePrivateConsumerPassCreditsAPI,
   fetchPrivateConsumerPassList as fetchPrivateConsumerPassListAPI,
+  fetchPrivateConsumerPassCompatibleList as fetchPrivateConsumerPassCompatibleListAPI,
   // private-booking
   registerPrivateBookings as registerPrivateBookingsAPI,
   disablePrivateBooking as disablePrivateBookingAPI,
@@ -1707,5 +1708,32 @@ export function deleteCustomEvent(id: number, options: OptionCallback) {
       if (options && options.onError) options.onError(err);
     }
     dispatch(deleteCustomEventActions.isLoading(false));
+  };
+}
+
+export const listPrivateConsumerPassCompatibleActions = {
+  isLoading: createAction('PRIVATE_CONSUMER_PASS/COMPATIBLE_LIST/IS_LOADING'),
+  error: createAction('PRIVATE_CONSUMER_PASS/COMPATIBLE_LIST/ERROR'),
+  success: createAction('PRIVATE_CONSUMER_PASS/COMPATIBLE_LIST/SUCCESS'),
+  reset: createAction('PRIVATE_CONSUMER_PASS/COMPATIBLE_LIST/RESET'),
+};
+
+export function fetchPrivateConsumerPassCompatibleList(
+  params: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPrivateConsumerPassCompatibleActions.isLoading(true));
+    dispatch(listPrivateConsumerPassCompatibleActions.error(null));
+    try {
+      const response = await fetchPrivateConsumerPassCompatibleListAPI(params);
+      dispatch(listPrivateConsumerPassCompatibleActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(listPrivateConsumerPassCompatibleActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(listPrivateConsumerPassCompatibleActions.isLoading(false));
   };
 }

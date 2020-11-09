@@ -44,6 +44,7 @@ import {
   listCustomEventActions,
   deleteCustomEventActions,
   privatePassBulkActions,
+  listPrivateConsumerPassCompatibleActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -76,6 +77,11 @@ const initialState: PrivateServiceState = Immutable({
     update: {
       loading: false,
       error: null,
+    },
+    compatible: {
+      loading: false,
+      error: null,
+      allIds: [],
     },
     byPrivatePass: {
       error: null,
@@ -832,6 +838,42 @@ export default handleActions(
         },
         { deep: true },
       );
+    },
+    [listPrivateConsumerPassCompatibleActions.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateConsumerPass', 'compatible', 'loading'],
+        payload,
+      );
+    },
+    [listPrivateConsumerPassCompatibleActions.error]: (state, { payload }) => {
+      return state.setIn(
+        ['privateConsumerPass', 'compatible', 'error'],
+        payload,
+      );
+    },
+    [listPrivateConsumerPassCompatibleActions.success]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['privateConsumerPass', 'compatible', 'allIds'],
+          payload.map((pp) => pp.id),
+        )
+        .merge(
+          {
+            privateConsumerPass: {
+              byId: payload.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
     },
     [privateConsumerPassListActions.isLoading]: (state, { payload }) => {
       return state.setIn(['privateConsumerPass', 'loading'], payload);

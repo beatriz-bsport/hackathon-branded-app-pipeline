@@ -25,6 +25,11 @@ import {
   withCoach,
 } from '../../libs/video/selectors';
 
+import { getConsumerPaymentPackCompatibleList } from '../../libs/consumer-payment-pack/selectors';
+import { fetchConsumerPaymentPackCompatibleList } from '../../libs/consumer-payment-pack/actions';
+import { fetchPrivateConsumerPassCompatibleList } from '../../libs/private-service/actions';
+import { getPrivateConsumerPassCompatibleList } from '../../libs/private-service/selectors/private-consumer-pass';
+
 type Props = {
   retrieveVideo: () => void,
   classes: Object,
@@ -106,12 +111,20 @@ export default compose(
       videoListSimilar: withCoach(withCategory(getVideoList))(state),
       hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
       similarVideoLoading: state.video.loading,
+      privateConsumerPassCompatibleList: getPrivateConsumerPassCompatibleList(
+        state,
+      ),
+      consumerPaymentPackCompatibleList: getConsumerPaymentPackCompatibleList(
+        state,
+      ),
     }),
     {
       retrieveVideo: retrieveVideoAction,
       fetchVideoList: fetchVideoListAction,
       fetchMoreVideo: fetchMoreVideoAction,
       fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
+      fetchPrivateConsumerPassCompatibleList,
+      fetchConsumerPaymentPackCompatibleList,
       push: pushRouter,
     },
   ),

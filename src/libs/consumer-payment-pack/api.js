@@ -68,6 +68,14 @@ export async function subCreditToConsumerPack(id: number, nbCredit: number) {
   return postAuth(`${API_V1_URI}/payment-pack/consumer-payment-pack/${id}/sub_credit/`, { nbCredit });
 }
 
+export async function fetchConsumerPaymentPackCompatibleList(params: any) {
+  return getAuth(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/compatible/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
+
 export default {
   fetchByOfferByMember,
   fetchExtensions,

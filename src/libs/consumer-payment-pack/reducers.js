@@ -13,6 +13,7 @@ import {
   nonCompatibleByOfferByMember,
   forBookingActions,
   partialRefundActions,
+  listConsumerPaymentPackCompatibleActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -25,6 +26,11 @@ const initialState = Immutable({
     loading: false,
     error: false,
     items: [],
+  },
+  compatible: {
+    allIds: [],
+    error: null,
+    loading: false,
   },
   // TODO move every items in this one:
   loading: false,
@@ -244,6 +250,34 @@ export default handleActions(
         },
         { deep: true },
       );
+    },
+    [listConsumerPaymentPackCompatibleActions.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['compatible', 'loading'], payload);
+    },
+    [listConsumerPaymentPackCompatibleActions.error]: (state, { payload }) => {
+      return state.setIn(['compatible', 'error'], payload);
+    },
+    [listConsumerPaymentPackCompatibleActions.reset]: (state) => {
+      return state.setIn(['compatible', 'allIds'], []);
+    },
+    [listConsumerPaymentPackCompatibleActions.success]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(['compatible', 'allIds'], payload.map((cpp) => cpp.id))
+        .merge(
+          {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
     },
   },
   initialState,

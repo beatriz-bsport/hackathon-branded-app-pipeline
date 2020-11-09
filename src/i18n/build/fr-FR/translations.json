@@ -1281,7 +1281,9 @@
       "cancel": "Annuler",
       "discard": "Annuler le RDV",
       "hardDelete": "Supprimer",
+      "restore": "Restaurer le RDV",
       "isCancelled": "Annulé",
+      "isCancelledDate": "Annulé le {{-date}} à {{time}}",
       "attachCoach": {
         "title": "Attribution au professeur",
         "explain": "Choisissez un professeur pour lui attribuer ce RDV et l'ajouter à son calendrier",
@@ -1290,6 +1292,7 @@
       "detail": {
         "title": "Réservation",
         "registeredOn": "Réservé le ",
+        "cancelledOn": "Annulé le ",
         "source": "Canal de réservation ",
         "slotTitle": "Séance",
         "passTitle": "Carte de cours",
@@ -1324,6 +1327,7 @@
         },
         "title": "Annulation réservation",
         "explain": "Êtes- vous sûr de vouloir annuler cette réservation ? Cette opération est irréversible.",
+        "explainWithRestore": "Êtes- vous sûr de vouloir annuler cette réservation ? Vous pourrez annuler cette opération plus tard.",
         "explainHardDelete": "Cette réservation a déjà été annulée, la supprimer la fera disparaitre du calendrier totalement et vous perdrez l'historique. Elle sera remboursée si elle ne l'a pas été précédemment. Cette opération est irréversible.",
         "explainForceRefund": "Rembourser le crédit utilisé sur la carte pour permettre une nouvelle réservation.",
         "sendCancellationMail": "Prévenir {{name}} de l'annulation du rendez-vous par mail",
@@ -2799,7 +2803,11 @@
     "communication": { "success": "Mail en cours d'envoi", "error": "Problème lors de l'envoi du mail" },
     "privateBooking": {
       "attachCoach": { "success": "RDV attribué au professeur", "error": "Impossible d'attribuer au professeur" },
-      "updateCoach": { "success": "Le professeur a été modifié", "error": "Impossible de modifier le professeur" }
+      "updateCoach": { "success": "Le professeur a été modifié", "error": "Impossible de modifier le professeur" },
+      "restore": {
+        "success": "Le rendez-vous a été restauré",
+        "error": "Impossible de restaurer le rendez-vous, il n'y a pas assez de crédits sur cette carte de rendez-vous."
+      }
     },
     "privateConsumerPass": { "creditUpdate": { "success": "Crédits mis à jour", "error": "Impossible d'enregistrer le crédit" } },
     "video": {
@@ -3974,7 +3982,7 @@
       "offerTitle": "Séance liée",
       "consumerPaymentPackTitle": "Carte de cours utilisée"
     },
-    "parameters": { "registeredOn": "Réservé le ", "source": "Canal de réservation" },
+    "parameters": { "registeredOn": "Réservé le ", "cancelledOn": "Annulé le ", "source": "Canal de réservation" },
     "source": { "web": "Web", "app": "Application mobile", "saas": "Backoffice", "other": "Autre", "migration": "Migration" },
     "customerView": { "wasRefunded": "Remboursé", "cancelled": "Annulé" },
     "attend": "Présent",
@@ -3985,8 +3993,11 @@
     "creditConsumed_plural": "{{credit_consumed}} crédits",
     "statusCode": {
       "cancelledByManager": "Annulation manager",
+      "cancelledByManagerDate": "Annulation manager le {{-date}} à {{time}}",
       "cancelledByConsumer": "Annulation client",
-      "cancelledByOffer": "Séance annulée par le club"
+      "cancelledByConsumerDate": "Annulation client le {{-date}} à {{time}}",
+      "cancelledByOffer": "Séance annulée par le club",
+      "cancelledByOfferDate": "Séance annulée par le club le {{-date}} à {{time}}"
     },
     "notification": {
       "addNotification": "Ajouter une notification",
@@ -4508,6 +4519,7 @@
       "bottomActions": { "create": "Ajouter" }
     },
     "video": {
+      "creditPrice": "Coût (crédit)",
       "lock": {
         "accessDenied": "Vous n'avez pas accès à cette vidéo",
         "pleaseAuthenticated": "Vous devez vous connecter pour accéder à cette vidéo"
@@ -4541,7 +4553,11 @@
         "cancel": "Annuler",
         "submit": "Enregistrer",
         "title": "Edition vidéo",
-        "coach": { "isEmpty": "Aucun professeur" }
+        "coach": { "isEmpty": "Aucun professeur" },
+        "creditPrice": {
+          "label": "Coût en crédit",
+          "helperText": "Laissé à zéro pour que la vidéo soit accessible à tous vos adhérents"
+        }
       }
     }
   },

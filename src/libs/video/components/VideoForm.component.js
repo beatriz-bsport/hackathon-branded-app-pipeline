@@ -12,7 +12,7 @@ import ImageField from '../../../components/forms/ImageField.component';
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
 import CoachSelector from '../../associated-coach/components/CoachSelector.component';
 import CoachListItemBasic from '../../associated-coach/components/CoachListItemBasic.component';
-import { TextField } from '../../../components/forms';
+import { TextField, IntegerField } from '../../../components/forms';
 import LevelSelectorField from '../../category/components/LevelSelectorField.component';
 
 type Props = {
@@ -100,6 +100,16 @@ export const VideoForm = (props: Props) => {
         </div>
       </div>
       <div className={classes.field}>
+        <IntegerField
+          label={t('video.form.creditPrice.label')}
+          name="credit_price"
+          required
+          fullWidth
+          inputProps={{ maxLength: 500 }}
+          helperText={t('video.form.creditPrice.helperText')}
+        />
+      </div>
+      <div className={classes.field}>
         <TextField
           label={t('video.description')}
           name="description"
@@ -139,6 +149,7 @@ export const VideoSchema = Yup.object().shape({
   description: Yup.string().required(),
   coaches: Yup.array().of(Yup.number()),
   SCT: Yup.number().integer(),
+  credit_price: Yup.number().integer(),
 });
 
 export const VideoFormHOC = withFormik({
@@ -157,6 +168,7 @@ export const VideoFormHOC = withFormik({
       cover_main: '',
       SCT: null,
       level: 1,
+      credit_price: 0,
     };
   },
   validationSchema: VideoSchema,
@@ -164,7 +176,14 @@ export const VideoFormHOC = withFormik({
     values,
     { props: { initial, onSubmit, onSuccess, onError }, setSubmitting },
   ) => {
-    const keys = ['name', 'description', 'SCT', 'coaches', 'level'];
+    const keys = [
+      'name',
+      'description',
+      'SCT',
+      'coaches',
+      'level',
+      'credit_price',
+    ];
     const { cover_main } = values;
     const data = {
       ...pick(values, keys),

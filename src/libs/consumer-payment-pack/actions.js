@@ -16,6 +16,7 @@ import {
   fetchConsumerPaymentPackCreditRefundList as fetchConsumerPaymentPackCreditRefundListAPI,
   addCreditToConsumerPack as addCreditAPI,
   subCreditToConsumerPack as subCreditAPI,
+  fetchConsumerPaymentPackCompatibleList as fetchConsumerPaymentPackCompatibleListAPI,
 } from './api';
 
 export const byOfferByMember = {
@@ -110,14 +111,12 @@ export function fetchByPaymentPack(
     dispatch(byPaymentPack.isLoading(true));
     dispatch(byPaymentPack.error(null));
     try {
-      const response = await fetchConsumerPaymentPackListAPI(
-        {
-          payment_pack: paymentPackId,
-          page,
-          page_size,
-          ...(params || {}),
-        },
-      );
+      const response = await fetchConsumerPaymentPackListAPI({
+        payment_pack: paymentPackId,
+        page,
+        page_size,
+        ...(params || {}),
+      });
       dispatch(byPaymentPack.success({ ...response.data, page: page || 1 }));
       if (options && options.onSuccess) {
         if (response.data.results) {
@@ -419,3 +418,30 @@ export function deletePackExtension(
 // ----------------------------
 //
 // END Extension
+
+export const listConsumerPaymentPackCompatibleActions = {
+  isLoading: createAction('CONSUMER_PACK/COMPATIBLE_LIST/IS_LOADING'),
+  error: createAction('CONSUMER_PACK/COMPATIBLE_LIST/ERROR'),
+  success: createAction('CONSUMER_PACK/COMPATIBLE_LIST/SUCCESS'),
+  reset: createAction('CONSUMER_PACK/COMPATIBLE_LIST/RESET'),
+};
+
+export function fetchConsumerPaymentPackCompatibleList(
+  params: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listConsumerPaymentPackCompatibleActions.isLoading(true));
+    dispatch(listConsumerPaymentPackCompatibleActions.error(null));
+    try {
+      const response = await fetchConsumerPaymentPackCompatibleListAPI(params);
+      dispatch(listConsumerPaymentPackCompatibleActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(listConsumerPaymentPackCompatibleActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(listConsumerPaymentPackCompatibleActions.isLoading(false));
+  };
+}

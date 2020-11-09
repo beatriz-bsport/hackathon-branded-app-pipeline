@@ -19,6 +19,7 @@ import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 import UpdateIcon from '@material-ui/icons/Update';
 import StoreIcon from '@material-ui/icons/Store';
 import CashBookIcon from '@material-ui/icons/BusinessCenter';
+import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import type { ReportCategoryEnum, ReportCategory } from './types';
 
 export const CATEGORIES: ReportCategory[] = [
@@ -136,6 +137,10 @@ export const CATEGORIES: ReportCategory[] = [
   {
     id: 'cashbook',
     icon: CashBookIcon,
+  },
+  {
+    id: 'video',
+    icon: VideoLibraryIcon,
   },
 ];
 

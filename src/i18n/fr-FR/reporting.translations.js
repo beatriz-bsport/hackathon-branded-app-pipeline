@@ -42,6 +42,7 @@ exports.default = {
     privateServiceCoach: 'Rendez-vous par professeur',
     privateServiceEst: 'Rendez-vous par etablissement',
     dayBookings: 'Réservations (cours collectif) par jour',
+    video: 'Vidéo',
   },
   columns: {
     coaches: 'Professeurs',
@@ -187,6 +188,10 @@ exports.default = {
     supplier_price: 'Prix revendeur',
     marketplace_enabled: 'Disponible sur la marketplace',
     description: 'Description',
+    duration_second: 'Durée (seconde)',
+    sct_name: 'Catégorie',
+    level_activity: 'Niveau',
+    video_status: 'Statut',
   },
   yes: 'Oui',
   no: 'Non',

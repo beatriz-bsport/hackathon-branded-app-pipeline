@@ -11,7 +11,16 @@
     "private_service": "Sur rendez-vous",
     "report": { "delete": "Suppression d'un rapport" },
     "metaActivity": {
-      "forms": { "create": { "success": "Activité créée", "error": "Erreur lors de l'enregistrement de l'activité" } },
+      "forms": {
+        "create": { "success": "Activité créée", "error": "Erreur lors de l'enregistrement de l'activité" },
+        "autoDiscard": {
+          "checkbox": "M'avertir lorqu'une séance est trop peu remplie",
+          "explain": "Envoyer une notification par mail s'il y a {{bookings_nb}} réservation(s) ou moins {{hours}}h avant le début de la séance.",
+          "emailRecipients": "Ce mail sera envoyé aux comptes ayant le rôle Owner ou Admin, ainsi qu'au professeur (ou professeur remplaçant) de la séance en question.",
+          "min_bookings_nb": "Nombre de réservation(s) :",
+          "hours_before_start": "Heure(s) avant la séance :"
+        }
+      },
       "update": {
         "imageUploaderRequireEditMessage": "Une fois votre activité créée, vous aurez la possibilité d'ajouter des images supplémentaires."
       },
@@ -511,6 +520,7 @@
       "bookWithUnlimitedPack": "Réserver",
       "noCreditLeft": "Pas assez de crédit",
       "noBookingsLeftOnPack": "Carte épuisée pour cette semaine",
+      "noBookingsLeftOnPackInMonth": "Carte épuisée pour ce mois",
       "yourBasket": "Votre achat",
       "availablePaymentPacks": " carte de cours compatibles",
       "payWithNCredits1": "Réserver (",
@@ -1006,7 +1016,8 @@
       "450": "Rendez-vous - hors-délai (élève)",
       "451": "Rendez-vous annulé - remboursé (élève)",
       "452": "Nouveau rendez-vous (élève)",
-      "453": "Horaire modifié (élève)"
+      "453": "Horaire modifié (élève)",
+      "601": "Trop peu de réservations N heures avant le début de la séance"
     }
   },
   "consumerSpace": {
@@ -1737,6 +1748,13 @@
     "code": { "addCoupon": { "label": "Code promo", "placeholder": "SPECIAL_RENTREE" } }
   },
   "dashboard": {
+    "save": "Sauvegarder",
+    "resetModal": {
+      "title": "Réinitialiser les paramètres",
+      "content": "Les paramètres des différents graphes reviendront à leur valeur par défaut, voulez-vous continuer ?",
+      "cancel": "Annuler",
+      "confirm": "Continuer"
+    },
     "current_day": "Dernières 24 heures",
     "current_week": "Dernière semaine",
     "current_month": "Mois dernier",
@@ -1749,7 +1767,7 @@
     "pageTitle": "Tableau de bord",
     "turnover": {
       "title": "Encaissements",
-      "caption": "Chiffre d'affaire (€)",
+      "caption": "Encaissements (€)",
       "popover": "Somme de tous les paiements reçus figurant sur les factures"
     },
     "bookings": "Réservations",
@@ -1764,21 +1782,17 @@
     "bookingsWeektimeSlot": { "title": "Effectif moyen", "popover": "Effectif moyen des séances par créneau horaire" },
     "dateFilter": { "customSelect": "Sélectionner une plage de dates", "quickSelect": "Choix rapide" },
     "noData": "Aucune donnée à afficher",
-    "bookingSource": {
-      "title": "Origine des réservations",
-      "app": "Application",
-      "web": "Web",
-      "saas": "Backoffice bsport",
-      "other": "Autre",
-      "migration": "Migration de données"
-    },
+    "bookingSource": { "title": "Origine des réservations" },
     "plannedPayment": {
       "title": "Encaissements des souscriptions",
       "caption": "Encaissement (€)",
       "popover": "Somme de tous les paiements reçus concernant les souscriptions"
     },
-    "invoiceItems": {
-      "title": "Ventes par type de produit",
+    "invoiceItems": { "title": "Ventes par type de produit" },
+    "bookingDropdown": {
+      "source": { "0": "Application", "1": "Web", "2": "Backoffice bsport", "3": "Autre", "4": "Migration de données" }
+    },
+    "invoiceItemDropdown": {
       "contentType": {
         "1": "Cartes de cours",
         "2": "Produits du magasin",
@@ -2828,6 +2842,9 @@
         "success": "L'arrêt programmé de la souscription a été supprimé",
         "error": "Impossible de supprimer l'arrêt programmé de la souscription"
       }
+    },
+    "dashboard": {
+      "save": { "success": "Les modifications ont été enregistrées", "error": "Impossible d'enregistrer les modifications" }
     }
   },
   "coach": {
@@ -3143,7 +3160,8 @@
       "cashbook": "Livret de caisse",
       "privateServiceCoach": "Rendez-vous par professeur",
       "privateServiceEst": "Rendez-vous par etablissement",
-      "dayBookings": "Réservations (cours collectif) par jour"
+      "dayBookings": "Réservations (cours collectif) par jour",
+      "video": "Vidéo"
     },
     "columns": {
       "coaches": "Professeurs",
@@ -3288,7 +3306,11 @@
       "subshop_name": "Categorie",
       "supplier_price": "Prix revendeur",
       "marketplace_enabled": "Disponible sur la marketplace",
-      "description": "Description"
+      "description": "Description",
+      "duration_second": "Durée (seconde)",
+      "sct_name": "Catégorie",
+      "level_activity": "Niveau",
+      "video_status": "Statut"
     },
     "yes": "Oui",
     "no": "Non",
@@ -3484,6 +3506,7 @@
           "helperText": "Nombre de crédits disponibles",
           "bewareChange": "Si vous augmentez le nb de crédit, toutes les cartes existantes seront affectées. Idem si vous diminuez le nombre de crédits."
         },
+        "maxBookingPerMonth": { "label": "Utilisation max par mois", "helperText": "Laisser vide pour ne pas imposer de limite" },
         "maxBookingPerWeek": { "label": "Utilisation max par semaine", "helperText": "Laisser vide pour ne pas imposer de limite" },
         "maxBookingPerDay": { "label": "Utilisation max par jour", "helperText": "Laisser vide pour ne pas imposer de limite" },
         "maxPurchasePerMember": { "label": "Achat maximum par membre", "helperText": "Laisser vide pour ne pas imposer de limite" },
@@ -3542,7 +3565,8 @@
       "invoiceTitle": "Facture associée",
       "refundTitle": "Remboursement associé",
       "bookingsTitle": "Réservations associées",
-      "extensionsTitle": "Extensions de validité"
+      "extensionsTitle": "Extensions de validité",
+      "trackModifiedCreditTitle": "Historique des crédits modifiés"
     },
     "newMemberOnly": "Disponible uniquement pour les nouveaux inscrits",
     "publicPacksTitle": "Cartes disponibles à la vente",
@@ -3557,6 +3581,7 @@
     "enableConsumer": "Débloquer",
     "maxNBookingsByWeek1": "Jusqu'à ",
     "maxNBookingsByWeek2": " réservations par semaine",
+    "maxNBookingsByMonth2": " réservations par mois",
     "validity": "Valide :",
     "consumer": {
       "isFromShare": "Partagé depuis un autre compte",
@@ -3657,7 +3682,8 @@
       "title": "Paramètres",
       "lastBookingBeforeMinutes": "Les réservations sont possibles sur cette activité jusqu'à {{m}}  avant le début de la séance",
       "lastDiscardBeforeMinutes": "Les annulations sont possibles jusqu'à {{m}} avant le début de la séance",
-      "firstBookingMinutesUntil": "Les réservations sont bloquées avant {{m}} du début de la séance"
+      "firstBookingMinutesUntil": "Les réservations sont bloquées avant {{m}} du début de la séance",
+      "autoDiscard": "Un mail vous sera envoyé si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance"
     },
     "packsAvailable": "Eligible aux pass :",
     "reviews": "Avis clients: ",

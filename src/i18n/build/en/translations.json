@@ -1200,8 +1200,7 @@
             "paymentCombo": "Pack",
             "isRecurring": "Installments",
             "goToSubscription": "See the subscription",
-            "invoiceFromSubscriptionThusNotEditable": "This invoice is part of a subscription and is therefore not editable, please modify the subscription directly",
-            "noBookingsLeftOnPackInMonth": "Pass exhausted for this month"
+            "invoiceFromSubscriptionThusNotEditable": "This invoice is part of a subscription and is therefore not editable, please modify the subscription directly"
         },
         "invoice": {
             "forms": {
@@ -1760,13 +1759,6 @@
                 "create": {
                     "error": "Error while saving activity",
                     "success": "Activity created"
-                },
-                "autoDiscard": {
-                    "hours_before_start": "Hour(s) before the session :",
-                    "min_bookings_nb": "Number of booking(s) :",
-                    "emailRecipients": "This mail will be sent to accounts with the role of Owner or Admin, as well as to the teacher (or substitute) of the session in question.",
-                    "explain": "Send a notification by mail if there are {{bookings_nb}} booking(s) or less {{hours}}h before the start of the session.",
-                    "checkbox": "Notify me when a session has too few bookings"
                 }
             }
         },
@@ -1995,8 +1987,7 @@
             "401": "Appointment canceled - refunded (teacher)",
             "400": "Appointment canceled - out of time (teacher)",
             "300": "Kick (Not validated in time too many times)",
-            "22": "Invoice confirmation",
-            "601": "Too few bookings N hours before the start of the session"
+            "22": "Invoice confirmation"
         },
         "messages": {
             "createOrUpdate": {
@@ -2387,8 +2378,7 @@
                 "wasRefundedNo": "No",
                 "address": "Address",
                 "attachCoach": "Assign to a teacher",
-                "coach": "Teacher",
-                "cancelledOn": "Cancelled the "
+                "coach": "Teacher"
             },
             "managerAdd": {
                 "title": "New booking",
@@ -2420,8 +2410,7 @@
                     "cancel": "Cancel",
                     "title": "Cancel appointment"
                 },
-                "sendCancellationMail": "Notify {{name}} of the appointment's cancellation by email",
-                "explainWithRestore": "Are you sure you want to cancel this booking? You will be able to undo this later."
+                "sendCancellationMail": "Notify {{name}} of the appointment's cancellation by email"
             },
             "discard": "Cancel the appointment",
             "updateTime": {
@@ -2439,9 +2428,7 @@
                 "explain": "Choose a teacher to assign this appointment and add it to his calendar",
                 "title": "Assignment to the teacher"
             },
-            "updateCoach": "Choose a new teacher for this appointment",
-            "isCancelledDate": "Cancelled the {{-date}} at {{time}}",
-            "restore": "Restore the appointment"
+            "updateCoach": "Choose a new teacher for this appointment"
         },
         "privateService": {
             "delete": {
@@ -3122,8 +3109,7 @@
         "pageTitle": "Dashboard",
         "turnover": {
             "title": "Turnover",
-            "popover": "Sum of all payments received on invoices",
-            "caption": "Revenue (€)"
+            "popover": "Sum of all payments received on invoices"
         },
         "bookings": "Bookings",
         "dateRange": {
@@ -3176,33 +3162,7 @@
                 "9": "Appointment pass",
                 "10": "Packs"
             }
-        },
-        "invoiceItemDropdown": {
-            "contentType": {
-                "10": "Packs",
-                "9": "Appointment pass",
-                "7": "Promotion",
-                "6": "Shipping costs",
-                "2": "Shop products",
-                "1": "Class passes"
-            }
-        },
-        "bookingDropdown": {
-            "source": {
-                "4": "Data migration",
-                "3": "Other",
-                "2": "Backoffice bsport",
-                "1": "Web",
-                "0": "Application"
-            }
-        },
-        "resetModal": {
-            "confirm": "Continue",
-            "cancel": "Cancel",
-            "content": "The settings of the different graphs will return to their default value, do you want to continue?",
-            "title": "Reset settings"
-        },
-        "save": "Save"
+        }
     },
     "stripe": {
         "errors": {
@@ -4884,11 +4844,7 @@
             "note": "Note",
             "full_address": "Complete Address",
             "birthday": "Birth date",
-            "payment_method_sepa": "SEPA",
-            "video_status": "Status",
-            "level_activity": "Level",
-            "sct_name": "Category",
-            "duration_second": "Duration (seconds)"
+            "payment_method_sepa": "SEPA"
         },
         "yes": "Yes",
         "no": "No",
@@ -4965,8 +4921,7 @@
             "offers": "Sessions",
             "members": "Members",
             "cashbook": "Cash book",
-            "on_spot_payments": "Payments in person",
-            "video": "Video"
+            "on_spot_payments": "Payments in person"
         },
         "globalCategories": {
             "subheader": {
@@ -5234,11 +5189,7 @@
                     "helperText": "Booking quota per week, empty means no limit",
                     "label": "Max use per day"
                 },
-                "full_vod_access": "Provides access to VOD as long as it is valid over time",
-                "maxBookingPerMonth": {
-                    "helperText": "Leave empty to not impose a limit",
-                    "label": "Max usage per month"
-                }
+                "full_vod_access": "Provides access to VOD as long as it is valid over time"
             }
         },
         "details": {
@@ -5247,8 +5198,7 @@
             "invoiceTitle": "Linked invoice",
             "bookingsTitle": "Bookings",
             "extensionsTitle": "Validity extension",
-            "refundTitle": "Associated reimbursement",
-            "trackModifiedCreditTitle": "Credit history changed"
+            "refundTitle": "Associated reimbursement"
         },
         "newMemberOnly": "Only available for new membres (with no paiements)",
         "publicPacksTitle": "Pass available for purchase",
@@ -5355,8 +5305,7 @@
             "expiration": "Validity",
             "all": "All passes"
         },
-        "multipleBookingTooltip": "Multiple booking",
-        "maxNBookingsByMonth2": " bookings per month"
+        "multipleBookingTooltip": "Multiple booking"
     },
     "metaActivity": {
         "metaActivity": "Activity",
@@ -5411,8 +5360,7 @@
             "lastBookingBeforeMinutes": "Last booking is possible until {{m}} before the start of the session",
             "lastDiscardBeforeMinutes": "Last discard booking is possible until {{ m }} before start of the session",
             "firstBookingMinutesUntil": "Customers can book only {{m }} at least before the session",
-            "conditions": "Conditions",
-            "autoDiscard": "A mail will be sent to you if there are {{nb_bookings}} booking(s) or less {{hours}}h before the start of the session"
+            "conditions": "Conditions"
         },
         "modal": {
             "delete": {
@@ -5735,8 +5683,7 @@
         },
         "parameters": {
             "registeredOn": "Booked on the ",
-            "source": "Booking via",
-            "cancelledOn": "Cancelled the "
+            "source": "Booking via"
         },
         "source": {
             "web": "Web",
@@ -5756,10 +5703,7 @@
         "statusCode": {
             "cancelledByManager": "Cancelled by manager",
             "cancelledByConsumer": "Cancelled by customer",
-            "cancelledByOffer": "Session cancelled",
-            "cancelledByOfferDate": "Session cancelled by the club on the {{-date}} at {{time}}",
-            "cancelledByConsumerDate": "Cancelled by customer on the {{-date}} at {{time}}",
-            "cancelledByManagerDate": "Cancelled by manager on the {{-date}} at {{time}}"
+            "cancelledByOffer": "Session cancelled"
         },
         "filters": {
             "notRefunded": "Not refunded",
@@ -6952,10 +6896,6 @@
             "updateCoach": {
                 "error": "It is impossible to edit the teacher",
                 "success": "The teacher has been edited"
-            },
-            "restore": {
-                "error": "Cannot restore appointment, there are not enough credits on this appointment pass.",
-                "success": "The appointment has been restored"
             }
         },
         "playlist": {
@@ -7035,12 +6975,6 @@
             "delete": {
                 "success": "The scheduled termination of the subscription has been removed",
                 "error": "Cannot remove the scheduled termination of the subscription"
-            }
-        },
-        "dashboard": {
-            "save": {
-                "error": "Unable to save changes",
-                "success": "The changes have been saved"
             }
         }
     },
@@ -7142,10 +7076,7 @@
                 "title": "Video form",
                 "submit": "Save",
                 "cancel": "Cancel",
-                "edit": "Edit",
-                "creditPrice": {
-                    "label": "Cost in credit"
-                }
+                "edit": "Edit"
             },
             "upload": {
                 "cancel": "Cancel",
@@ -7196,8 +7127,7 @@
             "lock": {
                 "pleaseAuthenticated": "You must login to access this video",
                 "accessDenied": "You do not have access to this video"
-            },
-            "creditPrice": "Cost (credit)"
+            }
         },
         "playlist": {
             "bottomActions": {

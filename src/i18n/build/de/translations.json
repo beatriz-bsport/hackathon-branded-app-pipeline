@@ -1181,11 +1181,6 @@
                 "create": {
                     "error": "Fehler beim Eintrag der Aktivität",
                     "success": "Die Aktivität wurde erstellt"
-                },
-                "autoDiscard": {
-                    "hours_before_start": "Stunde(n) vor der Sitzung:",
-                    "min_bookings_nb": "Anzahl der Buchung(en):",
-                    "emailRecipients": "Diese E-Mail wird an Staff mit der Rolle \"Leiter\" oder \"Administrator\" sowie an den Lehrer (oder Ersatzlehrer) des betreffenden Kurses gesendet."
                 }
             }
         },
@@ -1985,8 +1980,7 @@
             "bookingsTitle": "Verbundene Buchungen",
             "refundTitle": "Verbundene Zurückerstattung",
             "invoiceTitle": "Verbundene Rechnung",
-            "shareAPass": "Eine Kurskarte teilen",
-            "trackModifiedCreditTitle": "Vergangenen Credits-Anpassungen"
+            "shareAPass": "Eine Kurskarte teilen"
         },
         "notification": {
             "form": {
@@ -2136,10 +2130,6 @@
                 "maxPurchasePerMember": {
                     "helperText": "Lasse das Feld leer, um keine Begrenzung festzulegen",
                     "label": "Maximaler Kauf pro Mitglied"
-                },
-                "maxBookingPerMonth": {
-                    "helperText": "Lasse das Feld leer, um keine Begrenzung festzulegen",
-                    "label": "Maximale Nutzung pro Monat"
                 }
             }
         },
@@ -2279,8 +2269,7 @@
             "expiration": "Gültigkeit",
             "all": "Alle Karten"
         },
-        "multipleBookingTooltip": "Mehrfach-Buchungen",
-        "maxNBookingsByMonth2": " Buchungen pro Monat"
+        "multipleBookingTooltip": "Mehrfach-Buchungen"
     },
     "alerting": {
         "task": {
@@ -2507,11 +2496,7 @@
             "note": "Anmerkung",
             "full_address": "Vollständige Adresse",
             "birthday": "Geburtsdatum",
-            "payment_method_sepa": "SEPA",
-            "video_status": "Status",
-            "level_activity": "Level",
-            "sct_name": "Kategorie",
-            "duration_second": "Dauer (Sekunde)"
+            "payment_method_sepa": "SEPA"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -2554,8 +2539,7 @@
             "basket": "Warenkorb",
             "memberships": "Kurskarten",
             "invoices": "Einkäufe",
-            "products": "Produkte",
-            "video": "Video"
+            "products": "Produkte"
         },
         "globalCategories": {
             "subheader": {
@@ -2798,10 +2782,6 @@
             "updateCoach": {
                 "error": "Es ist unmöglich, den Lehrer zu ändern",
                 "success": "Der Lehrer wurde geändert"
-            },
-            "restore": {
-                "error": "Termin kann nicht wiederhergestellt werden, diese Terminkarte enthält nicht genügend Credits.",
-                "success": "Der Termin wurde wiederhergestellt"
             }
         },
         "communication": {
@@ -2964,12 +2944,6 @@
             "delete": {
                 "success": "Die geplante Kündigung des Abonnements wurde entfernt",
                 "error": "Die geplante Kündigung des Abonnements kann nicht entfernt werden"
-            }
-        },
-        "dashboard": {
-            "save": {
-                "error": "Änderungen können nicht gespeichert werden",
-                "success": "Änderungen wurden gespeichert"
             }
         }
     },
@@ -3377,11 +3351,7 @@
                 "coach": {
                     "isEmpty": "Kein Lehrer"
                 },
-                "title": "Video ändern",
-                "creditPrice": {
-                    "helperText": "Bei Null belassen, damit das Video für alle Mitglieder zugänglich ist",
-                    "label": "Creditkosten"
-                }
+                "title": "Video ändern"
             },
             "lock": {
                 "accessDenied": "Du hast keinen Zugang zu diesem Video",
@@ -3412,8 +3382,7 @@
             },
             "name": "Name",
             "category": "Kategorie",
-            "level": "Level",
-            "creditPrice": "Kosten (Gutschrift)"
+            "level": "Level"
         },
         "playlist": {
             "description": "Beschreibung",
@@ -3470,10 +3439,7 @@
         "statusCode": {
             "cancelledByOffer": "Kurs von dem Klub storniert",
             "cancelledByConsumer": "Stornierung vom Kunde",
-            "cancelledByManager": "Stornierung vom Manager",
-            "cancelledByOfferDate": "Kurs vom Club am {{-date}} um {{time}} abgesagt",
-            "cancelledByConsumerDate": "Kundenstornierung am {{-date}} um {{time}}",
-            "cancelledByManagerDate": "von Manager storniert am {{-date}} um {{time}}"
+            "cancelledByManager": "Stornierung vom Manager"
         },
         "doNotAttend": "Abwesend",
         "attend": "Anwesend",
@@ -3490,8 +3456,7 @@
         },
         "parameters": {
             "registeredOn": "Gebucht, am ",
-            "source": "Buchungs-Kanal",
-            "cancelledOn": "Storniert am "
+            "source": "Buchungs-Kanal"
         },
         "loading": "Es lädt ...",
         "wasRefunded": "Zurückerstattet",
@@ -3982,8 +3947,7 @@
                 "cancel": "Abbrechen",
                 "explain": "Bist Du Dir sicher, dass Du diese Buchung stornieren möchtest? Diese Aktion ist unwiderruflich.",
                 "explainHardDelete": "Diese Buchung wurde bereits gelöscht. Wenn Du sie löscht, verschwindet sie vollständig aus dem Kalender und Du verlierest den Verlauf. Die Buchung wird zurückerstattet, wenn sie nicht bereits zuvor zurückerstattet wurde. Diese Aktion ist unwiderruflich.",
-                "sendCancellationMail": "{{name}} über die Stornierung des Termins per E-Mail benachrichtigen",
-                "explainWithRestore": "Möchtest Sie die Buchung wirklich stornieren? Du kannst dies später rückgängig machen."
+                "sendCancellationMail": "{{name}} über die Stornierung des Termins per E-Mail benachrichtigen"
             },
             "detail": {
                 "wasRefunded": "Zurückerstattete Credits auf der Kurskarte",
@@ -3996,8 +3960,7 @@
                 "passTitle": "Kurskarte",
                 "slotTitle": "Kurs",
                 "registeredOn": "Gebucht für den ",
-                "source": "Buchungs-Kanal ",
-                "cancelledOn": "Storniert am "
+                "source": "Buchungs-Kanal "
             },
             "managerAdd": {
                 "title": "Neue Buchung",
@@ -4026,9 +3989,7 @@
             "discard": "Den Termin stornieren",
             "cancel": "Abbrechen",
             "editTime": "Ändern",
-            "updateCoach": "Einen neuen Lehrer für diesen Termin auswählen",
-            "isCancelledDate": "Storniert am {{-date}} um {{time}}",
-            "restore": "Den Termin wiederherstellen"
+            "updateCoach": "Einen neuen Lehrer für diesen Termin auswählen"
         },
         "service": {
             "configuration": {
@@ -5368,33 +5329,7 @@
                 "9": "Terminkarte",
                 "10": "Packages"
             }
-        },
-        "invoiceItemDropdown": {
-            "contentType": {
-                "10": "Packages",
-                "9": "Terminkarte",
-                "7": "Werbeaktion",
-                "6": "Versandkosten",
-                "2": "Produkte",
-                "1": "Kurskarten"
-            }
-        },
-        "bookingDropdown": {
-            "source": {
-                "4": "Datenmigration",
-                "3": "Andere",
-                "2": "Bsport Backoffice",
-                "1": "Web",
-                "0": "Applikation"
-            }
-        },
-        "resetModal": {
-            "confirm": "Weiter",
-            "cancel": "Abbrechen",
-            "content": "Die Parameter der verschiedenen Diagramme werden auf ihren Standardwert zurückgesetzt. Möchtest Du fortfahren?",
-            "title": "Einstellungen zurücksetzen"
-        },
-        "save": "Speichern"
+        }
     },
     "relationship": {
         "consumer_payment_pack_links": {

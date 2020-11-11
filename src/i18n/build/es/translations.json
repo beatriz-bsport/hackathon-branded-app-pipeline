@@ -24,13 +24,6 @@
                 "create": {
                     "success": "Actividad creada",
                     "error": "Error al registrar actividad"
-                },
-                "autoDiscard": {
-                    "hours_before_start": "Hora(s) antes de la sesión :",
-                    "min_bookings_nb": "Número de reserva(s):",
-                    "emailRecipients": "Este correo se enviará a las cuentas con el papel de Propietario o Administrador, así como al profesor (o sustituto) de la sesión en cuestión.",
-                    "explain": "Envíe una notificación por correo si hay {{bookings_nb}} reserva(s) o menos {{hours}}h antes del comienzo de la sesión.",
-                    "checkbox": "Notifíqueme cuando una sesión tenga muy pocas reservas"
                 }
             },
             "update": {
@@ -677,8 +670,7 @@
             "privatePass": "Tarjeta de cita",
             "payment": "Pago",
             "goToSubscription": "Ver la suscripción",
-            "invoiceFromSubscriptionThusNotEditable": "Esta factura forma parte de una suscripción y por lo tanto no es editable, por favor, modifica la suscripción directamente",
-            "noBookingsLeftOnPackInMonth": "Pase agotado para este mes"
+            "invoiceFromSubscriptionThusNotEditable": "Esta factura forma parte de una suscripción y por lo tanto no es editable, por favor, modifica la suscripción directamente"
         },
         "paginatedList": {
             "isEmpty": "No hay datos que mostrar"
@@ -1042,7 +1034,7 @@
         "nbOffers": "Sesiones",
         "pageTitle": "Tablero de mando",
         "turnover": {
-            "caption": "Ingresos (€)",
+            "caption": "Volumen de negocios (€)",
             "popover": "Suma de todos los pagos recibidos que figuran en las facturas",
             "title": "Volumen de negocios"
         },
@@ -1097,33 +1089,7 @@
                 "10": "Packs",
                 "9": "Tarjeta de cita"
             }
-        },
-        "invoiceItemDropdown": {
-            "contentType": {
-                "10": "Packs",
-                "9": "Tarjeta de cita",
-                "7": "Promoción",
-                "6": "Gastos de envío",
-                "2": "Productos de la tienda",
-                "1": "Tarjetas de curso"
-            }
-        },
-        "bookingDropdown": {
-            "source": {
-                "4": "Migración de datos",
-                "3": "Otro",
-                "2": "Backoffice bsport",
-                "1": "Web",
-                "0": "Aplicación"
-            }
-        },
-        "resetModal": {
-            "confirm": "Continuar",
-            "cancel": "Cancelar",
-            "content": "Los ajustes de los diferentes gráficos volverán a su valor por defecto, quieres continuar?",
-            "title": "Restablecer la configuración"
-        },
-        "save": "Guardar"
+        }
     },
     "stripe": {
         "errors": {
@@ -2356,12 +2322,7 @@
             "note": "Nota",
             "pk": "ID",
             "full_address": "Dirección completa",
-            "birthday": "Fecha de nacimiento",
-            "video_status": "Estado",
-            "level_activity": "Nivel",
-            "sct_name": "Categoría",
-            "duration_second": "Duración (segundos)",
-            "payment_method_sepa": "SEPA"
+            "birthday": "Fecha de nacimiento"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -2437,8 +2398,7 @@
             "offers": "Sesiones",
             "members": "Miembros",
             "cashbook": "Libro de caja",
-            "on_spot_payments": "Pagos en persona",
-            "video": "Vídeo"
+            "on_spot_payments": "Pagos en persona"
         },
         "globalCategories": {
             "subheader": {
@@ -2727,8 +2687,7 @@
         },
         "parameters": {
             "registeredOn": "Reservado el ",
-            "source": "Canal de compra",
-            "cancelledOn": "Cancelado el "
+            "source": "Canal de compra"
         },
         "source": {
             "web": "En el sitio web",
@@ -2748,10 +2707,7 @@
         "statusCode": {
             "cancelledByManager": "Cancelación manager",
             "cancelledByConsumer": "Cancelación cliente",
-            "cancelledByOffer": "Clase cancelada por el club",
-            "cancelledByOfferDate": "Sesión cancelada por el club el {{-date}} a las {{time}}",
-            "cancelledByConsumerDate": "Cancelado por el cliente el {{-date}} a las {{time}}",
-            "cancelledByManagerDate": "Cancelado por el manager el {{-date}} a las {{time}}"
+            "cancelledByOffer": "Clase cancelada por el club"
         },
         "bookingModule": {
             "messages": {
@@ -2989,7 +2945,7 @@
             "16": "Sesión modificada",
             "13": "Cancelación de la inscripción en la lista de espera (estudiante)",
             "12": "Registro en la lista de espera",
-            "10": "La plaza de la lista de espera, convertible, ha expirado para esta ronda",
+            "10": "Lista de espera llena de nuevo",
             "9": "Salida de la lista de espera : reserva posible",
             "8": "Reserva + compra simultánea tarjeta de curso",
             "7": "Reserva a través de la tarjeta de curso",
@@ -3010,8 +2966,7 @@
             "24": "Suscripción creada",
             "25": "Cambio de método de pago",
             "300": "Kick (No validada a tiempo demasiadas veces)",
-            "22": "Confirmación de factura",
-            "601": "Muy pocas reservas N horas antes del comienzo de la sesión"
+            "22": "Confirmación de factura"
         },
         "tag": {
             "BookingOption": {
@@ -3551,8 +3506,7 @@
                 "explainHardDelete": "Esta reserva ya ha sido cancelada, al borrarla desaparecerá completamente del calendario y perderás la historia. Será devuelta si no ha sido devuelta anteriormente. Esta operación es irreversible.",
                 "explain": "¿Estás seguro de que quieres cancelar esta reserva? Esta operación es irreversible.",
                 "title": "Cancelación reserva",
-                "sendCancellationMail": "Notifica a {{name}} sobre la cancelación de la cita por email",
-                "explainWithRestore": "Estás seguro de que deseas cancelar esta reserva? Puede deshacer esto más tarde."
+                "sendCancellationMail": "Notifica a {{name}} sobre la cancelación de la cita por email"
             },
             "detail": {
                 "address": "Dirección",
@@ -3565,8 +3519,7 @@
                 "wasRefunded": "Crédito reembolsado en la tarjeta de curso",
                 "passTitle": "Tarjeta de curso",
                 "source": "Canal de reserva ",
-                "registeredOn": "Reservado el ",
-                "cancelledOn": "Cancelado el "
+                "registeredOn": "Reservado el "
             },
             "isCancelled": "Cancelado",
             "attachCoach": {
@@ -3587,9 +3540,7 @@
                 "title": "Modificar cita"
             },
             "editTime": "Modificar",
-            "updateCoach": "Elige un nuevo profesor para esta cita",
-            "isCancelledDate": "Cancelado el {{-date}} a las {{time}}",
-            "restore": "Restaurar la cita"
+            "updateCoach": "Elige un nuevo profesor para esta cita"
         },
         "consumerPass": {
             "detail": {
@@ -4565,10 +4516,6 @@
             "updateCoach": {
                 "error": "No se puede modificar el profesor",
                 "success": "El profesor ha sido cambiado"
-            },
-            "restore": {
-                "error": "No se puede restablecer la cita, no hay suficientes créditos en esta tarjeta de cita.",
-                "success": "La cita ha sido restaurada"
             }
         },
         "communication": {
@@ -4908,12 +4855,6 @@
                 "success": "Se ha eliminado la terminación programada de la suscripción",
                 "error": "No se puede eliminar la terminación programada de la suscripción"
             }
-        },
-        "dashboard": {
-            "save": {
-                "error": "No se pueden guardar los cambios",
-                "success": "Se han guardado las modificaciones"
-            }
         }
     },
     "paymentPack": {
@@ -4946,8 +4887,7 @@
             "refundTitle": "Reembolso asociado",
             "invoiceTitle": "Factura asociada",
             "shareAPass": "Compartir una tarjeta de curso",
-            "pleaseSelectAPack": "Selecciona una tarjeta para ver el detalle",
-            "trackModifiedCreditTitle": "Historial de creditos modificados"
+            "pleaseSelectAPack": "Selecciona una tarjeta para ver el detalle"
         },
         "form": {
             "paymentPack": {
@@ -5045,11 +4985,7 @@
                     "helperText": "Dejar en blanco para no imponer un límite",
                     "label": "Uso máximo por día"
                 },
-                "full_vod_access": "Proporciona acceso a la VOD siempre que sea válido en el tiempo",
-                "maxBookingPerMonth": {
-                    "helperText": "Dejar en blanco para no imponer un límite",
-                    "label": "Uso máximo por mes"
-                }
+                "full_vod_access": "Proporciona acceso a la VOD siempre que sea válido en el tiempo"
             }
         },
         "extension": {
@@ -5236,8 +5172,7 @@
             "expiration": "Validez",
             "all": "Todas las tarjetas"
         },
-        "multipleBookingTooltip": "Reservas múltiples",
-        "maxNBookingsByMonth2": " reservas por mes"
+        "multipleBookingTooltip": "Reservas múltiples"
     },
     "selfCheckIn": {
         "offerList": {
@@ -5310,8 +5245,7 @@
             "cancel": "Cancelar",
             "subject": "Asunto del email",
             "save": "Guardar",
-            "title": "Nombre del modelo",
-            "exportHtml": "Exportar HTML"
+            "title": "Nombre del modelo"
         },
         "no_subject": "Ningún objeto",
         "preview": "Vista previa de correo",
@@ -5346,8 +5280,7 @@
             "lastDiscardBeforeMinutes": "Las cancelaciones son posibles hasta {{m}} antes del inicio de la sesión",
             "lastBookingBeforeMinutes": "Las reservas son posibles para esta actividad hasta {{m}} antes del inicio de la sesión",
             "title": "Parámetros",
-            "conditions": "Condiciones",
-            "autoDiscard": "Se te enviará un correo electrónico si hay {{nb_bookings}} reserva (s) o menos {{horas}} h antes del inicio de la sesión"
+            "conditions": "Condiciones"
         },
         "modal": {
             "delete": {
@@ -5512,11 +5445,7 @@
                 "title": "Edición de video",
                 "submit": "Guardar",
                 "cancel": "Cancelar",
-                "edit": "Modificar",
-                "creditPrice": {
-                    "helperText": "Se deja en cero para que el video sea accesible para todos sus miembros",
-                    "label": "Costo en crédito"
-                }
+                "edit": "Modificar"
             },
             "upload": {
                 "cancel": "Cancelar",
@@ -5567,8 +5496,7 @@
             "lock": {
                 "pleaseAuthenticated": "Debes iniciar sesión para acceder a este video",
                 "accessDenied": "No tienes acceso a este video"
-            },
-            "creditPrice": "Costo (crédito)"
+            }
         },
         "playlist": {
             "bottomActions": {

@@ -219,7 +219,7 @@ Buid Deploy Dev:
     - git config --global user.email "contact@bsport.io"
     - git config --global user.name "bsport-bot"
     - git fetch
-    - git checkout dev
+    - git checkout $DEST_BRANCH
     - git merge --ff-only origin/${SOURCE_BRANCH}
     - git push origin $DEST_BRANCH
 

@@ -335,6 +335,10 @@ exports.default = {
       success: 'Vidéo supprimée',
       error: 'Impossible de supprimer la vidéo',
     },
+    register: {
+      success: 'Vidéo enregistrée dans votre bibliothèque',
+      error: "Impossible d'enregister cette vidéo, réessayez dans un moment",
+    },
   },
   playlist: {
     createOrUpdate: {

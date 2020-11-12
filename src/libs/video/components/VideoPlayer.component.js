@@ -4,26 +4,24 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation } from 'react-i18next';
-import LockIcon from '@material-ui/icons/Lock';
-import type { TFunction } from 'react-i18next';
-import Typography from '@material-ui/core/Typography';
 import VideoPlayerBase from './VideoPlayerBase.component';
 import { getPlaybackUrl as getPlaybackUrlAPI } from '../api';
+import VideoLockOverlay from './VideoLockOverlay.component';
 
 import './videojs-fullscreen.css';
 
 type Props = {
-  t: TFunction,
   authenticated: boolean,
   video: Video,
   rounded: boolean,
   classes: Object,
+  requestVideoAccess: () => void,
 };
 
 type State = {
   accessDenied: boolean,
-playbackLoading: boolean,
-playbackUrl: string,
+  playbackLoading: boolean,
+  playbackUrl: string,
 };
 
 export class VideoPlayer extends React.Component<Props, State> {
@@ -82,16 +80,11 @@ export class VideoPlayer extends React.Component<Props, State> {
               )}
               {!this.state.playbackLoading &&
                 (!!this.state.accessDenied || !this.props.authenticated) && (
-                  <React.Fragment>
-                    <LockIcon className={classes.lockIcon} />
-                    <Typography align="center" className={classes.lockText}>
-                      {!this.props.authenticated &&
-                        this.props.t('video.lock.pleaseAuthenticated')}
-                      {this.props.authenticated &&
-                        this.state.accessDenied &&
-                        this.props.t('video.lock.accessDenied')}
-                    </Typography>
-                  </React.Fragment>
+                  <VideoLockOverlay
+                    accessDenied={this.state.accessDenied}
+                    authenticated={this.props.authenticated}
+                    requestVideoAccess={this.props.requestVideoAccess}
+                  />
                 )}
             </div>
             <div className={classes.loadingOverlay} />
@@ -150,15 +143,6 @@ const styles = (theme) => ({
   },
   circularProgress: {
     color: 'white',
-  },
-  lockText: {
-    color: 'white',
-    marginTop: theme.spacing(2),
-  },
-  lockIcon: {
-    color: 'white',
-    height: 64,
-    width: 64,
   },
   loadingOverlay: {
     position: 'absolute',

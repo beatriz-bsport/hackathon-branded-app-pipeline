@@ -15,6 +15,7 @@ import {
   listAllPaymentPackActions,
   updatePaymentPackActions,
   scalePaymentPackCreditActions,
+  listPaymentPackCompatibleActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -42,6 +43,11 @@ const initialState = Immutable({
   },
   byId: {},
   allIds: [],
+  compatible: {
+    allIds: [],
+    loading: false,
+    error: null,
+  },
   notification: {
     itemsById: {},
     loading: false,
@@ -192,6 +198,37 @@ export const newPaymentPackReducer = handleActions(
             page: payload.page,
           },
           byId: payload.paymentPacksById,
+        },
+        { deep: true },
+      );
+    },
+    [listPaymentPackCompatibleActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          compatible: {
+            allIds: payload.results.map((pp) => pp.id),
+            count: payload.count,
+            next_page: payload.next_page,
+          },
+          byId: payload.results.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+        },
+        { deep: true },
+      );
+    },
+    [listPaymentPackCompatibleActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['compatible', 'loading'], payload);
+    },
+    [listPaymentPackCompatibleActions.error]: (state, { payload }) => {
+      return state.setIn(['compatible', 'error'], payload);
+    },
+    [listPaymentPackCompatibleActions.reset]: (state) => {
+      return state.merge(
+        {
+          compatible: {
+            allIds: [],
+            count: 0,
+            next_page: 1,
+          },
         },
         { deep: true },
       );

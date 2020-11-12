@@ -61,18 +61,23 @@ export async function fetchConsumerPaymentPackCreditRefundList(params: any) {
 }
 
 export async function addCreditToConsumerPack(id: number, nbCredit: number) {
-  return postAuth(`${API_V1_URI}/payment-pack/consumer-payment-pack/${id}/add_credit/`, { nbCredit });
+  return postAuth(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/${id}/add_credit/`,
+    { nbCredit },
+  );
 }
 
 export async function subCreditToConsumerPack(id: number, nbCredit: number) {
-  return postAuth(`${API_V1_URI}/payment-pack/consumer-payment-pack/${id}/sub_credit/`, { nbCredit });
+  return postAuth(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/${id}/sub_credit/`,
+    { nbCredit },
+  );
 }
 
 export async function fetchConsumerPaymentPackCompatibleList(params: any) {
-  return getAuth(
-    `${API_V1_URI}/payment-pack/consumer-payment-pack/compatible/${buildUrlParams(
-      params,
-    )}`,
+  return postAuth(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/compatible/`,
+    params,
   );
 }
 

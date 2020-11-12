@@ -48,6 +48,14 @@ export async function fetchPaymentPackList(params) {
   );
 }
 
+export async function fetchPaymentPackCompatibleList(params: any = {}) {
+  return getAuth(
+    `${API_V1_URI}/payment-pack/payment-pack/compatible/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
+
 export async function fetchCompanyPaymentPacks(companyId) {
   return getAuth(
     `${API_V1_URI}/payment-pack/payment-pack/?company=${companyId}`,

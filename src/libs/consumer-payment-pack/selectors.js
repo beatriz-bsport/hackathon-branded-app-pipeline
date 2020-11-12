@@ -118,10 +118,12 @@ export const withPaymentPack = memoize((selector: (State) => any) =>
   ),
 );
 
-const _getConsumerPaymentPackListIds = (state) =>
+const _getConsumerPaymentPackCompatibleListIds = (state) =>
   state.consumerPaymentPack.compatible.allIds;
 
 export const getConsumerPaymentPackCompatibleList = createSelector(
-  [getAllData, _getConsumerPaymentPackListIds],
-  (data, ids) => ids.map((id) => data[id]),
+  [getAllData, _getConsumerPaymentPackCompatibleListIds],
+  (data, ids) => {
+    return ids.map((id) => data[id]);
+  },
 );

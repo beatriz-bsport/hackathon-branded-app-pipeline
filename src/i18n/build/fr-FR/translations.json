@@ -2812,7 +2812,11 @@
     "privateConsumerPass": { "creditUpdate": { "success": "Crédits mis à jour", "error": "Impossible d'enregistrer le crédit" } },
     "video": {
       "createOrUpdate": { "success": "Vidéo enregistrée avec succès", "error": "Impossible d'enregistrer la vidéo" },
-      "delete": { "success": "Vidéo supprimée", "error": "Impossible de supprimer la vidéo" }
+      "delete": { "success": "Vidéo supprimée", "error": "Impossible de supprimer la vidéo" },
+      "register": {
+        "success": "Vidéo enregistrée dans votre bibliothèque",
+        "error": "Impossible d'enregister cette vidéo, réessayez dans un moment"
+      }
     },
     "playlist": {
       "createOrUpdate": { "success": "Playlist enregistrée avec succès", "error": "Impossible d'enregistrer la playlist" },
@@ -4519,10 +4523,13 @@
       "bottomActions": { "create": "Ajouter" }
     },
     "video": {
+      "register": { "title": "Activer la lecture", "buyPass": "Acheter un pass" },
       "creditPrice": "Coût (crédit)",
       "lock": {
         "accessDenied": "Vous n'avez pas accès à cette vidéo",
-        "pleaseAuthenticated": "Vous devez vous connecter pour accéder à cette vidéo"
+        "pleaseAuthenticated": "Vous devez vous connecter pour accéder à cette vidéo",
+        "useConsumerPass": "Débloquer l'accès",
+        "buyPass": "Acheter une carte"
       },
       "filter": { "duration": { "all": "Toute durée", "explain": "Entre {{min}} et {{max}} min" } },
       "showMore": "Voir plus",
@@ -4538,7 +4545,7 @@
       "status": { "submitted": "Brouillon", "processing": "En cours", "error": "Réessayer", "processed": "Visionner" },
       "delete": {
         "title": "Suppression",
-        "content": "Êtes-cous sûr de vouloir supprimer cette vidéo ? Cette opération est irréversible.",
+        "content": "Êtes-vous sûr de vouloir supprimer cette vidéo ? Cette opération est irréversible.",
         "confirm": "Confirmer",
         "cancel": "Annuler"
       },

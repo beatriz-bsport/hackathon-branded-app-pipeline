@@ -459,9 +459,8 @@ export const deleteCustomEvent = async (id: number) => {
 
 // used for video, soon for everything TODO
 export const fetchPrivateConsumerPassCompatibleList = (params: any) => {
-  return getAuth(
-    `${API_V1_URI}/private_service/private_consumer_pass/compatible/${buildUrlParams(
-      params,
-    )}`,
+  return postAuth(
+    `${API_V1_URI}/private_service/private_consumer_pass/compatible/`,
+    params,
   );
 };

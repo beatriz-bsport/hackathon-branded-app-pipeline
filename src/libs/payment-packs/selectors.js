@@ -168,6 +168,13 @@ export const getPaymentPackForBooking = createSelector(
   (ids, data) => ids.map((id) => data[id]),
 );
 
+const _getPaymentPackListIds = (state) => state.paymentPack.compatible.allIds;
+
+export const getPaymentPackCompatibleList = createSelector(
+  [getPaymentPackById, _getPaymentPackListIds],
+  (data, ids) => ids.map((id) => data[id]),
+);
+
 export default {
   get,
   getWithSCT,

@@ -14,6 +14,7 @@ import VideoPlayer from './VideoPlayer.component';
 type Props = {
   video: Video,
   authenticated: boolean,
+  requestVideoAccess: () => void,
 };
 export const VideoPlayerFull = (props: Props) => {
   const classes = useStyles();
@@ -25,6 +26,7 @@ export const VideoPlayerFull = (props: Props) => {
         authenticated={props.authenticated}
         rounded
         video={props.video}
+        requestVideoAccess={props.requestVideoAccess}
       />
       <div className={classes.inner}>
         <Typography className={classes.videoTitle} variant="h4">

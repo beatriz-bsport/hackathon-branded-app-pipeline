@@ -19,6 +19,7 @@ import {
   createPaymentPackNotifications as createNotificationAPI,
   fetchPaymentPackNotifications as fetchNotificationsAPI,
   deletePaymentPackNotifications as deleteNotificationAPI,
+  fetchPaymentPackCompatibleList as fetchPaymentPackCompatibleListAPI,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
@@ -447,5 +448,37 @@ export function fetchPaymentPackForBooking(
       if (options && options.onError) options.onError();
     }
     dispatch(paymentPackForBookingActions.isLoading(null));
+  };
+}
+
+export const listPaymentPackCompatibleActions = {
+  isLoading: createAction('PAYMENT_PACK/LIST_COMPATIBLE/IS_LOADING'),
+  error: createAction('PAYMENT_PACK/LIST_COMPATIBLE/ERROR'),
+  success: createAction('PAYMENT_PACK/LIST_COMPATIBLE/SUCCESS'),
+  reset: createAction('PAYMENT_PACK/LIST_COMPATIBLE/RESET'),
+};
+
+export const resetPaymentPackCompatible =
+  listPaymentPackCompatibleActions.reset;
+
+export function fetchPaymentPackCompatibleList(
+  params: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPaymentPackCompatibleActions.isLoading(true));
+    dispatch(listPaymentPackCompatibleActions.error(null));
+    try {
+      const response = await fetchPaymentPackCompatibleListAPI(params);
+      dispatch(listPaymentPackCompatibleActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(listPaymentPackCompatibleActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(listPaymentPackCompatibleActions.isLoading(null));
   };
 }

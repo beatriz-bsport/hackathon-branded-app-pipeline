@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withHandlers } from 'recompose';
+import { compose, withHandlers, withState } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { connect } from 'react-redux';
@@ -17,6 +17,7 @@ import {
   retrieveVideo as retrieveVideoAction,
   fetchMoreVideo as fetchMoreVideoAction,
   fetchVideoList as fetchVideoListAction,
+  registerVideo as registerVideoAction,
 } from '../../libs/video/actions';
 import {
   getVideo,
@@ -25,10 +26,22 @@ import {
   withCoach,
 } from '../../libs/video/selectors';
 
-import { getConsumerPaymentPackCompatibleList } from '../../libs/consumer-payment-pack/selectors';
-import { fetchConsumerPaymentPackCompatibleList } from '../../libs/consumer-payment-pack/actions';
-import { fetchPrivateConsumerPassCompatibleList } from '../../libs/private-service/actions';
+import {
+  getConsumerPaymentPackCompatibleList,
+  withPaymentPack,
+} from '../../libs/consumer-payment-pack/selectors';
+import { getPaymentPackCompatibleList } from '../../libs/payment-packs/selectors';
+import {
+  fetchConsumerPaymentPackCompatibleList as fetchConsumerPaymentPackCompatibleListAction,
+  resetConsumerPaymentPackCompatibleList,
+} from '../../libs/consumer-payment-pack/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
+import VideoRegisterDialog from '../../libs/video/components/RegisterVideoDialog.component';
+
+import { fetchPrivateConsumerPassCompatibleList as fetchPrivateConsumerPassCompatibleListAction } from '../../libs/private-service/actions';
 import { getPrivateConsumerPassCompatibleList } from '../../libs/private-service/selectors/private-consumer-pass';
+
+import type { OptionCallback } from '../../types';
 
 type Props = {
   retrieveVideo: () => void,
@@ -42,13 +55,62 @@ type Props = {
   video: ?Video,
   loading: boolean,
   authenticated: boolean,
+  resetConsumerPaymentPackCompatibleList: () => void,
+  videoId: number,
+  fetchPrivateConsumerPassCompatibleList: (
+    { video: number },
+    options: OptionCallback,
+  ) => void,
+  fetchConsumerPaymentPackCompatibleList: (
+    { video: number },
+    options: OptionCallback,
+  ) => void,
+  fetchPaymentPackBulk: (Array<number>) => void,
+  setRegisterVideoOpen: (boolean) => void,
+  setPrivateConsumerPassReady: (boolean) => void,
+  setConsumerPaymentPackReady: (boolean) => void,
+  registerVideo: (id: number, data: any) => void,
+  consumerPaymentPackCompatibleList: Array<ConsumerPaymentPack>,
+  privateConsumerPassCompatibleList: Array<PrivateConsumerPass>,
+  onRequestBuyPass: () => void,
+  registerVideoOpen: boolean,
+  consumerPaymentPackReady: boolean,
+  privateConsumerPassReady: boolean,
 };
 
 export class MarketplaceVideoDetail extends React.Component<Props> {
   componentDidMount() {
     this.props.retrieveVideo();
     this.props.fetchVideoListSimilar();
+    this.props.resetConsumerPaymentPackCompatibleList();
   }
+
+  requestVideoAccess = () => {
+    this.props.fetchPrivateConsumerPassCompatibleList(
+      {
+        video: this.props.videoId,
+      },
+      {
+        onSuccess: () => this.props.setPrivateConsumerPassReady(true),
+        onError: () => this.props.setPrivateConsumerPassReady(true),
+      },
+    );
+    this.props.fetchConsumerPaymentPackCompatibleList(
+      {
+        video: this.props.videoId,
+      },
+      {
+        onSuccess: (cppList) => {
+          this.props.fetchPaymentPackBulk(
+            cppList.map((cpp) => cpp.payment_pack),
+          );
+          this.props.setConsumerPaymentPackReady(true);
+        },
+        onError: () => this.props.setConsumerPaymentPackReady(true),
+      },
+    );
+    this.props.setRegisterVideoOpen(true);
+  };
 
   render() {
     return (
@@ -65,6 +127,7 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
               <VideoPlayerFull
                 authenticated={this.props.authenticated}
                 video={this.props.video}
+                requestVideoAccess={this.requestVideoAccess}
               />
             )}
           </Grid>
@@ -78,6 +141,19 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
             />
           </Grid>
         </Grid>
+        <VideoRegisterDialog
+          consumerPaymentPackList={this.props.consumerPaymentPackCompatibleList}
+          privateConsumerPassList={this.props.privateConsumerPassCompatibleList}
+          registerVideo={this.props.registerVideo}
+          open={this.props.registerVideoOpen}
+          onBuyPass={this.props.onRequestBuyPass}
+          loading={
+            !(
+              this.props.consumerPaymentPackReady &&
+              this.props.privateConsumerPassReady
+            )
+          }
+        />
       </div>
     );
   }
@@ -114,21 +190,43 @@ export default compose(
       privateConsumerPassCompatibleList: getPrivateConsumerPassCompatibleList(
         state,
       ),
-      consumerPaymentPackCompatibleList: getConsumerPaymentPackCompatibleList(
-        state,
-      ),
+      consumerPaymentPackCompatibleList: withPaymentPack(
+        getConsumerPaymentPackCompatibleList,
+      )(state),
+      paymentPackCompatibleList: getPaymentPackCompatibleList(state),
     }),
     {
       retrieveVideo: retrieveVideoAction,
       fetchVideoList: fetchVideoListAction,
       fetchMoreVideo: fetchMoreVideoAction,
       fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
-      fetchPrivateConsumerPassCompatibleList,
-      fetchConsumerPaymentPackCompatibleList,
+      fetchPrivateConsumerPassCompatibleList: fetchPrivateConsumerPassCompatibleListAction,
+      fetchConsumerPaymentPackCompatibleList: fetchConsumerPaymentPackCompatibleListAction,
+      fetchPaymentPackBulk: fetchPaymentPackBulkAction,
+      resetConsumerPaymentPackCompatibleList,
+      registerVideo: registerVideoAction,
       push: pushRouter,
     },
   ),
+  withState('consumerPaymentPackReady', 'setConsumerPaymentPackReady', false),
+  withState('registerVideoOpen', 'setRegisterVideoOpen', false),
+  withState('privateConsumerPassReady', 'setPrivateConsumerPassReady', false),
   withHandlers({
+    registerVideo: ({
+      registerVideo,
+      retrieveVideo,
+      videoId,
+      setRegisterVideoOpen,
+    }) => (data) =>
+      registerVideo(videoId, data, {
+        onSuccess: () => {
+          retrieveVideo(videoId);
+          setRegisterVideoOpen(false);
+          window.location.reload();
+        },
+      }),
+    onRequestBuyPass: ({ push, companyName, companyId }) => () =>
+      push(getMarketplaceRoute(companyName, companyId, 'pass')),
     retrieveVideo: ({
       retrieveVideo,
       videoId,

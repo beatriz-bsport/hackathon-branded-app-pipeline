@@ -39,3 +39,10 @@ export const getUploadInstruction = async (id: number) => {
 export const getPlaybackUrl = async (id: number) => {
   return getAuth(`${API_V1_URI}/vod/video/${id}/playback_url/`);
 };
+
+export const registerVideo = async (video: number, data: any) => {
+  return postAuth(`${API_V1_URI}/vod/video_purchase/register_video/`, {
+    video,
+    ...(data || {}),
+  });
+};

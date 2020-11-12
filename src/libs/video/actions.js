@@ -7,6 +7,7 @@ import {
   createOrUpdateVideo as createOrUpdateVideoAPI,
   deleteVideo as deleteVideoAPI,
   retrieveVideo as retrieveVideoAPI,
+  registerVideo as registerVideoAPI,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
@@ -195,5 +196,31 @@ export function deleteVideo(id: number, options: OptionCallback) {
       dispatch(snackbarError('video.delete.error'));
     }
     dispatch(deleteVideoActions.isLoading(false));
+  };
+}
+
+export const registerVideoActions = {
+  isLoading: createAction('VIDEO/REGISTER/IS_LOADING'),
+  error: createAction('VIDEO/REGISTER/ERROR'),
+  success: createAction('VIDEO/REGISTER/SUCCESS'),
+};
+export function registerVideo(id: number, data: any, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(registerVideoActions.isLoading(true));
+    dispatch(registerVideoActions.error(null));
+    try {
+      await registerVideoAPI(id, data);
+      dispatch(registerVideoActions.success(id));
+      if (options && options.onSuccess) {
+        options.onSuccess(id);
+      }
+      dispatch(snackbarSuccess('video.register.success'));
+    } catch (err) {
+      console.error(err);
+      dispatch(registerVideoActions.error(err));
+      if (options && options.onError) options.onError();
+      dispatch(snackbarError('video.register.error'));
+    }
+    dispatch(registerVideoActions.isLoading(false));
   };
 }

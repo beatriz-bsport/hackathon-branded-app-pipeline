@@ -426,6 +426,9 @@ export const listConsumerPaymentPackCompatibleActions = {
   reset: createAction('CONSUMER_PACK/COMPATIBLE_LIST/RESET'),
 };
 
+export const resetConsumerPaymentPackCompatibleList =
+  listConsumerPaymentPackCompatibleActions.reset;
+
 export function fetchConsumerPaymentPackCompatibleList(
   params: any,
   options: OptionCallback,

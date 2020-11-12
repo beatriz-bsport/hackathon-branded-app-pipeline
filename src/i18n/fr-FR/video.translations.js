@@ -16,11 +16,17 @@ exports.default = {
     },
   },
   video: {
+    register: {
+      title: 'Activer la lecture',
+      buyPass: 'Acheter un pass',
+    },
     creditPrice: 'Coût (crédit)',
     lock: {
       accessDenied: "Vous n'avez pas accès à cette vidéo",
       pleaseAuthenticated:
         'Vous devez vous connecter pour accéder à cette vidéo',
+      useConsumerPass: "Débloquer l'accès",
+      buyPass: 'Acheter une carte',
     },
     filter: {
       duration: {
@@ -59,7 +65,7 @@ exports.default = {
     delete: {
       title: 'Suppression',
       content:
-        'Êtes-cous sûr de vouloir supprimer cette vidéo ? Cette opération est irréversible.',
+        'Êtes-vous sûr de vouloir supprimer cette vidéo ? Cette opération est irréversible.',
       confirm: 'Confirmer',
       cancel: 'Annuler',
     },

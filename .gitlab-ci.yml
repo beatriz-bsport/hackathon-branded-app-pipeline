@@ -203,6 +203,41 @@ Buid Deploy Dev:
     CLOUDFRONT_ID: E17M3KEJFTN7MM
     SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
 
+.Promote Base:
+  image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:v1.0.1
+  stage: promote
+  tags:
+    - deployment
+  only:
+    - dev
+    - master
+  when: manual
+  script:
+    - git remote -v
+    - git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/bsport/bsport-saas.git
+    - git config --global user.email "contact@bsport.io"
+    - git config --global user.name "bsport-bot"
+    - git fetch
+    - git checkout dev
+    - git merge --ff-only origin/${SOURCE_BRANCH}
+    - git push origin $DEST_BRANCH
+
+Promote to staging:
+  extends: .Promote Base
+  only:
+    - dev
+  variables:
+    SOURCE_BRANCH: dev
+    DEST_BRANCH: master
+
+Promote to production:
+  extends: .Promote Base
+  only:
+    - master
+  variables:
+    SOURCE_BRANCH: master
+    DEST_BRANCH: production
+
 # deploy-production:
 #   stage: configure_and_deploy
 #   only:

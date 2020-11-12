@@ -12,6 +12,7 @@ stages:
   # - e2e_tests
   - bump-version
   - configure_and_deploy
+  - promote
 
 before_script:
   - yarn config set cache-folder $YARN_CACHE_DIR 

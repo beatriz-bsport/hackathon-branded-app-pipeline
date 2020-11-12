@@ -125,7 +125,7 @@ Auto Bump Production:
   #       - "$CYPRESS_CACHE_FOLDER/node_modules"
   #       - node_modules
   tags:
-    - deployment
+    - build-frontend
   only:
     refs:
       - dev

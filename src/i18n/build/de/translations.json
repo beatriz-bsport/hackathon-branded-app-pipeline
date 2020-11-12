@@ -1185,7 +1185,8 @@
                 "autoDiscard": {
                     "hours_before_start": "Stunde(n) vor der Sitzung:",
                     "min_bookings_nb": "Anzahl der Buchung(en):",
-                    "emailRecipients": "Diese E-Mail wird an Staff mit der Rolle \"Leiter\" oder \"Administrator\" sowie an den Lehrer (oder Ersatzlehrer) des betreffenden Kurses gesendet."
+                    "emailRecipients": "Diese E-Mail wird an Staff mit der Rolle \"Leiter\" oder \"Administrator\" sowie an den Lehrer (oder Ersatzlehrer) des betreffenden Kurses gesendet.",
+                    "checkbox": "Benachrichtige mich, wenn ein Kurs zu wenige Anmeldungen hat"
                 }
             }
         },

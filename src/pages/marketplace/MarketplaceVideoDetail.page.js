@@ -144,6 +144,7 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
         <VideoRegisterDialog
           consumerPaymentPackList={this.props.consumerPaymentPackCompatibleList}
           privateConsumerPassList={this.props.privateConsumerPassCompatibleList}
+          creditPrice={this.props.video && this.props.video.credit_price}
           registerVideo={this.props.registerVideo}
           open={this.props.registerVideoOpen}
           onBuyPass={this.props.onRequestBuyPass}

@@ -48,6 +48,7 @@ export const RegisterVideoDialog = (props: Props) => {
           <ConsumerPaymentPackListItemCheckout
             consumerPack={cpp}
             key={cpp.id}
+            creditPrice={props.creditPrice}
             onBookFromPack={() =>
               props.registerVideo({ consumer_payment_pack: cpp.id })
             }

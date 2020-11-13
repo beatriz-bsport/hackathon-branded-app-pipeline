@@ -50,6 +50,9 @@ const WorkshopActivityMap = {
   SCT: 'SCT',
   color: 'color',
   is_broadcast: 'is_broadcast',
+  auto_discard_active: 'auto_discard_active',
+  auto_discard_hours_before_start: 'auto_discard_hours_before_start',
+  auto_discard_min_bookings_nb: 'auto_discard_min_bookings_nb',
 };
 
 export class WorkshopActivityEditPage extends React.Component<Props> {

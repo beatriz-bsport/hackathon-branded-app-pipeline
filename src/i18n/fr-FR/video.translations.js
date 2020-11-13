@@ -19,6 +19,7 @@ exports.default = {
     register: {
       title: 'Activer la lecture',
       buyPass: 'Acheter un pass',
+      noPassAvailable: 'Vous ne possédez pas de pass compatible',
     },
     creditPrice: 'Coût (crédit)',
     lock: {

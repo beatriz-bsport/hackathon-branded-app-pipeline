@@ -3767,7 +3767,9 @@
         "video": {
             "lock": {
                 "accessDenied": "Je hebt geen toegang tot deze video",
-                "pleaseAuthenticated": "Je moet inloggen om toegang tot deze video te krijgen"
+                "pleaseAuthenticated": "Je moet inloggen om toegang tot deze video te krijgen",
+                "buyPass": "Schaf een cursuskaart aan",
+                "useConsumerPass": "Deblokkeer de toegang"
             },
             "filter": {
                 "duration": {
@@ -3828,7 +3830,10 @@
                 }
             },
             "level": "Niveau",
-            "creditPrice": "Kosten (in kredieten)"
+            "creditPrice": "Kosten (in kredieten)",
+            "register": {
+                "buyPass": "Schaf een cursuskaart aan"
+            }
         }
     },
     "order": {
@@ -5189,6 +5194,9 @@
             "createOrUpdate": {
                 "error": "Kan video niet opslaan",
                 "success": "Video opgeslagen"
+            },
+            "register": {
+                "success": "De video is in de videotheek opgeslagen"
             }
         },
         "privateBooking": {

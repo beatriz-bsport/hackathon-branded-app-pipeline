@@ -76,6 +76,7 @@ type Props = {
   closeCreateDialog: () => void,
   editVideo: ?Video,
   openCreateForm: () => void,
+  goToDetail: (videoId: number) => void,
 };
 
 const VideoMap = {
@@ -116,6 +117,7 @@ export class VodVideoListPage extends React.PureComponent<Props> {
         </div>
         <Divider className={classes.divider} />
         <VideoCardList
+          goToDetail={this.props.goToDetail}
           videoList={this.props.videoList}
           onEdit={this.props.openEditForm}
           onDelete={this.props.deleteVideo}
@@ -202,7 +204,7 @@ export default compose(
       fetchVideoList: fetchVideoListAction,
       fetchAssociatedCoachesList,
       retrieveVideo,
-      goToDetail: (videoId) => push(`/video/${videoId}/`),
+      goToDetail: (videoId) => push(`/vod/video/${videoId}/`),
       deleteVideo: deleteVideoAction,
       createOrUpdateVideo: createOrUpdateVideoAction,
       fetchMoreVideo: fetchMoreVideoAction,

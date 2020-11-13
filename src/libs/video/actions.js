@@ -8,11 +8,14 @@ import {
   deleteVideo as deleteVideoAPI,
   retrieveVideo as retrieveVideoAPI,
   registerVideo as registerVideoAPI,
+  fetchVideoPurchase as fetchVideoPurchaseAPI,
+  fetchVideoAnalytics as fetchVideoAnalyticsAPI,
+  fetchVideoViewAnalytics as fetchVideoViewAnalyticsAPI,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
-import type { Dispatch } from '../../state/types';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const retrieveVideoActions = {
   isLoading: createAction('VIDEO/RETRIEVE/IS_LOADING'),
@@ -222,5 +225,99 @@ export function registerVideo(id: number, data: any, options: OptionCallback) {
       dispatch(snackbarError('video.register.error'));
     }
     dispatch(registerVideoActions.isLoading(false));
+  };
+}
+
+export const listVideoPurchaseActions = {
+  isLoading: createAction('VIDEO_PURCHASE/LIST/IS_LOADING'),
+  error: createAction('VIDEO_PURCHASE/LIST/ERROR'),
+  success: createAction('VIDEO_PURCHASE/LIST/SUCCESS'),
+};
+export function fetchVideoPurchase(
+  page: number,
+  page_size: number,
+  params: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listVideoPurchaseActions.isLoading(true));
+    dispatch(listVideoPurchaseActions.error(null));
+    try {
+      const response = await fetchVideoPurchaseAPI({
+        page,
+        page_size,
+        ...(params || {}),
+      });
+      dispatch(listVideoPurchaseActions.success({ ...response.data, page }));
+      if (options && options.onSuccess) {
+        if (response.data.results) {
+          options.onSuccess(response.data.results);
+        } else {
+          options.onSuccess(response.data);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(listVideoPurchaseActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(listVideoPurchaseActions.isLoading(false));
+  };
+}
+
+export const retrieveVideoAnalyticsActions = {
+  isLoading: createAction('VIDEO_ANALYTICS/LIST/IS_LOADING'),
+  error: createAction('VIDEO_ANALYTICS/LIST/ERROR'),
+  success: createAction('VIDEO_ANALYTICS/LIST/SUCCESS'),
+};
+export function fetchVideoAnalytics(videoId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveVideoAnalyticsActions.isLoading(true));
+    dispatch(retrieveVideoAnalyticsActions.error(null));
+    try {
+      const response = await fetchVideoAnalyticsAPI(videoId);
+      dispatch(retrieveVideoAnalyticsActions.success(response.data));
+    } catch (error) {
+      console.error(error);
+      dispatch(retrieveVideoAnalyticsActions.error(error));
+    }
+    dispatch(retrieveVideoAnalyticsActions.isLoading(false));
+  };
+}
+
+export const listVideoViewsActions = {
+  isLoading: createAction('VIDEO_VIEWS/LIST/IS_LOADING'),
+  error: createAction('VIDEO_VIEWS/LIST/ERROR'),
+  success: createAction('VIDEO_VIEWS/LIST/SUCCESS'),
+};
+export function fetchVideoViews(
+  page: number,
+  page_size: number,
+  params: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listVideoViewsActions.isLoading(true));
+    dispatch(listVideoViewsActions.error(null));
+    try {
+      const response = await fetchVideoViewAnalyticsAPI({
+        page,
+        page_size,
+        ...(params || {}),
+      });
+      dispatch(listVideoViewsActions.success({ ...response.data, page }));
+      if (options && options.onSuccess) {
+        if (response.data.results) {
+          options.onSuccess(response.data.results);
+        } else {
+          options.onSuccess(response.data);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(listVideoViewsActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(listVideoViewsActions.isLoading(false));
   };
 }

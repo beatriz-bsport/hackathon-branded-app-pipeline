@@ -9,6 +9,9 @@ import {
   createOrUpdateVideoActions,
   bulkVideoActions,
   searchVideoActions,
+  listVideoPurchaseActions,
+  retrieveVideoAnalyticsActions,
+  listVideoViewsActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -33,6 +36,25 @@ const initialState = Immutable({
     error: null,
     nextPage: 1,
     allIds: [],
+  },
+  purchase: {
+    loading: false,
+    error: null,
+    items: [],
+    page: 1,
+    count: 0,
+  },
+  analytics: {
+    loading: false,
+    data: {},
+    error: null,
+  },
+  views: {
+    loading: false,
+    error: null,
+    items: [],
+    page: 1,
+    count: 0,
   },
 });
 
@@ -109,6 +131,39 @@ export default handleActions(
         .setIn(['search', 'allIds'], payload.results.map((v) => v.id))
         .setIn(['search', 'page'], payload.page)
         .setIn(['search', 'nextPage'], payload.next_page);
+    },
+    [listVideoPurchaseActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['purchase', 'loading'], payload);
+    },
+    [listVideoPurchaseActions.error]: (state, { payload }) => {
+      return state.setIn(['purchase', 'error'], payload);
+    },
+    [listVideoPurchaseActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['purchase', 'page'], payload.page)
+        .setIn(['purchase', 'count'], payload.count)
+        .setIn(['purchase', 'items'], payload.results);
+    },
+    [retrieveVideoAnalyticsActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['analytics', 'loading'], payload);
+    },
+    [retrieveVideoAnalyticsActions.error]: (state, { payload }) => {
+      return state.setIn(['analytics', 'error'], payload);
+    },
+    [retrieveVideoAnalyticsActions.success]: (state, { payload }) => {
+      return state.setIn(['analytics', 'data'], payload);
+    },
+    [listVideoViewsActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['views', 'loading'], payload);
+    },
+    [listVideoViewsActions.error]: (state, { payload }) => {
+      return state.setIn(['views', 'error'], payload);
+    },
+    [listVideoViewsActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['views', 'page'], payload.page)
+        .setIn(['views', 'count'], payload.count)
+        .setIn(['views', 'items'], payload.results);
     },
   },
   initialState,

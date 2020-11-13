@@ -17,6 +17,7 @@ type Props = {
   hasMoreVideo: boolean,
   onShowMore: () => void,
   onStream: (Video) => void,
+  goToDetail: (videoId: number) => void,
 };
 
 export const VideoCardList = (props: Props) => {
@@ -33,6 +34,7 @@ export const VideoCardList = (props: Props) => {
             onDelete={props.onDelete}
             onRequestUpload={props.onRequestUpload}
             onStream={props.onStream}
+            goToDetail={() => props.goToDetail(v.id)}
             withStatus
           />
         </Grid>

@@ -18,7 +18,7 @@ const VIDEO_STATUS_ERROR = 0;
 type Props = {
   video: Video,
   openUpload: (Video) => void,
-  openStream: (Video) => void,
+  goToDetail: () => void,
 };
 
 export const VideoStatus = (props: Props) => {
@@ -32,7 +32,8 @@ export const VideoStatus = (props: Props) => {
           color="primary"
           variant="outlined"
           className={classes.button}
-          onClick={() => props.openStream(props.video)}
+          // onClick={() => props.openStream(props.video)}
+          onClick={props.goToDetail}
         >
           <OndemandVideoIcon className={classes.leftIcon} />
           {t('video.status.processed')}

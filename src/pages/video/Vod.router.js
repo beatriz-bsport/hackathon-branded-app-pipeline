@@ -5,10 +5,12 @@ import { Switch, Route } from 'react-router-dom';
 import VodVideoListPage from './VodVideoList.page';
 import VodPlaylistListPage from './VodPlaylistList.page';
 import VodPlaylistDetailPage from './VodPlaylistDetail.page';
+import VodVideoDetailPage from './VodVideoDetail.page';
 
 export const VodRouter = () => {
   return (
     <Switch>
+      <Route path="/vod/video/:videoId" component={VodVideoDetailPage} />
       <Route path="/vod/video" component={VodVideoListPage} />
       <Route
         path="/vod/playlist/:id/video/:videoId"

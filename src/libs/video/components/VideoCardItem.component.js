@@ -28,6 +28,7 @@ type Props = {
   onDelete: (id: number) => void,
   onRequestUpload: (id: number) => void,
   onStream: (Video) => void,
+  goToDetail: () => void,
 };
 
 const DeleteWithConfirm = withConfirm(IconButton, 'onClick', {
@@ -127,6 +128,7 @@ export const VideoCardItem = (props: Props) => {
               <VideoStatus
                 openStream={props.onStream}
                 openUpload={() => props.onRequestUpload(props.video)}
+                goToDetail={props.goToDetail}
                 video={props.video}
               />
             )}

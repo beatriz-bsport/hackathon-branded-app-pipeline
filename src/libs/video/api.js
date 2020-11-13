@@ -46,3 +46,21 @@ export const registerVideo = async (video: number, data: any) => {
     ...(data || {}),
   });
 };
+
+export const fetchVideoPurchase = async (params: ?any) => {
+  return getAuth(
+    `${API_V1_URI}/vod/video_purchase/${buildUrlParams({ ...(params || {}) })}`,
+  );
+};
+
+export const fetchVideoAnalytics = async (videoId: number) => {
+  return getAuth(`${API_V1_URI}/vod/video_analytics/${videoId}/`);
+};
+
+export const fetchVideoViewAnalytics = async (params: ?any) => {
+  return getAuth(
+    `${API_V1_URI}/vod/video_view_analytics/${buildUrlParams({
+      ...(params || {}),
+    })}`,
+  );
+};

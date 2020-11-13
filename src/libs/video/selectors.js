@@ -3,6 +3,7 @@ import memoize from 'memoize-one';
 
 import { getSCTs } from '../category/selectors';
 import { getAllCoachesDict } from '../associated-coach/selectors';
+import { getAllMembers } from '../member/selectors';
 
 const getVideoListIds = (state) => state.video.list.allIds;
 const getVideoSearchListIds = (state) => state.video.search.allIds;
@@ -68,4 +69,26 @@ export const withCoach = memoize((selector) =>
       };
     },
   ),
+);
+
+const getVideoPurchases = (state) => state.video.purchase.items;
+
+export const getVideoPurchasesWithMember = createSelector(
+  [getVideoPurchases, getAllMembers],
+  (purchases, members) =>
+    purchases.map((purchase) => ({
+      ...purchase,
+      member: members.find((m) => m.id === purchase.member_id),
+    })),
+);
+
+const getVideoViews = (state) => state.video.views.items;
+
+export const getVideoViewsWithMember = createSelector(
+  [getVideoViews, getAllMembers],
+  (views, members) =>
+    views.map((view) => ({
+      ...view,
+      member: members.find((m) => m.id === view.member_id),
+    })),
 );

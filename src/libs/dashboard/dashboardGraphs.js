@@ -73,7 +73,7 @@ const dashboardGraphsRaw = [
         },
         dateFiltersName: {
           start: 'invoice__payments__date__gte',
-          end: 'invoce__payments__date__lte',
+          end: 'invoice__payments__date__lte',
         },
         defaultRange: {
           start: null,

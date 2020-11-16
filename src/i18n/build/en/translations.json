@@ -1971,7 +1971,7 @@
             "7": "Booking via pass",
             "8": "Booking + pass purchase",
             "9": "Waiting-list exited : booking possible",
-            "10": "Waiting-list full again",
+            "10": "Waiting-list spot has expired this time",
             "12": "Subscribe to waiting-list",
             "13": "Unsubcribe from the waiting-list (member)",
             "14": "Unsubcribe from the waiting-list (manager)",
@@ -6942,6 +6942,10 @@
             "delete": {
                 "error": "It is impossible to delete the video",
                 "success": "Video deleted"
+            },
+            "register": {
+                "error": "Unable to save this video, try again in a moment",
+                "success": "Video saved in your library"
             }
         },
         "privateBooking": {
@@ -7195,9 +7199,15 @@
             },
             "lock": {
                 "pleaseAuthenticated": "You must login to access this video",
-                "accessDenied": "You do not have access to this video"
+                "accessDenied": "You do not have access to this video",
+                "buyPass": "Buy a pass",
+                "useConsumerPass": "Unblock access"
             },
-            "creditPrice": "Cost (credit)"
+            "creditPrice": "Cost (credit)",
+            "register": {
+                "buyPass": "Buy a pass",
+                "title": "Start playing"
+            }
         },
         "playlist": {
             "bottomActions": {

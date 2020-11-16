@@ -4549,6 +4549,10 @@
             "createOrUpdate": {
                 "error": "No es posible guardar el vídeo",
                 "success": "Video guardado exitosamente"
+            },
+            "register": {
+                "error": "No se puede guardar este vídeo, inténtalo de nuevo en un momento",
+                "success": "Video guardado en su biblioteca"
             }
         },
         "privateConsumerPass": {
@@ -5566,9 +5570,15 @@
             },
             "lock": {
                 "pleaseAuthenticated": "Debes iniciar sesión para acceder a este video",
-                "accessDenied": "No tienes acceso a este video"
+                "accessDenied": "No tienes acceso a este video",
+                "buyPass": "Compra un pase",
+                "useConsumerPass": "Desbloquear el acceso"
             },
-            "creditPrice": "Costo (crédito)"
+            "creditPrice": "Costo (crédito)",
+            "register": {
+                "buyPass": "Compra un pase",
+                "title": "Empieza a reproducir"
+            }
         },
         "playlist": {
             "bottomActions": {

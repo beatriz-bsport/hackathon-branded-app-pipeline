@@ -107,7 +107,7 @@
             "invoice": "Factuur",
             "pack": "Cursuskaart",
             "calendar": "Geschiedenis",
-            "dashboard": "Overzicht"
+            "dashboard": "Overzicht (Excel)"
         },
         "unsubscriber": {
             "success": "U bent uitgeschreven",
@@ -197,7 +197,7 @@
             },
             "Booking": {
                 "tags": {
-                    "ics_calendar_link": "Kalender ics link",
+                    "ics_calendar_link": "Kalender ics-link",
                     "address": "Adres",
                     "establishment_practical_info": "Toegang tot de zaal",
                     "establishment": "Vestiging",
@@ -256,7 +256,7 @@
         "caption": {
             "emailDesign": "Selecteer de te versturen e-mail",
             "event": "Evenement",
-            "sendCopy": "Zelf een kopie ontvangen",
+            "sendCopy": "Mezelf CC'en",
             "active": "Geactiveerd"
         },
         "marketingNotification": {
@@ -433,7 +433,7 @@
             "welcome": "Welkom!"
         },
         "paginatedList": {
-            "isEmpty": "Geen gegevens om weer te geven"
+            "isEmpty": "Nog geen gegevens om weer te geven"
         },
         "payment": {
             "toSubscribe": "Inschrijven",
@@ -1021,7 +1021,7 @@
             "packsAvailable": "Geschikt voor de volgende cursuskaarten:",
             "orNcredits2": " credits)",
             "orNcredits1": "(of ",
-            "noOfferThisDay": "Geen sessie, selecteer een andere datum op de kalender",
+            "noOfferThisDay": "Vandaag helaas geen sessies. Selecteer een andere datum of begin met het toevoegen van sessies",
             "offersThisDay": "Sessies vandaag:",
             "category": "Categorie",
             "description": "Beschrijving",
@@ -1042,7 +1042,7 @@
             "firstBookingMinutesUntil": "Beperk reserveringen tot sessies die plaatsvinden over "
         },
         "calendar": {
-            "pleaseSelectOffer": "Selecteer een sessie om de geregistreerde leden te zien",
+            "pleaseSelectOffer": "Selecteer een sessie de ingeschreven leden te bekijken",
             "showWeek": "Weekweergave",
             "showMonth": "Maandweergave",
             "showMore": "+ {{total}} extra sessie(s)",
@@ -1294,7 +1294,7 @@
             "columns": {
                 "status": "Status",
                 "date_created": "Datum",
-                "title": "Overzicht",
+                "title": "Overzicht (Excel)",
                 "member": "Lid"
             }
         },
@@ -1414,7 +1414,7 @@
             "buttons": {
                 "add": "Maak een pakket aan"
             },
-            "explainIfEmpty": "Maak hier de koopbare pakketten (cursuskaarten, winkelartikelen, enz.) voor studenten aan.",
+            "explainIfEmpty": "Bied pakketten aan! Combineer bijvoorbeeld een cursuskaart met een artikel uit je webshop voor een scherpere prijs.",
             "section": {
                 "availableOnline": "Beschikbaar voor verkoop",
                 "unavailableOnline": "Niet te koop"
@@ -1505,7 +1505,7 @@
             },
             "welcome": {
                 "next": "Verder",
-                "content": "BSPORT bestaat uit enthousiastelingen wiens doel het is om het managen van uw studio te vereenvoudigen zodat u uw leden beter kunt begrijpen.",
+                "content": "BSPORT bestaat uit enthousiastelingen wiens doel het is om het elk aspect van het beheer van je studio te vereenvoudigen zodat jij je leden beter kunt begrijpen en assisteren.",
                 "title": "Welkom!"
             }
         },
@@ -1877,7 +1877,7 @@
             },
             "addButton": "Melding toevoegen",
             "form": {
-                "selectToShowPreview": "Selecteer een e-mail om het overzicht te hebben",
+                "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien",
                 "mailTitle": "Te versturen e-mail",
                 "typeTitle": "Type melding",
                 "creditType": "Overig krediet",
@@ -2115,7 +2115,7 @@
             "title": "Wijziging van het totaal krediet"
         },
         "notificationForm": "Formulier mededeling",
-        "noPaymentPack": "Met cursuskaarten kunnen leden zich inschrijven voor activiteiten. Het is noodzakelijk om een cursuskaart te bezitten voordat iemand zich kan inschrijven.",
+        "noPaymentPack": "Met cursuskaarten kunnen leden zich inschrijven voor je activiteiten. Leden moeten een (geldige) cursuskaart bezitten voordat zij zich kunnen inschrijven.",
         "disabledPacks": {
             "hide": "Verberg gearchiveerde cursuskaarten",
             "show": "Toon gearchiveerde cursuskaarten"
@@ -2698,7 +2698,7 @@
             "statTitle": "Statistieken"
         },
         "selectToShowPreview": "Selecteer een sjabloon",
-        "noSmartLists": "Gebruik Smartlists om uw leden te filteren, analyseren en beter te leren kennen.",
+        "noSmartLists": "Voeg filters toe om je ledenbestand op specifieke voorwaarden te filteren. Vervolgens kun je je studio doelgericht vermarkten krijg je gelijk inzichten in je marketingcampagnes.",
         "delete": "Verwijderen",
         "edit": "Configureren"
     },
@@ -2775,7 +2775,7 @@
             "search": "Zoek een activiteit",
             "addActivity": "Voeg een activiteit toe"
         },
-        "noActivities": "Beheer hier uw activiteiten. Met een activiteit kun je een reeks sessies (meestal groepslessen) van dezelfde sport groeperen.",
+        "noActivities": "Beheer hier je activiteiten. Een activiteit stelt je in staat een reeks sessies (meestal groepslessen) van dezelfde activiteit te organiseren.",
         "disabledMetaActivities": "Gearchiveerde activiteiten"
     },
     "offer": {
@@ -2837,7 +2837,7 @@
         "bookingListEmpty": "Geen reservering",
         "bookingList": "Reserveringen",
         "menu": {
-            "download": "Overzicht",
+            "download": "Samenvatting",
             "massDisable": "In bulk annuleren",
             "hideCancelled": "Verberg annuleringen",
             "showCancelled": "Bekijk annuleringen",
@@ -2878,7 +2878,7 @@
         "detail": "Gedetailleerde informatie",
         "selectToShowPreview": "Selecteer een sjabloon",
         "create": "Nieuwe e-mail ontwerpen",
-        "templateListEmpty": "Nog geen sjablonen. Maak nu je eerste sjabloon.",
+        "templateListEmpty": "Maak prachtige en unieke e-mails met onze Drag-&-Drop Editor om naar je leden te versturen. Momenteel zijn er nog geen sjablonen aangemaakt. Maak nu je eerste sjabloon.",
         "modification_date": "Laatste wijziging op",
         "subject": "Onderwerp e-mail:",
         "preview": "Voorbeeld e-mail",
@@ -2985,7 +2985,7 @@
         "table": {
             "show": "Laat zien"
         },
-        "date_joined": "Datum inschrijving",
+        "date_joined": "Inschrijfdatum",
         "barcode": {
             "none": "geen",
             "code": "Streepjescode",
@@ -3704,7 +3704,7 @@
             "provisionalTitle": "Voorlopig rooster",
             "paymentMethodTitle": "Betaalmethode"
         },
-        "noContracts": "Contracten stellen je in staat om leden maandelijks te factureren voor een cursuskaart die maandelijks vernieuwd wordt.",
+        "noContracts": "Contracten stellen je in staat om leden maandelijks te factureren voor een cursuskaart die ook maandelijks vernieuwd wordt.",
         "copyLink": "Kopieer de link naar de betalingspagina",
         "listItem": {
             "valid": "Geldig",
@@ -3789,7 +3789,7 @@
             },
             "search": {
                 "cancel": "Annuleren",
-                "isEmpty": "Geen video's :(",
+                "isEmpty": "Nog geen video's :(",
                 "placeholder": "Zoeken"
             },
             "bottomActions": {
@@ -3832,7 +3832,8 @@
             "level": "Niveau",
             "creditPrice": "Kosten (in kredieten)",
             "register": {
-                "buyPass": "Schaf een cursuskaart aan"
+                "buyPass": "Schaf een cursuskaart aan",
+                "title": "Speel af"
             }
         }
     },
@@ -4110,7 +4111,7 @@
             "toogle": {
                 "showOfferList": "Groepslessen",
                 "showPrivateBookings": "Afspraken",
-                "showCustomEvents": "Persoonlijke afspraak"
+                "showCustomEvents": "Persoonlijke afspraken"
             },
             "enableAvailability": "Voeg een beschikbaarheid voor deze dag toe",
             "createCustomEvent": "Maak een persoonlijke afspraak aan"
@@ -4512,7 +4513,7 @@
                 "private_service": "Algemeen"
             },
             "selector": {
-                "title": "Bekijk beschikbaarheid"
+                "title": "Filter de beschikbaarheid"
             }
         },
         "privateCoach": {
@@ -4548,8 +4549,8 @@
                 "submit": "Opslaan"
             }
         },
-        "noPrivateService": "Leden kunnen afspraken reserveren in het door u gekozen tijdslot.",
-        "noPrivatePass": "Leden kunnen afspraken maken met hun afspraakkaarten. Hier kunt u de prijzen en de voorwaarden instellen.",
+        "noPrivateService": "Beheer hier je privésessies. Leden kunnen afspraken reserveren in de door jou gekozen tijden.",
+        "noPrivatePass": "Leden kunnen afspraken maken met hun afspraakkaarten. Hier kun je de prijzen en de voorwaarden voor afspraakkaarten instellen.",
         "customEvent": {
             "form": {
                 "actions": {
@@ -4568,7 +4569,7 @@
                     "placeholder": "Afspraak met de bank",
                     "label": "Naam"
                 },
-                "title": "Persoonlijke afspraak"
+                "title": "Persoonlijke afspraken"
             },
             "actions": {
                 "delete": "Verwijderen"
@@ -4756,7 +4757,7 @@
             "from": "Begin",
             "until": "Einde"
         },
-        "calculate": "Berekenen",
+        "calculate": "Pas toe",
         "title": "Salarisoverzicht van {{name}}",
         "label": "Vergoedingsregels",
         "dateTitle": "Periode",
@@ -5196,7 +5197,8 @@
                 "success": "Video opgeslagen"
             },
             "register": {
-                "success": "De video is in de videotheek opgeslagen"
+                "success": "De video is in de videotheek opgeslagen",
+                "error": "Het uploaden van de video kon niet worden voltooid. Probeer het later opnieuw"
             }
         },
         "privateBooking": {
@@ -5281,7 +5283,7 @@
     },
     "coach": {
         "performance": {
-            "title": "Overzicht van instructeur",
+            "title": "Overzicht van de instructeurs",
             "coachName": "Instructeur",
             "nbBookings": "Reserveringen",
             "nbOffersTotal": "Sessies",
@@ -5352,7 +5354,7 @@
         "coach_override": "Plaatsvervanger",
         "coach": "Instructeur",
         "noCoach": "Er zijn nog geen instructeurs geregistreerd",
-        "noCoachs": "Geen geregistreerde instructeur, beheer hier uw instructeurs, medewerkers en hun betaling.",
+        "noCoachs": "Beheer hier al je instructeurs, medewerkers en hun uitbetaling. Momenteel zijn er nog geen instructeurs geregistreerd.",
         "inactiveCoaches": "Gearchiveerde instructeurs"
     },
     "relationship": {
@@ -5500,7 +5502,7 @@
         },
         "list": {
             "activeCoupons": "Actieve promoties",
-            "isEmpty": "Geen promotiecode geregistreerd",
+            "isEmpty": "Beheer hier je promotiecodes. Momenteel zijn er geen promotiecodes geregistreerd",
             "inactiveCoupons": "Promoties zijn gedeactiveerd of verlopen"
         },
         "detail": {
@@ -5650,7 +5652,7 @@
             "content": "De instellingen van de verschillende grafieken keren terug naar hun standaardwaarden. Weet je zeker dat je wilt doorgaan?",
             "confirm": "Doorgaan",
             "cancel": "Annuleren",
-            "title": "Instellingen herstellen"
+            "title": "Herstel instellingen"
         },
         "invoiceItemDropdown": {
             "contentType": {
@@ -5704,7 +5706,7 @@
                 "title": "Verwijder workshop",
                 "content": {
                     "canDelete": "Weet je zeker dat je deze workshop wilt verwijderen? Sessies en reserveringen worden niet beïnvloed. Deze actie is definitief.",
-                    "cannotDelete": "Er staan toekomstige sessies in de planning. Controleer of ze worden verwijderd en niet alleen worden geannuleerd."
+                    "cannotDelete": "Er staan toekomstige sessies in het rooster. Controleer of ze worden verwijderd en niet alleen worden geannuleerd."
                 }
             }
         },
@@ -5716,7 +5718,7 @@
             "search": "Vind een workshop",
             "addWorkshopActivity": "Voeg een workshop toe"
         },
-        "noWorkshops": "Beheer hier uw workshops. Een workshop is een evenement waarvan de datum vooraf is vastgelegd.",
+        "noWorkshops": "Beheer hier je workshops. Een workshop is een evenement waarvan de datum vooraf is vastgelegd.",
         "disabledWorkshops": "Gearchiveerde workshops"
     },
     "tag": {
@@ -5853,7 +5855,7 @@
                 "placeholder": "https://studio.com/"
             },
             "scheduleURL": {
-                "label": "URL-planning",
+                "label": "URL voor de planning",
                 "helperText": "Standaard link naar uw kalender",
                 "placeholder": "https://studio.com/calendar/"
             },
@@ -6048,7 +6050,7 @@
             },
             "is_option_blocking": {
                 "helper": "Zolang een lid op de wachtlijst staat, wordt een plaats voor hem/haar gereserveerd tot hij/zij zich aanmeldt.",
-                "label": "Beschikbare plaatsen die exclusief voor leden die op de wachtlijst zijn gereserveerd."
+                "label": "Beschikbare plaatsen reserveren voor leden die op de wachtlijst staan."
             },
             "autokick_delay": {
                 "helper": "Aantal herinneringsberichten die leden automatisch ontvang voordat zij van de wachtlijst verwijderd worden als zij geen actie ondernemen",
@@ -6067,7 +6069,7 @@
                 }
             }
         },
-        "explainWaitingListConf": "Voorbeeld: een sessie begint over 3 uur. Een lid heeft dan nog {{nbMinutesBeforeBookingOptionExpire}} om zijn reservering te bevestigen voordat zijn/haar plaats vergaat.",
+        "explainWaitingListConf": "Voorbeeld: een sessie begint over 3 uur. Een lid heeft dan nog {{nbMinutesBeforeBookingOptionExpire}} minuten om de reservering te bevestigen voordat zijn/haar plaats vergaat.",
         "dialog": {
             "delete": {
                 "title": "Verwijder wachtlijst",
@@ -6288,7 +6290,7 @@
             "sectionTitle": "Betaalmethoden"
         },
         "platformInvoice": {
-            "noInvoice": "Geen facturen",
+            "noInvoice": "Nog geen facturen beschikbaar. Facturen zijn hier als .PDF beschikbaar zodra deze voldaan zijn.",
             "sectionTitle": "Mijn facturen",
             "label": "Factuur {{month}} / {{year}}"
         }

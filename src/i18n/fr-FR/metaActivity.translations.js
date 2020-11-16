@@ -80,7 +80,7 @@ exports.default = {
     firstBookingMinutesUntil:
       'Les réservations sont bloquées avant {{m}} du début de la séance',
     autoDiscard:
-      'Un mail vous sera envoyé si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance',
+      'La séance sera annulée si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance',
   },
   packsAvailable: 'Eligible aux pass :',
 

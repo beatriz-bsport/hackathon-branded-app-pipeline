@@ -604,7 +604,8 @@
             "return": "Zurückzahlen",
             "isRecurring": "Zahlung in Raten",
             "goToSubscription": "Das Abonnement anzeigen",
-            "invoiceFromSubscriptionThusNotEditable": "Diese Rechnung ist Teil eines Abonnements und kann daher nicht bearbeitet werden. Bitte ändere das Abonnement direkt"
+            "invoiceFromSubscriptionThusNotEditable": "Diese Rechnung ist Teil eines Abonnements und kann daher nicht bearbeitet werden. Bitte ändere das Abonnement direkt",
+            "noBookingsLeftOnPackInMonth": "Karte für diesen Monat aufgebraucht"
         },
         "navigation": {
             "combo": "Packages",
@@ -1186,7 +1187,8 @@
                     "hours_before_start": "Stunde(n) vor der Sitzung:",
                     "min_bookings_nb": "Anzahl der Buchung(en):",
                     "emailRecipients": "Diese E-Mail wird an Staff mit der Rolle \"Leiter\" oder \"Administrator\" sowie an den Lehrer (oder Ersatzlehrer) des betreffenden Kurses gesendet.",
-                    "checkbox": "Benachrichtige mich, wenn ein Kurs zu wenige Anmeldungen hat"
+                    "checkbox": "Benachrichtige mich, wenn ein Kurs zu wenige Anmeldungen hat",
+                    "explain": "Sende eine E-Mail-Benachrichtigung, wenn {{bookings_nb}} Buchungen für den Beginn des Kurses oder weniger {{Stunden}} h vorliegen."
                 }
             }
         },
@@ -2789,6 +2791,10 @@
             "createOrUpdate": {
                 "error": "Es ist unmöglich, das Video zu speichern",
                 "success": "Video erfolgreich gespeichert"
+            },
+            "register": {
+                "error": "Es ist nicht möglich dieses Video zu speichern. Bitte versuche es später noch einmal",
+                "success": "Video in Deiner Mediathek gespeichert"
             }
         },
         "privateBooking": {
@@ -3363,7 +3369,7 @@
                 "title": "Löschen",
                 "confirm": "Bestätigen",
                 "cancel": "Abbrechen",
-                "content": "Bist Du Dir sicher, dass Du dieses Video löschen möchten ? Diese Aktion ist unwiderruflich."
+                "content": "Bist Du Dir sicher, dass Du dieses Video löschen möchtest? Diese Aktion ist unwiderruflich."
             },
             "upload": {
                 "title": "Ein Video uploaden",
@@ -3386,7 +3392,9 @@
             },
             "lock": {
                 "accessDenied": "Du hast keinen Zugang zu diesem Video",
-                "pleaseAuthenticated": "Du musst Dich einloggen, um einen Zugang zu diesem Video zu haben"
+                "pleaseAuthenticated": "Du musst Dich einloggen, um einen Zugang zu diesem Video zu haben",
+                "buyPass": "Kaufe eine Karte",
+                "useConsumerPass": "Entsperre den Zugriff"
             },
             "player": {
                 "with": "mit"
@@ -3414,7 +3422,11 @@
             "name": "Name",
             "category": "Kategorie",
             "level": "Level",
-            "creditPrice": "Kosten (Gutschrift)"
+            "creditPrice": "Kosten (Gutschrift)",
+            "register": {
+                "title": "Wiedergabe aktivieren",
+                "buyPass": "Kaufe eine Karte"
+            }
         },
         "playlist": {
             "description": "Beschreibung",
@@ -3711,7 +3723,7 @@
         "relation": {
             "pleaseSelectRelation": "Wähle eine Beziehung aus, um geteilte Kurskarten anzuzeigen"
         },
-        "regularizeBalance": "Regularisieren",
+        "regularizeBalance": "Ausgleichen",
         "file": {
             "drop_file": "Du musst ziehen und ablegen oder klicken, um ein Dokument hinzuzufügen",
             "name": "Name",
@@ -4635,8 +4647,8 @@
             "optionTitle": "Auf Warteliste"
         },
         "debt": {
-            "regularize": "Regularisieren",
-            "explainPayment": "Dieser Betrag wird an den Klub überwiesen, um Ihre Anzahlung zu regularisieren",
+            "regularize": "Ausgleichen",
+            "explainPayment": "Dieser Betrag wird an das Studio überwiesen, um Deine Anzahlung auszugleichen",
             "titlePaymentDialog": "Regularisierung der Anzahlung",
             "title": "Dem Klub geschuldete Anzahlung"
         },
@@ -4667,7 +4679,8 @@
             "lastBookingBeforeMinutes": "Buchungen für diese Aktivität sind bis zu {{m}} vor Beginn des Kurses möglich",
             "title": "Einstellungen",
             "firstBookingMinutesUntil": "Buchungen werden {{m}} vor dem Beginn der Sitzung blockiert",
-            "conditions": "Bedingungen"
+            "conditions": "Bedingungen",
+            "autoDiscard": "Eine E-Mail wird an Dich gesendet, wenn vor Beginn des Kurses {{nb_bookings}} Buchungen oder weniger {{Stunden}} h vor Beginn des Kurses vorliegen."
         },
         "modal": {
             "delete": {
@@ -4922,7 +4935,8 @@
             "9": "Die Warteliste verlassen : Buchung möglich",
             "10": "Der Wartelistenplatz ist abgelaufen",
             "300": "Kick (nicht zu oft rechtzeitig validiert)",
-            "22": "Rechnungsbestätigung"
+            "22": "Rechnungsbestätigung",
+            "601": "Zu wenige Buchungen N Stunden vor Beginn des Kurses"
         },
         "tag": {
             "BookingOption": {

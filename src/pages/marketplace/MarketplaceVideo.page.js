@@ -29,6 +29,8 @@ import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions'
 
 import VideoStreamDialog from '../../libs/video/components/VideoStreamDialog.component';
 
+const STATUS_PROCESSED = 400;
+
 type Props = {
   fetchVideoList: () => void,
   videoList: Array<Video>,
@@ -158,7 +160,7 @@ export default compose(
       push(getMarketplaceRoute(companyName, companyId, `vod/video/${videoId}`)),
     fetchMoreVideo: ({ fetchMoreVideo, companyId, searchParams }) => () => {
       fetchMoreVideo({
-        status: 400,
+        status: STATUS_PROCESSED,
         company: companyId,
         ...(searchParams || {}),
       });
@@ -167,7 +169,7 @@ export default compose(
       options,
     ) => {
       fetchVideoList(
-        { status: 400, company: companyId, ...(searchParams || {}) },
+        { status: STATUS_PROCESSED, company: companyId, ...(searchParams || {}) },
         1,
         options,
       );

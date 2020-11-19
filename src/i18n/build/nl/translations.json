@@ -73,10 +73,10 @@
             "goToCalendar": "Bekijk de volledige kalender"
         },
         "dashboard": {
-            "noBooking": "Geen aankomende sessies",
+            "noBooking": "Nog geen sessies ingepland",
             "noPackCurrentlyActive": "Geen geldige cursuskaart",
             "showMore": "Meer zien",
-            "currentPassTitle": "Actieve cursuskaarten",
+            "currentPassTitle": "Mijn actieve cursuskaarten",
             "nextBookingTitle": "Mijn volgende sessies",
             "optionTitle": "Op de wachtlijst",
             "favoriteTitle": "Suggestie voor reservering"
@@ -381,7 +381,7 @@
             "welcomeTo": "Welkom bij ",
             "checkout": {
                 "dialog": {
-                    "goToPayment": "Betalen",
+                    "goToPayment": "Afrekenen",
                     "goToDelivery": "Doorgaan",
                     "cancel": "Ga terug naar de winkel",
                     "title": "Mijn winkelmandje"
@@ -389,7 +389,7 @@
             },
             "shop": {
                 "isEmpty": "Momenteel zijn er geen producten in de winkel beschikbaar.",
-                "addToCard": "Voeg aan winkelmand toe",
+                "addToCard": "Aan mijn winkelmand toevoegen",
                 "noDescription": "Geen beschrijving",
                 "tabName": "Winkel"
             },
@@ -400,13 +400,13 @@
             "calendar": "Kalender",
             "sessionThisDay": "Sessies vandaag:",
             "bookButton": {
-                "isPast": "Verleden",
+                "isPast": "Afgelopen",
                 "notAvailable": "Geannuleerd",
                 "bookOption": "Wachtlijsten",
                 "book": "Reserveren",
                 "notBookableYet": "Binnenkort"
             },
-            "passListTitle": "Groepsleskaarten",
+            "passListTitle": "Cursuskaarten voor groepslessen",
             "privatePassListTitle": "Afspraakkaarten",
             "noSessionToday": "Geen sessie",
             "showMarketplace": "Zie de kalender van ",
@@ -446,7 +446,7 @@
             "intervalWeek": "Wekelijks",
             "intervalMonth": "Maandelijks",
             "isRecurring": "Betaling in termijnen",
-            "stillUnpaid": "Nog te betalen: ",
+            "stillUnpaid": "Nog af te rekenen: ",
             "status": "Verzilverd",
             "addThisPaymentItem": "Voeg deze betaling toe",
             "noPaymentItem": "Geen betaling geregistreerd",
@@ -483,7 +483,7 @@
             "fullyPaid": "Status",
             "amount": "Bedrag",
             "type": "Type",
-            "pay": "Betalen",
+            "pay": "Afrekenen",
             "payWithNCredits2": "krediet",
             "payWithNCredits1": "Reserveren (",
             "availablePaymentPacks": " compatibele cursuskaart",
@@ -764,7 +764,7 @@
                 "barcodeHelper": "(optioneel) gebruik deze streepjescode voor uw toegangskaart",
                 "barcode": "Streepjescode (cursuskaart)",
                 "birthdayYear": "Geboortejaar",
-                "rgpdTitle": "Door het lid geaccepteerde communicatiemiddelen (promoties, marketing, smartlist enz ...)",
+                "rgpdTitle": "Ik accepteer communicatie over promoties, marketing, enz.",
                 "phone": "Telefoon",
                 "delete": {
                     "success": "Notitie verwijderd",
@@ -1138,7 +1138,7 @@
             "tax": "btw",
             "generate": "Aanmaken",
             "export": "Exporteren",
-            "minuteSmall": "min",
+            "minuteSmall": "min.",
             "daySmall": "d",
             "hourSmall": "u",
             "description": "Beschrijving",
@@ -1455,13 +1455,13 @@
             "invalidPassword": "Ongeldig wachtwoord"
         },
         "doubleLogin": {
-            "explain": "Uw sessie is verlopen. Heeft u zich tegelijkertijd bij twee verschillende accounts aangemeld of heeft u zich afgemeld in een ander tabblad/venster?",
+            "explain": "Heb je je tegelijkertijd met twee verschillende accounts aangemeld en weet je zeker dat je je ook in andere tabbladen/vensters hebt uitgelogd?",
             "disconnect": "Verbind me opnieuw"
         },
         "signup": {
             "title": "Inschrijving"
         },
-        "contactUs": "Eigenaar of manager van een studio en bent u in onze oplossing geïnteresseerd? Contacteer ons.",
+        "contactUs": "Bent u de eigenaar of manager van een studio en bent u geïnteresseerd in onze oplossing? Contacteer ons en vraag een vrijblijvende demo aan.",
         "or": " of ",
         "country": {
             "ES": "Spanje",
@@ -2141,7 +2141,8 @@
             "explain": "Capaciteit: {{capacity}} plaats",
             "explain_plural": "Capaciteit: {{capacity}} plaatsen",
             "helperText": "Dit wordt alleen gebruikt om de beschikbaarheid voor afspraken te berekenen",
-            "label": "Zaalcapaciteit"
+            "label": "Zaalcapaciteit",
+            "placeholder": " "
         },
         "goBackToList": "Keer terug naar vestigingen",
         "update": {
@@ -2416,7 +2417,7 @@
                     "second": "uur en",
                     "third": "uur"
                 },
-                "explanation": "Heeft zijn Xe sessie van activiteit A gereserveerd in vestiging B ...",
+                "explanation": "Heeft zijn Xe sessie van activiteit A gereserveerd in vestiging B...",
                 "first": "Heeft gereserveerd voor ",
                 "second_singular": "ste sessie",
                 "second_plural": "ste sessie",
@@ -3031,7 +3032,7 @@
             "createMember": "Voeg een lid toe"
         },
         "memberTermsAccepted": " werden aanvaard op {{- date}}",
-        "termsAndConditions": "de servicevoorwaarden"
+        "termsAndConditions": "De servicevoorwaarden"
     },
     "booking": {
         "bookingModule": {
@@ -3054,7 +3055,7 @@
                 "isTooSoon": "Inschrijvingen zijn momenteel gesloten en worden geopend op {{date}}."
             },
             "messages": {
-                "offerLocked": "Je kan deze sessie niet reserveren"
+                "offerLocked": "Je kunt deze sessie niet reserveren"
             },
             "hasRegistered": "Je bent ingeschreven voor deze sessie",
             "recurrent": {
@@ -3245,7 +3246,7 @@
             "editModal": {
                 "success": "De herhaal-reservering is gewijzigd"
             },
-            "blockedBookings": "Je leden kunnen zich tot {{days}} dagen voor het begin van deze activiteit inschrijven. We raden je aan om herhalingen voor lange(re) tijden toe te staan om overboekingen te voorkomen.",
+            "blockedBookings": "Je leden kunnen zich tot {{days}} dagen voor het begin van deze activiteit inschrijven. We raden je aan om herhalende reserveringen voor lange(re) tijden toe te staan om overboekingen te voorkomen.",
             "notifyIfCanceled": "Stuur een annuleringsmail",
             "notify": "Stuur een bevestigingsmail wanneer een lid zich registreert",
             "showLess": "Toon minder",
@@ -3274,14 +3275,14 @@
             "card": {
                 "showMore": "Meer informatie",
                 "book": "Reserveren",
-                "isPast": "Verleden",
+                "isPast": "Afgelopen",
                 "notAvailable": "Geannuleerd",
                 "duration": "Duur: {{duration}}",
                 "bookOption": "Wachtlijsten"
             }
         },
         "paymentCombo": {
-            "addToCart": "Voeg aan winkelmand toe"
+            "addToCart": "Aan mijn winkelmand toevoegen"
         }
     },
     "selfCheckIn": {
@@ -3536,7 +3537,7 @@
         },
         "action": {
             "revertCurrentExplain": "Annuleer de laatste factuur en blokkeer de cursuskaart",
-            "revertCurrentExplainHelper": "Als de betaling geldig was dan zal de klant een tegoed ontvangen. U kunt het tegoed aan de klant terugbetalen door op \"Terugbetalen\" op de factuur te klikken. Als de betaling mislukte wordt de schuld kwijt gescholden.",
+            "revertCurrentExplainHelper": "Als de betaling geldig was dan zal de klant een tegoed ontvangen. Je kunt het tegoed aan de klant terugbetalen door op \"Terugbetalen\" op de factuur te klikken. Als de betaling mislukte wordt de schuld kwijt gescholden.",
             "stopExplain": "De volgende betalingen worden geannuleerd en de bijbehorende facturen worden verwijderd. Als een reservering is geregistreerd met een abonnement waarvoor de factuur is geannuleerd, wordt deze ook geannuleerd.",
             "stop": "Stoppen",
             "planStop": "Plan de beëindiging van het abonnement in"
@@ -3767,13 +3768,13 @@
         "video": {
             "lock": {
                 "accessDenied": "Je hebt geen toegang tot deze video",
-                "pleaseAuthenticated": "Je moet inloggen om toegang tot deze video te krijgen",
+                "pleaseAuthenticated": "Log in om deze video te bekijken",
                 "buyPass": "Schaf een cursuskaart aan",
                 "useConsumerPass": "Deblokkeer de toegang"
             },
             "filter": {
                 "duration": {
-                    "all": "Elke duur",
+                    "all": "Duratie",
                     "explain": "Tussen {{min}} en {{max}} min"
                 }
             },
@@ -3785,7 +3786,7 @@
             "thumbnailList": {
                 "addVideo": "Voeg een video toe",
                 "count": "{{count}} video's",
-                "similarVideoTitle": "Vergelijkbare video's"
+                "similarVideoTitle": "Aanbevolen video's"
             },
             "search": {
                 "cancel": "Annuleren",
@@ -3832,8 +3833,8 @@
             "level": "Niveau",
             "creditPrice": "Kosten (in kredieten)",
             "register": {
-                "buyPass": "Schaf een cursuskaart aan",
-                "title": "Speel af"
+                "buyPass": "Bemachtig een cursuskaart",
+                "title": "Video afspelen"
             }
         }
     },
@@ -4134,7 +4135,7 @@
             },
             "form": {
                 "booking_interval_minutes": {
-                    "helperText": "Bijv. 15 betekent dat leden elke 15 minuten kunnen reserveren 12u, 12u15, 12u30, enz... (aanbevolen)",
+                    "helperText": "Bijv. 15 betekent dat leden zich elke 15 minuten een reservering kunnen maken - 12:00, 12:15, 12:30, enz... (aanbevolen)",
                     "label": "Geavanceerd: boekingskeuze-interval"
                 },
                 "people_capacity_used": {
@@ -4160,12 +4161,12 @@
         },
         "bookerModule": {
             "missingResource": {
-                "service": "Selecteer een afspraaktype",
+                "service": "Selecteer een afspraak om de beschikbaarheid te zien",
                 "coach": "Selecteer een instructeur",
-                "establishment": "Selecteer de locatie"
+                "establishment": "Selecteer een vestiging"
             },
             "isAtHome": "Je adres is vereist bij het reserveren van thuislessen",
-            "title": "Reserveer sessie",
+            "title": "Reserveren",
             "address": {
                 "label": "Adres",
                 "submit": "Bevestigen",
@@ -4614,7 +4615,7 @@
             "never": "Nooit"
         },
         "never": "Nooit",
-        "shortMinuteIdentifier": "min",
+        "shortMinuteIdentifier": "min.",
         "shortHourIdentifier": "u",
         "time": {
             "weekday": {
@@ -4706,7 +4707,7 @@
             },
             "action": {
                 "edit": "Bewerken",
-                "addToCard": "Voeg toe aan winkelmand",
+                "addToCard": "Aan mijn winkelmand toevoegen",
                 "delete": "Verwijderen"
             }
         },
@@ -4813,7 +4814,7 @@
                 "pay": "Bevestigen"
             },
             "paymentIntent": {
-                "pay": "Betalen"
+                "pay": "Afrekenen"
             },
             "paymentMethod": {
                 "actions": {
@@ -5557,7 +5558,8 @@
             "expired_card": "Uw kaart is verlopen.",
             "payment_intent_payment_attempt_failed": "De betaling is door uw bank geweigerd.",
             "unknown": "Netwerkfout, probeer het over enkele ogenblikken opnieuw",
-            "card_declined": "Kaart geweigerd"
+            "card_declined": "Kaart geweigerd",
+            "none": " "
         },
         "decline_code": {
             "card_not_supported": "Uw kaart wordt niet herkend.",
@@ -5569,7 +5571,8 @@
             "generic_decline": "Uw bank heeft de betaling geweigerd",
             "withdrawal_count_limit_exceeded": "Te veel debet op deze kaart, geweigerd.",
             "transaction_not_allowed": "Uw kaart is door uw bank geweigerd",
-            "do_not_honor": "Uw bank heeft de betaling geweigerd. Contacteer uw bank om de betaling te autoriseren"
+            "do_not_honor": "Uw bank heeft de betaling geweigerd. Contacteer uw bank om de betaling te autoriseren",
+            "none": " "
         }
     },
     "dashboard": {
@@ -5920,13 +5923,13 @@
             },
             "title": "Mijn winkelmand",
             "isEmpty": "Je winkelmand is leeg",
-            "featured": "We raden je aan",
+            "featured": "Onze aanbevelingen",
             "error": {
                 "invalidBasket": "Uw mandje bevatte artikelen die niet meer te koop zijn. Er is geen betaling geregistreerd"
             },
             "actions": {
                 "closeBasket": "Doorgaan met winkelen",
-                "checkoutBasket": "Betalen",
+                "checkoutBasket": "Afrekenen",
                 "payZero": "Bevestig mijn mandje"
             }
         },
@@ -6290,7 +6293,7 @@
             "sectionTitle": "Betaalmethoden"
         },
         "platformInvoice": {
-            "noInvoice": "Nog geen facturen beschikbaar. Facturen zijn hier als .PDF beschikbaar zodra deze voldaan zijn.",
+            "noInvoice": "Nog geen facturen beschikbaar. Facturen zijn hier als .PDF beschikbaar zodra deze voldaan zijn",
             "sectionTitle": "Mijn facturen",
             "label": "Factuur {{month}} / {{year}}"
         }

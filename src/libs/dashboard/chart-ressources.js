@@ -30,6 +30,19 @@ export const graphRessources = {
     chartComponents: { bar: TemporalBarChart, area: TemporalAreaChart },
     filtersComponent: null,
     timeSettings: 'range',
+    dateFiltersName: {
+      start: 'date_joined__gte',
+      end: 'date_joined__lte',
+    },
+    choices: {
+      date_field: ['date_joined'],
+      aggregate_function: ['count'],
+      aggregate_field: {
+        count: ['pk'],
+      },
+      aggregate_period: ['day'],
+    },
+    defaultRangeKind: 'current_year',
   },
   temporalTimeslotBooking: {
     action: fetchBookingTimeslotStatisticsAction,
@@ -37,6 +50,14 @@ export const graphRessources = {
     chartComponents: { grid: TimeslotGridChart },
     filtersComponent: BookingFilters,
     timeSettings: 'range',
+    dateFiltersName: {
+      start: 'min_date',
+      end: 'max_date',
+    },
+    choices: {
+      date_field: ['offer__date_start'],
+    },
+    defaultRangeKind: 'current_year',
   },
   temporalPayment: {
     action: fetchPaymentStatisticsAction,
@@ -44,13 +65,42 @@ export const graphRessources = {
     chartComponents: { bar: TemporalBarChart, area: TemporalAreaChart },
     filtersComponent: null,
     timeSettings: 'range',
+    dateFiltersName: {
+      start: 'date__gte',
+      end: 'date__lte',
+    },
+    choices: {
+      date_field: ['date'],
+      aggregate_function: ['sum'],
+      aggregate_field: {
+        sum: ['price'],
+      },
+      aggregate_period: ['day'],
+    },
+    options: {
+      invoice__plannedinvoice__isnull: false,
+    },
+    defaultRangeKind: 'current_year',
   },
   temporalPlannedInvoice: {
     action: fetchPlannedInvoiceStatisticsAction,
     selector: getStatisticTemporal,
     chartComponents: { bar: TemporalBarChart, area: TemporalAreaChart },
     filtersComponent: null,
-    timeSettings: 'unique',
+    timeSettings: 'fixed',
+    dateFiltersName: {
+      start: 'date_month_inclusive__gte',
+      end: 'date_month_inclusive__lte',
+    },
+    choices: {
+      date_field: ['invoice__date'],
+      aggregate_function: ['count'],
+      aggregate_field: {
+        count: ['pk'],
+      },
+      aggregate_period: ['day'],
+    },
+    defaultRangeKind: 'current_year',
   },
   qualitativeBooking: {
     action: fetchBookingQualitativeAction,
@@ -58,6 +108,18 @@ export const graphRessources = {
     chartComponents: { pie: PieChartV2, bar: QualitativeBarChart },
     filtersComponent: BookingFilters,
     timeSettings: 'range',
+    dateFiltersName: {
+      start: 'date__gte',
+      end: 'date__lte',
+    },
+    choices: {
+      dropdown_field: ['source'],
+      aggregate_function: ['count'],
+      aggregate_field: {
+        count: ['pk'],
+      },
+    },
+    defaultRangeKind: 'current_year',
   },
   qualitativeInvoiceItem: {
     action: fetchInvoiceItemQualitativeAction,
@@ -65,10 +127,22 @@ export const graphRessources = {
     chartComponents: { pie: PieChartV2, bar: QualitativeBarChart },
     filtersComponent: null,
     timeSettings: 'range',
+    dateFiltersName: {
+      start: 'invoice__payments__date__gte',
+      end: 'invoce__payments__date__lte',
+    },
+    choices: {
+      dropdown_field: ['buyable_item_identifier'],
+      aggregate_function: ['sum'],
+      aggregate_field: {
+        sum: ['total_price'],
+      },
+    },
+    defaultRangeKind: 'current_year',
   },
 };
 
-// timeSettings: 'range', 'unique' or 'none'
+// timeSettings: 'range', 'fixed' or 'none'
 
 const replaceDates = (graphList: Array<Graph>) => {
   return graphList.map((graph) => {

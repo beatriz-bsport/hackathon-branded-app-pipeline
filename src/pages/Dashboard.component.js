@@ -304,8 +304,10 @@ export default compose(
       if (timeSettings !== 'none') {
         params = {
           ...params,
-          [graph.dateFiltersName.start]: chartRanges[graph.name].start,
-          [graph.dateFiltersName.end]: chartRanges[graph.name].end,
+          [graphRessources[graph.ressourceIdentifier].dateFiltersName.start]:
+            chartRanges[graph.name].start,
+          [graphRessources[graph.ressourceIdentifier].dateFiltersName.end]:
+            chartRanges[graph.name].end,
         };
       }
       boundActions[graph.name](graph.name, params);

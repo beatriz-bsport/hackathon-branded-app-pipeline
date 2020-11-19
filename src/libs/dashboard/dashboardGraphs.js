@@ -9,14 +9,9 @@ const dashboardGraphsRaw = [
         chart: 'bar',
         baseFilters: {
           date_field: 'date',
-          kind: 'field_value',
-          field_value: 'price',
-          aggregate_period: 'day',
           aggregate_function: 'sum',
-        },
-        dateFiltersName: {
-          start: 'date__gte',
-          end: 'date__lte',
+          aggregate_field: 'price',
+          aggregate_period: 'day',
         },
         defaultRange: {
           start: null,
@@ -31,10 +26,6 @@ const dashboardGraphsRaw = [
         baseFilters: {
           date_field: 'offer__date_start',
         },
-        dateFiltersName: {
-          start: 'min_date',
-          end: 'max_date',
-        },
         defaultRange: {
           start: null,
           end: null,
@@ -48,11 +39,8 @@ const dashboardGraphsRaw = [
         chart: 'pie',
         baseFilters: {
           dropdown_field: 'source',
-          kind: 'count',
-        },
-        dateFiltersName: {
-          start: 'date__gte',
-          end: 'date__lte',
+          aggregate_function: 'count',
+          aggregate_field: 'pk',
         },
         defaultRange: {
           start: null,
@@ -66,9 +54,8 @@ const dashboardGraphsRaw = [
         ressourceIdentifier: 'qualitativeInvoiceItem',
         chart: 'pie',
         baseFilters: {
-          kind: 'field_value',
           dropdown_field: 'buyable_item_identifier',
-          value_field: 'total_price',
+          aggregate_field: 'total_price',
           aggregate_function: 'sum',
         },
         dateFiltersName: {
@@ -87,11 +74,8 @@ const dashboardGraphsRaw = [
         chart: 'bar',
         baseFilters: {
           date_field: 'invoice__date',
-          kind: 'count',
-        },
-        dateFiltersName: {
-          start: 'date_month_inclusive__gte',
-          end: 'date_month_inclusive__lte',
+          aggregate_function: 'count',
+          aggregate_field: 'pk',
         },
         defaultRange: {
           start: null,
@@ -105,15 +89,10 @@ const dashboardGraphsRaw = [
         chart: 'bar',
         baseFilters: {
           date_field: 'date',
-          kind: 'field_value',
-          field_value: 'price',
-          aggregate_period: 'day',
           aggregate_function: 'sum',
+          aggregate_field: 'price',
+          aggregate_period: 'day',
           invoice__plannedinvoice__isnull: false,
-        },
-        dateFiltersName: {
-          start: 'date__gte',
-          end: 'date__lte',
         },
         defaultRange: {
           start: null,
@@ -127,12 +106,9 @@ const dashboardGraphsRaw = [
         chart: 'bar',
         baseFilters: {
           date_field: 'date_joined',
-          kind: 'count',
           aggregate_period: 'day',
-        },
-        dateFiltersName: {
-          start: 'date_joined__gte',
-          end: 'date_joined__lte',
+          aggregate_function: 'count',
+          aggregate_field: 'pk',
         },
         defaultRange: {
           start: null,

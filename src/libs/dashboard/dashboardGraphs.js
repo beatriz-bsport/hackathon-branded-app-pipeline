@@ -58,10 +58,6 @@ const dashboardGraphsRaw = [
           aggregate_field: 'total_price',
           aggregate_function: 'sum',
         },
-        dateFiltersName: {
-          start: 'invoice__payments__date__gte',
-          end: 'invoice__payments__date__lte',
-        },
         defaultRange: {
           start: null,
           end: null,

@@ -83,7 +83,7 @@ export const VideoForm = (props: Props) => {
                 <CoachSelector
                   coaches={[
                     ...(props.coaches || []).filter(
-                      (c) => !coaches.includes(c.id),
+                      (c) => !coaches.includes(c.id) && !c.disabled,
                     ),
                   ]}
                   closeMenuOnSelect

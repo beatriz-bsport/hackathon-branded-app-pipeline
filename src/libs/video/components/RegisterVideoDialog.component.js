@@ -17,6 +17,7 @@ type Props = {
   open: boolean,
   consumerPaymentPackList: Array<ConsumerPaymentPack>,
   privateConsumerPassList: Array<PrivateConsumerPass>,
+  creditPrice: number,
   onBuyPass: () => void,
   registerVideo: ({
     consumer_payment_pack?: number,

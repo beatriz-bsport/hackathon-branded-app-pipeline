@@ -148,6 +148,7 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
           registerVideo={this.props.registerVideo}
           open={this.props.registerVideoOpen}
           onBuyPass={this.props.onRequestBuyPass}
+          onClose={() => this.props.setRegisterVideoOpen(false)}
           loading={
             !(
               this.props.consumerPaymentPackReady &&

@@ -17,6 +17,7 @@ type Props = {
   open: boolean,
   consumerPaymentPackList: Array<ConsumerPaymentPack>,
   privateConsumerPassList: Array<PrivateConsumerPass>,
+  onClose: () => void,
   creditPrice: number,
   onBuyPass: () => void,
   registerVideo: ({
@@ -42,7 +43,7 @@ export const RegisterVideoDialog = (props: Props) => {
     );
   }
   return (
-    <Dialog open={props.open}>
+    <Dialog open={props.open} onClose={props.onClose}>
       <DialogTitle>{t('video.register.title')}</DialogTitle>
       <DialogContent>
         {props.consumerPaymentPackList.map((cpp) => (

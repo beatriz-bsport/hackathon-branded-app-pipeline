@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
+
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Hidden from '@material-ui/core/Hidden';
@@ -29,6 +30,7 @@ import { withTranslation } from 'react-i18next';
 
 import { compose, withState } from 'recompose';
 import type { TFunction } from 'react-i18next';
+import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import CreditMemberBadge from './CreditMemberBadge.component';
 
 import { formatAsDate } from '../../../datetime';
@@ -39,6 +41,9 @@ import EmailItem from '../../communication/components/EmailItem.component';
 import PhoneItem from '../../communication/components/PhoneItem.component';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 import CommunicationDialog from '../../communication/components/CommunicationDialog.component';
+
+const SELECT_EMAIL = 1;
+const SEND_SMS = 2;
 
 type Props = {
   hideCreditAccount?: boolean,
@@ -66,6 +71,7 @@ export class MemberSummaryCard extends Component<Props> {
   state = {
     displayMailDialog: false,
     displayBarcodeDialog: false,
+    sendSms: false,
   };
 
   renderMembershipAndBirthday = () => {
@@ -133,20 +139,40 @@ export class MemberSummaryCard extends Component<Props> {
     const { member } = this.props;
     return (
       <List dense>
-        <PhoneItem
-          phoneNumber={
-            member.consumer.phonenumber &&
-            member.consumer.phonenumber.phone_number
-          }
-          accept_contact={member.accept_sms}
-          notificationIcon
-          hideContactButton={this.props.hideContactButton}
-        />
+        <FeatureListProvider>
+          {(featureList) => (
+            <PhoneItem
+              phoneNumber={
+                member.consumer.phonenumber &&
+                member.consumer.phonenumber.phone_number
+              }
+              accept_contact
+              notificationIcon
+              openSmsDialog={() => {
+                if (
+                  !featureList.upsell ||
+                  !featureList.upsell.find(
+                    (f) => f.readable_identifier === 'sms',
+                  )
+                ) {
+                  window.location = `sms:${member.consumer.phonenumber.phone_number}`;
+                } else {
+                  this.setState({ displayMailDialog: true, sendSms: true });
+                }
+              }}
+              hideContactButton={this.props.hideContactButton}
+            />
+          )}
+        </FeatureListProvider>
         <EmailItem
           email={member.consumer.email}
           accept_email={member.accept_email}
           notificationIcon
-          openMailDialog={() => this.setState({ displayMailDialog: true })}
+          openMailDialog={() =>
+            member.accept_email
+              ? this.setState({ displayMailDialog: true })
+              : null
+          }
           hideContactButton={this.props.hideContactButton}
         />
         {this.state.displayMailDialog && (
@@ -162,10 +188,17 @@ export class MemberSummaryCard extends Component<Props> {
             fullscreen
             membersToDisplay={[{ ...member, phone: member.phone_number }]}
             allIds={[member.id]}
-            allIdsWithEmail={member.email ? [member.id] : []}
-            allIdsWithPhone={member.phone_number ? [member.id] : []}
-            onCancel={() => this.setState({ displayMailDialog: false })}
+            allIdsWithEmail={
+              member.email && member.accept_email ? [member.id] : []
+            }
+            allIdsWithPhone={
+              member.phone_number && member.accept_sms ? [member.id] : []
+            }
+            onCancel={() =>
+              this.setState({ displayMailDialog: false, sendSms: false })
+            }
             receiversNotEditable
+            actionType={this.state.sendSms ? SEND_SMS : SELECT_EMAIL}
           />
         )}
       </List>

@@ -20,6 +20,7 @@ type Props = {
   classes: Object,
   notificationIcon: boolean,
   hideContactButton?: boolean,
+  openSmsDialog: () => void,
 };
 
 export class PhoneItem extends Component<Props> {
@@ -51,11 +52,10 @@ export class PhoneItem extends Component<Props> {
             <PhoneForwardedIcon />
           </Button>
         ) : null}
-        {phoneNumber && !this.props.hideContactButton ? (
+        {phoneNumber && this.props.openSmsDialog && !this.props.hideContactButton ? (
           <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              window.location.href = 'sms:'.concat(phoneNumber);
+            onClick={() => {
+              this.props.openSmsDialog();
             }}
             color="primary"
           >

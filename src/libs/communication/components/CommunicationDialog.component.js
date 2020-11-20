@@ -47,6 +47,7 @@ type Props = {
   mailDefaultTitle: string,
   hideTemplateMail: boolean,
   hideWrittenMail: boolean,
+  actionType: number,
 
   // members list
   membersToDisplay: Array<Member>,
@@ -73,7 +74,7 @@ export class SendMailToMembers extends Component<Props> {
       mailTitle: props.mailDefaultTitle || null,
       mailContent: '',
       // eslint-disable-next-line
-      actionType: props.hideTemplateMail ? WRITE_EMAIL : SELECT_EMAIL,
+      actionType: props.actionType ? props.actionType : SELECT_EMAIL,
       selectedTemplate: null,
       smsContent: '',
       page_size: props.page_size || MEMBER_PAGE_SIZE,
@@ -163,6 +164,9 @@ export class SendMailToMembers extends Component<Props> {
                 <Radio
                   checked={this.state.actionType === SEND_SMS}
                   disabled={
+                    !this.props.allIdsWithPhone.filter(
+                      (item) => !this.state.unCheckedMembers.includes(item),
+                    ).length ||
                     !featureList.upsell ||
                     !featureList.upsell.find(
                       (f) => f.readable_identifier === 'sms',
@@ -191,7 +195,7 @@ export class SendMailToMembers extends Component<Props> {
       mailTitle: this.props.mailDefaultTitle || null,
       mailContent: '',
       // eslint-disable-next-line
-      actionType: this.props.hideTemplateMail ? WRITE_EMAIL : SELECT_EMAIL,
+      actionType: this.props.actionType ? this.props.actionType : SELECT_EMAIL,
       selectedTemplate: null,
       smsContent: '',
     });

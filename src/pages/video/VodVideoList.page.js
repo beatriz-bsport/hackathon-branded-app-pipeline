@@ -14,7 +14,7 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { mapFormData } from '../form.utils';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors';
+import { getAllCoaches } from '../../libs/associated-coach/selectors';
 
 import {
   getVideoList,
@@ -197,7 +197,7 @@ export default compose(
       videoList: withCoach(withCategory(getVideoList))(state),
       loading: state.video.loading,
       SCTs: state.category.SCTs,
-      coaches: getActiveCoaches(state),
+      coaches: getAllCoaches(state),
       hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
     }),
     {

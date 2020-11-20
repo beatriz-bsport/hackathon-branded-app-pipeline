@@ -3457,8 +3457,8 @@
     },
     "common": {
         "text": {
-            "showLessText": "Show more",
-            "showMoreText": "Show less"
+            "showLessText": "Show less",
+            "showMoreText": "Show more"
         },
         "close": "Close",
         "colorPicker": {

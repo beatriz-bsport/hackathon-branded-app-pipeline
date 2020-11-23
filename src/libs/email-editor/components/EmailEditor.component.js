@@ -135,7 +135,9 @@ export class EmailEditorPanel extends Component<Props, State> {
   };
 
   handleExportClick = () => {
-    const url = window.URL.createObjectURL(new Blob([this.props.emailLoad.html]));
+    const url = window.URL.createObjectURL(
+      new Blob([this.props.emailLoad.html]),
+    );
     const tempEl = document.createElement('a');
     tempEl.href = url;
     tempEl.download = `${this.state.title}.html`;
@@ -204,6 +206,7 @@ export class EmailEditorPanel extends Component<Props, State> {
           <TextField
             onChange={(event) => this.handleTitleChange(event.target.value)}
             label={t('emailTemplate:editor.title')}
+            inputProps={{ maxLength: 100 }}
             value={this.state.title}
             required
             className={classes.field}
@@ -212,6 +215,7 @@ export class EmailEditorPanel extends Component<Props, State> {
             onChange={(event) => this.handleObjectChange(event.target.value)}
             label={t('emailTemplate:editor.subject')}
             value={this.state.subject}
+            inputProps={{ maxLength: 500 }}
             className={classes.field}
           />
         </div>

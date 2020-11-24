@@ -169,6 +169,7 @@ export class MemberSummaryCard extends Component<Props> {
           accept_email={member.accept_email}
           notificationIcon
           openMailDialog={() =>
+            // eslint-disable-next-line
             member.accept_email
               ? this.setState({ displayMailDialog: true })
               : null

@@ -17,4 +17,13 @@ export type ConsumerPaymentPack = {
   available_credits: number,
   date_bought: string,
   payment_pack_id: string,
+  disabled: boolean,
+  penalty_disabled_from: string | null,
+  penalty_disabled_until: string | null,
+};
+
+export type ConsumerPaymentPackPenalty = {
+  id: number,
+  date_created: string,
+  penalty_kind: number,
 };

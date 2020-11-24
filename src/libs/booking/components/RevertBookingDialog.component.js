@@ -27,7 +27,9 @@ type Props = {
   loading: boolean,
   setLoading: (boolean) => void,
   force_notify: boolean,
+  force_refund: boolean,
   toogleForceNotify: (boolean) => void,
+  toggleForceRefund: () => void,
 
   t: TFunction,
 };
@@ -39,7 +41,9 @@ export function RevertBookingDialog(props: Props) {
     closeRevertBookingDialog,
     handleBookingDeletion,
     force_notify,
+    force_refund,
     toogleForceNotify,
+    toggleForceRefund,
   } = props;
   if (!bookingToRevert) {
     return null;
@@ -60,17 +64,27 @@ export function RevertBookingDialog(props: Props) {
             {t(
               `booking.revertBookingExplain.${
                 props.offerIsAvailable
-                  ? 'offerIsAvailable'
+                  ? 'offerIsAvailableChoiceRefund'
                   : 'offerIsNotAvailable'
               }`,
             )}
           </DialogContentText>
-          <FormControlLabel
-            control={
-              <Checkbox checked={force_notify} onChange={toogleForceNotify} />
-            }
-            label={t('booking.notifyRevert')}
-          />
+          <div>
+            <FormControlLabel
+              control={
+                <Checkbox checked={force_refund} onChange={toggleForceRefund} />
+              }
+              label={t('booking.refundRevert')}
+            />
+          </div>
+          <div>
+            <FormControlLabel
+              control={
+                <Checkbox checked={force_notify} onChange={toogleForceNotify} />
+              }
+              label={t('booking.notifyRevert')}
+            />
+          </div>
         </DialogContent>
         <DialogActions>
           {props.loading ? (
@@ -84,7 +98,7 @@ export function RevertBookingDialog(props: Props) {
                 onClick={() => {
                   props.setLoading(true);
                   handleBookingDeletion(
-                    { force_notify },
+                    { force_notify, force_refund },
                     {
                       onSuccess: () => props.setLoading(false),
                     },
@@ -131,10 +145,13 @@ export function RevertBookingDialog(props: Props) {
 export default compose(
   withState('loading', 'setLoading', false),
   withStateHandlers(
-    { force_notify: false },
+    { force_notify: false, force_refund: true },
     {
       toogleForceNotify: ({ force_notify }) => () => ({
         force_notify: !force_notify,
+      }),
+      toggleForceRefund: ({ force_refund }) => () => ({
+        force_refund: !force_refund,
       }),
     },
   ),

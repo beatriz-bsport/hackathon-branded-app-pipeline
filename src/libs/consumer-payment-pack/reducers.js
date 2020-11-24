@@ -14,6 +14,7 @@ import {
   forBookingActions,
   partialRefundActions,
   listConsumerPaymentPackCompatibleActions,
+  listConsumerPaymentPackPenaltyActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -74,6 +75,13 @@ const initialState = Immutable({
     loading: false,
     error: null,
     allIds: [],
+  },
+  penalty: {
+    loading: false,
+    error: null,
+    items: [],
+    page: 1,
+    count: 0,
   },
   byId: {},
 });
@@ -278,6 +286,18 @@ export default handleActions(
           },
           { deep: true },
         );
+    },
+    [listConsumerPaymentPackPenaltyActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['penalty', 'loading'], payload);
+    },
+    [listConsumerPaymentPackCompatibleActions.error]: (state, { payload }) => {
+      return state.setIn(['penalty', 'error'], payload);
+    },
+    [listConsumerPaymentPackPenaltyActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['penalty', 'items'], payload.results)
+        .setIn(['penalty', 'page'], payload.page)
+        .setIn(['penalty', 'count'], payload.count);
     },
   },
   initialState,

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-
+import moment from 'moment-timezone';
 import type { TFunction } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -22,12 +22,18 @@ import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import ConsumerPaymentPackExtensionListItem from './ConsumerPaymentPackExtensionListItem.component';
 import ConsumerPaymentPackCreditRefundListItem from './ConsumerPaymentPackCreditRefundListItem.component';
 
-import type { ConsumerPaymentPackExtension } from '../types';
+import type {
+  ConsumerPaymentPackExtension,
+  ConsumerPaymentPackPenalty,
+} from '../types';
 import type { PaymentPack } from '../../payment-packs/types';
 import type { Booking } from '../../booking/types';
 import type { Invoice } from '../../invoice/types';
 import type { Member } from '../../member/types';
 import { formatAsDatetime } from '../../../datetime';
+
+const PENALTY_KIND_BLOCK_CPP = 0;
+const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
 
 type Props = {
   bookings: Array<Booking>,
@@ -51,6 +57,14 @@ type Props = {
   onBookingRequested: (page: number, page_size: number) => void,
   classes: Object,
   consumerPack: ?ConsumerPaymentPack,
+  penalties: {
+    items: Array<ConsumerPaymentPackPenalty>,
+    count: number,
+    page: number,
+    loading: boolean,
+  },
+  penaltyPageSize: number,
+  onPageRequested: (page: number, paseSize: number) => void,
 
   onInvoiceClick: (uuid: string) => void,
   t: TFunction,
@@ -156,6 +170,48 @@ export function ConsumerPaymentPackDetail(props: Props) {
           )}
         />
       </Paper>
+      {props.penalties.items && props.penalties.items.length > 0 && (
+        <>
+          <Typography variant="h5">
+            {props.t('details.penaltyTitle')}
+          </Typography>
+          <Paper className={props.classes.paper}>
+            <PaginatedListBase
+              itemPerPage={props.penaltyPageSize}
+              loading={props.penalties.loading}
+              listProps={{ disablePadding: true }}
+              items={props.penalties.items}
+              nbItems={props.penalties.count}
+              page={props.penalties.page}
+              onPageRequested={props.onPageRequested}
+              renderItem={(penalty) => (
+                <ListItem dense divider key={penalty.id}>
+                  <ListItemText
+                    primary={
+                      <Typography variant="body2">
+                        {moment(penalty.date_created).format('L - LT')}
+                      </Typography>
+                    }
+                    secondary={
+                      <>
+                        {penalty.penalty_kind === PENALTY_KIND_BLOCK_CPP &&
+                          props.t('details.penaltyBlock', {
+                            nb_days: penalty.days_blocked,
+                          })}
+                        {penalty.penalty_kind ===
+                          PENALTY_KIND_NEGATIVE_ACCOUNT &&
+                          props.t('details.penaltyAccount', {
+                            account_value: penalty.account_value,
+                          })}
+                      </>
+                    }
+                  />
+                </ListItem>
+              )}
+            />
+          </Paper>
+        </>
+      )}
       {!!props.consumerPack.track_modified_credit &&
       props.consumerPack.track_modified_credit.length ? (
         <div>
@@ -163,14 +219,23 @@ export function ConsumerPaymentPackDetail(props: Props) {
             {props.t('details.trackModifiedCreditTitle')}
           </Typography>
           <Paper className={props.classes.paper}>
-            {props.consumerPack.track_modified_credit.map((modifiedCredit) =>
+            {props.consumerPack.track_modified_credit.map((modifiedCredit) => (
               <ListItem dense divider>
                 <ListItemIcon>
-                  {modifiedCredit[1] > 0 ? <ExposurePlus1Icon /> : <ExposureNeg1Icon />}
+                  {modifiedCredit[1] > 0 ? (
+                    <ExposurePlus1Icon />
+                  ) : (
+                    <ExposureNeg1Icon />
+                  )}
                 </ListItemIcon>
-                <ListItemText primary={`${formatAsDatetime(modifiedCredit[0] * 1000, props.timezone)}`} />
-              </ListItem>,
-              )}
+                <ListItemText
+                  primary={`${formatAsDatetime(
+                    modifiedCredit[0] * 1000,
+                    props.timezone,
+                  )}`}
+                />
+              </ListItem>
+            ))}
           </Paper>
         </div>
       ) : null}

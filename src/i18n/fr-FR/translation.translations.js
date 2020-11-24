@@ -796,6 +796,8 @@ exports.default = {
     revertBookingTitle: "Annuler l'inscription",
     revertBookingExplain: {
       offerIsAvailable: `Êtes-vous sûr de vouloir supprimer cette réservation ? Les crédits utilisés seront recrédités.`,
+      offerIsAvailableChoiceRefund:
+        'Êtes-vous sûr de vouloir supprimer cette réservation ?',
 
       offerIsNotAvailable: `La réservation sera supprimée. La séance a déjà été annulée et les crédits ne seront pas remboursés si vous n'avez pas coché "rembourser" lors de l'annulation`,
     },
@@ -805,6 +807,7 @@ exports.default = {
     attend: 'Présent',
     doNotAttend: 'Absent',
     notifyRevert: "Envoyer un email d'annulation",
+    refundRevert: 'Rembourser les crédits utilisés',
     discard: 'Annuler',
     // eslint-disable-next-line
     onWaitingList: "Sur liste d'attente",

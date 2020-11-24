@@ -1,10 +1,11 @@
 // @flow
 
 import React from 'react';
+import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 
+import type { TFunction } from 'react-i18next';
 import type { ConsumerPaymentPack } from '../types';
 import type { PaymentPack } from '../../payment-packs/types';
 
@@ -25,7 +26,22 @@ export const CreditStatus = (props: Props) => {
     );
   }
   const { credits, unlimited } = paymentPack;
-  const { available_credits } = consumerPack;
+  const {
+    available_credits,
+    disabled,
+    penalty_disabled_from,
+    penalty_disabled_until,
+  } = consumerPack;
+  if (disabled && penalty_disabled_from && penalty_disabled_until) {
+    return (
+      <Typography variant="caption" color="error">
+        {props.t('blockedCpp', {
+          blocked_from: moment(penalty_disabled_from).format('L'),
+          blocked_until: moment(penalty_disabled_until).format('L'),
+        })}
+      </Typography>
+    );
+  }
   if (unlimited) {
     return (
       <Typography variant="caption" color="primary" component="span">

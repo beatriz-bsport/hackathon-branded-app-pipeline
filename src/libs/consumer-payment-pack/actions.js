@@ -17,6 +17,7 @@ import {
   addCreditToConsumerPack as addCreditAPI,
   subCreditToConsumerPack as subCreditAPI,
   fetchConsumerPaymentPackCompatibleList as fetchConsumerPaymentPackCompatibleListAPI,
+  fetchConsumerPaymentPackPenalty as fetchConsumerPaymentPackPenaltyAPI,
 } from './api';
 
 export const byOfferByMember = {
@@ -446,5 +447,39 @@ export function fetchConsumerPaymentPackCompatibleList(
       if (options && options.onError) options.onError();
     }
     dispatch(listConsumerPaymentPackCompatibleActions.isLoading(false));
+  };
+}
+
+export const listConsumerPaymentPackPenaltyActions = {
+  isLoading: createAction('CONSUMER_PACK/PENALTY_LIST/IS_LOADING'),
+  error: createAction('CONSUMER_PACK/PENALTY_LIST/ERROR'),
+  success: createAction('CONSUMER_PACK/PENALTY_LIST/SUCCESS'),
+};
+
+export function fetchConsumerPaymentPackPenalty(
+  consumerPaymentPackId: number,
+  page: number,
+  page_size: number,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listConsumerPaymentPackPenaltyActions.isLoading(true));
+    dispatch(listConsumerPaymentPackPenaltyActions.error(null));
+    try {
+      const response = await fetchConsumerPaymentPackPenaltyAPI({
+        consumer_payment_pack: consumerPaymentPackId,
+        page,
+        page_size,
+      });
+      dispatch(
+        listConsumerPaymentPackPenaltyActions.success({
+          ...response.data,
+          page,
+        }),
+      );
+    } catch (error) {
+      console.error(error);
+      dispatch(listConsumerPaymentPackPenaltyActions.error(error));
+    }
+    dispatch(listConsumerPaymentPackPenaltyActions.isLoading(false));
   };
 }

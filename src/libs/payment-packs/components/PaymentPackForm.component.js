@@ -40,6 +40,7 @@ import {
   Submit,
   SwitchField,
   CheckboxField,
+  IntegerField,
 } from '../../../components/forms';
 
 type Props = {
@@ -66,6 +67,9 @@ type Props = {
 const VALID_BY_DURATION = 'VALID_BY_DURATION';
 const VALID_BY_DATERANGE = 'VALID_BY_DATERANGE';
 
+const PENALTY_KIND_BLOCK_CPP = 0;
+const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
+
 export function PaymentPackForm(props: Props) {
   const {
     t,
@@ -83,6 +87,12 @@ export function PaymentPackForm(props: Props) {
     editable,
     start_date_method,
     timeType,
+    penalty_active,
+    penalty_nb_late_cancellations,
+    penalty_nb_days,
+    penalty_kind,
+    penalty_days_blocked,
+    penalty_account_value,
   } = values;
   return (
     <div>
@@ -408,6 +418,90 @@ export function PaymentPackForm(props: Props) {
             </Grid>
           </Grid>
         </fieldset>
+        {unlimited && (
+          <fieldset className={classes.fieldset} id="pass_penalty">
+            <legend className={classes.legend}>
+              {t('form.paymentPack.penalty.title')}
+            </legend>
+            <CheckboxField
+              name="penalty_active"
+              disabled={!editable}
+              label={t('form.paymentPack.penalty.checkbox')}
+            />
+            {penalty_active && (
+              <>
+                <Typography className={classes.penaltyExplain}>
+                  {t('form.paymentPack.penalty.explain', {
+                    nb_cancellations: penalty_nb_late_cancellations,
+                    nb_days: penalty_nb_days,
+                  })}
+                </Typography>
+                <div className={classes.paramContainer}>
+                  <div className={classes.inlineIntegerField}>
+                    <Typography variant="caption">
+                      {t('form.paymentPack.penalty.nb_cancellations')}
+                    </Typography>
+                    <IntegerField
+                      className={classes.integerField}
+                      name="penalty_nb_late_cancellations"
+                    />
+                  </div>
+                  <div className={classes.inlineIntegerField}>
+                    <Typography variant="caption">
+                      {t('form.paymentPack.penalty.nb_days')}
+                    </Typography>
+                    <IntegerField
+                      className={classes.integerField}
+                      name="penalty_nb_days"
+                    />
+                  </div>
+                </div>
+                <Typography>
+                  {t('form.paymentPack.penalty.kind.label')}
+                </Typography>
+                <RadioGroupField
+                  name="penalty_kind"
+                  choices={[
+                    {
+                      label: t('form.paymentPack.penalty.kind.block'),
+                      value: PENALTY_KIND_BLOCK_CPP,
+                    },
+                    {
+                      label: t('form.paymentPack.penalty.kind.account'),
+                      value: PENALTY_KIND_NEGATIVE_ACCOUNT,
+                    },
+                  ]}
+                />
+                {parseInt(penalty_kind, 10) === PENALTY_KIND_BLOCK_CPP && (
+                  <TextField
+                    name="penalty_days_blocked"
+                    label={t('form.paymentPack.penalty.block.label')}
+                    helperText={t('form.paymentPack.penalty.block.helperText', {
+                      nb_days: penalty_days_blocked,
+                    })}
+                    type="number"
+                    fullWidth
+                  />
+                )}
+                {parseInt(penalty_kind, 10) ===
+                  PENALTY_KIND_NEGATIVE_ACCOUNT && (
+                  <PriceField
+                    name="penalty_account_value"
+                    label={t('form.paymentPack.penalty.account.label')}
+                    helperText={t(
+                      'form.paymentPack.penalty.account.helperText',
+                      {
+                        value: penalty_account_value,
+                      },
+                    )}
+                    fullWidth
+                  />
+                )}
+              </>
+            )}
+          </fieldset>
+        )}
+
         <Actions>
           {props.onCancel ? (
             <Button onClick={props.onCancel}>
@@ -495,6 +589,12 @@ const PackSchema = Yup.object().shape({
   categories: Yup.array().of(Yup.number()),
   establishments: Yup.array().of(Yup.number()),
   metaActivities: Yup.array().of(Yup.number()),
+  penalty_active: Yup.boolean(),
+  penalty_nb_late_cancellations: Yup.number().min(1),
+  penalty_nb_days: Yup.number().min(1),
+  penalty_kind: Yup.number(),
+  penalty_days_blocked: Yup.number().min(1),
+  penalty_account_value: Yup.number(),
 });
 
 const styles = (theme) => ({
@@ -521,6 +621,24 @@ const styles = (theme) => ({
     border: '1px solid #E2E2E2',
     backgroundColor: '#F8F8F8',
     borderRadius: 8,
+  },
+  inlineIntegerField: {
+    display: 'flex',
+    alignItems: 'baseline',
+  },
+  integerField: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(4),
+    width: 45,
+  },
+  paramContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(3),
+  },
+  penaltyExplain: {
+    paddingTop: theme.spacing(2),
   },
 });
 
@@ -557,6 +675,12 @@ export default compose(
           metaActivities: [],
           editable: true,
           establishments: [],
+          penalty_active: false,
+          penalty_nb_late_cancellations: 3,
+          penalty_nb_days: 7,
+          penalty_kind: PENALTY_KIND_BLOCK_CPP,
+          penalty_days_blocked: 7,
+          penalty_account_value: 10,
         },
         (initial && {
           ...initial,
@@ -598,6 +722,12 @@ export default compose(
         'categories',
         'metaActivities',
         'establishments',
+        'penalty_active',
+        'penalty_nb_late_cancellations',
+        'penalty_nb_days',
+        'penalty_kind',
+        'penalty_days_blocked',
+        'penalty_account_value',
       ];
       const data = _.pick(values, keys);
 
@@ -614,6 +744,9 @@ export default compose(
         data.duration_months = values.duration_months;
         data.duration_years = values.duration_years;
         data.validity_daterange = null;
+      }
+      if (!values.unlimited) {
+        data.penalty_active = false;
       }
       onSubmit(data, {
         onSuccess: () => setSubmitting(false),

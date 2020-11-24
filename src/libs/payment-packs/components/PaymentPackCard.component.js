@@ -32,6 +32,9 @@ import PaymentPackScaleCreditDialog from './PaymentPackScaleCreditDialog.compone
 
 import type { PaymentPack } from '../types';
 
+const PENALTY_KIND_BLOCK_CPP = 0;
+const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
+
 type Props = {
   onlyPublic: ?boolean,
 
@@ -342,6 +345,46 @@ export class PaymentPackCard extends Component<Props> {
   };
   */
 
+  renderPenalty = () => {
+    const { pack, t, classes } = this.props;
+    const {
+      penalty_active,
+      penalty_kind,
+      penalty_nb_late_cancellations,
+      penalty_nb_days,
+      penalty_days_blocked,
+      penalty_account_value,
+    } = pack;
+
+    return (
+      penalty_active && (
+        <>
+          <Typography variant="h6" className={classes.penaltyTitle}>
+            {t('penalty.title')}
+          </Typography>
+          {penalty_kind === PENALTY_KIND_BLOCK_CPP && (
+            <Typography>
+              {t('penalty.block', {
+                nb_cancellations: penalty_nb_late_cancellations,
+                nb_days: penalty_nb_days,
+                days_blocked: penalty_days_blocked,
+              })}
+            </Typography>
+          )}
+          {penalty_kind === PENALTY_KIND_NEGATIVE_ACCOUNT && (
+            <Typography>
+              {t('penalty.account', {
+                nb_cancellations: penalty_nb_late_cancellations,
+                nb_days: penalty_nb_days,
+                account_value: penalty_account_value,
+              })}
+            </Typography>
+          )}
+        </>
+      )
+    );
+  };
+
   renderEditDeleteButtons = () => {
     const { pack, classes, t } = this.props;
     if (pack.disabled) {
@@ -394,6 +437,9 @@ export class PaymentPackCard extends Component<Props> {
         <div className={classes.horizontalBlock}>
           {this.getPackHeadingInfo()}
         </div>
+        <div className={`${classes.horizontalBlock} ${classes.penaltyText}`}>
+          {this.renderPenalty()}
+        </div>
         {!onlyPublic && (
           <div className={classes.buttonBlock}>
             {this.renderLinkToPaymentPage()}
@@ -424,6 +470,10 @@ const styles = (theme) => ({
     paddingTop: theme.spacing(3),
   },
   title: {
+    paddingBottom: theme.spacing(2),
+  },
+  penaltyTitle: {
+    paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   },
   disabled: {
@@ -501,6 +551,9 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  penaltyText: {
+    paddingBottom: theme.spacing(3),
   },
 });
 

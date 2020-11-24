@@ -35,6 +35,8 @@ const {
 
 // should import that from common
 const NOTIFICATION_OFFER_AUTO_DISCARD = 601;
+const NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_BLOCK_CPP = 701;
+const NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_ACCOUNT = 702;
 
 exports.default = {
   pageTitle: 'Emails transactionnels',
@@ -53,6 +55,7 @@ exports.default = {
     private_booking: 'Rendez-vous',
     invoice: 'Facturation',
     marketing: 'Marketing',
+    payment_pack: 'Cartes de cours',
   },
   emailDesign: {
     placeholder: 'Généré par bsport',
@@ -199,5 +202,9 @@ exports.default = {
       'Rendez-vous annulé - remboursé (professeur)',
     [NOTIFICATION_OFFER_AUTO_DISCARD]:
       'Trop peu de réservations N heures avant le début de la séance',
+    [NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_BLOCK_CPP]:
+      'Pénalité carte de cours : carte bloquée (élève)',
+    [NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_ACCOUNT]:
+      'Pénalité carte de cours : acompte créé (élève)',
   },
 };

@@ -269,6 +269,28 @@ exports.default = {
           submit: 'Supprimer',
         },
       },
+      penalty: {
+        title: 'Pénalités',
+        checkbox:
+          "Appliquer une pénalité en cas d'annulations hors délai trop nombreuses",
+        explain:
+          'Une pénalité sera appliquée si il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours',
+        nb_cancellations: "Nombre d'annulations :",
+        nb_days: 'Nombre de jours :',
+        kind: {
+          label: 'Sélectionnez le type de pénalité à appliquer',
+          block: 'Bloquer temporairement la carte de cours',
+          account: 'Créer un acompte pour le membre concerné',
+        },
+        block: {
+          label: 'Période de bloquage de la carte (en jours) :',
+          helperText: 'La carte sera bloquée pendant {{nb_days}} jours',
+        },
+        account: {
+          label: "Montant de l'acompte :",
+          helperText: 'Un accompte de {{value}}€ sera appliqué pour ce membre',
+        },
+      },
     },
   },
   details: {
@@ -279,6 +301,16 @@ exports.default = {
     bookingsTitle: 'Réservations associées',
     extensionsTitle: 'Extensions de validité',
     trackModifiedCreditTitle: 'Historique des crédits modifiés',
+    penaltyTitle: 'Pénalités appliquées',
+    penaltyBlock: 'Carte bloquée pendant {{nb_days}} jours',
+    penaltyAccount: 'Facturation supplémentaire de {{account_value}}€',
+  },
+  penalty: {
+    title: "Politique d'annulation",
+    block:
+      "S'il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours, la carte sera bloquée pendant {{days_blocked}} jours.",
+    account:
+      "S'il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours, un acompte de {{account_value}}€ sera appliqué.",
   },
   newMemberOnly: 'Disponible uniquement pour les nouveaux inscrits',
   publicPacksTitle: 'Cartes disponibles à la vente',
@@ -355,4 +387,5 @@ exports.default = {
     show: 'Afficher les cartes archivées',
     hide: 'Masquer les cartes archivées',
   },
+  blockedCpp: 'Carte bloquée du {{-blocked_from}} au {{-blocked_until}}',
 };

@@ -81,6 +81,14 @@ export async function fetchConsumerPaymentPackCompatibleList(params: any) {
   );
 }
 
+export async function fetchConsumerPaymentPackPenalty(params: any) {
+  return getAuth(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack-penalty/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
+
 export default {
   fetchByOfferByMember,
   fetchExtensions,

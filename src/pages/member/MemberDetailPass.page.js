@@ -38,6 +38,7 @@ import {
   createPackExtension,
   refundConsumerPaymentPack as refundConsumerPaymentPackActions,
   fetchConsumerPaymentPackCreditRefundList as fetchConsumerPaymentPackCreditRefundListAction,
+  fetchConsumerPaymentPackPenalty as fetchConsumerPaymentPackPenaltyAction,
 } from '../../libs/consumer-payment-pack/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchSpecificInvoice } from '../../libs/invoice/actions';
@@ -60,6 +61,7 @@ import ConsumerPaymentPackFilters from '../../libs/payment-packs/components/Cons
 
 import type { Member } from '../../libs/member/types';
 import type { ConsumerPaymentPack } from '../../libs/payment-packs/types';
+import type { ConsumerPaymentPackPenalty } from '../../libs/consumer-payment-pack/types';
 import type { Invoice } from '../../libs/invoice/types';
 import type { Booking } from '../../libs/booking/types';
 
@@ -128,6 +130,17 @@ type Props = {
 
   fetchConsumerPaymentPackCreditRefundList: (id: number) => void,
   consumerPassId: ?number,
+  fetchConsumerPaymentPackPenalty: (
+    consumerPassId: number,
+    page: number,
+    pageSize: number,
+  ) => void,
+  consumerPackPenalties: {
+    items: Array<ConsumerPaymentPackPenalty>,
+    count: number,
+    page: number,
+    loading: boolean,
+  },
 
   filters: any,
   open: any,
@@ -140,6 +153,7 @@ type State = {
 };
 
 const CONSUMER_PAYMENT_PACK_PAGE_SIZE = 6;
+const PENALTY_PAGE_SIZE = 5;
 
 const ClickOnConsumerPack = withTranslation(['paymentPack'])(
   (props: { classes: Object, t: TFunction }) => (
@@ -166,6 +180,11 @@ export class MemberDetailPass extends Component<Props, State> {
   componentDidMount() {
     this.fetchData();
     if (this.props.consumerPassId) {
+      this.props.fetchConsumerPaymentPackPenalty(
+        this.props.consumerPassId,
+        1,
+        PENALTY_PAGE_SIZE,
+      );
       this.props.retrieveConsumerPackBulk([this.props.consumerPassId], {
         onSuccess: ([pass]) => this.props.fetchInvoice(pass.invoice),
       });
@@ -183,6 +202,11 @@ export class MemberDetailPass extends Component<Props, State> {
       prevProps.consumerPassId !== this.props.consumerPassId &&
       this.props.consumerPassId
     ) {
+      this.props.fetchConsumerPaymentPackPenalty(
+        this.props.consumerPassId,
+        1,
+        PENALTY_PAGE_SIZE,
+      );
       this.props.retrieveConsumerPackBulk([this.props.consumerPassId]);
     }
     if (prevProps.filters !== this.props.filters) {
@@ -310,6 +334,15 @@ export class MemberDetailPass extends Component<Props, State> {
                 this.setState({ bookingToRevert })
               }
               member={this.props.member}
+              penalties={this.props.consumerPackPenalties}
+              onPageRequested={(page, pageSize) =>
+                this.props.fetchConsumerPaymentPackPenalty(
+                  this.props.consumerPassId,
+                  page,
+                  pageSize,
+                )
+              }
+              penaltyPageSize={PENALTY_PAGE_SIZE}
               onInvoiceClick={this.props.goToInvoice}
               onCreateExtension={() => this.props.setOpenCreateExtension(true)}
               deleteExtension={(id) => {
@@ -425,6 +458,12 @@ export default compose(
       consumerPaymentPackCreditRefundList:
         state.consumerPaymentPack.partialRefund.items,
       consumerPackLoading: state.consumerPaymentPack.byMember.loading,
+      consumerPackPenalties: {
+        items: state.consumerPaymentPack.penalty.items,
+        page: state.consumerPaymentPack.penalty.page,
+        count: state.consumerPaymentPack.penalty.count,
+        loading: state.consumerPaymentPack.penalty.loading,
+      },
       passExtensions: getConsumerPaymentPackExtensions(state),
       passExtensionsLoading: state.consumerPaymentPack.extension.loading,
       bookings: getConsumerPackBookingListWithConsumerPack(state),
@@ -475,6 +514,7 @@ export default compose(
           with_amortized_price: true,
         }),
       resetConsumerPackByMemberAction,
+      fetchConsumerPaymentPackPenalty: fetchConsumerPaymentPackPenaltyAction,
     },
   ),
   withStateHandlers(
@@ -538,6 +578,13 @@ export default compose(
           fetchConsumerPaymentPackCreditRefundList(idPass);
         },
       });
+    },
+    fetchConsumerPaymentPackPenalty: ({ fetchConsumerPaymentPackPenalty }) => (
+      consumerPassId,
+      page,
+      pageSize,
+    ) => {
+      fetchConsumerPaymentPackPenalty(consumerPassId, page, pageSize);
     },
   }),
 )(MemberDetailPass);

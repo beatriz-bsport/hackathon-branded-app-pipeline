@@ -1765,7 +1765,7 @@
                     "hours_before_start": "Hour(s) before the session :",
                     "min_bookings_nb": "Number of booking(s) :",
                     "emailRecipients": "This mail will be sent to accounts with the role of Owner or Admin, as well as to the teacher (or substitute) of the session in question.",
-                    "explain": "Send a notification by mail if there are {{bookings_nb}} booking(s) or less {{hours}}h before the start of the session.",
+                    "explain": "Automatically cancel the session if there are {{bookings_nb}} booking(s) or less {{hours}}h before the start of the session.",
                     "checkbox": "Cancel when a session has too few bookings"
                 }
             }

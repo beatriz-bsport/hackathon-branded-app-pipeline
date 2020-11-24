@@ -1208,7 +1208,7 @@
                 "autoDiscard": {
                     "hours_before_start": "Aantal uur (uren) voor het begin van de sessie:",
                     "explain": "Stuur een e-mail als er {{bookings_nb}} reserveringen of minder dan {{hours}} uur voor het begin van de sessie is.",
-                    "checkbox": "Me informeren wanneer een sessie te weinig reserveringen heeft",
+                    "checkbox": "Annuleer sessies met te weinig reserveringen",
                     "emailRecipients": "Deze e-mail wordt verzonden naar accounts met de rol Eigenaar of Systeembeheerder, evenals naar de (plaatsvervangende) docent van de sessie in kwestie.",
                     "min_bookings_nb": "Aantal reserveringen:"
                 }

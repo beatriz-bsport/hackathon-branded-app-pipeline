@@ -130,6 +130,7 @@ export default compose(
   connect(
     (state, { paymentPackId }) => {
       const paymentPackInitial = getPaymentPackById(state)[paymentPackId];
+      console.log(paymentPackInitial.metaActivities);
       return {
         initial: paymentPackId !== null ? paymentPackInitial : null,
         categories: state.category.SCTs,

@@ -44,11 +44,12 @@ export const getDisabledMetaActivities = createSelector(
 
 export const getActivitiesByIdList = memoize((state, idList) =>
   createSelector(
-    getMetaActivitiesDict,
-    (metactivities) =>
-      Immutable(Object.values(metactivities)).filter((ma) =>
+    getMetaActivityAbstractDict,
+    (metactivities) => {
+      return Immutable(Object.values(metactivities)).filter((ma) =>
         idList.includes(ma.id),
-      ),
+      );
+    },
   )(state),
 );
 

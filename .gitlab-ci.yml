@@ -100,19 +100,19 @@ lint:
 #  variables:
 #    PRERELEASE: alpha
 
-Auto Bump Staging:
-  extends: .Auto Bump Version Base
-  only:
-    refs:
-      - master
-  variables:
-    PRERELEASE: beta 
-
-Auto Bump Production:
-  extends: .Auto Bump Version Base
-  only:
-    refs:
-      - production
+# Auto Bump Staging:
+#   extends: .Auto Bump Version Base
+#   only:
+#     refs:
+#       - master
+#   variables:
+#     PRERELEASE: beta 
+# 
+# Auto Bump Production:
+#   extends: .Auto Bump Version Base
+#   only:
+#     refs:
+#       - production
 
 
 .Build and deploy Base:

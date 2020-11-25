@@ -132,7 +132,7 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   circularProgressContainer: {
-    zIndex: 9009,
+    zIndex: 909,
     position: 'absolute',
     display: 'flex',
     flexDirection: 'column',
@@ -146,7 +146,7 @@ const styles = (theme) => ({
   },
   loadingOverlay: {
     position: 'absolute',
-    zIndex: 9000,
+    zIndex: 900,
     top: 0,
     bottom: 0,
     left: 0,

@@ -648,12 +648,14 @@
       "revertBookingTitle": "Annuler l'inscription",
       "revertBookingExplain": {
         "offerIsAvailable": "Êtes-vous sûr de vouloir supprimer cette réservation ? Les crédits utilisés seront recrédités.",
+        "offerIsAvailableChoiceRefund": "Êtes-vous sûr de vouloir supprimer cette réservation ?",
         "offerIsNotAvailable": "La réservation sera supprimée. La séance a déjà été annulée et les crédits ne seront pas remboursés si vous n'avez pas coché \"rembourser\" lors de l'annulation"
       },
       "revertBookingWithInvoiceImpossibleExplain": "Cette réservation a déjà été payée par le membre et ne peut être annulée. Toutefois vous pouvez passer la réservation en \"Absent\"",
       "attend": "Présent",
       "doNotAttend": "Absent",
       "notifyRevert": "Envoyer un email d'annulation",
+      "refundRevert": "Rembourser les crédits utilisés",
       "discard": "Annuler",
       "onWaitingList": "Sur liste d'attente",
       "cancelledFromWaitingList": "Sorti de la liste d'attente",
@@ -894,7 +896,8 @@
       "subscription": "Abonnement",
       "private_booking": "Rendez-vous",
       "invoice": "Facturation",
-      "marketing": "Marketing"
+      "marketing": "Marketing",
+      "payment_pack": "Cartes de cours"
     },
     "emailDesign": { "placeholder": "Généré par bsport", "closePreview": "Fermer" },
     "marketingNotification": { "birthday": "Courriel d'anniversaire" },
@@ -1017,7 +1020,9 @@
       "451": "Rendez-vous annulé - remboursé (élève)",
       "452": "Nouveau rendez-vous (élève)",
       "453": "Horaire modifié (élève)",
-      "601": "Trop peu de réservations N heures avant le début de la séance"
+      "601": "Trop peu de réservations N heures avant le début de la séance",
+      "701": "Pénalité carte de cours : carte bloquée (élève)",
+      "702": "Pénalité carte de cours : acompte créé (élève)"
     }
   },
   "consumerSpace": {
@@ -1569,6 +1574,17 @@
             "label": "Dans l'un de vos établissements",
             "helperText": "La réservation ne sera possible que si la salle dispose de suffisamment de places libres"
           }
+        },
+        "paddingTitle": "Gestion des disponibilités",
+        "paddingStart": {
+          "label": "Nombre de minutes avant le début du RDV",
+          "helperText": "Sur le calendrier, le professeur et/ou la salle seront marqués comme non disponibles {{minutes}} minutes avant le début du RDV",
+          "helperText0": "Sur le calendrier, le professeur et/ou la salle seront marqués comme non disponibles à l'heure de début du RDV"
+        },
+        "paddingEnd": {
+          "label": "Nombre de minutes après la fin du RDV",
+          "helperText": "Sur le calendrier, le professeur et/ou la salle seront de nouveau marqués comme disponibles {{minutes}} minutes après la fin du RDV",
+          "helperText0": "Sur le calendrier, le professeur et/ou la salle seront de nouveau marqués comme disponibles à l'heure de fin du RDV"
         },
         "resourceGroup": { "establishment": "Lieu", "coach": "Professeur" },
         "coach_consumer_attribution": {
@@ -3568,6 +3584,26 @@
           "askConfirmation": "Attention ! Cette opération est définitive. La carte ne sera plus visible et deviendra indisponible à l'achat.",
           "thereAreConsumers": "Attention ! Des membres ont acheté cette carte de cours, si vous le supprimez ces derniers pourront toujours utiliser leurs crédits restants. Vous pouvez les réduire manuellement à zéro ici.\n\nLa carte n'apparaitra plus dans votre magasin pour les nouveaux acheteurs.",
           "actions": { "cancel": "Annuler", "submit": "Supprimer" }
+        },
+        "penalty": {
+          "title": "Pénalités",
+          "checkbox": "Appliquer une pénalité en cas d'annulations hors délai trop nombreuses",
+          "explain": "Une pénalité sera appliquée si il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours",
+          "nb_cancellations": "Nombre d'annulations :",
+          "nb_days": "Nombre de jours :",
+          "kind": {
+            "label": "Sélectionnez le type de pénalité à appliquer",
+            "block": "Bloquer temporairement la carte de cours",
+            "account": "Créer un acompte pour le membre concerné"
+          },
+          "block": {
+            "label": "Période de bloquage de la carte (en jours) :",
+            "helperText": "La carte sera bloquée pendant {{nb_days}} jours"
+          },
+          "account": {
+            "label": "Montant de l'acompte :",
+            "helperText": "Un accompte de {{value}}€ sera appliqué pour ce membre"
+          }
         }
       }
     },
@@ -3578,7 +3614,15 @@
       "refundTitle": "Remboursement associé",
       "bookingsTitle": "Réservations associées",
       "extensionsTitle": "Extensions de validité",
-      "trackModifiedCreditTitle": "Historique des crédits modifiés"
+      "trackModifiedCreditTitle": "Historique des crédits modifiés",
+      "penaltyTitle": "Pénalités appliquées",
+      "penaltyBlock": "Carte bloquée pendant {{nb_days}} jours",
+      "penaltyAccount": "Facturation supplémentaire de {{account_value}}€"
+    },
+    "penalty": {
+      "title": "Politique d'annulation",
+      "block": "S'il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours, la carte sera bloquée pendant {{days_blocked}} jours.",
+      "account": "S'il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours, un acompte de {{account_value}}€ sera appliqué."
     },
     "newMemberOnly": "Disponible uniquement pour les nouveaux inscrits",
     "publicPacksTitle": "Cartes disponibles à la vente",
@@ -3634,7 +3678,8 @@
     "reverted": "Facture annulée",
     "link": { "copied": "Lien copié", "copyLink": "Copier le lien vers la page de paiement" },
     "notificationForm": "Formulaire notification",
-    "disabledPacks": { "show": "Afficher les cartes archivées", "hide": "Masquer les cartes archivées" }
+    "disabledPacks": { "show": "Afficher les cartes archivées", "hide": "Masquer les cartes archivées" },
+    "blockedCpp": "Carte bloquée du {{-blocked_from}} au {{-blocked_until}}"
   },
   "metaActivity": {
     "metaActivity": "Activité",
@@ -3695,7 +3740,7 @@
       "lastBookingBeforeMinutes": "Les réservations sont possibles sur cette activité jusqu'à {{m}}  avant le début de la séance",
       "lastDiscardBeforeMinutes": "Les annulations sont possibles jusqu'à {{m}} avant le début de la séance",
       "firstBookingMinutesUntil": "Les réservations sont bloquées avant {{m}} du début de la séance",
-      "autoDiscard": "Un mail vous sera envoyé si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance"
+      "autoDiscard": "La séance sera annulée si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance"
     },
     "packsAvailable": "Eligible aux pass :",
     "reviews": "Avis clients: ",
@@ -4523,7 +4568,11 @@
       "bottomActions": { "create": "Ajouter" }
     },
     "video": {
-      "register": { "title": "Activer la lecture", "buyPass": "Acheter un pass" },
+      "register": {
+        "title": "Activer la lecture",
+        "buyPass": "Acheter un pass",
+        "noPassAvailable": "Vous ne possédez pas de pass compatible"
+      },
       "creditPrice": "Coût (crédit)",
       "lock": {
         "accessDenied": "Vous n'avez pas accès à cette vidéo",
@@ -4542,7 +4591,7 @@
       "category": "Catégorie",
       "description": "Description",
       "level": "Niveau",
-      "status": { "submitted": "Brouillon", "processing": "En cours", "error": "Réessayer", "processed": "Visionner" },
+      "status": { "submitted": "Brouillon", "processing": "En cours", "error": "Réessayer", "processed": "Détail" },
       "delete": {
         "title": "Suppression",
         "content": "Êtes-vous sûr de vouloir supprimer cette vidéo ? Cette opération est irréversible.",
@@ -4565,6 +4614,21 @@
           "label": "Coût en crédit",
           "helperText": "Laissé à zéro pour que la vidéo soit accessible à tous vos adhérents"
         }
+      },
+      "noVideoPurchase": "Aucun achat enregistré",
+      "noVideoView": "Aucune vue",
+      "boughtOn": "Achat effectué le {{-date}}",
+      "viewedOn": "Vidéo vue le {{-date}} à {{hour}}",
+      "purchaseListTitle": "Liste des achats",
+      "viewsListTitle": "Liste des vues",
+      "analytics": {
+        "views": "{{nb_views}} visionnages",
+        "viewTitle": "Visionnage",
+        "dateCreated": "Mise en ligne",
+        "totalViews": "Total",
+        "viewsLastWeek": "7 derniers jours",
+        "distinctViewers": "Vues uniques",
+        "uploaded": "Video mise en ligne le {{date}}"
       }
     }
   },

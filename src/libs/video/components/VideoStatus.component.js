@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ErrorIcon from '@material-ui/icons/Error';
 import { useTranslation } from 'react-i18next';
 
@@ -35,7 +35,7 @@ export const VideoStatus = (props: Props) => {
           // onClick={() => props.openStream(props.video)}
           onClick={props.goToDetail}
         >
-          <OndemandVideoIcon className={classes.leftIcon} />
+          <ArrowForwardIcon className={classes.leftIcon} />
           {t('video.status.processed')}
         </Button>
       )}

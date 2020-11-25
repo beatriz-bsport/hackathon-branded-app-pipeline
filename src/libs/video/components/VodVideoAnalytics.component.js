@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useTranslation } from 'react-i18next';
+import BarChartIcon from '@material-ui/icons/BarChart';
 
 type Props = {
   loading: boolean,
@@ -29,12 +30,15 @@ const VodVideoAnalytics = (props: Props) => {
     );
   }
   return (
-    <Paper className={classes.container}>
+    <div className={classes.container}>
+      <div className={classes.header}>
+        <BarChartIcon className={classes.iconLeft} />
+        <Typography variant="h6">{t('video.analytics.viewTitle')}</Typography>
+      </div>
       {props.videoDateCreated && (
         <Typography
-          variant="body2"
+          variant="caption"
           className={classes.uploaded}
-          align="center"
           component="p"
         >
           {t('video.analytics.uploaded', {
@@ -42,7 +46,7 @@ const VodVideoAnalytics = (props: Props) => {
           })}
         </Typography>
       )}
-      <div className={classes.viewsContainer}>
+      <Paper className={classes.viewsContainer}>
         <div className={classes.statContainer}>
           <Typography variant="h5" align="center">
             {props.data.nb_views_total !== undefined
@@ -73,23 +77,30 @@ const VodVideoAnalytics = (props: Props) => {
             {t('video.analytics.distinctViewers')}
           </Typography>
         </div>
-      </div>
-    </Paper>
+      </Paper>
+    </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    paddingTop: theme.spacing(2),
+  container: {},
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconLeft: {
+    marginRight: theme.spacing(1),
+  },
+
+  viewsContainer: {
+    paddingTop: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-  },
-  viewsContainer: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    alingItems: 'baseline',
+    justifyContent: 'space-evenly',
+    alignItems: 'flex-start',
+    flexDirection: 'row',
   },
   statContainer: {
     flex: '1 1 250px',

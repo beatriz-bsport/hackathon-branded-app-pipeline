@@ -30,7 +30,7 @@
                     "min_bookings_nb": "Número de reserva(s):",
                     "emailRecipients": "Este correo se enviará a las cuentas con el papel de Propietario o Administrador, así como al profesor (o sustituto) de la sesión en cuestión.",
                     "explain": "Envíe una notificación por correo si hay {{bookings_nb}} reserva(s) o menos {{hours}}h antes del comienzo de la sesión.",
-                    "checkbox": "Notifíqueme cuando una sesión tenga muy pocas reservas"
+                    "checkbox": "Cancelar cuando una sesión tiene muy pocas reservas"
                 }
             },
             "update": {

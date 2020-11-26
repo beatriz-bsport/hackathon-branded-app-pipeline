@@ -46,7 +46,7 @@ export default compose(
         push(
           `/login/company_onboarding/email_validation/${encodeURIComponent(
             email,
-          )}`,
+          )}${window.location.search}`,
         ),
     },
   ),

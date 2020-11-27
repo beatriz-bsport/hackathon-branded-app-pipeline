@@ -148,7 +148,9 @@
             "3": "Sessie geannuleerd",
             "22": "Factuurbevestiging",
             "300": "Kick (niet tijdig bevestigd)",
-            "601": "Te weinig reserveringen N uur voor het begin van de sessie"
+            "601": "Te weinig reserveringen N uur voor het begin van de sessie",
+            "702": "Sanctie: belast op aangemaakt account (lid)",
+            "701": "Sanctie: cursuskaart geblokkeerd (lid)"
         },
         "tag": {
             "BookingOption": {
@@ -250,7 +252,8 @@
             "offer": "Sessie",
             "member": "Ledenregistratie",
             "marketing": "Marketing",
-            "invoice": "Facturering"
+            "invoice": "Facturering",
+            "payment_pack": "Cursuskaarten"
         },
         "pageTitle": "Transactionele e-mails",
         "caption": {
@@ -993,12 +996,14 @@
             "revertBookingWithInvoiceImpossibleExplain": "Deze reservering is reeds betaald en kan niet worden geannuleerd. Je kunt je wel als \"Afwezig\" melden",
             "revertBookingExplain": {
                 "offerIsNotAvailable": "De reservering wordt verwijderd. De sessie is al geannuleerd en tegoeden worden niet terugbetaald als je \"teruggave\" niet hebt aangevinkt bij het annuleren",
-                "offerIsAvailable": "Weet je zeker dat je deze reservering wilt verwijderen? De gebruikte kredieten worden opnieuw gecrediteerd."
+                "offerIsAvailable": "Weet je zeker dat je deze reservering wilt verwijderen? De gebruikte kredieten worden opnieuw gecrediteerd.",
+                "offerIsAvailableChoiceRefund": "Weet je zeker dat je deze reservering wilt verwijderen?"
             },
             "revertBookingTitle": "Inschrijving annuleren",
             "wasRefunded": "Terugbetaald",
             "cancelledFromWaitingList": "Verwijderd uit de wachtlijst",
-            "notifyRevert": "Verstuur een annuleringsmail"
+            "notifyRevert": "Verstuur een annuleringsmail",
+            "refundRevert": "Vergoed gebruikte kredieten"
         },
         "workshopActivity": {
             "forms": {
@@ -2024,6 +2029,26 @@
                 "maxBookingPerMonth": {
                     "helperText": "Laat dit veld leeg om geen limiet in te stellen",
                     "label": "Maximaal maandgebruik"
+                },
+                "penalty": {
+                    "account": {
+                        "helperText": "Dit lid moet een vooruitbetaling van €{{value}} voldoen",
+                        "label": "Bedrag van de voortuibetaling:"
+                    },
+                    "block": {
+                        "helperText": "De cursuskaart wordt {{nb_days}} dagen geblokkeerd",
+                        "label": "Duur van blokkering op de cursuskaart (in dagen):"
+                    },
+                    "kind": {
+                        "account": "Maak een vooruitbetaling voor het betreffende lid aan",
+                        "block": "Tijdelijk de cursuskaart blokkeren",
+                        "label": "Kies het type sanctie dat je wilt toepassen"
+                    },
+                    "nb_days": "Aantal dagen:",
+                    "nb_cancellations": "Aantal annuleringen:",
+                    "explain": "Een sanctie wordt toegepast wanneer een lid {{nb_cancellations}} te late annuleringen binnen {{nb_days}} registreert",
+                    "checkbox": "Bij te veel te late annuleringen wordt een sanctie toegepast",
+                    "title": "Sancties"
                 }
             }
         },
@@ -2034,7 +2059,10 @@
             "bookingsTitle": "Bijbehorende reserveringen",
             "extensionsTitle": "Verlenging van de geldigheidsduur",
             "refundTitle": "Bijbehorende terugbetaling",
-            "trackModifiedCreditTitle": "Geschiedenis van kredietwijzigingen"
+            "trackModifiedCreditTitle": "Geschiedenis van kredietwijzigingen",
+            "penaltyAccount": "Extra facturatie €{{account_value}}",
+            "penaltyBlock": "Deze cursuskaart is {{nb_days}} geblokkeerd",
+            "penaltyTitle": "Sanctie(s) toegepast"
         },
         "paymentPackDisabled": {
             "error": "Kan niet verwijderen",
@@ -2134,7 +2162,13 @@
             "all": "Alle cursuskaarten"
         },
         "multipleBookingTooltip": "Meerdere reserveringen",
-        "maxNBookingsByMonth2": " reserveringen per maand"
+        "maxNBookingsByMonth2": " reserveringen per maand",
+        "blockedCpp": "Deze cursuskaart is van {{-blocked_from}} tot en met {{-blocked_until}} geblokkeerd",
+        "penalty": {
+            "block": "Zodra {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen worden geregistreerd, wordt deze cursuskaart voor {{days_blocked}} geblokkeerd.",
+            "account": "Zodra {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen worden geregistreerd, wordt een sanctie €{{account_value}} geefactureerd.",
+            "title": "Annuleringsbeleid"
+        }
     },
     "establishment": {
         "capacity": {
@@ -2763,7 +2797,7 @@
             "title": "Instellingen",
             "firstBookingMinutesUntil": "Reserveringen zijn geblokkeerd voor {{m}} voor het begin van de sessie",
             "conditions": "Voorwaarden",
-            "autoDiscard": "Er wordt een e-mail naar je gestuurd als er {{nb_bookings}} reservering(en) of minder dan {{hours}} uur voor aanvang van de sessie zijn"
+            "autoDiscard": "De sessie wordt geannuleerd als er minder dan {{nb_bookings}} reservering(en) {{hours}} uur voor aanvang van de sessie zijn geregistreerd."
         },
         "metaActivity": "Activiteit",
         "search": "Zoek een activiteit",
@@ -3834,8 +3868,24 @@
             "creditPrice": "Kosten (in kredieten)",
             "register": {
                 "buyPass": "Bemachtig een cursuskaart",
-                "title": "Video afspelen"
-            }
+                "title": "Video afspelen",
+                "noPassAvailable": "Je beschikt nog geen compatibele cursuskaart"
+            },
+            "analytics": {
+                "dateCreated": "Online beschikbaar maken",
+                "viewTitle": "Weergaven",
+                "uploaded": "Geüpload op {{date}}",
+                "distinctViewers": "Unieke weergaven",
+                "viewsLastWeek": "Afgelopen 7 dagen",
+                "totalViews": "Totaal",
+                "views": "{{nb_views}} keer bekeken"
+            },
+            "purchaseListTitle": "Overzicht van aankopen",
+            "noVideoView": "Nog niet bekeken",
+            "viewsListTitle": "Lijst met weergaven",
+            "viewedOn": "Video bekeken op {{-date}} om {{hour}}",
+            "boughtOn": "Op {{-date}} aangeschaft",
+            "noVideoPurchase": "Nog geen aankopen geregistreerd"
         }
     },
     "order": {
@@ -4410,7 +4460,18 @@
                 },
                 "last_booking_minutes": {
                     "label": "Voor de sessie is de laatste reservering mogelijk tot"
-                }
+                },
+                "paddingStart": {
+                    "helperText": "De instructeur en/of vestiging wordt {{minutes}} minuten voor het begin van de afspraak als onbeschikbaar weergegeven",
+                    "helperText0": "De instructeur en/of de vestiging zullen op de kalender als onbeschikbaar worden weergegeven zodra de afspraak start",
+                    "label": "Aantal minuten voor het begin van de afspraak"
+                },
+                "paddingEnd": {
+                    "helperText0": "Aan het einde van de afspraak wordt de instructeur en/of vestiging weer als beschikbaar op de kalender weergegeven",
+                    "helperText": "De instructeur en/of de vestiging wordt {{minutes}} minuten voor het begin van de afspraak als onbeschikbaar op de kalender weergegeven",
+                    "label": "Aantal verstreken minuten na het einde van de afspraak"
+                },
+                "paddingTitle": "Beheer de beschikbaarheid"
             },
             "parameters": {
                 "establishments": {

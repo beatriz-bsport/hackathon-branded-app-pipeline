@@ -2,12 +2,17 @@ exports.default = {
   navigation: {
     dashboard: 'Résumé',
     calendar: 'Historique',
+    myVideos: 'Mes vidéos',
     pack: 'Carte de cours',
     invoice: 'Facture',
     subscription: 'Abonnement',
     profile: 'Profil',
     logoff: 'Déconnecter',
     changeMembership: 'Changer de club',
+  },
+  myVideos: {
+    title: 'Mes vidéos',
+    gotToVOD: 'Voir toutes les vidéos',
   },
   debt: {
     regularize: 'Régulariser',

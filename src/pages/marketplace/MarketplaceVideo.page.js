@@ -11,7 +11,6 @@ import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-
 import { getMarketplaceRoute } from './routing-utils';
 
 import {
@@ -169,7 +168,11 @@ export default compose(
       options,
     ) => {
       fetchVideoList(
-        { status: STATUS_PROCESSED, company: companyId, ...(searchParams || {}) },
+        {
+          status: STATUS_PROCESSED,
+          company: companyId,
+          ...(searchParams || {}),
+        },
         1,
         options,
       );

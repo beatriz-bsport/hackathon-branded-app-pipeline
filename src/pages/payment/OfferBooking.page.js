@@ -36,7 +36,7 @@ import {
   withMetaActivity,
 } from '../../libs/offer/selectors';
 import { snackbarError as snackbarErrorActions } from '../../actions/snackbar.actions';
-import GoogleTagManager from '../../components/GoogleTagManager.component';
+import Analytics from '../../components/analytics/Analytics.component';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { retrieveOffer as fetchOfferAction } from '../../libs/offer/actions';
 import themeSelectors from '../../libs/theme/selectors';
@@ -235,7 +235,7 @@ export class OfferPaymentPage extends Component<Props, State> {
   render() {
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <GoogleTagManager theme={this.props.theme} />
+        <Analytics theme={this.props.theme} />
         <div className={this.props.classes.subContainer}>
           <MarketplaceAppBar
             paper

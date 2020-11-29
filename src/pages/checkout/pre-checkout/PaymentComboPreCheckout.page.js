@@ -23,6 +23,7 @@ import {
 } from '../../../libs/checkout/actions';
 
 import { fetchPaymentCombo } from '../../../libs/payment-combo/actions';
+import Analytics from '../../../components/analytics/Analytics.component';
 
 type Props = {
   theme: Theme,
@@ -57,19 +58,7 @@ export class PaymentComboPreCheckout extends React.Component<Props, State> {
         this.props.fetchCurrentBasket(paymentCombo.company, {
           onSuccess: (basket) => {
             const { nextOffer } = parse(this.props.location.search);
-            try {
-              (window.dataLayer || []).push({
-                event: 'bsport:basket:add-to-cart:pack',
-                data: {
-                  id: paymentCombo.id,
-                  name: paymentCombo.name,
-                  price: paymentCombo.price,
-                  type: 'payment_combo',
-                },
-              });
-            } catch (err) {
-              console.error(err);
-            }
+            Analytics.addPackToCart(paymentCombo);
             this.props.addItemToBasket(
               basket.id,
               {

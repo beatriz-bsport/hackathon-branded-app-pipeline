@@ -12,7 +12,7 @@ import {
   replace as replaceRouter,
 } from 'connected-react-router';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import GoogleTagManager from '../../components/GoogleTagManager.component';
+import Analytics from '../../components/analytics/Analytics.component';
 import withTitle from '../../hocs/with-title.hoc';
 import parse from '../../query-string';
 import { buildUrlParams } from '../../http';
@@ -170,10 +170,7 @@ export class ConsumerHome extends React.Component<Props> {
             goToCalendar={this.props.goToCalendar}
             open={!!this.props.from_basket || !!this.props.from_direct_booking}
           />
-          <GoogleTagManager
-            username={this.props.username}
-            theme={this.props.theme}
-          />
+          <Analytics username={this.props.username} theme={this.props.theme} />
           <div className={this.props.classes.container}>
             <Switch>
               <Route

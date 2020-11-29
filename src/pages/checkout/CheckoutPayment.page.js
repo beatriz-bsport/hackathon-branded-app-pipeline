@@ -27,7 +27,7 @@ import {
   patchCurrentBasket,
   attachPayment as attachPaymentAction,
 } from '../../libs/checkout/actions';
-import GoogleTagManager from '../../components/GoogleTagManager.component';
+import Analytics from '../../components/analytics/Analytics.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import CheckoutFlow from '../../libs/checkout/components/CheckoutFlow.component';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
@@ -100,18 +100,7 @@ export class CheckoutPayment extends React.Component<Props> {
       this.props.fetchPaymentMethodList({ company: this.props.companyId });
     }
     if (this.props.basket && !prevProps.basket) {
-      try {
-        (window.dataLayer || []).push({
-          event: 'bsport:basket:show',
-          data: {
-            totalPrice: this.props.basket.total_price,
-            memberId: this.props.basket.member,
-            basketId: this.props.basket.id,
-          },
-        });
-      } catch (err) {
-        console.error(err);
-      }
+      Analytics.showBasket(this.props.basket);
     }
   }
 
@@ -120,18 +109,7 @@ export class CheckoutPayment extends React.Component<Props> {
       this.props.fetchProfile();
     }
     if (this.props.basket) {
-      try {
-        (window.dataLayer || []).push({
-          event: 'bsport:basket:show',
-          data: {
-            totalPrice: this.props.basket.total_price,
-            memberId: this.props.basket.member,
-            basketId: this.props.basket.id,
-          },
-        });
-      } catch (err) {
-        console.error(err);
-      }
+      Analytics.showBasket(this.props.basket);
     }
     if (this.props.companyId) {
       this.props.fetchPaymentMethodList({ company: this.props.companyId });
@@ -188,7 +166,7 @@ export class CheckoutPayment extends React.Component<Props> {
               this.props.disconnect(this.props.goBack);
             }}
           />
-          <GoogleTagManager theme={this.props.theme} />
+          <Analytics theme={this.props.theme} />
           <div className={this.props.classes.container}>
             <div className={this.props.classes.checkoutFlow}>
               <CheckoutFlow
@@ -291,26 +269,7 @@ export default compose(
         extra_data: {},
       }),
     onBasketFinalized: ({ replace }) => (basket) => {
-      try {
-        const data = {
-          totalPrice: basket.total_price,
-          memberId: basket.member,
-          basketId: basket.id,
-          checkout_items: basket.checkout_items.map((ci) => ({
-            buyable_item_id: ci.buyable_item_id,
-            buyable_item_identifier: ci.buyable_item_identifier,
-            name: ci.name,
-            quantity: ci.quantity,
-            unit_price: ci.unit_price,
-          })),
-        };
-        (window.dataLayer || []).push({
-          event: 'bsport:basket:payment-success',
-          data,
-        });
-      } catch (err) {
-        console.error(err);
-      }
+      Analytics.onPaymentSuccess(basket);
       replace(`/c/${basket.company}/?from_basket=${basket.id}`);
     },
   }),

@@ -58,6 +58,7 @@ import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs
 import withTitle from '../../hocs/with-title.hoc';
 
 import type { PaymentCombo } from '../../libs/payment-combo/types';
+import Analytics from '../../components/analytics/Analytics.component';
 
 type Props = {
   filtersOpen: boolean,
@@ -325,24 +326,7 @@ export class MarketplaceCalendar extends Component<Props, State> {
   };
 
   goToBook = (offer: Offer) => {
-    try {
-      (window.dataLayer || []).push({
-        event: 'bsport:calendar:session-show',
-        data: {
-          name: offer.meta_activity.name,
-          date: offer.date_start,
-          coach: offer.coach_override
-            ? offer.coach_override.name
-            : offer.coach.name,
-          establishment: offer.establishment_override
-            ? offer.establishment_override.title
-            : offer.establishment.name,
-          activity: offer.meta_activity.id,
-        },
-      });
-    } catch (err) {
-      console.error(err);
-    }
+    Analytics.calendarSessionShow(offer);
     this.props.goToBook(offer.id, this.props.companyId);
   };
 

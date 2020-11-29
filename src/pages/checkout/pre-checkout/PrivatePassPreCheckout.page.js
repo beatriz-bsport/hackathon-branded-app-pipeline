@@ -26,6 +26,7 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { getCurrentBasket } from '../../../libs/checkout/selectors';
 import type { Basket } from '../../../libs/checkout/types';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
+import Analytics from '../../../components/analytics/Analytics.component';
 
 type Props = {
   theme: Theme,
@@ -51,19 +52,16 @@ export class PaymentPrivatePassPage extends Component<Props, State> {
   addItem = (basket: Basket) => {
     const { privatePassId } = this.props;
     const companyId = this.props.urlParams.membership;
-    try {
-      (window.dataLayer || []).push({
-        event: 'bsport:basket:add-to-cart:pass',
-        data: {
-          privatePassId,
-          name: '', // TODO GTM
-          price: null, // TODO GTM
-          type: 'private_pass',
-        },
-      });
-    } catch (err) {
-      console.error(err);
-    }
+
+    Analytics.addPassToCart(
+      {
+        id: privatePassId,
+        name: '',
+        price: null,
+      },
+      'private_pass',
+    );
+
     this.props.addItemToBasket(
       basket.id,
       {

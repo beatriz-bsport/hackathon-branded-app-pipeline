@@ -4590,6 +4590,7 @@
       "deleteVideo": "Supprimer",
       "open": "Ouvrir",
       "form": { "cancel": "Annuler", "submit": "Enregistrer" },
+      "playlist": "Playlist",
       "bottomActions": { "create": "Ajouter" }
     },
     "video": {

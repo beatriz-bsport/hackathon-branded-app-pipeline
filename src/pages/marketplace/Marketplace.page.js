@@ -177,7 +177,8 @@ export class MarketPlace extends Component<Props, State> {
     if (!this.props.companyId) {
       return null;
     }
-    switch (this.props.tab || DEFAULT_TAB) {
+
+    switch (this.props.tab) {
       case TAB_PASS:
         return (
           <MarketplacePassPage
@@ -214,7 +215,12 @@ export class MarketPlace extends Component<Props, State> {
       case TAB_WORKSHOP:
         return <MarketplaceWorkshopPage companyId={this.props.companyId} />;
       case TAB_VOD:
-        return <MarketplaceVodRouter companyId={this.props.companyId} />;
+        return (
+          <MarketplaceVodRouter
+            companyId={this.props.companyId}
+            companyName={this.props.companyName}
+          />
+        );
       case TAB_CALENDAR:
       default: {
         return (

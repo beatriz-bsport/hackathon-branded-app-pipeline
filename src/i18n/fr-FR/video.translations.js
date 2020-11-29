@@ -11,6 +11,7 @@ exports.default = {
       cancel: 'Annuler',
       submit: 'Enregistrer',
     },
+    playlist: 'Playlist',
     bottomActions: {
       create: 'Ajouter',
     },

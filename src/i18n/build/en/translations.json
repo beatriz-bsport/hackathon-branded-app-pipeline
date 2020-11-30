@@ -1767,8 +1767,8 @@
                     "hours_before_start": "Hour(s) before the session :",
                     "min_bookings_nb": "Number of booking(s) :",
                     "emailRecipients": "This mail will be sent to accounts with the role of Owner or Admin, as well as to the teacher (or substitute) of the session in question.",
-                    "explain": "Automatically cancel the session if there are {{bookings_nb}} booking(s) or less {{hours}}h before the start of the session.",
-                    "checkbox": "Cancel when a session has too few bookings"
+                    "explain": "Cancel the session and send a notification by mail to the students if there are {{bookings_nb}} booking(s) or less {{hours}}h before the start of the session.",
+                    "checkbox": "Cancel sessions with too few bookings"
                 }
             }
         },
@@ -2029,7 +2029,8 @@
             "subscription": "Subscription",
             "profile": "Profile",
             "changeMembership": "Change club",
-            "logoff": "Logout"
+            "logoff": "Logout",
+            "myVideos": "My videos"
         },
         "pack": {
             "titlePaymentPack": "Class",
@@ -2072,6 +2073,10 @@
             "error": "Error while unsubscribing",
             "doUnsubscribe": "Unsubscribe",
             "explain": "Do you want to unsubscribe from all your club's newsletters ?"
+        },
+        "myVideos": {
+            "title": "My videos",
+            "gotToVOD": "See all videos"
         }
     },
     "reminder": {
@@ -2215,7 +2220,7 @@
             "title": "Mail object",
             "content": "Mail content",
             "missing": "Missing email",
-            "success": "Mail sent",
+            "success": "Communication sent",
             "error": "Mail not sent, please try again later",
             "refreshText": "Please refresh page to integrate email change",
             "noObject": "No object",
@@ -3458,6 +3463,10 @@
                 "placeholder": "I certify that I'm over the age of 13",
                 "helperText": "Must be accepted for any registration",
                 "label": "General terms of use"
+            },
+            "facebookPixelId": {
+                "placeholder": "ID",
+                "label": "Facebook Pixel Id"
             }
         },
         "general_terms_and_conditions": {
@@ -3469,6 +3478,28 @@
             "theme": "General",
             "personalization": "Personalization",
             "broadcast": "Streaming"
+        },
+        "analytics": {
+            "showAnalyticsInformation": "View events that are tracked",
+            "eventDesc": "Description of the event",
+            "gtmEvent": "GTM Event Name",
+            "fbPixelEvent": "FB Pixel Event Name",
+            "cancel": "Cancel",
+            "showBasket": "When the user displays his basket",
+            "showPass": "When the user displays a pass",
+            "addPassToCart": "When the user adds a pass to their basket",
+            "addPackToCart": "When the user adds a pack to their basket",
+            "addPrivatePassToCart": "When the user adds an appointment pass to their basket",
+            "addShopItemToCart": "When the user adds an item from the shop to their basket",
+            "paymentSuccess": "When the user has successfully completed their payment",
+            "signinShow": "When the user lands on the login page",
+            "signupShow": "When the user displays the registration form",
+            "signupSuccess": "When the user has created an account",
+            "sessionShow": "When the user selects a session",
+            "contractPaymentSuccess": "When the user has subscribed",
+            "contractShow": "When the user displays a subscription",
+            "contractPaymentShow": "When the user is on the payment page for a subscription",
+            "workshopClick": "When the user selects a date for a workshop"
         }
     },
     "common": {
@@ -7282,7 +7313,8 @@
             "deleteVideo": "Remove",
             "description": "Description",
             "name": "Last name",
-            "noVideo": "No video in this playlist"
+            "noVideo": "No video in this playlist",
+            "playlist": "Playlist"
         }
     },
     "platformBilling": {

@@ -1190,7 +1190,7 @@
                     "min_bookings_nb": "Anzahl der Buchung(en):",
                     "emailRecipients": "Diese E-Mail wird an Staff mit der Rolle \"Leiter\" oder \"Administrator\" sowie an den Lehrer (oder Ersatzlehrer) des betreffenden Kurses gesendet.",
                     "checkbox": "Storniere den Kurs automatisch, wenn zu wenige Buchungen vorliegen",
-                    "explain": "Sende eine E-Mail-Benachrichtigung, wenn {{bookings_nb}} Buchungen für den Beginn des Kurses oder weniger {{Stunden}} h vorliegen."
+                    "explain": "Sende eine E-Mail-Benachrichtigung und storniere den Kurs, wenn {{bookings_nb}} Buchungen für den Beginn des Kurses oder weniger {{Stunden}} h vorliegen."
                 }
             }
         },
@@ -1899,12 +1899,38 @@
                 "placeholder": "Ich bestätige, dass ich über 13 Jahre alt bin",
                 "helperText": "Muss für jede Registrierung akzeptiert werden",
                 "label": "Allgemeine Geschäftsbedingungen"
+            },
+            "facebookPixelId": {
+                "placeholder": "ID",
+                "label": "Facebook Pixel ID"
             }
         },
         "pageTitles": {
             "theme": "Allgemein",
             "personalization": "Personalisierung",
             "broadcast": "Videokonferenz"
+        },
+        "analytics": {
+            "showAnalyticsInformation": "Zeige Analytics an",
+            "eventDesc": "Beschreibung des Ereignisses",
+            "gtmEvent": "GTM-Event Name",
+            "fbPixelEvent": "FB Pixel Eventname",
+            "cancel": "Stornieren",
+            "showBasket": "Wenn der Benutzer seinen Warenkorb anzeigt",
+            "showPass": "Wenn der Benutzer eine Kurskarte anzeigt",
+            "addPackToCart": "Wenn der Benutzer eine Package in den Warenkorb legt",
+            "addPrivatePassToCart": "Wenn der Benutzer eine Terminkarte in den Warenkorb legt",
+            "addShopItemToCart": "Wenn der Benutzer einen Artikel aus dem Shop in den Warenkorb legt",
+            "paymentSuccess": "Wenn der Benutzer die Zahlung erfolgreich abgeschlossen hat",
+            "signupSuccess": "Wenn der Benutzer ein Konto erstellt hat",
+            "sessionShow": "Wenn der Benutzer eine Kurs auswählt",
+            "contractShow": "Wenn der Benutzer ein Abonnement ansieht",
+            "contractPaymentShow": "Wenn sich der Benutzer auf der Zahlungsseite eines Abonnements befindet",
+            "workshopClick": "Wenn der Benutzer ein Datum aus einem Workshop auswählt",
+            "addPassToCart": "Wenn der Benutzer eine Kurskarte in den Warenkorb legt",
+            "signinShow": "Wenn der Benutzer auf der Anmeldeseite ankommt",
+            "signupShow": "Wenn der Benutzer das Registrierungsformular anzeigt",
+            "contractPaymentSuccess": "Wenn der Benutzer ein Abo abgeschlossen hat"
         }
     },
     "role": {
@@ -3472,7 +3498,8 @@
             "purchaseListTitle": "Liste der Käufe",
             "viewedOn": "Video gesehen am {{-date}} um {{hour}}",
             "boughtOn": "Kauf erfolgt am {{-date}}",
-            "noVideoPurchase": "Kein Kauf registriert"
+            "noVideoPurchase": "Kein Kauf registriert",
+            "noVideoView": "Keine Views"
         },
         "playlist": {
             "description": "Beschreibung",
@@ -3486,7 +3513,8 @@
             "bottomActions": {
                 "create": "Hinzufügen"
             },
-            "deleteVideo": "Löschen"
+            "deleteVideo": "Löschen",
+            "playlist": "Playlist"
         }
     },
     "booking": {
@@ -4193,7 +4221,8 @@
                     "helperText0": "Im Kalender werden der Lehrer und / oder der Raum zum Startzeitpunkt des Termins als nicht verfügbar markiert",
                     "helperText": "Im Kalender werden der Lehrer und / oder der Raum Minuten vor Beginn des Termins als nicht verfügbar {{minutes}} markiert",
                     "label": "Anzahl der Minuten vor Beginn des Termins"
-                }
+                },
+                "paddingTitle": "Verfügbarkeitsmanagement"
             },
             "parameters": {
                 "slots": {
@@ -4716,7 +4745,8 @@
             "profile": "Profil",
             "invoice": "Rechnung",
             "pack": "Kurskarte",
-            "dashboard": "Überblick"
+            "dashboard": "Überblick",
+            "myVideos": "Meine Videos"
         },
         "pack": {
             "titlePrivatePack": "Termin",
@@ -4727,6 +4757,10 @@
             "doUnsubscribe": "Abmelden",
             "error": "Fehler beim Abmelden",
             "success": "Du wurdest abgemeldet"
+        },
+        "myVideos": {
+            "gotToVOD": "Alle Videos anzeigen",
+            "title": "Meine Videos"
         }
     },
     "metaActivity": {

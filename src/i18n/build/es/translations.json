@@ -29,8 +29,8 @@
                     "hours_before_start": "Hora(s) antes de la sesión :",
                     "min_bookings_nb": "Número de reserva(s):",
                     "emailRecipients": "Este correo se enviará a las cuentas con el papel de Propietario o Administrador, así como al profesor (o sustituto) de la sesión en cuestión.",
-                    "explain": "Envíe una notificación por correo si hay {{bookings_nb}} reserva(s) o menos {{hours}}h antes del comienzo de la sesión.",
-                    "checkbox": "Cancelar cuando una sesión tiene muy pocas reservas"
+                    "explain": "Cancele la sesión y envíe una notificación por correo a los estudiantes si hay {{bookings_nb}} reserva(s) o menos {{hours}}h antes del comienzo de la sesión.",
+                    "checkbox": "Cancelar sesiones con muy pocas reservas"
                 }
             },
             "update": {
@@ -810,10 +810,12 @@
             "add": "Inscribir",
             "revertBookingExplain": {
                 "offerIsNotAvailable": "La reserva será eliminada. La sesión ya ha sido cancelada y los créditos no serán reembolsados si no marcaste \"reembolso\" en el momento de la cancelación",
-                "offerIsAvailable": "¿Está seguro de que quieres eliminar esta reserva? Los créditos utilizados serán acreditados de nuevo."
+                "offerIsAvailable": "¿Está seguro de que quieres eliminar esta reserva? Los créditos utilizados serán acreditados de nuevo.",
+                "offerIsAvailableChoiceRefund": "Estás seguro de que quieres eliminar esta reserva?"
             },
             "cancelledFromWaitingList": "Eliminado de la lista de espera",
-            "notifyRevert": "Enviar un email de cancelación"
+            "notifyRevert": "Enviar un email de cancelación",
+            "refundRevert": "Reembolso de los créditos utilizados"
         },
         "level": {
             "all": "Todos los niveles",
@@ -2978,7 +2980,8 @@
             "private_booking": "Cita",
             "subscription": "Suscripción",
             "marketing": "Marketing",
-            "invoice": "Facturación"
+            "invoice": "Facturación",
+            "payment_pack": "Tarjetas de curso"
         },
         "eventType": {
             "14": "Cancelación de la inscripción en la lista de espera (mánager)",
@@ -3011,7 +3014,9 @@
             "25": "Cambio de método de pago",
             "300": "Kick (No validada a tiempo demasiadas veces)",
             "22": "Confirmación de factura",
-            "601": "Muy pocas reservas N horas antes del comienzo de la sesión"
+            "601": "Muy pocas reservas N horas antes del comienzo de la sesión",
+            "701": "Penalización de tarjeta de curso: tarjeta bloqueada (estudiante)",
+            "702": "Penalización de tarjeta de curso: cargo en la cuenta creada (estudiante)"
         },
         "tag": {
             "BookingOption": {
@@ -3176,7 +3181,8 @@
             "invoice": "Factura",
             "pack": "Tarjeta de curso",
             "calendar": "Histórico",
-            "dashboard": "Resumen"
+            "dashboard": "Resumen",
+            "myVideos": "Mis videos"
         },
         "actions": {
             "goToCalendar": "Ver el calendario completo",
@@ -3192,6 +3198,10 @@
             "error": "Error al darse de baja",
             "doUnsubscribe": "Darme de baja",
             "explain": "¿Quieres darte de baja de todas las newsletters de tu club?"
+        },
+        "myVideos": {
+            "title": "Mis videos",
+            "gotToVOD": "Ver todos los videos"
         }
     },
     "coupon": {
@@ -3389,6 +3399,17 @@
                 },
                 "last_booking_minutes": {
                     "label": "Antes del inicio de la reunión, última reserva posible"
+                },
+                "paddingTitle": "Gestión de las disponibilidades",
+                "paddingStart": {
+                    "label": "Número de minutos antes del comienzo de la cita",
+                    "helperText": "En el calendario, el profesor y/o el establecimiento serán marcados como no disponibles {{minutes}} minutos antes del comienzo de la cita",
+                    "helperText0": "En el calendario, el profesor y/o el establecimiento se marcarán como no disponibles a la hora de inicio de la cita"
+                },
+                "paddingEnd": {
+                    "label": "Número de minutos después del final de la cita",
+                    "helperText": "En el calendario, el profesor y/o el establecimiento será marcado como disponible de nuevo {{minutes}} minutos después del final de la cita",
+                    "helperText0": "En el calendario, el profesor y/o el establecimiento serán marcados como disponibles de nuevo al final de la cita"
                 }
             },
             "configuration": {
@@ -4228,12 +4249,38 @@
                 "placeholder": "Certifico que soy mayor de 13 años de edad",
                 "helperText": "Para la inscripción se debe aceptar lo siguiente",
                 "label": "Condiciones de uso"
+            },
+            "facebookPixelId": {
+                "placeholder": "ID",
+                "label": "Facebook Pixel Id"
             }
         },
         "pageTitles": {
             "theme": "General",
             "personalization": "Personalización",
             "broadcast": "Videoconferencia"
+        },
+        "analytics": {
+            "showAnalyticsInformation": "Ver los eventos que son monitoreados",
+            "eventDesc": "Descripción del evento",
+            "gtmEvent": "Nombre del evento GTM",
+            "fbPixelEvent": "Nombre de evento FB Pixel",
+            "cancel": "Cancelar",
+            "showBasket": "Cuando el usuario muestra su cesta",
+            "showPass": "Cuando el usuario muestra una tarjeta de curso",
+            "addPassToCart": "Cuando el usuario añade una tarjeta de curso a su cesta",
+            "addPackToCart": "Cuando el usuario añade un pack a su cesta",
+            "addPrivatePassToCart": "Cuando el usuario añade una tarjeta de cita a su cesta",
+            "addShopItemToCart": "Cuando el usuario añade un artículo de la tienda a su cesta",
+            "paymentSuccess": "Cuando el usuario haya completado con éxito su pago",
+            "signinShow": "Cuando el usuario aterriza en la página de inicio de sesión",
+            "signupShow": "Cuando el usuario muestra el formulario de registro",
+            "signupSuccess": "Cuando el usuario ha creado una cuenta",
+            "sessionShow": "Cuando el usuario selecciona una sesión",
+            "contractPaymentSuccess": "Cuando el usuario se ha suscrito",
+            "contractShow": "Cuando el usuario muestra una suscripción",
+            "contractPaymentShow": "Cuando el usuario está en la página de pago de una suscripción",
+            "workshopClick": "Cuando el usuario selecciona una fecha para un taller"
         }
     },
     "role": {
@@ -4951,7 +4998,10 @@
             "invoiceTitle": "Factura asociada",
             "shareAPass": "Compartir una tarjeta de curso",
             "pleaseSelectAPack": "Selecciona una tarjeta para ver el detalle",
-            "trackModifiedCreditTitle": "Historial de creditos modificados"
+            "trackModifiedCreditTitle": "Historial de creditos modificados",
+            "penaltyBlock": "Tarjeta bloqueada durante {{nb_days}} días",
+            "penaltyAccount": "Facturación adicional de {{account_value}}€",
+            "penaltyTitle": "Penalizaciones aplicadas"
         },
         "form": {
             "paymentPack": {
@@ -5053,6 +5103,26 @@
                 "maxBookingPerMonth": {
                     "helperText": "Dejar en blanco para no imponer un límite",
                     "label": "Uso máximo por mes"
+                },
+                "penalty": {
+                    "account": {
+                        "label": "Cargo en la cuenta:",
+                        "helperText": "Se aplicará un cargo de {{value}}€ a este miembro"
+                    },
+                    "nb_cancellations": "Número de cancelaciones :",
+                    "title": "Penalizaciones",
+                    "checkbox": "Aplicar una penalización en caso de demasiadas cancelaciones tardías",
+                    "explain": "Se aplicará una penalización si hay {{nb_cancellations}} cancelaciones tardías durante un período de {{nb_days}} días",
+                    "nb_days": "Número de días:",
+                    "kind": {
+                        "label": "Seleccione el tipo de penalización a aplicar",
+                        "block": "Bloquear temporalmente la tarjeta de curso",
+                        "account": "Crear un cargo en la cuenta del miembro involucrado"
+                    },
+                    "block": {
+                        "label": "Período de bloqueo de la tarjeta de curso (en días) :",
+                        "helperText": "La tarjeta de curso será bloqueado por {{nb_days}} días"
+                    }
                 }
             }
         },
@@ -5241,7 +5311,13 @@
             "all": "Todas las tarjetas"
         },
         "multipleBookingTooltip": "Reservas múltiples",
-        "maxNBookingsByMonth2": " reservas por mes"
+        "maxNBookingsByMonth2": " reservas por mes",
+        "penalty": {
+            "title": "Política de cancelación",
+            "block": "Si se producen {{nb_cancellations}} cancelaciones tardías durante un período de {{nb_days}} días, el pase se bloqueará durante {{days_blocked}} días.",
+            "account": "Si hay {{nb_cancellations}} cancelaciones tardías durante un período de {{nb_days}} días, un cargo de {{account_value}}€ se aplicará."
+        },
+        "blockedCpp": "Tarjeta bloqueada de {{-blocked_from}} a {{-blocked_until}}"
     },
     "selfCheckIn": {
         "offerList": {
@@ -5351,7 +5427,7 @@
             "lastBookingBeforeMinutes": "Las reservas son posibles para esta actividad hasta {{m}} antes del inicio de la sesión",
             "title": "Parámetros",
             "conditions": "Condiciones",
-            "autoDiscard": "Se te enviará un correo electrónico si hay {{nb_bookings}} reserva (s) o menos {{horas}} h antes del inicio de la sesión"
+            "autoDiscard": "La sesión será cancelada si hay {{nb_bookings}} reserva (s) o menos {{horas}} h antes del inicio de la sesión"
         },
         "modal": {
             "delete": {
@@ -5535,7 +5611,7 @@
                 "title": "Supresión"
             },
             "status": {
-                "processed": "Visualizar",
+                "processed": "Detalle",
                 "error": "Intentar de nuevo",
                 "processing": "En curso",
                 "submitted": "Borrador"
@@ -5577,8 +5653,24 @@
             "creditPrice": "Costo (crédito)",
             "register": {
                 "buyPass": "Compra un pase",
-                "title": "Empieza a reproducir"
-            }
+                "title": "Empieza a reproducir",
+                "noPassAvailable": "No tienes un pase compatible"
+            },
+            "noVideoPurchase": "No se ha registrado ninguna compra",
+            "analytics": {
+                "totalViews": "Total",
+                "views": "{{nb_views}} vistas",
+                "viewTitle": "Viendo",
+                "dateCreated": "Poner en línea",
+                "viewsLastWeek": "Los últimos 7 días",
+                "distinctViewers": "Vistas únicas",
+                "uploaded": "El video puso en línea el {{date}}"
+            },
+            "noVideoView": "No hay vistas",
+            "boughtOn": "Compra hecha el {{-date}}",
+            "viewedOn": "Video visto el {{-date}} a las {{hour}}",
+            "purchaseListTitle": "Lista de compras",
+            "viewsListTitle": "Lista de vistas"
         },
         "playlist": {
             "bottomActions": {
@@ -5592,7 +5684,8 @@
             "deleteVideo": "Suprimir",
             "description": "Descripción",
             "name": "Nombre",
-            "noVideo": "Ninguna video en esta playlist"
+            "noVideo": "Ninguna video en esta playlist",
+            "playlist": "Playlist"
         }
     },
     "coachPerformance": {

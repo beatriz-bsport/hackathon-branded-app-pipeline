@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { omit } from 'lodash';
 
 import {
   push as pushRouter,

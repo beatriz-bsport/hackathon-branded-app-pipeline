@@ -14,8 +14,8 @@
       "forms": {
         "create": { "success": "Activité créée", "error": "Erreur lors de l'enregistrement de l'activité" },
         "autoDiscard": {
-          "checkbox": "M'avertir lorqu'une séance est trop peu remplie",
-          "explain": "Envoyer une notification par mail s'il y a {{bookings_nb}} réservation(s) ou moins {{hours}}h avant le début de la séance.",
+          "checkbox": "Annuler les séances trop peu remplies",
+          "explain": "Annuler la séance et Envoyer une notification par mail aux élèves s'il y a {{bookings_nb}} réservation(s) ou moins {{hours}}h avant le début de la séance.",
           "emailRecipients": "Ce mail sera envoyé aux comptes ayant le rôle Owner ou Admin, ainsi qu'au professeur (ou professeur remplaçant) de la séance en question.",
           "min_bookings_nb": "Nombre de réservation(s) :",
           "hours_before_start": "Heure(s) avant la séance :"
@@ -1029,6 +1029,7 @@
     "navigation": {
       "dashboard": "Résumé",
       "calendar": "Historique",
+      "myVideos": "Mes vidéos",
       "pack": "Carte de cours",
       "invoice": "Facture",
       "subscription": "Abonnement",
@@ -1036,6 +1037,7 @@
       "logoff": "Déconnecter",
       "changeMembership": "Changer de club"
     },
+    "myVideos": { "title": "Mes vidéos", "gotToVOD": "Voir toutes les vidéos" },
     "debt": {
       "regularize": "Régulariser",
       "title": "Acompte dû au club",
@@ -2002,12 +2004,35 @@
         "placeholder": "J'atteste avoir plus de 13 ans"
       },
       "gtmId": { "placeholder": "GTM-XXXXXX", "label": "Google Tag ID" },
+      "facebookPixelId": { "placeholder": "ID", "label": "Facebook Pixel Id" },
       "instagramURL": {
         "label": "URL Instagram",
         "helperText": "Votre page Instagram",
         "placeholder": "https://instagram.com/mon-studio/"
       },
       "submit": "Sauvegarder"
+    },
+    "analytics": {
+      "showAnalyticsInformation": "Afficher les événements traqués",
+      "eventDesc": "Description de l'événement",
+      "gtmEvent": "GTM Event Name",
+      "fbPixelEvent": "FB Pixel Event Name",
+      "cancel": "Annuler",
+      "showBasket": "Lorsque l'utilisateur affiche son panier",
+      "showPass": "Lorsque l'utilisateur affiche une carte de cours",
+      "addPassToCart": "Lorsque l'utilisateur ajoute une carte de cours à son panier",
+      "addPackToCart": "Lorsque l'utilisateur ajoute un pack à son panier",
+      "addPrivatePassToCart": "Lorsque l'utilisateur ajoute une carte de RDV à son panier",
+      "addShopItemToCart": "Lorsque l'utilisateur ajoute un élément du magasin à son panier",
+      "paymentSuccess": "Lorsque l'utilisateur a réussi son paiement",
+      "signinShow": "Lorsque l'utilisateur arrive sur la page de login",
+      "signupShow": "Lorsque l'utilisateur affiche le formulaire d'inscription",
+      "signupSuccess": "Lorsque l'utilisateur a créé un compte",
+      "sessionShow": "Lorsque l'utilisateur selectionne une séance",
+      "contractPaymentSuccess": "Lorsque l'utilisateur s'est abonné",
+      "contractShow": "Lorsque l'utilisateur affiche un abonnement",
+      "contractPaymentShow": "Lorsque l'utilisateur est sur la page de paiement d'un abonnement",
+      "workshopClick": "Lorsque l'utilisateur selectionne une date d'un atelier"
     }
   },
   "common": {
@@ -4565,6 +4590,7 @@
       "deleteVideo": "Supprimer",
       "open": "Ouvrir",
       "form": { "cancel": "Annuler", "submit": "Enregistrer" },
+      "playlist": "Playlist",
       "bottomActions": { "create": "Ajouter" }
     },
     "video": {

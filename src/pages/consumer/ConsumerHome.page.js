@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { omit } from 'lodash';
 
 import {
   push as pushRouter,
   replace as replaceRouter,
 } from 'connected-react-router';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import GoogleTagManager from '../../components/GoogleTagManager.component';
+import Analytics from '../../components/analytics/Analytics.component';
 import withTitle from '../../hocs/with-title.hoc';
 import parse from '../../query-string';
 import { buildUrlParams } from '../../http';
@@ -50,17 +51,18 @@ import CongratulationDialog from '../../libs/consumer-space/components/Congratul
 import { fetchSubscriptionListByMember } from '../../libs/subscription/actions';
 import { getSubscriptionByMemberPendingAction } from '../../libs/subscription/selectors';
 
-const ConsumerDashboard = asyncComponent(
-  () => import('./ConsumerDashboard.page'),
+const ConsumerDashboard = asyncComponent(() =>
+  import('./ConsumerDashboard.page'),
 );
 const ConsumerBooking = asyncComponent(() => import('./ConsumerBooking.page'));
-const ConsumerBookingBroadcast = asyncComponent(
-  () => import('./ConsumerBookingBroadcast.page'),
+const ConsumerVOD = asyncComponent(() => import('./ConsumerVOD.page'));
+const ConsumerBookingBroadcast = asyncComponent(() =>
+  import('./ConsumerBookingBroadcast.page'),
 );
 const ConsumerPack = asyncComponent(() => import('./ConsumerPack.page'));
 const ConsumerInvoice = asyncComponent(() => import('./ConsumerInvoice.page'));
-const ConsumerSubscription = asyncComponent(
-  () => import('./ConsumerSubscription.page'),
+const ConsumerSubscription = asyncComponent(() =>
+  import('./ConsumerSubscription.page'),
 );
 const ConsumerProfile = asyncComponent(() => import('./ConsumerProfile.page'));
 
@@ -98,6 +100,7 @@ type Props = {
   fetchCountObjects: () => void,
   infosOfMember: dict,
 };
+
 export class ConsumerHome extends React.Component<Props> {
   componentWillMount() {
     if (this.props.from_basket) {
@@ -126,7 +129,8 @@ export class ConsumerHome extends React.Component<Props> {
 
   attachConsumerProps = (MyComponent: React.Component<*>) => (props: any) => (
     <MyComponent
-      {...props}
+      companyId={this.props.companyId}
+      {...omit(props, 'match')}
       membership={this.props.membership}
       push={this.buildPath}
     />
@@ -166,15 +170,16 @@ export class ConsumerHome extends React.Component<Props> {
             goToCalendar={this.props.goToCalendar}
             open={!!this.props.from_basket || !!this.props.from_direct_booking}
           />
-          <GoogleTagManager
-            username={this.props.username}
-            theme={this.props.theme}
-          />
+          <Analytics username={this.props.username} theme={this.props.theme} />
           <div className={this.props.classes.container}>
             <Switch>
               <Route
                 path="/c/:companyId/booking/"
                 render={this.attachConsumerProps(ConsumerBooking)}
+              />
+              <Route
+                path="/c/:companyId/vod/"
+                render={this.attachConsumerProps(ConsumerVOD)}
               />
               <Route
                 path="/c/:companyId/broadcast/:bookingId/"

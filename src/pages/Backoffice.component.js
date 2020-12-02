@@ -8,7 +8,7 @@ import { push } from 'connected-react-router';
 import Intercom from 'react-intercom';
 import { compose, withHandlers } from 'recompose';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
-import GoogleTagManager from '../components/GoogleTagManager.component';
+import Analytics from '../components/analytics/Analytics.component';
 import RELEASE from '../release';
 
 import { Context } from '../context';
@@ -305,7 +305,7 @@ export class Backoffice extends Component<Props, State> {
                 action_color={this.props.theme.primary_color}
               />
             ) : null}
-            <GoogleTagManager username={this.props.username} isInternal />
+            <Analytics username={this.props.username} isInternal />
             <main className={classes.content}>
               <BackofficeRoute
                 vodEnabled={this.props.theme ? this.props.theme.vod : null}

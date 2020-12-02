@@ -28,7 +28,7 @@ import { fetchCompanyTheme } from '../../libs/theme/actions';
 import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
 import MarketplaceAppBar from './MarketplaceAppBar.component';
 import SignUpForm from '../../components/form/SignUpForm.component';
-import GoogleTagManager from '../../components/GoogleTagManager.component';
+import Analytics from '../../components/analytics/Analytics.component';
 
 import {
   addItemToBasket,
@@ -177,7 +177,8 @@ export class MarketPlace extends Component<Props, State> {
     if (!this.props.companyId) {
       return null;
     }
-    switch (this.props.tab || DEFAULT_TAB) {
+
+    switch (this.props.tab) {
       case TAB_PASS:
         return (
           <MarketplacePassPage
@@ -214,7 +215,12 @@ export class MarketPlace extends Component<Props, State> {
       case TAB_WORKSHOP:
         return <MarketplaceWorkshopPage companyId={this.props.companyId} />;
       case TAB_VOD:
-        return <MarketplaceVodRouter companyId={this.props.companyId} />;
+        return (
+          <MarketplaceVodRouter
+            companyId={this.props.companyId}
+            companyName={this.props.companyName}
+          />
+        );
       case TAB_CALENDAR:
       default: {
         return (
@@ -242,18 +248,14 @@ export class MarketPlace extends Component<Props, State> {
 
   toogleSignUp = (value: boolean) => {
     if (value) {
-      (window.dataLayer || []).push({
-        event: 'bsport:signup:show',
-      });
+      Analytics.signupShow();
     }
     this.setState({ signupDialogOpen: value });
   };
 
   toogleLogin = (value: boolean) => {
     if (value) {
-      (window.dataLayer || []).push({
-        event: 'bsport:signin:show',
-      });
+      Analytics.signinShow();
     }
     this.setState({ loginDialogOpen: value });
   };
@@ -263,18 +265,7 @@ export class MarketPlace extends Component<Props, State> {
   doEmailLogin = ({ email, password }) => {
     this.props.doEmailLogin({ email, password }, () => {
       this.props.fetchProfile({
-        onSuccess: (profile) => {
-          try {
-            (window.dataLayer || []).push({
-              event: 'bsport:signin:success',
-              data: {
-                email: profile.email,
-              },
-            });
-          } catch (err) {
-            console.error(err);
-          }
-        },
+        onSuccess: (profile) => Analytics.signinSuccess(profile),
       });
       this.props.fetchCurrentBasket(this.props.companyId);
     });
@@ -303,7 +294,7 @@ export class MarketPlace extends Component<Props, State> {
     }
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <GoogleTagManager
+        <Analytics
           username={(this.props.auth && this.props.auth.username) || ''}
           theme={this.props.theme}
         />
@@ -414,16 +405,7 @@ export class MarketPlace extends Component<Props, State> {
                     this.signup(data, () => {
                       this.props.fetchProfile({
                         onSuccess: (profile) => {
-                          try {
-                            (window.dataLayer || []).push({
-                              event: 'bsport:signup:success',
-                              data: {
-                                email: profile.email,
-                              },
-                            });
-                          } catch (err) {
-                            console.error(err);
-                          }
+                          Analytics.signupSuccess(profile);
                         },
                       });
                       this.props.fetchCurrentBasket(this.props.companyId);

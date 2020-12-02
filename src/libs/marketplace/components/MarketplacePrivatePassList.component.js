@@ -14,6 +14,7 @@ import { compose } from 'recompose';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import Analytics from '../../../components/analytics/Analytics.component';
 
 type Props = {
   privatePassList: Array<PrivatePass>,
@@ -48,19 +49,7 @@ export const MarketplacePrivatePassList = (props: Props) => {
                   color="primary"
                   onClick={() => {
                     props.onAddBasket(pp.id);
-                    try {
-                      (window.dataLayer || []).push({
-                        event: 'bsport:basket:add-to-cart:private-pass',
-                        data: {
-                          id: pp.id,
-                          name: pp.name,
-                          price: pp.price,
-                          type: 'private_pass',
-                        },
-                      });
-                    } catch (err) {
-                      console.error(err);
-                    }
+                    Analytics.addPrivatePassToCart(pp);
                   }}
                 >
                   <AddShoppingCartIcon />

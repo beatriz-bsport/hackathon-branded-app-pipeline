@@ -168,11 +168,12 @@ export class MemberSummaryCard extends Component<Props> {
           email={member.consumer.email}
           accept_email={member.accept_email}
           notificationIcon
-          openMailDialog={() =>
+          openMailDialog={
             // eslint-disable-next-line
-            member.accept_email
-              ? this.setState({ displayMailDialog: true })
-              : null
+            () =>
+              member.accept_email
+                ? this.setState({ displayMailDialog: true })
+                : null
           }
           hideContactButton={this.props.hideContactButton}
         />

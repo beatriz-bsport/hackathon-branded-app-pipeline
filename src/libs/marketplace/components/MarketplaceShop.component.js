@@ -24,6 +24,7 @@ import type { TFunction } from 'react-i18next';
 import type { SubShop, ShopItem } from '../../shop/types';
 import ShopItemCard from '../../shop/components/ShopItemCard.component';
 import ShopItemListItem from '../../shop/components/ShopItemListItem.component';
+import Analytics from '../../../components/analytics/Analytics.component';
 
 const SubShopComponent = (props: {
   subshop: SubShop,
@@ -81,19 +82,7 @@ const SubShopComponent = (props: {
                         onClick={(ev) => {
                           ev.stopPropagation();
                           props.addToOrder(si.id);
-                          try {
-                            (window.dataLayer || []).push({
-                              event: 'bsport:basket:add-to-cart:shop-item',
-                              data: {
-                                id: si.id,
-                                name: si.name,
-                                price: si.price,
-                                type: 'shop_item',
-                              },
-                            });
-                          } catch (err) {
-                            console.error(err);
-                          }
+                          Analytics.addShopItemToCart(si);
                         }}
                       >
                         <AddShoppingCartIcon />

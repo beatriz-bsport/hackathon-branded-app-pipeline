@@ -33,6 +33,7 @@ import { fetchMarketplaceOfferList as fetchOfferListAction } from '../../libs/of
 
 import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
 import type { PaymentCombo } from '../../libs/payment-combo/types';
+import Analytics from '../../components/analytics/Analytics.component';
 
 type Props = {
   // t: TFunction,
@@ -81,24 +82,7 @@ export class MarketplaceWorkshopPage extends React.Component<Props> {
   }
 
   goToBook = (offer: Offer) => {
-    try {
-      (window.dataLayer || []).push({
-        event: 'bsport:workshop-click',
-        data: {
-          name: offer.meta_activity.name,
-          date: offer.date_start,
-          coach: offer.coach_override
-            ? offer.coach_override.name
-            : offer.coach.name,
-          establishment: offer.establishment_override
-            ? offer.establishment_override.title
-            : offer.establishment.name,
-          activity: offer.meta_activity.id,
-        },
-      });
-    } catch (err) {
-      console.error(err);
-    }
+    Analytics.workshopClick(offer);
     this.props.goToBook(offer.id, this.props.companyId);
   };
 

@@ -1035,13 +1035,15 @@
             "revertBookingWithInvoiceImpossibleExplain": "This booking has been paid by the member and can not be cancelled, however you can flag it as \"Absent\"",
             "revertBookingExplain": {
                 "offerIsNotAvailable": "The booking will be delete. The sessions has already been cancelled and credits will not be refunded if you have not checked \"refunded\" during cancellation",
-                "offerIsAvailable": "Are you sure you want to delete this booking ? Credits will be refunded on the pass."
+                "offerIsAvailable": "Are you sure you want to delete this booking ? Credits will be refunded on the pass.",
+                "offerIsAvailableChoiceRefund": "Are you sure you want to remove this booking?"
             },
             "revertBookingTitle": "Cancel booking",
             "success": "Booking saved",
             "wasRefunded": "Refunded",
             "cancelledFromWaitingList": "Removed from the waiting list",
-            "notifyRevert": "Send a cancellation email"
+            "notifyRevert": "Send a cancellation email",
+            "refundRevert": "Refund credits used"
         },
         "workshopActivity": {
             "forms": {
@@ -1765,8 +1767,8 @@
                     "hours_before_start": "Hour(s) before the session :",
                     "min_bookings_nb": "Number of booking(s) :",
                     "emailRecipients": "This mail will be sent to accounts with the role of Owner or Admin, as well as to the teacher (or substitute) of the session in question.",
-                    "explain": "Send a notification by mail if there are {{bookings_nb}} booking(s) or less {{hours}}h before the start of the session.",
-                    "checkbox": "Notify me when a session has too few bookings"
+                    "explain": "Automatically cancel the session if there are {{bookings_nb}} booking(s) or less {{hours}}h before the start of the session.",
+                    "checkbox": "Cancel when a session has too few bookings"
                 }
             }
         },
@@ -1871,7 +1873,8 @@
             "waiting-list": "Waiting-list",
             "private_booking": "Appointments",
             "marketing": "Marketing",
-            "invoice": "Billing"
+            "invoice": "Billing",
+            "payment_pack": "Passes"
         },
         "emailDesign": {
             "placeholder": "Handled by bsport",
@@ -1996,7 +1999,9 @@
             "400": "Appointment canceled - out of time (teacher)",
             "300": "Kick (Not validated in time too many times)",
             "22": "Invoice confirmation",
-            "601": "Too few bookings N hours before the start of the session"
+            "601": "Too few bookings N hours before the start of the session",
+            "702": "Pass penalty: charge on account created (student)",
+            "701": "Pass penalty: pass blocked (student)"
         },
         "messages": {
             "createOrUpdate": {
@@ -2810,7 +2815,18 @@
                 },
                 "last_booking_minutes": {
                     "label": "Before class, the last booking is possible until"
-                }
+                },
+                "paddingEnd": {
+                    "helperText0": "On the calendar, the teacher and/or establishment will be marked as available again at the end of the appointment",
+                    "helperText": "On the calendar, the teacher and/or establishment will be marked as available again {{minutes}} minutes after the end of the appointment",
+                    "label": "Number of minutes after the end of the appointment"
+                },
+                "paddingStart": {
+                    "helperText0": "On the calendar, the teacher and/or establishment will be marked as unavailable at the start time of the appointment",
+                    "helperText": "On the calendar, the teacher and/or the establishment will be marked as unavailable {{minutes}} minutes before the start of the appointment",
+                    "label": "Number of minutes before the start of the appointment"
+                },
+                "paddingTitle": "Management of availabilities"
             },
             "parameters": {
                 "description": "Description",
@@ -5238,6 +5254,26 @@
                 "maxBookingPerMonth": {
                     "helperText": "Leave empty to not impose a limit",
                     "label": "Max usage per month"
+                },
+                "penalty": {
+                    "account": {
+                        "helperText": "A charge of {{value}}€ will be applied for this member",
+                        "label": "Charge on the account:"
+                    },
+                    "block": {
+                        "helperText": "The pass will be blocked for {{nb_days}} days",
+                        "label": "Pass blocking period (in days) :"
+                    },
+                    "kind": {
+                        "account": "Create a charge on account for the member involved",
+                        "block": "Temporarily block the pass",
+                        "label": "Select the type of penalty to apply"
+                    },
+                    "nb_days": "Number of days :",
+                    "nb_cancellations": "Number of cancellations :",
+                    "explain": "A penalty will be applied if there are {{nb_cancellations}} late cancellations over a period of {{nb_days}} days",
+                    "checkbox": "Apply a penalty in the event of too many late cancellations",
+                    "title": "Penalties"
                 }
             }
         },
@@ -5248,7 +5284,10 @@
             "bookingsTitle": "Bookings",
             "extensionsTitle": "Validity extension",
             "refundTitle": "Associated reimbursement",
-            "trackModifiedCreditTitle": "Credit history changed"
+            "trackModifiedCreditTitle": "Credit history changed",
+            "penaltyAccount": "Additional billing of {{account_value}}€",
+            "penaltyBlock": "Card blocked for {{nb_days}} days",
+            "penaltyTitle": "Penalties applied"
         },
         "newMemberOnly": "Only available for new membres (with no paiements)",
         "publicPacksTitle": "Pass available for purchase",
@@ -5356,7 +5395,13 @@
             "all": "All passes"
         },
         "multipleBookingTooltip": "Multiple booking",
-        "maxNBookingsByMonth2": " bookings per month"
+        "maxNBookingsByMonth2": " bookings per month",
+        "blockedCpp": "Card blocked from {{-blocked_from}} to {{-blocked_until}}",
+        "penalty": {
+            "account": "If there are {{nb_cancellations}} late cancellations over a period of {{nb_days}} days, a charge of {{account_value}}€ will be applied.",
+            "block": "If there are {{nb_cancellations}} late cancellations over a period of {{nb_days}} days, the pass will be blocked for {{days_blocked}} days.",
+            "title": "Cancellation policy"
+        }
     },
     "metaActivity": {
         "metaActivity": "Activity",
@@ -5412,7 +5457,7 @@
             "lastDiscardBeforeMinutes": "Last discard booking is possible until {{ m }} before start of the session",
             "firstBookingMinutesUntil": "Customers can book only {{m }} at least before the session",
             "conditions": "Conditions",
-            "autoDiscard": "A mail will be sent to you if there are {{nb_bookings}} booking(s) or less {{hours}}h before the start of the session"
+            "autoDiscard": "The session will be cancelled if there are {{nb_bookings}} booking(s) or less {{hours}}h before the start of the session"
         },
         "modal": {
             "delete": {
@@ -7160,11 +7205,11 @@
             "delete": {
                 "cancel": "Cancel",
                 "confirm": "Confirm",
-                "content": "Are you sure you want to delete this video? This operation is irreversible.",
+                "content": "Are you sure you want to remove this video? This operation is irreversible.",
                 "title": "Deletion"
             },
             "status": {
-                "processed": "Watch",
+                "processed": "Detail",
                 "error": "Retry",
                 "processing": "Processing",
                 "submitted": "Draft"
@@ -7206,8 +7251,24 @@
             "creditPrice": "Cost (credit)",
             "register": {
                 "buyPass": "Buy a pass",
-                "title": "Start playing"
-            }
+                "title": "Start playing",
+                "noPassAvailable": "You do not own a compatible pass"
+            },
+            "analytics": {
+                "uploaded": "Video put online the {{date}}",
+                "distinctViewers": "Unique views",
+                "viewsLastWeek": "Last 7 days",
+                "totalViews": "Total",
+                "dateCreated": "Put online",
+                "viewTitle": "Viewing",
+                "views": "{{nb_views}} views"
+            },
+            "viewsListTitle": "List of views",
+            "purchaseListTitle": "List of purchases",
+            "viewedOn": "Video viewed the {{-date}} at {{hour}}",
+            "boughtOn": "Purchase made on the {{-date}}",
+            "noVideoView": "No views",
+            "noVideoPurchase": "No purchase recorded"
         },
         "playlist": {
             "bottomActions": {

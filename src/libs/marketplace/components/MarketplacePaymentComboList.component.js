@@ -14,6 +14,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import TypographyWithSowMore from '../../../components/TypographyWithShowMore.component';
 
 import type { PaymentCombo } from '../../payment-combo/types';
+import Analytics from '../../../components/analytics/Analytics.component';
 
 type Props = {
   t: TFunction,
@@ -97,19 +98,7 @@ export const MarketplacePaymentComboList = (props: Props) => {
               paymentCombo={pc}
               onAddBasket={() => {
                 props.onAddBasket(pc.id);
-                try {
-                  (window.dataLayer || []).push({
-                    event: 'bsport:basket:add-to-cart:pack',
-                    data: {
-                      id: pc.id,
-                      name: pc.name,
-                      price: pc.price,
-                      type: 'payment_combo',
-                    },
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
+                Analytics.addPackToCart(pc);
               }}
             />
           </div>

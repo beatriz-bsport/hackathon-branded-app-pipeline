@@ -24,6 +24,7 @@ import {
   fetchCurrentBasket,
 } from '../../../libs/checkout/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import Analytics from '../../../components/analytics/Analytics.component';
 
 type Props = {
   location: Object,
@@ -58,19 +59,7 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
             if (!this.state.processing) {
               this.setState({ processing: true });
               const { nextOffer } = parse(this.props.location.search);
-              try {
-                (window.dataLayer || []).push({
-                  event: 'bsport:basket:add-to-cart:pass',
-                  data: {
-                    id: paymentPack.id,
-                    name: paymentPack.name,
-                    price: paymentPack.price,
-                    type: 'payment_pack',
-                  },
-                });
-              } catch (err) {
-                console.error(err);
-              }
+              Analytics.addPassToCart(paymentPack, 'payment_pack');
               this.props.addItemToBasket(
                 basket.id,
                 {

@@ -981,7 +981,8 @@
         "booking": {
             "revertBookingExplain": {
                 "offerIsNotAvailable": "Die Buchung wird gelöscht. Der Kurs wurde bereits storniert und die Credits werden nicht zurückerstattet, wenn Du zum Zeitpunkt der Annullierung nicht \"Rückerstattung\" angekreuzt hast",
-                "offerIsAvailable": "Bist Du sich sicher, dass Du diese Buchung löschen möchtest? Verwendete Credits werden wieder gutgeschrieben."
+                "offerIsAvailable": "Bist Du sich sicher, dass Du diese Buchung löschen möchtest? Verwendete Credits werden wieder gutgeschrieben.",
+                "offerIsAvailableChoiceRefund": "Möchtest Du diese Buchung wirklich löschen?"
             },
             "seeCustomers": "Buchungen anzeigen",
             "waiting": "Warteliste",
@@ -1020,7 +1021,8 @@
             "wasRefunded": "Zurückerstattet",
             "fillRate": "Befüllungsrate",
             "cancelledFromWaitingList": "Hat die Warteliste verlassen",
-            "notifyRevert": "Stornierungs-E-Mail senden"
+            "notifyRevert": "Stornierungs-E-Mail senden",
+            "refundRevert": "Rückerstattung gebrauchter Credits"
         },
         "consumer": {
             "booking": {
@@ -1187,7 +1189,7 @@
                     "hours_before_start": "Stunde(n) vor der Sitzung:",
                     "min_bookings_nb": "Anzahl der Buchung(en):",
                     "emailRecipients": "Diese E-Mail wird an Staff mit der Rolle \"Leiter\" oder \"Administrator\" sowie an den Lehrer (oder Ersatzlehrer) des betreffenden Kurses gesendet.",
-                    "checkbox": "Benachrichtige mich, wenn ein Kurs zu wenige Anmeldungen hat",
+                    "checkbox": "Storniere den Kurs automatisch, wenn zu wenige Buchungen vorliegen",
                     "explain": "Sende eine E-Mail-Benachrichtigung, wenn {{bookings_nb}} Buchungen für den Beginn des Kurses oder weniger {{Stunden}} h vorliegen."
                 }
             }
@@ -1989,7 +1991,10 @@
             "refundTitle": "Verbundene Zurückerstattung",
             "invoiceTitle": "Verbundene Rechnung",
             "shareAPass": "Eine Kurskarte teilen",
-            "trackModifiedCreditTitle": "Vergangenen Credits-Anpassungen"
+            "trackModifiedCreditTitle": "Vergangenen Credits-Anpassungen",
+            "penaltyAccount": "Zusätzliche Abrechnung von {{account_value}} €",
+            "penaltyBlock": "Karte für {{nb_days}} Tage gesperrt",
+            "penaltyTitle": "Strafen angewendet"
         },
         "notification": {
             "form": {
@@ -2143,6 +2148,26 @@
                 "maxBookingPerMonth": {
                     "helperText": "Lasse das Feld leer, um keine Begrenzung festzulegen",
                     "label": "Maximale Nutzung pro Monat"
+                },
+                "penalty": {
+                    "account": {
+                        "helperText": "Für dieses Mitglied wird eine Anzahlung von {{value}} € geleistet",
+                        "label": "Einzahlungsbetrag:"
+                    },
+                    "block": {
+                        "helperText": "Die Karte wird für {{nb_days}} Tage gesperrt",
+                        "label": "Sperrfrist für Karten (in Tagen):"
+                    },
+                    "kind": {
+                        "account": "Erstelle eine Einzahlung für das betreffende Mitglied",
+                        "block": "Blockiere vorübergehend die Kurskarte",
+                        "label": "Wählen Sie die Art der Strafe aus"
+                    },
+                    "nb_days": "Anzahl der Tage:",
+                    "nb_cancellations": "Anzahl der Stornierungen:",
+                    "explain": "Eine Strafe wird verhängt, wenn {{nb_cancellations}} verspätete Stornierungen über einen Zeitraum von {{nb_days}} Tagen erfolgen",
+                    "checkbox": "Bei zu vielen verspäteten Stornierungen wird eine Strafe verhängt",
+                    "title": "Strafen"
                 }
             }
         },
@@ -2283,7 +2308,13 @@
             "all": "Alle Karten"
         },
         "multipleBookingTooltip": "Mehrfach-Buchungen",
-        "maxNBookingsByMonth2": " Buchungen pro Monat"
+        "maxNBookingsByMonth2": " Buchungen pro Monat",
+        "blockedCpp": "Karte von {{-blocked_from}} nach {{-blocked_until}} gesperrt",
+        "penalty": {
+            "account": "Bei {{nb_cancellations}} verspäteten Stornierungen über einen Zeitraum von {{nb_days}} Tagen wird eine Anzahlung von {{account_value}} € geleistet.",
+            "block": "Bei {{nb_cancellations}} verspäteten Stornierungen über einen Zeitraum von {{nb_days}} Tagen wird die Karte für {{days_blocked}} Tage gesperrt.",
+            "title": "Stornierungsbedingungen"
+        }
     },
     "alerting": {
         "task": {
@@ -3425,8 +3456,23 @@
             "creditPrice": "Kosten (Gutschrift)",
             "register": {
                 "title": "Wiedergabe aktivieren",
-                "buyPass": "Kaufe eine Karte"
-            }
+                "buyPass": "Kaufe eine Karte",
+                "noPassAvailable": "Du hast keine kompatible Karte"
+            },
+            "analytics": {
+                "uploaded": "Video hochgeladen am {{date}}",
+                "distinctViewers": "Einzigartige Aufrufe",
+                "viewsLastWeek": "Letzten 7 Tage",
+                "totalViews": "Gesamt",
+                "dateCreated": "Online",
+                "viewTitle": "Anzeigen",
+                "views": "{{nb_views}} Anzeigen"
+            },
+            "viewsListTitle": "Liste der Aufrufe",
+            "purchaseListTitle": "Liste der Käufe",
+            "viewedOn": "Video gesehen am {{-date}} um {{hour}}",
+            "boughtOn": "Kauf erfolgt am {{-date}}",
+            "noVideoPurchase": "Kein Kauf registriert"
         },
         "playlist": {
             "description": "Beschreibung",
@@ -4137,6 +4183,16 @@
                 },
                 "last_booking_minutes": {
                     "label": "Letzte mögliche Buchung vor Kursbeginn"
+                },
+                "paddingEnd": {
+                    "helperText0": "Im Kalender werden der Lehrer und / oder der Raum am Ende des Termins erneut als verfügbar markiert.",
+                    "helperText": "Im Kalender werden der Lehrer und / oder der Raum {{minutes}} nach Ende des Termins erneut als verfügbar markiert",
+                    "label": "Anzahl der Minuten nach dem Ende des Termins"
+                },
+                "paddingStart": {
+                    "helperText0": "Im Kalender werden der Lehrer und / oder der Raum zum Startzeitpunkt des Termins als nicht verfügbar markiert",
+                    "helperText": "Im Kalender werden der Lehrer und / oder der Raum Minuten vor Beginn des Termins als nicht verfügbar {{minutes}} markiert",
+                    "label": "Anzahl der Minuten vor Beginn des Termins"
                 }
             },
             "parameters": {
@@ -4680,7 +4736,7 @@
             "title": "Einstellungen",
             "firstBookingMinutesUntil": "Buchungen werden {{m}} vor dem Beginn der Sitzung blockiert",
             "conditions": "Bedingungen",
-            "autoDiscard": "Eine E-Mail wird an Dich gesendet, wenn vor Beginn des Kurses {{nb_bookings}} Buchungen oder weniger {{Stunden}} h vor Beginn des Kurses vorliegen."
+            "autoDiscard": "Der Kurs wird abgebrochen, wenn {{nb_bookings}} Buhchungen oder weniger, {{Stunden}} h vor Beginn des Kurses vorliegen"
         },
         "modal": {
             "delete": {
@@ -4936,7 +4992,8 @@
             "10": "Der Wartelistenplatz ist abgelaufen",
             "300": "Kick (nicht zu oft rechtzeitig validiert)",
             "22": "Rechnungsbestätigung",
-            "601": "Zu wenige Buchungen N Stunden vor Beginn des Kurses"
+            "601": "Zu wenige Buchungen N Stunden vor Beginn des Kurses",
+            "701": "Kurskartenstrafe: Karte gesperrt (MItglied)"
         },
         "tag": {
             "BookingOption": {
@@ -5038,7 +5095,8 @@
             "offer": "Kurs",
             "booking": "Buchung",
             "marketing": "Marketing",
-            "invoice": "Abrechnung"
+            "invoice": "Abrechnung",
+            "payment_pack": "Kurskarten"
         },
         "pageTitle": "Transaktions-E-Mails",
         "caption": {

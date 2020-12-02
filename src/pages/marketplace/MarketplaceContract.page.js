@@ -38,6 +38,7 @@ import SubscriptionPayment from '../../libs/subscription/components/Subscription
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import Analytics from '../../components/analytics/Analytics.component';
 
 type Props = {
   companyId: number,
@@ -97,17 +98,7 @@ export class MarketplaceContract extends React.Component<Props> {
         const contract = this.props.contractList.find(
           (c) => c.id === this.props.selected,
         );
-        (window.dataLayer || []).push({
-          event: 'bsport:contract:payment-success',
-          data: {
-            id: this.props.selected,
-            name: contract.name,
-            price: contract.recurrent_price,
-            flatFee: contract.flat_fee,
-            autoRenewal: contract.auto_renewal,
-            duration: contract.nb_interval,
-          },
-        });
+        Analytics.contractPaymentSuccess(contract);
       } catch (err) {
         console.error(err);
       }
@@ -143,21 +134,7 @@ export class MarketplaceContract extends React.Component<Props> {
                       this.props.setSelected(null);
                     } else {
                       this.props.setSelected(c.id);
-                      try {
-                        (window.dataLayer || []).push({
-                          event: 'bsport:contract:show',
-                          data: {
-                            name: c.name,
-                            id: c.id,
-                            price: c.recurrent_price,
-                            flatFee: c.flat_fee,
-                            autoRenewal: c.auto_renewal,
-                            duration: c.nb_interval,
-                          },
-                        });
-                      } catch (err) {
-                        console.error(err);
-                      }
+                      Analytics.contractShow(c);
                     }
                   }}
                 />
@@ -172,21 +149,7 @@ export class MarketplaceContract extends React.Component<Props> {
                         this.props.requestSignUp();
                       } else {
                         this.props.setPaymentDialogOpen(true);
-                        try {
-                          (window.dataLayer || []).push({
-                            event: 'bsport:contract:show-payment',
-                            data: {
-                              name: c.name,
-                              id: c.id,
-                              price: c.recurrent_price,
-                              flatFee: c.flat_fee,
-                              autoRenewal: c.auto_renewal,
-                              duration: c.nb_interval,
-                            },
-                          });
-                        } catch (err) {
-                          console.error(err);
-                        }
+                        Analytics.contractShowPayment(c);
                       }
                     }}
                   />

@@ -31,6 +31,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import Star from '@material-ui/icons/Star';
+import VideoLibrary from '@material-ui/icons/VideoLibrary';
 import Payment from '@material-ui/icons/Payment';
 import HighlightOff from '@material-ui/icons/HighlightOff';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
@@ -313,6 +314,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       }
       return <ReceiptIcon />;
     };
+
     const SubscriptionIconWithPendingAction = (props) => {
       if (this.props.subscriptionPendingActionCount) {
         return (
@@ -346,6 +348,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             : ''
         } `,
         text: t('navigation.calendar'),
+      },
+      {
+        to: '/vod/',
+        icon: VideoLibrary,
+        text: t('navigation.myVideos'),
       },
       {
         to: '/pack/',

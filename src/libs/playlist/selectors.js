@@ -18,27 +18,10 @@ export const withCoachInVideo = memoize((selector) =>
   createSelector(
     [withVideo(selector), getCoachData],
     (playlists, coachData) => {
-      if (Array.isArray(playlists)) {
-        return playlists.map((pl) => ({
-          ...pl,
-          videos: pl.videos
-            .filter((v) => !!v)
-            .map((v) => ({
-              ...v,
-              coaches: v.coaches
-                .map((c) =>
-                  Object.values(coachData).find((coach) =>
-                    coach.associatedcoach_set.includes(c),
-                  ),
-                )
-                .filter((c) => !!c),
-            })),
-        }));
-      }
-      if (playlists) {
+      const videoWithCoachInPlaylist = (_playlists) => {
         return {
-          ...playlists,
-          videos: playlists.videos
+          ..._playlists,
+          videos: _playlists.videos
             .filter((v) => !!v)
             .map((v) => ({
               ...v,
@@ -51,7 +34,17 @@ export const withCoachInVideo = memoize((selector) =>
                 .filter((c) => !!c),
             })),
         };
+      };
+      if (Array.isArray(playlists)) {
+        return playlists
+          .map((pl) => videoWithCoachInPlaylist(pl))
+          .filter((pl) => pl.videos.length);
       }
+
+      if (playlists) {
+        return videoWithCoachInPlaylist(playlists);
+      }
+
       return null;
     },
   ),
@@ -61,17 +54,20 @@ export const withVideo = memoize((selector) =>
   createSelector(
     [selector, getVideoData],
     (playlists, videoData) => {
+      const videosInPlaylists = (_playlists) => {
+        return {
+          ..._playlists,
+          videos: _playlists.videos.map((v) => videoData[v]),
+        };
+      };
+
       if (Array.isArray(playlists)) {
-        return playlists.map((pl) => ({
-          ...pl,
-          videos: pl.videos.map((v) => videoData[v]),
-        }));
+        return playlists
+          .map((pl) => videosInPlaylists(pl))
+          .filter((pl) => pl.videos.length);
       }
       if (playlists) {
-        return {
-          ...playlists,
-          videos: playlists.videos.map((v) => videoData[v]),
-        };
+        return videosInPlaylists(playlists);
       }
       return null;
     },

@@ -20,7 +20,7 @@ import { openIntercomHelp } from '../../intercom';
 import { auth as authActions } from '../../actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 
-import GoogleTagManager from '../../components/GoogleTagManager.component';
+import Analytics from '../../components/analytics/Analytics.component';
 import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
 import SignUpForm from '../../components/form/SignUpForm.component';
 
@@ -115,7 +115,7 @@ export class ConsumerLoginPage extends Component<Props> {
             requestSignUp={this.switchToSignUp}
           />
           {!!this.props.theme && this.props.membership && (
-            <GoogleTagManager username="" theme={this.props.theme} />
+            <Analytics username="" theme={this.props.theme} />
           )}
           <Hidden smDown>
             <a href="https://calendly.com/bsport/demo">
@@ -154,7 +154,7 @@ export class ConsumerLoginPage extends Component<Props> {
           />
         </div>
         {!!this.props.theme && this.props.membership && (
-          <GoogleTagManager username="" theme={this.props.theme} />
+          <Analytics username="" theme={this.props.theme} />
         )}
       </div>
     );

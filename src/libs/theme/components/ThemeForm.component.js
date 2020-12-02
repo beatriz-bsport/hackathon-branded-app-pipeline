@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { compose } from 'recompose';
+import { compose, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
 import ColorInput from '../../../components/input/ColorInput.component';
 import type { Theme } from '../types';
+import AnalyticsDialog from './AnalyticsDialog.component';
 
 type Props = {
   theme: Theme,
@@ -20,6 +21,8 @@ type Props = {
   processing: boolean,
   t: TFunction,
   classes: Object,
+  openAnalyticsUsage: boolean,
+  setOpenAnalyticsUsage: (boolean) => void,
 };
 
 type State = {
@@ -82,7 +85,8 @@ export class ThemeForm extends Component<Props, State> {
         this.props.theme.general_terms_and_conditions &&
       this.state.theme.facebookURL === this.props.theme.facebookURL &&
       this.state.theme.general_terms_of_use ===
-        this.props.theme.general_terms_of_use
+        this.props.theme.general_terms_of_use &&
+      this.state.theme.facebookPixelId === this.props.theme.facebookPixelId
     );
   };
 
@@ -103,6 +107,7 @@ export class ThemeForm extends Component<Props, State> {
       'ios_app_url',
       'android_app_url',
       'gtmId',
+      'facebookPixelId',
       'instagramURL',
       'general_terms_and_conditions',
       'general_terms_of_use',
@@ -267,6 +272,29 @@ export class ThemeForm extends Component<Props, State> {
             onChange={(ev) => this.handleChange('gtmId')(ev.target.value)}
           />
         </div>
+
+        <div className={classes.inputContainer}>
+          <TextField
+            className={classes.textfield}
+            variant="outlined"
+            placeholder={t('forms.facebookPixelId.placeholder')}
+            label={t('forms.facebookPixelId.label')}
+            value={this.state.theme.facebookPixelId}
+            onChange={(ev) =>
+              this.handleChange('facebookPixelId')(ev.target.value)
+            }
+          />
+        </div>
+
+        <div className={classes.buttonContainer}>
+          <Button
+            onClick={() => this.props.setOpenAnalyticsUsage(true)}
+            color="primary"
+          >
+            {t('analytics.showAnalyticsInformation')}
+          </Button>
+        </div>
+
         <div className={classes.buttonContainer}>
           <Button
             onClick={() => this.onSubmit(this.state.theme)}
@@ -280,6 +308,11 @@ export class ThemeForm extends Component<Props, State> {
             <CircularProgress className={classes.progress} />
           ) : null}
         </div>
+
+        <AnalyticsDialog
+          open={this.props.openAnalyticsUsage}
+          onCancel={() => this.props.setOpenAnalyticsUsage(false)}
+        />
       </div>
     );
   }
@@ -304,6 +337,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: theme.spacing(3),
   },
   progress: {
     marginLeft: theme.spacing(1),
@@ -320,4 +354,5 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withTranslation(['theme']),
+  withState('openAnalyticsUsage', 'setOpenAnalyticsUsage', false),
 )(ThemeForm);

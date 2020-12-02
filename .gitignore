@@ -28,7 +28,7 @@ yarn-error.log*
 build_prod.sh
 public/locales
 ctags.conf
-
+.idea
 
 # Created by https://www.gitignore.io/api/vim,linux
 
@@ -58,5 +58,6 @@ Session.vim
 # auto-generated tag files
 tags
 
+.idea
 
 # End of https://www.gitignore.io/api/vim,linux

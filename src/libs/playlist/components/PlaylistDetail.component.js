@@ -14,13 +14,20 @@ type Props = {
   playlist: VideoPlaylist,
   onOpenVideo: (id: number) => void,
   onSubVideo: (id: number, options: OptionCallback) => void,
+  authenticated: boolean,
+  requestVideoAccess: ?() => void,
 };
-export const PlaylistDetail = (props: Props) => {
+
+const PlaylistDetail = (props: Props) => {
   return (
     <Grid spacing={2} container direction="row">
       <Grid item xs={12} md={8}>
         {props.selectedVideo ? (
-          <VideoPlayerFull authenticated video={props.selectedVideo} />
+          <VideoPlayerFull
+            authenticated={props.authenticated}
+            video={props.selectedVideo}
+            requestVideoAccess={props.requestVideoAccess}
+          />
         ) : (
           <PlaylistEmpty onAddVideo={props.onAddVideo} />
         )}

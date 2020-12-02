@@ -20,6 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 import PaymentPackCard from '../../payment-packs/components/PaymentPackCard.component';
+import Analytics from '../../../components/analytics/Analytics.component';
 
 type Props = {
   t: TFunction,
@@ -82,35 +83,11 @@ export function MarketplacePassList(props: Props) {
             <PaymentPackMarketplaceListItem
               onSelect={() => {
                 props.setSelectedPass(pp);
-                try {
-                  (window.dataLayer || []).push({
-                    event: 'bsport:pass:show',
-                    data: {
-                      id: pp.id,
-                      name: pp.name,
-                      price: pp.price,
-                      type: 'payment_pack',
-                    },
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
+                Analytics.selectPaymentPack(pp);
               }}
               onCartAdd={() => {
                 pushPackCheckout(pp.id);
-                try {
-                  (window.dataLayer || []).push({
-                    event: 'bsport:basket:add-to-cart:pass',
-                    data: {
-                      id: pp.id,
-                      name: pp.name,
-                      price: pp.price,
-                      type: 'payment_pack',
-                    },
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
+                Analytics.addPassToCart(pp, 'payment_pack');
               }}
               key={pp.id}
               paymentPack={pp}
@@ -130,19 +107,7 @@ export function MarketplacePassList(props: Props) {
               style={{ width: '100%' }}
               onClick={() => {
                 pushPackCheckout(selectedPass.id);
-                try {
-                  (window.dataLayer || []).push({
-                    event: 'bsport:basket:add-to-cart:pass',
-                    data: {
-                      id: selectedPass.id,
-                      name: selectedPass.name,
-                      price: selectedPass.price,
-                      type: 'payment_pack',
-                    },
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
+                Analytics.addPassToCart(selectedPass, 'payment_pack');
               }}
               color="primary"
               variant="contained"

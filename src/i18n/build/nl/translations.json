@@ -903,7 +903,7 @@
             "backToCalendar": "Kalender",
             "noConsumerPackAvailableForPurchase": "Dit lid heeft geen compatibele cursuskaart!",
             "noncompatibleConsumerPaymentPacksAre": "Bezit de volgende cursuskaarten die niet compatibel met de sessie zijn:",
-            "noPackAvailableForOfferPurchase": "Geen cursuskaart compatibel met deze sessie!",
+            "noPackAvailableForOfferPurchase": "Er is geen cursuskaart compatibel met deze sessie!",
             "offersPendingDelete": "Te verwijderen sessies:",
             "offersPendingChange": "Te wijzigen sessies:",
             "sizeOfWaitingList": "Grootte van de wachtlijst",
@@ -1253,7 +1253,7 @@
         "blockBooking": "Blokkeer reserveringen van cursuskaarten van nieuwe leden",
         "languageToolTip": "Beschikbaar in de webshop",
         "visibilityOfIconToolTip": "Niet zichtbaar",
-        "onlyNewMember": "Reservering alleen mogelijk voor cursuskaarten van nieuwe leden",
+        "onlyNewMember": "Reservering alleen mogelijk voor de cursuskaarten van nieuwe leden",
         "replaceCoach": "Wijzig de instructeur",
         "bookingStatistics": {
             "weekOf": "Week van {{date}}",
@@ -2240,7 +2240,7 @@
         "notificationToolTip": "Er zijn meldingen voor reserveringen met betrekking tot dit item",
         "list": {
             "section": {
-                "archived": "Gearchiveerde vestiging"
+                "archived": "Gearchiveerde vestiging(en)"
             }
         }
     },
@@ -4581,7 +4581,7 @@
                 "private_service": "Algemeen"
             },
             "selector": {
-                "title": "Filter de beschikbaarheid"
+                "title": "Filter op beschikbaarheid"
             }
         },
         "privateCoach": {

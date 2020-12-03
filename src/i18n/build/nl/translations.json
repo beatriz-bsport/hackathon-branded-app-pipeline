@@ -285,7 +285,7 @@
         },
         "requestDialog": {
             "close": "Begrepen",
-            "explain": "Je hebt de integratie van BSPORT X classpass aangevraagd. Je accountmanager neemt spoedig contact met je op om deze aanvraag te valideren"
+            "explain": "Je hebt de integratie van BSPORT en ClassPass aangevraagd. Je accountmanager neemt spoedig contact met je op om deze aanvraag te valideren"
         },
         "parameters": {
             "allEstablishment": "Alle zalen",
@@ -496,7 +496,7 @@
             "payWithNCredits1": "Reserveren (",
             "availablePaymentPacks": " compatibele cursuskaart",
             "yourBasket": "Jouw aankoop",
-            "noBookingsLeftOnPack": "De kaart is deze week uitverkocht",
+            "noBookingsLeftOnPack": "Deze cursuskaart is voor deze week uitverkocht",
             "noCreditLeft": "Niet genoeg krediet",
             "bookWithUnlimitedPack": "Reserveren",
             "actions": "Acties",
@@ -511,7 +511,7 @@
             "payment": "Betaling",
             "goToSubscription": "Zie abonnement",
             "invoiceFromSubscriptionThusNotEditable": "Deze factuur maakt deel uit van een abonnement en kan daarom niet worden bewerkt, wijzig het abonnement rechtstreeks",
-            "noBookingsLeftOnPackInMonth": "Het maandelijkse verbruik van deze cursuskaart is al bereikt"
+            "noBookingsLeftOnPackInMonth": "Deze cursuskaart is voor deze maand uitverkocht"
         },
         "invoice": {
             "explainFinalize": "Let op: een definitieve factuur kan niet meer worden gewijzigd. Alle betalingen die in afwachting van incasso zijn gemarkeerd, worden als geïncasseerd beschouwd. Zodra de factuur is afgerond, kun je deze exporteren als .PDF",
@@ -696,7 +696,7 @@
             "title": "Titel",
             "offer": {
                 "delete": {
-                    "explainModalities": "Let op: deze wijziging is definitief. Je sessie zal niet langer zichtbaar zijn voor je leden, maar jij hebt er nog wel toegang toe.",
+                    "explainModalities": "Let op: deze wijziging is definitief. Je sessie zal niet langer zichtbaar zijn voor je leden, maar je kunt het nog wel bekijken.",
                     "explainNotify": "Stuur een melding naar de leden die zich hebben ingeschreven",
                     "explainCreditBack": "Stort het tegoed op de cursuskaart terug",
                     "explainHardDelete": "Deze sessie uit de lijst verwijderen? Let op: de sessie wordt onzichtbaar en deze handeling is onomkeerbaar! Als de sessie reserveringen bevat, worden deze niet verwijderd.",
@@ -1043,7 +1043,7 @@
             "name": "Titel",
             "addActivity": "Voeg een activiteit toe",
             "addOffers": "Sessie(s) toevoegen",
-            "lastDiscardBeforeMinutes": "Voor aanvang van de cursus, laatste annulering mogelijk tot",
+            "lastDiscardBeforeMinutes": "Laatste annuleringsmogelijkheid voor het begin van de sessie",
             "lastBookingBeforeMinutes": "Voor de aanvang van de sessie is de laatste reservering mogelijk tot",
             "is_broadcast": "Dit is een livestream",
             "settings": "Instellingen",
@@ -1200,7 +1200,7 @@
             },
             "bank_details": "Bankinformatie",
             "address": "Adres",
-            "owner_address": "Adres van de manager",
+            "owner_address": "Adres van de eigenaar",
             "general": "Algemeen"
         },
         "metaActivity": {
@@ -1602,12 +1602,12 @@
             "next_booking": "Volgende reservering",
             "concatenated_notes": "Notities",
             "activity": "Activiteit",
-            "duration": "Duur (minuten)",
+            "duration": "Duur (in minuten)",
             "date_start": "Volledige datum",
             "date_start_date": "Datum",
             "date_start_time": "Uur",
             "margin_value": "Marginale bijdrage",
-            "duration_minute": "Duur (minuten)",
+            "duration_minute": "Duur (in minuten)",
             "attendance": "Aanwezig",
             "coach": "Instructeur",
             "effectif": "Aantal plaatsen",
@@ -1967,19 +1967,19 @@
                 },
                 "timeSettingsTitle": "Geldigheid van de cursuskaart",
                 "generalSettingsTitle": "Algemeen",
-                "validByDuration": "Cursuskaart is N-aantal dagen geldig na aankoop",
+                "validByDuration": "Cursuskaart is N-aantal dagen na de aankoop geldig",
                 "validByDaterange": "Cursuskaart is vanaf een specifieke datum geldig",
                 "durationDays": {
                     "helperText": "Geldigheidsduur in aantal dagen na aankoop ",
-                    "label": "Geldigheidsduur in dagen indien van toepassing"
+                    "label": "Geldigheidsduur (in dagen) indien van toepassing"
                 },
                 "durationMonths": {
-                    "label": "Geldigheidsduur in maanden indien van toepassing",
-                    "helperText": "Voeg toe aan het aantal dagen"
+                    "label": "Geldigheidsduur (in maanden) indien van toepassing",
+                    "helperText": "Wordt aan het aantal dagen toegevoegd"
                 },
                 "durationYears": {
-                    "label": "Geldigheidsduur in jaren indien van toepassing",
-                    "helperText": "Voeg toe aan het aantal dagen en maanden"
+                    "label": "Geldigheidsduur (in jaren) indien van toepassing",
+                    "helperText": "Wordt aan het aantal dagen en maanden toegevoegd"
                 },
                 "actions": {
                     "skip": "Overslaan",
@@ -2088,7 +2088,7 @@
         "validForDuration": {
             "days": "{{duration_days}} dagen geldig",
             "months": "{{duration_months}} maanden geldig",
-            "years": "{{duration_years}} jaren geldig",
+            "years": "{{duration_years}} jaar geldig",
             "general": "Geldig voor {{duration_days}} dagen, {{duration_months}} maanden en {{duration_years}} jaar"
         },
         "validForNdays2": " dagen na aankoop",
@@ -2144,7 +2144,7 @@
             },
             "scaleUp": "Vermenigvuldigen",
             "scaleDown": "Delen",
-            "explain": "U kunt het krediet op uw cursuskaart vermenigvuldigen (bijv. 3/7 x2 wordt 6/14) of delen in het geval van een fout (bijv. 3/7 ÷2 wordt 1/3) naar een beneden afgerond.",
+            "explain": "Je kunt het krediet op je cursuskaart vermenigvuldigen (bijv. 3/7 x 2 wordt 6/14) of delen in het geval van een fout (bijv. 3/7 ÷ 2 wordt 1/3) naar een beneden afgerond.",
             "title": "Wijziging van het totaal krediet"
         },
         "notificationForm": "Formulier mededeling",
@@ -2236,7 +2236,7 @@
             }
         },
         "establishment": "Vestiging ",
-        "noEstablishement": "Beheer hier uw zalen, hun locatie, hun bezetting en raadpleeg de kalender",
+        "noEstablishement": "Beheer hier de kalenders, bezetting, adressen en zalen van al je vestigingen",
         "notificationToolTip": "Er zijn meldingen voor reserveringen met betrekking tot dit item",
         "list": {
             "section": {
@@ -2562,7 +2562,7 @@
                         "second": "dagen"
                     },
                     "9": {
-                        "first": "Er zijn meer",
+                        "first": "Er zijn meer dan",
                         "second": "dagen"
                     },
                     "10": {
@@ -2588,7 +2588,7 @@
                         "5": "In minder dan X dagen"
                     },
                     "11": {
-                        "first": "Er zijn meer",
+                        "first": "Er zijn meer dan",
                         "second": "dagen",
                         "third": "dagen en minder dan"
                     }
@@ -2597,9 +2597,9 @@
                 "dateTitle": "Datum",
                 "select": {
                     "2": "Tussen twee data",
-                    "3": "De",
-                    "0": "op of na",
-                    "1": "op of voor"
+                    "3": "Op",
+                    "0": "Op of na",
+                    "1": "Op of voor"
                 },
                 "duration": "dagen"
             },
@@ -2694,7 +2694,7 @@
                 "has": "Beschikt over",
                 "first": "een van de afspraakkaarten",
                 "name": "Afspraakkaarten",
-                "explanation": "U heeft cursuskaart X voor Y gekocht. Uw overige krediet is Z"
+                "explanation": "Heeft cursuskaart X in periode Y gekocht, het overige kredietsaldo is Z"
             },
             "26": {
                 "hour": {
@@ -2727,7 +2727,7 @@
             "attendanceWarning": "Kies een status"
         },
         "mails": "E-mails",
-        "exportList": "Exporteer de Smartlist",
+        "exportList": "Smartlist exporteren",
         "membersInList": "Leden in de Smartlist:",
         "detail": {
             "tab": {
@@ -3306,11 +3306,11 @@
         },
         "warning": {
             "disconnect": "Uitloggen",
-            "backToBackoffice": "Open manager-weergave",
+            "backToBackoffice": "Open de manager-weergave",
             "isManager": "Momenteel ben je als manager ingelogd. Log uit om de leden-weergave te zien"
         },
         "workshop": {
-            "noWorkshopAvailable": "Momenteel geen workshops gepland",
+            "noWorkshopAvailable": "Momenteel zijn er geen workshops ingepland",
             "card": {
                 "showMore": "Meer informatie",
                 "book": "Reserveren",
@@ -3475,13 +3475,13 @@
         "member": {
             "register": {
                 "name": "Nieuw lid",
-                "description": "Wordt geactiveerd wanneer een nieuw lid van de club aan BSPORT wordt toegevoegd"
+                "description": "Wordt geactiveerd wanneer een nieuw lid van de club aan BSPORT is toegevoegd"
             }
         },
         "booking": {
             "register": {
                 "name": "Nieuwe reservering",
-                "description": "Wordt geactiveerd wanneer een nieuwe reservering wordt geregistreerd"
+                "description": "Wordt geactiveerd wanneer een nieuwe reservering is geregistreerd"
             }
         },
         "booking_option": {
@@ -3814,12 +3814,12 @@
             },
             "filter": {
                 "duration": {
-                    "all": "Duratie",
-                    "explain": "Tussen {{min}} en {{max}} min"
+                    "all": "Elke duur",
+                    "explain": "Tussen {{min}} en {{max}} min."
                 }
             },
             "showMore": "Meer zien",
-            "durationMinute": "{{minute}} min",
+            "durationMinute": "{{minute}} min.",
             "player": {
                 "with": "met"
             },
@@ -3909,7 +3909,7 @@
             "name": "Naam",
             "fee": "Verzendkosten",
             "free_threshold": "Verkrijgbaar vanaf",
-            "offeredAboveAmount": "Gratis na {{free_threshold, price}} aankoop",
+            "offeredAboveAmount": "Aangeboden vanaf {{ free_threshold, price }}",
             "modal": {
                 "delete": {
                     "title": "Verzendkosten verwijderen",
@@ -4049,7 +4049,7 @@
     "privateService": {
         "payment": {
             "address": {
-                "explain": "Voer je adres in voor de thuiscursus",
+                "explain": "Voer je adres in voor de thuislessen",
                 "save": "Opslaan"
             }
         },
@@ -4211,7 +4211,7 @@
                 },
                 "duration_minutes": {
                     "label": "Duur",
-                    "helperText": "Pas de benodigde credits aan volgens de duur"
+                    "helperText": "Pas de benodigde kredient aan volgens de duur"
                 }
             }
         },
@@ -4233,7 +4233,7 @@
             "cancel": "Annuleren",
             "error": "Kan niet boeken op deze datum",
             "searchSlot": "Zoek een tijdstip",
-            "noPrivateServiceAvailable": "Geen afspraak beschikbaar",
+            "noPrivateServiceAvailable": "Momenteel zijn er geen afspraken ingepland",
             "bookingCapabilities": {
                 "compatibleConsumerPassTitle": "Uw geldige cursuskaarten",
                 "compatiblePassTitle": "Cursuskaarten geldig voor deze sessie",
@@ -4315,13 +4315,13 @@
         "privatePass": {
             "validForDuration": {
                 "months": "{{duration_months}} maanden geldig",
-                "years": "{{duration_years}} jaren geldig",
+                "years": "{{duration_years}} jaar geldig",
                 "general": "Geldig voor {{duration_days}} dagen {{duration_months}} maanden en {{duration_years}} jaar",
                 "days": "{{duration_days}} dagen geldig"
             },
             "form": {
                 "credits": {
-                    "label": "Aantal opgenomen krediet",
+                    "label": "Aantal inbegrepen krediet(en)",
                     "helperText": "Elke sessie kost een bepaald aantal credits"
                 },
                 "durationDays": {
@@ -4340,11 +4340,11 @@
                 },
                 "durationMonths": {
                     "label": "Geldigheidsduur (maanden) indien van toepassing",
-                    "helperText": "Voegt toe aan het aantal dagen"
+                    "helperText": "Wordt aan het aantal dagen toegevoegd"
                 },
                 "durationYears": {
-                    "label": "Geldigheidsduur (jaren) indien van toepassing",
-                    "helperText": "Voegt toe aan het aantal dagen en maanden"
+                    "label": "Geldigheidsduur (in jaren) indien van toepassing",
+                    "helperText": "Wordt aan het aantal dagen en maanden toegevoegd"
                 },
                 "available_payment_method_identifiers": {
                     "label": "Geautoriseerde betaalmethoden",
@@ -4427,7 +4427,7 @@
                 },
                 "coach_capacity_used": {
                     "label": "Selecteer het maximaal aantal afspraken dat een instructeur tegelijk kan beheren",
-                    "helperText": "Voorbeeld: een instructeur kan twee leden afzonderlijk bijstaan op 2 toestellen "
+                    "helperText": "Voorbeeld: een instructeur kan 2 leden afzonderlijk bijstaan op 2 toestellen "
                 },
                 "use_full_establishment_capacity": {
                     "label": "Vereist de hele zaal",
@@ -4595,7 +4595,7 @@
         "privateEstablishment": {
             "delete": {
                 "title": "Uitschrijven van de zaal",
-                "explain": "Weet je zeker dat je de locatie van deze afspraak wilt wijzigen? Zonder vestiging wordt het beschouwd als een thuisafspraak. Leden moeten hun adres invoeren om de reservering te voltooien. Reeds geregistreerde reserveringen worden niet beïnvloed.",
+                "explain": "Weet je zeker dat je de locatie van deze afspraak wilt wijzigen? Zonder vestiging wordt het beschouwd als een thuisafspraak. Leden moeten hun adres invoeren om de reservering te voltooien. Reeds geregistreerde reserveringen worden niet gewijzigd.",
                 "cancel": "Annuleren",
                 "submit": "Bevestigen"
             }
@@ -4626,7 +4626,7 @@
                     "cancel": "Annuleren"
                 },
                 "description": {
-                    "placeholder": "Vraag naar dhr. Charles op Champs Elysée 1",
+                    "placeholder": "Vraag naar mevr. Gach op Bilderdijkstraat 202",
                     "label": "Beschrijving"
                 },
                 "coach": {
@@ -5904,7 +5904,7 @@
             },
             "instagramURL": {
                 "label": "Link naar Instagram",
-                "helperText": "Uw Instagram-pagina",
+                "helperText": "Link naar Instagram",
                 "placeholder": "https://instagram.com/mijn-studio/"
             },
             "cover": {
@@ -5926,13 +5926,13 @@
             },
             "scheduleURL": {
                 "label": "URL voor de planning",
-                "helperText": "Standaard link naar uw kalender",
+                "helperText": "Standaard link voor je eigen kalender",
                 "placeholder": "https://studio.com/calendar/"
             },
             "submit": "Opslaan",
             "facebookURL": {
                 "label": "Facebook-link (URL)",
-                "helperText": "Uw Facebook-pagina",
+                "helperText": "Link naar Facebook",
                 "placeholder": "https://facebook.com/mijn-studio/"
             },
             "general_terms_and_conditions": {
@@ -5948,10 +5948,10 @@
             "android_app_url": {
                 "label": "Link naar Android-app",
                 "placeholder": "https://play.google.com/store/apps/details?id=com.bsport",
-                "helperText": "Uw Android-app"
+                "helperText": "Google - Play Store (Android) link"
             },
             "ios_app_url": {
-                "helperText": "Uw iOS-app",
+                "helperText": "Apple - App Store (iOS) link",
                 "placeholder": "https://apps.apple.com/nl/app/id1356621554",
                 "label": "Link naar iOS-app"
             },
@@ -6023,7 +6023,7 @@
             "actions": {
                 "closeBasket": "Doorgaan met winkelen",
                 "checkoutBasket": "Afrekenen",
-                "payZero": "Bevestig mijn mandje"
+                "payZero": "Mijn winkelmandje bevestigen"
             }
         },
         "paymentIntent": {

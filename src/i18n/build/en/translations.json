@@ -7224,7 +7224,8 @@
                 "cancel": "Cancel",
                 "edit": "Edit",
                 "creditPrice": {
-                    "label": "Cost in credit"
+                    "label": "Cost in credit",
+                    "helperText": "Leave at 0 if you want the video to be accessible to all your members"
                 }
             },
             "upload": {

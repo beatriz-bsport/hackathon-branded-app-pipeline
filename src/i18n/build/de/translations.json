@@ -5959,7 +5959,7 @@
         }
     },
     "offer": {
-        "manageOffer": "Meine Buchungen verwalten",
+        "manageOffer": "Buchungen verwalten",
         "offerManagement": {
             "bookingOrder": {
                 "firstname": "Nach Vornamen sortieren",

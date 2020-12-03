@@ -5027,7 +5027,8 @@
             "300": "Kick (nicht zu oft rechtzeitig validiert)",
             "22": "Rechnungsbestätigung",
             "601": "Zu wenige Buchungen N Stunden vor Beginn des Kurses",
-            "701": "Kurskartenstrafe: Karte gesperrt (MItglied)"
+            "701": "Kurskartenstrafe: Karte gesperrt (MItglied)",
+            "702": "Kurskartenstrafe: Kaution erstellt (Mitglied)"
         },
         "tag": {
             "BookingOption": {
@@ -5648,7 +5649,7 @@
             "close": "Schließen",
             "downloadChrome": "Downloade kostenlos Google Chrome",
             "downloadFirefox": "Downloade Mozilla Firefox kostenlos",
-            "navigatorError": "Es scheint, dass Ihr Browser zu alt ist, um unsere Dienste zu nutzen. Fehler können auftreten. Wir empfehlen Ihnen, eine neuere Version herunterzuladen, beispielsweise : "
+            "navigatorError": "Es scheint, dass Dein Browser nicht auf dem neusten Stand ist, um unsere Dienste zu nutzen. Fehler können auftreten. Wir empfehlen Dir, eine neuere Version herunterzuladen, beispielsweise: "
         }
     },
     "emailTemplate": {
@@ -6238,7 +6239,7 @@
                 }
             },
             "isEmpty": "Ihr Warenkorb ist leer",
-            "featured": "Wir empfehlen Ihnen",
+            "featured": "Wir empfehlen Dir",
             "error": {
                 "invalidBasket": "Ihr Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet"
             }

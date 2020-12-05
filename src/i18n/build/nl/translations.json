@@ -82,7 +82,7 @@
             "favoriteTitle": "Suggestie voor reservering"
         },
         "booking": {
-            "bookAgain": "Reserveer opnieuw",
+            "bookAgain": "Opnieuw reserveren",
             "discard": "Annuleren",
             "showCalendar": "Zie de kalender",
             "titlePrivateBooking": "Afspraak",
@@ -107,7 +107,7 @@
             "invoice": "Factuur",
             "pack": "Cursuskaart",
             "calendar": "Geschiedenis",
-            "dashboard": "Overzicht (Excel)",
+            "dashboard": "Overzicht",
             "myVideos": "Mijn video's"
         },
         "unsubscriber": {
@@ -1304,7 +1304,7 @@
             "columns": {
                 "status": "Status",
                 "date_created": "Datum",
-                "title": "Overzicht (Excel)",
+                "title": "Overzicht",
                 "member": "Lid"
             }
         },

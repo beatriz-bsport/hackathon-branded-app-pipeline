@@ -2052,7 +2052,7 @@
                     "nb_days": "Aantal dagen:",
                     "nb_cancellations": "Aantal annuleringen:",
                     "explain": "Een sanctie wordt toegepast wanneer een lid {{nb_cancellations}} te late annuleringen binnen {{nb_days}} registreert",
-                    "checkbox": "Bij te veel te late annuleringen wordt een sanctie toegepast",
+                    "checkbox": "Pas een sanctie toe indien een lid te vaak te laat annuleert",
                     "title": "Sancties"
                 }
             }
@@ -2171,7 +2171,7 @@
         "blockedCpp": "Deze cursuskaart is van {{-blocked_from}} tot en met {{-blocked_until}} geblokkeerd",
         "penalty": {
             "block": "Zodra {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen worden geregistreerd, wordt deze cursuskaart voor {{days_blocked}} geblokkeerd.",
-            "account": "Zodra {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen worden geregistreerd, wordt een sanctie €{{account_value}} geefactureerd.",
+            "account": "Zodra {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen worden geregistreerd, wordt een sanctie t.w.v. €{{account_value}} gefactureerd.",
             "title": "Annuleringsbeleid"
         }
     },
@@ -5644,7 +5644,7 @@
     },
     "dashboard": {
         "current_month": "Vorige maand",
-        "last_three_months": "Afgelopen drie maanden",
+        "last_three_months": "Afgelopen 3 maanden",
         "current_year": "Afgelopen jaar",
         "thisWeek": "Deze week",
         "thisMonth": "Deze maand",

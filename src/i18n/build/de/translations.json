@@ -2398,7 +2398,7 @@
             "category": "Kategorie",
             "name": "Name",
             "description": "Beschreibung",
-            "title": "Neue Quote"
+            "title": "Neuer Report"
         },
         "product_type": {
             "private_pass": "Terminkarte",
@@ -4648,7 +4648,7 @@
             },
             "clickCount": "Klicks",
             "recipientCount": "Empfänger : {{ total_recipients }}",
-            "showReport": "Quote",
+            "showReport": "Report",
             "readCount": "Anzahl der Öffnungen",
             "kind": {
                 "1": "SMS",

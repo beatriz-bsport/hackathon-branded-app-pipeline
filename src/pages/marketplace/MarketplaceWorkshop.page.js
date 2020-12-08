@@ -15,7 +15,7 @@ import {
   snackbarError as snackbarErrorAction,
 } from '../../actions/snackbar.actions';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
-import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import * as paymentActions from '../../actions/payment.actions';
@@ -158,7 +158,7 @@ export default compose(
     {
       fetchOfferList: fetchOfferListAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
-      fetchCoachBulk: fetchCoachBulkAction,
+      fetchAssociatedCoachBulkFromCoachIds: fetchAssociatedCoachBulkFromCoachIdsAction,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
       fetchCompatiblePass: paymentActions.fetchCompatiblePass,
@@ -181,14 +181,18 @@ export default compose(
     ({
       fetchOfferList,
       fetchEstablishmentBulk,
-      fetchCoachBulk,
+      fetchAssociatedCoachBulkFromCoachIds,
       fetchMetaActivityBulk,
+      companyId,
     }) => ({
       fetchOfferList: (params) =>
         fetchOfferList(params, {
           onSuccess: (offerList) => {
             fetchEstablishmentBulk([...offerList.map((o) => o.establishment)]);
-            fetchCoachBulk([...offerList.map((o) => o.coach)]);
+            fetchAssociatedCoachBulkFromCoachIds(
+              [...offerList.map((o) => o.coach)],
+              companyId,
+            );
             fetchMetaActivityBulk([...offerList.map((o) => o.meta_activity)]);
           },
         }),

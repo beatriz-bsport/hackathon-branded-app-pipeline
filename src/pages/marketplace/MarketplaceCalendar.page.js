@@ -51,7 +51,7 @@ import {
   withCoach,
   withEstablishment,
 } from '../../libs/offer/selectors';
-import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 
@@ -99,7 +99,10 @@ type Props = {
 
   fetchEstablishmentBulk: (Array) => void,
   fetchMetaActivityBulk: (Array) => void,
-  fetchCoachBulk: (Array) => void,
+  fetchAssociatedCoachBulkFromCoachIds: (
+    Array<number>,
+    companyId: number,
+  ) => void,
   fetchOfferList: (params: any) => void,
 };
 
@@ -197,7 +200,10 @@ export class MarketplaceCalendar extends Component<Props, State> {
       .format(DATE_FORMAT);
     // fetch offers of the week
     this.props.fetchEstablishmentBulk(this.props.filters.establishments || []);
-    this.props.fetchCoachBulk(this.props.filters.coaches || []);
+    this.props.fetchAssociatedCoachBulkFromCoachIds(
+      this.props.filters.coaches || [],
+      this.props.companyId,
+    );
     this.props.fetchMetaActivityBulk(this.props.filters.metaActivities || []);
     this.props.fetchOfferList({
       company: this.props.companyId,
@@ -343,7 +349,6 @@ export class MarketplaceCalendar extends Component<Props, State> {
       coaches,
       startWeekThisWeekday,
     } = this.props;
-
     return (
       <div className={classes.container}>
         <MarketplaceActivityDialog
@@ -455,7 +460,7 @@ export default compose(
       snackbarError: snackbarErrorActions,
       fetchOfferList: fetchOfferListAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
-      fetchCoachBulk: fetchCoachBulkAction,
+      fetchAssociatedCoachBulkFromCoachIds: fetchAssociatedCoachBulkFromCoachIdsAction,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       goToBook: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
@@ -467,8 +472,9 @@ export default compose(
     fetchOfferList: ({
       fetchOfferList,
       fetchEstablishmentBulk,
-      fetchCoachBulk,
       fetchMetaActivityBulk,
+      fetchAssociatedCoachBulkFromCoachIds,
+      companyId,
     }) => (params) => {
       fetchOfferList(params, {
         onSuccess: (offerList) => {
@@ -476,10 +482,14 @@ export default compose(
             ...offerList.map((o) => o.establishment),
             ...offerList.map((o) => o.establishment_override),
           ]);
-          fetchCoachBulk([
-            ...offerList.map((o) => o.coach),
-            ...offerList.map((o) => o.coach_override),
-          ]);
+          fetchAssociatedCoachBulkFromCoachIds(
+            [
+              ...offerList.map((o) => o.coach),
+              ...offerList.map((o) => o.coach_override),
+            ],
+            companyId,
+          );
+
           fetchMetaActivityBulk([...offerList.map((o) => o.meta_activity)]);
         },
       });

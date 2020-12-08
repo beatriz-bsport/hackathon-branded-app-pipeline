@@ -343,6 +343,22 @@ export const fetchCoachBulk = (ids: Array<number>, options: OptionCallback) => {
   };
 };
 
+export const fetchAssociatedCoachBulkFromCoachIds = (
+  ids: Array<Number>,
+  companyId: number,
+) => {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    const freshCoachList = getFreshCoachIds(getState());
+    const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
+      (id) => !freshCoachList.includes(id),
+    );
+    if (ids_uniq.length === 0) {
+      return;
+    }
+    dispatch(fetchCoachBulkBase({ id__in: ids_uniq, company: companyId }));
+  };
+};
+
 export const fetchAssociatedCoachBulk = (
   ids: Array<number>,
   options: OptionCallback,

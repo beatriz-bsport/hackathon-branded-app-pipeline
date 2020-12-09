@@ -6183,9 +6183,9 @@
             "user": {
                 "create": {
                     "buttonLabel": "Toegang toevoegen",
-                    "title": "Creatie van een personeelsaccount",
+                    "title": "Toegang voor personeel toevoegen",
                     "email": {
-                        "label": "Email"
+                        "label": "E-mail"
                     },
                     "role": {
                         "label": "Rol"

@@ -3611,8 +3611,8 @@
         "notification": {
             "form": {
                 "listItemPrimary": {
-                    "after": "Benachrichtigung {{hours}} h nach der Session",
-                    "before": "Benachrichtigung {{hours}} h vor der Session",
+                    "after": "Benachrichtigung {{hours}} h nach dem Kurs",
+                    "before": "Benachrichtigung {{hours}} h vor Beginn des Kurses",
                     "refunded": "Anzahl der erstatteten Stornierungen: {{notify_booking_nb}}",
                     "cancelledDeprecated": "Anzahl der Stornierungen:",
                     "bookingDeprecated": "Buchungsnummer {{notify_booking_nb}}",
@@ -3627,15 +3627,15 @@
                     }
                 },
                 "chooseKind": {
-                    "absence": "Abwesenheit des Mitglieds bei einer Session",
-                    "attendance": "Anwesenheit des Mitglieds bei einer Session",
+                    "absence": "Abwesenheit des Mitglieds bei einem Kurs",
+                    "attendance": "Anwesenheit des Mitglieds bei einem Kurs",
                     "notRefunded": "Stornierung nach Ablauf der Frist",
                     "refunded": "Stornierung erstattet",
                     "title": "Ereignis, das die Benachrichtigung auslöst"
                 },
                 "chooseTime": {
-                    "second_after": "Stunde (n) nach der Session",
-                    "second_before": "Stunde (n) vor der Session",
+                    "second_after": "Stunde (n) nach dem Kurs",
+                    "second_before": "Stunde (n) vor Beginn des Kurses",
                     "first": "Eine E-Mail senden"
                 },
                 "sendAfterMail": "Sende die E-Mail nach der von der Benachrichtigung betroffeneren Kurse an das Mitglied",
@@ -6018,7 +6018,7 @@
         "bookingList": "Buchungen",
         "liveOfferEdit": {
             "select": "Wählen Sie die Sessions aus, die geändert werden sollen",
-            "editSimilarOffers": "Möchtest Du ALLE ähnlichen Sessions an diese neuen Bedingungen anpassen?",
+            "editSimilarOffers": "Möchtest Du ALLE ähnlichen Kurse an diese neuen Bedingungen anpassen?",
             "unselectAll": "Alle abwählen",
             "selectAll": "Alles auswählen",
             "noSimilarOffer": "Keine ähnlichen Kurse gefunden. Nur dieser Kurs ist betroffen.",

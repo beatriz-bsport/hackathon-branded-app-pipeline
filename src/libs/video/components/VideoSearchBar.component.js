@@ -16,9 +16,9 @@ import DurationSelector from './DurationSelector.component';
 
 type Props = {
   searchParams: {
-    level: string,
-    coach: string,
-    SCT: string,
+    levels: string,
+    coaches: string,
+    SCTs: string,
     duration_second_range: string,
     search: string,
   },
@@ -34,43 +34,63 @@ export const VideoSearchBar = (props: Props) => {
     <Grid spacing={1} container direction="row">
       <Grid item xs={6} md={3}>
         <LevelSelector
-          isNotMulti
           isClearable
-          selectedLevels={[parseInt(props.searchParams.level, 10)]}
+          selectedLevels={
+            props.searchParams.levels
+              ? props.searchParams.levels
+                  .split(',')
+                  .map((value) => parseInt(value, 10))
+              : null
+          }
           selectOption={(ev) => {
-            if (!ev) {
-              props.onChangeSearchParams('level')(null);
+            if (ev && ev.length) {
+              props.onChangeSearchParams('levels')(
+                ev.map((e) => e.value).join(),
+              );
             } else {
-              props.onChangeSearchParams('level')(ev.value);
+              props.onChangeSearchParams('levels')(null);
             }
           }}
         />
       </Grid>
       <Grid item xs={6} md={3}>
         <CoachSelector
-          selectedCoaches={[parseInt(props.searchParams.coach, 10)]}
+          selectedCoaches={
+            props.searchParams.coaches
+              ? props.searchParams.coaches
+                  .split(',')
+                  .map((value) => parseInt(value, 10))
+              : null
+          }
           selectOption={(ev) => {
-            if (!ev) {
-              props.onChangeSearchParams('coach')(null);
+            if (ev && ev.length) {
+              props.onChangeSearchParams('coaches')(
+                ev.map((e) => e.value).join(),
+              );
             } else {
-              props.onChangeSearchParams('coach')(ev.value);
+              props.onChangeSearchParams('coaches')(null);
             }
           }}
           coaches={props.coaches}
-          noMulti
           isClearable
         />
       </Grid>
       <Grid item xs={6} md={3} lg={2}>
         <SCTSelector
           scts={props.scts}
-          selectedValues={[parseInt(props.searchParams.SCT, 0)]}
+          selectedValues={
+            props.searchParams.SCTs
+              ? props.searchParams.SCTs.split(',').map((value) =>
+                  parseInt(value, 10),
+                )
+              : null
+          }
           closeMenuOnSelect
           selectOption={(ev) => {
             if (ev && ev.length) {
-              props.onChangeSearchParams('SCT')(ev[0].value);
+              props.onChangeSearchParams('SCTs')(ev.map((e) => e.value).join());
             } else {
-              props.onChangeSearchParams('SCT')(null);
+              props.onChangeSearchParams('SCTs')(null);
             }
           }}
           isClearable

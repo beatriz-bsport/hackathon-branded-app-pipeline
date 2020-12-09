@@ -34,7 +34,10 @@ export const VideoPlayerFull = (props: Props) => {
             minute: parseInt(props.video.duration_second / 60, 10) + 1,
           })}`}
         </Typography>
-        <SCT parentCategory={props.video.SCT.SCS.id} />
+        <SCT
+          parentCategory={props.video.SCT.SCS.id}
+          SCTName={props.video.SCT.name}
+        />
         {!!coaches.length && (
           <div className={classes.coachContainer}>
             {coaches.map((c) => (

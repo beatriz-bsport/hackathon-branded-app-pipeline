@@ -33,7 +33,7 @@ export class VideoPlayer extends React.Component<Props, State> {
 
   getPlaybackUrl = () => {
     if (this.props.video && this.props.authenticated) {
-      this.setState({ playbackLoading: true });
+      this.setState({ playbackLoading: true, accessDenied: false });
       getPlaybackUrlAPI(this.props.video.id)
         .then((r) =>
           this.setState({
@@ -63,7 +63,11 @@ export class VideoPlayer extends React.Component<Props, State> {
 
   render() {
     const { classes, video } = this.props;
-    if (!this.state.playbackUrl || this.state.playbackLoading) {
+    if (
+      !this.state.playbackUrl ||
+      this.state.playbackLoading ||
+      this.state.accessDenied
+    ) {
       return (
         <div className={classes.loadingContainer}>
           <div

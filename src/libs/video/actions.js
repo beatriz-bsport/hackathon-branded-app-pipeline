@@ -11,6 +11,7 @@ import {
   fetchVideoPurchase as fetchVideoPurchaseAPI,
   fetchVideoAnalytics as fetchVideoAnalyticsAPI,
   fetchVideoViewAnalytics as fetchVideoViewAnalyticsAPI,
+  fetchVideoFilterableParams as fetchVideoFilterableParamsAPI,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
@@ -321,3 +322,23 @@ export function fetchVideoViews(
     dispatch(listVideoViewsActions.isLoading(false));
   };
 }
+
+export const listVideoFilterableParamsActions = {
+  isLoading: createAction('VIDEO_FILTERABLE_PARAMS/SCT/IS_LOADING'),
+  error: createAction('VIDEO_FILTERABLE_PARAMS/SCT/ERROR'),
+  success: createAction('VIDEO_FILTERABLE_PARAMS/SCT/SUCCESS'),
+};
+export const fetchVideoFilterableParams = (params: any) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(listVideoFilterableParamsActions.isLoading(true));
+    dispatch(listVideoFilterableParamsActions.error(null));
+    try {
+      const response = await fetchVideoFilterableParamsAPI(params);
+      dispatch(listVideoFilterableParamsActions.success(response.data));
+    } catch (error) {
+      console.error(error);
+      dispatch(listVideoFilterableParamsActions.error(error));
+    }
+    dispatch(listVideoFilterableParamsActions.isLoading(false));
+  };
+};

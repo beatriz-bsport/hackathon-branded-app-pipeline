@@ -64,3 +64,9 @@ export const fetchVideoViewAnalytics = async (params: ?any) => {
     })}`,
   );
 };
+
+export const fetchVideoFilterableParams = async (params: ?any) => {
+  return getAuth(
+    `${API_V1_URI}/vod/video/filterable_parameters/${buildUrlParams(params)}`,
+  );
+};

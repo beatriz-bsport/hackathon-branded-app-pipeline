@@ -12,6 +12,7 @@ import {
   listVideoPurchaseActions,
   retrieveVideoAnalyticsActions,
   listVideoViewsActions,
+  listVideoFilterableParamsActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -55,6 +56,11 @@ const initialState = Immutable({
     items: [],
     page: 1,
     count: 0,
+  },
+  filterableParams: {
+    items: {},
+    loading: false,
+    error: null,
   },
 });
 
@@ -164,6 +170,15 @@ export default handleActions(
         .setIn(['views', 'page'], payload.page)
         .setIn(['views', 'count'], payload.count)
         .setIn(['views', 'items'], payload.results);
+    },
+    [listVideoFilterableParamsActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['filterableParams', 'loading'], payload);
+    },
+    [listVideoFilterableParamsActions.error]: (state, { payload }) => {
+      return state.setIn(['filterableParams', 'error'], payload);
+    },
+    [listVideoFilterableParamsActions.success]: (state, { payload }) => {
+      return state.setIn(['filterableParams', 'items'], payload);
     },
   },
   initialState,

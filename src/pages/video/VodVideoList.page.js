@@ -27,6 +27,7 @@ import {
   retrieveVideo,
   deleteVideo as deleteVideoAction,
   fetchMoreVideo as fetchMoreVideoAction,
+  fetchVideoFilterableParams as fetchVideoFilterableParamsAction,
 } from '../../libs/video/actions';
 
 import VideoCardList from '../../libs/video/components/VideoCardList.component';
@@ -42,11 +43,11 @@ type Props = {
   loading: boolean,
 
   searchParams: {
-    coach: string,
+    coaches: string,
     duration_second_range: string,
-    SCT: string,
+    SCTs: string,
     search: string,
-    level: string,
+    levels: string,
   },
   setSearchParams: (string, string) => void,
 
@@ -77,6 +78,8 @@ type Props = {
   editVideo: ?Video,
   openCreateForm: () => void,
   goToDetail: (videoId: number) => void,
+  fetchVideoFilterableParams: (params: any) => void,
+  videoFilterableParams: { SCTs: Array<SCT>, coaches: Array<AssociatedCoach> },
 };
 
 const VideoMap = {
@@ -94,6 +97,7 @@ export class VodVideoListPage extends React.PureComponent<Props> {
   componentDidMount() {
     this.props.fetchVideoList();
     this.props.fetchAssociatedCoachesList();
+    this.props.fetchVideoFilterableParams({ mine: true });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -111,8 +115,8 @@ export class VodVideoListPage extends React.PureComponent<Props> {
           <VideoSearchBar
             searchParams={this.props.searchParams}
             onChangeSearchParams={this.props.setSearchParams}
-            coaches={this.props.coaches}
-            scts={this.props.SCTs}
+            coaches={this.props.videoFilterableParams.coaches || []}
+            scts={this.props.videoFilterableParams.SCTs || []}
           />
         </div>
         <Divider className={classes.divider} />
@@ -188,7 +192,7 @@ export default compose(
   withTranslation(['video', 'titles']),
   withTitle(({ t }: { t: TFunction }) => t('titles:video.videoList')),
   withQueryParams([
-    ['coach', 'duration_second_range', 'SCT', 'search', 'level'],
+    ['coaches', 'duration_second_range', 'SCTs', 'search', 'levels'],
     'searchParams',
     'setSearchParams',
   ]),
@@ -199,6 +203,7 @@ export default compose(
       SCTs: state.category.SCTs,
       coaches: getAllCoaches(state),
       hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
+      videoFilterableParams: state.video.filterableParams.items,
     }),
     {
       fetchVideoList: fetchVideoListAction,
@@ -208,14 +213,37 @@ export default compose(
       deleteVideo: deleteVideoAction,
       createOrUpdateVideo: createOrUpdateVideoAction,
       fetchMoreVideo: fetchMoreVideoAction,
+      fetchVideoFilterableParams: fetchVideoFilterableParamsAction,
     },
   ),
   withHandlers({
-    fetchMoreVideo: ({ fetchMoreVideo }) => () => {
-      fetchMoreVideo({ mine: true });
+    turnSearchParamsIntoQueryParams: ({ searchParams }) => () => {
+      const params = {};
+      if (searchParams.SCTs) {
+        params.SCT__pk__in = searchParams.SCTs;
+      }
+      if (searchParams.coaches) {
+        params.coaches__id__in = searchParams.coaches;
+      }
+      if (searchParams.levels) {
+        params.level__pk__in = searchParams.levels;
+      }
+      return params;
     },
-    fetchVideoList: ({ fetchVideoList, searchParams }) => (options) => {
-      fetchVideoList({ mine: true, ...(searchParams || {}) }, 1, {
+  }),
+  withHandlers({
+    fetchMoreVideo: ({
+      fetchMoreVideo,
+      turnSearchParamsIntoQueryParams,
+    }) => () => {
+      const params = turnSearchParamsIntoQueryParams();
+      fetchMoreVideo({ mine: true, ...params });
+    },
+    fetchVideoList: ({ fetchVideoList, turnSearchParamsIntoQueryParams }) => (
+      options,
+    ) => {
+      const params = turnSearchParamsIntoQueryParams();
+      fetchVideoList({ mine: true, ...params }, 1, {
         onError: options && options.onError,
         onSuccess: (videoList) => {
           if (options && options.onSuccess) {
@@ -254,13 +282,18 @@ export default compose(
     },
   ),
   withHandlers({
-    deleteVideo: ({ deleteVideo, fetchVideoList }) => (id, options) => {
+    deleteVideo: ({
+      deleteVideo,
+      fetchVideoList,
+      fetchVideoFilterableParams,
+    }) => (id, options) => {
       deleteVideo(id, {
         onSuccess: (...args) => {
           if (options && options.onSuccess) {
             options.onSuccess(...args);
           }
           fetchVideoList();
+          fetchVideoFilterableParams({ mine: true });
         },
         onError: (options && options.onError) || null,
       });
@@ -270,6 +303,7 @@ export default compose(
       fetchVideoList,
       closeEditForm,
       closeCreateDialog,
+      fetchVideoFilterableParams,
     }) => (values, options) => {
       const formData = mapFormData(values, VideoMap);
       createOrUpdateVideo(formData, {
@@ -280,6 +314,7 @@ export default compose(
           }
           closeCreateDialog();
           closeEditForm();
+          fetchVideoFilterableParams({ mine: true });
           if (!formData.get('id')) {
             fetchVideoList();
           }

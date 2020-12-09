@@ -11,15 +11,14 @@ import type { TFunction } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import {
   getPlaylistList,
   withCoachInVideo,
 } from '../../libs/playlist/selectors';
 import {
   getVideoList,
-  withCategory,
-  withCoach,
+  withVideoCoach,
+  withVideoCategory,
 } from '../../libs/video/selectors';
 
 import withQueryParams from '../../hocs/with-query-params.hoc';
@@ -32,8 +31,8 @@ import VideoItemList from '../../libs/video/components/VideoItemList.component';
 import {
   fetchVideoList as fetchVideoListAction,
   fetchMoreVideo as fetchMoreVideoAction,
+  fetchVideoFilterableParams,
 } from '../../libs/video/actions';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import { fetchPlaylistList } from '../../libs/playlist/actions';
 
 import VideoStreamDialog from '../../libs/video/components/VideoStreamDialog.component';
@@ -47,34 +46,36 @@ type Props = {
   openVideo: (id: number) => void,
   fetchMoreVideo: () => void,
   hasMoreVideo: boolean,
-  coaches: Array<Coach>,
   videoToStream: ?Video,
   closeVideoStream: () => void,
-  fetchAssociatedCoachesList: (params: any) => void,
   location: Location,
   companyId: number,
   loading: boolean,
   classes: Object,
-  SCTs: Array<SCT>,
   setSearchParams: (string, string) => void,
   fetchPlaylistList: (string) => void,
   openPlaylist: (string) => void,
   playlistList: Array<*>,
   t: TFunction,
   searchParams: {
-    coach: string,
+    coaches: string,
     duration_second_range: string,
-    SCT: string,
+    SCTs: string,
     search: string,
-    level: string,
+    levels: string,
   },
+  fetchVideoFilterableParams: (params: any) => void,
+  videoFilterableParams: { SCTs: Array<SCT>, coaches: Array<AssociatedCoach> },
 };
 
 export class MarketplaceVideo extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchVideoList();
-    this.props.fetchAssociatedCoachesList({ company: this.props.companyId });
     this.props.fetchPlaylistList({ company: this.props.companyId });
+    this.props.fetchVideoFilterableParams({
+      company: this.props.companyId,
+      status: STATUS_PROCESSED,
+    });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -94,8 +95,8 @@ export class MarketplaceVideo extends React.Component<Props> {
               <VideoSearchBar
                 searchParams={this.props.searchParams}
                 onChangeSearchParams={this.props.setSearchParams}
-                coaches={this.props.coaches}
-                scts={this.props.SCTs}
+                coaches={this.props.videoFilterableParams.coaches || []}
+                scts={this.props.videoFilterableParams.SCTs || []}
               />
             </div>
             <Divider className={classes.divider} />
@@ -223,7 +224,7 @@ export default compose(
     companyName: 'companyName',
   }),
   withQueryParams([
-    ['coach', 'duration_second_range', 'SCT', 'search', 'level'],
+    ['coaches', 'duration_second_range', 'SCTs', 'search', 'levels'],
     'searchParams',
     'setSearchParams',
   ]),
@@ -235,43 +236,58 @@ export default compose(
         ...withCoachInVideo(getPlaylistList)(state),
         ...withCoachInVideo(getPlaylistList)(state),
       ],
-      videoList: withCoach(withCategory(getVideoList))(state),
-      loading: state.video.loading,
-      SCTs: state.category.SCTs.filter((sct) =>
-        getVideoList(state)
-          .map((v) => v.SCT)
-          .includes(sct.id),
-      ),
-      coaches: getActiveCoaches(state),
+      videoList: withVideoCoach(withVideoCategory(getVideoList))(state),
+      loading: state.video.loading || state.video.filterableParams.loading,
+      videoFilterableParams: state.video.filterableParams.items,
       hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
     }),
     {
       fetchVideoList: fetchVideoListAction,
       fetchPlaylistList,
-      fetchAssociatedCoachesList,
       fetchMoreVideo: fetchMoreVideoAction,
       push: pushRouter,
+      fetchVideoFilterableParams,
     },
   ),
   withHandlers({
+    turnSearchParamsIntoQueryParams: ({ searchParams }) => () => {
+      const params = {};
+      if (searchParams.SCTs) {
+        params.SCT__pk__in = searchParams.SCTs;
+      }
+      if (searchParams.coaches) {
+        params.coaches__id__in = searchParams.coaches;
+      }
+      if (searchParams.levels) {
+        params.level__pk__in = searchParams.levels;
+      }
+      return params;
+    },
+  }),
+  withHandlers({
     openVideo: ({ companyName, companyId, push }) => (videoId) =>
       push(getMarketplaceRoute(companyName, companyId, `vod/video/${videoId}`)),
-    fetchMoreVideo: ({ fetchMoreVideo, companyId, searchParams }) => () => {
+    fetchMoreVideo: ({
+      fetchMoreVideo,
+      companyId,
+      turnSearchParamsIntoQueryParams,
+    }) => () => {
+      const params = turnSearchParamsIntoQueryParams();
       fetchMoreVideo({
         status: STATUS_PROCESSED,
         company: companyId,
-        ...(searchParams || {}),
+        ...params,
       });
     },
-    fetchVideoList: ({ companyId, fetchVideoList, searchParams }) => (
-      options,
-    ) => {
+    fetchVideoList: ({
+      companyId,
+      fetchVideoList,
+      turnSearchParamsIntoQueryParams,
+    }) => (options) => {
+      const params = turnSearchParamsIntoQueryParams();
+
       fetchVideoList(
-        {
-          status: STATUS_PROCESSED,
-          company: companyId,
-          ...(searchParams || {}),
-        },
+        { status: STATUS_PROCESSED, company: companyId, ...params },
         1,
         options,
       );

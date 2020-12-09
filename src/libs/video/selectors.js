@@ -92,3 +92,52 @@ export const getVideoViewsWithMember = createSelector(
       member: members.find((m) => m.id === view.member_id),
     })),
 );
+
+const _getVideoCoaches = (state) =>
+  state.video.filterableParams.items.coaches || [];
+
+const _getVideoCategories = (state) =>
+  state.video.filterableParams.items.SCTs || [];
+
+export const withVideoCoach = (selector) =>
+  createSelector(
+    [selector, _getVideoCoaches],
+    (videoList, coachList) => {
+      if (Array.isArray(videoList)) {
+        return videoList.map((v) => ({
+          ...v,
+          coaches: v.coaches
+            .map((c) =>
+              coachList.find((coach) => coach.associatedcoach_set.includes(c)),
+            )
+            .filter((c) => !!c),
+        }));
+      }
+      if (!videoList) return videoList;
+
+      return {
+        ...videoList,
+        coaches: videoList.coaches.map((c) =>
+          coachList.find((coach) => coach.associatedcoach_set.includes(c)),
+        ),
+      };
+    },
+  );
+
+export const withVideoCategory = (selector) =>
+  createSelector(
+    [selector, _getVideoCategories],
+    (videoList, SCTList) => {
+      if (Array.isArray(videoList)) {
+        return videoList.map((v) => ({
+          ...v,
+          SCT: SCTList.find((sct) => sct.id === v.SCT),
+        }));
+      }
+      if (!videoList) return videoList;
+      return {
+        ...videoList,
+        SCT: SCTList.find((sct) => sct.id === videoList.SCT),
+      };
+    },
+  );

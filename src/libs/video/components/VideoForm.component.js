@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import pick from 'lodash/pick';
 
-import { withFormik, FieldArray } from 'formik';
+import { withFormik, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import ImageField from '../../../components/forms/ImageField.component';
@@ -26,6 +26,14 @@ export const VideoForm = (props: Props) => {
     <div className={classes.container}>
       <div className={classes.field}>
         <ImageField name="cover_main" />
+        <ErrorMessage
+          name="cover_main"
+          render={() => (
+            <Typography variant="body2" className={classes.alertError}>
+              {t('video.coverMain.alert')}
+            </Typography>
+          )}
+        />
       </div>
       <div className={classes.field}>
         <TextField
@@ -139,12 +147,17 @@ const useStyles = makeStyles((theme) => ({
   emptyCoachText: {
     padding: theme.spacing(1),
   },
+  alertError: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    color: theme.palette.error.dark,
+  },
 }));
 
 export default VideoForm;
 
 export const VideoSchema = Yup.object().shape({
-  cover_main: Yup.object().nullable(),
+  cover_main: Yup.object().required(),
   name: Yup.string().required(),
   description: Yup.string().required(),
   coaches: Yup.array().of(Yup.number()),

@@ -54,6 +54,9 @@ exports.default = {
     bottomActions: {
       create: 'Ajouter',
     },
+    coverMain: {
+      alert: "L'image est obligatoire",
+    },
     name: 'Nom',
     category: 'Catégorie',
     description: 'Description',

@@ -93,6 +93,7 @@ export function PaymentPackForm(props: Props) {
     penalty_kind,
     penalty_days_blocked,
     penalty_account_value,
+    full_vod_access,
   } = values;
   return (
     <div>
@@ -318,6 +319,14 @@ export function PaymentPackForm(props: Props) {
                 label={t('form.paymentPack.full_vod_access')}
               />
             </Grid>
+            {full_vod_access && (
+              <Grid item xs={12} id="only_vod_access">
+                <CheckboxField
+                  name="only_vod_access"
+                  disabled={!editable}
+                  label={t('form.paymentPack.only_vod_access')}
+                />
+              </Grid>)}
             <Grid item xs={12}>
               <TextField
                 id="textfield_restrictions_monthlymaxuser"
@@ -595,6 +604,7 @@ const PackSchema = Yup.object().shape({
   penalty_kind: Yup.number(),
   penalty_days_blocked: Yup.number().min(1),
   penalty_account_value: Yup.number(),
+  only_vod_access: Yup.boolean(),
 });
 
 const styles = (theme) => ({
@@ -667,6 +677,7 @@ export default compose(
           manager_only: false,
           onsite_payment_available: false,
           full_vod_access: true,
+          only_vod_access: false,
           start_date_method: `${START_ON_FIRST_BOOKING}`,
           expiration_days_before_first_use: 365,
           unlimited: false,
@@ -717,6 +728,7 @@ export default compose(
         'manager_only',
         'onsite_payment_available',
         'full_vod_access',
+        'only_vod_access',
         'expiration_days_before_first_use',
         'start_date_method',
         'categories',
@@ -747,6 +759,9 @@ export default compose(
       }
       if (!values.unlimited) {
         data.penalty_active = false;
+      }
+      if (!values.full_vod_access) {
+        data.only_vod_access = false;
       }
       onSubmit(data, {
         onSuccess: () => setSubmitting(false),

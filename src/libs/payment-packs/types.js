@@ -33,6 +33,7 @@ export type PaymentPack = {
   disabled: boolean,
   manager_only: boolean,
   new_member_only: boolean,
+  only_vod_access: boolean,
 };
 
 export type ConsumerPaymentPack = {

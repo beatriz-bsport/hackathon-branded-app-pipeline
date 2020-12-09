@@ -164,6 +164,7 @@ exports.default = {
         helperText: 'Nom de la carte de cours',
       },
       full_vod_access: 'Donne accès à la VOD tant que valable dans le temps',
+      only_vod_access: 'Uniquement pour la VOD',
       tax: {
         label: 'TVA',
       },
@@ -313,6 +314,7 @@ exports.default = {
       "S'il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours, un acompte de {{account_value}}€ sera appliqué.",
   },
   newMemberOnly: 'Disponible uniquement pour les nouveaux inscrits',
+  only_vod_access: 'Disponible uniquement pour la VOD',
   publicPacksTitle: 'Cartes disponibles à la vente',
   privatePacksTitle: 'Cartes non disponibles à la vente',
   disabledPacksTitle: 'Cartes archivées',

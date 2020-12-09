@@ -191,6 +191,7 @@ export class PaymentPackCard extends Component<Props> {
       max_bookings_per_week,
       max_bookings_per_month,
       new_member_only,
+      only_vod_access,
       base_price,
       name,
       credits,
@@ -234,6 +235,11 @@ export class PaymentPackCard extends Component<Props> {
                 <div className={classes.newMemberOnlyContainer}>
                   <VisibilityOffIcon className={classes.iconLeft} />
                   <Typography>{t('newMemberOnly')}</Typography>
+                </div>
+              ) : null}
+              {only_vod_access && !onlyPublic ? (
+                <div className={classes.newMemberOnlyContainer}>
+                  <Typography>{t('only_vod_access')}</Typography>
                 </div>
               ) : null}
               <div>

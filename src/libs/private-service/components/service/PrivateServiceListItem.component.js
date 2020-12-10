@@ -4,11 +4,15 @@ import { compose } from 'recompose';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import IconButton from '@material-ui/core/IconButton';
 import { withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
+import Tooltip from '../../../../components/Tooltip.component';
 
 import type { PrivateService } from '../../types';
 
@@ -49,6 +53,19 @@ export const PrivateServiceListItem = (props: Props) => {
                 .join(', ') || null
         }
       />
+      {privateService.hasActiveNotification && (
+        <Tooltip
+          title={
+            <Typography variant="subtitle2">
+              {t('privateBookingNotification.tooltip')}
+            </Typography>
+          }
+        >
+          <IconButton>
+            <NotificationsIcon />
+          </IconButton>
+        </Tooltip>
+      )}
 
       <ListItemResponsiveAction
         actions={[

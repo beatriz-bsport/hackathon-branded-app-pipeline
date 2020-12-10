@@ -43,6 +43,8 @@ import {
   createOrUpdateServiceGroup as createOrUpdateServiceGroupAction,
   deletePrivateService,
 } from '../../libs/private-service/actions';
+import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
+import { withPrivateBookingNotification } from '../../libs/marketing/selectors';
 
 import type { PrivateService } from '../../libs/private-service/types';
 
@@ -82,7 +84,11 @@ type Props = {
   serviceGroupList: Array<ServiceGroup>,
   onOpenServiceGroupCreateForm: () => void,
   openServiceGroupToEdit: (ServiceGroup) => void,
+
+  fetchMarketingNotificationList: (params: any) => void,
 };
+
+const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 
 export class PrivateServiceList extends React.Component<Props> {
   componentDidMount() {
@@ -91,6 +97,10 @@ export class PrivateServiceList extends React.Component<Props> {
     this.props.fetchAssociatedCoachesList();
     this.props.fetchEstablishments();
     this.props.fetchAssociatedEstablishments();
+    this.props.fetchMarketingNotificationList({
+      active: true,
+      kind: PRIVATE_BOOKING_CREATION_NOTIFICATION,
+    });
   }
 
   closeForm = () => {
@@ -225,9 +235,9 @@ export default compose(
   withTitle(({ t }) => t('titles:privateService.serviceList')),
   connect(
     (state, { privateServiceId }) => ({
-      privateServiceAvailableWithoutGroup: getAvailablePrivateServicesWithoutGroup(
-        state,
-      ),
+      privateServiceAvailableWithoutGroup: withPrivateBookingNotification(
+        getAvailablePrivateServicesWithoutGroup,
+      )(state),
       serviceGroupList: getPrivateServiceGroupList(state),
       loading:
         state.privateService.privateService.loading ||
@@ -253,6 +263,7 @@ export default compose(
       goToPrivateService: (id) =>
         push(`/private-service/service/${id}/general`),
       deletePrivateService,
+      fetchMarketingNotificationList,
     },
   ),
   withState('openCreateForm', 'setOpenCreateForm', false),

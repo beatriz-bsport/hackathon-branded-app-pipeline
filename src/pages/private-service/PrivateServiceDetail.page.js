@@ -45,7 +45,25 @@ import {
   createOrUpdateServiceGroup as createOrUpdateServiceGroupAction,
   fetchPrivateServiceGroupList as fetchPrivateServiceGroupListAction,
 } from '../../libs/private-service/actions';
+import {
+  fetchMarketingNotificationList as fetchMarketingNotificationListAction,
+  createMarketingNotification as createMarketingNotificationAction,
+  updateMarketingNotification,
+  deleteMarketingNotification as deleteMarketingNotificationAction,
+} from '../../libs/marketing/actions';
+import { getPrivateBookingNotifications } from '../../libs/marketing/selectors';
+import {
+  fetchEmailTemplateSummariesBulk as fetchEmailTemplateSummariesBulkAction,
+  emailTemplateDetail,
+  emailTemplatesSummaries as fetchEmailTemplatesSummaries,
+} from '../../libs/email-editor/actions';
+import {
+  getAllEmailTemplatesSummaries,
+  getEmailTemplatesDetail,
+} from '../../libs/email-editor/selectors';
 import type { PrivateService } from '../../libs/private-service/types';
+
+const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
 
 type Props = {
   privateService: PrivateService,
@@ -92,12 +110,26 @@ type Props = {
     options: OptionCallback,
   ) => void,
   closeServiceGroupForm: () => void,
+
+  fetchNotificationsAndTemplates: () => void,
+  notifications: { items: Array<any>, loading: boolean },
+  createNotification: (data: any) => void,
+  updateMarketingNotification: (id: number, data: any) => void,
+  deleteMarketingNotification: (id: number) => void,
+
+  fetchEmailTemplatesSummaries: () => void,
+  fetchEmailTemplateDetail: (id: number) => void,
+  email_templates_list: Array<any>,
+  email_templates_details: Array<any>,
+  emailListLoading: boolean,
+  emailDetailLoading: boolean,
 };
 
 export class PrivateServiceList extends React.Component<Props> {
   componentDidMount() {
     this.fetchData();
     this.props.fetchPrivateServiceGroupList();
+    this.props.fetchNotificationsAndTemplates();
   }
 
   fetchData = () => {
@@ -159,6 +191,16 @@ export class PrivateServiceList extends React.Component<Props> {
                 this.props.privateService.id,
               )
             }
+            notifications={this.props.notifications}
+            createNotification={this.props.createNotification}
+            updateNotification={this.props.updateMarketingNotification}
+            deleteNotification={this.props.deleteMarketingNotification}
+            getEmails={this.props.fetchEmailTemplatesSummaries}
+            emails={this.props.email_templates_list}
+            getEmailDetail={this.props.fetchEmailTemplateDetail}
+            emailDetails={this.props.email_templates_details}
+            emailListLoading={this.props.emailListLoading}
+            emailDetailLoading={this.props.emailDetailLoading}
           />
         ) : null}
         {this.props.openEditForm ? (
@@ -215,6 +257,14 @@ export default compose(
           resourceDatatype,
           resourceIdentifier,
         ),
+      notifications: {
+        items: getPrivateBookingNotifications(state),
+        loading: state.marketingNotification.loading,
+      },
+      email_templates_list: getAllEmailTemplatesSummaries(state),
+      email_templates_details: getEmailTemplatesDetail(state),
+      emailListLoading: state.emailTemplate.isLoading,
+      emailDetailLoading: state.emailTemplate.detail.isLoading,
     }),
     {
       fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
@@ -234,6 +284,14 @@ export default compose(
       deletePrivateService,
       checkExistsAvailabilitySlots,
 
+      fetchMarketingNotificationList: fetchMarketingNotificationListAction,
+      createMarketingNotification: createMarketingNotificationAction,
+      updateMarketingNotification,
+      deleteMarketingNotification: deleteMarketingNotificationAction,
+      fetchEmailTemplatesSummaries,
+      fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
+      fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
+
       goToPrivateServiceCalendar: (id) =>
         push(`/private-service/service/${id}/calendar`),
       goToCoachCalendar: (id) => push(`/coach/${id}/private-calendar`),
@@ -248,6 +306,25 @@ export default compose(
       deletePrivateSlot(id, slotId, {
         onSuccess: () => fetchPrivateService(id),
       });
+    },
+    fetchNotificationsAndTemplates: ({
+      fetchMarketingNotificationList,
+      fetchEmailTemplateSummariesBulk,
+      id,
+    }) => () => {
+      fetchMarketingNotificationList(
+        {
+          kind: PRIVATE_BOOKING_CREATION_NOTIFICATION,
+          event_rules__private_service_id: id,
+        },
+        {
+          onSuccess: (notificationList) => {
+            fetchEmailTemplateSummariesBulk(
+              notificationList.map((notification) => notification.email_design),
+            );
+          },
+        },
+      );
     },
   }),
   withState('openEditForm', 'setOpenEditForm', null),
@@ -273,6 +350,16 @@ export default compose(
           closeServiceGroupForm();
           if (options && options.onSuccess) options.onSuccess(g);
           fetchPrivateServiceGroupList();
+        },
+      });
+    },
+    createNotification: ({
+      fetchNotificationsAndTemplates,
+      createMarketingNotification,
+    }) => (data) => {
+      createMarketingNotification(data, {
+        onSuccess: () => {
+          fetchNotificationsAndTemplates();
         },
       });
     },

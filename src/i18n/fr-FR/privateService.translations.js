@@ -658,4 +658,69 @@ exports.default = {
       },
     },
   },
+  privateBookingNotification: {
+    form: {
+      title: 'Ajouter une notification',
+      intro:
+        "Vous pouvez prévenir vos clients avant ou après certains RDV, en fonction de différents critères comme le nombre de réservations ou d'annulations.",
+      chooseKind: {
+        title: 'Choisissez le type de réservation que vous voulez notifier',
+        valid: 'Réservation valide',
+        cancelledRefunded: 'Réservation annulée et remboursée',
+        cancelledNotRefunded:
+          'Réservation annulée et non remboursée (hors délai)',
+      },
+      notifyNb: "Notifier le membre lors de l'évènement n° :",
+      notifyAllEvents: 'Notifier le membre à chaque évènement',
+      help: {
+        valid: {
+          default:
+            'Aide : la notification sera envoyée au membre lors de sa réservation valide n° {{notifyNb}} pour ce type de RDV',
+          notifyAll:
+            'Aide : la notification sera envoyée au membre à chacune des ses réservations valides pour ce type de RDV',
+        },
+        cancelledRefunded: {
+          default:
+            'Aide : la notification sera envoyée au membre lors de sa réservation annulée remboursée n° {{notifyNb}} pour ce type de RDV',
+          notifyAll:
+            'Aide : la notification sera envoyée au membre à chacune des ses réservations annulées remboursées pour ce type de RDV',
+        },
+        cancelledNotRefunded: {
+          default:
+            'Aide : la notification sera envoyée au membre lors de son annulation hors délai n° {{notifyNb}} pour ce type de RDV',
+          notifyAll:
+            'Aide : la notification sera envoyée au membre à chacune des ses annulations hors délai pour ce type de RDV',
+        },
+      },
+      chooseWhen: {
+        title: 'Type de notification',
+        before:
+          'Envoyer le mail au membre avant le RDV concerné par la notification',
+        after:
+          'Envoyer le mail au membre après le RDV concerné par la notification',
+      },
+      chooseTime: {
+        title: 'Paramètres',
+        first: 'Envoyer un mail',
+        second: {
+          before: 'heure(s) avant la séance',
+          after: 'heure(s) après la séance',
+        },
+      },
+      next: 'Suivant',
+    },
+    listItemPrimary: {
+      before: 'Notification {{hours}}h avant le RDV',
+      after: 'Notification {{hours}}h après le RDV',
+      valid: 'RDV n° {{notify_booking_nb}}',
+      cancelledNotRefunded: 'Annulation hors délai n° {{notify_booking_nb}}',
+      cancelledRefunded: 'Annulation remboursée n° {{notify_booking_nb}}',
+      notifyAllEvents: {
+        valid: 'À chaque RDV',
+        cancelledRefunded: 'À chaque annulation remboursée',
+        cancelledNotRefunded: 'À chaque annulation hors délai',
+      },
+    },
+    tooltip: 'Des notifications sont actives pour ce type de RDV',
+  },
 };

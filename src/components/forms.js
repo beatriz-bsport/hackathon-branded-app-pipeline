@@ -658,7 +658,7 @@ export const DurationMinuteSelectField = withTranslation()(
 );
 
 export const CheckboxField = (props: Props) => {
-  const { reverted, disabled, label, helperText } = props;
+  const { reverted, disabled, label, helperText, classes } = props;
   return (
     <FormControl>
       <Field
@@ -668,6 +668,7 @@ export const CheckboxField = (props: Props) => {
             label={label}
             id="checkbox"
             helperText={helperText}
+            classes={classes}
             control={
               <Checkbox
                 disabled={!!disabled}
@@ -751,6 +752,7 @@ export const SwitchField = (props: SwitchFieldProps) => {
 type RadioFieldProps = {
   disabled?: boolean,
   label?: string,
+  classes?: any,
   name: string,
   choices: { label: string, value: * }[],
 };
@@ -773,6 +775,7 @@ export const RadioGroupField = (props: RadioFieldProps) => {
                 disabled={props.disabled}
                 control={<Radio checked={`${field.value}` === `${value}`} />}
                 label={l}
+                classes={props.classes}
               />
               {helperText ? (
                 <FormHelperText style={{ marginTop: -8 }}>

@@ -43,7 +43,7 @@ import {
 } from '../../libs/email-editor/actions';
 import withTitle from '../../hocs/with-title.hoc';
 
-const BRIRTHDAY_NOTIFICATION = {
+const BIRTHDAY_NOTIFICATION = {
   kind: 0,
   is_event_based: false,
 };
@@ -74,7 +74,7 @@ type Props = {
   handleSettingsCopy: (notification_event: number, ev: Object) => void,
 
   birthdayNotification: MarketingNotification,
-  fetchMarketingNotificationList: () => void,
+  fetchMarketingNotificationList: (params: any) => void,
   createOrUpdateMarketingNotification: (data: any) => void,
   deleteMarketingNotification: (id: number) => void,
   company: number,
@@ -86,7 +86,9 @@ export class NotificationRule extends React.Component<Props> {
     this.props.fetchNotificationRuleList();
     this.props.fetchEmailDesignList();
     this.props.fetchSettingsList();
-    this.props.fetchMarketingNotificationList();
+    this.props.fetchMarketingNotificationList({
+      kind: BIRTHDAY_NOTIFICATION.kind,
+    });
   }
 
   render() {
@@ -192,8 +194,8 @@ export class NotificationRule extends React.Component<Props> {
             <BirthdayNotification
               event={this.props.birthdayNotification}
               company={this.props.company}
-              kind={BRIRTHDAY_NOTIFICATION.kind}
-              is_event_based={BRIRTHDAY_NOTIFICATION.is_event_based}
+              kind={BIRTHDAY_NOTIFICATION.kind}
+              is_event_based={BIRTHDAY_NOTIFICATION.is_event_based}
               emailDesignList={this.props.emailDesignList}
               showEmailPreview={this.props.showEmailPreview}
               onChangeEmailDesign={

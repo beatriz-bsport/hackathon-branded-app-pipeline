@@ -10,6 +10,7 @@ import {
   getAllEstablishmentsDict,
 } from '../../establishment/selectors';
 import { getAllPrivateSlotsDict } from './private-slot';
+import { withPrivateBookingNotification } from '../../marketing/selectors';
 
 export const _getPrivateServicesById: (State) => {
   [id: number]: PrivateService,
@@ -96,7 +97,10 @@ export const getAvailablePrivateServicesWithoutGroup = createSelector(
 );
 
 export const getPrivateServiceListByGroup = createSelector(
-  [getPrivateServiceGroupList, getAvailablePrivateServices],
+  [
+    getPrivateServiceGroupList,
+    withPrivateBookingNotification(getAvailablePrivateServices),
+  ],
   (groupList, services) => {
     return groupList.map((g) => ({
       ...g,

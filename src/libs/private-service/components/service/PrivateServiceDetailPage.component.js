@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import PrivateServiceCard from './PrivateServiceCard.component';
 import PrivateServiceConfigurationChecker from './PrivateServiceConfigurationHelper.component';
 import PrivateSlotEditableList from '../slot/PrivateSlotEditableList.component';
+import PrivateBookingNotification from '../booking/PrivateBookingNotification.component';
 
 import type { PrivateService } from '../../types';
 
@@ -21,6 +22,16 @@ type Props = {
     resourceDatatype: string,
     resourceId: number,
   ) => { exists: boolean, loading: boolean },
+  getEmails: () => void,
+  emails: Array<any>,
+  getEmailDetail: (id: number) => void,
+  emailDetails: Array<any>,
+  emailListLoading: boolean,
+  emailDetailLoading: boolean,
+  createNotification: (data: any) => void,
+  updateNotification: (id: number, data: any) => void,
+  deleteNotification: (notificationId: number) => void,
+  notifications: Object,
 };
 
 export const PrivateServiceDetail = (props: Props) => {
@@ -31,6 +42,19 @@ export const PrivateServiceDetail = (props: Props) => {
           privateService={props.privateService}
           deletePrivateSlot={props.deletePrivateSlot}
           createOrUpdatePrivateSlot={props.createOrUpdatePrivateSlot}
+        />
+        <PrivateBookingNotification
+          notifications={props.notifications}
+          serviceId={props.privateService.id}
+          getEmails={props.getEmails}
+          emails={props.emails}
+          getEmailDetail={props.getEmailDetail}
+          emailDetails={props.emailDetails}
+          emailListLoading={props.emailListLoading}
+          emailDetailLoading={props.emailDetailLoading}
+          createNotification={props.createNotification}
+          updateNotification={props.updateNotification}
+          deleteNotification={props.deleteNotification}
         />
       </Grid>
       <Grid item md={6} xs={12}>

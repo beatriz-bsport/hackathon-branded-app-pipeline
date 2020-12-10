@@ -2363,7 +2363,11 @@
             "level_activity": "Nivel",
             "sct_name": "Categoría",
             "duration_second": "Duración (segundos)",
-            "payment_method_sepa": "SEPA"
+            "payment_method_sepa": "SEPA",
+            "credit_price": "Precio en crédito",
+            "purchases": "Compras",
+            "views_unique": "Vistas únicas",
+            "views_total": "Vistas"
         },
         "payment_method": {
             "cash": "Efectivo",

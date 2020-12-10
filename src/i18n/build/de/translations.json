@@ -1508,7 +1508,7 @@
                 "has_not": "Besitzt nicht",
                 "has": "Besitzt",
                 "first": "eine der Kurskarten",
-                "name": "Allgemein",
+                "name": "Kurskarte",
                 "explanation": "Hat die Kurskarte A gekauft an dem Datum Y mit X Credits",
                 "third": "um"
             },
@@ -2571,7 +2571,11 @@
             "video_status": "Status",
             "level_activity": "Level",
             "sct_name": "Kategorie",
-            "duration_second": "Dauer (Sekunde)"
+            "duration_second": "Dauer (Sekunde)",
+            "credit_price": "Preis in Credits",
+            "purchases": "Käufe",
+            "views_unique": "Unique Views",
+            "views_total": "Views"
         },
         "no": "Nein",
         "yes": "Ja",

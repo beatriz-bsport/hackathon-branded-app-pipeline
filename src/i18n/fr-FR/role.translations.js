@@ -1,6 +1,7 @@
 const {
   OWNER_ROLE,
   STAFF_ROLE,
+  REPORT_ROLE,
   RESTRICTED_STAFF_ROLE,
   CHECKIN_APP_ROLE,
   ADMIN_ROLE,
@@ -71,6 +72,11 @@ exports.default = {
       description:
         'Accès admin, aucune restriction, peut créer des comptes staff',
       name: 'Owner',
+    },
+    [REPORT_ROLE]: {
+      description:
+        'Accès uniquements aux rapports, utile pour vos comptables par exemple',
+      name: 'Rapports',
     },
   },
 };

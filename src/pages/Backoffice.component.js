@@ -252,6 +252,21 @@ export class Backoffice extends Component<Props, State> {
       return <LoadingBackoffice />;
     }
 
+    if (
+      this.props.permission &&
+      this.props.permission.restrictedPaths &&
+      this.props.permission.restrictedPaths.length
+    ) {
+      let navigationIsAuthorized = false;
+      this.props.permission.restrictedPaths.forEach((p) => {
+        navigationIsAuthorized =
+          navigationIsAuthorized || window.location.pathname.includes(p);
+      });
+      if (!navigationIsAuthorized) {
+        return <Redirect to={this.props.permission.restrictedPaths[0]} />;
+      }
+    }
+
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <Context.Provider
@@ -275,6 +290,7 @@ export class Backoffice extends Component<Props, State> {
             displayLeftMenu={this.state.displayLeftMenu}
             fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
             showSearch={this.props.permission.member.search}
+            showActions={this.props.permission.appbarActions}
             tempPasswordState={this.props.tempPasswordState}
             generateTempPassword={this.props.generateTempPassword}
             fetchTempPassword={this.props.fetchTempPassword}

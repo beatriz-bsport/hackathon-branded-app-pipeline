@@ -334,7 +334,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 wrap="nowrap"
                 implementation="css"
               >
-                {forced_hide ? (
+                {forced_hide && !!this.props.showActions ? (
                   <React.Fragment>
                     <Hidden mdUp>
                       <Grid item>
@@ -354,34 +354,38 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                     </Grid>
                   </React.Fragment>
                 ) : null}
-                <Grid item>
-                  <IconButton
-                    onClick={() => {
-                      this.props.fetchOnSpotPaymentReport({
-                        name: this.props.t(
-                          'reporting:categories.on_spot_payments',
-                        ),
-                      });
-                      this.props.setOpenCash(true);
-                      this.props.fetchCashBook(this.props.theme.company);
-                    }}
-                  >
-                    <BusinessCenterIcon />
-                  </IconButton>
-                </Grid>
-                <Grid item>
-                  <IconButton onClick={this.props.openCreateMember}>
-                    <PersonAddIcon />
-                  </IconButton>
-                </Grid>
-                <Grid item>
-                  <AlertButtonMenu
-                    alertings={alertings}
-                    nbAlerting={nbAlerting}
-                    deleteAlert={deleteAlert}
-                    showMore={fetchMoreAlertingKind}
-                  />
-                </Grid>
+                {this.props.showActions && (
+                  <React.Fragment>
+                    <Grid item>
+                      <IconButton
+                        onClick={() => {
+                          this.props.fetchOnSpotPaymentReport({
+                            name: this.props.t(
+                              'reporting:categories.on_spot_payments',
+                            ),
+                          });
+                          this.props.setOpenCash(true);
+                          this.props.fetchCashBook(this.props.theme.company);
+                        }}
+                      >
+                        <BusinessCenterIcon />
+                      </IconButton>
+                    </Grid>
+                    <Grid item>
+                      <IconButton onClick={this.props.openCreateMember}>
+                        <PersonAddIcon />
+                      </IconButton>
+                    </Grid>
+                    <Grid item>
+                      <AlertButtonMenu
+                        alertings={alertings}
+                        nbAlerting={nbAlerting}
+                        deleteAlert={deleteAlert}
+                        showMore={fetchMoreAlertingKind}
+                      />
+                    </Grid>
+                  </React.Fragment>
+                )}
                 <Grid item>
                   <IconButton onClick={openIntercomHelp}>
                     <HelpIcon />

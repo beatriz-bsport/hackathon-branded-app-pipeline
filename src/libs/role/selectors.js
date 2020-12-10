@@ -8,6 +8,7 @@ import {
   STAFF_ROLE,
   RESTRICTED_STAFF_ROLE,
   CHECKIN_APP_ROLE,
+  REPORT_ROLE,
   ADMIN_ROLE,
 } from './role-types';
 
@@ -18,6 +19,7 @@ const getPermissionsId = () => [
   ADMIN_ROLE,
   STAFF_ROLE,
   RESTRICTED_STAFF_ROLE,
+  REPORT_ROLE,
   CHECKIN_APP_ROLE,
 ];
 
@@ -26,6 +28,7 @@ const defaultPermissions: Permissions = {
   description: 'Accès admin, aucune restriction, peut créer des comptes staff',
   editable: false,
   id: OWNER_ROLE,
+  appbarActions: true,
 
   checkin: false,
   offer: {
@@ -86,6 +89,30 @@ const CHECKIN_PERMISSION = {
     create: false,
   },
 };
+
+const REPORT_PERMISSION = {
+  ...defaultPermissions,
+  name: 'Reporting',
+  description: 'Accès seulement aux rapports.',
+  id: REPORT_ROLE,
+  editable: true,
+  navigation: false,
+  restrictedPaths: ['/reporting/'],
+  appbarActions: false,
+  member: {
+    create: false,
+    retrieve: false,
+    edit: false,
+    delete: false,
+    search: false,
+  },
+  offer: {
+    delete: false,
+    retrieve: false,
+    edit: false,
+    create: false,
+  },
+};
 const CHECKIN_APP_PERMISSION = {
   ...defaultPermissions,
   id: CHECKIN_APP_ROLE,
@@ -123,6 +150,8 @@ const getPermissionById = (id: number): Permissions => {
       return CHECKIN_APP_PERMISSION;
     case 4:
       return ADMIN_PERMISSION;
+    case 5:
+      return REPORT_PERMISSION;
     default:
       return defaultPermissions;
   }

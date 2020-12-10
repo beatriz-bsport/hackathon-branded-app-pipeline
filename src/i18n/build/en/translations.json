@@ -4935,7 +4935,11 @@
             "video_status": "Status",
             "level_activity": "Level",
             "sct_name": "Category",
-            "duration_second": "Duration (seconds)"
+            "duration_second": "Duration (seconds)",
+            "credit_price": "Price in credit",
+            "purchases": "Purchases",
+            "views_unique": "Unique views",
+            "views_total": "Views"
         },
         "yes": "Yes",
         "no": "No",

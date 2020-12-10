@@ -265,7 +265,7 @@
             "emailDesign": "Selecteer de te versturen e-mail",
             "event": "Evenement",
             "sendCopy": "Mezelf CC'en",
-            "active": "Geactiveerd"
+            "active": "Activeer"
         },
         "marketingNotification": {
             "birthday": "Verjaardagsmail"
@@ -529,7 +529,7 @@
             "choseDateTitle": "Factuurdatum"
         },
         "navigation": {
-            "coupon": "Aanbiedingen",
+            "coupon": "Promoties",
             "subscription": "Abonnementen",
             "myClub": "Mijn club",
             "settings": "Instellingen",
@@ -767,12 +767,12 @@
                 "cantAddSameName": "Er bestaat al een activiteit met dezelfde naam!"
             },
             "member": {
-                "referenceNumberHelper": "(optioneel) er zal automatisch een lidmaatschapsnummer aangemaakt worden als dit veld leeg is",
+                "referenceNumberHelper": "(optioneel) Een lid krijgt automatisch een lidmaatschapsnummer toegewezen als dit veld leeg is",
                 "referenceNumber": "Lidmaatschapsnummer",
-                "barcodeHelper": "(optioneel) gebruik deze streepjescode voor uw toegangskaart",
+                "barcodeHelper": "(optioneel) Je kunt deze streepjescode als toegangsbewijs gebruiken",
                 "barcode": "Streepjescode (cursuskaart)",
                 "birthdayYear": "Geboortejaar",
-                "rgpdTitle": "Ik accepteer communicatie over promoties, marketing, enz.",
+                "rgpdTitle": "Geaccepteerde communicatiemiddelen van het lid (o.a. promoties, marketing, etc.)",
                 "phone": "Telefoon",
                 "delete": {
                     "success": "Notitie verwijderd",
@@ -1296,7 +1296,7 @@
             "phoneMissing": "Nog geen telefoonnummer ingevoerd",
             "numberSms": "SMS",
             "contentSms": "Inhoud van de SMS",
-            "selectTemplate": "Selecteer een sjabloon",
+            "selectTemplate": "Selecteer een e-mail",
             "writeMail": "Schrijf een e-mail",
             "dialogTitle": "Communicatie"
         },
@@ -1583,7 +1583,7 @@
             "payment_date_date": "Betaaldatum",
             "product_price": "Productprijs",
             "total_price_notax": "Gefactureerd bedrag (excl. btw)",
-            "billing_date_start": "Datum van eerste facturering",
+            "billing_date_start": "Datum van de eerste facturering",
             "subshop_name": "Categorie",
             "payment_method": "Betaalmethode",
             "product": "Product",
@@ -1722,7 +1722,11 @@
             "level_activity": "Niveau",
             "video_status": "Status",
             "sct_name": "Categorie",
-            "duration_second": "Duur (in seconden)"
+            "duration_second": "Duur (in seconden)",
+            "credit_price": "Kosten in krediet(en)",
+            "purchases": "Aankopen",
+            "views_unique": "Unieke kijkers",
+            "views_total": "Bekeken op"
         },
         "report": {
             "delete_message": "Weet je zeker dat je dit rapport ({{name}}) wilt verwijderen?"
@@ -2019,7 +2023,7 @@
                 },
                 "until": "Tot ",
                 "startOnFirstUse": "De geldigheidsduur begint op de dag van de eerste reservering",
-                "startOnFirstUseHelper": "Anders begint het aftellen op de dag van facturering van de cursuskaart",
+                "startOnFirstUseHelper": "Anders begint het op de factureringsdatum",
                 "sports": "Categorie",
                 "notEditable": "Deze cursuskaart is het resultaat van een migratie. Sommige velden kunnen niet worden gewijzigd om de geschiedenis te respecteren. Compatibele activiteiten / categorieën blijven wijzigbaar.",
                 "maxPurchasePerMember": {
@@ -2737,7 +2741,7 @@
             },
             "statTitle": "Statistieken"
         },
-        "selectToShowPreview": "Selecteer een sjabloon",
+        "selectToShowPreview": "Selecteer een e-mail",
         "noSmartLists": "Voeg filters toe om je ledenbestand op specifieke voorwaarden te filteren. Vervolgens kun je je studio doelgericht vermarkten krijg je gelijk inzichten in je marketingcampagnes.",
         "delete": "Verwijderen",
         "edit": "Configureren"
@@ -2902,7 +2906,7 @@
         "restoreOffer": "Sessie herstellen"
     },
     "emailTemplate": {
-        "editTitle": "sjabloon bewerken",
+        "editTitle": "E-mail bewerken",
         "createTitle": "Nieuw sjabloon aanmaken",
         "modal": {
             "delete": {
@@ -2914,21 +2918,21 @@
         },
         "duplicate": "Dupliceren",
         "search": "Zoek een sjabloon",
-        "listTitle": "Mijn e-mailsjablonen",
+        "listTitle": "Mijn e-mails",
         "detail": "Gedetailleerde informatie",
-        "selectToShowPreview": "Selecteer een sjabloon",
+        "selectToShowPreview": "Selecteer een e-mail",
         "create": "Nieuwe e-mail ontwerpen",
-        "templateListEmpty": "Maak prachtige en unieke e-mails met onze Drag-&-Drop Editor om naar je leden te versturen. Momenteel zijn er nog geen sjablonen aangemaakt. Maak nu je eerste sjabloon.",
+        "templateListEmpty": "Eenvoudig prachtige en unieke e-mails vanuit BSPORT naar je leden versturen met onze geïntegreerde Drag-&-Drop Editor. Begin met het opstellen van je eerste e-mail!",
         "modification_date": "Laatste wijziging op",
         "subject": "Onderwerp e-mail:",
-        "preview": "Voorbeeld e-mail",
+        "preview": "Voorbeeld van de e-mail",
         "no_subject": "Geen onderwerp",
         "editor": {
             "error": {
                 "content": "Voer inhoud in de e-mail in",
                 "title": "Voer een naam in"
             },
-            "title": "Naam sjabloon",
+            "title": "Naam van sjabloon",
             "save": "Opslaan",
             "subject": "Onderwerp e-mail",
             "cancel": "Annuleren",
@@ -3079,7 +3083,7 @@
                 "consumerPacks": "Mijn cursuskaarten",
                 "contracts": "Abonnementen",
                 "paymentPacks": "Cursuskaarten",
-                "paymentCombos": "Aanbiedingen"
+                "paymentCombos": "Promoties"
             },
             "option": {
                 "registerOption": "Me op de wachtlijst inschrijven",
@@ -3551,7 +3555,7 @@
                 "register": "Schrijf een lid in",
                 "title": "Contracten",
                 "titleManagerOnly": "Contract niet te koop aanbieden",
-                "titleCustomerAvailable": "Contract te koop aanbieden"
+                "titleCustomerAvailable": "Beschikbare contracten"
             },
             "description": "Beschrijving",
             "legal": "Juridische kennisgeving",
@@ -3673,7 +3677,7 @@
                 "submit": "Opslaan"
             },
             "list": {
-                "titleNext": "Volgende afschrijving(en)"
+                "titleNext": "Opkomende afschrijvingen"
             }
         },
         "recap": {
@@ -4007,7 +4011,7 @@
             "account": {
                 "helpContent": "De link en de authenticatiemiddel van uw ActiveCampaign-account zijn toegankelijk in uw profielinstellingen door op het tabblad 'Developper' te klikken.",
                 "helpTitle": "Waar vind ik mijn profielgegevens?",
-                "title": "Toegangsinformatie tot uw ActiveCampaign API",
+                "title": "Toegangsinformatie tot je ActiveCampaign API",
                 "helper": "Waar vind ik deze informatie?",
                 "dialogTitle": "ActiveCampaign-profielgegevens",
                 "token": "Verificatiesleutel",
@@ -6042,7 +6046,7 @@
         "configuration": {
             "stripe_footer": "Voettekst factuur",
             "explainStripeFooter": "Deze tekst verschijnt onderaan uw facturen die in PDF zijn gepubliceerd. Voeg eventueel de juridische kennisgeving toe.",
-            "submit_stripe_footer": "Update",
+            "submit_stripe_footer": "Bijwerken",
             "forms": {
                 "stripe_footer_placeholder": "Geen aanvullende informatie"
             },
@@ -6270,7 +6274,7 @@
             "podcast": "Podcasts",
             "playlist": "Afspeellijsten",
             "video": "Videotheek",
-            "coupon": "Aanbiedingen",
+            "coupon": "Promoties",
             "contract": "Contracten",
             "subscription": "Automatische incasso's",
             "myClub": "Mijn club",
@@ -6380,8 +6384,8 @@
         },
         "paymentMethod": {
             "actions": {
-                "createCard": "Voeg creditcard toe",
-                "createSepa": "Voeg IBAN toe"
+                "createCard": "Creditcard toevoegen",
+                "createSepa": "IBAN toevoegen"
             },
             "sectionTitle": "Betaalmethoden"
         },

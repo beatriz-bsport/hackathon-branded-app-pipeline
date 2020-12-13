@@ -173,7 +173,8 @@
       "createBookingOption": "Liste d'attente",
       "reCreateBooking": "Réinscrire",
       "noQuickInvoiceOpened": "Aucune facturation ouverte",
-      "myOpenedInvoices": "Factures rapides",
+      "myOpenedInvoices": "Facturation rapide",
+      "unpaidInvoices": "Factures impayées",
       "manageOffer": "Gérer mes réservations",
       "restoreModal": {
         "title": "Restaurer la séance",
@@ -2621,6 +2622,7 @@
       "generalTermsOfUse": " conditions générales d'utilisation",
       "close": "Fermer"
     },
+    "returnedAmount": "Remboursé: ",
     "paymentMethod": {
       "0": "Carte bleue",
       "1": "Espèces",
@@ -2635,6 +2637,11 @@
       "11": "Divers",
       "12": "Litige",
       "13": "SEPA",
+      "20": "Bancontact",
+      "30": "Sofort",
+      "40": "iDEAL",
+      "50": "EPS",
+      "60": "Giropay",
       "label": "Moyen de paiement"
     },
     "actions": { "addThisPaymentItem": "Ajouter ce moyen de paiement" },
@@ -2651,15 +2658,68 @@
     }
   },
   "invoice": {
-    "creditAccountBalance": { "current": "Acompte actuel" },
+    "creditAccountBalance": { "current": "Solde actuel" },
     "invoice": {
       "title": "Facture {{ uuid }}",
-      "editor": { "title": "Edition de la facture" },
+      "titleRevert": "Avoir {{ uuid }}",
+      "editor": { "title": "Edition de la facture", "sumup": "Récapitulatif", "save": "Émettre la facture" },
       "header": {
         "date": "Date : {{ date }}",
         "author": "Créé par : {{ name }}",
         "clientAuthor": "Client",
+        "sourceInvoice": "Annule la facture",
+        "reverseInvoice": "Remboursé via ",
         "source": { "0": "App", "1": "Web", "2": "Backoffice", "3": "Autre", "label": "Canal : {{ source }}" }
+      }
+    },
+    "paymentEngine": { "label": { "0": "Paiement manuel", "1": "Paiement en ligne" } },
+    "paymentMethod": {
+      "select": { "label": "Moyen de paiement" },
+      "label": {
+        "0": "Espèces",
+        "1": "Carte bleue",
+        "2": "SEPA",
+        "3": "Chèque",
+        "4": "Chèque vacances",
+        "5": "AMEX",
+        "6": "Litige",
+        "7": "Virement",
+        "8": "Divers",
+        "9": "Bancontact",
+        "10": "iDEAL",
+        "11": "Sofort",
+        "12": "EPS",
+        "13": "Giropay",
+        "15": "Carte bleue (manuel)"
+      }
+    },
+    "paymentPanel": {
+      "amountRemaining": "Reste à payer: {{ amount }}",
+      "amount": { "label": "Montant à encaisser" },
+      "paymentNote": { "label": "Note", "helperText": "(optionnel) numéro du chèque, date d'encaissement..." },
+      "date": { "label": "Date d'encaissement" },
+      "sumup": {
+        "title": "Récapitulatif",
+        "amountDue": "Total dû",
+        "amountPaid": "Encaissement",
+        "amountRemaining": "Reste à payer"
+      },
+      "actions": {
+        "bill": "Encaisser",
+        "pay": "Régler cette facture",
+        "revert": "Annuler",
+        "cancel": "Annuler",
+        "payAll": "Régler la dette client",
+        "confirmPayment": "Confirmer le paiement",
+        "showInvoice": "Voir la facture",
+        "saveForLater": "Sauvegarder ce moyen de paiement",
+        "saveForLaterAsSEPA": "Le mandat sera enregistré en tant que \"SEPA\""
+      },
+      "paymentList": { "title": "Paiements", "titleReverse": "Remboursement", "isEmpty": "Aucun paiement" },
+      "fields": {
+        "accountHolderName": { "label": "Titulaire du compte", "placeholder": "Marie Dupont" },
+        "email": { "label": "Email du titulaire du compte", "placeholder": "marie@dupont.fr" },
+        "country": { "label": "Pays du compte bancaire", "placeholder": "France" }
       }
     },
     "invoiceInfoDialog": {
@@ -2671,6 +2731,18 @@
       "invoiceFromSubscriptionThusNotEditable": "Cette facture fait partie d'une souscription et n'est donc pas éditable, veuillez modifier directement la souscription",
       "invoiceFinalizedThusNotEditable": "La facture a été finalisée et n'est donc plus modifiable"
     },
+    "balance": {
+      "updaterDialog": {
+        "title": "Ajustement de solde",
+        "typeLabel": "Type d'ajustement",
+        "balanceValueLabel": "Montant",
+        "explainDecaissement": "Un décaissement de {{ amount }} € sera enregistré.",
+        "explainTopup": "Une augmentation de {{ amount }} € sera enregistré au solde du membre.",
+        "debt": "Décaissement",
+        "topup": "Encaissement",
+        "actions": { "submit": "Suivant", "cancel": "Annuler" }
+      }
+    },
     "actions": {
       "invoiceReverted": "Facture annulée",
       "revert": "Annuler",
@@ -2681,7 +2753,8 @@
       "addInvoiceItem": "Ajouter à la facture",
       "equilibrate": "Equilibrer (acompte)",
       "download": "Télécharger PDF",
-      "finalize": "Finaliser (PDF)"
+      "finalize": "Finaliser (PDF)",
+      "consumeBalance": "Payer via solde"
     },
     "returnPayment": {
       "modal": {
@@ -2707,8 +2780,42 @@
       "voucher": "Réduction: {{ voucher }} €"
     },
     "section": {
-      "invoiceItemList": { "title": "Achats", "isEmpty": "Aucun achat", "total": "Total achat" },
+      "invoiceItemList": { "title": "Achats", "titleReverse": "Retour achat", "isEmpty": "Aucun achat", "total": "Total achat" },
       "paymentList": { "title": "Moyens de paiement", "isEmpty": "Aucun moyen de paiement enregistré", "total": "Total paiement" }
+    },
+    "table": {
+      "actions": { "goToInvoice": "Voir la facture" },
+      "header": {
+        "member": "Membre",
+        "id": "Identifiant",
+        "date": "Date de facturation",
+        "amount": "Montant dû",
+        "missing": "Restant dû",
+        "pdf": "PDF"
+      },
+      "nested": {
+        "invoiceItem": {
+          "title": "Achats",
+          "isEmpty": "Aucun achat",
+          "header": { "product": "Nom", "price": "Montant TTC", "priceExcTax": "Montant HT", "voucher": "Dont réduction" }
+        },
+        "payment": {
+          "title": "Paiement",
+          "isEmpty": "Aucun paiement",
+          "header": { "paymentMethod": "Méthode de paiement", "price": "Montant", "date": "Date", "paymentReceived": "Status" }
+        }
+      }
+    },
+    "revert": {
+      "dialog": { "actions": { "cancel": "Annuler", "confirm": "Rembourser" }, "title": "Annulation facture" },
+      "content": {
+        "label": { "0": "Remboursement direct", "1": "Remboursement en avoir (solde)", "2": "Remboursement manuel" },
+        "explain": {
+          "0": "Les paiements carte bleue / SEPA / etc... seront reversé directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.",
+          "1": "Un avoir sera généré et incrémentera d'autant le solde client. Utilisez cette méthode pour générer un avoir.",
+          "2": "Choisissez vous-même le moyen de remboursement. Utilisez cette méthode pour un remboursement chèque / virement manuel / espèces."
+        }
+      }
     }
   },
   "snackbar": {
@@ -3194,6 +3301,7 @@
       "payments": "Paiements",
       "products": "Products",
       "invoices": "Achats",
+      "unpaid_invoices": "Factures impayées",
       "memberships": "Cartes de cours",
       "basket": "Panier",
       "credit": "Crédit",
@@ -3223,8 +3331,13 @@
       "nb_bookings": "Nombre de réservation",
       "nb_offers": "Nombre de séances",
       "birthday": "Date de naissance",
+      "stripe_invoice_pdf": "PDF",
       "full_address": "Adresse complète",
       "nb_offers_cancelled": "Nombre de séances annulées",
+      "author_name": "Auteur",
+      "amount_due_cts": "Montant achat",
+      "amount_paid_cts": "Montant payé",
+      "amount_unpaid_remaining_cts": "Restant dû",
       "private_slot_name": "Séance",
       "amount": "Gain de la journée",
       "date_last_update": "Date",
@@ -3873,6 +3986,9 @@
   "member": {
     "search": { "createMember": "Ajouter un membre", "cancel": "Fermer" },
     "name": "Nom",
+    "unpaidInvoiceTitle": "Facture impayée",
+    "unpaidInvoiceTitle_plural": "Factures impayées",
+    "adjustBalance": "Ajuster le solde",
     "table": { "show": "Voir" },
     "date_joined": "Date d'inscription",
     "invoiceTitle": "Factures",
@@ -3917,8 +4033,9 @@
       "drop_file": "Glisser et déposer ou cliquer pour ajouter un document"
     },
     "regularizeBalance": "Régulariser",
+    "applyBalanceToUnpaidInvoices": "Appliquer le solde aux impayés",
     "cashoutBalance": "Décaisser",
-    "creditAccountBalance": "Acompte crédit restant",
+    "creditAccountBalance": "Solde client",
     "showPaymentPack": "Voir les cartes de cours",
     "showInvoices": "Voir les factures",
     "showSubscriptions": "Voir les souscriptions",
@@ -4376,8 +4493,8 @@
     "filterCategory": { "1": "Informations membre", "2": "Cartes de cours", "3": "Réservations", "4": "Achats" },
     "filters": {
       "1": {
-        "name": "Acompte",
-        "first": "L'acompte du client est",
+        "name": "Dette",
+        "first": "Le solde du client, soustrait des factures impayées, est",
         "second": " à   ",
         "third": "euros",
         "explanation": "A X euros sur son compte",

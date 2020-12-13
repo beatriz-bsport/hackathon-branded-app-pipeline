@@ -156,6 +156,9 @@ const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  menuItem: {
+    minWidth: 180,
+  },
   flag: {
     width: (297 / 210) * 15,
     height: 15,

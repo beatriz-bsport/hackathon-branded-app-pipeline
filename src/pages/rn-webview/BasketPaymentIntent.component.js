@@ -9,7 +9,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import PaymentByCardStripe from '../../libs/payment/components/payment-backend-stripe/PaymentByCard.component';
+import PaymentByCardStripe from '../../libs/payment/components/payment-backend-stripe-deprecated/PaymentByCard.component';
 import { attachPaymentToBasketId as attachPaymentAction } from '../../libs/checkout/actions';
 import { fetchPaymentMethodList } from '../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';

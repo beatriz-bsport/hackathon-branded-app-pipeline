@@ -4,7 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 import InvoiceItem from './InvoiceItem.component';
 import PaymentItem from './PaymentItem.component';
@@ -17,8 +20,13 @@ type Props = {
   amountInvoiceitem: number,
   amountPaymentItem: number,
   returnPayment: (uuid: string) => void,
+  finalizeInvoice: () => void,
   updatePaymentMethod: (uuid: string, paymentMethodId: number) => void,
   isReturningPayment: boolean,
+
+  invoice: ?Invoice,
+  invoiceItemLoading: boolean,
+  invoiceItemList: Array<InvoiceItem>,
 };
 export const InvoiceContent = (props: Props) => {
   const classes = useStyles(props);
@@ -30,14 +38,24 @@ export const InvoiceContent = (props: Props) => {
   } = props;
   const { t } = useTranslation(['invoice']);
 
+  const is_reverse = props.invoice && props.invoice.source_invoice;
+
   return (
     <div className={classes.container}>
       <Paper className={classes.paperContainer}>
         <div className={classes.section}>
           <Typography variant="h6" className={classes.sectionTitle}>
-            {t('section.invoiceItemList.title')}
+            {t(
+              is_reverse
+                ? 'section.invoiceItemList.titleReverse'
+                : 'section.invoiceItemList.title',
+            )}
           </Typography>
-          <Divider className={classes.divider} />
+          {props.invoiceItemLoading ? (
+            <LinearProgress className={classes.divider} />
+          ) : (
+            <Divider className={classes.divider} />
+          )}
           {invoiceItemList.map((ii) => (
             <div>
               <InvoiceItem
@@ -47,7 +65,7 @@ export const InvoiceContent = (props: Props) => {
               />
             </div>
           ))}
-          {!invoiceItemList.length && (
+          {!props.invoiceItemLoading && !invoiceItemList.length && (
             <div className={classes.isEmptyContainer}>
               <Typography variant="caption">
                 {t('section.invoiceItemList.isEmpty')}
@@ -65,49 +83,71 @@ export const InvoiceContent = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className={classes.section}>
-          <div className={classes.sectionTitle}>
-            <Typography variant="h6">
-              {t('section.paymentList.title')}
-            </Typography>
-          </div>
-          <Divider className={classes.divider} />
-          {props.paymentItemList.map((p) => (
-            <PaymentItem
-              paymentItem={p}
-              returnPayment={props.returnPayment}
-              isReturningPayment={props.isReturningPayment}
-              handleChangeMethod={props.updatePaymentMethod}
-              onDelete={() => removePaymentItem(p.id)}
-              key={p.uuid}
-            />
-          ))}
-          {!paymentItemList.length && (
-            <div className={classes.isEmptyContainer}>
-              <Typography variant="caption">
-                {t('section.paymentList.isEmpty')}
+        {!!props.invoice && !props.invoice.is_v2 && (
+          <div className={classes.section}>
+            <div className={classes.sectionTitle}>
+              <Typography variant="h6">
+                {t('section.paymentList.title')}
               </Typography>
             </div>
-          )}
-          <div className={classes.sumUp}>
-            <div className={classes.sumUpInnerInvoiceItem}>
-              <Typography variant="h6" component="p">
-                {t('section.paymentList.total')}
-              </Typography>
-              <Typography
-                color={
-                  props.amountPaymentItem < props.amountInvoiceitem
-                    ? 'error'
-                    : ''
-                }
-                variant="h5"
-              >
-                {`${props.amountPaymentItem} €`}
-              </Typography>
+            <Divider className={classes.divider} />
+            {!!paymentItemList &&
+              paymentItemList.map((p) => (
+                <PaymentItem
+                  paymentItem={p}
+                  returnPayment={props.returnPayment}
+                  isReturningPayment={props.isReturningPayment}
+                  handleChangeMethod={props.updatePaymentMethod}
+                  onDelete={() => removePaymentItem(p.id)}
+                  key={p.uuid}
+                />
+              ))}
+            {!paymentItemList ||
+              (!paymentItemList.length && (
+                <div className={classes.isEmptyContainer}>
+                  <Typography variant="caption">
+                    {t('section.paymentList.isEmpty')}
+                  </Typography>
+                </div>
+              ))}
+            <div className={classes.sumUp}>
+              <div className={classes.sumUpInnerInvoiceItem}>
+                <Typography variant="h6" component="p">
+                  {t('section.paymentList.total')}
+                </Typography>
+                <Typography
+                  color={
+                    props.amountPaymentItem < props.amountInvoiceitem
+                      ? 'error'
+                      : ''
+                  }
+                  variant="h5"
+                >
+                  {`${props.amountPaymentItem || 0} €`}
+                </Typography>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </Paper>
+      {!!props.finalizeInvoice && (
+        <div className={classes.buttonRow}>
+          <Button
+            onClick={() => {
+              if (props.invoice.stripe_invoice_pdf) {
+                window.open(props.invoice.stripe_invoice_pdf);
+              } else {
+                props.finalizeInvoice();
+              }
+            }}
+            color="primary"
+            variant="contained"
+          >
+            <AttachFileIcon className={classes.iconLeft} />
+            {t('actions.download')}
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
@@ -122,6 +162,13 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
   },
   isEmptyContainer: { marginLeft: theme.spacing(3) },
+  iconLeft: {
+    marginRight: theme.spacing(1),
+  },
+  buttonRow: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
   sumUp: {
     display: 'flex',
     flexDirection: 'row',

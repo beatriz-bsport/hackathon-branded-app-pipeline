@@ -90,7 +90,7 @@ export default class FacebookPixel {
 
   static onPaymentSuccess(basket) {
     try {
-      fbq('track', 'Purchase', { currency: 'EUR', value: basket.totalPrice });
+      fbq('track', 'Purchase', { currency: 'EUR', value: basket.total_price });
     } catch (e) {
       console.error(e);
     }

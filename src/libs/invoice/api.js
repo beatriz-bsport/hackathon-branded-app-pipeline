@@ -64,8 +64,8 @@ export async function fetchConfiguration() {
   return getAuth(`${API_V1_URI}/payment/configuration/me/`);
 }
 
-export async function revert(uuid: string) {
-  return postAuth(`${API_V1_URI}/payment/invoices/${uuid}/revert/`, {});
+export async function revert(uuid: string, params: any = {}) {
+  return postAuth(`${API_V1_URI}/payment/invoices/${uuid}/revert/`, params);
 }
 
 export async function returnPayment(uuid: string) {
@@ -100,6 +100,28 @@ export async function fetchInvoiceItemList(params: * = {}) {
 export async function checkInvoiceInfo(uuid: string) {
   return getAuth(`${API_V1_URI}/payment/invoices/${uuid}/info/`);
 }
+
+export async function allocateDebtToInvoice(uuid: string) {
+  return postAuth(`${API_V1_URI}/payment/invoices/${uuid}/allocate_debt/`);
+}
+
+export async function applyBalanceToUnpaid(member: number) {
+  return postAuth(`${API_V1_URI}/payment/invoices/apply_balance_to_unpaid/`, {
+    member,
+  });
+}
+
+export async function requestClientSecret(
+  payment_engine_identifier: number,
+  payment_intent_type: number,
+  params: any = {},
+) {
+  return postAuth(
+    `${API_V1_URI}/payment/payment_group/request_client_secret/`,
+    { payment_engine_identifier, payment_intent_type, ...(params || {}) },
+  );
+}
+
 export default {
   fetchAll,
   fetchSpecific,

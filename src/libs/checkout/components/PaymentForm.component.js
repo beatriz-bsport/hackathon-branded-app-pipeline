@@ -16,7 +16,7 @@ import PAYMENT_METHODS, {
   CB as PAYMENT_METHOD_STRIPE_PAYMENT_INTENT,
 } from '@bsport/common/lib/master-data/payment-methods';
 
-import PaymentByCardStripe from '../../payment/components/payment-backend-stripe/PaymentByCard.component';
+import PaymentByCardStripe from '../../payment/components/payment-backend-stripe-deprecated/PaymentByCard.component';
 import PaymentByCredit from '../../payment/components/PaymentByCredit.component';
 
 type Props = {

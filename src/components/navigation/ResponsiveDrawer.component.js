@@ -113,6 +113,7 @@ type Props = {
   onSpotPaymentReportId: number,
   handleOpenOnSpotPaymentReport: () => void,
   fetchOnSpotPaymentReport: () => void,
+  showActions: boolean,
 };
 
 type State = {

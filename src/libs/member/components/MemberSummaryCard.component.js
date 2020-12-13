@@ -46,14 +46,12 @@ const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
 
 type Props = {
-  hideCreditAccount?: boolean,
   editMember: () => void,
   mergeMember: () => void,
   goToMember: () => void,
   member: Member,
   t: TFunction,
   classes: Object,
-  goToCreditRegularization: () => void,
   hideContactButton: ?boolean,
   showTermsAndConditions: boolean,
   setShowTermsAndConditions: (boolean) => void,
@@ -291,43 +289,6 @@ export class MemberSummaryCard extends Component<Props> {
     );
   };
 
-  renderAccount = () => {
-    let color = 'secondary';
-    const { member, t, classes } = this.props;
-    const parsedBalance = parseFloat(member.credit_account_balance);
-    if (parsedBalance > 0) {
-      color = 'primary';
-    }
-    if (parsedBalance < 0) {
-      color = 'error';
-    }
-
-    return (
-      <div className={classes.accountBalanceBloc}>
-        <div className={classes.accountBalance}>
-          <Typography variant="subtitle2" inline>
-            {t('payment.creditAccountBalance')}
-          </Typography>
-          <Typography inline variant="h6" component="span" color={color}>
-            {` ${member.credit_account_balance} €`}
-          </Typography>
-        </div>
-        {parsedBalance !== 0 && !!this.props.goToCreditRegularization ? (
-          <Button
-            color="primary"
-            onClick={this.props.goToCreditRegularization}
-            variant="outlined"
-            className={classes.regularize}
-          >
-            {parsedBalance < 0
-              ? t('member:regularizeBalance')
-              : t('member:cashoutBalance')}
-          </Button>
-        ) : null}
-      </div>
-    );
-  };
-
   renderTermsAndConditions = () => {
     const {
       general_terms_and_conditions_date_accepted,
@@ -393,7 +354,6 @@ export class MemberSummaryCard extends Component<Props> {
               {this.renderNotificationSettings()}
               {this.renderTermsAndConditions()}
             </div>
-            {!this.props.hideCreditAccount && this.renderAccount()}
           </Paper>
           <Dialog
             open={this.state.displayBarcodeDialog}

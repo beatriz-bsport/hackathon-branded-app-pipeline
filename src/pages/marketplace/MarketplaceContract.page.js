@@ -5,7 +5,7 @@ import { compose, withProps, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
-import { Elements, StripeProvider } from 'react-stripe-elements';
+import { Elements } from '@stripe/react-stripe-js';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Collapse from '@material-ui/core/Collapse';
 import Dialog from '@material-ui/core/Dialog';
@@ -21,6 +21,7 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
+import { loadStripe } from '@stripe/stripe-js';
 import Config from '../../config';
 
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
@@ -66,6 +67,8 @@ type Props = {
 };
 
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
+
+const stripePromise = loadStripe(STRIPE_KEY);
 
 export class MarketplaceContract extends React.Component<Props> {
   state = {
@@ -163,28 +166,26 @@ export class MarketplaceContract extends React.Component<Props> {
           open={this.props.selected && this.props.paymentDialogOpen}
         >
           <DialogContent>
-            <StripeProvider apiKey={STRIPE_KEY}>
-              <Elements>
-                <SubscriptionPayment
-                  onCancel={() => this.props.setPaymentDialogOpen(false)}
-                  onSubmit={this.onSubmit}
-                  processing={this.state.processing}
-                  requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-                  savedPaymentMethodList={this.props.savedPaymentMethodList}
-                  withCoupon
-                  contract={this.props.contractList.find(
-                    (c) => c.id === this.props.selected,
-                  )}
-                  refreshSavedPaymentMethodList={
-                    this.props.fetchPaymentMethodList
-                  }
-                  enabledPaymentMethods={[
-                    BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-                    BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-                  ]}
-                />
-              </Elements>
-            </StripeProvider>
+            <Elements stripe={stripePromise}>
+              <SubscriptionPayment
+                onCancel={() => this.props.setPaymentDialogOpen(false)}
+                onSubmit={this.onSubmit}
+                processing={this.state.processing}
+                requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+                savedPaymentMethodList={this.props.savedPaymentMethodList}
+                withCoupon
+                contract={this.props.contractList.find(
+                  (c) => c.id === this.props.selected,
+                )}
+                refreshSavedPaymentMethodList={
+                  this.props.fetchPaymentMethodList
+                }
+                enabledPaymentMethods={[
+                  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+                  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+                ]}
+              />
+            </Elements>
           </DialogContent>
         </Dialog>
       </div>

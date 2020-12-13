@@ -5,7 +5,8 @@
     "plugin:react/recommended",
     "airbnb",
     "plugin:flowtype/recommended",
-    "plugin:i18next/recommended"
+    "plugin:i18next/recommended",
+    "plugin:react-hooks/recommended"
   ],
   "env": {
     "browser": true,

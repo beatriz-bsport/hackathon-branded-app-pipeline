@@ -1,17 +1,20 @@
 // @flow
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { injectStripe, Elements, StripeProvider } from 'react-stripe-elements';
+import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';
 import { withState, compose, withHandlers } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import WarningIcon from '@material-ui/icons/Warning';
 import Typography from '@material-ui/core/Typography';
+import { loadStripe } from '@stripe/stripe-js';
 import { getOnboardingLink as getOnboardingLinkAPI } from '../../libs/company/api';
 
 import Config from '../../config';
 
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
+
+const stripePromise = loadStripe(STRIPE_KEY);
 
 type Props = {
   stripe: Stripe,
@@ -64,7 +67,6 @@ const styles = (theme) => ({
 });
 
 const CompanyOnboardingSettingPageComposed = compose(
-  injectStripe,
   withStyles(styles),
   withTranslation(['settings']),
   withState('error', 'setError', null),
@@ -82,9 +84,15 @@ const CompanyOnboardingSettingPageComposed = compose(
 )(CompanyOnboardingSettingPage);
 
 export default (props: Props) => (
-  <StripeProvider apiKey={STRIPE_KEY}>
-    <Elements>
-      <CompanyOnboardingSettingPageComposed {...props} />
-    </Elements>
-  </StripeProvider>
+  <Elements stripe={stripePromise}>
+    <ElementsConsumer>
+      {({ stripe, elements }) => (
+        <CompanyOnboardingSettingPageComposed
+          stripe={stripe}
+          elements={elements}
+          {...props}
+        />
+      )}
+    </ElementsConsumer>
+  </Elements>
 );

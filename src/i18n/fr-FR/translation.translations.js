@@ -204,7 +204,8 @@ exports.default = {
     createBookingOption: "Liste d'attente",
     reCreateBooking: 'Réinscrire',
     noQuickInvoiceOpened: 'Aucune facturation ouverte',
-    myOpenedInvoices: 'Factures rapides',
+    myOpenedInvoices: 'Facturation rapide',
+    unpaidInvoices: 'Factures impayées',
     manageOffer: 'Gérer mes réservations',
     restoreModal: {
       title: 'Restaurer la séance',

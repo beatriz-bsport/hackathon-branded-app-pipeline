@@ -20,25 +20,17 @@ import {
   revertInvoice,
   fetchSpecificInvoice,
   returnPayment,
-  updatePaymentMethod,
+  updatePaymentMethod as updatePaymentMethodActions,
   fetchPaymentList,
   fetchInvoiceItemList,
   finalizeInvoice,
   checkInvoiceInfo as checkInvoiceInfoActions,
 } from '../../libs/invoice/actions';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
-import {
-  getInvoice,
-  withMember,
-  withAuthor,
-  withPayment,
-  withInvoiceItem,
-  getBuyableItem,
-} from '../../libs/invoice/selectors';
+import { getBuyableItem } from '../../libs/invoice/selectors';
 import { fetchCompanyRoles } from '../../libs/role/actions';
 import withTitle from '../../hocs/with-title.hoc';
 import { formatAsDate } from '../../datetime';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchMember } from '../../libs/member/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
@@ -208,9 +200,13 @@ export class InvoiceFormPage extends Component<Props, State> {
           open={this.state.revertDialogOpen}
           hasSubscription={!!invoice.plannedinvoice}
           onSubmit={() => {
-            this.props.revertInvoice(this.props.uuid, {
-              onSuccess: this.fetchData,
-            });
+            this.props.revertInvoice(
+              this.props.uuid,
+              {},
+              {
+                onSuccess: this.fetchData,
+              },
+            );
             this.setState({ revertDialogOpen: false });
           }}
           onClose={() => this.setState({ revertDialogOpen: false })}
@@ -235,15 +231,9 @@ export default compose(
   withTranslation(),
   withStyles(styles),
   withRouter,
-  routerParamsToProps({ id: 'uuid' }),
   connect(
-    (state, { uuid }) => ({
-      invoiceLoading: state.invoice.loadingSpecific,
+    (state) => ({
       memberLoading: state.member.loading,
-      invoice: withAuthor(withMember(withInvoiceItem(withPayment(getInvoice))))(
-        state,
-        uuid,
-      ),
       updatingInvoice: state.invoice.createOrUpdatePending,
       permission: getPermissions(state),
       isReturningPayment: state.invoice.returnPayment.loading,
@@ -267,7 +257,7 @@ export default compose(
       finalizeInvoice,
       fetchInvoice: fetchSpecificInvoice,
       returnPayment,
-      updatePaymentMethod,
+      updatePaymentMethod: updatePaymentMethodActions,
       fetchPaymentMethodList,
     },
   ),
@@ -275,6 +265,17 @@ export default compose(
     memberId: invoice && invoice.member && invoice.member.id,
   })),
   withHandlers({
+    updatePaymentMethod: ({ updatePaymentMethod }) => (
+      paymentUuid,
+      newMethod,
+      options,
+    ) =>
+      updatePaymentMethod(paymentUuid, newMethod, {
+        onSuccess: (payment) => {
+          if (options && options.onSuccess) options.onSuccess(payment);
+        },
+        onError: options && options.onError,
+      }),
     requestSetupIntentSecret: ({ memberId }) => () =>
       requestSetupIntentSecretAPI(memberId),
     updateInvoice: ({

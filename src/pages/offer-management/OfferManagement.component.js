@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import { Prompt } from 'react-router-dom';
 import moment from 'moment-timezone';
+import uniqBy from 'lodash/uniqBy';
 
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Grid from '@material-ui/core/Grid';
@@ -54,8 +55,10 @@ type Props = {
   bookingOptionsPending: Array<BookingOption>,
   bookings: Array<Booking>,
   compatiblePacks: Array<PaymentPack>,
-  unevenSavedInvoices: Array<Invoice>,
   permission: Permission,
+
+  unpaidInvoiceList: Array<Invoice>,
+  fetchInvoice: () => void,
 
   fetchPrivatePassList: () => void,
   fetchPaymentComboList: () => void,
@@ -166,6 +169,7 @@ type State = {
 export class OfferManagement extends Component<Props, State> {
   state = {
     quickInvoices: [],
+    unpaidInvoiceList: [],
   };
 
   componentWillMount() {
@@ -193,14 +197,12 @@ export class OfferManagement extends Component<Props, State> {
     }
   }
 
-  closeQuickInvoice = (memberId: number, invoiceData: any) => {
-    if ((invoiceData.invoiceItems || { offers: [] }).offers.length === 0) {
-      this.setState((prevState: State) => ({
-        quickInvoices: prevState.quickInvoices.filter(
-          (qi) => qi.memberId !== memberId,
-        ),
-      }));
-    }
+  closeQuickInvoice = (memberId: number) => {
+    this.setState((prevState: State) => ({
+      quickInvoices: prevState.quickInvoices.filter(
+        (qi) => qi.memberId !== memberId,
+      ),
+    }));
   };
 
   registerToOffer = (
@@ -220,6 +222,7 @@ export class OfferManagement extends Component<Props, State> {
           offerId,
           keep_credits,
           notify_member,
+          is_v2: true,
           memberId,
           voucher,
         },
@@ -246,9 +249,17 @@ export class OfferManagement extends Component<Props, State> {
     this.props.setMemberToRegister(null);
   };
 
-  createInvoice = (invoiceData: any, memberId: number) => {
-    this.props.createInvoice(invoiceData, memberId, null, this.props.offerId);
-    this.closeQuickInvoice(memberId, invoiceData);
+  createInvoice = (invoiceData: any, options: OptionCallback) => {
+    this.props.createInvoice(invoiceData, this.props.offerId, {
+      onSuccess: (invoice) => {
+        this.setState((prevState) => ({
+          unpaidInvoiceList: [invoice, ...prevState.unpaidInvoiceList],
+        }));
+        this.closeQuickInvoice(invoice.member);
+        if (options && options.onSuccess) options.onSuccess(invoice);
+      },
+      onError: options && options.onError,
+    });
   };
 
   createMember = (data: *, options: OptionCallback) => {
@@ -461,7 +472,6 @@ export class OfferManagement extends Component<Props, State> {
             members={this.props.members}
             permission={this.props.permission}
             company_theme={this.props.company_theme}
-            unevenSavedInvoices={this.props.unevenSavedInvoices}
             bookingOptionsPending={this.props.bookingOptionsPending}
             openMailDialog={this.props.openCommunicationDialog}
             searchedText={this.props.searchedText}
@@ -500,16 +510,23 @@ export class OfferManagement extends Component<Props, State> {
             )}
 
           <QuickInvoicePanel
-            unevenSavedInvoices={this.props.unevenSavedInvoices}
+            unevenSavedInvoices={uniqBy(
+              [
+                ...this.state.unpaidInvoiceList,
+                ...this.props.unpaidInvoiceList,
+              ],
+              'uuid',
+            )}
             revertQuickInvoice={this.props.revertQuickInvoiceAndRefreshOffer}
             quickInvoices={this.state.quickInvoices}
             createInvoice={this.createInvoice}
             closeQuickInvoice={this.closeQuickInvoice}
             availableBuyableItems={this.props.availableBuyableItems}
             className={classes.autoScroll}
+            refreshInvoice={this.props.fetchInvoice}
           />
           <Prompt
-            when={this.props.unevenSavedInvoices.length > 0}
+            when={this.state.unpaidInvoiceList.length > 0}
             message={this.props.t('offerManagement.unevenQuickInvoices')}
           />
         </Grid>

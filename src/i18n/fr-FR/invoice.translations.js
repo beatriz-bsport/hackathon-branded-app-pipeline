@@ -11,24 +11,128 @@ const {
   SOURCE_SAAS,
   SOURCE_OTHER,
 } = require('@bsport/common/lib/master-data/source-device');
+const {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CHECK,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_HOLIDAY_CHECK,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_AMEX,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_DISPUTE,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_TRANSFER,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_OTHER,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB_MANUAL,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_EPS,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY,
+  PAYMENT_ENGINE_STRIPE,
+  PAYMENT_ENGINE_BSPORT,
+  REVERSE_ON_PAYMENT_METHOD,
+  REVERSE_ON_DEBT,
+  REVERSE_ON_NEW_PAYMENT_METHOD,
+} = require('@bsport/common/lib/master-data/payment-group');
 
 exports.default = {
-  creditAccountBalance: { current: 'Acompte actuel' },
+  creditAccountBalance: { current: 'Solde actuel' },
   invoice: {
     title: 'Facture {{ uuid }}',
+    titleRevert: 'Avoir {{ uuid }}',
     editor: {
       title: 'Edition de la facture',
+      sumup: 'Récapitulatif',
+      save: 'Émettre la facture',
     },
     header: {
       date: 'Date : {{ date }}',
       author: 'Créé par : {{ name }}',
       clientAuthor: 'Client',
+      sourceInvoice: 'Annule la facture',
+      reverseInvoice: 'Remboursé via ',
       source: {
         label: 'Canal : {{ source }}',
         [SOURCE_APP]: 'App',
         [SOURCE_WEB]: 'Web',
         [SOURCE_SAAS]: 'Backoffice',
         [SOURCE_OTHER]: 'Autre',
+      },
+    },
+  },
+  paymentEngine: {
+    label: {
+      [PAYMENT_ENGINE_STRIPE]: 'Paiement en ligne',
+      [PAYMENT_ENGINE_BSPORT]: 'Paiement manuel',
+    },
+  },
+  paymentMethod: {
+    select: {
+      label: 'Moyen de paiement',
+    },
+    label: {
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: 'Carte bleue',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB_MANUAL]: 'Carte bleue (manuel)',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_CHECK]: 'Chèque',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_HOLIDAY_CHECK]: 'Chèque vacances',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_CASH]: 'Espèces',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_AMEX]: 'AMEX',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_DISPUTE]: 'Litige',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_TRANSFER]: 'Virement',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_OTHER]: 'Divers',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA]: 'SEPA',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT]: 'Bancontact',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL]: 'iDEAL',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT]: 'Sofort',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_EPS]: 'EPS',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY]: 'Giropay',
+    },
+  },
+  paymentPanel: {
+    amountRemaining: 'Reste à payer: {{ amount }}',
+    amount: {
+      label: 'Montant à encaisser',
+    },
+    paymentNote: {
+      label: 'Note',
+      helperText: "(optionnel) numéro du chèque, date d'encaissement...",
+    },
+    date: {
+      label: "Date d'encaissement",
+    },
+    sumup: {
+      title: 'Récapitulatif',
+      amountDue: 'Total dû',
+      amountPaid: 'Encaissement',
+      amountRemaining: 'Reste à payer',
+    },
+    actions: {
+      bill: 'Encaisser',
+      pay: 'Régler cette facture',
+      revert: 'Annuler',
+      cancel: 'Annuler',
+      payAll: 'Régler la dette client',
+      confirmPayment: 'Confirmer le paiement',
+      showInvoice: 'Voir la facture',
+      saveForLater: 'Sauvegarder ce moyen de paiement',
+      saveForLaterAsSEPA: 'Le mandat sera enregistré en tant que "SEPA"',
+    },
+    paymentList: {
+      title: 'Paiements',
+      titleReverse: 'Remboursement',
+      isEmpty: 'Aucun paiement',
+    },
+    fields: {
+      accountHolderName: {
+        label: 'Titulaire du compte',
+        placeholder: 'Marie Dupont',
+      },
+      email: {
+        label: 'Email du titulaire du compte',
+        placeholder: 'marie@dupont.fr',
+      },
+      country: {
+        label: 'Pays du compte bancaire',
+        placeholder: 'France',
       },
     },
   },
@@ -48,6 +152,22 @@ exports.default = {
     invoiceFinalizedThusNotEditable:
       "La facture a été finalisée et n'est donc plus modifiable",
   },
+  balance: {
+    updaterDialog: {
+      title: 'Ajustement de solde',
+      typeLabel: "Type d'ajustement",
+      balanceValueLabel: 'Montant',
+      explainDecaissement: 'Un décaissement de {{ amount }} € sera enregistré.',
+      explainTopup:
+        'Une augmentation de {{ amount }} € sera enregistré au solde du membre.',
+      debt: 'Décaissement',
+      topup: 'Encaissement',
+      actions: {
+        submit: 'Suivant',
+        cancel: 'Annuler',
+      },
+    },
+  },
   actions: {
     invoiceReverted: 'Facture annulée',
     revert: 'Annuler',
@@ -59,6 +179,7 @@ exports.default = {
     equilibrate: 'Equilibrer (acompte)',
     download: 'Télécharger PDF',
     finalize: 'Finaliser (PDF)',
+    consumeBalance: 'Payer via solde',
   },
   returnPayment: {
     modal: {
@@ -99,6 +220,7 @@ exports.default = {
   section: {
     invoiceItemList: {
       title: 'Achats',
+      titleReverse: 'Retour achat',
       isEmpty: 'Aucun achat',
       total: 'Total achat',
     },
@@ -106,6 +228,65 @@ exports.default = {
       title: 'Moyens de paiement',
       isEmpty: 'Aucun moyen de paiement enregistré',
       total: 'Total paiement',
+    },
+  },
+  table: {
+    actions: {
+      goToInvoice: 'Voir la facture',
+    },
+    header: {
+      member: 'Membre',
+      id: 'Identifiant',
+      date: 'Date de facturation',
+      amount: 'Montant dû',
+      missing: 'Restant dû',
+      pdf: 'PDF',
+    },
+    nested: {
+      invoiceItem: {
+        title: 'Achats',
+        isEmpty: 'Aucun achat',
+        header: {
+          product: 'Nom',
+          price: 'Montant TTC',
+          priceExcTax: 'Montant HT',
+          voucher: 'Dont réduction',
+        },
+      },
+      payment: {
+        title: 'Paiement',
+        isEmpty: 'Aucun paiement',
+        header: {
+          paymentMethod: 'Méthode de paiement',
+          price: 'Montant',
+          date: 'Date',
+          paymentReceived: 'Status',
+        },
+      },
+    },
+  },
+  revert: {
+    dialog: {
+      actions: {
+        cancel: 'Annuler',
+        confirm: 'Rembourser',
+      },
+      title: 'Annulation facture',
+    },
+    content: {
+      label: {
+        [REVERSE_ON_PAYMENT_METHOD]: 'Remboursement direct',
+        [REVERSE_ON_DEBT]: 'Remboursement en avoir (solde)',
+        [REVERSE_ON_NEW_PAYMENT_METHOD]: 'Remboursement manuel',
+      },
+      explain: {
+        [REVERSE_ON_PAYMENT_METHOD]:
+          'Les paiements carte bleue / SEPA / etc... seront reversé directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.',
+        [REVERSE_ON_DEBT]:
+          "Un avoir sera généré et incrémentera d'autant le solde client. Utilisez cette méthode pour générer un avoir.",
+        [REVERSE_ON_NEW_PAYMENT_METHOD]:
+          'Choisissez vous-même le moyen de remboursement. Utilisez cette méthode pour un remboursement chèque / virement manuel / espèces.',
+      },
     },
   },
 };

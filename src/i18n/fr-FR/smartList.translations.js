@@ -273,8 +273,8 @@ exports.default = {
       [BETWEEN_COMPARATOR]: 'entre deux',
     },
     [CREDIT_ACCOUNT_FILTER_IDENTIFIER]: {
-      name: 'Acompte',
-      first: "L'acompte du client est",
+      name: 'Dette',
+      first: 'Le solde du client, soustrait des factures impayées, est',
       second: ' à   ',
       third: 'euros',
       explanation: 'A X euros sur son compte',

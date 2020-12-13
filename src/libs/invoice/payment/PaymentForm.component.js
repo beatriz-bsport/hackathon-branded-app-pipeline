@@ -21,14 +21,16 @@ import PAYMENT_METHODS, {
   SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
 } from '@bsport/common/lib/master-data/payment-methods';
 
-import { Elements, StripeProvider } from 'react-stripe-elements';
+import { Elements } from '@stripe/react-stripe-js';
 
+import { loadStripe } from '@stripe/stripe-js';
 import Config from '../../../config';
 
 import PriceInput from '../../../components/input/PriceInput.component';
 import StripeForm from '../../../components/form/StripeForm.component';
 
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
+const stripePromise = loadStripe(STRIPE_KEY);
 
 type Props = {
   t: (x: string) => string,
@@ -192,11 +194,9 @@ export class PaymentForm extends Component<Props, State> {
     if (payment_method === PAYMENT_METHOD_CB.id) {
       return (
         <div className={classes.stripeFormContainer}>
-          <StripeProvider apiKey={STRIPE_KEY}>
-            <Elements>
-              <StripeForm price={price} onComplete={this.receiveStripeToken} />
-            </Elements>
-          </StripeProvider>
+          <Elements stripe={stripePromise}>
+            <StripeForm price={price} onComplete={this.receiveStripeToken} />
+          </Elements>
         </div>
       );
     }

@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { push as routerPush } from 'connected-react-router';
 import { connect } from 'react-redux';
-import { compose, withProps } from 'recompose';
+import { compose, withProps, withHandlers } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -38,6 +38,7 @@ import MemberCRM from '../../libs/member/components/MemberCRM.component';
 import ModalDeleteFile from '../../components/ModalConfirm.component';
 import MemberSearchModal from '../../libs/member/components/MemberSearchModal.component';
 import FileUploadDialog from '../../components/FileUploadDialog';
+import MemberBillingProblemCard from '../../libs/member/components/MemberBillingProblemCard.component';
 import type { TagGroup } from '../../libs/tag/types';
 import tagSelectors from '../../libs/tag/selectors';
 import {
@@ -56,6 +57,14 @@ import type { Task } from '../../libs/reminder/types';
 import type { OptionCallback } from '../../state/types';
 import { memberTaskListSelector } from '../../libs/reminder/selectors';
 import { fetchCompanyRoles } from '../../libs/role/actions';
+
+import {
+  // fetchInvoiceItemList as fetchInvoiceItemListAction,
+  fetchInvoiceList as fetchInvoiceListAction,
+  applyBalanceToUnpaid,
+} from '../../libs/invoice/actions';
+
+import { withInvoiceItem, getInvoiceList } from '../../libs/invoice/selectors';
 
 import { sendCommunication } from '../../libs/communication/actions';
 import {
@@ -82,9 +91,15 @@ type Props = {
   mergeInto: (src: number, dst: number) => void,
   country: string,
 
+  applyBalanceToUnpaid: (memberId: number, options: OptionCallback) => void,
+
   // FILES
   addFile: (file: any) => void,
   removeFile: (id: number) => void,
+
+  fetchInvoiceListUnpaid: () => void,
+  invoiceLoading: boolean,
+  unpaidInvoiceList: Array<Invoice>,
 
   // NOTES
   // -----
@@ -135,6 +150,8 @@ type Props = {
   untagMember: (memberId: number, tagId: number) => void,
 
   goToCreditRegularization: (memberId: number, balance: number) => void,
+
+  goToInvoice: (string) => void,
 };
 
 type State = {
@@ -154,12 +171,14 @@ export class MemberDetailPage extends Component<Props, State> {
     this.props.fetchMember(this.props.id);
     this.props.fetchTags();
     this.props.fetchTaskListByMember();
+    this.props.fetchInvoiceListUnpaid();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.id !== this.props.id) {
       this.props.fetchMember(this.props.id);
       this.props.fetchTaskListByMember();
+      this.props.fetchInvoiceListUnpaid();
     }
   }
 
@@ -172,6 +191,15 @@ export class MemberDetailPage extends Component<Props, State> {
       this.props.id,
       this.props.member.credit_account_balance,
     );
+
+  applyBalanceToUnpaidInvoices = () => {
+    this.props.applyBalanceToUnpaid(this.props.id, {
+      onSuccess: () => {
+        this.props.fetchMember(this.props.id);
+        this.props.fetchInvoiceListUnpaid();
+      },
+    });
+  };
 
   render() {
     const { memberLoading, member, t } = this.props;
@@ -201,6 +229,19 @@ export class MemberDetailPage extends Component<Props, State> {
             emailListLoading={this.props.emailListLoading}
             emailDetailLoading={this.props.emailDetailLoading}
             sendCommunication={this.props.sendCommunication}
+          />
+          <MemberBillingProblemCard
+            invoiceLoading={this.props.invoiceLoading}
+            memberId={this.props.id}
+            unpaidInvoiceList={this.props.unpaidInvoiceList}
+            onClickInvoice={this.props.goToInvoice}
+            asConsumer={false}
+            balance={this.props.member.credit_account_balance}
+            applyBalanceToUnpaidInvoices={this.applyBalanceToUnpaidInvoices}
+            fetchInvoiceListUnpaid={() => {
+              this.props.fetchInvoiceListUnpaid();
+              this.props.fetchMember(this.props.id);
+            }}
           />
           <TaskList
             taskList={this.props.taskList}
@@ -307,8 +348,12 @@ export default compose(
       emailListLoading: state.emailTemplate.isLoading,
       emailDetailLoading: state.emailTemplate.detail.isLoading,
       country: state.theme.theme.locale.split('_')[1],
+      unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
+      invoiceLoading: state.invoice.list.loading,
     }),
     {
+      fetchInvoiceList: fetchInvoiceListAction,
+      // fetchInvoiceItemList: fetchInvoiceItemListAction,
       sendCommunication,
       fetchRoles: fetchCompanyRoles,
       fetchMember,
@@ -329,6 +374,7 @@ export default compose(
         ),
       deleteNote,
       createTag: createOrUpdateTag,
+      applyBalanceToUnpaid,
       createTagGroup: (data) =>
         createOrUpdateTagGroup({ ...data, kind: TAG_KIND_MEMBER.id }),
       updateTag: createOrUpdateTag,
@@ -340,6 +386,7 @@ export default compose(
       fetchTaskListByMember: fetchTaskListByMemberAction,
       createOrUpdateTask: createOrUpdateTaskAction,
       updateTaskStatus,
+      goToInvoice: (uuid) => routerPush(`/invoice/${uuid}/`),
     },
   ),
   withProps(({ fetchTaskListByMember, id }) => ({
@@ -359,4 +406,13 @@ export default compose(
       );
     },
   })),
+  withHandlers({
+    fetchInvoiceListUnpaid: ({
+      fetchInvoiceList,
+      // fetchInvoiceItemList,
+      id,
+    }) => () => {
+      fetchInvoiceList({ unpaid: true, member: id });
+    },
+  }),
 )(MemberDetailPage);

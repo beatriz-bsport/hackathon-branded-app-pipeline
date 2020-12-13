@@ -12,14 +12,13 @@ import { push as pushRouter } from 'connected-react-router';
 import TodayIcon from '@material-ui/icons/Today';
 
 import themeSelectors from '../../libs/theme/selectors';
-import ConsumerDebtRegularizerDialog from '../../libs/consumer-space/components/ConsumerDebtRegularizerDialog.component';
 import BookingCancellationDialog from '../../libs/booking/components/BookingCancellationDialog.component';
+import MemberBillingProblemCard from '../../libs/member/components/MemberBillingProblemCard.component';
 import BookingOptionCancelDialog from '../../libs/waiting-list/components/BookingOptionCancelDialog.component';
 import ConsumerDashboardBookingPanel from '../../libs/consumer-space/components/ConsumerDashboardBookingPanel.component';
 import ConsumerDashboardHeader from '../../libs/consumer-space/components/ConsumerDashboardHeader.component';
 import ConsumerDashboardPassPanel from '../../libs/consumer-space/components/ConsumerDashboardPassPanel.component';
 import ConsumerDashboardBookingOptionPanel from '../../libs/consumer-space/components/ConsumerDashboardBookingOptionPanel.component';
-import { regularizeDebt as regularizeDebtAction } from '../../libs/member/actions';
 import { fetchMembership as fetchMembershipAction } from '../../libs/membership/actions';
 
 import { getFavoriteEstablishment } from '../../libs/establishment/selectors';
@@ -62,8 +61,12 @@ import {
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchByMember as fetchConsumerPackByMemberAction } from '../../libs/consumer-payment-pack/actions';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
-import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
-import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import {
+  // fetchInvoiceItemList as fetchInvoiceItemListAction,
+  fetchInvoiceList as fetchInvoiceListAction,
+} from '../../libs/invoice/actions';
+
+import { withInvoiceItem, getInvoiceList } from '../../libs/invoice/selectors';
 
 type Props = {
   t: TFunction,
@@ -72,6 +75,8 @@ type Props = {
   bookingList: Array<Booking>,
   bookingLoading: boolean,
   bookingCount: number,
+
+  fetchMembership: (number) => void,
 
   membership: Membership,
   companyTheme: CompanyTheme,
@@ -107,11 +112,12 @@ type Props = {
   optionToCancel: ?number,
 
   goToBroadcast: (bookingId: number) => void,
-  submitPayment: (data: PaymentData, options: OptionCallback) => void,
   discardPrivateBooking: (id: numebr) => void,
 
-  fetchPaymentMethodList: (params: any) => void,
-  savedPaymentMethodList: Array<PaymentMethod>,
+  unpaidInvoiceList: Array<Invoice>,
+  fetchInvoiceListUnpaid: () => void,
+  goToInvoice: (string) => void,
+  invoiceLoading: boolean,
 };
 
 const BOOKING_PAGE_SIZE = 5;
@@ -136,31 +142,41 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
     this.props.fetchBookingOptionAsConsumer(this.props.membership.company, {
       min_date: moment().format('YYYY-MM-DD'),
     });
+    this.props.fetchInvoiceListUnpaid();
   }
+
+  refreshDebtStatus = () => {
+    this.props.fetchMembership(this.props.membership.id);
+    this.props.fetchInvoiceListUnpaid();
+  };
 
   render() {
     return (
       <div className={this.props.classes.container}>
         <div className={this.props.classes.header}>
-          <Button
-            onClick={() => this.props.goToCalendar()}
-            color="primary"
-            variant="contained"
-          >
-            <TodayIcon className={this.props.classes.iconLeft} />
-            {this.props.t('actions.goToCalendar')}
-          </Button>
-        </div>
-        {!!this.props.companyTheme &&
-          this.props.companyTheme.consumer_regularize_debt && (
-            <ConsumerDebtRegularizerDialog
-              withButton
-              member={this.props.membership}
-              submitPayment={this.props.submitPayment}
-              savedPaymentMethodList={this.props.savedPaymentMethodList}
-              refreshPaymentMethodList={this.props.fetchPaymentMethodList}
+          <div>
+            <Button
+              onClick={() => this.props.goToCalendar()}
+              color="primary"
+              variant="contained"
+            >
+              <TodayIcon className={this.props.classes.iconLeft} />
+              {this.props.t('actions.goToCalendar')}
+            </Button>
+          </div>
+          <div style={{ marginBottom: 12 }}>
+            <MemberBillingProblemCard
+              invoiceLoading={this.props.invoiceLoading}
+              memberId={this.props.membership.id}
+              unpaidInvoiceList={this.props.unpaidInvoiceList}
+              onClickInvoice={this.props.goToInvoice}
+              balance={this.props.membership.credit_account_balance}
+              fetchInvoiceListUnpaid={this.refreshDebtStatus}
+              hidePositiveBalance
+              asConsumer
             />
-          )}
+          </div>
+        </div>
         <ConsumerDashboardHeader
           favoriteMetaActivity={this.props.favoriteMetaActivity}
           favoriteEstablishment={this.props.favoriteEstablishment}
@@ -220,8 +236,9 @@ const styles = (theme) => ({
   header: {
     display: 'flex',
     padding: theme.spacing(1),
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   iconLeft: {
     marginRight: theme.spacing(1),
@@ -259,11 +276,12 @@ export default compose(
       ),
       favoriteMetaActivity: getFavoriteMetaActivity(state),
       favoriteEstablishment: getFavoriteEstablishment(state),
-      savedPaymentMethodList: getSavedPaymentMethodList(state),
+      unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
+      invoiceLoading: state.invoice.list.loading,
     }),
     {
+      fetchInvoiceList: fetchInvoiceListAction,
       push: pushRouter,
-      fetchPaymentMethodList: fetchPaymentMethodListAction,
       cancelBooking: cancelBookingAction,
       discardPrivateBooking: disablePrivateBooking,
       fetchPrivateBookings: fetchPrivateBookingsAction,
@@ -291,16 +309,12 @@ export default compose(
       fetchPrivateConsumerPassList,
       fetchMetaActivityFavorite,
       fetchEstablishmentFavorite,
-      regularizeDebt: regularizeDebtAction,
       fetchMembership: fetchMembershipAction,
       cancelBookingOption: cancelBookingOptionAction,
     },
   ),
   withState('optionToCancel', 'setOptionToCancel', null),
   withHandlers({
-    fetchPaymentMethodList: ({ membership, fetchPaymentMethodList }) => () =>
-      fetchPaymentMethodList({ company: membership.company }),
-
     cancelBookingOption: ({
       cancelBookingOption,
       optionToCancel,
@@ -371,6 +385,17 @@ export default compose(
       ),
   }),
   withHandlers({
+    fetchInvoiceListUnpaid: ({
+      fetchInvoiceList,
+      // fetchInvoiceItemList,
+      membership,
+    }) => () => {
+      fetchInvoiceList({
+        is_draft: false,
+        unpaid: true,
+        member: membership.id,
+      });
+    },
     discardPrivateBooking: ({
       discardPrivateBooking,
       fetchPrivateBookings,
@@ -398,26 +423,5 @@ export default compose(
         },
         { mine: true, reverted: false, current: true, disabled: false },
       ),
-    submitPayment: ({ regularizeDebt, membership, fetchMembership }) => (
-      data,
-      options,
-    ) => {
-      regularizeDebt(membership.id, data, {
-        onSuccess: (response) => {
-          if (options && options.onSuccess) {
-            options.onSuccess(response);
-          }
-          fetchMembership(membership.id, {
-            onSuccess: () => window.location.reload(),
-          });
-        },
-        onError: (err) => {
-          console.error(err);
-          if (options && options.onError) {
-            options.onError(err);
-          }
-        },
-      });
-    },
   }),
 )(ConsumerDashboard);

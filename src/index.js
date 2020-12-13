@@ -14,11 +14,6 @@ import './material-dashboard-react.css';
 import { setSessionId } from './sentry/session';
 
 
-if (module.hot && process.env.NODE_ENV !== 'production') {
-  // When a file change, only reload a module instead of reloading the whole page
-  module.hot.accept();
-}
-
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
     release: RELEASE_SHA,

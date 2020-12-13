@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import sum from 'lodash/sum';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
@@ -10,24 +9,18 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddIcon from '@material-ui/icons/Add';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import PAYMENT_METHODS, {
-  CB as PAYMENT_METHOD_CB,
-  DISPUTE as PAYMENT_METHOD_DISPUTE,
-  SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
-  CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
-  SEPA as PAYMENT_METHOD_SEPA,
-} from '@bsport/common/lib/master-data/payment-methods';
+import { compose } from 'recompose';
+import { withTranslation } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
 import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
 
 import InvoiceItem from '../components/InvoiceItem.component';
-import UnevenInvoiceDialog from '../dialog/UnevenInvoiceDialog.component';
 import InvoiceItemEditor from '../components/InvoiceItemEditor.component';
-
-import PaymentInfo from './PaymentInfo.component';
 
 type Props = {
   quickInvoiceTitle: string,
+  t: TFunction,
   quickInvoice: { creditAccount: number, member: Member },
   editMode: ?boolean,
   onClose: ?() => void,
@@ -41,114 +34,44 @@ type Props = {
 };
 
 type State = {
-  payments: Array<{ id: number, text: string, amount: number }>,
   showInvoiceItemSelector: boolean,
-  unevenInvoiceAlertOpen: boolean,
   invoiceItemList: Array<InvoiceItem>,
+  processing: boolean,
 };
-
-const mapPaymentMethodToState = () =>
-  PAYMENT_METHODS.map((pm) => ({
-    id: pm.id,
-    text: pm.text,
-    amount: 0,
-  }))
-    .filter(
-      (pm) =>
-        pm.id !== PAYMENT_METHOD_SUBSCRIPTION_CB.id &&
-        pm.id !== PAYMENT_METHOD_CB.id &&
-        pm.id !== PAYMENT_METHOD_DISPUTE.id &&
-        pm.id !== PAYMENT_METHOD_CREDIT_ACCOUNT.id &&
-        pm.id !== PAYMENT_METHOD_SEPA.id,
-    )
-    .sort((pm, pm_) => pm.id - pm_.id);
 
 export class QuickInvoice extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      payments: mapPaymentMethodToState(),
       showInvoiceItemSelector: !props.editMode,
       invoiceItemList: [],
+      processing: false,
     };
   }
-
-  getTotalPayment = () => {
-    const { payments } = this.state;
-    return sum(payments.map((pm) => pm.amount || 0));
-  };
-
-  handlePaymentChange = (payment_type: number) => (e: SyntheticEvent) => {
-    const newAmount = parseFloat(e.target.value);
-    this.setState((prevState) => {
-      const oldPayment = prevState.payments.filter(
-        (pm) => pm.id === payment_type,
-      )[0];
-      return {
-        payments: [
-          ...prevState.payments.filter((pm) => pm.id !== payment_type),
-          { ...oldPayment, amount: newAmount },
-        ].sort((pm, pm_) => pm.id - pm_.id),
-      };
-    });
-  };
-
-  getFinalPrice = () => {
-    return (
-      this.state.invoiceItemList.reduce(
-        (acc, v) => parseFloat(v.price) - parseFloat(v.voucher || 0) + acc,
-        0,
-      ) +
-      (this.props.uneditableInvoiceItems || []).reduce(
-        (acc, ii) =>
-          (ii ? parseFloat(ii.price) || 0 : 0) -
-          (ii ? parseFloat(ii.voucher) || 0 : 0) +
-          acc,
-        0,
-      )
-    );
-  };
 
   choseInvoiceItem = () => {
     this.setState({ showInvoiceItemSelector: true });
   };
 
   closeUnevenInvoiceDialog = () => {
-    this.setState({ unevenInvoiceAlertOpen: false });
-  };
-
-  generatePaymentItemsObject = () => {
-    const { payments } = this.state;
-    const payment_items = payments.map((pm) => ({
-      payment_received: true,
-      price: pm.amount,
-      payment_method: pm.id,
-    }));
-    return payment_items;
   };
 
   onSubmit = () => {
     const { quickInvoice, createInvoice } = this.props;
     const invoiceData = {
-      payment_methods: this.generatePaymentItemsObject(),
+      payment_methods: [],
+      is_v2: true,
       buyable_items: this.state.invoiceItemList,
       member: quickInvoice.memberId,
     };
     if (this.props.editMode) {
       this.props.updateInvoice(invoiceData);
     } else {
-      createInvoice(invoiceData);
-    }
-    this.setState({ unevenInvoiceAlertOpen: false });
-  };
-
-  checkUnvenOrSubmit = () => {
-    const finalPrice = this.getFinalPrice();
-    const totalPayment = this.getTotalPayment();
-    if (finalPrice === totalPayment) {
-      this.onSubmit();
-    } else {
-      this.setState({ unevenInvoiceAlertOpen: true });
+      this.setState({ processing: true });
+      createInvoice(invoiceData, {
+        onSuccess: () => this.setState({ processing: false }),
+        onError: () => this.setState({ processing: false }),
+      });
     }
   };
 
@@ -180,8 +103,6 @@ export class QuickInvoice extends Component<Props, State> {
   render() {
     const { classes, onClose, quickInvoiceTitle, quickInvoice } = this.props;
 
-    const finalPrice = this.getFinalPrice();
-    const totalPayment = this.getTotalPayment();
     if (!quickInvoice.member) {
       return <CircularProgress />;
     }
@@ -253,28 +174,27 @@ export class QuickInvoice extends Component<Props, State> {
                 </Grid>
               </Grid>
             </Grid>
-            <Divider />
-            <PaymentInfo
-              finalPrice={finalPrice}
-              totalPayment={totalPayment}
-              paymentItems={this.state.payments}
-              handlePaymentChange={this.handlePaymentChange}
-              onSubmit={this.checkUnvenOrSubmit}
-              onClose={onClose}
-              disabled={
-                !this.state.invoiceItemList.length &&
-                !(this.props.uneditableInvoiceItems || []).length
-              }
-            />
+            <div className={classes.actionRow}>
+              {this.state.processing ? (
+                <CircularProgress />
+              ) : (
+                <Button
+                  color="primary"
+                  onClick={this.onSubmit}
+                  variant="outlined"
+                >
+                  {this.props.t('invoice.editor.save')}
+                </Button>
+              )}
+              <Button
+                onClick={this.props.onClose}
+                disabled={this.state.processing}
+              >
+                {this.props.t('paymentPanel.actions.cancel')}
+              </Button>
+            </div>
           </React.Fragment>
         )}
-        <UnevenInvoiceDialog
-          open={this.state.unevenInvoiceAlertOpen}
-          onClose={this.closeUnevenInvoiceDialog}
-          onSubmit={this.onSubmit}
-          totalPayment={totalPayment}
-          totalItem={finalPrice}
-        />
       </div>
     );
   }
@@ -297,6 +217,21 @@ const styles = (theme) => ({
     marginTop: (theme.spacing(1) * 1) / 4,
     padding: (theme.spacing(1) * 1) / 2,
   },
+  actionRow: {
+    marginBottom: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    '&>*': {
+      marginLeft: theme.spacing(1),
+    },
+    width: '100%',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+  },
 });
 
-export default withStyles(styles)(QuickInvoice);
+export default compose(
+  withStyles(styles),
+  withTranslation(['invoice']),
+)(QuickInvoice);

@@ -1,0 +1,205 @@
+// @flow
+import React from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'recompose';
+import Grid from '@material-ui/core/Grid';
+
+import {
+  BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_CREDIT,
+} from '@bsport/common/lib/master-data/buyable-items';
+import { withTranslation } from 'react-i18next';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import type { TFunction } from 'react-i18next';
+import InvoiceContent from './InvoiceContent.component';
+import InvoiceEditorV2 from './InvoiceEditorV2.component';
+import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
+// import InvoiceActions from './InvoiceActions.component';
+import type { OptionCallback } from '../../../state/types';
+// import InvoiceEditorActions from './InvoiceEditorActions.component';
+
+type Props = {
+  classes: Object,
+
+  invoiceItemList: Array<InvoiceItem>,
+
+  member: Member,
+  finalizeInvoice: (uuid: string) => void,
+  onSubmit: (
+    {
+      buyable_items: Array<BuyableItem>,
+    },
+    options: OptionCallback,
+  ) => void,
+  availableBuyableItems: { [identifier: number]: Array<any> },
+  finalizeInvoiceAlertOpen: boolean,
+  closeFinalizeInvoiceDialog: () => void,
+  initialItems?: { withPrivatePass?: string, withCredit?: string },
+  t: TFunction,
+};
+
+type State = {
+  invoiceItemList: Array<InvoiceItem>,
+};
+
+const asEditable = (editable, items) => {
+  if (items) {
+    return items.map((i) => ({ ...i, editable }));
+  }
+  return [];
+};
+
+export class InvoiceForm extends React.Component<Props, State> {
+  state = { invoiceItemList: [] };
+
+  componentDidMount() {
+    const { initialItems } = this.props;
+    if (initialItems) {
+      if (initialItems.withPrivatePass) {
+        const privatePass = this.props.availableBuyableItems[
+          BUYABLE_ITEM_PRIVATE_PASS
+        ].find((bi) => bi.id === parseInt(initialItems.withPrivatePass, 10));
+        this.addBuyableItem(BUYABLE_ITEM_PRIVATE_PASS, {
+          ...privatePass,
+          price: parseFloat(privatePass.price).toFixed(2),
+          voucher: '0.00',
+          buyable_item_id: privatePass.id,
+        });
+      }
+      if (initialItems.withCredit) {
+        this.addBuyableItem(BUYABLE_ITEM_CREDIT, {
+          buyable_item_id: 0,
+          price: parseFloat(initialItems.withCredit).toFixed(2),
+          voucher: '0.00',
+          name: this.props.t('invoiceItem.credit.label'),
+        });
+      }
+    }
+  }
+
+  removeInvoiceItem = (id: number) => {
+    this.setState((prevState) => {
+      const idx = prevState.invoiceItemList.findIndex((ii) => ii.id === id);
+      return {
+        invoiceItemList: prevState.invoiceItemList.filter((ii, idx_) => {
+          return idx_ !== idx;
+        }),
+      };
+    });
+  };
+
+  addBuyableItem = (buyable_item_identifier: number, item: any) => {
+    this.setState((prevState) => ({
+      invoiceItemList: [
+        ...prevState.invoiceItemList,
+        {
+          ...item,
+          voucher:
+            (parseFloat(item.price) >= 0
+              ? Math.min(parseFloat(item.price), item.voucher || 0)
+              : 0) || 0,
+          buyable_item_identifier,
+        },
+      ],
+    }));
+  };
+
+  getInvoiceItemAmount = () => {
+    return [
+      ...(this.props.invoiceItemList || []),
+      ...this.state.invoiceItemList,
+    ]
+      .filter((ii) => !!ii && !ii.reverted)
+      .reduce(
+        (acc, v) => acc + parseFloat(v.price) - parseFloat(v.voucher || 0),
+        0,
+      );
+  };
+
+  invoiceItemIsEmpty = () => {
+    return (
+      this.state.invoiceItemList.length === 0 &&
+      (this.props.invoiceItemList || []).length === 0
+    );
+  };
+
+  onSubmit = (options?: OptionCallback) => {
+    this.props.onSubmit(
+      {
+        buyable_items: this.state.invoiceItemList,
+      },
+      options,
+    );
+  };
+
+  render() {
+    const { classes, t } = this.props;
+    const invoiceItemAmount = this.getInvoiceItemAmount();
+    return (
+      <Grid container spacing={1} className={classes.container}>
+        <Grid item xs={12} md={6}>
+          <InvoiceEditorV2
+            availableBuyableItems={this.props.availableBuyableItems}
+            onAddBuyableItem={this.addBuyableItem}
+            invoiceItemIsEmpty={this.invoiceItemIsEmpty()}
+            invoiceHasChanged={this.state.invoiceItemList.length}
+            amountInvoiceitem={invoiceItemAmount}
+            isEquilibrated
+            member={this.props.member}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography className={classes.title} variant="h4">
+            {this.props.t('invoice.editor.sumup')}
+          </Typography>
+          <InvoiceContent
+            removeInvoiceItem={this.removeInvoiceItem}
+            invoiceItemList={[
+              ...asEditable(false, this.props.invoiceItemList),
+              ...asEditable(true, this.state.invoiceItemList),
+            ]}
+            amountInvoiceitem={invoiceItemAmount}
+          />
+          <div className={classes.buttonContainer}>
+            <Button
+              color="primary"
+              disabled={!this.state.invoiceItemList.length}
+              onClick={this.onSubmit}
+              variant="contained"
+            >
+              {t('invoice.editor.save')}
+            </Button>
+          </div>
+        </Grid>
+        <FinalizeInvoiceDialog
+          open={this.props.finalizeInvoiceAlertOpen}
+          onClose={this.props.closeFinalizeInvoiceDialog}
+          onSubmit={() => {
+            this.props.finalizeInvoice();
+            this.props.closeFinalizeInvoiceDialog();
+          }}
+        />
+      </Grid>
+    );
+  }
+}
+
+const styles = (theme) => ({
+  container: {},
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'flex-end',
+    marginTop: theme.spacing(2),
+  },
+  title: {
+    marginBottom: theme.spacing(2),
+  },
+});
+
+export default compose(
+  withStyles(styles),
+  withTranslation(['invoice']),
+)(InvoiceForm);

@@ -14,6 +14,8 @@ import {
   fetchInvoiceItemList as fetchInvoiceItemListAction,
   createOrUpdateInvoice as createOrUpdateInvoiceAction,
   resetQuickInvoices,
+  fetchSpecificInvoice as fetchInvoice,
+  fetchInvoiceList as fetchInvoiceListAction,
 } from '../../libs/invoice/actions';
 import {
   fetchOfferById as fetchOfferByIdAction,
@@ -90,7 +92,7 @@ import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 import {
   withInvoiceItem,
   withMember,
-  getQuickInvoiceList,
+  getInvoiceList,
   getBuyableItem,
 } from '../../libs/invoice/selectors';
 
@@ -151,9 +153,7 @@ export default compose(
       establishmentList: getAvailableEstablishmentList(state),
 
       // invoice
-      unevenSavedInvoices: withMember(withInvoiceItem(getQuickInvoiceList))(
-        state,
-      ),
+      unpaidInvoiceList: withMember(withInvoiceItem(getInvoiceList))(state),
       // buyable stuff
       permission: getPermissions(state),
       availableBuyableItems: getBuyableItem(state),
@@ -168,6 +168,8 @@ export default compose(
       fetchEmailTemplateDetail: emailTemplateDetail,
 
       fetchEstablishmentList: fetchEstablishments,
+      fetchInvoice,
+      fetchInvoiceList: fetchInvoiceListAction,
 
       toogleWaitingListFreeze: toogleWaitingListFreezeAction,
       registerToWaitingListAction: registerToWaitingListAction_,
@@ -224,6 +226,9 @@ export default compose(
   withHandlers({
     fetchBookingOptionByOffer: ({ fetchBookingOptionByOffer }) => (offerId) => {
       return fetchBookingOptionByOffer(offerId, { show_cancelled: true });
+    },
+    fetchInvoiceListUnpaid: ({ fetchInvoiceList }) => (params) => {
+      fetchInvoiceList({ unpaid: true, ...(params || {}) });
     },
   }),
   withProps(({ id }) => ({
@@ -285,6 +290,7 @@ export default compose(
       fetchFilteredMembers,
       fetchMemberBulk,
       offerId,
+      fetchInvoiceListUnpaid,
     }) => (ordering_field) => {
       fetchOffer(offerId);
       fetchBookingsByOffer(
@@ -298,7 +304,14 @@ export default compose(
         },
         ordering_field,
       );
-      fetchFilteredMembers({ offer: offerId, withNotes: true });
+      fetchFilteredMembers(
+        { offer: offerId, withNotes: true },
+        {
+          onSuccess: (memberList) => {
+            fetchInvoiceListUnpaid({ member__in: memberList.map((m) => m.id) });
+          },
+        },
+      );
       fetchBookingOptionByOffer(offerId);
       fetchCompatiblePacks(offerId);
       fetchRecurrenceRuleBooking(
@@ -338,12 +351,23 @@ export default compose(
       createQuickInvoice,
       fetchInvoiceItemList,
       refresh,
+      fetchInvoiceListUnpaid,
       id,
       fetchFilteredMembers,
     }) => (data) => {
       createQuickInvoice(data, {
         onSuccess: (invoice) => {
-          fetchFilteredMembers({ offer: id, withNotes: true });
+          fetchFilteredMembers(
+            { offer: id, withNotes: true },
+
+            {
+              onSuccess: (memberList) => {
+                fetchInvoiceListUnpaid({
+                  member__in: memberList.map((m) => m.id),
+                });
+              },
+            },
+          );
           fetchInvoiceItemList({
             invoice__uuid: invoice.uuid,
             page_size: 10,
@@ -362,14 +386,18 @@ export default compose(
     },
     createInvoice: ({ createOrUpdateInvoice, refreshFilteredMembers }) => (
       invoiceData,
-      memberId,
-      isQuickInvoice,
       offer,
+      options,
     ) => {
       createOrUpdateInvoice(invoiceData, {
-        onSuccess: () => {
+        onSuccess: (invoice) => {
+          if (options && options.onSuccess) {
+            options.onSuccess(invoice);
+          }
+
           refreshFilteredMembers({ offer });
         },
+        onError: options && options.onError,
       });
     },
   }),

@@ -17,6 +17,8 @@ import {
   fetchInvoiceItemList as fetchInvoiceItemListAPI,
   fetchPaymentList as fetchPaymentListAPI,
   checkInvoiceInfo as checkInvoiceInfoAPI,
+  allocateDebtToInvoice as allocateDebtToInvoiceAPI,
+  applyBalanceToUnpaid as applyBalanceToUnpaidAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
@@ -128,12 +130,16 @@ export function revertQuickInvoice(uuid: string, options: OptionCallback) {
   };
 }
 
-export function revertInvoice(uuid: string, options: OptionCallback) {
+export function revertInvoice(
+  uuid: string,
+  params: any,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveInvoiceActions.error(null));
     dispatch(retrieveInvoiceActions.isLoading(true));
     try {
-      const response = await revertAPI(uuid);
+      const response = await revertAPI(uuid, params);
       dispatch(retrieveInvoiceActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
@@ -275,7 +281,11 @@ export const updatePaymentMethodActions = {
   success: createAction('INVOICE/UPATE_PAYMENT_METHOD/SUCCESS'),
 };
 
-export function updatePaymentMethod(uuid: string, newMethod: number) {
+export function updatePaymentMethod(
+  uuid: string,
+  newMethod: number,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(updatePaymentMethodActions.isLoading(true));
     dispatch(updatePaymentMethodActions.error(null));
@@ -284,8 +294,14 @@ export function updatePaymentMethod(uuid: string, newMethod: number) {
       const response = await updatePaymentMethodAPI(uuid, newMethod);
       const payment = response.data;
       dispatch(updatePaymentMethodActions.success(payment));
+      if (options && options.onSuccess) {
+        options.onSuccess(payment);
+      }
     } catch (err) {
       dispatch(updatePaymentMethodActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
     dispatch(updatePaymentMethodActions.isLoading(false));
   };
@@ -356,8 +372,8 @@ export function fetchPaymentList(params: * = {}, options: OptionCallback) {
       if (options && options.onError) {
         options.onError(e);
       }
-      dispatch(listPaymentActions.isLoading(false));
     }
+    dispatch(listPaymentActions.isLoading(false));
   };
 }
 
@@ -384,8 +400,8 @@ export function fetchInvoiceItemList(params: * = {}, options: OptionCallback) {
       if (options && options.onError) {
         options.onError(e);
       }
-      dispatch(listInvoiceItemActions.isLoading(false));
     }
+    dispatch(listInvoiceItemActions.isLoading(false));
   };
 }
 
@@ -401,12 +417,19 @@ export function fetchInvoiceList(params: * = {}, options: OptionCallback) {
     dispatch(listInvoiceActions.error(null));
     try {
       const response = await fetchByQueryAPI(params);
-      dispatch(listInvoiceActions.success(response.data));
+      if (params && params.page) {
+        dispatch(
+          listInvoiceActions.success({ ...response.data, page: params.page }),
+        );
+      } else {
+        dispatch(listInvoiceActions.success(response.data));
+      }
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data.results || response.data);
       }
     } catch (err) {
       dispatch(listInvoiceActions.error(err));
+      console.error(err);
       if (options && options.onError) {
         options.onError(err);
       }
@@ -446,5 +469,53 @@ export function checkInvoiceInfo(uuid: string, options: OptionCallback) {
       }
     }
     dispatch(checkInvoiceInfoActions.isLoading(false));
+  };
+}
+
+export function allocateDebt(uuid: string, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveInvoiceActions.error(null));
+    dispatch(retrieveInvoiceActions.isLoading(true));
+    try {
+      const response = await allocateDebtToInvoiceAPI(uuid);
+      dispatch(retrieveInvoiceActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      dispatch(retrieveInvoiceActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(retrieveInvoiceActions.isLoading(false));
+    dispatch(fetchAlerting());
+  };
+}
+
+export const applyBalanceToUnpaidActions = {
+  isLoading: createAction('INVOICE/APPLY_BALANCE_TO_UNPAID/IS_LOADING'),
+  success: createAction('INVOICE/APPLY_BALANCE_TO_UNPAID/SUCCESS'),
+  error: createAction('INVOICE/APPLY_BALANCE_TO_UNPAID/ERROR'),
+};
+
+// a bit dirty all this stuff...
+export function applyBalanceToUnpaid(memberId: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(applyBalanceToUnpaidActions.isLoading(true));
+    dispatch(applyBalanceToUnpaidActions.error(null));
+    try {
+      const response = await applyBalanceToUnpaidAPI(memberId);
+      dispatch(applyBalanceToUnpaidActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      dispatch(applyBalanceToUnpaidActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(applyBalanceToUnpaidActions.isLoading(false));
   };
 }

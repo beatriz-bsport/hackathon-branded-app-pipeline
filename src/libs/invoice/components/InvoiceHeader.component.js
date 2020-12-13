@@ -9,22 +9,29 @@ import TodayIcon from '@material-ui/icons/Today';
 import DevicesIcon from '@material-ui/icons/Devices';
 import PersonIcon from '@material-ui/icons/Person';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 
 type Props = {
   invoice: ?Invoice,
+  onClickInvoice: (uuid: string) => void,
 };
 
 export const InvoiceHeader = (props: Props) => {
   const { invoice } = props;
+  const { t } = useTranslation(['invoice']);
+  const classes = useStyles();
   if (!invoice) {
     return null;
   }
-  const { t } = useTranslation(['invoice']);
-  const classes = useStyles();
   return (
     <div className={classes.header}>
       <Typography variant="h4">
-        {t('invoice.title', { uuid: invoice.uuid.slice(0, 8) })}
+        {t(
+          invoice.source_invoice ? 'invoice.titleRevert' : 'invoice.title',
+
+          { uuid: invoice.uuid.slice(0, 8) },
+        )}
       </Typography>
       <div className={classes.additionalInfo}>
         <div className={classes.row}>
@@ -53,6 +60,32 @@ export const InvoiceHeader = (props: Props) => {
             {t(`invoice.header.source.${invoice.source}`)}
           </Typography>
         </div>
+        {!!invoice.source_invoice && (
+          <ButtonBase
+            onClick={() => props.onClickInvoice(invoice.source_invoice)}
+            className={classes.row}
+          >
+            <DoubleArrowIcon fontSize="small" className={classes.leftIcon} />
+            <Typography color="textSecondary">
+              {`${t(
+                'invoice.header.sourceInvoice',
+              )} ${invoice.source_invoice.slice(0, 8)}`}
+            </Typography>
+          </ButtonBase>
+        )}
+        {!!invoice.reverse_invoices &&
+          !!invoice.reverse_invoices.length &&
+          invoice.reverse_invoices.map((inv) => (
+            <ButtonBase
+              onClick={() => props.onClickInvoice(inv)}
+              className={classes.row}
+            >
+              <DoubleArrowIcon fontSize="small" className={classes.leftIcon} />
+              <Typography color="error">
+                {`${t('invoice.header.reverseInvoice')} ${inv.slice(0, 8)}`}
+              </Typography>
+            </ButtonBase>
+          ))}
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { CardElement, injectStripe } from 'react-stripe-elements';
+import { CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 
 import { Moment } from '../../i18n';
 
@@ -21,6 +21,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   showRecurring: ?boolean,
+  elements: any,
 };
 
 type State = {
@@ -43,7 +44,9 @@ export class StripeForm extends Component<Props, State> {
   submit = async () => {
     this.setState({ loading: true });
     try {
-      const { token } = await this.props.stripe.createToken();
+      const cardElement = this.props.elements.getElement(CardElement);
+
+      const { token } = await this.props.stripe.createToken(cardElement);
       if (this.state.isRecurring && this.props.showRecurring) {
         const recurringData = {
           nb_interval: this.state.nb_interval,
@@ -123,4 +126,12 @@ const styles = (theme) => ({
   },
 });
 
-export default injectStripe(withStyles(styles)(withTranslation()(StripeForm)));
+export default withStyles(styles)(
+  withTranslation()((props) => (
+    <ElementsConsumer>
+      {({ stripe, elements }) => (
+        <StripeForm stripe={stripe} elements={elements} {...props} />
+      )}
+    </ElementsConsumer>
+  )),
+);

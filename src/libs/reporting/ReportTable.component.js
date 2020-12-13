@@ -63,6 +63,14 @@ function getConverter(column, classes, t) {
         };
       }
     }
+    if (datatype === 'cts') {
+      if (typeof value === 'number' || !value) {
+        return {
+          cellProps: { className: classes.right },
+          value: `${(parseFloat(value || 0) / 100).toFixed(2)}€`,
+        };
+      }
+    }
     if (datatype === 'int') {
       if (typeof value === 'number' || !value) {
         return {

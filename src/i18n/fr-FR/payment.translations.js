@@ -11,7 +11,12 @@ const {
   DISPUTE,
   SUBSCRIPTION_CB,
   SEPA,
+  BANCONTACT,
   OTHER,
+  GIROPAY,
+  EPS,
+  IDEAL,
+  SOFORT,
 } = require('@bsport/common/lib/master-data/payment-methods');
 
 exports.default = {
@@ -78,6 +83,7 @@ exports.default = {
     generalTermsOfUse: " conditions générales d'utilisation",
     close: 'Fermer',
   },
+  returnedAmount: 'Remboursé: ',
   paymentMethod: {
     label: 'Moyen de paiement',
     [CB.id]: 'Carte bleue',
@@ -93,6 +99,11 @@ exports.default = {
     [SUBSCRIPTION_CB.id]: 'Paiement automatique',
     [OTHER.id]: 'Divers',
     [SEPA.id]: 'SEPA',
+    [BANCONTACT.id]: 'Bancontact',
+    [GIROPAY.id]: 'Giropay',
+    [EPS.id]: 'EPS',
+    [IDEAL.id]: 'iDEAL',
+    [SOFORT.id]: 'Sofort',
   },
   actions: {
     addThisPaymentItem: 'Ajouter ce moyen de paiement',

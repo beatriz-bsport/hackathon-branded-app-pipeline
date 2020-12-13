@@ -1,8 +1,8 @@
 // @flow
 import React from 'react';
 
-import CollectPaymentMethodCard from './payment-backend-stripe/CollectPaymentMethodCard.component';
-import CollectPaymentMethodSepa from './payment-backend-stripe/CollectPaymentMethodSepa.component';
+import CollectPaymentMethodCard from './payment-backend-stripe-deprecated/CollectPaymentMethodCard.component';
+import CollectPaymentMethodSepa from './payment-backend-stripe-deprecated/CollectPaymentMethodSepa.component';
 
 export const CollectPaymentMethod = (props: Props) => {
   if (props.paymentMethodType === 'card') {

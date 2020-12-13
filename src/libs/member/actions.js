@@ -114,15 +114,21 @@ export const memberListActions = {
   success: createAction('MEMBER/LIST/SUCCESS'),
 };
 
-export function refreshFilteredMembers(params: any) {
+export function refreshFilteredMembers(params: any, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(memberListActions.isLoading(true));
     try {
       const response = await fetchFilteredMembersAPI(params);
       dispatch(memberListActions.success(response.data.results));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
     } catch (err) {
       console.error(err);
       dispatch(memberListActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
     dispatch(memberListActions.isLoading(false));
   };
@@ -168,10 +174,10 @@ export function fetchMemberBulk(params: any) {
     dispatch(memberBulkActions.isLoading(false));
   };
 }
-export function fetchFilteredMembers(params: any) {
+export function fetchFilteredMembers(params: any, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(memberListActions.isLoading(true));
-    dispatch(refreshFilteredMembers(params));
+    dispatch(refreshFilteredMembers(params, options));
     dispatch(memberListActions.isLoading(false));
   };
 }

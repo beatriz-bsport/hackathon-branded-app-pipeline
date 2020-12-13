@@ -2,11 +2,10 @@
 import React from 'react';
 
 import {
-  CardElement,
-  injectStripe,
-  StripeProvider,
+  IbanElement,
   Elements,
-} from 'react-stripe-elements';
+  ElementsConsumer,
+} from '@stripe/react-stripe-js';
 import ErrorIcon from '@material-ui/icons/Error';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -14,6 +13,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Typography from '@material-ui/core/Typography';
 import CheckIcon from '@material-ui/icons/Check';
+import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import { compose } from 'recompose';
@@ -21,12 +21,16 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { loadStripe } from '@stripe/stripe-js';
 import Config from '../../../../config';
 import StripeErrorCode from './StripeErrorCode.component';
 
 import { AVAILABLE_PAYMENT_METHOD_TYPE } from './helpers';
 
+const PAYMENT_METHOD = AVAILABLE_PAYMENT_METHOD_TYPE.sepa_debit;
+
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
+const stripePromise = loadStripe(STRIPE_KEY);
 
 type Props = {
   t: TFunction,
@@ -38,13 +42,15 @@ type Props = {
   classes: Object,
 };
 
-const PAYMENT_METHOD = AVAILABLE_PAYMENT_METHOD_TYPE.card;
-
 export class CollectPaymentMethod extends React.Component<Props> {
   state = {
     error: false,
     clientSecret: null,
     success: null,
+    billing_details: {
+      name: '',
+      email: '',
+    },
   };
 
   componentDidMount() {
@@ -81,7 +87,8 @@ export class CollectPaymentMethod extends React.Component<Props> {
 
     this.props.stripe[PAYMENT_METHOD.method](this.state.clientSecret, {
       payment_method: {
-        card: element,
+        sepa_debit: element,
+        billing_details: this.state.billing_details,
       },
     }).then((result) => {
       if (result.error) {
@@ -175,13 +182,57 @@ export class CollectPaymentMethod extends React.Component<Props> {
             )}
             {!this.state.error && !this.state.success && (
               <form onSubmit={this.handleSubmit}>
+                <div className={classes.nameAndEmailContainer}>
+                  <TextField
+                    required
+                    fullWidth
+                    value={this.state.billing_details.name}
+                    variant="outlined"
+                    placeholder={this.props.t('subscription:mandate.name')}
+                    onChange={(ev) => {
+                      const { value } = ev.target;
+                      this.setState((prevState) => {
+                        return {
+                          billing_details: {
+                            ...prevState.billing_details,
+                            name: value,
+                          },
+                        };
+                      });
+                    }}
+                  />
+                  <TextField
+                    type="email"
+                    required
+                    fullWidth
+                    variant="outlined"
+                    value={this.state.billing_details.email}
+                    placeholder={this.props.t('subscription:mandate.email')}
+                    onChange={(ev) => {
+                      const { value } = ev.target;
+                      this.setState((prevState) => ({
+                        billing_details: {
+                          ...prevState.billing_details,
+                          email: value,
+                        },
+                      }));
+                    }}
+                  />
+                </div>
                 <div style={this.state.processing ? { display: 'none' } : {}}>
                   <div className={classes.sensitiveDataContainer}>
                     <div className={classes.sensitiveData}>
-                      <Card />
+                      <SepaDebit />
                     </div>
                   </div>
                 </div>
+                <Typography
+                  color="textSecondary"
+                  variant="caption"
+                  className={classes.mandate}
+                >
+                  {this.props.t('subscription:mandate.content')}
+                </Typography>
                 <div className={classes.actions}>
                   <Button
                     disabled={this.state.processing}
@@ -206,7 +257,14 @@ export class CollectPaymentMethod extends React.Component<Props> {
   }
 }
 
-const Card = () => <CardElement style={{ base: { fontSize: '18px' } }} />;
+const SepaDebit = () => (
+  <IbanElement
+    options={{
+      supportedCountries: ['SEPA'],
+      style: { height: 40, base: { height: 40, fontSize: '18px' } },
+    }}
+  />
+);
 
 const styles = (theme) => ({
   actions: {
@@ -261,13 +319,18 @@ const styles = (theme) => ({
 const CollectPaymentMethodCompose = compose(
   withTranslation(['payment']),
   withStyles(styles),
-  injectStripe,
 )(CollectPaymentMethod);
 
 export default (props: Props) => (
-  <StripeProvider apiKey={STRIPE_KEY}>
-    <Elements>
-      <CollectPaymentMethodCompose {...props} />
-    </Elements>
-  </StripeProvider>
+  <Elements stripe={stripePromise}>
+    <ElementsConsumer>
+      {({ stripe, elements }) => (
+        <CollectPaymentMethodCompose
+          stripe={stripe}
+          elements={elements}
+          {...props}
+        />
+      )}
+    </ElementsConsumer>
+  </Elements>
 );

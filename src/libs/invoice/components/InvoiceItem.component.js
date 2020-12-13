@@ -15,9 +15,10 @@ export const InvoiceItem = (props: Props) => {
   const { onDelete, invoiceItem } = props;
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
-  let { voucher } = invoiceItem;
-  if (!parseFloat(voucher) || parseFloat(voucher) < 0) {
-    voucher = null;
+  let voucher = null;
+  if (parseFloat(invoiceItem.voucher) !== 0) {
+    // eslint-disable-next-line
+    voucher = invoiceItem.voucher;
   }
   return (
     <div className={classes.container}>

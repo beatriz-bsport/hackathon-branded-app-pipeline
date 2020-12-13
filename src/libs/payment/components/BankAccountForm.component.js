@@ -7,9 +7,12 @@ import TextField from '@material-ui/core/TextField';
 import { compose, withState, withHandlers } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { injectStripe, Elements, StripeProvider } from 'react-stripe-elements';
+import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';
 
+import { loadStripe } from '@stripe/stripe-js';
 import Config from '../../../config';
+
+const stripePromise = loadStripe(Config.REACT_APP_STRIPE_PK_KEY);
 
 type Props = {
   company: Company,
@@ -112,7 +115,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BankAccountFormComposed = compose(
-  injectStripe,
   withState('account_number', 'setAccountNumber', ''),
   withState('account_holder_name', 'setAccountHolderName', ''),
   withState('error', 'setError', false),
@@ -159,9 +161,15 @@ const BankAccountFormComposed = compose(
 )(BankAccountForm);
 
 export default (props) => (
-  <StripeProvider apiKey={Config.REACT_APP_STRIPE_PK_KEY}>
-    <Elements>
-      <BankAccountFormComposed {...props} />
-    </Elements>
-  </StripeProvider>
+  <Elements stripe={stripePromise}>
+    <ElementsConsumer>
+      {({ stripe, elements }) => (
+        <BankAccountFormComposed
+          stripe={stripe}
+          elements={elements}
+          {...props}
+        />
+      )}
+    </ElementsConsumer>
+  </Elements>
 );

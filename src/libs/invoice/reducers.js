@@ -23,6 +23,7 @@ const initialState = Immutable({
   list: {
     count: 0,
     loading: false,
+    page: 1,
     error: null,
     allIds: [],
   },
@@ -40,6 +41,7 @@ const initialState = Immutable({
     byId: {},
     loading: false,
     error: null,
+    allIds: [],
   },
   invoiceItem: {
     byId: {},
@@ -97,15 +99,19 @@ export default handleActions(
       return state
         .merge(
           {
-            byId: payload.results.reduce(
+            byId: (payload.results || payload).reduce(
               (acc, v) => ({ ...acc, [v.uuid]: v }),
               {},
             ),
           },
           { deep: true },
         )
-        .setIn(['list', 'allIds'], payload.results.map((inv) => inv.uuid))
-        .setIn(['list', 'count'], payload.count);
+        .setIn(
+          ['list', 'allIds'],
+          (payload.results || payload).map((inv) => inv.uuid),
+        )
+        .setIn(['list', 'count'], payload.count)
+        .setIn(['list', 'page'], payload.page);
     },
     [listPaymentActions.isLoading]: (state, { payload }) => {
       return state.setIn(['payment', 'loading'], payload);
@@ -114,7 +120,7 @@ export default handleActions(
       return state.setIn(['payment', 'error'], payload);
     },
     [listPaymentActions.success]: (state, { payload }) => {
-      return state.merge(
+      return state.setIn(['payment', 'allIds'], payload.map((p) => p.id)).merge(
         {
           payment: {
             byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
@@ -211,7 +217,7 @@ export default handleActions(
       return state.setIn(['updatePaymentMethod', 'error'], payload);
     },
     [updatePaymentMethodActions.success]: (state, { payload }) => {
-      return state.setIn(['payments', 'byId', payload.uuid], payload);
+      return state.setIn(['payment', 'byId', payload.id], payload);
     },
     [createOrUpdateInvoiceActions.isLoading]: (state, { payload }) => {
       return state.setIn(['createOrUpdate', 'loading'], payload);

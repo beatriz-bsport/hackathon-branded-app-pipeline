@@ -3,10 +3,9 @@
 import React, { Component } from 'react';
 import {
   CardElement,
-  injectStripe,
-  StripeProvider,
   Elements,
-} from 'react-stripe-elements';
+  ElementsConsumer,
+} from '@stripe/react-stripe-js';
 import Checkbox from '@material-ui/core/Checkbox';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
@@ -17,6 +16,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { CB as PAYMENT_METHOD_STRIPE_PAYMENT_INTENT } from '@bsport/common/lib/master-data/payment-methods';
+import { loadStripe } from '@stripe/stripe-js';
 import Config from '../../../../config';
 
 import StripeErrorCode from './StripeErrorCode.component';
@@ -24,6 +24,8 @@ import AcceptTermsAndConditions from '../AcceptTermsAndConditions.component';
 import PaymentMethodList from '../PaymentMethodList.component';
 
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
+
+const stripePromise = loadStripe(STRIPE_KEY);
 
 type Props = {
   submitPaymentIntent: (*) => Promise<any>,
@@ -228,7 +230,7 @@ export class PaymentIntentGathering extends Component<Props, State> {
             >
               <CardElement
                 onReady={() => this.setState({ cardReady: true })}
-                style={{ base: { fontSize: '18px' } }}
+                options={{ style: { base: { fontSize: '18px' } } }}
               />
             </div>
             <div className={this.props.classes.savePaymentMethodCheckbox}>
@@ -354,15 +356,20 @@ const styles = (theme) => ({
 });
 
 export const PaymentIntentGatheringComposed = compose(
-  injectStripe,
   withStyles(styles),
   withTranslation(['checkout', 'stripe']),
 )(PaymentIntentGathering);
 
 export default (props: Props) => (
-  <StripeProvider apiKey={STRIPE_KEY}>
-    <Elements>
-      <PaymentIntentGatheringComposed {...props} />
-    </Elements>
-  </StripeProvider>
+  <Elements stripe={stripePromise}>
+    <ElementsConsumer>
+      {({ stripe, elements }) => (
+        <PaymentIntentGatheringComposed
+          stripe={stripe}
+          elements={elements}
+          {...props}
+        />
+      )}
+    </ElementsConsumer>
+  </Elements>
 );

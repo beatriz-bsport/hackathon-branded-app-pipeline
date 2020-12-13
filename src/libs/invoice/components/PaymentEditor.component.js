@@ -21,9 +21,15 @@ import PAYMENT_METHODS, {
   CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
   DISPUTE as PAYMENT_METHOD_DISPUTE,
   SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
+  BANCONTACT,
+  EPS,
+  GIROPAY,
+  SOFORT,
+  IDEAL,
 } from '@bsport/common/lib/master-data/payment-methods';
+import { loadStripe } from '@stripe/stripe-js';
 
-import { Elements, StripeProvider } from 'react-stripe-elements';
+import { Elements } from '@stripe/react-stripe-js';
 
 import Config from '../../../config';
 import PriceInput from '../../../components/input/PriceInput.component';
@@ -31,6 +37,7 @@ import StripeForm from '../../../components/form/StripeForm.component';
 import PaymentMethodList from '../../payment/components/PaymentMethodList.component';
 
 const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
+const stripePromise = loadStripe(STRIPE_KEY);
 
 type Props = {
   price: string,
@@ -49,19 +56,17 @@ const PaymentItemForm = (props: Props) => {
       const relevantSavedPaymentMethodList = props.savedPaymentMethodList || [];
       return (
         <div className={classes.stripeFormContainer}>
-          <StripeProvider apiKey={STRIPE_KEY}>
-            <Elements>
-              <StripeForm
-                price={props.price}
-                onComplete={
-                  ({ id }) =>
-                    props.onAddPaymentItem({
-                      stripe_charge_id: id,
-                    }) /* this.receiveStripeToken */
-                }
-              />
-            </Elements>
-          </StripeProvider>
+          <Elements stripe={stripePromise}>
+            <StripeForm
+              price={props.price}
+              onComplete={
+                ({ id }) =>
+                  props.onAddPaymentItem({
+                    stripe_charge_id: id,
+                  }) /* this.receiveStripeToken */
+              }
+            />
+          </Elements>
           <PaymentMethodList
             paymentMethod={relevantSavedPaymentMethodList}
             isExpandable
@@ -168,7 +173,12 @@ export const PaymentEditor = (props: {
             (pm) =>
               pm.id !== PAYMENT_METHOD_SUBSCRIPTION_CB.id &&
               pm.id !== PAYMENT_METHOD_CREDIT_ACCOUNT.id &&
-              pm.id !== PAYMENT_METHOD_DISPUTE.id,
+              pm.id !== PAYMENT_METHOD_DISPUTE.id &&
+              pm.id !== BANCONTACT.id &&
+              pm.id !== EPS.id &&
+              pm.id !== GIROPAY.id &&
+              pm.id !== IDEAL.id &&
+              pm.id !== SOFORT.id,
           ).map((pm) => (
             <MenuItem key={pm.id} value={pm.id}>
               {t(`paymentMethod.${pm.id}`)}

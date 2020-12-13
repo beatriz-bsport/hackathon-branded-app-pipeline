@@ -47,3 +47,11 @@ export const requestSetupIntentSecretNoAuth = async (
     as_company,
   });
 };
+
+export const submitInternalPayment = async (data: any) => {
+  return postAuth(`${API_V1_URI}/payment/internal_payment/`, data);
+};
+
+export const getPaymentGroupStatus = async (id: number) => {
+  return getAuth(`${API_V1_URI}/payment/payment_group/${id}/status/`);
+};

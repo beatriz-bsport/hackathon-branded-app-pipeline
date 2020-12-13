@@ -5,6 +5,9 @@ exports.default = {
   },
   // eslint-disable-next-line
   name: 'Nom',
+  unpaidInvoiceTitle: 'Facture impayée',
+  unpaidInvoiceTitle_plural: 'Factures impayées',
+  adjustBalance: 'Ajuster le solde',
   table: {
     show: 'Voir',
   },
@@ -55,8 +58,9 @@ exports.default = {
     drop_file: 'Glisser et déposer ou cliquer pour ajouter un document',
   },
   regularizeBalance: 'Régulariser',
+  applyBalanceToUnpaidInvoices: 'Appliquer le solde aux impayés',
   cashoutBalance: 'Décaisser',
-  creditAccountBalance: 'Acompte crédit restant',
+  creditAccountBalance: 'Solde client',
   showPaymentPack: 'Voir les cartes de cours',
   showInvoices: 'Voir les factures',
   showSubscriptions: 'Voir les souscriptions',

@@ -4,7 +4,7 @@ import {
   CardElement,
   IbanElement,
   IdealBankElement,
-} from 'react-stripe-elements';
+} from '@stripe/react-stripe-js';
 
 export const AVAILABLE_PAYMENT_METHOD_TYPE = {
   card: {

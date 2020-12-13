@@ -149,7 +149,7 @@ export class InvoiceForm extends React.Component<Props, State> {
       ...(this.props.paymentItemList || []),
       ...this.state.paymentItemList,
     ]
-      .filter((p) => !!p && !p.reverted && p.payment_received !== false)
+      .filter((p) => !!p && !p.reverted && p.payment_received)
       .reduce((acc, v) => acc + parseFloat(v.price), 0);
   };
 
@@ -205,6 +205,7 @@ export class InvoiceForm extends React.Component<Props, State> {
             updatePaymentMethod={this.props.updatePaymentMethod}
             isReturningPayment={this.props.isReturningPayment}
             returnPayment={this.props.returnPayment}
+            invoice={this.props.invoice}
           />
         </Grid>
         <Grid item xs={12} md={6}>

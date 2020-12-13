@@ -369,7 +369,7 @@ export default compose(
     }),
     {
       fetchAllPaymentPacks,
-      billMember: (id) => pushRouter(`/invoice/add/member/${id}`),
+      billMember: (id) => pushRouter(`/invoice/bill-member/${id}/`),
       pushToTab: (id, tab) => pushRouter(`/member/${id}/${tab}`),
       fetchContractList: fetchContractListAction,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,

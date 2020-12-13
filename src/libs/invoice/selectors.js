@@ -138,3 +138,13 @@ export const withAuthor = memoize((selector) =>
 );
 
 export const getQuickInvoiceList = (state) => state.invoice.quickInvoices;
+
+const _getPaymentListIds = (state) => state.invoice.payment.allIds;
+
+const _getUuid = (state, uuid) => uuid;
+
+export const getPaymentListInInvoice = createSelector(
+  [_getPaymentData, _getPaymentListIds, _getUuid],
+  (data, ids, invoiceUuid) =>
+    ids.map((id) => data[id]).filter((p) => p.invoice === invoiceUuid),
+);

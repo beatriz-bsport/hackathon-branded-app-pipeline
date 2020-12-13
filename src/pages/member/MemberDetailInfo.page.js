@@ -412,7 +412,12 @@ export default compose(
       // fetchInvoiceItemList,
       id,
     }) => () => {
-      fetchInvoiceList({ unpaid: true, member: id });
+      fetchInvoiceList({
+        is_v2: true,
+        is_draft: false,
+        unpaid: true,
+        member: id,
+      });
     },
   }),
 )(MemberDetailPage);

@@ -228,7 +228,7 @@ export default compose(
       return fetchBookingOptionByOffer(offerId, { show_cancelled: true });
     },
     fetchInvoiceListUnpaid: ({ fetchInvoiceList }) => (params) => {
-      fetchInvoiceList({ unpaid: true, ...(params || {}) });
+      fetchInvoiceList({ is_v2: true, is_draft: false, unpaid: true, ...(params || {}) });
     },
   }),
   withProps(({ id }) => ({

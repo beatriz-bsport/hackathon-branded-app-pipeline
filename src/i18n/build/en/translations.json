@@ -1584,7 +1584,7 @@
         },
         "offer": {
             "manageOffer": "Manage my bookings",
-            "myOpenedInvoices": "Quick invoice",
+            "myOpenedInvoices": "Quick invoicing",
             "noQuickInvoiceOpened": "No invoice opened",
             "reCreateBooking": "Register again",
             "createBookingOption": "Waiting-list",
@@ -1617,7 +1617,8 @@
             "restoreModal": {
                 "explain": "This session will be uncanceled and open again for your clients. However, previously canceled bookings will not be reinstated.",
                 "title": "Restore session"
-            }
+            },
+            "unpaidInvoices": "Unpaid invoices"
         },
         "pagination": {
             "outOf": " out of ",
@@ -3480,7 +3481,7 @@
             "broadcast": "Streaming"
         },
         "analytics": {
-            "showAnalyticsInformation": "View events that are tracked",
+            "showAnalyticsInformation": "Show events that are tracked",
             "eventDesc": "Description of the event",
             "gtmEvent": "GTM Event Name",
             "fbPixelEvent": "FB Pixel Event Name",
@@ -4293,7 +4294,12 @@
             "0": "Credit card",
             "label": "Payment method",
             "12": "Litigation",
-            "13": "SEPA"
+            "13": "SEPA",
+            "60": "Giropay",
+            "50": "EPS",
+            "40": "iDEAL",
+            "30": "Sofort",
+            "20": "Bancontact"
         },
         "actions": {
             "addThisPaymentItem": "Add this payment method"
@@ -4327,7 +4333,8 @@
         },
         "payment": {
             "return": "Refund"
-        }
+        },
+        "returnedAmount": "Reimbursed: "
     },
     "invoice": {
         "returnPayment": {
@@ -4359,11 +4366,14 @@
             "goToSubscription": "See the subscription",
             "revert": "Cancel",
             "invoiceReverted": "Invoice cancelled",
-            "finalize": "Finalize (PDF)"
+            "finalize": "Finalize (PDF)",
+            "consumeBalance": "Pay via balance"
         },
         "invoice": {
             "editor": {
-                "title": "Create the invoice"
+                "title": "Create the invoice",
+                "save": "Issue the invoice",
+                "sumup": "Sum up"
             },
             "title": "Invoice {{ uuid }}",
             "header": {
@@ -4376,11 +4386,13 @@
                 },
                 "clientAuthor": "Customer",
                 "author": "Created by : {{ name }}",
-                "date": "Date : {{ date }}"
+                "date": "Date : {{ date }}",
+                "reverseInvoice": "Refunded via ",
+                "sourceInvoice": "Cancel the invoice"
             }
         },
         "creditAccountBalance": {
-            "current": "Current account"
+            "current": "Current balance"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "Invoice was finalized and is not editable anymore",
@@ -4396,7 +4408,8 @@
             "invoiceItemList": {
                 "total": "Total purchase",
                 "isEmpty": "No purchases",
-                "title": "Purchases"
+                "title": "Purchases",
+                "titleReverse": "Purchase return"
             }
         },
         "invoiceItem": {
@@ -4419,6 +4432,143 @@
                 "show": "See the invoice"
             },
             "explain": "One or more payments are not passed correctly, the member's deposit reflects the failure of the payment"
+        },
+        "revert": {
+            "content": {
+                "explain": {
+                    "2": "Choose the reimbursement method yourself. Use this method for a check / manual transfer / cash refund.",
+                    "1": "A credit note will be generated and will increase the customer balance accordingly. Use this method to generate a credit note.",
+                    "0": "Credit card payments / SEPA / etc... will be paid directly to the customer's account. Use this method to make a direct refund following an error."
+                },
+                "label": {
+                    "2": "Manual refund",
+                    "1": "Refund on credit (balance)",
+                    "0": "Direct refund"
+                }
+            },
+            "dialog": {
+                "actions": {
+                    "confirm": "Refund",
+                    "cancel": "Cancel"
+                }
+            }
+        },
+        "table": {
+            "nested": {
+                "payment": {
+                    "header": {
+                        "paymentReceived": "Status",
+                        "date": "Date",
+                        "price": "Amount",
+                        "paymentMethod": "Payment method"
+                    },
+                    "isEmpty": "No payment",
+                    "title": "Payment"
+                },
+                "invoiceItem": {
+                    "header": {
+                        "product": "Name"
+                    },
+                    "isEmpty": "No purchases",
+                    "title": "Purchases"
+                }
+            },
+            "header": {
+                "pdf": "PDF",
+                "missing": "Remainder due",
+                "amount": "Amount due",
+                "date": "Invoice date",
+                "id": "Identifier",
+                "member": "Member"
+            },
+            "actions": {
+                "goToInvoice": "See invoice"
+            }
+        },
+        "balance": {
+            "updaterDialog": {
+                "actions": {
+                    "cancel": "Cancel",
+                    "submit": "Submit"
+                },
+                "debt": "Disbursement",
+                "explainTopup": "An increase of {{ amount }} € will be recorded in the member's balance.",
+                "explainDecaissement": "A disbursement of {{ amount }} € will be recorded.",
+                "balanceValueLabel": "Amount",
+                "title": "Balance adjustment"
+            }
+        },
+        "paymentPanel": {
+            "fields": {
+                "country": {
+                    "placeholder": "France",
+                    "label": "Bank account country"
+                },
+                "email": {
+                    "label": "Account holder email"
+                },
+                "accountHolderName": {
+                    "placeholder": "Marie Dupont",
+                    "label": "Account owner"
+                }
+            },
+            "paymentList": {
+                "isEmpty": "No payment",
+                "titleReverse": "Refund",
+                "title": "Payments"
+            },
+            "actions": {
+                "saveForLaterAsSEPA": "The mandate will be registered as \"SEPA\"",
+                "saveForLater": "Save this payment method",
+                "showInvoice": "See the invoice",
+                "confirmPayment": "Confirm payment",
+                "payAll": "Settle customer debt",
+                "cancel": "Cancel",
+                "revert": "Cancel",
+                "pay": "Pay this invoice"
+            },
+            "sumup": {
+                "amountRemaining": "Remaining amount to pay",
+                "amountDue": "Total due",
+                "title": "Sum up"
+            },
+            "date": {
+                "label": "Date of collection"
+            },
+            "paymentNote": {
+                "helperText": "(optional) check number, collection date...",
+                "label": "Note"
+            },
+            "amount": {
+                "label": "Amount to collect"
+            },
+            "amountRemaining": "Remainder to pay: {{ amount }}"
+        },
+        "paymentMethod": {
+            "label": {
+                "15": "Credit card (manual)",
+                "13": "Giropay",
+                "12": "EPS",
+                "11": "Sofort",
+                "10": "iDEAL",
+                "9": "Bancontact",
+                "7": "Transfer",
+                "5": "AMEX",
+                "4": "Vacation check",
+                "3": "Check",
+                "2": "SEPA",
+                "1": "Credit Card",
+                "0": "Cash"
+            },
+            "select": {
+                "label": "Payment method"
+            }
+        },
+        "paymentEngine": {
+            "label": {
+                "1": "Online payment",
+                "0": "Manual payment"
+            }
         }
     },
     "coach": {
@@ -4939,7 +5089,12 @@
             "credit_price": "Price in credit",
             "purchases": "Purchases",
             "views_unique": "Unique views",
-            "views_total": "Views"
+            "views_total": "Views",
+            "amount_unpaid_remaining_cts": "Remainder due",
+            "amount_paid_cts": "Amount paid",
+            "amount_due_cts": "Purchase amount",
+            "author_name": "Author",
+            "stripe_invoice_pdf": "PDF"
         },
         "yes": "Yes",
         "no": "No",
@@ -5017,7 +5172,8 @@
             "members": "Members",
             "cashbook": "Cash book",
             "on_spot_payments": "Payments in person",
-            "video": "Video"
+            "video": "Video",
+            "unpaid_invoices": "Unpaid invoices"
         },
         "globalCategories": {
             "subheader": {
@@ -5652,7 +5808,7 @@
         "engagement": "Commitment",
         "addMember": "Add a member profile",
         "showNotes": "Show notes",
-        "creditAccountBalance": "Internal credit account",
+        "creditAccountBalance": "Client account balance",
         "showPaymentPack": "Show pass",
         "showInvoices": "Show invoices",
         "showSubscriptions": "Show subscriptions",
@@ -5774,7 +5930,11 @@
             "createMember": "Add a member"
         },
         "memberTermsAccepted": " were accepted on {{- date}}",
-        "termsAndConditions": "General conditions of use"
+        "termsAndConditions": "General conditions of use",
+        "applyBalanceToUnpaidInvoices": "Apply balance to unpaid invoices",
+        "adjustBalance": "Adjust balance",
+        "unpaidInvoiceTitle": "Unpaid invoice",
+        "unpaidInvoiceTitle_plural": "Unpaid invoices"
     },
     "booking": {
         "bookingModule": {
@@ -6324,7 +6484,7 @@
         },
         "filters": {
             "1": {
-                "name": "Credit",
+                "name": "Debt",
                 "first": "The credit of the member is",
                 "second": " than   ",
                 "third": "euros",

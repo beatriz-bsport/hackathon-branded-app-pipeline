@@ -187,7 +187,7 @@
             "createBooking": "Registrarse",
             "reCreateBooking": "Volver a registrarse",
             "noQuickInvoiceOpened": "Ningún facturación abierta",
-            "myOpenedInvoices": "Facturas rápidas",
+            "myOpenedInvoices": "Factura rápida",
             "manageOffer": "Gestionar mis reservas",
             "bill": "Facturar",
             "noncompatibleConsumerPaymentPacksAre": "Posee las siguientes tarjetas, no compatibles con esta sesión:",
@@ -197,7 +197,8 @@
             "restoreModal": {
                 "explain": "Esta sesión ya no será cancelada y sera abierta de nuevo para tus clientes. Sin embargo, las reservas previamente canceladas no serán restablecidas.",
                 "title": "Restablecer la sesión"
-            }
+            },
+            "unpaidInvoices": "Facturas sin pagar"
         },
         "shop": {
             "supplier_price": "Precio proveedor",
@@ -1744,7 +1745,12 @@
             "1": "Efectivo",
             "0": "Tarjeta de crédito",
             "12": "Litigio",
-            "13": "SEPA"
+            "13": "SEPA",
+            "60": "Giropay",
+            "50": "EPS",
+            "40": "iDEAL",
+            "30": "Sofort",
+            "20": "Bancontact"
         },
         "creditAccountBalance": {
             "current": "Anticipo actual"
@@ -1775,7 +1781,8 @@
         },
         "payment": {
             "return": "Reembolsar"
-        }
+        },
+        "returnedAmount": "Reembolsado: "
     },
     "invoice": {
         "configuration": {
@@ -1798,7 +1805,8 @@
             "invoiceItemList": {
                 "total": "Total compra",
                 "isEmpty": "Ninguna compra",
-                "title": "Compras"
+                "title": "Compras",
+                "titleReverse": "Devolución de la compra"
             }
         },
         "invoiceItem": {
@@ -1833,7 +1841,8 @@
             "goToPaymentEditor": "Pago",
             "goToSubscription": "Ver la suscripción",
             "revert": "Cancelar",
-            "invoiceReverted": "Factura cancelada"
+            "invoiceReverted": "Factura cancelada",
+            "consumeBalance": "Paga a través del balance"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "La factura se ha finalizado y, por lo tanto, ya no se puede editar",
@@ -1851,15 +1860,20 @@
                 },
                 "clientAuthor": "Cliente",
                 "author": "Creado por: {{name}}",
-                "date": "Fecha: {{date}}"
+                "date": "Fecha: {{date}}",
+                "reverseInvoice": "Reembolsado vía ",
+                "sourceInvoice": "Cancelar la factura"
             },
             "editor": {
-                "title": "Edición de la factura"
+                "title": "Edición de la factura",
+                "save": "Emitir la factura",
+                "sumup": "Resumen"
             },
-            "title": "Factura {{ uuid }}"
+            "title": "Factura {{ uuid }}",
+            "titleRevert": "Crédito {{ uuid }}"
         },
         "creditAccountBalance": {
-            "current": "Anticipo actual"
+            "current": "Balance actual"
         },
         "invoiceInfoDialog": {
             "actions": {
@@ -1867,6 +1881,154 @@
                 "show": "Ver la factura"
             },
             "explain": "Uno o más pagos no se realizan correctamente, el anticipo del miembro refleja la falla del pago"
+        },
+        "revert": {
+            "content": {
+                "explain": {
+                    "2": "Elija usted mismo el método de reembolso. Utilice este método para un cheque / transferencia manual / reembolso en efectivo.",
+                    "1": "Se generará una nota de crédito que aumentará el saldo del cliente en consecuencia. Utilice este método para generar una nota de crédito.",
+                    "0": "Los pagos con tarjeta de crédito / SEPA / etc... se pagarán directamente a la cuenta del cliente. Utilice este método para hacer un reembolso directo después de un error."
+                },
+                "label": {
+                    "2": "Reembolso manual",
+                    "1": "Reembolso del crédito (saldo)",
+                    "0": "Reembolso directo"
+                }
+            },
+            "dialog": {
+                "title": "Cancelación de la factura",
+                "actions": {
+                    "confirm": "Reembolso",
+                    "cancel": "Cancelar"
+                }
+            }
+        },
+        "table": {
+            "nested": {
+                "payment": {
+                    "header": {
+                        "paymentReceived": "Estado",
+                        "date": "Fecha",
+                        "price": "Cantidad",
+                        "paymentMethod": "Método de pago"
+                    },
+                    "isEmpty": "No hay pago",
+                    "title": "Pago"
+                },
+                "invoiceItem": {
+                    "header": {
+                        "voucher": "Descuento",
+                        "priceExcTax": "Total sin IVA",
+                        "price": "El total de IVA incluído",
+                        "product": "Nombre"
+                    },
+                    "isEmpty": "No hay compras",
+                    "title": "Compras"
+                }
+            },
+            "header": {
+                "pdf": "PDF",
+                "missing": "Resto debido",
+                "amount": "Cantidad a pagar",
+                "date": "Fecha de la factura",
+                "id": "Identificador",
+                "member": "Miembro"
+            },
+            "actions": {
+                "goToInvoice": "Ver la factura"
+            }
+        },
+        "balance": {
+            "updaterDialog": {
+                "actions": {
+                    "cancel": "Cancelar",
+                    "submit": "Enviar"
+                },
+                "topup": "Colección",
+                "debt": "Desembolso",
+                "explainTopup": "Se registrará un aumento de {{ amount }} € en el saldo del miembro.",
+                "title": "Ajuste del balance",
+                "explainDecaissement": "Se registrará un desembolso de {{ amount }} €.",
+                "balanceValueLabel": "Cantidad",
+                "typeLabel": "Tipo de ajuste"
+            }
+        },
+        "paymentPanel": {
+            "fields": {
+                "country": {
+                    "placeholder": "France",
+                    "label": "País de la cuenta bancaria"
+                },
+                "email": {
+                    "placeholder": "john@doe.com",
+                    "label": "Email del titular de la cuenta"
+                },
+                "accountHolderName": {
+                    "placeholder": "Marie Dupont",
+                    "label": "El titular de la cuenta"
+                }
+            },
+            "actions": {
+                "saveForLaterAsSEPA": "El mandato se registrará como \"SEPA\"",
+                "bill": "Colección",
+                "saveForLater": "Guarda este método de pago",
+                "showInvoice": "Ver la factura",
+                "confirmPayment": "Confirmar el pago",
+                "payAll": "Liquidar la deuda del cliente",
+                "cancel": "Cancelar",
+                "revert": "Cancelar",
+                "pay": "Paga esta factura"
+            },
+            "paymentList": {
+                "isEmpty": "No hay pago",
+                "titleReverse": "Reembolso",
+                "title": "Pagos"
+            },
+            "sumup": {
+                "amountRemaining": "La cantidad restante a pagar",
+                "amountPaid": "Colección",
+                "amountDue": "Total debido",
+                "title": "Resumen"
+            },
+            "date": {
+                "label": "Fecha de recogida"
+            },
+            "paymentNote": {
+                "helperText": "(opcional) número de cheque, fecha de recogida...",
+                "label": "Nota"
+            },
+            "amount": {
+                "label": "Cantidad a cobrar"
+            },
+            "amountRemaining": "El resto a pagar: {{ amount }}"
+        },
+        "paymentMethod": {
+            "label": {
+                "8": "Otro",
+                "6": "Disputa",
+                "15": "Tarjeta de crédito (manual)",
+                "13": "Giropay",
+                "12": "EPS",
+                "11": "Sofort",
+                "10": "iDEAL",
+                "9": "Bancontact",
+                "7": "Transferencia",
+                "5": "AMEX",
+                "4": "Cheque de vacaciones",
+                "3": "Cheque",
+                "2": "SEPA",
+                "1": "Tarjeta de crédito",
+                "0": "Efectivo"
+            },
+            "select": {
+                "label": "Método de pago"
+            }
+        },
+        "paymentEngine": {
+            "label": {
+                "1": "Pago en línea",
+                "0": "Pago manual"
+            }
         }
     },
     "coach": {
@@ -2367,7 +2529,12 @@
             "credit_price": "Precio en crédito",
             "purchases": "Compras",
             "views_unique": "Vistas únicas",
-            "views_total": "Vistas"
+            "views_total": "Vistas",
+            "amount_unpaid_remaining_cts": "Resto debido",
+            "amount_paid_cts": "Cantidad pagada",
+            "amount_due_cts": "El importe de la compra",
+            "author_name": "Autor",
+            "stripe_invoice_pdf": "PDF"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -2444,7 +2611,8 @@
             "members": "Miembros",
             "cashbook": "Libro de caja",
             "on_spot_payments": "Pagos en persona",
-            "video": "Vídeo"
+            "video": "Vídeo",
+            "unpaid_invoices": "Facturas impagadas"
         },
         "globalCategories": {
             "subheader": {
@@ -2609,7 +2777,7 @@
             "healthNotes": "Informaciones médicales",
             "is_medical": "Nota médica"
         },
-        "creditAccountBalance": "Anticipo de crédito restante",
+        "creditAccountBalance": "Saldo de la cuenta del cliente",
         "showPaymentPack": "Ver las tarjetas de curso",
         "showInvoices": "Ver las facturas",
         "showSubscriptions": "Ver las subscripciones",
@@ -2722,7 +2890,11 @@
             "createMember": "Añadir un miembro"
         },
         "memberTermsAccepted": " fueron aceptadas el {{- date}}",
-        "termsAndConditions": "Condiciones generales de uso"
+        "termsAndConditions": "Condiciones generales de uso",
+        "applyBalanceToUnpaidInvoices": "Aplicar el saldo a las facturas impagadas",
+        "adjustBalance": "Ajustar el balance",
+        "unpaidInvoiceTitle": "Factura impagada",
+        "unpaidInvoiceTitle_plural": "Facturas impagadas"
     },
     "booking": {
         "details": {
@@ -6005,8 +6177,8 @@
                 "explanation": "Tiene X euros en su cuenta",
                 "third": "euros",
                 "second": " a   ",
-                "first": "El anticipo del cliente es",
-                "name": "Anticipo"
+                "first": "El saldo del miembro es (factura no pagada no incluida)",
+                "name": "Deuda"
             },
             "26": {
                 "hour": {

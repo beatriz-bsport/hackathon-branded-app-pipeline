@@ -689,7 +689,8 @@
             "restoreModal": {
                 "explain": "Dieser Kurs wird storniert und für Deine Kunden wieder geöffnet. Zuvor stornierte Buchungen werden jedoch nicht wieder hergestellt.",
                 "title": "Kurs wiederherstellen"
-            }
+            },
+            "unpaidInvoices": "Unbezahlte Rechnungen"
         },
         "time": {
             "monthShort": {
@@ -835,7 +836,7 @@
             "signup": {
                 "emailExistsInDB1": "Diese E-Mail ist bereits registriert, weil Du bereits in einem Club oder Studio mit bsport registriert bist. Du kannst dieselben Kontodaten verwenden.",
                 "privacyPolicy": "Allgemeine Geschäftsbedingungen",
-                "signupButton": "Sich einschreiben",
+                "signupButton": "Registrieren",
                 "communication": {
                     "sms": "per SMS",
                     "email": "per E-Mail"
@@ -1028,7 +1029,7 @@
             "booking": {
                 "discardImpossibleExplain": "Bist Du sich sicher, dass Du diese Buchung stornieren möchtest? Du stornierst nach Ablauf der Stornierungsfrist. Die Credits der Kurskarte verfallen (Allgemeine Nutzungsbedingungen des Studios).",
                 "discardPossibleExplain": "Bist Du sicher, dass Du diese Buchung stornieren möchtest? Deine Credits werden erstattet.",
-                "cancelOption": "Abbrechen",
+                "cancelOption": "Stornieren",
                 "noPastBookings": "Keine vorherige Buchung",
                 "noFutureBookings": "Keine geplante Buchung",
                 "noBookingOptions": "Keine Buchung auf Warteliste",
@@ -1307,8 +1308,8 @@
             "1": {
                 "explanation": "Hat X Euros auf seinem Konto",
                 "third": "Euros",
-                "first": "Die Anzahlung des Kundes ist",
-                "name": "Anzahlung",
+                "first": "Das Guthaben des Kundes ist",
+                "name": "Guthaben",
                 "second": " um   ",
                 "between": "und"
             },
@@ -2078,7 +2079,7 @@
             "paymentPack": {
                 "validByDaterange": "Die Karte ist für ein bestimmtes Datum gültig",
                 "delete": {
-                    "thereAreConsumers": "Vorsicht ! Einige Mitglieder haben diese Kurskarte gekauft. Wenn Sie sie löschen, können diese Mitglieder ihre verbleibende Credits weiterhin verwenden. Du kannst sie hier manuell auf Null stellen.\n\nDie Karte wird nicht mehr in Ihrem Shop für neue Käufer erscheinen.",
+                    "thereAreConsumers": "Achtung! Einige Mitglieder haben diese Kurskarte gekauft. Wenn Du sie löschst, können diese Mitglieder ihre verbleibende Credits weiterhin verwenden. Du kannst sie hier manuell auf Null stellen.\n\nDie Karte wird nicht mehr in Ihrem Shop für neue Käufer erscheinen.",
                     "actions": {
                         "submit": "Löschen",
                         "cancel": "Abbrechen"
@@ -2575,7 +2576,12 @@
             "credit_price": "Preis in Credits",
             "purchases": "Käufe",
             "views_unique": "Unique Views",
-            "views_total": "Views"
+            "views_total": "Views",
+            "amount_unpaid_remaining_cts": "Ausbleibend",
+            "amount_paid_cts": "Abrechnungsbetrag",
+            "amount_due_cts": "Kaufbetrag",
+            "author_name": "Autor",
+            "stripe_invoice_pdf": "PDF"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -2619,7 +2625,8 @@
             "memberships": "Kurskarten",
             "invoices": "Einkäufe",
             "products": "Produkte",
-            "video": "Video"
+            "video": "Video",
+            "unpaid_invoices": "Unbezahlte Rechnungen"
         },
         "globalCategories": {
             "subheader": {
@@ -3065,7 +3072,8 @@
             "invoiceItemList": {
                 "total": "Gesamte Einkäufe",
                 "isEmpty": "Keine Einkäufe",
-                "title": "Einkäufe"
+                "title": "Einkäufe",
+                "titleReverse": "Rückzahlung"
             },
             "paymentList": {
                 "total": "Gesamte Zahlungen",
@@ -3083,11 +3091,14 @@
             "goToPaymentEditor": "Zahlung",
             "goToSubscription": "Das Abonnement anzeigen",
             "revert": "Abbrechen",
-            "invoiceReverted": "Die Rechnung wurde storniert"
+            "invoiceReverted": "Die Rechnung wurde storniert",
+            "consumeBalance": "Zahle per Saldo"
         },
         "invoice": {
             "editor": {
-                "title": "Erstellung der Rechnung"
+                "title": "Erstellung der Rechnung",
+                "save": "Rechnung ausstellen",
+                "sumup": "Zusammenfassung"
             },
             "header": {
                 "source": {
@@ -3099,9 +3110,12 @@
                 },
                 "clientAuthor": "Kunde",
                 "author": "Erstellt von : {{ name }}",
-                "date": "Datum : {{ date }}"
+                "date": "Datum : {{ date }}",
+                "reverseInvoice": "Rückerstattung über ",
+                "sourceInvoice": "Rechnung stornieren"
             },
-            "title": "Rechnung {{ uuid }}"
+            "title": "Rechnung {{ uuid }}",
+            "titleRevert": "Habe {{uuid}}"
         },
         "invoiceItem": {
             "voucher": "Rabatt : {{ voucher }} €",
@@ -3123,7 +3137,7 @@
             "invoiceRevertedThusNotEditable": "Die Rechnung wurde storniert und kann nicht mehr geändert werden"
         },
         "creditAccountBalance": {
-            "current": "Aktuelle Anzahlung"
+            "current": "Aktueller Saldo"
         },
         "invoiceInfoDialog": {
             "actions": {
@@ -3131,6 +3145,154 @@
                 "show": "Die Rechnung anzeigen"
             },
             "explain": "Eine oder mehrere Zahlungen wurden nicht korrekt vorgenommen, die Anzahlung des Mitglieds spiegelt die nicht erfolgte Zahlung wider"
+        },
+        "revert": {
+            "content": {
+                "label": {
+                    "2": "Manuelle Rückerstattung",
+                    "1": "Rückerstattung von Credits (Restbetrag)",
+                    "0": "Direkte Rückerstattung"
+                },
+                "explain": {
+                    "2": "Wähle die Erstattungsmethode selbst. Verwende diese Methode für einen Scheck / eine manuelle Überweisung / eine Rückerstattung in bar.",
+                    "1": "Eine Gutschrift wird erstellt und wird dem Kundenguthaben entsprechend gutgeschrieben. Verwende diese Methode, um eine Gutschrift zu erstellen.",
+                    "0": "Kreditkarte / SEPA / etc ... Zahlungen werden direkt auf das Konto des Kunden überwiesen. Verwende diese Methode, um nach einem Fehler eine direkte Rückerstattung vorzunehmen."
+                }
+            },
+            "dialog": {
+                "actions": {
+                    "confirm": "Rückerstattung",
+                    "cancel": "Abbrechen"
+                },
+                "title": "Rechnungsstornierung"
+            }
+        },
+        "balance": {
+            "updaterDialog": {
+                "explainDecaissement": "Eine Auszahlung von {{ amount }} € wird erfasst.",
+                "typeLabel": "Passform",
+                "title": "Guthaben-Einstellungen",
+                "actions": {
+                    "cancel": "Abbrechen",
+                    "submit": "Weiter"
+                },
+                "topup": "Eingegangene Zahlungen",
+                "debt": "Auszahlung",
+                "explainTopup": "Eine Erhöhung von {{amount}} € wird im Guthaben des Mitglieds erfasst.",
+                "balanceValueLabel": "Betrag"
+            }
+        },
+        "paymentMethod": {
+            "label": {
+                "15": "Kreditkarte (manuell)",
+                "13": "Giropay",
+                "12": "EPS",
+                "11": "SOFORT",
+                "10": "iDEAL",
+                "9": "Bancontact",
+                "8": "Anderes",
+                "7": "Überweisung",
+                "6": "Streitfall",
+                "5": "AMEX",
+                "4": "Reisescheck",
+                "3": "Scheck",
+                "2": "SEPA",
+                "1": "Kreditkarte",
+                "0": "Bargeld"
+            },
+            "select": {
+                "label": "Zahlungsmethode"
+            }
+        },
+        "table": {
+            "nested": {
+                "payment": {
+                    "header": {
+                        "paymentReceived": "Status",
+                        "date": "Datum",
+                        "price": "Betrag",
+                        "paymentMethod": "Zahlungsmethode"
+                    },
+                    "isEmpty": "Keine Zahlung",
+                    "title": "Zahlung"
+                },
+                "invoiceItem": {
+                    "header": {
+                        "voucher": "Rabatt",
+                        "priceExcTax": "Betrag exklusive Steuern",
+                        "price": "Betrag inklusive Steuern",
+                        "product": "Name"
+                    },
+                    "isEmpty": "Keine Käufe",
+                    "title": "Käufe"
+                }
+            },
+            "header": {
+                "pdf": "PDF",
+                "missing": "Ausbleibend",
+                "amount": "Betrag",
+                "date": "Rechnungsdatum",
+                "id": "ID",
+                "member": "Mitglied"
+            },
+            "actions": {
+                "goToInvoice": "Rechnung anzeigen"
+            }
+        },
+        "paymentPanel": {
+            "fields": {
+                "country": {
+                    "placeholder": "Frankreich",
+                    "label": "Land der Kontoverbindung"
+                },
+                "email": {
+                    "placeholder": "marie@dupont.fr",
+                    "label": "E-Mail des Kontoinhabers"
+                },
+                "accountHolderName": {
+                    "placeholder": "Marie Dupont",
+                    "label": "Kontoinhaber"
+                }
+            },
+            "paymentList": {
+                "isEmpty": "Keine Zahlung",
+                "titleReverse": "Rückerstattung",
+                "title": "Zahlungen"
+            },
+            "actions": {
+                "saveForLaterAsSEPA": "Das Mandat wird als \"SEPA\" registriert",
+                "saveForLater": "diese Zahlungsmethode hinterlegen",
+                "showInvoice": "Die Rechnung anzeigen",
+                "confirmPayment": "Bestätige Zahlung",
+                "payAll": "Kundenschulden begleichen",
+                "cancel": "Abbrechen",
+                "revert": "Stornieren",
+                "pay": "Diese Rechnung bezahlen",
+                "bill": "Einlösen"
+            },
+            "sumup": {
+                "amountRemaining": "Noch zu zahlen",
+                "amountPaid": "Eingegangene Zahlungen",
+                "amountDue": "Gesamt",
+                "title": "Zusammenfassung"
+            },
+            "date": {
+                "label": "Einzugsdatum"
+            },
+            "paymentNote": {
+                "helperText": "(optional) Schecknummer, Einlösungsdatum...",
+                "label": "Anmerkung"
+            },
+            "amount": {
+                "label": "Einzuziehender Betrag"
+            },
+            "amountRemaining": "Restbetrag: {{amount}}"
+        },
+        "paymentEngine": {
+            "label": {
+                "1": "Onlinebezahlung",
+                "0": "Barzahlung"
+            }
         }
     },
     "payment": {
@@ -3148,7 +3310,12 @@
             "9": "Internes Konto (Kredit)",
             "label": "Zahlungsmethode",
             "12": "Streitfall",
-            "13": "SEPA"
+            "13": "SEPA",
+            "60": "Giropay",
+            "50": "EPS",
+            "40": "iDEAL",
+            "30": "SOFORT",
+            "20": "Bancontact"
         },
         "generalTermsAndConditions": {
             "close": "Schließen",
@@ -3229,7 +3396,8 @@
         },
         "payment": {
             "return": "Zurückzahlen"
-        }
+        },
+        "returnedAmount": "Erstattet: "
     },
     "paymentRules": {
         "common": {
@@ -3861,7 +4029,11 @@
             "bornIn": "Geboren am {{-date}} - {{age}} Jahre"
         },
         "memberTermsAccepted": " wurden am {{- date}} akzeptiert",
-        "termsAndConditions": "Allgemeine Geschäftsbedingungen"
+        "termsAndConditions": "Allgemeine Geschäftsbedingungen",
+        "applyBalanceToUnpaidInvoices": "Wende den Restbetrag auf unbezahlte Rechnungen an",
+        "adjustBalance": "Guthaben einstellen",
+        "unpaidInvoiceTitle": "Unbezahlte Rechnung",
+        "unpaidInvoiceTitle_plural": "Unbezahlte Rechnungen"
     },
     "common": {
         "text": {
@@ -4943,10 +5115,10 @@
                 "cancel": "Abbrechen"
             },
             "title": "Passwort wiederherstellen",
-            "emailHasBeenSent": "Eine E-Mail wurde an {{email}} gesendet, um das verlorene Passwort wiederzuerlangen",
-            "explain1": "Was war die Konto-E-Mail ?",
+            "emailHasBeenSent": "Eine E-Mail wurde an {{email}} gesendet, um Dein Passwort wiederherzustellen",
+            "explain1": "Wie lautete die E-Mail-Adresse des Kontos?",
             "noEmail": "Diese E-Mail ist nicht gespeichert",
-            "explain2": "Wir senden Ihnen Anweisungen zur Wiederherstellung",
+            "explain2": "Wir senden Dir Anweisungen zur Wiederherstellung deines Passworts",
             "contactUs": "Kontaktiere uns via ",
             "hasProblem": "Hast Du Probleme beim Zurücksetzen?"
         }

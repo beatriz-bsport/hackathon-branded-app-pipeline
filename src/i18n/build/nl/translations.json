@@ -671,7 +671,7 @@
             "effectif": "Beschikbare plaatsen",
             "caracteristics": "Kenmerken",
             "price": "Prijs",
-            "credits": "Aantal krediet dat vereist is om te boeken",
+            "credits": "Kosten in krediet(en)",
             "priceCategory": "Facturatie",
             "duration_minute": "Duur",
             "lastSession": "Laatste sessie op",
@@ -680,9 +680,9 @@
             "timeSettings": "Tijd & datum",
             "monthly": "Maandelijks",
             "weekly": "Wekelijks",
-            "notRecurrent": "Een sessie",
+            "notRecurrent": "Eén sessie",
             "recurrence": "Herhaling",
-            "offerWillBeGenerated": "sessie zal worden aangemaakt",
+            "offerWillBeGenerated": "sessie(s)",
             "offersWillBeGenerated": "sessies worden ingepland",
             "credit_price": "Het aantal kredieten op de cursuskaart dat nodig is om een reservering te maken",
             "generateOffers": "Maak sessie(s) aan",
@@ -713,7 +713,7 @@
                 "changeDate": "Wijzig de tijd / datum",
                 "cancelTitle": "Annuleer de sessie",
                 "deleteTitle": "Sessie verwijderen",
-                "warningPackonEdit": "Door wijzigingen in de sessies kunnen ze niet compatibel zijn met bepaalde cursuskaarten. Neem na de wijziging de tijd om te controleren of ze compatibel blijven met eventuele wijzigingen van locatie / instructeur.",
+                "warningPackonEdit": "Het is mogelijk dat na deze wijziging(en) bepaalde cursuskaarten niet meer compatibel zijn. Vergeet niet om te controleren of je cursuskaarten met je vestigingen / instructeurs compatibel blijven.",
                 "substituteEstablishmentLabel": "Vestiging (tijdelijke plaats)",
                 "establishmentLabel": "Vestiging",
                 "coachLabel": "Instructeur",
@@ -814,18 +814,18 @@
                     "updateProvisionExplain": "Voer de bijdrage in je inventaris in. Dit wordt toegevoegd aan je huidige voorraad",
                     "modifyProvisions": "Voorraad bijwerken",
                     "updateProvisions": {
-                        "error": "Fout bij het registreren van de voorraad",
+                        "error": "Fout bij het bijwerken van de voorraad",
                         "success": "Voorraad bijgewerkt"
                     },
-                    "deleteExplain": "Let op! Deze actie is definitief. Geen enkel lid kan dit product kopen en de voorraden worden verwijderd.",
+                    "deleteExplain": "Let op! Deze actie is definitief. Geen enkel lid kan dit product meer kopen en de voorraden worden verwijderd.",
                     "barcode": "Streepjescode",
-                    "deleteTitle": "Verwijdering",
+                    "deleteTitle": "Verwijder",
                     "marketplace_enabled": "Beschikbaar op de webshop",
                     "unlimitedProvision": "Geen voorraadbeheer",
                     "create": "Voeg een artikel toe",
                     "is_deliverable": "Voeg verzendkosten toe",
-                    "featured": "Benadruk dit product wanneer leden hun winkelmandje valideren",
-                    "sell_only_on_provision": "Aanbieding ALLEEN te koop indien voorraad beschikbaar is",
+                    "featured": "Raad dit product aan wanneer leden hun winkelmandje valideren",
+                    "sell_only_on_provision": "Alleen verkopen als er voorraad is",
                     "onsite_payment_available": "Mogelijkheid om ter plaatse te betalen",
                     "available_payment_method_identifiers": {
                         "helperText": "Selecteer minimaal één betaalmethode. Als het mandje van een lid artikelen bevat waarvoor geen compatibele betaalmethode beschikbaar is, wordt een betaling met een bankkaart aangeboden.",
@@ -848,11 +848,11 @@
             "login": {
                 "passwordMismatch": "Wachtwoorden komen niet overeen",
                 "passwordChangedSuccess": "Wachtwoord succesvol gewijzigd!",
-                "passwordTooEasy": "Je wachtwoord moet uit ten minste 6 tekens en ten minste één cijfer en één letter bestaan",
+                "passwordTooEasy": "Je wachtwoord moet uit tenminste 6 tekens en tenminste 1 cijfer en 1 letter bestaan",
                 "confirmPassword": "Bevestigen",
                 "password": "Wachtwoord",
                 "changePasswordTitle": "Wachtwoord wijzigen",
-                "tokenExpired": "Deze pagina is niet meer geldig. Stel uw wachtwoord opnieuw in alstublieft",
+                "tokenExpired": "Deze pagina is niet meer geldig. Stel je wachtwoord opnieuw in alsjeblieft",
                 "resetAgainPassword": "Herstelaanvraag"
             },
             "address": {
@@ -874,8 +874,8 @@
             "ht": "(excl. btw)",
             "subShop": {
                 "delete": {
-                    "title": "Verwijdering",
-                    "explain": "Weet je zeker dat je deze categorie wilt verwijderen? Alle bijbehorende elementen worden ook verwijderd"
+                    "title": "Verwijder",
+                    "explain": "Weet je zeker dat je deze categorie wilt verwijderen? Alle bijbehorende onderdelen worden ook verwijderd"
                 }
             },
             "myShop": "Mijn winkel",
@@ -908,15 +908,16 @@
             "offersPendingChange": "Te wijzigen sessies:",
             "sizeOfWaitingList": "Grootte van de wachtlijst",
             "broadcast_link": "Link naar de livestream",
-            "effectif": "Aantal deelnemers",
+            "effectif": "Beschikbare plaatsen",
             "maxBookingsNb": "plaatsen",
             "nonAttendant": "afwezig(en)",
             "attendant": "aanwezig(en)",
             "noEmptyDuration": "De duur kan enkel positief zijn",
             "restoreModal": {
-                "explain": "De annulering van deze sessie ongedaan gemaakt; leden kunnen zich dus weer voor deze sessie inschrijven. Reeds geannuleerde reserveringen worden echter niet hersteld.",
+                "explain": "De annulering van deze sessie is ongedaan gemaakt; leden kunnen zich dus weer voor deze sessie inschrijven. Geannuleerde reserveringen worden echter niet hersteld.",
                 "title": "Herstel sessie"
-            }
+            },
+            "unpaidInvoices": "Openstaande facturen"
         },
         "time": {
             "month": {
@@ -1041,7 +1042,7 @@
             "noNextSlot": "Geen geplande sessies meer",
             "color": "Kleurcode",
             "name": "Titel",
-            "addActivity": "Voeg een activiteit toe",
+            "addActivity": "Een activiteit toevoegen",
             "addOffers": "Sessie(s) toevoegen",
             "lastDiscardBeforeMinutes": "Laatste annuleringsmogelijkheid voor het begin van de sessie",
             "lastBookingBeforeMinutes": "Voor de aanvang van de sessie is de laatste reservering mogelijk tot",
@@ -1085,7 +1086,7 @@
             "date": "Datum",
             "offers": "Sessies",
             "booking_s": "Sessie(s)",
-            "pass": "Cursuskaart",
+            "pass": "Cursuskaarten",
             "selected": "Geselecteerd",
             "transactions": "Mijn transacties",
             "members": "Mijn gebruikers",
@@ -1104,7 +1105,7 @@
             "company": "Bedrijf",
             "coaches": "Instructeurs",
             "coach": "Instructeur",
-            "seeMore": "Weergeven",
+            "seeMore": "Toon",
             "ok": "oké",
             "status": "Status",
             "recipients": "Ontvangers",
@@ -1122,7 +1123,7 @@
             "credit_s": "Krediet(en)",
             "continue": "Doorgaan",
             "amount": "Bedrag",
-            "paymentPack": "Cursuskaarten",
+            "paymentPack": "Cursuskaart",
             "datetime": "Sessie",
             "activity": "Activiteit",
             "paymentMethod": "Betaalmethode",
@@ -1142,8 +1143,8 @@
             "establishments": "Vestigingen",
             "buy": "Kopen",
             "uploadOneImage": {
-                "edit": "Sleep en zet neer of klik hier om de afbeelding te wijzigen",
-                "new": "Sleep en zet neer of klik hier om een afbeelding toe te voegen"
+                "edit": "Klik hier om de afbeelding(en) wijzigen",
+                "new": "Klik hier om afbeeldingen toe te voegen"
             },
             "tax": "btw",
             "generate": "Aanmaken",
@@ -1177,7 +1178,7 @@
             "OTHER": "Diverse",
             "SUBSCRIPTION_CB": "Automatische betaling",
             "CREDIT_ACCOUNT": "Interne rekening (krediet)",
-            "BANK_TRANSFER": "Afdracht",
+            "BANK_TRANSFER": "Overschrijving",
             "AMEX": "AMEX",
             "EVENT_BRITE": "EventBrite",
             "CASH": "Contant geld",
@@ -1208,7 +1209,7 @@
                 "success": "Activiteit aangemaakt"
             },
             "update": {
-                "imageUploaderRequireEditMessage": "Zodra je activiteit is aangemaakt, heb je de mogelijkheid om extra afbeeldingen toe te voegen."
+                "imageUploaderRequireEditMessage": "Zodra je activiteit is aangemaakt kun je extra afbeeldingen toevoegen."
             },
             "forms": {
                 "create": {
@@ -1230,7 +1231,7 @@
         "private_service": "Op afspraak",
         "openSchedule": "Bekijk de planning",
         "button": {
-            "login": "Verbinden"
+            "login": "Aanmelden"
         },
         "bookingConfirmed": "Reservering bevestigd",
         "activityUpdated": "Activiteit aangepast",
@@ -1253,7 +1254,7 @@
         "blockBooking": "Blokkeer reserveringen van cursuskaarten van nieuwe leden",
         "languageToolTip": "Beschikbaar in de webshop",
         "visibilityOfIconToolTip": "Niet zichtbaar",
-        "onlyNewMember": "Reservering alleen mogelijk voor de cursuskaarten van nieuwe leden",
+        "onlyNewMember": "Alleen reserveringen van cursuskaarten van nieuwe leden toestaan",
         "replaceCoach": "Wijzig de instructeur",
         "bookingStatistics": {
             "weekOf": "Week van {{date}}",
@@ -1726,7 +1727,12 @@
             "credit_price": "Kosten in krediet(en)",
             "purchases": "Aankopen",
             "views_unique": "Unieke kijkers",
-            "views_total": "Bekeken op"
+            "views_total": "Aantal keer bekeken",
+            "author_name": "Auteur",
+            "amount_unpaid_remaining_cts": "Resterend bedrag",
+            "amount_paid_cts": "Betaald bedrag",
+            "amount_due_cts": "Aankoopbedrag",
+            "stripe_invoice_pdf": ".PDF"
         },
         "report": {
             "delete_message": "Weet je zeker dat je dit rapport ({{name}}) wilt verwijderen?"
@@ -1766,7 +1772,8 @@
             "members": "Leden",
             "cashbook": "Kasboek",
             "on_spot_payments": "Betalingen ter plaatse",
-            "video": "Video"
+            "video": "Video",
+            "unpaid_invoices": "Openstaande facturen"
         },
         "globalCategories": {
             "subheader": {
@@ -2184,7 +2191,7 @@
             "explain": "Capaciteit: {{capacity}} plaats",
             "explain_plural": "Capaciteit: {{capacity}} plaatsen",
             "helperText": "Dit wordt alleen gebruikt om de beschikbaarheid voor afspraken te berekenen",
-            "label": "Zaalcapaciteit",
+            "label": "Zaal- of vestigingscapaciteit",
             "placeholder": " "
         },
         "goBackToList": "Keer terug naar vestigingen",
@@ -2215,15 +2222,15 @@
         "overrider": "Plaatsvervanger",
         "establishment_override": "Plaatsvervangende vestiging",
         "search": "Zoek een vestiging",
-        "addButton": "Voeg een zaal of studio toe",
+        "addButton": "Voeg een zaal of vestiging toe",
         "pleaseSelectOne": "Selecteer een studio op de kaart",
         "offers": "Kalender van sessies:",
         "noMoreOffers": "Geen geplande sessies meer",
         "pleaseFill": "Voer een vestiging in",
         "practical_info": {
-            "label": "Toegang tot informatie",
+            "label": "Toegangsinformatie",
             "placeholder": "Code 1234 rechterdeur",
-            "helperText": "Deze informatie wordt alleen weergegeven tijdens het reserveren"
+            "helperText": "Deze informatie wordt alleen tijdens het reserveren weergegeven"
         },
         "form": {
             "new": {
@@ -2369,8 +2376,8 @@
                 "second": " te   ",
                 "third": "euro",
                 "explanation": "Heeft X euro op zijn/haar account",
-                "first": "Het saldo van het lid is",
-                "name": "Aanbetaling",
+                "first": "Het huidige saldo van het lid wordt gebruikt om onbetaalde facturen te salderen. Het netto saldo wordt",
+                "name": "Schuld",
                 "between": "en"
             },
             "2": {
@@ -2817,7 +2824,7 @@
         },
         "actions": {
             "search": "Zoek een activiteit",
-            "addActivity": "Voeg een activiteit toe"
+            "addActivity": "Een activiteit toevoegen"
         },
         "noActivities": "Beheer hier je activiteiten. Een activiteit stelt je in staat een reeks sessies (meestal groepslessen) van dezelfde activiteit te organiseren.",
         "disabledMetaActivities": "Gearchiveerde activiteiten"
@@ -3057,7 +3064,7 @@
         "merge": "Samenvoegen",
         "regularizeBalance": "Regulariseren",
         "cashoutBalance": "Uitbetalen",
-        "creditAccountBalance": "Overig saldo",
+        "creditAccountBalance": "Saldo",
         "showPaymentPack": "Zie cursuskaarten",
         "showSubscriptions": "Zie abonnementen",
         "relation": {
@@ -3075,7 +3082,11 @@
             "createMember": "Voeg een lid toe"
         },
         "memberTermsAccepted": " werden aanvaard op {{- date}}",
-        "termsAndConditions": "De servicevoorwaarden"
+        "termsAndConditions": "De servicevoorwaarden",
+        "applyBalanceToUnpaidInvoices": "Gebruik het saldo om onbetaalde facturen te salderen",
+        "adjustBalance": "Saldo aanpassen",
+        "unpaidInvoiceTitle": "Onbetaalde factuur",
+        "unpaidInvoiceTitle_plural": "Onbetaalde facturen"
     },
     "booking": {
         "bookingModule": {
@@ -3226,8 +3237,8 @@
                 "chooseKind": {
                     "notRefunded": "Te late annulering",
                     "refunded": "Terugbetaalde annulering",
-                    "absence": "Een lid is afwezig bij een sessie",
-                    "attendance": "Een lid is aanwezig bij een sessie",
+                    "absence": "Afwezigheid van een lid bij een sessie",
+                    "attendance": "Aanwezigheid van een lid bij een sessie",
                     "title": "Mededeling over deze activiteit"
                 },
                 "chooseStatus": {
@@ -3342,7 +3353,7 @@
         },
         "offerList": {
             "refresh": "Ververs sessies",
-            "emptyList": "Geen sessie"
+            "emptyList": "Geen sessie(s)"
         },
         "signout": {
             "title": "Afmelden",
@@ -4528,7 +4539,7 @@
                 "explainSetToHasOwnAvailabilitySlots": "Alleen te reserveren in bepaalde periodes",
                 "explainHasOwnAvailabilitySlots": "Klik op het potlood om de reserveringen te beperken tot bepaalde tijdsleuven",
                 "hasFutureSlot": "Kalender van toekomstige beschikbaarheid OK",
-                "noCapacity": "Zaalcapaciteit niet geconfigureerd!",
+                "noCapacity": "Zaal- of vestigingscapaciteit is niet geconfigureerd!",
                 "totalCapacity": "Maximale capaciteit: {{capacity}}",
                 "noFutureSlot": "Er is geen beschikbaarheid geconfigureerd voor {{resourceName}}! Klik hier.",
                 "title": "Beschikbaarheid per uur",
@@ -4867,7 +4878,12 @@
             "11": "Diverse",
             "label": "Betaalmethode",
             "12": "Processen",
-            "13": "SEPA"
+            "13": "SEPA",
+            "60": "Giropay",
+            "50": "EPS",
+            "40": "iDEAL",
+            "30": "Sofort",
+            "20": "Bancontact"
         },
         "explainOption": "Je ontvangt een e-mail wanneer er een plaats vrij komt",
         "bookAnotherOption": "Schrijf me opnieuw op de wachtlijst in",
@@ -4942,7 +4958,8 @@
         },
         "payment": {
             "return": "Terugbetaling"
-        }
+        },
+        "returnedAmount": "Vergoed: "
     },
     "snackbar": {
         "coach": {
@@ -6063,7 +6080,8 @@
             "invoiceItemList": {
                 "total": "Totaal aankoop",
                 "isEmpty": "Geen aankopen",
-                "title": "Aankopen"
+                "title": "Aankopen",
+                "titleReverse": "Teruggave"
             }
         },
         "invoiceItem": {
@@ -6090,7 +6108,8 @@
             "goToPaymentEditor": "Betaling",
             "goToSubscription": "Zie abonnement",
             "revert": "Annuleren",
-            "invoiceReverted": "Factuur geannuleerd"
+            "invoiceReverted": "Factuur geannuleerd",
+            "consumeBalance": "Met saldo betalen"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "De factuur is definitief en kan dus niet meer worden bewerkt",
@@ -6108,15 +6127,20 @@
                 },
                 "clientAuthor": "Lid",
                 "author": "Opgemaakt door: {{ name }}",
-                "date": "Datum: {{ date }}"
+                "date": "Datum: {{ date }}",
+                "reverseInvoice": "Vergoeden via ",
+                "sourceInvoice": "Factuur annuleren"
             },
             "editor": {
-                "title": "Maak factuur aan"
+                "title": "Maak factuur aan",
+                "save": "Factureren",
+                "sumup": "Overzicht"
             },
-            "title": "Factuur {{ uuid }}"
+            "title": "Factuur {{ uuid }}",
+            "titleRevert": "Bemachtigen {{ uuid }}"
         },
         "creditAccountBalance": {
-            "current": "Lopende rekening"
+            "current": "Huidig saldo"
         },
         "invoiceInfoDialog": {
             "actions": {
@@ -6124,6 +6148,154 @@
                 "show": "Zie factuur"
             },
             "explain": "Eén of meerdere betalingen zijn mislukt. De aanbetaling van het lid geeft aan waar het fout ging"
+        },
+        "paymentPanel": {
+            "fields": {
+                "accountHolderName": {
+                    "placeholder": "Jan Alleman",
+                    "label": "Rekeninghouder"
+                },
+                "country": {
+                    "placeholder": "Nederland",
+                    "label": "Land van rekeninghouder"
+                },
+                "email": {
+                    "placeholder": "jan.alleman@live.nl",
+                    "label": "E-mailadres van de rekeninghouder"
+                }
+            },
+            "actions": {
+                "bill": "Incasseren",
+                "saveForLaterAsSEPA": "De \"SEPA\"-machtiging wordt geregistreerd",
+                "saveForLater": "Deze betaalmethode opslaan",
+                "showInvoice": "Toon de factuur",
+                "confirmPayment": "Betaling bevestigen",
+                "payAll": "Debiteur salderen",
+                "cancel": "Annuleren",
+                "revert": "Annuleren",
+                "pay": "Deze factuur betalen"
+            },
+            "sumup": {
+                "amountPaid": "Ontvangen betalingen",
+                "amountRemaining": "Resterend bedrag",
+                "amountDue": "Totaal verschuldigd",
+                "title": "Samenvatting"
+            },
+            "paymentList": {
+                "isEmpty": "Geen betaling",
+                "titleReverse": "Terugbetaling",
+                "title": "Betalingen"
+            },
+            "date": {
+                "label": "Incassodatum"
+            },
+            "paymentNote": {
+                "helperText": "(optioneel) chequenummer, incassodatum...",
+                "label": "Notitie"
+            },
+            "amount": {
+                "label": "Te innen bedrag"
+            },
+            "amountRemaining": "Resterend bedrag: {{ amount }}"
+        },
+        "balance": {
+            "updaterDialog": {
+                "topup": "Ontvangen betalingen",
+                "debt": "Uitbetaling",
+                "explainTopup": "Het saldo van het lid wordt met €{{ amount }} verhoogd.",
+                "explainDecaissement": "Een uitbetaling van €{{ amount }} wordt geregistreerd.",
+                "title": "Aanpassingen aan het saldo",
+                "actions": {
+                    "cancel": "Annuleren",
+                    "submit": "Volgende"
+                },
+                "balanceValueLabel": "Bedrag",
+                "typeLabel": "Soort aanpassingen"
+            }
+        },
+        "revert": {
+            "content": {
+                "explain": {
+                    "1": "Er wordt een creditnota aangemaakt dat het saldo van het lid zal verhogen. Gebruik deze methode om een creditnota gelijk aan te maken.",
+                    "0": "Betalingen (bijv. creditcards, SEPA-incasso's, etc.) worden direct naar de rekening van het lid overgemaakt. Gebruik deze methode om een directe terugbetaling te doen indien er een vergissing heeft plaatsgevonden.",
+                    "2": "Kies hoe je de vergoeding wilt doen. Gebruik deze methode voor een contante terugbetaling, een handmatige overschrijving of een cheque."
+                },
+                "label": {
+                    "1": "Krediet(en) terugbetalen (saldo)",
+                    "0": "Directe terugbetaling",
+                    "2": "Handmatige terugbetaling"
+                }
+            },
+            "dialog": {
+                "title": "Factuur annuleren",
+                "actions": {
+                    "confirm": "Vergoeden",
+                    "cancel": "Annuleren"
+                }
+            }
+        },
+        "table": {
+            "nested": {
+                "invoiceItem": {
+                    "isEmpty": "Geen aankopen",
+                    "header": {
+                        "voucher": "Korting",
+                        "priceExcTax": "Bedrag excl. btw",
+                        "price": "Bedrag incl. btw",
+                        "product": "Naam"
+                    },
+                    "title": "Aankopen"
+                },
+                "payment": {
+                    "header": {
+                        "paymentReceived": "Status",
+                        "date": "Datum",
+                        "price": "Bedrag",
+                        "paymentMethod": "Betaalmethode"
+                    },
+                    "isEmpty": "Geen betaling",
+                    "title": "Betaling"
+                }
+            },
+            "header": {
+                "missing": "Verschuldigd",
+                "pdf": ".PDF",
+                "amount": "Bedrag",
+                "date": "Factuurdatum",
+                "id": "ID",
+                "member": "Lid"
+            },
+            "actions": {
+                "goToInvoice": "Toon de factuur"
+            }
+        },
+        "paymentMethod": {
+            "label": {
+                "15": "Creditcard (handmatig)",
+                "8": "Diverse",
+                "13": "Giropay",
+                "12": "EPS",
+                "11": "Sofort",
+                "10": "iDEAL",
+                "9": "Bancontact",
+                "7": "Overschrijving",
+                "6": "Geschillen",
+                "5": "AMEX",
+                "4": "Vakantiecheque",
+                "3": "Cheque",
+                "2": "SEPA",
+                "1": "Creditcard",
+                "0": "Contant"
+            },
+            "select": {
+                "label": "Betaalmethode"
+            }
+        },
+        "paymentEngine": {
+            "label": {
+                "1": "Online betaling",
+                "0": "Contante betaling"
+            }
         }
     },
     "waitingList": {

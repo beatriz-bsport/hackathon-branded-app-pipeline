@@ -4,6 +4,7 @@ import React from 'react';
 import { compose, withStateHandlers } from 'recompose';
 // import chroma from 'chroma-js';
 import { withTranslation } from 'react-i18next';
+import { Calendar } from '@fullcalendar/core';
 import frLocale from '@fullcalendar/core/locales/fr';
 import itLocale from '@fullcalendar/core/locales/it';
 import deLocale from '@fullcalendar/core/locales/de';
@@ -24,7 +25,11 @@ import memoize from 'memoize-one';
 
 import type { TFunction } from 'react-i18next';
 import FullCalendar from '@fullcalendar/react';
+
 import timeGridPlugin from '@fullcalendar/timegrid';
+
+import momentTimezonePlugin from '@fullcalendar/moment-timezone';
+
 // import listPlugin from '@fullcalendar/list';
 
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
@@ -466,7 +471,12 @@ export class PrivateCalendar extends React.Component<Props, State> {
               ? 'resourceTimeGridThreeDays'
               : 'timeGridWeek'
           }
-          plugins={[interactionPlugin, timeGridPlugin, resourceTimeGrid]}
+          plugins={[
+            interactionPlugin,
+            timeGridPlugin,
+            resourceTimeGrid,
+            momentTimezonePlugin,
+          ]}
           timeZone={this.props.timezone}
           customButtons={{
             zoomIn: {

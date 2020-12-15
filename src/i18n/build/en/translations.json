@@ -4471,7 +4471,7 @@
                     "header": {
                         "product": "Name",
                         "voucher": "Discount",
-                        "priceExcTax": "Total VAT exclud",
+                        "priceExcTax": "Total VAT excluded",
                         "price": "Total VAT incl"
                     },
                     "isEmpty": "No purchases",
@@ -4501,7 +4501,7 @@
                 "explainDecaissement": "A disbursement of {{ amount }} € will be recorded.",
                 "balanceValueLabel": "Amount",
                 "title": "Balance adjustment",
-                "typeLabel": "Balance type",
+                "typeLabel": "Adjustment type",
                 "topup": "Collection"
             }
         },
@@ -4513,7 +4513,7 @@
                 },
                 "email": {
                     "label": "Account holder email",
-                    "placeholder": "jhon@doe.fr"
+                    "placeholder": "john@doe.com"
                 },
                 "accountHolderName": {
                     "placeholder": "Marie Dupont",

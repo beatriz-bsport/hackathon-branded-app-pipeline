@@ -4389,7 +4389,8 @@
                 "date": "Date : {{ date }}",
                 "reverseInvoice": "Refunded via ",
                 "sourceInvoice": "Cancel the invoice"
-            }
+            },
+            "titleRevert": "Credit {{ uuid }}"
         },
         "creditAccountBalance": {
             "current": "Current balance"
@@ -4467,7 +4468,10 @@
                 },
                 "invoiceItem": {
                     "header": {
-                        "product": "Name"
+                        "product": "Name",
+                        "voucher": "Discount",
+                        "priceExcTax": "Total VAT exclud",
+                        "price": "Total VAT incl"
                     },
                     "isEmpty": "No purchases",
                     "title": "Purchases"
@@ -4495,7 +4499,9 @@
                 "explainTopup": "An increase of {{ amount }} € will be recorded in the member's balance.",
                 "explainDecaissement": "A disbursement of {{ amount }} € will be recorded.",
                 "balanceValueLabel": "Amount",
-                "title": "Balance adjustment"
+                "title": "Balance adjustment",
+                "typeLabel": "Balance type",
+                "topup": "Collection"
             }
         },
         "paymentPanel": {
@@ -4505,7 +4511,8 @@
                     "label": "Bank account country"
                 },
                 "email": {
-                    "label": "Account holder email"
+                    "label": "Account holder email",
+                    "placeholder": "jhon@doe.fr"
                 },
                 "accountHolderName": {
                     "placeholder": "Marie Dupont",
@@ -4525,12 +4532,14 @@
                 "payAll": "Settle customer debt",
                 "cancel": "Cancel",
                 "revert": "Cancel",
-                "pay": "Pay this invoice"
+                "pay": "Pay this invoice",
+                "bill": "Collect"
             },
             "sumup": {
                 "amountRemaining": "Remaining amount to pay",
                 "amountDue": "Total due",
-                "title": "Sum up"
+                "title": "Sum up",
+                "amountPaid": "Collection"
             },
             "date": {
                 "label": "Date of collection"
@@ -4558,7 +4567,9 @@
                 "3": "Check",
                 "2": "SEPA",
                 "1": "Credit Card",
-                "0": "Cash"
+                "0": "Cash",
+                "8": "Other",
+                "6": "Dispute"
             },
             "select": {
                 "label": "Payment method"

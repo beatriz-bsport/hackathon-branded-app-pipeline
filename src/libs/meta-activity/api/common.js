@@ -7,7 +7,7 @@ import {
   patchAuth,
   putAuth,
   buildUrlParams,
-} from '../../../http';
+} from '../../../http.ts';
 
 export async function fetchAllActivities(params: any) {
   return getAuth(`${API_V1_URI}/meta-activity/${buildUrlParams(params)}`);

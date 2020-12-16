@@ -64,7 +64,7 @@ import type {
   ConsumerPaymentPack,
 } from '../../libs/payment-packs/types';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '../../libs/member/actions';
-import type { OptionCallback } from '../../state/types';
+import type { OptionCallback } from '../../state/types.ts';
 
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 

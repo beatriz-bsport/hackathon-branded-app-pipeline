@@ -54,7 +54,7 @@ import {
   updateTaskStatus,
 } from '../../libs/reminder/actions';
 import type { Task } from '../../libs/reminder/types';
-import type { OptionCallback } from '../../state/types';
+import type { OptionCallback } from '../../state/types.ts';
 import { memberTaskListSelector } from '../../libs/reminder/selectors';
 import { fetchCompanyRoles } from '../../libs/role/actions';
 

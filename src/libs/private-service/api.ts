@@ -60,7 +60,7 @@ export const deletePrivateService = (id: number) => {
   return deleteAuth(`${API_V1_URI}/private_service/private_service/${id}/`);
 };
 
-export const fetchPrivateService = (id: number, params: any) => {
+export const fetchPrivateService = (id: number, params?: any) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_service/${id}/${buildUrlParams(
       params,
@@ -217,7 +217,7 @@ export const searchAvailableSlots = (
   );
 };
 
-export const fetchPrivatePassList = (params: any) => {
+export const fetchPrivatePassList = (params?: any) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_pass/${buildUrlParams(params)}`,
   );
@@ -379,7 +379,7 @@ export const registerPrivateBookings = ({
   private_slot: number,
   private_consumer_pass: number,
   date_start: string,
-  address: ?string,
+  address?: string,
   associated_coach?: number,
   associated_establishment?: number,
   coach: number,
@@ -443,7 +443,7 @@ export const fetchCustomEventList = async (params: any = {}) => {
   );
 };
 
-export const createOrUpdateCustomEvent = async (data: *) => {
+export const createOrUpdateCustomEvent = async (data: any) => {
   if (!data.id) {
     return postAuth(`${API_V1_URI}/private_service/custom_event/`, data);
   }

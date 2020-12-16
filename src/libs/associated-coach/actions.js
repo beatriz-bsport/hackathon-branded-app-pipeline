@@ -4,7 +4,7 @@ import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 
 import uniq from 'lodash/uniq';
-import { putAuth, API_URI } from '../../http';
+import { putAuth, API_URI } from '../../http.ts';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import {
   updateCoach as updateCoachAPI,
@@ -18,7 +18,7 @@ import {
 } from './api';
 import { getFreshCoachIds } from './selectors';
 
-import type { Dispatch, ThunkAction } from '../../state/types';
+import type { Dispatch, ThunkAction } from '../../state/types.ts';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 

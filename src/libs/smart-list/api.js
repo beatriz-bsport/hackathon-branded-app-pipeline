@@ -9,7 +9,7 @@ import {
   postAuth,
   patchAuth,
   deleteAuth,
-} from '../../http';
+} from '../../http.ts';
 
 const SMART_LIST_URI = `${API_V1_URI}/smartlist/group/`;
 

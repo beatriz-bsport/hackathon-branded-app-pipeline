@@ -8,7 +8,7 @@ import {
   putAuth,
   deleteAuth,
   buildUrlParams,
-} from '../../http';
+} from '../../http.ts';
 
 // TO UPDATE TO V1 API
 // -----------------------

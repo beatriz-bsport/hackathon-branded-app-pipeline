@@ -1,6 +1,6 @@
 // @flow
 import Immutable from 'seamless-immutable';
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 
 const EMPTY_LIST = Immutable([]);
 

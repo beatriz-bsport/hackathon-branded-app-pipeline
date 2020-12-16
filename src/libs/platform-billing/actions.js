@@ -13,7 +13,7 @@ import {
   requestUpsellPackage as requestUpsellPackageAPI,
 } from './api';
 
-import type { Dispatch, OptionCallback } from '../../state/types';
+import type { Dispatch, OptionCallback } from '../../state/types.ts';
 
 export const listPlatformInvoiceActions = {
   isLoading: createAction('PLATFORM_INVOICE/LIST/IS_LOADING'),

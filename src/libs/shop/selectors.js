@@ -1,7 +1,7 @@
 // @flow
 
 import { createSelector } from 'reselect';
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 
 const _getSubShops = (state: State) => state.shop.subShops;
 const _getProvisions = (state: State) => state.shop.provisions;

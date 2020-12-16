@@ -45,7 +45,7 @@ Packages used
 * **react-i18next** for translations. All text should be translated in english/french. If you are familiar only we one of them, DO NOT WRITE translations yourself. Write `FIXME TRANSLATE` in your translation file and ask someone.
 * **redux** for all state / persistent storage 
   * one store means one object type. There are some exceptions though (consumer, marketplace, auth, router, refresh).
-  * object types should be referenced in `src/api/types.js`. Actually they are probably not, but check if in doubt
+  * object types should be referenced in `src/api/types.ts`. Actually they are probably not, but check if in doubt
   * use `createAction` in your redux actions. More consistency, and easier to read.
 * REST API fetched by axios (cf `src/api/`)
 * Dockerfile
@@ -53,14 +53,14 @@ Packages used
 Code structure
 --------------
 
-* `src/pages` : the pages (screen) only. Theorically only them do api call / dispatch redux actions. When relevant, some exceptions are accepted. Do not manipulate data outside this directory. Call here and only here the `actions.js|selectors.js|api.js`. Page get and compose the data, provide actions, the components do not need to understand that.
+* `src/pages` : the pages (screen) only. Theorically only them do api call / dispatch redux actions. When relevant, some exceptions are accepted. Do not manipulate data outside this directory. Call here and only here the `actions.ts|selectors.ts|api.ts`. Page get and compose the data, provide actions, the components do not need to understand that.
 * `src/components` individual dumb and generic components. Should be as dumb as possible. Do not hesitate to compose them.
 * `src/libs/` are "métier" library, example: invoice
   * `./components` contains the UI/UX
-  * `./api.js` the api call
-  * `./actions|reducers.js` the redux stuff
-  * `./selectors.js` how to get stuff from the redux store
-  * `./types.js` flow types
+  * `./api.ts` the api call
+  * `./actions|reducers.ts` the redux stuff
+  * `./selectors.ts` how to get stuff from the redux store
+  * `./types.ts` flow types
 * `src/i18n/` includes all translations
 
 Workflow

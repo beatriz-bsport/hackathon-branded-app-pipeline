@@ -15,7 +15,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import type { TFunction } from 'react-i18next';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import parse from '../../../query-string';
-import themeSelectors from '../../../libs/theme/selectors';
+import themeSelectors from '../../../libs/theme/selectors.ts';
 import { getTheme } from '../../../theme';
 import {
   addItemToBasket,

@@ -18,7 +18,7 @@ import { createOrUpdateMember, fetchMember } from '../../libs/member/actions';
 import { getMember } from '../../libs/member/selectors';
 import { getLatest as getLatestMember } from '../../libs/member/api';
 import { MemberMap } from '../../libs/member/utils';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors from '../../libs/theme/selectors.ts';
 
 import { mapFormData, unmap } from '../form.utils';
 import withTitle from '../../hocs/with-title.hoc';

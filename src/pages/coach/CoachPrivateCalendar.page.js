@@ -25,7 +25,7 @@ import {
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import PrivateCalendarWithControls from '../../libs/private-service/components/PrivateCalendarWithControls.component';
 
-import { getCoachAvailabilitySlots } from '../../libs/private-service/selectors/availability-slot';
+import { getCoachAvailabilitySlots } from '../../libs/private-service/selectors/availability-slot.ts';
 import {
   fetchAvailabilitySlots,
   resetAvailabilitySlots,
@@ -38,7 +38,7 @@ import {
   createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
   fetchCustomEventList as fetchCustomEventListAction,
   resetCustomEvent,
-} from '../../libs/private-service/actions';
+} from '../../libs/private-service/actions.ts';
 import { fetchMemberBulk as fetchMemberBulkAction } from '../../libs/member/actions';
 import { fetchCoachBulk } from '../../libs/associated-coach/actions';
 

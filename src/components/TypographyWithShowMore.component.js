@@ -39,7 +39,10 @@ export const TypographyWithSowMore = (props: Props) => {
       {textIsLong ? (
         <ButtonBase
           disableRipple
-          onClick={() => props.setShowFullText(!props.showFullText)}
+          onClick={(ev) => {
+            ev.stopPropagation();
+            props.setShowFullText(!props.showFullText);
+          }}
           className={props.classes.showMoreButton}
         >
           <Typography variant="caption" color="secondary">

@@ -5,7 +5,7 @@ import {
   patchAuth,
   buildUrlParams,
   API_V1_URI,
-} from '../../http';
+} from '../../http.ts';
 
 export const fetchTaskList = (params: any = {}) => {
   return getAuth(`${API_V1_URI}/reminder/task/${buildUrlParams(params)}`);

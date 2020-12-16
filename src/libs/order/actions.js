@@ -4,7 +4,7 @@ import { createAction } from 'redux-actions';
 
 import * as api from './api';
 
-import type { Dispatch, State, ThunkAction } from '../../state/types';
+import type { Dispatch, State, ThunkAction } from '../../state/types.ts';
 
 import type { ProductData } from './types';
 

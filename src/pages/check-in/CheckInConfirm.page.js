@@ -8,7 +8,7 @@ import { goBack as goBackAction } from 'connected-react-router';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import CheckInConfirm from '../../libs/check-in/components/CheckInConfirm.component';
-import type { OptionCallback } from '../../state/types';
+import type { OptionCallback } from '../../state/types.ts';
 
 import { getMemberBookingWithConsumerPack } from '../../libs/booking/selectors';
 import { retrieveBooking } from '../../libs/booking/actions';

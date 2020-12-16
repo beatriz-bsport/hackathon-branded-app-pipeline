@@ -11,7 +11,7 @@ import type { TFunction } from 'react-i18next';
 
 import PrivateConsumerPassBookerListItem from './PrivateConsumerPassBookerListItem.component';
 import PrivatePassBookerListItem from './PrivatePassBookerListItem.component';
-import type { PrivateConsumerPass, PrivatePass } from '../../types';
+import type { PrivateConsumerPass, PrivatePass } from '../../types.ts';
 
 type Props = {
   t: TFunction,

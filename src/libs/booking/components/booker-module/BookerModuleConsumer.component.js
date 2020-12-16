@@ -23,7 +23,7 @@ import SubscriptionContractListItem from '../../../subscription/components/Subsc
 import { isOfferBookableYet } from '../../../marketplace/utils';
 import type { ConsumerPaymentPack } from '../../../consumer-payment-pack/types';
 
-import type { OptionCallback } from '../../../../state/types';
+import type { OptionCallback } from '../../../../state/types.ts';
 
 type Props = {
   t: TFunction,

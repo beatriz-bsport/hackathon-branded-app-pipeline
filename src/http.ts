@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-import moment from 'moment-timezone';
+const moment = require('moment-timezone');
 import Config from './config';
 
 import { setSessionId } from './sentry/session';
@@ -17,7 +17,7 @@ export const API_URI: string = `${BASE_URI}/api-v0`;
 export const API_V1_URI: string = `${BASE_URI}/api/v1`;
 export const PAYMENT_URI: string = `${BASE_URI}/payment`;
 
-export function buildUrlParams(params: *) {
+export function buildUrlParams(params: any) {
   if (params) {
     const conditions = [];
     for (const k in params) {
@@ -49,7 +49,7 @@ const getTimezoneName = () => {
   return moment().tz() || 'Europe/Paris';
 };
 
-export function getAuthToken(): ?string {
+export function getAuthToken() {
   return storage.getItem('http:token') || getCookie('auth_token');
 }
 
@@ -66,7 +66,7 @@ export async function postBase(uri: string, data: Object, headers: Object) {
     headers: Object.assign(baseHeaders, headers),
   });
 }
-export async function post(uri: string, data: Object, headers: Object) {
+export async function post(uri: string, data?: Object, headers?: Object) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
     'X-Timezone-Name': getTimezoneName(),
@@ -133,7 +133,7 @@ export async function get(uri: string, headers: {} = {}) {
   });
 }
 
-export async function getAuth(uri: string, token) {
+export async function getAuth(uri: string, token?: string) {
   const token_ = token || getAuthToken();
   if (!token_ || token_ === 'null') {
     return get(uri);
@@ -147,7 +147,7 @@ export async function getAuth(uri: string, token) {
   });
 }
 
-export async function postAuth(uri: string, data: Object, token): Promise<any> {
+export async function postAuth(uri: string, data?: Object, token?: string) {
   const token_ = token || getAuthToken();
   return post(uri, data, {
     'X-Transaction-ID': setTransactionId(),
@@ -157,7 +157,7 @@ export async function postAuth(uri: string, data: Object, token): Promise<any> {
   });
 }
 
-export async function postBaseAuth(uri: string, data: Object, token) {
+export async function postBaseAuth(uri: string, data: Object, token?: string) {
   const token_ = token || getAuthToken();
   return postBase(uri, data, {
     'X-Transaction-ID': setTransactionId(),
@@ -167,7 +167,7 @@ export async function postBaseAuth(uri: string, data: Object, token) {
   });
 }
 
-export async function putAuth(uri: string, data: Object) {
+export async function putAuth(uri: string, data?: Object) {
   const token = getAuthToken();
   return put(uri, data, {
     'X-Transaction-ID': setTransactionId(),
@@ -187,7 +187,7 @@ export async function patchAuth(uri: string, data: Object) {
   });
 }
 
-export async function deleteAuth(uri: string, data) {
+export async function deleteAuth(uri: string, data?: any) {
   const token = getAuthToken();
   return delete_(uri, data || {}, {
     'X-Transaction-ID': setTransactionId(),
@@ -197,7 +197,7 @@ export async function deleteAuth(uri: string, data) {
   });
 }
 
-export async function getJSONAuth(uri: string, token) {
+export async function getJSONAuth(uri: string, token?: string) {
   const token_ = token || getAuthToken();
   const response = await get(uri, {
     'X-Transaction-ID': setTransactionId(),
@@ -208,7 +208,7 @@ export async function getJSONAuth(uri: string, token) {
 
   if (response.status !== 200 && response.status !== 201) {
     console.error(response);
-    throw new Error(response);
+    throw new Error(JSON.stringify(response));
   }
 
   return response.data;

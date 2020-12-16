@@ -11,7 +11,7 @@ import {
   checkMyEmailValidation as checkMyEmailValidationAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction } from '../../state/types';
+import type { Dispatch, ThunkAction } from '../../state/types.ts';
 
 export const tempPasswordActions = {
   error: createAction('LOGIN/TEMP_PASSWORD/ERROR'),

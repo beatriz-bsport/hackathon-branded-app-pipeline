@@ -9,7 +9,7 @@ import {
   snackbarSuccess,
   snackbarError,
 } from '../../../actions/snackbar.actions';
-import type { Dispatch, OptionCallback } from '../../../state/types';
+import type { Dispatch, OptionCallback } from '../../../state/types.ts';
 import { getFreshShopIds } from '../selectors';
 
 export const shopItemAsConsumerActions = {

@@ -13,14 +13,14 @@ import RELEASE from '../release';
 
 import { Context } from '../context';
 
-import { getAuthToken } from '../http';
+import { getAuthToken } from '../http.ts';
 import { getTheme } from '../theme';
 import withSentryErrorReporting from '../hocs/error-boundary.hoc';
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 import LoadingBackoffice from '../components/navigation/LoadingBackoffice.component';
 import withOpenEvent from '../hocs/tracking/open-event.hoc';
 
-import { fetchCompanyTheme } from '../libs/theme/actions';
+import { fetchCompanyTheme } from '../libs/theme/actions.ts';
 import { getFeatureList } from '../libs/company/actions';
 import { fetchCashBook, updateCashBook } from '../libs/cashbook/actions';
 

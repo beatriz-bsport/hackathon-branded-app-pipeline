@@ -4,11 +4,11 @@ import {
   getAuth,
   postAuth,
   putAuth,
-  patchAuth,
   deleteAuth,
   API_V1_URI,
   buildUrlParams,
-} from '../../http';
+  patchAuth,
+} from '../../http.ts';
 
 const MARKETING_ENDPOINT = `${API_V1_URI}/marketing`;
 

@@ -1,5 +1,5 @@
 // @flow
-import { API_V1_URI, getAuth, patchAuth } from '../../http';
+import { API_V1_URI, getAuth, patchAuth } from '../../http.ts';
 
 export async function fetchDashboardSettings() {
   return getAuth(`${API_V1_URI}/dashboard/settings/me/`);

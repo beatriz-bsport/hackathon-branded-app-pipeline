@@ -3,7 +3,7 @@
 import { createSelector } from 'reselect';
 
 import Immutable from 'seamless-immutable';
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 import type { Establishment, EstablishmentState } from './types';
 
 export const getState = (state: State): EstablishmentState =>

@@ -19,7 +19,7 @@ import TypographyMultiline from '../../../../components/TypographyMultiline.comp
 import CoachListItemBasic from '../../../associated-coach/components/CoachListItemBasic.component';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 
-import type { PrivateService } from '../../types';
+import type { PrivateService } from '../../types.ts';
 
 type Props = {
   privateService: PrivateService,

@@ -1,5 +1,5 @@
 // @flow
-import { API_URI, getAuth, buildUrlParams } from '../http';
+import { API_URI, getAuth, buildUrlParams } from '../http.ts';
 
 export async function fetchEasyAccesses() {
   return getAuth(`${API_URI}/category/easy-accesses`);

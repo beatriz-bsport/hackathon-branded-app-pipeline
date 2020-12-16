@@ -24,7 +24,7 @@ import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 import type { Membership } from '../../membership/types';
 import type { Booking } from '../../booking/types';
-import type { PrivateBooking } from '../../private-service/types';
+import type { PrivateBooking } from '../../private-service/types.ts';
 
 const BOOKING_PAGE_SIZE = 10;
 

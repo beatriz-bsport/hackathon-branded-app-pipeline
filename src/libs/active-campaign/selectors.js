@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
 import Immutable from 'seamless-immutable';
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 import { getSmartListDict } from '../smart-list/selectors';
 
 export const getActiveCampaignAccount = (state: State): any =>

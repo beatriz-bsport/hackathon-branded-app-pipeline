@@ -2,7 +2,7 @@
 
 import { createAction } from 'redux-actions';
 import type { SnackKind, BackgroundSnackKind } from '../libs/snackbar/types';
-import type { Dispatch } from '../state/types';
+import type { Dispatch } from '../state/types.ts';
 
 export const snackbarDisplay = createAction('SNACKBAR/DISPLAY');
 export const snackbarDestroy = createAction('SNACKBAR/DESTROY');

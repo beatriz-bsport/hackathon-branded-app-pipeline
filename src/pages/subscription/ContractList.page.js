@@ -22,13 +22,13 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors from '../../libs/theme/selectors.ts';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
 
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
-import { fetchPrivatePassList } from '../../libs/private-service/actions';
+import { fetchPrivatePassList } from '../../libs/private-service/actions.ts';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import { getPaymentComboList } from '../../libs/payment-combo/selectors';
 

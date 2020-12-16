@@ -2,7 +2,7 @@
 
 import { createAction } from 'redux-actions';
 
-import type { Dispatch, OptionCallback } from '../../state/types';
+import type { Dispatch, OptionCallback } from '../../state/types.ts';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 import {

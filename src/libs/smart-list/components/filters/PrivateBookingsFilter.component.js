@@ -25,7 +25,7 @@ import type { Establishment } from '../../../establishment/types';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItemBasic.component';
 import PrivatePassListItem from '../../../private-service/components/pass/PrivatePassListItem.component';
-import type { PrivatePass } from '../../../private-service/types';
+import type { PrivatePass } from '../../../private-service/types.ts';
 
 type Props = {
   filter_data: any,

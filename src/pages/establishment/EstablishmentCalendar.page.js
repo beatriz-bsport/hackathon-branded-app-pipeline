@@ -28,7 +28,7 @@ import {
   withMetaActivity,
 } from '../../libs/offer/selectors';
 
-import { getEstablishmentAvailabilitySlots } from '../../libs/private-service/selectors/availability-slot';
+import { getEstablishmentAvailabilitySlots } from '../../libs/private-service/selectors/availability-slot.ts';
 import {
   fetchAvailabilitySlots,
   resetAvailabilitySlots,
@@ -38,7 +38,7 @@ import {
   resetPrivateBookings,
   fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
   fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
-} from '../../libs/private-service/actions';
+} from '../../libs/private-service/actions.ts';
 import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
 
 type Props = {

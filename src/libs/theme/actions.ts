@@ -1,9 +1,8 @@
-// @flow
-
 import { createAction } from 'redux-actions';
-import moment from 'moment-timezone';
+const moment = require('moment-timezone');
 import api from './api';
-import type { Dispatch } from '../../state/types';
+//@ts-ignore
+import { Dispatch, OptionCallback } from '../../state/types.ts';
 
 export const themeDetail = {
   error: createAction('THEME/DETAIL/ERROR'),
@@ -16,7 +15,7 @@ export const themeUpdate = {
   isLoading: createAction('THEME/UPDATE/IS_LOADING'),
 };
 
-export function fetchCompanyTheme(companyId: ?number) {
+export function fetchCompanyTheme(companyId?: number) {
   return async (dispatch: Dispatch) => {
     dispatch(themeDetail.isLoading(true));
     dispatch(themeDetail.error(null));
@@ -37,8 +36,8 @@ export function fetchCompanyTheme(companyId: ?number) {
 
 export function updateCompanyTheme(
   companyId: number,
-  data: *,
-  options: ?{ onError: ?() => void, onSuccess: ?() => void },
+  data: any,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(themeUpdate.isLoading(true));

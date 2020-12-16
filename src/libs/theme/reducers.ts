@@ -1,14 +1,13 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import { colors } from '@bsport/common/lib/colors';
-import { themeDetail, themeUpdate } from './actions';
+//@ts-ignore
+import { themeDetail, themeUpdate } from './actions.ts';
+//@ts-ignore
+import { ThemeState } from './types.ts';
 
-import type { ThemeState } from './types';
-
-const initialState: ThemeState = Immutable({
+const initialState: ThemeState = Immutable<ThemeState>({
   theme: {
     primary_color: colors.primary,
     secondary_color: colors.secondary,
@@ -42,4 +41,4 @@ export default handleActions(
     },
   },
   initialState,
-);
+) as () => ThemeState;

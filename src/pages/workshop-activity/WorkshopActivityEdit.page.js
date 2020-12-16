@@ -10,7 +10,7 @@ import { goBack, push as routerPush } from 'connected-react-router';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { mapFormData, unmap } from '../form.utils';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors from '../../libs/theme/selectors.ts';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   upsert,

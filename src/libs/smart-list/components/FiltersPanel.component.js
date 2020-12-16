@@ -45,7 +45,7 @@ import {
 import Config from '../../../config';
 
 import type { Establishment } from '../../establishment/types';
-import type { PrivatePass } from '../../private-service/types';
+import type { PrivatePass } from '../../private-service/types.ts';
 
 import FilterCard from './FilterListItem.component';
 

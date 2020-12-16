@@ -1,6 +1,6 @@
 // @flow
 
-import { API_URI, getAuth, postAuth, deleteAuth } from '../../http';
+import { API_URI, getAuth, postAuth, deleteAuth } from '../../http.ts';
 
 const PAGE_SIZE = 10;
 

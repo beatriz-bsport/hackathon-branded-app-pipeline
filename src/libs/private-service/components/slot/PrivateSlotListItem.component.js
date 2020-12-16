@@ -12,7 +12,7 @@ import type { TFunction } from 'react-i18next';
 import { formatMinutes } from '../../../../datetime';
 import withConfirm from '../../../../hocs/with-confirm.hoc';
 
-import type { PrivateSlot } from '../../types';
+import type { PrivateSlot } from '../../types.ts';
 
 type Props = {
   onDelete: () => void,

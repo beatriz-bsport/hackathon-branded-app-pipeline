@@ -14,7 +14,7 @@ import type { TFunction } from 'react-i18next';
 import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
 import Tooltip from '../../../../components/Tooltip.component';
 
-import type { PrivateService } from '../../types';
+import type { PrivateService } from '../../types.ts';
 
 type Props = {
   privateService: PrivateService,

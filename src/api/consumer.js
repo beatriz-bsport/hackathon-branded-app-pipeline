@@ -1,4 +1,4 @@
-import { API_URI, API_V1_URI, getAuth, postAuth, deleteAuth } from '../http';
+import { API_URI, API_V1_URI, getAuth, postAuth, deleteAuth } from '../http.ts';
 
 export async function fetchConsumerOptions() {
   return getAuth(`${API_URI}/waiting-list/booking-option/?with_offer=true`);

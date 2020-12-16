@@ -25,7 +25,7 @@ import {
   fetchPrivateConsumerPassExtensionList,
   createPrivateConsumerPassExtension,
   deletePrivateConsumerPassExtension,
-} from '../../libs/private-service/actions';
+} from '../../libs/private-service/actions.ts';
 import {
   getPrivateConsumerPassList,
   getPrivateConsumerPass,

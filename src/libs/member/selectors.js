@@ -2,7 +2,7 @@
 
 import { createSelector } from 'reselect';
 
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 
 export const getMemberDetailData = (state) => state.member.detailData;
 const _getMemberListIds = (state) => state.member.allIds;

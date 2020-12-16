@@ -5,7 +5,7 @@ import {
   postAuth,
   patchAuth,
   buildUrlParams,
-} from '../../http';
+} from '../../http.ts';
 
 export async function fetchAll({
   page,

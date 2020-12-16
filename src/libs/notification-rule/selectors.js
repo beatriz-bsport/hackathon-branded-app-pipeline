@@ -1,7 +1,7 @@
 // @flow
 import { createSelector } from 'reselect';
 
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 
 export const getEventList = (state: State) =>
   state.notificationRule.eventType.data;

@@ -16,7 +16,7 @@ import {
 import { monitorBackgroundTask } from '../background-task/actions';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
-import type { Dispatch, OptionCallback } from '../../state/types';
+import type { Dispatch, OptionCallback } from '../../state/types.ts';
 
 export const similarOffers = {
   isLoading: createAction('OFFERS/SIMILAR/IS_LOADING'),

@@ -1,4 +1,7 @@
 exports.default = {
+  marketplace: {
+    isEmpty: 'Aucun RDV proposé',
+  },
   filters: {
     all: 'Toutes les cartes',
     expiration: 'Validité',
@@ -85,6 +88,7 @@ exports.default = {
     },
   },
   privateSlot: {
+    duration: '{{ minutes }} minutes',
     delete: {
       title: 'Suppression de la séance',
       explain:
@@ -245,11 +249,35 @@ exports.default = {
     searchSlot: 'Rechercher un créneau',
     selectPrivateSlot: 'Sélectionner une séance',
     search: 'Rechercher un créneau',
+    selectSession: 'Choisissez votre session',
+    selectService: 'Choisissez un service',
     selectCoach: 'Tous les professeurs',
+    coach: 'Professeur',
+    establishment: 'Lieu',
     emptyDateList: 'Aucun créneau disponible ce jour',
     bookableSlots: {
       title: 'Créneaux disponibles',
       isEmpty: 'Aucun créneau disponible',
+    },
+    nbSlot: '{{ nbSlot }} créneau',
+    nbSlot_plural: '{{ nbSlot }} créneaux',
+    groupIdentifier: {
+      morning: {
+        label: 'Matin',
+        interval: 'Avant 12h',
+      },
+      noon: {
+        label: 'Déjeuner',
+        interval: '12h - 14h',
+      },
+      afternoon: {
+        label: 'Après-midi',
+        interval: '15h - 18h',
+      },
+      evening: {
+        label: "Fin d'après midi",
+        interval: 'Après 18h',
+      },
     },
   },
   slot: {

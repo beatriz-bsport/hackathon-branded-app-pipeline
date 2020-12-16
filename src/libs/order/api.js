@@ -7,7 +7,7 @@ import {
   putAuth,
   deleteAuth,
   patchAuth,
-} from '../../http';
+} from '../../http.ts';
 
 import type { ProductData } from './types';
 

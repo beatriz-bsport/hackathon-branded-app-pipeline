@@ -7,7 +7,7 @@ import {
   attachExternalAccount as attachExternalAccountAPI,
   getFeatureList as getFeatureListAPI,
 } from './api';
-import type { Dispatch, OptionCallback } from '../../state/types';
+import type { Dispatch, OptionCallback } from '../../state/types.ts';
 
 export const searchActions = {
   success: createAction('COMPANY/SEARCH/SUCCESS'),

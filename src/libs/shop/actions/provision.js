@@ -3,7 +3,7 @@
 import { createAction } from 'redux-actions';
 import * as api from '../api';
 
-import type { Dispatch } from '../../../state/types';
+import type { Dispatch } from '../../../state/types.ts';
 
 export const provisionByShopItemActions = {
   isLoading: createAction('PROVISION/BY_SHOPITEM/LOADING'),

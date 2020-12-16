@@ -8,7 +8,7 @@ import {
   updateWebhook as updateWebhookAPI,
   fetchWebhookEventList as fetchWebhookEventListAPI,
 } from './api';
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types.ts';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 

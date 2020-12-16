@@ -11,7 +11,7 @@ import { requestValidationEmail as requestValidationEmailAction } from '../../li
 import EmailValidation from '../../libs/login/components/EmailValidation.component';
 import { disconnect as disconnectAction } from '../../actions/auth.actions';
 
-import type { OptionCallback } from '../../state/types';
+import type { OptionCallback } from '../../state/types.ts';
 
 type Props = {
   requestValidationEmail: (options: OptionCallback) => void,

@@ -1,7 +1,7 @@
 // @flow
 
-import type { State } from '../../../state/types';
-import type { PrivateSlot } from '../types';
+import type { State } from '../../../state/types.ts';
+import type { PrivateSlot } from '../types.ts';
 
 export const getAllPrivateSlotsDict: (State) => {
   [id: number]: PrivateSlot,

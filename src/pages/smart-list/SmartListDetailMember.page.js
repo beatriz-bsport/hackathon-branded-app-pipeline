@@ -46,7 +46,7 @@ import {
 import {
   fetchPrivatePassList,
   fetchPrivatePassBulk,
-} from '../../libs/private-service/actions';
+} from '../../libs/private-service/actions.ts';
 import { sendCommunication as sendCommunicationAction } from '../../libs/communication/actions';
 import { fetchCommunicationsPaginatedMembers } from '../../libs/member/actions';
 import { getPaginatedMembers } from '../../libs/member/selectors';

@@ -14,7 +14,7 @@ import type { TFunction } from 'react-i18next';
 import TaskFormFields, { TaskFormFormikHOC } from './TaskForm.component';
 
 import { Submit } from '../../../components/forms';
-import type { OptionCallback } from '../../../state/types';
+import type { OptionCallback } from '../../../state/types.ts';
 
 import type { TaskData } from '../types';
 

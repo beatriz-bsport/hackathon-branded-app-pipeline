@@ -16,7 +16,7 @@ import MemberSearchModal from '../../member/components/MemberSearchModal.compone
 import { anonymizeEmail } from '../../member/utils';
 import CheckInOfferDetailMemberForm from './CheckInOfferDetailMemberForm.component';
 
-import type { OptionCallback } from '../../../state/types';
+import type { OptionCallback } from '../../../state/types.ts';
 
 type RegisterMemberProps = {
   processing: boolean,

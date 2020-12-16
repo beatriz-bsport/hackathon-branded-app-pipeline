@@ -6,7 +6,7 @@ import {
   postAuth,
   buildUrlParams,
   API_V1_URI,
-} from '../../http';
+} from '../../http.ts';
 
 export const fetchCompanyList = (params: any = {}) => {
   return getAuth(`${API_V1_URI}/company/search/${buildUrlParams(params)}`);

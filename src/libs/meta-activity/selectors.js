@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import pickBy from 'lodash/pickBy';
 import memoize from 'memoize-one';
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 import type { MetaActivity } from './types';
 
 export const getMetaActivityAbstractDict = (

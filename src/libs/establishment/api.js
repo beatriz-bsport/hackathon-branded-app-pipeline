@@ -7,7 +7,7 @@ import {
   putAuth,
   deleteAuth,
   buildUrlParams,
-} from '../../http';
+} from '../../http.ts';
 
 export async function addEstablishment(data: *) {
   return postAuth(`${API_URI}/saas/establishments/add`, data);

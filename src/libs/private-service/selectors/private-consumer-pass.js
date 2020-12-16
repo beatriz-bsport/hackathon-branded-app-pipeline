@@ -2,8 +2,8 @@
 
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import type { State } from '../../../state/types';
-import type { PrivateConsumerPass } from '../types';
+import type { State } from '../../../state/types.ts';
+import type { PrivateConsumerPass } from '../types.ts';
 import { getMemberListData } from '../../member/selectors';
 
 const _getPrivateConsumerPassIdList: (State) => Array<number> = (state) =>

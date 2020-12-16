@@ -15,8 +15,8 @@ import InfoIcon from '@material-ui/icons/Info';
 import type { TFunction } from 'react-i18next';
 import { payment as paymentActions } from '../../../actions';
 import parse from '../../../query-string';
-import themeSelectors from '../../../libs/theme/selectors';
-import type { Theme } from '../../../libs/theme/types';
+import themeSelectors from '../../../libs/theme/selectors.ts';
+import type { Theme } from '../../../libs/theme/types.ts';
 import { getTheme } from '../../../theme';
 import {
   addItemToBasket,

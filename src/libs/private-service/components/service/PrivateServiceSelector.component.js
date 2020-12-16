@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Select from 'react-select';
 
-import type PrivateService from '../../types';
+import type PrivateService from '../../types.ts';
 
 type Option = { label: string, value: number };
 type Props = {

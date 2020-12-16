@@ -4,7 +4,7 @@ import { createAction } from 'redux-actions';
 
 import api from './api';
 
-import type { Dispatch, ThunkAction } from '../../state/types';
+import type { Dispatch, ThunkAction } from '../../state/types.ts';
 
 export const tagListActions = {
   error: createAction('TAG/LIST/ERROR'),

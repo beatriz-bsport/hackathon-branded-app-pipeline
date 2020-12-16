@@ -48,9 +48,9 @@ import {
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
-import type { PrivateServiceState } from './types';
+import { PrivateServiceState } from './types';
 
-const initialState: PrivateServiceState = Immutable({
+const initialState: PrivateServiceState = Immutable<PrivateServiceState>({
   customEvent: {
     byId: {},
     loading: false,
@@ -345,6 +345,7 @@ export default handleActions(
     [availabilitySlotListActions.isLoading]: (state, { payload }) => {
       return state.setIn(['availabilitySlot', 'loading'], payload);
     },
+
     [availabilitySlotExistsActions.isLoading]: (state, { payload }) => {
       return state.setIn(
         [
@@ -357,6 +358,7 @@ export default handleActions(
           state,
           payload.resourceDatatype,
           payload.resourceIdentifier,
+          //@ts-ignore
         ).set('loading', payload.loading),
       );
     },
@@ -372,6 +374,7 @@ export default handleActions(
           state,
           payload.resourceDatatype,
           payload.resourceIdentifier,
+          //@ts-ignore
         ).set('exists', payload.exists),
       );
     },
@@ -387,6 +390,7 @@ export default handleActions(
           state,
           payload.resourceDatatype,
           payload.resourceIdentifier,
+          //@ts-ignore
         ).set('error', payload.error),
       );
     },
@@ -404,6 +408,9 @@ export default handleActions(
     },
     [availabilitySlotSearchActions.error]: (state, { payload }) => {
       return state.setIn(['availabilitySlot', 'searched', 'error'], payload);
+    },
+    [availabilitySlotSearchActions.reset]: (state) => {
+      return state.setIn(['availabilitySlot', 'searched', 'items'], []);
     },
 
     [availabilitySlotUpdateActions.isLoading]: (state, { payload }) => {
@@ -919,4 +926,4 @@ export default handleActions(
     },
   },
   initialState,
-);
+) as () => PrivateServiceState;

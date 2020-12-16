@@ -15,7 +15,7 @@ import {
 import { getCurrentBasket } from './selectors';
 import { snackbarError } from '../../actions/snackbar.actions';
 
-import type { Dispatch, State, ThunkAction } from '../../state/types';
+import type { Dispatch, State, ThunkAction } from '../../state/types.ts';
 import type { CheckoutItemData } from './types';
 
 export const currentBasket = {

@@ -1,6 +1,6 @@
 // @flow
 
-import { getAuth, postAuth, API_V1_URI, buildUrlParams } from '../../http';
+import { getAuth, postAuth, API_V1_URI, buildUrlParams } from '../../http.ts';
 
 export const fetchMembershipList = async (params: any = {}) => {
   return getAuth(`${API_V1_URI}/membership/${buildUrlParams(params)}`);

@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable';
 
-import { setAuthToken } from '../http';
+import { setAuthToken } from '../http.ts';
 import actionTypes from '../actions/auth.types';
 
 const initialState = Immutable({

@@ -1,6 +1,6 @@
 // @flow
 
-import { API_V1_URI, getAuth, patchAuth } from '../../http';
+import { API_V1_URI, getAuth, patchAuth } from '../../http.ts';
 
 const fetchCashBook = async (companyId: number) => {
   return getAuth(`${API_V1_URI}/cashbook/cashbook/${companyId}/`);

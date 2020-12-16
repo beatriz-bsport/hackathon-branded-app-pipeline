@@ -1,7 +1,7 @@
 // @flow
 
 import { createSelector } from 'reselect';
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 import type { MemberRelation } from './types';
 
 import { getAllMembers } from '../member/selectors';

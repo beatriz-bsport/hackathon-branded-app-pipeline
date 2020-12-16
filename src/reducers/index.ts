@@ -1,5 +1,3 @@
-// @flow
-
 import { combineReducers } from 'redux';
 
 import { connectRouter } from 'connected-react-router';
@@ -55,8 +53,6 @@ import platformBilling from '../libs/platform-billing/reducers';
 import backgroundTaskReducers from '../libs/background-task/reducers';
 import marketingNotification from '../libs/marketing/reducers';
 import dashboardSettings from '../libs/dashboard/reducers';
-
-import type { State, Action } from '../state/types';
 
 import { reducer } from '../resources';
 
@@ -118,7 +114,9 @@ const rootReducer = (history) =>
     dashboardSettings,
   });
 
-export default (history) => (state: State, action: Action) => {
-  const newState = action.type === 'DISCONNECT' ? {} : state;
+export type RootState = ReturnType<ReturnType<typeof rootReducer>>;
+
+export default (history) => (state: RootState, action) => {
+  const newState = state;
   return rootReducer(history)(newState, action);
 };

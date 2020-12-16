@@ -12,7 +12,7 @@ import * as Yup from 'yup';
 import { withFormik, Form, connect as formikConnect } from 'formik';
 
 import { compose, withPropsOnChange, withProps, withState } from 'recompose';
-import { getAuth, postAuth, API_URI } from '../../http';
+import { getAuth, postAuth, API_URI } from '../../http.ts';
 
 import { Moment } from '../../i18n';
 import AvatarField from '../../components/forms/AvatarField.component';

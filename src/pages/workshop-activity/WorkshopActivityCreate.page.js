@@ -28,7 +28,7 @@ import {
 } from '../../libs/meta-activity/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors from '../../libs/theme/selectors.ts';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

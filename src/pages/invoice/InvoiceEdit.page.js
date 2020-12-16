@@ -38,7 +38,7 @@ import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { fetchPaymentMethodList } from '../../libs/payment/actions';
 import { getPermissions } from '../../libs/role/selectors';
 
-import { fetchPrivatePassList } from '../../libs/private-service/actions';
+import { fetchPrivatePassList } from '../../libs/private-service/actions.ts';
 
 import type { Invoice } from '../../api/types';
 import type { Member } from '../../libs/member/types';

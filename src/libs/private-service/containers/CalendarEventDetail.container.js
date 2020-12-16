@@ -40,7 +40,7 @@ import {
   updatePrivateBookingDatetime as updatePrivateBookingDatetimeAction,
   updatePrivateBookingCoach as updatePrivateBookingCoachAction,
   deleteCustomEvent as deleteCustomEventAction,
-} from '../actions';
+} from '../actions.ts';
 import {
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
   fetchAllActivities,

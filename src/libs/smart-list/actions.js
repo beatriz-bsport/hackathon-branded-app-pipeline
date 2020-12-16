@@ -26,7 +26,7 @@ import {
   copySmartList as copySmartListAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types.ts';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 

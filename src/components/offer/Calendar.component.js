@@ -32,7 +32,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';
 import { formatAsTitle, DATE_FORMAT } from '../../datetime';
-import { API_URI, getAuth, buildUrlParams } from '../../http';
+import { API_URI, getAuth, buildUrlParams } from '../../http.ts';
 
 const WEEKMODE: number = 0;
 const MONTHMODE: number = 1;

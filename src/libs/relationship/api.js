@@ -5,7 +5,7 @@ import {
   getAuth,
   patchAuth,
   postAuth,
-} from '../../http';
+} from '../../http.ts';
 
 export async function fetchMemberRelations(memberId: number) {
   return getAuth(`${API_V1_URI}/member/${memberId}/relations/`);

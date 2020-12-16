@@ -29,7 +29,7 @@ import {
   fetchPrivateConsumerPass as fetchPrivateConsumerPassAction,
   attachCoachToPrivateBooking as attachCoachAction,
   restorePrivateBooking,
-} from '../../libs/private-service/actions';
+} from '../../libs/private-service/actions.ts';
 import { getCoaches } from '../../libs/associated-coach/selectors';
 import {
   getPrivateBookingListBase,
@@ -50,7 +50,7 @@ import type {
   PrivateBooking,
   PrivateService,
   PrivateSlot,
-} from '../../libs/private-service/types';
+} from '../../libs/private-service/types.ts';
 
 type Props = {
   id: number,

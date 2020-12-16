@@ -25,7 +25,7 @@ import {
   getPrivateServiceListByGroup,
   getPrivateServiceById,
   getPrivateServiceGroupList,
-} from '../../libs/private-service/selectors/private-service';
+} from '../../libs/private-service/selectors/private-service.ts';
 
 import { getAllEstablishmentsWithAssociatedId } from '../../libs/establishment/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
@@ -42,11 +42,11 @@ import {
   deleteServiceGroup as deleteServiceGroupAction,
   createOrUpdateServiceGroup as createOrUpdateServiceGroupAction,
   deletePrivateService,
-} from '../../libs/private-service/actions';
+} from '../../libs/private-service/actions.ts';
 import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
 import { withPrivateBookingNotification } from '../../libs/marketing/selectors';
 
-import type { PrivateService } from '../../libs/private-service/types';
+import type { PrivateService } from '../../libs/private-service/types.ts';
 
 type Props = {
   fetchAllPrivateServices: () => void,

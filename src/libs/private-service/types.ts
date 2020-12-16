@@ -1,22 +1,34 @@
-// @flow
+
+export enum ResourceAttributionEnum {
+  auto = 0,
+  consumer = 1,
+  manager = 3,
+  home = 4,
+}
 
 export type AvailabilitySlot = {
   associated_coach: number,
   coach: number,
-  associated_coach: number,
   date_start: string,
   date_end: string,
 };
 
 export type PrivateService = {
-  id: number,
-  name: string,
-  description: string,
-  coaches: Array<number>,
-  available: boolean,
-  establishments: Array<number>,
-  slots: Array<number>,
+  id: number;
+  name: string;
+  description: string;
+  coaches: Array<number | PrivateCoach>;
+  available: boolean;
+  establishments: Array<number | PrivateEstablishment>;
+  slots: Array<number | PrivateSlot>;
+  slots_duration_minute: Array<number>;
+  is_home_service: boolean;
+  establishment_attribution: ResourceAttributionEnum;
+  booking_interval_minutes: number;
+  coach_attribution: ResourceAttributionEnum;
+  cover_main: string;
 };
+
 
 export type PrivateSlot = {
   id: number,
@@ -24,18 +36,26 @@ export type PrivateSlot = {
   private_service: number,
   cedit: number,
   duration_minutes: number,
+  people_capacity_used: number;
 };
 
 export type PrivateCoach = {
-  id: number,
-  private_service: number,
-  associated_coach: number,
+  id: number;
+  private_service: number;
+  associated_coach: number;
+  name: string;
+  photo: string;
 };
 
 export type PrivateEstablishment = {
-  id: number,
-  private_service: number,
-  associated_establishment: number,
+  id: number;
+  private_service: number;
+  associated_establishment: number;
+  cover: string;
+  title: string;
+  location: {
+    address: string;
+  }
 };
 
 export type PrivatePass = {
@@ -46,6 +66,9 @@ export type PrivatePass = {
   tax: number,
   private_services: Array<number>,
   manager_only: boolean,
+  duration_days: any , // TODO TYPES
+  duration_months: any, // TODO TYPES
+  duration_years: any // TODO TYPES
 };
 
 export type PrivateConsumerPass = {
@@ -53,6 +76,8 @@ export type PrivateConsumerPass = {
   used_credits: number,
   consumer: number,
   private_pass: PrivatePass,
+  date_bought: any // TODO TYPES
+  extension_days: any // TODO TYPES
 };
 
 export type PrivateBooking = {
@@ -85,79 +110,80 @@ export type ResourceData = {
   resourceData: any,
 };
 
-export type PrivateServiceState = {
+export interface PrivateServiceState {
   availabilitySlot: {
     existsByResourceTypeById: {
       [resourceDatatype: string]: {
         [resourceIdentifier: number]: {
           exists: boolean,
-          error: ?Error,
+          error?: Error,
           loading: boolean,
         },
       },
     },
     items: Array<AvailabilitySlot>,
     loading: boolean,
-    error: ?Error,
+    error?: Error,
     createOrUpdate: {
       loading: boolean,
-      error: ?Error,
+      error?: Error,
     },
     searched: {
       items: Array<string>,
       loading: boolean,
-      error: ?Error,
+      error?: Error,
     },
-  },
+  };
   privatePass: {
     allIds: Array<number>,
     asConsumer: {
       allIds: Array<number>,
       loading: boolean,
-      error: ?Error,
+      error?: Error,
     },
-    byId: { [id: number]: PrivatePass },
+    byId: { [id: string]: PrivatePass },
     loading: boolean,
-    error: ?Error,
+    error?: Error,
     createOrUpdate: {
       loading: boolean,
-      error: ?Error,
+      error?: Error,
     },
-  },
+  };
   privateConsumerPass: {
     allIds: Array<number>,
-    byId: { [id: number]: PrivateConsumerPass },
+    byId: { [id: string]: PrivateConsumerPass },
     loading: boolean,
-    error: ?Error,
-  },
+    error?: Error,
+  };
   privateSlot: {
-    byId: { [id: number]: PrivateSlot },
+    byId: { [id: string]: PrivateSlot },
     loading: boolean,
-    error: ?Error,
+    error?: Error,
     createOrUpdate: {
       loading: boolean,
-      error: ?Error,
+      error?: Error,
     },
-  },
+  };
   privateService: {
-    byId: { [id: number]: PrivateService },
+    byId: { [id: string]: PrivateService },
+    marketplaceIds: string[]
     allIds: Array<number>,
     loading: boolean,
-    error: ?Error,
+    error?: Error,
     createOrUpdate: {
       loading: boolean,
-      error: ?Error,
+      error?: Error,
     },
-  },
+  };
   privateBooking: {
-    byId: { [id: number]: PrivateBooking },
+    byId: { [id: string]: PrivateBooking },
     allIds: Array<number>,
     loading: boolean,
-    error: ?Error,
+    error?: Error,
     preview: {
-      data: ?PrivateBookingPreview,
+      data?: PrivateBookingPreview,
       loading: boolean,
-      error: ?Error,
+      error?: Error,
     },
-  },
-};
+  };
+}

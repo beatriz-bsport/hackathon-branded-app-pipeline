@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withProps, compose, withStateHandlers, branch } from 'recompose';
 
-import themeSelectors from '../../theme/selectors';
+import themeSelectors from '../../theme/selectors.ts';
 
 import { graphRessources } from '../chart-ressources';
 

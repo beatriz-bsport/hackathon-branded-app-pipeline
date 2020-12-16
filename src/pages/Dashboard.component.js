@@ -16,7 +16,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
 
 import withTitle from '../hocs/with-title.hoc';
-import type { Theme } from '../libs/theme/types';
+import type { Theme } from '../libs/theme/types.ts';
 import DashboardChart from '../components/graph/DashboardChart.component';
 import withDashboardGraphs from '../libs/dashboard/hoc/dashboard-graphs-hoc';
 import { graphRessources } from '../libs/dashboard/chart-ressources';
@@ -26,7 +26,7 @@ import {
 } from '../libs/dashboard/actions';
 import { getDashboardGraphs } from '../libs/dashboard/selectors';
 import type { Graph, Tab } from '../libs/dashboard/types';
-import type { OptionCallback } from '../state/types';
+import type { OptionCallback } from '../state/types.ts';
 
 type Props = {
   t: TFunction,

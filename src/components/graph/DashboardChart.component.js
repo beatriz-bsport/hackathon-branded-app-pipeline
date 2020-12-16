@@ -1,5 +1,5 @@
 // @flow
-import * as React from 'react';
+import React from 'react';
 import { withStateHandlers, withState, withHandlers, compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';

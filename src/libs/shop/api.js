@@ -7,7 +7,7 @@ import {
   patchAuth,
   buildUrlParams,
   deleteAuth,
-} from '../../http';
+} from '../../http.ts';
 
 export async function fetchAll(params: any) {
   return getAuth(`${API_V1_URI}/shop/item/${buildUrlParams(params)}`);

@@ -1,4 +1,4 @@
-import { API_URI, API_V1_URI, get, getAuth } from '../../http';
+import { API_URI, API_V1_URI, get, getAuth } from '../../http.ts';
 
 const fetchCompanyMetaActivities = async ({
   companyId,

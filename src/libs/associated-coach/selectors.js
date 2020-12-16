@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
 import Immutable from 'seamless-immutable';
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 import type { CoachPerformanceContainer } from './types';
 
 const EMPTY_PERFORMANCE: CoachPerformanceContainer = Immutable({

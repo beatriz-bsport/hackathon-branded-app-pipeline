@@ -1,7 +1,7 @@
 // @flow
 import { createAction, handleActions } from 'redux-actions';
 
-import type { Dispatch, Action, State } from '../state/types';
+import type { Dispatch, Action, State } from '../state/types.ts';
 
 export function createListHandler(
   objectName: string,

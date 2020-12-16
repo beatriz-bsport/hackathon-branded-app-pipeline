@@ -3,7 +3,7 @@
 import { createSelector } from 'reselect';
 
 import Immutable from 'seamless-immutable';
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 import type { email_template_state } from './types';
 
 export const getSmartListDict = (state: State): email_template_state =>

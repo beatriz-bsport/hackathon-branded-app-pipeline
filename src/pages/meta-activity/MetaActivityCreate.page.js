@@ -26,7 +26,7 @@ import {
 } from '../../libs/payment-packs/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors from '../../libs/theme/selectors.ts';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getActivityCompatiblePaymentPacks } from '../../libs/payment-packs/selectors';
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';

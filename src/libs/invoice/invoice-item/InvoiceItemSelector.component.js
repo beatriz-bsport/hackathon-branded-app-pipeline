@@ -22,7 +22,7 @@ import PriceInput from '../../../components/input/PriceInput.component';
 
 // eslint-disable-next-line
 import type { PaymentPack } from '../../../libs/payment-packs/types';
-import type { PrivatePass } from '../../private-service/types';
+import type { PrivatePass } from '../../private-service/types.ts';
 
 type Props = {
   paymentPacks: Array<PaymentPack>,

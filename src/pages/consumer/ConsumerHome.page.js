@@ -14,7 +14,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import Analytics from '../../components/analytics/Analytics.component';
 import withTitle from '../../hocs/with-title.hoc';
 import parse from '../../query-string';
-import { buildUrlParams } from '../../http';
+import { buildUrlParams } from '../../http.ts';
 import asyncComponent from '../../AsyncComponent';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 
@@ -34,11 +34,11 @@ import { fetchOfferBulk as fetchOfferBulkAction } from '../../libs/offer/actions
 import { getBasketGeneratedObjects } from '../../libs/checkout/selectors';
 
 import { getTheme } from '../../theme';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors from '../../libs/theme/selectors.ts';
 import { fetchCountObjects as fetchCountObjectsAction } from '../../libs/member/actions';
 import ConsumerLoading from '../../libs/consumer-space/components/ConsumerLoading.component';
 import ConsumerDrawer from '../../components/navigation/ConsumerDrawer.component';
-import { fetchCompanyTheme } from '../../libs/theme/actions';
+import { fetchCompanyTheme } from '../../libs/theme/actions.ts';
 
 import type { Membership } from '../../libs/membership/types';
 

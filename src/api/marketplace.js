@@ -1,4 +1,4 @@
-import { API_URI, get, getAuth } from '../http';
+import { API_URI, get, getAuth } from '../http.ts';
 
 export async function fetchCompany(companyId) {
   return get(`${API_URI}/marketplace/company/${companyId}/summary`);

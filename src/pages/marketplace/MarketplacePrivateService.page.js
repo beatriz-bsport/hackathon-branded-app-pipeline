@@ -25,13 +25,13 @@ import {
   searchAvailableSlots,
   fetchMarketplacePrivateServices,
   fetchMarketplacePrivateSlots,
-} from '../../libs/private-service/actions';
-import { getPrivateServicesForMarketplace } from '../../libs/private-service/selectors/private-service';
+} from '../../libs/private-service/actions.ts';
+import { getPrivateServicesForMarketplace } from '../../libs/private-service/selectors/private-service.ts';
 import SlotSearcherResult from '../../libs/private-service/components/slot-searcher/SlotSearcherResult.component';
 import SlotSearcherParams from '../../libs/private-service/components/slot-searcher/SlotSearcherParams.component';
 import SlotSearcherHelper from '../../libs/private-service/components/slot-searcher/SlotSearcherHelper.component';
-import type { PrivateService } from '../../libs/private-service/types';
-import { getMissingResourceForBooking } from '../../libs/private-service/utils';
+import type { PrivateService } from '../../libs/private-service/types.ts';
+import { getMissingResourceForBooking } from '../../libs/private-service/utils.ts';
 
 import MissingResourceForBookingHelper from '../../libs/private-service/components/MissingResourceForBookingHelper.component';
 
@@ -90,12 +90,13 @@ export class MarketplacePrivateService extends React.Component<Props, State> {
   componentDidMount() {
     this.props.fetchMarketplacePrivateServices(this.props.companyId, {
       onSuccess: (serviceList) => {
-        this.props.fetchEstablishmentBulk(
-          serviceList.reduce((acc, s) => [...acc, ...s.establishments], []),
+        const a = serviceList.reduce(
+          (acc, s) => [...acc, ...s.establishments],
+          [],
         );
-        this.props.fetchCoachBulk(
-          serviceList.reduce((acc, s) => [...acc, ...s.coaches], []),
-        );
+        this.props.fetchEstablishmentBulk(a);
+        const b = serviceList.reduce((acc, s) => [...acc, ...s.coaches], []);
+        this.props.fetchCoachBulk(b);
       },
     });
     this.props.fetchMarketplacePrivateSlots(this.props.companyId);

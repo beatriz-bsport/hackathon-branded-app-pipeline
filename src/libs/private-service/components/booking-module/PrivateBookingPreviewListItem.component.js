@@ -14,7 +14,7 @@ import moment from 'moment-timezone';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import type { PrivateBookingPreview } from '../../types';
+import type { PrivateBookingPreview } from '../../types.ts';
 
 type Props = {
   preview: PrivateBookingPreview,

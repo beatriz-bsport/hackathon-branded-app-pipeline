@@ -1,7 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions';
-import type { Dispatch, ThunkAction, OptionCallBack } from '../../state/types';
+import type { Dispatch, ThunkAction, OptionCallBack } from '../../state/types.ts';
 
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,

@@ -7,7 +7,7 @@ import {
   patchAuth,
   deleteAuth,
   buildUrlParams,
-} from '../../http';
+} from '../../http.ts';
 
 const MARKETING_EMAIL_URI = `${API_V1_URI}/email_design/`;
 

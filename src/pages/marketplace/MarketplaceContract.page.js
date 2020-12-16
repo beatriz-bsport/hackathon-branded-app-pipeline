@@ -25,7 +25,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import Config from '../../config';
 
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
-import { fetchPrivatePassBulk as fetchPrivatePassBulkAction } from '../../libs/private-service/actions';
+import { fetchPrivatePassBulk as fetchPrivatePassBulkAction } from '../../libs/private-service/actions.ts';
 import {
   getMarketplaceContractList as getContractList,
   withPaymentPack,

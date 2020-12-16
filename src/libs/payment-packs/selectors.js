@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import memoize from 'memoize-one';
 
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 import { getSCTs } from '../category/selectors';
 import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';

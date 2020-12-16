@@ -18,7 +18,7 @@ import {
 import createCompressor from 'redux-persist-transform-compress';
 import networkErrorMiddleWare from './libs/network/redux-middleware';
 
-import createRootReducer from './reducers';
+import createRootReducer from './reducers/index.ts';
 
 const persistConfig = {
   key: 'root',
@@ -60,7 +60,7 @@ export default function initStore(initialState: Object = {}) {
   // $FlowFixMe
   if (module.hot) {
     module.hot.accept(() => {
-      const nextRootReducer = require('./reducers').default; // eslint-disable-line global-require
+      const nextRootReducer = require('./reducers/index.ts').default; // eslint-disable-line global-require
       store.replaceReducer(nextRootReducer);
     });
   }

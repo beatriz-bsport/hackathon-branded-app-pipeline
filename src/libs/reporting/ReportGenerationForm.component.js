@@ -27,7 +27,7 @@ import {
 } from '../../components/forms';
 import withIntercomAction from '../../hocs/tracking/dispatch-action.hoc';
 
-import { getAuth } from '../../http';
+import { getAuth } from '../../http.ts';
 
 import type { ReportConfiguration as ReportConfigurationType } from './types';
 
@@ -44,13 +44,14 @@ const ReportGenerationSchema = Yup.object().shape({
   dateStart: Yup.date().required('required'),
   dateEnd: Yup.date()
     .required('required')
-    .test('is-after-start', 'errors.end_before_start', function (dateEnd) {
+    .test('is-after-start', 'errors.end_before_start', function(dateEnd) {
       const { dateStart } = this.parent;
       const { dateType } = this.parent;
       return (
         (dateType === 'range' &&
           moment(dateStart).isSameOrBefore(moment(dateEnd))) ||
-        dateType === 'single' || dateType === 'none'
+        dateType === 'single' ||
+        dateType === 'none'
       );
     }),
 });

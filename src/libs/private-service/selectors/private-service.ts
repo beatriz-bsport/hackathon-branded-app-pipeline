@@ -1,48 +1,47 @@
 // @flow
 
 import { createSelector } from 'reselect';
-import type { State } from '../../../state/types';
+//@ts-ignore
+import { State } from '../../../state/types.ts';
 
-import type { PrivateService, PrivateServiceWithRelatedFields } from '../types';
+import { PrivateService } from '../types';
 import { getAllCoachesDict } from '../../associated-coach/selectors';
 import {
   getAllEstablishmentsWithAssociatedId,
   getAllEstablishmentsDict,
 } from '../../establishment/selectors';
 import { getAllPrivateSlotsDict } from './private-slot';
+import { RootState } from '../../../reducers';
 import { withPrivateBookingNotification } from '../../marketing/selectors';
 
-export const _getPrivateServicesById: (State) => {
-  [id: number]: PrivateService,
-} = (state) => state.privateService.privateService.byId;
+export const _getPrivateServicesById: (
+  state: RootState,
+) => { [key: string]: PrivateService } = (state: RootState) =>
+  state.privateService.privateService.byId;
 
-export const _getPrivateServicesListId: (State) => Array<number> = (state) =>
-  state.privateService.privateService.allIds;
+export const _getPrivateServicesListId: (RootState) => Array<number> = (
+  state,
+) => state.privateService.privateService.allIds;
 
-export const _getPrivateServices: (
-  state: State,
-) => Array<PrivateService> = createSelector(
+export const _getPrivateServices = createSelector(
   [_getPrivateServicesListId, _getPrivateServicesById],
   (list, data) => list.map((id) => data[id]),
 );
 
-export const _getPrivateServicesMarketplaceListId: (State) => Array<number> = (
-  state,
-) => state.privateService.privateService.marketplaceIds;
+export const _getPrivateServicesMarketplaceListId = (state: RootState) =>
+  state.privateService.privateService.marketplaceIds;
 
 export const _getPrivateServicesMarketplace: (
-  state: State,
+  state: RootState,
 ) => Array<PrivateService> = createSelector(
   [_getPrivateServicesMarketplaceListId, _getPrivateServicesById],
   (list, data) => list.map((id) => data[id]).filter((ps) => ps.available),
 );
 
-export const getPrivateService = (state: State, id: number) =>
+export const getPrivateService = (state: RootState, id: string) =>
   _getPrivateServicesById(state)[id];
 
-export const getPrivateServices: (
-  state: State,
-) => Array<PrivateServiceWithRelatedFields> = createSelector(
+export const getPrivateServices: (state: State) => Array<any> = createSelector(
   [
     _getPrivateServices,
     getAllCoachesDict,
@@ -78,7 +77,7 @@ export const getPrivateServiceGroupList = createSelector(
 
 export const getAvailablePrivateServices: (
   state: State,
-) => Array<PrivateServiceWithRelatedFields> = createSelector(
+) => Array<any> = createSelector(
   getPrivateServices,
   (services) =>
     services
@@ -110,10 +109,15 @@ export const getPrivateServiceListByGroup = createSelector(
     }));
   },
 );
-export const getPrivateServiceById = (state, id) => {
+export const getPrivateServiceById: (state: RootState, id) => PrivateService = (
+  state: RootState,
+  id,
+) => {
   const ps = state.privateService.privateService.byId[id];
   if (!ps) return null;
+  //@ts-ignore TODO TYPES
   const coachData = getAllCoachesDict(state);
+  //@ts-ignore TODO TYPES
   const establishmentData = getAllEstablishmentsDict(state);
   const slotData = getAllPrivateSlotsDict(state);
   return {
@@ -127,6 +131,7 @@ export const getPrivateServiceById = (state, id) => {
     establishments: ps.establishments
       .map((c) =>
         Object.values(establishmentData).find((e_) =>
+          //@ts-ignore TODO TYPES
           e_.associatedestablishment_set.includes(c),
         ),
       )
@@ -136,7 +141,8 @@ export const getPrivateServiceById = (state, id) => {
 
 export const getPrivateServicesList: (
   state: State,
-) => Array<PrivateServiceWithRelatedFields> = createSelector(
+  // TODO TYPES any
+) => Array<any> = createSelector(
   [
     _getPrivateServices,
     getAllCoachesDict,
@@ -155,6 +161,7 @@ export const getPrivateServicesList: (
         ),
         establishments: ps.establishments.map((e) =>
           Object.values(allEstablishments).find((ae) =>
+            //@ts-ignore TODO TYPES
             ae.associatedestablishment_set.includes(e),
           ),
         ),
@@ -164,7 +171,7 @@ export const getPrivateServicesList: (
 
 export const getPrivateServicesForMarketplace: (
   state: State,
-) => Array<PrivateServiceWithRelatedFields> = createSelector(
+) => Array<any> = createSelector(
   [
     _getPrivateServicesMarketplace,
     getAllCoachesDict,
@@ -183,11 +190,13 @@ export const getPrivateServicesForMarketplace: (
         ),
         establishments: ps.establishments.map((e) =>
           Object.values(allEstablishments).find((ae) =>
+            //@ts-ignore TODO TYPES
             ae.associatedestablishment_set.includes(e),
           ),
         ),
         slots: ps.slots
           .map((s) => allSlotsDict[s])
+          //@ts-ignore TODO TYPES
           .filter((s) => !!s && s.available),
       })),
 );

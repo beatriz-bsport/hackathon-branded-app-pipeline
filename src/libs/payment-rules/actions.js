@@ -9,9 +9,9 @@ import {
   postBaseAuth,
   putAuth,
   API_URI,
-} from '../../http';
+} from '../../http.ts';
 
-import type { Dispatch, ThunkAction } from '../../state/types';
+import type { Dispatch, ThunkAction } from '../../state/types.ts';
 import type { PaymentRule } from './types';
 
 export const paymentRuleSet = {

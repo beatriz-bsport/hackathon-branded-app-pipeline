@@ -2,7 +2,7 @@
 
 import { createAction } from 'redux-actions';
 import api from './api';
-import type { Dispatch } from '../../state/types';
+import type { Dispatch } from '../../state/types.ts';
 
 export const cashBookDetail = {
   error: createAction('CASHBOOK/DETAIL/ERROR'),

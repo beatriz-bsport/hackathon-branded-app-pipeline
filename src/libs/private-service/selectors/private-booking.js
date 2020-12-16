@@ -4,8 +4,8 @@ import moment from 'moment-timezone';
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-import type { State } from '../../../state/types';
-import type { PrivateBooking } from '../types';
+import type { State } from '../../../state/types.ts';
+import type { PrivateBooking } from '../types.ts';
 
 import {
   getMemberListData,
@@ -14,7 +14,7 @@ import {
 } from '../../member/selectors';
 
 import { getAllPrivateSlotsDict } from './private-slot';
-import { _getPrivateServicesById } from './private-service';
+import { _getPrivateServicesById } from './private-service.ts';
 
 import { getAllCoachesDict } from '../../associated-coach/selectors';
 import { getAllEstablishmentsDict } from '../../establishment/selectors';

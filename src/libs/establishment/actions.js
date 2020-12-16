@@ -16,10 +16,10 @@ import {
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAPI,
   restoreEstablishment as restoreEstablishmentAPI,
 } from './api';
-import { API_URI, postAuth, deleteAuth } from '../../http';
+import { API_URI, postAuth, deleteAuth } from '../../http.ts';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
-import type { Dispatch, OptionCallback } from '../../state/types';
+import type { Dispatch, OptionCallback } from '../../state/types.ts';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { getFreshEstablishmentIds } from './selectors';

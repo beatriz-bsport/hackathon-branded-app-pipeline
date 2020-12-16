@@ -12,7 +12,7 @@ import {
   getMetaActivityAbstractDict,
 } from '../meta-activity/selectors';
 import { getAllEstablishmentsDict } from '../establishment/selectors';
-import themeSelectors from '../theme/selectors';
+import themeSelectors from '../theme/selectors.ts';
 
 const getState = (state: State) => state.offer;
 

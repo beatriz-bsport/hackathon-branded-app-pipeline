@@ -1,6 +1,6 @@
 // @flow
 
-import { getCookie } from './http';
+import { getCookie } from './http.ts';
 
 import { fetchAccessLevel, initiateInterface } from './actions/auth.actions';
 

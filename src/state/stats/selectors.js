@@ -8,7 +8,7 @@ import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 import { discretizeByAndFillMissing as discretizeAndFillMissing } from './utils';
 
-import type { State } from '../types';
+import type { State } from '../types.ts';
 
 export const mainChartSelector = (state: State) => state.stats.mainChart;
 export const dateRangeSelector = createSelector(

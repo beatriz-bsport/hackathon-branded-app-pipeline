@@ -14,7 +14,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { push as pushRouter } from 'connected-react-router';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors from '../../libs/theme/selectors.ts';
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import withTitle from '../../hocs/with-title.hoc';
@@ -27,7 +27,7 @@ import {
   getPrivateConsumerPassByPrivatePass,
   withMember,
 } from '../../libs/private-service/selectors/private-consumer-pass';
-import { getPrivateServices } from '../../libs/private-service/selectors/private-service';
+import { getPrivateServices } from '../../libs/private-service/selectors/private-service.ts';
 import {
   fetchPrivatePassRetrieve,
   fetchByPrivatePass,
@@ -39,13 +39,13 @@ import {
   updatePrivateConsumerPassCredits as updatePrivatePassCredit,
   resetByPrivatePass as resetByPrivatePassAction,
   updatePrivateConsumerPassCredits,
-} from '../../libs/private-service/actions';
+} from '../../libs/private-service/actions.ts';
 import { fetchFilteredMembers as fetchFilteredMembersActions } from '../../libs/member/actions';
 import PrivatePassDetail from '../../libs/private-service/components/pass/PrivatePassDetail.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import PaginatedConsumerPrivatePass from '../../libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
-import type { privateConsumerPass } from '../../libs/private-service/types';
+import type { privateConsumerPass } from '../../libs/private-service/types.ts';
 import PrivatePassForm from '../../libs/private-service/components/pass/PrivatePassForm.component';
 import PrivateConsumerPassFilters from '../../libs/private-service/components/pass/PrivateConsumerPassFilters.component';
 

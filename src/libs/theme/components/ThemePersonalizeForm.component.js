@@ -21,7 +21,7 @@ import {
 } from '@bsport/common/lib/master-data/settings';
 
 import NumericInput from '../../../components/input/NumericInput.component';
-import type { Theme } from '../types';
+import type { Theme } from '../types.ts';
 
 type Props = {
   theme: Theme,

@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import Selector from '../../../../components/Selector.component';
 
-import type { PrivatePass } from '../../types';
+import type { PrivatePass } from '../../types.ts';
 
 type Props = {
   classes: Object,

@@ -3,7 +3,7 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 import { getEventState } from '../event/selectors';
 import {
   getPaymentPackById,

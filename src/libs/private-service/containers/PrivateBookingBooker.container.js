@@ -27,8 +27,8 @@ import {
   fetchCompatiblePrivatePass as fetchCompatiblePrivatePassAction,
   fetchCompatiblePrivateConsumerPass as fetchCompatiblePrivateConsumerPassAction,
   registerPrivateBooking as registerPrivateBookingAction,
-} from '../actions';
-import { getAvailablePrivateServices } from '../selectors/private-service';
+} from '../actions.ts';
+import { getAvailablePrivateServices } from '../selectors/private-service.ts';
 
 import { fetchAssociatedEstablishmentBulk } from '../../establishment/actions';
 import { fetchAssociatedCoachBulk } from '../../associated-coach/actions';
@@ -49,7 +49,7 @@ import PrivatePassCapabilities from '../components/PrivatePassCapabilities.compo
 
 import DateTimeForm from '../../../components/input/DateTimeInput.component';
 
-import { getMissingResourceForBooking } from '../utils';
+import { getMissingResourceForBooking } from '../utils.ts';
 
 type Props = {
   t: TFunction,

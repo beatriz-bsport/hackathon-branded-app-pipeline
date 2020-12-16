@@ -13,12 +13,12 @@ import Hidden from '@material-ui/core/Hidden';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors from '../../libs/theme/selectors.ts';
 import parse from '../../query-string';
 import { openIntercomHelp } from '../../intercom';
 
 import { auth as authActions } from '../../actions';
-import { fetchCompanyTheme } from '../../libs/theme/actions';
+import { fetchCompanyTheme } from '../../libs/theme/actions.ts';
 
 import Analytics from '../../components/analytics/Analytics.component';
 import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';

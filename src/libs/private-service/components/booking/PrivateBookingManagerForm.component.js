@@ -30,7 +30,7 @@ import type {
   PrivatePass,
   PrivateService,
   PrivateConsumerPass,
-} from '../../types';
+} from '../../types.ts';
 
 type Props = {
   t: TFunction,

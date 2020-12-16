@@ -2,7 +2,7 @@
 
 import lodash from 'lodash';
 
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 
 import { getCoach } from '../associated-coach/selectors';
 

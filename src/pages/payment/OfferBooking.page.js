@@ -23,7 +23,7 @@ import {
 } from '../../actions';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 
-import { fetchCompanyTheme } from '../../libs/theme/actions';
+import { fetchCompanyTheme } from '../../libs/theme/actions.ts';
 import {
   addItemToBasket,
   removeItemFromBasket,
@@ -39,9 +39,9 @@ import { snackbarError as snackbarErrorActions } from '../../actions/snackbar.ac
 import Analytics from '../../components/analytics/Analytics.component';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { retrieveOffer as fetchOfferAction } from '../../libs/offer/actions';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors from '../../libs/theme/selectors.ts';
 import { getTheme } from '../../theme';
-import type { Theme } from '../../libs/theme/types';
+import type { Theme } from '../../libs/theme/types.ts';
 
 import { linkMeToCompany } from '../../libs/member/actions';
 import PaymentContainer from './PaymentContainer.component';

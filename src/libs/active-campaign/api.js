@@ -6,7 +6,7 @@ import {
   postAuth,
   patchAuth,
   deleteAuth,
-} from '../../http';
+} from '../../http.ts';
 
 const ACTIVE_CAMPAIGN_URI = `${API_V1_URI}/active_campaign/`;
 

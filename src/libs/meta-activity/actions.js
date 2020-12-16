@@ -4,11 +4,11 @@ import * as Sentry from '@sentry/browser';
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types.ts';
 
 import { getFreshMetaActivityList } from './selectors';
 
-import { postAuth, deleteAuth, API_URI } from '../../http';
+import { postAuth, deleteAuth, API_URI } from '../../http.ts';
 import {
   fetchMetaActivityDetails as fetchMetaActivityDetailsAPI,
   updateMetaActivity as updateMetaActivityAPI,

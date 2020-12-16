@@ -1,4 +1,4 @@
-import { API_URI, postAuth, getJSONAuth, buildUrlParams } from '../http';
+import { API_URI, postAuth, getJSONAuth, buildUrlParams } from '../http.ts';
 
 export async function bookings() {
   return getJSONAuth(`${API_URI}/statistics/bookings`);

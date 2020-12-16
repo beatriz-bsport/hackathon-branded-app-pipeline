@@ -21,11 +21,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose, withState } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import type { Theme } from '../../../theme/types';
+import type { Theme } from '../../../theme/types.ts';
 
 import PrivateServiceListItem from '../service/PrivateServiceListItem.component';
 import EmptyListWarning from '../EmptyListWarning.component';
-import type { PrivatePass, PrivateService } from '../../types';
+import type { PrivatePass, PrivateService } from '../../types.ts';
 import PrivatePassForm from './PrivatePassForm.component';
 
 type Props = {

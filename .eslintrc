@@ -38,6 +38,7 @@
     "jsx-a11y/label-has-associated-control": 0,
     "camelcase": "off",
     "import/no-extraneous-dependencies": "off",
+    "import/extensions": "off",
     "arrow-body-style": 0,
     "quotes": 0,
     // END DISABLED BY SOFIAN
@@ -70,7 +71,7 @@
     "space-before-function-paren": ["off"],
     "react/prefer-stateless-function": "off",
     "react/jsx-one-expression-per-line": "off",
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"]}]
+    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", "tsx"]}]
   },
   "globals": {
     "snapshot": false,

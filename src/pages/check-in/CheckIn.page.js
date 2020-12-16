@@ -16,15 +16,15 @@ import type { TFunction } from 'react-i18next';
 import { getPermissions } from '../../libs/role/selectors';
 import type { Permission } from '../../libs/role/types';
 
-import type { Theme } from '../../libs/theme/types';
-import themeSelectors from '../../libs/theme/selectors';
+import type { Theme } from '../../libs/theme/types.ts';
+import themeSelectors from '../../libs/theme/selectors.ts';
 import { getTheme as getMUITheme } from '../../theme';
 
 import api from '../../api';
 import { errorLogin } from '../../actions/auth.actions';
 
 import { fetchSCT } from '../../actions/category.actions';
-import { fetchCompanyTheme } from '../../libs/theme/actions';
+import { fetchCompanyTheme } from '../../libs/theme/actions.ts';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';

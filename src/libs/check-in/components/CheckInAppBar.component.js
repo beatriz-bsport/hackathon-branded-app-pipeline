@@ -9,7 +9,7 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import AppBarMUI from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
-import type { Theme } from '../../theme/types';
+import type { Theme } from '../../theme/types.ts';
 
 type Props = {
   theme: Theme,

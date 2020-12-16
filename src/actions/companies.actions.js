@@ -3,7 +3,7 @@
 import api from '../api';
 import types from './companies.types';
 
-import type { Dispatch } from '../state/types';
+import type { Dispatch } from '../state/types.ts';
 
 export function actionCompaniesFetchStart() {
   return { type: types.COMPANIES_FETCH_START };

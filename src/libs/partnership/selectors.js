@@ -1,6 +1,6 @@
 // @flow
 import memoize from 'memoize-one';
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 
 export const getPartnershipByIdentifier = memoize(
   (state: State, identifier: string) => {

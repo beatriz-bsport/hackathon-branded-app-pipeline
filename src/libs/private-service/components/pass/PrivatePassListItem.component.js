@@ -15,8 +15,8 @@ import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import type { PrivatePass } from '../../types';
-import { getValidityInfo } from '../../utils';
+import type { PrivatePass } from '../../types.ts';
+import { getValidityInfo } from '../../utils.ts';
 import PrivatePassForm from './PrivatePassForm.component';
 import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
 

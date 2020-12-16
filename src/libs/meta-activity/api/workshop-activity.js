@@ -1,6 +1,6 @@
 // @flow
 
-import { API_V1_URI, getAuth } from '../../../http';
+import { API_V1_URI, getAuth } from '../../../http.ts';
 
 export async function fetchAll() {
   return getAuth(

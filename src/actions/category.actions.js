@@ -2,7 +2,7 @@
 import api from '../api';
 import types from './category.types';
 
-import type { Dispatch } from '../state/types';
+import type { Dispatch } from '../state/types.ts';
 
 export function fetchSCT(params: any = {}) {
   return async (dispatch: Dispatch) => {

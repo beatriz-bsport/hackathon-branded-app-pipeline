@@ -1,5 +1,5 @@
 // @flow
-import { API_URI, postAuth } from '../../../http';
+import { API_URI, postAuth } from '../../../http.ts';
 
 export async function createOffers(metaActivityId: number, data: *) {
   return postAuth(

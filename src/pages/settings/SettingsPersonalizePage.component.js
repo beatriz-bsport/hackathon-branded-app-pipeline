@@ -8,13 +8,13 @@ import { compose } from 'recompose';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import type { Theme } from '../../libs/theme/types';
+import type { Theme } from '../../libs/theme/types.ts';
 import ThemePersonalizeForm from '../../libs/theme/components/ThemePersonalizeForm.component';
 import {
   updateCompanyTheme,
   fetchCompanyTheme,
-} from '../../libs/theme/actions';
-import themeSelectors from '../../libs/theme/selectors';
+} from '../../libs/theme/actions.ts';
+import themeSelectors from '../../libs/theme/selectors.ts';
 import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {

@@ -7,7 +7,7 @@ import {
   API_URI,
   postAuth,
   buildUrlParams,
-} from '../../http';
+} from '../../http.ts';
 
 export const fetchPaymentMethodList = async (params: any = {}) => {
   return getAuth(

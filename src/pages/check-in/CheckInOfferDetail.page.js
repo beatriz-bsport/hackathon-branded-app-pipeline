@@ -31,7 +31,7 @@ import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { checkFaceIDAvailable as checkFaceIDAvailableAPI } from '../../libs/face-recognition/api';
 
 import boop from '../../sounds/boop.mp3';
-import type { OptionCallback } from '../../state/types';
+import type { OptionCallback } from '../../state/types.ts';
 
 const likeAudio = new Audio(boop);
 

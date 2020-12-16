@@ -14,7 +14,7 @@ type Props = {
   onCreateLabel: String,
 };
 export const IsEmptyList = (props: Props) => {
-  const classes = useStyles();
+  const classes = useStyles(props);
   return (
     <div className={classes.container}>
       <div className={classes.emptyTool}>

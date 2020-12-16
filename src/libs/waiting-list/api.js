@@ -5,7 +5,7 @@ import {
   getAuth,
   patchAuth,
   buildUrlParams,
-} from '../../http';
+} from '../../http.ts';
 
 export const fetchConfiguration = async () => {
   return getAuth(`${API_V1_URI}/waiting-list/configuration/me/`);

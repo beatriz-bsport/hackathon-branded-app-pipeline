@@ -23,7 +23,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { getTheme } from '../../theme';
-import { fetchCompanyTheme } from '../../libs/theme/actions';
+import { fetchCompanyTheme } from '../../libs/theme/actions.ts';
 
 import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
 import MarketplaceAppBar from './MarketplaceAppBar.component';
@@ -57,6 +57,10 @@ import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
 const MarketplacePassPage = asyncComponent(() =>
   import('./MarketplacePass.page'),
 );
+
+const MarketplacePrivateServiceRouter = asyncComponent(() =>
+  import('./PrivateService/MarketplacePrivateService.router.tsx'),
+);
 const MarketplaceShopPage = asyncComponent(() =>
   import('./MarketplaceShop.page'),
 );
@@ -65,9 +69,6 @@ const MarketplaceCalendarPage = asyncComponent(() =>
 );
 const MarketplaceWorkshopPage = asyncComponent(() =>
   import('./MarketplaceWorkshop.page'),
-);
-const MarketplacePrivateService = asyncComponent(() =>
-  import('./MarketplacePrivateService.page'),
 );
 const MarketplaceContractPage = asyncComponent(() =>
   import('./MarketplaceContract.page'),
@@ -206,7 +207,7 @@ export class MarketPlace extends Component<Props, State> {
         );
       case TAB_PRIVATE_SERVICE:
         return (
-          <MarketplacePrivateService
+          <MarketplacePrivateServiceRouter
             companyId={this.props.companyId}
             authenticated={this.props.auth.authenticated}
             requestLogin={() => this.toogleLogin(true)}

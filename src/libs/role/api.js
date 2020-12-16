@@ -6,7 +6,7 @@ import {
   postAuth,
   patchAuth,
   deleteAuth,
-} from '../../http';
+} from '../../http.ts';
 
 export const fetchCompanyRoles = async () => {
   return getAuth(`${API_V1_URI}/role/user/`);

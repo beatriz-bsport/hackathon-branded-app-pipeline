@@ -1,6 +1,6 @@
 // @flow
 
-import { API_URI } from '../http';
+import { API_URI } from '../http.ts';
 
 import { uri, createRestResource, createResource } from './core';
 

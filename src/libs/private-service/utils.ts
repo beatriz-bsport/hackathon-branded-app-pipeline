@@ -1,13 +1,14 @@
 // @flow
-import moment from 'moment-timezone';
+import { TFunction } from 'i18next';
+const moment = require('moment-timezone');
 import uniq from 'lodash/uniq';
-import type { TFunction } from 'react-i18next';
 import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods';
+import { PrivateConsumerPass, PrivatePass, PrivateService } from './types';
 
 export const getMissingResourceForBooking = (
   service: PrivateService,
   data: any,
-  asManager: ?boolean,
+  asManager?: boolean,
 ) => {
   if (!service || !data) return ['private_service'];
   const missing = [];
@@ -35,7 +36,7 @@ export const getMissingResourceForBooking = (
 };
 
 export const splitIntervalList = (
-  interval_list,
+  interval_list: Array<Array<string>>,
   duration_minutes = 0,
   booking_interval = 15,
 ) => {
@@ -43,6 +44,7 @@ export const splitIntervalList = (
   interval_list.map(([start, end]) => {
     const slotToGenerate =
       parseInt(
+        //@ts-ignore
         (moment(end) - moment(start)) / (1000 * 60 * booking_interval),
         10,
       ) + 1;
@@ -63,6 +65,50 @@ export const splitIntervalList = (
     return null;
   });
   return uniq(slots);
+};
+
+export const groupSessionsByDayMoment = (
+  sessionList: string[],
+  timezoneName: string,
+  date: string,
+) => {
+  const morningGroup = sessionList.filter(
+    (d) =>
+      moment(d)
+        .tz(timezoneName)
+        .hour() < 12,
+  );
+  const noonGroup = sessionList.filter(
+    (d) =>
+      moment(d)
+        .tz(timezoneName)
+        .hour() < 15 &&
+      moment(d)
+        .tz(timezoneName)
+        .hour() >= 12,
+  );
+  const afternoonGroup = sessionList.filter(
+    (d) =>
+      moment(d)
+        .tz(timezoneName)
+        .hour() < 18 &&
+      moment(d)
+        .tz(timezoneName)
+        .hour() >= 15,
+  );
+  const eveningGroup = sessionList.filter(
+    (d) =>
+      moment(d)
+        .tz(timezoneName)
+        .hour() >= 18,
+  );
+
+  return [
+    { identifier: 'morning', list: morningGroup, date },
+    { identifier: 'noon', list: noonGroup, date },
+    { identifier: 'afternoon', list: afternoonGroup, date },
+    { identifier: 'evening', list: eveningGroup, date },
+  ];
 };
 
 export const getValidityInfo = (pack: PrivatePass, t: TFunction) => {

@@ -15,12 +15,12 @@ import {
 import { regularizeDebt as regularizeDebtAction } from '../../libs/member/actions';
 import InvoiceTable from '../../libs/invoice/components/InvoiceTable.component';
 import { fetchMembership as fetchMembershipAction } from '../../libs/membership/actions';
-import themeSelectors from '../../libs/theme/selectors';
 import {
   getInvoiceList,
   withInvoiceItem,
   withPayment,
 } from '../../libs/invoice/selectors';
+import themeSelectors from '../../libs/theme/selectors.ts';
 
 import type { Membership } from '../../libs/membership/types';
 import ConsumerDebtRegularizerDialog from '../../libs/consumer-space/components/ConsumerDebtRegularizerDialog.component';

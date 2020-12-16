@@ -1217,6 +1217,7 @@
     }
   },
   "privateService": {
+    "marketplace": { "isEmpty": "Aucun RDV proposé" },
     "filters": {
       "all": "Toutes les cartes",
       "expiration": "Validité",
@@ -1270,6 +1271,7 @@
     "color": { "form": { "title": "Code couleur du professeur", "cancel": "Annuler", "submit": "Enregistrer" } },
     "payment": { "address": { "explain": "Entrez votre adresse pour le cours à domicile", "save": "Enregistrer" } },
     "privateSlot": {
+      "duration": "{{ minutes }} minutes",
       "delete": {
         "title": "Suppression de la séance",
         "explain": "Êtes-vous sûr de vouloir supprimer cette séance ? Les réservations passées ne seront pas affectées. Cette opération est définitive.",
@@ -1394,9 +1396,21 @@
       "searchSlot": "Rechercher un créneau",
       "selectPrivateSlot": "Sélectionner une séance",
       "search": "Rechercher un créneau",
+      "selectSession": "Choisissez votre session",
+      "selectService": "Choisissez un service",
       "selectCoach": "Tous les professeurs",
+      "coach": "Professeur",
+      "establishment": "Lieu",
       "emptyDateList": "Aucun créneau disponible ce jour",
-      "bookableSlots": { "title": "Créneaux disponibles", "isEmpty": "Aucun créneau disponible" }
+      "bookableSlots": { "title": "Créneaux disponibles", "isEmpty": "Aucun créneau disponible" },
+      "nbSlot": "{{ nbSlot }} créneau",
+      "nbSlot_plural": "{{ nbSlot }} créneaux",
+      "groupIdentifier": {
+        "morning": { "label": "Matin", "interval": "Avant 12h" },
+        "noon": { "label": "Déjeuner", "interval": "12h - 14h" },
+        "afternoon": { "label": "Après-midi", "interval": "15h - 18h" },
+        "evening": { "label": "Fin d'après midi", "interval": "Après 18h" }
+      }
     },
     "slot": {
       "parameters": { "credit": "{{ credit }} crédit" },
@@ -1653,6 +1667,58 @@
         "description": { "label": "Description", "placeholder": "Demander M. Charles au 1 Champs Elysées" },
         "actions": { "cancel": "Annuler", "submit": "Enregistrer" }
       }
+    },
+    "privateBookingNotification": {
+      "form": {
+        "title": "Ajouter une notification",
+        "intro": "Vous pouvez prévenir vos clients avant ou après certains RDV, en fonction de différents critères comme le nombre de réservations ou d'annulations.",
+        "chooseKind": {
+          "title": "Choisissez le type de réservation que vous voulez notifier",
+          "valid": "Réservation valide",
+          "cancelledRefunded": "Réservation annulée et remboursée",
+          "cancelledNotRefunded": "Réservation annulée et non remboursée (hors délai)"
+        },
+        "notifyNb": "Notifier le membre lors de l'évènement n° :",
+        "notifyAllEvents": "Notifier le membre à chaque évènement",
+        "help": {
+          "valid": {
+            "default": "Aide : la notification sera envoyée au membre lors de sa réservation valide n° {{notifyNb}} pour ce type de RDV",
+            "notifyAll": "Aide : la notification sera envoyée au membre à chacune des ses réservations valides pour ce type de RDV"
+          },
+          "cancelledRefunded": {
+            "default": "Aide : la notification sera envoyée au membre lors de sa réservation annulée remboursée n° {{notifyNb}} pour ce type de RDV",
+            "notifyAll": "Aide : la notification sera envoyée au membre à chacune des ses réservations annulées remboursées pour ce type de RDV"
+          },
+          "cancelledNotRefunded": {
+            "default": "Aide : la notification sera envoyée au membre lors de son annulation hors délai n° {{notifyNb}} pour ce type de RDV",
+            "notifyAll": "Aide : la notification sera envoyée au membre à chacune des ses annulations hors délai pour ce type de RDV"
+          }
+        },
+        "chooseWhen": {
+          "title": "Type de notification",
+          "before": "Envoyer le mail au membre avant le RDV concerné par la notification",
+          "after": "Envoyer le mail au membre après le RDV concerné par la notification"
+        },
+        "chooseTime": {
+          "title": "Paramètres",
+          "first": "Envoyer un mail",
+          "second": { "before": "heure(s) avant la séance", "after": "heure(s) après la séance" }
+        },
+        "next": "Suivant"
+      },
+      "listItemPrimary": {
+        "before": "Notification {{hours}}h avant le RDV",
+        "after": "Notification {{hours}}h après le RDV",
+        "valid": "RDV n° {{notify_booking_nb}}",
+        "cancelledNotRefunded": "Annulation hors délai n° {{notify_booking_nb}}",
+        "cancelledRefunded": "Annulation remboursée n° {{notify_booking_nb}}",
+        "notifyAllEvents": {
+          "valid": "À chaque RDV",
+          "cancelledRefunded": "À chaque annulation remboursée",
+          "cancelledNotRefunded": "À chaque annulation hors délai"
+        }
+      },
+      "tooltip": "Des notifications sont actives pour ce type de RDV"
     }
   },
   "relationship": {
@@ -3665,6 +3731,7 @@
         "until": "Jusqu'au ",
         "name": { "label": "Nom", "helperText": "Nom de la carte de cours" },
         "full_vod_access": "Donne accès à la VOD tant que valable dans le temps",
+        "only_vod_access": "Uniquement pour la VOD",
         "tax": { "label": "TVA" },
         "priceIncludingTax": { "helperText": "Prix pour le client pour la carte", "label": "Prix TTC" },
         "unlimited": "Crédits illimités",
@@ -3768,6 +3835,7 @@
       "account": "S'il y a {{nb_cancellations}} annulations hors délai sur une période de {{nb_days}} jours, un acompte de {{account_value}}€ sera appliqué."
     },
     "newMemberOnly": "Disponible uniquement pour les nouveaux inscrits",
+    "only_vod_access": "Disponible uniquement pour la VOD",
     "publicPacksTitle": "Cartes disponibles à la vente",
     "privatePacksTitle": "Cartes non disponibles à la vente",
     "disabledPacksTitle": "Cartes archivées",
@@ -4735,6 +4803,7 @@
       "thumbnailList": { "addVideo": "Ajouter une vidéo", "count": "{{ count }} vidéos", "similarVideoTitle": "Vidéos similaires" },
       "search": { "placeholder": "Rechercher", "cancel": "Annuler", "isEmpty": "Aucune vidéo :(" },
       "bottomActions": { "create": "Ajouter" },
+      "coverMain": { "alert": "L'image est obligatoire" },
       "name": "Nom",
       "category": "Catégorie",
       "description": "Description",

@@ -13,7 +13,7 @@ import {
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
-import type { Dispatch } from '../../state/types';
+import type { Dispatch } from '../../state/types.ts';
 
 export const retrievePlaylistActions = {
   isLoading: createAction('PLAYLIST/RETRIEVE/IS_LOADING'),

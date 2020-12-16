@@ -2,7 +2,7 @@
 
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
 import { createSelector } from 'reselect';
-import type { State } from '../../state/types';
+import type { State } from '../../state/types.ts';
 import type { TagGroup, Tag } from './types';
 
 const _getTags = (state: State) => state.tag.tag.items;

@@ -4,7 +4,6 @@ import React from 'react';
 import { compose, withStateHandlers } from 'recompose';
 // import chroma from 'chroma-js';
 import { withTranslation } from 'react-i18next';
-import { Calendar } from '@fullcalendar/core';
 import frLocale from '@fullcalendar/core/locales/fr';
 import itLocale from '@fullcalendar/core/locales/it';
 import deLocale from '@fullcalendar/core/locales/de';

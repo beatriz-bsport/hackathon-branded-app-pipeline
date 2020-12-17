@@ -2341,15 +2341,21 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
-"@fullcalendar/core@^4":
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/core/-/core-4.4.2.tgz#864abe98cce4497a163c01a8fc30389f15d3d4e1"
-  integrity sha512-vq7KQGuAJ1ieFG5tUqwxwUwmXYtblFOTjHaLAVHo6iEPB52mS7DS45VJfkhaQmX4+5/+BHRpg82G1qkuAINwtg==
+"@fullcalendar/common@~5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/common/-/common-5.4.0.tgz#65474163e43bea4443b2577cd39d7021678237df"
+  integrity sha512-w6C5VLxZmS8AmbAIiIHy+p+S/G9wtsvFEgyM/Ijd+5/ENKV4bs8ieOsetdl79WUheRKg0oXiiG5fy1X3EFk/Gg==
+  dependencies:
+    tslib "^2.0.3"
 
-"@fullcalendar/core@~4.4.0":
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/core/-/core-4.4.0.tgz#79dbc0cca836ce628a07e739a456da11ff141373"
-  integrity sha512-PC4mmXHJHAlXmUEmZVnePyA8yYCOBdxBNq8yjJqedEtT1X0x36yTFz/Y0Ux6bniICZDqYtk0xoxe6jaxi++e0g==
+"@fullcalendar/core@^5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/core/-/core-5.4.0.tgz#426eed400b0948b955e92275095d617e428be5a1"
+  integrity sha512-brg5TI/ZrCm+gBdKRkDLuenUxAEYa40Esw6yAtLbx0azRinhOZ+koqy4J3VA3dnv2W5HI9agVr9wuQLHWjqDtw==
+  dependencies:
+    "@fullcalendar/common" "~5.4.0"
+    preact "^10.0.5"
+    tslib "^2.0.3"
 
 "@fullcalendar/core@^5.4.0":
   version "5.4.0"
@@ -13746,6 +13752,11 @@ moment-timezone@^0.5.32:
     moment ">= 2.9.0"
 
 "moment@>= 2.9.0", moment@^2.29.1:
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
+  integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
+
+moment@^2.29.1:
   version "2.29.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==

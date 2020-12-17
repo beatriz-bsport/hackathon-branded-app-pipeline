@@ -2430,14 +2430,6 @@
     "@fullcalendar/common" "~5.4.0"
     tslib "^2.0.3"
 
-"@fullcalendar/moment-timezone@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@fullcalendar/moment-timezone/-/moment-timezone-5.4.0.tgz#bdd567a044abc24b4c718ae954ec9ea296265554"
-  integrity sha512-YNJvK2tNMgHUBfk/uLQKjoOI0Y+qz/a2zs/Virk10DvuK8Wz3U8NzYHjQfJEC3O6GmXkvkoDJbTvOUOzDbYFgg==
-  dependencies:
-    "@fullcalendar/common" "~5.4.0"
-    tslib "^2.0.3"
-
 "@fullcalendar/moment@^5.4.0":
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/@fullcalendar/moment/-/moment-5.4.0.tgz#0d87e08104148c3e3f20a16bbb9a24d73944295c"

@@ -27,7 +27,7 @@ import FullCalendar from '@fullcalendar/react';
 
 import timeGridPlugin from '@fullcalendar/timegrid';
 
-import momentTimezonePlugin from '@fullcalendar/moment-timezone';
+// import momentTimezonePlugin from '@fullcalendar/moment-timezone';
 
 // import listPlugin from '@fullcalendar/list';
 
@@ -493,7 +493,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
             interactionPlugin,
             timeGridPlugin,
             resourceTimeGrid,
-            momentTimezonePlugin,
+            // momentTimezonePlugin,
           ]}
           timeZone={this.props.timezone}
           customButtons={{

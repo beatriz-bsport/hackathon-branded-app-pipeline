@@ -312,16 +312,15 @@ export class CalendarEventDetail extends React.Component<Props> {
       <div>
         <Popover
           open={!!this.props.popoverAnchor}
-          anchorEl={this.props.popoverAnchor}
           TransitionComponent={Fade}
           onClose={this.props.onClose}
           anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
+            vertical: 'center',
+            horizontal: 'center',
           }}
           transformOrigin={{
             vertical: 'center',
-            horizontal: 'right',
+            horizontal: 'center',
           }}
         >
           {this.renderContent()}

@@ -4,7 +4,6 @@ import React from 'react';
 import { compose, withStateHandlers } from 'recompose';
 // import chroma from 'chroma-js';
 import { withTranslation } from 'react-i18next';
-import { Calendar } from '@fullcalendar/core';
 import frLocale from '@fullcalendar/core/locales/fr';
 import itLocale from '@fullcalendar/core/locales/it';
 import deLocale from '@fullcalendar/core/locales/de';
@@ -62,7 +61,7 @@ const availabilitySlotAsEvent = (resourceDatatypeView) => (slot) => {
   return {
     start: slot.date_start,
     end: slot.date_end,
-    rendering: 'background',
+    display: 'background',
     resourceId,
     classNames: slot.is_restriction ? ['isRestriction'] : [],
     ...(slot.color ? { backgroundColor: slot.color } : {}),
@@ -110,7 +109,7 @@ const offerAsEvent = (resourceDatatypeView) => (offer) => {
     },
     resourceId,
     textColor: 'black',
-    classNames: [!offer.available ? 'cancelledEvent' : ''],
+    classNames: [!offer.available ? 'cancelledEvent' : '', 'fc-event-bsport'],
     ...(offer.meta_activity && offer.meta_activity.color
       ? { borderColor: offer.meta_activity.color }
       : {}),
@@ -285,6 +284,8 @@ export class PrivateCalendar extends React.Component<Props, State> {
 
     disableWithRecurrence: false,
     enableWithRecurrence: false,
+    date_start: null,
+    date_end: null,
   };
 
   select = (eventSlotSelected: EventSlot) => {
@@ -305,7 +306,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
     }
   };
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     if (!prevProps.resourceDatatypeView && this.props.resourceDatatypeView) {
       this.calendarRef.current.getApi().changeView('resourceTimeGridThreeDays');
       return;
@@ -316,6 +317,15 @@ export class PrivateCalendar extends React.Component<Props, State> {
     }
     if (prevProps.resourceDatatypeView !== this.props.resourceDatatypeView) {
       this.calendarRef.current.getApi().render();
+    }
+    if (
+      this.state.date_start !== prevState.date_start ||
+      this.state.date_end !== prevState.date_end
+    ) {
+      this.props.onDateChange({
+        date_start: this.state.date_start,
+        date_end: this.state.date_end,
+      });
     }
   }
 
@@ -438,7 +448,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
   };
 
   handleEventClick = (info) => {
-    if (info.event.rendering !== 'background') {
+    if (info.event.display !== 'background') {
       if (this.props.onEventClick) {
         this.props.onEventClick(info.el, info.event.extendedProps);
       }
@@ -446,10 +456,18 @@ export class PrivateCalendar extends React.Component<Props, State> {
   };
 
   handleIntervalChange = ({ view }) => {
-    this.props.onDateChange({
-      date_start: moment(view.currentStart).format('YYYY-MM-DD'),
-      date_end: moment(view.currentEnd).format('YYYY-MM-DD'),
-    });
+    const date_start = moment(view.currentStart).format('YYYY-MM-DD');
+    const date_end = moment(view.currentEnd).format('YYYY-MM-DD');
+
+    if (
+      this.state.date_start !== date_start &&
+      this.state.date_end !== date_end
+    ) {
+      this.setState({
+        date_start: moment(view.currentStart).format('YYYY-MM-DD'),
+        date_end: moment(view.currentEnd).format('YYYY-MM-DD'),
+      });
+    }
   };
 
   render() {
@@ -466,7 +484,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
       <div className={classes.container}>
         <FullCalendar
           ref={this.calendarRef}
-          defaultView={
+          initialView={
             this.props.resourceDatatypeView
               ? 'resourceTimeGridThreeDays'
               : 'timeGridWeek'
@@ -517,27 +535,22 @@ export class PrivateCalendar extends React.Component<Props, State> {
             `00:${15 * 2 ** this.props.zoomLevel}:00`
           }
           locales={[frLocale, itLocale, deLocale, nlLocale]}
-          minTime="06:00:00"
-          maxTime="23:00:00"
+          slotMinTime="06:00:00"
+          slotMaxTime="23:00:00"
           allDaySlot={allDaySlot}
           eventClick={this.handleEventClick}
-          datesRender={this.handleIntervalChange}
+          datesSet={this.handleIntervalChange}
         />
         {this.props.disableAvailabilitySlotDisplay ? null : (
           <Popover
             open={!!this.state.eventSlotSelected}
-            anchorEl={
-              this.state.eventSlotSelected
-                ? this.state.eventSlotSelected.jsEvent.target
-                : null
-            }
             onClose={() => this.setState({ eventSlotSelected: null })}
             anchorOrigin={{
-              vertical: 'bottom',
+              vertical: 'center',
               horizontal: 'center',
             }}
             transformOrigin={{
-              vertical: 'top',
+              vertical: 'center',
               horizontal: 'center',
             }}
           >
@@ -602,14 +615,6 @@ export class PrivateCalendar extends React.Component<Props, State> {
             })
           }
         />
-        {JSON.stringify(
-          this.state.eventSlotSelected
-            ? [
-                this.state.eventSlotSelected.startStr,
-                this.state.eventSlotSelected.endStr,
-              ]
-            : null,
-        )}
       </div>
     );
   }

@@ -1907,7 +1907,8 @@
         "name": "Checkin tablette",
         "description": "Compte pour application d'auto-checkin (contactez votre chargé de compte bsport)"
       },
-      "4": { "name": "Admin", "description": "Admin, même accès que Owner mais peut être supprimé/créé" }
+      "4": { "name": "Admin", "description": "Admin, même accès que Owner mais peut être supprimé/créé" },
+      "5": { "description": "Accès uniquements aux rapports, utile pour vos comptables par exemple", "name": "Rapports" }
     }
   },
   "theme": {
@@ -2013,7 +2014,7 @@
       "submit": "Sauvegarder"
     },
     "analytics": {
-      "showAnalyticsInformation": "Afficher les événements traqués",
+      "showAnalyticsInformation": "Afficher les événements trackés",
       "eventDesc": "Description de l'événement",
       "gtmEvent": "GTM Event Name",
       "fbPixelEvent": "FB Pixel Event Name",
@@ -3363,7 +3364,11 @@
       "duration_second": "Durée (seconde)",
       "sct_name": "Catégorie",
       "level_activity": "Niveau",
-      "video_status": "Statut"
+      "video_status": "Statut",
+      "views_total": "Vues",
+      "views_unique": "Vues uniques",
+      "purchases": "Achats",
+      "credit_price": "Coût en crédit"
     },
     "yes": "Oui",
     "no": "Non",

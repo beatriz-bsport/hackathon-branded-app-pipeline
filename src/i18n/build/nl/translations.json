@@ -4200,7 +4200,7 @@
             "searchSlot": "Zoek een tijdstip",
             "search": "Zoek een tijdstip",
             "selectCoach": "Alle instructeurs",
-            "emptyDateList": "Geen plaatsen beschikbaar vandaag",
+            "emptyDateList": "Geen beschikbaarheid vandaag",
             "bookableSlots": {
                 "title": "Beschikbare plaatsen",
                 "isEmpty": "Geen plaatsen beschikbaar"
@@ -4247,7 +4247,7 @@
                 "submit": "Opslaan",
                 "title": "Sessie",
                 "name": {
-                    "label": "Naam sessie",
+                    "label": "Naam van de sessie",
                     "placeholder": "Dubbele sessie (2 uur)"
                 },
                 "credit": {
@@ -4256,7 +4256,7 @@
                 },
                 "duration_minutes": {
                     "label": "Duur",
-                    "helperText": "Pas de benodigde kredient aan volgens de duur"
+                    "helperText": "Pas het benodigde krediet op de duur aan"
                 }
             }
         },
@@ -4271,18 +4271,18 @@
             "address": {
                 "label": "Adres",
                 "submit": "Bevestigen",
-                "helperText": "Voer je adres in om je voor deze les in te schrijven"
+                "helperText": "Voer je adres in om deze afspraak in te plannen"
             },
             "availableSlots": "Beschikbare plaatsen",
             "emptySlot": "Geen beschikbaarheid",
             "cancel": "Annuleren",
-            "error": "Kan niet boeken op deze datum",
+            "error": "Fout bij het reserveren op deze datum",
             "searchSlot": "Zoek een tijdstip",
             "noPrivateServiceAvailable": "Momenteel zijn er geen afspraken ingepland",
             "bookingCapabilities": {
-                "compatibleConsumerPassTitle": "Uw geldige cursuskaarten",
-                "compatiblePassTitle": "Cursuskaarten geldig voor deze sessie",
-                "emptyPassList": "Geen compatibele kaart. Neem contact met uw club op",
+                "compatibleConsumerPassTitle": "Je geldige cursuskaarten",
+                "compatiblePassTitle": "Geldige cursuskaarten voor deze sessie",
+                "emptyPassList": "Geen compatibele kaart beschikbaar. Neem contact met je club op",
                 "emptyConsumerPassList": "Je hebt geen geldige cursuskaart met voldoende krediet"
             },
             "private_pass": {
@@ -4300,7 +4300,7 @@
             "step": {
                 "configuration": "Mijn afspraak",
                 "billing": "Facturering",
-                "privateService": "Afspraak",
+                "privateService": "Op afspraak",
                 "privateSlot": "Sessie",
                 "coach": "Instructeur",
                 "date": "Datum"
@@ -4312,15 +4312,15 @@
         },
         "consumerPass": {
             "expiresOn": "Verloopt op {{date}}",
-            "current_credits": "{{current_credits}} / {{credits}} krediet",
+            "current_credits": "{{current_credits}} / {{credits}} krediet(en)",
             "isReverted": "Factuur geannuleerd",
             "detail": {
                 "invoice": "Gekoppelde factuur",
                 "booking": "Gekoppelde afspraken",
-                "extensionsTitle": "Verlenging van geldigheid"
+                "extensionsTitle": "Geldigheidsverlening"
             },
             "actions": {
-                "addExtension": "Extensie toevoegen"
+                "addExtension": "Verlenging toevoegen"
             },
             "extension": {
                 "create": {
@@ -4337,21 +4337,21 @@
                     },
                     "submit": "Aanmaken",
                     "cancel": "Annuleren",
-                    "title": "Verlenging van een cursuskaart"
+                    "title": "Geldigheid van een cursuskaart verlengen"
                 },
                 "delete": {
                     "confirm": "Bevestigen",
                     "cancel": "Annuleren",
-                    "explain": "Weet je zeker dat je de verlenging wilt verwijderen?",
-                    "title": "Verlenging verwijderen"
+                    "explain": "Weet je zeker dat je de geldigheidsverlenging wilt verwijderen?",
+                    "title": "Geldigheidsverlenging verwijderen"
                 },
                 "addedOn": "Toegevoegd op ",
-                "nbDaysAdded": "+{{nb_days}} d"
+                "nbDaysAdded": "+{{nb_days}} dagen"
             }
         },
         "privateServiceCompatibility": {
             "delete": {
-                "explain": "Weet je zeker dat je de gebruiksregels voor passen wilt wijzigen? Deze wijziging heeft terugwerkende kracht voor reeds gedane aankopen.",
+                "explain": "Weet je zeker dat je de gebruiksregels voor passen wilt wijzigen? Deze wijziging heeft terugwerkende kracht voor gedane aankopen.",
                 "title": "Compatibele afspraakwijziging",
                 "cancel": "Annuleren",
                 "submit": "Verwijderen"
@@ -4359,10 +4359,10 @@
         },
         "privatePass": {
             "validForDuration": {
-                "months": "{{duration_months}} maanden geldig",
+                "months": "{{duration_months}} maand(en) geldig",
                 "years": "{{duration_years}} jaar geldig",
-                "general": "Geldig voor {{duration_days}} dagen {{duration_months}} maanden en {{duration_years}} jaar",
-                "days": "{{duration_days}} dagen geldig"
+                "general": "Geldig voor {{duration_days}} dag(en) {{duration_months}} maand(en) en {{duration_years}} jaar",
+                "days": "{{duration_days}} dag(en) geldig"
             },
             "form": {
                 "credits": {
@@ -4407,14 +4407,14 @@
                 }
             },
             "delete": {
-                "title": "Cursuskaart verwijderen",
-                "explain": "Weet je zeker dat je deze cursuskaart wilt verwijderen? Leden die nog krediet hebben kunnen dit nog steeds gebruiken. Deze operatie is definitief",
+                "title": "Afspraakkaart verwijderen",
+                "explain": "Weet je zeker dat je deze afspraakkaart wilt verwijderen? Leden die nog krediet hebben kunnen dit nog steeds gebruiken. Deze actie is definitief",
                 "cancel": "Annuleren",
                 "submit": "Bevestigen",
                 "delete": "Verwijderen"
             },
             "list": {
-                "createButton": "Maak een afspraakkaart aan"
+                "createButton": "Nieuwe afspraakkaart maken"
             },
             "parameters": {
                 "nbCredits": "{{ credits}} krediet",
@@ -4425,7 +4425,7 @@
             "compatibleServices": {
                 "title": "Compatibele afspraken",
                 "add": "Toevoegen",
-                "isEmpty": "Geen enkele afspraak is compatibel - onbruikbaar"
+                "isEmpty": "Dit kan niet gebruikt worden, omdat er geen enkele afspraak compatibel is!"
             },
             "edit": "Wijzigen",
             "disabledTitle": "Gearchiveerde afspraakkaarten"

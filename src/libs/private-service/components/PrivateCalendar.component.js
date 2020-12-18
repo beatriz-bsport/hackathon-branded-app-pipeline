@@ -513,7 +513,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
               buttonText: t('calendar.header.threeDaysView'),
             },
           }}
-          header={{
+          headerToolbar={{
             left: 'prev,next today',
             center: 'title',
             right: this.props.resourceDatatypeView

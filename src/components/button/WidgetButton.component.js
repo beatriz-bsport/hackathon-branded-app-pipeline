@@ -166,7 +166,7 @@ export const WidgetButton = (props: Props) => {
                   {'BsportWidget.mount({'}
                 </Typography>
                 <Typography className={classes.alinea2}>
-                  {'parentElement: "bsport-widget",'}
+                  parentElement: "bsport-widget"
                 </Typography>
                 <Typography className={classes.alinea2}>
                   {`compactMode: ${compactMode},`}
@@ -222,7 +222,7 @@ export const WidgetButton = (props: Props) => {
                   {'BsportWidget.mount({'}
                 </Typography>
                 <Typography className={classes.alinea3}>
-                  {'parentElement: "bsport-widget",'}
+                  parentElement: "bsport-widget",
                 </Typography>
                 <Typography className={classes.alinea3}>
                   {`compactMode: ${compactMode},`}
@@ -395,9 +395,7 @@ export const WidgetButton = (props: Props) => {
                 });
                 </script>
                 </div>`}
-          >
-            {''}
-          </iframe>
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenIframe(false)}>

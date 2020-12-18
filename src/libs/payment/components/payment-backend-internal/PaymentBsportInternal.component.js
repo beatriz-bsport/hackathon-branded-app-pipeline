@@ -9,6 +9,7 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
@@ -68,6 +69,15 @@ export const PaymentStripe = (props: Props) => {
           disabled={processing || !props.clientSecret}
           onChange={(ev) => setAmountToPay(ev.target.value)}
         />
+        {!!props.amountToPay &&
+          parseInt(props.amountToPay, 10) / 100 <=
+            parseInt(amountToPay, 10) - 1 && (
+            <div className={classes.priceTextHelper}>
+              <Typography color="error" variant="caption">
+                {t('paymentPanel.billingMoreThanNeeded')}
+              </Typography>
+            </div>
+          )}
       </div>
       <FormControl className={classes.field}>
         <InputLabel id="payment-method-select-label">
@@ -161,6 +171,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     display: 'flex',
+    flexDirection: 'column',
+  },
+  priceTextHelper: {
+    maxWidth: 320,
+    marginTop: theme.spacing(1),
   },
 }));
 

@@ -59,6 +59,7 @@ type Props = {
   fetchInvoice: (string, OptionCallback) => void,
   goToInvoice: (uuid: string) => void,
   goToMemberPage: (number) => void,
+  memberLoading: boolean,
   revertDialogOpen: boolean,
   closeRevertDialog: () => void,
   openRevertDialog: () => void,
@@ -141,7 +142,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
 
   render() {
     return (
-      <div>
+      <div className={this.props.classes.container}>
         <Grid container direction="row">
           <Grid item xs={12} md={6}>
             <InvoiceHeader
@@ -167,6 +168,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
               onPaymentIntent={() => this.props.setOpenPaymentDialog(true)}
               paymentLoading={this.props.paymentLoading}
               consumeBalance={this.allocateDebt}
+              accountBalanceLoading={this.props.memberLoading}
               accountBalance={
                 this.props.invoice &&
                 this.props.invoice.member &&
@@ -242,6 +244,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
 }
 
 const styles = (theme) => ({
+  container: {
+    paddingBottom: theme.spacing(10),
+  },
   navigationButton: {
     position: 'fixed',
     bottom: theme.spacing(2),
@@ -270,6 +275,7 @@ export default compose(
   connect(
     (state, { uuid }) => ({
       invoice: withAuthor(withInvoiceItem(withMember(getInvoice)))(state, uuid),
+      memberLoading: state.member.loading,
       paymentList: getPaymentListInInvoice(state, uuid),
       paymentLoading: state.invoice.payment.loading,
       invoiceItemLoading: state.invoice.invoiceItem.loading,

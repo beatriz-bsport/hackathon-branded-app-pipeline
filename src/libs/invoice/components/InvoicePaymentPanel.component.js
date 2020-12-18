@@ -17,6 +17,7 @@ import PaymentListItemV2 from './PaymentListItemV2.component';
 type Props = {
   consumeBalance: (OptionCallback) => void,
   accountBalance: ?boolean,
+  accountBalanceLoading: boolean,
   handleChangeMethod: (
     uuid: string,
     method: number,
@@ -58,6 +59,7 @@ const PaymentActions = (props: {
   invoice: Invoice,
   consumeBalance: ?(OptionCallback) => void,
   onRevert: () => void,
+  accountBalanceLoading: boolean,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
@@ -91,7 +93,7 @@ const PaymentActions = (props: {
               <Button
                 variant="contained"
                 color="primary"
-                disabled={processing}
+                disabled={processing || props.accountBalanceLoading}
                 onClick={() => {
                   setProcessing(true);
                   props.consumeBalance({
@@ -100,13 +102,20 @@ const PaymentActions = (props: {
                   });
                 }}
               >
+                {!!props.accountBalanceLoading && (
+                  <CircularProgress
+                    size={20}
+                    color="inherit"
+                    className={classes.iconLeft}
+                  />
+                )}
                 {t('actions.consumeBalance')}
               </Button>
             )}
           </div>
         </div>
       )}
-      {!props.is_reverse && (
+      {!props.is_reverse && !props.invoice.reverse_invoices.length && (
         <div className={classes.buttonRow}>
           <Button
             onClick={props.onPaymentIntent}
@@ -204,6 +213,13 @@ export const InvoicePaymentPanel = (props: Props) => {
               <div className={classes.line} />
               <Typography
                 variant="h5"
+                style={
+                  props.invoice.reverse_invoices.length
+                    ? {
+                        textDecoration: 'line-through',
+                      }
+                    : {}
+                }
                 color={amountToPayCts > 0 ? 'error' : 'primary'}
               >
                 {`${Math.max(amountToPayCts / 100, 0).toFixed(2)} €`}
@@ -217,6 +233,7 @@ export const InvoicePaymentPanel = (props: Props) => {
         onRevert={props.onRevert}
         is_reverse={is_reverse}
         accountBalance={props.accountBalance}
+        accountBalanceLoading={props.accountBalanceLoading}
         consumeBalance={props.consumeBalance}
         amountToPayCts={amountToPayCts}
         onPaymentIntent={props.onPaymentIntent}
@@ -233,6 +250,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     paddingBottom: theme.spacing(4),
     backgroundColor: 'white',
+  },
+  iconLeft: {
+    marginRight: theme.spacing(1),
   },
   container: {
     marginLeft: theme.spacing(2),

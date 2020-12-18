@@ -89,6 +89,8 @@ exports.default = {
   },
   paymentPanel: {
     amountRemaining: 'Reste à payer: {{ amount }}',
+    billingMoreThanNeeded:
+      'En encaissant plus que le montant de la facture, le solde du membre sera augmenté de la différence',
     amount: {
       label: 'Montant à encaisser',
     },

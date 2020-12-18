@@ -16,8 +16,11 @@ type Props = {
   isSubmitting: boolean,
   classes: Object,
   setOpenCash: () => void,
-  initial: {},
-  values: {},
+  initial: ?{
+    today_start_amount: number,
+    today_end_amount: number,
+    amount_received: number,
+  },
   handleOpenOnSpotPaymentReport: () => void,
 };
 

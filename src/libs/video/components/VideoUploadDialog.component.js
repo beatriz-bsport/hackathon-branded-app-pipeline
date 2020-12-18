@@ -184,7 +184,7 @@ export class VideoUploadDialog extends React.Component<Props, State> {
             <LinearProgress variant="determinate" value={this.state.progress} />
           )}
           <Typography variant="caption" color="textSecondary">
-            {'mp4, mov, avi, mkv, etc...'}
+            mp4, mov, avi, mkv, etc...
           </Typography>
         </DialogContent>
         <DialogActions>

@@ -45,10 +45,16 @@ type Props = {
     buyableItem: BuyableItem,
   ) => void,
   availableBuyableItems: { [buyableItemIdentifier: number]: Array<any> },
-  member: Member,
+  member: { credit_account_balance: number },
 };
 
-const BuyableItemSelector = (props) => {
+const BuyableItemSelector = (props: {
+  buyableItemIdentifier: number,
+  value: ?number,
+  availableBuyableItems: { [number]: BuyableItem },
+  onSelect: BuyableItem,
+  member: { credit_account_balance: number },
+}) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
   switch (props.buyableItemIdentifier) {

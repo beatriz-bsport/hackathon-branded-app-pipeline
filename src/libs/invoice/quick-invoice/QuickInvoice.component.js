@@ -21,7 +21,7 @@ import InvoiceItemEditor from '../components/InvoiceItemEditor.component';
 type Props = {
   quickInvoiceTitle: string,
   t: TFunction,
-  quickInvoice: { creditAccount: number, member: Member },
+  quickInvoice: { memberId: number, creditAccount: number, member: Member },
   editMode: ?boolean,
   onClose: ?() => void,
   classes: Object,
@@ -53,8 +53,7 @@ export class QuickInvoice extends Component<Props, State> {
     this.setState({ showInvoiceItemSelector: true });
   };
 
-  closeUnevenInvoiceDialog = () => {
-  };
+  closeUnevenInvoiceDialog = () => {};
 
   onSubmit = () => {
     const { quickInvoice, createInvoice } = this.props;

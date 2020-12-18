@@ -78,6 +78,10 @@ const ChosenPaymentModule = (props: {
   submitPayment: (*) => void,
   loading: boolean,
   processing: boolean,
+  termsAndConditions: any,
+  submitPayment: (any) => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
+  onCancel: () => void,
 }) => {
   switch (props.paymentMethod) {
     case PAYMENT_METHOD_CREDIT_ACCOUNT.id:

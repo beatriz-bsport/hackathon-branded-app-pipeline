@@ -88,7 +88,7 @@ const Effect = formikConnect(
 );
 
 const MemberExistsBanner = (props: {
-  emailExists: { email: string, exists: boolean },
+  emailExists: { phonenumber: string, email: string, exists: boolean },
   goToMember: () => void,
   linkMember: () => void,
   goToMerge: () => void,

@@ -1,3 +1,4 @@
+/* eslint-disable */
 // @flow
 import React, { useState } from 'react';
 import { connect } from 'react-redux';

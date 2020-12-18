@@ -67,7 +67,7 @@ const getFillingInfo = (offer: Offer) => {
       <Hidden smDown>
         <React.Fragment>
           <Typography inline color="textPrimary" variant="caption">
-            &nbsp;{'('}
+            &nbsp;(
           </Typography>
           <Typography inline variant="caption" color="primary">
             {offer.nb_attendant}

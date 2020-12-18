@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button';
 
 type Props = {
   open?: boolean,
-  options: {},
+  options: { Content: any, cancel: string, confirm: string, title: string },
   t: TFunction,
   handleConfirm: () => void,
   handleCancel: () => void,

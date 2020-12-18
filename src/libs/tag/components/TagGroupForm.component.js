@@ -104,7 +104,7 @@ export const TagGroupForm = (props: Props) => {
       <div className={classes.editableTagsContainer}>
         {tagGroup.tags.map((tag) => (
           <EditableTag
-            key={'{tag.id}'}
+            key={`${tag.id}`}
             tag={tag}
             delete={() => deleteTag(tag)}
             updateTag={updateTag}

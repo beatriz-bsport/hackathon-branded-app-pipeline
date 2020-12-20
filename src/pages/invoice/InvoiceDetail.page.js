@@ -198,6 +198,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
               clientSecret={
                 this.state.clientSecretLoading ? null : this.state.clientSecret
               }
+              clientSecretLoading={this.state.clientSecretLoading}
               paymentGroupId={this.state.paymentGroupId}
               paymentGroupPriceCts={this.state.paymentGroupPriceCts}
               amountToPay={parseFloat(

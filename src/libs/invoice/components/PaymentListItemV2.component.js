@@ -39,10 +39,10 @@ export const PaymentItem = (props: Props) => {
           paymentItem.payment_received === false && (
             <CancelIcon color="secondary" />
           )}
-        {!!paymentItem.is_processing &&
-          paymentItem.payment_received === null && (
+        {!!paymentItem.is_processing ||
+          (paymentItem.payment_received === null && (
             <HourglassEmpty color="secondary" />
-          )}
+          ))}
         <div className={classes.leftText}>
           <Typography className={paymentItem.reverted ? classes.revert : null}>
             {`${t(`paymentMethod.${paymentItem.payment_method}`)}`}

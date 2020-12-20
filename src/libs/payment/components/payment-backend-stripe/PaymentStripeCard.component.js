@@ -43,15 +43,19 @@ const CARD_ELEMENT_OPTIONS = {
 const CardSection = (props: { error: any }) => {
   const classes = useStyles();
   return (
-    <div className={classes.cardSectionContainer}>
-      <CardElement options={CARD_ELEMENT_OPTIONS} />
+    <React.Fragment>
+      <div className={classes.cardSectionContainer}>
+        <CardElement options={CARD_ELEMENT_OPTIONS} />
+      </div>
       {!!props.error && (
-        <StripeErrorCode
-          errorCode={props.error.error_code}
-          declineCode={props.error.decline_code}
-        />
+        <div style={{ margin: 8 }}>
+          <StripeErrorCode
+            errorCode={props.error.error_code}
+            declineCode={props.error.decline_code}
+          />
+        </div>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 

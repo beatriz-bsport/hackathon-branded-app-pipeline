@@ -137,6 +137,7 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
             clientSecret={
               this.state.clientSecretLoading ? null : this.state.clientSecret
             }
+            clientSecretLoading={this.state.clientSecretLoading}
             amountToPay={parseFloat(
               this.props.invoiceToBill.amount_due_cts -
                 this.props.invoiceToBill.amount_paid_cts,

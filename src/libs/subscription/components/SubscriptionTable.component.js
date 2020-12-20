@@ -154,6 +154,12 @@ export class SubscriptionTable extends Component<Props, State> {
     this.props.onPageChange(1);
   }
 
+  handlePageChange = (newPage: number) => {
+    if (newPage !== this.state.tableState.page) {
+      this.props.onPageChange(newPage);
+    }
+  };
+
   render() {
     const options = {
       onRowClick: this.onRowClick,
@@ -176,7 +182,7 @@ export class SubscriptionTable extends Component<Props, State> {
           }
           return acc;
         }, '');
-        this.props.onPageChange(tableState.page + 1, { ordering });
+        this.handlePageChange(tableState.page + 1, { ordering });
       },
       textLabels: {
         body: {
@@ -191,7 +197,11 @@ export class SubscriptionTable extends Component<Props, State> {
     return (
       <MUIDataTable
         title={this.props.title}
-        data={this.props.loading ? [] : renderRows(this.props.subscriptionList, this.props.t)}
+        data={
+          this.props.loading
+            ? []
+            : renderRows(this.props.subscriptionList, this.props.t)
+        }
         columns={getColumnData(
           this.props.t,
           !!this.props.showOnlyCore,

@@ -89,6 +89,9 @@ exports.default = {
   },
   paymentPanel: {
     amountRemaining: 'Reste à payer: {{ amount }}',
+    errorSecretExplain1: 'Ce mode de paiement est indisponible pour le moment',
+    errorSecretExplain2:
+      'Si le problème persiste, contactez dev+payment-intent@bsport.io',
     billingMoreThanNeeded:
       'En encaissant plus que le montant de la facture, le solde du membre sera augmenté de la différence',
     amount: {

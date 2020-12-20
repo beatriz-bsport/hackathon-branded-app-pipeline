@@ -35,14 +35,19 @@ export const MemberBillingProblemCard = (props: Props) => {
   const [invoiceToBill, setInvoiceToBill] = React.useState(null);
   const [clientSecretLoading, setClientSecretLoading] = React.useState(false);
   const [clientSecret, setClientSecret] = React.useState(null);
-  const [ajustBalanceOpen, setAdjustBalanceDialogOpen] = React.useState(false);
-  const [amountToBill, setAmountToBill] = React.useState(null);
+  const [clientSecretError, setClientSecretError] = React.useState(false);
+
   const [paymentGroupPriceCts, setPaymentGroupPriceCts] = React.useState(0);
   const [paymentGroupId, setPaymentGroupId] = React.useState(null);
+
+  const [ajustBalanceOpen, setAdjustBalanceDialogOpen] = React.useState(false);
   const [regularizeFullDebt, setRegularizeFullDebt] = React.useState(false);
+  const [amountToBill, setAmountToBill] = React.useState(null);
 
   const requestClientSecret = (paymentEngine) => {
+    setClientSecret(null);
     setClientSecretLoading(true);
+    setClientSecretError(false);
     requestClientSecretAPI(
       paymentEngine,
       invoiceToBill ? PAYMENT_INTENT_TYPE_INVOICE : PAYMENT_INTENT_TYPE_DEBT,
@@ -59,10 +64,12 @@ export const MemberBillingProblemCard = (props: Props) => {
         setClientSecret(r.data.client_secret);
         setPaymentGroupPriceCts(r.data.price_cts);
         setPaymentGroupId(r.data.payment_group);
+        setClientSecretError(false);
       })
       .catch((err) => {
         console.error(err);
         setClientSecretLoading(false);
+        setClientSecretError(true);
       });
   };
 
@@ -172,13 +179,16 @@ export const MemberBillingProblemCard = (props: Props) => {
             props.fetchInvoiceListUnpaid();
             setInvoiceToBill(null);
             setAmountToBill(null);
+            setRegularizeFullDebt(false);
             if (typeof callback === 'function') callback();
           }}
           requestClientSecret={requestClientSecret}
           clientSecret={clientSecretLoading ? null : clientSecret}
+          clientSecretLoading={clientSecretLoading}
           paymentGroupId={paymentGroupId}
           onlyInternal={amountToBill && amountToBill < 0}
           asConsumer={props.asConsumer}
+          clientSecretError={clientSecretError}
           amountToPay={
             invoiceToBill
               ? parseFloat(

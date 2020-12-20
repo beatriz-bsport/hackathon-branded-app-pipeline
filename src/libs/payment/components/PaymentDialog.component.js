@@ -9,6 +9,8 @@ import Radio from '@material-ui/core/Radio';
 import Divider from '@material-ui/core/Divider';
 import { compose } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import WarningIcon from '@material-ui/icons/Warning';
+import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import type { TFunction } from 'react-i18next';
@@ -37,10 +39,12 @@ type Props = {
   asConsumer: ?boolean,
   paymentGroupId: number,
   paymentGroupPriceCts: number,
+  clientSecretError: ?boolean,
 };
 
 type State = {
   paymentEngine: number,
+  nextPaymentIntentStatusCheckSeconds: number,
 };
 
 export class PaymentDialog extends React.Component<Props, State> {
@@ -71,14 +75,14 @@ export class PaymentDialog extends React.Component<Props, State> {
   onSuccess = () => {
     getPaymentGroupStatusAPI(this.props.paymentGroupId)
       .then((r) => {
-        if (r.data === 200) {
-          this.props.onSuccess();
+        if (r.data >= 200) {
+          setTimeout(() => this.props.onSuccess(), 2000);
         } else {
           setTimeout(
             this.onSuccess,
             this.state.nextPaymentIntentStatusCheckSeconds * 1000,
           );
-          this.setState((prevState) => ({
+          this.setState((prevState: State) => ({
             nextPaymentIntentStatusCheckSeconds:
               prevState.nextPaymentIntentStatusCheckSeconds * 2,
           }));
@@ -116,7 +120,9 @@ export class PaymentDialog extends React.Component<Props, State> {
         <DialogContent>
           <div className={classes.container}>
             <FormControl
-              disabled={!this.props.clientSecret}
+              disabled={
+                !this.props.clientSecret || !!this.props.clientSecretLoading
+              }
               component="fieldset"
             >
               {availableEngineList.length > 1 && (
@@ -145,10 +151,23 @@ export class PaymentDialog extends React.Component<Props, State> {
                   )}
                 </RadioGroup>
               )}
-              {this.props.clientSecret ? (
+              {this.props.clientSecret && !this.props.clientSecretLoading ? (
                 <Divider className={classes.divider} />
               ) : (
                 <LinearProgress className={classes.divider} />
+              )}
+              {!!this.props.clientSecretError && (
+                <div className={classes.errorContainer}>
+                  <WarningIcon className={classes.leftIcon} />
+                  <div className={classes.multilineTextContainer}>
+                    <Typography variant="caption" style={{ color: 'white' }}>
+                      {t('paymentPanel.errorSecretExplain1')}
+                    </Typography>
+                    <Typography variant="caption" style={{ color: 'white' }}>
+                      {t('paymentPanel.errorSecretExplain2')}
+                    </Typography>
+                  </div>
+                </div>
               )}
               {parseInt(this.state.paymentEngine, 10) ===
                 PAYMENT_ENGINE_STRIPE && (
@@ -197,6 +216,30 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+  },
+  errorContainer: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    maxWidth: 400,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.palette.error.light,
+    border: `1px solid ${theme.palette.error.dark}`,
+    borderRadius: 4,
+    padding: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+  leftIcon: {
+    color: 'white',
+    marginRight: theme.spacing(2),
+  },
+  multilineTextContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
 });
 

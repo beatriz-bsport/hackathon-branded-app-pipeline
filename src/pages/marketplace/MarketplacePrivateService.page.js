@@ -307,7 +307,8 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    marginTop: theme.spacing(4),
+    width: '100%',
+    marginTop: theme.spacing(6),
   },
 });
 

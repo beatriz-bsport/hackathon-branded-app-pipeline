@@ -40,6 +40,7 @@ type Props = {
   paymentGroupId: number,
   paymentGroupPriceCts: number,
   clientSecretError: ?boolean,
+  clientSecretLoading: boolean,
 };
 
 type State = {

@@ -92,7 +92,7 @@ import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 import {
   withInvoiceItem,
   withMember,
-  getInvoiceList,
+  getInvoiceListUnpaid,
   getBuyableItem,
 } from '../../libs/invoice/selectors';
 
@@ -153,7 +153,9 @@ export default compose(
       establishmentList: getAvailableEstablishmentList(state),
 
       // invoice
-      unpaidInvoiceList: withMember(withInvoiceItem(getInvoiceList))(state),
+      unpaidInvoiceList: withMember(withInvoiceItem(getInvoiceListUnpaid))(
+        state,
+      ),
       // buyable stuff
       permission: getPermissions(state),
       availableBuyableItems: getBuyableItem(state),
@@ -228,7 +230,12 @@ export default compose(
       return fetchBookingOptionByOffer(offerId, { show_cancelled: true });
     },
     fetchInvoiceListUnpaid: ({ fetchInvoiceList }) => (params) => {
-      fetchInvoiceList({ is_v2: true, is_draft: false, unpaid: true, ...(params || {}) });
+      fetchInvoiceList({
+        is_v2: true,
+        is_draft: false,
+        unpaid: true,
+        ...(params || {}),
+      });
     },
   }),
   withProps(({ id }) => ({

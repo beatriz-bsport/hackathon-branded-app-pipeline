@@ -48,6 +48,8 @@ type Props = {
   bookingLoading: ?boolean,
   compatiblePacksLoading: boolean,
 
+  fetchInvoiceListUnpaid: () => void,
+
   goToOffer: (id: number) => void,
 
   members: Array<Member>,
@@ -255,6 +257,7 @@ export class OfferManagement extends Component<Props, State> {
         this.setState((prevState) => ({
           unpaidInvoiceList: [invoice, ...prevState.unpaidInvoiceList],
         }));
+        this.props.fetchInvoiceListUnpaid();
         this.closeQuickInvoice(invoice.member);
         if (options && options.onSuccess) options.onSuccess(invoice);
       },
@@ -510,13 +513,7 @@ export class OfferManagement extends Component<Props, State> {
             )}
 
           <QuickInvoicePanel
-            unevenSavedInvoices={uniqBy(
-              [
-                ...this.state.unpaidInvoiceList,
-                ...this.props.unpaidInvoiceList,
-              ],
-              'uuid',
-            )}
+            unevenSavedInvoices={uniqBy(this.props.unpaidInvoiceList, 'uuid')}
             revertQuickInvoice={this.props.revertQuickInvoiceAndRefreshOffer}
             quickInvoices={this.state.quickInvoices}
             createInvoice={this.createInvoice}
@@ -526,7 +523,7 @@ export class OfferManagement extends Component<Props, State> {
             refreshInvoice={this.props.fetchInvoice}
           />
           <Prompt
-            when={this.state.unpaidInvoiceList.length > 0}
+            when={this.props.unpaidInvoiceList.length > 0}
             message={this.props.t('offerManagement.unevenQuickInvoices')}
           />
         </Grid>

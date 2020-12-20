@@ -46,8 +46,6 @@ const PrivateServiceSelectorPage: React.FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['privateService', 'datetime']);
 
-  console.log(props._privateServices);
-
   return (
     <div className={classes.container}>
       {!!props.loading && (
@@ -56,7 +54,7 @@ const PrivateServiceSelectorPage: React.FC<Props> = (props) => {
         </div>
       )}
       {!props.loading && !props._privateServices.length && (
-        <div>
+        <div className={classes.emptyTextContainer}>
           <Typography color="textSecondary">
             {t('privateService:marketplace.isEmpty')}
           </Typography>
@@ -182,6 +180,14 @@ const useStyles = makeStyles((theme) => ({
   tagItem: {
     marginLeft: theme.spacing(1),
     marginTop: theme.spacing(1),
+  },
+  emptyTextContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '100%',
+    marginTop: theme.spacing(6),
   },
 }));
 

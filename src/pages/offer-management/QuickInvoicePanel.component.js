@@ -110,9 +110,7 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
               showOpenInvoiceNested
               hidePagination
               onBill={this.props.setInvoiceToBill}
-              invoiceList={unevenSavedInvoices.filter(
-                (inv) => inv.amount_due_cts > inv.amount_paid_cts,
-              )}
+              invoiceList={unevenSavedInvoices}
             />
           </React.Fragment>
         ) : null}
@@ -129,7 +127,7 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
                 this.props.refreshInvoice(this.props.invoiceToBill.uuid);
                 this.props.setInvoiceToBill(null);
                 if (typeof callback === 'function') callback();
-              }, 2000);
+              }, 3000);
             }}
             requestClientSecret={this.requestClientSecret}
             paymentGroupId={this.state.paymentGroupId}

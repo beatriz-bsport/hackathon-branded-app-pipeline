@@ -45,6 +45,11 @@ export const getInvoiceList = createSelector(
   (data, ids) => ids.map((id) => data[id]),
 );
 
+export const getInvoiceListUnpaid = createSelector(
+  getInvoiceList,
+  (invoiceList) => invoiceList.filter((inv) => !inv.fully_payed),
+);
+
 const _getInvoiceItemData = (state: State) => {
   return state.invoice.invoiceItem.byId;
 };
@@ -77,22 +82,19 @@ export const withInvoiceItem = memoize((selector) =>
 );
 
 export const withPayment = memoize((selector) =>
-  createSelector(
-    [selector, _getPaymentData],
-    (invoice, paymentData) => {
-      if (!invoice) return invoice;
-      if (Array.isArray(invoice)) {
-        return invoice.map((inv) => ({
-          ...inv,
-          payments: inv.payments.map((p) => paymentData[p]),
-        }));
-      }
-      return {
-        ...invoice,
-        payments: invoice.payments.map((p) => paymentData[p]),
-      };
-    },
-  ),
+  createSelector([selector, _getPaymentData], (invoice, paymentData) => {
+    if (!invoice) return invoice;
+    if (Array.isArray(invoice)) {
+      return invoice.map((inv) => ({
+        ...inv,
+        payments: inv.payments.map((p) => paymentData[p]),
+      }));
+    }
+    return {
+      ...invoice,
+      payments: invoice.payments.map((p) => paymentData[p]),
+    };
+  }),
 );
 
 export const withMember = memoize((selector) =>
@@ -117,24 +119,21 @@ export const withMember = memoize((selector) =>
 );
 
 export const withAuthor = memoize((selector) =>
-  createSelector(
-    [selector, getStaff],
-    (invoice, staffData) => {
-      if (!invoice) return invoice;
-      if (Array.isArray(invoice)) {
-        return invoice
-          .filter((inv) => !!inv)
-          .map((inv) => ({
-            ...inv,
-            author: staffData.find((r) => r.id === inv.author),
-          }));
-      }
-      return {
-        ...invoice,
-        author: staffData.find((r) => r.id === invoice.author),
-      };
-    },
-  ),
+  createSelector([selector, getStaff], (invoice, staffData) => {
+    if (!invoice) return invoice;
+    if (Array.isArray(invoice)) {
+      return invoice
+        .filter((inv) => !!inv)
+        .map((inv) => ({
+          ...inv,
+          author: staffData.find((r) => r.id === inv.author),
+        }));
+    }
+    return {
+      ...invoice,
+      author: staffData.find((r) => r.id === invoice.author),
+    };
+  }),
 );
 
 export const getQuickInvoiceList = (state) => state.invoice.quickInvoices;

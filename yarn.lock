@@ -14291,10 +14291,12 @@ react-dropzone@11:
     file-selector "^0.2.2"
     prop-types "^15.7.2"
 
-react-email-editor@^1.0.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-email-editor/-/react-email-editor-1.2.0.tgz#dfc0e6a19f5dfeab4c77fc2c38cd37a3acf2af6e"
-  integrity sha512-2nlHhJSwOtc1yrhOR8nAzHIqtA0tVJkj2DtjPTDvARuVuA28PffKlk45/vdRyOHERUQf+aUUgV7MZPpZj7JoZQ==
+react-email-editor@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-email-editor/-/react-email-editor-1.0.0.tgz#f7b2a4e6918f7551d838b12aa95463c5c876916d"
+  integrity sha512-Q/AwzJqh4pxbXytjpiNe4yVSxb8QwJ+ksbvp/f+eKoYTQ1Qz09cElKTxiBSIC78DK2RfFblDft1sUXDq6utgtw==
+  dependencies:
+    react-load-script "^0.0.6"
 
 react-error-overlay@^4.0.1:
   version "4.0.1"
@@ -14437,6 +14439,11 @@ react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2, react-lifecycles
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-load-script@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-load-script/-/react-load-script-0.0.6.tgz#db6851236aaa25bb622677a2eb51dad4f8d2c258"
+  integrity sha512-aRGxDGP9VoLxcsaYvKWIW+LRrMOzz2eEcubTS4NvQPPugjk2VvMhow0wWTkSl7RxookomD1MwcP4l5UStg5ShQ==
 
 react-modal@^3.8.1:
   version "3.12.1"

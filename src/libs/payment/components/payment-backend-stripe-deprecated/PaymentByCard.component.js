@@ -30,6 +30,7 @@ const stripePromise = loadStripe(STRIPE_KEY);
 type Props = {
   submitPaymentIntent: (*) => Promise<any>,
   stripe: Object,
+  elements: Object,
   t: TFunction,
   classes: Object,
   loading: boolean,
@@ -123,10 +124,11 @@ export class PaymentIntentGathering extends Component<Props, State> {
       stripe_decline_code: null,
     });
     const { selectedSavedPaymentMethodId } = this.state;
+    const cardElement = this.props.elements.getElement(CardElement);
 
     if (!selectedSavedPaymentMethodId) {
       this.props.stripe
-        .createPaymentMethod('card')
+        .createPaymentMethod({ type: 'card', card: cardElement })
         .then(({ paymentMethod }) => {
           // create a paymentMethod and submit it to the server, it will return a PaymentIntent
           // if the paymentMethod needs an authentication

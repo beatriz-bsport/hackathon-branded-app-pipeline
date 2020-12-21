@@ -138,9 +138,7 @@ export default compose(
       }),
     fetchInvoiceList: ({ fetchInvoiceList, membership }) => () => {
       fetchInvoiceList({
-        unpaid: true,
         is_draft: false,
-        is_v2: true,
         member: membership.id,
       });
     },

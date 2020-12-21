@@ -157,7 +157,7 @@ const useStyles = makeStyles((theme) => ({
 export default VideoForm;
 
 export const VideoSchema = Yup.object().shape({
-  cover_main: Yup.object().required(),
+  cover_main: Yup.mixed().required(),
   name: Yup.string().required(),
   description: Yup.string().required(),
   coaches: Yup.array().of(Yup.number()),

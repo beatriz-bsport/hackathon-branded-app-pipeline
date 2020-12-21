@@ -231,11 +231,7 @@ export default compose(
   withTranslation('video'),
   connect(
     (state) => ({
-      playlistList: [
-        ...withCoachInVideo(getPlaylistList)(state),
-        ...withCoachInVideo(getPlaylistList)(state),
-        ...withCoachInVideo(getPlaylistList)(state),
-      ],
+      playlistList: withCoachInVideo(getPlaylistList)(state),
       videoList: withVideoCoach(withVideoCategory(getVideoList))(state),
       loading: state.video.loading || state.video.filterableParams.loading,
       videoFilterableParams: state.video.filterableParams.items,

@@ -132,6 +132,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                   aria-label="position"
                   name="position"
                   defaultValue={`${defaultEngine}`}
+                  disabled={!!this.props.clientSecretLoading}
                   onChange={(ev, value) =>
                     this.setState({ paymentEngine: value })
                   }
@@ -144,7 +145,8 @@ export class PaymentDialog extends React.Component<Props, State> {
                         control={<Radio color="primary" />}
                         label={t(`paymentEngine.label.${engineIdentifier}`)}
                         disabled={
-                          !availableEngineList.includes(engineIdentifier)
+                          !availableEngineList.includes(engineIdentifier) ||
+                          !!this.props.clientSecretLoading
                         }
                         labelPlacement="bottom"
                       />

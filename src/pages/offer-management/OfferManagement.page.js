@@ -386,9 +386,22 @@ export default compose(
     revertQuickInvoiceAndRefreshOffer: ({
       revertQuickInvoice,
       refreshBookingsByOffer,
+      fetchInvoiceListUnpaid,
     }) => (uuid, offerId, ordering_field) => {
       revertQuickInvoice(uuid, {
-        onSuccess: () => refreshBookingsByOffer(offerId, ordering_field),
+        onSuccess: () => {
+          refreshBookingsByOffer(
+            offerId,
+            {
+              onSuccess: (bookingList) => {
+                fetchInvoiceListUnpaid({
+                  member__in: bookingList.map((b) => b.member),
+                });
+              },
+            },
+            ordering_field,
+          );
+        },
       });
     },
     createInvoice: ({ createOrUpdateInvoice, refreshFilteredMembers }) => (

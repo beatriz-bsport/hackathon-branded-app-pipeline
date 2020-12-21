@@ -496,6 +496,7 @@ export class OfferManagement extends Component<Props, State> {
             recurrentBookingCount={this.props.recurrentBookingCount}
             recurrentBookingItemPerPage={RECURRENT_BOOKING_PAGE_SIZE}
             recurrentBookingCurrentPage={this.props.recurrentBookingCurrentPage}
+            unevenSavedInvoices={uniqBy(this.props.unpaidInvoiceList, 'uuid')}
             recurrentBookingNextPage={this.props.recurrentBookingNextPage}
             recurrentBookingOnPageRequested={
               this.props.recurrentBookingOnPageRequested

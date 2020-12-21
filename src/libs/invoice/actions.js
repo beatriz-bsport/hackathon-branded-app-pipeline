@@ -124,7 +124,7 @@ export function returnPayment(
 
 export function revertQuickInvoice(uuid: string, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
-    dispatch(revertInvoice(uuid, options));
+    dispatch(revertInvoice(uuid, {}, options));
     dispatch(quickInvoiceActions.reset(uuid));
     dispatch(fetchAlerting());
   };
@@ -500,7 +500,10 @@ export const applyBalanceToUnpaidActions = {
 };
 
 // a bit dirty all this stuff...
-export function applyBalanceToUnpaid(memberId: number, options: OptionCallback) {
+export function applyBalanceToUnpaid(
+  memberId: number,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(applyBalanceToUnpaidActions.isLoading(true));
     dispatch(applyBalanceToUnpaidActions.error(null));

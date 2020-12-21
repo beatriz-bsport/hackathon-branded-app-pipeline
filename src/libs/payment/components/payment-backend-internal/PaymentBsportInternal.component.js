@@ -107,7 +107,6 @@ export const PaymentStripe = (props: Props) => {
           onChange={(dateMoment) => {
             setDate(dateMoment.format());
           }}
-          minDate={moment().format('YYYY-MM-DD')}
           label={t('paymentPanel.date.label')}
         />
       </div>

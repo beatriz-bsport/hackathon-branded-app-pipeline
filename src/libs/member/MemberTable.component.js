@@ -7,7 +7,7 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import Button from '@material-ui/core/Button';
 import TableRow from '@material-ui/core/TableRow';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import AddIcon from '@material-ui/icons/Add';
@@ -102,36 +102,39 @@ type State = {
 export class InvoiceTable extends Component<Props, State> {
   state = {
     members: [],
-    loading: true,
+    loading: false,
     count: 0,
     tableState: {
-      page: 1,
+      page: 0,
     },
   };
 
   fetchMemberPage = (page: number) => {
-    this.props
-      .fetch({
-        page,
-        page_size: MEMBER_PER_PAGE,
-        tags_included: this.props.tagsIncluded,
-        tags_excluded: this.props.tagsExcluded,
-      })
-      .then((response) => {
-        this.setState((prevState) => ({
-          members: response.data.results,
-          count: response.data.count,
-          loading: false,
-          tableState: {
-            ...prevState.tableState,
-            page,
-          },
-        }));
-      })
-      .catch((err) => {
-        console.error(err);
-        this.setState({ loading: false });
-      });
+    if (page !== this.state.tableState.page && !this.state.loading) {
+      this.setState({ loading: true });
+      this.props
+        .fetch({
+          page,
+          page_size: MEMBER_PER_PAGE,
+          tags_included: this.props.tagsIncluded,
+          tags_excluded: this.props.tagsExcluded,
+        })
+        .then((response) => {
+          this.setState((prevState) => ({
+            members: response.data.results,
+            count: response.data.count,
+            loading: false,
+            tableState: {
+              ...prevState.tableState,
+              page,
+            },
+          }));
+        })
+        .catch((err) => {
+          console.error(err);
+          this.setState({ loading: false });
+        });
+    }
   };
 
   componentDidMount() {
@@ -186,11 +189,7 @@ export class InvoiceTable extends Component<Props, State> {
       },
       textLabels: {
         body: {
-          noMatch: loading ? (
-            <CircularProgress />
-          ) : (
-            'Sorry, there is no member data to display'
-          ),
+          noMatch: loading ? null : 'Sorry, there is no member data to display',
         },
       },
       onTableChange: (action, tableState) => {
@@ -204,34 +203,37 @@ export class InvoiceTable extends Component<Props, State> {
         changeRowsPerPage,
         changePage,
       ) => (
-        <TableFooter>
-          <TableRow>
-            <div className={this.props.classes.footerContainer}>
-              {this.props.hideAddButton ? (
-                <div />
-              ) : (
-                <Button
-                  onClick={this.props.addMember}
-                  color="primary"
-                  variant="outlined"
-                >
-                  <AddIcon className={this.props.classes.leftIcon} />
-                  {t('addMember')}
-                </Button>
-              )}
-              <TablePagination
-                count={count}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={(_, page_) => changePage(page_)}
-                onChangeRowsPerPage={(event) =>
-                  changeRowsPerPage(event.target.value)
-                }
-                rowsPerPageOptions={[10, 15, 100]}
-              />
-            </div>
-          </TableRow>
-        </TableFooter>
+        <React.Fragment>
+          {!!this.state.loading && <LinearProgress style={{ width: '100%' }} />}
+          <TableFooter>
+            <TableRow>
+              <div className={this.props.classes.footerContainer}>
+                {this.props.hideAddButton ? (
+                  <div />
+                ) : (
+                  <Button
+                    onClick={this.props.addMember}
+                    color="primary"
+                    variant="outlined"
+                  >
+                    <AddIcon className={this.props.classes.leftIcon} />
+                    {t('addMember')}
+                  </Button>
+                )}
+                <TablePagination
+                  count={count}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onChangePage={(_, page_) => changePage(page_)}
+                  onChangeRowsPerPage={(event) =>
+                    changeRowsPerPage(event.target.value)
+                  }
+                  rowsPerPageOptions={[10, 15, 100]}
+                />
+              </div>
+            </TableRow>
+          </TableFooter>
+        </React.Fragment>
       ),
     };
 

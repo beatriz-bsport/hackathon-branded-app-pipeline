@@ -27,6 +27,18 @@ type Props = {
 
 export class CompanyOnboardingSettingPage extends React.Component<Props> {
   componentDidMount() {
+    if (this.props.stripe) {
+      this.doStripeStuff();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.stripe && !!this.props.stripe) {
+      this.doStripeStuff();
+    }
+  }
+
+  doStripeStuff = () => {
     this.props.stripe
       .createToken('account', { tos_shown_and_accepted: true })
       .then(({ token }) => {
@@ -36,7 +48,7 @@ export class CompanyOnboardingSettingPage extends React.Component<Props> {
         console.error(err);
         this.props.setError(err);
       });
-  }
+  };
 
   render() {
     if (!this.props.error) {

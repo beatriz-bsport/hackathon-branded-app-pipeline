@@ -2,6 +2,9 @@
 
 exports.default = {
   pageTitle: 'Paramètres',
+  companyOnboarding: {
+    error: 'Vous ne pouvez pas modifier ces informations',
+  },
   tab: {
     general: 'Général',
     broadcast: 'Visioconférence',

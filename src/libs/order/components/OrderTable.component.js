@@ -128,6 +128,12 @@ export class OrderTable extends Component<Props, State> {
   };
 
   fetchPage = (page: number) => {
+    if (this.state.tableState.page !== this.state.tableState.page) {
+      this.doFetch(page);
+    }
+  };
+
+  doFetch = (page) => {
     this.props
       .fetch(page)
       .then((response) => {
@@ -148,7 +154,7 @@ export class OrderTable extends Component<Props, State> {
   };
 
   componentDidMount() {
-    this.fetchPage(1);
+    this.doFetch(1);
   }
 
   onRowClick = (rowData: *, { rowIndex }: { rowIndex: number }) => {

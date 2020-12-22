@@ -93,8 +93,17 @@ type Props = {
 
 export class RecipientTable extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchRecipientList(1);
+    this.fetchRecipientList(1);
   }
+
+  fetchRecipientList = (page) => {
+    if (
+      page !== this.props.recipientState.page &&
+      !this.props.recipientState.loading
+    ) {
+      this.props.fetchRecipientList(page);
+    }
+  };
 
   onRowClick = (rowData, { rowIndex }) => {
     this.props.goToMember(this.props.recipientList[rowIndex].member);
@@ -134,7 +143,7 @@ export class RecipientTable extends React.Component<Props> {
           }
           return acc;
         }, '');
-        this.props.fetchRecipientList(tableState.page + 1, { ordering });
+        this.fetchRecipientList(tableState.page + 1, { ordering });
       },
     };
 

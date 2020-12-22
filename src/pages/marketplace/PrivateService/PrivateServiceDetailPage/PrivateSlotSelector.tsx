@@ -30,53 +30,55 @@ const PrivateSlotSelector: React.FC<Props> = (props) => {
           {t('selector.privateSlot')}
         </Typography>
         <div className={classes.container2}>
-          {props.privateService.slots.map((slot: PrivateSlot) => {
-            const isSelected = props?.privateSlot?.id === slot.id;
+          {props.privateService.slots
+            .filter((slot: PrivateSlot) => !!slot && slot.available)
+            .map((slot: PrivateSlot) => {
+              const isSelected = props?.privateSlot?.id === slot.id;
 
-            return (
-              <div key={slot.name} className={classes.itemContainerLayout}>
-                <Paper
-                  className={classNames({
-                    [classes.itemContainer]: true,
-                    [classes.selectedItem]: isSelected,
-                  })}
-                >
-                  <ButtonBase
-                    className={classes.item}
-                    onClick={() => props.onSelect(slot)}
+              return (
+                <div key={slot.name} className={classes.itemContainerLayout}>
+                  <Paper
+                    className={classNames({
+                      [classes.itemContainer]: true,
+                      [classes.selectedItem]: isSelected,
+                    })}
                   >
-                    <Typography
-                      className={classes.maxLine}
-                      variant={'subtitle1'}
+                    <ButtonBase
+                      className={classes.item}
+                      onClick={() => props.onSelect(slot)}
                     >
-                      {slot.name}
-                    </Typography>
+                      <Typography
+                        className={classes.maxLine}
+                        variant={'subtitle1'}
+                      >
+                        {slot.name}
+                      </Typography>
 
-                    <div className={classes.row}>
-                      <AccessTimeIcon fontSize="small" />
-                      <Typography
-                        variant={'subtitle2'}
-                        color={isSelected ? 'inherit' : 'textSecondary'}
-                      >
-                        {t('privateSlot.duration', {
-                          minutes: slot.duration_minutes,
-                        })}
-                      </Typography>
-                    </div>
-                    {slot.people_capacity_used > 1 && (
-                      <Typography
-                        variant={'subtitle2'}
-                        color={isSelected ? 'inherit' : 'textSecondary'}
-                      >
-                        {t('slot.form.people_capacity_used.label')}:{' '}
-                        {slot.people_capacity_used}
-                      </Typography>
-                    )}
-                  </ButtonBase>
-                </Paper>
-              </div>
-            );
-          })}
+                      <div className={classes.row}>
+                        <AccessTimeIcon fontSize="small" />
+                        <Typography
+                          variant={'subtitle2'}
+                          color={isSelected ? 'inherit' : 'textSecondary'}
+                        >
+                          {t('privateSlot.duration', {
+                            minutes: slot.duration_minutes,
+                          })}
+                        </Typography>
+                      </div>
+                      {slot.people_capacity_used > 1 && (
+                        <Typography
+                          variant={'subtitle2'}
+                          color={isSelected ? 'inherit' : 'textSecondary'}
+                        >
+                          {t('slot.form.people_capacity_used.label')}:{' '}
+                          {slot.people_capacity_used}
+                        </Typography>
+                      )}
+                    </ButtonBase>
+                  </Paper>
+                </div>
+              );
+            })}
         </div>
       </div>
     </Fade>

@@ -174,7 +174,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
 
   handleBookingRevert = (booking: Booking) => {
     for (const inv of this.props.unevenSavedInvoices) {
-      for (const ii of inv.invoice_items) {
+      for (const ii of inv.invoice_items.filter((ii_) => !!ii_)) {
         if (ii.object_id === booking.consumer_payment_pack.id) {
           this.props.revertQuickInvoiceAndRefreshOffer(inv.uuid);
           return;

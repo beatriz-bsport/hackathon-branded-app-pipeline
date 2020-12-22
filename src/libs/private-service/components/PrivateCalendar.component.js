@@ -316,7 +316,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
       return;
     }
     if (prevProps.resourceDatatypeView !== this.props.resourceDatatypeView) {
-      this.calendarRef.current.getApi().render();
+      console.log(this.calendarRef.current.getApi());
     }
     if (
       this.state.date_start !== prevState.date_start ||

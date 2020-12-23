@@ -219,6 +219,10 @@ export default compose(
   withState('registerVideoOpen', 'setRegisterVideoOpen', false),
   withState('privateConsumerPassReady', 'setPrivateConsumerPassReady', false),
   withHandlers({
+    registerVideo: ({ registerVideo, videoId }) => (data) =>
+      registerVideo(videoId, data, {
+        onSuccess: () => window.location.reload(),
+      }),
     onRequestBuyPass: ({ pushRouter, companyName, companyId }) => () =>
       pushRouter(getMarketplaceRoute(companyName, companyId, 'pass')),
     retrieveVideo: ({ retrieveVideo, fetchAssociatedCoachBulk }) => (id) => {

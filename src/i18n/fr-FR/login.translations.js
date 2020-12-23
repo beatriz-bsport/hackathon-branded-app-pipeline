@@ -93,6 +93,7 @@ exports.default = {
     BE: 'Belgique',
     ES: 'Espagne',
     CH: 'Suisse',
+    MT: 'Malte',
   },
   language: {
     fr: 'français',

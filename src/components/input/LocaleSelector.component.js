@@ -21,6 +21,7 @@ import IE_FLAG from './flags/IE.png';
 import DE_FLAG from './flags/DE.png';
 // import CH_FLAG from './flags/CH.png';
 import AT_FLAG from './flags/AT.png';
+import MT_FLAG from './flags/MT.png';
 
 type Props = {
   withCurrency?: boolean,
@@ -90,6 +91,12 @@ const localeList: Array<Locale> = [
   {
     locale: 'es_ES',
     icon: ES_FLAG,
+    currencyCode: 'eur',
+    currencyDisplay: '€',
+  },
+  {
+    locale: 'en_MT',
+    icon: MT_FLAG,
     currencyCode: 'eur',
     currencyDisplay: '€',
   },

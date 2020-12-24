@@ -2,11 +2,9 @@
 
 import lodash from 'lodash';
 import moment from 'moment-timezone';
-import Immutable from 'seamless-immutable';
 import type { Moment } from 'moment-timezone';
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
-import { discretizeByAndFillMissing as discretizeAndFillMissing } from './utils';
 
 import type { State } from '../types.ts';
 
@@ -59,40 +57,6 @@ export const getStats = (
     return { createdBookings, cancelledBookings, start, end };
   }
   return null;
-};
-
-export const getStatisticTemporal = (
-  state: State,
-  identifier: string,
-  range: { start: Moment, end: Moment },
-) => {
-  let data = [];
-  let loading = true;
-  if (
-    state.stats.stats &&
-    state.stats.stats[identifier] &&
-    state.stats.stats[identifier].data
-  ) {
-    // ({ data } = state.stats.stats[identifier]);
-    data = Immutable(state.stats.stats[identifier].data);
-    loading = state.stats.stats[identifier].isLoading;
-  }
-  const processedData = discretizeAndFillMissing(data, range.start, range.end);
-  return { data: processedData, loading };
-};
-
-export const getStatisticTemporalGrid = (state: State, identifier: string) => {
-  let data = [];
-  let loading = true;
-  if (
-    state.stats.stats &&
-    state.stats.stats[identifier] &&
-    state.stats.stats[identifier].data
-  ) {
-    ({ data } = state.stats.stats[identifier]);
-    loading = state.stats.stats[identifier].isLoading;
-  }
-  return { data, loading };
 };
 
 function filterDataTable(table, dateRange) {

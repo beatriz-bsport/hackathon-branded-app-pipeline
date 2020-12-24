@@ -1,11 +1,35 @@
 // @flow
 
-import { processDashboard } from './chart-ressources';
+import { createSelector } from 'reselect';
 import type { State } from '../../state/types.ts';
+import { replaceDates } from './utils';
 
-export const getDashboardGraphs = (state: State) => {
-  if (state.dashboardSettings.data.settings) {
-    return processDashboard(state.dashboardSettings.data.settings);
-  }
-  return [];
-};
+const _getDashboardSettings = (state: State) =>
+  state.dashboardSettings.data.settings;
+
+export const getDashboardConfiguration = createSelector(
+  _getDashboardSettings,
+  (settings) => {
+    if (settings && settings.length) {
+      return settings.map((dashboardTab) => ({
+        ...dashboardTab,
+        graphs: replaceDates(dashboardTab.graphs),
+      }));
+    }
+    return [];
+  },
+);
+
+export const getDashboardConfigurationTab = createSelector(
+  [getDashboardConfiguration, (state, tabIndex) => tabIndex],
+  (tabConfigurationList, tabIndex) => {
+    if (
+      tabConfigurationList &&
+      tabConfigurationList.length >= tabIndex + 1 &&
+      tabConfigurationList[tabIndex]
+    ) {
+      return tabConfigurationList[tabIndex];
+    }
+    return null;
+  },
+);

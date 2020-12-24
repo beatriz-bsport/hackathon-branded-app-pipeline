@@ -1,6 +1,6 @@
 // @flow
 
-import { RootState } from '../../reducers';
+import { RootState } from '../../reducers/index.ts';
 
 const getTheme = (state: RootState) => state.theme.theme;
 

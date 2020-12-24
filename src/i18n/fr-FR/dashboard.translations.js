@@ -94,4 +94,37 @@ exports.default = {
       [BUYABLE_ITEM_COUPON]: 'Promotion',
     },
   },
+  customChart: {
+    addChart: 'Créer un graphe',
+    noResource: 'Veuillez choisir un objet ressource.',
+    form: {
+      title: 'Graphe',
+      cancel: 'Annuler',
+      submit: 'Enregistrer',
+      selector: {
+        object: {
+          isEmpty: 'Aucun objet de la ressource',
+          placeholder: 'Objet de la ressource',
+          helperText: 'Choisir une ressource du graphe',
+        },
+        member: 'Nouveaux membres',
+        booking: 'Réservations',
+        payment: 'Encaissements (€)',
+        invoice: 'Factures',
+      },
+      name: 'Titre du graphe',
+      radio: {
+        temporalMember: 'Données temporelles',
+        temporalTimeslotBooking: 'Réservation temporelle',
+        qualitativeBooking: 'Réservation qualitative',
+        temporalPayment: 'Encaissement temporel',
+        temporalPlannedInvoice: 'Facture prévisionnelle temporelle',
+        qualitativeInvoiceItem: 'Facture qualitative',
+        bar: 'Graphique à barres',
+        area: 'Graphique en aires',
+        grid: 'Tableau de croisement',
+        pie: 'Diagramme circulaire',
+      },
+    },
+  },
 };

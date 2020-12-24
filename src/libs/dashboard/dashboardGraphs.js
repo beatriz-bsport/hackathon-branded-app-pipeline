@@ -1,4 +1,4 @@
-const dashboardGraphsRaw = [
+const defaultDashboardConfiguration = [
   // first tab
   {
     tab_label: 'main',
@@ -13,7 +13,7 @@ const dashboardGraphsRaw = [
           aggregate_field: 'price',
           aggregate_period: 'day',
         },
-        defaultRange: {
+        dateRange: {
           start: null,
           end: null,
           kind: 'current_year',
@@ -26,12 +26,12 @@ const dashboardGraphsRaw = [
         baseFilters: {
           date_field: 'offer__date_start',
         },
-        defaultRange: {
+        dateRange: {
           start: null,
           end: null,
           kind: 'current_year',
         },
-        defaultFilters: {},
+        dataFilters: {},
       },
       {
         name: 'booking_qualitative',
@@ -42,12 +42,12 @@ const dashboardGraphsRaw = [
           aggregate_function: 'count',
           aggregate_field: 'pk',
         },
-        defaultRange: {
+        dateRange: {
           start: null,
           end: null,
           kind: 'current_year',
         },
-        defaultFilters: { booking_status_code__in: [0] },
+        dataFilters: { booking_status_code__in: [0] },
       },
       {
         name: 'invoice_item',
@@ -58,7 +58,7 @@ const dashboardGraphsRaw = [
           aggregate_field: 'total_price',
           aggregate_function: 'sum',
         },
-        defaultRange: {
+        dateRange: {
           start: null,
           end: null,
           kind: 'current_year',
@@ -73,7 +73,7 @@ const dashboardGraphsRaw = [
           aggregate_function: 'count',
           aggregate_field: 'pk',
         },
-        defaultRange: {
+        dateRange: {
           start: null,
           end: null,
           kind: 'current_year',
@@ -90,7 +90,7 @@ const dashboardGraphsRaw = [
           aggregate_period: 'day',
           invoice__plannedinvoice__isnull: false,
         },
-        defaultRange: {
+        dateRange: {
           start: null,
           end: null,
           kind: 'current_year',
@@ -106,7 +106,7 @@ const dashboardGraphsRaw = [
           aggregate_function: 'count',
           aggregate_field: 'pk',
         },
-        defaultRange: {
+        dateRange: {
           start: null,
           end: null,
           kind: 'current_year',
@@ -116,4 +116,4 @@ const dashboardGraphsRaw = [
   },
 ];
 
-export default dashboardGraphsRaw;
+export default defaultDashboardConfiguration;

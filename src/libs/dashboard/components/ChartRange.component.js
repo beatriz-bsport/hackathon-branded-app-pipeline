@@ -32,7 +32,7 @@ type State = {
   anchorEl: ?HTMLElement,
 };
 
-const quickRanges = [
+export const quickRanges = [
   {
     key: 'current_week',
     start: moment()

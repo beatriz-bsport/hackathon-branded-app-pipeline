@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import { getPalette, getAnalogColors } from './color-utils';
-import { numberFormatter } from '../../state/stats/utils';
+import { numberFormatter } from '../../libs/statistics/utils';
 
 type Props = {
   height?: number | string,

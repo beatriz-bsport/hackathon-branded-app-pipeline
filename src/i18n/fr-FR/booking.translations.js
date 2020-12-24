@@ -224,4 +224,8 @@ exports.default = {
       },
     },
   },
+  memberGraph: {
+    title: 'Récapitulatif des réservations',
+    label: 'Réservations',
+  },
 };

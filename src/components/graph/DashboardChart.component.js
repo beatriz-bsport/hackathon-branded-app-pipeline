@@ -7,6 +7,8 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import Chip from '@material-ui/core/Chip';
 import { useTranslation } from 'react-i18next';
 import SaveIcon from '@material-ui/icons/Save';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import Popover from '@material-ui/core/Popover';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,10 +25,12 @@ type Props = {
   children: any,
   filtersComponent?: React.Element<any>,
   range: { start: string, end: string, kind: string },
-  setRange: ({ start: string, end: string }) => void,
-  save: () => void,
+  setDateRange: ({ start: string, end: string }) => void,
+  onSaveGraph: () => void,
+  onDelete: (graphIdentifier: string) => void,
   showSaveButton: (boolean) => void,
   timeSettings: string,
+  graphIdentifier: string,
 };
 
 const DashboardChart = (props: Props) => {
@@ -58,27 +62,38 @@ const DashboardChart = (props: Props) => {
           )}
         </div>
         <div className={classes.inlineContainer}>
-          {props.showSaveButton ? (
+          {!!(props.showSaveButton && !!props.onSaveGraph) && (
             <Chip
               className={classes.saveChip}
               icon={<SaveIcon />}
               color="primary"
               label={t('save')}
-              onClick={props.save}
+              onClick={props.onSaveGraph}
               size="small"
               clickable
             />
-          ) : null}
+          )}
 
-          {props.range ? (
+          {!!props.range && props.setDateRange ? (
             <ChartRange
               start_date={props.range.start}
               end_date={props.range.end}
               kind={props.range.kind}
-              setRange={props.setRange}
+              setRange={(range) => {
+                props.setDateRange(props.timeSettings, range);
+              }}
               timeSettings={props.timeSettings}
             />
           ) : null}
+          {!!props.onDelete && (
+            <IconButton
+              size="small"
+              color="primary"
+              onClick={() => props.onDelete(props.graphIdentifier)}
+            >
+              <DeleteIcon />
+            </IconButton>
+          )}
         </div>
       </div>
       {props.popoverText && (
@@ -171,6 +186,7 @@ const useStyles = makeStyles((theme) => ({
   inlineContainer: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   saveChip: {
     marginRight: theme.spacing(2),
@@ -210,15 +226,22 @@ export default compose(
     },
   ),
   withHandlers({
-    setRange: ({ setRange, setShowSaveButton }) => (r) => {
-      if (setRange) {
+    setDateRange: ({ setDateRange, setShowSaveButton, graphIdentifier }) => (
+      timeSettings,
+      range,
+    ) => {
+      if (setDateRange) {
         setShowSaveButton(true);
-        setRange(r);
+        setDateRange(graphIdentifier, timeSettings, range);
       }
     },
-    save: ({ save, setShowSaveButton }) => () => {
+    onSaveGraph: ({
+      onSaveGraph,
+      setShowSaveButton,
+      graphIdentifier,
+    }) => () => {
       setShowSaveButton(false);
-      save();
+      onSaveGraph(graphIdentifier);
     },
   }),
 )(DashboardChart);

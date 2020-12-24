@@ -284,12 +284,12 @@ export const getChartPropsData = (
           title: t('dashboard:bookings.title'),
           popoverText: t('dashboard:bookings.popover'),
           height: 420,
-          yLabel: t('dashboard:bookings.caption'),
+          yLabel: t('dashboard:booking.caption'),
           tooltip: true,
           chartOptions: [
             {
               dataKey: 'v',
-              caption: t('dashboard:bookings.caption'),
+              caption: t('dashboard:booking.caption'),
               stroke: colorScale(index / graph_nb).hex(),
               fill: colorScale(index / graph_nb).hex(),
             },

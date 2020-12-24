@@ -55,6 +55,12 @@ exports.default = {
     caption: 'Souscriptions',
     popover: 'Le nombre de factures liées à une souscription non annulée',
   },
+  booking: {
+    title: 'Réservations',
+    caption: 'Réservations enregistrées',
+    popover:
+      'Le nombre total de réservations enregistrées pour cette date. Vous pouvez filtrer les annulations / late-cancel / ...',
+  },
   bookingsWeektimeSlot: {
     title: 'Effectif moyen',
     popover: 'Effectif moyen des séances par créneau horaire',

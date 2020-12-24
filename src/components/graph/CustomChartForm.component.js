@@ -137,10 +137,6 @@ export class CustomChartForm extends React.Component<Props, State> {
     const { graphRessources } = this.props;
     const { ressourceIdentifierSelected, chartTypeSelected } = this.state;
 
-    if (!ressourceIdentifierSelected || !chartTypeSelected) {
-      alert(this.props.t('customChart.form.noResource'));
-      return;
-    }
     const { dateFiltersName, choices } = graphRessources[
       ressourceIdentifierSelected
     ];
@@ -220,6 +216,7 @@ export class CustomChartForm extends React.Component<Props, State> {
                   onChange={(ev) =>
                     this.setState({
                       ressourceIdentifierSelected: ev.target.value,
+                      chartTypeSelected: null,
                     })
                   }
                 >
@@ -276,6 +273,7 @@ export class CustomChartForm extends React.Component<Props, State> {
               <TextField
                 value={this.state.titleChart}
                 placeholder={this.props.t('customChart.form.name')}
+                variant="outlined"
                 required
                 fullWidth
                 onChange={(ev) =>
@@ -289,7 +287,14 @@ export class CustomChartForm extends React.Component<Props, State> {
             <Button onClick={() => this.props.setFormOpen(false)}>
               {t('customChart.form.cancel')}
             </Button>
-            <Button onClick={this.handleClick}>
+            <Button
+              disabled={
+                !this.state.titleChart ||
+                !this.state.ressourceIdentifierSelected ||
+                !this.state.chartTypeSelected
+              }
+              onClick={this.handleClick}
+            >
               {t('customChart.form.submit')}
             </Button>
           </DialogActions>

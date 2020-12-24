@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 
-import { compose, withProps } from 'recompose';
+import { compose, withProps, withHandlers } from 'recompose';
 import { withRouter } from 'react-router';
 
 import Grid from '@material-ui/core/Grid';
@@ -29,6 +29,7 @@ import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.compone
 import MarketplaceAppBar from './MarketplaceAppBar.component';
 import SignUpForm from '../../components/form/SignUpForm.component';
 import Analytics from '../../components/analytics/Analytics.component';
+import parse from '../../query-string';
 
 import {
   addItemToBasket,
@@ -44,7 +45,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import Config from '../../config';
-import { getMarketplaceRoute } from './routing-utils';
+import { getMarketplaceRoute, fromConfigToUrl } from './routing-utils';
 import asyncComponent from '../../AsyncComponent';
 
 import {
@@ -53,6 +54,12 @@ import {
 } from '../../actions';
 
 import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
+import {
+  MarketplaceComponentsEnum,
+  MarketplaceSettings,
+  MarketplaceTabConfig,
+} from '../../libs/marketplace/types';
+import { fetchMarketplaceSettings } from '../../libs/marketplace/actions';
 
 const MarketplacePassPage = asyncComponent(() =>
   import('./MarketplacePass.page'),
@@ -101,8 +108,12 @@ type Props = {
   checkEmailExists: (email: string) => void,
   fetchProfile: () => void,
   doEmailLogin: ({ email: string, password: string }, () => void) => void,
-  goToTab: (companyName: string, companyId: number, tab: string) => void,
-  tab: string,
+  goToTab: (
+    companyName: string,
+    companyId: number,
+    subcomponent: string,
+  ) => void,
+  subcomponent: string,
   replace: (path: string) => void,
   goToUserSpace: () => void,
 
@@ -116,6 +127,10 @@ type Props = {
   signup: (data: *, callback: () => void) => void,
   fetchCompanyTheme: () => void,
   theme: any,
+  settings: MarketplaceSettings,
+  settingsLoading: boolean,
+  tabSelected: ?number,
+  fetchMarketplaceSettings: (companyId: string) => void
 };
 
 type State = {
@@ -131,7 +146,6 @@ const TAB_CONTRACT = 'subscription';
 const TAB_WORKSHOP = 'workshop';
 const TAB_PRIVATE_SERVICE = 'private-service';
 const TAB_SHOP = 'shop';
-const DEFAULT_TAB = TAB_CALENDAR;
 
 export class MarketPlace extends Component<Props, State> {
   state = {
@@ -142,6 +156,7 @@ export class MarketPlace extends Component<Props, State> {
 
   fetchData = () => {
     this.props.fetchCompanyTheme(this.props.companyId);
+    this.props.fetchMarketplaceSettings(this.props.companyId);
     this.props.fetchSCT();
     if (this.props.auth.authenticated) {
       this.props.fetchCurrentBasket(this.props.companyId);
@@ -166,12 +181,18 @@ export class MarketPlace extends Component<Props, State> {
     }
   }
 
-  handleTabChange = (event: SyntheticEvent<HTMLElement>, value: string) => {
-    this.props.goToTab(
-      this.props.theme.company_name,
-      this.props.companyId,
-      value,
-    );
+  handleTabChange = (event: SyntheticEvent<HTMLElement>, value: number) => {
+    const { tabSelected } = this.props;
+    // we dont want to remove query params if user accidentally reclick th button
+    if (tabSelected === parseInt(value, 10)) return;
+
+    const tabConfig: MarketplaceTabConfig = this.props.settings.config.tabs[
+      value.toString()
+    ];
+
+    const newPath = fromConfigToUrl(tabConfig, { tabSelected: value });
+
+    this.props.goToTab(newPath);
   };
 
   renderContent = () => {
@@ -179,7 +200,7 @@ export class MarketPlace extends Component<Props, State> {
       return null;
     }
 
-    switch (this.props.tab) {
+    switch (this.props.subcomponent) {
       case TAB_PASS:
         return (
           <MarketplacePassPage
@@ -272,9 +293,35 @@ export class MarketPlace extends Component<Props, State> {
     });
   };
 
+  getDefaultTitleForComponent(componentType: MarketplaceComponentsEnum) {
+    const { t } = this.props;
+
+    const obj = {
+      [MarketplaceComponentsEnum.calendar]: t('marketplace.calendar'),
+      [MarketplaceComponentsEnum.workshop]: t('marketplace.workshop'),
+      [MarketplaceComponentsEnum.privateService]: t(
+        'marketplace.private_service',
+      ),
+      [MarketplaceComponentsEnum.pass]: t('marketplace.pass'),
+      [MarketplaceComponentsEnum.vod]: t('marketplace.vod'),
+      [MarketplaceComponentsEnum.subscription]: t(
+        'marketplace.contract.tabName',
+      ),
+      [MarketplaceComponentsEnum.shop]: t('marketplace.shop.tabName'),
+      [MarketplaceComponentsEnum.playlist]: t('marketplace.playlist'),
+    };
+
+    return obj[componentType];
+  }
+
   render() {
     const { companyThemeLoading, classes, t } = this.props;
-    if (companyThemeLoading || !this.props.theme) {
+    if (
+      companyThemeLoading ||
+      !this.props.theme ||
+      this.props.settingsLoading ||
+      !(this.props.settings && this.props.settings.config)
+    ) {
       return (
         <Grid container item alignItems="center" justify="center">
           <LinearProgress />
@@ -290,7 +337,7 @@ export class MarketPlace extends Component<Props, State> {
       this.props.replace(
         `/m/${this.props.theme.company_name.toLowerCase().replace(/ /g, '-')}/${
           this.props.companyId
-        }/${this.props.tab || ''}`,
+        }/${this.props.subcomponent || ''}`,
       );
     }
     return (
@@ -310,35 +357,36 @@ export class MarketPlace extends Component<Props, State> {
             requestSignUp={() => this.toogleSignUp(true)}
             requestLogin={() => this.toogleLogin(true)}
             disconnect={() => {
-              // this.props.push('/login/signout?membership='+this.props.companyId)
               this.props.disconnect();
             }}
           />
           {!this.props.hideAppBar ? (
             <AppBarMUI position="relative" color="default">
               <Tabs
-                value={this.props.tab || DEFAULT_TAB}
                 onChange={this.handleTabChange}
                 textColor="primary"
                 indicatorColor="primary"
                 variant="scrollable"
+                value={parseInt(this.props.tabSelected, 10)}
               >
-                <Tab value={TAB_CALENDAR} label={t('marketplace.calendar')} />
-                <Tab value={TAB_WORKSHOP} label={t('marketplace.workshop')} />
-                <Tab
-                  value={TAB_PRIVATE_SERVICE}
-                  label={t('marketplace.private_service')}
-                />
-                <Tab value={TAB_PASS} label={t('marketplace.pass')} />
-                {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-                  this.props.theme.vod) && (
-                  <Tab value={TAB_VOD} label={t('marketplace.vod')} />
-                )}
-                <Tab
-                  value={TAB_CONTRACT}
-                  label={t('marketplace.contract.tabName')}
-                />
-                <Tab value={TAB_SHOP} label={t('marketplace.shop.tabName')} />
+                {this.props.settings.config.tabs.map((tab, i) => {
+                  if (
+                    tab.componentType === MarketplaceComponentsEnum.vod &&
+                    !(
+                      Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+                      this.props.theme.vod
+                    )
+                  ) {
+                    return null;
+                  }
+
+                  let { title } = tab;
+                  if (!title) {
+                    title = this.getDefaultTitleForComponent(tab.componentType);
+                  }
+
+                  return <Tab value={i} label={title} />;
+                })}
               </Tabs>
             </AppBarMUI>
           ) : null}
@@ -476,20 +524,22 @@ export default compose(
   routerParamsToProps({
     companyId: 'companyId:number',
     companyName: 'companyName',
-    tab: 'tab',
+    subcomponent: 'subcomponent',
   }),
   withProps(({ location }) => ({
     hideAppBar: location.search.includes('hideAppBar=true'),
+    tabSelected: parse(location.search).tabSelected,
   })),
   connect(
-    (state) => ({
+    (state: RootState) => ({
       auth: state.auth,
       currentBasket: getCurrentBasket(state),
       currentBasketLoading: state.checkout.basket.current.loading,
       consumerProfile: state.consumer.profile,
       theme: state.theme.theme,
       companyThemeLoading: state.theme.loading,
-
+      settings: state.marketplace.settings,
+      settingsLoading: state.marketplace.loading,
       errorFields: state.auth.invalidFields,
       checkEmailExistsLoading: state.auth.emailExists.loading,
       emailExists: state.auth.emailExists.exists,
@@ -498,6 +548,7 @@ export default compose(
       // General information
       fetchSCT,
       fetchCompanyTheme,
+      fetchMarketplaceSettings,
 
       // For shop pages
       fetchCurrentBasket,
@@ -516,11 +567,14 @@ export default compose(
         authActions.requestLogin(email, password, { onDone: callback }),
       disconnect: authActions.disconnect,
       checkEmailExists: authActions.checkEmailExists,
+      push: pushRouter,
 
       // navigation
       replace,
-      goToTab: (companyName: string, companyId: number, tab: string) =>
-        pushRouter(getMarketplaceRoute(companyName, companyId, tab)),
     },
   ),
+  withHandlers({
+    goToTab: ({ companyName, companyId, push }) => (path) =>
+      push(getMarketplaceRoute(companyName, companyId, path)),
+  }),
 )(MarketPlace);

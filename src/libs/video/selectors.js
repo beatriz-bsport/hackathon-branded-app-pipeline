@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
 import { getSCTs } from '../category/selectors';
-import { getAllCoachesDict } from '../associated-coach/selectors';
+import { getAllCoachesDict } from '../associated-coach/selectors.ts';
 import { getAllMembers } from '../member/selectors';
 
 const getVideoListIds = (state) => state.video.list.allIds;

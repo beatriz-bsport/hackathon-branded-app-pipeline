@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 
 import { connect } from 'react-redux';
@@ -8,33 +6,35 @@ import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
-import type { TFunction } from 'react-i18next';
+import { TFunction } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.component';
-import CompanyDetailPage from './CompanyDetailPage.component';
-import RoleConfigurationPage from './RoleConfiguration.component';
-import InvoiceConfigurationPage from './InvoiceConfigurationPage.component';
-import WaitingListConfigurationPage from './WaitingListConfigurationPage.component';
-import BroadcastConfiguration from './BroadcastConfiguration.page';
-import ShopConfigurationPage from './ShopConfigurationPage.component';
-import ThemeConfigurationPage from './ThemeConfiguration.component';
-import SettingsPersonalizePage from './SettingsPersonalizePage.component';
-import WebhookConfigurationPage from './WebhookConfigurationPage.component';
-import NotificationRulePage from './NotificationRule.page';
-import PartnershipPage from './Partnership.page';
+import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.component.js';
+import CompanyDetailPage from './CompanyDetailPage.component.js';
+import RoleConfigurationPage from './RoleConfiguration.component.js';
+import InvoiceConfigurationPage from './InvoiceConfigurationPage.component.js';
+import WaitingListConfigurationPage from './WaitingListConfigurationPage.component.js';
+import BroadcastConfiguration from './BroadcastConfiguration.page.js';
+import ShopConfigurationPage from './ShopConfigurationPage.component.js';
+import ThemeConfigurationPage from './ThemeConfiguration.component.js';
+import SettingsPersonalizePage from './SettingsPersonalizePage.component.js';
+import WebhookConfigurationPage from './WebhookConfigurationPage.component.js';
+import NotificationRulePage from './NotificationRule.page.js';
+import PartnershipPage from './Partnership.page.js';
 import ActiveCampaignPage from './ActiveCampaignPage.component';
-import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page';
-import PlatformBillingSettingPage from './PlatformBillingSetting.page';
+import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page.js';
+import PlatformBillingSettingPage from './PlatformBillingSetting.page.js';
+import MarketplaceSettings from './MarketplaceSettingsPages/MarketplaceSettings.pages.tsx';
 
-import withTitle from '../../hocs/with-title.hoc';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withTitle from '../../hocs/with-title.hoc.js';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc.js';
 
-import { drawerWidth } from '../../components/navigation/ResponsiveDrawer.component';
+import { drawerWidth } from '../../components/navigation/ResponsiveDrawer.component.js';
+import { Theme } from '@material-ui/core';
 
 type Props = {
-  classes: *,
+  classes: any,
 };
 
 export const Settings = (props: Props) => {
@@ -47,6 +47,13 @@ export const Settings = (props: Props) => {
           path="/settings/general"
           component={ThemeConfigurationPage}
         />
+
+        <Route
+          exact
+          path="/settings/marketplace-settings"
+          component={MarketplaceSettings}
+        />
+
         <Route
           exact
           path="/settings/notification-rule"
@@ -115,7 +122,7 @@ export const Settings = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   container: {
     maxWidth: '100vw',
     marginTop: -theme.spacing(2),

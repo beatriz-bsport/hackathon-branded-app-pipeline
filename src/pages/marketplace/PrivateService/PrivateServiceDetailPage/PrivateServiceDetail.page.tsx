@@ -20,8 +20,8 @@ import {
   getPrivateServiceById,
   //@ts-ignore
 } from '../../../../libs/private-service/selectors/private-service.ts';
-import { fetchAssociatedEstablishmentBulk } from '../../../../libs/establishment/actions';
-import { fetchAssociatedCoachBulk } from '../../../../libs/associated-coach/actions';
+import { fetchAssociatedEstablishmentBulk } from '../../../../libs/establishment/actions.ts';
+import { fetchAssociatedCoachBulk } from '../../../../libs/associated-coach/actions.ts';
 
 import {
   getSearchedSlots,
@@ -43,7 +43,6 @@ import { groupSessionsByDayMoment } from '../../../../libs/private-service/utils
 import { RootState } from '../../../../reducers';
 
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
-
 
 const useNumberOfDayToShow = () => {
   const materialTheme = useTheme();

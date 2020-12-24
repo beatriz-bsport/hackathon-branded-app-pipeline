@@ -3,7 +3,7 @@
 import { AuthAction } from './auth/types';
 import { PaymentRulesState } from '../libs/payment-rules/types';
 import { StatsState } from './stats/types';
-import { CoachState } from '../libs/associated-coach/types';
+import { CoachState } from '../libs/associated-coach/types.ts';
 import { SubscriptionState } from '../libs/subscription/types';
 import { MemberState } from '../libs/member/types';
 import { PaymentPackState } from '../libs/payment-packs/types';
@@ -11,11 +11,10 @@ import { BookingsState } from '../libs/booking/types';
 import { TagState } from '../libs/tag/types';
 import { OrderState } from '../libs/order/types';
 import { ShopState } from '../libs/shop/types';
-import { MarketPlaceState } from '../libs/marketplace/types';
 import { CheckoutState } from '../libs/checkout/types';
 import { SearchState, SearchAction } from './search/types';
 import { ThemeState } from '../libs/theme/types.ts';
-import { EstablishmentState } from '../libs/establishment/types';
+import { EstablishmentState } from '../libs/establishment/types.ts';
 import { CouponState } from '../libs/coupon/types';
 import { LoginState } from '../libs/login/types';
 import { PrivateServiceState } from '../libs/private-service/types';
@@ -43,7 +42,6 @@ export type State = {
   order: OrderState,
   tag: TagState,
   shop: ShopState,
-  marketplacev2: MarketPlaceState,
   theme: ThemeState,
   establishment: EstablishmentState,
   checkout: CheckoutState,

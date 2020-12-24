@@ -62,8 +62,8 @@ import {
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
 } from '../../libs/email-editor/actions';
 
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+import { fetchEstablishments } from '../../libs/establishment/actions.ts';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors.ts';
 
 import {
   getAllEmailTemplatesSummaries,

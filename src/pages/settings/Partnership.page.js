@@ -22,8 +22,8 @@ import {
   requestPartnership as requestPartnershipAction,
   updatePartnership,
 } from '../../libs/partnership/actions';
-import { getAllPageEstablishments } from '../../libs/establishment/selectors';
-import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAllPageEstablishments } from '../../libs/establishment/selectors.ts';
+import { fetchEstablishments } from '../../libs/establishment/actions.ts';
 import PartnershipConfigurationForm from '../../libs/partnership/components/PartnershipConfigurationForm.component';
 import withTitle from '../../hocs/with-title.hoc';
 

@@ -48,15 +48,15 @@ import {
 import {
   fetchCoachBulk as fetchCoachBulkAction,
   fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
-} from '../../associated-coach/actions';
+} from '../../associated-coach/actions.ts';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-} from '../../establishment/actions';
+} from '../../establishment/actions.ts';
 import { fetchMemberBulk as fetchMemberBulkAction } from '../../member/actions';
 
-import { getActiveCoaches } from '../../associated-coach/selectors';
-import { getAllEstablishments } from '../../establishment/selectors';
+import { getActiveCoaches } from '../../associated-coach/selectors.ts';
+import { getAllEstablishments } from '../../establishment/selectors.ts';
 
 import PrivateBookingCard from '../components/booking/PrivateBookingCard.component';
 import {

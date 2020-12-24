@@ -30,7 +30,7 @@ import ConsumerPackCheckout from '../../consumer-payment-pack/components/Consume
 import PaymentComboBuyableItem from '../../payment-combo/components/PaymentComboBuyableItem.component';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 
-import { isOfferInThePast } from '../utils';
+import { isOfferInThePast } from '../utils.ts';
 import { formatMinutes } from '../../../datetime';
 
 import type { PaymentCombo } from '../../payment-combo/types';

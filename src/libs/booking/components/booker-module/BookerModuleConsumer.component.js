@@ -20,7 +20,7 @@ import PaymentComboBuyableItem from '../../../payment-combo/components/PaymentCo
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 import ConsumerPaymentPackListItemCheckout from '../../../consumer-payment-pack/components/ConsumerPaymentPackListItemCheckout.component';
 import SubscriptionContractListItem from '../../../subscription/components/SubscriptionContractListItem.component';
-import { isOfferBookableYet } from '../../../marketplace/utils';
+import { isOfferBookableYet } from '../../../marketplace/utils.ts';
 import type { ConsumerPaymentPack } from '../../../consumer-payment-pack/types';
 
 import type { OptionCallback } from '../../../../state/types.ts';

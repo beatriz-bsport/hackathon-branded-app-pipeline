@@ -16,8 +16,8 @@ import {
 import { getAllPrivateSlotsDict } from './private-slot';
 import { _getPrivateServicesById } from './private-service.ts';
 
-import { getAllCoachesDict } from '../../associated-coach/selectors';
-import { getAllEstablishmentsDict } from '../../establishment/selectors';
+import { getAllCoachesDict } from '../../associated-coach/selectors.ts';
+import { getAllEstablishmentsDict } from '../../establishment/selectors.ts';
 
 /*
 export const getPrivateConsumerPassListWithPass = createSelector(

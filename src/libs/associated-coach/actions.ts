@@ -1,5 +1,3 @@
-// @flow
-
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';
 
@@ -15,14 +13,14 @@ import {
   deleteCoach as deleteCoachAPI,
   restoreCoach as restoreCoachAPI,
   fetchAssociatedCoachPerformance as fetchAssociatedCoachPerformanceAPI,
-} from './api';
-import { getFreshCoachIds } from './selectors';
-
-import type { Dispatch, ThunkAction } from '../../state/types.ts';
+} from './api.ts';
+import { getFreshCoachIds } from './selectors.ts';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
-
-type CoachPayload = FormData;
+import { Dispatch } from 'redux';
+import { OptionCallback } from '../../state/types';
+import { RootState } from '../../reducers';
+import { ThunkDispatch } from 'redux-thunk';
 
 export const associated = {
   isLoading: createAction('COACH/ASSOCIATED/IS_LOADING'),
@@ -56,14 +54,12 @@ export const deleteActions = {
   success: createAction('COACH/DELETE/SUCCESS'),
 };
 
-export function deleteCoach(
-  id: number,
-  options: { onSuccess: () => void, onError: () => void },
-) {
+export function deleteCoach(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     try {
       await deleteCoachAPI(id);
       dispatch(snackbarSuccess('coach.delete.success'));
+      //@ts-ignore TODO CHECK THIS
       dispatch(fetchAssociatedCoach(id));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
@@ -78,7 +74,7 @@ export const restoreActions = {
   isLoading: createAction('COACH/RESTORE/IS_LOADING'),
 };
 
-export function restoreCoach(id: number, options: OptionCallback) {
+export function restoreCoach(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(restoreActions.isLoading(true));
     try {
@@ -103,8 +99,8 @@ export const coachListAction = {
 };
 
 export function fetchAssociatedCoachesList(
-  params?: { [string]: boolean },
-  options: OptionCallback,
+  params?: { [key: string]: boolean },
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(coachListAction.isLoading(true));
@@ -157,10 +153,7 @@ export const upsert = {
   success: createAction('COACH/UPSERT/SUCCESS'),
 };
 
-export function createOrUpdateCoach(
-  coachData: CoachPayload,
-  options: *,
-): ThunkAction {
+export function createOrUpdateCoach(coachData: any, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(upsert.isLoading(true));
     dispatch(upsert.error(null));
@@ -174,6 +167,7 @@ export function createOrUpdateCoach(
       }
       const key = coachData.has('id') ? 'update' : 'create';
       dispatch(snackbarSuccess(`coach.${key}.success`));
+      //@ts-ignore TODO check this
       dispatch(fetchAssociatedCoachesList());
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
@@ -198,7 +192,7 @@ export function createOrUpdateCoach(
   };
 }
 
-export function startUpdate(coach: { id: number }): ThunkAction {
+export function startUpdate(coach: { id: number }) {
   return async (dispatch: Dispatch) => {
     dispatch(push(`/coach/edit/${coach.id}`));
   };
@@ -214,8 +208,8 @@ export function fetchAssociatedCoachPerformance(
   associatedCoachId: number,
   start: number,
   end: number,
-  options: * = {},
-): ThunkAction {
+  options: any = {},
+) {
   return async (dispatch: Dispatch) => {
     dispatch(performance.isLoading({ loading: true, associatedCoachId }));
     dispatch(performance.error({ error: null, associatedCoachId }));
@@ -242,10 +236,7 @@ export const setPaymentRule = {
   success: createAction('COACH/PAYMENT_RULE/SUCCESS'),
 };
 
-export function setCoachPaymentRule(
-  coachId: number,
-  paymentRuleId: number,
-): ThunkAction {
+export function setCoachPaymentRule(coachId: number, paymentRuleId: number) {
   return async (dispatch: Dispatch) => {
     dispatch(upsert.isLoading(true));
     dispatch(upsert.error(null));
@@ -276,7 +267,7 @@ export function setSessionPaymentRule(
   associatedCoachId: number,
   sessionId: number,
   paymentRuleId: number,
-): ThunkAction {
+) {
   return async (dispatch: Dispatch) => {
     dispatch(sessionPaymentRule.isLoading(true));
     dispatch(sessionPaymentRule.error(null));
@@ -309,7 +300,7 @@ export const bulkRetrieveActions = {
   success: createAction('COACH/BULK_RETRIEVE/SUCCESS'),
 };
 
-function fetchCoachBulkBase(params: any = {}, options: OptionCallback) {
+function fetchCoachBulkBase(params: any = {}, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(bulkRetrieveActions.isLoading(true));
     dispatch(bulkRetrieveActions.error(null));
@@ -330,8 +321,14 @@ function fetchCoachBulkBase(params: any = {}, options: OptionCallback) {
   };
 }
 
-export const fetchCoachBulk = (ids: Array<number>, options: OptionCallback) => {
-  return async (dispatch: Dispatch, getState: () => State) => {
+export const fetchCoachBulk = (
+  ids: Array<number>,
+  options?: OptionCallback,
+) => {
+  return async (
+    dispatch: ThunkDispatch<any, any, any>,
+    getState: () => RootState,
+  ) => {
     const freshCoachList = getFreshCoachIds(getState());
     const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
       (id) => !freshCoachList.includes(id),
@@ -344,10 +341,13 @@ export const fetchCoachBulk = (ids: Array<number>, options: OptionCallback) => {
 };
 
 export const fetchAssociatedCoachBulkFromCoachIds = (
-  ids: Array<Number>,
+  ids: Array<number>,
   companyId: number,
 ) => {
-  return async (dispatch: Dispatch, getState: () => State) => {
+  return async (
+    dispatch: ThunkDispatch<any, any, any>,
+    getState: () => RootState,
+  ) => {
     const freshCoachList = getFreshCoachIds(getState());
     const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
       (id) => !freshCoachList.includes(id),
@@ -363,7 +363,7 @@ export const fetchAssociatedCoachBulk = (
   ids: Array<number>,
   options: OptionCallback,
 ) => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     const ids_uniq = uniq(ids.filter((id) => !!id));
     if (ids_uniq.length === 0) {
       return;

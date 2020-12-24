@@ -27,18 +27,18 @@ import {
   deleteCoach,
   restoreCoach,
   fetchAssociatedCoachesList,
-} from '../../libs/associated-coach/actions';
+} from '../../libs/associated-coach/actions.ts';
 import type { Coach } from '../../api/types';
 import {
   getActiveCoaches,
   getInactiveCoaches,
-} from '../../libs/associated-coach/selectors';
+} from '../../libs/associated-coach/selectors.ts';
 import withTitle from '../../hocs/with-title.hoc';
 import FuzeSearch from '../../components/FuzeSearch.component';
 
 import CoachListItem from '../../libs/associated-coach/components/CoachListItem.component';
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
-import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
+import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api.ts';
 
 type Props = {
   loading: boolean,

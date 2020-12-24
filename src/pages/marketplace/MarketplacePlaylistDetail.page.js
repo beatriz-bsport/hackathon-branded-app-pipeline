@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { push, replace } from 'connected-react-router';
 
 import PlaylistDetail from '../../libs/playlist/components/PlaylistDetail.component';
-import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions.ts';
 import { getPlaylist, withCoachInVideo } from '../../libs/playlist/selectors';
 import { retrievePlaylist as retrievePlaylistAction } from '../../libs/playlist/actions';
 import {

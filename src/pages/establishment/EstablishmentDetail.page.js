@@ -23,7 +23,7 @@ import EstablishmentDeleteDialog from '../../libs/establishment/components/Estab
 import {
   fetchEstablishmentBulk,
   deleteEstablishment,
-} from '../../libs/establishment/actions';
+} from '../../libs/establishment/actions.ts';
 import {
   fetchFirstTimeNotifications as fetchNotificationsAction,
   createFirstTimeNotification as createNotificationAction,
@@ -37,10 +37,10 @@ import {
   getEventsByEstablishment,
 } from '../../libs/offer/selectors';
 
-import { getEstablishment } from '../../libs/establishment/selectors';
+import { getEstablishment } from '../../libs/establishment/selectors.ts';
 import { getFirstTimeNotifications } from '../../libs/booking/selectors';
 
-import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api';
+import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api.ts';
 
 import {
   getAllEmailTemplatesSummaries,

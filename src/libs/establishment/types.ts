@@ -1,8 +1,6 @@
-// @flow
-
 type Location = {
   address: string,
-  latitute: string,
+  latitude: string,
   longitude: string,
 };
 
@@ -19,6 +17,7 @@ export type Establishment = {
   location: Location,
   specific_info: string,
   easy_access: EasyAccess,
+  disabled: boolean,
 };
 
 type Event_ = {
@@ -30,10 +29,7 @@ type Event_ = {
   price: string,
 };
 
-export type EstablishmentWithOffers = {
-  ...Establishment,
-  events: Array<Event_>,
-};
+export type EstablishmentWithOffers = Establishment & { events: Array<Event_> };
 
 export type AssociatedEstablishment = {
   id: number,
@@ -42,23 +38,31 @@ export type AssociatedEstablishment = {
 };
 
 export type EstablishmentState = {
-  byId: { [number]: Establishment },
+  byId: { [key: string]: Establishment },
   allIds: Array<number>,
   associatedEstablishment: {
     items: Array<AssociatedEstablishment>,
     loading: boolean,
-    error: ?Error,
+    error?: Error,
   },
   loading: boolean,
-  error: ?Error,
+  error?: Error,
   detail: {
     loading: boolean,
-    error: ?Error,
+    error?: Error,
+  },
+  favorite: {
+    loading: boolean,
+    error?: Error,
+    id: string,
   },
   upsert: {
     loading: boolean,
-    error: ?Error,
+    error?: Error,
   },
-  // Update
+  bulkRetrieve: {
+    loading: boolean,
+    error?: Error,
+  },
   updated: boolean,
 };

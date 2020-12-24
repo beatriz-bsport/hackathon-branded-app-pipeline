@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import flatten from 'lodash/flatten';
 import { push as pushRouter } from 'connected-react-router';
 
-import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions.ts';
 import VideoThumbnailList from '../../libs/video/components/VideoThumbnailList.component';
 import VideoPlayerFull from '../../libs/video/components/VideoPlayerFull.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';

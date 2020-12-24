@@ -50,7 +50,7 @@ import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 
 import type { Membership } from '../../libs/membership/types';
-import { urlToMarketplace } from '../../libs/marketplace/utils';
+import { urlToMarketplace } from '../../libs/marketplace/utils.ts';
 
 export const drawerWidth = 260;
 

@@ -1,9 +1,7 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import type { CoachState } from './types';
+import { CoachState } from './types';
 
 import {
   coachListAction,
@@ -14,9 +12,9 @@ import {
   sessionPaymentRule,
   bulkRetrieveActions,
   restoreActions,
-} from './actions';
+} from './actions.ts';
 
-const initialState: CoachState = Immutable({
+const initialState: CoachState = Immutable<CoachState>({
   loading: false,
   error: '',
   byId: {},
@@ -126,4 +124,4 @@ export default handleActions(
     },
   },
   initialState,
-);
+) as () => CoachState;

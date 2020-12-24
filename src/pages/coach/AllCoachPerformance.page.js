@@ -22,7 +22,7 @@ import type { PaymentRule } from '../../libs/payment-rules/types';
 import {
   getCoachWithPaymentRule,
   coachPerformanceSelector,
-} from '../../libs/associated-coach/selectors';
+} from '../../libs/associated-coach/selectors.ts';
 import {
   paymentRuleSelector,
   paymentRulesSelector,
@@ -32,13 +32,13 @@ import {
   fetchAssociatedCoachPerformance,
   setCoachPaymentRule,
   fetchAssociatedCoachesList,
-} from '../../libs/associated-coach/actions';
+} from '../../libs/associated-coach/actions.ts';
 import { fetchPaymentRules } from '../../libs/payment-rules/actions';
 import withTitle from '../../hocs/with-title.hoc';
-import type {
+import {
   Coach,
   CoachPerformance as CoachPerformanceType,
-} from '../../libs/associated-coach/types';
+} from '../../libs/associated-coach/types.ts';
 
 import CoachPerformanceForm from '../../libs/associated-coach/components/performance/CoachPerformanceForm.component';
 import CoachPerformanceSummary from '../../libs/associated-coach/components/performance/CoachPerformanceSummary.component';

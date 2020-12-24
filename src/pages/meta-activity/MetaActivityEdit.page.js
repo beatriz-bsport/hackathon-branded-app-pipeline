@@ -23,10 +23,10 @@ import { getMetaActivity } from '../../libs/meta-activity/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { fetchEstablishments } from '../../libs/establishment/actions';
+import { fetchEstablishments } from '../../libs/establishment/actions.ts';
 import themeSelectors from '../../libs/theme/selectors.ts';
-import { getAllEstablishments } from '../../libs/establishment/selectors';
-import type { Establishment } from '../../libs/establishment/types';
+import { getAllEstablishments } from '../../libs/establishment/selectors.ts';
+import { Establishment } from '../../libs/establishment/types.ts';
 
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
 

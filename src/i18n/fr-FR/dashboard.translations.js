@@ -104,7 +104,7 @@ exports.default = {
     addChart: 'Créer un graphe',
     noResource: 'Veuillez choisir un type de donnée.',
     form: {
-      title: 'Graphe',
+      title: 'Graphique',
       cancel: 'Annuler',
       submit: 'Enregistrer',
       datatype: 'Type de graphe',
@@ -127,7 +127,7 @@ exports.default = {
 
       radio: {
         temporalMember: 'Évolution dans le temps',
-        temporalTimeslotBooking: 'Fréquence journalières',
+        temporalTimeslotBooking: 'Fréquences journalières et horaires',
         temporalBooking: 'Évolution dans le temps',
         qualitativeBooking: 'Répartition',
         temporalPayment: 'Évolution dans le temps',

@@ -16,7 +16,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import parse from '../../query-string';
 import { buildUrlParams } from '../../http.ts';
 import asyncComponent from '../../AsyncComponent';
-import { urlToMarketplace } from '../../libs/marketplace/utils';
+import { urlToMarketplace } from '../../libs/marketplace/utils.ts';
 
 import {
   getConsumerMembershipList,
@@ -42,8 +42,8 @@ import { fetchCompanyTheme } from '../../libs/theme/actions.ts';
 
 import type { Membership } from '../../libs/membership/types';
 
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
-import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions.ts';
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions.ts';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 
 import CongratulationDialog from '../../libs/consumer-space/components/CongratulationDialog.component';

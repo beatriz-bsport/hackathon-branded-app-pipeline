@@ -30,7 +30,7 @@ import { fetchByMember as fetchConsumerPackByMemberAction } from '../../libs/con
 import type { PrivateConsumerPass } from '../../libs/private-service/types.ts';
 import type { ConsumerPaymentPack } from '../../libs/consumer-payment-pack/types';
 import type { Membership } from '../../libs/membership/types';
-import { urlToMarketplace } from '../../libs/marketplace/utils';
+import { urlToMarketplace } from '../../libs/marketplace/utils.ts';
 
 type Props = {
   t: TFunction,

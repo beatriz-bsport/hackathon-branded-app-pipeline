@@ -12,7 +12,7 @@ import {
 } from '../offer/selectors';
 import { getMemberListData } from '../member/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
-import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
+import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors.ts';
 
 const _getData = (state: State) => state.booking.byId;
 

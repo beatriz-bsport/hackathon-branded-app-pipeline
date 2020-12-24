@@ -27,6 +27,7 @@ export type PrivateService = {
   booking_interval_minutes: number;
   coach_attribution: ResourceAttributionEnum;
   cover_main: string;
+  private_service_group?: number
 };
 
 

@@ -53,10 +53,12 @@ import platformBilling from '../libs/platform-billing/reducers';
 import backgroundTaskReducers from '../libs/background-task/reducers';
 import marketingNotification from '../libs/marketing/reducers';
 import dashboardSettings from '../libs/dashboard/reducers';
+import marketplace from '../libs/marketplace/reducers';
 
 import { reducer } from '../resources';
+import { EstablishmentState } from '../libs/establishment/types';
 
-const rootReducer = (history) =>
+const rootReducer = (history: any) =>
   combineReducers({
     '@api': reducer,
     router: connectRouter(history),
@@ -112,11 +114,14 @@ const rootReducer = (history) =>
     backgroundTask: backgroundTaskReducers,
     marketingNotification,
     dashboardSettings,
+    marketplace,
   });
 
-export type RootState = ReturnType<ReturnType<typeof rootReducer>>;
+export type RootState = ReturnType<ReturnType<typeof rootReducer>> & {
+  establishment: EstablishmentState,
+};
 
-export default (history) => (state: RootState, action) => {
+export default (history: any) => (state: RootState, action: any) => {
   const newState = state;
   return rootReducer(history)(newState, action);
 };

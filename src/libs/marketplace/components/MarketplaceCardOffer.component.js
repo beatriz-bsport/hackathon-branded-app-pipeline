@@ -10,7 +10,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import moment from 'moment-timezone';
 import Level from '../../../components/category/Level.component';
 import { formatAsTime } from '../../../datetime';
-import { isOfferInThePast } from '../utils';
+import { isOfferInThePast } from '../utils.ts';
 
 import MarketplaceBookButton from './MarketplaceBookButton.component';
 

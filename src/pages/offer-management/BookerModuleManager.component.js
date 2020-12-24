@@ -14,8 +14,8 @@ import {
 } from '../../libs/consumer-payment-pack/selectors';
 import { fetchMember } from '../../libs/member/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
-import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions.ts';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions.ts';
 import BookingModuleManagerComponent from '../../libs/booking/components/booker-module/BookerModuleManager.component';
 
 export default compose(

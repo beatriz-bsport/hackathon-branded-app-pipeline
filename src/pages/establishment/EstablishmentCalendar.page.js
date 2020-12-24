@@ -9,7 +9,7 @@ import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
 
 import withTitle from '../../hocs/with-title.hoc';
-import { getEstablishment } from '../../libs/establishment/selectors';
+import { getEstablishment } from '../../libs/establishment/selectors.ts';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
@@ -39,7 +39,7 @@ import {
   fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
   fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
 } from '../../libs/private-service/actions.ts';
-import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
+import { fetchEstablishmentBulk } from '../../libs/establishment/actions.ts';
 
 type Props = {
   theme: CompanyTheme,

@@ -25,17 +25,17 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 
 import EstablishmentListItem from '../../libs/establishment/components/EstablishmentListItem.component';
 import EstablishmentDeleteDialog from '../../libs/establishment/components/EstablishmentDeleteDialog.component';
-import type { Establishment } from '../../libs/establishment/types';
+import { Establishment } from '../../libs/establishment/types.ts';
 import {
   getAvailableEstablishmentList,
   getDisabledEstablishmentList,
-} from '../../libs/establishment/selectors';
+} from '../../libs/establishment/selectors.ts';
 import {
   deleteEstablishment,
   restoreEstablishment as restoreEstablishmentAction,
   fetchEstablishments as fetchEstablishmentsAction,
-} from '../../libs/establishment/actions';
-import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api';
+} from '../../libs/establishment/actions.ts';
+import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api.ts';
 import { fetchFirstTimeNotifications as fetchNotifications } from '../../libs/booking/actions';
 import { withBookingNotifications } from '../../libs/booking/selectors';
 

@@ -1,5 +1,12 @@
 {
   "parser": "babel-eslint",
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -71,7 +78,8 @@
     "space-before-function-paren": ["off"],
     "react/prefer-stateless-function": "off",
     "react/jsx-one-expression-per-line": "off",
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", "tsx"]}]
+    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", "tsx"]}],
+    "linebreak-style": 0
   },
   "globals": {
     "snapshot": false,

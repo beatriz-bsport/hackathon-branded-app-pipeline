@@ -28,9 +28,9 @@ import {
   fetchMetaActivityBulk,
   fetchAll as fetchWorkhops,
 } from '../../libs/meta-activity/actions';
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import { getAllEstablishments } from '../../libs/establishment/selectors';
-import type { Establishment } from '../../libs/establishment/types';
+import { fetchEstablishments } from '../../libs/establishment/actions.ts';
+import { getAllEstablishments } from '../../libs/establishment/selectors.ts';
+import { Establishment } from '../../libs/establishment/types.ts';
 import {
   createOrUpdate as createOrUpdatePaymentPack,
   fetchOne as fetchPaymentPack,

@@ -51,12 +51,10 @@ type Props = {
 type State = {
   titleChart: string,
   ressourceIdentifierList: Array<string>,
-  ressourceIconList: { [string]: any },
   chartTypeList: Array<string>,
   chartIconList: { [string]: any },
   objectSelected: string,
   ressourceIdentifierSelected: string,
-  chartTypeSelected: string,
   aggregate: boolean,
 };
 
@@ -66,7 +64,6 @@ export class CustomChartForm extends React.Component<Props, State> {
     this.state = {
       titleChart: '',
       ressourceIdentifierList: [],
-      ressourceIconList: {},
       chartTypeList: [],
       chartIconList: {},
 
@@ -135,7 +132,7 @@ export class CustomChartForm extends React.Component<Props, State> {
 
   handleClick = () => {
     const { graphRessources } = this.props;
-    const { ressourceIdentifierSelected, chartTypeSelected } = this.state;
+    const { ressourceIdentifierSelected } = this.state;
 
     const { dateFiltersName, choices } = graphRessources[
       ressourceIdentifierSelected

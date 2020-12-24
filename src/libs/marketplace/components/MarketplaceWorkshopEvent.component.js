@@ -18,7 +18,7 @@ import type { TFunction } from 'react-i18next';
 import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
 
 import { formatAsDatetime, formatMinutes } from '../../../datetime';
-import { isOfferInThePast } from '../utils';
+import { isOfferInThePast } from '../utils.ts';
 
 type Props = {
   offer: Offer,

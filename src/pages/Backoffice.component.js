@@ -31,7 +31,7 @@ import { fetchAllPaymentPacks } from '../libs/payment-packs/actions';
 import { fetchShopItemAsManager as fetchShop } from '../libs/shop/actions/shopitem';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
 import { fetchOnSpotPaymentReport as fetchOnSpotPaymentReportAction } from '../libs/payment/actions';
-import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/associated-coach/actions';
+import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/associated-coach/actions.ts';
 // -----------------------------
 //
 import { getPermissions } from '../libs/role/selectors';
@@ -62,7 +62,7 @@ const MarketingRouter = asyncComponent(() =>
 const Dashboard = asyncComponent(() => import('./Dashboard.component'));
 
 const OfferFormPage = asyncComponent(() => import('./OfferFormPage.component'));
-const Settings = asyncComponent(() => import('./settings/Settings.component'));
+const Settings = asyncComponent(() => import('./settings/Settings.pages.tsx'));
 const OfferManagement = asyncComponent(() =>
   import('./offer-management/OfferManagement.page'),
 );

@@ -5,13 +5,13 @@ import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 import { Moment } from '../../i18n';
 
-import { getAllCoachesDict } from '../associated-coach/selectors';
+import { getAllCoachesDict } from '../associated-coach/selectors.ts';
 import {
   getMetaActivitiesDict,
   getWorkshopActivitiesDict,
   getMetaActivityAbstractDict,
 } from '../meta-activity/selectors';
-import { getAllEstablishmentsDict } from '../establishment/selectors';
+import { getAllEstablishmentsDict } from '../establishment/selectors.ts';
 import themeSelectors from '../theme/selectors.ts';
 
 const getState = (state: State) => state.offer;

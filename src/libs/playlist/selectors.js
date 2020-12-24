@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import memoize from 'memoize-one';
 import { getVideoData } from '../video/selectors';
-import { getAllCoachesDict as getCoachData } from '../associated-coach/selectors';
+import { getAllCoachesDict as getCoachData } from '../associated-coach/selectors.ts';
 
 const getPlaylistListIds = (state) => state.playlist.list.allIds;
 const getPlaylistData = (state) => state.playlist.byId;

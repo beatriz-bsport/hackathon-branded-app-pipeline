@@ -47,12 +47,12 @@ import TimeTable from '../../components/offer/TimeTable.component';
 import Calendar from '../../components/offer/Calendar.component';
 import { getPermissions } from '../../libs/role/selectors';
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors.ts';
 import { fetchAllActivities } from '../../libs/meta-activity/actions';
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
-import type { Establishment } from '../../libs/establishment/types';
+import { fetchEstablishments } from '../../libs/establishment/actions.ts';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors.ts';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions.ts';
+import { Establishment } from '../../libs/establishment/types.ts';
 import BookingStatisticsCard from '../../libs/booking/components/BookingStatisticsCard.component';
 
 import {

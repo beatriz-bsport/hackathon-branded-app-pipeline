@@ -22,7 +22,7 @@ import EmptyListItem from '../LoadingListItem.component';
 import { formatMinutes, formatAsDatetime, formatAsTime } from '../../datetime';
 import type { Offer } from '../../api/types';
 
-import { DEFAULT_AVATAR } from '../../libs/associated-coach/utils';
+import { DEFAULT_AVATAR } from '../../libs/associated-coach/utils.ts';
 
 const styles = (theme) => ({
   offerTitleText: {

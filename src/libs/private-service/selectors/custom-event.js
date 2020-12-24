@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
-import { getCoaches } from '../../associated-coach/selectors';
+import { getCoaches } from '../../associated-coach/selectors.ts';
 
 const periodFilterExtractor = (state, periodFilter) => periodFilter;
 const _getCustomEventData = (state) => state.privateService.customEvent.byId;

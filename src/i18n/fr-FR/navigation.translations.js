@@ -60,6 +60,7 @@ exports.default = {
     pass: 'Carte de cours',
     settings: {
       general: 'Général',
+      marketplaceSettings: 'Paramètres marketplace',
       broadcast: 'Visioconférence',
       notificationRule: 'Emails transactionnels',
       paymentRules: 'Règles de rémunération',

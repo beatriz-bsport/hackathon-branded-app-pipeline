@@ -32,7 +32,6 @@ export function fetchMarketingNotificationList(
 
       const data = [...response_custom.data];
       dispatch(marketingNotificationListActions.success(data));
-      dispatch(marketingNotificationListActions.error(null));
       if (options && options.onSuccess) {
         options.onSuccess(data);
       }
@@ -65,7 +64,6 @@ export function deleteMarketingNotification(
     try {
       await deleteMarketingNotificationAPI(id);
       dispatch(deleteMarketingNotificationActions.success(id));
-      dispatch(deleteMarketingNotificationActions.error(null));
       if (options && options.onSuccess) {
         options.onSuccess(id);
       }

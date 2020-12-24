@@ -56,7 +56,7 @@ import {
 } from '../../libs/payment-packs/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
+import { fetchEstablishmentBulk } from '../../libs/establishment/actions.ts';
 import { fetchMetaActivityBulk } from '../../libs/meta-activity/actions';
 
 import type {

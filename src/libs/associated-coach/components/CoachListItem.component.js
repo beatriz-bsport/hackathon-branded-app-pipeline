@@ -17,7 +17,7 @@ import CallIcon from '@material-ui/icons/Call';
 import type { CoachDetailed as Coach } from '../../../api/types';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 
-import { DEFAULT_AVATAR } from '../utils';
+import { DEFAULT_AVATAR } from '../utils.ts';
 
 type Props = {
   t: TFunction,

@@ -1,7 +1,7 @@
 // @flow
 
 import Immutable from 'seamless-immutable';
-import { handleActions } from 'redux-actions';
+import {createAction, handleActions} from 'redux-actions';
 
 import {
   availabilitySlotListActions,

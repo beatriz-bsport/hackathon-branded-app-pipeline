@@ -14,7 +14,7 @@ import {
   fetchFilteredMembers,
   fetchMemberBulk as fetchMemberBulkAction,
 } from '../../libs/member/actions';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors.ts';
 import { getPrivateServiceById } from '../../libs/private-service/selectors/private-service.ts';
 import {
   getPrivateBookingListFiltered,

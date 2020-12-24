@@ -24,7 +24,7 @@ import {
   fetchMoreVideo as fetchMoreVideoAction,
   fetchVideoList as fetchVideoListAction,
 } from '../../libs/video/actions';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions.ts';
 import { getMarketplaceRoute } from '../marketplace/routing-utils';
 import VideoItemList from '../../libs/video/components/VideoItemList.component';
 

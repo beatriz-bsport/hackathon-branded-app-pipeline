@@ -89,16 +89,20 @@ const PrivateServiceSelectorPage: React.FC<Props> = (props) => {
 
                   <div className={classes.tagsContainer}>
                     <div className={classes.tagsContainer2}>
-                      {uniq(ps.slots_duration_minute).map((duration) => (
-                        <Chip
-                          size="small"
-                          key={duration}
-                          className={classes.tagItem}
-                          avatar={<AccessTimeIcon fontSize="small" />}
-                          label={duration + t('datetime:shortMinuteIdentifier')}
-                          variant={'outlined'}
-                        />
-                      ))}
+                      {uniq(ps.slots_duration_minute).map(
+                        (duration: number) => (
+                          <Chip
+                            size="small"
+                            key={duration}
+                            className={classes.tagItem}
+                            avatar={<AccessTimeIcon fontSize="small" />}
+                            label={
+                              duration + t('datetime:shortMinuteIdentifier')
+                            }
+                            variant={'outlined'}
+                          />
+                        ),
+                      )}
 
                       {ps.is_home_service && (
                         <Chip

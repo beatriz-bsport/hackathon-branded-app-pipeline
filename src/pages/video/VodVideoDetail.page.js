@@ -12,7 +12,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions.ts';
 import VideoPlayerFull from '../../libs/video/components/VideoPlayerFull.component';
 import VodGenericPaginatedList from '../../libs/video/components/VodGenericPaginatedList.component';
 import VodVideoAnalytics from '../../libs/video/components/VodVideoAnalytics.component';

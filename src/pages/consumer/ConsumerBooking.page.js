@@ -26,7 +26,7 @@ import ConsumerBookingPage from '../../libs/consumer-space/components/ConsumerBo
 import type { Membership } from '../../libs/membership/types';
 import type { Booking } from '../../libs/booking/types';
 import type { PrivateBooking } from '../../libs/private-service/types.ts';
-import { urlToMarketplace } from '../../libs/marketplace/utils';
+import { urlToMarketplace } from '../../libs/marketplace/utils.ts';
 
 type Props = {
   timezone: string,

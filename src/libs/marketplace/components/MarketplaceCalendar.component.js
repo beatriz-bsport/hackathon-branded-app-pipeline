@@ -119,23 +119,13 @@ export class MarketplaceCalendar extends PureComponent<Props> {
           <CoachSelector
             coaches={coaches}
             selectedCoaches={filters.coaches}
-            selectOption={(ev) =>
-              setFilters({
-                ...filters,
-                coaches: ev.map((e) => e.value),
-              })
-            }
+            selectOption={(ev) => setFilters('coaches')(ev.map((e) => e.value))}
           />
         </Grid>
         <Grid item xs={12} md={6} className={classes.selector}>
           <LevelSelector
             selectedLevels={filters.levels}
-            selectOption={(ev) =>
-              setFilters({
-                ...filters,
-                levels: ev.map((e) => e.value),
-              })
-            }
+            selectOption={(ev) => setFilters('levels')(ev.map((e) => e.value))}
           />
         </Grid>
         <Grid item xs={12} md={6} className={classes.selector}>
@@ -144,10 +134,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
             establishments={establishments}
             selectedEstablishments={filters.establishments}
             selectOption={(ev) => {
-              setFilters({
-                ...filters,
-                establishments: ev.map((e) => e.value),
-              });
+              setFilters('establishments')(ev.map((e) => e.value));
             }}
           />
         </Grid>
@@ -156,12 +143,9 @@ export class MarketplaceCalendar extends PureComponent<Props> {
             metaActivities={metaActivities.filter(
               (ma) => ma.customer_enabled && !ma.is_workshop,
             )}
-            selectedMetaActivities={filters.metaActivities}
+            selectedMetaActivities={filters.activity__in}
             selectOption={(ev) =>
-              setFilters({
-                ...filters,
-                metaActivities: ev.map((e) => e.value),
-              })
+              setFilters('activity__in')(ev.map((e) => e.value))
             }
           />
         </Grid>

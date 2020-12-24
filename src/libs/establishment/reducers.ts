@@ -1,5 +1,3 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
@@ -18,9 +16,10 @@ import {
   resetAction,
   associatedEstablishmentListActions,
   establishmentBulkRetrieveActions,
-} from './actions';
+} from './actions.ts';
+import { EstablishmentState } from './types.ts';
 
-const initialState = Immutable({
+const initialState = Immutable<EstablishmentState>({
   byId: {},
   allIds: [],
   loading: false,
@@ -143,4 +142,4 @@ export default handleActions(
     },
   },
   initialState,
-);
+) as () => EstablishmentState;

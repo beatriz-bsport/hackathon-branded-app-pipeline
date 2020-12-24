@@ -22,16 +22,16 @@ import {
 } from '../../libs/private-service/selectors/private-service.ts';
 import { getResourceSlotsExistState } from '../../libs/private-service/selectors/availability-slot.ts';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-import { getAllEstablishmentsWithAssociatedId } from '../../libs/establishment/selectors';
+import { getAllEstablishmentsWithAssociatedId } from '../../libs/establishment/selectors.ts';
 import {
   getAllCoaches,
   getActiveCoaches,
-} from '../../libs/associated-coach/selectors';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
+} from '../../libs/associated-coach/selectors.ts';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions.ts';
 import {
   fetchEstablishments,
   fetchAssociatedEstablishments,
-} from '../../libs/establishment/actions';
+} from '../../libs/establishment/actions.ts';
 import {
   fetchAllPrivateServices,
   fetchAllPrivateSlots,

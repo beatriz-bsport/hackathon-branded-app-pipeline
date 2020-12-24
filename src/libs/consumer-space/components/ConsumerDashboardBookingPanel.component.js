@@ -16,7 +16,7 @@ import PrivateBookingConsumerItem from '../../private-service/components/booking
 import type { Booking } from '../../booking/types';
 import type { Membership } from '../../membership/types';
 import type { PrivateBooking } from '../../private-service/types.ts';
-import { urlToMarketplace } from '../../marketplace/utils';
+import { urlToMarketplace } from '../../marketplace/utils.ts';
 
 type Props = {
   t: TFunction,

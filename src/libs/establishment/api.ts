@@ -1,4 +1,3 @@
-// @flow
 import {
   API_URI,
   API_V1_URI,
@@ -9,7 +8,7 @@ import {
   buildUrlParams,
 } from '../../http.ts';
 
-export async function addEstablishment(data: *) {
+export async function addEstablishment(data: any) {
   return postAuth(`${API_URI}/saas/establishments/add`, data);
 }
 
@@ -17,7 +16,7 @@ export async function restoreEstablishment(id: number) {
   return putAuth(`${API_V1_URI}/establishment/${id}/restore/`);
 }
 
-export async function updateEstablishment(data: *) {
+export async function updateEstablishment(data: any) {
   return putAuth(`${API_URI}/saas/establishments/${data.get('id')}`, data);
 }
 

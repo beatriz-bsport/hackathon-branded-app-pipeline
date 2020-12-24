@@ -1,11 +1,9 @@
-// @flow
-
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
 import Immutable from 'seamless-immutable';
-import type { State } from '../../state/types.ts';
-import type { CoachPerformanceContainer } from './types';
+import { Coach, CoachPerformanceContainer } from './types';
+import { RootState } from '../../reducers';
 
 const EMPTY_PERFORMANCE: CoachPerformanceContainer = Immutable({
   loading: false,
@@ -13,16 +11,16 @@ const EMPTY_PERFORMANCE: CoachPerformanceContainer = Immutable({
   error: null,
 });
 
-export const getAllCoachesDict = (state: State): Array<Coach> =>
+export const getAllCoachesDict = (state: RootState): { [key: string]: Coach } =>
   state.coach.byId;
-export const getAllCoachesId = (state: State): Array<Coach> =>
+export const getAllCoachesId = (state: RootState): Array<number> =>
   state.coach.allIds;
 export const getCoaches = createSelector(
   getAllCoachesDict,
-  (coach) => Immutable(Object.values(coach)),
+  (coach) => Object.values(coach),
 );
 
-export const getCoachesList = (state: State): Array<Coach> =>
+export const getCoachesList = (state: RootState): Array<Coach> =>
   state.coach.allIds;
 
 export const getAllCoaches = createSelector(
@@ -40,7 +38,7 @@ export const getInactiveCoaches = createSelector(
   (coaches) => coaches.filter((c) => c.disabled),
 );
 
-export const getCoach = (state: State, id: number): Coach =>
+export const getCoach = (state: RootState, id: number): Coach =>
   state.coach.byId[id];
 
 export const getCoachWithPaymentRule = createSelector(
@@ -49,25 +47,25 @@ export const getCoachWithPaymentRule = createSelector(
 );
 
 export const associatedCoachSelector = {
-  get: (state: State, coachId: number) =>
-    Immutable(Object.values(getAllCoaches(state))).find(
+  get: (state: RootState, coachId: number) =>
+    Object.values(getAllCoaches(state)).find(
       (co) => co.associated_coach_id === coachId,
     ),
-  getActive: (state: State) =>
+  getActive: (state: RootState) =>
     Object.values(state.coach.byId).filter((c) => !c.disabled),
-  withPaymentRule: (state: State) =>
+  withPaymentRule: (state: RootState) =>
     Object.values(state.coach.byId).filter(
       (x) => !!x.default_payment_rule_id && !x.disabled,
     ),
 };
 
-export const coachSelector = (state: State, coachId: number) =>
+export const coachSelector = (state: RootState, coachId: number) =>
   state.coach.byId[coachId];
 
-const getCoachPerformanceState = (state: State) => state.coach.performance;
+const getCoachPerformanceState = (state: RootState) => state.coach.performance;
 
 const getCoachPerformanceStateById = (
-  state: State,
+  state: RootState,
   associatedCoachId: number,
 ) => {
   const performanceContainer = getCoachPerformanceState(state)[

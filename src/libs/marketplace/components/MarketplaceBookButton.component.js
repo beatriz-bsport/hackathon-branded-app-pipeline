@@ -9,7 +9,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import { colors } from '@bsport/common/lib/colors';
-import { isOfferInThePast, isOfferBookableYet } from '../utils';
+import { isOfferInThePast, isOfferBookableYet } from '../utils.ts';
 
 type Props = {
   onClickBook: () => void,

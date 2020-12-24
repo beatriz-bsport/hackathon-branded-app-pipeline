@@ -18,7 +18,7 @@ import memoize from 'memoize-one';
 
 import { DATE_FORMAT } from '../../../datetime';
 
-import type { Offer } from '../types';
+import type { Offer } from '../types.ts';
 import OfferListItemConsumer from '../../offer/components/OfferListItemConsumer.component';
 import MarketplaceBookButton from './MarketplaceBookButton.component';
 import { isOfferInThePast } from '../../offer/utils';

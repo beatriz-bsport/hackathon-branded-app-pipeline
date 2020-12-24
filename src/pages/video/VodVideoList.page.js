@@ -13,8 +13,8 @@ import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { mapFormData } from '../form.utils';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
-import { getAllCoaches } from '../../libs/associated-coach/selectors';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions.ts';
+import { getAllCoaches } from '../../libs/associated-coach/selectors.ts';
 
 import {
   getVideoList,

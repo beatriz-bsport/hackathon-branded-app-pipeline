@@ -730,6 +730,7 @@
     },
     "marketplace": {
       "vod": "VOD",
+      "playlist": "Playlist",
       "substitute": "Remplaçant",
       "substituted": "Absent",
       "teacher": "Professeur",
@@ -2532,6 +2533,37 @@
         "helperForm": "Choisissez une smartlist de bsport et liez la à l'une de vos listes sur ActiveCampaign",
         "noList": "LISTE INTROUVABLE",
         "listItemText": "Envoyer les membres de la smartlist <1>{{smartlist}}</2> à la liste ActiveCampaign <3>{{list}}</4>"
+      }
+    },
+    "marketplaceSettings": {
+      "addButton": "Ajouter un onglet",
+      "saveButton": "Sauvegarder",
+      "preview": "Aperçu",
+      "componentType": {
+        "calendar": "Calendrier",
+        "workshop": "Ateliers",
+        "privateService": "Sur rendez-vous",
+        "pass": "Carte de cours",
+        "vod": "VOD",
+        "subscription": "Abonnement",
+        "shop": "Magasin",
+        "playlist": "Playlist"
+      },
+      "createDialog": {
+        "selectComponent": "Choisir un composant",
+        "selectCoach": "Choisir un coach",
+        "selectEstablishment": "Choisir un établissement",
+        "selectActivity": "Choisir une activité",
+        "selectPrivateService": "Choisir un service",
+        "selectPlaylist": "Choisir une playlist",
+        "inputTitle": "Nom de l'onglet",
+        "cancel": "Annuler",
+        "submit": "Valider",
+        "noComponentTypeError": "Veuillez sélectionner un composant",
+        "noTitleError": "Veuillez saisir un titre",
+        "noServiceError": "Veuillez sélectionner un service",
+        "noPlaylistError": "Veuillez sélectionner une playlist",
+        "dialogTitle": "Edition onglet"
       }
     }
   },
@@ -4945,6 +4977,7 @@
       "pass": "Carte de cours",
       "settings": {
         "general": "Général",
+        "marketplaceSettings": "Paramètres marketplace",
         "broadcast": "Visioconférence",
         "notificationRule": "Emails transactionnels",
         "paymentRules": "Règles de rémunération",

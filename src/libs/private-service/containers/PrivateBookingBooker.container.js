@@ -30,8 +30,8 @@ import {
 } from '../actions.ts';
 import { getAvailablePrivateServices } from '../selectors/private-service.ts';
 
-import { fetchAssociatedEstablishmentBulk } from '../../establishment/actions';
-import { fetchAssociatedCoachBulk } from '../../associated-coach/actions';
+import { fetchAssociatedEstablishmentBulk } from '../../establishment/actions.ts';
+import { fetchAssociatedCoachBulk } from '../../associated-coach/actions.ts';
 
 import SlotSearcherParams from '../components/slot-searcher/SlotSearcherParams.component';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';

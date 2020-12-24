@@ -6,7 +6,7 @@ import memoize from 'memoize-one';
 
 import type { State } from '../../state/types.ts';
 import { getSCTs } from '../category/selectors';
-import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
+import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors.ts';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
 
 export const getPaymentPackById = (state: State): Array<PaymentPack> =>

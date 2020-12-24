@@ -27,13 +27,13 @@ import {
   getPrivateServiceGroupList,
 } from '../../libs/private-service/selectors/private-service.ts';
 
-import { getAllEstablishmentsWithAssociatedId } from '../../libs/establishment/selectors';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
+import { getAllEstablishmentsWithAssociatedId } from '../../libs/establishment/selectors.ts';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors.ts';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions.ts';
 import {
   fetchEstablishments,
   fetchAssociatedEstablishments,
-} from '../../libs/establishment/actions';
+} from '../../libs/establishment/actions.ts';
 import {
   fetchAllPrivateServices as fetchAllPrivateServicesAction,
   fetchPrivateServiceGroupList as fetchPrivateServiceGroupListAction,

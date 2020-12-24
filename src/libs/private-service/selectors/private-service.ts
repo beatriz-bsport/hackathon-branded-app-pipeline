@@ -5,11 +5,11 @@ import { createSelector } from 'reselect';
 import { State } from '../../../state/types.ts';
 
 import { PrivateService } from '../types';
-import { getAllCoachesDict } from '../../associated-coach/selectors';
+import { getAllCoachesDict } from '../../associated-coach/selectors.ts';
 import {
   getAllEstablishmentsWithAssociatedId,
   getAllEstablishmentsDict,
-} from '../../establishment/selectors';
+} from '../../establishment/selectors.ts';
 import { getAllPrivateSlotsDict } from './private-slot';
 import { RootState } from '../../../reducers';
 import { withPrivateBookingNotification } from '../../marketing/selectors';
@@ -19,7 +19,7 @@ export const _getPrivateServicesById: (
 ) => { [key: string]: PrivateService } = (state: RootState) =>
   state.privateService.privateService.byId;
 
-export const _getPrivateServicesListId: (RootState) => Array<number> = (
+export const _getPrivateServicesListId: (state: RootState) => Array<number> = (
   state,
 ) => state.privateService.privateService.allIds;
 
@@ -41,7 +41,7 @@ export const _getPrivateServicesMarketplace: (
 export const getPrivateService = (state: RootState, id: string) =>
   _getPrivateServicesById(state)[id];
 
-export const getPrivateServices: (state: State) => Array<any> = createSelector(
+export const getPrivateServices = createSelector(
   [
     _getPrivateServices,
     getAllCoachesDict,

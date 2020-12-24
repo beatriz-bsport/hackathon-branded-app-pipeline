@@ -4,7 +4,7 @@ import lodash from 'lodash';
 
 import type { State } from '../../state/types.ts';
 
-import { getCoach } from '../associated-coach/selectors';
+import { getCoach } from '../associated-coach/selectors.ts';
 
 import type { PaymentRule } from './types';
 

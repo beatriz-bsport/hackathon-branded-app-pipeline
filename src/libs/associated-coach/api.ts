@@ -1,5 +1,3 @@
-// @flow
-
 import {
   API_URI,
   API_V1_URI,
@@ -24,7 +22,9 @@ export async function fetchAssociatedCoachPerformance(
   );
 }
 
-export async function fetchAssociatedCoaches(params: ?{ [string]: boolean }) {
+export async function fetchAssociatedCoaches(params?: {
+  [key: string]: boolean,
+}) {
   return getAuth(`${API_URI}/saas/associated-coach/${buildUrlParams(params)}`);
 }
 
@@ -33,11 +33,11 @@ export async function fetchAssociatedCoach(id: number) {
 }
 
 // -----------------------
-export async function addCoach(data: *) {
+export async function addCoach(data: any) {
   return postAuth(`${API_V1_URI}/coach/`, data);
 }
 
-export async function updateCoach(data: *) {
+export async function updateCoach(data: any) {
   return putAuth(`${API_V1_URI}/coach/${data.get('id')}/`, data);
 }
 

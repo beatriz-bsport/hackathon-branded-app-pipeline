@@ -16,13 +16,13 @@ import {
 } from '../libs/private-service/selectors/private-booking';
 import { fetchAllOffers as fetchAllOffersAction } from '../libs/offer/actions';
 import withTitle from '../hocs/with-title.hoc';
-import { getAllPageEstablishments } from '../libs/establishment/selectors';
-import { fetchEstablishments } from '../libs/establishment/actions';
-import { getActiveCoaches } from '../libs/associated-coach/selectors';
+import { getAllPageEstablishments } from '../libs/establishment/selectors.ts';
+import { fetchEstablishments } from '../libs/establishment/actions.ts';
+import { getActiveCoaches } from '../libs/associated-coach/selectors.ts';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/meta-activity/actions';
 import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
 import { fetchMemberBulk as fetchMemberBulkAction } from '../libs/member/actions';
-import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
+import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions.ts';
 
 import { getCustomEventList } from '../libs/private-service/selectors/custom-event';
 import { getPermissions } from '../libs/role/selectors';

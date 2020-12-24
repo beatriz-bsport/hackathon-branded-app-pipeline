@@ -16,7 +16,7 @@ import MetaActivityListItem from '../../../meta-activity/components/MetaActivity
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import Selector from '../MultiSelector.component';
 import CalendarPicker from '../CalendarPicker.component';
-import type { Establishment } from '../../../establishment/types';
+import { Establishment } from '../../../establishment/types.ts';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 

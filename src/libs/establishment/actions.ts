@@ -1,5 +1,3 @@
-// @flow
-
 import * as Sentry from '@sentry/browser';
 
 import { push } from 'connected-react-router';
@@ -15,14 +13,15 @@ import {
   deleteEstablishment as deleteEstablishmentAPI,
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAPI,
   restoreEstablishment as restoreEstablishmentAPI,
-} from './api';
+} from './api.ts';
 import { API_URI, postAuth, deleteAuth } from '../../http.ts';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
-import type { Dispatch, OptionCallback } from '../../state/types.ts';
-
 import { createDictionnaryById, createIdList } from '../../actions/utils';
-import { getFreshEstablishmentIds } from './selectors';
+import { getFreshEstablishmentIds } from './selectors.ts';
+import { RootState } from '../../reducers';
+import { OptionCallback } from '../../state/types';
+import { ThunkDispatch } from 'redux-thunk';
 
 export const deleteActions = {
   isLoading: createAction('ESTABLISHMENT/DELETE/IS_LOADING'),
@@ -30,11 +29,8 @@ export const deleteActions = {
   success: createAction('ESTABLISHMENT/DELETE/SUCCESS'),
 };
 
-export function deleteEstablishment(
-  id: number,
-  options: ?{ onSuccess: () => void, onError: ?() => void },
-) {
-  return async (dispatch: Dispatch) => {
+export function deleteEstablishment(id: number, options?: OptionCallback) {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(deleteActions.isLoading(true));
     dispatch(deleteActions.error(null));
     try {
@@ -55,7 +51,7 @@ export function deleteEstablishment(
 export const resetAction = createAction('ESTABLISHMENT/RESET/SUCCESS');
 
 export function resetEstablishments() {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(resetAction(true));
   };
 }
@@ -66,8 +62,8 @@ export const restoreActions = {
   success: createAction('ESTABLISHMENT/RESTORE/IS_LOADING'),
 };
 
-export function restoreEstablishment(id: number, options: OptionCallback) {
-  return async (dispatch: Dispatch) => {
+export function restoreEstablishment(id: number, options?: OptionCallback) {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(restoreActions.isLoading(true));
     try {
       const response = await restoreEstablishmentAPI(id);
@@ -88,8 +84,8 @@ export const listIsLoading = createAction('ESTABLISHMENTS/LIST/IS_LOADING');
 export const listLoaded = createAction('ESTABLISHMENTS/LIST/LOADED');
 export const listError = createAction('ESTABLISHMENTS/LIST/ERROR');
 
-export function fetchEstablishments(params: any, options: OptionCallback) {
-  return async (dispatch: Dispatch) => {
+export function fetchEstablishments(params?: any, options?: OptionCallback) {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(listIsLoading(true));
     dispatch(listError(null));
 
@@ -122,7 +118,7 @@ export const upsertLoaded = createAction('ESTABLISHMENTS/UPSERT/LOADED');
 export const upsertError = createAction('ESTABLISHMENTS/UPSERT/ERROR');
 
 export function createOrUpdateEstablishment(establishmentData: FormData) {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(upsertIsLoading(true));
 
     try {
@@ -153,7 +149,7 @@ export function createOrUpdateEstablishment(establishmentData: FormData) {
 export const actionStartUpdate = createAction('ESTABLISHMENTS/UPDATE/START');
 
 export function startUpdate(establishment: { id: number }) {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(actionStartUpdate(establishment));
     dispatch(push(`/establishments/edit/${establishment.id}`));
   };
@@ -166,7 +162,7 @@ export const addImage = {
 };
 
 export function addImageToEstablishment(id: number, image: File) {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(addImage.isLoading({ id, loading: true }));
     dispatch(addImage.error(null));
 
@@ -193,7 +189,7 @@ export const removeImage = {
 };
 
 export function removeImageFromEstablishment(id: number, imageId: number) {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(removeImage.isLoading(true));
     dispatch(removeImage.error(null));
 
@@ -215,7 +211,7 @@ export const detailActions = {
 };
 
 export function fetchEstablishmentDetail(id: number) {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(detailActions.isLoading(true));
     dispatch(detailActions.error(null));
 
@@ -238,7 +234,7 @@ export const associatedEstablishmentListActions = {
 };
 
 export function fetchAssociatedEstablishments() {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(associatedEstablishmentListActions.isLoading(true));
     dispatch(associatedEstablishmentListActions.error(null));
 
@@ -261,7 +257,7 @@ export const establishmentBulkRetrieveActions = {
 };
 
 function fetchEstablishmentBulkBase(params: any = {}, options: OptionCallback) {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(establishmentBulkRetrieveActions.isLoading(true));
     dispatch(establishmentBulkRetrieveActions.error(null));
     try {
@@ -283,7 +279,10 @@ export const fetchEstablishmentBulk = (
   ids: Array<number>,
   options: OptionCallback,
 ) => {
-  return async (dispatch: Dispatch, getState: () => State) => {
+  return async (
+    dispatch: ThunkDispatch<any, any, any>,
+    getState: () => RootState,
+  ) => {
     const freshEstablishmentList = getFreshEstablishmentIds(getState());
     const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
       (id) => !freshEstablishmentList.includes(id),
@@ -299,7 +298,7 @@ export const fetchAssociatedEstablishmentBulk = (
   ids: Array<number>,
   options: OptionCallback,
 ) => {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     const ids_uniq = uniq(ids.filter((id) => !!id));
     if (ids_uniq.length === 0) {
       return;
@@ -323,7 +322,7 @@ export function fetchEstablishmentFavorite(
   company: number,
   options: OptionCallback,
 ) {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(favoriteActions.isLoading(true));
     dispatch(favoriteActions.error(null));
     try {

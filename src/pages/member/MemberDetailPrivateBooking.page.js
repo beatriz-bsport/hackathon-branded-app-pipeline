@@ -18,7 +18,7 @@ import PaginatedListStateful from '../../components/PaginatedListStateful.compon
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions.ts';
 import {
   deletePrivateBooking as deletePrivateBookingAction,
   disablePrivateBooking as disablePrivateBookingAction,
@@ -30,7 +30,7 @@ import {
   attachCoachToPrivateBooking as attachCoachAction,
   restorePrivateBooking,
 } from '../../libs/private-service/actions.ts';
-import { getCoaches } from '../../libs/associated-coach/selectors';
+import { getCoaches } from '../../libs/associated-coach/selectors.ts';
 import {
   getPrivateBookingListBase,
   getPrivateBooking,

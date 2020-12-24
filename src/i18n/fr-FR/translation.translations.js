@@ -894,6 +894,7 @@ exports.default = {
   },
   marketplace: {
     vod: 'VOD',
+    playlist: 'Playlist',
     substitute: 'Remplaçant',
     substituted: 'Absent',
     teacher: 'Professeur',

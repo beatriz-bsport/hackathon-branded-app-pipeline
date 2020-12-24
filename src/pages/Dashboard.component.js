@@ -363,18 +363,19 @@ export default compose(
       graphActionByIdentifier,
     }) => (graph: Graph) => {
       const { timeSettings } = graphRessources[graph.ressourceIdentifier];
-      let params = {
+      const params = {
         ...graph.baseFilters,
         ...chartFilterByIdentifier[graph.name],
       };
       if (timeSettings !== 'none') {
-        params = {
-          ...params,
-          [graphRessources[graph.ressourceIdentifier].dateFiltersName.start]:
-            dateRangeByIdentifier[graph.name].start,
-          [graphRessources[graph.ressourceIdentifier].dateFiltersName.end]:
-            dateRangeByIdentifier[graph.name].end,
-        };
+        if (!graph.aggregate) {
+          params[
+            graphRessources[graph.ressourceIdentifier].dateFiltersName.start
+          ] = dateRangeByIdentifier[graph.name].start;
+          params[
+            graphRessources[graph.ressourceIdentifier].dateFiltersName.end
+          ] = dateRangeByIdentifier[graph.name].end;
+        }
       }
       graphActionByIdentifier[graph.name](graph.name, params);
     },

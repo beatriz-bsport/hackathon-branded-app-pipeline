@@ -213,3 +213,17 @@ export function fetchInvoiceItemQualitative(
     );
   };
 }
+
+export function fetchBookingTemporal(
+  identifier: string,
+  params: any,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    fetchStatistics(
+      dispatch,
+      identifier,
+      params,
+      api.stats.fetchBookingStatistics,
+    );
+  };
+}

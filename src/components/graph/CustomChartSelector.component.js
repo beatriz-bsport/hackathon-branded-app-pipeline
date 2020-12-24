@@ -14,7 +14,6 @@ import Menu from '@material-ui/core/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
-
 type Props = {
   t: TFunction,
   classes: Object,
@@ -46,16 +45,17 @@ export class CustomChartSelector extends React.Component<Props> {
             }}
           >
             {Icon ? (
-                <ListItemIcon>
-                  <Icon color="primary" />
-                </ListItemIcon>
-              ) : null}
+              <ListItemIcon>
+                <Icon color="primary" />
+              </ListItemIcon>
+            ) : null}
             <Typography variant="inherit">
               {this.props.t(`customChart.form.selector.${item}`)}
             </Typography>
           </ListItem>
         }
-      />);
+      />
+    );
   };
 
   render() {
@@ -67,25 +67,29 @@ export class CustomChartSelector extends React.Component<Props> {
           className={classes.button}
         >
           <SearchIcon className={classes.leftIcon} />
-            {!itemList ? <CircularProgress /> : (
-              <>
-                {itemSelected ? (
-                  <div
-                    style={{
+          {!itemList ? (
+            <CircularProgress />
+          ) : (
+            <>
+              {itemSelected ? (
+                <div
+                  style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'flex-start',
-                    }}
-                  >
-                    <Typography variant="body" color="textSecondary" align="left">
-                      {t(`customChart.form.selector.${itemSelected}`)}
-                    </Typography>
-                  </div>) : (
-                    <Typography color="textSecondary">
-                      {t('customChart.form.selector.object.placeholder')}
-                    </Typography>)}
-              </>
-            )}
+                  }}
+                >
+                  <Typography variant="body" color="textSecondary" align="left">
+                    {t(`customChart.form.selector.${itemSelected}`)}
+                  </Typography>
+                </div>
+              ) : (
+                <Typography color="textSecondary">
+                  {t('customChart.form.selector.object.placeholder')}
+                </Typography>
+              )}
+            </>
+          )}
         </ButtonBase>
         <Typography color="textSecondary" variant="caption">
           {t('customChart.form.selector.object.helperText')}
@@ -96,9 +100,7 @@ export class CustomChartSelector extends React.Component<Props> {
           onClose={() => this.props.setMenuAnchor(null)}
         >
           {itemList && itemList.length ? (
-            itemList.map((item) => (
-                this.renderItemList(item)
-              ))
+            itemList.map((item) => this.renderItemList(item))
           ) : (
             <ListItem dense>
               {this.props.t('customChart.form.selector.object.isEmpty')}

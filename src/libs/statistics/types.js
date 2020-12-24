@@ -9,4 +9,5 @@ export type Graph = {
   dateFiltersName: { start: string, end: string },
   dateRange: { start: string, end: string, kind: string },
   dataFilters?: { [string]: string },
+  aggregate: boolean | undefined,
 };

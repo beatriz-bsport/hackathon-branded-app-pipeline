@@ -3,6 +3,7 @@
 import { bindActionCreators } from 'redux';
 import Immutable from 'seamless-immutable';
 import type { Moment } from 'moment-timezone';
+import moment from 'moment-timezone';
 import { discretizeByAndFillMissing as discretizeAndFillMissing } from '../../state/stats/utils';
 import type { State, Dispatch } from '../../state/types.ts';
 import type { Graph } from './types';
@@ -25,6 +26,7 @@ export const getGraphData = (
         state,
         graph.name,
         dateRangeByIdentifier[graph.name],
+        graph.aggregate,
       );
     } else {
       data[graph.name] = selector(state, graph.name);
@@ -49,6 +51,7 @@ export const getStatisticTemporal = (
   state: State,
   identifier: string,
   range: { start: Moment, end: Moment },
+  aggregate?: boolean,
 ) => {
   let data = [];
   let loading = true;
@@ -60,7 +63,31 @@ export const getStatisticTemporal = (
     data = Immutable(state.stats.stats[identifier].data);
     loading = state.stats.stats[identifier].isLoading;
   }
+  let countBeforeSelectedDate = 0;
+
+  if (aggregate) {
+    const _data = data.filter((d) => {
+      if (moment(d.d).isSameOrAfter(moment(range.start))) {
+        return true;
+      }
+      countBeforeSelectedDate += d.v;
+      return false;
+    });
+
+    data = _data;
+  }
+
   const processedData = discretizeAndFillMissing(data, range.start, range.end);
+  if (aggregate) {
+    let v = countBeforeSelectedDate;
+    const aggregatedData = [];
+    for (let i = 0; i < processedData.length; i += 1) {
+      aggregatedData.push({ ...processedData[i], v: processedData[i].v + v });
+      v += processedData[i].v;
+    }
+    return { data: aggregatedData, loading };
+  }
+
   return { data: processedData, loading };
 };
 

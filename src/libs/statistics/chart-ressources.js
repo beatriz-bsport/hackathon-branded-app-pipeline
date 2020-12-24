@@ -16,6 +16,7 @@ import {
   fetchPaymentStatistics as fetchPaymentStatisticsAction,
   fetchBookingQualitative as fetchBookingQualitativeAction,
   fetchInvoiceItemQualitative as fetchInvoiceItemQualitativeAction,
+  fetchBookingTemporal as fetchBookingTemporalAction,
 } from '../../actions/stats.actions';
 
 import { getStatisticTemporal, getStatisticTemporalGrid } from './selectors';
@@ -52,6 +53,7 @@ export const graphRessources = {
       aggregate_period: ['day'],
     },
     defaultRangeKind: 'current_year',
+    allowAggregate: true,
   },
   temporalTimeslotBooking: {
     action: fetchBookingTimeslotStatisticsAction,
@@ -93,6 +95,8 @@ export const graphRessources = {
     options: {
       invoice__plannedinvoice__isnull: false,
     },
+    allowAggregate: true,
+
     defaultRangeKind: 'current_year',
   },
   temporalPlannedInvoice: {
@@ -117,6 +121,30 @@ export const graphRessources = {
     },
     defaultRangeKind: 'current_year',
   },
+  temporalBooking: {
+    action: fetchBookingTemporalAction,
+    selector: getStatisticTemporal,
+    object: { type: 'booking', icon: ScheduleIcon },
+    chartComponents: { bar: TemporalBarChart, area: TemporalAreaChart },
+    iconResource: MultilineChartIcon,
+    filtersComponent: BookingFilters,
+    timeSettings: 'range',
+    dateFiltersName: {
+      start: 'min_date',
+      end: 'max_date',
+    },
+    choices: {
+      date_field: ['offer__date_start'],
+      aggregate_function: ['count'],
+      aggregate_field: {
+        count: ['pk'],
+      },
+      aggregate_period: ['day'],
+    },
+    allowAggregate: true,
+
+    defaultRangeKind: 'current_year',
+  },
   qualitativeBooking: {
     action: fetchBookingQualitativeAction,
     selector: getStatisticTemporalGrid,
@@ -136,6 +164,7 @@ export const graphRessources = {
         count: ['pk'],
       },
     },
+
     defaultRangeKind: 'current_year',
   },
   qualitativeInvoiceItem: {
@@ -157,6 +186,7 @@ export const graphRessources = {
         sum: ['total_price'],
       },
     },
+
     defaultRangeKind: 'current_year',
   },
 };
@@ -242,6 +272,24 @@ export const getChartPropsData = (
             {
               dataKey: 'v',
               caption: t('dashboard:billedSubscriptions.caption'),
+              stroke: colorScale(index / graph_nb).hex(),
+              fill: colorScale(index / graph_nb).hex(),
+            },
+          ],
+        };
+        break;
+
+      case 'temporalBooking':
+        currentProps = {
+          title: t('dashboard:bookings.title'),
+          popoverText: t('dashboard:bookings.popover'),
+          height: 420,
+          yLabel: t('dashboard:bookings.caption'),
+          tooltip: true,
+          chartOptions: [
+            {
+              dataKey: 'v',
+              caption: t('dashboard:bookings.caption'),
               stroke: colorScale(index / graph_nb).hex(),
               fill: colorScale(index / graph_nb).hex(),
             },

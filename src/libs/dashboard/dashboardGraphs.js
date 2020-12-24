@@ -50,6 +50,20 @@ const defaultDashboardConfiguration = [
         dataFilters: { booking_status_code__in: [0] },
       },
       {
+        name: 'booking_temporal',
+        ressourceIdentifier: 'temporalBooking',
+        chart: 'pie',
+        baseFilters: {
+          date_field: 'offer__date_start',
+        },
+        dateRange: {
+          start: null,
+          end: null,
+          kind: 'current_year',
+        },
+        dataFilters: { booking_status_code__in: [0] },
+      },
+      {
         name: 'invoice_item',
         ressourceIdentifier: 'qualitativeInvoiceItem',
         chart: 'pie',

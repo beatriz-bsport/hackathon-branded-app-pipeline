@@ -5,12 +5,9 @@ import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Grid from '@material-ui/core/Grid';
+
+import { ButtonBase, Typography } from '@material-ui/core';
+import classNames from 'classnames';
 
 type Props = {
   t: TFunction,
@@ -19,58 +16,64 @@ type Props = {
   itemList: ?Array<any>,
   itemSelected: ?any,
   setItemSelected: (?any) => void,
-  iconList: ?{[string]: any},
+  iconList: ?{ [string]: any },
 };
 
 export class CustomChartRadio extends React.Component<Props> {
   renderItem = (item: any) => {
     const { t, classes, iconList, itemSelected } = this.props;
     const Icon = iconList[item];
+    const containerClass = classNames({
+      [classes.item]: true,
+      [classes.selected]: itemSelected === item,
+    });
+
     return (
-      <Grid className={classes.fieldContainer}>
-        <FormControlLabel
-          value={item}
-          control={
-        <Radio
-          checked={item === itemSelected}
-        />
-        }
-          label={<Icon color="primary" className={classes.largeIcon} />}
-          labelPlacement="top"
-        />
-        <FormHelperText>{t(`customChart.form.radio.${item}`)}</FormHelperText>
-      </Grid>);
+      <ButtonBase
+        key={item}
+        className={containerClass}
+        onClick={() => this.props.setItemSelected(item)}
+      >
+        <Icon color="inherit" />
+        <Typography>{t(`customChart.form.radio.${item}`)}</Typography>
+      </ButtonBase>
+    );
   };
 
   render() {
-    const { itemList, itemSelected } = this.props;
+    const { itemList, classes } = this.props;
+
     return (
-      <div>
-        <FormControl component="fieldset">
-          <RadioGroup
-            row
-            name={itemSelected}
-            value={itemSelected}
-            onChange={(ev) =>
-                this.props.setItemSelected(ev.target.value)
-            }
-          >
-            {itemList.map((item) => this.renderItem(item))}
-          </RadioGroup>
-        </FormControl>
+      <div className={classes.container}>
+        {itemList.map((item) => this.renderItem(item))}
       </div>
     );
   }
 }
 
 const styles = (theme) => ({
-  largeIcon: {
-    fontSize: '3em',
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginLeft: theme.spacing(-1),
   },
-  fieldContainer: {
-    marginBottom: theme.spacing(2),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
+  item: {
+    display: 'flex',
+    flexDirection: 'column',
+    borderWidth: 1,
+    borderRadius: 5,
+    borderStyle: 'solid',
+    borderColor: theme.palette.primary.main,
+    color: theme.palette.primary.main,
+    width: 150,
+    height: 100,
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+    padding: theme.spacing(1),
+  },
+  selected: {
+    backgroundColor: theme.palette.primary.main,
+    color: 'white',
   },
 });
 

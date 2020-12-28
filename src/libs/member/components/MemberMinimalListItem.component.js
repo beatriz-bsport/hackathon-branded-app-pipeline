@@ -15,6 +15,7 @@ type Props = {
   onEdit?: () => void,
   onClick?: () => void,
   firstBooking?: boolean,
+  anonimize?: boolean,
 };
 export const MemberMinimalListItem = (props: Props) => {
   if (!props.member) {
@@ -26,6 +27,13 @@ export const MemberMinimalListItem = (props: Props) => {
         <ListItemText primary=" - " />
       </ListItem>
     );
+  }
+  let secondaryInfo = '';
+  if (!props.anonimize) {
+    secondaryInfo +=
+      props.member.phone || props.member.email
+        ? `${props.member.phone || ''} ${props.member.email}` || ''
+        : '';
   }
   return (
     <ListItem
@@ -39,11 +47,7 @@ export const MemberMinimalListItem = (props: Props) => {
       </ListItemAvatar>
       <ListItemText
         primary={props.member.name + (props.firstBooking ? ' ★' : '')}
-        secondary={
-          props.member.phone || props.member.email
-            ? `${props.member.phone || ''} ${props.member.email}` || ''
-            : null
-        }
+        secondary={secondaryInfo}
       />
       <ListItemSecondaryAction>
         {props.onEdit ? (

@@ -115,6 +115,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
       .find((b) => b.member === member.id);
     return (
       <MemberBookingHelper
+        anonimize={!this.props.permission.member.list}
         key={member.id}
         isFull={this.props.offer.is_full}
         onClickBill={() => this.props.addToQuickInvoicePanel(member.id)}
@@ -254,6 +255,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         });
                         this.props.searchMembers(event.target.value);
                       }}
+                      anonimize={!this.props.permission.member.list}
                       value={this.props.searchedText}
                       onReset={this.props.clearSearch}
                       memberHistoryAnchor={this.state.memberHistoryAnchor}

@@ -23,6 +23,7 @@ type Props = {
   selected: boolean,
   hasBooked: ?boolean,
   isFull: ?boolean,
+  anonimize?: boolean,
 
   showMember: ?() => void,
   onClickListItem: ?() => void,
@@ -32,6 +33,12 @@ type Props = {
 };
 
 function MemberBookingHelper(props: Props) {
+  let email = '';
+  if (!props.anonimize) {
+    email += props.member.email
+      ? props.member.email
+      : props.t('communication:mail.missing');
+  }
   return (
     <ListItem
       button={!!props.onClickListItem}
@@ -40,14 +47,7 @@ function MemberBookingHelper(props: Props) {
       dense
       onClick={props.onClickListItem || (() => {})}
     >
-      <ListItemText
-        primary={props.member.name}
-        secondary={
-          props.member.email
-            ? props.member.email
-            : props.t('communication:mail.missing')
-        }
-      />
+      <ListItemText primary={props.member.name} secondary={email} />
       <ListItemSecondaryAction>
         {props.hasBooked ? (
           <React.Fragment>

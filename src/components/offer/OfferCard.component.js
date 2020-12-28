@@ -344,6 +344,7 @@ export class OfferCard extends Component<Props> {
                   .filter((b) => b.booking_status_code === 0)
                   .map((b) => (
                     <MemberMinimalListItem
+                      anonimize={!this.props.permission.member.list}
                       firstBooking={b.first_in_company}
                       member={this.props.members.find((m) => m.id === b.member)}
                       key={b.id}

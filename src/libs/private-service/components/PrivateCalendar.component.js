@@ -315,9 +315,6 @@ export class PrivateCalendar extends React.Component<Props, State> {
       this.calendarRef.current.getApi().changeView('timeGridWeek');
       return;
     }
-    if (prevProps.resourceDatatypeView !== this.props.resourceDatatypeView) {
-      console.log(this.calendarRef.current.getApi());
-    }
     if (
       this.state.date_start !== prevState.date_start ||
       this.state.date_end !== prevState.date_end

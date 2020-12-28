@@ -128,7 +128,7 @@ export class OrderTable extends Component<Props, State> {
   };
 
   fetchPage = (page: number) => {
-    if (this.state.tableState.page !== this.state.tableState.page) {
+    if (this.state.tableState.page !== page) {
       this.doFetch(page);
     }
   };

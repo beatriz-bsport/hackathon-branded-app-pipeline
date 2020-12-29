@@ -42,6 +42,8 @@ import type {
   PaymentPack,
 } from '../../libs/payment-packs/types';
 import withTitle from '../../hocs/with-title.hoc';
+import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
+import { withPaymentPackNotification } from '../../libs/marketing/selectors';
 
 type Props = {
   loading: boolean,
@@ -68,6 +70,7 @@ type Props = {
 
   classes: Object,
   t: TFunction,
+  fetchMarketingNotificationList: (params: any) => void,
 };
 
 type State = {
@@ -75,6 +78,8 @@ type State = {
   showDisabled: boolean,
 };
 
+const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
+const CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT = 4;
 const CONSUMER_PACK_PAGINATION_SIZE = 10;
 
 export class PaymentPackList extends Component<Props, State> {
@@ -87,6 +92,13 @@ export class PaymentPackList extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchAllPaymentPacks();
+    this.props.fetchMarketingNotificationList({
+      active: true,
+      kind__in: [
+        CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
+        CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
+      ],
+    });
   }
 
   requestEdit = (p: PaymentPack) => {
@@ -357,7 +369,7 @@ const styles = (theme) => ({
 function mapStateToProps(state) {
   return {
     loading: state.paymentPack.loading,
-    enabledPacks: getEnabledPaymentPacks(state),
+    enabledPacks: withPaymentPackNotification(getEnabledPaymentPacks)(state),
     disabledPacks: getDisabledPaymentPacks(state),
     consumerPacks: {
       items: state.consumerPaymentPack.byPaymentPack.items,
@@ -397,6 +409,9 @@ function mapDispatchToProps(dispatch) {
     },
     onCreate() {
       dispatch(pushRouter('/payment-pack/add'));
+    },
+    fetchMarketingNotificationList(params: any) {
+      dispatch(fetchMarketingNotificationList(params));
     },
   };
 }

@@ -135,7 +135,7 @@
     "build": "node --max_old_space_size=2048 scripts/build.js",
     "server:build": "webpack -p --progress",
     "test": "node scripts/test.js --env=jsdom",
-    "lint": "eslint src",
+    "lint": "eslint --cache src",
     "storybook": "yarn run start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "updateTranslation": "./scripts/sync-translations.sh"
@@ -218,10 +218,9 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.10.0",
     "enzyme-to-json": "^3.3.5",
-    "eslint": "^5.3.0",
+    "eslint": "^7.15.0",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-react-app": "^2.1.0",
-    "eslint-loader": "1.9.0",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-cypress": "^2.6.1",
     "eslint-plugin-flowtype": "2.39.1",
@@ -234,6 +233,7 @@
     "faker": "^4.1.0",
     "flow-bin": "0.114",
     "flow-coverage-report": "^0.6.0",
+    "husky": "^4.3.5",
     "jquery": "^3.3.1",
     "json-beautify": "^1.1.1",
     "json-merger": "^1.1.2",
@@ -256,6 +256,11 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
     }
   }
 }

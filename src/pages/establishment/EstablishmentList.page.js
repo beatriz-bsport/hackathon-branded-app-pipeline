@@ -34,10 +34,10 @@ import {
   deleteEstablishment,
   restoreEstablishment as restoreEstablishmentAction,
   fetchEstablishments as fetchEstablishmentsAction,
-} from '../../libs/establishment/actions.ts';
-import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api.ts';
-import { fetchFirstTimeNotifications as fetchNotifications } from '../../libs/booking/actions';
-import { withBookingNotifications } from '../../libs/booking/selectors';
+} from '../../libs/establishment/actions';
+import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api';
+import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
+import { withBookingNotification } from '../../libs/marketing/selectors';
 
 type Props = {
   loading: boolean,
@@ -49,7 +49,6 @@ type Props = {
   startUpdateEstablishment: (*) => void,
   goToEstablishment: (id: number) => void,
   establishmentToDelete: ?number,
-  fetchNotifications: (params?: Object) => void,
   setEstablishmentToDelete: (?number) => void,
   deleteEstablishment: (number) => void,
   onCreate: () => void,
@@ -57,7 +56,10 @@ type Props = {
 
   classes: Object,
   t: TFunction,
+  fetchMarketingNotificationList: (params: any) => void,
 };
+
+const BOOKING_CREATION_NOTIFICATION = 2;
 
 export class EstablishmentList extends React.Component<Props, State> {
   state = {
@@ -68,7 +70,10 @@ export class EstablishmentList extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchEstablishments();
-    this.props.fetchNotifications({ is_establishment_notification: true });
+    this.props.fetchMarketingNotificationList({
+      active: true,
+      kind: BOOKING_CREATION_NOTIFICATION,
+    });
   }
 
   changeSearch = (fuse) => (ev) => {
@@ -279,7 +284,7 @@ export default compose(
     (state) => ({
       loading: state.establishment.loading,
       notificationLoading: state.booking.notification.loading,
-      establishments: withBookingNotifications(getAvailableEstablishmentList)(
+      establishments: withBookingNotification(getAvailableEstablishmentList)(
         state,
       ),
       establishmentsArchived: getDisabledEstablishmentList(state),
@@ -291,7 +296,7 @@ export default compose(
       fetchEstablishments: fetchEstablishmentsAction,
       deleteEstablishment,
       restoreEstablishment: restoreEstablishmentAction,
-      fetchNotifications,
+      fetchMarketingNotificationList,
       onCreate: () => push('/establishment/add'),
     },
   ),

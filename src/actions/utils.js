@@ -8,12 +8,14 @@ export function createListHandler(
   listEndpoint: *,
   fetchFromEndpoint: *,
 ) {
+  /* eslint-disable */
   const listActions = {
     isLoading: createAction(`${objectName.toUpperCase()}/LIST/IS_LOADING`),
     fetchedPage: createAction(`${objectName.toUpperCase()}/ALL/FETCHED_PAGE`),
     reset: createAction(`${objectName.toUpperCase()}/ALL/RESET`),
     error: createAction(`${objectName.toUpperCase()}/ALL/ERROR`),
   };
+  /* eslint-enable */
 
   function fetcher() {
     return async (dispatch: Dispatch) => {

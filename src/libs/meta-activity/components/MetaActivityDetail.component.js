@@ -37,9 +37,9 @@ type Props = {
   emailListLoading: boolean,
   emailDetailLoading: boolean,
   createNotification: (data: any) => void,
-  updateNotification: (data: any) => void,
+  updateNotification: (id: number, data: any) => void,
   deleteNotification: (notificationId: number) => void,
-  notifications: Object,
+  notifications: { items: Array<any>, loading: boolean },
 
   classes: Object,
   t: TFunction,

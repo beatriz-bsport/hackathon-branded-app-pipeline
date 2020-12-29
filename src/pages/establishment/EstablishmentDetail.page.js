@@ -25,11 +25,12 @@ import {
   deleteEstablishment,
 } from '../../libs/establishment/actions.ts';
 import {
-  fetchFirstTimeNotifications as fetchNotificationsAction,
-  createFirstTimeNotification as createNotificationAction,
-  updateFirstTimeNotification as updateNotification,
-  deleteFirstTimeNotification as deleteNotification,
-} from '../../libs/booking/actions';
+  fetchMarketingNotificationList as fetchMarketingNotificationListAction,
+  createMarketingNotification as createMarketingNotificationAction,
+  updateMarketingNotification,
+  deleteMarketingNotification as deleteMarketingNotificationAction,
+} from '../../libs/marketing/actions';
+import { getBookingNotifications } from '../../libs/marketing/selectors';
 import {
   withEstablishment,
   withCoach,
@@ -38,7 +39,6 @@ import {
 } from '../../libs/offer/selectors';
 
 import { getEstablishment } from '../../libs/establishment/selectors.ts';
-import { getFirstTimeNotifications } from '../../libs/booking/selectors';
 
 import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api.ts';
 
@@ -52,6 +52,8 @@ import {
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
 } from '../../libs/email-editor/actions';
+
+const BOOKING_CREATION_NOTIFICATION = 2;
 
 type Props = {
   id: number,
@@ -67,7 +69,6 @@ type Props = {
   fetchEstablishmentBulk: ([number]) => void,
   setOpenWidgetDialog: () => void,
   openWidgetDialog: Boolean,
-  fetchNotificationsAndTemplates: (params: any) => void,
   fetchEmailTemplatesSummaries: () => void,
   fetchEmailTemplateDetail: (id: number) => void,
   events: Array<Event>,
@@ -77,11 +78,12 @@ type Props = {
   email_templates_details: Array<any>,
   emailListLoading: boolean,
   emailDetailLoading: boolean,
-  notifications: Object,
+  notifications: { items: Array<any>, loading: boolean },
 
+  fetchNotificationsAndTemplates: () => void,
   createNotification: (date: any) => void,
-  updateNotification: (data: any) => void,
-  deleteNotification: (notificationId: number) => void,
+  updateMarketingNotification: (id: number, data: any) => void,
+  deleteMarketingNotification: (id: number) => void,
 };
 
 type State = {
@@ -95,7 +97,7 @@ export class EstablishmentDetails extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchEstablishmentBulk([this.props.id]);
-    this.props.fetchNotificationsAndTemplates({ establishment: this.props.id });
+    this.props.fetchNotificationsAndTemplates();
   }
 
   render() {
@@ -122,8 +124,8 @@ export class EstablishmentDetails extends React.Component<Props, State> {
           emailListLoading={this.props.emailListLoading}
           emailDetailLoading={this.props.emailDetailLoading}
           createNotification={this.props.createNotification}
-          updateNotification={this.props.updateNotification}
-          deleteNotification={this.props.deleteNotification}
+          updateNotification={this.props.updateMarketingNotification}
+          deleteNotification={this.props.deleteMarketingNotification}
         />
         <BottomActionButtons
           onEdit={() => this.props.startUpdateEstablishment(this.props.id)}
@@ -173,9 +175,8 @@ export default compose(
       emailListLoading: state.emailTemplate.isLoading,
       emailDetailLoading: state.emailTemplate.detail.isLoading,
       notifications: {
-        items: getFirstTimeNotifications(state),
-        loading: state.booking.notification.loading,
-        updating: state.booking.notification.update.id,
+        items: getBookingNotifications(state),
+        loading: state.marketingNotification.loading,
       },
     }),
     {
@@ -187,13 +188,14 @@ export default compose(
       goToList: () => push('/establishment'),
       deleteEstablishment,
       fetchEstablishmentEvents: fetchEstablishmentEventsAction,
-      fetchNotifications: fetchNotificationsAction,
       fetchEmailTemplatesSummaries,
       fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
       fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
-      createNotification: createNotificationAction,
-      updateNotification,
-      deleteNotification,
+
+      fetchMarketingNotificationList: fetchMarketingNotificationListAction,
+      createMarketingNotification: createMarketingNotificationAction,
+      updateMarketingNotification,
+      deleteMarketingNotification: deleteMarketingNotificationAction,
     },
   ),
   withProps(({ fetchOffersByDay, fetchEstablishmentEvents, id }) => ({
@@ -217,27 +219,33 @@ export default compose(
   })),
   withHandlers({
     fetchNotificationsAndTemplates: ({
-      fetchNotifications,
+      fetchMarketingNotificationList,
       fetchEmailTemplateSummariesBulk,
-    }) => (params) => {
-      fetchNotifications(params, {
-        onSuccess: (notificationList) => {
-          fetchEmailTemplateSummariesBulk(
-            notificationList.map((notification) => notification.email_design),
-          );
+      id,
+    }) => () => {
+      fetchMarketingNotificationList(
+        {
+          kind: BOOKING_CREATION_NOTIFICATION,
+          event_rules__establishment_id: id,
         },
-      });
+        {
+          onSuccess: (notificationList) => {
+            fetchEmailTemplateSummariesBulk(
+              notificationList.map((notification) => notification.email_design),
+            );
+          },
+        },
+      );
     },
   }),
   withHandlers({
     createNotification: ({
       fetchNotificationsAndTemplates,
-      createNotification,
-      id,
+      createMarketingNotification,
     }) => (data) => {
-      createNotification(data, {
+      createMarketingNotification(data, {
         onSuccess: () => {
-          fetchNotificationsAndTemplates({ establishment: id });
+          fetchNotificationsAndTemplates();
         },
       });
     },

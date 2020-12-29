@@ -123,6 +123,18 @@ exports.default = {
       first: "Notifier lorsqu'il reste",
       second: 'crédits',
     },
+    creditsLeft: {
+      first: "Notifier lorsqu'il reste",
+      second: 'crédits',
+    },
+    daysLeft: {
+      first: "Notifier lorsqu'il reste",
+      second: 'jours de validité sur la carte',
+    },
+    daysPast: {
+      first: 'Notifier lorsque la carte est expirée depuis',
+      second: 'jours',
+    },
   },
   search: 'Chercher une carte',
   extension: {

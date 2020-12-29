@@ -39,8 +39,8 @@ import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '../../li
 
 import type { MetaActivity } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
-import { fetchFirstTimeNotifications as fetchNotifications } from '../../libs/booking/actions';
-import { withBookingNotifications } from '../../libs/booking/selectors';
+import { fetchMarketingNotificationList } from '../../libs/marketing/actions';
+import { withBookingNotification } from '../../libs/marketing/selectors';
 
 type Props = {
   metaActivities: Array<MetaActivity>,
@@ -56,7 +56,7 @@ type Props = {
   restoreMetaActivity: (MetaActivityId: number) => void,
   setActivityToDelete: (number) => void,
   activityToDelete: (?number) => void,
-  fetchNotifications: (params?: Object) => void,
+  fetchMarketingNotificationList: (params: any) => void,
 
   t: TFunction,
   classes: Object,
@@ -75,6 +75,8 @@ type State = {
   showDisabled: boolean,
 };
 
+const BOOKING_CREATION_NOTIFICATION = 2;
+
 export class MetaActivityListPage extends React.Component<Props, State> {
   state = {
     searchText: '',
@@ -84,7 +86,10 @@ export class MetaActivityListPage extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchAllMetactivities();
-    this.props.fetchNotifications({ is_meta_activity_notification: true });
+    this.props.fetchMarketingNotificationList({
+      active: true,
+      kind: BOOKING_CREATION_NOTIFICATION,
+    });
   }
 
   changeSearch = (fuse) => (ev) => {
@@ -286,7 +291,7 @@ export default compose(
   ),
   connect(
     (state) => ({
-      metaActivities: withBookingNotifications(getPageEnabledMetaActivities)(
+      metaActivities: withBookingNotification(getPageEnabledMetaActivities)(
         state,
       ),
       disabledMetaActivities: getPageDisabledMetaActivities(state),
@@ -302,7 +307,7 @@ export default compose(
       goToPaymentPack: () => push('/payment-pack'),
       deleteMetaActivity,
       restoreMetaActivity,
-      fetchNotifications,
+      fetchMarketingNotificationList,
       onCreate: () => push('/activity/add'),
     },
   ),

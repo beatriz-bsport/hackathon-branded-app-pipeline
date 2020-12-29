@@ -93,7 +93,6 @@ export class CustomChartForm extends React.Component<Props, State> {
       }
       this.setState({
         ressourceIdentifierList,
-        ressourceIconList,
         ressourceIdentifierSelected: null,
       });
     }

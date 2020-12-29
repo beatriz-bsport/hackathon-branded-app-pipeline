@@ -79,9 +79,7 @@ export function MetaActivityListItem(props: Props) {
             : t('activity.noNextSlot')
         }
       />
-      {props.metaActivity.on_booking_notification &&
-      props.metaActivity.on_booking_notification.filter((n) => !!n && n.active)
-        .length > 0 ? (
+      {props.metaActivity.hasActiveNotification && (
         <Tooltip
           classes={props.classes}
           title={
@@ -95,7 +93,7 @@ export function MetaActivityListItem(props: Props) {
             <NotificationsIcon />
           </IconButton>
         </Tooltip>
-      ) : null}
+      )}
       <ListItemResponsiveAction
         actions={[
           props.metaActivity.customer_enabled &&

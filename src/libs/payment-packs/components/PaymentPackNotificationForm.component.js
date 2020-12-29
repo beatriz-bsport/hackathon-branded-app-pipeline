@@ -1,13 +1,15 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { withFormik, Form } from 'formik';
+import * as Yup from 'yup';
+
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Collapse from '@material-ui/core/Collapse';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -16,393 +18,124 @@ import InfoIcon from '@material-ui/icons/Info';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import WarningIcon from '@material-ui/icons/Warning';
 
 import SmartListSelector from '../../smart-list/components/SmartListSelector.component';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
-import NumericInput from '../../../components/input/NumericInput.component';
 
-const PAYMENT_PACK_NOTIFICATION_DAY_LEFT = 0;
-const PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT = 1;
-const PAYMENT_PACK_NOTIFICATION_DAY_PAST = 2;
+import {
+  IntegerField,
+  RadioGroupField,
+  Actions,
+  Submit,
+} from '../../../components/forms';
+
+const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
+const CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT = 4;
 
 type Props = {
-  classes: Object,
   getEmails: () => void,
   getSmartLists: () => void,
   getEmailDetail: (id: number) => void,
-  t: TFunction,
   emailListLoading: boolean,
-  open: boolean,
   emails: Array<any>,
-  notification: any,
   smartLists: Array<any>,
   emailDetailLoading: boolean,
   emailDetails: Array<any>,
   onCancel: () => void,
-  onSubmit: (data: any) => void,
   goToSmartlist: () => void,
+  initial: any,
+  values: any,
+  setFieldValue: (key: string, value: any) => void,
+  errors: any,
+  isSubmitting: boolean,
 };
 
-export class notificationRuleForm extends Component<Props, state> {
-  state = {
-    kind: 0,
-    displayMailPreview: false,
-    selectedMail: null,
-    smartlist_include: [],
-    smartlist_exclude: [],
-    days_left: null,
-    credits_left: null,
-  };
-
-  computeKind = () => {
-    if (
-      this.props.notification.kind === PAYMENT_PACK_NOTIFICATION_DAY_LEFT &&
-      this.props.notification.days_left < 0
-    ) {
-      return PAYMENT_PACK_NOTIFICATION_DAY_PAST;
-    }
-
-    if (
-      this.props.notification.kind === PAYMENT_PACK_NOTIFICATION_DAY_LEFT &&
-      this.props.notification.days_left >= 0
-    ) {
-      return PAYMENT_PACK_NOTIFICATION_DAY_LEFT;
-    }
-    return PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT;
-  };
-
-  componentDidUpdate(prevProps) {
-    if (this.props.open !== prevProps.open) {
-      if (this.props.notification) {
-        this.props.getEmailDetail(this.props.notification.email_design);
-      }
-      this.props.getEmails();
-      this.props.getSmartLists();
-      this.setState({
-        kind: this.props.notification
-          ? this.computeKind()
-          : PAYMENT_PACK_NOTIFICATION_DAY_LEFT,
-        displayMailPreview: false,
-        days_left: this.props.notification
-          ? Math.abs(this.props.notification.days_left)
-          : null,
-        credits_left: this.props.notification
-          ? this.props.notification.credits_left
-          : null,
-
-        selectedMail:
-          this.props.notification &&
-          this.props.emails.find(
-            (email) => email.id === this.props.notification.email_design,
-          )
-            ? this.props.emails.find(
-                (email) => email.id === this.props.notification.email_design,
-              ).id
-            : null,
-        smartlist_include: this.props.notification
-          ? this.props.notification.smartlist_include
-          : [],
-        smartlist_exclude: this.props.notification
-          ? this.props.notification.smartlist_exclude
-          : [],
-      });
-    }
+const getNotificationKind = (notif: any) => {
+  if (notif.kind === CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME) {
+    return notif.event_rules.days_left < 0 ? 'daysPast' : 'daysLeft';
   }
+  return 'creditsLeft';
+};
 
-  renderLoadingOrEmpty = (loading, emails) => {
-    if (loading) {
-      return <CircularProgress />;
-    }
-    if (emails.length === 0) {
-      return (
-        <div className={this.props.classes.previewEmpty}>
-          <InfoIcon fontSize="large" color="disabled" />
-          <Typography color="textSecondary">
-            {this.props.t('notification.form.noMailAvailable')}
-          </Typography>
-        </div>
-      );
-    }
-
+const renderEmptyOrLoading = (
+  loading: boolean,
+  emails: Array<any>,
+  t: TFunction,
+  classes: any,
+) => {
+  if (loading) {
+    return <CircularProgress />;
+  }
+  if (!emails.length) {
     return (
-      <div className={this.props.classes.previewEmpty}>
+      <div className={classes.previewEmpty}>
         <InfoIcon fontSize="large" color="disabled" />
         <Typography color="textSecondary">
-          {this.props.t('notification.form.selectToShowPreview')}
+          {t('notification.form.noMailAvailable')}
         </Typography>
       </div>
     );
-  };
+  }
+  return (
+    <div className={classes.previewEmpty}>
+      <InfoIcon fontSize="large" color="disabled" />
+      <Typography color="textSecondary">
+        {t('notification.form.selectToShowPreview')}
+      </Typography>
+    </div>
+  );
+};
 
-  renderCreditChoice = () => {
-    return (
-      <div>
-        <div className={this.props.classes.inlineContainer}>
-          <Typography variant="caption">
-            {this.props.t(
-              `notification.${PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT}.first`,
-            )}
-          </Typography>
-          <NumericInput
-            key={this.state.kind}
-            onChange={(ev) =>
-              this.setState({
-                credits_left: ev.target.value
-                  ? parseInt(ev.target.value, 10)
-                  : null,
-              })
-            }
-            classes={this.props.classes}
-            value={this.state.credits_left}
-          />
-          <Typography variant="caption">
-            {this.props.t(
-              `notification.${PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT}.second`,
-            )}
-          </Typography>
-        </div>
-      </div>
-    );
-  };
+const PaymentPackNotificationForm = (props: Props) => {
+  const { t } = useTranslation(['paymentPack']);
+  const classes = useStyles();
+  const { values, setFieldValue, errors } = props;
+  const [displayMailPreview, setDisplayMailPreview] = useState(false);
 
-  renderWarning = () => {
-    return (
-      <div className={this.props.classes.warningContainer}>
-        <WarningIcon />
-        <Typography style={{ marginRight: '8px', marginLeft: '16px' }}>
-          {this.props.t('notification.form.warning')}
-        </Typography>
-        <Button variant="outlined" onClick={this.props.goToSmartlist}>
-          {this.props.t('notification.form.createSmartList')}
-        </Button>
-      </div>
-    );
-  };
+  useEffect(() => {
+    if (props.initial) props.getEmailDetail(props.initial.email_design);
+    props.getEmails();
+    props.getSmartLists();
+  }, []);
 
-  renderTimeChoice = () => {
-    return (
-      <div className={this.props.classes.inlineContainer}>
-        <Typography variant="caption">
-          {this.props.t(`notification.${this.state.kind}.first`)}
-        </Typography>
-        <NumericInput
-          key={this.state.kind}
-          onChange={(ev) =>
-            this.setState({
-              days_left: ev.target.value ? parseInt(ev.target.value, 10) : null,
-            })
-          }
-          classes={this.props.classes}
-          value={this.state.days_left}
-        />
-        <Typography variant="caption">
-          {this.props.t(`notification.${this.state.kind}.second`)}
-        </Typography>
-      </div>
-    );
-  };
+  if (values.verboseNotifKind !== 'creditsLeft' && values.credits_left === '') {
+    setFieldValue('credits_left', 0);
+  }
+  if (values.verboseNotifKind === 'creditsLeft' && values.days_left === '') {
+    setFieldValue('days_left', 0);
+  }
 
-  renderSmartListChoice = () => {
-    return (
-      <div>
-        <div className={this.props.classes.smartListSelector}>
-          <Typography variant="caption">
-            {this.props.t('notification.form.smartListHelper')}
-          </Typography>
-          <SmartListSelector
-            smartLists={this.props.smartLists}
-            values={this.state.smartlist_exclude}
-            onChange={(ev) =>
-              this.setState({
-                smartlist_exclude: ev.map((item) => item.value),
-              })
-            }
-            helperText={this.props.t('notification.form.smartListSelection')}
-          />
-        </div>
-        <div className={this.props.classes.smartListSelector}>
-          <Typography variant="caption">
-            {this.props.t('notification.form.smartListHelperInclude')}
-          </Typography>
-          <SmartListSelector
-            smartLists={this.props.smartLists}
-            values={this.state.smartlist_include}
-            onChange={(ev) =>
-              this.setState({
-                smartlist_include: ev.map((item) => item.value),
-              })
-            }
-            helperText={this.props.t('notification.form.smartListSelection')}
-          />
-        </div>
-      </div>
-    );
-  };
-
-  renderEmailSelector = () => {
-    const { classes, t } = this.props;
-    return (
-      <div>
-        {this.props.emailListLoading ? (
-          <LinearProgress className={classes.selectorContainer} />
-        ) : (
-          <div
-            className={classes.selectorContainer}
-            id="select_notification_template"
-          >
-            <EmailSelector
-              emails={this.props.emails}
-              value={this.state.selectedMail}
-              onChange={(ev) => {
-                this.setState({ selectedMail: ev.value });
-                this.props.getEmailDetail(ev.value);
-              }}
-              helperText={t('notification.form.mailSelection')}
-            />
-          </div>
-        )}
-        <div className={classes.buttonContainer}>
-          <Button
-            onClick={() =>
-              this.setState((prevState) => ({
-                displayMailPreview: !prevState.displayMailPreview,
-              }))
-            }
-          >
-            {this.state.displayMailPreview ? (
-              <div className={classes.inlineContainer}>
-                <VisibilityOffIcon className={classes.visibilityIcon} />
-                <Typography variant="caption">
-                  {t('notification.form.hideMail')}
-                </Typography>
-              </div>
-            ) : (
-              <div className={classes.inlineContainer}>
-                <VisibilityIcon className={classes.visibilityIcon} />
-                <Typography variant="caption">
-                  {t('notification.form.showMail')}
-                </Typography>
-              </div>
-            )}
-          </Button>
-        </div>
-        <Collapse in={this.state.displayMailPreview}>
-          <div className={classes.mailPreview}>
-            {this.state.selectedMail &&
-            !!this.props.emailDetails[this.state.selectedMail] ? (
-              <div>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: this.props.emailDetails
-                      ? this.props.emailDetails[this.state.selectedMail].html
-                      : null,
-                  }}
-                />
-              </div>
-            ) : (
-              this.renderLoadingOrEmpty(
-                this.props.emailDetailLoading,
-                this.props.emails,
-              )
-            )}
-          </div>
-        </Collapse>
-      </div>
-    );
-  };
-
-  checkFormValidity = () => {
-    if (this.state.kind === null || this.state.selectedMail === null) {
-      return false;
-    }
-    if (
-      this.state.days_left === null &&
-      this.state.kind === PAYMENT_PACK_NOTIFICATION_DAY_PAST
-    ) {
-      return false;
-    }
-    if (
-      this.state.days_left === null &&
-      this.state.kind === PAYMENT_PACK_NOTIFICATION_DAY_LEFT
-    ) {
-      return false;
-    }
-    if (
-      (this.state.credits_left === null &&
-        this.state.kind === PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT) ||
-      this.state.credits_left < 0
-    ) {
-      return false;
-    }
-    return true;
-  };
-
-  render() {
-    const { notification, t, classes } = this.props;
-    if (notification && notification.loading) return <CircularProgress />;
-
-    return (
-      <Dialog open={this.props.open}>
-        <DialogTitle>{t('notificationForm')}</DialogTitle>
-        <div className={classes.dialogContainer}>
+  return (
+    <Dialog open>
+      <DialogTitle>{t('notificationForm')}</DialogTitle>
+      <div className={classes.dialogContainer}>
+        <Form>
           <div className={classes.fieldContainer} id="select_notification_type">
             <Typography variant="subtitle2">
               {t('notification.form.typeTitle')}
             </Typography>
-            <RadioGroup
-              aria-label="Applies to "
-              name="applies_to"
-              value={this.state.kind}
-              onChange={(ev) =>
-                this.setState({
-                  kind: parseInt(ev.target.value, 10),
-                  days_left: null,
-                  credits_left: null,
-                })
-              }
-            >
-              <FormControlLabel
-                value={PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT}
-                control={
-                  <Radio
-                    checked={
-                      PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT === this.state.kind
-                    }
-                  />
-                }
-                label={t('notification.form.creditType')}
-              />
-              <FormControlLabel
-                value={PAYMENT_PACK_NOTIFICATION_DAY_LEFT}
-                control={
-                  <Radio
-                    checked={
-                      PAYMENT_PACK_NOTIFICATION_DAY_LEFT === this.state.kind
-                    }
-                  />
-                }
-                label={t('notification.form.daysType')}
-              />
-              <FormControlLabel
-                value={PAYMENT_PACK_NOTIFICATION_DAY_PAST}
-                control={
-                  <Radio
-                    checked={
-                      PAYMENT_PACK_NOTIFICATION_DAY_PAST === this.state.kind
-                    }
-                  />
-                }
-                label={t('notification.form.daysPastType')}
-              />
-            </RadioGroup>
+            <RadioGroupField
+              classes={{ label: classes.label }}
+              name="verboseNotifKind"
+              choices={[
+                {
+                  label: t('notification.form.creditType'),
+                  value: 'creditsLeft',
+                },
+                {
+                  label: t('notification.form.daysType'),
+                  value: 'daysLeft',
+                },
+                {
+                  label: t('notification.form.daysPastType'),
+                  value: 'daysPast',
+                },
+              ]}
+            />
           </div>
           <div
             className={classes.fieldContainer}
@@ -412,67 +145,200 @@ export class notificationRuleForm extends Component<Props, state> {
               {t('notification.form.settingTitle')}
             </Typography>
 
-            {PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT === this.state.kind
-              ? this.renderCreditChoice()
-              : this.renderTimeChoice()}
-            {PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT === this.state.kind
-              ? null
-              : this.renderSmartListChoice()}
+            {values.verboseNotifKind === 'creditsLeft' && (
+              <div className={classes.inlineContainer}>
+                <Typography variant="caption">
+                  {t('notification.creditsLeft.first')}
+                </Typography>
+                <IntegerField
+                  name="credits_left"
+                  className={classes.textInput}
+                />
+                <Typography variant="caption">
+                  {t('notification.creditsLeft.second')}
+                </Typography>
+              </div>
+            )}
+
+            {values.verboseNotifKind === 'daysLeft' && (
+              <div className={classes.inlineContainer}>
+                <Typography variant="caption">
+                  {t('notification.daysLeft.first')}
+                </Typography>
+                <IntegerField className={classes.textInput} name="days_left" />
+                <Typography variant="caption">
+                  {t('notification.daysLeft.second')}
+                </Typography>
+              </div>
+            )}
+
+            {values.verboseNotifKind === 'daysPast' && (
+              <div className={classes.inlineContainer}>
+                <Typography variant="caption">
+                  {t('notification.daysPast.first')}
+                </Typography>
+                <IntegerField className={classes.textInput} name="days_left" />
+                <Typography variant="caption">
+                  {t('notification.daysPast.second')}
+                </Typography>
+              </div>
+            )}
+
+            {values.verboseNotifKind !== 'creditsLeft' && (
+              <>
+                <div className={classes.smartListSelector}>
+                  <Typography variant="caption">
+                    {t('notification.form.smartListHelper')}
+                  </Typography>
+                  <SmartListSelector
+                    smartLists={props.smartLists}
+                    values={values.smartlist_exclude}
+                    onChange={(ev) =>
+                      props.setFieldValue(
+                        'smartlist_exclude',
+                        ev.map((item) => item.value),
+                      )
+                    }
+                    helperText={t('notification.form.smartListSelection')}
+                  />
+                </div>
+                <div className={classes.smartListSelector}>
+                  <Typography variant="caption">
+                    {t('notification.form.smartListHelperInclude')}
+                  </Typography>
+                  <SmartListSelector
+                    smartLists={props.smartLists}
+                    values={values.smartlist_include}
+                    onChange={(ev) =>
+                      props.setFieldValue(
+                        'smartlist_include',
+                        ev.map((item) => item.value),
+                      )
+                    }
+                    helperText={t('notification.form.smartListSelection')}
+                  />
+                </div>
+                {!values.smartlist_include.length &&
+                  !values.smartlist_exclude.length && (
+                    <div className={classes.warningContainer}>
+                      <WarningIcon />
+                      <Typography
+                        style={{ marginRight: '8px', marginLeft: '16px' }}
+                      >
+                        {t('notification.form.warning')}
+                      </Typography>
+                      <Button variant="outlined" onClick={props.goToSmartlist}>
+                        {t('notification.form.createSmartList')}
+                      </Button>
+                    </div>
+                  )}
+              </>
+            )}
           </div>
-          {(this.state.kind === PAYMENT_PACK_NOTIFICATION_DAY_LEFT ||
-            this.state.kind === PAYMENT_PACK_NOTIFICATION_DAY_PAST) &&
-          this.state.smartlist_exclude.length === 0 &&
-          this.state.smartlist_include.length === 0
-            ? this.renderWarning()
-            : null}
           <div
             className={classes.fieldContainer}
             id="select_notification_template"
           >
-            <Typography variant="subtitle2">
+            <Typography
+              variant="subtitle2"
+              className={errors.email_design ? classes.errorText : null}
+            >
               {t('notification.form.mailTitle')}
             </Typography>
-
-            {this.renderEmailSelector()}
+            {props.emailListLoading ? (
+              <LinearProgress className={classes.selectorContainer} />
+            ) : (
+              <div name="email_design" className={classes.selectorContainer}>
+                <EmailSelector
+                  name="email_design"
+                  emails={props.emails}
+                  value={values.email_design}
+                  onChange={(ev) => {
+                    setFieldValue('email_design', ev ? ev.value : null);
+                    if (ev) props.getEmailDetail(ev.value);
+                  }}
+                  helperText={t('paymentPack:notification.form.mailSelection')}
+                />
+              </div>
+            )}
+            <div className={classes.buttonContainer}>
+              <Button
+                onClick={() =>
+                  setDisplayMailPreview((prevDisplay) => !prevDisplay)
+                }
+              >
+                {displayMailPreview ? (
+                  <div className={classes.inlineContainer}>
+                    <VisibilityOffIcon className={classes.visibilityIcon} />
+                    <Typography variant="caption">
+                      {t('paymentPack:notification.form.hideMail')}
+                    </Typography>
+                  </div>
+                ) : (
+                  <div className={classes.inlineContainer}>
+                    <VisibilityIcon className={classes.visibilityIcon} />
+                    <Typography variant="caption">
+                      {t('paymentPack:notification.form.showMail')}
+                    </Typography>
+                  </div>
+                )}
+              </Button>
+            </div>
+            <Collapse in={displayMailPreview}>
+              <div className={classes.mailPreview}>
+                {values.email_design &&
+                !!props.emailDetails[values.email_design] ? (
+                  <div>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: props.emailDetails
+                          ? props.emailDetails[values.email_design].html
+                          : null,
+                      }}
+                    />
+                  </div>
+                ) : (
+                  renderEmptyOrLoading(
+                    props.emailDetailLoading,
+                    props.emails,
+                    t,
+                    classes,
+                  )
+                )}
+              </div>
+            </Collapse>
           </div>
-          <DialogActions className={classes.bottomButtons}>
-            <Button onClick={this.props.onCancel}>
-              {t('notification.form.cancel')}
-            </Button>
+          <Actions>
             <Button
-              id="button_notification_validate"
+              onClick={() => {
+                props.onCancel();
+              }}
+              disabled={props.isSubmitting}
+            >
+              {t('booking:notification.form.cancel')}
+            </Button>
+            <Submit
               color="primary"
-              disabled={!this.checkFormValidity()}
-              onClick={() =>
-                this.props.onSubmit({
-                  kind:
-                    this.state.kind === PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT
-                      ? PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT
-                      : PAYMENT_PACK_NOTIFICATION_DAY_LEFT,
-                  days_left:
-                    this.state.kind === PAYMENT_PACK_NOTIFICATION_DAY_LEFT
-                      ? this.state.days_left
-                      : -this.state.days_left,
-                  credits_left: this.state.credits_left,
-                  email_design: this.state.selectedMail,
-                  smartlist_include: this.state.smartlist_include,
-                  smartlist_exclude: this.state.smartlist_exclude,
-                })
+              disabled={
+                !!errors.email_design ||
+                !!errors.days_left ||
+                !!errors.credits_left
               }
             >
-              {t('notification.form.submit')}
-            </Button>
-          </DialogActions>
-        </div>
-      </Dialog>
-    );
-  }
-}
+              {t('booking:notification.form.submit')}
+            </Submit>
+          </Actions>
+        </Form>
+      </div>
+    </Dialog>
+  );
+};
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   warningContainer: {
     display: 'flex',
     alignItems: 'center',
+    marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(1),
@@ -531,9 +397,94 @@ const styles = (theme) => ({
   visibilityIcon: {
     marginRight: theme.spacing(1),
   },
+  errorText: {
+    color: 'red',
+  },
+}));
+
+const PaymentPackNotificationSchema = Yup.object().shape({
+  kind: Yup.number(),
+  email_design: Yup.number().required(),
+  payment_pack_id: Yup.number().required(),
+  days_left: Yup.number()
+    .min(0)
+    .required(),
+  credits_left: Yup.number()
+    .min(0)
+    .required(),
+  smartlist_include: Yup.array()
+    .of(Yup.number())
+    .nullable(),
+  smartlist_exclude: Yup.array()
+    .of(Yup.number())
+    .nullable(),
 });
 
 export default compose(
-  withTranslation(['paymentPack']),
-  withStyles(styles),
-)(notificationRuleForm);
+  withFormik({
+    validateOnMount: true,
+    mapPropsToValues: ({ initial, id }) => {
+      if (initial) {
+        const { kind, email_design } = initial;
+        const {
+          payment_pack_id,
+          days_left,
+          credits_left,
+          smartlist_include,
+          smartlist_exclude,
+        } = initial.event_rules;
+        const verboseNotifKind = getNotificationKind(initial);
+        return {
+          kind,
+          email_design,
+          payment_pack_id,
+          days_left: Math.abs(days_left) || 0,
+          credits_left: credits_left || 0,
+          smartlist_include: smartlist_include || [],
+          smartlist_exclude: smartlist_exclude || [],
+          verboseNotifKind,
+        };
+      }
+      const values = {
+        kind: CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
+        email_design: null,
+        payment_pack_id: id,
+        days_left: 2,
+        credits_left: 2,
+        smartlist_include: [],
+        smartlist_exclude: [],
+        verboseNotifKind: 'creditsLeft',
+      };
+      return values;
+    },
+    validationSchema: PaymentPackNotificationSchema,
+    handleSubmit: (values, { props: { onSubmit } }) => {
+      const data = {
+        kind:
+          values.verboseNotifKind === 'creditsLeft'
+            ? CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT
+            : CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
+        email_design: values.email_design,
+        event_rules: {
+          payment_pack_id: values.payment_pack_id,
+        },
+      };
+      switch (values.verboseNotifKind) {
+        case 'daysLeft':
+          data.event_rules.days_left = values.days_left;
+          data.event_rules.smartlist_include = values.smartlist_include;
+          data.event_rules.smartlist_exclude = values.smartlist_exclude;
+          break;
+        case 'daysPast':
+          data.event_rules.days_left = values.days_left * -1;
+          data.event_rules.smartlist_include = values.smartlist_include;
+          data.event_rules.smartlist_exclude = values.smartlist_exclude;
+          break;
+        default:
+          data.event_rules.credits_left = values.credits_left;
+          break;
+      }
+      onSubmit(data);
+    },
+  }),
+)(PaymentPackNotificationForm);

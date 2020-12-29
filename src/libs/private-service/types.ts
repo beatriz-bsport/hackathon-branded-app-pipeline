@@ -111,7 +111,17 @@ export type ResourceData = {
   resourceData: any,
 };
 
-export interface PrivateServiceState {
+export type RecurrenceRulePrivateBooking = {
+  id: number,
+  day_of_week: number,
+  hour: number,
+  minute: number,
+  nb_of_weeks: number,
+  member: number,
+  private_slot: PrivateSlot,
+}
+
+export type PrivateServiceState = {
   availabilitySlot: {
     existsByResourceTypeById: {
       [resourceDatatype: string]: {
@@ -186,5 +196,19 @@ export interface PrivateServiceState {
       loading: boolean,
       error?: Error,
     },
-  };
-}
+  },
+  recurrenceRulePrivateBooking: {
+    byId: { [id: number]: RecurrenceRulePrivateBooking },
+    allIds: Array<number>,
+    loading: boolean,
+    error?: Error,
+    createOrUpdate: {
+      loading: boolean,
+      error?: Error,
+    },
+    delete: {
+      loading: boolean,
+      error?: Error,
+    },
+  },
+};

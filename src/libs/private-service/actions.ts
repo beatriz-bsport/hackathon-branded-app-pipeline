@@ -58,6 +58,10 @@ import {
   updatePrivateBookingDatetime as updatePrivateBookingDatetimeAPI,
   updatePrivateBookingCoach as updatePrivateBookingCoachAPI,
   attachCoach as attachCoachAPI,
+  // recurrence-rule-private-booking
+  fetchRecurrenceRulePrivateBookingList as fetchRecurrenceRulePrivateBookingListAPI,
+  createOrUpdateRecurrenceRulePrivateBooking as createOrUpdateRecurrenceRulePrivateBookingAPI,
+  deleteRecurrenceRulePrivateBooking as deleteRecurrenceRulePrivateBookingAPI,
 
   // extension
   fetchPrivateConsumerPassExtensionList as fetchPrivateConsumerPassExtensionListAPI,
@@ -1605,6 +1609,88 @@ export function deletePrivateBooking(
       if (options && options.onError) options.onError();
     }
     dispatch(privateBookingDeleteActions.isLoading(false));
+  };
+}
+
+export const listRecurrenceRulePrivateBookingActions = {
+  isLoading: createAction('RECURENCE_RULE_PRIVATE_BOOKING/LIST/IS_LOADING'),
+  error: createAction('RECURENCE_RULE_PRIVATE_BOOKING/LIST/ERROR'),
+  success: createAction('RECURENCE_RULE_PRIVATE_BOOKING/LIST/SUCCESS'),
+};
+
+export function fetchRecurrenceRulePrivateBooking(
+  params: any,
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(listRecurrenceRulePrivateBookingActions.isLoading(true));
+    dispatch(listRecurrenceRulePrivateBookingActions.error(null));
+    try {
+      const response = await fetchRecurrenceRulePrivateBookingListAPI(params);
+      dispatch(listRecurrenceRulePrivateBookingActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listRecurrenceRulePrivateBookingActions.error(null));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(listRecurrenceRulePrivateBookingActions.isLoading(false));
+  };
+}
+
+export const createOrUpdateRecurrenceRulePrivateBookingActions = {
+  error: createAction('RECURENCE_RULE_PRIVATE_BOOKING/CREATE_OR_UPDATE/ERROR'),
+  isLoading: createAction('RECURENCE_RULE_PRIVATE_BOOKING/CREATE_OR_UPDATE/IS_LOADING'),
+  success: createAction('RECURENCE_RULE_PRIVATE_BOOKING/CREATE_OR_UPDATE/SUCCESS'),
+};
+
+export function createOrUpdateRecurrenceRulePrivateBooking(
+  data: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.isLoading(true));
+    dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.error(null));
+    try {
+      const response = await createOrUpdateRecurrenceRulePrivateBookingAPI(data);
+      dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.isLoading(false));
+  };
+}
+
+export const deleteRecurrenceRulePrivateBookingActions = {
+  isLoading: createAction('RECURENCE_RULE_PRIVATE_BOOKING/DELETE/IS_LOADING'),
+  error: createAction('RECURENCE_RULE_PRIVATE_BOOKING/DELETE/ERROR'),
+  success: createAction('RECURENCE_RULE_PRIVATE_BOOKING/DELETE/SUCCESS'),
+};
+
+export function deleteRecurrenceRulePrivateBooking(
+  id: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteRecurrenceRulePrivateBookingActions.isLoading(true));
+    dispatch(deleteRecurrenceRulePrivateBookingActions.error(null));
+    try {
+      await deleteRecurrenceRulePrivateBookingAPI(id);
+      dispatch(deleteRecurrenceRulePrivateBookingActions.success(id));
+
+      if (options && options.onSuccess) options.onSuccess(id);
+    } catch (error) {
+      console.error(error);
+      dispatch(deleteRecurrenceRulePrivateBookingActions.error(error));
+
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(deleteRecurrenceRulePrivateBookingActions.isLoading(false));
   };
 }
 

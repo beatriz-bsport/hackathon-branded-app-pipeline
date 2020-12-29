@@ -188,7 +188,10 @@ export const PrivateCalendarMultiResource = (props: Props) => (
       <PrivateBookingBooker
         open={props.privateBookerOpen}
         requestedSlot={props.privateBookingRequestedSlot}
-        onClose={props.closePrivateBooker}
+        onClose={() => {
+          props.closePrivateBooker();
+          props.refreshPrivateBookings();
+        }}
       />
     </div>
   </div>

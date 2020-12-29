@@ -7,6 +7,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import UndoIcon from '@material-ui/icons/Undo';
 import CancelIcon from '@material-ui/icons/Cancel';
+import UpdateIcon from '@material-ui/icons/Update';
+import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -27,6 +29,13 @@ type Props = {
   onRestore?: () => void,
 };
 export const PrivateBookingListItem = (props: Props) => {
+  const getIsRecurrentBooking = () => {
+    if (props.private_booking.recurrence_rule_private_booking) {
+      return <UpdateIcon color="primary" fontsize="small" />;
+    }
+    return '';
+  };
+
   return (
     <ListItem
       divider={!!props.divider}
@@ -41,16 +50,30 @@ export const PrivateBookingListItem = (props: Props) => {
     >
       <ListItemText
         primary={
-          props.private_booking.name +
-          getBookingStatusCode(props.t, props.private_booking)
+          <div className={props.classes.rowPrimary}>
+            <Typography variant="body2">
+              {props.private_booking.name}
+            </Typography>
+            <Typography color="primary">
+              {getIsRecurrentBooking()}
+            </Typography>
+            <Typography variant="body2" inline>
+              {getBookingStatusCode(props.t, props.private_booking)}
+            </Typography>
+          </div>
         }
-        secondary={`${formatAsDatetime(
-          props.private_booking.date_start,
-          props.private_booking.timezone_name,
-        )} -> ${formatAsTime(
-          props.private_booking.date_end,
-          props.private_booking.timezone_name,
-        )}`}
+        secondary={
+          <div>
+            <Typography variant="body2">
+              {`${formatAsDatetime(
+                props.private_booking.date_start,
+                props.private_booking.timezone_name,
+              )} -> ${formatAsTime(
+                props.private_booking.date_end,
+                props.private_booking.timezone_name,
+              )}`}
+            </Typography>
+          </div>}
       />
       <ListItemSecondaryAction>
         {props.onRestore &&
@@ -71,11 +94,19 @@ export const PrivateBookingListItem = (props: Props) => {
   );
 };
 
-const styles = () => ({
+const styles = (theme) => ({
   disabled: {
     backgroundColor: '#FFDDDD',
     '&:hover': {
       backgroundColor: '#FFC1C1',
+    },
+  },
+  rowPrimary: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    '&>*': {
+      marginRight: theme.spacing(0.5),
     },
   },
 });

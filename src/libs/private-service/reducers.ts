@@ -45,6 +45,9 @@ import {
   deleteCustomEventActions,
   privatePassBulkActions,
   listPrivateConsumerPassCompatibleActions,
+  listRecurrenceRulePrivateBookingActions,
+  createOrUpdateRecurrenceRulePrivateBookingActions,
+  deleteRecurrenceRulePrivateBookingActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -149,6 +152,20 @@ const initialState: PrivateServiceState = Immutable<PrivateServiceState>({
     allIds: [],
     loading: false,
     error: null,
+    createOrUpdate: {
+      loading: false,
+      error: null,
+    },
+  },
+  recurrenceRule: {
+    byId: {},
+    allIds: [],
+    loading: false,
+    error: null,
+    delete: {
+      error: null,
+      loading: false,
+    },
     createOrUpdate: {
       loading: false,
       error: null,
@@ -531,6 +548,47 @@ export default handleActions(
         .setIn(
           ['privateBooking', 'allIds'],
           state.privateBooking.allIds.filter((x) => x !== payload),
+        );
+    },
+
+    [createOrUpdateRecurrenceRulePrivateBookingActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['recurrenceRule', 'byId', payload.id], payload)
+        .setIn(['recurrenceRule', 'allIds'],
+        [...state.recurrenceRule.allIds, payload.id],
+        );
+    },
+    [createOrUpdateRecurrenceRulePrivateBookingActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['recurrenceRule', 'createOrUpdate', 'loading'], payload);
+    },
+    [createOrUpdateRecurrenceRulePrivateBookingActions.error]: (state, { payload }) => {
+      return state.setIn(['recurrenceRule', 'createOrUpdate', 'error'], payload);
+    },
+    [deleteRecurrenceRulePrivateBookingActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['recurrenceRule', 'delete', 'loading'], payload);
+    },
+    [deleteRecurrenceRulePrivateBookingActions.error]: (state, { payload }) => {
+      return state.setIn(['recurrenceRule', 'delete', 'error'], payload);
+    },
+    [listRecurrenceRulePrivateBookingActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['recurrenceRule', 'loading'], payload);
+    },
+    [listRecurrenceRulePrivateBookingActions.error]: (state, { payload }) => {
+      return state.setIn(['recurrenceRule', 'error'], payload);
+    },
+    [listRecurrenceRulePrivateBookingActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['recurrenceRule', 'allIds'], payload.map((pb) => pb.id))
+        .merge(
+          {
+            recurrenceRule: {
+              byId: payload.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
         );
     },
 

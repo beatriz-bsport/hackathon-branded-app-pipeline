@@ -18,6 +18,8 @@ type Props = {
   t: TFunction,
   private_service: number,
   private_slot: number,
+  coach?: any,
+  establishment?: any,
   onConfigurationChange: ({
     private_service: number,
     private_slot: number,
@@ -31,7 +33,8 @@ type Props = {
 
 type State = {
   private_service: ?PrivateService,
-  slot_selected: ?number,
+  privateSlotId: ?number,
+  privateServiceId: ?number,
   coaches_selected: Array<number>,
   establishment_selected: number,
 };
@@ -40,14 +43,19 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     if (props.private_service && props.private_slot) {
+      const private_service = props.private_services.find(
+        (ps) => ps.id === props.private_service,
+      );
       this.state = {
+        private_service,
         privateSlotId: props.private_slot,
         privateServiceId: props.private_service,
-        coaches_selected: [],
-        establishment_selected: null,
+        coaches_selected: props.coach ? [props.coach] : [],
+        establishment_selected: props.establishment || null,
       };
     } else {
       this.state = {
+        private_service: null,
         privateSlotId: null,
         privateServiceId: null,
         coaches_selected: [],
@@ -196,7 +204,8 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
           privateSlotId={this.state.privateSlotId}
           onSelect={this.handleServiceChange}
         />
-        {establishmentResourceState.needChoice ||
+        {this.props.establishment ||
+        establishmentResourceState.needChoice ||
         establishmentResourceState.canSelect ? (
           <div className={classes.selectorContainer}>
             <Typography color="textSecondary" variant="caption">
@@ -212,7 +221,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
             />
           </div>
         ) : null}
-        {coachResourceState.canSelect ? (
+        {this.props.coach || coachResourceState.canSelect ? (
           <div className={classes.selectorContainer}>
             <Typography color="textSecondary" variant="caption">
               {this.props.t('service.selector.coach.label')}

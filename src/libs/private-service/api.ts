@@ -464,3 +464,20 @@ export const fetchPrivateConsumerPassCompatibleList = (params: any) => {
     params,
   );
 };
+
+export const fetchRecurrenceRulePrivateBookingList = (params: any) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/recurrence_rule_private_booking/${buildUrlParams(params)}`,
+  );
+};
+
+export const createOrUpdateRecurrenceRulePrivateBooking = async (data: any) => {
+  if (!data.id) {
+    return postAuth(`${API_V1_URI}/private_service/recurrence_rule_private_booking/`, data);
+  }
+  return putAuth(`${API_V1_URI}/private_service/recurrence_rule_private_booking/${data.id}/`, data);
+};
+
+export const deleteRecurrenceRulePrivateBooking = (id: number) => {
+  return deleteAuth(`${API_V1_URI}/private_service/recurrence_rule_private_booking/${id}/`);
+};

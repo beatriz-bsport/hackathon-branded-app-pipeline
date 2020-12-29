@@ -24,6 +24,8 @@ type Props = {
   fetchPass: () => void,
   compatiblePrivatePass: Array<PrivatePass>,
   compatiblePrivateConsumerPass: Array<PrivateConsumerPass>,
+  recurrenceRule?: boolean,
+  createRecurrentRule?: () => void,
 };
 
 export const PrivatePassCapabilities = (props: Props) => {
@@ -55,9 +57,11 @@ export const PrivatePassCapabilities = (props: Props) => {
               {props.compatiblePrivateConsumerPass.map((pcp) => (
                 <PrivateConsumerPassBookerListItem
                   private_consumer_pass={pcp}
-                  onBook={() => {
-                    props.registerPrivateBooking(pcp.id);
-                  }}
+                  onBook={() =>
+                    (props.recurrenceRule
+                    ? props.createRecurrentRule()
+                    : props.registerPrivateBooking(pcp.id))
+                  }
                   key={pcp.id}
                   divider
                 />

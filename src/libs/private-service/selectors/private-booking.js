@@ -167,3 +167,29 @@ export const getPrivateBookingListFiltered = createSelector(
     );
   },
 );
+
+const _getRecurrenceRulePrivateBookingData = (state) =>
+  state.privateService.recurrenceRule.byId;
+const _getRecurrenceRulePrivateBookingListIds = (state) =>
+  state.privateService.recurrenceRule.allIds;
+
+export const getRecurrenceRulePrivateBookingList = createSelector(
+  [
+    _getRecurrenceRulePrivateBookingListIds,
+    _getRecurrenceRulePrivateBookingData,
+    getMemberListData,
+    getMemberDetailData,
+    getAllPrivateSlotsDict,
+    getAllCoachesDict,
+    getAllEstablishmentsDict,
+  ],
+  (ids, data, memberData, memberDetailData, privateSlotData, coachData, establishmentData) => ids
+    .map((id) => data[id])
+    .map((rpb) => ({
+      ...rpb,
+      member: memberData[rpb.member] || memberDetailData[rpb.member],
+      private_slot: privateSlotData[rpb.private_slot],
+      associated_coach: coachData[rpb.associated_coach],
+      associated_establishment: establishmentData[rpb.associated_establishment],
+    })),
+);

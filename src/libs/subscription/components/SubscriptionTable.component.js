@@ -154,9 +154,18 @@ export class SubscriptionTable extends Component<Props, State> {
     this.props.onPageChange(1);
   }
 
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (prevState.tableState.page !== this.state.tableState.page) {
+      this.props.onPageChange(this.state.tableState.page);
+    }
+  }
+
   handlePageChange = (newPage: number) => {
     if (newPage !== this.state.tableState.page) {
-      this.props.onPageChange(newPage);
+      this.setState((prevState) => ({
+        ...prevState,
+        tableState: { ...prevState.tableState, page: newPage },
+      }));
     }
   };
 

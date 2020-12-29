@@ -87,7 +87,7 @@ import type { OfferFilter } from '../../libs/offer/types';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import OfferEditForm from '../../libs/offer/OfferEditForm.component';
-import MassDisablerDialog from '../../libs/offer/components/MassDisablerDialog.component';
+import MassDisablerDialog from '../../libs/offer/components/MassDisablerDialog.component.tsx';
 import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';

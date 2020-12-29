@@ -1869,6 +1869,11 @@
       "caption": "Souscriptions",
       "popover": "Le nombre de factures liées à une souscription non annulée"
     },
+    "booking": {
+      "title": "Réservations",
+      "caption": "Réservations enregistrées",
+      "popover": "Le nombre total de réservations enregistrées pour cette date. Vous pouvez filtrer les annulations / late-cancel / ..."
+    },
     "bookingsWeektimeSlot": { "title": "Effectif moyen", "popover": "Effectif moyen des séances par créneau horaire" },
     "dateFilter": { "customSelect": "Sélectionner une plage de dates", "quickSelect": "Choix rapide" },
     "noData": "Aucune donnée à afficher",
@@ -1894,33 +1899,38 @@
     },
     "customChart": {
       "addChart": "Créer un graphe",
-      "noResource": "Veuillez choisir un objet ressource.",
+      "noResource": "Veuillez choisir un type de donnée.",
       "form": {
-        "title": "Graphe",
+        "title": "Graphique",
         "cancel": "Annuler",
         "submit": "Enregistrer",
+        "datatype": "Type de graphe",
+        "graphComponent": "Représentation souhaitée",
         "selector": {
           "object": {
-            "isEmpty": "Aucun objet de la ressource",
-            "placeholder": "Objet de la ressource",
-            "helperText": "Choisir une ressource du graphe"
+            "isEmpty": "Aucune donnée sélectionnée",
+            "placeholder": "Sélectionnez un type de donnée",
+            "helperText": "Choisissez ce que vous souhaitez visualiser"
           },
           "member": "Nouveaux membres",
           "booking": "Réservations",
-          "payment": "Encaissements (€)",
-          "invoice": "Factures"
+          "payment": "Paiements",
+          "invoice": "Achats"
         },
         "name": "Titre du graphe",
+        "aggregate": "Cumuler",
+        "aggregateHelper": "Ex: affiche l'évolution du nb total des membres, plutôt que le nb de nouveaux membres, chaque mois.",
         "radio": {
-          "temporalMember": "Données temporelles",
-          "temporalTimeslotBooking": "Réservation temporelle",
-          "qualitativeBooking": "Réservation qualitative",
-          "temporalPayment": "Encaissement temporel",
-          "temporalPlannedInvoice": "Facture prévisionnelle temporelle",
-          "qualitativeInvoiceItem": "Facture qualitative",
-          "bar": "Graphique à barres",
+          "temporalMember": "Évolution dans le temps",
+          "temporalTimeslotBooking": "Fréquences journalières et horaires",
+          "temporalBooking": "Évolution dans le temps",
+          "qualitativeBooking": "Répartition",
+          "temporalPayment": "Évolution dans le temps",
+          "temporalPlannedInvoice": "Évolution dans le temps",
+          "qualitativeInvoiceItem": "Répartition",
+          "bar": "Histogramme",
           "area": "Graphique en aires",
-          "grid": "Tableau de croisement",
+          "grid": "Tableau des fréquences",
           "pie": "Diagramme circulaire"
         }
       }
@@ -2283,7 +2293,8 @@
       "IE": "Irlande",
       "BE": "Belgique",
       "ES": "Espagne",
-      "CH": "Suisse"
+      "CH": "Suisse",
+      "MT": "Malte"
     },
     "language": { "fr": "français", "en": "anglais", "de": "allemand", "it": "italien", "nl": "néerlandais", "es": "espagnol" }
   },
@@ -2537,6 +2548,8 @@
     },
     "marketplaceSettings": {
       "addButton": "Ajouter un onglet",
+      "explainMarketplace": "Vos adhérents peuvent accéder à votre marketplace (calendrier, magasin, VOD...) en ligne sur ordinateur tablette ou téléphone. Personnalisez votre page ici !",
+      "link": "Accédez à la marketplace client (vous serez déconnecté)",
       "saveButton": "Sauvegarder",
       "preview": "Aperçu",
       "componentType": {

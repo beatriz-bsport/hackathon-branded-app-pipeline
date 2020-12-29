@@ -111,6 +111,7 @@ type Props = {
   loading: boolean,
   onSubmit: () => void,
   onSpotPaymentReportId: number,
+  showActions: boolean,
   handleOpenOnSpotPaymentReport: () => void,
   fetchOnSpotPaymentReport: () => void,
   showActions: boolean,

@@ -48,8 +48,8 @@ import PrivatePassFilter from './filters/PrivatePassFilter.component';
 import PrivateBookingsFilter from './filters/PrivateBookingsFilter.component';
 
 import type { PaymentPack } from '../../payment-packs/types';
-import { Establishment } from '../../establishment/types.ts';
-import { Coach } from '../../associated-coach/types.ts';
+import type { Establishment } from '../../establishment/types';
+import type { Coach } from '../../associated-coach/types';
 import type { PrivatePass } from '../../private-service/types.ts';
 
 type Props = {

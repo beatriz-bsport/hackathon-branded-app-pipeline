@@ -50,6 +50,14 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['datetime', 'privateService']);
 
+  const renderLoader = useCallback(() => {
+    return (
+      <div className={classes.centerView}>
+        <CircularProgress />
+      </div>
+    );
+  }, []);
+
   const renderNoSessions = useCallback(() => {
     return (
       <div className={classes.centerView}>

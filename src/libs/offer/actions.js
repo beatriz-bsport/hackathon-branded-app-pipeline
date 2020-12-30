@@ -12,6 +12,7 @@ import {
   fetchOffersList as fetchOffersListAPI,
   massDisableOffer as massDisableOfferAPI,
   restoreOffer as restoreOfferAPI,
+  fetchBookedGender as fetchBookedGenderAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
 
@@ -439,5 +440,72 @@ export function restoreOffer(id: number, options: OptionCallback) {
       console.error(error);
       dispatch(snackbarError('offer.restore.error'));
     }
+  };
+}
+
+export const bookedGenderActions = {
+  isLoading: createAction('OFFER/BOOKED_GENDER/IS_LOADING'),
+  error: createAction('OFFER/BOOKED_GENDER/ERROR'),
+  success: createAction('OFFER/BOOKED_GENDER/SUCCESS'),
+};
+
+export function fetchBookedGender(params: any, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(bookedGenderActions.error(null));
+    dispatch(bookedGenderActions.isLoading(true));
+    try {
+      const filterData = {};
+      const { filters } = params;
+      if (filters) {
+        if (filters.establishments && filters.establishments.length > 0) {
+          filterData.establishment__in = filters.establishments;
+        }
+        if (filters.coaches && filters.coaches.length > 0) {
+          filterData.coach__in = filters.coaches;
+        }
+        if (filters.metaActivities && filters.metaActivities.length > 0) {
+          filterData.activity__in = filters.metaActivities;
+        }
+        if (filters.levels && filters.levels.length > 0) {
+          filterData.level__in = filters.levels;
+        }
+      }
+      // eslint-disable-next-line no-param-reassign
+      delete params.filters;
+      const response = await fetchBookedGenderAPI({
+        ...params,
+        ...filterData,
+      });
+      dispatch(bookedGenderActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(bookedGenderActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(bookedGenderActions.isLoading(false));
+  };
+}
+
+export function fetchBookedGenderBulk(ids: Array<number>, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(bookedGenderActions.isLoading(true));
+    dispatch(bookedGenderActions.error(null));
+    try {
+      const response = await fetchBookedGenderAPI({
+        id__in: ids,
+      });
+      dispatch(bookedGenderActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(bookedGenderActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(bookedGenderActions.isLoading(false));
   };
 }

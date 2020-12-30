@@ -34,6 +34,7 @@ type Props = {
   coachLoading: boolean,
   establishmentLoading: boolean,
   offers: Array<Offer>,
+  showOfferGender?: boolean,
 };
 
 type State = {
@@ -151,6 +152,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                   ) : (
                     <MarketplaceCardOffer
                       showOfferFilling={this.props.showOfferFilling}
+                      showOfferGender={this.props.showOfferGender}
                       offer={o}
                       onClickOffer={this.props.onClickOffer}
                       onClickBook={() => this.props.onClickBook(o)}

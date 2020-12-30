@@ -73,6 +73,26 @@ exports.default = {
         placeholder: 'Jours avant expiration',
         alert: "Remplissez les jours d'expiration du panier!",
       },
+      showGenderOffer:
+        "Afficher le nombre d'hommes et de femmes qui réservent une offre",
+      offerBalance: "Mise en place d'un contrôle de l'équilibre FEMME/HOMME",
+      checkBalance: {
+        checkbox:
+          'Limiter le déséquilibre FEMME/HOMME des réservations (danse...)',
+        numberCheck: {
+          placeholder:
+            'Contrôler le déséquilibre FEMME/HOMME lorsque le nombre de réservation dépasse',
+          helperText:
+            'Lorsque plus de {{ number }} personnes réservent une séance, toute réservation supplémentaire ne sera acceptée que si le déséquilbire FEMME/HOMME est inférieur à la valeur suivante.',
+        },
+        shiftRatio: {
+          placeholder: 'Déséquilibre FEMME/HOMME maximum autorisé',
+          helperText:
+            'Limiter le déséquilibre FEMME/HOMME à {{ gender_max_shift_for_booking }} personnes',
+          explain:
+            'Si plus de {{ numberCheck }} réservations sont enregistrées sur une séance, aucune réservation ne sera autorisée qui crée un déséquilibre FEMME/HOMME supérieur à {{ gender_max_shift_for_booking }} personnes.',
+        },
+      },
     },
     cover: {
       label: 'Logo',

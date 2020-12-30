@@ -54,6 +54,7 @@ type Props = {
   bookingsLoading: boolean,
   goToOfferManagement: (id: number) => void,
   onRestoreButtonClick: () => void,
+  showOfferGender?: boolean,
 };
 
 export class OfferCard extends Component<Props> {
@@ -109,14 +110,25 @@ export class OfferCard extends Component<Props> {
               {`/${effectif}`}
             </Typography>
           </div>
-          <Typography
-            variant="caption"
-            align="center"
-            className={classes.statName}
-          >
-            {' '}
-            {t('offer:booking.confirmed')}
-          </Typography>
+          {this.props.showOfferGender ? (
+            <Typography
+              variant="caption"
+              align="center"
+              className={classes.statName}
+            >
+              {t('offer:booking.confirmed')}
+              {' '}(&#9792;{this.props.offer.female}{`/${this.props.offer.male}`}&#9794;{'+'}{this.props.offer.other})
+            </Typography>
+          ) : (
+            <Typography
+              variant="caption"
+              align="center"
+              className={classes.statName}
+            >
+              {' '}
+              {t('offer:booking.confirmed')}
+            </Typography>
+          )}
         </div>
         <div className={classNames(classes.rightBorder, classes.stat)}>
           <Typography variant="h3" color="secondary" align="center">

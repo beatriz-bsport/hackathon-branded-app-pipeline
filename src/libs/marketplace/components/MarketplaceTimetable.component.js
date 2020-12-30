@@ -37,6 +37,7 @@ type Props = {
   activityLoading: boolean,
   coachLoading: boolean,
   establishmentLoading: boolean,
+  showOfferGender: boolean,
 };
 
 const getWeekOffers = memoize((selectedDate, offers) => {
@@ -97,6 +98,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
                       </IconButton>
                     </Hidden>
                     <MarketplaceBookButton
+                      showOfferGender={this.props.showOfferGender}
                       onClickBook={() => this.props.onClickBook(o)}
                       onClickBookOption={() =>
                         this.props.onClickBookOption(o.id)

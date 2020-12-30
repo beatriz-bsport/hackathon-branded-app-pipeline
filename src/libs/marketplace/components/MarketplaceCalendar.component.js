@@ -54,6 +54,7 @@ type Props = {
   activityLoading: boolean,
   coachLoading: boolean,
   establishmentLoading: boolean,
+  showOfferGender?: boolean,
 };
 const getEventsFrom = memoize((offers) => {
   const events = {};
@@ -172,6 +173,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
         ) : isCompact && !isLarge ? (
           <MarketplaceTimetable
             showOfferFilling={this.props.showOfferFilling}
+            showOfferGender={this.props.showOfferGender}
             offers={this.props.offers}
             date={selectedDate}
             onClickOffer={this.props.onClickOffer}
@@ -186,6 +188,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
           <MarketplaceWeekTimetable
             offers={this.props.offers}
             showOfferFilling={this.props.showOfferFilling}
+            showOfferGender={this.props.showOfferGender}
             date={selectedDate}
             onClickOffer={this.props.onClickOffer}
             onClickBook={this.props.onClickBook}

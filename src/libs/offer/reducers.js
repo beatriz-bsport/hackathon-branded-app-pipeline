@@ -15,6 +15,7 @@ import {
   offerBulkActions,
   retrieveActions,
   retrieveByIdActions,
+  bookedGenderActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -57,6 +58,13 @@ const initialState = Immutable({
   marketplace: {
     loading: false,
     error: null,
+    allIds: [],
+  },
+
+  genderCount: {
+    loading: false,
+    error: null,
+    byId: {},
     allIds: [],
   },
 });
@@ -196,6 +204,25 @@ export default handleActions(
     },
     [retrieveByIdActions.success]: (state, { payload }) => {
       return state.setIn(['byId', payload.id], payload);
+    },
+    [bookedGenderActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['genderCount', 'loading'], payload);
+    },
+    [bookedGenderActions.error]: (state, { payload }) => {
+      return state.setIn(['genderCount', 'error'], payload);
+    },
+    [bookedGenderActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['genderCount', 'allIds'], payload.map((ps) => ps.id))
+        .merge({
+          genderCount: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true });
     },
   },
   initialState,

@@ -62,6 +62,7 @@ import {
   setFilters as setFiltersAction,
   disableMassOffers,
   restoreOffer,
+  fetchBookedGender as fetchBookedGenderAction,
 } from '../../libs/offer/actions';
 import {
   editLiveOffer as editLiveOfferAPI,
@@ -836,6 +837,10 @@ export class Planning extends PureComponent<Props, State> {
                   bookingsLoading={
                     this.props.bookingsLoading || !this.props.bookings
                   }
+                  showOfferGender={
+                    this.props.theme &&
+                    this.props.theme.show_booked_gender_offer
+                  }
                 />
               </div>
             ) : (
@@ -963,6 +968,7 @@ export default compose(
       fetchBookingStatistics: fetchBookingStatisticsAction,
       monitorBackgroundTask,
       restoreOffer,
+      fetchBookedGender: fetchBookedGenderAction,
     },
   ),
   withHandlers({
@@ -973,7 +979,13 @@ export default compose(
       filters = { ...filters, available: !showCancelled };
       setFilters(filters);
     },
-    fetchRelevantOffers: ({ fetchAllOffers, offerFilters, date }) => () => {
+    fetchRelevantOffers: ({
+      fetchAllOffers,
+      theme,
+      fetchBookedGender,
+      offerFilters,
+      date,
+    }) => () => {
       fetchAllOffers({
         min_date: moment(date)
           .startOf('month')
@@ -985,6 +997,19 @@ export default compose(
           .format('YYYY-MM-DD'),
         ...omit(offerFilters || {}, 'available'),
       });
+      if (theme && theme.show_booked_gender_offer) {
+        fetchBookedGender({
+          min_date: moment(date)
+            .startOf('month')
+            .startOf('week')
+            .format('YYYY-MM-DD'),
+          max_date: moment(date)
+            .endOf('month')
+            .endOf('week')
+            .format('YYYY-MM-DD'),
+          ...omit(offerFilters || {}, 'available'),
+        });
+      }
     },
     fetchBookingInOfferStats: ({
       selectedOffer,

@@ -209,7 +209,17 @@ export default compose(
         .catch((err) => {
           console.error(err);
           if (err && err.response && err.response.status === 423) {
-            snackbarError(t('booking:bookingModule.messages.offerLocked'));
+            switch (err.response.data) {
+              case 'unavailable for female':
+                snackbarError(t('booking:bookingModule.messages.femaleUnavailable'));
+                break;
+              case 'unavailable for male':
+                snackbarError(t('booking:bookingModule.messages.maleUnavailable'));
+                break;
+              default:
+                snackbarError(t('booking:bookingModule.messages.offerLocked'));
+                break;
+            }
           }
         });
     },

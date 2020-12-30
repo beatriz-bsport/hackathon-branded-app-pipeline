@@ -46,12 +46,16 @@ import {
   MetaActivity,
 } from '../../libs/marketplace/types.ts';
 
-import { fetchMarketplaceOfferList as fetchOfferListAction } from '../../libs/offer/actions';
+import {
+  fetchMarketplaceOfferList as fetchOfferListAction,
+  fetchBookedGender as fetchBookedGenderAction,
+} from '../../libs/offer/actions';
 import {
   getMarketplaceOfferList,
   withMetaActivity,
   withCoach,
   withEstablishment,
+  withGender,
 } from '../../libs/offer/selectors';
 import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions.ts';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions.ts';
@@ -230,6 +234,7 @@ export class MarketplaceCalendar extends Component<Props, State> {
         <MarketplaceCalendarComponent
           offers={offers}
           showOfferFilling={this.props.theme.show_offers_filling}
+          showOfferGender={this.props.theme.show_booked_gender_offer}
           setFilters={this.props.setFilters}
           filters={filters}
           loading={this.props.loading}
@@ -284,7 +289,9 @@ export default compose(
   connect(
     (state) => ({
       offers: withCoach(
-        withMetaActivity(withEstablishment(getMarketplaceOfferList)),
+        withMetaActivity(
+          withEstablishment(withGender(getMarketplaceOfferList)),
+        ),
       )(state),
       loading: state.offer.marketplace.loading,
       coachLoading: state.coach.loading,
@@ -301,6 +308,7 @@ export default compose(
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchAssociatedCoachBulkFromCoachIds: fetchAssociatedCoachBulkFromCoachIdsAction,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+      fetchBookedGender: fetchBookedGenderAction,
       goToBook: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
       goToBookOption: (id: number, companyId: number) =>
@@ -313,7 +321,9 @@ export default compose(
       fetchEstablishmentBulk,
       fetchMetaActivityBulk,
       fetchAssociatedCoachBulkFromCoachIds,
+      fetchBookedGender,
       companyId,
+      theme,
     }) => (params) => {
       fetchOfferList(params, {
         onSuccess: (offerList) => {
@@ -332,6 +342,9 @@ export default compose(
           fetchMetaActivityBulk([...offerList.map((o) => o.meta_activity)]);
         },
       });
+      if (theme && theme.show_booked_gender_offer) {
+        fetchBookedGender(params);
+      }
     },
   }),
   connect(null, (dispatch) => ({
@@ -353,7 +366,21 @@ export default compose(
         .catch((err) => {
           console.error(err);
           if (err && err.response && err.response.status === 423) {
-            snackbarError(t('booking:bookingModule.messages.offerLocked'));
+            switch (err.response.data) {
+              case 'unavailable for female':
+                snackbarError(
+                  t('booking:bookingModule.messages.femaleUnavailable'),
+                );
+                break;
+              case 'unavailable for male':
+                snackbarError(
+                  t('booking:bookingModule.messages.maleUnavailable'),
+                );
+                break;
+              default:
+                snackbarError(t('booking:bookingModule.messages.offerLocked'));
+                break;
+            }
           }
         });
     },

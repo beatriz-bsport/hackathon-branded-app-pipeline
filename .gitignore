@@ -6,3 +6,4 @@ coverage
 *~
 config.prod.js
 config.dev.js
+.idea

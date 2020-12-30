@@ -33,12 +33,39 @@ const defaultConfig = {
       {
         oneOf: [
           {
-            test: /\.(js|jsx|mjs)$/,
+            test: /\.(js|jsx|mjs|ts|tsx)$/,
             use: {
               loader: 'babel-loader',
               options: {
                 presets: ['react-app'],
                 compact: true,
+                overrides: [
+                  {
+                    test: /\.(ts|tsx)$/,
+                    presets: [
+                      '@babel/preset-typescript',
+                      [
+                        '@babel/preset-env',
+
+                        {
+                          targets: {
+                            // The % refers to the global coverage of users from browserslist
+                            browsers: [
+                              '>0.1%',
+                              'iOS >= 9',
+                              'Safari >= 6',
+                              'ie >= 11',
+                            ],
+                          },
+
+                          useBuiltIns: 'entry',
+                          corejs: 3,
+                        },
+                      ],
+                      '@babel/preset-react',
+                    ],
+                  },
+                ],
               },
             },
           },
@@ -79,7 +106,7 @@ const defaultConfig = {
     ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
     symlinks: false,
     alias: {
       react: path.resolve('./node_modules/react'),

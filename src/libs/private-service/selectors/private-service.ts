@@ -49,20 +49,22 @@ export const getPrivateServices: (state: State) => Array<any> = createSelector(
     getAllPrivateSlotsDict,
   ],
   (privateServices, allCoachesData, allEstablishments, allSlots) => {
-    return privateServices.map((ps) => ({
-      ...ps,
-      coaches: ps.coaches.map((associated_coach) =>
-        Object.values(allCoachesData).find(
-          (c) => c.associated_coach_id === associated_coach,
+    return privateServices
+      .filter((ps) => !!ps)
+      .map((ps) => ({
+        ...ps,
+        coaches: ps.coaches.map((associated_coach) =>
+          Object.values(allCoachesData).find(
+            (c) => c.associated_coach_id === associated_coach,
+          ),
         ),
-      ),
-      establishments: ps.establishments.map((e) =>
-        allEstablishments.find((ae) =>
-          ae.associatedestablishment_set.includes(e),
+        establishments: ps.establishments.map((e) =>
+          allEstablishments.find((ae) =>
+            ae.associatedestablishment_set.includes(e),
+          ),
         ),
-      ),
-      slots: ps.slots.map((s) => allSlots[s]),
-    }));
+        slots: ps.slots.map((s) => allSlots[s]),
+      }));
   },
 );
 
@@ -77,17 +79,13 @@ export const getPrivateServiceGroupList = createSelector(
 
 export const getAvailablePrivateServices: (
   state: State,
-) => Array<any> = createSelector(
-  getPrivateServices,
-  (services) =>
-    services
-      .filter((s) => s.available)
-      .map((s) => ({
-        ...s,
-        slots: s.slots
-          .filter((slot) => !!slot)
-          .filter((slot) => slot.available),
-      })),
+) => Array<any> = createSelector(getPrivateServices, (services) =>
+  services
+    .filter((s) => s.available)
+    .map((s) => ({
+      ...s,
+      slots: s.slots.filter((slot) => !!slot).filter((slot) => slot.available),
+    })),
 );
 
 export const getAvailablePrivateServicesWithoutGroup = createSelector(

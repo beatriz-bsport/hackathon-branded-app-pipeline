@@ -408,6 +408,9 @@ exports.default = {
       booking: 'Réservations RDV liées',
       extensionsTitle: 'Extensions de validité',
     },
+    isFromShare: 'Partagé depuis un autre compte',
+    isOwnerOfShares: 'Partagé (carte RDV maître)',
+    isFromDisabledShare: 'Partage arrété',
   },
   privateServiceCompatibility: {
     delete: {

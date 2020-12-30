@@ -58,4 +58,35 @@ exports.default = {
       },
     },
   },
+  private_consumer_pass_links: {
+    list: {
+      title: 'Cartes RDV partagées',
+      create: 'Partager une carte RDV',
+      isEmpty: 'Aucun partage de carte RDV',
+    },
+    form: {
+      create: {
+        title: 'Partage de carte RDV',
+        explain:
+          "Cette carte RDV sera partagée entre les deux membres, les crédits sont utilisables par l'un ou par l'autre.",
+        cancel: 'Annuler',
+        previous: 'Précédent',
+        submit: 'Partager',
+        linkButton: 'Partager',
+        noConsumerPackToLink: 'Aucune carte partageable',
+      },
+      unlink: {
+        title: 'Arrêt du partage',
+        explain: 'Le partage sera arrété. La carte RDV maître reste valable',
+        submit: 'Arrêter',
+        cancel: 'Annuler',
+      },
+      relink: {
+        title: 'Partager de nouveau',
+        explain: 'Le partage sera de nouveau activé.',
+        submit: 'Partager',
+        cancel: 'Annuler',
+      },
+    },
+  },
 };

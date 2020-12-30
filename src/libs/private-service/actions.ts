@@ -1238,6 +1238,12 @@ export const privateConsumerPassListActions = {
   success: createAction('PRIVATE_CONSUMER_PASS/LIST/SUCCESS'),
 };
 
+export function resetPrivateConsumerPassList() {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateConsumerPassListActions.success([]));
+  };
+}
+
 export const byPrivatePass = {
   isLoading: createAction('BY_PRIVATE_PASS/IS_LOADING'),
   error: createAction('BY_PRIVATE_PASS/ERROR'),
@@ -1302,6 +1308,40 @@ export function resetByPrivatePass() {
   return async (dispatch: Dispatch) => {
     dispatch(byPrivatePass.success({ results: [], count: 0, page: 1 }));
     dispatch(byPrivatePass.isLoading(false));
+  };
+}
+
+export const byMember = {
+  isLoading: createAction('BY_MEMBER/IS_LOADING'),
+  error: createAction('BY_MEMBER/ERROR'),
+  success: createAction('BY_MEMBER/SUCCESS'),
+};
+
+export function fetchPrivateConsumerPassByMember(
+  member: number,
+  options?: OptionCallback,
+  params?: any,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(byMember.isLoading(true));
+    dispatch(byMember.error(null));
+    try {
+      const response = await fetchPrivateConsumerPassListAPI({
+        ...(params || {}),
+        member,
+      });
+      dispatch(byMember.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(byMember.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(byMember.isLoading(false));
   };
 }
 
@@ -1385,6 +1425,29 @@ export function updatePrivateConsumerPassCredits(
       dispatch(snackbarError('privateConsumerPass.creditUpdate.error'));
     }
     dispatch(privateConsumerPassUpdateCreditActions.isLoading(false));
+  };
+}
+
+export const privateConsumerPassBulkActions = {
+  error: createAction('PRIVATE_CONSUMER_PASS/BULK/ERROR'),
+  isLoading: createAction('PRIVATE_CONSUMER_PASS/BULK/IS_LOADING'),
+  success: createAction('PRIVATE_CONSUMER_PASS/BULK/SUCCESS'),
+};
+
+export function fetchPrivateConsumerPassBulk(ids: Array<number>) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateConsumerPassBulkActions.isLoading(true));
+    dispatch(privateConsumerPassBulkActions.error(null));
+    try {
+      const response = await fetchPrivateConsumerPassListAPI({
+        id__in: uniq(ids.filter((id) => !!id)),
+      });
+      dispatch(privateConsumerPassBulkActions.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(privateConsumerPassBulkActions.error(err));
+    }
+    dispatch(privateConsumerPassBulkActions.isLoading(false));
   };
 }
 

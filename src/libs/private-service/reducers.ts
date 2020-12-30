@@ -31,6 +31,7 @@ import {
   privatePassRetrieveActions,
   privateConsumerPassListActions,
   byPrivatePass,
+  byMember,
   privateConsumerPassRetrieveActions,
   privateConsumerPassUpdateCreditActions,
   updateResourceConfigurationActions,
@@ -40,6 +41,7 @@ import {
   listPrivateConsumerPassExtensionActions,
   deletePrivateConsumerPassExtensionActions,
   createPrivateConsumerPassExtensionActions,
+  privateConsumerPassBulkActions,
   createOrUpdateCustomEventActions,
   listCustomEventActions,
   deleteCustomEventActions,
@@ -891,6 +893,36 @@ export default handleActions(
         payload,
       );
     },
+    [byMember.success]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['privateConsumerPass', 'byMember', 'allIds'],
+          payload.map((pcp) => pcp.id),
+        )
+        .merge(
+          {
+            privateConsumerPass: {
+              byId: payload.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [byMember.isLoading]: (state, { payload }) => {
+      return state.setIn(
+        ['privateConsumerPass', 'byMember', 'loading'],
+        payload,
+      );
+    },
+    [byMember.error]: (state, { payload }) => {
+      return state.setIn(
+        ['privateConsumerPass', 'byMember', 'error'],
+        payload,
+      );
+    },
     [privatePassRetrieveActions.isLoading]: (state, { payload }) => {
       return state.setIn(['privatePass', 'isLoading'], payload);
     },
@@ -981,6 +1013,31 @@ export default handleActions(
     },
     [privateConsumerPassUpdateCreditActions.success]: (state, { payload }) => {
       return state.setIn(['privateConsumerPass', 'byId', payload.id], payload);
+    },
+    [privateConsumerPassBulkActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['privateConsumerPass', 'loading'], payload);
+    },
+    [privateConsumerPassBulkActions.error]: (state, { payload }) => {
+      return state.setIn(['privateConsumerPass', 'error'], payload);
+    },
+    [privateConsumerPassBulkActions.success]: (state, { payload }) => {
+      return state.merge(
+        {
+          privateConsumerPass: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      ).updateIn(
+        ['privateConsumerPass', 'allIds'],
+        (myList, newId) => {
+          return myList.concat(newId);
+        },
+        payload.map((pcp) => pcp.id),
+      );
     },
   },
   initialState,

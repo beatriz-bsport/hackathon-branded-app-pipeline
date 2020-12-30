@@ -8,6 +8,8 @@ import {
   memberRelationCreateOrUpdateActions,
   sharedConsumerPackListActions,
   sharedConsumerPackCreateOrUpdateActions,
+  sharedPrivateConsumerPassListActions,
+  sharedPrivateConsumerPassCreateOrUpdateActions,
 } from './actions';
 
 import type { RelationshipState } from './types';
@@ -23,6 +25,15 @@ const initialState: RelationshipState = Immutable({
     },
   },
   consumer_payment_pack_link: {
+    loading: false,
+    error: null,
+    items: [],
+    createOrUpdate: {
+      loading: false,
+      error: null,
+    },
+  },
+  private_consumer_pass_link: {
     loading: false,
     error: null,
     items: [],
@@ -80,6 +91,32 @@ export default handleActions(
     ) => {
       return state.setIn(
         ['consumer_payment_pack_link', 'createOrUpdate', 'loading'],
+        payload,
+      );
+    },
+
+    [sharedPrivateConsumerPassListActions.success]: (state, { payload }) => {
+      return state.setIn(['private_consumer_pass_link', 'items'], payload);
+    },
+    [sharedPrivateConsumerPassListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['private_consumer_pass_link', 'loading'], payload);
+    },
+    [sharedPrivateConsumerPassListActions.error]: (state, { payload }) => {
+      return state.setIn(['private_consumer_pass_link', 'error'], payload);
+    },
+
+    [sharedPrivateConsumerPassCreateOrUpdateActions.error]: (state, { payload }) => {
+      return state.setIn(
+        ['private_consumer_pass_link', 'createOrUpdate', 'error'],
+        payload,
+      );
+    },
+    [sharedPrivateConsumerPassCreateOrUpdateActions.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['private_consumer_pass_link', 'createOrUpdate', 'loading'],
         payload,
       );
     },

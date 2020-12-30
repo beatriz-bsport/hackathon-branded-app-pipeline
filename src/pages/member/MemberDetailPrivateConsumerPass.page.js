@@ -25,6 +25,7 @@ import {
   fetchPrivateConsumerPassExtensionList,
   createPrivateConsumerPassExtension,
   deletePrivateConsumerPassExtension,
+  resetPrivateConsumerPassList as resetPrivateConsumerPassListAction,
 } from '../../libs/private-service/actions.ts';
 import {
   getPrivateConsumerPassList,
@@ -61,6 +62,8 @@ type Props = {
   privateConsumerPassExtensionList: Array<PrivateConsumerPassExtension>,
   private_booking_list: Array<PrivateBooking>,
   updatePrivateConsumerPassCredits: (...any) => void,
+  privateConsumerPassLoading: boolean,
+  resetPrivateConsumerPassListAction: () => void,
 
   deletePrivateConsumerPassExtension: (number, OptionCallback) => void,
   privateConsumerPassExtensionLoading: boolean,
@@ -93,6 +96,7 @@ type Props = {
 
 export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
   componentDidMount() {
+    this.props.resetPrivateConsumerPassListAction();
     this.props.fetchPrivateConsumerPassList({
       ...this.props.filters,
       member: this.props.id,
@@ -105,6 +109,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.filters !== this.props.filters) {
+      this.props.resetPrivateConsumerPassListAction();
       this.props.fetchPrivateConsumerPassList({
         ...this.props.filters,
         member: this.props.id,
@@ -147,7 +152,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
             <Divider />
             <PaginatedListStateful
               itemPerPage={5}
-              loading={this.props.privateBookingsLoading}
+              loading={this.props.privateBookingsLoading && this.props.privateConsumerPassLoading}
               listProps={{ disablePadding: true }}
               items={this.props.private_consumer_pass_list}
               renderItem={(pcp) => (
@@ -258,6 +263,7 @@ export default compose(
       disablePrivateBooking: disablePrivateBookingAction,
       createExtension: createPrivateConsumerPassExtension,
       fetchMember,
+      resetPrivateConsumerPassListAction,
       onInvoiceClick: (uuid: string) => push(`/invoice/${uuid}`),
       goToPrivateBooking: (memberId, privateBookingId) =>
         push(`/member/${memberId}/private-booking/${privateBookingId}`),

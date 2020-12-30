@@ -6,6 +6,7 @@ import type { MemberRelation } from './types';
 
 import { getAllMembers } from '../member/selectors';
 import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
+import { getPrivateConsumerPassList } from '../private-service/selectors/private-consumer-pass';
 
 const _getMemberRelations = (state: State): Array<MemberRelation> =>
   state.relationship.member_relation.items;
@@ -52,4 +53,31 @@ export const getSharedConsumerPacksByRelation = (
 ) =>
   getAllSharedConsumerPaymentPacks(state).filter(
     (scpp) => scpp.member_relation === relationId,
+  );
+
+  const _getPrivateConsumerPassLinks = (state: State) =>
+  state.relationship.private_consumer_pass_link.items;
+
+export const getAllSharedPrivateConsumerPasses = createSelector(
+  [_getPrivateConsumerPassLinks, getPrivateConsumerPassList],
+  (privateConsumerPassLinks, privateConsumerPasses) =>
+    privateConsumerPassLinks
+      .map((link) => ({
+        ...link,
+        src: privateConsumerPasses.find((pcp) => pcp.id === link.src),
+        dst: privateConsumerPasses.find((pcp) => pcp.id === link.dst),
+      }))
+      .filter(
+        (pcp_link) =>
+          (pcp_link.src && pcp_link.src.id) ||
+          (pcp_link.dst && pcp_link.dst.id),
+      ),
+);
+
+export const getSharedPrivateConsumerPassesByRelation = (
+  state: State,
+  relationId: number,
+) =>
+  getAllSharedPrivateConsumerPasses(state).filter(
+    (spcp) => spcp.member_relation === relationId,
   );

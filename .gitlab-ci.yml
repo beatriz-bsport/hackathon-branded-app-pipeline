@@ -36,7 +36,8 @@ lint:
   tags:
     - deployment
   script:
-    - cd /app
+    - mv /app/node_modules .
+    - yarn install --frozen-lockfile # just to be sure
     - yarn tslint
 
   except:
@@ -146,6 +147,8 @@ lint:
       - master
       - production
   script:
+    - mv /app/node_modules .
+    - yarn install --frozen-lockfile # just to be sure
     - echo "FAILED" > .job_status
     - VERSION=`echo "$(cat ./VERSION)"`
     - echo "Preparing VERSION:${VERSION} on ${ENVIRONMENT}"

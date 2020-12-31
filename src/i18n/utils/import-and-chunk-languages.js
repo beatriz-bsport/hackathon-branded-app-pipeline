@@ -17,7 +17,7 @@ const generateChunkJSONTranslations = () => {
     console.log(`-> ${dirName}`);
     const tr = require(path.join(
       path.dirname(fs.realpathSync(__filename)),
-      `../build/${dirName}/translationson`,
+      `../build/${dirName}/translations.json`,
     ));
     Object.entries(tr).map(([key, value]) => {
       try {
@@ -26,7 +26,7 @@ const generateChunkJSONTranslations = () => {
         // console.error(err);
       }
       fs.writeFileSync(
-        `${buildDir}${dirName}/${key}on`,
+        `${buildDir}${dirName}/${key}.json`,
         JSON.stringify(value),
       );
     });

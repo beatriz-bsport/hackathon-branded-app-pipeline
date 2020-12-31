@@ -2,7 +2,7 @@
 
 const fs = require('fs-extra');
 const beautify = require('json-beautify');
-const NAMESPACES = require('../namespaceson');
+const NAMESPACES = require('../namespaces.json');
 
 const generateSourceTranslations = (lang) => {
   console.log('* Generating the source translation');

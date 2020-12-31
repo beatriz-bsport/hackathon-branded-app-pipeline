@@ -8,5 +8,5 @@ li {
 }
 
 span ~ div:nth-of-type(2) {
-z-index: 999 !important;
-} // for react-select
+  z-index: 999 !important;
+}

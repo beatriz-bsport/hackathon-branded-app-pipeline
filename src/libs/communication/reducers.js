@@ -28,6 +28,7 @@ const initialState: MailState = Immutable({
     byCampaign: {
       allIds: [],
       loading: false,
+      params: { ordering: '' },
       error: null,
       page: null,
       count: 0,
@@ -92,6 +93,7 @@ export default handleActions(
           payload.results.map((r) => r.id),
         )
         .setIn(['recipient', 'byCampaign', 'count'], payload.count)
+        .setIn(['recipient', 'byCampaign', 'params'], payload.params)
         .setIn(['recipient', 'byCampaign', 'page'], payload.page)
         .merge(
           {

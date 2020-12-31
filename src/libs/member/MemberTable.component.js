@@ -109,8 +109,8 @@ export class InvoiceTable extends Component<Props, State> {
     },
   };
 
-  fetchMemberPage = (page: number) => {
-    if (page !== this.state.tableState.page && !this.state.loading) {
+  fetchMemberPage = (page: number, force: ?boolean) => {
+    if ((force || page !== this.state.tableState.page) && !this.state.loading) {
       this.setState({ loading: true });
       this.props
         .fetch({
@@ -138,7 +138,7 @@ export class InvoiceTable extends Component<Props, State> {
   };
 
   componentDidMount() {
-    this.fetchMemberPage(1, MEMBER_PER_PAGE);
+    this.fetchMemberPage(1);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -148,8 +148,8 @@ export class InvoiceTable extends Component<Props, State> {
       prevProps.onValueChangeActiveMemberFetch !==
         this.props.onValueChangeActiveMemberFetch
     ) {
+      this.fetchMemberPage(1, true);
       this.setState({ loading: true });
-      this.fetchMemberPage(1);
     }
   }
 
@@ -157,7 +157,7 @@ export class InvoiceTable extends Component<Props, State> {
     this.setState((prevState) => ({
       processing: [...prevState.processing, id],
     }));
-    this.fetchMemberPage(this.state.tableState.page, MEMBER_PER_PAGE);
+    this.fetchMemberPage(this.state.tableState.page);
   };
 
   onRowClick = (rowData, { rowIndex }) => {
@@ -214,7 +214,7 @@ export class InvoiceTable extends Component<Props, State> {
                   <Button
                     onClick={this.props.addMember}
                     color="primary"
-                    variant="outlined"
+                    variant="contained"
                   >
                     <AddIcon className={this.props.classes.leftIcon} />
                     {t('addMember')}

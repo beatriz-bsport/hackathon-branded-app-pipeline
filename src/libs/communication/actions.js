@@ -12,7 +12,11 @@ import {
   sendCommunication as sendCommunicationAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types.ts';
+import type {
+  Dispatch,
+  ThunkAction,
+  OptionCallback,
+} from '../../state/types.ts';
 import type { MemberMailData } from './types';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
@@ -132,7 +136,9 @@ export function fetchRecipientByCampaign(
         page_size: 15,
         ...params,
       });
-      dispatch(recipientListActions.success({ ...response.data, page }));
+      dispatch(
+        recipientListActions.success({ ...response.data, page, params }),
+      );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
       }

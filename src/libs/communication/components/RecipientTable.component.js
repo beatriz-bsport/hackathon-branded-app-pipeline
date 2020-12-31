@@ -9,6 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import isEqual from 'lodash/isEqual';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -93,15 +94,16 @@ type Props = {
 
 export class RecipientTable extends React.Component<Props> {
   componentDidMount() {
-    this.fetchRecipientList(1);
+    this.fetchRecipientList(1, { ordering: '' });
   }
 
-  fetchRecipientList = (page) => {
+  fetchRecipientList = (page, params) => {
     if (
-      page !== this.props.recipientState.page &&
-      !this.props.recipientState.loading
+      (page !== this.props.recipientState.page &&
+        !this.props.recipientState.loading) ||
+      !isEqual(params, this.props.recipientState.params)
     ) {
-      this.props.fetchRecipientList(page);
+      this.props.fetchRecipientList(page, params);
     }
   };
 

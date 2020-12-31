@@ -59,10 +59,6 @@ export class Members extends Component<Props> {
 
   tagFilterBar = () => (
     <div className={this.props.classes.actionBar}>
-      <Button onClick={this.props.addMember} color="primary" variant="outlined">
-        <AddIcon />
-        {this.props.t('member:addMember')}
-      </Button>
       <TagChipList
         tagGroups={this.props.tagGroups}
         tags={this.props.tags}
@@ -117,8 +113,10 @@ const styles = (theme) => ({
   actionBar: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    width: '100%',
+
     paddingTop: theme.spacing(2),
     marginLeft: -theme.spacing(1),
   },

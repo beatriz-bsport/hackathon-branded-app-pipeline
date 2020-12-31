@@ -121,7 +121,7 @@ module.exports = [
       devMode
         ? require.resolve('./config.dev')
         : require.resolve('./config.prod'),
-      './src/outputs/widget.js',
+      './src/index.js',
     ],
     output: {
       path: distDir,

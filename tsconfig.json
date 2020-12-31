@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "outDir": "build",
+    "sourceRoot": "src",
+    "noEmit": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "types": ["react"]
+  },
+  "include": ["./src/**/*.ts*"],
+  "exclude": ["bsport-saas"]
+}

@@ -2,15 +2,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
-import { compose, withHandlers } from 'recompose';
-import './App.scss';
+import { compose } from 'recompose';
+import { History } from 'history';
 
 // used to init moment correctly
 // eslint-disable-next-line
-
 import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
 import { fetchSCT } from 'bsport-saas/src/actions/category.actions';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { getTheme } from 'bsport-saas/src/theme';
 import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 
@@ -20,30 +18,35 @@ import CalendarWidget from './components/Calendar';
 import ShopWidget from './components/Shop';
 import PassWidget from './components/Pass';
 */
-
-import asyncComponent from './async-component';
+import { RootState } from './store/reducer';
+import './App.scss';
+import asyncComponent from './utils/async-component';
 
 const CalendarWidget = asyncComponent(() => import('./components/Calendar'));
 const PassWidget = asyncComponent(() => import('./components/Pass'));
 const ShopWidget = asyncComponent(() => import('./components/Shop'));
 const WorkshopWidget = asyncComponent(() => import('./components/Workshop'));
 
-type Props = {
+export type MaterialStyle<S> = {
+  classes: Record<keyof S, string>
+}
+
+type Props = ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps &
+  MaterialStyle<ReturnType<typeof styles>> &{
   companyId: number,
   store: any,
-  history: Object,
+  history: History,
   widgetType: string,
-  fetchSCT: () => void,
   fetchCompanyActivities: (companyId: number) => void,
   fetchCompanyMetaActivities: (companyId: number) => void,
   fetchCompanyCoaches: (companyId: number) => void,
   fetchCompanyEstablishments: (companyId: number) => void,
-  fetchCompanyTheme: (companyId: number) => void,
-  auth: *,
-  consumerProfile: *,
+  consumerProfile: any,
   lang: string,
-  fetchData: () => void,
-  compactMode: boolean,
+  fetchData: () => void;
+  compactMode: boolean;
+  filtersOpen: boolean;
   defaultFilters: {
     coaches: [],
     establishments: [],
@@ -64,7 +67,12 @@ class BsportWidget extends Component<Props> {
   }
 
   componentDidMount() {
-    this.props.fetchData();
+    this.fetchData();
+  }
+
+  fetchData() {
+    this.props.fetchSCT();
+    this.props.fetchCompanyTheme(this.props.companyId);
   }
 
   renderWidget() {
@@ -120,6 +128,7 @@ class BsportWidget extends Component<Props> {
 
   render() {
     const { theme } = this.props;
+
     return (
       <div
         style={{
@@ -132,7 +141,6 @@ class BsportWidget extends Component<Props> {
       >
         <MuiThemeProvider
           theme={getTheme(this.props.theme)}
-          style={{ height: '100%', width: '100%', display: 'inline-block' }}
         >
           {this.renderWidget()}
           {!!theme && (
@@ -186,20 +194,22 @@ const styles = () => ({
   },
 });
 
+
+const mapStateToProps = (state: RootState) => ({
+  auth: state.auth,
+  theme: state.theme.theme,
+});
+
+const mapDispatchToProps = {
+  fetchSCT,
+  fetchCompanyTheme,
+};
+
 export default compose(
+  // @ts-ignore
   withStyles(styles),
   connect(
-    (state) => ({ auth: state.auth, theme: state.theme.theme }),
-    {
-      // General information
-      fetchSCT,
-      fetchCompanyTheme,
-    },
-  ),
-  withHandlers({
-    fetchData: ({ companyId, fetchSCT, fetchCompanyTheme }) => () => {
-      fetchSCT();
-      fetchCompanyTheme(companyId);
-    },
-  }),
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(BsportWidget);

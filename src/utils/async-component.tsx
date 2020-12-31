@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default function asyncComponent(importComponent) {
-  class AsyncComponent extends Component {
-    constructor(props) {
+export default function asyncComponent(importComponent: any) {
+  class AsyncComponent extends React.Component<any, any> {
+    constructor(props: any) {
       super(props);
 
       this.state = {
@@ -20,7 +20,6 @@ export default function asyncComponent(importComponent) {
 
     render() {
       const C = this.state.component;
-
       return C ? <C {...this.props} /> : null;
     }
   }

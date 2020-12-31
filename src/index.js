@@ -4,9 +4,9 @@ import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 
-import BsportWidgetA from '../App';
-import '../../vendor/cleanslate.css';
-import initStore from '../store';
+import BsportWidgetA from './App';
+import '../vendor/cleanslate.css';
+import initStore from './store/store';
 
 const store = initStore();
 const history = createBrowserHistory();

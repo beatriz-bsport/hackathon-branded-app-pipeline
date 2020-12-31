@@ -18,10 +18,10 @@ Based on - https://seriousben.github.io/embeddable-react-widget
 
 ### Development
 
-#### `src/output/widget.js`
+#### `src/output/index.js`
 Load the widget (mount and unmount)
 
-#### `src/App.js`
+#### `src/App.tsx`
 Load the right component depending on widget config
 
 #### `src/components/*.js`

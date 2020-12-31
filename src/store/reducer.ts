@@ -1,4 +1,3 @@
-// @flow
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
@@ -11,7 +10,11 @@ import themeReducers from 'bsport-saas/src/libs/theme/reducers';
 import authReducers from 'bsport-saas/src/reducers/auth';
 import paymentReducers from 'bsport-saas/src/reducers/payment';
 
-const rootReducer = (history) =>
+import { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
+import { ThemeState } from 'bsport-saas/src/libs/theme/types';
+import { createBrowserHistory } from 'history';
+
+const rootReducer = (history: ReturnType<typeof createBrowserHistory>) =>
   combineReducers({
     router: connectRouter(history),
     payment: paymentReducers,
@@ -24,5 +27,17 @@ const rootReducer = (history) =>
     auth: authReducers,
   });
 
-export default (history) => (state: any, action: any) =>
+export interface RootState {
+    router: ReturnType<typeof connectRouter>;
+    payment: any;
+    offer: any;
+    metaActivity: any;
+    coach: CoachState
+    establishment: any;
+    theme: ThemeState;
+    shop: any;
+    auth: any
+}
+
+export default (history: ReturnType<typeof createBrowserHistory>) => (state: any, action: any) =>
   rootReducer(history)(state, action);

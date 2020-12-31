@@ -139,8 +139,7 @@ lint:
   #       - "$CYPRESS_CACHE_FOLDER/node_modules"
   #       - node_modules
   tags:
-    - cd /app
-    - build-frontend
+    - deployment
   only:
     refs:
       - dev

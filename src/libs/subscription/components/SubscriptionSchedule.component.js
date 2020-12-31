@@ -26,7 +26,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import type { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-status';
 import type { TFunction } from 'react-i18next';
 
-import { formatAsDate } from '../../../datetime';
+import { formatAsDate } from '../../../utils/datetime';
 import PaginatedList from '../../../components/PaginatedListStateful.component';
 
 import type { PlannedInvoice } from '../types';

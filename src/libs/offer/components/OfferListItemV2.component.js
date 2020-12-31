@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { pure } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
-import { formatAsDatetime } from '../../../datetime';
+import { formatAsDatetime } from '../../../utils/datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import Level from '../../../components/category/Level.component';
 

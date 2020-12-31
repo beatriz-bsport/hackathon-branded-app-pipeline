@@ -11,7 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import VisibilityOn from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import { formatAsDate } from '../../../datetime';
+import { formatAsDate } from '../../../utils/datetime';
 import { Moment } from '../../../i18n';
 
 import type { MemberNote as MemberNoteType } from '../types';

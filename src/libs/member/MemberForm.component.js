@@ -29,7 +29,7 @@ import {
   AddressFields,
 } from '../../components/forms';
 import AlertExistingUser from './AlertExistingUser.component';
-import { DATE_FORMAT } from '../../datetime';
+import { DATE_FORMAT } from '../../utils/datetime';
 
 const styles = (theme) => ({
   redPaperContainer: {

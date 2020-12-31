@@ -4,7 +4,7 @@ import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
 
-import parse from '../../query-string';
+import { parseQueryString } from '../../http';
 
 type Props = {
   authenticated: boolean,
@@ -38,7 +38,7 @@ export const ConsumerSpacePreSelector = (props: Props) => {
 export default compose(
   withRouter,
   withProps(({ location }) => ({
-    requestedMembership: parse(location.search).membership,
+    requestedMembership: parseQueryString(location.search).membership,
   })),
   connect((state) => ({
     authenticated: state.auth.authenticated,

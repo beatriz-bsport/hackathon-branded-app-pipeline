@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import IconButton from '@material-ui/core/IconButton';
 
-import { formatAsDatetime } from '../../../datetime';
+import { formatAsDatetime } from '../../../utils/datetime';
 import type { PaymentComboPurchase } from '../types';
 
 type Props = {

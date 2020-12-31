@@ -11,7 +11,7 @@ import './Map.css';
 const TILE_LAYER_URL =
   'https://cartodb-basemaps-{s}.global.ssl.fastly.net/{variant}/{z}/{x}/{y}{r}.png';
 
-const MARKER_ASSET = require('../../marker-icon-2x.png');
+const MARKER_ASSET = require('./marker-icon-2x.png');
 
 const CENTER = [48.86, 2.33];
 

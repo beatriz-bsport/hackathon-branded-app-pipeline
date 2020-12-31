@@ -27,7 +27,7 @@ import { getCurrentBasket } from '../../libs/checkout/selectors';
 import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
 
 import { Moment } from '../../i18n';
-import { DATE_FORMAT } from '../../datetime';
+import { DATE_FORMAT } from '../../utils/datetime';
 import themeSelectors from '../../libs/theme/selectors';
 import { getCoaches } from '../../libs/associated-coach/selectors';
 import { getMetaActivities } from '../../libs/meta-activity/selectors';

@@ -31,7 +31,7 @@ import ViewComfy from '@material-ui/icons/ViewComfy';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';
-import { formatAsTitle, DATE_FORMAT } from '../../datetime';
+import { formatAsTitle, DATE_FORMAT } from '../../utils/datetime';
 import { API_URI, getAuth, buildUrlParams } from '../../http';
 
 const WEEKMODE: number = 0;

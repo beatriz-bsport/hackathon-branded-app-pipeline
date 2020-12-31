@@ -16,7 +16,7 @@ import memoize from 'memoize-one';
 
 import Calendar from '../../../components/offer/Calendar.component';
 import TimeTable from '../../../components/offer/TimeTable.component';
-import { DATE_FORMAT } from '../../../datetime';
+import { DATE_FORMAT } from '../../../utils/datetime';
 import BookingCreationNotification from '../../booking/components/BookingCreationNotification.component';
 import MetaActivityCard from './MetaActivityCard.component';
 

@@ -19,7 +19,11 @@ import type { TFunction } from 'react-i18next';
 import Tooltip from '../Tooltip.component';
 import EmptyListItem from '../LoadingListItem.component';
 
-import { formatMinutes, formatAsDatetime, formatAsTime } from '../../datetime';
+import {
+  formatMinutes,
+  formatAsDatetime,
+  formatAsTime,
+} from '../../utils/datetime';
 import type { Offer } from '../../api/types';
 
 import { DEFAULT_AVATAR } from '../../libs/associated-coach/utils';

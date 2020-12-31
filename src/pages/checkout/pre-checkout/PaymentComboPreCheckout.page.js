@@ -14,7 +14,7 @@ import { BUYABLE_ITEM_COMBO_ITEM } from '@bsport/common/lib/master-data/buyable-
 import InfoIcon from '@material-ui/icons/Info';
 import type { TFunction } from 'react-i18next';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import parse from '../../../query-string';
+import { parseQueryString } from '../../../http';
 import themeSelectors from '../../../libs/theme/selectors';
 import { getTheme } from '../../../theme';
 import {
@@ -57,7 +57,7 @@ export class PaymentComboPreCheckout extends React.Component<Props, State> {
       onSuccess: (paymentCombo) => {
         this.props.fetchCurrentBasket(paymentCombo.company, {
           onSuccess: (basket) => {
-            const { nextOffer } = parse(this.props.location.search);
+            const { nextOffer } = parseQueryString(this.props.location.search);
             Analytics.addPackToCart(paymentCombo);
             this.props.addItemToBasket(
               basket.id,

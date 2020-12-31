@@ -31,7 +31,7 @@ import {
   consumer as consumerActions,
   auth as authActions,
 } from '../../actions';
-import parse from '../../query-string';
+import { parseQueryString } from '../../http';
 
 import { linkMeToCompany } from '../../libs/member/actions';
 
@@ -393,8 +393,10 @@ export default compose(
   withTranslation(['privateService']),
   withRouter,
   withProps(({ location }) => ({
-    data: JSON.parse(decodeURIComponent(parse(location.search).data)),
-    company: parse(location.search).membership,
+    data: JSON.parse(
+      decodeURIComponent(parseQueryString(location.search).data),
+    ),
+    company: parseQueryString(location.search).membership,
   })),
   connect(
     (state, { privateServiceId, privateSlotId }) => ({

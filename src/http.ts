@@ -13,6 +13,23 @@ export const API_URI: string = `${BASE_URI}/api-v0`;
 export const API_V1_URI: string = `${BASE_URI}/api/v1`;
 export const PAYMENT_URI: string = `${BASE_URI}/payment`;
 
+export function parseQueryString(url: string) {
+  const pos = url.lastIndexOf('?');
+  if (pos === -1) {
+    return {};
+  }
+
+  const qs = url.substring(pos + 1);
+  const params = qs.split('&').map((q) => q.split('=').map(decodeURIComponent));
+
+  const q = {};
+  params.forEach(([name, value]) => {
+    q[name] = value;
+  });
+
+  return q;
+}
+
 export function buildUrlParams(params: any) {
   if (params) {
     const conditions = [];

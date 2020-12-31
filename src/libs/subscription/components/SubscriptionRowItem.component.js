@@ -16,7 +16,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
 import { isPaused } from '../utils';
-import { formatAsDate } from '../../../datetime';
+import { formatAsDate } from '../../../utils/datetime';
 
 type Props = {
   subscription: Subscription,

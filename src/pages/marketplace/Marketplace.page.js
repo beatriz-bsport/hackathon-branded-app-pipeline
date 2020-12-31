@@ -29,7 +29,7 @@ import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.compone
 import MarketplaceAppBar from './MarketplaceAppBar.component';
 import SignUpForm from '../../components/form/SignUpForm.component';
 import Analytics from '../../components/analytics/Analytics.component';
-import parse from '../../query-string';
+import { parseQueryString } from '../../http';
 
 import {
   addItemToBasket,
@@ -528,7 +528,7 @@ export default compose(
   }),
   withProps(({ location }) => ({
     hideAppBar: location.search.includes('hideAppBar=true'),
-    tabSelected: parse(location.search).tabSelected,
+    tabSelected: parseQueryString(location.search).tabSelected,
   })),
   connect(
     (state: RootState) => ({

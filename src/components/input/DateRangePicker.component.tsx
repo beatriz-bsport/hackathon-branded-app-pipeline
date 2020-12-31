@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import { Moment } from 'moment';
 import chroma from 'chroma-js';
 
-import { getTextColorFromRGB } from '../../color';
+import { getTextColorFromRGB } from '../../utils/color';
 
 interface Props {
   startDate: string;

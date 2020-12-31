@@ -16,7 +16,7 @@ import type { TFunction } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
-import { formatMinutes } from '../../../datetime';
+import { formatMinutes } from '../../../utils/datetime';
 
 type Props = {
   metaActivity: MetaActivity,

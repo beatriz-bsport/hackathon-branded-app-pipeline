@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
-import { formatAsDatetime } from '../../datetime';
+import { formatAsDatetime } from '../../utils/datetime';
 
 import LoadingListItem from '../../components/LoadingListItem.component';
 

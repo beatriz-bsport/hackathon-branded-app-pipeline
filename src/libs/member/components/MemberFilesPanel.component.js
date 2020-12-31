@@ -14,7 +14,7 @@ import type { TFunction } from 'react-i18next';
 
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import AddIcon from '@material-ui/icons/Add';
-import { formatAsDatetime } from '../../../datetime';
+import { formatAsDatetime } from '../../../utils/datetime';
 
 type Props = {
   uploadedFiles: any,

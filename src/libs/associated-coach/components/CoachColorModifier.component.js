@@ -14,7 +14,7 @@ import { compose, withState } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { getTextColorFromRGB } from '../../../color';
+import { getTextColorFromRGB } from '../../../utils/color';
 import Tooltip from '../../../components/Tooltip.component';
 import ColorInput from '../../../components/input/ColorInput.component';
 import CoachListItem from './CoachListItem.component';

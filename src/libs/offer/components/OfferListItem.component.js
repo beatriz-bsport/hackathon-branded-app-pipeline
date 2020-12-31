@@ -9,7 +9,7 @@ import type { TFunction } from 'react-i18next';
 
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import Level from '../../../components/category/Level.component';
-import { formatAsTime } from '../../../datetime';
+import { formatAsTime } from '../../../utils/datetime';
 
 type Props = {
   offer: Object,

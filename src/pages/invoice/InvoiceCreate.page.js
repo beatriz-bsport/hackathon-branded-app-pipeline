@@ -11,7 +11,7 @@ import type { TFunction } from 'react-i18next';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { Moment } from '../../i18n';
-import { formatAsDate } from '../../datetime';
+import { formatAsDate } from '../../utils/datetime';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import {
   createOrUpdateInvoice,

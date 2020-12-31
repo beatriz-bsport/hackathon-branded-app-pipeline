@@ -20,7 +20,7 @@ import {
   getPaymentListInInvoice,
 } from '../../libs/invoice/selectors';
 import { getPermissions } from '../../libs/role/selectors';
-import { formatAsDate } from '../../datetime';
+import { formatAsDate } from '../../utils/datetime';
 import { fetchMember } from '../../libs/member/actions';
 import {
   fetchSpecificInvoice as fetchInvoice,

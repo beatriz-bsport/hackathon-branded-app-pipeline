@@ -18,7 +18,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import type { MetaActivity } from '../../../api/types';
-import { formatAsDatetime } from '../../../datetime';
+import { formatAsDatetime } from '../../../utils/datetime';
 import { getSportWithIcon } from '../../../components/category/utils';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import Tooltip from '../../../components/Tooltip.component';

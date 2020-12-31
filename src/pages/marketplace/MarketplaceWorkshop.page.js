@@ -27,7 +27,7 @@ import {
   withCoach,
   withEstablishment,
 } from '../../libs/offer/selectors';
-import { DATE_FORMAT } from '../../datetime';
+import { DATE_FORMAT } from '../../utils/datetime';
 import withTitle from '../../hocs/with-title.hoc';
 import { fetchMarketplaceOfferList as fetchOfferListAction } from '../../libs/offer/actions';
 

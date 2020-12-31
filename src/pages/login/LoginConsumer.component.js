@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import themeSelectors from '../../libs/theme/selectors';
-import parse from '../../query-string';
+import { parseQueryString } from '../../http';
 import { openIntercomHelp } from '../../intercom';
 
 import { auth as authActions } from '../../actions';
@@ -95,7 +95,7 @@ export class ConsumerLoginPage extends Component<Props> {
     } = this.props;
 
     if (authenticated) {
-      const { next } = parse(this.props.location.search);
+      const { next } = parseQueryString(this.props.location.search);
       if (next) {
         return <Redirect to={next} />;
       }
@@ -163,7 +163,10 @@ export class ConsumerLoginPage extends Component<Props> {
 
 function mapDispatchToProps(dispatch, props) {
   const search = ((props && props.location) || {}).search || '';
-  const opts = { next: parse(search).next, company: parse(search).membership };
+  const opts = {
+    next: parseQueryString(search).next,
+    company: parseQueryString(search).membership,
+  };
   return {
     fetchCompanyTheme,
     doEmailLogin({ email, password }) {
@@ -196,7 +199,7 @@ export default compose(
   withTranslation(['login']),
   withRouter,
   withProps((props) => ({
-    membership: parse(props.location.search).membership,
+    membership: parseQueryString(props.location.search).membership,
   })),
   connect(
     (state, { membership }) => ({

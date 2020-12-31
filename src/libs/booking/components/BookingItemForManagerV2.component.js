@@ -40,7 +40,7 @@ import { getBookingStatusCode } from '../utils';
 import Tooltip from '../../../components/Tooltip.component';
 import RedButton from '../../../components/button/RedButton.component';
 
-import { formatAsDatetime, formatAsDate } from '../../../datetime';
+import { formatAsDatetime, formatAsDate } from '../../../utils/datetime';
 
 // eslint-disable-next-line
 import type { PaymentPack } from '../../../libs/payment-packs/types';

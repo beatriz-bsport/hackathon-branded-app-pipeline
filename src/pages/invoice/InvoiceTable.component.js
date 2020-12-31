@@ -17,7 +17,7 @@ import DownloadIcon from '@material-ui/icons/Attachment';
 
 import FinalizeInvoiceDialog from '../../libs/invoice/dialog/FinalizeInvoiceDialog.component';
 
-import { formatAsDatetime } from '../../datetime';
+import { formatAsDatetime } from '../../utils/datetime';
 
 import type { Invoice } from '../../libs/invoice/types';
 

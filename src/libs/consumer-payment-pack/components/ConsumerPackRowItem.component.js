@@ -23,7 +23,7 @@ import moment from 'moment-timezone';
 import { withStyles } from '@material-ui/core/styles';
 import Tooltip from '../../../components/Tooltip.component';
 
-import { formatAsDate } from '../../../datetime';
+import { formatAsDate } from '../../../utils/datetime';
 import RedButton from '../../../components/button/RedButton.component';
 import type { ConsumerPaymentPack } from '../types';
 import type { PaymentPack } from '../../payment-packs/types';

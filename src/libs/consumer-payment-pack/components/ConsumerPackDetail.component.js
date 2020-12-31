@@ -30,7 +30,7 @@ import type { PaymentPack } from '../../payment-packs/types';
 import type { Booking } from '../../booking/types';
 import type { Invoice } from '../../invoice/types';
 import type { Member } from '../../member/types';
-import { formatAsDatetime } from '../../../datetime';
+import { formatAsDatetime } from '../../../utils/datetime';
 
 const PENALTY_KIND_BLOCK_CPP = 0;
 const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;

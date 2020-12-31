@@ -16,7 +16,7 @@ import type { TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 
-import { DATE_FORMAT } from '../../../datetime';
+import { DATE_FORMAT } from '../../../utils/datetime';
 
 import type { Offer } from '../types';
 import OfferListItemConsumer from '../../offer/components/OfferListItemConsumer.component';

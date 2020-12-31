@@ -16,7 +16,7 @@ import { TimeTable, Calendar } from '../../../components';
 import Map from '../../../components/map/Map.component';
 import BookingCreationNotification from '../../booking/components/BookingCreationNotification.component';
 import EasyAccessStack from '../../category/components/EasyAccessStack.component';
-import { DATE_FORMAT } from '../../../datetime';
+import { DATE_FORMAT } from '../../../utils/datetime';
 
 const DEFAULT_SPORT = 7;
 

@@ -8,8 +8,7 @@ import { compose, withHandlers } from 'recompose';
 import { replace as replaceRouter } from 'connected-react-router';
 import { connect } from 'react-redux';
 
-import { buildUrlParams } from '../http';
-import parse from '../query-string';
+import { buildUrlParams, parseQueryString } from '../http';
 
 const convertParams = (params, mode) => {
   if (!mode || mode === 'string') {
@@ -42,7 +41,7 @@ export default function withQueryParams([
         setParam: ({ replace, location }) => (key) => (value, callback) => {
           if (!paramsArray.includes(key)) return;
           const { search, pathname } = location;
-          const allParams = parse(search);
+          const allParams = parseQueryString(search);
           if (value === 'null' || value === '' || value === null) {
             replace(pathname + buildUrlParams({ ...omit(allParams, key) }));
           } else {
@@ -57,7 +56,7 @@ export default function withQueryParams([
       class extends React.PureComponent<Props> {
         render() {
           const { search } = this.props.location;
-          const allParams = parse(search);
+          const allParams = parseQueryString(search);
 
           const relatedParams = pick(allParams, paramsArray);
 

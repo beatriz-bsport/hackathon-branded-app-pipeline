@@ -13,7 +13,7 @@ import moment from 'moment-timezone';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { DATE_FORMAT } from '../../../datetime';
+import { DATE_FORMAT } from '../../../utils/datetime';
 import { Moment } from '../../../i18n';
 import MarketplaceCardOffer from './MarketplaceCardOffer.component';
 

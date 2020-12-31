@@ -10,7 +10,7 @@ import Hidden from '@material-ui/core/Hidden';
 import { withProps, compose } from 'recompose';
 import { connect } from 'react-redux';
 import Fade from '@material-ui/core/Fade';
-import parse from '../../query-string';
+import { parseQueryString } from '../../http';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { disconnect } from '../../actions/auth.actions';
 import themeSelectors from '../../libs/theme/selectors';
@@ -153,7 +153,7 @@ const styles = {
 export default compose(
   withRouter,
   withProps((props) => ({
-    membership: parse(props.location.search).membership,
+    membership: parseQueryString(props.location.search).membership,
   })),
   withStyles(styles),
   connect(

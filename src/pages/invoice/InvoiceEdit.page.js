@@ -30,7 +30,7 @@ import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../l
 import { getBuyableItem } from '../../libs/invoice/selectors';
 import { fetchCompanyRoles } from '../../libs/role/actions';
 import withTitle from '../../hocs/with-title.hoc';
-import { formatAsDate } from '../../datetime';
+import { formatAsDate } from '../../utils/datetime';
 import { fetchMember } from '../../libs/member/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';

@@ -6,8 +6,7 @@ import { replace } from 'connected-react-router';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { branch, renderComponent } from 'recompose';
-import { buildUrlParams } from '../http';
-import parse from '../query-string';
+import { buildUrlParams, parseQueryString } from '../http';
 
 export default function withReplaceQueryParams(
   paramsListToReplace,
@@ -16,9 +15,9 @@ export default function withReplaceQueryParams(
   return branch(
     (props) =>
       paramsListToReplace.reduce((test, oldName) => {
-        const hasIt = Object.keys(parse(props.location.search)).includes(
-          oldName,
-        );
+        const hasIt = Object.keys(
+          parseQueryString(props.location.search),
+        ).includes(oldName);
         return hasIt || test;
       }, false),
     renderComponent(
@@ -29,20 +28,19 @@ export default function withReplaceQueryParams(
               this.props.replace(
                 this.props.location.pathname +
                   buildUrlParams(
-                    Object.entries(parse(this.props.location.search)).reduce(
-                      (acc, [key, value]) => {
-                        const idx = paramsListToReplace.findIndex(
-                          (k) => k === key,
-                        );
-                        if (idx >= 0) {
-                          acc[newParamsList[idx]] = value;
-                        } else {
-                          acc[key] = value;
-                        }
-                        return acc;
-                      },
-                      {},
-                    ),
+                    Object.entries(
+                      parseQueryString(this.props.location.search),
+                    ).reduce((acc, [key, value]) => {
+                      const idx = paramsListToReplace.findIndex(
+                        (k) => k === key,
+                      );
+                      if (idx >= 0) {
+                        acc[newParamsList[idx]] = value;
+                      } else {
+                        acc[key] = value;
+                      }
+                      return acc;
+                    }, {}),
                   ),
               );
             }

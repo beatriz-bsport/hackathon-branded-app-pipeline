@@ -9,7 +9,7 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import moment from 'moment-timezone';
 import Level from '../../../components/category/Level.component';
-import { formatAsTime } from '../../../datetime';
+import { formatAsTime } from '../../../utils/datetime';
 import { isOfferInThePast } from '../utils';
 
 import MarketplaceBookButton from './MarketplaceBookButton.component';

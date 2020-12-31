@@ -24,7 +24,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { getMemberHistory } from '../libs/member/selectors';
 
-import parse from '../query-string';
+import { parseQueryString } from '../http';
 import DelayedTextField from './DelayedTextField.component';
 
 import { search as searchActions } from '../actions';
@@ -168,7 +168,7 @@ function getSearchText(state, location) {
   if (state.search.searchText) {
     return state.search.searchText;
   }
-  const query = parse((location && location.search) || '');
+  const query = parseQueryString((location && location.search) || '');
   return query.q;
 }
 

@@ -28,7 +28,7 @@ import {
 } from '@bsport/common/lib/master-data/payment-pack';
 
 import { Moment } from '../../../i18n';
-import { DATE_FORMAT } from '../../../datetime';
+import { DATE_FORMAT } from '../../../utils/datetime';
 
 import {
   PriceField,

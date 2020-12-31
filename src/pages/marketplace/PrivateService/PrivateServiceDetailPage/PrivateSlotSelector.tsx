@@ -10,7 +10,7 @@ import {
   PrivateService,
   PrivateSlot,
 } from '../../../../libs/private-service/types';
-import { getTextColorFromRGB } from '../../../../color';
+import { getTextColorFromRGB } from '../../../../utils/color';
 
 type Props = {
   privateService: PrivateService;

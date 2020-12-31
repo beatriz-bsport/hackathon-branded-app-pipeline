@@ -13,8 +13,8 @@ import {
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import Analytics from '../../components/analytics/Analytics.component';
 import withTitle from '../../hocs/with-title.hoc';
-import parse from '../../query-string';
-import { buildUrlParams } from '../../http';
+import { parseQueryString, buildUrlParams } from '../../http';
+
 import asyncComponent from '../../AsyncComponent';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 
@@ -227,8 +227,8 @@ export default compose(
   withStyles(styles),
   withRouter,
   withProps(({ location }) => ({
-    from_basket: parse(location.search).from_basket,
-    from_direct_booking: parse(location.search).from_direct_booking,
+    from_basket: parseQueryString(location.search).from_basket,
+    from_direct_booking: parseQueryString(location.search).from_direct_booking,
   })),
   connect(
     (state, { companyId, from_direct_booking }) => ({

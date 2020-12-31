@@ -15,7 +15,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import type { TFunction } from 'react-i18next';
 
-import { downloadAsCsv } from '../../downloader';
+import { downloadAsCsv } from '../../utils/downloader';
 import { computePerformance } from '../../libs/payment-rules/utils';
 import type { PaymentRule } from '../../libs/payment-rules/types';
 

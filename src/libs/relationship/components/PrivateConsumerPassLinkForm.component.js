@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 
 import PaginatedListStateful from '../../../components/PaginatedListStateful.component';
 import PrivateConsumerPassBookerListItem from '../../private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
-import type { PrivateConsumerPass } from '../../private-service/types.ts';
+import type { PrivateConsumerPass } from '../../private-service/types';
 
 type Props = {
   t: TFunction,
@@ -48,11 +48,9 @@ export const PrivateConsumerPassLinkForm = (props: Props) => {
                   variant="outlined"
                   disabled={props.disabledStuff.includes(pcp.id)}
                 >
-                  {t(
-                  'private_consumer_pass_links.form.create.linkButton',
-                  )}
+                  {t('private_consumer_pass_links.form.create.linkButton')}
                 </Button>
-                }
+              }
             />
           )}
         />
@@ -109,10 +107,14 @@ const styles = (theme) => ({
     alignItems: 'center',
     paddingTop: theme.spacing(1),
   },
-  });
+});
 
-  export default compose(
+export default compose(
   withStyles(styles),
   withTranslation(['relationship']),
-  withState('selectedPrivateConsumerPass', 'setSelectedPrivateConsumerPass', null),
-  )(PrivateConsumerPassLinkForm);
+  withState(
+    'selectedPrivateConsumerPass',
+    'setSelectedPrivateConsumerPass',
+    null,
+  ),
+)(PrivateConsumerPassLinkForm);

@@ -23,7 +23,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
-import themeSelectors from '../../libs/theme/selectors.ts';
+import themeSelectors from '../../libs/theme/selectors';
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import withTitle from '../../hocs/with-title.hoc';
@@ -31,7 +31,7 @@ import {
   getPrivatePassAvailableListWithPrivateService,
   getDisabledPrivatePassAvailableListWithPrivateService,
 } from '../../libs/private-service/selectors/private-pass';
-import { getPrivateServices } from '../../libs/private-service/selectors/private-service.ts';
+import { getPrivateServices } from '../../libs/private-service/selectors/private-service';
 import {
   fetchPrivatePassList,
   fetchAllPrivateServices,
@@ -40,14 +40,14 @@ import {
   createCompatibleServicePass,
   deletePrivatePass,
   restorePrivatePass,
-} from '../../libs/private-service/actions.ts';
+} from '../../libs/private-service/actions';
 import PrivatePassListItem from '../../libs/private-service/components/pass/PrivatePassListItem.component';
 import PrivatePassDetail from '../../libs/private-service/components/pass/PrivatePassDetail.component';
 import PrivatePassForm from '../../libs/private-service/components/pass/PrivatePassForm.component';
 import type {
   PrivatePass,
   PrivateService,
-} from '../../libs/private-service/types.ts';
+} from '../../libs/private-service/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 type Props = {

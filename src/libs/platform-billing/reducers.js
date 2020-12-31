@@ -133,7 +133,10 @@ export default handleActions(
           },
           { deep: true },
         )
-        .setIn(['upsellPackage', 'allIds'], payload.map((up) => up.id));
+        .setIn(
+          ['upsellPackage', 'allIds'],
+          payload.map((up) => up.id),
+        );
     },
     [listUpsellPackageSubscribedActions.isLoading]: (state, { payload }) => {
       return state.setIn(['upsellPackageSubscribed', 'loading'], payload);
@@ -178,7 +181,10 @@ export default handleActions(
           },
           { deep: true },
         )
-        .setIn(['billingPlan', 'allIds'], payload.map((up) => up.id));
+        .setIn(
+          ['billingPlan', 'allIds'],
+          payload.map((up) => up.id),
+        );
     },
     [listBillingStageActions.isLoading]: (state, { payload }) => {
       return state.setIn(['billingStage', 'loading'], payload);
@@ -199,7 +205,10 @@ export default handleActions(
           },
           { deep: true },
         )
-        .setIn(['billingStage', 'allIds'], payload.map((ups) => ups.id));
+        .setIn(
+          ['billingStage', 'allIds'],
+          payload.map((ups) => ups.id),
+        );
     },
   },
   initialState,

@@ -8,7 +8,7 @@ import { push, replace } from 'connected-react-router';
 
 import PlaylistDetail from '../../libs/playlist/components/PlaylistDetail.component';
 import VideoSearchModal from '../../libs/video/components/VideoSearchModal.component';
-import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions.ts';
+import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 import { getPlaylist, withCoachInVideo } from '../../libs/playlist/selectors';
 import {
   retrievePlaylist as retrievePlaylistAction,

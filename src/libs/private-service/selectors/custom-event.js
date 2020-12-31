@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
-import { getCoaches } from '../../associated-coach/selectors.ts';
+import { getCoaches } from '../../associated-coach/selectors';
 
 const periodFilterExtractor = (state, periodFilter) => periodFilter;
 const _getCustomEventData = (state) => state.privateService.customEvent.byId;
@@ -24,24 +24,21 @@ export const getCustomEvent = (state, id) =>
   state.privateService.customEvent.byId[id];
 
 export const withAssociatedCoach = memoize((selector) =>
-  createSelector(
-    [selector, getCoaches],
-    (customEvent, coachList) => {
-      if (!customEvent) return customEvent;
-      if (Array.isArray(customEvent)) {
-        return customEvent.map((ce) => ({
-          ...ce,
-          coaches: ce.coaches.map((c) =>
-            coachList.find((c_) => c_.associatedcoach_set.includes(c)),
-          ),
-        }));
-      }
-      return {
-        ...customEvent,
-        coaches: customEvent.coaches.map((c) =>
+  createSelector([selector, getCoaches], (customEvent, coachList) => {
+    if (!customEvent) return customEvent;
+    if (Array.isArray(customEvent)) {
+      return customEvent.map((ce) => ({
+        ...ce,
+        coaches: ce.coaches.map((c) =>
           coachList.find((c_) => c_.associatedcoach_set.includes(c)),
         ),
-      };
-    },
-  ),
+      }));
+    }
+    return {
+      ...customEvent,
+      coaches: customEvent.coaches.map((c) =>
+        coachList.find((c_) => c_.associatedcoach_set.includes(c)),
+      ),
+    };
+  }),
 );

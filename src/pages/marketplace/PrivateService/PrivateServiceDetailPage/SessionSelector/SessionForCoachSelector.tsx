@@ -9,16 +9,16 @@ import {
 } from '../../../../../libs/private-service/types';
 
 type Props = {
-  coach: PrivateCoach | null,
-  establishment: PrivateEstablishment,
-  timezoneName: string,
-  durationMinutes: number,
+  coach: PrivateCoach | null;
+  establishment: PrivateEstablishment;
+  timezoneName: string;
+  durationMinutes: number;
   onSessionSelect: (
     session: string,
     establishmentId?: number | null,
     coachId?: number | null,
-  ) => void,
-  sessions: string[],
+  ) => void;
+  sessions: string[];
 };
 
 const SessionForCoachSelector: React.FC<Props> = (props) => {
@@ -42,9 +42,7 @@ const SessionForCoachSelector: React.FC<Props> = (props) => {
 
       <div className={classes.sessionsContainer}>
         {props.sessions.map((session) => {
-          const start = moment(session)
-            .tz(props.timezoneName)
-            .format('HH:mm');
+          const start = moment(session).tz(props.timezoneName).format('HH:mm');
 
           const end = `${moment(session)
             .tz(props.timezoneName)
@@ -59,7 +57,7 @@ const SessionForCoachSelector: React.FC<Props> = (props) => {
                   props.onSessionSelect(
                     session,
                     props.establishment?.id,
-                    props.coach?.id
+                    props.coach?.id,
                   )
                 }
               >

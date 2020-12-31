@@ -47,12 +47,12 @@ import TimeTable from '../../components/offer/TimeTable.component';
 import Calendar from '../../components/offer/Calendar.component';
 import { getPermissions } from '../../libs/role/selectors';
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors.ts';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { fetchAllActivities } from '../../libs/meta-activity/actions';
-import { fetchEstablishments } from '../../libs/establishment/actions.ts';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors.ts';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions.ts';
-import { Establishment } from '../../libs/establishment/types.ts';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
+import { Establishment } from '../../libs/establishment/types';
 import BookingStatisticsCard from '../../libs/booking/components/BookingStatisticsCard.component';
 
 import {
@@ -88,7 +88,7 @@ import type { OfferFilter } from '../../libs/offer/types';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import OfferEditForm from '../../libs/offer/OfferEditForm.component';
-import MassDisablerDialog from '../../libs/offer/components/MassDisablerDialog.component.tsx';
+import MassDisablerDialog from '../../libs/offer/components/MassDisablerDialog.component';
 import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
@@ -1038,23 +1038,15 @@ export default compose(
       offerFilters,
     }) => () => {
       fetchBookingStatistics('createdBookings', {
-        min_date: moment(date)
-          .startOf('week')
-          .format('YYYY-MM-DD'),
-        max_date: moment(date)
-          .endOf('week')
-          .format('YYYY-MM-DD'),
+        min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
+        max_date: moment(date).endOf('week').format('YYYY-MM-DD'),
         ...omit(offerFilters || {}, 'available'),
         date_field: 'offer__date_start',
         kind: 'count',
       });
       fetchBookingStatistics('cancelledBookings', {
-        min_date: moment(date)
-          .startOf('week')
-          .format('YYYY-MM-DD'),
-        max_date: moment(date)
-          .endOf('week')
-          .format('YYYY-MM-DD'),
+        min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
+        max_date: moment(date).endOf('week').format('YYYY-MM-DD'),
         booking_status_code__in: [
           BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
           BOOKING_STATUS_CANCELLED_BY_MANAGER.id,

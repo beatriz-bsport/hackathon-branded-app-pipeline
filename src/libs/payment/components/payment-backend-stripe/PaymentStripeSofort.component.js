@@ -36,7 +36,7 @@ export const PaymentStripeSofort = (props: Props) => {
     setErrorMessage(null);
 
     if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
+      // Stripe has not yet loaded.
       return;
     }
 

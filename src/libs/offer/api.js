@@ -8,7 +8,7 @@ import {
   deleteAuth,
   patchAuth,
   buildUrlParams,
-} from '../../http.ts';
+} from '../../http';
 
 export async function fetchAllEvents(params: *) {
   return getAuth(`${API_V1_URI}/offer/minimal/${buildUrlParams(params)}`);

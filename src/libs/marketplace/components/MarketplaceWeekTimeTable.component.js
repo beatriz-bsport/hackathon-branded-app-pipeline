@@ -45,9 +45,7 @@ const impairColor = '#FFFFFF50';
 const pairColor = '#EEEEEE50';
 
 const getWeekOffers = (selectedDate, offers) => {
-  const date_start = Moment(selectedDate, DATE_FORMAT)
-    .clone()
-    .startOf('week');
+  const date_start = Moment(selectedDate, DATE_FORMAT).clone().startOf('week');
   const weekdays = Moment.weekdays(true);
   // split offers par week days
   return weekdays.map((day, i) => {
@@ -183,9 +181,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
 
     const offers = this.getOffersByPeriod();
 
-    const start_date = moment(date, DATE_FORMAT)
-      .clone()
-      .startOf('week');
+    const start_date = moment(date, DATE_FORMAT).clone().startOf('week');
     const size = 100 / 7;
     // if we start from firday we have to reorder the array of days
     const weekOffers = getWeekOffers(this.props.date, this.props.offers);
@@ -203,12 +199,15 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     return (
       <div
         style={{
-          background: `linear-gradient(90deg, ${pairColor} ${size}%, ${impairColor} ${size}% ${2 *
-            size}%, ${pairColor} ${2 * size}% ${3 *
-            size}%,  ${impairColor} ${3 * size}% ${4 *
-            size}%, ${pairColor} ${4 * size}% ${5 *
-            size}%,  ${impairColor} ${5 * size}% ${6 *
-            size}%, ${pairColor} ${6 * size}% `,
+          background: `linear-gradient(90deg, ${pairColor} ${size}%, ${impairColor} ${size}% ${
+            2 * size
+          }%, ${pairColor} ${2 * size}% ${3 * size}%,  ${impairColor} ${
+            3 * size
+          }% ${4 * size}%, ${pairColor} ${4 * size}% ${
+            5 * size
+          }%,  ${impairColor} ${5 * size}% ${6 * size}%, ${pairColor} ${
+            6 * size
+          }% `,
         }}
       >
         <div className={classes.weekHeader}>

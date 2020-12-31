@@ -20,13 +20,13 @@ import {
   withEstablishment,
 } from '../../libs/offer/selectors';
 
-import { getAllEstablishments } from '../../libs/establishment/selectors.ts';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
 import {
   fetchEstablishments,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-} from '../../libs/establishment/actions.ts';
-import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions.ts';
-import { Establishment } from '../../libs/establishment/types.ts';
+} from '../../libs/establishment/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
+import { Establishment } from '../../libs/establishment/types';
 
 import CheckInOfferList from '../../libs/check-in/components/CheckInOfferList.component';
 

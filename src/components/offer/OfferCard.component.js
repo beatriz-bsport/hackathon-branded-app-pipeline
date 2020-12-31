@@ -116,8 +116,9 @@ export class OfferCard extends Component<Props> {
               align="center"
               className={classes.statName}
             >
-              {t('offer:booking.confirmed')}
-              {' '}(&#9792;{this.props.offer.female}{`/${this.props.offer.male}`}&#9794;{'+'}{this.props.offer.other})
+              {t('offer:booking.confirmed')} (&#9792;{this.props.offer.female}
+              {`/${this.props.offer.male}`}&#9794;{'+'}
+              {this.props.offer.other})
             </Typography>
           ) : (
             <Typography

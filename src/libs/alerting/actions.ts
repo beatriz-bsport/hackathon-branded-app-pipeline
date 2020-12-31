@@ -11,7 +11,7 @@ import {
 import api from './api';
 
 import { Dispatch, ThunkAction } from '../../state/types';
-import { RootState } from "../../reducers";
+import { RootState } from '../../reducers';
 
 const ALERT_KINDS = [
   UNEVEN_INVOICE_ALERT,

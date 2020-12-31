@@ -9,7 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import uniq from 'lodash/uniq';
 import withTitle from '../../hocs/with-title.hoc';
-import { getCoach } from '../../libs/associated-coach/selectors.ts';
+import { getCoach } from '../../libs/associated-coach/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   getPrivateBookingListFiltered,
@@ -40,7 +40,7 @@ import {
   resetCustomEvent,
 } from '../../libs/private-service/actions';
 import { fetchMemberBulk as fetchMemberBulkAction } from '../../libs/member/actions';
-import { fetchCoachBulk } from '../../libs/associated-coach/actions.ts';
+import { fetchCoachBulk } from '../../libs/associated-coach/actions';
 
 import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
@@ -209,12 +209,8 @@ export default compose(
   withStyles(styles),
   withTranslation(['privateService']),
   withState('periodFilter', 'setPeriodFilter', {
-    start: moment()
-      .startOf('week')
-      .format('YYYY-MM-DD'),
-    end: moment()
-      .endOf('week')
-      .format('YYYY-MM-DD'),
+    start: moment().startOf('week').format('YYYY-MM-DD'),
+    end: moment().endOf('week').format('YYYY-MM-DD'),
   }),
   withStateHandlers(
     { customEventData: null },

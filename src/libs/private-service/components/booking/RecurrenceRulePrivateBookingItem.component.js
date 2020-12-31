@@ -19,7 +19,7 @@ type Props = {
   onDelete: (id: number) => void,
   onEdit: (id: number) => void,
   notShowMember: boolean,
-}
+};
 
 export const RecurrenceRulePrivateBookingItem = (props: Props) => {
   const { t } = useTranslation(['privateService', 'datetime']);
@@ -35,13 +35,14 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
 
   const formatTime = () => {
     const time = moment(
-    `${props.recurrentPrivateBooking.hour}:${props.recurrentPrivateBooking.minute}`,
-    'HH:mm');
+      `${props.recurrentPrivateBooking.hour}:${props.recurrentPrivateBooking.minute}`,
+      'HH:mm',
+    );
     if (props.recurrentPrivateBooking.timezone_name) {
       time.tz(props.recurrentPrivateBooking.timezone_name);
     }
     return time.format('LT');
-    };
+  };
 
   const getHeader = () => {
     if (notShowMember) {

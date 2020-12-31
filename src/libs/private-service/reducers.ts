@@ -53,160 +53,162 @@ import {
 import { getResourceSlotsExistState } from './selectors/availability-slot';
 import { PrivateServiceState } from './types';
 
-const initialState: Seamless.Immutable<PrivateServiceState> = Seamless<PrivateServiceState>({
-  customEvent: {
-    byId: {},
-    loading: false,
-    error: null,
-    createOrUpdate: {
+const initialState: Seamless.Immutable<PrivateServiceState> = Seamless<PrivateServiceState>(
+  {
+    customEvent: {
+      byId: {},
       loading: false,
       error: null,
-    },
-  },
-  privateSlot: {
-    byId: {},
-    loading: false,
-    error: null,
-    createOrUpdate: {
-      loading: false,
-      error: null,
-    },
-  },
-  privateConsumerPass: {
-    byId: {},
-    allIds: [],
-    loading: false,
-    error: null,
-    update: {
-      loading: false,
-      error: null,
-    },
-    compatible: {
-      loading: false,
-      error: null,
-      allIds: [],
-    },
-    byPrivatePass: {
-      error: null,
-      loading: false,
-      privatePassId: null,
-      allIds: [],
-      page: null,
-      count: null,
-    },
-    byMember: {
-      loading: false,
-      error: null,
-      allIds: [],
-      page: 1,
-      count: 0,
-    },
-    extension: {
-      items: [],
-      loading: false,
-      error: null,
-      create: {
+      createOrUpdate: {
         loading: false,
         error: null,
       },
+    },
+    privateSlot: {
+      byId: {},
+      loading: false,
+      error: null,
+      createOrUpdate: {
+        loading: false,
+        error: null,
+      },
+    },
+    privateConsumerPass: {
+      byId: {},
+      allIds: [],
+      loading: false,
+      error: null,
+      update: {
+        loading: false,
+        error: null,
+      },
+      compatible: {
+        loading: false,
+        error: null,
+        allIds: [],
+      },
+      byPrivatePass: {
+        error: null,
+        loading: false,
+        privatePassId: null,
+        allIds: [],
+        page: null,
+        count: null,
+      },
+      byMember: {
+        loading: false,
+        error: null,
+        allIds: [],
+        page: 1,
+        count: 0,
+      },
+      extension: {
+        items: [],
+        loading: false,
+        error: null,
+        create: {
+          loading: false,
+          error: null,
+        },
+        delete: {
+          loading: false,
+          error: null,
+        },
+        updatingConsumerPass: [],
+      },
+    },
+    resource: {
+      byId: {},
+      allIds: [],
+      loading: false,
+      error: null,
+    },
+    privateService: {
+      byId: {},
+      allIds: [],
+      marketplaceIds: [],
+      loading: false,
+      error: null,
+      createOrUpdate: {
+        loading: false,
+        error: null,
+      },
+    },
+    serviceGroup: {
+      byId: {},
+      allIds: [],
+      loading: false,
+      error: null,
       delete: {
         loading: false,
         error: null,
       },
-      updatingConsumerPass: [],
+      createOrUpdate: {
+        loading: false,
+        error: null,
+      },
     },
-  },
-  resource: {
-    byId: {},
-    allIds: [],
-    loading: false,
-    error: null,
-  },
-  privateService: {
-    byId: {},
-    allIds: [],
-    marketplaceIds: [],
-    loading: false,
-    error: null,
-    createOrUpdate: {
-      loading: false,
-      error: null,
-    },
-  },
-  serviceGroup: {
-    byId: {},
-    allIds: [],
-    loading: false,
-    error: null,
-    delete: {
-      loading: false,
-      error: null,
-    },
-    createOrUpdate: {
-      loading: false,
-      error: null,
-    },
-  },
-  privateBooking: {
-    byId: {},
-    allIds: [],
-    loading: false,
-    error: null,
-    createOrUpdate: {
-      loading: false,
-      error: null,
-    },
-  },
-  recurrenceRule: {
-    byId: {},
-    allIds: [],
-    loading: false,
-    error: null,
-    delete: {
-      error: null,
-      loading: false,
-    },
-    createOrUpdate: {
-      loading: false,
-      error: null,
-    },
-  },
-  privatePass: {
-    byId: {},
-    allIds: [],
-    asConsumer: {
+    privateBooking: {
+      byId: {},
       allIds: [],
       loading: false,
       error: null,
+      createOrUpdate: {
+        loading: false,
+        error: null,
+      },
     },
-    loading: false,
-    error: null,
-    createOrUpdate: {
+    recurrenceRule: {
+      byId: {},
+      allIds: [],
       loading: false,
       error: null,
+      delete: {
+        error: null,
+        loading: false,
+      },
+      createOrUpdate: {
+        loading: false,
+        error: null,
+      },
     },
-  },
-  calendarEvent: {
-    loading: false,
-    error: null,
-    byId: {},
-  },
-  availabilitySlot: {
-    existsByResourceTypeById: {},
-    byId: {},
-    searched: {
-      items: [],
+    privatePass: {
+      byId: {},
+      allIds: [],
+      asConsumer: {
+        allIds: [],
+        loading: false,
+        error: null,
+      },
       loading: false,
       error: null,
+      createOrUpdate: {
+        loading: false,
+        error: null,
+      },
     },
-    loading: false,
-    error: null,
-    createOrUpdate: {
+    calendarEvent: {
       loading: false,
       error: null,
+      byId: {},
+    },
+    availabilitySlot: {
+      existsByResourceTypeById: {},
+      byId: {},
+      searched: {
+        items: [],
+        loading: false,
+        error: null,
+      },
+      loading: false,
+      error: null,
+      createOrUpdate: {
+        loading: false,
+        error: null,
+      },
     },
   },
-});
+);
 
 export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
   {
@@ -220,7 +222,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
             }, {}),
           },
         },
-        { deep: true }
+        { deep: true },
       );
     },
     [listCustomEventActions.isLoading.toString()]: (state, { payload }) => {
@@ -232,99 +234,123 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     [listCustomEventActions.reset.toString().toString()]: (state) => {
       return state.setIn(['customEvent', 'byId'], {});
     },
-    [createOrUpdateCustomEventActions.isLoading.toString()]: (state, { payload }) => {
+    [createOrUpdateCustomEventActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['customEvent', 'createOrUpdate', 'loading'], payload);
     },
-    [createOrUpdateCustomEventActions.success.toString()]: (state, { payload }) => {
+    [createOrUpdateCustomEventActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['customEvent', 'byId', payload.id], payload);
     },
-    [createOrUpdateCustomEventActions.error.toString()]: (state, { payload }) => {
+    [createOrUpdateCustomEventActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['customEvent', 'createOrUpdate', 'error'], payload);
     },
     [deleteCustomEventActions.success.toString()]: (state, { payload }) => {
       return state.setIn(
         ['customEvent', 'byId'],
-        state.customEvent.byId.without(payload)
+        state.customEvent.byId.without(payload),
       );
     },
-    [listPrivateConsumerPassExtensionActions.success.toString()]: (state, { payload }) => {
+    [listPrivateConsumerPassExtensionActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'items'],
-        payload
+        payload,
       );
     },
     [listPrivateConsumerPassExtensionActions.reset.toString()]: (state) => {
       return state.setIn(['privateConsumerPass', 'extension', 'items'], []);
     },
-    [listPrivateConsumerPassExtensionActions.error.toString()]: (state, { payload }) => {
+    [listPrivateConsumerPassExtensionActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'error'],
-        payload
+        payload,
       );
     },
     [listPrivateConsumerPassExtensionActions.isLoading.toString()]: (
       state,
-      { payload }
+      { payload },
     ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'loading'],
-        payload
+        payload,
       );
     },
     [deletePrivateConsumerPassExtensionActions.isLoading.toString()]: (
       state,
-      { payload }
+      { payload },
     ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'delete', 'loading'],
-        payload
+        payload,
       );
     },
-    [deletePrivateConsumerPassExtensionActions.error.toString()]: (state, { payload }) => {
+    [deletePrivateConsumerPassExtensionActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'delete', 'error'],
-        payload
+        payload,
       );
     },
     [deletePrivateConsumerPassExtensionActions.success.toString()]: (
       state,
-      { payload }
+      { payload },
     ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'items'],
         state.privateConsumerPass.extension.items.filter(
-          (e: any) => e.id !== payload
-        )
+          (e: any) => e.id !== payload,
+        ),
       );
     },
     [createPrivateConsumerPassExtensionActions.isLoading.toString()]: (
       state,
-      { payload }
+      { payload },
     ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'create', 'loading'],
-        payload
+        payload,
       );
     },
-    [createPrivateConsumerPassExtensionActions.error.toString()]: (state, { payload }) => {
+    [createPrivateConsumerPassExtensionActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'create', 'error'],
-        payload
+        payload,
       );
     },
     [createPrivateConsumerPassExtensionActions.success.toString()]: (
       state,
-      { payload }
+      { payload },
     ) => {
       return state.setIn(
         ['privateConsumerPass', 'extension', 'items'],
-        [...state.privateConsumerPass.extension.items as any, payload]
+        [...(state.privateConsumerPass.extension.items as any), payload],
       );
     },
-    [updateResourceConfigurationActions.success.toString()]: (state, { payload }) => {
+    [updateResourceConfigurationActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['resource', 'byId', payload.resource_identifier],
-        payload
+        payload,
       );
     },
     [calendarEventListActions.isLoading.toString()]: (state, { payload }) => {
@@ -343,7 +369,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
             }, {}),
           },
         },
-        { deep: true }
+        { deep: true },
       );
     },
     [availabilitySlotListActions.success.toString()]: (state, { payload }) => {
@@ -356,14 +382,20 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
             }, {}),
           },
         },
-        { deep: true }
+        { deep: true },
       );
     },
-    [availabilitySlotListActions.isLoading.toString()]: (state, { payload }) => {
+    [availabilitySlotListActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['availabilitySlot', 'loading'], payload);
     },
 
-    [availabilitySlotExistsActions.isLoading.toString()]: (state, { payload }) => {
+    [availabilitySlotExistsActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         [
           'availabilitySlot',
@@ -372,14 +404,17 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           payload.resourceIdentifier,
         ],
         getResourceSlotsExistState(
-          state as unknown as PrivateServiceState,
+          (state as unknown) as PrivateServiceState,
           payload.resourceDatatype,
-          payload.resourceIdentifier
+          payload.resourceIdentifier,
           // @ts-ignore
-        ).set('loading', payload.loading)
+        ).set('loading', payload.loading),
       );
     },
-    [availabilitySlotExistsActions.success.toString()]: (state, { payload }) => {
+    [availabilitySlotExistsActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         [
           'availabilitySlot',
@@ -388,11 +423,11 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           payload.resourceIdentifier,
         ],
         getResourceSlotsExistState(
-          state as unknown as PrivateServiceState,
+          (state as unknown) as PrivateServiceState,
           payload.resourceDatatype,
-          payload.resourceIdentifier
+          payload.resourceIdentifier,
           // @ts-ignore
-        ).set('exists', payload.exists)
+        ).set('exists', payload.exists),
       );
     },
     [availabilitySlotExistsActions.error.toString()]: (state, { payload }) => {
@@ -404,11 +439,11 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
           payload.resourceIdentifier,
         ],
         getResourceSlotsExistState(
-          state as unknown as PrivateServiceState,
+          (state as unknown) as PrivateServiceState,
           payload.resourceDatatype,
-          payload.resourceIdentifier
+          payload.resourceIdentifier,
           // @ts-ignore
-        ).set('error', payload.error)
+        ).set('error', payload.error),
       );
     },
     [availabilitySlotListActions.reset.toString()]: (state) => {
@@ -417,10 +452,16 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     [availabilitySlotListActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['availabilitySlot', 'error'], payload);
     },
-    [availabilitySlotSearchActions.success.toString()]: (state, { payload }) => {
+    [availabilitySlotSearchActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['availabilitySlot', 'searched', 'items'], payload);
     },
-    [availabilitySlotSearchActions.isLoading.toString()]: (state, { payload }) => {
+    [availabilitySlotSearchActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['availabilitySlot', 'searched', 'loading'], payload);
     },
     [availabilitySlotSearchActions.error.toString()]: (state, { payload }) => {
@@ -430,16 +471,19 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       return state.setIn(['availabilitySlot', 'searched', 'items'], []);
     },
 
-    [availabilitySlotUpdateActions.isLoading.toString()]: (state, { payload }) => {
+    [availabilitySlotUpdateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['availabilitySlot', 'createOrUpdate', 'loading'],
-        payload
+        payload,
       );
     },
     [availabilitySlotUpdateActions.error.toString()]: (state, { payload }) => {
       return state.setIn(
         ['availabilitySlot', 'createOrUpdate', 'error'],
-        payload
+        payload,
       );
     },
 
@@ -449,16 +493,25 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     [serviceGroupListActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['serviceGroup', 'error'], payload);
     },
-    [serviceGroupCreateOrUpdateActions.isLoading.toString()]: (state, { payload }) => {
+    [serviceGroupCreateOrUpdateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['serviceGroup', 'createOrUpdate', 'loading'],
-        payload
+        payload,
       );
     },
-    [serviceGroupCreateOrUpdateActions.error.toString()]: (state, { payload }) => {
+    [serviceGroupCreateOrUpdateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['serviceGroup', 'createOrUpdate', 'error'], payload);
     },
-    [serviceGroupCreateOrUpdateActions.success.toString()]: (state, { payload }) => {
+    [serviceGroupCreateOrUpdateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['serviceGroup', 'byId', payload.id], payload);
     },
     [serviceGroupDeleteActions.isLoading.toString()]: (state, { payload }) => {
@@ -470,7 +523,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     [serviceGroupDeleteActions.success.toString()]: (state, { payload }) => {
       return state.setIn(
         ['serviceGroup', 'allIds'],
-        state.serviceGroup.allIds.filter((id: any) => id !== payload)
+        state.serviceGroup.allIds.filter((id: any) => id !== payload),
       );
     },
     [serviceGroupListActions.success.toString()]: (state, { payload }) => {
@@ -484,22 +537,34 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
               }, {}),
             },
           },
-          { deep: true }
+          { deep: true },
         )
-        .setIn(['serviceGroup', 'allIds'], payload.map((g: any) => g.id));
+        .setIn(
+          ['serviceGroup', 'allIds'],
+          payload.map((g: any) => g.id),
+        );
     },
 
-    [privateBookingAttachCoachActions.success.toString()]: (state, { payload }) => {
+    [privateBookingAttachCoachActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateBooking', 'byId', payload.id], payload);
     },
 
     [privateBookingRetrieveActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['privateBooking', 'error'], payload);
     },
-    [privateBookingRetrieveActions.isLoading.toString()]: (state, { payload }) => {
+    [privateBookingRetrieveActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateBooking', 'loading'], payload);
     },
-    [privateBookingRetrieveActions.success.toString()]: (state, { payload }) => {
+    [privateBookingRetrieveActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateBooking', 'byId', payload.id], payload);
     },
 
@@ -514,7 +579,10 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     },
     [privateBookingListActions.success.toString()]: (state, { payload }) => {
       return state
-        .setIn(['privateBooking', 'allIds'], payload.map((pb: any) => pb.id))
+        .setIn(
+          ['privateBooking', 'allIds'],
+          payload.map((pb: any) => pb.id),
+        )
         .merge(
           {
             privateBooking: {
@@ -524,61 +592,106 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
               }, {}),
             },
           },
-          { deep: true }
+          { deep: true },
         );
     },
-    [privateBookingCreateOrUpdateActions.isLoading.toString()]: (state, { payload }) => {
+    [privateBookingCreateOrUpdateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['privateBooking', 'createOrUpdate', 'loading'],
-        payload
+        payload,
       );
     },
-    [privateBookingCreateOrUpdateActions.error.toString()]: (state, { payload }) => {
+    [privateBookingCreateOrUpdateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['privateBooking', 'createOrUpdate', 'error'],
-        payload
+        payload,
       );
     },
-    [privateBookingCreateOrUpdateActions.success.toString()]: (state, { payload }) => {
+    [privateBookingCreateOrUpdateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateBooking', 'byId', payload.id], payload);
     },
     [privateBookingDeleteActions.success.toString()]: (state, { payload }) => {
       return state
-        .updateIn(['privateBooking', 'byId'], (x: any) => x.without(`${payload}`))
+        .updateIn(['privateBooking', 'byId'], (x: any) =>
+          x.without(`${payload}`),
+        )
         .setIn(
           ['privateBooking', 'allIds'],
-          state.privateBooking.allIds.filter((x: any) => x !== payload)
+          state.privateBooking.allIds.filter((x: any) => x !== payload),
         );
     },
 
-    [createOrUpdateRecurrenceRulePrivateBookingActions.success.toString()]: (state, { payload }) => {
+    [createOrUpdateRecurrenceRulePrivateBookingActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state
         .setIn(['recurrenceRule', 'byId', payload.id], payload)
-        .setIn(['recurrenceRule', 'allIds'],
-        [...state.recurrenceRule.allIds, payload.id]
+        .setIn(
+          ['recurrenceRule', 'allIds'],
+          [...state.recurrenceRule.allIds, payload.id],
         );
     },
-    [createOrUpdateRecurrenceRulePrivateBookingActions.isLoading.toString()]: (state, { payload }) => {
-      return state.setIn(['recurrenceRule', 'createOrUpdate', 'loading'], payload);
+    [createOrUpdateRecurrenceRulePrivateBookingActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['recurrenceRule', 'createOrUpdate', 'loading'],
+        payload,
+      );
     },
-    [createOrUpdateRecurrenceRulePrivateBookingActions.error.toString()]: (state, { payload }) => {
-      return state.setIn(['recurrenceRule', 'createOrUpdate', 'error'], payload);
+    [createOrUpdateRecurrenceRulePrivateBookingActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['recurrenceRule', 'createOrUpdate', 'error'],
+        payload,
+      );
     },
-    [deleteRecurrenceRulePrivateBookingActions.isLoading.toString()]: (state, { payload }) => {
+    [deleteRecurrenceRulePrivateBookingActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['recurrenceRule', 'delete', 'loading'], payload);
     },
-    [deleteRecurrenceRulePrivateBookingActions.error.toString()]: (state, { payload }) => {
+    [deleteRecurrenceRulePrivateBookingActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['recurrenceRule', 'delete', 'error'], payload);
     },
-    [listRecurrenceRulePrivateBookingActions.isLoading.toString()]: (state, { payload }) => {
+    [listRecurrenceRulePrivateBookingActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['recurrenceRule', 'loading'], payload);
     },
-    [listRecurrenceRulePrivateBookingActions.error.toString()]: (state, { payload }) => {
+    [listRecurrenceRulePrivateBookingActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['recurrenceRule', 'error'], payload);
     },
-    [listRecurrenceRulePrivateBookingActions.success.toString()]: (state, { payload }) => {
+    [listRecurrenceRulePrivateBookingActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state
-        .setIn(['recurrenceRule', 'allIds'], payload.map((pb) => pb.id))
+        .setIn(
+          ['recurrenceRule', 'allIds'],
+          payload.map((pb) => pb.id),
+        )
         .merge(
           {
             recurrenceRule: {
@@ -588,7 +701,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
               }, {}),
             },
           },
-          { deep: true }
+          { deep: true },
         );
     },
 
@@ -602,15 +715,15 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
                   ...acc,
                   [resource.resource_identifier]: resource,
                 }),
-                {}
+                {},
               ),
             },
           },
-          { deep: true }
+          { deep: true },
         )
         .setIn(
           ['resource', 'allIds'],
-          payload.map((r: any) => r.resource_identifier)
+          payload.map((r: any) => r.resource_identifier),
         );
     },
     [resourceListActions.isLoading.toString()]: (state, { payload }) => {
@@ -635,47 +748,74 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
             }, {}),
           },
         },
-        { deep: true }
+        { deep: true },
       );
     },
-    [privateServiceWithSlotListActions.isLoading.toString()]: (state, { payload }) => {
+    [privateServiceWithSlotListActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateService', 'loading'], payload);
     },
-    [privateServiceWithSlotListActions.error.toString()]: (state, { payload }) => {
+    [privateServiceWithSlotListActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateService', 'error'], payload);
     },
-    [privateServiceMarketplaceListActions.success.toString()]: (state, { payload }) => {
+    [privateServiceMarketplaceListActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state
-        .setIn(['privateService', 'marketplaceIds'], payload.map((ps: any) => ps.id))
+        .setIn(
+          ['privateService', 'marketplaceIds'],
+          payload.map((ps: any) => ps.id),
+        )
         .setIn(
           ['privateService', 'byId'],
           payload.reduce((acc: any, ps: any) => {
             acc[ps.id] = ps;
             return acc;
-          }, {})
+          }, {}),
         );
     },
-    [privateServiceMarketplaceListActions.isLoading.toString()]: (state, { payload }) => {
+    [privateServiceMarketplaceListActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateService', 'loading'], payload);
     },
-    [privateServiceMarketplaceListActions.error.toString()]: (state, { payload }) => {
+    [privateServiceMarketplaceListActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateService', 'error'], payload);
     },
     [privateServiceListActions.success.toString()]: (state, { payload }) => {
       return state
-        .setIn(['privateService', 'allIds'], payload.map((ps: any) => ps.id))
+        .setIn(
+          ['privateService', 'allIds'],
+          payload.map((ps: any) => ps.id),
+        )
         .setIn(
           ['privateService', 'byId'],
           payload.reduce((acc: any, ps: any) => {
             acc[ps.id] = ps;
             return acc;
-          }, {})
+          }, {}),
         );
     },
-    [privateServiceWithSlotListActions.isLoading.toString()]: (state, { payload }) => {
+    [privateServiceWithSlotListActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateService', 'loading'], payload);
     },
-    [privateServiceWithSlotListActions.error.toString()]: (state, { payload }) => {
+    [privateServiceWithSlotListActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateService', 'error'], payload);
     },
     [privateServiceListActions.isLoading.toString()]: (state, { payload }) => {
@@ -684,19 +824,28 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     [privateServiceListActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['privateService', 'error'], payload);
     },
-    [privateServiceRetrieveActions.success.toString()]: (state, { payload }) => {
+    [privateServiceRetrieveActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateService', 'byId', payload.id], payload);
     },
-    [privateServiceCreateOrUpdateActions.isLoading.toString()]: (state, { payload }) => {
+    [privateServiceCreateOrUpdateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['privateService', 'createOrUpdate', 'loading'],
-        payload
+        payload,
       );
     },
-    [privateServiceCreateOrUpdateActions.error.toString()]: (state, { payload }) => {
+    [privateServiceCreateOrUpdateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['privateService', 'createOrUpdate', 'error'],
-        payload
+        payload,
       );
     },
     [privateSlotBulkActions.isLoading.toString()]: (state, { payload }) => {
@@ -715,7 +864,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
             }, {}),
           },
         },
-        { deep: true }
+        { deep: true },
       );
     },
     [privateSlotListActions.isLoading.toString()]: (state, { payload }) => {
@@ -734,12 +883,15 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
             }, {}),
           },
         },
-        { deep: true }
+        { deep: true },
       );
     },
     [privateSlotListActions.success.toString()]: (state, { payload }) => {
       return state
-        .setIn(['privateSlot', 'allIds'], payload.map((ps: any) => ps.id))
+        .setIn(
+          ['privateSlot', 'allIds'],
+          payload.map((ps: any) => ps.id),
+        )
         .merge(
           {
             privateSlot: {
@@ -749,7 +901,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
               }, {}),
             },
           },
-          { deep: true }
+          { deep: true },
         );
     },
     [privateSlotRetrieveActions.isLoading.toString()]: (state, { payload }) => {
@@ -761,16 +913,25 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     [privateSlotRetrieveActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['privateSlot', 'byId', payload.id], payload);
     },
-    [privateSlotCreateOrUpdateActions.isLoading.toString()]: (state, { payload }) => {
+    [privateSlotCreateOrUpdateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateSlot', 'createOrUpdate', 'loading'], payload);
     },
-    [privateSlotCreateOrUpdateActions.error.toString()]: (state, { payload }) => {
+    [privateSlotCreateOrUpdateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateSlot', 'createOrUpdate', 'error'], payload);
     },
-    [privateSlotCreateOrUpdateActions.success.toString()]: (state, { payload }) => {
+    [privateSlotCreateOrUpdateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.merge(
         { privateSlot: { byId: { [payload.id.toString()]: payload } } },
-        { deep: true }
+        { deep: true },
       );
     },
 
@@ -782,7 +943,10 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     },
     [privatePassListActions.success.toString()]: (state, { payload }) => {
       return state
-        .setIn(['privatePass', 'allIds'], payload.map((pp: any) => pp.id))
+        .setIn(
+          ['privatePass', 'allIds'],
+          payload.map((pp: any) => pp.id),
+        )
         .merge(
           {
             privatePass: {
@@ -792,7 +956,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
               }, {}),
             },
           },
-          { deep: true }
+          { deep: true },
         );
     },
     [privatePassBulkActions.isLoading.toString()]: (state, { payload }) => {
@@ -812,27 +976,36 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
               }, {}),
             },
           },
-          { deep: true }
+          { deep: true },
         )
         .updateIn(
           ['privatePass', 'allIds'],
           (myList: any, newId: any) => {
             return myList.concat(newId);
           },
-          payload.map((pp: any) => pp.id)
+          payload.map((pp: any) => pp.id),
         );
     },
-    [privatePassAsConsumerListActions.isLoading.toString()]: (state, { payload }) => {
+    [privatePassAsConsumerListActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privatePass', 'asConsumer', 'loading'], payload);
     },
-    [privatePassAsConsumerListActions.error.toString()]: (state, { payload }) => {
+    [privatePassAsConsumerListActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privatePass', 'asConsumer', 'error'], payload);
     },
-    [privatePassAsConsumerListActions.success.toString()]: (state, { payload }) => {
+    [privatePassAsConsumerListActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state
         .setIn(
           ['privatePass', 'asConsumer', 'allIds'],
-          payload.map((pp: any) => pp.id)
+          payload.map((pp: any) => pp.id),
         )
         .merge(
           {
@@ -843,33 +1016,42 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
               }, {}),
             },
           },
-          { deep: true }
+          { deep: true },
         );
     },
-    [privatePassCreateOrUpdateActions.isLoading.toString()]: (state, { payload }) => {
+    [privatePassCreateOrUpdateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privatePass', 'createOrUpdate', 'loading'], payload);
     },
-    [privatePassCreateOrUpdateActions.error.toString()]: (state, { payload }) => {
+    [privatePassCreateOrUpdateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privatePass', 'createOrUpdate', 'error'], payload);
     },
-    [privatePassCreateOrUpdateActions.success.toString()]: (state, { payload }) => {
+    [privatePassCreateOrUpdateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.merge(
         { privatePass: { byId: { [payload.id]: payload } } },
-        { deep: true }
+        { deep: true },
       );
     },
 
     [byPrivatePass.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(
         ['privateConsumerPass', 'byPrivatePass', 'loading'],
-        payload
+        payload,
       );
     },
     [byPrivatePass.success.toString()]: (state, { payload }) => {
       return state
         .setIn(
           ['privateConsumerPass', 'byPrivatePass', 'allIds'],
-          payload.results.map((cpp: any) => cpp.id)
+          payload.results.map((cpp: any) => cpp.id),
         )
         .merge(
           {
@@ -880,7 +1062,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
               }, {}),
             },
           },
-          { deep: true }
+          { deep: true },
         )
         .setIn(['privateConsumerPass', 'byPrivatePass', 'count'], payload.count)
         .setIn(['privateConsumerPass', 'byPrivatePass', 'page'], payload.page);
@@ -888,14 +1070,14 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
     [byPrivatePass.error.toString()]: (state, { payload }) => {
       return state.setIn(
         ['privateConsumerPass', 'byPrivatePass', 'error'],
-        payload
+        payload,
       );
     },
     [byMember.success.toString()]: (state, { payload }) => {
       return state
         .setIn(
           ['privateConsumerPass', 'byMember', 'allIds'],
-          payload.map((pcp) => pcp.id)
+          payload.map((pcp) => pcp.id),
         )
         .merge(
           {
@@ -906,20 +1088,17 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
               }, {}),
             },
           },
-          { deep: true }
+          { deep: true },
         );
     },
     [byMember.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(
         ['privateConsumerPass', 'byMember', 'loading'],
-        payload
+        payload,
       );
     },
     [byMember.error.toString()]: (state, { payload }) => {
-      return state.setIn(
-        ['privateConsumerPass', 'byMember', 'error'],
-        payload
-      );
+      return state.setIn(['privateConsumerPass', 'byMember', 'error'], payload);
     },
     [privatePassRetrieveActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['privatePass', 'isLoading'], payload);
@@ -931,32 +1110,35 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
             byId: { [payload.id]: payload },
           },
         },
-        { deep: true }
+        { deep: true },
       );
     },
     [listPrivateConsumerPassCompatibleActions.isLoading.toString()]: (
       state,
-      { payload }
+      { payload },
     ) => {
       return state.setIn(
         ['privateConsumerPass', 'compatible', 'loading'],
-        payload
+        payload,
       );
     },
-    [listPrivateConsumerPassCompatibleActions.error.toString()]: (state, { payload }) => {
+    [listPrivateConsumerPassCompatibleActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['privateConsumerPass', 'compatible', 'error'],
-        payload
+        payload,
       );
     },
     [listPrivateConsumerPassCompatibleActions.success.toString()]: (
       state,
-      { payload }
+      { payload },
     ) => {
       return state
         .setIn(
           ['privateConsumerPass', 'compatible', 'allIds'],
-          payload.map((pp: any) => pp.id)
+          payload.map((pp: any) => pp.id),
         )
         .merge(
           {
@@ -967,18 +1149,27 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
               }, {}),
             },
           },
-          { deep: true }
+          { deep: true },
         );
     },
-    [privateConsumerPassListActions.isLoading.toString()]: (state, { payload }) => {
+    [privateConsumerPassListActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateConsumerPass', 'loading'], payload);
     },
     [privateConsumerPassListActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['privateConsumerPass', 'error'], payload);
     },
-    [privateConsumerPassListActions.success.toString()]: (state, { payload }) => {
+    [privateConsumerPassListActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state
-        .setIn(['privateConsumerPass', 'allIds'], payload.map((pp: any) => pp.id))
+        .setIn(
+          ['privateConsumerPass', 'allIds'],
+          payload.map((pp: any) => pp.id),
+        )
         .merge(
           {
             privateConsumerPass: {
@@ -988,28 +1179,43 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
               }, {}),
             },
           },
-          { deep: true }
+          { deep: true },
         );
     },
-    [privateConsumerPassRetrieveActions.isLoading.toString()]: (state, { payload }) => {
+    [privateConsumerPassRetrieveActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateConsumerPass', 'loading'], payload);
     },
-    [privateConsumerPassRetrieveActions.error.toString()]: (state, { payload }) => {
+    [privateConsumerPassRetrieveActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateConsumerPass', 'error'], payload);
     },
-    [privateConsumerPassRetrieveActions.success.toString()]: (state, { payload }) => {
+    [privateConsumerPassRetrieveActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateConsumerPass', 'byId', payload.id], payload);
     },
     [privateConsumerPassUpdateCreditActions.isLoading.toString()]: (
       state,
-      { payload }
+      { payload },
     ) => {
       return state.setIn(['privateConsumerPass', 'update', 'loading'], payload);
     },
-    [privateConsumerPassUpdateCreditActions.error.toString()]: (state, { payload }) => {
+    [privateConsumerPassUpdateCreditActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateConsumerPass', 'update', 'error'], payload);
     },
-    [privateConsumerPassUpdateCreditActions.success.toString()]: (state, { payload }) => {
+    [privateConsumerPassUpdateCreditActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['privateConsumerPass', 'byId', payload.id], payload);
     },
     [privateConsumerPassBulkActions.isLoading]: (state, { payload }) => {
@@ -1019,24 +1225,26 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       return state.setIn(['privateConsumerPass', 'error'], payload);
     },
     [privateConsumerPassBulkActions.success]: (state, { payload }) => {
-      return state.merge(
-        {
-          privateConsumerPass: {
-            byId: payload.reduce((acc, ps) => {
-              acc[ps.id] = ps;
-              return acc;
-            }, {}),
+      return state
+        .merge(
+          {
+            privateConsumerPass: {
+              byId: payload.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
           },
-        },
-        { deep: true }
-      ).updateIn(
-        ['privateConsumerPass', 'allIds'],
-        (myList, newId) => {
-          return myList.concat(newId);
-        },
-        payload.map((pcp) => pcp.id)
-      );
+          { deep: true },
+        )
+        .updateIn(
+          ['privateConsumerPass', 'allIds'],
+          (myList, newId) => {
+            return myList.concat(newId);
+          },
+          payload.map((pcp) => pcp.id),
+        );
     },
   },
-  initialState
+  initialState,
 );

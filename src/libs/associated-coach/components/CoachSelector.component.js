@@ -80,7 +80,9 @@ const coachStyles = {
   }),
 };
 
-export default withTranslation(['coach'])(
+export default withTranslation([
+  'coach',
+])(
   ({
     t,
     coaches,

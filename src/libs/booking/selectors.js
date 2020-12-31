@@ -12,7 +12,7 @@ import {
 } from '../offer/selectors';
 import { getMemberListData } from '../member/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
-import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors.ts';
+import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
 
 const _getData = (state: State) => state.booking.byId;
 
@@ -126,17 +126,15 @@ export const getFirstTimeNotifications = createSelector(
 );
 
 export const withBookingNotifications = memoize((selector) =>
-  createSelector(
-    [selector, _getNotifications],
-    (data, notificationList) =>
-      data
-        .filter((d) => !!d)
-        .map((d) => ({
-          ...d,
-          on_booking_notification: (d.on_booking_notification || []).map(
-            (notifId) => notificationList[notifId],
-          ),
-        })),
+  createSelector([selector, _getNotifications], (data, notificationList) =>
+    data
+      .filter((d) => !!d)
+      .map((d) => ({
+        ...d,
+        on_booking_notification: (d.on_booking_notification || []).map(
+          (notifId) => notificationList[notifId],
+        ),
+      })),
   ),
 );
 

@@ -44,7 +44,7 @@ const ReportGenerationSchema = Yup.object().shape({
   dateStart: Yup.date().required('required'),
   dateEnd: Yup.date()
     .required('required')
-    .test('is-after-start', 'errors.end_before_start', function(dateEnd) {
+    .test('is-after-start', 'errors.end_before_start', function (dateEnd) {
       const { dateStart } = this.parent;
       const { dateType } = this.parent;
       return (

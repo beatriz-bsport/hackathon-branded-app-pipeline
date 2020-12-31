@@ -21,7 +21,7 @@ export class VideoPlayerBase extends React.Component<Props> {
   videoNode: HTMLElement;
 
   componentDidMount() {
-    // instantiate Video.js
+    // instantiate Video
     videojs.registerPlugin('qualityLevels', qualityLevelsPlugin);
     videojs.registerPlugin('sourceSelector', sourceSelector);
     videojs.registerPlugin('hlsQuality', hlsQuality);

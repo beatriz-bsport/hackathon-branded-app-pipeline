@@ -25,17 +25,12 @@ export const RecurrenceRulePrivateBookingDeleteDialog = (props: Props) => {
       <DialogTitle id="alert-dialog-title">
         {t('recurrenceRule.forms.delete.title')}
       </DialogTitle>
-      <DialogContent>
-        {t('recurrenceRule.forms.delete.content')}
-      </DialogContent>
+      <DialogContent>{t('recurrenceRule.forms.delete.content')}</DialogContent>
       <DialogActions>
         <Button onClick={props.onClose} autoFocus>
           {t('recurrenceRule.forms.delete.cancel')}
         </Button>
-        <Button
-          onClick={props.onChange}
-          color="primary"
-        >
+        <Button onClick={props.onChange} color="primary">
           {t('recurrenceRule.forms.delete.confirm')}
         </Button>
       </DialogActions>
@@ -54,17 +49,12 @@ export const RecurrenceRulePrivateBookingUpdateDialog = (props: Props) => {
       <DialogTitle id="alert-dialog-title">
         {t('recurrenceRule.forms.update.title')}
       </DialogTitle>
-      <DialogContent>
-        {t('recurrenceRule.forms.update.content')}
-      </DialogContent>
+      <DialogContent>{t('recurrenceRule.forms.update.content')}</DialogContent>
       <DialogActions>
         <Button onClick={props.onClose} autoFocus>
           {t('recurrenceRule.forms.update.cancel')}
         </Button>
-        <Button
-          onClick={props.onChange}
-          color="primary"
-        >
+        <Button onClick={props.onChange} color="primary">
           {t('recurrenceRule.forms.update.confirm')}
         </Button>
       </DialogActions>

@@ -25,8 +25,8 @@ const MARKER_ASSET = require('../../marker-icon-2x.png');
 
 type Props = {
   value: Object,
-onChange: (Object) => void,
-required?: boolean,
+  onChange: (Object) => void,
+  required?: boolean,
 };
 
 type State = {

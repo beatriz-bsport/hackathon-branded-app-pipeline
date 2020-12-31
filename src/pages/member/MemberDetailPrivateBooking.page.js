@@ -24,8 +24,8 @@ import PaginatedListStateful from '../../components/PaginatedListStateful.compon
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions.ts';
-import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '../../libs/establishment/actions.ts';
+import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '../../libs/establishment/actions';
 import {
   deletePrivateBooking as deletePrivateBookingAction,
   disablePrivateBooking as disablePrivateBookingAction,
@@ -184,7 +184,7 @@ export class MemberDetailBooking extends Component<Props> {
             {!!this.props.recurrenceRulePrivateBooking.length && (
               <Paper className={classes.recurrenceRuleContainer}>
                 <Typography variant="caption" style={{ padding: 10 }}>
-                    {t('recurrenceRule.recurrentBookings')}
+                  {t('recurrenceRule.recurrentBookings')}
                 </Typography>
                 <Divider />
                 <PaginatedListStateful
@@ -196,9 +196,12 @@ export class MemberDetailBooking extends Component<Props> {
                     <RecurrenceRulePrivateBookingItem
                       notShowMember
                       recurrentPrivateBooking={rb}
-                      onDelete={() => this.props.onDeleteRecurrenceRulePrivateBooking(
-                        rb, this.props.id,
-                      )}
+                      onDelete={() =>
+                        this.props.onDeleteRecurrenceRulePrivateBooking(
+                          rb,
+                          this.props.id,
+                        )
+                      }
                       onEdit={() => {
                         this.props.setBookerInAdvanceDialog(true);
                         this.props.setSelectedRecurrentRule(rb);

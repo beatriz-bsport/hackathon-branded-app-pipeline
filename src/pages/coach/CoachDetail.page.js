@@ -14,7 +14,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import { fetchPaymentRules } from '../../libs/payment-rules/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
-import { getCoach } from '../../libs/associated-coach/selectors.ts';
+import { getCoach } from '../../libs/associated-coach/selectors';
 import type { PaymentRule } from '../../libs/payment-rules';
 
 import {
@@ -22,8 +22,8 @@ import {
   setCoachPaymentRule,
   deleteCoach,
   fetchAssociatedCoach,
-} from '../../libs/associated-coach/actions.ts';
-import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api.ts';
+} from '../../libs/associated-coach/actions';
+import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
 import CoachDetail from '../../libs/associated-coach/components/CoachDetail.component';
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
 import type { CoachDetailed } from '../../api/types';

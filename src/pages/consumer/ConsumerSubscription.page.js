@@ -26,7 +26,7 @@ import {
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction,
 } from '../../libs/subscription/actions';
 import { getSubscriptionListByMember } from '../../libs/subscription/selectors';
-import { urlToMarketplace } from '../../libs/marketplace/utils.ts';
+import { urlToMarketplace } from '../../libs/marketplace/utils';
 import SubscriptionPaymentMethodSwitcherDialog from '../../libs/subscription/components/SubscriptionPaymentMethodSwitcherDialog.component';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';

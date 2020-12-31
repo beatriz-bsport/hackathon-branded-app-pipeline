@@ -167,37 +167,39 @@ export class MarketplaceCalendar extends PureComponent<Props> {
           date={selectedDate}
           events={events}
         />
-        {// eslint-disable-next-line
+        {
+          // eslint-disable-next-line
         loading ? (
-          <LoadingIndicator />
-        ) : isCompact && !isLarge ? (
-          <MarketplaceTimetable
-            showOfferFilling={this.props.showOfferFilling}
-            showOfferGender={this.props.showOfferGender}
-            offers={this.props.offers}
-            date={selectedDate}
-            onClickOffer={this.props.onClickOffer}
-            onClickBook={this.props.onClickBook}
-            onClickBookOption={this.props.onClickBookOption}
-            onSelectDate={onSelectDate}
-            coachLoading={this.props.coachLoading}
-            establishmentLoading={this.props.establishmentLoading}
-            activityLoading={this.props.activityLoading}
-          />
-        ) : (
-          <MarketplaceWeekTimetable
-            offers={this.props.offers}
-            showOfferFilling={this.props.showOfferFilling}
-            showOfferGender={this.props.showOfferGender}
-            date={selectedDate}
-            onClickOffer={this.props.onClickOffer}
-            onClickBook={this.props.onClickBook}
-            onClickBookOption={this.props.onClickBookOption}
-            coachLoading={this.props.coachLoading}
-            establishmentLoading={this.props.establishmentLoading}
-            activityLoading={this.props.activityLoading}
-          />
-        )}
+            <LoadingIndicator />
+          ) : isCompact && !isLarge ? (
+            <MarketplaceTimetable
+              showOfferFilling={this.props.showOfferFilling}
+              showOfferGender={this.props.showOfferGender}
+              offers={this.props.offers}
+              date={selectedDate}
+              onClickOffer={this.props.onClickOffer}
+              onClickBook={this.props.onClickBook}
+              onClickBookOption={this.props.onClickBookOption}
+              onSelectDate={onSelectDate}
+              coachLoading={this.props.coachLoading}
+              establishmentLoading={this.props.establishmentLoading}
+              activityLoading={this.props.activityLoading}
+            />
+          ) : (
+            <MarketplaceWeekTimetable
+              offers={this.props.offers}
+              showOfferFilling={this.props.showOfferFilling}
+              showOfferGender={this.props.showOfferGender}
+              date={selectedDate}
+              onClickOffer={this.props.onClickOffer}
+              onClickBook={this.props.onClickBook}
+              onClickBookOption={this.props.onClickBookOption}
+              coachLoading={this.props.coachLoading}
+              establishmentLoading={this.props.establishmentLoading}
+              activityLoading={this.props.activityLoading}
+            />
+          )
+        }
       </div>
     );
   }

@@ -70,9 +70,8 @@ export const getShopItemFeaturedList = createSelector(
 const getProvisionByShopitem = (state: State, id: number) =>
   _getProvisions(state).filter((p) => p.shop_item === id);
 
-export const getFreshShopIds = createSelector(
-  _getAllShopItems,
-  (es) => es.map((e) => e.id),
+export const getFreshShopIds = createSelector(_getAllShopItems, (es) =>
+  es.map((e) => e.id),
 );
 
 export default {

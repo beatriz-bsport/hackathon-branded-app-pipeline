@@ -84,8 +84,8 @@ export const StripePaymentCard = (props: Props) => {
     event.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
+      // Stripe has not yet loaded.
+      // Make sure to disable form submission until Stripe has loaded.
       return;
     }
 

@@ -106,8 +106,5 @@ const styles = () => ({
 export default compose(
   withStyles(styles),
   withState('dialogOpen', 'setDialogOpen', null),
-  connect(
-    null,
-    { pushRouter: push },
-  ),
+  connect(null, { pushRouter: push }),
 )(AlertButtonMenu);

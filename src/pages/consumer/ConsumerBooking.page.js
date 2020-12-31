@@ -19,14 +19,14 @@ import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/p
 import { getConsumerBookingListWithConsumerPack } from '../../libs/booking/selectors';
 import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
 import { getPrivateBookingListBase } from '../../libs/private-service/selectors/private-booking';
-import { fetchPrivateBookings } from '../../libs/private-service/actions.ts';
+import { fetchPrivateBookings } from '../../libs/private-service/actions';
 
 import ConsumerBookingPage from '../../libs/consumer-space/components/ConsumerBookingPage.component';
 
 import type { Membership } from '../../libs/membership/types';
 import type { Booking } from '../../libs/booking/types';
-import type { PrivateBooking } from '../../libs/private-service/types.ts';
-import { urlToMarketplace } from '../../libs/marketplace/utils.ts';
+import type { PrivateBooking } from '../../libs/private-service/types';
+import { urlToMarketplace } from '../../libs/marketplace/utils';
 
 type Props = {
   timezone: string,

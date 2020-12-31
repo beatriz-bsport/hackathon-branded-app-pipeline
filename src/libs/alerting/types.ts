@@ -17,28 +17,28 @@ export type Alerting = {
 
 export type UnevenInvoiceAlerting = Alerting & {
   data: {
-    uuid: string,
-    price_payed: string,
-    price_due: string,
-    date_invoice: string,
-    actions: ['equilibrate'],
-  },
+    uuid: string;
+    price_payed: string;
+    price_due: string;
+    date_invoice: string;
+    actions: ['equilibrate'];
+  };
 };
 
-export type NewOrderAlerting = Alerting &{
+export type NewOrderAlerting = Alerting & {
   data: {
-    order: string,
-    price: string,
-    member: number,
-    name: string,
-    actions: ['finalize'],
-  },
+    order: string;
+    price: string;
+    member: number;
+    name: string;
+    actions: ['finalize'];
+  };
 };
 
 // TODO TYPES
 export type AlertingState = {
-  items_by_kind: any, // TODO CHECK THIS
-  items_processing: any[], // TODO CHECK THIS
-  loading: boolean,
-  error?: Error,
-}
+  items_by_kind: any; // TODO CHECK THIS
+  items_processing: any[]; // TODO CHECK THIS
+  loading: boolean;
+  error?: Error;
+};

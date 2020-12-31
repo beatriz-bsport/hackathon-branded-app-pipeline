@@ -326,7 +326,8 @@ export function PaymentPackForm(props: Props) {
                   disabled={!editable}
                   label={t('form.paymentPack.only_vod_access')}
                 />
-              </Grid>)}
+              </Grid>
+            )}
             <Grid item xs={12}>
               <TextField
                 id="textfield_restrictions_monthlymaxuser"
@@ -535,9 +536,7 @@ const PackSchema = Yup.object().shape({
   name: Yup.string().required(),
   price: Yup.number().min(0),
   tax: Yup.number().min(0),
-  credits: Yup.number()
-    .min(0)
-    .nullable(),
+  credits: Yup.number().min(0).nullable(),
   timeType: Yup.string().required(),
   expiration_days_before_first_use: Yup.number(),
   unlimited: Yup.boolean(),
@@ -545,43 +544,23 @@ const PackSchema = Yup.object().shape({
   start_date_method: Yup.number().required(),
   duration_days: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
-    then: Yup.number()
-      .min(0)
-      .required(),
-    otherwise: Yup.number()
-      .min(0)
-      .nullable(),
+    then: Yup.number().min(0).required(),
+    otherwise: Yup.number().min(0).nullable(),
   }),
   duration_months: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
-    then: Yup.number()
-      .min(0)
-      .required(),
-    otherwise: Yup.number()
-      .min(0)
-      .nullable(),
+    then: Yup.number().min(0).required(),
+    otherwise: Yup.number().min(0).nullable(),
   }),
   duration_years: Yup.number().when('timeType', {
     is: VALID_BY_DURATION,
-    then: Yup.number()
-      .min(0)
-      .required(),
-    otherwise: Yup.number()
-      .min(0)
-      .nullable(),
+    then: Yup.number().min(0).required(),
+    otherwise: Yup.number().min(0).nullable(),
   }),
-  max_bookings_per_month: Yup.number()
-    .min(0)
-    .nullable(),
-  max_bookings_per_week: Yup.number()
-    .min(0)
-    .nullable(),
-  max_purchase_per_member: Yup.number()
-    .min(0)
-    .nullable(),
-  max_bookings_per_day: Yup.number()
-    .min(0)
-    .nullable(),
+  max_bookings_per_month: Yup.number().min(0).nullable(),
+  max_bookings_per_week: Yup.number().min(0).nullable(),
+  max_purchase_per_member: Yup.number().min(0).nullable(),
+  max_bookings_per_day: Yup.number().min(0).nullable(),
   lower_date: Yup.date().when('timeType', {
     is: VALID_BY_DATERANGE,
     then: Yup.date().required(),

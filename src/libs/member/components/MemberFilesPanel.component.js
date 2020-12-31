@@ -106,4 +106,6 @@ const styles = (theme) => ({
   },
 });
 
-export default withTranslation(['member'])(withStyles(styles)(MemberFilesPanel));
+export default withTranslation(['member'])(
+  withStyles(styles)(MemberFilesPanel),
+);

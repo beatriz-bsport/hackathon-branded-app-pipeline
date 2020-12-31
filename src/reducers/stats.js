@@ -16,9 +16,7 @@ import authActionTypes from '../actions/auth.types';
 
 const initialState = Immutable({
   dateRange: {
-    start: moment()
-      .subtract(365, 'days')
-      .valueOf(),
+    start: moment().subtract(365, 'days').valueOf(),
     end: moment().valueOf(),
     kind: 'custom',
   },

@@ -4,7 +4,7 @@ import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import { Dispatch } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { putAuth, API_URI } from '../../http.ts';
+import { putAuth, API_URI } from '../../http';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import {
   updateCoach as updateCoachAPI,
@@ -15,8 +15,8 @@ import {
   deleteCoach as deleteCoachAPI,
   restoreCoach as restoreCoachAPI,
   fetchAssociatedCoachPerformance as fetchAssociatedCoachPerformanceAPI,
-} from './api.ts';
-import { getFreshCoachIds } from './selectors.ts';
+} from './api';
+import { getFreshCoachIds } from './selectors';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { OptionCallback } from '../../state/types';
@@ -30,7 +30,7 @@ export const associated = {
 
 export function linkByEmail(
   email: string,
-  options: { onSuccess: () => void, onError: () => void }
+  options: { onSuccess: () => void; onError: () => void },
 ) {
   return async (dispatch: Dispatch) => {
     try {
@@ -100,7 +100,7 @@ export const coachListAction = {
 
 export function fetchAssociatedCoachesList(
   params?: { [key: string]: boolean },
-  options?: OptionCallback
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(coachListAction.isLoading(true));
@@ -111,7 +111,7 @@ export function fetchAssociatedCoachesList(
         coachListAction.success({
           coachDict: createDictionnaryById(response.data),
           coachIdList: createIdList(response.data),
-        })
+        }),
       );
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
@@ -208,7 +208,7 @@ export function fetchAssociatedCoachPerformance(
   associatedCoachId: number,
   start: number,
   end: number,
-  options: any = {}
+  options: any = {},
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(performance.isLoading({ loading: true, associatedCoachId }));
@@ -218,10 +218,10 @@ export function fetchAssociatedCoachPerformance(
       const response = await fetchAssociatedCoachPerformanceAPI(
         associatedCoachId,
         start,
-        end
+        end,
       );
       dispatch(
-        performance.success({ result: response.data, associatedCoachId })
+        performance.success({ result: response.data, associatedCoachId }),
       );
       if (options.onSuccess) options.onSuccess();
     } catch (error) {
@@ -244,7 +244,7 @@ export function setCoachPaymentRule(coachId: number, paymentRuleId: number) {
     try {
       await putAuth(
         `${API_URI}/accounts/coaches/${coachId}/set_payment_rule/`,
-        { default_payment_rule_id: paymentRuleId }
+        { default_payment_rule_id: paymentRuleId },
       );
       dispatch(snackbarSuccess('paymentRules.update.success'));
       const payload = { coachId, default_payment_rule_id: paymentRuleId };
@@ -266,7 +266,7 @@ export const sessionPaymentRule = {
 export function setSessionPaymentRule(
   associatedCoachId: number,
   sessionId: number,
-  paymentRuleId: number
+  paymentRuleId: number,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(sessionPaymentRule.isLoading(true));
@@ -275,14 +275,14 @@ export function setSessionPaymentRule(
     try {
       const response = await putAuth(
         `${API_URI}/bookings/sessions/${sessionId}/set_payment_rule/`,
-        { payment_rule_id: paymentRuleId }
+        { payment_rule_id: paymentRuleId },
       );
       dispatch(
         sessionPaymentRule.success({
           associatedCoachId,
           sessionId,
           data: response.data,
-        })
+        }),
       );
       dispatch(snackbarSuccess('paymentRules.update.success'));
     } catch (error) {
@@ -323,15 +323,15 @@ function fetchCoachBulkBase(params: any = {}, options?: OptionCallback) {
 
 export const fetchCoachBulk = (
   ids: Array<number>,
-  options?: OptionCallback
+  options?: OptionCallback,
 ) => {
   return async (
     dispatch: ThunkDispatch<any, any, any>,
-    getState: () => RootState
+    getState: () => RootState,
   ) => {
     const freshCoachList = getFreshCoachIds(getState());
     const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
-      (id) => !freshCoachList.includes(id)
+      (id) => !freshCoachList.includes(id),
     );
     if (ids_uniq.length === 0) {
       return;
@@ -342,15 +342,15 @@ export const fetchCoachBulk = (
 
 export const fetchAssociatedCoachBulkFromCoachIds = (
   ids: Array<number>,
-  companyId: number
+  companyId: number,
 ) => {
   return async (
     dispatch: ThunkDispatch<any, any, any>,
-    getState: () => RootState
+    getState: () => RootState,
   ) => {
     const freshCoachList = getFreshCoachIds(getState());
     const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
-      (id) => !freshCoachList.includes(id)
+      (id) => !freshCoachList.includes(id),
     );
     if (ids_uniq.length === 0) {
       return;
@@ -361,7 +361,7 @@ export const fetchAssociatedCoachBulkFromCoachIds = (
 
 export const fetchAssociatedCoachBulk = (
   ids: Array<number>,
-  options: OptionCallback
+  options: OptionCallback,
 ) => {
   return async (dispatch: ThunkDispatch<any, any, any>) => {
     const ids_uniq = uniq(ids.filter((id) => !!id));

@@ -82,15 +82,12 @@ export const withServices = memoize((selector) =>
 );
 
 export const withAvailable = memoize((selector) =>
-  createSelector(
-    selector,
-    (passList) => {
-      if (!passList) return passList;
-      if (Array.isArray(passList)) return passList.filter((p) => p.available);
-      if (passList.available) return passList;
-      return null;
-    },
-  ),
+  createSelector(selector, (passList) => {
+    if (!passList) return passList;
+    if (Array.isArray(passList)) return passList.filter((p) => p.available);
+    if (passList.available) return passList;
+    return null;
+  }),
 );
 // eslint-disable-next-line
 export const getDisabledPrivatePassAvailableListWithPrivateService: (State) => Array<PrivatePassWithService> = createSelector(

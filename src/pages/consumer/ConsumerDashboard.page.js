@@ -21,7 +21,7 @@ import ConsumerDashboardPassPanel from '../../libs/consumer-space/components/Con
 import ConsumerDashboardBookingOptionPanel from '../../libs/consumer-space/components/ConsumerDashboardBookingOptionPanel.component';
 import { fetchMembership as fetchMembershipAction } from '../../libs/membership/actions';
 
-import { getFavoriteEstablishment } from '../../libs/establishment/selectors.ts';
+import { getFavoriteEstablishment } from '../../libs/establishment/selectors';
 import { getFavoriteMetaActivity } from '../../libs/meta-activity/selectors';
 
 import { buildUrlParams } from '../../http';
@@ -36,8 +36,8 @@ import { fetchOfferBulk as fetchOfferBulkAction } from '../../libs/offer/actions
 import {
   fetchEstablishmentFavorite,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-} from '../../libs/establishment/actions.ts';
-import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions.ts';
+} from '../../libs/establishment/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import {
   fetchMetaActivityFavorite,
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
@@ -60,7 +60,7 @@ import {
 } from '../../libs/private-service/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchByMember as fetchConsumerPackByMemberAction } from '../../libs/consumer-payment-pack/actions';
-import { urlToMarketplace } from '../../libs/marketplace/utils.ts';
+import { urlToMarketplace } from '../../libs/marketplace/utils';
 import {
   // fetchInvoiceItemList as fetchInvoiceItemListAction,
   fetchInvoiceList as fetchInvoiceListAction,
@@ -367,19 +367,22 @@ export default compose(
         BOOKING_PAGE_SIZE,
         {
           onSuccess: (bookingList) => {
-            fetchOfferBulk(bookingList.map((b) => b.offer), {
-              onSuccess: (offerList) => {
-                fetchMetaActivityBulk(offerList.map((b) => b.meta_activity));
-                fetchCoachBulk([
-                  ...offerList.map((b) => b.coach),
-                  ...offerList.map((b) => b.coach_override),
-                ]);
-                fetchEstablishmentBulk([
-                  ...offerList.map((b) => b.establishment),
-                  ...offerList.map((b) => b.establishment_override),
-                ]);
+            fetchOfferBulk(
+              bookingList.map((b) => b.offer),
+              {
+                onSuccess: (offerList) => {
+                  fetchMetaActivityBulk(offerList.map((b) => b.meta_activity));
+                  fetchCoachBulk([
+                    ...offerList.map((b) => b.coach),
+                    ...offerList.map((b) => b.coach_override),
+                  ]);
+                  fetchEstablishmentBulk([
+                    ...offerList.map((b) => b.establishment),
+                    ...offerList.map((b) => b.establishment_override),
+                  ]);
+                },
               },
-            });
+            );
           },
         },
       ),

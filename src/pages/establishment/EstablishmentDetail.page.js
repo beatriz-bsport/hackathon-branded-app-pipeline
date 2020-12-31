@@ -23,7 +23,7 @@ import EstablishmentDeleteDialog from '../../libs/establishment/components/Estab
 import {
   fetchEstablishmentBulk,
   deleteEstablishment,
-} from '../../libs/establishment/actions.ts';
+} from '../../libs/establishment/actions';
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
   createMarketingNotification as createMarketingNotificationAction,
@@ -38,9 +38,9 @@ import {
   getEventsByEstablishment,
 } from '../../libs/offer/selectors';
 
-import { getEstablishment } from '../../libs/establishment/selectors.ts';
+import { getEstablishment } from '../../libs/establishment/selectors';
 
-import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api.ts';
+import { checkCanDeleteEstablishment as canDeleteEstablishmentAPI } from '../../libs/establishment/api';
 
 import {
   getAllEmailTemplatesSummaries,
@@ -201,14 +201,8 @@ export default compose(
   withProps(({ fetchOffersByDay, fetchEstablishmentEvents, id }) => ({
     fetchOffersByDay: (momentDate) => {
       fetchEstablishmentEvents(id, {
-        min_date: momentDate
-          .clone()
-          .startOf('month')
-          .format('YYYY-MM-DD'),
-        max_date: momentDate
-          .clone()
-          .endOf('month')
-          .format('YYYY-MM-DD'),
+        min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
+        max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
       });
       fetchOffersByDay({
         year: momentDate.year(),

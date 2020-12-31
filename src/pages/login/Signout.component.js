@@ -20,9 +20,6 @@ export const Signout = (props: Props) => {
   );
 };
 
-export default connect(
-  null,
-  {
-    disconnect,
-  },
-)(Signout);
+export default connect(null, {
+  disconnect,
+})(Signout);

@@ -91,11 +91,8 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['marketplace']),
   withStyles(styles),
-  connect(
-    null,
-    {
-      disconnect,
-      backToBackoffice: () => push('/'),
-    },
-  ),
+  connect(null, {
+    disconnect,
+    backToBackoffice: () => push('/'),
+  }),
 )(MarketplaceAsManager);

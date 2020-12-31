@@ -12,7 +12,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 
 import type { CoachDetailed as Coach } from '../../../api/types';
 
-import { DEFAULT_AVATAR } from '../utils.ts';
+import { DEFAULT_AVATAR } from '../utils';
 
 type Props = {
   coach: Coach,

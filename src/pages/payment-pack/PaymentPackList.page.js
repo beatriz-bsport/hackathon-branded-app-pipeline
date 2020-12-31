@@ -422,8 +422,5 @@ export default compose(
     t('titles:paymentPack.paymentPackList'),
   ),
   withStyles(styles),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
 )(PaymentPackList);

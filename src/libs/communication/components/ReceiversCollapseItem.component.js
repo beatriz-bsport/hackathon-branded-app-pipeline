@@ -149,10 +149,9 @@ export class ReceiversItem extends Component<Props> {
                   <KeyboardArrowLeftIcon />
                 </IconButton>
                 <Typography variant="subtitle2">
-                  {`Page ${this.props.page}/${parseInt(
-                    membersCount / this.props.page_size,
-                    10,
-                  ) + 1}`}
+                  {`Page ${this.props.page}/${
+                    parseInt(membersCount / this.props.page_size, 10) + 1
+                  }`}
                 </Typography>
                 <IconButton onClick={this.props.fetchNextPage}>
                   <KeyboardArrowRightIcon />

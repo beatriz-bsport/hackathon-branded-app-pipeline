@@ -150,7 +150,11 @@ const CampaignStatistics = withStyles(styles)(
 );
 const CampaignClick = withTranslation(['communication'])(
   withStyles(styles)(
-    withState('showMore', 'setShowMore', 5)((props) => {
+    withState(
+      'showMore',
+      'setShowMore',
+      5,
+    )((props) => {
       const sortedTopLinks = Object.entries(props.report.top_links).sort(
         (linkA, linkB) => linkA[1] - linkB[1],
       );

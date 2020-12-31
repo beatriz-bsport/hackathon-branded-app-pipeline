@@ -40,15 +40,15 @@ export const snackbar = {
 };
 
 export const backgroundSnackbarDestroy = createAction(
-  'BACKGROUND_SNACKBAR/DESTROY'
+  'BACKGROUND_SNACKBAR/DESTROY',
 );
 export const backgroundSnackbarDisplay = createAction(
-  'BACKGROUND_SNACKBAR/DISPLAY'
+  'BACKGROUND_SNACKBAR/DISPLAY',
 );
 
 export function pendingBackgroundSnackbar(
   uuid: string,
-  backgroundMessage: string
+  backgroundMessage: string,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(
@@ -56,14 +56,14 @@ export function pendingBackgroundSnackbar(
         uuid,
         backgroundMessage,
         kind: 'pending',
-      })
+      }),
     );
   };
 }
 
 export function displayBackgroundSnackbar(kind: BackgroundSnackKind) {
   return (uuid: string, backgroundMessage: string) => async (
-    dispatch: Dispatch
+    dispatch: Dispatch,
   ) => {
     dispatch(backgroundSnackbarDisplay({ uuid, backgroundMessage, kind }));
     await sleep(5000);

@@ -22,7 +22,7 @@ export default class FacebookPixel {
       window,
       document,
       'script',
-      'https://connect.facebook.net/en_US/fbevents.js',
+      'https://connect.facebook.net/en_US/fbevents',
     );
     /* eslint-enable */
     fbq('init', pixelId);

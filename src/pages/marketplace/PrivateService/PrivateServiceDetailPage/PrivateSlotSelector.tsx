@@ -10,12 +10,12 @@ import {
   PrivateService,
   PrivateSlot,
 } from '../../../../libs/private-service/types';
-import { getTextColorFromRGB } from '../../../../color.js';
+import { getTextColorFromRGB } from '../../../../color';
 
 type Props = {
-  privateService: PrivateService,
-  privateSlot: PrivateSlot,
-  onSelect: (slot: PrivateSlot) => void,
+  privateService: PrivateService;
+  privateSlot: PrivateSlot;
+  onSelect: (slot: PrivateSlot) => void;
 };
 
 const PrivateSlotSelector: React.FC<Props> = (props) => {

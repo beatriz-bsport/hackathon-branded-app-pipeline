@@ -5,12 +5,12 @@ const fetchCompanyMetaActivities = async ({
   page,
   page_size = 300,
 }: {
-  companyId: string,
-  page: number,
-  page_size: number,
+  companyId: string;
+  page: number;
+  page_size: number;
 }) => {
   return get(
-    `${API_V1_URI}/meta-activity/?company=${companyId}&page_size=${page_size}&page=${page}`
+    `${API_V1_URI}/meta-activity/?company=${companyId}&page_size=${page_size}&page=${page}`,
   );
 };
 
@@ -18,11 +18,11 @@ const fetchPaymentPacks = async ({
   companyId,
   page,
 }: {
-  companyId: string,
-  page: number,
+  companyId: string;
+  page: number;
 }) => {
   return getAuth(
-    `${API_V1_URI}/payment-pack/payment-pack/?company=${companyId}&page=${page}&manager_only=false&disabled=false&as_consumer=true`
+    `${API_V1_URI}/payment-pack/payment-pack/?company=${companyId}&page=${page}&manager_only=false&disabled=false&as_consumer=true`,
   );
 };
 
@@ -30,8 +30,8 @@ const fetchCompanyEstablishments = async ({
   companyId,
   page,
 }: {
-  companyId: string,
-  page: number,
+  companyId: string;
+  page: number;
 }) => {
   return get(`${API_V1_URI}/establishment/?company=${companyId}&page=${page}`);
 };
@@ -40,11 +40,11 @@ const fetchCompanyCoaches = async ({
   companyId,
   page,
 }: {
-  companyId: string,
-  page: number,
+  companyId: string;
+  page: number;
 }) => {
   return get(
-    `${API_V1_URI}/coach/?company=${companyId}&page=${page}&disabled=false`
+    `${API_V1_URI}/coach/?company=${companyId}&page=${page}&disabled=false`,
   );
 };
 const fetchCompanyOffers = async ({
@@ -55,15 +55,15 @@ const fetchCompanyOffers = async ({
   page,
   page_size = 300,
 }: {
-  companyId: string,
-  page: number,
-  min_date: string,
-  max_date: string,
-  is_workshop: boolean,
-  page_size: number,
+  companyId: string;
+  page: number;
+  min_date: string;
+  max_date: string;
+  is_workshop: boolean;
+  page_size: number;
 }) => {
   return get(
-    `${API_V1_URI}/offer/?company=${companyId}&min_date=${min_date}&is_workshop=${is_workshop}&max_date=${max_date}&page=${page}&page_size=${page_size}`
+    `${API_V1_URI}/offer/?company=${companyId}&min_date=${min_date}&is_workshop=${is_workshop}&max_date=${max_date}&page=${page}&page_size=${page_size}`,
   );
 };
 
@@ -77,11 +77,11 @@ export const fetchMarketplaceSettings = async (companyId: string) => {
 
 export const updateMarketplaceSettings = async (
   companyId: string,
-  data: any
+  data: any,
 ) => {
   return patchAuth(
     `${API_V1_URI}/marketplace_settings/settings/${companyId}/`,
-    data
+    data,
   );
 };
 

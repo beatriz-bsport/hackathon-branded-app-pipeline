@@ -147,7 +147,10 @@ export default handleActions(
       return state
         .setIn(['byMember', 'page'], payload.page)
         .setIn(['byMember', 'count'], payload.count)
-        .setIn(['byMember', 'allIds'], payload.results.map((cpp) => cpp.id))
+        .setIn(
+          ['byMember', 'allIds'],
+          payload.results.map((cpp) => cpp.id),
+        )
         .merge(
           {
             byId: payload.results.reduce((acc, ps) => {
@@ -193,7 +196,10 @@ export default handleActions(
     },
     [forBookingActions.success]: (state, { payload }) => {
       return state
-        .setIn(['forBooking', 'allIds'], payload.map((cpp) => cpp.id))
+        .setIn(
+          ['forBooking', 'allIds'],
+          payload.map((cpp) => cpp.id),
+        )
         .merge(
           {
             byId: payload.reduce((acc, ps) => {
@@ -275,7 +281,10 @@ export default handleActions(
       { payload },
     ) => {
       return state
-        .setIn(['compatible', 'allIds'], payload.map((cpp) => cpp.id))
+        .setIn(
+          ['compatible', 'allIds'],
+          payload.map((cpp) => cpp.id),
+        )
         .merge(
           {
             byId: payload.reduce((acc, ps) => {

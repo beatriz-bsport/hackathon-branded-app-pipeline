@@ -23,7 +23,7 @@ import MetaActivityListItem from '../../../meta-activity/components/MetaActivity
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import Selector from '../MultiSelector.component';
 import CalendarPicker from '../CalendarPicker.component';
-import { Establishment } from '../../../establishment/types.ts';
+import { Establishment } from '../../../establishment/types';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItemBasic.component';
 

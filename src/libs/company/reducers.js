@@ -31,7 +31,10 @@ export default handleActions(
     [searchActions.success]: (state, { payload }) => {
       const newIds = payload.map((m) => m.id);
       return state
-        .set('byId', payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}))
+        .set(
+          'byId',
+          payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+        )
         .setIn(['search', 'allIds'], newIds);
     },
     [listFeatureActions.success]: (state, { payload }) => {

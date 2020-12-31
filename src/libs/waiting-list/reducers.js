@@ -93,7 +93,10 @@ export default handleActions(
     },
     [forBookingActions.success]: (state, { payload }) => {
       return state
-        .setIn(['option', 'forBooking', 'allIds'], payload.map((bo) => bo.id))
+        .setIn(
+          ['option', 'forBooking', 'allIds'],
+          payload.map((bo) => bo.id),
+        )
         .merge(
           {
             option: {

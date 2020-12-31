@@ -406,18 +406,10 @@ const PaymentPackNotificationSchema = Yup.object().shape({
   kind: Yup.number(),
   email_design: Yup.number().required(),
   payment_pack_id: Yup.number().required(),
-  days_left: Yup.number()
-    .min(0)
-    .required(),
-  credits_left: Yup.number()
-    .min(0)
-    .required(),
-  smartlist_include: Yup.array()
-    .of(Yup.number())
-    .nullable(),
-  smartlist_exclude: Yup.array()
-    .of(Yup.number())
-    .nullable(),
+  days_left: Yup.number().min(0).required(),
+  credits_left: Yup.number().min(0).required(),
+  smartlist_include: Yup.array().of(Yup.number()).nullable(),
+  smartlist_exclude: Yup.array().of(Yup.number()).nullable(),
 });
 
 export default compose(

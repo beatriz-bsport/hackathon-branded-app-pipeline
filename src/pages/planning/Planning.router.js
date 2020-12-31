@@ -19,8 +19,8 @@ import {
   withGender,
 } from '../../libs/offer/selectors';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
-import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions.ts';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions.ts';
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 
 const formatDate = (date) => {
   const formatedDate = Moment(date);
@@ -41,8 +41,9 @@ export default function PlanningRouter() {
       />
       <Redirect
         from="/"
-        to={`/calendar/${momentDate.year()}/${momentDate.month() +
-          1}/${momentDate.date()}`}
+        to={`/calendar/${momentDate.year()}/${
+          momentDate.month() + 1
+        }/${momentDate.date()}`}
       />
     </Switch>
   );

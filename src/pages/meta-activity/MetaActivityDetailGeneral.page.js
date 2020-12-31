@@ -213,14 +213,8 @@ export default compose(
   withProps(({ fetchOffersByDay, fetchMetaActivityOffers, id }) => ({
     fetchOffersByDay: (momentDate) => {
       fetchMetaActivityOffers(id, {
-        min_date: momentDate
-          .clone()
-          .startOf('month')
-          .format('YYYY-MM-DD'),
-        max_date: momentDate
-          .clone()
-          .endOf('month')
-          .format('YYYY-MM-DD'),
+        min_date: momentDate.clone().startOf('month').format('YYYY-MM-DD'),
+        max_date: momentDate.clone().endOf('month').format('YYYY-MM-DD'),
       });
       fetchOffersByDay({
         year: momentDate.year(),

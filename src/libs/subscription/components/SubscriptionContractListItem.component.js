@@ -51,11 +51,12 @@ export const SubscriptionContractListItem = (props: Props) => {
             ? ` (+${props.contract.flat_fee}€)`
             : ''
         }`}
-        secondary={`${(props.contract.payment_pack &&
-          props.contract.payment_pack.name) ||
+        secondary={`${
+          (props.contract.payment_pack && props.contract.payment_pack.name) ||
           (props.contract.private_pass && props.contract.private_pass.name) ||
           (props.contract.payment_combo && props.contract.payment_combo.name) ||
-          ''}${
+          ''
+        }${
           props.contract.auto_renewal
             ? ''
             : `- ${props.t('contract.duration', {

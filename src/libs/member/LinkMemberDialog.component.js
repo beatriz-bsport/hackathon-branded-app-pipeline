@@ -77,4 +77,6 @@ const styles = () => ({
   },
 });
 
-export default withTranslation(['member'])(withStyles(styles)(MemberLinkDialog));
+export default withTranslation(['member'])(
+  withStyles(styles)(MemberLinkDialog),
+);

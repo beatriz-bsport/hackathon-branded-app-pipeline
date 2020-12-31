@@ -210,8 +210,9 @@ export class MemberSummaryCard extends Component<Props> {
     let primary = '';
     let secondary = '';
     if (address) {
-      primary = `${address.address_line_1 || ''} ${address.address_line_2 ||
-        ''}`;
+      primary = `${address.address_line_1 || ''} ${
+        address.address_line_2 || ''
+      }`;
       secondary = `${address.city || ''} - ${address.zipcode || ''} ${(
         address.country || ''
       ).toUpperCase()}`;

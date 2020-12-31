@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable';
 import type { Moment } from 'moment-timezone';
 import moment from 'moment-timezone';
 import { discretizeByAndFillMissing as discretizeAndFillMissing } from '../../state/stats/utils';
-import type { State, Dispatch } from '../../state/types.ts';
+import type { State, Dispatch } from '../../state/types';
 import type { Graph } from './types';
 
 export const getGraphData = (

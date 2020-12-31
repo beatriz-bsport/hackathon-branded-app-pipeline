@@ -13,14 +13,14 @@ import {
   fetchMember as fetchMemberAction,
 } from '../../libs/member/actions';
 import { MemberMap } from '../../libs/member/utils';
-import themeSelectors from '../../libs/theme/selectors.ts';
+import themeSelectors from '../../libs/theme/selectors';
 
 import { mapFormData, unmap } from '../form.utils';
 import { getMemberDetail } from '../../libs/member/selectors';
 
 import type { Membership } from '../../libs/membership/types';
 import type { Member } from '../../libs/member/types';
-import type { Theme } from '../../libs/theme/types.ts';
+import type { Theme } from '../../libs/theme/types';
 
 type Props = {
   fetchMember: (number) => void,

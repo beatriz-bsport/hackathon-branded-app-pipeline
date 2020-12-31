@@ -291,12 +291,8 @@ export default compose(
   withState('resourceFiltersArray', 'setResourceFiltersArray', []),
   withState('resourceToEdit', 'setResourceToEdit', null),
   withState('periodFilter', 'setPeriodFilter', {
-    start: moment()
-      .startOf('week')
-      .format('YYYY-MM-DD'),
-    end: moment()
-      .endOf('week')
-      .format('YYYY-MM-DD'),
+    start: moment().startOf('week').format('YYYY-MM-DD'),
+    end: moment().endOf('week').format('YYYY-MM-DD'),
   }),
   withStateHandlers(
     { customEventData: null },

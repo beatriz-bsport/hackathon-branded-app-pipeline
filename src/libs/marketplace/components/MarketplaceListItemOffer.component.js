@@ -19,7 +19,7 @@ import Level from '../../../components/category/Level.component';
 
 import { formatAsTime } from '../../../datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
-import { isOfferInThePast } from '../utils.ts';
+import { isOfferInThePast } from '../utils';
 
 type Props = {
   offer: Offer,

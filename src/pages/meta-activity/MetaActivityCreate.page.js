@@ -18,7 +18,7 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import { fetchAllOffers as fetchAllOffersAction } from '../../libs/offer/actions';
 import { mapFormData } from '../form.utils';
 import { upsert } from '../../libs/meta-activity/actions';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors.ts';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 import {
   fetchActivityCompatiblePaymentPacks as fetchActivityCompatiblePaymentPacksAction,
@@ -36,10 +36,10 @@ import {
   getEnabledWorkshops,
 } from '../../libs/meta-activity/selectors';
 import CompatiblePaymentPacks from '../../libs/meta-activity/components/MetaActivityCompatiblePacks.component';
-import { fetchEstablishments } from '../../libs/establishment/actions.ts';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions.ts';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors.ts';
-import { Establishment } from '../../libs/establishment/types.ts';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+import { Establishment } from '../../libs/establishment/types';
 import type { PaymentPack } from '../../libs/payment-packs/types';
 
 type StepType = {

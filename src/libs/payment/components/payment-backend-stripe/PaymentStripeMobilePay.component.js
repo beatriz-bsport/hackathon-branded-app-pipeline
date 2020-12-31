@@ -46,11 +46,11 @@ const CheckoutForm = (props: { clientSecret: string }) => {
               // Report to the browser that the confirmation was successful, prompting
               // it to close the browser payment method collection interface.
               ev.complete('success');
-              // Check if the PaymentIntent requires any actions and if so let Stripe.js
+              // Check if the PaymentIntent requires any actions and if so let Stripe
               // handle the flow. If using an API version older than "2019-02-11" instead
               // instead check for: `paymentIntent.status === "requires_source_action"`.
               if (paymentIntent.status === 'requires_action') {
-                // Let Stripe.js handle the rest of the payment flow.
+                // Let Stripe handle the rest of the payment flow.
                 const { error } = await stripe.confirmCardPayment(
                   props.clientSecret,
                 );

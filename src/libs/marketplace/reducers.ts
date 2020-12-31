@@ -11,29 +11,29 @@ const initialState: MarketplaceSettingState = Immutable<MarketplaceSettingState>
     loading: false,
     error: null,
     settings: null,
-  }
+  },
 );
 
 export default handleActions(
   {
     [marketplaceSettingsAction.success]: (
       state: MarketplaceSettingState,
-      { payload }
+      { payload },
     ) => {
       return state.setIn(['settings'], payload);
     },
     [marketplaceSettingsAction.isLoading]: (
       state: MarketplaceSettingState,
-      { payload }
+      { payload },
     ) => {
       return state.set('loading', payload);
     },
     [marketplaceSettingsAction.error]: (
       state: MarketplaceSettingState,
-      { payload }
+      { payload },
     ) => {
       return state.set('error', payload);
     },
   },
-  initialState
+  initialState,
 ) as () => MarketplaceSettingState;

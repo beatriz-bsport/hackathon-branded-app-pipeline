@@ -14,23 +14,23 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 
-import DateRangePicker from '../../../components/input/DateRangePicker.component.tsx';
+import DateRangePicker from '../../../components/input/DateRangePicker.component';
 import { OptionCallback } from '../../../state/types';
 
 type Props = {
-  startDate: string,
-  endDate: string,
-  setStartDate: (startDate: string) => void,
-  setEndDate: (endDate: string) => void,
-  loading: boolean,
-  setLoading: (loading: boolean) => void,
-  onClose: () => void,
+  startDate: string;
+  endDate: string;
+  setStartDate: (startDate: string) => void;
+  setEndDate: (endDate: string) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
+  onClose: () => void;
   onSubmit: (
-    date: { start: string, end: string },
+    date: { start: string; end: string },
     callback?: OptionCallback,
-  ) => void,
-  secondWarningOpen: boolean,
-  setSecondWarningOpen: (warning: boolean) => void,
+  ) => void;
+  secondWarningOpen: boolean;
+  setSecondWarningOpen: (warning: boolean) => void;
 };
 
 export const MassDisablerDialog = (props: Props) => {
@@ -121,12 +121,12 @@ export const MassDisablerDialog = (props: Props) => {
 export default compose(
   withState('loading', 'setLoading', false),
   withState('startDate', 'setStartDate', (props: { startDate: string }) =>
-    (props.startDate
+    props.startDate
       ? props.startDate
-      : moment(props.startDate).format('YYYY-MM-DD'))
+      : moment(props.startDate).format('YYYY-MM-DD'),
   ),
   withState('endDate', 'setEndDate', (props: { endDate: string }) =>
-    (props.endDate ? moment(props.endDate) : moment())
+    props.endDate ? moment(props.endDate) : moment(),
   ),
-  withState('secondWarningOpen', 'setSecondWarningOpen', false)
+  withState('secondWarningOpen', 'setSecondWarningOpen', false),
 )(MassDisablerDialog);

@@ -16,7 +16,7 @@ import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
 import Skeleton from '@material-ui/lab/Skeleton';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors.ts';
+import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 
@@ -36,7 +36,7 @@ import {
 import {
   fetchEstablishments as fetchEstablishmentList,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-} from '../../libs/establishment/actions.ts';
+} from '../../libs/establishment/actions';
 import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions';
 
 import { getDetailedOffer } from '../../libs/offer/selectors';
@@ -496,9 +496,7 @@ export default compose(
   withState('bookerInAvanceDialog', 'setBookerInAvanceDialog', false),
   withState('selectedRecurrentBooking', 'setSelectedRecurrentBooking', null),
   withState('chartRange', 'setChartRange', {
-    start: moment()
-      .subtract(1, 'years')
-      .format('YYYY-MM-DD'),
+    start: moment().subtract(1, 'years').format('YYYY-MM-DD'),
     end: moment().format('YYYY-MM-DD'),
     kind: 'current_year',
   }),

@@ -23,16 +23,16 @@ import { groupSessionsByDayMoment } from '../../../../../libs/private-service/ut
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
 
 type Props = {
-  privateSlot: PrivateSlot,
-  privateService: PrivateService,
-  availabilitySlotByDate: { [key: string]: string[] },
-  availableSlotsLoading: boolean,
-  timezoneName: string,
-  selectedDate: string,
-  numberOfDayToShow: number,
-  selectedSessionMoment: SessionMoment,
-  onSessionMomentSelect: (sessionItem: SessionMoment) => void,
-  onDateChange: (date: string) => void,
+  privateSlot: PrivateSlot;
+  privateService: PrivateService;
+  availabilitySlotByDate: { [key: string]: string[] };
+  availableSlotsLoading: boolean;
+  timezoneName: string;
+  selectedDate: string;
+  numberOfDayToShow: number;
+  selectedSessionMoment: SessionMoment;
+  onSessionMomentSelect: (sessionItem: SessionMoment) => void;
+  onDateChange: (date: string) => void;
 };
 
 const SlotCalendar: React.FC<Props> = (props) => {
@@ -56,9 +56,7 @@ const SlotCalendar: React.FC<Props> = (props) => {
 
   for (let i = 0; i < props.numberOfDayToShow; i += 1) {
     dates.push(
-      moment(props.selectedDate)
-        .tz(props.timezoneName)
-        .add(i, 'days')
+      moment(props.selectedDate).tz(props.timezoneName).add(i, 'days'),
     );
   }
 

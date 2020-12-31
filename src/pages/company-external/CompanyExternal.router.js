@@ -6,13 +6,12 @@ import { Route, Switch } from 'react-router-dom';
 
 import CompanyExternalAddMember from './CompanyExternalAddMember.page';
 
-const GoBackComponent = connect(
-  null,
-  { goBack },
-)((props: { goBack: () => void }) => {
-  props.goBack();
-  return <div />;
-});
+const GoBackComponent = connect(null, { goBack })(
+  (props: { goBack: () => void }) => {
+    props.goBack();
+    return <div />;
+  },
+);
 
 export const CompanyExternalRouter = () => (
   <Switch>

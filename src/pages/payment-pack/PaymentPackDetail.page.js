@@ -58,7 +58,7 @@ import {
 } from '../../libs/payment-packs/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { fetchEstablishmentBulk } from '../../libs/establishment/actions.ts';
+import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
 import { fetchMetaActivityBulk } from '../../libs/meta-activity/actions';
 
 import type {
@@ -364,56 +364,45 @@ export default compose(
   withState('filters', 'setFilters', {}),
   withState('open', 'setOpen', {}),
   routerParamsToProps({ id: 'id:number' }),
-  connect(
-    mapStateToProps,
-    {
-      snackbarSuccess,
-      fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
-      goToEmailCreate: () => pushRouter('/email-template/create'),
-      fetchMetaActivityBulk,
-      fetchEstablishmentBulk,
-      fetchPaymentPack: fetchPaymentPackAction,
+  connect(mapStateToProps, {
+    snackbarSuccess,
+    fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
+    goToEmailCreate: () => pushRouter('/email-template/create'),
+    fetchMetaActivityBulk,
+    fetchEstablishmentBulk,
+    fetchPaymentPack: fetchPaymentPackAction,
 
-      incrementCredit: (consumerPackId) =>
-        updateCreditAction(consumerPackId, 1),
-      decrementCredit: (consumerPackId) =>
-        updateCreditAction(consumerPackId, -1),
-      updatePaymentPack: (paymentPackId, data) =>
-        patchPaymentPack(paymentPackId, data, true),
-      pushToEdit: (paymentPackId: number) =>
-        pushRouter(`/payment-pack/${paymentPackId}/edit`),
-      resetConsumerPacks: resetByPaymentPackAction,
-      goToSmartlist: () => pushRouter('/smart-list'),
+    incrementCredit: (consumerPackId) => updateCreditAction(consumerPackId, 1),
+    decrementCredit: (consumerPackId) => updateCreditAction(consumerPackId, -1),
+    updatePaymentPack: (paymentPackId, data) =>
+      patchPaymentPack(paymentPackId, data, true),
+    pushToEdit: (paymentPackId: number) =>
+      pushRouter(`/payment-pack/${paymentPackId}/edit`),
+    resetConsumerPacks: resetByPaymentPackAction,
+    goToSmartlist: () => pushRouter('/smart-list'),
 
-      goToConsumerPackDetail: (memberId, passId) =>
-        pushRouter(`/member/${memberId}/pass/${passId}`),
-      fetchConsumerPacks: (
-        paymentPackId: number,
-        page: number,
-        pageSize: number,
-        filters: any,
-        options: OptionCallback,
-      ) =>
-        fetchByPaymentPackAction(
-          paymentPackId,
-          page,
-          pageSize,
-          options,
-          filters,
-        ),
-      fetchFilteredMembers: fetchFilteredMembersAction,
-      fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
-      fetchSmartListBulk: fetchSmartListBulkAction,
-      fetchEmailTemplatesSummaries,
-      getSmartLists: fetchAllSmartLists,
-      scaleCredit: scalePaymentPackCredit,
+    goToConsumerPackDetail: (memberId, passId) =>
+      pushRouter(`/member/${memberId}/pass/${passId}`),
+    fetchConsumerPacks: (
+      paymentPackId: number,
+      page: number,
+      pageSize: number,
+      filters: any,
+      options: OptionCallback,
+    ) =>
+      fetchByPaymentPackAction(paymentPackId, page, pageSize, options, filters),
+    fetchFilteredMembers: fetchFilteredMembersAction,
+    fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
+    fetchSmartListBulk: fetchSmartListBulkAction,
+    fetchEmailTemplatesSummaries,
+    getSmartLists: fetchAllSmartLists,
+    scaleCredit: scalePaymentPackCredit,
 
-      fetchMarketingNotificationList: fetchMarketingNotificationListAction,
-      createMarketingNotification: createMarketingNotificationAction,
-      updateMarketingNotification,
-      deleteMarketingNotification: deleteMarketingNotificationAction,
-    },
-  ),
+    fetchMarketingNotificationList: fetchMarketingNotificationListAction,
+    createMarketingNotification: createMarketingNotificationAction,
+    updateMarketingNotification,
+    deleteMarketingNotification: deleteMarketingNotificationAction,
+  }),
   withHandlers({
     setOpenValue: ({ setOpen, open }) => (name: string) => {
       setOpen({

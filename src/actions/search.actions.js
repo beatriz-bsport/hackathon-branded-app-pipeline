@@ -3,7 +3,7 @@
 import { push, replace } from 'connected-react-router';
 
 import { search as searchMember } from '../libs/member/actions';
-import type { State, Dispatch } from '../state/types.ts';
+import type { State, Dispatch } from '../state/types';
 
 import types from './search.types';
 

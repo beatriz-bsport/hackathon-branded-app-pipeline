@@ -14,12 +14,12 @@ import {
   deleteEstablishment as deleteEstablishmentAPI,
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAPI,
   restoreEstablishment as restoreEstablishmentAPI,
-} from './api.ts';
-import { API_URI, postAuth, deleteAuth } from '../../http.ts';
+} from './api';
+import { API_URI, postAuth, deleteAuth } from '../../http';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
-import { getFreshEstablishmentIds } from './selectors.ts';
+import { getFreshEstablishmentIds } from './selectors';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 
@@ -98,7 +98,7 @@ export function fetchEstablishments(params?: any, options?: OptionCallback) {
         listLoaded({
           establishmentDict: createDictionnaryById(response.data.results),
           establishmentIdList: createIdList(response.data.results),
-        })
+        }),
       );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
@@ -171,7 +171,7 @@ export function addImageToEstablishment(id: number, image: File) {
       data.append('image', image);
       const response = await postAuth(
         `${API_URI}/establishments/${id}/images/`,
-        data
+        data,
       );
       dispatch(addImage.success({ id, image: response.data }));
     } catch (error) {
@@ -277,15 +277,15 @@ function fetchEstablishmentBulkBase(params: any = {}, options: OptionCallback) {
 
 export const fetchEstablishmentBulk = (
   ids: Array<number>,
-  options: OptionCallback
+  options: OptionCallback,
 ) => {
   return async (
     dispatch: ThunkDispatch<any, any, any>,
-    getState: () => RootState
+    getState: () => RootState,
   ) => {
     const freshEstablishmentList = getFreshEstablishmentIds(getState());
     const ids_uniq = uniq(ids.filter((id) => !!id)).filter(
-      (id) => !freshEstablishmentList.includes(id)
+      (id) => !freshEstablishmentList.includes(id),
     );
     if (ids_uniq.length === 0) {
       return;
@@ -296,7 +296,7 @@ export const fetchEstablishmentBulk = (
 
 export const fetchAssociatedEstablishmentBulk = (
   ids: Array<number>,
-  options: OptionCallback
+  options: OptionCallback,
 ) => {
   return async (dispatch: ThunkDispatch<any, any, any>) => {
     const ids_uniq = uniq(ids.filter((id) => !!id));
@@ -306,8 +306,8 @@ export const fetchAssociatedEstablishmentBulk = (
     dispatch(
       fetchEstablishmentBulkBase(
         { associated_establishment__in: ids_uniq },
-        options
-      )
+        options,
+      ),
     );
   };
 };
@@ -320,7 +320,7 @@ export const favoriteActions = {
 
 export function fetchEstablishmentFavorite(
   company: number,
-  options: OptionCallback
+  options: OptionCallback,
 ) {
   return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(favoriteActions.isLoading(true));

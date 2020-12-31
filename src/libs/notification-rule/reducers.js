@@ -67,7 +67,10 @@ export default handleActions(
             return acc;
           }, {}),
         )
-        .setIn(['rule', 'allIds'], payload.map((pc) => pc.id));
+        .setIn(
+          ['rule', 'allIds'],
+          payload.map((pc) => pc.id),
+        );
     },
 
     [notificationRuleListActions.isLoading]: (state, { payload }) => {

@@ -31,14 +31,11 @@ export const EmailValidationPage = (props: Props) => {
 
 export default compose(
   routerParamsToProps({ email: 'email' }),
-  connect(
-    null,
-    {
-      goToRoot: () => push('/'),
-      requestValidationEmail: requestValidationEmailAction,
-      disconnect: disconnectAction,
-    },
-  ),
+  connect(null, {
+    goToRoot: () => push('/'),
+    requestValidationEmail: requestValidationEmailAction,
+    disconnect: disconnectAction,
+  }),
   withHandlers({
     disconnect: ({ disconnect, goToRoot }) => () => disconnect(goToRoot),
     requestValidationEmail: ({ requestValidationEmail, email }) => (options) =>

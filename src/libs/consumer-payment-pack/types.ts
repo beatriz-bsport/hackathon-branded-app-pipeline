@@ -13,7 +13,7 @@ export type ConsumerPaymentPack = {
   payment_pack_id: string;
   bookings: string[];
   starting_date: string;
-  ending_date: string
+  ending_date: string;
   member_id: number;
   bookings_this_week: number;
   payment_pack: number;
@@ -41,10 +41,10 @@ type ErrorAndLoading = {
 type WithPagination = {
   count: number;
   page: number;
-}
+};
 
 export type ConsumerPaymentPackState = ErrorAndLoading & {
-  byId: {[key: string]: ConsumerPaymentPack};
+  byId: { [key: string]: ConsumerPaymentPack };
   byOfferByMember: ErrorAndLoading & { items: number[] };
   nonCompatibleByOfferByMember: ErrorAndLoading & { items: number[] };
   compatible: ErrorAndLoading & { allIds: number[] };
@@ -56,10 +56,11 @@ export type ConsumerPaymentPackState = ErrorAndLoading & {
     create: ErrorAndLoading;
     delete: ErrorAndLoading;
   };
-  byPaymentPack: ErrorAndLoading & WithPagination & {
-    paymentPackId: null | number;
-    allIds: number[];
-  };
+  byPaymentPack: ErrorAndLoading &
+    WithPagination & {
+      paymentPackId: null | number;
+      allIds: number[];
+    };
   byMember: ErrorAndLoading & WithPagination & { allIds: number[] };
   forBooking: ErrorAndLoading & { allIds: number[] };
   penalty: ErrorAndLoading & WithPagination & { items: number[] };

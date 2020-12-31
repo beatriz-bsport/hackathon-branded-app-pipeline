@@ -20,7 +20,7 @@ import mapParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   associatedCoachSelector,
   coachPerformanceSelector,
-} from '../../libs/associated-coach/selectors.ts';
+} from '../../libs/associated-coach/selectors';
 import {
   paymentRuleSelector,
   paymentRulesSelector,
@@ -30,7 +30,7 @@ import {
   setSessionPaymentRule,
   fetchAssociatedCoachPerformance,
   fetchAssociatedCoachesList,
-} from '../../libs/associated-coach/actions.ts';
+} from '../../libs/associated-coach/actions';
 import withTitle from '../../hocs/with-title.hoc';
 import { fetchPaymentRules } from '../../libs/payment-rules/actions';
 
@@ -40,7 +40,7 @@ import CoachPerformanceSessionTable from '../../libs/associated-coach/components
 import {
   Coach,
   CoachPerformance as CoachPerformanceType,
-} from '../../libs/associated-coach/types.ts';
+} from '../../libs/associated-coach/types';
 
 type Props = {
   coach: Coach,

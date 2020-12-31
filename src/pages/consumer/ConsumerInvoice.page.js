@@ -20,7 +20,7 @@ import {
   withInvoiceItem,
   withPayment,
 } from '../../libs/invoice/selectors';
-import themeSelectors from '../../libs/theme/selectors.ts';
+import themeSelectors from '../../libs/theme/selectors';
 
 import type { Membership } from '../../libs/membership/types';
 import ConsumerDebtRegularizerDialog from '../../libs/consumer-space/components/ConsumerDebtRegularizerDialog.component';

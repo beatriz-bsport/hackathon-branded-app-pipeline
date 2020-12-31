@@ -27,7 +27,7 @@ import { fetchSCT } from '../../actions/category.actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
-import { getAllEstablishments } from '../../libs/establishment/selectors.ts';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
 
 import CheckInAppBar from '../../libs/check-in/components/CheckInAppBar.component';
 import CheckInSignout from '../../libs/check-in/components/CheckInSignout.component';

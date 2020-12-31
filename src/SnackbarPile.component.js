@@ -82,9 +82,6 @@ const mapDispatchToProps = {
 
 export default withTranslation(['snackbar'])(
   withStyles(styles)(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(SnackbarPile),
+    connect(mapStateToProps, mapDispatchToProps)(SnackbarPile),
   ),
 );

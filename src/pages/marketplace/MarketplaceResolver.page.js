@@ -51,10 +51,7 @@ export class MarketplaceResolver extends Component<Props> {
 
 export default compose(
   routerParamsToProps({ companyName: 'companyName' }),
-  connect(
-    null,
-    {
-      goToMarketplace: (name, id) => replace(getMarketplaceRoute(name, id)),
-    },
-  ),
+  connect(null, {
+    goToMarketplace: (name, id) => replace(getMarketplaceRoute(name, id)),
+  }),
 )(MarketplaceResolver);

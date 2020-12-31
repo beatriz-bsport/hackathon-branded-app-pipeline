@@ -2,7 +2,7 @@
 
 const fs = require('fs-extra');
 const beautify = require('json-beautify');
-const NAMESPACES = require('../namespaces.json');
+const NAMESPACES = require('../namespaceson');
 
 const generateSourceTranslations = (lang) => {
   console.log('* Generating the source translation');
@@ -18,7 +18,7 @@ const generateSourceTranslations = (lang) => {
   }, {});
 
   fs.writeFileSync(
-    `./src/i18n/build/${lang}/translations.json`,
+    `./src/i18n/build/${lang}/translationson`,
     beautify(concatenatedTranslations, null, 2, 120),
   );
   console.log('* Generation successful');

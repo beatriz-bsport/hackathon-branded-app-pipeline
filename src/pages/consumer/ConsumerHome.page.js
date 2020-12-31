@@ -14,9 +14,9 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import Analytics from '../../components/analytics/Analytics.component';
 import withTitle from '../../hocs/with-title.hoc';
 import parse from '../../query-string';
-import { buildUrlParams } from '../../http.ts';
+import { buildUrlParams } from '../../http';
 import asyncComponent from '../../AsyncComponent';
-import { urlToMarketplace } from '../../libs/marketplace/utils.ts';
+import { urlToMarketplace } from '../../libs/marketplace/utils';
 
 import {
   getConsumerMembershipList,
@@ -34,16 +34,16 @@ import { fetchOfferBulk as fetchOfferBulkAction } from '../../libs/offer/actions
 import { getBasketGeneratedObjects } from '../../libs/checkout/selectors';
 
 import { getTheme } from '../../theme';
-import themeSelectors from '../../libs/theme/selectors.ts';
+import themeSelectors from '../../libs/theme/selectors';
 import { fetchCountObjects as fetchCountObjectsAction } from '../../libs/member/actions';
 import ConsumerLoading from '../../libs/consumer-space/components/ConsumerLoading.component';
 import ConsumerDrawer from '../../components/navigation/ConsumerDrawer.component';
-import { fetchCompanyTheme } from '../../libs/theme/actions.ts';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
 
 import type { Membership } from '../../libs/membership/types';
 
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions.ts';
-import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions.ts';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 
 import CongratulationDialog from '../../libs/consumer-space/components/CongratulationDialog.component';

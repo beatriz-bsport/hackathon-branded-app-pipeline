@@ -32,7 +32,7 @@ import themeSelectors from '../../libs/theme/selectors';
 import { getCoaches } from '../../libs/associated-coach/selectors';
 import { getMetaActivities } from '../../libs/meta-activity/selectors';
 
-import { getAllEstablishments } from '../../libs/establishment/selectors.ts';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
 
 import {
   snackbarSuccess,
@@ -44,7 +44,7 @@ import {
   Offer,
   Establishment,
   MetaActivity,
-} from '../../libs/marketplace/types.ts';
+} from '../../libs/marketplace/types';
 
 import {
   fetchMarketplaceOfferList as fetchOfferListAction,
@@ -57,8 +57,8 @@ import {
   withEstablishment,
   withGender,
 } from '../../libs/offer/selectors';
-import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions.ts';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions.ts';
+import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 
 import withTitle from '../../hocs/with-title.hoc';

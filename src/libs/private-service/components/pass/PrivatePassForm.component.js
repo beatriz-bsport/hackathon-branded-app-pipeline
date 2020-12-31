@@ -185,18 +185,9 @@ export const PrivatePassSchema = Yup.object().shape({
   price: Yup.number().required(),
   manager_only: Yup.boolean().required(),
   full_vod_access: Yup.boolean().required(),
-  duration_days: Yup.number()
-    .required()
-    .integer()
-    .min(0),
-  duration_months: Yup.number()
-    .required()
-    .integer()
-    .min(0),
-  duration_years: Yup.number()
-    .required()
-    .integer()
-    .min(0),
+  duration_days: Yup.number().required().integer().min(0),
+  duration_months: Yup.number().required().integer().min(0),
+  duration_years: Yup.number().required().integer().min(0),
   available_payment_method_identifiers: Yup.array()
     .of(Yup.number().integer())
     .min(1),

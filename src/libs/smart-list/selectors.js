@@ -31,7 +31,6 @@ export const getSmartListFilters = (state: State, id: number): any =>
 export const getSmartListMembers = (state: State, id: number): any =>
   state.smartList.membersBySmartListId[id];
 
-export const getFreshSmartListIds = createSelector(
-  getAllSmartList,
-  (sl) => sl.map((list) => list.id),
+export const getFreshSmartListIds = createSelector(getAllSmartList, (sl) =>
+  sl.map((list) => list.id),
 );

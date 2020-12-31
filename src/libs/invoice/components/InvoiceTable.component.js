@@ -203,33 +203,35 @@ const InvoiceRow = React.memo((props: Props) => {
                     </TableRow>
                   </TableHead>
                   <TableBody style={{ backgroundColor: '#f8F8F8' }}>
-                    {// eslint-disable-next-line
+                    {
+                      // eslint-disable-next-line
                     invoice.invoice_items
-                      .filter((ii) => !!ii)
-                      .map((invoiceItem) => {
-                        return (
-                          <TableRow key={invoiceItem.id}>
-                            <TableCell component="th" scope="row">
-                              {invoiceItem.name}
-                            </TableCell>
-                            <TableCell>
-                              {`${parseFloat(invoiceItem.total_price).toFixed(
-                                2,
-                              )} €`}
-                            </TableCell>
-                            <TableCell>
-                              {`${parseFloat(invoiceItem.voucher).toFixed(
-                                2,
-                              )} €`}
-                            </TableCell>
-                            <TableCell>
-                              {`${parseFloat(
-                                invoiceItem.total_price_notax,
-                              ).toFixed(2)} €`}
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
+                        .filter((ii) => !!ii)
+                        .map((invoiceItem) => {
+                          return (
+                            <TableRow key={invoiceItem.id}>
+                              <TableCell component="th" scope="row">
+                                {invoiceItem.name}
+                              </TableCell>
+                              <TableCell>
+                                {`${parseFloat(invoiceItem.total_price).toFixed(
+                                  2,
+                                )} €`}
+                              </TableCell>
+                              <TableCell>
+                                {`${parseFloat(invoiceItem.voucher).toFixed(
+                                  2,
+                                )} €`}
+                              </TableCell>
+                              <TableCell>
+                                {`${parseFloat(
+                                  invoiceItem.total_price_notax,
+                                ).toFixed(2)} €`}
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })
+                    }
                     {!!invoice.invoice_items.length === 0 && (
                       <TableRow>
                         <TableCell component="th" scope="row">
@@ -277,38 +279,40 @@ const InvoiceRow = React.memo((props: Props) => {
                         <TableCell />
                       </TableRow>
                     )}
-                    {// eslint-disable-next-line
+                    {
+                      // eslint-disable-next-line
                     invoice.payments
-                      .filter((p) => !!p)
-                      .map(
-                        (payment) =>
-                          !!payment && (
-                            <TableRow key={payment.id}>
-                              <TableCell component="th" scope="row">
-                                {t(
-                                  `payment:paymentMethod.${payment.payment_method}`,
-                                )}
-                              </TableCell>
-                              <TableCell>
-                                {`${parseFloat(payment.price).toFixed(2)} €`}
-                              </TableCell>
-                              <TableCell>
-                                {moment(payment.date).format('L')}
-                              </TableCell>
-                              <TableCell>
-                                {payment.payment_received === null && (
-                                  <HourglassEmptyIcon size="small" />
-                                )}
-                                {payment.payment_received === false && (
-                                  <ErrorIcon color="error" size="small" />
-                                )}
-                                {payment.payment_received === true && (
-                                  <CheckIcon color="primary" size="small" />
-                                )}
-                              </TableCell>
-                            </TableRow>
-                          ),
-                      )}
+                        .filter((p) => !!p)
+                        .map(
+                          (payment) =>
+                            !!payment && (
+                              <TableRow key={payment.id}>
+                                <TableCell component="th" scope="row">
+                                  {t(
+                                    `payment:paymentMethod.${payment.payment_method}`,
+                                  )}
+                                </TableCell>
+                                <TableCell>
+                                  {`${parseFloat(payment.price).toFixed(2)} €`}
+                                </TableCell>
+                                <TableCell>
+                                  {moment(payment.date).format('L')}
+                                </TableCell>
+                                <TableCell>
+                                  {payment.payment_received === null && (
+                                    <HourglassEmptyIcon size="small" />
+                                  )}
+                                  {payment.payment_received === false && (
+                                    <ErrorIcon color="error" size="small" />
+                                  )}
+                                  {payment.payment_received === true && (
+                                    <CheckIcon color="primary" size="small" />
+                                  )}
+                                </TableCell>
+                              </TableRow>
+                            ),
+                        )
+                    }
                   </TableBody>
                 </Table>
                 {!!props.nestedDataLoading && <LinearProgress />}

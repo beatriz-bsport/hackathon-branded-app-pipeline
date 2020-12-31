@@ -424,14 +424,8 @@ const PrivateBookingNotificationSchema = Yup.object().shape({
   marketingKind: Yup.number().required(),
   email_design: Yup.number().required(),
   private_service_id: Yup.number(),
-  notify_booking_nb: Yup.number()
-    .integer()
-    .min(1)
-    .required(),
-  hours: Yup.number()
-    .integer()
-    .min(1)
-    .required(),
+  notify_booking_nb: Yup.number().integer().min(1).required(),
+  hours: Yup.number().integer().min(1).required(),
   kind: Yup.number(),
 });
 

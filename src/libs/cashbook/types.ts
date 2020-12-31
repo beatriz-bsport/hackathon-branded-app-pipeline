@@ -1,4 +1,3 @@
-
 export type CashBookState = {
   infos: {
     today_start_amount: number;

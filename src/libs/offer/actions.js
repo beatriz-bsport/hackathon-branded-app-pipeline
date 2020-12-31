@@ -17,7 +17,7 @@ import {
 import { monitorBackgroundTask } from '../background-task/actions';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
-import type { Dispatch, OptionCallback } from '../../state/types.ts';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const similarOffers = {
   isLoading: createAction('OFFERS/SIMILAR/IS_LOADING'),
@@ -489,7 +489,10 @@ export function fetchBookedGender(params: any, options: OptionCallback) {
   };
 }
 
-export function fetchBookedGenderBulk(ids: Array<number>, options: OptionCallback) {
+export function fetchBookedGenderBulk(
+  ids: Array<number>,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(bookedGenderActions.isLoading(true));
     dispatch(bookedGenderActions.error(null));

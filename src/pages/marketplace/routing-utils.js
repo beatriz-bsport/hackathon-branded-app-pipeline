@@ -1,7 +1,7 @@
 // @flow
 
 import moment from 'moment-timezone';
-import { buildUrlParams } from '../../http.ts';
+import { buildUrlParams } from '../../http';
 
 export const getMarketplaceRoute = (
   companyName: string,
@@ -11,7 +11,6 @@ export const getMarketplaceRoute = (
   const company = (companyName || '-').replace(/ /g, '-');
   return `/m/${company}/${companyId}/${tab || ''}`;
 };
-
 
 export const fromConfigToUrl = (tabConfig, queryParams: any = {}) => {
   const { componentType } = tabConfig;
@@ -32,13 +31,13 @@ export const fromConfigToUrl = (tabConfig, queryParams: any = {}) => {
   if (componentType === 'calendar') {
     path = 'calendar';
     Object.entries(tabConfig.data).forEach(([key, valueList]) => {
-        if (key === 'metaActivities') {
-          // eslint-disable-next-line
+      if (key === 'metaActivities') {
+        // eslint-disable-next-line
           queryParams['activity__in'] = valueList.map((v) => v.id).join(',');
-        } else {
-          // eslint-disable-next-line
+      } else {
+        // eslint-disable-next-line
           queryParams[key] = valueList.map((v) => v.id).join(',');
-        }
+      }
     });
 
     // eslint-disable-next-line

@@ -1,7 +1,7 @@
 // @flow
 
 import { createSelector } from 'reselect';
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 import type { PaymentCombo } from './types';
 
 const _getPaymenComboIdList: (State) => Array<number> = (state) =>

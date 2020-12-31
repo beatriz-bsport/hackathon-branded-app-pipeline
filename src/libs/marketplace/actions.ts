@@ -16,7 +16,7 @@ export const marketplaceSettingsAction = {
 
 export function fetchMarketplaceSettings(
   companyId: string,
-  options?: OptionCallback
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(marketplaceSettingsAction.isLoading(true));
@@ -49,7 +49,7 @@ export function fetchMarketplaceSettings(
 export function updateMarketplaceSettings(
   companyId: string,
   params: any = {},
-  options?: OptionCallback
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(marketplaceSettingsAction.isLoading(true));

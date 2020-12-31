@@ -105,7 +105,10 @@ export default handleActions(
       return state.setIn(['private_consumer_pass_link', 'error'], payload);
     },
 
-    [sharedPrivateConsumerPassCreateOrUpdateActions.error]: (state, { payload }) => {
+    [sharedPrivateConsumerPassCreateOrUpdateActions.error]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
         ['private_consumer_pass_link', 'createOrUpdate', 'error'],
         payload,

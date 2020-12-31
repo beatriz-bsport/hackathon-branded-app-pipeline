@@ -87,10 +87,7 @@ export default compose(
   }),
   withTranslation(['privateService']),
   withStyles(styles),
-  connect(
-    null,
-    {
-      pushToTab: (id, tab) => push(`/private-service/service/${id}/${tab}`),
-    },
-  ),
+  connect(null, {
+    pushToTab: (id, tab) => push(`/private-service/service/${id}/${tab}`),
+  }),
 )(PrivateServiceRouter);

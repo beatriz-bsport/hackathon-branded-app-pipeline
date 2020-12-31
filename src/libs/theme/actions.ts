@@ -38,7 +38,7 @@ export function fetchCompanyTheme(companyId?: number) {
 export function updateCompanyTheme(
   companyId: number,
   data: any,
-  options?: OptionCallback
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(themeUpdate.isLoading(true));

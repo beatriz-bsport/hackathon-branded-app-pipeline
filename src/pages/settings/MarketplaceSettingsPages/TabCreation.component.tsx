@@ -17,32 +17,32 @@ import {
   Typography,
 } from '@material-ui/core';
 
-
-import { Coach } from "../../../libs/associated-coach/types";
-import { Establishment } from "../../../libs/establishment/types";
-import { MetaActivity } from "../../../libs/meta-activity/types";
-import { PrivateService } from "../../../libs/private-service/types";
+import { Coach } from '../../../libs/associated-coach/types';
+import { Establishment } from '../../../libs/establishment/types';
+import { MetaActivity } from '../../../libs/meta-activity/types';
+import { PrivateService } from '../../../libs/private-service/types';
 
 import {
   MarketplaceCalendarData,
   MarketplaceComponentData,
   MarketplaceComponentsEnum,
-  MarketplacePlaylistData, MarketplacePrivateServiceData,
+  MarketplacePlaylistData,
+  MarketplacePrivateServiceData,
   MarketplaceTabConfig,
-} from "../../../libs/marketplace/types";
+} from '../../../libs/marketplace/types';
 
-import CoachSelector from "../../../libs/associated-coach/components/CoachSelector.component.js";
-import EstablishmentSelector from "../../../libs/establishment/components/EstablishmentSelector.component.js";
-import MetaActivitySelector from "../../../libs/meta-activity/components/MetaActivitySelector.component.js";
-import LevelSelector from "../../../libs/category/components/LevelSelector.component.js";
+import CoachSelector from '../../../libs/associated-coach/components/CoachSelector.component';
+import EstablishmentSelector from '../../../libs/establishment/components/EstablishmentSelector.component';
+import MetaActivitySelector from '../../../libs/meta-activity/components/MetaActivitySelector.component';
+import LevelSelector from '../../../libs/category/components/LevelSelector.component';
 
 type Props = {
-  onClose: () => void,
+  onClose: () => void;
   coaches: Array<Coach>;
   establishments: Array<Establishment>;
   metaActivities: Array<MetaActivity>;
   privateServices: Array<PrivateService>;
-  playlists: Array<{id: number, name: string}>
+  playlists: Array<{ id: number; name: string }>;
   onSubmit: (tab: MarketplaceTabConfig) => void;
   tab: MarketplaceTabConfig | null;
 };
@@ -58,7 +58,6 @@ const TabCreation: React.FC<Props> = (props) => {
 
   const classes = useStyles();
   const { t } = useTranslation('settings');
-
 
   useEffect(() => {
     componentType && setComponentTypeError('');
@@ -89,31 +88,48 @@ const TabCreation: React.FC<Props> = (props) => {
     setShowAdvanceSettings(false);
   }, []);
 
-  const setCalendarData = useCallback((key: keyof MarketplaceCalendarData, values: any) => {
-    setData((prevState: MarketplaceCalendarData) => {
+  const setCalendarData = useCallback(
+    (key: keyof MarketplaceCalendarData, values: any) => {
+      setData((prevState: MarketplaceCalendarData) => {
         return {
           ...prevState,
-          [key]: values.map((value: any) => ({ id: value.value, name: value.label })) };
-    });
-  }, [data, componentType]);
+          [key]: values.map((value: any) => ({
+            id: value.value,
+            name: value.label,
+          })),
+        };
+      });
+    },
+    [data, componentType],
+  );
 
-  const setPrivateServiceDetailData = useCallback((value: any) => {
-    setData({
-      serviceId: value,
-      name: props.privateServices.find((ps: PrivateService) => ps.id === value).name,
-    });
-  }, [data, componentType]);
+  const setPrivateServiceDetailData = useCallback(
+    (value: any) => {
+      setData({
+        serviceId: value,
+        name: props.privateServices.find(
+          (ps: PrivateService) => ps.id === value,
+        ).name,
+      });
+    },
+    [data, componentType],
+  );
 
-  const setPlaylistData = useCallback((value: any) => {
-    setData({
-      playlistId: value,
-      name: props.playlists.find((p: any) => p.id === value).name,
-    });
-  }, [data, componentType]);
+  const setPlaylistData = useCallback(
+    (value: any) => {
+      setData({
+        playlistId: value,
+        name: props.playlists.find((p: any) => p.id === value).name,
+      });
+    },
+    [data, componentType],
+  );
 
   const onSubmit = useCallback(() => {
     if (!componentType) {
-      setComponentTypeError(t('marketplaceSettings.createDialog.noComponentTypeError'));
+      setComponentTypeError(
+        t('marketplaceSettings.createDialog.noComponentTypeError'),
+      );
       return;
     }
 
@@ -138,43 +154,56 @@ const TabCreation: React.FC<Props> = (props) => {
     props.onSubmit(tab);
   }, [componentType, title, data]);
 
-
   const renderOptionalData = useCallback(() => {
-    if (componentType === MarketplaceComponentsEnum.calendar && showAdvanceSettings) {
+    if (
+      componentType === MarketplaceComponentsEnum.calendar &&
+      showAdvanceSettings
+    ) {
       return (
         <div className={classes.flexCol}>
           <div className={classes.marginTop}>
             <CoachSelector
               coaches={props.coaches}
-              selectedCoaches={(data as MarketplaceCalendarData).coaches.map((c) => c.id)}
-              selectOption={(ev: any) => setCalendarData("coaches", ev)}
+              selectedCoaches={(data as MarketplaceCalendarData).coaches.map(
+                (c) => c.id,
+              )}
+              selectOption={(ev: any) => setCalendarData('coaches', ev)}
             />
           </div>
           <div className={classes.marginTop}>
             <EstablishmentSelector
               establishments={props.establishments}
-              selectedEstablishment={(data as MarketplaceCalendarData).establishments.map((e) => e.id)}
-              selectOption={(ev: any) => setCalendarData("establishments", ev)}
+              selectedEstablishment={(data as MarketplaceCalendarData).establishments.map(
+                (e) => e.id,
+              )}
+              selectOption={(ev: any) => setCalendarData('establishments', ev)}
             />
           </div>
           <div className={classes.marginTop}>
             <MetaActivitySelector
               metaActivities={props.metaActivities}
-              selectedMetaActivities={(data as MarketplaceCalendarData).metaActivities.map((m) => m.id)}
-              selectOption={(ev: any) => setCalendarData("metaActivities", ev)}
+              selectedMetaActivities={(data as MarketplaceCalendarData).metaActivities.map(
+                (m) => m.id,
+              )}
+              selectOption={(ev: any) => setCalendarData('metaActivities', ev)}
             />
           </div>
           <div className={classes.marginTop}>
             <LevelSelector
-              selectedLevels={(data as MarketplaceCalendarData).levels.map((l) => l.id)}
-              selectOption={(ev: any) => setCalendarData("levels", ev)}
+              selectedLevels={(data as MarketplaceCalendarData).levels.map(
+                (l) => l.id,
+              )}
+              selectOption={(ev: any) => setCalendarData('levels', ev)}
             />
           </div>
         </div>
       );
     }
 
-    if (componentType === MarketplaceComponentsEnum.privateService && showAdvanceSettings) {
+    if (
+      componentType === MarketplaceComponentsEnum.privateService &&
+      showAdvanceSettings
+    ) {
       return (
         <div className={classes.flexCol}>
           <FormControl className={classes.marginTop}>
@@ -183,9 +212,7 @@ const TabCreation: React.FC<Props> = (props) => {
             </InputLabel>
             <Select
               value={(data as MarketplacePrivateServiceData).serviceId}
-              onChange={(ev) =>
-                setPrivateServiceDetailData(ev.target.value)
-              }
+              onChange={(ev) => setPrivateServiceDetailData(ev.target.value)}
             >
               {props.privateServices.map((privateService) => (
                 <MenuItem key={privateService.id} value={privateService.id}>
@@ -207,9 +234,7 @@ const TabCreation: React.FC<Props> = (props) => {
             </InputLabel>
             <Select
               value={(data as MarketplacePlaylistData).playlistId}
-              onChange={(ev) =>
-                setPlaylistData(ev.target.value)
-              }
+              onChange={(ev) => setPlaylistData(ev.target.value)}
             >
               {props.playlists.map((p) => (
                 <MenuItem key={p.id} value={p.id}>
@@ -230,7 +255,9 @@ const TabCreation: React.FC<Props> = (props) => {
 
   return (
     <Dialog open className={classes.container}>
-      <DialogTitle>{t('marketplaceSettings.createDialog.dialogTitle')}</DialogTitle>
+      <DialogTitle>
+        {t('marketplaceSettings.createDialog.dialogTitle')}
+      </DialogTitle>
       <DialogContent className={classes.container}>
         <FormControl className={classes.fullWidth}>
           <InputLabel>
@@ -248,7 +275,7 @@ const TabCreation: React.FC<Props> = (props) => {
             ))}
           </Select>
           {componentTypeError && (
-              <Typography color="error">{componentTypeError}</Typography>
+            <Typography color="error">{componentTypeError}</Typography>
           )}
         </FormControl>
 
@@ -261,24 +288,20 @@ const TabCreation: React.FC<Props> = (props) => {
             value={title}
             onChange={(ev) => setTitle(ev.target.value)}
           />
-          {titleError && (
-              <Typography color="error">{titleError}</Typography>
-          )}
+          {titleError && <Typography color="error">{titleError}</Typography>}
         </div>
 
-        {(
-            !showAdvanceSettings &&
-            (
-              componentType === MarketplaceComponentsEnum.calendar ||
-              componentType === MarketplaceComponentsEnum.privateService
-            )
-        ) && (
+        {!showAdvanceSettings &&
+          (componentType === MarketplaceComponentsEnum.calendar ||
+            componentType === MarketplaceComponentsEnum.privateService) && (
             <div className={classes.showMoreContainer}>
-            <ButtonBase onClick={() => setShowAdvanceSettings(true)}>
-              <Typography color="primary">Voir les options avancées</Typography>
-            </ButtonBase>
+              <ButtonBase onClick={() => setShowAdvanceSettings(true)}>
+                <Typography color="primary">
+                  Voir les options avancées
+                </Typography>
+              </ButtonBase>
             </div>
-        )}
+          )}
         {renderOptionalData()}
       </DialogContent>
 

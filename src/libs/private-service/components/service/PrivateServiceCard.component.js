@@ -37,9 +37,11 @@ export const PrivateServiceDetail = (props: Props) => {
     (privateService.last_discard_minutes - discardDays * 60 * 24) / 60,
     10,
   );
-  const discardMinutes = `${privateService.last_discard_minutes -
+  const discardMinutes = `${
+    privateService.last_discard_minutes -
     discardDays * 60 * 24 -
-    discardHours * 60}`;
+    discardHours * 60
+  }`;
 
   const bookingDays = parseInt(
     privateService.last_booking_minutes / (60 * 24),
@@ -49,9 +51,11 @@ export const PrivateServiceDetail = (props: Props) => {
     (privateService.last_booking_minutes - bookingDays * 60 * 24) / 60,
     10,
   );
-  const bookingMinutes = `${privateService.last_booking_minutes -
+  const bookingMinutes = `${
+    privateService.last_booking_minutes -
     bookingDays * 60 * 24 -
-    bookingHours * 60}`;
+    bookingHours * 60
+  }`;
 
   return (
     <Card className={classes.paperContainer}>

@@ -15,11 +15,11 @@ import type { Coach, MetaActivity, Establishment } from '../api/types';
 import withTitle from '../hocs/with-title.hoc';
 
 import OfferForm from '../libs/offer/OfferForm.component';
-import { getActiveCoaches } from '../libs/associated-coach/selectors.ts';
+import { getActiveCoaches } from '../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../libs/meta-activity/api/meta-activity';
-import { getAvailableEstablishmentList } from '../libs/establishment/selectors.ts';
-import { fetchEstablishments } from '../libs/establishment/actions.ts';
-import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions.ts';
+import { getAvailableEstablishmentList } from '../libs/establishment/selectors';
+import { fetchEstablishments } from '../libs/establishment/actions';
+import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 import {
   getEnabledMetaActivities,
   getEnabledWorkshops,

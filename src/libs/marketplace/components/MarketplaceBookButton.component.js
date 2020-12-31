@@ -9,7 +9,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import { colors } from '@bsport/common/lib/colors';
-import { isOfferInThePast, isOfferBookableYet } from '../utils.ts';
+import { isOfferInThePast, isOfferBookableYet } from '../utils';
 
 type Props = {
   onClickBook: () => void,
@@ -43,12 +43,14 @@ const MarketplaceBookButton = (props: Props) => {
       return (
         <div>
           &#9792; {offer.female} / {offer.male} &#9794; + {offer.other}
-        </div>);
+        </div>
+      );
     }
     return (
       <div>
         &#9792; {offer.female} / {offer.male} &#9794;
-      </div>);
+      </div>
+    );
   };
 
   return (
@@ -79,7 +81,7 @@ const MarketplaceBookButton = (props: Props) => {
           </IconButton>
         </Hidden>
         <Hidden xsDown>
-            {text +
+          {text +
             (props.showOfferFilling
               ? `  (${offer.tot_slots}/${offer.effectif})`
               : '')}

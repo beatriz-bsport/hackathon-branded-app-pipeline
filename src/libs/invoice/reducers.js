@@ -120,14 +120,19 @@ export default handleActions(
       return state.setIn(['payment', 'error'], payload);
     },
     [listPaymentActions.success]: (state, { payload }) => {
-      return state.setIn(['payment', 'allIds'], payload.map((p) => p.id)).merge(
-        {
-          payment: {
-            byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+      return state
+        .setIn(
+          ['payment', 'allIds'],
+          payload.map((p) => p.id),
+        )
+        .merge(
+          {
+            payment: {
+              byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+            },
           },
-        },
-        { deep: true },
-      );
+          { deep: true },
+        );
     },
     [listInvoiceItemActions.isLoading]: (state, { payload }) => {
       return state.setIn(['invoiceItem', 'loading'], payload);
@@ -189,12 +194,10 @@ export default handleActions(
 
     [quickInvoiceActions.reset]: (state, { payload }) => {
       if (payload) {
-        return state
-          .setIn(['quickInvoice', 'loading'], false)
-          .set(
-            'quickInvoices',
-            state.quickInvoices.filter((qi) => qi.uuid !== payload),
-          );
+        return state.setIn(['quickInvoice', 'loading'], false).set(
+          'quickInvoices',
+          state.quickInvoices.filter((qi) => qi.uuid !== payload),
+        );
       }
       return state
         .setIn(['quickInvoice', 'loading'], false)

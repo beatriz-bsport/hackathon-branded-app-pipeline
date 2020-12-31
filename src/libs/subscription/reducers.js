@@ -130,7 +130,10 @@ export default handleActions(
             deep: true,
           },
         )
-        .setIn(['plannedInvoice', 'allIds'], payload.results.map((pl) => pl.id))
+        .setIn(
+          ['plannedInvoice', 'allIds'],
+          payload.results.map((pl) => pl.id),
+        )
         .setIn(['plannedInvoice', 'nextPage'], payload.next_page)
         .setIn(['plannedInvoice', 'page'], payload.page)
         .setIn(['plannedInvoice', 'count'], payload.count);
@@ -170,7 +173,10 @@ export default handleActions(
           },
           { deep: true },
         )
-        .setIn(['contract', 'forBooking', 'allIds'], payload.map((c) => c.id));
+        .setIn(
+          ['contract', 'forBooking', 'allIds'],
+          payload.map((c) => c.id),
+        );
     },
     [switchPaymentMethodActions.isLoading]: (state, { payload }) => {
       return state.setIn(['switchPaymentMethod', 'loading'], payload);
@@ -216,7 +222,10 @@ export default handleActions(
     },
     [listSubscriptionActions.success]: (state, { payload }) => {
       return state
-        .setIn(['list', 'allIds'], payload.results.map((c) => c.id))
+        .setIn(
+          ['list', 'allIds'],
+          payload.results.map((c) => c.id),
+        )
         .setIn(['list', 'count'], payload.count)
         .merge(
           {
@@ -236,7 +245,10 @@ export default handleActions(
     },
     [byMemberSubscriptionActions.success]: (state, { payload }) => {
       return state
-        .setIn(['byMember', 'allIds'], payload.results.map((c) => c.id))
+        .setIn(
+          ['byMember', 'allIds'],
+          payload.results.map((c) => c.id),
+        )
         .setIn(['byMember', 'count'], payload.count)
         .merge(
           {
@@ -257,7 +269,10 @@ export default handleActions(
     },
     [contractListActions.success]: (state, { payload }) => {
       return state
-        .setIn(['contract', 'allIds'], payload.map((c) => c.id))
+        .setIn(
+          ['contract', 'allIds'],
+          payload.map((c) => c.id),
+        )
         .merge(
           {
             contract: {

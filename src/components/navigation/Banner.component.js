@@ -86,7 +86,4 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(
-  withTranslation(['titles']),
-  withStyles(styles),
-)(Banner);
+export default compose(withTranslation(['titles']), withStyles(styles))(Banner);

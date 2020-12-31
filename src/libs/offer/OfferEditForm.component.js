@@ -593,8 +593,8 @@ export class EditLiveOfferForm extends Component<Props, State> {
             {(() => {
               const hasError =
                 this.state.broadcast_link &&
-                (!this.state.broadcast_link.startsWith('https://') &&
-                  !this.state.broadcast_link.startsWith('http://'));
+                !this.state.broadcast_link.startsWith('https://') &&
+                !this.state.broadcast_link.startsWith('http://');
               return (
                 <TextField
                   variant="outlined"

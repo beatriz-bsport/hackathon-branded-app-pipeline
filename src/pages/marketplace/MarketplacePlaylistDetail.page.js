@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { push, replace } from 'connected-react-router';
 
 import PlaylistDetail from '../../libs/playlist/components/PlaylistDetail.component';
-import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions.ts';
+import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 import { getPlaylist, withCoachInVideo } from '../../libs/playlist/selectors';
 import { retrievePlaylist as retrievePlaylistAction } from '../../libs/playlist/actions';
 import {
@@ -18,7 +18,7 @@ import {
 import { getVideo, withCoach, withCategory } from '../../libs/video/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { fetchPrivateConsumerPassCompatibleList as fetchPrivateConsumerPassCompatibleListAction } from '../../libs/private-service/actions.ts';
+import { fetchPrivateConsumerPassCompatibleList as fetchPrivateConsumerPassCompatibleListAction } from '../../libs/private-service/actions';
 import { fetchConsumerPaymentPackCompatibleList as fetchConsumerPaymentPackCompatibleListAction } from '../../libs/consumer-payment-pack/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import VideoRegisterDialog from '../../libs/video/components/RegisterVideoDialog.component';

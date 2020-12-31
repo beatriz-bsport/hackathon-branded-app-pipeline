@@ -4,9 +4,9 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import memoize from 'memoize-one';
 
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 import { getSCTs } from '../category/selectors';
-import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors.ts';
+import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
 
 export const getPaymentPackById = (state: State): Array<PaymentPack> =>
@@ -55,28 +55,25 @@ export const getWithSCT = (state: State, id: number) => {
 export const getOne = (state: State, id: number) => state.paymentPack.byId[id];
 
 export const withSCT = memoize((selector) =>
-  createSelector(
-    [selector, getSCTs],
-    (paymentPacks, SCTs) => {
-      if (Array.isArray(paymentPacks)) {
-        return paymentPacks.map((pp) => ({
-          ...pp,
-          categories: SCTs.filter((sct) =>
-            (pp.categories || []).includes(sct.id),
-          ),
-        }));
-      }
-      if (paymentPacks) {
-        return {
-          ...paymentPacks,
-          categories: SCTs.filter((sct) =>
-            (paymentPacks.categories || []).includes(sct.id),
-          ),
-        };
-      }
-      return paymentPacks;
-    },
-  ),
+  createSelector([selector, getSCTs], (paymentPacks, SCTs) => {
+    if (Array.isArray(paymentPacks)) {
+      return paymentPacks.map((pp) => ({
+        ...pp,
+        categories: SCTs.filter((sct) =>
+          (pp.categories || []).includes(sct.id),
+        ),
+      }));
+    }
+    if (paymentPacks) {
+      return {
+        ...paymentPacks,
+        categories: SCTs.filter((sct) =>
+          (paymentPacks.categories || []).includes(sct.id),
+        ),
+      };
+    }
+    return paymentPacks;
+  }),
 );
 
 export const withMetaActivities = memoize((selector) =>
@@ -132,9 +129,8 @@ export const getPaymentPackNotifications = (state, id) =>
     ),
   );
 
-export const getEnabled = createSelector(
-  getAll,
-  (pps) => pps.filter((pp) => !pp.disabled),
+export const getEnabled = createSelector(getAll, (pps) =>
+  pps.filter((pp) => !pp.disabled),
 );
 
 export const getAllPaymentPacks = createSelector(

@@ -5,7 +5,8 @@ import type { TFunction } from 'react-i18next';
 
 type Props = {
   t: TFunction,
-  broadcast_info: { // TODO TYPES, use BookingBroadCastRoom type
+  broadcast_info: {
+    // TODO TYPES, use BookingBroadCastRoom type
     room: string,
     domain: string,
     provider: string,

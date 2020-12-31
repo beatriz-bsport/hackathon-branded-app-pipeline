@@ -130,7 +130,7 @@ type Props = {
   settings: MarketplaceSettings,
   settingsLoading: boolean,
   tabSelected: ?number,
-  fetchMarketplaceSettings: (companyId: string) => void
+  fetchMarketplaceSettings: (companyId: string) => void,
 };
 
 type State = {

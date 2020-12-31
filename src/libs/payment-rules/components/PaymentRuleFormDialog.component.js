@@ -24,7 +24,7 @@ type Props = {
   t: TFunction,
   open: boolean,
   handleClose: () => void,
-  onSubmit: (*) => void,
+  onSubmit: (data: any) => void,
   isSubmitting: boolean,
 };
 

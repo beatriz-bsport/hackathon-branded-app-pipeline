@@ -9,7 +9,7 @@ import {
   fetchBookingBulk,
   fetchBookingBroadcastRoom,
 } from '../../libs/booking/actions';
-import themeSelectors from '../../libs/theme/selectors.ts';
+import themeSelectors from '../../libs/theme/selectors';
 
 import BroadcastRoom from '../../libs/video/components/BroadcastRoom.component';
 

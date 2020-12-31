@@ -21,7 +21,7 @@ import {
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import Selector from '../MultiSelector.component';
 import CalendarPicker from '../CalendarPicker.component';
-import { Establishment } from '../../../establishment/types.ts';
+import { Establishment } from '../../../establishment/types';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItemBasic.component';
 import PrivatePassListItem from '../../../private-service/components/pass/PrivatePassListItem.component';

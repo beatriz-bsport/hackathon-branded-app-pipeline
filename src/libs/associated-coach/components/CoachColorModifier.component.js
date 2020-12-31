@@ -53,7 +53,11 @@ const CoachColorSquare = (props: {
   );
 };
 
-const ColorModifierForm = withState('newColor', 'setColor', null)(
+const ColorModifierForm = withState(
+  'newColor',
+  'setColor',
+  null,
+)(
   (props: {
     t: TFunction,
     open: boolean,

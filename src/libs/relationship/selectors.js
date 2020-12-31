@@ -55,7 +55,7 @@ export const getSharedConsumerPacksByRelation = (
     (scpp) => scpp.member_relation === relationId,
   );
 
-  const _getPrivateConsumerPassLinks = (state: State) =>
+const _getPrivateConsumerPassLinks = (state: State) =>
   state.relationship.private_consumer_pass_link.items;
 
 export const getAllSharedPrivateConsumerPasses = createSelector(

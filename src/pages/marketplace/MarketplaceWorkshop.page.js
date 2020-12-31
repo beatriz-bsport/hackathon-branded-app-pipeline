@@ -15,8 +15,8 @@ import {
   snackbarError as snackbarErrorAction,
 } from '../../actions/snackbar.actions';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
-import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions.ts';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions.ts';
+import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceWorkshop from '../../libs/marketplace/components/MarketplaceWorkshop.component';
@@ -66,9 +66,7 @@ type Props = {
 
 export class MarketplaceWorkshopPage extends React.Component<Props> {
   componentDidMount() {
-    const min_date = Moment()
-      .startOf('month')
-      .format(DATE_FORMAT);
+    const min_date = Moment().startOf('month').format(DATE_FORMAT);
     const max_date = Moment()
       .startOf('month')
       .add('years', 1)
@@ -211,10 +209,14 @@ export default compose(
           if (err && err.response && err.response.status === 423) {
             switch (err.response.data) {
               case 'unavailable for female':
-                snackbarError(t('booking:bookingModule.messages.femaleUnavailable'));
+                snackbarError(
+                  t('booking:bookingModule.messages.femaleUnavailable'),
+                );
                 break;
               case 'unavailable for male':
-                snackbarError(t('booking:bookingModule.messages.maleUnavailable'));
+                snackbarError(
+                  t('booking:bookingModule.messages.maleUnavailable'),
+                );
                 break;
               default:
                 snackbarError(t('booking:bookingModule.messages.offerLocked'));

@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { createAction, handleActions } from 'redux-actions';
 
-import type { Dispatch, Action, State } from '../state/types.ts';
+import type { Dispatch, Action, State } from '../state/types';
 
 export function createListHandler(
   objectName: string,

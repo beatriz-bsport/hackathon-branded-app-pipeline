@@ -53,4 +53,6 @@ export function MetaActivityMinimalSummary(props: Props) {
   );
 }
 
-export default withTranslation()(withStyles(styles)(MetaActivityMinimalSummary));
+export default withTranslation()(
+  withStyles(styles)(MetaActivityMinimalSummary),
+);

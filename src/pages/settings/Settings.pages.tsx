@@ -8,33 +8,32 @@ import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
 import { Theme } from '@material-ui/core';
 
-
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.component.js';
-import CompanyDetailPage from './CompanyDetailPage.component.js';
-import RoleConfigurationPage from './RoleConfiguration.component.js';
-import InvoiceConfigurationPage from './InvoiceConfigurationPage.component.js';
-import WaitingListConfigurationPage from './WaitingListConfigurationPage.component.js';
-import BroadcastConfiguration from './BroadcastConfiguration.page.js';
-import ShopConfigurationPage from './ShopConfigurationPage.component.js';
-import ThemeConfigurationPage from './ThemeConfiguration.component.js';
-import SettingsPersonalizePage from './SettingsPersonalizePage.component.js';
-import WebhookConfigurationPage from './WebhookConfigurationPage.component.js';
-import NotificationRulePage from './NotificationRule.page.js';
-import PartnershipPage from './Partnership.page.js';
+import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.component';
+import CompanyDetailPage from './CompanyDetailPage.component';
+import RoleConfigurationPage from './RoleConfiguration.component';
+import InvoiceConfigurationPage from './InvoiceConfigurationPage.component';
+import WaitingListConfigurationPage from './WaitingListConfigurationPage.component';
+import BroadcastConfiguration from './BroadcastConfiguration.page';
+import ShopConfigurationPage from './ShopConfigurationPage.component';
+import ThemeConfigurationPage from './ThemeConfiguration.component';
+import SettingsPersonalizePage from './SettingsPersonalizePage.component';
+import WebhookConfigurationPage from './WebhookConfigurationPage.component';
+import NotificationRulePage from './NotificationRule.page';
+import PartnershipPage from './Partnership.page';
 import ActiveCampaignPage from './ActiveCampaignPage.component';
-import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page.js';
-import PlatformBillingSettingPage from './PlatformBillingSetting.page.js';
-import MarketplaceSettings from './MarketplaceSettingsPages/MarketplaceSettings.pages.tsx';
+import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page';
+import PlatformBillingSettingPage from './PlatformBillingSetting.page';
+import MarketplaceSettings from './MarketplaceSettingsPages/MarketplaceSettings.pages';
 
-import withTitle from '../../hocs/with-title.hoc.js';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc.js';
+import withTitle from '../../hocs/with-title.hoc';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import { drawerWidth } from '../../components/navigation/ResponsiveDrawer.component.js';
+import { drawerWidth } from '../../components/navigation/ResponsiveDrawer.component';
 
 type Props = {
-  classes: any,
+  classes: any;
 };
 
 export const Settings = (props: Props) => {
@@ -147,5 +146,5 @@ export default compose(
   routerParamsToProps({ tab: 'tab' }),
   withRouter,
   connect(null, { push }),
-  withTitle(({ t }: { t: TFunction }) => t('titles:settings'))
+  withTitle(({ t }: { t: TFunction }) => t('titles:settings')),
 )(Settings);

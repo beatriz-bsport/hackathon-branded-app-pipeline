@@ -1,4 +1,3 @@
-
 export enum ResourceAttributionEnum {
   auto = 0,
   consumer = 1,
@@ -11,25 +10,25 @@ export type CustomEvents = {
   name: string;
   description: string;
   coaches: number[];
-  associated_coaches: {coach_id: number, id: number}[];
+  associated_coaches: { coach_id: number; id: number }[];
   color: string;
   company: number;
   date_start: string;
   date_end: string;
-}
+};
 
 export type AvailabilitySlot = {
-  associated_coach: number,
-  coach: number,
-  date_start: string,
-  date_end: string,
+  associated_coach: number;
+  coach: number;
+  date_start: string;
+  date_end: string;
 };
 
 export type PrivateServiceGroup = {
   id: number;
   name: string;
   private_services: number;
-}
+};
 
 export type PrivateService = {
   id: number;
@@ -51,12 +50,11 @@ export type PrivateService = {
   last_discard_minutes: number;
   last_booking_minutes: number;
   cover_main: string;
-  private_service_group?: number
+  private_service_group?: number;
   slots_duration_minute: Array<number>;
   availability_padding_start_minutes: number;
   availability_padding_end_minutes: number;
 };
-
 
 export type PrivateSlot = {
   id: number;
@@ -85,30 +83,30 @@ export type PrivateEstablishment = {
   title: string;
   location: {
     address: string;
-  }
+  };
 };
 
 export type PrivatePass = {
-  id: number,
-  name: string,
-  credits: number,
-  price: number,
-  tax: number,
-  private_services: number[],
+  id: number;
+  name: string;
+  credits: number;
+  price: number;
+  tax: number;
+  private_services: number[];
   manager_only: boolean;
   available: boolean;
   duration_days: number;
   duration_months: number;
   duration_years: number;
   available_payment_method_identifiers: number[];
-  full_vod_access: boolean
+  full_vod_access: boolean;
 };
 
 export type PrivateConsumerPass = {
-  id: number,
-  used_credits: number,
-  private_pass: PrivatePass,
-  consumer: number,
+  id: number;
+  used_credits: number;
+  private_pass: PrivatePass;
+  consumer: number;
   date_created: string;
   reverted: boolean;
   date_bought: string;
@@ -141,15 +139,15 @@ export type PrivateBooking = {
 
 export type PrivateBookingPreview = {
   coach: {
-    photo: string,
-    name: string,
-  },
-  title: string,
-  subtitle: string,
-  date_Start: string,
-  date_end: string,
-  credit_cost: number,
-  company: number,
+    photo: string;
+    name: string;
+  };
+  title: string;
+  subtitle: string;
+  date_Start: string;
+  date_end: string;
+  credit_cost: number;
+  company: number;
 };
 
 export type PrivateResource = {
@@ -159,42 +157,42 @@ export type PrivateResource = {
   color: string;
   private_service: number;
   datatype: string;
-}
+};
 
 export type ResourceData = {
-  resourceDatatype: string,
-  resourceIdentifier: number,
-  color: string,
-  resourceData: any,
+  resourceDatatype: string;
+  resourceIdentifier: number;
+  color: string;
+  resourceData: any;
 };
 
 export type RecurrenceRulePrivateBooking = {
-  id: number,
-  day_of_week: number,
-  hour: number,
-  minute: number,
-  nb_of_weeks: number,
-  member: number,
-  private_slot: PrivateSlot,
-}
+  id: number;
+  day_of_week: number;
+  hour: number;
+  minute: number;
+  nb_of_weeks: number;
+  member: number;
+  private_slot: PrivateSlot;
+};
 
 type ErrorAndLoading = {
   error?: Error;
   loading: boolean;
-}
+};
 
 type WithPagination = {
   count: number;
   page: number;
-}
+};
 
 export interface PrivateServiceState {
   customEvent: ErrorAndLoading & {
-    byId: {[key: string]: CustomEvents};
+    byId: { [key: string]: CustomEvents };
     createOrUpdate: ErrorAndLoading;
   };
   privateSlot: ErrorAndLoading & {
-    byId: { [id: string]: PrivateSlot },
+    byId: { [id: string]: PrivateSlot };
     createOrUpdate: ErrorAndLoading;
   };
   availabilitySlot: ErrorAndLoading & {
@@ -205,41 +203,43 @@ export interface PrivateServiceState {
         };
       };
     };
-    byId: {[key: string]: AvailabilitySlot}
+    byId: { [key: string]: AvailabilitySlot };
     createOrUpdate: ErrorAndLoading;
     searched: ErrorAndLoading & {
-      items: { resource_identifier: string, slots: Array<Array<string>> }[];
+      items: { resource_identifier: string; slots: Array<Array<string>> }[];
     };
   };
   privateConsumerPass: ErrorAndLoading & {
-    allIds: Array<number>,
-    byId: { [id: string]: PrivateConsumerPass },
+    allIds: Array<number>;
+    byId: { [id: string]: PrivateConsumerPass };
     update: ErrorAndLoading;
-    compatible: ErrorAndLoading & { allIds: string[] }
-    byPrivatePass: ErrorAndLoading & WithPagination & {
-      privatePassId: string,
-      allIds: string[],
-    },
-    byMember: ErrorAndLoading & WithPagination & {
-      allIds: string[],
-    },
+    compatible: ErrorAndLoading & { allIds: string[] };
+    byPrivatePass: ErrorAndLoading &
+      WithPagination & {
+        privatePassId: string;
+        allIds: string[];
+      };
+    byMember: ErrorAndLoading &
+      WithPagination & {
+        allIds: string[];
+      };
     extension: ErrorAndLoading & {
-      items: any[],
+      items: any[];
       create: ErrorAndLoading;
       delete: ErrorAndLoading;
-      updatingConsumerPass: [],
-    },
+      updatingConsumerPass: [];
+    };
   };
   resource: {
-    byId: {[key: string]: PrivateResource};
+    byId: { [key: string]: PrivateResource };
     allIds: string[];
     loading: boolean;
     error?: Error;
   };
-  privateService: ErrorAndLoading &{
-    byId: { [id: string]: PrivateService },
-    marketplaceIds: string[]
-    allIds: Array<number>,
+  privateService: ErrorAndLoading & {
+    byId: { [id: string]: PrivateService };
+    marketplaceIds: string[];
+    allIds: Array<number>;
     createOrUpdate: ErrorAndLoading;
   };
   privateBooking: {
@@ -250,45 +250,45 @@ export interface PrivateServiceState {
     createOrUpdate: {
       loading?: boolean;
       error?: Error;
-    },
-  },
+    };
+  };
   recurrenceRulePrivateBooking: {
-    byId: { [id: number]: RecurrenceRulePrivateBooking },
-    allIds: Array<number>,
-    loading: boolean,
-    error?: Error,
-    createOrUpdate: {
-      loading: boolean,
-      error?: Error,
-    },
-    delete: {
-      loading: boolean,
-      error?: Error,
-    },
-  },
-  customEvent: {
-    byId: {[key: string]: any};
+    byId: { [id: number]: RecurrenceRulePrivateBooking };
+    allIds: Array<number>;
     loading: boolean;
     error?: Error;
     createOrUpdate: {
       loading: boolean;
-      error?: Error
+      error?: Error;
+    };
+    delete: {
+      loading: boolean;
+      error?: Error;
+    };
+  };
+  customEvent: {
+    byId: { [key: string]: any };
+    loading: boolean;
+    error?: Error;
+    createOrUpdate: {
+      loading: boolean;
+      error?: Error;
     };
   };
   resource: {
-    byId: {[key: string]: any};
+    byId: { [key: string]: any };
   };
   serviceGroup: ErrorAndLoading & {
-    byId: {[key: string]: PrivateServiceGroup};
+    byId: { [key: string]: PrivateServiceGroup };
     allIds: string[];
     delete: ErrorAndLoading;
     createOrUpdate: ErrorAndLoading;
   };
   privatePass: ErrorAndLoading & {
-    byId: { [id: string]: PrivatePass },
-    allIds: Array<number>,
+    byId: { [id: string]: PrivatePass };
+    allIds: Array<number>;
     asConsumer: ErrorAndLoading & { allIds: Array<number> };
-    createOrUpdate: ErrorAndLoading
+    createOrUpdate: ErrorAndLoading;
   };
   privateBooking: ErrorAndLoading & {
     byId: { [id: string]: PrivateBooking };
@@ -296,6 +296,6 @@ export interface PrivateServiceState {
     createOrUpdate: ErrorAndLoading;
   };
   calendarEvent: ErrorAndLoading & {
-    byId: {[key: string]: PrivateSlot};
-  },
+    byId: { [key: string]: PrivateSlot };
+  };
 }

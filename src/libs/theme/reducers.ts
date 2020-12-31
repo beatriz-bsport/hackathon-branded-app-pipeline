@@ -40,5 +40,5 @@ export default handleActions(
       return state.setIn(['createOrUpdate', 'loading'], payload);
     },
   },
-  initialState
+  initialState,
 ) as () => ThemeState;

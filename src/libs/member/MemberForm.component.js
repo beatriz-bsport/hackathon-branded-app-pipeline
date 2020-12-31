@@ -414,28 +414,20 @@ const MemberSchema = Yup.object().shape({
   firstname: Yup.string(),
   lastname: Yup.string(),
   email: Yup.string().nullable(),
-  phone: Yup.string()
-    .nullable()
-    .notRequired(),
+  phone: Yup.string().nullable().notRequired(),
   gender: Yup.string().matches(/(F|M|X)/),
-  birthday: Yup.string()
-    .nullable()
-    .notRequired(),
+  birthday: Yup.string().nullable().notRequired(),
   barcode: Yup.string().nullable(),
   membership_ID: Yup.string().nullable(),
   date_joined: Yup.string().nullable(),
-  rgpd: Yup.object()
-    .shape({})
-    .nullable(),
-  address: Yup.object()
-    .nullable()
-    .shape({
-      address_line_1: Yup.string(),
-      address_line_2: Yup.string(),
-      city: Yup.string(),
-      country: Yup.string(),
-      zipcode: Yup.string(),
-    }),
+  rgpd: Yup.object().shape({}).nullable(),
+  address: Yup.object().nullable().shape({
+    address_line_1: Yup.string(),
+    address_line_2: Yup.string(),
+    city: Yup.string(),
+    country: Yup.string(),
+    zipcode: Yup.string(),
+  }),
   avatar: Yup.object().nullable(),
 });
 
@@ -529,10 +521,7 @@ export default compose(
       let { avatar } = values;
       if (typeof avatar === 'string' && avatar.includes('data:image/')) {
         const byteString = atob(avatar.split(',')[1]);
-        const mimeString = avatar
-          .split(',')[0]
-          .split(':')[1]
-          .split(';')[0];
+        const mimeString = avatar.split(',')[0].split(':')[1].split(';')[0];
 
         const buffer = new ArrayBuffer(byteString.length);
         const data = new DataView(buffer);

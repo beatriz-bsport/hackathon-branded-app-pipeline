@@ -12,7 +12,7 @@ import {
   sessionPaymentRule,
   bulkRetrieveActions,
   restoreActions,
-} from './actions.ts';
+} from './actions';
 
 const initialState: CoachState = Immutable<CoachState>({
   loading: false,
@@ -39,7 +39,7 @@ export default handleActions(
             return acc;
           }, {}),
         },
-        { deep: true }
+        { deep: true },
       );
     },
     [bulkRetrieveActions.isLoading]: (state, { payload }) => {
@@ -71,19 +71,19 @@ export default handleActions(
     [performance.isLoading]: (state, { payload }) => {
       return state.setIn(
         ['performance', payload.associatedCoachId, 'loading'],
-        payload.loading
+        payload.loading,
       );
     },
     [performance.error]: (state, { payload }) => {
       return state.setIn(
         ['performance', payload.associatedCoachId, 'error'],
-        payload.error
+        payload.error,
       );
     },
     [performance.success]: (state, { payload }) => {
       return state.setIn(
         ['performance', payload.associatedCoachId, 'result'],
-        payload.result
+        payload.result,
       );
     },
     [upsert.isLoading]: (state, { payload }) => {
@@ -98,7 +98,7 @@ export default handleActions(
     [setPaymentRule.success]: (state, { payload }) => {
       return state.setIn(
         ['byId', payload.coachId, 'default_payment_rule_id'],
-        payload.default_payment_rule_id
+        payload.default_payment_rule_id,
       );
     },
     [sessionPaymentRule.isLoading]: (state, { payload }) => {
@@ -116,12 +116,12 @@ export default handleActions(
       const updatedSession = { ...session, ...payload.data };
       return state.setIn(
         ['performance', payload.associatedCoachId, 'result', index],
-        updatedSession
+        updatedSession,
       );
     },
     [restoreActions.isLoading]: (state, { payload }) => {
       return state.set('loading', payload);
     },
   },
-  initialState
+  initialState,
 ) as () => CoachState;

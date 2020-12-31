@@ -20,7 +20,7 @@ import PaymentComboBuyableItem from '../../../payment-combo/components/PaymentCo
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 import ConsumerPaymentPackListItemCheckout from '../../../consumer-payment-pack/components/ConsumerPaymentPackListItemCheckout.component';
 import SubscriptionContractListItem from '../../../subscription/components/SubscriptionContractListItem.component';
-import { isOfferBookableYet } from '../../../marketplace/utils.ts';
+import { isOfferBookableYet } from '../../../marketplace/utils';
 import type { ConsumerPaymentPack } from '../../../consumer-payment-pack/types';
 
 import type { OptionCallback } from '../../../../state/types';
@@ -186,7 +186,8 @@ export class BookerModuleConsumer extends React.PureComponent<Props> {
       offer.tot_slots >= offer.effectif && !hasBookingOptionConvertible;
     const isWaitingListFull =
       (offer.waiting_list_disabled || offer.is_waiting_list_full) &&
-      (!hasBookingOptionUnConvertible && !hasBookingOptionConvertible);
+      !hasBookingOptionUnConvertible &&
+      !hasBookingOptionConvertible;
 
     return (
       <div>

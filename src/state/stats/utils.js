@@ -23,9 +23,7 @@ export const discretizeByAndFillMissing = memoize((table, start, end) => {
   }
 
   const grouped = groupBy(table, (u) => {
-    return moment(u.d)
-      .startOf(unitOfTime)
-      .format(format);
+    return moment(u.d).startOf(unitOfTime).format(format);
   });
 
   for (
@@ -58,9 +56,7 @@ export const discretizeByAndFillMissing = memoize((table, start, end) => {
   // Prevent from having a single data point
   if (finalTable.length === 1) {
     finalTable.unshift({
-      d: moment(finalTable[0].d)
-        .subtract(1, 'hours')
-        .format('YYYY-MM-DD LT'),
+      d: moment(finalTable[0].d).subtract(1, 'hours').format('YYYY-MM-DD LT'),
       v: 0,
     });
   }

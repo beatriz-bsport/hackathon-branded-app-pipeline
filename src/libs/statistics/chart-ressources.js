@@ -28,7 +28,7 @@ import { QualitativeBarChart } from '../../components/graph/QualitativeBarChart.
 import { PieChartV2 } from '../../components/graph/PieChartV2.component';
 
 import BookingFilters from '../booking/components/BookingFilters.component';
-import type { Theme } from '../theme/types.ts';
+import type { Theme } from '../theme/types';
 import type { Graph } from './types';
 
 export const graphRessources = {

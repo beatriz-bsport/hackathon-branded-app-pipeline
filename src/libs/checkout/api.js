@@ -1,6 +1,6 @@
 // @flow
 
-import { API_V1_URI, post, postAuth, putAuth, patchAuth } from '../../http.ts';
+import { API_V1_URI, post, postAuth, putAuth, patchAuth } from '../../http';
 
 import type { CheckoutItemData, Basket } from './types';
 

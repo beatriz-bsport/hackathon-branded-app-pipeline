@@ -8,9 +8,9 @@ import { RootState } from '../../../reducers';
 import { AvailabilitySlot, PrivateServiceState } from '../types';
 
 export const DEFAULT_EXIST_CHECK: {
-  loading: boolean,
-  error?: Error,
-  exists: boolean,
+  loading: boolean;
+  error?: Error;
+  exists: boolean;
 } = Immutable({
   loading: true,
   error: null,
@@ -20,17 +20,16 @@ export const DEFAULT_EXIST_CHECK: {
 export const groupByResourceDatatype = (stuff: any) =>
   Object.entries(groupBy(stuff, 'datatype')).reduce(
     (acc, [datatype, data]) => [...acc, { datatype, data }],
-    []
+    [],
   );
 
 const _getAvailabilitySlotsData = (state: RootState) =>
   state.privateService.availabilitySlot.byId;
 
-
 export const getResourceSlotsExistState = (
   privateServiceState: PrivateServiceState,
   resourceDatatype: string,
-  resourceIdentifier: number
+  resourceIdentifier: number,
 ) => {
   if (
     privateServiceState.availabilitySlot.existsByResourceTypeById[
@@ -56,11 +55,11 @@ export const getAvailabilitySlots = createSelector(
       return Object.values(slotsData).filter(
         (v: any) =>
           moment(v.date_start).isSameOrAfter(periodFilter.start) &&
-          moment(v.date_start).isSameOrBefore(periodFilter.end)
+          moment(v.date_start).isSameOrBefore(periodFilter.end),
       );
     }
     return Object.values(slotsData);
-  }
+  },
 );
 
 // @ts-ignore
@@ -71,38 +70,41 @@ export const getCoachAvailabilitySlots: (
 ) => Array<AvailabilitySlot> = (state, coach, periodFilter) => {
   if (coach) {
     return getAvailabilitySlots(state, periodFilter).filter(
-      (s: AvailabilitySlot) => s.coach === coach
+      (s: AvailabilitySlot) => s.coach === coach,
     );
   }
   return getAvailabilitySlots(state, periodFilter);
 };
 
-export const getPrivateServiceResourceData = (state: RootState, serviceId: string) => {
+export const getPrivateServiceResourceData = (
+  state: RootState,
+  serviceId: string,
+) => {
   const stuff = pickBy(
     state.privateService.resource.byId,
-    (resource) => `${resource.private_service}` === `${serviceId}`
+    (resource) => `${resource.private_service}` === `${serviceId}`,
   );
   return groupByResourceDatatype(stuff);
 };
 
-const _getResourceData = (state: RootState) => state.privateService.resource.byId;
-const _getResourceIds = (state: RootState) => state.privateService.resource.allIds;
+const _getResourceData = (state: RootState) =>
+  state.privateService.resource.byId;
+const _getResourceIds = (state: RootState) =>
+  state.privateService.resource.allIds;
 
 export const getResourceDataList = createSelector(
   [_getResourceData, _getResourceIds],
-  (data, ids) => groupByResourceDatatype(ids.map((id) => data[id]))
+  (data, ids) => groupByResourceDatatype(ids.map((id) => data[id])),
 );
 
 export const withResourceColor = memoize((selector) =>
-  createSelector(
-    [selector, _getResourceData],
-    (slots, resourceData) =>
-      // @ts-ignore
-      slots.map((s) => {
-        const resource = resourceData[s.resource_identifier];
-        return { ...s, color: resource ? resource.color : '' };
-      })
-  )
+  createSelector([selector, _getResourceData], (slots, resourceData) =>
+    // @ts-ignore
+    slots.map((s) => {
+      const resource = resourceData[s.resource_identifier];
+      return { ...s, color: resource ? resource.color : '' };
+    }),
+  ),
 );
 
 // @ts-ignore
@@ -114,7 +116,7 @@ export const getEstablishmentAvailabilitySlots: (
   if (establishment) {
     return getAvailabilitySlots(state, periodFilter).filter(
       // @ts-ignore
-      (s) => s.establishment === establishment
+      (s) => s.establishment === establishment,
     );
   }
   return getAvailabilitySlots(state, periodFilter);
@@ -129,7 +131,7 @@ export const getPrivateServiceAvailabilitySlots: (
   if (privateServiceId) {
     return getAvailabilitySlots(state, periodFilter).filter(
       // @ts-ignore
-      (s) => s.private_service === privateServiceId
+      (s) => s.private_service === privateServiceId,
     );
   }
   return getAvailabilitySlots(state, periodFilter);
@@ -144,11 +146,11 @@ export const getFilteredAvailabilitySlots = createSelector(
     if (resourceIdentifierList) {
       return slotsData.filter((slot) =>
         // @ts-ignore
-        resourceIdentifierList.includes(slot.resource_identifier)
+        resourceIdentifierList.includes(slot.resource_identifier),
       );
     }
     return slotsData;
-  }
+  },
 );
 
 const _getSearchedSlotRaw = (state) =>
@@ -169,10 +171,10 @@ export const getSearchedSlots: (
         } else {
           slotByDate[date] = [interval];
         }
-      })
+      }),
     );
     return slotByDate;
-  }
+  },
 );
 
 const _getCalendarEventData = (state) =>
@@ -187,16 +189,16 @@ export const getFilteredCalendarEvents = createSelector(
           // @ts-ignore
           moment(v.date_start).isSameOrAfter(periodFilter.start) &&
           // @ts-ignore
-          moment(v.date_start).isSameOrBefore(periodFilter.end)
+          moment(v.date_start).isSameOrBefore(periodFilter.end),
       );
     }
     return Object.values(eventData);
-  }
+  },
 );
 
 export const getSlotsByResourceIdentifier = (state, identifier) =>
   flatten(
     state.privateService.availabilitySlot.searched.items
       .filter((a) => a.resource_identifier === identifier)
-      .map((a) => a.slots)
+      .map((a) => a.slots),
   );

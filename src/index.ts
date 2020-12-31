@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/browser';
 import Config from './config';
 
 import './index.css';
-import './index.js';
+import './index';
 import RELEASE_SHA from './release-sha';
 import './material-dashboard-react.css';
 

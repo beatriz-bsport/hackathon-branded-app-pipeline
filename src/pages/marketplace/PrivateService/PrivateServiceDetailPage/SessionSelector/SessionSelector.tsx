@@ -1,14 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Fade, Typography, Tab, Tabs, Paper, makeStyles } from '@material-ui/core';
+import {
+  Fade,
+  Typography,
+  Tab,
+  Tabs,
+  Paper,
+  makeStyles,
+} from '@material-ui/core';
 import flatten from 'lodash/flatten';
 import intersection from 'lodash/intersection';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 import SessionForCoachSelector from './SessionForCoachSelector';
 import {
   groupSessionsByDayMoment,
   splitIntervalList,
-// @ts-ignore
+  // @ts-ignore
 } from '../../../../../libs/private-service/utils';
 import { ArrayElement } from '../../../../../utils/types';
 import {
@@ -19,17 +26,24 @@ import {
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
 
 type Props = {
-  sessionMoment: SessionMoment,
-  coaches: PrivateCoach[]
-  establishments: PrivateEstablishment[],
-  showCoach: boolean,
-  showEstablishment: boolean,
-  duration: number,
-  timezoneName: string,
-  durationMinutes: number,
-  bookingIntervalMinutes: number,
-  onSessionSelect: (session: string, establishment: number | null, coach: number | null) => void,
-  availabilitySlot: { resource_identifier: string, slots: Array<Array<string>> }[];
+  sessionMoment: SessionMoment;
+  coaches: PrivateCoach[];
+  establishments: PrivateEstablishment[];
+  showCoach: boolean;
+  showEstablishment: boolean;
+  duration: number;
+  timezoneName: string;
+  durationMinutes: number;
+  bookingIntervalMinutes: number;
+  onSessionSelect: (
+    session: string,
+    establishment: number | null,
+    coach: number | null,
+  ) => void;
+  availabilitySlot: {
+    resource_identifier: string;
+    slots: Array<Array<string>>;
+  }[];
 };
 
 const SessionSelector: React.FC<Props> = (props) => {
@@ -41,12 +55,14 @@ const SessionSelector: React.FC<Props> = (props) => {
       const resourceIdentifierListSelected: string[] = [];
 
       if (props.showCoach && coach) {
-        resourceIdentifierListSelected.push(`associated_coach:${coach.associated_coach_id}`);
+        resourceIdentifierListSelected.push(
+          `associated_coach:${coach.associated_coach_id}`,
+        );
       }
 
       if (props.showEstablishment && establishment) {
         resourceIdentifierListSelected.push(
-          `associated_establishment:${establishment.associatedestablishment_set[0]}`
+          `associated_establishment:${establishment.associatedestablishment_set[0]}`,
         );
       }
 
@@ -55,22 +71,23 @@ const SessionSelector: React.FC<Props> = (props) => {
        */
       const sessionsListByIdentifier = resourceIdentifierListSelected.map(
         (resourceName) => {
-          const slotsByIdentifier = flatten(props.availabilitySlot
-            .filter((a) => a.resource_identifier === resourceName)
-            .map((a) => a.slots)
+          const slotsByIdentifier = flatten(
+            props.availabilitySlot
+              .filter((a) => a.resource_identifier === resourceName)
+              .map((a) => a.slots),
           );
 
           return splitIntervalList(
             slotsByIdentifier,
             props.durationMinutes,
-            props.bookingIntervalMinutes
+            props.bookingIntervalMinutes,
           );
-        }
+        },
       );
 
       const sessions = (sessionsListByIdentifier || []).reduce(
         (acc, slotGroup) => intersection(slotGroup, acc),
-        props.sessionMoment.list
+        props.sessionMoment.list,
       );
 
       return sessions;
@@ -81,7 +98,7 @@ const SessionSelector: React.FC<Props> = (props) => {
       props.durationMinutes,
       props.bookingIntervalMinutes,
       props.sessionMoment,
-    ]
+    ],
   );
 
   const getEstablishmentWithSession = () => {
@@ -100,7 +117,10 @@ const SessionSelector: React.FC<Props> = (props) => {
     const establishments = props.establishments.filter((establishment) => {
       let sessions: string[] = [];
       coaches.forEach((c) => {
-        sessions = [...sessions, ...getSessionsForCoachAndEstablishment(c, establishment)];
+        sessions = [
+          ...sessions,
+          ...getSessionsForCoachAndEstablishment(c, establishment),
+        ];
       });
 
       return sessions.length > 0;
@@ -109,10 +129,9 @@ const SessionSelector: React.FC<Props> = (props) => {
     return establishments;
   };
 
-  const [
-    establishmentWithSession,
-    setEstablishmentWithSession,
-  ] = useState(getEstablishmentWithSession());
+  const [establishmentWithSession, setEstablishmentWithSession] = useState(
+    getEstablishmentWithSession(),
+  );
 
   const [
     selectedEstablishment,
@@ -124,7 +143,6 @@ const SessionSelector: React.FC<Props> = (props) => {
     setEstablishmentWithSession(_establishmentWithSession);
     setSelectedEstablishment(_establishmentWithSession[0]);
   }, [props.establishments, props.coaches, props.sessionMoment]);
-
 
   let coaches: Array<PrivateCoach | null> = [null];
 
@@ -144,10 +162,15 @@ const SessionSelector: React.FC<Props> = (props) => {
         <Paper className={classes.container2}>
           {props.showEstablishment && (
             <Tabs
-              key={establishmentWithSession.reduce((prev, now) => prev + now.id, '')}
+              key={establishmentWithSession.reduce(
+                (prev, now) => prev + now.id,
+                '',
+              )}
               value={selectedEstablishment?.id ? selectedEstablishment.id : ''}
               onChange={(a, id) =>
-                setSelectedEstablishment(establishmentWithSession.find((e) => e.id === id))
+                setSelectedEstablishment(
+                  establishmentWithSession.find((e) => e.id === id),
+                )
               }
               indicatorColor="primary"
               textColor="primary"
@@ -165,7 +188,10 @@ const SessionSelector: React.FC<Props> = (props) => {
 
           <div className={classes.sessionsContainer}>
             {coaches.map((coach: PrivateCoach | null, i) => {
-              const sessions = getSessionsForCoachAndEstablishment(coach, selectedEstablishment);
+              const sessions = getSessionsForCoachAndEstablishment(
+                coach,
+                selectedEstablishment,
+              );
 
               if (!sessions.length) {
                 return null;

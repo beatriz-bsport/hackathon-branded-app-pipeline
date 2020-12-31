@@ -12,7 +12,9 @@
     "plugin:react/recommended",
     "airbnb",
     "plugin:i18next/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
   ],
   "env": {
     "browser": true,
@@ -108,13 +110,6 @@
         "@typescript-eslint/no-unused-vars": [
           "error"
         ],
-        "comma-dangle": ["error", {
-          "arrays": "always-multiline",
-          "objects": "always-multiline",
-          "imports": "always-multiline",
-          "exports": "always-multiline",
-          "functions": "never"
-        }],
         "no-shadow": "off",
         "@typescript-eslint/no-shadow": "error",
         "no-unused-expressions": ["error", {

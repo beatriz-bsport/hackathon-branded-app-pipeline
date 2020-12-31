@@ -152,7 +152,10 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
             <Divider />
             <PaginatedListStateful
               itemPerPage={5}
-              loading={this.props.privateBookingsLoading && this.props.privateConsumerPassLoading}
+              loading={
+                this.props.privateBookingsLoading &&
+                this.props.privateConsumerPassLoading
+              }
               listProps={{ disablePadding: true }}
               items={this.props.private_consumer_pass_list}
               renderItem={(pcp) => (

@@ -26,7 +26,7 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '../../libs/meta-activity/selectors';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors.ts';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 import themeSelectors from '../../libs/theme/selectors';
 
@@ -37,10 +37,10 @@ import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityFo
 import PaymentPackForm from '../../libs/payment-packs/components/PaymentPackForm.component';
 import OfferForm from '../../libs/offer/OfferForm.component';
 
-import { fetchEstablishments } from '../../libs/establishment/actions.ts';
-import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions.ts';
-import { getAllEstablishments } from '../../libs/establishment/selectors.ts';
-import { Establishment } from '../../libs/establishment/types.ts';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
+import { Establishment } from '../../libs/establishment/types';
 
 type StepType = {
   id: number,

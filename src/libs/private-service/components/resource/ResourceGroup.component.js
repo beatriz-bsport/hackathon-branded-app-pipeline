@@ -83,7 +83,8 @@ const ResourceGroup = (props: Props) => {
               onEditResourceConfiguration={(resource) => {
                 if (
                   !onEditResourceConfiguration &&
-                  (!!onSelectResource && !!onUnselectResource)
+                  !!onSelectResource &&
+                  !!onUnselectResource
                 ) {
                   /* eslint-disable */
                   if (!isSelected)

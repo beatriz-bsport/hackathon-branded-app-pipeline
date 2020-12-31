@@ -37,11 +37,15 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
       {!props.privateSlotSet && (
         <div className={classes.row}>
           <FormControl required className={classes.formControl}>
-            <InputLabel>{t('booking:recurrenceRule.form.dayOfWeek.label')}</InputLabel>
+            <InputLabel>
+              {t('booking:recurrenceRule.form.dayOfWeek.label')}
+            </InputLabel>
             <Select
               name="day_of_week"
               onChange={(ev) => handleChange(ev)}
-              value={props.selectedSetting ? props.selectedSetting.day_of_week : null}
+              value={
+                props.selectedSetting ? props.selectedSetting.day_of_week : null
+              }
             >
               {weekdayNumber.map((c) => {
                 return (
@@ -60,9 +64,10 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
             type="number"
             name="hour"
             InputProps={{
-                inputProps: {
-                  max: 23, min: 0,
-                },
+              inputProps: {
+                max: 23,
+                min: 0,
+              },
             }}
             value={props.selectedSetting ? props.selectedSetting.hour : null}
             label={t('booking:recurrenceRule.form.hour.label')}
@@ -74,9 +79,10 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
             type="number"
             name="minute"
             InputProps={{
-                inputProps: {
-                  max: 59, min: 0,
-                },
+              inputProps: {
+                max: 59,
+                min: 0,
+              },
             }}
             value={props.selectedSetting ? props.selectedSetting.minute : null}
             label={t('booking:recurrenceRule.form.minute.label')}
@@ -89,9 +95,10 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
         type="number"
         name="nb_of_weeks"
         InputProps={{
-            inputProps: {
-              max: 8, min: 1,
-            },
+          inputProps: {
+            max: 8,
+            min: 1,
+          },
         }}
         value={props.selectedSetting ? props.selectedSetting.nb_of_weeks : null}
         label={t('booking:recurrenceRule.form.delayWeek.label')}
@@ -109,7 +116,8 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
             minute: `${props.selectedSetting.minute}`.padStart(2, '0'),
             delayWeek: props.selectedSetting.nb_of_weeks,
           })}
-        </Typography>)}
+        </Typography>
+      )}
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import { createAction } from 'redux-actions';
 import moment from 'moment-timezone';
 
-import type { Dispatch, ThunkAction } from '../state/types.ts';
+import type { Dispatch, ThunkAction } from '../state/types';
 
 import api from '../api';
 import {

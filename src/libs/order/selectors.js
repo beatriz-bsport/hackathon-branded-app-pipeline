@@ -21,24 +21,21 @@ export const getDeliveryFeesActive: (State) => Array<DeliveryFee> = createSelect
 );
 
 export const withMember = memoize((selector) =>
-  createSelector(
-    [selector, getMemberDetailData],
-    (orders, memberData) => {
-      if (Array.isArray(orders)) {
-        return orders.map((o) => ({
-          ...o,
-          member: memberData[o.member],
-        }));
-      }
-      if (orders) {
-        return {
-          ...orders,
-          member: memberData[orders.member],
-        };
-      }
-      return orders;
-    },
-  ),
+  createSelector([selector, getMemberDetailData], (orders, memberData) => {
+    if (Array.isArray(orders)) {
+      return orders.map((o) => ({
+        ...o,
+        member: memberData[o.member],
+      }));
+    }
+    if (orders) {
+      return {
+        ...orders,
+        member: memberData[orders.member],
+      };
+    }
+    return orders;
+  }),
 );
 
 export default { get: getOrder, getAll };

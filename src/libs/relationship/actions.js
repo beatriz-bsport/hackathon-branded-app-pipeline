@@ -202,7 +202,9 @@ export function fetchSharedPrivateConsumerPasses(
     dispatch(sharedPrivateConsumerPassListActions.isLoading(true));
     dispatch(sharedPrivateConsumerPassListActions.error(null));
     try {
-      const response = await fetchSharedPrivateConsumerPassesAPI({ member_relation });
+      const response = await fetchSharedPrivateConsumerPassesAPI({
+        member_relation,
+      });
       dispatch(sharedPrivateConsumerPassListActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
@@ -215,7 +217,9 @@ export function fetchSharedPrivateConsumerPasses(
 }
 
 export const sharedPrivateConsumerPassCreateOrUpdateActions = {
-  isLoading: createAction('PRIVATE_CONSUMER_PASS_LINK/CREATE_OR_UPDATE/IS_LOADING'),
+  isLoading: createAction(
+    'PRIVATE_CONSUMER_PASS_LINK/CREATE_OR_UPDATE/IS_LOADING',
+  ),
   error: createAction('PRIVATE_CONSUMER_PASS_LINK/CREATE_OR_UPDATE/ERROR'),
   success: createAction('PRIVATE_CONSUMER_PASS_LINK/CREATE_OR_UPDATE/SUCCESS'),
 };
@@ -233,7 +237,9 @@ export function linkPrivatePassToMemberRelation(
         privateConsumerPassId,
         relationId,
       );
-      dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.success(response.data));
+      dispatch(
+        sharedPrivateConsumerPassCreateOrUpdateActions.success(response.data),
+      );
       dispatch(
         snackbarSuccess(
           'relationship.private_consumer_pass_links.create.success',

@@ -16,8 +16,8 @@ import {
 import { getAllPrivateSlotsDict } from './private-slot';
 import { _getPrivateServicesById } from './private-service';
 
-import { getAllCoachesDict } from '../../associated-coach/selectors.ts';
-import { getAllEstablishmentsDict } from '../../establishment/selectors.ts';
+import { getAllCoachesDict } from '../../associated-coach/selectors';
+import { getAllEstablishmentsDict } from '../../establishment/selectors';
 
 /*
 export const getPrivateConsumerPassListWithPass = createSelector(
@@ -117,34 +117,28 @@ export const getPrivateBookingList: (State) => Array<PrivateBookingWithRelatedFi
 const paramFilter = (state, params, periodFilter) => [params, periodFilter];
 
 export const withMember = memoize((selector) =>
-  createSelector(
-    [selector, getMemberListData],
-    (bookings, memberData) =>
-      bookings.map((b) => ({
-        ...b,
-        member: memberData[b.member],
-      })),
+  createSelector([selector, getMemberListData], (bookings, memberData) =>
+    bookings.map((b) => ({
+      ...b,
+      member: memberData[b.member],
+    })),
   ),
 );
 
 export const withService = memoize((selector) =>
-  createSelector(
-    [selector, getAllMembers],
-    (bookings, services) =>
-      bookings.map((b) => ({
-        ...b,
-        private_service: services[b.private_service],
-      })),
+  createSelector([selector, getAllMembers], (bookings, services) =>
+    bookings.map((b) => ({
+      ...b,
+      private_service: services[b.private_service],
+    })),
   ),
 );
 export const withSlot = memoize((selector) =>
-  createSelector(
-    [selector, getAllMembers],
-    (bookings, slots) =>
-      bookings.map((b) => ({
-        ...b,
-        private_slot: slots[b.private_slot],
-      })),
+  createSelector([selector, getAllMembers], (bookings, slots) =>
+    bookings.map((b) => ({
+      ...b,
+      private_slot: slots[b.private_slot],
+    })),
   ),
 );
 
@@ -183,13 +177,23 @@ export const getRecurrenceRulePrivateBookingList = createSelector(
     getAllCoachesDict,
     getAllEstablishmentsDict,
   ],
-  (ids, data, memberData, memberDetailData, privateSlotData, coachData, establishmentData) => ids
-    .map((id) => data[id])
-    .map((rpb) => ({
-      ...rpb,
-      member: memberData[rpb.member] || memberDetailData[rpb.member],
-      private_slot: privateSlotData[rpb.private_slot],
-      associated_coach: coachData[rpb.associated_coach],
-      associated_establishment: establishmentData[rpb.associated_establishment],
-    })),
+  (
+    ids,
+    data,
+    memberData,
+    memberDetailData,
+    privateSlotData,
+    coachData,
+    establishmentData,
+  ) =>
+    ids
+      .map((id) => data[id])
+      .map((rpb) => ({
+        ...rpb,
+        member: memberData[rpb.member] || memberDetailData[rpb.member],
+        private_slot: privateSlotData[rpb.private_slot],
+        associated_coach: coachData[rpb.associated_coach],
+        associated_establishment:
+          establishmentData[rpb.associated_establishment],
+      })),
 );

@@ -7,7 +7,7 @@ import { compose, withState } from 'recompose';
 import { withTranslation } from 'react-i18next';
 
 import type { TFunction } from 'react-i18next';
-import type { Offer } from '../types.ts';
+import type { Offer } from '../types';
 import type { PaymentCombo } from '../../payment-combo/types';
 
 import MarketplaceWorkshopEvent from './MarketplaceWorkshopEvent.component';

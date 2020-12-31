@@ -16,8 +16,8 @@ import {
   addImageToEstablishment,
   removeImageFromEstablishment,
   fetchEstablishments,
-} from '../../libs/establishment/actions.ts';
-import { getEstablishment } from '../../libs/establishment/selectors.ts';
+} from '../../libs/establishment/actions';
+import { getEstablishment } from '../../libs/establishment/selectors';
 import EstablishmentForm from '../../libs/establishment/components/EstablishmentForm.component';
 
 import { mapFormData } from '../form.utils';

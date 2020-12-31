@@ -15,7 +15,10 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
-import type { ConsumerPaymentPackLink, PrivateConsumerPassLink } from '../types';
+import type {
+  ConsumerPaymentPackLink,
+  PrivateConsumerPassLink,
+} from '../types';
 
 import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 import PrivateConsumerPassBookerListItem from '../../private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
@@ -35,7 +38,13 @@ type Props = {
 };
 
 export const RelationSummary = (props: Props) => {
-  const { t, classes, relation, consumerPaymentPackLinks, privateConsumerPassLinks } = props;
+  const {
+    t,
+    classes,
+    relation,
+    consumerPaymentPackLinks,
+    privateConsumerPassLinks,
+  } = props;
   if (!relation) {
     return (
       <div>
@@ -127,13 +136,17 @@ export const RelationSummary = (props: Props) => {
                     button={
                       s_pcp.is_active ? (
                         <IconButton
-                          onClick={() => props.unlinkPrivateConsumerPass(s_pcp.id)}
+                          onClick={() =>
+                            props.unlinkPrivateConsumerPass(s_pcp.id)
+                          }
                         >
                           <CancelIcon />
                         </IconButton>
                       ) : (
                         <IconButton
-                          onClick={() => props.relinkPrivateConsumerPass(s_pcp.id)}
+                          onClick={() =>
+                            props.relinkPrivateConsumerPass(s_pcp.id)
+                          }
                         >
                           <RefreshIcon />
                         </IconButton>

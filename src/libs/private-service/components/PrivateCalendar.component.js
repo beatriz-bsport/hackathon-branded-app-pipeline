@@ -415,11 +415,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
     const endDate = moment(recurrence_until);
     const all_date_start = [];
     let i = 0;
-    while (
-      moment(startStr)
-        .add(i, 'week')
-        .isSameOrBefore(endDate, 'day')
-    ) {
+    while (moment(startStr).add(i, 'week').isSameOrBefore(endDate, 'day')) {
       all_date_start.push(moment(startStr).add(i, 'week'));
       i += 1;
     }

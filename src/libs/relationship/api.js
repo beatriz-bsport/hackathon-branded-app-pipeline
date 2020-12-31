@@ -71,13 +71,17 @@ export async function fetchSharedPrivateConsumerPasses(params: any) {
   );
 }
 
-export async function unlinkPrivateConsumerPassLink(privateConsumerPassLinkId: number) {
+export async function unlinkPrivateConsumerPassLink(
+  privateConsumerPassLinkId: number,
+) {
   return postAuth(
     `${API_V1_URI}/relationship/private_consumer_pass/${privateConsumerPassLinkId}/unlink/`,
   );
 }
 
-export async function relinkPrivateConsumerPassLink(privateConsumerPassLinkId: number) {
+export async function relinkPrivateConsumerPassLink(
+  privateConsumerPassLinkId: number,
+) {
   return postAuth(
     `${API_V1_URI}/relationship/private_consumer_pass/${privateConsumerPassLinkId}/relink/`,
   );

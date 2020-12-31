@@ -2,12 +2,17 @@ import { TFunction } from 'i18next';
 import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
 
-import { PrivateConsumerPass, PrivatePass, PrivateService, ResourceAttributionEnum } from './types';
+import {
+  PrivateConsumerPass,
+  PrivatePass,
+  PrivateService,
+  ResourceAttributionEnum,
+} from './types';
 
 export const getMissingResourceForBooking = (
   service: PrivateService,
   data: any,
-  asManager?: boolean
+  asManager?: boolean,
 ) => {
   if (!service || !data) return ['private_service'];
   const missing = [];
@@ -37,7 +42,7 @@ export const getMissingResourceForBooking = (
 export const splitIntervalList = (
   interval_list: Array<Array<string>>,
   duration_minutes = 0,
-  booking_interval = 15
+  booking_interval = 15,
 ) => {
   const slots: any[] = [];
   interval_list.map(([start, end]) => {
@@ -45,7 +50,7 @@ export const splitIntervalList = (
       parseInt(
         // @ts-ignore
         (moment(end) - moment(start)) / (1000 * 60 * booking_interval),
-        10
+        10,
       ) + 1;
     let n = 0;
     while (
@@ -57,7 +62,7 @@ export const splitIntervalList = (
       slots.push(
         moment(start)
           .add(n * booking_interval, 'minutes')
-          .format()
+          .format(),
       );
       n += 1;
     }
@@ -69,37 +74,23 @@ export const splitIntervalList = (
 export const groupSessionsByDayMoment = (
   sessionList: string[],
   timezoneName: string,
-  date: string
+  date: string,
 ) => {
   const morningGroup = sessionList.filter(
-    (d) =>
-      moment(d)
-        .tz(timezoneName)
-        .hour() < 12
+    (d) => moment(d).tz(timezoneName).hour() < 12,
   );
   const noonGroup = sessionList.filter(
     (d) =>
-      moment(d)
-        .tz(timezoneName)
-        .hour() < 15 &&
-      moment(d)
-        .tz(timezoneName)
-        .hour() >= 12
+      moment(d).tz(timezoneName).hour() < 15 &&
+      moment(d).tz(timezoneName).hour() >= 12,
   );
   const afternoonGroup = sessionList.filter(
     (d) =>
-      moment(d)
-        .tz(timezoneName)
-        .hour() < 18 &&
-      moment(d)
-        .tz(timezoneName)
-        .hour() >= 15
+      moment(d).tz(timezoneName).hour() < 18 &&
+      moment(d).tz(timezoneName).hour() >= 15,
   );
   const eveningGroup = sessionList.filter(
-    (d) =>
-      moment(d)
-        .tz(timezoneName)
-        .hour() >= 18
+    (d) => moment(d).tz(timezoneName).hour() >= 18,
   );
 
   return [
@@ -143,7 +134,7 @@ export const getExpirationDate = (privateConsumerPass: PrivateConsumerPass) => {
     .add(
       'day',
       privateConsumerPass.private_pass.duration_days +
-        (privateConsumerPass.extension_days || 0)
+        (privateConsumerPass.extension_days || 0),
     )
     .add('month', privateConsumerPass.private_pass.duration_months)
     .add('year', privateConsumerPass.private_pass.duration_years)

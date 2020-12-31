@@ -18,15 +18,15 @@ import { fetchAssociatedEstablishmentBulk } from '../../establishment/actions';
 import { fetchAssociatedCoachBulk } from '../../associated-coach/actions';
 import SlotSearcherParams from '../components/slot-searcher/SlotSearcherParams.component';
 import RecurrenceRulePrivateBookingFields from '../components/booking/RecurrenceRulePrivateBookingFields.component';
-import type { PrivateService, RecurrenceRulePrivateBooking } from '../types.ts';
-import { getAvailablePrivateServices } from '../selectors/private-service.ts';
+import type { PrivateService, RecurrenceRulePrivateBooking } from '../types';
+import { getAvailablePrivateServices } from '../selectors/private-service';
 import {
   createOrUpdateRecurrenceRulePrivateBooking,
   fetchAllPrivateServices as fetchAllPrivateServicesAction,
   fetchAllPrivateSlots as fetchAllPrivateSlotsAction,
-} from '../actions.ts';
+} from '../actions';
 import MissingResourceForBookingHelper from '../components/MissingResourceForBookingHelper.component';
-import { getMissingResourceForBooking } from '../utils.ts';
+import { getMissingResourceForBooking } from '../utils';
 import { RecurrenceRulePrivateBookingUpdateDialog } from '../components/booking/RecurrenceRulePrivateBookingConfirmDialog.component';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 
@@ -129,7 +129,7 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
       private_service,
     } = configuration;
     this.setState({
-        configuration: {
+      configuration: {
         coach,
         establishment,
         private_slot,
@@ -152,7 +152,7 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
 
   handleNotifyBooked = (notify_if_booked: boolean) => {
     this.setState({
-        notify_if_booked,
+      notify_if_booked,
     });
   };
 
@@ -213,7 +213,8 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
                   coachUnique
                   establishmentUnique
                   asManager
-                />)}
+                />
+              )}
               {!this.props.initial && (
                 <MissingResourceForBookingHelper
                   missingResources={missingResources}
@@ -226,7 +227,8 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
                       },
                     }))
                   }
-                />)}
+                />
+              )}
             </fieldset>
             <fieldset>
               <legend>{t('recurrenceRule.form.timeGroup')}</legend>
@@ -247,24 +249,25 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
             />
           </DialogContent>
           <DialogActions>
-            <Button
-              onClick={() => this.props.setOpen(false)}
-              color="secondary"
-            >
+            <Button onClick={() => this.props.setOpen(false)} color="secondary">
               {t('recurrenceRule.actions.close')}
             </Button>
             <Button
               color="primary"
-              onClick={() => (this.props.initial
-                ? this.props.setUpdateDialogOpen(true)
-                : this.handleSubmit())}
+              onClick={() =>
+                this.props.initial
+                  ? this.props.setUpdateDialogOpen(true)
+                  : this.handleSubmit()
+              }
             >
               {t('recurrenceRule.actions.save')}
             </Button>
           </DialogActions>
         </Dialog>
         <RecurrenceRulePrivateBookingUpdateDialog
-          recurrentRuleId={this.props.updateDialogOpen ? this.props.initial.id : null}
+          recurrentRuleId={
+            this.props.updateDialogOpen ? this.props.initial.id : null
+          }
           onClose={() => this.props.setUpdateDialogOpen(false)}
           onChange={() => {
             this.handleSubmit();
@@ -295,16 +298,19 @@ export default compose(
     },
   ),
   withHandlers({
-    createOrUpdateRecurrentRule: ({
-      initial,
-      createOrUpdateRecurrentRule,
-    }) => (data, options) => {
+    createOrUpdateRecurrentRule: ({ initial, createOrUpdateRecurrentRule }) => (
+      data,
+      options,
+    ) => {
       if (initial) {
-        createOrUpdateRecurrentRule({ ...data, id: initial.id }, {
-          onSuccess: (b) => {
-            if (options && options.onSuccess) options.onSuccess(b);
+        createOrUpdateRecurrentRule(
+          { ...data, id: initial.id },
+          {
+            onSuccess: (b) => {
+              if (options && options.onSuccess) options.onSuccess(b);
+            },
           },
-        });
+        );
       } else {
         createOrUpdateRecurrentRule(data, {
           onSuccess: (b) => {

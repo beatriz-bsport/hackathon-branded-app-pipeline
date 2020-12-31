@@ -54,9 +54,7 @@ export const PrivateBookingListItem = (props: Props) => {
             <Typography variant="body2">
               {props.private_booking.name}
             </Typography>
-            <Typography color="primary">
-              {getIsRecurrentBooking()}
-            </Typography>
+            <Typography color="primary">{getIsRecurrentBooking()}</Typography>
             <Typography variant="body2" inline>
               {getBookingStatusCode(props.t, props.private_booking)}
             </Typography>
@@ -73,7 +71,8 @@ export const PrivateBookingListItem = (props: Props) => {
                 props.private_booking.timezone_name,
               )}`}
             </Typography>
-          </div>}
+          </div>
+        }
       />
       <ListItemSecondaryAction>
         {props.onRestore &&

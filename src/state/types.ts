@@ -1,7 +1,7 @@
 import { AuthAction } from './auth/types';
 import { PaymentRulesState } from '../libs/payment-rules/types';
 import { StatsState } from './stats/types';
-import { CoachState } from '../libs/associated-coach/types.ts';
+import { CoachState } from '../libs/associated-coach/types';
 import { SubscriptionState } from '../libs/subscription/types';
 import { MemberState } from '../libs/member/types';
 import { PaymentPackState } from '../libs/payment-packs/types';
@@ -28,33 +28,33 @@ import { DashboardSettingsState } from '../libs/dashboard/types';
 import { BackgroundTaskState } from '../libs/background-task/types';
 
 export type State = {
-  paymentRules: PaymentRulesState,
-  stats: StatsState,
-  coach: CoachState,
-  search: SearchState,
-  subscription: SubscriptionState,
-  nav: any, // TODO TYPES
-  paymentPack: PaymentPackState,
-  member: MemberState,
-  booking: BookingsState,
-  order: OrderState,
-  tag: TagState,
-  shop: ShopState,
-  theme: ThemeState,
-  establishment: EstablishmentState,
-  checkout: CheckoutState,
-  coupon: CouponState,
-  login: LoginState,
-  privateService: PrivateServiceState,
-  paymentCombo: PaymentComboState,
-  reminder: ReminderState,
-  membership: MembershipState,
-  company: CompanyState,
-  notificationRule: NotificationRuleState,
-  partnership: PartnershipState,
-  backgroundTask: BackgroundTaskState,
-  marketingNotification: MarketingNotificationState,
-  dashboardSettings: DashboardSettingsState,
+  paymentRules: PaymentRulesState;
+  stats: StatsState;
+  coach: CoachState;
+  search: SearchState;
+  subscription: SubscriptionState;
+  nav: any; // TODO TYPES
+  paymentPack: PaymentPackState;
+  member: MemberState;
+  booking: BookingsState;
+  order: OrderState;
+  tag: TagState;
+  shop: ShopState;
+  theme: ThemeState;
+  establishment: EstablishmentState;
+  checkout: CheckoutState;
+  coupon: CouponState;
+  login: LoginState;
+  privateService: PrivateServiceState;
+  paymentCombo: PaymentComboState;
+  reminder: ReminderState;
+  membership: MembershipState;
+  company: CompanyState;
+  notificationRule: NotificationRuleState;
+  partnership: PartnershipState;
+  backgroundTask: BackgroundTaskState;
+  marketingNotification: MarketingNotificationState;
+  dashboardSettings: DashboardSettingsState;
 };
 export type Action = SearchAction | AuthAction;
 
@@ -64,6 +64,6 @@ export type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 export type PromiseAction = Promise<Action>;
 
 export type OptionCallback = {
-  onSuccess?: (args?: any) => void,
-  onError?: (error?: Error) => void,
+  onSuccess?: (args?: any) => void;
+  onError?: (error?: Error) => void;
 };

@@ -75,7 +75,8 @@ export const getPrivateConsumerPassCompatibleList = createSelector(
   (ids, data) => ids.map((id) => data[id]).filter((cpp) => !!cpp),
 );
 
-const _getIdsByMember = (state) => state.privateService.privateConsumerPass.byMember.allIds;
+const _getIdsByMember = (state) =>
+  state.privateService.privateConsumerPass.byMember.allIds;
 
 export const getPrivateConsumerPassByMember = createSelector(
   [getPrivateConsumerPassDict, _getIdsByMember],

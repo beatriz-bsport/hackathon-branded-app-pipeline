@@ -2,11 +2,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Moment } from 'moment-timezone';
 
-import {
-  ButtonBase,
-  Typography,
-  makeStyles,
-} from '@material-ui/core';
+import { ButtonBase, Typography, makeStyles } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 import {
@@ -23,14 +19,14 @@ import { ArrayElement } from '../../../../../utils/types';
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
 
 type Props = {
-  timezoneName: string,
-  privateService: PrivateService,
-  privateSlot: PrivateSlot,
-  slots: Array<string>,
-  date: Moment,
-  loading: boolean,
-  selectedSessionMoment: SessionMoment,
-  onSessionMomentSelect: (sessionMoment: SessionMoment) => void,
+  timezoneName: string;
+  privateService: PrivateService;
+  privateSlot: PrivateSlot;
+  slots: Array<string>;
+  date: Moment;
+  loading: boolean;
+  selectedSessionMoment: SessionMoment;
+  onSessionMomentSelect: (sessionMoment: SessionMoment) => void;
 };
 
 const SlotCalendarDay: React.FC<Props> = (props) => {
@@ -42,7 +38,7 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
         sessionMoment.identifier === props.selectedSessionMoment.identifier
       );
     },
-    [props.selectedSessionMoment]
+    [props.selectedSessionMoment],
   );
 
   const classes = useStyles();
@@ -66,14 +62,14 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
       sessions = splitIntervalList(
         props.slots,
         props.privateSlot.duration_minutes,
-        props.privateService.booking_interval_minutes
+        props.privateService.booking_interval_minutes,
       );
     }
 
     const sessionsByDayMoment = groupSessionsByDayMoment(
       sessions,
       props.timezoneName,
-      props.date.format('YYYY-MM-DD')
+      props.date.format('YYYY-MM-DD'),
     );
 
     return sessionsByDayMoment.map((sessionMoment: SessionMoment) => {
@@ -82,11 +78,11 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
       }
 
       const label = t(
-        `privateService:slotSearcher.groupIdentifier.${sessionMoment.identifier}.label`
+        `privateService:slotSearcher.groupIdentifier.${sessionMoment.identifier}.label`,
       );
 
       const interval = t(
-        `privateService:slotSearcher.groupIdentifier.${sessionMoment.identifier}.interval`
+        `privateService:slotSearcher.groupIdentifier.${sessionMoment.identifier}.interval`,
       );
 
       const slotCount = t('privateService:slotSearcher.nbSlot', {
@@ -140,13 +136,13 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
   }, [props.privateSlot, props.privateService, props.timezoneName, props.date]);
 
   const weekDay = t(
-    `datetime:time.isoWeekdayNumber.${props.date.isoWeekday()}`
+    `datetime:time.isoWeekdayNumber.${props.date.isoWeekday()}`,
   );
   const month = t(
     `datetime:time.monthShort.${props.date
       .locale('en-US')
       .format('MMMM')
-      .toLowerCase()}`
+      .toLowerCase()}`,
   );
 
   return (

@@ -16,13 +16,13 @@ import {
 } from '../libs/private-service/selectors/private-booking';
 import { fetchAllOffers as fetchAllOffersAction } from '../libs/offer/actions';
 import withTitle from '../hocs/with-title.hoc';
-import { getAllPageEstablishments } from '../libs/establishment/selectors.ts';
-import { fetchEstablishments } from '../libs/establishment/actions.ts';
-import { getActiveCoaches } from '../libs/associated-coach/selectors.ts';
+import { getAllPageEstablishments } from '../libs/establishment/selectors';
+import { fetchEstablishments } from '../libs/establishment/actions';
+import { getActiveCoaches } from '../libs/associated-coach/selectors';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/meta-activity/actions';
 import { getOfferAsEventList, withMetaActivity } from '../libs/offer/selectors';
 import { fetchMemberBulk as fetchMemberBulkAction } from '../libs/member/actions';
-import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions.ts';
+import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 
 import { getCustomEventList } from '../libs/private-service/selectors/custom-event';
 import { getPermissions } from '../libs/role/selectors';
@@ -200,12 +200,8 @@ export default compose(
     },
   ),
   withState('periodFilter', 'setPeriodFilter', {
-    start: moment()
-      .startOf('week')
-      .format('YYYY-MM-DD'),
-    end: moment()
-      .endOf('week')
-      .format('YYYY-MM-DD'),
+    start: moment().startOf('week').format('YYYY-MM-DD'),
+    end: moment().endOf('week').format('YYYY-MM-DD'),
   }),
   connect(
     (state, { periodFilter, resourceFiltersArray }) => ({

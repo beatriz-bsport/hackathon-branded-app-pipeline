@@ -85,7 +85,4 @@ const styles = (theme) => ({
     width: '100%',
   },
 });
-export default compose(
-  withStyles(styles),
-  withTranslation(),
-)(CoachSubForm);
+export default compose(withStyles(styles), withTranslation())(CoachSubForm);

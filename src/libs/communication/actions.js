@@ -12,7 +12,7 @@ import {
   sendCommunication as sendCommunicationAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types.ts';
+import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import type { MemberMailData } from './types';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';

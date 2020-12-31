@@ -18,7 +18,7 @@ import memoize from 'memoize-one';
 
 import { DATE_FORMAT } from '../../../datetime';
 
-import type { Offer } from '../types.ts';
+import type { Offer } from '../types';
 import OfferListItemConsumer from '../../offer/components/OfferListItemConsumer.component';
 import MarketplaceBookButton from './MarketplaceBookButton.component';
 import { isOfferInThePast } from '../../offer/utils';
@@ -41,9 +41,7 @@ type Props = {
 };
 
 const getWeekOffers = memoize((selectedDate, offers) => {
-  const date_start = moment(selectedDate, DATE_FORMAT)
-    .clone()
-    .startOf('week');
+  const date_start = moment(selectedDate, DATE_FORMAT).clone().startOf('week');
   const weekdays = moment.weekdays(true);
   // split offers par week days
   return weekdays.map((day, i) => {

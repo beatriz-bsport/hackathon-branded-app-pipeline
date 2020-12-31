@@ -221,7 +221,4 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(
-  withTranslation(['reminder']),
-  withStyles(styles),
-)(Task);
+export default compose(withTranslation(['reminder']), withStyles(styles))(Task);

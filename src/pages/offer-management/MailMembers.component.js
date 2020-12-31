@@ -334,7 +334,4 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(
-  withTranslation(),
-  withStyles(styles),
-)(MailDialog);
+export default compose(withTranslation(), withStyles(styles))(MailDialog);

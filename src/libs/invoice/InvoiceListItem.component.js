@@ -13,7 +13,7 @@ type Props = {
   onClick: (uuid: string) => void,
   invoice: Invoice,
 };
-export default function(props: Props) {
+export default function (props: Props) {
   const { invoice } = props;
 
   if (!invoice) {

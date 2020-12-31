@@ -42,12 +42,12 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
   const { private_pass } = private_consumer_pass;
   const isFromShare =
     private_consumer_pass &&
-    (private_consumer_pass.dst_private_consumer_pass &&
-      private_consumer_pass.dst_private_consumer_pass.length);
+    private_consumer_pass.dst_private_consumer_pass &&
+    private_consumer_pass.dst_private_consumer_pass.length;
   const isOwnerOfShares =
     private_consumer_pass &&
-    (private_consumer_pass.src_private_consumer_pass &&
-      private_consumer_pass.src_private_consumer_pass.length);
+    private_consumer_pass.src_private_consumer_pass &&
+    private_consumer_pass.src_private_consumer_pass.length;
   const expirationDate = getExpirationDate(private_consumer_pass);
   let { name } = private_pass;
   if (showMember) {
@@ -71,9 +71,8 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
     }
     if (private_consumer_pass.reverted) {
       return (
-      <RedButton variant="outlined">
-        {t('consumerPass.isReverted')}
-      </RedButton>);
+        <RedButton variant="outlined">{t('consumerPass.isReverted')}</RedButton>
+      );
     }
     if (!props.onUpdateCredit) {
       return null;
@@ -118,9 +117,11 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
         disabled={!!props.disabled}
         button={!!props.onClick}
         onClick={props.onClick}
-        className={private_consumer_pass.reverted || private_consumer_pass.disabled
-          ? classes.disabled
-          : null}
+        className={
+          private_consumer_pass.reverted || private_consumer_pass.disabled
+            ? classes.disabled
+            : null
+        }
       >
         {showMember && private_consumer_pass && private_consumer_pass.member && (
           <ListItemAvatar>

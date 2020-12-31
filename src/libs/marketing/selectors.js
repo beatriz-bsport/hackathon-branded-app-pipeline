@@ -75,21 +75,19 @@ export const withPrivateBookingNotification = (selector) =>
   );
 
 export const withBookingNotification = (selector) =>
-  createSelector(
-    [selector, getBookingNotifications],
-    (itemList, notifList) =>
-      itemList.map((item) => {
-        if (
-          notifList.find(
-            (notif) =>
-              notif.event_rules.establishment_id === item.id ||
-              notif.event_rules.meta_activity_id === item.id,
-          ) !== undefined
-        ) {
-          return { ...item, hasActiveNotification: true };
-        }
-        return { ...item, hasActiveNotification: false };
-      }),
+  createSelector([selector, getBookingNotifications], (itemList, notifList) =>
+    itemList.map((item) => {
+      if (
+        notifList.find(
+          (notif) =>
+            notif.event_rules.establishment_id === item.id ||
+            notif.event_rules.meta_activity_id === item.id,
+        ) !== undefined
+      ) {
+        return { ...item, hasActiveNotification: true };
+      }
+      return { ...item, hasActiveNotification: false };
+    }),
   );
 
 export const withPaymentPackNotification = (selector) =>

@@ -158,7 +158,10 @@ export default handleActions(
           },
           { deep: true },
         )
-        .setIn(['byDay', 'allIds'], payload.map((o) => o.id));
+        .setIn(
+          ['byDay', 'allIds'],
+          payload.map((o) => o.id),
+        );
     },
     [offerMarketplaceListActions.success]: (state, { payload }) => {
       return state
@@ -171,7 +174,10 @@ export default handleActions(
           },
           { deep: true },
         )
-        .setIn(['marketplace', 'allIds'], payload.map((o) => o.id));
+        .setIn(
+          ['marketplace', 'allIds'],
+          payload.map((o) => o.id),
+        );
     },
     [offerMarketplaceListActions.error]: (state, { payload }) => {
       return state.setIn(['marketplace', 'error'], payload);
@@ -213,16 +219,21 @@ export default handleActions(
     },
     [bookedGenderActions.success]: (state, { payload }) => {
       return state
-        .setIn(['genderCount', 'allIds'], payload.map((ps) => ps.id))
-        .merge({
-          genderCount: {
-            byId: payload.reduce((acc, ps) => {
-              acc[ps.id] = ps;
-              return acc;
-            }, {}),
+        .setIn(
+          ['genderCount', 'allIds'],
+          payload.map((ps) => ps.id),
+        )
+        .merge(
+          {
+            genderCount: {
+              byId: payload.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
           },
-        },
-        { deep: true });
+          { deep: true },
+        );
     },
   },
   initialState,

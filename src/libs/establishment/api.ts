@@ -6,7 +6,7 @@ import {
   putAuth,
   deleteAuth,
   buildUrlParams,
-} from '../../http.ts';
+} from '../../http';
 
 export async function addEstablishment(data: any) {
   return postAuth(`${API_URI}/saas/establishments/add`, data);
@@ -44,7 +44,7 @@ export async function fetchEstablishmentFavorite(company: number) {
   return getAuth(
     `${API_V1_URI}/establishment/favorite/${buildUrlParams({
       company,
-    })}`
+    })}`,
   );
 }
 

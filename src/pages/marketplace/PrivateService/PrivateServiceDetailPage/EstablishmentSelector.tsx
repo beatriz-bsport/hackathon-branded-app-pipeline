@@ -1,6 +1,12 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Fade, CardMedia, Typography, makeStyles, ButtonBase } from '@material-ui/core';
+import {
+  Fade,
+  CardMedia,
+  Typography,
+  makeStyles,
+  ButtonBase,
+} from '@material-ui/core';
 import classNames from 'classnames';
 
 import {
@@ -10,10 +16,10 @@ import {
 } from '../../../../libs/private-service/types';
 
 type Props = {
-  privateService: PrivateService,
-  privateSlot: PrivateSlot,
-  selectedEstablishments: PrivateEstablishment[],
-  onSelect: (establishments: PrivateEstablishment) => void,
+  privateService: PrivateService;
+  privateSlot: PrivateSlot;
+  selectedEstablishments: PrivateEstablishment[];
+  onSelect: (establishments: PrivateEstablishment) => void;
 };
 
 const EstablishmentSelector: React.FC<Props> = (props) => {
@@ -25,7 +31,7 @@ const EstablishmentSelector: React.FC<Props> = (props) => {
         props.selectedEstablishments.find((e) => e.id === establishment.id)
       );
     },
-    [props.selectedEstablishments]
+    [props.selectedEstablishments],
   );
 
   const classes = useStyles();
@@ -72,7 +78,7 @@ const EstablishmentSelector: React.FC<Props> = (props) => {
             </ButtonBase>
           </div>
         );
-      }
+      },
     );
   }, [props.privateService, props.privateSlot, props.selectedEstablishments]);
 

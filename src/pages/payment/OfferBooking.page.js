@@ -89,8 +89,8 @@ import {
   withPaymentPack as withPaymentPackForContract,
 } from '../../libs/subscription/selectors';
 
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions.ts';
-import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions.ts';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import { isRegistered as offerIsRegisteredAPI } from '../../libs/offer/api';
 

@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import flatten from 'lodash/flatten';
 import { push as pushRouter } from 'connected-react-router';
 
-import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions.ts';
+import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 import VideoThumbnailList from '../../libs/video/components/VideoThumbnailList.component';
 import VideoPlayerFull from '../../libs/video/components/VideoPlayerFull.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -38,7 +38,7 @@ import {
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import VideoRegisterDialog from '../../libs/video/components/RegisterVideoDialog.component';
 
-import { fetchPrivateConsumerPassCompatibleList as fetchPrivateConsumerPassCompatibleListAction } from '../../libs/private-service/actions.ts';
+import { fetchPrivateConsumerPassCompatibleList as fetchPrivateConsumerPassCompatibleListAction } from '../../libs/private-service/actions';
 import { getPrivateConsumerPassCompatibleList } from '../../libs/private-service/selectors/private-consumer-pass';
 
 import type { OptionCallback } from '../../types';

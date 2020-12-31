@@ -74,7 +74,9 @@ const sctStyles = {
   }),
 };
 
-export default withTranslation(['translation'])(
+export default withTranslation([
+  'translation',
+])(
   ({
     t,
     scts,

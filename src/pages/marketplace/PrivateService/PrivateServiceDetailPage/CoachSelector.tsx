@@ -16,10 +16,10 @@ import {
 } from '../../../../libs/private-service/types';
 
 type Props = {
-  privateService: PrivateService,
-  privateSlot: PrivateSlot,
-  selectedCoaches: PrivateCoach[],
-  onSelect: (slot: PrivateCoach) => void,
+  privateService: PrivateService;
+  privateSlot: PrivateSlot;
+  selectedCoaches: PrivateCoach[];
+  onSelect: (slot: PrivateCoach) => void;
 };
 
 const CoachSelector: React.FC<Props> = (props) => {
@@ -31,7 +31,7 @@ const CoachSelector: React.FC<Props> = (props) => {
         props.selectedCoaches.find((c) => c.id === coach.id)
       );
     },
-    [props.selectedCoaches]
+    [props.selectedCoaches],
   );
 
   const { t } = useTranslation('privateService');

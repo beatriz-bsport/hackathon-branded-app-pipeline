@@ -27,7 +27,7 @@ const PrivateServiceSelectorPage: React.FC<Props> = (props) => {
   const {
     companyId,
     companyName,
-  }: { companyId: string, companyName: string } = useParams();
+  }: { companyId: string; companyName: string } = useParams();
 
   useEffect(() => {
     fetchData();
@@ -65,8 +65,8 @@ const PrivateServiceSelectorPage: React.FC<Props> = (props) => {
                 onClick={() =>
                   dispatch(
                     push(
-                      `/m/${companyName}/${companyId}/private-service/${ps.id}`
-                    )
+                      `/m/${companyName}/${companyId}/private-service/${ps.id}`,
+                    ),
                   )
                 }
               >
@@ -198,5 +198,5 @@ const mapDispatchToProps = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(PrivateServiceSelectorPage);

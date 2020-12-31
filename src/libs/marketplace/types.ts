@@ -13,39 +13,43 @@ export enum MarketplaceComponentsEnum {
 }
 
 export type MarketplaceCalendarData = {
-  coaches: { id: string, name: string }[];
-  establishments: { id: string, name: string }[];
-  metaActivities: { id: string, name: string }[];
-  levels: { id: string, name: string }[];
+  coaches: { id: string; name: string }[];
+  establishments: { id: string; name: string }[];
+  metaActivities: { id: string; name: string }[];
+  levels: { id: string; name: string }[];
 };
 
-export type MarketplacePrivateServiceData = { serviceId?: string, name?: string };
-export type MarketplacePlaylistData = { playlistId: string, name: string };
+export type MarketplacePrivateServiceData = {
+  serviceId?: string;
+  name?: string;
+};
+export type MarketplacePlaylistData = { playlistId: string; name: string };
 
-export type MarketplaceComponentData = MarketplaceCalendarData |
-  MarketplacePrivateServiceData |
-  MarketplacePlaylistData |
-  {}
+export type MarketplaceComponentData =
+  | MarketplaceCalendarData
+  | MarketplacePrivateServiceData
+  | MarketplacePlaylistData
+  | {};
 
 export type MarketplaceTabConfig = {
   componentType: MarketplaceComponentsEnum;
   title: string;
   data: MarketplaceComponentData;
-}
+};
 
 export type MarketplaceConfig = {
-  custom?: boolean
-  tabs: MarketplaceTabConfig[]
-}
+  custom?: boolean;
+  tabs: MarketplaceTabConfig[];
+};
 
 export type MarketplaceSettings = {
-  company: number,
-  id: number,
-  config: MarketplaceConfig
-}
+  company: number;
+  id: number;
+  config: MarketplaceConfig;
+};
 
 export type MarketplaceSettingState = {
-  loading: boolean,
-  error?: Error,
-  settings: MarketplaceSettings,
+  loading: boolean;
+  error?: Error;
+  settings: MarketplaceSettings;
 };

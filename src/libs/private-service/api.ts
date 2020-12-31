@@ -11,53 +11,53 @@ import {
 
 export const fetchAvailabilitySlots = (params: any = {}) => {
   return getAuth(
-    `${API_V1_URI}/private_service/availability_slot/${buildUrlParams(params)}`
+    `${API_V1_URI}/private_service/availability_slot/${buildUrlParams(params)}`,
   );
 };
 
 export const checkExistsAvailabilitySlots = (params: any = {}) => {
   return getAuth(
     `${API_V1_URI}/private_service/availability_slot/exists/${buildUrlParams(
-      params
-    )}`
+      params,
+    )}`,
   );
 };
 
 export const disableResourceAvailabilitySlot = (
   resourceData: any = {},
   obj: {
-    recurrence_until?: string,
-    date_start: string,
-    date_end: string,
-    all_date_start: string[],
-  }
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
+  },
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/availability_slot/remove_availability/`,
     {
       ...resourceData,
       ...obj,
-    }
+    },
   );
 };
 export const enableResourceAvailabilitySlot = (
   resourceData: any = {},
   obj: {
-    recurrence_until?: string,
-    date_start: string,
-    date_end: string,
-    all_date_start: string[],
-  }
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
+  },
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/availability_slot/add_availability/`,
-    { ...resourceData, ...obj }
+    { ...resourceData, ...obj },
   );
 };
 
 export const fetchAllPrivateServices = (params: any) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_service/${buildUrlParams(params)}`
+    `${API_V1_URI}/private_service/private_service/${buildUrlParams(params)}`,
   );
 };
 
@@ -68,8 +68,8 @@ export const deletePrivateService = (id: number) => {
 export const fetchPrivateService = (id: number, params?: any) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_service/${id}/${buildUrlParams(
-      params
-    )}`
+      params,
+    )}`,
   );
 };
 
@@ -77,7 +77,7 @@ export const createOrUpdatePrivateService = (data: any) => {
   if (data.id) {
     return patchAuth(
       `${API_V1_URI}/private_service/private_service/${data.id}/`,
-      data
+      data,
     );
   }
   return postAuth(`${API_V1_URI}/private_service/private_service/`, data);
@@ -87,7 +87,7 @@ export const createOrUpdatePrivateServiceSlot = (id: number, data: any) => {
   if (id) {
     return patchAuth(
       `${API_V1_URI}/private_service/private_service_slot/${id}/`,
-      data
+      data,
     );
   }
   return postAuth(`${API_V1_URI}/private_service/private_service_slot/`, data);
@@ -95,21 +95,21 @@ export const createOrUpdatePrivateServiceSlot = (id: number, data: any) => {
 
 export const fetchAllPrivateSlots = (params: any) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_slot/${buildUrlParams(params)}`
+    `${API_V1_URI}/private_service/private_slot/${buildUrlParams(params)}`,
   );
 };
 
 export const fetchServiceGroupList = (params: any) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_service_group/${buildUrlParams(
-      params
-    )}`
+      params,
+    )}`,
   );
 };
 
 export const deleteServiceGroup = (id: number) => {
   return deleteAuth(
-    `${API_V1_URI}/private_service/private_service_group/${id}/`
+    `${API_V1_URI}/private_service/private_service_group/${id}/`,
   );
 };
 
@@ -117,7 +117,7 @@ export const createOrUpdateServiceGroup = (data: any) => {
   if (data.id) {
     return patchAuth(
       `${API_V1_URI}/private_service/private_service_group/${data.id}/`,
-      data
+      data,
     );
   }
   return postAuth(`${API_V1_URI}/private_service/private_service_group/`, data);
@@ -125,81 +125,81 @@ export const createOrUpdateServiceGroup = (data: any) => {
 
 export const fetchPrivateSlotRetrieve = (
   privateServiceId: number,
-  privateSlotId: number
+  privateSlotId: number,
 ) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/${privateSlotId}/`
+    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/${privateSlotId}/`,
   );
 };
 
 export const deletePrivateSlot = (privateServiceId: number, slotId: number) => {
   return deleteAuth(
-    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/${slotId}/`
+    `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/${slotId}/`,
   );
 };
 
 export const updateServiceResourceConfiguration = (
   privateServiceId: number,
   resource_identifier: string,
-  data: { color: string }
+  data: { color: string },
 ) => {
   return putAuth(
     `${API_V1_URI}/private_service/private_service/${privateServiceId}/resource/${resource_identifier}/`,
-    data
+    data,
   );
 };
 
 export const updateResourceConfiguration = (
   privateServiceId: number,
   resource_identifier: string,
-  data: { color: string }
+  data: { color: string },
 ) => {
   return putAuth(
     `${API_V1_URI}/private_service/private_service/${privateServiceId}/resource/${resource_identifier}/`,
-    data
+    data,
   );
 };
 
 export const fetchResourceList = (params: any = {}) => {
   return getAuth(
-    `${API_V1_URI}/private_service/resource/${buildUrlParams(params)}`
+    `${API_V1_URI}/private_service/resource/${buildUrlParams(params)}`,
   );
 };
 
 export const switchServiceHasOwnAvailabilitySlots = (
-  privateServiceId: number
+  privateServiceId: number,
 ) => {
   return postAuth(
-    `${API_V1_URI}/private_service/private_service/${privateServiceId}/switch_own_availability/`
+    `${API_V1_URI}/private_service/private_service/${privateServiceId}/switch_own_availability/`,
   );
 };
 
 export const fetchPrivateServiceResourceData = (privateServiceId: number) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_service/${privateServiceId}/resource/`
+    `${API_V1_URI}/private_service/private_service/${privateServiceId}/resource/`,
   );
 };
 
 export const fetchCalendarEventList = (params: any) => {
   return getAuth(
-    `${API_V1_URI}/private_service/calendar_event/${buildUrlParams(params)}`
+    `${API_V1_URI}/private_service/calendar_event/${buildUrlParams(params)}`,
   );
 };
 
 export const createOrUpdatePrivateSlot = (
   privateServiceId: number,
   data: any,
-  slotId?: number
+  slotId?: number,
 ) => {
   if (slotId) {
     return patchAuth(
       `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/${slotId}/`,
-      data
+      data,
     );
   }
   return postAuth(
     `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/`,
-    data
+    data,
   );
 };
 
@@ -208,7 +208,7 @@ export const searchAvailableSlots = (
   privateSlotId: number,
   associatedCoachIdList: Array<number>,
   date: string,
-  associatedEstablishmentIdList: Array<number>
+  associatedEstablishmentIdList: Array<number>,
 ) => {
   return post(
     `${API_V1_URI}/private_service/private_service/${privateServiceId}/private_slot/${privateSlotId}/find_slots_by_resource/`,
@@ -218,13 +218,13 @@ export const searchAvailableSlots = (
       ...(associatedEstablishmentIdList
         ? { establishments: associatedEstablishmentIdList }
         : {}),
-    }
+    },
   );
 };
 
 export const fetchPrivatePassList = (params?: any) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_pass/${buildUrlParams(params)}`
+    `${API_V1_URI}/private_service/private_pass/${buildUrlParams(params)}`,
   );
 };
 
@@ -249,34 +249,34 @@ export const restorePrivatePass = (id: number) => {
 
 export const deleteCompatibleServicePass = (
   privatePassId: number,
-  privateServiceId: number
+  privateServiceId: number,
 ) => {
   return deleteAuth(
-    `${API_V1_URI}/private_service/private_pass/${privatePassId}/private_service_compatibility_pass/${privateServiceId}/`
+    `${API_V1_URI}/private_service/private_pass/${privatePassId}/private_service_compatibility_pass/${privateServiceId}/`,
   );
 };
 
 export const createCompatibleServicePass = (
   privatePassId: number,
-  privateServiceId: number
+  privateServiceId: number,
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_pass/${privatePassId}/private_service_compatibility_pass/`,
     {
       private_service: privateServiceId,
       private_pass: privatePassId,
-    }
+    },
   );
 };
 
 export const fetchCompatiblePrivateConsumerPass = (
   private_slot: number,
-  params: any
+  params: any,
 ) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_consumer_pass/compatible_with_slot/${buildUrlParams(
-      params
-    ) || '?'}&private_slot=${private_slot}`
+    `${API_V1_URI}/private_service/private_consumer_pass/compatible_with_slot/${
+      buildUrlParams(params) || '?'
+    }&private_slot=${private_slot}`,
   );
 };
 
@@ -284,63 +284,63 @@ export const fetchPrivateConsumerPassList = (params: any) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_consumer_pass/${buildUrlParams({
       ...(params || {}),
-    })}`
+    })}`,
   );
 };
 
 export const retrievePrivateConsumerPass = (private_consumer_pass: number) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_consumer_pass/${private_consumer_pass}/`
+    `${API_V1_URI}/private_service/private_consumer_pass/${private_consumer_pass}/`,
   );
 };
 
 export const updatePrivateConsumerPassCredits = (
   id: number,
-  credits?: number
+  credits?: number,
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_consumer_pass/${id}/update_credit/`,
-    { credits }
+    { credits },
   );
 };
 
 export async function fetchPrivateConsumerPassExtensionList(
-  private_consumer_pass: number
+  private_consumer_pass: number,
 ) {
   return getAuth(
     `${API_V1_URI}/private_service/private_consumer_pass_extension/${buildUrlParams(
-      { private_consumer_pass }
-    )}`
+      { private_consumer_pass },
+    )}`,
   );
 }
 
 export async function createPrivateConsumerPassExtension(data: any) {
   return postAuth(
     `${API_V1_URI}/private_service/private_consumer_pass_extension/`,
-    data
+    data,
   );
 }
 
 export async function deletePrivateConsumerPassExtension(id: number) {
   return deleteAuth(
-    `${API_V1_URI}/private_service/private_consumer_pass_extension/${id}/`
+    `${API_V1_URI}/private_service/private_consumer_pass_extension/${id}/`,
   );
 }
 
 export const fetchCompatiblePrivatePass = (
   privateSlotId: number,
-  params: any
+  params: any,
 ) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_pass/compatible_with_slot/${buildUrlParams(
-      params
-    ) || '?'}&private_slot=${privateSlotId}`
+    `${API_V1_URI}/private_service/private_pass/compatible_with_slot/${
+      buildUrlParams(params) || '?'
+    }&private_slot=${privateSlotId}`,
   );
 };
 
 export const fetchPrivateBookings = (params: any) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_booking/${buildUrlParams(params)}`
+    `${API_V1_URI}/private_service/private_booking/${buildUrlParams(params)}`,
   );
 };
 
@@ -350,23 +350,23 @@ export const fetchPrivateBooking = (id: number) => {
 
 export const updatePrivateBookingDatetime = (
   id: number,
-  date_start: string
+  date_start: string,
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_booking/${id}/update_datetime/`,
     {
       date_start,
-    }
+    },
   );
 };
 
 export const updatePrivateBookingCoach = (
   privateBookingId: number,
-  updatedCoachId: number
+  updatedCoachId: number,
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_booking/${privateBookingId}/update_coach/`,
-    { associated_coach: updatedCoachId }
+    { associated_coach: updatedCoachId },
   );
 };
 
@@ -381,15 +381,15 @@ export const registerPrivateBookings = ({
   establishment,
   notify_member,
 }: {
-  private_slot: number,
-  private_consumer_pass: number,
-  date_start: string,
-  address?: string,
-  associated_coach?: number,
-  associated_establishment?: number,
-  coach: number,
-  establishment?: number,
-  notify_member: boolean,
+  private_slot: number;
+  private_consumer_pass: number;
+  date_start: string;
+  address?: string;
+  associated_coach?: number;
+  associated_establishment?: number;
+  coach: number;
+  establishment?: number;
+  notify_member: boolean;
 }) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_consumer_pass/${private_consumer_pass}/book/`,
@@ -402,17 +402,17 @@ export const registerPrivateBookings = ({
       associated_establishment,
       establishment,
       notify_member,
-    }
+    },
   );
 };
 
 export const disablePrivateBooking = (
   id: number,
-  data: { force_refund: boolean, send_mail: boolean }
+  data: { force_refund: boolean; send_mail: boolean },
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_booking/${id}/disable/`,
-    data
+    data,
   );
 };
 
@@ -422,7 +422,7 @@ export const deletePrivateBooking = (id: number) => {
 
 export const restorePrivateBooking = (id: number) => {
   return putAuth(
-    `${API_V1_URI}/private_service/private_booking/${id}/restore/`
+    `${API_V1_URI}/private_service/private_booking/${id}/restore/`,
   );
 };
 
@@ -432,19 +432,19 @@ export const attachCoach = (
     coach,
     notify,
   }: {
-    coach: number,
-    notify: boolean,
-  }
+    coach: number;
+    notify: boolean;
+  },
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_booking/${id}/attach_coach/`,
-    { coach, notify }
+    { coach, notify },
   );
 };
 
 export const fetchCustomEventList = async (params: any = {}) => {
   return getAuth(
-    `${API_V1_URI}/private_service/custom_event/${buildUrlParams(params)}`
+    `${API_V1_URI}/private_service/custom_event/${buildUrlParams(params)}`,
   );
 };
 
@@ -454,7 +454,7 @@ export const createOrUpdateCustomEvent = async (data: any) => {
   }
   return putAuth(
     `${API_V1_URI}/private_service/custom_event/${data.id}/`,
-    data
+    data,
   );
 };
 
@@ -466,15 +466,15 @@ export const deleteCustomEvent = async (id: number) => {
 export const fetchPrivateConsumerPassCompatibleList = (params: any) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_consumer_pass/compatible/`,
-    params
+    params,
   );
 };
 
 export const fetchRecurrenceRulePrivateBookingList = (params: any) => {
   return getAuth(
     `${API_V1_URI}/private_service/recurrence_rule_private_booking/${buildUrlParams(
-      params
-    )}`
+      params,
+    )}`,
   );
 };
 
@@ -482,17 +482,17 @@ export const createOrUpdateRecurrenceRulePrivateBooking = async (data: any) => {
   if (!data.id) {
     return postAuth(
       `${API_V1_URI}/private_service/recurrence_rule_private_booking/`,
-      data
+      data,
     );
   }
   return putAuth(
     `${API_V1_URI}/private_service/recurrence_rule_private_booking/${data.id}/`,
-    data
+    data,
   );
 };
 
 export const deleteRecurrenceRulePrivateBooking = (id: number) => {
   return deleteAuth(
-    `${API_V1_URI}/private_service/recurrence_rule_private_booking/${id}/`
+    `${API_V1_URI}/private_service/recurrence_rule_private_booking/${id}/`,
   );
 };

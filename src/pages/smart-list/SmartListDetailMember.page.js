@@ -73,20 +73,20 @@ import {
   emailTemplateDetail,
 } from '../../libs/email-editor/actions';
 
-import { Establishment } from '../../libs/establishment/types.ts';
-import { getAllEstablishments } from '../../libs/establishment/selectors.ts';
+import { Establishment } from '../../libs/establishment/types';
+import { getAllEstablishments } from '../../libs/establishment/selectors';
 import {
   fetchEstablishments,
   fetchEstablishmentBulk,
-} from '../../libs/establishment/actions.ts';
+} from '../../libs/establishment/actions';
 
 import {
   fetchAssociatedCoachesList as fetchCoaches,
   fetchCoachBulk,
-} from '../../libs/associated-coach/actions.ts';
-import { Coach } from '../../libs/associated-coach/types.ts';
+} from '../../libs/associated-coach/actions';
+import { Coach } from '../../libs/associated-coach/types';
 
-import { getCoaches } from '../../libs/associated-coach/selectors.ts';
+import { getCoaches } from '../../libs/associated-coach/selectors';
 
 type Props = {
   id: number,

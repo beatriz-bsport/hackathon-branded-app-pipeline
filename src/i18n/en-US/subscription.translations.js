@@ -1,4 +1,6 @@
-const { BILLING_PLAN_EVENTS } = require('@bsport/common/lib/master-data/events');
+const {
+  BILLING_PLAN_EVENTS,
+} = require('@bsport/common/lib/master-data/events');
 
 exports.default = {
   events: {

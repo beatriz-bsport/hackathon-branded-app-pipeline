@@ -37,7 +37,10 @@ export default handleActions(
             return acc;
           }, {}),
         )
-        .setIn(['allIds'], payload.map((notif) => notif.id));
+        .setIn(
+          ['allIds'],
+          payload.map((notif) => notif.id),
+        );
     },
     [marketingNotificationListActions.isLoading]: (state, { payload }) => {
       return state.set('loading', payload);
@@ -72,7 +75,10 @@ export default handleActions(
           'notifications',
           state.notifications.filter((u) => u.id !== payload),
         )
-        .setIn(['allIds'], state.allIds.filter((id) => id !== payload))
+        .setIn(
+          ['allIds'],
+          state.allIds.filter((id) => id !== payload),
+        )
         .setIn(['byId'], byId);
     },
     [marketingNotificationCreateActions.isLoading]: (state, { payload }) => {

@@ -6,7 +6,7 @@ import {
   putAuth,
   deleteAuth,
   buildUrlParams,
-} from '../../http.ts';
+} from '../../http';
 
 // TO UPDATE TO V1 API
 // -----------------------
@@ -15,15 +15,15 @@ import {
 export async function fetchAssociatedCoachPerformance(
   associatedCoachId: number,
   start_timestamp: number,
-  end_timestamp: number
+  end_timestamp: number,
 ) {
   return getAuth(
-    `${API_URI}/saas/associated-coach/${associatedCoachId}/performance/${start_timestamp}/${end_timestamp}`
+    `${API_URI}/saas/associated-coach/${associatedCoachId}/performance/${start_timestamp}/${end_timestamp}`,
   );
 }
 
 export async function fetchAssociatedCoaches(params?: {
-  [key: string]: boolean,
+  [key: string]: boolean;
 }) {
   return getAuth(`${API_URI}/saas/associated-coach/${buildUrlParams(params)}`);
 }

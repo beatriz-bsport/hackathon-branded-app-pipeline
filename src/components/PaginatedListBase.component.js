@@ -176,7 +176,4 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(
-  withStyles(styles),
-  withTranslation(),
-)(PaginatedList);
+export default compose(withStyles(styles), withTranslation())(PaginatedList);

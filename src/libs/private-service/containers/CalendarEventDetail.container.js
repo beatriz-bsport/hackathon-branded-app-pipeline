@@ -48,15 +48,15 @@ import {
 import {
   fetchCoachBulk as fetchCoachBulkAction,
   fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
-} from '../../associated-coach/actions.ts';
+} from '../../associated-coach/actions';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-} from '../../establishment/actions.ts';
+} from '../../establishment/actions';
 import { fetchMemberBulk as fetchMemberBulkAction } from '../../member/actions';
 
-import { getActiveCoaches } from '../../associated-coach/selectors.ts';
-import { getAllEstablishments } from '../../establishment/selectors.ts';
+import { getActiveCoaches } from '../../associated-coach/selectors';
+import { getAllEstablishments } from '../../establishment/selectors';
 
 import PrivateBookingCard from '../components/booking/PrivateBookingCard.component';
 import {
@@ -522,14 +522,11 @@ const OfferEditorContainer = compose(
 );
 
 const PrivateBookingCancellatorContainer = compose(
-  connect(
-    null,
-    {
-      disablePrivateBooking: disablePrivateBookingAction,
-      deletePrivateBooking: deletePrivateBookingAction,
-      restorePrivateBooking: restorePrivateBookingAction,
-    },
-  ),
+  connect(null, {
+    disablePrivateBooking: disablePrivateBookingAction,
+    deletePrivateBooking: deletePrivateBookingAction,
+    restorePrivateBooking: restorePrivateBookingAction,
+  }),
   withStateHandlers(
     {
       privateBookingDeleteModalOpen: false,

@@ -24,10 +24,7 @@ export const OrderList = (props: Props) => {
 };
 
 export default compose(
-  connect(
-    null,
-    { goToOrderPage: (id: string) => pushRouter(`/order/${id}/`) },
-  ),
+  connect(null, { goToOrderPage: (id: string) => pushRouter(`/order/${id}/`) }),
   withTranslation(),
   withTitle(({ t }) => t('titles:order.orderList')),
 )(OrderList);

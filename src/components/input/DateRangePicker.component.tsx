@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import { Moment } from 'moment';
 import chroma from 'chroma-js';
 
-import { getTextColorFromRGB } from '../../color.js';
+import { getTextColorFromRGB } from '../../color';
 
 interface Props {
   startDate: string;
@@ -22,7 +22,7 @@ interface Props {
 const DateRangePicker: React.FC<Props> = (props) => {
   const [date] = useState(moment());
   const [activeDate, setActiveDate] = useState<Moment | undefined>(
-    moment(props.startDate)
+    moment(props.startDate),
   );
 
   const [dates, setDates] = useState<Array<string>>([props.startDate]);
@@ -59,9 +59,7 @@ const DateRangePicker: React.FC<Props> = (props) => {
       const isEnd = max && dateStr === max.format('YYYY-MM-DD');
       const isBetween = min && max && d.isBetween(min, max);
 
-      const endOfWeek = moment()
-        .endOf('week')
-        .isoWeekday();
+      const endOfWeek = moment().endOf('week').isoWeekday();
 
       const isSunday = d.day() === (1 + endOfWeek) % 7;
       const isSaturday = d.day() === (7 + endOfWeek) % 7;
@@ -80,7 +78,7 @@ const DateRangePicker: React.FC<Props> = (props) => {
         </div>
       );
     },
-    [classes, props.startDate, props.endDate, activeDate, dates]
+    [classes, props.startDate, props.endDate, activeDate, dates],
   );
 
   return (

@@ -9,7 +9,7 @@ import type { TFunction } from 'react-i18next';
 import { colors } from '@bsport/common/lib/colors';
 import Tooltip from '../../../components/Tooltip.component';
 
-import type { Coach } from '../types.ts';
+import type { Coach } from '../types';
 
 const styles = () => ({
   avatarSubstitute: {

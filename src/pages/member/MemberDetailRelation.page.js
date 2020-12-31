@@ -59,9 +59,9 @@ import {
 import {
   fetchPrivateConsumerPassBulk as fetchPrivateConsumerPassBulkAction,
   fetchPrivateConsumerPassByMember as fetchPrivateConsumerPassByMemberAction,
-} from '../../libs/private-service/actions.ts';
+} from '../../libs/private-service/actions';
 import type { PrivateConsumerPassLink } from '../../libs/relationship/types';
-import type { PrivateConsumerPass } from '../../libs/private-service/types.ts';
+import type { PrivateConsumerPass } from '../../libs/private-service/types';
 
 type Props = {
   relationList: Array<MemberRelation>,
@@ -140,7 +140,9 @@ export class MemberDetailRelation extends React.Component<Props> {
 
     if (this.props.selectedRelationId) {
       this.props.fetchSharedConsumerPaymentPacks(this.props.selectedRelationId);
-      this.props.fetchSharedPrivateConsumerPasses(this.props.selectedRelationId);
+      this.props.fetchSharedPrivateConsumerPasses(
+        this.props.selectedRelationId,
+      );
     }
   }
 
@@ -162,7 +164,9 @@ export class MemberDetailRelation extends React.Component<Props> {
       this.props.selectedRelationId
     ) {
       this.props.fetchSharedConsumerPaymentPacks(this.props.selectedRelationId);
-      this.props.fetchSharedPrivateConsumerPasses(this.props.selectedRelationId);
+      this.props.fetchSharedPrivateConsumerPasses(
+        this.props.selectedRelationId,
+      );
     }
   }
 
@@ -242,10 +246,16 @@ export class MemberDetailRelation extends React.Component<Props> {
               requestPassLinking={this.props.openConsumerPaymentPackForm}
               unlinkPassLinking={this.props.requestUnlinkPassLinking}
               relinkPassLinking={this.props.requestRelinkPassLinking}
-              privateConsumerPassLinks={this.props.sharedPrivateConsumerPassLinks}
+              privateConsumerPassLinks={
+                this.props.sharedPrivateConsumerPassLinks
+              }
               requestPrivatePassLinking={this.props.openPrivateConsumerPassForm}
-              unlinkPrivateConsumerPass={this.props.requestUnlinkPrivateConsumerPass}
-              relinkPrivateConsumerPass={this.props.requestRelinkPrivateConsumerPass}
+              unlinkPrivateConsumerPass={
+                this.props.requestUnlinkPrivateConsumerPass
+              }
+              relinkPrivateConsumerPass={
+                this.props.requestRelinkPrivateConsumerPass
+              }
             />
           </div>
         </Grid>
@@ -304,7 +314,9 @@ export class MemberDetailRelation extends React.Component<Props> {
             <PrivateConsumerPassLinkForm
               privateConsumerPasses={this.props.privateConsumerPasses}
               loading={this.props.privatePassLoading}
-              onCancel={() => this.props.setOpenPrivateConsumerPassLinking(false)}
+              onCancel={() =>
+                this.props.setOpenPrivateConsumerPassLinking(false)
+              }
               onSubmit={this.props.createPrivatePassLinking}
               disabledStuff={this.props.privateConsumerPasses
                 .filter(
@@ -351,9 +363,21 @@ export default compose(
   withState('openRelationFormDialog', 'setOpenRelationFormDialog', false),
   withState('consumerPassLinkToDelete', 'setConsumerPassLinkToDelete', null),
   withState('consumerPassLinkToRelink', 'setConsumerPassLinkToRelink', null),
-  withState('openPrivateConsumerPassLinking', 'setOpenPrivateConsumerPassLinking', false),
-  withState('privateConsumerPassLinkToDelete', 'setPrivateConsumerPassLinkToDelete', null),
-  withState('privateConsumerPassLinkToRelink', 'setPrivateConsumerPassLinkToRelink', null),
+  withState(
+    'openPrivateConsumerPassLinking',
+    'setOpenPrivateConsumerPassLinking',
+    false,
+  ),
+  withState(
+    'privateConsumerPassLinkToDelete',
+    'setPrivateConsumerPassLinkToDelete',
+    null,
+  ),
+  withState(
+    'privateConsumerPassLinkToRelink',
+    'setPrivateConsumerPassLinkToRelink',
+    null,
+  ),
   connect(
     (state, { selectedRelationId, memberId }) => ({
       relationList: getMemberRelations(state),
@@ -377,7 +401,8 @@ export default compose(
         state,
         selectedRelationId,
       ),
-      privatePassLoading: state.privateService.privateConsumerPass.byMember.loading,
+      privatePassLoading:
+        state.privateService.privateConsumerPass.byMember.loading,
     }),
     {
       fetchMember,
@@ -534,12 +559,17 @@ export default compose(
         });
       },
       createPrivatePassLinking: (privateConsumerPassId: number) =>
-        linkPrivatePassToMemberRelation(privateConsumerPassId, selectedRelationId, {
-          onSuccess: () => {
-            fetchSharedPrivateConsumerPasses(selectedRelationId);
-            setOpenPrivateConsumerPassLinking(false);
+        linkPrivatePassToMemberRelation(
+          privateConsumerPassId,
+          selectedRelationId,
+          {
+            onSuccess: () => {
+              fetchSharedPrivateConsumerPasses(selectedRelationId);
+              setOpenPrivateConsumerPassLinking(false);
+            },
           },
-        }),
-    })),
+        ),
+    }),
+  ),
   withTitle(({ member }) => (member && member.name) || ''),
 )(MemberDetailRelation);

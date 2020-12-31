@@ -80,10 +80,7 @@ export default compose(
   }),
   withTranslation(['coach']),
   withStyles(styles),
-  connect(
-    null,
-    {
-      pushToTab: (id, tab) => push(`/coach/${id}/${tab}`),
-    },
-  ),
+  connect(null, {
+    pushToTab: (id, tab) => push(`/coach/${id}/${tab}`),
+  }),
 )(CoachDetailRouter);

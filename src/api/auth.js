@@ -1,13 +1,6 @@
 // @flow
 import axios from 'axios';
-import {
-  API_URI,
-  API_V1_URI,
-  BASE_URI,
-  post,
-  putAuth,
-  getAuth,
-} from '../http';
+import { API_URI, API_V1_URI, BASE_URI, post, putAuth, getAuth } from '../http';
 
 export async function accessLevel(token: string) {
   return getAuth(`${API_URI}/saas/access_level`, token);

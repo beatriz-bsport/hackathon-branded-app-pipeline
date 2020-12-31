@@ -25,11 +25,11 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 
 import EstablishmentListItem from '../../libs/establishment/components/EstablishmentListItem.component';
 import EstablishmentDeleteDialog from '../../libs/establishment/components/EstablishmentDeleteDialog.component';
-import { Establishment } from '../../libs/establishment/types.ts';
+import { Establishment } from '../../libs/establishment/types';
 import {
   getAvailableEstablishmentList,
   getDisabledEstablishmentList,
-} from '../../libs/establishment/selectors.ts';
+} from '../../libs/establishment/selectors';
 import {
   deleteEstablishment,
   restoreEstablishment as restoreEstablishmentAction,

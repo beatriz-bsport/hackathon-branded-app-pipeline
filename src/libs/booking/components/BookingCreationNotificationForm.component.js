@@ -246,7 +246,9 @@ const BookingCreationNotificationForm = (props: Props) => {
                           kind,
                         )}`,
                       )
-                    : `${t('booking:notification.form.help.text')} ${t(
+                    : `${t(
+                        'booking:notification.form.help.text',
+                      )} ${t(
                         `booking:notification.form.help.${getNotificationKind(
                           kind,
                         )}`,
@@ -478,14 +480,8 @@ const BookingNotificationSchema = Yup.object().shape({
   email_design: Yup.number().required(),
   establishment_id: Yup.number().nullable(),
   meta_activity_id: Yup.number().nullable(),
-  notify_booking_nb: Yup.number()
-    .integer()
-    .min(1)
-    .required(),
-  hours: Yup.number()
-    .integer()
-    .min(1)
-    .required(),
+  notify_booking_nb: Yup.number().integer().min(1).required(),
+  hours: Yup.number().integer().min(1).required(),
   kind: Yup.number(),
 });
 

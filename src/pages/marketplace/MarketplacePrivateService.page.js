@@ -35,8 +35,8 @@ import { getMissingResourceForBooking } from '../../libs/private-service/utils';
 
 import MissingResourceForBookingHelper from '../../libs/private-service/components/MissingResourceForBookingHelper.component';
 
-import { fetchAssociatedEstablishmentBulk } from '../../libs/establishment/actions.ts';
-import { fetchAssociatedCoachBulk } from '../../libs/associated-coach/actions.ts';
+import { fetchAssociatedEstablishmentBulk } from '../../libs/establishment/actions';
+import { fetchAssociatedCoachBulk } from '../../libs/associated-coach/actions';
 
 type Props = {
   companyId: number,

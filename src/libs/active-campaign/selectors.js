@@ -22,21 +22,18 @@ export const getActiveCampaignLinks = createSelector(
 );
 
 export const withSmartlist = memoize((selector: (State) => any) =>
-  createSelector(
-    [selector, getSmartListDict],
-    (links, smartListsDict) => {
-      if (!Array.isArray(links)) {
-        return {
-          ...links,
-          smartlist: smartListsDict[links.smartlist],
-        };
-      }
-      return links.map((link) => ({
-        ...link,
-        smartlist: smartListsDict[link.smartlist] || link.smartlist,
-      }));
-    },
-  ),
+  createSelector([selector, getSmartListDict], (links, smartListsDict) => {
+    if (!Array.isArray(links)) {
+      return {
+        ...links,
+        smartlist: smartListsDict[links.smartlist],
+      };
+    }
+    return links.map((link) => ({
+      ...link,
+      smartlist: smartListsDict[link.smartlist] || link.smartlist,
+    }));
+  }),
 );
 
 export const getAccount = (state: State): any =>

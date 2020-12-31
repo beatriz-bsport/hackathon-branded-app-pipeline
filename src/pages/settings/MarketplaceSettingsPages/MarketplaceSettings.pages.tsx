@@ -30,14 +30,14 @@ import {
 import { getMarketplaceRoute } from '../../marketplace/routing-utils';
 
 import { RootState } from '../../../reducers';
-import TabCreation from './TabCreation.component.tsx';
-import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component.js';
+import TabCreation from './TabCreation.component';
+import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import { fetchAllPrivateServices } from '../../../libs/private-service/actions';
 import { getAvailablePrivateServices } from '../../../libs/private-service/selectors/private-service';
-import { fetchAssociatedCoachesList } from '../../../libs/associated-coach/actions.ts';
-import { getActiveCoaches } from '../../../libs/associated-coach/selectors.ts';
-import { fetchEstablishments } from '../../../libs/establishment/actions.ts';
-import { getAvailableEstablishmentList } from '../../../libs/establishment/selectors.ts';
+import { fetchAssociatedCoachesList } from '../../../libs/associated-coach/actions';
+import { getActiveCoaches } from '../../../libs/associated-coach/selectors';
+import { fetchEstablishments } from '../../../libs/establishment/actions';
+import { getAvailableEstablishmentList } from '../../../libs/establishment/selectors';
 import { fetchAllActivities } from '../../../libs/meta-activity/actions';
 import { getPageEnabledMetaActivities } from '../../../libs/meta-activity/selectors';
 import {
@@ -117,7 +117,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
       });
       setOpenCreation(false);
     },
-    [config, tabToEditIndex]
+    [config, tabToEditIndex],
   );
 
   const onSaveConfig = useCallback(() => {
@@ -142,7 +142,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
         tabs: prevState.tabs.filter((tab, i) => index !== i),
       }));
     },
-    [config]
+    [config],
   );
 
   const onEditTab = useCallback(
@@ -150,35 +150,35 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
       setTabToEditIndex(index);
       setOpenCreation(true);
     },
-    [config]
+    [config],
   );
 
   const onSortEnd = useCallback(
-    (e: { oldIndex: number, newIndex: number }) => {
+    (e: { oldIndex: number; newIndex: number }) => {
       const tabs = [...config.tabs];
       const temp = { ...tabs[e.oldIndex] };
       tabs[e.oldIndex] = { ...tabs[e.newIndex] };
       tabs[e.newIndex] = temp;
       setConfig({ ...config, tabs });
     },
-    [config]
+    [config],
   );
 
   const { t: tAll } = useTranslation();
 
   const getDefaultTitleForComponent = (
-    componentType: MarketplaceComponentsEnum
+    componentType: MarketplaceComponentsEnum,
   ) => {
     const obj = {
       [MarketplaceComponentsEnum.calendar]: tAll('marketplace.calendar'),
       [MarketplaceComponentsEnum.workshop]: tAll('marketplace.workshop'),
       [MarketplaceComponentsEnum.privateService]: tAll(
-        'marketplace.private_service'
+        'marketplace.private_service',
       ),
       [MarketplaceComponentsEnum.pass]: tAll('marketplace.pass'),
       [MarketplaceComponentsEnum.vod]: tAll('marketplace.vod'),
       [MarketplaceComponentsEnum.subscription]: tAll(
-        'marketplace.contract.tabName'
+        'marketplace.contract.tabName',
       ),
       [MarketplaceComponentsEnum.shop]: tAll('marketplace.shop.tabName'),
       [MarketplaceComponentsEnum.playlist]: tAll('marketplace.playlist'),
@@ -207,7 +207,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
               style={{ textDecoration: 'none' }}
               to={getMarketplaceRoute(
                 props.theme.company_name,
-                props.theme.company
+                props.theme.company,
               )}
             >
               <Button
@@ -236,7 +236,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
                       className={classes.listText}
                       primary={tab.title}
                       secondary={t(
-                        `marketplaceSettings.componentType.${tab.componentType}`
+                        `marketplaceSettings.componentType.${tab.componentType}`,
                       )}
                     />
 
@@ -408,6 +408,6 @@ const mapDispatchToProps = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
   // @ts-ignore
 )(MarketplaceSettingsPages);

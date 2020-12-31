@@ -107,9 +107,6 @@ const mapDispatchToProps = {
 
 export default withTranslation(['snackbar'])(
   withStyles(styles)(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps,
-    )(SnackbarBackgroundTask),
+    connect(mapStateToProps, mapDispatchToProps)(SnackbarBackgroundTask),
   ),
 );

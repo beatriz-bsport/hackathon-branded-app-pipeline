@@ -172,9 +172,7 @@ function discretizeByAndFillMissing(dateRange, table, duration, reducer) {
 
   if (duration === 'week') {
     grouped = lodash.groupBy(table, (u) =>
-      moment(u.d)
-        .startOf('week')
-        .format('YYYY-MM-DD'),
+      moment(u.d).startOf('week').format('YYYY-MM-DD'),
     );
     for (
       let m = moment(dateRange.start).startOf('week');

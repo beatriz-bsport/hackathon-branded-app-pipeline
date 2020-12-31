@@ -19,8 +19,8 @@ import {
   fetchAssociatedCoachesList,
   createOrUpdateCoach,
   linkByEmail as linkCoachViaEmail,
-} from '../../libs/associated-coach/actions.ts';
-import { getCoach } from '../../libs/associated-coach/selectors.ts';
+} from '../../libs/associated-coach/actions';
+import { getCoach } from '../../libs/associated-coach/selectors';
 import CoachForm from '../../libs/associated-coach/components/CoachForm.component';
 import CoachEmailCheckDialog from '../../libs/associated-coach/components/CoachEmailCheckDialog.component';
 

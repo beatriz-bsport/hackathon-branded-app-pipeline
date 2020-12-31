@@ -169,22 +169,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RecurrenceRuleBookingSchema = Yup.object().shape({
-  day_of_week: Yup.number()
-    .min(0)
-    .max(6)
-    .required(),
-  minute: Yup.number()
-    .min(0)
-    .max(59)
-    .required(),
-  hour: Yup.number()
-    .min(0)
-    .max(23)
-    .required(),
-  delay_week: Yup.number()
-    .min(1)
-    .max(8)
-    .required(),
+  day_of_week: Yup.number().min(0).max(6).required(),
+  minute: Yup.number().min(0).max(59).required(),
+  hour: Yup.number().min(0).max(23).required(),
+  delay_week: Yup.number().min(1).max(8).required(),
   meta_activity: Yup.number().required(),
   establishment: Yup.number().nullable(),
   notify_if_booked: Yup.boolean(),

@@ -160,9 +160,10 @@ export class CouponForm extends React.Component<Props, State> {
             name="voucher_type"
             value={this.state.voucher_type}
             onChange={(ev) =>
-              this.handleChange('voucher_type', false)(
-                parseInt(ev.target.value, 10),
-              )
+              this.handleChange(
+                'voucher_type',
+                false,
+              )(parseInt(ev.target.value, 10))
             }
           >
             <FormControlLabel
@@ -280,9 +281,10 @@ export class CouponForm extends React.Component<Props, State> {
               ].includes(parseInt(ev.target.value, 10))
             ) {
               this.handleChange('only_on_objects')([]);
-              this.handleChange('applies_to', false)(
-                parseInt(ev.target.value, 10),
-              );
+              this.handleChange(
+                'applies_to',
+                false,
+              )(parseInt(ev.target.value, 10));
             }
           }}
         >
@@ -347,9 +349,10 @@ export class CouponForm extends React.Component<Props, State> {
               onChange={(id) => {
                 let newObjects = [...this.state.only_on_objects];
                 if (this.state.applies_to !== BUYABLE_ITEM_SHOP_ITEM) {
-                  this.handleChange('applies_to', false)(
-                    BUYABLE_ITEM_SHOP_ITEM,
-                  );
+                  this.handleChange(
+                    'applies_to',
+                    false,
+                  )(BUYABLE_ITEM_SHOP_ITEM);
                   newObjects = [];
                 }
                 newObjects.push(id);
@@ -394,9 +397,10 @@ export class CouponForm extends React.Component<Props, State> {
                 let newObjects = [...this.state.only_on_objects];
 
                 if (this.state.applies_to !== BUYABLE_ITEM_PRIVATE_PASS) {
-                  this.handleChange('applies_to', false)(
-                    BUYABLE_ITEM_PRIVATE_PASS,
-                  );
+                  this.handleChange(
+                    'applies_to',
+                    false,
+                  )(BUYABLE_ITEM_PRIVATE_PASS);
                   newObjects = [];
                 }
                 newObjects.push(id);
@@ -506,9 +510,10 @@ export class CouponForm extends React.Component<Props, State> {
         <Checkbox
           checked={this.state.only_on_first_checkout}
           onChange={(ev) =>
-            this.handleChange('only_on_first_checkout', false)(
-              ev.target.checked,
-            )
+            this.handleChange(
+              'only_on_first_checkout',
+              false,
+            )(ev.target.checked)
           }
           label={t('form.only_on_first_checkout.label')}
         />

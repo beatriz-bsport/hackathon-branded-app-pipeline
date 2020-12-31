@@ -6,7 +6,7 @@ import { replace } from 'connected-react-router';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { branch, renderComponent } from 'recompose';
-import { buildUrlParams } from '../http.ts';
+import { buildUrlParams } from '../http';
 import parse from '../query-string';
 
 export default function withReplaceQueryParams(

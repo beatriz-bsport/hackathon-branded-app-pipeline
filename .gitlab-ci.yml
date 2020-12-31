@@ -7,12 +7,12 @@ variables:
 #Cache dependencies across all jobs
 
 stages:
-  - prepare_image_docker
+  - prepare-image-docker
   - static-analysis
   # - unit_tests
   # - e2e_tests
   - bump-version
-  - configure_and_deploy
+  - build-deploy
   - promote
 
 
@@ -20,17 +20,17 @@ stages:
 before_script:
   - OLD_VERSION=`echo "$(cat ./VERSION)"`
 
-build_and_push:
+Prepare Docker Builder Image:
   image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:v1.0.1
   tags:
     - deployment
-  stage: prepare_image_docker
+  stage: prepare-image-docker
   script:
     - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_ENDPOINT}
     - docker build --network host -t ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME} .
     - docker push ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
 
-lint:
+Lint:
   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
   stage: static-analysis
   tags:
@@ -131,7 +131,7 @@ lint:
 
 .Build and deploy Base:
   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
-  stage: configure_and_deploy
+  stage: build-deploy 
   # cache:
   #   files:
   #     - yarn.lock
@@ -140,7 +140,7 @@ lint:
   #       - "$CYPRESS_CACHE_FOLDER/node_modules"
   #       - node_modules
   tags:
-    - deployment
+    - build-frontend
   only:
     refs:
       - dev

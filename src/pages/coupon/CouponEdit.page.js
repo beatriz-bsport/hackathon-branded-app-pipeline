@@ -33,8 +33,8 @@ import {
 import { ShopItem } from '../../libs/shop/types';
 import { _getAllShopItems as getShopItems } from '../../libs/shop/selectors';
 
-import { fetchPrivatePassList } from '../../libs/private-service/actions.ts';
-import { PrivatePass } from '../../libs/private-service/types.ts';
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
+import { PrivatePass } from '../../libs/private-service/types';
 import { getPrivatePassListBase as getPrivatePass } from '../../libs/private-service/selectors/private-pass';
 
 type Props = {

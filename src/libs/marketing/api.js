@@ -8,7 +8,7 @@ import {
   buildUrlParams,
   patchAuth,
   API_V1_URI,
-} from '../../http.ts';
+} from '../../http';
 
 const MARKETING_ENDPOINT = `${API_V1_URI}/marketing`;
 

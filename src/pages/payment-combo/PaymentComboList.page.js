@@ -24,7 +24,7 @@ import BottomActionButtons from '../../components/button/BottomActionsButton.com
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
-import type { OptionCallback } from '../../state/types.ts';
+import type { OptionCallback } from '../../state/types';
 
 type Props = {
   t: TFunction,

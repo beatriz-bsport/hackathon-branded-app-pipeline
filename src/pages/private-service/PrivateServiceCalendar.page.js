@@ -14,8 +14,8 @@ import {
   fetchFilteredMembers,
   fetchMemberBulk as fetchMemberBulkAction,
 } from '../../libs/member/actions';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors.ts';
-import { getPrivateServiceById } from '../../libs/private-service/selectors/private-service.ts';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors';
+import { getPrivateServiceById } from '../../libs/private-service/selectors/private-service';
 import {
   getPrivateBookingListFiltered,
   bookingWithAllRelatedField,
@@ -28,7 +28,7 @@ import {
   getFilteredAvailabilitySlots,
   withResourceColor,
   getPrivateServiceResourceData,
-} from '../../libs/private-service/selectors/availability-slot.ts';
+} from '../../libs/private-service/selectors/availability-slot';
 import AvailabilityUpdateResourceChoserDialog from '../../libs/private-service/components/resource/AvailabilityUpdateResourceChoserDialog.component';
 import ResourceConfigurationDialog from '../../libs/private-service/components/resource/ResourceConfigurationDialog.component';
 import {
@@ -43,7 +43,7 @@ import {
   createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
   fetchCustomEventList as fetchCustomEventListAction,
   resetCustomEvent,
-} from '../../libs/private-service/actions.ts';
+} from '../../libs/private-service/actions';
 import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
 

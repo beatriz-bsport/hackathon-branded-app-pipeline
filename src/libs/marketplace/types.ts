@@ -49,4 +49,3 @@ export type MarketplaceSettingState = {
   error?: Error,
   settings: MarketplaceSettings,
 };
-

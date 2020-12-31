@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 import {
   BasePicker,
   Calendar,
-  DatePicker,
   MuiPickersUtilsProvider,
 } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
@@ -21,9 +20,9 @@ interface Props {
 }
 
 const DateRangePicker: React.FC<Props> = (props) => {
-  const [date, setDate] = useState(moment());
+  const [date] = useState(moment());
   const [activeDate, setActiveDate] = useState<Moment | undefined>(
-    moment(props.startDate),
+    moment(props.startDate)
   );
 
   const [dates, setDates] = useState<Array<string>>([props.startDate]);
@@ -32,7 +31,7 @@ const DateRangePicker: React.FC<Props> = (props) => {
     const dateStr = d.format('YYYY-MM-DD  ');
 
     let _dates = [...dates, dateStr];
-    if (dates.length == 2) {
+    if (dates.length === 2) {
       _dates = [dateStr];
     }
 
@@ -45,10 +44,10 @@ const DateRangePicker: React.FC<Props> = (props) => {
   const renderDay = useCallback(
     (d, selectedDate: Moment, dayInCurrentMonth: boolean) => {
       if (!dayInCurrentMonth) {
-        return <div className={classes.day}></div>;
+        return <div className={classes.day} />;
       }
 
-      const momentDates = dates.map((d) => moment(d));
+      const momentDates = dates.map((da) => moment(da));
       momentDates.length === 1 && activeDate && momentDates.push(activeDate);
 
       const min = moment.min(momentDates);
@@ -81,7 +80,7 @@ const DateRangePicker: React.FC<Props> = (props) => {
         </div>
       );
     },
-    [classes, props.startDate, props.endDate, activeDate, dates],
+    [classes, props.startDate, props.endDate, activeDate, dates]
   );
 
   return (
@@ -126,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
     borderBottomRightRadius: 50,
   },
   onActive: {
-    ['&:hover']: {
+    '&:hover': {
       backgroundColor: theme.palette.primary.main,
       color: getTextColorFromRGB(chroma(theme.palette.primary.main).rgb()),
       borderRadius: 50,

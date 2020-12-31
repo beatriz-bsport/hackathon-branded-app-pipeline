@@ -7,7 +7,7 @@ import {
   patchAuth,
   deleteAuth,
   API_V1_URI,
-} from '../../http.ts';
+} from '../../http';
 
 export const fetchPlaylistList = async (params: any = {}) => {
   return getAuth(`${API_V1_URI}/vod/playlist/${buildUrlParams(params)}`);

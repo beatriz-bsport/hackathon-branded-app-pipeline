@@ -5,9 +5,9 @@ import { handleActions } from 'redux-actions';
 
 import { cashBookDetail, cashBookUpdate } from './actions';
 
-import type { CashBook } from './types';
+import type { CashBookState } from './types';
 
-const initialState: CashBook = Immutable({
+const initialState: CashBookState = Immutable({
   infos: {
     today_start_amount: null,
     today_end_amount: null,

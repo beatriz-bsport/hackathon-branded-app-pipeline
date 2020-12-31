@@ -25,13 +25,13 @@ import {
   searchAvailableSlots,
   fetchMarketplacePrivateServices,
   fetchMarketplacePrivateSlots,
-} from '../../libs/private-service/actions.ts';
-import { getPrivateServicesForMarketplace } from '../../libs/private-service/selectors/private-service.ts';
+} from '../../libs/private-service/actions';
+import { getPrivateServicesForMarketplace } from '../../libs/private-service/selectors/private-service';
 import SlotSearcherResult from '../../libs/private-service/components/slot-searcher/SlotSearcherResult.component';
 import SlotSearcherParams from '../../libs/private-service/components/slot-searcher/SlotSearcherParams.component';
 import SlotSearcherHelper from '../../libs/private-service/components/slot-searcher/SlotSearcherHelper.component';
-import type { PrivateService } from '../../libs/private-service/types.ts';
-import { getMissingResourceForBooking } from '../../libs/private-service/utils.ts';
+import type { PrivateService } from '../../libs/private-service/types';
+import { getMissingResourceForBooking } from '../../libs/private-service/utils';
 
 import MissingResourceForBookingHelper from '../../libs/private-service/components/MissingResourceForBookingHelper.component';
 

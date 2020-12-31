@@ -39,8 +39,8 @@ import {
   restorePrivateBooking,
   fetchRecurrenceRulePrivateBooking as fetchRecurenceRulePrivateBookingAction,
   deleteRecurrenceRulePrivateBooking as deleteRecurrenceRulePrivateBookingAction,
-} from '../../libs/private-service/actions.ts';
-import { getCoaches } from '../../libs/associated-coach/selectors.ts';
+} from '../../libs/private-service/actions';
+import { getCoaches } from '../../libs/associated-coach/selectors';
 import {
   getPrivateBookingListBase,
   getPrivateBooking,
@@ -63,7 +63,7 @@ import type {
   PrivateService,
   PrivateSlot,
   RecurrenceRulePrivateBooking,
-} from '../../libs/private-service/types.ts';
+} from '../../libs/private-service/types';
 import RecurrenceRulePrivateBooker from '../../libs/private-service/containers/RecurrenceRulePrivateBooker.container';
 
 type Props = {

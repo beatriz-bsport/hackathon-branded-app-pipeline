@@ -2,7 +2,7 @@
 
 import { createAction } from 'redux-actions';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
-import type { Dispatch, ThunkAction } from '../../state/types.ts';
+import type { Dispatch, ThunkAction } from '../../state/types';
 
 import {
   getActiveCampaignAccount as getActiveCampaignAccountAPI,

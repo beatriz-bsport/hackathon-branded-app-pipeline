@@ -7,15 +7,15 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import type { Theme } from '../../libs/theme/types.ts';
+import type { Theme } from '../../libs/theme/types';
 import withTitle from '../../hocs/with-title.hoc';
 
 import BroadcastConfigurationForm from '../../libs/video/components/BroadcastConfiguration.component';
 import {
   updateCompanyTheme,
   fetchCompanyTheme,
-} from '../../libs/theme/actions.ts';
-import themeSelectors from '../../libs/theme/selectors.ts';
+} from '../../libs/theme/actions';
+import themeSelectors from '../../libs/theme/selectors';
 
 type Props = {
   theme: Theme,

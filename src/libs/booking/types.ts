@@ -1,6 +1,35 @@
-// @flow
-import type { Immutable } from 'seamless-immutable';
 import type { ConsumerPaymentPack } from '../payment-packs/types';
+
+
+export type BookingBroadCastRoom = {
+  id: number;
+  room: string;
+  domain: string;
+  provider: string;
+};
+
+export type BookingCreationNotification = {
+  id: number;
+  kind: number;
+  establishment: number;
+  meta_activity: number;
+  active: boolean;
+  hours: number;
+  email_design: number;
+  notify_booking_nb: number;
+}
+
+export type RecurrenceRuleBooking = {
+  id: number;
+  member: number;
+  delay_week: number;
+  day_of_week: number;
+  hour: number;
+  minute: number
+  meta_activity: number
+  establishment: number
+  notify_if_booked: boolean
+}
 
 export type Booking = {
   name: string,
@@ -12,7 +41,7 @@ export type Booking = {
   date: string,
   date_canceled: string,
   status: boolean,
-  invoice: ?string,
+  invoice?: string,
   attendance: boolean,
   date_start: string,
   payment_pack: number,
@@ -20,6 +49,7 @@ export type Booking = {
   was_refunded: false,
   first_in_company: false,
 };
+
 export type BookingOption = {
   id: number,
   cancelled: boolean,
@@ -27,13 +57,46 @@ export type BookingOption = {
   is_convertible: boolean,
 };
 
-export type BookingsState = Immutable<{
-  all: Booking[],
-  bookingsUpdating: Booking[],
-  options: BookingOption[],
-  bookingOptionsUpdating: BookingOption[],
-  loading: boolean,
-}>;
+
+type ErrorAndLoading = {
+  error?: Error;
+  loading: boolean;
+}
+
+type WithPagination = {
+  count: number;
+  page: number;
+};
+
+export type BookingsState = {
+  byId: {[key: string]: Booking},
+  broadcast: ErrorAndLoading & {[key: string]: BookingBroadCastRoom};
+  byMember: ErrorAndLoading & WithPagination & { allIds: number[] };
+  asConsumer: ErrorAndLoading & WithPagination & { allIds: number[] };
+  consumerDashboard: ErrorAndLoading & WithPagination & { allIds: number[] };
+  byConsumerPack: ErrorAndLoading & WithPagination & { allIds: number[] };
+  byOffer: ErrorAndLoading & { allIds: [] };
+  createOrUpdate: ErrorAndLoading;
+  bulkRetrieve: ErrorAndLoading;
+  notification: ErrorAndLoading & {
+    itemsById: {[key: string]: BookingCreationNotification},
+    allIds: number[],
+    create: ErrorAndLoading
+    delete: ErrorAndLoading
+    update: {
+      id?: number | null,
+      error?: Error,
+    },
+  },
+  recurrenceRule: ErrorAndLoading & WithPagination & {
+    byId: {[key: string]: RecurrenceRuleBooking},
+    allIds: number[],
+    allIds2: number[],
+    next_page: null | number,
+    delete: ErrorAndLoading
+    edit: ErrorAndLoading
+  },
+};
 
 export type BookingsAction =
   | { type: null }

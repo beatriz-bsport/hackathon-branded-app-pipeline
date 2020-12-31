@@ -1,12 +1,10 @@
-// @flow
-
-import { API_URI, getAuth, postAuth, deleteAuth } from '../../http.ts';
+import { API_URI, getAuth, postAuth, deleteAuth } from '../../http';
 
 const PAGE_SIZE = 10;
 
 const fetch = async (alert_kind: number, page: number) => {
   return getAuth(
-    `${API_URI}/alerts/${alert_kind}/?page=${page}&page_size=${PAGE_SIZE}`,
+    `${API_URI}/alerts/${alert_kind}/?page=${page}&page_size=${PAGE_SIZE}`
   );
 };
 

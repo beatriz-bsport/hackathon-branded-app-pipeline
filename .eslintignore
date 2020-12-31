@@ -13,3 +13,5 @@
 
 // packages not compiling to ES5 thus placed in src/
 **/external-modules/**
+
+node_modules/

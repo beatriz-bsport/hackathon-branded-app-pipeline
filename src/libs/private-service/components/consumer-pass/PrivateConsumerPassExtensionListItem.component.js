@@ -13,7 +13,7 @@ import type { TFunction } from 'react-i18next';
 
 import { formatAsDatetime } from '../../../../datetime';
 import withConfirm from '../../../../hocs/with-confirm.hoc';
-import type { PrivateConsumerPassExtension } from '../../types.ts';
+import type { PrivateConsumerPassExtension } from '../../types';
 
 type Props = {
   t: TFunction,

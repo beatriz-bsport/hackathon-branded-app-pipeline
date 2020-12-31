@@ -7,6 +7,7 @@ import {
   updateMarketplaceSettings as updateMarketplaceSettingsAPI,
 } from './api';
 import { MARKETPLACE_DEFAULT_CONFIG } from './const';
+
 export const marketplaceSettingsAction = {
   error: createAction('MARKETPLACE_SETTINGS/ERROR'),
   isLoading: createAction('MARKETPLACE_SETTINGS/IS_LOADING'),
@@ -15,7 +16,7 @@ export const marketplaceSettingsAction = {
 
 export function fetchMarketplaceSettings(
   companyId: string,
-  options?: OptionCallback,
+  options?: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(marketplaceSettingsAction.isLoading(true));
@@ -24,7 +25,7 @@ export function fetchMarketplaceSettings(
     try {
       dispatch(marketplaceSettingsAction.success(MARKETPLACE_DEFAULT_CONFIG));
       const res = await fetchMarketplaceSettingsAPI(companyId);
-      let data = res.data;
+      const { data } = res;
       if (data && data.config && !data.config.custom) {
         data.config = MARKETPLACE_DEFAULT_CONFIG.config;
       }
@@ -48,7 +49,7 @@ export function fetchMarketplaceSettings(
 export function updateMarketplaceSettings(
   companyId: string,
   params: any = {},
-  options?: OptionCallback,
+  options?: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(marketplaceSettingsAction.isLoading(true));

@@ -158,7 +158,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
               }
               onChange={(ev) => onChange({ attendance: ev.target.value })}
             >
-              <MenuItem value={true}>{t('filters.attendanceTrue')}</MenuItem>
+              <MenuItem value>{t('filters.attendanceTrue')}</MenuItem>
               <MenuItem value={false}>{t('filters.attendanceFalse')}</MenuItem>
             </Select>
             {this.props.renderAttendanceSelectorWarning(

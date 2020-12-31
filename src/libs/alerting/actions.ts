@@ -1,5 +1,3 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 
 import {
@@ -8,10 +6,12 @@ import {
   REMINDER_NOTE_ALERT_KIND,
   PRIVATE_BOOKING_INCOMPLETE_ALERT,
   COMPANY_ONBOARDING_ALERT,
+  // @ts-ignore
 } from '@bsport/common/lib/master-data/alerting_kind';
 import api from './api';
 
-import type { Dispatch, State, ThunkAction } from '../../state/types.ts';
+import { Dispatch, ThunkAction } from '../../state/types';
+import { RootState } from "../../reducers";
 
 const ALERT_KINDS = [
   UNEVEN_INVOICE_ALERT,
@@ -63,7 +63,7 @@ export function fetchAll(): ThunkAction {
 }
 
 export function fetchMoreAlertingKind(kind: number) {
-  return async (dispatch: Dispatch, getState: () => State) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
     dispatch(fetch(kind, getState().alerting.items_by_kind[kind].next));
   };
 }

@@ -1,12 +1,11 @@
 import React from 'react';
-import { ButtonBase, Typography, makeStyles } from '@material-ui/core';
-import Fade from '@material-ui/core/Fade';
-import Chip from '@material-ui/core/Chip';
+import { Fade, ButtonBase, Typography, makeStyles } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 import classNames from 'classnames';
+
 import {
   PrivateService,
   PrivateSlot,
@@ -26,7 +25,7 @@ const PrivateSlotSelector: React.FC<Props> = (props) => {
   return (
     <Fade in timeout={500}>
       <div className={classes.container}>
-        <Typography className={classes.titleMargin} variant={'h5'}>
+        <Typography className={classes.titleMargin} variant="h5">
           {t('selector.privateSlot')}
         </Typography>
         <div className={classes.container2}>
@@ -49,7 +48,7 @@ const PrivateSlotSelector: React.FC<Props> = (props) => {
                     >
                       <Typography
                         className={classes.maxLine}
-                        variant={'subtitle1'}
+                        variant="subtitle1"
                       >
                         {slot.name}
                       </Typography>
@@ -57,7 +56,7 @@ const PrivateSlotSelector: React.FC<Props> = (props) => {
                       <div className={classes.row}>
                         <AccessTimeIcon fontSize="small" />
                         <Typography
-                          variant={'subtitle2'}
+                          variant="subtitle2"
                           color={isSelected ? 'inherit' : 'textSecondary'}
                         >
                           {t('privateSlot.duration', {
@@ -67,7 +66,7 @@ const PrivateSlotSelector: React.FC<Props> = (props) => {
                       </div>
                       {slot.people_capacity_used > 1 && (
                         <Typography
-                          variant={'subtitle2'}
+                          variant="subtitle2"
                           color={isSelected ? 'inherit' : 'textSecondary'}
                         >
                           {t('slot.form.people_capacity_used.label')}:{' '}

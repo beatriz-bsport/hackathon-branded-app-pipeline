@@ -7,7 +7,7 @@ import {
   snackbarSuccess,
   snackbarError,
 } from '../../../actions/snackbar.actions';
-import type { Dispatch } from '../../../state/types.ts';
+import type { Dispatch } from '../../../state/types';
 
 export const subshopListActions = {
   isLoading: createAction('SUBSHOP/LIST/LOADING'),

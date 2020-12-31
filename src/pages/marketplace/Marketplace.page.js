@@ -23,7 +23,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { getTheme } from '../../theme';
-import { fetchCompanyTheme } from '../../libs/theme/actions.ts';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
 
 import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
 import MarketplaceAppBar from './MarketplaceAppBar.component';
@@ -66,7 +66,7 @@ const MarketplacePassPage = asyncComponent(() =>
 );
 
 const MarketplacePrivateServiceRouter = asyncComponent(() =>
-  import('./PrivateService/MarketplacePrivateService.router.tsx'),
+  import('./PrivateService/MarketplacePrivateService.router'),
 );
 const MarketplaceShopPage = asyncComponent(() =>
   import('./MarketplaceShop.page'),

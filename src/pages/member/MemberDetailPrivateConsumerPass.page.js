@@ -26,7 +26,7 @@ import {
   createPrivateConsumerPassExtension,
   deletePrivateConsumerPassExtension,
   resetPrivateConsumerPassList as resetPrivateConsumerPassListAction,
-} from '../../libs/private-service/actions.ts';
+} from '../../libs/private-service/actions';
 import {
   getPrivateConsumerPassList,
   getPrivateConsumerPass,

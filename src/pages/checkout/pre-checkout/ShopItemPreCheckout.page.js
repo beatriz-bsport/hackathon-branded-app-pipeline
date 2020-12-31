@@ -14,8 +14,8 @@ import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-i
 import InfoIcon from '@material-ui/icons/Info';
 import type { TFunction } from 'react-i18next';
 import { payment as paymentActions } from '../../../actions';
-import themeSelectors from '../../../libs/theme/selectors.ts';
-import type { Theme } from '../../../libs/theme/types.ts';
+import themeSelectors from '../../../libs/theme/selectors';
+import type { Theme } from '../../../libs/theme/types';
 import { getTheme } from '../../../theme';
 import {
   addItemToBasket,

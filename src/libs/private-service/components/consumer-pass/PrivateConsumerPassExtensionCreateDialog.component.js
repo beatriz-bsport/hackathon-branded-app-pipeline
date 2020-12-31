@@ -18,7 +18,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { formatAsDate } from '../../../../datetime';
 import NumericInput from '../../../../components/input/NumericInput.component';
-import type { PrivateConsumerPass } from '../../types.ts';
+import type { PrivateConsumerPass } from '../../types';
 
 type Props = {
   open: boolean,

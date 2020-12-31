@@ -18,7 +18,7 @@ import {
 import createCompressor from 'redux-persist-transform-compress';
 import networkErrorMiddleWare from './libs/network/redux-middleware';
 
-import createRootReducer from './reducers/index.ts';
+import createRootReducer from './reducers/index';
 
 const persistConfig = {
   key: 'root',

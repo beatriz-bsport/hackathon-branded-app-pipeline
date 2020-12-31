@@ -29,8 +29,8 @@ import {
   fetchCompatiblePrivateConsumerPass as fetchCompatiblePrivateConsumerPassAction,
   registerPrivateBooking as registerPrivateBookingAction,
   createOrUpdateRecurrenceRulePrivateBooking,
-} from '../actions.ts';
-import { getAvailablePrivateServices } from '../selectors/private-service.ts';
+} from '../actions';
+import { getAvailablePrivateServices } from '../selectors/private-service';
 
 import { fetchAssociatedEstablishmentBulk } from '../../establishment/actions.ts';
 import { fetchAssociatedCoachBulk } from '../../associated-coach/actions.ts';
@@ -52,7 +52,7 @@ import RecurrenceRulePrivateBookingFields from '../components/booking/Recurrence
 
 import DateTimeForm from '../../../components/input/DateTimeInput.component';
 
-import { getMissingResourceForBooking } from '../utils.ts';
+import { getMissingResourceForBooking } from '../utils';
 
 type Props = {
   t: TFunction,

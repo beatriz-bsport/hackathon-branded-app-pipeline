@@ -27,11 +27,11 @@
     "flowtype",
     "babel",
     "cypress",
-"i18next"
+    "i18next"
   ],
   "rules": {
     // DISABLED BY SOFIAN
-    "no-console": ["error", { allow: ["warn", "error"] }],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
     "react/require-default-props": 0,
     "react/default-props-match-prop-types": 0,
     "i18next/no-literal-string": 0,

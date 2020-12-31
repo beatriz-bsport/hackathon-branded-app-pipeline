@@ -7,7 +7,7 @@ import {
   PAYMENT_URI,
   getAuth,
   postBaseAuth,
-} from '../http.ts';
+} from '../http';
 
 const BOOKING_SOURCE_WEB = 1;
 

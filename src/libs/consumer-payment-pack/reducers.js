@@ -55,7 +55,6 @@ const initialState = Immutable({
       error: null,
     },
   },
-
   byPaymentPack: {
     error: null,
     loading: false,

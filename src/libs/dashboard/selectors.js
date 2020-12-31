@@ -1,7 +1,7 @@
 // @flow
 
 import { createSelector } from 'reselect';
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 import { replaceDates } from './utils';
 
 const _getDashboardSettings = (state: State) =>

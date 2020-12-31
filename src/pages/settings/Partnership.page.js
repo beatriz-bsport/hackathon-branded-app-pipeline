@@ -15,7 +15,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import flatten from 'lodash/flatten';
 
-import themeSelector from '../../libs/theme/selectors.ts';
+import themeSelector from '../../libs/theme/selectors';
 import { getPartnershipByIdentifier } from '../../libs/partnership/selectors';
 import {
   fetchPartnershipList,

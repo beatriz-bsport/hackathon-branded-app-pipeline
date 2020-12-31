@@ -44,7 +44,7 @@ export async function fetchEstablishmentFavorite(company: number) {
   return getAuth(
     `${API_V1_URI}/establishment/favorite/${buildUrlParams({
       company,
-    })}`,
+    })}`
   );
 }
 

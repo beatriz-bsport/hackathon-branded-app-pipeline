@@ -31,7 +31,7 @@ import {
   getFilteredAvailabilitySlots,
   withResourceColor,
   getResourceDataList,
-} from '../libs/private-service/selectors/availability-slot.ts';
+} from '../libs/private-service/selectors/availability-slot';
 
 import PrivateCalendarWithControls from '../libs/private-service/components/PrivateCalendarWithControls.component';
 
@@ -44,7 +44,7 @@ import {
   fetchResourceList,
   fetchAvailabilitySlots,
   resetAvailabilitySlots,
-} from '../libs/private-service/actions.ts';
+} from '../libs/private-service/actions';
 
 type Props = {
   classes: Object,

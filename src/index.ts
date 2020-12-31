@@ -23,11 +23,11 @@ if (process.env.NODE_ENV === 'production') {
       const error = hint.originalException;
       if (
         error &&
-        //@ts-ignore
+        // @ts-ignore
         error.message &&
-        //@ts-ignore
+        // @ts-ignore
         (error.message.match(/Loading chunk /i) ||
-          //@ts-ignore
+          // @ts-ignore
           error.message.match(/Loading CSS chunk /i))
       ) {
         return null;

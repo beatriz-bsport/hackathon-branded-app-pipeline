@@ -46,7 +46,7 @@ import type { Coupon } from '../types';
 
 import { PaymentPack } from '../../payment-packs/types';
 import { ShopItem } from '../../shop/types';
-import { PrivatePass } from '../../private-service/types.ts';
+import { PrivatePass } from '../../private-service/types';
 
 const ALL_BUYABLES = 100;
 

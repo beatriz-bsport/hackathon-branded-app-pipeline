@@ -5,7 +5,7 @@ import {
   putAuth,
   deleteAuth,
   API_V1_URI,
-} from '../../http.ts';
+} from '../../http';
 
 const NOTIFICATION_RULE_ENDPOINT = `${API_V1_URI}/notification`;
 

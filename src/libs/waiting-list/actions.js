@@ -11,7 +11,7 @@ import {
   registerOptionToWaitingList as registerOptionToWaitingListAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction, OptionCallBack } from '../../state/types.ts';
+import type { Dispatch, ThunkAction, OptionCallBack } from '../../state/types';
 
 export const configurationDetail = {
   error: createAction('WAITING_LIST_CONFIGURATION/DETAIL/ERROR'),

@@ -28,8 +28,8 @@ import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/sel
 
 import { Moment } from '../../i18n';
 import { DATE_FORMAT } from '../../datetime';
-import themeSelectors from '../../libs/theme/selectors.ts';
-import { getCoaches } from '../../libs/associated-coach/selectors.ts';
+import themeSelectors from '../../libs/theme/selectors';
+import { getCoaches } from '../../libs/associated-coach/selectors';
 import { getMetaActivities } from '../../libs/meta-activity/selectors';
 
 import { getAllEstablishments } from '../../libs/establishment/selectors.ts';

@@ -17,7 +17,7 @@ import {
   relinkPrivateConsumerPassLink as relinkPrivateConsumerPassLinkAPI,
 } from './api';
 
-import type { Dispatch, OptionCallback } from '../../state/types.ts';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const memberRelationCreateOrUpdateActions = {
   isLoading: createAction('MEMBER_RELATION/CREATE_OR_UPDATE/LOADING'),

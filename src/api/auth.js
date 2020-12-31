@@ -7,7 +7,7 @@ import {
   post,
   putAuth,
   getAuth,
-} from '../http.ts';
+} from '../http';
 
 export async function accessLevel(token: string) {
   return getAuth(`${API_URI}/saas/access_level`, token);

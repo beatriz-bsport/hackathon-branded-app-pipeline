@@ -1,11 +1,18 @@
 {
   "compilerOptions": {
+    "allowJs": false,
+    "outDir": "build",
+    "sourceRoot": "src",
+    "noEmit": true,
     "sourceMap": true,
     "noImplicitAny": true,
     "module": "commonjs",
-    "target": "es5",
-    "jsx": "react",
-    "allowSyntheticDefaultImports": true
+    "target": "es6",
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "types": ["react"]
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*.ts*"]
 }
+

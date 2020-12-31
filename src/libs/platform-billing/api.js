@@ -1,6 +1,6 @@
 // @flow
 
-import { getAuth, postAuth, buildUrlParams, API_V1_URI } from '../../http.ts';
+import { getAuth, postAuth, buildUrlParams, API_V1_URI } from '../../http';
 
 export const fetchPlatformInvoiceList = async (params: any = {}) => {
   return getAuth(

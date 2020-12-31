@@ -1,5 +1,3 @@
-// @flow
-
 import { AuthAction } from './auth/types';
 import { PaymentRulesState } from '../libs/payment-rules/types';
 import { StatsState } from './stats/types';
@@ -13,8 +11,8 @@ import { OrderState } from '../libs/order/types';
 import { ShopState } from '../libs/shop/types';
 import { CheckoutState } from '../libs/checkout/types';
 import { SearchState, SearchAction } from './search/types';
-import { ThemeState } from '../libs/theme/types.ts';
-import { EstablishmentState } from '../libs/establishment/types.ts';
+import { ThemeState } from '../libs/theme/types';
+import { EstablishmentState } from '../libs/establishment/types';
 import { CouponState } from '../libs/coupon/types';
 import { LoginState } from '../libs/login/types';
 import { PrivateServiceState } from '../libs/private-service/types';
@@ -66,6 +64,6 @@ export type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 export type PromiseAction = Promise<Action>;
 
 export type OptionCallback = {
-  onSuccess?: (...args) => void,
+  onSuccess?: (args?: any) => void,
   onError?: (error?: Error) => void,
 };

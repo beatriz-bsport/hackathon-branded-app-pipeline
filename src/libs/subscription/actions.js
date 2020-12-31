@@ -16,7 +16,7 @@ import api, {
   unflagPlannedInvoiceAsLast as unflagPlannedInvoiceAsLastAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types.ts';
+import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import {
   snackbarSuccess,
   snackbarWarning,

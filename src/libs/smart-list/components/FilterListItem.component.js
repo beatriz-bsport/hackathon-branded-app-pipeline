@@ -50,7 +50,7 @@ import PrivateBookingsFilter from './filters/PrivateBookingsFilter.component';
 import type { PaymentPack } from '../../payment-packs/types';
 import type { Establishment } from '../../establishment/types';
 import type { Coach } from '../../associated-coach/types';
-import type { PrivatePass } from '../../private-service/types.ts';
+import type { PrivatePass } from '../../private-service/types';
 
 type Props = {
   payment_packs: Array<PaymentPack>,

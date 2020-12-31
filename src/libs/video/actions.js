@@ -16,7 +16,7 @@ import {
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
-import type { Dispatch, OptionCallback } from '../../state/types.ts';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const retrieveVideoActions = {
   isLoading: createAction('VIDEO/RETRIEVE/IS_LOADING'),

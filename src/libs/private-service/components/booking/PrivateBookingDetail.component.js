@@ -20,7 +20,7 @@ import type {
   PrivateBooking,
   PrivateConsumerPass,
   PrivateSlot,
-} from '../../types.ts';
+} from '../../types';
 
 type Props = {
   t: TFunction,

@@ -6,7 +6,7 @@ import type { Moment } from 'moment-timezone';
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
-import type { State } from '../types.ts';
+import type { State } from '../types';
 
 export const mainChartSelector = (state: State) => state.stats.mainChart;
 export const dateRangeSelector = createSelector(

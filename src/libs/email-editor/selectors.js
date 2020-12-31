@@ -2,7 +2,7 @@
 
 import { createSelector } from 'reselect';
 
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 import type { email_template_state } from './types';
 
 export const getAllEmailTemplatesDict = (state: State): email_template_state =>

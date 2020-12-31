@@ -11,7 +11,7 @@ import {
   updateMarketingNotification as updateMarketingNotificationAPI,
 } from './api';
 
-import type { Dispatch, OptionCallback } from '../../state/types.ts';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const marketingNotificationListActions = {
   error: createAction('MARKETING_NOTIFICATION/LIST/ERROR'),

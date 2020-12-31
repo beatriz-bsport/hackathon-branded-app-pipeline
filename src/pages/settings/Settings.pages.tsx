@@ -2,11 +2,12 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
-import { TFunction } from 'react-i18next';
+import { Theme } from '@material-ui/core';
+
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -31,7 +32,6 @@ import withTitle from '../../hocs/with-title.hoc.js';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc.js';
 
 import { drawerWidth } from '../../components/navigation/ResponsiveDrawer.component.js';
-import { Theme } from '@material-ui/core';
 
 type Props = {
   classes: any,
@@ -134,6 +134,7 @@ const styles = (theme: Theme) => ({
   appBar: {
     marginTop: -theme.spacing(2),
     width: '100%',
+
     [theme.breakpoints.up('md')]: {
       width: `calc(100vw - ${drawerWidth}px)`,
     },
@@ -145,9 +146,6 @@ export default compose(
   withStyles(styles),
   routerParamsToProps({ tab: 'tab' }),
   withRouter,
-  connect(
-    null,
-    { push },
-  ),
-  withTitle(({ t }: { t: TFunction }) => t('titles:settings')),
+  connect(null, { push }),
+  withTitle(({ t }: { t: TFunction }) => t('titles:settings'))
 )(Settings);

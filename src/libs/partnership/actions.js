@@ -8,7 +8,7 @@ import {
   updateParntership as updateParntershipAPI,
 } from './api';
 
-import type { Dispatch, OptionCallback } from '../../state/types.ts';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const listPartnershipActions = {
   error: createAction('PARTNERSHIP/LIST/ERROR'),

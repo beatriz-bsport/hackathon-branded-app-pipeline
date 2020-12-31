@@ -30,7 +30,7 @@ import {
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { sendCommunication } from '../../libs/communication/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
-import themeSelectors from '../../libs/theme/selectors.ts';
+import themeSelectors from '../../libs/theme/selectors';
 import {
   registerBooking as registerBookingAction,
   fetchBookingsByOffer as fetchBookingsByOfferAction,
@@ -55,7 +55,7 @@ import {
 } from '../../libs/booking/selectors';
 import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '../../libs/consumer-payment-pack/actions';
 
-import { fetchPrivatePassList } from '../../libs/private-service/actions.ts';
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import {
   emailTemplateDetail,

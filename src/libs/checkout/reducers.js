@@ -9,7 +9,6 @@ import type { CheckoutState } from './types';
 
 const initialState: CheckoutState = Immutable({
   basket: {
-    items: [],
     current: {
       data: null,
       loading: false,

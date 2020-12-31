@@ -1,5 +1,3 @@
-// @flow
-
 export type BackgroundTask = {
   uuid: string,
   status: boolean,
@@ -7,7 +5,7 @@ export type BackgroundTask = {
 };
 
 export type BackgroundTaskState = {
-  byUuid: { [string]: BackgroundTask },
+  byUuid: { [key: string]: BackgroundTask },
   loading: boolean,
-  error: ?Error,
+  error?: Error,
 };

@@ -42,7 +42,7 @@ import './main.scss';
 import './custom.scss';
 import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.component';
 // import { getTextColorFromRGB } from '../../../color';
-import type { AvailabilitySlot, PrivateBooking } from '../types.ts';
+import type { AvailabilitySlot, PrivateBooking } from '../types';
 
 const styles = (theme) => ({
   container: {},

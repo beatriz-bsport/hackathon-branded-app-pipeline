@@ -12,7 +12,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import type { Theme } from '../../theme/types.ts';
+import type { Theme } from '../../theme/types';
 
 type Props = {
   theme: Theme,

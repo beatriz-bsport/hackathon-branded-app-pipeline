@@ -7,7 +7,7 @@ import {
   updateUserRole as updateUserRoleAPI,
   deleteStaffUser as deleteStaffUserAPI,
 } from './api';
-import type { Dispatch } from '../../state/types.ts';
+import type { Dispatch } from '../../state/types';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 export const roleList = {

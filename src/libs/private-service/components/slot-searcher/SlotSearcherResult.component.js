@@ -17,7 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { splitIntervalList } from '../../utils.ts';
+import { splitIntervalList } from '../../utils';
 
 const stylesSlot = (theme) => ({
   columnContainer: {

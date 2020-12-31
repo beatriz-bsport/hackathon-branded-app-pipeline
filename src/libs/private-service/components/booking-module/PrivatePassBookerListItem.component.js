@@ -8,7 +8,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import type { PrivatePass } from '../../types.ts';
+import type { PrivatePass } from '../../types';
 
 type Props = {
   private_pass: PrivatePass,

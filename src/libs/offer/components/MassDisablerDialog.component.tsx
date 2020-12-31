@@ -49,9 +49,9 @@ export const MassDisablerDialog = (props: Props) => {
           <DateRangePicker
             startDate={startDate}
             endDate={endDate}
-            onRangeChange={(startDate: string, endDate: string) => {
-              props.setStartDate(startDate);
-              props.setEndDate(endDate);
+            onRangeChange={(startDate_: string, endDate_: string) => {
+              props.setStartDate(startDate_);
+              props.setEndDate(endDate_);
             }}
           />
         </DialogContent>
@@ -121,12 +121,12 @@ export const MassDisablerDialog = (props: Props) => {
 export default compose(
   withState('loading', 'setLoading', false),
   withState('startDate', 'setStartDate', (props: { startDate: string }) =>
-    props.startDate
+    (props.startDate
       ? props.startDate
-      : moment(props.startDate).format('YYYY-MM-DD'),
+      : moment(props.startDate).format('YYYY-MM-DD'))
   ),
   withState('endDate', 'setEndDate', (props: { endDate: string }) =>
-    props.endDate ? moment(props.endDate) : moment(),
+    (props.endDate ? moment(props.endDate) : moment())
   ),
-  withState('secondWarningOpen', 'setSecondWarningOpen', false),
+  withState('secondWarningOpen', 'setSecondWarningOpen', false)
 )(MassDisablerDialog);

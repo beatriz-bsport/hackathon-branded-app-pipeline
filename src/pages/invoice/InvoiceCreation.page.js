@@ -25,7 +25,7 @@ import withQueryParams from '../../hocs/with-query-params.hoc';
 
 import { getBuyableItem } from '../../libs/invoice/selectors';
 
-import { fetchPrivatePassList } from '../../libs/private-service/actions.ts';
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 
 import InvoiceFormV2 from '../../libs/invoice/components/InvoiceFormV2.component';

@@ -1,5 +1,4 @@
-import React from 'react';
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Moment } from 'moment-timezone';
 
@@ -7,7 +6,6 @@ import {
   ButtonBase,
   Typography,
   makeStyles,
-  CircularProgress,
 } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
@@ -15,7 +13,7 @@ import {
   groupSessionsByDayMoment,
   splitIntervalList,
   // @ts-ignore
-} from '../../../../../libs/private-service/utils.ts';
+} from '../../../../../libs/private-service/utils';
 import {
   PrivateService,
   PrivateSlot,
@@ -44,19 +42,11 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
         sessionMoment.identifier === props.selectedSessionMoment.identifier
       );
     },
-    [props.selectedSessionMoment],
+    [props.selectedSessionMoment]
   );
 
   const classes = useStyles();
   const { t } = useTranslation(['datetime', 'privateService']);
-
-  const renderLoader = useCallback(() => {
-    return (
-      <div className={classes.centerView}>
-        <CircularProgress />
-      </div>
-    );
-  }, []);
 
   const renderNoSessions = useCallback(() => {
     return (
@@ -76,14 +66,14 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
       sessions = splitIntervalList(
         props.slots,
         props.privateSlot.duration_minutes,
-        props.privateService.booking_interval_minutes,
+        props.privateService.booking_interval_minutes
       );
     }
 
     const sessionsByDayMoment = groupSessionsByDayMoment(
       sessions,
       props.timezoneName,
-      props.date.format('YYYY-MM-DD'),
+      props.date.format('YYYY-MM-DD')
     );
 
     return sessionsByDayMoment.map((sessionMoment: SessionMoment) => {
@@ -92,11 +82,11 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
       }
 
       const label = t(
-        `privateService:slotSearcher.groupIdentifier.${sessionMoment.identifier}.label`,
+        `privateService:slotSearcher.groupIdentifier.${sessionMoment.identifier}.label`
       );
 
       const interval = t(
-        `privateService:slotSearcher.groupIdentifier.${sessionMoment.identifier}.interval`,
+        `privateService:slotSearcher.groupIdentifier.${sessionMoment.identifier}.interval`
       );
 
       const slotCount = t('privateService:slotSearcher.nbSlot', {
@@ -125,7 +115,7 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
               className={classes.absoluteTopLeft}
             />
             <div className={classes.row}>
-              <Typography align={'left'} variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 {label}
               </Typography>
             </div>
@@ -150,23 +140,22 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
   }, [props.privateSlot, props.privateService, props.timezoneName, props.date]);
 
   const weekDay = t(
-    `datetime:time.isoWeekdayNumber.${props.date.isoWeekday()}`,
+    `datetime:time.isoWeekdayNumber.${props.date.isoWeekday()}`
   );
   const month = t(
     `datetime:time.monthShort.${props.date
       .locale('en-US')
       .format('MMMM')
-      .toLowerCase()}`,
+      .toLowerCase()}`
   );
 
   return (
     <div className={classes.container}>
       <div className={classes.dateContainer}>
         <Typography variant="subtitle1">{weekDay}</Typography>
-        <Typography
-          variant="subtitle2"
-          color="textSecondary"
-        >{`${month} ${props.date.date()}`}</Typography>
+        <Typography variant="subtitle2" color="textSecondary">
+          {`${month} ${props.date.date()}`}
+        </Typography>
       </div>
 
       {!!props.slots && !!props.slots.length

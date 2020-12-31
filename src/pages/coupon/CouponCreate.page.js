@@ -21,8 +21,8 @@ import { fetchShopItemAsManager as fetchAllShop } from '../../libs/shop/actions/
 import { ShopItem } from '../../libs/shop/types';
 import { getShopItemsAvailable as getShopItems } from '../../libs/shop/selectors';
 
-import { fetchPrivatePassList } from '../../libs/private-service/actions.ts';
-import { PrivatePass } from '../../libs/private-service/types.ts';
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
+import { PrivatePass } from '../../libs/private-service/types';
 import { getPrivatePassAvailable as getPrivatePass } from '../../libs/private-service/selectors/private-pass';
 
 type Props = {

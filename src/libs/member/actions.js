@@ -27,7 +27,7 @@ import {
 
 import type { Member } from './types';
 
-import type { Dispatch } from '../../state/types.ts';
+import type { Dispatch } from '../../state/types';
 
 export const actionTypes = {
   START_FETCH_MEMBER: 'START_FETCH_MEMBER',

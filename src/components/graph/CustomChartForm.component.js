@@ -27,7 +27,6 @@ import PieChartIcon from '@material-ui/icons/PieChart';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import TableChartIcon from '@material-ui/icons/TableChart';
 
-import type { Graph } from '../../libs/dashboard/types';
 import CustomChartSelector from './CustomChartSelector.component';
 import CustomChartRadio from './CustomChartRadio.component';
 
@@ -42,7 +41,7 @@ type Props = {
   t: TFunction,
   classes: Object,
 
-  addGraph: (graph: Graph) => void,
+  addGraph: (graph: any) => void,
   graphRessources: { [string]: any },
   formOpen: boolean,
   setFormOpen: (formOpen: boolean) => void,
@@ -56,6 +55,7 @@ type State = {
   objectSelected: string,
   ressourceIdentifierSelected: string,
   aggregate: boolean,
+  chartTypeSelected: string,
 };
 
 export class CustomChartForm extends React.Component<Props, State> {
@@ -81,13 +81,11 @@ export class CustomChartForm extends React.Component<Props, State> {
       prevProps.graphRessources !== graphRessources
     ) {
       const ressourceIdentifierList = [];
-      const ressourceIconList = {};
 
       if (this.state.objectSelected && graphRessources) {
         for (const key in graphRessources) {
           if (graphRessources[key].object.type === this.state.objectSelected) {
             ressourceIdentifierList.push(key);
-            ressourceIconList[key] = graphRessources[key].iconResource;
           }
         }
       }

@@ -20,7 +20,7 @@ import CalendarEventDetail from '../containers/CalendarEventDetail.container';
 
 import PrivateBookingBooker from '../containers/PrivateBookingBooker.container';
 
-import type { ResourceData } from '../types.ts';
+import type { ResourceData } from '../types';
 
 type Props = {
   t: TFunction,

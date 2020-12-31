@@ -19,7 +19,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Task from './Task.component';
 import TaskFormDialog from './TaskFormDialog.component';
 
-import type { OptionCallback } from '../../../state/types.ts';
+import type { OptionCallback } from '../../../state/types';
 import type { TaskData } from '../types';
 
 type Props = {

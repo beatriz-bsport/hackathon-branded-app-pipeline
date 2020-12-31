@@ -1,6 +1,6 @@
 // @flow
 
-import { API_V1_URI, postAuth, getAuth, buildUrlParams } from '../../http.ts';
+import { API_V1_URI, postAuth, getAuth, buildUrlParams } from '../../http';
 import type { MemberMailData } from './types';
 
 export const sendMailToMembers = async (data: MemberMailData) => {

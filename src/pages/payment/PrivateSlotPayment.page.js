@@ -21,11 +21,11 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 
-import themeSelectors from '../../libs/theme/selectors.ts';
+import themeSelectors from '../../libs/theme/selectors';
 import MarketplaceAppBar from '../marketplace/MarketplaceAppBar.component';
 
 import MarketplaceBasketDialog from '../marketplace/MarketplaceBasketDialog.component';
-import { fetchCompanyTheme } from '../../libs/theme/actions.ts';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
 
 import {
   consumer as consumerActions,
@@ -48,7 +48,7 @@ import BookingCapabilities from '../../libs/private-service/components/booking-m
 import PrivateServiceListItem from '../../libs/private-service/components/service/PrivateServiceListItem.component';
 import PrivateSlotListItem from '../../libs/private-service/components/slot/PrivateSlotListItem.component';
 import { getPrivateSlot } from '../../libs/private-service/selectors/private-slot';
-import { getPrivateService } from '../../libs/private-service/selectors/private-service.ts';
+import { getPrivateService } from '../../libs/private-service/selectors/private-service';
 import { getPrivateConsumerPassList } from '../../libs/private-service/selectors/private-consumer-pass';
 import { getPrivatePassListWithPrivateService } from '../../libs/private-service/selectors/private-pass';
 import {
@@ -57,12 +57,12 @@ import {
   fetchCompatiblePrivatePass,
   fetchCompatiblePrivateConsumerPass,
   registerPrivateBooking,
-} from '../../libs/private-service/actions.ts';
+} from '../../libs/private-service/actions';
 import type {
   PrivateSlot,
   PrivateConsumerPass,
   PrivatePass,
-} from '../../libs/private-service/types.ts';
+} from '../../libs/private-service/types';
 
 type Props = {
   privateServiceId: number,

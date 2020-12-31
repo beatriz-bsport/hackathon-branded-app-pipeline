@@ -18,8 +18,8 @@ import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import Divider from '@material-ui/core/Divider';
 
 import RedButton from '../../../../components/button/RedButton.component';
-import type { PrivateConsumerPass } from '../../types.ts';
-import { getExpirationDate } from '../../utils.ts';
+import type { PrivateConsumerPass } from '../../types';
+import { getExpirationDate } from '../../utils';
 
 type Props = {
   private_consumer_pass: PrivateConsumerPass,

@@ -2,7 +2,7 @@
 
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 import type { OrderWithProducts } from './types';
 import { getMemberDetailData } from '../member/selectors';
 

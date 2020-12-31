@@ -29,7 +29,7 @@ import PrivatePassListItem from '../../private-service/components/pass/PrivatePa
 
 import type { PaymentPack } from '../../payment-packs/types';
 import type { ShopItem } from '../../shop/types';
-import type { PrivatePass } from '../../private-service/types.ts';
+import type { PrivatePass } from '../../private-service/types';
 
 type Props = {
   t: TFunction,

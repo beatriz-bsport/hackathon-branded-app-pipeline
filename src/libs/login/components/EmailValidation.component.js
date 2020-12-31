@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import CheckIcon from '@material-ui/icons/Check';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
-import type { OptionCallback } from '../../../state/types.ts';
+import type { OptionCallback } from '../../../state/types';
 
 import RedButton from '../../../components/button/RedButton.component';
 

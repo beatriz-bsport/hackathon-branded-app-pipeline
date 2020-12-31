@@ -14,7 +14,7 @@ import {
   updateSettings as updateSettingsAPI,
 } from './api';
 
-import type { Dispatch, OptionCallback } from '../../state/types.ts';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const notificationRuleListActions = {
   error: createAction('NOTIFICATION_RULE/LIST/ERROR'),

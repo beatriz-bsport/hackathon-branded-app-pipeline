@@ -1,7 +1,5 @@
-// @flow
-
 import React from 'react';
-import { ButtonBase, Typography } from '@material-ui/core';
+import { ButtonBase, Typography, makeStyles } from '@material-ui/core';
 import moment from 'moment-timezone';
 
 import CoachChip from '../../../../../libs/associated-coach/components/CoachChip.component';
@@ -9,8 +7,6 @@ import {
   PrivateCoach,
   PrivateEstablishment,
 } from '../../../../../libs/private-service/types';
-import { makeStyles } from '@material-ui/core/styles';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 type Props = {
   coach: PrivateCoach | null,
@@ -26,11 +22,11 @@ type Props = {
 };
 
 const SessionForCoachSelector: React.FC<Props> = (props) => {
+  const classes = useStyles();
+
   if (!props.sessions.length) {
     return null;
   }
-
-  const classes = useStyles();
 
   return (
     <div
@@ -63,7 +59,7 @@ const SessionForCoachSelector: React.FC<Props> = (props) => {
                   props.onSessionSelect(
                     session,
                     props.establishment?.id,
-                    props.coach?.id,
+                    props.coach?.id
                   )
                 }
               >
@@ -75,7 +71,7 @@ const SessionForCoachSelector: React.FC<Props> = (props) => {
                   }}
                 >
                   <Typography variant="subtitle2">{start}</Typography>
-                  <Typography variant="subtitle2">{'➔ ' + end}</Typography>
+                  <Typography variant="subtitle2">{`➔ ${end}`}</Typography>
                 </div>
               </ButtonBase>
             </div>

@@ -17,7 +17,7 @@ export const getAllCoachesId = (state: RootState): Array<number> =>
   state.coach.allIds;
 export const getCoaches = createSelector(
   getAllCoachesDict,
-  (coach) => Object.values(coach),
+  (coach) => Object.values(coach)
 );
 
 export const getCoachesList = (state: RootState): Array<Coach> =>
@@ -25,17 +25,17 @@ export const getCoachesList = (state: RootState): Array<Coach> =>
 
 export const getAllCoaches = createSelector(
   [getAllCoachesId, getAllCoachesDict],
-  (ids, data) => ids.map((id) => data[id]),
+  (ids, data) => ids.map((id) => data[id])
 );
 
 export const getActiveCoaches = createSelector(
   getAllCoaches,
-  (coaches) => coaches.filter((c) => !c.disabled),
+  (coaches) => coaches.filter((c) => !c.disabled)
 );
 
 export const getInactiveCoaches = createSelector(
   getAllCoaches,
-  (coaches) => coaches.filter((c) => c.disabled),
+  (coaches) => coaches.filter((c) => c.disabled)
 );
 
 export const getCoach = (state: RootState, id: number): Coach =>
@@ -43,19 +43,19 @@ export const getCoach = (state: RootState, id: number): Coach =>
 
 export const getCoachWithPaymentRule = createSelector(
   getActiveCoaches,
-  (coaches) => coaches.filter((coach) => !!coach.default_payment_rule_id),
+  (coaches) => coaches.filter((coach) => !!coach.default_payment_rule_id)
 );
 
 export const associatedCoachSelector = {
   get: (state: RootState, coachId: number) =>
     Object.values(getAllCoaches(state)).find(
-      (co) => co.associated_coach_id === coachId,
+      (co) => co.associated_coach_id === coachId
     ),
   getActive: (state: RootState) =>
     Object.values(state.coach.byId).filter((c) => !c.disabled),
   withPaymentRule: (state: RootState) =>
     Object.values(state.coach.byId).filter(
-      (x) => !!x.default_payment_rule_id && !x.disabled,
+      (x) => !!x.default_payment_rule_id && !x.disabled
     ),
 };
 
@@ -66,7 +66,7 @@ const getCoachPerformanceState = (state: RootState) => state.coach.performance;
 
 const getCoachPerformanceStateById = (
   state: RootState,
-  associatedCoachId: number,
+  associatedCoachId: number
 ) => {
   const performanceContainer = getCoachPerformanceState(state)[
     associatedCoachId
@@ -79,12 +79,12 @@ const getCoachPerformanceStateById = (
 
 const getCoachPerformance = createCachedSelector(
   [getCoachPerformanceStateById],
-  (performanceContainer) => performanceContainer.result,
+  (performanceContainer) => performanceContainer.result
 )((state, associatedCoachId) => associatedCoachId);
 
 const isLoadingCoachPerformance = createCachedSelector(
   [getCoachPerformanceStateById],
-  (performanceContainer) => performanceContainer.loading,
+  (performanceContainer) => performanceContainer.loading
 )((state, associatedCoachId) => associatedCoachId);
 
 export const coachPerformanceSelector = {
@@ -94,5 +94,5 @@ export const coachPerformanceSelector = {
 
 export const getFreshCoachIds = createSelector(
   getAllCoachesDict,
-  (coachDict) => Object.keys(coachDict).map((k) => parseInt(k, 10)),
+  (coachDict) => Object.keys(coachDict).map((k) => parseInt(k, 10))
 );

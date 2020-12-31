@@ -19,8 +19,8 @@ import {
   getPrivateServiceById,
   getPrivateServices,
   getPrivateServiceGroupList,
-} from '../../libs/private-service/selectors/private-service.ts';
-import { getResourceSlotsExistState } from '../../libs/private-service/selectors/availability-slot.ts';
+} from '../../libs/private-service/selectors/private-service';
+import { getResourceSlotsExistState } from '../../libs/private-service/selectors/availability-slot';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import { getAllEstablishmentsWithAssociatedId } from '../../libs/establishment/selectors.ts';
 import {
@@ -44,8 +44,8 @@ import {
   checkExistsAvailabilitySlots,
   createOrUpdateServiceGroup as createOrUpdateServiceGroupAction,
   fetchPrivateServiceGroupList as fetchPrivateServiceGroupListAction,
-} from '../../libs/private-service/actions.ts';
-import type { PrivateService } from '../../libs/private-service/types.ts';
+} from '../../libs/private-service/actions';
+import type { PrivateService } from '../../libs/private-service/types';
 import {
   fetchMarketingNotificationList as fetchMarketingNotificationListAction,
   createMarketingNotification as createMarketingNotificationAction,

@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
-
-const moment = require('moment-timezone');
+import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
+
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 import {
@@ -76,7 +76,8 @@ import {
 
 import { fetchAll as fetchAlerting } from '../alerting/actions';
 
-import { Dispatch, ThunkAction, OptionCallback } from '../../state/types.ts';
+import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import { PrivateService, PrivateSlot } from './types';
 
 export const privateBookingAttachCoachActions = {
   error: createAction('PRIVATE_BOOKING/ATTACH_COACH/ERROR'),
@@ -90,7 +91,7 @@ export function attachCoachToPrivateBooking(
     notify: boolean,
     coach: number,
   },
-  options?: { onSuccess: (...args) => void, onError?: () => void },
+  options?: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingAttachCoachActions.isLoading(true));
@@ -146,7 +147,7 @@ export const availabilitySlotExistsActions = {
 
 export function checkExistsAvailabilitySlots(
   resourceDatatype: string,
-  resourceIdentifier: number,
+  resourceIdentifier: number
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(
@@ -154,14 +155,14 @@ export function checkExistsAvailabilitySlots(
         resourceDatatype,
         resourceIdentifier,
         loading: true,
-      }),
+      })
     );
     dispatch(
       availabilitySlotExistsActions.error({
         resourceDatatype,
         resourceIdentifier,
         error: null,
-      }),
+      })
     );
     try {
       const response = await checkExistsAvailabilitySlotsAPI({
@@ -174,7 +175,7 @@ export function checkExistsAvailabilitySlots(
           resourceDatatype,
           resourceIdentifier,
           ...response.data,
-        }),
+        })
       );
     } catch (err) {
       console.error(err);
@@ -183,7 +184,7 @@ export function checkExistsAvailabilitySlots(
           resourceDatatype,
           resourceIdentifier,
           error: err,
-        }),
+        })
       );
     }
     dispatch(
@@ -191,7 +192,7 @@ export function checkExistsAvailabilitySlots(
         resourceDatatype,
         resourceIdentifier,
         loading: false,
-      }),
+      })
     );
   };
 }
@@ -206,7 +207,7 @@ export function updateServiceResourceConfiguration(
   privateServiceId: number,
   resourceIdentifier: string,
   data: any,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(updateResourceConfigurationActions.isLoading(true));
@@ -215,7 +216,7 @@ export function updateServiceResourceConfiguration(
       const response = await updateServiceResourceConfigurationAPI(
         privateServiceId,
         resourceIdentifier,
-        data,
+        data
       );
       dispatch(updateResourceConfigurationActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
@@ -274,7 +275,7 @@ export function enableResourceAvailabilitySlot(
     recurrence_until?: string,
     all_date_start: string[],
   },
-  options: OptionCallback,
+  options?: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(availabilitySlotUpdateActions.isLoading(true));
@@ -289,7 +290,7 @@ export function enableResourceAvailabilitySlot(
       dispatch(availabilitySlotUpdateActions.success());
       dispatch(availabilitySlotListActions.reset(resourceData));
       dispatch(
-        fetchAvailabilitySlots({ ...resourceData, date_start, date_end }),
+        fetchAvailabilitySlots({ ...resourceData, date_start, date_end })
       );
       if (options && options.onSuccess) {
         options.onSuccess();
@@ -316,7 +317,7 @@ export function disableResourceAvailabilitySlot(
     date_end: string,
     all_date_start: string[],
   },
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(availabilitySlotUpdateActions.isLoading(true));
@@ -331,7 +332,7 @@ export function disableResourceAvailabilitySlot(
       dispatch(availabilitySlotUpdateActions.success());
       dispatch(availabilitySlotListActions.reset(resourceData));
       dispatch(
-        fetchAvailabilitySlots({ ...resourceData, date_start, date_end }),
+        fetchAvailabilitySlots({ ...resourceData, date_start, date_end })
       );
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
@@ -344,78 +345,78 @@ export function disableResourceAvailabilitySlot(
 }
 
 export const disableCoachAvailabilitySlot = (
-  coach,
+  coach: any, // TODO CHECK THIS
   obj: {
     recurrence_until?: string,
     date_start: string,
     date_end: string,
     all_date_start: string[],
   },
-  options: OptionCallback,
+  options: OptionCallback
 ) => disableResourceAvailabilitySlot({ coach }, obj, options);
 
 export const enableCoachAvailabilitySlot = (
-  coach,
+  coach: any, // TODO CHECK THIS
   obj: {
     recurrence_until?: string,
     date_start: string,
     date_end: string,
     all_date_start: string[],
   },
-  options: OptionCallback,
+  options: OptionCallback
 ) => enableResourceAvailabilitySlot({ coach }, obj, options);
 
 export const disablePrivateServiceAvailabilitySlot = (
-  privateServiceId,
+  privateServiceId: number,
   obj: {
     recurrence_until?: string,
     date_start: string,
     date_end: string,
     all_date_start: string[],
   },
-  options: OptionCallback,
+  options: OptionCallback
 ) =>
   disableResourceAvailabilitySlot(
     { private_service: privateServiceId },
     obj,
-    options,
+    options
   );
 export const enablePrivateServiceAvailabilitySlot = (
-  privateServiceId,
+  privateServiceId: number,
   obj: {
     recurrence_until?: string,
     date_start: string,
     date_end: string,
     all_date_start: string[],
   },
-  options: OptionCallback,
+  options: OptionCallback
 ) =>
   enableResourceAvailabilitySlot(
     { private_service: privateServiceId },
     obj,
-    options,
+    options
   );
 
 export const disableEstablishmentAvailabilitySlot = (
-  establishment,
+  establishment: any, // TODO CHECK THIS
   obj: {
     recurrence_until?: string,
     date_start: string,
     date_end: string,
     all_date_start: string[],
   },
-  options: OptionCallback,
+  options: OptionCallback
 ) => disableResourceAvailabilitySlot({ establishment }, obj, options);
 
 export const enableEstablishmentAvailabilitySlot = (
-  establishment,
+  establishment: any, // TODO CHECK THIS
   obj: {
     recurrence_until?: string,
     date_start: string,
     date_end: string,
     all_date_start: string[],
   },
-  options: OptionCallback,
+  options: OptionCallback
 ) => enableResourceAvailabilitySlot({ establishment }, obj, options);
 
 export const privateServiceMarketplaceListActions = {
@@ -426,7 +427,7 @@ export const privateServiceMarketplaceListActions = {
 
 export function fetchMarketplacePrivateServices(
   company: number,
-  options?: OptionCallback,
+  options?: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceMarketplaceListActions.isLoading(true));
@@ -455,7 +456,7 @@ export const privateServiceListActions = {
 
 export function fetchAllPrivateServices(
   params: any = {},
-  options?: OptionCallback,
+  options?: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceListActions.isLoading(true));
@@ -481,7 +482,7 @@ export const privateServiceRetrieveActions = {
 
 export function fetchPrivateService(
   id: number,
-  options?: OptionCallback,
+  options?: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceRetrieveActions.isLoading(true));
@@ -507,7 +508,7 @@ export const resourceListActions = {
 
 export function fetchPrivateServiceResourceData(
   id: number,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(resourceListActions.isLoading(true));
@@ -527,7 +528,7 @@ export function fetchPrivateServiceResourceData(
 
 export function fetchResourceList(
   params: any = {},
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(resourceListActions.isLoading(true));
@@ -553,7 +554,7 @@ export const privateServiceCreateOrUpdateActions = {
 
 export function createOrUpdatePrivateService(
   data: any,
-  options?: OptionCallback,
+  options?: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceCreateOrUpdateActions.isLoading(true));
@@ -578,7 +579,7 @@ export const serviceGroupDeleteActions = {
 
 export function deleteServiceGroup(
   id: number,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(serviceGroupDeleteActions.isLoading(true));
@@ -598,7 +599,7 @@ export function deleteServiceGroup(
 
 export function deletePrivateService(
   id: number,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceCreateOrUpdateActions.isLoading(true));
@@ -624,7 +625,7 @@ export const privateSlotRetrieveActions = {
 
 export function fetchPrivateSlot(
   privateServiceId: number,
-  privateSlotId: number,
+  privateSlotId: number
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateSlotRetrieveActions.isLoading(true));
@@ -632,7 +633,7 @@ export function fetchPrivateSlot(
     try {
       const response = await fetchPrivateSlotRetrieveAPI(
         privateServiceId,
-        privateSlotId,
+        privateSlotId
       );
       dispatch(privateSlotRetrieveActions.success(response.data));
     } catch (err) {
@@ -658,7 +659,7 @@ export const privateSlotBulkActions = {
 
 export function fetchPrivateSlotBulk(
   ids: Array<number>,
-  options: OptionCallback,
+  options: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(privateSlotBulkActions.isLoading(true));
@@ -688,7 +689,7 @@ export const privateServiceBulkActions = {
 
 export function fetchPrivateServiceBulk(
   ids: Array<number>,
-  options: OptionCallback,
+  options: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceBulkActions.isLoading(true));
@@ -750,7 +751,7 @@ export function createOrUpdatePrivateSlot(
   privateServiceId: number,
   data: any,
   slotId?: number,
-  options?: OptionCallback,
+  options?: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateSlotCreateOrUpdateActions.isLoading(true));
@@ -759,7 +760,7 @@ export function createOrUpdatePrivateSlot(
       const response = await createOrUpdatePrivateSlotAPI(
         privateServiceId,
         data,
-        slotId,
+        slotId
       );
       dispatch(privateSlotCreateOrUpdateActions.success(response.data));
       dispatch(fetchPrivateService(privateServiceId));
@@ -782,7 +783,7 @@ export const privateSlotDeleteActions = {
 export function deletePrivateSlot(
   privateServiceId: number,
   slotId: number,
-  options?: OptionCallback,
+  options?: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateSlotDeleteActions.isLoading(true));
@@ -804,16 +805,16 @@ export function deletePrivateSlot(
 export const switchServiceHasOwnAvailabilitySlotsActions = {
   error: createAction('PRIVATE_SERVICE/SWITCH_HAS_OWN_AVAILABILITY_SLOT/ERROR'),
   isLoading: createAction(
-    'PRIVATE_SERVICE/SWITCH_HAS_OWN_AVAILABILITY_SLOT/IS_LOADING',
+    'PRIVATE_SERVICE/SWITCH_HAS_OWN_AVAILABILITY_SLOT/IS_LOADING'
   ),
   success: createAction(
-    'PRIVATE_SERVICE/SWITCH_HAS_OWN_AVAILABILITY_SLOT/SUCCESS',
+    'PRIVATE_SERVICE/SWITCH_HAS_OWN_AVAILABILITY_SLOT/SUCCESS'
   ),
 };
 
 export function switchServiceHasOwnAvailabilitySlots(
   privateServiceId: number,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(switchServiceHasOwnAvailabilitySlotsActions.isLoading(true));
@@ -842,7 +843,7 @@ export const privateServiceWithSlotRetrieveActions = {
 export function fetchPrivateServiceWithSlotList(
   companyId: number,
   params: any,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceWithSlotListActions.isLoading(true));
@@ -856,19 +857,22 @@ export function fetchPrivateServiceWithSlotList(
 
       dispatch(
         privateServiceListActions.success(
-          response.data.map((service) => ({
+          response.data.map((service: PrivateService) => ({
             ...service,
-            slots: service.slots.map((slot) => slot.id),
-          })),
-        ),
+            slots: service.slots.map((slot: PrivateSlot) => slot.id),
+          }))
+        )
       );
       dispatch(
         privateSlotListActions.success(
           response.data.reduce(
-            (acc, service) => [...acc, ...service.slots],
-            [],
-          ),
-        ),
+            (acc: PrivateSlot[], service: PrivateService) => [
+              ...acc,
+              ...service.slots,
+            ],
+            []
+          )
+        )
       );
 
       if (options && options.onSuccess) options.onSuccess();
@@ -883,7 +887,7 @@ export function fetchPrivateServiceWithSlotList(
 
 export function fetchPrivateServiceWithSlot(
   privateServiceId: number,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceWithSlotRetrieveActions.isLoading(true));
@@ -895,11 +899,11 @@ export function fetchPrivateServiceWithSlot(
 
       dispatch(
         privateServiceRetrieveActions.success(
-          response.data.map((service) => ({
+          response.data.map((service: PrivateService) => ({
             ...service,
-            slots: service.slots.map((slot) => slot.id),
-          })),
-        ),
+            slots: service.slots.map((slot: PrivateSlot) => slot.id),
+          }))
+        )
       );
       dispatch(privateSlotListActions.success(response.data.slots));
 
@@ -928,22 +932,22 @@ export function searchAvailableSlots(
   associatedCoachIdList: Array<number>,
   date: Array<string> | string,
   associatedEstablishmentIdList: Array<number>,
-  options?: OptionCallback,
+  options?: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(availabilitySlotSearchActions.isLoading(true));
     dispatch(availabilitySlotSearchActions.error(null));
     try {
-      let dateArr = Array.isArray(date) ? date : [date];
-      let result = [];
+      const dateArr = Array.isArray(date) ? date : [date];
+      let result: any[] = [];
 
-      for (let i = 0; i < dateArr.length; i++) {
+      for (let i = 0; i < dateArr.length; i += 1) {
         const response = await searchAvailableSlotsAPI(
           privateServiceId,
           privateSlotId,
           associatedCoachIdList,
           dateArr[i],
-          associatedEstablishmentIdList,
+          associatedEstablishmentIdList
         );
 
         result = [...result, ...response.data];
@@ -1112,7 +1116,7 @@ export const privatePassCreateOrUpdateActions = {
 export function createOrUpdatePrivatePass(
   data: any,
   id: number,
-  options: OptionCallback,
+  options: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(privatePassCreateOrUpdateActions.isLoading(true));
@@ -1186,7 +1190,7 @@ export const privateServiceCompatiblePassActions = {
 export function deleteCompatibleServicePass(
   privatePassId: number,
   privateServiceId: number,
-  options: OptionCallback,
+  options: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceCompatiblePassActions.isLoading(true));
@@ -1208,7 +1212,7 @@ export function deleteCompatibleServicePass(
 export function createCompatibleServicePass(
   privatePassId: number,
   privateServiceId: number,
-  options: OptionCallback,
+  options: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceCompatiblePassActions.isLoading(true));
@@ -1218,8 +1222,8 @@ export function createCompatibleServicePass(
       dispatch(
         privateServiceCompatiblePassActions.create(
           privatePassId,
-          privateServiceId,
-        ),
+          privateServiceId
+        )
       );
       dispatch(fetchPrivatePassRetrieve(privatePassId));
       if (options && options.onSuccess) options.onSuccess();
@@ -1252,7 +1256,7 @@ export const byPrivatePass = {
 
 export function fetchPrivateConsumerPassList(
   params: any,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateConsumerPassListActions.isLoading(true));
@@ -1277,7 +1281,7 @@ export function fetchByPrivatePass(
   page?: number,
   page_size?: number,
   options?: OptionCallback,
-  params?: any,
+  params?: any
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(byPrivatePass.isLoading(true));
@@ -1320,7 +1324,7 @@ export const byMember = {
 export function fetchPrivateConsumerPassByMember(
   member: number,
   options?: OptionCallback,
-  params?: any,
+  params?: any
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(byMember.isLoading(true));
@@ -1350,7 +1354,7 @@ export function fetchPrivateConsumerPassByMember(
 export function fetchCompatiblePrivateConsumerPass(
   privateSlotId: number,
   params: any,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateConsumerPassListActions.isLoading(true));
@@ -1358,7 +1362,7 @@ export function fetchCompatiblePrivateConsumerPass(
     try {
       const response = await fetchCompatiblePrivateConsumerPassAPI(
         privateSlotId,
-        params,
+        params
       );
       dispatch(privateConsumerPassListActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess();
@@ -1379,14 +1383,14 @@ export const privateConsumerPassRetrieveActions = {
 
 export function fetchPrivateConsumerPass(
   private_consumer_pass: number,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateConsumerPassRetrieveActions.isLoading(true));
     dispatch(privateConsumerPassRetrieveActions.error(null));
     try {
       const response = await retrievePrivateConsumerPassAPI(
-        private_consumer_pass,
+        private_consumer_pass
       );
       dispatch(privateConsumerPassRetrieveActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess();
@@ -1408,7 +1412,7 @@ export const privateConsumerPassUpdateCreditActions = {
 export function updatePrivateConsumerPassCredits(
   id: number,
   credits: number,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateConsumerPassUpdateCreditActions.isLoading(true));
@@ -1454,7 +1458,7 @@ export function fetchPrivateConsumerPassBulk(ids: Array<number>) {
 export function fetchCompatiblePrivatePass(
   privateSlotId: number,
   params: any,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privatePassListActions.isLoading(true));
@@ -1462,7 +1466,7 @@ export function fetchCompatiblePrivatePass(
     try {
       const response = await fetchCompatiblePrivatePassAPI(
         privateSlotId,
-        params,
+        params
       );
       dispatch(privatePassListActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess();
@@ -1486,7 +1490,7 @@ export const resetPrivateBookings = privateBookingListActions.reset;
 
 export function fetchPrivateBookings(
   params: any,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingListActions.isLoading(true));
@@ -1514,7 +1518,7 @@ export const privateBookingRetrieveActions = {
 
 export function fetchPrivateBooking(
   id: number,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingRetrieveActions.isLoading(true));
@@ -1534,7 +1538,7 @@ export function fetchPrivateBooking(
 
 export function registerPrivateBooking(
   params: any,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingCreateOrUpdateActions.isLoading(true));
@@ -1561,7 +1565,7 @@ export const privateBookingCreateOrUpdateActions = {
 export function updatePrivateBookingDatetime(
   id: number,
   datetime: string,
-  options: OptionCallback,
+  options: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingCreateOrUpdateActions.isLoading(true));
@@ -1582,7 +1586,7 @@ export function updatePrivateBookingDatetime(
 export function updatePrivateBookingCoach(
   privateBookingId: number,
   updatedCoachId: number,
-  options: OptionCallback,
+  options: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingCreateOrUpdateActions.isLoading(true));
@@ -1590,7 +1594,7 @@ export function updatePrivateBookingCoach(
     try {
       const response = await updatePrivateBookingCoachAPI(
         privateBookingId,
-        updatedCoachId,
+        updatedCoachId
       );
       dispatch(privateBookingCreateOrUpdateActions.success(response.data));
       dispatch(snackbarSuccess('privateBooking.updateCoach.success'));
@@ -1607,9 +1611,9 @@ export function updatePrivateBookingCoach(
 
 export function disablePrivateBooking(
   id: number,
-  //@ts-ignore
+  // @ts-ignore
   data: { force_refund: boolean, send_mail: boolean } = {},
-  options?: OptionCallback,
+  options?: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingCreateOrUpdateActions.isLoading(true));
@@ -1629,7 +1633,7 @@ export function disablePrivateBooking(
 
 export function restorePrivateBooking(
   id: number,
-  options?: OptionCallback,
+  options?: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingCreateOrUpdateActions.isLoading(true));
@@ -1657,7 +1661,7 @@ export const privateBookingDeleteActions = {
 export function deletePrivateBooking(
   id: number,
   data: { force_refund: boolean, send_mail: boolean },
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingDeleteActions.isLoading(true));
@@ -1683,7 +1687,7 @@ export const listRecurrenceRulePrivateBookingActions = {
 
 export function fetchRecurrenceRulePrivateBooking(
   params: any,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(listRecurrenceRulePrivateBookingActions.isLoading(true));
@@ -1705,27 +1709,39 @@ export function fetchRecurrenceRulePrivateBooking(
 
 export const createOrUpdateRecurrenceRulePrivateBookingActions = {
   error: createAction('RECURENCE_RULE_PRIVATE_BOOKING/CREATE_OR_UPDATE/ERROR'),
-  isLoading: createAction('RECURENCE_RULE_PRIVATE_BOOKING/CREATE_OR_UPDATE/IS_LOADING'),
-  success: createAction('RECURENCE_RULE_PRIVATE_BOOKING/CREATE_OR_UPDATE/SUCCESS'),
+  isLoading: createAction(
+    'RECURENCE_RULE_PRIVATE_BOOKING/CREATE_OR_UPDATE/IS_LOADING'
+  ),
+  success: createAction(
+    'RECURENCE_RULE_PRIVATE_BOOKING/CREATE_OR_UPDATE/SUCCESS'
+  ),
 };
 
 export function createOrUpdateRecurrenceRulePrivateBooking(
   data: any,
-  options: OptionCallback,
+  options: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.isLoading(true));
     dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.error(null));
     try {
-      const response = await createOrUpdateRecurrenceRulePrivateBookingAPI(data);
-      dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.success(response.data));
+      const response = await createOrUpdateRecurrenceRulePrivateBookingAPI(
+        data
+      );
+      dispatch(
+        createOrUpdateRecurrenceRulePrivateBookingActions.success(
+          response.data
+        )
+      );
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
       dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.error(err));
       if (options && options.onError) options.onError(err);
     }
-    dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.isLoading(false));
+    dispatch(
+      createOrUpdateRecurrenceRulePrivateBookingActions.isLoading(false)
+    );
   };
 }
 
@@ -1737,7 +1753,7 @@ export const deleteRecurrenceRulePrivateBookingActions = {
 
 export function deleteRecurrenceRulePrivateBooking(
   id: number,
-  options: OptionCallback,
+  options: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteRecurrenceRulePrivateBookingActions.isLoading(true));
@@ -1778,7 +1794,7 @@ export const deletePrivateConsumerPassExtensionActions = {
 
 export function deletePrivateConsumerPassExtension(
   id: number,
-  options: OptionCallback,
+  options: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(deletePrivateConsumerPassExtensionActions.isLoading(true));
@@ -1797,7 +1813,7 @@ export function deletePrivateConsumerPassExtension(
 }
 export function createPrivateConsumerPassExtension(
   data: any,
-  options: OptionCallback,
+  options: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(createPrivateConsumerPassExtensionActions.isLoading(true));
@@ -1805,7 +1821,7 @@ export function createPrivateConsumerPassExtension(
     try {
       const response = await createPrivateConsumerPassExtensionAPI(data);
       dispatch(
-        createPrivateConsumerPassExtensionActions.success(response.data),
+        createPrivateConsumerPassExtensionActions.success(response.data)
       );
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
@@ -1821,7 +1837,7 @@ export function createPrivateConsumerPassExtension(
 
 export function fetchPrivateConsumerPassExtensionList(
   privateConsumerPassId: number,
-  options: OptionCallback,
+  options: OptionCallback
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(listPrivateConsumerPassExtensionActions.reset());
@@ -1829,11 +1845,11 @@ export function fetchPrivateConsumerPassExtensionList(
     dispatch(listPrivateConsumerPassExtensionActions.error(null));
     try {
       const response = await fetchPrivateConsumerPassExtensionListAPI(
-        privateConsumerPassId,
+        privateConsumerPassId
       );
       // TODO handle pagination
       dispatch(
-        listPrivateConsumerPassExtensionActions.success(response.data.results),
+        listPrivateConsumerPassExtensionActions.success(response.data.results)
       );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
@@ -1881,7 +1897,7 @@ export const resetCustomEvent = listCustomEventActions.reset;
 
 export function fetchCustomEventList(
   params: any = {},
-  options: OptionCallback,
+  options: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listCustomEventActions.isLoading(true));
@@ -1931,7 +1947,7 @@ export const listPrivateConsumerPassCompatibleActions = {
 
 export function fetchPrivateConsumerPassCompatibleList(
   params: any,
-  options: OptionCallback,
+  options: OptionCallback
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listPrivateConsumerPassCompatibleActions.isLoading(true));

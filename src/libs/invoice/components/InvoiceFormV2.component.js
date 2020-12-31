@@ -16,7 +16,7 @@ import InvoiceContent from './InvoiceContent.component';
 import InvoiceEditorV2 from './InvoiceEditorV2.component';
 import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
 // import InvoiceActions from './InvoiceActions.component';
-import { OptionCallback } from '../../../state/types.ts';
+import { OptionCallback } from '../../../state/types';
 // import InvoiceEditorActions from './InvoiceEditorActions.component';
 
 type Props = {

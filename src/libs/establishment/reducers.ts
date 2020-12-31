@@ -81,7 +81,7 @@ export default handleActions(
             return acc;
           }, {}),
         },
-        { deep: true },
+        { deep: true }
       );
     },
     [resetAction.success]: (state) => {
@@ -141,5 +141,5 @@ export default handleActions(
       return state.setIn(['associatedEstablishment', 'items'], payload);
     },
   },
-  initialState,
+  initialState
 ) as () => EstablishmentState;

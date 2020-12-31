@@ -27,7 +27,7 @@ import {
 } from '../../components/forms';
 import withIntercomAction from '../../hocs/tracking/dispatch-action.hoc';
 
-import { getAuth } from '../../http.ts';
+import { getAuth } from '../../http';
 
 import type { ReportConfiguration as ReportConfigurationType } from './types';
 

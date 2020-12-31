@@ -76,11 +76,11 @@ import paymentPackSelectors, {
   getAll as getAllPaymentPacks,
 } from '../../libs/payment-packs/selectors';
 import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
-import themeSelectors from '../../libs/theme/selectors.ts';
+import themeSelectors from '../../libs/theme/selectors';
 import { fetchBookingStatistics2 as fetchBookingStatisticsAction } from '../../actions/stats.actions';
 import { getStatisticTemporal } from '../../libs/statistics/selectors';
 import ChartRange from '../../libs/dashboard/components/ChartRange.component';
-import type { Theme } from '../../libs/theme/types.ts';
+import type { Theme } from '../../libs/theme/types';
 
 type Props = {
   classes: *,

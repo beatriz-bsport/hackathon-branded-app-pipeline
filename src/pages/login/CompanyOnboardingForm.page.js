@@ -12,7 +12,7 @@ import {
 
 import CompanyOnboardingForm from '../../libs/login/components/CompanySignupForm.component';
 
-import type { OptionCallback } from '../../state/types.ts';
+import type { OptionCallback } from '../../state/types';
 
 type Props = {
   checkEmailExists: (email: string) => void,

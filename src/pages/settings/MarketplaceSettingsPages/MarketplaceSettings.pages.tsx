@@ -61,7 +61,7 @@ const defaultTab = {
   data: {},
 };
 
-const DragHandle = SortableHandle(() => <DragHandleIcon color={'action'} />);
+const DragHandle = SortableHandle(() => <DragHandleIcon color="action" />);
 const SortableItem = SortableElement((props: any) => (
   <div style={{ display: 'flex', opacity: '1', zIndex: 99999, width: '100%' }}>
     {props.children}
@@ -117,7 +117,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
       });
       setOpenCreation(false);
     },
-    [config, tabToEditIndex],
+    [config, tabToEditIndex]
   );
 
   const onSaveConfig = useCallback(() => {
@@ -142,7 +142,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
         tabs: prevState.tabs.filter((tab, i) => index !== i),
       }));
     },
-    [config],
+    [config]
   );
 
   const onEditTab = useCallback(
@@ -150,7 +150,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
       setTabToEditIndex(index);
       setOpenCreation(true);
     },
-    [config],
+    [config]
   );
 
   const onSortEnd = useCallback(
@@ -161,24 +161,24 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
       tabs[e.newIndex] = temp;
       setConfig({ ...config, tabs });
     },
-    [config],
+    [config]
   );
 
   const { t: tAll } = useTranslation();
 
   const getDefaultTitleForComponent = (
-    componentType: MarketplaceComponentsEnum,
+    componentType: MarketplaceComponentsEnum
   ) => {
     const obj = {
       [MarketplaceComponentsEnum.calendar]: tAll('marketplace.calendar'),
       [MarketplaceComponentsEnum.workshop]: tAll('marketplace.workshop'),
       [MarketplaceComponentsEnum.privateService]: tAll(
-        'marketplace.private_service',
+        'marketplace.private_service'
       ),
       [MarketplaceComponentsEnum.pass]: tAll('marketplace.pass'),
       [MarketplaceComponentsEnum.vod]: tAll('marketplace.vod'),
       [MarketplaceComponentsEnum.subscription]: tAll(
-        'marketplace.contract.tabName',
+        'marketplace.contract.tabName'
       ),
       [MarketplaceComponentsEnum.shop]: tAll('marketplace.shop.tabName'),
       [MarketplaceComponentsEnum.playlist]: tAll('marketplace.playlist'),
@@ -207,7 +207,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
               style={{ textDecoration: 'none' }}
               to={getMarketplaceRoute(
                 props.theme.company_name,
-                props.theme.company,
+                props.theme.company
               )}
             >
               <Button
@@ -229,14 +229,14 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
             {config.tabs.map((tab, i) => (
               <SortableItem index={i} key={i}>
                 <Paper className={classes.paperItem}>
-                  <ListItem divider alignItems="center" dense={true}>
+                  <ListItem divider alignItems="center" dense>
                     <DragHandle />
 
                     <ListItemText
                       className={classes.listText}
                       primary={tab.title}
                       secondary={t(
-                        `marketplaceSettings.componentType.${tab.componentType}`,
+                        `marketplaceSettings.componentType.${tab.componentType}`
                       )}
                     />
 
@@ -265,7 +265,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
             <Button
               color="primary"
               onClick={onSaveConfig}
-              variant={'contained'}
+              variant="contained"
               disabled={isEqual(config, props.settings.config)}
             >
               <SaveIcon className={classes.addIcon} />
@@ -408,6 +408,6 @@ const mapDispatchToProps = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-  //@ts-ignore
+  mapDispatchToProps
+  // @ts-ignore
 )(MarketplaceSettingsPages);

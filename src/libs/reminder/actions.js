@@ -7,7 +7,7 @@ import {
   createOrUpdateTask as createOrUpdateTaskAPI,
   patchTask as patchTaskAPI,
 } from './api';
-import type { Dispatch, OptionCallback } from '../../state/types.ts';
+import type { Dispatch, OptionCallback } from '../../state/types';
 import { fetchAll as fetchAlerting } from '../alerting/actions';
 
 export const listTaskByMemberActions = {

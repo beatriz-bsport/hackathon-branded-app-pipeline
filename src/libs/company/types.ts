@@ -1,5 +1,3 @@
-// @flow
-
 export type Company = {
   id: number,
   name: string,
@@ -12,9 +10,14 @@ export type CompanyState = {
   byId: {
     [id: number]: Company,
   },
+  feature: {
+    data: { upsell_identifier: number, readable_identifier: number}[]
+    loading: boolean,
+    error?: Error,
+  },
   search: {
     loading: boolean,
-    error: ?Error,
+    error?: Error,
     allIds: Array<number>,
   },
 };

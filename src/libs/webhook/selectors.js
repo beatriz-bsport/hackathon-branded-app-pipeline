@@ -3,7 +3,7 @@
 import { createSelector } from 'reselect';
 
 import Immutable from 'seamless-immutable';
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 
 export const getWebhookDict = (state: State): any => state.webhook.byId;
 

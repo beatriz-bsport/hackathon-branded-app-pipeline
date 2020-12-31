@@ -1,5 +1,5 @@
 // @flow
-import { API_V1_URI, postAuth, getAuth } from '../../http.ts';
+import { API_V1_URI, postAuth, getAuth } from '../../http';
 
 export const findMemberFromFace = async (blob: Blob) => {
   const data = new FormData();

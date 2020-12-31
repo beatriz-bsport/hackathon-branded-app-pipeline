@@ -11,9 +11,9 @@ import { withProps, compose } from 'recompose';
 import { connect } from 'react-redux';
 import Fade from '@material-ui/core/Fade';
 import parse from '../../query-string';
-import { fetchCompanyTheme } from '../../libs/theme/actions.ts';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { disconnect } from '../../actions/auth.actions';
-import themeSelectors from '../../libs/theme/selectors.ts';
+import themeSelectors from '../../libs/theme/selectors';
 import { getTheme } from '../../theme';
 
 import LoginPro from './LoginPro.component';

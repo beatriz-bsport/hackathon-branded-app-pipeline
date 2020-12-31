@@ -11,7 +11,7 @@ import {
   deleteCoupon as deleteCouponAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction } from '../../state/types.ts';
+import type { Dispatch, ThunkAction } from '../../state/types';
 
 export const couponList = {
   error: createAction('COUPON/LIST/ERROR'),

@@ -2,7 +2,7 @@
 
 import { createSelector } from 'reselect';
 
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 
 const BIRTHDAY_NOTIFICATION = 0;
 const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;

@@ -44,8 +44,8 @@ import {
 } from '@bsport/common/lib/master-data/smart-list';
 import Config from '../../../config';
 
-import { Establishment } from '../../establishment/types.ts';
-import type { PrivatePass } from '../../private-service/types.ts';
+import type { Establishment } from '../../establishment/types';
+import type { PrivatePass } from '../../private-service/types';
 
 import FilterCard from './FilterListItem.component';
 

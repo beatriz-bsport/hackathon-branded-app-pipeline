@@ -1,13 +1,9 @@
-// @flow
-
 import axios from 'axios';
+import moment from 'moment-timezone';
 
-const moment = require('moment-timezone');
 import Config from './config';
-
 import { setSessionId } from './sentry/session';
 import { setTransactionId } from './sentry/transaction';
-
 import i18n from './i18n';
 
 const storage = window.localStorage;

@@ -10,7 +10,7 @@ import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/re
 import PrivateServiceSelectorWithSlot from '../service/PrivateServiceSelectorWithSlot.component';
 import CoachSelector from '../../../associated-coach/components/CoachSelector.component';
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
-import type { PrivateService } from '../../types.ts';
+import type { PrivateService } from '../../types';
 
 type Props = {
   private_services: Array<PrivateService>,

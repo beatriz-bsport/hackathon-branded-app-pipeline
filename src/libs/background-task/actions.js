@@ -2,7 +2,7 @@
 
 import { createAction } from 'redux-actions';
 import { fetchBackgroundTask as fetchBackgroundTaskAPI } from './api';
-import type { State, Dispatch, OptionCallback } from '../../state/types.ts';
+import type { State, Dispatch, OptionCallback } from '../../state/types';
 import {
   pendingBackgroundSnackbar,
   deleteBackgroundSnackbar,

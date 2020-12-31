@@ -19,10 +19,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
-import themeSelectors from '../libs/theme/selectors.ts';
+import themeSelectors from '../libs/theme/selectors';
 
 import withTitle from '../hocs/with-title.hoc';
-import type { Theme } from '../libs/theme/types.ts';
+import type { Theme } from '../libs/theme/types';
 import DashboardChart from '../components/graph/DashboardChart.component';
 import {
   graphRessources,
@@ -38,7 +38,7 @@ import {
   getDashboardConfigurationTab,
 } from '../libs/dashboard/selectors';
 import type { Graph } from '../libs/dashboard/types';
-import type { OptionCallback } from '../state/types.ts';
+import type { OptionCallback } from '../state/types';
 import CustomChartForm from '../components/graph/CustomChartForm.component';
 import BackofficeLinearProgress from '../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../components/button/BottomActionsButton.component';

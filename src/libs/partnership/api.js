@@ -1,5 +1,5 @@
 // @flow
-import { getAuth, postAuth, patchAuth, API_V1_URI } from '../../http.ts';
+import { getAuth, postAuth, patchAuth, API_V1_URI } from '../../http';
 
 const PARTNERSHIP_ENDPOINT = `${API_V1_URI}/partnership`;
 

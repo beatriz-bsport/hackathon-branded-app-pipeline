@@ -21,8 +21,8 @@ import {
 } from '@bsport/common/lib/master-data/settings';
 
 import NumericInput from '../../../components/input/NumericInput.component';
-import type { Theme } from '../types.ts';
 import Checkbox from '../../../components/input/Checkbox.component';
+import type { Theme } from '../types';
 
 type Props = {
   theme: Theme,

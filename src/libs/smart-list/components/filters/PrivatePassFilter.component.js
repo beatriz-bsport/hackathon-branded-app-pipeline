@@ -15,7 +15,7 @@ import {
   BETWEEN_COMPARATOR,
 } from '@bsport/common/lib/master-data/smart-list';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
-import type { PrivatePass } from '../../../private-service/types.ts';
+import type { PrivatePass } from '../../../private-service/types';
 import Selector from '../MultiSelector.component';
 import PrivatePassListItem from '../../../private-service/components/pass/PrivatePassListItem.component';
 import CalendarPicker from '../CalendarPicker.component';

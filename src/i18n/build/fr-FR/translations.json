@@ -1499,7 +1499,10 @@
       "expiresOn": "Expire le {{ date }}",
       "current_credits": "{{ current_credits }}/{{credits}} crédits",
       "isReverted": "Facture annulée",
-      "detail": { "invoice": "Facture liée", "booking": "Réservations RDV liées", "extensionsTitle": "Extensions de validité" }
+      "detail": { "invoice": "Facture liée", "booking": "Réservations RDV liées", "extensionsTitle": "Extensions de validité" },
+      "isFromShare": "Partagé depuis un autre compte",
+      "isOwnerOfShares": "Partagé (carte RDV maître)",
+      "isFromDisabledShare": "Partage arrété"
     },
     "privateServiceCompatibility": {
       "delete": {
@@ -1785,6 +1788,32 @@
         "unlink": {
           "title": "Arrêt du partage",
           "explain": "Le partage sera arrété. La carte maître reste valable",
+          "submit": "Arrêter",
+          "cancel": "Annuler"
+        },
+        "relink": {
+          "title": "Partager de nouveau",
+          "explain": "Le partage sera de nouveau activé.",
+          "submit": "Partager",
+          "cancel": "Annuler"
+        }
+      }
+    },
+    "private_consumer_pass_links": {
+      "list": { "title": "Cartes RDV partagées", "create": "Partager une carte RDV", "isEmpty": "Aucun partage de carte RDV" },
+      "form": {
+        "create": {
+          "title": "Partage de carte RDV",
+          "explain": "Cette carte RDV sera partagée entre les deux membres, les crédits sont utilisables par l'un ou par l'autre.",
+          "cancel": "Annuler",
+          "previous": "Précédent",
+          "submit": "Partager",
+          "linkButton": "Partager",
+          "noConsumerPackToLink": "Aucune carte partageable"
+        },
+        "unlink": {
+          "title": "Arrêt du partage",
+          "explain": "Le partage sera arrété. La carte RDV maître reste valable",
           "submit": "Arrêter",
           "cancel": "Annuler"
         },
@@ -2106,7 +2135,7 @@
           "alert": "Remplissez les jours d'expiration du panier!"
         },
         "showGenderOffer": "Afficher le nombre d'hommes et de femmes qui réservent une offre",
-        "offerBalance": "Mise en place d'un contrôle de l'équilibre entre les sexes",
+        "offerBalance": "Mise en place d'un contrôle de l'équilibre FEMME/HOMME",
         "checkBalance": {
           "checkbox": "Limiter le déséquilibre FEMME/HOMME des réservations (danse...)",
           "numberCheck": {
@@ -3034,6 +3063,11 @@
         "create": { "success": "Carte partagée", "error": "Impossible de partager cette carte" },
         "unlink": { "success": "Partage supprimé", "error": "Impossible de supprimer ce partage" },
         "relink": { "success": "Partage enregistré", "error": "Impossible de partager cette carte" }
+      },
+      "private_consumer_pass_links": {
+        "create": { "success": "Carte RDV partagée", "error": "Impossible de partager cette carte RDV" },
+        "unlink": { "success": "Partage supprimé", "error": "Impossible de supprimer ce partage" },
+        "relink": { "success": "Partage enregistré", "error": "Impossible de partager cette carte RDV" }
       }
     },
     "paymentRules": {

@@ -1,5 +1,4 @@
-import React from 'react';
-import { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import {
   Typography,
@@ -16,14 +15,11 @@ import { push } from 'connected-react-router';
 import { useParams } from 'react-router-dom';
 import { uniq } from 'lodash';
 
-import { fetchMarketplacePrivateServices } from '../../../../libs/private-service/actions.ts';
-import { _getPrivateServicesMarketplace } from '../../../../libs/private-service/selectors/private-service.ts';
+import { fetchMarketplacePrivateServices } from '../../../../libs/private-service/actions';
+import { _getPrivateServicesMarketplace } from '../../../../libs/private-service/selectors/private-service';
 import TypographyWithShowMore from '../../../../components/TypographyWithShowMore.component';
 import { RootState } from '../../../../reducers';
-import {
-  PrivateService,
-  PrivateSlot,
-} from '../../../../libs/private-service/types';
+import { PrivateService } from '../../../../libs/private-service/types';
 
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
@@ -41,7 +37,7 @@ const PrivateServiceSelectorPage: React.FC<Props> = (props) => {
 
   const fetchData = useCallback(async () => {
     props.fetchMarketplacePrivateServices(companyId);
-  }, []);
+  }, [companyId]);
 
   const classes = useStyles();
   const { t } = useTranslation(['privateService', 'datetime']);
@@ -69,8 +65,8 @@ const PrivateServiceSelectorPage: React.FC<Props> = (props) => {
                 onClick={() =>
                   dispatch(
                     push(
-                      `/m/${companyName}/${companyId}/private-service/${ps.id}`,
-                    ),
+                      `/m/${companyName}/${companyId}/private-service/${ps.id}`
+                    )
                   )
                 }
               >
@@ -89,28 +85,24 @@ const PrivateServiceSelectorPage: React.FC<Props> = (props) => {
 
                   <div className={classes.tagsContainer}>
                     <div className={classes.tagsContainer2}>
-                      {uniq(ps.slots_duration_minute).map(
-                        (duration: number) => (
-                          <Chip
-                            size="small"
-                            key={duration}
-                            className={classes.tagItem}
-                            avatar={<AccessTimeIcon fontSize="small" />}
-                            label={
-                              duration + t('datetime:shortMinuteIdentifier')
-                            }
-                            variant={'outlined'}
-                          />
-                        ),
-                      )}
+                      {uniq(ps.slots_duration_minute).map((duration) => (
+                        <Chip
+                          size="small"
+                          key={duration}
+                          className={classes.tagItem}
+                          avatar={<AccessTimeIcon fontSize="small" />}
+                          label={duration + t('datetime:shortMinuteIdentifier')}
+                          variant="outlined"
+                        />
+                      ))}
 
                       {ps.is_home_service && (
                         <Chip
                           size="small"
                           className={classes.tagItem}
-                          label={'Service à domicile'}
-                          color={'primary'}
-                          variant={'outlined'}
+                          label="Service à domicile"
+                          color="primary"
+                          variant="outlined"
                         />
                       )}
                     </div>
@@ -206,5 +198,5 @@ const mapDispatchToProps = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(PrivateServiceSelectorPage);

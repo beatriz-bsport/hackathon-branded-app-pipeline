@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import PrivateServiceDetailPage from './PrivateServiceDetailPage/PrivateServiceDetail.page.tsx';
-import PrivateServiceSelectorPage from './PrivateServiceSelectorPage/PrivateServiceSelector.page.tsx';
+import PrivateServiceDetailPage from './PrivateServiceDetailPage/PrivateServiceDetail.page';
+import PrivateServiceSelectorPage from './PrivateServiceSelectorPage/PrivateServiceSelector.page';
 
 export const MarketplacePrivateServiceRouter: React.FC = () => {
   return (

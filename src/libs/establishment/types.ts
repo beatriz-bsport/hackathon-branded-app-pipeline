@@ -29,7 +29,9 @@ type Event_ = {
   price: string,
 };
 
-export type EstablishmentWithOffers = Establishment & { events: Array<Event_> };
+export type EstablishmentWithOffers = {
+  events: Array<Event_>,
+} & Establishment;
 
 export type AssociatedEstablishment = {
   id: number,

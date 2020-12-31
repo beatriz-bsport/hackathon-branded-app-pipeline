@@ -1,37 +1,32 @@
-import React from 'react';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {Typography, Paper, makeStyles, useMediaQuery, useTheme} from '@material-ui/core';
+import { Typography, Paper, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods';
 import moment from 'moment-timezone';
-
 import { push } from 'connected-react-router';
 
 import {
   fetchMarketplacePrivateSlots,
   fetchPrivateService,
   searchAvailableSlots as searchAvailableSlotsAction,
-  //@ts-ignore
 } from '../../../../libs/private-service/actions';
 import TypographyMultiline from '../../../../components/TypographyMultiline.component';
 import {
   getPrivateService,
   getPrivateServiceById,
-  //@ts-ignore
-} from '../../../../libs/private-service/selectors/private-service.ts';
-import { fetchAssociatedEstablishmentBulk } from '../../../../libs/establishment/actions.ts';
-import { fetchAssociatedCoachBulk } from '../../../../libs/associated-coach/actions.ts';
+} from '../../../../libs/private-service/selectors/private-service';
+import { fetchAssociatedEstablishmentBulk } from '../../../../libs/establishment/actions';
+import { fetchAssociatedCoachBulk } from '../../../../libs/associated-coach/actions';
 
 import {
   getSearchedSlots,
-  //@ts-ignore
-} from '../../../../libs/private-service/selectors/availability-slot.ts';
-import PrivateSlotSelector from './PrivateSlotSelector.tsx';
-import CoachSelector from './CoachSelector.tsx';
-import EstablishmentSelector from './EstablishmentSelector.tsx';
-import SlotCalendar from './SlotCalendar/SlotCalendar.tsx';
-import SessionSelector from './SessionSelector/SessionSelector.tsx';
+} from '../../../../libs/private-service/selectors/availability-slot';
+import PrivateSlotSelector from './PrivateSlotSelector';
+import CoachSelector from './CoachSelector';
+import EstablishmentSelector from './EstablishmentSelector';
+import SlotCalendar from './SlotCalendar/SlotCalendar';
+import SessionSelector from './SessionSelector/SessionSelector';
 import {
   PrivateCoach,
   PrivateEstablishment,
@@ -52,91 +47,95 @@ const useNumberOfDayToShow = () => {
 
   let nbOfDayToShow = 2;
 
-  if(isSM && !isXS) {
+  if (isSM && !isXS) {
     nbOfDayToShow = 3;
   }
-  if(isMD) {
+  if (isMD) {
     nbOfDayToShow = 7;
   }
 
-  const [numberOfDayToShow, setNumberOfDayToShow] = useState(nbOfDayToShow)
+  const [numberOfDayToShow, setNumberOfDayToShow] = useState(nbOfDayToShow);
 
   useEffect(() => {
-    let nbOfDayToShow = 2;
-    if(isSM && !isXS) {
+    nbOfDayToShow = 2;
+    if (isSM && !isXS) {
       nbOfDayToShow = 3;
     }
-    if(isMD) {
+    if (isMD) {
       nbOfDayToShow = 7;
     }
 
     setNumberOfDayToShow(nbOfDayToShow);
-  }, [isMD, isSM, isXS])
+  }, [isMD, isSM, isXS]);
 
   return numberOfDayToShow;
-}
+};
 
 const PrivateServiceDetailPage: React.FC = () => {
   const sessionSelectorRefs = useRef();
 
-  /** STATE **/
-  const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'),);
+  /** STATE */
+  const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
   const [selectedSlot, setSelectedSlot] = useState<PrivateSlot>(null);
   const [selectedCoaches, setSelectedCoaches] = useState<PrivateCoach[]>([]);
   const [selectedEstablishments, setSelectedEstablishments] = useState<PrivateEstablishment[]>([]);
-  const [selectedSessionMoment, setSelectedSessionMoment,] = useState<SessionMoment>(null);
+  const [selectedSessionMoment, setSelectedSessionMoment] = useState<SessionMoment>(null);
 
   const numberOfDayToShow = useNumberOfDayToShow();
 
-  /** PARAMS **/
-  const { companyId, serviceId } = useParams();
+  /** PARAMS */
+  const { companyId, serviceId } = useParams<{companyId: string, serviceId: string}>();
 
-  /** STORE  **/
+  /** STORE  */
   const _privateService = useSelector((s: RootState) =>
-    getPrivateService(s, serviceId),
+    getPrivateService(s, serviceId)
   );
   const privateService: PrivateService = useSelector((s: RootState) =>
-    getPrivateServiceById(s, serviceId),
+    getPrivateServiceById(s, serviceId)
   );
 
   const availabilitySlotByDate: any = useSelector(getSearchedSlots);
-  const availabilitySlot = useSelector((s: RootState) => s.privateService.availabilitySlot.searched.items)
+  const availabilitySlot = useSelector(
+    (s: RootState) => s.privateService.availabilitySlot.searched.items
+  );
   const availableSlotsLoading = useSelector(
-    (s: RootState) => s.privateService.availabilitySlot.searched.loading,
+    (s: RootState) => s.privateService.availabilitySlot.searched.loading
   );
   const theme = useSelector((s: RootState) => s.theme.theme);
   const dispatch = useDispatch();
 
 
-  /** EFFECTS **/
+  /** EFFECTS */
   useEffect(() => {
-    dispatch(fetchMarketplacePrivateSlots(companyId));
-    dispatch(fetchPrivateService(serviceId));
+    dispatch(fetchMarketplacePrivateSlots(parseInt(companyId)));
+    dispatch(fetchPrivateService(parseInt(serviceId)));
   }, []);
 
   useEffect(() => {
     if (_privateService) {
-      dispatch(fetchAssociatedEstablishmentBulk(_privateService.establishments,));
+      dispatch(fetchAssociatedEstablishmentBulk(_privateService.establishments));
       dispatch(fetchAssociatedCoachBulk(_privateService.coaches));
     }
-  }, [_privateService])
+  }, [_privateService]);
 
   useEffect(() => {
-    privateService && selectedSlot && searchAvailableSlots();
+    if (privateService && selectedSlot) {
+      searchAvailableSlots();
+    }
   }, [selectedSlot, selectedDate, selectedCoaches, selectedEstablishments, numberOfDayToShow]);
 
   useEffect(() => {
     setSelectedSessionMoment(null);
-  }, [numberOfDayToShow])
+  }, [numberOfDayToShow]);
 
   const searchAvailableSlots = useCallback(() => {
     const dates = [];
 
-    for (let i = 0; i < numberOfDayToShow; i++) {
+    for (let i = 0; i < numberOfDayToShow; i += 1) {
       dates.push(
         moment(selectedDate)
           .add(i, 'days')
-          .format('YYYY-MM-DD'),
+          .format('YYYY-MM-DD')
       );
     }
 
@@ -156,21 +155,28 @@ const PrivateServiceDetailPage: React.FC = () => {
       selectedSlot.id,
       coaches,
       dates,
-      establishments,
+      establishments
     ));
-  }, [selectedSlot, selectedDate, selectedEstablishments, selectedCoaches, privateService, numberOfDayToShow]);
+  }, [
+    selectedSlot,
+    selectedDate,
+    selectedEstablishments,
+    selectedCoaches,
+    privateService,
+    numberOfDayToShow,
+  ]);
 
 
   const onPrivateSlotSelect = useCallback(
     (slot: PrivateSlot) => {
       setSelectedSlot(slot);
-      //@ts-ignore
+      // @ts-ignore
       setSelectedCoaches([...privateService.coaches]);
-      //@ts-ignore
+      // @ts-ignore
       setSelectedEstablishments([...privateService.establishments]);
       setSelectedSessionMoment(null);
     },
-    [privateService],
+    [privateService]
   );
 
   const toggleFromArray = (array: any, item: any) => {
@@ -189,12 +195,12 @@ const PrivateServiceDetailPage: React.FC = () => {
   const onEstablishmentSelect = useCallback((establishment: PrivateEstablishment) => {
       const _selectedEstablishments = toggleFromArray(
         selectedEstablishments,
-        establishment,
+        establishment
       );
       setSelectedEstablishments(_selectedEstablishments);
       setSelectedSessionMoment(null);
     },
-    [selectedEstablishments],
+    [selectedEstablishments]
   );
 
   const onSessionMomentSelect = useCallback((sessionMoment: SessionMoment) => {
@@ -202,7 +208,7 @@ const PrivateServiceDetailPage: React.FC = () => {
 
     setTimeout(() => {
       if (sessionSelectorRefs && sessionSelectorRefs.current) {
-        //@ts-ignore
+        // @ts-ignore
         sessionSelectorRefs.current.scrollIntoView({
           behavior: 'smooth',
         });
@@ -216,7 +222,7 @@ const PrivateServiceDetailPage: React.FC = () => {
   }, []);
 
   const onSessionSelect = useCallback(
-    (date: string, establishment: string, associated_coach: string) => {
+    (date: string, establishment: number, associated_coach: number) => {
       const data = { date, establishment, associated_coach };
       dispatch(
         push(
@@ -225,12 +231,12 @@ const PrivateServiceDetailPage: React.FC = () => {
           }/private-slot/${
             selectedSlot?.id
           }/?membership=${companyId}&data=${encodeURIComponent(
-            JSON.stringify(data),
-          )}`,
-        ),
+            JSON.stringify(data)
+          )}`
+        )
       );
     },
-    [privateService, selectedSlot, companyId],
+    [privateService, selectedSlot, companyId]
   );
 
 
@@ -251,7 +257,10 @@ const PrivateServiceDetailPage: React.FC = () => {
   );
 
   const multipleCoach = showCoachSelector && privateService?.coaches.length > 1;
-  const multipleEstablishment = showEstablishmentSelector && privateService?.establishments.length > 1;
+  const multipleEstablishment = (
+    showEstablishmentSelector &&
+    privateService?.establishments.length > 1
+  );
 
   return (
     <div className={classes.pageContainer}>
@@ -304,11 +313,13 @@ const PrivateServiceDetailPage: React.FC = () => {
                 sessionMoment={selectedSessionMoment}
                 showCoach={multipleCoach}
                 showEstablishment={multipleEstablishment}
-                coaches={selectedCoaches?.length ? selectedCoaches : (privateService.coaches as PrivateCoach[])}
-                establishments={
-                  selectedEstablishments?.length ?
-                      selectedEstablishments :
-                      (privateService.establishments as PrivateEstablishment[])
+                coaches={selectedCoaches?.length
+                  ? selectedCoaches
+                  : (privateService.coaches as PrivateCoach[])
+                }
+                establishments={selectedEstablishments?.length
+                  ? selectedEstablishments
+                  : (privateService.establishments as PrivateEstablishment[])
                 }
                 durationMinutes={selectedSlot.duration_minutes}
                 timezoneName={theme.timezone_name}
@@ -334,14 +345,14 @@ const PrivateServiceDetailPage: React.FC = () => {
         <div className={classes.serviceDescriptionContent}>
           {privateService && (
             <>
-              <Typography variant={'h6'}>
+              <Typography variant="h6">
                 {privateService.name}
               </Typography>
 
               <TypographyMultiline
                 className={classes.serviceDescription}
-                variant={'subtitle2'}
-                color={'textSecondary'}
+                variant="subtitle2"
+                color="textSecondary"
               >
                 {privateService.description}
               </TypographyMultiline>

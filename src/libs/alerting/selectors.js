@@ -2,7 +2,7 @@
 
 import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 
 const getState = (state: State) => state.alerting;
 

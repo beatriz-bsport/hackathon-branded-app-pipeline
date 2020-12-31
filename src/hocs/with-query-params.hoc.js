@@ -8,7 +8,7 @@ import { compose, withHandlers } from 'recompose';
 import { replace as replaceRouter } from 'connected-react-router';
 import { connect } from 'react-redux';
 
-import { buildUrlParams } from '../http.ts';
+import { buildUrlParams } from '../http';
 import parse from '../query-string';
 
 const convertParams = (params, mode) => {

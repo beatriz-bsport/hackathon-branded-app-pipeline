@@ -10,6 +10,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import MemberRelationList from '../../libs/relationship/components/MemberRelationList.component';
@@ -195,6 +196,9 @@ export class MemberDetailRelation extends React.Component<Props> {
   };
 
   render() {
+    if (!this.props.member) {
+      return <LinearProgress />;
+    }
     const relatedMemberIds = _.flatten([
       this.props.relationList.map((r) => r.src_member.id),
       this.props.relationList.map((r) => r.dst_member.id),

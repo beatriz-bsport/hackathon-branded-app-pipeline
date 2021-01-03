@@ -18,7 +18,7 @@ const generateSourceTranslations = (lang) => {
   }, {});
 
   fs.writeFileSync(
-    `./src/i18n/build/${lang}/translationson`,
+    `./src/i18n/build/${lang}/translations.json`,
     beautify(concatenatedTranslations, null, 2, 120),
   );
   console.log('* Generation successful');

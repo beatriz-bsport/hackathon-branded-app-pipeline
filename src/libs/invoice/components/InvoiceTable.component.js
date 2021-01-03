@@ -28,6 +28,11 @@ import AttachmentIcon from '@material-ui/icons/Attachment';
 import PaymentIcon from '@material-ui/icons/Payment';
 import SaveIcon from '@material-ui/icons/Save';
 import moment from 'moment-timezone';
+import {
+  INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
+  INVOICE_TYPE_MIGRATION,
+  INVOICE_TYPE_REVERSE,
+} from '@bsport/common/lib/master-data/invoice-type';
 import RedButton from '../../../components/button/RedButton.component';
 
 type Props = {
@@ -43,6 +48,7 @@ type Props = {
   finalizeInvoice: (string, OptionCallback) => void,
   showOpenInvoiceNested: boolean,
   asConsumer: boolean,
+  showType?: boolean,
 };
 
 const InvoiceRow = React.memo((props: Props) => {
@@ -52,8 +58,26 @@ const InvoiceRow = React.memo((props: Props) => {
     parseInt(invoice.amount_due_cts, 10) / 100 -
       parseInt(invoice.amount_paid_cts, 10) / 100,
   );
+  let amount_remaining_color;
+  if (amount_remaining < 0) {
+    amount_remaining_color = 'error';
+  }
+
   const [processing, setProcessing] = React.useState(false);
   const classes = useStyles();
+  let invoiceType = 'regular';
+  if (invoice.reverse_invoices && invoice.reverse_invoices.length) {
+    invoiceType = 'reversed';
+  } else if (invoice.invoice_type === INVOICE_TYPE_MIGRATION) {
+    invoiceType = 'migration';
+  } else if (invoice.invoice_type === INVOICE_TYPE_REVERSE) {
+    invoiceType = 'return';
+  } else if (invoice.invoice_type === INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER) {
+    invoiceType = 'credit_payment';
+    if (amount_remaining < 0) {
+      amount_remaining_color = 'primary';
+    }
+  }
   return (
     <React.Fragment>
       <TableRow
@@ -92,19 +116,24 @@ const InvoiceRow = React.memo((props: Props) => {
           </TableCell>
         )}
         <TableCell>
-          {`${parseFloat(
-            invoice.is_v2
-              ? parseInt(invoice.amount_due_cts, 10) / 100
-              : invoice.price_due,
-          ).toFixed(2)}€`}
+          {invoice.invoice_type === INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER
+            ? ' - '
+            : `${parseFloat(
+                invoice.is_v2
+                  ? parseInt(invoice.amount_due_cts, 10) / 100
+                  : invoice.price_due,
+              ).toFixed(2)}€`}
         </TableCell>
         <TableCell>
-          <Typography color={amount_remaining > 0 ? 'error' : undefined}>
+          <Typography color={amount_remaining_color}>
             {`${amount_remaining.toFixed(2)}€`}
           </Typography>
         </TableCell>
         {!props.compactMode && (
           <TableCell>{invoice.uuid.slice(0, 8)}</TableCell>
+        )}
+        {!!props.showType && (
+          <TableCell>{t(`invoiceType.${invoiceType}`)}</TableCell>
         )}
         <TableCell>{moment(invoice.date).format('L')}</TableCell>
         {!!props.finalizeInvoice && (
@@ -205,7 +234,7 @@ const InvoiceRow = React.memo((props: Props) => {
                   <TableBody style={{ backgroundColor: '#f8F8F8' }}>
                     {
                       // eslint-disable-next-line
-                    invoice.invoice_items
+                      invoice.invoice_items
                         .filter((ii) => !!ii)
                         .map((invoiceItem) => {
                           return (
@@ -281,7 +310,7 @@ const InvoiceRow = React.memo((props: Props) => {
                     )}
                     {
                       // eslint-disable-next-line
-                    invoice.payments
+                      invoice.payments
                         .filter((p) => !!p)
                         .map(
                           (payment) =>
@@ -356,6 +385,7 @@ export const InvoiceTable = (props: {
   finalizeInvoice: (string) => void,
   showOpenInvoiceNested: ?boolean,
   asConsumer: ?boolean,
+  showType?: boolean,
 }) => {
   const { t } = useTranslation(['invoice']);
 
@@ -374,6 +404,9 @@ export const InvoiceTable = (props: {
             {!props.compactMode && (
               <TableCell>{t('table.header.id')}</TableCell>
             )}
+            {!!props.showType && (
+              <TableCell>{t('table.header.invoiceType')}</TableCell>
+            )}
             <TableCell>{t('table.header.date')}</TableCell>
             {!!props.finalizeInvoice && (
               <TableCell>{t('table.header.pdf')}</TableCell>
@@ -384,6 +417,7 @@ export const InvoiceTable = (props: {
           {!props.loading &&
             props.invoiceList.map((invoice) => (
               <InvoiceRow
+                showType={props.showType}
                 nestedDataLoading={props.nestedDataLoading}
                 hideMemberName={props.hideMemberName}
                 finalizeInvoice={props.finalizeInvoice}

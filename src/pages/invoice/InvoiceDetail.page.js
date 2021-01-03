@@ -11,6 +11,7 @@ import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import { push as pushRouter } from 'connected-react-router';
 import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group';
+import { INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER } from '@bsport/common/lib/master-data/invoice-type';
 import withTitle from '../../hocs/with-title.hoc';
 import {
   getInvoice,
@@ -149,15 +150,18 @@ export class InvoiceDetail extends React.Component<Props, State> {
               onClickInvoice={this.props.goToInvoice}
               invoice={this.props.invoice}
             />
-            <InvoiceContent
-              invoice={this.props.invoice}
-              invoiceItemLoading={this.props.invoiceItemLoading}
-              invoiceItemList={this.props.invoice.invoice_items.filter(
-                (ii) => !!ii,
-              )}
-              amountInvoiceitem={this.props.invoice.amount_due_cts / 100}
-              finalizeInvoice={this.props.finalizeInvoice}
-            />
+            {this.props.invoice.invoice_type !==
+              INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER && (
+              <InvoiceContent
+                invoice={this.props.invoice}
+                invoiceItemLoading={this.props.invoiceItemLoading}
+                invoiceItemList={this.props.invoice.invoice_items.filter(
+                  (ii) => !!ii,
+                )}
+                amountInvoiceitem={this.props.invoice.amount_due_cts / 100}
+                finalizeInvoice={this.props.finalizeInvoice}
+              />
+            )}
           </Grid>
           <Grid item xs={12} md={6}>
             <InvoicePaymentPanel

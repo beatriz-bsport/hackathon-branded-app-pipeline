@@ -6,7 +6,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
     "@babel/plugin-proposal-optional-chaining": "^7.12.7",
     "@babel/preset-typescript": "^7.12.7",
-    "@bsport/common": "^1.31.3",
+    "@bsport/common": "^1.31.4",
     "@date-io/moment": "^1.3.11",
     "@elastic/apm-rum-react": "^1.2.3",
     "@fullcalendar/core": "^5.4.0",

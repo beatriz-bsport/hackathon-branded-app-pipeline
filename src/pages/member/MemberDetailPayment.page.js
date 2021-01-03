@@ -90,6 +90,7 @@ export class MemberDetailPayment extends Component<Props> {
             invoiceList={this.props.invoiceList}
             onInvoiceExpand={this.fetchInvoiceDataNested}
             loading={this.props.loading}
+            showType
             hideMemberName
             containerComponent={Paper}
             page={this.props.page}

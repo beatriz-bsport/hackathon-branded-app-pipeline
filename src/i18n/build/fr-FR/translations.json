@@ -2875,10 +2875,23 @@
     }
   },
   "invoice": {
+    "invoiceInfo": {
+      "2": "Ce reçu de paiement représente l'ajustement de solde de votre membre.",
+      "3": "Cette facture est issue d'une migration. Nous ne sommes pas en mesure de fournir un PDF ni de l'annuler pour des raisons légales."
+    },
+    "invoiceType": {
+      "regular": "Facture",
+      "migration": "Migration",
+      "credit_payment": "Reçu (régul. solde)",
+      "return": "Avoir",
+      "reversed": "Facture (annulée)"
+    },
     "creditAccountBalance": { "current": "Solde actuel" },
     "invoice": {
       "title": "Facture {{ uuid }}",
       "titleRevert": "Avoir {{ uuid }}",
+      "titleReverted": "Facture (annulée) {{ uuid }}",
+      "titleReceipt": "Reçu {{ uuid }}",
       "editor": { "title": "Edition de la facture", "sumup": "Récapitulatif", "save": "Émettre la facture" },
       "header": {
         "date": "Date : {{ date }}",
@@ -3011,6 +3024,7 @@
         "date": "Date de facturation",
         "amount": "Montant dû",
         "missing": "Restant dû",
+        "invoiceType": "Type",
         "pdf": "PDF"
       },
       "nested": {

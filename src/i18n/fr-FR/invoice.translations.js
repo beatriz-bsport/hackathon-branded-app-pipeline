@@ -6,6 +6,10 @@ const {
   BUYABLE_ITEM_CREDIT,
 } = require('@bsport/common/lib/master-data/buyable-items');
 const {
+  INVOICE_TYPE_MIGRATION,
+  INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
+} = require('@bsport/common/lib/master-data/invoice-type');
+const {
   SOURCE_APP,
   SOURCE_WEB,
   SOURCE_SAAS,
@@ -35,10 +39,25 @@ const {
 } = require('@bsport/common/lib/master-data/payment-group');
 
 exports.default = {
+  invoiceInfo: {
+    [INVOICE_TYPE_MIGRATION]:
+      "Cette facture est issue d'une migration. Nous ne sommes pas en mesure de fournir un PDF ni de l'annuler pour des raisons légales.",
+    [INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER]:
+      "Ce reçu de paiement représente l'ajustement de solde de votre membre.",
+  },
+  invoiceType: {
+    regular: 'Facture',
+    migration: 'Migration',
+    credit_payment: 'Reçu (régul. solde)',
+    return: 'Avoir',
+    reversed: 'Facture (annulée)',
+  },
   creditAccountBalance: { current: 'Solde actuel' },
   invoice: {
     title: 'Facture {{ uuid }}',
     titleRevert: 'Avoir {{ uuid }}',
+    titleReverted: 'Facture (annulée) {{ uuid }}',
+    titleReceipt: 'Reçu {{ uuid }}',
     editor: {
       title: 'Edition de la facture',
       sumup: 'Récapitulatif',
@@ -245,6 +264,7 @@ exports.default = {
       date: 'Date de facturation',
       amount: 'Montant dû',
       missing: 'Restant dû',
+      invoiceType: 'Type',
       pdf: 'PDF',
     },
     nested: {

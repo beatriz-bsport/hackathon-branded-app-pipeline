@@ -54,7 +54,10 @@ export default handleActions(
             return acc;
           }, {}),
         )
-        .set('allIds', payload.map((pc) => pc.id));
+        .set(
+          'allIds',
+          payload.map((pc) => pc.id),
+        );
     },
   },
   initialState,

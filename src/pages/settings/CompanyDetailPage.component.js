@@ -13,7 +13,7 @@ import { attachExternalAccount as attachExternalAccountAction } from '../../libs
 import CompanyDetail from '../../components/companies/CompanyDetail.component';
 import withTitle from '../../hocs/with-title.hoc';
 
-import type { OptionCallback } from '../../state/types.ts';
+import type { OptionCallback } from '../../state/types';
 
 type Props = {
   company: *,

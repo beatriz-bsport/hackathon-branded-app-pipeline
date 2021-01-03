@@ -68,6 +68,7 @@ export class InvoiceList extends Component<Props> {
         <InvoiceTable
           loading={this.props.loading}
           nestedDataLoading={this.props.nestedDataLoading}
+          showType
           onInvoiceExpand={this.fetchInvoiceDataNested}
           invoiceList={this.props.invoiceList}
           containerComponent={Paper}

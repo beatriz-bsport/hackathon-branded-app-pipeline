@@ -28,7 +28,7 @@ import {
   withMetaActivity,
 } from '../../libs/offer/selectors';
 
-import { getEstablishmentAvailabilitySlots } from '../../libs/private-service/selectors/availability-slot.ts';
+import { getEstablishmentAvailabilitySlots } from '../../libs/private-service/selectors/availability-slot';
 import {
   fetchAvailabilitySlots,
   resetAvailabilitySlots,
@@ -38,7 +38,7 @@ import {
   resetPrivateBookings,
   fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
   fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
-} from '../../libs/private-service/actions.ts';
+} from '../../libs/private-service/actions';
 import { fetchEstablishmentBulk } from '../../libs/establishment/actions';
 
 type Props = {
@@ -190,12 +190,8 @@ export default compose(
   withStyles(styles),
   withTranslation(['privateService']),
   withState('periodFilter', 'setPeriodFilter', {
-    start: moment()
-      .startOf('week')
-      .format('YYYY-MM-DD'),
-    end: moment()
-      .endOf('week')
-      .format('YYYY-MM-DD'),
+    start: moment().startOf('week').format('YYYY-MM-DD'),
+    end: moment().endOf('week').format('YYYY-MM-DD'),
   }),
   connect(
     (state, { id, periodFilter }) => ({

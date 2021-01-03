@@ -43,8 +43,8 @@ class Analytics extends React.Component<Props> {
     if (
       this.props.theme &&
       (!prevProps.theme ||
-        (this.props.theme.gtmId !== prevProps.theme.gtmId ||
-          this.props.theme.facebookPixelId !== prevProps.theme.facebookPixelId))
+        this.props.theme.gtmId !== prevProps.theme.gtmId ||
+        this.props.theme.facebookPixelId !== prevProps.theme.facebookPixelId)
     ) {
       this.init();
     }

@@ -27,7 +27,7 @@ import {
   withCoach,
   withEstablishment,
 } from '../../libs/offer/selectors';
-import { DATE_FORMAT } from '../../datetime';
+import { DATE_FORMAT } from '../../utils/datetime';
 import withTitle from '../../hocs/with-title.hoc';
 import { fetchMarketplaceOfferList as fetchOfferListAction } from '../../libs/offer/actions';
 
@@ -66,9 +66,7 @@ type Props = {
 
 export class MarketplaceWorkshopPage extends React.Component<Props> {
   componentDidMount() {
-    const min_date = Moment()
-      .startOf('month')
-      .format(DATE_FORMAT);
+    const min_date = Moment().startOf('month').format(DATE_FORMAT);
     const max_date = Moment()
       .startOf('month')
       .add('years', 1)
@@ -209,7 +207,21 @@ export default compose(
         .catch((err) => {
           console.error(err);
           if (err && err.response && err.response.status === 423) {
-            snackbarError(t('booking:bookingModule.messages.offerLocked'));
+            switch (err.response.data) {
+              case 'unavailable for female':
+                snackbarError(
+                  t('booking:bookingModule.messages.femaleUnavailable'),
+                );
+                break;
+              case 'unavailable for male':
+                snackbarError(
+                  t('booking:bookingModule.messages.maleUnavailable'),
+                );
+                break;
+              default:
+                snackbarError(t('booking:bookingModule.messages.offerLocked'));
+                break;
+            }
           }
         });
     },

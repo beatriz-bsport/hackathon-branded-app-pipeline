@@ -9,7 +9,7 @@ import type { TFunction } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
-import { formatAsDatetime } from '../../../datetime';
+import { formatAsDatetime } from '../../../utils/datetime';
 import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 

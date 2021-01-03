@@ -26,7 +26,7 @@ import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import { actionTypes as types } from './types';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 
-import type { Dispatch, OptionCallback } from '../../state/types.ts';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const scalePaymentPackCreditActions = {
   isLoading: createAction('PAYMENT_PACK/SCALE_CREDIT/IS_LOADING'),

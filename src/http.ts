@@ -1,13 +1,9 @@
-// @flow
-
 import axios from 'axios';
+import moment from 'moment-timezone';
 
-const moment = require('moment-timezone');
 import Config from './config';
-
 import { setSessionId } from './sentry/session';
 import { setTransactionId } from './sentry/transaction';
-
 import i18n from './i18n';
 
 const storage = window.localStorage;
@@ -16,6 +12,23 @@ export const BASE_URI: string = Config.REACT_APP_BASE_URI;
 export const API_URI: string = `${BASE_URI}/api-v0`;
 export const API_V1_URI: string = `${BASE_URI}/api/v1`;
 export const PAYMENT_URI: string = `${BASE_URI}/payment`;
+
+export function parseQueryString(url: string) {
+  const pos = url.lastIndexOf('?');
+  if (pos === -1) {
+    return {};
+  }
+
+  const qs = url.substring(pos + 1);
+  const params = qs.split('&').map((q) => q.split('=').map(decodeURIComponent));
+
+  const q = {};
+  params.forEach(([name, value]) => {
+    q[name] = value;
+  });
+
+  return q;
+}
 
 export function buildUrlParams(params: any) {
   if (params) {

@@ -20,7 +20,7 @@ import CalendarEventDetail from '../containers/CalendarEventDetail.container';
 
 import PrivateBookingBooker from '../containers/PrivateBookingBooker.container';
 
-import type { ResourceData } from '../types.ts';
+import type { ResourceData } from '../types';
 
 type Props = {
   t: TFunction,
@@ -188,7 +188,10 @@ export const PrivateCalendarMultiResource = (props: Props) => (
       <PrivateBookingBooker
         open={props.privateBookerOpen}
         requestedSlot={props.privateBookingRequestedSlot}
-        onClose={props.closePrivateBooker}
+        onClose={() => {
+          props.closePrivateBooker();
+          props.refreshPrivateBookings();
+        }}
       />
     </div>
   </div>

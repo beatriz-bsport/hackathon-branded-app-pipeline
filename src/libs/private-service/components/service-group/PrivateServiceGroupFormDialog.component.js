@@ -35,9 +35,7 @@ export const PrivateServiceGroupFormDialog = (props: Props) => {
           <Button onClick={props.onCancel}>
             {props.t('serviceGroup.form.actions.cancel')}
           </Button>
-          <Submit>
-            {props.t('serviceGroup.form.actions.submit')}
-          </Submit>
+          <Submit>{props.t('serviceGroup.form.actions.submit')}</Submit>
         </DialogActions>
       </Form>
     </Dialog>

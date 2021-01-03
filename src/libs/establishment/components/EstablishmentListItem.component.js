@@ -70,9 +70,7 @@ export default withTranslation(['establishment'])(
               : null
           }
         />
-        {establishment.on_booking_notification &&
-        establishment.on_booking_notification.filter((n) => !!n && n.active)
-          .length > 0 ? (
+        {establishment.hasActiveNotification && (
           <Tooltip
             classes={props.classes}
             title={
@@ -86,7 +84,7 @@ export default withTranslation(['establishment'])(
               <NotificationsIcon />
             </IconButton>
           </Tooltip>
-        ) : null}
+        )}
         <ListItemResponsiveAction
           actions={[
             props.onClickEdit && {

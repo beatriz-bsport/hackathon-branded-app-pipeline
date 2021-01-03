@@ -55,6 +55,12 @@ exports.default = {
     caption: 'Souscriptions',
     popover: 'Le nombre de factures liées à une souscription non annulée',
   },
+  booking: {
+    title: 'Réservations',
+    caption: 'Réservations enregistrées',
+    popover:
+      'Le nombre total de réservations enregistrées pour cette date. Vous pouvez filtrer les annulations / late-cancel / ...',
+  },
   bookingsWeektimeSlot: {
     title: 'Effectif moyen',
     popover: 'Effectif moyen des séances par créneau horaire',
@@ -92,6 +98,46 @@ exports.default = {
       [BUYABLE_ITEM_FEE]: 'Frais de livraison',
       [BUYABLE_ITEM_COMBO_ITEM]: 'Packs',
       [BUYABLE_ITEM_COUPON]: 'Promotion',
+    },
+  },
+  customChart: {
+    addChart: 'Créer un graphe',
+    noResource: 'Veuillez choisir un type de donnée.',
+    form: {
+      title: 'Graphique',
+      cancel: 'Annuler',
+      submit: 'Enregistrer',
+      datatype: 'Type de graphe',
+      graphComponent: 'Représentation souhaitée',
+      selector: {
+        object: {
+          isEmpty: 'Aucune donnée sélectionnée',
+          placeholder: 'Sélectionnez un type de donnée',
+          helperText: 'Choisissez ce que vous souhaitez visualiser',
+        },
+        member: 'Nouveaux membres',
+        booking: 'Réservations',
+        payment: 'Paiements',
+        invoice: 'Achats',
+      },
+      name: 'Titre du graphe',
+      aggregate: 'Cumuler',
+      aggregateHelper:
+        "Ex: affiche l'évolution du nb total des membres, plutôt que le nb de nouveaux membres, chaque mois.",
+
+      radio: {
+        temporalMember: 'Évolution dans le temps',
+        temporalTimeslotBooking: 'Fréquences journalières et horaires',
+        temporalBooking: 'Évolution dans le temps',
+        qualitativeBooking: 'Répartition',
+        temporalPayment: 'Évolution dans le temps',
+        temporalPlannedInvoice: 'Évolution dans le temps',
+        qualitativeInvoiceItem: 'Répartition',
+        bar: 'Histogramme',
+        area: 'Graphique en aires',
+        grid: 'Tableau des fréquences',
+        pie: 'Diagramme circulaire',
+      },
     },
   },
 };

@@ -91,7 +91,10 @@ export default function memberReducers(state = initialState, action = {}) {
           },
           { deep: true },
         )
-        .setIn(['allIds'], action.payload.map((m) => m.id));
+        .setIn(
+          ['allIds'],
+          action.payload.map((m) => m.id),
+        );
     }
     case memberListActions.error.toString(): {
       return state.set('error', action.payload);
@@ -177,7 +180,10 @@ export default function memberReducers(state = initialState, action = {}) {
           ['search', 'allIds'],
           state.search.allIds.filter((m) => m.id !== action.src),
         )
-        .set('allIds', state.allIds.filter((m) => m.id !== action.src));
+        .set(
+          'allIds',
+          state.allIds.filter((m) => m.id !== action.src),
+        );
     }
     case actionTypes.MEMBER_SEARCH_ERROR: {
       return state
@@ -186,7 +192,10 @@ export default function memberReducers(state = initialState, action = {}) {
     }
     case actionTypes.MEMBER_SEARCH_SUCCESS: {
       return state
-        .setIn(['search', 'allIds'], action.members.map((m) => m.id))
+        .setIn(
+          ['search', 'allIds'],
+          action.members.map((m) => m.id),
+        )
         .setIn(['search', 'loading'], false)
         .merge(
           {

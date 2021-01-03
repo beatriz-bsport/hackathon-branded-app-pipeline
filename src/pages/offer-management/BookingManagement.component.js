@@ -336,8 +336,9 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                     {t('translation:offer.nonAttendant')}
                   </Typography>
                   <Typography variant="caption">
-                    {`${this.getNbAttendant() +
-                      this.getNbNonAttendant()}/${this.getMaxBookings()} ${t(
+                    {`${
+                      this.getNbAttendant() + this.getNbNonAttendant()
+                    }/${this.getMaxBookings()} ${t(
                       'translation:offer.maxBookingsNb',
                     )}`}
                   </Typography>

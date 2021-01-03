@@ -8,14 +8,16 @@ import { push, replace as replaceRouter } from 'connected-react-router';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
-import memoize from 'memoize-one';
+import { isEqual } from 'lodash';
 
 import { connect } from 'react-redux';
+
 import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
+import withQueryParams from '../../hocs/with-query-params.hoc';
+import withReplaceQueryParams from '../../hocs/with-replace-query-params.hoc';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { addItemToBasket as addItemToBasketAction } from '../../libs/checkout/actions';
 import * as paymentActions from '../../actions/payment.actions';
@@ -25,8 +27,8 @@ import { getCurrentBasket } from '../../libs/checkout/selectors';
 import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
 
 import { Moment } from '../../i18n';
-import { DATE_FORMAT } from '../../datetime';
-import themeSelectors from '../../libs/theme/selectors.ts';
+import { DATE_FORMAT } from '../../utils/datetime';
+import themeSelectors from '../../libs/theme/selectors';
 import { getCoaches } from '../../libs/associated-coach/selectors';
 import { getMetaActivities } from '../../libs/meta-activity/selectors';
 
@@ -37,19 +39,23 @@ import {
   snackbarError as snackbarErrorActions,
 } from '../../actions/snackbar.actions';
 
-import type {
+import {
   Coach,
   Offer,
   Establishment,
   MetaActivity,
 } from '../../libs/marketplace/types';
 
-import { fetchMarketplaceOfferList as fetchOfferListAction } from '../../libs/offer/actions';
+import {
+  fetchMarketplaceOfferList as fetchOfferListAction,
+  fetchBookedGender as fetchBookedGenderAction,
+} from '../../libs/offer/actions';
 import {
   getMarketplaceOfferList,
   withMetaActivity,
   withCoach,
   withEstablishment,
+  withGender,
 } from '../../libs/offer/selectors';
 import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
@@ -67,36 +73,25 @@ type Props = {
   forceDayDisplayOnly: ?boolean,
   compactMode: ?boolean,
   startWeekThisWeekday: ?boolean,
-
   companyId: number,
-  selectedDate: Object,
-
   offers: Array<Offer>,
   coaches: Array<Coach>,
   establishments: Array<Establishment>,
   metaActivities: Array<MetaActivity>,
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
-
   filters: *,
-
   setFilters: (*) => void,
-  toogleFiltersOpen: () => void,
-  handleDateChange: (newDate: string) => void,
   goToBook: (offer: Offer, comapnyId: number) => void,
   onBookOfferFromPack: (offerId: number, consumerPackId: number) => void,
   goToBookOption: (offerId: number, comapnyId: number) => void,
-
   fetchPaymentPacks: (offerId: number) => void,
   fetchCompatiblePass: (offerId: number) => void,
   goToPackPayment: (id: number) => void,
-
   goToPaymentComboPayment: (comboId: number, offerId: number) => void,
   paymentComboList: Array<PaymentCombo>,
-
   theme: Object,
   classes: Object,
-
   fetchEstablishmentBulk: (Array) => void,
   fetchMetaActivityBulk: (Array) => void,
   fetchAssociatedCoachBulkFromCoachIds: (
@@ -104,81 +99,16 @@ type Props = {
     companyId: number,
   ) => void,
   fetchOfferList: (params: any) => void,
+  otherParams: {
+    date: string,
+    filtersOpen: boolean,
+  },
+  setOtherParams: (*) => void,
 };
 
 type State = {
   offerId: ?number,
   offer: Object,
-};
-
-const readFiltersFromURL = memoize((search) => {
-  // URL parameters starting with f_ are considered as ID filters for
-  // offers, we parse ?f_levels=[1,2] to replace with { levels: [1,2] }
-  try {
-    const params = search.slice(1).split('&');
-    const filters = params
-      .map((param) => param.split('='))
-      .filter((param) => param[0].includes('f_'))
-      .map((param) => [param[0].split('f_')[1], JSON.parse(param[1])]);
-    return filters.reduce((a, v) => ({ ...a, [v[0]]: v[1] }), {});
-  } catch (err) {
-    return {};
-  }
-});
-
-const fromURLtoDate = (search: string) => {
-  try {
-    const params = search.slice(1).split('&');
-    const date_string = params.find((p) => p.includes('date='));
-    return Moment(date_string.split('=')[1], DATE_FORMAT).format(DATE_FORMAT);
-  } catch (err) {
-    return Moment().format(DATE_FORMAT);
-  }
-};
-
-const fromPropsToNewDateURL = (date, location) => {
-  const currentDate =
-    typeof date === 'string' ? Moment(date, DATE_FORMAT) : Moment(date);
-  const params = location.search.slice(1).split('&');
-  const filtered_params = params.filter((p) => !p.includes('date='));
-  return `${location.pathname}?${filtered_params.join(
-    '&',
-  )}&date=${currentDate.format(DATE_FORMAT)}`;
-};
-
-const fromPropsToURL = (filters: *, currentParams: string) => {
-  // Rebuild the url parameters, keeping the old ones unrelated to filters
-
-  // first we build our parameters based on provided filters
-  const urlParamsArray = [];
-  for (const filter_name in filters) {
-    // eslint-disable-next-line
-    if (filters.hasOwnProperty(filter_name)) {
-      const filter_content = filters[filter_name];
-      if (filter_content) {
-        urlParamsArray.push(`f_${filter_name}=[${filter_content}]`);
-      }
-    }
-  }
-
-  // second we get other parameters not related to previously built params
-  const otherUrlParamsArray = currentParams
-    .replace('?', '')
-    .split('&')
-    .filter((a) => a !== '')
-    .map((params) => params.split('='))
-    .filter(
-      (params) =>
-        !urlParamsArray.map((up) => up.split('=')[0]).includes(params[0]),
-    )
-    .map((up) => `${up[0]}=${up[1]}`);
-
-  // next we join everything
-  let urlParams = '';
-  if (urlParamsArray.length) {
-    urlParams = `?${[...urlParamsArray, ...otherUrlParamsArray].join('&')}`;
-  }
-  return urlParams;
 };
 
 export class MarketplaceCalendar extends Component<Props, State> {
@@ -188,34 +118,39 @@ export class MarketplaceCalendar extends Component<Props, State> {
   };
 
   fetchData = () => {
-    // always fetch began from week start
-    const min_date = Moment(this.props.selectedDate, DATE_FORMAT)
-      .clone()
+    const min_date = Moment(this.props.otherParams.date)
       .startOf('week')
       .format(DATE_FORMAT);
-    // the max date changes if start from today is enabled
-    const max_date = Moment(this.props.selectedDate, DATE_FORMAT)
-      .clone()
+
+    const max_date = Moment(this.props.otherParams.date)
       .endOf('week')
       .format(DATE_FORMAT);
-    // fetch offers of the week
+
     this.props.fetchEstablishmentBulk(this.props.filters.establishments || []);
+
     this.props.fetchAssociatedCoachBulkFromCoachIds(
       this.props.filters.coaches || [],
       this.props.companyId,
     );
-    this.props.fetchMetaActivityBulk(this.props.filters.metaActivities || []);
+
+    const optionalParams = {};
+
+    if (this.props.theme) {
+      if (!this.props.theme.show_workshops_customer) {
+        optionalParams.is_workshop = false;
+      }
+      if (!this.props.theme.show_cancelled_offers_customer) {
+        optionalParams.available = true;
+      }
+    }
+
+    this.props.fetchMetaActivityBulk(this.props.filters.activity__in || []);
     this.props.fetchOfferList({
       company: this.props.companyId,
       min_date,
       max_date,
-      filters: this.props.filters,
-      ...(this.props.theme && this.props.theme.show_workshops_customer
-        ? {}
-        : { is_workshop: false }),
-      ...(this.props.theme && this.props.theme.show_cancelled_offers_customer
-        ? {}
-        : { available: true }),
+      ...this.props.filters,
+      ...optionalParams,
     });
   };
 
@@ -224,101 +159,14 @@ export class MarketplaceCalendar extends Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    const filtersPropsChanged = !this.checkFiltersChange(
-      prevProps.filters,
-      this.props.filters,
-    );
-    if (
-      filtersPropsChanged ||
-      (!prevProps.selectedDate && this.props.selectedDate) ||
-      Moment(prevProps.selectedDate, DATE_FORMAT)
-        .clone()
-        .week() !==
-        Moment(this.props.selectedDate, DATE_FORMAT)
-          .clone()
-          .week()
-    ) {
+    const filtersPropsChanged = !isEqual(prevProps.filters, this.props.filters);
+    const selectedDateChanged =
+      prevProps.otherParams.date !== this.props.otherParams.date;
+
+    if (filtersPropsChanged || selectedDateChanged) {
       this.fetchData();
     }
   }
-
-  checkFiltersChange = (filters, prevFilters) => {
-    if (
-      (!!filters.coaches && !prevFilters.coaches) ||
-      (!filters.coaches && !!prevFilters.coaches)
-    ) {
-      return false;
-    }
-
-    if (!!filters.coaches && !!prevFilters.coaches) {
-      if (
-        !(
-          filters.coaches.length === prevFilters.coaches.length &&
-          filters.coaches.every((value, index) => {
-            return value === prevFilters.coaches.sort()[index];
-          })
-        )
-      ) {
-        return false;
-      }
-    }
-    if (
-      (!!filters.establishments && !prevFilters.establishments) ||
-      (!filters.establishments && !!prevFilters.establishments)
-    ) {
-      return false;
-    }
-
-    if (!!filters.establishments && !!prevFilters.establishments) {
-      if (
-        !(
-          filters.establishments.length === prevFilters.establishments.length &&
-          filters.establishments.every((value, index) => {
-            return value === prevFilters.establishments.sort()[index];
-          })
-        )
-      ) {
-        return false;
-      }
-    }
-    if (
-      (!!filters.metaActivities && !prevFilters.metaActivities) ||
-      (!filters.metaActivities && !!prevFilters.metaActivities)
-    ) {
-      return false;
-    }
-    if (!!filters.metaActivities && !!prevFilters.metaActivities) {
-      if (
-        !(
-          filters.metaActivities.length === prevFilters.metaActivities.length &&
-          filters.metaActivities.every((value, index) => {
-            return value === prevFilters.metaActivities.sort()[index];
-          })
-        )
-      ) {
-        return false;
-      }
-    }
-    if (
-      (!!filters.levels && !prevFilters.levels) ||
-      (!filters.levels && !!prevFilters.levels)
-    ) {
-      return false;
-    }
-    if (!!filters.levels && !!prevFilters.levels) {
-      if (
-        !(
-          filters.levels.length === prevFilters.levels.length &&
-          filters.levels.every((value, index) => {
-            return value === prevFilters.levels.sort()[index];
-          })
-        )
-      ) {
-        return false;
-      }
-    }
-    return true;
-  };
 
   openOfferDialog = (offerId: number) => {
     this.setState({
@@ -338,6 +186,16 @@ export class MarketplaceCalendar extends Component<Props, State> {
 
   goToBookOption = (id: number) => {
     this.props.goToBookOption(id, this.props.companyId);
+  };
+
+  handleDateChange = (d) => {
+    this.props.setOtherParams('date')(Moment(d).format('YYYY-MM-DD'));
+  };
+
+  toogleFiltersOpen = () => {
+    this.props.setOtherParams('filtersOpen')(
+      this.props.otherParams.filtersOpen === 'true' ? '' : 'true',
+    );
   };
 
   render() {
@@ -376,6 +234,7 @@ export class MarketplaceCalendar extends Component<Props, State> {
         <MarketplaceCalendarComponent
           offers={offers}
           showOfferFilling={this.props.theme.show_offers_filling}
+          showOfferGender={this.props.theme.show_booked_gender_offer}
           setFilters={this.props.setFilters}
           filters={filters}
           loading={this.props.loading}
@@ -384,13 +243,13 @@ export class MarketplaceCalendar extends Component<Props, State> {
           onClickOffer={this.openOfferDialog}
           onClickBook={this.goToBook}
           onClickBookOption={this.props.goToBookOption}
-          onSelectDate={this.props.handleDateChange}
-          selectedDate={this.props.selectedDate}
+          onSelectDate={this.handleDateChange}
+          selectedDate={this.props.otherParams.date}
           coaches={coaches}
           establishments={establishments}
           metaActivities={this.props.metaActivities}
-          filtersOpen={this.props.filtersOpen}
-          toogleFiltersOpen={this.props.toogleFiltersOpen}
+          filtersOpen={this.props.otherParams.filtersOpen === 'true'}
+          toogleFiltersOpen={this.toogleFiltersOpen}
           compactMode={this.props.compactMode}
           startWeekThisWeekday={startWeekThisWeekday}
         />
@@ -412,39 +271,27 @@ export const MarketplaceCalendarStyled = compose(
 
 export default compose(
   withRouter,
-  connect(
-    null,
-    { replace: replaceRouter },
+  connect(null, { replace: replaceRouter }),
+  withReplaceQueryParams(
+    ['f_coaches', 'f_metaActivities', 'f_levels', 'f_establishments'],
+    ['coaches', 'activity__in', 'levels', 'establishments'],
   ),
+  withQueryParams([
+    ['coaches', 'establishments', 'activity__in', 'levels'],
+    'filters',
+    'setFilters',
+    'arrayNumber',
+  ]),
+  withQueryParams([['filtersOpen', 'date'], 'otherParams', 'setOtherParams']),
   withProps(({ location }) => ({
-    filters: readFiltersFromURL(location.search),
-    filtersOpen: location.search.includes('filtersOpen=true'),
     forceDayDisplayOnly: location.search.includes('onlyDay=true'),
   })),
-  withHandlers({
-    setFilters: ({ replace, location }) => (filters) => {
-      const urlParams = fromPropsToURL(filters, location.search);
-      replace(location.pathname + urlParams);
-    },
-    toogleFiltersOpen: ({ replace, location }) => () => {
-      if (location.search.includes('filtersOpen=true')) {
-        replace(
-          location.pathname +
-            location.search
-              .replace('&filtersOpen=true', '')
-              .replace('filtersOpen=true', ''),
-        );
-      } else if (location.search === '') {
-        replace(`${location.pathname}?filtersOpen=true`);
-      } else {
-        replace(`${location.pathname + location.search}&filtersOpen=true`);
-      }
-    },
-  }),
   connect(
     (state) => ({
       offers: withCoach(
-        withMetaActivity(withEstablishment(getMarketplaceOfferList)),
+        withMetaActivity(
+          withEstablishment(withGender(getMarketplaceOfferList)),
+        ),
       )(state),
       loading: state.offer.marketplace.loading,
       coachLoading: state.coach.loading,
@@ -453,7 +300,6 @@ export default compose(
       coaches: getCoaches(state),
       establishments: getAllEstablishments(state),
       metaActivities: getMetaActivities(state),
-
       theme: themeSelectors.getTheme(state),
     }),
     {
@@ -462,6 +308,7 @@ export default compose(
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       fetchAssociatedCoachBulkFromCoachIds: fetchAssociatedCoachBulkFromCoachIdsAction,
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+      fetchBookedGender: fetchBookedGenderAction,
       goToBook: (id: number, companyId: number) =>
         push(`/customer/payment/offer/${id}?membership=${companyId}`),
       goToBookOption: (id: number, companyId: number) =>
@@ -474,7 +321,9 @@ export default compose(
       fetchEstablishmentBulk,
       fetchMetaActivityBulk,
       fetchAssociatedCoachBulkFromCoachIds,
+      fetchBookedGender,
       companyId,
+      theme,
     }) => (params) => {
       fetchOfferList(params, {
         onSuccess: (offerList) => {
@@ -493,25 +342,16 @@ export default compose(
           fetchMetaActivityBulk([...offerList.map((o) => o.meta_activity)]);
         },
       });
+      if (theme && theme.show_booked_gender_offer) {
+        fetchBookedGender(params);
+      }
     },
   }),
-  connect(
-    null,
-    (dispatch) => ({
-      onCompletePurchase() {
-        dispatch(push('/'));
-        dispatch(snackbarSuccess('booking.register.success'));
-      },
-    }),
-  ),
-  withHandlers({
-    handleDateChange: ({ location, replace }) => (newDate_: string) => {
-      const pathname = fromPropsToNewDateURL(newDate_, location);
-      replace(pathname);
+  connect(null, (dispatch) => ({
+    onCompletePurchase() {
+      dispatch(push('/'));
+      dispatch(snackbarSuccess('booking.register.success'));
     },
-  }),
-  withProps(({ location }) => ({
-    selectedDate: fromURLtoDate(location.search),
   })),
   withTranslation(['booking', 'titles']),
   withHandlers({
@@ -526,7 +366,21 @@ export default compose(
         .catch((err) => {
           console.error(err);
           if (err && err.response && err.response.status === 423) {
-            snackbarError(t('booking:bookingModule.messages.offerLocked'));
+            switch (err.response.data) {
+              case 'unavailable for female':
+                snackbarError(
+                  t('booking:bookingModule.messages.femaleUnavailable'),
+                );
+                break;
+              case 'unavailable for male':
+                snackbarError(
+                  t('booking:bookingModule.messages.maleUnavailable'),
+                );
+                break;
+              default:
+                snackbarError(t('booking:bookingModule.messages.offerLocked'));
+                break;
+            }
           }
         });
     },

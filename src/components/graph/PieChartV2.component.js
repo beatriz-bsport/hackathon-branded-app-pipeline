@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
-import { numberFormatter } from '../../state/stats/utils';
+import { numberFormatter } from '../../libs/statistics/utils';
 import { getPalette, getAnalogColors } from './color-utils';
 
 type Props = {

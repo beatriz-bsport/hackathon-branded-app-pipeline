@@ -6,7 +6,7 @@ import {
   getAuth,
   deleteAuth,
   buildUrlParams,
-} from '../../http.ts';
+} from '../../http';
 
 import type { PaymentComboPayload } from './types';
 

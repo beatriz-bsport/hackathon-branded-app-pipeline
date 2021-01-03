@@ -21,7 +21,7 @@ import {
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
   fetchAllPaymentPacks as fetchAllPaymentPacksAction,
 } from '../../libs/payment-packs/actions';
-import { fetchPrivatePassList } from '../../libs/private-service/actions.ts';
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { getEnabled as getEnabledPaymentPackList } from '../../libs/payment-packs/selectors';
 
 import {
@@ -56,7 +56,7 @@ import type {
   Subscription,
   PlannedInvoice,
 } from '../../libs/subscription/types';
-import type { OptionCallback } from '../../state/types.ts';
+import type { OptionCallback } from '../../state/types';
 
 type Props = {
   classes: Object,

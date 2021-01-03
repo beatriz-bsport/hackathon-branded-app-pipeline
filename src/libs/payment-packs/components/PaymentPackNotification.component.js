@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React from 'react';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -12,252 +12,244 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
-import { compose } from 'recompose';
+import { useTranslation } from 'react-i18next';
+import { compose, withState, withHandlers } from 'recompose';
 
 import PaymentPackNotificationForm from './PaymentPackNotificationForm.component';
-import withConfirm from '../../../hocs/with-confirm.hoc';
 
-const PAYMENT_PACK_NOTIFICATION_DAY_LEFT = 0;
-const PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT = 1;
-const PAYMENT_PACK_NOTIFICATION_DAY_PAST = 2;
+const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
 
 type Props = {
   getEmails: () => void,
+  pack: PaymentPack,
   getEmailDetail: (id: number) => void,
   getSmartLists: () => void,
-  createNotification: () => void,
-  updateNotification: (data: any) => void,
+  updateNotification: (id: number, data: any) => void,
   deleteNotification: (id: number) => void,
   goToSmartlist: () => void,
   classes: Object,
-  t: TFunction,
   emailListLoading: boolean,
   emails: Array<any>,
 
   smartLists: Array<any>,
-  pack: PaymentPack,
-  notifications: Array<any>,
+  notifications: { items: Array<any>, loading: boolean },
   emailDetailLoading: boolean,
   smartListLoading: boolean,
   emailDetails: Array<any>,
+
+  onSubmit: (data: any) => void,
+  closeForm: () => void,
+  isDeleteModalOpen: boolean,
+  setIsDeleteModalOpen: (boolean) => void,
+  selectedNotification: any,
+  setSelectedNotification: (any) => void,
+  isFormOpen: boolean,
+  setIsFormOpen: (boolean) => void,
 };
 
-const ButtonWithConfirm = withConfirm(IconButton, 'onClick', {
-  title: 'paymentPack:notification.listItem.deleteModal.title',
-  cancel: 'paymentPack:notification.listItem.deleteModal.cancel',
-  confirm: 'paymentPack:notification.listItem.deleteModal.confirm',
-  Content: ({ t }: { t: TFunction }) => (
-    <p>{t('paymentPack:notification.listItem.deleteModal.content')}</p>
-  ),
-});
+const getNotificationKind = (notif: any) => {
+  if (notif.kind === CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME) {
+    return notif.event_rules.days_left < 0 ? 'daysPast' : 'daysLeft';
+  }
+  return 'creditsLeft';
+};
 
-export class notificationRule extends Component<Props, state> {
-  state = {
-    selectedNotification: null,
-    openForm: false,
-  };
-
-  renderPrimaryNotifText = (notif) => {
-    const { t } = this.props;
-    if (
-      notif.kind === PAYMENT_PACK_NOTIFICATION_DAY_LEFT &&
-      notif.days_left < 0
-    ) {
-      return (
-        <Typography>
-          {`${t(
-            `notification.${PAYMENT_PACK_NOTIFICATION_DAY_PAST}.first`,
-          )} ${Math.abs(notif.days_left)} ${t(
-            `notification.${PAYMENT_PACK_NOTIFICATION_DAY_PAST}.second`,
-          )} `}
-        </Typography>
-      );
-    }
-    if (notif.kind === PAYMENT_PACK_NOTIFICATION_DAY_LEFT) {
-      return (
-        <Typography>
-          {`${t(`notification.${PAYMENT_PACK_NOTIFICATION_DAY_LEFT}.first`)} ${
-            notif.days_left
-          } ${t(`notification.${PAYMENT_PACK_NOTIFICATION_DAY_LEFT}.second`)} `}
-        </Typography>
-      );
-    }
+const renderPrimaryText = (notif, t) => {
+  const notificationKind = getNotificationKind(notif);
+  if (notificationKind === 'creditsLeft') {
     return (
       <Typography>
-        {`${t(`notification.${PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT}.first`)} ${
-          notif.credits_left
-        } ${t(
-          `notification.${PAYMENT_PACK_NOTIFICATION_CREDIT_LEFT}.second`,
-        )} `}
+        {`${t('notification.creditsLeft.first')} ${
+          notif.event_rules.credits_left
+        } ${t('notification.creditsLeft.second')}`}
       </Typography>
     );
-  };
+  }
+  return (
+    <Typography>
+      {`${t(`notification.${notificationKind}.first`)} ${Math.abs(
+        notif.event_rules.days_left,
+      )} ${t(`notification.${notificationKind}.second`)}`}
+    </Typography>
+  );
+};
 
-  onFormSubmit = (data) => {
-    if (this.state.selectedNotification !== null) {
-      this.props.updateNotification({
-        ...data,
-        id: this.state.selectedNotification.id,
-        payment_pack: this.props.pack.id,
-      });
-      this.setState({ selectedNotification: null, openForm: false });
-    } else {
-      this.props.createNotification({
-        ...data,
-        payment_pack: this.props.pack.id,
-      });
-      this.setState({ selectedNotification: null, openForm: false });
-    }
-  };
+const PaymentPackNotification = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['paymentPack']);
 
-  render() {
-    const { notifications, emails, classes, t, smartLists } = this.props;
-    if (notifications.loading) {
-      return (
-        <div className={classes.loading}>
-          <CircularProgress />
-        </div>
-      );
-    }
-
+  const { notifications, emails, smartLists } = props;
+  if (notifications.loading) {
     return (
-      <div>
-        <Paper className={classes.paper}>
-          {notifications.items.map((notif) => (
-            <div key={notif.id} className={this.props.classes}>
-              <ListItem divider>
-                <Switch
-                  checked={notif.active}
-                  onChange={() =>
-                    this.props.updateNotification({
-                      active: !notif.active,
-                      id: notif.id,
-                      payment_pack: this.props.pack.id,
-                    })
-                  }
-                  value="checkedA"
-                  inputProps={{ 'aria-label': 'secondary checkbox' }}
-                />
-                <ListItemText
-                  primary={this.renderPrimaryNotifText(notif)}
-                  secondary={
-                    <div>
-                      <Typography variant="caption">
-                        {` ${t('notification.listItem.mail')}: ${
-                          emails.find(
-                            (email) => email.id === notif.email_design,
-                          )
-                            ? emails.find(
-                                (email) => email.id === notif.email_design,
-                              ).title
-                            : ' - '
-                        }`}
-                      </Typography>
-                      {notif.smartlist_exclude.length > 0 ? (
-                        <div className={classes.inlineLeft}>
-                          <Typography variant="caption">
-                            {` ${t('notification.listItem.smartList')}: `}
-                          </Typography>
-                          <Typography
-                            variant="caption"
-                            className={classes.list}
-                          >
-                            {smartLists
-                              .filter((smartlist) =>
-                                notif.smartlist_exclude.includes(smartlist.id),
-                              )
-                              .map((smartlist) => smartlist.name)
-                              .join(', ') || ' - '}
-                          </Typography>
-                        </div>
-                      ) : null}
-                      {notif.smartlist_include.length > 0 ? (
-                        <div className={classes.inlineLeft}>
-                          <Typography variant="caption">
-                            {` ${t(
-                              'notification.listItem.smartListInclude',
-                            )}: `}
-                          </Typography>
-                          <Typography
-                            variant="caption"
-                            className={classes.list}
-                          >
-                            {smartLists
-                              .filter((smartlist) =>
-                                notif.smartlist_include.includes(smartlist.id),
-                              )
-                              .map((smartlist) => smartlist.name)
-                              .join(', ') || ' - '}
-                          </Typography>
-                        </div>
-                      ) : null}
-                    </div>
-                  }
-                />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="end"
-                    aria-label="Edit"
-                    color="primary"
-                    onClick={() =>
-                      this.setState({
-                        openForm: true,
-                        selectedNotification: notif,
-                      })
-                    }
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <ButtonWithConfirm
-                    onClick={() => this.props.deleteNotification(notif)}
-                    color="secondary"
-                  >
-                    <DeleteIcon />
-                  </ButtonWithConfirm>
-                </ListItemSecondaryAction>
-              </ListItem>
-            </div>
-          ))}
-        </Paper>
-        <div className={classes.addButtonContainer}>
-          <Button
-            id="button_pass_notification"
-            variant="outlined"
-            color="primary"
-            onClick={() => this.setState({ openForm: true })}
-          >
-            {t('notification.addButton')}
-          </Button>
-        </div>
-        <PaymentPackNotificationForm
-          open={this.state.openForm}
-          goToSmartlist={this.props.goToSmartlist}
-          notification={this.state.selectedNotification}
-          onCancel={() =>
-            this.setState({ selectedNotification: null, openForm: false })
-          }
-          emails={emails}
-          emailListLoading={this.props.emailListLoading}
-          getEmailDetail={this.props.getEmailDetail}
-          emailDetails={this.props.emailDetails}
-          getEmails={this.props.getEmails}
-          emailDetailLoading={this.props.emailDetailLoading}
-          getSmartLists={this.props.getSmartLists}
-          smartLists={this.props.smartLists}
-          smartListLoading={this.props.smartListLoading}
-          onSubmit={this.onFormSubmit}
-        />
+      <div className={classes.loading}>
+        <CircularProgress />
       </div>
     );
   }
-}
 
-const styles = (theme) => ({
+  return (
+    <div>
+      <Paper className={classes.paper}>
+        {notifications.items.map((notif) => (
+          <div key={notif.id} className={props.classes}>
+            <ListItem divider>
+              <Switch
+                checked={notif.active}
+                onChange={() =>
+                  props.updateNotification(notif.id, { active: !notif.active })
+                }
+                value="checkedA"
+                inputProps={{ 'aria-label': 'secondary checkbox' }}
+              />
+              <ListItemText
+                primary={renderPrimaryText(notif, t)}
+                secondary={
+                  <div>
+                    <Typography variant="caption">
+                      {` ${t('notification.listItem.mail')}: ${
+                        emails.find((email) => email.id === notif.email_design)
+                          ? emails.find(
+                              (email) => email.id === notif.email_design,
+                            ).title
+                          : ' - '
+                      }`}
+                    </Typography>
+                    {notif.event_rules.smartlist_exclude &&
+                    notif.event_rules.smartlist_exclude.length > 0 ? (
+                      <div className={classes.inlineLeft}>
+                        <Typography variant="caption">
+                          {` ${t('notification.listItem.smartList')}: `}
+                        </Typography>
+                        <Typography variant="caption" className={classes.list}>
+                          {smartLists
+                            .filter((smartlist) =>
+                              notif.event_rules.smartlist_exclude.includes(
+                                smartlist.id,
+                              ),
+                            )
+                            .map((smartlist) => smartlist.name)
+                            .join(', ') || ' - '}
+                        </Typography>
+                      </div>
+                    ) : null}
+                    {notif.event_rules.smartlist_include &&
+                    notif.event_rules.smartlist_include.length > 0 ? (
+                      <div className={classes.inlineLeft}>
+                        <Typography variant="caption">
+                          {` ${t('notification.listItem.smartListInclude')}: `}
+                        </Typography>
+                        <Typography variant="caption" className={classes.list}>
+                          {smartLists
+                            .filter((smartlist) =>
+                              notif.event_rules.smartlist_include.includes(
+                                smartlist.id,
+                              ),
+                            )
+                            .map((smartlist) => smartlist.name)
+                            .join(', ') || ' - '}
+                        </Typography>
+                      </div>
+                    ) : null}
+                  </div>
+                }
+              />
+              <ListItemSecondaryAction>
+                <IconButton
+                  edge="end"
+                  aria-label="Edit"
+                  color="primary"
+                  onClick={() => {
+                    props.setSelectedNotification(notif);
+                    props.setIsFormOpen(true);
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  color="secondary"
+                  onClick={() => {
+                    props.setSelectedNotification(notif);
+                    props.setIsDeleteModalOpen(true);
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          </div>
+        ))}
+      </Paper>
+      <div className={classes.addButtonContainer}>
+        <Button
+          id="button_pass_notification"
+          variant="outlined"
+          color="primary"
+          onClick={() => props.setIsFormOpen(true)}
+        >
+          {t('notification.addButton')}
+        </Button>
+      </div>
+      {props.isFormOpen && (
+        <PaymentPackNotificationForm
+          id={props.pack.id}
+          goToSmartlist={props.goToSmartlist}
+          onCancel={props.closeForm}
+          emails={emails}
+          emailListLoading={props.emailListLoading}
+          getEmailDetail={props.getEmailDetail}
+          emailDetails={props.emailDetails}
+          getEmails={props.getEmails}
+          emailDetailLoading={props.emailDetailLoading}
+          getSmartLists={props.getSmartLists}
+          smartLists={props.smartLists}
+          smartListLoading={props.smartListLoading}
+          initial={props.selectedNotification}
+          onSubmit={props.onSubmit}
+        />
+      )}
+      <Dialog open={props.isDeleteModalOpen}>
+        <DialogTitle>
+          {t('paymentPack:notification.listItem.deleteModal.title')}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {t('paymentPack:notification.listItem.deleteModal.content')}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              props.setSelectedNotification(null);
+              props.setIsDeleteModalOpen(false);
+            }}
+          >
+            {t('paymentPack:notification.listItem.deleteModal.cancel')}
+          </Button>
+          <Button
+            color="primary"
+            onClick={() => {
+              props.deleteNotification(props.selectedNotification.id);
+              props.setSelectedNotification(null);
+              props.setIsDeleteModalOpen(false);
+            }}
+          >
+            {t('paymentPack:notification.listItem.deleteModal.confirm')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
   list: {
     marginLeft: theme.spacing(1),
   },
@@ -281,9 +273,31 @@ const styles = (theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+}));
 
 export default compose(
-  withTranslation(['paymentPack']),
-  withStyles(styles),
-)(notificationRule);
+  withState('isDeleteModalOpen', 'setIsDeleteModalOpen', false),
+  withState('selectedNotification', 'setSelectedNotification', null),
+  withState('isFormOpen', 'setIsFormOpen', false),
+  withHandlers({
+    closeForm: ({ setIsFormOpen, setSelectedNotification }) => () => {
+      setSelectedNotification(null);
+      setIsFormOpen(false);
+    },
+    onSubmit: ({
+      createNotification,
+      updateNotification,
+      selectedNotification,
+      setIsFormOpen,
+      setSelectedNotification,
+    }) => (data: any) => {
+      if (selectedNotification !== null) {
+        updateNotification(selectedNotification.id, data);
+      } else {
+        createNotification(data);
+      }
+      setIsFormOpen(false);
+      setSelectedNotification(null);
+    },
+  }),
+)(PaymentPackNotification);

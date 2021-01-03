@@ -1,8 +1,6 @@
-import React from 'react';
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import {
   Avatar,
-  Chip,
   Fade,
   Typography,
   makeStyles,
@@ -10,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+
 import {
   PrivateCoach,
   PrivateService,
@@ -17,10 +16,10 @@ import {
 } from '../../../../libs/private-service/types';
 
 type Props = {
-  privateService: PrivateService,
-  privateSlot: PrivateSlot,
-  selectedCoaches: PrivateCoach[],
-  onSelect: (slot: PrivateCoach) => void,
+  privateService: PrivateService;
+  privateSlot: PrivateSlot;
+  selectedCoaches: PrivateCoach[];
+  onSelect: (slot: PrivateCoach) => void;
 };
 
 const CoachSelector: React.FC<Props> = (props) => {
@@ -41,7 +40,7 @@ const CoachSelector: React.FC<Props> = (props) => {
   return (
     <Fade in timeout={500}>
       <div className={classes.container}>
-        <Typography className={classes.titleMargin} variant={'h5'}>
+        <Typography className={classes.titleMargin} variant="h5">
           {t('slotSearcher.coach')}
         </Typography>
         <div className={classes.container2}>
@@ -58,7 +57,7 @@ const CoachSelector: React.FC<Props> = (props) => {
               >
                 <div className={classes.itemInner}>
                   <Avatar src={coach.photo} alt={coach.name} />
-                  <Typography className={classes.label} variant={'subtitle2'}>
+                  <Typography className={classes.label} variant="subtitle2">
                     {coach.name}
                   </Typography>
                 </div>

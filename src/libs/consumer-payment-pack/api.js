@@ -5,7 +5,7 @@ import {
   deleteAuth,
   getAuth,
   buildUrlParams,
-} from '../../http.ts';
+} from '../../http';
 
 export async function fetchByOfferByMember(offer, data: any = {}) {
   return postAuth(

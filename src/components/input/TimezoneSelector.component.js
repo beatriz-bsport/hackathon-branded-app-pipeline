@@ -18,10 +18,7 @@ export const TimezoneSelector = (props: Props) => {
           const { name, offset } = tzData;
           return (
             <MenuItem key={name} value={name} className={classes.menuItem}>
-              {`${name
-                .split('/')
-                .slice(1)
-                .join(', ')} (UTC${
+              {`${name.split('/').slice(1).join(', ')} (UTC${
                 parseInt(offset, 10) <= 0 ? '+' : '-'
               }${Math.abs(parseInt(offset / 60, 10))})`}
             </MenuItem>

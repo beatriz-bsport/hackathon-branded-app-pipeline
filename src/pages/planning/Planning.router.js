@@ -16,6 +16,7 @@ import {
   withMetaActivity,
   withCoach,
   withEstablishment,
+  withGender,
 } from '../../libs/offer/selectors';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
@@ -40,8 +41,9 @@ export default function PlanningRouter() {
       />
       <Redirect
         from="/"
-        to={`/calendar/${momentDate.year()}/${momentDate.month() +
-          1}/${momentDate.date()}`}
+        to={`/calendar/${momentDate.year()}/${
+          momentDate.month() + 1
+        }/${momentDate.date()}`}
       />
     </Switch>
   );
@@ -57,7 +59,7 @@ const PlanningWithDateAndOffer = compose(
   connect(
     (state) => ({
       offers: withMetaActivity(
-        withEstablishment(withCoach(getManagerOffersFiltered)),
+        withEstablishment(withCoach(withGender(getManagerOffersFiltered))),
       )(state),
     }),
 

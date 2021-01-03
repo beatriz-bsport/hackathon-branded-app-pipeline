@@ -3,7 +3,7 @@
 import { createSelector } from 'reselect';
 
 import Immutable from 'seamless-immutable';
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 import type { email_template_state } from './types';
 
 export const getSmartListDict = (state: State): email_template_state =>
@@ -31,7 +31,6 @@ export const getSmartListFilters = (state: State, id: number): any =>
 export const getSmartListMembers = (state: State, id: number): any =>
   state.smartList.membersBySmartListId[id];
 
-export const getFreshSmartListIds = createSelector(
-  getAllSmartList,
-  (sl) => sl.map((list) => list.id),
+export const getFreshSmartListIds = createSelector(getAllSmartList, (sl) =>
+  sl.map((list) => list.id),
 );

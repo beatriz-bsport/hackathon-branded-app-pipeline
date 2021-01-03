@@ -1,40 +1,30 @@
-// @flow
-
-import { RootState } from '../../../reducers';
-
-const moment = require('moment-timezone');
+import moment from 'moment-timezone';
 import memoize from 'memoize-one';
-import pickBy from 'lodash/pickBy';
-import groupBy from 'lodash/groupBy';
+import { pickBy, groupBy, flatten } from 'lodash';
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 
+import { RootState } from '../../../reducers';
 import { AvailabilitySlot, PrivateServiceState } from '../types';
-import flatten from 'lodash/flatten';
 
 export const DEFAULT_EXIST_CHECK: {
-  loading: boolean,
-  error?: Error,
-  exists: boolean,
+  loading: boolean;
+  error?: Error;
+  exists: boolean;
 } = Immutable({
   loading: true,
   error: null,
   exists: false,
 });
 
-export const groupByResourceDatatype = (stuff) =>
+export const groupByResourceDatatype = (stuff: any) =>
   Object.entries(groupBy(stuff, 'datatype')).reduce(
     (acc, [datatype, data]) => [...acc, { datatype, data }],
     [],
   );
 
-const _getAvailabilitySlotsData = (state) =>
+const _getAvailabilitySlotsData = (state: RootState) =>
   state.privateService.availabilitySlot.byId;
-
-type PeriodFilter = {
-  start: string,
-  end: string,
-};
 
 export const getResourceSlotsExistState = (
   privateServiceState: PrivateServiceState,
@@ -72,7 +62,7 @@ export const getAvailabilitySlots = createSelector(
   },
 );
 
-//@ts-ignore
+// @ts-ignore
 export const getCoachAvailabilitySlots: (
   State,
   number,
@@ -86,7 +76,10 @@ export const getCoachAvailabilitySlots: (
   return getAvailabilitySlots(state, periodFilter);
 };
 
-export const getPrivateServiceResourceData = (state, serviceId) => {
+export const getPrivateServiceResourceData = (
+  state: RootState,
+  serviceId: string,
+) => {
   const stuff = pickBy(
     state.privateService.resource.byId,
     (resource) => `${resource.private_service}` === `${serviceId}`,
@@ -94,8 +87,10 @@ export const getPrivateServiceResourceData = (state, serviceId) => {
   return groupByResourceDatatype(stuff);
 };
 
-const _getResourceData = (state) => state.privateService.resource.byId;
-const _getResourceIds = (state) => state.privateService.resource.allIds;
+const _getResourceData = (state: RootState) =>
+  state.privateService.resource.byId;
+const _getResourceIds = (state: RootState) =>
+  state.privateService.resource.allIds;
 
 export const getResourceDataList = createSelector(
   [_getResourceData, _getResourceIds],
@@ -103,18 +98,16 @@ export const getResourceDataList = createSelector(
 );
 
 export const withResourceColor = memoize((selector) =>
-  createSelector(
-    [selector, _getResourceData],
-    (slots, resourceData) =>
-      //@ts-ignore
-      slots.map((s) => {
-        const resource = resourceData[s.resource_identifier];
-        return { ...s, color: resource ? resource.color : '' };
-      }),
+  createSelector([selector, _getResourceData], (slots, resourceData) =>
+    // @ts-ignore
+    slots.map((s) => {
+      const resource = resourceData[s.resource_identifier];
+      return { ...s, color: resource ? resource.color : '' };
+    }),
   ),
 );
 
-//@ts-ignore
+// @ts-ignore
 export const getEstablishmentAvailabilitySlots: (
   State,
   number,
@@ -122,14 +115,14 @@ export const getEstablishmentAvailabilitySlots: (
 ) => Array<AvailabilitySlot> = (state, establishment, periodFilter) => {
   if (establishment) {
     return getAvailabilitySlots(state, periodFilter).filter(
-      //@ts-ignore
+      // @ts-ignore
       (s) => s.establishment === establishment,
     );
   }
   return getAvailabilitySlots(state, periodFilter);
 };
 
-//@ts-ignore
+// @ts-ignore
 export const getPrivateServiceAvailabilitySlots: (
   State,
   number,
@@ -137,7 +130,7 @@ export const getPrivateServiceAvailabilitySlots: (
 ) => Array<AvailabilitySlot> = (state, privateServiceId, periodFilter) => {
   if (privateServiceId) {
     return getAvailabilitySlots(state, periodFilter).filter(
-      //@ts-ignore
+      // @ts-ignore
       (s) => s.private_service === privateServiceId,
     );
   }
@@ -152,7 +145,7 @@ export const getFilteredAvailabilitySlots = createSelector(
   (slotsData, resourceIdentifierList) => {
     if (resourceIdentifierList) {
       return slotsData.filter((slot) =>
-        //@ts-ignore
+        // @ts-ignore
         resourceIdentifierList.includes(slot.resource_identifier),
       );
     }
@@ -193,9 +186,9 @@ export const getFilteredCalendarEvents = createSelector(
     if (periodFilter) {
       return Object.values(eventData).filter(
         (v) =>
-          //@ts-ignore
+          // @ts-ignore
           moment(v.date_start).isSameOrAfter(periodFilter.start) &&
-          //@ts-ignore
+          // @ts-ignore
           moment(v.date_start).isSameOrBefore(periodFilter.end),
       );
     }

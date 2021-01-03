@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import asyncComponent from '../../AsyncComponent';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { getAuthToken } from '../../http.ts';
+import { getAuthToken } from '../../http';
 
 const ConsumerHome = asyncComponent(() => import('./ConsumerHome.page'));
 const ConsumerSpacePreSelector = asyncComponent(() =>

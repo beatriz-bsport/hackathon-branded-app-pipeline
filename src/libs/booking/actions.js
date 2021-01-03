@@ -25,7 +25,7 @@ import {
 } from './api';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 
-import type { Dispatch } from '../../state/types.ts';
+import type { Dispatch } from '../../state/types';
 
 export const retrieveActions = {
   success: createAction('BOOKING/RETRIEVE/SUCCESS'),

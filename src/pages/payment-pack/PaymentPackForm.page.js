@@ -30,7 +30,7 @@ import {
 } from '../../libs/meta-activity/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
-import type { Establishment } from '../../libs/establishment/types';
+import { Establishment } from '../../libs/establishment/types';
 import {
   createOrUpdate as createOrUpdatePaymentPack,
   fetchOne as fetchPaymentPack,

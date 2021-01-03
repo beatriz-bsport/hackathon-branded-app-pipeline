@@ -40,7 +40,10 @@ export default handleActions(
       return state.setIn(['createOrUpdate', 'error'], payload);
     },
     [userRoleDelete.success]: (state, { payload }) => {
-      return state.set('users', state.users.filter((u) => u.id !== payload));
+      return state.set(
+        'users',
+        state.users.filter((u) => u.id !== payload),
+      );
     },
   },
   initialState,

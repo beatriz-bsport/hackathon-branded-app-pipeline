@@ -107,7 +107,7 @@ export class VodPlaylistDetailPage extends React.Component<Props> {
           videoPlayingId={this.props.videoId}
           selectedVideo={this.props.selectedVideo}
           onOpenVideo={this.props.goToVideoInPlaylist}
-          authenticated={true}
+          authenticated
         />
         {!!this.props.videoSearchOpen && (
           <VideoSearchModal

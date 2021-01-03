@@ -10,7 +10,7 @@ import {
   deletePaymentCombo as deletePaymentComboAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types.ts';
+import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import type { PaymentComboPayload } from './types';
 
 export const paymentComboListActions = {

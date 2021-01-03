@@ -1,14 +1,13 @@
 // @flow
 
 import { createAction } from 'redux-actions';
-import dashboardGraphsRaw from './dashboardGraphs';
+import defaultDashboardConfiguration from './dashboardGraphs';
 import {
   fetchDashboardSettings as fetchDashboardSettingsAPI,
   updateDashboardSettings as updateDashboardSettingsAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
-import type { Dispatch, OptionCallback } from '../../state/types.ts';
-import type { Tab } from './types';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const dashboardSettings = {
   isLoading: createAction('DASHBOARD/SETTINGS/IS_LOADING'),
@@ -28,13 +27,13 @@ export function fetchDashboardSettings(options: OptionCallback) {
         dispatch(
           dashboardSettings.success({
             ...response.data,
-            settings: dashboardGraphsRaw,
+            settings: defaultDashboardConfiguration,
           }),
         );
       } else {
         dispatch(dashboardSettings.success(response.data));
       }
-      if (options && options.onSuccess) options.onSuccess();
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
       dispatch(dashboardSettings.error(error));
@@ -45,7 +44,7 @@ export function fetchDashboardSettings(options: OptionCallback) {
 }
 
 export function updateDashboardSettings(
-  settings: Array<Tab>,
+  settings: Array<DashboardTab>,
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {

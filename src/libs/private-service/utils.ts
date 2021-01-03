@@ -1,9 +1,13 @@
-// @flow
 import { TFunction } from 'i18next';
-const moment = require('moment-timezone');
+import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
-import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods';
-import { PrivateConsumerPass, PrivatePass, PrivateService } from './types';
+
+import {
+  PrivateConsumerPass,
+  PrivatePass,
+  PrivateService,
+  ResourceAttributionEnum,
+} from './types';
 
 export const getMissingResourceForBooking = (
   service: PrivateService,
@@ -18,7 +22,7 @@ export const getMissingResourceForBooking = (
     service.establishments.length &&
     !data.establishment &&
     (asManager ||
-      service.establishment_attribution === RESOURCE_ATTRIBUTION_CONSUMER)
+      service.establishment_attribution === ResourceAttributionEnum.consumer)
   ) {
     missing.push('establishment');
   }
@@ -40,11 +44,11 @@ export const splitIntervalList = (
   duration_minutes = 0,
   booking_interval = 15,
 ) => {
-  const slots = [];
+  const slots: any[] = [];
   interval_list.map(([start, end]) => {
     const slotToGenerate =
       parseInt(
-        //@ts-ignore
+        // @ts-ignore
         (moment(end) - moment(start)) / (1000 * 60 * booking_interval),
         10,
       ) + 1;
@@ -73,34 +77,20 @@ export const groupSessionsByDayMoment = (
   date: string,
 ) => {
   const morningGroup = sessionList.filter(
-    (d) =>
-      moment(d)
-        .tz(timezoneName)
-        .hour() < 12,
+    (d) => moment(d).tz(timezoneName).hour() < 12,
   );
   const noonGroup = sessionList.filter(
     (d) =>
-      moment(d)
-        .tz(timezoneName)
-        .hour() < 15 &&
-      moment(d)
-        .tz(timezoneName)
-        .hour() >= 12,
+      moment(d).tz(timezoneName).hour() < 15 &&
+      moment(d).tz(timezoneName).hour() >= 12,
   );
   const afternoonGroup = sessionList.filter(
     (d) =>
-      moment(d)
-        .tz(timezoneName)
-        .hour() < 18 &&
-      moment(d)
-        .tz(timezoneName)
-        .hour() >= 15,
+      moment(d).tz(timezoneName).hour() < 18 &&
+      moment(d).tz(timezoneName).hour() >= 15,
   );
   const eveningGroup = sessionList.filter(
-    (d) =>
-      moment(d)
-        .tz(timezoneName)
-        .hour() >= 18,
+    (d) => moment(d).tz(timezoneName).hour() >= 18,
   );
 
   return [

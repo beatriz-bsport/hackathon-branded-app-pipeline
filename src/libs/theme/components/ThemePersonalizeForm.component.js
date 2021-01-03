@@ -21,7 +21,8 @@ import {
 } from '@bsport/common/lib/master-data/settings';
 
 import NumericInput from '../../../components/input/NumericInput.component';
-import type { Theme } from '../types.ts';
+import Checkbox from '../../../components/input/Checkbox.component';
+import type { Theme } from '../types';
 
 type Props = {
   theme: Theme,
@@ -75,7 +76,15 @@ export class ThemePersonalize extends Component<Props, State> {
       this.state.theme.show_workshops_customer ===
         this.props.theme.show_workshops_customer &&
       this.state.theme.basket_expiration_days ===
-        this.props.theme.basket_expiration_days
+        this.props.theme.basket_expiration_days &&
+      this.state.theme.show_booked_gender_offer ===
+        this.props.theme.show_booked_gender_offer &&
+      this.state.theme.is_checking_balance ===
+        this.props.theme.is_checking_balance &&
+      this.state.theme.nb_to_check_balance ===
+        this.props.theme.nb_to_check_balance &&
+      this.state.theme.gender_max_shift_for_booking ===
+        this.props.theme.gender_max_shift_for_booking
     );
   };
 
@@ -93,6 +102,10 @@ export class ThemePersonalize extends Component<Props, State> {
       'show_cancelled_offers_manager',
       'show_workshops_customer',
       'basket_expiration_days',
+      'show_booked_gender_offer',
+      'is_checking_balance',
+      'nb_to_check_balance',
+      'gender_max_shift_for_booking',
     ].map((key) => data.append(key, this.state.theme[key]));
     if (
       !!this.state.theme.basket_expiration_days ||
@@ -264,6 +277,83 @@ export class ThemePersonalize extends Component<Props, State> {
             {t('forms.themePersonalization.workshopsCustomer')}
           </Typography>
         </div>
+        <div className={classes.inputContainer}>
+          <Switch
+            checked={this.state.theme.show_booked_gender_offer}
+            onChange={() =>
+              this.handleChange('show_booked_gender_offer')(
+                !this.state.theme.show_booked_gender_offer,
+              )
+            }
+          />
+          <Typography>
+            {t('forms.themePersonalization.showGenderOffer')}
+          </Typography>
+        </div>
+        <Typography className={classes.namesHeader}>
+          {t('forms.themePersonalization.offerBalance')}
+        </Typography>
+        <div className={classes.radioButtonContainer}>
+          <Checkbox
+            label={t('forms.themePersonalization.checkBalance.checkbox')}
+            checked={this.state.theme.is_checking_balance}
+            onChange={() =>
+              this.handleChange('is_checking_balance')(
+                !this.state.theme.is_checking_balance,
+              )
+            }
+          />
+        </div>
+        {this.state.theme.is_checking_balance ? (
+          <div className={classes.radioButtonContainer}>
+            <div className={classes.verticalInput}>
+              <NumericInput
+                variant="outlined"
+                helperText={t(
+                  'forms.themePersonalization.checkBalance.numberCheck.helperText',
+                )}
+                label={t(
+                  'forms.themePersonalization.checkBalance.numberCheck.placeholder',
+                  { number: this.state.theme.nb_to_check_balance },
+                )}
+                value={this.state.theme.nb_to_check_balance}
+                InputProps={{
+                  inputProps: { min: 2, step: 1, max: 10 },
+                }}
+                onChange={(ev) =>
+                  this.handleChange('nb_to_check_balance')(
+                    parseInt(ev.target.value, 10),
+                  )
+                }
+              />
+            </div>
+            <div className={classes.verticalInput}>
+              <NumericInput
+                variant="outlined"
+                fullWidth
+                label={t(
+                  'forms.themePersonalization.checkBalance.shiftRatio.placeholder',
+                )}
+                value={this.state.theme.gender_max_shift_for_booking}
+                InputProps={{
+                  inputProps: { min: 1, step: 1, max: 10 },
+                }}
+                onChange={(ev) =>
+                  this.handleChange('gender_max_shift_for_booking')(
+                    parseInt(ev.target.value, 10),
+                  )
+                }
+              />
+            </div>
+            <Typography variant="body2">
+              {t('forms.themePersonalization.checkBalance.shiftRatio.explain', {
+                numberCheck: this.state.theme.nb_to_check_balance,
+                gender_max_shift_for_booking: this.state.theme
+                  .gender_max_shift_for_booking,
+              })}
+            </Typography>
+          </div>
+        ) : null}
         <Typography className={classes.namesHeader}>
           {t('forms.themePersonalization.default_booking_ordering.title')}
         </Typography>
@@ -387,6 +477,9 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'row',
     marginLeft: theme.spacing(1.5),
+    marginBottom: theme.spacing(2),
+  },
+  verticalInput: {
     marginBottom: theme.spacing(2),
   },
 });

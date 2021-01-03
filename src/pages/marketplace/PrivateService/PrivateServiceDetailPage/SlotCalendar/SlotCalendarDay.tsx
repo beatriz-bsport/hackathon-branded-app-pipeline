@@ -1,21 +1,15 @@
-import React from 'react';
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Moment } from 'moment-timezone';
 
-import {
-  ButtonBase,
-  Typography,
-  makeStyles,
-  CircularProgress,
-} from '@material-ui/core';
+import { ButtonBase, Typography, makeStyles } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 import {
   groupSessionsByDayMoment,
   splitIntervalList,
   // @ts-ignore
-} from '../../../../../libs/private-service/utils.ts';
+} from '../../../../../libs/private-service/utils';
 import {
   PrivateService,
   PrivateSlot,
@@ -25,14 +19,14 @@ import { ArrayElement } from '../../../../../utils/types';
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
 
 type Props = {
-  timezoneName: string,
-  privateService: PrivateService,
-  privateSlot: PrivateSlot,
-  slots: Array<string>,
-  date: Moment,
-  loading: boolean,
-  selectedSessionMoment: SessionMoment,
-  onSessionMomentSelect: (sessionMoment: SessionMoment) => void,
+  timezoneName: string;
+  privateService: PrivateService;
+  privateSlot: PrivateSlot;
+  slots: Array<string>;
+  date: Moment;
+  loading: boolean;
+  selectedSessionMoment: SessionMoment;
+  onSessionMomentSelect: (sessionMoment: SessionMoment) => void;
 };
 
 const SlotCalendarDay: React.FC<Props> = (props) => {
@@ -117,7 +111,7 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
               className={classes.absoluteTopLeft}
             />
             <div className={classes.row}>
-              <Typography align={'left'} variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 {label}
               </Typography>
             </div>
@@ -155,10 +149,9 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
     <div className={classes.container}>
       <div className={classes.dateContainer}>
         <Typography variant="subtitle1">{weekDay}</Typography>
-        <Typography
-          variant="subtitle2"
-          color="textSecondary"
-        >{`${month} ${props.date.date()}`}</Typography>
+        <Typography variant="subtitle2" color="textSecondary">
+          {`${month} ${props.date.date()}`}
+        </Typography>
       </div>
 
       {!!props.slots && !!props.slots.length

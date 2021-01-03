@@ -37,7 +37,7 @@ import type { Basket } from '../../libs/checkout/types';
 
 // private-service
 // -----------------------------
-import { fetchPrivatePassAsConsumerList } from '../../libs/private-service/actions.ts';
+import { fetchPrivatePassAsConsumerList } from '../../libs/private-service/actions';
 import { getPrivatePassAsConsumer } from '../../libs/private-service/selectors/private-pass';
 
 // payment-combo

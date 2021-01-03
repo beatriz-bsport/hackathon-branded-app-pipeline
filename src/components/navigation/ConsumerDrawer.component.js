@@ -343,8 +343,10 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           infosOfMember &&
           infosOfMember.nb_reservations + infosOfMember.nb_private_bookings !==
             0
-            ? `(${infosOfMember.nb_reservations +
-                infosOfMember.nb_private_bookings})`
+            ? `(${
+                infosOfMember.nb_reservations +
+                infosOfMember.nb_private_bookings
+              })`
             : ''
         } `,
         text: t('navigation.calendar'),
@@ -362,8 +364,10 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           infosOfMember.nb_consumer_payment_pack +
             infosOfMember.nb_private_consumer_pass !==
             0
-            ? `(${infosOfMember.nb_consumer_payment_pack +
-                infosOfMember.nb_private_consumer_pass})`
+            ? `(${
+                infosOfMember.nb_consumer_payment_pack +
+                infosOfMember.nb_private_consumer_pass
+              })`
             : ''
         }`,
         text: t('navigation.pack'),

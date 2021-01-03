@@ -37,7 +37,7 @@ import { fetchPaymentRules } from '../../libs/payment-rules/actions';
 import CoachPerformanceForm from '../../libs/associated-coach/components/performance/CoachPerformanceForm.component';
 import CoachPerformanceSummary from '../../libs/associated-coach/components/performance/CoachPerformanceSummary.component';
 import CoachPerformanceSessionTable from '../../libs/associated-coach/components/performance/CoachPerformanceSessionTable.component';
-import type {
+import {
   Coach,
   CoachPerformance as CoachPerformanceType,
 } from '../../libs/associated-coach/types';

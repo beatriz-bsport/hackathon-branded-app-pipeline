@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-
+import moment from 'moment-timezone';
 import omit from 'lodash/omit';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 
 import Button from '@material-ui/core/Button';
+import Skeleton from '@material-ui/lab/Skeleton';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 
@@ -63,6 +64,7 @@ import RecurrenceRuleBookingFormDialog from '../../libs/booking/components/Recur
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
 import BookingFilters from '../../libs/booking/components/BookingFilters.component';
 import RecurrenceRuleBookingListItem from '../../libs/booking/components/RecurrenceRuleBookingListItem.component';
+import TemporalBarChart from '../../components/graph/TemporalBarChart.component';
 
 import {
   getMemberBookingListWithConsumerPack,
@@ -74,6 +76,11 @@ import paymentPackSelectors, {
   getAll as getAllPaymentPacks,
 } from '../../libs/payment-packs/selectors';
 import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
+import themeSelectors from '../../libs/theme/selectors';
+import { fetchBookingStatistics2 as fetchBookingStatisticsAction } from '../../actions/stats.actions';
+import { getStatisticTemporal } from '../../libs/statistics/selectors';
+import ChartRange from '../../libs/dashboard/components/ChartRange.component';
+import type { Theme } from '../../libs/theme/types';
 
 type Props = {
   classes: *,
@@ -103,6 +110,7 @@ type Props = {
   decrementCredit: (id: number) => void,
 
   selectBooking: (memberId: number, bookingId: number) => void,
+  unselectBooking: (memberId: number) => void,
   fetchOffer: (id: number) => void,
   goToOffer: (id: number) => void,
   getPass: (id: number) => void,
@@ -131,6 +139,12 @@ type Props = {
   recurrentBookingCount: number,
   refresh: () => void,
   onSubmitRecurrentBooking: () => void,
+
+  graphData: { data: Array<{ d: string, v: number }>, loading: boolean },
+  theme: Theme,
+  fetchMemberBookingStatistics: () => void,
+  chartRange: { start: string, end: string, kind: string },
+  setChartRange: ({ start: string, end: string, kind: string }) => void,
 };
 
 type State = {
@@ -151,6 +165,7 @@ export class MemberDetailBooking extends Component<Props, State> {
     }
     this.props.fetchAllActivities();
     this.props.fetchRecurrenceRuleBooking(1);
+    this.props.fetchMemberBookingStatistics();
   }
 
   hasNext = () => {
@@ -177,6 +192,10 @@ export class MemberDetailBooking extends Component<Props, State> {
             ),
         },
       );
+      this.props.fetchMemberBookingStatistics();
+    }
+    if (prevProps.chartRange !== this.props.chartRange) {
+      this.props.fetchMemberBookingStatistics();
     }
     if (
       this.props.bookingId &&
@@ -205,15 +224,28 @@ export class MemberDetailBooking extends Component<Props, State> {
   };
 
   selectBooking = (booking: Booking) => {
-    this.props.selectBooking(this.props.id, booking.id);
+    if (this.props.bookingId && this.props.bookingId === booking.id) {
+      this.props.unselectBooking(this.props.id);
+    } else {
+      this.props.selectBooking(this.props.id, booking.id);
+    }
   };
 
   render() {
+    const { primary_color } = this.props.theme;
     return (
       <Grid container direction="row" spacing={3}>
-        <Grid container item xs={12} lg={6} direction="column" spacing={3}>
-          <Grid item>
-            <Paper>
+        <Grid
+          container
+          alignItems="stretch"
+          item
+          xs={12}
+          lg={6}
+          direction="column"
+          spacing={3}
+        >
+          <Grid item style={{ width: '100%' }}>
+            <Paper style={{ width: '100%' }}>
               <BookingFilters
                 setOpenValue={this.props.setOpenValue}
                 setFiltersValue={this.props.setFilterValue}
@@ -334,31 +366,76 @@ export class MemberDetailBooking extends Component<Props, State> {
           </Grid>
         </Grid>
         <Grid item xs={12} lg={6}>
-          <BookingDetail
-            consumerPack={
-              this.props.selectedBooking &&
-              this.props.getPass(
-                parseInt(
-                  this.props.selectedBooking.consumer_payment_pack_id,
-                  10,
-                ),
-              )
-            }
-            getPaymentPack={this.props.getPaymentPack}
-            decrementCredit={this.props.decrementCredit}
-            incrementCredit={this.props.incrementCredit}
-            booking={this.props.selectedBooking}
-            member={this.props.member}
-            onConsumerPassSelected={this.goToConsumerPass}
-            loading={this.props.consumerPackLoading || this.props.offerLoading}
-            onOfferClick={this.props.goToOffer}
-            offer={this.props.offer}
-            offerLoading={
-              !this.props.selectedBooking ||
-              !this.props.offer ||
-              this.props.selectedBooking.offer !== this.props.offer.id
-            }
-          />
+          {!this.props.selectedBooking ? (
+            <Paper className={this.props.classes.graphContainer}>
+              <div className={this.props.classes.titleRow}>
+                <Typography variant="h6">
+                  {this.props.t('booking:memberGraph.title')}
+                </Typography>
+                <ChartRange
+                  start_date={this.props.chartRange.start}
+                  end_date={this.props.chartRange.end}
+                  kind={this.props.chartRange.kind}
+                  setRange={this.props.setChartRange}
+                  timeSettings="range"
+                />
+              </div>
+              <BookingFilters
+                setOpenValue={this.props.setOpenValue}
+                setFiltersValue={this.props.setFilterValue}
+                open={this.props.open}
+                filters={this.props.filters}
+              />
+              {this.props.graphData.loading ? (
+                <Skeleton height={300} />
+              ) : (
+                <TemporalBarChart
+                  height={300}
+                  data={this.props.graphData.data}
+                  chartOptions={[
+                    {
+                      dataKey: 'v',
+                      stroke: primary_color,
+                      fill: primary_color,
+                      caption: this.props.t('memberGraph.label'),
+                    },
+                  ]}
+                  margin={{ top: 0, right: 20, bottom: 0, left: 20 }}
+                  yLabel={this.props.t('memberGraph.label')}
+                  yLabelOffset={-2}
+                  tooltip
+                />
+              )}
+            </Paper>
+          ) : (
+            <BookingDetail
+              consumerPack={
+                this.props.selectedBooking &&
+                this.props.getPass(
+                  parseInt(
+                    this.props.selectedBooking.consumer_payment_pack_id,
+                    10,
+                  ),
+                )
+              }
+              getPaymentPack={this.props.getPaymentPack}
+              decrementCredit={this.props.decrementCredit}
+              incrementCredit={this.props.incrementCredit}
+              booking={this.props.selectedBooking}
+              member={this.props.member}
+              onConsumerPassSelected={this.goToConsumerPass}
+              loading={
+                this.props.consumerPackLoading || this.props.offerLoading
+              }
+              onOfferClick={this.props.goToOffer}
+              offer={this.props.offer}
+              offerLoading={
+                !this.props.selectedBooking ||
+                !this.props.offer ||
+                this.props.selectedBooking.offer !== this.props.offer.id
+              }
+            />
+          )}
         </Grid>
         <RevertBookingDialog
           handleBookingDeletion={this.handleBookingDeletion}
@@ -400,6 +477,15 @@ const styles = (theme) => ({
     alignItems: 'center',
     flexDirection: 'row',
   },
+  graphContainer: {
+    padding: theme.spacing(2),
+  },
+  titleRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginRight: theme.spacing(2),
+  },
 });
 export default compose(
   routerParamsToProps({ id: 'id:number', bookingId: 'bookingId:number' }),
@@ -409,8 +495,14 @@ export default compose(
   withState('open', 'setOpen', {}),
   withState('bookerInAvanceDialog', 'setBookerInAvanceDialog', false),
   withState('selectedRecurrentBooking', 'setSelectedRecurrentBooking', null),
+  withState('chartRange', 'setChartRange', {
+    start: moment().subtract(1, 'years').format('YYYY-MM-DD'),
+    end: moment().format('YYYY-MM-DD'),
+    kind: 'current_year',
+  }),
   connect(
-    (state, { id, bookingId }) => ({
+    (state, { id, bookingId, chartRange }) => ({
+      theme: themeSelectors.getTheme(state),
       member: getMember(state, id),
       bookings: getMemberBookingListWithConsumerPack(state),
       selectedBooking: bookingId
@@ -432,6 +524,7 @@ export default compose(
       getPass: (id_: number) => getConsumerPack(state, id_),
       timezone: state.theme.theme.timezone_name,
       establishmentList: getAvailableEstablishmentList(state),
+      graphData: getStatisticTemporal(state, 'memberBooking', chartRange),
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
@@ -453,6 +546,7 @@ export default compose(
       deleteBooking: cancelBookingAction,
       discardBookingAttendance: discardBookingAttendanceAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
+      fetchBookingStatistics: fetchBookingStatisticsAction,
 
       incrementCredit: (id_) => updateCreditAction(id_, 1),
       decrementCredit: (id_) => updateCreditAction(id_, -1),
@@ -460,6 +554,7 @@ export default compose(
       goToOffer: (offerId: number) => push(`/offer/${offerId}`),
       goToConsumerPass: (memberId, consumerPassId) =>
         push(`/member/${memberId}/pass/${consumerPassId}/`),
+      unselectBooking: (memberId) => push(`/member/${memberId}/bookings`),
       selectBooking: (memberId, bookingId) =>
         push(`/member/${memberId}/bookings/${bookingId}/`),
     },
@@ -493,6 +588,23 @@ export default compose(
     },
   }),
   withHandlers({
+    fetchMemberBookingStatistics: ({
+      id,
+      fetchBookingStatistics,
+      chartRange,
+      filters,
+    }) => () => {
+      fetchBookingStatistics('memberBooking', {
+        date_field: 'offer__date_start',
+        min_date: chartRange.start,
+        max_date: chartRange.end,
+        member: id,
+        aggregate_function: 'count',
+        aggregate_field: 'pk',
+        aggregate_period: 'day',
+        ...filters,
+      });
+    },
     onSubmitRecurrentBooking: ({
       id,
       updateRecurrenceRuleBooking,

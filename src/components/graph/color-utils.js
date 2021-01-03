@@ -108,42 +108,24 @@ export const getAnalogColors = (baseColor) => {
   let result = [];
   if (Math.abs(distanceToBlack(baseColor) - distanceToWhite(baseColor)) <= 30) {
     result = [
-      chroma(baseColor)
-        .brighten()
-        .hex(),
+      chroma(baseColor).brighten().hex(),
       chroma(baseColor).hex(),
-      chroma(baseColor)
-        .darken()
-        .hex(),
-      chroma(baseColor)
-        .darken(2)
-        .hex(),
+      chroma(baseColor).darken().hex(),
+      chroma(baseColor).darken(2).hex(),
     ];
   } else if (distanceToBlack(baseColor) > distanceToWhite(baseColor)) {
     result = [
       chroma(baseColor).hex(),
-      chroma(baseColor)
-        .darken()
-        .hex(),
-      chroma(baseColor)
-        .darken(2)
-        .hex(),
-      chroma(baseColor)
-        .darken(3)
-        .hex(),
+      chroma(baseColor).darken().hex(),
+      chroma(baseColor).darken(2).hex(),
+      chroma(baseColor).darken(3).hex(),
     ];
   } else {
     result = [
       chroma(baseColor).hex(),
-      chroma(baseColor)
-        .brighten()
-        .hex(),
-      chroma(baseColor)
-        .brighten(2)
-        .hex(),
-      chroma(baseColor)
-        .brighten(3)
-        .hex(),
+      chroma(baseColor).brighten().hex(),
+      chroma(baseColor).brighten(2).hex(),
+      chroma(baseColor).brighten(3).hex(),
     ];
   }
   return result;

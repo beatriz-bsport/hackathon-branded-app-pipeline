@@ -8,7 +8,7 @@ import {
   deleteAuth,
   patchAuth,
   buildUrlParams,
-} from '../../http.ts';
+} from '../../http';
 
 export async function fetchAllEvents(params: *) {
   return getAuth(`${API_V1_URI}/offer/minimal/${buildUrlParams(params)}`);
@@ -115,6 +115,10 @@ export async function restoreOffer(offerId: number) {
   return putAuth(`${API_V1_URI}/offer/${offerId}/restore/`);
 }
 
+export async function fetchBookedGender(params: *) {
+  return getAuth(`${API_V1_URI}/offer/booked_gender/${buildUrlParams(params)}`);
+}
+
 export default {
   fetchAllEvents,
   editLiveOffer,
@@ -126,4 +130,5 @@ export default {
   fetchById,
   toogleWaitingListFreeze,
   fetchOffersList,
+  fetchBookedGender,
 };

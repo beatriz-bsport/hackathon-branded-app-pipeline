@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -12,28 +12,27 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import moment from 'moment-timezone';
 
-import SlotCalendarDay from './SlotCalendarDay.tsx';
+import SlotCalendarDay from './SlotCalendarDay';
 import {
   PrivateService,
   PrivateSlot,
 } from '../../../../../libs/private-service/types';
 import { ArrayElement } from '../../../../../utils/types';
 import { groupSessionsByDayMoment } from '../../../../../libs/private-service/utils';
-import { useCallback } from 'react';
 
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
 
 type Props = {
-  privateSlot: PrivateSlot,
-  privateService: PrivateService,
-  availabilitySlotByDate: { [key: string]: string[] },
-  availableSlotsLoading: boolean,
-  timezoneName: string,
-  selectedDate: string,
-  numberOfDayToShow: number,
-  selectedSessionMoment: SessionMoment,
-  onSessionMomentSelect: (sessionItem: SessionMoment) => void,
-  onDateChange: (date: string) => void,
+  privateSlot: PrivateSlot;
+  privateService: PrivateService;
+  availabilitySlotByDate: { [key: string]: string[] };
+  availableSlotsLoading: boolean;
+  timezoneName: string;
+  selectedDate: string;
+  numberOfDayToShow: number;
+  selectedSessionMoment: SessionMoment;
+  onSessionMomentSelect: (sessionItem: SessionMoment) => void;
+  onDateChange: (date: string) => void;
 };
 
 const SlotCalendar: React.FC<Props> = (props) => {
@@ -55,11 +54,9 @@ const SlotCalendar: React.FC<Props> = (props) => {
 
   const dates = [];
 
-  for (let i = 0; i < props.numberOfDayToShow; i = i + 1) {
+  for (let i = 0; i < props.numberOfDayToShow; i += 1) {
     dates.push(
-      moment(props.selectedDate)
-        .tz(props.timezoneName)
-        .add(i, 'days'),
+      moment(props.selectedDate).tz(props.timezoneName).add(i, 'days'),
     );
   }
 
@@ -69,7 +66,7 @@ const SlotCalendar: React.FC<Props> = (props) => {
   return (
     <Fade in timeout={500}>
       <div className={classes.container}>
-        <Typography variant={'h5'}>{t('slotSearcher.search')}</Typography>
+        <Typography variant="h5">{t('slotSearcher.search')}</Typography>
         <Paper className={classes.container2}>
           <div className={classes.calendarToolbar}>
             <IconButton

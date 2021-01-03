@@ -134,7 +134,10 @@ export default handleActions(
           },
           { deep: true },
         )
-        .setIn(['search', 'allIds'], payload.results.map((v) => v.id))
+        .setIn(
+          ['search', 'allIds'],
+          payload.results.map((v) => v.id),
+        )
         .setIn(['search', 'page'], payload.page)
         .setIn(['search', 'nextPage'], payload.next_page);
     },

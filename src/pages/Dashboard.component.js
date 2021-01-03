@@ -1,8 +1,14 @@
 // @flow
 import React, { Component } from 'react';
-import chroma from 'chroma-js';
 import { connect } from 'react-redux';
-import { compose, withHandlers, withState } from 'recompose';
+import {
+  compose,
+  withProps,
+  branch,
+  withHandlers,
+  withState,
+  withStateHandlers,
+} from 'recompose';
 import { withTranslation } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
@@ -11,166 +17,120 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { TFunction } from 'react-i18next';
+import themeSelectors from '../libs/theme/selectors';
 
 import withTitle from '../hocs/with-title.hoc';
-import type { Theme } from '../libs/theme/types.ts';
+import type { Theme } from '../libs/theme/types';
 import DashboardChart from '../components/graph/DashboardChart.component';
-import withDashboardGraphs from '../libs/dashboard/hoc/dashboard-graphs-hoc';
-import { graphRessources } from '../libs/dashboard/chart-ressources';
+import {
+  graphRessources,
+  getChartPropsData,
+} from '../libs/statistics/chart-ressources';
+import { getGraphData, getGraphActions } from '../libs/statistics/selectors';
 import {
   fetchDashboardSettings as fetchDashboardSettingsAction,
   updateDashboardSettings as updateDashboardSettingsAction,
 } from '../libs/dashboard/actions';
-import { getDashboardGraphs } from '../libs/dashboard/selectors';
-import type { Graph, Tab } from '../libs/dashboard/types';
-import type { OptionCallback } from '../state/types.ts';
+import {
+  getDashboardConfiguration,
+  getDashboardConfigurationTab,
+} from '../libs/dashboard/selectors';
+import type { Graph } from '../libs/dashboard/types';
+import type { OptionCallback } from '../state/types';
+import CustomChartForm from '../components/graph/CustomChartForm.component';
+import BackofficeLinearProgress from '../components/navigation/BackofficeLinearProgress.component';
+import BottomActionButtons from '../components/button/BottomActionsButton.component';
+import { quickRanges } from '../libs/dashboard/components/ChartRange.component';
+
+const CUSTOM_TAB = 'main';
 
 type Props = {
   t: TFunction,
   classes: Object,
   theme: Theme,
+  loading: boolean,
 
-  chartFilters: any,
+  chartFilterByIdentifier: any,
   setChartFilters: (any) => void,
 
-  chartRanges: { [string]: { start: string, end: string } },
-  boundActions: { [string]: (identifier: string, params: any) => void },
-  data: { [string]: any },
+  dateRangeByIdentifier: { [string]: { start: string, end: string } },
+  graphActionByIdentifier: {
+    [string]: (identifier: string, params: any) => void,
+  },
+  graphDataByIdentifier: { [string]: any },
   chartProps: { [string]: any },
-  setChartRanges: any,
+  setChartDateRangeByIdentifier: any,
   fetchStatistics: (graph: Graph) => void,
-  setParticularChartFilter: (identifier: string) => (filters: any) => void,
-  setParticularRange: (
+  setChartFiltersByIdentifier: (identifier: string) => (filters: any) => void,
+  setChartDateRangeByIdentifier: (
     identifier: string,
     timeSettings: string,
   ) => (range: any) => void,
   fetchDashboardSettings: (options?: OptionCallback) => void,
   saveAllGraphs: () => void,
   resetSettings: () => void,
-  tabList: Array<Tab>,
+  dashboardConfiguration: Array<DashboardTab>,
   settingsId: boolean,
   resetDialogOpen: boolean,
   setResetDialogOpen: (boolean) => void,
   handleSave: (Graph) => () => void,
+  chartFormOpen: boolean,
+  setChartFormOpen: (boolean) => void,
+  addGraph: (string, Graph) => void,
+  handleDelete: (Graph) => () => void,
+  dashboardTab: ?DashboardTab,
+
+  onSaveGraphByIdentifier: (string) => void,
+  onDeleteGraphByIdentifier: (string) => void,
 };
 
-const chartPropsData = (t, theme, graph_nb) => {
-  const colorScale = chroma
-    .scale([theme.primary_color, theme.secondary_color])
-    .mode('lab');
-
-  return {
-    chartProps: {
-      new_members: {
-        title: t('newMembers'),
-        height: 350,
-        yLabel: t('newMembers'),
-        tooltip: true,
-        chartOptions: [
-          {
-            dataKey: 'v',
-            caption: t('newMembers'),
-            stroke: colorScale(6 / graph_nb),
-            fill: colorScale(6 / graph_nb),
-          },
-        ],
-      },
-      booking_timeslot: {
-        title: t('bookingsWeektimeSlot.title'),
-        popoverText: t('bookingsWeektimeSlot.popover'),
-        height: 371,
-        tooltip: true,
-      },
-      turnover: {
-        title: t('turnover.title'),
-        popoverText: t('turnover.popover'),
-        height: 420,
-        yLabel: t('turnover.caption'),
-        tooltip: true,
-        chartOptions: [
-          {
-            dataKey: 'v',
-            caption: t('turnover.caption'),
-            stroke: colorScale(0),
-            fill: colorScale(0),
-          },
-        ],
-      },
-      billed_subscriptions: {
-        title: t('billedSubscriptions.title'),
-        popoverText: t('billedSubscriptions.popover'),
-        height: 350,
-        yLabel: t('billedSubscriptions.caption'),
-        tooltip: true,
-        chartOptions: [
-          {
-            dataKey: 'v',
-            caption: t('billedSubscriptions.caption'),
-            stroke: colorScale(4 / graph_nb),
-            fill: colorScale(4 / graph_nb),
-          },
-        ],
-      },
-      booking_qualitative: {
-        title: t('bookingSource.title'),
-        height: 320,
-        tooltip: true,
-        legend: true,
-        baseColor: colorScale(2 / graph_nb),
-        translationKey: 'dashboard:bookingDropdown.source',
-      },
-      subscription_turnover: {
-        title: t('plannedPayment.title'),
-        height: 350,
-        yLabel: t('plannedPayment.caption'),
-        popoverText: t('plannedPayment.popover'),
-        tooltip: true,
-        chartOptions: [
-          {
-            dataKey: 'v',
-            caption: t('plannedPayment.caption'),
-            stroke: colorScale(5 / graph_nb),
-            fill: colorScale(5 / graph_nb),
-          },
-        ],
-      },
-      invoice_item: {
-        title: t('invoiceItems.title'),
-        height: 368,
-        baseColor: colorScale(3 / graph_nb),
-        tooltip: true,
-        legend: true,
-        isCurrencyFormat: true,
-        translationKey: 'dashboard:invoiceItemDropdown.contentType',
-      },
-    },
-  };
-};
+const CURRENT_TAB_INDEX = 0;
 
 export class Dashboard extends Component<Props> {
   componentDidMount() {
-    const { fetchStatistics, fetchDashboardSettings, tabList } = this.props;
+    const {
+      fetchDashboardSettings,
+      fetchStatistics,
+      dashboardTab,
+    } = this.props;
     fetchDashboardSettings({
       onSuccess: () => {
-        if (tabList.length > 0) {
-          tabList[0].graphs.forEach((graph) => fetchStatistics(graph));
+        if (dashboardTab && dashboardTab.graphs) {
+          dashboardTab.graphs.forEach((graph) => fetchStatistics(graph));
         }
       },
     });
   }
 
   componentDidUpdate(prevProps: Props) {
-    const { chartFilters, chartRanges, fetchStatistics, tabList } = this.props;
-    if (tabList.length > 0) {
-      tabList[0].graphs.forEach((graph) => {
-        if (chartFilters[graph.name] !== prevProps.chartFilters[graph.name]) {
+    const {
+      chartFilterByIdentifier,
+      dateRangeByIdentifier,
+      fetchStatistics,
+      dashboardTab,
+    } = this.props;
+    const prevGraphsName = ((prevProps.dashboardTab || {}).graphs || []).map(
+      (gr) => gr.name,
+    );
+    if (dashboardTab && dashboardTab.graphs && !!dashboardTab.graphs.length) {
+      dashboardTab.graphs.forEach((graph) => {
+        if (
+          chartFilterByIdentifier[graph.name] !==
+          prevProps.chartFilterByIdentifier[graph.name]
+        ) {
           fetchStatistics(graph);
         }
 
-        if (chartRanges[graph.name] !== prevProps.chartRanges[graph.name]) {
+        if (
+          dateRangeByIdentifier[graph.name] !==
+          prevProps.dateRangeByIdentifier[graph.name]
+        ) {
+          fetchStatistics(graph);
+        }
+
+        if (prevGraphsName.indexOf(graph.name) === -1) {
           fetchStatistics(graph);
         }
       });
@@ -180,18 +140,20 @@ export class Dashboard extends Component<Props> {
   render() {
     const {
       classes,
-      chartRanges,
-      chartFilters,
-      data,
+      dateRangeByIdentifier,
+      chartFilterByIdentifier,
+      graphDataByIdentifier,
       chartProps,
-      tabList,
+      dashboardTab,
       t,
+      loading,
     } = this.props;
     return (
       <>
-        {tabList.length > 0 && (
+        {loading && <BackofficeLinearProgress />}
+        {dashboardTab && dashboardTab.graphs && dashboardTab.graphs.length > 0 && (
           <Grid container="row" spacing={3} className={classes.gridRow}>
-            {tabList[0].graphs.map((graph) => {
+            {dashboardTab.graphs.map((graph) => {
               const ChartComponent =
                 graphRessources[graph.ressourceIdentifier].chartComponents[
                   graph.chart
@@ -202,27 +164,29 @@ export class Dashboard extends Component<Props> {
               return (
                 <Grid item xs={12} lg={6} key={graph.name}>
                   <DashboardChart
-                    title={chartProps[graph.name].title}
+                    title={graph.title || chartProps[graph.name].title}
                     popoverText={chartProps[graph.name].popoverText}
-                    loading={data[graph.name].loading}
+                    loading={graphDataByIdentifier[graph.name].loading}
                     filtersComponent={
                       graphRessources[graph.ressourceIdentifier]
                         .filtersComponent
                     }
-                    filters={chartFilters[graph.name]}
-                    setChartFilters={this.props.setParticularChartFilter(
+                    filters={chartFilterByIdentifier[graph.name]}
+                    setChartFilters={this.props.setChartFiltersByIdentifier(
                       graph.name,
                     )}
-                    range={timeSettings !== 'none' && chartRanges[graph.name]}
-                    setRange={this.props.setParticularRange(
-                      graph.name,
-                      timeSettings,
-                    )}
+                    range={
+                      timeSettings !== 'none' &&
+                      dateRangeByIdentifier[graph.name]
+                    }
+                    setDateRange={this.props.setChartDateRangeByIdentifier}
                     timeSettings={timeSettings}
-                    save={this.props.handleSave(graph)}
+                    onSaveGraph={this.props.onSaveGraphByIdentifier}
+                    graphIdentifier={graph.name}
+                    onDelete={this.props.onDeleteGraphByIdentifier}
                   >
                     <ChartComponent
-                      data={data[graph.name].data}
+                      data={graphDataByIdentifier[graph.name].data}
                       {...chartProps[graph.name]}
                     />
                   </DashboardChart>
@@ -232,7 +196,7 @@ export class Dashboard extends Component<Props> {
           </Grid>
         )}
 
-        {tabList.length > 0 ? (
+        {dashboardTab && !loading ? (
           <div className={classes.saveButtonContainer}>
             <Button
               className={classes.button}
@@ -261,6 +225,20 @@ export class Dashboard extends Component<Props> {
             </Button>
           </DialogActions>
         </Dialog>
+        <>
+          <div className={classes.saveButtonContainer}>
+            <BottomActionButtons
+              onCreateLabel={this.props.t('customChart.addChart')}
+              onCreate={() => this.props.setChartFormOpen(true)}
+            />
+          </div>
+          <CustomChartForm
+            addGraph={(gr) => this.props.addGraph(CUSTOM_TAB, gr)}
+            graphRessources={graphRessources}
+            formOpen={this.props.chartFormOpen}
+            setFormOpen={this.props.setChartFormOpen}
+          />
+        </>
       </>
     );
   }
@@ -287,76 +265,202 @@ export default compose(
   withTranslation(['dashboard']),
   withStyles(styles),
   withState('resetDialogOpen', 'setResetDialogOpen', false),
+  withState('chartFormOpen', 'setChartFormOpen', false),
   connect(
-    null,
+    (state) => ({
+      loading: state.dashboardSettings.loading,
+      theme: themeSelectors.getTheme(state),
+      dashboardConfiguration: getDashboardConfiguration(state),
+      dashboardTab: getDashboardConfigurationTab(state, CURRENT_TAB_INDEX),
+    }),
     {
       fetchDashboardSettings: fetchDashboardSettingsAction,
       updateDashboardSettings: updateDashboardSettingsAction,
     },
   ),
-  withDashboardGraphs(getDashboardGraphs, chartPropsData),
+  branch(
+    // if we have a dashboardTab we initialize our filter/dateRange configurations
+    ({ dashboardTab }) => !!dashboardTab && dashboardTab.graphs,
+    // we add chartFilterByIdentifier, setChartFilters,
+    // dateRangeByIdentifier and setDateRangeByIdentifier
+    withStateHandlers(
+      ({ dashboardTab }) => {
+        const chartFilterByIdentifier = {};
+        dashboardTab.graphs.forEach((graph) => {
+          if (graphRessources[graph.ressourceIdentifier].filtersComponent) {
+            chartFilterByIdentifier[graph.name] = graph.dataFilters;
+          }
+        });
+        const dateRangeByIdentifier = {};
+        dashboardTab.graphs.forEach((graph) => {
+          if (
+            graphRessources[graph.ressourceIdentifier].timeSettings !== 'none'
+          ) {
+            dateRangeByIdentifier[graph.name] = {
+              start: graph.dateRange.start,
+              end: graph.dateRange.end,
+              kind: graph.dateRange.kind,
+            };
+          }
+        });
+        return { dateRangeByIdentifier, chartFilterByIdentifier };
+      },
+      {
+        setChartFilters: ({ chartFilterByIdentifier }) => (
+          identifier,
+          filters,
+        ) => ({
+          chartFilterByIdentifier: {
+            ...chartFilterByIdentifier,
+            [identifier]: filters,
+          },
+        }),
+        setDateRangeByIdentifier: ({ dateRangeByIdentifier }) => (
+          identifier,
+          range,
+        ) => ({
+          dateRangeByIdentifier: {
+            ...dateRangeByIdentifier,
+            [identifier]: range,
+          },
+        }),
+      },
+    ),
+  ),
+  // get chartProps (used to display graphs) from dashboardTab
+  withProps(({ t, theme, dashboardTab }) => ({
+    chartProps: getChartPropsData(
+      t,
+      theme,
+      (dashboardTab && dashboardTab.graphs) || [],
+    ),
+  })),
+  branch(
+    // if we have a dashboardTab we get graph data from store, and actions ready to be dispatched
+    ({ dashboardTab }) => !!dashboardTab && dashboardTab.graphs,
+    connect(
+      (state, props) => ({
+        graphDataByIdentifier: getGraphData(
+          state,
+          props.dashboardTab.graphs,
+          props.dateRangeByIdentifier,
+          graphRessources,
+        ),
+      }),
+      (dispatch, props) => ({
+        graphActionByIdentifier: getGraphActions(
+          dispatch,
+          props.dashboardTab.graphs,
+          graphRessources,
+        ),
+      }),
+    ),
+  ),
   withHandlers({
-    fetchStatistics: ({ chartRanges, chartFilters, boundActions }) => (
-      graph: Graph,
-    ) => {
+    fetchStatistics: ({
+      dateRangeByIdentifier,
+      chartFilterByIdentifier,
+      graphActionByIdentifier,
+    }) => (graph: Graph) => {
       const { timeSettings } = graphRessources[graph.ressourceIdentifier];
-      let params = { ...graph.baseFilters, ...chartFilters[graph.name] };
+      const params = {
+        ...graph.baseFilters,
+        ...chartFilterByIdentifier[graph.name],
+      };
       if (timeSettings !== 'none') {
-        params = {
-          ...params,
-          [graphRessources[graph.ressourceIdentifier].dateFiltersName.start]:
-            chartRanges[graph.name].start,
-          [graphRessources[graph.ressourceIdentifier].dateFiltersName.end]:
-            chartRanges[graph.name].end,
-        };
+        if (!graph.aggregate) {
+          params[
+            graphRessources[graph.ressourceIdentifier].dateFiltersName.start
+          ] = dateRangeByIdentifier[graph.name].start;
+          params[
+            graphRessources[graph.ressourceIdentifier].dateFiltersName.end
+          ] = dateRangeByIdentifier[graph.name].end;
+        }
       }
-      boundActions[graph.name](graph.name, params);
+      graphActionByIdentifier[graph.name](graph.name, params);
     },
-    setParticularChartFilter: ({ setChartFilters }) => (identifier: string) => {
+    setChartFiltersByIdentifier: ({ setChartFilters }) => (
+      identifier: string,
+    ) => {
       return (filters) => setChartFilters(identifier, filters);
     },
-    setParticularRange: ({ setChartRanges }) => (
+    setChartDateRangeByIdentifier: ({ setDateRangeByIdentifier }) => (
       identifier: string,
       timeSettings: string,
+      range,
     ) => {
-      if (timeSettings === 'range') return (r) => setChartRanges(identifier, r);
-      return null;
+      if (timeSettings === 'range') {
+        setDateRangeByIdentifier(identifier, range);
+      }
     },
     resetSettings: ({ updateDashboardSettings }) => () => {
       updateDashboardSettings([]);
     },
-    saveOneGraph: ({
+    onSaveGraphByIdentifier: ({
       updateDashboardSettings,
-      tabList,
-      chartFilters,
-      chartRanges,
-    }) => (graph: Graph) => {
-      const newSettings = tabList.map((tab) => {
-        const graphs = tab.graphs.map((currentGraph) => {
-          if (graph.name === currentGraph.name) {
-            let defaultRange = { ...currentGraph.defaultRange };
-            let defaultFilters = { ...currentGraph.defaultFilters };
-            if (
-              Object.prototype.hasOwnProperty.call(chartFilters, graph.name)
-            ) {
-              defaultFilters = { ...chartFilters[graph.name] };
+      dashboardConfiguration,
+      chartFilterByIdentifier,
+      dateRangeByIdentifier,
+    }) => (graphIdentifier: string) =>
+      updateDashboardSettings(
+        dashboardConfiguration.map((tab) => ({
+          ...tab,
+          graphs: tab.graphs.map((currentGraph) => {
+            if (graphIdentifier === currentGraph.name) {
+              return {
+                ...currentGraph,
+                dataFilters: {
+                  ...(currentGraph.dataFilters || {}),
+                  ...(chartFilterByIdentifier[graphIdentifier] || {}),
+                },
+                dateRange: {
+                  ...(currentGraph.dateRange || {}),
+                  ...(dateRangeByIdentifier[graphIdentifier] || {}),
+                },
+              };
             }
-            if (Object.prototype.hasOwnProperty.call(chartRanges, graph.name)) {
-              defaultRange = { ...chartRanges[graph.name] };
-            }
-            return { ...currentGraph, defaultRange, defaultFilters };
-          }
-          return currentGraph;
-        });
-        return { ...tab, graphs };
+            return currentGraph;
+          }),
+        })),
+      ),
+    addGraph: ({
+      setDateRangeByIdentifier,
+      setChartFilters,
+      updateDashboardSettings,
+      dashboardConfiguration,
+    }) => (tab_label, graph) => {
+      const all_settings = dashboardConfiguration.map((t) => {
+        if (t.tab_label === tab_label) {
+          const graphs = [...t.graphs, graph];
+          return { ...t, graphs };
+        }
+        return t;
       });
-      updateDashboardSettings(newSettings);
+      if (graph.dateRange.kind === 'custom') {
+        setDateRangeByIdentifier(graph.name, graph.dateRange);
+      } else {
+        const range = quickRanges.filter(
+          (item) => item.key === graph.dateRange.kind,
+        )[0];
+        setDateRangeByIdentifier(graph.name, {
+          start: range.start,
+          end: range.end,
+          kind: graph.dateRange.kind,
+        });
+      }
+      setChartFilters(graph.name, graph.dataFilters);
+      updateDashboardSettings(all_settings);
     },
-  }),
-  withHandlers({
-    handleSave: ({ saveOneGraph }) => (graph) => {
-      return () => saveOneGraph(graph);
-    },
+    onDeleteGraphByIdentifier: ({
+      updateDashboardSettings,
+      dashboardConfiguration,
+    }) => (graphIdentifier: string) =>
+      updateDashboardSettings(
+        dashboardConfiguration.map((tab) => ({
+          ...tab,
+          graphs: tab.graphs.filter((gr) => gr.name !== graphIdentifier),
+        })),
+      ),
   }),
   withTitle(({ t }: { t: TFunction }) => t('titles:dashboard.dashboard')),
 )(Dashboard);

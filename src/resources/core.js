@@ -10,7 +10,7 @@ import {
   deleteAuth,
   putAuth,
   API_URI,
-} from '../http.ts';
+} from '../http';
 
 function toSnakeCase(s) {
   return s.replace(

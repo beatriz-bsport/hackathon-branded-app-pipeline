@@ -23,11 +23,11 @@ import PrivateConsumerPassBookerListItem from '../../libs/private-service/compon
 import { getPrivateConsumerPassList } from '../../libs/private-service/selectors/private-consumer-pass';
 
 import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
-import { fetchPrivateConsumerPassList } from '../../libs/private-service/actions.ts';
+import { fetchPrivateConsumerPassList } from '../../libs/private-service/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchByMember as fetchConsumerPackByMemberAction } from '../../libs/consumer-payment-pack/actions';
 
-import type { PrivateConsumerPass } from '../../libs/private-service/types.ts';
+import type { PrivateConsumerPass } from '../../libs/private-service/types';
 import type { ConsumerPaymentPack } from '../../libs/consumer-payment-pack/types';
 import type { Membership } from '../../libs/membership/types';
 import { urlToMarketplace } from '../../libs/marketplace/utils';

@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import { withTranslation } from 'react-i18next';
 
-import { formatAsDatetime } from '../../datetime';
+import { formatAsDatetime } from '../../utils/datetime';
 
 import type { Event } from '../../api/types';
 

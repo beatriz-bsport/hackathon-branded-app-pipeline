@@ -87,9 +87,7 @@ const styles = (theme) => ({
 export const TaskFormFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
   description: Yup.string().required(),
-  task_owner_ids: Yup.array()
-    .of(Yup.number())
-    .required(),
+  task_owner_ids: Yup.array().of(Yup.number()).required(),
   date_due: Yup.string().required(),
 });
 

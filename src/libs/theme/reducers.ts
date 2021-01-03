@@ -2,10 +2,10 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import { colors } from '@bsport/common/lib/colors';
-//@ts-ignore
-import { themeDetail, themeUpdate } from './actions.ts';
-//@ts-ignore
-import { ThemeState } from './types.ts';
+// @ts-ignore
+import { themeDetail, themeUpdate } from './actions';
+// @ts-ignore
+import { ThemeState } from './types';
 
 const initialState: ThemeState = Immutable<ThemeState>({
   theme: {

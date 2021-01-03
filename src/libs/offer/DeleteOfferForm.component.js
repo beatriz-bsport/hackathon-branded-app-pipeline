@@ -56,9 +56,9 @@ export class DeleteOfferForm extends Component<Props, State> {
       (this.props.similarOffers || []).length
     ) {
       this.setState({
-        similarOffersWithSelectedStatus: (this.props.similarOffers || []).map(
-          (so) => ({ ...so, selected: true }),
-        ),
+        similarOffersWithSelectedStatus: (
+          this.props.similarOffers || []
+        ).map((so) => ({ ...so, selected: true })),
       });
     }
   }

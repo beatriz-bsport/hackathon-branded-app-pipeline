@@ -10,7 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { dateFormatter, numberFormatter } from '../../state/stats/utils';
+import { dateFormatter, numberFormatter } from '../../libs/statistics/utils';
 
 type Props = {
   height?: number | string,

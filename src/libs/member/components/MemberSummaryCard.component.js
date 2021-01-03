@@ -33,7 +33,7 @@ import type { TFunction } from 'react-i18next';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import CreditMemberBadge from './CreditMemberBadge.component';
 
-import { formatAsDate } from '../../../datetime';
+import { formatAsDate } from '../../../utils/datetime';
 import { Avatar } from '../../../components';
 import type { Member } from '../../../api/types';
 
@@ -210,8 +210,9 @@ export class MemberSummaryCard extends Component<Props> {
     let primary = '';
     let secondary = '';
     if (address) {
-      primary = `${address.address_line_1 || ''} ${address.address_line_2 ||
-        ''}`;
+      primary = `${address.address_line_1 || ''} ${
+        address.address_line_2 || ''
+      }`;
       secondary = `${address.city || ''} - ${address.zipcode || ''} ${(
         address.country || ''
       ).toUpperCase()}`;

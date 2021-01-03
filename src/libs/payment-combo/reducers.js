@@ -47,7 +47,10 @@ export default handleActions(
             return acc;
           }, {}),
         )
-        .setIn(['forBooking', 'allIds'], payload.map((pc) => pc.id));
+        .setIn(
+          ['forBooking', 'allIds'],
+          payload.map((pc) => pc.id),
+        );
     },
 
     [paymentComboForBookingActions.isLoading]: (state, { payload }) => {
@@ -78,7 +81,10 @@ export default handleActions(
       return state.setIn(['byId', payload.id], payload);
     },
     [paymentComboDeleteActions.success]: (state, { payload }) => {
-      return state.set('allIds', state.allIds.filter((id) => id !== payload));
+      return state.set(
+        'allIds',
+        state.allIds.filter((id) => id !== payload),
+      );
     },
     [paymentComboListActions.success]: (state, { payload }) => {
       return state
@@ -89,7 +95,10 @@ export default handleActions(
             return acc;
           }, {}),
         )
-        .set('allIds', payload.map((pc) => pc.id));
+        .set(
+          'allIds',
+          payload.map((pc) => pc.id),
+        );
     },
 
     [paymentComboPurchaseListActions.isLoading]: (state, { payload }) => {

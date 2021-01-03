@@ -87,10 +87,7 @@ export default compose(
   }),
   withTranslation(['establishment']),
   withStyles(styles),
-  connect(
-    null,
-    {
-      pushToTab: (id, tab) => push(`/establishment/details/${id}/${tab}`),
-    },
-  ),
+  connect(null, {
+    pushToTab: (id, tab) => push(`/establishment/details/${id}/${tab}`),
+  }),
 )(EstablishmentDetailRouter);

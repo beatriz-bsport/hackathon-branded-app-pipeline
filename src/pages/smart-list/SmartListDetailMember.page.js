@@ -46,7 +46,7 @@ import {
 import {
   fetchPrivatePassList,
   fetchPrivatePassBulk,
-} from '../../libs/private-service/actions.ts';
+} from '../../libs/private-service/actions';
 import { sendCommunication as sendCommunicationAction } from '../../libs/communication/actions';
 import { fetchCommunicationsPaginatedMembers } from '../../libs/member/actions';
 import { getPaginatedMembers } from '../../libs/member/selectors';
@@ -73,7 +73,7 @@ import {
   emailTemplateDetail,
 } from '../../libs/email-editor/actions';
 
-import type { Establishment } from '../../libs/establishment/types';
+import { Establishment } from '../../libs/establishment/types';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import {
   fetchEstablishments,
@@ -84,7 +84,7 @@ import {
   fetchAssociatedCoachesList as fetchCoaches,
   fetchCoachBulk,
 } from '../../libs/associated-coach/actions';
-import type { Coach } from '../../libs/associated-coach/types';
+import { Coach } from '../../libs/associated-coach/types';
 
 import { getCoaches } from '../../libs/associated-coach/selectors';
 

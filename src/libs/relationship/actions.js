@@ -11,9 +11,13 @@ import {
   fetchSharedConsumerPaymentPacks as fetchSharedConsumerPacksAPI,
   unlinkConsumerPassLink as unlinkConsumerPassLinkAPI,
   relinkConsumerPassLink as relinkConsumerPassLinkAPI,
+  createPrivateConsumerPassLink as createPrivateConsumerPassLinkAPI,
+  fetchSharedPrivateConsumerPasses as fetchSharedPrivateConsumerPassesAPI,
+  unlinkPrivateConsumerPassLink as unlinkPrivateConsumerPassLinkAPI,
+  relinkPrivateConsumerPassLink as relinkPrivateConsumerPassLinkAPI,
 } from './api';
 
-import type { Dispatch, OptionCallback } from '../../state/types.ts';
+import type { Dispatch, OptionCallback } from '../../state/types';
 
 export const memberRelationCreateOrUpdateActions = {
   isLoading: createAction('MEMBER_RELATION/CREATE_OR_UPDATE/LOADING'),
@@ -178,6 +182,123 @@ export function relinkConsumerPaymentPackLink(
     } catch (err) {
       dispatch(
         snackbarError('relationship.consumer_payment_pack_links.relink.error'),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    }
+  };
+}
+
+export const sharedPrivateConsumerPassListActions = {
+  isLoading: createAction('RELATIONSHIP/SHARED_PRIVATE_PASS/LOADING'),
+  error: createAction('RELATIONSHIP/SHARED_PRIVATE_PASS/ERROR'),
+  success: createAction('RELATIONSHIP/SHARED_PRIVATE_PASS/SUCCESS'),
+};
+
+export function fetchSharedPrivateConsumerPasses(
+  member_relation: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(sharedPrivateConsumerPassListActions.isLoading(true));
+    dispatch(sharedPrivateConsumerPassListActions.error(null));
+    try {
+      const response = await fetchSharedPrivateConsumerPassesAPI({
+        member_relation,
+      });
+      dispatch(sharedPrivateConsumerPassListActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(sharedPrivateConsumerPassListActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(sharedPrivateConsumerPassListActions.isLoading(false));
+  };
+}
+
+export const sharedPrivateConsumerPassCreateOrUpdateActions = {
+  isLoading: createAction(
+    'PRIVATE_CONSUMER_PASS_LINK/CREATE_OR_UPDATE/IS_LOADING',
+  ),
+  error: createAction('PRIVATE_CONSUMER_PASS_LINK/CREATE_OR_UPDATE/ERROR'),
+  success: createAction('PRIVATE_CONSUMER_PASS_LINK/CREATE_OR_UPDATE/SUCCESS'),
+};
+
+export function linkPrivatePassToMemberRelation(
+  privateConsumerPassId: number,
+  relationId: number,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.isLoading(true));
+    dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.error(null));
+    try {
+      const response = await createPrivateConsumerPassLinkAPI(
+        privateConsumerPassId,
+        relationId,
+      );
+      dispatch(
+        sharedPrivateConsumerPassCreateOrUpdateActions.success(response.data),
+      );
+      dispatch(
+        snackbarSuccess(
+          'relationship.private_consumer_pass_links.create.success',
+        ),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.error(error));
+      dispatch(
+        snackbarError('relationship.private_consumer_pass_links.create.error'),
+      );
+      if (options && options.onError) options.onError();
+    }
+    dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.isLoading(false));
+  };
+}
+
+export function unlinkPrivateConsumerPassLink(
+  privateConsumerPassLinkId: number,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.isLoading(true));
+    dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.error(null));
+    try {
+      await unlinkPrivateConsumerPassLinkAPI(privateConsumerPassLinkId);
+      dispatch(
+        snackbarSuccess(
+          'relationship.private_consumer_pass_links.unlink.success',
+        ),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      dispatch(
+        snackbarError('relationship.private_consumer_pass_links.unlink.error'),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    }
+  };
+}
+
+export function relinkPrivateConsumerPassLink(
+  privateConsumerPassLinkId: number,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.isLoading(true));
+    dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.error(null));
+    try {
+      await relinkPrivateConsumerPassLinkAPI(privateConsumerPassLinkId);
+      dispatch(
+        snackbarSuccess(
+          'relationship.private_consumer_pass_links.relink.success',
+        ),
+      );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      dispatch(
+        snackbarError('relationship.private_consumer_pass_links.relink.error'),
       );
       if (options && options.onSuccess) options.onSuccess();
     }

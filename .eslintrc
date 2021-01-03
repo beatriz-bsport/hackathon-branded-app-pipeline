@@ -1,5 +1,12 @@
 {
   "parser": "babel-eslint",
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -20,11 +27,11 @@
     "flowtype",
     "babel",
     "cypress",
-"i18next"
+    "i18next"
   ],
   "rules": {
     // DISABLED BY SOFIAN
-    "no-console": ["error", { allow: ["warn", "error"] }],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
     "react/require-default-props": 0,
     "react/default-props-match-prop-types": 0,
     "i18next/no-literal-string": 0,
@@ -33,7 +40,6 @@
     "react/no-array-index-key": 0,
     "operator-linebreak": 0,
     "implicit-arrow-linebreak": 0,
-    "indent": 0,
     "jsx-a11y/label-has-for": 0,
     "jsx-a11y/label-has-associated-control": 0,
     "camelcase": "off",
@@ -41,6 +47,9 @@
     "import/extensions": "off",
     "arrow-body-style": 0,
     "quotes": 0,
+    "indent": ["off", 2, {
+      "ignoredNodes": ["TemplateLiteral"]
+    }],
     // END DISABLED BY SOFIAN
     "strict": 0,
     "no-underscore-dangle": 0,
@@ -71,7 +80,8 @@
     "space-before-function-paren": ["off"],
     "react/prefer-stateless-function": "off",
     "react/jsx-one-expression-per-line": "off",
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", "tsx"]}]
+    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", "tsx"]}],
+    "linebreak-style": 0
   },
   "globals": {
     "snapshot": false,

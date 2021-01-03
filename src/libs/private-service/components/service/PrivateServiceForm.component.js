@@ -380,9 +380,7 @@ export const PrivateServiceSchema = Yup.object().shape({
   manager_only: Yup.boolean(),
   color: Yup.string(),
   use_full_establishment_capacity: Yup.boolean(),
-  coach_capacity_used: Yup.number()
-    .min(1)
-    .max(12),
+  coach_capacity_used: Yup.number().min(1).max(12),
   coaches: Yup.array().of(Yup.number()),
   establishments: Yup.array().of(Yup.number()),
   availability_padding_start_minutes: Yup.number(),

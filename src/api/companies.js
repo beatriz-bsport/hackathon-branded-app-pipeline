@@ -1,6 +1,6 @@
 // @flow
 
-import { API_URI, getAuth } from '../http.ts';
+import { API_URI, getAuth } from '../http';
 
 export async function getCompany() {
   return getAuth(`${API_URI}/companies/`).then((response) => {

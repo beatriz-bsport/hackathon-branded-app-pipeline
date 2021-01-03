@@ -18,7 +18,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import type { MetaActivity } from '../../../api/types';
-import { formatAsDatetime } from '../../../datetime';
+import { formatAsDatetime } from '../../../utils/datetime';
 import { getSportWithIcon } from '../../../components/category/utils';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import Tooltip from '../../../components/Tooltip.component';
@@ -79,9 +79,7 @@ export function MetaActivityListItem(props: Props) {
             : t('activity.noNextSlot')
         }
       />
-      {props.metaActivity.on_booking_notification &&
-      props.metaActivity.on_booking_notification.filter((n) => !!n && n.active)
-        .length > 0 ? (
+      {props.metaActivity.hasActiveNotification && (
         <Tooltip
           classes={props.classes}
           title={
@@ -95,7 +93,7 @@ export function MetaActivityListItem(props: Props) {
             <NotificationsIcon />
           </IconButton>
         </Tooltip>
-      ) : null}
+      )}
       <ListItemResponsiveAction
         actions={[
           props.metaActivity.customer_enabled &&

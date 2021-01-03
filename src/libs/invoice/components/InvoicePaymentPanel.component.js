@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { INVOICE_TYPE_REGULAR } from '@bsport/common/lib/master-data/invoice-type';
 import RedButton from '../../../components/button/RedButton.component';
 
 import PaymentListItemV2 from './PaymentListItemV2.component';
@@ -228,17 +229,19 @@ export const InvoicePaymentPanel = (props: Props) => {
           </React.Fragment>
         )}
       </div>
-      <PaymentActions
-        invoice={props.invoice}
-        onRevert={props.onRevert}
-        is_reverse={is_reverse}
-        accountBalance={props.accountBalance}
-        accountBalanceLoading={props.accountBalanceLoading}
-        consumeBalance={props.consumeBalance}
-        amountToPayCts={amountToPayCts}
-        onPaymentIntent={props.onPaymentIntent}
-        loading={!props.accountBalance && props.accountBalance !== 0}
-      />
+      {props.invoice.invoice_type === INVOICE_TYPE_REGULAR && (
+        <PaymentActions
+          invoice={props.invoice}
+          onRevert={props.onRevert}
+          is_reverse={is_reverse}
+          accountBalance={props.accountBalance}
+          accountBalanceLoading={props.accountBalanceLoading}
+          consumeBalance={props.consumeBalance}
+          amountToPayCts={amountToPayCts}
+          onPaymentIntent={props.onPaymentIntent}
+          loading={!props.accountBalance && props.accountBalance !== 0}
+        />
+      )}
     </div>
   );
 };

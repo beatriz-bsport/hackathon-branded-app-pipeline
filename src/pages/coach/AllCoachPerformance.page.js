@@ -15,7 +15,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import type { TFunction } from 'react-i18next';
 
-import { downloadAsCsv } from '../../downloader';
+import { downloadAsCsv } from '../../utils/downloader';
 import { computePerformance } from '../../libs/payment-rules/utils';
 import type { PaymentRule } from '../../libs/payment-rules/types';
 
@@ -35,7 +35,7 @@ import {
 } from '../../libs/associated-coach/actions';
 import { fetchPaymentRules } from '../../libs/payment-rules/actions';
 import withTitle from '../../hocs/with-title.hoc';
-import type {
+import {
   Coach,
   CoachPerformance as CoachPerformanceType,
 } from '../../libs/associated-coach/types';

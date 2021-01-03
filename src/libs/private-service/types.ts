@@ -1,4 +1,3 @@
-
 export enum ResourceAttributionEnum {
   auto = 0,
   consumer = 1,
@@ -6,37 +5,66 @@ export enum ResourceAttributionEnum {
   home = 4,
 }
 
+export type CustomEvents = {
+  id: number;
+  name: string;
+  description: string;
+  coaches: number[];
+  associated_coaches: { coach_id: number; id: number }[];
+  color: string;
+  company: number;
+  date_start: string;
+  date_end: string;
+};
+
 export type AvailabilitySlot = {
-  associated_coach: number,
-  coach: number,
-  date_start: string,
-  date_end: string,
+  associated_coach: number;
+  coach: number;
+  date_start: string;
+  date_end: string;
+};
+
+export type PrivateServiceGroup = {
+  id: number;
+  name: string;
+  private_services: number;
 };
 
 export type PrivateService = {
   id: number;
   name: string;
   description: string;
-  coaches: Array<number | PrivateCoach>;
   available: boolean;
   establishments: Array<number | PrivateEstablishment>;
+  coach_capacity_used: number;
+  use_full_establishment_capacity: boolean;
+  coaches: Array<number | PrivateCoach>;
+  color: string;
+  company: number;
   slots: Array<number | PrivateSlot>;
-  slots_duration_minute: Array<number>;
-  is_home_service: boolean;
   establishment_attribution: ResourceAttributionEnum;
-  booking_interval_minutes: number;
+  is_home_service: boolean;
   coach_attribution: ResourceAttributionEnum;
+  manager_only: boolean;
+  has_own_availability_slots: boolean;
+  last_discard_minutes: number;
+  last_booking_minutes: number;
   cover_main: string;
+  private_service_group?: number;
+  slots_duration_minute: Array<number>;
+  availability_padding_start_minutes: number;
+  availability_padding_end_minutes: number;
 };
 
-
 export type PrivateSlot = {
-  id: number,
-  name: string,
-  private_service: number,
-  cedit: number,
-  duration_minutes: number,
+  id: number;
+  name: string;
+  private_service: number;
+  credit: number;
+  duration_minutes: number;
+  available: boolean;
   people_capacity_used: number;
+  booking_interval_minutes: number;
 };
 
 export type PrivateCoach = {
@@ -55,135 +83,219 @@ export type PrivateEstablishment = {
   title: string;
   location: {
     address: string;
-  }
+  };
 };
 
 export type PrivatePass = {
-  id: number,
-  name: string,
-  credits: number,
-  price: number,
-  tax: number,
-  private_services: Array<number>,
-  manager_only: boolean,
-  duration_days: any , // TODO TYPES
-  duration_months: any, // TODO TYPES
-  duration_years: any // TODO TYPES
+  id: number;
+  name: string;
+  credits: number;
+  price: number;
+  tax: number;
+  private_services: number[];
+  manager_only: boolean;
+  available: boolean;
+  duration_days: number;
+  duration_months: number;
+  duration_years: number;
+  available_payment_method_identifiers: number[];
+  full_vod_access: boolean;
 };
 
 export type PrivateConsumerPass = {
-  id: number,
-  used_credits: number,
-  consumer: number,
-  private_pass: PrivatePass,
-  date_bought: any // TODO TYPES
-  extension_days: any // TODO TYPES
+  id: number;
+  used_credits: number;
+  private_pass: PrivatePass;
+  consumer: number;
+  date_created: string;
+  reverted: boolean;
+  date_bought: string;
+  extension_days: number;
+  member: number;
 };
 
 export type PrivateBooking = {
-  id: number,
-  date_start: string,
-  date_end: string,
-  private_consumer_pass: number,
-  member: number,
-  name: string,
-  private_slot: number,
+  id: number;
+  date_start: string;
+  date_end: string;
+  private_consumer_pass: number;
+  member: number;
+  name: string;
+  private_slot: number;
+  private_service: number;
+  address: string;
+  booking_status_code: number;
+  is_discardable: boolean;
+  associated_coach: number;
+  associated_establishment: number;
+  coach: number;
+  establishment: number;
+  date_created: string;
+  source: number;
+  was_refunded: boolean;
+  timezone_name: string;
+  date_canceled: string;
 };
 
 export type PrivateBookingPreview = {
   coach: {
-    photo: string,
-    name: string,
-  },
-  title: string,
-  subtitle: string,
-  date_Start: string,
-  date_end: string,
-  credit_cost: number,
-  company: number,
+    photo: string;
+    name: string;
+  };
+  title: string;
+  subtitle: string;
+  date_Start: string;
+  date_end: string;
+  credit_cost: number;
+  company: number;
+};
+
+export type PrivateResource = {
+  resource_identifier: string;
+  resource_id: number;
+  name: string;
+  color: string;
+  private_service: number;
+  datatype: string;
 };
 
 export type ResourceData = {
-  resourceDatatype: string,
-  resourceIdentifier: number,
-  color: string,
-  resourceData: any,
+  resourceDatatype: string;
+  resourceIdentifier: number;
+  color: string;
+  resourceData: any;
+};
+
+export type RecurrenceRulePrivateBooking = {
+  id: number;
+  day_of_week: number;
+  hour: number;
+  minute: number;
+  nb_of_weeks: number;
+  member: number;
+  private_slot: PrivateSlot;
+};
+
+type ErrorAndLoading = {
+  error?: Error;
+  loading: boolean;
+};
+
+type WithPagination = {
+  count: number;
+  page: number;
 };
 
 export interface PrivateServiceState {
-  availabilitySlot: {
+  customEvent: ErrorAndLoading & {
+    byId: { [key: string]: CustomEvents };
+    createOrUpdate: ErrorAndLoading;
+  };
+  privateSlot: ErrorAndLoading & {
+    byId: { [id: string]: PrivateSlot };
+    createOrUpdate: ErrorAndLoading;
+  };
+  availabilitySlot: ErrorAndLoading & {
     existsByResourceTypeById: {
       [resourceDatatype: string]: {
-        [resourceIdentifier: number]: {
-          exists: boolean,
-          error?: Error,
-          loading: boolean,
-        },
-      },
-    },
-    items: Array<AvailabilitySlot>,
-    loading: boolean,
-    error?: Error,
-    createOrUpdate: {
-      loading: boolean,
-      error?: Error,
-    },
-    searched: {
-      items: Array<string>,
-      loading: boolean,
-      error?: Error,
-    },
+        [resourceIdentifier: number]: ErrorAndLoading & {
+          exists: boolean;
+        };
+      };
+    };
+    byId: { [key: string]: AvailabilitySlot };
+    createOrUpdate: ErrorAndLoading;
+    searched: ErrorAndLoading & {
+      items: { resource_identifier: string; slots: Array<Array<string>> }[];
+    };
   };
-  privatePass: {
-    allIds: Array<number>,
-    asConsumer: {
-      allIds: Array<number>,
-      loading: boolean,
-      error?: Error,
-    },
-    byId: { [id: string]: PrivatePass },
-    loading: boolean,
-    error?: Error,
-    createOrUpdate: {
-      loading: boolean,
-      error?: Error,
-    },
+  privateConsumerPass: ErrorAndLoading & {
+    allIds: Array<number>;
+    byId: { [id: string]: PrivateConsumerPass };
+    update: ErrorAndLoading;
+    compatible: ErrorAndLoading & { allIds: string[] };
+    byPrivatePass: ErrorAndLoading &
+      WithPagination & {
+        privatePassId: string;
+        allIds: string[];
+      };
+    byMember: ErrorAndLoading &
+      WithPagination & {
+        allIds: string[];
+      };
+    extension: ErrorAndLoading & {
+      items: any[];
+      create: ErrorAndLoading;
+      delete: ErrorAndLoading;
+      updatingConsumerPass: [];
+    };
   };
-  privateConsumerPass: {
-    allIds: Array<number>,
-    byId: { [id: string]: PrivateConsumerPass },
-    loading: boolean,
-    error?: Error,
+  resource: {
+    byId: { [key: string]: PrivateResource };
+    allIds: string[];
+    loading: boolean;
+    error?: Error;
   };
-  privateSlot: {
-    byId: { [id: string]: PrivateSlot },
-    loading: boolean,
-    error?: Error,
-    createOrUpdate: {
-      loading: boolean,
-      error?: Error,
-    },
-  };
-  privateService: {
-    byId: { [id: string]: PrivateService },
-    marketplaceIds: string[]
-    allIds: Array<number>,
-    loading: boolean,
-    error?: Error,
-    createOrUpdate: {
-      loading: boolean,
-      error?: Error,
-    },
+  privateService: ErrorAndLoading & {
+    byId: { [id: string]: PrivateService };
+    marketplaceIds: string[];
+    allIds: Array<number>;
+    createOrUpdate: ErrorAndLoading;
   };
   privateBooking: {
-    byId: { [id: string]: PrivateBooking },
-    allIds: Array<number>,
-    loading: boolean,
-    error?: Error,
-    preview: {
-      data?: PrivateBookingPreview,
-      loading: boolean,
-      error?: Error,
-    },
+    byId: { [id: string]: PrivateBooking };
+    allIds: Array<number>;
+    loading: boolean;
+    error?: Error;
+    createOrUpdate: {
+      loading?: boolean;
+      error?: Error;
+    };
+  };
+  recurrenceRulePrivateBooking: {
+    byId: { [id: number]: RecurrenceRulePrivateBooking };
+    allIds: Array<number>;
+    loading: boolean;
+    error?: Error;
+    createOrUpdate: {
+      loading: boolean;
+      error?: Error;
+    };
+    delete: {
+      loading: boolean;
+      error?: Error;
+    };
+  };
+  customEvent: {
+    byId: { [key: string]: any };
+    loading: boolean;
+    error?: Error;
+    createOrUpdate: {
+      loading: boolean;
+      error?: Error;
+    };
+  };
+  resource: {
+    byId: { [key: string]: any };
+  };
+  serviceGroup: ErrorAndLoading & {
+    byId: { [key: string]: PrivateServiceGroup };
+    allIds: string[];
+    delete: ErrorAndLoading;
+    createOrUpdate: ErrorAndLoading;
+  };
+  privatePass: ErrorAndLoading & {
+    byId: { [id: string]: PrivatePass };
+    allIds: Array<number>;
+    asConsumer: ErrorAndLoading & { allIds: Array<number> };
+    createOrUpdate: ErrorAndLoading;
+  };
+  privateBooking: ErrorAndLoading & {
+    byId: { [id: string]: PrivateBooking };
+    allIds: Array<number>;
+    createOrUpdate: ErrorAndLoading;
+  };
+  calendarEvent: ErrorAndLoading & {
+    byId: { [key: string]: PrivateSlot };
   };
 }

@@ -19,7 +19,6 @@ import SnackbarPile from './SnackbarPile.component';
 import BackgroundSnackbar from './BackgroundSnackbar.component';
 
 import Root from './Root';
-import './App.scss';
 
 import initStore from './store';
 

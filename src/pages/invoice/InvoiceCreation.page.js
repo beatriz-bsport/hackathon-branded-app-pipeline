@@ -11,7 +11,7 @@ import type { TFunction } from 'react-i18next';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { Moment } from '../../i18n';
-import { formatAsDate } from '../../datetime';
+import { formatAsDate } from '../../utils/datetime';
 import { createOrUpdateInvoice } from '../../libs/invoice/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
@@ -25,7 +25,7 @@ import withQueryParams from '../../hocs/with-query-params.hoc';
 
 import { getBuyableItem } from '../../libs/invoice/selectors';
 
-import { fetchPrivatePassList } from '../../libs/private-service/actions.ts';
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 
 import InvoiceFormV2 from '../../libs/invoice/components/InvoiceFormV2.component';

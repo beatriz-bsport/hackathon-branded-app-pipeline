@@ -53,10 +53,21 @@ import platformBilling from '../libs/platform-billing/reducers';
 import backgroundTaskReducers from '../libs/background-task/reducers';
 import marketingNotification from '../libs/marketing/reducers';
 import dashboardSettings from '../libs/dashboard/reducers';
+import marketplace from '../libs/marketplace/reducers';
 
 import { reducer } from '../resources';
 
-const rootReducer = (history) =>
+import { PrivateServiceState } from '../libs/private-service/types';
+import { CoachState } from '../libs/associated-coach/types';
+import { BackgroundTaskState } from '../libs/background-task/types';
+import { BookingsState } from '../libs/booking/types';
+import { CashBookState } from '../libs/cashbook/types';
+import { CheckoutState } from '../libs/checkout/types';
+import { MailState } from '../libs/communication/types';
+import { CompanyState } from '../libs/company/types';
+import { ConsumerPaymentPackState } from '../libs/consumer-payment-pack/types';
+
+const rootReducer = (history: any) =>
   combineReducers({
     '@api': reducer,
     router: connectRouter(history),
@@ -112,11 +123,66 @@ const rootReducer = (history) =>
     backgroundTask: backgroundTaskReducers,
     marketingNotification,
     dashboardSettings,
+    marketplace,
   });
 
-export type RootState = ReturnType<ReturnType<typeof rootReducer>>;
+export type RootState = {
+  router: ReturnType<typeof connectRouter>;
+  paymentRules: any;
+  payment: any;
+  consumer: any;
+  auth: any;
+  establishment: any;
+  metaActivity: any;
+  stats: any;
+  member: any;
+  category: any;
+  invoice: any;
+  paymentBackend: any;
+  snackbar: any;
+  search: any;
+  companies: any;
+  shop: any;
+  subscription: any;
+  alerting: any;
+  tag: any;
+  order: any;
+  waitingList: any;
+  theme: any;
+  role: any;
+  coupon: any;
+  emailTemplate: any;
+  relationship: any;
+  network: any;
+  login: any;
+  smartList: any;
+  paymentCombo: any;
+  reminder: any;
+  membership: any;
+  offer: any;
+  webhook: any;
+  notificationRule: any;
+  partnership: any;
+  activeCampaign: any;
+  event: any;
+  video: any;
+  playlist: any;
+  platformBilling: any;
+  marketingNotification: any;
+  dashboardSettings: any;
+  paymentPack: any;
+  consumerPaymentPack: ConsumerPaymentPackState;
+  company: CompanyState;
+  communication: MailState;
+  checkout: CheckoutState;
+  cashbook: CashBookState;
+  booking: BookingsState;
+  coach: CoachState;
+  privateService: PrivateServiceState;
+  backgroundTask: BackgroundTaskState;
+};
 
-export default (history) => (state: RootState, action) => {
+export default (history: any) => (state: any, action: any) => {
   const newState = state;
   return rootReducer(history)(newState, action);
 };

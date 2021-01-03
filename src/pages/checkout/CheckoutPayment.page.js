@@ -32,10 +32,10 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import CheckoutFlow from '../../libs/checkout/components/CheckoutFlow.component';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 import type { Basket } from '../../libs/checkout/types';
-import type { Theme } from '../../libs/theme/types.ts';
+import type { Theme } from '../../libs/theme/types';
 
-import themeSelectors from '../../libs/theme/selectors.ts';
-import { fetchCompanyTheme } from '../../libs/theme/actions.ts';
+import themeSelectors from '../../libs/theme/selectors';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { fetchPaymentMethodList } from '../../libs/payment/actions';
 

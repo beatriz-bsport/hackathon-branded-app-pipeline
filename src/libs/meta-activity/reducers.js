@@ -67,15 +67,20 @@ export default handleActions(
       return state.set('error', payload);
     },
     [metaActivityListActions.success]: (state, { payload }) => {
-      return state.set('allIds', payload.map((ma) => ma.id)).merge(
-        {
-          byId: payload.reduce((acc, ps) => {
-            acc[ps.id] = ps;
-            return acc;
-          }, {}),
-        },
-        { deep: true },
-      );
+      return state
+        .set(
+          'allIds',
+          payload.map((ma) => ma.id),
+        )
+        .merge(
+          {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
     },
     [metaActivityDetailActions.isLoading]: (state, { payload }) => {
       return state.set('loading', payload);
@@ -126,15 +131,20 @@ export default handleActions(
         .setIn(['upsert', 'data'], payload);
     },
     [listingActions.success]: (state, { payload }) => {
-      return state.set('allIds', payload.map((ma) => ma.id)).merge(
-        {
-          byId: payload.reduce((acc, ps) => {
-            acc[ps.id] = ps;
-            return acc;
-          }, {}),
-        },
-        { deep: true },
-      );
+      return state
+        .set(
+          'allIds',
+          payload.map((ma) => ma.id),
+        )
+        .merge(
+          {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
     },
     [listingActions.isLoading]: (state, { payload }) => {
       return state.set('loading', payload);

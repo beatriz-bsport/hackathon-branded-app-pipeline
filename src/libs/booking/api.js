@@ -6,7 +6,7 @@ import {
   postAuth,
   deleteAuth,
   patchAuth,
-} from '../../http.ts';
+} from '../../http';
 
 export const fetchFilteredBookingOptions = async (params: any) => {
   return getAuth(

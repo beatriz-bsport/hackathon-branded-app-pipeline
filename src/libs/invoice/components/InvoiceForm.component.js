@@ -16,7 +16,7 @@ import UnevenInvoiceDialog from '../dialog/UnevenInvoiceDialog.component';
 import FinalizeInvoiceDialog from '../dialog/FinalizeInvoiceDialog.component';
 // import InvoiceActions from './InvoiceActions.component';
 import InvoiceHeader from './InvoiceHeader.component';
-import type { OptionCallback } from '../../../state/types.ts';
+import type { OptionCallback } from '../../../state/types';
 
 type Props = {
   classes: Object,

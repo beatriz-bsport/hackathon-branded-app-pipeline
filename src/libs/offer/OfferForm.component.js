@@ -170,10 +170,7 @@ export class OfferForm extends Component<Props, State> {
             .isSameOrBefore(date_interval_end, 'day')
         ) {
           allDates.push(
-            moment(firstSession)
-              .tz(this.props.timezone)
-              .clone()
-              .add(i, 'week'),
+            moment(firstSession).tz(this.props.timezone).clone().add(i, 'week'),
           );
           i += 1;
         }

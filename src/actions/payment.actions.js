@@ -1,7 +1,7 @@
 // @flow
 import api from '../api';
 import types from './payment.types';
-import type { Dispatch } from '../state/types.ts';
+import type { Dispatch } from '../state/types';
 
 export function startCheckingOptionExistence() {
   return { type: types.PAYMENT_START_CHECKING_OPTION_EXISTENCE };

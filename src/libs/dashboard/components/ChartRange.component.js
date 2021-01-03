@@ -32,33 +32,25 @@ type State = {
   anchorEl: ?HTMLElement,
 };
 
-const quickRanges = [
+export const quickRanges = [
   {
     key: 'current_week',
-    start: moment()
-      .subtract(7, 'days')
-      .format('YYYY-MM-DD'),
+    start: moment().subtract(7, 'days').format('YYYY-MM-DD'),
     end: moment().format('YYYY-MM-DD'),
   },
   {
     key: 'current_month',
-    start: moment()
-      .subtract(1, 'month')
-      .format('YYYY-MM-DD'),
+    start: moment().subtract(1, 'month').format('YYYY-MM-DD'),
     end: moment().format('YYYY-MM-DD'),
   },
   {
     key: 'last_three_months',
-    start: moment()
-      .subtract(3, 'months')
-      .format('YYYY-MM-DD'),
+    start: moment().subtract(3, 'months').format('YYYY-MM-DD'),
     end: moment().format('YYYY-MM-DD'),
   },
   {
     key: 'current_year',
-    start: moment()
-      .subtract(1, 'year')
-      .format('YYYY-MM-DD'),
+    start: moment().subtract(1, 'year').format('YYYY-MM-DD'),
     end: moment().format('YYYY-MM-DD'),
   },
 ];

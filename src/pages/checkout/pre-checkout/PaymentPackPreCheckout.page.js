@@ -14,9 +14,9 @@ import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items'
 import InfoIcon from '@material-ui/icons/Info';
 import type { TFunction } from 'react-i18next';
 import { payment as paymentActions } from '../../../actions';
-import parse from '../../../query-string';
-import themeSelectors from '../../../libs/theme/selectors.ts';
-import type { Theme } from '../../../libs/theme/types.ts';
+import { parseQueryString } from '../../../http';
+import themeSelectors from '../../../libs/theme/selectors';
+import type { Theme } from '../../../libs/theme/types';
 import { getTheme } from '../../../theme';
 import {
   addItemToBasket,
@@ -58,7 +58,9 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
           onSuccess: (basket) => {
             if (!this.state.processing) {
               this.setState({ processing: true });
-              const { nextOffer } = parse(this.props.location.search);
+              const { nextOffer } = parseQueryString(
+                this.props.location.search,
+              );
               Analytics.addPassToCart(paymentPack, 'payment_pack');
               this.props.addItemToBasket(
                 basket.id,

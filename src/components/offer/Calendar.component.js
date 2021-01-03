@@ -31,8 +31,8 @@ import ViewComfy from '@material-ui/icons/ViewComfy';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { Moment } from '../../i18n';
-import { formatAsTitle, DATE_FORMAT } from '../../datetime';
-import { API_URI, getAuth, buildUrlParams } from '../../http.ts';
+import { formatAsTitle, DATE_FORMAT } from '../../utils/datetime';
+import { API_URI, getAuth, buildUrlParams } from '../../http';
 
 const WEEKMODE: number = 0;
 const MONTHMODE: number = 1;
@@ -450,10 +450,7 @@ export class Calendar extends PureComponent<Props, State> {
     const { displayMode } = this.state;
     const date = Moment(this.props.date, DATE_FORMAT);
     const firstDayWeek = date.clone().startOf('week');
-    const firstDayMonth = date
-      .clone()
-      .startOf('month')
-      .startOf('week');
+    const firstDayMonth = date.clone().startOf('month').startOf('week');
 
     switch (displayMode) {
       case WEEKMODE:

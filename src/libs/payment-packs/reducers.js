@@ -160,12 +160,17 @@ export const newPaymentPackReducer = handleActions(
       return state.setIn(['scaleCredit', 'error'], payload);
     },
     [listAllPaymentPackActions.success]: (state, { payload }) => {
-      return state.set('allIds', payload.map((pp) => pp.id)).merge(
-        {
-          byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
-        },
-        { deep: true },
-      );
+      return state
+        .set(
+          'allIds',
+          payload.map((pp) => pp.id),
+        )
+        .merge(
+          {
+            byId: payload.reduce((acc, v) => ({ ...acc, [v.id]: v }), {}),
+          },
+          { deep: true },
+        );
     },
     [paymentPackForBookingActions.error]: (state, { payload }) => {
       return state.setIn(['forBooking', 'error'], payload);

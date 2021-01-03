@@ -17,7 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import type { TFunction } from 'react-i18next';
 import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
 
-import { formatAsDatetime, formatMinutes } from '../../../datetime';
+import { formatAsDatetime, formatMinutes } from '../../../utils/datetime';
 import { isOfferInThePast } from '../utils';
 
 type Props = {

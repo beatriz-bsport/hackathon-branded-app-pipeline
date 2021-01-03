@@ -16,7 +16,7 @@ import type {
   Dispatch,
   ThunkAction,
   OptionCallback,
-} from '../../state/types.ts';
+} from '../../state/types';
 import type { MemberMailData } from './types';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';

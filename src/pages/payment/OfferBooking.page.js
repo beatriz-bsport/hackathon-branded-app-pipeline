@@ -23,7 +23,7 @@ import {
 } from '../../actions';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 
-import { fetchCompanyTheme } from '../../libs/theme/actions.ts';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
 import {
   addItemToBasket,
   removeItemFromBasket,
@@ -39,9 +39,9 @@ import { snackbarError as snackbarErrorActions } from '../../actions/snackbar.ac
 import Analytics from '../../components/analytics/Analytics.component';
 import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } from '../../api/payment';
 import { retrieveOffer as fetchOfferAction } from '../../libs/offer/actions';
-import themeSelectors from '../../libs/theme/selectors.ts';
+import themeSelectors from '../../libs/theme/selectors';
 import { getTheme } from '../../theme';
-import type { Theme } from '../../libs/theme/types.ts';
+import type { Theme } from '../../libs/theme/types';
 
 import { linkMeToCompany } from '../../libs/member/actions';
 import PaymentContainer from './PaymentContainer.component';
@@ -505,7 +505,17 @@ export default compose(
         .catch((err) => {
           console.error(err);
           if (err && err.response && err.response.status === 423) {
-            snackbarError(t('bookingModule.messages.offerLocked'));
+            switch (err.response.data) {
+              case 'unavailable for female':
+                snackbarError(t('bookingModule.messages.femaleUnavailable'));
+                break;
+              case 'unavailable for male':
+                snackbarError(t('bookingModule.messages.maleUnavailable'));
+                break;
+              default:
+                snackbarError(t('bookingModule.messages.offerLocked'));
+                break;
+            }
           }
           if (options && options.onError) options.onError(err);
         });

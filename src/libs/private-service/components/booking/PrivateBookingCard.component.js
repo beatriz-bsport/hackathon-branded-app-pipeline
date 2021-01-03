@@ -22,7 +22,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
 import MemberListItem from '../../../member/components/MemberMinimalListItem.component';
-import type { PrivateBookingWithRelatedFields } from '../../types.ts';
+import type { PrivateBookingWithRelatedFields } from '../../types';
 import RedButton from '../../../../components/button/RedButton.component';
 
 import CoachListItem from '../../../associated-coach/components/CoachListItem.component';

@@ -2,8 +2,8 @@
 
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import type { State } from '../../../state/types.ts';
-import type { PrivateConsumerPass } from '../types.ts';
+import type { State } from '../../../state/types';
+import type { PrivateConsumerPass } from '../types';
 import { getMemberListData } from '../../member/selectors';
 
 const _getPrivateConsumerPassIdList: (State) => Array<number> = (state) =>
@@ -73,4 +73,12 @@ const _getPrivateConsumerPassCompatibleListIds = (state) =>
 export const getPrivateConsumerPassCompatibleList = createSelector(
   [_getPrivateConsumerPassCompatibleListIds, _getPrivateConsumerPassDict],
   (ids, data) => ids.map((id) => data[id]).filter((cpp) => !!cpp),
+);
+
+const _getIdsByMember = (state) =>
+  state.privateService.privateConsumerPass.byMember.allIds;
+
+export const getPrivateConsumerPassByMember = createSelector(
+  [getPrivateConsumerPassDict, _getIdsByMember],
+  (data, ids) => ids.map((id) => data[id]),
 );

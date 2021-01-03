@@ -12,7 +12,7 @@ import * as Yup from 'yup';
 import { withFormik, Form, connect as formikConnect } from 'formik';
 
 import { compose, withPropsOnChange, withProps, withState } from 'recompose';
-import { getAuth, postAuth, API_URI } from '../../http.ts';
+import { getAuth, postAuth, API_URI } from '../../http';
 
 import { Moment } from '../../i18n';
 import AvatarField from '../../components/forms/AvatarField.component';
@@ -29,7 +29,7 @@ import {
   AddressFields,
 } from '../../components/forms';
 import AlertExistingUser from './AlertExistingUser.component';
-import { DATE_FORMAT } from '../../datetime';
+import { DATE_FORMAT } from '../../utils/datetime';
 
 const styles = (theme) => ({
   redPaperContainer: {
@@ -414,28 +414,20 @@ const MemberSchema = Yup.object().shape({
   firstname: Yup.string(),
   lastname: Yup.string(),
   email: Yup.string().nullable(),
-  phone: Yup.string()
-    .nullable()
-    .notRequired(),
+  phone: Yup.string().nullable().notRequired(),
   gender: Yup.string().matches(/(F|M|X)/),
-  birthday: Yup.string()
-    .nullable()
-    .notRequired(),
+  birthday: Yup.string().nullable().notRequired(),
   barcode: Yup.string().nullable(),
   membership_ID: Yup.string().nullable(),
   date_joined: Yup.string().nullable(),
-  rgpd: Yup.object()
-    .shape({})
-    .nullable(),
-  address: Yup.object()
-    .nullable()
-    .shape({
-      address_line_1: Yup.string(),
-      address_line_2: Yup.string(),
-      city: Yup.string(),
-      country: Yup.string(),
-      zipcode: Yup.string(),
-    }),
+  rgpd: Yup.object().shape({}).nullable(),
+  address: Yup.object().nullable().shape({
+    address_line_1: Yup.string(),
+    address_line_2: Yup.string(),
+    city: Yup.string(),
+    country: Yup.string(),
+    zipcode: Yup.string(),
+  }),
   avatar: Yup.object().nullable(),
 });
 
@@ -529,10 +521,7 @@ export default compose(
       let { avatar } = values;
       if (typeof avatar === 'string' && avatar.includes('data:image/')) {
         const byteString = atob(avatar.split(',')[1]);
-        const mimeString = avatar
-          .split(',')[0]
-          .split(':')[1]
-          .split(';')[0];
+        const mimeString = avatar.split(',')[0].split(':')[1].split(';')[0];
 
         const buffer = new ArrayBuffer(byteString.length);
         const data = new DataView(buffer);

@@ -2,7 +2,7 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
 import {
   getOfferDataList,
@@ -126,17 +126,15 @@ export const getFirstTimeNotifications = createSelector(
 );
 
 export const withBookingNotifications = memoize((selector) =>
-  createSelector(
-    [selector, _getNotifications],
-    (data, notificationList) =>
-      data
-        .filter((d) => !!d)
-        .map((d) => ({
-          ...d,
-          on_booking_notification: (d.on_booking_notification || []).map(
-            (notifId) => notificationList[notifId],
-          ),
-        })),
+  createSelector([selector, _getNotifications], (data, notificationList) =>
+    data
+      .filter((d) => !!d)
+      .map((d) => ({
+        ...d,
+        on_booking_notification: (d.on_booking_notification || []).map(
+          (notifId) => notificationList[notifId],
+        ),
+      })),
   ),
 );
 

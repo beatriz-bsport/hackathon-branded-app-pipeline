@@ -63,6 +63,20 @@ exports.default = {
         error: 'Impossible de partager cette carte',
       },
     },
+    private_consumer_pass_links: {
+      create: {
+        success: 'Carte RDV partagée',
+        error: 'Impossible de partager cette carte RDV',
+      },
+      unlink: {
+        success: 'Partage supprimé',
+        error: 'Impossible de supprimer ce partage',
+      },
+      relink: {
+        success: 'Partage enregistré',
+        error: 'Impossible de partager cette carte RDV',
+      },
+    },
   },
   paymentRules: {
     update: {

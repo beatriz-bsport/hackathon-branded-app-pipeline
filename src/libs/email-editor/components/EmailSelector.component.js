@@ -13,7 +13,7 @@ import Selector from '../../../components/Selector.component';
 type Props = {
   classes: Object,
   emails: Array<EmailTemplate>,
-  onChange: (?number) => void,
+  onChange: (id: ?number) => void,
   helperText: string,
   value: ?number,
   selectorClass: string,

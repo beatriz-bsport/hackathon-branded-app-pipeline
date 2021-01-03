@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
-import type { OptionCallback } from '../../../state/types.ts';
+import type { OptionCallback } from '../../../state/types';
 
 type Props = {
   open: boolean,

@@ -28,7 +28,7 @@ import {
 } from '../../libs/meta-activity/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
-import themeSelectors from '../../libs/theme/selectors.ts';
+import themeSelectors from '../../libs/theme/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -40,7 +40,7 @@ import OfferForm from '../../libs/offer/OfferForm.component';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
-import type { Establishment } from '../../libs/establishment/types';
+import { Establishment } from '../../libs/establishment/types';
 
 type StepType = {
   id: number,

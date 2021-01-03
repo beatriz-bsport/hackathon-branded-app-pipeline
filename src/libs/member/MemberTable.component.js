@@ -14,7 +14,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 
 import type { TFunction } from 'react-i18next';
-import { formatAsDate } from '../../datetime';
+import { formatAsDate } from '../../utils/datetime';
 
 const MEMBER_PER_PAGE = 50;
 

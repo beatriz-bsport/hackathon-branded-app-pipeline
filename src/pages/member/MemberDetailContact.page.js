@@ -66,7 +66,10 @@ export default compose(
     ) => {
       fetchCampaignByMember(id, page, {
         onSuccess: (campaignList) => {
-          fetchRecipientBulk(id, campaignList.map((c) => c.uuid));
+          fetchRecipientBulk(
+            id,
+            campaignList.map((c) => c.uuid),
+          );
         },
       });
     },

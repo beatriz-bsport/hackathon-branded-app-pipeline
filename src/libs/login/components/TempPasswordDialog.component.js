@@ -16,7 +16,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import RedButton from '../../../components/button/RedButton.component';
-import { formatAsTime } from '../../../datetime';
+import { formatAsTime } from '../../../utils/datetime';
 
 type Props = {
   tempPassword: ?string,

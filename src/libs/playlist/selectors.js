@@ -51,25 +51,22 @@ export const withCoachInVideo = memoize((selector) =>
 );
 
 export const withVideo = memoize((selector) =>
-  createSelector(
-    [selector, getVideoData],
-    (playlists, videoData) => {
-      const videosInPlaylists = (_playlists) => {
-        return {
-          ..._playlists,
-          videos: _playlists.videos.map((v) => videoData[v]),
-        };
+  createSelector([selector, getVideoData], (playlists, videoData) => {
+    const videosInPlaylists = (_playlists) => {
+      return {
+        ..._playlists,
+        videos: _playlists.videos.map((v) => videoData[v]),
       };
+    };
 
-      if (Array.isArray(playlists)) {
-        return playlists
-          .map((pl) => videosInPlaylists(pl))
-          .filter((pl) => pl.videos.length);
-      }
-      if (playlists) {
-        return videosInPlaylists(playlists);
-      }
-      return null;
-    },
-  ),
+    if (Array.isArray(playlists)) {
+      return playlists
+        .map((pl) => videosInPlaylists(pl))
+        .filter((pl) => pl.videos.length);
+    }
+    if (playlists) {
+      return videosInPlaylists(playlists);
+    }
+    return null;
+  }),
 );

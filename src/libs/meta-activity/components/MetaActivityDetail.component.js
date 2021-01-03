@@ -16,7 +16,7 @@ import memoize from 'memoize-one';
 
 import Calendar from '../../../components/offer/Calendar.component';
 import TimeTable from '../../../components/offer/TimeTable.component';
-import { DATE_FORMAT } from '../../../datetime';
+import { DATE_FORMAT } from '../../../utils/datetime';
 import BookingCreationNotification from '../../booking/components/BookingCreationNotification.component';
 import MetaActivityCard from './MetaActivityCard.component';
 
@@ -37,9 +37,9 @@ type Props = {
   emailListLoading: boolean,
   emailDetailLoading: boolean,
   createNotification: (data: any) => void,
-  updateNotification: (data: any) => void,
+  updateNotification: (id: number, data: any) => void,
   deleteNotification: (notificationId: number) => void,
-  notifications: Object,
+  notifications: { items: Array<any>, loading: boolean },
 
   classes: Object,
   t: TFunction,

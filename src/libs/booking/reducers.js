@@ -140,7 +140,10 @@ export default handleActions(
       return state
         .setIn(['asConsumer', 'page'], payload.page)
         .setIn(['asConsumer', 'count'], payload.count)
-        .setIn(['asConsumer', 'allIds'], payload.results.map((b) => b.id))
+        .setIn(
+          ['asConsumer', 'allIds'],
+          payload.results.map((b) => b.id),
+        )
         .merge(
           {
             byId: payload.results.reduce((acc, ps) => {
@@ -161,7 +164,10 @@ export default handleActions(
       return state
         .setIn(['byMember', 'page'], payload.page)
         .setIn(['byMember', 'count'], payload.count)
-        .setIn(['byMember', 'allIds'], payload.results.map((b) => b.id))
+        .setIn(
+          ['byMember', 'allIds'],
+          payload.results.map((b) => b.id),
+        )
         .merge(
           {
             byId: payload.results.reduce((acc, ps) => {
@@ -182,7 +188,10 @@ export default handleActions(
       return state
         .setIn(['byConsumerPack', 'page'], payload.page)
         .setIn(['byConsumerPack', 'count'], payload.count)
-        .setIn(['byConsumerPack', 'allIds'], payload.results.map((b) => b.id))
+        .setIn(
+          ['byConsumerPack', 'allIds'],
+          payload.results.map((b) => b.id),
+        )
         .merge(
           {
             byId: payload.results.reduce((acc, ps) => {
@@ -206,7 +215,10 @@ export default handleActions(
       return state
         .setIn(['byOffer', 'page'], payload.page)
         .setIn(['byOffer', 'count'], payload.count)
-        .setIn(['byOffer', 'allIds'], payload.results.map((b) => b.id))
+        .setIn(
+          ['byOffer', 'allIds'],
+          payload.results.map((b) => b.id),
+        )
         .merge(
           {
             byId: payload.results.reduce((acc, ps) => {
@@ -295,7 +307,10 @@ export default handleActions(
       const items = { ...state.notification.itemsById };
       const ids = [...state.notification.allIds];
       delete items[payload];
-      ids.splice(ids.findIndex((id) => id === payload), 1);
+      ids.splice(
+        ids.findIndex((id) => id === payload),
+        1,
+      );
       return state
         .setIn(['notification', 'itemsById'], items)
         .setIn(['notification', 'allIds'], ids);

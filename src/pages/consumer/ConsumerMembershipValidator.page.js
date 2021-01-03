@@ -12,7 +12,7 @@ import {
   linkMeToCompany,
 } from '../../libs/membership/actions';
 import ConsumerLoading from '../../libs/consumer-space/components/ConsumerLoading.component';
-import type { OptionCallback } from '../../state/types.ts';
+import type { OptionCallback } from '../../state/types';
 
 type Props = {
   linkMeToCompany: ({ company: number }, options: OptionCallback) => void,

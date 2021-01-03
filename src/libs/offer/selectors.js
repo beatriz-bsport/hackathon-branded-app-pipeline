@@ -12,7 +12,7 @@ import {
   getMetaActivityAbstractDict,
 } from '../meta-activity/selectors';
 import { getAllEstablishmentsDict } from '../establishment/selectors';
-import themeSelectors from '../theme/selectors.ts';
+import themeSelectors from '../theme/selectors';
 
 const getState = (state: State) => state.offer;
 
@@ -23,16 +23,14 @@ export const getDetailedOffer = (state: State) => getState(state).retrieve.data;
 export const getOfferById = (state, id) => getState(state).byId[id];
 
 // this will remove the offers already ended simply
-export const todayOffers = createSelector(
-  getAll,
-  (offers) =>
-    offers.filter((offer) => {
-      const momentDate = Moment();
-      return (
-        momentDate.isBefore(Moment(offer.date_start)) ||
-        momentDate.isBetween(Moment(offer.date_start), Moment(offer.date_end))
-      );
-    }),
+export const todayOffers = createSelector(getAll, (offers) =>
+  offers.filter((offer) => {
+    const momentDate = Moment();
+    return (
+      momentDate.isBefore(Moment(offer.date_start)) ||
+      momentDate.isBetween(Moment(offer.date_start), Moment(offer.date_end))
+    );
+  }),
 );
 
 export const compatiblePacksWithOffer = (state: State) =>
@@ -100,28 +98,25 @@ export const withEstablishment = memoize((selector: (State) => any) =>
 );
 
 export const withCoach = memoize((selector: (State) => any) =>
-  createSelector(
-    [selector, getAllCoachesDict],
-    (offers, coachData) => {
-      if (!offers) return null;
-      if (!Array.isArray(offers)) {
-        return {
-          ...offers,
-          coach: coachData[offers.coach] || offers.coach,
-          coach_override: offers.coach_override
-            ? coachData[offers.coach_override]
-            : null,
-        };
-      }
-      return offers.map((o) => ({
-        ...o,
-        coach: coachData[o.coach] || o.coach,
-        coach_override: o.coach_override
-          ? coachData[o.coach_override] || o.coach_override
+  createSelector([selector, getAllCoachesDict], (offers, coachData) => {
+    if (!offers) return null;
+    if (!Array.isArray(offers)) {
+      return {
+        ...offers,
+        coach: coachData[offers.coach] || offers.coach,
+        coach_override: offers.coach_override
+          ? coachData[offers.coach_override]
           : null,
-      }));
-    },
-  ),
+      };
+    }
+    return offers.map((o) => ({
+      ...o,
+      coach: coachData[o.coach] || o.coach,
+      coach_override: o.coach_override
+        ? coachData[o.coach_override] || o.coach_override
+        : null,
+    }));
+  }),
 );
 
 export const getSimilars = createSelector(
@@ -160,9 +155,8 @@ export const getManagerFiltersOpen = (state: State) =>
 const _getOfferByDayIds = (state: State) => state.offer.byDay.allIds;
 export const _getOfferData = (state: State) => state.offer.byId;
 
-export const getOfferDataList = createSelector(
-  _getOfferData,
-  (offerData) => Object.values(offerData),
+export const getOfferDataList = createSelector(_getOfferData, (offerData) =>
+  Object.values(offerData),
 );
 
 export const getOffersByDay = createSelector(
@@ -224,6 +218,31 @@ export const getListCalendarOfferFromNow = createSelector(
     ids
       .map((id) => data[id])
       .filter((o) => moment(o.date_start).isSameOrAfter(moment())),
+);
+
+const _getBookedGenderOffer = (state: State) => state.offer.genderCount.byId;
+
+export const withGender = memoize((selector: (State) => any) =>
+  createSelector([selector, _getBookedGenderOffer], (offers, genderData) => {
+    if (!offers) return null;
+    if (!Array.isArray(offers)) {
+      return {
+        ...offers,
+        female: genderData[offers.id].nb_booked_female,
+        male: genderData[offers.id].nb_booked_male,
+        other: genderData[offers.id].nb_booked_other,
+      };
+    }
+    return offers.map((o) => {
+      if (!genderData[o.id]) return o;
+      return {
+        ...o,
+        female: genderData[o.id].nb_booked_female,
+        male: genderData[o.id].nb_booked_male,
+        other: genderData[o.id].nb_booked_other,
+      };
+    });
+  }),
 );
 
 export const getOfferWithRelated = (state: State, id: number) => {

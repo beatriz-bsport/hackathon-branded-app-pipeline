@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { compose, withProps, withHandlers } from 'recompose';
 import { createCompany as createCompanyAction } from '../../libs/company/actions';
-import parse from '../../query-string';
+import { parseQueryString } from '../../http';
 import {
   checkEmailExists,
   requestLogin as requestLoginAction,
@@ -12,7 +12,7 @@ import {
 
 import CompanyOnboardingForm from '../../libs/login/components/CompanySignupForm.component';
 
-import type { OptionCallback } from '../../state/types.ts';
+import type { OptionCallback } from '../../state/types';
 
 type Props = {
   checkEmailExists: (email: string) => void,
@@ -51,7 +51,8 @@ export default compose(
     },
   ),
   withProps({
-    access_code: parse(window.location.search || '').access_code || null,
+    access_code:
+      parseQueryString(window.location.search || '').access_code || null,
   }),
   withHandlers({
     createCompany: ({

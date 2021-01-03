@@ -1,7 +1,7 @@
 // @flow
 
 import { createSelector } from 'reselect';
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 
 import {
   OWNER_ROLE,
@@ -159,15 +159,12 @@ const getPermissionById = (id: number): Permissions => {
 
 const getAuthState = (state: State) => state.auth;
 
-export const getPermissions = createSelector(
-  getAuthState,
-  (auth) => {
-    if (auth && auth.role !== null && auth.role !== 'undefined') {
-      return getPermissionById(auth.role);
-    }
-    return defaultPermissions;
-  },
-);
+export const getPermissions = createSelector(getAuthState, (auth) => {
+  if (auth && auth.role !== null && auth.role !== 'undefined') {
+    return getPermissionById(auth.role);
+  }
+  return defaultPermissions;
+});
 
 export const getPermissionsSet = (): { [id: number]: Permissions } => {
   return getPermissionsId().map((id) => ({ id, ...getPermissionById(id) }));
@@ -175,11 +172,9 @@ export const getPermissionsSet = (): { [id: number]: Permissions } => {
 
 export const getUsers = (state) => getRoleState(state).users;
 
-export const getUsersWithRole = createSelector(
-  getUsers,
-  (users) =>
-    users.map((u) => ({
-      ...u,
-      permissions: getPermissionById(u.role),
-    })),
+export const getUsersWithRole = createSelector(getUsers, (users) =>
+  users.map((u) => ({
+    ...u,
+    permissions: getPermissionById(u.role),
+  })),
 );

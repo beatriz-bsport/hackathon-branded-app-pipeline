@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import { formatAsDatetime } from '../../../datetime';
+import { formatAsDatetime } from '../../../utils/datetime';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import type { ConsumerPaymentPackExtension } from '../types';
 

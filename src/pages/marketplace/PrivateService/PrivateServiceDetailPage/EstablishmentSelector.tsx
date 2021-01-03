@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Fade, CardMedia, Typography } from '@material-ui/core';
+import {
+  Fade,
+  CardMedia,
+  Typography,
+  makeStyles,
+  ButtonBase,
+} from '@material-ui/core';
+import classNames from 'classnames';
 
 import {
   PrivateEstablishment,
   PrivateService,
   PrivateSlot,
 } from '../../../../libs/private-service/types';
-import { useCallback } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
 
 type Props = {
-  privateService: PrivateService,
-  privateSlot: PrivateSlot,
-  selectedEstablishments: PrivateEstablishment[],
-  onSelect: (establishments: PrivateEstablishment) => void,
+  privateService: PrivateService;
+  privateSlot: PrivateSlot;
+  selectedEstablishments: PrivateEstablishment[];
+  onSelect: (establishments: PrivateEstablishment) => void;
 };
 
 const EstablishmentSelector: React.FC<Props> = (props) => {
@@ -38,7 +42,7 @@ const EstablishmentSelector: React.FC<Props> = (props) => {
       (establishment: PrivateEstablishment) => {
         return (
           <div className={classes.cardItemLayout} key={establishment.id}>
-            <div
+            <ButtonBase
               className={classNames({
                 [classes.cardContainer]: true,
                 [classes.selected]: isEstablishmentSelected(establishment),
@@ -71,7 +75,7 @@ const EstablishmentSelector: React.FC<Props> = (props) => {
                 </Typography>
               </div>
               {!props.privateSlot && <div className={classes.mask} />}
-            </div>
+            </ButtonBase>
           </div>
         );
       },
@@ -81,7 +85,7 @@ const EstablishmentSelector: React.FC<Props> = (props) => {
   return (
     <Fade in timeout={500}>
       <div className={classes.container}>
-        <Typography className={classes.titleMargin} variant={'h5'}>
+        <Typography className={classes.titleMargin} variant="h5">
           {t('slotSearcher.establishment')}
         </Typography>
         <div className={classes.container2}>{renderEstablishment()}</div>

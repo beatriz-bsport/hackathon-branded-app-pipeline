@@ -98,6 +98,7 @@ exports.default = {
     },
   },
   privateBooking: {
+    bookings: 'Rendez-vous',
     editTime: 'Modifier',
     updateTime: {
       title: 'Modification rendez-vous',
@@ -362,6 +363,10 @@ exports.default = {
       privateSlot: 'Séance',
       coach: 'Professeur',
       date: 'Date',
+      rule: 'Rendez-vous récurrents',
+    },
+    recurrenceRule: {
+      label: 'Programmez un RDV récurrent',
     },
   },
   consumerPass: {
@@ -403,6 +408,9 @@ exports.default = {
       booking: 'Réservations RDV liées',
       extensionsTitle: 'Extensions de validité',
     },
+    isFromShare: 'Partagé depuis un autre compte',
+    isOwnerOfShares: 'Partagé (carte RDV maître)',
+    isFromDisabledShare: 'Partage arrété',
   },
   privateServiceCompatibility: {
     delete: {
@@ -750,5 +758,42 @@ exports.default = {
       },
     },
     tooltip: 'Des notifications sont actives pour ce type de RDV',
+  },
+  recurrenceRule: {
+    recurrentBookings: 'Rendez-vous récurrents',
+    createModal: {
+      create: 'Créer une réservation récurrente',
+    },
+    actions: {
+      close: 'Fermer',
+      save: 'Enregistrer',
+    },
+    form: {
+      title: 'Programmer une récurrence',
+      configuration: 'Réservations',
+      timeGroup: 'Date de la séance',
+      notify_member:
+        "Envoyer un mail de confirmation lors de l'inscription du membre",
+    },
+    forms: {
+      delete: {
+        title: 'Déprogrammer un RDV récurrent',
+        content:
+          "Déprogrammer le RDV récurrent entrainera l'annulation des RDV futurs enregistrés via cette règle.",
+        cancel: 'Annuler',
+        confirm: 'Supprimer',
+      },
+      update: {
+        title: 'Modification RDV récurrent',
+        content:
+          'Modifier la règle de récurrence entrainera la modification des RDV futurs effectués via cette règle.',
+        cancel: 'Annuler',
+        confirm: 'Modifier',
+      },
+    },
+    item: {
+      explain:
+        'Tous les {{dayOfWeek}} - {{time}}, {{delayWeek}} semaines avant',
+    },
   },
 };

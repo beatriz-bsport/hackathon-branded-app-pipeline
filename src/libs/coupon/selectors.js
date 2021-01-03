@@ -2,7 +2,7 @@
 
 import { createSelector } from 'reselect';
 import type { Coupon, Discount } from './types';
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 import { isCurrentlyActive } from './utils';
 
 export const getAllCoupons = (state: State) => state.coupon.coupon.items;

@@ -9,7 +9,7 @@ import {
   deleteAuth,
   API_V1_URI,
   buildUrlParams,
-} from '../../http.ts';
+} from '../../http';
 
 export async function fetchAllPaymentPacks() {
   return getAuth(`${API_URI}/saas/payment-pack/`);

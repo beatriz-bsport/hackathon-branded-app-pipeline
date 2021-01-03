@@ -16,7 +16,7 @@ import { TimeTable, Calendar } from '../../../components';
 import Map from '../../../components/map/Map.component';
 import BookingCreationNotification from '../../booking/components/BookingCreationNotification.component';
 import EasyAccessStack from '../../category/components/EasyAccessStack.component';
-import { DATE_FORMAT } from '../../../datetime';
+import { DATE_FORMAT } from '../../../utils/datetime';
 
 const DEFAULT_SPORT = 7;
 
@@ -37,9 +37,9 @@ type Props = {
   emailListLoading: boolean,
   emailDetailLoading: boolean,
   createNotification: (data: any) => void,
-  updateNotification: (data: any) => void,
+  updateNotification: (id: number, data: any) => void,
   deleteNotification: (notificationId: number) => void,
-  notifications: Object,
+  notifications: { items: Array<any>, loading: boolean },
 };
 
 type State = {

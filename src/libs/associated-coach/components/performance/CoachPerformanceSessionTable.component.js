@@ -16,7 +16,7 @@ import AttachIcon from '@material-ui/icons/AttachFile';
 
 import { PaymentRuleSelector } from '../../../payment-rules';
 import type { PaymentRule } from '../../../payment-rules';
-import { downloadAsCsv } from '../../../../downloader';
+import { downloadAsCsv } from '../../../../utils/downloader';
 
 type Props = {
   sessions: *[],

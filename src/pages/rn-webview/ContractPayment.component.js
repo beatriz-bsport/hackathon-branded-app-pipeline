@@ -18,7 +18,7 @@ import { fetchPaymentMethodList } from '../../libs/payment/actions';
 import { fetchContractDetail } from '../../libs/subscription/actions';
 import { getContract } from '../../libs/subscription/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import parse from '../../query-string';
+import { parseQueryString } from '../../http';
 import { attachPaymentToBasketId as attachPaymentAction } from '../../libs/checkout/actions';
 import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
 import { postContractSubscriptionUnauthenticated as postContractSubscriptionUnauthenticatedAPI } from '../../libs/subscription/api';
@@ -102,8 +102,8 @@ const styles = () => ({
 export default compose(
   withRouter,
   withProps(({ location }) => ({
-    date: parse(location.search).date,
-    memberId: parseInt(parse(location.search).member, 10),
+    date: parseQueryString(location.search).date,
+    memberId: parseInt(parseQueryString(location.search).member, 10),
   })),
   withStyles(styles),
   routerParamsToProps({ contractId: 'contractId' }),

@@ -52,7 +52,9 @@ export class PhoneItem extends Component<Props> {
             <PhoneForwardedIcon />
           </Button>
         ) : null}
-        {phoneNumber && this.props.openSmsDialog && !this.props.hideContactButton ? (
+        {phoneNumber &&
+        this.props.openSmsDialog &&
+        !this.props.hideContactButton ? (
           <Button
             onClick={() => {
               this.props.openSmsDialog();

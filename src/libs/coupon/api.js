@@ -6,7 +6,7 @@ import {
   patchAuth,
   deleteAuth,
   buildUrlParams,
-} from '../../http.ts';
+} from '../../http';
 
 const COUPON_URI = `${API_V1_URI}/coupon/`;
 

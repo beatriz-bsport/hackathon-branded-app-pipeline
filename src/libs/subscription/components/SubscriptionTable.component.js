@@ -8,7 +8,7 @@ import type { TFunction } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import RedButton from '../../../components/button/RedButton.component';
 
-import { formatAsDate } from '../../../datetime';
+import { formatAsDate } from '../../../utils/datetime';
 import type { Subscription } from '../types';
 
 const BILLING_PLAN_STATUS_HAS_STARTED = 2;

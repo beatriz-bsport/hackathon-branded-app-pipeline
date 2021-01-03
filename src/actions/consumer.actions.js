@@ -2,7 +2,7 @@
 
 import api from '../api';
 import types from './consumer.types';
-import type { State, Dispatch, OptionCallback } from '../state/types.ts';
+import type { State, Dispatch, OptionCallback } from '../state/types';
 
 export function startFetchBookings() {
   return { type: types.CONSUMER_START_FETCH_BOOKINGS };

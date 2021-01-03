@@ -23,7 +23,7 @@ import MetaActivityListItem from '../../../meta-activity/components/MetaActivity
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import Selector from '../MultiSelector.component';
 import CalendarPicker from '../CalendarPicker.component';
-import type { Establishment } from '../../../establishment/types';
+import { Establishment } from '../../../establishment/types';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItemBasic.component';
 
@@ -181,7 +181,7 @@ export class BookingsNumberFilter extends Component<Props, state> {
               }
               onChange={(ev) => onChange({ attendance: ev.target.value })}
             >
-              <MenuItem value={true}>{t('filters.attendanceTrue')}</MenuItem>
+              <MenuItem value>{t('filters.attendanceTrue')}</MenuItem>
               <MenuItem value={false}>{t('filters.attendanceFalse')}</MenuItem>
             </Select>
             {this.props.renderAttendanceSelectorWarning(

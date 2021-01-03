@@ -9,7 +9,7 @@ import {
   post,
   patchAuth,
   putAuth,
-} from '../../http.ts';
+} from '../../http';
 
 const fetchAll = async (params: any) => {
   return getAuth(

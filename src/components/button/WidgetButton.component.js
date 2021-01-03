@@ -158,7 +158,7 @@ export const WidgetButton = (props: Props) => {
               <div className={classes.code}>
                 <Typography>
                   {
-                    '<script src="https://cdn.bsport.io/scripts/widget.js"></script>'
+                    '<script src="https://cdn.bsport.io/scripts/widget"></script>'
                   }
                 </Typography>
                 <Typography>{'<script>'}</Typography>
@@ -214,7 +214,7 @@ export const WidgetButton = (props: Props) => {
                 </Typography>
                 <Typography className={classes.alinea}>
                   {
-                    '<script src="https://cdn.bsport.io/scripts/widget.js"></script>'
+                    '<script src="https://cdn.bsport.io/scripts/widget"></script>'
                   }
                 </Typography>
                 <Typography className={classes.alinea}>{'<script>'}</Typography>
@@ -376,7 +376,7 @@ export const WidgetButton = (props: Props) => {
             srcDoc={`<div>
             <div id='bsport-widget'/>
 
-            <script src='https://cdn.bsport.io/scripts/widget.js'></script>
+            <script src='https://cdn.bsport.io/scripts/widget'></script>
             <script>
             BsportWidget.mount({
               parentElement: "bsport-widget",

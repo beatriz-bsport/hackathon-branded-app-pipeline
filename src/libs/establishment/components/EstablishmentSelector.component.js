@@ -74,7 +74,9 @@ const establishmentStyles = {
   }),
 };
 
-export default withTranslation(['establishment'])(
+export default withTranslation([
+  'establishment',
+])(
   ({
     t,
     establishments,

@@ -16,7 +16,7 @@ import type { TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 
-import { DATE_FORMAT } from '../../../datetime';
+import { DATE_FORMAT } from '../../../utils/datetime';
 
 import type { Offer } from '../types';
 import OfferListItemConsumer from '../../offer/components/OfferListItemConsumer.component';
@@ -37,12 +37,11 @@ type Props = {
   activityLoading: boolean,
   coachLoading: boolean,
   establishmentLoading: boolean,
+  showOfferGender: boolean,
 };
 
 const getWeekOffers = memoize((selectedDate, offers) => {
-  const date_start = moment(selectedDate, DATE_FORMAT)
-    .clone()
-    .startOf('week');
+  const date_start = moment(selectedDate, DATE_FORMAT).clone().startOf('week');
   const weekdays = moment.weekdays(true);
   // split offers par week days
   return weekdays.map((day, i) => {
@@ -97,6 +96,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
                       </IconButton>
                     </Hidden>
                     <MarketplaceBookButton
+                      showOfferGender={this.props.showOfferGender}
                       onClickBook={() => this.props.onClickBook(o)}
                       onClickBookOption={() =>
                         this.props.onClickBookOption(o.id)

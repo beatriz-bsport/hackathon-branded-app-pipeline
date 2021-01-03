@@ -140,7 +140,7 @@ export class BroadcastRoomJitsi extends React.Component<Props> {
     return (
       <div>
         <Helmet>
-          <script src="https://cdn.bsport.io/scripts/jitsi_external_api.js" />
+          <script src="https://cdn.bsport.io/scripts/jitsi_external_api" />
         </Helmet>
         <div className={this.props.classes.container} id="broadcast" />
       </div>

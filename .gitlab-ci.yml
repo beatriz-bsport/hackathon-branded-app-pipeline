@@ -1,30 +1,47 @@
 image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-frontend:latest
 
 variables:
-  YARN_CACHE_DIR: "$CI_PROJECT_DIR/yarn-cache"
-  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+  AWS_REGION: eu-west-3
+  REGISTRY_ENDPOINT: 672633452901.dkr.ecr.eu-west-3.amazonaws.com
 
 #Cache dependencies across all jobs
 
 stages:
+  - prepare-image-docker
   - static-analysis
   # - unit_tests
   # - e2e_tests
   - bump-version
-  - configure_and_deploy
+  - build-deploy
   - promote
 
+
+
 before_script:
-  - yarn config set cache-folder $YARN_CACHE_DIR 
-  - yarn install --frozen-lockfile 
   - OLD_VERSION=`echo "$(cat ./VERSION)"`
 
-lint:
-  stage: static-analysis 
+Prepare Docker Builder Image:
+  image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:v1.0.1
+  tags:
+    - deployment
+  stage: prepare-image-docker
+  script:
+    - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_ENDPOINT}
+    - docker build --network host -t ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME} .
+    - docker push ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+
+Lint:
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  stage: static-analysis
   tags:
     - deployment
   script:
-    - yarn lint --quiet
+    - ls /app/
+    - ls .
+    - pwd
+    - mv /app/node_modules .
+    - yarn install --frozen-lockfile # just to be sure
+    - yarn tslint
 
   except:
     - master
@@ -116,7 +133,8 @@ lint:
 
 
 .Build and deploy Base:
-  stage: configure_and_deploy
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  stage: build-deploy 
   # cache:
   #   files:
   #     - yarn.lock
@@ -132,6 +150,8 @@ lint:
       - master
       - production
   script:
+    - mv /app/node_modules .
+    - yarn install --frozen-lockfile # just to be sure
     - echo "FAILED" > .job_status
     - VERSION=`echo "$(cat ./VERSION)"`
     - echo "Preparing VERSION:${VERSION} on ${ENVIRONMENT}"

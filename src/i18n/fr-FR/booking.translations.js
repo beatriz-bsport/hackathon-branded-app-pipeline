@@ -117,6 +117,10 @@ exports.default = {
     },
     messages: {
       offerLocked: 'Vous ne pouvez pas réserver cette séance',
+      femaleUnavailable:
+        "La séance n'est plus disponible à la réservation pour les femmes.",
+      maleUnavailable:
+        "La séance n'est plus disponible à la réservation pour les hommes.",
     },
   },
   details: {
@@ -223,5 +227,9 @@ exports.default = {
         },
       },
     },
+  },
+  memberGraph: {
+    title: 'Récapitulatif des réservations',
+    label: 'Réservations',
   },
 };

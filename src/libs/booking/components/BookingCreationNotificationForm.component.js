@@ -1,31 +1,39 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { withFormik, Form } from 'formik';
+import * as Yup from 'yup';
+
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
+import DialogContent from '@material-ui/core/DialogContent';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Collapse from '@material-ui/core/Collapse';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import Checkbox from '@material-ui/core/Checkbox';
 import InfoIcon from '@material-ui/icons/Info';
 
 import DialogTitle from '@material-ui/core/DialogTitle';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
 
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { compose } from 'recompose';
-import NumericInput from '../../../components/input/NumericInput.component';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
-import type { Notification } from '../types';
+
+import {
+  IntegerField,
+  RadioGroupField,
+  CheckboxField,
+  Actions,
+  Submit,
+} from '../../../components/forms';
+
+const BOOKING_CREATION_NOTIFICATION = 2;
 
 const BOOKING_NOTIFICATION_VALID_ATTENDANCE = 3;
 const BOOKING_NOTIFICATION_VALID_ABSENCE = 4;
@@ -33,10 +41,8 @@ const BOOKING_NOTIFICATION_CANCELLED_REFUNDED = 5;
 const BOOKING_NOTIFICATION_CANCELLED_NOT_REFUNDED = 6;
 
 type Props = {
-  t: TFunction,
-  openForm: boolean,
-  openPreForm: boolean,
-  classes: Object,
+  isSubmitting: boolean,
+
   onCancel: () => void,
   getEmails: () => void,
   emails: Array<any>,
@@ -44,527 +50,403 @@ type Props = {
   emailDetails: Array<any>,
   emailListLoading: boolean,
   emailDetailLoading: boolean,
-  notification?: Notification,
-  onSubmit: (data: any) => void,
-  nextStep: () => void,
-  update: boolean,
+  initial: any,
+  values: any,
+  setFieldValue: (key: string, value: any) => void,
+  errors: any,
 };
 
-export class BookingCreationNotificationForm extends Component<Props, State> {
-  state = {
-    bookingStatus: 'valid',
-    kind: BOOKING_NOTIFICATION_VALID_ATTENDANCE,
-    when: 'before',
-    displayMailPreview: false,
-    selectedMail: null,
-    hours: null,
-    notify_booking_nb: 1,
-    notifyAllEvents: false,
-  };
-
-  computeWhen = () => {
-    return this.props.notification.hours > 0 ? 'after' : 'before';
-  };
-
-  computeKind = () => {
-    if (this.state.kind === BOOKING_NOTIFICATION_VALID_ATTENDANCE) {
+const getNotificationKind = (kind: number) => {
+  switch (parseInt(kind, 10)) {
+    case BOOKING_NOTIFICATION_VALID_ATTENDANCE:
       return 'attendance';
-    }
-    if (this.state.kind === BOOKING_NOTIFICATION_VALID_ABSENCE) {
+    case BOOKING_NOTIFICATION_VALID_ABSENCE:
       return 'absence';
-    }
-    if (this.state.kind === BOOKING_NOTIFICATION_CANCELLED_REFUNDED) {
+    case BOOKING_NOTIFICATION_CANCELLED_REFUNDED:
       return 'refunded';
-    }
-    return 'notRefunded';
-  };
-
-  componentDidUpdate(prevProps: Props) {
-    if (this.props.openForm !== prevProps.openForm) {
-      if (this.props.notification) {
-        this.props.getEmailDetail(this.props.notification.email_design);
-      }
-      this.props.getEmails();
-      this.setState({
-        when: this.props.notification ? this.computeWhen() : 'before',
-        displayMailPreview: false,
-        hours: this.props.notification
-          ? Math.abs(this.props.notification.hours)
-          : null,
-        selectedMail:
-          this.props.notification &&
-          this.props.emails.find(
-            (email) => email.id === this.props.notification.email_design,
-          )
-            ? this.props.emails.find(
-                (email) => email.id === this.props.notification.email_design,
-              ).id
-            : null,
-      });
-      if (this.props.update && !prevProps.update) {
-        this.setState({
-          kind: this.props.notification
-            ? this.props.notification.kind
-            : BOOKING_NOTIFICATION_VALID_ATTENDANCE,
-          notify_booking_nb: this.props.notification
-            ? this.props.notification.notify_booking_nb
-            : 1,
-        });
-      }
-    }
+    default:
+      return 'notRefunded';
   }
+};
 
-  renderLoadingOrEmpty = (loading: boolean, emails: Array<any>) => {
-    if (loading) {
-      return <CircularProgress />;
-    }
-    if (emails.length === 0) {
-      return (
-        <div className={this.props.classes.previewEmpty}>
-          <InfoIcon fontSize="large" color="disabled" />
-          <Typography color="textSecondary">
-            {this.props.t('paymentPack:notification.form.noMailAvailable')}
-          </Typography>
-        </div>
-      );
-    }
+const renderEmptyOrLoading = (
+  loading: boolean,
+  emails: Array<any>,
+  t: TFunction,
+  classes: any,
+) => {
+  if (loading) {
+    return <CircularProgress />;
+  }
+  if (!emails.length) {
     return (
-      <div className={this.props.classes.previewEmpty}>
+      <div className={classes.previewEmpty}>
         <InfoIcon fontSize="large" color="disabled" />
         <Typography color="textSecondary">
-          {this.props.t('paymentPack:notification.form.selectToShowPreview')}
+          {t('paymentPack:notification.form.noMailAvailable')}
         </Typography>
       </div>
     );
-  };
+  }
+  return (
+    <div className={classes.previewEmpty}>
+      <InfoIcon fontSize="large" color="disabled" />
+      <Typography color="textSecondary">
+        {t('paymentPack:notification.form.selectToShowPreview')}
+      </Typography>
+    </div>
+  );
+};
 
-  renderTimeChoice = () => {
-    return (
-      <div className={this.props.classes.inlineContainer}>
-        <Typography variant="caption">
-          {this.props.t('booking:notification.form.chooseTime.first')}
-        </Typography>
-        <NumericInput
-          onChange={(ev) => {
-            this.setState({
-              hours: ev.target.value ? parseInt(ev.target.value, 10) : null,
-            });
-          }}
-          classes={{ textInput: this.props.classes.textInput }}
-          value={this.state.hours}
-          error={
-            !this.state.hours ||
-            this.state.hours < 0 ||
-            this.state.hours > 32767
-          }
-        />
-        <Typography variant="caption">
-          {this.props.t('booking:notification.form.chooseTime.second', {
-            context: this.state.when,
-          })}
-        </Typography>
-      </div>
-    );
-  };
+const BookingCreationNotificationForm = (props: Props) => {
+  const { t } = useTranslation(['booking', 'paymentPack']);
+  const classes = useStyles();
+  const { values, setFieldValue } = props;
+  const { kind, notify_booking_nb, email_design, bookingStatus } = values;
+  const [formIsSecondStep, setFormIsSecondStep] = useState(false);
+  const [displayMailPreview, setDisplayMailPreview] = useState(false);
 
-  renderEmailSelector = () => {
-    const { classes, t } = this.props;
-    return (
-      <div>
-        {this.props.emailListLoading ? (
-          <LinearProgress className={classes.selectorContainer} />
-        ) : (
-          <div className={classes.selectorContainer}>
-            <EmailSelector
-              emails={this.props.emails}
-              value={this.state.selectedMail}
-              onChange={(ev) => {
-                this.setState({ selectedMail: ev ? ev.value : null });
-                if (ev) {
-                  this.props.getEmailDetail(ev.value);
-                }
-              }}
-              helperText={t('paymentPack:notification.form.mailSelection')}
-            />
-          </div>
-        )}
-        <div className={classes.buttonContainer}>
-          <Button
-            onClick={() =>
-              this.setState((prevState) => ({
-                displayMailPreview: !prevState.displayMailPreview,
-              }))
-            }
-          >
-            {this.state.displayMailPreview ? (
-              <div className={classes.inlineContainer}>
-                <VisibilityOffIcon className={classes.visibilityIcon} />
-                <Typography variant="caption">
-                  {t('paymentPack:notification.form.hideMail')}
+  // To avoid validation errors. If notifyAllEvents is true,
+  // then notify_booking_nb will be set to 0 during submission
+  if (values.notifyAllEvents && notify_booking_nb !== 1) {
+    setFieldValue('notify_booking_nb', 1);
+  }
+
+  useEffect(() => {
+    if (props.initial) props.getEmailDetail(props.initial.email_design);
+    props.getEmails();
+  }, []);
+
+  // Update kind when bookingStatus changes so that we always have a checked
+  // radio input on the screen
+  if (
+    values.bookingStatus === 'cancelled' &&
+    [
+      BOOKING_NOTIFICATION_VALID_ATTENDANCE,
+      BOOKING_NOTIFICATION_VALID_ABSENCE,
+    ].includes(parseInt(kind, 10))
+  ) {
+    setFieldValue('kind', BOOKING_NOTIFICATION_CANCELLED_REFUNDED);
+  }
+  if (
+    values.bookingStatus === 'valid' &&
+    [
+      BOOKING_NOTIFICATION_CANCELLED_REFUNDED,
+      BOOKING_NOTIFICATION_CANCELLED_NOT_REFUNDED,
+    ].includes(parseInt(kind, 10))
+  ) {
+    setFieldValue('kind', BOOKING_NOTIFICATION_VALID_ATTENDANCE);
+  }
+
+  return (
+    <Dialog open>
+      <div className={classes.dialog}>
+        <DialogTitle>{t('booking:notification.form.title')}</DialogTitle>
+        <Form>
+          {/* First step */}
+          {!formIsSecondStep && !props.initial && (
+            <>
+              <DialogContent>
+                <Typography variant="body2">
+                  {t('booking:notification.form.explain')}
                 </Typography>
-              </div>
-            ) : (
-              <div className={classes.inlineContainer}>
-                <VisibilityIcon className={classes.visibilityIcon} />
-                <Typography variant="caption">
-                  {t('paymentPack:notification.form.showMail')}
-                </Typography>
-              </div>
-            )}
-          </Button>
-        </div>
-        <Collapse in={this.state.displayMailPreview}>
-          <div className={classes.mailPreview}>
-            {this.state.selectedMail &&
-            !!this.props.emailDetails[this.state.selectedMail] ? (
-              <div>
+                <div className={classes.fieldContainer}>
+                  <Typography variant="subtitle2">
+                    {t('booking:notification.form.chooseStatus.title')}
+                  </Typography>
+                  <RadioGroupField
+                    classes={{ label: classes.label }}
+                    name="bookingStatus"
+                    choices={[
+                      {
+                        label: t(
+                          'booking:notification.form.chooseStatus.valid',
+                        ),
+                        value: 'valid',
+                      },
+                      {
+                        label: t(
+                          'booking:notification.form.chooseStatus.cancelled',
+                        ),
+                        value: 'cancelled',
+                      },
+                    ]}
+                  />
+                </div>
+                <div className={classes.fieldContainer}>
+                  <Typography variant="subtitle2">
+                    {t('booking:notification.form.chooseKind.title')}
+                  </Typography>
+                  {bookingStatus === 'valid' && (
+                    <RadioGroupField
+                      classes={{ label: classes.label }}
+                      name="kind"
+                      choices={[
+                        {
+                          label: t(
+                            'booking:notification.form.chooseKind.attendance',
+                          ),
+                          value: BOOKING_NOTIFICATION_VALID_ATTENDANCE,
+                        },
+                        {
+                          label: t(
+                            'booking:notification.form.chooseKind.absence',
+                          ),
+                          value: BOOKING_NOTIFICATION_VALID_ABSENCE,
+                        },
+                      ]}
+                    />
+                  )}
+                  {bookingStatus === 'cancelled' && (
+                    <RadioGroupField
+                      classes={{ label: classes.label }}
+                      name="kind"
+                      choices={[
+                        {
+                          label: t(
+                            'booking:notification.form.chooseKind.refunded',
+                          ),
+                          value: BOOKING_NOTIFICATION_CANCELLED_REFUNDED,
+                        },
+                        {
+                          label: t(
+                            'booking:notification.form.chooseKind.notRefunded',
+                          ),
+                          value: BOOKING_NOTIFICATION_CANCELLED_NOT_REFUNDED,
+                        },
+                      ]}
+                    />
+                  )}
+                </div>
                 <div
-                  dangerouslySetInnerHTML={{
-                    __html: this.props.emailDetails
-                      ? this.props.emailDetails[this.state.selectedMail].html
-                      : null,
+                  className={`${classes.inlineContainer} ${
+                    classes.fieldContainer
+                  } ${values.notifyAllEvents ? classes.greyText : ''}`}
+                >
+                  <Typography variant="body2">
+                    {t('booking:notification.form.eventNb')}
+                  </Typography>
+                  <IntegerField
+                    className={classes.integerInput}
+                    name="notify_booking_nb"
+                    disabled={values.notifyAllEvents}
+                  />
+                </div>
+                <div className={classes.fieldContainer}>
+                  <CheckboxField
+                    classes={{ label: classes.label }}
+                    name="notifyAllEvents"
+                    label={t('booking:notification.form.notifyAllEvents')}
+                  />
+                </div>
+                <Typography variant="caption" className={classes.greyText}>
+                  {values.notifyAllEvents
+                    ? t(
+                        `booking:notification.form.help.allEvents.${getNotificationKind(
+                          kind,
+                        )}`,
+                      )
+                    : `${t(
+                        'booking:notification.form.help.text',
+                      )} ${t(
+                        `booking:notification.form.help.${getNotificationKind(
+                          kind,
+                        )}`,
+                        { notify_booking_nb },
+                      )}`}
+                </Typography>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={props.onCancel}>
+                  {t('booking:notification.form.cancel')}
+                </Button>
+                <Button
+                  color="primary"
+                  onClick={() => setFormIsSecondStep(true)}
+                  disabled={!!props.errors.notify_booking_nb}
+                >
+                  {t('booking:notification.form.next')}
+                </Button>
+              </DialogActions>
+            </>
+          )}
+          {/* Second Step */}
+          {(!!props.initial || formIsSecondStep) && (
+            <>
+              <DialogContent>
+                <div className={classes.fieldContainer}>
+                  <Typography variant="subtitle2">
+                    {t('booking:notification.form.typeTitle')}
+                  </Typography>
+                  <RadioGroupField
+                    classes={{ label: classes.label }}
+                    name="when"
+                    choices={[
+                      {
+                        label: t('booking:notification.form.sendBeforeMail'),
+                        value: 'before',
+                      },
+                      {
+                        label: t('booking:notification.form.sendAfterMail'),
+                        value: 'after',
+                      },
+                    ]}
+                  />
+                </div>
+                <div className={classes.fieldContainer}>
+                  <Typography variant="subtitle2">
+                    {t('booking:notification.form.settingTitle')}
+                  </Typography>
+                  <div className={classes.inlineContainer}>
+                    <Typography variant="caption">
+                      {t('booking:notification.form.chooseTime.first')}
+                    </Typography>
+                    <IntegerField
+                      className={classes.integerInput}
+                      name="hours"
+                    />
+                    <Typography variant="caption">
+                      {t('booking:notification.form.chooseTime.second', {
+                        context: values.when,
+                      })}
+                    </Typography>
+                  </div>
+                </div>
+                {/* Render Email Selector */}
+                <div className={classes.fieldContainer}>
+                  <Typography
+                    variant="caption"
+                    className={
+                      props.errors.email_design ? classes.errorText : null
+                    }
+                  >
+                    {t('paymentPack:notification.form.mailTitle')}
+                  </Typography>
+                  {props.emailListLoading ? (
+                    <LinearProgress className={classes.selectorContainer} />
+                  ) : (
+                    <div
+                      name="email_design"
+                      className={classes.selectorContainer}
+                    >
+                      <EmailSelector
+                        name="email_design"
+                        emails={props.emails}
+                        value={email_design}
+                        onChange={(ev) => {
+                          setFieldValue('email_design', ev ? ev.value : null);
+                          if (ev) props.getEmailDetail(ev.value);
+                        }}
+                        helperText={t(
+                          'paymentPack:notification.form.mailSelection',
+                        )}
+                      />
+                    </div>
+                  )}
+                  <div className={classes.buttonContainer}>
+                    <Button
+                      onClick={() =>
+                        setDisplayMailPreview((prevDisplay) => !prevDisplay)
+                      }
+                    >
+                      {displayMailPreview ? (
+                        <div className={classes.inlineContainer}>
+                          <VisibilityOffIcon
+                            className={classes.visibilityIcon}
+                          />
+                          <Typography variant="caption">
+                            {t('paymentPack:notification.form.hideMail')}
+                          </Typography>
+                        </div>
+                      ) : (
+                        <div className={classes.inlineContainer}>
+                          <VisibilityIcon className={classes.visibilityIcon} />
+                          <Typography variant="caption">
+                            {t('paymentPack:notification.form.showMail')}
+                          </Typography>
+                        </div>
+                      )}
+                    </Button>
+                  </div>
+                  <Collapse in={displayMailPreview}>
+                    <div className={classes.mailPreview}>
+                      {email_design && !!props.emailDetails[email_design] ? (
+                        <div>
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: props.emailDetails
+                                ? props.emailDetails[email_design].html
+                                : null,
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        renderEmptyOrLoading(
+                          props.emailDetailLoading,
+                          props.emails,
+                          t,
+                          classes,
+                        )
+                      )}
+                    </div>
+                  </Collapse>
+                </div>
+              </DialogContent>
+              <Actions>
+                <Button
+                  onClick={() => {
+                    props.onCancel();
+                    setFormIsSecondStep(false);
                   }}
-                />
-              </div>
-            ) : (
-              this.renderLoadingOrEmpty(
-                this.props.emailDetailLoading,
-                this.props.emails,
-              )
-            )}
-          </div>
-        </Collapse>
+                  disabled={props.isSubmitting}
+                >
+                  {t('booking:notification.form.cancel')}
+                </Button>
+                <Submit
+                  color="primary"
+                  disabled={!!props.errors.hours || !!props.errors.email_design}
+                >
+                  {t('booking:notification.form.submit')}
+                </Submit>
+              </Actions>
+            </>
+          )}
+        </Form>
       </div>
-    );
-  };
+    </Dialog>
+  );
+};
 
-  renderEmailField() {
-    return (
-      <div className={this.props.classes.emailInput}>
-        <Typography variant="caption">
-          {this.props.t('paymentPack:notification.form.mailTitle')}
-        </Typography>
-        {this.renderEmailSelector()}
-      </div>
-    );
-  }
-
-  checkFormValidity = () => {
-    return (
-      !!this.state.hours &&
-      this.state.hours > 0 &&
-      this.state.hours < 32767 &&
-      !!this.state.selectedMail
-    );
-  };
-
-  checkPreFormValidity = () => {
-    return (
-      !!this.state.notify_booking_nb &&
-      this.state.notify_booking_nb > 0 &&
-      this.state.notify_booking_nb <= 32767
-    );
-  };
-
-  renderPreForm = () => {
-    const { t, classes } = this.props;
-    return (
-      <div className={classes.dialogContainer}>
-        <Typography variant="body2" className={this.props.classes.explain}>
-          {t('booking:notification.form.explain')}
-        </Typography>
-        <div className={classes.fieldContainer}>
-          <Typography variant="subtitle2">
-            {t('booking:notification.form.chooseStatus.title')}
-          </Typography>
-          <RadioGroup
-            value={this.state.bookingStatus}
-            onChange={(ev) =>
-              this.setState({
-                bookingStatus: ev.target.value,
-                kind:
-                  ev.target.value === 'valid'
-                    ? BOOKING_NOTIFICATION_VALID_ATTENDANCE
-                    : BOOKING_NOTIFICATION_CANCELLED_REFUNDED,
-              })
-            }
-          >
-            <FormControlLabel
-              value="valid"
-              control={<Radio checked={this.state.bookingStatus === 'valid'} />}
-              label={t('booking:notification.form.chooseStatus.valid')}
-              classes={{ label: classes.label }}
-            />
-            <FormControlLabel
-              value="cancelled"
-              control={
-                <Radio checked={this.state.bookingStatus === 'cancelled'} />
-              }
-              label={t('booking:notification.form.chooseStatus.cancelled')}
-              classes={{ label: classes.label }}
-            />
-          </RadioGroup>
-        </div>
-        <div className={classes.fieldContainer}>
-          <Typography variant="subtitle2">
-            {t('booking:notification.form.chooseKind.title')}
-          </Typography>
-          <RadioGroup
-            aria-label="Applies to "
-            name="applies_to"
-            value={this.state.kind}
-            onChange={(ev) =>
-              this.setState({
-                kind: parseInt(ev.target.value, 10),
-              })
-            }
-          >
-            {this.state.bookingStatus === 'valid' ? (
-              <>
-                <FormControlLabel
-                  value={BOOKING_NOTIFICATION_VALID_ATTENDANCE}
-                  control={
-                    <Radio
-                      checked={
-                        this.state.kind ===
-                        BOOKING_NOTIFICATION_VALID_ATTENDANCE
-                      }
-                    />
-                  }
-                  label={t('booking:notification.form.chooseKind.attendance')}
-                  classes={{ label: classes.label }}
-                />
-                <FormControlLabel
-                  value={BOOKING_NOTIFICATION_VALID_ABSENCE}
-                  control={
-                    <Radio
-                      checked={
-                        this.state.kind === BOOKING_NOTIFICATION_VALID_ABSENCE
-                      }
-                    />
-                  }
-                  label={t('booking:notification.form.chooseKind.absence')}
-                  classes={{ label: classes.label }}
-                />
-              </>
-            ) : (
-              <>
-                <FormControlLabel
-                  value={BOOKING_NOTIFICATION_CANCELLED_REFUNDED}
-                  control={
-                    <Radio
-                      checked={
-                        this.state.kind ===
-                        BOOKING_NOTIFICATION_CANCELLED_REFUNDED
-                      }
-                    />
-                  }
-                  label={t('booking:notification.form.chooseKind.refunded')}
-                  classes={{ label: classes.label }}
-                />
-                <FormControlLabel
-                  value={BOOKING_NOTIFICATION_CANCELLED_NOT_REFUNDED}
-                  control={
-                    <Radio
-                      checked={
-                        this.state.kind ===
-                        BOOKING_NOTIFICATION_CANCELLED_NOT_REFUNDED
-                      }
-                    />
-                  }
-                  label={t('booking:notification.form.chooseKind.notRefunded')}
-                  classes={{ label: classes.label }}
-                />
-              </>
-            )}
-          </RadioGroup>
-          <div className={classes.inlineContainer}>
-            <Typography
-              variant="caption"
-              className={
-                this.state.notifyAllEvents ? this.props.classes.greyText : null
-              }
-            >
-              {t('booking:notification.form.eventNb')}
-            </Typography>
-            <NumericInput
-              disabled={this.state.notifyAllEvents}
-              onChange={(ev) => {
-                this.setState({
-                  notify_booking_nb: ev.target.value
-                    ? parseInt(ev.target.value, 10)
-                    : null,
-                });
-              }}
-              classes={{ textInput: this.props.classes.textInput }}
-              value={this.state.notify_booking_nb}
-              error={
-                !this.state.notify_booking_nb ||
-                this.state.notify_booking_nb <= 0 ||
-                this.state.notify_booking_nb > 32767
-              }
-            />
-          </div>
-          <div className={this.props.classes.inlineContainer}>
-            <Checkbox
-              className={this.props.classes.checkbox}
-              checked={this.state.notifyAllEvents}
-              onChange={(ev) =>
-                this.setState({ notifyAllEvents: ev.target.checked })
-              }
-            />
-            <Typography variant="caption">
-              {t('booking:notification.form.notifyAllEvents')}
-            </Typography>
-          </div>
-          <Typography variant="caption" className={classes.greyText}>
-            {this.state.notifyAllEvents
-              ? t(
-                  `booking:notification.form.help.allEvents.${this.computeKind()}`,
-                )
-              : `${t('booking:notification.form.help.text')} ${t(
-                  `booking:notification.form.help.${this.computeKind()}`,
-                  { notify_booking_nb: this.state.notify_booking_nb },
-                )}`}
-          </Typography>
-        </div>
-        <DialogActions className={classes.bottomButtons}>
-          <Button onClick={this.props.onCancel}>
-            {t('booking:notification.form.cancel')}
-          </Button>
-          <Button
-            color="primary"
-            onClick={this.props.nextStep}
-            disabled={!this.checkPreFormValidity()}
-          >
-            {t('booking:notification.form.next')}
-          </Button>
-        </DialogActions>
-      </div>
-    );
-  };
-
-  renderForm = () => {
-    const { t, classes } = this.props;
-    return (
-      <div className={classes.dialogContainer}>
-        <div className={classes.fieldContainer}>
-          <Typography variant="subtitle2">
-            {t('booking:notification.form.typeTitle')}
-          </Typography>
-          <RadioGroup
-            aria-label="Applies to "
-            name="applies_to"
-            value={this.state.when}
-            onChange={(ev) =>
-              this.setState({
-                when: ev.target.value,
-              })
-            }
-          >
-            <FormControlLabel
-              value="before"
-              control={<Radio checked={this.state.when === 'before'} />}
-              label={t('booking:notification.form.sendBeforeMail')}
-              classes={{ label: classes.label }}
-            />
-            <FormControlLabel
-              value="after"
-              control={<Radio checked={this.state.when === 'after'} />}
-              label={t('booking:notification.form.sendAfterMail')}
-              classes={{ label: classes.label }}
-            />
-          </RadioGroup>
-        </div>
-        <div className={classes.fieldContainer}>
-          <Typography variant="subtitle2">
-            {t('booking:notification.form.settingTitle')}
-          </Typography>
-          {this.renderTimeChoice()}
-          {this.renderEmailField()}
-        </div>
-
-        <DialogActions className={classes.bottomButtons}>
-          <Button
-            onClick={() => {
-              // reset notify_booking_nb to 1 to avoid having a 0 displayed in form in some cases
-              this.setState({ notify_booking_nb: 1 });
-              this.props.onCancel();
-            }}
-          >
-            {t('booking:notification.form.cancel')}
-          </Button>
-          <Button
-            color="primary"
-            disabled={!this.checkFormValidity()}
-            onClick={() => {
-              this.props.onSubmit({
-                kind: this.state.kind,
-                email_design: this.state.selectedMail,
-                hours:
-                  this.state.when === 'before'
-                    ? this.state.hours * -1
-                    : this.state.hours,
-                notify_booking_nb: this.state.notifyAllEvents
-                  ? 0
-                  : this.state.notify_booking_nb,
-              });
-            }}
-          >
-            {t('booking:notification.form.submit')}
-          </Button>
-        </DialogActions>
-      </div>
-    );
-  };
-
-  render() {
-    const { t } = this.props;
-    return (
-      <div>
-        <Dialog open={!!(this.props.openPreForm || this.props.openForm)}>
-          <DialogTitle>{t('booking:notification.form.title')}</DialogTitle>
-          {!!this.props.openPreForm && this.renderPreForm()}
-          {!!this.props.openForm && this.renderForm()}
-        </Dialog>
-      </div>
-    );
-  }
-}
-
-const styles = (theme) => ({
-  warningContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: theme.spacing(4),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(1),
-  },
-  bottomButtons: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  smartListSelector: {
-    marginTop: theme.spacing(2),
-  },
+const useStyles = makeStyles((theme) => ({
   fieldContainer: {
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
   },
-  textInput: {
-    width: '70px',
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
+  inlineContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'baseline',
+  },
+  greyText: {
+    color: 'grey',
+  },
+  selectorContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: theme.spacing(1),
   },
   buttonContainer: {
     display: 'flex',
     justifyContent: 'center',
   },
-  inlineContainer: {
+  visibilityIcon: {
+    marginRight: theme.spacing(1),
+  },
+  previewEmpty: {
     display: 'flex',
-    justifyContent: 'flex-start',
+    flexDirection: 'column',
     alignItems: 'center',
+    paddingTop: theme.spacing(6),
   },
   mailPreview: {
     border: '1px solid grey',
@@ -576,49 +458,93 @@ const styles = (theme) => ({
     minHeight: '30vh',
     minWidth: '40vh',
   },
-  selectorContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: theme.spacing(1),
-  },
-  previewEmpty: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    paddingTop: theme.spacing(6),
-  },
-  dialogContainer: {
-    padding: theme.spacing(1),
-    minWidth: '500px',
-  },
-  visibilityIcon: {
+  integerInput: {
+    width: '70px',
+    marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
-  label: {
-    // Mimics caption variant of Typography
-    fontSize: 12,
-    fontWeight: 400,
+  errorText: {
+    color: 'red',
   },
-  emailInput: {
-    marginTop: theme.spacing(2),
-  },
-  formControl: {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-  },
-  greyText: {
-    color: 'grey',
-  },
-  explain: {
+  dialog: {
     paddingLeft: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
+    paddingRight: theme.spacing(2),
   },
-  checkbox: {
-    marginLeft: -theme.spacing(1.35),
+  label: {
+    fontSize: '0.9rem',
   },
+}));
+
+const BookingNotificationSchema = Yup.object().shape({
+  marketingKind: Yup.number().required(),
+  email_design: Yup.number().required(),
+  establishment_id: Yup.number().nullable(),
+  meta_activity_id: Yup.number().nullable(),
+  notify_booking_nb: Yup.number().integer().min(1).required(),
+  hours: Yup.number().integer().min(1).required(),
+  kind: Yup.number(),
 });
 
 export default compose(
-  withTranslation(['booking', 'paymentPack']),
-  withStyles(styles),
+  withFormik({
+    mapPropsToValues: ({ initial, objectId, identifier }) => {
+      if (initial) {
+        const { kind: marketingKind, email_design } = initial;
+        const {
+          kind,
+          establishment_id,
+          meta_activity_id,
+          notify_booking_nb,
+          hours,
+        } = initial.event_rules;
+
+        return {
+          marketingKind,
+          email_design,
+          establishment_id,
+          meta_activity_id,
+          notify_booking_nb,
+          hours: Math.abs(hours),
+          kind,
+          when: hours > 0 ? 'after' : 'before',
+          notifyAllEvents: notify_booking_nb === 0,
+        };
+      }
+      const values = {
+        marketingKind: BOOKING_CREATION_NOTIFICATION,
+        email_design: null,
+        notifyAllEvents: false,
+        when: 'before',
+        notify_booking_nb: 1,
+        hours: 2,
+        kind: BOOKING_NOTIFICATION_VALID_ATTENDANCE,
+        bookingStatus: 'valid',
+      };
+      if (identifier === 'establishment') {
+        values.establishment_id = objectId;
+        values.meta_activity_id = null;
+      } else if (identifier === 'meta_activity') {
+        values.establishment_id = null;
+        values.meta_activity_id = objectId;
+      }
+      return values;
+    },
+    validationSchema: BookingNotificationSchema,
+    handleSubmit: (values, { props: { onSubmit } }) => {
+      const data = {
+        kind: values.marketingKind,
+        email_design: values.email_design,
+        event_rules: {
+          establishment_id: values.establishment_id,
+          meta_activity_id: values.meta_activity_id,
+          notify_booking_nb: values.notifyAllEvents
+            ? 0
+            : values.notify_booking_nb,
+          kind: parseInt(values.kind, 10),
+          hours: values.when === 'before' ? values.hours * -1 : values.hours,
+        },
+      };
+      onSubmit(data);
+    },
+  }),
 )(BookingCreationNotificationForm);

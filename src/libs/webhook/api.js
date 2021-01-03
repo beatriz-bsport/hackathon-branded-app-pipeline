@@ -7,7 +7,7 @@ import {
   postAuth,
   patchAuth,
   deleteAuth,
-} from '../../http.ts';
+} from '../../http';
 
 const WEBHOOK_URI = `${API_V1_URI}/webhook/`;
 

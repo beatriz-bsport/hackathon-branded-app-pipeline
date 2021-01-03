@@ -6,7 +6,7 @@ import { createAction } from 'redux-actions';
 
 import api from '../api';
 import types from './auth.types';
-import type { Dispatch, ThunkAction } from '../state/types.ts';
+import type { Dispatch, ThunkAction } from '../state/types';
 
 export const initiateInterface = createAction('initiate');
 

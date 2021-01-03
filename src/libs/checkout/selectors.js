@@ -1,6 +1,6 @@
 // @flow
 
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 import type { Basket, CheckoutState } from './types';
 
 import {

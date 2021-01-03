@@ -31,7 +31,7 @@ import PaymentComboBuyableItem from '../../payment-combo/components/PaymentCombo
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
 
 import { isOfferInThePast } from '../utils';
-import { formatMinutes } from '../../../datetime';
+import { formatMinutes } from '../../../utils/datetime';
 
 import type { PaymentCombo } from '../../payment-combo/types';
 

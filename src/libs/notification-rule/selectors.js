@@ -1,7 +1,7 @@
 // @flow
 import { createSelector } from 'reselect';
 
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 
 export const getEventList = (state: State) =>
   state.notificationRule.eventType.data;
@@ -12,9 +12,8 @@ const getRuleListIds = (state: State) => state.notificationRule.rule.allIds;
 export const getTagCategories = (state: State) =>
   state.notificationRule.tag.data;
 
-const getRuleList = createSelector(
-  [getRuleData, getRuleListIds],
-  (data, ids) => ids.map((id) => data[id]),
+const getRuleList = createSelector([getRuleData, getRuleListIds], (data, ids) =>
+  ids.map((id) => data[id]),
 );
 
 const _groupEvents = (acc, v) => {
@@ -57,20 +56,17 @@ const _getEventListWithRule = createSelector(
   },
 );
 
-const onlyGeneric = createSelector(
-  _getEventListWithRule,
-  (eventWithRuleList) =>
-    eventWithRuleList
-      .filter(
-        (eventWithRule) =>
-          eventWithRule.is_editable && !eventWithRule.is_instance_specific,
-      )
-      .reduce(_groupEvents, {}),
+const onlyGeneric = createSelector(_getEventListWithRule, (eventWithRuleList) =>
+  eventWithRuleList
+    .filter(
+      (eventWithRule) =>
+        eventWithRule.is_editable && !eventWithRule.is_instance_specific,
+    )
+    .reduce(_groupEvents, {}),
 );
 
-const all = createSelector(
-  _getEventListWithRule,
-  (eventWithRuleList) => eventWithRuleList.reduce(_groupEvents, {}),
+const all = createSelector(_getEventListWithRule, (eventWithRuleList) =>
+  eventWithRuleList.reduce(_groupEvents, {}),
 );
 
 export const getEventByGroup = {

@@ -100,7 +100,7 @@ export const PaymentPackListItem = (props: Props) => {
       />
       {!props.disabled && props.onEdit && props.onDelete ? (
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-          {props.pack.notifications && props.pack.notifications.length > 0 ? (
+          {props.pack.hasActiveNotification && (
             <Tooltip
               classes={classes}
               title={
@@ -114,7 +114,7 @@ export const PaymentPackListItem = (props: Props) => {
                 <NotificationsIcon />
               </IconButton>
             </Tooltip>
-          ) : null}
+          )}
           <ListItemResponsiveAction
             actions={[
               props.onEdit && {

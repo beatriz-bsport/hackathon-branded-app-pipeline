@@ -15,10 +15,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import moment from 'moment-timezone';
 import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
+import Divider from '@material-ui/core/Divider';
 
 import RedButton from '../../../../components/button/RedButton.component';
-import type { PrivateConsumerPass } from '../../types.ts';
-import { getExpirationDate } from '../../utils.ts';
+import type { PrivateConsumerPass } from '../../types';
+import { getExpirationDate } from '../../utils';
 
 type Props = {
   private_consumer_pass: PrivateConsumerPass,
@@ -32,11 +33,21 @@ type Props = {
   creditProcessing: boolean,
   setCreditProcessing: (boolean) => void,
   showMember?: boolean,
+  disabled?: boolean,
+  button?: Node,
 };
 
 export const PrivateConsumerPassBookerListItem = (props: Props) => {
-  const { private_consumer_pass, showMember, t, classes } = props;
+  const { button, private_consumer_pass, showMember, t, classes } = props;
   const { private_pass } = private_consumer_pass;
+  const isFromShare =
+    private_consumer_pass &&
+    private_consumer_pass.dst_private_consumer_pass &&
+    private_consumer_pass.dst_private_consumer_pass.length;
+  const isOwnerOfShares =
+    private_consumer_pass &&
+    private_consumer_pass.src_private_consumer_pass &&
+    private_consumer_pass.src_private_consumer_pass.length;
   const expirationDate = getExpirationDate(private_consumer_pass);
   let { name } = private_pass;
   if (showMember) {
@@ -44,45 +55,30 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
       (private_consumer_pass.member && private_consumer_pass.member.name) ||
       ' - ';
   }
-  return (
-    <ListItem
-      divider={!!props.divider}
-      selected={!!props.selected}
-      dense
-      button={!!props.onClick}
-      onClick={props.onClick}
-      className={private_consumer_pass.reverted ? classes.disabled : null}
-    >
-      {showMember && private_consumer_pass && private_consumer_pass.member && (
-        <ListItemAvatar>
-          <Avatar src={private_consumer_pass.member.photo} />
-        </ListItemAvatar>
-      )}
-      <ListItemText
-        primary={
-          <div>
-            <Typography>{name}</Typography>
-            <Typography variant="caption">
-              {t('consumerPass.current_credits', {
-                credits: private_pass.credits,
-                current_credits:
-                  private_pass.credits - private_consumer_pass.used_credits,
-              })}
-            </Typography>
-          </div>
-        }
-        secondary={
-          <div>
-            <Typography color="textPrimary" variant="caption">
-              {t('consumerPass.expiresOn', {
-                date: moment(expirationDate).format('LL'),
-              })}
-            </Typography>
-          </div>
-        }
-      />
-      {!!props.creditProcessing && <CircularProgress />}
-      {!!props.onUpdateCredit && !props.creditProcessing && (
+  const renderButton = () => {
+    if (props.creditProcessing) {
+      return <CircularProgress />;
+    }
+    if (private_consumer_pass.dst_private_consumer_pass.length) {
+      return null;
+    }
+    if (props.onBook) {
+      return (
+        <Button color="primary" variant="outlined" onClick={props.onBook}>
+          {t('bookerModule.useCredit')}
+        </Button>
+      );
+    }
+    if (private_consumer_pass.reverted) {
+      return (
+        <RedButton variant="outlined">{t('consumerPass.isReverted')}</RedButton>
+      );
+    }
+    if (!props.onUpdateCredit) {
+      return null;
+    }
+    return (
+      <div tyle={{ display: 'flex', flexDirection: 'row' }}>
         <IconButton
           color="primary"
           onClick={(ev) => {
@@ -96,8 +92,6 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
         >
           <ExposurePlus1Icon />
         </IconButton>
-      )}
-      {!!props.onUpdateCredit && !props.creditProcessing && (
         <IconButton
           color="secondary"
           onClick={(ev) => {
@@ -111,16 +105,74 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
         >
           <ExposureNeg1Icon />
         </IconButton>
-      )}
-      {props.onBook && !private_consumer_pass.reverted ? (
-        <Button color="primary" variant="outlined" onClick={props.onBook}>
-          {t('bookerModule.useCredit')}
-        </Button>
+      </div>
+    );
+  };
+  return (
+    <>
+      <ListItem
+        divider={!!props.divider}
+        selected={!!props.selected}
+        dense
+        disabled={!!props.disabled}
+        button={!!props.onClick}
+        onClick={props.onClick}
+        className={
+          private_consumer_pass.reverted || private_consumer_pass.disabled
+            ? classes.disabled
+            : null
+        }
+      >
+        {showMember && private_consumer_pass && private_consumer_pass.member && (
+          <ListItemAvatar>
+            <Avatar src={private_consumer_pass.member.photo} />
+          </ListItemAvatar>
+        )}
+        <ListItemText
+          primary={
+            <div>
+              <Typography>{name}</Typography>
+              <Typography variant="caption">
+                {t('consumerPass.current_credits', {
+                  credits: private_pass.credits,
+                  current_credits:
+                    private_pass.credits - private_consumer_pass.used_credits,
+                })}
+              </Typography>
+            </div>
+          }
+          secondary={
+            <div>
+              <Typography color="textPrimary" variant="caption">
+                {t('consumerPass.expiresOn', {
+                  date: moment(expirationDate).format('LL'),
+                })}
+              </Typography>
+            </div>
+          }
+        />
+        {button || renderButton()}
+      </ListItem>
+      {isFromShare || isOwnerOfShares ? (
+        <React.Fragment>
+          <Typography
+            style={{ paddingLeft: 16 }}
+            variant="caption"
+            color="textSecondary"
+          >
+            {' '}
+            {isOwnerOfShares ? t('consumerPass.isOwnerOfShares') : ''}
+            {isFromShare && private_consumer_pass.disabled
+              ? t('consumerPass.isFromDisabledShare')
+              : ''}
+            {isFromShare && !private_consumer_pass.disabled
+              ? t('consumerPass.isFromShare')
+              : ''}
+          </Typography>
+          <Divider />
+        </React.Fragment>
       ) : null}
-      {private_consumer_pass.reverted ? (
-        <RedButton variant="outlined">{t('consumerPass.isReverted')}</RedButton>
-      ) : null}
-    </ListItem>
+    </>
   );
 };
 

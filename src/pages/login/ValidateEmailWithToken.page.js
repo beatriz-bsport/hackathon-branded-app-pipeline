@@ -41,13 +41,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default compose(
   routerParamsToProps({ uid: 'uid', token: 'token' }),
-  connect(
-    null,
-    {
-      goToRoot: () => push('/'),
-      validateEmail: validateEmailAction,
-    },
-  ),
+  connect(null, {
+    goToRoot: () => push('/'),
+    validateEmail: validateEmailAction,
+  }),
   withHandlers({
     validateEmail: ({ validateEmail, goToRoot }) => (data, options) => {
       validateEmail(data, {

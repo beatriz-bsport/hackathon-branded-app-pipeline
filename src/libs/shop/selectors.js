@@ -1,7 +1,7 @@
 // @flow
 
 import { createSelector } from 'reselect';
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 
 const _getSubShops = (state: State) => state.shop.subShops;
 const _getProvisions = (state: State) => state.shop.provisions;
@@ -70,9 +70,8 @@ export const getShopItemFeaturedList = createSelector(
 const getProvisionByShopitem = (state: State, id: number) =>
   _getProvisions(state).filter((p) => p.shop_item === id);
 
-export const getFreshShopIds = createSelector(
-  _getAllShopItems,
-  (es) => es.map((e) => e.id),
+export const getFreshShopIds = createSelector(_getAllShopItems, (es) =>
+  es.map((e) => e.id),
 );
 
 export default {

@@ -8,6 +8,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import { INVOICE_TYPE_MIGRATION } from '@bsport/common/lib/master-data/invoice-type';
 
 import InvoiceItem from './InvoiceItem.component';
 import PaymentItem from './PaymentItem.component';
@@ -130,6 +132,14 @@ export const InvoiceContent = (props: Props) => {
           </div>
         )}
       </Paper>
+      {props.invoice.invoice_type === INVOICE_TYPE_MIGRATION && (
+        <div className={classes.explainMigration}>
+          <InfoOutlinedIcon className={classes.iconLeft} />
+          <Typography color="textSecondary">
+            {t('actions.explainMigrationInvoice')}
+          </Typography>
+        </div>
+      )}
       {!!props.finalizeInvoice && (
         <div className={classes.buttonRow}>
           <Button
@@ -211,6 +221,14 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
+  },
+  explainMigration: {
+    padding: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    backgroundColor: '#DEDEDE',
+    borderRadius: 8,
+    border: '1px solid gray',
   },
 }));
 

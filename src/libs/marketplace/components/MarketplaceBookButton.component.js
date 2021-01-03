@@ -16,6 +16,7 @@ type Props = {
   onClickBookOption: () => void,
   offer: Offer,
   showOfferFilling: boolean,
+  showOfferGender?: boolean,
 };
 
 const MarketplaceBookButton = (props: Props) => {
@@ -36,6 +37,22 @@ const MarketplaceBookButton = (props: Props) => {
   if (!isOfferBookableYet(offer)) {
     text = t('marketplace.bookButton.notBookableYet');
   }
+
+  const showGender = () => {
+    if (offer.other) {
+      return (
+        <div>
+          &#9792; {offer.female} / {offer.male} &#9794; + {offer.other}
+        </div>
+      );
+    }
+    return (
+      <div>
+        &#9792; {offer.female} / {offer.male} &#9794;
+      </div>
+    );
+  };
+
   return (
     <Button
       fullWidth
@@ -47,27 +64,30 @@ const MarketplaceBookButton = (props: Props) => {
         offer.available ? classes.offerAvailable : classes.offerNonAvailable
       }
     >
-      <Hidden smUp>
-        <IconButton
-          variant="outlined"
-          color="primary"
-          id={`offer-book-${offer.id}`}
-          disabled={!offer.available || !isOfferInThePast(offer)}
-          onClick={onClick}
-        >
-          {!offer.available ? (
-            <CancelIcon color={colors.orange} />
-          ) : (
-            <PersonAddIcon />
-          )}
-        </IconButton>
-      </Hidden>
-      <Hidden xsDown>
-        {text +
-          (props.showOfferFilling
-            ? `  (${offer.tot_slots}/${offer.effectif})`
-            : '')}
-      </Hidden>
+      <div>
+        <Hidden smUp>
+          <IconButton
+            variant="outlined"
+            color="primary"
+            id={`offer-book-${offer.id}`}
+            disabled={!offer.available || !isOfferInThePast(offer)}
+            onClick={onClick}
+          >
+            {!offer.available ? (
+              <CancelIcon color={colors.orange} />
+            ) : (
+              <PersonAddIcon />
+            )}
+          </IconButton>
+        </Hidden>
+        <Hidden xsDown>
+          {text +
+            (props.showOfferFilling
+              ? `  (${offer.tot_slots}/${offer.effectif})`
+              : '')}
+        </Hidden>
+        {props.showOfferGender && showGender()}
+      </div>
     </Button>
   );
 };

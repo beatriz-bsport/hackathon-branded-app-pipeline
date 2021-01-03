@@ -1,18 +1,11 @@
 // @flow
 
-export type Graph = {
-  name: string,
-  ressourceIdentifier: string,
-  chart: 'bar' | 'grid' | 'pie',
-  baseFilters: { [string]: string },
-  dateFiltersName: { start: string, end: string },
-  defaultRange: { start: string, end: string, kind: string },
-};
+import type { Graph } from '../statistics/types';
 
-export type Tab = { tab_label: string, graphs: Array<Graph> };
+export type DashboardTab = { tab_label: string, graphs: Array<Graph> };
 
 export type DashboardSettingsState = {
   loading: boolean,
   error: string,
-  data: { id: number, company: number, settings: Array<Tab> },
+  data: { id: number, company: number, settings: Array<DashboardTab> },
 };

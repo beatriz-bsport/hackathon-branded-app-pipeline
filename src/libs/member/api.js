@@ -9,7 +9,7 @@ import {
   putAuth,
   API_V1_URI,
   buildUrlParams,
-} from '../../http.ts';
+} from '../../http';
 
 const PAGE_SIZE = 300;
 

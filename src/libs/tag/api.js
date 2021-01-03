@@ -1,6 +1,6 @@
 // @flow
 
-import { API_URI, deleteAuth, getAuth, postAuth, putAuth } from '../../http.ts';
+import { API_URI, deleteAuth, getAuth, postAuth, putAuth } from '../../http';
 
 const TAG_URI = `${API_URI}/tagging/tag/`;
 const TAG_GROUP_URI = `${API_URI}/tagging/tag-group/`;

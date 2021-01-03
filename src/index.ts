@@ -2,8 +2,8 @@ import * as Sentry from '@sentry/browser';
 
 import Config from './config';
 
-import './index.css';
-import './index.js';
+import './index.scss';
+import './index';
 import RELEASE_SHA from './release-sha';
 import './material-dashboard-react.css';
 
@@ -23,11 +23,11 @@ if (process.env.NODE_ENV === 'production') {
       const error = hint.originalException;
       if (
         error &&
-        //@ts-ignore
+        // @ts-ignore
         error.message &&
-        //@ts-ignore
+        // @ts-ignore
         (error.message.match(/Loading chunk /i) ||
-          //@ts-ignore
+          // @ts-ignore
           error.message.match(/Loading CSS chunk /i))
       ) {
         return null;

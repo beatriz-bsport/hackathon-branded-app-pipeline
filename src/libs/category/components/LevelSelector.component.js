@@ -85,7 +85,10 @@ export default withTranslation()(
       isClearable={isClearable}
       value={
         selectedLevels
-          ? levelOptions(LEVELS.filter((l) => selectedLevels.includes(l.id)), t)
+          ? levelOptions(
+              LEVELS.filter((l) => selectedLevels.includes(l.id)),
+              t,
+            )
           : undefined
       }
       onChange={selectOption}

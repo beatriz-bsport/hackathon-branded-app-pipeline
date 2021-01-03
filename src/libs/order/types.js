@@ -25,8 +25,7 @@ export type AddressType = {
 export type DeliveryData = {
   first_name: string,
   last_name: string,
-  ...AddressType,
-};
+} & AddressType;
 
 export type OrderWithProducts = {
   id: string,
@@ -35,8 +34,7 @@ export type OrderWithProducts = {
   total_price: number,
   product_lines: Array<Product>,
   updated_at: string,
-  ...DeliveryData,
-};
+} & DeliveryData;
 
 export type ProductData = {
   id?: number,

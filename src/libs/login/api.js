@@ -1,4 +1,4 @@
-import { API_V1_URI, getAuth, postAuth, post } from '../../http.ts';
+import { API_V1_URI, getAuth, postAuth, post } from '../../http';
 
 export const fetchTempPassword = () =>
   getAuth(`${API_V1_URI}/authentication/temp-password/`);

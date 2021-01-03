@@ -8,7 +8,7 @@ import PrivateServiceConfigurationChecker from './PrivateServiceConfigurationHel
 import PrivateSlotEditableList from '../slot/PrivateSlotEditableList.component';
 import PrivateBookingNotification from '../booking/PrivateBookingNotification.component';
 
-import type { PrivateService } from '../../types.ts';
+import type { PrivateService } from '../../types';
 
 type Props = {
   privateService: PrivateService,

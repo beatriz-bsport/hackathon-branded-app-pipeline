@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
 import ColorInput from '../../../components/input/ColorInput.component';
-import type { Theme } from '../types.ts';
+import type { Theme } from '../types';
 import AnalyticsDialog from './AnalyticsDialog.component';
 
 type Props = {

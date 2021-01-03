@@ -10,7 +10,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import type { OptionCallback } from '../../../state/types.ts';
+import type { OptionCallback } from '../../../state/types';
 
 type Props = {
   t: TFunction,

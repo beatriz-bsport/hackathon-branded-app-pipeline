@@ -55,7 +55,8 @@ export class VideoPlayer extends React.Component<Props, State> {
     if (
       this.props.video &&
       ((!prevProps.authenticated && this.props.authenticated) ||
-        (!prevProps.video || prevProps.video.id !== this.props.video.id))
+        !prevProps.video ||
+        prevProps.video.id !== this.props.video.id)
     ) {
       this.getPlaybackUrl();
     }

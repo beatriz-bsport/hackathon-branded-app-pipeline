@@ -1,5 +1,3 @@
-// @flow
-
 import {
   getAuth,
   post,
@@ -27,26 +25,33 @@ export const checkExistsAvailabilitySlots = (params: any = {}) => {
 
 export const disableResourceAvailabilitySlot = (
   resourceData: any = {},
-  { date_start, date_end, recurrence_until, all_date_start },
+  obj: {
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
+  },
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/availability_slot/remove_availability/`,
     {
       ...resourceData,
-      date_start,
-      date_end,
-      recurrence_until,
-      all_date_start,
+      ...obj,
     },
   );
 };
 export const enableResourceAvailabilitySlot = (
   resourceData: any = {},
-  { date_start, date_end, recurrence_until, all_date_start },
+  obj: {
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
+  },
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/availability_slot/add_availability/`,
-    { ...resourceData, date_start, date_end, recurrence_until, all_date_start },
+    { ...resourceData, ...obj },
   );
 };
 
@@ -269,9 +274,9 @@ export const fetchCompatiblePrivateConsumerPass = (
   params: any,
 ) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_consumer_pass/compatible_with_slot/${buildUrlParams(
-      params,
-    ) || '?'}&private_slot=${private_slot}`,
+    `${API_V1_URI}/private_service/private_consumer_pass/compatible_with_slot/${
+      buildUrlParams(params) || '?'
+    }&private_slot=${private_slot}`,
   );
 };
 
@@ -327,9 +332,9 @@ export const fetchCompatiblePrivatePass = (
   params: any,
 ) => {
   return getAuth(
-    `${API_V1_URI}/private_service/private_pass/compatible_with_slot/${buildUrlParams(
-      params,
-    ) || '?'}&private_slot=${privateSlotId}`,
+    `${API_V1_URI}/private_service/private_pass/compatible_with_slot/${
+      buildUrlParams(params) || '?'
+    }&private_slot=${privateSlotId}`,
   );
 };
 
@@ -376,15 +381,15 @@ export const registerPrivateBookings = ({
   establishment,
   notify_member,
 }: {
-  private_slot: number,
-  private_consumer_pass: number,
-  date_start: string,
-  address?: string,
-  associated_coach?: number,
-  associated_establishment?: number,
-  coach: number,
-  establishment?: number,
-  notify_member: boolean,
+  private_slot: number;
+  private_consumer_pass: number;
+  date_start: string;
+  address?: string;
+  associated_coach?: number;
+  associated_establishment?: number;
+  coach: number;
+  establishment?: number;
+  notify_member: boolean;
 }) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_consumer_pass/${private_consumer_pass}/book/`,
@@ -403,7 +408,7 @@ export const registerPrivateBookings = ({
 
 export const disablePrivateBooking = (
   id: number,
-  data: { force_refund: boolean, send_mail: boolean },
+  data: { force_refund: boolean; send_mail: boolean },
 ) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_booking/${id}/disable/`,
@@ -427,8 +432,8 @@ export const attachCoach = (
     coach,
     notify,
   }: {
-    coach: number,
-    notify: boolean,
+    coach: number;
+    notify: boolean;
   },
 ) => {
   return postAuth(
@@ -462,5 +467,32 @@ export const fetchPrivateConsumerPassCompatibleList = (params: any) => {
   return postAuth(
     `${API_V1_URI}/private_service/private_consumer_pass/compatible/`,
     params,
+  );
+};
+
+export const fetchRecurrenceRulePrivateBookingList = (params: any) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/recurrence_rule_private_booking/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
+export const createOrUpdateRecurrenceRulePrivateBooking = async (data: any) => {
+  if (!data.id) {
+    return postAuth(
+      `${API_V1_URI}/private_service/recurrence_rule_private_booking/`,
+      data,
+    );
+  }
+  return putAuth(
+    `${API_V1_URI}/private_service/recurrence_rule_private_booking/${data.id}/`,
+    data,
+  );
+};
+
+export const deleteRecurrenceRulePrivateBooking = (id: number) => {
+  return deleteAuth(
+    `${API_V1_URI}/private_service/recurrence_rule_private_booking/${id}/`,
   );
 };

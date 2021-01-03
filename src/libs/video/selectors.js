@@ -13,22 +13,19 @@ export const getVideoData = (state) => state.video.byId;
 export const getVideo = (state, id) => getVideoData(state)[id];
 
 export const withCategory = memoize((selector) =>
-  createSelector(
-    [selector, getSCTs],
-    (videoList, SCTList) => {
-      if (Array.isArray(videoList)) {
-        return videoList.map((v) => ({
-          ...v,
-          SCT: SCTList.find((sct) => sct.id === v.SCT),
-        }));
-      }
-      if (!videoList) return videoList;
-      return {
-        ...videoList,
-        SCT: SCTList.find((sct) => sct.id === videoList.SCT),
-      };
-    },
-  ),
+  createSelector([selector, getSCTs], (videoList, SCTList) => {
+    if (Array.isArray(videoList)) {
+      return videoList.map((v) => ({
+        ...v,
+        SCT: SCTList.find((sct) => sct.id === v.SCT),
+      }));
+    }
+    if (!videoList) return videoList;
+    return {
+      ...videoList,
+      SCT: SCTList.find((sct) => sct.id === videoList.SCT),
+    };
+  }),
 );
 
 export const getVideoList = createSelector(
@@ -42,33 +39,30 @@ export const getVideoSearchList = createSelector(
 );
 
 export const withCoach = memoize((selector) =>
-  createSelector(
-    [selector, getAllCoachesDict],
-    (videoList, coachData) => {
-      if (Array.isArray(videoList)) {
-        return videoList.map((v) => ({
-          ...v,
-          coaches: v.coaches
-            .map((c) =>
-              Object.values(coachData).find((coach) =>
-                coach.associatedcoach_set.includes(c),
-              ),
-            )
-            .filter((c) => !!c),
-        }));
-      }
-      if (!videoList) return videoList;
+  createSelector([selector, getAllCoachesDict], (videoList, coachData) => {
+    if (Array.isArray(videoList)) {
+      return videoList.map((v) => ({
+        ...v,
+        coaches: v.coaches
+          .map((c) =>
+            Object.values(coachData).find((coach) =>
+              coach.associatedcoach_set.includes(c),
+            ),
+          )
+          .filter((c) => !!c),
+      }));
+    }
+    if (!videoList) return videoList;
 
-      return {
-        ...videoList,
-        coaches: videoList.coaches.map((c) =>
-          Object.values(coachData).find((coach) =>
-            coach.associatedcoach_set.includes(c),
-          ),
+    return {
+      ...videoList,
+      coaches: videoList.coaches.map((c) =>
+        Object.values(coachData).find((coach) =>
+          coach.associatedcoach_set.includes(c),
         ),
-      };
-    },
-  ),
+      ),
+    };
+  }),
 );
 
 const getVideoPurchases = (state) => state.video.purchase.items;
@@ -100,44 +94,38 @@ const _getVideoCategories = (state) =>
   state.video.filterableParams.items.SCTs || [];
 
 export const withVideoCoach = (selector) =>
-  createSelector(
-    [selector, _getVideoCoaches],
-    (videoList, coachList) => {
-      if (Array.isArray(videoList)) {
-        return videoList.map((v) => ({
-          ...v,
-          coaches: v.coaches
-            .map((c) =>
-              coachList.find((coach) => coach.associatedcoach_set.includes(c)),
-            )
-            .filter((c) => !!c),
-        }));
-      }
-      if (!videoList) return videoList;
+  createSelector([selector, _getVideoCoaches], (videoList, coachList) => {
+    if (Array.isArray(videoList)) {
+      return videoList.map((v) => ({
+        ...v,
+        coaches: v.coaches
+          .map((c) =>
+            coachList.find((coach) => coach.associatedcoach_set.includes(c)),
+          )
+          .filter((c) => !!c),
+      }));
+    }
+    if (!videoList) return videoList;
 
-      return {
-        ...videoList,
-        coaches: videoList.coaches.map((c) =>
-          coachList.find((coach) => coach.associatedcoach_set.includes(c)),
-        ),
-      };
-    },
-  );
+    return {
+      ...videoList,
+      coaches: videoList.coaches.map((c) =>
+        coachList.find((coach) => coach.associatedcoach_set.includes(c)),
+      ),
+    };
+  });
 
 export const withVideoCategory = (selector) =>
-  createSelector(
-    [selector, _getVideoCategories],
-    (videoList, SCTList) => {
-      if (Array.isArray(videoList)) {
-        return videoList.map((v) => ({
-          ...v,
-          SCT: SCTList.find((sct) => sct.id === v.SCT),
-        }));
-      }
-      if (!videoList) return videoList;
-      return {
-        ...videoList,
-        SCT: SCTList.find((sct) => sct.id === videoList.SCT),
-      };
-    },
-  );
+  createSelector([selector, _getVideoCategories], (videoList, SCTList) => {
+    if (Array.isArray(videoList)) {
+      return videoList.map((v) => ({
+        ...v,
+        SCT: SCTList.find((sct) => sct.id === v.SCT),
+      }));
+    }
+    if (!videoList) return videoList;
+    return {
+      ...videoList,
+      SCT: SCTList.find((sct) => sct.id === videoList.SCT),
+    };
+  });

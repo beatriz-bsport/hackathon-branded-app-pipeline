@@ -29,7 +29,7 @@ import PrivatePassListItem from '../../private-service/components/pass/PrivatePa
 
 import type { PaymentPack } from '../../payment-packs/types';
 import type { ShopItem } from '../../shop/types';
-import type { PrivatePass } from '../../private-service/types.ts';
+import type { PrivatePass } from '../../private-service/types';
 
 type Props = {
   t: TFunction,
@@ -208,13 +208,8 @@ const styles = (theme) => ({
 export const PaymentComboFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
   description: Yup.string().required(),
-  price: Yup.number()
-    .integer()
-    .min(0),
-  tax: Yup.number()
-    .integer()
-    .min(0)
-    .max(100),
+  price: Yup.number().integer().min(0),
+  tax: Yup.number().integer().min(0).max(100),
   manager_only: Yup.boolean(),
   available_payment_method_identifiers: Yup.array()
     .of(Yup.number().integer())

@@ -45,12 +45,8 @@ export function DateTimeForm(props: Props) {
             props.onChange(
               rebuildDatetime(
                 date,
-                moment(props.value)
-                  .tz(props.timezone)
-                  .get('hour'),
-                moment(props.value)
-                  .tz(props.timezone)
-                  .get('minute'),
+                moment(props.value).tz(props.timezone).get('hour'),
+                moment(props.value).tz(props.timezone).get('minute'),
                 props.timezone,
               ),
             )
@@ -60,9 +56,7 @@ export function DateTimeForm(props: Props) {
           id="time_picker"
           style={{ minWidth: 120 }}
           type="time"
-          value={moment(props.value)
-            .tz(props.timezone)
-            .format('HH:mm')}
+          value={moment(props.value).tz(props.timezone).format('HH:mm')}
           required={props.required}
           disabled={props.disabled}
           onChange={(ev) =>
@@ -70,13 +64,9 @@ export function DateTimeForm(props: Props) {
               rebuildDatetime(
                 props.value,
                 ev.target.value.split(':')[0] ||
-                  moment()
-                    .tz(props.timezone)
-                    .get('hour'),
+                  moment().tz(props.timezone).get('hour'),
                 ev.target.value.split(':')[1] ||
-                  moment()
-                    .tz(props.timezone)
-                    .get('minute'),
+                  moment().tz(props.timezone).get('minute'),
                 props.timezone,
               ),
             )

@@ -188,10 +188,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withStyles(styles)(
-  withTranslation()(
-    connect(
-      null,
-      mapDispatchToProps,
-    )(ChangePassword),
-  ),
+  withTranslation()(connect(null, mapDispatchToProps)(ChangePassword)),
 );

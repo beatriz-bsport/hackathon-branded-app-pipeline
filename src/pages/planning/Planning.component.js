@@ -52,7 +52,7 @@ import { fetchAllActivities } from '../../libs/meta-activity/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
-import type { Establishment } from '../../libs/establishment/types';
+import { Establishment } from '../../libs/establishment/types';
 import BookingStatisticsCard from '../../libs/booking/components/BookingStatisticsCard.component';
 
 import {
@@ -62,6 +62,7 @@ import {
   setFilters as setFiltersAction,
   disableMassOffers,
   restoreOffer,
+  fetchBookedGender as fetchBookedGenderAction,
 } from '../../libs/offer/actions';
 import {
   editLiveOffer as editLiveOfferAPI,
@@ -92,7 +93,7 @@ import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.compon
 import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
 import type { Permission } from '../../libs/role/types';
-import { DATE_FORMAT } from '../../datetime';
+import { DATE_FORMAT } from '../../utils/datetime';
 
 import CoachSelector from '../../libs/associated-coach/components/CoachSelector.component';
 import EstablishmentSelector from '../../libs/establishment/components/EstablishmentSelector.component';
@@ -836,6 +837,10 @@ export class Planning extends PureComponent<Props, State> {
                   bookingsLoading={
                     this.props.bookingsLoading || !this.props.bookings
                   }
+                  showOfferGender={
+                    this.props.theme &&
+                    this.props.theme.show_booked_gender_offer
+                  }
                 />
               </div>
             ) : (
@@ -963,6 +968,7 @@ export default compose(
       fetchBookingStatistics: fetchBookingStatisticsAction,
       monitorBackgroundTask,
       restoreOffer,
+      fetchBookedGender: fetchBookedGenderAction,
     },
   ),
   withHandlers({
@@ -973,7 +979,13 @@ export default compose(
       filters = { ...filters, available: !showCancelled };
       setFilters(filters);
     },
-    fetchRelevantOffers: ({ fetchAllOffers, offerFilters, date }) => () => {
+    fetchRelevantOffers: ({
+      fetchAllOffers,
+      theme,
+      fetchBookedGender,
+      offerFilters,
+      date,
+    }) => () => {
       fetchAllOffers({
         min_date: moment(date)
           .startOf('month')
@@ -985,6 +997,19 @@ export default compose(
           .format('YYYY-MM-DD'),
         ...omit(offerFilters || {}, 'available'),
       });
+      if (theme && theme.show_booked_gender_offer) {
+        fetchBookedGender({
+          min_date: moment(date)
+            .startOf('month')
+            .startOf('week')
+            .format('YYYY-MM-DD'),
+          max_date: moment(date)
+            .endOf('month')
+            .endOf('week')
+            .format('YYYY-MM-DD'),
+          ...omit(offerFilters || {}, 'available'),
+        });
+      }
     },
     fetchBookingInOfferStats: ({
       selectedOffer,
@@ -1013,23 +1038,15 @@ export default compose(
       offerFilters,
     }) => () => {
       fetchBookingStatistics('createdBookings', {
-        min_date: moment(date)
-          .startOf('week')
-          .format('YYYY-MM-DD'),
-        max_date: moment(date)
-          .endOf('week')
-          .format('YYYY-MM-DD'),
+        min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
+        max_date: moment(date).endOf('week').format('YYYY-MM-DD'),
         ...omit(offerFilters || {}, 'available'),
         date_field: 'offer__date_start',
         kind: 'count',
       });
       fetchBookingStatistics('cancelledBookings', {
-        min_date: moment(date)
-          .startOf('week')
-          .format('YYYY-MM-DD'),
-        max_date: moment(date)
-          .endOf('week')
-          .format('YYYY-MM-DD'),
+        min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
+        max_date: moment(date).endOf('week').format('YYYY-MM-DD'),
         booking_status_code__in: [
           BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
           BOOKING_STATUS_CANCELLED_BY_MANAGER.id,

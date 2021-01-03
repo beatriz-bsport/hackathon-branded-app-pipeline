@@ -37,12 +37,9 @@ export const CheckInOfferDetailMemberForm = (props: Props) => {
 };
 
 export default compose(
-  connect(
-    null,
-    {
-      snackbarSuccess: (msg) => snackbar.success(msg),
-    },
-  ),
+  connect(null, {
+    snackbarSuccess: (msg) => snackbar.success(msg),
+  }),
   withProps(({ onSubmit }) => ({
     onSubmit: (values, options) => {
       if (!values.birthday) {

@@ -57,9 +57,7 @@ class Carousel extends Component<Props, State> {
           unmountOnExit
         >
           <CardMedia
-            className={`${this.props.classes.media} ${
-              this.props.classes.cardMedia
-            }`}
+            className={`${this.props.classes.media} ${this.props.classes.cardMedia}`}
             image={slide}
             title="Activity"
           />

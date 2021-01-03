@@ -1,9 +1,15 @@
 // @flow
 
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 
+import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import { Typography } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import {
@@ -19,22 +25,27 @@ import PaginatedListStateful from '../../components/PaginatedListStateful.compon
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '../../libs/establishment/actions';
 import {
   deletePrivateBooking as deletePrivateBookingAction,
   disablePrivateBooking as disablePrivateBookingAction,
-  fetchPrivateBookings,
+  fetchPrivateBookings as fetchPrivateBookingListAction,
   fetchPrivateBooking as fetchPrivateBookingAction,
   fetchPrivateService as fetchPrivateServiceAction,
   fetchPrivateSlot as fetchPrivateSlotAction,
+  fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
   fetchPrivateConsumerPass as fetchPrivateConsumerPassAction,
   attachCoachToPrivateBooking as attachCoachAction,
   restorePrivateBooking,
-} from '../../libs/private-service/actions.ts';
+  fetchRecurrenceRulePrivateBooking as fetchRecurenceRulePrivateBookingAction,
+  deleteRecurrenceRulePrivateBooking as deleteRecurrenceRulePrivateBookingAction,
+} from '../../libs/private-service/actions';
 import { getCoaches } from '../../libs/associated-coach/selectors';
 import {
   getPrivateBookingListBase,
   getPrivateBooking,
   withRelatedFields,
+  getRecurrenceRulePrivateBookingList,
 } from '../../libs/private-service/selectors/private-booking';
 import { getPrivateConsumerPassDict } from '../../libs/private-service/selectors/private-consumer-pass';
 
@@ -44,15 +55,20 @@ import PrivateBookingListItem from '../../libs/private-service/components/bookin
 import PrivateBookingDetail from '../../libs/private-service/components/booking/PrivateBookingDetail.component';
 import PrivateBookingDisableDialog from '../../libs/private-service/components/booking/PrivateBookingDisableDialog.component';
 import PrivateBookingAttachCoachDialog from '../../libs/private-service/components/booking/PrivateBookingAttachCoachDialog.component';
+import RecurrenceRulePrivateBookingItem from '../../libs/private-service/components/booking/RecurrenceRulePrivateBookingItem.component';
 
 import type {
   PrivateConsumerPass,
   PrivateBooking,
   PrivateService,
   PrivateSlot,
-} from '../../libs/private-service/types.ts';
+  RecurrenceRulePrivateBooking,
+} from '../../libs/private-service/types';
+import RecurrenceRulePrivateBooker from '../../libs/private-service/containers/RecurrenceRulePrivateBooker.container';
 
 type Props = {
+  t: TFunction,
+  classes: Object,
   id: number,
 
   goToConsumerPass: (memberId: number, consumerPassId: number) => void,
@@ -97,6 +113,18 @@ type Props = {
     options: { onSuccess?: (PrivateBooking) => void, onError: (Error) => void },
   ) => void,
   restorePrivateBooking: (id: number) => void,
+
+  bookerInAdvanceDialog: boolean,
+  setBookerInAdvanceDialog: (boolean) => void,
+  recurrenceRulePrivateBooking: Array<any>,
+  recurrentPrivateBookingLoading: boolean,
+  onDeleteRecurrenceRulePrivateBooking: (
+    rb: RecurrenceRulePrivateBooking,
+    memberId: number,
+  ) => void,
+  fetchRecurrenceRulePrivateBooking: () => void,
+  setSelectedRecurrentRule: (RecurrenceRulePrivateBooking) => void,
+  selectedRecurrentRule: RecurrenceRulePrivateBooking,
 };
 
 export class MemberDetailBooking extends Component<Props> {
@@ -106,6 +134,7 @@ export class MemberDetailBooking extends Component<Props> {
     if (this.props.privateBookingId) {
       this.props.fetchPrivateBookingDetails();
     }
+    this.props.fetchRecurrenceRulePrivateBooking();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -122,30 +151,79 @@ export class MemberDetailBooking extends Component<Props> {
   };
 
   render() {
+    const { t, classes } = this.props;
     return (
       <Grid container direction="row" spacing={3}>
-        <Grid item xs={12} lg={6}>
-          <Paper>
-            <PaginatedListStateful
-              itemPerPage={5}
-              loading={this.props.privateBookingsLoading}
-              listProps={{ disablePadding: true }}
-              items={this.props.private_booking_list}
-              renderItem={(b) => (
-                <PrivateBookingListItem
-                  onClick={() =>
-                    this.props.goToPrivateBooking(this.props.id, b.id)
-                  }
-                  divider
-                  selected={this.props.privateBookingId === b.id}
-                  key={b.id}
-                  private_booking={b}
-                  onDelete={() => this.props.setBookingToDelete(b)}
-                  onRestore={() => this.props.restorePrivateBooking(b.id)}
+        <Grid container item xs={12} lg={6} direction="column" spacing={3}>
+          <Grid item>
+            <Paper>
+              <Typography variant="caption" style={{ padding: 10 }}>
+                {t('privateBooking.bookings')}
+              </Typography>
+              <Divider />
+              <PaginatedListStateful
+                itemPerPage={5}
+                loading={this.props.privateBookingsLoading}
+                listProps={{ disablePadding: true }}
+                items={this.props.private_booking_list}
+                renderItem={(b) => (
+                  <PrivateBookingListItem
+                    onClick={() =>
+                      this.props.goToPrivateBooking(this.props.id, b.id)
+                    }
+                    divider
+                    selected={this.props.privateBookingId === b.id}
+                    key={b.id}
+                    private_booking={b}
+                    onDelete={() => this.props.setBookingToDelete(b)}
+                    onRestore={() => this.props.restorePrivateBooking(b.id)}
+                  />
+                )}
+              />
+            </Paper>
+            {!!this.props.recurrenceRulePrivateBooking.length && (
+              <Paper className={classes.recurrenceRuleContainer}>
+                <Typography variant="caption" style={{ padding: 10 }}>
+                  {t('recurrenceRule.recurrentBookings')}
+                </Typography>
+                <Divider />
+                <PaginatedListStateful
+                  itemPerPage={5}
+                  loading={this.props.recurrentPrivateBookingLoading}
+                  listProps={{ disablePadding: true }}
+                  items={this.props.recurrenceRulePrivateBooking}
+                  renderItem={(rb) => (
+                    <RecurrenceRulePrivateBookingItem
+                      notShowMember
+                      recurrentPrivateBooking={rb}
+                      onDelete={() =>
+                        this.props.onDeleteRecurrenceRulePrivateBooking(
+                          rb,
+                          this.props.id,
+                        )
+                      }
+                      onEdit={() => {
+                        this.props.setBookerInAdvanceDialog(true);
+                        this.props.setSelectedRecurrentRule(rb);
+                      }}
+                    />
+                  )}
                 />
-              )}
-            />
-          </Paper>
+              </Paper>
+            )}
+            <div className={classes.createRecurrentBooking}>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  this.props.setBookerInAdvanceDialog(true);
+                  this.props.setSelectedRecurrentRule(null);
+                }}
+                color="primary"
+              >
+                {this.props.t('recurrenceRule.createModal.create')}
+              </Button>
+            </div>
+          </Grid>
         </Grid>
         <Grid item xs={12} lg={6}>
           {this.props.private_booking ? (
@@ -201,16 +279,46 @@ export class MemberDetailBooking extends Component<Props> {
             onClose={() => this.props.setBookingToDelete(null)}
           />
         )}
+        {this.props.bookerInAdvanceDialog && (
+          <RecurrenceRulePrivateBooker
+            open={this.props.bookerInAdvanceDialog}
+            setOpen={this.props.setBookerInAdvanceDialog}
+            memberId={this.props.id}
+            initial={this.props.selectedRecurrentRule}
+            onChange={() => {
+              this.props.fetchPrivateBookings({ member: this.props.id });
+              this.props.fetchRecurrenceRulePrivateBooking();
+            }}
+          />
+        )}
       </Grid>
     );
   }
 }
+
+const styles = (theme) => ({
+  recurrenceRuleContainer: {
+    marginTop: theme.spacing(3),
+  },
+  createRecurrentBooking: {
+    paddingTop: theme.spacing(3),
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+});
 
 export default compose(
   routerParamsToProps({
     id: 'id:number',
     privateBookingId: 'privateBookingId:number',
   }),
+  withTranslation('privateService'),
+  withStyles(styles),
+  withState('bookerInAdvanceDialog', 'setBookerInAdvanceDialog', false),
+  withState('selectedRecurrentRule', 'setSelectedRecurrentRule', null),
   connect(
     (state, { privateBookingId }) => ({
       private_booking_list: getPrivateBookingListBase(state),
@@ -220,14 +328,21 @@ export default compose(
       ),
       privateBookingsLoading: state.privateService.privateBooking.loading,
       availableCoaches: getCoaches(state),
+      recurrenceRulePrivateBooking: getRecurrenceRulePrivateBookingList(state),
+      recurrentPrivateBookingLoading:
+        state.privateService.recurrenceRule.loading,
     }),
     {
-      fetchPrivateBookings,
+      fetchPrivateBookings: fetchPrivateBookingListAction,
       fetchPrivateBooking: fetchPrivateBookingAction,
       fetchPrivateService: fetchPrivateServiceAction,
       fetchPrivateSlot: fetchPrivateSlotAction,
+      fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
+      fetchAssociatedEstablishmentBulk: fetchAssociatedEstablishmentBulkAction,
       fetchPrivateConsumerPass: fetchPrivateConsumerPassAction,
       fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
+      fetchRecurrenceRulePrivateBooking: fetchRecurenceRulePrivateBookingAction,
+      deleteRecurrenceRulePrivateBooking: deleteRecurrenceRulePrivateBookingAction,
       deletePrivateBooking: deletePrivateBookingAction,
       disablePrivateBooking: disablePrivateBookingAction,
       fetchMember: fetchMemberAction,
@@ -302,6 +417,48 @@ export default compose(
             privateBooking.private_slot,
           );
           fetchPrivateConsumerPass(privateBooking.private_consumer_pass);
+        },
+      });
+    },
+    fetchRecurrenceRulePrivateBooking: ({
+      fetchRecurrenceRulePrivateBooking,
+      fetchAssociatedCoachBulk,
+      fetchAssociatedEstablishmentBulk,
+      fetchPrivateSlotBulk,
+      id,
+    }) => () => {
+      fetchRecurrenceRulePrivateBooking(
+        {
+          member: id,
+        },
+        {
+          onSuccess: (recurrentRuleList) => {
+            if (recurrentRuleList.length) {
+              fetchAssociatedCoachBulk([
+                ...recurrentRuleList.map((o) => o.associated_coach),
+              ]);
+              fetchAssociatedEstablishmentBulk([
+                ...recurrentRuleList.map((o) => o.associated_establishment),
+              ]);
+              fetchPrivateSlotBulk([
+                ...recurrentRuleList.map((o) => o.private_slot),
+              ]);
+            }
+          },
+        },
+      );
+    },
+    onDeleteRecurrenceRulePrivateBooking: ({
+      deleteRecurrenceRulePrivateBooking,
+      fetchRecurrenceRulePrivateBooking,
+      fetchPrivateBookings,
+      fetchMember,
+    }) => (recurrentBooking, memberId) => {
+      deleteRecurrenceRulePrivateBooking(recurrentBooking.id, {
+        onSuccess: () => {
+          fetchMember(memberId);
+          fetchRecurrenceRulePrivateBooking();
+          fetchPrivateBookings({ member: memberId });
         },
       });
     },

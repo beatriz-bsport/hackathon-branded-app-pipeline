@@ -38,7 +38,4 @@ export const CouponDeleteModal = (props: Props) => {
   );
 };
 
-export default compose(
-  pure,
-  withTranslation(['coupon']),
-)(CouponDeleteModal);
+export default compose(pure, withTranslation(['coupon']))(CouponDeleteModal);

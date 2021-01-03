@@ -2,9 +2,9 @@
 
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import type { State } from '../../../state/types.ts';
-import type { PrivatePass, PrivatePassWithService } from '../types.ts';
-import { _getPrivateServiceDict } from './private-service.ts';
+import type { State } from '../../../state/types';
+import type { PrivatePass, PrivatePassWithService } from '../types';
+import { _getPrivateServiceDict } from './private-service';
 
 const _getPrivatePassData = (state) => state.privateService.privatePass.byId;
 const _getPrivatePassAsConsumerIds = (state) =>
@@ -82,15 +82,12 @@ export const withServices = memoize((selector) =>
 );
 
 export const withAvailable = memoize((selector) =>
-  createSelector(
-    selector,
-    (passList) => {
-      if (!passList) return passList;
-      if (Array.isArray(passList)) return passList.filter((p) => p.available);
-      if (passList.available) return passList;
-      return null;
-    },
-  ),
+  createSelector(selector, (passList) => {
+    if (!passList) return passList;
+    if (Array.isArray(passList)) return passList.filter((p) => p.available);
+    if (passList.available) return passList;
+    return null;
+  }),
 );
 // eslint-disable-next-line
 export const getDisabledPrivatePassAvailableListWithPrivateService: (State) => Array<PrivatePassWithService> = createSelector(

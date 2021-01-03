@@ -7,7 +7,7 @@ import {
   fetchMembership as fetchMembershipAPI,
   linkMeToCompany as linkMeToCompanyAPI,
 } from './api';
-import type { Dispatch, OptionCallback, State } from '../../state/types.ts';
+import type { Dispatch, OptionCallback, State } from '../../state/types';
 
 export const listAsConsumerActions = {
   success: createAction('MEMBERSHIP/LIST/SUCCESS'),

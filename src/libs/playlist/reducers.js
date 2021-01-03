@@ -65,7 +65,10 @@ export default handleActions(
           },
           { deep: true },
         )
-        .setIn(['list', 'allIds'], payload.results.map((v) => v.id))
+        .setIn(
+          ['list', 'allIds'],
+          payload.results.map((v) => v.id),
+        )
         .setIn(['list', 'page'], payload.page)
         .setIn(['list', 'nextPage'], payload.next_page);
     },

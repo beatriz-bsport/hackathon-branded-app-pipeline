@@ -1,8 +1,9 @@
 import { createAction } from 'redux-actions';
-const moment = require('moment-timezone');
+import moment from 'moment-timezone';
+
 import api from './api';
-//@ts-ignore
-import { Dispatch, OptionCallback } from '../../state/types.ts';
+// @ts-ignore
+import { Dispatch, OptionCallback } from '../../state/types';
 
 export const themeDetail = {
   error: createAction('THEME/DETAIL/ERROR'),

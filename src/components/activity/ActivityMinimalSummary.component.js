@@ -11,7 +11,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 
 import Avatar from '../Avatar.component';
-import { formatAsDatetime } from '../../datetime';
+import { formatAsDatetime } from '../../utils/datetime';
 import { Level } from '../category';
 import Sport from '../../libs/category/components/SCT.component';
 import type { ActivitySimplified } from '../../api/types';

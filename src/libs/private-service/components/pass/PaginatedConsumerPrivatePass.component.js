@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
 import PaginatedListBase from '../../../../components/PaginatedListBase.component';
-import { PrivateConsumerPass } from '../../types.ts';
+import { PrivateConsumerPass } from '../../types';
 import PrivateConsumerPassBookerListItem from '../booking-module/PrivateConsumerPassBookerListItem.component';
 
 type Props = {

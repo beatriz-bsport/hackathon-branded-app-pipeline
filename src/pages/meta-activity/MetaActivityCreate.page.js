@@ -26,7 +26,7 @@ import {
 } from '../../libs/payment-packs/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
-import themeSelectors from '../../libs/theme/selectors.ts';
+import themeSelectors from '../../libs/theme/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getActivityCompatiblePaymentPacks } from '../../libs/payment-packs/selectors';
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
@@ -39,7 +39,7 @@ import CompatiblePaymentPacks from '../../libs/meta-activity/components/MetaActi
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
-import type { Establishment } from '../../libs/establishment/types';
+import { Establishment } from '../../libs/establishment/types';
 import type { PaymentPack } from '../../libs/payment-packs/types';
 
 type StepType = {

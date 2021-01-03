@@ -23,7 +23,7 @@ import SubscriptionContractListItem from '../../../subscription/components/Subsc
 import { isOfferBookableYet } from '../../../marketplace/utils';
 import type { ConsumerPaymentPack } from '../../../consumer-payment-pack/types';
 
-import type { OptionCallback } from '../../../../state/types.ts';
+import type { OptionCallback } from '../../../../state/types';
 
 type Props = {
   t: TFunction,
@@ -186,7 +186,8 @@ export class BookerModuleConsumer extends React.PureComponent<Props> {
       offer.tot_slots >= offer.effectif && !hasBookingOptionConvertible;
     const isWaitingListFull =
       (offer.waiting_list_disabled || offer.is_waiting_list_full) &&
-      (!hasBookingOptionUnConvertible && !hasBookingOptionConvertible);
+      !hasBookingOptionUnConvertible &&
+      !hasBookingOptionConvertible;
 
     return (
       <div>

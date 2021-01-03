@@ -16,8 +16,8 @@ import BottomActionButtons from '../../components/button/BottomActionsButton.com
 import ContractDeleteDialog from '../../libs/subscription/components/SubscriptionContractDeleteModal.component';
 import SubscriptionContractFormDialog from '../../libs/subscription/components/SubscriptionContractFormDialog.component';
 import PaginatedSubscriptionList from '../../libs/subscription/components/PaginatedSubscriptionList.component';
-import themeSelectors from '../../libs/theme/selectors.ts';
-import { fetchPrivatePassList } from '../../libs/private-service/actions.ts';
+import themeSelectors from '../../libs/theme/selectors';
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import { getPrivatePassAvailable } from '../../libs/private-service/selectors/private-pass';
 

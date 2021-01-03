@@ -30,7 +30,7 @@ import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../l
 import { getBuyableItem } from '../../libs/invoice/selectors';
 import { fetchCompanyRoles } from '../../libs/role/actions';
 import withTitle from '../../hocs/with-title.hoc';
-import { formatAsDate } from '../../datetime';
+import { formatAsDate } from '../../utils/datetime';
 import { fetchMember } from '../../libs/member/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
@@ -38,7 +38,7 @@ import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { fetchPaymentMethodList } from '../../libs/payment/actions';
 import { getPermissions } from '../../libs/role/selectors';
 
-import { fetchPrivatePassList } from '../../libs/private-service/actions.ts';
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
 
 import type { Invoice } from '../../api/types';
 import type { Member } from '../../libs/member/types';

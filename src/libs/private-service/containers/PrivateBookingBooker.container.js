@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
 
 import { connect } from 'react-redux';
 
@@ -27,8 +28,9 @@ import {
   fetchCompatiblePrivatePass as fetchCompatiblePrivatePassAction,
   fetchCompatiblePrivateConsumerPass as fetchCompatiblePrivateConsumerPassAction,
   registerPrivateBooking as registerPrivateBookingAction,
-} from '../actions.ts';
-import { getAvailablePrivateServices } from '../selectors/private-service.ts';
+  createOrUpdateRecurrenceRulePrivateBooking,
+} from '../actions';
+import { getAvailablePrivateServices } from '../selectors/private-service';
 
 import { fetchAssociatedEstablishmentBulk } from '../../establishment/actions';
 import { fetchAssociatedCoachBulk } from '../../associated-coach/actions';
@@ -46,10 +48,11 @@ import { getLatest as getLatestMember } from '../../member/api';
 
 import MissingResourceForBookingHelper from '../components/MissingResourceForBookingHelper.component';
 import PrivatePassCapabilities from '../components/PrivatePassCapabilities.component';
+import RecurrenceRulePrivateBookingFields from '../components/booking/RecurrenceRulePrivateBookingFields.component';
 
 import DateTimeForm from '../../../components/input/DateTimeInput.component';
 
-import { getMissingResourceForBooking } from '../utils.ts';
+import { getMissingResourceForBooking } from '../utils';
 
 type Props = {
   t: TFunction,
@@ -74,6 +77,9 @@ type Props = {
   compatiblePrivateConsumerPass: Array<ConsumerPrivatePass>,
   notify_member: boolean,
   setNotifyMember: (boolean) => void,
+  recurrenceRule: boolean,
+  setRecurrenceRule: (boolean) => void,
+  createRecurrentRule: (data: any, options: OptionCallback) => void,
 
   createMember: (data: any, options: OptionCallback) => void,
   timezone: string,
@@ -84,6 +90,7 @@ type State = {
   member: ?Member,
   private_booking_data: any,
   date_start: string,
+  nb_of_weeks: ?number,
 };
 
 export class PrivateBookingBooker extends React.Component<Props, State> {
@@ -93,6 +100,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
       member: null,
       private_booking_data: {},
       date_start: props.requestedSlot,
+      nb_of_weeks: null,
     };
   }
 
@@ -168,7 +176,36 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         date_start: this.state.date_start,
         notify_member: this.props.notify_member,
       },
+      {
+        onSuccess: () => {
+          if (options && options.onSuccess) options.onSuccess();
+          this.onClose();
+        },
+      },
+    );
+  };
 
+  handleTimeSettingChange = (time_setting: any) => {
+    const { nb_of_weeks } = time_setting;
+    this.setState({
+      nb_of_weeks,
+    });
+  };
+
+  createRecurrentRule = (options: OptionCallback) => {
+    const date_start = moment(this.state.date_start).tz(this.props.timezone);
+    this.props.createRecurrentRule(
+      {
+        nb_of_weeks: this.state.nb_of_weeks,
+        hour: date_start.hour(),
+        minute: date_start.minute(),
+        day_of_week: date_start.isoWeekday() - 1,
+        notify_if_booked: this.props.notify_member,
+        private_slot: this.state.private_booking_data.private_slot,
+        associated_coach: this.state.private_booking_data.coach,
+        associated_establishment: this.state.private_booking_data.establishment,
+        member: this.state.member.id,
+      },
       {
         onSuccess: () => {
           if (options && options.onSuccess) options.onSuccess();
@@ -213,9 +250,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
     return (
       <Dialog open={open}>
         <DialogTitle>
-          {moment(this.state.date_start)
-            .tz(this.props.timezone)
-            .format('LLLL')}
+          {moment(this.state.date_start).tz(this.props.timezone).format('LLLL')}
         </DialogTitle>
         <DialogContent>
           <MemberMinimalListItem member={this.state.member} />
@@ -247,36 +282,69 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
               }
             />
           </fieldset>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={this.props.notify_member}
-                onChange={(ev) => this.props.setNotifyMember(ev.target.checked)}
-              />
-            }
-            label={t('bookerModule.notifyMember.label')}
-          />
-          {// eslint-disable-next-line
-          missingResources.filter((l) => l !== 'address').length === 0 ? (
-            this.props.compatiblePassLoading || this.props.processing ? (
-              <LinearProgress className={this.props.classes.loadingContainer} />
-            ) : (
-              <fieldset>
-                <legend>{t('bookerModule.step.billing')}</legend>
-                <PrivatePassCapabilities
-                  registerPrivateBooking={this.registerPrivateBooking}
-                  billMemberPrivatePass={(ppId) =>
-                    this.props.billMemberPrivatePass(this.state.member.id, ppId)
-                  }
-                  fetchPass={this.fetchPass}
-                  compatiblePrivatePass={this.props.compatiblePrivatePass}
-                  compatiblePrivateConsumerPass={
-                    this.props.compatiblePrivateConsumerPass
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.props.notify_member}
+                  onChange={(ev) =>
+                    this.props.setNotifyMember(ev.target.checked)
                   }
                 />
-              </fieldset>
-            )
-          ) : null}
+              }
+              label={t('bookerModule.notifyMember.label')}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.props.recurrenceRule}
+                  onChange={(ev) =>
+                    this.props.setRecurrenceRule(ev.target.checked)
+                  }
+                />
+              }
+              label={t('bookerModule.recurrenceRule.label')}
+            />
+          </FormGroup>
+          {this.props.recurrenceRule && (
+            <fieldset className={this.props.classes.fieldset}>
+              <legend>{t('bookerModule.step.rule')}</legend>
+              <RecurrenceRulePrivateBookingFields
+                privateSlotSet
+                onTimeSettingChange={this.handleTimeSettingChange}
+              />
+            </fieldset>
+          )}
+          {
+            // eslint-disable-next-line
+          missingResources.filter((l) => l !== 'address').length === 0 ? (
+              this.props.compatiblePassLoading || this.props.processing ? (
+                <LinearProgress
+                  className={this.props.classes.loadingContainer}
+                />
+              ) : (
+                <fieldset>
+                  <legend>{t('bookerModule.step.billing')}</legend>
+                  <PrivatePassCapabilities
+                    registerPrivateBooking={this.registerPrivateBooking}
+                    createRecurrentRule={this.createRecurrentRule}
+                    recurrenceRule={this.props.recurrenceRule}
+                    billMemberPrivatePass={(ppId) =>
+                      this.props.billMemberPrivatePass(
+                        this.state.member.id,
+                        ppId,
+                      )
+                    }
+                    fetchPass={this.fetchPass}
+                    compatiblePrivatePass={this.props.compatiblePrivatePass}
+                    compatiblePrivateConsumerPass={
+                      this.props.compatiblePrivateConsumerPass
+                    }
+                  />
+                </fieldset>
+              )
+            ) : null
+          }
         </DialogContent>
         <DialogActions>
           <Button onClick={this.onClose}>{t('bookerModule.cancel')}</Button>
@@ -338,6 +406,7 @@ export default compose(
   withTranslation(['privateService']),
   withStyles(styles),
   withState('notify_member', 'setNotifyMember', true),
+  withState('recurrenceRule', 'setRecurrenceRule', false),
   connect(
     (state) => ({
       private_services: getAvailablePrivateServices(state),
@@ -362,6 +431,7 @@ export default compose(
       fetchCompatiblePrivatePass: fetchCompatiblePrivatePassAction,
       fetchCompatiblePrivateConsumerPass: fetchCompatiblePrivateConsumerPassAction,
       registerPrivateBooking: registerPrivateBookingAction,
+      createRecurrentRule: createOrUpdateRecurrenceRulePrivateBooking,
     },
   ),
   MemberSearchContainer,
@@ -381,6 +451,13 @@ export default compose(
           if (options && options.onSuccess) {
             options.onSuccess(b);
           }
+        },
+      });
+    },
+    createRecurrentRule: ({ createRecurrentRule }) => (data, options) => {
+      createRecurrentRule(data, {
+        onSuccess: (b) => {
+          if (options && options.onSuccess) options.onSuccess(b);
         },
       });
     },

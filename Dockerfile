@@ -1,11 +1,13 @@
-FROM node:8-alpine
+FROM 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-frontend AS raw
 
-
-ADD ./package.json /app/
-ADD ./yarn.lock /app/
-
+RUN mkdir -p /app
 WORKDIR /app
 
-RUN yarn install
+COPY package.json .
+COPY yarn.lock .
+RUN yarn install --frozen-lockfile
 
-ADD . .
+FROM 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-frontend 
+WORKDIR /app
+
+COPY --from=raw /app/node_modules /app/node_modules

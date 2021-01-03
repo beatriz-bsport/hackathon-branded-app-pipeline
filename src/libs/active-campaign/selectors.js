@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 
 import Immutable from 'seamless-immutable';
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 import { getSmartListDict } from '../smart-list/selectors';
 
 export const getActiveCampaignAccount = (state: State): any =>
@@ -22,21 +22,18 @@ export const getActiveCampaignLinks = createSelector(
 );
 
 export const withSmartlist = memoize((selector: (State) => any) =>
-  createSelector(
-    [selector, getSmartListDict],
-    (links, smartListsDict) => {
-      if (!Array.isArray(links)) {
-        return {
-          ...links,
-          smartlist: smartListsDict[links.smartlist],
-        };
-      }
-      return links.map((link) => ({
-        ...link,
-        smartlist: smartListsDict[link.smartlist] || link.smartlist,
-      }));
-    },
-  ),
+  createSelector([selector, getSmartListDict], (links, smartListsDict) => {
+    if (!Array.isArray(links)) {
+      return {
+        ...links,
+        smartlist: smartListsDict[links.smartlist],
+      };
+    }
+    return links.map((link) => ({
+      ...link,
+      smartlist: smartListsDict[link.smartlist] || link.smartlist,
+    }));
+  }),
 );
 
 export const getAccount = (state: State): any =>

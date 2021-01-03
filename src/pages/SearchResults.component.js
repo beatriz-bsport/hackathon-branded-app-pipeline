@@ -165,14 +165,11 @@ function mapStateToProps(state) {
 
 export default withStyles(styles)(
   withTranslation(['search'])(
-    connect(
-      mapStateToProps,
-      {
-        pushToMember: (memberId: number) => push(`/member/${memberId}/`),
-        selectEntity: searchActions.selectEntity,
-        openCreateMember: () => push('/member/add'),
-      },
-    )(
+    connect(mapStateToProps, {
+      pushToMember: (memberId: number) => push(`/member/${memberId}/`),
+      selectEntity: searchActions.selectEntity,
+      openCreateMember: () => push('/member/add'),
+    })(
       withTitle(({ t }: { t: TFunction }) => t('titles:searchResults'))(
         SearchResults,
       ),

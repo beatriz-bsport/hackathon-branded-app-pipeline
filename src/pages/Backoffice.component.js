@@ -13,14 +13,14 @@ import RELEASE from '../release';
 
 import { Context } from '../context';
 
-import { getAuthToken } from '../http.ts';
+import { getAuthToken } from '../http';
 import { getTheme } from '../theme';
 import withSentryErrorReporting from '../hocs/error-boundary.hoc';
 import ResponsiveDrawer from '../components/navigation/ResponsiveDrawer.component';
 import LoadingBackoffice from '../components/navigation/LoadingBackoffice.component';
 import withOpenEvent from '../hocs/tracking/open-event.hoc';
 
-import { fetchCompanyTheme } from '../libs/theme/actions.ts';
+import { fetchCompanyTheme } from '../libs/theme/actions';
 import { getFeatureList } from '../libs/company/actions';
 import { fetchCashBook, updateCashBook } from '../libs/cashbook/actions';
 
@@ -56,13 +56,13 @@ import { fetchAccessLevel } from '../actions/auth.actions';
 import type { TempPasswordState } from '../libs/login/types';
 
 const MarketingRouter = asyncComponent(() =>
-  import('./marketing/Marketing.router.js'),
+  import('./marketing/Marketing.router'),
 );
 
 const Dashboard = asyncComponent(() => import('./Dashboard.component'));
 
 const OfferFormPage = asyncComponent(() => import('./OfferFormPage.component'));
-const Settings = asyncComponent(() => import('./settings/Settings.component'));
+const Settings = asyncComponent(() => import('./settings/Settings.pages'));
 const OfferManagement = asyncComponent(() =>
   import('./offer-management/OfferManagement.page'),
 );

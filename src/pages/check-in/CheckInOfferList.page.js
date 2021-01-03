@@ -26,7 +26,7 @@ import {
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
 } from '../../libs/establishment/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
-import type { Establishment } from '../../libs/establishment/types';
+import { Establishment } from '../../libs/establishment/types';
 
 import CheckInOfferList from '../../libs/check-in/components/CheckInOfferList.component';
 

@@ -51,9 +51,9 @@ export const CashBookForm = (props: Props) => {
           } €`}
         </Typography>
         <Typography>
-          {`${t(
-            'backofficeMenu.cashBook.expectedAmount',
-          )} ${initial.today_start_amount + initial.amount_received} €`}
+          {`${t('backofficeMenu.cashBook.expectedAmount')} ${
+            initial.today_start_amount + initial.amount_received
+          } €`}
         </Typography>
       </div>
       <div className={classes.field}>

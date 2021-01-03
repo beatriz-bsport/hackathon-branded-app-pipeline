@@ -10,7 +10,7 @@ type Props = {
   onRefresh: () => void,
 };
 
-export default function(props: Props) {
+export default function (props: Props) {
   return (
     <IconButton onClick={props.onRefresh} name="refresh">
       {props.isRefreshing ? (

@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
-
-const moment = require('moment-timezone');
+import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
+
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
 import {
@@ -58,6 +58,10 @@ import {
   updatePrivateBookingDatetime as updatePrivateBookingDatetimeAPI,
   updatePrivateBookingCoach as updatePrivateBookingCoachAPI,
   attachCoach as attachCoachAPI,
+  // recurrence-rule-private-booking
+  fetchRecurrenceRulePrivateBookingList as fetchRecurrenceRulePrivateBookingListAPI,
+  createOrUpdateRecurrenceRulePrivateBooking as createOrUpdateRecurrenceRulePrivateBookingAPI,
+  deleteRecurrenceRulePrivateBooking as deleteRecurrenceRulePrivateBookingAPI,
 
   // extension
   fetchPrivateConsumerPassExtensionList as fetchPrivateConsumerPassExtensionListAPI,
@@ -72,7 +76,8 @@ import {
 
 import { fetchAll as fetchAlerting } from '../alerting/actions';
 
-import { Dispatch, ThunkAction, OptionCallback } from '../../state/types.ts';
+import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import { PrivateService, PrivateSlot } from './types';
 
 export const privateBookingAttachCoachActions = {
   error: createAction('PRIVATE_BOOKING/ATTACH_COACH/ERROR'),
@@ -83,10 +88,10 @@ export const privateBookingAttachCoachActions = {
 export function attachCoachToPrivateBooking(
   id: number,
   data: {
-    notify: boolean,
-    coach: number,
+    notify: boolean;
+    coach: number;
   },
-  options?: { onSuccess: (...args) => void, onError?: () => void },
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingAttachCoachActions.isLoading(true));
@@ -265,12 +270,12 @@ export function enableResourceAvailabilitySlot(
     recurrence_until,
     all_date_start,
   }: {
-    date_start: string,
-    date_end: string,
-    recurrence_until?: string,
-    all_date_start: string[],
+    date_start: string;
+    date_end: string;
+    recurrence_until?: string;
+    all_date_start: string[];
   },
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(availabilitySlotUpdateActions.isLoading(true));
@@ -307,10 +312,10 @@ export function disableResourceAvailabilitySlot(
     recurrence_until,
     all_date_start,
   }: {
-    recurrence_until?: string,
-    date_start: string,
-    date_end: string,
-    all_date_start: string[],
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
   },
   options: OptionCallback,
 ): ThunkAction {
@@ -340,34 +345,34 @@ export function disableResourceAvailabilitySlot(
 }
 
 export const disableCoachAvailabilitySlot = (
-  coach,
+  coach: any, // TODO CHECK THIS
   obj: {
-    recurrence_until?: string,
-    date_start: string,
-    date_end: string,
-    all_date_start: string[],
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
   },
   options: OptionCallback,
 ) => disableResourceAvailabilitySlot({ coach }, obj, options);
 
 export const enableCoachAvailabilitySlot = (
-  coach,
+  coach: any, // TODO CHECK THIS
   obj: {
-    recurrence_until?: string,
-    date_start: string,
-    date_end: string,
-    all_date_start: string[],
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
   },
   options: OptionCallback,
 ) => enableResourceAvailabilitySlot({ coach }, obj, options);
 
 export const disablePrivateServiceAvailabilitySlot = (
-  privateServiceId,
+  privateServiceId: number,
   obj: {
-    recurrence_until?: string,
-    date_start: string,
-    date_end: string,
-    all_date_start: string[],
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
   },
   options: OptionCallback,
 ) =>
@@ -377,12 +382,12 @@ export const disablePrivateServiceAvailabilitySlot = (
     options,
   );
 export const enablePrivateServiceAvailabilitySlot = (
-  privateServiceId,
+  privateServiceId: number,
   obj: {
-    recurrence_until?: string,
-    date_start: string,
-    date_end: string,
-    all_date_start: string[],
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
   },
   options: OptionCallback,
 ) =>
@@ -393,23 +398,23 @@ export const enablePrivateServiceAvailabilitySlot = (
   );
 
 export const disableEstablishmentAvailabilitySlot = (
-  establishment,
+  establishment: any, // TODO CHECK THIS
   obj: {
-    recurrence_until?: string,
-    date_start: string,
-    date_end: string,
-    all_date_start: string[],
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
   },
   options: OptionCallback,
 ) => disableResourceAvailabilitySlot({ establishment }, obj, options);
 
 export const enableEstablishmentAvailabilitySlot = (
-  establishment,
+  establishment: any, // TODO CHECK THIS
   obj: {
-    recurrence_until?: string,
-    date_start: string,
-    date_end: string,
-    all_date_start: string[],
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
   },
   options: OptionCallback,
 ) => enableResourceAvailabilitySlot({ establishment }, obj, options);
@@ -852,16 +857,19 @@ export function fetchPrivateServiceWithSlotList(
 
       dispatch(
         privateServiceListActions.success(
-          response.data.map((service) => ({
+          response.data.map((service: PrivateService) => ({
             ...service,
-            slots: service.slots.map((slot) => slot.id),
+            slots: service.slots.map((slot: PrivateSlot) => slot.id),
           })),
         ),
       );
       dispatch(
         privateSlotListActions.success(
           response.data.reduce(
-            (acc, service) => [...acc, ...service.slots],
+            (acc: PrivateSlot[], service: PrivateService) => [
+              ...acc,
+              ...service.slots,
+            ],
             [],
           ),
         ),
@@ -891,9 +899,9 @@ export function fetchPrivateServiceWithSlot(
 
       dispatch(
         privateServiceRetrieveActions.success(
-          response.data.map((service) => ({
+          response.data.map((service: PrivateService) => ({
             ...service,
-            slots: service.slots.map((slot) => slot.id),
+            slots: service.slots.map((slot: PrivateSlot) => slot.id),
           })),
         ),
       );
@@ -930,10 +938,10 @@ export function searchAvailableSlots(
     dispatch(availabilitySlotSearchActions.isLoading(true));
     dispatch(availabilitySlotSearchActions.error(null));
     try {
-      let dateArr = Array.isArray(date) ? date : [date];
-      let result = [];
+      const dateArr = Array.isArray(date) ? date : [date];
+      let result: any[] = [];
 
-      for (let i = 0; i < dateArr.length; i++) {
+      for (let i = 0; i < dateArr.length; i += 1) {
         const response = await searchAvailableSlotsAPI(
           privateServiceId,
           privateSlotId,
@@ -1234,6 +1242,12 @@ export const privateConsumerPassListActions = {
   success: createAction('PRIVATE_CONSUMER_PASS/LIST/SUCCESS'),
 };
 
+export function resetPrivateConsumerPassList() {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateConsumerPassListActions.success([]));
+  };
+}
+
 export const byPrivatePass = {
   isLoading: createAction('BY_PRIVATE_PASS/IS_LOADING'),
   error: createAction('BY_PRIVATE_PASS/ERROR'),
@@ -1298,6 +1312,40 @@ export function resetByPrivatePass() {
   return async (dispatch: Dispatch) => {
     dispatch(byPrivatePass.success({ results: [], count: 0, page: 1 }));
     dispatch(byPrivatePass.isLoading(false));
+  };
+}
+
+export const byMember = {
+  isLoading: createAction('BY_MEMBER/IS_LOADING'),
+  error: createAction('BY_MEMBER/ERROR'),
+  success: createAction('BY_MEMBER/SUCCESS'),
+};
+
+export function fetchPrivateConsumerPassByMember(
+  member: number,
+  options?: OptionCallback,
+  params?: any,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(byMember.isLoading(true));
+    dispatch(byMember.error(null));
+    try {
+      const response = await fetchPrivateConsumerPassListAPI({
+        ...(params || {}),
+        member,
+      });
+      dispatch(byMember.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(byMember.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(byMember.isLoading(false));
   };
 }
 
@@ -1381,6 +1429,29 @@ export function updatePrivateConsumerPassCredits(
       dispatch(snackbarError('privateConsumerPass.creditUpdate.error'));
     }
     dispatch(privateConsumerPassUpdateCreditActions.isLoading(false));
+  };
+}
+
+export const privateConsumerPassBulkActions = {
+  error: createAction('PRIVATE_CONSUMER_PASS/BULK/ERROR'),
+  isLoading: createAction('PRIVATE_CONSUMER_PASS/BULK/IS_LOADING'),
+  success: createAction('PRIVATE_CONSUMER_PASS/BULK/SUCCESS'),
+};
+
+export function fetchPrivateConsumerPassBulk(ids: Array<number>) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateConsumerPassBulkActions.isLoading(true));
+    dispatch(privateConsumerPassBulkActions.error(null));
+    try {
+      const response = await fetchPrivateConsumerPassListAPI({
+        id__in: uniq(ids.filter((id) => !!id)),
+      });
+      dispatch(privateConsumerPassBulkActions.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(privateConsumerPassBulkActions.error(err));
+    }
+    dispatch(privateConsumerPassBulkActions.isLoading(false));
   };
 }
 
@@ -1540,8 +1611,8 @@ export function updatePrivateBookingCoach(
 
 export function disablePrivateBooking(
   id: number,
-  //@ts-ignore
-  data: { force_refund: boolean, send_mail: boolean } = {},
+  // @ts-ignore
+  data: { force_refund: boolean; send_mail: boolean } = {},
   options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
@@ -1589,7 +1660,7 @@ export const privateBookingDeleteActions = {
 
 export function deletePrivateBooking(
   id: number,
-  data: { force_refund: boolean, send_mail: boolean },
+  data: { force_refund: boolean; send_mail: boolean },
   options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
@@ -1605,6 +1676,100 @@ export function deletePrivateBooking(
       if (options && options.onError) options.onError();
     }
     dispatch(privateBookingDeleteActions.isLoading(false));
+  };
+}
+
+export const listRecurrenceRulePrivateBookingActions = {
+  isLoading: createAction('RECURENCE_RULE_PRIVATE_BOOKING/LIST/IS_LOADING'),
+  error: createAction('RECURENCE_RULE_PRIVATE_BOOKING/LIST/ERROR'),
+  success: createAction('RECURENCE_RULE_PRIVATE_BOOKING/LIST/SUCCESS'),
+};
+
+export function fetchRecurrenceRulePrivateBooking(
+  params: any,
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(listRecurrenceRulePrivateBookingActions.isLoading(true));
+    dispatch(listRecurrenceRulePrivateBookingActions.error(null));
+    try {
+      const response = await fetchRecurrenceRulePrivateBookingListAPI(params);
+      dispatch(listRecurrenceRulePrivateBookingActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listRecurrenceRulePrivateBookingActions.error(null));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(listRecurrenceRulePrivateBookingActions.isLoading(false));
+  };
+}
+
+export const createOrUpdateRecurrenceRulePrivateBookingActions = {
+  error: createAction('RECURENCE_RULE_PRIVATE_BOOKING/CREATE_OR_UPDATE/ERROR'),
+  isLoading: createAction(
+    'RECURENCE_RULE_PRIVATE_BOOKING/CREATE_OR_UPDATE/IS_LOADING',
+  ),
+  success: createAction(
+    'RECURENCE_RULE_PRIVATE_BOOKING/CREATE_OR_UPDATE/SUCCESS',
+  ),
+};
+
+export function createOrUpdateRecurrenceRulePrivateBooking(
+  data: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.isLoading(true));
+    dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.error(null));
+    try {
+      const response = await createOrUpdateRecurrenceRulePrivateBookingAPI(
+        data,
+      );
+      dispatch(
+        createOrUpdateRecurrenceRulePrivateBookingActions.success(
+          response.data,
+        ),
+      );
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(
+      createOrUpdateRecurrenceRulePrivateBookingActions.isLoading(false),
+    );
+  };
+}
+
+export const deleteRecurrenceRulePrivateBookingActions = {
+  isLoading: createAction('RECURENCE_RULE_PRIVATE_BOOKING/DELETE/IS_LOADING'),
+  error: createAction('RECURENCE_RULE_PRIVATE_BOOKING/DELETE/ERROR'),
+  success: createAction('RECURENCE_RULE_PRIVATE_BOOKING/DELETE/SUCCESS'),
+};
+
+export function deleteRecurrenceRulePrivateBooking(
+  id: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteRecurrenceRulePrivateBookingActions.isLoading(true));
+    dispatch(deleteRecurrenceRulePrivateBookingActions.error(null));
+    try {
+      await deleteRecurrenceRulePrivateBookingAPI(id);
+      dispatch(deleteRecurrenceRulePrivateBookingActions.success(id));
+
+      if (options && options.onSuccess) options.onSuccess(id);
+    } catch (error) {
+      console.error(error);
+      dispatch(deleteRecurrenceRulePrivateBookingActions.error(error));
+
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(deleteRecurrenceRulePrivateBookingActions.isLoading(false));
   };
 }
 

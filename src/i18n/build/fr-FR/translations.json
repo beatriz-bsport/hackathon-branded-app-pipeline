@@ -730,6 +730,7 @@
     },
     "marketplace": {
       "vod": "VOD",
+      "playlist": "Playlist",
       "substitute": "Remplaçant",
       "substituted": "Absent",
       "teacher": "Professeur",
@@ -1280,6 +1281,7 @@
       }
     },
     "privateBooking": {
+      "bookings": "Rendez-vous",
       "editTime": "Modifier",
       "updateTime": {
         "title": "Modification rendez-vous",
@@ -1468,8 +1470,10 @@
         "privateService": "Rendez-vous",
         "privateSlot": "Séance",
         "coach": "Professeur",
-        "date": "Date"
-      }
+        "date": "Date",
+        "rule": "Rendez-vous récurrents"
+      },
+      "recurrenceRule": { "label": "Programmez un RDV récurrent" }
     },
     "consumerPass": {
       "extension": {
@@ -1495,7 +1499,10 @@
       "expiresOn": "Expire le {{ date }}",
       "current_credits": "{{ current_credits }}/{{credits}} crédits",
       "isReverted": "Facture annulée",
-      "detail": { "invoice": "Facture liée", "booking": "Réservations RDV liées", "extensionsTitle": "Extensions de validité" }
+      "detail": { "invoice": "Facture liée", "booking": "Réservations RDV liées", "extensionsTitle": "Extensions de validité" },
+      "isFromShare": "Partagé depuis un autre compte",
+      "isOwnerOfShares": "Partagé (carte RDV maître)",
+      "isFromDisabledShare": "Partage arrété"
     },
     "privateServiceCompatibility": {
       "delete": {
@@ -1719,6 +1726,32 @@
         }
       },
       "tooltip": "Des notifications sont actives pour ce type de RDV"
+    },
+    "recurrenceRule": {
+      "recurrentBookings": "Rendez-vous récurrents",
+      "createModal": { "create": "Créer une réservation récurrente" },
+      "actions": { "close": "Fermer", "save": "Enregistrer" },
+      "form": {
+        "title": "Programmer une récurrence",
+        "configuration": "Réservations",
+        "timeGroup": "Date de la séance",
+        "notify_member": "Envoyer un mail de confirmation lors de l'inscription du membre"
+      },
+      "forms": {
+        "delete": {
+          "title": "Déprogrammer un RDV récurrent",
+          "content": "Déprogrammer le RDV récurrent entrainera l'annulation des RDV futurs enregistrés via cette règle.",
+          "cancel": "Annuler",
+          "confirm": "Supprimer"
+        },
+        "update": {
+          "title": "Modification RDV récurrent",
+          "content": "Modifier la règle de récurrence entrainera la modification des RDV futurs effectués via cette règle.",
+          "cancel": "Annuler",
+          "confirm": "Modifier"
+        }
+      },
+      "item": { "explain": "Tous les {{dayOfWeek}} - {{time}}, {{delayWeek}} semaines avant" }
     }
   },
   "relationship": {
@@ -1755,6 +1788,32 @@
         "unlink": {
           "title": "Arrêt du partage",
           "explain": "Le partage sera arrété. La carte maître reste valable",
+          "submit": "Arrêter",
+          "cancel": "Annuler"
+        },
+        "relink": {
+          "title": "Partager de nouveau",
+          "explain": "Le partage sera de nouveau activé.",
+          "submit": "Partager",
+          "cancel": "Annuler"
+        }
+      }
+    },
+    "private_consumer_pass_links": {
+      "list": { "title": "Cartes RDV partagées", "create": "Partager une carte RDV", "isEmpty": "Aucun partage de carte RDV" },
+      "form": {
+        "create": {
+          "title": "Partage de carte RDV",
+          "explain": "Cette carte RDV sera partagée entre les deux membres, les crédits sont utilisables par l'un ou par l'autre.",
+          "cancel": "Annuler",
+          "previous": "Précédent",
+          "submit": "Partager",
+          "linkButton": "Partager",
+          "noConsumerPackToLink": "Aucune carte partageable"
+        },
+        "unlink": {
+          "title": "Arrêt du partage",
+          "explain": "Le partage sera arrété. La carte RDV maître reste valable",
           "submit": "Arrêter",
           "cancel": "Annuler"
         },
@@ -1868,6 +1927,11 @@
       "caption": "Souscriptions",
       "popover": "Le nombre de factures liées à une souscription non annulée"
     },
+    "booking": {
+      "title": "Réservations",
+      "caption": "Réservations enregistrées",
+      "popover": "Le nombre total de réservations enregistrées pour cette date. Vous pouvez filtrer les annulations / late-cancel / ..."
+    },
     "bookingsWeektimeSlot": { "title": "Effectif moyen", "popover": "Effectif moyen des séances par créneau horaire" },
     "dateFilter": { "customSelect": "Sélectionner une plage de dates", "quickSelect": "Choix rapide" },
     "noData": "Aucune donnée à afficher",
@@ -1889,6 +1953,44 @@
         "7": "Promotion",
         "9": "Carte de RDV",
         "10": "Packs"
+      }
+    },
+    "customChart": {
+      "addChart": "Créer un graphe",
+      "noResource": "Veuillez choisir un type de donnée.",
+      "form": {
+        "title": "Graphique",
+        "cancel": "Annuler",
+        "submit": "Enregistrer",
+        "datatype": "Type de graphe",
+        "graphComponent": "Représentation souhaitée",
+        "selector": {
+          "object": {
+            "isEmpty": "Aucune donnée sélectionnée",
+            "placeholder": "Sélectionnez un type de donnée",
+            "helperText": "Choisissez ce que vous souhaitez visualiser"
+          },
+          "member": "Nouveaux membres",
+          "booking": "Réservations",
+          "payment": "Paiements",
+          "invoice": "Achats"
+        },
+        "name": "Titre du graphe",
+        "aggregate": "Cumuler",
+        "aggregateHelper": "Ex: affiche l'évolution du nb total des membres, plutôt que le nb de nouveaux membres, chaque mois.",
+        "radio": {
+          "temporalMember": "Évolution dans le temps",
+          "temporalTimeslotBooking": "Fréquences journalières et horaires",
+          "temporalBooking": "Évolution dans le temps",
+          "qualitativeBooking": "Répartition",
+          "temporalPayment": "Évolution dans le temps",
+          "temporalPlannedInvoice": "Évolution dans le temps",
+          "qualitativeInvoiceItem": "Répartition",
+          "bar": "Histogramme",
+          "area": "Graphique en aires",
+          "grid": "Tableau des fréquences",
+          "pie": "Diagramme circulaire"
+        }
       }
     }
   },
@@ -2031,6 +2133,20 @@
           "helperText": "Nombre de jours avant lequel le panier d'un client est automatiquement vidé",
           "placeholder": "Jours avant expiration",
           "alert": "Remplissez les jours d'expiration du panier!"
+        },
+        "showGenderOffer": "Afficher le nombre d'hommes et de femmes qui réservent une offre",
+        "offerBalance": "Mise en place d'un contrôle de l'équilibre FEMME/HOMME",
+        "checkBalance": {
+          "checkbox": "Limiter le déséquilibre FEMME/HOMME des réservations (danse...)",
+          "numberCheck": {
+            "placeholder": "Contrôler le déséquilibre FEMME/HOMME lorsque le nombre de réservation dépasse",
+            "helperText": "Lorsque plus de {{ number }} personnes réservent une séance, toute réservation supplémentaire ne sera acceptée que si le déséquilbire FEMME/HOMME est inférieur à la valeur suivante."
+          },
+          "shiftRatio": {
+            "placeholder": "Déséquilibre FEMME/HOMME maximum autorisé",
+            "helperText": "Limiter le déséquilibre FEMME/HOMME à {{ gender_max_shift_for_booking }} personnes",
+            "explain": "Si plus de {{ numberCheck }} réservations sont enregistrées sur une séance, aucune réservation ne sera autorisée qui crée un déséquilibre FEMME/HOMME supérieur à {{ gender_max_shift_for_booking }} personnes."
+          }
         }
       },
       "cover": { "label": "Logo", "helperText": "Privilégiez les png avec fond transparent" },
@@ -2249,7 +2365,8 @@
       "IE": "Irlande",
       "BE": "Belgique",
       "ES": "Espagne",
-      "CH": "Suisse"
+      "CH": "Suisse",
+      "MT": "Malte"
     },
     "language": { "fr": "français", "en": "anglais", "de": "allemand", "it": "italien", "nl": "néerlandais", "es": "espagnol" }
   },
@@ -2500,6 +2617,39 @@
         "noList": "LISTE INTROUVABLE",
         "listItemText": "Envoyer les membres de la smartlist <1>{{smartlist}}</2> à la liste ActiveCampaign <3>{{list}}</4>"
       }
+    },
+    "marketplaceSettings": {
+      "addButton": "Ajouter un onglet",
+      "explainMarketplace": "Vos adhérents peuvent accéder à votre marketplace (calendrier, magasin, VOD...) en ligne sur ordinateur tablette ou téléphone. Personnalisez votre page ici !",
+      "link": "Accédez à la marketplace client (vous serez déconnecté)",
+      "saveButton": "Sauvegarder",
+      "preview": "Aperçu",
+      "componentType": {
+        "calendar": "Calendrier",
+        "workshop": "Ateliers",
+        "privateService": "Sur rendez-vous",
+        "pass": "Carte de cours",
+        "vod": "VOD",
+        "subscription": "Abonnement",
+        "shop": "Magasin",
+        "playlist": "Playlist"
+      },
+      "createDialog": {
+        "selectComponent": "Choisir un composant",
+        "selectCoach": "Choisir un coach",
+        "selectEstablishment": "Choisir un établissement",
+        "selectActivity": "Choisir une activité",
+        "selectPrivateService": "Choisir un service",
+        "selectPlaylist": "Choisir une playlist",
+        "inputTitle": "Nom de l'onglet",
+        "cancel": "Annuler",
+        "submit": "Valider",
+        "noComponentTypeError": "Veuillez sélectionner un composant",
+        "noTitleError": "Veuillez saisir un titre",
+        "noServiceError": "Veuillez sélectionner un service",
+        "noPlaylistError": "Veuillez sélectionner une playlist",
+        "dialogTitle": "Edition onglet"
+      }
     }
   },
   "datetime": {
@@ -2725,10 +2875,23 @@
     }
   },
   "invoice": {
+    "invoiceInfo": {
+      "2": "Ce reçu de paiement représente l'ajustement de solde de votre membre.",
+      "3": "Cette facture est issue d'une migration. Nous ne sommes pas en mesure de fournir un PDF ni de l'annuler pour des raisons légales."
+    },
+    "invoiceType": {
+      "regular": "Facture",
+      "migration": "Migration",
+      "credit_payment": "Reçu (régul. solde)",
+      "return": "Avoir",
+      "reversed": "Facture (annulée)"
+    },
     "creditAccountBalance": { "current": "Solde actuel" },
     "invoice": {
       "title": "Facture {{ uuid }}",
       "titleRevert": "Avoir {{ uuid }}",
+      "titleReverted": "Facture (annulée) {{ uuid }}",
+      "titleReceipt": "Reçu {{ uuid }}",
       "editor": { "title": "Edition de la facture", "sumup": "Récapitulatif", "save": "Émettre la facture" },
       "header": {
         "date": "Date : {{ date }}",
@@ -2861,6 +3024,7 @@
         "date": "Date de facturation",
         "amount": "Montant dû",
         "missing": "Restant dû",
+        "invoiceType": "Type",
         "pdf": "PDF"
       },
       "nested": {
@@ -2913,6 +3077,11 @@
         "create": { "success": "Carte partagée", "error": "Impossible de partager cette carte" },
         "unlink": { "success": "Partage supprimé", "error": "Impossible de supprimer ce partage" },
         "relink": { "success": "Partage enregistré", "error": "Impossible de partager cette carte" }
+      },
+      "private_consumer_pass_links": {
+        "create": { "success": "Carte RDV partagée", "error": "Impossible de partager cette carte RDV" },
+        "unlink": { "success": "Partage supprimé", "error": "Impossible de supprimer ce partage" },
+        "relink": { "success": "Partage enregistré", "error": "Impossible de partager cette carte RDV" }
       }
     },
     "paymentRules": {
@@ -3706,7 +3875,10 @@
         "warning": "En ne sélectionnant aucune smartlist vous risquez de notifier des membres qui ont déjà acheté une autre carte de cours",
         "smartListHelper": "Ne pas envoyer de mail si le membre appartient à l'une des listes suivantes",
         "smartListHelperInclude": "Envoyer un mail uniquement si le membre appartient à l'une des listes suivantes"
-      }
+      },
+      "creditsLeft": { "first": "Notifier lorsqu'il reste", "second": "crédits" },
+      "daysLeft": { "first": "Notifier lorsqu'il reste", "second": "jours de validité sur la carte" },
+      "daysPast": { "first": "Notifier lorsque la carte est expirée depuis", "second": "jours" }
     },
     "search": "Chercher une carte",
     "extension": {
@@ -4242,7 +4414,11 @@
         "isTooSoon": "Les inscriptions sont fermées pour le moment et ouvriront le {{ date }}.",
         "isWaitingListFull": "La séance est complète la liste d'attente est pleine."
       },
-      "messages": { "offerLocked": "Vous ne pouvez pas réserver cette séance" }
+      "messages": {
+        "offerLocked": "Vous ne pouvez pas réserver cette séance",
+        "femaleUnavailable": "La séance n'est plus disponible à la réservation pour les femmes.",
+        "maleUnavailable": "La séance n'est plus disponible à la réservation pour les hommes."
+      }
     },
     "details": {
       "pleaseSelectABooking": "Sélectionnez une réservation pour voir le détails",
@@ -4328,7 +4504,8 @@
           }
         }
       }
-    }
+    },
+    "memberGraph": { "title": "Récapitulatif des réservations", "label": "Réservations" }
   },
   "marketplace": {
     "selector": {
@@ -4911,6 +5088,7 @@
       "pass": "Carte de cours",
       "settings": {
         "general": "Général",
+        "marketplaceSettings": "Paramètres marketplace",
         "broadcast": "Visioconférence",
         "notificationRule": "Emails transactionnels",
         "paymentRules": "Règles de rémunération",

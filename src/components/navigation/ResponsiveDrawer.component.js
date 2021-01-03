@@ -111,6 +111,7 @@ type Props = {
   loading: boolean,
   onSubmit: () => void,
   onSpotPaymentReportId: number,
+  showActions: boolean,
   handleOpenOnSpotPaymentReport: () => void,
   fetchOnSpotPaymentReport: () => void,
   showActions: boolean,
@@ -699,6 +700,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             to: '/settings/general',
             dense: 'true',
             text: t('backofficeMenu.settings.general'),
+          },
+          {
+            to: '/settings/marketplace-settings',
+            dense: 'true',
+            text: t('backofficeMenu.settings.marketplaceSettings'),
           },
           {
             to: '/settings/role',

@@ -5,7 +5,7 @@ import {
   getAuth,
   patchAuth,
   postAuth,
-} from '../../http.ts';
+} from '../../http';
 
 export async function fetchMemberRelations(memberId: number) {
   return getAuth(`${API_V1_URI}/member/${memberId}/relations/`);
@@ -48,5 +48,41 @@ export async function unlinkConsumerPassLink(consumerPassLinkId: number) {
 export async function relinkConsumerPassLink(consumerPassLinkId: number) {
   return postAuth(
     `${API_V1_URI}/relationship/consumer_payment_pack/${consumerPassLinkId}/relink/`,
+  );
+}
+
+export async function createPrivateConsumerPassLink(
+  privateConsumerPassId: number,
+  memberRelationId: number,
+) {
+  return postAuth(
+    `${API_V1_URI}/relationship/member/${memberRelationId}/link_private_pass/`,
+    {
+      private_consumer_pass: privateConsumerPassId,
+    },
+  );
+}
+
+export async function fetchSharedPrivateConsumerPasses(params: any) {
+  return getAuth(
+    `${API_V1_URI}/relationship/private_consumer_pass/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
+
+export async function unlinkPrivateConsumerPassLink(
+  privateConsumerPassLinkId: number,
+) {
+  return postAuth(
+    `${API_V1_URI}/relationship/private_consumer_pass/${privateConsumerPassLinkId}/unlink/`,
+  );
+}
+
+export async function relinkPrivateConsumerPassLink(
+  privateConsumerPassLinkId: number,
+) {
+  return postAuth(
+    `${API_V1_URI}/relationship/private_consumer_pass/${privateConsumerPassLinkId}/relink/`,
   );
 }

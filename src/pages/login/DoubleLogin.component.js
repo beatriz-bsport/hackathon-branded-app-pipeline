@@ -9,7 +9,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import parse from '../../query-string';
+import { parseQueryString } from '../../http';
 
 type Props = {
   t: TFunction,
@@ -17,7 +17,7 @@ type Props = {
 
 export const DoubleLogin = (props: Props) => {
   const classes = useStyles();
-  const { membership } = parse(window.location.search);
+  const { membership } = parseQueryString(window.location.search);
   return (
     <div className={classes.container}>
       <div className={classes.insideContainer}>

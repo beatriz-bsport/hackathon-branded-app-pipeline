@@ -40,7 +40,7 @@ import {
   updatePrivateBookingDatetime as updatePrivateBookingDatetimeAction,
   updatePrivateBookingCoach as updatePrivateBookingCoachAction,
   deleteCustomEvent as deleteCustomEventAction,
-} from '../actions.ts';
+} from '../actions';
 import {
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
   fetchAllActivities,
@@ -522,14 +522,11 @@ const OfferEditorContainer = compose(
 );
 
 const PrivateBookingCancellatorContainer = compose(
-  connect(
-    null,
-    {
-      disablePrivateBooking: disablePrivateBookingAction,
-      deletePrivateBooking: deletePrivateBookingAction,
-      restorePrivateBooking: restorePrivateBookingAction,
-    },
-  ),
+  connect(null, {
+    disablePrivateBooking: disablePrivateBookingAction,
+    deletePrivateBooking: deletePrivateBookingAction,
+    restorePrivateBooking: restorePrivateBookingAction,
+  }),
   withStateHandlers(
     {
       privateBookingDeleteModalOpen: false,

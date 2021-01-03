@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import pickBy from 'lodash/pickBy';
 import memoize from 'memoize-one';
-import type { State } from '../../state/types.ts';
+import type { State } from '../../state/types';
 import type { MetaActivity } from './types';
 
 export const getMetaActivityAbstractDict = (
@@ -43,14 +43,11 @@ export const getDisabledMetaActivities = createSelector(
 );
 
 export const getActivitiesByIdList = memoize((state, idList) =>
-  createSelector(
-    getMetaActivityAbstractDict,
-    (metactivities) => {
-      return Immutable(Object.values(metactivities)).filter((ma) =>
-        idList.includes(ma.id),
-      );
-    },
-  )(state),
+  createSelector(getMetaActivityAbstractDict, (metactivities) => {
+    return Immutable(Object.values(metactivities)).filter((ma) =>
+      idList.includes(ma.id),
+    );
+  })(state),
 );
 
 export const getPageMetaActivities = createSelector(
@@ -93,14 +90,12 @@ export const getWorkshops = createSelector(
 export const getWorkshop = (state: State, id: number): MetaActivity =>
   state.metaActivity.byId[id];
 
-export const getEnabledWorkshops = createSelector(
-  getWorkshops,
-  (workshops) => workshops.filter((ma) => !!ma.customer_enabled),
+export const getEnabledWorkshops = createSelector(getWorkshops, (workshops) =>
+  workshops.filter((ma) => !!ma.customer_enabled),
 );
 
-export const getDisabledWorkshops = createSelector(
-  getWorkshops,
-  (workshops) => workshops.filter((ma) => !ma.customer_enabled),
+export const getDisabledWorkshops = createSelector(getWorkshops, (workshops) =>
+  workshops.filter((ma) => !ma.customer_enabled),
 );
 
 export const getFreshMetaActivityList = createSelector(

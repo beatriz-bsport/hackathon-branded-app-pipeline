@@ -88,7 +88,10 @@ export default handleActions(
     },
     [shopItemFeaturedActions.success]: (state, { payload }) => {
       return state
-        .setIn(['shopItem', 'featured', 'allIds'], payload.map((si) => si.id))
+        .setIn(
+          ['shopItem', 'featured', 'allIds'],
+          payload.map((si) => si.id),
+        )
         .merge(
           {
             shopItem: {
@@ -122,7 +125,10 @@ export default handleActions(
     },
     [shopItemAsManagerActions.success]: (state, { payload }) => {
       return state
-        .setIn(['shopItem', 'asManager', 'allIds'], payload.map((si) => si.id))
+        .setIn(
+          ['shopItem', 'asManager', 'allIds'],
+          payload.map((si) => si.id),
+        )
         .merge(
           {
             shopItem: {
@@ -140,7 +146,10 @@ export default handleActions(
     },
     [shopItemAsConsumerActions.success]: (state, { payload }) => {
       return state
-        .setIn(['shopItem', 'asConsumer', 'allIds'], payload.map((si) => si.id))
+        .setIn(
+          ['shopItem', 'asConsumer', 'allIds'],
+          payload.map((si) => si.id),
+        )
         .merge(
           {
             shopItem: {

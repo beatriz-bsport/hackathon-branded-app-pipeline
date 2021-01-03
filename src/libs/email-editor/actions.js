@@ -16,7 +16,7 @@ import {
 
 import { getFreshEmailTemplateSummariesIds } from './selectors';
 
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types.ts';
+import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 

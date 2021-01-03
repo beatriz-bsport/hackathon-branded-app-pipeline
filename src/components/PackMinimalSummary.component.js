@@ -37,4 +37,6 @@ export class PaymentPack extends Component<Props> {
   }
 }
 
-export default withStyles(styles)(withTranslation(['paymentPack'])(PaymentPack));
+export default withStyles(styles)(
+  withTranslation(['paymentPack'])(PaymentPack),
+);

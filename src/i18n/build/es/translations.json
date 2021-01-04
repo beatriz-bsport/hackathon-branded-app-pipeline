@@ -1133,14 +1133,35 @@
                 "selector": {
                     "object": {
                         "placeholder": "Seleccione un tipo de datos",
-                        "isEmpty": "No hay datos seleccionados"
-                    }
+                        "isEmpty": "No hay datos seleccionados",
+                        "helperText": "Elija lo que quiere ver"
+                    },
+                    "invoice": "Compras",
+                    "payment": "Pagos",
+                    "booking": "Reservas",
+                    "member": "Nuevos miembros"
                 },
                 "graphComponent": "Representación deseada",
                 "datatype": "Tipo de gráfico",
                 "submit": "Guardar",
                 "cancel": "Cancelar",
-                "title": "Gráfico"
+                "title": "Gráfico",
+                "radio": {
+                    "pie": "Gráfico de pastel",
+                    "grid": "Tabla de frecuencias",
+                    "area": "Gráfico de área",
+                    "bar": "Histograma",
+                    "qualitativeInvoiceItem": "División",
+                    "temporalPlannedInvoice": "Evolución en el tiempo",
+                    "temporalPayment": "Evolución en el tiempo",
+                    "qualitativeBooking": "División",
+                    "temporalBooking": "Evolución en el tiempo",
+                    "temporalTimeslotBooking": "Frecuencias diarias y horarias",
+                    "temporalMember": "Evolución en el tiempo"
+                },
+                "aggregateHelper": "Ej: muestra la evolución del número total de miembros, en lugar del número de nuevos miembros, cada mes.",
+                "aggregate": "Acumular",
+                "name": "Título del gráfico"
             },
             "noResource": "Por favor, elija un tipo de datos.",
             "addChart": "Crear un gráfico"
@@ -1317,7 +1338,8 @@
             "FR": "Francia",
             "CH": "Suiza",
             "IE": "Irlanda",
-            "AT": "Austria"
+            "AT": "Austria",
+            "MT": "Malta"
         },
         "emailValidation": {
             "disconnect": "Cambiar de cuenta",
@@ -1558,6 +1580,42 @@
             "createTitle": "Formulario webhook",
             "submit": "validar",
             "cancel": "cancelar"
+        },
+        "marketplaceSettings": {
+            "createDialog": {
+                "dialogTitle": "Editar pestaña",
+                "noPlaylistError": "Por favor, seleccione un playlist",
+                "noServiceError": "Por favor seleccione un tipo de cita",
+                "noTitleError": "Por favor introduzca un título",
+                "noComponentTypeError": "Por favor, seleccione un componente",
+                "submit": "Enviar",
+                "cancel": "Cancelar",
+                "inputTitle": "Nombre de la pestaña",
+                "selectPlaylist": "Elija un playlist",
+                "selectPrivateService": "Elija un servicio",
+                "selectActivity": "Elija una actividad",
+                "selectEstablishment": "Elija un establecimiento",
+                "selectCoach": "Elija un entrenador",
+                "selectComponent": "Elija un componente"
+            },
+            "componentType": {
+                "playlist": "Playlist",
+                "shop": "Tienda",
+                "subscription": "Suscripción",
+                "vod": "VOD",
+                "pass": "Tarjeta de curso",
+                "privateService": "Citas",
+                "workshop": "Talleres",
+                "calendar": "Calendario"
+            },
+            "preview": "Vista previa",
+            "saveButton": "Guardar",
+            "link": "Acceda al mercado de clientes (se te desconectará)",
+            "explainMarketplace": "Sus miembros pueden acceder a su mercado (calendario, tienda, VOD, etc.) en línea en un ordenador, tableta o teléfono. Personaliza tu página aquí!",
+            "addButton": "Añade una pestaña"
+        },
+        "companyOnboarding": {
+            "error": "No puede modificar esta información"
         }
     },
     "datetime": {
@@ -1893,7 +1951,9 @@
                 "sumup": "Resumen"
             },
             "title": "Factura {{ uuid }}",
-            "titleRevert": "Crédito {{ uuid }}"
+            "titleRevert": "Crédito {{ uuid }}",
+            "titleReceipt": "Recibo de pago {{ uuid }}",
+            "titleReverted": "Factura ( revertida) {{uuid}}"
         },
         "creditAccountBalance": {
             "current": "Balance actual"
@@ -1955,7 +2015,8 @@
                 "amount": "Cantidad a pagar",
                 "date": "Fecha de la factura",
                 "id": "Identificador",
-                "member": "Miembro"
+                "member": "Miembro",
+                "invoiceType": "Tipo"
             },
             "actions": {
                 "goToInvoice": "Ver la factura"
@@ -2023,7 +2084,10 @@
             "amount": {
                 "label": "Cantidad a cobrar"
             },
-            "amountRemaining": "El resto a pagar: {{ amount }}"
+            "amountRemaining": "El resto a pagar: {{ amount }}",
+            "billingMoreThanNeeded": "Si cobra más que el importe de la factura, el exceso se pondrá en el saldo del cliente",
+            "errorSecretExplain2": "Si el problema no se resuelve por favor contáctenos en dev+payment-intent@bsport.io",
+            "errorSecretExplain1": "Este método de pago no está disponible en este momento"
         },
         "paymentMethod": {
             "label": {
@@ -2052,6 +2116,17 @@
                 "1": "Pago en línea",
                 "0": "Pago manual"
             }
+        },
+        "invoiceType": {
+            "reversed": "Factura ( revertida)",
+            "return": "Nota de crédito",
+            "credit_payment": "Recibo (ajuste de saldo)",
+            "migration": "Migración",
+            "regular": "Factura"
+        },
+        "invoiceInfo": {
+            "3": "Esta factura es de una migración. No podemos proporcionar un PDF o cancelarlo por razones legales.",
+            "2": "Este recibo de pago representa el ajuste del saldo de su miembro."
         }
     },
     "coach": {
@@ -2956,7 +3031,9 @@
         },
         "bookingModule": {
             "messages": {
-                "offerLocked": "No puedes reservar esta sesión"
+                "offerLocked": "No puedes reservar esta sesión",
+                "maleUnavailable": "La sesión ya no se puede reservar para los hombres.",
+                "femaleUnavailable": "La sesión ya no se puede reservar para las mujeres."
             },
             "offer": {
                 "isWaitingListFull": "La sesión está llena, la lista de espera está llena.",
@@ -3136,6 +3213,10 @@
             "notify": "Envíe un correo electrónico de confirmación al registrarse como miembro",
             "showLess": "Mostrar menos",
             "showMore": "Mostrar más ({{count}})"
+        },
+        "memberGraph": {
+            "label": "Reservas",
+            "title": "Resumen de las reservas"
         }
     },
     "marketplace": {
@@ -4514,7 +4595,21 @@
                     "helperText": "Número de días antes de que el carro de compras de un cliente se vacíe automáticamente",
                     "label": "Caducidad de la cesta de la compra"
                 },
-                "cancelledOffersManager": "Por defecto, mostrar las sesiones canceladas en el calendario del administrador"
+                "cancelledOffersManager": "Por defecto, mostrar las sesiones canceladas en el calendario del administrador",
+                "checkBalance": {
+                    "shiftRatio": {
+                        "explain": "Si se registran más de {{numberCheck}} reservas en una sesión, no se autorizará ninguna reserva que cree un desequilibrio MUJER/HOMBRE mayor que {{gender_max_shift_for_booking}} personas.",
+                        "helperText": "Limitar el desequilibrio MUJER/HOMBRE a {{gender_max_shift_for_booking}} personas",
+                        "placeholder": "Desequilibrio máximo autorizado entre hombres y mujeres"
+                    },
+                    "numberCheck": {
+                        "helperText": "Cuando más de {{number}} personas reservan una sesión, cualquier reserva adicional sólo será aceptada si el desequilibrio MUJER/HOMBRE es menor que el siguiente valor.",
+                        "placeholder": "Comprobar el desequilibrio MUJER/HOMBRE cuando el número de reservas excede"
+                    },
+                    "checkbox": "Limitar el desequilibrio MUJER/HOMBRE en las reservas (estudio de baile...)"
+                },
+                "offerBalance": "Controlar el balance Mujer/Hombre en cada sesión",
+                "showGenderOffer": "Mostrar el número de hombres y mujeres que reservan una oferta"
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -4660,6 +4755,10 @@
             "3": {
                 "name": "Checkin tableta",
                 "description": "Cuenta para la aplicación de auto-checkin (contacta a tu gerente de cuenta de bsport)"
+            },
+            "5": {
+                "name": "Informes",
+                "description": "Acceso sólo a los informes, útil para sus contadores por ejemplo"
             }
         }
     },
@@ -5198,6 +5297,20 @@
             },
             "edit": {
                 "success": "Relación modificada"
+            },
+            "private_consumer_pass_links": {
+                "relink": {
+                    "error": "No puede compartir esta tarjeta de cita",
+                    "success": "Pase compartido"
+                },
+                "unlink": {
+                    "error": "Imposible eliminar este compartimento",
+                    "success": "Se ha dejado de compartir"
+                },
+                "create": {
+                    "error": "No puede compartir esta tarjeta de cita",
+                    "success": "Tarjeta de cita compartida"
+                }
             }
         },
         "coach": {
@@ -5446,7 +5559,8 @@
                         "label": "Período de bloqueo de la tarjeta de curso (en días) :",
                         "helperText": "La tarjeta de curso será bloqueado por {{nb_days}} días"
                     }
-                }
+                },
+                "only_vod_access": "Sólo para VOD"
             }
         },
         "extension": {
@@ -5520,6 +5634,18 @@
             "0": {
                 "second": "días de validez en la tarjeta",
                 "first": "Notificar cuando se queda "
+            },
+            "daysPast": {
+                "second": "días",
+                "first": "Notificar cuando el pase haya expirado"
+            },
+            "daysLeft": {
+                "second": "días de validez que quedan en el pase",
+                "first": "Notificar cuando quede"
+            },
+            "creditsLeft": {
+                "second": "créditos restantes",
+                "first": "Envía un email cuando haya"
             }
         },
         "notificationToolTip": "Se han establecido notificaciones para esta tarjeta",
@@ -5640,7 +5766,8 @@
             "block": "Si se producen {{nb_cancellations}} cancelaciones tardías durante un período de {{nb_days}} días, el pase se bloqueará durante {{days_blocked}} días.",
             "account": "Si hay {{nb_cancellations}} cancelaciones tardías durante un período de {{nb_days}} días, un cargo de {{account_value}}€ se aplicará."
         },
-        "blockedCpp": "Tarjeta bloqueada de {{-blocked_from}} a {{-blocked_until}}"
+        "blockedCpp": "Tarjeta bloqueada de {{-blocked_from}} a {{-blocked_until}}",
+        "only_vod_access": "Disponible sólo para VOD"
     },
     "selfCheckIn": {
         "offerList": {
@@ -5871,7 +5998,8 @@
                 "notificationRule": "Emails transaccionales",
                 "broadcast": "Videoconferencia",
                 "general": "General",
-                "platform_billing": "Suscripción a bsport"
+                "platform_billing": "Suscripción a bsport",
+                "marketplaceSettings": "Parámetros marketplace"
             },
             "pass": "Tarjeta de curso",
             "goBack": "Volver",
@@ -5993,7 +6121,10 @@
             "boughtOn": "Compra hecha el {{-date}}",
             "viewedOn": "Video visto el {{-date}} a las {{hour}}",
             "purchaseListTitle": "Lista de compras",
-            "viewsListTitle": "Lista de vistas"
+            "viewsListTitle": "Lista de vistas",
+            "coverMain": {
+                "alert": "La foto es obligatoria"
+            }
         },
         "playlist": {
             "bottomActions": {

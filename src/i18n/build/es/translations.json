@@ -915,7 +915,8 @@
             "private_service": "Sólo con cita previa",
             "passListTitle": "Tarjetas cursos de grupo",
             "privatePassListTitle": "Tarjetas de cita",
-            "vod": "VOD"
+            "vod": "VOD",
+            "playlist": "Playlist"
         },
         "appbar": {
             "title": {
@@ -1126,7 +1127,29 @@
             "content": "Los ajustes de los diferentes gráficos volverán a su valor por defecto, quieres continuar?",
             "title": "Restablecer la configuración"
         },
-        "save": "Guardar"
+        "save": "Guardar",
+        "customChart": {
+            "form": {
+                "selector": {
+                    "object": {
+                        "placeholder": "Seleccione un tipo de datos",
+                        "isEmpty": "No hay datos seleccionados"
+                    }
+                },
+                "graphComponent": "Representación deseada",
+                "datatype": "Tipo de gráfico",
+                "submit": "Guardar",
+                "cancel": "Cancelar",
+                "title": "Gráfico"
+            },
+            "noResource": "Por favor, elija un tipo de datos.",
+            "addChart": "Crear un gráfico"
+        },
+        "booking": {
+            "popover": "El número total de reservas registradas para esa fecha. Puede filtrar las cancelaciones / cancelaciones tardías / ...",
+            "caption": "Reservas guardadas",
+            "title": "Reservas"
+        }
     },
     "stripe": {
         "errors": {
@@ -3786,7 +3809,8 @@
             "editTime": "Modificar",
             "updateCoach": "Elige un nuevo profesor para esta cita",
             "isCancelledDate": "Cancelado el {{-date}} a las {{time}}",
-            "restore": "Restaurar la cita"
+            "restore": "Restaurar la cita",
+            "bookings": "Citas"
         },
         "consumerPass": {
             "detail": {
@@ -3825,7 +3849,10 @@
                 },
                 "addedOn": "Añadido el ",
                 "nbDaysAdded": "+{{nb_days}}j"
-            }
+            },
+            "isFromDisabledShare": "Se ha dejado de compartir",
+            "isOwnerOfShares": "Compartido (tarjeta de cita maestra)",
+            "isFromShare": "Compartido desde otra cuenta"
         },
         "bookerModule": {
             "step": {
@@ -3834,7 +3861,8 @@
                 "coach": "Profesor",
                 "privateSlot": "Sesión",
                 "privateService": "Cita",
-                "billing": "Facturación"
+                "billing": "Facturación",
+                "rule": "Citas recurrentes"
             },
             "sections": {
                 "coach": "Profesor",
@@ -3875,6 +3903,9 @@
                 "helperText": "Ingresa tu dirección para reservar esta cita",
                 "submit": "Validar",
                 "label": "Dirección"
+            },
+            "recurrenceRule": {
+                "label": "Programe una cita recurrente"
             }
         },
         "slot": {
@@ -3917,7 +3948,31 @@
             "searchSlot": "Buscar una plaza",
             "search": "Buscar una plaza",
             "emptyDateList": "Ninguna plaza disponible hoy",
-            "selectPrivateSlot": "Seleccionar una sesión"
+            "selectPrivateSlot": "Seleccionar una sesión",
+            "groupIdentifier": {
+                "evening": {
+                    "interval": "Después de las 18h",
+                    "label": "Al final de la tarde"
+                },
+                "afternoon": {
+                    "interval": "15h-18h",
+                    "label": "Por la tarde"
+                },
+                "noon": {
+                    "interval": "12h-14h",
+                    "label": "Mediodía"
+                },
+                "morning": {
+                    "interval": "Antes del mediodía",
+                    "label": "Mañana"
+                }
+            },
+            "nbSlot": "{{ nbSlot }} franja",
+            "nbSlot_plural": "{{ nbSlot }} franjas",
+            "establishment": "Ubicación",
+            "coach": "Profesor",
+            "selectService": "Elija un servicio",
+            "selectSession": "Elija su sesión"
         },
         "privateEstablishment": {
             "delete": {
@@ -3941,7 +3996,8 @@
                 "cancel": "Cancelar",
                 "explain": "¿Estás seguro de que quieres cancelar esta sesión? Las reservas anteriores no se verán afectadas. Esto es definitivo.",
                 "title": "Supresión de la sesión"
-            }
+            },
+            "duration": "{{ minutes }} minutos"
         },
         "pageTitles": {
             "calendar": "Calendario",
@@ -4102,6 +4158,97 @@
             "credits": "Crédito",
             "expiration": "Validez",
             "all": "Todas las tarjetas"
+        },
+        "recurrenceRule": {
+            "item": {
+                "explain": "Cada {{dayOfWeek}} - {{time}}, {{delayWeek}} semanas antes"
+            },
+            "forms": {
+                "update": {
+                    "confirm": "Modificar",
+                    "cancel": "Cancelar",
+                    "content": "La modificación de la regla de recurrencia dará lugar a la modificación de las futuras citas realizadas a través de esta regla.",
+                    "title": "Modificación de citas recurrentes"
+                },
+                "delete": {
+                    "confirm": "Eliminar",
+                    "cancel": "Cancelar",
+                    "content": "Si no se programan las citas recurrentes, se cancelarán las citas futuras que se registren mediante esta regla.",
+                    "title": "Desprogramar una cita recurrente"
+                }
+            },
+            "form": {
+                "notify_member": "Envíe un correo electrónico de confirmación al registrarse como miembro",
+                "timeGroup": "Fecha de la sesión",
+                "configuration": "Reservas",
+                "title": "Programar una recurrencia"
+            },
+            "actions": {
+                "save": "Guardar",
+                "close": "Cerrar"
+            },
+            "createModal": {
+                "create": "Crear una reserva recurrente"
+            },
+            "recurrentBookings": "Citas recurrentes"
+        },
+        "privateBookingNotification": {
+            "tooltip": "Las notificaciones están activas para este tipo de cita",
+            "listItemPrimary": {
+                "notifyAllEvents": {
+                    "cancelledNotRefunded": "En cada cancelación tardía",
+                    "cancelledRefunded": "En cada cancelación reembolsada",
+                    "valid": "Para cada cita"
+                },
+                "cancelledRefunded": "Reembolso de la cancelación n°{{notify_booking_nb}}",
+                "cancelledNotRefunded": "Cancelación tardía n°{{notify_booking_nb}}",
+                "valid": "Cita n°{{notify_booking_nb}}",
+                "after": "Notificación {{hours}}h después de la cita",
+                "before": "Notificación {{hours}}h antes de la cita"
+            },
+            "form": {
+                "next": "Siguiente",
+                "chooseTime": {
+                    "second": {
+                        "after": "hora(s) después de la sesión",
+                        "before": "hora(s) antes de la sesión"
+                    },
+                    "first": "Enviar email",
+                    "title": "Parámetros"
+                },
+                "chooseWhen": {
+                    "after": "Envía el email al cliente después de la cita",
+                    "before": "Envíe el email al cliente antes de la cita",
+                    "title": "Tipo de notificación"
+                },
+                "help": {
+                    "cancelledNotRefunded": {
+                        "notifyAll": "Ayuda: la notificación se enviará al miembro cada vez que cancele una cita fuera de la fecha límite para este tipo de cita",
+                        "default": "Ayuda: la notificación será enviada al miembro cuando se cancele tarde por {{notificarNb}} vez, para este tipo de cita"
+                    },
+                    "cancelledRefunded": {
+                        "notifyAll": "Ayuda: Se enviará una notificación al miembro en cada una de sus reservas canceladas reembolsadas por este tipo de cita.",
+                        "default": "Ayuda: la notificación será enviada al miembro cuando su reserva cancelada sea devuelta n° {{notifyNb}} para este tipo de cita."
+                    },
+                    "valid": {
+                        "notifyAll": "Ayuda: la notificación se enviará al miembro por cada una de sus reservas válidas para este tipo de cita",
+                        "default": "Ayuda: la notificación será enviada al miembro cuando su reservación válida n ° {{notifyNb}}  para este tipo de cita se haga"
+                    }
+                },
+                "notifyAllEvents": "Notificar al miembro en cada evento",
+                "notifyNb": "Notificar al miembro para el evento n °:",
+                "chooseKind": {
+                    "cancelledNotRefunded": "Reserva cancelada con retraso (no reembolsada)",
+                    "cancelledRefunded": "Reserva cancelada y reembolsada",
+                    "valid": "Reserva válida",
+                    "title": "Elija el tipo de cita que desea notificar"
+                },
+                "intro": "Puedes informar a tus clientes antes o/y después de algunas citas, con respecto a algunas reglas como el número de reservas o la cancelación",
+                "title": "Añadir una notificación"
+            }
+        },
+        "marketplace": {
+            "isEmpty": "No hay cita disponible"
         }
     },
     "reminder": {
@@ -6417,6 +6564,36 @@
             "item": {
                 "delete": "Suprimir",
                 "edit": "Modificar"
+            }
+        },
+        "private_consumer_pass_links": {
+            "form": {
+                "relink": {
+                    "cancel": "Cancelar",
+                    "submit": "Compartir",
+                    "explain": "Se volverá a compartir entre los miembros.",
+                    "title": "Comparte de nuevo"
+                },
+                "unlink": {
+                    "cancel": "Cancelar",
+                    "submit": "Parar",
+                    "explain": "Se dejará de compartir. El pase maestro seguirá siendo utilizable",
+                    "title": "Dejar de compartir"
+                },
+                "create": {
+                    "noConsumerPackToLink": "No hay pase compartible",
+                    "linkButton": "Compartir",
+                    "submit": "Compartir",
+                    "previous": "Anterior",
+                    "cancel": "Cancelar",
+                    "explain": "Esta tarjeta de cita será compartida entre los dos miembros, ambos pueden usar los créditos.",
+                    "title": "Compartir la tarjeta de cita"
+                }
+            },
+            "list": {
+                "isEmpty": "No hay tarjeta de cita compartida",
+                "create": "Compartir una tarjeta de cita",
+                "title": "Pase de cita compartido"
             }
         }
     },

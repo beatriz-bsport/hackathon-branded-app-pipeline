@@ -5992,7 +5992,7 @@
                     "temporalTimeslotBooking": "Frequentie per dag en per uur",
                     "pie": "Cirkeldiagram",
                     "grid": "Frequentietabel",
-                    "area": "Gebiedsgrafiek",
+                    "area": "Gebiedskaart",
                     "bar": "Kolommendiagram",
                     "qualitativeInvoiceItem": "Opsplitsen",
                     "temporalPlannedInvoice": "Vooruitgang in de loop der tijd",

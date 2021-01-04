@@ -110,6 +110,7 @@ exports.default = {
       playlist: 'Playlist',
     },
     createDialog: {
+      showAdvanced: "Voir plus d'options",
       selectComponent: 'Choisir un composant',
       selectCoach: 'Choisir un coach',
       selectEstablishment: 'Choisir un établissement',

@@ -164,35 +164,35 @@ const TabCreation: React.FC<Props> = (props) => {
           <div className={classes.marginTop}>
             <CoachSelector
               coaches={props.coaches}
-              selectedCoaches={(data as MarketplaceCalendarData).coaches.map(
-                (c) => c.id,
-              )}
+              selectedCoaches={(
+                (data as MarketplaceCalendarData).coaches || []
+              ).map((c) => c.id)}
               selectOption={(ev: any) => setCalendarData('coaches', ev)}
             />
           </div>
           <div className={classes.marginTop}>
             <EstablishmentSelector
               establishments={props.establishments}
-              selectedEstablishment={(data as MarketplaceCalendarData).establishments.map(
-                (e) => e.id,
-              )}
+              selectedEstablishments={(
+                (data as MarketplaceCalendarData).establishments || []
+              ).map((e) => e.id)}
               selectOption={(ev: any) => setCalendarData('establishments', ev)}
             />
           </div>
           <div className={classes.marginTop}>
             <MetaActivitySelector
               metaActivities={props.metaActivities}
-              selectedMetaActivities={(data as MarketplaceCalendarData).metaActivities.map(
-                (m) => m.id,
-              )}
+              selectedMetaActivities={(
+                (data as MarketplaceCalendarData).metaActivities || []
+              ).map((m) => m.id)}
               selectOption={(ev: any) => setCalendarData('metaActivities', ev)}
             />
           </div>
           <div className={classes.marginTop}>
             <LevelSelector
-              selectedLevels={(data as MarketplaceCalendarData).levels.map(
-                (l) => l.id,
-              )}
+              selectedLevels={(
+                (data as MarketplaceCalendarData).levels || []
+              ).map((l) => l.id)}
               selectOption={(ev: any) => setCalendarData('levels', ev)}
             />
           </div>
@@ -295,11 +295,13 @@ const TabCreation: React.FC<Props> = (props) => {
           (componentType === MarketplaceComponentsEnum.calendar ||
             componentType === MarketplaceComponentsEnum.privateService) && (
             <div className={classes.showMoreContainer}>
-              <ButtonBase onClick={() => setShowAdvanceSettings(true)}>
-                <Typography color="primary">
-                  Voir les options avancées
-                </Typography>
-              </ButtonBase>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => setShowAdvanceSettings(true)}
+              >
+                {t('marketplaceSettings.createDialog.showAdvanced')}
+              </Button>
             </div>
           )}
         {renderOptionalData()}

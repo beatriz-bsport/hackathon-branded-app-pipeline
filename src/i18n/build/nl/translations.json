@@ -422,7 +422,8 @@
             "teacher": "Instructeur",
             "substituted": "Afwezig",
             "substitute": "Plaatsvervanger",
-            "vod": "Video On Demand"
+            "vod": "Video On Demand",
+            "playlist": "Afspeellijst"
         },
         "login": {
             "error": {
@@ -1483,7 +1484,8 @@
             "FR": "Frankrijk",
             "CH": "Zwitserland",
             "IE": "Ierland",
-            "AT": "Oostenrijk"
+            "AT": "Oostenrijk",
+            "MT": "Malta"
         },
         "signupCompany": {
             "form": {
@@ -1916,6 +1918,18 @@
                 "warning": "Door geen Smartlist te selecteren, riskeer je leden die al een eerder cursuskaart hebben gekocht op de hoogte te stellen",
                 "daysPastType": "Vervaldagen",
                 "submit": "Bevestigen"
+            },
+            "daysPast": {
+                "second": "dagen geleden",
+                "first": "Stuur een e-mail wanneer het lidmaatschap verlopen is"
+            },
+            "daysLeft": {
+                "second": "aantal dagen dat het lidmaatschap nog geldig is",
+                "first": "Stuur een melding wanneer"
+            },
+            "creditsLeft": {
+                "second": "kredieten",
+                "first": "Stuur een e-mail wanneer"
             }
         },
         "search": "Zoek een cursuskaart",
@@ -3111,7 +3125,9 @@
                 "isTooSoon": "Inschrijvingen zijn momenteel gesloten en worden geopend op {{date}}."
             },
             "messages": {
-                "offerLocked": "Je kunt deze sessie niet reserveren"
+                "offerLocked": "Je kunt deze sessie niet reserveren",
+                "maleUnavailable": "Mannen kunnen zich niet meer inschrijven voor deze sessie.",
+                "femaleUnavailable": "Vrouwen kunnen zich niet meer inschrijven voor deze sessie."
             },
             "hasRegistered": "Je bent ingeschreven voor deze sessie",
             "recurrent": {
@@ -3307,6 +3323,10 @@
             "notify": "Stuur een bevestigingsmail wanneer een lid zich registreert",
             "showLess": "Toon minder",
             "showMore": "Toon meer ({{count}})"
+        },
+        "memberGraph": {
+            "label": "Reserveringen",
+            "title": "Overzicht van de reserveringen"
         }
     },
     "marketplace": {
@@ -4064,6 +4084,42 @@
             "explainDisabled": "Uitgeschakeld: je beheert de links voor livestreams zelf. Deze moeten voor elke sessie geconfigureerd worden (via Zoom, enz.).",
             "explainEnabled": "Ingeschakeld: BSPORT beheert de links van je online lessen/livestreams. Het zal NIET mogelijk om er twee tegelijkertijd te organiseren.",
             "submit": "Opslaan"
+        },
+        "marketplaceSettings": {
+            "createDialog": {
+                "dialogTitle": "Tabblad wijzigen",
+                "noPlaylistError": "Selecteer een afspeellijst",
+                "noServiceError": "Selecteer een type afspraak",
+                "noTitleError": "Voer een titel in",
+                "noComponentTypeError": "Selecteer een onderdeel",
+                "submit": "Bevestig",
+                "cancel": "Annuleer",
+                "inputTitle": "Naam tabblad",
+                "selectPlaylist": "Kies een afspeellijst",
+                "selectPrivateService": "Kies een dienst",
+                "selectActivity": "Kies een activiteit",
+                "selectEstablishment": "Kies een vestiging",
+                "selectCoach": "Kies een instructeur",
+                "selectComponent": "Kies een onderdeel"
+            },
+            "componentType": {
+                "playlist": "Afspeellijst",
+                "shop": "Webshop",
+                "subscription": "Abonnement",
+                "vod": "Video On Demand",
+                "pass": "Cursuskaart",
+                "privateService": "Afspraken",
+                "workshop": "Workshops",
+                "calendar": "Kalender"
+            },
+            "preview": "Voorvertoning",
+            "saveButton": "Opslaan",
+            "link": "Toegang tot je MarketPlace voor je leden (je wordt uitgelogd)",
+            "explainMarketplace": "Je leden hebben op hun telefoon, computer en tablet toegang tot je MarketPlace (je kalender, webshop, Video On Demand, enz.). Personaliseer hier je pagina!",
+            "addButton": "Tabblad toevoegen"
+        },
+        "companyOnboarding": {
+            "error": "Je kunt deze informatie niet bewerken"
         }
     },
     "privateService": {
@@ -4151,7 +4207,8 @@
             },
             "updateCoach": "Kies een nieuwe instructeur voor deze afspraak",
             "isCancelledDate": "Geannuleerd op {{-date}} om {{time}}",
-            "restore": "Afspraak herstellen"
+            "restore": "Afspraak herstellen",
+            "bookings": "Afspraken"
         },
         "privateService": {
             "delete": {
@@ -4303,11 +4360,15 @@
                 "privateService": "Op afspraak",
                 "privateSlot": "Sessie",
                 "coach": "Instructeur",
-                "date": "Datum"
+                "date": "Datum",
+                "rule": "Periodieke afspraken"
             },
             "useCredit": "Reserveren",
             "notifyMember": {
                 "label": "Bevestigingsmail versturen"
+            },
+            "recurrenceRule": {
+                "label": "Plan een periodieke afspraak in"
             }
         },
         "consumerPass": {
@@ -4347,7 +4408,10 @@
                 },
                 "addedOn": "Toegevoegd op ",
                 "nbDaysAdded": "+{{nb_days}} dagen"
-            }
+            },
+            "isFromDisabledShare": "Delen gestopt",
+            "isOwnerOfShares": "Gedeeld (mastercard voor afspraken)",
+            "isFromShare": "Gedeeld met een ander account"
         },
         "privateServiceCompatibility": {
             "delete": {
@@ -4722,6 +4786,14 @@
                     "valid": {
                         "default": "Weetje: leden ontvangen deze melding zodra zij {{notifyNb}} geldige reservering(en) voor dit type afspraak hebben gemaakt",
                         "notifyAll": "Weetje: leden ontvangen deze melding bij elke geldige reservering die zij voor dit type afspraak hebben gemaakt"
+                    },
+                    "cancelledNotRefunded": {
+                        "notifyAll": "Weetje: leden ontvangen deze melding elke keer zij een privéafspraak te laat annuleren",
+                        "default": "Weetje: leden ontvangen deze melding als zij deze privéafspraak {{notifyNb}} keer te laat hebben geannuleerd"
+                    },
+                    "cancelledRefunded": {
+                        "default": "Weetje: leden ontvangen deze melding wanneer zij {{notifyNb}} terugbetaalde privéafspraken hebben",
+                        "notifyAll": "Weetje: leden ontvangen deze melding elke keer dit type privéafspraak geannuleerd en terugbetaald is"
                     }
                 },
                 "notifyAllEvents": "Stuur leden bij elk evenement een melding",
@@ -4747,6 +4819,42 @@
                 "after": "Stuur de melding {{hours}}u na de afspraak",
                 "before": "Stuur de melding {{hours}}u voor de afspraak"
             }
+        },
+        "recurrenceRule": {
+            "item": {
+                "explain": "Elke {{dayOfWeek}} om {{time}} - {{delayWeek}} week/weken van tevoren"
+            },
+            "forms": {
+                "update": {
+                    "content": "Het wijzigen van deze regel leidt tot aanpassingen in toekomstige afspraken die via deze regel gemaakt zijn.",
+                    "confirm": "Wijzig",
+                    "cancel": "Annuleer",
+                    "title": "Periodieke afspraak wijzigen"
+                },
+                "delete": {
+                    "confirm": "Verwijder",
+                    "cancel": "Annuleer",
+                    "content": "Het annuleren van de periodieke afspraak leidt tot de annulering van toekomstige afspraken die via deze regel zijn geregistreerd.",
+                    "title": "Annuleer een periodieke afspraak"
+                }
+            },
+            "form": {
+                "title": "Periodieke reservering inplannen",
+                "notify_member": "Stuur een bevestigingsmail wanneer iemand zich registreert",
+                "timeGroup": "Datum van de sessie",
+                "configuration": "Reserveringen"
+            },
+            "actions": {
+                "save": "Opslaan",
+                "close": "Sluit"
+            },
+            "createModal": {
+                "create": "Maak een periodieke afspraak aan"
+            },
+            "recurrentBookings": "Periodieke afspraken"
+        },
+        "marketplace": {
+            "isEmpty": "Geen afspraak beschikbaar"
         }
     },
     "datetime": {
@@ -5083,6 +5191,20 @@
             },
             "createOrUpdate": {
                 "error": "Kan relatie niet opslaan"
+            },
+            "private_consumer_pass_links": {
+                "relink": {
+                    "error": "Deze afsprakenkaart kan niet worden gedeeld",
+                    "success": "Kaart wordt gedeeld"
+                },
+                "unlink": {
+                    "error": "Het delen kan niet worden gestopt",
+                    "success": "Delen gestopt"
+                },
+                "create": {
+                    "error": "Deze afsprakenkaart kan niet worden gedeeld",
+                    "success": "Gedeelde afsprakenkaart"
+                }
             }
         },
         "paymentPack": {
@@ -5580,6 +5702,36 @@
                 "title": "Relaties",
                 "isEmpty": "Nog geen relaties aangemaakt"
             }
+        },
+        "private_consumer_pass_links": {
+            "form": {
+                "relink": {
+                    "cancel": "Annuleer",
+                    "submit": "Deel",
+                    "explain": "Het delen wordt opnieuw geactiveerd.",
+                    "title": "Opnieuw delen"
+                },
+                "unlink": {
+                    "cancel": "Annuleer",
+                    "submit": "Stop",
+                    "explain": "Het delen wordt gestopt. De mastercard is nog steeds bruikbaar",
+                    "title": "Stop delen"
+                },
+                "create": {
+                    "noConsumerPackToLink": "Geen deelbare kaarten",
+                    "linkButton": "Deel",
+                    "submit": "Deel",
+                    "previous": "Vorige",
+                    "cancel": "Annuleer",
+                    "explain": "Deze afsprakenkaart wordt tussen leden gedeeld. Beide leden kunnen de kredieten gebruiken.",
+                    "title": "Afsprakenkaart delen"
+                }
+            },
+            "list": {
+                "isEmpty": "Geen gedeelde afsprakenkaart",
+                "create": "Gedeelde afsprakenkaart",
+                "title": "Gedeelde afsprakenkaart"
+            }
         }
     },
     "coupon": {
@@ -5832,7 +5984,50 @@
                 "1": "Cursuskaarten"
             }
         },
-        "save": "Opslaan"
+        "save": "Opslaan",
+        "customChart": {
+            "form": {
+                "radio": {
+                    "qualitativeBooking": "Opsplitsen",
+                    "temporalTimeslotBooking": "Frequentie per dag en per uur",
+                    "pie": "Cirkeldiagram",
+                    "grid": "Frequentietabel",
+                    "area": "Gebiedsgrafiek",
+                    "bar": "Kolommendiagram",
+                    "qualitativeInvoiceItem": "Opsplitsen",
+                    "temporalPlannedInvoice": "Vooruitgang in de loop der tijd",
+                    "temporalPayment": "Vooruitgang in de loop der tijd",
+                    "temporalBooking": "Vooruitgang in de loop der tijd",
+                    "temporalMember": "Vooruitgang in de loop der tijd"
+                },
+                "graphComponent": "Gewenste weergave",
+                "aggregateHelper": "Voorbeeld: toont de progressie van het aantal leden i.p.v. het aantal nieuwe leden per maand.",
+                "aggregate": "Accumuleer",
+                "name": "Titel van de grafiek",
+                "selector": {
+                    "invoice": "Aankopen",
+                    "payment": "Betalingen",
+                    "booking": "Reserveringen",
+                    "member": "Nieuwe leden",
+                    "object": {
+                        "helperText": "Kies wat je wilt bekijken",
+                        "placeholder": "Selecteer de data",
+                        "isEmpty": "Geen data geselecteerd"
+                    }
+                },
+                "datatype": "Type grafiek",
+                "submit": "Opslaan",
+                "cancel": "Annuleer",
+                "title": "Grafiek"
+            },
+            "noResource": "Selecteer de data.",
+            "addChart": "Grafiek maken"
+        },
+        "booking": {
+            "popover": "Het totaal aantal geregistreerde reserveringen voor de geselecteerde datum/data. Je kunt filteren op annuleringen, te late annuleringen, enz.",
+            "caption": "Geregistreerde reserveringen",
+            "title": "Reserveringen"
+        }
     },
     "common": {
         "colorPicker": {
@@ -5994,7 +6189,21 @@
                     "helperText": "Het aantal dagen voordat het winkelmandje van een led automatisch wordt geleegd",
                     "label": "Vervaldatum van het winkelmandje"
                 },
-                "cancelledOffersManager": "Geannuleerde sessies standaard op eigen kalender weergeven"
+                "cancelledOffersManager": "Geannuleerde sessies standaard op eigen kalender weergeven",
+                "checkBalance": {
+                    "shiftRatio": {
+                        "explain": "Als een sessie meer dan {{numberCheck}} reserveringen heeft, worden er geen toekomstige reserveringen geaccepteerd die de onevenwichtigheid tussen MANNEN/VROUWEN groter maakt dan {{gender_max_shift_for_booking}} personen.",
+                        "helperText": "Beperk de onevenwichtigheid tussen MANNEN/VROUWEN tot {{gender_max_shift_for_booking}} personen",
+                        "placeholder": "Maximale onevenwichtigheid tussen MANNEN/VROUWEN"
+                    },
+                    "numberCheck": {
+                        "helperText": "Wanneer {{number}} leden zich voor een sessie inschrijven, worden alleen reserveringen geaccepteerd als de onevenwichtigheid tussen MANNEN/VROUWEN minder is dan de volgende waarde.",
+                        "placeholder": "Controleer de onevenwichtigheid tussen MANNEN/VROUWEN wanneer het aantal reserveringen groter is dan"
+                    },
+                    "checkbox": "Beperk het onevenwicht tussen MANNEN/VROUWEN voor reserveringen"
+                },
+                "offerBalance": "Stel een regel in dat het aantal MANNEN/VROUWEN per sessie reguleert",
+                "showGenderOffer": "Toon het aantal mannen en vrouwen die een aanbod boeken"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -6214,7 +6423,9 @@
                 "sumup": "Overzicht"
             },
             "title": "Factuur {{ uuid }}",
-            "titleRevert": "Bemachtigen {{ uuid }}"
+            "titleRevert": "Bemachtigen {{ uuid }}",
+            "titleReceipt": "Betaalbewijs {{ uuid }}",
+            "titleReverted": "Factuur (geannuleerd) {{ uuid }}"
         },
         "creditAccountBalance": {
             "current": "Huidig saldo"
@@ -6273,7 +6484,10 @@
             "amount": {
                 "label": "Te innen bedrag"
             },
-            "amountRemaining": "Resterend bedrag: {{ amount }}"
+            "amountRemaining": "Resterend bedrag: {{ amount }}",
+            "billingMoreThanNeeded": "Als je meer dan het factuurbedrag incasseert, wordt het saldo van het lid met het verschil verhoogd",
+            "errorSecretExplain2": "Neem contact op met dev+payment-intent@bsport.io als het probleem aanhoudt",
+            "errorSecretExplain1": "Deze betaalmethode is momenteel niet beschikbaar"
         },
         "balance": {
             "updaterDialog": {
@@ -6340,7 +6554,8 @@
                 "amount": "Bedrag",
                 "date": "Factuurdatum",
                 "id": "ID",
-                "member": "Lid"
+                "member": "Lid",
+                "invoiceType": "Type"
             },
             "actions": {
                 "goToInvoice": "Toon de factuur"
@@ -6373,6 +6588,17 @@
                 "1": "Online betaling",
                 "0": "Contante betaling"
             }
+        },
+        "invoiceInfo": {
+            "3": "Deze factuur is afkomstig van een gegevensoverdracht. Wegens juridische redenen kunnen we geen .PDF verstrekken of de factuur annuleren.",
+            "2": "Dit betaalbewijs toont de wijziging in het balans van je lid."
+        },
+        "invoiceType": {
+            "reversed": "Factuur (geannuleerd)",
+            "return": "Creditnota",
+            "credit_payment": "Ontvangstbewijs (wijziging balans)",
+            "migration": "Gegevensoverdracht",
+            "regular": "Factuur"
         }
     },
     "waitingList": {
@@ -6546,7 +6772,8 @@
                 "notificationRule": "Transactionele e-mails",
                 "broadcast": "Livestreamen",
                 "general": "Algemeen",
-                "platform_billing": "BSPORT-abonnement"
+                "platform_billing": "BSPORT-abonnement",
+                "marketplaceSettings": "Instellingen MarketPlace"
             },
             "pass": "Cursuskaart",
             "goBack": "Terug",

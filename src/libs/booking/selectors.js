@@ -122,7 +122,7 @@ export const withOfferFull = memoize((selector) =>
 
 export const getFirstTimeNotifications = createSelector(
   [_getNotifications, _getNotificationsIds],
-  (data, ids) => ids.map((id) => data[id]),
+  (data, ids) => ids.map((id) => data[id]).filter((n) => !!n),
 );
 
 export const withBookingNotifications = memoize((selector) =>

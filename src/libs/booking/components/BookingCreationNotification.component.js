@@ -134,44 +134,46 @@ const BookingCreationNotification = (props: Props) => {
   return (
     <div>
       <Paper className={classes.paper}>
-        {props.notifications.items.map((notif) => (
-          <ListItem key={notif.id} divider>
-            <Switch
-              checked={notif.active}
-              onChange={() =>
-                props.updateNotification(notif.id, { active: !notif.active })
-              }
-            />
-            <div className={classes.text}>
-              <ListItemText
-                primary={renderPrimaryText(notif, t)}
-                secondary={renderSecondaryText(notif, props.emails, t)}
+        {props.notifications.items
+          .filter((n) => !!n)
+          .map((notif) => (
+            <ListItem key={notif.id} divider>
+              <Switch
+                checked={notif.active}
+                onChange={() =>
+                  props.updateNotification(notif.id, { active: !notif.active })
+                }
               />
-            </div>
-            <ListItemSecondaryAction>
-              <IconButton
-                edge="end"
-                aria-label="Edit"
-                color="primary"
-                onClick={() => {
-                  props.setSelectedNotification(notif);
-                  props.setIsFormOpen(true);
-                }}
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                color="secondary"
-                onClick={() => {
-                  props.setSelectedNotification(notif);
-                  props.setIsDeleteModalOpen(true);
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
+              <div className={classes.text}>
+                <ListItemText
+                  primary={renderPrimaryText(notif, t)}
+                  secondary={renderSecondaryText(notif, props.emails, t)}
+                />
+              </div>
+              <ListItemSecondaryAction>
+                <IconButton
+                  edge="end"
+                  aria-label="Edit"
+                  color="primary"
+                  onClick={() => {
+                    props.setSelectedNotification(notif);
+                    props.setIsFormOpen(true);
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  color="secondary"
+                  onClick={() => {
+                    props.setSelectedNotification(notif);
+                    props.setIsDeleteModalOpen(true);
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
       </Paper>
       <div className={classes.addButtonContainer}>
         <Button

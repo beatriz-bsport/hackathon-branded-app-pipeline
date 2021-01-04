@@ -132,14 +132,15 @@ export const InvoiceContent = (props: Props) => {
           </div>
         )}
       </Paper>
-      {props.invoice.invoice_type === INVOICE_TYPE_MIGRATION && (
-        <div className={classes.explainMigration}>
-          <InfoOutlinedIcon className={classes.iconLeft} />
-          <Typography color="textSecondary">
-            {t('actions.explainMigrationInvoice')}
-          </Typography>
-        </div>
-      )}
+      {!!props.invoice &&
+        props.invoice.invoice_type === INVOICE_TYPE_MIGRATION && (
+          <div className={classes.explainMigration}>
+            <InfoOutlinedIcon className={classes.iconLeft} />
+            <Typography color="textSecondary">
+              {t('actions.explainMigrationInvoice')}
+            </Typography>
+          </div>
+        )}
       {!!props.finalizeInvoice && (
         <div className={classes.buttonRow}>
           <Button

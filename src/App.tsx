@@ -9,6 +9,7 @@ import { History } from 'history';
 // eslint-disable-next-line
 import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
 import { fetchSCT } from 'bsport-saas/src/actions/category.actions';
+import SnackbarPile from 'bsport-saas/src/SnackbarPile.component';
 import { getTheme } from 'bsport-saas/src/theme';
 import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 
@@ -21,11 +22,13 @@ import PassWidget from './components/Pass';
 import { RootState } from './store/reducer';
 import './App.scss';
 import asyncComponent from './utils/async-component';
+import { ConnectedRouter } from "connected-react-router";
 
 const CalendarWidget = asyncComponent(() => import('./components/Calendar'));
 const PassWidget = asyncComponent(() => import('./components/Pass'));
 const ShopWidget = asyncComponent(() => import('./components/Shop'));
 const WorkshopWidget = asyncComponent(() => import('./components/Workshop'));
+const NewsletterWidget = asyncComponent(() => import('./components/Newsletter'));
 
 export type MaterialStyle<S> = {
   classes: Record<keyof S, string>
@@ -112,6 +115,12 @@ class BsportWidget extends Component<Props> {
             location={history.location}
           />
         );
+      case 'newsletter':
+        return (
+          <NewsletterWidget
+            companyId={companyId}
+          />
+        )
       default:
         return (
           <CalendarWidget
@@ -142,28 +151,33 @@ class BsportWidget extends Component<Props> {
         <MuiThemeProvider
           theme={getTheme(this.props.theme)}
         >
-          {this.renderWidget()}
-          {!!theme && (
-            <div className={this.props.classes.poweredByContainer}>
-              <div className={this.props.classes.centerRight}>
-                <a
-                  className={this.props.classes.poweredBy}
-                  href={`https://pro.bsport.io?utm_source=widget&utm_medium=referral&utm_content=bsport_logo&utm_campaign=${(
-                    theme.company_name || ''
-                  ).replace(/\//gi, '-')}`}
-                >
-                  <Typography color="textSecondary" variant="caption">
-                    Powered by
-                  </Typography>
-                  <img
-                    alt="bsport"
-                    className={this.props.classes.logo}
-                    src="https://cdn.bsport.io/bsport_logo_txt.png"
-                  />
-                </a>
+          <React.Suspense fallback={<div />}>
+
+            {this.renderWidget()}
+            {!!theme && (
+              <div className={this.props.classes.poweredByContainer}>
+                <div className={this.props.classes.centerRight}>
+                  <a
+                    className={this.props.classes.poweredBy}
+                    href={`https://pro.bsport.io?utm_source=widget&utm_medium=referral&utm_content=bsport_logo&utm_campaign=${(
+                      theme.company_name || ''
+                    ).replace(/\//gi, '-')}`}
+                  >
+                    <Typography color="textSecondary" variant="caption">
+                      Powered by
+                    </Typography>
+                    <img
+                      alt="bsport"
+                      className={this.props.classes.logo}
+                      src="https://cdn.bsport.io/bsport_logo_txt.png"
+                    />
+                  </a>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+
+            <SnackbarPile store={this.props.store} />
+          </React.Suspense>
         </MuiThemeProvider>
       </div>
     );

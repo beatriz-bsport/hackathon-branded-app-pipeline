@@ -39,6 +39,10 @@ const defaultConfig = {
               options: {
                 presets: ['react-app'],
                 compact: true,
+                plugins: [
+                  '@babel/plugin-proposal-class-properties',
+                  '@babel/plugin-proposal-optional-chaining',
+                ],
                 overrides: [
                   {
                     test: /\.(ts|tsx)$/,

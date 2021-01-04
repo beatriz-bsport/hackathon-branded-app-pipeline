@@ -1,8 +1,6 @@
-// @flow
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { compose, withProps } from 'recompose';
+import { compose, withProps, withStateHandlers } from 'recompose';
 import { Moment } from 'bsport-saas/src/i18n';
 
 import { MarketplaceCalendarStyled } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendar.page';
@@ -24,32 +22,29 @@ import { getCoaches } from 'bsport-saas/src/libs/associated-coach/selectors';
 import { getMetaActivities } from 'bsport-saas/src/libs/meta-activity/selectors';
 
 import { getAllEstablishments } from 'bsport-saas/src/libs/establishment/selectors';
+import { RootState } from '../store/reducer';
 
 const BACKOFFICE_URI = 'https://backoffice.bsport.io';
 const DATE_FORMAT = 'YYYY-MM-DD';
 
-type Props = {
-  companyId: number,
-  getOffersFromFilter: (*) => void,
-  loading: ?boolean,
-  coaches: [],
-  establishments: [],
-  metaActivities: [],
-  compatibleConsumerPacks: [],
-  compatiblePaymentPacks: [],
-  goToBook: (bookingId: number, companyId: number) => void,
-  goToBookOption: (bookingId: number, companyId: number) => void,
-  fetchPaymentPacks: () => void,
-  fetchCompatiblePass: () => void,
-  goToPackPayment: (packId: number, offerId: number, companyId: number) => void,
-  onCompletePurchase: () => void,
+
+type OwnProps = {
+  companyId: string;
   defaultFilters: {
-    coaches: [],
-    establishments: [],
-    levels: [],
-    metaActivities: [],
+    coaches: number[];
+    establishments: number[];
+    levels: number[];
+    metaActivities: number[];
   },
-  compactMode: boolean,
+  compactMode: any;
+  filtersOpen: boolean;
+}
+
+type ConnectProps = ReturnType<typeof mapStateToProps>
+  & typeof mapDispatchToProps;
+
+type Props = OwnProps & ConnectProps &
+  ReturnType<typeof mapWithProps> & {
 };
 
 type State = {
@@ -64,7 +59,7 @@ export class CalendarWidget extends Component<Props, State> {
     this.state = {
       filtersOpen: !!props.filtersOpen,
       filters: props.defaultFilters || {},
-      selectedDate: Moment(),
+      selectedDate: Moment().format(DATE_FORMAT),
     };
   }
 
@@ -80,7 +75,7 @@ export class CalendarWidget extends Component<Props, State> {
     });
   };
 
-  fetchOfferList = (params) => {
+  fetchOfferList = (params: any) => {
     this.props.fetchOfferList({
       ...(params || {}),
       company: this.props.companyId,
@@ -94,6 +89,14 @@ export class CalendarWidget extends Component<Props, State> {
     });
   };
 
+  setOtherParams = (key: string) => {
+    return (arg: any) => {
+      if (key === 'date') {
+        this.setState({ selectedDate: arg });
+      }
+    };
+  }
+
   render() {
     return (
       <MarketplaceCalendarStyled
@@ -103,7 +106,9 @@ export class CalendarWidget extends Component<Props, State> {
         setFilters={this.setFilters}
         fetchOfferList={this.fetchOfferList}
         handleDateChange={this.handleDateChange}
-        selectedDate={this.state.selectedDate}
+        otherParams={{
+          date: this.state.selectedDate,
+        }}
         compactMode={this.props.compactMode}
         offers={this.props.offers}
         toogleFiltersOpen={() =>
@@ -113,6 +118,7 @@ export class CalendarWidget extends Component<Props, State> {
         }
         fetchEstablishmentBulk={this.props.fetchEstablishmentBulk}
         fetchMetaActivityBulk={this.props.fetchMetaActivityBulk}
+        fetchAssociatedCoachBulkFromCoachIds={this.props.fetchCoachBulk}
         fetchCoachBulk={this.props.fetchCoachBulk}
         hideMap
         loading={this.props.loading}
@@ -128,81 +134,72 @@ export class CalendarWidget extends Component<Props, State> {
         goToPackPayment={this.props.goToPackPayment}
         onCompletePurchase={this.props.onCompletePurchase}
         theme={this.props.theme}
+        setOtherParams={this.setOtherParams}
       />
     );
   }
 }
 
+
+const mapStateToProps = (state: RootState) => ({
+  offers: withMetaActivity(
+    withCoach(withEstablishment(getMarketplaceOfferList)))(state),
+  // @ts-ignore
+  coaches: getCoaches(state),
+  // @ts-ignore
+  establishments: getAllEstablishments(state),
+  metaActivities: getMetaActivities(state),
+  // @ts-ignore
+  theme: themeSelectors.getTheme(state),
+  compatibleConsumerPacks: state.payment.compatibleConsumerPacks || [],
+  compatiblePaymentPacks: state.payment.compatiblePaymentPacks || [],
+});
+
+const mapDispatchToProps = {
+  fetchOfferList: fetchOfferListAction,
+  fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+  fetchCoachBulk: fetchCoachBulkAction,
+  fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+  fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
+  fetchCompatiblePass: paymentActions.fetchCompatiblePass,
+};
+
+const mapWithProps = (props: ConnectProps & OwnProps) => ({
+  goToPackPayment: (packId: number, offerId: number, companyId: number) => {
+    window.open(
+      `${BACKOFFICE_URI}/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${companyId}`
+    );
+  },
+  onCompletePurchase: () => {
+    window.open(`${BACKOFFICE_URI}/customer`);
+  },
+  goToBook: (id: number, companyId: number) => {
+    window.open(
+      `${BACKOFFICE_URI}/customer/payment/offer/${id}?membership=${companyId}`
+    );
+  },
+  goToBookOption: (id: number, companyId: number) => {
+    window.open(
+      `${BACKOFFICE_URI}/customer/payment/offer/${id}?membership=${companyId}`
+    );
+  },
+  fetchOfferList: (params: any) =>
+    props.fetchOfferList(params, {
+      onSuccess: (offerList: any) => {
+        props.fetchEstablishmentBulk([
+          ...offerList.map((o: any) => o.establishment),
+          ...offerList.map((o: any) => o.establishment_override),
+        ]);
+        props.fetchCoachBulk([
+          ...offerList.map((o: any) => o.coach),
+          ...offerList.map((o: any) => o.coach_override),
+        ]);
+        props.fetchMetaActivityBulk([...offerList.map((o: any) => o.meta_activity)]);
+      },
+    }),
+});
+
 export default compose(
-  connect(
-    (state) => ({
-      offers: withMetaActivity(
-        withCoach(withEstablishment(getMarketplaceOfferList)),
-      )(state),
-      coaches: getCoaches(state),
-      establishments: getAllEstablishments(state),
-      metaActivities: getMetaActivities(state),
-      theme: themeSelectors.getTheme(state),
-    }),
-    {
-      fetchOfferList: fetchOfferListAction,
-      fetchEstablishmentBulk: fetchEstablishmentBulkAction,
-      fetchCoachBulk: fetchCoachBulkAction,
-      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
-    },
-  ),
-  // for metaactivity dialog
-  connect(
-    (state) => ({
-      compatibleConsumerPacks: state.payment.compatibleConsumerPacks || [],
-      compatiblePaymentPacks: state.payment.compatiblePaymentPacks || [],
-    }),
-    {
-      fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
-      fetchCompatiblePass: paymentActions.fetchCompatiblePass,
-    },
-  ),
-  withProps(
-    ({
-      fetchOfferList,
-      fetchEstablishmentBulk,
-      fetchCoachBulk,
-      fetchMetaActivityBulk,
-    }) => ({
-      fetchOfferList: (params) =>
-        fetchOfferList(params, {
-          onSuccess: (offerList) => {
-            fetchEstablishmentBulk([
-              ...offerList.map((o) => o.establishment),
-              ...offerList.map((o) => o.establishment_override),
-            ]);
-            fetchCoachBulk([
-              ...offerList.map((o) => o.coach),
-              ...offerList.map((o) => o.coach_override),
-            ]);
-            fetchMetaActivityBulk([...offerList.map((o) => o.meta_activity)]);
-          },
-        }),
-    }),
-  ),
-  withProps(() => ({
-    goToPackPayment: (packId, offerId, companyId) => {
-      window.open(
-        `${BACKOFFICE_URI}/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${companyId}`,
-      );
-    },
-    onCompletePurchase: () => {
-      window.open(`${BACKOFFICE_URI}/customer`);
-    },
-    goToBook: (id, companyId) => {
-      window.open(
-        `${BACKOFFICE_URI}/customer/payment/offer/${id}?membership=${companyId}`,
-      );
-    },
-    goToBookOption: (id, companyId) => {
-      window.open(
-        `${BACKOFFICE_URI}/customer/payment/offer/${id}?membership=${companyId}`,
-      );
-    },
-  })),
+  connect(mapStateToProps, mapDispatchToProps),
+  withProps(mapWithProps),
 )(CalendarWidget);

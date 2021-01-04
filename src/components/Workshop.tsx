@@ -84,7 +84,6 @@ const mapDispatchToProps = {
   fetchMetaActivityBulk: fetchMetaActivityBulkAction,
 };
 
-// @ts-ignore
 const mapWithProps = (props: ConnectProps & OwnProps) => ({
   goToBookOption: (id: number, companyId: number) => {
     window.open(
@@ -108,18 +107,19 @@ const mapWithProps = (props: ConnectProps & OwnProps) => ({
           ? defaultFilters.establishments
           : [],
         level__in: defaultFilters ? defaultFilters.levels : [],
-        // @ts-ignore
         ...(theme && theme.show_cancelled_offers_customer
           ? {}
           : { available: true }),
       },
       {
         onSuccess: (offerList: any) => {
-          props.fetchEstablishmentBulk([
-            ...offerList.map((o: any) => o.establishment),
-          ]);
-          props.fetchCoachBulk([...offerList.map((o: any) => o.coach)]);
-          props.fetchMetaActivityBulk([...offerList.map((o: any) => o.meta_activity)]);
+          props.fetchEstablishmentBulk(
+            offerList.map((o: any) => o.establishment)
+          );
+          props.fetchCoachBulk(offerList.map((o: any) => o.coach));
+          props.fetchMetaActivityBulk(
+            offerList.map((o: any) => o.meta_activity)
+          );
         },
       }
     );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { compose, withProps, withStateHandlers } from 'recompose';
+import { compose, withProps } from 'recompose';
 import { Moment } from 'bsport-saas/src/i18n';
 
 import { MarketplaceCalendarStyled } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendar.page';
@@ -121,7 +121,7 @@ export class CalendarWidget extends Component<Props, State> {
         fetchAssociatedCoachBulkFromCoachIds={this.props.fetchCoachBulk}
         fetchCoachBulk={this.props.fetchCoachBulk}
         hideMap
-        loading={this.props.loading}
+        loading={this.props.offersLoading}
         coaches={this.props.coaches}
         establishments={this.props.establishments}
         metaActivities={this.props.metaActivities}
@@ -144,6 +144,7 @@ export class CalendarWidget extends Component<Props, State> {
 const mapStateToProps = (state: RootState) => ({
   offers: withMetaActivity(
     withCoach(withEstablishment(getMarketplaceOfferList)))(state),
+  offersLoading: state.offer.loading,
   // @ts-ignore
   coaches: getCoaches(state),
   // @ts-ignore
@@ -201,5 +202,5 @@ const mapWithProps = (props: ConnectProps & OwnProps) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withProps(mapWithProps),
+  withProps(mapWithProps)
 )(CalendarWidget);

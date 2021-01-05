@@ -13,6 +13,7 @@ export type Theme = {
   gtmId?: string;
   facebookPixelId?: string;
   timezone_name: string;
+  show_cancelled_offers_customer: boolean;
 };
 
 export type ThemeState = {

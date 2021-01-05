@@ -1,12 +1,15 @@
 import i18n from 'i18next';
 // import Backend from 'i18next-locize-backend';
-import HttpBackend from 'i18next-http-backend';
 import ChainedBackend from 'i18next-chained-backend';
 import LocalStorageBackend from 'i18next-localstorage-backend';
+import axios from 'axios';
 
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 import Moment from 'moment-timezone';
+import HttpBackend from 'i18next-http-backend';
+import config from '../config';
+
 import 'moment/locale/fr';
 import 'moment/locale/de';
 import 'moment/locale/nl';
@@ -16,6 +19,26 @@ import 'moment/locale/it';
 import namespaces from './namespaces.json';
 
 const isDebug = !['production', 'test'].includes(process.env.NODE_ENV);
+const customRequest = config.I18N_CUSTOM_SERVER === 'TRUE';
+
+const backendOptions = {};
+
+if (isDebug) {
+  backendOptions.expirationTime = 5 * 60 * 1000;
+}
+if (customRequest) {
+  backendOptions.request = (options, url, payload, callback) => {
+    const _url = `https://backoffice.bsport.io${url}`;
+    axios
+      .get(_url)
+      .then((res) => callback(null, res))
+      .catch((err) => {
+        callback(err, false);
+      });
+  };
+  backendOptions.crossDomain = true;
+  backendOptions.withCredentials = true;
+}
 
 i18n
   .use(initReactI18next)
@@ -25,7 +48,7 @@ i18n
   .init({
     backend: {
       backends: isDebug ? [HttpBackend] : [LocalStorageBackend, HttpBackend],
-      backendOptions: isDebug ? [{}] : [{ expirationTime: 5 * 60 * 1000 }, {}],
+      backendOptions: [backendOptions],
     },
     /*
     backend: {

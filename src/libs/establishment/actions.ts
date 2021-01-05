@@ -256,7 +256,10 @@ export const establishmentBulkRetrieveActions = {
   success: createAction('ESTABLISHMENT/BULK_RETRIEVE/SUCCESS'),
 };
 
-function fetchEstablishmentBulkBase(params: any = {}, options: OptionCallback) {
+function fetchEstablishmentBulkBase(
+  params: any = {},
+  options?: OptionCallback,
+) {
   return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(establishmentBulkRetrieveActions.isLoading(true));
     dispatch(establishmentBulkRetrieveActions.error(null));
@@ -277,7 +280,7 @@ function fetchEstablishmentBulkBase(params: any = {}, options: OptionCallback) {
 
 export const fetchEstablishmentBulk = (
   ids: Array<number>,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) => {
   return async (
     dispatch: ThunkDispatch<any, any, any>,
@@ -296,7 +299,7 @@ export const fetchEstablishmentBulk = (
 
 export const fetchAssociatedEstablishmentBulk = (
   ids: Array<number>,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) => {
   return async (dispatch: ThunkDispatch<any, any, any>) => {
     const ids_uniq = uniq(ids.filter((id) => !!id));
@@ -320,7 +323,7 @@ export const favoriteActions = {
 
 export function fetchEstablishmentFavorite(
   company: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(favoriteActions.isLoading(true));

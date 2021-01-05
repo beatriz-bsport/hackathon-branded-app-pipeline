@@ -1,5 +1,3 @@
-// @flow
-
 import {
   getAuth,
   postAuth,
@@ -8,6 +6,7 @@ import {
   buildUrlParams,
   patchAuth,
   API_V1_URI,
+  post,
 } from '../../http';
 
 const MARKETING_ENDPOINT = `${API_V1_URI}/marketing`;
@@ -38,4 +37,13 @@ export const createMarketingNotification = (data: any) => {
 
 export const updateMarketingNotification = (id: number, data: any) => {
   return patchAuth(`${MARKETING_ENDPOINT}/marketing_notification/${id}/`, data);
+};
+
+export const createNewsletterMember = (data: {
+  email: string;
+  company: number;
+  first_name: string;
+  last_name?: string;
+}) => {
+  return post(`${MARKETING_ENDPOINT}/marketing_newsletter`, data);
 };

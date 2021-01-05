@@ -49,7 +49,7 @@ export function buildUrlParams(params: any) {
 }
 
 export function setAuthToken(token: string) {
-  storage.setItem('http:token', token);
+  storage.setItem('bsport:http:token', token);
 }
 
 export function getCookie(name) {
@@ -63,7 +63,7 @@ const getTimezoneName = () => {
 };
 
 export function getAuthToken() {
-  return storage.getItem('http:token') || getCookie('auth_token');
+  return storage.getItem('http:token') || storage.getItem('bsport:http:token');
 }
 
 export async function postBase(uri: string, data: Object, headers: Object) {

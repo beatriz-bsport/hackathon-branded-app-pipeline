@@ -22,8 +22,6 @@ import Root from './Root';
 
 import initStore from './store';
 
-import { initLoginFromCookie } from './auth';
-
 import theme from './theme';
 
 export class App extends Component<{}, {}> {
@@ -41,8 +39,6 @@ export class App extends Component<{}, {}> {
     const { store, history } = initStore();
     this.store = store;
     this.history = history;
-
-    initLoginFromCookie(this.store);
   }
 
   componentDidMount() {

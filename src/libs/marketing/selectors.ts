@@ -1,5 +1,3 @@
-// @flow
-
 import { createSelector } from 'reselect';
 
 import type { State } from '../../state/types';
@@ -53,19 +51,20 @@ export const getPaymentPackNotifications = createSelector(
         [
           CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
           CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
+          // @ts-ignore
         ].includes(notif.kind),
       );
   },
 );
 
-export const withPrivateBookingNotification = (selector) =>
+export const withPrivateBookingNotification = (selector: any) =>
   createSelector(
     [selector, getPrivateBookingNotifications],
-    (serviceList, notifList) =>
-      serviceList.map((service) => {
+    (serviceList: any, notifList) =>
+      serviceList.map((service: any) => {
         if (
           notifList.find(
-            (notif) => notif.event_rules.private_service_id === service.id,
+            (notif: any) => notif.event_rules.private_service_id === service.id,
           ) !== undefined
         ) {
           return { ...service, hasActiveNotification: true };
@@ -74,30 +73,32 @@ export const withPrivateBookingNotification = (selector) =>
       }),
   );
 
-export const withBookingNotification = (selector) =>
-  createSelector([selector, getBookingNotifications], (itemList, notifList) =>
-    itemList.map((item) => {
-      if (
-        notifList.find(
-          (notif) =>
-            notif.event_rules.establishment_id === item.id ||
-            notif.event_rules.meta_activity_id === item.id,
-        ) !== undefined
-      ) {
-        return { ...item, hasActiveNotification: true };
-      }
-      return { ...item, hasActiveNotification: false };
-    }),
-  );
-
-export const withPaymentPackNotification = (selector) =>
+export const withBookingNotification = (selector: any) =>
   createSelector(
-    [selector, getPaymentPackNotifications],
-    (packList, notifList) =>
-      packList.map((pack) => {
+    [selector, getBookingNotifications],
+    (itemList: any, notifList) =>
+      itemList.map((item: any) => {
         if (
           notifList.find(
-            (notif) => notif.event_rules.payment_pack_id === pack.id,
+            (notif: any) =>
+              notif.event_rules.establishment_id === item.id ||
+              notif.event_rules.meta_activity_id === item.id,
+          ) !== undefined
+        ) {
+          return { ...item, hasActiveNotification: true };
+        }
+        return { ...item, hasActiveNotification: false };
+      }),
+  );
+
+export const withPaymentPackNotification = (selector: any) =>
+  createSelector(
+    [selector, getPaymentPackNotifications],
+    (packList: any, notifList) =>
+      packList.map((pack: any) => {
+        if (
+          notifList.find(
+            (notif: any) => notif.event_rules.payment_pack_id === pack.id,
           ) !== undefined
         ) {
           return { ...pack, hasActiveNotification: true };

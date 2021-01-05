@@ -2635,6 +2635,7 @@
         "playlist": "Playlist"
       },
       "createDialog": {
+        "showAdvanced": "Voir plus d'options",
         "selectComponent": "Choisir un composant",
         "selectCoach": "Choisir un coach",
         "selectEstablishment": "Choisir un établissement",
@@ -5170,6 +5171,18 @@
       "title": "Add-on",
       "content": "Nous avons bien noté votre intérêt, merci pour votre intérêt ! Votre chargé de compte bsport vous recontactera très vite avec plus d'informations.",
       "close": "Fermer"
+    }
+  },
+  "marketing": {
+    "newsletter": {
+      "form": {
+        "title": "Inscrivez-vous à notre newsletter",
+        "email": "Adresse email",
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "validate": "Valider"
+      },
+      "messages": { "error": "Impossible d'enregistrer votre email pour le moment", "success": "C'est enregistré !" }
     }
   }
 }

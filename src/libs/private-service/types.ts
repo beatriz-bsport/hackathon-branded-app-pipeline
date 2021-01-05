@@ -242,17 +242,7 @@ export interface PrivateServiceState {
     allIds: Array<number>;
     createOrUpdate: ErrorAndLoading;
   };
-  privateBooking: {
-    byId: { [id: string]: PrivateBooking };
-    allIds: Array<number>;
-    loading: boolean;
-    error?: Error;
-    createOrUpdate: {
-      loading?: boolean;
-      error?: Error;
-    };
-  };
-  recurrenceRulePrivateBooking: {
+  recurrenceRule: {
     byId: { [id: number]: RecurrenceRulePrivateBooking };
     allIds: Array<number>;
     loading: boolean;
@@ -265,18 +255,6 @@ export interface PrivateServiceState {
       loading: boolean;
       error?: Error;
     };
-  };
-  customEvent: {
-    byId: { [key: string]: any };
-    loading: boolean;
-    error?: Error;
-    createOrUpdate: {
-      loading: boolean;
-      error?: Error;
-    };
-  };
-  resource: {
-    byId: { [key: string]: any };
   };
   serviceGroup: ErrorAndLoading & {
     byId: { [key: string]: PrivateServiceGroup };

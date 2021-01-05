@@ -64,10 +64,17 @@ export class CalendarWidget extends Component<Props, State> {
   }
 
   setFilters = (filters: any) => {
-    this.setState((prevState) => ({
-      filters: { ...prevState.filters, ...filters },
-    }));
-  };
+    const _this = this;
+
+    return (values: any) => {
+
+      console.log("values", values)
+
+      _this.setState((prevState) => ({
+        filters: { ...prevState.filters, [filters]: values },
+      }));
+    };
+  }
 
   handleDateChange = (selectedDate: string) => {
     this.setState({
@@ -101,13 +108,13 @@ export class CalendarWidget extends Component<Props, State> {
     return (
       <MarketplaceCalendarStyled
         companyId={this.props.companyId}
-        filtersOpen={this.state.filtersOpen}
         filters={this.state.filters}
         setFilters={this.setFilters}
         fetchOfferList={this.fetchOfferList}
         handleDateChange={this.handleDateChange}
         otherParams={{
           date: this.state.selectedDate,
+          filtersOpen: this.state.filtersOpen.toString(),
         }}
         compactMode={this.props.compactMode}
         offers={this.props.offers}
@@ -144,7 +151,7 @@ export class CalendarWidget extends Component<Props, State> {
 const mapStateToProps = (state: RootState) => ({
   offers: withMetaActivity(
     withCoach(withEstablishment(getMarketplaceOfferList)))(state),
-  offersLoading: state.offer.loading,
+  offersLoading: state.offer.marketplace.loading,
   // @ts-ignore
   coaches: getCoaches(state),
   // @ts-ignore

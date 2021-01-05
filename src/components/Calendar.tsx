@@ -67,9 +67,6 @@ export class CalendarWidget extends Component<Props, State> {
     const _this = this;
 
     return (values: any) => {
-
-      console.log("values", values)
-
       _this.setState((prevState) => ({
         filters: { ...prevState.filters, [filters]: values },
       }));

@@ -131,7 +131,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
       effectif: props.offer.effectif,
       credit_price_override: props.offer.credit_price_override,
       waiting_list_max_size: props.offer.waiting_list_max_size,
-      level: props.offer.level_id,
+      level: props.offer.level,
       meta_activity:
         props.offer.meta_activity && this.props.offer.meta_activity.id,
       similarOffersWithSelectedStatus: (this.props.similarOffers || [])
@@ -487,13 +487,6 @@ export class EditLiveOfferForm extends Component<Props, State> {
               </div>
             </div>
           </div>
-          {this.state.level !== this.initialOfferState.level ? (
-            <div className={this.props.classes.field}>
-              <WarningForceRecursion
-                text={this.props.t('form.offer.levelChangeWarning')}
-              />
-            </div>
-          ) : null}
         </div>
         <div className={this.props.classes.fieldGroup}>
           {this.renderBilling()}

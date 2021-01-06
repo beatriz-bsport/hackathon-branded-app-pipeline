@@ -13,6 +13,12 @@ import SnackbarPile from 'bsport-saas/src/SnackbarPile.component';
 import { getTheme } from 'bsport-saas/src/theme';
 import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 
+import MarketplaceAppBar from 'bsport-saas/src/pages/marketplace/MarketplaceAppBar.component';
+import SignUpForm from 'bsport-saas/src/components/form/SignUpForm.component';
+import ConsumerLogin from 'bsport-saas/src/components/consumer/login/ConsumerLogin.component';
+import { auth as authActions } from 'bsport-saas/src/actions';
+import { TFunction, withTranslation } from 'react-i18next';
+
 /* FOR TESTING PURPOSES
 import WorkshopWidget from './components/Workshop';
 import CalendarWidget from './components/Calendar';
@@ -22,7 +28,10 @@ import PassWidget from './components/Pass';
 import { RootState } from './store/reducer';
 import './App.scss';
 import asyncComponent from './utils/async-component';
-import { ConnectedRouter } from "connected-react-router";
+import { Dialog, DialogContent, DialogTitle, Grid } from '@material-ui/core';
+
+
+
 
 const CalendarWidget = asyncComponent(() => import('./components/Calendar'));
 const PassWidget = asyncComponent(() => import('./components/Pass'));
@@ -56,9 +65,20 @@ type Props = ReturnType<typeof mapStateToProps> &
     levels: [],
     metaActivities: [],
   },
+  t: TFunction;
 };
 
-class BsportWidget extends Component<Props> {
+interface State {
+  showLogin: boolean;
+  showSignup: boolean;
+}
+
+class BsportWidget extends Component<Props, State> {
+  state = {
+    showLogin: false,
+    showSignup: false,
+  }
+
   componentWillMount() {
     if (this.props.lang && this.props.lang !== 'fr-FR') {
       import('bsport-saas/src/i18n')
@@ -120,7 +140,7 @@ class BsportWidget extends Component<Props> {
           <NewsletterWidget
             companyId={companyId}
           />
-        )
+        );
       default:
         return (
           <CalendarWidget
@@ -136,7 +156,7 @@ class BsportWidget extends Component<Props> {
   }
 
   render() {
-    const { theme } = this.props;
+    const { theme, t } = this.props;
 
     return (
       <div
@@ -152,7 +172,6 @@ class BsportWidget extends Component<Props> {
           theme={getTheme(this.props.theme)}
         >
           <React.Suspense fallback={<div />}>
-
             {this.renderWidget()}
             {!!theme && (
               <div className={this.props.classes.poweredByContainer}>
@@ -175,6 +194,58 @@ class BsportWidget extends Component<Props> {
                 </div>
               </div>
             )}
+
+            <Dialog
+              open={this.state.showLogin && !this.props.auth.authenticated}
+              onClose={() => this.setState({ showLogin: false })}
+            >
+              <DialogContent>
+                <ConsumerLogin
+                  doEmailLogin={this.props.doEmailLogin}
+                  errorFields={this.props.errorFields}
+                  error={this.props.auth.error}
+                  loading={this.props.auth.loading}
+                  requestSignUp={() => this.setState({ showSignup: true })}
+                />
+              </DialogContent>
+            </Dialog>
+
+            <Dialog
+              open={this.state.showSignup && !this.props.auth.authenticated}
+              onClose={() => this.setState({ showSignup: false })}
+            >
+              <Grid
+                container
+                direction="column"
+                spacing={2}
+              >
+                <Grid item>
+                  <DialogTitle>{t('form.signUpTitle')}</DialogTitle>
+                </Grid>
+                <Grid item>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  />
+                </Grid>
+                <Grid item>
+                  <SignUpForm
+                    loading={this.props.auth.loading}
+                    theme={this.props.theme}
+                    emailExists={this.props.emailExists}
+                    checkEmailExistsLoading={this.props.checkEmailExistsLoading}
+                    checkEmailExists={this.props.checkEmailExists}
+                    onComplete={(data: any) => this.props.signup(data)}
+                    onCancel={() => this.setState({ showSignup: false })}
+                    consumerProfile={this.props.consumerProfile}
+                  />
+                </Grid>
+              </Grid>
+            </Dialog>
 
             <SnackbarPile store={this.props.store} />
           </React.Suspense>
@@ -212,16 +283,24 @@ const styles = () => ({
 const mapStateToProps = (state: RootState) => ({
   auth: state.auth,
   theme: state.theme.theme,
+  errorFields: state.auth.invalidFields,
+  checkEmailExistsLoading: state.auth.emailExists.loading,
+  emailExists: state.auth.emailExists.exists,
 });
 
 const mapDispatchToProps = {
   fetchSCT,
   fetchCompanyTheme,
+  signup: (data: any, callback?: () => void) => authActions.signup(data, { onDone: callback }),
+  doEmailLogin: ({ email, password }, callback) => authActions.requestLogin(email, password, { onDone: callback }),
+  disconnect: authActions.disconnect,
+  checkEmailExists: authActions.checkEmailExists,
 };
 
 export default compose(
   // @ts-ignore
   withStyles(styles),
+  withTranslation(),
   connect(
     mapStateToProps,
     mapDispatchToProps

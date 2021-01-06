@@ -10,6 +10,8 @@ import themeReducers from 'bsport-saas/src/libs/theme/reducers';
 import authReducers from 'bsport-saas/src/reducers/auth';
 import paymentReducers from 'bsport-saas/src/reducers/payment';
 import snackbar from 'bsport-saas/src/reducers/snackbar.reducers';
+import paymentCombo from 'bsport-saas/src/libs/payment-combo/reducers';
+import checkout from 'bsport-saas/src/libs/checkout/reducers';
 
 import { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
 import { ThemeState } from 'bsport-saas/src/libs/theme/types';
@@ -27,6 +29,8 @@ const rootReducer = (history: ReturnType<typeof createBrowserHistory>) =>
     theme: themeReducers,
     auth: authReducers,
     snackbar,
+    paymentCombo,
+    checkout,
   });
 
 export interface RootState {
@@ -38,8 +42,10 @@ export interface RootState {
     establishment: any;
     theme: ThemeState;
     shop: any;
-    auth: any,
-    snackbar: any
+    auth: any;
+    snackbar: any;
+    paymentCombo: any;
+    checkout: any
 }
 
 export default (history: ReturnType<typeof createBrowserHistory>) => (state: any, action: any) =>

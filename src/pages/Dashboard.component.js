@@ -157,7 +157,7 @@ export class Dashboard extends Component<Props> {
               const ChartComponent =
                 graphRessources[graph.ressourceIdentifier].chartComponents[
                   graph.chart
-                ];
+                ] || (() => null);
               const { timeSettings } = graphRessources[
                 graph.ressourceIdentifier
               ];
@@ -169,7 +169,7 @@ export class Dashboard extends Component<Props> {
                     loading={graphDataByIdentifier[graph.name].loading}
                     filtersComponent={
                       graphRessources[graph.ressourceIdentifier]
-                        .filtersComponent
+                        .filtersComponent || (() => null)
                     }
                     filters={chartFilterByIdentifier[graph.name]}
                     setChartFilters={this.props.setChartFiltersByIdentifier(

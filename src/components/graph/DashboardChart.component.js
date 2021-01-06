@@ -13,6 +13,7 @@ import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import Popover from '@material-ui/core/Popover';
 import { makeStyles } from '@material-ui/core/styles';
 import ChartRange from '../../libs/dashboard/components/ChartRange.component';
+import withSentryErrorReporting from '../../hocs/error-boundary.hoc';
 
 type Props = {
   title: string,
@@ -194,6 +195,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default compose(
+  withSentryErrorReporting,
   withState('showSaveButton', 'setShowSaveButton', false),
   withStateHandlers(
     ({ filters }) => ({ openFilters: {}, filtersValue: filters }),

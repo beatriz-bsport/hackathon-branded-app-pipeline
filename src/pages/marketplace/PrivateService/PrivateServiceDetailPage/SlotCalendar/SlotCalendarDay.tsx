@@ -62,7 +62,7 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
       sessions = splitIntervalList(
         props.slots,
         props.privateSlot.duration_minutes,
-        props.privateService.booking_interval_minutes,
+        props.privateSlot.booking_interval_minutes,
       );
     }
 

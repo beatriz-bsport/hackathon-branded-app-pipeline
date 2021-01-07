@@ -255,9 +255,9 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
             <Button
               color="primary"
               onClick={() =>
-                this.props.initial
+                (this.props.initial
                   ? this.props.setUpdateDialogOpen(true)
-                  : this.handleSubmit()
+                  : this.handleSubmit())
               }
             >
               {t('recurrenceRule.actions.save')}

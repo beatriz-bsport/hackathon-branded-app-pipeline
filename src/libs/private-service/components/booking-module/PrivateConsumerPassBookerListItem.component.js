@@ -56,12 +56,6 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
       ' - ';
   }
   const renderButton = () => {
-    if (props.creditProcessing) {
-      return <CircularProgress />;
-    }
-    if (private_consumer_pass.dst_private_consumer_pass.length) {
-      return null;
-    }
     if (props.onBook) {
       return (
         <Button color="primary" variant="outlined" onClick={props.onBook}>
@@ -74,8 +68,11 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
         <RedButton variant="outlined">{t('consumerPass.isReverted')}</RedButton>
       );
     }
-    if (!props.onUpdateCredit) {
+    if (!props.onUpdateCredit || private_consumer_pass.dst_private_consumer_pass.length) {
       return null;
+    }
+    if (props.creditProcessing) {
+      return <CircularProgress />;
     }
     return (
       <div tyle={{ display: 'flex', flexDirection: 'row' }}>

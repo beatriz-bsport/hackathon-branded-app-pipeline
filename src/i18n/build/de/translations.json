@@ -410,7 +410,8 @@
                 "tabName": "Abonnement"
             },
             "vod": "VOD",
-            "sessionThisDay": "Kurse an diesem Tag :"
+            "sessionThisDay": "Kurse an diesem Tag :",
+            "playlist": "Wiedergabeliste"
         },
         "calendar": {
             "pleaseSelectOffer": "Wähle einen Kurs aus, um die eingeschriebenen Mitglieder zu sehen",
@@ -1873,7 +1874,21 @@
                     "helperText": "Anzahl der Tage, vor denen der Warenkorb eines Kunden automatisch geleert wird",
                     "label": "Ablauf des Einkaufswagens"
                 },
-                "cancelledOffersManager": "Standardmäßig werden stornierte Kurse im Manager-Kalender angezeigt"
+                "cancelledOffersManager": "Standardmäßig werden stornierte Kurse im Manager-Kalender angezeigt",
+                "checkBalance": {
+                    "shiftRatio": {
+                        "explain": "Wenn mehr als {{numberCheck}} Buchungen in einer Sitzung aufgezeichnet werden, wird keine Reservierung autorisiert, wodurch ein Ungleichgewicht zwischen Frauen und Männern entsteht, das größer ist als {{gender_max_shift_for_booking}} Personen.",
+                        "helperText": "Beschränke das Verhältnis zwischen Frauen und Männern auf {{gender_max_shift_for_booking}} Personen",
+                        "placeholder": "Maximal zulässiges Verhältnis zwischen Frau und Männer"
+                    },
+                    "numberCheck": {
+                        "helperText": "Wenn mehr als {{number}} Personen einen Kurs buchen, wird eine zusätzliche Buchung nur akzeptiert, wenn das Verhältnis zwischen Frauen und Männern unter dem folgenden Wert liegt.",
+                        "placeholder": "Überprüfe das Verhältnis zwischen Frauen und Männern, wenn die Anzahl der Buchungen überschritten wird"
+                    },
+                    "checkbox": "Begrenze das Verhältnis zwischen Frauen und Männern bei Buchungen (Tanz ...)"
+                },
+                "offerBalance": "Einrichtung einer Verhältnis-Kontrolle für Frauen und Männer",
+                "showGenderOffer": "Zeige die Anzahl der Männer und Frauen an, die ein Angebot buchen"
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -1988,6 +2003,10 @@
             "0": {
                 "name": "Leiter",
                 "description": "Zugang des Administrators, keine Einschränkung, kann Staff-Konten erstellen"
+            },
+            "5": {
+                "name": "Reports",
+                "description": "Zugriff nur auf Berichte, die beispielsweise für Deine Buchhaltung nützlich sind"
             }
         }
     },
@@ -2067,6 +2086,16 @@
             "2": {
                 "first": "Benachrichtigen, wenn die Karte seit ",
                 "second": "Tagen abgelaufen ist"
+            },
+            "daysPast": {
+                "second": "Tage",
+                "first": "Benachrichtigen, wenn die Karte abgelaufen ist"
+            },
+            "daysLeft": {
+                "second": "Tage der Gültigkeit auf der Karte"
+            },
+            "creditsLeft": {
+                "second": "Credits"
             }
         },
         "link": {
@@ -2195,7 +2224,8 @@
                     "explain": "Eine Strafe wird verhängt, wenn {{nb_cancellations}} verspätete Stornierungen über einen Zeitraum von {{nb_days}} Tagen erfolgen",
                     "checkbox": "Bei zu vielen verspäteten Stornierungen wird eine Strafe verhängt",
                     "title": "Strafen"
-                }
+                },
+                "only_vod_access": "Nur für VOD"
             }
         },
         "boughtConsumerPaymentPacks": "Abonnenten",
@@ -2341,7 +2371,8 @@
             "account": "Bei {{nb_cancellations}} verspäteten Stornierungen über einen Zeitraum von {{nb_days}} Tagen wird eine Anzahlung von {{account_value}} € geleistet.",
             "block": "Bei {{nb_cancellations}} verspäteten Stornierungen über einen Zeitraum von {{nb_days}} Tagen wird die Karte für {{days_blocked}} Tage gesperrt.",
             "title": "Stornierungsbedingungen"
-        }
+        },
+        "only_vod_access": "Nur für VOD verfügbar"
     },
     "alerting": {
         "task": {
@@ -2729,6 +2760,20 @@
             },
             "edit": {
                 "success": "Beziehung geändert"
+            },
+            "private_consumer_pass_links": {
+                "relink": {
+                    "error": "Es ist nicht möglich diese Terminkarte zu teilen",
+                    "success": "Gemeinsame Nutzung gespeichert"
+                },
+                "unlink": {
+                    "error": "Es ist nicht möglich, diese gemeinsame Nutzung zu beenden",
+                    "success": "Gemeinsame Nutzung beendet"
+                },
+                "create": {
+                    "error": "Es ist nicht möglich diese Terminkarte zu teilen",
+                    "success": "Geteilte Terminkarten"
+                }
             }
         },
         "coach": {
@@ -3115,7 +3160,9 @@
                 "sourceInvoice": "Rechnung stornieren"
             },
             "title": "Rechnung {{ uuid }}",
-            "titleRevert": "Habe {{uuid}}"
+            "titleRevert": "Habe {{uuid}}",
+            "titleReceipt": "Erhalten {{uuid}}",
+            "titleReverted": "Rechnung (storniert) {{uuid}}"
         },
         "invoiceItem": {
             "voucher": "Rabatt : {{ voucher }} €",
@@ -3233,7 +3280,8 @@
                 "amount": "Betrag",
                 "date": "Rechnungsdatum",
                 "id": "ID",
-                "member": "Mitglied"
+                "member": "Mitglied",
+                "invoiceType": "Typ"
             },
             "actions": {
                 "goToInvoice": "Rechnung anzeigen"
@@ -3286,13 +3334,27 @@
             "amount": {
                 "label": "Einzuziehender Betrag"
             },
-            "amountRemaining": "Restbetrag: {{amount}}"
+            "amountRemaining": "Restbetrag: {{amount}}",
+            "billingMoreThanNeeded": "Wenn mehr als der Rechnungsbetrag eingelöst wird, erhöht sich das Guthaben des Mitglieds um die Differenz",
+            "errorSecretExplain2": "Wenn das Problem weiterhin besteht, wende dich an dev+payment-intent@bsport.io",
+            "errorSecretExplain1": "Diese Zahlungsmethode ist derzeit nicht verfügbar"
         },
         "paymentEngine": {
             "label": {
                 "1": "Onlinebezahlung",
                 "0": "Barzahlung"
             }
+        },
+        "invoiceType": {
+            "reversed": "Rechnung (storniert)",
+            "return": "Haben",
+            "credit_payment": "Quittung (Regelungssaldo)",
+            "migration": "Migration",
+            "regular": "Rechnung"
+        },
+        "invoiceInfo": {
+            "3": "Diese Rechnung ist das Ergebnis einer Migration. Wir können aus rechtlichen Gründen kein PDF bereitstellen oder stornieren.",
+            "2": "Dieser Zahlungsbeleg stellt die Kontostandkorrektur Deines Mitglieds dar."
         }
     },
     "payment": {
@@ -3671,7 +3733,10 @@
             "viewedOn": "Video gesehen am {{-date}} um {{hour}}",
             "boughtOn": "Kauf erfolgt am {{-date}}",
             "noVideoPurchase": "Kein Kauf registriert",
-            "noVideoView": "Keine Views"
+            "noVideoView": "Keine Views",
+            "coverMain": {
+                "alert": "Bild ist erforderlich"
+            }
         },
         "playlist": {
             "description": "Beschreibung",
@@ -3716,7 +3781,9 @@
                 "contracts": "Abonnements"
             },
             "messages": {
-                "offerLocked": "Du kannst diesen Kurs nicht buchen"
+                "offerLocked": "Du kannst diesen Kurs nicht buchen",
+                "maleUnavailable": "Der Kurs kann nicht mehr für Männer gebucht werden.",
+                "femaleUnavailable": "Der Kurs kann nicht mehr für Frauen gebucht werden."
             },
             "hasRegistered": "Du bist für diesen Kurs angemeldet",
             "recurrent": {
@@ -3896,6 +3963,10 @@
             "notify": "Sende eine Bestätigungs-E-Mail, wenn Du das Mitglied registrierst",
             "showLess": "Weniger anzeigen",
             "showMore": "Mehr anzeigen ({{count}})"
+        },
+        "memberGraph": {
+            "label": "Buchungen",
+            "title": "Zusammenfassung der Buchungen"
         }
     },
     "member": {
@@ -4205,7 +4276,8 @@
                 "privateSlot": "Kurs",
                 "privateService": "Termin",
                 "billing": "Rechnungsstellung",
-                "configuration": "Mein Termin"
+                "configuration": "Mein Termin",
+                "rule": "Wiederkehrende Termine"
             },
             "sections": {
                 "coach": "Lehrer",
@@ -4220,7 +4292,10 @@
             "notifyMember": {
                 "label": "Eine Bestätigungs-E-Mail senden"
             },
-            "isAtHome": "Home-Kurs, Ihre Adresse wird bei der Buchung abgefragt"
+            "isAtHome": "Home-Kurs, Ihre Adresse wird bei der Buchung abgefragt",
+            "recurrenceRule": {
+                "label": "Vereinbare einen wiederkehrenden Termin"
+            }
         },
         "privateBooking": {
             "updateTime": {
@@ -4291,7 +4366,8 @@
             "editTime": "Ändern",
             "updateCoach": "Einen neuen Lehrer für diesen Termin auswählen",
             "isCancelledDate": "Storniert am {{-date}} um {{time}}",
-            "restore": "Den Termin wiederherstellen"
+            "restore": "Den Termin wiederherstellen",
+            "bookings": "Termine"
         },
         "service": {
             "configuration": {
@@ -4453,7 +4529,31 @@
             },
             "selectCoach": "Alle Lehrer",
             "selectPrivateSlot": "Ein Kurs auswählen",
-            "title": "Termin"
+            "title": "Termin",
+            "groupIdentifier": {
+                "evening": {
+                    "interval": "Nach 18 Uhr",
+                    "label": "Später Nachmittag"
+                },
+                "afternoon": {
+                    "interval": "15 - 18 Uhr",
+                    "label": "Nachmittags"
+                },
+                "noon": {
+                    "interval": "12 - 14 Uhr",
+                    "label": "Mittags"
+                },
+                "morning": {
+                    "interval": "Vor 12 Uhr",
+                    "label": "Morgens"
+                }
+            },
+            "nbSlot": "{{nbSlot}} Slot",
+            "nbSlot_plural": "{{nbSlot}} Slots",
+            "establishment": "Einrichtung",
+            "coach": "Lehrer",
+            "selectService": "Wähle eine Dienstleistung",
+            "selectSession": "Wähle einen Termin"
         },
         "availabilitySlot": {
             "form": {
@@ -4626,7 +4726,10 @@
                 },
                 "addedOn": "Hinzugefügt, am ",
                 "nbDaysAdded": "+ {{nb_days}} Tag(e)"
-            }
+            },
+            "isFromDisabledShare": "Gemeinsame Nutzung beendet",
+            "isOwnerOfShares": "Geteilt (Terminkarte)",
+            "isFromShare": "Gemeinsam von einem anderen Konto aus genutzt"
         },
         "payment": {
             "address": {
@@ -4709,7 +4812,8 @@
                 "cancel": "Abbrechen",
                 "explain": "Bist Du Dir sicher, dass Du diesen Kurs löschen möchtest? Frühere Buchungen sind davon nicht betroffen. Diese Aktion ist unwiderruflich.",
                 "title": "Kurs löschen"
-            }
+            },
+            "duration": "{{ minutes }} Minuten"
         },
         "color": {
             "form": {
@@ -4779,6 +4883,97 @@
             "credits": "Kredit",
             "expiration": "Gültigkeit",
             "all": "Alle Karten"
+        },
+        "recurrenceRule": {
+            "item": {
+                "explain": "Alle {{dayOfWeek}} - {{time}}, {{delayWeek}} Wochen zuvor"
+            },
+            "forms": {
+                "update": {
+                    "confirm": "Ändern",
+                    "cancel": "Abbrechen",
+                    "content": "Das Ändern der Wiederholungsregel führt zur Änderung zukünftiger Termine, die über diese Regel vorgenommen werden.",
+                    "title": "Wiederkehrende Terminänderung"
+                },
+                "delete": {
+                    "confirm": "Löschen",
+                    "cancel": "Abbrechen",
+                    "content": "Das Entfernen des wiederkehrenden Termins führt zur Stornierung zukünftiger Termine, die über diese Regel erfasst wurden.",
+                    "title": "Entferne einen wiederkehrenden Termin"
+                }
+            },
+            "form": {
+                "notify_member": "Sende eine Bestätigungs-E-Mail, wenn Du das Mitglied registrierst",
+                "timeGroup": "Datum des Kurses",
+                "configuration": "Buchungen",
+                "title": "Planen Sie eine Wiederholung"
+            },
+            "actions": {
+                "save": "Speichern",
+                "close": "Schließen"
+            },
+            "createModal": {
+                "create": "Erstelle eine wiederkehrende Buchung"
+            },
+            "recurrentBookings": "Wiederkehrende Termine"
+        },
+        "privateBookingNotification": {
+            "tooltip": "Benachrichtigungen sind für diese Art von Termin aktiv",
+            "listItemPrimary": {
+                "notifyAllEvents": {
+                    "cancelledNotRefunded": "Für jede Stornierung nach Ablauf der Frist",
+                    "cancelledRefunded": "Für jede erstattete Stornierung",
+                    "valid": "Bei jedem Termin"
+                },
+                "cancelledRefunded": "Anzahl der erstatteten Stornierungen:",
+                "cancelledNotRefunded": "Anzahl der Stornierungen nach Ablauf der Frist:",
+                "valid": "Terminnummer {{notify_booking_nb}}",
+                "after": "Benachrichtigung {{hours}} Std nach dem Termin",
+                "before": "Benachrichtigung {{hours}} Std vor dem Termin"
+            },
+            "form": {
+                "next": "Weiter",
+                "chooseTime": {
+                    "second": {
+                        "after": "Stunde (n) nach dem Kurs",
+                        "before": "Stunde (n) vor Beginn des Kurses"
+                    },
+                    "first": "Eine E-Mail senden",
+                    "title": "Einstellungen"
+                },
+                "chooseWhen": {
+                    "after": "Sende die E-Mail vor dem von der Benachrichtigung betroffenen Termin an das Mitglied",
+                    "before": "Sende die E-Mail vor dem von der Benachrichtigung betroffenen Termin an das Mitglied",
+                    "title": "Benachrichtigungstyp"
+                },
+                "help": {
+                    "cancelledNotRefunded": {
+                        "notifyAll": "Hilfe: Die Benachrichtigung wird dem Mitglied für jede verspätete Stornierung für diese Art von Termin gesendet",
+                        "default": "Hilfe: Die Benachrichtigung wird an das Mitglied gesendet, wenn sie nach Ablauf der Frist {{NotifyNb}} für diese Art von Termin storniert wird"
+                    },
+                    "cancelledRefunded": {
+                        "notifyAll": "Hilfe: Die Benachrichtigung wird an das Mitglied für jede stornierte Reservierung gesendet, die für diese Art von Termin erstattet wird",
+                        "default": "Hilfe: Die Benachrichtigung wird an das Mitglied gesendet, wenn die stornierte Reservierung für diese Art von Termin n ° {{notifyNb}} erstattet wurde"
+                    },
+                    "valid": {
+                        "notifyAll": "Hilfe: Die Benachrichtigung wird dem Mitglied für jede gültige Reservierung für diese Art von Termin gesendet",
+                        "default": "Hilfe: Die Benachrichtigung wird an das Mitglied gesendet, wenn die gültige Reservierungsnummer {{notifyNb}} für diese Art von Termin erfolgt ist"
+                    }
+                },
+                "notifyAllEvents": "Benachrichtige das Mitglied bei jeder Veranstaltung",
+                "notifyNb": "Benachrichtige das Mitglied während der Veranstaltung Nr.:",
+                "chooseKind": {
+                    "cancelledNotRefunded": "Reservierung storniert und nicht erstattet (verspätet)",
+                    "cancelledRefunded": "Reservierung storniert und erstattet",
+                    "valid": "Gültige Buchung",
+                    "title": "Wähle die Art der Buchungen, die Du benachrichtigen möchtest"
+                },
+                "intro": "Du kannst deine Kunden vor oder nach bestimmten Terminen benachrichtigen, abhängig von verschiedenen Kriterien wie der Anzahl der Reservierungen oder Stornierungen.",
+                "title": "Eine Benachrichtigung hinzufügen"
+            }
+        },
+        "marketplace": {
+            "isEmpty": "Kein Termin angeboten"
         }
     },
     "communication": {
@@ -5678,7 +5873,50 @@
             "content": "Die Parameter der verschiedenen Diagramme werden auf ihren Standardwert zurückgesetzt. Möchtest Du fortfahren?",
             "title": "Einstellungen zurücksetzen"
         },
-        "save": "Speichern"
+        "save": "Speichern",
+        "customChart": {
+            "form": {
+                "radio": {
+                    "pie": "Kreisdiagramm",
+                    "grid": "Häufigkeitstabelle",
+                    "area": "Flächendiagramm",
+                    "bar": "Histogramm",
+                    "qualitativeInvoiceItem": "Teilung",
+                    "temporalPlannedInvoice": "Entwicklung über Zeit",
+                    "temporalPayment": "Entwicklung über Zeit",
+                    "qualitativeBooking": "Teilung",
+                    "temporalBooking": "Entwicklung über Zeit",
+                    "temporalTimeslotBooking": "Tägliche und stündliche Frequenzen",
+                    "temporalMember": "Entwicklung über Zeit"
+                },
+                "aggregateHelper": "Beispiel: Zeigt die Entwicklung der Gesamtzahl der Mitglieder anstelle der Anzahl der neuen Mitglieder pro Monat an.",
+                "aggregate": "Zusammenfassen",
+                "name": "Graphentitel",
+                "selector": {
+                    "invoice": "Käufe",
+                    "payment": "Zahlungen",
+                    "booking": "Buchungen",
+                    "member": "Neue Mitglieder",
+                    "object": {
+                        "helperText": "Wähle aus, was angezeigt werden soll",
+                        "placeholder": "Wähle einen Datentyp",
+                        "isEmpty": "Keine Daten ausgewählt"
+                    }
+                },
+                "graphComponent": "Gewünschte Darstellung",
+                "datatype": "Art des Diagramms",
+                "submit": "Speichern",
+                "cancel": "Abbrechen",
+                "title": "Grafik"
+            },
+            "noResource": "Bitte wähle einen Datentyp.",
+            "addChart": "Erstelle ein Diagramm"
+        },
+        "booking": {
+            "popover": "Die Gesamtzahl der für dieses Datum erhaltenen Reservierungen. Du kannst Stornierungen / verspätete Stornierungen / ...",
+            "caption": "Buchung gespeichert",
+            "title": "Buchungen"
+        }
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -5737,6 +5975,36 @@
                 "delete": "Löschen",
                 "edit": "Ändern"
             }
+        },
+        "private_consumer_pass_links": {
+            "form": {
+                "relink": {
+                    "cancel": "Abbrechen",
+                    "submit": "Gemeinsam nutzen",
+                    "explain": "Die gemeinsame Benutzung wird erneut aktiviert.",
+                    "title": "Erneut gemeinsam benutzen"
+                },
+                "unlink": {
+                    "cancel": "Abbrechen",
+                    "submit": "Stoppen",
+                    "explain": "Die gemeinsame Nutzung wird beendet. Die Terminkarte bleibt gültig",
+                    "title": "Ende der gemeinsamen Benutzung"
+                },
+                "create": {
+                    "noConsumerPackToLink": "Keine gemeinsam benutzbaren Karten",
+                    "linkButton": "Gemeinsam nutzen",
+                    "submit": "Gemeinsam nutzen",
+                    "previous": "Bisherige",
+                    "cancel": "Stornieren",
+                    "explain": "Diese Kurskarte wird zwischen den beiden Mitgliedern geteilt. Die Credits können von Beiden genutzt werden.",
+                    "title": "Gemeinsame Terminkartennutzung"
+                }
+            },
+            "list": {
+                "isEmpty": "Keine gemeinsame Terminkartennutzung",
+                "create": "Teile eine Terminkarte",
+                "title": "Geteilte Terminkarten"
+            }
         }
     },
     "navigation": {
@@ -5784,7 +6052,8 @@
                 "notificationRule": "Transaktions-E-Mails",
                 "broadcast": "Videokonferenz",
                 "general": "Allgemein",
-                "platform_billing": "Bsport-Abonnement"
+                "platform_billing": "Bsport-Abonnement",
+                "marketplaceSettings": "Marktplatzeinstellungen"
             },
             "myClub": "Mein Klub",
             "subscription": "Automatische Abbuchungen",
@@ -5986,7 +6255,8 @@
             "FR": "Frankreich",
             "CH": "Schweiz",
             "IE": "Irland",
-            "AT": "Österreich"
+            "AT": "Österreich",
+            "MT": "Malta"
         },
         "signupCompany": {
             "form": {
@@ -6295,7 +6565,44 @@
             "company": "Unternehmen",
             "invoice": "Rechnungsstellung"
         },
-        "pageTitle": "Einstellungen"
+        "pageTitle": "Einstellungen",
+        "marketplaceSettings": {
+            "createDialog": {
+                "dialogTitle": "Registerkarte Bearbeiten",
+                "noPlaylistError": "Bitte wähle eine Wiedergabeliste",
+                "noServiceError": "Bitte wähle einen Service",
+                "noTitleError": "Bitte gib einen Titel ein",
+                "noComponentTypeError": "Bitte wähle eine Komponente aus",
+                "submit": "Bestätigen",
+                "cancel": "Abbrechen",
+                "inputTitle": "Tab-Name",
+                "selectPlaylist": "Wähle eine Wiedergabeliste",
+                "selectPrivateService": "Wähle eine Dienstleistung",
+                "selectActivity": "Wähle eine Aktivität",
+                "selectEstablishment": "Wähle eine Einrichtung",
+                "selectCoach": "Wähle einen Lehrer",
+                "selectComponent": "Wähle eine Komponente",
+                "showAdvanced": "Weitere Optionen anzeigen"
+            },
+            "componentType": {
+                "playlist": "Playlist",
+                "shop": "Shop",
+                "subscription": "Abonnement",
+                "vod": "VOD",
+                "pass": "Kurskarte",
+                "privateService": "Terminvereinbarungen",
+                "workshop": "Workshops",
+                "calendar": "Kalender"
+            },
+            "preview": "Vorschau",
+            "saveButton": "Speichern",
+            "link": "Greife auf den Marketplace zu (Du wirst ausgeloggt)",
+            "explainMarketplace": "Deine Mitglieder können online über einen Computer, ein Tablet oder ein Telefon auf Deinen Marktplatz (Kalender, Geschäft, VoD ...) zugreifen. Personalisiere Deine Seite hier!",
+            "addButton": "Füge eine Registerkarte hinzu"
+        },
+        "companyOnboarding": {
+            "error": "Diese Information kann nicht geändert werden"
+        }
     },
     "workshop": {
         "forms": {
@@ -6555,6 +6862,21 @@
             "listDisplay": "Wochenübersicht anzeigen",
             "cancel": "Abbrechen",
             "responsiveDisplay": "Ansprechbare Anzeige"
+        }
+    },
+    "marketing": {
+        "newsletter": {
+            "messages": {
+                "error": "Momentan kann die E-Mail nicht registriert werden",
+                "success": "Erfolg!"
+            },
+            "form": {
+                "validate": "Bestätigen",
+                "lastName": "Nachname",
+                "firstName": "Vorname",
+                "email": "E-Mail-Adresse",
+                "title": "Abonniere unseren Newsletter"
+            }
         }
     }
 }

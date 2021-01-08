@@ -88,7 +88,6 @@ const defaultConfig = {
               // devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
               'style-loader',
               'css-loader',
-              'cssimportant-loader',
               {
                 loader: 'postcss-loader',
                 options: {

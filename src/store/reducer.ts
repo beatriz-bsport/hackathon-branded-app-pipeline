@@ -11,8 +11,16 @@ import authReducers from 'bsport-saas/src/reducers/auth';
 import paymentReducers from 'bsport-saas/src/reducers/payment';
 import snackbar from 'bsport-saas/src/reducers/snackbar.reducers';
 import paymentCombo from 'bsport-saas/src/libs/payment-combo/reducers';
+import consumerPaymentPack from 'bsport-saas/src/libs/consumer-payment-pack/reducers';
+import paymentPack from 'bsport-saas/src/libs/payment-packs/reducers';
+import marketplace from 'bsport-saas/src/libs/marketplace/reducers';
 import checkout from 'bsport-saas/src/libs/checkout/reducers';
+import privateService from 'bsport-saas/src/libs/private-service/reducers';
+import video from 'bsport-saas/src/libs/video/reducers';
+import playlist from 'bsport-saas/src/libs/playlist/reducers';
+import category from 'bsport-saas/src/libs/category/reducers';
 
+import { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types';
 import { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
 import { ThemeState } from 'bsport-saas/src/libs/theme/types';
 import { createBrowserHistory } from 'history';
@@ -28,9 +36,16 @@ const rootReducer = (history: ReturnType<typeof createBrowserHistory>) =>
     shop: shopReducers,
     theme: themeReducers,
     auth: authReducers,
+    marketplace,
     snackbar,
     paymentCombo,
     checkout,
+    privateService,
+    video,
+    playlist,
+    consumerPaymentPack,
+    paymentPack,
+    category,
   });
 
 export interface RootState {
@@ -42,10 +57,17 @@ export interface RootState {
     establishment: any;
     theme: ThemeState;
     shop: any;
+    marketplace: any,
     auth: any;
     snackbar: any;
     paymentCombo: any;
-    checkout: any
+    checkout: any;
+    privateService: PrivateServiceState,
+    video: any;
+    playlist: any;
+    consumerPaymentPack: any;
+    category: any;
+    paymentPack: any;
 }
 
 export default (history: ReturnType<typeof createBrowserHistory>) => (state: any, action: any) =>

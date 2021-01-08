@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
 import { Moment } from 'bsport-saas/src/i18n';
-import { MarketplaceCalendarBase } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendar.page';
+import { MarketplaceCalendar, CalendarDataContainer } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendar.page';
+import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { RootState } from '../store/reducer';
 
 const BACKOFFICE_URI = 'https://backoffice.bsport.io';
 const DATE_FORMAT = 'YYYY-MM-DD';
 
+const MarketplaceCalendarStyled = themify(MarketplaceCalendar);
 
 type OwnProps = {
   companyId: number;
@@ -74,7 +76,8 @@ export class CalendarWidget extends Component<Props, State> {
 
   render() {
     return (
-      <MarketplaceCalendarBase
+      <MarketplaceCalendarStyled
+        {...this.props}
         companyId={this.props.companyId}
         compactMode={this.props.compactMode}
         authenticated={this.props.authenticated}
@@ -92,7 +95,6 @@ export class CalendarWidget extends Component<Props, State> {
         goToBookOption={this.props.goToBookOption}
         goToPackPayment={this.props.goToPackPayment}
         onCompletePurchase={this.props.onCompletePurchase}
-        store={this.props.store}
       />
     );
   }
@@ -128,5 +130,6 @@ const mapWithProps = (props: ConnectProps & OwnProps) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
+  CalendarDataContainer,
   withProps(mapWithProps)
 )(CalendarWidget);

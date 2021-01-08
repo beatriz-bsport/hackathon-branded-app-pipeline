@@ -1,24 +1,22 @@
-// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
 import { History } from 'history';
 
-// used to init moment correctly
 // eslint-disable-next-line
 import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
-import { fetchSCT } from 'bsport-saas/src/actions/category.actions';
+import { fetchSCT } from 'bsport-saas/src/libs/category/actions';
 import SnackbarPile from 'bsport-saas/src/SnackbarPile.component';
 import { getTheme } from 'bsport-saas/src/theme';
 import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 
-import MarketplaceAppBar from 'bsport-saas/src/pages/marketplace/MarketplaceAppBar.component';
 import SignUpForm from 'bsport-saas/src/components/form/SignUpForm.component';
 import ConsumerLogin from 'bsport-saas/src/components/consumer/login/ConsumerLogin.component';
 import { auth as authActions } from 'bsport-saas/src/actions';
-import { TFunction, withTranslation } from 'react-i18next';
+import { Dialog, DialogContent, DialogTitle, Grid } from '@material-ui/core';
 
+import { TFunction, withTranslation } from 'react-i18next';
 /* FOR TESTING PURPOSES
 import WorkshopWidget from './components/Workshop';
 import CalendarWidget from './components/Calendar';
@@ -27,13 +25,11 @@ import PassWidget from './components/Pass';
 */
 import { RootState } from './store/reducer';
 import './App.scss';
+import PrivateServiceWidget from './components/PrivateService';
 import asyncComponent from './utils/async-component';
-import { Dialog, DialogContent, DialogTitle, Grid } from '@material-ui/core';
-
-
-
 
 const CalendarWidget = asyncComponent(() => import('./components/Calendar'));
+const VODWidget = asyncComponent(() => import('./components/Vod'));
 const PassWidget = asyncComponent(() => import('./components/Pass'));
 const ShopWidget = asyncComponent(() => import('./components/Shop'));
 const WorkshopWidget = asyncComponent(() => import('./components/Workshop'));
@@ -45,7 +41,7 @@ export type MaterialStyle<S> = {
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
-  MaterialStyle<ReturnType<typeof styles>> &{
+  MaterialStyle<ReturnType<typeof styles>> & {
   companyId: number,
   store: any,
   history: History,
@@ -77,7 +73,7 @@ class BsportWidget extends Component<Props, State> {
   state = {
     showLogin: false,
     showSignup: false,
-  }
+  };
 
   componentWillMount() {
     if (this.props.lang && this.props.lang !== 'fr-FR') {
@@ -107,6 +103,8 @@ class BsportWidget extends Component<Props, State> {
       defaultFilters,
       filtersOpen,
       compactMode,
+      data,
+      theme,
     } = this.props;
     switch (widgetType) {
       case 'workshop':
@@ -117,6 +115,26 @@ class BsportWidget extends Component<Props, State> {
             store={store}
             defaultFilters={defaultFilters}
             filtersOpen={filtersOpen}
+            theme={theme}
+          />
+        );
+      case 'privateService':
+        return (
+          <PrivateServiceWidget
+            companyId={companyId}
+            store={store}
+            data={data}
+            theme={theme}
+          />
+        );
+      case 'vod':
+        return (
+          <VODWidget
+            companyId={companyId}
+            onRequestLogin={() => this.setState({ showLogin: true })}
+            store={store}
+            data={data}
+            theme={theme}
           />
         );
       case 'pass':
@@ -125,6 +143,7 @@ class BsportWidget extends Component<Props, State> {
             companyId={companyId}
             store={store}
             location={history.location}
+            theme={theme}
           />
         );
       case 'shop':
@@ -133,12 +152,14 @@ class BsportWidget extends Component<Props, State> {
             companyId={companyId}
             store={store}
             location={history.location}
+            theme={theme}
           />
         );
       case 'newsletter':
         return (
           <NewsletterWidget
             companyId={companyId}
+            theme={theme}
           />
         );
       default:
@@ -150,6 +171,7 @@ class BsportWidget extends Component<Props, State> {
             store={store}
             defaultFilters={defaultFilters}
             filtersOpen={filtersOpen}
+            theme={theme}
           />
         );
     }
@@ -168,10 +190,10 @@ class BsportWidget extends Component<Props, State> {
           alignItems: 'center',
         }}
       >
-        <MuiThemeProvider
-          theme={getTheme(this.props.theme)}
-        >
-          <React.Suspense fallback={<div />}>
+        <React.Suspense fallback={<div />}>
+          <MuiThemeProvider
+            theme={getTheme(this.props.theme)}
+          >
             {this.renderWidget()}
             {!!theme && (
               <div className={this.props.classes.poweredByContainer}>
@@ -246,10 +268,10 @@ class BsportWidget extends Component<Props, State> {
                 </Grid>
               </Grid>
             </Dialog>
-
             <SnackbarPile store={this.props.store} />
-          </React.Suspense>
-        </MuiThemeProvider>
+          </MuiThemeProvider>
+        </React.Suspense>
+
       </div>
     );
   }
@@ -292,7 +314,12 @@ const mapDispatchToProps = {
   fetchSCT,
   fetchCompanyTheme,
   signup: (data: any, callback?: () => void) => authActions.signup(data, { onDone: callback }),
-  doEmailLogin: ({ email, password }, callback) => authActions.requestLogin(email, password, { onDone: callback }),
+  doEmailLogin: ({
+                   email,
+                   password,
+                 }: any,
+                 callback: any
+  ) => authActions.requestLogin(email, password, { onDone: callback }),
   disconnect: authActions.disconnect,
   checkEmailExists: authActions.checkEmailExists,
 };
@@ -301,8 +328,5 @@ export default compose(
   // @ts-ignore
   withStyles(styles),
   withTranslation(),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+  connect(mapStateToProps, mapDispatchToProps)
 )(BsportWidget);

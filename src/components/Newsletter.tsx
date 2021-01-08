@@ -5,8 +5,8 @@ import { compose, withProps } from 'recompose';
 import { withStyles } from '@material-ui/core';
 import NewsletterFormComponent from 'bsport-saas/src/libs/marketing/components/NewsletterForm.component';
 import { createNewsletterMember } from 'bsport-saas/src/libs/marketing/api';
-import { MaterialStyle } from 'bsport-saas/src/utils/types';
-import { snackbarSuccess, snackbarError } from 'bsport-saas/src/actions/snackbar.actions'
+import { MaterialStyleType } from 'bsport-saas/src/utils/types';
+import { snackbarSuccess, snackbarError } from 'bsport-saas/src/actions/snackbar.actions';
 
 type OwnProps = {
   companyId: number
@@ -18,7 +18,7 @@ type ConnectProps = ReturnType<typeof mapStateToProps>
 
 type Props = OwnProps & ConnectProps &
   ReturnType<typeof mapWithProps> & {
-} & MaterialStyle<ReturnType<typeof styles>>;
+} & MaterialStyleType<ReturnType<typeof styles>>;
 
 interface State {
   showSuccessSnackbar: boolean

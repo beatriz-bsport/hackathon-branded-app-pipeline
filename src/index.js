@@ -18,7 +18,7 @@ export default class BsportWidget {
     const component = (
       <Provider store={store}>
         <Router history={history}>
-          <BsportWidgetA {...props} store={store} history={history} />
+          <BsportWidgetA {...props} history={history} store={store} />
         </Router>
       </Provider>
     );

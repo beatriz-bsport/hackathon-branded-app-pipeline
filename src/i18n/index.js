@@ -1,5 +1,4 @@
-import i18n from 'i18next';
-// import Backend from 'i18next-locize-backend';
+import i18n from 'i18next'; // import Backend from 'i18next-locize-backend';
 import ChainedBackend from 'i18next-chained-backend';
 import LocalStorageBackend from 'i18next-localstorage-backend';
 import axios from 'axios';
@@ -48,7 +47,9 @@ i18n
   .init({
     backend: {
       backends: isDebug ? [HttpBackend] : [LocalStorageBackend, HttpBackend],
-      backendOptions: [backendOptions],
+      backendOptions: isDebug
+        ? [backendOptions]
+        : [undefined, backendOptions],
     },
     /*
     backend: {

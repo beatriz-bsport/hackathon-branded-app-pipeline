@@ -49,9 +49,8 @@ export function buildUrlParams(params: any) {
 }
 
 export function setAuthToken(token: string) {
-  if (!token) {
-    storage.setItem('http:token', token);
-  }
+  console.log('setting', token);
+  storage.setItem('http:token', token);
   storage.setItem('bsport:http:token', token);
 }
 
@@ -66,6 +65,9 @@ const getTimezoneName = () => {
 };
 
 export function getAuthToken() {
+  console.log(
+    storage.getItem('http:token') || storage.getItem('bsport:http:token'),
+  );
   return storage.getItem('http:token') || storage.getItem('bsport:http:token');
 }
 

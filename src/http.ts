@@ -49,8 +49,9 @@ export function buildUrlParams(params: any) {
 }
 
 export function setAuthToken(token: string) {
-  console.log('setting', token);
-  storage.setItem('http:token', token);
+  if (!token || token === 'null') {
+    storage.setItem('http:token', token);
+  }
   storage.setItem('bsport:http:token', token);
 }
 
@@ -65,10 +66,13 @@ const getTimezoneName = () => {
 };
 
 export function getAuthToken() {
-  console.log(
-    storage.getItem('http:token') || storage.getItem('bsport:http:token'),
-  );
-  return storage.getItem('http:token') || storage.getItem('bsport:http:token');
+  const oldToken = storage.getItem('http:token');
+  if (oldToken && oldToken !== 'null' && oldToken !== 'undefined') {
+    return (
+      storage.getItem('http:token') || storage.getItem('bsport:http:token')
+    );
+  }
+  return storage.getItem('bsport:http:token');
 }
 
 export async function postBase(uri: string, data: Object, headers: Object) {

@@ -90,7 +90,7 @@ export const MarketplaceOffer = (props: Props) => {
                   {offer.meta_activity && offer.meta_activity.is_broadcast ? (
                     <VideocamIcon className={classes.videocamIcon} />
                   ) : null}
-                  <Typography>
+                  <Typography style={{ margin: 0 }}>
                     {`${metaActivityName} ${formatAsTime(
                       offer.date_start,
                       offer.timezone_name,
@@ -157,6 +157,7 @@ const useStyles = makeStyles((theme) => {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
+      margin: 0,
     },
     videocamIcon: {
       marginRight: theme.spacing(0.5),

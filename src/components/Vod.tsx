@@ -14,6 +14,8 @@ import { ButtonBase, withStyles } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { compose } from 'recompose';
 
+import './video.css';
+
 interface Props {
   companyId: number;
   store: any;
@@ -75,7 +77,7 @@ class VODWidget extends React.PureComponent<Props, State> {
         )}
 
         {this.state.videoId !== undefined && (
-          <div>
+          <div className={this.props.classes.videoContainer}>
             <ButtonBase onClick={() => {
               this.setState({ videoId: undefined });
             }}
@@ -86,6 +88,7 @@ class VODWidget extends React.PureComponent<Props, State> {
               />
             </ButtonBase>
 
+            <div className={this.props.classes.videoDetail}>
             <MarketplaceVideoDetailStyled
               companyId={this.props.companyId}
               videoId={this.state.videoId}
@@ -102,6 +105,7 @@ class VODWidget extends React.PureComponent<Props, State> {
               }}
               store={this.props.store}
             />
+            </div>
           </div>
         )}
       </div>
@@ -118,7 +122,20 @@ const styles = (theme: any) => ({
     alignItems: 'center',
   },
   icon: {
-    marginLeft: theme.spacing(2),
+  },
+  videoContainer: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    width: '100%',
+    height: '100%',
+  },
+  videoDetail: {
+    display: 'block',
+    width: '100%',
+    height: '100%',
+    position: 'relative',
   },
 });
 

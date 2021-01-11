@@ -141,7 +141,16 @@ class VODWidget extends React.PureComponent<Props, State> {
             </ButtonBase>
 
             <div className={this.props.classes.videoDetail}>
-      
+              <MarketplacePlaylistStyled
+                companyId={this.props.companyId}
+                companyName=""
+                id={this.state.playlistId}
+                videoId={this.state.videoId}
+                requestSignUp={this.props.onRequestLogin}
+                goToVideoInPlaylist={this.openPlaylist}
+                replaceVideoInPlaylist={this.openPlaylist}
+                store={this.props.store}
+              />
             </div>
           </div>
         )}

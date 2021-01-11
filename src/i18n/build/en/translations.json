@@ -4263,7 +4263,8 @@
                 "selectActivity": "Choose an activity",
                 "selectEstablishment": "Choose an establishment",
                 "selectCoach": "Choose a coach",
-                "selectComponent": "Choose a component"
+                "selectComponent": "Choose a component",
+                "showAdvanced": "See more options"
             },
             "componentType": {
                 "playlist": "Playlist",
@@ -5376,7 +5377,12 @@
             "amount_paid_cts": "Amount paid",
             "amount_due_cts": "Purchase amount",
             "author_name": "Author",
-            "stripe_invoice_pdf": "PDF"
+            "stripe_invoice_pdf": "PDF",
+            "payment_method_giropay": "Giropay",
+            "payment_method_ideal": "iDeal",
+            "payment_method_bancontact": "Bancontact",
+            "payment_method_sofort": "Sofort",
+            "payment_method_eps": "EPS"
         },
         "yes": "Yes",
         "no": "No",
@@ -7870,6 +7876,21 @@
             "responsiveDisplay": "Responsive display",
             "calendarDisplay": "Week card (calendar)",
             "listDisplay": "Week view list"
+        }
+    },
+    "marketing": {
+        "newsletter": {
+            "messages": {
+                "success": "Saved !",
+                "error": "Impossible to save your email address for the moment"
+            },
+            "form": {
+                "validate": "Send",
+                "lastName": "Last Name",
+                "firstName": "First Name",
+                "email": "Email address",
+                "title": "Subscribe to the newsletter"
+            }
         }
     }
 }

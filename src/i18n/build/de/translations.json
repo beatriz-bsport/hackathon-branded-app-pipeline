@@ -2092,10 +2092,12 @@
                 "first": "Benachrichtigen, wenn die Karte abgelaufen ist"
             },
             "daysLeft": {
-                "second": "Tage der Gültigkeit auf der Karte"
+                "second": "Tage der Gültigkeit auf der Karte",
+                "first": "Benachrichtigen, wenn es"
             },
             "creditsLeft": {
-                "second": "Credits"
+                "second": "Credits",
+                "first": "Benachrichtigen, wenn es"
             }
         },
         "link": {

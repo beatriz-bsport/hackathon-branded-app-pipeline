@@ -340,6 +340,16 @@ exports.default = {
       error: "Impossible d'enregistrer le crédit",
     },
   },
+  privateRecurrentRule: {
+    createOrUpdate: {
+      success: 'Rendez-vous récurrent enregistré avec succès',
+      error: "Impossible d'enregistrer le rendez-vous récurrent",
+    },
+    delete: {
+      success: 'Rendez-vous récurrent supprimé',
+      error: 'Impossible de supprimer le rendez-vous récurrent',
+    },
+  },
   video: {
     createOrUpdate: {
       success: 'Vidéo enregistrée avec succès',

@@ -97,10 +97,10 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
           establishment: null,
         },
         time_setting: {
-          nb_of_weeks: null,
-          day_of_week: null,
-          hour: null,
-          minute: null,
+          nb_of_weeks: 4,
+          day_of_week: 0,
+          hour: 11,
+          minute: 0,
         },
         notify_if_booked: false,
       };
@@ -196,73 +196,83 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
     return (
       <div>
         <Dialog open={this.props.open}>
-          <DialogTitle>{t('recurrenceRule.form.title')}</DialogTitle>
-          <DialogContent>
-            <fieldset>
-              <legend>{t('recurrenceRule.form.configuration')}</legend>
-              {this.props.privateServicesLoading ? (
-                <LinearProgress />
-              ) : (
-                <SlotSearcherParams
-                  private_services={this.props.private_services}
-                  private_service={this.state.configuration.private_service}
-                  private_slot={this.state.configuration.private_slot}
-                  coach={this.state.configuration.coach}
-                  establishment={this.state.configuration.establishment}
-                  onConfigurationChange={this.handleConfigurationChange}
-                  coachUnique
-                  establishmentUnique
-                  asManager
+          <form
+            onSubmit={(ev) => {
+              ev.preventDefault();
+              if (this.props.initial) this.props.setUpdateDialogOpen(true);
+              else this.handleSubmit();
+            }}
+          >
+            <DialogTitle>{t('recurrenceRule.form.title')}</DialogTitle>
+            <DialogContent>
+              <fieldset>
+                <legend>{t('recurrenceRule.form.configuration')}</legend>
+                {this.props.privateServicesLoading ? (
+                  <LinearProgress />
+                ) : (
+                  <SlotSearcherParams
+                    private_services={this.props.private_services}
+                    private_service={this.state.configuration.private_service}
+                    private_slot={this.state.configuration.private_slot}
+                    coach={this.state.configuration.coach}
+                    establishment={this.state.configuration.establishment}
+                    onConfigurationChange={this.handleConfigurationChange}
+                    coachUnique
+                    establishmentUnique
+                    asManager
+                  />
+                )}
+                {!this.props.initial && (
+                  <MissingResourceForBookingHelper
+                    missingResources={missingResources}
+                    address={this.state.configuration.address}
+                    updateData={(data) =>
+                      this.setState((prevState) => ({
+                        configuration: {
+                          ...prevState.configuration,
+                          ...data,
+                        },
+                      }))
+                    }
+                  />
+                )}
+              </fieldset>
+              <fieldset>
+                <legend>{t('recurrenceRule.form.timeGroup')}</legend>
+                <RecurrenceRulePrivateBookingFields
+                  privateSlotSet={false}
+                  onTimeSettingChange={this.handleTimeSettingChange}
+                  selectedSetting={this.state.time_setting}
                 />
-              )}
-              {!this.props.initial && (
-                <MissingResourceForBookingHelper
-                  missingResources={missingResources}
-                  address={this.state.configuration.address}
-                  updateData={(data) =>
-                    this.setState((prevState) => ({
-                      configuration: {
-                        ...prevState.configuration,
-                        ...data,
-                      },
-                    }))
-                  }
-                />
-              )}
-            </fieldset>
-            <fieldset>
-              <legend>{t('recurrenceRule.form.timeGroup')}</legend>
-              <RecurrenceRulePrivateBookingFields
-                privateSlotSet={false}
-                onTimeSettingChange={this.handleTimeSettingChange}
-                selectedSetting={this.state.time_setting}
+              </fieldset>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={this.state.notify_if_booked}
+                    onChange={(ev) =>
+                      this.handleNotifyBooked(ev.target.checked)
+                    }
+                  />
+                }
+                label={t('recurrenceRule.form.notify_member')}
               />
-            </fieldset>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.state.notify_if_booked}
-                  onChange={(ev) => this.handleNotifyBooked(ev.target.checked)}
-                />
-              }
-              label={t('recurrenceRule.form.notify_member')}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => this.props.setOpen(false)} color="secondary">
-              {t('recurrenceRule.actions.close')}
-            </Button>
-            <Button
-              color="primary"
-              onClick={() =>
-                (this.props.initial
-                  ? this.props.setUpdateDialogOpen(true)
-                  : this.handleSubmit())
-              }
-            >
-              {t('recurrenceRule.actions.save')}
-            </Button>
-          </DialogActions>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => this.props.setOpen(false)}
+                color="secondary"
+              >
+                {t('recurrenceRule.actions.close')}
+              </Button>
+              <Button
+                disabled={!this.state.configuration.private_slot}
+                color="primary"
+                type="submit"
+              >
+                {t('recurrenceRule.actions.save')}
+              </Button>
+            </DialogActions>
+          </form>
         </Dialog>
         <RecurrenceRulePrivateBookingUpdateDialog
           recurrentRuleId={

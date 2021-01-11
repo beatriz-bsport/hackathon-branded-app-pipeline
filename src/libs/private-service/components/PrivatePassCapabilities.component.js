@@ -58,9 +58,9 @@ export const PrivatePassCapabilities = (props: Props) => {
                 <PrivateConsumerPassBookerListItem
                   private_consumer_pass={pcp}
                   onBook={() =>
-                    (props.recurrenceRule
+                    props.recurrenceRule
                       ? props.createRecurrentRule()
-                      : props.registerPrivateBooking(pcp.id))
+                      : props.registerPrivateBooking(pcp.id)
                   }
                   key={pcp.id}
                   divider

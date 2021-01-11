@@ -27,9 +27,11 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
 
   const handleChange = (event) => {
     const { name } = event.target;
+    let value = parseInt(event.target.value, 10);
+    if (!event.target.value) value = '';
     props.onTimeSettingChange({
       ...props.selectedSetting,
-      [name]: parseInt(event.target.value, 10),
+      [name]: value,
     });
   };
   return (

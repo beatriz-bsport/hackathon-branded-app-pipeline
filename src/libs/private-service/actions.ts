@@ -1733,10 +1733,12 @@ export function createOrUpdateRecurrenceRulePrivateBooking(
           response.data,
         ),
       );
+      dispatch(snackbarSuccess('privateRecurrentRule.createOrUpdate.success'));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
       dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.error(err));
+      dispatch(snackbarError('privateRecurrentRule.createOrUpdate.error'));
       if (options && options.onError) options.onError(err);
     }
     dispatch(
@@ -1761,12 +1763,12 @@ export function deleteRecurrenceRulePrivateBooking(
     try {
       await deleteRecurrenceRulePrivateBookingAPI(id);
       dispatch(deleteRecurrenceRulePrivateBookingActions.success(id));
-
+      dispatch(snackbarSuccess('privateRecurrentRule.delete.success'));
       if (options && options.onSuccess) options.onSuccess(id);
     } catch (error) {
       console.error(error);
       dispatch(deleteRecurrenceRulePrivateBookingActions.error(error));
-
+      dispatch(snackbarError('privateRecurrentRule.delete.error'));
       if (options && options.onError) options.onError(error);
     }
     dispatch(deleteRecurrenceRulePrivateBookingActions.isLoading(false));

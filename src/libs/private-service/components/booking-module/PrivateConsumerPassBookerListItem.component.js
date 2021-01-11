@@ -68,7 +68,10 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
         <RedButton variant="outlined">{t('consumerPass.isReverted')}</RedButton>
       );
     }
-    if (!props.onUpdateCredit || private_consumer_pass.dst_private_consumer_pass.length) {
+    if (
+      !props.onUpdateCredit ||
+      private_consumer_pass.dst_private_consumer_pass.length
+    ) {
       return null;
     }
     if (props.creditProcessing) {

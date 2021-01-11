@@ -71,6 +71,9 @@ export class CalendarWidget extends Component<Props, State> {
       if (key === 'date') {
         this.setState({ selectedDate: arg });
       }
+      if (key === 'filtersOpen') {
+        this.setState({ filtersOpen: arg });
+      }
     };
   }
 

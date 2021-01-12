@@ -1734,7 +1734,12 @@
             "amount_unpaid_remaining_cts": "Resterend bedrag",
             "amount_paid_cts": "Betaald bedrag",
             "amount_due_cts": "Aankoopbedrag",
-            "stripe_invoice_pdf": ".PDF"
+            "stripe_invoice_pdf": ".PDF",
+            "payment_method_giropay": "Giropay",
+            "payment_method_bancontact": "Bancontact",
+            "payment_method_sofort": "Sofort",
+            "payment_method_ideal": "iDEAL",
+            "payment_method_eps": "EPS"
         },
         "report": {
             "delete_message": "Weet je zeker dat je dit rapport ({{name}}) wilt verwijderen?"
@@ -3231,8 +3236,8 @@
                     "allEvents": {
                         "notRefunded": "Weetje: leden ontvangen deze melding elke keer dat zij te laat annuleren",
                         "refunded": "Weetje: de melding wordt verstuurd elke keer een lid wordt terugbetaald voor een annulering",
-                        "absence": "Weetje: de melding wordt verstuurd elke keer dit lid afwezig is",
-                        "attendance": "Weetje: de melding wordt verstuurd elke keer dit lid aanwezig is"
+                        "absence": "Weetje: de melding wordt verstuurd elke keer een lid afwezig is",
+                        "attendance": "Weetje: de melding wordt verstuurd elke keer een lid aanwezig is"
                     }
                 },
                 "choicesKind": {
@@ -4115,7 +4120,7 @@
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
-            "link": "Toegang tot je MarketPlace voor je leden (je wordt uitgelogd)",
+            "link": "Log uit en open de MarketPlace voor je klanten",
             "explainMarketplace": "Je leden hebben op hun telefoon, computer en tablet toegang tot je MarketPlace (je kalender, webshop, Video On Demand, enz.). Personaliseer hier je pagina!",
             "addButton": "Tabblad toevoegen"
         },
@@ -6157,8 +6162,8 @@
                     }
                 },
                 "default_attendance": {
-                    "present": "Lid aanwezig",
-                    "missing": "Lid afwezig",
+                    "present": "Aanwezig",
+                    "missing": "Afwezig",
                     "title": "Standaardstatus van een reservering gemaakt door de leden"
                 },
                 "default_booking_ordering": {
@@ -6204,7 +6209,7 @@
                     "checkbox": "Beperk het onevenwicht tussen MANNEN/VROUWEN voor reserveringen"
                 },
                 "offerBalance": "Stel een regel in dat het aantal MANNEN/VROUWEN per sessie reguleert",
-                "showGenderOffer": "Toon het aantal mannen en vrouwen die een aanbod boeken"
+                "showGenderOffer": "Toon het aantal MANNEN / VROUWEN op je rooster"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -6233,13 +6238,13 @@
                 "placeholder": "https://studio.com/"
             },
             "scheduleURL": {
-                "label": "URL voor de planning",
-                "helperText": "Standaard link voor je eigen kalender",
+                "label": "URL voor je rooster",
+                "helperText": "Link naar je eigen kalender (standaard)",
                 "placeholder": "https://studio.com/calendar/"
             },
             "submit": "Opslaan",
             "facebookURL": {
-                "label": "Facebook-link (URL)",
+                "label": "Facebook (URL)",
                 "helperText": "Link naar Facebook",
                 "placeholder": "https://facebook.com/mijn-studio/"
             },
@@ -6774,7 +6779,7 @@
                 "broadcast": "Livestreamen",
                 "general": "Algemeen",
                 "platform_billing": "BSPORT-abonnement",
-                "marketplaceSettings": "Instellingen MarketPlace"
+                "marketplaceSettings": "MarketPlace"
             },
             "pass": "Cursuskaart",
             "goBack": "Terug",

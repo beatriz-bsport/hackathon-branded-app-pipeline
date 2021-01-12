@@ -457,7 +457,7 @@ export default compose(
       deleteRecurrenceRulePrivateBooking(recurrentBooking.id, {
         onSuccess: () => {
           fetchMember(memberId);
-          fetchRecurrenceRulePrivateBooking();
+          fetchRecurrenceRulePrivateBooking({ member: memberId });
           fetchPrivateBookings({ member: memberId });
         },
       });

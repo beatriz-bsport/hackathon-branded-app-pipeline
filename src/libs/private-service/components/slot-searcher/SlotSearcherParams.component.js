@@ -86,7 +86,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
     }
     this.setState({
       coaches_selected:
-        coach_ids.length && this.props.coachUnique ? [coach_ids[0]] : coach_ids,
+        coach_ids.length && this.props.coachUnique ? [coach_ids[coach_ids.length - 1]] : coach_ids,
     });
   };
 
@@ -124,7 +124,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
         coaches: coaches_selected,
         establishment: establishment_selected,
         ...(this.props.coachUnique && coaches_selected.length
-          ? { coach: coaches_selected[0] }
+          ? { coach: coaches_selected[coaches_selected.length - 1] }
           : {}),
       });
     }

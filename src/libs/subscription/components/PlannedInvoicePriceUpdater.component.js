@@ -14,13 +14,14 @@ import { Form, withFormik } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import * as Yup from 'yup';
-import { Submit, PriceField } from '../../../components/forms';
+import { CheckboxField, Submit, PriceField } from '../../../components/forms';
 
 type Props = {
   t: TFunction,
   open: boolean,
   classes: Object,
   onCancel: () => void,
+  subscription: ?Subscription,
   isSubmitting: boolean,
 };
 export const PlannedInvoicePriceUpdater = (props: Props) => {
@@ -37,15 +38,22 @@ export const PlannedInvoicePriceUpdater = (props: Props) => {
             required
             fullWidth
           />
-          <div className={props.classes.row}>
-            <WarningIcon className={props.classes.leftIcon} color="error" />
-            <Typography>
-              {props.t('plannedInvoice.priceUpdater.explain')}
-            </Typography>
-          </div>
+          {!!props.subscription && props.subscription.is_v2 ? (
+            <CheckboxField
+              label={props.t('plannedInvoice.priceUpdater.updateAll')}
+              name="update_all"
+            />
+          ) : (
+            <div className={props.classes.row}>
+              <WarningIcon className={props.classes.leftIcon} color="error" />
+              <Typography>
+                {props.t('plannedInvoice.priceUpdater.explain')}
+              </Typography>
+            </div>
+          )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.onCancel}>
+          <Button disabled={props.isSubmitting} onClick={props.onCancel}>
             {props.t('plannedInvoice.priceUpdater.cancel')}
           </Button>
           <Submit disabled={props.isSubmitting}>
@@ -75,6 +83,7 @@ const styles = (theme) => ({
 export const PriceUpdaterSchema = Yup.object().shape({
   planned_invoice: Yup.number().required(),
   price: Yup.number().required(),
+  update_all: Yup.boolean().nullable(),
 });
 
 export const PriceUpdateFormikHOC = withFormik({
@@ -84,6 +93,7 @@ export const PriceUpdateFormikHOC = withFormik({
   }),
   validationSchema: PriceUpdaterSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+    setSubmitting(true);
     onSubmit(values, {
       onSuccess: () => setSubmitting(false),
       onError: () => setSubmitting(false),

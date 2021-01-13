@@ -19,6 +19,7 @@ import {
   checkInvoiceInfo as checkInvoiceInfoAPI,
   allocateDebtToInvoice as allocateDebtToInvoiceAPI,
   applyBalanceToUnpaid as applyBalanceToUnpaidAPI,
+  fetchPlannedPaymentEvent as fetchPlannedPaymentEventAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
@@ -520,5 +521,36 @@ export function applyBalanceToUnpaid(
       }
     }
     dispatch(applyBalanceToUnpaidActions.isLoading(false));
+  };
+}
+
+export const listPlannedPaymentEventActions = {
+  isLoading: createAction('PLANNED_PAYMENT_EVENT/LIST/LOADING'),
+  error: createAction('PLANNED_PAYMENT_EVENT/LIST/ERROR'),
+  success: createAction('PLANNED_PAYMENT_EVENT/LIST/SUCCESS'),
+};
+
+export function fetchPlannedPaymentEventList(
+  params: * = {},
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPlannedPaymentEventActions.isLoading(true));
+    dispatch(listPlannedPaymentEventActions.error(null));
+
+    try {
+      const response = await fetchPlannedPaymentEventAPI(params);
+      dispatch(listPlannedPaymentEventActions.success(response.data.results));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (e) {
+      console.error(e);
+      dispatch(listPlannedPaymentEventActions.error(e));
+      if (options && options.onError) {
+        options.onError(e);
+      }
+    }
+    dispatch(listPlannedPaymentEventActions.isLoading(false));
   };
 }

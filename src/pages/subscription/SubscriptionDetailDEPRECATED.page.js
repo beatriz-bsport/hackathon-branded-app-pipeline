@@ -15,7 +15,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import {
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
@@ -42,7 +41,7 @@ import {
   getSubscriptionEventList,
   getSubscriptionEventState,
 } from '../../libs/subscription/selectors';
-import SubscriptionComponent from '../../libs/subscription/components/Subscription.component';
+import SubscriptionComponent from '../../libs/subscription/components/SubscriptionDEPRECATED.component';
 import SubscriptionFreezerDialog from '../../libs/subscription/components/SubscriptionFreezerDialog.component';
 import PlannedInvoicePriceUpdater from '../../libs/subscription/components/PlannedInvoicePriceUpdater.component';
 import SubscriptionPaymentPackSwitcherDialog from '../../libs/subscription/components/SubscriptionPaymentPackSwitcherDialog.component';
@@ -269,7 +268,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  routerParamsToProps({ id: 'id:number' }),
   withStyles(styles),
   withState('plannedInvoiceToUpdate', 'setPlannedInvoiceToUpdate', null),
   withState('freezeDialogOpen', 'setFreezeDialogOpen', false),

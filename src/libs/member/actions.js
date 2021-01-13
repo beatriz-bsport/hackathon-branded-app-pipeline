@@ -517,7 +517,7 @@ export function actionMergeError(err) {
 export function mergeMembers(
   src: number,
   dst: number,
-  options: ?{ onSuccess?: () => void, onError?: (?Error | {}) => void },
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(actionMergeStart(src, dst));

@@ -85,6 +85,11 @@ exports.default = {
     },
   },
   paymentMethod: {
+    title: 'Moyen de paiement',
+    edit: 'Modifier',
+    add: 'Ajouter',
+    isInternalExplain:
+      'Acompte client (manuel): tous les mois une dette est automatiquement créée dans le compte du membre.',
     select: {
       label: 'Moyen de paiement',
     },
@@ -104,6 +109,13 @@ exports.default = {
       [PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT]: 'Sofort',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_EPS]: 'EPS',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY]: 'Giropay',
+    },
+  },
+  plannedPaymentEvent: {
+    actions: {
+      registerNow: 'Encaisser maintenant',
+      delete: 'Annuler',
+      edit: 'Modifier',
     },
   },
   paymentPanel: {
@@ -144,6 +156,10 @@ exports.default = {
       title: 'Paiements',
       titleReverse: 'Remboursement',
       isEmpty: 'Aucun paiement',
+    },
+    plannedPaymentEvent: {
+      title: 'Paiement planifié',
+      title_plural: 'Paiements planifiés',
     },
     fields: {
       accountHolderName: {
@@ -202,6 +218,8 @@ exports.default = {
     addInvoiceItem: 'Ajouter à la facture',
     equilibrate: 'Equilibrer (acompte)',
     download: 'Télécharger PDF',
+    explainPdfDraft:
+      "La facture est encore à l'état de brouillon, le pdf n'est pas disponible.",
     finalize: 'Finaliser (PDF)',
     consumeBalance: 'Payer via solde',
   },

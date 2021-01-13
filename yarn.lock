@@ -999,10 +999,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@bsport/common@^1.31.4":
-  version "1.31.4"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.31.4.tgz#cfaf06ecdada9c7bdeed5ddf60715c6f0dd0413b"
-  integrity sha512-RkAwdJFXVBHuM9sGiW/pUl/m/yQwdLswYuiTCSqTRQDQWSv4Q0HadwFjT9Sajpbfw8StVRpzspNqKnwZcKqm1w==
+"@bsport/common@^1.31.5":
+  version "1.31.5"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.31.5.tgz#150ab26a05a6bd7ea315ae5b9b56e54ce26ef5bb"
+  integrity sha512-/Q1sJtmuMj30IB0HEeBlzEQF0Vb/RelS4KBLhYSME3MuETYEmF3ScfC9E+ERX29+0eFNowpbpFTLAzaNYEtQZg==
 
 "@commitlint/execute-rule@^11.0.0":
   version "11.0.0"

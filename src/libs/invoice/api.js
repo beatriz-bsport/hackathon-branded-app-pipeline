@@ -122,6 +122,12 @@ export async function requestClientSecret(
   );
 }
 
+export async function fetchPlannedPaymentEvent(params: any = {}) {
+  return getAuth(
+    `${API_V1_URI}/payment/planned_payment_event/${buildUrlParams(params)}`,
+  );
+}
+
 export default {
   fetchAll,
   fetchSpecific,

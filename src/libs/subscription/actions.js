@@ -14,6 +14,8 @@ import api, {
   fetchContractDetail as fetchContractDetailAPI,
   flagPlannedInvoiceAsLast as flagPlannedInvoiceAsLastAPI,
   unflagPlannedInvoiceAsLast as unflagPlannedInvoiceAsLastAPI,
+  cancelPause as cancelPauseAPI,
+  updatePlannedInvoiceDate as updatePlannedInvoiceDateAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -501,7 +503,11 @@ export const switchPaymentMethodActions = {
 
 export function switchSubscriptionPaymentMethod(
   id: number,
-  data: { payment_method_identifier: number, source: string },
+  data: {
+    payment_engine?: number,
+    payment_method_identifier: number,
+    source: string,
+  },
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -591,5 +597,65 @@ export function unflagPlannedInvoiceAsLast(
       if (options && options.onError) options.onError();
       dispatch(snackbarError('subscriptionScheduledStop.delete.error'));
     }
+  };
+}
+
+export const cancelPauseActions = {
+  error: createAction('SUBSCRIPTION/PAUSE_CANCEL/ERROR'),
+  isLoading: createAction('SUBSCRIPTION/PAUSE_CANCEL/IS_LOADING'),
+  success: createAction('SUBSCRIPTION/PAUSE_CANCEL/SUCCESS'),
+};
+
+export function cancelPause(
+  billingPlanId: number,
+  id: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(cancelPauseActions.error(null));
+    dispatch(cancelPauseActions.isLoading(true));
+    try {
+      const response = await cancelPauseAPI(billingPlanId, id);
+      dispatch(cancelPauseActions.success(id));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(cancelPauseActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(cancelPauseActions.isLoading(false));
+  };
+}
+
+export const updatePlannedInvoiceDateActions = {
+  error: createAction('SUBSCRIPTION/PLANNED_INVOICE/UPDATE_DATE/ERROR'),
+  isLoading: createAction(
+    'SUBSCRIPTION/PLANNED_INVOICE/UPDATE_DATE/IS_LOADING',
+  ),
+  success: createAction('SUBSCRIPTION/PLANNED_INVOICE/UPDATE_DATE/SUCCESS'),
+};
+
+export function updatePlannedInvoiceDate(
+  id: number,
+  data: any,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updatePlannedInvoiceDateActions.error(null));
+    dispatch(updatePlannedInvoiceDateActions.isLoading(true));
+    try {
+      const response = await updatePlannedInvoiceDateAPI(id, data);
+      dispatch(updatePlannedInvoiceDateActions.success(id));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(updatePlannedInvoiceDateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(updatePlannedInvoiceDateActions.isLoading(false));
   };
 }

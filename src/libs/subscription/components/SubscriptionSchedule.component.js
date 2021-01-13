@@ -8,6 +8,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Divider from '@material-ui/core/Divider';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 import { withTranslation } from 'react-i18next';
 import {
   PENDING,
@@ -66,6 +67,13 @@ const renderStatus = (t: TFunction, status: StatusCode) => {
   }
 };
 
+const useStyles = makeStyles((theme) => ({
+  selectedBorder: {
+    border: `1px solid ${theme.palette.primary.main}`,
+    borderRadius: 8,
+  },
+}));
+
 export const PlannedInvoiceItem = (props: {
   invoice: PlannedInvoice,
   onClick: (event: *) => void,
@@ -79,12 +87,14 @@ export const PlannedInvoiceItem = (props: {
     props.t,
     props.invoice.status,
   );
+  const classes = useStyles();
   return (
     <>
       <ListItem
         button={!!props.onClick}
         onClick={props.onClick}
         selected={props.selected}
+        className={props.selected ? classes.selectedBorder : null}
         divider
       >
         {props.showUpdatePriceButton ? (

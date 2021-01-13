@@ -87,14 +87,18 @@ export function SubscriptionSummary(props: Props) {
           </Typography>
           <Typography inline>{subscription.flat_fee} €</Typography>
         </div>
-        <div className={classes.field}>
-          <Typography variant="body2" inline>
-            {t('parameters.payment_method.label')}
-          </Typography>
-          <Typography inline>
-            {t(`parameters.payment_method.${subscription.payment_method}`)}
-          </Typography>
-        </div>
+        {!props.subscription.is_v2 && (
+          <div className={classes.field}>
+            <Typography variant="body2" inline>
+              {t('parameters.payment_method.label')}
+            </Typography>
+            <Typography inline>
+              {t(
+                `invoice:paymentMethod.label.${subscription.payment_method_identifier}`,
+              )}
+            </Typography>
+          </div>
+        )}
         <div className={classes.fieldNotPadded}>
           <Typography variant="body2" inline>
             {props.t('parameters.autoRenew')}

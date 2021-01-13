@@ -11,6 +11,7 @@ import {
 } from '../../libs/communication/actions';
 import CampaignList from '../../libs/communication/components/CampaignList.component';
 import { getCampaignAndRecipientByMember } from '../../libs/communication/selectors';
+// import PaymentMethodManager from '../../libs/payment/component/PaymentMethodManager.component';
 
 import type { Campaign, Recipient } from '../../libs/communication/types';
 
@@ -28,18 +29,20 @@ export class MemberDetailContact extends React.Component<Props> {
 
   render() {
     return (
-      <CampaignList
-        campaignList={
-          // eslint-disable-next-line
-          this.props.campaignRecipientList.filter(([_, b]) => !!b)
-        }
-        loading={this.props.loading}
-        fetchMore={
-          this.props.nextPage && this.props.nextPage > 1
-            ? () => this.props.fetchCampaignList(this.props.nextPage)
-            : null
-        }
-      />
+      <React.Fragment>
+        <CampaignList
+          campaignList={
+            // eslint-disable-next-line
+            this.props.campaignRecipientList.filter(([_, b]) => !!b)
+          }
+          loading={this.props.loading}
+          fetchMore={
+            this.props.nextPage && this.props.nextPage > 1
+              ? () => this.props.fetchCampaignList(this.props.nextPage)
+              : null
+          }
+        />
+      </React.Fragment>
     );
   }
 }

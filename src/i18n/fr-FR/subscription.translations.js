@@ -60,6 +60,9 @@ exports.default = {
     register: "S'abonner",
     delete: 'Supprimer',
     buy: 'Acheter',
+    invoice: {
+      label: 'Facture {{uuid}} : {{price}}€',
+    },
     freeze: {
       form: {
         title: 'Mise en pause',
@@ -70,6 +73,8 @@ exports.default = {
         days: {
           label: 'Nombre de jours',
         },
+        explainInvoice:
+          'A partir de quelle facture (inclue) voulez-vous repousser la souscription ?',
         explain:
           "Le prochain paiement sera retardé d'autant de jours, de même pour les cartes de cours futures",
         explainWarning: "Attention cette opération n'est pas reversible !",
@@ -88,19 +93,47 @@ exports.default = {
       freeze: 'Mettre en pause',
       switchPack: 'Modifier la carte de cours',
       switchPaymentMethod: 'Modifier la méthode paiement',
+      enableAutoRenew: 'Activer le renouvellement automatique',
+      disableAutoRenew: 'Désactiver le renouvellement automatique',
+      stop: 'Stopper après cette facture',
+      changePrice: 'Modifier le prix',
+      showInvoice: 'Voir la facture',
+      changeDate: 'Modifier la date',
+      postPone: 'Repousser la facture',
+      advanceTime: 'Avancer cette facture',
     },
+  },
+  end: {
+    noRenew: 'Fin de la souscription',
+    renew: 'Renouvellement automatique',
   },
   pause: {
     pausedInterval: '{{start}} → {{ end }} : {{ days }} jours', // deprecated
     pausedAt: '{{ days }} jours - le {{ date }}',
+    createdAt: 'Créé le ',
+    label: 'Pause de {{days}} jours',
+    secondaryLabel: ' : {{ note }}',
+    actions: {
+      delete: 'Déprogrammer la pause',
+    },
   },
   plannedInvoice: {
     list: {
       titleNext: 'Prochains prélèvements',
     },
+    dateUpdater: {
+      title: 'Modification date future',
+      label: "Date d'encaissement",
+      explain: 'Seule cette future facture sera modifiée',
+      actions: {
+        cancel: 'Annuler',
+        submit: 'Enregistrer',
+      },
+    },
     priceUpdater: {
       title: 'Modification montant futur',
       price: 'Nouveau montant',
+      updateAll: 'Mettre à jour tous les paiements futurs',
       explain: 'Seule cette future facture sera modifiée',
       cancel: 'Annuler',
       submit: 'Enregistrer',
@@ -221,6 +254,10 @@ exports.default = {
     canceledOn: 'Stoppée le ',
     hasEnded: 'Facturation terminée',
     isPaused: 'En pause',
+  },
+  scheduledStop: {
+    label: 'Arrêt programmé',
+    unscheduleStop: "Déprogrammer l'arrêt",
   },
   action: {
     stop: 'Arrêter',

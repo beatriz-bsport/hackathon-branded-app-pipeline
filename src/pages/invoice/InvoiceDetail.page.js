@@ -11,6 +11,7 @@ import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import { push as pushRouter } from 'connected-react-router';
 import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group';
+import { PLANNED_PAYMENT_EVENT_STATUS_PENDING } from '@bsport/common/lib/master-data/planned-payment-event';
 import { INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER } from '@bsport/common/lib/master-data/invoice-type';
 import withTitle from '../../hocs/with-title.hoc';
 import {
@@ -19,6 +20,7 @@ import {
   withAuthor,
   withInvoiceItem,
   getPaymentListInInvoice,
+  getPlannedPaymentEventList,
 } from '../../libs/invoice/selectors';
 import { getPermissions } from '../../libs/role/selectors';
 import { formatAsDate } from '../../utils/datetime';
@@ -31,6 +33,7 @@ import {
   finalizeInvoice as finalizeInvoiceAction,
   updatePaymentMethod as updatePaymentMethodAction,
   allocateDebt,
+  fetchPlannedPaymentEventList,
 } from '../../libs/invoice/actions';
 import { fetchCompanyRoles } from '../../libs/role/actions';
 
@@ -56,6 +59,7 @@ type Props = {
   permission: Permission,
   revertInvoice: (uuid: string) => void,
   classes: any,
+  goToSubscription: (id: number) => void,
   paymentList: Array<Payment>,
   fetchInvoice: (string, OptionCallback) => void,
   goToInvoice: (uuid: string) => void,
@@ -67,11 +71,14 @@ type Props = {
   invoiceItemLoading: boolean,
   finalizeInvoice: (string) => void,
   allocateDebt: (uuid: string) => void,
+  fetchPlannedPaymentEventList: (params: any) => void,
   updatePaymentMethod: (
     paymentUuid: string,
     newMethod: number,
     options: OptionCallback,
   ) => void,
+
+  plannedPaymentEventList: Array<PlannedPaymentEvent>,
 };
 
 type State = {
@@ -100,6 +107,10 @@ export class InvoiceDetail extends React.Component<Props, State> {
     this.props.fetchPaymentList({
       invoice__uuid: this.props.uuid,
       page_size: 100,
+    });
+    this.props.fetchPlannedPaymentEventList({
+      invoice: this.props.uuid,
+      status: PLANNED_PAYMENT_EVENT_STATUS_PENDING,
     });
   };
 
@@ -160,6 +171,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 )}
                 amountInvoiceitem={this.props.invoice.amount_due_cts / 100}
                 finalizeInvoice={this.props.finalizeInvoice}
+                goToSubscription={this.props.goToSubscription}
               />
             )}
           </Grid>
@@ -167,6 +179,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
             <InvoicePaymentPanel
               invoice={this.props.invoice}
               paymentList={this.props.paymentList}
+              plannedPaymentEventList={this.props.plannedPaymentEventList}
               handleChangeMethod={this.props.updatePaymentMethod}
               onRevert={this.props.openRevertDialog}
               onPaymentIntent={() => this.props.setOpenPaymentDialog(true)}
@@ -284,12 +297,15 @@ export default compose(
       paymentList: getPaymentListInInvoice(state, uuid),
       paymentLoading: state.invoice.payment.loading,
       invoiceItemLoading: state.invoice.invoiceItem.loading,
+      plannedPaymentEventList: getPlannedPaymentEventList(state, uuid),
       permission: getPermissions(state),
     }),
     {
       fetchInvoiceItemList,
       fetchInvoice,
       fetchPaymentList: fetchPaymentListAction,
+      goToSubscription: (id) => pushRouter(`/subscription/${id}/`),
+      fetchPlannedPaymentEventList,
       fetchMember,
       fetchCompanyRoles,
       revertInvoice: revertInvoiceAction,

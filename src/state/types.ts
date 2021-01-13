@@ -63,6 +63,11 @@ export type GetState = () => State;
 export type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 export type PromiseAction = Promise<Action>;
 
+export type ErrorAndLoading = {
+  loading: boolean;
+  error?: Error;
+};
+
 export type OptionCallback = {
   onSuccess?: (args?: any) => void;
   onError?: (error?: Error) => void;

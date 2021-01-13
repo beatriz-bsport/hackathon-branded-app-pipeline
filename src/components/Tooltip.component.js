@@ -31,12 +31,15 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)((props: Props) => (
-  <Tooltip
-    title={props.title || null}
-    placement={props.placement || 'bottom'}
-    classes={{ tooltip: props.classes[props.variant || 'tooltip'] }}
-  >
-    {props.children}
-  </Tooltip>
-));
+export default withStyles(styles)((props: Props) => {
+  if (!props.title) return props.children;
+  return (
+    <Tooltip
+      title={props.title || null}
+      placement={props.placement || 'bottom'}
+      classes={{ tooltip: props.classes[props.variant || 'tooltip'] }}
+    >
+      {props.children}
+    </Tooltip>
+  );
+});

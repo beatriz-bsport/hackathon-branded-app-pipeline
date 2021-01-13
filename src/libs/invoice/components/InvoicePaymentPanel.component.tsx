@@ -1,5 +1,4 @@
-// @flow
-import React from 'react';
+import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import CheckIcon from '@material-ui/icons/Check';
@@ -14,26 +13,14 @@ import { INVOICE_TYPE_REGULAR } from '@bsport/common/lib/master-data/invoice-typ
 import RedButton from '../../../components/button/RedButton.component';
 
 import PaymentListItemV2 from './PaymentListItemV2.component';
+import PlannedPaymentEventListItem from './PlannedPaymentEventListItem.component';
 
-type Props = {
-  consumeBalance: (OptionCallback) => void,
-  accountBalance: ?boolean,
-  accountBalanceLoading: boolean,
-  handleChangeMethod: (
-    uuid: string,
-    method: number,
-    options: OptionCallback,
-  ) => void,
-  invoice: Invoice,
-  paymentLoading: boolean,
-  paymentList: Array<Payment>,
-  onRevert: () => void,
-  onPaymentIntent: () => void,
-};
+import { PlannedPaymentEvent, Payment, Invoice } from '../types';
+import { OptionCallback } from '../../../state/types';
 
 const InvoicePaymentStatus = (props: {
-  amountToPayCts: number,
-  isDraft: boolean,
+  amountToPayCts: number;
+  isDraft: boolean;
 }) => {
   const classes = useStyles();
   return (
@@ -51,17 +38,17 @@ const InvoicePaymentStatus = (props: {
   );
 };
 
-const PaymentActions = (props: {
-  loading: boolean,
-  accountBalance: number,
-  amountToPayCts: ?number,
-  is_reverse: boolean,
-  onPaymentIntent: () => void,
-  invoice: Invoice,
-  consumeBalance: ?(OptionCallback) => void,
-  onRevert: () => void,
-  accountBalanceLoading: boolean,
-}) => {
+const PaymentActions: FC<{
+  loading: boolean;
+  accountBalance: number;
+  amountToPayCts?: number;
+  is_reverse: boolean;
+  onPaymentIntent: () => void;
+  invoice: Invoice;
+  consumeBalance?: (OptionCallback) => void;
+  onRevert: () => void;
+  accountBalanceLoading: boolean;
+}> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
   const [processing, setProcessing] = React.useState(false);
@@ -144,7 +131,27 @@ const PaymentActions = (props: {
   );
 };
 
-export const InvoicePaymentPanel = (props: Props) => {
+type Props = {
+  paymentList: Array<Payment>;
+  plannedPaymentEventList: Array<PlannedPaymentEvent>;
+  consumeBalance: (OptionCallback) => void;
+  accountBalance?: boolean;
+  accountBalanceLoading: boolean;
+  handleChangeMethod: (
+    uuid: string,
+    method: number,
+    options: OptionCallback,
+  ) => void;
+  invoice: Invoice;
+  paymentLoading: boolean;
+  paymentList: Array<Payment>;
+  onRevert: () => void;
+  onPaymentIntent: () => void;
+  plannedPaymentEventList: Array<PlannedPaymentEvent>;
+  plannedPaymentEventLoading: boolean;
+};
+
+export const InvoicePaymentPanel: FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
   const amountToPayCts = Math.max(
@@ -176,13 +183,34 @@ export const InvoicePaymentPanel = (props: Props) => {
             {t('paymentPanel.paymentList.isEmpty')}
           </Typography>
         )}
-        {props.paymentList.map((p) => (
-          <PaymentListItemV2
-            handleChangeMethod={props.handleChangeMethod}
-            paymentItem={p}
-            key={p.id}
-          />
-        ))}
+        <div className={classes.listContainer}>
+          {props.paymentList.map((p) => (
+            <PaymentListItemV2
+              handleChangeMethod={props.handleChangeMethod}
+              paymentItem={p}
+              key={p.id}
+            />
+          ))}
+        </div>
+        {!props.plannedPaymentEventLoading &&
+          !!props.plannedPaymentEventList.length && (
+            <React.Fragment>
+              <Typography variant="h6" className={classes.sectionTitle}>
+                {t('paymentPanel.plannedPaymentEvent.title', {
+                  count: props.plannedPaymentEventList.length,
+                })}
+              </Typography>
+              <Divider className={classes.divider} />
+              <div className={classes.listContainer}>
+                {props.plannedPaymentEventList.map((p) => (
+                  <PlannedPaymentEventListItem
+                    plannedPaymentEvent={p}
+                    key={p.id}
+                  />
+                ))}
+              </div>
+            </React.Fragment>
+          )}
         {!is_reverse && (
           <React.Fragment>
             <Typography className={classes.sectionTitle} variant="h6">
@@ -337,6 +365,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     width: '100%',
     marginTop: theme.spacing(2),
+  },
+  listContainer: {
+    marginLeft: theme.spacing(1),
   },
 }));
 

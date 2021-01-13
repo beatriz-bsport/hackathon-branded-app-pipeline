@@ -6,7 +6,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
     "@babel/plugin-proposal-optional-chaining": "^7.12.7",
     "@babel/preset-typescript": "^7.12.7",
-    "@bsport/common": "^1.31.4",
+    "@bsport/common": "^1.31.5",
     "@date-io/moment": "^1.3.11",
     "@elastic/apm-rum-react": "^1.2.3",
     "@fullcalendar/core": "^5.4.0",
@@ -138,8 +138,7 @@
     "server:build": "webpack -p --progress",
     "test": "node scripts/test.js --env=jsdom",
     "compile": "npx tsc -p .",
-    "lint": "eslint --cache src",
-    "tslint": "eslint --config .tslintrc.json --ext .js --ext .jsx --ext .ts --ext .tsx ./src",
+    "lint": "eslint ./src",
     "storybook": "yarn run start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "updateTranslation": "./scripts/sync-translations.sh"

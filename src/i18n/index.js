@@ -47,9 +47,7 @@ i18n
   .init({
     backend: {
       backends: isDebug ? [HttpBackend] : [LocalStorageBackend, HttpBackend],
-      backendOptions: isDebug
-        ? [backendOptions]
-        : [undefined, backendOptions],
+      backendOptions: isDebug ? [backendOptions] : [undefined, backendOptions],
     },
     /*
     backend: {

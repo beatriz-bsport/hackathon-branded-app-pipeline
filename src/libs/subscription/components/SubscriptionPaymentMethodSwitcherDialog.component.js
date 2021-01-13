@@ -63,13 +63,20 @@ export default compose(
     onSubmit: ({ onSubmit, setProcessing }) => (
       source: string,
       payment_method_id,
+      options,
     ) => {
       setProcessing(true);
       onSubmit(
         source,
         {
-          onSuccess: () => setProcessing(false),
-          onError: () => setProcessing(false),
+          onSuccess: (...args) => {
+            if (options && options.onSuccess) options.onSuccess(...args);
+            setProcessing(false);
+          },
+          onError: () => {
+            setProcessing(false);
+            if (options && options.onError) options.onError();
+          },
         },
         payment_method_id,
       );

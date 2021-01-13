@@ -14,6 +14,7 @@ import {
   listPaymentActions,
   listInvoiceItemActions,
   listInvoiceActions,
+  listPlannedPaymentEventActions,
   checkInvoiceInfoActions,
 } from './actions';
 
@@ -45,6 +46,12 @@ const initialState = Immutable({
   },
   invoiceItem: {
     byId: {},
+    loading: false,
+    error: null,
+  },
+  planned_payment_event: {
+    byId: {},
+    allIds: [],
     loading: false,
     error: null,
   },
@@ -230,6 +237,32 @@ export default handleActions(
     },
     [createOrUpdateInvoiceActions.success]: (state, { payload }) => {
       return state.setIn(['byId', payload.uuid], payload);
+    },
+    [listPlannedPaymentEventActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['planned_payment_event', 'loading'], payload);
+    },
+    [listPlannedPaymentEventActions.error]: (state, { payload }) => {
+      return state.setIn(['planned_payment_event', 'error'], payload);
+    },
+    [listPlannedPaymentEventActions.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            planned_payment_event: {
+              byId: (payload.results || payload).reduce(
+                (acc, v) => ({ ...acc, [v.uuid]: v }),
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(
+          ['planned_payment_event', 'allIds'],
+          (payload.results || payload).map((inv) => inv.uuid),
+        )
+        .setIn(['planned_payment_event', 'count'], payload.count)
+        .setIn(['planned_payment_event', 'page'], payload.page);
     },
   },
   initialState,

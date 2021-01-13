@@ -1,0 +1,31 @@
+import { Payment } from './payment/types';
+import { InvoiceItem } from './invoice-item/types';
+
+export type Invoice = {
+  payments: Array<Payment>;
+  invoice_items: Array<InvoiceItem>;
+  voucher: number;
+  member: number;
+  memberName: string;
+  date: string;
+  uuid: string;
+  is_finalized: boolean;
+  stripe_invoice_pdf: ?string;
+  fully_payed: string;
+  price_due: string;
+  price_payed: string;
+  reverted: boolean;
+  memberName: string;
+};
+
+export type PlannedPaymentEvent = {
+  id: number;
+  date_created: string;
+  future_date: string;
+  invoice: string;
+  amount_cts: number;
+  payment_engine: number;
+  payment_method_identifier: number;
+  _payment_backend_method_id: string;
+  status: number;
+};

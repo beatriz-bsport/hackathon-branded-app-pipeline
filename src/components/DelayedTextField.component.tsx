@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 
 import TextField from '@material-ui/core/TextField';
@@ -6,14 +5,14 @@ import TextField from '@material-ui/core/TextField';
 const DELAY = 350;
 
 type Props = {
-  value: ?string,
-  onChange: (*) => void,
-  delay?: number,
+  value?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  delay?: number;
 };
 
 type State = {
-  value: string,
-  writingSince: ?number,
+  value: string;
+  writingSince: number | null;
 };
 
 export default class DelayedTextField extends Component<Props, State> {
@@ -25,7 +24,7 @@ export default class DelayedTextField extends Component<Props, State> {
     };
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.value !== prevProps.value) {
       this.setState({ value: this.props.value });
     }
@@ -35,7 +34,7 @@ export default class DelayedTextField extends Component<Props, State> {
     return this.props.delay || DELAY;
   };
 
-  handleChange = (e: *) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
     this.setState({
       writingSince: Date.now(),
@@ -44,7 +43,7 @@ export default class DelayedTextField extends Component<Props, State> {
     setTimeout(this.sendChange(e), this.getDelay() + 10);
   };
 
-  sendChange = (e: *) => () => {
+  sendChange = (e: React.ChangeEvent<HTMLInputElement>) => () => {
     const { writingSince } = this.state;
     if (
       (!writingSince || Date.now() - writingSince > this.getDelay()) &&

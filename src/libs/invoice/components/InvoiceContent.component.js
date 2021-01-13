@@ -9,7 +9,9 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { INVOICE_TYPE_MIGRATION } from '@bsport/common/lib/master-data/invoice-type';
+import Tooltip from '../../../components/Tooltip.component';
 
 import InvoiceItem from './InvoiceItem.component';
 import PaymentItem from './PaymentItem.component';
@@ -25,6 +27,7 @@ type Props = {
   finalizeInvoice: () => void,
   updatePaymentMethod: (uuid: string, paymentMethodId: number) => void,
   isReturningPayment: boolean,
+  goToSubscription: (id: number) => void,
 
   invoice: ?Invoice,
   invoiceItemLoading: boolean,
@@ -143,20 +146,41 @@ export const InvoiceContent = (props: Props) => {
         )}
       {!!props.finalizeInvoice && (
         <div className={classes.buttonRow}>
-          <Button
-            onClick={() => {
-              if (props.invoice.stripe_invoice_pdf) {
-                window.open(props.invoice.stripe_invoice_pdf);
-              } else {
-                props.finalizeInvoice();
-              }
-            }}
-            color="primary"
-            variant="contained"
+          <Tooltip
+            title={
+              props.invoice.is_draft
+                ? `${t('actions.explainPdfDraft')}`
+                : undefined
+            }
+            aria-label="pdf-not-available"
           >
-            <AttachFileIcon className={classes.iconLeft} />
-            {t('actions.download')}
-          </Button>
+            <Button
+              onClick={() => {
+                if (!props.invoice.is_draft) {
+                  if (props.invoice.stripe_invoice_pdf) {
+                    window.open(props.invoice.stripe_invoice_pdf);
+                  } else {
+                    props.finalizeInvoice();
+                  }
+                }
+              }}
+              color={props.invoice.is_draft ? undefined : 'primary'}
+              variant="contained"
+            >
+              <AttachFileIcon className={classes.iconLeft} />
+              {t('actions.download')}
+            </Button>
+          </Tooltip>
+          {!!props.invoice.plannedinvoice && (
+            <Button
+              onClick={() => props.goToSubscription(props.invoice.billing_plan)}
+              color="primary"
+              variant="outlined"
+            >
+              {t('actions.goToSubscription')}
+              <ArrowForwardIcon className={classes.rightIcon} />
+            </Button>
+          )}
         </div>
       )}
     </div>
@@ -179,6 +203,9 @@ const useStyles = makeStyles((theme) => ({
   buttonRow: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+    '&>*': {
+      marginRight: theme.spacing(1),
+    },
   },
   sumUp: {
     display: 'flex',

@@ -58,6 +58,24 @@ const _getPaymentData = (state: State) => {
   return state.invoice.payment.byId;
 };
 
+const _getPlannedPaymentEventData = (state: State) => {
+  return state.invoice.planned_payment_event.byId;
+};
+
+const _getPlannedPaymentEventListIds = (state: State) => {
+  return state.invoice.planned_payment_event.allIds;
+};
+
+export const getPlannedPaymentEventList = createSelector(
+  [
+    _getPlannedPaymentEventListIds,
+    _getPlannedPaymentEventData,
+    (state, uuid) => uuid,
+  ],
+  (ids, data, uuid) =>
+    ids.map((id) => data[id]).filter((ppe) => !!ppe && ppe.invoice === uuid),
+);
+
 export const withInvoiceItem = memoize((selector) =>
   createSelector(
     [selector, _getInvoiceItemData],

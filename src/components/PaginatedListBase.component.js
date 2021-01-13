@@ -17,9 +17,9 @@ import type { TFunction } from 'react-i18next';
 
 type Props = {
   items: Array<*>,
-  renderItem: (*, number, number) => *,
+  renderItem: (*, number, number) => HTMLElement,
   renderEmpty?: () => void,
-  listProps: Dict,
+  listProps: any,
   nbItems: number,
   itemPerPage: number,
   unknownNbItems?: boolean,
@@ -28,7 +28,7 @@ type Props = {
   onPageRequested: (number, number) => void,
 
   t: TFunction,
-  classes: Object,
+  classes: any,
 };
 
 type State = {

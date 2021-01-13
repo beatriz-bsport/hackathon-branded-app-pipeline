@@ -20,7 +20,6 @@ import RecursionToogle from './form/RecursionToogle.component';
 import EstablishmentSubForm from './form/EstablishmentSubForm.component';
 import CoachSubForm from './form/CoachSubForm.component';
 import NotificationToogle from './form/NotificationToogle.component';
-import WarningForceRecursion from './form/WarningForceRecursion.component';
 
 import LevelInput from '../../components/input/LevelInput.component';
 import DateTimeInput from '../../components/input/DateTimeInput.component';

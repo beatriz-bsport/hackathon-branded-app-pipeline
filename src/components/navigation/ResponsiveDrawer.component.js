@@ -6,7 +6,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { push as pushRouter } from 'connected-react-router';
 
 import { compose, withState } from 'recompose';
 
@@ -66,6 +65,7 @@ import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import LaptopIcon from '@material-ui/icons/Laptop';
 import StorageIcon from '@material-ui/icons/Storage';
 import type { TFunction } from 'react-i18next';
+import { push as pushRouter } from 'connected-react-router';
 
 import { colors } from '@bsport/common/lib/colors';
 import LanguageButton from '../button/LanguageButton.component';
@@ -103,10 +103,9 @@ type Props = {
   displayLeftMenu: boolean,
   openCreateMember: () => void,
   openCalendar: () => void,
-  push: (path: string) => void,
   openCash: boolean,
   setOpenCash: () => void,
-  cashBook: dict,
+  cashBook: any,
   fetchCashBook: (id: number) => void,
   loading: boolean,
   onSubmit: () => void,
@@ -168,9 +167,6 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             button
             onClick={() => {
               this.handleClick(item, i);
-              if (item.defaultTo && !this.state.open[i]) {
-                this.props.push(item.defaultTo);
-              }
             }}
             selected={isActive}
             key={String(i)}

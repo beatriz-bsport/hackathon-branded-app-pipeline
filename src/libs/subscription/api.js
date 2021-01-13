@@ -65,8 +65,11 @@ const deleteContract = async (id: number) => {
   return deleteAuth(`${API_URI}/subscription/contract/${id}/`);
 };
 
-export const postContractSubscription = async (id: number, data: any) => {
-  return postAuth(`${API_URI}/subscription/contract/${id}/register/`, data);
+export const postContractSubscription = async (id: number, data: any = {}) => {
+  return postAuth(`${API_URI}/subscription/contract/${id}/register/`, {
+    ...data,
+    is_v2: true,
+  });
 };
 
 export const postContractSubscriptionUnauthenticated = async (
@@ -74,6 +77,19 @@ export const postContractSubscriptionUnauthenticated = async (
   data: any,
 ) => {
   return post(`${API_URI}/subscription/contract/${id}/register/`, data);
+};
+
+export const updatePlannedInvoiceDate = async (
+  id: number,
+  data: {
+    date: string,
+    planned_invoice: number,
+  },
+) => {
+  return postAuth(
+    `${API_URI}/subscription/billing-plan/${id}/update_date/`,
+    data,
+  );
 };
 
 export const updatePlannedInvoicePrice = async (
@@ -127,6 +143,15 @@ export const flagPlannedInvoiceAsLast = async (id: number) => {
 export const unflagPlannedInvoiceAsLast = async (id: number) => {
   return putAuth(
     `${API_URI}/subscription/planned-invoice/${id}/unflag_as_last/`,
+  );
+};
+
+export const cancelPause = async (billingPlanId: number, id: number) => {
+  return deleteAuth(
+    `${API_URI}/subscription/billing-plan/${billingPlanId}/cancel_pause/`,
+    {
+      id,
+    },
   );
 };
 

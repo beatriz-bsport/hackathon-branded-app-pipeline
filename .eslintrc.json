@@ -10,6 +10,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:flowtype/recommended",
     "airbnb",
     "plugin:i18next/recommended",
     "plugin:react-hooks/recommended",
@@ -26,6 +27,7 @@
   "plugins": [
     "@typescript-eslint",
     "@typescript-eslint/tslint",
+    "flowtype",
     "react",
     "babel",
     "cypress",
@@ -120,3 +122,4 @@
     }
   ]
 }
+

@@ -39,10 +39,10 @@ export const PaymentItem = (props: Props) => {
           paymentItem.payment_received === false && (
             <CancelIcon color="secondary" />
           )}
-        {!!paymentItem.is_processing ||
-          (paymentItem.payment_received === null && (
-            <HourglassEmpty color="secondary" />
-          ))}
+        {(!!paymentItem.is_processing ||
+          paymentItem.payment_received === null) && (
+          <HourglassEmpty color="secondary" />
+        )}
         <div className={classes.leftText}>
           <Typography className={paymentItem.reverted ? classes.revert : null}>
             {`${t(`paymentMethod.${paymentItem.payment_method}`)}`}
@@ -131,7 +131,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: theme.spacing(3),
     marginRight: theme.spacing(3),
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),

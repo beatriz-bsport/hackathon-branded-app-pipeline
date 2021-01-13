@@ -293,7 +293,7 @@
             "establishmentId": "Je zaal- of zalen-ID's zijn: {{establishmentIdList}}",
             "companyId": "De ID van je onderneming is: {{company}}"
         },
-        "pageTitle": "Samenwerkingen"
+        "pageTitle": "Integraties"
     },
     "search": {
         "member": {
@@ -353,7 +353,7 @@
                 "metaActivity": "Activiteiten",
                 "offerManagement": "Reserveringen",
                 "coachList": "Instructeurs",
-                "shopManager": "Mijn winkel",
+                "shopManager": "Mijn webshop",
                 "dashboard": "Dashboard",
                 "mergeMember": "Fuseer lid",
                 "allCoachPerformance": "Overzicht van de instructeurs",
@@ -391,12 +391,12 @@
                 "dialog": {
                     "goToPayment": "Afrekenen",
                     "goToDelivery": "Doorgaan",
-                    "cancel": "Ga terug naar de winkel",
+                    "cancel": "Ga terug naar de webshop",
                     "title": "Mijn winkelmandje"
                 }
             },
             "shop": {
-                "isEmpty": "Momenteel zijn er geen producten in de winkel beschikbaar.",
+                "isEmpty": "Momenteel zijn er geen producten in de webshop beschikbaar.",
                 "addToCard": "Aan mijn winkelmandje toevoegen",
                 "noDescription": "Geen beschrijving",
                 "tabName": "Webshop"
@@ -518,7 +518,7 @@
             "explainFinalize": "Let op: een definitieve factuur kan niet meer worden gewijzigd. Alle betalingen die in afwachting van incasso zijn gemarkeerd, worden als geïncasseerd beschouwd. Zodra de factuur is afgerond, kun je deze exporteren als .PDF",
             "finalize": "Voltooi de factuur",
             "invoiceReverted": "Factuur geannuleerd",
-            "revertExplainShop": "Winkelaankopen worden geannuleerd en de voorraad wordt gereset.",
+            "revertExplainShop": "Aankopen van de webshop worden geannuleerd en de voorraad wordt gereset.",
             "revertExplainPacks": "Cursuskaarten worden geannuleerd evenals ALLE bijbehorende boekingen",
             "revertExplainCredits": "Het debet/krediet op de account van het lid wordt teruggeboekt.",
             "revertExplainPayment": "Creditcardbetalingen worden teruggestort op de rekening van het lid. Alle andere betaalmethoden worden verwijderd.",
@@ -1596,7 +1596,7 @@
             "date_offer": "Datum en tijd van de sessie",
             "couponName": "Promoties",
             "total_basket": "Totaal winkelmand",
-            "products": "Inhoud winkelmand",
+            "products": "Inhoud van de winkelmand",
             "adjusted_price": "Aangepaste prijs",
             "private_service_name": "Afspraak",
             "private_slot_name": "Sessie",
@@ -1617,7 +1617,7 @@
             "disabled": "Geannuleerd",
             "nb_non_attendance": "Afwezigen",
             "sum_margin_value": "Marginale bijdrage",
-            "checkout_items": "Inhoud winkelmandje",
+            "checkout_items": "Inhoud van de winkelmand",
             "total_payments": "Totaal aantal betalingen",
             "name": "Naam",
             "identifier": "Gebruikersnaam",
@@ -1815,7 +1815,7 @@
         "newOrder": {
             "price": "Bedrag: {{price, price}}.",
             "title": "Bestelling in behandeling",
-            "explain": "Betaald door <1> {{name}} </1> in de winkel."
+            "explain": "In de winkel betaald door <1?{{name}}</1>."
         },
         "task": {
             "name": "{{name}}"
@@ -2031,7 +2031,7 @@
                     },
                     "title": "Cursuskaart verwijderen:",
                     "askConfirmation": "Waarschuwing! Deze actie is definitief. De cursuskaart zal hierna niet meer zichtbaar of te koop zijn.",
-                    "thereAreConsumers": "Waarschuwing! Leden hebben deze cursuskaart gekocht. Als je deze verwijdert, kunnen ze hun resterende tegoed nog steeds gebruiken. Je kunt hun tegoed handmatig als nul instellen.\n\nDe cursuskaart zal niet meer in uw winkel voor nieuwe kopers verschijnen."
+                    "thereAreConsumers": "Waarschuwing! Leden hebben deze cursuskaart gekocht. Als je deze verwijdert, kunnen ze hun resterende tegoed nog steeds gebruiken. Je kunt hun tegoed handmatig als nul instellen.\n\nLeden zullen deze cursuskaart niet meer kunnen kopen."
                 },
                 "theoricalMarginValue": {
                     "helperText": "Wordt gebruikt om de vergoeding van instructeurs te berekenen. Voorbeeld: €10 betekent dat een reservering die via deze cursuskaart gemaakt vergoedt wordt ter waarde van €10. Indien dit veld leeg of €0 is, is de bijdrage van een cursuskaart: PRIJS / AANTAL RESERVERINGEN",
@@ -2461,8 +2461,8 @@
                 }
             },
             "20": {
-                "explanation": "Heeft een winkelmand verlaten met een bedrag van...",
-                "first": "Heeft een winkelmand verlaten met een bedrag van",
+                "explanation": "Heeft een winkelmand verlaten met een bedrag t.w.v.",
+                "first": "Heeft een winkelmand verlaten met een bedrag t.w.v.",
                 "second": "in",
                 "third": "euro",
                 "date": {
@@ -2892,7 +2892,7 @@
             "unevenQuickInvoices": "Op deze pagina bevinden zich nog open facturen zonder betaalmethode. Weet je zeker dat je wilt stoppen?"
         },
         "substitute": "Plaatsvervanger",
-        "manageOffer": "Beheer mijn reserveringen",
+        "manageOffer": "Mijn reserveringen beheren",
         "massDisabler": {
             "explainLoading": "Een moment geduld alstublieft",
             "explain": "Selecteer de periode waarover je je sessies wil annuleren. Leden die hebben geboekt, worden per e-mail op de hoogte gebracht en hun tegoed wordt automatisch teruggestort op de bijbehorende cursuskaart",
@@ -2912,7 +2912,7 @@
             "download": "Samenvatting",
             "massDisable": "In bulk annuleren",
             "hideCancelled": "Verberg annuleringen",
-            "showCancelled": "Bekijk annuleringen",
+            "showCancelled": "Toon annuleringen",
             "showWeek": "Weekoverzicht",
             "showMonth": "Maandoverzicht"
         },
@@ -3363,7 +3363,7 @@
             }
         },
         "paymentCombo": {
-            "addToCart": "Aan mijn winkelmand toevoegen"
+            "addToCart": "Aan mijn winkelmandje toevoegen"
         }
     },
     "selfCheckIn": {
@@ -3495,7 +3495,7 @@
             "marketingRule": "Marketingstrategieën"
         },
         "settings": "Instellingen",
-        "shop": "Mijn winkel",
+        "shop": "Mijn webshop",
         "offerManagement": "Reserveringen",
         "offerFormPage": "Nieuwe sessie aanmaken",
         "searchResults": "Zoeken",
@@ -3882,7 +3882,7 @@
             "category": "Categorie",
             "description": "Beschrijving",
             "status": {
-                "submitted": "Concept",
+                "submitted": "Video uploaden",
                 "processing": "Bezig",
                 "error": "Opnieuw proberen",
                 "processed": "Weergeven"
@@ -4071,7 +4071,7 @@
                 "helperForm": "Kies een Smartlist van BSPORT en koppel deze aan een van je lijsten op ActiveCampaign",
                 "helpTitle": "Hoe werkt synchronisatie?",
                 "title": "Informatie verzenden vanuit BSPORT",
-                "add": "Voeg een link tussen lijsten toe",
+                "add": "Een link tussen de lijsten toevoegen",
                 "dialogTitle": "Wijzig de link van een lijst",
                 "smartListSelection": "Kies een Smartlist",
                 "listActiveCampaignSelection": "Kies een ActiveCampaign-lijst",
@@ -4959,7 +4959,7 @@
                 "title": "{{ shopitem.name }} verwijderen",
                 "cancel": "Annuleren",
                 "confirm": "Verwijderen",
-                "explain": "Weet je zeker dat je dit item uit de winkel wilt verwijderen? Deze actie is definitief. Je hebt daarna geen toegang meer tot de voorraadgeschiedenis."
+                "explain": "Weet je zeker dat je dit item uit je webshop wilt verwijderen? Deze actie is definitief. Je hebt daarna geen toegang meer tot de voorraadgeschiedenis."
             }
         },
         "shopitem": {
@@ -4980,12 +4980,12 @@
             },
             "action": {
                 "edit": "Bewerken",
-                "addToCard": "Aan mijn winkelmand toevoegen",
+                "addToCard": "Aan mijn winkelmandje toevoegen",
                 "delete": "Verwijderen"
             }
         },
         "select": {
-            "placeholder": "Winkelartikel"
+            "placeholder": "Product"
         },
         "search": "Zoek een product",
         "provision": {
@@ -5764,7 +5764,7 @@
             },
             "selectorPlaceholder": {
                 "privatePass": "Selecteer afspraakkaarten (geldig op alle kaarten als er geen zijn geselecteerd)",
-                "shopitem": "Selecteer producten uit de winkel (geldig op alle producten als er geen is geselecteerd)",
+                "shopitem": "Selecteer producten uit je webshop (geldig op alle producten als er geen is geselecteerd)",
                 "paymentPack": "Selecteer cursuskaarten (geldig op alle cursuskaarten als er geen zijn geselecteerd)"
             },
             "section": {
@@ -5927,7 +5927,7 @@
             "turnover": "Som van alle ontvangen betalingen zoals vermeld op de facturen"
         },
         "bookingsWeektimeSlot": {
-            "title": "Wekelijks overzicht",
+            "title": "Bezoekersgemiddelde",
             "popover": "Gemiddeld aantal reserveringen per tijdsperiode"
         },
         "billedSubscriptions": {
@@ -5942,7 +5942,7 @@
         },
         "plannedPayment": {
             "popover": "Som van alle betalingen voor abonnementen",
-            "title": "Omzet van abonnementen",
+            "title": "Omzet van de abonnementen",
             "caption": "Incasso (in €)"
         },
         "noData": "Geen gegevens om weer te geven",
@@ -6213,16 +6213,16 @@
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
-                "label": "Google Tag-ID"
+                "label": "[ID] Google Tag Management"
             },
             "instagramURL": {
-                "label": "Link naar Instagram",
-                "helperText": "Link naar Instagram",
+                "label": "Je Instagram",
+                "helperText": "Voer de link naar je Instagram in",
                 "placeholder": "https://instagram.com/mijn-studio/"
             },
             "cover": {
                 "label": "Logo",
-                "helperText": "Upload een .png-bestand met transparante achtergrond"
+                "helperText": "Upload je logo als een .PNG-bestand met een transparante achtergrond."
             },
             "primary_color": {
                 "label": "Primaire kleur",
@@ -6233,7 +6233,7 @@
                 "helperText": "Complementaire themakleur"
             },
             "websiteURL": {
-                "label": "Link naar website (URL)",
+                "label": "Link naar je eigen website",
                 "helperText": "Dit wordt gebruikt wanneer leden op je logo klikken",
                 "placeholder": "https://studio.com/"
             },
@@ -6245,7 +6245,7 @@
             "submit": "Opslaan",
             "facebookURL": {
                 "label": "Facebook (URL)",
-                "helperText": "Link naar Facebook",
+                "helperText": "Voer de link naar je Facebook in",
                 "placeholder": "https://facebook.com/mijn-studio/"
             },
             "general_terms_and_conditions": {
@@ -6269,7 +6269,7 @@
                 "label": "Link naar iOS-app"
             },
             "facebookPixelId": {
-                "label": "Facebook Pixel ID",
+                "label": "[ID] Facebook Pixel",
                 "placeholder": "ID"
             }
         },
@@ -6281,24 +6281,24 @@
         "analytics": {
             "eventDesc": "Beschrijving van de activiteiten",
             "cancel": "Annuleer",
-            "addPrivatePassToCart": "Wanneer leden een afspraakkaart aan hun mandje toevoegen",
-            "gtmEvent": "GTM Naam Evenement",
-            "showBasket": "Wanneer leden hun mandje openen",
-            "showPass": "Wanneer leden hun cursuskaart tonen",
-            "addPackToCart": "Wanneer leden een pakket aan hun mandje toevoegen",
-            "addShopItemToCart": "Wanneer leden een product aan hun mandje toevoegen",
-            "signupShow": "Wanneer leden het registratieformulier openen",
-            "fbPixelEvent": "Facebook Pixel Naam Evenement",
+            "addPrivatePassToCart": "Wanneer een gebruiker een afspraakkaart aan zijn/haar winkelmandje toevoegt",
+            "gtmEvent": "[Google Tag Management] Evenementen",
+            "showBasket": "Wanneer een gebruiker zijn/haar winkelmandje opent",
+            "showPass": "Wanneer een gebruiker op een cursuskaart klikt",
+            "addPackToCart": "Wanneer een gebruiker een pakket aan zijn/haar winkelmandje toevoegt",
+            "addShopItemToCart": "Wanneer een gebruiker een product uit je webshop aan zijn/haar winkelmandje toevoegt",
+            "signupShow": "Wanneer een gebruiker het registratieformulier opent",
+            "fbPixelEvent": "[Facebook Pixel] Evenement",
             "signupSuccess": "Wanneer een gebruiker een account heeft aangemaakt",
-            "contractPaymentSuccess": "Wanneer leden zich hebben aangemeld",
-            "contractShow": "Wanneer leden een abonnement selecteren",
-            "contractPaymentShow": "Wanneer leden zich op de betaalpagina van een abonnement bevinden",
-            "showAnalyticsInformation": "Toon gevolgde activiteiten",
-            "addPassToCart": "Wanneer leden een cursuskaart aan hun mandje toevoegen",
-            "paymentSuccess": "Wanneer leden een succesvolle betaling voltooien",
-            "signinShow": "Wanneer leden de inlogpagina openen",
-            "sessionShow": "Wanneer leden een sessie selecteren",
-            "workshopClick": "Wanneer leden een datum van een workshop selecteren"
+            "contractPaymentSuccess": "Wanneer een gebruiker zich heeft aangemeld",
+            "contractShow": "Wanneer een gebruiker een abonnement selecteert",
+            "contractPaymentShow": "Wanneer een gebruiker zich op de betaalpagina van een abonnement bevindt",
+            "showAnalyticsInformation": "Toon evenementen",
+            "addPassToCart": "Wanneer een gebruiker een cursuskaart aan zijn/haar winkelmandje toevoegt",
+            "paymentSuccess": "Wanneer een gebruiker een succesvolle betaling verricht",
+            "signinShow": "Wanneer een gebruiker de inlogpagina opent",
+            "sessionShow": "Wanneer een gebruiker een sessie selecteert",
+            "workshopClick": "Wanneer een lid een datum van een workshop selecteert"
         }
     },
     "checkout": {
@@ -6766,7 +6766,7 @@
             "settings": {
                 "settings": "Instellingen",
                 "active_campaign": "ActiveCampaign",
-                "partnership": "Partnerschap",
+                "partnership": "Integraties",
                 "webhook": "Webhook",
                 "personalization": "Personalisering",
                 "role": "Personeel",

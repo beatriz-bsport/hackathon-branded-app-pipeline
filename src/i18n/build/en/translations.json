@@ -4621,7 +4621,8 @@
             "revert": "Cancel",
             "invoiceReverted": "Invoice cancelled",
             "finalize": "Finalize (PDF)",
-            "consumeBalance": "Pay via balance"
+            "consumeBalance": "Pay via balance",
+            "explainPdfDraft": "The invoice is still a draft, pdf is not available."
         },
         "invoice": {
             "editor": {
@@ -4812,7 +4813,11 @@
             "amountRemaining": "Remainder to pay: {{ amount }}",
             "billingMoreThanNeeded": "If  you collect more than the amount of the bill, the surplus will be put in the balance of the client",
             "errorSecretExplain2": "If the issue is not resolved please contact us at dev+payment-intent@bsport.io",
-            "errorSecretExplain1": "This paiement method is not available at the moment"
+            "errorSecretExplain1": "This paiement method is not available at the moment",
+            "plannedPaymentEvent": {
+                "title": "Planned paiement",
+                "title_plural": "Planned paiements"
+            }
         },
         "paymentMethod": {
             "label": {
@@ -4834,7 +4839,11 @@
             },
             "select": {
                 "label": "Payment method"
-            }
+            },
+            "isInternalExplain": "Client account (manual) : each month a charge will be applied to this member.",
+            "add": "Add",
+            "edit": "Modify",
+            "title": "Payment method"
         },
         "paymentEngine": {
             "label": {
@@ -4852,6 +4861,13 @@
         "invoiceInfo": {
             "3": "This invoice is the result of a migration. We are unable to provide a PDF or cancel it for legal reasons.",
             "2": "This payment receipt represents your member's balance adjustment."
+        },
+        "plannedPaymentEvent": {
+            "actions": {
+                "edit": "Modify",
+                "delete": "Cancel",
+                "registerNow": "Cash-in now"
+            }
         }
     },
     "coach": {
@@ -4962,7 +4978,15 @@
             "actions": {
                 "switchPaymentMethod": "Change the payment method",
                 "switchPack": "Modify pass",
-                "freeze": "Pause"
+                "freeze": "Pause",
+                "advanceTime": "Advance the invoice",
+                "postPone": "Postpone the invoice",
+                "changeDate": "Modify the date",
+                "showInvoice": "See the invoice",
+                "changePrice": "Modify the price",
+                "stop": "Stop before this invoice",
+                "disableAutoRenew": "Desactivate auto-renew",
+                "enableAutoRenew": "Activate auto-renew"
             },
             "freeze": {
                 "form": {
@@ -4977,7 +5001,8 @@
                         "placeholder": "Bank holidays",
                         "label": "Note"
                     },
-                    "title": "Paused"
+                    "title": "Paused",
+                    "explainInvoice": "From which invoice (included) do you want to postpone the subscription?"
                 }
             },
             "switchPack": {
@@ -5001,6 +5026,9 @@
                 "explain": "Choose the last payment for the subscription.",
                 "listItem": "Termination of the subscription programmed",
                 "summary": "The date of the last programmed payment will be {{-date}}, it will correspond to the last valid card."
+            },
+            "invoice": {
+                "label": "Invoice {{uuid}} : {{price}}€"
             }
         },
         "contract": {
@@ -5175,15 +5203,25 @@
                 "cancel": "Cancel",
                 "explain": "Only this invoice will be modified",
                 "price": "New amount",
-                "title": "Payment modification"
+                "title": "Payment modification",
+                "updateAll": "Update all futures paiements"
             },
             "list": {
                 "titleNext": "Next withdrawals"
+            },
+            "dateUpdater": {
+                "title": "Modify the future invoice"
             }
         },
         "pause": {
             "pausedInterval": "{{start}} → {{ end }} : {{ days }} days",
-            "pausedAt": "{{days}} days - {{date}}"
+            "pausedAt": "{{days}} days - {{date}}",
+            "actions": {
+                "delete": "Cancel the pause"
+            },
+            "secondaryLabel": " : {{ note }}",
+            "label": "Paused for {{days}} days",
+            "createdAt": "Create the "
         },
         "messages": {
             "youSubscribed": {
@@ -5218,6 +5256,13 @@
             "hasStopped": "Stopped",
             "hasNotStartedYet": "Not started yet",
             "hasStarted": "In process"
+        },
+        "scheduledStop": {
+            "label": "Stop scheduled"
+        },
+        "end": {
+            "renew": "Auto-renew",
+            "noRenew": "End the subscription"
         }
     },
     "reporting": {

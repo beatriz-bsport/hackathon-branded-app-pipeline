@@ -1596,7 +1596,8 @@
                 "selectActivity": "Elija una actividad",
                 "selectEstablishment": "Elija un establecimiento",
                 "selectCoach": "Elija un entrenador",
-                "selectComponent": "Elija un componente"
+                "selectComponent": "Elija un componente",
+                "showAdvanced": "Ver más opciones"
             },
             "componentType": {
                 "playlist": "Playlist",
@@ -1923,7 +1924,8 @@
             "goToSubscription": "Ver la suscripción",
             "revert": "Cancelar",
             "invoiceReverted": "Factura cancelada",
-            "consumeBalance": "Paga a través del balance"
+            "consumeBalance": "Paga a través del balance",
+            "explainPdfDraft": "La factura sigue siendo un borrador, el pdf no está disponible."
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "La factura se ha finalizado y, por lo tanto, ya no se puede editar",
@@ -2087,7 +2089,11 @@
             "amountRemaining": "El resto a pagar: {{ amount }}",
             "billingMoreThanNeeded": "Si cobra más que el importe de la factura, el exceso se pondrá en el saldo del cliente",
             "errorSecretExplain2": "Si el problema no se resuelve por favor contáctenos en dev+payment-intent@bsport.io",
-            "errorSecretExplain1": "Este método de pago no está disponible en este momento"
+            "errorSecretExplain1": "Este método de pago no está disponible en este momento",
+            "plannedPaymentEvent": {
+                "title": "Pago planificado",
+                "title_plural": "Pagos planificados"
+            }
         },
         "paymentMethod": {
             "label": {
@@ -2109,7 +2115,11 @@
             },
             "select": {
                 "label": "Método de pago"
-            }
+            },
+            "isInternalExplain": "Cuenta de cliente (manual): cada mes se aplicará un cargo a este miembro.",
+            "title": "Método de pago",
+            "add": "Añadir",
+            "edit": "Modificar"
         },
         "paymentEngine": {
             "label": {
@@ -2127,6 +2137,13 @@
         "invoiceInfo": {
             "3": "Esta factura es de una migración. No podemos proporcionar un PDF o cancelarlo por razones legales.",
             "2": "Este recibo de pago representa el ajuste del saldo de su miembro."
+        },
+        "plannedPaymentEvent": {
+            "actions": {
+                "edit": "Modificar",
+                "delete": "Cancelar",
+                "registerNow": "Recoge ahora"
+            }
         }
     },
     "coach": {
@@ -2383,21 +2400,45 @@
                 "cancel": "Cancelar",
                 "explain": "Solo esta futura factura será modificada",
                 "price": "Nueva cantidad",
-                "title": "Modificar cantidad futura"
+                "title": "Modificar cantidad futura",
+                "updateAll": "Actualizar todos los pagos futuros"
             },
             "list": {
                 "titleNext": "Próximos retiros"
+            },
+            "dateUpdater": {
+                "actions": {
+                    "submit": "Guardar",
+                    "cancel": "Cancelar"
+                },
+                "explain": "Sólo esta futura factura será modificada",
+                "label": "Fecha de recogida",
+                "title": "Modificar la factura futura"
             }
         },
         "pause": {
             "pausedAt": "{{ days }} días - le {{ date }}",
-            "pausedInterval": "{{start}} → {{ end }} : {{ days }} días"
+            "pausedInterval": "{{start}} → {{ end }} : {{ days }} días",
+            "actions": {
+                "delete": "Cancelar la pausa"
+            },
+            "secondaryLabel": " : {{ note }}",
+            "label": "Pausado durante {{days}} días",
+            "createdAt": "Crear el "
         },
         "subscription": {
             "actions": {
                 "switchPaymentMethod": "Modificar el método de pago",
                 "switchPack": "Modificar la tarjeta de curso",
-                "freeze": "Pausar"
+                "freeze": "Pausar",
+                "advanceTime": "Adelante la factura",
+                "postPone": "Posponer la factura",
+                "changeDate": "Modificar la fecha",
+                "showInvoice": "Ver la factura",
+                "changePrice": "Modificar el precio",
+                "stop": "Detente antes de esta factura",
+                "disableAutoRenew": "Desactivar la auto-renovación",
+                "enableAutoRenew": "Activar la auto-renovación"
             },
             "freeze": {
                 "form": {
@@ -2412,7 +2453,8 @@
                         "placeholder": "Vacaciones de Todos los Santos",
                         "label": "Razón"
                     },
-                    "title": "Pausa"
+                    "title": "Pausa",
+                    "explainInvoice": "De qué factura (incluida) quiere aplazar la suscripción?"
                 }
             },
             "delete": "Suprimir",
@@ -2439,6 +2481,9 @@
                 "listItem": "Terminación programada de la suscripción",
                 "summary": "El último pago programado tendrá la fecha {{-date}}, corresponderá a la última tarjeta válida.",
                 "explain": "Elija el último pago de la suscripción."
+            },
+            "invoice": {
+                "label": "Factura {{uuid}} : {{price}}€"
             }
         },
         "noContracts": "Los contratos te permitirán facturar a tus miembros regularmente (mensualmente) por una tarjeta de curso que se vuelve a acreditar cada mes.",
@@ -2473,6 +2518,14 @@
             "hasStopped": "Detenido",
             "hasNotStartedYet": "Aún no ha empezado",
             "hasStarted": "En proceso"
+        },
+        "scheduledStop": {
+            "unscheduleStop": "Desprogramar la parada",
+            "label": "Parada programada"
+        },
+        "end": {
+            "renew": "Auto-renovación",
+            "noRenew": "Termina la suscripción"
         }
     },
     "reporting": {
@@ -2632,7 +2685,12 @@
             "amount_paid_cts": "Cantidad pagada",
             "amount_due_cts": "El importe de la compra",
             "author_name": "Autor",
-            "stripe_invoice_pdf": "PDF"
+            "stripe_invoice_pdf": "PDF",
+            "payment_method_giropay": "Giropay",
+            "payment_method_ideal": "iDeal",
+            "payment_method_bancontact": "Bancontact",
+            "payment_method_sofort": "Sofort",
+            "payment_method_eps": "EPS"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -6906,6 +6964,21 @@
             "noInvoice": "No hay facturas",
             "sectionTitle": "Mis facturas",
             "label": "Factura {{month}} / {{year}}"
+        }
+    },
+    "marketing": {
+        "newsletter": {
+            "messages": {
+                "success": "Guardado !",
+                "error": "Imposible guardar su dirección de correo electrónico por el momento"
+            },
+            "form": {
+                "validate": "Envía",
+                "lastName": "Apellido",
+                "firstName": "Nombre",
+                "email": "Dirección de correo electrónico",
+                "title": "Suscríbete al boletín de noticias"
+            }
         }
     }
 }

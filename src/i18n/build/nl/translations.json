@@ -2411,7 +2411,7 @@
                 "name": "Geslacht",
                 "first": "Selecteer alleen de",
                 "men": "mannen",
-                "explanation": "Is een vrouw/man",
+                "explanation": "Is een MAN/VROUW",
                 "women": "vrouwen"
             },
             "8": {
@@ -3278,7 +3278,7 @@
             "form": {
                 "title": "Periodieke afspraak inplannen",
                 "delayWeek": {
-                    "helperText": "Geef aan hoeveel weken een lid zich van te voren wordt ingeschreven",
+                    "helperText": "Geef aan hoeveel weken een lid wordt ingeschreven",
                     "label": "Aantal weken"
                 },
                 "metaActivity": {
@@ -3683,13 +3683,22 @@
                     "days": {
                         "label": "Aantal dagen"
                     },
-                    "explain": "De volgende betaling wordt met zoveel dagen vertraagd, hetzelfde voor toekomstige leskaarten"
+                    "explain": "De volgende betaling wordt met zoveel dagen vertraagd, hetzelfde voor toekomstige leskaarten",
+                    "explainInvoice": "Vanaf welke factuur (inbegrepen) wil je het abonnement pauzeren?"
                 }
             },
             "actions": {
                 "switchPaymentMethod": "Betaalmethode wijzigen",
                 "freeze": "Pauzeren",
-                "switchPack": "Cursuskaart bewerken"
+                "switchPack": "Cursuskaart bewerken",
+                "advanceTime": "Factuur vooraf betalen",
+                "postPone": "Factuur uitstellen",
+                "changeDate": "Wijzig de datum",
+                "showInvoice": "Toon de factuur",
+                "changePrice": "Wijzig de prijs",
+                "stop": "Na deze factuur stoppen",
+                "disableAutoRenew": "Deactiveer automatische verleningen",
+                "enableAutoRenew": "Activeer automatische verleningen"
             },
             "delete": "Verwijderen",
             "register": "Abonneren",
@@ -3700,11 +3709,20 @@
                 "explain": "Selecteer de laatste betaling voor het abonnement.",
                 "summary": "De laatste geprogrammeerde betaling is op {{-date}} en komt overeen met de laatste geldige cursuskaart.",
                 "listItem": "Geplande opzegging van het abonnement"
+            },
+            "invoice": {
+                "label": "Factuur {{uuid}} : €{{price}}"
             }
         },
         "pause": {
             "pausedInterval": "{{start}} → {{end}}: {{days}} dagen",
-            "pausedAt": "{{days}} dagen - {{date}}"
+            "pausedAt": "{{days}} dagen - {{date}}",
+            "actions": {
+                "delete": "Pauze annuleren"
+            },
+            "secondaryLabel": " : {{ note }}",
+            "label": "{{days}} dagen pauzeren",
+            "createdAt": "Gemaakt op "
         },
         "plannedInvoice": {
             "priceUpdater": {
@@ -3712,10 +3730,20 @@
                 "price": "Nieuw bedrag",
                 "explain": "Alleen de toekomstige factuur wordt gewijzigd",
                 "cancel": "Annuleren",
-                "submit": "Opslaan"
+                "submit": "Opslaan",
+                "updateAll": "Werk alle toekomstige betalingen bij"
             },
             "list": {
                 "titleNext": "Opkomende afschrijvingen"
+            },
+            "dateUpdater": {
+                "title": "Wijzig de toekomstige factuur",
+                "actions": {
+                    "submit": "Opslaan",
+                    "cancel": "Annuleren"
+                },
+                "explain": "Alleen toekomstige facturen worden gewijzigd",
+                "label": "Incassodatum"
             }
         },
         "recap": {
@@ -3802,6 +3830,14 @@
             "hasStopped": "Gepauzeerd",
             "hasNotStartedYet": "Inactief",
             "hasStarted": "Actief"
+        },
+        "scheduledStop": {
+            "unscheduleStop": "Stop uitschakelen",
+            "label": "Stop inschakelen"
+        },
+        "end": {
+            "renew": "Automatische vernieuwing",
+            "noRenew": "Einde van het abonnement"
         }
     },
     "coachPerformance": {
@@ -4343,8 +4379,8 @@
             "searchSlot": "Zoek een tijdstip",
             "noPrivateServiceAvailable": "Momenteel zijn er geen afspraken ingepland",
             "bookingCapabilities": {
-                "compatibleConsumerPassTitle": "Je geldige cursuskaarten",
-                "compatiblePassTitle": "Geldige cursuskaarten voor deze sessie",
+                "compatibleConsumerPassTitle": "Mijn lidmaatschappen",
+                "compatiblePassTitle": "Compatibele lidmaatschappen",
                 "emptyPassList": "Geen compatibele kaart beschikbaar. Neem contact met je club op",
                 "emptyConsumerPassList": "Je hebt geen geldige cursuskaart met voldoende krediet"
             },
@@ -6206,10 +6242,10 @@
                         "helperText": "Wanneer {{number}} leden zich voor een sessie inschrijven, worden alleen reserveringen geaccepteerd als de onevenwichtigheid tussen MANNEN/VROUWEN minder is dan de volgende waarde.",
                         "placeholder": "Controleer de onevenwichtigheid tussen MANNEN/VROUWEN wanneer het aantal reserveringen groter is dan"
                     },
-                    "checkbox": "Beperk het onevenwicht tussen MANNEN/VROUWEN voor reserveringen"
+                    "checkbox": "Beperk het onevenwicht tussen MANNEN/VROUWEN voor je sessies"
                 },
                 "offerBalance": "Stel een regel in dat het aantal MANNEN/VROUWEN per sessie reguleert",
-                "showGenderOffer": "Toon het aantal MANNEN / VROUWEN op je rooster"
+                "showGenderOffer": "Het aantal ingeschreven MANNEN / VROUWEN op je rooster tonen"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -6401,7 +6437,8 @@
             "goToSubscription": "Zie abonnement",
             "revert": "Annuleren",
             "invoiceReverted": "Factuur geannuleerd",
-            "consumeBalance": "Met saldo betalen"
+            "consumeBalance": "Met saldo betalen",
+            "explainPdfDraft": "Deze factuur is nog een concept. De .PDF is nog niet beschikbaar."
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "De factuur is definitief en kan dus niet meer worden bewerkt",
@@ -6493,7 +6530,11 @@
             "amountRemaining": "Resterend bedrag: {{ amount }}",
             "billingMoreThanNeeded": "Als je meer dan het factuurbedrag incasseert, wordt het saldo van het lid met het verschil verhoogd",
             "errorSecretExplain2": "Neem contact op met dev+payment-intent@bsport.io als het probleem aanhoudt",
-            "errorSecretExplain1": "Deze betaalmethode is momenteel niet beschikbaar"
+            "errorSecretExplain1": "Deze betaalmethode is momenteel niet beschikbaar",
+            "plannedPaymentEvent": {
+                "title": "Geplande betaling",
+                "title_plural": "Geplande betalingen"
+            }
         },
         "balance": {
             "updaterDialog": {
@@ -6587,7 +6628,11 @@
             },
             "select": {
                 "label": "Betaalmethode"
-            }
+            },
+            "isInternalExplain": "Account van de klant (handmatig): de klant wordt iedere maand belast.",
+            "add": "Toevoegen",
+            "edit": "Bewerken",
+            "title": "Betaalmethode"
         },
         "paymentEngine": {
             "label": {
@@ -6605,6 +6650,13 @@
             "credit_payment": "Ontvangstbewijs (wijziging balans)",
             "migration": "Gegevensoverdracht",
             "regular": "Factuur"
+        },
+        "plannedPaymentEvent": {
+            "actions": {
+                "edit": "Bewerken",
+                "delete": "Annuleren",
+                "registerNow": "Uitbetalen"
+            }
         }
     },
     "waitingList": {

@@ -3019,8 +3019,8 @@
                         "default": "Help: the notification will be sent to the member when it is late-canceled for the {{notifyNb}}th time, for this type of appointment"
                     },
                     "cancelledRefunded": {
-                        "notifyAll": "Help: the notification will be sent to the member for each of their canceled reservations reimbursed for this type of appointment",
-                        "default": "Help: the notification will be sent to the member when their canceled reservation refunded n ° {{notifyNb}} for this type of appointment"
+                        "notifyAll": "Help: the notification will be sent to the member for each of their canceled reservations that are reimbursed for this type of appointment",
+                        "default": "Help: the notification will be sent to the member when their canceled reservation is refunded n ° {{notifyNb}} for this type of appointment"
                     },
                     "valid": {
                         "notifyAll": "Help: the notification will be sent to the member for each of their valid reservations for this type of appointment",
@@ -5210,7 +5210,13 @@
                 "titleNext": "Next withdrawals"
             },
             "dateUpdater": {
-                "title": "Modify the future invoice"
+                "title": "Modify the future invoice",
+                "label": "Date of collection",
+                "actions": {
+                    "submit": "Save",
+                    "cancel": "Cancel"
+                },
+                "explain": "Only this future invoice will be modified"
             }
         },
         "pause": {
@@ -5258,7 +5264,8 @@
             "hasStarted": "In process"
         },
         "scheduledStop": {
-            "label": "Stop scheduled"
+            "label": "Stop scheduled",
+            "unscheduleStop": "Unschedule the stop"
         },
         "end": {
             "renew": "Auto-renew",

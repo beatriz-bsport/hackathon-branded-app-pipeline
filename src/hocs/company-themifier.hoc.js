@@ -13,7 +13,7 @@ export default (WrappedComponent) => {
     render() {
       return (
         <MuiThemeProvider theme={getTheme(this.props.theme)}>
-          <WrappedComponent {...this.props} />;
+          <WrappedComponent {...this.props} />
         </MuiThemeProvider>
       );
     }

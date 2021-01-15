@@ -66,6 +66,7 @@ import { CheckoutState } from '../libs/checkout/types';
 import { MailState } from '../libs/communication/types';
 import { CompanyState } from '../libs/company/types';
 import { ConsumerPaymentPackState } from '../libs/consumer-payment-pack/types';
+import actionTypes from '../actions/auth.types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -184,5 +185,8 @@ export type RootState = {
 
 export default (history: any) => (state: any, action: any) => {
   const newState = state;
+  if (action.type === actionTypes.DISCONNECT) {
+    return rootReducer(history)(undefined, action);
+  }
   return rootReducer(history)(newState, action);
 };

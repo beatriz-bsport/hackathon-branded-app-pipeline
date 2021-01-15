@@ -26,7 +26,7 @@ const initialState = Immutable({
   },
 });
 
-export default function authReducer(state = initialState, action = {}) {
+export default function authReducers(state = initialState, action = {}) {
   switch (action.type) {
     case 'initiate':
       return state.set('initializating', action.payload);

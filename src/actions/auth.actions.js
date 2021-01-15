@@ -69,8 +69,9 @@ export function fetchAccessLevel(
     } catch (err) {
       if (!err.status) {
         dispatch(networkError(err));
+      } else {
+        dispatch(errorLogin());
       }
-      dispatch(errorLogin());
     }
     if (options && options.onDone) options.onDone();
   };

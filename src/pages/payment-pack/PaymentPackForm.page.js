@@ -37,6 +37,7 @@ import {
 } from '../../libs/payment-packs/actions';
 import withTitle from '../../hocs/with-title.hoc';
 import type { SCT, MetaActivity } from '../../api/types';
+import { fetchVideoFilterableParams as fetchVideoFilterableParamsAction } from '../../libs/video/actions';
 
 type Props = {
   loading: boolean,
@@ -53,6 +54,8 @@ type Props = {
   fetchPaymentPack: (id: number, options: OptionCallback) => void,
   paymentPackId: number,
   fetchMetaActivityBulk: (Array<number>) => void,
+  fetchVideoFilterableParams: (params: any) => void,
+  videoSCTs: Array<number>,
 };
 
 export class PaymentPackFormPage extends React.Component<Props> {
@@ -65,10 +68,12 @@ export class PaymentPackFormPage extends React.Component<Props> {
     this.props.fetchEstablishments();
     this.props.fetchAllActivities({ customer_enabled: true });
     this.props.fetchWorkhops();
+    this.props.fetchVideoFilterableParams({ mine: true });
   }
 
   render() {
     const {
+      videoSCTs,
       categories,
       metaActivities,
       loading,
@@ -82,7 +87,10 @@ export class PaymentPackFormPage extends React.Component<Props> {
     if (loading || (!!paymentPackId && !initial)) {
       return <LinearProgress />;
     }
-    const availableCategoriesId = metaActivities.map((a) => a.SCT);
+    const availableCategoriesId = [
+      ...metaActivities.map((a) => a.SCT),
+      ...videoSCTs.map((sct) => sct.id),
+    ];
     const filterableCategories = categories.filter(
       (c) =>
         availableCategoriesId.indexOf(c.id) !== -1 ||
@@ -146,6 +154,7 @@ export default compose(
         ),
         establishments: getAllEstablishments(state),
         loading: state.paymentPack.loading,
+        videoSCTs: uniqBy(state.video.filterableParams.items.SCTs, 'id'),
       };
     },
     {
@@ -156,6 +165,7 @@ export default compose(
       fetchWorkhops,
       createOrUpdate: createOrUpdatePaymentPack,
       push: pushRouter,
+      fetchVideoFilterableParams: fetchVideoFilterableParamsAction,
     },
   ),
   withProps(({ createOrUpdate, push }) => ({

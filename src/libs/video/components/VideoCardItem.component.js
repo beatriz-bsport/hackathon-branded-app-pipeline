@@ -101,10 +101,12 @@ export const VideoCardItem = (props: Props) => {
                   )}
                 </div>
               </div>
-              <SCT
-                SCTName={props.video.SCT.name}
-                parentCategory={props.video.SCT.SCS.id}
-              />
+              {props.video.SCT && (
+                <SCT
+                  SCTName={props.video.SCT.name}
+                  parentCategory={props.video.SCT.SCS.id}
+                />
+              )}
               <div className={classes.descriptionContainer}>
                 <TypographyWithShowMore
                   multiline

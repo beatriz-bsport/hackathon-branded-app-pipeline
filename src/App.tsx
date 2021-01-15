@@ -8,6 +8,7 @@ import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
 import { fetchSCT } from 'bsport-saas/src/libs/category/actions';
 import SnackbarPile from 'bsport-saas/src/SnackbarPile.component';
 import { getTheme } from 'bsport-saas/src/theme';
+import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 
 import SignUpForm from 'bsport-saas/src/components/form/SignUpForm.component';
@@ -27,6 +28,8 @@ const VODWidget = React.lazy(() => import('./components/Vod'));
 const PrivateServiceWidget = React.lazy(() => import('./components/PrivateService'));
 const WorkshopWidget = React.lazy(() => import('./components/Workshop'));
 const NewsletterWidget = React.lazy(() => import('./components/Newsletter'));
+
+const Snackbar = themify(SnackbarPile);
 
 
 type OwnProps = WidgetConfig & {
@@ -131,7 +134,7 @@ class BsportWidget extends Component<Props, State> {
   }
 
   render() {
-    const { theme, t } = this.props;
+    const { t } = this.props;
 
     return (
       <div
@@ -148,13 +151,13 @@ class BsportWidget extends Component<Props, State> {
             theme={getTheme(this.props.theme)}
           >
             {this.renderWidget()}
-            {!!theme && (
+            {!!this.props.theme && (
               <div className={this.props.classes.poweredByContainer}>
                 <div className={this.props.classes.centerRight}>
                   <a
                     className={this.props.classes.poweredBy}
                     href={`https://pro.bsport.io?utm_source=widget&utm_medium=referral&utm_content=bsport_logo&utm_campaign=${(
-                      theme.company_name || ''
+                      this.props.theme.company_name || ''
                     ).replace(/\//gi, '-')}`}
                   >
                     <Typography color="textSecondary" variant="caption">
@@ -221,7 +224,7 @@ class BsportWidget extends Component<Props, State> {
                 </Grid>
               </Grid>
             </Dialog>
-            <SnackbarPile store={this.props.store} />
+            <Snackbar theme={this.props.theme} store={this.props.store} />
           </MuiThemeProvider>
         </React.Suspense>
 

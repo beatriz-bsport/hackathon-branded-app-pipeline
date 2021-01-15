@@ -173,7 +173,15 @@
             "actions": {
                 "switchPaymentMethod": "Die Zahlungsmethode ändern",
                 "freeze": "Pausieren",
-                "switchPack": "Kurskarte ändern"
+                "switchPack": "Kurskarte ändern",
+                "advanceTime": "Diese Rechnung vorziehen",
+                "postPone": "Verschiebe die Rechnung",
+                "changeDate": "Datum ändern",
+                "showInvoice": "Die Rechnung anzeigen",
+                "changePrice": "Ändere den Preis",
+                "stop": "Stoppe nach dieser Rechnung",
+                "disableAutoRenew": "Deaktiviere die automatische Verlängerung",
+                "enableAutoRenew": "Aktiviere die automatische Verlängerung"
             },
             "switchPack": {
                 "form": {
@@ -215,6 +223,9 @@
                 "explain": "Wähle die letzte Zahlung für das Abonnement.",
                 "listItem": "Geplante Kündigung des Abonnements",
                 "summary": "Die zuletzt programmierte Zahlung ist mit {{-date}} datiert und entspricht der zuletzt gültigen Karte."
+            },
+            "invoice": {
+                "label": "Rechnung {{uuid}}: {{price}} €"
             }
         },
         "table": {
@@ -258,7 +269,17 @@
                 "price": "Neuer Betrag",
                 "explain": "Nur diese zukünftige Rechnung wird geändert",
                 "cancel": "Abbrechen",
-                "submit": "Speichern"
+                "submit": "Speichern",
+                "updateAll": "Aktualisiere alle zukünftigen Zahlungen"
+            },
+            "dateUpdater": {
+                "actions": {
+                    "submit": "Speichern",
+                    "cancel": "Abbrechen"
+                },
+                "explain": "Nur diese zukünftige Rechnung wird geändert",
+                "label": "Einzugsdatum",
+                "title": "Zukünftige Datumsänderung"
             }
         },
         "recap": {
@@ -300,7 +321,13 @@
         },
         "pause": {
             "pausedInterval": "{{start}} → {{ end }} : {{ days }} Tage",
-            "pausedAt": "{{ days }} Tage - am {{ date }}"
+            "pausedAt": "{{ days }} Tage - am {{ date }}",
+            "actions": {
+                "delete": "Lösche die Pause"
+            },
+            "secondaryLabel": " : {{note}}",
+            "label": "Pausiert für {{days}} Tage",
+            "createdAt": "Erstellt am "
         },
         "noContracts": "Mit den Abonnements kannst Du Deinen Mitgliedern regelmäßig (monatlich) eine Kurskarte in Rechnung stellen, die jeden Monat neu gutgeschrieben wird.",
         "copyLink": "Kopiere den Link zur Zahlungsseite",
@@ -318,6 +345,14 @@
             "hasStarted": "Aktiv",
             "hasNotStartedYet": "Inaktiv",
             "hasEnded": "Beendet"
+        },
+        "scheduledStop": {
+            "unscheduleStop": "Halte den Stop an",
+            "label": "Geplanter Stop"
+        },
+        "end": {
+            "renew": "Automatische Verlängerung",
+            "noRenew": "Ende des Abonnements"
         }
     },
     "translation": {
@@ -3144,7 +3179,8 @@
             "goToSubscription": "Das Abonnement anzeigen",
             "revert": "Abbrechen",
             "invoiceReverted": "Die Rechnung wurde storniert",
-            "consumeBalance": "Zahle per Saldo"
+            "consumeBalance": "Zahle per Saldo",
+            "explainPdfDraft": "Die Rechnung ist noch in Entwurfsform, das PDF ist nicht verfügbar."
         },
         "invoice": {
             "editor": {
@@ -3256,7 +3292,11 @@
             },
             "select": {
                 "label": "Zahlungsmethode"
-            }
+            },
+            "isInternalExplain": "Kundeneinzahlung (manuell): Jeden Monat wird automatisch eine Schuld auf dem Konto des Mitglieds erstellt.",
+            "add": "Hinzufügen",
+            "edit": "Ändern",
+            "title": "Zahlungsmethode"
         },
         "table": {
             "nested": {
@@ -3344,7 +3384,11 @@
             "amountRemaining": "Restbetrag: {{amount}}",
             "billingMoreThanNeeded": "Wenn mehr als der Rechnungsbetrag eingelöst wird, erhöht sich das Guthaben des Mitglieds um die Differenz",
             "errorSecretExplain2": "Wenn das Problem weiterhin besteht, wende dich an dev+payment-intent@bsport.io",
-            "errorSecretExplain1": "Diese Zahlungsmethode ist derzeit nicht verfügbar"
+            "errorSecretExplain1": "Diese Zahlungsmethode ist derzeit nicht verfügbar",
+            "plannedPaymentEvent": {
+                "title": "Geplante Zahlung",
+                "title_plural": "Geplante Zahlungen"
+            }
         },
         "paymentEngine": {
             "label": {
@@ -3362,6 +3406,13 @@
         "invoiceInfo": {
             "3": "Diese Rechnung ist das Ergebnis einer Migration. Wir können aus rechtlichen Gründen kein PDF bereitstellen oder stornieren.",
             "2": "Dieser Zahlungsbeleg stellt die Kontostandkorrektur Deines Mitglieds dar."
+        },
+        "plannedPaymentEvent": {
+            "actions": {
+                "edit": "Bearbeiten",
+                "delete": "Stornieren",
+                "registerNow": "Jetzt auszahlen"
+            }
         }
     },
     "payment": {

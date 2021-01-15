@@ -7,10 +7,15 @@ import NewsletterFormComponent from 'bsport-saas/src/libs/marketing/components/N
 import { createNewsletterMember } from 'bsport-saas/src/libs/marketing/api';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { snackbarSuccess, snackbarError } from 'bsport-saas/src/actions/snackbar.actions';
+import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
+import { Theme } from 'bsport-saas/src/libs/theme/types';
+
+
+const NewsletterFormComponentStyled = themify(NewsletterFormComponent);
 
 type OwnProps = {
   companyId: number
-  compactMode: any;
+  theme: Theme
 }
 
 type ConnectProps = ReturnType<typeof mapStateToProps>
@@ -43,7 +48,10 @@ export class NewsletterWidget extends Component<Props, State> {
   render() {
     return (
       <div className={this.props.classes.container}>
-        <NewsletterFormComponent onSubmit={this.onSubmit} />
+        <NewsletterFormComponentStyled
+          onSubmit={this.onSubmit}
+          theme={this.props.theme}
+        />
       </div>
     );
   }
@@ -68,7 +76,7 @@ const mapDispatchToProps = {
 
 const mapWithProps = () => ({});
 
-export default compose(
+export default compose<any, OwnProps>(
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
   withProps(mapWithProps)

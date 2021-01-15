@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
 import { Moment } from 'bsport-saas/src/i18n';
 import { MarketplaceCalendar, CalendarDataContainer } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendar.page';
+import { MarketplaceCalendarData } from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
+import { Theme } from 'bsport-saas/src/libs/theme/types';
+
 import { RootState } from '../store/reducer';
 
 const BACKOFFICE_URI = 'https://backoffice.bsport.io';
@@ -13,17 +16,11 @@ const MarketplaceCalendarStyled = themify(MarketplaceCalendar);
 
 type OwnProps = {
   companyId: number;
-  defaultFilters: {
-    coaches: number[];
-    establishments: number[];
-    levels: number[];
-    activity__in: number[];
-  },
-  compactMode: any;
-  filtersOpen: boolean;
+  config: MarketplaceCalendarData
   requestSignup: () => void;
   toogleCurrentBasketOpen: () => void;
   store: any;
+  theme: Theme;
 }
 
 type ConnectProps = ReturnType<typeof mapStateToProps>
@@ -35,7 +32,12 @@ type Props = OwnProps & ConnectProps &
 
 type State = {
   filtersOpen: "true" | '',
-  filters: any,
+  filters: {
+    coaches: number[];
+    establishments: number[];
+    activity__in: number[];
+    levels: number[];
+  };
   selectedDate: string,
 };
 
@@ -43,11 +45,12 @@ export class CalendarWidget extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const filters: any = props.defaultFilters || {};
-
-    if (filters.metaActivities) {
-      filters.activity__in = filters.metaActivities;
-    }
+    const filters: any = {
+      coaches: props.config.coaches || [],
+      establishments: props.config.establishments || [],
+      activity__in: props.config.metaActivities || [],
+      levels: props.config.levels || [],
+    };
 
     this.state = {
       filtersOpen: 'true',
@@ -82,7 +85,7 @@ export class CalendarWidget extends Component<Props, State> {
       <MarketplaceCalendarStyled
         {...this.props}
         companyId={this.props.companyId}
-        compactMode={this.props.compactMode}
+        compactMode={this.props.config.compactMode}
         authenticated={this.props.authenticated}
         requestSignUp={this.props.requestSignup}
         toogleCurrentBasketOpen={this.props.toogleCurrentBasketOpen}
@@ -98,6 +101,7 @@ export class CalendarWidget extends Component<Props, State> {
         goToBookOption={this.props.goToBookOption}
         goToPackPayment={this.props.goToPackPayment}
         onCompletePurchase={this.props.onCompletePurchase}
+        theme={this.props.theme}
       />
     );
   }
@@ -131,7 +135,7 @@ const mapWithProps = (props: ConnectProps & OwnProps) => ({
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   connect(mapStateToProps, mapDispatchToProps),
   CalendarDataContainer,
   withProps(mapWithProps)

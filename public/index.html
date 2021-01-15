@@ -15,19 +15,18 @@
     <script src="./widget.js"></script>
     <script>
       BsportWidget.mount({
-        parentElement: 'bsport-widget',
-        compactMode: null,
-        companyId: 6,
-        widgetType: 'workshop', //calendar/workshop/pass/shop
-        lang: 'fr',
-        filtersOpen: true,
-        defaultFilters:{
-          coaches:[],
-          establishments:[],
-          levels:[],
-          metaActivities:[],
+        "parentElement": "bsport-widget",
+        "companyId": 6,
+        "widgetType": "workshop",
+        "config": {
+          "workshop": {
+            "coaches": [],
+            "establishments": [],
+            "metaActivities": [],
+            "levels": []
+          }
         }
-      });
+      })
     </script>
     </div>
   </body>

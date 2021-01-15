@@ -11,14 +11,31 @@ import initStore from './store/store';
 const store = initStore();
 const history = createBrowserHistory();
 
+
+const migrateOldProps = (props) => {
+  const _props = { ...props };
+  if (_props.widgetType === 'calendar' && !('config' in _props)) {
+      _props.config = {
+        calendar: {
+          ..._props.defaultFilters,
+          compactMode: _props.compactMode,
+        },
+      };
+  }
+
+  return _props;
+};
+
 export default class BsportWidget {
   static el;
 
   static mount({ parentElement, ...props } = {}) {
+    const _props = migrateOldProps(props);
+
     const component = (
       <Provider store={store}>
         <Router history={history}>
-          <BsportWidgetA {...props} history={history} store={store} />
+          <BsportWidgetA {..._props} history={history} store={store} />
         </Router>
       </Provider>
     );

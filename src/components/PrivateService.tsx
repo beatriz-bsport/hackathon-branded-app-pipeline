@@ -1,27 +1,18 @@
 import React from 'react';
 import { compose } from 'recompose';
+
+import { ButtonBase, withStyles } from '@material-ui/core';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+
 import { PrivateServiceSelectorDataProvider, PrivateServiceSelectorPage } from 'bsport-saas/src/pages/marketplace/PrivateService/PrivateServiceSelectorPage/PrivateServiceSelector.page';
 import { PrivateServiceDetailDataProvider, PrivateServiceDetailPage } from 'bsport-saas/src/pages/marketplace/PrivateService/PrivateServiceDetailPage/PrivateServiceDetail.page';
+import { MarketplacePrivateServiceData } from 'bsport-saas/src/libs/marketplace/types';
 import { PrivateService, PrivateSlot } from 'bsport-saas/src/libs/private-service/types';
+import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import { ButtonBase, withStyles } from '@material-ui/core';
+import { Theme } from 'bsport-saas/src/libs/theme/types';
 
-
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { constants } from '../const/constants';
-
-interface Props {
-  companyId: number;
-  store: any;
-  data: {
-    serviceId?: number;
-  }
-  classes: any;
-}
-
-interface State {
-  serviceId?: number;
-}
 
 const PrivateServiceSelector = themify(
   PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage)
@@ -30,12 +21,27 @@ const PrivateServiceDetailBase = themify(
   PrivateServiceDetailDataProvider(PrivateServiceDetailPage)
 );
 
+
+type OwnProps = {
+  companyId: number;
+  config: MarketplacePrivateServiceData
+  store: any;
+  theme: Theme
+}
+
+type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>
+
+interface State {
+  serviceId?: number | null;
+}
+
+
 class PrivateServiceWidget extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      serviceId: props.data.serviceId,
+      serviceId: props.config.serviceId,
     };
   }
 
@@ -73,25 +79,31 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
-      <div className={this.props.classes.container}>
-        {this.state.serviceId === undefined && (
+      <div className={classes.container}>
+        {(
+          this.state.serviceId === undefined ||
+          this.state.serviceId === null
+        ) && (
           <PrivateServiceSelector
             companyId={this.props.companyId.toString()}
             companyName=""
             onClickPrivateService={this.onClickPrivateService}
             store={this.props.store}
+            theme={this.props.theme}
           />
         )}
 
-        {this.state.serviceId !== undefined && (
+        {this.state.serviceId !== undefined && this.state.serviceId !== null && (
           <div>
             <ButtonBase onClick={() => {
               this.setState({ serviceId: undefined });
             }}
             >
               <ChevronLeftIcon
-                className={this.props.classes.icon}
+                className={classes.icon}
                 fontSize="large"
               />
             </ButtonBase>
@@ -101,6 +113,7 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
             onSessionSelect={this.onSessionSelect}
             hideDetailSummary={true}
             store={this.props.store}
+            theme={this.props.theme}
           />
           </div>
         )}
@@ -122,7 +135,7 @@ const styles = (theme: any) => ({
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles)
 )(PrivateServiceWidget);

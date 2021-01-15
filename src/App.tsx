@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
-import { History } from 'history';
 
 // eslint-disable-next-line
 import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
@@ -13,56 +12,33 @@ import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 
 import SignUpForm from 'bsport-saas/src/components/form/SignUpForm.component';
 import ConsumerLogin from 'bsport-saas/src/components/consumer/login/ConsumerLogin.component';
+import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
+import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { auth as authActions } from 'bsport-saas/src/actions';
 import { Dialog, DialogContent, DialogTitle, Grid } from '@material-ui/core';
 
-import { TFunction, withTranslation } from 'react-i18next';
-/* FOR TESTING PURPOSES
-import WorkshopWidget from './components/Workshop';
-import CalendarWidget from './components/Calendar';
-import ShopWidget from './components/Shop';
-import PassWidget from './components/Pass';
-*/
+import { WithTranslation, withTranslation } from 'react-i18next';
+
 import { RootState } from './store/reducer';
 import './App.scss';
-import PrivateServiceWidget from './components/PrivateService';
-import asyncComponent from './utils/async-component';
 
-const CalendarWidget = asyncComponent(() => import('./components/Calendar'));
-const VODWidget = asyncComponent(() => import('./components/Vod'));
-const PassWidget = asyncComponent(() => import('./components/Pass'));
-const ShopWidget = asyncComponent(() => import('./components/Shop'));
-const WorkshopWidget = asyncComponent(() => import('./components/Workshop'));
-const NewsletterWidget = asyncComponent(() => import('./components/Newsletter'));
+const CalendarWidget = React.lazy(() => import('./components/Calendar'));
+const VODWidget = React.lazy(() => import('./components/Vod'));
+const PrivateServiceWidget = React.lazy(() => import('./components/PrivateService'));
+const WorkshopWidget = React.lazy(() => import('./components/Workshop'));
+const NewsletterWidget = React.lazy(() => import('./components/Newsletter'));
 
-export type MaterialStyle<S> = {
-  classes: Record<keyof S, string>
-}
 
-type Props = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  MaterialStyle<ReturnType<typeof styles>> & {
-  companyId: number,
-  store: any,
-  history: History,
-  widgetType: string,
-  fetchCompanyActivities: (companyId: number) => void,
-  fetchCompanyMetaActivities: (companyId: number) => void,
-  fetchCompanyCoaches: (companyId: number) => void,
-  fetchCompanyEstablishments: (companyId: number) => void,
-  consumerProfile: any,
-  lang: string,
-  fetchData: () => void;
-  compactMode: boolean;
-  filtersOpen: boolean;
-  defaultFilters: {
-    coaches: [],
-    establishments: [],
-    levels: [],
-    metaActivities: [],
-  },
-  t: TFunction;
+type OwnProps = WidgetConfig & {
+  store: any;
+  lang?: string;
+  history: any
 };
+
+type Props = OwnProps &
+  ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
 
 interface State {
   showLogin: boolean;
@@ -97,24 +73,19 @@ class BsportWidget extends Component<Props, State> {
   renderWidget() {
     const {
       companyId,
+      config,
       store,
-      history,
       widgetType,
-      defaultFilters,
-      filtersOpen,
-      compactMode,
-      data,
       theme,
     } = this.props;
+
     switch (widgetType) {
       case 'workshop':
         return (
           <WorkshopWidget
             companyId={companyId}
-            location={history.location}
             store={store}
-            defaultFilters={defaultFilters}
-            filtersOpen={filtersOpen}
+            config={config.workshop}
             theme={theme}
           />
         );
@@ -123,35 +94,18 @@ class BsportWidget extends Component<Props, State> {
           <PrivateServiceWidget
             companyId={companyId}
             store={store}
-            data={data}
+            config={config.privateService}
             theme={theme}
           />
         );
       case 'vod':
+      case 'playlist':
         return (
           <VODWidget
             companyId={companyId}
+            config={config[widgetType]}
             onRequestLogin={() => this.setState({ showLogin: true })}
             store={store}
-            data={data}
-            theme={theme}
-          />
-        );
-      case 'pass':
-        return (
-          <PassWidget
-            companyId={companyId}
-            store={store}
-            location={history.location}
-            theme={theme}
-          />
-        );
-      case 'shop':
-        return (
-          <ShopWidget
-            companyId={companyId}
-            store={store}
-            location={history.location}
             theme={theme}
           />
         );
@@ -166,11 +120,10 @@ class BsportWidget extends Component<Props, State> {
         return (
           <CalendarWidget
             companyId={companyId}
-            location={history.location}
-            compactMode={compactMode}
+            config={config.calendar}
             store={store}
-            defaultFilters={defaultFilters}
-            filtersOpen={filtersOpen}
+            requestSignup={() => this.setState({ showLogin: true })}
+            toogleCurrentBasketOpen={() => null}
             theme={theme}
           />
         );

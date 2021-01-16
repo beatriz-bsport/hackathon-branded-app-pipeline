@@ -22,7 +22,7 @@ type Props = {
 };
 
 const countryFlag = {
-  'fr-FR': FR_FLAG,
+  fr: FR_FLAG,
   de: DE_FLAG,
   en: EN_FLAG,
   nl: NL_FLAG,

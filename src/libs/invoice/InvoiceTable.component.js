@@ -18,7 +18,7 @@ import DownloadIcon from '@material-ui/icons/Attachment';
 import { PAYMENT_PACK } from '@bsport/common/lib/master-data/payment-methods';
 
 import { formatAsDatetime } from '../../utils/datetime';
-import { FeatureTable } from '../../components';
+import FeatureTable from '../../components/FeatureTable';
 
 import type { Member, Invoice } from '../../api/types';
 

@@ -161,7 +161,6 @@ Lint:
     - yarn updateTranslation
     - yarn build
     - mv envs/$ENVIRONMENT build/env.js
-    - yarn add @sentry/cli
     - export SENTRY_NO_PROGRESS_BAR=1
     - ./scripts/prepare-sentry-release.sh $VERSION_SHA $FRONTEND_URL 
     - rm ./build/static/js/*.js.map

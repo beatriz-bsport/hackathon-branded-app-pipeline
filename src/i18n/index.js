@@ -8,6 +8,7 @@ import { initReactI18next } from 'react-i18next';
 import Moment from 'moment-timezone';
 import HttpBackend from 'i18next-http-backend';
 import config from '../config';
+import languages from './languages.json';
 
 import 'moment/locale/fr';
 import 'moment/locale/de';
@@ -17,14 +18,11 @@ import 'moment/locale/it';
 
 import namespaces from './namespaces.json';
 
-const isDebug = !['production', 'test'].includes(process.env.NODE_ENV);
+// const isDebug = !['production', 'test'].includes(process.env.NODE_ENV);
 const customRequest = config.I18N_CUSTOM_SERVER === 'TRUE';
 
 const backendOptions = {};
 
-if (isDebug) {
-  backendOptions.expirationTime = 5 * 60 * 1000;
-}
 if (customRequest) {
   backendOptions.request = (options, url, payload, callback) => {
     const _url = `https://backoffice.bsport.io${url}`;
@@ -37,18 +35,18 @@ if (customRequest) {
   };
   backendOptions.crossDomain = true;
   backendOptions.withCredentials = true;
+  backendOptions.requestOptions = {
+    cache: 'public',
+  };
 }
 
 i18n
   .use(initReactI18next)
   // .use(Backend)
-  .use(ChainedBackend)
   .use(LanguageDetector)
+  .use(HttpBackend)
   .init({
-    backend: {
-      backends: isDebug ? [HttpBackend] : [LocalStorageBackend, HttpBackend],
-      backendOptions: isDebug ? [backendOptions] : [undefined, backendOptions],
-    },
+    backend: backendOptions,
     /*
     backend: {
       apiKey: 'e7f5edb0-1b19-4076-8e6e-c3da67653f8a',
@@ -57,21 +55,22 @@ i18n
     },
     */
     fallbackLng: {
-      fr: ['fr-FR'],
       ca: ['es'],
-      default: ['en', 'fr-FR'],
+      'ca-ES': ['es'],
+      'fr-FR': ['fr'],
+      default: ['en', 'fr'],
     },
     // lng: 'fr-FR',
     detection: {
-      order: ['cookie', 'navigator'],
-      caches: ['cookie'],
-      lookupCookie: 'i18next',
+      order: ['navigator'],
     },
 
     // have a common namespace used around the full app
     defaultNS: 'translation',
 
     debug: false, // !['production', 'test'].includes(process.env.NODE_ENV),
+    partialBundledLanguages: true,
+    supportedLngs: languages,
 
     interpolation: {
       format(value, format) {
@@ -98,7 +97,7 @@ i18n
 
 const availableLanguages = [
   {
-    lang: 'fr-FR',
+    lang: 'fr',
   },
   {
     lang: 'en',
@@ -120,7 +119,6 @@ const availableLanguages = [
 i18n.on('languageChanged', (lng) => {
   Moment.locale(lng);
 });
-i18n.loadNamespaces(namespaces);
 
 Moment.locale(i18n.language);
 

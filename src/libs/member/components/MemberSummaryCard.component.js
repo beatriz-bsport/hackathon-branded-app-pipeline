@@ -34,7 +34,7 @@ import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import CreditMemberBadge from './CreditMemberBadge.component';
 
 import { formatAsDate } from '../../../utils/datetime';
-import Avatar from '../../../components/Avatar.component';
+import { Avatar } from '../../../components';
 import type { Member } from '../../../api/types';
 
 import EmailItem from '../../communication/components/EmailItem.component';

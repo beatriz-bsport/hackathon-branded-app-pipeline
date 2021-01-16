@@ -12,8 +12,7 @@ import TypographyMultiline from '../../../components/TypographyMultiline.compone
 
 import type { Establishment, Offer } from '../../../api/types';
 
-import TimeTable from '../../../components/offer/TimeTable.component';
-import Calendar from '../../../components/offer/Calendar.component';
+import { TimeTable, Calendar } from '../../../components';
 import Map from '../../../components/map/Map.component';
 import BookingCreationNotification from '../../booking/components/BookingCreationNotification.component';
 import EasyAccessStack from '../../category/components/EasyAccessStack.component';

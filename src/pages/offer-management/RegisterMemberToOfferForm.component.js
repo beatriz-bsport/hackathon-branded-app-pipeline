@@ -18,7 +18,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Dialog from '@material-ui/core/Dialog';
 
-import Avatar from '../../components/Avatar.component';
+import { Avatar } from '../../components';
 import ConsumerPackRowItem from '../../libs/consumer-payment-pack/components/ConsumerPackRowItem.component';
 import {
   fetchByOfferByMember,

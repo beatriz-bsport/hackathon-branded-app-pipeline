@@ -42,7 +42,7 @@ type Props = {
   open: boolean,
   onInvoiceExpand: (string) => void,
   invoice: Invoice,
-  onClickInvoice: (string) => void,
+  onClickInvoice: (string, ?Invoice) => void,
   nestedDataLoading: boolean,
   onBill: (string) => void,
   finalizeInvoice: (string, OptionCallback) => void,
@@ -178,17 +178,26 @@ const InvoiceRow = React.memo((props: Props) => {
           </TableCell>
           {!props.hideMemberName && <TableCell />}
           <TableCell>
-            {!!props.showOpenInvoiceNested && (
-              <Link
-                to={`/invoice/${invoice.uuid}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <Button variant="outlined">
+            {!!props.showOpenInvoiceNested &&
+              (props.asConsumer ? (
+                <Button
+                  variant="outlined"
+                  onClick={() => props.onClickInvoice(invoice.uuid, invoice)}
+                >
                   <ArrowForwardIcon className={classes.leftIcon} />
                   {t('paymentPanel.actions.showInvoice')}
                 </Button>
-              </Link>
-            )}
+              ) : (
+                <Link
+                  to={`/invoice/${invoice.uuid}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <Button variant="outlined">
+                    <ArrowForwardIcon className={classes.leftIcon} />
+                    {t('paymentPanel.actions.showInvoice')}
+                  </Button>
+                </Link>
+              ))}
           </TableCell>
           <TableCell />
         </TableRow>
@@ -353,7 +362,7 @@ const InvoiceRow = React.memo((props: Props) => {
                     variant="outlined"
                     color="primary"
                     onClick={() => {
-                      props.onClickInvoice(invoice.uuid);
+                      props.onClickInvoice(invoice.uuid, invoice);
                     }}
                   >
                     {t('table.actions.goToInvoice')}
@@ -380,7 +389,7 @@ export const InvoiceTable = (props: {
   onInvoiceExpand: (string) => void,
   containerComponent: any,
   nestedDataLoading: boolean,
-  onClickInvoice: (string) => void,
+  onClickInvoice: (string, Invoice) => void,
   onBill: (string) => void,
   finalizeInvoice: (string) => void,
   showOpenInvoiceNested: ?boolean,

@@ -1893,7 +1893,9 @@
       "actions": { "cancel": "Annuler", "submit": "Valider" }
     },
     "createCoupon": "Ajouter un code",
-    "code": { "addCoupon": { "label": "Code promo", "placeholder": "SPECIAL_RENTREE" } }
+    "code": {
+      "addCoupon": { "submit": "Valider", "cancel": "annuler", "label": "Code promo", "placeholder": "SPECIAL_RENTREE" }
+    }
   },
   "dashboard": {
     "save": "Sauvegarder",
@@ -2439,7 +2441,12 @@
         "invalidBasket": "Votre panier contenait des éléments qui ne sont plus disponibles à la vente. Aucun paiement n'a été enregistré"
       },
       "actions": { "closeBasket": "Continuer mes achats", "checkoutBasket": "Payer", "payZero": "Valider mon panier" }
-    }
+    },
+    "payLater": {
+      "submit": "Payer sur place",
+      "explain": "Votre moyen de paiement vous sera demandé sur place avant votre séance. Avant cela, la facture sera considérée comme impayée."
+    },
+    "or": "ou"
   },
   "establishment": {
     "list": { "section": { "archived": "Etablissement archivé" } },
@@ -2888,6 +2895,11 @@
       "reversed": "Facture (annulée)"
     },
     "creditAccountBalance": { "current": "Solde actuel" },
+    "mandate": {
+      "name": "Nom et prénom du titulaire",
+      "email": "Email du titulaire",
+      "content": "En donnant votre IBAN et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Un remboursement doit être demandé dans les 8 semaines après le premier débit."
+    },
     "invoice": {
       "title": "Facture {{ uuid }}",
       "titleRevert": "Avoir {{ uuid }}",

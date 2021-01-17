@@ -119,6 +119,8 @@ exports.default = {
   createCoupon: 'Ajouter un code',
   code: {
     addCoupon: {
+      submit: 'Valider',
+      cancel: 'annuler',
       label: 'Code promo',
       placeholder: 'SPECIAL_RENTREE',
     },

@@ -53,6 +53,12 @@ exports.default = {
     reversed: 'Facture (annulée)',
   },
   creditAccountBalance: { current: 'Solde actuel' },
+  mandate: {
+    name: 'Nom et prénom du titulaire',
+    email: 'Email du titulaire',
+    content:
+      "En donnant votre IBAN et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Un remboursement doit être demandé dans les 8 semaines après le premier débit.",
+  },
   invoice: {
     title: 'Facture {{ uuid }}',
     titleRevert: 'Avoir {{ uuid }}',

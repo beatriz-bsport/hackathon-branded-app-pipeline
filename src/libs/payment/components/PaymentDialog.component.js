@@ -41,6 +41,7 @@ type Props = {
   paymentGroupPriceCts: number,
   clientSecretError: ?boolean,
   clientSecretLoading: boolean,
+  availablePaymentMethodList: ?Array<number>,
 };
 
 type State = {
@@ -175,9 +176,14 @@ export class PaymentDialog extends React.Component<Props, State> {
               {parseInt(this.state.paymentEngine, 10) ===
                 PAYMENT_ENGINE_STRIPE && (
                 <PaymentStripe
-                  paymentMethodChoices={
-                    PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_STRIPE]
-                  }
+                  paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
+                    PAYMENT_ENGINE_STRIPE
+                  ].filter((pm) => {
+                    if (this.props.availablePaymentMethodList) {
+                      return this.props.availablePaymentMethodList.includes(pm);
+                    }
+                    return true;
+                  })}
                   clientSecret={this.props.clientSecret}
                   paymentGroupPriceCts={this.props.paymentGroupPriceCts}
                   onSuccess={this.onSuccess}

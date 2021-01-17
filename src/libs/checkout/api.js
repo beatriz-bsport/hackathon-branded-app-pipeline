@@ -65,3 +65,7 @@ export const attachCoupon = async (basketId: string, code: string) => {
 export const fetchBasketGeneratedObjects = async (id: string) => {
   return postAuth(`${API_V1_URI}/checkout/basket/generated_objects/`, { id });
 };
+
+export const validateUnpaid = async (basketId: string) => {
+  return post(`${API_V1_URI}/checkout/basket/${basketId}/validate_unpaid/`);
+};

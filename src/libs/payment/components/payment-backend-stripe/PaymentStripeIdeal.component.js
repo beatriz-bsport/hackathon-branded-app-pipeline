@@ -31,10 +31,10 @@ const IDEAL_ELEMENT_OPTIONS = {
 
 function IdealBankSection() {
   return (
-    <label>
-      iDEAL Bank
+    <div>
+      <Typography>iDEAL Bank</Typography>
       <IdealBankElement options={IDEAL_ELEMENT_OPTIONS} />
-    </label>
+    </div>
   );
 }
 

@@ -34,6 +34,8 @@ import PaymentStripeEPS from './PaymentStripeEPS.component';
 import PaymentStripeGiropay from './PaymentStripeGiropay.component';
 import PaymentStripeMobilePay from './PaymentStripeMobilePay.component';
 
+import PaymentMethodCardSelector from '../PaymentMethodCardSelector.component';
+
 const stripePromise = loadStripe(Config.REACT_APP_STRIPE_PK_KEY);
 
 type Props = {
@@ -75,25 +77,11 @@ export const PaymentStripe = (props: Props) => {
           </Typography>
         </div>
       )}
-      <FormControl className={classes.formControl}>
-        <InputLabel id="payment-method-select-label">
-          {t('paymentMethod.select.label')}
-        </InputLabel>
-        <Select
-          id="payment-method-select"
-          value={`${props.paymentMethodSelected}`}
-          style={{ minWidth: 200 }}
-          onChange={(ev) =>
-            props.selectPaymentMethod(parseInt(ev.target.value, 10))
-          }
-        >
-          {props.paymentMethodChoices.map((pm) => (
-            <MenuItem fullWidth value={pm}>
-              {t(`paymentMethod.label.${pm}`)}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <PaymentMethodCardSelector
+        selectPaymentMethod={props.selectPaymentMethod}
+        paymentMethodSelected={props.paymentMethodSelected}
+        paymentMethodChoices={props.paymentMethodChoices}
+      />
       <div className={classes.innerContainer}>
         <Elements stripe={stripePromise}>
           <StripePaymentMethodForm

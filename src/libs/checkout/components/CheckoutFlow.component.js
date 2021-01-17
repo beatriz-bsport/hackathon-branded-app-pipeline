@@ -25,6 +25,8 @@ type Props = {
   removeItemFromBasket: (basketId: string, data: any) => void,
   addItemToBasket: (basketId: string, data: any) => void,
 
+  paymentModule: any,
+
   onBasketFinalized: () => void,
   submitPayment: (data: *) => void,
   attachCoupon: (code: string) => void,
@@ -68,6 +70,7 @@ export const CheckoutFlow = (props: Props) => (
         <BasketFinalizer
           withPrice
           basket={props.basket}
+          validateUnpaid={props.validateUnpaid}
           submitPayment={props.submitPayment}
           attachCoupon={props.attachCoupon}
           availablePaymentMethods={props.basket.available_payment_methods}
@@ -78,6 +81,7 @@ export const CheckoutFlow = (props: Props) => (
           termsAndConditions={props.termsAndConditions}
           backToCalendar={props.backToCalendar}
           savedPaymentMethodList={props.savedPaymentMethodList}
+          paymentModule={props.paymentModule}
         />
       </Paper>
     ) : null}
@@ -91,7 +95,7 @@ const styles = (theme) => ({
     justifyContent: 'center',
     alignItems: 'stretch',
     minWidth: '40vw',
-    maxWidth: '700px',
+    maxWidth: '100vw',
   },
   title: {
     padding: theme.spacing(2),

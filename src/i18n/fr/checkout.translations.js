@@ -40,4 +40,10 @@ exports.default = {
       payZero: 'Valider mon panier',
     },
   },
+  payLater: {
+    submit: 'Payer sur place',
+    explain:
+      'Votre moyen de paiement vous sera demandé sur place avant votre séance. Avant cela, la facture sera considérée comme impayée.',
+  },
+  or: 'ou',
 };

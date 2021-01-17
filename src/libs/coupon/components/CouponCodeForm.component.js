@@ -2,47 +2,60 @@
 import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
-import Fab from '@material-ui/core/Fab';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import type { TFunction } from 'react-i18next';
 
-import { compose, pure, withState, withProps } from 'recompose';
+import { compose, pure } from 'recompose';
 
 type Props = {
-  handleChange: (ev: SyntheticEvent<any>) => void,
-  submitCode: () => void,
+  onSubmit: (code: string, options: OptionCallback) => void,
   t: TFunction,
   classes: Object,
   code: string,
 };
 
 export const CouponCodeForm = (props: Props) => {
-  const AddButton = props.code ? (
-    <Fab
-      className={props.classes.iconButton}
-      color="primary"
-      onClick={props.submitCode}
-    >
-      <AddIcon />
-    </Fab>
-  ) : (
-    <IconButton className={props.classes.iconButton} onClick={props.submitCode}>
-      <AddIcon />
-    </IconButton>
-  );
+  const [open, setOpen] = React.useState(false);
+  const [code, setCode] = React.useState('');
+
+  const onSubmit = () =>
+    props.onSubmit(code, {
+      onSuccess: () => {
+        setOpen(false);
+        setCode('');
+      },
+    });
+
   return (
     <div className={props.classes.container}>
-      {AddButton}
-      <TextField
-        onChange={props.handleChange}
-        value={props.code}
-        variant="outlined"
-        placeholder={props.t('code.addCoupon.placeholder')}
-        label={props.t('code.addCoupon.label')}
-      />
+      <Button onClick={() => setOpen(true)} color="primary">
+        {props.t('code.addCoupon.label')}
+      </Button>
+      <Dialog open={open}>
+        <DialogContent>
+          <TextField
+            onChange={(ev) => setCode(ev.target.value)}
+            value={props.code}
+            shrink
+            variant="outlined"
+            placeholder={props.t('code.addCoupon.placeholder')}
+            label={props.t('code.addCoupon.label')}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)}>
+            {props.t('code.addCoupon.cancel')}
+          </Button>
+          <Button color="primary" onClick={onSubmit}>
+            {props.t('code.addCoupon.submit')}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
@@ -61,10 +74,5 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withTranslation(['coupon']),
-  withState('code', 'setCode', ''),
-  withProps(({ onSubmit, code, setCode }) => ({
-    handleChange: (ev) => setCode(ev.target.value),
-    submitCode: () => onSubmit(code, { onSuccess: () => setCode('') }),
-  })),
   pure,
 )(CouponCodeForm);

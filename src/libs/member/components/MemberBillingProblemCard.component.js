@@ -19,7 +19,7 @@ import { requestClientSecret as requestClientSecretAPI } from '../../invoice/api
 type Props = {
   balance: string,
   invoiceLoading: boolean,
-  goToInvoice: (string) => void,
+  goToInvoice: (string, ?Invoice) => void,
   unpaidInvoiceList: Array<Invoice>,
   memberId: number,
   asConsumer: boolean,
@@ -133,6 +133,7 @@ export const MemberBillingProblemCard = (props: Props) => {
               {t('unpaidInvoiceTitle', { count: unpaidInvoiceList.length })}
             </Typography>
             <InvoiceTable
+              asConsumer={props.asConsumer}
               compactMode
               hideMemberName
               loading={props.invoiceLoading}

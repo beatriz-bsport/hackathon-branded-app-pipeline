@@ -55,18 +55,18 @@ type PropsIban = {
 };
 
 const IbanForm = (props: PropsIban) => {
-  const { t } = useTranslation(['invoice', 'subscription']);
+  const { t } = useTranslation(['invoice']);
   const classes = useStyles();
   const { billingDetails, setBillingDetails, processing } = props;
   return (
-    <React.Fragment>
+    <div>
       <div className={classes.nameAndEmailContainer}>
         <TextField
           required={props.isActive}
           fullWidth
           value={billingDetails.name}
           variant="outlined"
-          placeholder={t('subscription:mandate.name')}
+          placeholder={t('mandate.name')}
           disabled={props.disabled}
           onChange={(ev) => {
             const { value } = ev.target;
@@ -82,7 +82,7 @@ const IbanForm = (props: PropsIban) => {
           fullWidth
           variant="outlined"
           value={billingDetails.email}
-          placeholder={t('subscription:mandate.email')}
+          placeholder={t('mandate.email')}
           disabled={props.disabled}
           onChange={(ev) => {
             const { value } = ev.target;
@@ -106,14 +106,12 @@ const IbanForm = (props: PropsIban) => {
           </div>
         </div>
       </div>
-      <Typography
-        color="textSecondary"
-        variant="caption"
-        className={classes.mandate}
-      >
-        {t('subscription:mandate.content')}
-      </Typography>
-    </React.Fragment>
+      <div className={classes.mandate}>
+        <Typography color="textSecondary" variant="caption">
+          {t('mandate.content')}
+        </Typography>
+      </div>
+    </div>
   );
 };
 
@@ -268,6 +266,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mandate: {
     padding: theme.spacing(2),
+    maxWidth: 700,
   },
   actionRow: {
     display: 'flex',

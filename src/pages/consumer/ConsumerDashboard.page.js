@@ -116,7 +116,7 @@ type Props = {
 
   unpaidInvoiceList: Array<Invoice>,
   fetchInvoiceListUnpaid: () => void,
-  goToInvoice: (string) => void,
+  goToInvoice: (string, ?Invoice) => void,
   invoiceLoading: boolean,
 };
 
@@ -150,6 +150,10 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
     this.props.fetchInvoiceListUnpaid();
   };
 
+  goToInvoice = (uuid, invoice) => {
+    window.open(invoice.stripe_invoice_pdf);
+  };
+
   render() {
     return (
       <div className={this.props.classes.container}>
@@ -164,24 +168,24 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
               {this.props.t('actions.goToCalendar')}
             </Button>
           </div>
-          <div style={{ marginBottom: 12 }}>
-            <MemberBillingProblemCard
-              invoiceLoading={this.props.invoiceLoading}
-              memberId={this.props.membership.id}
-              unpaidInvoiceList={this.props.unpaidInvoiceList}
-              onClickInvoice={this.props.goToInvoice}
-              balance={this.props.membership.credit_account_balance}
-              fetchInvoiceListUnpaid={this.refreshDebtStatus}
-              hidePositiveBalance
-              asConsumer
-            />
-          </div>
         </div>
         <ConsumerDashboardHeader
           favoriteMetaActivity={this.props.favoriteMetaActivity}
           favoriteEstablishment={this.props.favoriteEstablishment}
           goToCalendar={this.props.goToCalendar}
         />
+        <div style={{ marginBottom: 12 }}>
+          <MemberBillingProblemCard
+            invoiceLoading={this.props.invoiceLoading}
+            memberId={this.props.membership.id}
+            unpaidInvoiceList={this.props.unpaidInvoiceList}
+            goToInvoice={this.goToInvoice}
+            balance={this.props.membership.credit_account_balance}
+            fetchInvoiceListUnpaid={this.refreshDebtStatus}
+            hidePositiveBalance
+            asConsumer
+          />
+        </div>
         <Grid container direction="row" spacing={2}>
           <Grid item xs={12} md={6}>
             <ConsumerDashboardBookingPanel

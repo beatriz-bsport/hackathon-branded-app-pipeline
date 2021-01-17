@@ -4,6 +4,7 @@ import React from 'react';
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux';
 
 import {
@@ -18,6 +19,12 @@ import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-i
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import {
+  PAYMENT_ENGINE_STRIPE,
+  PAYMENT_INTENT_TYPE_BASKET,
+  PAYMENT_ENGINE_BSPORT,
+  PAYMENT_GROUP_METHOD_BY_ENGINE,
+} from '@bsport/common/lib/master-data/payment-group';
 import { getTheme } from '../../theme';
 import {
   addItemToBasket as addItemToBasketAction,
@@ -42,7 +49,11 @@ import { fetchPaymentMethodList } from '../../libs/payment/actions';
 import { getShopItemFeaturedList } from '../../libs/shop/selectors';
 import { fetchShopItemFeatured } from '../../libs/shop/actions/shopitem';
 
+import { requestClientSecret as requestClientSecretAPI } from '../../libs/invoice/api';
 import MarketplaceAppBar from '../marketplace/MarketplaceAppBar.component';
+import PaymentStripe from '../../libs/payment/components/payment-backend-stripe/PaymentStripe.component';
+import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '../../libs/payment/api';
+import { validateUnpaid as validateUnpaidAPI } from '../../libs/checkout/api';
 
 import {
   consumer as consumerActions,
@@ -56,7 +67,6 @@ type Props = {
   companyId: number,
   removeItemFromBasket: (basketId: string, data: any) => void,
   addItemToBasket: (basketId: string, data: any) => void,
-  submitPayment: (data: *) => void,
   fetchCompanyTheme: (companyId: number) => void,
   onBasketFinalized: (basket: Basket) => void,
   goBack: () => void,
@@ -82,12 +92,22 @@ type Props = {
   disconnect: () => void,
   auth: *,
 
+  onSuccess: () => void,
+
   fetchCurrentBasket: (companyId: number) => void,
   removeItemFromBasket: (basketId: string, data: any) => void,
   addItemToBasket: (basketId: string, data: any) => void,
 };
 
 export class CheckoutPayment extends React.Component<Props> {
+  state = {
+    clientSecret: null,
+    paymentGroupId: null,
+    paymentGroupPriceCts: null,
+    clientSecretLoading: false,
+    nextPaymentIntentStatusCheckSeconds: 1.5,
+  };
+
   componentWillMount() {
     this.props.fetchCurrentBasket(this.props.companyId);
     this.props.fetchCompanyTheme(this.props.companyId);
@@ -99,37 +119,88 @@ export class CheckoutPayment extends React.Component<Props> {
       this.props.fetchCurrentBasket(this.props.companyId);
       this.props.fetchPaymentMethodList({ company: this.props.companyId });
     }
-    if (this.props.basket && !prevProps.basket) {
+    if (
+      this.props.basket &&
+      !prevProps.basket &&
+      !!this.props.basket.total_price_cts
+    ) {
       Analytics.showBasket(this.props.basket);
+      this.getSecret();
+    }
+    if (
+      !!this.props.basket &&
+      !!prevProps.basket &&
+      this.props.basket.total_price_cts !== !prevProps.basket.total_price_cts
+    ) {
+      Analytics.showBasket(this.props.basket);
+      this.getSecret();
     }
   }
+
+  getSecret = () => {
+    this.setState({ clientSecretLoading: true });
+    requestClientSecretAPI(PAYMENT_ENGINE_STRIPE, PAYMENT_INTENT_TYPE_BASKET, {
+      basket: this.props.basket.id,
+    })
+      .then((r) => {
+        this.setState({
+          clientSecret: r.data.client_secret,
+          paymentGroupId: r.data.payment_group,
+          paymentGroupPriceCts: r.data.price_cts,
+          clientSecretLoading: false,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+        this.setState({ clientSecretLoading: false });
+      });
+  };
 
   componentDidMount() {
     if (this.props.auth.authenticated) {
       this.props.fetchProfile();
     }
-    if (this.props.basket) {
+    if (this.props.basket && !!this.props.basket.total_price_cts) {
       Analytics.showBasket(this.props.basket);
+      this.getSecret();
     }
     if (this.props.companyId) {
       this.props.fetchPaymentMethodList({ company: this.props.companyId });
     }
   }
 
-  renderError = () => {
-    if (
-      this.props.basketError &&
-      this.props.basketError.response &&
-      this.props.basketError.response.status === 423
-    ) {
-      return (
-        <Typography color="error">
-          {this.props.t('myBasket.error.invalidBasket')}
-        </Typography>
-      );
-    }
+  onSuccess = (callback) => {
+    getPaymentGroupStatusAPI(this.state.paymentGroupId)
+      .then((r) => {
+        if (r.data >= 200) {
+          setTimeout(() => {
+            this.props.onSuccess();
+            if (callback) callback();
+          }, 2000);
+        } else {
+          setTimeout(
+            this.onSuccess,
+            this.state.nextPaymentIntentStatusCheckSeconds * 1000,
+          );
+        }
+      })
+      .catch(console.error);
+  };
 
-    return null;
+  validateUnpaid = (options) => {
+    validateUnpaidAPI(this.props.basket.id)
+      .then(() => {
+        this.props.onSuccess();
+        if (options && options.onSuccess) {
+          options.onSuccess();
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        if (options && options.onError) {
+          options.onError(err);
+        }
+      });
   };
 
   backToCalendar = () => {
@@ -141,9 +212,6 @@ export class CheckoutPayment extends React.Component<Props> {
   };
 
   render() {
-    if (this.props.basket && this.props.basket.is_finalized) {
-      this.props.onBasketFinalized(this.props.basket);
-    }
     if (!this.props.basket) {
       return (
         <div className={this.props.classes.container}>
@@ -173,7 +241,6 @@ export class CheckoutPayment extends React.Component<Props> {
                 basket={this.props.basket}
                 loading={this.props.loading}
                 processing={this.props.processing}
-                submitPayment={this.props.submitPayment}
                 addItemToBasket={this.props.addItemToBasket}
                 addShopItemToBasket={this.props.addShopItemToBasket}
                 removeItemFromBasket={this.props.removeItemFromBasket}
@@ -185,8 +252,21 @@ export class CheckoutPayment extends React.Component<Props> {
                 shopItemList={this.props.shopItemList}
                 patchBasket={this.props.patchCurrentBasket}
                 savedPaymentMethodList={this.props.savedPaymentMethodList}
+                validateUnpaid={this.validateUnpaid}
+                paymentModule={
+                  <PaymentStripe
+                    onCancel={this.backToCalendar}
+                    paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
+                      PAYMENT_ENGINE_STRIPE
+                    ].filter((pm) =>
+                      this.props.theme.payment_method_available.includes(pm),
+                    )}
+                    clientSecret={this.state.clientSecret}
+                    onSuccess={this.onSuccess}
+                    memberId={this.props.basket.member}
+                  />
+                }
               />
-              {this.renderError()}
             </div>
           </div>
         </div>
@@ -230,7 +310,7 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   routerParamsToProps({ companyId: 'companyId:number' }),
-  withTranslation(['checkout']),
+  withTranslation(['checkout', 'payment', 'invoice', 'login']),
   connect(
     (state) => ({
       auth: state.auth,
@@ -268,25 +348,10 @@ export default compose(
         buyable_item_id: shopItemId,
         extra_data: {},
       }),
-    onBasketFinalized: ({ replace }) => (basket) => {
+    onSuccess: ({ replace, basket }) => () => {
       Analytics.onPaymentSuccess(basket);
       replace(`/c/${basket.company}/?from_basket=${basket.id}`);
     },
   }),
   withState('basketError', 'setBasketError', null),
-  withProps(
-    ({ attachPayment, fetchCurrentBasket, companyId, setBasketError }) => ({
-      submitPayment: (data, options) =>
-        attachPayment(data, {
-          onSuccess: (response) => {
-            if (options && options.onSuccess) options.onSuccess(response);
-          },
-          onError: (error) => {
-            fetchCurrentBasket(companyId);
-            setBasketError(error);
-            if (options && options.onError) options.onError(error);
-          },
-        }),
-    }),
-  ),
 )(CheckoutPayment);

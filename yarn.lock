@@ -999,10 +999,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@bsport/common@^1.31.5":
-  version "1.31.5"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.31.5.tgz#150ab26a05a6bd7ea315ae5b9b56e54ce26ef5bb"
-  integrity sha512-/Q1sJtmuMj30IB0HEeBlzEQF0Vb/RelS4KBLhYSME3MuETYEmF3ScfC9E+ERX29+0eFNowpbpFTLAzaNYEtQZg==
+"@bsport/common@^1.31.6":
+  version "1.31.6"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-1.31.6.tgz#a7d68c138ae9b861296c69e10127645479ec1c4a"
+  integrity sha512-L+UBi72vduaK4EJKBV7QYv/yvwqj0eyCM+VbNR+0BriNUHrZl8RoaIxBmJzuPP3M2fcnHU86jbTVDeG3yB6Obw==
 
 "@commitlint/execute-rule@^11.0.0":
   version "11.0.0"
@@ -1448,7 +1448,7 @@
     "@babel/runtime" "7.0.0-beta.42"
     recompose "^0.26.0 || ^0.27.0"
 
-"@material-ui/icons@^4.9.1":
+"@material-ui/icons@^4.11.2":
   version "4.11.2"
   resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.11.2.tgz#b3a7353266519cd743b6461ae9fdfcb1b25eb4c5"
   integrity sha512-fQNsKX2TxBmqIGJCSi3tGTO/gZ+eJgWmMJkgDiOfyNaunNaxcklJQFaFogYcFl0qFuaEz1qaXYXboa/bUXVSOQ==

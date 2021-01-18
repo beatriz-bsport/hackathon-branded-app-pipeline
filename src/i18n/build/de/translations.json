@@ -433,7 +433,7 @@
                 "notAvailable": "Storniert",
                 "notBookableYet": "Bald"
             },
-            "passListTitle": "Gruppenkurskarten",
+            "passListTitle": "Kurskarten",
             "privatePassListTitle": "Terminkarten",
             "noSessionToday": "Kein Kurs",
             "backToCalendar": "Zurück",
@@ -498,7 +498,7 @@
                 "edit": "Um ein Bild zu wechseln, ziehe das neue Bild mit der Maus oder klicke hier",
                 "new": "Um Bilder einzufügen, ziehe das Bild mit der Maus und lege es hier ab oder klicke hier"
             },
-            "cancel": "Abbrechen",
+            "cancel": "Stornieren",
             "create": "Erstellen",
             "sports": "Kategorien",
             "continue": "Weiter",
@@ -677,7 +677,7 @@
                 "bookings": "Meine Buchungen ",
                 "order": "Meine Bestellungen",
                 "profile": "Mein Profil",
-                "pass": "Kurskarten"
+                "pass": "Meine Karten"
             },
             "dashboard": "Dashboard",
             "search": "Suche",
@@ -2673,7 +2673,7 @@
             "first_attendance": "Erstbesuch (Gruppe)",
             "first_booking": "Erster Kurs (Gruppe)",
             "activityByEst": "Aktivitäten und Workshops nach Einrichtung",
-            "dayBookings": "Buchungen (Gruppenkurs) pro Tag",
+            "dayBookings": "Buchungen (Kurs) pro Tag",
             "privateServiceEst": "Personal Training pro Einrichtung",
             "privateServiceCoach": "Personal Training pro Lehrer",
             "cashbook": "Kassenbuch",
@@ -2682,7 +2682,7 @@
             "activityByCoach": "Aktivitäten und Workshops pro Lehrer",
             "private_bookings": "Buchungen (Personal Training)",
             "payments": "Zahlungen",
-            "bookings": "Buchungen (Gruppenkurse)",
+            "bookings": "Buchungen (Kurse)",
             "offers": "Kurse",
             "members": "Mitglieder",
             "on_spot_payments": "Zahlungen vor Ort",
@@ -3133,6 +3133,16 @@
                 "error": "Änderungen können nicht gespeichert werden",
                 "success": "Änderungen wurden gespeichert"
             }
+        },
+        "privateRecurrentRule": {
+            "delete": {
+                "error": "Wiederkehrender Termin kann nicht gelöscht werden",
+                "success": "Wiederkehrender Termin gelöscht"
+            },
+            "createOrUpdate": {
+                "error": "Wiederkehrende Termine können nicht gespeichert werden",
+                "success": "Wiederkehrender Termin erfolgreich gespeichert"
+            }
         }
     },
     "invoice": {
@@ -3413,6 +3423,11 @@
                 "delete": "Stornieren",
                 "registerNow": "Jetzt auszahlen"
             }
+        },
+        "mandate": {
+            "content": "Indem Du Deine IBAN angibst und Deine Zahlung bestätigst, ermächtigst Du bsport und Stripe, unser Zahlungssystem, Lastschriftanweisungen gemäß dem Zahlungsplan an Deine Bank zu senden. Du kannst bei Deiner Bank eine Rückerstattung gemäß den Bedingungen Deiner Bank beantragen. Eine Rückerstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden.",
+            "email": "E-Mail des Inhabers",
+            "name": "Name und Vorname des Inhabers"
         }
     },
     "payment": {
@@ -3741,9 +3756,9 @@
             },
             "lock": {
                 "accessDenied": "Du hast keinen Zugang zu diesem Video",
-                "pleaseAuthenticated": "Du musst Dich einloggen, um einen Zugang zu diesem Video zu haben",
+                "pleaseAuthenticated": "Bitte melde Dich an, um das Video zu sehen",
                 "buyPass": "Kaufe eine Karte",
-                "useConsumerPass": "Entsperre den Zugriff"
+                "useConsumerPass": "Freischalten"
             },
             "player": {
                 "with": "mit"
@@ -4827,7 +4842,7 @@
             },
             "toogle": {
                 "showPrivateBookings": "Termine",
-                "showOfferList": "Gruppenkurse",
+                "showOfferList": "Kurse",
                 "showCustomEvents": "persönlicher Termin"
             },
             "addBooking": "Einen Termin speichern",
@@ -5139,27 +5154,27 @@
         "actions": {
             "goToSubscription": "Alle Abonnements ansehen",
             "goToPass": "Alle Kurskarten ansehen",
-            "goToCalendar": "Den vollständigen Kalender ansehen"
+            "goToCalendar": "Zum Stundenplan"
         },
         "booking": {
             "showCalendar": "Kalender ansehen",
             "bookAgain": "Wieder buchen",
-            "discard": "Abbrechen",
+            "discard": "Abmelden",
             "titlePrivateBooking": "Termin",
-            "titleBooking": "Gruppenkurs",
+            "titleBooking": "Kurs",
             "accessLive": "Livestream beitreten"
         },
         "congratulation": {
             "cancel": "Schließen",
-            "content": "Ihr Kauf wurde registriert !"
+            "content": "Danke für die Anmeldung!"
         },
         "dashboard": {
             "noBooking": "Kein bevorstehender Kurs",
             "noPackCurrentlyActive": "Keine gültige Kurskarte",
             "showMore": "Mehr anzeigen",
-            "currentPassTitle": "Aktive Kurskarten",
+            "currentPassTitle": "Meine Karten",
             "favoriteTitle": "Vorschlag zur Buchung",
-            "nextBookingTitle": "Meine nächsten Kurse",
+            "nextBookingTitle": "Meine Reservierungen",
             "optionTitle": "Auf Warteliste"
         },
         "debt": {
@@ -5170,18 +5185,18 @@
         },
         "navigation": {
             "changeMembership": "Den Klub wechseln",
-            "subscription": "Abonnement",
+            "subscription": "Mein Abo",
             "calendar": "Vergangene Buchungen",
             "logoff": "Abmelden",
             "profile": "Profil",
-            "invoice": "Rechnung",
+            "invoice": "Meine Rechnungen",
             "pack": "Kurskarte",
             "dashboard": "Überblick",
             "myVideos": "Meine Videos"
         },
         "pack": {
-            "titlePrivatePack": "Termin",
-            "titlePaymentPack": "Gruppenkurs"
+            "titlePrivatePack": "Terminkarte",
+            "titlePaymentPack": "Kurskarte"
         },
         "unsubscriber": {
             "explain": "Möchtest Du Dich von allen Newslettern Deines Klubs abmelden?",
@@ -5300,7 +5315,7 @@
     "paymentCombo": {
         "form": {
             "selectorPlaceholder": {
-                "paymentPack": "Gruppenkurskarte",
+                "paymentPack": "Kurskarte",
                 "privatePass": "Terminkarte",
                 "shopitem": "Shop"
             },
@@ -6784,7 +6799,7 @@
             "isEmpty": "Ihr Warenkorb ist leer",
             "featured": "Wir empfehlen Dir",
             "error": {
-                "invalidBasket": "Ihr Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet"
+                "invalidBasket": "Dein Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet"
             }
         },
         "forms": {
@@ -6809,8 +6824,10 @@
             }
         },
         "payLater": {
-            "submit": "Zahlen Sie vor Ort"
-        }
+            "submit": "Zahlen Sie vor Ort",
+            "explain": "Die Zahlung wird vor Ort abgewickelt. Zuvor gilt die Rechnung als unbezahlt."
+        },
+        "or": "oder"
     },
     "tag": {
         "filter": {

@@ -5609,6 +5609,16 @@
                 "error": "Kan de wijzigingen niet opslaan",
                 "success": "Wijzigingen opgeslagen"
             }
+        },
+        "privateRecurrentRule": {
+            "delete": {
+                "error": "Periodieke afspraak kon niet worden verwijderd",
+                "success": "Periodieke afspraak verwijderen"
+            },
+            "createOrUpdate": {
+                "error": "Periodieke afspraak kon niet worden aangemaakt",
+                "success": "Periodieke afspraak succesvol aangemaakt"
+            }
         }
     },
     "coach": {
@@ -5885,7 +5895,9 @@
         "code": {
             "addCoupon": {
                 "label": "Promotiecode",
-                "placeholder": "COUPON_CODE"
+                "placeholder": "COUPON_CODE",
+                "cancel": "annuleren",
+                "submit": "Bevestigen"
             }
         }
     },
@@ -6377,7 +6389,12 @@
         },
         "paymentIntent": {
             "isProcessing": "Een moment geduld alstublieft"
-        }
+        },
+        "payLater": {
+            "explain": "In de studio wordt je om je betaalmethode gevraagd. We doen dit om je inschrijving voor deze sessie te voltooien. Tot dan wordt deze factuur als onbetaald beschouwd.",
+            "submit": "Ter plaatse betalen"
+        },
+        "or": "of"
     },
     "invoice": {
         "returnPayment": {
@@ -6657,6 +6674,11 @@
                 "delete": "Annuleren",
                 "registerNow": "Uitbetalen"
             }
+        },
+        "mandate": {
+            "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT en Stripe (ons betalingssysteem) toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen volgens de voorwaarden van je contract met deze bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
+            "email": "E-mailadres rekeninghouder",
+            "name": "Voornaam rekeninghouder"
         }
     },
     "waitingList": {

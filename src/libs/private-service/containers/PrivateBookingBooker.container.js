@@ -202,8 +202,8 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         day_of_week: date_start.isoWeekday() - 1,
         notify_if_booked: this.props.notify_member,
         private_slot: this.state.private_booking_data.private_slot,
-        associated_coach: this.state.private_booking_data.coach,
-        associated_establishment: this.state.private_booking_data.establishment,
+        coach: this.state.private_booking_data.coach,
+        establishment: this.state.private_booking_data.establishment,
         member: this.state.member.id,
       },
       {

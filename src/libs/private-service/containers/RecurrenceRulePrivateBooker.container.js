@@ -172,8 +172,8 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
       {
         ...this.state.time_setting,
         private_slot: this.state.configuration.private_slot,
-        associated_coach: this.state.configuration.coach,
-        associated_establishment: this.state.configuration.establishment,
+        coach: this.state.configuration.coach,
+        establishment: this.state.configuration.establishment,
         member: this.props.memberId,
         notify_if_booked: this.state.notify_if_booked,
       },

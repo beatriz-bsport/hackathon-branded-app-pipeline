@@ -27,18 +27,28 @@ export const getAvailableContractList = createSelector(
   (ids, data) => ids.map((id) => data[id]),
 );
 
-export const getAvailableContractListManager = createSelector(
+export const getActiveContractList = createSelector(
   getAvailableContractList,
+  (contractList) => contractList.filter((c) => !c.disabled),
+);
+
+export const getInactiveContractList = createSelector(
+  getAvailableContractList,
+  (contractList) => contractList.filter((c) => c.disabled),
+);
+
+export const getAvailableContractListManager = createSelector(
+  getActiveContractList,
   (contractList) => contractList.filter((c) => !!c.manager_only),
 );
 
 export const getAvailableContractListCustomer = createSelector(
-  getAvailableContractList,
+  getActiveContractList,
   (contractList) => contractList.filter((c) => !c.manager_only),
 );
 
 export const getAvailableContractListWithPaymentPack = createSelector(
-  [getAvailableContractList, getPaymentPackList],
+  [getActiveContractList, getPaymentPackList],
   (contractsList, packList) =>
     contractsList.map((c) => ({
       ...c,

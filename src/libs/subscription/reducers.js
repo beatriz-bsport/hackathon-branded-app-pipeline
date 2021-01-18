@@ -7,6 +7,7 @@ import {
   detailActions,
   contractListActions,
   contractDetailActions,
+  contractRestoreActions,
   subscriptionForBookingActions,
   contractCreateOrUpdateActions,
   contractMarketplaceListActions,
@@ -290,6 +291,9 @@ export default handleActions(
     },
     [contractDetailActions.success]: (state, { payload }) => {
       return state.merge({ contract: { byId: payload } }, { deep: true });
+    },
+    [contractRestoreActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['contract', 'loading'], payload);
     },
     [contractCreateOrUpdateActions.isLoading]: (state, { payload }) => {
       return state.setIn(['contract', 'createOrUpdate', 'loading'], payload);

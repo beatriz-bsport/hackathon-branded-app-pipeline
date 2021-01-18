@@ -41,6 +41,7 @@ type Props = {
   privatePassList: Array<PrivatePass>,
   onEdit: ?(data: *, options: OptionCallback) => void,
   onCreate: ?(data: *, options: OptionCallback) => void,
+  onRestore: (id: number, options: OptionCallback) => void,
 };
 export const SubscriptionContractList = (props: Props) => {
   return (
@@ -59,13 +60,10 @@ export const SubscriptionContractList = (props: Props) => {
               dense={props.dense}
               selected={c.id === props.selectedContract}
               onClick={props.onClick ? () => props.onClick(c.id) : null}
-              onRegister={() => props.onRegister(c)}
-              onEdit={() => {
-                props.setContractToEdit(c);
-              }}
-              onDelete={() => {
-                props.onDelete(c.id);
-              }}
+              onRegister={props.onRegister ? () => props.onRegister(c) : null}
+              onEdit={props.onEdit ? () => props.setContractToEdit(c) : null}
+              onDelete={props.onDelete ? () => props.onDelete(c.id) : null}
+              onRestore={props.onRestore ? () => props.onRestore(c.id) : null}
               copy={props.copy}
               company={props.company}
               snackbar={props.snackbar}

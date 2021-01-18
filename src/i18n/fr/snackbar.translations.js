@@ -303,6 +303,12 @@ exports.default = {
       error: "Erreur lors de l'abonnement",
       success: 'Vous êtes désormais abonné',
     },
+    contract: {
+      restore: {
+        success: 'Contrat restauré avec succès',
+        error: 'Impossible de restaurer le contrat',
+      },
+    },
   },
   webhook: {
     success: 'Webhook enregistré',

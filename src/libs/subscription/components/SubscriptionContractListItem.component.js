@@ -6,6 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddPersonIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
@@ -21,6 +22,7 @@ type Props = {
   onClick?: () => void,
   onRegister?: () => void,
   onBook?: () => void,
+  onRestore?: () => void,
   selected?: boolean,
   dense?: boolean,
   divider?: boolean,
@@ -93,6 +95,13 @@ export const SubscriptionContractListItem = (props: Props) => {
             label: props.t(''),
             onClick: () => {
               props.onBook();
+            },
+          },
+          props.onRestore && {
+            icon: RestoreFromTrashIcon,
+            label: props.t('subscription.restore'),
+            onClick: () => {
+              props.onRestore();
             },
           },
         ]}

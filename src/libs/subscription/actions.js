@@ -16,6 +16,7 @@ import api, {
   unflagPlannedInvoiceAsLast as unflagPlannedInvoiceAsLastAPI,
   cancelPause as cancelPauseAPI,
   updatePlannedInvoiceDate as updatePlannedInvoiceDateAPI,
+  restoreContract as restoreContractAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -324,6 +325,28 @@ export function deleteContract(id: number, options: OptionCallback) {
   };
 }
 
+export const contractRestoreActions = {
+  isLoading: createAction('SUBSCRIPTION_CONTRACT/RESTORE/IS_LOADING'),
+};
+
+export function restoreContract(id: Number, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(contractRestoreActions.isLoading(true));
+    try {
+      const response = await restoreContractAPI(id);
+      const payload = { [response.data.id]: response.data };
+      dispatch(contractDetailActions.success(payload));
+      dispatch(snackbarSuccess('subscription.contract.restore.success'));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(snackbarError('subscription.contract.restore.error'));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(contractRestoreActions.isLoading(false));
+  };
+}
+
 export const contractMarketplaceListActions = {
   error: createAction('SUBSCRIPTION_CONTRACT/MARKETPLACE_LIST/ERROR'),
   isLoading: createAction('SUBSCRIPTION_CONTRACT/MARKETPLACE_LIST/IS_LOADING'),
@@ -341,6 +364,7 @@ export function fetchMarketplaceContractList(
       const response = await api.fetchContractList({
         company,
         manager_only: false,
+        disabled: false,
         page_size: 300,
       });
       dispatch(contractMarketplaceListActions.success(response.data.results));
@@ -553,6 +577,7 @@ export function fetchContractForBooking(
         offer,
         company,
         manager_only: false,
+        disabled: false,
       });
       dispatch(subscriptionForBookingActions.success(response.data));
 

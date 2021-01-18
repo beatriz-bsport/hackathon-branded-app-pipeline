@@ -16,6 +16,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import {
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
@@ -46,6 +49,7 @@ import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/p
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 
 import {
+  getInactiveContractList,
   getAvailableContractListManager,
   getAvailableContractListCustomer,
   getContract,
@@ -55,6 +59,7 @@ import {
   createOrUpdateContract as createOrUpdateContractAction,
   fetchContractList as fetchContractListAction,
   deleteContract,
+  restoreContract,
   fetchSubscriptionBulk as fetchSubscriptionBulkAction,
 } from '../../libs/subscription/actions';
 
@@ -68,6 +73,11 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   contractListAvailableAll: Array<SubscriptionContract>,
   contractListManagerOnly: Array<SubscriptionContract>,
+  inactiveContracts: Array<SubscriptionContract>,
+
+  showDisabled: boolean,
+  setShowDisabled: (boolean) => void,
+  restoreContract: (id: number, options: OptionCallback) => void,
 
   openContractRegister: (?Contract) => void,
   onRegisteredBillingPlan: (BillingPlan) => void,
@@ -217,6 +227,46 @@ export class SubscriptionList extends React.Component<Props> {
               />
             </Grid>
           )}
+          {!!this.props.inactiveContracts.length && (
+            <Grid item xs={12} lg={6}>
+              <ButtonBase
+                onClick={() =>
+                  this.props.setShowDisabled(!this.props.showDisabled)
+                }
+              >
+                <Typography
+                  className={this.props.classes.sectionTitle}
+                  variant="h4"
+                >
+                  {`${this.props.t(
+                    'subscription:contract.list.titleInactive',
+                  )} (${this.props.inactiveContracts.length})`}
+                </Typography>
+                {this.props.showDisabled ? (
+                  <ExpandLessIcon />
+                ) : (
+                  <ExpandMoreIcon />
+                )}
+              </ButtonBase>
+              <Divider className={this.props.classes.divider} />
+              {this.props.showDisabled && (
+                <SubscriptionContractList
+                  contractList={this.props.inactiveContracts}
+                  dense
+                  divider
+                  loading={this.props.contractLoading}
+                  paymentPacks={this.props.paymentPacks}
+                  privatePassList={this.props.privatePassList}
+                  paymentComboList={this.props.paymentComboList}
+                  onRestore={(id) => {
+                    this.props.restoreContract(id, {
+                      onSuccess: () => this.props.fetchContractList(),
+                    });
+                  }}
+                />
+              )}
+            </Grid>
+          )}
         </Grid>
         <BottomActionsButton
           onCreateLabel={this.props.t('subscription:contract.actions.create')}
@@ -285,6 +335,7 @@ export default compose(
       contractListAvailableAll: withPaymentPack(
         getAvailableContractListCustomer,
       )(state),
+      inactiveContracts: withPaymentPack(getInactiveContractList)(state),
       contractLoading: state.subscription.contract.loading,
       paymentPacks: getPaymentPackEnabled(state),
       privatePassList: getPrivatePassAvailable(state),
@@ -299,6 +350,7 @@ export default compose(
       createOrUpdateContract: createOrUpdateContractAction,
       searchMembers,
       deleteContract,
+      restoreContract,
       pushRouter: push,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       fetchPrivatePassList,
@@ -308,6 +360,7 @@ export default compose(
   withState('selectedContract', 'setSelectedContract', null),
   withState('contractRegisterOpen', 'setContractRegisterOpen', false),
   withState('memberToBill', 'setMemberToBill', null),
+  withState('showDisabled', 'setShowDisabled', false),
   connect(
     (state, { selectedContract }) => ({
       selectedContractData: getContract(state, selectedContract),

@@ -65,6 +65,10 @@ const deleteContract = async (id: number) => {
   return deleteAuth(`${API_URI}/subscription/contract/${id}/`);
 };
 
+export const restoreContract = async (id: number) => {
+  return putAuth(`${API_URI}/subscription/contract/${id}/restore/`);
+};
+
 export const postContractSubscription = async (id: number, data: any = {}) => {
   return postAuth(`${API_URI}/subscription/contract/${id}/register/`, {
     ...data,

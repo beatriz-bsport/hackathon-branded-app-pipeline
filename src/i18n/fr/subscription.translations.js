@@ -170,6 +170,7 @@ exports.default = {
       isEmpty: 'Aucun contrat disponible',
       addButton: 'Définir un contrat',
       register: 'Abonner un membre',
+      titleInactive: 'Contrats archivés',
     },
     form: {
       title: 'Formulaire contrat',

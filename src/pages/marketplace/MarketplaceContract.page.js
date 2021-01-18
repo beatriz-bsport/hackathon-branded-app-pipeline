@@ -22,7 +22,6 @@ import {
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 
 import { loadStripe } from '@stripe/stripe-js';
-import Config from '../../config';
 
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchPrivatePassBulk as fetchPrivatePassBulkAction } from '../../libs/private-service/actions';

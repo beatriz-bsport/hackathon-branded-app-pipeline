@@ -24,7 +24,6 @@ import PAYMENT_METHODS, {
 import { Elements } from '@stripe/react-stripe-js';
 
 import { loadStripe } from '@stripe/stripe-js';
-import Config from '../../../config';
 
 import PriceInput from '../../../components/input/PriceInput.component';
 import StripeForm from '../../../components/form/StripeForm.component';

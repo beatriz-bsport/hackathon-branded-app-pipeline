@@ -36,6 +36,7 @@ type Props = {
 
   classes: Object,
   t: TFunction,
+  validateUnpaid: (options: OptionCallback) => void,
 
   savedPaymentMethodList: ?Array<PaymentMethod>,
 };

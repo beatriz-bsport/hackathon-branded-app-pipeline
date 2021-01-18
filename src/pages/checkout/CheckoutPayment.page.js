@@ -1,10 +1,9 @@
 // @flow
 
 import React from 'react';
-import { compose, withState, withProps, withHandlers } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux';
 
 import {
@@ -14,15 +13,12 @@ import {
   push as pushRouter,
 } from 'connected-react-router';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
 import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 
 import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_INTENT_TYPE_BASKET,
-  PAYMENT_ENGINE_BSPORT,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
 } from '@bsport/common/lib/master-data/payment-group';
 import { getTheme } from '../../theme';
@@ -68,9 +64,7 @@ type Props = {
   removeItemFromBasket: (basketId: string, data: any) => void,
   addItemToBasket: (basketId: string, data: any) => void,
   fetchCompanyTheme: (companyId: number) => void,
-  onBasketFinalized: (basket: Basket) => void,
   goBack: () => void,
-  t: TFunction,
   theme: ?Theme,
   classes: Object,
   fetchCurrentBasket: (companyId: number) => void,
@@ -82,7 +76,6 @@ type Props = {
     options?: { onSuccess?: () => void, onError?: () => void },
   ) => void,
 
-  basketError: ?Error,
   shopItemList: Array<ShopItem>,
   fetchShopItemFeatured: (companyId: number) => void,
 
@@ -103,7 +96,6 @@ export class CheckoutPayment extends React.Component<Props> {
   state = {
     clientSecret: null,
     paymentGroupId: null,
-    paymentGroupPriceCts: null,
     clientSecretLoading: false,
     nextPaymentIntentStatusCheckSeconds: 1.5,
   };
@@ -146,7 +138,6 @@ export class CheckoutPayment extends React.Component<Props> {
         this.setState({
           clientSecret: r.data.client_secret,
           paymentGroupId: r.data.payment_group,
-          paymentGroupPriceCts: r.data.price_cts,
           clientSecretLoading: false,
         });
       })
@@ -262,6 +253,7 @@ export class CheckoutPayment extends React.Component<Props> {
                       this.props.theme.payment_method_available.includes(pm),
                     )}
                     clientSecret={this.state.clientSecret}
+                    clientSecretLoading={this.state.clientSecretLoading}
                     onSuccess={this.onSuccess}
                     memberId={this.props.basket.member}
                   />

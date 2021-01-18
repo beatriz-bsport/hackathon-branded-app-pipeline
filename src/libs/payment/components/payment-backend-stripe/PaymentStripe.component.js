@@ -3,10 +3,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { compose, withState } from 'recompose';
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
@@ -23,7 +19,6 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY,
   PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
 } from '@bsport/common/lib/master-data/payment-group';
-import Config from '../../../../config';
 
 import PaymentStripeCard from './PaymentStripeCard.component';
 import PaymentStripeSEPA from './PaymentStripeSEPA.component';
@@ -65,7 +60,6 @@ const STRIPE_PAYMENT_METHOD_FORM_COMPONENT = {
 
 export const PaymentStripe = (props: Props) => {
   const classes = useStyles();
-  const { t } = useTranslation(['invoice']);
 
   const StripePaymentMethodForm =
     STRIPE_PAYMENT_METHOD_FORM_COMPONENT[props.paymentMethodSelected];

@@ -1,6 +1,5 @@
 import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import classnames from 'classnames';

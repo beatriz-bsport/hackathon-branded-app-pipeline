@@ -10,7 +10,6 @@ export const getStripePkKey = () => {
   if (!key || key === 'null' || key === 'undefined') {
     return Config.REACT_APP_STRIPE_PK_KEY;
   }
-  console.log('pkkey : ', key);
   return key;
 };
 

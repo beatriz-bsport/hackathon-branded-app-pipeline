@@ -13,7 +13,6 @@ import UpdateIcon from '@material-ui/icons/Update';
 import type { TFunction } from 'react-i18next';
 
 import { CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT } from '@bsport/common/lib/master-data/payment-methods';
-import PaymentForm from './PaymentForm.component';
 import type { Basket } from '../types';
 
 import BasketDeliveryForm from './BasketDeliveryForm.component';
@@ -31,18 +30,17 @@ export const PAYMENT_STEP = {
 type Props = {
   basket: Basket,
   processing: boolean,
-  loading: boolean,
+  processing: boolean,
   backToCalendar: () => void,
-  onBasketFinalized: () => void,
   patchBasket: (data: any) => void,
-  submitPayment: (data: *) => void,
   attachCoupon: (basketId: string, code: string) => void,
-  termsAndConditions: string,
-  savedPaymentMethodList: ?Array<PaymentMethod>,
   paymentModule: any,
   processing: boolean,
   setProcessing: (boolean) => void,
   validateUnpaid: (options: OptionsCallback) => void,
+
+  selfProcessing: boolean,
+  setProcessing: (boolean) => void,
 
   t: TFunction,
   classes: Object,

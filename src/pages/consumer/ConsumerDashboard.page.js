@@ -116,7 +116,6 @@ type Props = {
 
   unpaidInvoiceList: Array<Invoice>,
   fetchInvoiceListUnpaid: () => void,
-  goToInvoice: (string, ?Invoice) => void,
   invoiceLoading: boolean,
 };
 

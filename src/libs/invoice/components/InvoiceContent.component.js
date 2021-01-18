@@ -12,6 +12,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { INVOICE_TYPE_MIGRATION } from '@bsport/common/lib/master-data/invoice-type';
 import Tooltip from '../../../components/Tooltip.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 import InvoiceItem from './InvoiceItem.component';
 import PaymentItem from './PaymentItem.component';
@@ -83,7 +84,9 @@ export const InvoiceContent = (props: Props) => {
                 {t('section.invoiceItemList.total')}
               </Typography>
               <Typography variant="h5">
-                {`${parseFloat(props.amountInvoiceitem).toFixed(2)} €`}
+                {`${parseFloat(props.amountInvoiceitem).toFixed(
+                  2,
+                )} ${getCurrencyDisplay()}`}
               </Typography>
             </div>
           </div>
@@ -128,7 +131,7 @@ export const InvoiceContent = (props: Props) => {
                   }
                   variant="h5"
                 >
-                  {`${props.amountPaymentItem || 0} €`}
+                  {`${props.amountPaymentItem || 0} ${getCurrencyDisplay()}`}
                 </Typography>
               </div>
             </div>

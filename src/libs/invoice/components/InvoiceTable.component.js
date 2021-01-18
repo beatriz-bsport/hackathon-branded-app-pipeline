@@ -34,6 +34,7 @@ import {
   INVOICE_TYPE_REVERSE,
 } from '@bsport/common/lib/master-data/invoice-type';
 import RedButton from '../../../components/button/RedButton.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 type Props = {
   compactMode: ?boolean,
@@ -122,11 +123,11 @@ const InvoiceRow = React.memo((props: Props) => {
                 invoice.is_v2
                   ? parseInt(invoice.amount_due_cts, 10) / 100
                   : invoice.price_due,
-              ).toFixed(2)}€`}
+              ).toFixed(2)}${getCurrencyDisplay()}`}
         </TableCell>
         <TableCell>
           <Typography color={amount_remaining_color}>
-            {`${amount_remaining.toFixed(2)}€`}
+            {`${amount_remaining.toFixed(2)}${getCurrencyDisplay()}`}
           </Typography>
         </TableCell>
         {!props.compactMode && (
@@ -254,17 +255,17 @@ const InvoiceRow = React.memo((props: Props) => {
                               <TableCell>
                                 {`${parseFloat(invoiceItem.total_price).toFixed(
                                   2,
-                                )} €`}
+                                )} ${getCurrencyDisplay()}`}
                               </TableCell>
                               <TableCell>
                                 {`${parseFloat(invoiceItem.voucher).toFixed(
                                   2,
-                                )} €`}
+                                )} ${getCurrencyDisplay()}`}
                               </TableCell>
                               <TableCell>
                                 {`${parseFloat(
                                   invoiceItem.total_price_notax,
-                                ).toFixed(2)} €`}
+                                ).toFixed(2)} ${getCurrencyDisplay()}`}
                               </TableCell>
                             </TableRow>
                           );
@@ -331,7 +332,9 @@ const InvoiceRow = React.memo((props: Props) => {
                                   )}
                                 </TableCell>
                                 <TableCell>
-                                  {`${parseFloat(payment.price).toFixed(2)} €`}
+                                  {`${parseFloat(payment.price).toFixed(
+                                    2,
+                                  )} ${getCurrencyDisplay()}`}
                                 </TableCell>
                                 <TableCell>
                                   {moment(payment.date).format('L')}

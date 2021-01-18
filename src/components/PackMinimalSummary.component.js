@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
+import { getCurrencyDisplay } from '../libs/theme/selectors';
 
 const styles = () => ({
   listItem: {
@@ -29,7 +30,7 @@ export class PaymentPack extends Component<Props> {
       <ListItem key={id} button className={classes.listItem} divider>
         <ListItemText primary={name} />
         <ListItemText
-          primary={`${price} €`}
+          primary={`${price} ${getCurrencyDisplay()}`}
           secondary={`${t('credits')} : ${creditsFormatted.toLowerCase()}`}
         />
       </ListItem>

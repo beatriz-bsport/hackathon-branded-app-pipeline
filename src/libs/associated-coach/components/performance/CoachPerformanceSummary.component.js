@@ -8,6 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 
 import Figure from '../../../../components/graph/Figure.component';
+import { getCurrencyDisplay } from '../../../theme/selectors';
 
 type Props = {
   nbBookings: number,
@@ -39,7 +40,7 @@ export function CoachPerformanceSummary(props: Props) {
       <Grid item xs={12} md={4}>
         <Figure
           name={t('performance.payment')}
-          count={total ? `${total.toFixed(2)} €` : '-'}
+          count={total ? `${total.toFixed(2)} ${getCurrencyDisplay()}` : '-'}
           color="green"
         />
       </Grid>

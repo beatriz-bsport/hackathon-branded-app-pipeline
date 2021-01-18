@@ -17,6 +17,7 @@ import AttachIcon from '@material-ui/icons/AttachFile';
 import { PaymentRuleSelector } from '../../../payment-rules';
 import type { PaymentRule } from '../../../payment-rules';
 import { downloadAsCsv } from '../../../../utils/downloader';
+import { getCurrencyDisplay } from '../../../theme/selectors';
 
 type Props = {
   sessions: *[],
@@ -90,8 +91,12 @@ export function CoachPerformanceTable(props: Props) {
               </TableCell>
               <TableCell>{session.duration_minute}</TableCell>
               <TableCell>{session.nb_accountable_bookings}</TableCell>
-              <TableCell>{session.base.toFixed(2)} €</TableCell>
-              <TableCell>{session.bonus} €</TableCell>
+              <TableCell>
+                {session.base.toFixed(2)} {getCurrencyDisplay()}
+              </TableCell>
+              <TableCell>
+                {session.bonus} {getCurrencyDisplay()}
+              </TableCell>
               <TableCell>
                 <PaymentRuleSelector
                   id="payment_rule_per_session"

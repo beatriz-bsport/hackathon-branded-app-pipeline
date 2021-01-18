@@ -24,6 +24,7 @@ import PAYMENT_METHODS, {
 } from '@bsport/common/lib/master-data/payment-methods';
 
 import withConfirm from '../../../hocs/with-confirm.hoc';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 type Props = {
   paymentItem: PaymentItem,
@@ -94,7 +95,9 @@ export const PaymentItem = (props: Props) => {
       <div className={classes.line} />
       <div className={classes.secondaryAction}>
         <div className={paymentItem.reverted ? classes.revert : null}>
-          {`${parseFloat(paymentItem.price).toFixed(2)} €`}
+          {`${parseFloat(paymentItem.price).toFixed(
+            2,
+          )} ${getCurrencyDisplay()}`}
         </div>
         {!!paymentItem.editable && !!props.onDelete && (
           <IconButton onClick={props.onDelete}>

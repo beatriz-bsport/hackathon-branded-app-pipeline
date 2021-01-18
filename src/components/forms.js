@@ -37,6 +37,7 @@ import MuiFormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 import PhoneInput from 'react-phone-number-input';
+import { getCurrencyDisplay } from '../libs/theme/selectors';
 import 'react-phone-number-input/style.css';
 import { Moment } from '../i18n';
 import DelayedTextField from './DelayedTextField.component';
@@ -118,7 +119,11 @@ export function PriceField(props) {
     <TextField
       InputProps={{
         inputProps: { min: 0, step: 0.01 },
-        startAdornment: <InputAdornment position="start">€</InputAdornment>,
+        startAdornment: (
+          <InputAdornment position="start">
+            {getCurrencyDisplay()}
+          </InputAdornment>
+        ),
       }}
       type="number"
       {...omit(props, ['field'])}

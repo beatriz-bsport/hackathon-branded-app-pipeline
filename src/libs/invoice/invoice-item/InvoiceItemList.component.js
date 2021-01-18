@@ -13,6 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 import type { InvoiceItem } from './types';
 
@@ -62,7 +63,7 @@ export class InvoiceItemList extends Component<Props> {
             <Typography
               className={invoiceItem.reverted ? this.props.classes.revert : {}}
             >
-              {invoiceItem.price} €
+              {invoiceItem.price} ${getCurrencyDisplay()}
             </Typography>
           </Grid>
           <Grid item>

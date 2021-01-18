@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import ListItemText from '@material-ui/core/ListItemText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { getCurrencyDisplay } from '../../libs/theme/selectors';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -189,7 +190,7 @@ export class FormField extends Component<Props, State> {
     const InputProps =
       id === 'default_price' || id === 'price'
         ? {
-            endAdornment: <InputAdornment position="end">€</InputAdornment>,
+            endAdornment: <InputAdornment position="end">{getCurrencyDisplay()}</InputAdornment>,
           }
         : {};
 

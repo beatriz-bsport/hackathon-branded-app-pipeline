@@ -12,6 +12,7 @@ import { compose } from 'recompose';
 import CheckoutItemListItem from './CheckoutItemListItem.component';
 
 import type { Basket, CheckoutItemData } from '../types';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 type Props = {
   basket: Basket,
@@ -60,7 +61,7 @@ export const BasketConsumer = (props: Props) => {
       {props.withPrice ? (
         <div className={props.classes.totalPrice}>
           <Typography component="p" variant="h4">
-            {`${props.basket.total_price} €`}
+            {`${props.basket.total_price} ${getCurrencyDisplay()}`}
           </Typography>
         </div>
       ) : null}

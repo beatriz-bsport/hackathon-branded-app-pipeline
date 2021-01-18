@@ -10,6 +10,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { getValidityInfo } from '../../libs/payment-packs/utils';
+import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 type Props = {
   t: TFunction,
@@ -44,7 +45,7 @@ export function PaymentPackMinimalSummary(props: Props) {
         <ListItemText primary={name} secondary={creditsFormatted} />
         <div className={classes.rightInfo}>
           <Typography variant="caption" align="right">
-            {`${price} €`}
+            {`${price} ${getCurrencyDisplay()}`}
           </Typography>
           <Typography variant="caption" align="right">
             {dateInfo}

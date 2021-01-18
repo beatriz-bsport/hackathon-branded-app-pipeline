@@ -50,6 +50,7 @@ import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 
 import type { Membership } from '../../libs/membership/types';
+import { getCurrencyDisplay } from '../../libs/theme/selectors';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 
 export const drawerWidth = 260;
@@ -306,7 +307,10 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         return (
           <Badge
             color="error"
-            badgeContent={`${parseInt(membership.credit_account_balance, 10)}€`}
+            badgeContent={`${parseInt(
+              membership.credit_account_balance,
+              10,
+            )}${getCurrencyDisplay()}`}
           >
             <ReceiptIcon {...props} />
           </Badge>

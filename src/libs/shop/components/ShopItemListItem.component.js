@@ -11,6 +11,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import type { ShopItem } from '../types';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 type Props = {
   shopitem: ShopItem,
@@ -46,7 +47,9 @@ export default (props: Props) => {
         </ListItemIcon>
       )}
       <ListItemText
-        primary={`${props.shopitem.name} - ${props.shopitem.price}€`}
+        primary={`${props.shopitem.name} - ${
+          props.shopitem.price
+        }${getCurrencyDisplay()}`}
         secondary={props.shopitem.subtitle || props.shopitem.name}
       />
       {props.additionalActions}

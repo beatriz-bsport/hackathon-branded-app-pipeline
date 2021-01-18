@@ -3,7 +3,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { compose, withState } from 'recompose';
-import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
 import { Elements } from '@stripe/react-stripe-js';
@@ -31,7 +30,7 @@ import PaymentStripeMobilePay from './PaymentStripeMobilePay.component';
 
 import PaymentMethodCardSelector from '../PaymentMethodCardSelector.component';
 
-import { getStripePkKey } from '../../../theme/selectors';
+import { getStripePkKey, getCurrencyDisplay } from '../../../theme/selectors';
 
 const stripePromise = loadStripe(getStripePkKey());
 
@@ -69,7 +68,9 @@ export const PaymentStripe = (props: Props) => {
       {!!props.paymentGroupPriceCts && (
         <div className={classes.priceContainer}>
           <Typography variant="h5">
-            {`${(props.paymentGroupPriceCts / 100).toFixed(2)} €`}
+            {`${(props.paymentGroupPriceCts / 100).toFixed(
+              2,
+            )} ${getCurrencyDisplay()}`}
           </Typography>
         </div>
       )}

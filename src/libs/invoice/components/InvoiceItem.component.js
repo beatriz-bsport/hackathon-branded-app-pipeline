@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import { getCurrencyDisplay } from '../../theme/selectors';
+
 type Props = {
   invoiceItem: InvoiceItem,
   onDelete: () => void,
@@ -39,7 +41,8 @@ export const InvoiceItem = (props: Props) => {
       <div className={classes.line} />
       <div className={classes.secondaryAction}>
         <Typography className={invoiceItem.reverted ? classes.revert : null}>
-          {parseFloat(invoiceItem.price - (voucher || 0)).toFixed(2)} €
+          {parseFloat(invoiceItem.price - (voucher || 0)).toFixed(2)}{' '}
+          {getCurrencyDisplay()}
         </Typography>
         {!!invoiceItem.editable && onDelete && (
           <IconButton

@@ -14,8 +14,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import CheckIcon from '@material-ui/icons/Check';
 import Button from '@material-ui/core/Button';
 import UndoIcon from '@material-ui/icons/Undo';
-
 import PAYMENT_METHODS from '@bsport/common/lib/master-data/payment-methods';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 import withConfirm from '../../../hocs/with-confirm.hoc';
 
@@ -66,7 +66,9 @@ export const PaymentItem = (props: Props) => {
       <div className={classes.line} />
       <div className={classes.secondaryAction}>
         <div className={paymentItem.reverted ? classes.revert : null}>
-          {`${parseFloat(paymentItem.price).toFixed(2)} €`}
+          {`${parseFloat(paymentItem.price).toFixed(
+            2,
+          )} ${getCurrencyDisplay()}`}
         </div>
       </div>
       {paymentItem.is_returnable &&

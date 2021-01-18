@@ -17,10 +17,10 @@ import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CachedIcon from '@material-ui/icons/Cached';
 import HourglassEmpty from '@material-ui/icons/HourglassEmpty';
-
 import PAYMENT_METHODS, {
   SUBSCRIPTION_CB as PAYMENT_METHOD_SUBSCRIPTION_CB,
 } from '@bsport/common/lib/master-data/payment-methods';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 type Props = {
   paymentItems: Array<PaymentItemData>,
@@ -80,7 +80,7 @@ export class PaymentList extends Component<Props> {
       >
         <ListItemIcon>{this.renderPaymentReceived(paymentItem)}</ListItemIcon>
         <ListItemText
-          primary={`${price} €  -  ${t(
+          primary={`${price} ${getCurrencyDisplay()}  -  ${t(
             `payment.paymentMethods.${paymentMethodText}`,
           )}`}
           secondary={payment_note}

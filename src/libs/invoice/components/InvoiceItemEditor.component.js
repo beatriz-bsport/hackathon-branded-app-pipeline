@@ -26,6 +26,7 @@ import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelec
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
 import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 type Props = {
   voucher: string,
@@ -119,7 +120,7 @@ const BuyableItemSelector = (props: {
                 props.member.credit_account_balance <= 0 ? 'error' : 'primary'
               }
             >
-              {`${props.member.credit_account_balance} €`}
+              {`${props.member.credit_account_balance} ${getCurrencyDisplay()}`}
             </Typography>
           </div>
           <PriceInput

@@ -12,6 +12,8 @@ import Avatar from '@material-ui/core/Avatar';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+import { getCurrencyDisplay } from '../../theme/selectors';
+
 import type { CheckoutItem } from '../types';
 
 export const CheckoutItemListItem = (props: {
@@ -30,7 +32,9 @@ export const CheckoutItemListItem = (props: {
       </ListItemAvatar>
       <ListItemText
         primary={props.checkout_item.name}
-        secondary={`${props.checkout_item.unit_price} € x ${props.checkout_item.quantity}`}
+        secondary={`${
+          props.checkout_item.unit_price
+        } ${getCurrencyDisplay()} x ${props.checkout_item.quantity}`}
       />
       {props.checkout_item.editable && props.onRemoveOne && props.onAddOne ? (
         <div className={props.classes.actionButtons}>

@@ -16,6 +16,7 @@ import PaymentListItemV2 from './PaymentListItemV2.component';
 import PlannedPaymentEventListItem from './PlannedPaymentEventListItem.component';
 
 import { PlannedPaymentEvent, Payment, Invoice } from '../types';
+import { getCurrencyDisplay } from '../../theme/selectors';
 import { OptionCallback } from '../../../state/types';
 
 const InvoicePaymentStatus = (props: {
@@ -74,7 +75,7 @@ const PaymentActions: FC<{
                 color={props.accountBalance < 0 ? 'error' : 'primary'}
                 variant="h5"
               >
-                {`${props.accountBalance} €`}
+                {`${props.accountBalance} ${getCurrencyDisplay()}`}
               </Typography>
             )}
             {props.accountBalance > 0 && !!props.consumeBalance && (
@@ -223,7 +224,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
               <Typography>
                 {`${Math.max(props.invoice.amount_due_cts / 100, 0).toFixed(
                   2,
-                )} €`}
+                )} ${getCurrencyDisplay()}`}
               </Typography>
             </div>
             <div className={classes.textRow}>
@@ -232,7 +233,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
               <Typography>
                 {`${Math.max(props.invoice.amount_paid_cts / 100, 0).toFixed(
                   2,
-                )} €`}
+                )} ${getCurrencyDisplay()}`}
               </Typography>
             </div>
             <div className={classes.textRow}>
@@ -251,7 +252,9 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
                 }
                 color={amountToPayCts > 0 ? 'error' : 'primary'}
               >
-                {`${Math.max(amountToPayCts / 100, 0).toFixed(2)} €`}
+                {`${Math.max(amountToPayCts / 100, 0).toFixed(
+                  2,
+                )} ${getCurrencyDisplay()}`}
               </Typography>
             </div>
           </React.Fragment>

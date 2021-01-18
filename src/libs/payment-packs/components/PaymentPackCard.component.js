@@ -27,6 +27,7 @@ import EstablishmentSummary from '../../establishment/components/EstablishmentSu
 import Sport from '../../category/components/SCT.component';
 import type { MetaActivity } from '../../../api/types';
 import { getValidityInfo } from '../utils';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 import PaymentPackScaleCreditDialog from './PaymentPackScaleCreditDialog.component';
 
@@ -252,12 +253,13 @@ export class PaymentPackCard extends Component<Props> {
           <Grid item xs={4}>
             <div className={classes.columnLeft}>
               <Typography variant="h4" color="primary">
-                {base_price}€
+                {base_price}
+                {getCurrencyDisplay()}
               </Typography>
               {onlyPublic ? null : (
                 <Typography variant="caption">
-                  {(base_price / ((100 + parseInt(tax, 10)) / 100)).toFixed(2)}€{' '}
-                  {t('ht')}
+                  {(base_price / ((100 + parseInt(tax, 10)) / 100)).toFixed(2)}
+                  {getCurrencyDisplay()} {t('ht')}
                 </Typography>
               )}
               <Typography variant="subtitle1">{creditsFormatted}</Typography>

@@ -40,6 +40,8 @@ import { getBookingStatusCode } from '../utils';
 import Tooltip from '../../../components/Tooltip.component';
 import RedButton from '../../../components/button/RedButton.component';
 
+import { getCurrencyDisplay } from '../../theme/selectors';
+
 import { formatAsDatetime, formatAsDate } from '../../../utils/datetime';
 
 // eslint-disable-next-line
@@ -351,14 +353,14 @@ export class BookingItemForManager extends Component<Props, State> {
         let creditsFormatted = '';
         let creditColor = 'primary';
         if (credits >= 0) {
-          creditsFormatted = `${credits.toFixed(1)}€`;
+          creditsFormatted = `${credits.toFixed(1)}${getCurrencyDisplay()}`;
           creditColor = 'primary';
         }
         if (!credits) {
           creditColor = 'secondary';
         }
         if (credits < 0) {
-          creditsFormatted = `${-credits.toFixed(1)}€`;
+          creditsFormatted = `${-credits.toFixed(1)}${getCurrencyDisplay()}`;
           creditColor = 'error';
         }
 

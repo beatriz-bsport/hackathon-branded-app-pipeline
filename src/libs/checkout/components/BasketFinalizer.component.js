@@ -17,6 +17,7 @@ import type { Basket } from '../types';
 
 import BasketDeliveryForm from './BasketDeliveryForm.component';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 export const ADDRESS_STEP = {
   id: 0,
@@ -36,7 +37,6 @@ type Props = {
   attachCoupon: (basketId: string, code: string) => void,
   paymentModule: any,
   processing: boolean,
-  setProcessing: (boolean) => void,
   validateUnpaid: (options: OptionsCallback) => void,
 
   selfProcessing: boolean,
@@ -83,7 +83,26 @@ export class BasketFinalizer extends React.Component<Props, State> {
           </div>
         );
       case PAYMENT_STEP.id:
-      default:
+      default: {
+        if (!this.props.basket.total_price_cts) {
+          return (
+            <Button
+              disabled={this.props.selfProcessing}
+              onClick={() => {
+                this.props.setProcessing(true);
+                this.props.validateUnpaid({
+                  onSuccess: () => this.props.setProcessing(false),
+                  onError: () => this.props.setProcessing(false),
+                });
+              }}
+              variant="contained"
+              color="primary"
+            >
+              {this.props.t('myBasket.actions.payZero')}
+            </Button>
+          );
+        }
+
         return (
           <React.Fragment>
             {this.props.paymentModule}
@@ -108,8 +127,8 @@ export class BasketFinalizer extends React.Component<Props, State> {
                   onClick={() => {
                     this.props.setProcessing(true);
                     this.props.validateUnpaid({
-                      onSuccess: () => setProcessing(false),
-                      onError: () => setProcessing(false),
+                      onSuccess: () => this.props.setProcessing(false),
+                      onError: () => this.props.setProcessing(false),
                     });
                   }}
                   variant="outlined"
@@ -122,6 +141,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
             )}
           </React.Fragment>
         );
+      }
       /*
           <PaymentForm
             price_cts={this.props.basket.total_price_cts}
@@ -158,7 +178,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
       <div>
         <div className={this.props.classes.totalPrice}>
           <Typography component="p" variant="h4">
-            {`${this.props.basket.total_price} €`}
+            {`${this.props.basket.total_price} ${getCurrencyDisplay()}`}
           </Typography>
         </div>
         <div className={this.props.classes.couponCodeContainer}>

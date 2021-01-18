@@ -3256,7 +3256,9 @@
         "code": {
             "addCoupon": {
                 "label": "Coupon",
-                "placeholder": "COUPON_CODE"
+                "placeholder": "COUPON_CODE",
+                "cancel": "cancel",
+                "submit": "Submit"
             }
         },
         "message": {
@@ -4011,6 +4013,9 @@
                 "checkoutBasket": "Buy",
                 "payZero": "Confirm my basket"
             }
+        },
+        "payLater": {
+            "submit": "Pay on site"
         }
     },
     "establishment": {

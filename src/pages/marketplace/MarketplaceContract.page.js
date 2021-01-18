@@ -41,6 +41,10 @@ import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../li
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import Analytics from '../../components/analytics/Analytics.component';
 
+import { getStripePkKey } from '../../libs/theme/selectors';
+
+const stripePromise = loadStripe(getStripePkKey());
+
 type Props = {
   companyId: number,
   fetchContracts: () => void,
@@ -65,10 +69,6 @@ type Props = {
   fetchPaymentMethodList: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
 };
-
-const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
-
-const stripePromise = loadStripe(STRIPE_KEY);
 
 export class MarketplaceContract extends React.Component<Props> {
   state = {

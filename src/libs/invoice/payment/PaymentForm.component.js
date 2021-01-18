@@ -29,8 +29,9 @@ import Config from '../../../config';
 import PriceInput from '../../../components/input/PriceInput.component';
 import StripeForm from '../../../components/form/StripeForm.component';
 
-const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
-const stripePromise = loadStripe(STRIPE_KEY);
+import { getStripePkKey } from '../../theme/selectors';
+
+const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
   t: (x: string) => string,

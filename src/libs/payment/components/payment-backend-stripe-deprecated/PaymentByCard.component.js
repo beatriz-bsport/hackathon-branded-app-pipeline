@@ -17,15 +17,14 @@ import type { TFunction } from 'react-i18next';
 
 import { CB as PAYMENT_METHOD_STRIPE_PAYMENT_INTENT } from '@bsport/common/lib/master-data/payment-methods';
 import { loadStripe } from '@stripe/stripe-js';
-import Config from '../../../../config';
 
 import StripeErrorCode from './StripeErrorCode.component';
 import AcceptTermsAndConditions from '../AcceptTermsAndConditions.component';
 import PaymentMethodList from '../PaymentMethodList.component';
 
-const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
+import { getStripePkKey } from '../../../theme/selectors';
 
-const stripePromise = loadStripe(STRIPE_KEY);
+const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
   submitPaymentIntent: (*) => Promise<any>,

@@ -130,7 +130,7 @@ export class CheckoutPayment extends React.Component<Props> {
     if (
       !!this.props.basket &&
       !!prevProps.basket &&
-      this.props.basket.total_price_cts !== !prevProps.basket.total_price_cts
+      this.props.basket.total_price_cts !== prevProps.basket.total_price_cts
     ) {
       Analytics.showBasket(this.props.basket);
       this.getSecret();

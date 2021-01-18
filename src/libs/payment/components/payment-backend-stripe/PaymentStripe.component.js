@@ -36,7 +36,9 @@ import PaymentStripeMobilePay from './PaymentStripeMobilePay.component';
 
 import PaymentMethodCardSelector from '../PaymentMethodCardSelector.component';
 
-const stripePromise = loadStripe(Config.REACT_APP_STRIPE_PK_KEY);
+import { getStripePkKey } from '../../../theme/selectors';
+
+const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
   paymentMethodSelected: number,

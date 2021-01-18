@@ -86,6 +86,7 @@ exports.default = {
   country: {
     FR: 'France',
     DE: 'Allemagne',
+    GB: 'Royaume-Uni',
     AT: 'Autriche',
     IT: 'Italie',
     NL: 'Pays-Bas',

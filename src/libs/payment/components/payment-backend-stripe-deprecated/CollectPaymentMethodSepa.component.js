@@ -27,10 +27,11 @@ import StripeErrorCode from './StripeErrorCode.component';
 
 import { AVAILABLE_PAYMENT_METHOD_TYPE } from './helpers';
 
+import { getStripePkKey } from '../../../theme/selectors';
+
 const PAYMENT_METHOD = AVAILABLE_PAYMENT_METHOD_TYPE.sepa_debit;
 
-const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
-const stripePromise = loadStripe(STRIPE_KEY);
+const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
   t: TFunction,

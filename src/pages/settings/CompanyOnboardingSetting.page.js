@@ -10,11 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import { loadStripe } from '@stripe/stripe-js';
 import { getOnboardingLink as getOnboardingLinkAPI } from '../../libs/company/api';
 
-import Config from '../../config';
+import { getStripePkKey } from '../../libs/theme/selectors';
 
-const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
-
-const stripePromise = loadStripe(STRIPE_KEY);
+const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
   stripe: Stripe,

@@ -10,9 +10,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';
 
 import { loadStripe } from '@stripe/stripe-js';
-import Config from '../../../config';
+import { getStripePkKey } from '../../theme/selectors';
 
-const stripePromise = loadStripe(Config.REACT_APP_STRIPE_PK_KEY);
+const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
   company: Company,

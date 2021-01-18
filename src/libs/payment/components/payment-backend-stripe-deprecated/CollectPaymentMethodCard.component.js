@@ -22,13 +22,12 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import Config from '../../../../config';
+import { getStripePkKey } from '../../../theme/selectors';
 import StripeErrorCode from './StripeErrorCode.component';
 
 import { AVAILABLE_PAYMENT_METHOD_TYPE } from './helpers';
 
-const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
-const stripePromise = loadStripe(STRIPE_KEY);
+const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
   t: TFunction,

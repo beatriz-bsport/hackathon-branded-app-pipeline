@@ -28,16 +28,14 @@ import PAYMENT_METHODS, {
   IDEAL,
 } from '@bsport/common/lib/master-data/payment-methods';
 import { loadStripe } from '@stripe/stripe-js';
-
 import { Elements } from '@stripe/react-stripe-js';
+import { getStripePkKey } from '../../theme/selectors';
 
-import Config from '../../../config';
 import PriceInput from '../../../components/input/PriceInput.component';
 import StripeForm from '../../../components/form/StripeForm.component';
 import PaymentMethodList from '../../payment/components/PaymentMethodList.component';
 
-const STRIPE_KEY = Config.REACT_APP_STRIPE_PK_KEY;
-const stripePromise = loadStripe(STRIPE_KEY);
+const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
   price: string,

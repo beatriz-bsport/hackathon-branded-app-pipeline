@@ -6,6 +6,7 @@ var env = window.runtime.env;
 env.REACT_APP_SENTRY_DSN = 'https://88b735c4d80f4f83b12e79ed072f8f4e@sentry.io/1331952';
 env.REACT_APP_SENTRY_ENVIRONMENT = 'production';
 env.REACT_APP_STRIPE_PK_KEY = 'pk_live_1pfyc0rY3HcMlwavrdT633XL';
+env.REACT_APP_STRIPE_PK_KEY_US = 'pk_live_Z5xZmSP82aqC6jSlSaNRgjy200StEKsbDS';
 env.REACT_APP_GOOGLE_MAPS_API_KEY = 'AIzaSyAbzA85WpiYY6qyYE9NkNwQbFGiLITvIZI';
 env.REACT_APP_BASE_URI='https://api.production.bsport.io'
 env.REACT_APP_API_URI='https://api.production.bsport.io/api-v0'
@@ -14,4 +15,3 @@ env.REACT_APP_INTERCOM_APP_ID = 'q6foivp2';
 env.PUBLIC_URL = 'https://backoffice.bsport.io';
 env.REACT_APP_RECAPTCHA_V3='6LeC6rIZAAAAAJSN0DVqzOF3cYXwQcXgp8rKX9cf';
 env.REACT_APP_RECAPTCHA_V2='6Lds67IZAAAAAFaPGpfl_ALgtV2t6Re63MBtCshi';
-

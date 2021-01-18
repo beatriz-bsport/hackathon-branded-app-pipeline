@@ -4015,8 +4015,10 @@
             }
         },
         "payLater": {
-            "submit": "Pay on site"
-        }
+            "submit": "Pay on site",
+            "explain": "Your payment method will be asked on site. Until then, your invoice is considered as unpaid."
+        },
+        "or": "or"
     },
     "establishment": {
         "establishment": "Establishment ",
@@ -4873,6 +4875,11 @@
                 "delete": "Cancel",
                 "registerNow": "Cash-in now"
             }
+        },
+        "mandate": {
+            "content": "By putting your IBAN and confirming the payment, you authorize bsport and Stripe, our payment system to send the billing information to your bank with all the future billings. You can ask a refund to your bank depending on your contract. A refund should be asked 8 weeks before the first payment.",
+            "email": "Email adress",
+            "name": "Last name and first name"
         }
     },
     "coach": {
@@ -7287,7 +7294,7 @@
             },
             "switchPaymentMethod": {
                 "error": "Impossible to change payment method",
-                "success": "Payement method updated"
+                "success": "Payment method updated"
             },
             "stop": {
                 "error": "Impossible to stop for now",
@@ -7664,6 +7671,16 @@
             "save": {
                 "error": "Unable to save changes",
                 "success": "The changes have been saved"
+            }
+        },
+        "privateRecurrentRule": {
+            "delete": {
+                "error": "Impossible to delete this recurring appointment",
+                "success": "Recurring appointment deleted"
+            },
+            "createOrUpdate": {
+                "success": "Recurring appointment successfully saved",
+                "error": "Impossible to save this recurring appointment"
             }
         }
     },

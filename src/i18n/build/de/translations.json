@@ -4203,7 +4203,9 @@
         "code": {
             "addCoupon": {
                 "label": "Werbe-Code",
-                "placeholder": "spezial für die Rückkehr"
+                "placeholder": "spezial für die Rückkehr",
+                "cancel": "stornieren",
+                "submit": "Bestätigen"
             }
         },
         "createCoupon": "Einen Code hinzufügen",
@@ -6805,6 +6807,9 @@
             "privatePass": {
                 "error": "Diese Terminkarte ist nicht verfügbar"
             }
+        },
+        "payLater": {
+            "submit": "Zahlen Sie vor Ort"
         }
     },
     "tag": {

@@ -1,0 +1,35 @@
+// @flow
+import React from 'react';
+import type { Node } from 'react';
+
+import Button from '@material-ui/core/Button';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import memoize from 'memoize-one';
+
+const myTheme = memoize((color) =>
+  createMuiTheme({
+    palette: {
+      primary: {
+        main: color,
+      },
+    },
+    typography: {
+      useNextVariants: true,
+    },
+  }),
+);
+
+type Props = {
+  children: Node,
+  color: string,
+};
+
+export default function CustomColorButton(props: Props) {
+  return (
+    <MuiThemeProvider theme={myTheme(props.color)}>
+      <Button {...props} color="primary">
+        {props.children}
+      </Button>
+    </MuiThemeProvider>
+  );
+}

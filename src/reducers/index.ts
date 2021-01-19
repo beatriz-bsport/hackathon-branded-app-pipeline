@@ -54,6 +54,7 @@ import backgroundTaskReducers from '../libs/background-task/reducers';
 import marketingNotification from '../libs/marketing/reducers';
 import dashboardSettings from '../libs/dashboard/reducers';
 import marketplace from '../libs/marketplace/reducers';
+import zoomAppReducers from '../libs/zoom-app/reducers';
 
 import { reducer } from '../resources';
 
@@ -125,6 +126,7 @@ const rootReducer = (history: any) =>
     marketingNotification,
     dashboardSettings,
     marketplace,
+    zoomApp: zoomAppReducers,
   });
 
 export type RootState = {
@@ -181,6 +183,7 @@ export type RootState = {
   coach: CoachState;
   privateService: PrivateServiceState;
   backgroundTask: BackgroundTaskState;
+  zoomApp: any;
 };
 
 export default (history: any) => (state: any, action: any) => {

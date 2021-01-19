@@ -11,6 +11,7 @@ import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import { makeStyles } from '@material-ui/core/styles';
 import SMSIcon from '@material-ui/icons/Sms';
 import HelpOutlinedIcon from '@material-ui/icons/HelpOutline';
+import DuoIcon from '@material-ui/icons/Duo';
 
 import { useTranslation } from 'react-i18next';
 
@@ -20,6 +21,7 @@ const CUSTOM_APP = 1;
 const WHEREBY = 3;
 const VOD = 2;
 const SMS = 4;
+const ZOOM_APP = 5;
 
 type Props = {
   upsellPackage: UpsellPackage,
@@ -291,11 +293,69 @@ const UpsellPackageSMS = (props: Props) => {
   );
 };
 
+const UpsellPackageZoomApp = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['platformBilling']);
+  const { upsellPackage } = props;
+  return (
+    <Paper className={classes.paperContainer}>
+      <div className={classes.upsellContent}>
+        <div className={classes.iconContainer}>
+          <DuoIcon className={classes.icon} />
+        </div>
+        <div className={classes.innerContainer}>
+          <div>
+            <Typography variant="h6">{upsellPackage.name}</Typography>
+            <div className={classes.innerDescription}>
+              {upsellPackage.description_html ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: props.upsellPackage.description_html,
+                  }}
+                />
+              ) : (
+                <Typography>{upsellPackage.description}</Typography>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={classes.buttonContainer}>
+        {!!props.onKnowMore && !upsellPackage.subscribed && (
+          <Button
+            variant="outlined"
+            onClick={() => props.onKnowMore(upsellPackage.id)}
+          >
+            <HelpOutlinedIcon className={classes.iconLeft} />
+            {t('upsellPackage.knowMore')}
+          </Button>
+        )}
+        <Button
+          disabled={upsellPackage.subscribed}
+          variant="contained"
+          color="primary"
+          onClick={() => props.onRequestUpsell(upsellPackage.id)}
+        >
+          <CheckIcon className={classes.iconLeft} />
+          {upsellPackage.is_recurrent
+            ? t('upsellPackage.billRecurrent', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })
+            : t('upsellPackage.billOnce', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })}
+        </Button>
+      </div>
+    </Paper>
+  );
+};
+
 const UPSELL_REGISTRY = {
   [CUSTOM_APP]: UpsellPackageCustomApp,
   [WHEREBY]: UpsellPackageWhereby,
   [VOD]: UpsellPackageVod,
   [SMS]: UpsellPackageSMS,
+  [ZOOM_APP]: UpsellPackageZoomApp,
 };
 
 export const getUpsellPackageComponent = (upsellIdentifier: number) =>

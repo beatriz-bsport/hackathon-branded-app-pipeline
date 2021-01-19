@@ -43,6 +43,7 @@ exports.default = {
     },
   },
   broadcast: {
+    seeUpsell: 'En savoir plus',
     is_whereby_integration_enabled: {
       label: "Activer l'intégration whereby X bsport",
     },
@@ -51,6 +52,13 @@ exports.default = {
     explainEnabled:
       "Activé : bsport gère vos salles de visioconférence, IMPOSSIBLE d'en réaliser deux en même temps.",
     submit: 'Enregistrer',
+    zoom: {
+      enabled: "Activer l'intégration de Zoom",
+      label: 'Configuration des comptes Zoom',
+      explainValid:
+        "Compte valide: Les liens des réunions zoom seront créés pour chaque séance 15 minutes avant qu'elles ne démarrent automatiquement. Le professeur recevra un lien pour accueillir la réunion tandis que les inscrits recevront un autre lien pour rejoindre la réunion. Notez que si le compte zoom est impayé, la réunion zoom est limitée à 40 minutes",
+      explainInvalid: 'Compte invalide',
+    },
   },
   active_campaign: {
     submit: 'Confirmer',

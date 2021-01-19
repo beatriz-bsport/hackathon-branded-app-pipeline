@@ -14,6 +14,12 @@ exports.default = {
     },
     error: "Erreur lors de l'enregistrement - Annulé",
   },
+  zoom: {
+    created: {
+      success: 'Compte Zoom lié avec succès',
+      error: 'Erreur lors du lien du compte Zoom',
+    },
+  },
   link: {
     copied: 'Lien copié dans le presse-papier',
   },

@@ -57,7 +57,6 @@ i18n
     fallbackLng: {
       ca: ['es'],
       'ca-ES': ['es'],
-      'fr-FR': ['fr'],
       default: ['en', 'fr'],
     },
     // lng: 'fr-FR',

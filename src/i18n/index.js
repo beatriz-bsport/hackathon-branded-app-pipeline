@@ -62,7 +62,8 @@ i18n
     },
     // lng: 'fr-FR',
     detection: {
-      order: ['navigator'],
+      order: ['cookie', 'navigator'],
+      caches: ['cookie'],
     },
 
     // have a common namespace used around the full app

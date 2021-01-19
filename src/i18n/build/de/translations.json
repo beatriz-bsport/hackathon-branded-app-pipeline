@@ -1203,7 +1203,7 @@
         "dayParts": {
             "evening": "Abend",
             "afternoon": "Nachmittag",
-            "morning": "Morgen"
+            "morning": "Vormittag"
         },
         "countdown": {
             "seconds": "Sekunden",

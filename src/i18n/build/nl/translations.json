@@ -1485,7 +1485,8 @@
             "CH": "Zwitserland",
             "IE": "Ierland",
             "AT": "Oostenrijk",
-            "MT": "Malta"
+            "MT": "Malta",
+            "GB": "Verenigd Koninkrijk"
         },
         "signupCompany": {
             "form": {
@@ -4120,11 +4121,18 @@
         "pageTitle": "Instellingen",
         "broadcast": {
             "is_whereby_integration_enabled": {
-                "label": "Activeer integratie van X met BSPORT"
+                "label": "Activeer de integratie van BSPORT en Whereby"
             },
-            "explainDisabled": "Uitgeschakeld: je beheert de links voor livestreams zelf. Deze moeten voor elke sessie geconfigureerd worden (via Zoom, enz.).",
-            "explainEnabled": "Ingeschakeld: BSPORT beheert de links van je online lessen/livestreams. Het zal NIET mogelijk om er twee tegelijkertijd te organiseren.",
-            "submit": "Opslaan"
+            "explainDisabled": "Uitgeschakeld: je beheert de links voor je livestreams zelf. Vergeet niet om deze correct te configureren (via Zoom, Google Meet, Teams enz.).",
+            "explainEnabled": "Ingeschakeld: BSPORT beheert de links van je online lessen. Je kunt 1 livestream tegelijk organiseren.",
+            "submit": "Opslaan",
+            "zoom": {
+                "explainValid": "Geldig account: de links van Zoom worden 15 minuten voor het begin van elke online les aangemaakt en verstuurd. De instructeur ontvangt een link om de online les te hosten, terwijl je ingeschreven leden een andere link ontvangen om deel te nemen. Waarschuwing! Controleer of je een Premium Zoom-account hebt, omdat Basis Zoom-accounts tot online sessies van 40 minuten zijn beperkt",
+                "enabled": "Activeer de integratie van BSPORT en Zoom",
+                "label": "Je Zoom-accounts activeren",
+                "explainInvalid": "Ongeldig account"
+            },
+            "seeUpsell": "Meer informatie"
         },
         "marketplaceSettings": {
             "createDialog": {
@@ -5618,6 +5626,12 @@
             "createOrUpdate": {
                 "error": "Periodieke afspraak kon niet worden aangemaakt",
                 "success": "Periodieke afspraak succesvol aangemaakt"
+            }
+        },
+        "zoom": {
+            "created": {
+                "success": "Zoom-account succesvol gekoppeld",
+                "error": "Fout bij het koppelen van je Zoom-account"
             }
         }
     },

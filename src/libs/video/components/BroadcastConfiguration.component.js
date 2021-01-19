@@ -18,6 +18,7 @@ import type { TFunction } from 'react-i18next';
 
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import CustomColorButton from '../../../components/button/CustomColorButton.component';
+import Config from '../../../config';
 
 import type { Theme } from '../../theme/types';
 import type { ZoomApp } from '../../zoom-app/types';
@@ -150,6 +151,7 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
         </Paper>
         <FeatureListProvider>
           {(featureList) => {
+            if (Config.SENRTRY_ENVIRONMENT === 'production') return null;
             const hasZoom =
               (featureList.upsell &&
                 !!featureList.upsell.find(

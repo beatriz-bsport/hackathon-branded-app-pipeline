@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
 
 // eslint-disable-next-line
@@ -11,23 +10,20 @@ import { getTheme } from 'bsport-saas/src/theme';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 
-import SignUpForm from 'bsport-saas/src/components/form/SignUpForm.component';
-import ConsumerLogin from 'bsport-saas/src/components/consumer/login/ConsumerLogin.component';
 import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { auth as authActions } from 'bsport-saas/src/actions';
-import { Dialog, DialogContent, DialogTitle, Grid } from '@material-ui/core';
-
-import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { RootState } from './store/reducer';
+import AuthDialog from './components/AuthDialog';
+import BsportLogo from './components/BsportLogo';
 import './App.scss';
 
-const CalendarWidget = React.lazy(() => import('./components/Calendar'));
-const VODWidget = React.lazy(() => import('./components/Vod'));
-const PrivateServiceWidget = React.lazy(() => import('./components/PrivateService'));
-const WorkshopWidget = React.lazy(() => import('./components/Workshop'));
-const NewsletterWidget = React.lazy(() => import('./components/Newsletter'));
+const CalendarWidget = React.lazy(() => import('./widgets/Calendar'));
+const VODWidget = React.lazy(() => import('./widgets/Vod'));
+const PrivateServiceWidget = React.lazy(() => import('./widgets/PrivateService'));
+const WorkshopWidget = React.lazy(() => import('./widgets/Workshop'));
+const NewsletterWidget = React.lazy(() => import('./widgets/Newsletter'));
 
 const Snackbar = themify(SnackbarPile);
 
@@ -40,8 +36,7 @@ type OwnProps = WidgetConfig & {
 
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps &
-  MaterialStyleType<ReturnType<typeof styles>> &
-  WithTranslation;
+  MaterialStyleType<ReturnType<typeof styles>>
 
 interface State {
   showLogin: boolean;
@@ -134,126 +129,57 @@ class BsportWidget extends Component<Props, State> {
   }
 
   render() {
-    const { t } = this.props;
+    const { classes } = this.props;
 
     return (
-      <div
-        style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex !important',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
+      <div className={classes.container}>
         <React.Suspense fallback={<div />}>
           <MuiThemeProvider
             theme={getTheme(this.props.theme)}
           >
             {this.renderWidget()}
+
             {!!this.props.theme && (
-              <div className={this.props.classes.poweredByContainer}>
-                <div className={this.props.classes.centerRight}>
-                  <a
-                    className={this.props.classes.poweredBy}
-                    href={`https://pro.bsport.io?utm_source=widget&utm_medium=referral&utm_content=bsport_logo&utm_campaign=${(
-                      this.props.theme.company_name || ''
-                    ).replace(/\//gi, '-')}`}
-                  >
-                    <Typography color="textSecondary" variant="caption">
-                      Powered by
-                    </Typography>
-                    <img
-                      alt="bsport"
-                      className={this.props.classes.logo}
-                      src="https://cdn.bsport.io/bsport_logo_txt.png"
-                    />
-                  </a>
-                </div>
-              </div>
+              <BsportLogo theme={this.props.theme} />
             )}
 
-            <Dialog
-              open={this.state.showLogin && !this.props.auth.authenticated}
-              onClose={() => this.setState({ showLogin: false })}
-            >
-              <DialogContent>
-                <ConsumerLogin
-                  doEmailLogin={this.props.doEmailLogin}
-                  errorFields={this.props.errorFields}
-                  error={this.props.auth.error}
-                  loading={this.props.auth.loading}
-                  requestSignUp={() => this.setState({ showSignup: true })}
-                />
-              </DialogContent>
-            </Dialog>
+            <Snackbar
+              theme={this.props.theme}
+              store={this.props.store}
+            />
 
-            <Dialog
-              open={this.state.showSignup && !this.props.auth.authenticated}
-              onClose={() => this.setState({ showSignup: false })}
-            >
-              <Grid
-                container
-                direction="column"
-                spacing={2}
-              >
-                <Grid item>
-                  <DialogTitle>{t('form.signUpTitle')}</DialogTitle>
-                </Grid>
-                <Grid item>
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}
-                  />
-                </Grid>
-                <Grid item>
-                  <SignUpForm
-                    loading={this.props.auth.loading}
-                    theme={this.props.theme}
-                    emailExists={this.props.emailExists}
-                    checkEmailExistsLoading={this.props.checkEmailExistsLoading}
-                    checkEmailExists={this.props.checkEmailExists}
-                    onComplete={(data: any) => this.props.signup(data)}
-                    onCancel={() => this.setState({ showSignup: false })}
-                    consumerProfile={this.props.consumerProfile}
-                  />
-                </Grid>
-              </Grid>
-            </Dialog>
-            <Snackbar theme={this.props.theme} store={this.props.store} />
+            <AuthDialog
+              showLogin={this.state.showLogin}
+              showSignup={this.state.showSignup}
+              authenticated={this.props.auth.authenticated}
+              loading={this.props.auth.loading}
+              error={this.props.auth.error}
+              errorFields={this.props.errorFields}
+              emailExists={this.props.emailExists}
+              checkEmailExists={this.props.checkEmailExists}
+              checkEmailExistsLoading={this.props.checkEmailExistsLoading}
+              theme={this.props.theme}
+              onLogin={this.props.login}
+              onSignup={this.props.signup}
+              onLoginClose={() => this.setState({ showLogin: false })}
+              onSignupClose={() => this.setState({ showSignup: false })}
+              onSignupShow={() => this.setState({ showSignup: true })}
+            />
+
           </MuiThemeProvider>
         </React.Suspense>
-
       </div>
     );
   }
 }
 
 const styles = () => ({
-  poweredByContainer: {
+  container: {
+    height: '100%',
     width: '100%',
-  },
-  centerRight: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  poweredBy: {
     display: 'flex !important',
-    flexDirection: 'column !important',
-    alignItems: 'flex-end !important',
-    padding: 18,
-    '&>*': {
-      textDecoration: 'none !important', // not working ?
-    },
-  },
-  logo: {
-    maxHeight: '24px !important',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 });
 
@@ -269,13 +195,8 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = {
   fetchSCT,
   fetchCompanyTheme,
-  signup: (data: any, callback?: () => void) => authActions.signup(data, { onDone: callback }),
-  doEmailLogin: ({
-                   email,
-                   password,
-                 }: any,
-                 callback: any
-  ) => authActions.requestLogin(email, password, { onDone: callback }),
+  signup: (data: any) => authActions.signup(data),
+  login: ({ email, password }: any) => authActions.requestLogin(email, password),
   disconnect: authActions.disconnect,
   checkEmailExists: authActions.checkEmailExists,
 };
@@ -283,6 +204,5 @@ const mapDispatchToProps = {
 export default compose(
   // @ts-ignore
   withStyles(styles),
-  withTranslation(),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
 )(BsportWidget);

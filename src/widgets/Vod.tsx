@@ -36,6 +36,13 @@ type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 interface State {
   videoId?: number;
   playlistId?: number;
+  searchParams: {
+    coaches: string;
+    duration_second_range: string;
+    SCTs: string;
+    search: string;
+    levels: string;
+  };
 }
 
 
@@ -59,6 +66,13 @@ class VODWidget extends React.PureComponent<Props, State> {
     this.state = {
       videoId: props.config.videoId,
       playlistId: props.config.playlistId,
+      searchParams: {
+        coaches: '',
+        duration_second_range: '',
+        SCTs: '',
+        search: '',
+        levels: '',
+      },
     };
   }
 
@@ -68,6 +82,15 @@ class VODWidget extends React.PureComponent<Props, State> {
 
   openPlaylist = (playlistId: number, videoId?: number) => {
     this.setState({ playlistId, videoId });
+  }
+
+  setSearchParams = (key: string) => (value: string) => {
+    this.setState((prevState) => ({
+      searchParams: {
+        ...prevState.searchParams,
+        [key]: value,
+      },
+    }));
   }
 
   onRequestBuyPass = () => {
@@ -89,16 +112,11 @@ class VODWidget extends React.PureComponent<Props, State> {
         {showVODList && (
           <MarketPlaceVideoStyled
             companyId={this.props.companyId}
+            searchParams={this.state.searchParams}
+            setSearchParams={this.setSearchParams}
             companyName=""
             openVideo={this.openVideo}
             openPlaylist={(playlistId: number) => this.openPlaylist(playlistId)}
-            searchParams={{
-              coaches: "",
-              duration_second_range: "",
-              SCTs: "",
-              search: "",
-              levels: "",
-            }}
             store={this.props.store}
             theme={this.props.theme}
           />)

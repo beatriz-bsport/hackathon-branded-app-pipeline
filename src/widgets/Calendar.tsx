@@ -53,7 +53,7 @@ export class CalendarWidget extends Component<Props, State> {
     };
 
     this.state = {
-      filtersOpen: 'true',
+      filtersOpen: '',
       filters,
       selectedDate: Moment().format(DATE_FORMAT),
     };

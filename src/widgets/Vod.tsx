@@ -24,8 +24,10 @@ import {
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
+import { getMarketplaceRoute } from 'bsport-saas/src/pages/marketplace/routing-utils';
 
 import './video.css';
+import { openTab } from '../utils/utils';
 
 type OwnProps = {
   companyId: number,
@@ -95,7 +97,15 @@ class VODWidget extends React.PureComponent<Props, State> {
     }));
   };
 
-  onRequestBuyPass = () => {};
+  onRequestBuyPass = () => {
+    const url = getMarketplaceRoute(
+      this.props.theme.company_name,
+      this.props.companyId,
+      'pass'
+    );
+    openTab(`http://localhost:3000${url}`);
+  }
+
 
   render() {
     const showVODList =
@@ -143,13 +153,6 @@ class VODWidget extends React.PureComponent<Props, State> {
                 requestSignUp={this.props.onRequestLogin}
                 onRequestBuyPass={this.onRequestBuyPass}
                 openVideo={this.openVideo}
-                searchParams={{
-                  coaches: '',
-                  duration_second_range: '',
-                  SCTs: '',
-                  search: '',
-                  levels: '',
-                }}
                 store={this.props.store}
                 theme={this.props.theme}
               />

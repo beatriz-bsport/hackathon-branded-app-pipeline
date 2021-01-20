@@ -14,6 +14,7 @@ import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 
 import { constants } from '../const/constants';
+import { openTab } from '../utils/utils';
 
 const PrivateServiceSelector = themify(
   PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage)
@@ -55,28 +56,15 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
     establishment: number;
     associated_coach: number;
   }, privateSlot: PrivateSlot) => {
-    const width = window.innerWidth * 0.5;
-    const height = window.innerHeight * 0.5;
-    const params = `
-      scrollbars=no,
-      resizable=no,
-      status=no,
-      location=no,
-      toolbar=no,
-      menubar=no,
-      width=${width},
-      height=${height},
-      left=${width / 2},
-      top=${height / 2}
-    `;
-
-    window.open(`${constants.backofficeUrl}/customer/payment/private-service/${
+    const url = `${constants.backofficeUrl}/customer/payment/private-service/${
       this.state.serviceId
     }/private-slot/${
       privateSlot.id
     }/?membership=${this.props.companyId}&data=${encodeURIComponent(
       JSON.stringify(data)
-    )}`, '_blank', params);
+    )}`;
+
+    openTab(url);
   }
 
   render() {

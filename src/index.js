@@ -32,6 +32,10 @@ export default class BsportWidget {
   static mount({ parentElement, ...props } = {}) {
     const _props = migrateOldProps(props);
 
+    if (_props.config === undefined) {
+      _props.config = { [_props.widgetType]: {} };
+    }
+
     const component = (
       <Provider store={store}>
         <Router history={history}>

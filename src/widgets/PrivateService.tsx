@@ -97,7 +97,7 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
         )}
 
         {this.state.serviceId !== undefined && this.state.serviceId !== null && (
-          <div>
+          <div className={classes.detailContainer}>
             <ButtonBase onClick={() => {
               this.setState({ serviceId: undefined });
             }}
@@ -107,14 +107,15 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
                 fontSize="large"
               />
             </ButtonBase>
-          <PrivateServiceDetailBase
-            companyId={this.props.companyId.toString()}
-            serviceId={this.state.serviceId.toString()}
-            onSessionSelect={this.onSessionSelect}
-            hideDetailSummary={true}
-            store={this.props.store}
-            theme={this.props.theme}
-          />
+
+            <PrivateServiceDetailBase
+              companyId={this.props.companyId.toString()}
+              serviceId={this.state.serviceId.toString()}
+              onSessionSelect={this.onSessionSelect}
+              hideDetailSummary={true}
+              store={this.props.store}
+              theme={this.props.theme}
+            />
           </div>
         )}
       </div>
@@ -129,6 +130,9 @@ const styles = (theme: any) => ({
     flex: 1,
     width: '100%',
     alignItems: 'center',
+  },
+  detailContainer: {
+    width: '100%',
   },
   icon: {
     marginLeft: theme.spacing(2),

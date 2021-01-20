@@ -51,9 +51,6 @@ class WorkshopWidget extends Component<Props, State> {
     return (
       <div
         style={{
-          display: 'flex !important',
-          flexDirection: 'column',
-          alignItems: 'center',
           width: '100%',
         }}
       >

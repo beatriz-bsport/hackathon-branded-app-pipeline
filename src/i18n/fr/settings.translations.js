@@ -48,7 +48,7 @@ exports.default = {
       label: "Activer l'intégration whereby X bsport",
     },
     explainDisabled:
-      'Désactivé : vous gérez vous-mêmes vos liens de visioconférence à configurer pour chaque séance (via zoom, etc...).',
+      'Désactivé : vous gérez vous-mêmes vos liens de visioconférence à configurer pour chaque séance (via ZOOM, etc...).',
     explainEnabled:
       "Activé : bsport gère vos salles de visioconférence, IMPOSSIBLE d'en réaliser deux en même temps.",
     submit: 'Enregistrer',
@@ -56,7 +56,7 @@ exports.default = {
       enabled: "Activer l'intégration de Zoom",
       label: 'Configuration des comptes Zoom',
       explainValid:
-        "Compte valide: Les liens des réunions zoom seront créés pour chaque séance 15 minutes avant qu'elles ne démarrent automatiquement. Le professeur recevra un lien pour accueillir la réunion tandis que les inscrits recevront un autre lien pour rejoindre la réunion. Notez que si le compte zoom est impayé, la réunion zoom est limitée à 40 minutes",
+        "Compte valide: Les liens des réunions ZOOM seront créés pour chaque séance 15 minutes avant qu'elles ne démarrent automatiquement. Le professeur recevra un lien pour accueillir la réunion tandis que les inscrits recevront un autre lien pour rejoindre la réunion. Notez que si le compte ZOOM est impayé, la réunion ZOOM est limitée à 40 minutes",
       explainInvalid: 'Compte invalide',
     },
   },

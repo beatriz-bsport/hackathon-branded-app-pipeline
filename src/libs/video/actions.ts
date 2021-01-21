@@ -116,7 +116,10 @@ export const listVideoActions = {
   reset: createAction('VIDEO/LIST/RESET'),
 };
 
-export function fetchMoreVideo(params: any = {}, options?: OptionCallback<Video[]>) {
+export function fetchMoreVideo(
+  params: any = {},
+  options?: OptionCallback<Video[]>,
+) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const { nextPage } = getState().video.list;
     if (nextPage) {

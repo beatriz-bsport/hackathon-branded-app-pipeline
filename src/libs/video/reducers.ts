@@ -59,7 +59,7 @@ const initialState: Immutable.Immutable<VideoState> = Immutable<VideoState>({
   filterableParams: {
     items: {
       SCTs: [],
-      coaches: []
+      coaches: [],
     },
     loading: false,
     error: null,
@@ -84,7 +84,7 @@ export default handleActions<Immutable.Immutable<VideoState>>(
       return state.setIn(['byId', payload.id], payload);
     },
     [retrieveVideoActions.isLoading.toString()]: (state, { payload }: any) => {
-      return state.setIn(['loading'], payload)
+      return state.setIn(['loading'], payload);
     },
     [bulkVideoActions.success.toString()]: (state, { payload }: any) => {
       return state.merge(

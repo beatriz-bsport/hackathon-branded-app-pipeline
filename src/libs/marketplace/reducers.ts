@@ -14,22 +14,13 @@ const initialState: Immutable.Immutable<MarketplaceSettingState> = Immutable<Mar
 
 export default handleActions<Immutable.Immutable<MarketplaceSettingState>>(
   {
-    [marketplaceSettingsAction.success.toString()]: (
-      state,
-      { payload },
-    ) => {
+    [marketplaceSettingsAction.success.toString()]: (state, { payload }) => {
       return state.setIn(['settings'], payload);
     },
-    [marketplaceSettingsAction.isLoading.toString()]: (
-      state,
-      { payload },
-    ) => {
+    [marketplaceSettingsAction.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-    [marketplaceSettingsAction.error.toString()]: (
-      state,
-      { payload },
-    ) => {
+    [marketplaceSettingsAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
   },

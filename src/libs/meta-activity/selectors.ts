@@ -80,7 +80,8 @@ export const getWorkshopActivitiesIdList = (state: RootState) =>
 
 export const getWorkshops = createSelector(
   getWorkshopActivitiesDict,
-  (workshopActivities) => Immutable<MetaActivity[]>(Object.values(workshopActivities)),
+  (workshopActivities) =>
+    Immutable<MetaActivity[]>(Object.values(workshopActivities)),
 );
 
 export const getWorkshop = (state: RootState, id: number): MetaActivity =>

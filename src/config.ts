@@ -1,8 +1,7 @@
-
 type ConfigType = {
   REACT_APP_SENTRY_DSN: string;
   REACT_APP_STRIPE_PK_KEY: string;
-  REACT_APP_STRIPE_PK_KEY_US: string
+  REACT_APP_STRIPE_PK_KEY_US: string;
   REACT_APP_GOOGLE_MAPS_API_KEY: string;
   REACT_APP_BASE_URI: string;
   REACT_APP_API_URI: string;
@@ -11,8 +10,8 @@ type ConfigType = {
   REACT_APP_SENTRY_ENVIRONMENT: string;
   NODE_ENV: string;
   REACT_APP_INTERCOM_APP_ID: string;
-  PUBLIC_URL: string
-}
+  PUBLIC_URL: string;
+};
 
 export const Config = {} as ConfigType;
 

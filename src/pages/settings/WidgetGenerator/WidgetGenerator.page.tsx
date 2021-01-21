@@ -42,7 +42,6 @@ import { MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT } from '../../../libs/marketpla
 import { fetchVideoList } from '../../../libs/video/actions';
 import { getVideoList } from '../../../libs/video/selectors';
 import Config from '../../../config';
-import { MetaActivity } from '../../../libs/meta-activity/types';
 
 type OwnProps = {
   defaultValue?: {

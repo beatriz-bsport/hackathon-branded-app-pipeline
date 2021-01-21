@@ -61,9 +61,9 @@ i18n
     },
     // lng: 'fr-FR',
     detection: {
-      order: ['cookie', 'navigator'],
-      caches: ['cookie'],
+      order: ['navigator'],
     },
+    load: 'languageOnly',
 
     // have a common namespace used around the full app
     defaultNS: 'translation',

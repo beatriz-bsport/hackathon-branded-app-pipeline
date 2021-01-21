@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { push as routerPush } from 'connected-react-router';
 import { compose, withState } from 'recompose';
-import WidgetButton from '../../components/button/WidgetButton.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
@@ -27,6 +26,7 @@ import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach
 import CoachDetail from '../../libs/associated-coach/components/CoachDetail.component';
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
 import type { CoachDetailed } from '../../api/types';
+import WidgetGeneratorDialog from '../settings/WidgetGenerator/WidgetGeneratorDialog';
 
 type Props = {
   coachId: number,
@@ -61,7 +61,7 @@ export class Coach extends React.Component<Props> {
   }
 
   render() {
-    if (this.props.loading || !this.props.coach) {
+    if (this.props.loading && !this.props.coach) {
       return <LinearProgress />;
     }
     const { paymentRules, coach } = this.props;
@@ -90,11 +90,16 @@ export class Coach extends React.Component<Props> {
             });
           }}
         />
-        <WidgetButton
-          widgetType="calendar"
-          coaches={this.props.coachId}
-          setOpenWidgetDialog={this.props.setOpenWidgetDialog}
-          openWidgetDialog={this.props.openWidgetDialog}
+
+        <WidgetGeneratorDialog
+          open={this.props.openWidgetDialog}
+          onClose={() => this.props.setOpenWidgetDialog(false)}
+          componentType="calendar"
+          config={{
+            calendar: {
+              coaches: [this.props.coachId],
+            },
+          }}
         />
       </div>
     );

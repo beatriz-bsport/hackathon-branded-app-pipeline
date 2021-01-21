@@ -2,15 +2,14 @@ import React from 'react';
 import { ButtonBase, Typography, makeStyles } from '@material-ui/core';
 import moment from 'moment-timezone';
 
+// @ts-ignore
 import CoachChip from '../../../../../libs/associated-coach/components/CoachChip.component';
-import {
-  PrivateCoach,
-  PrivateEstablishment,
-} from '../../../../../libs/private-service/types';
+import { Establishment } from '../../../../../libs/establishment/types';
+import { Coach } from '../../../../../libs/associated-coach/types';
 
 type Props = {
-  coach: PrivateCoach | null;
-  establishment: PrivateEstablishment;
+  coach: Coach | null;
+  establishment: Establishment;
   timezoneName: string;
   durationMinutes: number;
   onSessionSelect: (

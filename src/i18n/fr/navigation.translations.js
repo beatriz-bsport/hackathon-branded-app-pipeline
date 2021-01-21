@@ -61,6 +61,7 @@ exports.default = {
     settings: {
       general: 'Général',
       marketplaceSettings: 'Paramètres marketplace',
+      widget: 'Widget',
       broadcast: 'Visioconférence',
       notificationRule: 'Emails transactionnels',
       paymentRules: 'Règles de rémunération',

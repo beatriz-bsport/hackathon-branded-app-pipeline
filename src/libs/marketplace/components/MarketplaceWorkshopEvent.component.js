@@ -64,7 +64,7 @@ export const MarketplaceWorkshopEvent = (props: Props) => {
   const { t, offer } = props;
 
   return (
-    <Card style={{ width: '100%', minWidth: '40vw' }}>
+    <Card style={{ width: '100%' }}>
       {props.activityLoading ? (
         <div className={props.classes.centerDiv}>
           <CircularProgress size={20} />

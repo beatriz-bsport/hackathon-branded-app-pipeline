@@ -1,0 +1,56 @@
+import {
+  API_V1_URI,
+  deleteAuth,
+  postAuth,
+  getAuth,
+  patchAuth,
+  putAuth,
+  buildUrlParams,
+} from '../../../http';
+
+export async function fetchAllActivities(params: any) {
+  return getAuth(`${API_V1_URI}/meta-activity/${buildUrlParams(params)}`);
+}
+
+export async function fetchMetaActivityDetails(id: number) {
+  return getAuth(`${API_V1_URI}/meta-activity/${id}/`);
+}
+
+export async function addMetaActivity(data: any) {
+  return postAuth(`${API_V1_URI}/meta-activity/`, data);
+}
+
+export async function deleteMetaActivity(id: number) {
+  return deleteAuth(`${API_V1_URI}/meta-activity/${id}/`);
+}
+
+export async function checkCanDeleteMetaActivity(id: number) {
+  return getAuth(`${API_V1_URI}/meta-activity/${id}/can_destroy/`);
+}
+
+export async function restoreMetaActivity(id: number) {
+  return putAuth(`${API_V1_URI}/meta-activity/${id}/restore/`);
+}
+
+export async function updateMetaActivity(data: any, id?: number) {
+  const aId = data.get('id') || id;
+  return patchAuth(`${API_V1_URI}/meta-activity/${aId}/`, data);
+}
+
+export async function fetchMetaActivityFavorite(company: number) {
+  return getAuth(
+    `${API_V1_URI}/meta-activity/favorite/${buildUrlParams({ company })}`,
+  );
+}
+
+export async function makeActivityCopy(id: number, suffix: string) {
+  return postAuth(`${API_V1_URI}/meta-activity/${id}/copy/`, { suffix });
+}
+
+export default {
+  fetchAllActivities,
+  fetchMetaActivityDetails,
+  addMetaActivity,
+  updateMetaActivity,
+  deleteMetaActivity,
+};

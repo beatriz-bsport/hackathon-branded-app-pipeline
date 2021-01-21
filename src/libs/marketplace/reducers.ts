@@ -1,12 +1,10 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import { marketplaceSettingsAction } from './actions';
 import { MarketplaceSettingState } from './types';
 
-const initialState: MarketplaceSettingState = Immutable<MarketplaceSettingState>(
+const initialState: Immutable.Immutable<MarketplaceSettingState> = Immutable<MarketplaceSettingState>(
   {
     loading: false,
     error: null,
@@ -14,26 +12,26 @@ const initialState: MarketplaceSettingState = Immutable<MarketplaceSettingState>
   },
 );
 
-export default handleActions(
+export default handleActions<Immutable.Immutable<MarketplaceSettingState>>(
   {
-    [marketplaceSettingsAction.success]: (
-      state: MarketplaceSettingState,
+    [marketplaceSettingsAction.success.toString()]: (
+      state,
       { payload },
     ) => {
       return state.setIn(['settings'], payload);
     },
-    [marketplaceSettingsAction.isLoading]: (
-      state: MarketplaceSettingState,
+    [marketplaceSettingsAction.isLoading.toString()]: (
+      state,
       { payload },
     ) => {
       return state.set('loading', payload);
     },
-    [marketplaceSettingsAction.error]: (
-      state: MarketplaceSettingState,
+    [marketplaceSettingsAction.error.toString()]: (
+      state,
       { payload },
     ) => {
       return state.set('error', payload);
     },
   },
   initialState,
-) as () => MarketplaceSettingState;
+);

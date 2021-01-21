@@ -18,17 +18,15 @@ import {
   // @ts-ignore
 } from '../../../../../libs/private-service/utils';
 import { ArrayElement } from '../../../../../utils/types';
-import {
-  PrivateCoach,
-  PrivateEstablishment,
-} from '../../../../../libs/private-service/types';
+import { Establishment } from '../../../../../libs/establishment/types';
+import { Coach } from '../../../../../libs/associated-coach/types';
 
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
 
 type Props = {
   sessionMoment: SessionMoment;
-  coaches: PrivateCoach[];
-  establishments: PrivateEstablishment[];
+  coaches: Coach[];
+  establishments: Establishment[];
   showCoach: boolean;
   showEstablishment: boolean;
   duration: number;
@@ -48,7 +46,7 @@ type Props = {
 
 const SessionSelector: React.FC<Props> = (props) => {
   const getSessionsForCoachAndEstablishment = useCallback(
-    (coach: PrivateCoach, establishment: PrivateEstablishment) => {
+    (coach: Coach, establishment: Establishment) => {
       /**
        * Hold a list of ressources idenfitiers
        */
@@ -102,7 +100,7 @@ const SessionSelector: React.FC<Props> = (props) => {
   );
 
   const getEstablishmentWithSession = () => {
-    let coaches: Array<PrivateCoach | null> = [null];
+    let coaches: Array<Coach | null> = [null];
 
     if (props.showCoach) {
       /* eslint-disable */
@@ -136,7 +134,7 @@ const SessionSelector: React.FC<Props> = (props) => {
   const [
     selectedEstablishment,
     setSelectedEstablishment,
-  ] = useState<PrivateEstablishment>(establishmentWithSession[0]);
+  ] = useState<Establishment>(establishmentWithSession[0]);
 
   useEffect(() => {
     const _establishmentWithSession = getEstablishmentWithSession();
@@ -144,7 +142,7 @@ const SessionSelector: React.FC<Props> = (props) => {
     setSelectedEstablishment(_establishmentWithSession[0]);
   }, [props.establishments, props.coaches, props.sessionMoment]);
 
-  let coaches: Array<PrivateCoach | null> = [null];
+  let coaches: Array<Coach | null> = [null];
 
   if (props.showCoach) {
     /* eslint-disable */
@@ -187,7 +185,7 @@ const SessionSelector: React.FC<Props> = (props) => {
           )}
 
           <div className={classes.sessionsContainer}>
-            {coaches.map((coach: PrivateCoach | null, i) => {
+            {coaches.map((coach: Coach | null, i) => {
               const sessions = getSessionsForCoachAndEstablishment(
                 coach,
                 selectedEstablishment,

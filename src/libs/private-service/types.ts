@@ -30,18 +30,18 @@ export type PrivateServiceGroup = {
   private_services: number;
 };
 
-export type PrivateService = {
+export type PrivateService<C = number, E = number, S = number> = {
   id: number;
   name: string;
   description: string;
   available: boolean;
-  establishments: Array<number | PrivateEstablishment>;
+  establishments: Array<E>;
   coach_capacity_used: number;
   use_full_establishment_capacity: boolean;
-  coaches: Array<number | PrivateCoach>;
+  coaches: Array<C>;
   color: string;
   company: number;
-  slots: Array<number | PrivateSlot>;
+  slots: Array<S>;
   establishment_attribution: ResourceAttributionEnum;
   is_home_service: boolean;
   coach_attribution: ResourceAttributionEnum;

@@ -47,8 +47,8 @@ export const MarketplaceWorkshop = (props: Props) => {
     );
   }
   return (
-    <div>
-      <div>
+    <div className={classes.fullWidth}>
+      <div className={classes.fullWidth}>
         {offers.map((o) => (
           <div key={o.id} className={classes.workshopCardContainer}>
             <MarketplaceWorkshopEvent
@@ -94,6 +94,9 @@ export const MarketplaceWorkshop = (props: Props) => {
 };
 
 const styles = (theme) => ({
+  fullWidth: {
+    width: '100%',
+  },
   workshopCardContainer: {
     padding: theme.spacing(2),
   },

@@ -10,16 +10,17 @@ import {
 import classNames from 'classnames';
 
 import {
-  PrivateEstablishment,
   PrivateService,
   PrivateSlot,
 } from '../../../../libs/private-service/types';
+import { Establishment } from '../../../../libs/establishment/types';
+import { Coach } from '../../../../libs/associated-coach/types';
 
 type Props = {
-  privateService: PrivateService;
+  privateService: PrivateService<Coach, Establishment, PrivateSlot>;
   privateSlot: PrivateSlot;
-  selectedEstablishments: PrivateEstablishment[];
-  onSelect: (establishments: PrivateEstablishment) => void;
+  selectedEstablishments: Establishment[];
+  onSelect: (establishments: Establishment) => void;
 };
 
 const EstablishmentSelector: React.FC<Props> = (props) => {
@@ -39,7 +40,7 @@ const EstablishmentSelector: React.FC<Props> = (props) => {
 
   const renderEstablishment = useCallback(() => {
     return props.privateService.establishments.map(
-      (establishment: PrivateEstablishment) => {
+      (establishment: Establishment) => {
         return (
           <div className={classes.cardItemLayout} key={establishment.id}>
             <ButtonBase
@@ -136,6 +137,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100%',
     backgroundColor: 'white',
     borderRadius: 5,
+    boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
   },
   cardDesc: {
     display: 'flex',
@@ -146,7 +148,6 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 2,
     overflow: 'hidden',
     maxWidth: '100%',
-    boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
   },
   image: {
     minWidth: 100,

@@ -83,27 +83,38 @@ export default withTranslation(['metaActivity'])(
     selectOption,
     closeMenuOnSelect,
     selectedMetaActivities,
-  }) => (
-    <div style={{ zIndex: 9999 }}>
-      <Select
-        closeMenuOnSelect={closeMenuOnSelect}
-        isMulti={!noMulti}
-        placeholder={t('metaActivity')}
-        onChange={selectOption}
-        isDisabled={disabled}
-        options={getMetaActivityOptions([...metaActivities])}
-        value={
-          selectedMetaActivities
-            ? getMetaActivityOptions([
-                ...metaActivities.filter((ma) =>
-                  selectedMetaActivities.includes(ma.id),
-                ),
-              ])
-            : undefined
-        }
-        styles={metaActivityStyles}
-        menuPortalTarget={document.querySelector('body')}
-      />
-    </div>
-  ),
+    variant,
+  }) => {
+    let placeholder = t('metaActivity');
+
+    if (variant === 'activity') {
+      placeholder = t('metaActivity');
+    } else if (variant === 'workshop') {
+      placeholder = t('workshop');
+    }
+
+    return (
+      <div style={{ zIndex: 9999 }}>
+        <Select
+          closeMenuOnSelect={closeMenuOnSelect}
+          isMulti={!noMulti}
+          placeholder={placeholder}
+          onChange={selectOption}
+          isDisabled={disabled}
+          options={getMetaActivityOptions([...metaActivities])}
+          value={
+            selectedMetaActivities
+              ? getMetaActivityOptions([
+                  ...metaActivities.filter((ma) =>
+                    selectedMetaActivities.includes(ma.id),
+                  ),
+                ])
+              : undefined
+          }
+          styles={metaActivityStyles}
+          menuPortalTarget={document.querySelector('body')}
+        />
+      </div>
+    );
+  },
 );

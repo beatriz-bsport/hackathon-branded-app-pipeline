@@ -12,7 +12,6 @@ import type { Establishment, Offer } from '../../api/types';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-import WidgetButton from '../../components/button/WidgetButton.component';
 
 import {
   fetchOffersByDay as fetchOffersByDayAction,
@@ -52,6 +51,7 @@ import {
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
 } from '../../libs/email-editor/actions';
+import WidgetGeneratorDialog from '../settings/WidgetGenerator/WidgetGeneratorDialog';
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 
@@ -142,11 +142,16 @@ export class EstablishmentDetails extends React.Component<Props, State> {
             });
           }}
         />
-        <WidgetButton
-          widgetType="calendar"
-          establishments={this.props.id}
-          setOpenWidgetDialog={this.props.setOpenWidgetDialog}
-          openWidgetDialog={this.props.openWidgetDialog}
+
+        <WidgetGeneratorDialog
+          open={this.props.openWidgetDialog}
+          onClose={() => this.props.setOpenWidgetDialog(false)}
+          componentType="calendar"
+          config={{
+            calendar: {
+              establishments: [this.props.id],
+            },
+          }}
         />
       </div>
     );

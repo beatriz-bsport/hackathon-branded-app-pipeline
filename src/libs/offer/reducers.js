@@ -60,7 +60,6 @@ const initialState = Immutable({
     error: null,
     allIds: [],
   },
-
   genderCount: {
     loading: false,
     error: null,

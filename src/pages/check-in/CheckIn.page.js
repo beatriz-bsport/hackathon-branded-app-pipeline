@@ -23,7 +23,7 @@ import { getTheme as getMUITheme } from '../../theme';
 import api from '../../api';
 import { errorLogin } from '../../actions/auth.actions';
 
-import { fetchSCT } from '../../actions/category.actions';
+import { fetchSCT } from '../../libs/category/actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';

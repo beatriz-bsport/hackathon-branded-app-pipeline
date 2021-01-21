@@ -19,13 +19,10 @@ import RedButton from '../../../components/button/RedButton.component';
 type Props = {
   fullScreen: boolean,
   open: boolean,
-
   pack: PaymentPack,
   consumerPackSummary: React.Node,
-
   onDelete: () => void,
   onCancel: (consumerPackId: number) => void,
-
   classes: Object,
   t: TFunction,
 };

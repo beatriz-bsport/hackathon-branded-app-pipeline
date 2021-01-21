@@ -24,7 +24,6 @@ const initialState = Immutable({
   createOrUpdatePending: false,
   loading: true,
   error: false,
-  errorMsg: '',
   byActivity: {
     loading: false,
     error: null,

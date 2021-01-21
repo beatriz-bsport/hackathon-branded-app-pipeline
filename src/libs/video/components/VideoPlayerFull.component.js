@@ -15,6 +15,7 @@ type Props = {
   video: Video,
   authenticated: boolean,
   requestVideoAccess: () => void,
+  videoPlayerKey?: number,
 };
 export const VideoPlayerFull = (props: Props) => {
   const classes = useStyles();
@@ -23,6 +24,7 @@ export const VideoPlayerFull = (props: Props) => {
   return (
     <div className={classes.container}>
       <VideoPlayer
+        key={props.videoPlayerKey}
         authenticated={props.authenticated}
         rounded
         video={props.video}

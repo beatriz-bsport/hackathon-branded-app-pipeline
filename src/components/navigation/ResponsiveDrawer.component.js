@@ -703,6 +703,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             text: t('backofficeMenu.settings.marketplaceSettings'),
           },
           {
+            to: '/settings/widget',
+            dense: 'true',
+            text: t('backofficeMenu.settings.widget'),
+          },
+          {
             to: '/settings/role',
             dense: 'true',
             text: t('backofficeMenu.settings.role'),

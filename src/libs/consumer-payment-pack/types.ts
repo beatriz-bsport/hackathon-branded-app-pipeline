@@ -1,3 +1,5 @@
+import { ErrorAndLoading, WithPagination } from '../types';
+
 export type ConsumerPaymentPackExtension = {
   note: string;
   date_created: string;
@@ -33,22 +35,11 @@ export type ConsumerPaymentPackPenalty = {
   penalty_kind: number;
 };
 
-type ErrorAndLoading = {
-  loading: boolean;
-  error?: Error;
-};
-
-type WithPagination = {
-  count: number;
-  page: number;
-};
-
 export type ConsumerPaymentPackState = ErrorAndLoading & {
   byId: { [key: string]: ConsumerPaymentPack };
   byOfferByMember: ErrorAndLoading & { items: number[] };
   nonCompatibleByOfferByMember: ErrorAndLoading & { items: number[] };
   compatible: ErrorAndLoading & { allIds: number[] };
-  // TODO move every items in this one:
   updatingConsumerPacks: [];
   partialRefund: ErrorAndLoading & { items: number[] };
   extension: ErrorAndLoading & {

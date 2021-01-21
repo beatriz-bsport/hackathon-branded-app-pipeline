@@ -15,16 +15,17 @@ import {
   PrivateSlot,
 } from '../../../../../libs/private-service/types';
 import { ArrayElement } from '../../../../../utils/types';
+import { Establishment } from '../../../../../libs/establishment/types';
+import { Coach } from '../../../../../libs/associated-coach/types';
 
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
 
 type Props = {
   timezoneName: string;
-  privateService: PrivateService;
+  privateService: PrivateService<Coach, Establishment, PrivateSlot>;
   privateSlot: PrivateSlot;
-  slots: Array<string>;
+  slots: string[][];
   date: Moment;
-  loading: boolean;
   selectedSessionMoment: SessionMoment;
   onSessionMomentSelect: (sessionMoment: SessionMoment) => void;
 };
@@ -106,7 +107,7 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
             }`}
           >
             <AccessTimeIcon
-              color={selected ? 'white' : 'primary'}
+              color={selected ? 'inherit' : 'primary'}
               fontSize="small"
               className={classes.absoluteTopLeft}
             />

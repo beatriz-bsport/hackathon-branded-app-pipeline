@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
-
 import Immutable from 'seamless-immutable';
+
 import { RootState } from '../../reducers';
 import { Establishment, EstablishmentState } from './types';
 
@@ -13,7 +13,7 @@ export const getAllEstablishmentsDict = (
 
 export const getAllEstablishments = createSelector(
   getAllEstablishmentsDict,
-  (dict) => Immutable(Object.values(dict)),
+  (dict) => Immutable<Establishment[]>(Object.values(dict)),
 );
 
 export const getAllIds = (state: RootState): Array<number> =>

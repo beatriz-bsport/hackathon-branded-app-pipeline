@@ -1,5 +1,6 @@
 exports.default = {
   metaActivity: 'Activité',
+  workshop: 'Atelier',
   search: 'Chercher une activité',
   noActivities:
     'Gérez ici vos activités, une activité permet de regrouper un ensemble de séances (généralement collectives) de la même pratique.',

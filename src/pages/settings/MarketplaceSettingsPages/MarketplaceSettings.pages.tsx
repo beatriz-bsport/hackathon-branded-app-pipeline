@@ -5,18 +5,19 @@ import { useTranslation } from 'react-i18next';
 import { isEqual } from 'lodash';
 import { Link } from 'react-router-dom';
 import {
-  LinearProgress,
-  Paper,
+  AppBar,
   Button,
+  LinearProgress,
   ListItem,
   ListItemText,
-  AppBar,
-  Tabs,
+  Paper,
   Tab,
+  Tabs,
   Typography,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ShareIcon from '@material-ui/icons/Share';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import SaveIcon from '@material-ui/icons/Save';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
@@ -39,11 +40,14 @@ import { getActiveCoaches } from '../../../libs/associated-coach/selectors';
 import { fetchEstablishments } from '../../../libs/establishment/actions';
 import { getAvailableEstablishmentList } from '../../../libs/establishment/selectors';
 import { fetchAllActivities } from '../../../libs/meta-activity/actions';
-import { getPageEnabledMetaActivities } from '../../../libs/meta-activity/selectors';
+import {
+  getEnabledWorkshops,
+  getPageEnabledMetaActivities,
+} from '../../../libs/meta-activity/selectors';
 import {
   MarketplaceComponentsEnum,
-  MarketplaceConfig,
   MarketplaceTabConfig,
+  WidgetComponentsEnum,
 } from '../../../libs/marketplace/types';
 import {
   fetchMarketplaceSettings,
@@ -54,11 +58,14 @@ import { getPlaylistList } from '../../../libs/playlist/selectors';
 import BottomActionsButton from '../../../components/button/BottomActionsButton.component';
 
 import Config from '../../../config';
+import WidgetGeneratorDialog from '../WidgetGenerator/WidgetGeneratorDialog';
+import { getVideoList } from '../../../libs/video/selectors';
+import { fetchVideoList } from '../../../libs/video/actions';
 
 const defaultTab = {
-  componentType: '',
+  componentType: MarketplaceComponentsEnum.calendar,
   title: '',
-  data: {},
+  config: {},
 };
 
 const DragHandle = SortableHandle(() => <DragHandleIcon color="action" />);
@@ -75,8 +82,9 @@ type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
 const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
   const [openCreation, setOpenCreation] = useState<boolean>(false);
-  const [config, setConfig] = useState<MarketplaceConfig>(null);
-  const [tabToEditIndex, setTabToEditIndex] = useState<number>(null);
+  const [openWidgetDialog, setOpenWidgetDialog] = useState<boolean>(false);
+  const [config, setConfig] = useState<MarketplaceTabConfig[]>([]);
+  const [currentTab, setCurrentTab] = useState<number>(null);
 
   useEffect(() => {
     props.fetchMarketplaceSettings('me');
@@ -84,17 +92,13 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     props.fetchAssociatedCoachesList();
     props.fetchEstablishments();
     props.fetchAllActivities();
+    props.fetchVideoList({ mine: true });
     props.fetchPlaylistList({ mine: true });
   }, []);
 
   useEffect(() => {
     if (props.settings && props.settings.config) {
-      const _config = { ...props.settings.config };
-
-      if (_config && !_config.tabs) {
-        _config.tabs = [];
-      }
-
+      const _config = [...props.settings.config];
       setConfig(_config);
     }
   }, [props.settings]);
@@ -102,52 +106,50 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
   const onSubmitTab = useCallback(
     (tab: MarketplaceTabConfig) => {
       setConfig((prevState) => {
-        const tabs = [...prevState.tabs];
+        const tabs = [...prevState];
 
-        if (tabToEditIndex !== null) {
-          tabs[tabToEditIndex] = tab;
+        if (currentTab !== null) {
+          tabs[currentTab] = tab;
         } else {
           tabs.push(tab);
         }
 
-        return {
-          ...prevState,
-          tabs,
-        };
+        return tabs;
       });
       setOpenCreation(false);
     },
-    [config, tabToEditIndex],
+    [config, currentTab],
   );
 
   const onSaveConfig = useCallback(() => {
-    props.updateMarketplaceSettings('me', {
+    const settings = {
       ...props.settings,
-      config: {
-        ...config,
-        custom: true,
-      },
-    });
+      is_custom: true,
+      config: config.map((tab, i) => ({
+        ...tab,
+        index: tab.index !== undefined ? tab.index : i,
+        title: tab.title || getDefaultTitleForComponent(tab.component_type),
+      })),
+    };
+
+    props.updateMarketplaceSettings('me', settings);
   }, [config]);
 
   const onCreateNewTab = useCallback(() => {
-    setTabToEditIndex(null);
+    setCurrentTab(null);
     setOpenCreation(true);
   }, []);
 
   const onDeleteTab = useCallback(
     (index: number) => {
-      setConfig((prevState) => ({
-        ...prevState,
-        tabs: prevState.tabs.filter((tab, i) => index !== i),
-      }));
+      setConfig((prevState) => prevState.filter((tab, i) => index !== i));
     },
     [config],
   );
 
   const onEditTab = useCallback(
     (index: number) => {
-      setTabToEditIndex(index);
+      setCurrentTab(index);
       setOpenCreation(true);
     },
     [config],
@@ -155,11 +157,11 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
 
   const onSortEnd = useCallback(
     (e: { oldIndex: number; newIndex: number }) => {
-      const tabs = [...config.tabs];
-      const temp = { ...tabs[e.oldIndex] };
-      tabs[e.oldIndex] = { ...tabs[e.newIndex] };
-      tabs[e.newIndex] = temp;
-      setConfig({ ...config, tabs });
+      const tabs = [...config];
+      const temp = tabs[e.oldIndex];
+      tabs[e.oldIndex] = { ...tabs[e.newIndex], index: e.newIndex };
+      tabs[e.newIndex] = { ...temp, index: e.oldIndex };
+      setConfig(tabs);
     },
     [config],
   );
@@ -208,6 +210,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
               to={getMarketplaceRoute(
                 props.theme.company_name,
                 props.theme.company,
+                '',
               )}
             >
               <Button
@@ -226,7 +229,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
             hideSortableGhost={false}
             onSortEnd={onSortEnd}
           >
-            {config.tabs.map((tab, i) => (
+            {config.map((tab, i) => (
               <SortableItem index={i} key={i}>
                 <Paper className={classes.paperItem}>
                   <ListItem divider alignItems="center" dense>
@@ -236,12 +239,24 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
                       className={classes.listText}
                       primary={tab.title}
                       secondary={t(
-                        `marketplaceSettings.componentType.${tab.componentType}`,
+                        `marketplaceSettings.componentType.${tab.component_type}`,
                       )}
                     />
 
                     <ListItemResponsiveAction
                       actions={[
+                        Object.keys(WidgetComponentsEnum).includes(
+                          tab.component_type,
+                        )
+                          ? {
+                              icon: ShareIcon,
+                              label: t('serviceGroup.delete'),
+                              onClick: () => {
+                                setCurrentTab(i);
+                                setOpenWidgetDialog(true);
+                              },
+                            }
+                          : undefined,
                         {
                           icon: EditIcon,
                           label: t('serviceGroup.edit'),
@@ -293,9 +308,9 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
                 variant="scrollable"
                 value={-1}
               >
-                {config.tabs.map((tab, i) => {
+                {config.map((tab, i) => {
                   if (
-                    tab.componentType === MarketplaceComponentsEnum.vod &&
+                    tab.component_type === MarketplaceComponentsEnum.vod &&
                     !(
                       Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
                       props.theme.vod
@@ -306,7 +321,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
 
                   let { title } = tab;
                   if (!title) {
-                    title = getDefaultTitleForComponent(tab.componentType);
+                    title = getDefaultTitleForComponent(tab.component_type);
                   }
 
                   return <Tab value={i} label={title} />;
@@ -323,13 +338,21 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
               coaches={props.coaches}
               establishments={props.establishments}
               metaActivities={props.metaActivities}
+              metaActivitiesWorkshop={props.metaActivitiesWorkshop}
               privateServices={props.privateServices}
               playlists={props.playlists}
-              tab={
-                tabToEditIndex !== null
-                  ? config.tabs[tabToEditIndex]
-                  : defaultTab
-              }
+              videos={props.videoList}
+              index={currentTab !== null ? currentTab : config.length}
+              tab={currentTab !== null ? config[currentTab] : defaultTab}
+            />
+          )}
+
+          {openWidgetDialog && (
+            <WidgetGeneratorDialog
+              open={openWidgetDialog}
+              onClose={() => setOpenWidgetDialog(false)}
+              componentType={config[currentTab].component_type}
+              config={config[currentTab].config}
             />
           )}
         </>
@@ -392,7 +415,9 @@ const mapStateToProps = (state: RootState) => ({
   coaches: getActiveCoaches(state),
   establishments: getAvailableEstablishmentList(state),
   metaActivities: getPageEnabledMetaActivities(state),
+  metaActivitiesWorkshop: getEnabledWorkshops(state),
   playlists: getPlaylistList(state),
+  videoList: getVideoList(state),
   theme: state.theme.theme,
 });
 
@@ -404,6 +429,7 @@ const mapDispatchToProps = {
   fetchEstablishments,
   fetchAllActivities,
   fetchPlaylistList,
+  fetchVideoList,
 };
 
 export default connect(

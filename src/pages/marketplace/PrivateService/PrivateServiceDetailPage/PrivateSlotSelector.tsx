@@ -11,9 +11,11 @@ import {
   PrivateSlot,
 } from '../../../../libs/private-service/types';
 import { getTextColorFromRGB } from '../../../../utils/color';
+import { Establishment } from '../../../../libs/establishment/types';
+import { Coach } from '../../../../libs/associated-coach/types';
 
 type Props = {
-  privateService: PrivateService;
+  privateService: PrivateService<Coach, Establishment, PrivateSlot>;
   privateSlot: PrivateSlot;
   onSelect: (slot: PrivateSlot) => void;
 };

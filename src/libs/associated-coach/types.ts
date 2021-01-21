@@ -15,6 +15,7 @@ export type Coach = {
   facebook_url?: string;
   instagram_url?: string;
   disabled: boolean;
+  associatedcoach_set: number[];
 };
 
 export type CoachPerformance = {

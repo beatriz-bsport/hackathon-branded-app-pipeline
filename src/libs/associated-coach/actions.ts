@@ -361,7 +361,7 @@ export const fetchAssociatedCoachBulkFromCoachIds = (
 
 export const fetchAssociatedCoachBulk = (
   ids: Array<number>,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) => {
   return async (dispatch: ThunkDispatch<any, any, any>) => {
     const ids_uniq = uniq(ids.filter((id) => !!id));

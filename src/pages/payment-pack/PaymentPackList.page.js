@@ -47,11 +47,8 @@ import { withPaymentPackNotification } from '../../libs/marketing/selectors';
 
 type Props = {
   loading: boolean,
-  consumerPacksFetching: boolean,
-
   enabledPacks: Array<Object>,
   disabledPacks: Array<Object>,
-  updatingConsumerPacks: Array<number>,
   consumerPacks: Array<ConsumerPaymentPack>,
 
   pushToEdit: (id: number) => void,
@@ -165,7 +162,6 @@ export class PaymentPackList extends Component<Props, State> {
   render() {
     const {
       loading,
-      updatingConsumerPacks,
       incrementCredit,
       decrementCredit,
       classes,
@@ -290,10 +286,7 @@ export class PaymentPackList extends Component<Props, State> {
           onDelete={() =>
             this.deletePaymentPack(this.state.paymentPackToDelete.id)
           }
-          consumerPacks={this.props.consumerPacks}
-          consumerPacksFetching={this.props.consumerPacksFetching}
           onCancel={this.cancelDelete}
-          updatingConsumerPacks={updatingConsumerPacks}
           consumerPackSummary={
             this.state.paymentPackToDelete ? (
               <PaginatedConsumerPackList

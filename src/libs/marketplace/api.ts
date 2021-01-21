@@ -72,7 +72,9 @@ const fetchCompany = async (companyId: string) => {
 };
 
 export const fetchMarketplaceSettings = async (companyId: string) => {
-  return getAuth(`${API_V1_URI}/marketplace_settings/settings/${companyId}/`);
+  return getAuth(
+    `${API_V1_URI}/marketplace_settings/configuration/${companyId}/`,
+  );
 };
 
 export const updateMarketplaceSettings = async (
@@ -80,7 +82,7 @@ export const updateMarketplaceSettings = async (
   data: any,
 ) => {
   return patchAuth(
-    `${API_V1_URI}/marketplace_settings/settings/${companyId}/`,
+    `${API_V1_URI}/marketplace_settings/configuration/${companyId}/`,
     data,
   );
 };

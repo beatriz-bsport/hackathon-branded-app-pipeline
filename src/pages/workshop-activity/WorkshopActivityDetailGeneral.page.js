@@ -15,7 +15,6 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import WorkshopDeleteDialog from '../../libs/meta-activity/components/WorkshopDeleteDialog.component';
 import MetaActivityDetail from '../../libs/meta-activity/components/MetaActivityDetail.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
-import WidgetButton from '../../components/button/WidgetButton.component';
 
 import { getWorkshops } from '../../libs/meta-activity/selectors';
 import {
@@ -49,6 +48,7 @@ import {
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
 } from '../../libs/email-editor/actions';
+import WidgetGeneratorDialog from '../settings/WidgetGenerator/WidgetGeneratorDialog';
 
 type Props = {
   id: number,
@@ -164,11 +164,16 @@ export class WorkshopActivity extends Component<Props, State> {
             });
           }}
         />
-        <WidgetButton
-          widgetType="workshop"
-          activities={this.props.id}
-          setOpenWidgetDialog={this.props.setOpenWidgetDialog}
-          openWidgetDialog={this.props.openWidgetDialog}
+
+        <WidgetGeneratorDialog
+          open={this.props.openWidgetDialog}
+          onClose={() => this.props.setOpenWidgetDialog(false)}
+          componentType="workshop"
+          config={{
+            workshop: {
+              metaActivities: [this.props.id],
+            },
+          }}
         />
       </div>
     );

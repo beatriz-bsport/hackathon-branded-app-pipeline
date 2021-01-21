@@ -6,7 +6,8 @@ import {
   fetchMarketplaceSettings as fetchMarketplaceSettingsAPI,
   updateMarketplaceSettings as updateMarketplaceSettingsAPI,
 } from './api';
-import { MARKETPLACE_DEFAULT_CONFIG } from './const';
+import { MarketplaceSettings } from './types';
+import { MARKETPLACE_DEFAULT_CONFIG } from './constants';
 
 export const marketplaceSettingsAction = {
   error: createAction('MARKETPLACE_SETTINGS/ERROR'),
@@ -16,18 +17,17 @@ export const marketplaceSettingsAction = {
 
 export function fetchMarketplaceSettings(
   companyId: string,
-  options?: OptionCallback,
+  options?: OptionCallback<MarketplaceSettings>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(marketplaceSettingsAction.isLoading(true));
     dispatch(marketplaceSettingsAction.error(null));
 
     try {
-      dispatch(marketplaceSettingsAction.success(MARKETPLACE_DEFAULT_CONFIG));
       const res = await fetchMarketplaceSettingsAPI(companyId);
-      const { data } = res;
-      if (data && data.config && !data.config.custom) {
-        data.config = MARKETPLACE_DEFAULT_CONFIG.config;
+      const { data }: { data: MarketplaceSettings } = res;
+      if (!data.is_custom) {
+        data.config = MARKETPLACE_DEFAULT_CONFIG;
       }
       dispatch(marketplaceSettingsAction.success(data));
       dispatch(marketplaceSettingsAction.error(null));

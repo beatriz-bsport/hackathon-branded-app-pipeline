@@ -20,6 +20,7 @@ exports.default = {
       error: 'Erreur lors du lien du compte Zoom',
     },
   },
+  copied: 'Copié dans le presse-papier',
   link: {
     copied: 'Lien copié dans le presse-papier',
   },

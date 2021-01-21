@@ -116,6 +116,7 @@ exports.default = {
       subscription: 'Abonnement',
       shop: 'Magasin',
       playlist: 'Playlist',
+      newsletter: 'Newsletter',
     },
     createDialog: {
       showAdvanced: "Voir plus d'options",
@@ -124,6 +125,7 @@ exports.default = {
       selectEstablishment: 'Choisir un établissement',
       selectActivity: 'Choisir une activité',
       selectPrivateService: 'Choisir un service',
+      selectVideo: 'Choisir une video',
       selectPlaylist: 'Choisir une playlist',
       inputTitle: "Nom de l'onglet",
       cancel: 'Annuler',

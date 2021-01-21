@@ -12,7 +12,6 @@ import Button from '@material-ui/core/Button';
 import HelpIcon from '@material-ui/icons/Help';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import RedButton from '../../button/RedButton.component';
 import PasswordInput from '../../input/PasswordInput.component';
@@ -124,6 +123,7 @@ export class ConsumerLogin extends Component<Props, State> {
   getEmailLogin = () => {
     const { classes, error, errorFields, t } = this.props;
     let errorMessage = t('error.authError');
+
     if (errorFields && errorFields.password) {
       errorMessage = t('error.invalidPassword');
     }
@@ -140,7 +140,10 @@ export class ConsumerLogin extends Component<Props, State> {
           <HelpIcon />
         </IconButton>
         <PersonIcon className={classes.headIcon} />
-        <form className={classes.column}>
+        <form
+          className={classes.column}
+          onSubmit={this.doEmailLogin}
+        >
           <FormField
             id="email"
             name="login"
@@ -177,23 +180,23 @@ export class ConsumerLogin extends Component<Props, State> {
             className={classes.bottomButton}
             color="primary"
             variant="contained"
-            onClick={this.doEmailLogin}
             type="submit"
             id="btn-signin"
           >
             {t('actions.signin')}
           </Button>
-          <Link to="/login/reset_password" style={{ textDecoration: 'none' }}>
+          <href to="/login/reset_password" style={{ textDecoration: 'none' }}>
             <Typography color="secondary" variant="caption">
               {t('actions.forgottenPassword')}
             </Typography>
-          </Link>
+          </href>
         </form>
       </div>
     );
   };
 
-  doEmailLogin = () => {
+  doEmailLogin = (e) => {
+    e.preventDefault();
     const { email, password } = this.state;
     this.props.doEmailLogin({ email, password });
   };

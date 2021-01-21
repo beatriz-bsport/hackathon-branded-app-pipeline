@@ -12,40 +12,70 @@ export enum MarketplaceComponentsEnum {
   'playlist' = 'playlist',
 }
 
-export type MarketplaceCalendarData = {
-  coaches: { id: string; name: string }[];
-  establishments: { id: string; name: string }[];
-  metaActivities: { id: string; name: string }[];
-  levels: { id: string; name: string }[];
+export enum WidgetComponentsEnum {
+  'calendar' = 'calendar',
+  'workshop' = 'workshop',
+  'privateService' = 'privateService',
+  'vod' = 'vod',
+  'playlist' = 'playlist',
+  'newsletter' = 'newsletter',
+}
+
+export type MarketplaceCommonFilter = {
+  coaches?: number[];
+  establishments?: number[];
+  metaActivities?: number[];
+  levels?: number[];
 };
+
+export type MarketplaceCalendarData = MarketplaceCommonFilter & {
+  compactMode: true | false | null;
+};
+
+export type MarketplaceWorkshopData = MarketplaceCommonFilter;
 
 export type MarketplacePrivateServiceData = {
-  serviceId?: string;
-  name?: string;
+  serviceId?: number | null;
 };
-export type MarketplacePlaylistData = { playlistId: string; name: string };
 
-export type MarketplaceComponentData =
-  | MarketplaceCalendarData
-  | MarketplacePrivateServiceData
-  | MarketplacePlaylistData
-  | {};
+export type MarketplaceVODData = {
+  videoId?: number;
+};
+
+export type MarketplacePlaylistData = {
+  playlistId?: number;
+};
+
+export type MarketplaceComponentConfig = {
+  calendar?: MarketplaceCalendarData;
+  workshop?: MarketplaceWorkshopData;
+  privateService?: MarketplacePrivateServiceData;
+  pass?: {};
+  vod?: {};
+  subscription?: {};
+  shop?: {};
+  playlist?: MarketplacePlaylistData;
+};
 
 export type MarketplaceTabConfig = {
-  componentType: MarketplaceComponentsEnum;
+  component_type: MarketplaceComponentsEnum;
   title: string;
-  data: MarketplaceComponentData;
+  index: number;
+  config: MarketplaceComponentConfig;
 };
 
-export type MarketplaceConfig = {
-  custom?: boolean;
-  tabs: MarketplaceTabConfig[];
+export type WidgetConfig = {
+  parentElement: string;
+  companyId: number;
+  widgetType: WidgetComponentsEnum;
+  config: MarketplaceComponentConfig;
 };
 
 export type MarketplaceSettings = {
   company: number;
   id: number;
-  config: MarketplaceConfig;
+  is_custom: boolean;
+  config: MarketplaceTabConfig[];
 };
 
 export type MarketplaceSettingState = {

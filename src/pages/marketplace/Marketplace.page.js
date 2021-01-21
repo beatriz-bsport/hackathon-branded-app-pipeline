@@ -39,7 +39,7 @@ import {
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 import type { Basket } from '../../libs/checkout/types';
 
-import { fetchSCT } from '../../actions/category.actions';
+import { fetchSCT } from '../../libs/category/actions';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -186,12 +186,11 @@ export class MarketPlace extends Component<Props, State> {
     // we dont want to remove query params if user accidentally reclick th button
     if (tabSelected === parseInt(value, 10)) return;
 
-    const tabConfig: MarketplaceTabConfig = this.props.settings.config.tabs[
+    const tabConfig: MarketplaceTabConfig = this.props.settings.config[
       value.toString()
     ];
 
     const newPath = fromConfigToUrl(tabConfig, { tabSelected: value });
-
     this.props.goToTab(newPath);
   };
 
@@ -204,6 +203,7 @@ export class MarketPlace extends Component<Props, State> {
       case TAB_PASS:
         return (
           <MarketplacePassPage
+            key={this.props.tabSelected}
             companyId={this.props.companyId}
             requestSignUp={() => this.toogleLogin(true)}
             toogleCurrentBasketOpen={this.toogleCurrentBasketOpen}
@@ -212,6 +212,7 @@ export class MarketPlace extends Component<Props, State> {
       case TAB_CONTRACT:
         return (
           <MarketplaceContractPage
+            key={this.props.tabSelected}
             companyId={this.props.companyId}
             requestSignUp={() => this.toogleLogin(true)}
             authenticated={this.props.auth.authenticated}
@@ -221,6 +222,7 @@ export class MarketPlace extends Component<Props, State> {
       case TAB_SHOP:
         return (
           <MarketplaceShopPage
+            key={this.props.tabSelected}
             requestSignUp={() => this.toogleLogin(true)}
             toogleCurrentBasketOpen={this.toogleCurrentBasketOpen}
             companyId={this.props.companyId}
@@ -229,18 +231,24 @@ export class MarketPlace extends Component<Props, State> {
       case TAB_PRIVATE_SERVICE:
         return (
           <MarketplacePrivateServiceRouter
+            key={this.props.tabSelected}
             companyId={this.props.companyId}
             authenticated={this.props.auth.authenticated}
             requestLogin={() => this.toogleLogin(true)}
           />
         );
       case TAB_WORKSHOP:
-        return <MarketplaceWorkshopPage companyId={this.props.companyId} />;
+        return (
+          <MarketplaceWorkshopPage
+            key={this.props.tabSelected}
+            companyId={this.props.companyId}
+          />
+        );
       case TAB_VOD:
         return (
           <MarketplaceVodRouter
-            companyId={this.props.companyId}
-            companyName={this.props.companyName}
+            key={this.props.tabSelected}
+            requestSignUp={() => this.toogleLogin(true)}
           />
         );
       case TAB_CALENDAR:
@@ -248,6 +256,7 @@ export class MarketPlace extends Component<Props, State> {
         return (
           <div className={this.props.classes.calendarContainer}>
             <MarketplaceCalendarPage
+              key={this.props.tabSelected}
               companyId={this.props.companyId}
               requestSignUp={() => this.toogleLogin(true)}
               toogleCurrentBasketOpen={this.toogleCurrentBasketOpen}
@@ -316,6 +325,7 @@ export class MarketPlace extends Component<Props, State> {
 
   render() {
     const { companyThemeLoading, classes, t } = this.props;
+
     if (
       companyThemeLoading ||
       !this.props.theme ||
@@ -369,7 +379,7 @@ export class MarketPlace extends Component<Props, State> {
                 variant="scrollable"
                 value={parseInt(this.props.tabSelected, 10)}
               >
-                {this.props.settings.config.tabs.map((tab, i) => {
+                {this.props.settings.config.map((tab, i) => {
                   if (
                     tab.componentType === MarketplaceComponentsEnum.vod &&
                     !(
@@ -382,7 +392,9 @@ export class MarketPlace extends Component<Props, State> {
 
                   let { title } = tab;
                   if (!title) {
-                    title = this.getDefaultTitleForComponent(tab.componentType);
+                    title = this.getDefaultTitleForComponent(
+                      tab.component_type,
+                    );
                   }
 
                   return <Tab value={i} label={title} />;

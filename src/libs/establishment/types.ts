@@ -18,6 +18,7 @@ export type Establishment = {
   specific_info: string;
   easy_access: EasyAccess;
   disabled: boolean;
+  associatedestablishment_set: number[];
 };
 
 type Event_ = {

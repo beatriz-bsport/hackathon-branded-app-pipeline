@@ -31,6 +31,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import { drawerWidth } from '../../components/navigation/ResponsiveDrawer.component';
+import WidgetGeneratorPage from './WidgetGenerator/WidgetGenerator.page';
 
 type Props = {
   classes: any;
@@ -52,6 +53,8 @@ export const Settings = (props: Props) => {
           path="/settings/marketplace-settings"
           component={MarketplaceSettings}
         />
+
+        <Route exact path="/settings/widget" component={WidgetGeneratorPage} />
 
         <Route
           exact

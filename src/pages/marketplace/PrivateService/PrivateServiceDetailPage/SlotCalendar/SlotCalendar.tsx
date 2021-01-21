@@ -19,13 +19,15 @@ import {
 } from '../../../../../libs/private-service/types';
 import { ArrayElement } from '../../../../../utils/types';
 import { groupSessionsByDayMoment } from '../../../../../libs/private-service/utils';
+import { Establishment } from '../../../../../libs/establishment/types';
+import { Coach } from '../../../../../libs/associated-coach/types';
 
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
 
 type Props = {
   privateSlot: PrivateSlot;
-  privateService: PrivateService;
-  availabilitySlotByDate: { [key: string]: string[] };
+  privateService: PrivateService<Coach, Establishment, PrivateSlot>;
+  availabilitySlotByDate: { [key: string]: string[][] };
   availableSlotsLoading: boolean;
   timezoneName: string;
   selectedDate: string;

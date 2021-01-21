@@ -13,7 +13,7 @@ import classNames from 'classnames';
 import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 
-import { MaterialStyle } from '../../../utils/types';
+import { MaterialStyleType } from '../../../utils/types';
 
 interface OwnProps {
   onSubmit: (email: string, firstName: string, lastName: string) => void;
@@ -21,7 +21,7 @@ interface OwnProps {
 
 type Props = OwnProps & {
   t: TFunction;
-} & MaterialStyle<ReturnType<typeof styles>>;
+} & MaterialStyleType<ReturnType<typeof styles>>;
 
 interface State {
   email: string;
@@ -127,7 +127,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export default compose<OwnProps, {}>(
+export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
   withTranslation('marketing'),

@@ -10,16 +10,17 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
 import {
-  PrivateCoach,
   PrivateService,
   PrivateSlot,
 } from '../../../../libs/private-service/types';
+import { Establishment } from '../../../../libs/establishment/types';
+import { Coach } from '../../../../libs/associated-coach/types';
 
 type Props = {
-  privateService: PrivateService;
+  privateService: PrivateService<Coach, Establishment, PrivateSlot>;
   privateSlot: PrivateSlot;
-  selectedCoaches: PrivateCoach[];
-  onSelect: (slot: PrivateCoach) => void;
+  selectedCoaches: Coach[];
+  onSelect: (slot: Coach) => void;
 };
 
 const CoachSelector: React.FC<Props> = (props) => {
@@ -44,7 +45,7 @@ const CoachSelector: React.FC<Props> = (props) => {
           {t('slotSearcher.coach')}
         </Typography>
         <div className={classes.container2}>
-          {props.privateService.coaches.map((coach: PrivateCoach) => {
+          {props.privateService.coaches.map((coach: Coach) => {
             return (
               <ButtonBase
                 key={coach.id}

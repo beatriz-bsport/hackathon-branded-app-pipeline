@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 // @ts-ignore
 import { State } from '../../../state/types';
 
-import { PrivateService } from '../types';
+import { PrivateService, PrivateSlot } from '../types';
 import { getAllCoachesDict } from '../../associated-coach/selectors';
 import {
   getAllEstablishmentsWithAssociatedId,
@@ -11,6 +11,8 @@ import {
 import { getAllPrivateSlotsDict } from './private-slot';
 import { RootState } from '../../../reducers';
 import { withPrivateBookingNotification } from '../../marketing/selectors';
+import { Coach } from '../../associated-coach/types';
+import { Establishment } from '../../establishment/types';
 
 export const _getPrivateServicesById: (
   state: RootState,
@@ -76,7 +78,7 @@ export const getPrivateServiceGroupList = createSelector(
 );
 
 export const getAvailablePrivateServices: (
-  state: State,
+  state: RootState,
 ) => Array<any> = createSelector(getPrivateServices, (services) =>
   services
     .filter((s) => s.available)
@@ -105,15 +107,16 @@ export const getPrivateServiceListByGroup = createSelector(
     }));
   },
 );
-export const getPrivateServiceById: (state: RootState, id) => PrivateService = (
+export const getPrivateServiceById: (
+  state: RootState,
+  id: string,
+) => PrivateService<Coach, Establishment, PrivateSlot> = (
   state: RootState,
   id,
 ) => {
   const ps = state.privateService.privateService.byId[id];
   if (!ps) return null;
-  // @ts-ignore TODO TYPES
   const coachData = getAllCoachesDict(state);
-  // @ts-ignore TODO TYPES
   const establishmentData = getAllEstablishmentsDict(state);
   const slotData = getAllPrivateSlotsDict(state);
   return {

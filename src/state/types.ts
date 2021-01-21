@@ -26,6 +26,7 @@ import { PartnershipState } from '../libs/partnership/types';
 import { DashboardSettingsState } from '../libs/dashboard/types';
 
 import { BackgroundTaskState } from '../libs/background-task/types';
+import { RootState } from '../reducers';
 
 export type State = {
   paymentRules: PaymentRulesState;
@@ -59,7 +60,7 @@ export type State = {
 export type Action = SearchAction | AuthAction;
 
 export type Dispatch = (action: Action | ThunkAction | PromiseAction) => any;
-export type GetState = () => State;
+export type GetState = () => RootState;
 export type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 export type PromiseAction = Promise<Action>;
 
@@ -68,7 +69,7 @@ export type ErrorAndLoading = {
   error?: Error;
 };
 
-export type OptionCallback = {
-  onSuccess?: (args?: any) => void;
+export type OptionCallback<T = void> = {
+  onSuccess?: (args?: T) => void;
   onError?: (error?: Error) => void;
 };

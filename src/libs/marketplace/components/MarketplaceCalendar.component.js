@@ -4,18 +4,14 @@ import React, { PureComponent } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import memoize from 'memoize-one';
 import withWidth from '@material-ui/core/withWidth';
-import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { Moment } from '../../../i18n';
 
 import Calendar from '../../../components/offer/Calendar.component';
 import MarketplaceTimetable from './MarketplaceTimetable.component';
-import CoachSelector from '../../associated-coach/components/CoachSelector.component';
-import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
-import MetaActivitySelector from '../../meta-activity/components/MetaActivitySelector.component';
-import LevelSelector from '../../category/components/LevelSelector.component';
 import MarketplaceWeekTimetable from './MarketplaceWeekTimeTable.component';
+import MarketplaceFilterComponent from './MarketplaceFilter.component';
 
 const LoadingIndicator = () => (
   <div
@@ -103,6 +99,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
       if (loading) {
         return <LoadingIndicator />;
       }
+
       return (
         <MarketplaceTimetable
           offers={dayOffers}
@@ -115,43 +112,16 @@ export class MarketplaceCalendar extends PureComponent<Props> {
     }
 
     const searchBar = (
-      <Grid container>
-        <Grid item xs={12} md={6} className={classes.selector}>
-          <CoachSelector
-            coaches={coaches}
-            selectedCoaches={filters.coaches}
-            selectOption={(ev) => setFilters('coaches')(ev.map((e) => e.value))}
-          />
-        </Grid>
-        <Grid item xs={12} md={6} className={classes.selector}>
-          <LevelSelector
-            selectedLevels={filters.levels}
-            selectOption={(ev) => setFilters('levels')(ev.map((e) => e.value))}
-          />
-        </Grid>
-        <Grid item xs={12} md={6} className={classes.selector}>
-          <EstablishmentSelector
-            isMulti
-            establishments={establishments}
-            selectedEstablishments={filters.establishments}
-            selectOption={(ev) => {
-              setFilters('establishments')(ev.map((e) => e.value));
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} md={6} className={classes.selector}>
-          <MetaActivitySelector
-            metaActivities={metaActivities.filter(
-              (ma) => ma.customer_enabled && !ma.is_workshop,
-            )}
-            selectedMetaActivities={filters.activity__in}
-            selectOption={(ev) =>
-              setFilters('activity__in')(ev.map((e) => e.value))
-            }
-          />
-        </Grid>
-      </Grid>
+      <MarketplaceFilterComponent
+        coaches={coaches}
+        establishments={establishments}
+        metaActivities={metaActivities}
+        filters={filters}
+        setFilters={setFilters}
+        variant="activity"
+      />
     );
+
     return (
       <div className={classes.container}>
         <Calendar
@@ -205,14 +175,9 @@ export class MarketplaceCalendar extends PureComponent<Props> {
   }
 }
 
-const styles = (theme) => ({
+const styles = () => ({
   container: {
     width: '100%',
-  },
-  selector: {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
   },
 });
 

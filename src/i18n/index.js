@@ -1,6 +1,4 @@
 import i18n from 'i18next'; // import Backend from 'i18next-locize-backend';
-// import ChainedBackend from 'i18next-chained-backend';
-// import LocalStorageBackend from 'i18next-localstorage-backend';
 import axios from 'axios';
 
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -16,9 +14,6 @@ import 'moment/locale/nl';
 import 'moment/locale/es';
 import 'moment/locale/it';
 
-// import namespaces from './namespaces.json';
-
-// const isDebug = !['production', 'test'].includes(process.env.NODE_ENV);
 const customRequest = config.I18N_CUSTOM_SERVER === 'TRUE';
 
 const backendOptions = {};

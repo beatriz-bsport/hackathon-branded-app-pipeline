@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { push as routerPush } from 'connected-react-router';
 import { compose, withProps, withHandlers, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import WidgetButton from '../../components/button/WidgetButton.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import type { Offer, MetaActivity as MetaActivityType } from '../../api/types';
@@ -47,6 +46,7 @@ import {
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
 } from '../../libs/email-editor/actions';
+import WidgetGeneratorDialog from '../settings/WidgetGenerator/WidgetGeneratorDialog';
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 
@@ -154,11 +154,16 @@ export class MetaActivityDetailGeneral extends PureComponent<Props, State> {
             });
           }}
         />
-        <WidgetButton
-          widgetType="calendar"
-          activities={this.props.id}
-          setOpenWidgetDialog={this.props.setOpenWidgetDialog}
-          openWidgetDialog={this.props.openWidgetDialog}
+
+        <WidgetGeneratorDialog
+          open={this.props.openWidgetDialog}
+          onClose={() => this.props.setOpenWidgetDialog(false)}
+          componentType="calendar"
+          config={{
+            calendar: {
+              metaActivities: [this.props.id],
+            },
+          }}
         />
       </div>
     );

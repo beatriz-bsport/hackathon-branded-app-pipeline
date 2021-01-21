@@ -3865,7 +3865,8 @@
             "CH": "Switzerland",
             "IE": "Ireland",
             "AT": "Austria",
-            "MT": "Malta"
+            "MT": "Malta",
+            "GB": "United Kingdom"
         },
         "signupCompany": {
             "form": {
@@ -4220,7 +4221,14 @@
             },
             "explainDisabled": "Disabled: you manage the conference link (URL) yourself, and specify it for EACH class (via zoom, etc...).",
             "explainEnabled": "Enabled : bsport manage your conference room, IMPOSSIBLE to have two class at the same time.",
-            "submit": "Save"
+            "submit": "Save",
+            "seeUpsell": "Learn more",
+            "zoom": {
+                "enabled": "Activate Zoom integration",
+                "label": "Configuring Zoom Accounts",
+                "explainValid": "Valid account: Zoom meeting links will be created for each session 15 minutes before they start automatically. The teacher will receive a link to host the meeting while registrants will receive another link to join the meeting. Note that if the zoom account is unpaid, the zoom meeting is limited to 40 minutes",
+                "explainInvalid": "Invalid account"
+            }
         },
         "active_campaign": {
             "submit": "Submit",
@@ -7681,6 +7689,12 @@
             "createOrUpdate": {
                 "success": "Recurring appointment successfully saved",
                 "error": "Impossible to save this recurring appointment"
+            }
+        },
+        "zoom": {
+            "created": {
+                "success": "Zoom account successfully linked",
+                "error": "Error while linking the Zoom account"
             }
         }
     },

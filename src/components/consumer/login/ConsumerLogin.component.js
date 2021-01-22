@@ -182,11 +182,14 @@ export class ConsumerLogin extends Component<Props, State> {
           >
             {t('actions.signin')}
           </Button>
-          <href to="/login/reset_password" style={{ textDecoration: 'none' }}>
+          <a
+            href="https://backoffice.bsport.io/login/reset_password"
+            style={{ textDecoration: 'none' }}
+          >
             <Typography color="secondary" variant="caption">
               {t('actions.forgottenPassword')}
             </Typography>
-          </href>
+          </a>
         </form>
       </div>
     );

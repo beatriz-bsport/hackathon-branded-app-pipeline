@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'recompose';
 import * as Yup from 'yup';
 import omit from 'lodash/omit';

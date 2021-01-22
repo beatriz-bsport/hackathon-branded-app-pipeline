@@ -1,5 +1,6 @@
 import React from 'react';
-import { Grid, Theme, withStyles } from '@material-ui/core';
+import { Grid, Theme } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import CoachSelector from '../../associated-coach/components/CoachSelector.component';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';

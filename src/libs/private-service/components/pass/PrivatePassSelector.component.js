@@ -10,6 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Selector from '../../../../components/Selector.component';
 
 import type { PrivatePass } from '../../types';
+import { getCurrencyDisplay } from '../../../theme/selectors';
 
 type Props = {
   classes: Object,
@@ -39,7 +40,10 @@ function privatePassOption(props: OptionProps) {
         selected={!!isSelected}
         style={isFocused ? { backgroundColor: '#EFEFEF' } : {}}
       >
-        <ListItemText primary={data.pp.name} secondary={`${data.pp.price}€`} />
+        <ListItemText
+          primary={data.pp.name}
+          secondary={`${data.pp.price}${getCurrencyDisplay()}`}
+        />
       </ListItem>
     </div>
   );

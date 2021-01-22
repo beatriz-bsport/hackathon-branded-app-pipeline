@@ -20,6 +20,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 import type { PaymentCombo } from '../types';
 
 type Props = {
@@ -65,7 +66,7 @@ export const PaymentComboCard = (props: Props) => {
             {paymentCombo.name}
           </Typography>
           <Typography variant="h4" component="p">
-            {`${paymentCombo.price}€`}
+            {`${paymentCombo.price}${getCurrencyDisplay()}`}
           </Typography>
         </div>
         <Typography
@@ -114,7 +115,10 @@ export const PaymentComboCard = (props: Props) => {
                       {`${pp.quantity}x`}
                     </Avatar>
                   </ListItemIcon>
-                  <ListItemText primary={pp.name} secondary={`${pp.price} €`} />
+                  <ListItemText
+                    primary={pp.name}
+                    secondary={`${pp.price} ${getCurrencyDisplay()}`}
+                  />
                   <ListItemSecondaryAction>
                     <IconButton onClick={() => props.onPaymentPackClick(pp.id)}>
                       <ArrowForwardIcon />
@@ -134,7 +138,10 @@ export const PaymentComboCard = (props: Props) => {
                       {`${si.quantity}x`}
                     </Avatar>
                   </ListItemIcon>
-                  <ListItemText primary={si.name} secondary={`${si.price} €`} />
+                  <ListItemText
+                    primary={si.name}
+                    secondary={`${si.price} ${getCurrencyDisplay()}`}
+                  />
                   <ListItemSecondaryAction>
                     <IconButton onClick={() => props.onShopItemClick(si.id)}>
                       <ArrowForwardIcon />
@@ -154,7 +161,10 @@ export const PaymentComboCard = (props: Props) => {
                       {`${pp.quantity}x`}
                     </Avatar>
                   </ListItemIcon>
-                  <ListItemText primary={pp.name} secondary={`${pp.price} €`} />
+                  <ListItemText
+                    primary={pp.name}
+                    secondary={`${pp.price} ${getCurrencyDisplay()}`}
+                  />
                   <ListItemSecondaryAction>
                     <IconButton onClick={() => props.onPrivatePassClick(pp.id)}>
                       <ArrowForwardIcon />

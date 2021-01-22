@@ -18,6 +18,7 @@ import DownloadIcon from '@material-ui/icons/Attachment';
 import FinalizeInvoiceDialog from '../../libs/invoice/dialog/FinalizeInvoiceDialog.component';
 
 import { formatAsDatetime } from '../../utils/datetime';
+import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 import type { Invoice } from '../../libs/invoice/types';
 
@@ -40,7 +41,8 @@ function renderStatus(invoice: Invoice, t: TFunction) {
   }
   return (
     <Typography color="error">
-      - {invoice.price_due - invoice.price_payed - invoice.voucher} €
+      - {invoice.price_due - invoice.price_payed - invoice.voucher}{' '}
+      {getCurrencyDisplay()}
     </Typography>
   );
 }
@@ -80,7 +82,7 @@ const renderRows = (invoices, processing, actions, t) => {
     uuid: inv.uuid.slice(0, 8).toUpperCase(),
     name: inv.memberName,
     date: formatAsDatetime(inv.date),
-    price_due: `${inv.price_due} €`,
+    price_due: `${inv.price_due} ${getCurrencyDisplay()}`,
     status: renderStatus(inv, t),
     actions: renderActions(inv, actions, processing.includes(inv.uuid)),
   }));

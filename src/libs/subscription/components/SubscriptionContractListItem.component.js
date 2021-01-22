@@ -11,6 +11,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 import type { SubscriptionContract } from '../types';
 
 type Props = {
@@ -48,9 +49,11 @@ export const SubscriptionContractListItem = (props: Props) => {
       id={`contract#${props.contract.id}`}
     >
       <ListItemText
-        primary={`${props.contract.name} - ${props.contract.recurrent_price}€ ${
+        primary={`${props.contract.name} - ${
+          props.contract.recurrent_price
+        }${getCurrencyDisplay()} ${
           parseFloat(props.contract.flat_fee)
-            ? ` (+${props.contract.flat_fee}€)`
+            ? ` (+${props.contract.flat_fee}${getCurrencyDisplay()})`
             : ''
         }`}
         secondary={`${

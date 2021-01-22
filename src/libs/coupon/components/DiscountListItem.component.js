@@ -10,6 +10,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { pure } from 'recompose';
 
 import type { Discount } from '../types';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 type Props = {
   discount: Discount,
@@ -22,7 +23,7 @@ export const DiscountListItem = (props: Props) => (
   <ListItem divider={!!props.divider}>
     <ListItemText
       primary={props.discount.name}
-      secondary={`${props.discount.voucher}€`}
+      secondary={`${props.discount.voucher}${getCurrencyDisplay()}`}
     />
     <ListItemSecondaryAction>
       <IconButton

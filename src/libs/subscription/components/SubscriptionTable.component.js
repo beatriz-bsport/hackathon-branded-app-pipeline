@@ -9,6 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import RedButton from '../../../components/button/RedButton.component';
 
 import { formatAsDate } from '../../../utils/datetime';
+import { getCurrencyDisplay } from '../../theme/selectors';
 import type { Subscription } from '../types';
 
 const BILLING_PLAN_STATUS_HAS_STARTED = 2;
@@ -29,7 +30,9 @@ const renderRows = (subscriptions, t) => {
     nb_interval: parseInt(sub.nb_interval, 10),
     first_billing_date: formatAsDate(sub.first_billing_date),
     status: getStatus(sub.status, t),
-    recurrent_price: `${parseFloat(sub.recurrent_price).toFixed(2)}  €`,
+    recurrent_price: `${parseFloat(sub.recurrent_price).toFixed(
+      2,
+    )}  ${getCurrencyDisplay()}`,
     paymentMethodInfo: {
       id: sub.payment_method,
       subscriptionId: sub.id,

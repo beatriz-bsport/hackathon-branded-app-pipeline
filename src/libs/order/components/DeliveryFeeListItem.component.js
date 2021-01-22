@@ -4,6 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 import type { DeliveryFee } from '../types';
 
@@ -18,7 +19,7 @@ export const DeliveryFeeListItem = (props: Props) => {
     return (
       <ListItem divider>
         <ListItemText
-          primary={`${name} - ${fee} €`}
+          primary={`${name} - ${fee} ${getCurrencyDisplay()}`}
           secondary={props.t('deliveryFee.offeredAboveAmount', {
             free_threshold,
           })}

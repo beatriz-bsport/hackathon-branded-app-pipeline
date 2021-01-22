@@ -12,8 +12,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
-
 import type { TFunction } from 'react-i18next';
+import { getCurrencyDisplay } from '../theme/selectors';
+
 import { formatAsDate } from '../../utils/datetime';
 
 const MEMBER_PER_PAGE = 50;
@@ -60,7 +61,7 @@ const getColumnData = (t) => {
 
 const renderCreditAccountBalance = (credit_account_balance: number) => (
   <Typography color={credit_account_balance >= 0 ? 'primary' : 'error'}>
-    {credit_account_balance.toFixed(2)} €
+    {`${credit_account_balance.toFixed(2)} ${getCurrencyDisplay()}`}
   </Typography>
 );
 

@@ -13,6 +13,7 @@ import Stars from '@material-ui/icons/Stars';
 
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { getCurrencyDisplay } from '../../libs/theme/selectors';
 
 export class RuleCard extends React.Component<{}> {
   renderRuleStats = (rule) => {
@@ -72,7 +73,7 @@ export class RuleCard extends React.Component<{}> {
                   <ShoppingCart color="primary" />
                 </Grid>
                 <Grid item>
-                  <Typography variant="h6">{rule.averageBuy} €</Typography>
+                  <Typography variant="h6">{rule.averageBuy} {getCurrencyDisplay()}</Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -89,7 +90,7 @@ export class RuleCard extends React.Component<{}> {
                   <Stars color="primary" />
                 </Grid>
                 <Grid item>
-                  <Typography variant="h6">{rule.totalBuy} €</Typography>
+                  <Typography variant="h6">{rule.totalBuy} {getCurrencyDisplay()}</Typography>
                 </Grid>
               </Grid>
             </Grid>

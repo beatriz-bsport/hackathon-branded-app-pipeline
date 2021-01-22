@@ -29,6 +29,7 @@ import TypographyMultiline from '../../../components/TypographyMultiline.compone
 import ConsumerPackCheckout from '../../consumer-payment-pack/components/ConsumerPaymentPackListItemCheckout.component';
 import PaymentComboBuyableItem from '../../payment-combo/components/PaymentComboBuyableItem.component';
 import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 import { isOfferInThePast } from '../utils';
 import { formatMinutes } from '../../../utils/datetime';
@@ -279,7 +280,7 @@ export class MarketPlaceActivity extends React.Component<Props> {
                             }
                           >
                             <AddShoppingCartIcon className={classes.leftIcon} />
-                            {`${p.price} €`}
+                            {`${p.price} ${getCurrencyDisplay()}`}
                           </Button>
                         }
                       />

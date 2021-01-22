@@ -20,6 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 import PaymentPackCard from '../../payment-packs/components/PaymentPackCard.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 import Analytics from '../../../components/analytics/Analytics.component';
 
 type Props = {
@@ -39,7 +40,9 @@ const PaymentPackMarketplaceListItem = (props: {
 }) => (
   <ListItem divider button onClick={props.onSelect}>
     <ListItemText
-      primary={`${props.paymentPack.name} - ${props.paymentPack.price}€`}
+      primary={`${props.paymentPack.name} - ${
+        props.paymentPack.price
+      }${getCurrencyDisplay()}`}
       secondary={
         props.paymentPack.unlimited
           ? props.t('paymentPack:unlimitedCredits')

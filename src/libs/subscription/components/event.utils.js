@@ -13,6 +13,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 
+import { getCurrencyDisplay } from '../../theme/selectors';
+
 const getPrimaryText = (event, t) =>
   `${t(`events.${event.event_type}`)}${` :  ${
     event.subscription ? event.subscription.name : ' - '
@@ -26,19 +28,19 @@ export const COMPANY_EVENTS = {
   },
   [BILLING_PLAN_EVENTS.payment_success]: {
     icon: <CheckIcon color="primary" />,
-    titleSuffix: (event) => `${event.data.amount}€ - `,
+    titleSuffix: (event) => `${event.data.amount}${getCurrencyDisplay()} - `,
     getPrimaryText,
     i18nText: `subscription:events.${BILLING_PLAN_EVENTS.payment_success}`,
   },
   [BILLING_PLAN_EVENTS.payment_failure]: {
     icon: <CancelIcon color="error" />,
-    titleSuffix: (event) => `${event.data.amount}€ - `,
+    titleSuffix: (event) => `${event.data.amount}${getCurrencyDisplay()} - `,
     getPrimaryText,
     i18nText: `subscription:events.${BILLING_PLAN_EVENTS.payment_failure}`,
   },
   [BILLING_PLAN_EVENTS.payment_dispute]: {
     icon: <WarningIcon color="error" />,
-    titleSuffix: (event) => `${event.data.amount}€ - `,
+    titleSuffix: (event) => `${event.data.amount}${getCurrencyDisplay()} - `,
     getPrimaryText,
     i18nText: `subscription:events.${BILLING_PLAN_EVENTS.payment_dispute}`,
   },

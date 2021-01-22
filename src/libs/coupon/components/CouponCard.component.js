@@ -17,6 +17,7 @@ import type { TFunction } from 'react-i18next';
 
 import { compose, pure } from 'recompose';
 import { VOUCHER_TYPE_AMOUNT } from '@bsport/common/lib/master-data/coupon';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 import { isCurrentlyActive } from '../utils';
 
@@ -50,7 +51,7 @@ export const CouponCard = (props: Props) => {
           )}
           <Typography align="right" variant="h5">
             {coupon.voucher_type === VOUCHER_TYPE_AMOUNT
-              ? `${coupon.amount_off}€`
+              ? `${coupon.amount_off}${getCurrencyDisplay()}`
               : `${coupon.percent_off}%`}
           </Typography>
         </div>

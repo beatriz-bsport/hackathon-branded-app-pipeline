@@ -7,6 +7,7 @@ import { compose } from 'recompose';
 import moment from 'moment-timezone';
 
 import type { TFunction } from 'react-i18next';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 type RecapProps = {
   member: ?Member,
@@ -39,8 +40,8 @@ const RecapSubscription = (props: RecapProps) => (
       >
         {props.price
           ? parseFloat(props.price) - parseFloat(props.recurrentVoucher)
-          : '-- '}{' '}
-        €
+          : '-- '}
+        {` ${getCurrencyDisplay()}`}
       </Typography>
       <Typography inline>{`${props.t('recap.every')}`}</Typography>
       <Typography inline>{props.t(`recap.${props.periodName}`)}</Typography>
@@ -81,8 +82,8 @@ const RecapSubscription = (props: RecapProps) => (
         {props.price && props.nbPeriod
           ? parseInt(props.nbPeriod, 10) *
             (parseFloat(props.price) - parseFloat(props.recurrentVoucher))
-          : '--'}{' '}
-        €
+          : '--'}
+        {` ${getCurrencyDisplay()}`}
       </Typography>
     </div>
   </div>

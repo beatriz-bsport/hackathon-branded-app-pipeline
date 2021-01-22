@@ -23,6 +23,7 @@ import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
 import { appliesToContract as appliesToContractAPI } from '../../coupon/api';
 
 import PaymentMethodList from '../../payment/components/PaymentMethodList.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 const PaymentMethodSwitcher = (props: {
   classes: Object,
@@ -171,11 +172,13 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 {`${parseFloat(
                   this.props.contract.recurrent_price -
                     (this.state.voucher || 0),
-                ).toFixed(2)} €`}
+                ).toFixed(2)} ${getCurrencyDisplay()}`}
               </Typography>
               {!!parseInt(this.props.contract.flat_fee, 10) && (
                 <Typography variant="caption">
-                  {`+${parseFloat(this.props.contract.flat_fee).toFixed(2)} €`}
+                  {`+${parseFloat(this.props.contract.flat_fee).toFixed(
+                    2,
+                  )} ${getCurrencyDisplay()}`}
                 </Typography>
               )}
             </div>
@@ -187,7 +190,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               <Typography color="textSecondary">
                 {`${this.state.coupon_code}   -${(
                   this.state.voucher || 0
-                ).toFixed(2)} €`}
+                ).toFixed(2)} ${getCurrencyDisplay()}`}
               </Typography>
             )}
             <CouponCodeForm

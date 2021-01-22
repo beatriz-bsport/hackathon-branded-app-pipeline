@@ -13,6 +13,7 @@ import type { TFunction } from 'react-i18next';
 
 import { compose, withState } from 'recompose';
 import ProductLine from './ProductLine.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 import type { OrderWithProducts } from '../types';
 
@@ -35,7 +36,7 @@ export const OrderListItem = (props: Props) => {
             (acc, v) => acc + v.quantity,
             0,
           )} ${t('products.nbProducts')}`}
-          secondary={`${order.total_price} €`}
+          secondary={`${order.total_price} ${getCurrencyDisplay()}`}
         />
         <ListItemSecondaryAction>
           <IconButton onClick={() => props.setExpanded(!expanded)}>

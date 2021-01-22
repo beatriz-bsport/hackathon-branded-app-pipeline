@@ -14,6 +14,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import TypographyWithSowMore from '../../../components/TypographyWithShowMore.component';
 
 import type { PaymentCombo } from '../../payment-combo/types';
+import { getCurrencyDisplay } from '../../theme/selectors';
 import Analytics from '../../../components/analytics/Analytics.component';
 
 type Props = {
@@ -57,7 +58,7 @@ const PaymentComboCard = (props: {
             </Typography>
             <div className={props.classes.priceContainer}>
               <Typography variant="h5" component="h4">
-                {`${props.paymentCombo.price}€`}
+                {`${props.paymentCombo.price}${getCurrencyDisplay()}`}
               </Typography>
               {showTotalPrice ? (
                 <Typography
@@ -66,7 +67,7 @@ const PaymentComboCard = (props: {
                   component="h4"
                   color="textSecondary"
                 >
-                  {`${totalItemsPrice.toFixed(2)}€`}
+                  {`${totalItemsPrice.toFixed(2)}${getCurrencyDisplay()}`}
                 </Typography>
               ) : null}
             </div>

@@ -14,6 +14,7 @@ import { compose } from 'recompose';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import { getCurrencyDisplay } from '../../theme/selectors';
 import Analytics from '../../../components/analytics/Analytics.component';
 
 type Props = {
@@ -41,7 +42,7 @@ export const MarketplacePrivatePassList = (props: Props) => {
           {props.privatePassList.map((pp) => (
             <ListItem divider key={pp.id}>
               <ListItemText
-                primary={`${pp.name} - ${pp.price}€`}
+                primary={`${pp.name} - ${pp.price}${getCurrencyDisplay()}`}
                 secondary={`${pp.credits} crédit(s)`}
               />
               <ListItemSecondaryAction>

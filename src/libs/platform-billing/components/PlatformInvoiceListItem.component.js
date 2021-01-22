@@ -8,6 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import AttachIcon from '@material-ui/icons/Attachment';
 import WarningIcon from '@material-ui/icons/Warning';
 
+import { getCurrencyDisplay } from '../../theme/selectors';
+
 type Props = {
   platformInvoice: PlatformInvoice,
 };
@@ -21,7 +23,7 @@ export const PlatformInvoiceListItem = (props: Props) => {
     <ListItem>
       <ListItemText
         primary={t('platformInvoice.label', { month, year })}
-        secondary={`${total_price_cts / 100} €`}
+        secondary={`${total_price_cts / 100} ${getCurrencyDisplay()}`}
       />
       {!!pdf_url && (
         <ListItemSecondaryAction>

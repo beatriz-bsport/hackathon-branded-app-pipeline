@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import classname from 'classnames';
 
+import { getCurrencyDisplay } from '../../theme/selectors';
+
 import type { ShopItem } from '../types';
 
 const ShopItemBuyableItemCard = (props: {
@@ -61,7 +63,7 @@ const ShopItemBuyableItemCard = (props: {
             onClick={() => props.addToOrder(props.shopitem.id)}
           >
             <AddShoppingCartIcon className={props.classes.leftIcon} />
-            {`${props.shopitem.price}€`}
+            {`${props.shopitem.price}${getCurrencyDisplay()}`}
           </Button>
         </div>
       </div>

@@ -9,8 +9,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import withStyles from '@material-ui/core/styles/withStyles';
-
 import { colors } from '@bsport/common/lib/colors';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 import type { Product } from '../types';
 
@@ -28,7 +28,9 @@ export const ProductLine = (props: {
     </ListItemAvatar>
     <ListItemText
       primary={props.product.name}
-      secondary={`${props.product.subline} - ${props.product.unit_price} € x ${props.product.quantity}`}
+      secondary={`${props.product.subline} - ${
+        props.product.unit_price
+      } ${getCurrencyDisplay()} x ${props.product.quantity}`}
     />
     {props.onRemove ? (
       <ListItemSecondaryAction>

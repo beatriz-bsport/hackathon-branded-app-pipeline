@@ -25,6 +25,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
+import { getCurrencyDisplay } from '../theme/selectors';
+
 import type {
   ReportConfiguration,
   ReportExtractResult,
@@ -59,7 +61,7 @@ function getConverter(column, classes, t) {
       if (typeof value === 'number' || !value) {
         return {
           cellProps: { className: classes.right },
-          value: `${parseFloat(value || 0).toFixed(2)}€`,
+          value: `${parseFloat(value || 0).toFixed(2)}${getCurrencyDisplay()}`,
         };
       }
     }
@@ -67,7 +69,9 @@ function getConverter(column, classes, t) {
       if (typeof value === 'number' || !value) {
         return {
           cellProps: { className: classes.right },
-          value: `${(parseFloat(value || 0) / 100).toFixed(2)}€`,
+          value: `${(parseFloat(value || 0) / 100).toFixed(
+            2,
+          )}${getCurrencyDisplay()}`,
         };
       }
     }

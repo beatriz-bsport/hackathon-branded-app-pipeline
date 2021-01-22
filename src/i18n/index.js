@@ -7,6 +7,7 @@ import Moment from 'moment-timezone';
 import HttpBackend from 'i18next-http-backend';
 import config from '../config';
 import languages from './languages.json';
+import { getCurrencyDisplay } from '../libs/theme/selectors';
 
 import 'moment/locale/fr';
 import 'moment/locale/de';
@@ -73,8 +74,10 @@ i18n
           return value.slice(0, 8);
         }
         if (format === 'price') {
-          if (typeof value === 'string') return `${value}€`;
-          if (typeof value === 'number') return `${value.toFixed(2)}€`;
+          if (typeof value === 'string')
+            return `${value}${getCurrencyDisplay()}`;
+          if (typeof value === 'number')
+            return `${value.toFixed(2)}${getCurrencyDisplay()}`;
         }
         return value;
       },

@@ -13,6 +13,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import PaymentForm from '../../checkout/components/PaymentForm.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 type Props = {
   t: TFunction,
@@ -42,7 +43,9 @@ export class ConsumerDebtRegularizerDialog extends React.Component<Props> {
           </Typography>
           <div className={this.props.classes.row}>
             <Typography variant="h6" inline color="error">
-              {`${this.props.member.credit_account_balance} €`}
+              {`${
+                this.props.member.credit_account_balance
+              } ${getCurrencyDisplay()}`}
             </Typography>
             <Button
               color="primary"
@@ -63,7 +66,9 @@ export class ConsumerDebtRegularizerDialog extends React.Component<Props> {
                 <div>
                   <div className={this.props.classes.priceContainer}>
                     <Typography variant="h4">
-                      {-parseFloat(this.props.member.credit_account_balance)} €
+                      {`${-parseFloat(
+                        this.props.member.credit_account_balance,
+                      )} ${getCurrencyDisplay()}`}
                     </Typography>
                   </div>
                   <Typography

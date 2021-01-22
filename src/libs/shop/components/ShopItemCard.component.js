@@ -21,6 +21,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 import RedButton from '../../../components/button/RedButton.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 import type { ShopItem } from '../types';
 
@@ -77,7 +78,7 @@ const ShopItemCard = (props: {
             {props.shopitem.name}
           </Typography>
           <Typography variant="h6" component="p" style={{ marginLeft: 28 }}>
-            {`${props.shopitem.price}€`}
+            {`${props.shopitem.price}${getCurrencyDisplay()}`}
           </Typography>
         </div>
         <Typography variant="h6" component="h4">

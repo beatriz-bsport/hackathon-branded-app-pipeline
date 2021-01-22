@@ -22,7 +22,7 @@ type Props = {
 const VodVideoAnalytics = (props: Props) => {
   const { t } = useTranslation(['video']);
   const classes = useStyles();
-  if (props.loading) {
+  if (props.loading || !props.data) {
     return (
       <div className={classes.loading}>
         <CircularProgress disableShrink />

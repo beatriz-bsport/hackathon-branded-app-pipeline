@@ -27,8 +27,8 @@ export function formatMinutes(minutesNumber: number, t: TFunction) {
   const minutesMinusDays = minutesNumber % (60 * 24);
   const minutesMinusHours = minutesNumber % 60;
 
-  const days = minutesNumber / (60 * 24);
-  const hours = minutesMinusDays / 60;
+  const days = parseInt(minutesNumber / (60 * 24), 0);
+  const hours = parseInt(minutesMinusDays / 60, 10);
 
   let readableDuration = '';
   if (days) {

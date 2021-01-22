@@ -1,7 +1,8 @@
 import React from 'react';
 import { compose } from 'recompose';
 
-import { ButtonBase, withStyles } from '@material-ui/core';
+import { ButtonBase } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import { PrivateServiceSelectorDataProvider, PrivateServiceSelectorPage } from 'bsport-saas/src/pages/marketplace/PrivateService/PrivateServiceSelectorPage/PrivateServiceSelector.page';
@@ -112,7 +113,7 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
               companyId={this.props.companyId.toString()}
               serviceId={this.state.serviceId.toString()}
               onSessionSelect={this.onSessionSelect}
-              hideDetailSummary={true}
+              hideDetailSummary
               store={this.props.store}
               theme={this.props.theme}
             />

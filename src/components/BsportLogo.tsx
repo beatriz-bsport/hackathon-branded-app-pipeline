@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
@@ -26,7 +26,7 @@ class BsportLogo extends React.PureComponent<Props> {
             </Typography>
             <img
               alt="bsport"
-              className={this.props.classes.logoStuffBlabla}
+              className={this.props.classes.logo}
               src="https://cdn.bsport.io/bsport_logo_txt.png"
             />
           </a>
@@ -59,7 +59,7 @@ const styles = () => ({
       textDecoration: 'none !important', // not working ?
     },
   },
-  logoStuffBlabla: {
+  logo: {
     maxHeight: '24px !important',
     backgroundColor: 'transparent !important',
   },

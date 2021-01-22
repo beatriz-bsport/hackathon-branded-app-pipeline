@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
 
-import { withStyles } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import NewsletterFormComponent from 'bsport-saas/src/libs/marketing/components/NewsletterForm.component';
 import { createNewsletterMember } from 'bsport-saas/src/libs/marketing/api';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';

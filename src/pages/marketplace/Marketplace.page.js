@@ -379,7 +379,7 @@ export class MarketPlace extends Component<Props, State> {
                 variant="scrollable"
                 value={parseInt(this.props.tabSelected, 10)}
               >
-                {this.props.settings.config.map((tab, i) => {
+                {(this.props.settings.config || []).map((tab, i) => {
                   if (
                     tab.componentType === MarketplaceComponentsEnum.vod &&
                     !(

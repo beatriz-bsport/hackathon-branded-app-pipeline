@@ -85,7 +85,7 @@ export class CalendarWidget extends Component<Props, State> {
       <MarketplaceCalendarStyled
         {...this.props}
         companyId={this.props.companyId}
-        compactMode={this.props.config.compactMode}
+        compactMode={this.props.config ? this.props.config.compactMode : undefined}
         authenticated={this.props.authenticated}
         requestSignUp={this.props.requestSignup}
         toogleCurrentBasketOpen={this.props.toogleCurrentBasketOpen}

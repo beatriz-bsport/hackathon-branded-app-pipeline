@@ -5,7 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "NODE_ENV=production webpack-cli --mode production",
+    "build": "NODE_ENV=production NODE_OPTIONS='--max_old_space_size=4096' webpack-cli --mode production",
     "start": "NODE_ENV=development webpack-dev-server",
     "analyze": "source-map-explorer dist/widget.js",
     "test": "jest",

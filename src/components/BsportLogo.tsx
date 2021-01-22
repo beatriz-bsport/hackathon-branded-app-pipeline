@@ -11,7 +11,6 @@ type Props = {
 } & MaterialStyleType<ReturnType<typeof styles>>
 
 class BsportLogo extends React.PureComponent<Props> {
-
   render() {
     return (
       <div className={this.props.classes.poweredByContainer}>
@@ -27,7 +26,7 @@ class BsportLogo extends React.PureComponent<Props> {
             </Typography>
             <img
               alt="bsport"
-              className={this.props.classes.logo}
+              className={this.props.classes.logoStuffBlabla}
               src="https://cdn.bsport.io/bsport_logo_txt.png"
             />
           </a>
@@ -39,15 +38,19 @@ class BsportLogo extends React.PureComponent<Props> {
 
 const styles = () => ({
   poweredByContainer: {
-    width: '100%',
+    width: '100% !important',
+    backgroundColor: 'transparent !important',
   },
   centerRight: {
-    display: 'flex',
+    display: 'flex !important',
+    width: '100% !important',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
+    backgroundColor: 'transparent !important',
   },
   poweredBy: {
+    backgroundColor: 'transparent !important',
     display: 'flex !important',
     flexDirection: 'column !important',
     alignItems: 'flex-end !important',
@@ -56,8 +59,9 @@ const styles = () => ({
       textDecoration: 'none !important', // not working ?
     },
   },
-  logo: {
+  logoStuffBlabla: {
     maxHeight: '24px !important',
+    backgroundColor: 'transparent !important',
   },
 });
 

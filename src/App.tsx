@@ -9,6 +9,7 @@ import SnackbarPile from 'bsport-saas/src/SnackbarPile.component';
 import { getTheme } from 'bsport-saas/src/theme';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
@@ -19,11 +20,13 @@ import AuthDialog from './components/AuthDialog';
 import BsportLogo from './components/BsportLogo';
 import './App.scss';
 
-const CalendarWidget = React.lazy(() => import('./widgets/Calendar'));
-const VODWidget = React.lazy(() => import('./widgets/Vod'));
-const PrivateServiceWidget = React.lazy(() => import('./widgets/PrivateService'));
-const WorkshopWidget = React.lazy(() => import('./widgets/Workshop'));
-const NewsletterWidget = React.lazy(() => import('./widgets/Newsletter'));
+import asyncComponent from './AsyncComponent';
+
+const CalendarWidget = asyncComponent(() => import('./widgets/Calendar'));
+const VODWidget = asyncComponent(() => import('./widgets/Vod'));
+const PrivateServiceWidget = asyncComponent(() => import('./widgets/PrivateService'));
+const WorkshopWidget = asyncComponent(() => import('./widgets/Workshop'));
+const NewsletterWidget = asyncComponent(() => import('./widgets/Newsletter'));
 
 const Snackbar = themify(SnackbarPile);
 
@@ -48,16 +51,6 @@ class BsportWidget extends Component<Props, State> {
     showLogin: false,
     showSignup: false,
   };
-
-  componentWillMount() {
-    if (this.props.lang && this.props.lang !== 'fr-FR') {
-      import('bsport-saas/src/i18n')
-        .then((i18n) => {
-          i18n.default.changeLanguage(this.props.lang);
-        })
-        .catch(console.error);
-    }
-  }
 
   componentDidMount() {
     this.fetchData();
@@ -130,10 +123,17 @@ class BsportWidget extends Component<Props, State> {
 
   render() {
     const { classes } = this.props;
+    if (!this.props.theme || !!this.props.themeLoading) {
+      return (
+      <div className={classes.container}>
+        <CircularProgress />
+      </div>
+      );
+    }
 
     return (
       <div className={classes.container}>
-        <React.Suspense fallback={<div />}>
+        <React.Suspense fallback={<CircularProgress />}>
           <MuiThemeProvider
             theme={getTheme(this.props.theme)}
           >
@@ -180,6 +180,7 @@ const styles = () => ({
     display: 'flex !important',
     flexDirection: 'column',
     alignItems: 'center',
+    backgroundColor: 'transparent !important',
   },
 });
 
@@ -187,6 +188,7 @@ const styles = () => ({
 const mapStateToProps = (state: RootState) => ({
   auth: state.auth,
   theme: state.theme.theme,
+  themeLoading: state.theme.loading,
   errorFields: state.auth.invalidFields,
   checkEmailExistsLoading: state.auth.emailExists.loading,
   emailExists: state.auth.emailExists.exists,
@@ -204,5 +206,5 @@ const mapDispatchToProps = {
 export default compose(
   // @ts-ignore
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(BsportWidget);

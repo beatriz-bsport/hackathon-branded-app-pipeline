@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
@@ -10,15 +10,15 @@ type Props = {
   theme: Theme
 } & MaterialStyleType<ReturnType<typeof styles>>
 
-class BsportLogo extends React.PureComponent<Props> {
-  render() {
+const BsportLogo = (props) => {
+    const classes = useStyles();
     return (
-      <div className={this.props.classes.poweredByContainer}>
-        <div className={this.props.classes.centerRight}>
+      <div className={classes.poweredByContainer}>
+        <div className={classes.centerRight}>
           <a
-            className={this.props.classes.poweredBy}
+            className={classes.poweredBy}
             href={`https://pro.bsport.io?utm_source=widget&utm_medium=referral&utm_content=bsport_logo&utm_campaign=${(
-              this.props.theme.company_name || ''
+              props.theme.company_name || ''
             ).replace(/\//gi, '-')}`}
           >
             <Typography color="textSecondary" variant="caption">
@@ -26,17 +26,16 @@ class BsportLogo extends React.PureComponent<Props> {
             </Typography>
             <img
               alt="bsport"
-              className={this.props.classes.logo}
+              className={classes.logo}
               src="https://cdn.bsport.io/bsport_logo_txt.png"
             />
           </a>
         </div>
       </div>
     );
-  }
-}
+};
 
-const styles = () => ({
+const useStyles = makeStyles(() => ({
   poweredByContainer: {
     width: '100% !important',
     backgroundColor: 'transparent !important',
@@ -63,7 +62,7 @@ const styles = () => ({
     maxHeight: '24px !important',
     backgroundColor: 'transparent !important',
   },
-});
+}));
 
 // @ts-ignore
-export default withStyles(styles)(BsportLogo);
+export default BsportLogo;

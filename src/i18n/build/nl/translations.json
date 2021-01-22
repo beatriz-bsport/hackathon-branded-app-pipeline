@@ -2849,7 +2849,8 @@
             "addActivity": "Een activiteit toevoegen"
         },
         "noActivities": "Beheer hier je activiteiten. Een activiteit stelt je in staat een reeks sessies (meestal groepslessen) van dezelfde activiteit te organiseren.",
-        "disabledMetaActivities": "Gearchiveerde activiteiten"
+        "disabledMetaActivities": "Gearchiveerde activiteiten",
+        "workshop": "Workshop"
     },
     "offer": {
         "video": {

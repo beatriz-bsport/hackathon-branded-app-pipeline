@@ -8,4 +8,4 @@ window.runtime.env.REACT_APP_STRIPE_PK_KEY = 'pk_live_1pfyc0rY3HcMlwavrdT633XL';
 window.runtime.env.REACT_APP_GOOGLE_MAPS_API_KEY = 'NA';
 window.runtime.env.REACT_APP_SENTRY_DSN =
   '';
-window.runtime.env.I18N_CUSTOM_SERVER = 'TRUE';
+window.runtime.env.I18N_TRANSLATION_DOMAIN = 'https://backoffice.bsport.io';

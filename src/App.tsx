@@ -21,6 +21,7 @@ import { auth as authActions } from 'bsport-saas/src/actions';
 import { RootState } from './store/reducer';
 import BsportLogo from './components/BsportLogo';
 import './App.scss';
+import { snackbarSuccess } from 'bsport-saas/src/actions/snackbar.actions';
 
 import asyncComponent from './AsyncComponent';
 import AuthDialog from './components/AuthDialog';
@@ -49,21 +50,46 @@ type Props = OwnProps &
 interface State {
   showLogin: boolean;
   showSignup: boolean;
+  requestVideoAccessRefreshFlag: number;
 }
 
 class BsportWidget extends Component<Props, State> {
+  popupWindow?: any = null;
+  isVOD?: boolean = false;
+  VOD_REF?: any = null
+
   state = {
     showLogin: false,
     showSignup: false,
+    requestVideoAccessRefreshFlag: 0,
   };
 
   componentDidMount() {
     this.fetchData();
+
+    window.addEventListener("message", (event: any) => {
+      if (event.data && event.data.type === "paymentSuccess") {
+        this.props.success('snackbar:consumerPass.success');
+        this.popupWindow && this.popupWindow.close();
+
+        this.setState((prevState) => {
+          const key = prevState.requestVideoAccessRefreshFlag + 1;
+          return {
+            requestVideoAccessRefreshFlag: key,
+          };
+        });
+      }
+    }, false);
   }
 
   fetchData() {
     this.props.fetchSCT();
     this.props.fetchCompanyTheme(this.props.companyId);
+  }
+
+  onWindowOpen = (w: Window, isVOD?: boolean) => {
+    this.popupWindow = w;
+    this.isVOD = isVOD;
   }
 
   renderWidget() {
@@ -77,6 +103,7 @@ class BsportWidget extends Component<Props, State> {
             config={config.workshop}
             store={store}
             theme={theme}
+            onWindowOpen={this.onWindowOpen}
           />
         );
       case 'privateService':
@@ -86,17 +113,23 @@ class BsportWidget extends Component<Props, State> {
             store={store}
             config={config.privateService}
             theme={theme}
+            onWindowOpen={this.onWindowOpen}
           />
         );
       case 'vod':
       case 'playlist':
         return (
           <VODWidget
+            ref={(ref) => {
+              this.VOD_REF = ref;
+            }}
             companyId={companyId}
             config={config[widgetType]}
             onRequestLogin={() => this.setState({ showLogin: true })}
             store={store}
             theme={theme}
+            onWindowOpen={this.onWindowOpen}
+            requestVideoAccessRefreshFlag={this.state.requestVideoAccessRefreshFlag}
           />
         );
       case 'newsletter':
@@ -110,6 +143,7 @@ class BsportWidget extends Component<Props, State> {
             requestSignup={() => this.setState({ showLogin: true })}
             toogleCurrentBasketOpen={() => null}
             theme={theme}
+            onWindowOpen={this.onWindowOpen}
           />
         );
     }
@@ -187,6 +221,7 @@ const mapDispatchToProps = {
     authActions.requestLogin(email, password),
   disconnect: authActions.disconnect,
   checkEmailExists: authActions.checkEmailExists,
+  success: (s: string) => snackbarSuccess(s),
 };
 
 export default compose(

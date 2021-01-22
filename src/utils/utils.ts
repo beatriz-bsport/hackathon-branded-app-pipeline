@@ -1,4 +1,4 @@
-export const openTab = (url: string) => {
+export const openTab = (url: string, target?: string) => {
   const width = window.innerWidth * 0.5;
   const height = window.innerHeight * 0.5;
   const params = `
@@ -14,5 +14,5 @@ export const openTab = (url: string) => {
       top=${height / 2}
     `;
 
-  window.open(url, '_blank', params);
+  return window.open(url, target || '_blank', params);
 };

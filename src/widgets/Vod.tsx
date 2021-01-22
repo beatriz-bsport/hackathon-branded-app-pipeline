@@ -1,5 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
+import { connect } from 'react-redux';
 
 import { ButtonBase } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -26,18 +27,25 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { getMarketplaceRoute } from 'bsport-saas/src/pages/marketplace/routing-utils';
 
+
 import './video.css';
 import { openTab } from '../utils/utils';
+import { RootState } from '../store/reducer';
 
 type OwnProps = {
-  companyId: number,
-  store: any,
-  config: MarketplacePlaylistData & MarketplaceVODData,
-  onRequestLogin: () => void,
-  theme: Theme,
-};
+  companyId: number;
+  store: any;
+  config: MarketplacePlaylistData & MarketplaceVODData;
+  onRequestLogin: () => void;
+  theme: Theme;
+  onWindowOpen: (popupWindow: any) => void;
+  requestVideoAccessRefreshFlag: number;
+}
 
-type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
+type Props = OwnProps &
+  ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps &
+  MaterialStyleType<ReturnType<typeof styles>>;
 
 interface State {
   videoId?: number;
@@ -103,7 +111,9 @@ class VODWidget extends React.PureComponent<Props, State> {
       this.props.companyId,
       'pass'
     );
-    openTab(`http://localhost:3000${url}`);
+
+    const popupWindow = openTab(`http://localhost:3000${url}?authToken=${this.props.auth.token}&context=widget`);
+    this.props.onWindowOpen(popupWindow);
   }
 
 
@@ -153,6 +163,9 @@ class VODWidget extends React.PureComponent<Props, State> {
                 requestSignUp={this.props.onRequestLogin}
                 onRequestBuyPass={this.onRequestBuyPass}
                 openVideo={this.openVideo}
+                requestVideoAccessRefreshFlag={
+                  this.props.requestVideoAccessRefreshFlag
+                }
                 store={this.props.store}
                 theme={this.props.theme}
               />
@@ -218,7 +231,14 @@ const styles = () => ({
   },
 });
 
+const mapStateToProps = (state: RootState) => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = {};
+
 export default compose<any, OwnProps>(
   // @ts-ignore
-  withStyles(styles)
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
 )(VODWidget);

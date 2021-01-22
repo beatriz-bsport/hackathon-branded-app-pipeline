@@ -23,6 +23,13 @@ const migrateOldProps = (props) => {
       };
   }
 
+  if (
+    !['calendar', 'workshop', 'privateService', 'newsletter', 'vod']
+    .includes(_props.widgetType)
+  ) {
+    _props.widgetType = 'calendar';
+  }
+
   return _props;
 };
 

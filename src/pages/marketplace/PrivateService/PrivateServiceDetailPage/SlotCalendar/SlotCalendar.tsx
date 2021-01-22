@@ -157,7 +157,6 @@ const useStyles = makeStyles((theme) => ({
   },
   itemLayout: {
     display: 'flex',
-    padding: theme.spacing(1),
     [theme.breakpoints.up('md')]: {
       flexBasis: `${100 / 7}%`,
       maxWidth: `${100 / 7}%`,

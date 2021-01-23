@@ -1,0 +1,102 @@
+image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-frontend:latest
+
+variables:
+  AWS_REGION: eu-west-3
+  REGISTRY_ENDPOINT: 672633452901.dkr.ecr.eu-west-3.amazonaws.com
+
+#Cache dependencies across all jobs
+
+stages:
+  #   - prepare-image-docker
+  #- static-analysis
+  - build-deploy
+
+
+
+# Prepare Docker Builder Image:
+#   image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:v1.0.1
+#   tags:
+#     - deployment
+#   stage: prepare-image-docker
+#   script:
+#     - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_ENDPOINT}
+#     - docker build --network host -t ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME} .
+#     - docker push ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
+
+# Lint:
+#   # image: ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
+#   stage: static-analysis
+#   tags:
+#     - deployment
+#   script:
+#     # - mv /app/node_modules .
+#     - ./link_bsport_saas/sh
+#     - yarn install --frozen-lockfile
+#     - yarn lint
+# 
+#   except:
+#     - master
+#     - production
+
+.Build and deploy Base:
+  # image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  stage: build-deploy 
+  tags:
+    - build-frontend
+  only:
+    refs:
+      - dev
+      - master
+      - production
+  script:
+    # - mv /app/node_modules .
+    - echo "FAILED" > .job_status
+    - ./link_bsport_saas.sh
+    - yarn install --frozen-lockfile # just to be sure
+    - ./build_prod.sh
+    - echo "SUCCESS" > .job_status
+
+  after_script:
+    - STATUS=`echo "$(cat .job_status)"`
+    - echo "$STATUS"
+    - cat .job_status
+    - export STATUS
+    - '[[ "$STATUS" = "SUCCESS" ]] && COLOR="#36a64f" || COLOR="#E00201"'
+    - '[[ "$STATUS" = "SUCCESS" ]] && SUCCESS_ICON="https://pluspng.com/img-png/success-png-success-icon-image-23194-400.png" || SUCCESS_ICON="http://www.pngall.com/wp-content/uploads/2016/06/Fail-Stamp-PNG-Clipart.png"'
+    - export SUCCESS_ICON
+    - envsubst < ./slack_template.json > slack_template2.json
+    - cat slack_template2.json
+    - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
+
+Buid Deploy Staging:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - master
+  variables:
+    S3BUCKETNAME: bsport-eu-cdn-staging
+    ENVIRONMENT: staging
+    CLOUDFRONT_ID: E2NQSHB4DJBRY8
+    SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
+
+Buid Deploy Production:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - production
+  variables:
+    S3BUCKETNAME: bsport-cdn
+    ENVIRONMENT: production
+    CLOUDFRONT_ID: E3PVSAXDFQZX1T 
+    SLACK_WEBHOOK_URL: "${SLACK_PRODUCTION_WEBHOOK_URL}"
+
+Buid Deploy Dev:
+  extends: .Build and deploy Base
+  only:
+    refs:
+      - dev
+  variables:
+    ENVIRONMENT: dev
+    SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
+    S3BUCKETNAME: bsport-eu-cdn-dev
+    CLOUDFRONT_ID: ESH8WNSF9KT1H

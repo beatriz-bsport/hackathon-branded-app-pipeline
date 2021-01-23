@@ -8,9 +8,9 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 
 type Props = {
   theme: Theme
-} & MaterialStyleType<ReturnType<typeof styles>>
+} & MaterialStyleType<ReturnType<any>>
 
-const BsportLogo = (props) => {
+const BsportLogo = (props: Props) => {
     const classes = useStyles();
     return (
       <div className={classes.poweredByContainer}>

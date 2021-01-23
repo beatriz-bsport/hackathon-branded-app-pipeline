@@ -1,9 +1,18 @@
 #!/bin/sh
 
-S3BUCKETNAME=bsport-cdn
+set -e
+
 S3BUCKETLOCATION=/scripts
 
 S3DESTINATION=$S3BUCKETNAME$S3BUCKETLOCATION
+
+rm ./config.prod.js
+exho $ENVIRONMENT
+cp ./config.$ENVIRONMENT.js 
+cp ./config.$ENVIRONMENT.js ./config.prod.js
+
+ls
+cat ./config.prod.js
 
 yarn
 yarn build
@@ -21,6 +30,6 @@ aws s3 cp ./widget.js s3://$S3DESTINATION/widget.js \
   --content-type application/javascript \
   --acl public-read
 
-aws cloudfront create-invalidation --distribution-id E3PVSAXDFQZX1T --paths /scripts/widget.js
+aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths /scripts/widget.js
 
 cd -

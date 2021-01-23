@@ -1,0 +1,53 @@
+{
+	"text": "Build: bsport-widget on ${ENVIRONMENT} - ${STATUS}",
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*Docker Image Build ${SUCCESS}*"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*Service*: bsport-widget \n*Docker Image*: ${TAG}\n*Author*: ${GITLAB_USER_NAME}\n"
+			},
+			"accessory": {
+				"type": "image",
+				"image_url": "${SUCCESS_ICON}",
+				"alt_text": "none"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*Version: ${VERSION}\n*Release*: ${CI_COMMIT_SHA}\n**${CI_COMMIT_MESSAGE}**"
+			},
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*Changelog*: \n${CHANGELOG}"
+			}
+		},
+		{
+			"type": "context",
+			"elements": [
+				{
+					"type": "image",
+					"image_url": "https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo.png",
+					"alt_text": "none"
+				},
+				{
+					"type": "mrkdwn",
+					"text": "*Gitlab-CI*"
+				}
+			]
+		}
+	]
+}

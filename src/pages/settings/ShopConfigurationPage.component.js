@@ -36,15 +36,15 @@ type Props = {
   disableDeliveryFee: (DeliveryFee) => void,
   openedFee: ?DeliveryFee,
 
-  patchConfiguration: (*) => void,
-  fetchConfiguration: (*) => void,
+  patchConfiguration: (any) => void,
+  fetchConfiguration: (any) => void,
   fetchAllDeliveryFee: () => void,
   createOrUpdateDeliveryFee: (data: *) => void,
 
-  configuration: *,
+  configuration: any,
   deliveryFees: Array<DeliveryFee>,
 
-  classes: *,
+  classes: any,
   t: TFunction,
 };
 

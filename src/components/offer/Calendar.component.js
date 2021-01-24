@@ -44,7 +44,7 @@ type Props = {
   toogleSearchBar: ?() => void,
   classes: Object,
   searchBarOpen: ?boolean,
-  events?: { [*]: *[] },
+  events?: { [string]: Array<any> },
   searchBar: ?any,
   loading: ?boolean,
   showDayName: ?boolean,

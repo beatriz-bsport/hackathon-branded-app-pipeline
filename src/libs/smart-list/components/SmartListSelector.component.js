@@ -13,7 +13,7 @@ import Selector from '../../../components/Selector.component';
 type Props = {
   classes: Object,
   smartLists: Array<SmartList>,
-  onChange: (?number) => void,
+  onChange: (number) => void,
   helperText: string,
   values: ?Array<number>,
   selectorClass: string,

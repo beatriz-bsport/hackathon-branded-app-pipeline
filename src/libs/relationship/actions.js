@@ -86,7 +86,7 @@ export const memberRelationListActions = {
 
 export function fetchMemberRelations(
   memberId: number,
-  options: { onSuccess: (Array<MemberRelation>) => void, onError: () => void },
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(memberRelationListActions.isLoading(true));

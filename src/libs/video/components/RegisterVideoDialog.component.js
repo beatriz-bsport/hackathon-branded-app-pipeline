@@ -20,7 +20,7 @@ type Props = {
   onClose: () => void,
   creditPrice: number,
   onBuyPass: () => void,
-  registerVideo: ({
+  registerVideo: (stuff: {
     consumer_payment_pack?: number,
     private_consumer_pass?: number,
   }) => void,

@@ -1,3 +1,4 @@
+// @flow
 /* eslint-disable */
 
 import React from 'react';
@@ -32,7 +33,12 @@ export default function withQueryParams([
   paramsArray,
   paramGroupName,
   paramSetterName,
-  mode: string = 'string',
+  mode = 'string',
+]: [
+   Array<string>,
+   ?string,
+   ?string,
+   ?string,
 ]) {
   return (WrappedComponent) => {
     return compose(

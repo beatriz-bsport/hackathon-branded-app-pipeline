@@ -16,7 +16,7 @@ type Props = {
   initial: string,
   label: ?string,
   helperText: ?string,
-  onChange: (*) => void,
+  onChange: (any) => void,
   name: string,
 };
 type State = {

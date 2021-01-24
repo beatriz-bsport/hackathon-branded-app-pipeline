@@ -4,8 +4,8 @@ import React, { PureComponent } from 'react';
 import PaginatedListBase from './PaginatedListBase.component';
 
 type Props = {
-  items: Array<*>,
-  renderItem: (*, number, number) => any,
+  items: Array<any>,
+  renderItem: (any, number, number) => any,
   listProps: {},
   loading: ?boolean,
   itemPerPage: number,

@@ -22,7 +22,7 @@ type Props = {
     duration_second_range: string,
     search: string,
   },
-  onChangeSearchParams: (string) => (?string) => void,
+  onChangeSearchParams: (string) => (string) => void,
   coaches: Array<Coach>,
   scts: Array<SCT>,
 };

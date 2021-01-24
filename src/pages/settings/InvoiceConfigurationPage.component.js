@@ -16,7 +16,7 @@ type Props = {
   fetchInvoiceConfiguration: () => void,
   loading: boolean,
   processing: boolean,
-  patchInvoiceConfiguration: (*) => void,
+  patchInvoiceConfiguration: (any) => void,
   configuration: ?{
     stripe_footer: string,
   },

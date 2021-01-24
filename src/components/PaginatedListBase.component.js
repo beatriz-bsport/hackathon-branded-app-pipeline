@@ -16,8 +16,8 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 type Props = {
-  items: Array<*>,
-  renderItem: (*, number, number) => HTMLElement,
+  items: Array<any>,
+  renderItem: (any, number, number) => HTMLElement,
   renderEmpty?: () => void,
   listProps: any,
   nbItems: number,

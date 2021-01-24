@@ -37,7 +37,7 @@ type Props = {
   coaches: *[],
   establishments: *[],
   metaActivities: Array<MetaActivity>,
-  setFilters: (*) => void,
+  setFilters: (any) => void,
   filters: *,
   toogleFiltersOpen: () => void,
   filtersOpen: boolean,

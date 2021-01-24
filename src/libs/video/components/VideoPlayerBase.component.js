@@ -10,7 +10,6 @@ import 'video.js/dist/video-js.css';
 type Props = {
   rounded: boolean,
   videojsProps: {
-    ...any,
     sources: Array<{ src: string }>,
   },
 };

@@ -37,7 +37,7 @@ export function windowTitleToProps(WrappedComponent) {
   };
 }
 
-const withTitle = (mapPropsToTitle: (*) => string) => {
+const withTitle = (mapPropsToTitle: (any) => string) => {
   return (WrappedComponent: AbstractComponent<any>) => {
     class Wrapper extends Component<any> {
       componentWillUnmount() {

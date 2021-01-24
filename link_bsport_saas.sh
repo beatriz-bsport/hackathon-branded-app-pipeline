@@ -10,6 +10,8 @@ cd /bsport-saas
 
 echo checkout saas to $CI_COMMIT_REF_NAME
 git checkout $CI_COMMIT_REF_NAME
+mkdir -p ./build
+cp ./envs/$ENVIRONMENT ./build/env.js
 yarn install --frozen-lockfile
 
 echo linking project

@@ -6,13 +6,12 @@ S3BUCKETLOCATION=/scripts
 
 S3DESTINATION=$S3BUCKETNAME$S3BUCKETLOCATION
 
-rm ./config.prod.js
-exho $ENVIRONMENT
-cp ./config.$ENVIRONMENT.js 
-cp ./config.$ENVIRONMENT.js ./config.prod.js
+echo $ENVIRONMENT
+cp ./config.$ENVIRONMENT.js ./config.production.js
 
-ls
-cat ./config.prod.js
+echo "Current env is "
+cat ./config.production.js
+cat ./config.production.js | echo
 
 yarn
 yarn build

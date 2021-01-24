@@ -78,6 +78,7 @@ Buid Deploy Staging:
     ENVIRONMENT: staging
     CLOUDFRONT_ID: E2NQSHB4DJBRY8
     SLACK_WEBHOOK_URL: "${SLACK_STAGING_WEBHOOK_URL}"
+    CDN_DOMAIN: cdn.staging.bsport.io
 
 Buid Deploy Production:
   extends: .Build and deploy Base
@@ -89,6 +90,7 @@ Buid Deploy Production:
     ENVIRONMENT: production
     CLOUDFRONT_ID: E3PVSAXDFQZX1T 
     SLACK_WEBHOOK_URL: "${SLACK_PRODUCTION_WEBHOOK_URL}"
+    CDN_DOMAIN: cdn.bsport.io
 
 Buid Deploy Dev:
   extends: .Build and deploy Base
@@ -100,3 +102,4 @@ Buid Deploy Dev:
     SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
     S3BUCKETNAME: bsport-eu-cdn-dev
     CLOUDFRONT_ID: ESH8WNSF9KT1H
+    CDN_DOMAIN: cdn.dev.bsport.io

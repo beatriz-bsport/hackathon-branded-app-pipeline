@@ -123,14 +123,14 @@ module.exports = [
     entry: [
       devMode
         ? require.resolve('./config.dev')
-        : require.resolve('./config.prod'),
+        : require.resolve('./config.production'),
       './src/index.js',
     ],
     output: {
       path: distDir,
       publicPath: devMode
         ? 'http://localhost:9000/'
-        : 'https://cdn.bsport.io/scripts/',
+      : `https://${process.env.CDN_DOMAIN}/scripts/`,
       filename: 'widget.js',
       library: 'BsportWidget',
       libraryExport: 'default',

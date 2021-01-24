@@ -22,6 +22,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import i18n from '../../i18n';
 import { snackbarSuccess } from '../../actions/snackbar.actions';
+import Config from '../../config';
 
 type Props = {
   setOpenWidgetDialog: () => void,
@@ -158,7 +159,7 @@ export const WidgetButton = (props: Props) => {
               <div className={classes.code}>
                 <Typography>
                   {
-                    '<script src="https://cdn.bsport.io/scripts/widget"></script>'
+                    `<script src="https://${Config.REACT_APP_CDN_DOMAIN}/scripts/widget"></script>`
                   }
                 </Typography>
                 <Typography>{'<script>'}</Typography>
@@ -214,7 +215,7 @@ export const WidgetButton = (props: Props) => {
                 </Typography>
                 <Typography className={classes.alinea}>
                   {
-                    '<script src="https://cdn.bsport.io/scripts/widget"></script>'
+										`<script src="https://${Config.REACT_APP_CDN_DOMAIN}/scripts/widget"></script>`
                   }
                 </Typography>
                 <Typography className={classes.alinea}>{'<script>'}</Typography>
@@ -376,7 +377,7 @@ export const WidgetButton = (props: Props) => {
             srcDoc={`<div>
             <div id='bsport-widget'/>
 
-            <script src='https://cdn.bsport.io/scripts/widget'></script>
+            <script src='https://${Config.REACT_APP_CDN_DOMAIN}/scripts/widget'></script>
             <script>
             BsportWidget.mount({
               parentElement: "bsport-widget",

@@ -15,4 +15,5 @@ env.REACT_APP_ZOOM_CLIENT_ID='ayAjSMV0SiOR383VkR3I4Q';
 env.REACT_APP_SENTRY_ENVIRONMENT = 'dev';
 env.NODE_ENV='production'
 env.REACT_APP_INTERCOM_APP_ID = 'q6foivp2';
+env.REACT_APP_CDN_DOMAIN = 'cdn.dev.bsport.io';
 env.PUBLIC_URL = 'https://backoffice.dev.bsport.io';

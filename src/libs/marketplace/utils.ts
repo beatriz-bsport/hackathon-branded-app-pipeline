@@ -5,6 +5,8 @@ import {
   WidgetComponentsEnum,
 } from './types';
 
+import Config from '../../config';
+
 export function isOfferInThePast(offer: Offer) {
   return !moment(offer.date_start).isSameOrBefore(moment());
 }
@@ -61,7 +63,9 @@ export class WidgetCodeStringGenerator {
     useIframe: boolean;
   }) {
     const componentConfig = args.config[args.componentType];
-    const code = `<script src="https://cdn.bsport.io/scripts/widget.js"></script>
+    const code = `<script src="https://${
+      Config.REACT_APP_CDN_DOMAIN
+    }/scripts/widget.js"></script>
 <script> 
     BsportWidget.mount({
         "parentElement": "bsport-widget",

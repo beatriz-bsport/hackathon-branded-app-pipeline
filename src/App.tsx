@@ -55,8 +55,6 @@ interface State {
 
 class BsportWidget extends Component<Props, State> {
   popupWindow?: any = null;
-  isVOD?: boolean = false;
-  VOD_REF?: any = null
 
   state = {
     showLogin: false,
@@ -87,9 +85,8 @@ class BsportWidget extends Component<Props, State> {
     this.props.fetchCompanyTheme(this.props.companyId);
   }
 
-  onWindowOpen = (w: Window, isVOD?: boolean) => {
+  onWindowOpen = (w: Window) => {
     this.popupWindow = w;
-    this.isVOD = isVOD;
   }
 
   renderWidget() {
@@ -120,9 +117,6 @@ class BsportWidget extends Component<Props, State> {
       case 'playlist':
         return (
           <VODWidget
-            ref={(ref) => {
-              this.VOD_REF = ref;
-            }}
             companyId={companyId}
             config={config[widgetType]}
             onRequestLogin={() => this.setState({ showLogin: true })}

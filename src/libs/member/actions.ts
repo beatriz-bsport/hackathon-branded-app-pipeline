@@ -363,7 +363,7 @@ export function errorFetchingMember() {
 }
 
 export function createOrUpdateMember(
-  id: number | undefined | null,
+  id,
   memberData: FormData,
   options?: OptionCallback,
 ) {

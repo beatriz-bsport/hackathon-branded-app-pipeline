@@ -67,7 +67,7 @@ export async function linkMeToCompany(data: any) {
 }
 
 export async function updateMember(data: any) {
-  return putAuth(`${API_V1_URI}/member/${data.id}/`, data);
+  return putAuth(`${API_V1_URI}/member/${data.get('id')}/`, data);
 }
 
 export async function merge(src: number, dst: number) {

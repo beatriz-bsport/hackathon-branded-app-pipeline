@@ -250,7 +250,9 @@ export class CheckoutPayment extends React.Component<Props> {
                     paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
                       PAYMENT_ENGINE_STRIPE
                     ].filter((pm) =>
-                      this.props.theme.payment_method_available.includes(pm),
+                      (
+                        this.props.theme.payment_method_available || []
+                      ).includes(pm),
                     )}
                     clientSecret={this.state.clientSecret}
                     clientSecretLoading={this.state.clientSecretLoading}

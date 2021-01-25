@@ -153,7 +153,6 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     width: '100%',
     flexDirection: 'row',
-    overflow: 'hidden',
   },
   itemLayout: {
     display: 'flex',

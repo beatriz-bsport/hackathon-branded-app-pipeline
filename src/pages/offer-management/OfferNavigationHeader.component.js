@@ -94,7 +94,7 @@ const styles = (theme) => ({
     marginLight: theme.spacing(1),
   },
   headerContainer: {
-    marginTop: -theme.spacing(2),
+    marginTop: theme.spacing(-2),
   },
   titleBanner: {
     paddingTop: theme.spacing(1) / 2,

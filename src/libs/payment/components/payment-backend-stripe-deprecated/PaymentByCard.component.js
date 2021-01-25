@@ -336,7 +336,7 @@ const styles = (theme) => ({
     alignItems: 'flex-end',
   },
   savePaymentMethodCheckbox: {
-    marginLeft: -theme.spacing(1),
+    marginLeft: theme.spacing(-1),
     display: 'flex',
     alignItems: 'center',
     '&>*': {

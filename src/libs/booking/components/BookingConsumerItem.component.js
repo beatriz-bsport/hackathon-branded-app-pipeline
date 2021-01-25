@@ -125,7 +125,7 @@ const styles = (theme) => ({
   largeAvatar: {
     width: theme.spacing(14),
     height: theme.spacing(14),
-    marginBottom: -theme.spacing(4),
+    marginBottom: theme.spacing(-4),
   },
   translucentPaper: {
     backgroundColor: 'rgba(255, 255, 255, 0.6)',

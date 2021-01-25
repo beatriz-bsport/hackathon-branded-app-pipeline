@@ -421,7 +421,7 @@ const styles = (theme) => ({
   statTitle: {
     margin: theme.spacing(1),
     marginLeft: 0,
-    paddingLeft: theme.spacing * 2,
+    paddingLeft: theme.spacing(2),
   },
   buttonTitle: {
     flexDirection: 'row',

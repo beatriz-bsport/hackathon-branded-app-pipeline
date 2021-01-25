@@ -401,7 +401,7 @@ const styles = (theme) => ({
   },
   price: {
     marginTop: theme.spacing(2),
-    marginBottom: -theme.spacing(2),
+    marginBottom: theme.spacing(-2),
   },
   itemRow: {
     marginLeft: theme.spacing(3),

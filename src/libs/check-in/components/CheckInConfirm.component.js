@@ -159,7 +159,7 @@ const style = (theme) => {
       textAlign: 'center',
     },
     memberAvatar: {
-      marginTop: -theme.spacing(8),
+      marginTop: theme.spacing(-8),
       width: theme.spacing(16),
       height: theme.spacing(16),
     },

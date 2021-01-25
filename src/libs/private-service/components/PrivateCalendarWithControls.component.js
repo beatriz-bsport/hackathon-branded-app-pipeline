@@ -200,9 +200,9 @@ export const PrivateCalendarMultiResource = (props: Props) => (
 const styles = (theme) => ({
   header: {
     marginBottom: theme.spacing(2),
-    marginLeft: -theme.spacing(2),
-    marginTop: -theme.spacing(2),
-    marginRight: -theme.spacing(2),
+    marginLeft: theme.spacing(-2),
+    marginTop: theme.spacing(-2),
+    marginRight: theme.spacing(-2),
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     paddingBottom: theme.spacing(1),

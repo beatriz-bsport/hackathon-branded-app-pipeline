@@ -294,7 +294,7 @@ const styles = (theme) => ({
   innerList: {
     flexGrow: 1,
     height: '100%',
-    marginTop: -theme.spacing(6), // TODO understand why
+    marginTop: theme.spacing(-6), // TODO understand why
     padding: theme.spacing(4),
     paddingRight: 0, // theme.spacing(4),
   },

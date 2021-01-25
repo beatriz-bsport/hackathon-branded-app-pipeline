@@ -127,14 +127,14 @@ export const Settings = (props: Props) => {
 const styles = (theme: Theme) => ({
   container: {
     maxWidth: '100vw',
-    marginTop: -theme.spacing(2),
+    marginTop: theme.spacing(-2),
     [theme.breakpoints.up('md')]: {
-      marginLeft: -theme.spacing(3),
-      marginRight: -theme.spacing(3),
+      marginLeft: theme.spacing(-3),
+      marginRight: theme.spacing(-3),
     },
   },
   appBar: {
-    marginTop: -theme.spacing(2),
+    marginTop: theme.spacing(-2),
     width: '100%',
 
     [theme.breakpoints.up('md')]: {

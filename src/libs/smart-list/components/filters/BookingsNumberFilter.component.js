@@ -530,7 +530,7 @@ const styles = (theme) => ({
     marginLeft: theme.spacing(1),
   },
   calendarAntiMargin: {
-    marginLeft: -theme.spacing(1),
+    marginLeft: theme.spacing(-1),
   },
   disabled: {
     display: 'flex',

@@ -426,7 +426,7 @@ export class PrivateBookingsFilter extends Component<Props, state> {
 
 const styles = (theme) => ({
   calendarAntiMargin: {
-    marginLeft: -theme.spacing(1),
+    marginLeft: theme.spacing(-1),
   },
   hourPicker: {
     marginRight: theme.spacing(1),

@@ -260,8 +260,8 @@ const styles = (theme) => ({
   horizontalDivider: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
-    marginRight: -theme.spacing(4),
-    marginLeft: -theme.spacing(4),
+    marginRight: theme.spacing(-4),
+    marginLeft: theme.spacing(-4),
   },
 });
 

@@ -323,13 +323,13 @@ export class MemberDetail extends React.Component<Props> {
 const styles = (theme) => ({
   container: {
     marginBottom: theme.spacing(4),
-    marginTop: -theme.spacing(3),
+    marginTop: theme.spacing(-3),
     width: '100vw',
     [theme.breakpoints.up('md')]: {
-      marginLeft: -theme.spacing(3),
+      marginLeft: theme.spacing(-3),
       width: 'auto',
-      marginRight: -theme.spacing(3),
-      marginTop: -theme.spacing(2),
+      marginRight: theme.spacing(-3),
+      marginTop: theme.spacing(-2),
     },
   },
   content: {

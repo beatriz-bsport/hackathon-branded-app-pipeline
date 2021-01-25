@@ -49,7 +49,7 @@ const styles = (theme) => ({
   },
   root: {
     [theme.breakpoints.up('md')]: {
-      margin: -theme.spacing(3),
+      margin: theme.spacing(-3),
       width: `calc(100% + ${theme.spacing(6)}px)`,
     },
     width: '100%',

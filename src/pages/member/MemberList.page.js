@@ -115,7 +115,7 @@ const styles = (theme) => ({
     width: '100%',
 
     paddingTop: theme.spacing(2),
-    marginLeft: -theme.spacing(1),
+    marginLeft: theme.spacing(-1),
   },
 });
 

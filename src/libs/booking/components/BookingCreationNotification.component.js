@@ -136,6 +136,7 @@ const BookingCreationNotification = (props: Props) => {
       <Paper className={classes.paper}>
         {props.notifications.items
           .filter((n) => !!n)
+          .filter((n) => !!n.event_rules)
           .map((notif) => (
             <ListItem key={notif.id} divider>
               <Switch

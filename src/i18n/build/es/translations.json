@@ -1339,7 +1339,8 @@
             "CH": "Suiza",
             "IE": "Irlanda",
             "AT": "Austria",
-            "MT": "Malta"
+            "MT": "Malta",
+            "GB": "Reino Unido"
         },
         "emailValidation": {
             "disconnect": "Cambiar de cuenta",
@@ -1558,7 +1559,14 @@
             "explainDisabled": "Desactivado: manejas tus propios enlaces de videoconferencia a configurar para cada sesión (a través del zoom, etc...).",
             "is_whereby_integration_enabled": {
                 "label": "Activar la integración whereby X bsport"
-            }
+            },
+            "zoom": {
+                "explainInvalid": "Cuenta inválida",
+                "explainValid": "Cuenta válida: Los enlaces de las reuniones de Zoom se crearán para cada sesión 15 minutos antes de que comiencen automáticamente. El profesor recibirá un enlace para organizar la reunión, mientras que los inscritos recibirán otro enlace para unirse a la reunión. Tenga en cuenta que si la cuenta de zoom no es de pago, la reunión de zoom está limitada a 40 minutos",
+                "label": "Configurar las cuentas de Zoom",
+                "enabled": "Activar la integración de Zoom"
+            },
+            "seeUpsell": "Más información"
         },
         "webhook": {
             "modal": {
@@ -5481,6 +5489,12 @@
                 "error": "Imposible guardar esta cita recurrente",
                 "success": "La cita recurrente se guardo con éxito"
             }
+        },
+        "zoom": {
+            "created": {
+                "error": "Error al vincular la cuenta de Zoom",
+                "success": "La cuenta de Zoom se ha vinculado con éxito"
+            }
         }
     },
     "paymentPack": {
@@ -6022,7 +6036,8 @@
         "noActivities": "Administra tus actividades aquí, una actividad permite agrupar un conjunto de sesiones (generalmente colectivas) de la misma práctica.",
         "search": "Buscar une actividad",
         "metaActivity": "Actividad",
-        "disabledMetaActivities": "Actividades archivadas"
+        "disabledMetaActivities": "Actividades archivadas",
+        "workshop": "Taller"
     },
     "navigation": {
         "backofficeMenu": {

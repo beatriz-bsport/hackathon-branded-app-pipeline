@@ -105,7 +105,7 @@
             "profile": "Profiel",
             "subscription": "Abonnement",
             "invoice": "Factuur",
-            "pack": "Cursuskaart",
+            "pack": "Cursuskaarten",
             "calendar": "Geschiedenis",
             "dashboard": "Overzicht",
             "myVideos": "Mijn video's"
@@ -179,7 +179,7 @@
                     "pass_name": "Naam cursuskaart",
                     "pass_price": "Prijs cursuskaart"
                 },
-                "name": "Cursuskaart"
+                "name": "Cursuskaarten"
             },
             "PrivateBooking": {
                 "tags": {
@@ -414,7 +414,7 @@
                 "book": "Reserveren",
                 "notBookableYet": "Binnenkort"
             },
-            "passListTitle": "Cursuskaarten voor groepslessen",
+            "passListTitle": "Cursuskaarten (voor groepslessen)",
             "privatePassListTitle": "Afspraakkaarten",
             "noSessionToday": "Geen sessie",
             "showMarketplace": "Zie de kalender van ",
@@ -1124,7 +1124,7 @@
             "credit_s": "Krediet(en)",
             "continue": "Doorgaan",
             "amount": "Bedrag",
-            "paymentPack": "Cursuskaart",
+            "paymentPack": "Cursuskaarten",
             "datetime": "Sessie",
             "activity": "Activiteit",
             "paymentMethod": "Betaalmethode",
@@ -1428,7 +1428,7 @@
             },
             "explainIfEmpty": "Beheer hier je pakketten. In een pakket kun je o.a. producten uit je webshop en afspraak- of cursuskaarten met elkaar combineren.",
             "section": {
-                "availableOnline": "Beschikbaar voor verkoop",
+                "availableOnline": "Beschikbare pakketten",
                 "unavailableOnline": "Niet te koop"
             }
         },
@@ -1561,7 +1561,7 @@
             "shop_item": "Webshop",
             "fee": "Tarieven",
             "private_pass": "Afspraakkaart",
-            "payment_pack": "Cursuskaart",
+            "payment_pack": "Cursuskaarten",
             "top_up": "Saldo van het lid wijzigen",
             "payment_combo": "Pakketten",
             "refund": "Terugbetaling krediet"
@@ -1592,7 +1592,7 @@
             "payment_method": "Betaalmethode",
             "product": "Product",
             "payment_identifier": "Betalings-ID",
-            "pass": "Cursuskaart",
+            "pass": "Cursuskaarten",
             "first_name": "Voornaam",
             "date_offer": "Datum en tijd van de sessie",
             "couponName": "Promoties",
@@ -1626,7 +1626,7 @@
             "email": "E-mail",
             "phonenumber": "Telefoon",
             "gender": "Geslacht",
-            "payment_pack": "Cursuskaart",
+            "payment_pack": "Cursuskaarten",
             "fee": "Tarieven",
             "activity_name": "Activiteit",
             "booking_status_code": "status",
@@ -2157,8 +2157,8 @@
             "copyLink": "Kopieer de link naar de betalingspagina"
         },
         "newMemberOnly": "Alleen beschikbaar voor nieuwe leden",
-        "publicPacksTitle": "Cursuskaarten die te koop zijn",
-        "privatePacksTitle": "Cursuskaarten die niet te koop zijn",
+        "publicPacksTitle": "Beschikbare cursuskaarten",
+        "privatePacksTitle": "Niet-beschikbare cursuskaarten",
         "subscribeToOffer": "Inschrijven",
         "use": "Gebruik",
         "isNonCompatible": "incompatibel",
@@ -2429,7 +2429,7 @@
             "14": {
                 "explanation": "Heeft producten A en B gekocht",
                 "shop": "Webshop",
-                "pack": "Cursuskaart",
+                "pack": "Cursuskaarten",
                 "workshop": "Cursuskaart voor workshops",
                 "name": "Uitgaven",
                 "second": "tussen €",
@@ -2705,7 +2705,7 @@
                 "private_pass": "Privéles",
                 "between": "en",
                 "combo": "Pakketten",
-                "pack": "Cursuskaart",
+                "pack": "Cursuskaarten",
                 "shop": "Webshop",
                 "explanation": "Kocht de producten A en B"
             },
@@ -3026,7 +3026,7 @@
                 "success": "Samengevoegde leden",
                 "seeMemberPage": " Zie ledenpagina"
             },
-            "error": "Kan lid niet opslaan",
+            "error": "Fout bij het opslaan van de wijzigingen",
             "create": {
                 "title": "Nieuw lid",
                 "success": "Lid aangemaakt"
@@ -3571,7 +3571,7 @@
                     "label": "Maandelijkse betaling"
                 },
                 "object_type": {
-                    "paymentPack": "Cursuskaart",
+                    "paymentPack": "Cursuskaarten",
                     "privatePass": "Afspraakkaart",
                     "label": "Type abonnement",
                     "paymentCombo": "Pakket"
@@ -3593,9 +3593,9 @@
                 "isEmpty": "Geen contract beschikbaar",
                 "addButton": "Maak contract aan",
                 "register": "Schrijf een lid in",
-                "title": "Contracten",
-                "titleManagerOnly": "Contract niet te koop aanbieden",
-                "titleCustomerAvailable": "Beschikbare contracten"
+                "title": "Abonnementen",
+                "titleManagerOnly": "Niet-beschikbare abonnementen",
+                "titleCustomerAvailable": "Beschikbare abonnementen"
             },
             "description": "Beschrijving",
             "legal": "Juridische kennisgeving",
@@ -3780,11 +3780,11 @@
             "member": "Lid",
             "dateCreated": "Aanmaakdatum",
             "nbInterval": "Aantal maanden",
-            "paymentPack": "Cursuskaart",
+            "paymentPack": "Cursuskaarten",
             "nbMonths": "Aantal maanden",
             "dateStart": "Eerste facturering",
             "firstBilling": "Eerste incassering",
-            "payment_pack": "Cursuskaart",
+            "payment_pack": "Cursuskaarten",
             "private_pass": "Afspraakkaart",
             "privatePass": "Afspraakkaart",
             "note": "Notitie"
@@ -4158,7 +4158,7 @@
                 "shop": "Webshop",
                 "subscription": "Abonnement",
                 "vod": "Video On Demand",
-                "pass": "Cursuskaart",
+                "pass": "Cursuskaarten",
                 "privateService": "Afspraken",
                 "workshop": "Workshops",
                 "calendar": "Kalender"
@@ -4238,7 +4238,7 @@
                 "registeredOn": "Gereserveerd op ",
                 "source": "Gereserveerd via ",
                 "slotTitle": "Sessie",
-                "passTitle": "Cursuskaart",
+                "passTitle": "Cursuskaarten",
                 "wasRefunded": "Het tegoed wordt teruggestort op de cursuskaart",
                 "wasRefundedYes": "Ja",
                 "wasRefundedNo": "Nee",
@@ -5396,7 +5396,7 @@
                 "explainTags": "Verwijderde tags van leden worden niet overgedragen",
                 "cancel": "Annuleren"
             },
-            "error": "Kan lid niet opslaan",
+            "error": "Fout bij het opslaan van de wijzigingen",
             "create": {
                 "title": "Nieuw lid",
                 "success": "Lid aangemaakt"
@@ -5817,7 +5817,7 @@
                 "choices": {
                     "null": "Volledige winkelmand",
                     "9": "Afspraakkaart",
-                    "1": "Cursuskaart",
+                    "1": "Cursuskaarten",
                     "2": "Webshop",
                     "6": "Verzendkosten",
                     "all": "Volledige winkelmand"
@@ -5888,7 +5888,7 @@
         "list": {
             "activeCoupons": "Actieve promoties",
             "isEmpty": "Beheer hier je promotiecodes. Momenteel zijn er geen promotiecodes geregistreerd",
-            "inactiveCoupons": "Promoties zijn gedeactiveerd of verlopen"
+            "inactiveCoupons": "Verlopen of gedeactiveerde promoties"
         },
         "detail": {
             "seeParameters": "Bekijk instellingen"
@@ -6455,7 +6455,7 @@
                 "9": "Afspraakkaart",
                 "3": "Krediet(en)",
                 "2": "Webshop",
-                "1": "Cursuskaart"
+                "1": "Cursuskaarten"
             }
         },
         "actions": {
@@ -6849,7 +6849,7 @@
             "playlist": "Afspeellijsten",
             "video": "Videotheek",
             "coupon": "Promoties",
-            "contract": "Contracten",
+            "contract": "Abonnementen",
             "subscription": "Automatische incasso's",
             "myClub": "Mijn club",
             "settings": {
@@ -6870,7 +6870,7 @@
                 "platform_billing": "BSPORT-abonnement",
                 "marketplaceSettings": "MarketPlace"
             },
-            "pass": "Cursuskaart",
+            "pass": "Cursuskaarten",
             "goBack": "Terug",
             "refresh": "Actualiseren",
             "logoff": "Uitloggen",
@@ -6915,9 +6915,9 @@
             "return": "Terug",
             "show": "Bekijk",
             "cancel": "Annuleren",
-            "responsiveDisplay": "Responsive display",
+            "responsiveDisplay": "Responsieve weergave",
             "calendarDisplay": "Weekoverzicht (kalender)",
-            "listDisplay": "Overzicht weeklijst"
+            "listDisplay": "Weekoverzicht (lijst)"
         }
     },
     "platformBilling": {

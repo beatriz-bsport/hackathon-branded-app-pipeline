@@ -12,7 +12,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import moment from 'moment-timezone';
 
-import SlotCalendarDay from './SlotCalendarDay';
+import SlotCalendarDay from './SlotCalendarDay.component';
 import {
   PrivateService,
   PrivateSlot,

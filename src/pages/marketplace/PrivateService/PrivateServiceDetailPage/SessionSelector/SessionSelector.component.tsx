@@ -11,7 +11,7 @@ import flatten from 'lodash/flatten';
 import intersection from 'lodash/intersection';
 import { useTranslation } from 'react-i18next';
 
-import SessionForCoachSelector from './SessionForCoachSelector';
+import SessionForCoachSelector from './SessionForCoachSelector.component';
 import {
   groupSessionsByDayMoment,
   splitIntervalList,

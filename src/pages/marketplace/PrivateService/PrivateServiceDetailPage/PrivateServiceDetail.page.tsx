@@ -20,18 +20,18 @@ import { fetchAssociatedEstablishmentBulk } from '../../../../libs/establishment
 import { fetchAssociatedCoachBulk } from '../../../../libs/associated-coach/actions';
 
 import { getSearchedSlots } from '../../../../libs/private-service/selectors/availability-slot';
-import PrivateSlotSelector from './PrivateSlotSelector';
-import CoachSelector from './CoachSelector';
-import EstablishmentSelector from './EstablishmentSelector';
-import SlotCalendar from './SlotCalendar/SlotCalendar';
-import SessionSelector from './SessionSelector/SessionSelector';
+import PrivateSlotSelector from './PrivateSlotSelector.component';
+import CoachSelector from './CoachSelector.component';
+import EstablishmentSelector from './EstablishmentSelector.component';
+import SlotCalendar from './SlotCalendar/SlotCalendar.component';
+import SessionSelector from './SessionSelector/SessionSelector.component';
 import { PrivateSlot } from '../../../../libs/private-service/types';
 import { ArrayElement } from '../../../../utils/types';
 import { groupSessionsByDayMoment } from '../../../../libs/private-service/utils';
 import { RootState } from '../../../../reducers';
 import { Coach } from '../../../../libs/associated-coach/types';
 import { Establishment } from '../../../../libs/establishment/types';
-import PrivateServiceDetailSummary from './PrivateServiceDetailSummary';
+import PrivateServiceDetailSummary from './PrivateServiceDetailSummary.component';
 // @ts-ignore
 import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
 

@@ -116,7 +116,7 @@ export const PrivateServiceSelectorPage: React.FC<Props> = (props) => {
                         <Chip
                           size="small"
                           className={classes.tagItem}
-                          label="Service à domicile"
+                          label={t('privateService:service.form.isHomeService')}
                           color="primary"
                           variant="outlined"
                         />

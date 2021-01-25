@@ -218,8 +218,8 @@
                 "streetNumber": "N°",
                 "addressLine1": "Dirección",
                 "addressLine2": "Complemento de dirección",
-                "city": "Ville",
-                "country": "Pays",
+                "city": "Ciudad",
+                "country": "País",
                 "zipcode": "Código postal"
             },
             "login": {
@@ -4213,7 +4213,7 @@
             },
             "addBooking": "Registrar una cita",
             "selectCoachToModifyAvailability": "Seleccionar un profesor",
-            "disableRecurrentAvailability": "Añadir una disponibilidad recurrente",
+            "disableRecurrentAvailability": "Suprimir una disponibilidad recurrente",
             "enableRecurrentAvailability": "Añadir una disponibilidad recurrente",
             "disableAvailability": "Suprimir la disponibilidad",
             "enableAvailability": "Añadir una disponibilidad hoy",

@@ -43,7 +43,7 @@ export default class FacebookPixel {
     }
   }
 
-  static addPackToCar(pc) {
+  static addPackToCart(pc) {
     try {
       fbq('track', 'AddToCart', {
         content_name: pc.name,
@@ -88,9 +88,27 @@ export default class FacebookPixel {
     }
   }
 
+  static contractPaymentSuccess(contract) {
+    try {
+      fbq('track', 'Purchase', {
+        currency: 'EUR',
+        value: contract.recurrent_price,
+        content_category: 'subscription',
+        content_name: contract.name,
+        content_ids: [contract.id],
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   static onPaymentSuccess(basket) {
     try {
-      fbq('track', 'Purchase', { currency: 'EUR', value: basket.total_price });
+      fbq('track', 'Purchase', {
+        currency: 'EUR',
+        value: basket.total_price,
+        content_category: 'basket',
+      });
     } catch (e) {
       console.error(e);
     }

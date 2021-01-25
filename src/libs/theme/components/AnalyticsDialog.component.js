@@ -47,7 +47,11 @@ const rows = [
   createData('signupSuccess', 'bsport:signup:success', 'CompleteRegistration'),
   createData('Lorsque l"utilisateur se connecte', 'bsport:signin:success', ''),
   createData('sessionShow', 'bsport:calendar:session-show', ''),
-  createData('contractPaymentSuccess', 'bsport:contract:payment-success', ''),
+  createData(
+    'contractPaymentSuccess',
+    'bsport:contract:payment-success',
+    'Purchase',
+  ),
   createData('contractShow', 'bsport:contract:show', ''),
   createData('contractPaymentShow', 'bsport:contract:show-payment', ''),
   createData('workshopClick', 'bsport:workshop-click', ''),

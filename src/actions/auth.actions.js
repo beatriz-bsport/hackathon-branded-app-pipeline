@@ -40,13 +40,12 @@ export function networkError(error: ?Error) {
 
 export function fetchAccessLevel(
   token: string,
-  username: string,
   options: ?{ company: string, next: ?ThunkAction, onDone: ?() => void },
 ) {
   return async (dispatch: Dispatch) => {
     try {
       const response = await api.auth.accessLevel(token);
-      const { is_manager, is_consumer, role, name } = response.data;
+      const { is_manager, is_consumer, role, name, username } = response.data;
 
       if (!is_manager && is_consumer) {
         dispatch(errorLogin());
@@ -92,7 +91,7 @@ export function requestLogin(
       if (!token) {
         throw new Error('No token');
       }
-      dispatch(fetchAccessLevel(token, username, options));
+      dispatch(fetchAccessLevel(token, options));
     } catch (err) {
       dispatch(
         errorLogin({

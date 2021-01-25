@@ -114,7 +114,7 @@ type Props = {
   nbAlerting: number,
   permission: Permission,
 
-  fetchAccessLevel: (token: string, username: string) => void,
+  fetchAccessLevel: (token: string) => void,
   disconnect: () => void,
   deleteAlert: (id: number) => void,
   classes: Object,
@@ -198,7 +198,7 @@ export class Backoffice extends Component<Props, State> {
   componentWillMount() {
     document.title = 'Backoffice - bsport';
     this.refreshInterval = setInterval(this.props.fetchAllAlertings, 120000);
-    this.props.fetchAccessLevel(getAuthToken(), this.props.username);
+    this.props.fetchAccessLevel(getAuthToken());
   }
 
   componentDidMount() {

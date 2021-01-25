@@ -15,13 +15,11 @@ import 'moment/locale/nl';
 import 'moment/locale/es';
 import 'moment/locale/it';
 
-const customRequest = config.I18N_CUSTOM_SERVER === 'TRUE';
-
 const backendOptions = {};
 
-if (customRequest) {
+if (config.I18N_TRANSLATION_DOMAIN) {
   backendOptions.request = (options, url, payload, callback) => {
-    const _url = `https://backoffice.bsport.io${url}`;
+    const _url = `${config.I18N_TRANSLATION_DOMAIN}${url}`;
     axios
       .get(_url)
       .then((res) => callback(null, res))

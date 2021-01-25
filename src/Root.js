@@ -14,6 +14,8 @@ import namespaces from './i18n/namespaces.json';
 import Banner from './components/navigation/Banner.component';
 import Config from './config';
 import IEMessage from './components/IEMessage.component';
+import { parseQueryString } from './http';
+import { fetchAccessLevel } from './actions/auth.actions';
 
 const MarketPlace = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
@@ -66,9 +68,28 @@ type Props = {
   rehydrated: boolean,
   initializating: boolean,
   networkAvailable: boolean,
+  fetchAccessLevel: (token: string) => void,
 };
 
 export class Root extends Component<Props> {
+  componentWillMount(): * {
+    const query = parseQueryString(window.location.href);
+
+    /**
+     * injected by the widget
+     */
+    if (query.authToken) {
+      this.props.fetchAccessLevel(query.authToken);
+    }
+
+    /**
+     * injected by the widget
+     */
+    if (query.context) {
+      window.env.APP_CONTEXT = query.context;
+    }
+  }
+
   render() {
     const { classes, rehydrated, initializating } = this.props;
 
@@ -83,6 +104,7 @@ export class Root extends Component<Props> {
           networkAvailable={this.props.networkAvailable}
           environment={Config.REACT_APP_SENTRY_ENVIRONMENT}
         />
+
         <Switch>
           <Route
             path="/external/:companyId/"
@@ -117,8 +139,13 @@ function mapStateToProps(state) {
     networkAvailable: state.network.isAvailable,
   };
 }
+
+const mapDispatchToProps = {
+  fetchAccessLevel,
+};
+
 export default withRouter(
   withTranslation(namespaces)(
-    withStyles(styles)(connect(mapStateToProps)(Root)),
+    withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Root)),
   ),
 );

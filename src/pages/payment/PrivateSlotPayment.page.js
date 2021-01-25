@@ -173,6 +173,10 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
       },
       {
         onSuccess: () => {
+          if (window && window.env && window.env.APP_CONTEXT === 'widget') {
+            window.opener.postMessage({ type: 'paymentSuccess' }, '*');
+            return;
+          }
           this.props.goToConsumerHome();
           this.setState({ processing: false });
         },

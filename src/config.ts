@@ -11,6 +11,7 @@ type ConfigType = {
   NODE_ENV: string;
   REACT_APP_INTERCOM_APP_ID: string;
   PUBLIC_URL: string;
+  I18N_TRANSLATION_DOMAIN: string; // used by the widget
 };
 
 export const Config = {} as ConfigType;

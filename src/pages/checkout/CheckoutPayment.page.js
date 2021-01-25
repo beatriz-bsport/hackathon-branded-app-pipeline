@@ -344,6 +344,12 @@ export default compose(
       }),
     onSuccess: ({ replace, basket }) => () => {
       Analytics.onPaymentSuccess(basket);
+
+      if (window && window.env && window.env.APP_CONTEXT === 'widget') {
+        window.opener.postMessage({ type: 'paymentSuccess' }, '*');
+        return;
+      }
+
       replace(`/c/${basket.company}/?from_basket=${basket.id}`);
     },
   }),

@@ -353,6 +353,9 @@ exports.default = {
       error: "Impossible d'enregistrer le crédit",
     },
   },
+  consumerPass: {
+    success: 'Votre achat a bien été enregistré !',
+  },
   privateRecurrentRule: {
     createOrUpdate: {
       success: 'Rendez-vous récurrent enregistré avec succès',

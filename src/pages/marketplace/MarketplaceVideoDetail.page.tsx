@@ -55,6 +55,7 @@ type OwnProps = {
   requestSignUp?: () => void;
   onRequestBuyPass: (companyId: number, companyName: string) => void;
   openVideo: (videoId: number, companyId: number, companyName: string) => void;
+  requestVideoAccessRefreshFlag?: number;
 } & StateHandlerType;
 
 type ConnectProps = ReturnType<typeof mapStateToProps> &
@@ -70,6 +71,17 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
     this.props.retrieveVideo();
     this.props.fetchVideoListSimilar();
     this.props.resetConsumerPaymentPackCompatibleList();
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.requestVideoAccessRefreshFlag !== undefined) {
+      if (
+        prevProps.requestVideoAccessRefreshFlag !==
+        this.props.requestVideoAccessRefreshFlag
+      ) {
+        this.requestVideoAccess();
+      }
+    }
   }
 
   requestVideoAccess = () => {

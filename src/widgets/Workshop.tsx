@@ -51,7 +51,8 @@ class WorkshopWidget extends Component<Props, State> {
   }
 
   goToBook = (id: number, companyId: number) => {
-    const url = `http://localhost:3000/customer/payment/offer/${id}
+    const { PUBLIC_URL } = window.runtime.env;
+    const url = `${PUBLIC_URL}/customer/payment/offer/${id}
     ?membership=${companyId}&authToken=${this.props.auth.token}&context=widget`;
     const popupWindow = openTab(url);
     this.props.onWindowOpen(popupWindow);

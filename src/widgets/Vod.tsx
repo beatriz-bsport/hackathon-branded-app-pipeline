@@ -112,7 +112,8 @@ class VODWidget extends React.PureComponent<Props, State> {
       'pass'
     );
 
-    const popupWindow = openTab(`http://localhost:3000${url}?authToken=${this.props.auth.token}&context=widget`);
+    const { PUBLIC_URL } = window.runtime.env;
+    const popupWindow = openTab(`${PUBLIC_URL}${url}?authToken=${this.props.auth.token}&context=widget`);
     this.props.onWindowOpen(popupWindow);
   }
 

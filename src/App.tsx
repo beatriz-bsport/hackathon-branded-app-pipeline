@@ -153,8 +153,6 @@ class BsportWidget extends Component<Props, State> {
       );
     }
 
-    console.log(this.props);
-
     return (
       <div className={classes.container}>
         <React.Suspense fallback={<CircularProgress />}>

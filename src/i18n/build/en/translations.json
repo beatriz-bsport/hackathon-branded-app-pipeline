@@ -6042,7 +6042,8 @@
             "addActivity": "Add an activity"
         },
         "noActivities": "Manage your activities here, an activity allows you to group together a set of sessions (usually collective) of the same disciplin.",
-        "disabledMetaActivities": "Archived activities"
+        "disabledMetaActivities": "Archived activities",
+        "workshop": "Workshop"
     },
     "offer": {
         "video": {

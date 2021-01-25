@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import initStore from './store/store';
 
-import Root from './Root';
+import App from './App';
 
 const migrateOldProps = (props) => {
   const _props = { ...props };
@@ -46,7 +46,7 @@ export default class extends React.Component {
     return (
       <Provider store={this.store}>
         <ConnectedRouter history={this.history}>
-          <Root {...this.childProps} store={this.store} />
+          <App {...this.childProps} store={this.store} />
         </ConnectedRouter>
       </Provider>
     );

@@ -8,7 +8,7 @@ export default class BsportWidget {
   static el;
 
   static mount({ parentElement, ...initialParams } = {}) {
-    const component = <App initalParams={initialParams} />;
+    const component = <Root initialParams={initialParams} />;
 
     function doRender() {
       if (BsportWidget.el) {

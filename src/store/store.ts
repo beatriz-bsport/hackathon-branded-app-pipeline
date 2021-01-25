@@ -7,9 +7,8 @@ import reducer from './reducer';
 
 export default function initStore(initialState: Object = {}) {
   const history = createBrowserHistory();
-  const composeEnhancers = (
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-  );
+  const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
   const routerMiddlewareWithHistory = routerMiddleware(history);
   return createStore(

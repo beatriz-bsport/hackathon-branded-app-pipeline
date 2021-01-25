@@ -17,7 +17,10 @@ import {
   MarketplacePlaylistDetailPage,
   MarketplacePlaylistDetailDataProvider,
 } from 'bsport-saas/src/pages/marketplace/MarketplacePlaylistDetail.page';
-import { MarketplacePlaylistData, MarketplaceVODData } from 'bsport-saas/src/libs/marketplace/types';
+import {
+  MarketplacePlaylistData,
+  MarketplaceVODData,
+} from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
@@ -25,12 +28,12 @@ import { Theme } from 'bsport-saas/src/libs/theme/types';
 import './video.css';
 
 type OwnProps = {
-  companyId: number;
-  store: any;
-  config: MarketplacePlaylistData & MarketplaceVODData;
-  onRequestLogin: () => void;
-  theme: Theme;
-}
+  companyId: number,
+  store: any,
+  config: MarketplacePlaylistData & MarketplaceVODData,
+  onRequestLogin: () => void,
+  theme: Theme,
+};
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 
@@ -38,14 +41,13 @@ interface State {
   videoId?: number;
   playlistId?: number;
   searchParams: {
-    coaches: string;
-    duration_second_range: string;
-    SCTs: string;
-    search: string;
-    levels: string;
+    coaches: string,
+    duration_second_range: string,
+    SCTs: string,
+    search: string,
+    levels: string,
   };
 }
-
 
 const MarketPlaceVideoStyled = themify(
   MarketplaceVideoDataProvider(MarketplaceVideo)
@@ -58,7 +60,6 @@ const MarketplaceVideoDetailStyled = themify(
 const MarketplacePlaylistStyled = themify(
   MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailPage)
 );
-
 
 class VODWidget extends React.PureComponent<Props, State> {
   constructor(props: Props) {
@@ -83,7 +84,7 @@ class VODWidget extends React.PureComponent<Props, State> {
 
   openPlaylist = (playlistId: number, videoId?: number) => {
     this.setState({ playlistId, videoId });
-  }
+  };
 
   setSearchParams = (key: string) => (value: string) => {
     this.setState((prevState) => ({
@@ -92,21 +93,19 @@ class VODWidget extends React.PureComponent<Props, State> {
         [key]: value,
       },
     }));
-  }
+  };
 
-  onRequestBuyPass = () => {
-
-  }
-
+  onRequestBuyPass = () => {};
 
   render() {
-    const showVODList = (
-      this.state.videoId === undefined || this.state.videoId === null
-    ) && this.state.playlistId === undefined;
+    const showVODList =
+      (this.state.videoId === undefined || this.state.videoId === null) &&
+      this.state.playlistId === undefined;
 
-    const showVODDetail = (
-      this.state.videoId !== undefined && this.state.videoId !== null
-    ) && !this.state.playlistId;
+    const showVODDetail =
+      this.state.videoId !== undefined &&
+      this.state.videoId !== null &&
+      !this.state.playlistId;
 
     return (
       <div className={this.props.classes.container}>
@@ -120,14 +119,15 @@ class VODWidget extends React.PureComponent<Props, State> {
             openPlaylist={(playlistId: number) => this.openPlaylist(playlistId)}
             store={this.props.store}
             theme={this.props.theme}
-          />)
-        }
+          />
+        )}
 
         {showVODDetail && (
           <div className={this.props.classes.videoContainer}>
-            <ButtonBase onClick={() => {
-              this.setState({ videoId: undefined });
-            }}
+            <ButtonBase
+              onClick={() => {
+                this.setState({ videoId: undefined });
+              }}
             >
               <ChevronLeftIcon
                 className={this.props.classes.icon}
@@ -144,11 +144,11 @@ class VODWidget extends React.PureComponent<Props, State> {
                 onRequestBuyPass={this.onRequestBuyPass}
                 openVideo={this.openVideo}
                 searchParams={{
-                  coaches: "",
-                  duration_second_range: "",
-                  SCTs: "",
-                  search: "",
-                  levels: "",
+                  coaches: '',
+                  duration_second_range: '',
+                  SCTs: '',
+                  search: '',
+                  levels: '',
                 }}
                 store={this.props.store}
                 theme={this.props.theme}
@@ -159,9 +159,10 @@ class VODWidget extends React.PureComponent<Props, State> {
 
         {this.state.playlistId !== undefined && (
           <div className={this.props.classes.videoContainer}>
-            <ButtonBase onClick={() => {
-              this.setState({ videoId: undefined, playlistId: undefined });
-            }}
+            <ButtonBase
+              onClick={() => {
+                this.setState({ videoId: undefined, playlistId: undefined });
+              }}
             >
               <ChevronLeftIcon
                 className={this.props.classes.icon}
@@ -197,8 +198,7 @@ const styles = () => ({
     width: '100%',
     alignItems: 'center',
   },
-  icon: {
-  },
+  icon: {},
   videoContainer: {
     display: 'flex',
     flex: 1,

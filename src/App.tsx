@@ -9,37 +9,39 @@ import SnackbarPile from 'bsport-saas/src/SnackbarPile.component';
 import { getTheme } from 'bsport-saas/src/theme';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { auth as authActions } from 'bsport-saas/src/actions';
 
 import { RootState } from './store/reducer';
-import AuthDialog from './components/AuthDialog';
 import BsportLogo from './components/BsportLogo';
 import './App.scss';
 
 import asyncComponent from './AsyncComponent';
+import AuthDialog from './components/AuthDialog';
 
 const CalendarWidget = asyncComponent(() => import('./widgets/Calendar'));
 const VODWidget = asyncComponent(() => import('./widgets/Vod'));
-const PrivateServiceWidget = asyncComponent(() => import('./widgets/PrivateService'));
+const PrivateServiceWidget = asyncComponent(
+  () => import('./widgets/PrivateService')
+);
 const WorkshopWidget = asyncComponent(() => import('./widgets/Workshop'));
 const NewsletterWidget = asyncComponent(() => import('./widgets/Newsletter'));
 
 const Snackbar = themify(SnackbarPile);
 
-
 type OwnProps = WidgetConfig & {
-  store: any;
-  lang?: string;
-  history: any
+  store: any,
+  lang?: string,
+  history: any,
 };
 
 type Props = OwnProps &
-  ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps &
-  MaterialStyleType<ReturnType<typeof styles>>
+  ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps &
+  MaterialStyleType<ReturnType<typeof styles>>;
 
 interface State {
   showLogin: boolean;
@@ -62,13 +64,7 @@ class BsportWidget extends Component<Props, State> {
   }
 
   renderWidget() {
-    const {
-      companyId,
-      config,
-      store,
-      widgetType,
-      theme,
-    } = this.props;
+    const { companyId, config, store, widgetType, theme } = this.props;
 
     switch (widgetType) {
       case 'workshop':
@@ -101,12 +97,7 @@ class BsportWidget extends Component<Props, State> {
           />
         );
       case 'newsletter':
-        return (
-          <NewsletterWidget
-            companyId={companyId}
-            theme={theme}
-          />
-        );
+        return <NewsletterWidget companyId={companyId} theme={theme} />;
       default:
         return (
           <CalendarWidget
@@ -125,47 +116,39 @@ class BsportWidget extends Component<Props, State> {
     const { classes } = this.props;
     if (!this.props.theme || !!this.props.themeLoading) {
       return (
-      <div className={classes.container}>
-        <CircularProgress />
-      </div>
+        <div className={classes.container}>
+          <CircularProgress />
+        </div>
       );
     }
 
     return (
       <div className={classes.container}>
         <React.Suspense fallback={<CircularProgress />}>
-          <MuiThemeProvider
-            theme={getTheme(this.props.theme)}
-          >
+          <MuiThemeProvider theme={getTheme(this.props.theme)}>
             {this.renderWidget()}
 
-            {!!this.props.theme && (
-              <BsportLogo theme={this.props.theme} />
+            {!!this.props.theme && <BsportLogo theme={this.props.theme} />}
+
+            <Snackbar theme={this.props.theme} store={this.props.store} />
+            {(!!this.state.showLogin || !!this.state.showSignup) && (
+              <AuthDialog
+                showLogin={this.state.showLogin}
+                showSignup={this.state.showSignup}
+                loading={this.props.auth.loading}
+                error={this.props.auth.error}
+                errorFields={this.props.errorFields}
+                emailExists={this.props.emailExists}
+                checkEmailExists={this.props.checkEmailExists}
+                checkEmailExistsLoading={this.props.checkEmailExistsLoading}
+                theme={this.props.theme}
+                onLogin={this.props.login}
+                onSignup={this.props.signup}
+                onLoginClose={() => this.setState({ showLogin: false })}
+                onSignupClose={() => this.setState({ showSignup: false })}
+                onSignupShow={() => this.setState({ showSignup: true })}
+              />
             )}
-
-            <Snackbar
-              theme={this.props.theme}
-              store={this.props.store}
-            />
-
-            <AuthDialog
-              showLogin={this.state.showLogin}
-              showSignup={this.state.showSignup}
-              authenticated={this.props.auth.authenticated}
-              loading={this.props.auth.loading}
-              error={this.props.auth.error}
-              errorFields={this.props.errorFields}
-              emailExists={this.props.emailExists}
-              checkEmailExists={this.props.checkEmailExists}
-              checkEmailExistsLoading={this.props.checkEmailExistsLoading}
-              theme={this.props.theme}
-              onLogin={this.props.login}
-              onSignup={this.props.signup}
-              onLoginClose={() => this.setState({ showLogin: false })}
-              onSignupClose={() => this.setState({ showSignup: false })}
-              onSignupShow={() => this.setState({ showSignup: true })}
-            />
-
           </MuiThemeProvider>
         </React.Suspense>
       </div>
@@ -184,7 +167,6 @@ const styles = () => ({
   },
 });
 
-
 const mapStateToProps = (state: RootState) => ({
   auth: state.auth,
   theme: state.theme.theme,
@@ -198,7 +180,8 @@ const mapDispatchToProps = {
   fetchSCT,
   fetchCompanyTheme,
   signup: (data: any) => authActions.signup(data),
-  login: ({ email, password }: any) => authActions.requestLogin(email, password),
+  login: ({ email, password }: any) =>
+    authActions.requestLogin(email, password),
   disconnect: authActions.disconnect,
   checkEmailExists: authActions.checkEmailExists,
 };

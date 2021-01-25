@@ -7,5 +7,5 @@ window.runtime.env.REACT_APP_API_URI =
 window.runtime.env.REACT_APP_STRIPE_PK_KEY = 'pk_live_1pfyc0rY3HcMlwavrdT633XL';
 window.runtime.env.REACT_APP_GOOGLE_MAPS_API_KEY = 'NA';
 window.runtime.env.REACT_APP_SENTRY_DSN =
-  'https://88b735c4d80f4f83b12e79ed072f8f4e@sentry.io/1331952';
+  '';
 window.runtime.env.I18N_CUSTOM_SERVER = 'TRUE';

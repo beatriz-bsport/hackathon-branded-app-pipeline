@@ -11,21 +11,21 @@ import initStore from './store/store';
 const store = initStore();
 const history = createBrowserHistory();
 
-
 const migrateOldProps = (props) => {
   const _props = { ...props };
   if (_props.widgetType === 'calendar' && !('config' in _props)) {
-      _props.config = {
-        calendar: {
-          ..._props.defaultFilters,
-          compactMode: _props.compactMode,
-        },
-      };
+    _props.config = {
+      calendar: {
+        ..._props.defaultFilters,
+        compactMode: _props.compactMode,
+      },
+    };
   }
 
   if (
-    !['calendar', 'workshop', 'privateService', 'newsletter', 'vod']
-    .includes(_props.widgetType)
+    !['calendar', 'workshop', 'privateService', 'newsletter', 'vod'].includes(
+      _props.widgetType,
+    )
   ) {
     _props.widgetType = 'calendar';
   }

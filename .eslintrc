@@ -12,7 +12,9 @@
     "plugin:react/recommended",
     "airbnb",
     "plugin:i18next/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
   ],
   "env": {
     "browser": true,

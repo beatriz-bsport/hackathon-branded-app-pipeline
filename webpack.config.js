@@ -122,7 +122,7 @@ module.exports = [
     ...defaultConfig,
     entry: [
       devMode
-        ? require.resolve('./config.dev')
+        ? require.resolve('./config.local')
         : require.resolve('./config.production'),
       './src/index.js',
     ],

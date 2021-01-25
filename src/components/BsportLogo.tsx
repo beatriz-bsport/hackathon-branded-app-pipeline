@@ -5,34 +5,33 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 
-
 type Props = {
-  theme: Theme
-} & MaterialStyleType<ReturnType<any>>
+  theme: Theme,
+} & MaterialStyleType<ReturnType<any>>;
 
 const BsportLogo = (props: Props) => {
-    const classes = useStyles();
-    return (
-      <div className={classes.poweredByContainer}>
-        <div className={classes.centerRight}>
-          <a
-            className={classes.poweredBy}
-            href={`https://pro.bsport.io?utm_source=widget&utm_medium=referral&utm_content=bsport_logo&utm_campaign=${(
-              props.theme.company_name || ''
-            ).replace(/\//gi, '-')}`}
-          >
-            <Typography color="textSecondary" variant="caption">
-              Powered by
-            </Typography>
-            <img
-              alt="bsport"
-              className={classes.logo}
-              src="https://cdn.bsport.io/bsport_logo_txt.png"
-            />
-          </a>
-        </div>
+  const classes = useStyles();
+  return (
+    <div className={classes.poweredByContainer}>
+      <div className={classes.centerRight}>
+        <a
+          className={classes.poweredBy}
+          href={`https://pro.bsport.io?utm_source=widget&utm_medium=referral&utm_content=bsport_logo&utm_campaign=${(
+            props.theme.company_name || ''
+          ).replace(/\//gi, '-')}`}
+        >
+          <Typography color="textSecondary" variant="caption">
+            Powered by
+          </Typography>
+          <img
+            alt="bsport"
+            className={classes.logo}
+            src="https://cdn.bsport.io/bsport_logo_txt.png"
+          />
+        </a>
       </div>
-    );
+    </div>
+  );
 };
 
 const useStyles = makeStyles(() => ({

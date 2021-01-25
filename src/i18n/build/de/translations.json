@@ -61,7 +61,7 @@
                 "0": "Kreditkarte",
                 "label": "Zahlungsmethode",
                 "1": "SEPA-Überweisung",
-                "2": "Auf Kredit"
+                "2": "mit Guthaben"
             },
             "parameters": "Einstellungen",
             "autoRenew": "Automatische Verlängerung",
@@ -207,7 +207,8 @@
                     "explainWarning": "Vorsicht ! Diese Aktion ist unwiderruflich !",
                     "cancel": "Abbrechen",
                     "submit": "Speichern",
-                    "explain": "Die nächste Zahlung wird um die gleiche Anzahl von Tagen verschoben. Dies gilt auch bei zukünftigen Kurskarten"
+                    "explain": "Die nächste Zahlung wird um die gleiche Anzahl von Tagen verschoben. Dies gilt auch bei zukünftigen Kurskarten",
+                    "explainInvoice": "Von welcher Rechnung (im Lieferumfang enthalten) möchten Sie das Abonnement verschieben?"
                 }
             },
             "actionSection": "Verwalten",
@@ -304,7 +305,7 @@
         "mandate": {
             "name": "Name und Vorname des Inhabers",
             "email": "E-Mail des Inhabers",
-            "content": "Mit der Angabe Ihrer IBAN-Nummer und der Bestätigung Ihrer Zahlung, erlaubst Du bsport und unser Zahlungssystem Stripe, Deiner Bank entsprechen dem Zahlungszeitplan Abbuchungsaufträge zu senden. Du kannst bei Deiner Bank eine Rückerstattung gemäß den Bedingungen Deines Vertrags mit Deiner Bank beantragen. Eine Rückerstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden."
+            "content": "Mit der Angabe Deiner IBAN-Nummer und der Bestätigung Deiner Zahlung, erlaubst Du bsport und unser Zahlungssystem Stripe, Deiner Bank entsprechen dem Zahlungszeitplan Abbuchungsaufträge zu senden. Du kannst bei Deiner Bank eine Rückerstattung gemäß den Bedingungen Deines Vertrags mit Deiner Bank beantragen. Eine Rückerstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden."
         },
         "schedule": {
             "provisionalTitle": "Zeitplanprognose",
@@ -633,7 +634,7 @@
             "actions": "Aktionen",
             "fullyPaid": "Status",
             "toSubscribe": "Abonnieren",
-            "stillUnpaid": "Noch einzulösen : ",
+            "stillUnpaid": "Noch zu zahlen: ",
             "noPaymentItem": "Keine Zahlung gespeichert",
             "paymentItemsListTitle": "Gespeicherte Zahlungen",
             "payWithNCredits1": "Buchen (",
@@ -1036,7 +1037,7 @@
             },
             "cancelBooking": "Stornieren",
             "cancelled": "Storniert",
-            "confirm": "Einlösen",
+            "confirm": "Bezahlen",
             "onWaitingList": "Auf Warteliste",
             "discard": "Abbrechen",
             "doNotAttend": "Abwesend",
@@ -1909,7 +1910,7 @@
                     "helperText": "Anzahl der Tage, vor denen der Warenkorb eines Kunden automatisch geleert wird",
                     "label": "Ablauf des Einkaufswagens"
                 },
-                "cancelledOffersManager": "Standardmäßig werden stornierte Kurse im Manager-Kalender angezeigt",
+                "cancelledOffersManager": "Standardmäßig werden stornierte Kurse im Admin-Kalender angezeigt",
                 "checkBalance": {
                     "shiftRatio": {
                         "explain": "Wenn mehr als {{numberCheck}} Buchungen in einer Sitzung aufgezeichnet werden, wird keine Reservierung autorisiert, wodurch ein Ungleichgewicht zwischen Frauen und Männern entsteht, das größer ist als {{gender_max_shift_for_booking}} Personen.",
@@ -2024,7 +2025,7 @@
                 "name": "Administrator"
             },
             "3": {
-                "description": "Konto für das automatische Check-In (wende Dich an Deinen bsport Account Manager)",
+                "description": "Konto für das automatische Check-In (wende Dich an Deinen bsport Account Admin)",
                 "name": "Tablett-Check-In"
             },
             "2": {
@@ -2327,7 +2328,7 @@
             "details": {
                 "actions": {
                     "refund": "Rückerstattung",
-                    "applyVoucher": "Gutschein anwenden"
+                    "applyVoucher": "Rabatt anwenden"
                 }
             }
         },
@@ -2445,7 +2446,7 @@
         },
         "companyOnboarding": {
             "creation": {
-                "content": "Um Kredikarten- und SEPA-Zahlungen erhalten zu können, überprüfe bitte Deine rechtlichen Informationen",
+                "content": "Um Kredikarten- und SEPA-Zahlungen einziehen zu können, überprüfe bitte Deine rechtlichen Informationen",
                 "title": "Online-Zahlungen deaktiviert"
             },
             "payout": {
@@ -3143,6 +3144,12 @@
                 "error": "Wiederkehrende Termine können nicht gespeichert werden",
                 "success": "Wiederkehrender Termin erfolgreich gespeichert"
             }
+        },
+        "zoom": {
+            "created": {
+                "error": "Fehler beim Verknüpfen des Zoom-Kontos",
+                "success": "Zoom-Konto erfolgreich verknüpft"
+            }
         }
     },
     "invoice": {
@@ -3333,7 +3340,7 @@
             },
             "header": {
                 "pdf": "PDF",
-                "missing": "Ausbleibend",
+                "missing": "Restbetrag",
                 "amount": "Betrag",
                 "date": "Rechnungsdatum",
                 "id": "ID",
@@ -3373,7 +3380,7 @@
                 "cancel": "Abbrechen",
                 "revert": "Stornieren",
                 "pay": "Diese Rechnung bezahlen",
-                "bill": "Einlösen"
+                "bill": "Einziehen"
             },
             "sumup": {
                 "amountRemaining": "Noch zu zahlen",
@@ -3869,10 +3876,10 @@
         "statusCode": {
             "cancelledByOffer": "Kurs von dem Klub storniert",
             "cancelledByConsumer": "Stornierung vom Kunde",
-            "cancelledByManager": "Stornierung vom Manager",
+            "cancelledByManager": "Stornierung vom Admin",
             "cancelledByOfferDate": "Kurs vom Club am {{-date}} um {{time}} abgesagt",
             "cancelledByConsumerDate": "Kundenstornierung am {{-date}} um {{time}}",
-            "cancelledByManagerDate": "von Manager storniert am {{-date}} um {{time}}"
+            "cancelledByManagerDate": "von Admin storniert am {{-date}} um {{time}}"
         },
         "doNotAttend": "Abwesend",
         "attend": "Anwesend",
@@ -3904,7 +3911,7 @@
             "time": "Buchungen im Laufe der Zeit",
             "attendance": "Stornierung",
             "consumerCanceled": "Stornierung Kunde",
-            "managerCanceled": "Stornierung  Manager",
+            "managerCanceled": "Stornierung  Admin",
             "canceled": "Kurs storniert",
             "absent": "Abwesend",
             "present": "Anwesend",
@@ -4417,7 +4424,7 @@
                 "privateConsumerPassNeedRefresh": "Die Liste aktualisieren",
                 "emptyPrivatePass": "Keine kompatible Terminkarte im Besitz",
                 "emptyPrivateConsumerPass": "Keine kompatible Karte im Besitz",
-                "compatiblePrivateConsumerPass": "Terminkarten im Besitz :",
+                "compatiblePrivateConsumerPass": "Terminkarten im Besitz:",
                 "compatiblePrivatePass": "Rechnungsstellung einer Terminkarte",
                 "cancel": "Abbrechen",
                 "pleaseSelectCoachAndSlot": "Wähle zunächst den Lehrer und den Kurs aus",
@@ -5186,7 +5193,7 @@
         "navigation": {
             "changeMembership": "Den Klub wechseln",
             "subscription": "Mein Abo",
-            "calendar": "Vergangene Buchungen",
+            "calendar": "Meine Buchungen",
             "logoff": "Abmelden",
             "profile": "Profil",
             "invoice": "Meine Rechnungen",
@@ -5283,7 +5290,8 @@
         "offersThisDay": "Heutige Kurse :",
         "packsAvailable": "Für Kurskarten berechtigt :",
         "noActivities": "Verwalte hier Deine Aktivitäten, eine Aktivität ermöglicht es Dir, eine Reihe von Kursen, derselben Disziplin gemeinsam zu organisieren.",
-        "disabledMetaActivities": "Archivierte Aktivitäten"
+        "disabledMetaActivities": "Archivierte Aktivitäten",
+        "workshop": "Workshop"
     },
     "coachPerformance": {
         "bonus": "Bonus",
@@ -5417,23 +5425,23 @@
                 "close": "Abbrechen",
                 "title": "Auftrag",
                 "date_due": {
-                    "label": "Rückrufsdatum"
+                    "label": "Erinnerung"
                 }
             },
             "actions": {
                 "cancel": "Archivieren",
                 "restart": "Neu starten",
-                "finish": "Beenden",
+                "finish": "Als erledigt markieren",
                 "addTask": "Einen Auftrag planen"
             },
             "author": "Autor",
             "status": {
                 "20": "Storniert",
                 "10": "Fertig",
-                "0": "Ongoing"
+                "0": "In Bearbeitung"
             },
             "sectionTitle": {
-                "past": "Archivierte Aufträge",
+                "past": "Archivierte Aufgaben",
                 "future": "Geplante Aufträge",
                 "pending": "Laufende Aufträge"
             },
@@ -5458,7 +5466,7 @@
             "17": "Buchung storniert : Credits werden nicht zurückerstattet",
             "402": "Neuer Termin (Lehrer)",
             "25": "Änderung der Zahlungsmethode",
-            "19": "Anmeldung als Mitglied (Manager)",
+            "19": "Anmeldung als Mitglied (Admin)",
             "16": "Geänderter Kurs",
             "12": "Anmeldung zur Warteliste",
             "8": "Buchung + gleichzeitiger Kauf von Kurskarten",
@@ -5467,13 +5475,13 @@
             "21": "Neue Buchung",
             "403": "Geänderte Uhrzeit (Lehrer)",
             "26": "Abonnement unterbrochen",
-            "14": "Abmeldung von der Warteliste (Manager)",
+            "14": "Abmeldung von der Warteliste (Admin)",
             "9": "Die Warteliste verlassen : Buchung möglich",
             "10": "Der Wartelistenplatz ist abgelaufen",
             "300": "Kick (nicht zu oft rechtzeitig validiert)",
             "22": "Rechnungsbestätigung",
             "601": "Zu wenige Buchungen N Stunden vor Beginn des Kurses",
-            "701": "Kurskartenstrafe: Karte gesperrt (MItglied)",
+            "701": "Kurskartenstrafe: Karte gesperrt (Mitglied)",
             "702": "Kurskartenstrafe: Kaution erstellt (Mitglied)"
         },
         "tag": {
@@ -6128,7 +6136,7 @@
                 "broadcast": "Videokonferenz",
                 "general": "Allgemein",
                 "platform_billing": "Bsport-Abonnement",
-                "marketplaceSettings": "Marktplatzeinstellungen"
+                "marketplaceSettings": "Marketplace-Eintellungen"
             },
             "myClub": "Mein Klub",
             "subscription": "Automatische Abbuchungen",
@@ -6331,7 +6339,8 @@
             "CH": "Schweiz",
             "IE": "Irland",
             "AT": "Österreich",
-            "MT": "Malta"
+            "MT": "Malta",
+            "GB": "Großbritannien"
         },
         "signupCompany": {
             "form": {
@@ -6400,8 +6409,8 @@
         },
         "warning": {
             "disconnect": "Abmelden",
-            "isManager": "Du bist als Manager eingeloggt, um auf die Kunden-Sicht zu gelangen, melden Dich bitte ab",
-            "backToBackoffice": "Manager Website"
+            "isManager": "Du bist als Admin eingeloggt, um auf die Kunden-Sicht zu gelangen, melden Dich bitte ab",
+            "backToBackoffice": "Admin Website"
         },
         "paymentCombo": {
             "addToCart": "In den Warenkorb"
@@ -6474,7 +6483,7 @@
         },
         "booking_option": {
             "cancel": {
-                "description": "Wird ausgelöst, wenn das Mitglied oder ein Manager den Platz auf der Warteliste storniert",
+                "description": "Wird ausgelöst, wenn das Mitglied oder ein Admin den Platz auf der Warteliste storniert",
                 "name": "Stornierung eines Platzes auf der Warteliste"
             }
         }
@@ -6602,7 +6611,14 @@
             "explainDisabled": "Deaktiviert: Du verwaltest selbst Deine Videokonferenz-Links, die für jeden Kurs konfiguriert werden müssen (über Zoom, usw.).",
             "is_whereby_integration_enabled": {
                 "label": "Integration whereby X bsport aktivieren"
-            }
+            },
+            "zoom": {
+                "explainInvalid": "Ungültiger Account",
+                "explainValid": "Gültiges Konto: Zoom-Meeting-Links werden für jede Sitzung 15 Minuten vor dem automatischen Start erstellt. Der Lehrer erhält einen Link zur Ausrichtung des Meetings, während die registrierten Mitglieder einen weiteren Link zur Teilnahme für die Konferenz erhalten. Beachte, dass die Zoom-Besprechung auf 40 Minuten begrenzt ist, wenn die kostenlose Zoom-Lizenzen genutzt werden",
+                "label": "Zoom-Konten konfigurieren",
+                "enabled": "Aktiviere die Zoom-Integration"
+            },
+            "seeUpsell": "Mehr erfahren"
         },
         "webhook": {
             "modal": {
@@ -6734,7 +6750,7 @@
                 },
                 "title": "Einrichtung löschen",
                 "content": {
-                    "canDelete": "Bist Du sicher, dass Du diese Einrichtung löschen möchtets? Diese Aktion ist unwiderruflich. Vergangene Kurse und bereits registrierte Buchungen werden nicht davon betroffen",
+                    "canDelete": "Bist Du sicher, dass Du diese Einrichtung löschen möchtest? Diese Aktion ist unwiderruflich. Vergangene Kurse und bereits registrierte Buchungen werden nicht davon betroffen",
                     "cannotDelete": "Es ist unmöglich, diese Einrichtung zu löschen, da Kurse in der Zukunft dort geplant sind. Prüfe, ob sie storniert und dann gelöscht wurden"
                 }
             },

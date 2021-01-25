@@ -175,6 +175,7 @@ export const PaymentComboForm = (props: Props) => (
       name="tax"
       fullWidth
       required
+      step={0.01}
       label={props.t('form.tax.label')}
     />
     <CheckboxField
@@ -209,7 +210,7 @@ export const PaymentComboFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
   description: Yup.string().required(),
   price: Yup.number().integer().min(0),
-  tax: Yup.number().integer().min(0).max(100),
+  tax: Yup.number().min(0).max(100),
   manager_only: Yup.boolean(),
   available_payment_method_identifiers: Yup.array()
     .of(Yup.number().integer())

@@ -15,6 +15,7 @@ import ConsumerLogin from 'bsport-saas/src/components/consumer/login/ConsumerLog
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 
+const ConsumerLoginStyled = themify(ConsumerLogin);
 const SignUpFormStyled = themify(SignUpForm);
 
 type OwnProps = {

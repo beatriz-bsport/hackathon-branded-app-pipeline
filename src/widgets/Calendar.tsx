@@ -8,8 +8,9 @@ import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 
 import { RootState } from '../store/reducer';
+import { openTab } from '../utils/utils';
+import { constants } from '../const/constants';
 
-const BACKOFFICE_URI = 'https://backoffice.bsport.io';
 const DATE_FORMAT = 'YYYY-MM-DD';
 
 const MarketplaceCalendarStyled = themify(MarketplaceCalendar);
@@ -21,6 +22,7 @@ type OwnProps = {
   toogleCurrentBasketOpen: () => void;
   store: any;
   theme: Theme;
+  onWindowOpen: (popupWindow: any) => void;
 }
 
 type ConnectProps = ReturnType<typeof mapStateToProps>
@@ -42,6 +44,8 @@ type State = {
 };
 
 export class CalendarWidget extends Component<Props, State> {
+  popupWindow?: any;
+
   constructor(props: Props) {
     super(props);
 
@@ -80,6 +84,14 @@ export class CalendarWidget extends Component<Props, State> {
     };
   }
 
+  onClickGoToBook = (id: number, companyId: number) => {
+    const { PUBLIC_URL } = window.runtime.env
+    const url = `${PUBLIC_URL}/customer/payment/offer/${id}
+    ?membership=${companyId}&authToken=${this.props.token}&context=widget`;
+    const popupWindow = openTab(url);
+    this.props.onWindowOpen(popupWindow);
+  }
+
   render() {
     return (
       <MarketplaceCalendarStyled
@@ -97,7 +109,7 @@ export class CalendarWidget extends Component<Props, State> {
           onlyDay: '',
         }}
         setOtherParams={this.setOtherParams}
-        goToBook={this.props.goToBook}
+        goToBook={this.onClickGoToBook}
         goToBookOption={this.props.goToBookOption}
         goToPackPayment={this.props.goToPackPayment}
         onCompletePurchase={this.props.onCompletePurchase}
@@ -110,6 +122,7 @@ export class CalendarWidget extends Component<Props, State> {
 
 const mapStateToProps = (state: RootState) => ({
   authenticated: state.auth.authenticated,
+  token: state.auth.token,
 });
 
 const mapDispatchToProps = {};
@@ -117,20 +130,15 @@ const mapDispatchToProps = {};
 const mapWithProps = (props: ConnectProps & OwnProps) => ({
   goToPackPayment: (packId: number, offerId: number) => {
     window.open(
-      `${BACKOFFICE_URI}/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${props.companyId}`
+      `${constants.backofficeUrl}/customer/payment/pass/${packId}?nextOffer=${offerId}&membership=${props.companyId}`
     );
   },
   onCompletePurchase: () => {
-    window.open(`${BACKOFFICE_URI}/customer`);
-  },
-  goToBook: (id: number, companyId: number) => {
-    window.open(
-      `${BACKOFFICE_URI}/customer/payment/offer/${id}?membership=${companyId}`
-    );
+    window.open(`${constants.backofficeUrl}/customer`);
   },
   goToBookOption: (id: number, companyId: number) => {
     window.open(
-      `${BACKOFFICE_URI}/customer/payment/offer/${id}?membership=${companyId}`
+      `${constants.backofficeUrl}/customer/payment/offer/${id}?membership=${companyId}`
     );
   },
 });

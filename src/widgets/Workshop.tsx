@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { compose, withProps } from 'recompose';
+import { compose } from 'recompose';
 
 import { MarketplaceWorkshopBase } from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';
 import { MarketplaceWorkshopData } from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 
-import { constants } from '../const/constants';
+import { openTab } from '../utils/utils';
+import { RootState } from '../store/reducer';
+import { connect } from 'react-redux';
 
 const MarketplaceWorkshopBaseStyled = themify(MarketplaceWorkshopBase);
 
@@ -15,9 +17,10 @@ type OwnProps = {
   config: MarketplaceWorkshopData
   store: any
   theme: Theme
+  onWindowOpen: (popupWindow: any) => void;
 }
 
-type Props = OwnProps & ReturnType<typeof mapWithProps>;
+type Props = OwnProps & ReturnType<typeof mapStateToProps>;
 
 type State = {
   filters: any,
@@ -47,6 +50,14 @@ class WorkshopWidget extends Component<Props, State> {
     };
   }
 
+  goToBook = (id: number, companyId: number) => {
+    const { PUBLIC_URL } = window.runtime.env;
+    const url = `${PUBLIC_URL}/customer/payment/offer/${id}
+    ?membership=${companyId}&authToken=${this.props.auth.token}&context=widget`;
+    const popupWindow = openTab(url);
+    this.props.onWindowOpen(popupWindow);
+  }
+
   render() {
     return (
       <div
@@ -58,7 +69,7 @@ class WorkshopWidget extends Component<Props, State> {
           companyId={this.props.companyId}
           filters={this.state.filters}
           setFilters={this.setFilters}
-          goToBook={this.props.goToBook}
+          goToBook={this.goToBook}
           store={this.props.store}
           theme={this.props.theme}
         />
@@ -67,14 +78,10 @@ class WorkshopWidget extends Component<Props, State> {
   }
 }
 
-const mapWithProps = () => ({
-  goToBook: (id: number, companyId: number) => {
-  window.open(
-    `${constants.backofficeUrl}/customer/payment/offer/${id}?membership=${companyId}`
-  );
-},
+const mapStateToProps = (state: RootState) => ({
+  auth: state.auth,
 });
 
 export default compose<any, OwnProps>(
-  withProps(mapWithProps)
+  connect(mapStateToProps, null)
 )(WorkshopWidget);

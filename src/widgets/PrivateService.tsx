@@ -1,5 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
+import { connect } from 'react-redux';
 
 import { ButtonBase } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -13,7 +14,8 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 
-import { constants } from '../const/constants';
+import { openTab } from '../utils/utils';
+import { RootState } from '../store/reducer';
 
 const PrivateServiceSelector = themify(
   PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage)
@@ -27,10 +29,14 @@ type OwnProps = {
   companyId: number;
   config: MarketplacePrivateServiceData
   store: any;
-  theme: Theme
+  theme: Theme;
+  onWindowOpen: (popupWindow: any) => void;
 }
 
-type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>
+type Props = OwnProps &
+  ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps &
+  MaterialStyleType<ReturnType<typeof styles>>
 
 interface State {
   serviceId?: number | null;
@@ -38,6 +44,8 @@ interface State {
 
 
 class PrivateServiceWidget extends React.PureComponent<Props, State> {
+  popupWindow?: any;
+
   constructor(props: Props) {
     super(props);
 
@@ -55,28 +63,17 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
     establishment: number;
     associated_coach: number;
   }, privateSlot: PrivateSlot) => {
-    const width = window.innerWidth * 0.5;
-    const height = window.innerHeight * 0.5;
-    const params = `
-      scrollbars=no,
-      resizable=no,
-      status=no,
-      location=no,
-      toolbar=no,
-      menubar=no,
-      width=${width},
-      height=${height},
-      left=${width / 2},
-      top=${height / 2}
-    `;
-
-    window.open(`${constants.backofficeUrl}/customer/payment/private-service/${
+    const { PUBLIC_URL } = window.runtime.env
+    const url = `${PUBLIC_URL}/customer/payment/private-service/${
       this.state.serviceId
     }/private-slot/${
       privateSlot.id
     }/?membership=${this.props.companyId}&data=${encodeURIComponent(
       JSON.stringify(data)
-    )}`, '_blank', params);
+    )}&authToken=${this.props.auth.token}&context=widget`;
+
+    const popupWindow = openTab(url);
+    this.props.onWindowOpen(popupWindow);
   }
 
   render() {
@@ -140,7 +137,15 @@ const styles = (theme: any) => ({
   },
 });
 
+const mapStateToProps = (state: RootState) => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = {};
+
+
 export default compose<any, OwnProps>(
   // @ts-ignore
-  withStyles(styles)
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps)
 )(PrivateServiceWidget);

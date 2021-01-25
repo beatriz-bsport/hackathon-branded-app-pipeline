@@ -5,7 +5,10 @@ import { compose } from 'recompose';
 // eslint-disable-next-line
 import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
 import { fetchSCT } from 'bsport-saas/src/libs/category/actions';
-import SnackbarPile from 'bsport-saas/src/SnackbarPile.component';
+import {
+  SnackbarDataProvider,
+  SnackbarPile,
+} from 'bsport-saas/src/SnackbarPile.component';
 import { getTheme } from 'bsport-saas/src/theme';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
@@ -25,12 +28,12 @@ import AuthDialog from './components/AuthDialog';
 const CalendarWidget = asyncComponent(() => import('./widgets/Calendar'));
 const VODWidget = asyncComponent(() => import('./widgets/Vod'));
 const PrivateServiceWidget = asyncComponent(
-  () => import('./widgets/PrivateService')
+  () => import('./widgets/PrivateService'),
 );
 const WorkshopWidget = asyncComponent(() => import('./widgets/Workshop'));
 const NewsletterWidget = asyncComponent(() => import('./widgets/Newsletter'));
 
-const Snackbar = themify(SnackbarPile);
+const Snackbar = themify(connect(...SnackbarDataProvider)(SnackbarPile));
 
 type OwnProps = WidgetConfig & {
   store: any,
@@ -71,8 +74,8 @@ class BsportWidget extends Component<Props, State> {
         return (
           <WorkshopWidget
             companyId={companyId}
-            store={store}
             config={config.workshop}
+            store={store}
             theme={theme}
           />
         );
@@ -122,15 +125,15 @@ class BsportWidget extends Component<Props, State> {
       );
     }
 
+    console.log(this.props);
+
     return (
       <div className={classes.container}>
         <React.Suspense fallback={<CircularProgress />}>
           <MuiThemeProvider theme={getTheme(this.props.theme)}>
             {this.renderWidget()}
-
             {!!this.props.theme && <BsportLogo theme={this.props.theme} />}
-
-            <Snackbar theme={this.props.theme} store={this.props.store} />
+            <Snackbar theme={this.props.theme} />
             {(!!this.state.showLogin || !!this.state.showSignup) && (
               <AuthDialog
                 showLogin={this.state.showLogin}
@@ -189,5 +192,5 @@ const mapDispatchToProps = {
 export default compose(
   // @ts-ignore
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
 )(BsportWidget);

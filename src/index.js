@@ -1,55 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createBrowserHistory } from 'history';
-import { Provider } from 'react-redux';
-import { Router } from 'react-router';
 
-import BsportWidgetA from './App';
+import Root from './Root';
 import '../vendor/cleanslate.css';
-import initStore from './store/store';
-
-const store = initStore();
-const history = createBrowserHistory();
-
-const migrateOldProps = (props) => {
-  const _props = { ...props };
-  if (_props.widgetType === 'calendar' && !('config' in _props)) {
-    _props.config = {
-      calendar: {
-        ..._props.defaultFilters,
-        compactMode: _props.compactMode,
-      },
-    };
-  }
-
-  if (
-    !['calendar', 'workshop', 'privateService', 'newsletter', 'vod'].includes(
-      _props.widgetType,
-    )
-  ) {
-    _props.widgetType = 'calendar';
-  }
-
-  return _props;
-};
 
 export default class BsportWidget {
   static el;
 
-  static mount({ parentElement, ...props } = {}) {
-    const _props = migrateOldProps(props);
-
-    if (_props.config === undefined) {
-      _props.config = { [_props.widgetType]: {} };
-    }
-
-    const component = (
-      <Provider store={store}>
-        <Router history={history}>
-          <BsportWidgetA {..._props} history={history} store={store} />
-        </Router>
-      </Provider>
-    );
+  static mount({ parentElement, ...initialParams } = {}) {
+    const component = <App initalParams={initialParams} />;
 
     function doRender() {
       if (BsportWidget.el) {

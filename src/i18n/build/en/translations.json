@@ -6020,7 +6020,7 @@
             "title": "Settings",
             "lastBookingBeforeMinutes": "Last booking is possible until {{m}} before the start of the session",
             "lastDiscardBeforeMinutes": "Last discard booking is possible until {{ m }} before start of the session",
-            "firstBookingMinutesUntil": "Customers can book only {{m }} at least before the session",
+            "firstBookingMinutesUntil": "Customers can book only {{m}} at least before the session",
             "conditions": "Conditions",
             "autoDiscard": "The session will be cancelled if there are {{nb_bookings}} booking(s) or less {{hours}}h before the start of the session"
         },

@@ -5218,7 +5218,7 @@
     },
     "metaActivity": {
         "settings": {
-            "lastDiscardBeforeMinutes": "Letzte mögliche Stornierung vor Beginn der Aktivität",
+            "lastDiscardBeforeMinutes": "Letzte mögliche Stornierung {{m}} vor Beginn der Aktivität",
             "lastBookingBeforeMinutes": "Buchungen für diese Aktivität sind bis zu {{m}} vor Beginn des Kurses möglich",
             "title": "Einstellungen",
             "firstBookingMinutesUntil": "Buchungen werden {{m}} vor dem Beginn der Sitzung blockiert",

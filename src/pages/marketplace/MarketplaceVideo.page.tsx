@@ -9,10 +9,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import {
-  getPlaylistList,
-  withCoachInVideo,
-} from '../../libs/playlist/selectors';
+import { getPlaylistList } from '../../libs/playlist/selectors';
 import {
   getVideoList,
   withVideoCoach,
@@ -102,27 +99,29 @@ export class MarketplaceVideo extends React.Component<Props> {
               loading={this.props.loading}
             />
           </div>
-          <div className={classes.playlistListContainer}>
-            <Typography variant="h6" component="h3">
-              {this.props.t('playlist.playlist')}
-            </Typography>
-            <div className={classes.playlistItemsContainer}>
-              {this.props.playlistList.map((pl: any) => (
-                <div className={classes.playlistListItem}>
-                  <MarketplacePlaylistItem
-                    key={pl.id}
-                    title={pl.name}
-                    imageUrl={pl.cover_main}
-                    description={pl.description}
-                    videoCount={this.props.t('video.thumbnailList.count', {
-                      count: pl.videos.length,
-                    })}
-                    onClick={() => this.props.openPlaylist(pl.id)}
-                  />
-                </div>
-              ))}
+          {this.props.playlistList.length && (
+            <div className={classes.playlistListContainer}>
+              <Typography variant="h6" component="h3">
+                {this.props.t('playlist.playlist')}
+              </Typography>
+              <div className={classes.playlistItemsContainer}>
+                {this.props.playlistList.map((pl: any) => (
+                  <div className={classes.playlistListItem}>
+                    <MarketplacePlaylistItem
+                      key={pl.id}
+                      title={pl.name}
+                      imageUrl={pl.cover_main}
+                      description={pl.description}
+                      videoCount={this.props.t('video.thumbnailList.count', {
+                        count: pl.videos.length,
+                      })}
+                      onClick={() => this.props.openPlaylist(pl.id)}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     );
@@ -207,7 +206,7 @@ const styles = (theme: any) => ({
 });
 
 const mapStateToProps = (state: RootState) => ({
-  playlistList: withCoachInVideo(getPlaylistList)(state),
+  playlistList: getPlaylistList(state),
   videoList: withVideoCoach(withVideoCategory(getVideoList))(state),
   loading: state.video.loading || state.video.filterableParams.loading,
   videoFilterableParams: state.video.filterableParams.items,

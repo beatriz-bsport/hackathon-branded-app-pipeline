@@ -2,11 +2,19 @@ import React from 'react';
 import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import initStore from './store/store';
+import {
+  StylesProvider,
+  createGenerateClassName,
+} from '@material-ui/core/styles';
 
+import initStore from './store/store';
 import App from './App';
 
-const migrateOldProps = (props) => {
+const generateClassName = createGenerateClassName({
+  productionPrefix: 'widget-',
+});
+
+const migrateOldProps = (props: any) => {
   const _props = { ...props };
   if (_props.widgetType === 'calendar' && !('config' in _props)) {
     _props.config = {
@@ -29,7 +37,13 @@ const migrateOldProps = (props) => {
 };
 
 export default class extends React.Component {
-  constructor(props) {
+  store: any;
+
+  history: any;
+
+  childProps: any;
+
+  constructor(props: any) {
     super(props);
 
     this.store = initStore();
@@ -45,9 +59,11 @@ export default class extends React.Component {
   render() {
     return (
       <Provider store={this.store}>
-        <ConnectedRouter history={this.history}>
-          <App {...this.childProps} store={this.store} />
-        </ConnectedRouter>
+        <StylesProvider generateClassName={generateClassName}>
+          <ConnectedRouter history={this.history}>
+            <App {...this.childProps} store={this.store} />
+          </ConnectedRouter>
+        </StylesProvider>
       </Provider>
     );
   }

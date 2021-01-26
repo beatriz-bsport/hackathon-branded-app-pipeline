@@ -5,7 +5,6 @@ import {
   CircularProgress,
   Dialog,
   DialogContent,
-  DialogTitle,
   Grid,
 } from '@material-ui/core';
 import 'react-phone-number-input/style.css';
@@ -48,7 +47,7 @@ class AuthDialog extends React.PureComponent<Props> {
         >
           <DialogContent>
             <React.Suspense fallback={<CircularProgress />}>
-              <ConsumerLogin
+              <ConsumerLoginStyled
                 doEmailLogin={this.props.onLogin}
                 errorFields={this.props.errorFields}
                 error={this.props.error}

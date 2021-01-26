@@ -20,7 +20,6 @@ import { auth as authActions } from 'bsport-saas/src/actions';
 
 import { RootState } from './store/reducer';
 import BsportLogo from './components/BsportLogo';
-import './App.scss';
 import { snackbarSuccess } from 'bsport-saas/src/actions/snackbar.actions';
 
 import asyncComponent from './AsyncComponent';

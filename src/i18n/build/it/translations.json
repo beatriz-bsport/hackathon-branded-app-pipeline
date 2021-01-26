@@ -4604,7 +4604,7 @@
             "lastBookingBeforeMinutes": "È possibile prenotare questa attività fino a {{m}} prima dell'inizio della sessione",
             "firstBookingMinutesUntil": "I clienti posso prenotare solo fino a {{m }}prima della sessione",
             "conditions": "Condizioni",
-            "autoDiscard": "La sessione verrà cancellata se ci sono {{tot. num}} di prenotazioni o meno, {{tot}} ore prima dell'inizio della sessione"
+            "autoDiscard": "La sessione verrà cancellata se ci sono {{nb_bookings}} di prenotazioni o meno, {{tot}} ore prima dell'inizio della sessione"
         },
         "forms": {
             "create": {

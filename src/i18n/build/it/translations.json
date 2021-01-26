@@ -3104,6 +3104,22 @@
                 "error": "Impossibile salvare le modifiche",
                 "success": "Le modifiche sono state salvate"
             }
+        },
+        "privateRecurrentRule": {
+            "delete": {
+                "error": "Impossibile eliminare l'appuntamento ricorrente",
+                "success": "Appuntamento ricorrente eliminato"
+            },
+            "createOrUpdate": {
+                "error": "Impossibile salvare l'appuntamento ricorrente",
+                "success": "Appuntamento ricorrente registrato con successo"
+            }
+        },
+        "zoom": {
+            "created": {
+                "error": "Errore durante il collegamento dell'account Zoom",
+                "success": "Account Zoom collegato con successo"
+            }
         }
     },
     "settings": {
@@ -3113,7 +3129,14 @@
             "is_whereby_integration_enabled": {
                 "label": "Attiva l'integrazione whereby X bsport"
             },
-            "submit": "Iscriviti"
+            "submit": "Iscriviti",
+            "zoom": {
+                "explainInvalid": "Account valido",
+                "explainValid": "Account valido: I link delle riunioni zoom verranno creati per ogni sessione 15 minuti prima dell'avvio automatico. Il professore riceverà un link per ospitare la riunione, mentre gli iscritti riceveranno un altro link per partecipare alla riunione. Si noti che se l'account zoom non è pagato, la riunione zoom è limitata a 40 minuti",
+                "label": "Impostazioni degli account Zoom",
+                "enabled": "Abilitare l'integrazione di Zoom"
+            },
+            "seeUpsell": "Saperne di più"
         },
         "active_campaign": {
             "account": {
@@ -3268,7 +3291,8 @@
             "goToSubscription": "Vedi l'abbonamento",
             "revert": "Annulla",
             "invoiceReverted": "Fattura annullata",
-            "consumeBalance": "Paga tramite saldo"
+            "consumeBalance": "Paga tramite saldo",
+            "explainPdfDraft": "La fattura è ancora in fase di bozza, il pdf non è disponibile."
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "La fattura è stata finalizzata e pertanto non è più modificabile",
@@ -3445,7 +3469,11 @@
             "billingMoreThanNeeded": "Se ottieni più dell'importo della fattura, l'eccedenza sarà messa nel saldo del cliente",
             "errorSecretExplain2": "Se il problema non è risolto, contattaci al dev+payment-intent@bsport.io",
             "errorSecretExplain1": "Questo metodo di pagamento non è al momento disponibile",
-            "amountRemaining": "Resto da pagare: {{ amount }}"
+            "amountRemaining": "Resto da pagare: {{ amount }}",
+            "plannedPaymentEvent": {
+                "title": "Pagamento programmato",
+                "title_plural": "Pagamenti programmati"
+            }
         },
         "paymentMethod": {
             "label": {
@@ -3467,7 +3495,11 @@
             },
             "select": {
                 "label": "Metodo di pagamento"
-            }
+            },
+            "isInternalExplain": "Account cliente (manuale): ogni mese un debito viene creato automaticamente nel conto del membro.",
+            "add": "Aggiungere",
+            "edit": "Modificare",
+            "title": "Mezzo di pagamento"
         },
         "paymentEngine": {
             "label": {
@@ -3485,6 +3517,18 @@
         "invoiceInfo": {
             "3": "Questa fattura proviene da un trasferimento. Non siamo in grado di fornire un PDF né di annullarlo per motivi legali.",
             "2": "Questa ricevuta di pagamento rappresenta l'aggiustamento del saldo del tuo membro."
+        },
+        "plannedPaymentEvent": {
+            "actions": {
+                "edit": "Modificare",
+                "delete": "Annullare",
+                "registerNow": "Incassare ora"
+            }
+        },
+        "mandate": {
+            "content": "Consegnando il tuo IBAN e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, ad inviare le istruzioni di addebito alla tua banca in accordo con il calendario di pagamento. Potete chiedere un rimborso alla vostra banca secondo i termini del vostro contratto con quest'ultima. Un rimborso deve essere richiesto entro 8 settimane dopo il primo addebito.",
+            "email": "E-mail del titolare",
+            "name": "Nome e cognome del titolare"
         }
     },
     "coach": {
@@ -3578,7 +3622,8 @@
                     },
                     "explainWarning": "Si noti che questa operazione non è reversibile!",
                     "cancel": "Annulla",
-                    "submit": "Iscriviti"
+                    "submit": "Iscriviti",
+                    "explainInvoice": "A partire da quale fattura (inclusa) desiderate posticipare la sottoscrizione?"
                 }
             },
             "pauseSection": "Pausa",
@@ -3594,7 +3639,15 @@
             "actions": {
                 "switchPaymentMethod": "Modifica il metodo di pagamento",
                 "freeze": "Mettere in pausa",
-                "switchPack": "Modifica la tessera"
+                "switchPack": "Modifica la tessera",
+                "advanceTime": "Avanzare la fattura",
+                "postPone": "Spostare la fattura",
+                "changeDate": "Cambiare la data",
+                "showInvoice": "Vedere la fattura",
+                "changePrice": "Modificare il prezzo",
+                "stop": "Fermare dopo questa fattura",
+                "disableAutoRenew": "Disattivare il rinnovo automatico",
+                "enableAutoRenew": "Abilitare il rinnovo automatico"
             },
             "list": {
                 "title": "Abbonamento in corso"
@@ -3610,6 +3663,9 @@
                 "title": "Programma la risoluzione dell'iscrizione",
                 "explain": "Scegli l'ultimo pagamento dell'iscrizione.",
                 "listItem": "Risoluzione dell'iscrizione programmata"
+            },
+            "invoice": {
+                "label": "Fattura {{uuid}} {price}}€"
             }
         },
         "paymentMethod": {
@@ -3775,7 +3831,13 @@
         },
         "pause": {
             "pausedAt": "{{days}} giorni - {{date}}",
-            "pausedInterval": "{{start}} → {{end}}: {{days}} giorni"
+            "pausedInterval": "{{start}} → {{end}}: {{days}} giorni",
+            "actions": {
+                "delete": "Resettare la pausa"
+            },
+            "secondaryLabel": " : {{ nota }}",
+            "label": "Pausa di {{giorni}} giorni",
+            "createdAt": "Creato il "
         },
         "plannedInvoice": {
             "list": {
@@ -3786,7 +3848,17 @@
                 "submit": "Iscriviti",
                 "explain": "Solo questa futura fattura verrà modificata",
                 "title": "Modifica importo futuro",
-                "price": "Nuovo importo"
+                "price": "Nuovo importo",
+                "updateAll": "Aggiornare tutti i pagamenti futuri"
+            },
+            "dateUpdater": {
+                "actions": {
+                    "submit": "Salvare",
+                    "cancel": "Annuallare"
+                },
+                "explain": "Solo questa futura fattura sarà modificata",
+                "label": "Data di regolamento",
+                "title": "Modificare la data futura"
             }
         },
         "plannedInvoiceStatus": {
@@ -3829,6 +3901,14 @@
             "hasStopped": "Interrotto",
             "hasNotStartedYet": "Non ancora iniziato",
             "hasStarted": "In corso"
+        },
+        "scheduledStop": {
+            "label": "Fermata programmato",
+            "unscheduleStop": "Resettare la fermata"
+        },
+        "end": {
+            "renew": "Rinnovo automatico",
+            "noRenew": "Fine della sottoscrizione"
         }
     },
     "reporting": {
@@ -4572,7 +4652,8 @@
         "packsAvailable": "Pass disponibile per questa attività:",
         "reviews": "Opinione dei clienti: ",
         "noActivities": "Gestisci le tue attività qui, un'attività ti consente di raggruppare una serie di sessioni (generalmente collettive) della stessa pratica.",
-        "disabledMetaActivities": "Attività archiviate"
+        "disabledMetaActivities": "Attività archiviate",
+        "workshop": "Workshop"
     },
     "emailTemplate": {
         "subject": "Oggetto della mail:",
@@ -5671,7 +5752,9 @@
         "code": {
             "addCoupon": {
                 "label": "Codice promozionale",
-                "placeholder": "RIENTRO_SPECIALE"
+                "placeholder": "RIENTRO_SPECIALE",
+                "cancel": "Annullare",
+                "submit": "Confermare"
             }
         }
     },
@@ -6152,7 +6235,8 @@
             "CH": "svizzero",
             "IE": "Irlanda",
             "AT": "Austria",
-            "MT": "Malta"
+            "MT": "Malta",
+            "GB": "Regno Unito"
         },
         "emailValidation": {
             "disconnect": "Cambia account",
@@ -6605,6 +6689,11 @@
             "privatePass": {
                 "error": "Questo appuntamento non è disponibile"
             }
+        },
+        "or": "o",
+        "payLater": {
+            "explain": "Il vostro mezzo di pagamento vi sarà richiesto sul posto prima della seduta. Prima di questa, la fattura sarà considerata non pagata.",
+            "submit": "Pagare sul posto"
         }
     },
     "marketplace": {

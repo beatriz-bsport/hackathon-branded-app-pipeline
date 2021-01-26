@@ -1,11 +1,6 @@
 import React, { useCallback } from 'react';
-import {
-  Avatar,
-  Fade,
-  Typography,
-  makeStyles,
-  ButtonBase,
-} from '@material-ui/core';
+import { Avatar, Fade, Typography, ButtonBase } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 

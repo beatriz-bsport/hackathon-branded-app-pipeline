@@ -1,12 +1,7 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Fade,
-  CardMedia,
-  Typography,
-  makeStyles,
-  ButtonBase,
-} from '@material-ui/core';
+import { Fade, CardMedia, Typography, ButtonBase } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import classNames from 'classnames';
 
 import {

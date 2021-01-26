@@ -2,7 +2,8 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Moment } from 'moment-timezone';
 
-import { ButtonBase, Typography, makeStyles } from '@material-ui/core';
+import { ButtonBase, Typography } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 import {

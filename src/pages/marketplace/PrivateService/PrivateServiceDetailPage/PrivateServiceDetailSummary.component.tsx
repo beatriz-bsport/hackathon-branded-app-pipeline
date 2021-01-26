@@ -1,4 +1,5 @@
-import { makeStyles, Paper, Typography } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import React from 'react';
 
 // @ts-ignore

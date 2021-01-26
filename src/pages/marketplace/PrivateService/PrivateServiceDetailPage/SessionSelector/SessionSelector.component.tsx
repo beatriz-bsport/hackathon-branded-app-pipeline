@@ -1,12 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-  Fade,
-  Typography,
-  Tab,
-  Tabs,
-  Paper,
-  makeStyles,
-} from '@material-ui/core';
+import { Fade, Typography, Tab, Tabs, Paper } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import flatten from 'lodash/flatten';
 import intersection from 'lodash/intersection';
 import { useTranslation } from 'react-i18next';

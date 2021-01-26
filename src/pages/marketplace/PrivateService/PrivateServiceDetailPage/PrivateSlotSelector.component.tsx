@@ -1,5 +1,6 @@
 import React from 'react';
-import { Fade, ButtonBase, Typography, makeStyles } from '@material-ui/core';
+import { Fade, ButtonBase, Typography } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';

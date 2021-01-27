@@ -6,6 +6,7 @@ import {
   StylesProvider,
   createGenerateClassName,
 } from '@material-ui/core/styles';
+import { PrivateServicePageTypeEnum, WidgetComponentsEnum } from 'bsport-saas/src/libs/marketplace/types';
 
 import initStore from './store/store';
 import App from './App';
@@ -16,7 +17,14 @@ const generateClassName = createGenerateClassName({
 
 const migrateOldProps = (props: any) => {
   const _props = { ...props };
-  if (_props.widgetType === 'calendar' && !('config' in _props)) {
+
+  /**
+   * Migrate old calendar config to new config
+   */
+  if (
+    _props.widgetType === WidgetComponentsEnum.calendar &&
+    !('config' in _props)
+  ) {
     _props.config = {
       calendar: {
         ..._props.defaultFilters,
@@ -25,12 +33,36 @@ const migrateOldProps = (props: any) => {
     };
   }
 
+  /**
+   * Migrate to private service groups
+   */
+  if (_props.widgetType === WidgetComponentsEnum.privateService) {
+    if (!_props.config.privateService) {
+      _props.config.privateService = {};
+    }
+
+    let privateServiceType = _props.config.privateService.type;
+
+    if (!privateServiceType) {
+      if (typeof _props.config.privateService.serviceId === 'number') {
+        privateServiceType = PrivateServicePageTypeEnum.detail;
+      } else {
+        privateServiceType = PrivateServicePageTypeEnum.list;
+      }
+    }
+
+    _props.config.privateService.type = privateServiceType;
+  }
+
+  /**
+   * Use a default config when the current config is wrong
+   */
   if (
     !['calendar', 'workshop', 'privateService', 'newsletter', 'vod'].includes(
-      _props.widgetType,
+      _props.widgetType
     )
   ) {
-    _props.widgetType = 'calendar';
+    _props.widgetType = WidgetComponentsEnum.calendar;
   }
 
   return _props;

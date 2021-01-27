@@ -8,7 +8,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import { PrivateServiceSelectorDataProvider, PrivateServiceSelectorPage } from 'bsport-saas/src/pages/marketplace/PrivateService/PrivateServiceSelectorPage/PrivateServiceSelector.page';
 import { PrivateServiceDetailDataProvider, PrivateServiceDetailPage } from 'bsport-saas/src/pages/marketplace/PrivateService/PrivateServiceDetailPage/PrivateServiceDetail.page';
-import { MarketplacePrivateServiceData } from 'bsport-saas/src/libs/marketplace/types';
+import { MarketplacePrivateServiceData, PrivateServicePageTypeEnum } from 'bsport-saas/src/libs/marketplace/types';
 import { PrivateService, PrivateSlot } from 'bsport-saas/src/libs/private-service/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
@@ -27,7 +27,7 @@ const PrivateServiceDetailBase = themify(
 
 type OwnProps = {
   companyId: number;
-  config: MarketplacePrivateServiceData
+  config: MarketplacePrivateServiceData;
   store: any;
   theme: Theme;
   onWindowOpen: (popupWindow: any) => void;
@@ -39,6 +39,7 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>
 
 interface State {
+  type: PrivateServicePageTypeEnum;
   serviceId?: number | null;
 }
 
@@ -50,12 +51,16 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
     super(props);
 
     this.state = {
+      type: props.config.type,
       serviceId: props.config.serviceId,
     };
   }
 
   onClickPrivateService = (ps: PrivateService) => {
-    this.setState({ serviceId: ps.id });
+    this.setState({
+      serviceId: ps.id,
+      type: PrivateServicePageTypeEnum.detail
+    });
   };
 
   onSessionSelect = (data: {
@@ -81,31 +86,35 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
 
     return (
       <div className={classes.container}>
-        {(
-          this.state.serviceId === undefined ||
-          this.state.serviceId === null
-        ) && (
+        {this.state.type === PrivateServicePageTypeEnum.list && (
           <PrivateServiceSelector
             companyId={this.props.companyId.toString()}
             companyName=""
             onClickPrivateService={this.onClickPrivateService}
             store={this.props.store}
             theme={this.props.theme}
+            filters={{private_service_group: this.props.config.privateGroups }}
           />
         )}
 
-        {this.state.serviceId !== undefined && this.state.serviceId !== null && (
+        {this.state.type === PrivateServicePageTypeEnum.detail &&
+          this.state.serviceId !== undefined &&
+          this.state.serviceId !== null && (
           <div className={classes.detailContainer}>
-            <ButtonBase onClick={() => {
-              this.setState({ serviceId: undefined });
-            }}
-            >
-              <ChevronLeftIcon
-                className={classes.icon}
-                fontSize="large"
-              />
-            </ButtonBase>
-
+            {this.props.config.type === PrivateServicePageTypeEnum.list && (
+              <ButtonBase onClick={() => {
+                this.setState({
+                  serviceId: undefined,
+                  type: PrivateServicePageTypeEnum.list,
+                });
+              }}
+              >
+                <ChevronLeftIcon
+                  className={classes.icon}
+                  fontSize="large"
+                />
+              </ButtonBase>
+            )}
             <PrivateServiceDetailBase
               companyId={this.props.companyId.toString()}
               serviceId={this.state.serviceId.toString()}

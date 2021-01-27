@@ -18,10 +18,14 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
+import Icon from '@material-ui/core/Icon';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { colors } from '@bsport/common/lib/colors';
+
+import FACEBOOK_PNG from '../../../public/images/facebook.png';
+import INSTAGRAM_PNG from '../../../public/images/instagram.png';
 
 import Map from '../../../components/map/Map.component';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
@@ -64,6 +68,47 @@ export class MarketPlaceActivity extends React.Component<Props> {
     this.props.fetchPassData(this.props.offerId);
   }
 
+  getSocialLink = (url: string) => {
+    if (url && !url.toLowerCase().includes('http')) {
+      return `http://${url}`;
+    }
+    return url;
+  };
+
+  showSocialLink = (coach: any) => {
+    const facebook_url = this.getSocialLink(coach.facebook_url);
+    const instagram_url = this.getSocialLink(coach.instagram_url);
+    if (coach.facebook_url || coach.instagram_url) {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          {coach.facebook_url && (
+            <a className={this.props.classes.rightIcon} href={facebook_url}>
+              <Icon color="primary">
+                <img
+                  style={{ height: 24, width: 24 }}
+                  src={FACEBOOK_PNG}
+                  alt="Facebook"
+                />
+              </Icon>
+            </a>
+          )}
+          {coach.instagram_url && (
+            <a className={this.props.classes.rightIcon} href={instagram_url}>
+              <Icon color="primary">
+                <img
+                  style={{ height: 24, width: 24 }}
+                  src={INSTAGRAM_PNG}
+                  alt="Instagram"
+                />
+              </Icon>
+            </a>
+          )}
+        </div>
+      );
+    }
+    return null;
+  };
+
   renderCoachBanner = () => {
     const { offer, classes, t } = this.props;
     if (offer && offer.coach) {
@@ -79,10 +124,13 @@ export class MarketPlaceActivity extends React.Component<Props> {
                 className={classes.avatarSubstitute}
               />
               <div className={classes.coachInformations}>
-                <ListItemText
-                  primary={offer.coach_override.name}
-                  secondary={t('marketplace.substitute')}
-                />
+                <div className={classes.coachContain}>
+                  <ListItemText
+                    primary={offer.coach_override.name}
+                    secondary={t('marketplace.substitute')}
+                  />
+                  {this.showSocialLink(offer.coach_override)}
+                </div>
                 {offer.coach_override.description ? (
                   <TypographyMultiline
                     color="textSecondary"
@@ -98,12 +146,15 @@ export class MarketPlaceActivity extends React.Component<Props> {
           <div className={classes.coachBox}>
             <Avatar src={offer.coach.photo} />
             <div className={classes.coachInformations}>
-              <ListItemText
-                primary={offer.coach.name}
-                secondary={
-                  offer.coach_override ? t('marketplace.substituted') : null
-                }
-              />
+              <div className={classes.coachContain}>
+                <ListItemText
+                  primary={offer.coach.name}
+                  secondary={
+                    offer.coach_override ? t('marketplace.substituted') : null
+                  }
+                />
+                {this.showSocialLink(offer.coach)}
+              </div>
               {offer.coach_override ? null : (
                 <TypographyMultiline
                   color="textSecondary"
@@ -330,6 +381,18 @@ const styles = (theme) => ({
   },
   coachInformations: {
     paddingLeft: '16px',
+    width: '100%',
+  },
+  coachContain: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  rightInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  rightIcon: {
+    marginLeft: theme.spacing(1),
   },
   card: {
     margin: '0 auto',

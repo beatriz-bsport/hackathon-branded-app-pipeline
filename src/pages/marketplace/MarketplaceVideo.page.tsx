@@ -233,6 +233,9 @@ const turnSearchParamsIntoQueryParams = (searchParams?: any) => {
   if (searchParams && searchParams.levels) {
     params.level__pk__in = searchParams.levels;
   }
+  if (searchParams && searchParams.search) {
+    params.search = searchParams.search;
+  }
   return params;
 };
 

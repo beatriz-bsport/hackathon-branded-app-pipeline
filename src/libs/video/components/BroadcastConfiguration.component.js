@@ -30,7 +30,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   zoomApp?: ZoomApp,
-  onSubmitZoomApp?: (companyId: Number, data: *) => void,
+  onSubmitZoomApp?: (data: *) => void,
   connectZoom: () => void,
   zoomLoading: boolean,
   goToUpsell: () => void,
@@ -75,9 +75,7 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
     let check_zoomApp = true;
     if (this.props.zoomApp) {
       check_zoomApp =
-        this.state.zoomApp.is_disabled === this.props.zoomApp.is_disabled &&
-        this.state.zoomApp.api_key === this.props.zoomApp.api_key &&
-        this.state.zoomApp.api_secret === this.props.zoomApp.api_secret;
+        this.state.zoomApp.is_disabled === this.props.zoomApp.is_disabled;
     }
     return (
       check_zoomApp &&
@@ -95,10 +93,10 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
 
     if (this.props.zoomApp && this.props.onSubmitZoomApp) {
       const zoom_conf = new FormData();
-      ['api_key', 'api_secret'].map((key) =>
+      ['is_disabled'].map((key) =>
         zoom_conf.append(key, this.state.zoomApp[key]),
       );
-      this.props.onSubmitZoomApp(this.props.theme.company, zoom_conf);
+      this.props.onSubmitZoomApp(zoom_conf);
     }
   };
 

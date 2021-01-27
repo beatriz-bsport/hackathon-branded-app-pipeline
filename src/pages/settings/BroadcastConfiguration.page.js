@@ -35,7 +35,7 @@ type Props = {
   fetchCompanyTheme: () => void,
   classes: any,
   zoomApp: any,
-  submitZoomApp: (companyId: number, data: *) => void,
+  submitZoomApp: (data: *) => void,
   fetchZoomApp: (companyId: number) => void,
   removeUrlCode: () => void,
   snackbarSuccess: (string) => void,

@@ -19,6 +19,13 @@ const MemberForm = asyncComponent(() => import('./MemberForm.page'));
 const MemberDetail = asyncComponent(() => import('./MemberDetail.page'));
 const MemberMergeForm = asyncComponent(() => import('./MemberMergeForm.page'));
 
+const getLink = (str) => {
+  if (str.endsWith('/')) {
+    return <Redirect to={`${str}info`} />;
+  }
+  return <Redirect to={`${str}/info`} />;
+};
+
 export const MemberRouter = (props: { t: TFunction }) => (
   <div>
     <Helmet>
@@ -33,7 +40,7 @@ export const MemberRouter = (props: { t: TFunction }) => (
       <Route
         exact
         path="/member/:id/"
-        component={() => <Redirect to={`${window.location.pathname}info`} />}
+        component={() => getLink(window.location.pathname)}
       />
     </Switch>
   </div>

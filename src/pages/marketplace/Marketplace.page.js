@@ -183,8 +183,8 @@ export class MarketPlace extends Component<Props, State> {
 
   handleTabChange = (event: SyntheticEvent<HTMLElement>, value: number) => {
     const { tabSelected } = this.props;
-    // we dont want to remove query params if user accidentally reclick th button
-    if (tabSelected === parseInt(value, 10)) return;
+
+    if (parseInt(tabSelected, 10) === parseInt(value, 10)) return;
 
     const tabConfig: MarketplaceTabConfig = this.props.settings.config[
       value.toString()
@@ -379,15 +379,11 @@ export class MarketPlace extends Component<Props, State> {
                 variant="scrollable"
                 value={parseInt(this.props.tabSelected, 10)}
               >
-		{
-		  (
-		    (
-		      (
-		      this.props.settings.config && this.props.settings.config.tabs
-		    ) ? [] : this.props.settings.config
-		  )
-		    || []
-		).map((tab, i) => {
+                {(
+                  (this.props.settings.config && this.props.settings.config.tabs
+                    ? []
+                    : this.props.settings.config) || []
+                ).map((tab, i) => {
                   if (
                     tab.componentType === MarketplaceComponentsEnum.vod &&
                     !(

@@ -7,7 +7,6 @@ import {
   DialogContent,
   Grid,
 } from '@material-ui/core';
-import 'react-phone-number-input/style.css';
 
 import SignUpForm from 'bsport-saas/src/components/form/SignUpForm.component';
 import ConsumerLogin from 'bsport-saas/src/components/consumer/login/ConsumerLogin.component';
@@ -74,7 +73,7 @@ class AuthDialog extends React.PureComponent<Props> {
                   }}
                 />
               </Grid>
-              <Grid item>
+              <Grid item className={"cleanslate"}>
                 <SignUpFormStyled
                   loading={this.props.loading}
                   theme={this.props.theme}

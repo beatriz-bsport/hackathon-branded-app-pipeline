@@ -49,6 +49,7 @@ type OwnProps = {
     companyId: number,
     companyName: string,
   ) => void;
+  store?: any;
 };
 
 type ConnectProps = ReturnType<typeof mapStateToProps> &

@@ -282,7 +282,7 @@ const mapHandlers = {
   },
 };
 
-export const MarketplaceVideoDataProvider = compose(
+export const MarketplaceVideoDataProvider = compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
   withTranslation(['video']),

@@ -55,6 +55,7 @@ type OwnProps = {
   requestSignUp?: () => void;
   onRequestBuyPass: (companyId: number, companyName: string) => void;
   openVideo: (videoId: number, companyId: number, companyName: string) => void;
+  store?: any;
   requestVideoAccessRefreshFlag?: number;
 } & StateHandlerType;
 

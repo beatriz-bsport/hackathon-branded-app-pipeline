@@ -1,6 +1,6 @@
 export const openTab = (url: string, target?: string) => {
-  const width = window.innerWidth * 0.5;
-  const height = window.innerHeight * 0.5;
+  const width = window.screen.width * 0.5;
+  const height = window.screen.height * 0.65;
   const params = `
       scrollbars=no,
       resizable=no,
@@ -10,8 +10,8 @@ export const openTab = (url: string, target?: string) => {
       menubar=no,
       width=${width},
       height=${height},
-      left=${width / 2},
-      top=${height / 2}
+      left=${window.screen.width / 2 - width / 2},
+      top=${window.screen.height / 2 - height / 2}
     `;
 
   return window.open(url, target || '_blank', params);

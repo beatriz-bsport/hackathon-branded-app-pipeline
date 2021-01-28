@@ -427,6 +427,7 @@ export const privateServiceMarketplaceListActions = {
 
 export function fetchMarketplacePrivateServices(
   company: number,
+  data?: { private_service_group__in?: number[] },
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -437,6 +438,7 @@ export function fetchMarketplacePrivateServices(
         company,
         available: true,
         manager_only: false,
+        ...data,
       });
       dispatch(privateServiceMarketplaceListActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
@@ -1014,12 +1016,15 @@ export const serviceGroupListActions = {
   success: createAction('SERVICE_GROUP/LIST/SUCCESS'),
 };
 
-export function fetchPrivateServiceGroupList(options: OptionCallback) {
+export function fetchPrivateServiceGroupList(
+  data: any,
+  options?: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(serviceGroupListActions.isLoading(true));
     dispatch(serviceGroupListActions.error(null));
     try {
-      const response = await fetchServiceGroupListAPI({ mine: true });
+      const response = await fetchServiceGroupListAPI(data);
       dispatch(serviceGroupListActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);

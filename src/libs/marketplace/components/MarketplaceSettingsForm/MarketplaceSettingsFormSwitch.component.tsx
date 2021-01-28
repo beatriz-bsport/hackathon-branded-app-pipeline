@@ -12,7 +12,10 @@ import {
 import { Coach } from '../../../associated-coach/types';
 import { Establishment } from '../../../establishment/types';
 import { MetaActivity } from '../../../meta-activity/types';
-import { PrivateService } from '../../../private-service/types';
+import {
+  PrivateService,
+  PrivateServiceGroup,
+} from '../../../private-service/types';
 import { Video } from '../../../video/types';
 import MarketplaceVodSettingsForm from './MarketplaceVodFormSettings.component';
 
@@ -25,8 +28,11 @@ type Props = {
   privateServices: Array<PrivateService>;
   videos: Array<Video>;
   playlists: Array<{ id: number; name: string }>;
+  serviceGroupList: PrivateServiceGroup[];
   config: MarketplaceComponentConfig;
   onChange: (config: MarketplaceComponentConfig) => void;
+  privateServiceError?: string;
+  playlistError?: string;
 };
 
 export default class MarketplaceSettingsFormSwitch extends React.PureComponent<Props> {
@@ -70,6 +76,8 @@ export default class MarketplaceSettingsFormSwitch extends React.PureComponent<P
       return (
         <MarketplacePrivateServiceSettingsForm
           privateServices={this.props.privateServices}
+          serviceGroupList={this.props.serviceGroupList}
+          error={this.props.privateServiceError}
           config={this.props.config.privateService}
           onChange={(config) =>
             this.props.onChange({
@@ -101,13 +109,13 @@ export default class MarketplaceSettingsFormSwitch extends React.PureComponent<P
         <MarketplacePlaylistSettingsForm
           config={this.props.config.playlist}
           playlists={this.props.playlists}
+          error={this.props.playlistError}
           onChange={(config) =>
             this.props.onChange({
               ...this.props.config,
               playlist: config,
             })
           }
-          error=""
         />
       );
     }

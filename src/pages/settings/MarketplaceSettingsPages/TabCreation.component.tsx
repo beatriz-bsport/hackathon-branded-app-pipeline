@@ -15,11 +15,15 @@ import {
 import { Coach } from '../../../libs/associated-coach/types';
 import { Establishment } from '../../../libs/establishment/types';
 import { MetaActivity } from '../../../libs/meta-activity/types';
-import { PrivateService } from '../../../libs/private-service/types';
+import {
+  PrivateService,
+  PrivateServiceGroup,
+} from '../../../libs/private-service/types';
 
 import {
   MarketplaceComponentsEnum,
   MarketplaceTabConfig,
+  PrivateServicePageTypeEnum,
 } from '../../../libs/marketplace/types';
 
 import MarketplaceComponentTypeSelector from '../../../libs/marketplace/components/MarketplaceComponentTypeSelector.coponent';
@@ -35,6 +39,7 @@ type Props = {
   metaActivitiesWorkshop: Array<MetaActivity>;
   privateServices: Array<PrivateService>;
   playlists: Array<{ id: number; name: string }>;
+  serviceGroupList: PrivateServiceGroup[];
   videos: Array<Video>;
   onSubmit: (tab: MarketplaceTabConfig) => void;
   index: number;
@@ -51,6 +56,7 @@ const TabCreation: React.FC<Props> = (props) => {
   const [componentTypeError, setComponentTypeError] = useState('');
   const [titleError, setTitleError] = useState('');
   const [playlistError, setPlaylistError] = useState('');
+  const [privateServiceError, setPrivateServiceError] = useState('');
 
   const classes = useStyles();
   const { t } = useTranslation('settings');
@@ -107,8 +113,41 @@ const TabCreation: React.FC<Props> = (props) => {
       componentType === MarketplaceComponentsEnum.playlist &&
       tabConfig.playlist
     ) {
-      if (tabConfig.playlist.playlistId === undefined) {
+      const { playlistId } = tabConfig.playlist;
+
+      if (
+        playlistId === undefined ||
+        playlistId === null ||
+        playlistId === -1
+      ) {
         setPlaylistError(t('marketplaceSettings.createDialog.noPlaylistError'));
+        return;
+      }
+    }
+
+    if (
+      componentType === MarketplaceComponentsEnum.privateService &&
+      tabConfig.privateService
+    ) {
+      let typeValue = tabConfig.privateService.type;
+
+      if (!typeValue) {
+        if (typeof tabConfig.privateService.serviceId === 'number') {
+          typeValue = PrivateServicePageTypeEnum.detail;
+        } else {
+          typeValue = PrivateServicePageTypeEnum.list;
+        }
+      }
+
+      const { serviceId } = tabConfig.privateService;
+
+      if (
+        typeValue === PrivateServicePageTypeEnum.detail &&
+        (serviceId === undefined || serviceId === null || serviceId === -1)
+      ) {
+        setPrivateServiceError(
+          t('marketplaceSettings.createDialog.noServiceError'),
+        );
         return;
       }
     }
@@ -122,29 +161,6 @@ const TabCreation: React.FC<Props> = (props) => {
 
     props.onSubmit(tab);
   }, [componentType, title, tabConfig]);
-
-  const renderOptionalData = useCallback(() => {
-    if (showAdvanceSettings) {
-      return (
-        <MarketplaceSettingsFormSwitch
-          componentType={componentType}
-          coaches={props.coaches}
-          establishments={props.establishments}
-          metaActivities={props.metaActivities}
-          metaActivitiesWorkshop={props.metaActivitiesWorkshop}
-          privateServices={props.privateServices}
-          videos={props.videos}
-          playlists={props.playlists}
-          config={tabConfig}
-          onChange={(config) =>
-            setTabConfig({ [componentType]: config[componentType] })
-          }
-        />
-      );
-    }
-
-    return null;
-  }, [componentType, tabConfig, showAdvanceSettings, playlistError]);
 
   return (
     <Dialog open className={classes.container} onClose={props.onClose}>
@@ -189,7 +205,26 @@ const TabCreation: React.FC<Props> = (props) => {
               </Button>
             </div>
           )}
-        {renderOptionalData()}
+
+        {showAdvanceSettings && (
+          <MarketplaceSettingsFormSwitch
+            componentType={componentType}
+            coaches={props.coaches}
+            establishments={props.establishments}
+            metaActivities={props.metaActivities}
+            metaActivitiesWorkshop={props.metaActivitiesWorkshop}
+            privateServices={props.privateServices}
+            serviceGroupList={props.serviceGroupList}
+            videos={props.videos}
+            playlists={props.playlists}
+            playlistError={playlistError}
+            privateServiceError={privateServiceError}
+            config={tabConfig}
+            onChange={(config) =>
+              setTabConfig({ [componentType]: config[componentType] })
+            }
+          />
+        )}
       </DialogContent>
 
       <DialogActions>

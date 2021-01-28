@@ -68,9 +68,10 @@ export const getPrivateServices = createSelector(
   },
 );
 
-const _getServiceGroupIdList = (state) =>
+const _getServiceGroupIdList = (state: RootState) =>
   state.privateService.serviceGroup.allIds;
-const _getServiceGroupData = (state) => state.privateService.serviceGroup.byId;
+const _getServiceGroupData = (state: RootState) =>
+  state.privateService.serviceGroup.byId;
 
 export const getPrivateServiceGroupList = createSelector(
   [_getServiceGroupData, _getServiceGroupIdList],

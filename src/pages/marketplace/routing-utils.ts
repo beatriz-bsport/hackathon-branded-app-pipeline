@@ -3,6 +3,7 @@ import {
   MarketplaceCommonFilter,
   MarketplaceComponentConfig,
   MarketplaceComponentsEnum,
+  PrivateServicePageTypeEnum,
   WidgetComponentsEnum,
 } from '../../libs/marketplace/types';
 
@@ -28,15 +29,30 @@ export const fromConfigToUrl = (
   let path = '';
 
   if (component_type === 'privateService' && tabConfig.config.privateService) {
+    const privateServiceConf = tabConfig.config.privateService;
+
     path = 'private-service';
 
+    let typeValue = privateServiceConf.type;
+
+    if (!typeValue) {
+      if (typeof privateServiceConf.serviceId === 'number') {
+        typeValue = PrivateServicePageTypeEnum.detail;
+      } else {
+        typeValue = PrivateServicePageTypeEnum.list;
+      }
+    }
+
     if (
-      tabConfig.config.privateService.serviceId !== undefined &&
-      tabConfig.config.privateService.serviceId !== null &&
-      // @ts-ignore
-      tabConfig.config.privateService.serviceId !== ''
+      typeValue === PrivateServicePageTypeEnum.detail &&
+      typeof privateServiceConf.serviceId === 'number'
     ) {
-      path = `private-service/${tabConfig.config.privateService.serviceId}`;
+      path = `private-service/${privateServiceConf.serviceId}`;
+    } else if (
+      privateServiceConf.privateGroups &&
+      privateServiceConf.privateGroups.length
+    ) {
+      query.private_service_group = privateServiceConf.privateGroups.join(',');
     }
   }
 

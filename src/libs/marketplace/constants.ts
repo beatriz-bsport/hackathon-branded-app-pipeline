@@ -1,4 +1,8 @@
-import { MarketplaceComponentsEnum, MarketplaceSettings } from './types';
+import {
+  MarketplaceComponentsEnum,
+  MarketplaceSettings,
+  PrivateServicePageTypeEnum,
+} from './types';
 
 export const MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT: any = {
   calendar: {
@@ -14,7 +18,7 @@ export const MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT: any = {
     levels: [],
   },
   privateService: {
-    serviceId: null,
+    type: PrivateServicePageTypeEnum.list,
   },
   playlist: {},
   pass: {},
@@ -48,7 +52,7 @@ export const MARKETPLACE_DEFAULT_CONFIG: MarketplaceSettings['config'] = [
     title: '',
     index: 2,
     config: {
-      privateService: {},
+      privateService: MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT.privateService,
     },
   },
   {

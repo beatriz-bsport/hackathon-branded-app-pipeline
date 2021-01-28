@@ -21,5 +21,6 @@ exports.default = {
     codeInfo: 'Le code à intégrer dans votre site',
     linkToConfig: 'Lien vers cette configuration',
     dialogTitle: 'Personalisation de Widget',
+    widgetPreviewError: 'Veuillez finir votre configuration';
   },
 };

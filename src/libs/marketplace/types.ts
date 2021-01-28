@@ -21,6 +21,11 @@ export enum WidgetComponentsEnum {
   'newsletter' = 'newsletter',
 }
 
+export enum PrivateServicePageTypeEnum {
+  'list' = 'list',
+  'detail' = 'detail',
+}
+
 export type MarketplaceCommonFilter = {
   coaches?: number[];
   establishments?: number[];
@@ -35,7 +40,9 @@ export type MarketplaceCalendarData = MarketplaceCommonFilter & {
 export type MarketplaceWorkshopData = MarketplaceCommonFilter;
 
 export type MarketplacePrivateServiceData = {
+  type: PrivateServicePageTypeEnum;
   serviceId?: number | null;
+  privateGroups?: number[] | null;
 };
 
 export type MarketplaceVODData = {

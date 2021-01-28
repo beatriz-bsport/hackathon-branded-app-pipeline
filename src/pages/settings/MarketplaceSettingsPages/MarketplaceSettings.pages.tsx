@@ -33,8 +33,14 @@ import { getMarketplaceRoute } from '../../marketplace/routing-utils';
 import { RootState } from '../../../reducers';
 import TabCreation from './TabCreation.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
-import { fetchAllPrivateServices } from '../../../libs/private-service/actions';
-import { getAvailablePrivateServices } from '../../../libs/private-service/selectors/private-service';
+import {
+  fetchAllPrivateServices,
+  fetchPrivateServiceGroupList,
+} from '../../../libs/private-service/actions';
+import {
+  getAvailablePrivateServices,
+  getPrivateServiceGroupList,
+} from '../../../libs/private-service/selectors/private-service';
 import { fetchAssociatedCoachesList } from '../../../libs/associated-coach/actions';
 import { getActiveCoaches } from '../../../libs/associated-coach/selectors';
 import { fetchEstablishments } from '../../../libs/establishment/actions';
@@ -94,6 +100,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
     props.fetchAllActivities();
     props.fetchVideoList({ mine: true });
     props.fetchPlaylistList({ mine: true });
+    props.fetchPrivateServiceGroupList({ mine: true });
   }, []);
 
   useEffect(() => {
@@ -340,6 +347,7 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
               metaActivities={props.metaActivities}
               metaActivitiesWorkshop={props.metaActivitiesWorkshop}
               privateServices={props.privateServices}
+              serviceGroupList={props.serviceGroupList}
               playlists={props.playlists}
               videos={props.videoList}
               index={currentTab !== null ? currentTab : config.length}
@@ -418,6 +426,7 @@ const mapStateToProps = (state: RootState) => ({
   metaActivitiesWorkshop: getEnabledWorkshops(state),
   playlists: getPlaylistList(state),
   videoList: getVideoList(state),
+  serviceGroupList: getPrivateServiceGroupList(state),
   theme: state.theme.theme,
 });
 
@@ -430,6 +439,7 @@ const mapDispatchToProps = {
   fetchAllActivities,
   fetchPlaylistList,
   fetchVideoList,
+  fetchPrivateServiceGroupList,
 };
 
 export default connect(

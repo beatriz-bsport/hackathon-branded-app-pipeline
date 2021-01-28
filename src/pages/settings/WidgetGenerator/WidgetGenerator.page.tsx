@@ -4,13 +4,14 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import {
   ButtonBase,
-  Typography,
-  FormControlLabel,
   Checkbox,
+  FormControlLabel,
   Paper,
+  Typography,
 } from '@material-ui/core';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { merge } from 'lodash';
 
@@ -18,15 +19,22 @@ import { MaterialStyleType } from '../../../utils/types';
 import MarketplaceComponentTypeSelector from '../../../libs/marketplace/components/MarketplaceComponentTypeSelector.coponent';
 import {
   MarketplaceComponentConfig,
+  PrivateServicePageTypeEnum,
   WidgetComponentsEnum,
 } from '../../../libs/marketplace/types';
 import { RootState } from '../../../reducers';
-import { fetchAllPrivateServices } from '../../../libs/private-service/actions';
+import {
+  fetchAllPrivateServices,
+  fetchPrivateServiceGroupList,
+} from '../../../libs/private-service/actions';
 import { fetchAssociatedCoachesList } from '../../../libs/associated-coach/actions';
 import { fetchEstablishments } from '../../../libs/establishment/actions';
 import { fetchAllActivities } from '../../../libs/meta-activity/actions';
 import { fetchPlaylistList } from '../../../libs/playlist/actions';
-import { getAvailablePrivateServices } from '../../../libs/private-service/selectors/private-service';
+import {
+  getAvailablePrivateServices,
+  getPrivateServiceGroupList,
+} from '../../../libs/private-service/selectors/private-service';
 import { getActiveCoaches } from '../../../libs/associated-coach/selectors';
 import { getAvailableEstablishmentList } from '../../../libs/establishment/selectors';
 import {
@@ -62,6 +70,10 @@ interface State {
   componentType: WidgetComponentsEnum;
   useIframe: boolean;
   config: MarketplaceComponentConfig;
+  error: {
+    privateServiceError: string;
+    playlistError: string;
+  };
 }
 
 class WidgetGeneratorPage extends React.PureComponent<Props, State> {
@@ -72,6 +84,10 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       componentType: WidgetComponentsEnum.calendar,
       useIframe: false,
       config: MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT,
+      error: {
+        privateServiceError: '',
+        playlistError: '',
+      },
     };
 
     if (props.defaultValue) {
@@ -89,14 +105,29 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     this.props.fetchEstablishments();
     this.props.fetchPlaylistList({ mine: true });
     this.props.fetchVideoList({ mine: true });
+    this.props.fetchPrivateServiceGroupList({ mine: true });
   }
 
   onComponentTypeChange = (componentType: WidgetComponentsEnum) => {
+    const { t } = this.props;
+
+    let playlistError = '';
+
+    if (componentType === WidgetComponentsEnum.playlist) {
+      playlistError = t(
+        'settings:marketplaceSettings.createDialog.noPlaylistError',
+      );
+    }
+
     this.setState((prevState) => ({
       componentType,
       config: {
         ...prevState.config,
         [componentType]: MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT[componentType],
+      },
+      error: {
+        playlistError,
+        privateServiceError: '',
       },
     }));
   };
@@ -147,6 +178,64 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     return url;
   }
 
+  onConfigChange = (config: MarketplaceComponentConfig) => {
+    const { t } = this.props;
+    let playlistError = '';
+    let privateServiceError = '';
+
+    console.log('on config change');
+
+    if (
+      this.state.componentType === WidgetComponentsEnum.playlist &&
+      config.playlist
+    ) {
+      const { playlistId } = config.playlist;
+      if (
+        playlistId === undefined ||
+        playlistId === null ||
+        playlistId === -1
+      ) {
+        playlistError = t(
+          'settings:marketplaceSettings.createDialog.noPlaylistError',
+        );
+      }
+    }
+
+    if (
+      this.state.componentType === WidgetComponentsEnum.privateService &&
+      config.privateService
+    ) {
+      let typeValue = config.privateService.type;
+
+      if (!typeValue) {
+        if (typeof config.privateService.serviceId === 'number') {
+          typeValue = PrivateServicePageTypeEnum.detail;
+        } else {
+          typeValue = PrivateServicePageTypeEnum.list;
+        }
+      }
+
+      const { serviceId } = config.privateService;
+
+      if (
+        typeValue === PrivateServicePageTypeEnum.detail &&
+        (serviceId === undefined || serviceId === null || serviceId === -1)
+      ) {
+        privateServiceError = t(
+          'settings:marketplaceSettings.createDialog.noServiceError',
+        );
+      }
+    }
+
+    this.setState({
+      config,
+      error: {
+        playlistError,
+        privateServiceError,
+      },
+    });
+  };
+
   render() {
     const { classes, t } = this.props;
 
@@ -154,13 +243,18 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     const codeStringPreview = this.getCodeStringPreview();
     const url = this.getUrl();
 
+    const error =
+      this.state.error.privateServiceError || this.state.error.playlistError;
+
+    console.log('state errror ', this.state.error);
+
     return (
       <div className={classes.container}>
         <div className={classes.creationContainer}>
           <div className={classes.explain}>
             <div className={classes.row}>
               <InfoOutlinedIcon className={classes.explainIcon} />
-              <Typography>{t('widget.creationPageInfo')}</Typography>
+              <Typography>{t('widget:widget.creationPageInfo')}</Typography>
             </div>
           </div>
 
@@ -174,7 +268,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
                 name="checkedA"
               />
             }
-            label={t('widget.ownStyle')}
+            label={t('widget:widget.ownStyle')}
           />
 
           {!this.props.hideTypeSelector && (
@@ -195,9 +289,12 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
             metaActivitiesWorkshop={this.props.metaActivitiesWorkshop}
             privateServices={this.props.privateServices}
             playlists={this.props.playlists}
+            privateServiceError={this.state.error.privateServiceError}
+            playlistError={this.state.error.playlistError}
             videos={this.props.videoList}
+            serviceGroupList={this.props.serviceGroupList}
             config={this.state.config}
-            onChange={(config) => this.setState({ config })}
+            onChange={this.onConfigChange}
           />
 
           <div className={classes.separator} />
@@ -205,7 +302,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
           {url && (
             <>
               <Typography className={classes.marginTop}>
-                {t('widget.linkToConfig')}
+                {t('widget:widget.linkToConfig')}
               </Typography>
 
               <Paper elevation={1} className={classes.codeContainer}>
@@ -214,49 +311,64 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
                   color="textSecondary"
                   className={classes.code}
                 >
-                  {url}
+                  {error ? t('widget:widget.widgetPreviewError') : url}
                 </Typography>
 
-                <ButtonBase
-                  onClick={() => this.copyToClipboard(url)}
-                  className={classes.copyClipboardContainer}
-                >
-                  <FileCopyIcon />
-                </ButtonBase>
+                {!error && (
+                  <ButtonBase
+                    onClick={() => this.copyToClipboard(url)}
+                    className={classes.copyClipboardContainer}
+                  >
+                    <FileCopyIcon />
+                  </ButtonBase>
+                )}
               </Paper>
             </>
           )}
 
-          <Typography className={classes.marginTop}>
-            {t('widget.codeInfo')}
-          </Typography>
-
-          <Paper elevation={1} className={classes.codeContainer}>
-            <Typography
-              variant="caption"
-              color="textSecondary"
-              className={classes.code}
-            >
-              {codeString}
+          <>
+            <Typography className={classes.marginTop}>
+              {t('widget:widget.codeInfo')}
             </Typography>
 
-            <ButtonBase
-              onClick={() => this.copyToClipboard(codeString)}
-              className={classes.copyClipboardContainer}
-            >
-              <FileCopyIcon />
-            </ButtonBase>
-          </Paper>
+            <Paper elevation={1} className={classes.codeContainer}>
+              <Typography
+                variant="caption"
+                color="textSecondary"
+                className={classes.code}
+              >
+                {error ? t('widget:widget.widgetPreviewError') : codeString}
+              </Typography>
+
+              {!error && (
+                <ButtonBase
+                  onClick={() => this.copyToClipboard(codeString)}
+                  className={classes.copyClipboardContainer}
+                >
+                  <FileCopyIcon />
+                </ButtonBase>
+              )}
+            </Paper>
+          </>
         </div>
 
         {!this.props.hidePreview && (
           <div className={classes.iframeContainer}>
             <Paper className={classes.iframePaper} elevation={1}>
-              <iframe
-                title="preview"
-                className={classes.iframe}
-                srcDoc={codeStringPreview}
-              />
+              {error ? (
+                <div className={classes.previewErrorContainer}>
+                  <SettingsIcon fontSize="large" />
+                  <Typography variant="h5">
+                    {t('widget:widget.widgetPreviewError')}
+                  </Typography>
+                </div>
+              ) : (
+                <iframe
+                  title="preview"
+                  className={classes.iframe}
+                  srcDoc={codeStringPreview}
+                />
+              )}
             </Paper>
           </div>
         )}
@@ -345,6 +457,12 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     flex: 1,
   },
+  previewErrorContainer: {
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 const mapStateToProps = (state: RootState) => ({
@@ -360,6 +478,7 @@ const mapStateToProps = (state: RootState) => ({
   coachesLoading: state.coach.loading,
   establishmentsLoading: state.establishment.loading,
   metaActivitiesLoading: state.metaActivity.loading,
+  serviceGroupList: getPrivateServiceGroupList(state),
   themeLoading: state.theme.loading,
 });
 
@@ -370,12 +489,13 @@ const mapDispatchToProps = {
   fetchAllActivities,
   fetchPlaylistList,
   fetchVideoList,
+  fetchPrivateServiceGroupList,
   snackbarInfo,
 };
 
 export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
-  withTranslation('widget'),
+  withTranslation(['widget', 'settings']),
   connect(mapStateToProps, mapDispatchToProps),
 )(WidgetGeneratorPage);

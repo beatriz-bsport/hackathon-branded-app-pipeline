@@ -128,7 +128,7 @@ type Props = {
 export class PrivateServiceList extends React.Component<Props> {
   componentDidMount() {
     this.fetchData();
-    this.props.fetchPrivateServiceGroupList();
+    this.props.fetchPrivateServiceGroupList({ mine: true });
     this.props.fetchNotificationsAndTemplates();
   }
 
@@ -349,7 +349,7 @@ export default compose(
         onSuccess: (g) => {
           closeServiceGroupForm();
           if (options && options.onSuccess) options.onSuccess(g);
-          fetchPrivateServiceGroupList();
+          fetchPrivateServiceGroupList({ mine: true });
         },
       });
     },

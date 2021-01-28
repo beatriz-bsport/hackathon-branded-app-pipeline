@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import {
   Typography,
@@ -7,14 +7,15 @@ import {
   ButtonBase,
   LinearProgress,
   Chip,
+  Theme,
 } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
-import { uniq } from 'lodash';
+import { uniq, isEqual } from 'lodash';
 
 import { compose } from 'recompose';
+import { withStyles } from '@material-ui/styles';
 import { fetchMarketplacePrivateServices } from '../../../../libs/private-service/actions';
 import { _getPrivateServicesMarketplace } from '../../../../libs/private-service/selectors/private-service';
 // @ts-ignore
@@ -23,125 +24,167 @@ import { RootState } from '../../../../reducers';
 import { PrivateService } from '../../../../libs/private-service/types';
 // @ts-ignore
 import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
+// @ts-ignore
+import withQueryParams from '../../../../hocs/with-query-params.hoc';
+import { MaterialStyleType } from '../../../../utils/types';
 
 type OwnProps = typeof mapParamsToProps & {
   /** Override by the widget */
   onClickPrivateService?: (ps: PrivateService) => void;
   /** Override by the widget */
   store?: any;
+  filters: {
+    private_service_group?: number[] | null;
+  };
+  setFilters?: (key: string) => (value: any) => void;
 };
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
-  OwnProps;
+  OwnProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
 
-export const PrivateServiceSelectorPage: React.FC<Props> = (props) => {
-  const { companyId, companyName } = props;
+export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
+  componentDidMount() {
+    this.fetchData();
+  }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  componentDidUpdate(prevProps: Props) {
+    if (
+      !isEqual(prevProps.filters, this.props.filters) &&
+      !this.props.loading
+    ) {
+      this.fetchData();
+    }
+  }
 
-  const fetchData = useCallback(async () => {
+  fetchData = () => {
+    const { companyId, filters } = this.props;
+
     const id = typeof companyId === 'string' ? parseInt(companyId) : companyId;
-    props.fetchMarketplacePrivateServices(id);
-  }, [companyId]);
+    const data: { private_service_group__in?: number[] } = {};
+    if (
+      filters &&
+      filters.private_service_group &&
+      filters.private_service_group.length
+    ) {
+      data.private_service_group__in = filters.private_service_group;
+    }
 
-  const classes = useStyles();
-  const { t } = useTranslation(['privateService', 'datetime']);
+    this.props.fetchMarketplacePrivateServices(id, data);
+  };
 
-  const onClickPrivateService = useCallback(
-    (ps: PrivateService) => {
-      if (props.onClickPrivateService) {
-        props.onClickPrivateService(ps);
-        return;
-      }
+  onClickPrivateService = (ps: PrivateService) => {
+    const { companyName, companyId } = this.props;
+    if (this.props.onClickPrivateService) {
+      this.props.onClickPrivateService(ps);
+      return;
+    }
 
-      props.pushRoute(
-        `/m/${companyName}/${companyId}/private-service/${ps.id}`,
-      );
-    },
-    [companyName, companyId],
-  );
+    this.props.pushRoute(
+      `/m/${companyName}/${companyId}/private-service/${ps.id}`,
+    );
+  };
 
-  return (
-    <div className={classes.container}>
-      {!!props.loading && (
-        <div className={classes.loadingContainer}>
-          <LinearProgress />
-        </div>
-      )}
-      {!props.loading && !props._privateServices.length && (
-        <div className={classes.emptyTextContainer}>
-          <Typography color="textSecondary">
-            {t('privateService:marketplace.isEmpty')}
-          </Typography>
-        </div>
-      )}
-      <div className={classes.container2}>
-        <Grid container className={classes.servicesContainer}>
-          {props._privateServices.map((ps: PrivateService) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={ps.id}>
-              <ButtonBase
-                className={classes.buttonContainer}
-                onClick={() => onClickPrivateService(ps)}
-              >
-                <Paper className={classes.itemPaperContainer}>
-                  <Typography align="left" variant="h6" color="textPrimary">
-                    {ps.name}
-                  </Typography>
-                  <TypographyWithShowMore
-                    align="left"
-                    multiline
-                    color="textSecondary"
-                    variant="subtitle1"
-                  >
-                    {ps.description}
-                  </TypographyWithShowMore>
+  render() {
+    const { classes, t } = this.props;
 
-                  <div className={classes.tagsContainer}>
-                    <div className={classes.tagsContainer2}>
-                      {uniq(ps.slots_duration_minute).map((duration) => (
-                        <Chip
-                          size="small"
-                          key={duration}
-                          className={classes.tagItem}
-                          avatar={<AccessTimeIcon fontSize="small" />}
-                          label={duration + t('datetime:shortMinuteIdentifier')}
-                          variant="outlined"
-                        />
-                      ))}
+    return (
+      <div className={classes.container}>
+        <div className={classes.filterContainer} />
+        {!!this.props.loading && (
+          <div className={classes.loadingContainer}>
+            <LinearProgress />
+          </div>
+        )}
 
-                      {ps.is_home_service && (
-                        <Chip
-                          size="small"
-                          className={classes.tagItem}
-                          label={t(
-                            'privateService:service.form.establishmentResourceType.isHomeService.label',
-                          )}
-                          color="primary"
-                          variant="outlined"
-                        />
-                      )}
+        {!this.props.loading && !this.props._privateServices.length && (
+          <div className={classes.emptyTextContainer}>
+            <Typography color="textSecondary">
+              {t('privateService:marketplace.isEmpty')}
+            </Typography>
+          </div>
+        )}
+        <div className={classes.container2}>
+          <Grid container className={classes.servicesContainer}>
+            {this.props._privateServices.map((ps: PrivateService) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={ps.id}>
+                <ButtonBase
+                  className={classes.buttonContainer}
+                  onClick={() => this.onClickPrivateService(ps)}
+                >
+                  <Paper className={classes.itemPaperContainer}>
+                    <Typography align="left" variant="h6" color="textPrimary">
+                      {ps.name}
+                    </Typography>
+                    <TypographyWithShowMore
+                      align="left"
+                      multiline
+                      color="textSecondary"
+                      variant="subtitle1"
+                    >
+                      {ps.description}
+                    </TypographyWithShowMore>
+
+                    <div className={classes.tagsContainer}>
+                      <div className={classes.tagsContainer2}>
+                        {uniq(ps.slots_duration_minute).map((duration) => (
+                          <Chip
+                            size="small"
+                            key={duration}
+                            className={classes.tagItem}
+                            avatar={<AccessTimeIcon fontSize="small" />}
+                            label={
+                              duration + t('datetime:shortMinuteIdentifier')
+                            }
+                            variant="outlined"
+                          />
+                        ))}
+
+                        {ps.is_home_service && (
+                          <Chip
+                            size="small"
+                            className={classes.tagItem}
+                            label={t(
+                              'privateService:service.form.establishmentResourceType.isHomeService.label',
+                            )}
+                            color="primary"
+                            variant="outlined"
+                          />
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </Paper>
-              </ButtonBase>
-            </Grid>
-          ))}
-        </Grid>
+                  </Paper>
+                </ButtonBase>
+              </Grid>
+            ))}
+          </Grid>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme: Theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
     width: '100%',
     justifyContent: 'center',
+  },
+  filterContainer: {
+    paddingLeft: 8,
+    paddingRight: 8,
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    marginTop: theme.spacing(2),
+  },
+  filterContainer2: {
+    width: '85%',
+    padding: theme.spacing(1),
   },
   container2: {
     display: 'flex',
@@ -203,7 +246,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     marginTop: theme.spacing(6),
   },
-}));
+});
 
 const mapStateToProps = (state: RootState) => {
   return {
@@ -223,10 +266,19 @@ const mapParamsToProps = {
 };
 
 export const PrivateServiceSelectorDataProvider = compose<any, OwnProps>(
+  // @ts-ignore
+  withStyles(styles),
+  withTranslation(['privateService', 'datetime']),
   connect(mapStateToProps, mapDispatchToProps),
 );
 
 export default compose(
   routerParamsToProps(mapParamsToProps),
   PrivateServiceSelectorDataProvider,
+  withQueryParams([
+    ['private_service_group'],
+    'filters',
+    'setFilters',
+    'arrayNumber',
+  ]),
 )(PrivateServiceSelectorPage);

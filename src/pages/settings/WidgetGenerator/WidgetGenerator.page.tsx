@@ -183,8 +183,6 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     let playlistError = '';
     let privateServiceError = '';
 
-    console.log('on config change');
-
     if (
       this.state.componentType === WidgetComponentsEnum.playlist &&
       config.playlist
@@ -245,8 +243,6 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
 
     const error =
       this.state.error.privateServiceError || this.state.error.playlistError;
-
-    console.log('state errror ', this.state.error);
 
     return (
       <div className={classes.container}>

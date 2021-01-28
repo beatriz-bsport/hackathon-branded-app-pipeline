@@ -16,6 +16,7 @@ type Props = {
   onClose: () => void,
   fullScreen: boolean,
   offerId: number,
+  mapContainerClassName?: string,
 };
 
 export function MarketplaceActivityDialog(props: Props) {

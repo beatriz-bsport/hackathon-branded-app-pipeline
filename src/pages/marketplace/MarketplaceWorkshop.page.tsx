@@ -65,6 +65,7 @@ type OwnProps = {
   ) => void;
   goToBook?: (id: number, companyId: number) => void;
   store?: any; // for the widget only
+  mapContainerClassName?: string;
 };
 
 type ConnectProps = ReturnType<typeof mapStateToProps> &
@@ -148,6 +149,7 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
                 this.props.companyId,
               )
             }
+            mapContainerClassName={this.props.mapContainerClassName}
           />
         </div>
       </div>

@@ -61,6 +61,7 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+  mapContainerClassName?: string,
 };
 
 export class MarketPlaceActivity extends React.Component<Props> {
@@ -342,7 +343,12 @@ export class MarketPlaceActivity extends React.Component<Props> {
               {establishment.location.address}
             </Typography>
             {!this.props.hideMap ? (
-              <Map center={center} markers={markers} zoom={15} />
+              <Map
+                center={center}
+                markers={markers}
+                zoom={15}
+                mapContainerClassName={this.props.mapContainerClassName}
+              />
             ) : null}
           </div>
         </CardContent>

@@ -33,6 +33,7 @@ type Props = {
 
   onBookOfferFromPack: (offerId: number, consumerPackId: number) => void,
   t: TFunction,
+  mapContainerClassName?: string,
 };
 
 export const MarketplaceWorkshop = (props: Props) => {
@@ -88,6 +89,7 @@ export const MarketplaceWorkshop = (props: Props) => {
         compatibleConsumerPacks={props.compatibleConsumerPacks}
         compatiblePaymentPacks={props.compatiblePaymentPacks}
         paymentComboList={props.paymentComboList}
+        mapContainerClassName={props.mapContainerClassName}
       />
     </div>
   );

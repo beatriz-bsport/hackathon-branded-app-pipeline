@@ -99,7 +99,7 @@ export class MarketplaceVideo extends React.Component<Props> {
               loading={this.props.loading}
             />
           </div>
-          {this.props.playlistList.length && (
+          {!!this.props.playlistList.length && (
             <div className={classes.playlistListContainer}>
               <Typography variant="h6" component="h3">
                 {this.props.t('playlist.playlist')}

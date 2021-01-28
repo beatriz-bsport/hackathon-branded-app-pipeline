@@ -28,6 +28,7 @@ type Props = {
   markers: ?Array<MarkerType>,
   center: ?[number, number],
   zoom: number,
+  mapContainerClassName?: string,
 };
 
 type State = {
@@ -77,10 +78,10 @@ export default class MyMap extends Component<Props, State> {
   };
 
   render() {
-    const { markers } = this.props;
+    const { markers, mapContainerClassName } = this.props;
     const center = this.props.center || CENTER;
     return (
-      <div className="map-container">
+      <div className={`map-container ${mapContainerClassName || ''}`}>
         <Map
           center={center}
           zoom={this.state.zoom}

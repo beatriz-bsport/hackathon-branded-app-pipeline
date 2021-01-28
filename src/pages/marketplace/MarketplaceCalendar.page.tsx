@@ -81,6 +81,7 @@ type OwnProps = {
   goToBook?: (id: number, companyId: number) => void;
   goToBookOption?: (id: number, companyId: number) => void;
   store?: any; // for the widget only
+  mapContainerClassName?: string;
 };
 
 type ConnectProps = ReturnType<typeof mapStateToProps> &
@@ -224,6 +225,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           onBookFromPack={(packId: number) =>
             this.props.onBookOfferFromPack(this.state.offerId, packId)
           }
+          mapContainerClassName={this.props.mapContainerClassName}
         />
         <MarketplaceCalendarComponent
           offers={offers}

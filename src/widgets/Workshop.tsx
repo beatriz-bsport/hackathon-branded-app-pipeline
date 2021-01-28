@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
+import { connect } from 'react-redux';
 
 import { MarketplaceWorkshopBase } from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';
 import { MarketplaceWorkshopData } from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import { Theme } from 'bsport-saas/src/libs/theme/types';
 
+import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { openTab } from '../utils/utils';
 import { RootState } from '../store/reducer';
-import { connect } from 'react-redux';
+import '../../vendor/map.css'
+
 
 const MarketplaceWorkshopBaseStyled = themify(MarketplaceWorkshopBase);
 
@@ -72,6 +74,7 @@ class WorkshopWidget extends Component<Props, State> {
           goToBook={this.goToBook}
           store={this.props.store}
           theme={this.props.theme}
+          mapContainerClassName="cleanslate"
         />
       </div>
     );

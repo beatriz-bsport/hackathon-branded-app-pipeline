@@ -7,6 +7,8 @@ import { MarketplaceCalendarData } from 'bsport-saas/src/libs/marketplace/types'
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 
+import '../../vendor/map.css'
+
 import { RootState } from '../store/reducer';
 import { openTab } from '../utils/utils';
 import { constants } from '../const/constants';
@@ -17,7 +19,7 @@ const MarketplaceCalendarStyled = themify(MarketplaceCalendar);
 
 type OwnProps = {
   companyId: number;
-  config: MarketplaceCalendarData
+  config: MarketplaceCalendarData;
   requestSignup: () => void;
   toogleCurrentBasketOpen: () => void;
   store: any;
@@ -114,6 +116,7 @@ export class CalendarWidget extends Component<Props, State> {
         goToPackPayment={this.props.goToPackPayment}
         onCompletePurchase={this.props.onCompletePurchase}
         theme={this.props.theme}
+        mapContainerClassName="cleanslate"
       />
     );
   }

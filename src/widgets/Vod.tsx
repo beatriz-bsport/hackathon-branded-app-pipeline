@@ -28,7 +28,7 @@ import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { getMarketplaceRoute } from 'bsport-saas/src/pages/marketplace/routing-utils';
 
 
-import './video.css';
+import '../../vendor/video.css';
 import { openTab } from '../utils/utils';
 import { RootState } from '../store/reducer';
 

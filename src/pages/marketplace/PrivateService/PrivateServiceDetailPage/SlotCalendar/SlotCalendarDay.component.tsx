@@ -74,9 +74,11 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
       props.date.format('YYYY-MM-DD'),
     );
 
-    return sessionsByDayMoment.map((sessionMoment: SessionMoment) => {
+    const sessionByDayElement: any[] = [];
+
+    sessionsByDayMoment.forEach((sessionMoment: SessionMoment) => {
       if (!sessionMoment.list.length) {
-        return null;
+        return;
       }
 
       const label = t(
@@ -94,7 +96,7 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
 
       const selected = isSelected(sessionMoment);
 
-      return (
+      sessionByDayElement.push(
         <div
           key={sessionMoment.identifier}
           className={classes.slotMomentContainer}
@@ -132,9 +134,14 @@ const SlotCalendarDay: React.FC<Props> = (props) => {
               {slotCount}
             </Typography>
           </ButtonBase>
-        </div>
+        </div>,
       );
     });
+
+    if (sessionByDayElement.length) {
+      return sessionByDayElement;
+    }
+    return renderNoSessions();
   }, [props.privateSlot, props.privateService, props.timezoneName, props.date]);
 
   const weekDay = t(

@@ -2531,8 +2531,8 @@
                     "label": "Morning"
                 }
             },
-            "nbSlot": "{{ nbSlot }} slots",
-            "nbSlot_plural": "",
+            "nbSlot": "{{ nbSlot }} slot",
+            "nbSlot_plural": "{{ nbSlot }} slots",
             "establishment": "Location",
             "coach": "Teacher",
             "selectService": "Choose a service",

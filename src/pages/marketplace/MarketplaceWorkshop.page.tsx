@@ -274,6 +274,7 @@ const mapWithProps = (props: OwnProps & ConnectProps & WithTranslation) => ({
   goToBook: (id: number, companyId: number) => {
     if (props.goToBook) {
       props.goToBook(id, companyId);
+      return;
     }
     props.pushRouter(`/customer/payment/offer/${id}?membership=${companyId}`);
   },

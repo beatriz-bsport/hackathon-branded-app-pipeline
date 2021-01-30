@@ -346,7 +346,7 @@ export default compose(
       Analytics.onPaymentSuccess(basket);
 
       if (window && window.env && window.env.APP_CONTEXT === 'widget') {
-        window.opener.postMessage({ type: 'paymentSuccess' }, '*');
+        parent.postMessage({ type: 'paymentSuccess' }, '*');
         return;
       }
 

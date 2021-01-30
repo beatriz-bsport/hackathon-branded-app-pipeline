@@ -7,8 +7,9 @@ import { MarketplaceWorkshopData } from 'bsport-saas/src/libs/marketplace/types'
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 
 import { Theme } from 'bsport-saas/src/libs/theme/types';
-import { openTab } from '../utils/utils';
+// import { openTab } from '../utils/utils';
 import { RootState } from '../store/reducer';
+import TheIframe from '../components/TheIframe.component';
 import '../../vendor/map.css'
 
 
@@ -39,7 +40,7 @@ class WorkshopWidget extends Component<Props, State> {
       levels: props.config.levels || [],
     };
 
-    this.state = { filters };
+    this.state = { filters, dialogUrl: null };
   }
 
   setFilters = (key: any) => {
@@ -56,9 +57,12 @@ class WorkshopWidget extends Component<Props, State> {
     const { PUBLIC_URL } = window.runtime.env;
     const url = `${PUBLIC_URL}/customer/payment/offer/${id}
     ?membership=${companyId}&authToken=${this.props.auth.token}&context=widget`;
-    const popupWindow = openTab(url);
-    this.props.onWindowOpen(popupWindow);
+    // const popupWindow = openTab(url);
+    this.setState({ dialogUrl: url })
+    // this.props.onWindowOpen(popupWindow);
   }
+
+  closeDialog = () => this.setState({ dialogUrl: null })
 
   render() {
     return (
@@ -76,6 +80,7 @@ class WorkshopWidget extends Component<Props, State> {
           theme={this.props.theme}
           mapContainerClassName="cleanslate"
         />
+        <TheIframe url={this.state.dialogUrl} onClose={this.closeDialog} />
       </div>
     );
   }

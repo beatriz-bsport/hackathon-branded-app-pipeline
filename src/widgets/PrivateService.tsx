@@ -16,6 +16,7 @@ import { Theme } from 'bsport-saas/src/libs/theme/types';
 
 import { openTab } from '../utils/utils';
 import { RootState } from '../store/reducer';
+import TheIframe from '../components/TheIframe.component';
 
 const PrivateServiceSelector = themify(
   PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage)
@@ -53,13 +54,14 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
     this.state = {
       type: props.config.type,
       serviceId: props.config.serviceId,
+      dialogUrl: null,
     };
   }
 
   onClickPrivateService = (ps: PrivateService) => {
     this.setState({
       serviceId: ps.id,
-      type: PrivateServicePageTypeEnum.detail
+      type: PrivateServicePageTypeEnum.detail,
     });
   };
 
@@ -77,9 +79,12 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
       JSON.stringify(data)
     )}&authToken=${this.props.auth.token}&context=widget`;
 
-    const popupWindow = openTab(url);
-    this.props.onWindowOpen(popupWindow);
+    // const popupWindow = openTab(url);
+    // this.props.onWindowOpen(popupWindow);
+    this.setState({ dialogUrl: url })
   }
+
+  closeDialog =() => this.setState({ dialogUrl: null })
 
   render() {
     const { classes } = this.props;
@@ -124,7 +129,8 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
               theme={this.props.theme}
             />
           </div>
-        )}
+          )}
+        <TheIframe url={this.state.dialogUrl} onClose={this.closeDialog} />
       </div>
     );
   }

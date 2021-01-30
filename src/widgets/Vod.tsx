@@ -27,20 +27,19 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { getMarketplaceRoute } from 'bsport-saas/src/pages/marketplace/routing-utils';
 
-
 import '../../vendor/video.css';
 import { openTab } from '../utils/utils';
 import { RootState } from '../store/reducer';
+import TheIframe from '../components/TheIframe.component';
 
 type OwnProps = {
-  companyId: number;
-  store: any;
-  config: MarketplacePlaylistData & MarketplaceVODData;
-  onRequestLogin: () => void;
-  theme: Theme;
-  onWindowOpen: (popupWindow: any) => void;
-  requestVideoAccessRefreshFlag: number;
-}
+  companyId: number,
+  store: any,
+  config: MarketplacePlaylistData & MarketplaceVODData,
+  onRequestLogin: () => void,
+  theme: Theme,
+  onWindowOpen: (popupWindow: any) => void,
+};
 
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
@@ -60,15 +59,15 @@ interface State {
 }
 
 const MarketPlaceVideoStyled = themify(
-  MarketplaceVideoDataProvider(MarketplaceVideo)
+  MarketplaceVideoDataProvider(MarketplaceVideo),
 );
 
 const MarketplaceVideoDetailStyled = themify(
-  MarketplaceVideoDetailDataProvider(MarketplaceVideoDetail)
+  MarketplaceVideoDetailDataProvider(MarketplaceVideoDetail),
 );
 
 const MarketplacePlaylistStyled = themify(
-  MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailPage)
+  MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailPage),
 );
 
 class VODWidget extends React.PureComponent<Props, State> {
@@ -78,6 +77,7 @@ class VODWidget extends React.PureComponent<Props, State> {
     this.state = {
       videoId: props.config.videoId,
       playlistId: props.config.playlistId,
+      requestVideoAccessRefreshFlag: 0,
       searchParams: {
         coaches: '',
         duration_second_range: '',
@@ -109,14 +109,25 @@ class VODWidget extends React.PureComponent<Props, State> {
     const url = getMarketplaceRoute(
       this.props.theme.company_name,
       this.props.companyId,
-      'pass'
+      'pass',
     );
 
     const { PUBLIC_URL } = window.runtime.env;
-    const popupWindow = openTab(`${PUBLIC_URL}${url}?authToken=${this.props.auth.token}&context=widget`);
-    this.props.onWindowOpen(popupWindow);
-  }
+    // const popupWindow = openTab(`${PUBLIC_URL}${url}?authToken=${this.props.auth.token}&context=widget`);
+    // this.props.onWindowOpen(popupWindow);
+    this.setState({ dialogUrl: url });
+  };
 
+  closeDialog = () => {
+    this.setState({ dialogUrl: null });
+
+    this.setState((prevState) => {
+      const key = prevState.requestVideoAccessRefreshFlag + 1;
+      return {
+        requestVideoAccessRefreshFlag: key,
+      };
+    });
+  };
 
   render() {
     const showVODList =
@@ -165,7 +176,7 @@ class VODWidget extends React.PureComponent<Props, State> {
                 onRequestBuyPass={this.onRequestBuyPass}
                 openVideo={this.openVideo}
                 requestVideoAccessRefreshFlag={
-                  this.props.requestVideoAccessRefreshFlag
+                  this.state.requestVideoAccessRefreshFlag
                 }
                 store={this.props.store}
                 theme={this.props.theme}
@@ -202,6 +213,7 @@ class VODWidget extends React.PureComponent<Props, State> {
             </div>
           </div>
         )}
+        <TheIframe url={this.state.dialogUrl} onClose={this.closeDialog} />
       </div>
     );
   }
@@ -241,5 +253,5 @@ const mapDispatchToProps = {};
 export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
 )(VODWidget);

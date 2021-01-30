@@ -11,6 +11,7 @@ import '../../vendor/map.css'
 
 import { RootState } from '../store/reducer';
 import { openTab } from '../utils/utils';
+import TheIframe from '../components/TheIframe.component';
 import { constants } from '../const/constants';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
@@ -43,6 +44,7 @@ type State = {
     levels: number[];
   };
   selectedDate: string,
+  dialogUrl: null,
 };
 
 export class CalendarWidget extends Component<Props, State> {
@@ -90,12 +92,16 @@ export class CalendarWidget extends Component<Props, State> {
     const { PUBLIC_URL } = window.runtime.env
     const url = `${PUBLIC_URL}/customer/payment/offer/${id}
     ?membership=${companyId}&authToken=${this.props.token}&context=widget`;
-    const popupWindow = openTab(url);
-    this.props.onWindowOpen(popupWindow);
+    this.setState({ dialogUrl: url })
+    // const popupWindow = openTab(url);
+    // this.props.onWindowOpen(popupWindow);
   }
+
+  closeDialog = () => this.setState({ dialogUrl: null })
 
   render() {
     return (
+      <>
       <MarketplaceCalendarStyled
         {...this.props}
         companyId={this.props.companyId}
@@ -118,6 +124,8 @@ export class CalendarWidget extends Component<Props, State> {
         theme={this.props.theme}
         mapContainerClassName="cleanslate"
       />
+        <TheIframe url={this.state.dialogUrl} onClose={this.closeDialog} />
+      </>
     );
   }
 }

@@ -20,7 +20,6 @@ import { auth as authActions } from 'bsport-saas/src/actions';
 
 import { RootState } from './store/reducer';
 import BsportLogo from './components/BsportLogo';
-import { snackbarSuccess } from 'bsport-saas/src/actions/snackbar.actions';
 
 import asyncComponent from './AsyncComponent';
 import AuthDialog from './components/AuthDialog';
@@ -66,7 +65,6 @@ class BsportWidget extends Component<Props, State> {
 
     window.addEventListener("message", (event: any) => {
       if (event.data && event.data.type === "paymentSuccess") {
-        this.props.success('snackbar:consumerPass.success');
         this.popupWindow && this.popupWindow.close();
 
         this.setState((prevState) => {
@@ -212,7 +210,6 @@ const mapDispatchToProps = {
     authActions.requestLogin(email, password),
   disconnect: authActions.disconnect,
   checkEmailExists: authActions.checkEmailExists,
-  success: (s: string) => snackbarSuccess(s),
 };
 
 export default compose(

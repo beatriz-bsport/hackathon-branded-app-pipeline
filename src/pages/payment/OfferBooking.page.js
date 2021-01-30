@@ -500,8 +500,14 @@ export default compose(
       payWithConsumerPaymentPackAPI(consumerPaymentPackId, offer.id)
         .then(() => {
           if (window && window.env && window.env.APP_CONTEXT === 'widget') {
-            parent.postMessage({ type: 'paymentSuccess' }, '*');
-            return;
+            if (window.opener && window.opener.postMessage) {
+              window.opener.postMessage({ type: 'paymentSuccess' }, '*');
+              return;
+            }
+            if (window.parent && window.parent.postMessage) {
+              window.parent.postMessage({ type: 'paymentSuccess' }, '*');
+              return;
+            }
           }
           push(`/c/${offer.company}/?from_direct_booking=${offer.id}`);
           if (options && options.onSuccess) options.onSuccess();

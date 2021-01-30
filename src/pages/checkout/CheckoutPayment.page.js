@@ -346,8 +346,14 @@ export default compose(
       Analytics.onPaymentSuccess(basket);
 
       if (window && window.env && window.env.APP_CONTEXT === 'widget') {
-        parent.postMessage({ type: 'paymentSuccess' }, '*');
-        return;
+        if (window.opener && window.opener.postMessage) {
+          window.opener.postMessage({ type: 'paymentSuccess' }, '*');
+          return;
+        }
+        if (window.parent && window.parent.postMessage) {
+          window.parent.postMessage({ type: 'paymentSuccess' }, '*');
+          return;
+        }
       }
 
       replace(`/c/${basket.company}/?from_basket=${basket.id}`);

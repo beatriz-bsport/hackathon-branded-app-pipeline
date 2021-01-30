@@ -158,7 +158,7 @@ class BsportWidget extends Component<Props, State> {
             {this.renderWidget()}
             {!!this.props.theme && <BsportLogo theme={this.props.theme} />}
             <Snackbar theme={this.props.theme} />
-            {(!!this.state.showLogin || !!this.state.showSignup) && (
+            {(!!this.state.showLogin || !!this.state.showSignup) && (!this.props.auth.authenticated) && (
               <AuthDialog
                 showLogin={this.state.showLogin}
                 showSignup={this.state.showSignup}

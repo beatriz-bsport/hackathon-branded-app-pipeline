@@ -106,14 +106,13 @@ class VODWidget extends React.PureComponent<Props, State> {
   };
 
   onRequestBuyPass = () => {
-    const url = getMarketplaceRoute(
+    const { PUBLIC_URL } = window.runtime.env;
+    const path = getMarketplaceRoute(
       this.props.theme.company_name,
       this.props.companyId,
       'pass',
     );
-
-    const { PUBLIC_URL } = window.runtime.env;
-    // const popupWindow = openTab(`${PUBLIC_URL}${url}?authToken=${this.props.auth.token}&context=widget`);
+    const url = `${PUBLIC_URL}${url}?authToken=${this.props.auth.token}&context=widget`;
     // this.props.onWindowOpen(popupWindow);
     this.setState({ dialogUrl: url });
   };

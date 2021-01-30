@@ -103,7 +103,7 @@
             "changeMembership": "Van club veranderen",
             "logoff": "Afmelden",
             "profile": "Profiel",
-            "subscription": "Abonnement",
+            "subscription": "Abonnementen",
             "invoice": "Factuur",
             "pack": "Cursuskaarten",
             "calendar": "Geschiedenis",
@@ -231,7 +231,7 @@
                     "subscription_recurrent_price": "Maandelijks bedrag",
                     "subscription_name": "Naam van het abonnement"
                 },
-                "name": "Abonnement"
+                "name": "Abonnementen"
             },
             "Offer": {
                 "tags": {
@@ -251,7 +251,7 @@
         },
         "ruleGroup": {
             "private_booking": "Op afspraak",
-            "subscription": "Abonnement",
+            "subscription": "Abonnementen",
             "waiting-list": "Wachtlijst",
             "booking": "Reservering",
             "offer": "Sessie",
@@ -330,7 +330,7 @@
                 "searchResults": "Zoeken",
                 "reportingDashboard": "Rapportages",
                 "marketingDashboard": "Marketing",
-                "subscriptions": "Abonnement",
+                "subscriptions": "Abonnementen",
                 "marketingRule": "Marketingstrategieën",
                 "establishmentFormPage": "[Formulier] Vestiging",
                 "establishmentList": "Vestigingen",
@@ -511,7 +511,7 @@
             "credit": "Krediet(en)",
             "payment": "Betaling",
             "goToSubscription": "Zie abonnement",
-            "invoiceFromSubscriptionThusNotEditable": "Deze factuur maakt deel uit van een abonnement en kan daarom niet worden bewerkt, wijzig het abonnement rechtstreeks",
+            "invoiceFromSubscriptionThusNotEditable": "Deze factuur is aan een abonnement gekoppeld en kan daarom niet worden gewijzigd. Wijzig het abonnement zelf om veranderingen door te voeren",
             "noBookingsLeftOnPackInMonth": "Deze cursuskaart is voor deze maand uitverkocht"
         },
         "invoice": {
@@ -522,7 +522,7 @@
             "revertExplainPacks": "Cursuskaarten worden geannuleerd evenals ALLE bijbehorende boekingen",
             "revertExplainCredits": "Het debet/krediet op de account van het lid wordt teruggeboekt.",
             "revertExplainPayment": "Creditcardbetalingen worden teruggestort op de rekening van het lid. Alle andere betaalmethoden worden verwijderd.",
-            "revertImpossibleExplainSubscription": "Deze factuur maakt deel uit van een abonnement. U kunt een ontvangen factuur die aan een abonnement is gekoppeld niet annuleren, maar u kunt het abonnement stopzetten",
+            "revertImpossibleExplainSubscription": "Deze factuur is aan een abonnement gekoppeld. Je kunt een gekoppelde factuur niet annuleren, maar je kunt het abonnement en de laatste betaling wel stopzetten",
             "explainDateChoser": "Kies de factuurdatum. Betalingen met creditcard worden onmiddellijk geïnd, ongeacht de gekozen datum",
             "choseDate": "Factuurdatum",
             "revert": "Factuur annuleren",
@@ -1071,7 +1071,7 @@
             "allDay": "dag",
             "deleteOffer": "Annuleren",
             "modifyOffer": "Bewerken",
-            "canDeleteWithBooking": "Reserveringen, annuleringen en wachtlijsten worden opgeslagen en kunnen niet worden verwijderd."
+            "canDeleteWithBooking": "Reserveringen, annuleringen en wachtlijsten worden verwijderd en kunnen niet worden hersteld."
         },
         "pagination": {
             "outOf": " van ",
@@ -1245,7 +1245,7 @@
             "none": "Geen resultaat",
             "crossfit": "CrossFit",
             "offersWithoutMembership": "Sessie(s) zonder abonnement",
-            "membership": "Abonnement",
+            "membership": "Abonnementen",
             "gaveUp": "Opgezegd sinds",
             "sessions": "sessies",
             "location": "Plaats",
@@ -2119,7 +2119,7 @@
         },
         "validForDuration": {
             "days": "{{duration_days}} dagen geldig",
-            "months": "{{duration_months}} maanden geldig",
+            "months": "{{duration_months}} maand(en) geldig",
             "years": "{{duration_years}} jaar geldig",
             "general": "Geldig voor {{duration_days}} dagen, {{duration_months}} maanden en {{duration_years}} jaar"
         },
@@ -2456,7 +2456,7 @@
                     "first_has_expire": "liep af op"
                 },
                 "infoIcon": "Onbeperkte cursuskaarten zijn altijd inbegrepen",
-                "explanation": "Cursuskaart A gekocht op Y datum met X krediet",
+                "explanation": "Cursuskaart A gekocht op Y datum met X krediet(en)",
                 "date_bought": {
                     "first": "aankoopdatum"
                 }
@@ -2859,7 +2859,7 @@
             "startingSoon": "Je sessie begint over {{minutesLeft}} minuten",
             "isAutoRefresh": "Je wordt 15 minuten voor aanvang van de sessie automatisch doorgestuurd naar de livestream",
             "loadingSoon": "Bezig met laden...",
-            "activateVideo": "Start uitzending",
+            "activateVideo": "Begin met livestreamen",
             "hasEnded": "Deze sessie is voorbij"
         },
         "disabled": "Geannuleerd",
@@ -4316,7 +4316,7 @@
             "groupIdentifier": {
                 "evening": {
                     "interval": "Na 18:00",
-                    "label": "Einde van de middag"
+                    "label": "Avond"
                 },
                 "afternoon": {
                     "interval": "15:00 - 18:00",
@@ -4324,10 +4324,10 @@
                 },
                 "noon": {
                     "interval": "12:00 - 14:00",
-                    "label": "'s Middags"
+                    "label": "Middag"
                 },
                 "morning": {
-                    "label": "'s Ochtend",
+                    "label": "Ochtend",
                     "interval": "Voor 12:00"
                 }
             },
@@ -4499,7 +4499,7 @@
                     "label": "btw"
                 },
                 "durationMonths": {
-                    "label": "Geldigheidsduur (maanden) indien van toepassing",
+                    "label": "Geldigheidsduur (in maanden) indien van toepassing",
                     "helperText": "Wordt aan het aantal dagen toegevoegd"
                 },
                 "durationYears": {
@@ -6231,26 +6231,26 @@
                 },
                 "default_booking_ordering": {
                     "date": "Sorteer op meest recente reserveringsdatum",
-                    "firstname": "Sorteer voornamen alfabetisch",
-                    "lastname": "Sorteer familienaam alfabetisch",
+                    "firstname": "Voornamen alfabetisch sorteren",
+                    "lastname": "Familienaam alfabetisch sorteren",
                     "title": "Kies de standaard sorteervolgorde voor reserveringen op de activiteitenpagina"
                 },
-                "names_label_info": "Wijzig het label van de velden Familienaam en Voornaam in de registratieformulieren",
+                "names_label_info": "Wijzig het label van de velden Voornaam en Familienaam in je registratieformulier",
                 "first_name_label": {
                     "placeholder": "Voornaam label",
                     "label": "Voornaam label",
                     "helperText": "Voer het label in voor de voornaam"
                 },
                 "last_name_label": {
-                    "placeholder": "Label voor de familienaam",
-                    "label": "Label voor de familienaam",
+                    "placeholder": "Familienaam label",
+                    "label": "Familienaam label",
                     "helperText": "Voer het label in voor de familienaam"
                 },
                 "offersFilling": "Toon het aantal plaatsen van een cursus op de kalender van de leden",
                 "acceptDoubleBooking": "Dubbele reservering aanvaarden",
-                "consumerRegularizeDebt": "Leden kunnen hun betalingen online regelen",
+                "consumerRegularizeDebt": "Sta leden toe hun schulden met online betalingen regulariseren",
                 "workshopsCustomer": "Toon workshops op de kalender van de leden",
-                "cancelledOffersCustomer": "Toon geannuleerde sessies in de kalender van de leden",
+                "cancelledOffersCustomer": "Toon geannuleerde sessies op de kalender van je leden",
                 "calendarPersonalizationTitle": "Configureer kalender",
                 "basket_expiration_days": {
                     "alert": "Geef de vervaldagen van het mandje op!",
@@ -6258,7 +6258,7 @@
                     "helperText": "Het aantal dagen voordat het winkelmandje van een led automatisch wordt geleegd",
                     "label": "Vervaldatum van het winkelmandje"
                 },
-                "cancelledOffersManager": "Geannuleerde sessies standaard op eigen kalender weergeven",
+                "cancelledOffersManager": "Toon",
                 "checkBalance": {
                     "shiftRatio": {
                         "explain": "Als een sessie meer dan {{numberCheck}} reserveringen heeft, worden er geen toekomstige reserveringen geaccepteerd die de onevenwichtigheid tussen MANNEN/VROUWEN groter maakt dan {{gender_max_shift_for_booking}} personen.",

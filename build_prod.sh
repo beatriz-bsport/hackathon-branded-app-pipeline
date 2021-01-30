@@ -7,7 +7,10 @@ S3BUCKETLOCATION=/scripts
 S3DESTINATION=$S3BUCKETNAME$S3BUCKETLOCATION
 
 echo $ENVIRONMENT
-cp ./config.$ENVIRONMENT.js ./config.production.js
+if [[ "$ENVIRONMENT" != "production" ]]
+then
+  cp ./config.$ENVIRONMENT.js ./config.production.js
+fi
 
 echo "Current env is "
 cat ./config.production.js

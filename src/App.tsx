@@ -20,6 +20,7 @@ import { auth as authActions } from 'bsport-saas/src/actions';
 
 import { RootState } from './store/reducer';
 import BsportLogo from './components/BsportLogo';
+import 'bsport-saas/src/index.scss';
 
 import asyncComponent from './AsyncComponent';
 import AuthDialog from './components/AuthDialog';

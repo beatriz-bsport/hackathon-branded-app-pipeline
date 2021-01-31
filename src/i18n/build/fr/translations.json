@@ -2590,13 +2590,13 @@
     "broadcast": {
       "seeUpsell": "En savoir plus",
       "is_whereby_integration_enabled": { "label": "Activer l'intégration whereby X bsport" },
-      "explainDisabled": "Désactivé : vous gérez vous-mêmes vos liens de visioconférence à configurer pour chaque séance (via zoom, etc...).",
+      "explainDisabled": "Désactivé : vous gérez vous-mêmes vos liens de visioconférence à configurer pour chaque séance (via ZOOM, etc...).",
       "explainEnabled": "Activé : bsport gère vos salles de visioconférence, IMPOSSIBLE d'en réaliser deux en même temps.",
       "submit": "Enregistrer",
       "zoom": {
         "enabled": "Activer l'intégration de Zoom",
         "label": "Configuration des comptes Zoom",
-        "explainValid": "Compte valide: Les liens des réunions zoom seront créés pour chaque séance 15 minutes avant qu'elles ne démarrent automatiquement. Le professeur recevra un lien pour accueillir la réunion tandis que les inscrits recevront un autre lien pour rejoindre la réunion. Notez que si le compte zoom est impayé, la réunion zoom est limitée à 40 minutes",
+        "explainValid": "Compte valide: Les liens des réunions ZOOM seront créés pour chaque séance 15 minutes avant qu'elles ne démarrent automatiquement. Le professeur recevra un lien pour accueillir la réunion tandis que les inscrits recevront un autre lien pour rejoindre la réunion. Notez que si le compte ZOOM est impayé, la réunion ZOOM est limitée à 40 minutes",
         "explainInvalid": "Compte invalide"
       }
     },
@@ -2647,7 +2647,8 @@
         "vod": "VOD",
         "subscription": "Abonnement",
         "shop": "Magasin",
-        "playlist": "Playlist"
+        "playlist": "Playlist",
+        "newsletter": "Newsletter"
       },
       "createDialog": {
         "showAdvanced": "Voir plus d'options",
@@ -2656,6 +2657,11 @@
         "selectEstablishment": "Choisir un établissement",
         "selectActivity": "Choisir une activité",
         "selectPrivateService": "Choisir un service",
+        "selectPrivateServiceType": "Type",
+        "selectPrivateServiceTypeList": "Tous les rendez-vous",
+        "selectPrivateServiceTypeDetail": "Mon rendez-vous",
+        "selectPrivateServiceGroups": "Choisissez vos catégories",
+        "selectVideo": "Choisir une video",
         "selectPlaylist": "Choisir une playlist",
         "inputTitle": "Nom de l'onglet",
         "cancel": "Annuler",
@@ -2945,6 +2951,7 @@
         "11": "Sofort",
         "12": "EPS",
         "13": "Giropay",
+        "14": "Acompte client (dette)",
         "15": "Carte bleue (manuel)"
       }
     },
@@ -3088,6 +3095,7 @@
       "error": "Erreur lors de l'enregistrement - Annulé"
     },
     "zoom": { "created": { "success": "Compte Zoom lié avec succès", "error": "Erreur lors du lien du compte Zoom" } },
+    "copied": "Copié dans le presse-papier",
     "link": { "copied": "Lien copié dans le presse-papier" },
     "coach": {
       "linkByEmail": { "success": "Professeur lié avec succès" },
@@ -3206,7 +3214,8 @@
         "error": "Impossible de mettre en pause cette souscription"
       },
       "updatePrice": { "success": "Montant mis à jour", "error": "Impossible de modifier ce montant" },
-      "youSubscribed": { "error": "Erreur lors de l'abonnement", "success": "Vous êtes désormais abonné" }
+      "youSubscribed": { "error": "Erreur lors de l'abonnement", "success": "Vous êtes désormais abonné" },
+      "contract": { "restore": { "success": "Contrat restauré avec succès", "error": "Impossible de restaurer le contrat" } }
     },
     "webhook": {
       "success": "Webhook enregistré",
@@ -3227,6 +3236,7 @@
       }
     },
     "privateConsumerPass": { "creditUpdate": { "success": "Crédits mis à jour", "error": "Impossible d'enregistrer le crédit" } },
+    "consumerPass": { "success": "Votre achat a bien été enregistré !" },
     "privateRecurrentRule": {
       "createOrUpdate": {
         "success": "Rendez-vous récurrent enregistré avec succès",
@@ -3467,7 +3477,8 @@
         "titleManagerOnly": "Contrats non-disponibles à la vente",
         "isEmpty": "Aucun contrat disponible",
         "addButton": "Définir un contrat",
-        "register": "Abonner un membre"
+        "register": "Abonner un membre",
+        "titleInactive": "Contrats archivés"
       },
       "form": {
         "title": "Formulaire contrat",
@@ -3630,6 +3641,8 @@
       "coaches": "Professeurs",
       "private_service_name": "Rendez-vous",
       "nb_bookings": "Nombre de réservation",
+      "stock_at_start": "Stock en début de période",
+      "stock_at_end": "Stock en fin de période",
       "nb_offers": "Nombre de séances",
       "birthday": "Date de naissance",
       "stripe_invoice_pdf": "PDF",
@@ -3778,7 +3791,7 @@
       "ca": "Chiffre d'affaire généré",
       "subshop_name": "Categorie",
       "supplier_price": "Prix revendeur",
-      "marketplace_enabled": "Disponible sur la marketplace",
+      "marketplace_enabled": "Disponible à la vente en ligne",
       "description": "Description",
       "duration_second": "Durée (seconde)",
       "sct_name": "Catégorie",
@@ -5029,7 +5042,7 @@
       "deleteVideo": "Supprimer",
       "open": "Ouvrir",
       "form": { "cancel": "Annuler", "submit": "Enregistrer" },
-      "playlist": "Playlist",
+      "playlist": "Parcours",
       "bottomActions": { "create": "Ajouter" }
     },
     "video": {
@@ -5157,6 +5170,7 @@
       "settings": {
         "general": "Général",
         "marketplaceSettings": "Paramètres marketplace",
+        "widget": "Widget",
         "broadcast": "Visioconférence",
         "notificationRule": "Emails transactionnels",
         "paymentRules": "Règles de rémunération",
@@ -5201,7 +5215,12 @@
       "copy": "Copier",
       "codeSource": "Voir le code que vous devez copier sur votre propre site",
       "copyUrl": "Accéder au lien de votre calendrier",
-      "ownStyle": "Mode de compatibilité (ignorer le thème du site)"
+      "ownStyle": "Mode de compatibilité (ignorer le thème du site)",
+      "creationPageInfo": "Personnalisez des widgets et intégrez les sur votre site",
+      "codeInfo": "Le code à intégrer dans votre site",
+      "linkToConfig": "Lien vers cette configuration",
+      "dialogTitle": "Personalisation de Widget",
+      "widgetPreviewError": "Veuillez finir votre configuration"
     }
   },
   "platformBilling": {

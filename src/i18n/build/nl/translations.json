@@ -68,7 +68,7 @@
             "content": "Je aankoop is bevestigd!"
         },
         "actions": {
-            "goToSubscription": "Bekijk alle abonnementen",
+            "goToSubscription": "Alle abonnementen bekijken",
             "goToPass": "Bekijk alle lidmaatschappen",
             "goToCalendar": "Bekijk de volledige kalender"
         },
@@ -1740,7 +1740,9 @@
             "payment_method_bancontact": "Bancontact",
             "payment_method_sofort": "Sofort",
             "payment_method_ideal": "iDEAL",
-            "payment_method_eps": "EPS"
+            "payment_method_eps": "EPS",
+            "stock_at_end": "Voorraad (einde)",
+            "stock_at_start": "Voorraad (begin)"
         },
         "report": {
             "delete_message": "Weet je zeker dat je dit rapport ({{name}}) wilt verwijderen?"
@@ -3595,7 +3597,8 @@
                 "register": "Schrijf een lid in",
                 "title": "Abonnementen",
                 "titleManagerOnly": "Niet-beschikbare abonnementen",
-                "titleCustomerAvailable": "Beschikbare abonnementen"
+                "titleCustomerAvailable": "Beschikbare abonnementen",
+                "titleInactive": "Gearchiveerde abonnementen"
             },
             "description": "Beschrijving",
             "legal": "Juridische kennisgeving",
@@ -4151,22 +4154,28 @@
                 "selectEstablishment": "Kies een vestiging",
                 "selectCoach": "Kies een instructeur",
                 "selectComponent": "Kies een onderdeel",
-                "showAdvanced": "Toon meer opties"
+                "showAdvanced": "Toon meer opties",
+                "selectVideo": "Kies een video",
+                "selectPrivateServiceGroups": "Kies je categorieën",
+                "selectPrivateServiceTypeDetail": "Mijn afspraken",
+                "selectPrivateServiceTypeList": "Alle afspraken",
+                "selectPrivateServiceType": "Type"
             },
             "componentType": {
                 "playlist": "Afspeellijst",
                 "shop": "Webshop",
-                "subscription": "Abonnement",
+                "subscription": "Abonnementen",
                 "vod": "Video On Demand",
                 "pass": "Cursuskaarten",
                 "privateService": "Afspraken",
                 "workshop": "Workshops",
-                "calendar": "Kalender"
+                "calendar": "Kalender",
+                "newsletter": "Nieuwsbrief"
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
             "link": "Log uit en open de MarketPlace voor je klanten",
-            "explainMarketplace": "Je leden hebben op hun telefoon, computer en tablet toegang tot je MarketPlace (je kalender, webshop, Video On Demand, enz.). Personaliseer hier je pagina!",
+            "explainMarketplace": "Je leden hebben op hun telefoon, computer en tablet toegang tot je MarketPlace (je kalender, webshop, Video On Demand, enz.). Hier kun je je MarketPlace volledig personaliseren!",
             "addButton": "Tabblad toevoegen"
         },
         "companyOnboarding": {
@@ -5320,6 +5329,12 @@
                 "error": "Het abonnement kan momenteel niet worden stopgezet",
                 "warning": "Kan momenteel niet worden stopgezet. Is er een betaling in behandeling?",
                 "success": "Het abonnement is stopgezet"
+            },
+            "contract": {
+                "restore": {
+                    "error": "Het abonnement kon niet worden hersteld",
+                    "success": "Abonnement succesvol hersteld"
+                }
             }
         },
         "invoice": {
@@ -5634,7 +5649,11 @@
                 "success": "Zoom-account succesvol gekoppeld",
                 "error": "Fout bij het koppelen van je Zoom-account"
             }
-        }
+        },
+        "consumerPass": {
+            "success": "Je aankoop is ontvangen!"
+        },
+        "copied": "Gekopieerd naar je klembord"
     },
     "coach": {
         "performance": {
@@ -6466,7 +6485,7 @@
             "save": "Opslaan",
             "backToInvoiceItemEditor": "Aankoop",
             "goToPaymentEditor": "Betaling",
-            "goToSubscription": "Zie abonnement",
+            "goToSubscription": "Toon abonnement",
             "revert": "Annuleren",
             "invoiceReverted": "Factuur geannuleerd",
             "consumeBalance": "Met saldo betalen",
@@ -6474,7 +6493,7 @@
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "De factuur is definitief en kan dus niet meer worden bewerkt",
-            "invoiceFromSubscriptionThusNotEditable": "Deze factuur maakt deel uit van een abonnement en kan daarom niet worden bewerkt, wijzig het abonnement rechtstreeks",
+            "invoiceFromSubscriptionThusNotEditable": "Deze factuur is aan een abonnement gekoppeld en kan daarom niet worden gewijzigd. Wijzig het abonnement zelf om veranderingen door te voeren",
             "invoiceRevertedThusNotEditable": "De factuur is geannuleerd en kan niet worden gewijzigd"
         },
         "invoice": {
@@ -6656,7 +6675,8 @@
                 "3": "Cheque",
                 "2": "SEPA",
                 "1": "Creditcard",
-                "0": "Contant"
+                "0": "Contant",
+                "14": "Kredietsaldo van de klant (debet)"
             },
             "select": {
                 "label": "Betaalmethode"
@@ -6868,7 +6888,8 @@
                 "broadcast": "Livestreamen",
                 "general": "Algemeen",
                 "platform_billing": "BSPORT-abonnement",
-                "marketplaceSettings": "MarketPlace"
+                "marketplaceSettings": "MarketPlace",
+                "widget": "Widget"
             },
             "pass": "Cursuskaarten",
             "goBack": "Terug",
@@ -6917,7 +6938,12 @@
             "cancel": "Annuleren",
             "responsiveDisplay": "Responsieve weergave",
             "calendarDisplay": "Weekoverzicht (kalender)",
-            "listDisplay": "Weekoverzicht (lijst)"
+            "listDisplay": "Weekoverzicht (lijst)",
+            "linkToConfig": "Link voor deze configuratie",
+            "widgetPreviewError": "Voltooi je configuratie",
+            "dialogTitle": "Je widget personaliseren",
+            "codeInfo": "De code voor je website",
+            "creationPageInfo": "Je widgets personaliseren en op je website integreren"
         }
     },
     "platformBilling": {

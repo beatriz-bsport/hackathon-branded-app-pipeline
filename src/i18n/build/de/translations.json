@@ -152,7 +152,8 @@
                 "register": "Ein Mitglied abonnieren",
                 "titleManagerOnly": "Abonnements nicht zum Verkauf verfügbar",
                 "addButton": "Einen Vertrag festlegen",
-                "isEmpty": "Kein verfügbarer Vertrag"
+                "isEmpty": "Kein verfügbarer Vertrag",
+                "titleInactive": "Archivierte Verträge"
             },
             "duration": "{{month}} Monat(e)",
             "legal": "Impressum",
@@ -2572,7 +2573,7 @@
             "total_basket": "Gesamter Warenkorb",
             "couponName": "Werbeaktion",
             "supplier_price": "Preis des Händlers",
-            "marketplace_enabled": "Auf der Marketplace verfügbar",
+            "marketplace_enabled": "Auf dem Marketplace verfügbar",
             "date_offer": "Datum und Uhrzeit des Kurses",
             "products": "Inhalt des Warenkorbs",
             "ca": "Erzeugter Umsatz",
@@ -2655,7 +2656,9 @@
             "payment_method_giropay": "Giropay",
             "payment_method_ideal": "iDeal",
             "payment_method_bancontact": "Bancontact",
-            "payment_method_sofort": "SOFORT"
+            "payment_method_sofort": "SOFORT",
+            "stock_at_end": "Inventar am Ende des Zeitraums",
+            "stock_at_start": "Inventar zu Beginn des Zeitraums"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -3032,6 +3035,12 @@
                 "error": "Es ist unmöglich, das Abonnement momentan zu beenden",
                 "warning": "Es ist unmöglich, es zurzeit zu beenden. Wird eine Zahlung überwiesen ?",
                 "success": "Das Abonnement wurde beendet"
+            },
+            "contract": {
+                "restore": {
+                    "error": "Vertrag kann nicht wiederhergestellt werden",
+                    "success": "Vertrag erfolgreich wiederhergestellt"
+                }
             }
         },
         "notificationRule": {
@@ -3150,7 +3159,11 @@
                 "error": "Fehler beim Verknüpfen des Zoom-Kontos",
                 "success": "Zoom-Konto erfolgreich verknüpft"
             }
-        }
+        },
+        "consumerPass": {
+            "success": "Dein Kauf wurde abgeschlossen!"
+        },
+        "copied": "In die Zwischenablage kopiert"
     },
     "invoice": {
         "configuration": {
@@ -6136,7 +6149,8 @@
                 "broadcast": "Videokonferenz",
                 "general": "Allgemein",
                 "platform_billing": "Bsport-Abonnement",
-                "marketplaceSettings": "Marketplace-Eintellungen"
+                "marketplaceSettings": "Marketplace-Eintellungen",
+                "widget": "Widget"
             },
             "myClub": "Mein Klub",
             "subscription": "Automatische Abbuchungen",
@@ -6673,7 +6687,12 @@
                 "selectEstablishment": "Wähle eine Einrichtung",
                 "selectCoach": "Wähle einen Lehrer",
                 "selectComponent": "Wähle eine Komponente",
-                "showAdvanced": "Weitere Optionen anzeigen"
+                "showAdvanced": "Weitere Optionen anzeigen",
+                "selectVideo": "Wähle ein Video",
+                "selectPrivateServiceGroups": "Wähle Deine Kategorien",
+                "selectPrivateServiceTypeDetail": "Mein Termin",
+                "selectPrivateServiceTypeList": "Alle Termine",
+                "selectPrivateServiceType": "Typ"
             },
             "componentType": {
                 "playlist": "Playlist",
@@ -6683,7 +6702,8 @@
                 "pass": "Kurskarte",
                 "privateService": "Terminvereinbarungen",
                 "workshop": "Workshops",
-                "calendar": "Kalender"
+                "calendar": "Kalender",
+                "newsletter": "Newsletter"
             },
             "preview": "Vorschau",
             "saveButton": "Speichern",
@@ -6957,7 +6977,12 @@
             "calendarDisplay": "Wochenübersicht anzeigen (Kalender)",
             "listDisplay": "Wochenübersicht anzeigen",
             "cancel": "Abbrechen",
-            "responsiveDisplay": "Ansprechbare Anzeige"
+            "responsiveDisplay": "Ansprechbare Anzeige",
+            "widgetPreviewError": "Bitte beende die Konfiguration",
+            "dialogTitle": "Widget-Anpassung",
+            "linkToConfig": "Link zu dieser Konfiguration",
+            "codeInfo": "Der Code, der in Deine Website integriert werden soll",
+            "creationPageInfo": "Passe die Widgets an und integriere es in Deine Website"
         }
     },
     "marketing": {

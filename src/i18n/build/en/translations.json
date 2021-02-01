@@ -4219,14 +4219,14 @@
             "is_whereby_integration_enabled": {
                 "label": "Enable bsport X whereby intergration"
             },
-            "explainDisabled": "Disabled: you manage the conference link (URL) yourself, and specify it for EACH class (via zoom, etc...).",
+            "explainDisabled": "Disabled: you manage the conference link (URL) yourself, and specify it for EACH class (via ZOOM, etc...).",
             "explainEnabled": "Enabled : bsport manage your conference room, IMPOSSIBLE to have two class at the same time.",
             "submit": "Save",
             "seeUpsell": "Learn more",
             "zoom": {
                 "enabled": "Activate Zoom integration",
                 "label": "Configuring Zoom Accounts",
-                "explainValid": "Valid account: Zoom meeting links will be created for each session 15 minutes before they start automatically. The teacher will receive a link to host the meeting while registrants will receive another link to join the meeting. Note that if the zoom account is unpaid, the zoom meeting is limited to 40 minutes",
+                "explainValid": "Valid account: ZOOM meeting links will be created for each session 15 minutes before they start automatically. The teacher will receive a link to host the meeting while registrants will receive another link to join the meeting. Note that if the ZOOM account is unpaid, the ZOOM meeting is limited to 40 minutes",
                 "explainInvalid": "Invalid account"
             }
         },
@@ -4279,7 +4279,12 @@
                 "selectEstablishment": "Choose an establishment",
                 "selectCoach": "Choose a coach",
                 "selectComponent": "Choose a component",
-                "showAdvanced": "See more options"
+                "showAdvanced": "See more options",
+                "selectVideo": "Choose a video",
+                "selectPrivateServiceGroups": "Choose your categories",
+                "selectPrivateServiceTypeDetail": "My appointment",
+                "selectPrivateServiceTypeList": "All appointments",
+                "selectPrivateServiceType": "Type"
             },
             "componentType": {
                 "playlist": "Playlist",
@@ -4289,7 +4294,8 @@
                 "pass": "Pass",
                 "privateService": "Appointments",
                 "workshop": "Workshops",
-                "calendar": "Calendar"
+                "calendar": "Calendar",
+                "newsletter": "Newsletter"
             },
             "preview": "Preview",
             "saveButton": "Save",
@@ -4850,7 +4856,8 @@
                 "1": "Credit Card",
                 "0": "Cash",
                 "8": "Other",
-                "6": "Dispute"
+                "6": "Dispute",
+                "14": "Client credit balance (debit)"
             },
             "select": {
                 "label": "Payment method"
@@ -7964,7 +7971,10 @@
             "cancel": "Cancel",
             "responsiveDisplay": "Responsive display",
             "calendarDisplay": "Week card (calendar)",
-            "listDisplay": "Week view list"
+            "listDisplay": "Week view list",
+            "codeInfo": "Integrate this code into your website",
+            "linkToConfig": "Link for this configuration",
+            "creationPageInfo": "Personalise widgets and integrate them on your site"
         }
     },
     "marketing": {

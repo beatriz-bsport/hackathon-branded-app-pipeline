@@ -1556,13 +1556,13 @@
         "broadcast": {
             "submit": "Guardar",
             "explainEnabled": "Activado: bsport gestiona tus salas de videoconferencia, IMPOSIBLE para hacer dos al mismo tiempo.",
-            "explainDisabled": "Desactivado: manejas tus propios enlaces de videoconferencia a configurar para cada sesión (a través del zoom, etc...).",
+            "explainDisabled": "Desactivado: manejas tus propios enlaces de videoconferencia a configurar para cada sesión (a través del ZOOM, etc...).",
             "is_whereby_integration_enabled": {
                 "label": "Activar la integración whereby X bsport"
             },
             "zoom": {
                 "explainInvalid": "Cuenta inválida",
-                "explainValid": "Cuenta válida: Los enlaces de las reuniones de Zoom se crearán para cada sesión 15 minutos antes de que comiencen automáticamente. El profesor recibirá un enlace para organizar la reunión, mientras que los inscritos recibirán otro enlace para unirse a la reunión. Tenga en cuenta que si la cuenta de zoom no es de pago, la reunión de zoom está limitada a 40 minutos",
+                "explainValid": "Cuenta válida: Los enlaces de las reuniones de ZOOM se crearán para cada sesión 15 minutos antes de que comiencen automáticamente. El profesor recibirá un enlace para organizar la reunión, mientras que los inscritos recibirán otro enlace para unirse a la reunión. Tenga en cuenta que si la cuenta de ZOOM no es de pago, la reunión de ZOOM está limitada a 40 minutos",
                 "label": "Configurar las cuentas de Zoom",
                 "enabled": "Activar la integración de Zoom"
             },
@@ -1605,7 +1605,12 @@
                 "selectEstablishment": "Elija un establecimiento",
                 "selectCoach": "Elija un entrenador",
                 "selectComponent": "Elija un componente",
-                "showAdvanced": "Ver más opciones"
+                "showAdvanced": "Ver más opciones",
+                "selectVideo": "Elige un vídeo",
+                "selectPrivateServiceGroups": "Elige tus categorías",
+                "selectPrivateServiceTypeDetail": "Mi cita",
+                "selectPrivateServiceTypeList": "Todas las citas",
+                "selectPrivateServiceType": "Tipo"
             },
             "componentType": {
                 "playlist": "Playlist",
@@ -1615,7 +1620,8 @@
                 "pass": "Tarjeta de curso",
                 "privateService": "Citas",
                 "workshop": "Talleres",
-                "calendar": "Calendario"
+                "calendar": "Calendario",
+                "newsletter": "Newsletter"
             },
             "preview": "Vista previa",
             "saveButton": "Guardar",
@@ -2119,7 +2125,8 @@
                 "3": "Cheque",
                 "2": "SEPA",
                 "1": "Tarjeta de crédito",
-                "0": "Efectivo"
+                "0": "Efectivo",
+                "14": "Saldo del cliente (débito)"
             },
             "select": {
                 "label": "Método de pago"
@@ -2375,7 +2382,8 @@
                 "isEmpty": "Ninguno contrato disponible",
                 "titleManagerOnly": "Contratos no disponibles para la venta",
                 "titleCustomerAvailable": "Contratos disponibles para la venta",
-                "title": "Contratos"
+                "title": "Contratos",
+                "titleInactive": "Contratos archivados"
             },
             "actions": {
                 "subscribe": "Suscribir",
@@ -2591,7 +2599,7 @@
             "payment_note": "Notas de compras",
             "remaining_days": "Dias remanentes",
             "description": "Descripción",
-            "marketplace_enabled": "Disponible en la marketplace",
+            "marketplace_enabled": "Disponible para la venta en línea",
             "supplier_price": "Precio del revendedor",
             "subshop_name": "Categoría",
             "ca": "Volumen de negocios generado",
@@ -5170,6 +5178,12 @@
                 "success": "La suscripción ha sido detenida",
                 "warning": "No se puede detener por el momento, ¿se está transfiriendo un pago?",
                 "error": "No se puede detener la suscripción por el momento"
+            },
+            "contract": {
+                "restore": {
+                    "error": "Imposible restablecer el contrato",
+                    "success": "Contrato restablecido con éxito"
+                }
             }
         },
         "smartlist": {
@@ -5495,7 +5509,11 @@
                 "error": "Error al vincular la cuenta de Zoom",
                 "success": "La cuenta de Zoom se ha vinculado con éxito"
             }
-        }
+        },
+        "consumerPass": {
+            "success": "Tu compra ha sido registrada !"
+        },
+        "copied": "Copiado en el portapapeles"
     },
     "paymentPack": {
         "consumer": {
@@ -6094,7 +6112,8 @@
                 "broadcast": "Videoconferencia",
                 "general": "General",
                 "platform_billing": "Suscripción a bsport",
-                "marketplaceSettings": "Parámetros marketplace"
+                "marketplaceSettings": "Parámetros marketplace",
+                "widget": "Widget"
             },
             "pass": "Tarjeta de curso",
             "goBack": "Volver",
@@ -6950,7 +6969,12 @@
             "cancel": "Cancelar",
             "responsiveDisplay": "Pantalla responsiva",
             "calendarDisplay": "Visión semana card (calendario)",
-            "listDisplay": "Visión semana lista"
+            "listDisplay": "Visión semana lista",
+            "widgetPreviewError": "Por favor, termine su configuración",
+            "dialogTitle": "Personalización del widget",
+            "linkToConfig": "Enlace para esta configuración",
+            "codeInfo": "Integre este código en su sitio web",
+            "creationPageInfo": "Personalice los widgets e intégrelos en su sitio web"
         }
     },
     "platformBilling": {

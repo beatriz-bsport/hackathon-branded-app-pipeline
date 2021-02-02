@@ -1460,7 +1460,7 @@
       },
       "useCredit": "Réserver",
       "private_pass": { "credits": "{{ credits }} crédit" },
-      "buyPass": "{{ price }}€",
+      "buyPass": "{{ price, price }}",
       "notifyMember": { "label": "Envoyer un email de confirmation" },
       "preview": { "credit_cost": "{{credit_cost}} crédit" },
       "sections": { "establishment": "Lieu", "privateSlot": "Séances", "coach": "Professeur" },
@@ -1530,7 +1530,7 @@
       "list": { "createButton": "Créer une carte RDV" },
       "parameters": {
         "nbCredits": "{{ credits }} crédit",
-        "price": "{{ price}} €",
+        "price": "{{ price, price}}",
         "tax": "TVA: {{ tax }}%",
         "managerOnly": "Invisible pour les clients"
       },
@@ -1917,7 +1917,7 @@
     "pageTitle": "Tableau de bord",
     "turnover": {
       "title": "Encaissements",
-      "caption": "Encaissements (€)",
+      "caption": "Encaissements",
       "popover": "Somme de tous les paiements reçus figurant sur les factures"
     },
     "bookings": "Réservations",
@@ -1940,7 +1940,7 @@
     "bookingSource": { "title": "Origine des réservations" },
     "plannedPayment": {
       "title": "Encaissements des souscriptions",
-      "caption": "Encaissement (€)",
+      "caption": "Encaissement",
       "popover": "Somme de tous les paiements reçus concernant les souscriptions"
     },
     "invoiceItems": { "title": "Ventes par type de produit" },
@@ -3003,7 +3003,7 @@
         "title": "Ajustement de solde",
         "typeLabel": "Type d'ajustement",
         "balanceValueLabel": "Montant",
-        "explainDecaissement": "Un décaissement de {{ amount }} € sera enregistré.",
+        "explainDecaissement": "Un décaissement de {{ amount }} {{ currencyDisplay }} sera enregistré.",
         "explainTopup": "Une augmentation de {{ amount }} € sera enregistré au solde du membre.",
         "debt": "Décaissement",
         "topup": "Encaissement",
@@ -4083,7 +4083,7 @@
       "trackModifiedCreditTitle": "Historique des crédits modifiés",
       "penaltyTitle": "Pénalités appliquées",
       "penaltyBlock": "Carte bloquée pendant {{nb_days}} jours",
-      "penaltyAccount": "Facturation supplémentaire de {{account_value}}€"
+      "penaltyAccount": "Facturation supplémentaire de {{account_value}} {{currencyDisplay }}"
     },
     "penalty": {
       "title": "Politique d'annulation",
@@ -4826,8 +4826,8 @@
         "name": "Dette",
         "first": "Le solde du client, soustrait des factures impayées, est",
         "second": " à   ",
-        "third": "euros",
-        "explanation": "A X euros sur son compte",
+        "third": "{{ currencyDisplay }}",
+        "explanation": "A X {{ currencyDisplay }} sur son compte",
         "between": "et"
       },
       "5": {
@@ -4853,7 +4853,7 @@
         "workshop": "Carte de cours spécial atelier",
         "name": "Dépenses",
         "first": "A dépensé",
-        "second": "€ entre le",
+        "second": "{{ currencyDisplay }} entre le",
         "third": "et le",
         "fourth": "pour les produits",
         "selector": "Choisir les produits"
@@ -4877,7 +4877,7 @@
         "explanation": "A abandonné un panier d'un montant de...",
         "first": "A abandonné un panier d'un montant",
         "second": "à",
-        "third": "euros",
+        "third": "{{ currencyDisplay }}",
         "between": "et",
         "date": { "first": "Panier abandonné", "second": "jours" }
       },
@@ -4920,7 +4920,7 @@
         "workshop": "Carte de cours spécial atelier",
         "name": "Dépenses",
         "first": "A dépensé",
-        "second": "€ pour les produits",
+        "second": "{{ currencyDisplay }} pour les produits",
         "date": { "first": "achats effectués" }
       },
       "25": {
@@ -5230,13 +5230,13 @@
       "actions": { "createSepa": "Ajouter un IBAN", "createCard": "Ajouter une CB" }
     },
     "upsellPackage": {
-      "billOnce": "{{price_cts }} €",
-      "billRecurrent": "{{price_cts }} € / mois",
+      "billOnce": "{{price_cts, price }}",
+      "billRecurrent": "{{price_cts, price }} / mois",
       "knowMore": "En savoir +",
       "myAddonTitle": "Mes Add-ons",
       "otherAddonTitle": "Add-ons disponibles",
-      "vod": { "explainBilling": "  +1€ /client actif" },
-      "sms": { "explainBilling": "{{ price_cts }} € / SMS" }
+      "vod": { "explainBilling": "  +1 {{currencyDisplay }} /client actif" },
+      "sms": { "explainBilling": "{{ price_cts, price }} / SMS" }
     },
     "platformBillingGroup": { "myGroup": "Mon forfait", "soonAvailable": "Bientôt disponible !" },
     "platformBillingPlan": {
@@ -5250,7 +5250,7 @@
       }
     },
     "platformBillingStage": {
-      "monthlyPrice": "{{ price }} € / mois",
+      "monthlyPrice": "{{ price, price }} / mois",
       "maxBooking": "Jusqu'à {{ max_booking_per_month }} réservations / mois"
     },
     "featureRequest": {

@@ -67,6 +67,7 @@ i18n
     supportedLngs: languages,
 
     interpolation: {
+      defaultVariables: { currencyDisplay: getCurrencyDisplay() },
       format(value, format) {
         if (format === 'uuid' && typeof value === 'string') {
           return value.slice(0, 8);

@@ -205,7 +205,8 @@ exports.default = {
       title: 'Ajustement de solde',
       typeLabel: "Type d'ajustement",
       balanceValueLabel: 'Montant',
-      explainDecaissement: 'Un décaissement de {{ amount }} € sera enregistré.',
+      explainDecaissement:
+        'Un décaissement de {{ amount }} {{ currencyDisplay }} sera enregistré.',
       explainTopup:
         'Une augmentation de {{ amount }} € sera enregistré au solde du membre.',
       debt: 'Décaissement',

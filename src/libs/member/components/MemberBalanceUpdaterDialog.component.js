@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import PriceInput from '../../../components/input/PriceInput.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 type Props = {
   onSubmit: (any) => void,
@@ -82,6 +83,7 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
                 {balanceUpdateType === 'decaissement'
                   ? t('balance.updaterDialog.explainDecaissement', {
                       amount: balanceUpdateValue,
+                      currencyDisplay: getCurrencyDisplay(),
                     })
                   : t('balance.updaterDialog.explainTopup', {
                       amount: balanceUpdateValue,

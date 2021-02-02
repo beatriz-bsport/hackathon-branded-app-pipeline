@@ -344,7 +344,7 @@ exports.default = {
     private_pass: {
       credits: '{{ credits }} crédit',
     },
-    buyPass: '{{ price }}€',
+    buyPass: '{{ price, price }}',
     notifyMember: {
       label: 'Envoyer un email de confirmation',
     },
@@ -443,7 +443,7 @@ exports.default = {
     },
     parameters: {
       nbCredits: '{{ credits }} crédit',
-      price: '{{ price}} €',
+      price: '{{ price, price}}',
       tax: 'TVA: {{ tax }}%',
       managerOnly: 'Invisible pour les clients',
     },

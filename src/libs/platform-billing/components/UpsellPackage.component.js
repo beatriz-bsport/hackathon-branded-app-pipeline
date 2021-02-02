@@ -16,6 +16,7 @@ import DuoIcon from '@material-ui/icons/Duo';
 import { useTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 const CUSTOM_APP = 1;
 const WHEREBY = 3;
@@ -235,7 +236,10 @@ const UpsellPackageVod = (props: Props) => {
           <CheckIcon className={classes.iconLeft} />
           {t('upsellPackage.billRecurrent', {
             price_cts: (upsellPackage.price_cts / 100).toFixed(2),
-          }) + t('upsellPackage.vod.explainBilling')}
+          }) +
+            t('upsellPackage.vod.explainBilling', {
+              currencyDisplay: getCurrencyDisplay(),
+            })}
         </Button>
       </div>
     </Paper>
@@ -286,6 +290,7 @@ const UpsellPackageSMS = (props: Props) => {
           <CheckIcon className={classes.iconLeft} />
           {t('upsellPackage.sms.explainBilling', {
             price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+            currencyDisplay: getCurrencyDisplay(),
           })}
         </Button>
       </div>

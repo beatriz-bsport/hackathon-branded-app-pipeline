@@ -316,7 +316,8 @@ exports.default = {
     trackModifiedCreditTitle: 'Historique des crédits modifiés',
     penaltyTitle: 'Pénalités appliquées',
     penaltyBlock: 'Carte bloquée pendant {{nb_days}} jours',
-    penaltyAccount: 'Facturation supplémentaire de {{account_value}}€',
+    penaltyAccount:
+      'Facturation supplémentaire de {{account_value}} {{currencyDisplay }}',
   },
   penalty: {
     title: "Politique d'annulation",

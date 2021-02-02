@@ -21,6 +21,7 @@ import BookingItemForManagerV2 from '../../booking/components/BookingItemForMana
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import ConsumerPaymentPackExtensionListItem from './ConsumerPaymentPackExtensionListItem.component';
 import ConsumerPaymentPackCreditRefundListItem from './ConsumerPaymentPackCreditRefundListItem.component';
+import { getCurrencyDisplay } from '../../theme/selectors';
 
 import type {
   ConsumerPaymentPackExtension,
@@ -202,6 +203,7 @@ export function ConsumerPaymentPackDetail(props: Props) {
                           PENALTY_KIND_NEGATIVE_ACCOUNT &&
                           props.t('details.penaltyAccount', {
                             account_value: penalty.account_value,
+                            currencyDisplay: getCurrencyDisplay(),
                           })}
                       </>
                     }

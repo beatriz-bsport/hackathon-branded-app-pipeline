@@ -40,7 +40,7 @@ exports.default = {
   // eslint-disable-next-line
   turnover: {
     title: 'Encaissements',
-    caption: 'Encaissements (€)',
+    caption: 'Encaissements',
     popover: 'Somme de tous les paiements reçus figurant sur les factures',
   },
   bookings: 'Réservations',
@@ -75,7 +75,7 @@ exports.default = {
   },
   plannedPayment: {
     title: 'Encaissements des souscriptions',
-    caption: 'Encaissement (€)',
+    caption: 'Encaissement',
     popover: 'Somme de tous les paiements reçus concernant les souscriptions',
   },
   invoiceItems: {

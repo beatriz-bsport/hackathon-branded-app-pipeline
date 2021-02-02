@@ -291,7 +291,7 @@
             "allEstablishment": "Alle zalen",
             "enabled": "Actief",
             "establishmentId": "Je zaal- of zalen-ID's zijn: {{establishmentIdList}}",
-            "companyId": "De ID van je onderneming is: {{company}}"
+            "companyId": "De ID van je onderneming is: {{ company }}"
         },
         "pageTitle": "Integraties"
     },
@@ -1324,7 +1324,7 @@
         },
         "campaign": {
             "showMail": "Toon de e-mail",
-            "sentAt": "Verzonden op {{date_created}}",
+            "sentAt": "Verzonden op {{ date_created }}",
             "readCount": "Aantal keer geopend",
             "clickCount": "Aantal keer geklikt",
             "showReport": "Rapportages",

@@ -3167,7 +3167,7 @@
                     "after": "Notificación {{hours}}h después de la sesión",
                     "before": "Notificación {{hours}}h antes de la sesión",
                     "cancelledDeprecated": "Cancelación n° {{notify_booking_nb}}",
-                    "bookingDeprecated": "Booking  n° {{notify_booking_nb}}",
+                    "bookingDeprecated": "Booking n° {{notify_booking_nb}}",
                     "notRefunded": "Cancelación después de la fecha límite n° {{notify_booking_nb}}",
                     "refunded": "Cancelación reembolsada n° {{notify_booking_nb}}",
                     "absence": "Ausencia n° {{notify_booking_nb}}",
@@ -4378,15 +4378,15 @@
                 "help": {
                     "cancelledNotRefunded": {
                         "notifyAll": "Ayuda: la notificación se enviará al miembro cada vez que cancele una cita fuera de la fecha límite para este tipo de cita",
-                        "default": "Ayuda: la notificación será enviada al miembro cuando se cancele tarde por {{notificarNb}} vez, para este tipo de cita"
+                        "default": "Ayuda: la notificación será enviada al miembro cuando se cancele tarde por n°{{notifyNb}} vez, para este tipo de cita"
                     },
                     "cancelledRefunded": {
                         "notifyAll": "Ayuda: Se enviará una notificación al miembro en cada una de sus reservas canceladas reembolsadas por este tipo de cita.",
-                        "default": "Ayuda: la notificación será enviada al miembro cuando su reserva cancelada sea devuelta n° {{notifyNb}} para este tipo de cita."
+                        "default": "Ayuda: la notificación será enviada al miembro cuando su reserva cancelada sea devuelta n°{{notifyNb}} para este tipo de cita."
                     },
                     "valid": {
                         "notifyAll": "Ayuda: la notificación se enviará al miembro por cada una de sus reservas válidas para este tipo de cita",
-                        "default": "Ayuda: la notificación será enviada al miembro cuando su reservación válida n ° {{notifyNb}}  para este tipo de cita se haga"
+                        "default": "Ayuda: la notificación será enviada al miembro cuando su reservación válida n °{{notifyNb}}  para este tipo de cita se haga"
                     }
                 },
                 "notifyAllEvents": "Notificar al miembro en cada evento",
@@ -5971,7 +5971,7 @@
             "lastBookingBeforeMinutes": "Las reservas son posibles para esta actividad hasta {{m}} antes del inicio de la sesión",
             "title": "Parámetros",
             "conditions": "Condiciones",
-            "autoDiscard": "La sesión será cancelada si hay {{nb_bookings}} reserva (s) o menos {{horas}} h antes del inicio de la sesión"
+            "autoDiscard": "La sesión será cancelada si hay {{nb_bookings}} reserva (s) o menos {{hours}} h antes del inicio de la sesión"
         },
         "modal": {
             "delete": {
@@ -6959,12 +6959,12 @@
                 "explainBilling": "  +1€ /cliente activo"
             },
             "billRecurrent": "{{price_cts }} € / mes",
-            "billOnce": "{{precio_cts }} €",
+            "billOnce": "{{price_cts }} €",
             "otherAddonTitle": "Complementos disponibles",
             "myAddonTitle": "Mis complementos",
             "knowMore": "Más información",
             "sms": {
-                "explainBilling": "{{ price_cts }} € / SMS"
+                "explainBilling": "{{price_cts }} € / SMS"
             }
         },
         "featureRequest": {

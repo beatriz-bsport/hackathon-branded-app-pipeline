@@ -258,7 +258,12 @@ export class MarketPlaceActivity extends React.Component<Props> {
               color="primary"
               className={classes.callButton}
               disabled={!isOfferInThePast(offer) || !offer.available}
-              onClick={() => this.props.goToOfferPayment(offer)}
+              onClick={() => {
+                this.props.goToOfferPayment(offer);
+                if (this.props.onClose) {
+                  this.props.onClose();
+                }
+              }}
             >
               {t('marketplace.bookButton.book')}
             </Button>
@@ -359,7 +364,12 @@ export class MarketPlaceActivity extends React.Component<Props> {
               variant="contained"
               color="primary"
               disabled={!isOfferInThePast(offer) || !offer.available}
-              onClick={() => this.props.goToOfferPayment(offer)}
+              onClick={() => {
+                this.props.goToOfferPayment(offer);
+                if (this.props.onClose) {
+                  this.props.onClose();
+                }
+              }}
             >
               {t('marketplace.bookButton.book')}
             </Button>

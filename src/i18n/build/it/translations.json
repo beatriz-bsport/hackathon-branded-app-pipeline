@@ -20,7 +20,7 @@
                 "autoDiscard": {
                     "hours_before_start": "Ora(e) prima della sessione:",
                     "min_bookings_nb": "Numero di prenotazione(i):",
-                    "explain": "Annullare la sessione e inviare una notifica via e mail agli allievi se ci sono {{tot. num prenotazioni}} o meno, {{tot. ore}} prima dell'inizio della sessione.",
+                    "explain": "Annullare la sessione e inviare una notifica via e mail agli allievi se ci sono {{bookings_nb}} o meno, {{hours}} prima dell'inizio della sessione.",
                     "emailRecipients": "Questa e mail verrà inviata agli account con ruolo di Proprietario o Amministratore e anche all'insegnante (o un sostituto) della sessione in questione",
                     "checkbox": "Annullare le sessioni con poche prenotazioni"
                 }
@@ -956,7 +956,7 @@
             "totalBookings_plural": "{{nb}} prenotazioni in totale",
             "cancelledBookings": "{{nb}} prenotazione annullata",
             "cancelledBookings_plural": "{{nb}} prenotazioni annullate",
-            "offerFilteredBookingRecap": "Sessione del {{ date }}",
+            "offerFilteredBookingRecap": "Sessione del {{date}}",
             "weekOverview": "Panoramica della tua settimana"
         },
         "show_cancelled_offers": "Mostra sessioni annullate",
@@ -1191,7 +1191,7 @@
     },
     "partnership": {
         "parameters": {
-            "companyId": "L'ID del tuo club è: {{company}}",
+            "companyId": "L'ID del tuo club è: {{ company }}",
             "establishmentId": "Gli ID delle sale sono: {{establishmentIdList}}",
             "enabled": "Attivo",
             "allEstablishment": "Tutte le sale"
@@ -1339,7 +1339,7 @@
             "clickCount": "Click",
             "showReport": "Report",
             "showMail": "Vedi email",
-            "sentAt": "Inviato il {{date_created}}",
+            "sentAt": "Inviato il {{ date_created }}",
             "readCount": "Aperture",
             "kind": {
                 "0": "Email",
@@ -1557,7 +1557,7 @@
                 "cancel": "Annulla",
                 "confirm": "Conferma"
             },
-            "duration": "{{ minuti }} minuti"
+            "duration": "{{ minutes }} minuti"
         },
         "privateBooking": {
             "editTime": "Modifica",
@@ -1627,7 +1627,7 @@
             },
             "discard": "Annulla l'appuntamento",
             "updateCoach": "Scegli un nuovo insegnante per questo appuntamento",
-            "isCancelledDate": "Annullare {{data}} alle {{ora}}",
+            "isCancelledDate": "Annullare {{-date}} alle {{time}}",
             "restore": "Fissare di nuovo l'appuntamento",
             "bookings": "Appuntamenti"
         },
@@ -1721,8 +1721,8 @@
                     "label": "Mattina"
                 }
             },
-            "nbSlot": "{{ nSlot }} fascia oraria",
-            "nbSlot_plural": "{{ nSlot }} fasce orarie",
+            "nbSlot": "{{ nbSlot }} fascia oraria",
+            "nbSlot_plural": "{{ nbSlot }} fasce orarie",
             "establishment": "Luogo",
             "coach": "Insegnante",
             "selectService": "Scegli un servizio",
@@ -2001,12 +2001,12 @@
                 },
                 "paddingEnd": {
                     "helperText0": "Sul calendario, l'insegnante e/o la sala, sarà segnato come nuovamente disponibile alla fine della sessione.",
-                    "helperText": "Sul calendario, l'insegnante e/o la sala sarà segnato come nuovamente disponibile {{tot. minuti}} minuti dopo la fine della sessione.",
+                    "helperText": "Sul calendario, l'insegnante e/o la sala sarà segnato come nuovamente disponibile {{minutes}} minuti dopo la fine della sessione.",
                     "label": "Numero di minuti dopo la fine della sessione."
                 },
                 "paddingStart": {
                     "helperText0": "Sul calendario, l'insegnante, o la sala, sarà segnalato come non disponibile all'orario di inizio della sessione.",
-                    "helperText": "Sul calendario, l'insegnante, o la sala,  sarà segnalato come non disponibile {{tot. minuti}} minuti prima dell'inizio della sessione.",
+                    "helperText": "Sul calendario, l'insegnante, o la sala,  sarà segnalato come non disponibile {{minutes}} minuti prima dell'inizio della sessione.",
                     "label": "Numero di minuti prima dell'inizio dell'appuntamento"
                 },
                 "paddingTitle": "Gestione delle disponibilità"
@@ -2085,7 +2085,7 @@
         },
         "recurrenceRule": {
             "item": {
-                "explain": "Ogni {{gg/settimana}} - {{ora}}, {{periodo di tempo}}}} settimane prima"
+                "explain": "Ogni {{dayOfWeek}} - {{hours}}, {{delayWeek}} settimane prima"
             },
             "forms": {
                 "update": {
@@ -2127,8 +2127,8 @@
                 "cancelledRefunded": "Rimborso cancellazione n°{{notify_booking_nb}}",
                 "cancelledNotRefunded": "Cancellazione tardiva n° {{notify_booking_nb}}",
                 "valid": "Sessione n° {{notify_booking_nb}}",
-                "after": "Notifica {{ore}} h dopo la sessione",
-                "before": "Notifica {{ore}} h prima della sessione"
+                "after": "Notifica {{hours}} h dopo la sessione",
+                "before": "Notifica {{hours}} h prima della sessione"
             },
             "form": {
                 "next": "Successivo",
@@ -2152,7 +2152,7 @@
                     },
                     "cancelledRefunded": {
                         "notifyAll": "Aiuto: la notifica sarà inviata all'allievo a ciascuna delle sue prenotazioni cancellate rimborsate per questo tipo di sessione",
-                        "default": "Aiuto: la notifica sarà inviata all'allievo al momento della prenotazione annullata rimborsata n° {notifyNb}} per questo tipo di appuntamento"
+                        "default": "Aiuto: la notifica sarà inviata all'allievo al momento della prenotazione annullata rimborsata n°{{notifyNb}} per questo tipo di appuntamento"
                     },
                     "valid": {
                         "notifyAll": "Aiuto: la notifica verrà inviata all'allievo per ogni sua prenotazione convalidata per questo tipo di sessione.",
@@ -2243,18 +2243,18 @@
                 "with": "con"
             },
             "analytics": {
-                "uploaded": "Video postato online il {{data}}",
+                "uploaded": "Video postato online il {{date}}",
                 "distinctViewers": "Visualizzazioni uniche",
                 "viewsLastWeek": "Ultimi 7 giorni",
                 "totalViews": "Totale",
                 "dateCreated": "Posta online",
                 "viewTitle": "Visualizzazione",
-                "views": "{{tot. num}} visualizzazioni"
+                "views": "{{nb_views}} visualizzazioni"
             },
             "viewsListTitle": "Lista delle visualizzazioni",
             "purchaseListTitle": "Lista degli acquisti",
-            "viewedOn": "Video visualizzato il {{-data}} alle {{ora}}",
-            "boughtOn": "Acquisto effettuato il {{-data}}",
+            "viewedOn": "Video visualizzato il {{-date}} alle {{hour}}",
+            "boughtOn": "Acquisto effettuato il {{-date}}",
             "noVideoView": "Nessuna visualizzazione",
             "noVideoPurchase": "Nessun acquisto registrato",
             "coverMain": {
@@ -2523,7 +2523,7 @@
                         "placeholder": "Massimo squilibrio DONNE / UOMINI autorizzato"
                     },
                     "numberCheck": {
-                        "helperText": "Quando più di {{tot. num}} persone riservano una sessione, qualsiasi riserva aggiuntiva sarà accettata solo se lo squilibrio DONNE / UOMINI è inferiore al valore seguente.",
+                        "helperText": "Quando più di {{ number }} persone riservano una sessione, qualsiasi riserva aggiuntiva sarà accettata solo se lo squilibrio DONNE / UOMINI è inferiore al valore seguente.",
                         "placeholder": "Controlla lo squilibrio DONNE / UOMINI quando il numero di prenotazioni eccede"
                     },
                     "checkbox": "Limita lo squilibrio DONNE / UOMINI nelle prenotazioni (studio di danza ...)"
@@ -3413,7 +3413,7 @@
                 "topup": "Incasso",
                 "debt": "Pagamento",
                 "explainTopup": "Un supplemento di {{ amount }} €  sarà registrato nel saldo del membro",
-                "explainDecaissement": "Un pagamento di {{amount}} € sarà registrato",
+                "explainDecaissement": "Un pagamento di {{ amount }} € sarà registrato",
                 "balanceValueLabel": "Importo",
                 "typeLabel": "Tipo di regolazione",
                 "title": "Regolazione del saldo"
@@ -3665,7 +3665,7 @@
                 "listItem": "Risoluzione dell'iscrizione programmata"
             },
             "invoice": {
-                "label": "Fattura {{uuid}} {price}}€"
+                "label": "Fattura {{uuid}} {{price}}€"
             }
         },
         "paymentMethod": {
@@ -3835,8 +3835,8 @@
             "actions": {
                 "delete": "Resettare la pausa"
             },
-            "secondaryLabel": " : {{ nota }}",
-            "label": "Pausa di {{giorni}} giorni",
+            "secondaryLabel": " : {{ note }}",
+            "label": "Pausa di {{days}} giorni",
             "createdAt": "Creato il "
         },
         "plannedInvoice": {
@@ -4451,7 +4451,7 @@
                         "label": "Accredito:"
                     },
                     "block": {
-                        "helperText": "Il pass sarà bloccato per {{tot.}} giorni",
+                        "helperText": "Il pass sarà bloccato per {{nb_days}} giorni",
                         "label": "Periodo di blocco della carta (in giorni) :"
                     },
                     "kind": {
@@ -4462,7 +4462,7 @@
                     "nb_days": "Numero di giorni:",
                     "checkbox": "Applica una penalità in caso di numerose cancellazioni",
                     "nb_cancellations": "Numero di cancellazioni:",
-                    "explain": "Sarà applicata una penalità  se ci sono {{tot. num}} di cancellazioni tardive oltre un periodo di {{tot.}} giorni",
+                    "explain": "Sarà applicata una penalità se ci sono {{nb_cancellations}} di cancellazioni tardive oltre un periodo di {{nb_days}} giorni",
                     "title": "Penalità"
                 },
                 "maxBookingPerMonth": {
@@ -4480,7 +4480,7 @@
             "bookingsTitle": "Prenotazioni associate",
             "extensionsTitle": "Estensioni di validità",
             "penaltyAccount": "Ulteriori fatturazioni di {{account_value}} €",
-            "penaltyBlock": "Carta bloccata per {{tot.}} giorni",
+            "penaltyBlock": "Carta bloccata per {{nb_days}} giorni",
             "penaltyTitle": "Penalità applicate",
             "trackModifiedCreditTitle": "Storia del credito modificata"
         },
@@ -4573,8 +4573,8 @@
         "maxNBookingsByMonth2": " prenotazioni per mese",
         "only_vod_access": "Disponibile solo per VOD",
         "penalty": {
-            "account": "Se ci sono {{tot. num}} di cancellazioni tardive oltre un periodo di {{tot. num}} giorni, un supplemento di {{account_value}} € verrà applicato.",
-            "block": "Se ci sono {{tot. num}} di cancellazioni tardive oltre un periodo di {{tot. num}} di giorni, il passa verrà bloccato per {{tot. num}} di giorni",
+            "account": "Se ci sono {{nb_cancellations}} di cancellazioni tardive oltre un periodo di {{nb_days}} giorni, un supplemento di {{account_value}}€ verrà applicato.",
+            "block": "Se ci sono {{nb_cancellations}} di cancellazioni tardive oltre un periodo di {{nb_days}} di giorni, il passa verrà bloccato per {{days_blocked}} di giorni.",
             "title": "Politica di cancellazione"
         }
     },
@@ -4604,7 +4604,7 @@
             "lastBookingBeforeMinutes": "È possibile prenotare questa attività fino a {{m}} prima dell'inizio della sessione",
             "firstBookingMinutesUntil": "I clienti posso prenotare solo fino a {{m }}prima della sessione",
             "conditions": "Condizioni",
-            "autoDiscard": "La sessione verrà cancellata se ci sono {{nb_bookings}} di prenotazioni o meno, {{tot}} ore prima dell'inizio della sessione"
+            "autoDiscard": "La sessione verrà cancellata se ci sono {{nb_bookings}} di prenotazioni o meno, {{hours}} ore prima dell'inizio della sessione"
         },
         "forms": {
             "create": {
@@ -4836,9 +4836,9 @@
             "cancelledByManager": "Gestisci cancellazione",
             "cancelledByConsumer": "Cancellazione del cliente",
             "cancelledByOffer": "Sessione annullata dal club",
-            "cancelledByOfferDate": "Sessione annullata dal club il {{data}} alle {{ora}}",
-            "cancelledByConsumerDate": "Cancellato dal cliente il {{ data}} alle {{ora}}",
-            "cancelledByManagerDate": "Cancellato dal gestore il {{ data}} alle {{ora}}"
+            "cancelledByOfferDate": "Sessione annullata dal club il {{-date}} alle {{time}}",
+            "cancelledByConsumerDate": "Cancellato dal cliente il {{-date}} alle {{time}}",
+            "cancelledByManagerDate": "Cancellato dal gestore il {{-date}} alle {{time}}"
         },
         "bookingModule": {
             "section": {
@@ -5045,7 +5045,7 @@
             "editModal": {
                 "success": "La prenotazione ricorrente è stata modificata"
             },
-            "blockedBookings": "I tuoi studenti possono prenotare fino a {{tot. num}} giorni prima dell'inizio delle sessioni di questa attività, quindi si consiglia di programmare la ricorrenza per un periodo più lungo per evitare il sovraccarico.",
+            "blockedBookings": "I tuoi studenti possono prenotare fino a {{days}} giorni prima dell'inizio delle sessioni di questa attività, quindi si consiglia di programmare la ricorrenza per un periodo più lungo per evitare il sovraccarico.",
             "notifyIfCanceled": "Invia una mail di cancellazione delle prenotazioni",
             "notify": "Invia una mail di conferma al momento della registrazione del membro",
             "showLess": "Mostra meno",
@@ -6786,7 +6786,7 @@
         "video": {
             "cantOpenLink": "Il link della conferenza sembra essere errato, contatta il tuo club {{contact_email}}",
             "redirectLink": "Se non vieni reindirizzato automaticamente, usa questo link:",
-            "startingSoon": "La sessione inizia tra {{ tot. }} minuti",
+            "startingSoon": "La sessione inizia tra {{ minutesLeft }} minuti",
             "hasEnded": "Questa sessione è finita",
             "isAutoRefresh": "Verrai reindirizzato automaticamente alla videoconferenza 15 minuti prima dell'inizio del corso",
             "loadingSoon": "Caricamento in corso...",

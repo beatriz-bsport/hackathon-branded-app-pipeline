@@ -1229,7 +1229,7 @@
                     "min_bookings_nb": "Anzahl der Buchung(en):",
                     "emailRecipients": "Diese E-Mail wird an Staff mit der Rolle \"Leiter\" oder \"Administrator\" sowie an den Lehrer (oder Ersatzlehrer) des betreffenden Kurses gesendet.",
                     "checkbox": "Storniere den Kurs automatisch, wenn zu wenige Buchungen vorliegen",
-                    "explain": "Sende eine E-Mail-Benachrichtigung und storniere den Kurs, wenn {{bookings_nb}} Buchungen für den Beginn des Kurses oder weniger {{Stunden}} h vorliegen."
+                    "explain": "Sende eine E-Mail-Benachrichtigung und storniere den Kurs, wenn {{bookings_nb}} Buchungen für den Beginn des Kurses oder weniger {{hours}} h vorliegen."
                 }
             }
         },
@@ -3934,7 +3934,7 @@
             "recurrentBooking": "Wiederkehrende Buchungen",
             "notCancelled": "Nicht storniert"
         },
-        "creditConsumed": "{{credit_consumed}} Credits",
+        "creditConsumed": "{{credit_consumed}} Credit",
         "creditConsumed_plural": "{{credit_consumed}} Credits",
         "actions": {
             "unregister": "Abmelden",
@@ -3945,12 +3945,12 @@
                 "listItemPrimary": {
                     "after": "Benachrichtigung {{hours}} h nach dem Kurs",
                     "before": "Benachrichtigung {{hours}} h vor Beginn des Kurses",
-                    "refunded": "Anzahl der erstatteten Stornierungen: {{notify_booking_nb}}",
-                    "cancelledDeprecated": "Anzahl der Stornierungen:",
-                    "bookingDeprecated": "Buchungsnummer {{notify_booking_nb}}",
-                    "notRefunded": "Anzahl der Stornierungen nach Ablauf der Frist:",
-                    "attendance": "Anzahl der Anwesenheiten:  {{notify_booking_nb}}",
-                    "absence": "Anzahl der Abwesenheiten:  {{notify_booking_nb}}",
+                    "refunded": "Anzahl der erstatteten Stornierungen: n° {{notify_booking_nb}}",
+                    "cancelledDeprecated": "Anzahl der Stornierungen: n° {{notify_booking_nb}}",
+                    "bookingDeprecated": "Buchungsnummer n° {{notify_booking_nb}}",
+                    "notRefunded": "Anzahl der Stornierungen nach Ablauf der Frist : n° {{notify_booking_nb}}",
+                    "attendance": "Anzahl der Anwesenheiten: n° {{notify_booking_nb}}",
+                    "absence": "Anzahl der Abwesenheiten: n° {{notify_booking_nb}}",
                     "notifyAllEvents": {
                         "notRefunded": "Für jede Stornierung nach Ablauf der Frist",
                         "refunded": "Für jede erstattete Stornierung",
@@ -4051,7 +4051,7 @@
             "editModal": {
                 "success": "Die wiederkehrende Buchung wurde geändert"
             },
-            "blockedBookings": "Deine Schüler können bis zu {{Tage}} Tage vor Beginn der Sitzungen für diese Aktivität buchen. Wir empfehlen daher, die Wiederholung für einen längeren Zeitraum zu planen, um eine Überfüllung zu vermeiden.",
+            "blockedBookings": "Deine Schüler können bis zu {{days}} Tage vor Beginn der Sitzungen für diese Aktivität buchen. Wir empfehlen daher, die Wiederholung für einen längeren Zeitraum zu planen, um eine Überfüllung zu vermeiden.",
             "notifyIfCanceled": "Sende eine Stornierungs-E-Mail der Reservierung",
             "notify": "Sende eine Bestätigungs-E-Mail, wenn Du das Mitglied registrierst",
             "showLess": "Weniger anzeigen",
@@ -5020,8 +5020,8 @@
                     "cancelledRefunded": "Für jede erstattete Stornierung",
                     "valid": "Bei jedem Termin"
                 },
-                "cancelledRefunded": "Anzahl der erstatteten Stornierungen:",
-                "cancelledNotRefunded": "Anzahl der Stornierungen nach Ablauf der Frist:",
+                "cancelledRefunded": "Anzahl der erstatteten Stornierungen:  n° {{notify_booking_nb}}",
+                "cancelledNotRefunded": "Anzahl der Stornierungen nach Ablauf der Frist: i n° {{notify_booking_nb}}",
                 "valid": "Terminnummer {{notify_booking_nb}}",
                 "after": "Benachrichtigung {{hours}} Std nach dem Termin",
                 "before": "Benachrichtigung {{hours}} Std vor dem Termin"
@@ -5044,7 +5044,7 @@
                 "help": {
                     "cancelledNotRefunded": {
                         "notifyAll": "Hilfe: Die Benachrichtigung wird dem Mitglied für jede verspätete Stornierung für diese Art von Termin gesendet",
-                        "default": "Hilfe: Die Benachrichtigung wird an das Mitglied gesendet, wenn sie nach Ablauf der Frist {{NotifyNb}} für diese Art von Termin storniert wird"
+                        "default": "Hilfe: Die Benachrichtigung wird an das Mitglied gesendet, wenn sie nach Ablauf der Frist n°{{notifyNb}} für diese Art von Termin storniert wird"
                     },
                     "cancelledRefunded": {
                         "notifyAll": "Hilfe: Die Benachrichtigung wird an das Mitglied für jede stornierte Reservierung gesendet, die für diese Art von Termin erstattet wird",
@@ -5236,7 +5236,7 @@
             "title": "Einstellungen",
             "firstBookingMinutesUntil": "Buchungen werden {{m}} vor dem Beginn der Sitzung blockiert",
             "conditions": "Bedingungen",
-            "autoDiscard": "Der Kurs wird abgebrochen, wenn {{nb_bookings}} Buhchungen oder weniger, {{Stunden}} h vor Beginn des Kurses vorliegen"
+            "autoDiscard": "Der Kurs wird abgebrochen, wenn {{nb_bookings}} Buhchungen oder weniger, {{hours}} h vor Beginn des Kurses vorliegen"
         },
         "modal": {
             "delete": {

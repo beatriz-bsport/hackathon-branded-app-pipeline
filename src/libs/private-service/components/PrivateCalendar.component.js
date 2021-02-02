@@ -522,7 +522,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
           select={this.select}
           dateClick={this.dateClick}
           events={events}
-          locale={i18n.language}
+          locale={i18n.language === 'en' ? 'en-GB' : i18n.language}
           slotDuration={
             // eslint-disable-next-line
             `00:${15 * 2 ** this.props.zoomLevel}:00`

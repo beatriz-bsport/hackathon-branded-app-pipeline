@@ -22,5 +22,11 @@ exports.default = {
     linkToConfig: 'Lien vers cette configuration',
     dialogTitle: 'Personalisation de Widget',
     widgetPreviewError: 'Veuillez finir votre configuration',
+    dialogModeLabel: 'Type de popup (login, paiement, réservation)',
+    dialogMode: {
+      tab: 'Nouvel onglet',
+      popup: 'Nouvelle fenêtre',
+      iframe: 'Rester sur le site',
+    },
   },
 };

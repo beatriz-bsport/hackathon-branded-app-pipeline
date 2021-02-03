@@ -74,6 +74,7 @@ export type MarketplaceTabConfig = {
 export type WidgetConfig = {
   parentElement: string;
   companyId: number;
+  dialogMode: 0 | 1 | 2;
   widgetType: WidgetComponentsEnum;
   config: MarketplaceComponentConfig;
 };

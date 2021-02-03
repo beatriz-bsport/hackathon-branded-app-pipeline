@@ -5,8 +5,12 @@ import { connect } from 'react-redux';
 import {
   ButtonBase,
   Checkbox,
+  FormControl,
   FormControlLabel,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
   Typography,
 } from '@material-ui/core';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
@@ -14,6 +18,12 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { merge } from 'lodash';
+
+import {
+  DIALOG_MODE_POPUP,
+  DIALOG_MODE_IFRAME,
+  DIALOG_MODE_TAB,
+} from '@bsport/common/lib/master-data/widget-dialog-mode';
 
 import { MaterialStyleType } from '../../../utils/types';
 import MarketplaceComponentTypeSelector from '../../../libs/marketplace/components/MarketplaceComponentTypeSelector.coponent';
@@ -69,6 +79,7 @@ type Props = OwnProps &
 interface State {
   componentType: WidgetComponentsEnum;
   useIframe: boolean;
+  dialogMode: 0 | 1 | 2;
   config: MarketplaceComponentConfig;
   error: {
     privateServiceError: string;
@@ -83,6 +94,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     const state: State = {
       componentType: WidgetComponentsEnum.calendar,
       useIframe: false,
+      dialogMode: DIALOG_MODE_IFRAME,
       config: MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT,
       error: {
         privateServiceError: '',
@@ -144,6 +156,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       componentType: this.state.componentType,
       config: this.state.config,
       useIframe: this.state.useIframe,
+      dialogMode: this.state.dialogMode,
     });
   };
 
@@ -156,6 +169,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
         componentType: this.state.componentType,
         config: this.state.config,
         useIframe: false,
+        dialogMode: this.state.dialogMode,
       });
     }
 
@@ -234,6 +248,13 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     });
   };
 
+  onChangeCompatibilityMode = (checked: boolean) => {
+    this.setState({
+      useIframe: checked,
+      dialogMode: checked ? DIALOG_MODE_TAB : DIALOG_MODE_IFRAME,
+    });
+  };
+
   render() {
     const { classes, t } = this.props;
 
@@ -258,17 +279,43 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
             control={
               <Checkbox
                 checked={this.state.useIframe}
-                onChange={(e) => {
-                  this.setState({ useIframe: e.target.checked });
-                }}
+                onChange={(e) =>
+                  this.onChangeCompatibilityMode(e.target.checked)
+                }
                 name="checkedA"
               />
             }
             label={t('widget:widget.ownStyle')}
           />
 
+          <FormControl className={classes.dialogMode}>
+            <InputLabel>{t('widget:widget.dialogModeLabel')}</InputLabel>
+            <Select
+              className={classes.fullWidth}
+              value={this.state.dialogMode}
+              onChange={(ev: any) =>
+                this.setState({ dialogMode: ev.target.value })
+              }
+            >
+              <MenuItem value={DIALOG_MODE_TAB}>
+                {t(`widget:widget.dialogMode.tab`)}
+              </MenuItem>
+
+              {!this.state.useIframe && (
+                <MenuItem value={DIALOG_MODE_IFRAME}>
+                  {t(`widget:widget.dialogMode.iframe`)}
+                </MenuItem>
+              )}
+
+              <MenuItem value={DIALOG_MODE_POPUP}>
+                {t(`widget:widget.dialogMode.popup`)}
+              </MenuItem>
+            </Select>
+            {error && <Typography color="error">{error}</Typography>}
+          </FormControl>
+
           {!this.props.hideTypeSelector && (
-            <div className={classes.marginTop}>
+            <div className={classes.componentType}>
               <MarketplaceComponentTypeSelector
                 source={Object.keys(WidgetComponentsEnum)}
                 value={this.state.componentType}
@@ -392,6 +439,16 @@ const styles = (theme: Theme) => ({
     [theme.breakpoints.up('lg')]: {
       maxWidth: 450,
     },
+  },
+  dialogMode: {
+    width: '100%',
+    marginTop: theme.spacing(2),
+  },
+  componentType: {
+    marginTop: theme.spacing(4),
+  },
+  fullWidth: {
+    width: '100%',
   },
   marginTop: {
     marginTop: theme.spacing(2),

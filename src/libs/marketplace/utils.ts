@@ -61,6 +61,7 @@ export class WidgetCodeStringGenerator {
     componentType: WidgetComponentsEnum;
     config: MarketplaceComponentConfig;
     useIframe: boolean;
+    dialogMode: 0 | 1 | 2;
   }) {
     const componentConfig = args.config[args.componentType];
     const code = `<script src="https://${
@@ -70,6 +71,7 @@ export class WidgetCodeStringGenerator {
     BsportWidget.mount({
         "parentElement": "bsport-widget",
         "companyId": ${args.company},
+        "dialogMode": ${args.dialogMode},
         "widgetType": "${args.componentType}",
         "config": {
             "${args.componentType}": {

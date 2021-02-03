@@ -19,6 +19,10 @@ import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 
+import {
+  DIALOG_MODE_POPUP,
+  DIALOG_MODE_IFRAME,
+} from '@bsport/common/lib/master-data/widget-dialog-mode';
 import { RootState } from './store/reducer';
 import BsportLogo from './components/BsportLogo';
 import 'bsport-saas/src/index.scss';
@@ -31,7 +35,10 @@ import WidgetBridge from './widgets/WidgetBridge';
 const CalendarWidget = asyncComponent(() => import('./widgets/Calendar'));
 const VODWidget = asyncComponent(() => import('./widgets/Vod'));
 const PrivateServiceWidget = asyncComponent(
-  () => import('./widgets/PrivateService'),
+  () => import('./widgets/PrivateService')
+);
+const TheIframe = asyncComponent(
+  () => import('./components/TheIframe.component'),
 );
 const WorkshopWidget = asyncComponent(() => import('./widgets/Workshop'));
 const NewsletterWidget = asyncComponent(() => import('./widgets/Newsletter'));
@@ -204,5 +211,5 @@ const mapDispatchToProps = {
 export default compose(
   // @ts-ignore
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(BsportWidget);

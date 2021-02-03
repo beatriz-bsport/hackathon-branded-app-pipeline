@@ -440,6 +440,9 @@ exports.default = {
     },
     list: {
       createButton: 'Créer une carte RDV',
+      isEmpty: 'Aucune carte RDV',
+      availableCustomer: 'Disponible à la vente en ligne',
+      managerOnly: 'Non-disponible à la vente',
     },
     parameters: {
       nbCredits: '{{ credits }} crédit',

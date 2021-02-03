@@ -22,13 +22,16 @@ import Typography from '@material-ui/core/Typography';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import themeSelectors from '../../libs/theme/selectors';
 import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import withTitle from '../../hocs/with-title.hoc';
+import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
-  getPrivatePassAvailableListWithPrivateService,
+  getPrivatePassManagerOnlyList,
+  getPrivatePassCustomerEnabled,
   getDisabledPrivatePassAvailableListWithPrivateService,
 } from '../../libs/private-service/selectors/private-pass';
 import { getPrivateServices } from '../../libs/private-service/selectors/private-service';
@@ -109,7 +112,8 @@ export class PrivatePassList extends React.Component<Props> {
 
   render() {
     if (
-      (this.props.privatePassList || []).length +
+      this.props.privatePassListCustomerEnabled.length +
+        this.props.privatePassListManagerOnly.length +
         (this.props.disabledPrivatePassList || []).length ===
         0 &&
       !this.props.loading
@@ -135,126 +139,122 @@ export class PrivatePassList extends React.Component<Props> {
       );
     }
     return (
-      <Grid container>
-        <Grid item xs={12} md={6}>
-          <div className={this.props.classes.leftPanel}>
-            <Paper>
-              <List disablePadding>
-                {this.props.privatePassList.map((pass) => (
-                  <PrivatePassListItem
-                    pass={pass}
-                    key={pass.id}
-                    divider
-                    onClick={() => {
-                      this.props.goToPass(pass.id);
-                    }}
-                    onDelete={() => this.props.setOpenDeletePassDialog(pass.id)}
-                    updatePrivatePass={this.props.createOrUpdatePrivatePass}
-                  />
-                ))}
-              </List>
-            </Paper>
-          </div>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          {this.props.selectedPassId ? (
-            <PrivatePassDetail
-              private_services={this.props.private_services}
-              theme={this.props.theme}
-              snackbarSuccess={this.props.snackbarSuccess}
-              updatePrivatePass={this.props.createOrUpdatePrivatePass}
-              onDelete={() =>
-                this.props.setOpenDeletePassDialog(this.props.selectedPassId)
-              }
-              deleteCompatibleServicePass={
-                this.props.deleteCompatibleServicePass
-              }
-              createCompatibleServicePass={
-                this.props.createCompatibleServicePass
-              }
-              pass={this.props.privatePassList.find(
-                (p) => p.id === this.props.selectedPassId,
-              )}
-            />
-          ) : null}
-        </Grid>
-        {(this.props.disabledPrivatePassList || []).length ? (
+      <div>
+        {!!this.props.loading && <BackofficeLinearProgress />}
+        <Grid container>
           <Grid item xs={12} md={6}>
+            <Typography
+              variant="h5"
+              className={this.props.classes.sectionTitle}
+            >
+              {this.props.t('privatePass.list.availableCustomer')}
+            </Typography>
             <div className={this.props.classes.leftPanel}>
-              <ButtonBase
-                className={this.props.classes.buttonTitle}
-                onClick={this.onShowDisabled}
-              >
-                <Typography
-                  variant="h5"
-                  component="h2"
-                  className={this.props.classes.titleContainer}
-                >
-                  {`${this.props.t('privatePass.disabledTitle')} (${
-                    (this.props.disabledPrivatePassList || []).length
-                  })`}
-                </Typography>
-
-                {this.props.showDisabled ? (
-                  <ExpandLessIcon />
-                ) : (
-                  <ExpandMoreIcon />
+              {!this.props.privatePassListCustomerEnabled.length &&
+                !this.props.loading && (
+                  <Typography variant="caption">
+                    {this.props.t('privatePass.list.isEmpty')}
+                  </Typography>
                 )}
-              </ButtonBase>
-              <Divider />
-              <Collapse in={this.props.showDisabled}>
+              <Paper>
                 <List disablePadding>
-                  {this.props.disabledPrivatePassList.map((pass) => (
-                    <PrivatePassListItem
-                      pass={pass}
-                      key={pass.id}
-                      onRestore={() => this.restorePrivatePass(pass.id)}
-                      divider
-                    />
-                  ))}
+                  {this.props.privatePassListCustomerEnabled
+                    .filter((pp) => !pp.manager_only)
+                    .map((pass) => (
+                      <PrivatePassListItem
+                        pass={pass}
+                        key={pass.id}
+                        divider
+                        onClick={() => {
+                          this.props.goToPass(pass.id);
+                        }}
+                        onDelete={() =>
+                          this.props.setOpenDeletePassDialog(pass.id)
+                        }
+                        updatePrivatePass={this.props.createOrUpdatePrivatePass}
+                      />
+                    ))}
                 </List>
-              </Collapse>
+              </Paper>
             </div>
           </Grid>
-        ) : null}
-        <Dialog open={this.props.openCreateForm}>
-          <DialogTitle>{this.props.t('privatePass.form.title')}</DialogTitle>
-          <DialogContent>
-            <PrivatePassForm
-              onSubmit={this.createOrUpdatePass}
-              onCancel={() => this.props.setOpenCreateForm(false)}
-            />
-          </DialogContent>
-        </Dialog>
-        <Dialog open={this.props.openDeletePassDialog}>
-          <DialogTitle>{this.props.t('privatePass.delete.title')}</DialogTitle>
-          <DialogContent>
-            {this.props.t('privatePass.delete.explain')}
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => this.props.setOpenDeletePassDialog(null)}>
-              {this.props.t('privatePass.delete.cancel')}
-            </Button>
-            <Button
-              onClick={() => {
-                this.props.deletePrivatePass(this.props.openDeletePassDialog);
-                this.props.setOpenDeletePassDialog(null);
-              }}
+          <Grid item xs={12} md={6}>
+            <Typography
+              variant="h5"
+              className={this.props.classes.sectionTitle}
             >
-              {this.props.t('privatePass.delete.submit')}
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <Fab
-          className={this.props.classes.addButton}
-          variant="extended"
-          color="primary"
-          onClick={() => this.props.setOpenCreateForm(true)}
-        >
-          <AddIcon className={this.props.classes.leftIcon} />
-          {this.props.t('privatePass.list.createButton')}
-        </Fab>
-      </Grid>
+              {this.props.t('privatePass.list.managerOnly')}
+            </Typography>
+            <div className={this.props.classes.leftPanel}>
+              {!this.props.privatePassListManagerOnly.length &&
+                !this.props.loading && (
+                  <Typography variant="caption">
+                    {this.props.t('privatePass.list.isEmpty')}
+                  </Typography>
+                )}
+              <Paper>
+                <List disablePadding>
+                  {this.props.privatePassListManagerOnly
+                    .filter((pp) => !!pp.manager_only)
+                    .map((pass) => (
+                      <PrivatePassListItem
+                        pass={pass}
+                        key={pass.id}
+                        divider
+                        onClick={() => {
+                          this.props.goToPass(pass.id);
+                        }}
+                        onDelete={() =>
+                          this.props.setOpenDeletePassDialog(pass.id)
+                        }
+                        updatePrivatePass={this.props.createOrUpdatePrivatePass}
+                      />
+                    ))}
+                </List>
+              </Paper>
+            </div>
+          </Grid>
+          <Dialog open={this.props.openCreateForm}>
+            <DialogTitle>{this.props.t('privatePass.form.title')}</DialogTitle>
+            <DialogContent>
+              <PrivatePassForm
+                onSubmit={this.createOrUpdatePass}
+                onCancel={() => this.props.setOpenCreateForm(false)}
+              />
+            </DialogContent>
+          </Dialog>
+          <Dialog open={this.props.openDeletePassDialog}>
+            <DialogTitle>
+              {this.props.t('privatePass.delete.title')}
+            </DialogTitle>
+            <DialogContent>
+              {this.props.t('privatePass.delete.explain')}
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => this.props.setOpenDeletePassDialog(null)}>
+                {this.props.t('privatePass.delete.cancel')}
+              </Button>
+              <Button
+                onClick={() => {
+                  this.props.deletePrivatePass(this.props.openDeletePassDialog);
+                  this.props.setOpenDeletePassDialog(null);
+                }}
+              >
+                {this.props.t('privatePass.delete.submit')}
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Fab
+            className={this.props.classes.addButton}
+            variant="extended"
+            color="primary"
+            onClick={() => this.props.setOpenCreateForm(true)}
+          >
+            <AddIcon className={this.props.classes.leftIcon} />
+            {this.props.t('privatePass.list.createButton')}
+          </Fab>
+        </Grid>
+      </div>
     );
   }
 }
@@ -281,6 +281,9 @@ const styles = (theme) => ({
     width: '100%',
     paddingBottom: theme.spacing(1),
   },
+  sectionTitle: {
+    marginBottom: theme.spacing(2),
+  },
 });
 
 export default compose(
@@ -292,7 +295,8 @@ export default compose(
   withStyles(styles),
   connect(
     (state) => ({
-      privatePassList: getPrivatePassAvailableListWithPrivateService(state),
+      privatePassListManagerOnly: getPrivatePassManagerOnlyList(state),
+      privatePassListCustomerEnabled: getPrivatePassCustomerEnabled(state),
       disabledPrivatePassList: getDisabledPrivatePassAvailableListWithPrivateService(
         state,
       ),

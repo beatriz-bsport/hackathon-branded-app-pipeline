@@ -55,6 +55,16 @@ export const getPrivatePassAvailableListWithPrivateService: (State) => Array<Pri
   (passList) => passList.filter((p) => p.available),
 );
 
+export const getPrivatePassManagerOnlyList: (State) => Array<PrivatePassWithService> = createSelector(
+  getPrivatePassListBase,
+  (passList) => passList.filter((p) => p.available && p.manager_only),
+);
+
+export const getPrivatePassCustomerEnabled: (State) => Array<PrivatePassWithService> = createSelector(
+  getPrivatePassListBase,
+  (passList) => passList.filter((p) => p.available && !p.manager_only),
+);
+
 export const withServices = memoize((selector) =>
   createSelector(
     [selector, _getPrivateServiceDict],

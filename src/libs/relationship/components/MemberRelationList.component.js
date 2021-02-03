@@ -24,6 +24,7 @@ type Props = {
   onClickRelation: (relationId: number) => void,
   goToMember: ?(id: number) => void,
   selectedId?: ?number,
+  onDelete: (id: number, options: OptionCallback) => void,
   t: TFunction,
   classes: Object,
 };

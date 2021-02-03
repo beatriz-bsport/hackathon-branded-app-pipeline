@@ -68,6 +68,9 @@ import type { PrivateConsumerPass } from '../../libs/private-service/types';
 type Props = {
   relationList: Array<MemberRelation>,
 
+  deleteRelation: (id: number, options: OptionCallback) => void,
+  fetchMemberRelations: (any) => void,
+
   selectedRelationId: number,
   fetchMemberRelations: (memberId: number) => void,
   goToRelationDetail: (memberId: number, relationId: number) => void,

@@ -26,7 +26,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 
 import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
 import RedButton from '../../../components/button/RedButton.component';
 
 import CreditMemberBadge from '../../member/components/CreditMemberBadge.component';
@@ -41,7 +40,11 @@ type Props = {
   onDelete: (id: number) => void,
   menuAnchorEl: ?HTMLElement,
   toogleMenu: (?HTMLElement) => void,
-  t: TFunction,
+
+  setDeleteModalOpen: (boolean) => void,
+  deleteModalOpen: boolean,
+  processing: boolean,
+  setProcessing: (boolean) => void,
 };
 
 export const MemberRelationListItem = (props: Props) => {

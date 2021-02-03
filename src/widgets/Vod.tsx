@@ -47,6 +47,7 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 interface State {
+  requestVideoAccessRefreshFlag: number;
   videoId?: number;
   playlistId?: number;
   searchParams: {
@@ -59,15 +60,15 @@ interface State {
 }
 
 const MarketPlaceVideoStyled = themify(
-  MarketplaceVideoDataProvider(MarketplaceVideo),
+  MarketplaceVideoDataProvider(MarketplaceVideo)
 );
 
 const MarketplaceVideoDetailStyled = themify(
-  MarketplaceVideoDetailDataProvider(MarketplaceVideoDetail),
+  MarketplaceVideoDetailDataProvider(MarketplaceVideoDetail)
 );
 
 const MarketplacePlaylistStyled = themify(
-  MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailPage),
+  MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailPage)
 );
 
 class VODWidget extends React.PureComponent<Props, State> {
@@ -110,16 +111,14 @@ class VODWidget extends React.PureComponent<Props, State> {
     const path = getMarketplaceRoute(
       this.props.theme.company_name,
       this.props.companyId,
-      'pass',
+      'pass'
     );
     const url = `${PUBLIC_URL}${url}?authToken=${this.props.auth.token}&context=widget`;
     // this.props.onWindowOpen(popupWindow);
     this.setState({ dialogUrl: url });
   };
 
-  closeDialog = () => {
-    this.setState({ dialogUrl: null });
-
+  onCloseDialog = () => {
     this.setState((prevState) => {
       const key = prevState.requestVideoAccessRefreshFlag + 1;
       return {
@@ -212,7 +211,6 @@ class VODWidget extends React.PureComponent<Props, State> {
             </div>
           </div>
         )}
-        <TheIframe url={this.state.dialogUrl} onClose={this.closeDialog} />
       </div>
     );
   }
@@ -252,5 +250,5 @@ const mapDispatchToProps = {};
 export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(VODWidget);

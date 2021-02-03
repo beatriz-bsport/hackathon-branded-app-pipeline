@@ -31,7 +31,7 @@ type OwnProps = {
   config: MarketplacePrivateServiceData;
   store: any;
   theme: Theme;
-  onWindowOpen: (popupWindow: any) => void;
+  onWindowOpen: (url : string) => void;
 }
 
 type Props = OwnProps &
@@ -54,7 +54,6 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
     this.state = {
       type: props.config.type,
       serviceId: props.config.serviceId,
-      dialogUrl: null,
     };
   }
 
@@ -77,14 +76,10 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
       privateSlot.id
     }/?membership=${this.props.companyId}&data=${encodeURIComponent(
       JSON.stringify(data)
-    )}&authToken=${this.props.auth.token}&context=widget`;
+    )}&authToken=${this.props.auth.token}`;
 
-    // const popupWindow = openTab(url);
-    // this.props.onWindowOpen(popupWindow);
-    this.setState({ dialogUrl: url })
+     this.props.onWindowOpen(url);
   }
-
-  closeDialog =() => this.setState({ dialogUrl: null })
 
   render() {
     const { classes } = this.props;
@@ -130,7 +125,6 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
             />
           </div>
           )}
-        <TheIframe url={this.state.dialogUrl} onClose={this.closeDialog} />
       </div>
     );
   }

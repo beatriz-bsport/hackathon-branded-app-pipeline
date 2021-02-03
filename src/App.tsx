@@ -18,18 +18,21 @@ import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { auth as authActions } from 'bsport-saas/src/actions';
 
+import { DIALOG_MODE_POPUP, DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
 import { RootState } from './store/reducer';
 import BsportLogo from './components/BsportLogo';
 import 'bsport-saas/src/index.scss';
 
 import asyncComponent from './AsyncComponent';
 import AuthDialog from './components/AuthDialog';
+import { openTab } from './utils/utils';
 
 const CalendarWidget = asyncComponent(() => import('./widgets/Calendar'));
 const VODWidget = asyncComponent(() => import('./widgets/Vod'));
 const PrivateServiceWidget = asyncComponent(
   () => import('./widgets/PrivateService')
 );
+const TheIframe = asyncComponent(() => import( './components/TheIframe.component'))
 const WorkshopWidget = asyncComponent(() => import('./widgets/Workshop'));
 const NewsletterWidget = asyncComponent(() => import('./widgets/Newsletter'));
 
@@ -83,8 +86,36 @@ class BsportWidget extends Component<Props, State> {
     this.props.fetchCompanyTheme(this.props.companyId);
   }
 
-  onWindowOpen = (w: Window) => {
-    this.popupWindow = w;
+  onWindowOpen = (iframeUrl) => {
+    switch (this.props.dialogMode) {
+      case (DIALOG_MODE_POPUP): {
+        this.popupWindow = openTab(`${iframeUrl}context=widget`);
+        return
+      }
+      case (DIALOG_MODE_IFRAME): {
+        this.setState({ iframeUrl : `${iframeUrl}context=widget` })
+        return
+      }
+      default: {
+        window.open(iframeUrl, '_blank')
+        
+      }
+    }
+  }
+
+  closeIframe = () => {
+    switch (this.props.dialogMode) {
+      case (DIALOG_MODE_POPUP): {
+        this.popupWindow.close()
+        return
+      }
+      case (DIALOG_MODE_IFRAME): {
+        this.setState({ iframeUrl: null })
+        
+      }
+      default: {
+      }
+    }
   }
 
   renderWidget() {

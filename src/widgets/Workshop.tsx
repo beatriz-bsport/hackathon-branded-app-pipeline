@@ -7,9 +7,7 @@ import { MarketplaceWorkshopData } from 'bsport-saas/src/libs/marketplace/types'
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 
 import { Theme } from 'bsport-saas/src/libs/theme/types';
-// import { openTab } from '../utils/utils';
 import { RootState } from '../store/reducer';
-import TheIframe from '../components/TheIframe.component';
 import '../../vendor/map.css'
 
 
@@ -55,11 +53,8 @@ class WorkshopWidget extends Component<Props, State> {
 
   goToBook = (id: number, companyId: number) => {
     const { PUBLIC_URL } = window.runtime.env;
-    const url = `${PUBLIC_URL}/customer/payment/offer/${id}
-    ?membership=${companyId}&authToken=${this.props.auth.token}&context=widget`;
-    // const popupWindow = openTab(url);
-    this.setState({ dialogUrl: url })
-    // this.props.onWindowOpen(popupWindow);
+    const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${companyId}&authToken=${this.props.auth.token}`;
+    this.props.onWindowOpen(url);
   }
 
   closeDialog = () => this.setState({ dialogUrl: null })
@@ -80,7 +75,7 @@ class WorkshopWidget extends Component<Props, State> {
           theme={this.props.theme}
           mapContainerClassName="cleanslate"
         />
-        <TheIframe url={this.state.dialogUrl} onClose={this.closeDialog} />
+        
       </div>
     );
   }

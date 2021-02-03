@@ -2099,7 +2099,7 @@
             "extensionsTitle": "Verlenging van de geldigheidsduur",
             "refundTitle": "Bijbehorende terugbetaling",
             "trackModifiedCreditTitle": "Geschiedenis van kredietwijzigingen",
-            "penaltyAccount": "Extra facturatie €{{account_value}}",
+            "penaltyAccount": "Extra facturatie €{{account_value}} {{currencyDisplay }}",
             "penaltyBlock": "Deze cursuskaart is {{nb_days}} geblokkeerd",
             "penaltyTitle": "Sanctie(s) toegepast"
         },
@@ -2398,8 +2398,8 @@
         "filters": {
             "1": {
                 "second": " te   ",
-                "third": "euro",
-                "explanation": "Heeft X euro op zijn/haar account",
+                "third": "{{ currencyDisplay }}",
+                "explanation": "Heeft X {{ currencyDisplay }} op zijn/haar account",
                 "first": "Het huidige saldo van het lid wordt gebruikt om onbetaalde facturen te salderen. Het netto saldo wordt",
                 "name": "Schuld",
                 "between": "en"
@@ -2434,7 +2434,7 @@
                 "pack": "Cursuskaarten",
                 "workshop": "Cursuskaart voor workshops",
                 "name": "Uitgaven",
-                "second": "tussen €",
+                "second": "tussen {{ currencyDisplay }}",
                 "first": "Heeft uitgegeven",
                 "third": "en",
                 "fourth": "voor de producten",
@@ -2467,7 +2467,7 @@
                 "explanation": "Heeft een winkelmand verlaten met een bedrag t.w.v.",
                 "first": "Heeft een winkelmand verlaten met een bedrag t.w.v.",
                 "second": "in",
-                "third": "euro",
+                "third": "{{ currencyDisplay }}",
                 "date": {
                     "first": "Verlaten winkelmanden",
                     "second": "dagen"
@@ -2700,7 +2700,7 @@
                 "date": {
                     "first": "gemaakte aankopen"
                 },
-                "second": "€ voor de producten",
+                "second": "{{ currencyDisplay }} voor de producten",
                 "first": "Heeft uitgegeven",
                 "name": "Uitgaven",
                 "workshop": "Cursuskaart voor workshops",
@@ -3886,7 +3886,7 @@
             "bottomActions": {
                 "create": "Toevoegen"
             },
-            "playlist": "Afspeellijst"
+            "playlist": "Afspeellijsten"
         },
         "video": {
             "lock": {
@@ -4405,7 +4405,7 @@
             "private_pass": {
                 "credits": "{{ credits}} krediet"
             },
-            "buyPass": "€{{price}}",
+            "buyPass": "{{ price, price }}",
             "preview": {
                 "credit_cost": "{{credit_cost}} krediet"
             },
@@ -4542,7 +4542,7 @@
             },
             "parameters": {
                 "nbCredits": "{{ credits}} krediet",
-                "price": "€{{price}}",
+                "price": "{{price}}",
                 "tax": "btw: {{ tax }}%",
                 "managerOnly": "Onzichtbaar voor leden"
             },
@@ -5265,6 +5265,10 @@
                     "error": "Deze afsprakenkaart kan niet worden gedeeld",
                     "success": "Gedeelde afsprakenkaart"
                 }
+            },
+            "delete": {
+                "error": "Fout bij het verwijderen van de relatie",
+                "success": "Relatie verwijderd"
             }
         },
         "paymentPack": {
@@ -5818,6 +5822,14 @@
                 "create": "Gedeelde afsprakenkaart",
                 "title": "Gedeelde afsprakenkaart"
             }
+        },
+        "relationship": {
+            "delete": {
+                "title": "Relatie verwijderen",
+                "submit": "Verwijderen",
+                "cancel": "Annuleren",
+                "content": "Let op! Deze actie is definitief. Gedeelde lidmaatschappen worden niet langer gedeeld."
+            }
         }
     },
     "coupon": {
@@ -5991,7 +6003,7 @@
         "pageTitle": "Dashboard",
         "turnover": {
             "popover": "Som van alle gefactureerde betalingen",
-            "caption": "Omzet (in €)",
+            "caption": "Omzet",
             "title": "Ontvangen betalingen"
         },
         "bookings": "Reserveringen",
@@ -6025,7 +6037,7 @@
         "plannedPayment": {
             "popover": "Som van alle betalingen voor abonnementen",
             "title": "Omzet van de abonnementen",
-            "caption": "Incasso (in €)"
+            "caption": "Incasso"
         },
         "noData": "Geen gegevens om weer te geven",
         "bookingSource": {
@@ -6592,7 +6604,7 @@
                 "topup": "Ontvangen betalingen",
                 "debt": "Uitbetaling",
                 "explainTopup": "Het saldo van het lid wordt met €{{ amount }} verhoogd.",
-                "explainDecaissement": "Een uitbetaling van €{{ amount }} wordt geregistreerd.",
+                "explainDecaissement": "Er wordt een uitbetaling van €{{ amount }} {{ currencyDisplay }} geregistreerd.",
                 "title": "Aanpassingen aan het saldo",
                 "actions": {
                     "cancel": "Annuleren",
@@ -6964,7 +6976,7 @@
         },
         "platformBillingStage": {
             "maxBooking": "Tot {{max_booking_per_month}} reserveringen / maand",
-            "monthlyPrice": "€{{price}} / maand"
+            "monthlyPrice": "{{ price, price }} / maand"
         },
         "platformBillingGroup": {
             "soonAvailable": "Binnenkort beschikbaar!",
@@ -6972,15 +6984,15 @@
         },
         "upsellPackage": {
             "vod": {
-                "explainBilling": "  + €1 / actief lid"
+                "explainBilling": "  + 1 {{currencyDisplay }} / actief lid"
             },
             "otherAddonTitle": "Beschikbare Add-Ons",
             "myAddonTitle": "Mijn Add-Ons",
             "knowMore": "Meer informatie",
-            "billRecurrent": "€{{price_cts }} / maand",
-            "billOnce": "€{{price_cts }}",
+            "billRecurrent": "{{price_cts, price }} / maand",
+            "billOnce": "{{price_cts, price }}",
             "sms": {
-                "explainBilling": "€{{ price_cts }} / SMS"
+                "explainBilling": "{{ price_cts, price }} / SMS"
             }
         },
         "paymentMethod": {

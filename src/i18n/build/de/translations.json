@@ -1067,7 +1067,7 @@
             "booking": {
                 "discardImpossibleExplain": "Bist Du sich sicher, dass Du diese Buchung stornieren möchtest? Du stornierst nach Ablauf der Stornierungsfrist. Die Credits der Kurskarte verfallen (Allgemeine Nutzungsbedingungen des Studios).",
                 "discardPossibleExplain": "Bist Du sicher, dass Du diese Buchung stornieren möchtest? Deine Credits werden erstattet.",
-                "cancelOption": "Stornieren",
+                "cancelOption": "Abbrechen",
                 "noPastBookings": "Keine vorherige Buchung",
                 "noFutureBookings": "Keine geplante Buchung",
                 "noBookingOptions": "Keine Buchung auf Warteliste",
@@ -1344,8 +1344,8 @@
                 "name": "Datum des zuletzt gebuchten Kurses"
             },
             "1": {
-                "explanation": "Hat X Euros auf seinem Konto",
-                "third": "Euros",
+                "explanation": "Hat X {{CurrencyDisplay}} auf seinem Konto",
+                "third": "{{currencyDisplay}}",
                 "first": "Das Guthaben des Kundes ist",
                 "name": "Guthaben",
                 "second": " um   ",
@@ -1523,7 +1523,7 @@
                     "second": "Tage",
                     "first": "Warenkorb aufgegeben"
                 },
-                "third": "Euros",
+                "third": "{{ currencyDisplay }}",
                 "first": "Hat einen Warenkorb aufgegeben im Wert von",
                 "explanation": "Hat einen Warenkorb aufgegeben, im Wert von ...",
                 "name": "Aufgegebene Warenkörbe",
@@ -1592,7 +1592,7 @@
                 "selector": "Produkte auswählen",
                 "fourth": "für die Produkte",
                 "third": "und",
-                "second": "€ ausgegeben zwischen",
+                "second": "{{ currencyDisplay }} ausgegeben zwischen",
                 "first": "Hat",
                 "name": "Ausgaben",
                 "workshop": "Kurskarte für Workshops",
@@ -1620,7 +1620,7 @@
             },
             "24": {
                 "first": "Gab",
-                "second": "€ aus für die Produkte",
+                "second": "{{ currencyDisplay }} für die Produkte",
                 "name": "Ausgaben",
                 "workshop": "Kurskarte für Workshops",
                 "private_pass": "Privatkurs",
@@ -2075,7 +2075,7 @@
             "invoiceTitle": "Verbundene Rechnung",
             "shareAPass": "Eine Kurskarte teilen",
             "trackModifiedCreditTitle": "Vergangenen Credits-Anpassungen",
-            "penaltyAccount": "Zusätzliche Abrechnung von {{account_value}} €",
+            "penaltyAccount": "Zusätzliche Abrechnung von {{account_value}} {{rencyDisplay}}",
             "penaltyBlock": "Karte für {{nb_days}} Tage gesperrt",
             "penaltyTitle": "Strafen angewendet"
         },
@@ -3289,7 +3289,7 @@
         },
         "balance": {
             "updaterDialog": {
-                "explainDecaissement": "Eine Auszahlung von {{ amount }} € wird erfasst.",
+                "explainDecaissement": "Eine Auszahlung von {{amount}} {{CurrencyDisplay}} wird erfasst.",
                 "typeLabel": "Passform",
                 "title": "Guthaben-Einstellungen",
                 "actions": {
@@ -4382,7 +4382,7 @@
             "preview": {
                 "credit_cost": "{{credit_cost}} Credits"
             },
-            "buyPass": "{{ price }}€",
+            "buyPass": "{{price, price}}",
             "useCredit": "Buchen",
             "notifyMember": {
                 "label": "Eine Bestätigungs-E-Mail senden"
@@ -4758,7 +4758,7 @@
                 "nbCredits": "{{ credits }} Credits",
                 "managerOnly": "Für Kunden unsichtbar",
                 "tax": "Mehrwertsteuer : {{ tax }}%",
-                "price": "{{ price}} €"
+                "price": "{{price, price}}"
             },
             "delete": {
                 "explain": "Bist Du Dir sicher, dass Du diese Karte löschen möchtest? Diejenigen, die noch über Credits verfügen, können diese weiterhin benutzen. Diese Aktion ist unwiderruflich",
@@ -5173,13 +5173,13 @@
     "consumerSpace": {
         "actions": {
             "goToSubscription": "Alle Abonnements ansehen",
-            "goToPass": "Alle Kurskarten ansehen",
+            "goToPass": "Alle Karten ansehen",
             "goToCalendar": "Zum Stundenplan"
         },
         "booking": {
             "showCalendar": "Kalender ansehen",
-            "bookAgain": "Wieder buchen",
-            "discard": "Abmelden",
+            "bookAgain": "Erneut buchen",
+            "discard": "Stornieren",
             "titlePrivateBooking": "Termin",
             "titleBooking": "Kurs",
             "accessLive": "Livestream beitreten"
@@ -5190,27 +5190,27 @@
         },
         "dashboard": {
             "noBooking": "Kein bevorstehender Kurs",
-            "noPackCurrentlyActive": "Keine gültige Kurskarte",
+            "noPackCurrentlyActive": "Keine gültige Karte",
             "showMore": "Mehr anzeigen",
             "currentPassTitle": "Meine Karten",
-            "favoriteTitle": "Vorschlag zur Buchung",
-            "nextBookingTitle": "Meine Reservierungen",
-            "optionTitle": "Auf Warteliste"
+            "favoriteTitle": "Buchungsvorschlag",
+            "nextBookingTitle": "Meine Buchungen",
+            "optionTitle": "Auf der Warteliste"
         },
         "debt": {
             "regularize": "Ausgleichen",
-            "explainPayment": "Dieser Betrag wird an das Studio überwiesen, um Deine Anzahlung auszugleichen",
-            "titlePaymentDialog": "Regularisierung der Anzahlung",
-            "title": "Dem Klub geschuldete Anzahlung"
+            "explainPayment": "Dieser Betrag wird an das Studio überwiesen, um den ausstehenden Betrag auszugleichen",
+            "titlePaymentDialog": "Ausstehenden Betrag ausgleichen",
+            "title": "Ausstehender Betrag"
         },
         "navigation": {
             "changeMembership": "Den Klub wechseln",
-            "subscription": "Mein Abo",
+            "subscription": "Abo",
             "calendar": "Meine Buchungen",
             "logoff": "Abmelden",
             "profile": "Profil",
-            "invoice": "Meine Rechnungen",
-            "pack": "Kurskarte",
+            "invoice": "Rechnungen",
+            "pack": "Karten",
             "dashboard": "Überblick",
             "myVideos": "Meine Videos"
         },
@@ -6628,7 +6628,7 @@
             },
             "zoom": {
                 "explainInvalid": "Ungültiger Account",
-                "explainValid": "Gültiges Konto: Zoom-Meeting-Links werden für jede Sitzung 15 Minuten vor dem automatischen Start erstellt. Der Lehrer erhält einen Link zur Ausrichtung des Meetings, während die registrierten Mitglieder einen weiteren Link zur Teilnahme für die Konferenz erhalten. Beachte, dass die Zoom-Besprechung auf 40 Minuten begrenzt ist, wenn die kostenlose Zoom-Lizenzen genutzt werden",
+                "explainValid": "Gültiges Konto: Zoom-Meeting-Links werden für jeden Kurs 15 Minuten vor dem Start automatisch erstellt. Der Lehrer erhält einen Link zur Ausrichtung des Meetings, während die registrierten Mitglieder einen weiteren Link zur Teilnahme für die Konferenz erhalten. Beachte, dass die Zoom-Besprechung auf 40 Minuten begrenzt ist, wenn die kostenlose Zoom-Lizenzen genutzt werden",
                 "label": "Zoom-Konten konfigurieren",
                 "enabled": "Aktiviere die Zoom-Integration"
             },
@@ -6918,7 +6918,7 @@
         },
         "platformBillingStage": {
             "maxBooking": "Bis zu {{max_booking_per_month}} Buchungen / Monat",
-            "monthlyPrice": "{{price}} € / Monat"
+            "monthlyPrice": "{{price_cts, price}} / Monat"
         },
         "platformBillingPlan": {
             "max_establishment": {
@@ -6936,15 +6936,15 @@
         },
         "upsellPackage": {
             "vod": {
-                "explainBilling": "  + 1 € / aktiver Kunde"
+                "explainBilling": "  +1 {{currencyDisplay}} / aktiver Kunde"
             },
             "otherAddonTitle": "Add-Ons verfügbar",
             "myAddonTitle": "Meine Add-Ons",
             "knowMore": "Mehr erfahren",
-            "billRecurrent": "{{price_cts}} € / Monat",
-            "billOnce": "{{price_cts}} €",
+            "billRecurrent": "{{price_cts, price}} / Monat",
+            "billOnce": "{{price_cts, price}}",
             "sms": {
-                "explainBilling": "{{price_cts}} € / SMS"
+                "explainBilling": "{{price_cts, price}} / SMS"
             }
         },
         "paymentMethod": {

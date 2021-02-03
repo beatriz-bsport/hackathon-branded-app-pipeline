@@ -15,6 +15,7 @@ import {
   fetchSharedPrivateConsumerPasses as fetchSharedPrivateConsumerPassesAPI,
   unlinkPrivateConsumerPassLink as unlinkPrivateConsumerPassLinkAPI,
   relinkPrivateConsumerPassLink as relinkPrivateConsumerPassLinkAPI,
+  deleteRelation as deleteRelationAPI,
 } from './api';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
@@ -300,6 +301,30 @@ export function relinkPrivateConsumerPassLink(
       dispatch(
         snackbarError('relationship.private_consumer_pass_links.relink.error'),
       );
+      if (options && options.onSuccess) options.onSuccess();
+    }
+  };
+}
+
+export const deleteRelationActions = {
+  isLoading: createAction('RELATIONSHIP/DELETE/IS_LOADING'),
+  error: createAction('RELATIONSHIP/DELETE/ERROR'),
+  success: createAction('RELATIONSHIP/DELETE/SUCCESS'),
+};
+
+export function deleteRelation(
+  id: number,
+  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteRelationActions.isLoading(true));
+    dispatch(deleteRelationActions.error(null));
+    try {
+      await deleteRelationAPI(id);
+      dispatch(snackbarSuccess('relationship.delete.success'));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      dispatch(snackbarError('relationship.delete.error'));
       if (options && options.onSuccess) options.onSuccess();
     }
   };

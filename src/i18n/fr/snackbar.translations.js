@@ -53,6 +53,10 @@ exports.default = {
     create: {
       success: 'Relation enregistrée',
     },
+    delete: {
+      success: 'Relation supprimée',
+      error: 'Impossible de supprimer cette relation',
+    },
     createOrUpdate: {
       error: "Impossible d'enregistrer la relation",
     },

@@ -76,6 +76,7 @@ export const MemberRelationList = (props: Props) => {
               selected={props.selectedId === r.id}
               goToMember={props.goToMember}
               onEdit={props.onEdit}
+              onDelete={props.onDelete}
               onClick={() => {
                 props.onClickRelation(r.id);
               }}

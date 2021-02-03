@@ -1,4 +1,13 @@
 exports.default = {
+  relationship: {
+    delete: {
+      content:
+        'Attention cette action est irréversible, les cartes partagées ne seront plus partagées.',
+      cancel: 'Annuler',
+      submit: 'Supprimer',
+      title: 'Suppression relation',
+    },
+  },
   member: {
     item: {
       edit: 'Modifier',

@@ -1755,6 +1755,14 @@
     }
   },
   "relationship": {
+    "relationship": {
+      "delete": {
+        "content": "Attention cette action est irréversible, les cartes partagées ne seront plus partagées.",
+        "cancel": "Annuler",
+        "submit": "Supprimer",
+        "title": "Suppression relation"
+      }
+    },
     "member": {
       "item": { "edit": "Modifier", "delete": "Supprimer" },
       "list": {
@@ -3109,6 +3117,7 @@
     "relationship": {
       "edit": { "success": "Relation modifiée" },
       "create": { "success": "Relation enregistrée" },
+      "delete": { "success": "Relation supprimée", "error": "Impossible de supprimer cette relation" },
       "createOrUpdate": { "error": "Impossible d'enregistrer la relation" },
       "consumer_payment_pack_links": {
         "create": { "success": "Carte partagée", "error": "Impossible de partager cette carte" },

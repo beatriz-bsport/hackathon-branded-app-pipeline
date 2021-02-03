@@ -5,6 +5,7 @@ import {
   getAuth,
   patchAuth,
   postAuth,
+  deleteAuth,
 } from '../../http';
 
 export async function fetchMemberRelations(memberId: number) {
@@ -85,4 +86,8 @@ export async function relinkPrivateConsumerPassLink(
   return postAuth(
     `${API_V1_URI}/relationship/private_consumer_pass/${privateConsumerPassLinkId}/relink/`,
   );
+}
+
+export async function deleteRelation(id: number) {
+  return deleteAuth(`${API_V1_URI}/relationship/member/${id}/`);
 }

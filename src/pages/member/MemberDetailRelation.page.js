@@ -3,7 +3,7 @@
 import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
-import { compose, withProps, withState } from 'recompose';
+import { compose, withProps, withState, withHandlers } from 'recompose';
 import Dialog from '@material-ui/core/Dialog';
 import _ from 'lodash';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -56,6 +56,7 @@ import {
   linkPrivatePassToMemberRelation as linkPrivatePassToMemberRelationAction,
   unlinkPrivateConsumerPassLink as unlinkPrivateConsumerPassLinkAction,
   relinkPrivateConsumerPassLink as relinkPrivateConsumerPassLinkAction,
+  deleteRelation as deleteRelationAction,
 } from '../../libs/relationship/actions';
 import {
   fetchPrivateConsumerPassBulk as fetchPrivateConsumerPassBulkAction,
@@ -230,7 +231,7 @@ export class MemberDetailRelation extends React.Component<Props> {
               selectedId={this.props.selectedRelationId}
               onClickRelation={this.selectRelationId}
               onEdit={this.openEditForm}
-              onDelete={this.setOpenDeleteDialog}
+              onDelete={this.props.deleteRelation}
               goToMember={this.props.goToMember}
               onAdd={() => {
                 this.props.setOpenRelationFormDialog({
@@ -429,6 +430,7 @@ export default compose(
       linkPrivatePassToMemberRelation: linkPrivatePassToMemberRelationAction,
       unlinkPrivateConsumerPassLink: unlinkPrivateConsumerPassLinkAction,
       relinkPrivateConsumerPassLink: relinkPrivateConsumerPassLinkAction,
+      deleteRelation: deleteRelationAction,
       goToRelationDetail: (memberId, relationId) =>
         push(`/member/${memberId}/relation/${relationId}`),
     },
@@ -575,5 +577,25 @@ export default compose(
         ),
     }),
   ),
+  withHandlers({
+    deleteRelation: ({ deleteRelation, fetchMemberRelations, memberId }) => (
+      id,
+      options,
+    ) => {
+      deleteRelation(id, {
+        onSuccess: () => {
+          if (options && options.onSuccess) {
+            options.onSuccess();
+          }
+          fetchMemberRelations(memberId);
+        },
+        onError: () => {
+          if (options && options.onError) {
+            options.onError();
+          }
+        },
+      });
+    },
+  }),
   withTitle(({ member }) => (member && member.name) || ''),
 )(MemberDetailRelation);

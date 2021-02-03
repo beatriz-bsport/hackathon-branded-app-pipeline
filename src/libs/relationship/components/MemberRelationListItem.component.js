@@ -153,7 +153,7 @@ export const MemberRelationListItem = (props: Props) => {
                       props.setDeleteModalOpen(null);
                       props.setProcessing(false);
                     },
-                    onError: () => setProcessing(false),
+                    onError: () => props.setProcessing(false),
                   });
                 }}
               >

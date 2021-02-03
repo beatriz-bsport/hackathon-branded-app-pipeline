@@ -46,7 +46,7 @@ import {
   search as searchMembers,
 } from '../../libs/member/actions';
 import {
-  fetchMemberRelations,
+  fetchMemberRelations as fetchMemberRelationsAction,
   fetchSharedConsumerPaymentPacks as fetchSharedConsumerPaymentPacksAction,
   linkToMemberRelation as linkConsumerPackToMemberRelationAction,
   createOrUpdateRelation,
@@ -69,7 +69,6 @@ type Props = {
   relationList: Array<MemberRelation>,
 
   deleteRelation: (id: number, options: OptionCallback) => void,
-  fetchMemberRelations: (any) => void,
 
   selectedRelationId: number,
   fetchMemberRelations: (memberId: number) => void,
@@ -78,7 +77,6 @@ type Props = {
   relationLoading: boolean,
 
   classes: Object,
-  fetchMemberRelations: (memberId: number) => void,
   openConsumerPaymentPackForm: () => void,
   openConsumerPackLinking: boolean,
   searchMembersLoading: boolean,
@@ -418,7 +416,7 @@ export default compose(
       goToMember: (id: number) => push(`/member/${id}/info/`),
       fetchSharedConsumerPaymentPacks: fetchSharedConsumerPaymentPacksAction,
       retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
-      fetchMemberRelations,
+      fetchMemberRelations: fetchMemberRelationsAction,
       fetchFilteredMembers,
       linkConsumerPackToMemberRelation: linkConsumerPackToMemberRelationAction,
       fetchAllPaymentPacks: fetchAllPaymentPacksAction,

@@ -65,7 +65,7 @@ class Analytics extends React.Component<Props> {
 
   static addPackToCart(pc) {
     GoogleAnalytics.addPackToCart(pc);
-    FacebookPixel.addPackToCar(pc);
+    FacebookPixel.addPackToCart(pc);
   }
 
   static addPrivatePassToCart(pp) {

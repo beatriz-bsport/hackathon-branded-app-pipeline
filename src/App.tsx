@@ -92,8 +92,10 @@ class BsportWidget extends Component<Props, State> {
         this.popupWindow = openTab(`${iframeUrl}&context=widget`);
         return
       }
-      case (DIALOG_MODE_IFRAME): {
-        this.setState({ iframeUrl : `${iframeUrl}&context=widget` })
+case (DIALOG_MODE_IFRAME): {
+// no need to customize for a widget stuff here, it is 
+// a basic redirect in a new tab
+        this.setState({ iframeUrl : `${iframeUrl}` })
         return
       }
       default: {

@@ -1026,7 +1026,7 @@
             "lastDiscardBeforeMinutes": "Voor het begin van de workshop is de laatste annulering mogelijk tot",
             "lastBookingBeforeMinutes": "Voor het begin van de workshop is de laatste reservering mogelijk tot",
             "imageUploaderRequireEditMessage": "Zodra je activiteit is aangemaakt, kun je extra afbeeldingen toevoegen.",
-            "addWorkshopActivity": "Voeg een workshop toe"
+            "addWorkshopActivity": "Een workshop toevoegen"
         },
         "activity": {
             "reviews": "Ledenbeoordeling: ",
@@ -1424,7 +1424,7 @@
         },
         "list": {
             "buttons": {
-                "add": "Maak een pakket aan"
+                "add": "Een pakket toevoegen"
             },
             "explainIfEmpty": "Beheer hier je pakketten. In een pakket kun je o.a. producten uit je webshop en afspraak- of cursuskaarten met elkaar combineren.",
             "section": {
@@ -1468,7 +1468,7 @@
         },
         "doubleLogin": {
             "explain": "Heb je je tegelijkertijd met twee verschillende accounts aangemeld en weet je zeker dat je je ook in andere tabbladen/vensters hebt uitgelogd?",
-            "disconnect": "Verbind me opnieuw"
+            "disconnect": "Opnieuw verbinden"
         },
         "signup": {
             "title": "Inschrijving"
@@ -2099,7 +2099,7 @@
             "extensionsTitle": "Verlenging van de geldigheidsduur",
             "refundTitle": "Bijbehorende terugbetaling",
             "trackModifiedCreditTitle": "Geschiedenis van kredietwijzigingen",
-            "penaltyAccount": "Extra facturatie €{{account_value}} {{currencyDisplay }}",
+            "penaltyAccount": "Extra facturatie t.w.v. €{{account_value}} {{currencyDisplay }}",
             "penaltyBlock": "Deze cursuskaart is {{nb_days}} geblokkeerd",
             "penaltyTitle": "Sanctie(s) toegepast"
         },
@@ -2129,7 +2129,7 @@
         "validFrom": "Geldig vanaf ",
         "validTo": " tot ",
         "bookingsLeftThisWeek": "Maximaal aantal reserveringen per week",
-        "addButton": "Nieuwe cursuskaart aanmaken",
+        "addButton": "Een cursuskaart toevoegen",
         "noPaymentPackSubscribed": "Geen abonnement",
         "validUntil": "Geldig tot",
         "expirationDate": "Vervalt op",
@@ -2246,7 +2246,7 @@
         "overrider": "Plaatsvervanger",
         "establishment_override": "Plaatsvervangende vestiging",
         "search": "Zoek een vestiging",
-        "addButton": "Voeg een zaal of vestiging toe",
+        "addButton": "Een zaal of vestiging toevoegen",
         "pleaseSelectOne": "Selecteer een studio op de kaart",
         "offers": "Kalender van sessies:",
         "noMoreOffers": "Geen geplande sessies meer",
@@ -2794,13 +2794,13 @@
                 "compatible_packs": {
                     "passHelperText": "De volgende cursuskaarten zijn compatibel met de gemaakte activiteit:",
                     "seeMore": "Meer zien",
-                    "createPass": "Nieuwe cursuskaart aanmaken",
+                    "createPass": "Een cursuskaart toevoegen",
                     "goToActivity": "Ga naar activiteit",
                     "noCompatiblePass": "Geen enkele cursuskaart die compatibel is met deze activiteit. Vergeet niet om er een te maken"
                 },
                 "steps": {
                     "activity_form": "Nieuwe activiteit aanmaken",
-                    "pass_form": "Nieuwe cursuskaart aanmaken (optioneel)",
+                    "pass_form": "Een cursuskaart toevoegen (optioneel)",
                     "pass_list": "Afronden",
                     "offer_form": "Nieuwe sessie aanmaken (optioneel)",
                     "workshop_form": "Nieuwe workshop aanmaken"
@@ -3606,7 +3606,7 @@
                 "iAcceptCondition": "Ik accepteer de voorwaarden",
                 "iwanttostarton": "Start facturering op: ",
                 "subscribe": "Inschrijven",
-                "create": "Voeg een contract toe"
+                "create": "Een abonnement toevoegen"
             },
             "deleteForm": {
                 "actions": {
@@ -4262,7 +4262,7 @@
                     "title": "Een instructeur toewijzen",
                     "cancel": "Annuleren"
                 },
-                "explain": "Kies een instructeur om deze afspraak aan toe te wijzen en voeg deze toe aan zijn/haar agenda",
+                "explain": "Selecteer een instructeur om deze afspraak aan zijn/haar agenda toe te voegen",
                 "title": "Toewijzen aan de instructeur"
             },
             "updateCoach": "Kies een nieuwe instructeur voor deze afspraak",
@@ -4538,7 +4538,7 @@
                 "delete": "Verwijderen"
             },
             "list": {
-                "createButton": "Nieuwe afspraakkaart maken"
+                "createButton": "Een afspraakkaart toevoegen"
             },
             "parameters": {
                 "nbCredits": "{{ credits}} krediet",
@@ -4603,9 +4603,9 @@
                     "helperText": "Schakel het selectievakje uit om tegelijkertijd meerdere activiteiten/afspraken in dezelfde ruimte toe te staan als de capaciteit dit toelaat"
                 },
                 "title": "Afspraak",
-                "createButton": "Voeg een afspraaktype toe",
+                "createButton": "Een afspraak toevoegen",
                 "addCoach": "Voeg een instructeur toe",
-                "addEstablishment": "Voeg een zaal toe",
+                "addEstablishment": "Een zaal toevoegen",
                 "addSlot": "Voeg een sessietype toe",
                 "is_home_service": {
                     "label": "Thuis",
@@ -5925,7 +5925,7 @@
             "seeParameters": "Bekijk instellingen"
         },
         "noDiscount": "Geen aankoop gedaan met de code",
-        "createCoupon": "Voeg een code toe",
+        "createCoupon": "Een promotiecode toevoegen",
         "card": {
             "no_expiration": "Geen vervaldatum",
             "validity": "Geldigheid:",
@@ -6037,7 +6037,7 @@
         "plannedPayment": {
             "popover": "Som van alle betalingen voor abonnementen",
             "title": "Omzet van de abonnementen",
-            "caption": "Incasso"
+            "caption": "Omzet"
         },
         "noData": "Geen gegevens om weer te geven",
         "bookingSource": {
@@ -6179,7 +6179,7 @@
         },
         "actions": {
             "search": "Vind een workshop",
-            "addWorkshopActivity": "Voeg een workshop toe"
+            "addWorkshopActivity": "Een workshop toevoegen"
         },
         "noWorkshops": "Beheer hier je workshops. Een workshop is een evenement waarvan de datum vooraf is vastgelegd.",
         "disabledWorkshops": "Gearchiveerde workshops"
@@ -6955,7 +6955,13 @@
             "widgetPreviewError": "Voltooi je configuratie",
             "dialogTitle": "Je widget personaliseren",
             "codeInfo": "De code voor je website",
-            "creationPageInfo": "Je widgets personaliseren en op je website integreren"
+            "creationPageInfo": "Je widgets personaliseren en op je website integreren",
+            "dialogMode": {
+                "iframe": "Op de website blijven",
+                "popup": "Nieuw venster",
+                "tab": "Nieuw tabblad"
+            },
+            "dialogModeLabel": "Type pop-ups (voor het inloggen, betalen en het reserveren)"
         }
     },
     "platformBilling": {

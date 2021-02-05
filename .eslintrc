@@ -98,6 +98,7 @@
     },
     {
       "files": [ "*.ts", "*.tsx" ],
+      "excludedFiles": ["**/*.test.ts", "src/**/__test__/**"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "project": "tsconfig.json",

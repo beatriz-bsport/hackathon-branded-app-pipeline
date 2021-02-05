@@ -1,7 +1,4 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
-
 import { handleActions } from 'redux-actions';
 import {
   byOfferActions,
@@ -22,131 +19,143 @@ import {
   updateRecurrenceRuleBookingActions,
   deleteRecurrenceRuleBookingActions,
 } from './actions';
-import type { BookingsState } from './types';
+import { BookingsState } from './types';
 
-const initialState: BookingsState = Immutable({
-  byId: {},
-  broadcast: {
-    byId: {},
-    loading: false,
-    error: null,
-  },
-  byMember: {
-    loading: false,
-    error: null,
-    allIds: [],
-    count: 0,
-    page: 1,
-  },
-  asConsumer: {
-    loading: false,
-    error: null,
-    allIds: [],
-    count: 0,
-    page: 1,
-  },
-  consumerDashboard: {
-    loading: false,
-    error: null,
-    allIds: [],
-    count: 0,
-    page: 1,
-  },
-  byConsumerPack: {
-    loading: false,
-    error: null,
-    allIds: [],
-    count: 0,
-    page: 1,
-  },
-  byOffer: {
-    loading: false,
-    error: null,
-    allIds: [],
-  },
-  createOrUpdate: {
-    error: null,
-    loading: false,
-  },
-  bulkRetrieve: {
-    loading: false,
-    error: null,
-  },
-  notification: {
-    itemsById: {},
-    allIds: [],
-    loading: false,
-    error: null,
-    create: {
-      loading: false,
-      error: null,
-    },
-    delete: {
-      loading: false,
-      error: null,
-    },
-    update: {
-      id: null,
-      error: null,
-    },
-  },
-  recurrenceRule: {
-    byId: {},
-    allIds: [],
-    allIds2: [],
-    loading: false,
-    error: null,
-    count: 0,
-    next_page: null,
-    page: 1,
-    delete: {
-      error: null,
-      loading: false,
-    },
-    edit: {
-      loading: false,
-      error: null,
-    },
-  },
-});
-
-export default handleActions(
+export const initialState: Immutable.Immutable<BookingsState> = Immutable<BookingsState>(
   {
-    [retrieveBookingBroadcastRoom.isLoading]: (state, { payload }) => {
+    byId: {},
+    broadcast: {
+      byId: {},
+      loading: false,
+      error: null,
+    },
+    byMember: {
+      loading: false,
+      error: null,
+      allIds: [],
+      count: 0,
+      page: 1,
+    },
+    asConsumer: {
+      loading: false,
+      error: null,
+      allIds: [],
+      count: 0,
+      page: 1,
+    },
+    consumerDashboard: {
+      loading: false,
+      error: null,
+      allIds: [],
+      count: 0,
+      page: 1,
+      next_page: 1,
+    },
+    byConsumerPack: {
+      loading: false,
+      error: null,
+      allIds: [],
+      count: 0,
+      page: 1,
+    },
+    byOffer: {
+      loading: false,
+      error: null,
+      allIds: [],
+    },
+    createOrUpdate: {
+      error: null,
+      loading: false,
+    },
+    bulkRetrieve: {
+      loading: false,
+      error: null,
+    },
+    notification: {
+      itemsById: {},
+      allIds: [],
+      loading: false,
+      error: null,
+      create: {
+        loading: false,
+        error: null,
+      },
+      delete: {
+        loading: false,
+        error: null,
+      },
+      update: {
+        id: null,
+        error: null,
+      },
+    },
+    recurrenceRule: {
+      byId: {},
+      allIds: [],
+      allIds2: [],
+      loading: false,
+      error: null,
+      count: 0,
+      next_page: null,
+      page: 1,
+      delete: {
+        error: null,
+        loading: false,
+      },
+      edit: {
+        loading: false,
+        error: null,
+      },
+    },
+  },
+);
+
+export default handleActions<Immutable.Immutable<BookingsState>>(
+  {
+    [retrieveBookingBroadcastRoom.isLoading.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['broadcast', 'loading'], payload);
     },
-    [retrieveBookingBroadcastRoom.error]: (state, { payload }) => {
+    [retrieveBookingBroadcastRoom.error.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['broadcast', 'error'], payload);
     },
-    [retrieveBookingBroadcastRoom.success]: (state, { payload }) => {
+    [retrieveBookingBroadcastRoom.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['broadcast', 'byId', payload.id], payload);
     },
-    [updateActions.isLoading]: (state, { payload }) => {
+    [updateActions.isLoading.toString()]: (state, { payload }: any) => {
       return state.setIn(['createOrUpdate', 'loading'], payload);
     },
-    [updateActions.error]: (state, { payload }) => {
+    [updateActions.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['createOrUpdate', 'error'], payload);
     },
-    [updateActions.success]: (state, { payload }) => {
+    [updateActions.success.toString()]: (state, { payload }: any) => {
       return state.setIn(['byId', payload.id], payload);
     },
-    [asConsumerActions.isLoading]: (state, { payload }) => {
+    [asConsumerActions.isLoading.toString()]: (state, { payload }: any) => {
       return state.setIn(['asConsumer', 'loading'], payload);
     },
-    [asConsumerActions.error]: (state, { payload }) => {
+    [asConsumerActions.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['asConsumer', 'error'], payload);
     },
-    [asConsumerActions.success]: (state, { payload }) => {
+    [asConsumerActions.success.toString()]: (state, { payload }: any) => {
       return state
         .setIn(['asConsumer', 'page'], payload.page)
         .setIn(['asConsumer', 'count'], payload.count)
         .setIn(
           ['asConsumer', 'allIds'],
-          payload.results.map((b) => b.id),
+          payload.results.map((b: any) => b.id),
         )
         .merge(
           {
-            byId: payload.results.reduce((acc, ps) => {
+            byId: payload.results.reduce((acc: any, ps: any) => {
               acc[ps.id] = ps;
               return acc;
             }, {}),
@@ -154,23 +163,23 @@ export default handleActions(
           { deep: true },
         );
     },
-    [byMemberActions.isLoading]: (state, { payload }) => {
+    [byMemberActions.isLoading.toString()]: (state, { payload }: any) => {
       return state.setIn(['byMember', 'loading'], payload);
     },
-    [byMemberActions.error]: (state, { payload }) => {
+    [byMemberActions.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['byMember', 'error'], payload);
     },
-    [byMemberActions.success]: (state, { payload }) => {
+    [byMemberActions.success.toString()]: (state, { payload }: any) => {
       return state
         .setIn(['byMember', 'page'], payload.page)
         .setIn(['byMember', 'count'], payload.count)
         .setIn(
           ['byMember', 'allIds'],
-          payload.results.map((b) => b.id),
+          payload.results.map((b: any) => b.id),
         )
         .merge(
           {
-            byId: payload.results.reduce((acc, ps) => {
+            byId: payload.results.reduce((acc: any, ps: any) => {
               acc[ps.id] = ps;
               return acc;
             }, {}),
@@ -178,23 +187,23 @@ export default handleActions(
           { deep: true },
         );
     },
-    [byConsumerPackActions.isLoading]: (state, { payload }) => {
+    [byConsumerPackActions.isLoading.toString()]: (state, { payload }: any) => {
       return state.setIn(['byMember', 'isLoading'], payload);
     },
-    [byConsumerPackActions.error]: (state, { payload }) => {
+    [byConsumerPackActions.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['byMember', 'error'], payload);
     },
-    [byConsumerPackActions.success]: (state, { payload }) => {
+    [byConsumerPackActions.success.toString()]: (state, { payload }: any) => {
       return state
         .setIn(['byConsumerPack', 'page'], payload.page)
         .setIn(['byConsumerPack', 'count'], payload.count)
         .setIn(
           ['byConsumerPack', 'allIds'],
-          payload.results.map((b) => b.id),
+          payload.results.map((b: any) => b.id),
         )
         .merge(
           {
-            byId: payload.results.reduce((acc, ps) => {
+            byId: payload.results.reduce((acc: any, ps: any) => {
               acc[ps.id] = ps;
               return acc;
             }, {}),
@@ -202,26 +211,26 @@ export default handleActions(
           { deep: true },
         );
     },
-    [retrieveActions.success]: (state, { payload }) => {
+    [retrieveActions.success.toString()]: (state, { payload }: any) => {
       return state.setIn(['byId', payload.id], payload);
     },
-    [byOfferActions.isLoading]: (state, { payload }) => {
+    [byOfferActions.isLoading.toString()]: (state, { payload }: any) => {
       return state.setIn(['byOffer', 'loading'], payload);
     },
-    [byOfferActions.error]: (state, { payload }) => {
+    [byOfferActions.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['byOffer', 'error'], payload);
     },
-    [byOfferActions.success]: (state, { payload }) => {
+    [byOfferActions.success.toString()]: (state, { payload }: any) => {
       return state
         .setIn(['byOffer', 'page'], payload.page)
         .setIn(['byOffer', 'count'], payload.count)
         .setIn(
           ['byOffer', 'allIds'],
-          payload.results.map((b) => b.id),
+          payload.results.map((b: any) => b.id),
         )
         .merge(
           {
-            byId: payload.results.reduce((acc, ps) => {
+            byId: payload.results.reduce((acc: any, ps: any) => {
               acc[ps.id] = ps;
               return acc;
             }, {}),
@@ -229,14 +238,20 @@ export default handleActions(
           { deep: true },
         );
     },
-    [consumerDashboardActions.isLoading]: (state, { payload }) => {
+    [consumerDashboardActions.isLoading.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['consumerDashboard', 'loading'], payload);
     },
-    [consumerDashboardActions.error]: (state, { payload }) => {
+    [consumerDashboardActions.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['consumerDashboard', 'error'], payload);
     },
-    [consumerDashboardActions.success]: (state, { payload }) => {
-      const newIds = payload.results.map((b) => b.id);
+    [consumerDashboardActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      const newIds = payload.results.map((b: any) => b.id);
       return state
         .setIn(['consumerDashboard', 'page'], payload.page)
         .setIn(['consumerDashboard', 'next_page'], payload.next_page)
@@ -245,11 +260,11 @@ export default handleActions(
           ['consumerDashboard', 'allIds'],
           payload.page === 1
             ? newIds
-            : [...state.consumerDashboard.allIds, ...newIds],
+            : [...state.consumerDashboard.allIds.asMutable(), ...newIds],
         )
         .merge(
           {
-            byId: payload.results.reduce((acc, ps) => {
+            byId: payload.results.reduce((acc: any, ps: any) => {
               acc[ps.id] = ps;
               return acc;
             }, {}),
@@ -257,16 +272,16 @@ export default handleActions(
           { deep: true },
         );
     },
-    [bulkActions.isLoading]: (state, { payload }) => {
+    [bulkActions.isLoading.toString()]: (state, { payload }: any) => {
       return state.setIn(['bulkRetrieve', 'loading'], payload);
     },
-    [bulkActions.error]: (state, { payload }) => {
+    [bulkActions.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['bulkRetrieve', 'error'], payload);
     },
-    [bulkActions.success]: (state, { payload }) => {
+    [bulkActions.success.toString()]: (state, { payload }: any) => {
       return state.merge(
         {
-          byId: payload.reduce((acc, ps) => {
+          byId: payload.reduce((acc: any, ps: any) => {
             acc[ps.id] = ps;
             return acc;
           }, {}),
@@ -274,38 +289,53 @@ export default handleActions(
         { deep: true },
       );
     },
-    [notificationListActions.isLoading]: (state, { payload }) => {
+    [notificationListActions.isLoading.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['notification', 'loading'], payload);
     },
-    [notificationListActions.error]: (state, { payload }) => {
+    [notificationListActions.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['notification', 'error'], payload);
     },
-    [notificationListActions.success]: (state, { payload }) => {
+    [notificationListActions.success.toString()]: (state, { payload }: any) => {
       return state
         .setIn(['notification', 'itemsById'], payload.notifDict)
         .setIn(['notification', 'allIds'], payload.notifIdList);
     },
-    [notificationCreateActions.isLoading]: (state, { payload }) => {
+    [notificationCreateActions.isLoading.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['notification', 'create', 'loading'], payload);
     },
-    [notificationCreateActions.error]: (state, { payload }) => {
+    [notificationCreateActions.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['notification', 'create', 'error'], payload);
     },
-    [notificationCreateActions.success]: (state, { payload }) => {
+    [notificationCreateActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.merge(
         { notification: { itemsById: { [payload.id]: payload } } },
         { deep: true },
       );
     },
-    [notificationDeleteActions.isLoading]: (state, { payload }) => {
+    [notificationDeleteActions.isLoading.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['notification', 'delete', 'loading'], payload);
     },
-    [notificationDeleteActions.error]: (state, { payload }) => {
+    [notificationDeleteActions.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['notification', 'delete', 'error'], payload);
     },
-    [notificationDeleteActions.success]: (state, { payload }) => {
+    [notificationDeleteActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       const items = { ...state.notification.itemsById };
-      const ids = [...state.notification.allIds];
+      const ids = [...state.notification.allIds.asMutable()];
       delete items[payload];
       ids.splice(
         ids.findIndex((id) => id === payload),
@@ -315,51 +345,81 @@ export default handleActions(
         .setIn(['notification', 'itemsById'], items)
         .setIn(['notification', 'allIds'], ids);
     },
-    [notificationUpdateActions.isLoading]: (state, { payload }) => {
+    [notificationUpdateActions.isLoading.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['notification', 'update', 'id'], payload);
     },
-    [notificationUpdateActions.error]: (state, { payload }) => {
+    [notificationUpdateActions.error.toString()]: (state, { payload }: any) => {
       return state.setIn(['notification', 'update', 'error'], payload);
     },
-    [notificationUpdateActions.success]: (state, { payload }) => {
+    [notificationUpdateActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.merge(
         { notification: { itemsById: { [payload.id]: payload } } },
         { deep: true },
       );
     },
-    [createRecurrenceRuleBookingActions.success]: (state, { payload }) => {
+    [createRecurrenceRuleBookingActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state
         .setIn(['recurrenceRule', 'byId', payload.id], payload)
         .setIn(
           ['recurrenceRule', 'allIds'],
-          [...state.recurrenceRule.allIds, payload.id],
+          [...state.recurrenceRule.allIds.asMutable(), payload.id],
         );
     },
-    [updateRecurrenceRuleBookingActions.isLoading]: (state, { payload }) => {
+    [updateRecurrenceRuleBookingActions.isLoading.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['recurrenceRule', 'edit', 'loading'], payload);
     },
-    [updateRecurrenceRuleBookingActions.error]: (state, { payload }) => {
+    [updateRecurrenceRuleBookingActions.error.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['recurrenceRule', 'edit', 'error'], payload);
     },
-    [deleteRecurrenceRuleBookingActions.isLoading]: (state, { payload }) => {
+    [deleteRecurrenceRuleBookingActions.isLoading.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['recurrenceRule', 'delete', 'loading'], payload);
     },
-    [deleteRecurrenceRuleBookingActions.error]: (state, { payload }) => {
+    [deleteRecurrenceRuleBookingActions.error.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['recurrenceRule', 'delete', 'error'], payload);
     },
-    [listRecurrenceRuleBookingActions.isLoading]: (state, { payload }) => {
+    [listRecurrenceRuleBookingActions.isLoading.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['recurrenceRule', 'loading'], payload);
     },
-    [listRecurrenceRuleBookingActions.error]: (state, { payload }) => {
+    [listRecurrenceRuleBookingActions.error.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       return state.setIn(['recurrenceRule', 'error'], payload);
     },
-    [listRecurrenceRuleBookingActions.success]: (state, { payload }) => {
+    [listRecurrenceRuleBookingActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
       const allIds =
         payload.page === 1
-          ? payload.results.map((rb) => rb.id)
+          ? payload.results.map((rb: any) => rb.id)
           : [
-              ...state.recurrenceRule.allIds,
-              ...payload.results.map((rb) => rb.id),
+              ...state.recurrenceRule.allIds.asMutable(),
+              ...payload.results.map((rb: any) => rb.id),
             ];
       return state
         .setIn(['recurrenceRule', 'page'], payload.page)
@@ -369,7 +429,7 @@ export default handleActions(
         .merge(
           {
             recurrenceRule: {
-              byId: payload.results.reduce((acc, ps) => {
+              byId: payload.results.reduce((acc: any, ps: any) => {
                 acc[ps.id] = ps;
                 return acc;
               }, {}),

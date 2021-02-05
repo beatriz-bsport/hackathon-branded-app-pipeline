@@ -17,10 +17,7 @@ import MarketplaceAppBar from '../marketplace/MarketplaceAppBar.component';
 
 import MarketplaceBasketDialog from '../marketplace/MarketplaceBasketDialog.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import {
-  consumer as consumerActions,
-  auth as authActions,
-} from '../../actions';
+import { auth as authActions } from '../../actions';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 
 import { fetchCompanyTheme } from '../../libs/theme/actions';
@@ -92,6 +89,7 @@ import {
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
+import { fetchProfile } from '../../libs/consumer-space/actions';
 import { isRegistered as offerIsRegisteredAPI } from '../../libs/offer/api';
 
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
@@ -398,7 +396,7 @@ export default compose(
       goToCheckout: (companyId) => pushRouter(`/checkout/${companyId}/`),
 
       fetchCurrentBasket,
-      fetchProfile: consumerActions.fetchProfile,
+      fetchProfile,
       addItemToBasket,
       removeItemFromBasket,
 

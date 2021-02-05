@@ -48,10 +48,9 @@ import Config from '../../config';
 import { getMarketplaceRoute, fromConfigToUrl } from './routing-utils';
 import asyncComponent from '../../AsyncComponent';
 
-import {
-  consumer as consumerActions,
-  auth as authActions,
-} from '../../actions';
+import { auth as authActions } from '../../actions';
+
+import { fetchProfile } from '../../libs/consumer-space/actions';
 
 import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
 import {
@@ -574,7 +573,7 @@ export default compose(
       fetchPaymentComboList,
 
       // for signup/signin/profile
-      fetchProfile: consumerActions.fetchProfile,
+      fetchProfile,
       goToUserSpace: (id) => pushRouter(`/c/${id}/`),
       goToCheckout: (companyId) => pushRouter(`/checkout/${companyId}/`),
       signup: (data: *, callback: () => void) =>

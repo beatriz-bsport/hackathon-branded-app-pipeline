@@ -10,12 +10,11 @@ export type Invoice = {
   date: string;
   uuid: string;
   is_finalized: boolean;
-  stripe_invoice_pdf: ?string;
+  stripe_invoice_pdf?: string;
   fully_payed: string;
   price_due: string;
   price_payed: string;
   reverted: boolean;
-  memberName: string;
 };
 
 export type PlannedPaymentEvent = {

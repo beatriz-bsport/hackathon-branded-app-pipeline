@@ -1,6 +1,3 @@
-// @flow
-// options: OptionCallBack,
-
 import { createAction } from 'redux-actions';
 
 import {
@@ -11,7 +8,7 @@ import {
   registerOptionToWaitingList as registerOptionToWaitingListAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction, OptionCallBack } from '../../state/types';
+import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 
 export const configurationDetail = {
   error: createAction('WAITING_LIST_CONFIGURATION/DETAIL/ERROR'),
@@ -24,7 +21,7 @@ export const configurationUpdate = {
   isLoading: createAction('WAITING_LIST_CONFIGURATION/UPDATE/IS_LOADING'),
 };
 
-export function patchConfiguration(data: *): ThunkAction {
+export function patchConfiguration(data: any): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(configurationUpdate.isLoading(true));
     dispatch(configurationUpdate.error(null));
@@ -67,7 +64,7 @@ export const byOfferActions = {
 export function fetchByOffer(
   offer: number,
   params: any,
-  options: OptionCallBack,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(byOfferActions.error(null));
@@ -98,7 +95,7 @@ export const discardOptionActions = {
 export function discardBookingOption(
   bookingOptionId: number,
   params: any,
-  options: OptionCallBack,
+  options?: OptionCallback<number>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(discardOptionActions.isLoading(true));
@@ -125,8 +122,8 @@ export const registerOptionActions = {
 
 export function registerToWaitingList(
   offerId: number,
-  memberId: ?number,
-  options: OptionCallBack,
+  memberId?: number,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(registerOptionActions.isLoading(true));
@@ -153,7 +150,7 @@ export const asConsumerActions = {
 export function fetchBookingOptionAsConsumer(
   company: number,
   params: any = {},
-  options: OptionCallBack,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(asConsumerActions.error(null));
@@ -185,7 +182,7 @@ export const resetBookingOptionForBooking = forBookingActions.reset;
 
 export function fetchBookingOptionForBooking(
   offer: number,
-  options: OptionCallBack,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(forBookingActions.error(null));

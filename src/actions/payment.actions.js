@@ -2,6 +2,7 @@
 import api from '../api';
 import types from './payment.types';
 import type { Dispatch } from '../state/types';
+import { hasBookingOptionInOffer } from '../libs/consumer-space/api';
 
 export function startCheckingOptionExistence() {
   return { type: types.PAYMENT_START_CHECKING_OPTION_EXISTENCE };
@@ -18,7 +19,7 @@ export function checkOptionExistence(offerId: number) {
     dispatch(errorCheckingOptionExistence(null));
 
     try {
-      const response = await api.consumer.hasBookingOptionInOffer(offerId);
+      const response = await hasBookingOptionInOffer(offerId);
       const exists = response.data;
       dispatch(checkedOptionExistence(exists));
     } catch (err) {

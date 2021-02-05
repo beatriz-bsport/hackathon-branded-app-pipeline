@@ -6,4 +6,5 @@ export type ErrorAndLoading = {
 export type WithPagination = {
   count: number;
   page: number;
+  next_page: number;
 };

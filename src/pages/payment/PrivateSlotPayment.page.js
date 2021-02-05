@@ -27,10 +27,10 @@ import MarketplaceAppBar from '../marketplace/MarketplaceAppBar.component';
 import MarketplaceBasketDialog from '../marketplace/MarketplaceBasketDialog.component';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 
-import {
-  consumer as consumerActions,
-  auth as authActions,
-} from '../../actions';
+import { auth as authActions } from '../../actions';
+
+import { fetchProfile } from '../../libs/consumer-space/actions';
+
 import { parseQueryString } from '../../http';
 
 import { linkMeToCompany } from '../../libs/member/actions';
@@ -432,7 +432,7 @@ export default compose(
       disconnect: authActions.disconnect,
       goToUserSpace: (id) => pushRouter(`/c/${id}/`),
       goBack: goBackRouter,
-      fetchProfile: consumerActions.fetchProfile,
+      fetchProfile,
 
       fetchPrivateSlot,
       fetchPrivateService,

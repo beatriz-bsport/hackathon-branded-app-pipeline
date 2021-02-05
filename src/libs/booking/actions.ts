@@ -1,4 +1,3 @@
-// @flow
 import { createAction } from 'redux-actions';
 import moment from 'moment-timezone';
 
@@ -23,9 +22,12 @@ import {
   deleteRecurrenceRuleBooking as deleteRecurrenceRuleBookingAPI,
   updateRecurrenceRuleBooking as updateRecurrenceRuleBookingAPI,
 } from './api';
+
+// @ts-ignore
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 
-import type { Dispatch } from '../../state/types';
+import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
+import { Booking } from './types';
 
 export const retrieveActions = {
   success: createAction('BOOKING/RETRIEVE/SUCCESS'),
@@ -33,7 +35,7 @@ export const retrieveActions = {
   error: createAction('BOOKING/RETRIEVE/ERROR'),
 };
 
-export function retrieveBooking(id: number, options: OptionCallback) {
+export function retrieveBooking(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveActions.isLoading(true));
     dispatch(retrieveActions.error(null));
@@ -61,8 +63,8 @@ export const updateActions = {
 function updateBooking(
   id: number,
   data: any,
-  options: OptionCallback,
-  apiCall: any,
+  options?: OptionCallback,
+  apiCall?: any,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(updateActions.isLoading(true));
@@ -82,12 +84,15 @@ function updateBooking(
   };
 }
 
-export const discardAttendance = (id, options) =>
+export const discardAttendance = (id: number, options?: OptionCallback) =>
   updateBooking(id, {}, options, discardAttendanceAPI);
-export const confirmAttendance = (id, options) =>
+export const confirmAttendance = (id: number, options?: OptionCallback) =>
   updateBooking(id, {}, options, confirmAttendanceAPI);
-export const cancelBooking = (id, data, options) =>
-  updateBooking(id, data, options, cancelBookingAPI);
+export const cancelBooking = (
+  id: number,
+  data: any,
+  options?: OptionCallback,
+) => updateBooking(id, data, options, cancelBookingAPI);
 
 export const asConsumerActions = {
   success: createAction('BOOKING/AS_CONSUMER/SUCCESS'),
@@ -132,11 +137,12 @@ export const consumerDashboardActions = {
 
 export function fetchConsumerDashboardBookingList(
   member: number,
-  page: ?number,
-  page_size: number,
-  options: OptionCallback,
-) {
-  return async (dispatch: Dispatch, getState: () => void) => {
+  page?: number,
+  page_size?: number,
+  options?: OptionCallback<Booking[]>,
+): ThunkAction {
+  // DADA
+  return async (dispatch, getState) => {
     dispatch(consumerDashboardActions.isLoading(true));
     dispatch(consumerDashboardActions.error(null));
     let pageToFetch = page;
@@ -154,6 +160,7 @@ export function fetchConsumerDashboardBookingList(
         booking_status_code: BOOKING_STATUS_OK.id,
         ordering: 'offer__date_start',
       });
+
       dispatch(consumerDashboardActions.success({ ...response.data, page }));
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
@@ -201,7 +208,7 @@ export function fetchBookingsByMember(
   member: number,
   page: number,
   page_size: number,
-  filters,
+  filters: any,
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -268,9 +275,9 @@ export const byOfferActions = {
 };
 
 export function fetchBookingsByOffer(
-  offer,
-  options,
-  ordering_field = null,
+  offer: number,
+  options?: OptionCallback,
+  ordering_field: any = null,
   params: any = {},
 ) {
   return async (dispatch: Dispatch) => {
@@ -280,16 +287,16 @@ export function fetchBookingsByOffer(
 }
 
 export function refreshBookingsByOffer(
-  offer,
-  options,
-  ordering_field = null,
+  offer: number,
+  options: OptionCallback,
+  ordering_field: any = null,
   params: any = {},
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(byOfferActions.error(null));
 
     try {
-      const order_filter = {};
+      const order_filter: any = {};
       if (ordering_field) {
         order_filter.ordering = ordering_field;
       }
@@ -320,9 +327,9 @@ export const registerActions = {
 export function registerBooking(
   consumer_payment_pack: number,
   data: {
-    offer: number | Array<number>,
-    keep_credits: boolean,
-    notify_member: boolean,
+    offer: number | Array<number>;
+    keep_credits: boolean;
+    notify_member: boolean;
   },
   options: OptionCallback,
 ) {
@@ -411,7 +418,7 @@ export const notificationCreateActions = {
 
 export function createFirstTimeNotification(
   data: any,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(notificationCreateActions.isLoading(true));
@@ -439,7 +446,7 @@ export const notificationDeleteActions = {
 
 export function deleteFirstTimeNotification(
   notificationId: any,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(notificationDeleteActions.isLoading(true));
@@ -467,7 +474,7 @@ export const notificationUpdateActions = {
 
 export function updateFirstTimeNotification(
   data: any,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(notificationUpdateActions.isLoading(data.id));
@@ -530,7 +537,10 @@ export const createRecurrenceRuleBookingActions = {
   success: createAction('RECURENCE_RULE_BOOKING/CREATE/SUCCESS'),
 };
 
-export function createRecurrenceRuleBooking(data: *, options: OptionCallback) {
+export function createRecurrenceRuleBooking(
+  data: any,
+  options: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(createRecurrenceRuleBookingActions.isLoading(true));
     dispatch(createRecurrenceRuleBookingActions.error(null));
@@ -564,7 +574,7 @@ export const deleteRecurrenceRuleBookingActions = {
 
 export function deleteRecurrenceRuleBooking(
   id: number,
-  data: *,
+  data: any,
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -594,7 +604,7 @@ export const updateRecurrenceRuleBookingActions = {
 };
 
 export function updateRecurrenceRuleBooking(
-  data: *,
+  data: any,
   id: number,
   options: OptionCallback,
 ) {

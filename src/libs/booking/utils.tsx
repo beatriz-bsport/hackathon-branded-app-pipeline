@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
@@ -18,8 +17,9 @@ import PublicIcon from '@material-ui/icons/Public';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import SmartphoneIcon from '@material-ui/icons/Smartphone';
 
-import type { TFunction } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
+
+import { TFunction } from 'i18next';
 import type { Booking } from './types';
 
 export const getBookingStatusCode = (t: TFunction, booking: Booking) => {
@@ -79,13 +79,18 @@ export const getBookingSourceIcon = (source: number) => {
   }
 };
 
-export const BookingSource = withTranslation(['booking'])(
-  (props: { t: TFunction, source: number }) => (
+const BookingSourceComponent = (props: { t: TFunction; source: number }) => {
+  return (
     <div
       style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
     >
       <div style={{ marginRight: 8 }}>{getBookingSourceIcon(props.source)}</div>
       <Typography>{getBookingSourceText(props.t, props.source)}</Typography>
     </div>
-  ),
+  );
+};
+
+export const BookingSource = withTranslation(['booking'])(
+  // @ts-ignore
+  BookingSourceComponent,
 );

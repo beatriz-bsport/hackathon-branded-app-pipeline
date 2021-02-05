@@ -1,4 +1,3 @@
-// @flow
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
@@ -13,20 +12,21 @@ import {
 import { getMemberListData } from '../member/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
 import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
+import { RootState } from '../../reducers';
 
 const _getData = (state: State) => state.booking.byId;
 
-const _getMemberBookingId = (state: State) => state.booking.byMember.allIds;
-const _getConsumerBookingIds = (state: State) =>
+const _getMemberBookingId = (state: RootState) => state.booking.byMember.allIds;
+const _getConsumerBookingIds = (state: RootState) =>
   state.booking.asConsumer.allIds;
-const _getOfferBookingId = (state: State) => state.booking.byOffer.allIds;
-const _getConsumerPackBookingId = (state: State) =>
+const _getOfferBookingId = (state: RootState) => state.booking.byOffer.allIds;
+const _getConsumerPackBookingId = (state: RootState) =>
   state.booking.byConsumerPack.allIds;
-const _getConsumerDashboardId = (state: State) =>
+const _getConsumerDashboardId = (state: RootState) =>
   state.booking.consumerDashboard.allIds;
-const _getNotificationsIds = (state: State) =>
+const _getNotificationsIds = (state: RootState) =>
   state.booking.notification.allIds;
-const _getNotifications = (state: State) =>
+const _getNotifications = (state: RootState) =>
   state.booking.notification.itemsById;
 
 export const getMemberBookingList = createSelector(

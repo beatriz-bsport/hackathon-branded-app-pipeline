@@ -1,17 +1,15 @@
-// @flow
-
 import { createSelector } from 'reselect';
-import type { State } from '../../state/types';
+import { RootState } from '../../reducers';
 
-const _getMembershipData = (state: State) => state.membership.byId;
-const _getConsumerMembershipIds = (state: State) =>
+const _getMembershipData = (state: RootState) => state.membership.byId;
+const _getConsumerMembershipIds = (state: RootState) =>
   state.membership.asConsumer.allIds;
 
-export const getMembership = (state: State, id: number) => {
+export const getMembership = (state: RootState, id: number) => {
   return _getMembershipData(state)[id];
 };
 
-export const getActiveMembership = (state: State) =>
+export const getActiveMembership = (state: RootState) =>
   _getMembershipData(state)[state.membership.activeMembership];
 
 export const getConsumerMembershipList = createSelector(

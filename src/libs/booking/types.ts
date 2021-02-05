@@ -43,6 +43,7 @@ export type Booking = {
   invoice?: string;
   attendance: boolean;
   date_start: string;
+  offer_date_start: string;
   payment_pack: number;
   consumer_payment_pack: ConsumerPaymentPack;
   was_refunded: false;
@@ -68,10 +69,13 @@ type WithPagination = {
 
 export type BookingsState = {
   byId: { [key: string]: Booking };
-  broadcast: ErrorAndLoading & { [key: string]: BookingBroadCastRoom };
+  broadcast: ErrorAndLoading & {
+    byId: { [key: string]: BookingBroadCastRoom };
+  };
   byMember: ErrorAndLoading & WithPagination & { allIds: number[] };
   asConsumer: ErrorAndLoading & WithPagination & { allIds: number[] };
-  consumerDashboard: ErrorAndLoading & WithPagination & { allIds: number[] };
+  consumerDashboard: ErrorAndLoading &
+    WithPagination & { allIds: number[]; next_page: number };
   byConsumerPack: ErrorAndLoading & WithPagination & { allIds: number[] };
   byOffer: ErrorAndLoading & { allIds: [] };
   createOrUpdate: ErrorAndLoading;

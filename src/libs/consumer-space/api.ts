@@ -1,4 +1,4 @@
-import { API_URI, API_V1_URI, getAuth, postAuth, deleteAuth } from '../http';
+import { API_URI, API_V1_URI, getAuth, postAuth, deleteAuth } from '../../http';
 
 export async function fetchConsumerOptions() {
   return getAuth(`${API_URI}/waiting-list/booking-option/?with_offer=true`);
@@ -20,19 +20,19 @@ export async function consumerFetchProfile() {
   return getAuth(`${API_URI}/user/self/info/`);
 }
 
-export async function discardBookingOption(optionId) {
+export async function discardBookingOption(optionId: number) {
   return postAuth(
     `${API_V1_URI}/waiting-list/booking-option/${optionId}/discard/`,
   );
 }
 
-export async function hasBookingOptionInOffer(offerId) {
+export async function hasBookingOptionInOffer(offerId: number) {
   return getAuth(
     `${API_V1_URI}/waiting-list/booking-option/exists/?offer=${offerId}`,
   );
 }
 
-export async function discardBooking(bookingId) {
+export async function discardBooking(bookingId: number) {
   return deleteAuth(`${API_URI}/booking/${bookingId}/discard`);
 }
 

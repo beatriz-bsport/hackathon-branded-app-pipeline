@@ -51,10 +51,9 @@ import PaymentStripe from '../../libs/payment/components/payment-backend-stripe/
 import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '../../libs/payment/api';
 import { validateUnpaid as validateUnpaidAPI } from '../../libs/checkout/api';
 
-import {
-  consumer as consumerActions,
-  auth as authActions,
-} from '../../actions';
+import { auth as authActions } from '../../actions';
+
+import { fetchProfile } from '../../libs/consumer-space/actions';
 
 type Props = {
   basket: ?Basket,
@@ -318,7 +317,7 @@ export default compose(
     {
       disconnect: authActions.disconnect,
       goToUserSpace: (id) => pushRouter(`/c/${id}/`),
-      fetchProfile: consumerActions.fetchProfile,
+      fetchProfile,
 
       addItemToBasket: addItemToBasketAction,
       removeItemFromBasket,

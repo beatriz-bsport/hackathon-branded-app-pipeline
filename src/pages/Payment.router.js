@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import asyncComponent from '../AsyncComponent';
-import { fetchProfile } from '../actions/consumer.actions';
+import { fetchProfile } from '../libs/consumer-space/actions';
 
 import { fetchPaymentCombo } from '../libs/payment-combo/actions';
 

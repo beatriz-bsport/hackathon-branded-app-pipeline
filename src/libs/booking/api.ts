@@ -1,4 +1,3 @@
-// @flow
 import {
   buildUrlParams,
   API_V1_URI,
@@ -45,9 +44,9 @@ export const cancelBooking = async (id: number, data: any = {}) => {
 export const registerBooking = async (
   consumer_payment_pack: number,
   data: {
-    offer: number | Array<number>,
-    keep_credits: boolean,
-    notify_member: boolean,
+    offer: number | Array<number>;
+    keep_credits: boolean;
+    notify_member: boolean;
   },
 ) => {
   return postAuth(
@@ -80,18 +79,18 @@ export async function fetchRecurrenceRuleBookingList(params: any = {}) {
   );
 }
 
-export async function createRecurrenceRuleBooking(data: *) {
+export async function createRecurrenceRuleBooking(data: any) {
   return postAuth(`${API_V1_URI}/booking/recurrence_rule_booking/`, data);
 }
 
-export async function deleteRecurrenceRuleBooking(id: number, data: *) {
+export async function deleteRecurrenceRuleBooking(id: number, data: any) {
   return deleteAuth(
     `${API_V1_URI}/booking/recurrence_rule_booking/${id}/`,
     data,
   );
 }
 
-export async function updateRecurrenceRuleBooking(data: *, id: number) {
+export async function updateRecurrenceRuleBooking(data: any, id: number) {
   return patchAuth(
     `${API_V1_URI}/booking/recurrence_rule_booking/${id}/`,
     data,

@@ -19,9 +19,9 @@
     "@fullcalendar/resource-timegrid": "^5.4.0",
     "@fullcalendar/timegrid": "^5.4.0",
     "@material-ui/core": "^4.9.13",
-    "@material-ui/styles": "^4.9.13",
     "@material-ui/icons": "^4.9.13",
     "@material-ui/lab": "^4.0.0-alpha.52",
+    "@material-ui/styles": "^4.9.13",
     "@quentin-sommer/react-useragent": "^3.1.0",
     "@sentry/apm": "^5.19.1",
     "@sentry/browser": "^5.19.1",
@@ -137,50 +137,12 @@
     "start": "yarn updateTranslation && cp envs/local public/env.js && node scripts/start.js",
     "build": "node --max_old_space_size=2048 scripts/build.js",
     "server:build": "webpack -p --progress",
-    "test": "node scripts/test.js --env=jsdom",
+    "test": "yarn jest",
     "compile": "npx tsc -p .",
     "lint": "eslint ./src",
     "storybook": "yarn run start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "updateTranslation": "./scripts/sync-translations.sh"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
-    ],
-    "setupFiles": [
-      "<rootDir>/config/polyfills.js",
-      "<rootDir>/dev/setupTests.js"
-    ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
-      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
-    ],
-    "testEnvironment": "node",
-    "testURL": "http://localhost",
-    "transform": {
-      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
-    },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
-    ],
-    "moduleNameMapper": {
-      "^react-native$": "react-native-web"
-    },
-    "moduleFileExtensions": [
-      "web.js",
-      "js",
-      "json",
-      "web.jsx",
-      "jsx",
-      "node",
-      "mjs"
-    ]
   },
   "browserslist": "> 0.25%",
   "eslintConfig": {
@@ -204,7 +166,7 @@
     "@storybook/react": "^6",
     "@types/chroma-js": "^2.1.2",
     "@types/classnames": "^2.2.11",
-    "@types/jest": "^26.0.17",
+    "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.165",
     "@types/memoize-one": "^5.1.2",
     "@types/node": "^14.14.10",
@@ -218,6 +180,7 @@
     "@typescript-eslint/eslint-plugin": "^4.11.0",
     "@typescript-eslint/eslint-plugin-tslint": "^4.11.0",
     "@typescript-eslint/parser": "^4.11.0",
+    "axios-mock-adapter": "^1.19.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-lodash": "^3.3.4",
@@ -242,6 +205,7 @@
     "faker": "^4.1.0",
     "flow-bin": "0.114",
     "flow-coverage-report": "^0.6.0",
+    "jest": "^26.6.3",
     "jquery": "^3.3.1",
     "json-beautify": "^1.1.1",
     "json-merger": "^1.1.2",
@@ -251,6 +215,7 @@
     "postcss-modules-values": "^2.0.0",
     "prettier": "^2.2.1",
     "react-test-renderer": "^16.8.3",
+    "ts-jest": "^26.5.0",
     "tslint": "^6.1.3",
     "typescript": "^4.1.2",
     "typescript-eslint-parser": "^22.0.0",

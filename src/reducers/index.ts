@@ -5,7 +5,7 @@ import authReducers from './auth';
 import statsReducers from './stats';
 import categoryReducers from '../libs/category/reducers';
 import paymentReducers from './payment';
-import consumerReducers from './consumer';
+import consumerReducers from '../libs/consumer-space/reducers';
 import snackbarReducer from './snackbar.reducers';
 import searchReducer from './search.reducers';
 import network from '../libs/network/reducers';
@@ -73,6 +73,8 @@ import { VideoState } from '../libs/video/types';
 import { CategoryState } from '../libs/category/types';
 import { MemberState } from '../libs/member/types';
 import { MarketplaceSettingState } from '../libs/marketplace/types';
+import { MembershipState } from '../libs/membership/types';
+import { ConsumerState } from '../libs/consumer-space/types';
 import actionTypes from '../actions/auth.types';
 
 const rootReducer = (history: any) =>
@@ -139,7 +141,6 @@ export type RootState = {
   router: ReturnType<typeof connectRouter>;
   paymentRules: any;
   payment: any;
-  consumer: any;
   auth: any;
   establishment: any;
   stats: any;
@@ -164,7 +165,6 @@ export type RootState = {
   smartList: any;
   paymentCombo: any;
   reminder: any;
-  membership: any;
   offer: any;
   webhook: any;
   notificationRule: any;
@@ -175,6 +175,8 @@ export type RootState = {
   marketingNotification: any;
   dashboardSettings: any;
   paymentPack: any;
+  consumer: ConsumerState;
+  membership: MembershipState;
   marketplace: MarketplaceSettingState;
   member: MemberState;
   category: CategoryState;

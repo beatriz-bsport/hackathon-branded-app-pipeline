@@ -1,4 +1,3 @@
-// @flow
 import { createAction } from 'redux-actions';
 
 import * as Sentry from '@sentry/browser';
@@ -26,7 +25,7 @@ export const retrieveActions = {
 
 export function resetMembershipListAsConsumer(
   params: any = {},
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listAsConsumerActions.reset());
@@ -36,7 +35,7 @@ export function resetMembershipListAsConsumer(
 
 export function fetchMembershipListAsConsumer(
   params: any = {},
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch, getState: () => State) => {
     dispatch(listAsConsumerActions.isLoading(true));
@@ -67,7 +66,7 @@ export function fetchMembershipListAsConsumer(
   };
 }
 
-export function fetchMembership(id: number, options: OptionCallback) {
+export function fetchMembership(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveActions.isLoading(true));
     dispatch(retrieveActions.error(null));
@@ -94,8 +93,8 @@ export const linkActions = {
 };
 
 export function linkMeToCompany(
-  data: { company?: number, offer?: number },
-  options: OptionCallback,
+  data: { company?: number; offer?: number },
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(linkActions.isLoading(true));

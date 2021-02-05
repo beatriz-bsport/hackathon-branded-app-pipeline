@@ -1,4 +1,3 @@
-// @flow
 import {
   API_V1_URI,
   postAuth,
@@ -11,7 +10,7 @@ export const fetchConfiguration = async () => {
   return getAuth(`${API_V1_URI}/waiting-list/configuration/me/`);
 };
 
-export const patchConfiguration = async (data: *) => {
+export const patchConfiguration = async (data: any) => {
   return patchAuth(`${API_V1_URI}/waiting-list/configuration/me/`, data);
 };
 
@@ -30,7 +29,7 @@ export async function discardBookingOption(optionId: number, params: any = {}) {
 
 export async function registerOptionToWaitingList(
   offer: number,
-  member: ?number,
+  member?: number,
 ) {
   return postAuth(`${API_V1_URI}/waiting-list/booking-option/register/`, {
     offer,

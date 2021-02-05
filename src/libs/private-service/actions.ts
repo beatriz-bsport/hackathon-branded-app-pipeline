@@ -1261,7 +1261,7 @@ export const byPrivatePass = {
 
 export function fetchPrivateConsumerPassList(
   params: any,
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateConsumerPassListActions.isLoading(true));
@@ -1495,7 +1495,7 @@ export const resetPrivateBookings = privateBookingListActions.reset;
 
 export function fetchPrivateBookings(
   params: any,
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingListActions.isLoading(true));
@@ -1523,7 +1523,7 @@ export const privateBookingRetrieveActions = {
 
 export function fetchPrivateBooking(
   id: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingRetrieveActions.isLoading(true));
@@ -1617,7 +1617,7 @@ export function updatePrivateBookingCoach(
 export function disablePrivateBooking(
   id: number,
   // @ts-ignore
-  data: { force_refund: boolean; send_mail: boolean } = {},
+  data: { force_refund?: boolean; send_mail?: boolean } = {},
   options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {

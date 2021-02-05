@@ -177,6 +177,7 @@ class BsportWidget extends Component<Props> {
                 companyName={this.props.theme.company_name}
               />
             )}
+        </React.Suspense>
           </MuiThemeProvider>
         </React.Suspense>
       </div>

@@ -73,7 +73,7 @@ class AuthDialog extends React.PureComponent<Props> {
                   }}
                 />
               </Grid>
-              <Grid item className={"cleanslate"}>
+              <Grid item className="cleanslate">
                 <SignUpFormStyled
                   loading={this.props.loading}
                   theme={this.props.theme}

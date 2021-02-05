@@ -15,20 +15,16 @@ import reducer from './reducer';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: [
-    'auth',
-  ],
+  whitelist: ['auth'],
   stateReconciler: seamlessImmutableReconciler,
   transforms: [createCompressor(seamlessImmutableTransformCreator({}))],
 };
 
-
 export default function initStore(initialState: Object = {}) {
-const history = createBrowserHistory();
-const rootReducer = persistReducer(persistConfig, reducer(history));
-  const composeEnhancers = (
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-  );
+  const history = createBrowserHistory();
+  const rootReducer = persistReducer(persistConfig, reducer(history));
+  const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
   const routerMiddlewareWithHistory = routerMiddleware(history);
 

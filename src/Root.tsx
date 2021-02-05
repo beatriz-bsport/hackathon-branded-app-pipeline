@@ -6,7 +6,10 @@ import {
   StylesProvider,
   createGenerateClassName,
 } from '@material-ui/core/styles';
-import { PrivateServicePageTypeEnum, WidgetComponentsEnum } from 'bsport-saas/src/libs/marketplace/types';
+import {
+  PrivateServicePageTypeEnum,
+  WidgetComponentsEnum,
+} from 'bsport-saas/src/libs/marketplace/types';
 
 import initStore from './store/store';
 import App from './App';

@@ -24,7 +24,6 @@ import BsportLogo from './components/BsportLogo';
 import 'bsport-saas/src/index.scss';
 
 import asyncComponent from './AsyncComponent';
-import AuthDialog from './components/AuthDialog';
 import { openTab } from './utils/utils';
 
 const CalendarWidget = asyncComponent(() => import('./widgets/Calendar'));
@@ -35,6 +34,7 @@ const PrivateServiceWidget = asyncComponent(
 const TheIframe = asyncComponent(() => import( './components/TheIframe.component'))
 const WorkshopWidget = asyncComponent(() => import('./widgets/Workshop'));
 const NewsletterWidget = asyncComponent(() => import('./widgets/Newsletter'));
+const AuthDialog = asyncComponent(() => import('./components/AuthDialog'));
 
 const Snackbar = themify(connect(...SnackbarDataProvider)(SnackbarPile));
 
@@ -111,9 +111,10 @@ class BsportWidget extends Component<Props, State> {
       }
       case (DIALOG_MODE_IFRAME): {
         this.setState({ iframeUrl: null })
-        
+        return
       }
-      default: {
+	default: {
+	return
       }
     }
   }
@@ -207,6 +208,7 @@ class BsportWidget extends Component<Props, State> {
                 onSignupShow={() => this.setState({ showSignup: true })}
               />
             )}
+        </React.Suspense>
           </MuiThemeProvider>
         </React.Suspense>
       </div>

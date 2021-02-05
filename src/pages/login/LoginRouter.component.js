@@ -62,10 +62,10 @@ export class LoginRouter extends React.Component<Props> {
 
   render() {
     const { classes } = this.props;
-    const isWidget = !(
+    const isWidget = (
       window &&
       window.env &&
-      window.env.APP_CONTEXT === 'widget'
+      (window.env.APP_CONTEXT === 'widget')
     );
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>

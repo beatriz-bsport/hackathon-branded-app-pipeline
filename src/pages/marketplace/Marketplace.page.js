@@ -13,7 +13,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Dialog from '@material-ui/core/Dialog';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { connect } from 'react-redux';
@@ -334,7 +334,7 @@ export class MarketPlace extends Component<Props, State> {
     ) {
       return (
         <Grid container item alignItems="center" justify="center">
-          <LinearProgress />
+          <CircularProgress />
         </Grid>
       );
     }

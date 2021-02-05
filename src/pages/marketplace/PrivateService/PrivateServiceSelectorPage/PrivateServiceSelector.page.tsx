@@ -5,7 +5,7 @@ import {
   Grid,
   Paper,
   ButtonBase,
-  LinearProgress,
+  CircularProgress,
   Chip,
   Theme,
 } from '@material-ui/core';
@@ -89,16 +89,17 @@ export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
 
   render() {
     const { classes, t } = this.props;
+    if (this.props.loading) {
+      return (
+        <div className={classes.loadingContainer}>
+          <CircularProgress />
+        </div>
+      );
+    }
 
     return (
       <div className={classes.container}>
         <div className={classes.filterContainer} />
-        {!!this.props.loading && (
-          <div className={classes.loadingContainer}>
-            <LinearProgress />
-          </div>
-        )}
-
         {!this.props.loading && !this.props._privateServices.length && (
           <div className={classes.emptyTextContainer}>
             <Typography color="textSecondary">
@@ -222,6 +223,9 @@ const styles = (theme: Theme) => ({
   },
   loadingContainer: {
     width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   tagsContainer: {
     display: 'flex',

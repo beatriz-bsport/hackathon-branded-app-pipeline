@@ -62,33 +62,47 @@ export class LoginRouter extends React.Component<Props> {
 
   render() {
     const { classes } = this.props;
+    const isWidget = !(
+      window &&
+      window.env &&
+      window.env.APP_CONTEXT === 'widget'
+    );
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <Grid container>
-          <Hidden xsDown>
-            <Grid item sm={6} md={6} lg={7} className={classes.logoContainer}>
-              <div
-                style={{
-                  position: 'fixed',
-                  zIndex: 0,
-                  width: '100vw',
-                  height: '100vh',
-                }}
-              />
-              <Fade in>
-                <img
-                  src={
-                    this.props.theme
-                      ? this.props.theme.cover
-                      : '/logo-fond-bleu.svg'
-                  }
-                  className={classes.logo}
-                  alt="bsport-logo"
+          {!isWidget && (
+            <Hidden xsDown>
+              <Grid item sm={6} md={6} lg={7} className={classes.logoContainer}>
+                <div
+                  style={{
+                    position: 'fixed',
+                    zIndex: 0,
+                    width: '100vw',
+                    height: '100vh',
+                  }}
                 />
-              </Fade>
-            </Grid>
-          </Hidden>
-          <Grid item xs={12} sm={6} md={6} lg={5} style={{ zIndex: 20 }}>
+                <Fade in>
+                  <img
+                    src={
+                      this.props.theme
+                        ? this.props.theme.cover
+                        : '/logo-fond-bleu.svg'
+                    }
+                    className={classes.logo}
+                    alt="bsport-logo"
+                  />
+                </Fade>
+              </Grid>
+            </Hidden>
+          )}
+          <Grid
+            item
+            xs={12}
+            sm={6 + (isWidget ? 6 : 0)}
+            md={6 + (isWidget ? 6 : 0)}
+            lg={5 + (isWidget ? 7 : 0)}
+            style={{ zIndex: 20 }}
+          >
             <Paper elevation={16} className={classes.loginContainer}>
               <Switch>
                 <Route path="/login/signout" component={Signout} />

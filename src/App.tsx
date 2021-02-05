@@ -86,14 +86,14 @@ class BsportWidget extends Component<Props, State> {
     this.props.fetchCompanyTheme(this.props.companyId);
   }
 
-  onWindowOpen = (iframeUrl) => {
+  onWindowOpen = (iframeUrl: string) => {
     switch (this.props.dialogMode) {
       case (DIALOG_MODE_POPUP): {
-        this.popupWindow = openTab(`${iframeUrl}context=widget`);
+        this.popupWindow = openTab(`${iframeUrl}&context=widget`);
         return
       }
       case (DIALOG_MODE_IFRAME): {
-        this.setState({ iframeUrl : `${iframeUrl}context=widget` })
+        this.setState({ iframeUrl : `${iframeUrl}&context=widget` })
         return
       }
       default: {

@@ -2820,6 +2820,10 @@
                     "error": "Es ist nicht möglich diese Terminkarte zu teilen",
                     "success": "Geteilte Terminkarten"
                 }
+            },
+            "delete": {
+                "error": "Diese Beziehung kann nicht gelöscht werden",
+                "success": "Beziehung gelöscht"
             }
         },
         "coach": {
@@ -6101,6 +6105,13 @@
                 "create": "Teile eine Terminkarte",
                 "title": "Geteilte Terminkarten"
             }
+        },
+        "relationship": {
+            "delete": {
+                "title": "Beziehung löschen",
+                "submit": "Löschen",
+                "cancel": "Abbrechen"
+            }
         }
     },
     "navigation": {
@@ -6982,7 +6993,13 @@
             "dialogTitle": "Widget-Anpassung",
             "linkToConfig": "Link zu dieser Konfiguration",
             "codeInfo": "Der Code, der in Deine Website integriert werden soll",
-            "creationPageInfo": "Passe die Widgets an und integriere es in Deine Website"
+            "creationPageInfo": "Passe die Widgets an und integriere es in Deine Website",
+            "dialogMode": {
+                "iframe": "Auf der Seite bleiben",
+                "popup": "Neues Fenster",
+                "tab": "Neuer Tab"
+            },
+            "dialogModeLabel": "Art des Popups (Login, Zahlung, Reservierung)"
         }
     },
     "marketing": {

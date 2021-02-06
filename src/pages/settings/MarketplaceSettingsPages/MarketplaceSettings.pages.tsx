@@ -104,7 +104,11 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    if (props.settings && props.settings.config) {
+    if (
+      props.settings &&
+      props.settings.config &&
+      Array.isArray(props.settings.config)
+    ) {
       const _config = [...props.settings.config];
       setConfig(_config);
     }

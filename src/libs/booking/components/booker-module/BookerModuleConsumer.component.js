@@ -270,15 +270,17 @@ export class BookerModuleConsumer extends React.PureComponent<Props> {
                   {t('bookingModule.section.paymentCombos')}
                 </Typography>
                 <Paper>
-                  {this.props.comboList.map((pc) => (
-                    <PaymentComboBuyableItem
-                      key={pc.id}
-                      paymentCombo={pc}
-                      onClick={(options) =>
-                        this.props.buyPaymentCombo(pc.id, options)
-                      }
-                    />
-                  ))}
+                  {this.props.comboList
+                    .filter((pc) => !!pc)
+                    .map((pc) => (
+                      <PaymentComboBuyableItem
+                        key={pc.id}
+                        paymentCombo={pc}
+                        onClick={(options) =>
+                          this.props.buyPaymentCombo(pc.id, options)
+                        }
+                      />
+                    ))}
                 </Paper>
               </div>
             ) : null}

@@ -2681,7 +2681,10 @@
                 "delete": "Delete"
             },
             "list": {
-                "createButton": "Create an appointment pass"
+                "createButton": "Create an appointment pass",
+                "isEmpty": "No appointment pass",
+                "availableCustomer": "Available for sale online",
+                "managerOnly": "Not available for sale"
             },
             "parameters": {
                 "nbCredits": "{{ credits }} credit",

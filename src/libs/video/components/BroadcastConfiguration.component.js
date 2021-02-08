@@ -104,49 +104,51 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
     const { t, classes } = this.props;
     return (
       <div>
-        <Paper className={classes.paperContainer}>
-          <div className={classes.inputContainer}>
-            <Switch
-              checked={this.state.theme.is_whereby_integration_enabled}
-              disabled={!this.props.theme.is_whereby_integration_allowed}
-              value={this.state.theme.is_whereby_integration_enabled}
-              onChange={(ev) => {
-                this.handleChange('is_whereby_integration_enabled')(
-                  ev.target.checked,
-                );
-              }}
-            />
-            <Typography
-              color={
-                this.props.theme.is_whereby_integration_allowed
-                  ? 'inherit'
-                  : 'textSecondary'
-              }
-            >
-              {t('broadcast.is_whereby_integration_enabled.label')}
-            </Typography>
-          </div>
-          <div className={classes.explainContainer}>
-            <Typography variant="body2">
-              {t('broadcast.explainEnabled')}
-            </Typography>
-          </div>
-          <div className={classes.explainContainer}>
-            <Typography variant="body2">
-              {t('broadcast.explainDisabled')}
-            </Typography>
-            <IconButton
-              color="primary"
-              onClick={() => {
-                window.open(
-                  'https://intercom.help/bsport-helpcenter/fr/articles/3830979',
-                );
-              }}
-            >
-              <HelpIcon />
-            </IconButton>
-          </div>
-        </Paper>
+        {!!this.props.theme.is_whereby_integration_allowed && (
+          <Paper className={classes.paperContainer}>
+            <div className={classes.inputContainer}>
+              <Switch
+                checked={this.state.theme.is_whereby_integration_enabled}
+                disabled={!this.props.theme.is_whereby_integration_allowed}
+                value={this.state.theme.is_whereby_integration_enabled}
+                onChange={(ev) => {
+                  this.handleChange('is_whereby_integration_enabled')(
+                    ev.target.checked,
+                  );
+                }}
+              />
+              <Typography
+                color={
+                  this.props.theme.is_whereby_integration_allowed
+                    ? 'inherit'
+                    : 'textSecondary'
+                }
+              >
+                {t('broadcast.is_whereby_integration_enabled.label')}
+              </Typography>
+            </div>
+            <div className={classes.explainContainer}>
+              <Typography variant="body2">
+                {t('broadcast.explainEnabled')}
+              </Typography>
+            </div>
+            <div className={classes.explainContainer}>
+              <Typography variant="body2">
+                {t('broadcast.explainDisabled')}
+              </Typography>
+              <IconButton
+                color="primary"
+                onClick={() => {
+                  window.open(
+                    'https://intercom.help/bsport-helpcenter/fr/articles/3830979',
+                  );
+                }}
+              >
+                <HelpIcon />
+              </IconButton>
+            </div>
+          </Paper>
+        )}
         <FeatureListProvider>
           {(featureList) => {
             if (Config.SENRTRY_ENVIRONMENT === 'production') return null;

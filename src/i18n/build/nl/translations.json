@@ -165,7 +165,7 @@
                     "address": "Adres",
                     "establishment_practical_info": "Toegangsinformatie",
                     "establishment": "Vestiging",
-                    "date": "Tijd/datum van de sessie",
+                    "date": "Tijd en datum van de sessie",
                     "coach": "Instructeur",
                     "activity": "Activiteit"
                 },
@@ -433,12 +433,12 @@
             "forgottenPassword": "Wachtwoord vergeten?",
             "authError": "Incorrect e-mailadres of wachtwoord",
             "password": "Wachtwoord",
-            "noAccount": "Account aanmaken",
+            "noAccount": "Ik doe mee!",
             "loginAsConsumer": "Een student",
             "loginAsPro": "Een manager",
             "choseYourUserspace": "Ik ben",
             "invalidPhone": "Onbekend telefoonnummer",
-            "signUpConsumer": "Account aanmaken",
+            "signUpConsumer": "Ik doe mee!",
             "welcome": "Welkom!"
         },
         "paginatedList": {
@@ -685,7 +685,7 @@
             "recurrence": "Frequentie",
             "offerWillBeGenerated": "sessies worden ingepland",
             "offersWillBeGenerated": "sessies worden ingepland",
-            "credit_price": "Vereist aantal kredieten voor een reservering",
+            "credit_price": "Vereiste krediet(en)",
             "generateOffers": "Sessie(s) toevoegen",
             "default_waiting_list_max_size": "Grootte van de wachtlijst",
             "password": "Wachtwoord",
@@ -703,7 +703,7 @@
                     "explainHardDelete": "Deze sessie uit de lijst verwijderen? Let op: de sessie wordt onzichtbaar en deze actie is definitief! Als de sessie reserveringen bevat, worden deze niet verwijderd.",
                     "buttonHardDelete": "Verwijderen"
                 },
-                "explainNotificationOnEdit": "Wil je je leden over deze wijziging informeren?",
+                "explainNotificationOnEdit": "Wil je de ingeschreven leden over deze wijziging(en) informeren?",
                 "explainRecursiveOfferEdit": "Wil je ALLE vergelijkbare sessies wijzigen?",
                 "explainRecursiveOfferDelete": "Wil je ALLE vergelijkbare sessies verwijderen?",
                 "broadcast_link": {
@@ -904,7 +904,7 @@
             "backToCalendar": "Kalender",
             "noConsumerPackAvailableForPurchase": "Dit lid heeft geen compatibele cursuskaart!",
             "noncompatibleConsumerPaymentPacksAre": "Je bezit de volgende cursuskaarten die niet compatibel met de sessie zijn:",
-            "noPackAvailableForOfferPurchase": "Er is geen cursuskaart compatibel met deze sessie!",
+            "noPackAvailableForOfferPurchase": "Er is (nog) geen lidmaatschap beschikbaar voor deze sessie!",
             "offersPendingDelete": "Te verwijderen sessies:",
             "offersPendingChange": "Te wijzigen sessies:",
             "sizeOfWaitingList": "Grootte van de wachtlijst",
@@ -1269,7 +1269,7 @@
             "cancelledBookings_plural": "{{nb}} geannuleerde reserveringen",
             "totalBookings": "{{nb}} reservering in totaal",
             "totalBookings_plural": "{{nb}} reserveringen in totaal",
-            "offerFilteredBookingRecap": "Sessie op: {{date}}",
+            "offerFilteredBookingRecap": "Sessie van {{date}}",
             "weekOverview": "Weekoverzicht"
         },
         "show_cancelled_offers": "Toon de geannuleerde sessies",
@@ -1458,7 +1458,7 @@
         },
         "actions": {
             "signin": "Aanmelden",
-            "signup": "Account aanmaken",
+            "signup": "Ik doe mee!",
             "forgottenPassword": "Wachtwoord vergeten?"
         },
         "error": {
@@ -2921,7 +2921,7 @@
             "showMonth": "Maandoverzicht"
         },
         "liveOfferEdit": {
-            "editSimilarOffers": "Wil je alle vergelijkbare sessies aanpassen aan deze nieuwe voorwaarden?",
+            "editSimilarOffers": "Wil je dat alle toekomstige sessies aan deze nieuwe voorwaarden voldoen?",
             "unselectAll": "Deselecteer alles",
             "selectAll": "Alles selecteren",
             "select": "Selecteer de te wijzigen sessies",
@@ -2986,7 +2986,7 @@
             "myNotes": "Mijn notities",
             "is_medical": "Essentiële notitie",
             "noNoteSaved": "Geen notities opgeslagen",
-            "healthNotes": "Basisinformatie"
+            "healthNotes": "Belangrijke informatie"
         },
         "file": {
             "submit": "Toevoegen",
@@ -3377,7 +3377,7 @@
             "startIn": "Begint in "
         },
         "addMember": {
-            "button": "Account aanmaken"
+            "button": "Een account aanmaken"
         },
         "filter": {
             "establishment": "Filter op vestiging"
@@ -3410,7 +3410,7 @@
             "activateBarcode": "Streepjescode detector",
             "isFull": "Vol",
             "actions": {
-                "createAccount": "Account aanmaken",
+                "createAccount": "Een account aanmaken",
                 "restartAnalyze": "Herstarten",
                 "close": "Sluiten"
             },
@@ -6739,19 +6739,19 @@
         "form": {
             "dumb_delay_minutes": {
                 "label": "Eenvoudig beheer",
-                "helper": "Als er een plaats vrijkomt, heeft de cursist N minuten om zich te registreren, voordat de volgende plaats inneemt."
+                "helper": "Een lid heeft N minuten om zich in te schrijven voordat zijn/haar plaats vergaat."
             },
             "smart_delay_percentage": {
                 "label": "Intelligent beheer",
-                "helper": "Als er een plaats vrijkomt, heeft het lid de tijd die evenredig is met de resterende tijd voor de sessie om zich in te schrijven."
+                "helper": "Een lid heeft een N aantal minuten dat gelijk staat aan X percentage van de resterende tijd voor het begin van de sessie."
             },
             "submit": "Opslaan",
             "auto_cancellation_type": {
                 "title": "Wachtlijstbeheer"
             },
             "auto_consume_pack": {
-                "helper": "Als een lid een geldige cursuskaart heeft wanneer er een plaats vrijkomt, wordt het lid automatisch ingeschreven en zijn/haar cursuskaart automatisch belast. De cursuskaart die het eerst vervalt en het minste krediet heeft wordt eerst belast.",
-                "label": "Belast automatisch een cursuskaart en meld het lid aan wanneer er een plaats vrij komt."
+                "helper": "Een lid wordt direct ingeschreven zodra er een plaats vrijkomt indien hij/zij een geldig lidmaatschap bezit. Het systeem belast automatisch het lidmaatschap dat als eerste vervalt en het minste krediet heeft.",
+                "label": "Direct het lidmaatschap van een lid belasten zodra er een plaats vrij komt."
             },
             "is_option_blocking": {
                 "helper": "Zolang een lid op de wachtlijst staat, wordt een plaats voor hem/haar gereserveerd tot hij/zij zich aanmeldt.",
@@ -6762,13 +6762,13 @@
                 "label": "Automatische afmelding van de wachtlijst"
             },
             "dynamic": {
-                "label": "Beheer van wachtlijstprioriteit",
+                "label": "Beheer hier je wachtlijsten",
                 "1": {
                     "explain": "De wachtlijst is niet gesorteerd. Wanneer er een plaats beschikbaar is, ontvangen alle wachtenden tegelijk een e-mail met een uitnodiging om zich aan te melden voor de beschikbare plaats.",
                     "label": "Wie het eerst komt, het eerst maalt"
                 },
                 "0": {
-                    "explain": "Als een lid zich aanmeldt, krijgt hij/zij een plaats op de wachtlijst. Wanneer een plaats beschikbaar komt, wordt de eerste op de wachtlijst hiervan geïnformeerd. De anderen wachten op hun beurt",
+                    "explain": "Als een lid zich aanmeldt, krijgt hij/zij een plaats op de wachtlijst. Wanneer er een plaats vrij komt, wordt de eerste op de wachtlijst hiervan geïnformeerd. De anderen wachten op hun beurt",
                     "settingsDelay": "Deadline om aan te melden",
                     "label": "Eén voor één"
                 }

@@ -2711,7 +2711,9 @@
             "payment_method_ideal": "iDeal",
             "payment_method_bancontact": "Bancontact",
             "payment_method_sofort": "Sofort",
-            "payment_method_eps": "EPS"
+            "payment_method_eps": "EPS",
+            "stock_at_start": "Provisión al inicio del periodo",
+            "stock_at_end": "Provisión al final del periodo"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -3891,7 +3893,10 @@
                 "nbCredits": "{{ credits }} crédito"
             },
             "list": {
-                "createButton": "Crear una tarjeta de cita"
+                "createButton": "Crear una tarjeta de cita",
+                "isEmpty": "No hay tarjeta de cita",
+                "availableCustomer": "Disponible para la venta en línea",
+                "managerOnly": "No disponible para la venta"
             },
             "validForDuration": {
                 "general": "Válido {{ duration_days }} días {{ duration_months }} meses y {{ duration_years }} año",
@@ -5403,6 +5408,10 @@
                     "error": "No puede compartir esta tarjeta de cita",
                     "success": "Tarjeta de cita compartida"
                 }
+            },
+            "delete": {
+                "error": "Imposible eliminar la relación",
+                "success": "Relación eliminada"
             }
         },
         "coach": {
@@ -6843,7 +6852,10 @@
         },
         "relationship": {
             "delete": {
-                "submit": "Suprimir"
+                "submit": "Suprimir",
+                "content": "Está seguro de que desea eliminar esta relación? Esta operación es definitiva, los pases compartidos actuales ya no serán compartidos.",
+                "cancel": "Cancelar",
+                "title": "Eliminar la relación"
             }
         }
     },
@@ -6979,7 +6991,13 @@
             "dialogTitle": "Personalización del widget",
             "linkToConfig": "Enlace para esta configuración",
             "codeInfo": "Integre este código en su sitio web",
-            "creationPageInfo": "Personalice los widgets e intégrelos en su sitio web"
+            "creationPageInfo": "Personalice los widgets e intégrelos en su sitio web",
+            "dialogMode": {
+                "tab": "Nueva pestaña",
+                "popup": "Nueva ventana",
+                "iframe": "Permanecer en la web"
+            },
+            "dialogModeLabel": "Tipo de popup (inicio de sesión, pago, reservas)"
         }
     },
     "platformBilling": {

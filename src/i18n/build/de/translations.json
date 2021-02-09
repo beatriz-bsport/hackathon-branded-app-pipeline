@@ -134,7 +134,7 @@
             "description": "Beschreibung",
             "registerManager": {
                 "title": "Periodische Zahlung",
-                "explainCustomSubscriptionForm": "Nein, ich möchte ein personalisiertes Abonnement festlegen",
+                "explainCustomSubscriptionForm": "Personalisiertes Abonnement festlegen",
                 "actions": {
                     "cancel": "Abbrechen"
                 },
@@ -314,7 +314,7 @@
         },
         "form": {
             "cancel": "Abbrechen",
-            "check": "Überprüfen",
+            "check": "Bestätigen",
             "submit": "In Rechnung stellen",
             "title": "Neue periodische Zahlung",
             "note": {
@@ -4777,7 +4777,10 @@
                 "add": "Hinzufügen"
             },
             "list": {
-                "createButton": "Eine Terminkarte erstellen"
+                "createButton": "Eine Terminkarte erstellen",
+                "isEmpty": "Keine Terminkarte",
+                "availableCustomer": "Auf dem Marketplace verfügbar",
+                "managerOnly": "Nicht zum Verkauf verfügbar"
             },
             "validForDuration": {
                 "general": "Gültig für {{ duration_days }} Tage, {{ duration_months }} Monat(e) und {{ duration_years }} Jahr(e)",
@@ -6110,7 +6113,8 @@
             "delete": {
                 "title": "Beziehung löschen",
                 "submit": "Löschen",
-                "cancel": "Abbrechen"
+                "cancel": "Abbrechen",
+                "content": "Bitte beachte, dass diese Aktion unwiderruflich ist. Freigegebene Karten werden nicht mehr freigegeben."
             }
         }
     },

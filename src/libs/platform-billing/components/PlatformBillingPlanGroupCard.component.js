@@ -78,7 +78,7 @@ const PlatformBillingPlanCard = (props: {
         )}
       </div>
 
-      {!!platformBillingPlan.max_coach && (
+      {false && !!platformBillingPlan.max_coach && (
         <div className={classes.planMaxRow}>
           <div className={classes.planRowLeft}>
             <PersonIcon fontSize="large" className={classes.iconLeft} />
@@ -93,7 +93,7 @@ const PlatformBillingPlanCard = (props: {
           </Tooltip>
         </div>
       )}
-      {!!platformBillingPlan.max_establishment && (
+      {false && !!platformBillingPlan.max_establishment && (
         <div className={classes.planMaxRow}>
           <LocationOnIcon fontSize="large" className={classes.iconLeft} />
           <Typography>

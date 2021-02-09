@@ -13,19 +13,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
 import themeSelectors from '../../libs/theme/selectors';
-import { snackbarSuccess } from '../../actions/snackbar.actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -34,36 +27,25 @@ import {
   getPrivatePassCustomerEnabled,
   getDisabledPrivatePassAvailableListWithPrivateService,
 } from '../../libs/private-service/selectors/private-pass';
-import { getPrivateServices } from '../../libs/private-service/selectors/private-service';
 import {
   fetchPrivatePassList,
   fetchAllPrivateServices,
   createOrUpdatePrivatePass,
-  deleteCompatibleServicePass,
-  createCompatibleServicePass,
   deletePrivatePass,
   restorePrivatePass,
 } from '../../libs/private-service/actions';
 import PrivatePassListItem from '../../libs/private-service/components/pass/PrivatePassListItem.component';
-import PrivatePassDetail from '../../libs/private-service/components/pass/PrivatePassDetail.component';
 import PrivatePassForm from '../../libs/private-service/components/pass/PrivatePassForm.component';
-import type {
-  PrivatePass,
-  PrivateService,
-} from '../../libs/private-service/types';
+import type { PrivatePass } from '../../libs/private-service/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 type Props = {
   loading: boolean,
   fetchPrivatePassList: () => void,
   fetchAllPrivateServices: () => void,
-  privatePassList: Array<PrivatePass>,
+  privatePassListCustomerEnabled: Array<PrivatePass>,
+  privatePassListManagerOnly: Array<PrivatePass>,
   disabledPrivatePassList: Array<PrivatePass>,
-  private_services: Array<PrivateService>,
-  theme: Theme,
-  selectedPassId: number,
-  deleteCompatibleServicePass: (id: number) => void,
-  createCompatibleServicePass: (any) => void,
   openCreateForm: boolean,
   setOpenCreateForm: (boolean) => void,
   createOrUpdatePrivatePass: (
@@ -80,7 +62,6 @@ type Props = {
   setShowDisabled: (show: boolean) => void,
   deletePrivatePass: (id: number) => void,
   restorePrivatePass: (id: number) => void,
-  snackbarSuccess: (string) => void,
   goToPass: (id: number) => void,
 };
 
@@ -300,7 +281,6 @@ export default compose(
       disabledPrivatePassList: getDisabledPrivatePassAvailableListWithPrivateService(
         state,
       ),
-      private_services: getPrivateServices(state),
       loading: state.privateService.privatePass.loading,
       theme: themeSelectors.getTheme(state),
     }),
@@ -309,15 +289,11 @@ export default compose(
       fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
       goToPass: (id: number) => pushRouter(`/private-service/pass/${id}`),
       createOrUpdatePrivatePass,
-      createCompatibleServicePass,
-      deleteCompatibleServicePass,
       deletePrivatePass,
       restorePrivatePass,
-      snackbarSuccess,
     },
   ),
   withState('openCreateForm', 'setOpenCreateForm', false),
-  withState('selectedPassId', 'setSelectedPass', null),
   withState('openDeletePassDialog', 'setOpenDeletePassDialog', null),
   withState('showDisabled', 'setShowDisabled', false),
 )(PrivatePassList);

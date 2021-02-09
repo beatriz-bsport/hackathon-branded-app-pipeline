@@ -1046,7 +1046,7 @@
         "nbOffers": "Sesiones",
         "pageTitle": "Tablero de mando",
         "turnover": {
-            "caption": "Ingresos (€)",
+            "caption": "Ingresos",
             "popover": "Suma de todos los pagos recibidos que figuran en las facturas",
             "title": "Volumen de negocios"
         },
@@ -1087,7 +1087,7 @@
             "migration": "Migración de datos"
         },
         "plannedPayment": {
-            "caption": "Ingresos (€)",
+            "caption": "Ingresos",
             "popover": "Suma de todos los pagos recibidos en relación con las suscripciones",
             "title": "Recibos de suscripción"
         },
@@ -2048,7 +2048,7 @@
                 "debt": "Desembolso",
                 "explainTopup": "Se registrará un aumento de {{ amount }} € en el saldo del miembro.",
                 "title": "Ajuste del balance",
-                "explainDecaissement": "Se registrará un desembolso de {{ amount }} €.",
+                "explainDecaissement": "Se registrará un desembolso de {{ amount }}  {{ currencyDisplay }}",
                 "balanceValueLabel": "Cantidad",
                 "typeLabel": "Tipo de ajuste"
             }
@@ -3887,7 +3887,7 @@
             "parameters": {
                 "managerOnly": "Invisible para los clientes",
                 "tax": "IVA: {{ tax }}%",
-                "price": "{{ price}} €",
+                "price": "{{ price, price}}",
                 "nbCredits": "{{ credits }} crédito"
             },
             "list": {
@@ -4038,7 +4038,7 @@
             "notifyMember": {
                 "label": "Envía un email de confirmación"
             },
-            "buyPass": "{{ price }} €",
+            "buyPass": "{{ price, price }}",
             "private_pass": {
                 "credits": "{{ credits }} crédito"
             },
@@ -5548,7 +5548,7 @@
             "pleaseSelectAPack": "Selecciona una tarjeta para ver el detalle",
             "trackModifiedCreditTitle": "Historial de creditos modificados",
             "penaltyBlock": "Tarjeta bloqueada durante {{nb_days}} días",
-            "penaltyAccount": "Facturación adicional de {{account_value}}€",
+            "penaltyAccount": "Facturación adicional de {{account_value}} {{currencyDisplay }}",
             "penaltyTitle": "Penalizaciones aplicadas"
         },
         "form": {
@@ -6409,7 +6409,7 @@
             },
             "14": {
                 "third": "y el",
-                "second": "€ entre el",
+                "second": "{{currencyDisplay }} entre el",
                 "selector": "Elegir los productos",
                 "fourth": "para los productos",
                 "first": "Ha gastado",
@@ -6437,7 +6437,7 @@
                 "date": {
                     "first": "compras realizadas"
                 },
-                "second": "€ para los productos",
+                "second": "{{currencyDisplay }} para los productos",
                 "first": "Ha gastado",
                 "name": "Gastos",
                 "workshop": "Tarjeta de curso especial taller",
@@ -6516,7 +6516,7 @@
                     "first": "Cesta abandonada"
                 },
                 "between": "y",
-                "third": "euros",
+                "third": "{{currencyDisplay }}",
                 "second": "a",
                 "name": "Cestas abandonadas"
             },
@@ -6566,8 +6566,8 @@
             },
             "1": {
                 "between": "y",
-                "explanation": "Tiene X euros en su cuenta",
-                "third": "euros",
+                "explanation": "Tiene X {{currencyDisplay }} en su cuenta",
+                "third": "{{currencyDisplay }}",
                 "second": " a   ",
                 "first": "El saldo del miembro es (factura no pagada no incluida)",
                 "name": "Deuda"
@@ -6840,6 +6840,11 @@
                 "create": "Compartir una tarjeta de cita",
                 "title": "Pase de cita compartido"
             }
+        },
+        "relationship": {
+            "delete": {
+                "submit": "Suprimir"
+            }
         }
     },
     "event": {
@@ -6980,15 +6985,15 @@
     "platformBilling": {
         "upsellPackage": {
             "vod": {
-                "explainBilling": "  +1€ /cliente activo"
+                "explainBilling": "  +1 {{currencyDisplay }}  /cliente activo"
             },
-            "billRecurrent": "{{price_cts }} € / mes",
-            "billOnce": "{{price_cts }} €",
+            "billRecurrent": "{{price_cts, price }}  / mes",
+            "billOnce": "{{price_cts, price }}",
             "otherAddonTitle": "Complementos disponibles",
             "myAddonTitle": "Mis complementos",
             "knowMore": "Más información",
             "sms": {
-                "explainBilling": "{{price_cts }} € / SMS"
+                "explainBilling": "{{ price_cts, price }} / SMS"
             }
         },
         "featureRequest": {
@@ -6998,7 +7003,7 @@
         },
         "platformBillingStage": {
             "maxBooking": "Hasta {{ max_booking_per_month }} reservas / mes",
-            "monthlyPrice": "{{ price }} € / mes"
+            "monthlyPrice": "{{ price, price }}  / mes"
         },
         "platformBillingPlan": {
             "max_establishment": {

@@ -1468,7 +1468,7 @@
         },
         "doubleLogin": {
             "explain": "Heb je je tegelijkertijd met twee verschillende accounts aangemeld en weet je zeker dat je je ook in andere tabbladen/vensters hebt uitgelogd?",
-            "disconnect": "Opnieuw verbinden"
+            "disconnect": "Opnieuw inloggen"
         },
         "signup": {
             "title": "Inschrijving"
@@ -1858,7 +1858,7 @@
                     "cancel": "Annuleren"
                 },
                 "warning": "Let op, deze bewerking is onomkeerbaar (genereren van factuur).",
-                "explain": "Kies eerst het aantal kredieten dat terug moet worden betaald en kies daarna ook de totale waarde dat bijgeschreven moet worden bij het lid",
+                "explain": "Selecteer eerst het aantal kredieten dat moet worden terugbetaald en selecteer vervolgens ook de totale waarde dat moet worden bijgeschreven",
                 "credits": {
                     "label": "Af te trekken krediet"
                 },
@@ -1872,12 +1872,12 @@
                 },
                 "title": "Terugbetaling",
                 "warningSecond": "Als je het lid wenst te vergoeden via een bankoverschrijving met de gebruikte betaalmethode, annuleer dan de factuur en betaal hem/haar niet in krediet terug!",
-                "warningFirst": "Waarschuwing! Deze actie is definitief (opstellen van een factuur).",
+                "warningFirst": "Waarschuwing! Deze actie is definitief. (Maakt een factuur aan)",
                 "blockUnlimited": "Cursuskaart blokkeren"
             },
             "details": {
                 "actions": {
-                    "refund": "Terugbetaling",
+                    "refund": "Omzetten in kredieten",
                     "applyVoucher": "Korting toepassing"
                 }
             }
@@ -3935,8 +3935,8 @@
                 "cancel": "Annuleren"
             },
             "upload": {
-                "title": "Upload een video",
-                "dropHere": "Sleep een video hiernaartoe of klik hier om door uw computer te bladeren",
+                "title": "Een video uploaden",
+                "dropHere": "Sleep een video hiernaartoe of klik hier om door je bestanden te bladeren",
                 "cancel": "Annuleren",
                 "content": "Upload of selecteer een video"
             },
@@ -6448,7 +6448,7 @@
     "invoice": {
         "returnPayment": {
             "modal": {
-                "title": "Terugbetaling lid",
+                "title": "Terugbetaling aan lid",
                 "content": "De betaling wordt overgemaakt naar de bankrekening van het lid. Het krediet wordt op de factuur toegevoegd om de terugbetaling weer te geven.",
                 "cancel": "Annuleren",
                 "confirm": "Terugbetalen"

@@ -4472,7 +4472,7 @@
             "configuration": {
                 "explainSetToHasOwnAvailabilitySlots": "Nur auf bestimmten Slots buchbar",
                 "explainSetToHasNotOwnAvailabilitySlots": "Für jeden Slot buchbar, falls der Lehrer oder der Raum verfügbar sind",
-                "slot": "Kurs-Einstellungen",
+                "slot": "Terminart",
                 "changeIsAlwaysAvailable": "Ändern",
                 "isAlwaysAvailable": "{{ resourceName}} kann man buchen, sobald die Lehrer und/oder der Raum verfügbar sind",
                 "hasFutureSlot": "Verfügbarkeitskalender OK",
@@ -4514,7 +4514,7 @@
                     "helperText": "Für jede Buchung wird eine Adresse verlangt",
                     "label": "Zu Hause"
                 },
-                "addSlot": "Kurs-Einstellungen hinzufügen",
+                "addSlot": "Termin-Einstellungen hinzufügen",
                 "addEstablishment": "Ein Raum hinzufügen",
                 "addCoach": "Ein Lehrer hinzufügen",
                 "title": "Termin",
@@ -4577,8 +4577,8 @@
             },
             "parameters": {
                 "slots": {
-                    "isEmpty": "Keine festgelegten Kurs-Einstellungen hinterlegt",
-                    "explainIsEmpty": "Lege die Kurs-Einstellungen fest (Dauer, Kosten)",
+                    "isEmpty": "Keine festgelegten Termin-Einstellungen hinterlegt",
+                    "explainIsEmpty": "Lege die Termin-Einstellungen fest (Dauer, Kosten)",
                     "title": "Kurs"
                 },
                 "description": "Beschreibung",

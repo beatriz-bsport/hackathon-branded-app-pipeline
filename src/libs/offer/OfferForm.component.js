@@ -19,6 +19,7 @@ import { withTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 import EstablishmentSelector from '../establishment/components/EstablishmentSelectorWithCard.component';
 import CoachSelector from '../associated-coach/components/CoachSelectorWithCard.component';
+import FeatureListProvider from '../company/hocs/feature-list-provider.hoc';
 
 import FormField, {
   NOT_RECURRENT,
@@ -297,38 +298,54 @@ export class OfferForm extends Component<Props, State> {
             placeholder={t('coach:search')}
           />
         </Grid>
-        {this.props.metaActivity &&
-        this.props.metaActivity.is_broadcast &&
-        !this.props.is_whereby_integration_enabled
-          ? (() => {
-              const hasError =
-                this.state.broadcast_link &&
-                !this.state.broadcast_link.startsWith('https://') &&
-                !this.state.broadcast_link.startsWith('http://');
-              return (
-                <Grid item>
-                  <TextField
-                    variant="outlined"
-                    value={this.state.broadcast_link}
-                    label={this.props.t('offer.broadcast_link')}
-                    placeholder="https://zoom.us/123456789"
-                    error={hasError}
-                    onChange={(event) => {
-                      this.onFormFieldChange('broadcast_link')(
-                        event.target.value,
-                      );
-                    }}
-                    helperText={
-                      hasError
-                        ? this.props.t('form.offer.broadcast_link.error')
-                        : null
-                    }
-                    fullWidth
-                  />
-                </Grid>
-              );
-            })()
-          : null}
+        <FeatureListProvider>
+          {(featureList) => {
+            const hasZoomApp = !!featureList.upsell.find(
+              (f) => f.readable_identifier === 'zoom',
+            );
+            if (
+              this.props.metaActivity &&
+              this.props.metaActivity.is_broadcast &&
+              !this.props.is_whereby_integration_enabled
+            ) {
+              return (() => {
+                const hasError =
+                  this.state.broadcast_link &&
+                  !this.state.broadcast_link.startsWith('https://') &&
+                  !this.state.broadcast_link.startsWith('http://');
+                return (
+                  <Grid item>
+                    <TextField
+                      variant="outlined"
+                      value={this.state.broadcast_link}
+                      label={this.props.t('offer.broadcast_link')}
+                      placeholder="https://zoom.us/123456789"
+                      disabled={hasZoomApp}
+                      error={hasError}
+                      onChange={(event) => {
+                        this.onFormFieldChange('broadcast_link')(
+                          event.target.value,
+                        );
+                      }}
+                      helperText={
+                        // eslint-disable-next-line
+                          hasZoomApp
+                          ? this.props.t(
+                              'form.offer.broadcast_link.explainZoomApp',
+                            )
+                          : hasError
+                          ? this.props.t('form.offer.broadcast_link.error')
+                          : null
+                      }
+                      fullWidth
+                    />
+                  </Grid>
+                );
+              })();
+            }
+            return null;
+          }}
+        </FeatureListProvider>
       </Grid>
     );
   };

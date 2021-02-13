@@ -25,6 +25,7 @@ import LevelInput from '../../components/input/LevelInput.component';
 import DateTimeInput from '../../components/input/DateTimeInput.component';
 
 import MetaActivitySelector from '../meta-activity/components/MetaActivitySelector.component';
+import FeatureListProvider from '../company/hocs/feature-list-provider.hoc';
 
 type Props = {
   processing: boolean,
@@ -577,39 +578,57 @@ export class EditLiveOfferForm extends Component<Props, State> {
             />
           </div>
         </div>
-        {this.props.offer &&
-        this.props.offer.meta_activity &&
-        this.props.offer.meta_activity.is_broadcast &&
-        !this.props.is_whereby_integration_enabled ? (
-          <div className={this.props.classes.fieldGroup}>
-            {(() => {
-              const hasError =
-                this.state.broadcast_link &&
-                !this.state.broadcast_link.startsWith('https://') &&
-                !this.state.broadcast_link.startsWith('http://');
+        <FeatureListProvider>
+          {(featureList) => {
+            const hasZoomApp = !!featureList.upsell.find(
+              (f) => f.readable_identifier === 'zoom',
+            );
+            if (
+              this.props.offer &&
+              this.props.offer.meta_activity &&
+              this.props.offer.meta_activity.is_broadcast &&
+              !this.props.is_whereby_integration_enabled
+            ) {
               return (
-                <TextField
-                  variant="outlined"
-                  error={hasError}
-                  value={this.state.broadcast_link}
-                  label={this.props.t('offer.broadcast_link')}
-                  helperText={
-                    hasError
-                      ? this.props.t('form.offer.broadcast_link.error')
-                      : null
-                  }
-                  placeholder="https://zoom.us/123456789"
-                  onChange={(event) => {
-                    this.onFormFieldChange('broadcast_link')(
-                      event.target.value,
+                <div className={this.props.classes.fieldGroup}>
+                  {(() => {
+                    const hasError =
+                      this.state.broadcast_link &&
+                      !this.state.broadcast_link.startsWith('https://') &&
+                      !this.state.broadcast_link.startsWith('http://');
+                    return (
+                      <TextField
+                        variant="outlined"
+                        error={hasError}
+                        value={this.state.broadcast_link}
+                        label={this.props.t('offer.broadcast_link')}
+                        disabled={hasZoomApp}
+                        helperText={
+                          // eslint-disable-next-line
+                          hasZoomApp
+                            ? this.props.t(
+                                'form.offer.broadcast_link.explainZoomApp',
+                              )
+                            : hasError
+                            ? this.props.t('form.offer.broadcast_link.error')
+                            : null
+                        }
+                        placeholder="https://zoom.us/123456789"
+                        onChange={(event) => {
+                          this.onFormFieldChange('broadcast_link')(
+                            event.target.value,
+                          );
+                        }}
+                        fullWidth
+                      />
                     );
-                  }}
-                  fullWidth
-                />
+                  })()}
+                </div>
               );
-            })()}
-          </div>
-        ) : null}
+            }
+            return null;
+          }}
+        </FeatureListProvider>
         <div className={this.props.classes.fieldGroup}>
           <div className={this.props.classes.field}>
             <NotificationToogle

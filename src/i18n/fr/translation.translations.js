@@ -408,6 +408,8 @@ exports.default = {
       changeCoach: 'Modifier le professeur',
       changeEstablishment: 'Modifier le lieu',
       broadcast_link: {
+        explainZoomApp:
+          'Le lien sera généré automatiquement pour ZOOM par bsport',
         error:
           "Le lien est erroné. Il doit commencer par http:// ou https:// et ne pas contenir d'espacement",
       },

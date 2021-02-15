@@ -8,7 +8,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { INVOICE_TYPE_MIGRATION } from '@bsport/common/lib/master-data/invoice-type';
 import Tooltip from '../../../components/Tooltip.component';
@@ -138,54 +137,48 @@ export const InvoiceContent = (props: Props) => {
           </div>
         )}
       </Paper>
-      {!!props.invoice &&
-        props.invoice.invoice_type === INVOICE_TYPE_MIGRATION && (
-          <div className={classes.explainMigration}>
-            <InfoOutlinedIcon className={classes.iconLeft} />
-            <Typography color="textSecondary">
-              {t('actions.explainMigrationInvoice')}
-            </Typography>
+      {!!props.finalizeInvoice &&
+        props.invoice.invoice_type !== INVOICE_TYPE_MIGRATION && (
+          <div className={classes.buttonRow}>
+            <Tooltip
+              title={
+                props.invoice.is_draft
+                  ? `${t('actions.explainPdfDraft')}`
+                  : undefined
+              }
+              aria-label="pdf-not-available"
+            >
+              <Button
+                onClick={() => {
+                  if (!props.invoice.is_draft) {
+                    if (props.invoice.stripe_invoice_pdf) {
+                      window.open(props.invoice.stripe_invoice_pdf);
+                    } else {
+                      props.finalizeInvoice();
+                    }
+                  }
+                }}
+                color={props.invoice.is_draft ? undefined : 'primary'}
+                variant="contained"
+              >
+                <AttachFileIcon className={classes.iconLeft} />
+                {t('actions.download')}
+              </Button>
+            </Tooltip>
+            {!!props.invoice.plannedinvoice && (
+              <Button
+                onClick={() =>
+                  props.goToSubscription(props.invoice.billing_plan)
+                }
+                color="primary"
+                variant="outlined"
+              >
+                {t('actions.goToSubscription')}
+                <ArrowForwardIcon className={classes.rightIcon} />
+              </Button>
+            )}
           </div>
         )}
-      {!!props.finalizeInvoice && (
-        <div className={classes.buttonRow}>
-          <Tooltip
-            title={
-              props.invoice.is_draft
-                ? `${t('actions.explainPdfDraft')}`
-                : undefined
-            }
-            aria-label="pdf-not-available"
-          >
-            <Button
-              onClick={() => {
-                if (!props.invoice.is_draft) {
-                  if (props.invoice.stripe_invoice_pdf) {
-                    window.open(props.invoice.stripe_invoice_pdf);
-                  } else {
-                    props.finalizeInvoice();
-                  }
-                }
-              }}
-              color={props.invoice.is_draft ? undefined : 'primary'}
-              variant="contained"
-            >
-              <AttachFileIcon className={classes.iconLeft} />
-              {t('actions.download')}
-            </Button>
-          </Tooltip>
-          {!!props.invoice.plannedinvoice && (
-            <Button
-              onClick={() => props.goToSubscription(props.invoice.billing_plan)}
-              color="primary"
-              variant="outlined"
-            >
-              {t('actions.goToSubscription')}
-              <ArrowForwardIcon className={classes.rightIcon} />
-            </Button>
-          )}
-        </div>
-      )}
     </div>
   );
 };

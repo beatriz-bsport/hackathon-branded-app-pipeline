@@ -316,7 +316,10 @@
         "changeDate": "Modifier l'horaire / date",
         "changeCoach": "Modifier le professeur",
         "changeEstablishment": "Modifier le lieu",
-        "broadcast_link": { "error": "Le lien est erroné. Il doit commencer par http:// ou https:// et ne pas contenir d'espacement" },
+        "broadcast_link": {
+          "explainZoomApp": "Le lien sera généré automatiquement pour ZOOM par bsport",
+          "error": "Le lien est erroné. Il doit commencer par http:// ou https:// et ne pas contenir d'espacement"
+        },
         "explainRecursiveOfferDelete": "Voulez-vous supprimer TOUTES les séances similaires ?",
         "explainRecursiveOfferEdit": "Voulez-vous modifier TOUTES les séances similaires selon ces nouvelles conditions ?",
         "explainNotificationOnEdit": "Voulez-vous informer vos clients de cette modification ?",

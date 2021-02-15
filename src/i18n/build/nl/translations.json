@@ -363,7 +363,7 @@
         "offerManagement": {
             "forms": {
                 "register": {
-                    "forceNotify": "Stuur een bevestigingsmail",
+                    "forceNotify": "Bevestigingsmail versturen",
                     "passCompatibleNotOwnedByMember": "Een nieuwe cursuskaart factureren",
                     "passOwnedByMember": "Cursuskaart(en) die het lid bezit",
                     "registerToOffer": "Voor de sessie aanmelden",
@@ -707,7 +707,8 @@
                 "explainRecursiveOfferEdit": "Wil je ALLE vergelijkbare sessies wijzigen?",
                 "explainRecursiveOfferDelete": "Wil je ALLE vergelijkbare sessies verwijderen?",
                 "broadcast_link": {
-                    "error": "De link is verkeerd. Het moet beginnen met http:// of https:// en mag geen spaties bevatten"
+                    "error": "De link is verkeerd. Het moet beginnen met http:// of https:// en mag geen spaties bevatten",
+                    "explainZoomApp": "De link wordt automatisch door BSPORT via Zoom gemaakt."
                 },
                 "changeEstablishment": "Wijzig de vestiging",
                 "changeCoach": "Instructeur bewerken",
@@ -1473,7 +1474,7 @@
         "signup": {
             "title": "Inschrijving"
         },
-        "contactUs": "Bent u de eigenaar of manager van een studio en bent u geïnteresseerd in onze oplossing? Contacteer ons en plan een vrijblijvende demo in.",
+        "contactUs": "Contacteer ons en ontdek hoe we uw studio kunnen ondersteunen.",
         "or": " of ",
         "country": {
             "ES": "Spanje",
@@ -1508,9 +1509,9 @@
                     "label": "E-mail"
                 },
                 "name": {
-                    "helperText": "Deze naam is zichtbaar voor leden",
+                    "helperText": "Dit is de naam die je leden zullen zien",
                     "placeholder": "Yoga Shala",
-                    "label": "Naam van je studio/club/bedrijf"
+                    "label": "Naam van je studio/bedrijf/club"
                 },
                 "title": "Mijn informatie",
                 "timezone": {
@@ -1524,13 +1525,13 @@
             }
         },
         "emailValidation": {
-            "disconnect": "Van account veranderen",
+            "disconnect": "Account veranderen",
             "goToLogin": "Terug",
             "linkExpired": "Je validatielink is verlopen",
             "hasSentAgain": "E-mail verzonden",
-            "sendAgain": "Stuur bevestigingsmail opnieuw",
+            "sendAgain": "Bevestigingsmail opnieuw versturen",
             "success": "Je e-mail is gevalideerd! Je wordt binnen enkele seconden doorverwezen.",
-            "explain": "We hebben je een bevestigingsmail gestuurd, je bent er bijna!"
+            "explain": "We hebben je een bevestigingsmail gestuurd. We zijn er bijna!"
         },
         "language": {
             "es": "Spaans",
@@ -3329,7 +3330,7 @@
             },
             "blockedBookings": "Je leden kunnen zich tot {{days}} dagen voor het begin van deze activiteit inschrijven. We raden je aan om herhalende reserveringen voor lange(re) tijden toe te staan om overboekingen te voorkomen.",
             "notifyIfCanceled": "Stuur een annuleringsmail",
-            "notify": "Stuur een bevestigingsmail wanneer een lid zich inschrijft",
+            "notify": "Een bevestigingsmail versturen wanneer een lid zich registreert",
             "showLess": "Toon minder",
             "showMore": "Toon meer ({{count}})"
         },
@@ -4196,7 +4197,7 @@
                 "cancel": "Annuleren",
                 "confirm": "Bevestigen"
             },
-            "duration": "{{ minutes }} minuten"
+            "duration": "{{ minutes }} min"
         },
         "privateBooking": {
             "managerAdd": {
@@ -4903,7 +4904,7 @@
             },
             "form": {
                 "title": "Periodieke reservering inplannen",
-                "notify_member": "Stuur een bevestigingsmail wanneer iemand zich registreert",
+                "notify_member": "Een bevestigingsmail versturen wanneer iemand zich registreert",
                 "timeGroup": "Datum van de sessie",
                 "configuration": "Reserveringen"
             },

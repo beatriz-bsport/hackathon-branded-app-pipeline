@@ -29,6 +29,7 @@ exports.default = {
     },
     title: 'Mon panier',
     isEmpty: 'Votre panier est vide',
+    isFinalized: 'Votre panier a été validé',
     featured: 'Nous vous recommandons',
     error: {
       invalidBasket:

@@ -16,7 +16,7 @@ export const themeUpdate = {
   isLoading: createAction('THEME/UPDATE/IS_LOADING'),
 };
 
-export function fetchCompanyTheme(companyId?: number) {
+export function fetchCompanyTheme(companyId?: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(themeDetail.isLoading(true));
     dispatch(themeDetail.error(null));
@@ -27,10 +27,16 @@ export function fetchCompanyTheme(companyId?: number) {
       moment.tz.setDefault(theme.timezone_name);
       dispatch(themeDetail.success(theme));
       dispatch(themeDetail.isLoading(false));
+      if (options && options.onSuccess) {
+        options.onSuccess(theme)
+      }
     } catch (err) {
       console.error(err);
       dispatch(themeDetail.error(err));
       dispatch(themeDetail.isLoading(false));
+      if (options && options.onError) {
+        options.onError(err)
+      }
     }
   };
 }

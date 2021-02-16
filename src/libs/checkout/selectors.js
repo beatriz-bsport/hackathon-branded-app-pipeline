@@ -15,6 +15,10 @@ export const getCheckoutState = (state: State): CheckoutState => state.checkout;
 export const getCurrentBasket = (state: State): ?Basket =>
   getCheckoutState(state).basket.current.data;
 
+export const getBasket = (state: State, basketId: string): ?Basket => {
+  return getCheckoutState(state).basket.byId[basketId]
+}
+
 export const getBasketGeneratedObjects = (state: State) => {
   return {
     offerList: withMetaActivity(

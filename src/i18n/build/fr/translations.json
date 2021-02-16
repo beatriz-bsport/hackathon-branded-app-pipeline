@@ -2453,6 +2453,7 @@
       "finalize": { "steps": { "address": "Adresse", "payment": "Facturation" } },
       "title": "Mon panier",
       "isEmpty": "Votre panier est vide",
+      "isFinalized": "Votre panier a été validé",
       "featured": "Nous vous recommandons",
       "error": {
         "invalidBasket": "Votre panier contenait des éléments qui ne sont plus disponibles à la vente. Aucun paiement n'a été enregistré"
@@ -3655,6 +3656,8 @@
       "video": "Vidéo"
     },
     "columns": {
+      "accept_email": "Accepte les emails",
+      "accept_sms": "Accepte les SMS",
       "coaches": "Professeurs",
       "private_service_name": "Rendez-vous",
       "nb_bookings": "Nombre de réservation",

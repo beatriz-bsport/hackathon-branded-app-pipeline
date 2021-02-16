@@ -19,7 +19,6 @@ import { fetchContractDetail } from '../../libs/subscription/actions';
 import { getContract } from '../../libs/subscription/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { parseQueryString } from '../../http';
-import { attachPaymentToBasketId as attachPaymentAction } from '../../libs/checkout/actions';
 import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
 import { postContractSubscriptionUnauthenticated as postContractSubscriptionUnauthenticatedAPI } from '../../libs/subscription/api';
 
@@ -59,6 +58,7 @@ export class ContractPayment extends React.Component<Props, State> {
         first_billing_timestamp,
         member: this.props.memberId,
         payment_method_id,
+        is_v2: true,
       });
       this.props.onSuccess();
     } catch (err) {
@@ -113,7 +113,6 @@ export default compose(
       savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {
-      attachPayment: attachPaymentAction,
       fetchContractDetail,
       fetchPaymentMethodList,
     },

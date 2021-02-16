@@ -1,6 +1,6 @@
 // @flow
 
-import { API_V1_URI, post, postAuth, putAuth, patchAuth } from '../../http';
+import { API_V1_URI, post, get, postAuth, putAuth, patchAuth } from '../../http';
 
 import type { CheckoutItemData, Basket } from './types';
 
@@ -68,4 +68,10 @@ export const fetchBasketGeneratedObjects = async (id: string) => {
 
 export const validateUnpaid = async (basketId: string) => {
   return post(`${API_V1_URI}/checkout/basket/${basketId}/validate_unpaid/`);
+};
+
+export const fetchBasket = async (
+  basket: number,
+): Promise<{ data: Basket }> => {
+  return get(`${API_V1_URI}/checkout/basket/by_uuid/?basket=${basket}`  );
 };

@@ -11,6 +11,7 @@ import {
   attachPaymentUnauthenticated as attachPaymentUnauthenticatedAPI,
   attachCoupon as attachCouponAPI,
   fetchBasketGeneratedObjects as fetchBasketGeneratedObjectsAPI,
+  fetchBasket as fetchBasketAPI,
 } from './api';
 import { getCurrentBasket } from './selectors';
 import { snackbarError } from '../../actions/snackbar.actions';
@@ -44,6 +45,35 @@ export function fetchCurrentBasket(
       if (options && options.onError) options.onError(error);
     }
     dispatch(currentBasket.isLoading(false));
+  };
+}
+
+export const retrieveBasket = {
+  error: createAction('CHECKOUT_BASKET/RETRIEVE/ERROR'),
+  isLoading: createAction('CHECKOUT_BASKET/RETRIEVE/IS_LOADING'),
+  success: createAction('CHECKOUT_BASKET/RETRIEVE/SUCCESS'),
+};
+
+export function fetchBasket(
+  basketId: string,
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveBasket.isLoading(true));
+    dispatch(retrieveBasket.error(null));
+
+    try {
+      const response = await fetchBasketAPI(basketId);
+      dispatch(retrieveBasket.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error)
+      dispatch(retrieveBasket.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(retrieveBasket.isLoading(false));
   };
 }
 

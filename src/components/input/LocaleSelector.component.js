@@ -19,10 +19,10 @@ import IT_FLAG from './flags/IT.png';
 import BE_FLAG from './flags/BE.png';
 import IE_FLAG from './flags/IE.png';
 import DE_FLAG from './flags/DE.png';
-// import CH_FLAG from './flags/CH.png';
 import AT_FLAG from './flags/AT.png';
 import GB_FLAG from './flags/GB.png';
 import MT_FLAG from './flags/MT.png';
+import CH_FLAG from './flags/CH.png';
 
 type Props = {
   withCurrency?: boolean,
@@ -102,14 +102,7 @@ const localeList: Array<Locale> = [
     currencyDisplay: '€',
   },
   {
-    locale: 'en_MT',
-    icon: MT_FLAG,
-    currencyCode: 'eur',
-    currencyDisplay: '€',
-  },
-  /*
-  {
-    locale: 'fr_CH',
+    locale: 'it_CH',
     icon: CH_FLAG,
     currencyCode: 'chf',
     currencyDisplay: 'CHF',
@@ -121,12 +114,17 @@ const localeList: Array<Locale> = [
     currencyDisplay: 'CHF',
   },
   {
-    locale: 'it_CH',
+    locale: 'fr_CH',
     icon: CH_FLAG,
     currencyCode: 'chf',
     currencyDisplay: 'CHF',
   },
-  */
+  {
+    locale: 'en_MT',
+    icon: MT_FLAG,
+    currencyCode: 'eur',
+    currencyDisplay: '€',
+  },
 ];
 
 export const CountrySelector = (props: Props) => {

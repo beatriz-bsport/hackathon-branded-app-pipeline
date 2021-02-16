@@ -34,6 +34,12 @@ export default handleActions(
         if (payload.currency === 'gbp') {
           storage.setItem('bsport:payment:currency_display', '£');
         }
+        else if (payload.currency === 'chf') {
+          storage.setItem('bsport:payment:currency_display', 'CHF');
+        }
+        else if (payload.currency === 'usd') {
+          storage.setItem('bsport:payment:currency_display', '$');
+        }
       } catch (err) {
         console.error(err);
       }

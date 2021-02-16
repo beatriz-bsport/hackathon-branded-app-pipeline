@@ -1408,7 +1408,8 @@
                 "explainRecursiveOfferEdit": "Do you want to modify ALL similar sessions under these new conditions ?",
                 "explainRecursiveOfferDelete": "Do you want to delete ALL similar sessions ?",
                 "broadcast_link": {
-                    "error": "Link is wrong. It should start with http:// or https:// and contains no space"
+                    "error": "Link is wrong. It should start with http:// or https:// and contains no space",
+                    "explainZoomApp": "The link will automatically be generated through ZOOM by bsport"
                 },
                 "changeEstablishment": "Modify location",
                 "changeCoach": "Modify teacher",
@@ -5874,7 +5875,7 @@
             "penaltyBlock": "Card blocked for {{nb_days}} days",
             "penaltyTitle": "Penalties applied"
         },
-        "newMemberOnly": "Only available for new membres (with no paiements)",
+        "newMemberOnly": "Only available for new members (with no payments)",
         "publicPacksTitle": "Pass available for purchase",
         "privatePacksTitle": "Pass unavailable for purchase",
         "subscribeToOffer": "Register",
@@ -6212,7 +6213,7 @@
         "note": {
             "addNote": "Add a note",
             "myNotes": "My notes",
-            "healthNotes": "Essential informations",
+            "healthNotes": "Essential information",
             "noNoteSaved": "No note saved",
             "is_medical": "Essential note"
         },

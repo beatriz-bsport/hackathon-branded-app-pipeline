@@ -46,6 +46,8 @@ exports.default = {
     video: 'Vidéo',
   },
   columns: {
+    accept_email: 'Accepte les emails',
+    accept_sms: 'Accepte les SMS',
     coaches: 'Professeurs',
     private_service_name: 'Rendez-vous',
     nb_bookings: 'Nombre de réservation',

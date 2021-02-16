@@ -380,7 +380,8 @@
                     "explainModalities": "Tiene en cuenta que esta modificación es final. Tu sesión ya no será visible para los clientes finales. Todavía podrás acceder a él."
                 },
                 "broadcast_link": {
-                    "error": "El enlace está mal. Debe comenzar con http:// o https:// y no contener ningún espacio"
+                    "error": "El enlace está mal. Debe comenzar con http:// o https:// y no contener ningún espacio",
+                    "explainZoomApp": "El enlace se generará automáticamente a través de ZOOM por bsport"
                 }
             },
             "paymentPack": {

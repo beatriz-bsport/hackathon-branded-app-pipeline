@@ -332,11 +332,9 @@ export class OfferForm extends Component<Props, State> {
                       helperText={
                         // eslint-disable-next-line
                           hasZoomApp
-                          ? this.props.t(
-                              'form.offer.broadcast_link.explainZoomApp',
-                            )
+                          ? this.props.t('offer.broadcast_link.explainZoomApp')
                           : hasError
-                          ? this.props.t('form.offer.broadcast_link.error')
+                          ? this.props.t('offer.broadcast_link.error')
                           : null
                       }
                       fullWidth

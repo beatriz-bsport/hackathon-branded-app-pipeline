@@ -611,10 +611,10 @@ export class EditLiveOfferForm extends Component<Props, State> {
                           // eslint-disable-next-line
                           hasZoomApp
                             ? this.props.t(
-                                'form.offer.broadcast_link.explainZoomApp',
+                                'offer.broadcast_link.explainZoomApp',
                               )
                             : hasError
-                            ? this.props.t('form.offer.broadcast_link.error')
+                            ? this.props.t('offer.broadcast_link.error')
                             : null
                         }
                         placeholder="https://zoom.us/123456789"

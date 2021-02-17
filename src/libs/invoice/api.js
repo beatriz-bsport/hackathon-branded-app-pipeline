@@ -2,6 +2,7 @@
 import {
   API_V1_URI,
   getAuth,
+  post,
   postAuth,
   patchAuth,
   buildUrlParams,
@@ -120,6 +121,18 @@ export async function requestClientSecret(
     `${API_V1_URI}/payment/payment_group/request_client_secret/`,
     { payment_engine_identifier, payment_intent_type, ...(params || {}) },
   );
+}
+
+export async function unauthenticatedRequestClientSecret(
+  payment_engine_identifier: number,
+  payment_intent_type: number,
+  params: any = {},
+) {
+  return post(`${API_V1_URI}/payment/payment_group/request_client_secret/`, {
+    payment_engine_identifier,
+    payment_intent_type,
+    ...(params || {}),
+  });
 }
 
 export async function fetchPlannedPaymentEvent(params: any = {}) {

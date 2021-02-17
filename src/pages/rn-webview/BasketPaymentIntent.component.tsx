@@ -25,7 +25,7 @@ import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { getBasket } from '../../libs/checkout/selectors';
 import { OptionCallback } from '../../state/types';
 import { PaymentMethod } from '../../libs/payment/types';
-import { requestClientSecret as requestClientSecretAPI } from '../../libs/invoice/api';
+import { unauthenticatedRequestClientSecret as requestClientSecretAPI } from '../../libs/invoice/api';
 
 interface Props {
   t: TFunction;

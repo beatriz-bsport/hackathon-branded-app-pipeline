@@ -158,14 +158,14 @@ export const StripePaymentCard = (props: Props) => {
               disabled={!stripe || !elements || !props.clientSecret}
             >
               {t('paymentPanel.actions.confirmPayment')}
-						</Button>
-						{props.onCancel ?
-            <Button onClick={props.onCancel} disabled={props.processing}>
-              {t('paymentPanel.actions.cancel')}
-						</Button>
-						:
-						<div/>
-						}
+            </Button>
+            {props.onCancel ? (
+              <Button onClick={props.onCancel} disabled={props.processing}>
+                {t('paymentPanel.actions.cancel')}
+              </Button>
+            ) : (
+              <div />
+            )}
           </React.Fragment>
         )}
       </div>

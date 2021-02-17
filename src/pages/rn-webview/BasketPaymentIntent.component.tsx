@@ -14,7 +14,6 @@ import {
   PAYMENT_GROUP_METHOD_BY_ENGINE,
 } from '@bsport/common/lib/master-data/payment-group';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import PaymentByCardStripe from '../../libs/payment/components/payment-backend-stripe-deprecated/PaymentByCard.component';
 import {
   fetchBasket as fetchBasketAction,
   attachPaymentToBasketId as attachPaymentAction,
@@ -26,7 +25,6 @@ import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { getBasket } from '../../libs/checkout/selectors';
 import { OptionCallback } from '../../state/types';
 import { PaymentMethod } from '../../libs/payment/types';
-import { getTheme } from '../../theme';
 import { requestClientSecret as requestClientSecretAPI } from '../../libs/invoice/api';
 
 interface Props {
@@ -67,7 +65,6 @@ export class BasketPaymentIntent extends React.Component<Props> {
       .then((r) => {
         this.setState({
           clientSecret: r.data.client_secret,
-          paymentGroupId: r.data.payment_group,
           clientSecretLoading: false,
         });
       })
@@ -178,7 +175,6 @@ export default compose(
     submitPaymentIntent: (data: any, options: OptionCallback) =>
       attachPayment(data, basketId, {
         onSuccess: (response: any) => {
-          console.log('ok');
           if (options && options.onSuccess) options.onSuccess(response);
           window.ReactNativeWebView.postMessage(
             JSON.stringify({ status: 'succeeded' }),

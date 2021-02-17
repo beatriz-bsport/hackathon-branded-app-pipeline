@@ -3,7 +3,11 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { retrieveBasket, currentBasket, generatedObjectsActions } from './actions';
+import {
+  retrieveBasket,
+  currentBasket,
+  generatedObjectsActions,
+} from './actions';
 
 import type { CheckoutState } from './types';
 

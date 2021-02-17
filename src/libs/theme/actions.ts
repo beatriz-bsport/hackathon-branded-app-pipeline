@@ -28,14 +28,14 @@ export function fetchCompanyTheme(companyId?: number, options: OptionCallback) {
       dispatch(themeDetail.success(theme));
       dispatch(themeDetail.isLoading(false));
       if (options && options.onSuccess) {
-        options.onSuccess(theme)
+        options.onSuccess(theme);
       }
     } catch (err) {
       console.error(err);
       dispatch(themeDetail.error(err));
       dispatch(themeDetail.isLoading(false));
       if (options && options.onError) {
-        options.onError(err)
+        options.onError(err);
       }
     }
   };

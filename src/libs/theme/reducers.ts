@@ -33,11 +33,9 @@ export default handleActions(
         storage.setItem('bsport:payment:currency_display', '€');
         if (payload.currency === 'gbp') {
           storage.setItem('bsport:payment:currency_display', '£');
-        }
-        else if (payload.currency === 'chf') {
+        } else if (payload.currency === 'chf') {
           storage.setItem('bsport:payment:currency_display', 'CHF');
-        }
-        else if (payload.currency === 'usd') {
+        } else if (payload.currency === 'usd') {
           storage.setItem('bsport:payment:currency_display', '$');
         }
       } catch (err) {

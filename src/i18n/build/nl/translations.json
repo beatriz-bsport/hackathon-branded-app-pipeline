@@ -68,8 +68,8 @@
             "content": "Je aankoop is bevestigd!"
         },
         "actions": {
-            "goToSubscription": "Alle abonnementen bekijken",
-            "goToPass": "Bekijk alle lidmaatschappen",
+            "goToSubscription": "Toon alle abonnementen",
+            "goToPass": "Toon alle lidmaatschappen",
             "goToCalendar": "Toon de planning"
         },
         "dashboard": {
@@ -84,7 +84,7 @@
         "booking": {
             "bookAgain": "Opnieuw reserveren",
             "discard": "Annuleren",
-            "showCalendar": "Toon het rooster",
+            "showCalendar": "Toon de planning",
             "titlePrivateBooking": "Op afspraak",
             "titleBooking": "Groepsles",
             "accessLive": "Toegang tot de livestream"
@@ -118,7 +118,7 @@
         },
         "myVideos": {
             "title": "Mijn video's",
-            "gotToVOD": "Alle video's tonen"
+            "gotToVOD": "Toon alle video's"
         }
     },
     "notificationRule": {
@@ -280,7 +280,7 @@
     },
     "partnership": {
         "actions": {
-            "requestPartnership": "Activeer integratie",
+            "requestPartnership": "Integratie activeren",
             "save": "Opslaan"
         },
         "requestDialog": {
@@ -291,7 +291,7 @@
             "allEstablishment": "Alle zalen",
             "enabled": "Actief",
             "establishmentId": "Je zaal- of zalen-ID's zijn: {{establishmentIdList}}",
-            "companyId": "De ID van je onderneming is: {{ company }}"
+            "companyId": "Je Partner-ID is: {{ company }}"
         },
         "pageTitle": "Integraties"
     },
@@ -433,12 +433,12 @@
             "forgottenPassword": "Wachtwoord vergeten?",
             "authError": "Incorrect e-mailadres of wachtwoord",
             "password": "Wachtwoord",
-            "noAccount": "Ik doe mee!",
+            "noAccount": "Account aanmaken",
             "loginAsConsumer": "Een student",
             "loginAsPro": "Een manager",
             "choseYourUserspace": "Ik ben",
             "invalidPhone": "Onbekend telefoonnummer",
-            "signUpConsumer": "Ik doe mee!",
+            "signUpConsumer": "Account aanmaken",
             "welcome": "Welkom!"
         },
         "paginatedList": {
@@ -825,13 +825,13 @@
                     "marketplace_enabled": "Beschikbaar op de webshop",
                     "unlimitedProvision": "Geen voorraadbeheer",
                     "create": "Voeg een artikel toe",
-                    "is_deliverable": "Voeg verzendkosten toe",
+                    "is_deliverable": "Verzendkosten toevoegen",
                     "featured": "Raad dit product aan wanneer leden hun winkelmandje bevestigen",
                     "sell_only_on_provision": "Alleen verkopen als er voorraad is",
                     "onsite_payment_available": "Mogelijkheid om ter plaatse te betalen",
                     "available_payment_method_identifiers": {
                         "helperText": "Selecteer minimaal één betaalmethode. Als het mandje van een lid artikelen bevat waarvoor geen compatibele betaalmethode beschikbaar is, wordt een creditcard-betaling aangeboden.",
-                        "label": "Geautoriseerde betaalmethoden"
+                        "label": "Geaccepteerde betaalmethoden"
                     }
                 },
                 "subShop": {
@@ -1284,7 +1284,7 @@
             "success": "E-mail verzonden",
             "missing": "Geen e-mail beschikbaar",
             "content": "Inhoud van de e-mail",
-            "title": "Onderwerp e-mail",
+            "title": "Onderwerp van de e-mail",
             "refreshText": "Ververs de pagina om de wijziging van de e-mail te zien",
             "noObject": "Geen onderwerp",
             "refreshTextPhone": "Ververs de pagina om de wijzigingen door te voeren",
@@ -1459,7 +1459,7 @@
         },
         "actions": {
             "signin": "Aanmelden",
-            "signup": "Ik doe mee!",
+            "signup": "Nog geen account?",
             "forgottenPassword": "Wachtwoord vergeten?"
         },
         "error": {
@@ -1568,7 +1568,7 @@
             "refund": "Terugbetaling krediet"
         },
         "form": {
-            "title": "Nieuw rapport",
+            "title": "Rapportage samenstellen",
             "name": "Naam",
             "category": "Categorie",
             "columns": "Kolommen",
@@ -1577,8 +1577,8 @@
             "description": "Beschrijving"
         },
         "list": {
-            "empty": "Geen rapport? Maak een eerste rapport!",
-            "button_new": "Ik maak mijn eerste rapport aan"
+            "empty": "Rapportages geven je een totaalplaatje van je studio",
+            "button_new": "Een rapportage toevoegen"
         },
         "columns": {
             "nb_bookings": "Aantal reserveringen",
@@ -1649,7 +1649,7 @@
             "membership_ID": "Lid-ID",
             "amortized_price": "Resterende schulden",
             "end_date": "Einde geldigheid",
-            "credits": "Totaal krediet",
+            "credits": "Totaal in krediet(en)",
             "available_credits": "Beschikbaar krediet",
             "payment_method_readable_identifier": "Betaalmethode",
             "address": "Adres",
@@ -1743,10 +1743,12 @@
             "payment_method_ideal": "iDEAL",
             "payment_method_eps": "EPS",
             "stock_at_end": "Voorraad (einde)",
-            "stock_at_start": "Voorraad (begin)"
+            "stock_at_start": "Voorraad (begin)",
+            "accept_email": "E-mails accepteren",
+            "accept_sms": "Sms'jes accepteren"
         },
         "report": {
-            "delete_message": "Weet je zeker dat je dit rapport ({{name}}) wilt verwijderen?"
+            "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
         },
         "no": "Nee",
         "yes": "Ja",
@@ -1765,7 +1767,7 @@
             "activities": "Activiteiten",
             "first_privatebooking": "Eerste afspraak",
             "first_attendance": "Eerste aanwezigheid (collectief)",
-            "first_booking": "Eerste sessie (collectief)",
+            "first_booking": "Eerste sessie (groepslessen)",
             "subscription": "Abonnement",
             "discount": "Promoties",
             "private_bookings": "Reserveringen (op afspraak)",
@@ -1831,8 +1833,8 @@
         },
         "companyOnboarding": {
             "creation": {
-                "content": "Om creditcard-betalingen en automatische incasso's (SEPA) te ontvangen, dien je je wettelijke gegevens te controleren",
-                "title": "Online betalen uitgeschakeld"
+                "content": "Om online betalingen te kunnen ontvangen, dien je je wettelijke gegevens te controleren.",
+                "title": "Online betalingen: uitgeschakeld"
             },
             "payout": {
                 "content": "We kunnen geen betalingen naar uw bankrekening uitvoeren, omdat deze niet bestaat of onjuist is geconfigureerd.",
@@ -2142,10 +2144,10 @@
             "price": "{{price, price}}",
             "nbCredits": "{{ credits}} kredieten"
         },
-        "availableOnFollowingSports": "Kiesbare categorieën: ",
-        "availableOnFollowingEstablishments": "Kiesbare vestigingen: ",
+        "availableOnFollowingSports": "Categorieën: ",
+        "availableOnFollowingEstablishments": "Vestigingen: ",
         "anySport": "Alle categorieën",
-        "availableOnFollowingActivities": "Kiesbare activiteiten: ",
+        "availableOnFollowingActivities": "Activiteiten: ",
         "notificationToolTip": "Deze cursuskaart bevat meldingen",
         "disabled": "Uitgeschakeld",
         "anyActivity": "Alle activiteiten",
@@ -2180,7 +2182,7 @@
             "scaleUp": "Vermenigvuldigen",
             "scaleDown": "Delen",
             "explain": "Je kunt het krediet op je cursuskaart vermenigvuldigen (bijv. 3/7 x 2 wordt 6/14) of delen in het geval van een fout (bijv. 3/7 ÷ 2 wordt 1/3) naar een beneden afgerond.",
-            "title": "Wijziging van het totaal krediet"
+            "title": "Kredietwijziging"
         },
         "notificationForm": "[Formulier] Melding",
         "noPaymentPack": "Met cursuskaarten kunnen leden zich inschrijven voor je activiteiten. Leden moeten een (geldige) cursuskaart bezitten voordat zij zich kunnen inschrijven.",
@@ -2796,15 +2798,15 @@
                     "passHelperText": "De volgende cursuskaarten zijn compatibel met de gemaakte activiteit:",
                     "seeMore": "Meer zien",
                     "createPass": "Een cursuskaart toevoegen",
-                    "goToActivity": "Ga naar activiteit",
+                    "goToActivity": "Toon activiteit",
                     "noCompatiblePass": "Geen enkele cursuskaart die compatibel is met deze activiteit. Vergeet niet om er een te maken"
                 },
                 "steps": {
-                    "activity_form": "Nieuwe activiteit aanmaken",
+                    "activity_form": "Activiteit toevoegen",
                     "pass_form": "Een cursuskaart toevoegen (optioneel)",
                     "pass_list": "Afronden",
-                    "offer_form": "Nieuwe sessie aanmaken (optioneel)",
-                    "workshop_form": "Nieuwe workshop aanmaken"
+                    "offer_form": "Sessie(s) toevoegen (optioneel)",
+                    "workshop_form": "Workshop toevoegen"
                 }
             }
         },
@@ -2940,7 +2942,7 @@
     },
     "emailTemplate": {
         "editTitle": "E-mail bewerken",
-        "createTitle": "Nieuw sjabloon aanmaken",
+        "createTitle": "Nieuwe e-mail maken",
         "modal": {
             "delete": {
                 "confirm": "Verwijderen",
@@ -2957,7 +2959,7 @@
         "create": "Nieuwe e-mail ontwerpen",
         "templateListEmpty": "Eenvoudig prachtige en unieke e-mails vanuit BSPORT naar je leden versturen met onze geïntegreerde Drag-&-Drop Editor. Begin met het opstellen van je eerste e-mail!",
         "modification_date": "Laatste wijziging op",
-        "subject": "Onderwerp e-mail:",
+        "subject": "Onderwerp van de e-mail:",
         "preview": "Voorvertoning",
         "no_subject": "Geen onderwerp",
         "editor": {
@@ -2965,9 +2967,9 @@
                 "content": "Voer inhoud in de e-mail in",
                 "title": "Voer een naam in"
             },
-            "title": "Naam van sjabloon",
+            "title": "Naam van de e-mail",
             "save": "Opslaan",
-            "subject": "Onderwerp e-mail",
+            "subject": "Onderwerp van de e-mail",
             "cancel": "Annuleren",
             "exportHtml": "Als HTML exporteren"
         },
@@ -3076,7 +3078,7 @@
         "offers_joined": "Aantal geregistreerde sessies",
         "pastBooking": "laatste: ",
         "engagement": "Betrokkenheid",
-        "addMember": "Voeg een lid toe",
+        "addMember": "Een lid toevoegen",
         "row": {
             "headers": {
                 "actions": "Acties"
@@ -3105,7 +3107,7 @@
         },
         "search": {
             "cancel": "Sluiten",
-            "createMember": "Voeg een lid toe"
+            "createMember": "Een lid toevoegen"
         },
         "memberTermsAccepted": " werden op {{- date}} geaccepteerd",
         "termsAndConditions": "De servicevoorwaarden",
@@ -3135,7 +3137,7 @@
                 "isTooSoon": "Inschrijvingen zijn momenteel gesloten en worden geopend op {{date}}."
             },
             "messages": {
-                "offerLocked": "Je kunt deze sessie niet reserveren",
+                "offerLocked": "Fout bij het inschrijven",
                 "maleUnavailable": "Mannen kunnen zich niet meer inschrijven voor deze sessie.",
                 "femaleUnavailable": "Vrouwen kunnen zich niet meer inschrijven voor deze sessie."
             },
@@ -3354,7 +3356,7 @@
         "warning": {
             "disconnect": "Uitloggen",
             "backToBackoffice": "Open de Back Office",
-            "isManager": "Momenteel ben je als manager ingelogd. Log uit om de leden-weergave te zien"
+            "isManager": "Je bent als manager ingelogd. Log uit om je ledenweergave te bekijken."
         },
         "workshop": {
             "noWorkshopAvailable": "Momenteel zijn er geen workshops ingepland",
@@ -3436,11 +3438,11 @@
             "videoList": "Videotheek"
         },
         "banner": {
-            "isStaging": "Gratis demo",
+            "isStaging": "Kennismakingsgesprek inplannen",
             "networkError": "U bent niet verbonden met internet"
         },
         "member": {
-            "memberForm": "Voeg een lid toe",
+            "memberForm": "Een lid toevoegen",
             "members": "Leden",
             "mergeMember": "Lid samenvoegen",
             "memberFormPage": "[Formulier] Lid"
@@ -3488,7 +3490,7 @@
         },
         "workshopActivity": {
             "workshopActivityList": "Workshops",
-            "workshopActivityCreate": "Maak een workshop aan",
+            "workshopActivityCreate": "Workshop toevoegen",
             "workshopActivityFormPage": "[Formulier] Workshop"
         },
         "paymentPack": {
@@ -3522,7 +3524,7 @@
         "member": {
             "register": {
                 "name": "Nieuw lid",
-                "description": "Wordt geactiveerd wanneer een nieuw lid van de club aan BSPORT is toegevoegd"
+                "description": "Wordt geactiveerd wanneer een nieuw lid aan BSPORT wordt toegevoegd"
             }
         },
         "booking": {
@@ -3894,7 +3896,7 @@
                 "accessDenied": "Je hebt geen toegang tot deze video",
                 "pleaseAuthenticated": "Log in om deze video te bekijken",
                 "buyPass": "Schaf een cursuskaart aan",
-                "useConsumerPass": "Deblokkeer de toegang"
+                "useConsumerPass": "Toegang verkrijgen"
             },
             "filter": {
                 "duration": {
@@ -3957,9 +3959,9 @@
             "level": "Niveau",
             "creditPrice": "Kosten (in kredieten)",
             "register": {
-                "buyPass": "Bemachtig een cursuskaart",
+                "buyPass": "Een lidmaatschap aanschaffen",
                 "title": "Video afspelen",
-                "noPassAvailable": "Je beschikt nog geen compatibele cursuskaart"
+                "noPassAvailable": "Je bezit nog geen compatibel lidmaatschap"
             },
             "analytics": {
                 "dateCreated": "Online beschikbaar maken",
@@ -3985,7 +3987,7 @@
         "deliveryFee": {
             "forms": {
                 "freeThresholdHelper": "Indien het bedrag van de bestelling dit bedrag overschrijdt, zijn de bezorgkosten gratis",
-                "create": "Voeg verzendkosten toe",
+                "create": "Verzendkosten toevoegen",
                 "title": "[Formulier] Verzendkosten",
                 "feeLabel": "Verzendkosten",
                 "nameLabel": "Naam",
@@ -4087,7 +4089,7 @@
             "payload": "Laadvermogen",
             "submit": "bevestigen",
             "createTitle": "[Formulier] Webhook",
-            "add": "Voeg een webhook toe",
+            "add": "Een Webhook toevoegen",
             "test": "Test"
         },
         "active_campaign": {
@@ -4175,7 +4177,7 @@
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
-            "link": "Log uit en open de MarketPlace voor je klanten",
+            "link": "Log uit en open de MarketPlace",
             "explainMarketplace": "Je leden hebben op hun telefoon, computer en tablet toegang tot je MarketPlace (je kalender, webshop, Video On Demand, enz.). Hier kun je je MarketPlace volledig personaliseren!",
             "addButton": "Tabblad toevoegen"
         },
@@ -4517,7 +4519,7 @@
                     "helperText": "Wordt aan het aantal dagen en maanden toegevoegd"
                 },
                 "available_payment_method_identifiers": {
-                    "label": "Geautoriseerde betaalmethoden",
+                    "label": "Geaccepteerde betaalmethoden",
                     "helperText": "Selecteer minimaal één betaalmethode. Als het mandje van een lid artikelen bevat waarvoor geen compatibele betaalmethode beschikbaar is, wordt een betaling met een creditcard aangeboden."
                 },
                 "actions": {
@@ -4608,7 +4610,7 @@
                 },
                 "title": "Afspraak",
                 "createButton": "Een afspraak toevoegen",
-                "addCoach": "Voeg een instructeur toe",
+                "addCoach": "Een instructeur toevoegen",
                 "addEstablishment": "Een zaal toevoegen",
                 "addSlot": "Voeg een sessietype toe",
                 "is_home_service": {
@@ -4669,10 +4671,10 @@
                     "is_empty": "Geen instructeur nodig"
                 },
                 "last_discard_minutes": {
-                    "explain": "De laatste restitueerbare annulering is mogelijk {{days}} dag(en) {{hours}} uur/uren {{minutes}} minuut/minuten voor de afspraak"
+                    "explain": "Annuleringen worden tot {{ days }} dag(en), {{ hours }} u. en {{ minutes }} min. voor het begin van de afspraak vergoed."
                 },
                 "last_booking_minutes": {
-                    "explain": "De laatste restitueerbare annulering is mogelijk {{days}} dag(en) {{hours}} uur/uren {{minutes}} minuut/minuten voor de afspraak"
+                    "explain": "Je kunt tot {{days}} dag(en), {{hours}} u. en {{minutes}} min. voor het begin van de sessie reserveren."
                 }
             },
             "selector": {
@@ -4777,7 +4779,7 @@
             "privateService": "Selecteer je afspraak",
             "privateSlot": "Selecteer je sessie"
         },
-        "openCalendar": "Toon het rooster",
+        "openCalendar": "Toon de planning",
         "pageTitles": {
             "passList": "Cursuskaarten",
             "serviceList": "Op afspraak",
@@ -5058,7 +5060,7 @@
                 "submit": "Opslaan"
             },
             "action": {
-                "update": "Voorraad vernieuwen"
+                "update": "Voorraad bijwerken"
             }
         }
     },
@@ -5116,7 +5118,7 @@
         "paymentMethod": {
             "2": "Cheque",
             "10": "Automatische betaling",
-            "0": "Creditcard",
+            "0": "Online betalingen",
             "1": "Contant geld",
             "4": "Creditcard (handmatig)",
             "5": "Vakantiecheques",
@@ -5160,7 +5162,7 @@
                     "close": "Sluiten"
                 },
                 "collect": {
-                    "content": "Deze betaalmethode wordt in uw account conform het contract toegevoegd.",
+                    "content": "Deze betaalmethode wordt in je account conform het contract toegevoegd.",
                     "title": "Voeg betaalmethode toe"
                 },
                 "message": {
@@ -5170,13 +5172,13 @@
             },
             "savePaymentMethod": {
                 "section": "Mijn betaalmethoden ({{count}})",
-                "label": "Deze betaalmethode opslaan"
+                "label": "Betaalmethode opslaan"
             }
         },
         "goBack": "Terug",
         "availablePaymentPacks": "Compatibele cursuskaarten: ",
         "actions": {
-            "addThisPaymentItem": "Deze betaalmethode opslaan"
+            "addThisPaymentItem": "Betaalmethode opslaan"
         },
         "creditAccountBalance": {
             "current": "Lopende rekening"
@@ -5198,9 +5200,9 @@
                 "invalid": "IBAN ongeldig. Let op: het IBAN moet overeenkomen met een bankrekening die in hetzelfde land als uw bedrijf is gevestigd",
                 "accountHolderName": {
                     "placeholder": "Jacques Chirac",
-                    "label": "Eigenaar van bankrekening"
+                    "label": "Rekeninghouder"
                 },
-                "content": "Deze bankrekening wordt gebruikt om de online via BSPORT betaalde bedragen naar je over te maken.",
+                "content": "We gebruiken deze bankrekening om de via BSPORT ontvangen betalingen naar je over te schrijven.",
                 "title": "Bankrekening",
                 "unknownCountry": "Dit moet handmatig gecontroleerd worden. Contacteer contact@bsport.io"
             }
@@ -5617,7 +5619,7 @@
             "cannotFetch": "Er is iets misgegaan! Controleer je verbinding en ververs de pagina alsjeblieft",
             "timeout": "Server reageert niet. Ververs de pagina alsjeblieft",
             "error": "Er is iets misgegaan! Probeer het later opnieuw alsjeblieft",
-            "success": "Compleet",
+            "success": "Voltooid",
             "pending": "Een moment geduld alsjeblieft"
         },
         "offer": {
@@ -5720,7 +5722,7 @@
         "showPerformance": "Te vergoeden",
         "showActivities": "Bekijk activiteiten",
         "showDescription": "Toon beschrijving",
-        "pleaseFill": "Voeg instructeur toe",
+        "pleaseFill": "Een instructeur toevoegen",
         "emptyDescription": "Geen beschrijving",
         "selector": {
             "label": "Instructeur"
@@ -5731,7 +5733,7 @@
         },
         "noActivity": "Deze instructeur beheert geen enkele activiteit.",
         "baseCoach": "Standaard",
-        "addCoach": "Voeg een instructeur toe",
+        "addCoach": "Een instructeur toevoegen",
         "description": "Beschrijving",
         "coach_override": "Plaatsvervanger",
         "coach": "Instructeur",
@@ -6281,12 +6283,12 @@
                     "label": "Familienaam label",
                     "helperText": "Voer het label in voor de familienaam"
                 },
-                "offersFilling": "Toon het aantal plaatsen van een cursus op de kalender van de leden",
-                "acceptDoubleBooking": "Dubbele reservering aanvaarden",
+                "offersFilling": "Toon het aantal plaatsen van een sessie op de kalender van de leden",
+                "acceptDoubleBooking": "Dubbele reserveringen aanvaarden",
                 "consumerRegularizeDebt": "Sta leden toe hun schulden met online betalingen regulariseren",
                 "workshopsCustomer": "Toon workshops op de kalender van de leden",
                 "cancelledOffersCustomer": "Toon geannuleerde sessies op de kalender van je leden",
-                "calendarPersonalizationTitle": "Configureer kalender",
+                "calendarPersonalizationTitle": "Instellingen voor je kalender",
                 "basket_expiration_days": {
                     "alert": "Geef de vervaldagen van het mandje op!",
                     "placeholder": "Aantal dagen voor vervaldatum",
@@ -6307,7 +6309,7 @@
                     "checkbox": "Beperk het onevenwicht tussen MANNEN/VROUWEN voor je sessies"
                 },
                 "offerBalance": "Stel een regel in dat het aantal MANNEN/VROUWEN per sessie reguleert",
-                "showGenderOffer": "Het aantal ingeschreven MANNEN / VROUWEN op je rooster tonen"
+                "showGenderOffer": "Het aantal ingeschreven MANNEN / VROUWEN op je kalender tonen"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -6315,7 +6317,7 @@
             },
             "instagramURL": {
                 "label": "Je Instagram",
-                "helperText": "Plak hier de link naar je Instagram",
+                "helperText": "Plak hier de link naar je Instagram.",
                 "placeholder": "https://instagram.com/mijn-studio/"
             },
             "cover": {
@@ -6343,7 +6345,7 @@
             "submit": "Opslaan",
             "facebookURL": {
                 "label": "Je Facebook",
-                "helperText": "Plak hier de link naar je Facebook",
+                "helperText": "Plak hier de link naar je Facebook.",
                 "placeholder": "https://facebook.com/mijn-studio/"
             },
             "general_terms_and_conditions": {
@@ -6362,7 +6364,7 @@
                 "helperText": "Plak hier de link voor je Android app (Google Play Store)."
             },
             "ios_app_url": {
-                "helperText": "iOS (Apple App Store)",
+                "helperText": "Plaats hier de link voor je iOS app (Apple App Store).",
                 "placeholder": "https://apps.apple.com/nl/app/id1356621554",
                 "label": "iOS"
             },
@@ -6435,7 +6437,8 @@
                 "closeBasket": "Doorgaan met winkelen",
                 "checkoutBasket": "Afrekenen",
                 "payZero": "Mijn winkelmandje bevestigen"
-            }
+            },
+            "isFinalized": "Je winkelmandje is gevalideerd"
         },
         "paymentIntent": {
             "isProcessing": "Een moment geduld alstublieft"
@@ -6565,7 +6568,7 @@
             "actions": {
                 "bill": "Incasseren",
                 "saveForLaterAsSEPA": "Deze betaling wordt als een SEPA-betaling opgeslagen",
-                "saveForLater": "Deze betaalmethode opslaan",
+                "saveForLater": "Betaalmethode opslaan",
                 "showInvoice": "Toon de factuur",
                 "confirmPayment": "Betaling bevestigen",
                 "payAll": "Debiteur salderen",
@@ -6788,11 +6791,11 @@
     "role": {
         "permissions": "Beschikbare rollen",
         "explainStaffDo": "Je medewerkers kunnen via https://backoffice.bsport.io op hun telefoon, computer of tablet inloggen",
-        "explainStaffDoNot": "Alleen instructeurs en leden kunnen op de app inloggen. Een medewerker met een rol kan dat dus niet.",
+        "explainStaffDoNot": "Alleen instructeurs en leden kunnen op de app inloggen. Een medewerker met een Personeelsaccount kan dat dus niet.",
         "forms": {
             "user": {
                 "create": {
-                    "buttonLabel": "Toegang en rol toevoegen",
+                    "buttonLabel": "Een medewerker toevoegen",
                     "title": "Een personeelsaccount toevoegen",
                     "email": {
                         "label": "E-mail"
@@ -6821,28 +6824,28 @@
         "pageTitle": "Personeel",
         "roleDescription": {
             "4": {
-                "description": "Systeembeheerder, dezelfde toegang als eigenaar, maar kan worden verwijderd/aangemaakt",
+                "description": "Systeembeheerders hebben dezelfde toegang als een Eigenaar, maar Systeembeheerders kunnen worden toegevoegd/verwijderd.",
                 "name": "Systeembeheerder"
             },
             "3": {
-                "description": "Account voor automatisch inchecken (neem contact op met uw BSPORT-accountmanager)",
-                "name": "Inchecken via tabletten"
+                "description": "Gebruik deze Rol als leden zichzelf via een tablet inchecken. Contacteer BSPORT voor meer informatie.",
+                "name": "Check-in | Tablet"
             },
             "2": {
-                "description": "Alleen toegang voor inchecken.",
-                "name": "Beperkt inchecken"
+                "description": "Check-in | Beperkt geeft alleen toegang om leden in te checken.",
+                "name": "Check-in | Beperkt"
             },
             "1": {
-                "description": "Toegang tot sessiebeheer (wijziging en annulering), leden en kan inchecken.",
-                "name": "Uitgebreide check-ins"
+                "description": "Check-in | Uitgebreid geeft toegang tot het beheren van sessies (wijzigingen en annuleringen), de ledengegevens en het inchecken.",
+                "name": "Check-in | Uitgebreid"
             },
             "0": {
                 "name": "Eigenaar",
-                "description": "Toegang voor systeembeheerders, zonder beperking, kan personeelsaccounts maken"
+                "description": "De Eigenaar heeft toegang tot alle functionaliteiten zonder beperkingen en kan Personeelsaccounts aanmaken."
             },
             "5": {
                 "name": "Rapportages",
-                "description": "Geef alleen toegang tot Rapportages. Dit kan handig voor je accountants zijn."
+                "description": "Dit geeft iemand alleen toegang tot Rapportages; dit kan handig voor je accountants zijn."
             }
         }
     },
@@ -7013,7 +7016,7 @@
             "sectionTitle": "Betaalmethoden"
         },
         "platformInvoice": {
-            "noInvoice": "Nog geen facturen beschikbaar. Facturen zijn hier als .PDF beschikbaar zodra deze voldaan zijn",
+            "noInvoice": "Er zijn nog geen facturen beschikbaar. Je ziet ze hier als .PDF zodra je een factuur betaald hebt.",
             "sectionTitle": "Mijn facturen",
             "label": "Factuur {{month}} / {{year}}"
         }

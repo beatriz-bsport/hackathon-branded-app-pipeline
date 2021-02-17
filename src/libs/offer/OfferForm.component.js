@@ -300,8 +300,10 @@ export class OfferForm extends Component<Props, State> {
         </Grid>
         <FeatureListProvider>
           {(featureList) => {
-            const hasZoomApp = !!featureList.upsell.find(
-              (f) => f.readable_identifier === 'zoom',
+            const hasZoomApp = !!(
+              featureList &&
+              featureList.upsell &&
+              featureList.upsell.find((f) => f.readable_identifier === 'zoom')
             );
             if (
               this.props.metaActivity &&

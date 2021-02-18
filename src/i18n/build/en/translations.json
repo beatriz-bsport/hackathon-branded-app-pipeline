@@ -5023,7 +5023,7 @@
                 "changeDate": "Modify the date",
                 "showInvoice": "See the invoice",
                 "changePrice": "Modify the price",
-                "stop": "Stop before this invoice",
+                "stop": "Stop after this invoice",
                 "disableAutoRenew": "Desactivate auto-renew",
                 "enableAutoRenew": "Activate auto-renew"
             },

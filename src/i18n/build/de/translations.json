@@ -779,7 +779,8 @@
                     "explainHardDelete": "Soll dieser Kurs von der Liste entfernt werden? Achtung! Dieser Kurs wird dann unsichtbar. Diese Aktion ist unwiderruflich! Wenn es Buchungen für diesen Kurs gibt, wird dieser nicht gelöscht."
                 },
                 "broadcast_link": {
-                    "error": "Der Link ist falsch. Er muss mit http:// oder https:// beginnen und darf keine Leerzeichen enthalten"
+                    "error": "Der Link ist falsch. Er muss mit http:// oder https:// beginnen und darf keine Leerzeichen enthalten",
+                    "explainZoomApp": "Der Link wird von bsport automatisch für ZOOM generiert"
                 },
                 "explainNotificationOnEdit": "Möchtest Du Deine Kunden über diese Änderung informieren?",
                 "changeEstablishment": "Die Einrichtung ändern",
@@ -2658,13 +2659,15 @@
             "payment_method_bancontact": "Bancontact",
             "payment_method_sofort": "SOFORT",
             "stock_at_end": "Inventar am Ende des Zeitraums",
-            "stock_at_start": "Inventar zu Beginn des Zeitraums"
+            "stock_at_start": "Inventar zu Beginn des Zeitraums",
+            "accept_email": "Akzeptiert E-Mails",
+            "accept_sms": "Akzeptiert SMS"
         },
         "no": "Nein",
         "yes": "Ja",
         "list": {
             "empty": "Keine Reports? Erstelle den ersten Report!",
-            "button_new": "Erstelle meinen erstern Report"
+            "button_new": "Erstelle meinen ersten Report"
         },
         "report": {
             "delete_message": "Bist Du Dir sicher, dass Du den Report {{name}} löschen möchtest?"
@@ -3322,7 +3325,8 @@
                 "3": "Scheck",
                 "2": "SEPA",
                 "1": "Kreditkarte",
-                "0": "Bargeld"
+                "0": "Bargeld",
+                "14": "Guthaben (Schulden)"
             },
             "select": {
                 "label": "Zahlungsmethode"
@@ -3427,7 +3431,7 @@
         "paymentEngine": {
             "label": {
                 "1": "Onlinebezahlung",
-                "0": "Barzahlung"
+                "0": "vor Ort Zahlung"
             }
         },
         "invoiceType": {
@@ -6851,7 +6855,8 @@
             "featured": "Wir empfehlen Dir",
             "error": {
                 "invalidBasket": "Dein Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet"
-            }
+            },
+            "isFinalized": "Dein Warenkorb wurde validiert"
         },
         "forms": {
             "delivery": {

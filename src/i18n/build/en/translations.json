@@ -4019,7 +4019,7 @@
             "isEmpty": "You basket is empty",
             "featured": "Featured",
             "error": {
-                "invalidBasket": "Your basket contained items which are not available for sell anymore. No payment was registered."
+                "invalidBasket": "Your basket contained items which are not available for sale anymore. No payment was registered."
             },
             "actions": {
                 "closeBasket": "Continue shopping",
@@ -4787,9 +4787,9 @@
                     "cancel": "Cancel",
                     "submit": "Submit"
                 },
-                "debt": "Disbursement",
+                "debt": "Debit",
                 "explainTopup": "An increase of {{ amount }} € will be recorded in the member's balance.",
-                "explainDecaissement": "A disbursement of {{ amount }} {{ currencyDisplay }}  will be recorded.",
+                "explainDecaissement": "A decrease of {{ amount }} {{ currencyDisplay }} will be recorded in the member's balance",
                 "balanceValueLabel": "Amount",
                 "title": "Balance adjustment",
                 "typeLabel": "Adjustment type",
@@ -5476,7 +5476,9 @@
             "payment_method_sofort": "Sofort",
             "payment_method_eps": "EPS",
             "stock_at_end": "Provision at the end of the period",
-            "stock_at_start": "Provision at the start of the period"
+            "stock_at_start": "Provision at the start of the period",
+            "accept_email": "Accept emails",
+            "accept_sms": "Accept SMS"
         },
         "yes": "Yes",
         "no": "No",

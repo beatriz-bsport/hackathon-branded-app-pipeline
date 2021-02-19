@@ -33,6 +33,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import resourceTimeGrid from '@fullcalendar/resource-timegrid';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 import moment from 'moment-timezone';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
@@ -486,6 +487,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
             interactionPlugin,
             timeGridPlugin,
             resourceTimeGrid,
+            dayGridPlugin,
             // momentTimezonePlugin,
           ]}
           timeZone={this.props.timezone}
@@ -511,7 +513,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
             center: 'title',
             right: this.props.resourceDatatypeView
               ? 'zoomOut,zoomIn resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
-              : 'zoomOut,zoomIn timeGridDay,timeGridWeek',
+              : 'zoomOut,zoomIn timeGridDay,timeGridWeek,dayGridMonth',
           }}
           schedulerLicenseKey="0683005223-fcs-1587553109"
           filterResourcesWithEvents

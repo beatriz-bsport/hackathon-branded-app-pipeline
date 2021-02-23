@@ -19,6 +19,7 @@ import type { TFunction } from 'react-i18next';
 import { formatAsDate } from '../../../../utils/datetime';
 import NumericInput from '../../../../components/input/NumericInput.component';
 import type { PrivateConsumerPass } from '../../types';
+import { getExpirationDate } from '../../utils';
 
 type Props = {
   open: boolean,
@@ -64,12 +65,12 @@ export const PrivateConsumerPassExtensionCreateDialog = (props: Props) => {
             <div className={props.classes.dateExplainer}>
               <Typography variant="subtitle2">
                 {props.t('consumerPass.extension.create.explain.oldDate') +
-                  formatAsDate(props.privateConsumerPass.ending_date)}
+                  formatAsDate(getExpirationDate(props.privateConsumerPass))}
               </Typography>
               <Typography variant="subtitle2">
                 {props.t('consumerPass.extension.create.explain.newDate') +
                   formatAsDate(
-                    moment(props.privateConsumerPass.ending_date).add(
+                    moment(getExpirationDate(props.privateConsumerPass)).add(
                       'days',
                       props.nbDays,
                     ),

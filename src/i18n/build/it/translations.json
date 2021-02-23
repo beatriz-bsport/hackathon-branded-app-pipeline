@@ -290,7 +290,8 @@
                 "changeCoach": "Modifica insegnante",
                 "changeEstablishment": "Cambia luogo",
                 "broadcast_link": {
-                    "error": "Il link è sbagliato Deve iniziare con http: // o https: // e non deve contenere spazi"
+                    "error": "Il link è sbagliato Deve iniziare con http: // o https: // e non deve contenere spazi",
+                    "explainZoomApp": "Il link sarà generato automaticamente per ZOOM da bsport"
                 },
                 "explainRecursiveOfferDelete": "Vuoi eliminare TUTTE le sessioni simili?",
                 "explainRecursiveOfferEdit": "Vuoi modificare TUTTE le sessioni simili in base a queste nuove condizioni?",
@@ -1794,7 +1795,7 @@
             "private_pass": {
                 "credits": "{{credits}} crediti"
             },
-            "buyPass": "{{price}} €",
+            "buyPass": "{{ price, price }}",
             "preview": {
                 "credit_cost": "Credito {{credit_cost}}"
             },
@@ -1882,12 +1883,15 @@
                 "delete": "Rimuovi"
             },
             "list": {
-                "createButton": "Crea un appuntamento"
+                "createButton": "Crea un appuntamento",
+                "isEmpty": "Nessun pass d'appuntamento",
+                "availableCustomer": "Disponibile per la vendita online",
+                "managerOnly": "Non disponibile per la vendita"
             },
             "parameters": {
                 "nbCredits": "{{credits}} crediti",
                 "managerOnly": "Invisibile ai clienti",
-                "price": "{{price}} €",
+                "price": "{{ price, price}}",
                 "tax": "I.V.A. :{{ tax }}%"
             },
             "edit": "Modifica",
@@ -2370,7 +2374,8 @@
                 "broadcast": "Video conferenza",
                 "general": "Generale",
                 "platform_billing": "Abbonamento bsport",
-                "marketplaceSettings": "Impostazioni marketplace"
+                "marketplaceSettings": "Impostazioni marketplace",
+                "widget": "Widget"
             },
             "myClub": "Il mio club",
             "subscription": "Addebiti",
@@ -2725,6 +2730,12 @@
                 "error": "Impossibile interrompere l'abbonamento per il momento",
                 "warning": "Impossibile interrompere per il momento, trasferire un pagamento?",
                 "success": "L'abbonamento è stato interrotto"
+            },
+            "contract": {
+                "restore": {
+                    "success": "Contratto ripristinato con successo",
+                    "error": "Impossibile ripristinare il contratto"
+                }
             }
         },
         "webhook": {
@@ -2808,6 +2819,10 @@
                     "error": "Non è possibile condividere questo pass",
                     "success": "Card comune di appuntamento"
                 }
+            },
+            "delete": {
+                "success": "Eliminare relazione",
+                "error": "Impossibile cancellare questa relazione"
             }
         },
         "paymentRules": {
@@ -3120,19 +3135,23 @@
                 "error": "Errore durante il collegamento dell'account Zoom",
                 "success": "Account Zoom collegato con successo"
             }
-        }
+        },
+        "consumerPass": {
+            "success": "Il tuo acquisto è stato registrato!"
+        },
+        "copied": "Copiato negli appunti"
     },
     "settings": {
         "broadcast": {
             "explainEnabled": "Attivato: bsport gestisce le tue sale per videoconferenze, IMPOSSIBILE crearne due contemporaneamente.",
-            "explainDisabled": "Disabilitato: gestisci i link per le tue videoconferenze da configurare durante ogni sessione (tramite zoom, ecc.).",
+            "explainDisabled": "Disabilitato: gestisci i link per le tue videoconferenze da configurare durante ogni sessione (tramite ZOOM, ecc.).",
             "is_whereby_integration_enabled": {
                 "label": "Attiva l'integrazione whereby X bsport"
             },
             "submit": "Iscriviti",
             "zoom": {
                 "explainInvalid": "Account valido",
-                "explainValid": "Account valido: I link delle riunioni zoom verranno creati per ogni sessione 15 minuti prima dell'avvio automatico. Il professore riceverà un link per ospitare la riunione, mentre gli iscritti riceveranno un altro link per partecipare alla riunione. Si noti che se l'account zoom non è pagato, la riunione zoom è limitata a 40 minuti",
+                "explainValid": "Account valido: I link delle riunioni ZOOM verranno creati per ogni sessione 15 minuti prima dell'avvio automatico. Il professore riceverà un link per ospitare la riunione, mentre gli iscritti riceveranno un altro link per partecipare alla riunione. Si noti che se l'account ZOOM non è pagato, la riunione ZOOM è limitata a 40 minuti",
                 "label": "Impostazioni degli account Zoom",
                 "enabled": "Abilitare l'integrazione di Zoom"
             },
@@ -3224,7 +3243,12 @@
                 "selectEstablishment": "Scegli uno stabilimento",
                 "selectCoach": "Scegli un coach",
                 "selectComponent": "Scegli un elemento",
-                "showAdvanced": "Vedi altre opzioni"
+                "showAdvanced": "Vedi altre opzioni",
+                "selectPrivateServiceType": "Tipo",
+                "selectPrivateServiceTypeList": "Tutti gli appuntamenti",
+                "selectPrivateServiceTypeDetail": "Il mio appuntamento",
+                "selectPrivateServiceGroups": "Scegliete le vostre categorie",
+                "selectVideo": "Scegliere un video"
             },
             "componentType": {
                 "playlist": "Playlist",
@@ -3234,7 +3258,8 @@
                 "pass": "Pass",
                 "privateService": "Appuntamenti",
                 "workshop": "Workshop",
-                "calendar": "Calendario"
+                "calendar": "Calendario",
+                "newsletter": "Newsletter"
             },
             "preview": "Anteprima",
             "saveButton": "Salva",
@@ -3413,7 +3438,7 @@
                 "topup": "Incasso",
                 "debt": "Pagamento",
                 "explainTopup": "Un supplemento di {{ amount }} €  sarà registrato nel saldo del membro",
-                "explainDecaissement": "Un pagamento di {{ amount }} € sarà registrato",
+                "explainDecaissement": "Un pagamento di  {{ amount }} {{ currencyDisplay }} sarà registrato",
                 "balanceValueLabel": "Importo",
                 "typeLabel": "Tipo di regolazione",
                 "title": "Regolazione del saldo"
@@ -3491,7 +3516,8 @@
                 "3": "Assegno",
                 "2": "SEPA",
                 "1": "Carta di credito",
-                "0": "Cash"
+                "0": "Cash",
+                "14": "Acconto del cliente (debito)"
             },
             "select": {
                 "label": "Metodo di pagamento"
@@ -3733,7 +3759,8 @@
                 "register": "Iscriviti un socio",
                 "titleCustomerAvailable": "Contratti disponibili per la vendita",
                 "titleManagerOnly": "Contratti non disponibili per la vendita",
-                "isEmpty": "Nessun contratto disponibile"
+                "isEmpty": "Nessun contratto disponibile",
+                "titleInactive": "Contratti archiviati"
             },
             "form": {
                 "title": "Modulo del contratto",
@@ -4073,7 +4100,11 @@
             "stripe_invoice_pdf": "PDF",
             "credit_price": "Prezzo in credito",
             "purchases": "Acquisti",
-            "views_unique": "Visualizzazioni uniche"
+            "views_unique": "Visualizzazioni uniche",
+            "accept_email": "Accetta le e-mail",
+            "accept_sms": "Accetta SMS",
+            "stock_at_start": "Stock all'inizio del periodo",
+            "stock_at_end": "Stock alla fine del periodo"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -4479,7 +4510,7 @@
             "refundTitle": "Rimborso associato",
             "bookingsTitle": "Prenotazioni associate",
             "extensionsTitle": "Estensioni di validità",
-            "penaltyAccount": "Ulteriori fatturazioni di {{account_value}} €",
+            "penaltyAccount": "Ulteriori fatturazioni di {{account_value}} {{currencyDisplay }}",
             "penaltyBlock": "Carta bloccata per {{nb_days}} giorni",
             "penaltyTitle": "Penalità applicate",
             "trackModifiedCreditTitle": "Storia del credito modificata"
@@ -5095,7 +5126,7 @@
                 "combo": "Pacchetto",
                 "private_pass": "Lezioni private",
                 "name": "Spese",
-                "second": "€ tra",
+                "second": "{{ currencyDisplay }} tra",
                 "third": "e",
                 "fourth": "per i prodotti",
                 "selector": "Scegli i prodotti"
@@ -5279,7 +5310,7 @@
                     "first": "Carrello abbandonato"
                 },
                 "explanation": "Ha abbandonato un carrello nella quantità di ...",
-                "third": "euro",
+                "third": "{{ currencyDisplay }}",
                 "second": "di",
                 "between": "e"
             },
@@ -5287,8 +5318,8 @@
                 "name": "Debito",
                 "first": "L'acconto del cliente è ( la fattura non pagata non è inclusa)",
                 "second": " a   ",
-                "third": "euro",
-                "explanation": "Ha X euro sul suo conto",
+                "third": "{{ currencyDisplay }}",
+                "explanation": "Ha X  {{ currencyDisplay }} sul suo conto",
                 "between": "e"
             },
             "18": {
@@ -5365,7 +5396,7 @@
                 "date": {
                     "first": "acquisti effettuati"
                 },
-                "second": "€ per i prodotti",
+                "second": "{{ currencyDisplay }} per i prodotti",
                 "first": "Ha speso",
                 "name": "Spese",
                 "workshop": "Tessera speciale per workshop",
@@ -5640,6 +5671,14 @@
                 "isEmpty": "Pass non condivisi",
                 "create": "Condividi un pass",
                 "title": "Pass lezioni condivisi"
+            }
+        },
+        "relationship": {
+            "delete": {
+                "content": "Attenzione questa azione è irreversibile, le carte condivise non saranno più condivise.",
+                "cancel": "Cancellare",
+                "submit": "Eliminare",
+                "title": "Eliminare relazione"
             }
         }
     },
@@ -6520,7 +6559,7 @@
         "pageTitle": "Pannello di controllo",
         "turnover": {
             "title": "Incassi",
-            "caption": "Fatturato (€)",
+            "caption": "Fatturato",
             "popover": "Somma di tutti i pagamenti ricevuti nelle fatture"
         },
         "bookings": "Prenotazioni",
@@ -6564,7 +6603,7 @@
         },
         "plannedPayment": {
             "title": "Incasso delle iscrizioni",
-            "caption": "Incasso (€)",
+            "caption": "Incasso",
             "popover": "Somma di tutti i pagamenti ricevuti per le iscrizioni"
         },
         "noData": "Nessun dato da visualizzare",
@@ -6667,7 +6706,8 @@
             },
             "error": {
                 "invalidBasket": "Il tuo carrello conteneva articoli che non sono più disponibili per la vendita. Nessun pagamento è stato registrato"
-            }
+            },
+            "isFinalized": "Il tuo carrello è stato convalidato"
         },
         "paymentIntent": {
             "isProcessing": "Attendere prego"
@@ -6917,7 +6957,18 @@
             "cancel": "Annulla",
             "responsiveDisplay": "Display reattivo",
             "calendarDisplay": "Visualizzazione per scheda settimanale (calendario)",
-            "listDisplay": "Visualizzazione per elenco settimane"
+            "listDisplay": "Visualizzazione per elenco settimane",
+            "creationPageInfo": "Personalizzare i widget e integrarli nel tuo sito",
+            "codeInfo": "Il codice da integrare nel tuo sito",
+            "dialogTitle": "Personalizzazione dei widget",
+            "widgetPreviewError": "Per favore, finisci la tua configurazione",
+            "dialogModeLabel": "Tipo di popup (login, pagamento, prenotazione)",
+            "dialogMode": {
+                "tab": "Nuova scheda",
+                "popup": "Nuova finestra",
+                "iframe": "Rimanere sul sito"
+            },
+            "linkToConfig": "Collegamento a questa configurazione"
         }
     },
     "platformBilling": {
@@ -6928,7 +6979,7 @@
         },
         "platformBillingStage": {
             "maxBooking": "Fino a {{ max_booking_per_month }} prenotazioni / mese",
-            "monthlyPrice": "{{ price }} € / mese"
+            "monthlyPrice": "{{ price, price }} / mese"
         },
         "platformBillingPlan": {
             "max_establishment": {
@@ -6946,15 +6997,15 @@
         },
         "upsellPackage": {
             "vod": {
-                "explainBilling": "  +1€ /cliente attivo"
+                "explainBilling": "  +1 {{currencyDisplay }} /cliente attivo"
             },
             "otherAddonTitle": "Add-ons disponibili",
             "myAddonTitle": "I miei Add-ons",
             "knowMore": "Più informazioni",
-            "billRecurrent": "{{price_cts }} € / mese",
-            "billOnce": "{{price_cts }} €",
+            "billRecurrent": "{{price_cts, price }} / mese",
+            "billOnce": "{{price_cts, price }}",
             "sms": {
-                "explainBilling": "{{ price_cts }} € / SMS"
+                "explainBilling": "{{ price_cts, price }} / SMS"
             }
         },
         "paymentMethod": {

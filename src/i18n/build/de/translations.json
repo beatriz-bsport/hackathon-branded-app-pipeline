@@ -2385,7 +2385,7 @@
         "availableOnFollowingSports": "Wählbare Kategorien : ",
         "availableOnFollowingEstablishments": "Wählbare Einrichtungen : ",
         "availableOnFollowingActivities": "Wählbare Aktivitäten : ",
-        "notificationForm": "Benachrichtigung-Formular",
+        "notificationForm": "Benachrichtigungs-Formular",
         "noPaymentPack": "Kurskarten ermöglichen es den Mitgliedern, sich für Aktivitäten anzumelden; für die Anmeldung ist eine Karte erforderlich.",
         "disabledPacks": {
             "hide": "Archivierte Karten verbergen",
@@ -3978,8 +3978,8 @@
                     "second_before": "Stunde (n) vor Beginn des Kurses",
                     "first": "Eine E-Mail senden"
                 },
-                "sendAfterMail": "Sende die E-Mail nach der von der Benachrichtigung betroffeneren Kurse an das Mitglied",
-                "sendBeforeMail": "Sende die E-Mail vor der von der Benachrichtigung betroffenen Kurs an das Mitglied",
+                "sendAfterMail": "Sende die E-Mail nach der von der Benachrichtigung betroffenen Kurse an das Mitglied",
+                "sendBeforeMail": "Sende die E-mail vor den von der Benachrichtigung betroffenen Kursen and das Mitglied",
                 "explain": "Du kannst Deine Kunden vor oder nach bestimmten Kursen benachrichtigen, abhängig von verschiedenen Kriterien wie der Anzahl der Besuche, Abwesenheiten oder sogar Stornierungen.",
                 "help": {
                     "absence": "Anzahl der Abwesenheit: {{notify_booking_nb}}",
@@ -4004,7 +4004,7 @@
                 },
                 "settingTitle": "Einstellungen",
                 "typeTitle": "Benachrichtigungstyp",
-                "title": "Benachrichtigung-Formular",
+                "title": "Benachrichtigungs-Formular",
                 "eventNb": "Benachrichtige das Mitglied während der Veranstaltung Nr.:",
                 "notifyAllEvents": "Benachrichtige das Mitglied bei jeder Veranstaltung"
             },

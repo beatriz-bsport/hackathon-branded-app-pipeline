@@ -4025,7 +4025,8 @@
                 "closeBasket": "Continue shopping",
                 "checkoutBasket": "Buy",
                 "payZero": "Confirm my basket"
-            }
+            },
+            "isFinalized": "Your cart has been validated"
         },
         "payLater": {
             "submit": "Pay on site",

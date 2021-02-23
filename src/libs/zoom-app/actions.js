@@ -4,6 +4,7 @@ import { createAction } from 'redux-actions';
 import {
   fetchZoomApp as fetchZoomAppAPI,
   updateZoomApp as updateZoomAppAPI,
+  revokeZoomApp as revokeZoomAppAPI,
 } from './api';
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
@@ -53,5 +54,34 @@ export function updateZoomApp(
       }
     }
     dispatch(zoomAppUpdateAction.loading(false));
+  };
+}
+
+export const revokeZoomAppActions = {
+  error: createAction('ZOOM_APP/REVOKE/ERROR'),
+  loading: createAction('ZOOM_APP/REVOKE/IS_LOADING'),
+  success: createAction('ZOOM_APP/REVOKE/SUCCESS'),
+};
+
+export function revokeZoomApp(
+  company_id: number,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(revokeZoomAppActions.error(null));
+    dispatch(revokeZoomAppActions.loading(true));
+    try {
+      const response = await revokeZoomAppAPI(company_id);
+      dispatch(revokeZoomAppActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(revokeZoomAppActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(revokeZoomAppActions.loading(false));
   };
 }

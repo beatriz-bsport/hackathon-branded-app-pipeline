@@ -23,6 +23,7 @@ import zoomAppSelectors from '../../libs/zoom-app/selectors';
 import {
   updateZoomApp,
   fetchZoomApp as fetchZoomAppAction,
+  revokeZoomApp as revokeZoomAppAction,
 } from '../../libs/zoom-app/actions';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import { requestZoomAccessToken as requestZoomAccessTokenAPI } from '../../libs/zoom-app/api';
@@ -30,6 +31,7 @@ import { requestZoomAccessToken as requestZoomAccessTokenAPI } from '../../libs/
 type Props = {
   theme: Theme,
   loading: boolean,
+  revokeZoomApp: (companyId: number) => void,
   processing: boolean,
   submitTheme: (companyId: number, data: *) => void,
   fetchCompanyTheme: () => void,
@@ -107,6 +109,7 @@ export class BroadcastConfiguration extends Component<Props> {
           zoomApp={this.props.zoomApp}
           connectZoom={this.connectZoom}
           onSubmitZoomApp={this.props.submitZoomApp}
+          revokeZoomApp={this.props.revokeZoomApp}
           zoomLoading={!!this.props.zoomCode}
         />
       </div>
@@ -140,11 +143,15 @@ export default compose(
       replace: replaceRouter,
       snackbarSuccess,
       snackbarError,
+      revokeZoomApp: revokeZoomAppAction,
     },
   ),
   withHandlers({
     removeUrlCode: ({ replace }) => () => {
       replace(window.location.pathname);
+    },
+    revokeZoomApp: ({ revokeZoomApp, theme }) => () => {
+      revokeZoomApp(theme.company);
     },
     submitZoomApp: ({ submitZoomApp, fetchZoomApp, theme }) => (
       zoomAppData,

@@ -18,6 +18,7 @@ import type { TFunction } from 'react-i18next';
 
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import CustomColorButton from '../../../components/button/CustomColorButton.component';
+import RedButton from '../../../components/button/RedButton.component';
 import Config from '../../../config';
 
 import type { Theme } from '../../theme/types';
@@ -30,6 +31,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   zoomApp?: ZoomApp,
+  revokeZoomApp: () => void,
   onSubmitZoomApp?: (data: *) => void,
   connectZoom: () => void,
   zoomLoading: boolean,
@@ -197,6 +199,15 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
                     )}
                     CONNECT ZOOM
                   </CustomColorButton>
+                  {is_configured && hasZoom && (
+                    <RedButton
+                      variant="contained"
+                      disabled={this.props.zoomLoading}
+                      onClick={this.props.revokeZoomApp}
+                    >
+                      {t('broadcast.zoom.revoke')}
+                    </RedButton>
+                  )}
                   {!!this.props.zoomLoading && <CircularProgress />}
                   {!hasZoom && (
                     <Button variant="outlined" onClick={this.props.goToUpsell}>

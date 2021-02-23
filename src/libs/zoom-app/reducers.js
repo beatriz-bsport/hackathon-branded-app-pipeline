@@ -3,7 +3,11 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { zoomAppDetailAction, zoomAppUpdateAction } from './actions';
+import {
+  zoomAppDetailAction,
+  zoomAppUpdateAction,
+  revokeZoomAppActions,
+} from './actions';
 import type { zoom_app_state } from './types';
 
 const initialState: zoom_app_state = Immutable({
@@ -18,6 +22,9 @@ const initialState: zoom_app_state = Immutable({
 
 export default handleActions(
   {
+    [revokeZoomAppActions.success]: (state) => {
+      return state.set('detail', {});
+    },
     [zoomAppDetailAction.success]: (state, { payload }) => {
       return state.set('detail', payload);
     },

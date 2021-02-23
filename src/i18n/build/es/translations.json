@@ -2714,7 +2714,9 @@
             "payment_method_sofort": "Sofort",
             "payment_method_eps": "EPS",
             "stock_at_start": "Provisión al inicio del periodo",
-            "stock_at_end": "Provisión al final del periodo"
+            "stock_at_end": "Provisión al final del periodo",
+            "accept_email": "Aceptar correos electrónicos",
+            "accept_sms": "Aceptar SMS"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -4935,7 +4937,8 @@
                     "payment": "Facturación",
                     "address": "Dirección"
                 }
-            }
+            },
+            "isFinalized": "Su cesta ha sido validada"
         },
         "autoAdd": {
             "paymentPack": {

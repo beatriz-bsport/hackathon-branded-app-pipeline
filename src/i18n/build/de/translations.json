@@ -4885,7 +4885,7 @@
             "header": {
                 "threeDaysView": "3 Tage"
             },
-            "createCustomEvent": "Einen personnellen Termin erstellen"
+            "createCustomEvent": "Persönlichen Termin erstellen"
         },
         "privateEstablishment": {
             "delete": {
@@ -6649,7 +6649,8 @@
                 "explainInvalid": "Ungültiger Account",
                 "explainValid": "Gültiges Konto: Zoom-Meeting-Links werden für jeden Kurs 15 Minuten vor dem Start automatisch erstellt. Der Lehrer erhält einen Link zur Ausrichtung des Meetings, während die registrierten Mitglieder einen weiteren Link zur Teilnahme für die Konferenz erhalten. Beachte, dass die Zoom-Besprechung auf 40 Minuten begrenzt ist, wenn die kostenlose Zoom-Lizenzen genutzt werden",
                 "label": "Zoom-Konten konfigurieren",
-                "enabled": "Aktiviere die Zoom-Integration"
+                "enabled": "Aktiviere die Zoom-Integration",
+                "revoke": "Deaktiviere ZOOM"
             },
             "seeUpsell": "Mehr erfahren"
         },

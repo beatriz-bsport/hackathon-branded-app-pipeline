@@ -411,7 +411,7 @@
                 "isPast": "Afgelopen",
                 "notAvailable": "Geannuleerd",
                 "bookOption": "Wachtlijsten",
-                "book": "Reserveren",
+                "book": "Reserveer",
                 "notBookableYet": "Binnenkort"
             },
             "passListTitle": "Cursuskaarten (voor groepslessen)",
@@ -499,7 +499,7 @@
             "yourBasket": "Jouw aankoop",
             "noBookingsLeftOnPack": "Deze cursuskaart is voor deze week uitverkocht",
             "noCreditLeft": "Niet genoeg krediet",
-            "bookWithUnlimitedPack": "Reserveren",
+            "bookWithUnlimitedPack": "Reserveer",
             "actions": "Acties",
             "invoiceFinalizedThusNotEditable": "De factuur is definitief en kan dus niet meer worden bewerkt",
             "topUp": "Krediet(en)",
@@ -1046,7 +1046,7 @@
             "name": "Titel",
             "addActivity": "Een activiteit toevoegen",
             "addOffers": "Sessie(s) toevoegen",
-            "lastDiscardBeforeMinutes": "Voor het begin van de sessie is de laatste annulering mogelijk tot",
+            "lastDiscardBeforeMinutes": "Geef aan tot wanneer leden voor het begin van de sessie kunnen annuleren (late-cancel)",
             "lastBookingBeforeMinutes": "Selecteer tot wanneer een lid zich kan inschrijven",
             "is_broadcast": "Dit is een livestream",
             "settings": "Instellingen",
@@ -2066,7 +2066,7 @@
                     "helperText": "Laat dit veld leeg om geen limiet op te leggen",
                     "label": "Maximaal gebruik per dag"
                 },
-                "full_vod_access": "Geeft toegang tot VOD zolang deze beschikbaar is",
+                "full_vod_access": "Geeft toegang tot de VOD (indien beschikbaar)",
                 "maxBookingPerMonth": {
                     "helperText": "Laat dit veld leeg om geen limiet in te stellen",
                     "label": "Maximaal maandgebruik"
@@ -2159,7 +2159,7 @@
         "reverted": "Factuur geannuleerd",
         "link": {
             "copied": "Link gekopieerd",
-            "copyLink": "Kopieer de link naar de betalingspagina"
+            "copyLink": "Kopieer de directe link naar de betaalpagina"
         },
         "newMemberOnly": "Alleen beschikbaar voor nieuwe leden",
         "publicPacksTitle": "Beschikbare cursuskaarten",
@@ -2887,7 +2887,7 @@
             }
         },
         "card": {
-            "copyLink": "Kopieer de link naar de reserveringspagina",
+            "copyLink": "Kopieer de directe link naar de reserveringspagina",
             "copied": "Link gekopieerd"
         },
         "offerManagement": {
@@ -2916,7 +2916,7 @@
         "bookingListEmpty": "Nog geen reserveringen",
         "bookingList": "Reserveringen",
         "menu": {
-            "download": "Samenvatting",
+            "download": "Exporteren",
             "massDisable": "In bulk annuleren",
             "hideCancelled": "Verberg annuleringen",
             "showCancelled": "Toon annuleringen",
@@ -3144,7 +3144,7 @@
             "hasRegistered": "Je bent ingeschreven voor deze sessie",
             "recurrent": {
                 "backToRegistererChoice": "Terug",
-                "bookMultiple": "Reserveren",
+                "bookMultiple": "Reserveer",
                 "title": "Toekomstige sessies"
             },
             "isLoading": "Zoeken naar sessies..."
@@ -3362,7 +3362,7 @@
             "noWorkshopAvailable": "Momenteel zijn er geen workshops ingepland",
             "card": {
                 "showMore": "Meer informatie",
-                "book": "Reserveren",
+                "book": "Reserveer",
                 "isPast": "Afgelopen",
                 "notAvailable": "Geannuleerd",
                 "duration": "Duur: {{duration}}",
@@ -3823,7 +3823,7 @@
             "paymentMethodTitle": "Betaalmethode"
         },
         "noContracts": "Met abonnementen kun je lidmaatschappen maandelijks vernieuwen en in rekening te brengen.",
-        "copyLink": "Kopieer de link naar de betalingspagina",
+        "copyLink": "Kopieer de directe link naar de betaalpagina",
         "listItem": {
             "valid": "Geldig",
             "paused": "Gepauzeerd",
@@ -4136,8 +4136,9 @@
             "zoom": {
                 "explainValid": "Geldig account: de links van Zoom worden 15 minuten voor het begin van elke online les aangemaakt en verstuurd. De instructeur ontvangt een link om de online les te hosten, terwijl je ingeschreven leden een andere link ontvangen om deel te nemen. Waarschuwing! Controleer of je een Premium Zoom-account hebt, omdat Basis Zoom-accounts tot online sessies van 40 minuten zijn beperkt",
                 "enabled": "Activeer de integratie van BSPORT en Zoom",
-                "label": "Je Zoom-accounts activeren",
-                "explainInvalid": "Ongeldig account"
+                "label": "Zoom configureren",
+                "explainInvalid": "Ongeldig account",
+                "revoke": "Zoom uitschakelen"
             },
             "seeUpsell": "Meer informatie"
         },
@@ -4305,11 +4306,11 @@
             "disableAvailability": "Beschikbaarheid verwijderen",
             "enableRecurrentAvailability": "Periodieke beschikbaarheid toevoegen",
             "disableRecurrentAvailability": "Periodieke beschikbaarheid verwijderen",
-            "addBooking": "Een afspraak maken",
+            "addBooking": "Een afspraak inpannen",
             "toogle": {
                 "showOfferList": "Groepslessen",
                 "showPrivateBookings": "Afspraken",
-                "showCustomEvents": "Persoonlijke afspraken"
+                "showCustomEvents": "Privésessie"
             },
             "enableAvailability": "Beschikbaarheid toevoegen",
             "createCustomEvent": "Persoonlijke afspraak toevoegen"
@@ -4387,7 +4388,7 @@
                 "establishment": "Selecteer een vestiging"
             },
             "isAtHome": "Je adres is vereist bij het reserveren van thuislessen",
-            "title": "Reserveren",
+            "title": "Reserveer",
             "address": {
                 "label": "Adres",
                 "submit": "Bevestigen",
@@ -4426,7 +4427,7 @@
                 "date": "Datum",
                 "rule": "Periodieke afspraken"
             },
-            "useCredit": "Reserveren",
+            "useCredit": "Reserveer",
             "notifyMember": {
                 "label": "Bevestigingsmail versturen"
             },
@@ -4812,7 +4813,7 @@
                     "placeholder": "Afspraak met de bank",
                     "label": "Naam"
                 },
-                "title": "Persoonlijke afspraken"
+                "title": "Privésessie"
             },
             "actions": {
                 "delete": "Verwijderen"
@@ -5011,7 +5012,7 @@
     },
     "shop": {
         "link": {
-            "copyLink": "Kopieer de link naar de betalingspagina",
+            "copyLink": "Kopieer de directe link naar de betaalpagina",
             "copied": "Link gekopieerd"
         },
         "dialog": {
@@ -6101,10 +6102,10 @@
                     "area": "Gebiedskaart",
                     "bar": "Kolommendiagram",
                     "qualitativeInvoiceItem": "Opsplitsen",
-                    "temporalPlannedInvoice": "Vooruitgang in de loop der tijd",
-                    "temporalPayment": "Vooruitgang in de loop der tijd",
-                    "temporalBooking": "Vooruitgang in de loop der tijd",
-                    "temporalMember": "Vooruitgang in de loop der tijd"
+                    "temporalPlannedInvoice": "Historische ontwikkeling",
+                    "temporalPayment": "Historische ontwikkeling",
+                    "temporalBooking": "Historische ontwikkeling",
+                    "temporalMember": "Historische ontwikkeling"
                 },
                 "graphComponent": "Gewenste weergave",
                 "aggregateHelper": "Voorbeeld: toont de progressie van het aantal totale leden i.p.v. het aantal nieuwe leden per maand.",
@@ -6428,7 +6429,7 @@
                 }
             },
             "title": "Mijn winkelmandje",
-            "isEmpty": "Je winkelmand is leeg",
+            "isEmpty": "Je winkelmandje is nog leeg",
             "featured": "Onze aanbevelingen",
             "error": {
                 "invalidBasket": "Uw mandje bevatte artikelen die niet meer te koop zijn. Er is geen betaling geregistreerd"
@@ -6961,7 +6962,7 @@
             "linkToConfig": "Link voor deze configuratie",
             "widgetPreviewError": "Voltooi je configuratie",
             "dialogTitle": "Je widget personaliseren",
-            "codeInfo": "De code voor je op website",
+            "codeInfo": "De code voor op je website",
             "creationPageInfo": "Personaliseer hier je widgets om ze gemakkelijk op je website te integreren.",
             "dialogMode": {
                 "iframe": "Op de website blijven",

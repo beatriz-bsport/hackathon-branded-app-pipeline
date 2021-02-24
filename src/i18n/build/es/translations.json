@@ -1564,8 +1564,9 @@
             "zoom": {
                 "explainInvalid": "Cuenta inválida",
                 "explainValid": "Cuenta válida: Los enlaces de las reuniones de ZOOM se crearán para cada sesión 15 minutos antes de que comiencen automáticamente. El profesor recibirá un enlace para organizar la reunión, mientras que los inscritos recibirán otro enlace para unirse a la reunión. Tenga en cuenta que si la cuenta de ZOOM no es de pago, la reunión de ZOOM está limitada a 40 minutos",
-                "label": "Configurar las cuentas de Zoom",
-                "enabled": "Activar la integración de Zoom"
+                "label": "Configurar las cuentas de ZOOM",
+                "enabled": "Activar la integración de ZOOM",
+                "revoke": "Desactivar ZOOM"
             },
             "seeUpsell": "Más información"
         },

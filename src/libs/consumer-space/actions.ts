@@ -344,6 +344,7 @@ export function fetchBookingsAndPrivateBookings(args: {
       ) {
         const promise = fetchPrivateBookings({
           member: args.member,
+          booking_status_code: BOOKING_STATUS_OK.id,
           date_start__gte: args.date_start,
           page: privateBookingPage,
           page_size: pageSize,

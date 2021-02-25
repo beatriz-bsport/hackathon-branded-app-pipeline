@@ -63,6 +63,7 @@ import type {
   PrivateConsumerPass,
   PrivatePass,
 } from '../../libs/private-service/types';
+import WidgetUtils from '../../libs/widget/WidgetUtils';
 
 type Props = {
   privateServiceId: number,
@@ -173,16 +174,11 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
       },
       {
         onSuccess: () => {
-          if (window && window.env && window.env.APP_CONTEXT === 'widget') {
-            if (window.opener && window.opener.postMessage) {
-              window.opener.postMessage({ type: 'paymentSuccess' }, '*');
-              return;
-            }
-            if (window.parent && window.parent.postMessage) {
-              window.parent.postMessage({ type: 'paymentSuccess' }, '*');
-              return;
-            }
+          if (WidgetUtils.isWidget()) {
+            WidgetUtils.paymentSuccess();
+            return;
           }
+
           this.props.goToConsumerHome();
           this.setState({ processing: false });
         },

@@ -29,7 +29,8 @@ const initialState: Immutable.Immutable<ConsumerState> = Immutable<ConsumerState
         rest: [],
       },
       allObj: [],
-      loading: false,
+      count: 0,
+      loading: true,
       error: null,
       hasMore: true,
     },
@@ -199,7 +200,13 @@ export default function consumerReducers(state = initialState, action: any) {
             ...action.payload.allObj,
           ],
         )
-        .setIn(['bookingAndPrivateBooking', 'hasMore'], action.payload.hasMore);
+        .setIn(['bookingAndPrivateBooking', 'hasMore'], action.payload.hasMore)
+        .setIn(
+          ['bookingAndPrivateBooking', 'count'],
+          action.payload.count !== null
+            ? action.payload.count
+            : state.bookingAndPrivateBooking.count,
+        );
     default:
       return state;
   }

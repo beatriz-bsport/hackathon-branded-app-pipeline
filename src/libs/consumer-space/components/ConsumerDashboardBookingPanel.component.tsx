@@ -17,26 +17,32 @@ import PrivateBookingConsumerItem from '../../private-service/components/booking
 
 import type { Booking } from '../../booking/types';
 import type { Membership } from '../../membership/types';
-import { urlToMarketplace } from '../../marketplace/utils';
 import { BookingOrPrivateBooking } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
+import { PrivateBooking } from '../../private-service/types';
 
-type Props = {
-  classes: Object;
-  showMoreBooking: (page?: number) => void;
+type OwnProps = {
+  showMoreBooking: () => void;
   membership: Membership;
-  goToBroadcast: (id: number) => void;
-
-  goToCalendar: (params: any) => void;
-  push: (path: string) => void;
-
-  onDiscardBooking: (booking?: Booking) => void;
-  onDiscardPrivateBooking: (id: number) => void;
+  goToBroadcast?: (id: number) => void;
+  goToCalendar?: (params: {
+    f_metaActivities: string;
+    f_establishments: string;
+    f_coaches: string;
+  }) => void;
+  goToPrivateService?: () => void;
+  onDiscardBooking: (booking: Booking) => void;
+  onDiscardPrivateBooking: (privateBooking: PrivateBooking) => void;
   timezone: string;
   bookingsAndPrivateBookings: BookingOrPrivateBooking[];
   loading: boolean;
   hasMore: boolean;
-} & WithTranslation &
+  fullWidth?: boolean;
+  hideTitle?: boolean;
+};
+
+type Props = OwnProps &
+  WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 const BookingFooter = (props: {
@@ -66,6 +72,25 @@ const BookingFooter = (props: {
 };
 
 export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
+  goToCalendar = (booking: Booking) => {
+    const calendarFilters = {
+      f_metaActivities: `[]`,
+      f_establishments: `[]`,
+      f_coaches: `[]`,
+    };
+
+    if (booking.offer) {
+      // @ts-ignore
+      calendarFilters.f_metaActivities = `[${booking.offer.meta_activity.id}]`;
+      // @ts-ignore
+      calendarFilters.f_establishments = `[${booking.offer.establishment.id}]`;
+      // @ts-ignore
+      calendarFilters.f_coaches = `[${booking.offer.coach.id}]`;
+    }
+
+    this.props.goToCalendar(calendarFilters);
+  };
+
   renderBookingOrPrivateBooking = (
     bookingOrPrivateBooking: BookingOrPrivateBooking,
   ) => {
@@ -75,30 +100,15 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
     ) {
       const { booking } = bookingOrPrivateBooking;
 
-      const calendarFilters = {
-        f_metaActivities: `[]`,
-        f_establishments: `[]`,
-        f_coaches: `[]`,
-      };
-
-      if (booking.offer) {
-        // @ts-ignore
-        calendarFilters.f_metaActivities = `[${booking.offer.meta_activity.id}]`;
-        // @ts-ignore
-        calendarFilters.f_establishments = `[${booking.offer.establishment.id}]`;
-        // @ts-ignore
-        calendarFilters.f_coaches = `[${booking.offer.coach.id}]`;
-      }
-
       return (
         <div className={this.props.classes.marginTop}>
           <BookingConsumerItem
             key={`booking-${booking.id}`}
             timezone={this.props.timezone}
             booking={booking}
-            goToBroadcast={() => this.props.goToBroadcast(booking.id)}
-            onDiscard={() => this.props.onDiscardBooking(booking)}
-            goToCalendar={() => this.props.goToCalendar(calendarFilters)}
+            onDiscard={this.props.onDiscardBooking}
+            goToBroadcast={this.props.goToBroadcast}
+            goToCalendar={this.goToCalendar}
           />
         </div>
       );
@@ -114,14 +124,7 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
           <PrivateBookingConsumerItem
             key={`private-${privateBooking.id}`}
             onDiscard={this.props.onDiscardPrivateBooking}
-            goToCalendar={() =>
-              this.props.push(
-                `${urlToMarketplace(
-                  this.props.membership.company_name,
-                  this.props.membership.company.toString(),
-                )}/private-service/`,
-              )
-            }
+            goToCalendar={this.props.goToPrivateService}
             private_booking={privateBooking}
             timezone={this.props.timezone}
           />
@@ -133,15 +136,17 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
 
   render() {
     return (
-      <div>
-        <Typography
-          variant="h4"
-          component="h3"
-          className={this.props.classes.sectionTitle}
-          color="textSecondary"
-        >
-          {this.props.t('dashboard.nextBookingTitle')}
-        </Typography>
+      <div className={this.props.classes.container}>
+        {this.props.hideTitle !== true && (
+          <Typography
+            variant="h4"
+            component="h3"
+            className={this.props.classes.sectionTitle}
+            color="textSecondary"
+          >
+            {this.props.t('dashboard.nextBookingTitle')}
+          </Typography>
+        )}
         {this.props.bookingsAndPrivateBookings.length === 0 &&
         !this.props.loading ? (
           <Typography variant="caption" color="textSecondary">
@@ -178,9 +183,16 @@ const styles = (theme: Theme) => ({
   marginTop: {
     marginTop: theme.spacing(2),
   },
+  fullWidth: {
+    width: '100%',
+  },
+  container: {
+    width: '100%',
+    height: '100%',
+  },
 });
 
-export default compose<any, Props>(
+export default compose<any, OwnProps>(
   withTranslation(['consumerSpace']),
   withStyles(styles),
 )(ConsumerDashboardBookingPanel);

@@ -291,11 +291,17 @@ const consumerBookingAndPrivateBookingReset = () => {
   };
 };
 
+export enum BookingsAndPrivateBookingsTypeEnum {
+  future,
+  past,
+}
+
 export function fetchBookingsAndPrivateBookings(args: {
   member: number;
   date_start: string;
   page?: number;
   options?: OptionCallback<BookingOrPrivateBooking[]>;
+  type?: BookingsAndPrivateBookingsTypeEnum;
 }): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     args.page === 1 && dispatch(consumerBookingAndPrivateBookingReset());
@@ -324,7 +330,7 @@ export function fetchBookingsAndPrivateBookings(args: {
         bookingRest.length < pageSize &&
         bookingAndPrivateBooking.booking.next_page
       ) {
-        const promise = fetchBookingListAPI({
+        const params: any = {
           member: args.member,
           page: bookingPage,
           page_size: pageSize,
@@ -332,7 +338,15 @@ export function fetchBookingsAndPrivateBookings(args: {
           min_date: args.date_start,
           booking_status_code: BOOKING_STATUS_OK.id,
           ordering: 'offer__date_start',
-        });
+        };
+
+        if (args.type === BookingsAndPrivateBookingsTypeEnum.past) {
+          delete params.min_date;
+          params.max_date = args.date_start;
+          params.ordering = '-offer__date_start';
+        }
+
+        const promise = fetchBookingListAPI(params);
         promises.push(promise);
       } else {
         promises.push(new Promise((resolve) => resolve(null)));
@@ -342,14 +356,23 @@ export function fetchBookingsAndPrivateBookings(args: {
         privateBookingRest.length < pageSize &&
         bookingAndPrivateBooking.privateBooking.next_page
       ) {
-        const promise = fetchPrivateBookings({
+        const params: any = {
           member: args.member,
           booking_status_code: BOOKING_STATUS_OK.id,
           date_start__gte: args.date_start,
           page: privateBookingPage,
           page_size: pageSize,
-          ordering: 'date_start',
-        });
+          ordering: 'date_start', // -date_start
+          booking_status_code: BOOKING_STATUS_OK.id,
+        };
+
+        if (args.type === BookingsAndPrivateBookingsTypeEnum.past) {
+          delete params.date_start__gte;
+          params.date_start__lte = args.date_start;
+          params.ordering = '-date_start';
+        }
+
+        const promise = fetchPrivateBookings(params);
         promises.push(promise);
       } else {
         promises.push(new Promise((resolve) => resolve(null)));
@@ -368,6 +391,12 @@ export function fetchBookingsAndPrivateBookings(args: {
         privateBookingNextPage = privateBookingResponse.data.next_page;
       }
 
+      let count: null | number = null;
+
+      if (args.page === 1 && bookingResponse && privateBookingResponse) {
+        count = bookingResponse.data.count + privateBookingResponse.data.count;
+      }
+
       bookingResults = [...bookingResults, ...bookingRest];
       privateBookingResults = [...privateBookingResults, ...privateBookingRest];
 
@@ -383,7 +412,12 @@ export function fetchBookingsAndPrivateBookings(args: {
         })),
       ];
 
-      const sortedByDateAll = sortBookingAndPrivateBookingList(all);
+      let sortedByDateAll = sortBookingAndPrivateBookingList(all);
+
+      if (args.type === BookingsAndPrivateBookingsTypeEnum.past) {
+        sortedByDateAll = sortedByDateAll.reverse();
+      }
+
       const sortedByDatePaged = sortedByDateAll.splice(0, pageSize);
 
       bookingRest = [];
@@ -419,6 +453,7 @@ export function fetchBookingsAndPrivateBookings(args: {
           results: privateBookingResults,
           next_page: privateBookingNextPage,
         },
+        count,
         allObj,
         hasMore,
       };

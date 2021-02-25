@@ -62,6 +62,8 @@ import type { Booking } from '../../libs/booking/types';
 import { Invoice } from '../../libs/invoice/types';
 import { fetchBookingsAndPrivateBookings as fetchBookingsAndPrivateBookingsAction } from '../../libs/consumer-space/actions';
 import { getAllBookingAndPrivateBooking } from '../../libs/consumer-space/selectors';
+import { PrivateBooking } from '../../libs/private-service/types';
+import PrivateBookingCancellationDialog from '../../libs/private-service/components/booking/PrivateBookingCancellationDialog';
 
 type OwnProps = {
   companyId: number;
@@ -110,13 +112,29 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
     window.open(invoice.stripe_invoice_pdf);
   };
 
-  onDiscardPrivateBooking = (id: number) => {
+  onDiscardBooking = (id: number, dialogOptions: OptionCallback) => {
+    this.props.cancelBooking(this.props.bookingToCancel.id, null, {
+      onSuccess: () => {
+        dialogOptions.onSuccess();
+        this.props.setBookingToCancel(null);
+        this.props.fetchBookingsAndPrivateBookings(1);
+      },
+      onError: () => {
+        dialogOptions.onError();
+        this.props.setBookingToCancel(null);
+      },
+    });
+  };
+
+  onDiscardPrivateBooking = (id: number, dialogOptions: OptionCallback) => {
     this.props.discardPrivateBooking(
       id,
       {},
       {
         onSuccess: () => {
-          this.props.fetchBookingsAndPrivateBookings();
+          dialogOptions.onSuccess();
+          this.props.setPrivateBookingToCancel(null);
+          this.props.fetchBookingsAndPrivateBookings(1);
         },
       },
     );
@@ -161,13 +179,13 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
               goToBroadcast={this.props.goToBroadcast}
               showMoreBooking={this.props.fetchBookingsAndPrivateBookings}
               timezone={this.props.companyTheme.timezone_name}
-              push={this.props.push}
               membership={this.props.membership}
               onDiscardBooking={this.props.setBookingToCancel}
-              onDiscardPrivateBooking={this.onDiscardPrivateBooking}
+              onDiscardPrivateBooking={this.props.setPrivateBookingToCancel}
               bookingsAndPrivateBookings={this.props.bookingsAndPrivateBookings}
               loading={this.props.bookingsAndPrivateBookingsLoading}
               hasMore={this.props.hasMoreBookingsAndPrivateBookings}
+              goToPrivateService={this.props.goToPrivateService}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -194,7 +212,19 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
           booking={this.props.bookingToCancel}
           onCancel={() => this.props.setBookingToCancel(null)}
           onSubmit={(options: OptionCallback) =>
-            this.props.cancelBooking(this.props.bookingToCancel.id, options)
+            this.onDiscardBooking(this.props.bookingToCancel.id, options)
+          }
+        />
+
+        <PrivateBookingCancellationDialog
+          open={!!this.props.privateBookingToCancel}
+          privateBooking={this.props.privateBookingToCancel}
+          onCancel={() => this.props.setPrivateBookingToCancel(null)}
+          onSubmit={(options) =>
+            this.onDiscardPrivateBooking(
+              this.props.privateBookingToCancel.id,
+              options,
+            )
           }
         />
       </div>
@@ -273,17 +303,24 @@ const mapDispatchToProps = {
 
 type StateHandlerInit = {
   bookingToCancel: Booking | null;
+  privateBookingToCancel: PrivateBooking | null;
   optionToCancel: number | null;
 };
 
 const withStateHandlersInit: StateHandlerInit = {
   bookingToCancel: null,
+  privateBookingToCancel: null,
   optionToCancel: null,
 };
 
 const withStateHandlersSetter = {
   setBookingToCancel: () => (bookingToCancel: Booking | null) => {
     return { bookingToCancel };
+  },
+  setPrivateBookingToCancel: () => (
+    privateBookingToCancel: PrivateBooking | null,
+  ) => {
+    return { privateBookingToCancel };
   },
   setOptionToCancel: () => (optionToCancel: number | null) => {
     return { optionToCancel };
@@ -302,30 +339,27 @@ const mapWithHandlers = {
   ) => {
     props.push(`/payment/offer/${offerId}?option_id=${optionId}`);
   },
-  cancelBooking: (props: OwnConnectedStateHandlerProps) => (
-    id: number,
-    options: any,
-  ) => {
-    props.cancelBooking(id, null, {
-      onSuccess: () => {
-        props.setBookingToCancel(null);
-        if (options && options.onSuccess) options.onSuccess();
-      },
-      onError: () => {
-        if (options && options.onError) options.onError();
-      },
-    });
-  },
   goToBroadcast: (props: OwnConnectedStateHandlerProps) => (
     bookingId: number,
-  ) => props.push(`/c/${props.membership.company}/broadcast/${bookingId}/`),
-  goToCalendar: (props: OwnConnectedStateHandlerProps) => (params?: any) =>
+  ) => {
+    props.push(`/c/${props.membership.company}/broadcast/${bookingId}/`);
+  },
+  goToCalendar: (props: OwnConnectedStateHandlerProps) => (params?: any) => {
     props.push(
       `${urlToMarketplace(
         props.membership.company_name,
         props.membership.company.toString(),
       )}/calendar/${buildUrlParams({ ...params, filtersOpen: true })}`,
-    ),
+    );
+  },
+  goToPrivateService: (props: OwnConnectedStateHandlerProps) => () => {
+    props.push(
+      `${urlToMarketplace(
+        props.membership.company_name,
+        props.membership.company.toString(),
+      )}/private-service/`,
+    );
+  },
   fetchBookingsAndPrivateBookings: (props: OwnConnectedStateHandlerProps) => (
     page?: number,
   ) => {

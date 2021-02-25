@@ -22,6 +22,7 @@ type Props = {
   withPrice?: boolean,
   t: TFunction,
   loading: ?boolean,
+  fullWidth?: boolean,
 };
 
 export const BasketConsumer = (props: Props) => {
@@ -32,8 +33,9 @@ export const BasketConsumer = (props: Props) => {
       </div>
     );
   }
+
   return (
-    <div>
+    <div className={props.fullWidth === true ? props.classes.fullWidth : ''}>
       {props.loading ? <LinearProgress /> : null}
       <List dense disablePadding>
         {props.basket.checkout_items.length ? (
@@ -88,6 +90,9 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  fullWidth: {
+    width: '100%',
   },
 });
 

@@ -62,6 +62,7 @@ export class WidgetCodeStringGenerator {
     config: MarketplaceComponentConfig;
     useIframe: boolean;
     dialogMode: 0 | 1 | 2;
+    showFab: boolean;
   }) {
     const componentConfig = args.config[args.componentType];
     const code = `<script src="https://${
@@ -73,6 +74,7 @@ export class WidgetCodeStringGenerator {
         "companyId": ${args.company},
         "dialogMode": ${args.dialogMode},
         "widgetType": "${args.componentType}",
+        "showFab": ${args.showFab},
         "config": {
             "${args.componentType}": {
 ${WidgetCodeStringGenerator.getComponentConfigString(

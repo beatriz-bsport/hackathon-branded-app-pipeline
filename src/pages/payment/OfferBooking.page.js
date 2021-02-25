@@ -95,6 +95,7 @@ import { isRegistered as offerIsRegisteredAPI } from '../../libs/offer/api';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 
 import SubscriptionContractBooking from './SubscriptionBooking.component';
+import WidgetUtils from '../../libs/widget/WidgetUtils';
 
 type Props = {
   offer: ?Offer,
@@ -235,24 +236,25 @@ export class OfferPaymentPage extends Component<Props, State> {
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <Analytics theme={this.props.theme} />
         <div className={this.props.classes.subContainer}>
-          <MarketplaceAppBar
-            paper
-            auth={this.props.auth}
-            logo={this.props.theme && this.props.theme.cover}
-            goToUserSpace={() =>
-              this.props.offer &&
-              this.props.goToUserSpace(this.props.offer.company)
-            }
-            currentBasket={this.props.currentBasket}
-            openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
-            disconnect={() => {
-              this.props.disconnect();
-            }}
-            onCancel={() => this.props.setSelectedContract(null)}
-            requestSetupIntentSecret={this.requestSetupIntentSecret}
-            companyId={this.props.offer && this.props.offer.company}
-          />
-
+          {!WidgetUtils.isWidget() && (
+            <MarketplaceAppBar
+              paper
+              auth={this.props.auth}
+              logo={this.props.theme && this.props.theme.cover}
+              goToUserSpace={() =>
+                this.props.offer &&
+                this.props.goToUserSpace(this.props.offer.company)
+              }
+              currentBasket={this.props.currentBasket}
+              openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
+              disconnect={() => {
+                this.props.disconnect();
+              }}
+              onCancel={() => this.props.setSelectedContract(null)}
+              requestSetupIntentSecret={this.requestSetupIntentSecret}
+              companyId={this.props.offer && this.props.offer.company}
+            />
+          )}
           <div className={this.props.classes.container}>
             <PaymentContainer
               hidePaper
@@ -497,16 +499,11 @@ export default compose(
     ) => {
       payWithConsumerPaymentPackAPI(consumerPaymentPackId, offer.id)
         .then(() => {
-          if (window && window.env && window.env.APP_CONTEXT === 'widget') {
-            if (window.opener && window.opener.postMessage) {
-              window.opener.postMessage({ type: 'paymentSuccess' }, '*');
-              return;
-            }
-            if (window.parent && window.parent.postMessage) {
-              window.parent.postMessage({ type: 'paymentSuccess' }, '*');
-              return;
-            }
+          if (WidgetUtils.isWidget()) {
+            WidgetUtils.paymentSuccess();
+            return;
           }
+
           push(`/c/${offer.company}/?from_direct_booking=${offer.id}`);
           if (options && options.onSuccess) options.onSuccess();
         })

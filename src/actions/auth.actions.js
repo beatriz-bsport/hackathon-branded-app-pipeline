@@ -7,6 +7,7 @@ import { createAction } from 'redux-actions';
 import api from '../api';
 import types from './auth.types';
 import type { Dispatch, ThunkAction } from '../state/types';
+import WidgetUtils from '../libs/widget/WidgetUtils';
 
 export const initiateInterface = createAction('initiate');
 
@@ -14,6 +15,7 @@ export function profileUpdated() {
   // return { email, firstname, lastname, type: types.PROFILE_UPDATED };
   return { type: types.PROFILE_UPDATED };
 }
+
 export function updateProfile({
   email,
   firstname,
@@ -60,6 +62,7 @@ export function fetchAccessLevel(
           name,
         }),
       );
+      WidgetUtils.onLoginSuccess();
       if (options && options.next) {
         dispatch(push(options.next));
       } else if (options && options.company) {

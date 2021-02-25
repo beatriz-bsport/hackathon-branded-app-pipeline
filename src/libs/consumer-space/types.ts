@@ -47,6 +47,7 @@ export type ConsumerState = {
       rest: PrivateBooking[];
     };
     allObj: Array<BookingAndPrivateBookingId>;
+    count: number;
     hasMore: boolean;
   };
 };

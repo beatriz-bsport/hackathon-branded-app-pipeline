@@ -54,6 +54,7 @@ import { validateUnpaid as validateUnpaidAPI } from '../../libs/checkout/api';
 import { auth as authActions } from '../../actions';
 
 import { fetchProfile } from '../../libs/consumer-space/actions';
+import WidgetUtils from '../../libs/widget/WidgetUtils';
 
 type Props = {
   basket: ?Basket,
@@ -212,18 +213,20 @@ export class CheckoutPayment extends React.Component<Props> {
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <div className={this.props.classes.subContainer}>
-          <MarketplaceAppBar
-            paper
-            auth={this.props.auth}
-            logo={this.props.theme && this.props.theme.cover}
-            goToUserSpace={() =>
-              this.props.companyId &&
-              this.props.goToUserSpace(this.props.companyId)
-            }
-            disconnect={() => {
-              this.props.disconnect(this.props.goBack);
-            }}
-          />
+          {!WidgetUtils.isWidget() && (
+            <MarketplaceAppBar
+              paper
+              auth={this.props.auth}
+              logo={this.props.theme && this.props.theme.cover}
+              goToUserSpace={() =>
+                this.props.companyId &&
+                this.props.goToUserSpace(this.props.companyId)
+              }
+              disconnect={() => {
+                this.props.disconnect(this.props.goBack);
+              }}
+            />
+          )}
           <Analytics theme={this.props.theme} />
           <div className={this.props.classes.container}>
             <div className={this.props.classes.checkoutFlow}>
@@ -344,15 +347,9 @@ export default compose(
     onSuccess: ({ replace, basket }) => () => {
       Analytics.onPaymentSuccess(basket);
 
-      if (window && window.env && window.env.APP_CONTEXT === 'widget') {
-        if (window.opener && window.opener.postMessage) {
-          window.opener.postMessage({ type: 'paymentSuccess' }, '*');
-          return;
-        }
-        if (window.parent && window.parent.postMessage) {
-          window.parent.postMessage({ type: 'paymentSuccess' }, '*');
-          return;
-        }
+      if (WidgetUtils.isWidget()) {
+        WidgetUtils.paymentSuccess();
+        return;
       }
 
       replace(`/c/${basket.company}/?from_basket=${basket.id}`);

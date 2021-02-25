@@ -16,8 +16,10 @@ import {
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import SettingsIcon from '@material-ui/icons/Settings';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { merge } from 'lodash';
+import moment from 'moment-timezone';
 
 import {
   DIALOG_MODE_POPUP,
@@ -85,6 +87,7 @@ interface State {
     privateServiceError: string;
     playlistError: string;
   };
+  showFab: boolean;
 }
 
 class WidgetGeneratorPage extends React.PureComponent<Props, State> {
@@ -100,6 +103,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
         privateServiceError: '',
         playlistError: '',
       },
+      showFab: false,
     };
 
     if (props.defaultValue) {
@@ -157,6 +161,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       config: this.state.config,
       useIframe: this.state.useIframe,
       dialogMode: this.state.dialogMode,
+      showFab: this.state.showFab,
     });
   };
 
@@ -170,6 +175,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
         config: this.state.config,
         useIframe: false,
         dialogMode: this.state.dialogMode,
+        showFab: this.state.showFab,
       });
     }
 
@@ -248,11 +254,15 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
     });
   };
 
-  onChangeCompatibilityMode = (checked: boolean) => {
+  onChangeCompatibilityMode = (e: any, checked: boolean) => {
     this.setState({
       useIframe: checked,
       dialogMode: checked ? DIALOG_MODE_TAB : DIALOG_MODE_IFRAME,
     });
+  };
+
+  onChangeShowFab = (e: any, checked: boolean) => {
+    this.setState({ showFab: checked });
   };
 
   render() {
@@ -279,14 +289,36 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
             control={
               <Checkbox
                 checked={this.state.useIframe}
-                onChange={(e) =>
-                  this.onChangeCompatibilityMode(e.target.checked)
-                }
+                onChange={this.onChangeCompatibilityMode}
                 name="checkedA"
               />
             }
             label={t('widget:widget.ownStyle')}
           />
+
+          <div className={classes.showFabContainer}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.showFab}
+                  onChange={this.onChangeShowFab}
+                  name="checkedB"
+                />
+              }
+              label={t('widget:widget.showFabLabel')}
+            />
+
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={`https://intercom.help/bsport-helpcenter/${moment
+                .locale()
+                .slice(0, 2)}/articles/4942264`}
+              className={classes.link}
+            >
+              <HelpOutlineIcon />
+            </a>
+          </div>
 
           <FormControl className={classes.dialogMode}>
             <InputLabel>{t('widget:widget.dialogModeLabel')}</InputLabel>
@@ -311,7 +343,6 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
                 {t(`widget:widget.dialogMode.popup`)}
               </MenuItem>
             </Select>
-            {error && <Typography color="error">{error}</Typography>}
           </FormControl>
 
           {!this.props.hideTypeSelector && (
@@ -438,6 +469,19 @@ const styles = (theme: Theme) => ({
     flex: 1,
     [theme.breakpoints.up('lg')]: {
       maxWidth: 450,
+    },
+  },
+  showFabContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'black',
+    '&:focus, &:hover, &:visited, &:link, &:active': {
+      textDecoration: 'none',
+      color: 'black',
     },
   },
   dialogMode: {

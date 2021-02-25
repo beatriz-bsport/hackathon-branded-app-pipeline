@@ -17,7 +17,6 @@ import TodayIcon from '@material-ui/icons/Today';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 import RedButton from '../../../../components/button/RedButton.component';
-import withConfirm from '../../../../hocs/with-confirm.hoc';
 
 type Props = {
   t: TFunction,
@@ -28,27 +27,8 @@ type Props = {
   timezone: string,
 };
 
-const DiscardButtonGetter = (discardable) =>
-  withConfirm(RedButton, 'onClick', {
-    title: 'privateService:privateBooking.delete.consumer.title',
-    cancel: 'privateService:privateBooking.delete.consumer.cancel',
-    confirm: 'privateService:privateBooking.delete.consumer.confirm',
-    Content: ({ t }: { t: TFunction }) => (
-      <p>
-        {discardable
-          ? t(
-              'privateService:privateBooking.delete.consumer.content.discardable',
-            )
-          : t(
-              'privateService:privateBooking.delete.consumer.content.notDiscardable',
-            )}
-      </p>
-    ),
-  });
-
 export const PrivateBookingConsumerItem = (props: Props) => {
   const { private_booking, classes, t } = props;
-  const DiscardButton = DiscardButtonGetter(private_booking.is_discardable);
   return (
     <div>
       <div className={classes.header}>
@@ -82,16 +62,20 @@ export const PrivateBookingConsumerItem = (props: Props) => {
 
       <Divider />
       <div className={classes.footer}>
-        <Button onClick={props.goToCalendar} variant="outlined" color="primary">
-          <TodayIcon className={classes.leftIcon} />
-          {t('consumerSpace:booking.showCalendar')}
-        </Button>
-        <DiscardButton
-          t={t}
-          onClick={() => props.onDiscard(private_booking.id)}
-        >
+        {props.goToCalendar && (
+          <Button
+            onClick={props.goToCalendar}
+            variant="outlined"
+            color="primary"
+          >
+            <TodayIcon className={classes.leftIcon} />
+            {t('consumerSpace:booking.showCalendar')}
+          </Button>
+        )}
+
+        <RedButton onClick={() => props.onDiscard(private_booking)}>
           {t('consumerSpace:booking.discard')}
-        </DiscardButton>
+        </RedButton>
       </div>
     </div>
   );

@@ -16,6 +16,7 @@ import Config from './config';
 import IEMessage from './components/IEMessage.component';
 import { parseQueryString } from './http';
 import { fetchAccessLevel } from './actions/auth.actions';
+import WidgetUtils from './libs/widget/WidgetUtils';
 
 const MarketPlace = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
@@ -40,6 +41,8 @@ const PaymentRouter = asyncComponent(() => import('./pages/Payment.router'));
 const RNWebView = asyncComponent(() =>
   import('./pages/rn-webview/RNWebView.router'),
 );
+
+const Widget = asyncComponent(() => import('./pages/widget/Widget.router'));
 
 const CheckIn = asyncComponent(() => import('./pages/check-in/CheckIn.page'));
 const ConsumerUnsubscribe = asyncComponent(() =>
@@ -85,8 +88,8 @@ export class Root extends Component<Props> {
     /**
      * injected by the widget
      */
-    if (query.context) {
-      window.env.APP_CONTEXT = query.context;
+    if (query.context && query.context === 'widget') {
+      WidgetUtils.setWidgetContext();
     }
   }
 
@@ -100,10 +103,13 @@ export class Root extends Component<Props> {
     return (
       <div className={classes.root}>
         <IEMessage />
-        <Banner
-          networkAvailable={this.props.networkAvailable}
-          environment={Config.REACT_APP_SENTRY_ENVIRONMENT}
-        />
+
+        {!WidgetUtils.isWidget() && (
+          <Banner
+            networkAvailable={this.props.networkAvailable}
+            environment={Config.REACT_APP_SENTRY_ENVIRONMENT}
+          />
+        )}
 
         <Switch>
           <Route
@@ -125,6 +131,7 @@ export class Root extends Component<Props> {
           <Route path="/rn-webview" component={RNWebView} />
           <Route path="/c/:companyId" component={ConsumerRouter} />
           <Route path="/c/" component={ConsumerRouter} />
+          <Route path="/widget" component={Widget} />
           <Route path="/" component={UserspaceSwitcher} />
         </Switch>
       </div>

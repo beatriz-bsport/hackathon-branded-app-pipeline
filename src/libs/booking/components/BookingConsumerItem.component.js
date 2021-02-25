@@ -20,13 +20,14 @@ import TodayIcon from '@material-ui/icons/Today';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 import RedButton from '../../../components/button/RedButton.component';
+import { Booking } from '../types';
 
 type Props = {
   t: TFunction,
   booking: Booking,
   classes: Object,
-  goToCalendar: () => void,
-  goToBroadcast: () => void,
+  goToCalendar: (bookings: Booking) => void,
+  goToBroadcast: (bookings: Booking) => void,
   onDiscard: () => void,
   variant?: string,
 };
@@ -86,7 +87,7 @@ export const BookingConsumerItem = (props: Props) => {
           <Button
             variant="contained"
             color="primary"
-            onClick={props.goToBroadcast}
+            onClick={() => props.goToBroadcast(props.booking)}
           >
             <VideoCamIcon className={classes.leftIcon} />
             {t('booking.accessLive')}
@@ -94,7 +95,7 @@ export const BookingConsumerItem = (props: Props) => {
         ) : null}
         {props.goToCalendar ? (
           <Button
-            onClick={props.goToCalendar}
+            onClick={() => props.goToCalendar(props.booking)}
             variant={
               props.variant === 'after_checkout' ? 'contained' : 'outlined'
             }
@@ -109,7 +110,7 @@ export const BookingConsumerItem = (props: Props) => {
         ) : null}
         {(offer && moment(offer.date_start).isBefore(moment())) ||
         !props.onDiscard ? null : (
-          <RedButton onClick={props.onDiscard}>
+          <RedButton onClick={() => props.onDiscard(props.booking)}>
             {t('booking.discard')}
           </RedButton>
         )}

@@ -77,6 +77,7 @@ export type WidgetConfig = {
   dialogMode: 0 | 1 | 2;
   widgetType: WidgetComponentsEnum;
   config: MarketplaceComponentConfig;
+  showFab: boolean;
 };
 
 export type MarketplaceSettings = {

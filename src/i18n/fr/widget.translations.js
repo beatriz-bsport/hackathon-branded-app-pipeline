@@ -23,6 +23,7 @@ exports.default = {
     dialogTitle: 'Personalisation de Widget',
     widgetPreviewError: 'Veuillez finir votre configuration',
     dialogModeLabel: 'Type de popup (login, paiement, réservation)',
+    showFabLabel: "Bouton flottant d'interface client",
     dialogMode: {
       tab: 'Nouvel onglet',
       popup: 'Nouvelle fenêtre',

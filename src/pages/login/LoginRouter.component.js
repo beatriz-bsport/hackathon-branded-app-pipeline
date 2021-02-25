@@ -24,6 +24,7 @@ import asyncComponent from '../../AsyncComponent';
 import Signout from './Signout.component';
 import ResetPassword from './ResetPassword.component';
 import ChangePassword from './ChangePassword.component';
+import WidgetUtils from '../../libs/widget/WidgetUtils';
 
 const CompanyOnboardingRouter = asyncComponent(() =>
   import('./CompanyOnboarding.router'),
@@ -62,12 +63,10 @@ export class LoginRouter extends React.Component<Props> {
 
   render() {
     const { classes } = this.props;
-    const isWidget =
-      window && window.env && window.env.APP_CONTEXT === 'widget';
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <Grid container>
-          {!isWidget && (
+          {!WidgetUtils.isWidget() && (
             <Hidden xsDown>
               <Grid item sm={6} md={6} lg={7} className={classes.logoContainer}>
                 <div
@@ -95,9 +94,9 @@ export class LoginRouter extends React.Component<Props> {
           <Grid
             item
             xs={12}
-            sm={6 + (isWidget ? 6 : 0)}
-            md={6 + (isWidget ? 6 : 0)}
-            lg={5 + (isWidget ? 7 : 0)}
+            sm={6 + (WidgetUtils.isWidget() ? 6 : 0)}
+            md={6 + (WidgetUtils.isWidget() ? 6 : 0)}
+            lg={5 + (WidgetUtils.isWidget() ? 7 : 0)}
             style={{ zIndex: 20 }}
           >
             <Paper elevation={16} className={classes.loginContainer}>

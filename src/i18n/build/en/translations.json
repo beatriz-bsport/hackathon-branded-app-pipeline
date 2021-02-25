@@ -5688,7 +5688,7 @@
                 "daysType": "Period of validity",
                 "daysPastType": "Days since expiry",
                 "mailSelection": "Select mail",
-                "smartListSelection": "Select lists (optionnal)",
+                "smartListSelection": "Select lists (optional)",
                 "showMail": "See mail",
                 "settingTitle": "Settings",
                 "hideMail": "Hide mail preview",
@@ -6008,9 +6008,9 @@
                 },
                 "steps": {
                     "activity_form": "Activity creation",
-                    "pass_form": "Pass creation (optionnal)",
+                    "pass_form": "Pass creation (optional)",
                     "pass_list": "Finalization",
-                    "offer_form": "Session creation (optionnal)",
+                    "offer_form": "Session creation (optional)",
                     "workshop_form": "Workshop creation"
                 }
             },

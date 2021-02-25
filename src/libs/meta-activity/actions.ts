@@ -281,7 +281,7 @@ export const upsertActions = {
 
 export function upsert(
   metaActivityData: any,
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(upsertActions.isLoading(true));

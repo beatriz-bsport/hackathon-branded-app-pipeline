@@ -22,7 +22,6 @@ type Props = {
   classes: Object,
   setMenuOpen: ([?HTMLElement, ?ServiceGroup]) => void,
   menuOpen: [?HTMLElement, ?ServiceGroup],
-  privateServiceAvailableByGroup: { [string]: Array<PrivateService> },
   openServiceGroupToEdit: (ServiceGroup) => void,
   deleteServiceGroup: (id: number) => void,
   goToPrivateService: (id: number) => void,
@@ -125,6 +124,7 @@ const styles = (theme) => ({
   serviceListPaperGroup: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(4),
+    overflow: 'hidden',
   },
   rowIsEmpty: {
     display: 'flex',

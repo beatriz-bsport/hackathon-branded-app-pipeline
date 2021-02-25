@@ -9,7 +9,7 @@ import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import Icon from '@material-ui/core/Icon';
 import Grid from '@material-ui/core/Grid';
 
-import { Field } from 'formik';
+import { Field, ErrorMessage } from 'formik';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -86,6 +86,7 @@ export class ImageField extends Component<Props, State> {
                 )}
               </Grid>
             </label>
+            <ErrorMessage name={field.name} />
           </div>
         )}
       </Field>

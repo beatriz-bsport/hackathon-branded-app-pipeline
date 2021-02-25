@@ -73,10 +73,10 @@ export const fetchPrivateService = (id: number, params?: any) => {
   );
 };
 
-export const createOrUpdatePrivateService = (data: any) => {
-  if (data.id) {
+export const createOrUpdatePrivateService = (data: any, id: number) => {
+  if (id !== undefined && id !== null) {
     return patchAuth(
-      `${API_V1_URI}/private_service/private_service/${data.id}/`,
+      `${API_V1_URI}/private_service/private_service/${id}/`,
       data,
     );
   }

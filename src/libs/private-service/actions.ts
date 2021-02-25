@@ -450,6 +450,7 @@ export function fetchMarketplacePrivateServices(
     dispatch(privateServiceMarketplaceListActions.isLoading(false));
   };
 }
+
 export const privateServiceListActions = {
   error: createAction('PRIVATE_SERVICE/LIST/ERROR'),
   isLoading: createAction('PRIVATE_SERVICE/LIST/IS_LOADING'),
@@ -562,7 +563,16 @@ export function createOrUpdatePrivateService(
     dispatch(privateServiceCreateOrUpdateActions.isLoading(true));
     dispatch(privateServiceCreateOrUpdateActions.error(null));
     try {
-      const response = await createOrUpdatePrivateServiceAPI(data);
+      const formData = new FormData();
+      for (const [key, value] of Object.entries(data)) {
+        if (Array.isArray(value)) {
+          formData.append(key, JSON.stringify(value));
+        } else {
+          formData.append(key, value);
+        }
+      }
+
+      const response = await createOrUpdatePrivateServiceAPI(formData, data.id);
       dispatch(privateServiceCreateOrUpdateActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
@@ -573,6 +583,7 @@ export function createOrUpdatePrivateService(
     dispatch(privateServiceCreateOrUpdateActions.isLoading(false));
   };
 }
+
 export const serviceGroupDeleteActions = {
   error: createAction('PRIVATE_SERVICE/DELETE/ERROR'),
   isLoading: createAction('PRIVATE_SERVICE/DELETE/IS_LOADING'),
@@ -1280,6 +1291,7 @@ export function fetchPrivateConsumerPassList(
     dispatch(privateConsumerPassListActions.isLoading(false));
   };
 }
+
 //
 export function fetchByPrivatePass(
   privatePassId: number,
@@ -1818,6 +1830,7 @@ export function deletePrivateConsumerPassExtension(
     dispatch(deletePrivateConsumerPassExtensionActions.isLoading(false));
   };
 }
+
 export function createPrivateConsumerPassExtension(
   data: any,
   options: OptionCallback,

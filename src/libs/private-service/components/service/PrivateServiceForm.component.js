@@ -33,6 +33,7 @@ import {
   DurationField,
   SwitchField,
 } from '../../../../components/forms';
+import ImageField from '../../../../components/forms/ImageField.component';
 
 type Props = {
   t: TFunction,
@@ -52,6 +53,7 @@ export const PrivateServiceForm = (props: Props) => {
   const { values, classes, t } = props;
   return (
     <div className={classes.container}>
+      <ImageField id="button_private_service_image" name="cover_main" />
       <TextField
         className={classes.field}
         name="name"
@@ -374,7 +376,7 @@ const styles = (theme) => ({
 });
 
 export const PrivateServiceSchema = Yup.object().shape({
-  // cover_main: Yup.object().nullable(),
+  cover_main: Yup.object().required(),
   name: Yup.string().required(),
   description: Yup.string().required(),
   manager_only: Yup.boolean(),
@@ -409,6 +411,7 @@ export const PrivateServiceFormikHOC = withFormik({
       };
     }
     return {
+      cover_main: '',
       name: '',
       description: '',
       color: '',

@@ -116,44 +116,54 @@ export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
                   onClick={() => this.onClickPrivateService(ps)}
                 >
                   <Paper className={classes.itemPaperContainer}>
-                    <Typography align="left" variant="h6" color="textPrimary">
-                      {ps.name}
-                    </Typography>
-                    <TypographyWithShowMore
-                      align="left"
-                      multiline
-                      color="textSecondary"
-                      variant="subtitle1"
-                    >
-                      {ps.description}
-                    </TypographyWithShowMore>
+                    <div className={classes.itemPaperImageContainer}>
+                      <img
+                        alt={ps.name}
+                        src={ps.cover_main}
+                        className={classes.itemPaperImage}
+                      />
+                    </div>
 
-                    <div className={classes.tagsContainer}>
-                      <div className={classes.tagsContainer2}>
-                        {uniq(ps.slots_duration_minute).map((duration) => (
-                          <Chip
-                            size="small"
-                            key={duration}
-                            className={classes.tagItem}
-                            avatar={<AccessTimeIcon fontSize="small" />}
-                            label={
-                              duration + t('datetime:shortMinuteIdentifier')
-                            }
-                            variant="outlined"
-                          />
-                        ))}
+                    <div className={classes.itemPaperContent}>
+                      <Typography align="left" variant="h6" color="textPrimary">
+                        {ps.name}
+                      </Typography>
+                      <TypographyWithShowMore
+                        align="left"
+                        multiline
+                        color="textSecondary"
+                        variant="subtitle1"
+                      >
+                        {ps.description}
+                      </TypographyWithShowMore>
 
-                        {ps.is_home_service && (
-                          <Chip
-                            size="small"
-                            className={classes.tagItem}
-                            label={t(
-                              'privateService:service.form.establishmentResourceType.isHomeService.label',
-                            )}
-                            color="primary"
-                            variant="outlined"
-                          />
-                        )}
+                      <div className={classes.tagsContainer}>
+                        <div className={classes.tagsContainer2}>
+                          {uniq(ps.slots_duration_minute).map((duration) => (
+                            <Chip
+                              size="small"
+                              key={duration}
+                              className={classes.tagItem}
+                              avatar={<AccessTimeIcon fontSize="small" />}
+                              label={
+                                duration + t('datetime:shortMinuteIdentifier')
+                              }
+                              variant="outlined"
+                            />
+                          ))}
+
+                          {ps.is_home_service && (
+                            <Chip
+                              size="small"
+                              className={classes.tagItem}
+                              label={t(
+                                'privateService:service.form.establishmentResourceType.isHomeService.label',
+                              )}
+                              color="primary"
+                              variant="outlined"
+                            />
+                          )}
+                        </div>
                       </div>
                     </div>
                   </Paper>
@@ -209,7 +219,6 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     flex: 1,
     width: '100%',
-    height: '100%',
     flexDirection: 'column',
     alignItems: 'stretch',
   },
@@ -217,9 +226,29 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
+    height: '100%',
+    overflow: 'hidden',
+  },
+  itemPaperContent: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
     justifyContent: 'flex-start',
     padding: theme.spacing(2),
     height: '100%',
+  },
+  itemPaperImageContainer: {
+    position: 'relative',
+    width: '100%',
+    paddingTop: '56.25%',
+    height: 0,
+  },
+  itemPaperImage: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
   loadingContainer: {
     width: '100%',

@@ -50,7 +50,7 @@ exports.default = {
     regular: 'Facture',
     migration: 'Migration',
     credit_payment: 'Reçu (régul. solde)',
-    return: 'Avoir',
+    return: 'Facture de retour',
     reversed: 'Facture (annulée)',
   },
   creditAccountBalance: { current: 'Solde actuel' },
@@ -331,6 +331,7 @@ exports.default = {
         [REVERSE_ON_DEBT]: 'Remboursement en avoir (solde)',
         [REVERSE_ON_NEW_PAYMENT_METHOD]: 'Remboursement manuel',
       },
+      explainEmptyPayment: 'Êtes vous sûr de vouloir annuler cette facture ?',
       explain: {
         [REVERSE_ON_PAYMENT_METHOD]:
           'Les paiements carte bleue / SEPA / etc... seront reversé directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.',

@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
@@ -46,78 +47,86 @@ export const InvoiceReverterDialog = (props: Props) => {
   return (
     <Dialog open={!!props.open}>
       <DialogTitle>{t('revert.dialog.title')}</DialogTitle>
-      <DialogContent>
-        <div className={classes.radioContainer}>
-          <div className={classes.row}>
-            <Radio
-              checked={reverseMethod === REVERSE_ON_PAYMENT_METHOD}
-              disabled={processing}
-              onChange={() => {
-                handleChangeReverseMethod(REVERSE_ON_PAYMENT_METHOD);
-              }}
-              value={REVERSE_ON_PAYMENT_METHOD}
-            />
-            <Typography>
-              {t(`revert.content.label.${REVERSE_ON_PAYMENT_METHOD}`)}
+      {props.invoice.payments && props.invoice.payments.length ? (
+        <DialogContent>
+          <div className={classes.radioContainer}>
+            <div className={classes.row}>
+              <Radio
+                checked={reverseMethod === REVERSE_ON_PAYMENT_METHOD}
+                disabled={processing}
+                onChange={() => {
+                  handleChangeReverseMethod(REVERSE_ON_PAYMENT_METHOD);
+                }}
+                value={REVERSE_ON_PAYMENT_METHOD}
+              />
+              <Typography>
+                {t(`revert.content.label.${REVERSE_ON_PAYMENT_METHOD}`)}
+              </Typography>
+            </div>
+            <Typography variant="caption">
+              {t(`revert.content.explain.${REVERSE_ON_PAYMENT_METHOD}`)}
             </Typography>
           </div>
-          <Typography variant="caption">
-            {t(`revert.content.explain.${REVERSE_ON_PAYMENT_METHOD}`)}
-          </Typography>
-        </div>
-        <div className={classes.radioContainer}>
-          <div className={classes.row}>
-            <Radio
-              checked={reverseMethod === REVERSE_ON_DEBT}
-              disabled={processing}
-              onChange={() => handleChangeReverseMethod(REVERSE_ON_DEBT)}
-              value={REVERSE_ON_DEBT}
-            />
-            <Typography>
-              {t(`revert.content.label.${REVERSE_ON_DEBT}`)}
+          <div className={classes.radioContainer}>
+            <div className={classes.row}>
+              <Radio
+                checked={reverseMethod === REVERSE_ON_DEBT}
+                disabled={processing}
+                onChange={() => handleChangeReverseMethod(REVERSE_ON_DEBT)}
+                value={REVERSE_ON_DEBT}
+              />
+              <Typography>
+                {t(`revert.content.label.${REVERSE_ON_DEBT}`)}
+              </Typography>
+            </div>
+            <Typography variant="caption">
+              {t(`revert.content.explain.${REVERSE_ON_DEBT}`)}
             </Typography>
           </div>
-          <Typography variant="caption">
-            {t(`revert.content.explain.${REVERSE_ON_DEBT}`)}
-          </Typography>
-        </div>
-        <div className={classes.radioContainer}>
-          <div className={classes.row}>
-            <Radio
-              checked={reverseMethod === REVERSE_ON_NEW_PAYMENT_METHOD}
-              disabled={processing}
-              onChange={() =>
-                handleChangeReverseMethod(REVERSE_ON_NEW_PAYMENT_METHOD)
-              }
-              value={REVERSE_ON_NEW_PAYMENT_METHOD}
-            />
-            <Typography>
-              {t(`revert.content.label.${REVERSE_ON_NEW_PAYMENT_METHOD}`)}
+          <div className={classes.radioContainer}>
+            <div className={classes.row}>
+              <Radio
+                checked={reverseMethod === REVERSE_ON_NEW_PAYMENT_METHOD}
+                disabled={processing}
+                onChange={() =>
+                  handleChangeReverseMethod(REVERSE_ON_NEW_PAYMENT_METHOD)
+                }
+                value={REVERSE_ON_NEW_PAYMENT_METHOD}
+              />
+              <Typography>
+                {t(`revert.content.label.${REVERSE_ON_NEW_PAYMENT_METHOD}`)}
+              </Typography>
+            </div>
+            <Typography variant="caption">
+              {t(`revert.content.explain.${REVERSE_ON_NEW_PAYMENT_METHOD}`)}
             </Typography>
+            <Collapse in={reverseMethod === REVERSE_ON_NEW_PAYMENT_METHOD}>
+              <Select
+                id="payment-method-select"
+                value={`${paymentMethodSelected}`}
+                style={{ minWidth: 200, marginTop: 16 }}
+                onChange={(ev) =>
+                  selectPaymentMethod(parseInt(ev.target.value, 10))
+                }
+              >
+                {PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT].map(
+                  (pm) => (
+                    <MenuItem fullWidth value={pm}>
+                      {t(`paymentMethod.label.${pm}`)}
+                    </MenuItem>
+                  ),
+                )}
+              </Select>
+            </Collapse>
           </div>
-          <Typography variant="caption">
-            {t(`revert.content.explain.${REVERSE_ON_NEW_PAYMENT_METHOD}`)}
-          </Typography>
-          <Collapse in={reverseMethod === REVERSE_ON_NEW_PAYMENT_METHOD}>
-            <Select
-              id="payment-method-select"
-              value={`${paymentMethodSelected}`}
-              style={{ minWidth: 200, marginTop: 16 }}
-              onChange={(ev) =>
-                selectPaymentMethod(parseInt(ev.target.value, 10))
-              }
-            >
-              {PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT].map(
-                (pm) => (
-                  <MenuItem fullWidth value={pm}>
-                    {t(`paymentMethod.label.${pm}`)}
-                  </MenuItem>
-                ),
-              )}
-            </Select>
-          </Collapse>
-        </div>
-      </DialogContent>
+        </DialogContent>
+      ) : (
+        <DialogContent>
+          <DialogContentText>
+            {t('revert.content.explainEmptyPayment')}
+          </DialogContentText>
+        </DialogContent>
+      )}
       <DialogActions>
         <Button disabled={processing} onClick={props.onClose}>
           {t('revert.dialog.actions.cancel')}

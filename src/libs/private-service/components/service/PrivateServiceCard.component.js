@@ -60,13 +60,13 @@ export const PrivateServiceDetail = (props: Props) => {
   return (
     <Card className={classes.paperContainer}>
       {privateService.cover_main ? (
-        <CardMedia
-          component="img"
-          image={privateService.cover_main}
-          classes={{
-            media: classes.media,
-          }}
-        />
+        <div className={classes.coverContainer}>
+          <img
+            className={classes.cover}
+            src={privateService.cover_main}
+            alt={privateService.name}
+          />
+        </div>
       ) : null}
       {privateService.color ? (
         <div style={{ borderTop: `4px solid ${privateService.color}` }} />
@@ -166,6 +166,20 @@ const styles = (theme) => ({
     backgroundColor: '#F8F8F8',
     borderRadius: theme.spacing(2),
     marginTop: theme.spacing(1),
+  },
+  coverContainer: {
+    position: 'relative',
+    width: '100%',
+    paddingTop: '56.25%',
+    height: 0,
+  },
+  cover: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    objectFit: 'cover',
+    top: 0,
+    left: 0,
   },
 });
 

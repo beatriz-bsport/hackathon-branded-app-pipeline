@@ -247,6 +247,7 @@ const styles = (theme: Theme) => ({
     width: '100%',
     height: '100%',
     position: 'absolute',
+    objectFit: 'cover',
     top: 0,
     left: 0,
   },

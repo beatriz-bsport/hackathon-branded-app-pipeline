@@ -5,10 +5,14 @@ import { omit } from 'lodash';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/styles';
+import { useTranslation } from 'react-i18next';
 import PrivateServiceGroupSelector from './PrivateServiceGroupSelector.component';
 
 export default (props: SelectFieldProps) => {
-  const { t, label, fullWidth, classes, required } = props;
+  const { label, fullWidth, required } = props;
+  const classes = useStyles();
+  const { t } = useTranslation()
   return (
     <Field {...props}>
       {({ field, form: { touched, setFieldValue, errors } }) => (
@@ -28,7 +32,6 @@ export default (props: SelectFieldProps) => {
             nameCypress={`select-${props.name}`}
             {...field}
             {...omit(props, [
-              't',
               'tReady',
               'defaultNS',
               'i18n',
@@ -64,3 +67,11 @@ export default (props: SelectFieldProps) => {
     </Field>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  alertError: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    color: theme.palette.error.dark,
+  },
+}));

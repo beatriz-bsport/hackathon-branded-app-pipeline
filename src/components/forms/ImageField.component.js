@@ -13,9 +13,14 @@ import { Field, ErrorMessage } from 'formik';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
-const styles = () => ({
+const styles = (theme) => ({
   input: {
     display: 'none',
+  },
+  alertError: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    color: theme.palette.error.dark,
   },
 });
 
@@ -86,7 +91,16 @@ export class ImageField extends Component<Props, State> {
                 )}
               </Grid>
             </label>
-            <ErrorMessage name={field.name} />
+            <ErrorMessage {...this.props}>
+              {(message) => (
+                <Typography
+                  variant="body2"
+                  className={this.props.classes.alertError}
+                >
+                  {this.props.t(message)}
+                </Typography>
+              )}
+            </ErrorMessage>
           </div>
         )}
       </Field>

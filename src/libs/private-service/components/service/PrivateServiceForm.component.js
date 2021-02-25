@@ -376,10 +376,11 @@ const styles = (theme) => ({
 });
 
 export const PrivateServiceSchema = Yup.object().shape({
-  cover_main: Yup.object().required(),
+  cover_main: Yup.object().nullable(),
   name: Yup.string().required(),
   description: Yup.string().required(),
   manager_only: Yup.boolean(),
+  private_service_group: Yup.number().nullable(),
   color: Yup.string(),
   use_full_establishment_capacity: Yup.boolean(),
   coach_capacity_used: Yup.number().min(1).max(12),
@@ -462,7 +463,10 @@ export const PrivateServiceFormikHOC = withFormik({
           'establishment_consumer_attribution',
           'establishment_resource_type',
           'is_without_coach',
-          'cover_thumbnail',
+	  'cover_thumbnail',
+	  'company',
+	  'slots_duration_minute',
+	  ...(!values.private_service_group ? ['private_service_group'] : []),
         ],
       ),
       {

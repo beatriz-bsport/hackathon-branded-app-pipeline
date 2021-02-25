@@ -7965,7 +7965,7 @@
             }
         },
         "platformBillingStage": {
-            "monthlyPrice": "{{price_cts, price }} / month",
+            "monthlyPrice": "{{price, price }} / month",
             "maxBooking": "Up to {{ max_booking_per_month }} reservations / month"
         },
         "featureRequest": {

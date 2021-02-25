@@ -158,7 +158,7 @@ const styles = (theme) => ({
 
 export const SubscriptionContractFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
-  nb_interval: Yup.number().integer().min(2).required(),
+  nb_interval: Yup.number().integer().min(1).required(),
   recurrent_price: Yup.number().min(0),
   flat_fee: Yup.number(),
   payment_pack: Yup.number()

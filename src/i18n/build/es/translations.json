@@ -7026,7 +7026,7 @@
         },
         "platformBillingStage": {
             "maxBooking": "Hasta {{ max_booking_per_month }} reservas / mes",
-            "monthlyPrice": "{{ price, price }}  / mes"
+            "monthlyPrice": "{{ price, price }} / mes"
         },
         "platformBillingPlan": {
             "max_establishment": {

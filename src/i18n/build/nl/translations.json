@@ -2044,7 +2044,7 @@
                     "label": "Theoretische marginale bijdrage incl. btw (alleen voor onbeperkte cursuskaarten)"
                 },
                 "establishments": "Vestiging",
-                "from": "Van de ",
+                "from": "Van ",
                 "tax": {
                     "label": "Btw"
                 },
@@ -3761,7 +3761,7 @@
             "includingFreeTrialOf1": " waaronder ",
             "month": "maand ",
             "times": " keer/keren ",
-            "from": "Van de ",
+            "from": "Van ",
             "willBecharged": " wordt gefactureerd ",
             "to": " tot ",
             "includingFreeTrialOf2": " niet gefactureerd "

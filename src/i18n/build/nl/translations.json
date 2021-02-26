@@ -884,7 +884,7 @@
             "supplier_price": "Leveranciersprijs"
         },
         "offer": {
-            "manageOffer": "Mijn reserveringen beheren",
+            "manageOffer": "Reserveringen beheren",
             "myOpenedInvoices": "Openstaande facturen",
             "noQuickInvoiceOpened": "Geen openstaande facturen",
             "reCreateBooking": "Schrijf je opnieuw in",
@@ -2896,10 +2896,10 @@
                 "lastname": "Sorteer op: familienaam",
                 "firstname": "Sorteer op: voornaam"
             },
-            "unevenQuickInvoices": "Op deze pagina bevinden zich nog open facturen zonder betaalmethode. Weet je zeker dat je wilt stoppen?"
+            "unevenQuickInvoices": "Er bevinden zich openstaande facturen zonder betaalmethode op deze pagina. Weet je zeker dat je wilt stoppen?"
         },
         "substitute": "Plaatsvervanger",
-        "manageOffer": "Mijn reserveringen beheren",
+        "manageOffer": "Reserveringen beheren",
         "massDisabler": {
             "explainLoading": "Een moment geduld alstublieft",
             "explain": "Selecteer de periode waarover je je sessies wil annuleren. Leden die hebben geboekt, worden per e-mail op de hoogte gebracht en hun tegoed wordt automatisch teruggestort op de bijbehorende cursuskaart",
@@ -3485,7 +3485,7 @@
             "dashboard": "Dashboard"
         },
         "subscription": {
-            "subscriptionCreate": "Maak een abonnement aan",
+            "subscriptionCreate": "Een abonnement aanmaken",
             "subscriptions": "Abonnementen"
         },
         "workshopActivity": {
@@ -3586,7 +3586,7 @@
                 }
             },
             "registerManager": {
-                "explainChoseContract": "Selecteer een contract. Dit wordt maandelijks gefactureerd aan een lid",
+                "explainChoseContract": "Selecteer een abonnement dat maandelijks gefactureerd wordt.",
                 "title": "Herhalende betaling",
                 "explainCustomSubscriptionForm": "Nee, ik wil een persoonlijk abonnement aanmaken",
                 "actions": {
@@ -3607,7 +3607,7 @@
             "legal": "Juridische kennisgeving",
             "actions": {
                 "iAcceptCondition": "Ik accepteer de voorwaarden",
-                "iwanttostarton": "Start facturering op: ",
+                "iwanttostarton": "Start de facturering op: ",
                 "subscribe": "Inschrijven",
                 "create": "Een abonnement toevoegen"
             },
@@ -3755,14 +3755,14 @@
             }
         },
         "recap": {
-            "every": " elke ",
+            "every": " per ",
             "forObject": " voor ",
-            "forATotalOf": "Voor een totaal van ",
+            "forATotalOf": "Totaalbedrag: ",
             "includingFreeTrialOf1": " waaronder ",
-            "month": "maand ",
+            "month": "maand in rekening gebracht voor een: ",
             "times": " keer/keren ",
             "from": "Van ",
-            "willBecharged": " wordt gefactureerd ",
+            "willBecharged": " wordt ",
             "to": " tot ",
             "includingFreeTrialOf2": " niet gefactureerd "
         },
@@ -3789,7 +3789,7 @@
             "paymentPack": "Cursuskaarten",
             "nbMonths": "Aantal maanden",
             "dateStart": "Eerste facturering",
-            "firstBilling": "Eerste incassering",
+            "firstBilling": "Eerste factuurdatum",
             "payment_pack": "Cursuskaarten",
             "private_pass": "Afspraakkaart",
             "privatePass": "Afspraakkaart",
@@ -3819,7 +3819,7 @@
             "isPaused": "Gepauzeerd"
         },
         "schedule": {
-            "provisionalTitle": "Voorlopig rooster",
+            "provisionalTitle": "Overzicht van de betalingen",
             "paymentMethodTitle": "Betaalmethode"
         },
         "noContracts": "Met abonnementen kun je lidmaatschappen maandelijks vernieuwen en in rekening te brengen.",
@@ -6633,7 +6633,8 @@
                     "1": "Krediet(en) terugbetalen (saldo)",
                     "0": "Directe terugbetaling",
                     "2": "Handmatige terugbetaling"
-                }
+                },
+                "explainEmptyPayment": "Weet je zeker dat je deze factuur wilt annuleren?"
             },
             "dialog": {
                 "title": "Factuur annuleren",
@@ -6718,7 +6719,7 @@
         },
         "invoiceType": {
             "reversed": "Factuur (geannuleerd)",
-            "return": "Creditnota",
+            "return": "Retourfactuur",
             "credit_payment": "Ontvangstbewijs (wijziging balans)",
             "migration": "Gegevensoverdracht",
             "regular": "Factuur"
@@ -6969,7 +6970,8 @@
                 "popup": "Nieuw venster",
                 "tab": "Nieuw tabblad"
             },
-            "dialogModeLabel": "Type pop-ups (voor het inloggen, betalen en het reserveren)"
+            "dialogModeLabel": "Type pop-ups (voor het inloggen, betalen en het reserveren)",
+            "showFabLabel": "Zwevende knop op de ledenweergave"
         }
     },
     "platformBilling": {

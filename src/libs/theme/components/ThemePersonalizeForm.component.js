@@ -260,7 +260,7 @@ export class ThemePersonalize extends Component<Props, State> {
               this.handleChange('hideCoach')(!this.state.theme.hideCoach)
             }
           />
-          <Typography>{t('forms.themePersonalizationdeCoach.')}</Typography>
+          <Typography>{t('forms.themePersonalization.hideCoach')}</Typography>
         </div>
         <div className={classes.inputContainer}>
           <Switch

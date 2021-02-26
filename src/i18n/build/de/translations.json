@@ -2118,7 +2118,7 @@
             },
             "addButton": "Eine Benachrichtigung hinzufügen",
             "0": {
-                "first": "Benachrichtigen, wenn es ",
+                "first": "Benachrichtigen, wenn ",
                 "second": "gültige Tage auf der Karte bleibt"
             },
             "2": {
@@ -2134,7 +2134,7 @@
                 "first": "Benachrichtigen, wenn es"
             },
             "creditsLeft": {
-                "second": "Credits",
+                "second": "Credits verbleiben",
                 "first": "Benachrichtigen, wenn es"
             }
         },
@@ -3284,7 +3284,8 @@
                     "2": "Wähle die Erstattungsmethode selbst. Verwende diese Methode für einen Scheck / eine manuelle Überweisung / eine Rückerstattung in bar.",
                     "1": "Eine Gutschrift wird erstellt und wird dem Kundenguthaben entsprechend gutgeschrieben. Verwende diese Methode, um eine Gutschrift zu erstellen.",
                     "0": "Kreditkarte / SEPA / etc ... Zahlungen werden direkt auf das Konto des Kunden überwiesen. Verwende diese Methode, um nach einem Fehler eine direkte Rückerstattung vorzunehmen."
-                }
+                },
+                "explainEmptyPayment": "Möchtest Du diese Rechnung wirklich stornieren?"
             },
             "dialog": {
                 "actions": {
@@ -3436,7 +3437,7 @@
         },
         "invoiceType": {
             "reversed": "Rechnung (storniert)",
-            "return": "Haben",
+            "return": "Rechnung zurücksenden",
             "credit_payment": "Quittung (Regelungssaldo)",
             "migration": "Migration",
             "regular": "Rechnung"
@@ -7009,7 +7010,8 @@
                 "popup": "Neues Fenster",
                 "tab": "Neuer Tab"
             },
-            "dialogModeLabel": "Art des Popups (Login, Zahlung, Reservierung)"
+            "dialogModeLabel": "Art des Popups (Login, Zahlung, Reservierung)",
+            "showFabLabel": "Floating-Taste für die Kundenschnittstelle"
         }
     },
     "marketing": {

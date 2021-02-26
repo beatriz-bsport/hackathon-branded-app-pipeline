@@ -8,7 +8,6 @@ import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
 
 import CardContent from '@material-ui/core/CardContent';
 import LocationIcon from '@material-ui/icons/LocationOn';

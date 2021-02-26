@@ -363,7 +363,6 @@ export function fetchBookingsAndPrivateBookings(args: {
           page: privateBookingPage,
           page_size: pageSize,
           ordering: 'date_start', // -date_start
-          booking_status_code: BOOKING_STATUS_OK.id,
         };
 
         if (args.type === BookingsAndPrivateBookingsTypeEnum.past) {

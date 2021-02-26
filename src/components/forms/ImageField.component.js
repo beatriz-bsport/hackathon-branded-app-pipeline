@@ -7,6 +7,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import Icon from '@material-ui/core/Icon';
+import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import { Field, ErrorMessage } from 'formik';

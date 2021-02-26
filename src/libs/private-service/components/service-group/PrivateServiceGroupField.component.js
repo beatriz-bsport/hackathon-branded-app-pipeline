@@ -12,7 +12,7 @@ import PrivateServiceGroupSelector from './PrivateServiceGroupSelector.component
 export default (props: SelectFieldProps) => {
   const { label, fullWidth, required } = props;
   const classes = useStyles();
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Field {...props}>
       {({ field, form: { touched, setFieldValue, errors } }) => (

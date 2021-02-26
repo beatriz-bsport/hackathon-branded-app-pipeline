@@ -1,11 +1,11 @@
 import React from 'react';
-import { Paper, Theme } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import PaymentPackMassExtensionListItem from './PaymentPackMassExtensionListItem.component';
 
 import { PaymentPackMassExtension } from '../types';
 
-type OwnProps = {
+type Props = {
   items: Array<PaymentPackMassExtension>;
   nbItems: number;
   loading: boolean;
@@ -42,32 +42,5 @@ export const PaginatedPaymentPackMassExtensionList = (props: Props) => {
     </Paper>
   );
 };
-
-const styles = (theme: Theme) => ({
-  emptyContainer: {
-    padding: theme.spacing(2),
-    backgroundColor: 'F8F8F8',
-  },
-  itemContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-  },
-  itemContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    flex: 1,
-  },
-  labelValueContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  marginLeft: {
-    marginLeft: theme.spacing(2),
-  },
-});
 
 export default PaginatedPaymentPackMassExtensionList;

@@ -28,6 +28,7 @@ type Props = {
   open: ?boolean,
   onClose: () => void,
   onSubmit: (any) => void,
+  invoice: Invoice,
 };
 
 export const InvoiceReverterDialog = (props: Props) => {

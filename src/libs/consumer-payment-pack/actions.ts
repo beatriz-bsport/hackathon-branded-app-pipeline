@@ -437,15 +437,13 @@ export function createMassExtension(
     try {
       const response = await createMassExtensionAPI(data);
       dispatch(massExtensionActions.create(response.data));
-      if (response.status === 200) {
-        options && options.onSuccess && options.onSuccess();
-        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
-        dispatch(
-          monitorBackgroundTask(backgroundTaskUuid, {
-            onSuccess: options.onSuccess,
-          }),
-        );
-      }
+      options && options.onSuccess && options.onSuccess();
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: options.onSuccess,
+        }),
+      );
     } catch (e) {
       console.error(e);
       dispatch(massExtensionActions.error(e));
@@ -460,9 +458,12 @@ export function deleteMassExtension(id: number, options?: OptionCallback) {
     dispatch(massExtensionActions.isLoading(true));
     try {
       const response = await deleteMassExtensionAPI(id);
-      options && options.onSuccess && options.onSuccess();
       const backgroundTaskUuid = response.headers['x-background-task-uuid'];
-      dispatch(monitorBackgroundTask(backgroundTaskUuid));
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: options.onSuccess,
+        }),
+      );
     } catch (e) {
       console.error(e);
       dispatch(massExtensionActions.error(e));

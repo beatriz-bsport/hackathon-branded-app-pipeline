@@ -4737,7 +4737,8 @@
                     "2": "Manual refund",
                     "1": "Refund on credit (balance)",
                     "0": "Direct refund"
-                }
+                },
+                "explainEmptyPayment": "Are you sure you want to cancel this invoice?"
             },
             "dialog": {
                 "actions": {
@@ -8016,7 +8017,8 @@
             },
             "dialogModeLabel": "Popup type (login, payment, bookings)",
             "widgetPreviewError": "Please finish the settings",
-            "dialogTitle": "Personalized Widget"
+            "dialogTitle": "Personalized Widget",
+            "showFabLabel": "Client interface floating action button"
         }
     },
     "marketing": {

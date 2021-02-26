@@ -41,6 +41,7 @@ Lint:
     - pwd
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure
+    - yarn test
     - yarn lint
 
   except:

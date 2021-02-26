@@ -47,6 +47,7 @@ type Props = {
   onClickBook: (offer: Offer) => void,
   onClickBookOption: (offerId: number) => void,
   showOfferFilling: boolean,
+  hideCoach: boolean,
   activityLoading: boolean,
   coachLoading: boolean,
   establishmentLoading: boolean,
@@ -145,6 +146,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
             <MarketplaceTimetable
               showOfferFilling={this.props.showOfferFilling}
               showOfferGender={this.props.showOfferGender}
+              hideCoach={this.props.hideCoach}
               offers={this.props.offers}
               date={selectedDate}
               onClickOffer={this.props.onClickOffer}
@@ -160,6 +162,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
               offers={this.props.offers}
               showOfferFilling={this.props.showOfferFilling}
               showOfferGender={this.props.showOfferGender}
+              hideCoach={this.props.hideCoach}
               date={selectedDate}
               onClickOffer={this.props.onClickOffer}
               onClickBook={this.props.onClickBook}

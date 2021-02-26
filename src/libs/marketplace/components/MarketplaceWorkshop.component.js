@@ -24,6 +24,7 @@ type Props = {
   fetchPaymentPacks: (offerId: number) => void,
   fetchCompatiblePass: (offerId: number) => void,
   goToPackPayment: (offerId: number) => void,
+  hideCoach: boolean,
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
   activityLoading: boolean,
@@ -67,6 +68,7 @@ export const MarketplaceWorkshop = (props: Props) => {
         offer={props.offerSelected}
         hideMap={props.hideMap}
         showBookingButton
+        hideCoach={props.hideCoach}
         displayPacksInformation
         onClose={() => props.selectOffer(null)}
         open={!!props.offerSelected}

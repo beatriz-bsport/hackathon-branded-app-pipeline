@@ -73,6 +73,7 @@ export class ThemePersonalize extends Component<Props, State> {
         this.props.theme.show_cancelled_offers_manager &&
       this.state.theme.show_cancelled_offers_customer ===
         this.props.theme.show_cancelled_offers_customer &&
+      this.state.theme.hideCoach === this.props.theme.hideCoach &&
       this.state.theme.show_workshops_customer ===
         this.props.theme.show_workshops_customer &&
       this.state.theme.basket_expiration_days ===
@@ -99,6 +100,7 @@ export class ThemePersonalize extends Component<Props, State> {
       'default_booking_ordering',
       'default_attendance',
       'show_cancelled_offers_customer',
+      'hideCoach',
       'show_cancelled_offers_manager',
       'show_workshops_customer',
       'basket_expiration_days',
@@ -250,6 +252,15 @@ export class ThemePersonalize extends Component<Props, State> {
           <Typography>
             {t('forms.themePersonalization.cancelledOffersCustomer')}
           </Typography>
+        </div>
+        <div className={classes.inputContainer}>
+          <Switch
+            checked={this.state.theme.hideCoach}
+            onChange={() =>
+              this.handleChange('hideCoach')(!this.state.theme.hideCoach)
+            }
+          />
+          <Typography>{t('forms.themePersonalizationdeCoach.')}</Typography>
         </div>
         <div className={classes.inputContainer}>
           <Switch

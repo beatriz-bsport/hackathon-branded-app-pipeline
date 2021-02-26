@@ -209,6 +209,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           offerId={this.state.offerId}
           offer={this.state.offer}
           showBookingButton
+          hideCoach={this.props.theme && this.props.theme.hideCoach}
           displayPacksInformation
           onClose={this.closeOfferDialog}
           open={!!this.state.offerId}
@@ -230,6 +231,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
         <MarketplaceCalendarComponent
           offers={offers}
           showOfferFilling={this.props.theme.show_offers_filling}
+          hideCoach={this.props.theme.hideCoach}
           showOfferGender={this.props.theme.show_booked_gender_offer}
           setFilters={this.props.setFilters}
           filters={filters}

@@ -11,6 +11,7 @@ import type { TFunction } from 'react-i18next';
 
 import { withRouter } from 'react-router';
 import { Theme } from '@material-ui/core';
+import themeSelectors from '../../libs/theme/selectors';
 import {
   snackbarSuccess as snackbarSuccessAction,
   snackbarError as snackbarErrorAction,
@@ -131,6 +132,7 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
           <MarketplaceWorkshop
             offers={offers}
             activityLoading={this.props.activityLoading}
+            hideCoach={this.props.theme && this.props.theme.hideCoach}
             establishmentLoading={this.props.establishmentLoading}
             fetchPaymentPacks={this.props.fetchPaymentPacks}
             fetchCompatiblePass={this.props.fetchCompatiblePass}
@@ -188,6 +190,7 @@ const mapStateToProps = (state: RootState) => ({
   coaches: getCoaches(state),
   establishments: getAllEstablishments(state),
   metaActivities: getWorkshops(state),
+  theme: themeSelectors.getTheme(state),
 });
 
 const mapDispatchToProps = {

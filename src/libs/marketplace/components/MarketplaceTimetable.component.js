@@ -38,6 +38,7 @@ type Props = {
   coachLoading: boolean,
   establishmentLoading: boolean,
   showOfferGender: boolean,
+  hideCoach: boolean,
 };
 
 const getWeekOffers = memoize((selectedDate, offers) => {
@@ -80,6 +81,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
                 coachLoading={this.props.coachLoading}
                 establishmentLoading={this.props.establishmentLoading}
                 activityLoading={this.props.activityLoading}
+                hideCoach={this.props.hideCoach}
                 showOfferFilling={this.props.showOfferFilling}
                 key={o.id}
                 offer={o}

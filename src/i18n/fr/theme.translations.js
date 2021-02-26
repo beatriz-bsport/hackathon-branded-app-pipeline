@@ -8,6 +8,7 @@ exports.default = {
     themePersonalization: {
       calendarPersonalizationTitle: 'Configuration du calendrier',
       consumerRegularizeDebt: 'Le client peut régulariser son acompte en ligne',
+      hideCoach: 'Cacher les infos professeurs sur les interfaces client',
       acceptDoubleBooking: 'Accepter la double réservation',
       cancelledOffersCustomer:
         'Afficher les séances annulées sur le calendrier client',

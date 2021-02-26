@@ -28,6 +28,7 @@ type Props = {
   activityLoading: boolean,
   onClick: () => void,
   actions?: any,
+  hideCoach: boolean,
 };
 
 export const MarketplaceOffer = (props: Props) => {
@@ -70,14 +71,16 @@ export const MarketplaceOffer = (props: Props) => {
           : '#FFFFFF00',
       }}
     >
-      <Hidden xsDown>
-        <ListItemAvatar>
-          <CoachAvatar
-            coach={offer.coach}
-            coach_override={offer.coach_override}
-          />
-        </ListItemAvatar>
-      </Hidden>
+      {!props.hideCoach && (
+        <Hidden xsDown>
+          <ListItemAvatar>
+            <CoachAvatar
+              coach={offer.coach}
+              coach_override={offer.coach_override}
+            />
+          </ListItemAvatar>
+        </Hidden>
+      )}
       <ListItemText
         primary={
           <div className={classes.primaryTextContainer}>

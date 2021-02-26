@@ -22,6 +22,7 @@ type Props = {
   index: number,
   activityLoading: boolean,
   coachLoading: boolean,
+  hideCoach: boolean,
   establishmentLoading: boolean,
   showOfferFilling: boolean,
   showOfferGender?: boolean,
@@ -106,7 +107,7 @@ export const MarketplaceCardOffer = (props: Props) => {
           )}
         </div>
         <div className={classes.title}>
-          {props.coachLoading && coachName === ' - ' ? (
+          {!props.hideCoach && props.coachLoading && coachName === ' - ' ? (
             <MoreHorizIcon fontSize="small" />
           ) : (
             <Typography align="center" variant="caption">

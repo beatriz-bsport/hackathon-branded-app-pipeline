@@ -49,6 +49,7 @@ type Props = {
   compatibleConsumerPacks: Array<ConsumerPaymentPack>,
   compatiblePaymentPacks: Array<PaymentPack>,
   goToOfferPayment: (offer: Offer) => void,
+  hideCoach: boolean,
   hideMap: ?boolean,
 
   goToPackPayment: (packId: number, offerId: number, companyId: number) => void,
@@ -112,6 +113,9 @@ export class MarketPlaceActivity extends React.Component<Props> {
 
   renderCoachBanner = () => {
     const { offer, classes, t } = this.props;
+    if (this.props.hideCoach) {
+      return null;
+    }
     if (offer && offer.coach) {
       return (
         <div>

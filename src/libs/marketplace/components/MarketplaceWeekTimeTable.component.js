@@ -30,6 +30,7 @@ type Props = {
   date: Object,
   t: TFunction,
   showOfferFilling: boolean,
+  hideCoach: boolean,
   activityLoading: boolean,
   coachLoading: boolean,
   establishmentLoading: boolean,
@@ -150,6 +151,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                   ) : (
                     <MarketplaceCardOffer
                       showOfferFilling={this.props.showOfferFilling}
+                      hideCoach={this.props.hideCoach}
                       showOfferGender={this.props.showOfferGender}
                       offer={o}
                       onClickOffer={this.props.onClickOffer}

@@ -1,5 +1,3 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
@@ -18,7 +16,12 @@ import {
   subCreditToConsumerPack as subCreditAPI,
   fetchConsumerPaymentPackCompatibleList as fetchConsumerPaymentPackCompatibleListAPI,
   fetchConsumerPaymentPackPenalty as fetchConsumerPaymentPackPenaltyAPI,
+  createMassExtension as createMassExtensionAPI,
+  fetchMassExtensions as fetchMassExtensionsAPI,
+  deleteMassExtension as deleteMassExtensionAPI,
 } from './api';
+
+import { monitorBackgroundTask } from '../background-task/actions';
 
 export const byOfferByMember = {
   isLoading: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/IS_LOADING'),
@@ -105,7 +108,7 @@ export function fetchByPaymentPack(
   paymentPackId: number,
   page?: number,
   page_size?: number,
-  options: OptionCallback,
+  options?: OptionCallback,
   params: any = {},
 ) {
   return async (dispatch: Dispatch) => {
@@ -175,7 +178,7 @@ export const partialRefundActions = {
 
 export function fetchConsumerPaymentPackCreditRefundList(
   consumer_payment_pack: number,
-  options: ?OptionCallback = null,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(partialRefundActions.isLoading(true));
@@ -204,7 +207,7 @@ export function fetchConsumerPaymentPackCreditRefundList(
 export function refundConsumerPaymentPack(
   id: number,
   data: any,
-  options: ?OptionCallback = null,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(partialRefundActions.isLoading(true));
@@ -243,7 +246,7 @@ export function fetchByMember(
   member: number,
   page: number,
   page_size: number,
-  options: ?OptionCallback = null,
+  options?: OptionCallback,
   params: any = {},
 ) {
   return async (dispatch: Dispatch) => {
@@ -369,10 +372,7 @@ export const extensionCreateActions = {
   success: createAction('CONSUMER_PACK_EXTENSION/CREATE/SUCCESS'),
 };
 
-export function createPackExtension(
-  data: any,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
-) {
+export function createPackExtension(data: any, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(extensionCreateActions.isLoading(true));
     dispatch(extensionCreateActions.error(null));
@@ -389,16 +389,96 @@ export function createPackExtension(
   };
 }
 
+export const massExtensionActions = {
+  isLoading: createAction('CONSUMER_PACK_MASS_EXTENSION/IS_LOADING'),
+  error: createAction('CONSUMER_PACK_MASS_EXTENSION/ERROR'),
+  success: createAction('CONSUMER_PACK_MASS_EXTENSION/SUCCESS'),
+  create: createAction('CONSUMER_PACK_MASS_EXTENSION/CREATE'),
+};
+
+export function fetchMassExtensionList(
+  params: {
+    paymentPack: number;
+    page: number;
+    page_size: number;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(massExtensionActions.isLoading(true));
+    dispatch(massExtensionActions.error(null));
+    try {
+      const response = await fetchMassExtensionsAPI(params);
+      response.data.page = params.page;
+      dispatch(massExtensionActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (e) {
+      console.error(e);
+      dispatch(massExtensionActions.error(e));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(massExtensionActions.isLoading(false));
+  };
+}
+
+export function createMassExtension(
+  data: {
+    payment_pack: number;
+    min_ending_date: string;
+    max_ending_date: string;
+    note: string;
+    nb_days: number;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(massExtensionActions.isLoading(true));
+    dispatch(massExtensionActions.error(null));
+    try {
+      const response = await createMassExtensionAPI(data);
+      dispatch(massExtensionActions.create(response.data));
+      if (response.status === 200) {
+        options && options.onSuccess && options.onSuccess();
+        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+        dispatch(
+          monitorBackgroundTask(backgroundTaskUuid, {
+            onSuccess: options.onSuccess,
+          }),
+        );
+      }
+    } catch (e) {
+      console.error(e);
+      dispatch(massExtensionActions.error(e));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(massExtensionActions.isLoading(false));
+  };
+}
+
+export function deleteMassExtension(id: number, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(massExtensionActions.isLoading(true));
+    try {
+      const response = await deleteMassExtensionAPI(id);
+      options && options.onSuccess && options.onSuccess();
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(monitorBackgroundTask(backgroundTaskUuid));
+    } catch (e) {
+      console.error(e);
+      dispatch(massExtensionActions.error(e));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(massExtensionActions.isLoading(false));
+  };
+}
+
 export const extensionDeleteActions = {
   isLoading: createAction('CONSUMER_PACK_EXTENSION/DELETE/IS_LOADING'),
   error: createAction('CONSUMER_PACK_EXTENSION/DELETE/ERROR'),
   success: createAction('CONSUMER_PACK_EXTENSION/DELETE/SUCCESS'),
 };
 
-export function deletePackExtension(
-  id: number,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
-) {
+export function deletePackExtension(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(extensionDeleteActions.isLoading(true));
     dispatch(extensionDeleteActions.error(null));

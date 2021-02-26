@@ -1,4 +1,3 @@
-// @flow
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import {
@@ -6,21 +5,21 @@ import {
   getPaymentPackById,
 } from '../payment-packs/selectors';
 import { getAllMembers } from '../member/selectors';
-import type { State } from '../../state/types';
+import { RootState } from '../../reducers';
 
-const getState = (state) => state.consumerPaymentPack;
+const getState = (state: RootState) => state.consumerPaymentPack;
 
-const getAllData = (state) => getState(state).byId;
+const getAllData = (state: RootState) => getState(state).byId;
 
 export const getByPaymentPack = createSelector(
   getState,
   ({ byId, byPaymentPack }) => byPaymentPack.allIds.map((id) => byId[id]),
 );
 
-export const getConsumerPack = (state: State, id: number) =>
+export const getConsumerPack = (state: RootState, id: number) =>
   state.consumerPaymentPack.byId[id];
 
-export const getConsumerPaymentPackExtensions = (state: State) =>
+export const getConsumerPaymentPackExtensions = (state: RootState) =>
   state.consumerPaymentPack.extension.items;
 
 export const getConsumerPacksWithPaymentPack = createSelector(
@@ -46,7 +45,7 @@ export const getConsumerPacksByPackWithMember = createSelector(
       .map((cpp) => ({ ...cpp, member: cpp.consumer })),
 );
 
-const _getIdsByMember = (state) => getState(state).byMember.allIds;
+const _getIdsByMember = (state: RootState) => getState(state).byMember.allIds;
 
 export const getConsumerPaymentPackByMember = createSelector(
   [getAllData, _getIdsByMember],
@@ -65,7 +64,7 @@ export const getConsumerPacksByMemberWithPaymentPack = createSelector(
     })),
 );
 
-const _getForBookingIds = (state) =>
+const _getForBookingIds = (state: RootState) =>
   state.consumerPaymentPack.forBooking.allIds;
 
 export const getConsumerPaymentPackForBooking = createSelector(
@@ -73,7 +72,7 @@ export const getConsumerPaymentPackForBooking = createSelector(
   (ids, data) => ids.map((id) => data[id]),
 );
 
-const _getByOfferByMemberBase = (state) => {
+const _getByOfferByMemberBase = (state: RootState) => {
   return state.consumerPaymentPack.byOfferByMember.items;
 };
 
@@ -82,7 +81,7 @@ export const getByOfferByMember = createSelector(
   (consumerPackList) => consumerPackList.filter((cpp) => !cpp.reverted),
 );
 
-const _getNonCompatibleByOfferByMemberBase = (state) => {
+const _getNonCompatibleByOfferByMemberBase = (state: RootState) => {
   return state.consumerPaymentPack.nonCompatibleByOfferByMember.items;
 };
 
@@ -91,7 +90,7 @@ export const getNonCompatibleByOfferByMember = createSelector(
   (consumerPackList) => consumerPackList.filter((cpp) => !cpp.reverted),
 );
 
-export const withPaymentPack = memoize((selector: (State) => any) =>
+export const withPaymentPack = memoize((selector: (State: RootState) => any) =>
   createSelector(
     [selector, getPaymentPackById],
     (consumerPaymentPacks, paymentPackData) => {
@@ -118,7 +117,7 @@ export const withPaymentPack = memoize((selector: (State) => any) =>
   ),
 );
 
-const _getConsumerPaymentPackCompatibleListIds = (state) =>
+const _getConsumerPaymentPackCompatibleListIds = (state: RootState) =>
   state.consumerPaymentPack.compatible.allIds;
 
 export const getConsumerPaymentPackCompatibleList = createSelector(
@@ -127,3 +126,9 @@ export const getConsumerPaymentPackCompatibleList = createSelector(
     return ids.map((id) => data[id]);
   },
 );
+
+export const getMassExtensions = (state: RootState) => {
+  return state.consumerPaymentPack.massExtension.allIds.map((id) => {
+    return state.consumerPaymentPack.massExtension.byId[id];
+  });
+};

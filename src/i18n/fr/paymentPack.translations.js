@@ -16,8 +16,11 @@ exports.default = {
     hasCreditNull: 'Sans crédit',
   },
   multipleBookingTooltip: 'Réservations multiples',
-
+  section: {
+    massExtension: 'Extensions',
+  },
   actions: {
+    massExtension: 'Ajouter une extension',
     edit: 'Modifier',
     delete: 'Supprimer',
     scaleCredit: 'Mult/div les crédits',
@@ -403,4 +406,17 @@ exports.default = {
     hide: 'Masquer les cartes archivées',
   },
   blockedCpp: 'Carte bloquée du {{-blocked_from}} au {{-blocked_until}}',
+  massExtension: {
+    helpText:
+      'Vous pouvez ici étendre toutes les cartes de cours de vos membres. Cette opération est réversible.',
+    dateHelpText: "N'étendre que les cartes de cours expirant entre le",
+    minDate: 'Au plus tôt le',
+    maxDate: 'Au plus tard le',
+    title: 'Ajouter une extension à tous les membres',
+    submit: 'Valider',
+    cancel: 'Annuler',
+    listItemDate: 'Expirant entre le {{ minDate }} et le {{ maxDate }}',
+    createdAt: 'Ajouté le {{date}}',
+    listItemNbDays: '+{{nbDays}} jours',
+  },
 };

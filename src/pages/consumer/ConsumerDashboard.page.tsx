@@ -75,6 +75,7 @@ type StateHandlerType = typeof withStateHandlersInit &
 
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
+
 type OwnConnectedStateHandlerProps = OwnProps &
   ConnectedProps &
   StateHandlerType;

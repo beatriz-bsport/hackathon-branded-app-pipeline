@@ -1,4 +1,3 @@
-// @flow
 import {
   API_V1_URI,
   postAuth,
@@ -7,7 +6,7 @@ import {
   buildUrlParams,
 } from '../../http';
 
-export async function fetchByOfferByMember(offer, data: any = {}) {
+export async function fetchByOfferByMember(offer: any, data: any = {}) {
   return postAuth(
     `${API_V1_URI}/payment-pack/consumer-payment-pack/compatible_with_offer/${buildUrlParams(
       data,
@@ -16,7 +15,10 @@ export async function fetchByOfferByMember(offer, data: any = {}) {
   );
 }
 
-export async function fetchNonCompatibleByOfferByMember(offer, data: any = {}) {
+export async function fetchNonCompatibleByOfferByMember(
+  offer: any,
+  data: any = {},
+) {
   return postAuth(
     `${API_V1_URI}/payment-pack/consumer-payment-pack/noncompatible_with_offer/${buildUrlParams(
       data,
@@ -41,6 +43,20 @@ export async function fetchExtensions(consumerPassId: number) {
 
 export async function createExtension(data: any) {
   return postAuth(`${API_V1_URI}/payment-pack/pack-extension/`, data);
+}
+
+export async function fetchMassExtensions(data: any) {
+  return getAuth(
+    `${API_V1_URI}/payment-pack/mass-extension/?payment_pack=${data.paymentPack}&page=${data.page}&page_size=${data.page_size}`,
+  );
+}
+
+export async function createMassExtension(data: any) {
+  return postAuth(`${API_V1_URI}/payment-pack/mass-extension/`, data);
+}
+
+export async function deleteMassExtension(id: number) {
+  return deleteAuth(`${API_V1_URI}/payment-pack/mass-extension/${id}`);
 }
 
 export async function deleteExtension(id: number) {

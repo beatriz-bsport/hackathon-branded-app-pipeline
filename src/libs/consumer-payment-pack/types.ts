@@ -35,6 +35,15 @@ export type ConsumerPaymentPackPenalty = {
   penalty_kind: number;
 };
 
+export type PaymentPackMassExtension = {
+  id: number;
+  payment_pack: number;
+  min_ending_date: string;
+  max_ending_date: string;
+  note: string;
+  nb_days: number;
+};
+
 export type ConsumerPaymentPackState = ErrorAndLoading & {
   byId: { [key: string]: ConsumerPaymentPack };
   byOfferByMember: ErrorAndLoading & { items: number[] };
@@ -47,6 +56,12 @@ export type ConsumerPaymentPackState = ErrorAndLoading & {
     create: ErrorAndLoading;
     delete: ErrorAndLoading;
   };
+  massExtension: ErrorAndLoading &
+    WithPagination & {
+      byId: { [key: string]: PaymentPackMassExtension };
+      allIds: number[];
+      firstLoadDone: boolean;
+    };
   byPaymentPack: ErrorAndLoading &
     WithPagination & {
       paymentPackId: null | number;

@@ -15,17 +15,20 @@ import {
   partialRefundActions,
   listConsumerPaymentPackCompatibleActions,
   listConsumerPaymentPackPenaltyActions,
+  massExtensionActions,
 } from './actions';
 
-const initialState = Immutable({
+import { ConsumerPaymentPackState } from './types';
+
+const initialState = Immutable<ConsumerPaymentPackState>({
   byOfferByMember: {
     loading: false,
-    error: false,
+    error: null,
     items: [],
   },
   nonCompatibleByOfferByMember: {
     loading: false,
-    error: false,
+    error: null,
     items: [],
   },
   compatible: {
@@ -33,7 +36,6 @@ const initialState = Immutable({
     error: null,
     loading: false,
   },
-  // TODO move every items in this one:
   loading: false,
   error: null,
   updatingConsumerPacks: [],
@@ -55,6 +57,16 @@ const initialState = Immutable({
       error: null,
     },
   },
+  massExtension: {
+    loading: false,
+    firstLoadDone: false,
+    error: null,
+    byId: {},
+    allIds: [],
+    count: 0,
+    page: 1,
+    next_page: 1,
+  },
   byPaymentPack: {
     error: null,
     loading: false,
@@ -62,6 +74,7 @@ const initialState = Immutable({
     allIds: [],
     page: null,
     count: null,
+    next_page: null,
   },
   byMember: {
     loading: false,
@@ -85,7 +98,7 @@ const initialState = Immutable({
   byId: {},
 });
 
-export default handleActions(
+export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
   {
     [partialRefundActions.isLoading]: (state, { payload }) => {
       return state.setIn(['partialRefund', 'loading'], payload);
@@ -136,6 +149,37 @@ export default handleActions(
     },
     [extensionListActions.success]: (state, { payload }) => {
       return state.setIn(['extension', 'items'], payload);
+    },
+    [massExtensionActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['massExtension', 'loading'], payload);
+    },
+    [massExtensionActions.error]: (state, { payload }) => {
+      return state.setIn(['massExtension', 'error'], payload);
+    },
+    [massExtensionActions.success]: (state, { payload }: any) => {
+      return state
+        .setIn(
+          ['massExtension', 'allIds'],
+          payload.results.map((m) => m.id),
+        )
+        .setIn(['massExtension', 'count'], payload.count)
+        .setIn(['massExtension', 'firstLoadDone'], true)
+        .setIn(['massExtension', 'page'], payload.page)
+        .setIn(['massExtension', 'next_page'], payload.next_page)
+        .merge(
+          {
+            massExtension: {
+              byId: payload.results.reduce((acc, mE) => {
+                acc[mE.id] = mE;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [massExtensionActions.create]: (state, { payload }) => {
+      return state.setIn(['massExtension', 'byId', payload.id], payload);
     },
     [byMember.isLoading]: (state, { payload }) => {
       return state.setIn(['byMember', 'loading'], payload);

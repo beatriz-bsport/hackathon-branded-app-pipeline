@@ -175,7 +175,7 @@ export function fetchMemberBulk(params: any) {
     dispatch(memberBulkActions.isLoading(false));
   };
 }
-export function fetchFilteredMembers(params: any, options: OptionCallback) {
+export function fetchFilteredMembers(params: any, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(memberListActions.isLoading(true));
     dispatch(refreshFilteredMembers(params, options));

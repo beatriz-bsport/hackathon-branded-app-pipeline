@@ -3913,7 +3913,13 @@
       "hasCreditNull": "Sans crédit"
     },
     "multipleBookingTooltip": "Réservations multiples",
-    "actions": { "edit": "Modifier", "delete": "Supprimer", "scaleCredit": "Mult/div les crédits" },
+    "section": { "massExtension": "Extensions" },
+    "actions": {
+      "massExtension": "Ajouter une extension",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "scaleCredit": "Mult/div les crédits"
+    },
     "scaleCredit": {
       "title": "Modification du total de crédit",
       "explain": "Vous pouvez multiplier les crédit de la carte (3/7 x2 devient 6/14) ou les diviser cas d'erreur (3/7 ÷2 devient 1/3) : arrondi à l'inférieur.",
@@ -4168,7 +4174,19 @@
     "link": { "copied": "Lien copié", "copyLink": "Copier le lien vers la page de paiement" },
     "notificationForm": "Formulaire notification",
     "disabledPacks": { "show": "Afficher les cartes archivées", "hide": "Masquer les cartes archivées" },
-    "blockedCpp": "Carte bloquée du {{-blocked_from}} au {{-blocked_until}}"
+    "blockedCpp": "Carte bloquée du {{-blocked_from}} au {{-blocked_until}}",
+    "massExtension": {
+      "helpText": "Vous pouvez ici étendre toutes les cartes de cours de vos membres. Cette opération est réversible.",
+      "dateHelpText": "N'étendre que les cartes de cours expirant entre le",
+      "minDate": "Au plus tôt le",
+      "maxDate": "Au plus tard le",
+      "title": "Ajouter une extension à tous les membres",
+      "submit": "Valider",
+      "cancel": "Annuler",
+      "listItemDate": "Expirant entre le {{ minDate }} et le {{ maxDate }}",
+      "createdAt": "Ajouté le {{date}}",
+      "listItemNbDays": "+{{nbDays}} jours"
+    }
   },
   "metaActivity": {
     "metaActivity": "Activité",

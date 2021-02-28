@@ -353,7 +353,7 @@
                 "metaActivity": "Activiteiten",
                 "offerManagement": "Reserveringen",
                 "coachList": "Instructeurs",
-                "shopManager": "Mijn webshop",
+                "shopManager": "Webshop",
                 "dashboard": "Dashboard",
                 "mergeMember": "Fuseer lid",
                 "allCoachPerformance": "Overzicht van de instructeurs",
@@ -363,7 +363,7 @@
         "offerManagement": {
             "forms": {
                 "register": {
-                    "forceNotify": "Bevestigingsmail versturen",
+                    "forceNotify": "Een bevestigingsmail versturen",
                     "passCompatibleNotOwnedByMember": "Een nieuwe cursuskaart factureren",
                     "passOwnedByMember": "Cursuskaart(en) die het lid bezit",
                     "registerToOffer": "Voor de sessie aanmelden",
@@ -1001,7 +1001,7 @@
             "discard": "Annuleren",
             "doNotAttend": "Afwezig",
             "attend": "Aanwezig",
-            "revertBookingWithInvoiceImpossibleExplain": "Deze reservering is reeds betaald en kan niet worden geannuleerd. Je kunt je wel als \"Afwezig\" melden",
+            "revertBookingWithInvoiceImpossibleExplain": "Deze reservering is recent betaald en kan niet worden geannuleerd. Je kunt je wel als \"Afwezig\" melden",
             "revertBookingExplain": {
                 "offerIsNotAvailable": "De reservering wordt verwijderd. De sessie is al geannuleerd en tegoeden worden niet terugbetaald als je \"teruggave\" niet hebt aangevinkt bij het annuleren",
                 "offerIsAvailable": "Weet je zeker dat je deze reservering wilt verwijderen? De gebruikte kredieten worden opnieuw gecrediteerd.",
@@ -1034,7 +1034,7 @@
             "packsAvailable": "Compatibele cursuskaarten:",
             "orNcredits2": " credits)",
             "orNcredits1": "(of ",
-            "noOfferThisDay": "Vandaag zijn er helaas geen sessies. Selecteer een andere datum of begin met het toevoegen van sessies",
+            "noOfferThisDay": "Vandaag zijn er helaas geen sessies. Selecteer een andere datum of begin met het toevoegen van sessies!",
             "offersThisDay": "Sessie(s) van vandaag:",
             "category": "Categorie",
             "description": "Beschrijving",
@@ -1529,7 +1529,7 @@
             "goToLogin": "Terug",
             "linkExpired": "Je validatielink is verlopen",
             "hasSentAgain": "E-mail verzonden",
-            "sendAgain": "Bevestigingsmail opnieuw versturen",
+            "sendAgain": "Opnieuw een bevestigingsmail versturen",
             "success": "Je e-mail is gevalideerd! Je wordt binnen enkele seconden doorverwezen.",
             "explain": "We hebben je een bevestigingsmail gestuurd. We zijn er bijna!"
         },
@@ -1851,7 +1851,8 @@
         "actions": {
             "edit": "Bewerken",
             "delete": "Verwijderen",
-            "scaleCredit": "Vermenigvuldig/deel krediet"
+            "scaleCredit": "Vermenigvuldig/deel krediet",
+            "massExtension": "De geldigheid verlengen"
         },
         "consumerPaymentPack": {
             "addExtension": "Geldigheid verlengen",
@@ -2211,7 +2212,22 @@
             "account": "Zodra {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen worden geregistreerd, wordt een sanctie t.w.v. €{{account_value}} gefactureerd.",
             "title": "Annuleringsbeleid"
         },
-        "only_vod_access": "Alleen beschikbaar voor Video On Demand"
+        "only_vod_access": "Alleen beschikbaar voor Video On Demand",
+        "massExtension": {
+            "title": "Verleng de geldigheid voor alle leden",
+            "minDate": "Niet eerder dan",
+            "dateHelpText": "Verleng alle lidmaatschappen die tussen X en Y verlopen",
+            "helpText": "Hier kun je de geldigheid van alle lidmaatschappen van al je leden verlengen. Let op! Deze actie is definitief.",
+            "listItemNbDays": "+ {{nbDays}} dag(en)",
+            "createdAt": "Toegevoegd op: {{date}}",
+            "listItemDate": "Verloopt tussen {{ minDate }} en {{ maxDate }}",
+            "cancel": "Annuleer",
+            "submit": "Bevestigen",
+            "maxDate": "Niet later dan"
+        },
+        "section": {
+            "massExtension": "Verlenging"
+        }
     },
     "establishment": {
         "capacity": {
@@ -3893,10 +3909,10 @@
         },
         "video": {
             "lock": {
-                "accessDenied": "Je hebt geen toegang tot deze video",
+                "accessDenied": "Momenteel heb je nog geen toegang tot deze video.",
                 "pleaseAuthenticated": "Log in om deze video te bekijken",
                 "buyPass": "Schaf een cursuskaart aan",
-                "useConsumerPass": "Toegang verkrijgen"
+                "useConsumerPass": "Toegang ontgrendelen"
             },
             "filter": {
                 "duration": {
@@ -3961,7 +3977,7 @@
             "register": {
                 "buyPass": "Een lidmaatschap aanschaffen",
                 "title": "Video afspelen",
-                "noPassAvailable": "Je bezit nog geen compatibel lidmaatschap"
+                "noPassAvailable": "Je bezit nog geen compatibel lidmaatschap."
             },
             "analytics": {
                 "dateCreated": "Online beschikbaar maken",
@@ -4212,8 +4228,8 @@
                 },
                 "pleaseSelectCoachAndSlot": "Selecteer eerst de instructeur en de sessie",
                 "cancel": "Annuleren",
-                "compatiblePrivatePass": "Factureer een afspraakkaart",
-                "emptyPrivateConsumerPass": "Geen compatibele kaart in bezit",
+                "compatiblePrivatePass": "Een afspraakkaart factureren",
+                "emptyPrivateConsumerPass": "Dit lid bezit momenteel geen compatibel lidmaatschap.",
                 "emptyPrivatePass": "Geen compatibele afspraakkaart",
                 "privateConsumerPassNeedRefresh": "Vernieuw de lijst"
             },
@@ -4223,15 +4239,15 @@
                         "discardable": "Weet je zeker dat je deze afspraak wilt annuleren? Je tegoed wordt teruggestort.",
                         "notDiscardable": "Weet je zeker dat je deze afspraak wil annuleren? Je annuleert te laat. Je tegoed wordt niet teruggestort."
                     },
-                    "title": "Annuleer reservering",
+                    "title": "Een afspraak annuleren",
                     "cancel": "Annuleren",
                     "confirm": "Bevestigen"
                 },
                 "explainHardDelete": "Deze reservering is al geannuleerd. Als de reservering verwijdert wordt, dan verdwijnt deze ook van je kalender. Het tegoed wordt teruggestort als dit niet al eerder gedaan is. Deze actie is definitief.",
                 "confirm": "Bevestigen",
-                "title": "Annuleer reservering",
+                "title": "Een afspraak annuleren",
                 "explain": "Weet je zeker dat je deze reservering wilt annuleren? Deze actie is definitief.",
-                "explainForceRefund": "Gebruik het teruggestorte tegoed van de cursuskaart om een nieuwe reservering te maken.",
+                "explainForceRefund": "Vergoed het gebruikte tegoed om een nieuwe reservering toe te staan.",
                 "cancel": "Annuleren",
                 "sendCancellationMail": "Informeer {{name}} via de mail dat de afspraak geannuleerd is",
                 "explainWithRestore": "Weet je zeker dat je deze reservering wilt annuleren? Je kunt dit later ongedaan maken."
@@ -4243,7 +4259,7 @@
                 "submit": "Opslaan",
                 "cancel": "Annuleren"
             },
-            "discard": "Annuleer de afspraak",
+            "discard": "De afspraak annuleren",
             "hardDelete": "Verwijderen",
             "isCancelled": "Geannuleerd",
             "detail": {
@@ -4429,10 +4445,10 @@
             },
             "useCredit": "Reserveer",
             "notifyMember": {
-                "label": "Bevestigingsmail versturen"
+                "label": "Een bevestigingsmail versturen"
             },
             "recurrenceRule": {
-                "label": "Plan een periodieke afspraak in"
+                "label": "Een periodieke afspraak toevoegen"
             }
         },
         "consumerPass": {
@@ -4544,8 +4560,8 @@
             "list": {
                 "createButton": "Een afspraakkaart toevoegen",
                 "isEmpty": "Geen afspraakkaart",
-                "availableCustomer": "Beschikbaar op de webshop",
-                "managerOnly": "Niet beschikbaar op de webshop"
+                "availableCustomer": "Beschikbare afspraakkaarten",
+                "managerOnly": "Niet-beschikbare afspraakkaarten"
             },
             "parameters": {
                 "nbCredits": "{{ credits}} krediet",
@@ -4580,7 +4596,7 @@
                 },
                 "last_discard_minutes": {
                     "label": "Selecteer tot wanneer een lid zich kan inschrijven",
-                    "helperText": "Als de reservering na de deadline wordt geannuleerd, wordt het tegoed niet terugbetaald"
+                    "helperText": "Als de reservering te laat wordt geannuleerd, wordt het tegoed niet terugbetaald"
                 },
                 "establishmentResourceType": {
                     "isHomeService": {
@@ -4646,7 +4662,7 @@
                 "paddingStart": {
                     "helperText": "De instructeur en/of vestiging wordt {{minutes}} minuten voor het begin van de afspraak als onbeschikbaar weergegeven",
                     "helperText0": "De instructeur en/of de vestiging zullen op de kalender als onbeschikbaar worden weergegeven zodra de afspraak start",
-                    "label": "Buffer (in minuten) voor het begin van de reservering"
+                    "label": "Buffer (in minuten) voor het begin van de afspraak"
                 },
                 "paddingEnd": {
                     "helperText0": "Aan het einde van de afspraak wordt de instructeur en/of vestiging weer als beschikbaar op de kalender weergegeven",
@@ -4902,7 +4918,7 @@
                     "confirm": "Verwijder",
                     "cancel": "Annuleer",
                     "content": "Het annuleren van de periodieke afspraak leidt tot de annulering van toekomstige afspraken die via deze regel zijn geregistreerd.",
-                    "title": "Annuleer een periodieke afspraak"
+                    "title": "Een periodieke afspraak annuleren"
                 }
             },
             "form": {
@@ -6310,7 +6326,8 @@
                     "checkbox": "Beperk het onevenwicht tussen MANNEN/VROUWEN voor je sessies"
                 },
                 "offerBalance": "Een regel instellen dat het aantal MANNEN/VROUWEN per sessie reguleert",
-                "showGenderOffer": "Het aantal ingeschreven MANNEN / VROUWEN op je kalender tonen"
+                "showGenderOffer": "Het aantal ingeschreven MANNEN / VROUWEN op je kalender tonen",
+                "hideCoach": "Toon informatie van de instructeur op de ledenweergave"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",

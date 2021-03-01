@@ -3625,7 +3625,8 @@
                     "checkbox": "Limit the WOMEN / MEN imbalance in reservations (dancing studio...)"
                 },
                 "offerBalance": "Control the WOMEN / MEN balance on each session",
-                "showGenderOffer": "Display the number of men and women who book an offer"
+                "showGenderOffer": "Display the number of men and women who book an offer",
+                "hideCoach": "Hide teachers names on the client calendar"
             },
             "cover": {
                 "label": "Logo",
@@ -4890,7 +4891,7 @@
         },
         "invoiceType": {
             "reversed": "Invoice ( reverted)",
-            "return": "Credit note",
+            "return": "Return invoice",
             "credit_payment": "Receipt (balance adjustment)",
             "migration": "Migration",
             "regular": "Invoice"
@@ -5934,7 +5935,8 @@
         "actions": {
             "delete": "Delete",
             "edit": "Modify",
-            "scaleCredit": "Mult / div credits"
+            "scaleCredit": "Mult / div credits",
+            "massExtension": "Extend validity"
         },
         "specifications": {
             "price": "{{ price, price }}",
@@ -5993,7 +5995,22 @@
             "block": "If there are {{nb_cancellations}} late cancellations over a period of {{nb_days}} days, the pass will be blocked for {{days_blocked}} days.",
             "title": "Cancellation policy"
         },
-        "only_vod_access": "Available only for VOD"
+        "only_vod_access": "Available only for VOD",
+        "massExtension": {
+            "listItemNbDays": "+{{nbDays}} days",
+            "createdAt": "Added the {{date}}",
+            "listItemDate": "Expiring between the {{ minDate }} and the {{ maxDate }}",
+            "cancel": "Cancel",
+            "submit": "Validate",
+            "title": "Extend validity for all the clients",
+            "maxDate": "The latest the",
+            "minDate": "The soonest the",
+            "dateHelpText": "Only extend the passes expiring between the",
+            "helpText": "You are about to extend all the validity of your members passes. Beware, this operation can not be reverted."
+        },
+        "section": {
+            "massExtension": "Extension"
+        }
     },
     "metaActivity": {
         "metaActivity": "Activity",

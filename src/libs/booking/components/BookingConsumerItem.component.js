@@ -87,7 +87,7 @@ export const BookingConsumerItem = (props: Props) => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => props.goToBroadcast(props.booking)}
+            onClick={() => props.goToBroadcast(props.booking.id)}
           >
             <VideoCamIcon className={classes.leftIcon} />
             {t('booking.accessLive')}

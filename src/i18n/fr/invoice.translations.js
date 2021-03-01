@@ -40,6 +40,10 @@ const {
 } = require('@bsport/common/lib/master-data/payment-group');
 
 exports.default = {
+  paymentGroup: {
+    validateRequiresAction: 'Confirmer le moyen de paiement',
+    requiresAction: "La banque n'a pas authentifié le paiement (3DSecure)",
+  },
   invoiceInfo: {
     [INVOICE_TYPE_MIGRATION]:
       "Cette facture est issue d'une migration. Nous ne sommes pas en mesure de fournir un PDF ni de l'annuler pour des raisons légales.",

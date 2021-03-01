@@ -55,3 +55,9 @@ export const submitInternalPayment = async (data: any) => {
 export const getPaymentGroupStatus = async (id: number) => {
   return getAuth(`${API_V1_URI}/payment/payment_group/${id}/status/`);
 };
+
+export const fetchPaymentGroupList = async (params: any) => {
+  return getAuth(
+    `${API_V1_URI}/payment/payment_group/${buildUrlParams(params)}`,
+  );
+};

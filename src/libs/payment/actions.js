@@ -6,6 +6,7 @@ import type { Dispatch, ThunkAction, OptionCallBack } from '../../state/types';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   fetchOnSpotPaymentReport as fetchOnSpotPaymentReportAPI,
+  fetchPaymentGroupList as fetchPaymentGroupListAPI,
 } from './api';
 
 // Active campaign Account
@@ -58,5 +59,32 @@ export function fetchOnSpotPaymentReport(
       dispatch(onSpotPaymentReportActions.error(err));
     }
     dispatch(onSpotPaymentReportActions.isLoading(false));
+  };
+}
+
+export const listPaymentGroupActions = {
+  isLoading: createAction('PAYMENT_GROUP/LIST/LOADING'),
+  error: createAction('PAYMENT_GROUP/LIST/ERROR'),
+  success: createAction('PAYMENT_GROUP/LIST/SUCCESS'),
+};
+
+export function fetchPaymentGroupList(
+  params: any = {},
+  options: OptionCallBack,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(listPaymentGroupActions.isLoading(true));
+    dispatch(listPaymentGroupActions.error(null));
+    try {
+      const response = await fetchPaymentGroupListAPI(params);
+      dispatch(listPaymentGroupActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listPaymentGroupActions.error(err));
+    }
+    dispatch(listPaymentGroupActions.isLoading(false));
   };
 }

@@ -22,6 +22,7 @@ import {
   getPaymentListInInvoice,
   getPlannedPaymentEventList,
 } from '../../libs/invoice/selectors';
+import { getPaymentGroupRequiringActionList } from '../../libs/payment/selectors';
 import { getPermissions } from '../../libs/role/selectors';
 import { formatAsDate } from '../../utils/datetime';
 import { fetchMember } from '../../libs/member/actions';
@@ -35,6 +36,7 @@ import {
   allocateDebt,
   fetchPlannedPaymentEventList,
 } from '../../libs/invoice/actions';
+import { fetchPaymentGroupList as fetchPaymentGroupListAction } from '../../libs/payment/actions';
 import { fetchCompanyRoles } from '../../libs/role/actions';
 
 import InvoiceHeader from '../../libs/invoice/components/InvoiceHeader.component';
@@ -45,6 +47,8 @@ import { requestClientSecret as requestClientSecretAPI } from '../../libs/invoic
 
 import PaymentDialog from '../../libs/payment/components/PaymentDialog.component';
 import CreditMemberBadge from '../../libs/member/components/CreditMemberBadge.component';
+
+const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 
 type Props = {
   fetchCompanyRoles: () => void,
@@ -79,6 +83,9 @@ type Props = {
   ) => void,
 
   plannedPaymentEventList: Array<PlannedPaymentEvent>,
+
+  fetchPaymentGroupRequiringActionList: () => void,
+  paymentGroupRequiringActionList: Array<PaymentGroup>,
 };
 
 type State = {
@@ -98,6 +105,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
     this.props.fetchInvoice(this.props.uuid, {
       onSuccess: (invoice) => {
         this.props.fetchMember(invoice.member);
+        if (invoice.plannedinvoice) {
+          this.props.fetchPaymentGroupRequiringActionList();
+        }
       },
     });
     this.props.fetchInvoiceItemList({
@@ -152,6 +162,18 @@ export class InvoiceDetail extends React.Component<Props, State> {
       });
   };
 
+  onValidatePaymentGroup = (pg: PaymentGroup) => {
+    this.setState(
+      {
+        clientSecret: pg.client_secret,
+        paymentGroupId: pg.id,
+        paymentGroupPriceCts: pg.price_cts,
+        clientSecretLoading: false,
+      },
+      () => this.props.setOpenPaymentDialog(true),
+    );
+  };
+
   render() {
     return (
       <div className={this.props.classes.container}>
@@ -180,6 +202,10 @@ export class InvoiceDetail extends React.Component<Props, State> {
               invoice={this.props.invoice}
               paymentList={this.props.paymentList}
               plannedPaymentEventList={this.props.plannedPaymentEventList}
+              onValidate={this.onValidatePaymentGroup}
+              paymentGroupRequiringActionList={
+                this.props.paymentGroupRequiringActionList
+              }
               handleChangeMethod={this.props.updatePaymentMethod}
               onRevert={this.props.openRevertDialog}
               onPaymentIntent={() => this.props.setOpenPaymentDialog(true)}
@@ -299,12 +325,17 @@ export default compose(
       invoiceItemLoading: state.invoice.invoiceItem.loading,
       plannedPaymentEventList: getPlannedPaymentEventList(state, uuid),
       permission: getPermissions(state),
+      paymentGroupRequiringActionList: getPaymentGroupRequiringActionList(
+        state,
+        uuid,
+      ),
     }),
     {
       fetchInvoiceItemList,
       fetchInvoice,
       fetchPaymentList: fetchPaymentListAction,
       goToSubscription: (id) => pushRouter(`/subscription/${id}/`),
+      fetchPaymentGroupList: fetchPaymentGroupListAction,
       fetchPlannedPaymentEventList,
       fetchMember,
       fetchCompanyRoles,
@@ -317,6 +348,15 @@ export default compose(
     },
   ),
   withHandlers({
+    fetchPaymentGroupRequiringActionList: ({
+      fetchPaymentGroupList,
+      uuid,
+    }) => () => {
+      return fetchPaymentGroupList({
+        invoice: uuid,
+        status: PAYMENT_INTENT_STATUS_REQUIRES_ACTION,
+      });
+    },
     updatePaymentMethod: ({ updatePaymentMethod }) => (
       paymentUuid,
       newMethod,

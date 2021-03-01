@@ -6,6 +6,7 @@ import Immutable from 'seamless-immutable';
 import {
   listSavedPaymentMethodListActions,
   onSpotPaymentReportActions,
+  listPaymentGroupActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -18,6 +19,12 @@ const initialState = Immutable({
     id: null,
     error: null,
     loading: false,
+  },
+  paymentGroup: {
+    error: null,
+    loading: false,
+    allIds: [],
+    byId: {},
   },
 });
 
@@ -40,6 +47,30 @@ export default handleActions(
     },
     [onSpotPaymentReportActions.error]: (state, { payload }) => {
       return state.setIn(['onSpotPaymentReport', 'error'], payload);
+    },
+    [listPaymentGroupActions.error]: (state, { payload }) => {
+      return state.setIn(['paymentGroup', 'error'], payload);
+    },
+    [listPaymentGroupActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['paymentGroup', 'loading'], payload);
+    },
+    [listPaymentGroupActions.success]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['paymentGroup', 'allIds'],
+          payload.map((pg) => pg.id),
+        )
+        .merge(
+          {
+            paymentGroup: {
+              byId: payload.reduce((acc, v) => {
+                acc[v.id] = v;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
     },
   },
   initialState,

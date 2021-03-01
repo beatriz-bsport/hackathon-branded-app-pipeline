@@ -2916,6 +2916,10 @@
     }
   },
   "invoice": {
+    "paymentGroup": {
+      "validateRequiresAction": "Confirmer le moyen de paiement",
+      "requiresAction": "La banque n'a pas authentifié le paiement (3DSecure)"
+    },
     "invoiceInfo": {
       "2": "Ce reçu de paiement représente l'ajustement de solde de votre membre.",
       "3": "Cette facture est issue d'une migration. Nous ne sommes pas en mesure de fournir un PDF ni de l'annuler pour des raisons légales."

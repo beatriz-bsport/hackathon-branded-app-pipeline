@@ -10,6 +10,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { INVOICE_TYPE_REGULAR } from '@bsport/common/lib/master-data/invoice-type';
+import PaymentGroupRequiringActionListItem from './PaymentGroupRequiringActionListItem.component';
 import RedButton from '../../../components/button/RedButton.component';
 
 import PaymentListItemV2 from './PaymentListItemV2.component';
@@ -179,16 +180,25 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
         ) : (
           <Divider className={classes.divider} />
         )}
-        {!props.paymentLoading && !props.paymentList.length && (
-          <Typography variant="caption" color="textSecondary">
-            {t('paymentPanel.paymentList.isEmpty')}
-          </Typography>
-        )}
+        {!props.paymentLoading &&
+          !props.paymentList.length &&
+          !props.paymentGroupRequiringActionList.length && (
+            <Typography variant="caption" color="textSecondary">
+              {t('paymentPanel.paymentList.isEmpty')}
+            </Typography>
+          )}
         <div className={classes.listContainer}>
           {props.paymentList.map((p) => (
             <PaymentListItemV2
               handleChangeMethod={props.handleChangeMethod}
               paymentItem={p}
+              key={p.id}
+            />
+          ))}
+          {props.paymentGroupRequiringActionList.map((p) => (
+            <PaymentGroupRequiringActionListItem
+              onValidate={props.onValidate}
+              paymentGroup={p}
               key={p.id}
             />
           ))}

@@ -28,3 +28,14 @@ export type PlannedPaymentEvent = {
   _payment_backend_method_id: string;
   status: number;
 };
+
+export type PaymentGroup = {
+  id: number;
+  member: number;
+  basket: string;
+  payment_method_identifier: number;
+  client_secret: string;
+  price_cts: number;
+  currency: string;
+  status: number;
+};

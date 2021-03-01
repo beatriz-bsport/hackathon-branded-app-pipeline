@@ -1926,7 +1926,8 @@
                     "checkbox": "Begrenze das Verhältnis zwischen Frauen und Männern bei Buchungen (Tanz ...)"
                 },
                 "offerBalance": "Einrichtung einer Verhältnis-Kontrolle für Frauen und Männer",
-                "showGenderOffer": "Zeige die Anzahl der Männer und Frauen an, die ein Angebot buchen"
+                "showGenderOffer": "Zeige die Anzahl der Männer und Frauen an, die ein Angebot buchen",
+                "hideCoach": "Blende die Anzeige des Lehrers auf dem Kundenkalender aus"
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -2066,7 +2067,8 @@
         "actions": {
             "delete": "Löschen",
             "edit": "Ändern",
-            "scaleCredit": "Credits multiplizieren oder dividieren"
+            "scaleCredit": "Credits multiplizieren oder dividieren",
+            "massExtension": "Eine Verlängerung hinzufügen"
         },
         "details": {
             "pleaseSelectAPack": "Wähle eine Karte aus, um die Details zu sehen",
@@ -2412,7 +2414,22 @@
             "block": "Bei {{nb_cancellations}} verspäteten Stornierungen über einen Zeitraum von {{nb_days}} Tagen wird die Karte für {{days_blocked}} Tage gesperrt.",
             "title": "Stornierungsbedingungen"
         },
-        "only_vod_access": "Nur für VOD verfügbar"
+        "only_vod_access": "Nur für VOD verfügbar",
+        "massExtension": {
+            "listItemNbDays": "+ {{nbDays}} Tage",
+            "createdAt": "Hinzugefügt am {{date}}",
+            "listItemDate": "Ablaufen zwischen {{minDate}} und {{maxDate}}",
+            "cancel": "Abbrechen",
+            "submit": "Bestätigen",
+            "title": "Füge allen Mitgliedern eine Verlängerung hinzu",
+            "maxDate": "Spätestens",
+            "minDate": "Nicht früher als",
+            "dateHelpText": "Verlängere nur Kurskarten, die dazwischen ablaufen",
+            "helpText": "Hier kannst du alle Kurskarten deiner Mitglieder verlängern. Dieser Vorgang ist reversibel."
+        },
+        "section": {
+            "massExtension": "Verlängerung"
+        }
     },
     "alerting": {
         "task": {

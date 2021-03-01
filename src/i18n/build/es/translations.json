@@ -1994,7 +1994,8 @@
                     "2": "Reembolso manual",
                     "1": "Reembolso del crédito (saldo)",
                     "0": "Reembolso directo"
-                }
+                },
+                "explainEmptyPayment": "Está seguro de que quiere cancelar esta factura?"
             },
             "dialog": {
                 "title": "Cancelación de la factura",
@@ -2146,7 +2147,7 @@
         },
         "invoiceType": {
             "reversed": "Factura ( revertida)",
-            "return": "Nota de crédito",
+            "return": "Factura de devolución",
             "credit_payment": "Recibo (ajuste de saldo)",
             "migration": "Migración",
             "regular": "Factura"
@@ -4699,7 +4700,8 @@
                     "checkbox": "Limitar el desequilibrio MUJER/HOMBRE en las reservas (estudio de baile...)"
                 },
                 "offerBalance": "Controlar el balance Mujer/Hombre en cada sesión",
-                "showGenderOffer": "Mostrar el número de hombres y mujeres que reservan una oferta"
+                "showGenderOffer": "Mostrar el número de hombres y mujeres que reservan una oferta",
+                "hideCoach": "Ocultar los nombres de los profesores en el calendario del cliente"
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -5825,7 +5827,8 @@
         "actions": {
             "scaleCredit": "Mult/div créditos",
             "delete": "Suprimir",
-            "edit": "Modificar"
+            "edit": "Modificar",
+            "massExtension": "Extender la validez"
         },
         "notificationForm": "Formulario de notificación",
         "link": {
@@ -5893,7 +5896,22 @@
             "account": "Si hay {{nb_cancellations}} cancelaciones tardías durante un período de {{nb_days}} días, un cargo de {{account_value}}€ se aplicará."
         },
         "blockedCpp": "Tarjeta bloqueada de {{-blocked_from}} a {{-blocked_until}}",
-        "only_vod_access": "Disponible sólo para VOD"
+        "only_vod_access": "Disponible sólo para VOD",
+        "massExtension": {
+            "listItemNbDays": "+{{nbDays}} días",
+            "createdAt": "Se ha añadido la {{date}}",
+            "listItemDate": "Que expira entre el {{ minDate }} y el {{ maxDate }}",
+            "cancel": "Cancelar",
+            "submit": "Validar",
+            "title": "Ampliar la validez para todos los clientes",
+            "maxDate": "El último de los",
+            "minDate": "Lo más pronto que el",
+            "dateHelpText": "Sólo se extienden las tarjetas de curso que expiran entre el",
+            "helpText": "Está a punto de prolongar toda la validez de las tarjetas de curso de miembros. Cuidado, esta operación no se puede revertir."
+        },
+        "section": {
+            "massExtension": "Extensión"
+        }
     },
     "selfCheckIn": {
         "offerList": {
@@ -7002,7 +7020,8 @@
                 "popup": "Nueva ventana",
                 "iframe": "Permanecer en la web"
             },
-            "dialogModeLabel": "Tipo de popup (inicio de sesión, pago, reservas)"
+            "dialogModeLabel": "Tipo de popup (inicio de sesión, pago, reservas)",
+            "showFabLabel": "Botón de acción flotante de la interfaz del cliente"
         }
     },
     "platformBilling": {

@@ -1,7 +1,7 @@
 // @flow
 
 import { createAction } from 'redux-actions';
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/react';
 
 import { COMPANY_EVENTS } from './components/event.utils';
 import api, {

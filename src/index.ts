@@ -1,4 +1,5 @@
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/react';
+import { Integrations } from '@sentry/tracing';
 
 import Config from './config';
 
@@ -19,6 +20,8 @@ if (process.env.NODE_ENV === 'production') {
     release: RELEASE_SHA,
     dsn: Config.REACT_APP_SENTRY_DSN || null,
     environment: Config.REACT_APP_SENTRY_ENVIRONMENT || 'production',
+    integrations: [new Integrations.BrowserTracing()],
+    tracesSampleRate: 0.01,
     beforeSend(event, hint) {
       const error = hint.originalException;
       if (

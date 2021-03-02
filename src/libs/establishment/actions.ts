@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/react';
 
 import { push } from 'connected-react-router';
 import { createAction } from 'redux-actions';

@@ -1,6 +1,6 @@
 // @flow
 
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/react';
 
 import React from 'react';
 

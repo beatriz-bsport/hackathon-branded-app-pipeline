@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/react';
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';

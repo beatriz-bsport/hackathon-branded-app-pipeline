@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/react';
 import {
   fetchMembershipList as fetchMembershipListAPI,
   fetchMembership as fetchMembershipAPI,

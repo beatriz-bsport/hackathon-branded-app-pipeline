@@ -2533,7 +2533,8 @@
                     },
                     "checkbox": "Limita lo squilibrio DONNE / UOMINI nelle prenotazioni (studio di danza ...)"
                 },
-                "offerBalance": "Controlla il rapporto DONNA / UOMO in ogni sessione"
+                "offerBalance": "Controlla il rapporto DONNA / UOMO in ogni sessione",
+                "hideCoach": "Nascondere le informazioni dell'insegnante nelle interfacce client"
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -3152,8 +3153,9 @@
             "zoom": {
                 "explainInvalid": "Account valido",
                 "explainValid": "Account valido: I link delle riunioni ZOOM verranno creati per ogni sessione 15 minuti prima dell'avvio automatico. Il professore riceverà un link per ospitare la riunione, mentre gli iscritti riceveranno un altro link per partecipare alla riunione. Si noti che se l'account ZOOM non è pagato, la riunione ZOOM è limitata a 40 minuti",
-                "label": "Impostazioni degli account Zoom",
-                "enabled": "Abilitare l'integrazione di Zoom"
+                "label": "Impostazioni degli account ZOOM",
+                "enabled": "Abilitare l'integrazione di ZOOM",
+                "revoke": "Disattivare ZOOM"
             },
             "seeUpsell": "Saperne di più"
         },
@@ -3383,7 +3385,8 @@
                     "2": "Rimborso manuale",
                     "1": "Rimborso sul credito (saldo)",
                     "0": "Rimborso diretto"
-                }
+                },
+                "explainEmptyPayment": "È sicuro di voler annullare questa fattura?"
             },
             "dialog": {
                 "title": "Annullamento della fattura",
@@ -3555,6 +3558,10 @@
             "content": "Consegnando il tuo IBAN e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, ad inviare le istruzioni di addebito alla tua banca in accordo con il calendario di pagamento. Potete chiedere un rimborso alla vostra banca secondo i termini del vostro contratto con quest'ultima. Un rimborso deve essere richiesto entro 8 settimane dopo il primo addebito.",
             "email": "E-mail del titolare",
             "name": "Nome e cognome del titolare"
+        },
+        "paymentGroup": {
+            "requiresAction": "La banca non ha autenticato il pagamento (3DSecure)",
+            "validateRequiresAction": "Confermare il metodo di pagamento"
         }
     },
     "coach": {
@@ -4363,7 +4370,8 @@
         "actions": {
             "edit": "Modifica",
             "delete": "Rimuovi",
-            "scaleCredit": "Crediti mult/div"
+            "scaleCredit": "Crediti mult/div",
+            "massExtension": "Aggiungere un'estensione"
         },
         "scaleCredit": {
             "title": "Variazione totale del credito",
@@ -4607,6 +4615,21 @@
             "account": "Se ci sono {{nb_cancellations}} di cancellazioni tardive oltre un periodo di {{nb_days}} giorni, un supplemento di {{account_value}}€ verrà applicato.",
             "block": "Se ci sono {{nb_cancellations}} di cancellazioni tardive oltre un periodo di {{nb_days}} di giorni, il passa verrà bloccato per {{days_blocked}} di giorni.",
             "title": "Politica di cancellazione"
+        },
+        "massExtension": {
+            "listItemNbDays": "+{{nbDays}} giorni",
+            "createdAt": "Aggiunto il {{date}}",
+            "listItemDate": "Con scadenza tra {{ minDate }} e {{ maxDate }}",
+            "cancel": "Cancellare",
+            "submit": "Convalidare",
+            "title": "Aggiungere un'estensione a tutti i membri",
+            "maxDate": "Entro e non oltre",
+            "minDate": "Al più presto il",
+            "dateHelpText": "Estendere solo le carte di corso che scadono tra il",
+            "helpText": "Qui puoi estendere tutte le carte di corso dei tuoi membri. Questa operazione è reversibile."
+        },
+        "section": {
+            "massExtension": "Estensioni"
         }
     },
     "metaActivity": {
@@ -6968,7 +6991,8 @@
                 "popup": "Nuova finestra",
                 "iframe": "Rimanere sul sito"
             },
-            "linkToConfig": "Collegamento a questa configurazione"
+            "linkToConfig": "Collegamento a questa configurazione",
+            "showFabLabel": "Pulsante galleggiante dell'interfaccia cliente"
         }
     },
     "platformBilling": {

@@ -47,6 +47,7 @@ export const PaymentStripeSofort = (props: Props) => {
         },
         billing_details: {
           name,
+          email,
         },
       },
       ...(saveForLater ? { setup_future_usage: 'off_session' } : {}),

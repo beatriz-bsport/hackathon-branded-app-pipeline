@@ -26,16 +26,20 @@ export const MarketplaceVodRouter: React.FC<Props> = (props) => {
 
       <Route
         path="/m/:companyName/:companyId/vod/playlist/:id/video/:videoId"
-        component={MarketplacePlaylistDetailPage}
+        render={(routeProps) =>
+          withProps(MarketplacePlaylistDetailPage, routeProps)
+        }
       />
       <Route
         path="/m/:companyName/:companyId/vod/playlist/:id"
-        component={MarketplacePlaylistDetailPage}
+        render={(routeProps) =>
+          withProps(MarketplacePlaylistDetailPage, routeProps)
+        }
       />
 
       <Route
         path="/m/:companyName/:companyId/vod"
-        component={MarketplaceVideo}
+        render={(routeProps) => withProps(MarketplaceVideo, routeProps)}
       />
     </Switch>
   );

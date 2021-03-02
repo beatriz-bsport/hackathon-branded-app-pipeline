@@ -4911,6 +4911,10 @@
             "content": "By putting your IBAN and confirming the payment, you authorize bsport and Stripe, our payment system to send the billing information to your bank with all the future billings. You can ask a refund to your bank depending on your contract. A refund should be asked 8 weeks before the first payment.",
             "email": "Email adress",
             "name": "Last name and first name"
+        },
+        "paymentGroup": {
+            "requiresAction": "The bank did not authenticate payment (3DSecure)",
+            "validateRequiresAction": "Confirm the payment method"
         }
     },
     "coach": {

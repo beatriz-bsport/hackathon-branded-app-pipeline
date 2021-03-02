@@ -20,6 +20,7 @@ import SubscriptionContractCard from '../../libs/subscription/components/Subscri
 import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import Analytics from '../../components/analytics/Analytics.component';
 
 type Props = {
   t: TFunction,
@@ -61,6 +62,12 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
         payment_method_id,
         coupon,
       });
+      try {
+        Analytics.contractPaymentSuccess(this.props.contract);
+      } catch (err) {
+        console.error(err);
+      }
+
       this.props.onSubmit();
       // this.setState({ firstBillingTimestamp });
     } catch (err) {

@@ -21,6 +21,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { parseQueryString } from '../../http';
 import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
 import { postContractSubscriptionUnauthenticated as postContractSubscriptionUnauthenticatedAPI } from '../../libs/subscription/api';
+import Analytics from '../../components/analytics/Analytics.component';
 
 type Props = {
   classes: Object,
@@ -61,6 +62,11 @@ export class ContractPayment extends React.Component<Props, State> {
         is_v2: true,
       });
       this.props.onSuccess();
+    } catch (err) {
+      console.error(err);
+    }
+    try {
+      Analytics.contractPaymentSuccess(this.props.contract);
     } catch (err) {
       console.error(err);
     }

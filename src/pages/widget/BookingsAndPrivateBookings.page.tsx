@@ -51,11 +51,11 @@ type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
   StateHandlerType;
 
-const SHOW_FUTURE_TAB = 0;
-const SHOW_PAST_TAB = 1;
+const SHOW_FUTURE_TAB: typeof SHOW_FUTURE_TAB = 0;
+const SHOW_PAST_TAB: typeof SHOW_PAST_TAB = 1;
 
 interface State {
-  tab: SHOW_FUTURE_TAB | SHOW_PAST_TAB;
+  tab: typeof SHOW_FUTURE_TAB | typeof SHOW_PAST_TAB;
 }
 
 class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {

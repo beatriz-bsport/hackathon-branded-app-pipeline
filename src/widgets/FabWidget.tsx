@@ -101,7 +101,6 @@ class FabWidget extends React.PureComponent<Props, State> {
               >
                 <Badge
                   badgeContent={this.props.bookingsCount}
-                  showZero
                   invisible={this.props.bookingsCount === null}
                   color="secondary"
                 >
@@ -124,7 +123,6 @@ class FabWidget extends React.PureComponent<Props, State> {
               >
                 <Badge
                   badgeContent={this.props.basketCount}
-                  showZero
                   invisible={this.props.basketCount === null}
                   color="secondary"
                 >

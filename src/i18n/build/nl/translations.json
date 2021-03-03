@@ -119,6 +119,12 @@
         "myVideos": {
             "title": "Mijn video's",
             "gotToVOD": "Toon alle video's"
+        },
+        "widget": {
+            "noBookingPast": "Hier zie je je geschiedenis zodra je reserveringen hebt gemaakt!",
+            "noBookingFuture": "Je hebt je nog niet voor een sessie ingeschreven",
+            "pastBooking": "Geschiedenis",
+            "futureBooking": "Mijn reserveringen"
         }
     },
     "notificationRule": {

@@ -29,6 +29,7 @@ import PaymentStripeGiropay from './PaymentStripeGiropay.component';
 import PaymentStripeMobilePay from './PaymentStripeMobilePay.component';
 
 import PaymentMethodCardSelector from '../PaymentMethodCardSelector.component';
+import AcceptTermsAndConditions from '../AcceptTermsAndConditions.component';
 
 import { getStripePkKey, getCurrencyDisplay } from '../../../theme/selectors';
 
@@ -44,6 +45,9 @@ type Props = {
   onSuccess: () => void,
   onError: () => void,
   paymentGroupPriceCts: ?number,
+  termsAndConditions: ?string,
+  setTermsAndConditionsAccepted: (boolean) => void,
+  termsAndConditionsAccepted: boolean,
 };
 
 const STRIPE_PAYMENT_METHOD_FORM_COMPONENT = {
@@ -87,6 +91,16 @@ export const PaymentStripe = (props: Props) => {
             clientSecret={props.clientSecret}
             onCancel={props.onCancel}
             memberId={props.memberId}
+            AcceptTermsAndConditionsComponent={
+              props.termsAndConditions ? (
+                <AcceptTermsAndConditions
+                  accepted={props.termsAndConditionsAccepted}
+                  onChecked={props.setTermsAndConditionsAccepted}
+                  termsAndConditions={props.termsAndConditions}
+                />
+              ) : null
+            }
+            termsAndConditionsAccepted={props.termsAndConditionsAccepted}
           />
         </Elements>
       </div>

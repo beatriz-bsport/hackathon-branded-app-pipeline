@@ -41,6 +41,8 @@ function IdealBankSection() {
 export const PaymentStripeIdeal = (props: {
   clientSecret: string,
   onCancel: () => void,
+  termsAndConditionsAccepted: boolean,
+  AcceptTermsAndConditionsComponent: React.Component,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -129,6 +131,9 @@ export const PaymentStripeIdeal = (props: {
         </div>
       </div>
       <div className={classes.actionRow}>
+        {props.AcceptTermsAndConditionsComponent}
+      </div>
+      <div className={classes.actionRow}>
         {processing ? (
           <CircularProgress />
         ) : (
@@ -136,7 +141,7 @@ export const PaymentStripeIdeal = (props: {
             color="primary"
             variant="contained"
             type="submit"
-            disabled={!stripe}
+            disabled={!stripe || !props.termsAndConditionsAccepted}
           >
             {t('paymentPanel.actions.confirmPayment')}
           </Button>

@@ -18,6 +18,7 @@ import type { Basket } from '../types';
 import BasketDeliveryForm from './BasketDeliveryForm.component';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
 import { getCurrencyDisplay } from '../../theme/selectors';
+import AcceptTermsAndConditions from '../../payment/components/AcceptTermsAndConditions.component';
 
 export const ADDRESS_STEP = {
   id: 0,
@@ -44,6 +45,10 @@ type Props = {
 
   t: TFunction,
   classes: Object,
+
+  termsAndConditionsAccepted: boolean,
+  setTermsAndConditionsAccepted: (boolean) => void,
+  termsAndConditions: string,
 };
 
 type State = {
@@ -122,8 +127,18 @@ export class BasketFinalizer extends React.Component<Props, State> {
                     {this.props.t('payLater.explain')}
                   </Typography>
                 </div>
+                {!!this.props.termsAndConditions && (
+                  <AcceptTermsAndConditions
+                    accepted={this.props.termsAndConditionsAccepted}
+                    onChecked={this.props.setTermsAndConditionsAccepted}
+                    termsAndConditions={this.props.termsAndConditions}
+                  />
+                )}
                 <Button
-                  disabled={this.props.selfProcessing}
+                  disabled={
+                    this.props.selfProcessing ||
+                    !this.props.termsAndConditionsAccepted
+                  }
                   onClick={() => {
                     this.props.setProcessing(true);
                     this.props.validateUnpaid({

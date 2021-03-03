@@ -36,6 +36,7 @@ export const ShopItemFeaturedBanner = (props: Props) => {
             <ShopItemBuyableItemCard
               addToOrder={() => props.onAddShopItem(si.id)}
               shopitem={si}
+              fullHeight
             />
           </div>
         ))}

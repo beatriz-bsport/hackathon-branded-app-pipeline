@@ -39,6 +39,10 @@ type Props = {
   validateUnpaid: (options: OptionCallback) => void,
 
   savedPaymentMethodList: ?Array<PaymentMethod>,
+
+  termsAndConditionsAccepted: boolean,
+  setTermsAndConditionsAccepted: (boolean) => void,
+  termsAndConditions: string,
 };
 
 export const CheckoutFlow = (props: Props) => (
@@ -83,6 +87,9 @@ export const CheckoutFlow = (props: Props) => (
           backToCalendar={props.backToCalendar}
           savedPaymentMethodList={props.savedPaymentMethodList}
           paymentModule={props.paymentModule}
+          termsAndConditionsAccepted={props.termsAndConditionsAccepted}
+          setTermsAndConditionsAccepted={props.setTermsAndConditionsAccepted}
+          termsAndConditions={props.termsAndConditions}
         />
       </Paper>
     ) : null}

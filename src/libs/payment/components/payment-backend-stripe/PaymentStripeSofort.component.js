@@ -13,6 +13,8 @@ import CountrySelector from '../../../../components/input/CountrySelector.compon
 type Props = {
   clientSecret: ?string,
   onCancel: () => void,
+  termsAndConditionsAccepted: boolean,
+  AcceptTermsAndConditionsComponent: React.Component,
 };
 
 export const PaymentStripeSofort = (props: Props) => {
@@ -103,6 +105,9 @@ export const PaymentStripeSofort = (props: Props) => {
         </div>
       </div>
       <div className={classes.actionRow}>
+        {props.AcceptTermsAndConditionsComponent}
+      </div>
+      <div className={classes.actionRow}>
         {processing ? (
           <CircularProgress />
         ) : (
@@ -110,7 +115,7 @@ export const PaymentStripeSofort = (props: Props) => {
             color="primary"
             variant="contained"
             type="submit"
-            disabled={!stripe}
+            disabled={!stripe || !props.termsAndConditionsAccepted}
           >
             {t('paymentPanel.actions.confirmPayment')}
           </Button>

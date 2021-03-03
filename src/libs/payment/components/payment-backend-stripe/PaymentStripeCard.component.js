@@ -22,6 +22,8 @@ type Props = {
   onCancel: () => void,
   clientSecret: string,
   error: ?Error,
+  termsAndConditionsAccepted: boolean,
+  AcceptTermsAndConditionsComponent: React.Component,
 };
 
 const CARD_ELEMENT_OPTIONS = {
@@ -146,6 +148,9 @@ export const StripePaymentCard = (props: Props) => {
           onSelect={setPaymentMethodSelected}
         />
       )}
+      <div className={classes.conditionRow}>
+        {props.AcceptTermsAndConditionsComponent}
+      </div>
       <div className={classes.actionRow}>
         {props.processing ? (
           <CircularProgress />
@@ -155,7 +160,12 @@ export const StripePaymentCard = (props: Props) => {
               variant="contained"
               color="primary"
               type="submit"
-              disabled={!stripe || !elements || !props.clientSecret}
+              disabled={
+                !stripe ||
+                !elements ||
+                !props.clientSecret ||
+                !props.termsAndConditionsAccepted
+              }
             >
               {t('paymentPanel.actions.confirmPayment')}
             </Button>
@@ -188,6 +198,13 @@ const useStyles = makeStyles((theme) => ({
   row: {
     marginTop: theme.spacing(-1),
     marginBottom: theme.spacing(1),
+  },
+  conditionRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: -theme.spacing(1),
   },
   actionRow: {
     marginTop: theme.spacing(1),

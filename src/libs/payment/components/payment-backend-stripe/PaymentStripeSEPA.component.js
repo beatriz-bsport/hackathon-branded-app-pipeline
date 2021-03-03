@@ -121,6 +121,8 @@ type Props = {
   memberId: number,
   clientSecret: string,
   onCancel: () => void,
+  termsAndConditionsAccepted: boolean,
+  AcceptTermsAndConditionsComponent: React.Component,
 };
 
 export const PaymentStripeSEPA = (props: Props) => {
@@ -222,6 +224,9 @@ export const PaymentStripeSEPA = (props: Props) => {
         />
       )}
       <div className={classes.actionRow}>
+        {props.AcceptTermsAndConditionsComponent}
+      </div>
+      <div className={classes.actionRow}>
         {processing ? (
           <CircularProgress />
         ) : (
@@ -230,7 +235,7 @@ export const PaymentStripeSEPA = (props: Props) => {
               variant="contained"
               color="primary"
               type="submit"
-              disabled={!stripe}
+              disabled={!stripe || !props.termsAndConditionsAccepted}
             >
               {t('invoice:paymentPanel.actions.confirmPayment')}
             </Button>

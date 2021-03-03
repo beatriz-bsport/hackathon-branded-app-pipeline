@@ -97,12 +97,18 @@ const styles = (theme) => ({
     height: '100%',
   },
   coverContainer: {
-    height: '50%',
+    position: 'relative',
+    width: '100%',
+    paddingTop: '56.25%',
+    height: 0,
   },
   cover: {
-    height: '100%',
     width: '100%',
+    height: '100%',
+    position: 'absolute',
     objectFit: 'cover',
+    top: 0,
+    left: 0,
   },
   description: {
     marginTop: theme.spacing(2),

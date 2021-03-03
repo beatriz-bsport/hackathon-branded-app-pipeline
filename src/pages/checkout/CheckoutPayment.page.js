@@ -202,30 +202,39 @@ export class CheckoutPayment extends React.Component<Props> {
     this.props.goBack();
   };
 
+  setTermsAndConditionsAccepted = (termsAndConditionsAccepted) =>
+    this.setState({ termsAndConditionsAccepted });
+
   render() {
     if (!this.props.basket) {
       return (
-        <div className={this.props.classes.container}>
+        <div className={this.props.classes.loader}>
           <CircularProgress />
         </div>
       );
     }
+    const termsAndConditionsAccepted =
+      this.state.termsAndConditionsAccepted ||
+      !this.props.theme.general_terms_and_conditions;
+
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <div className={this.props.classes.subContainer}>
           {!WidgetUtils.isWidget() && (
-            <MarketplaceAppBar
-              paper
-              auth={this.props.auth}
-              logo={this.props.theme && this.props.theme.cover}
-              goToUserSpace={() =>
-                this.props.companyId &&
-                this.props.goToUserSpace(this.props.companyId)
-              }
-              disconnect={() => {
-                this.props.disconnect(this.props.goBack);
-              }}
-            />
+            <div style={{ width: '100%' }}>
+              <MarketplaceAppBar
+                paper
+                auth={this.props.auth}
+                logo={this.props.theme && this.props.theme.cover}
+                goToUserSpace={() =>
+                  this.props.companyId &&
+                  this.props.goToUserSpace(this.props.companyId)
+                }
+                disconnect={() => {
+                  this.props.disconnect(this.props.goBack);
+                }}
+              />
+            </div>
           )}
           <Analytics theme={this.props.theme} />
           <div className={this.props.classes.container}>
@@ -237,14 +246,18 @@ export class CheckoutPayment extends React.Component<Props> {
                 addItemToBasket={this.props.addItemToBasket}
                 addShopItemToBasket={this.props.addShopItemToBasket}
                 removeItemFromBasket={this.props.removeItemFromBasket}
-                termsAndConditions={
-                  this.props.theme.general_terms_and_conditions
-                }
                 attachCoupon={this.props.attachCoupon}
                 backToCalendar={this.backToCalendar}
                 shopItemList={this.props.shopItemList}
                 patchBasket={this.props.patchCurrentBasket}
                 savedPaymentMethodList={this.props.savedPaymentMethodList}
+                termsAndConditions={
+                  this.props.theme.general_terms_and_conditions
+                }
+                setTermsAndConditionsAccepted={
+                  this.setTermsAndConditionsAccepted
+                }
+                termsAndConditionsAccepted={termsAndConditionsAccepted}
                 validateUnpaid={this.validateUnpaid}
                 paymentModule={
                   <PaymentStripe
@@ -257,6 +270,13 @@ export class CheckoutPayment extends React.Component<Props> {
                       ).includes(pm),
                     )}
                     clientSecret={this.state.clientSecret}
+                    termsAndConditionsAccepted={termsAndConditionsAccepted}
+                    termsAndConditions={
+                      this.props.theme.general_terms_and_conditions
+                    }
+                    setTermsAndConditionsAccepted={
+                      this.setTermsAndConditionsAccepted
+                    }
                     clientSecretLoading={this.state.clientSecretLoading}
                     onSuccess={this.onSuccess}
                     memberId={this.props.basket.member}
@@ -280,26 +300,33 @@ const styles = (theme) => ({
     justifyContent: 'flex-start',
     flexDirection: 'column',
     backgroundColor: '#efefef',
-    overflow: 'auto',
-    paddingBottom: theme.spacing(3),
+    overflowX: 'auto',
   },
   container: {
     width: '100vw',
-    height: '100vh',
+    maxWidth: 920,
+    height: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'column',
     backgroundColor: '#efefef',
-    overflow: 'auto',
     paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(4),
+  },
+  loader: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    marginTop: '15vh',
   },
   checkoutFlow: {
+    width: '100%',
     display: 'flex',
     justifyContent: 'flex-start',
     flexDirection: 'column',
     alignItems: 'center',
+    paddingBottom: theme.spacing(4),
   },
 });
 

@@ -1,5 +1,4 @@
-// @flow
-import React from 'react';
+// @flowimport React from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
@@ -12,6 +11,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 export function PaymentStripeBancontact(props: {
   onCancel: () => void,
   clientSecret: string,
+  termsAndConditionsAccepted: boolean,
+  AcceptTermsAndConditionsComponent: React.Component,
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -110,6 +111,9 @@ export function PaymentStripeBancontact(props: {
           </Typography>
         </div>
       </div>
+      <div className={classes.row}>
+        {props.AcceptTermsAndConditionsComponent}
+      </div>
       <div className={classes.actionRow}>
         {processing ? (
           <CircularProgress />
@@ -118,7 +122,7 @@ export function PaymentStripeBancontact(props: {
             color="primary"
             variant="contained"
             type="submit"
-            disabled={!stripe}
+            disabled={!stripe || !props.termsAndConditionsAccepted}
           >
             {t('paymentPanel.actions.confirmPayment')}
           </Button>

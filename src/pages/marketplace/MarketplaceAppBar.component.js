@@ -98,60 +98,59 @@ export class MarketplaceAppBar extends Component<Props, State> {
   renderUserMenu = () => {
     const { classes, title } = this.props;
     const { isMenuOpen } = this.state;
+    const Wrapper = this.props.paper ? React.Fragment : Toolbar;
     return (
-      <div>
-        <Toolbar>
-          {this.props.logo ? (
-            <ButtonBase
-              onClick={() => {
-                if (this.props.websiteURL) {
-                  window.location.href = this.props.websiteURL;
-                }
-              }}
-            >
-              <img height={40} src={this.props.logo} alt="bsport logo" />
-            </ButtonBase>
-          ) : (
-            <Typography
-              className={classes.title}
-              variant="h6"
-              color="inherit"
-              noWrap
-            >
-              {title}
-            </Typography>
-          )}
-          <div className={classes.grow} />
-          {this.props.currentBasket ? (
-            <ButtonBase
-              onClick={this.props.openCurrentBasket}
-              className={classes.iconLeft}
-            >
-              <Badge
-                color="primary"
-                badgeContent={this.props.currentBasket.checkout_items.reduce(
-                  (s, a) => s + a.quantity,
-                  0,
-                )}
-              >
-                <ShoppingBasketIcon />
-              </Badge>
-            </ButtonBase>
-          ) : null}
+      <Wrapper>
+        {this.props.logo ? (
           <ButtonBase
-            className={classes.loginButton}
-            onClick={this.handleProfileMenuOpen}
+            onClick={() => {
+              if (this.props.websiteURL) {
+                window.location.href = this.props.websiteURL;
+              }
+            }}
           >
-            <AccountCircleIcon
-              aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-              aria-haspopup="true"
-              color="inherit"
-              className={classes.accountIcon}
-            />
-            <Hidden smDown>{this.renderAuthenticationInfo()}</Hidden>
+            <img height={40} src={this.props.logo} alt="bsport logo" />
           </ButtonBase>
-        </Toolbar>
-      </div>
+        ) : (
+          <Typography
+            className={classes.title}
+            variant="h6"
+            color="inherit"
+            noWrap
+          >
+            {title}
+          </Typography>
+        )}
+        <div className={classes.grow} />
+        {this.props.currentBasket ? (
+          <ButtonBase
+            onClick={this.props.openCurrentBasket}
+            className={classes.iconLeft}
+          >
+            <Badge
+              color="primary"
+              badgeContent={this.props.currentBasket.checkout_items.reduce(
+                (s, a) => s + a.quantity,
+                0,
+              )}
+            >
+              <ShoppingBasketIcon />
+            </Badge>
+          </ButtonBase>
+        ) : null}
+        <ButtonBase
+          className={classes.loginButton}
+          onClick={this.handleProfileMenuOpen}
+        >
+          <AccountCircleIcon
+            aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+            aria-haspopup="true"
+            color="inherit"
+            className={classes.accountIcon}
+          />
+          <Hidden smDown>{this.renderAuthenticationInfo()}</Hidden>
+        </ButtonBase>
+      </Wrapper>
     );
   };
 
@@ -162,6 +161,7 @@ export class MarketplaceAppBar extends Component<Props, State> {
         {paper ? (
           <div className={classes.root2}>
             {this.renderUserMenu()}
+
             {this.renderProfileMenu()}
           </div>
         ) : (
@@ -182,26 +182,29 @@ const styles = (theme) => ({
     width: '100%',
   },
   root2: {
-    position: 'absolute',
-    right: 0,
     width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    padding: theme.spacing(1),
   },
   iconLeft: {
     marginRight: theme.spacing(3),
   },
-  grow: {
-    flexGrow: 1,
-  },
   title: {
     display: 'block',
+  },
+  grow: {
+    flexGrow: 1,
   },
   accountIcon: {
     marginRight: theme.spacing(1),
   },
   loginButton: {
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: fade(theme.palette.common.black, 0.12),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.black, 0.05),
     },
     borderRadius: theme.shape.borderRadius,
     padding: theme.spacing(1),

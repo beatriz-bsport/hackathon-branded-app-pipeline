@@ -42,7 +42,9 @@ const RNWebView = asyncComponent(() =>
   import('./pages/rn-webview/RNWebView.router'),
 );
 
-const Widget = asyncComponent(() => import('./pages/widget/Widget.router'));
+const WidgetRouter = asyncComponent(() =>
+  import('./pages/widget/Widget.router'),
+);
 
 const CheckIn = asyncComponent(() => import('./pages/check-in/CheckIn.page'));
 const ConsumerUnsubscribe = asyncComponent(() =>
@@ -131,7 +133,10 @@ export class Root extends Component<Props> {
           <Route path="/rn-webview" component={RNWebView} />
           <Route path="/c/:companyId" component={ConsumerRouter} />
           <Route path="/c/" component={ConsumerRouter} />
-          <Route path="/widget" component={Widget} />
+          <Route
+            path="/widget/:companyName/:companyId"
+            component={WidgetRouter}
+          />
           <Route path="/" component={UserspaceSwitcher} />
         </Switch>
       </div>

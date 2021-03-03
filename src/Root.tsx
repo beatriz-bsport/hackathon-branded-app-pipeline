@@ -62,9 +62,14 @@ const migrateOldProps = (props: any) => {
    * Use a default config when the current config is wrong
    */
   if (
-    !['calendar', 'workshop', 'privateService', 'newsletter', 'vod'].includes(
-      _props.widgetType
-    )
+    ![
+      'calendar',
+      'workshop',
+      'privateService',
+      'newsletter',
+      'vod',
+      'playlist',
+    ].includes(_props.widgetType)
   ) {
     _props.widgetType = WidgetComponentsEnum.calendar;
   }

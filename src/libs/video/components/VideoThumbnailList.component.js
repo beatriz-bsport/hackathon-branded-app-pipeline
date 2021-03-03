@@ -105,7 +105,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(1),
     backgroundColor: 'white',
     // backgroundColor: '#F2F2F2',
-    boxShadow: theme.shadows[1],
   },
   header: {
     '&>*': {

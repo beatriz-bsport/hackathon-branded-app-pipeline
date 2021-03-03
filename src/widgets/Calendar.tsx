@@ -7,10 +7,9 @@ import { MarketplaceCalendarData } from 'bsport-saas/src/libs/marketplace/types'
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 
-import '../../vendor/map.css'
+import '../../vendor/map.css';
 
 import { RootState } from '../store/reducer';
-import { openTab } from '../utils/utils';
 import { constants } from '../const/constants';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
@@ -20,22 +19,20 @@ const MarketplaceCalendarStyled = themify(MarketplaceCalendar);
 type OwnProps = {
   companyId: number;
   config: MarketplaceCalendarData;
-  requestSignup: () => void;
-  toogleCurrentBasketOpen: () => void;
   store: any;
   theme: Theme;
-onWindowOpen: (url: string) => void;
+  onWindowOpen: (url: string) => void;
+  dialogMode?: number;
 }
 
 type ConnectProps = ReturnType<typeof mapStateToProps>
   & typeof mapDispatchToProps;
 
 type Props = OwnProps & ConnectProps &
-  ReturnType<typeof mapWithProps> & {
-};
+  ReturnType<typeof mapWithProps> & {};
 
 type State = {
-  filtersOpen: "true" | '',
+  filtersOpen: 'true' | '',
   filters: {
     coaches: number[];
     establishments: number[];
@@ -73,7 +70,7 @@ export class CalendarWidget extends Component<Props, State> {
         filters: { ...prevState.filters, [key]: values },
       }));
     };
-  }
+  };
 
   setOtherParams = (key: string) => {
     return (arg: any) => {
@@ -84,13 +81,13 @@ export class CalendarWidget extends Component<Props, State> {
         this.setState({ filtersOpen: arg });
       }
     };
-  }
+  };
 
   onClickGoToBook = (id: number, companyId: number) => {
-    const { PUBLIC_URL } = window.runtime.env
-    const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${companyId}&authToken=${this.props.token}`;
+    const { PUBLIC_URL } = window.runtime.env;
+    const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${companyId}`;
     this.props.onWindowOpen(url);
-  }
+  };
 
   render() {
     return (
@@ -99,8 +96,6 @@ export class CalendarWidget extends Component<Props, State> {
         companyId={this.props.companyId}
         compactMode={this.props.config ? this.props.config.compactMode : undefined}
         authenticated={this.props.authenticated}
-        requestSignUp={this.props.requestSignup}
-        toogleCurrentBasketOpen={this.props.toogleCurrentBasketOpen}
         filters={this.state.filters}
         setFilters={this.setFilters}
         otherParams={{

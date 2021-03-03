@@ -130,7 +130,7 @@ module.exports = [
       path: distDir,
       publicPath: devMode
         ? 'http://localhost:9000/'
-      : `https://${process.env.CDN_DOMAIN}/scripts/`,
+        : `https://${process.env.CDN_DOMAIN}/scripts/`,
       filename: 'widget.js',
       library: 'BsportWidget',
       libraryExport: 'default',

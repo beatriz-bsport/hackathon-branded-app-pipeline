@@ -26,11 +26,16 @@ import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { getMarketplaceRoute } from 'bsport-saas/src/pages/marketplace/routing-utils';
+import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
+import { auth as authActions } from 'bsport-saas/src/actions';
+
+import asyncComponent from '../AsyncComponent';
 
 import '../../vendor/video.css';
-import { openTab } from '../utils/utils';
+
 import { RootState } from '../store/reducer';
-import TheIframe from '../components/TheIframe.component';
+
+const AuthDialog = asyncComponent(() => import('../components/AuthDialog'));
 
 type OwnProps = {
   companyId: number,
@@ -39,6 +44,7 @@ type OwnProps = {
   onRequestLogin: () => void,
   theme: Theme,
   onWindowOpen: (popupWindow: any) => void,
+  dialogMode: number,
 };
 
 type Props = OwnProps &
@@ -47,7 +53,6 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 interface State {
-  requestVideoAccessRefreshFlag: number;
   videoId?: number;
   playlistId?: number;
   searchParams: {
@@ -57,18 +62,20 @@ interface State {
     search: string,
     levels: string,
   };
+  showLogin: boolean;
+  showSignup: boolean;
 }
 
 const MarketPlaceVideoStyled = themify(
-  MarketplaceVideoDataProvider(MarketplaceVideo),
+  MarketplaceVideoDataProvider(MarketplaceVideo)
 );
 
 const MarketplaceVideoDetailStyled = themify(
-  MarketplaceVideoDetailDataProvider(MarketplaceVideoDetail),
+  MarketplaceVideoDetailDataProvider(MarketplaceVideoDetail)
 );
 
 const MarketplacePlaylistStyled = themify(
-  MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailPage),
+  MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailPage)
 );
 
 class VODWidget extends React.PureComponent<Props, State> {
@@ -78,7 +85,6 @@ class VODWidget extends React.PureComponent<Props, State> {
     this.state = {
       videoId: props.config.videoId,
       playlistId: props.config.playlistId,
-      requestVideoAccessRefreshFlag: 0,
       searchParams: {
         coaches: '',
         duration_second_range: '',
@@ -86,6 +92,8 @@ class VODWidget extends React.PureComponent<Props, State> {
         search: '',
         levels: '',
       },
+      showLogin: false,
+      showSignup: false,
     };
   }
 
@@ -111,19 +119,24 @@ class VODWidget extends React.PureComponent<Props, State> {
     const path = getMarketplaceRoute(
       this.props.theme.company_name,
       this.props.companyId,
-      'pass',
+      'pass'
     );
     const url = `${PUBLIC_URL}${url}?authToken=${this.props.auth.token}&context=widget`;
     // this.props.onWindowOpen(popupWindow);
     this.setState({ dialogUrl: url });
   };
 
-  onCloseDialog = () => {
-    this.setState((prevState) => {
-      const key = prevState.requestVideoAccessRefreshFlag + 1;
-      return {
-        requestVideoAccessRefreshFlag: key,
-      };
+  login = (data: { email: string, password: string }) => {
+    const _this = this;
+    this.props.login(data, () => {
+      _this.setState({ showLogin: false });
+    });
+  };
+
+  signup = (data: any) => {
+    const _this = this;
+    this.props.signup(data, () => {
+      _this.setState({ showSignup: false, showLogin: false });
     });
   };
 
@@ -170,11 +183,11 @@ class VODWidget extends React.PureComponent<Props, State> {
                 companyId={this.props.companyId}
                 videoId={this.state.videoId}
                 companyName=""
-                requestSignUp={this.props.onRequestLogin}
+                requestSignUp={() => this.setState({ showLogin: true })}
                 onRequestBuyPass={this.onRequestBuyPass}
                 openVideo={this.openVideo}
                 requestVideoAccessRefreshFlag={
-                  this.state.requestVideoAccessRefreshFlag
+                  this.props.requestVideoAccessRefreshFlag
                 }
                 store={this.props.store}
                 theme={this.props.theme}
@@ -202,7 +215,7 @@ class VODWidget extends React.PureComponent<Props, State> {
                 companyName=""
                 id={this.state.playlistId}
                 videoId={this.state.videoId}
-                requestSignUp={this.props.onRequestLogin}
+                requestSignUp={() => this.setState({ showLogin: true })}
                 goToVideoInPlaylist={this.openPlaylist}
                 replaceVideoInPlaylist={this.openPlaylist}
                 store={this.props.store}
@@ -211,6 +224,26 @@ class VODWidget extends React.PureComponent<Props, State> {
             </div>
           </div>
         )}
+
+        {(!!this.state.showLogin || !!this.state.showSignup) &&
+          !this.props.auth.authenticated && (
+            <AuthDialog
+              showLogin={this.state.showLogin}
+              showSignup={this.state.showSignup}
+              loading={this.props.auth.loading}
+              error={this.props.auth.error}
+              errorFields={this.props.errorFields}
+              emailExists={this.props.emailExists}
+              checkEmailExists={this.props.checkEmailExists}
+              checkEmailExistsLoading={this.props.checkEmailExistsLoading}
+              theme={this.props.theme}
+              onLogin={this.login}
+              onSignup={this.signup}
+              onLoginClose={() => this.setState({ showLogin: false })}
+              onSignupClose={() => this.setState({ showSignup: false })}
+              onSignupShow={() => this.setState({ showSignup: true })}
+            />
+          )}
       </div>
     );
   }
@@ -243,12 +276,22 @@ const styles = () => ({
 
 const mapStateToProps = (state: RootState) => ({
   auth: state.auth,
+  requestVideoAccessRefreshFlag: state.widget.requestVideoAccessRefreshFlag,
+  errorFields: state.auth.invalidFields,
+  checkEmailExistsLoading: state.auth.emailExists.loading,
+  emailExists: state.auth.emailExists.exists,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  signup: (data: any, callback: () => void) =>
+    authActions.signup(data, { onDone: callback }),
+  login: ({ email, password }: any, callback: () => void) =>
+    authActions.requestLogin(email, password, { onDone: callback }),
+  checkEmailExists: authActions.checkEmailExists,
+};
 
 export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(VODWidget);

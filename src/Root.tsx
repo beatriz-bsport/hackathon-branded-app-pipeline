@@ -11,6 +11,7 @@ import {
   WidgetComponentsEnum,
 } from 'bsport-saas/src/libs/marketplace/types';
 
+import { DIALOG_MODE_TAB } from '@bsport/common/lib/master-data/widget-dialog-mode';
 import initStore from './store/store';
 import App from './App';
 
@@ -66,6 +67,10 @@ const migrateOldProps = (props: any) => {
     )
   ) {
     _props.widgetType = WidgetComponentsEnum.calendar;
+  }
+
+  if (_props.dialogMode === undefined) {
+    _props.dialogMode = DIALOG_MODE_TAB;
   }
 
   return _props;

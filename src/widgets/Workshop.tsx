@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { withStyles } from '@material-ui/styles';
 
 import { MarketplaceWorkshopBase } from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';
 import { MarketplaceWorkshopData } from 'bsport-saas/src/libs/marketplace/types';
@@ -8,20 +9,23 @@ import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { RootState } from '../store/reducer';
-import '../../vendor/map.css'
-
+import '../../vendor/map.css';
+import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 
 const MarketplaceWorkshopBaseStyled = themify(MarketplaceWorkshopBase);
 
 type OwnProps = {
-  companyId: number;
-  config: MarketplaceWorkshopData
-  store: any
-  theme: Theme
-  onWindowOpen: (popupWindow: any) => void;
-}
+  companyId: number,
+  config: MarketplaceWorkshopData,
+  store: any,
+  theme: Theme,
+  onWindowOpen: (url: string) => void,
+  dialogMode: number,
+};
 
-type Props = OwnProps & ReturnType<typeof mapStateToProps>;
+type Props = OwnProps &
+  ReturnType<typeof mapStateToProps> &
+  MaterialStyleType<ReturnType<typeof styles>>;
 
 type State = {
   filters: any,
@@ -38,7 +42,7 @@ class WorkshopWidget extends Component<Props, State> {
       levels: props.config.levels || [],
     };
 
-    this.state = { filters, dialogUrl: null };
+    this.state = { filters };
   }
 
   setFilters = (key: any) => {
@@ -49,23 +53,19 @@ class WorkshopWidget extends Component<Props, State> {
         filters: { ...prevState.filters, [key]: values },
       }));
     };
-  }
+  };
 
   goToBook = (id: number, companyId: number) => {
     const { PUBLIC_URL } = window.runtime.env;
-    const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${companyId}&authToken=${this.props.auth.token}`;
+    const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${companyId}`;
     this.props.onWindowOpen(url);
-  }
-
-  closeDialog = () => this.setState({ dialogUrl: null })
+  };
 
   render() {
+    const { classes } = this.props;
+
     return (
-      <div
-        style={{
-          width: '100%',
-        }}
-      >
+      <div className={classes.container}>
         <MarketplaceWorkshopBaseStyled
           companyId={this.props.companyId}
           filters={this.state.filters}
@@ -75,16 +75,22 @@ class WorkshopWidget extends Component<Props, State> {
           theme={this.props.theme}
           mapContainerClassName="cleanslate"
         />
-        
       </div>
     );
   }
 }
+
+const styles = () => ({
+  container: {
+    width: '100%',
+  },
+});
 
 const mapStateToProps = (state: RootState) => ({
   auth: state.auth,
 });
 
 export default compose<any, OwnProps>(
+  withStyles(styles),
   connect(mapStateToProps, null)
 )(WorkshopWidget);

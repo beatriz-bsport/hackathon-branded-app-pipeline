@@ -13,10 +13,9 @@ import { PrivateService, PrivateSlot } from 'bsport-saas/src/libs/private-servic
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
+import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
-import { openTab } from '../utils/utils';
 import { RootState } from '../store/reducer';
-import TheIframe from '../components/TheIframe.component';
 
 const PrivateServiceSelector = themify(
   PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage)
@@ -32,6 +31,7 @@ type OwnProps = {
   store: any;
   theme: Theme;
   onWindowOpen: (url : string) => void;
+  dialogMode: number;
 }
 
 type Props = OwnProps &
@@ -76,9 +76,9 @@ class PrivateServiceWidget extends React.PureComponent<Props, State> {
       privateSlot.id
     }/?membership=${this.props.companyId}&data=${encodeURIComponent(
       JSON.stringify(data)
-    )}&authToken=${this.props.auth.token}`;
+    )}`;
 
-     this.props.onWindowOpen(url);
+    this.props.onWindowOpen(url);
   }
 
   render() {

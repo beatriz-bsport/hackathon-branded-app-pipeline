@@ -1,16 +1,19 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
+import { compose } from 'recompose';
 
-type Props = {
-  theme: Theme,
-} & MaterialStyleType<ReturnType<any>>;
+type OwnProps = {
+  theme: Theme;
+}
+
+type Props = OwnProps & MaterialStyleType<ReturnType<any>>;
 
 const BsportLogo = (props: Props) => {
-  const classes = useStyles();
+  const { classes } = props;
   return (
     <div className={classes.poweredByContainer}>
       <div className={classes.centerRight}>
@@ -34,7 +37,7 @@ const BsportLogo = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles(() => ({
+const styles = () => ({
   poweredByContainer: {
     width: '100% !important',
     backgroundColor: 'transparent !important',
@@ -61,7 +64,9 @@ const useStyles = makeStyles(() => ({
     maxHeight: '24px !important',
     backgroundColor: 'transparent !important',
   },
-}));
+});
 
-// @ts-ignore
-export default BsportLogo;
+export default compose<any, OwnProps>(
+  // @ts-ignore
+  withStyles(styles)
+)(BsportLogo);

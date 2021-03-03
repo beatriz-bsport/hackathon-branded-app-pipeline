@@ -1,40 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import URI from 'urijs';
 
 // eslint-disable-next-line
 import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
 import { fetchSCT } from 'bsport-saas/src/libs/category/actions';
+
 import {
   SnackbarDataProvider,
   SnackbarPile,
 } from 'bsport-saas/src/SnackbarPile.component';
 import { getTheme } from 'bsport-saas/src/theme';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
-import { auth as authActions } from 'bsport-saas/src/actions';
 
-import { DIALOG_MODE_POPUP, DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
 import { RootState } from './store/reducer';
 import BsportLogo from './components/BsportLogo';
 import 'bsport-saas/src/index.scss';
 
 import asyncComponent from './AsyncComponent';
-import { openTab } from './utils/utils';
+import FabWidget from './widgets/FabWidget';
+import { closeDialogAction, setDialogAction } from './store/actions.widget';
+import WidgetBridge from './widgets/WidgetBridge';
 
 const CalendarWidget = asyncComponent(() => import('./widgets/Calendar'));
 const VODWidget = asyncComponent(() => import('./widgets/Vod'));
 const PrivateServiceWidget = asyncComponent(
-  () => import('./widgets/PrivateService')
+  () => import('./widgets/PrivateService'),
 );
-const TheIframe = asyncComponent(() => import( './components/TheIframe.component'))
 const WorkshopWidget = asyncComponent(() => import('./widgets/Workshop'));
 const NewsletterWidget = asyncComponent(() => import('./widgets/Newsletter'));
-const AuthDialog = asyncComponent(() => import('./components/AuthDialog'));
+const Dialog = asyncComponent(() => import('./components/Dialog.component'));
 
 const Snackbar = themify(connect(...SnackbarDataProvider)(SnackbarPile));
 
@@ -49,80 +50,35 @@ type Props = OwnProps &
   typeof mapDispatchToProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
-interface State {
-  showLogin: boolean;
-  showSignup: boolean;
-  requestVideoAccessRefreshFlag: number;
-}
+window.env = { ...(window.env || {}), APP_CONTEXT: 'widget' };
 
-class BsportWidget extends Component<Props, State> {
-  popupWindow?: any = null;
-
-  state = {
-    showLogin: false,
-    showSignup: false,
-    requestVideoAccessRefreshFlag: 0,
-  };
-
+class BsportWidget extends Component<Props> {
   componentDidMount() {
     this.fetchData();
-
-    window.addEventListener("message", (event: any) => {
-      if (event.data && event.data.type === "paymentSuccess") {
-        this.popupWindow && this.popupWindow.close();
-
-        this.setState((prevState) => {
-          const key = prevState.requestVideoAccessRefreshFlag + 1;
-          return {
-            requestVideoAccessRefreshFlag: key,
-          };
-        });
-      }
-    }, false);
   }
 
   fetchData() {
     this.props.fetchSCT();
-    this.props.fetchCompanyTheme(this.props.companyId);
+    this.props.fetchCompanyTheme(this.props.companyId, {});
   }
 
-  onWindowOpen = (iframeUrl: string) => {
-    switch (this.props.dialogMode) {
-      case (DIALOG_MODE_POPUP): {
-        this.popupWindow = openTab(`${iframeUrl}&context=widget`);
-        return
-      }
-case (DIALOG_MODE_IFRAME): {
-// no need to customize for a widget stuff here, it is 
-// a basic redirect in a new tab
-        this.setState({ iframeUrl : `${iframeUrl}` })
-        return
-      }
-      default: {
-        window.open(iframeUrl, '_blank')
-        
-      }
-    }
-  }
-
-  closeIframe = () => {
-    switch (this.props.dialogMode) {
-      case (DIALOG_MODE_POPUP): {
-        this.popupWindow.close()
-        return
-      }
-      case (DIALOG_MODE_IFRAME): {
-        this.setState({ iframeUrl: null })
-        return
-      }
-	default: {
-	return
-      }
-    }
-  }
+  onWindowOpen = (url: string) => {
+    const uri = URI(url).addQuery('context', 'widget');
+    this.props.setDialogAction({
+      url: uri.toString(),
+      dialogMode: this.props.dialogMode,
+    });
+  };
 
   renderWidget() {
-    const { companyId, config, store, widgetType, theme } = this.props;
+    const {
+      companyId,
+      config,
+      store,
+      widgetType,
+      theme,
+      dialogMode,
+    } = this.props;
 
     switch (widgetType) {
       case 'workshop':
@@ -133,6 +89,7 @@ case (DIALOG_MODE_IFRAME): {
             store={store}
             theme={theme}
             onWindowOpen={this.onWindowOpen}
+            dialogMode={dialogMode}
           />
         );
       case 'privateService':
@@ -143,6 +100,7 @@ case (DIALOG_MODE_IFRAME): {
             config={config.privateService}
             theme={theme}
             onWindowOpen={this.onWindowOpen}
+            dialogMode={dialogMode}
           />
         );
       case 'vod':
@@ -151,11 +109,10 @@ case (DIALOG_MODE_IFRAME): {
           <VODWidget
             companyId={companyId}
             config={config[widgetType]}
-            onRequestLogin={() => this.setState({ showLogin: true })}
             store={store}
             theme={theme}
             onWindowOpen={this.onWindowOpen}
-            requestVideoAccessRefreshFlag={this.state.requestVideoAccessRefreshFlag}
+            dialogMode={dialogMode}
           />
         );
       case 'newsletter':
@@ -166,10 +123,9 @@ case (DIALOG_MODE_IFRAME): {
             companyId={companyId}
             config={config.calendar}
             store={store}
-            requestSignup={() => this.setState({ showLogin: true })}
-            toogleCurrentBasketOpen={() => null}
             theme={theme}
             onWindowOpen={this.onWindowOpen}
+            dialogMode={dialogMode}
           />
         );
     }
@@ -192,25 +148,28 @@ case (DIALOG_MODE_IFRAME): {
             {this.renderWidget()}
             {!!this.props.theme && <BsportLogo theme={this.props.theme} />}
             <Snackbar theme={this.props.theme} />
-            {(!!this.state.showLogin || !!this.state.showSignup) && (!this.props.auth.authenticated) && (
-              <AuthDialog
-                showLogin={this.state.showLogin}
-                showSignup={this.state.showSignup}
-                loading={this.props.auth.loading}
-                error={this.props.auth.error}
-                errorFields={this.props.errorFields}
-                emailExists={this.props.emailExists}
-                checkEmailExists={this.props.checkEmailExists}
-                checkEmailExistsLoading={this.props.checkEmailExistsLoading}
-                theme={this.props.theme}
-                onLogin={this.props.login}
-                onSignup={this.props.signup}
-                onLoginClose={() => this.setState({ showLogin: false })}
-                onSignupClose={() => this.setState({ showSignup: false })}
-                onSignupShow={() => this.setState({ showSignup: true })}
+
+            <Dialog
+              url={this.props.dialog.url}
+              dialogMode={this.props.dialog.dialogMode}
+              onClose={this.props.closeDialogAction}
+              isBasket={
+                this.props.dialog.url &&
+                this.props.dialog.url.match(/\/basket\?context=widget/)
+              }
+            />
+
+            <WidgetBridge
+              companyId={this.props.companyId}
+              companyName={this.props.theme.company_name}
+            />
+
+            {this.props.showFab && (
+              <FabWidget
+                companyId={this.props.companyId}
+                companyName={this.props.theme.company_name}
               />
             )}
-        </React.Suspense>
           </MuiThemeProvider>
         </React.Suspense>
       </div>
@@ -230,26 +189,20 @@ const styles = () => ({
 });
 
 const mapStateToProps = (state: RootState) => ({
-  auth: state.auth,
   theme: state.theme.theme,
   themeLoading: state.theme.loading,
-  errorFields: state.auth.invalidFields,
-  checkEmailExistsLoading: state.auth.emailExists.loading,
-  emailExists: state.auth.emailExists.exists,
+  dialog: state.widget.dialog,
 });
 
 const mapDispatchToProps = {
   fetchSCT,
   fetchCompanyTheme,
-  signup: (data: any) => authActions.signup(data),
-  login: ({ email, password }: any) =>
-    authActions.requestLogin(email, password),
-  disconnect: authActions.disconnect,
-  checkEmailExists: authActions.checkEmailExists,
+  setDialogAction,
+  closeDialogAction,
 };
 
 export default compose(
   // @ts-ignore
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
 )(BsportWidget);

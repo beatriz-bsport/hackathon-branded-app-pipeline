@@ -24,8 +24,9 @@ import { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types'
 import { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
 import { ThemeState } from 'bsport-saas/src/libs/theme/types';
 import { createBrowserHistory } from 'history';
+import widget, { WidgetState } from './reducer.widget';
 
-const rootReducer = (history: ReturnType<typeof createBrowserHistory>) =>
+const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
   combineReducers({
     router: connectRouter(history),
     payment: paymentReducers,
@@ -46,29 +47,33 @@ const rootReducer = (history: ReturnType<typeof createBrowserHistory>) =>
     consumerPaymentPack,
     paymentPack,
     category,
+    widget,
   });
 
 export interface RootState {
-    router: ReturnType<typeof connectRouter>;
-    payment: any;
-    offer: any;
-    metaActivity: any;
-    coach: CoachState
-    establishment: any;
-    theme: ThemeState;
-    shop: any;
-    marketplace: any,
-    auth: any;
-    snackbar: any;
-    paymentCombo: any;
-    checkout: any;
-    privateService: PrivateServiceState,
-    video: any;
-    playlist: any;
-    consumerPaymentPack: any;
-    category: any;
-    paymentPack: any;
+  router: ReturnType<typeof connectRouter>;
+  payment: any;
+  offer: any;
+  metaActivity: any;
+  coach: CoachState;
+  establishment: any;
+  theme: ThemeState;
+  shop: any;
+  marketplace: any;
+  auth: any;
+  snackbar: any;
+  paymentCombo: any;
+  checkout: any;
+  privateService: PrivateServiceState;
+  video: any;
+  playlist: any;
+  consumerPaymentPack: any;
+  category: any;
+  paymentPack: any;
+  widget: WidgetState;
 }
 
-export default (history: ReturnType<typeof createBrowserHistory>) => (state: any, action: any) =>
-  rootReducer(history)(state, action);
+export default (history: ReturnType<typeof createBrowserHistory>) => (
+  state: any,
+  action: any
+) => reducer(history)(state, action);

@@ -145,7 +145,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
           {offersRows.map((row, idx) => (
             <div key={idx} className={classes.offerRow}>
               {row.map((o, index) => (
-                <div className={classes.rowItem}>
+                <div key={o ? o.id : index} className={classes.rowItem}>
                   {o === undefined ? (
                     ''
                   ) : (

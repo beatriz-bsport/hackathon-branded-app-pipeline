@@ -7,13 +7,14 @@ import { RootState } from '../../reducers';
 import { fetchCurrentBasket } from '../../libs/checkout/actions';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { disconnect } from '../../actions/auth.actions';
+import { disconnect, fetchAccessLevel } from '../../actions/auth.actions';
 import { fetchBookingsAndPrivateBookings } from '../../libs/consumer-space/actions';
 import { fetchMembershipListAsConsumer } from '../../libs/membership/actions';
 import { getMembership } from '../../libs/membership/selectors';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 import { WidgetMessageType } from '../../libs/widget/types';
 import { CheckoutItem } from '../../libs/checkout/types';
+import { getAuthToken } from '../../http';
 
 type OwnProps = {
   companyId: number;
@@ -25,9 +26,28 @@ type Props = OwnProps &
   typeof mapDispatchToProps;
 
 class BridgeWidgetPage extends React.PureComponent<Props> {
+  token: string = '';
+
+  componentWillMount() {
+    window.addEventListener('message', this.handleMessages, false);
+    window.addEventListener('storage', this.onStorageChange);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('message', this.handleMessages);
+    window.removeEventListener('storage', this.onStorageChange);
+  }
+
+  onStorageChange = () => {
+    const token = getAuthToken();
+    if (token !== this.token) {
+      this.token = token;
+      this.fetchAccessLevel(token);
+    }
+  };
+
   componentDidMount() {
     WidgetUtils.authenticatedStatusReady();
-    this.postMessageListener();
     this.fetchData();
   }
 
@@ -65,16 +85,18 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
     }
   };
 
+  fetchAccessLevel = (token: string) => {
+    if (token && token !== 'null') {
+      this.props.fetchAccessLevel(token);
+    }
+  };
+
   fetchBookingsAndPrivateBookings = () => {
     this.props.fetchBookingsAndPrivateBookings({
       page: 1,
       date_start: moment().format('YYYY-MM-DD'),
       member: this.props.membership.id,
     });
-  };
-
-  postMessageListener = () => {
-    window.addEventListener('message', this.handleMessages, false);
   };
 
   handleMessages = (event: any) => {
@@ -120,6 +142,7 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
 });
 
 const mapDispatchToProps = {
+  fetchAccessLevel,
   fetchCurrentBasket,
   fetchMembershipListAsConsumer,
   fetchBookingsAndPrivateBookings,

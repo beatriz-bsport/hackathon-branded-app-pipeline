@@ -37,6 +37,7 @@ import { getCurrencyDisplay } from '../../theme/selectors';
 
 import { isOfferInThePast } from '../utils';
 import { formatMinutes } from '../../../utils/datetime';
+import WidgetUtils from '../../widget/WidgetUtils';
 
 import type { PaymentCombo } from '../../payment-combo/types';
 
@@ -292,7 +293,8 @@ export class MarketPlaceActivity extends React.Component<Props> {
             </Typography>
             {this.renderCoachBanner()}
             {this.props.displayPacksInformation &&
-            this.props.compatibleConsumerPacks.length ? (
+            !WidgetUtils.isWidget() &&
+            !!this.props.compatibleConsumerPacks.length ? (
               <div>
                 <Typography variant="h6" className={classes.title}>
                   {t('offer.compatiblePacks')}
@@ -313,7 +315,8 @@ export class MarketPlaceActivity extends React.Component<Props> {
               ? this.renderPaymentCombo()
               : null}
             {this.props.displayPacksInformation &&
-            this.props.compatiblePaymentPacks.length ? (
+            !WidgetUtils.isWidget() &&
+            !!this.props.compatiblePaymentPacks.length ? (
               <div>
                 <Typography variant="h6" className={classes.title}>
                   {t('offer.compatiblePacks')}
@@ -467,5 +470,5 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withTranslation([]),
+  withTranslation(['translation', 'datetime']),
 )(MarketPlaceActivity);

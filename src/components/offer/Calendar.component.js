@@ -345,7 +345,6 @@ export class Calendar extends PureComponent<Props, State> {
           <ChevronLeftIcon />
         </IconButton>
         <Typography
-          inline
           component="h3"
           variant="h6"
           className={classes.textCapitalize}

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { CircularProgress, Tab, Tabs } from '@material-ui/core';
+import AppBarMUI from '@material-ui/core/AppBar';
 import { Theme, withStyles } from '@material-ui/core/styles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import moment from 'moment';
@@ -30,6 +31,7 @@ import { Booking } from '../../libs/booking/types';
 import { PrivateBooking } from '../../libs/private-service/types';
 import { cancelBooking as cancelBookingAction } from '../../libs/booking/actions';
 import { disablePrivateBooking } from '../../libs/private-service/actions';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
 
 type OwnProps = {
   companyId: number;
@@ -49,17 +51,22 @@ type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
   StateHandlerType;
 
+const SHOW_FUTURE_TAB = 0;
+const SHOW_PAST_TAB = 1;
+
 interface State {
-  tab: number;
+  tab: SHOW_FUTURE_TAB | SHOW_PAST_TAB;
 }
 
 class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
   state: State = {
-    tab: 0,
+    tab: SHOW_FUTURE_TAB,
   };
 
   componentDidMount() {
     this.props.fetchMembershipListAsConsumer({ page_size: 2 });
+    this.props.fetchCompanyTheme(this.props.companyId);
+
     if (this.props.membership) {
       this.props.fetchBookingsAndPrivateBookings({
         member: this.props.membership.id,
@@ -81,7 +88,7 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
         member: this.props.membership.id,
         page: 1,
         type:
-          this.state.tab === 0
+          this.state.tab === SHOW_FUTURE_TAB
             ? BookingsAndPrivateBookingsTypeEnum.future
             : BookingsAndPrivateBookingsTypeEnum.past,
       });
@@ -97,7 +104,7 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
           member: this.props.membership.id,
           page: 1,
           type:
-            this.state.tab === 0
+            this.state.tab === SHOW_FUTURE_TAB
               ? BookingsAndPrivateBookingsTypeEnum.future
               : BookingsAndPrivateBookingsTypeEnum.past,
         });
@@ -121,7 +128,7 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
             member: this.props.membership.id,
             page: 1,
             type:
-              this.state.tab === 0
+              this.state.tab === SHOW_FUTURE_TAB
                 ? BookingsAndPrivateBookingsTypeEnum.future
                 : BookingsAndPrivateBookingsTypeEnum.past,
           });
@@ -134,7 +141,7 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
     this.props.fetchBookingsAndPrivateBookings({
       member: this.props.membership.id,
       type:
-        this.state.tab === 0
+        this.state.tab === SHOW_FUTURE_TAB
           ? BookingsAndPrivateBookingsTypeEnum.future
           : BookingsAndPrivateBookingsTypeEnum.past,
     });
@@ -146,20 +153,29 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
     return (
       <div className={classes.container}>
         <div className={classes.bookingsContainer}>
-          <Tabs
-            value={this.state.tab}
-            onChange={(e, tab) => this.setState({ tab })}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="fullWidth"
-            aria-label="full width tabs example"
-          >
-            <Tab label={t('booking:filters.futureBooking')} value={0} />
-            <Tab label={t('booking:filters.pastBooking')} value={1} />
-          </Tabs>
+          <AppBarMUI position="relative" color="white">
+            <Tabs
+              value={this.state.tab}
+              onChange={(e, tab) => this.setState({ tab })}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="fullWidth"
+              aria-label="full width tabs example"
+            >
+              <Tab
+                label={t('consumerSpace:widget.futureBooking')}
+                value={SHOW_FUTURE_TAB}
+              />
+              <Tab
+                label={t('consumerSpace:widget.pastBooking')}
+                value={SHOW_PAST_TAB}
+              />
+            </Tabs>
+          </AppBarMUI>
 
-          {!this.props.bookingsAndPrivateBookings.length &&
-          this.props.bookingsAndPrivateBookingsLoading ? (
+          {(!this.props.bookingsAndPrivateBookings.length &&
+            this.props.bookingsAndPrivateBookingsLoading) ||
+          this.props.companyThemeLoading ? (
             <div className={classes.loaderView}>
               <CircularProgress />
             </div>
@@ -169,6 +185,7 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
                 bookingsAndPrivateBookings={
                   this.props.bookingsAndPrivateBookings
                 }
+                isPast={this.state.tab === SHOW_PAST_TAB}
                 loading={this.props.bookingsAndPrivateBookingsLoading}
                 hasMore={this.props.hasMoreBookingsAndPrivateBookings}
                 timezone={this.props.companyTheme.timezone_name}
@@ -251,6 +268,7 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   hasMoreBookingsAndPrivateBookings:
     state.consumer.bookingAndPrivateBooking.hasMore,
   companyTheme: themeSelectors.getTheme(state),
+  companyThemeLoading: state.theme.loading,
 });
 
 const mapDispatchToProps = {
@@ -262,6 +280,7 @@ const mapDispatchToProps = {
   fetchMembershipListAsConsumer,
   cancelBooking: cancelBookingAction,
   discardPrivateBooking: disablePrivateBooking,
+  fetchCompanyTheme,
 };
 
 const mapWithHandlers = {

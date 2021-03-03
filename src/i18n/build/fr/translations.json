@@ -1064,8 +1064,13 @@
       "nextBookingTitle": "Mes prochaines séances",
       "currentPassTitle": "Cartes de cours actives",
       "showMore": "Voir plus",
-      "noPackCurrentlyActive": "Aucune carte en cours valide",
-      "noBooking": "Aucune séance à venir"
+      "noPackCurrentlyActive": "Aucune carte en cours valide"
+    },
+    "widget": {
+      "futureBooking": "Mes réservations",
+      "pastBooking": "Historique",
+      "noBookingFuture": "Aucune séance à venir",
+      "noBookingPast": "Aucune séance dans votre historique"
     },
     "actions": {
       "goToCalendar": "Voir le calendrier complet",

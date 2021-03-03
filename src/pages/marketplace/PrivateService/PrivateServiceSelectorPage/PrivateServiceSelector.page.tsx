@@ -108,7 +108,7 @@ export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
           </div>
         )}
         <div className={classes.container2}>
-          <Grid container className={classes.servicesContainer}>
+          <Grid container align="stretch" className={classes.servicesContainer}>
             {this.props._privateServices.map((ps: PrivateService) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={ps.id}>
                 <ButtonBase
@@ -219,6 +219,7 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     flex: 1,
     width: '100%',
+    height: '100%',
     flexDirection: 'column',
     alignItems: 'stretch',
   },

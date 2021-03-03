@@ -248,17 +248,20 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
 
     return (
       <div className={this.props.classes.subContainer}>
-        <MarketplaceAppBar
-          paper
-          auth={this.props.auth}
-          logo={this.props.theme && this.props.theme.cover}
-          goToUserSpace={() => this.props.goToUserSpace(this.props.company)}
-          currentBasket={this.props.currentBasket}
-          openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
-          disconnect={() => {
-            this.props.disconnect();
-          }}
-        />
+        {!WidgetUtils.isWidget() && (
+          <MarketplaceAppBar
+            paper
+            auth={this.props.auth}
+            logo={this.props.theme && this.props.theme.cover}
+            goToUserSpace={() => this.props.goToUserSpace(this.props.company)}
+            currentBasket={this.props.currentBasket}
+            openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
+            disconnect={() => {
+              this.props.disconnect();
+            }}
+          />
+        )}
+
         <div className={this.props.classes.container}>
           <div className={this.props.classes.titleContainer}>
             <ScheduleIcon

@@ -42,6 +42,12 @@ exports.default = {
     noPackCurrentlyActive: 'Aucune carte en cours valide',
     noBooking: 'Aucune séance à venir',
   },
+  widget: {
+    futureBooking: 'Mes réservations',
+    pastBooking: 'Historique',
+    noBookingFuture: 'Aucune séance à venir',
+    noBookingPast: 'Aucune séance dans votre historique',
+  },
   actions: {
     goToCalendar: 'Voir le calendrier complet',
     goToPass: 'Voir toutes les cartes de cours',

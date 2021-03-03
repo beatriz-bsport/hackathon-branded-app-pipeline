@@ -108,7 +108,7 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
             booking={booking}
             onDiscard={this.props.onDiscardBooking}
             goToBroadcast={this.props.goToBroadcast}
-            goToCalendar={this.goToCalendar}
+            goToCalendar={this.props.goToCalendar ? this.goToCalendar : null}
           />
         </div>
       );
@@ -147,11 +147,15 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
             {this.props.t('dashboard.nextBookingTitle')}
           </Typography>
         )}
-        {this.props.bookingsAndPrivateBookings.length === 0 &&
+        {!this.props.bookingsAndPrivateBookings.length &&
         !this.props.loading ? (
-          <Typography variant="caption" color="textSecondary">
-            {this.props.t('dashboard.noBooking')}
-          </Typography>
+          <div className={this.props.classes.noBookingsContainer}>
+            <Typography variant="h6" color="textSecondary">
+              {this.props.isPast
+                ? this.props.t('widget.noBookingPast')
+                : this.props.t('widget.noBookingFuture')}
+            </Typography>
+          </div>
         ) : null}
 
         {this.props.bookingsAndPrivateBookings.map(
@@ -189,6 +193,14 @@ const styles = (theme: Theme) => ({
   container: {
     width: '100%',
     height: '100%',
+  },
+  noBookingsContainer: {
+    display: 'flex',
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

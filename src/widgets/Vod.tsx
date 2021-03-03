@@ -53,7 +53,6 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 interface State {
-  requestVideoAccessRefreshFlag: number;
   videoId?: number;
   playlistId?: number;
   searchParams: {
@@ -68,15 +67,15 @@ interface State {
 }
 
 const MarketPlaceVideoStyled = themify(
-  MarketplaceVideoDataProvider(MarketplaceVideo),
+  MarketplaceVideoDataProvider(MarketplaceVideo)
 );
 
 const MarketplaceVideoDetailStyled = themify(
-  MarketplaceVideoDetailDataProvider(MarketplaceVideoDetail),
+  MarketplaceVideoDetailDataProvider(MarketplaceVideoDetail)
 );
 
 const MarketplacePlaylistStyled = themify(
-  MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailPage),
+  MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailPage)
 );
 
 class VODWidget extends React.PureComponent<Props, State> {
@@ -120,7 +119,7 @@ class VODWidget extends React.PureComponent<Props, State> {
     const path = getMarketplaceRoute(
       this.props.theme.company_name,
       this.props.companyId,
-      'pass',
+      'pass'
     );
     const url = `${PUBLIC_URL}${url}?authToken=${this.props.auth.token}&context=widget`;
     // this.props.onWindowOpen(popupWindow);
@@ -294,5 +293,5 @@ const mapDispatchToProps = {
 export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(VODWidget);

@@ -92,5 +92,5 @@ const mapStateToProps = (state: RootState) => ({
 
 export default compose<any, OwnProps>(
   withStyles(styles),
-  connect(mapStateToProps, null),
+  connect(mapStateToProps, null)
 )(WorkshopWidget);

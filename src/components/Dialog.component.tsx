@@ -96,6 +96,8 @@ const styles = () => ({
     width: '100%',
     height: '100%',
     backgroundColor: 'white',
+    boxShadow: '3px 10px 44px 9px rgba(0,0,0,0.17)',
+    borderRadius: 12,
   },
   innerContainerBasket: {
     maxHeight: 500,
@@ -107,12 +109,14 @@ const styles = () => ({
     padding: 8,
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    borderRadius: 12,
   },
   iframe: {
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderBottomWidth: 0,
     borderLeftWidth: 0,
+    borderRadius: 12,
 
     height: '100%',
     width: '100%',

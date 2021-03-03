@@ -209,7 +209,7 @@ const styles = (theme) => ({
 export const PaymentComboFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
   description: Yup.string().required(),
-  price: Yup.number().integer().min(0),
+  price: Yup.number().min(0),
   tax: Yup.number().min(0).max(100),
   manager_only: Yup.boolean(),
   available_payment_method_identifiers: Yup.array()

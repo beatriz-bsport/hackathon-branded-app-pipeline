@@ -195,13 +195,15 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
               key={p.id}
             />
           ))}
-          {props.paymentGroupRequiringActionList.map((p) => (
-            <PaymentGroupRequiringActionListItem
-              onValidate={props.onValidate}
-              paymentGroup={p}
-              key={p.id}
-            />
-          ))}
+          {props.invoice.is_fully_paid
+            ? null
+            : props.paymentGroupRequiringActionList.map((p) => (
+                <PaymentGroupRequiringActionListItem
+                  onValidate={props.onValidate}
+                  paymentGroup={p}
+                  key={p.id}
+                />
+              ))}
         </div>
         {!props.plannedPaymentEventLoading &&
           !!props.plannedPaymentEventList.length && (

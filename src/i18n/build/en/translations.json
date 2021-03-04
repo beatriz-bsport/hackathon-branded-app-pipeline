@@ -2080,6 +2080,12 @@
         "myVideos": {
             "title": "My videos",
             "gotToVOD": "See all videos"
+        },
+        "widget": {
+            "noBookingPast": "No past bookings",
+            "noBookingFuture": "No upcoming bookings",
+            "pastBooking": "History",
+            "futureBooking": "My bookings"
         }
     },
     "reminder": {

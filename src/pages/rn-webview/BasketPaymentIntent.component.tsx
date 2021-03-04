@@ -123,6 +123,7 @@ export class BasketPaymentIntent extends React.Component<Props> {
           )}
           clientSecret={this.state.clientSecret}
           clientSecretLoading={this.state.clientSecretLoading}
+          termsAndConditionsAccepted
           onSuccess={this.onSuccess}
           memberId={this.props.basket.member}
         />

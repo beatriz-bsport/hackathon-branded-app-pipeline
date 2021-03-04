@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
 import CoachChip from '../../associated-coach/components/CoachChip.component';
@@ -32,16 +33,22 @@ export const VideoPlayerFull = (props: Props) => {
       />
       <div className={classes.inner}>
         <Typography className={classes.videoTitle} variant="h4">
-          {`${props.video.name} - ${t('video.durationMinute', {
-            minute: parseInt(props.video.duration_second / 60, 10) + 1,
-          })}`}
+          {`${props.video.name}`}
         </Typography>
-        {!!(props.video && props.video.SCT && props.video.SCT.SCS) && (
-          <SCT
-            parentCategory={props.video.SCT.SCS.id}
-            SCTName={props.video.SCT.name}
-          />
-        )}
+        <div className={classes.row}>
+          <AccessTimeIcon className={classes.timeIcon} />
+          <Typography className={classes.timeTypography} variant="body2">
+            {t('video.durationMinute', {
+              minute: parseInt(props.video.duration_second / 60, 10) + 1,
+            })}
+          </Typography>
+          {!!(props.video && props.video.SCT && props.video.SCT.SCS) && (
+            <SCT
+              parentCategory={props.video.SCT.SCS.id}
+              SCTName={props.video.SCT.name}
+            />
+          )}
+        </div>
         {!!coaches.length && (
           <div className={classes.coachContainer}>
             {coaches.map((c) => (
@@ -70,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(6),
     '&>*': {
       marginRight: theme.spacing(1),
     },
@@ -82,6 +90,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  timeIcon: {
+    height: 26,
+    width: 26,
+    marginRight: theme.spacing(1),
+  },
+  timeTypography: {
+    marginRight: theme.spacing(2),
   },
 }));
 

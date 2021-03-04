@@ -1,4 +1,6 @@
-// @flowimport React from 'react';
+// @flow
+
+import React from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';

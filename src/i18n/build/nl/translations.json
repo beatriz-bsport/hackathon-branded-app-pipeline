@@ -1123,7 +1123,7 @@
             "cancel": "Annuleren",
             "or": "of",
             "create": "Aanmaken",
-            "credits": "Kredieten",
+            "credits": "Krediet(en)",
             "sports": "Categorieën",
             "priceIncludingTax": "Prijs (incl. btw)",
             "price": "Prijs",
@@ -1480,7 +1480,7 @@
         "signup": {
             "title": "Inschrijving"
         },
-        "contactUs": "Contacteer ons en ontdek hoe we uw studio kunnen ondersteunen.",
+        "contactUs": "Neem vrijblijvend contact met ons op en ontdek hoe we uw onderneming helpen om de volgende stap te zetten!",
         "or": " of ",
         "country": {
             "ES": "Spanje",
@@ -1899,7 +1899,7 @@
             },
             "1": {
                 "first": "Stuur een e-mail als",
-                "second": "kredieten"
+                "second": "krediet(en) heeft."
             },
             "2": {
                 "second": "dagen",
@@ -1947,7 +1947,7 @@
             },
             "creditsLeft": {
                 "second": "kredieten",
-                "first": "Stuur een e-mail wanneer"
+                "first": "Stuur deze melding wanneer dit lidmaatschap nog"
             }
         },
         "search": "Zoek een cursuskaart",
@@ -2296,7 +2296,7 @@
             }
         },
         "establishment": "Vestiging ",
-        "noEstablishement": "Beheer hier de kalenders, bezetting, adressen en zalen van al je vestigingen",
+        "noEstablishement": "Hier kun je de kalenders, informatie, bezetting, adressen en zalen van al je locaties beheren.",
         "notificationToolTip": "Er zijn meldingen voor reserveringen met betrekking tot dit item",
         "list": {
             "section": {
@@ -2668,8 +2668,8 @@
                 "booked": "gereserveerd"
             },
             "all": "Alle",
-            "active_filters": "Actieve filters op de Smartlist",
-            "add_filter": "Voeg filter toe",
+            "active_filters": "Actieve filter(s) op deze Smartlist",
+            "add_filter": "Een filter toevoegen",
             "add": "Toevoegen",
             "before": "voor",
             "after": "na",
@@ -3005,7 +3005,7 @@
         "pass_owner": "Geldige cursuskaart",
         "bornIn": "Geboren de ",
         "showPreviousBooking": "Zie eerdere reserveringen",
-        "memberList": "Lijst van leden",
+        "memberList": "Segment",
         "note": {
             "addNote": "Een notitie toevoegen",
             "myNotes": "Mijn notities",
@@ -3378,7 +3378,7 @@
         "warning": {
             "disconnect": "Uitloggen",
             "backToBackoffice": "Open de Back Office",
-            "isManager": "Je bent als manager ingelogd. Log uit om je ledenweergave te bekijken."
+            "isManager": "Je bent als manager ingelogd. Log uit om je MarketPlace/ledenweergave te bekijken."
         },
         "workshop": {
             "noWorkshopAvailable": "Momenteel zijn er geen workshops ingepland",
@@ -3932,7 +3932,7 @@
                 "with": "met"
             },
             "thumbnailList": {
-                "addVideo": "Voeg een video toe",
+                "addVideo": "Een video toevoegen",
                 "count": "{{count}} video's",
                 "similarVideoTitle": "Aanbevolen video's"
             },
@@ -3990,14 +3990,14 @@
                 "viewTitle": "Weergaven",
                 "uploaded": "Geüpload op {{date}}",
                 "distinctViewers": "Unieke weergaven",
-                "viewsLastWeek": "Afgelopen 7 dagen",
+                "viewsLastWeek": "Weergaven in de afgelopen 7 dagen",
                 "totalViews": "Totaal",
                 "views": "{{nb_views}} keer bekeken"
             },
             "purchaseListTitle": "Overzicht van aankopen",
             "noVideoView": "Nog niet bekeken",
-            "viewsListTitle": "Lijst met weergaven",
-            "viewedOn": "Video bekeken op {{-date}} om {{hour}}",
+            "viewsListTitle": "Bekeken door",
+            "viewedOn": "Heeft de video op {{-date}} om {{hour}} bekeken.",
             "boughtOn": "Op {{-date}} aangeschaft",
             "noVideoPurchase": "Nog geen aankopen geregistreerd",
             "coverMain": {
@@ -4200,7 +4200,7 @@
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
-            "link": "Log uit en open de MarketPlace",
+            "link": "Log uit en open mijn MarketPlace",
             "explainMarketplace": "Je leden hebben op hun telefoon, computer en tablet toegang tot je MarketPlace (je kalender, webshop, Video On Demand, enz.). Hier kun je je MarketPlace volledig personaliseren!",
             "addButton": "Tabblad toevoegen"
         },
@@ -4332,10 +4332,10 @@
             "toogle": {
                 "showOfferList": "Groepslessen",
                 "showPrivateBookings": "Afspraken",
-                "showCustomEvents": "Privésessie"
+                "showCustomEvents": "Privésessies"
             },
             "enableAvailability": "Beschikbaarheid toevoegen",
-            "createCustomEvent": "Persoonlijke afspraak toevoegen"
+            "createCustomEvent": "Een persoonlijke afspraak toevoegen"
         },
         "slotSearcher": {
             "selectPrivateSlot": "Selecteer een sessie",
@@ -4578,7 +4578,7 @@
             "compatibleServices": {
                 "title": "Compatibele afspraken",
                 "add": "Toevoegen",
-                "isEmpty": "Dit kan niet gebruikt worden, omdat er geen enkele afspraak compatibel is!"
+                "isEmpty": "Waarschuwing! Er is geen compatibele afspraak ingesteld."
             },
             "edit": "Wijzigen",
             "disabledTitle": "Gearchiveerde afspraakkaarten"
@@ -4816,7 +4816,7 @@
             }
         },
         "noPrivateService": "In dit onderdeel kun je al je (semi-)privésessies toevoegen, beheren, wijzigen en verwijderen.",
-        "noPrivatePass": "Beheer hier je afspraakkaarten. Leden kunnen (semi-)privésessies inplannen met afspraakkaarten.",
+        "noPrivatePass": "Met afspraakkaarten kunnen leden zich inschrijven voor je (semi-)privésessies. Je kunt afspraakkaarten voor verschillende activiteiten aanmaken, bijv. Personal/Duo/etc. Training, zaalverhuur, massages enz. \n\nLet op! Vergeet niet om de compatibiliteit van de afspraakkaart in te stellen.",
         "customEvent": {
             "form": {
                 "actions": {
@@ -5947,7 +5947,7 @@
         },
         "list": {
             "activeCoupons": "Actieve promoties",
-            "isEmpty": "Beheer hier je promotiecodes. Momenteel zijn er geen promotiecodes geregistreerd",
+            "isEmpty": "In dit gedeelte kun je je promotiecodes beheren. Je kunt promotiecodes als onderdeel van je verkoopstrategie maken.",
             "inactiveCoupons": "Verlopen of gedeactiveerde promoties"
         },
         "detail": {
@@ -6017,7 +6017,7 @@
             "generic_decline": "Uw bank heeft de betaling geweigerd",
             "withdrawal_count_limit_exceeded": "Te veel debet op deze kaart, geweigerd.",
             "transaction_not_allowed": "Uw kaart is door uw bank geweigerd",
-            "do_not_honor": "Uw bank heeft de betaling geweigerd. Contacteer uw bank om de betaling te autoriseren",
+            "do_not_honor": "Je bank heeft de betaling geweigerd! Contacteer je bank om de betaling te autoriseren.",
             "none": " "
         }
     },

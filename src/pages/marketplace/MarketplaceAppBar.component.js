@@ -88,11 +88,15 @@ export class MarketplaceAppBar extends Component<Props, State> {
   };
 
   renderAuthenticationInfo = () => {
-    const { auth } = this.props;
+    const { auth, classes } = this.props;
     if (!auth.authenticated) {
       return 'LOGIN';
     }
-    return <Typography color="inherit">{auth.username}</Typography>;
+    return (
+      <Typography className={classes.username} color="inherit">
+        {auth.username}
+      </Typography>
+    );
   };
 
   renderUserMenu = () => {
@@ -146,7 +150,6 @@ export class MarketplaceAppBar extends Component<Props, State> {
             aria-owns={isMenuOpen ? 'material-appbar' : undefined}
             aria-haspopup="true"
             color="inherit"
-            className={classes.accountIcon}
           />
           <Hidden smDown>{this.renderAuthenticationInfo()}</Hidden>
         </ButtonBase>
@@ -157,7 +160,7 @@ export class MarketplaceAppBar extends Component<Props, State> {
   render() {
     const { classes, paper } = this.props;
     return (
-      <div>
+      <div style={{ width: '100%' }}>
         {paper ? (
           <div className={classes.root2}>
             {this.renderUserMenu()}
@@ -195,11 +198,9 @@ const styles = (theme) => ({
   title: {
     display: 'block',
   },
+  username: { marginLeft: theme.spacing(1) },
   grow: {
     flexGrow: 1,
-  },
-  accountIcon: {
-    marginRight: theme.spacing(1),
   },
   loginButton: {
     backgroundColor: fade(theme.palette.common.black, 0.12),

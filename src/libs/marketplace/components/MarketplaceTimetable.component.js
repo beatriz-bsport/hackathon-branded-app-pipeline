@@ -85,6 +85,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
                 showOfferFilling={this.props.showOfferFilling}
                 key={o.id}
                 offer={o}
+                onClick={onClick}
                 onClickOffer={this.props.onClickOffer}
                 actions={
                   <div className={classes.inlineContainer}>

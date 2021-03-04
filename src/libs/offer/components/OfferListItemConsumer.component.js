@@ -60,7 +60,7 @@ export const MarketplaceOffer = (props: Props) => {
   /* eslint-enable */
   return (
     <ListItem
-      button={isInThePast && !available}
+      button={isInThePast}
       selected={selected}
       onClick={props.onClick}
       divider

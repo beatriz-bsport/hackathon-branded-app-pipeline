@@ -1,11 +1,10 @@
 // @flow
 import React from 'react';
-import videojs from 'video.js';
+
+import { Helmet } from 'react-helmet';
 import qualityLevelsPlugin from 'videojs-contrib-quality-levels';
 import sourceSelector from 'videojs-http-source-selector';
 import hlsQuality from 'videojs-hls-quality-selector';
-
-import 'video.js/dist/video-js.css';
 
 type Props = {
   rounded: boolean,
@@ -21,19 +20,37 @@ export class VideoPlayerBase extends React.Component<Props> {
 
   componentDidMount() {
     // instantiate Video
-    videojs.registerPlugin('qualityLevels', qualityLevelsPlugin);
-    videojs.registerPlugin('sourceSelector', sourceSelector);
-    videojs.registerPlugin('hlsQuality', hlsQuality);
-
-    this.player = videojs(this.videoNode, this.props.videojsProps, () => {
-      const qualityLevels = this.player.qualityLevels();
-      qualityLevels.on('addqualitylevel', (event) => {
-        const { qualityLevel } = event;
-        qualityLevel.enabled = true;
-      });
-      this.player.hlsQuality();
-    });
+    this.startVideoJS();
   }
+
+  startVideoJS = () => {
+    if (window.videojs) {
+      this.player = window.videojs(
+        this.videoNode,
+        this.props.videojsProps,
+        () => {
+          window.videojs.registerPlugin('qualityLevels', qualityLevelsPlugin);
+          window.videojs.registerPlugin('sourceSelector', sourceSelector);
+          window.videojs.registerPlugin('hlsQuality', hlsQuality);
+
+          this.player = window.videojs(
+            this.videoNode,
+            this.props.videojsProps,
+            () => {
+              const qualityLevels = this.player.qualityLevels();
+              qualityLevels.on('addqualitylevel', (event) => {
+                const { qualityLevel } = event;
+                qualityLevel.enabled = true;
+              });
+              this.player.hlsQuality();
+            },
+          );
+        },
+      );
+    } else {
+      setTimeout(this.startVideoJS, 100);
+    }
+  };
 
   componentDidUpdate(prevProps: Props) {
     if (
@@ -55,6 +72,12 @@ export class VideoPlayerBase extends React.Component<Props> {
     return (
       /* eslint-disable */
       <div>
+	<Helmet>
+	    <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
+
+	  <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+	</Helmet>
+
         <div data-vjs-player>
           <video
             style={

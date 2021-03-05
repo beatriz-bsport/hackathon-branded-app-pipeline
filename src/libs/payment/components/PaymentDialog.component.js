@@ -39,6 +39,7 @@ type Props = {
   asConsumer: ?boolean,
   paymentGroupId: number,
   paymentGroupPriceCts: number,
+  termsAndConditionsAccepted: boolean,
   clientSecretError: ?boolean,
   clientSecretLoading: boolean,
   availablePaymentMethodList: ?Array<number>,
@@ -187,6 +188,9 @@ export class PaymentDialog extends React.Component<Props, State> {
                   clientSecret={this.props.clientSecret}
                   paymentGroupPriceCts={this.props.paymentGroupPriceCts}
                   onSuccess={this.onSuccess}
+                  termsAndConditionsAccepted={
+                    this.props.termsAndConditionsAccepted
+                  }
                   onError={this.props.onError}
                   onCancel={this.props.onCancel}
                   memberId={this.props.memberId}
@@ -201,6 +205,9 @@ export class PaymentDialog extends React.Component<Props, State> {
                   clientSecret={this.props.clientSecret}
                   onSuccess={this.onSuccess}
                   onError={this.props.onError}
+                  termsAndConditionsAccepted={
+                    this.props.termsAndConditionsAccepted
+                  }
                   onCancel={this.props.onCancel}
                   amountToPay={this.props.amountToPay}
                   memberId={this.props.memberId}

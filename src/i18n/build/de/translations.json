@@ -4392,8 +4392,8 @@
             "bookingCapabilities": {
                 "emptyConsumerPassList": "Du besitzt keine gültige Karte mit ausreichenden Credits",
                 "emptyPassList": "Keine kompatible Karte, bitte kontaktiere Deinen Klub",
-                "compatiblePassTitle": "Ihre Karte, die für diesen Kurs gültig sind",
-                "compatibleConsumerPassTitle": "Ihre gültige Karten"
+                "compatiblePassTitle": "Deine Karte, die für diesen Kurs gültig ist",
+                "compatibleConsumerPassTitle": "Deine gültigen Karten"
             },
             "step": {
                 "date": "Datum",

@@ -5350,7 +5350,7 @@
             "effectif": "Nb slots",
             "total_payments": "Total payments",
             "sum_margin_value": "Margin value",
-            "nb_attendance": "Nb attendant",
+            "nb_attendance": "Nb present",
             "disabled": "Cancelled",
             "checkout_items": "Basket items",
             "attendance": "Attendance",

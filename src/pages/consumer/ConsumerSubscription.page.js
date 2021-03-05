@@ -190,11 +190,11 @@ export default compose(
       switchPaymentMethodDialogOpen,
       switchSubscriptionPaymentMethod,
       setSwitchPaymentMethodDialogOpen,
-    }) => (source, options) => {
+    }) => (source, options, payment_method_id) => {
       switchSubscriptionPaymentMethod(
         switchPaymentMethodDialogOpen,
         {
-          source,
+          source: source || payment_method_id,
           payment_method_identifier: BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
         },
         {

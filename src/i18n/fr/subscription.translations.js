@@ -7,6 +7,12 @@ const {
 } = PAYMENT_METHOD;
 
 const {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+} = require('@bsport/common/lib/master-data/payment-group');
+
+const {
   BILLING_PLAN_EVENTS,
 } = require('@bsport/common/lib/master-data/events');
 
@@ -279,6 +285,11 @@ exports.default = {
       [BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT]: 'A crédit',
       [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]: 'Carte bleue',
       [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]: 'Virement SEPA',
+    },
+    payment_method_group: {
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: 'Carte bleue',
+      14: 'Credit',
+      [PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA]: 'SEPA',
     },
     status: 'Statut',
     subscribeAgain: 'Souscrire à nouveau',

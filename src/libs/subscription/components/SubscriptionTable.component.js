@@ -37,6 +37,8 @@ const renderRows = (subscriptions, t) => {
       id: sub.payment_method,
       subscriptionId: sub.id,
       hasEnded: sub.has_ended || !!sub.canceled_at,
+      is_v2: sub.is_v2,
+      payment_method_identifier: sub.payment_method_identifier,
     },
   }));
 };
@@ -82,7 +84,7 @@ const getColumnData = (
                   '&>*': { marginRight: 8 },
                 }}
               >
-                {addPayment && !value.hasEnded ? (
+                {addPayment && value.is_v2 && !value.hasEnded ? (
                   <RedButton
                     variant="outlined"
                     onClick={(ev) => {
@@ -91,8 +93,16 @@ const getColumnData = (
                     }}
                   >
                     <AddIcon />
-                    {t(`parameters.payment_method.${value.id}`)}
+                    {value.is_v2
+                      ? t(
+                          `parameters.payment_method_group.${value.payment_method_identifier}`,
+                        )
+                      : t(`parameters.payment_method.${value.id}`)}
                   </RedButton>
+                ) : value.is_v2 ? (
+                  t(
+                    `parameters.payment_method_group.${value.payment_method_identifier}`,
+                  )
                 ) : (
                   t(`parameters.payment_method.${value.id}`)
                 )}

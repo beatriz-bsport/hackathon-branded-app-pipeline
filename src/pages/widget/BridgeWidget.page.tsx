@@ -61,7 +61,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
       this.fetchBookingsAndPrivateBookings();
     }
 
-    if (!prevProps.basket && this.props.basket) {
+    if (prevProps.basket !== this.props.basket && this.props.basket) {
       WidgetUtils.basketCountReady();
     }
 
@@ -106,15 +106,18 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
           WidgetUtils.authenticatedStatus(this.props.auth.authenticated);
           break;
 
-        case WidgetMessageType.GET_BASKET_COUNT:
-          WidgetUtils.basketCount(
-            this.props.basket.checkout_items.reduce(
+        case WidgetMessageType.GET_BASKET_COUNT: {
+          let count: number | null = null;
+
+          if (this.props.basket && this.props.basket.checkout_items) {
+            count = this.props.basket.checkout_items.reduce(
               (s: number, a: CheckoutItem) => s + a.quantity,
               0,
-            ),
-          );
+            );
+          }
+          WidgetUtils.basketCount(count);
           break;
-
+        }
         case WidgetMessageType.GET_BOOKINGS_COUNT:
           WidgetUtils.bookingsCount(this.props.bookingsCount);
           break;

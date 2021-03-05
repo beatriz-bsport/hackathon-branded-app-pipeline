@@ -2526,7 +2526,7 @@
                     "label": "Scadenza del pacchetto d'acquisto"
                 },
                 "cancelledOffersManager": "Per impostazione predefinita mostra le sessioni annullate sul calendario del manager",
-                "showGenderOffer": "Mostra il numero di uomini e donne che prenotano un'offerta",
+                "showGenderOffer": "Visualizza il numero di uomini e donne che prenotano un'offerta",
                 "checkBalance": {
                     "shiftRatio": {
                         "explain": "Se più di {{numberCheck}} prenotazioni sono registrate in una sessione, non sarà autorizzata alcuna prenotazione che crea uno squilibrio DONNE / UOMINI maggiore di {{gender_max_shift_for_booking}} persone.",

@@ -1087,7 +1087,7 @@
             "300": "Kick (non validato in tempo troppe volte)",
             "702": "Passaggio negato: addebito sul conto creato (allievo)",
             "701": "Passaggio negato: badge bloccato (allievo)",
-            "601": "Poche prenotazioni [tot. ore] prima dell'inizio della lezione."
+            "601": "Poche prenotazioni [tot. ore] prima dell'inizio della lezione"
         },
         "ruleGroup": {
             "private_booking": "Appuntamento",
@@ -1172,6 +1172,12 @@
         "myVideos": {
             "gotToVOD": "Guarda tutti i video",
             "title": "I miei video"
+        },
+        "widget": {
+            "noBookingPast": "Nessuna sessione nella tua storia",
+            "noBookingFuture": "Nessuna sessione imminente",
+            "pastBooking": "Storia",
+            "futureBooking": "Le mie prenotazioni"
         }
     },
     "search": {
@@ -2004,13 +2010,13 @@
                     "label": "Prima dell'inizio dell'appuntamento, ultima prenotazione possibile"
                 },
                 "paddingEnd": {
-                    "helperText0": "Sul calendario, l'insegnante e/o la sala, sarà segnato come nuovamente disponibile alla fine della sessione.",
-                    "helperText": "Sul calendario, l'insegnante e/o la sala sarà segnato come nuovamente disponibile {{minutes}} minuti dopo la fine della sessione.",
-                    "label": "Numero di minuti dopo la fine della sessione."
+                    "helperText0": "Sul calendario, l'insegnante e/o la sala, sarà segnato come nuovamente disponibile alla fine della sessione",
+                    "helperText": "Sul calendario, l'insegnante e/o la sala sarà segnato come nuovamente disponibile {{minutes}} minuti dopo la fine della sessione",
+                    "label": "Numero di minuti dopo la fine della sessione"
                 },
                 "paddingStart": {
-                    "helperText0": "Sul calendario, l'insegnante, o la sala, sarà segnalato come non disponibile all'orario di inizio della sessione.",
-                    "helperText": "Sul calendario, l'insegnante, o la sala,  sarà segnalato come non disponibile {{minutes}} minuti prima dell'inizio della sessione.",
+                    "helperText0": "Sul calendario, l'insegnante, o la sala, sarà segnalato come non disponibile all'orario di inizio della sessione",
+                    "helperText": "Sul calendario, l'insegnante, o la sala,  sarà segnalato come non disponibile {{minutes}} minuti prima dell'inizio della sessione",
                     "label": "Numero di minuti prima dell'inizio dell'appuntamento"
                 },
                 "paddingTitle": "Gestione delle disponibilità"
@@ -2159,7 +2165,7 @@
                         "default": "Aiuto: la notifica sarà inviata all'allievo al momento della prenotazione annullata rimborsata n°{{notifyNb}} per questo tipo di appuntamento"
                     },
                     "valid": {
-                        "notifyAll": "Aiuto: la notifica verrà inviata all'allievo per ogni sua prenotazione convalidata per questo tipo di sessione.",
+                        "notifyAll": "Aiuto: la notifica verrà inviata all'allievo per ogni sua prenotazione convalidata per questo tipo di sessione",
                         "default": "Aiuto: la notifica verrà inviata all'allievo quando viene effettuata la sua prenotazione valida n °{{notifyNb}} per questo tipo di sessione"
                     }
                 },
@@ -2168,7 +2174,7 @@
                 "chooseKind": {
                     "cancelledNotRefunded": "Prenotazione cancellata in ritardo (non rimborsabile)",
                     "cancelledRefunded": "Prenotazione annullata e rimborsata",
-                    "valid": "Prenotazione convalidata.",
+                    "valid": "Prenotazione convalidata",
                     "title": "Scegli la sessione su cui vuoi lasciare una notifica"
                 },
                 "intro": "Puoi informare i tuoi clienti prima e/o dopo alcune sessioni, riguardo alcune regole come il numero delle prenotazioni o le cancellazioni.",
@@ -2284,7 +2290,7 @@
             "bottomActions": {
                 "create": "Inserisci"
             },
-            "playlist": "Playlist"
+            "playlist": "Percorso"
         }
     },
     "coachPerformance": {
@@ -3538,7 +3544,7 @@
         },
         "invoiceType": {
             "reversed": "fattura (annullata)",
-            "return": "Nota di credito",
+            "return": "Fattura di ritorno",
             "credit_payment": "Ricevuta (adeguamento del saldo)",
             "migration": "Trasferimento",
             "regular": "Fattura"
@@ -3963,7 +3969,7 @@
             "adjusted_price": "Prezzo rettificato",
             "nb_interval": "Numero di ricorrenze",
             "shop": "Negozio",
-            "marketplace_enabled": "Disponibile sul marketplace",
+            "marketplace_enabled": "Disponibile per la vendita online",
             "description": "Descrizione",
             "product_names": "Prodotti",
             "slot_date_end": "Fine sessione",
@@ -5342,7 +5348,7 @@
                 "first": "L'acconto del cliente è ( la fattura non pagata non è inclusa)",
                 "second": " a   ",
                 "third": "{{ currencyDisplay }}",
-                "explanation": "Ha X  {{ currencyDisplay }} sul suo conto",
+                "explanation": "Ha X{{ currencyDisplay }} sul suo conto",
                 "between": "e"
             },
             "18": {
@@ -5686,7 +5692,7 @@
                 "unlink": {
                     "cancel": "Annulla",
                     "submit": "Stop",
-                    "explain": "La condivisione verrà annullata. Il pass sarà ancora utilizzabile.",
+                    "explain": "La condivisione verrà annullata. Il pass sarà ancora utilizzabile",
                     "title": "Stop condivisione"
                 }
             },

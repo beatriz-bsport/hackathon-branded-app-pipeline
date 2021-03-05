@@ -3572,6 +3572,12 @@
         "myVideos": {
             "title": "Mis videos",
             "gotToVOD": "Ver todos los videos"
+        },
+        "widget": {
+            "noBookingPast": "No hay reservas anteriores",
+            "noBookingFuture": "No hay reservas futuras",
+            "pastBooking": "Historia",
+            "futureBooking": "Mis reservas"
         }
     },
     "coupon": {

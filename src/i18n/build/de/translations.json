@@ -3474,6 +3474,10 @@
             "content": "Indem Du Deine IBAN angibst und Deine Zahlung bestätigst, ermächtigst Du bsport und Stripe, unser Zahlungssystem, Lastschriftanweisungen gemäß dem Zahlungsplan an Deine Bank zu senden. Du kannst bei Deiner Bank eine Rückerstattung gemäß den Bedingungen Deiner Bank beantragen. Eine Rückerstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden.",
             "email": "E-Mail des Inhabers",
             "name": "Name und Vorname des Inhabers"
+        },
+        "paymentGroup": {
+            "requiresAction": "Die Bank hat die Zahlung nicht authentifiziert (3DSecure)",
+            "validateRequiresAction": "Bestätigen Sie die Zahlungsmethode"
         }
     },
     "payment": {
@@ -5256,6 +5260,12 @@
         "myVideos": {
             "gotToVOD": "Alle Videos anzeigen",
             "title": "Meine Videos"
+        },
+        "widget": {
+            "noBookingPast": "Keine Sitzung in Ihrem Verlauf",
+            "noBookingFuture": "Keine kommenden Sitzungen",
+            "pastBooking": "Geschichte",
+            "futureBooking": "Meine Vorbehalte"
         }
     },
     "metaActivity": {

@@ -3869,7 +3869,7 @@
                 },
                 "durationMonths": {
                     "helperText": "Se suma a la cantidad de días",
-                    "label": "Período de validez (días) si corresponde"
+                    "label": "Período de validez (mes) si corresponde"
                 },
                 "price": {
                     "label": "Precio"
@@ -5609,7 +5609,7 @@
                 },
                 "durationMonths": {
                     "helperText": "Se suma a la cantidad de días",
-                    "label": "Período de validez (días) si corresponde"
+                    "label": "Período de validez (mes) si corresponde"
                 },
                 "durationDays": {
                     "helperText": "Período en días durante el cual la tarjeta será válida después de la compra ",

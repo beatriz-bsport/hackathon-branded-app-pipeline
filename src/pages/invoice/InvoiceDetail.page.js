@@ -243,6 +243,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
               }
               clientSecretLoading={this.state.clientSecretLoading}
               paymentGroupId={this.state.paymentGroupId}
+              termsAndConditionsAccepted
               paymentGroupPriceCts={this.state.paymentGroupPriceCts}
               amountToPay={parseFloat(
                 this.props.invoice.amount_due_cts -

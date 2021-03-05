@@ -185,6 +185,7 @@ export const MemberBillingProblemCard = (props: Props) => {
             if (typeof callback === 'function') callback();
           }}
           requestClientSecret={requestClientSecret}
+          termsAndConditionsAccepted
           clientSecret={clientSecretLoading ? null : clientSecret}
           clientSecretLoading={clientSecretLoading}
           paymentGroupId={paymentGroupId}

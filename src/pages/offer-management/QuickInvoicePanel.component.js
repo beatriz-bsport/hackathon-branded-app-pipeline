@@ -116,6 +116,7 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
         ) : null}
         {!!this.props.invoiceToBill && !!this.props.invoiceToBill.member && (
           <PaymentDialog
+            termsAndConditionsAccepted
             memberId={
               (this.props.invoiceToBill.member &&
                 this.props.invoiceToBill.member.id) ||

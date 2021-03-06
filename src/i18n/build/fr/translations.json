@@ -347,6 +347,7 @@
       "notRecurrent": "Une seule séance",
       "weekly": "Hebdomadaire",
       "monthly": "Mensuel",
+      "daily": "Quotidien",
       "timeSettings": "Horaires & dates",
       "firstSessionOn": "Première séance le",
       "firstSessionAt": "à",

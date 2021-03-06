@@ -184,6 +184,7 @@ exports.default = {
       noQuickInvoiceOpened: 'No invoice open',
       myOpenedInvoices: 'Quick invoices',
       manageOffer: 'Manage my bookings',
+      broadcast_link_error: 'Lien invalide',
     },
     pagination: {
       rowPerPage: 'Rows per page',
@@ -438,6 +439,7 @@ exports.default = {
       notRecurrent: 'Once',
       weekly: 'Weekly',
       monthly: 'Monthly',
+      daily: 'Daily',
       timeSettings: 'Timetable',
       firstSessionOn: 'First session on',
       firstSessionAt: 'at',

@@ -30,6 +30,7 @@ import { Moment } from '../../i18n';
 export const NOT_RECURRENT = '0';
 export const WEEKLY = '1';
 export const MONTHLY = '2';
+export const DAILY = '3';
 
 const styles = (theme) => ({
   textInput: {

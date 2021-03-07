@@ -49,6 +49,7 @@ exports.default = {
     accept_email: 'Accepte les emails',
     accept_sms: 'Accepte les SMS',
     coaches: 'Professeurs',
+    payout_identifier: 'Virement',
     private_service_name: 'Rendez-vous',
     nb_bookings: 'Nombre de réservation',
     stock_at_start: 'Stock en début de période',
@@ -216,6 +217,7 @@ exports.default = {
   no: 'Non',
   payment_method: {
     cash: 'Espèces',
+    sepa: 'SEPA',
     check: 'Chèque',
     dispute: 'Litige',
     stripe: 'CB',

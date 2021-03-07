@@ -84,28 +84,31 @@ const getColumnData = (
                   '&>*': { marginRight: 8 },
                 }}
               >
-                {addPayment && value.is_v2 && !value.hasEnded ? (
-                  <RedButton
-                    variant="outlined"
-                    onClick={(ev) => {
-                      ev.stopPropagation();
-                      addPayment(value.subscriptionId);
-                    }}
-                  >
-                    <AddIcon />
-                    {value.is_v2
-                      ? t(
-                          `parameters.payment_method_group.${value.payment_method_identifier}`,
-                        )
-                      : t(`parameters.payment_method.${value.id}`)}
-                  </RedButton>
-                ) : value.is_v2 ? (
-                  t(
-                    `parameters.payment_method_group.${value.payment_method_identifier}`,
+                {
+                  // eslint-disable-next-line
+		  addPayment && value.is_v2 && !value.hasEnded ? (
+                    <RedButton
+                      variant="outlined"
+                      onClick={(ev) => {
+                        ev.stopPropagation();
+                        addPayment(value.subscriptionId);
+                      }}
+                    >
+                      <AddIcon />
+                      {value.is_v2
+                        ? t(
+                            `parameters.payment_method_group.${value.payment_method_identifier}`,
+                          )
+                        : t(`parameters.payment_method.${value.id}`)}
+                    </RedButton>
+                  ) : value.is_v2 ? (
+                    t(
+                      `parameters.payment_method_group.${value.payment_method_identifier}`,
+                    )
+                  ) : (
+                    t(`parameters.payment_method.${value.id}`)
                   )
-                ) : (
-                  t(`parameters.payment_method.${value.id}`)
-                )}
+                }
               </div>
             );
           }

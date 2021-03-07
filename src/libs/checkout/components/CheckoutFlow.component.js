@@ -89,7 +89,6 @@ export const CheckoutFlow = (props: Props) => (
           paymentModule={props.paymentModule}
           termsAndConditionsAccepted={props.termsAndConditionsAccepted}
           setTermsAndConditionsAccepted={props.setTermsAndConditionsAccepted}
-          termsAndConditions={props.termsAndConditions}
         />
       </Paper>
     ) : null}

@@ -18,6 +18,13 @@ const {
   IDEAL,
   SOFORT,
 } = require('@bsport/common/lib/master-data/payment-methods');
+const {
+  PAYOUT_STATUS_PENDING,
+  PAYOUT_STATUS_CANCELED,
+  PAYOUT_STATUS_FAILED,
+  PAYOUT_STATUS_SUCCESS,
+  PAYOUT_STATUS_TRANSIT,
+} = require('@bsport/common/lib/master-data/payout-status');
 
 exports.default = {
   payment: {
@@ -130,5 +137,18 @@ exports.default = {
         submit: 'Confirmer',
       },
     },
+  },
+  payout: {
+    title: 'Mes encaissements',
+    status: {
+      [PAYOUT_STATUS_PENDING]: 'En attente',
+      [PAYOUT_STATUS_CANCELED]: 'Annulé',
+      [PAYOUT_STATUS_FAILED]: 'Echoué',
+      [PAYOUT_STATUS_SUCCESS]: 'Réussi',
+      [PAYOUT_STATUS_TRANSIT]: 'En cours de traitement',
+    },
+    paymentNb: '{{nb}} paiements',
+    seeMore: 'Voir plus',
+    invoice: 'Facture {{ uuid }}',
   },
 };

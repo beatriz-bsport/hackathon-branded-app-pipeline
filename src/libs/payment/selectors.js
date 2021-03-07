@@ -32,3 +32,11 @@ export const getPaymentGroupRequiringActionList = createSelector(
   (groupList, uuid) =>
     groupList.filter((pg) => pg.status === 150 && pg.invoice === uuid),
 );
+
+const _getPayoutListIds = (state) => state.paymentBackend.payout.allIds;
+const _getPayoutData = (state) => state.paymentBackend.payout.byId;
+
+export const getPayoutList = createSelector(
+  [_getPayoutListIds, _getPayoutData],
+  (ids, data) => ids.map((id) => data[id]),
+);

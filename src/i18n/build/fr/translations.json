@@ -341,7 +341,7 @@
       "default_waiting_list_max_size": "Taille de la liste d'attente",
       "generateOffers": "Créer les séances",
       "credit_price": "Nb de crédit nécessaire carte de cours pour réserver",
-      "offersWillBeGenerated": "séances vont être crées",
+      "offersWillBeGenerated": "séances vont être créées",
       "offerWillBeGenerated": "séance va être créée",
       "recurrence": "Récurrence",
       "notRecurrent": "Une seule séance",
@@ -2920,6 +2920,13 @@
         "unknownCountry": "Opération manuelle pour ce pays, veuillez contacter bsport via contact@bsport.io",
         "actions": { "cancel": "Annuler", "submit": "Confirmer" }
       }
+    },
+    "payout": {
+      "title": "Mes encaissements",
+      "status": { "0": "En attente", "1": "En cours de traitement", "2": "Réussi", "3": "Echoué", "4": "Annulé" },
+      "paymentNb": "{{nb}} paiements",
+      "seeMore": "Voir plus",
+      "invoice": "Facture {{ uuid }}"
     }
   },
   "invoice": {

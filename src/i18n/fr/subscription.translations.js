@@ -8,7 +8,6 @@ const {
 
 const {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } = require('@bsport/common/lib/master-data/payment-group');
 

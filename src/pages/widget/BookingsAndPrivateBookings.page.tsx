@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { CircularProgress, Tab, Tabs } from '@material-ui/core';
 import AppBarMUI from '@material-ui/core/AppBar';
-import { Theme, withStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { Theme, withStyles } from '@material-ui/core/styles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import moment from 'moment';
 
@@ -24,7 +24,6 @@ import { fetchOfferBulk } from '../../libs/offer/actions';
 import { getMembership } from '../../libs/membership/selectors';
 import ConsumerDashboardBookingPanel from '../../libs/consumer-space/components/ConsumerDashboardBookingPanel.component';
 import themeSelectors from '../../libs/theme/selectors';
-import { getTheme } from '../../theme';
 import { OptionCallback } from '../../state/types';
 import PrivateBookingCancellationDialog from '../../libs/private-service/components/booking/PrivateBookingCancellationDialog';
 import BookingCancellationDialog from '../../libs/booking/components/BookingCancellationDialog.component';

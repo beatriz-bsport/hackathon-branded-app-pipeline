@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import { withTranslation } from 'react-i18next';
 
+import { push } from 'connected-react-router';
 import {
   fetchPlatformInvoiceList,
   fetchPlatformBillingPlanList,
@@ -22,13 +23,20 @@ import {
 } from '../../libs/platform-billing/selectors';
 
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
-import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
-import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import {
+  fetchPaymentMethodList as fetchPaymentMethodListAction,
+  fetchPayoutList as fetchPayoutListAction,
+} from '../../libs/payment/actions';
+import {
+  getSavedPaymentMethodList,
+  getPayoutList,
+} from '../../libs/payment/selectors';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
 import CompanyPlatformBillingPaymentDetail from '../../libs/platform-billing/components/CompanyPlatformBillingPaymentDetail.component';
 import CompanyPlatformBillinGroupDetail from '../../libs/platform-billing/components/CompanyPlatformBillingGroupDetail.component';
 import FeatureRequestDialog from '../../libs/platform-billing/components/FeatureRequestDialog.component';
+import PayoutList from '../../libs/payment/components/PayoutList.component';
 
 type Props = {
   loading: boolean,
@@ -51,6 +59,12 @@ type Props = {
 
   openFeatureRequest: boolean,
   setOpenFeatureRequest: (boolean) => void,
+
+  fetchPayoutList: () => void,
+  hasMorePayout: boolean,
+  payoutList: Array<Payout>,
+  payoutLoading: boolean,
+  onOpenInvoice: (uuid: string) => void,
 };
 
 export class PlatformBillingSettings extends React.Component<Props> {
@@ -62,6 +76,7 @@ export class PlatformBillingSettings extends React.Component<Props> {
     this.props.fetchPlatformBillingPlanList();
     this.props.fetchPlatformBillingStageList();
     this.props.fetchUpsellPackageList();
+    this.props.fetchPayoutList({ page: 1 });
   }
 
   render() {
@@ -71,11 +86,19 @@ export class PlatformBillingSettings extends React.Component<Props> {
     }
     return (
       <div className={classes.container}>
+        <PayoutList
+          fetchMorePayoutList={this.props.fetchPayoutList}
+          payoutList={this.props.payoutList}
+          loading={this.props.payoutLoading}
+          hasMorePayout={this.props.hasMorePayout}
+          openInvoice={this.props.onOpenInvoice}
+        />
         <CompanyPlatformBillingPaymentDetail
           paymentMethodList={this.props.savedPaymentMethodList}
           platformInvoiceList={this.props.platformInvoiceList}
           refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
           requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+          fetchMorePlatformInvoiceList={this.props.fetchPlatformInvoiceList}
         />
         <CompanyPlatformBillinGroupDetail
           platformSubscription={this.props.platformSubscription}
@@ -106,6 +129,9 @@ export default compose(
       platformInvoiceList: getPlatformInvoiceList(state),
       loading: state.paymentBackend.paymentMethod.loading,
       platformSubscription: getPlatformSubscription(state),
+      payoutList: getPayoutList(state),
+      hasMorePayout: !!state.paymentBackend.payout.nextPage,
+      payoutLoading: state.paymentBackend.payout.loading,
     }),
     {
       fetchPlatformInvoiceList,
@@ -117,10 +143,14 @@ export default compose(
       fetchUpsellPackageList,
       fetchUpsellPackageSubscribedList,
       requestUpsellPackage: requestUpsellPackageAction,
+      fetchPayoutList: fetchPayoutListAction,
+      onOpenInvoice: (uuid) => push(`/invoice/${uuid}`),
     },
   ),
   withState('openFeatureRequest', 'setOpenFeatureRequest', false),
   withHandlers({
+    fetchPayoutList: ({ fetchPayoutList }) => (params, options) =>
+      fetchPayoutList({ ...(params || {}), page_size: 3 }, options),
     requestSetupIntentSecret: () => () =>
       requestSetupIntentSecretAPI(null, null, true),
     fetchPaymentMethodList: ({ fetchPaymentMethodList }) => () =>

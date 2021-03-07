@@ -7,6 +7,7 @@ import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   fetchOnSpotPaymentReport as fetchOnSpotPaymentReportAPI,
   fetchPaymentGroupList as fetchPaymentGroupListAPI,
+  fetchPayoutList as fetchPayoutListAPI,
 } from './api';
 
 // Active campaign Account
@@ -86,5 +87,36 @@ export function fetchPaymentGroupList(
       dispatch(listPaymentGroupActions.error(err));
     }
     dispatch(listPaymentGroupActions.isLoading(false));
+  };
+}
+
+export const listPayoutActions = {
+  isLoading: createAction('PAYOUT/LIST/LOADING'),
+  error: createAction('PAYOUT/LIST/ERROR'),
+  success: createAction('PAYOUT/LIST/SUCCESS'),
+};
+
+export function fetchPayoutList(
+  params: any = {},
+  options: OptionCallBack,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    dispatch(listPayoutActions.isLoading(true));
+    dispatch(listPayoutActions.error(null));
+    const { nextPage } = getState().paymentBackend.payout;
+    try {
+      const response = await fetchPayoutListAPI({
+        ...(params || {}),
+        page: nextPage,
+      });
+      dispatch(listPayoutActions.success({ ...response.data, page: nextPage }));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listPayoutActions.error(err));
+    }
+    dispatch(listPayoutActions.isLoading(false));
   };
 }

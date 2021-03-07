@@ -34,7 +34,6 @@ type Props = {
 export const MarketplaceOffer = (props: Props) => {
   const { offer, selected } = props;
   const classes = useStyles();
-  const { available } = offer;
   const isInThePast = isOfferInThePast(offer);
 
   /* eslint-disable */

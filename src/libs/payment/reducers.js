@@ -7,6 +7,7 @@ import {
   listSavedPaymentMethodListActions,
   onSpotPaymentReportActions,
   listPaymentGroupActions,
+  listPayoutActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -26,10 +27,43 @@ const initialState = Immutable({
     allIds: [],
     byId: {},
   },
+  payout: {
+    error: null,
+    loading: false,
+    allIds: [],
+    byId: {},
+    nextPage: 1,
+  },
 });
 
 export default handleActions(
   {
+    [listPayoutActions.success]: (state, { payload }) => {
+      const newIds = payload.results.map((po) => po.id);
+      return state
+        .setIn(
+          ['payout', 'allIds'],
+          payload.page === 1 ? newIds : [...state.payout.allIds, ...newIds],
+        )
+        .setIn(['payout', 'nextPage'], payload.next_page)
+        .merge(
+          {
+            payout: {
+              byId: payload.results.reduce((acc, v) => {
+                acc[v.id] = v;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [listPayoutActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['payout', 'loading'], payload);
+    },
+    [listPayoutActions.error]: (state, { payload }) => {
+      return state.setIn(['payout', 'error'], payload);
+    },
     [listSavedPaymentMethodListActions.success]: (state, { payload }) => {
       return state.setIn(['paymentMethod', 'items'], payload);
     },

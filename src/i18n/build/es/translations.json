@@ -493,7 +493,8 @@
             "credit_price": "Número de créditos necesarios tarjeta de curso para reservar",
             "warningCreditChange": "NB: las reservas anteriores no tienen en cuenta los cambios en los créditos",
             "noAvailableCredit": "Tiene en cuenta que no estás ingresando un precio. ¿Estás seguro del valor?",
-            "explainNoEmailChange": "Cambiar el email evitará que el maestro se conecte, solo él puede modificar su email conectándose a su cuenta bsport"
+            "explainNoEmailChange": "Cambiar el email evitará que el maestro se conecte, solo él puede modificar su email conectándose a su cuenta bsport",
+            "daily": "Diario"
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -1341,7 +1342,11 @@
             "IE": "Irlanda",
             "AT": "Austria",
             "MT": "Malta",
-            "GB": "Reino Unido"
+            "GB": "Reino Unido",
+            "DK": "Dinamarca",
+            "FI": "Finlandia",
+            "SE": "Suecia",
+            "NO": "Noruega"
         },
         "emailValidation": {
             "disconnect": "Cambiar de cuenta",
@@ -1880,7 +1885,22 @@
         "payment": {
             "return": "Reembolsar"
         },
-        "returnedAmount": "Reembolsado: "
+        "returnedAmount": "Reembolsado: ",
+        "payout": {
+            "isEmptyWarning": "NB: algunos pagos anteriores al 15 de marzo de 2021 podrían no aparecer en la lista.",
+            "isEmpty": "No hay pagos.",
+            "invoice": "Factura {{ uuid }}",
+            "seeMore": "Ver más",
+            "paymentNb": "{{nb}} pagos",
+            "status": {
+                "4": "Cancelado",
+                "3": "Fallido",
+                "2": "Éxito",
+                "1": "Se está procesando",
+                "0": "Pendiente"
+            },
+            "title": "Mis pagos"
+        }
     },
     "invoice": {
         "configuration": {
@@ -2323,7 +2343,12 @@
             "autoRenew": "Renovación automática",
             "private_pass": "Tarjeta de cita",
             "privatePass": "Tarjeta de cita",
-            "note": "Nota"
+            "note": "Nota",
+            "payment_method_group": {
+                "14": "Cuenta interna",
+                "2": "SEPA",
+                "1": "Tarjeta de crédito"
+            }
         },
         "schedule": {
             "provisionalTitle": "Calendario estimativo",
@@ -2722,7 +2747,8 @@
             "stock_at_start": "Provisión al inicio del periodo",
             "stock_at_end": "Provisión al final del periodo",
             "accept_email": "Aceptar correos electrónicos",
-            "accept_sms": "Aceptar SMS"
+            "accept_sms": "Aceptar SMS",
+            "payout_identifier": "Transferencia"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -2737,7 +2763,8 @@
             "subscription_cb": "Subscripción",
             "credit_account": "Sueldo cliente",
             "other": "Otros",
-            "dispute": "Litigio"
+            "dispute": "Litigio",
+            "sepa": "SEPA"
         },
         "product_type": {
             "payment_pack": "Tarjeta de curso",

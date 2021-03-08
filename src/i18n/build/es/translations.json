@@ -1202,7 +1202,8 @@
             "incomplete_number": "El número de tarjeta está incompleto.",
             "unknown": "Error de red, intenta nuevamente en unos instantes",
             "processing_error": "Se produjo un error durante el registro de tu pago. Por favor intenta nuevamente en unos momentos.",
-            "payment_intent_payment_attempt_failed": "El pago ha sido rechazado por tu banco."
+            "payment_intent_payment_attempt_failed": "El pago ha sido rechazado por tu banco.",
+            "none": " "
         },
         "decline_code": {
             "withdrawal_count_limit_exceeded": "Demasiado débito en esta tarjeta, rechazada.",
@@ -1214,7 +1215,8 @@
             "insufficient_funds": "Tu tarjeta no tiene fondos suficientes.",
             "incorrect_cvc": "El código de seguridad no es válido.",
             "incorrect_number": "El número de tarjeta no es válido.",
-            "card_not_supported": "Tu tarjeta no es reconocida."
+            "card_not_supported": "Tu tarjeta no es reconocida.",
+            "none": " "
         }
     },
     "tag": {
@@ -1421,7 +1423,8 @@
             "helperText": "Se usa solo para calcular la disponibilidad de citas",
             "explain": "Capacidad: {{ capacity }} plaza",
             "explain_plural": "Capacidad: {{ capacity }} plazas",
-            "label": "Capacidad de la sala"
+            "label": "Capacidad de la sala",
+            "placeholder": " "
         },
         "detail": {
             "tab": {

@@ -427,7 +427,7 @@
             "default_waiting_list_max_size": "Dimensione della lista d'attesa",
             "generateOffers": "Crea sessioni",
             "credit_price": "Numero di carta del corso richiesto per prenotare",
-            "offersWillBeGenerated": "verranno create sessioni",
+            "offersWillBeGenerated": "Verranno create sessioni",
             "offerWillBeGenerated": "la sessione verrà creata",
             "recurrence": "Ricorrenza",
             "notRecurrent": "Una sola sessione",
@@ -448,7 +448,8 @@
             "warningCreditChange": "NB: le vecchie prenotazioni non tengono conto delle modifiche dei crediti",
             "noAvailableCredit": "Attenzione, non stai inserendo un prezzo. Sei sicuro del valore?",
             "signUpTitle": "Iscrizione",
-            "explainNoEmailChange": "La modifica dell'e-mail impedirà all'insegnante di connettersi, solo lui può modificare la sua e-mail collegandosi al proprio account bsport"
+            "explainNoEmailChange": "La modifica dell'e-mail impedirà all'insegnante di connettersi, solo lui può modificare la sua e-mail collegandosi al proprio account bsport",
+            "daily": "Quotidiano"
         },
         "marketing": {
             "dashboard": "Pannello di controllo",
@@ -3748,7 +3749,12 @@
             "recurrent_voucher": "Sconto su ogni fattura",
             "private_pass": "Pass per appuntamenti",
             "privatePass": "Pass per appuntamenti",
-            "note": "Nota"
+            "note": "Nota",
+            "payment_method_group": {
+                "14": "Credito",
+                "2": "SEPA",
+                "1": "Carta di credito"
+            }
         },
         "contract": {
             "registerManager": {
@@ -4117,7 +4123,8 @@
             "accept_email": "Accetta le e-mail",
             "accept_sms": "Accetta SMS",
             "stock_at_start": "Stock all'inizio del periodo",
-            "stock_at_end": "Stock alla fine del periodo"
+            "stock_at_end": "Stock alla fine del periodo",
+            "payout_identifier": "Trasferimento"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -4132,7 +4139,8 @@
             "bank_transfer": "Bonifico bancario",
             "subscription_cb": "Pagamento programmato (abbonamento)",
             "event_brite": "EventBrite",
-            "none": "Nessuno"
+            "none": "Nessuno",
+            "sepa": "SEPA"
         },
         "list": {
             "empty": "Nessun rapporto? Crea un primo rapporto!",
@@ -6129,7 +6137,22 @@
         "payment": {
             "return": "Rimborso"
         },
-        "returnedAmount": "Rimborso "
+        "returnedAmount": "Rimborso ",
+        "payout": {
+            "isEmptyWarning": "NB: alcune collezioni prima del 15 marzo 2021 potrebbero non essere elencate qui sotto.",
+            "isEmpty": "Nessuna raccolta.",
+            "invoice": "Fattura {{ uuid }}",
+            "seeMore": "Vedere di più",
+            "paymentNb": "{{nb}} pagamenti",
+            "status": {
+                "4": "Cancellato",
+                "3": "Fallito",
+                "2": "Successo",
+                "1": "Trattamento in corso",
+                "0": "In attesa"
+            },
+            "title": "Le mie ricevute"
+        }
     },
     "selfCheckIn": {
         "offerDetail": {
@@ -6304,7 +6327,11 @@
             "IE": "Irlanda",
             "AT": "Austria",
             "MT": "Malta",
-            "GB": "Regno Unito"
+            "GB": "Regno Unito",
+            "DK": "Danimarca",
+            "FI": "Finlandia",
+            "SE": "Svezia",
+            "NO": "Norvegia"
         },
         "emailValidation": {
             "disconnect": "Cambia account",

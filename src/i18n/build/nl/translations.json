@@ -687,10 +687,10 @@
             "timeSettings": "Tijd & datum",
             "monthly": "Maandelijks",
             "weekly": "Wekelijks",
-            "notRecurrent": "Eén sessie",
+            "notRecurrent": "Eenmalig",
             "recurrence": "Frequentie",
             "offerWillBeGenerated": "sessies worden ingepland",
-            "offersWillBeGenerated": "sessies worden ingepland",
+            "offersWillBeGenerated": "sessies worden ingepland.",
             "credit_price": "Vereiste krediet(en)",
             "generateOffers": "Sessie(s) toevoegen",
             "default_waiting_list_max_size": "Grootte van de wachtlijst",
@@ -1048,7 +1048,7 @@
             "fillrate": "Gemiddelde bezetting",
             "totalCustomers": "Totaal aantal reserveringen",
             "grossVolume": "Omzet",
-            "noNextSlot": "Geen geplande sessies meer",
+            "noNextSlot": "Er zijn geen sessies ingepland.",
             "color": "Kleurcode",
             "name": "Titel",
             "addActivity": "Een activiteit toevoegen",
@@ -1057,7 +1057,7 @@
             "lastBookingBeforeMinutes": "Selecteer tot wanneer een lid zich kan inschrijven",
             "is_broadcast": "Dit is een livestream",
             "settings": "Instellingen",
-            "nextSlotAt": "De eerstvolgende sessie is op ",
+            "nextSlotAt": "De eerstvolgende sessie is op: ",
             "explainImage": "Aanbevolen: 1920 x 1080 .JPG (Full HD)",
             "firstBookingMinutesUntil": "Beperk reserveringen tot sessies die plaatsvinden over "
         },
@@ -1494,7 +1494,11 @@
             "IE": "Ierland",
             "AT": "Oostenrijk",
             "MT": "Malta",
-            "GB": "Verenigd Koninkrijk"
+            "GB": "Verenigd Koninkrijk",
+            "DK": "Denemarken",
+            "FI": "Finland",
+            "SE": "Zweden",
+            "NO": "Noorwegen"
         },
         "signupCompany": {
             "form": {
@@ -1563,7 +1567,8 @@
             "other": "Overige",
             "cash": "Contant geld",
             "check": "Cheque",
-            "dispute": "Dispuut"
+            "dispute": "Dispuut",
+            "sepa": "SEPA"
         },
         "product_type": {
             "shop_item": "Webshop",
@@ -1752,7 +1757,8 @@
             "stock_at_end": "Voorraad (einde)",
             "stock_at_start": "Voorraad (begin)",
             "accept_email": "E-mails accepteren",
-            "accept_sms": "Sms'jes accepteren"
+            "accept_sms": "Sms'jes accepteren",
+            "payout_identifier": "Overschrijven"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2275,7 +2281,7 @@
         "addButton": "Een zaal of vestiging toevoegen",
         "pleaseSelectOne": "Selecteer een studio op de kaart",
         "offers": "Kalender van de sessie(s):",
-        "noMoreOffers": "Geen geplande sessies meer",
+        "noMoreOffers": "Er zijn geen sessies ingepland.",
         "pleaseFill": "Voer een vestiging in",
         "practical_info": {
             "label": "Toegangsinformatie",
@@ -2301,7 +2307,7 @@
         "notificationToolTip": "Er zijn meldingen voor reserveringen met betrekking tot dit item",
         "list": {
             "section": {
-                "archived": "Gearchiveerde vestiging(en)"
+                "archived": "Gearchiveerde vestigingen"
             }
         }
     },
@@ -2438,7 +2444,7 @@
             },
             "5": {
                 "name": "Geslacht",
-                "first": "Selecteer alleen de",
+                "first": "Toon alleen alle",
                 "men": "mannen",
                 "explanation": "Is een MAN/VROUW",
                 "women": "vrouwen"
@@ -2495,10 +2501,10 @@
                 "second": "in",
                 "third": "{{ currencyDisplay }}",
                 "date": {
-                    "first": "Verlaten winkelmanden",
+                    "first": "Verlaten winkelmande",
                     "second": "dagen"
                 },
-                "name": "Verlaten winkelmanden",
+                "name": "Filter op datum voor het afhaken (niet-betaald winkelmandje)",
                 "between": "en"
             },
             "21": {
@@ -2507,27 +2513,27 @@
                     "first": "van"
                 },
                 "establishment": {
-                    "first": "in"
+                    "first": "filter op vestiging"
                 },
                 "date": {
-                    "first": "de datum van de sessie is"
+                    "first": "filter op datum"
                 },
                 "hour": {
-                    "first": "de sessie begint tussen",
+                    "first": "filter op tijd",
                     "second": "uur en",
                     "third": "Uur"
                 },
                 "explanation": "Heeft zijn Xe sessie van activiteit A gereserveerd in vestiging B...",
-                "first": "Heeft gereserveerd voor ",
-                "second_singular": "ste sessie",
-                "second_plural": "ste sessie",
+                "first": "Heeft ",
+                "second_singular": "keer ingeschreven",
+                "second_plural": "keer ingeschreven",
                 "coach": {
                     "first": "met de instructeurs"
                 },
                 "payment_pack": {
-                    "first": "met de cursuskaarten"
+                    "first": "filter op cursuskaart(en)"
                 },
-                "attendance": "met status"
+                "attendance": "status"
             },
             "22": {
                 "name": "Aantal reserveringen",
@@ -2541,7 +2547,7 @@
                     "first": "in de vestigingen"
                 },
                 "payment_pack": {
-                    "first": "met de cursuskaarten"
+                    "first": "filter op cursuskaart(en)"
                 },
                 "coach": {
                     "first": "met de instructeurs"
@@ -2555,7 +2561,7 @@
                     "third": "Uur"
                 },
                 "between": "en",
-                "attendance": "met status"
+                "attendance": "status"
             },
             "isEmpty": "Deze Smartlist vertegenwoordigd je volledige database, omdat er geen actieve filters zijn toegevoegd",
             "calendarPicker": {
@@ -2688,7 +2694,7 @@
                 "6": "tussen twee"
             },
             "23": {
-                "explanation": "Boekte zijn eerste sessie op ...",
+                "explanation": "Boekte zijn/haar eerste sessie op ...",
                 "name": "Eerste reservering"
             },
             "undefined": {
@@ -3085,7 +3091,7 @@
         },
         "name": "Naam",
         "table": {
-            "show": "Laat zien"
+            "show": "Toon"
         },
         "date_joined": "Inschrijfdatum",
         "barcode": {
@@ -5239,7 +5245,22 @@
         "payment": {
             "return": "Terugbetaling"
         },
-        "returnedAmount": "Vergoed: "
+        "returnedAmount": "Vergoed: ",
+        "payout": {
+            "isEmptyWarning": "NB: het is mogelijk dat incasso's van vóór 15 maart 2021 niet worden vermeld.",
+            "isEmpty": "Leeg.",
+            "invoice": "Factuur {{ uuid }}",
+            "seeMore": "Toon meer",
+            "paymentNb": "{{nb}} betaling(en)",
+            "status": {
+                "4": "Geannuleerd",
+                "3": "Mislukt",
+                "2": "Succes",
+                "1": "Wordt verwerkt",
+                "0": "Gepauzeerd"
+            },
+            "title": "Mijn incasso's"
+        }
     },
     "snackbar": {
         "coach": {
@@ -6979,7 +7000,7 @@
         "widget": {
             "ownStyle": "Compatibiliteitsmodus (negeert het thema van je website)",
             "copyUrl": "Ga naar de link van je kalender",
-            "codeSource": "Laat de code zien die je naar je eigen website moet kopiëren",
+            "codeSource": "Toon de code voor op je website.",
             "copy": "Kopiëren",
             "url": "Link naar kalender",
             "code": "Widget op je website",

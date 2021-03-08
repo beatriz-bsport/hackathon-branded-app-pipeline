@@ -66,7 +66,7 @@
             "parameters": "Einstellungen",
             "autoRenew": "Automatische Verlängerung",
             "payment_pack": "Kurskarte",
-            "firstBilling": "Erste Einlösung",
+            "firstBilling": "Erster Einzug",
             "dateStart": "Erste Rechnung",
             "nbMonths": "Anzahl der Monate",
             "paymentPack": "Kurskarte",
@@ -80,7 +80,12 @@
             "recurrent_voucher": "Rabatt auf jede Rechnung",
             "private_pass": "Terminkarte",
             "privatePass": "Terminkarte",
-            "note": "Anmerkung"
+            "note": "Anmerkung",
+            "payment_method_group": {
+                "14": "Guthaben",
+                "2": "SEPA",
+                "1": "Kreditkarte"
+            }
         },
         "paymentMethod": {
             "card": "Kreditkarte",
@@ -827,7 +832,7 @@
                     },
                     "barcode": "Barcode",
                     "deleteTitle": "Löschung",
-                    "marketplace_enabled": "Auf der Web-Marketplace verfügbar",
+                    "marketplace_enabled": "Auf dem Web-Marketplace verfügbar",
                     "unlimitedProvision": "Keine Verwaltung des Inventares",
                     "create": "Ein Produkt hinzufügen",
                     "featured": "Bei der Bestätigung des Warenkorbs in den Vordergrund stellen",
@@ -979,7 +984,7 @@
                 "paid": "Bezahlt",
                 "unpaid": "In Bearbeitung",
                 "status": "Status",
-                "additionalInformationHelper": "(optional) Schecknummer, Einlösungsdatum..."
+                "additionalInformationHelper": "(optional) Schecknummer, Einzugsdatum..."
             },
             "booking": {
                 "delete": {
@@ -1016,7 +1021,8 @@
             "warningCreditChange": "PS : Frühere Buchungen berücksichtigen keine Änderungen der Credits",
             "noAvailableCredit": "Achtung: Kein Preis wurde angegeben. Bist du dir des Wertes sicher?",
             "signUpTitle": "Anmeldung",
-            "explainNoEmailChange": "Wenn die E-Mail-Adresse geändert werden soll, wird es für Lehrer nicht möglich sein, sich einzuloggen. Nur Lehrer können E-Mail-Adressen ändern, indem Lehrer sich mit dem bsport-Konto verbinden"
+            "explainNoEmailChange": "Wenn die E-Mail-Adresse geändert werden soll, wird es für Lehrer nicht möglich sein, sich einzuloggen. Nur Lehrer können E-Mail-Adressen ändern, indem Lehrer sich mit dem bsport-Konto verbinden",
+            "daily": "Täglich"
         },
         "booking": {
             "revertBookingExplain": {
@@ -1164,7 +1170,7 @@
             "isEmpty": "Keine Daten anzuzeigen"
         },
         "invoice": {
-            "explainFinalize": "Achtung! Eine abgeschlossene Rechnung kann nicht mehr geändert werden und alle Zahlungen, die zur Einlösung bereitgehalten werden, werden als eingelöst betrachtet. Sobald die Rechnung fertig gestellt ist, kannst Du sie als PDF-Datei exportieren",
+            "explainFinalize": "Achtung! Eine abgeschlossene Rechnung kann nicht mehr geändert werden und alle Zahlungen, die zum Einzug bereitgehalten werden, werden als eingelöst betrachtet. Sobald die Rechnung fertig gestellt ist, kannst Du sie als PDF-Datei exportieren",
             "finalize": "Die Rechnung abschließen",
             "invoiceReverted": "Die Rechnung wurde storniert",
             "revertExplainShop": "Einkäufe im Shop werden storniert und das Inventar zurückgesetzt.",
@@ -2511,7 +2517,8 @@
             "dispute": "Streitfall",
             "check": "Scheck",
             "cash": "Bargeld",
-            "credit_account": "Kredit des Kundes"
+            "credit_account": "Kredit des Kundes",
+            "sepa": "SEPA"
         },
         "columns": {
             "date_sumup": "Datum",
@@ -2678,7 +2685,8 @@
             "stock_at_end": "Inventar am Ende des Zeitraums",
             "stock_at_start": "Inventar zu Beginn des Zeitraums",
             "accept_email": "Akzeptiert E-Mails",
-            "accept_sms": "Akzeptiert SMS"
+            "accept_sms": "Akzeptiert SMS",
+            "payout_identifier": "Überweisung"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -3431,7 +3439,7 @@
                 "label": "Einzugsdatum"
             },
             "paymentNote": {
-                "helperText": "(optional) Schecknummer, Einlösungsdatum...",
+                "helperText": "(optional) Schecknummer, Einzugsdatum...",
                 "label": "Anmerkung"
             },
             "amount": {
@@ -3556,7 +3564,7 @@
             "current": "Aktuelle Anzahlung"
         },
         "paymentNote": {
-            "helperText": "(optional) Schecknummer, Einlösungsdatum...",
+            "helperText": "(optional) Schecknummer, Einzugsdatum...",
             "label": "Anmerkung"
         },
         "bankAccount": {
@@ -3582,7 +3590,22 @@
         "payment": {
             "return": "Zurückzahlen"
         },
-        "returnedAmount": "Erstattet: "
+        "returnedAmount": "Erstattet: ",
+        "payout": {
+            "isEmptyWarning": "NB: Bestimmte Einzüge vor dem 15. März 2021 sind möglicherweise nicht unten aufgeführt.",
+            "title": "Meine Einzüge",
+            "isEmpty": "Keine Auszahlung.",
+            "invoice": "Rechnung {{ uuid }}",
+            "seeMore": "Mehr anzeigen",
+            "paymentNb": "{{nb}} Zahlungen",
+            "status": {
+                "4": "Abgebrochen",
+                "3": "Gescheitert",
+                "2": "Erfolgreich",
+                "1": "in Bearbeitung",
+                "0": "In Bearbeitung"
+            }
+        }
     },
     "paymentRules": {
         "common": {
@@ -6401,7 +6424,11 @@
             "IE": "Irland",
             "AT": "Österreich",
             "MT": "Malta",
-            "GB": "Großbritannien"
+            "GB": "Großbritannien",
+            "DK": "Dänemark",
+            "FI": "Finnland",
+            "SE": "Schweden",
+            "NO": "Norwegen"
         },
         "signupCompany": {
             "form": {
@@ -6470,7 +6497,7 @@
         },
         "warning": {
             "disconnect": "Abmelden",
-            "isManager": "Du bist als Admin eingeloggt, um auf die Kunden-Sicht zu gelangen, melden Dich bitte ab",
+            "isManager": "Du bist als Admin eingeloggt, um auf die Kunden-Sicht zu gelangen, melde Dich bitte ab",
             "backToBackoffice": "Admin Website"
         },
         "paymentCombo": {

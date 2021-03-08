@@ -2489,7 +2489,7 @@
                 "changeDate": "Modificar la fecha",
                 "showInvoice": "Ver la factura",
                 "changePrice": "Modificar el precio",
-                "stop": "Detente antes de esta factura",
+                "stop": "Acabar después de esta factura",
                 "disableAutoRenew": "Desactivar la auto-renovación",
                 "enableAutoRenew": "Activar la auto-renovación"
             },

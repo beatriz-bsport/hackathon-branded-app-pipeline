@@ -14,4 +14,5 @@ export type Payout = {
   amount_cts: number;
   company: number;
   id: number;
+  readable_identifier: string;
 };

@@ -26,6 +26,7 @@ interface Props {
   hasMorePayout: boolean;
   fetchMorePayoutList: () => void;
   loading: boolean;
+  openInvoice: (uuid: string) => void;
 }
 
 export const PayoutList = (props: Props) => {
@@ -38,12 +39,21 @@ export const PayoutList = (props: Props) => {
       <Typography variant="h4" className={classes.title}>
         {t('payout.title')}
       </Typography>
-      <Paper className={classes.paper}>
+      {!props.loading && !props.payoutList.length && (
+        <div>
+          <Typography variant="body2" color="textSecondary">
+            {t('payout.isEmpty')}
+          </Typography>
+          <Typography variant="caption" color="textSecondary">
+            {t('payout.isEmptyWarning')}
+          </Typography>
+        </div>
+      )}
+      <Paper>
         {props.payoutList.map((po) => (
           <PayoutListItem
             payout={po}
             isOpen={po.id === openedPayoutId}
-            currencyDisplay={props.currencyDisplay}
             tooglePayoutOpen={tooglePayoutOpen}
             openInvoice={props.openInvoice}
             key={po.id}

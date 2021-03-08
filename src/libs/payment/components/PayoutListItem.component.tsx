@@ -21,11 +21,14 @@ import PaymentListItemV2 from '../../invoice/components/PaymentListItemV2.compon
 import { getCurrencyDisplay } from '../../theme/selectors';
 import { Payout } from '../types';
 
-const PayoutListItem = (props: {
+type Props = {
   payout: Payout;
   isOpen: boolean;
   tooglePayoutOpen: (id: number) => void;
-}) => {
+  openInvoice: (uuid: string) => void;
+};
+
+const PayoutListItem = (props: Props) => {
   const { payout } = props;
   const { t } = useTranslation(['payment']);
   const classes = useStyles(props);

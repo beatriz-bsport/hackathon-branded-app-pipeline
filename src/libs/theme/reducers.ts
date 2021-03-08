@@ -31,12 +31,11 @@ export default handleActions(
         storage.setItem('bsport:stripe:pk_key', payload.stripe_pk_key);
         storage.setItem('bsport:payment:currency_code', payload.currency);
         storage.setItem('bsport:payment:currency_display', '€');
-        if (payload.currency === 'gbp') {
-          storage.setItem('bsport:payment:currency_display', '£');
-        } else if (payload.currency === 'chf') {
-          storage.setItem('bsport:payment:currency_display', 'CHF');
-        } else if (payload.currency === 'usd') {
-          storage.setItem('bsport:payment:currency_display', '$');
+        if (payload.currency_display) {
+          storage.setItem(
+            'bsport:payment:currency_display',
+            payload.currency_display,
+          );
         }
       } catch (err) {
         console.error(err);

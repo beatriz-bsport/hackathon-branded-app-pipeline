@@ -2393,7 +2393,11 @@
       "BE": "Belgique",
       "ES": "Espagne",
       "CH": "Suisse",
-      "MT": "Malte"
+      "MT": "Malte",
+      "NO": "Norvège",
+      "SE": "Sweden",
+      "FI": "Finalande",
+      "DK": "Danemark"
     },
     "language": { "fr": "français", "en": "anglais", "de": "allemand", "it": "italien", "nl": "néerlandais", "es": "espagnol" }
   },

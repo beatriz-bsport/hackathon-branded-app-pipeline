@@ -31,9 +31,23 @@ export const BankAccountForm = (props: Props) => {
   const { t } = useTranslation(['payment']);
   let content = <Typography>{t('bankAccount.form.unknownCountry')}</Typography>;
   if (
-    ['FR', 'BE', 'IT', 'MT', 'DE', 'AT', 'GB', 'NL', 'ES', 'IE', 'CH'].includes(
-      props.company.country,
-    )
+    [
+      'FR',
+      'BE',
+      'IT',
+      'MT',
+      'DE',
+      'AT',
+      'GB',
+      'NL',
+      'ES',
+      'IE',
+      'CH',
+      'NO',
+      'SE',
+      'FI',
+      'DK',
+    ].includes(props.company.country)
   ) {
     content = (
       <div className={classes.field}>

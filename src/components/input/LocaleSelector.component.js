@@ -23,6 +23,10 @@ import AT_FLAG from './flags/AT.png';
 import GB_FLAG from './flags/GB.png';
 import MT_FLAG from './flags/MT.png';
 import CH_FLAG from './flags/CH.png';
+import NO_FLAG from './flags/NO.png';
+import FI_FLAG from './flags/FI.png';
+import SE_FLAG from './flags/SE.png';
+import DK_FLAG from './flags/DK.png';
 
 type Props = {
   withCurrency?: boolean,
@@ -106,24 +110,51 @@ const localeList: Array<Locale> = [
     icon: CH_FLAG,
     currencyCode: 'chf',
     currencyDisplay: 'CHF',
+    showLang: true,
   },
   {
     locale: 'de_CH',
     icon: CH_FLAG,
     currencyCode: 'chf',
     currencyDisplay: 'CHF',
+    showLang: true,
   },
   {
     locale: 'fr_CH',
     icon: CH_FLAG,
     currencyCode: 'chf',
     currencyDisplay: 'CHF',
+    showLang: true,
   },
   {
     locale: 'en_MT',
     icon: MT_FLAG,
     currencyCode: 'eur',
     currencyDisplay: '€',
+  },
+  {
+    locale: 'en_FI',
+    icon: FI_FLAG,
+    currencyCode: 'eur',
+    currencyDisplay: '€',
+  },
+  {
+    locale: 'en_NO',
+    icon: NO_FLAG,
+    currencyCode: 'nok',
+    currencyDisplay: 'kr.',
+  },
+  {
+    locale: 'en_SE',
+    icon: SE_FLAG,
+    currencyCode: 'sek',
+    currencyDisplay: 'kr.',
+  },
+  {
+    locale: 'en_DK',
+    icon: DK_FLAG,
+    currencyCode: 'dkk',
+    currencyDisplay: 'kr.',
   },
 ];
 

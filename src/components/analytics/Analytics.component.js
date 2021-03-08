@@ -25,9 +25,7 @@ class Analytics extends React.Component<Props> {
     }
 
     if (!this.props.isInternal) {
-      FacebookPixel.init(
-        !this.props.theme.facebookPixelId || '515094402731005',
-      );
+      FacebookPixel.init(this.props.theme.facebookPixelId || '515094402731005');
     }
 
     if (gtmId) {

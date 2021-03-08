@@ -1570,7 +1570,8 @@
             "oneHourFifteen": "1h15",
             "warningCreditChange": "NB : Old reservations do not take into account changes in credits",
             "noAvailableCredit": "Please note that you are not entering a price. Are you sure of the value?",
-            "explainNoEmailChange": "Changing the email will hinder the teacher from connecting, only he can modify his email by connecting to his bsport account"
+            "explainNoEmailChange": "Changing the email will hinder the teacher from connecting, only he can modify his email by connecting to his bsport account",
+            "daily": "Daily"
         },
         "shop": {
             "noProvisionUpdates": "No provision",
@@ -3885,7 +3886,11 @@
             "IE": "Ireland",
             "AT": "Austria",
             "MT": "Malta",
-            "GB": "United Kingdom"
+            "GB": "United Kingdom",
+            "DK": "Denmark",
+            "FI": "Finland",
+            "SE": "Sweden",
+            "NO": "Norway"
         },
         "signupCompany": {
             "form": {
@@ -4630,7 +4635,22 @@
         "payment": {
             "return": "Refund"
         },
-        "returnedAmount": "Reimbursed: "
+        "returnedAmount": "Reimbursed: ",
+        "payout": {
+            "isEmptyWarning": "NB: some payouts before March 15th 2021 might not be listed.",
+            "isEmpty": "No payouts.",
+            "invoice": "Invoice {{ uuid }}",
+            "seeMore": "See more",
+            "paymentNb": "{{nb}} payments",
+            "status": {
+                "4": "Canceled",
+                "3": "Failed",
+                "2": "Successful",
+                "1": "Being processed",
+                "0": "Pending"
+            },
+            "title": "My Payouts"
+        }
     },
     "invoice": {
         "returnPayment": {
@@ -5232,7 +5252,12 @@
             },
             "private_pass": "Pass (appointments)",
             "privatePass": "Pass (appointments)",
-            "note": "Note"
+            "note": "Note",
+            "payment_method_group": {
+                "14": "Internal account",
+                "2": "SEPA",
+                "1": "Credit Card"
+            }
         },
         "schedule": {
             "provisionalTitle": "Provisional schedule",
@@ -5492,7 +5517,8 @@
             "stock_at_end": "Provision at the end of the period",
             "stock_at_start": "Provision at the start of the period",
             "accept_email": "Accept emails",
-            "accept_sms": "Accept SMS"
+            "accept_sms": "Accept SMS",
+            "payout_identifier": "Transfer"
         },
         "yes": "Yes",
         "no": "No",
@@ -5509,7 +5535,8 @@
             "none": "None",
             "subscription_cb": "Subscription",
             "credit_account": "Client internal account",
-            "other": "Other"
+            "other": "Other",
+            "sepa": "SEPA"
         },
         "product_type": {
             "payment_pack": "Pass",

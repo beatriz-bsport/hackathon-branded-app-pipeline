@@ -138,6 +138,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
     this.props.fetchPass(
       this.state.private_booking_data.private_slot,
       this.state.member.id,
+      this.state.date_start,
     );
 
   handleConfigurationChange = (private_booking_data) => {
@@ -464,10 +465,11 @@ export default compose(
     fetchPass: ({
       fetchCompatiblePrivatePass,
       fetchCompatiblePrivateConsumerPass,
-    }) => (privateSlotId, memberId) => {
+    }) => (privateSlotId, memberId, date) => {
       fetchCompatiblePrivatePass(privateSlotId);
       fetchCompatiblePrivateConsumerPass(privateSlotId, {
         member: memberId,
+        date,
       });
     },
   }),

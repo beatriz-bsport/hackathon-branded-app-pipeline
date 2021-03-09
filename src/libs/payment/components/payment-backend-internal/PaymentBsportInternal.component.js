@@ -51,6 +51,7 @@ export const PaymentStripe = (props: Props) => {
         submitInternalPaymentAPI({
           secret: props.clientSecret,
           payment_method_identifier: props.paymentMethodSelected,
+          payment_note,
           date,
           price_cts: Math.round(parseFloat(amountToPay) * 100),
         })

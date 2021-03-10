@@ -173,10 +173,16 @@ export class MarketPlace extends Component<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     if (
-      this.props.companyId !== prevProps.companyId ||
-      this.props.auth.authenticated !== prevProps.auth.authenticated
+      /* eslint-disable-next-line */
+      !isNaN(this.props.companyId) &&
+      (this.props.companyId !== prevProps.companyId ||
+        this.props.auth.authenticated !== prevProps.auth.authenticated)
     ) {
       this.fetchData();
+    }
+    /* eslint-disable-next-line */
+    if (isNaN(this.props.companyId)) {
+      this.props.replace('/');
     }
   }
 

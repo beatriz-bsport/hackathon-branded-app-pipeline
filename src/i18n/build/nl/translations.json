@@ -27,7 +27,7 @@
         "task": {
             "form": {
                 "task_owner": {
-                    "helperText": "Selecteer een medewerker"
+                    "helperText": "Een medewerker selecteren"
                 },
                 "date_due": {
                     "label": "Herinneringsdatum"
@@ -709,7 +709,7 @@
                     "explainHardDelete": "Deze sessie uit de lijst verwijderen? Let op: de sessie wordt onzichtbaar en deze actie is definitief! Als de sessie reserveringen bevat, worden deze niet verwijderd.",
                     "buttonHardDelete": "Verwijderen"
                 },
-                "explainNotificationOnEdit": "Wil je de ingeschreven leden over deze wijziging(en) informeren?",
+                "explainNotificationOnEdit": "De ingeschreven leden over de wijziging(en) informeren.",
                 "explainRecursiveOfferEdit": "Wil je ALLE vergelijkbare sessies wijzigen?",
                 "explainRecursiveOfferDelete": "Wil je ALLE vergelijkbare sessies verwijderen?",
                 "broadcast_link": {
@@ -2162,7 +2162,7 @@
         "availableOnFollowingEstablishments": "Vestigingen: ",
         "anySport": "Alle categorieën",
         "availableOnFollowingActivities": "Activiteiten: ",
-        "notificationToolTip": "Deze cursuskaart bevat meldingen",
+        "notificationToolTip": "Melding(en) geactiveerd",
         "disabled": "Uitgeschakeld",
         "anyActivity": "Alle activiteiten",
         "noRestrictionOnActivityType": "Alle activiteiten zijn compatibel met deze cursuskaart",
@@ -2173,7 +2173,7 @@
         "reverted": "Factuur geannuleerd",
         "link": {
             "copied": "Link gekopieerd",
-            "copyLink": "Kopieer de directe link naar de betaalpagina"
+            "copyLink": "De directe link naar betaalpagina kopiëren"
         },
         "newMemberOnly": "Alleen beschikbaar voor nieuwe leden",
         "publicPacksTitle": "Beschikbare cursuskaarten",
@@ -2282,7 +2282,7 @@
         "pleaseSelectOne": "Selecteer een studio op de kaart",
         "offers": "Kalender van de sessie(s):",
         "noMoreOffers": "Er zijn geen sessies ingepland.",
-        "pleaseFill": "Voer een vestiging in",
+        "pleaseFill": "Vergeet niet om een vestiging toe te voegen!",
         "practical_info": {
             "label": "Toegangsinformatie",
             "placeholder": "Code 1234 rechterdeur",
@@ -2916,7 +2916,7 @@
             }
         },
         "card": {
-            "copyLink": "Kopieer de directe link naar de reserveringspagina",
+            "copyLink": "De directe link naar reserveerpagina kopiëren",
             "copied": "Link gekopieerd"
         },
         "offerManagement": {
@@ -2953,7 +2953,7 @@
             "showMonth": "Maandoverzicht"
         },
         "liveOfferEdit": {
-            "editSimilarOffers": "Wil je dat alle toekomstige sessies aan deze nieuwe voorwaarden voldoen?",
+            "editSimilarOffers": "Alle toekomstige sessies wijzigen.",
             "unselectAll": "Deselecteer alles",
             "selectAll": "Selecteer alles",
             "select": "Selecteer de te wijzigen sessies",
@@ -3617,7 +3617,7 @@
             "registerManager": {
                 "explainChoseContract": "Selecteer een abonnement dat maandelijks gefactureerd wordt.",
                 "title": "Herhalende betaling",
-                "explainCustomSubscriptionForm": "Nee, ik wil een persoonlijk abonnement aanmaken",
+                "explainCustomSubscriptionForm": "Een gepersonaliseerd abonnement aanmaken",
                 "actions": {
                     "cancel": "Annuleren"
                 }
@@ -3720,7 +3720,7 @@
                     "days": {
                         "label": "Aantal dagen"
                     },
-                    "explain": "De volgende betaling wordt met zoveel dagen vertraagd, hetzelfde voor toekomstige leskaarten",
+                    "explain": "De volgende betaling en cursuskaart wordt met X dagen uitgesteld.",
                     "explainInvoice": "Vanaf welke factuur (inbegrepen) wil je het abonnement pauzeren?"
                 }
             },
@@ -3857,7 +3857,7 @@
             "paymentMethodTitle": "Betaalmethode"
         },
         "noContracts": "Met abonnementen kun je lidmaatschappen maandelijks vernieuwen en in rekening te brengen.",
-        "copyLink": "Kopieer de directe link naar de betaalpagina",
+        "copyLink": "De directe link naar betaalpagina kopiëren",
         "listItem": {
             "valid": "Geldig",
             "paused": "Gepauzeerd",
@@ -3975,7 +3975,14 @@
                 "title": "Een video uploaden",
                 "dropHere": "Sleep een video hiernaartoe of klik hier om door je bestanden te bladeren",
                 "cancel": "Annuleren",
-                "content": "Upload of selecteer een video"
+                "content": "Upload of selecteer een video",
+                "urlInputError": "Plak hier een link",
+                "urlInputLabel": "Link naar YouTube",
+                "type": {
+                    "url": "Link",
+                    "file": "Bestand"
+                },
+                "submit": "Bevestigen"
             },
             "form": {
                 "edit": "Bewerken",
@@ -5046,7 +5053,7 @@
     },
     "shop": {
         "link": {
-            "copyLink": "Kopieer de directe link naar de betaalpagina",
+            "copyLink": "De directe link naar betaalpagina kopiëren",
             "copied": "Link gekopieerd"
         },
         "dialog": {
@@ -5090,7 +5097,7 @@
             "form": {
                 "title": "Wijzig voorraad",
                 "quantityLabel": "Eenhe(i)d(en)",
-                "quantityHelperText": "Eenheden om toe te voegen/verwijderen aan de voorraad",
+                "quantityHelperText": "Het aantal toe te voegen/te verwijderen producten",
                 "cancel": "Annuleren",
                 "submit": "Opslaan"
             },
@@ -5772,7 +5779,7 @@
         "showPerformance": "Te vergoeden",
         "showActivities": "Bekijk activiteiten",
         "showDescription": "Toon beschrijving",
-        "pleaseFill": "Een instructeur toevoegen",
+        "pleaseFill": "Vergeet niet om een instructeur toe te voegen!",
         "emptyDescription": "Geen beschrijving",
         "selector": {
             "label": "Instructeur"

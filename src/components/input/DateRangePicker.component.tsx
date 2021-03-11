@@ -28,15 +28,21 @@ const DateRangePicker: React.FC<Props> = (props) => {
   const [dates, setDates] = useState<Array<string>>([props.startDate]);
 
   const onDateChange = (d: Moment) => {
-    const dateStr = d.format('YYYY-MM-DD  ');
+    const dateStr = d.format('YYYY-MM-DD');
 
     let _dates = [...dates, dateStr];
     if (dates.length === 2) {
       _dates = [dateStr];
     }
 
+    const momentDates = [moment(_dates[0])];
+    _dates[1] && momentDates.push(moment(_dates[1]));
+
+    const min = moment.min(momentDates).format('YYYY-MM-DD');
+    const max = moment.max(momentDates).format('YYYY-MM-DD');
+
     setDates(_dates);
-    props.onRangeChange(_dates[0], _dates[1] || _dates[0]);
+    props.onRangeChange(min, max);
   };
 
   const classes = useStyles();

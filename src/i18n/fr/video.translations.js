@@ -80,6 +80,13 @@ exports.default = {
       dropHere:
         'Glissez-déposez ici une vidéo ou cliquez pour parcourir votre ordinateur',
       cancel: 'Annuler',
+      submit: 'Valider',
+      type: {
+        file: 'Fichier',
+        url: 'Url',
+      },
+      urlInputLabel: 'Lien youtube',
+      urlInputError: 'Veuillez saisir une url',
     },
     form: {
       edit: 'Modifier',

@@ -42,7 +42,6 @@ type Props = {
 
   termsAndConditionsAccepted: boolean,
   setTermsAndConditionsAccepted: (boolean) => void,
-  termsAndConditions: string,
 };
 
 export const CheckoutFlow = (props: Props) => (

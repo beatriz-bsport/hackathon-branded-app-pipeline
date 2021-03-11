@@ -33,6 +33,15 @@ export const attachFile = async (id: number, file: Object) => {
 export const getUploadInstruction = async (id: number) => {
   return postAuth(`${API_V1_URI}/vod/video/${id}/upload_instruction/`);
 };
+export const setProviderIdentifier = async (
+  id: number,
+  data: { provider_identifier: number },
+) => {
+  return postAuth(
+    `${API_V1_URI}/vod/video/${id}/set_provider_identifier/`,
+    data,
+  );
+};
 
 export const getPlaybackUrl = async (id: number) => {
   return getAuth(`${API_V1_URI}/vod/video/${id}/playback_url/`);

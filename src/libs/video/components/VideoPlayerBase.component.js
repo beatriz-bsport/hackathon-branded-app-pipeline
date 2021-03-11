@@ -5,6 +5,8 @@ import { Helmet } from 'react-helmet';
 import qualityLevelsPlugin from 'videojs-contrib-quality-levels';
 import sourceSelector from 'videojs-http-source-selector';
 import hlsQuality from 'videojs-hls-quality-selector';
+import getVideoId from 'get-video-id';
+import YoutubeEmbedVideo from './YoutubeEmbedVideo';
 
 type Props = {
   rounded: boolean,
@@ -18,13 +20,13 @@ export class VideoPlayerBase extends React.Component<Props> {
 
   videoNode: HTMLElement;
 
-  componentDidMount() {
-    // instantiate Video
+  onVideoJSRef = (ref: any) => {
+    this.videoNode = ref;
     this.startVideoJS();
-  }
+  };
 
   startVideoJS = () => {
-    if (window.videojs) {
+    if (window.videojs && this.videoNode) {
       this.player = window.videojs(
         this.videoNode,
         this.props.videojsProps,
@@ -69,29 +71,45 @@ export class VideoPlayerBase extends React.Component<Props> {
   }
 
   render() {
+    const { videojsProps } = this.props;
+
+    const isYoutubeVideo = /youtube|youtu\.be|y2u\.be|i.ytimg\./.test(
+      videojsProps.sources[0].src,
+    );
+
+    const youtubeVideo = isYoutubeVideo
+      ? getVideoId(videojsProps.sources[0].src)
+      : { id: '' };
+
     return (
       /* eslint-disable */
       <div>
-	<Helmet>
-	    <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
-
-	  <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
-	</Helmet>
-
-        <div data-vjs-player>
-          <video
-            style={
-              this.props.rounded
-                ? {
-                    borderRadius: 12,
-                    border: '1px transparent rgba(0, 0, 0, 0)',
-                  }
-                : {}
-            }
-            ref={(node) => (this.videoNode = node)}
-            className="video-js fluid"
+        <Helmet>
+          <link
+            href="https://vjs.zencdn.net/7.10.2/video-js.css"
+            rel="stylesheet"
           />
-        </div>
+          <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+        </Helmet>
+
+        {isYoutubeVideo ? (
+          <YoutubeEmbedVideo videoId={youtubeVideo.id} />
+        ) : (
+          <div data-vjs-player>
+            <video
+              style={
+                this.props.rounded
+                  ? {
+                      borderRadius: 12,
+                      border: '1px transparent rgba(0, 0, 0, 0)',
+                    }
+                  : {}
+              }
+              ref={this.onVideoJSRef}
+              className="video-js fluid"
+            />
+          </div>
+        )}
       </div>
     );
     /* eslint-enable */

@@ -95,9 +95,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     marginBottom: theme.spacing(0.5),
     marginTop: theme.spacing(0.5),
+    width: '100%',
   },
   row: {
     display: 'flex',
+    width: '100%',
     flexDirection: 'row',
     overflowX: 'auto',
     flexWrap: 'wrap',
@@ -118,6 +120,7 @@ const useStyles = makeStyles((theme) => ({
     borderLeft: '3px solid black',
     paddingLeft: theme.spacing(1),
     marginLeft: theme.spacing(2),
+    width: '100%',
   },
 }));
 

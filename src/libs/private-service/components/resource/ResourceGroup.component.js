@@ -116,8 +116,10 @@ const styles = (theme) => ({
   resourceList: {
     display: 'flex',
     flexDirection: 'row',
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    overflow: 'auto',
   },
   title: {
     marginBottom: theme.spacing(1) / 2,

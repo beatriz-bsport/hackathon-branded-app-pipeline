@@ -119,7 +119,7 @@ export class PaymentDialog extends React.Component<Props, State> {
     });
 
     return (
-      <Dialog open>
+      <Dialog open classes={{ paper: classes.container }}>
         <DialogContent>
           <div className={classes.container}>
             <FormControl
@@ -222,7 +222,7 @@ export class PaymentDialog extends React.Component<Props, State> {
 }
 
 const styles = (theme) => ({
-  container: {},
+  container: { maxWidth: '100vw' },
   divider: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),

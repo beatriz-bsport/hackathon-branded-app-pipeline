@@ -439,7 +439,7 @@ export default compose(
   withHandlers({
     billMemberPrivatePass: () => (memberId: number, privatePassId) =>
       window.open(
-        `/invoice/add/member/${memberId}?withPrivatePass=${privatePassId}`,
+        `/invoice/bill-member/${memberId}?withPrivatePass=${privatePassId}`,
       ),
 
     registerPrivateBooking: ({ registerPrivateBooking, fetchMember }) => (

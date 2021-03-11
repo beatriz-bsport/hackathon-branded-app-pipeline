@@ -122,6 +122,7 @@ export class InvoiceCreation extends Component<Props, State> {
           member={member}
           onSubmit={this.prepareCreate}
           onCancel={goToInvoiceList}
+          initialItems={this.props.initialItems}
           availableBuyableItems={this.props.availableBuyableItems}
           goToSubscription={this.props.goToSubscription}
           goToMemberPage={() => goToMemberPage(memberId)}

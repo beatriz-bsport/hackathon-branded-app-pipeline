@@ -14,6 +14,7 @@ type Props = {
 
 class Analytics extends React.Component<Props> {
   init = () => {
+    if (global.isLoadedAnalytics) return;
     if (!this.props.theme) {
       return;
     }
@@ -38,6 +39,7 @@ class Analytics extends React.Component<Props> {
     if (gtmId) {
       GoogleAnalytics.init(gtmId);
     }
+    window.isLoadedAnalytics = true;
   };
 
   componentDidMount() {

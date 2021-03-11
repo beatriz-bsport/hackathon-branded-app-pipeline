@@ -26,6 +26,7 @@ export default class FacebookPixel {
     );
     /* eslint-enable */
     fbq('init', pixelId);
+    console.log('pixel initiated on ', pixelId);
   }
 
   static addPassToCart(pp) {

@@ -24,8 +24,15 @@ class Analytics extends React.Component<Props> {
       gtmId = 'GTM-W4G3NQ6';
     }
 
-    if (!this.props.isInternal) {
-      FacebookPixel.init(this.props.theme.facebookPixelId || '515094402731005');
+    if (
+      !this.props.isInternal &&
+      !!this.props.theme &&
+      !!this.props.theme.facebookPixelId
+    ) {
+      FacebookPixel.init(this.props.theme.facebookPixelId);
+    }
+    if (this.props.isInternal) {
+      FacebookPixel.init('515094402731005');
     }
 
     if (gtmId) {

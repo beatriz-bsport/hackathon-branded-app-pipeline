@@ -14,6 +14,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import Skeleton from '@material-ui/lab/Skeleton';
 // import ListItem from '@material-ui/core/ListItem';
 //
 import CoachGroupAvatar from '../../associated-coach/components/CoachGroupAvatar.component';
@@ -25,6 +26,7 @@ type Props = {
   isPlaying: number,
   menuAchorEl: HTMLElement,
   setMenuAnchorEl: (?HTMLElement) => void,
+  loading: boolean,
 };
 export const VideoThumbnail = (props: Props) => {
   const classes = useStyles();
@@ -44,11 +46,19 @@ export const VideoThumbnail = (props: Props) => {
               <PlayCircleOutlineIcon color="primary" fontSize="large" />
             </div>
           )}
-          <img
-            alt={video.name}
-            className={classes.media}
-            src={video.cover_main}
-          />
+          {props.loading ? (
+            <Skeleton
+              animation="wave"
+              variant="rect"
+              className={classes.media}
+            />
+          ) : (
+            <img
+              alt={video.name}
+              className={classes.media}
+              src={video.cover_main}
+            />
+          )}
         </div>
         <div className={classes.rightPanel}>
           <div style={{ width: '100%' }}>
@@ -67,7 +77,11 @@ export const VideoThumbnail = (props: Props) => {
                   variant="subtitle2"
                   className={classes.title}
                 >
-                  {video.name}
+                  {props.loading ? (
+                    <Skeleton animation="wave" variant="text" />
+                  ) : (
+                    video.name
+                  )}
                 </Typography>
                 <div className={classes.row}>
                   <AccessTimeIcon
@@ -75,10 +89,14 @@ export const VideoThumbnail = (props: Props) => {
                     fontSize="small"
                   />
                   <Typography variant="body2" color="textSecondary">
-                    {`${t('video.durationMinute', {
-                      minute:
-                        parseInt(props.video.duration_second / 60, 10) + 1,
-                    })}`}
+                    {props.loading ? (
+                      <Skeleton animation="wave" variant="text" />
+                    ) : (
+                      `${t('video.durationMinute', {
+                        minute:
+                          parseInt(props.video.duration_second / 60, 10) + 1,
+                      })}`
+                    )}
                   </Typography>
                 </div>
               </div>
@@ -92,7 +110,11 @@ export const VideoThumbnail = (props: Props) => {
               )}
             </div>
           </div>
-          <CoachGroupAvatar size="small" coaches={video.coaches} />
+          <CoachGroupAvatar
+            size="small"
+            coaches={video.coaches}
+            loading={props.loading}
+          />
         </div>
       </ButtonBase>
       <Menu

@@ -7,7 +7,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 
@@ -66,16 +65,12 @@ export const VideoThumbnailList = (props: Props) => {
               <VideoThumbnail
                 onDeleteVideo={props.onDeleteVideo}
                 isPlaying={props.videoPlayingId === v.id}
+                loading={props.loading}
                 video={v}
                 onClick={() => props.onOpenVideo(v.id)}
               />
             </div>
           ))}
-        {!!props.loading && (
-          <div className={classes.loadingContainer}>
-            <CircularProgress />
-          </div>
-        )}
         {!props.loading && !!props.hasMoreVideo && !!props.fetchMoreVideo && (
           <Button
             onClick={props.fetchMoreVideo}

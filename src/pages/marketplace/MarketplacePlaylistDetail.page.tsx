@@ -139,7 +139,6 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
     if (this.props.loading || !this.props.playlist) {
       return <LinearProgress />;
     }
-
     return (
       <div className={this.props.classes.container}>
         <div className={this.props.classes.playlistDetailContainer}>

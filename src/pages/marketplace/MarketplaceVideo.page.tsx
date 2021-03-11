@@ -79,7 +79,6 @@ export class MarketplaceVideo extends React.Component<Props> {
     const { classes } = this.props;
     return (
       <div className={classes.container}>
-        {!!this.props.loading && <LinearProgress />}
         <div className={classes.container2}>
           <div className={classes.videoListContainer}>
             <div className={classes.searchContainer}>

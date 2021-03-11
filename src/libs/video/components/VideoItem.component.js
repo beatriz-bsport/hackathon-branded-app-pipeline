@@ -2,11 +2,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Skeleton from '@material-ui/lab/Skeleton';
 import CoachGroupAvatar from '../../associated-coach/components/CoachGroupAvatar.component';
 
 type Props = {
   openVideo: (id: number) => void,
   video: Video,
+  loading: boolean,
 };
 
 export const VideoItem = (props: Props) => {
@@ -20,16 +22,28 @@ export const VideoItem = (props: Props) => {
       className={classes.container}
     >
       <div className={classes.imageWrapper}>
-        <img
-          className={classes.media}
-          src={props.video.cover_main}
-          alt={props.video.name}
-        />
+        {props.loading ? (
+          <Skeleton animatoin="wave" className={classes.media} />
+        ) : (
+          <img
+            className={classes.media}
+            src={props.video.cover_main}
+            alt={props.video.name}
+          />
+        )}
         <div className={classes.mediaOverlay} />
       </div>
       <div className={classes.footer}>
-        <Typography variant="h6">{props.video.name}</Typography>
-        <CoachGroupAvatar size="small" coaches={props.video.coaches} />
+        {props.loading ? (
+          <Skeleton animation="wave" variant="text" />
+        ) : (
+          <Typography variant="h6">{props.video.name}</Typography>
+        )}
+        <CoachGroupAvatar
+          size="small"
+          coaches={props.video.coaches}
+          loading={props.loading}
+        />
       </div>
     </div>
   );
@@ -62,6 +76,10 @@ const useStyles = makeStyles((theme) => ({
     '&>*': {
       paddingBottom: theme.spacing(0.5),
     },
+  },
+  skeletonContainer: {
+    width: '100%',
+    display: 'flex',
   },
 }));
 

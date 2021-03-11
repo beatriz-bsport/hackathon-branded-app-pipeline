@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import { compose, withState } from 'recompose';
@@ -29,6 +28,7 @@ type Props = {
   compatiblePaymentPacks: Array<PaymentPack>,
   activityLoading: boolean,
   establishmentLoading: boolean,
+  loading: boolean,
   paymentComboList: Array<PaymentCombo>,
   goToPaymentComboPayment: (offerId: number) => void,
 
@@ -63,6 +63,16 @@ export const MarketplaceWorkshop = (props: Props) => {
             />
           </div>
         ))}
+        {offers.length !== 0 &&
+          props.loading &&
+          [1, 2].map((i) => (
+            <div key={i} className={classes.workshopCardContainer}>
+              <MarketplaceWorkshopEvent
+                activityLoading={props.activityLoading}
+                establishmentLoading={props.establishmentLoading}
+              />
+            </div>
+          ))}
       </div>
       <MarketplaceActivityDialog
         offer={props.offerSelected}

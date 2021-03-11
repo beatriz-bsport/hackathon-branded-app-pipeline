@@ -9,11 +9,11 @@ import {
   Chip,
   Theme,
 } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import { uniq, isEqual } from 'lodash';
-
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/styles';
 import { fetchMarketplacePrivateServices } from '../../../../libs/private-service/actions';
@@ -91,8 +91,36 @@ export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
     const { classes, t } = this.props;
     if (this.props.loading) {
       return (
-        <div className={classes.loadingContainer}>
-          <CircularProgress />
+        <div className={classes.container2}>
+          <Grid container align="stretch" className={classes.servicesContainer}>
+            {[1, 2, 3].map((i) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={i}>
+                <ButtonBase
+                  className={classes.buttonContainer}
+                  onClick={() => null}
+                >
+                  <Paper className={classes.itemPaperContainer}>
+                    <div className={classes.itemPaperImageContainer}>
+                      <Skeleton
+                        animation="wave"
+                        variant="rect"
+                        className={classes.itemPaperImage}
+                      />
+                    </div>
+                    <div className={classes.itemPaperContent}>
+                      <Skeleton animation="wave" width="50%" />
+                      {[1, 2, 3].map((j) => (
+                        <Skeleton animation="wave" key={j} />
+                      ))}
+                    </div>
+                    <div className={classes.itemPaperContent}>
+                      <Skeleton animation="wave" width="20%" />
+                    </div>
+                  </Paper>
+                </ButtonBase>
+              </Grid>
+            ))}
+          </Grid>
         </div>
       );
     }

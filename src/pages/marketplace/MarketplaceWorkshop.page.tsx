@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { compose, withProps } from 'recompose';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { push, replace as replaceRouter } from 'connected-react-router';
@@ -112,11 +111,8 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
   };
 
   render() {
-    const { classes, offers, loading } = this.props;
+    const { classes, offers } = this.props;
 
-    if (loading) {
-      return <LinearProgress />;
-    }
     return (
       <div className={classes.container}>
         <div className={classes.column}>
@@ -134,6 +130,7 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
             activityLoading={this.props.activityLoading}
             hideCoach={this.props.theme && this.props.theme.hideCoach}
             establishmentLoading={this.props.establishmentLoading}
+            loading={this.props.loading}
             fetchPaymentPacks={this.props.fetchPaymentPacks}
             fetchCompatiblePass={this.props.fetchCompatiblePass}
             compatibleConsumerPacks={this.props.compatibleConsumerPacks}

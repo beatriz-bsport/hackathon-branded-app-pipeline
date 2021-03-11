@@ -1,5 +1,5 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
-.env
+.venv
 public/env.js
 ./public/locales
 ./src/i18n/en-US/*js
@@ -64,3 +64,8 @@ tags
 # End of https://www.gitignore.io/api/vim,linux
 
 .eslintcache
+
+#Vscode
+.vscode
+
+#

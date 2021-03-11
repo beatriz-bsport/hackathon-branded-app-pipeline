@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-
 import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
@@ -12,8 +11,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
-import CircularProgress from '@material-ui/core/CircularProgress';
-
+import Skeleton from '@material-ui/lab/Skeleton';
 import type { TFunction } from 'react-i18next';
 import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
 
@@ -62,28 +60,22 @@ const BookButton = (props: {
 
 export const MarketplaceWorkshopEvent = (props: Props) => {
   const { t, offer } = props;
-
-  return (
-    <Card style={{ width: '100%' }}>
-      {props.activityLoading ? (
-        <div className={props.classes.centerDiv}>
-          <CircularProgress size={20} />
+  if (
+    !offer ||
+    !offer.meta_activity ||
+    typeof offer.meta_activity === 'number' || // Must be changed meta activty should not appear as a number
+    !offer.establishment
+  ) {
+    return (
+      <Card style={{ width: '100%' }}>
+        <div className={props.classes.mediaWrapper}>
+          <Skeleton
+            animation="wave"
+            variant="rect"
+            className={props.classes.media}
+          />
         </div>
-      ) : (
-        <CardMedia
-          component="img"
-          image={props.offer.meta_activity.cover_main}
-          classes={{
-            media: props.classes.media,
-          }}
-        />
-      )}
-      <CardContent>
-        {props.activityLoading ? (
-          <div className={props.classes.centerDiv}>
-            <CircularProgress size={20} />
-          </div>
-        ) : (
+        <CardContent>
           <div
             style={{
               display: 'flex',
@@ -92,44 +84,76 @@ export const MarketplaceWorkshopEvent = (props: Props) => {
               flexDirection: 'row',
             }}
           >
-            <Typography variant="h5" component="h3">
-              {props.offer.meta_activity.name}
-            </Typography>
+            <Skeleton animation="wave" className={props.classes.centerDiv} />
           </div>
-        )}
+          <Skeleton
+            animation="wave"
+            width="30%"
+            className={props.classes.centerDiv}
+          />
+          <Skeleton
+            animation="wave"
+            width="20%"
+            className={props.classes.centerDiv}
+          />
+          <div style={{ marginTop: 16 }}>
+            <Skeleton animation="wave" className={props.classes.centerDiv} />
+          </div>
+        </CardContent>
+        <CardActions>
+          <Skeleton
+            animation="wave"
+            className={props.classes.buttonSkeleton}
+            width="20%"
+          />
+        </CardActions>
+      </Card>
+    );
+  }
+  return (
+    <Card style={{ width: '100%' }}>
+      <div className={props.classes.mediaWrapper}>
+        <CardMedia
+          component="img"
+          image={props.offer.meta_activity.cover_main}
+          className={props.classes.media}
+        />
+      </div>
 
-        {props.establishmentLoading ? (
-          <div className={props.classes.centerDiv}>
-            <CircularProgress size={20} />
-          </div>
-        ) : (
-          <Typography variant="h6" component="h4">
-            {formatAsDatetime(
-              props.offer.date_start,
-              props.offer.establishment.tzname,
-            )}
+      <CardContent>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}
+        >
+          <Typography variant="h5" component="h3">
+            {props.offer.meta_activity.name}
           </Typography>
-        )}
+        </div>
+        <Typography variant="h6" component="h4">
+          {formatAsDatetime(
+            props.offer.date_start,
+            props.offer.establishment.tzname,
+          )}
+        </Typography>
         <Typography variant="subtitle2" component="h4">
           {t('marketplace:workshop.card.duration', {
             duration: formatMinutes(props.offer.duration_minute, t),
           })}
         </Typography>
+
         <div style={{ marginTop: 16 }}>
-          {props.activityLoading ? (
-            <div className={props.classes.centerDiv}>
-              <CircularProgress size={20} />
-            </div>
-          ) : (
-            <TypographyWithShowMore
-              component="div"
-              multiline
-              variant="body1"
-              color="textSecondary"
-            >
-              {props.offer.meta_activity.description}
-            </TypographyWithShowMore>
-          )}
+          <TypographyWithShowMore
+            component="div"
+            multiline
+            variant="body1"
+            color="textSecondary"
+          >
+            {props.offer.meta_activity.description}
+          </TypographyWithShowMore>
         </div>
       </CardContent>
       <CardActions>
@@ -148,8 +172,27 @@ export const MarketplaceWorkshopEvent = (props: Props) => {
 };
 
 const styles = () => ({
-  media: { objectFit: 'cover', maxHeight: '60vh' },
+  mediaWrapper: {
+    width: '100%',
+    paddingTop: '56.25%',
+    position: 'relative',
+  },
+  media: {
+    objectFit: 'cover',
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
   centerDiv: { width: '100%', display: 'flex', justifyContent: 'center' },
+  buttonSkeleton: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-start',
+  },
 });
 
 export default compose(

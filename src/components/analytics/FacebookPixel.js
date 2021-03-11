@@ -3,6 +3,13 @@
 export default class FacebookPixel {
   static init(pixelId) {
     /* eslint-disable */
+		try {
+		if (fbq)  {
+			fbq = undefined
+		}
+	} catch(err) {
+		console.error(err)
+	}
     !(function(f, b, e, v, n, t, s) {
       if (f.fbq) return;
       n = f.fbq = function() {

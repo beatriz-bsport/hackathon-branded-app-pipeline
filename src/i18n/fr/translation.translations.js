@@ -493,6 +493,7 @@ exports.default = {
     oneHour: '1h',
     oneHourFifteen: '1h15',
     oneHourAndHalf: '1h30',
+    fifteenMin: '50 min',
     twoHour: '2h',
     threeHour: '3h',
     fourHour: '4h',

@@ -161,7 +161,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
           favoriteEstablishment={this.props.favoriteEstablishment}
           goToCalendar={this.props.goToCalendar}
         />
-        <div style={{ marginBottom: 12 }}>
+        <div style={{ marginBottom: 32 }}>
           <MemberBillingProblemCard
             invoiceLoading={this.props.invoiceLoading}
             memberId={this.props.membership.id}
@@ -366,7 +366,7 @@ const mapWithHandlers = {
   ) => {
     props.fetchBookingsAndPrivateBookings({
       page,
-      date_start: moment().format('YYYY-MM-DD'),
+      min_date: moment().format('YYYY-MM-DD'),
       member: props.membership.id,
       options: {
         onSuccess: (bookingsAndPrivateBookings) => {

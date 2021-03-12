@@ -876,7 +876,8 @@
             "warningCreditChange": "N.B. oude reserveringen houden geen rekening met wijzigingen in je saldo",
             "noAvailableCredit": "Weet je zeker dat je geen prijs wilt invoeren?",
             "explainNoEmailChange": "Als de e-mail gewijzigd wordt, kan de instructeur geen verbinding meer maken. De instructeur kan zijn/haar e-mail wijzigen door met zijn/haar BSPORT-account in te loggen",
-            "daily": "Dagelijks"
+            "daily": "Dagelijks",
+            "fifteenMin": "50 min."
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",

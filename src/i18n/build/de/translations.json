@@ -1022,7 +1022,8 @@
             "noAvailableCredit": "Achtung: Kein Preis wurde angegeben. Bist du dir des Wertes sicher?",
             "signUpTitle": "Anmeldung",
             "explainNoEmailChange": "Wenn die E-Mail-Adresse geändert werden soll, wird es für Lehrer nicht möglich sein, sich einzuloggen. Nur Lehrer können E-Mail-Adressen ändern, indem Lehrer sich mit dem bsport-Konto verbinden",
-            "daily": "Täglich"
+            "daily": "Täglich",
+            "fifteenMin": "50 min"
         },
         "booking": {
             "revertBookingExplain": {
@@ -3812,7 +3813,14 @@
                 "title": "Ein Video uploaden",
                 "content": "Video hierher ziehen oder Video zum Hochladen auswählen",
                 "dropHere": "Ziehe hier ein Video per Drag & Drop oder klicke hier, um Deinen Computer zu durchsuchen",
-                "cancel": "Abbrechen"
+                "cancel": "Abbrechen",
+                "urlInputError": "Bitte gib eine URL ein",
+                "urlInputLabel": "Youtube-Link",
+                "type": {
+                    "url": "Url",
+                    "file": "Datei"
+                },
+                "submit": "Bestätigen"
             },
             "form": {
                 "edit": "Ändern",
@@ -6080,7 +6088,7 @@
         "consumer_payment_pack_links": {
             "form": {
                 "create": {
-                    "explain": "Diese Kurskarte wird zwischen den beiden Mitgliedern geteilt. Die Credits können entweder von beiden Mitgliedern verwendet werden.",
+                    "explain": "Diese Kurskarte wird zwischen den beiden Mitgliedern geteilt. Die Credits können von beiden Mitgliedern verwendet werden.",
                     "previous": "Zurück",
                     "submit": "Gemeinsam benutzen",
                     "cancel": "Abbrechen",

@@ -1571,7 +1571,8 @@
             "warningCreditChange": "NB : Old reservations do not take into account changes in credits",
             "noAvailableCredit": "Please note that you are not entering a price. Are you sure of the value?",
             "explainNoEmailChange": "Changing the email will hinder the teacher from connecting, only he can modify his email by connecting to his bsport account",
-            "daily": "Daily"
+            "daily": "Daily",
+            "fifteenMin": "50 min"
         },
         "shop": {
             "noProvisionUpdates": "No provision",
@@ -7904,7 +7905,14 @@
                 "cancel": "Cancel",
                 "dropHere": "Drag and drop a video here or click to browse your computer",
                 "content": "Drop here or select a video",
-                "title": "Upload a video"
+                "title": "Upload a video",
+                "urlInputError": "Please enter a url",
+                "urlInputLabel": "Youtube link",
+                "type": {
+                    "url": "URL",
+                    "file": "File"
+                },
+                "submit": "Save"
             },
             "delete": {
                 "cancel": "Cancel",

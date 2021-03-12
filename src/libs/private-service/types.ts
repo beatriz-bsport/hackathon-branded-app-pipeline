@@ -1,3 +1,5 @@
+import { WithPagination } from '../types';
+
 export enum ResourceAttributionEnum {
   auto = 0,
   consumer = 1,
@@ -183,14 +185,19 @@ export type ServiceCompatibilityPass = {
   excluded_slot_ids: number[];
 };
 
+export type PrivateConsumerPassMassExtension = {
+  id: number;
+  private_pass: number;
+  min_ending_date: string;
+  max_ending_date: string;
+  note: string;
+  nb_days: number;
+  date_created: string;
+};
+
 type ErrorAndLoading = {
   error?: Error;
   loading: boolean;
-};
-
-type WithPagination = {
-  count: number;
-  page: number;
 };
 
 export interface PrivateServiceState {
@@ -236,6 +243,12 @@ export interface PrivateServiceState {
       delete: ErrorAndLoading;
       updatingConsumerPass: [];
     };
+    massExtension: ErrorAndLoading &
+      WithPagination & {
+        byId: { [key: string]: PrivateConsumerPassMassExtension };
+        allIds: number[];
+        firstLoadDone: boolean;
+      };
   };
   resource: {
     byId: { [key: string]: PrivateResource };

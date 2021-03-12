@@ -6,28 +6,21 @@ import { ListItem, Theme } from '@material-ui/core';
 import moment from 'moment-timezone';
 import { WithTranslation, withTranslation } from 'react-i18next';
 // @ts-ignore
-import RedButton from '../../../components/button/RedButton.component';
+import RedButton from '../../../../components/button/RedButton.component';
 
-import { MaterialStyleType } from '../../../utils/types';
-
-interface MassExtension {
-  note: string;
-  nb_days: number;
-  min_ending_date: string;
-  max_ending_date: string;
-  date_created: string;
-}
+import { MaterialStyleType } from '../../../../utils/types';
+import { PrivateConsumerPassMassExtension } from '../../types';
 
 type OwnProps = {
-  massExtension: MassExtension;
-  onDelete: (p: MassExtension) => void;
+  massExtension: PrivateConsumerPassMassExtension;
+  onDelete: (p: PrivateConsumerPassMassExtension) => void;
 };
 
 type Props = OwnProps &
   WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 
-export const PaymentPackMassExtensionListItem = (props: Props) => {
+export const PrivatePassMassExtensionListItem = (props: Props) => {
   const { classes, t, massExtension } = props;
   return (
     <ListItem divider dense className={classes.itemContainer}>
@@ -82,4 +75,4 @@ export default compose<any, OwnProps>(
   withTranslation(['paymentPack']),
   // @ts-ignore
   withStyles(styles),
-)(PaymentPackMassExtensionListItem);
+)(PrivatePassMassExtensionListItem);

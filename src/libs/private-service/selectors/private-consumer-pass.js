@@ -5,6 +5,7 @@ import memoize from 'memoize-one';
 import type { State } from '../../../state/types';
 import type { PrivateConsumerPass } from '../types';
 import { getMemberListData } from '../../member/selectors';
+import { RootState } from '../../../reducers';
 
 const _getPrivateConsumerPassIdList: (State) => Array<number> = (state) =>
   state.privateService.privateConsumerPass.allIds;
@@ -82,3 +83,11 @@ export const getPrivateConsumerPassByMember = createSelector(
   [getPrivateConsumerPassDict, _getIdsByMember],
   (data, ids) => ids.map((id) => data[id]),
 );
+
+export const getPrivateConsumerPassMassExtension = (state: RootState) => {
+  return state.privateService.privateConsumerPass.massExtension.allIds.map(
+    (id) => {
+      return state.privateService.privateConsumerPass.massExtension.byId[id];
+    },
+  );
+};

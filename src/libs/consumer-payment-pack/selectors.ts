@@ -127,7 +127,7 @@ export const getConsumerPaymentPackCompatibleList = createSelector(
   },
 );
 
-export const getMassExtensions = (state: RootState) => {
+export const getConsumerPaymentPackMassExtension = (state: RootState) => {
   return state.consumerPaymentPack.massExtension.allIds.map((id) => {
     return state.consumerPaymentPack.massExtension.byId[id];
   });

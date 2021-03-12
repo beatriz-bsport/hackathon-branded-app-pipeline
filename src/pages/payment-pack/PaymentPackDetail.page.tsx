@@ -34,7 +34,7 @@ import {
 } from '../../libs/consumer-payment-pack/actions';
 import {
   getConsumerPacksByPackWithMember,
-  getMassExtensions,
+  getConsumerPaymentPackMassExtension,
 } from '../../libs/consumer-payment-pack/selectors';
 
 import {
@@ -84,7 +84,7 @@ import {
 } from '../../libs/smart-list/actions';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import PaginatedPaymentPackMassExtensionList from '../../libs/consumer-payment-pack/components/PaginatedPaymentPackMassEffectList.component';
+import PaymentPackMassExtensionList from '../../libs/consumer-payment-pack/components/PaymentPackMassExtensionList.component';
 import { PaymentPackMassExtension } from '../../libs/consumer-payment-pack/types';
 
 type OwnProps = {
@@ -308,7 +308,7 @@ export class PaymentPackDetail extends Component<Props, State> {
                   {this.props.t('paymentPack:section.massExtension')}
                 </Typography>
                 <Divider className={this.props.classes.divider} />
-                <PaginatedPaymentPackMassExtensionList
+                <PaymentPackMassExtensionList
                   items={this.props.massExtension.items}
                   nbItems={this.props.massExtension.count}
                   firstLoadDone={this.props.massExtension.firstLoadDone}
@@ -411,7 +411,7 @@ const styles = (theme: Theme) => ({
 const mapStateToProps = (state: RootState, props: OwnProps) => {
   return {
     massExtension: {
-      items: getMassExtensions(state),
+      items: getConsumerPaymentPackMassExtension(state),
       count: state.consumerPaymentPack.massExtension.count,
       loading: state.consumerPaymentPack.massExtension.loading,
       firstLoadDone: state.consumerPaymentPack.massExtension.firstLoadDone,

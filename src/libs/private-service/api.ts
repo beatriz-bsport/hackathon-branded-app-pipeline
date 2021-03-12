@@ -513,3 +513,22 @@ export const deleteRecurrenceRulePrivateBooking = (id: number) => {
     `${API_V1_URI}/private_service/recurrence_rule_private_booking/${id}/`,
   );
 };
+
+export async function fetchPrivatePassMassExtensions(data: any) {
+  return getAuth(
+    `${API_V1_URI}/private_service/private_pass_mass_extension/?private_pass=${data.privatePass}&page=${data.page}&page_size=${data.page_size}`,
+  );
+}
+
+export async function createPrivatePassMassExtension(data: any) {
+  return postAuth(
+    `${API_V1_URI}/private_service/private_pass_mass_extension/`,
+    data,
+  );
+}
+
+export async function deletePrivatePassMassExtension(id: number) {
+  return deleteAuth(
+    `${API_V1_URI}/private_service/private_pass_mass_extension/${id}`,
+  );
+}

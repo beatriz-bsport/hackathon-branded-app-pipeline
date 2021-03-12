@@ -48,6 +48,7 @@ import {
   listRecurrenceRulePrivateBookingActions,
   createOrUpdateRecurrenceRulePrivateBookingActions,
   deleteRecurrenceRulePrivateBookingActions,
+  privateConsumerPassMassExtensionActions,
   privateServiceCompatiblePassActions,
 } from './actions';
 
@@ -116,6 +117,16 @@ const initialState: Seamless.Immutable<PrivateServiceState> = Seamless<PrivateSe
           error: null,
         },
         updatingConsumerPass: [],
+      },
+      massExtension: {
+        loading: false,
+        firstLoadDone: false,
+        error: null,
+        byId: {},
+        allIds: [],
+        count: 0,
+        page: 1,
+        next_page: 1,
       },
     },
     resource: {
@@ -351,6 +362,65 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
         [...(state.privateConsumerPass.extension.items as any), payload],
       );
     },
+
+    [privateConsumerPassMassExtensionActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateConsumerPass', 'massExtension', 'loading'],
+        payload,
+      );
+    },
+    [privateConsumerPassMassExtensionActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateConsumerPass', 'massExtension', 'error'],
+        payload,
+      );
+    },
+    [privateConsumerPassMassExtensionActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state
+        .setIn(
+          ['privateConsumerPass', 'massExtension', 'allIds'],
+          payload.results.map((m) => m.id),
+        )
+        .setIn(['privateConsumerPass', 'massExtension', 'count'], payload.count)
+        .setIn(['privateConsumerPass', 'massExtension', 'firstLoadDone'], true)
+        .setIn(['privateConsumerPass', 'massExtension', 'page'], payload.page)
+        .setIn(
+          ['privateConsumerPass', 'massExtension', 'next_page'],
+          payload.next_page,
+        )
+        .merge(
+          {
+            privateConsumerPass: {
+              massExtension: {
+                byId: payload.results.reduce((acc, mE) => {
+                  acc[mE.id] = mE;
+                  return acc;
+                }, {}),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [privateConsumerPassMassExtensionActions.create.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['privateConsumerPass', 'massExtension', 'byId', payload.id],
+        payload,
+      );
+    },
+
     [updateResourceConfigurationActions.success.toString()]: (
       state,
       { payload },

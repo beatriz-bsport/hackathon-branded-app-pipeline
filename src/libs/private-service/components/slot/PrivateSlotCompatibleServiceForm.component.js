@@ -23,7 +23,7 @@ export const PrivateSlotCompatibleServiceForm = (props: Props) => {
   const { compatiblePassByService, t, classes } = props;
   const slots = (
     (compatiblePassByService || {}).private_service || { slots: [] }
-  ).slots.filter((s) => !!s && s.avalable);
+  ).slots.filter((s) => !!s && s.available);
   const [unselectedSlots, setUnselectedSlots] = React.useState(
     (compatiblePassByService || {}).excluded_slot_ids || [],
   );

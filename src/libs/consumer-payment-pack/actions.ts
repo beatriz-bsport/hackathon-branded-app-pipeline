@@ -22,6 +22,7 @@ import {
 } from './api';
 
 import { monitorBackgroundTask } from '../background-task/actions';
+import { PaymentPackMassExtension } from './types';
 
 export const byOfferByMember = {
   isLoading: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/IS_LOADING'),
@@ -422,13 +423,10 @@ export function fetchMassExtensionList(
 }
 
 export function createMassExtension(
-  data: {
-    payment_pack: number;
-    min_ending_date: string;
-    max_ending_date: string;
-    note: string;
-    nb_days: number;
-  },
+  data: Pick<
+    PaymentPackMassExtension,
+    Exclude<keyof PaymentPackMassExtension, 'id' | 'date_created'>
+  >,
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {

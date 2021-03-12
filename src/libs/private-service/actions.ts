@@ -74,12 +74,21 @@ import {
   fetchCustomEventList as fetchCustomEventListAPI,
   createOrUpdateCustomEvent as createOrUpdateCustomEventAPI,
   deleteCustomEvent as deleteCustomEventAPI,
+  fetchPrivatePassMassExtensions as fetchPrivatePassMassExtensionsAPI,
+  createPrivatePassMassExtension as createPrivatePassMassExtensionAPI,
+  deletePrivatePassMassExtension as deletePrivatePassMassExtensionAPI,
 } from './api';
+
+import { monitorBackgroundTask } from '../background-task/actions';
 
 import { fetchAll as fetchAlerting } from '../alerting/actions';
 
 import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
-import { PrivateService, PrivateSlot } from './types';
+import {
+  PrivateConsumerPassMassExtension,
+  PrivateService,
+  PrivateSlot,
+} from './types';
 
 export const privateBookingAttachCoachActions = {
   error: createAction('PRIVATE_BOOKING/ATTACH_COACH/ERROR'),
@@ -1482,7 +1491,7 @@ export const privateConsumerPassUpdateCreditActions = {
 export function updatePrivateConsumerPassCredits(
   id: number,
   credits: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateConsumerPassUpdateCreditActions.isLoading(true));
@@ -1863,6 +1872,90 @@ export const deletePrivateConsumerPassExtensionActions = {
   isLoading: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/DELETE/LOADING'),
   success: createAction('PRIVATE_CONSUMER_PASS_EXTENSION/DELETE/SUCCESS'),
 };
+
+export const privateConsumerPassMassExtensionActions = {
+  isLoading: createAction('CONSUMER_PACK_MASS_EXTENSION/IS_LOADING'),
+  error: createAction('CONSUMER_PACK_MASS_EXTENSION/ERROR'),
+  success: createAction('CONSUMER_PACK_MASS_EXTENSION/SUCCESS'),
+  create: createAction('CONSUMER_PACK_MASS_EXTENSION/CREATE'),
+};
+
+export function fetchPrivatePassMassExtensionList(
+  params: {
+    privatePass: number;
+    page: number;
+    page_size: number;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateConsumerPassMassExtensionActions.isLoading(true));
+    dispatch(privateConsumerPassMassExtensionActions.error(null));
+    try {
+      const response = await fetchPrivatePassMassExtensionsAPI(params);
+      response.data.page = params.page;
+      dispatch(privateConsumerPassMassExtensionActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (e) {
+      console.error(e);
+      dispatch(privateConsumerPassMassExtensionActions.error(e));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(privateConsumerPassMassExtensionActions.isLoading(false));
+  };
+}
+
+export function createPrivatePassMassExtension(
+  data: Pick<
+    PrivateConsumerPassMassExtension,
+    Exclude<keyof PrivateConsumerPassMassExtension, 'id' | 'date_created'>
+  >,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateConsumerPassMassExtensionActions.isLoading(true));
+    dispatch(privateConsumerPassMassExtensionActions.error(null));
+    try {
+      const response = await createPrivatePassMassExtensionAPI(data);
+      dispatch(privateConsumerPassMassExtensionActions.create(response.data));
+      options && options.onSuccess && options.onSuccess();
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: options.onSuccess,
+        }),
+      );
+    } catch (e) {
+      console.error(e);
+      dispatch(privateConsumerPassMassExtensionActions.error(e));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(privateConsumerPassMassExtensionActions.isLoading(false));
+  };
+}
+
+export function deletePrivatePassMassExtension(
+  id: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateConsumerPassMassExtensionActions.isLoading(true));
+    try {
+      const response = await deletePrivatePassMassExtensionAPI(id);
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: options.onSuccess,
+        }),
+      );
+    } catch (e) {
+      console.error(e);
+      dispatch(privateConsumerPassMassExtensionActions.error(e));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(privateConsumerPassMassExtensionActions.isLoading(false));
+  };
+}
 
 export function deletePrivateConsumerPassExtension(
   id: number,

@@ -42,6 +42,7 @@ export type PaymentPackMassExtension = {
   max_ending_date: string;
   note: string;
   nb_days: number;
+  date_created: string;
 };
 
 export type ConsumerPaymentPackState = ErrorAndLoading & {

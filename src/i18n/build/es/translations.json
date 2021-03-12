@@ -494,7 +494,8 @@
             "warningCreditChange": "NB: las reservas anteriores no tienen en cuenta los cambios en los créditos",
             "noAvailableCredit": "Tiene en cuenta que no estás ingresando un precio. ¿Estás seguro del valor?",
             "explainNoEmailChange": "Cambiar el email evitará que el maestro se conecte, solo él puede modificar su email conectándose a su cuenta bsport",
-            "daily": "Diario"
+            "daily": "Diario",
+            "fifteenMin": "50 min"
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -6239,7 +6240,14 @@
                 "cancel": "Cancelar",
                 "dropHere": "Arrastra y suelta un video aquí o haz clic para explorar su computadora",
                 "content": "Envía aquí o selecciona un video",
-                "title": "Subir un video"
+                "title": "Subir un video",
+                "urlInputError": "Por favor, introduzca un url",
+                "urlInputLabel": "Enlace de Youtube",
+                "type": {
+                    "url": "URL",
+                    "file": "Archivo"
+                },
+                "submit": "Guardar"
             },
             "delete": {
                 "content": "¿Estás seguro de que quieres suprimir este video? Esta operación es irreversible.",

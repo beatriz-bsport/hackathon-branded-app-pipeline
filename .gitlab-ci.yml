@@ -24,6 +24,7 @@ Prepare Docker Builder Image:
   image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:v1.0.1
   tags:
     - deployment
+    - kubernetes
   stage: prepare-image-docker
   script:
     - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_ENDPOINT}
@@ -34,15 +35,27 @@ Lint:
   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
   stage: static-analysis
   tags:
-    - deployment
+    - high-ram
+    - kubernetes
   script:
-    - ls /app/
-    - ls .
-    - pwd
+    - mv /app/node_modules .
+    - yarn install --frozen-lockfile # just to be sure
+    - yarn lint
+
+  except:
+    - master
+    - production
+
+Test:
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  stage: static-analysis
+  tags:
+    - light
+    - kubernetes
+  script:
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure
     - yarn test
-    - yarn lint
 
   except:
     - master
@@ -76,7 +89,8 @@ Lint:
   image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:latest
   stage: bump-version
   tags:
-    - deployment
+    - light
+    - kubernetes
   allow_failure: true
   only:
     - master
@@ -145,6 +159,7 @@ Lint:
   #       - node_modules
   tags:
     - build-frontend
+    - kubernetes
   only:
     refs:
       - dev
@@ -228,7 +243,8 @@ Buid Deploy Dev:
   image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:v1.0.1
   stage: promote
   tags:
-    - deployment
+    - light
+    - kubernetes
   only:
     - dev
     - master

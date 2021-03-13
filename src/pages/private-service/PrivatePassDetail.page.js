@@ -22,6 +22,7 @@ import {
   getPrivatePass,
   withServices,
   withAvailable,
+  getCompatibilityPassWithService as getCompatibleServicePass,
 } from '../../libs/private-service/selectors/private-pass';
 import {
   getPrivateConsumerPassByPrivatePass,
@@ -34,7 +35,10 @@ import {
   fetchAllPrivateServices,
   createOrUpdatePrivatePass as createOrUpdatePrivatePassAction,
   deleteCompatibleServicePass,
-  createCompatibleServicePass,
+  createCompatibleServicePass as createCompatibleServicePassAction,
+  updateCompatibleServicePass,
+  fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
+  fetchAllPrivateSlots,
   deletePrivatePass as deletePrivatePassAction,
   updatePrivateConsumerPassCredits as updatePrivatePassCredit,
   resetByPrivatePass as resetByPrivatePassAction,
@@ -45,7 +49,10 @@ import PrivatePassDetail from '../../libs/private-service/components/pass/Privat
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import PaginatedConsumerPrivatePass from '../../libs/private-service/components/pass/PaginatedConsumerPrivatePass.component';
 import BottomActionsButton from '../../components/button/BottomActionsButton.component';
-import type { privateConsumerPass } from '../../libs/private-service/types';
+import type {
+  privateConsumerPass,
+  ServiceCompatibilityPass,
+} from '../../libs/private-service/types';
 import PrivatePassForm from '../../libs/private-service/components/pass/PrivatePassForm.component';
 import PrivateConsumerPassFilters from '../../libs/private-service/components/pass/PrivateConsumerPassFilters.component';
 
@@ -60,6 +67,14 @@ type Props = {
   theme: Theme,
   deleteCompatibleServicePass: (id: number) => void,
   createCompatibleServicePass: (any) => void,
+  compatibleServicePass: Array<ServiceCompatibilityPass>,
+  fetchCompatibleServicePasses: () => void,
+  updateCompatibleServicePass: (
+    passId: number,
+    serviceId: number,
+    data: any,
+    options?: { onSuccess?: () => void, onError?: () => void },
+  ) => void,
   createOrUpdatePrivatePass: (
     data: any,
     id: ?number,
@@ -107,8 +122,9 @@ export class PrivatePassDetails extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.fetchPrivatePass(this.props.id);
     this.props.fetchAllPrivateServices();
+    this.props.fetchPrivatePass(this.props.id);
+    this.props.fetchCompatibleServicePasses();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -119,6 +135,15 @@ export class PrivatePassDetails extends Component<Props, State> {
       );
     }
   }
+
+  checkExcludedSlotAvailable = () => {
+    if (this.props.compatibleServicePass) {
+      return !!this.props.compatibleServicePass.filter(
+        (c) => c.excluded_slot_ids,
+      ).length;
+    }
+    return false;
+  };
 
   render() {
     const { classes, t } = this.props;
@@ -133,6 +158,12 @@ export class PrivatePassDetails extends Component<Props, State> {
             onDelete={() => this.props.setOpenDeletePassDialog(this.props.id)}
             deleteCompatibleServicePass={this.props.deleteCompatibleServicePass}
             createCompatibleServicePass={this.props.createCompatibleServicePass}
+            updateCompatibleServicePass={this.props.updateCompatibleServicePass}
+            compatibleServicePass={
+              this.checkExcludedSlotAvailable()
+                ? this.props.compatibleServicePass
+                : null
+            }
             pass={this.props.privatePass}
           />
         </Grid>
@@ -228,6 +259,7 @@ export default compose(
     (state, { id }) => ({
       privatePass: withAvailable(withServices(getPrivatePass))(state, id),
       private_services: getPrivateServices(state),
+      compatibleServicePass: getCompatibleServicePass(state),
       theme: themeSelectors.getTheme(state),
       consumerPass: {
         items: withMember(getPrivateConsumerPassByPrivatePass)(state),
@@ -241,8 +273,11 @@ export default compose(
       fetchPrivatePass: fetchPrivatePassRetrieve,
       fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
       createOrUpdatePrivatePass: createOrUpdatePrivatePassAction,
-      createCompatibleServicePass,
+      createCompatibleServicePass: createCompatibleServicePassAction,
       deleteCompatibleServicePass,
+      updateCompatibleServicePass,
+      fetchCompatibleServicePassList: fetchCompatibleServicePassListAction,
+      fetchPrivateSlotsByService: fetchAllPrivateSlots,
       updatePrivateConsumerPassCredits,
       deletePrivatePass: deletePrivatePassAction,
       snackbarSuccess,
@@ -313,6 +348,28 @@ export default compose(
         onSuccess: (cpps) =>
           fetchFilteredMembers({
             id__in: cpps.map((b) => b.member),
+          }),
+      }),
+    createCompatibleServicePass: ({
+      createCompatibleServicePass,
+      fetchPrivateSlotsByService,
+      fetchCompatibleServicePassList,
+    }) => (passId: number, serviceId: number) =>
+      createCompatibleServicePass(passId, serviceId, {
+        onSuccess: () => {
+          fetchPrivateSlotsByService({ private_service: serviceId });
+          fetchCompatibleServicePassList(passId);
+        },
+      }),
+    fetchCompatibleServicePasses: ({
+      id,
+      fetchCompatibleServicePassList,
+      fetchPrivateSlotsByService,
+    }) => () =>
+      fetchCompatibleServicePassList(id, {
+        onSuccess: (csps) =>
+          fetchPrivateSlotsByService({
+            private_service__in: csps.map((c) => c.private_service),
           }),
       }),
   }),

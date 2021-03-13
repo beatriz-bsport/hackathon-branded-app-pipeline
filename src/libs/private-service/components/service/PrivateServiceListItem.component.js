@@ -16,7 +16,7 @@ import type { TFunction } from 'react-i18next';
 import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
 import Tooltip from '../../../../components/Tooltip.component';
 
-import type { PrivateService } from '../../types';
+import type { PrivateService, ServiceCompatibilityPass } from '../../types';
 
 type Props = {
   privateService: PrivateService,
@@ -27,11 +27,25 @@ type Props = {
   hideSecondary: boolean,
   onDelete: () => void,
   t: TFunction,
-  classes: Object,
+  compatibilityByService?: ServiceCompatibilityPass,
 };
 
 export const PrivateServiceListItem = (props: Props) => {
   const { privateService, onClick, t, classes } = props;
+  const [excludedSlots, setExcludedSlots] = React.useState([]);
+  const handleChange = (slotId: number, checked: boolean) => {
+    const new_array = excludedSlots.filter((item) => item !== slotId);
+    if (!checked) {
+      setExcludedSlots([...new_array, slotId]);
+    } else {
+      setExcludedSlots(new_array);
+    }
+  };
+  const handleSave = () => {
+    if (props.onChangeCompatibleSlot) {
+      props.onChangeCompatibleSlot(excludedSlots);
+    }
+  };
 
   return (
     <ListItem
@@ -46,26 +60,33 @@ export const PrivateServiceListItem = (props: Props) => {
         borderLeftColor: privateService.color,
       }}
     >
-      <ListItemAvatar>
-        <Avatar
-          className={classes.avatar}
-          alt={privateService.name}
-          src={privateService.cover_main}
-        />
-      </ListItemAvatar>
-      <div className={classes.textContainer}>
-        <ListItemText
-          primary={privateService.name}
-          secondary={
-            props.hideSecondary
-              ? null
-              : privateService.coaches
-                  .filter((c) => c && c.name)
-                  .map((c) => (c && c.name) || '')
-                  .join(', ') || null
-          }
-        />
-      </div>
+      <ListItemText
+        primary={
+          <div>
+            <div>{privateService.name}</div>
+            {props.compatibilityByService && (
+              <Typography variant="caption">
+                {(props.compatibilityByService.excluded_slot_ids || []).length
+                  ? `${t('privateServiceCompatibility.forSlots')} ${
+                      props.compatibilityByService.included_slots
+                        .filter((s) => s && s.name)
+                        .map((s) => (s && s.name) || '')
+                        .join(', ') || null
+                    }`
+                  : t('privateServiceCompatibility.allSlots')}
+              </Typography>
+            )}
+          </div>
+        }
+        secondary={
+          props.hideSecondary
+            ? null
+            : privateService.coaches
+                .filter((c) => c && c.name)
+                .map((c) => (c && c.name) || '')
+                .join(', ') || null
+        }
+      />
       {privateService.hasActiveNotification && (
         <Tooltip
           title={

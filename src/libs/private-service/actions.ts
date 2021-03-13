@@ -42,6 +42,8 @@ import {
   restorePrivatePass as restorePrivatePassAPI,
   createCompatibleServicePass as createCompatibleServicePassAPI,
   deleteCompatibleServicePass as deleteCompatibleServicePassAPI,
+  updateCompatibleServicePass as updateCompatibleServicePassAPI,
+  fetchCompatibleServicePassList as fetchCompatibleServicePassListAPI,
   // private-consumer-pass
   fetchCompatiblePrivateConsumerPass as fetchCompatiblePrivateConsumerPassAPI,
   fetchCompatiblePrivatePass as fetchCompatiblePrivatePassAPI,
@@ -1201,7 +1203,54 @@ export const privateServiceCompatiblePassActions = {
   isLoading: createAction('PRIVATE_SERVICE_COMPATIBLE_PASS/ACTION/LOADING'),
   create: createAction('PRIVATE_SERVICE_COMPATIBLE_PASS/ACTION/CREATE'),
   delete: createAction('PRIVATE_SERVICE_COMPATIBLE_PASS/ACTION/DELETE'),
+  success: createAction('PRIVATE_SERVICE_COMPATIBLE_PASS/ACTION/SUCCESS'),
+  update: createAction('PRIVATE_SERVICE_COMPATIBLE_PASS/ACTION/UPDATE'),
 };
+
+export function fetchCompatibleServicePassList(
+  privatePassId: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateServiceCompatiblePassActions.isLoading(true));
+    try {
+      const response = await fetchCompatibleServicePassListAPI(privatePassId);
+      dispatch(privateServiceCompatiblePassActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(privateServiceCompatiblePassActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(privateServiceCompatiblePassActions.isLoading(false));
+  };
+}
+
+export function updateCompatibleServicePass(
+  privatePassId: number,
+  privateServiceId: number,
+  data: any,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateServiceCompatiblePassActions.isLoading(true));
+    dispatch(privateServiceCompatiblePassActions.error(null));
+    try {
+      const response = await updateCompatibleServicePassAPI(
+        privatePassId,
+        privateServiceId,
+        data,
+      );
+      dispatch(privateServiceCompatiblePassActions.update(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(privateServiceCompatiblePassActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(privateServiceCompatiblePassActions.isLoading(false));
+  };
+}
 
 export function deleteCompatibleServicePass(
   privatePassId: number,
@@ -1234,7 +1283,10 @@ export function createCompatibleServicePass(
     dispatch(privateServiceCompatiblePassActions.isLoading(true));
     dispatch(privateServiceCompatiblePassActions.error(null));
     try {
-      await createCompatibleServicePassAPI(privatePassId, privateServiceId);
+      const response = await createCompatibleServicePassAPI(
+        privatePassId,
+        privateServiceId,
+      );
       dispatch(
         privateServiceCompatiblePassActions.create(
           privatePassId,
@@ -1242,6 +1294,7 @@ export function createCompatibleServicePass(
         ),
       );
       dispatch(fetchPrivatePassRetrieve(privatePassId));
+      dispatch(privateServiceCompatiblePassActions.update(response.data));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);

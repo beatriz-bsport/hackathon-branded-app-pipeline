@@ -247,6 +247,23 @@ export const restorePrivatePass = (id: number) => {
   return putAuth(`${API_V1_URI}/private_service/private_pass/${id}/restore/`);
 };
 
+export const fetchCompatibleServicePassList = (privatePassId: number) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/private_pass/${privatePassId}/private_service_compatibility_pass/`,
+  );
+};
+
+export const updateCompatibleServicePass = (
+  privatePassId: number,
+  privateServiceId: number,
+  data: any,
+) => {
+  return patchAuth(
+    `${API_V1_URI}/private_service/private_pass/${privatePassId}/private_service_compatibility_pass/${privateServiceId}/`,
+    data,
+  );
+};
+
 export const deleteCompatibleServicePass = (
   privatePassId: number,
   privateServiceId: number,

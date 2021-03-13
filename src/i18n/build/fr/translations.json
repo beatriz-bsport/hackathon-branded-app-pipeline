@@ -1516,11 +1516,19 @@
       "isFromDisabledShare": "Partage arrété"
     },
     "privateServiceCompatibility": {
+      "allSlots": "Compatible pour toutes les séances",
+      "forSlots": "Les séances compatibles:",
       "delete": {
         "title": "Modification RDV compatibles",
         "explain": "Êtes-vous sûr de vouloir modifier les règles d'utilisation du pass ? Cette modification est rétro-active pour les achats déjà effectués.",
         "cancel": "Annuler",
         "submit": "Supprimer"
+      },
+      "excludedSlots": {
+        "title": "Séances du {{ service }}",
+        "submit": "Enregistrer",
+        "cancel": "Annuler",
+        "helperText": "Sélectionnez les sessions pour lesquelles la carte RDV est compatible"
       }
     },
     "privatePass": {

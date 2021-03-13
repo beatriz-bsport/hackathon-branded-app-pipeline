@@ -176,6 +176,13 @@ export type RecurrenceRulePrivateBooking = {
   private_slot: PrivateSlot;
 };
 
+export type ServiceCompatibilityPass = {
+  id: number;
+  private_service: number;
+  private_pass: number;
+  excluded_slot_ids: number[];
+};
+
 type ErrorAndLoading = {
   error?: Error;
   loading: boolean;
@@ -275,5 +282,9 @@ export interface PrivateServiceState {
   };
   calendarEvent: ErrorAndLoading & {
     byId: { [key: string]: PrivateSlot };
+  };
+  compatibleServicePass: ErrorAndLoading & {
+    byId: { [id: string]: ServiceCompatibilityPass };
+    allIds: Array<number>;
   };
 }

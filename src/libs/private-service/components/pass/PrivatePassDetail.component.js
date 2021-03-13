@@ -25,8 +25,13 @@ import type { Theme } from '../../../theme/types';
 
 import PrivateServiceListItem from '../service/PrivateServiceListItem.component';
 import EmptyListWarning from '../EmptyListWarning.component';
-import type { PrivatePass, PrivateService } from '../../types';
+import type {
+  PrivatePass,
+  PrivateService,
+  ServiceCompatibilityPass,
+} from '../../types';
 import PrivatePassForm from './PrivatePassForm.component';
+import PrivateSlotCompatibleServiceForm from '../slot/PrivateSlotCompatibleServiceForm.component';
 
 type Props = {
   pass: PrivatePass,
@@ -51,6 +56,16 @@ type Props = {
     number,
     options: ?{ onSuccess: ?() => void, onError: ?() => void },
   ) => void,
+  compatibleServicePass?: Array<ServiceCompatibilityPass>,
+  selectedService: PrivateService,
+  setSelectedService: (PrivateService) => void,
+  updateCompatibleServicePass?: (
+    passId: number,
+    serviceId: number,
+    data: any,
+    options?: { onSuccess?: () => void, onError?: () => void },
+  ) => void,
+
   updatePrivatePass: (
     data: any,
     privatePassId: number,
@@ -63,6 +78,18 @@ type Props = {
 export const PrivatePassDetail = (props: Props) => {
   const { pass, t, snackbarSuccess: snackbar, classes } = props;
   const companyId = props.theme.company;
+  const onSubmit = (data) => {
+    if (props.updateCompatibleServicePass && props.selectedService) {
+      props.updateCompatibleServicePass(
+        props.pass.id,
+        props.selectedService.id,
+        data,
+        {
+          onSuccess: () => props.setSelectedService(null),
+        },
+      );
+    }
+  };
 
   const renderLinkToPaymentPage = () => {
     return pass.id && companyId ? (
@@ -135,6 +162,18 @@ export const PrivatePassDetail = (props: Props) => {
                 privateService={ps}
                 key={ps.id}
                 onDelete={() => props.setOpenDeleteCompatibility(ps.id)}
+                onEdit={
+                  props.compatibleServicePass &&
+                  props.updateCompatibleServicePass
+                    ? () => props.setSelectedService(ps)
+                    : null
+                }
+                compatibilityByService={
+                  props.compatibleServicePass &&
+                  props.compatibleServicePass.find(
+                    (c) => c.private_service.id === ps.id,
+                  )
+                }
               />
             ))}
         </List>
@@ -209,6 +248,27 @@ export const PrivatePassDetail = (props: Props) => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Dialog open={props.selectedService && props.compatibleServicePass}>
+        <DialogTitle>
+          {props.t('privateServiceCompatibility.excludedSlots.title', {
+            service: props.selectedService && props.selectedService.name,
+          })}
+        </DialogTitle>
+        <DialogContent>
+          <PrivateSlotCompatibleServiceForm
+            compatiblePassByService={
+              props.compatibleServicePass &&
+              props.compatibleServicePass.find(
+                (c) =>
+                  props.selectedService &&
+                  c.private_service.id === props.selectedService.id,
+              )
+            }
+            onSubmit={(data) => onSubmit(data)}
+            onCancel={() => props.setSelectedService(null)}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
@@ -278,4 +338,5 @@ export default compose(
     'setOpenDeleteCompatibility',
     false,
   ),
+  withState('selectedService', 'setSelectedService', null),
 )(PrivatePassDetail);

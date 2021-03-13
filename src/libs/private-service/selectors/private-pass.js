@@ -3,8 +3,13 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import type { State } from '../../../state/types';
-import type { PrivatePass, PrivatePassWithService } from '../types';
+import type {
+  PrivatePass,
+  PrivatePassWithService,
+  ServiceCompatibilityPass,
+} from '../types';
 import { _getPrivateServiceDict } from './private-service';
+import { getAllPrivateSlotsDict } from './private-slot';
 
 const _getPrivatePassData = (state) => state.privateService.privatePass.byId;
 const _getPrivatePassAsConsumerIds = (state) =>
@@ -103,4 +108,64 @@ export const withAvailable = memoize((selector) =>
 export const getDisabledPrivatePassAvailableListWithPrivateService: (State) => Array<PrivatePassWithService> = createSelector(
   getPrivatePassListWithPrivateService,
   (passList) => passList.filter((p) => !p.available),
+);
+
+const _getServiceCompatibiltyPassDict = (state: State) =>
+  state.privateService.compatibleServicePass.byId;
+
+const _getServiceCompatibiltyPassIds = (state: State) =>
+  state.privateService.compatibleServicePass.allIds;
+
+export const getServiceCompatibiltyPassList: (State) => Array<ServiceCompatibilityPass> = createSelector(
+  [_getServiceCompatibiltyPassDict, _getServiceCompatibiltyPassIds],
+  (data, ids) => ids.map((id) => data[id]),
+);
+
+export const getCompatibilityPassWithService: (State) => Array<PrivatePassWithService> = createSelector(
+  [
+    _getPrivateServiceDict,
+    getAllPrivateSlotsDict,
+    getServiceCompatibiltyPassList,
+  ],
+  (servicesById, slotData, compatibilityList) => {
+    if (!compatibilityList) return compatibilityList;
+    if (Array.isArray(compatibilityList)) {
+      return compatibilityList.map((c) => ({
+        ...c,
+        private_service: {
+          ...servicesById[c.private_service],
+          slots: servicesById[c.private_service]
+            ? servicesById[c.private_service].slots.map((s) => slotData[s])
+            : [],
+        },
+        included_slots:
+          servicesById[c.private_service] && c.excluded_slot_ids
+            ? servicesById[c.private_service].slots
+                .filter((s) => !c.excluded_slot_ids.includes(s))
+                .map((s) => slotData[s])
+            : null,
+      }));
+    }
+    if (compatibilityList) {
+      return {
+        ...compatibilityList,
+        private_service: {
+          ...servicesById[compatibilityList.private_service],
+          slots: servicesById[compatibilityList.private_service]
+            ? servicesById[compatibilityList.private_service].slots.map(
+                (s) => slotData[s],
+              )
+            : [],
+        },
+        included_slots:
+          servicesById[compatibilityList.private_service] &&
+          compatibilityList.excluded_slot_ids
+            ? servicesById[compatibilityList.private_service].slots
+                .filter((s) => !compatibilityList.excluded_slot_ids.includes(s))
+                .map((s) => slotData[s])
+            : null,
+      };
+    }
+    return [];
+  },
 );

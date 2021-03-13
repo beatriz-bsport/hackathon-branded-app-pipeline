@@ -40,7 +40,11 @@ Lint:
   script:
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure
-    - yarn lint
+    - yarn lint --format gitlab
+  artifacts:
+    reports:
+      codequality: eslint-codequality.json
+
 
   except:
     - master

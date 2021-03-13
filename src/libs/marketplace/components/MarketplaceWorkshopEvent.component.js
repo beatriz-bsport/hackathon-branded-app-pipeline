@@ -25,8 +25,6 @@ type Props = {
   onBookOption: () => void,
   t: TFunction,
   classes: *,
-  activityLoading: boolean,
-  establishmentLoading: boolean,
 };
 
 const BookButton = (props: {

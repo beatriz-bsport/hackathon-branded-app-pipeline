@@ -60,6 +60,13 @@ export const PrivateServiceListItem = (props: Props) => {
         borderLeftColor: privateService.color,
       }}
     >
+      <ListItemAvatar>
+        <Avatar
+          className={classes.avatar}
+          alt={privateService.name}
+          src={privateService.cover_main}
+        />
+      </ListItemAvatar>
       <ListItemText
         primary={
           <div>
@@ -124,6 +131,7 @@ const styles = (theme) => ({
   avatar: {
     width: theme.spacing(7),
     height: theme.spacing(7),
+    marginRight: theme.spacing(2),
   },
   textContainer: {
     display: 'flex',

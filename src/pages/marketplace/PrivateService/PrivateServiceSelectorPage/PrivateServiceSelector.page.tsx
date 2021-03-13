@@ -5,7 +5,6 @@ import {
   Grid,
   Paper,
   ButtonBase,
-  CircularProgress,
   Chip,
   Theme,
 } from '@material-ui/core';

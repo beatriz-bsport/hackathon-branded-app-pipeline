@@ -8,7 +8,6 @@ import { push as pushRouter } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { getPlaylistList } from '../../libs/playlist/selectors';
 import {
   getVideoList,

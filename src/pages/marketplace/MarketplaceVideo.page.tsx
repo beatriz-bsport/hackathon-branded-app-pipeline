@@ -207,7 +207,7 @@ const styles = (theme: any) => ({
 const mapStateToProps = (state: RootState) => ({
   playlistList: getPlaylistList(state),
   videoList: withVideoCoach(withVideoCategory(getVideoList))(state),
-  loading: state.video.loading || state.video.filterableParams.loading,
+  loading: state.video.loading,
   videoFilterableParams: state.video.filterableParams.items,
   hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
 });

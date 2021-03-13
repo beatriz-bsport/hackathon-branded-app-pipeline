@@ -27,10 +27,16 @@ export const VideoCardList = (props: Props) => {
           <VideoItem
             video={v}
             openVideo={props.openVideo}
-            loading={props.loading}
+            loading={v.coaches.includes(undefined)}
           />
         </Grid>
       ))}
+      {props.loading &&
+        [0, 1, 2, 3, 4].map((i) => (
+          <Grid key={i} item xs={12} sm={6} md={4} lg={3}>
+            <VideoItem video={{ coaches: [] }} loading />
+          </Grid>
+        ))}
       {!props.loading && !props.videoList.length && (
         <div className={classes.buttonContainer}>
           <Typography variant="h6" component="p" color="textSecondary">

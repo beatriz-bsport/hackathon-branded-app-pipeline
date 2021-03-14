@@ -28,24 +28,11 @@ type Props = {
   onDelete: () => void,
   t: TFunction,
   compatibilityByService?: ServiceCompatibilityPass,
+  classes: any,
 };
 
 export const PrivateServiceListItem = (props: Props) => {
   const { privateService, onClick, t, classes } = props;
-  const [excludedSlots, setExcludedSlots] = React.useState([]);
-  const handleChange = (slotId: number, checked: boolean) => {
-    const new_array = excludedSlots.filter((item) => item !== slotId);
-    if (!checked) {
-      setExcludedSlots([...new_array, slotId]);
-    } else {
-      setExcludedSlots(new_array);
-    }
-  };
-  const handleSave = () => {
-    if (props.onChangeCompatibleSlot) {
-      props.onChangeCompatibleSlot(excludedSlots);
-    }
-  };
 
   return (
     <ListItem

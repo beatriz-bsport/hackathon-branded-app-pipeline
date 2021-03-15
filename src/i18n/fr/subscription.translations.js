@@ -193,7 +193,7 @@ exports.default = {
       },
       nb_interval: {
         label: 'Nombre de mois',
-        helperText: 'Au minimum 2 mois',
+        helperText: 'Au minimum 1 mois',
       },
       recurrent_price: {
         label: 'Paiement mensuel',

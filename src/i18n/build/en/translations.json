@@ -921,7 +921,7 @@
                 "notBookableYet": "Soon"
             },
             "passListTitle": "Pass (class)",
-            "privatePassListTitle": "Pass (appointments)",
+            "privatePassListTitle": "Appointment Pass",
             "noSessionToday": "No session",
             "showMarketplace": "Show calendar of ",
             "backToCalendar": "Previous",
@@ -1188,7 +1188,7 @@
             "payWithNCredits1": "Book (",
             "availablePaymentPacks": " pass compatible",
             "return": "Refund",
-            "privatePass": "Pass (appointments)",
+            "privatePass": "Appointment Pass",
             "credit": "Credit",
             "payment": "Payment",
             "yourBasket": "Your purchase",
@@ -1257,7 +1257,7 @@
             "beta": "beta",
             "coachPerformance": "Teachers",
             "privateService": {
-                "pass": "Pass (appointments)",
+                "pass": "Appointment Pass",
                 "services": "Appointments",
                 "title": "Appointments"
             },
@@ -2194,7 +2194,7 @@
             },
             "content": "Content",
             "selectorPlaceholder": {
-                "privatePass": "Appointments pass",
+                "privatePass": "Appointment Pass",
                 "paymentPack": "Pass collective lesson",
                 "shopitem": "Shop"
             },
@@ -2958,7 +2958,7 @@
                 "delete": "Delete"
             }
         },
-        "noPrivateConsumerPass": "Nobody has this pass for appointments",
+        "noPrivateConsumerPass": "Nobody owns this appointment pass",
         "filters": {
             "hasCreditNull": "Without credit",
             "hasCreditLeft": "With credit",

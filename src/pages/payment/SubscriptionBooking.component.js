@@ -10,10 +10,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
-import {
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
+import themeSelectors from '../../libs/theme/selectors';
 import { postContractSubscription as postContractSubscriptionAPI } from '../../libs/subscription/api';
 
 import SubscriptionContractCard from '../../libs/subscription/components/SubscriptionContractCard.component';
@@ -32,6 +29,7 @@ type Props = {
   requestSetupIntentSecret: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   fetchPaymentMethodList: (params: any) => void,
+  companyTheme: CompanyTheme,
 };
 
 type State = {
@@ -115,10 +113,9 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
               this.props.onCancel();
             }}
             onSubmit={this.onSubmit}
-            enabledPaymentMethods={[
-              BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-              BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-            ]}
+            enabledPaymentGroupMethodIdentifier={
+              this.props.companyTheme.payment_method_available_subscription
+            }
           />
         </DialogContent>
       </Dialog>
@@ -132,6 +129,7 @@ export default compose(
   connect(
     (state) => ({
       savedPaymentMethodList: getSavedPaymentMethodList(state),
+      companyTheme: themeSelectors.getTheme(state),
     }),
     {
       fetchPaymentMethodList: fetchPaymentMethodListAction,

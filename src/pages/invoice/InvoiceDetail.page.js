@@ -86,6 +86,7 @@ type Props = {
 
   fetchPaymentGroupRequiringActionList: () => void,
   paymentGroupRequiringActionList: Array<PaymentGroup>,
+  payment_method_available_manager: number[],
 };
 
 type State = {
@@ -250,6 +251,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   this.props.invoice.amount_paid_cts,
               ).toFixed(2)}
               onCancel={() => this.props.setOpenPaymentDialog(false)}
+              availablePaymentMethodList={
+                this.props.payment_method_available_manager
+              }
             />
           )}
         </Grid>
@@ -330,6 +334,8 @@ export default compose(
         state,
         uuid,
       ),
+      payment_method_available_manager:
+        state.theme.theme.payment_method_available_manager,
     }),
     {
       fetchInvoiceItemList,

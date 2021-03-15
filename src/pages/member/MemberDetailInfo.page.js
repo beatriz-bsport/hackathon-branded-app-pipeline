@@ -152,6 +152,7 @@ type Props = {
   goToCreditRegularization: (memberId: number, balance: number) => void,
 
   goToInvoice: (string) => void,
+  payment_method_available_manager: number[],
 };
 
 type State = {
@@ -242,6 +243,9 @@ export class MemberDetailPage extends Component<Props, State> {
               this.props.fetchInvoiceListUnpaid();
               this.props.fetchMember(this.props.id);
             }}
+            availablePaymentMethodList={
+              this.props.payment_method_available_manager
+            }
           />
           <TaskList
             taskList={this.props.taskList}
@@ -350,6 +354,8 @@ export default compose(
       country: state.theme.theme.locale.split('_')[1],
       unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
       invoiceLoading: state.invoice.list.loading,
+      payment_method_available_manager:
+        state.theme.theme.payment_method_available_manager,
     }),
     {
       fetchInvoiceList: fetchInvoiceListAction,

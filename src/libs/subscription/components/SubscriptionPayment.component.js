@@ -19,6 +19,11 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
+import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+} from '@bsport/common/lib/master-data/payment-group';
+
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
 import { appliesToContract as appliesToContractAPI } from '../../coupon/api';
 
@@ -31,6 +36,7 @@ const PaymentMethodSwitcher = (props: {
   onChange: (string) => void,
   payment_method: string,
   enabledPaymentMethods: Array<number>,
+  enabledPaymentGroupMethodIdentifier: Array<number>,
 }) => (
   <RadioGroup
     aria-label="payment-method"
@@ -38,8 +44,11 @@ const PaymentMethodSwitcher = (props: {
     value={props.payment_method}
     onChange={(ev) => props.onChange(ev.target.value)}
   >
-    {props.enabledPaymentMethods.includes(
+    {(props.enabledPaymentMethods || []).includes(
       BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+    ) ||
+    (props.enabledPaymentGroupMethodIdentifier || []).includes(
+      PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
     ) ? (
       <FormControlLabel
         value="sepa_debit"
@@ -48,8 +57,11 @@ const PaymentMethodSwitcher = (props: {
         labelPlacement="bottom"
       />
     ) : null}
-    {props.enabledPaymentMethods.includes(
+    {(props.enabledPaymentMethods || []).includes(
       BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+    ) ||
+    (props.enabledPaymentGroupMethodIdentifier || []).includes(
+      PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
     ) ? (
       <FormControlLabel
         value="card"
@@ -58,7 +70,7 @@ const PaymentMethodSwitcher = (props: {
         labelPlacement="bottom"
       />
     ) : null}
-    {props.enabledPaymentMethods.includes(
+    {(props.enabledPaymentMethods || []).includes(
       BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
     ) ? (
       <FormControlLabel
@@ -77,6 +89,7 @@ type Props = {
   setPaymentMethod: (string) => void,
   paymentMethod: string,
   enabledPaymentMethods: Array<number>,
+  enabledPaymentGroupMethodIdentifier: Array<number>,
 
   onSubmit: (source: string) => void,
 
@@ -158,6 +171,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       paymentMethod,
       t,
       enabledPaymentMethods,
+      enabledPaymentGroupMethodIdentifier,
       onCancel,
       processing,
       setPaymentMethod,
@@ -231,6 +245,9 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 this.setState({ selectedSavedPaymentMethodId: null });
               }}
               enabledPaymentMethods={enabledPaymentMethods}
+              enabledPaymentGroupMethodIdentifier={
+                enabledPaymentGroupMethodIdentifier
+              }
             />
             <Divider />
             <div className={classes.cardContainer}>
@@ -360,7 +377,19 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withState('paymentMethod', 'setPaymentMethod', 'sepa_debit'),
-  withTranslation(['subscripton']),
+  withState(
+    'paymentMethod',
+    'setPaymentMethod',
+    ({ enabledPaymentMethods, enabledPaymentGroupMethodIdentifier }) =>
+      (enabledPaymentGroupMethodIdentifier || []).includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+      ) ||
+      (enabledPaymentMethods || []).includes(
+        BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+      )
+        ? 'sepa_debit'
+        : 'card',
+  ),
+  withTranslation(['subscription']),
   withStyles(styles),
 )(SubscriptionPayment);

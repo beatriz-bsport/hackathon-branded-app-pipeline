@@ -142,4 +142,20 @@ exports.default = {
       dialogTitle: 'Edition onglet',
     },
   },
+  paymentMethods: {
+    title: 'Paiement en ligne',
+    subtitle:
+      'Vous pouvez activer ou désactiver les moyens de paiements utilisées par vos membres lors de leur paiement en ligne.',
+    subtitle2:
+      'En tant que manager, vous avez toujours accès à tous les moyens de paiements disponibles.',
+    methodPaymentBasket: 'Paiement ponctuel',
+    methodPaymentBasketHelper:
+      "Autoriser les paiements du panier d'achat, règlement de la dette et des impayés.. uniquement via",
+    methodPaymentSubscription: 'Paiement récurrent',
+    methodPaymentSubscriptionHelper:
+      'Autoriser les paiements des souscriptions (contrats) uniquement via',
+    methodPaymentSubscriptionError:
+      'Veuillez choisir au moins une méthode de paiement',
+    save: 'Enregistrer',
+  },
 };

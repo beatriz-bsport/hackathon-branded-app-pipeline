@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import {
   PAYMENT_INTENT_TYPE_INVOICE,
   PAYMENT_INTENT_TYPE_DEBT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
 } from '@bsport/common/lib/master-data/payment-group';
 import PaymentDialog from '../../payment/components/PaymentDialog.component';
 import MemberBalanceUpdaterDialog from './MemberBalanceUpdaterDialog.component';
@@ -26,6 +27,7 @@ type Props = {
   asConsumer: boolean,
   applyBalanceToUnpaidInvoices: () => void,
   fetchInvoiceListUnpaid: () => void,
+  availablePaymentMethodList: number[],
 };
 
 export const MemberBillingProblemCard = (props: Props) => {
@@ -204,6 +206,11 @@ export const MemberBillingProblemCard = (props: Props) => {
             setAmountToBill(0);
             setRegularizeFullDebt(false);
           }}
+          availablePaymentMethodList={
+            props.availablePaymentMethodList.length
+              ? props.availablePaymentMethodList
+              : [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]
+          }
         />
       )}
     </Paper>

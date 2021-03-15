@@ -162,6 +162,7 @@ type Props = {
   recurrentBookingNextPage: number,
   recurrentBookingOnPageRequested: () => void,
   recurrentBookingCount: number,
+  payment_method_available_manager: number[],
 };
 
 type State = {
@@ -522,6 +523,9 @@ export class OfferManagement extends Component<Props, State> {
             availableBuyableItems={this.props.availableBuyableItems}
             className={classes.autoScroll}
             refreshInvoice={this.props.fetchInvoice}
+            availablePaymentMethodList={
+              this.props.payment_method_available_manager
+            }
           />
           <Prompt
             when={this.props.unpaidInvoiceList.length > 0}

@@ -2,7 +2,8 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
@@ -25,6 +26,7 @@ import PartnershipPage from './Partnership.page';
 import ActiveCampaignPage from './ActiveCampaignPage.component';
 import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page';
 import PlatformBillingSettingPage from './PlatformBillingSetting.page';
+import PaymentMethodSettings from './PaymentMethodSettings/PaymentMethodSettings.pages';
 import MarketplaceSettings from './MarketplaceSettingsPages/MarketplaceSettings.pages';
 
 import withTitle from '../../hocs/with-title.hoc';
@@ -72,6 +74,11 @@ export const Settings = (props: Props) => {
           exact
           path="/settings/payment-rules"
           component={PaymentRuleSetsDashboard}
+        />
+        <Route
+          exact
+          path="/settings/payment-methods"
+          component={PaymentMethodSettings}
         />
         <Route
           exact

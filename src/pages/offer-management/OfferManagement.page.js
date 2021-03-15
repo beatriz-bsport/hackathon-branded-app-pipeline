@@ -161,6 +161,8 @@ export default compose(
       availableBuyableItems: getBuyableItem(state),
       // theme
       company_theme: themeSelectors.getTheme(state),
+      payment_method_available_manager:
+        state.theme.theme.payment_method_available_manager,
     }),
     {
       fetchOffer: fetchOfferByIdAction,

@@ -24,7 +24,7 @@ type Props = {
   invoiceToBill: Array<Invoice>,
   setInvoiceToBill: (?Invoice) => void,
   refreshInvoice: () => void,
-
+  availablePaymentMethodList: number[],
   className: {},
 };
 
@@ -142,6 +142,7 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
                 this.props.invoiceToBill.amount_paid_cts,
             ).toFixed(2)}
             onCancel={() => this.props.setInvoiceToBill(null)}
+            availablePaymentMethodList={this.props.availablePaymentMethodList}
           />
         )}
       </Paper>

@@ -19,6 +19,7 @@ import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
 } from '@bsport/common/lib/master-data/payment-group';
 import PaymentStripe from './payment-backend-stripe/PaymentStripe.component';
 import PaymentBsportInternal from './payment-backend-internal/PaymentBsportInternal.component';
@@ -181,7 +182,9 @@ export class PaymentDialog extends React.Component<Props, State> {
                     PAYMENT_ENGINE_STRIPE
                   ].filter((pm) => {
                     if (this.props.availablePaymentMethodList) {
-                      return this.props.availablePaymentMethodList.includes(pm);
+                      return this.props.availablePaymentMethodList.length
+                        ? this.props.availablePaymentMethodList.includes(pm)
+                        : pm === PAYMENT_GROUP_METHOD_IDENTIFIER_CB;
                     }
                     return true;
                   })}

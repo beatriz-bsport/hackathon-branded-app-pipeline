@@ -119,7 +119,9 @@ export class BasketPaymentIntent extends React.Component<Props> {
           paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
             PAYMENT_ENGINE_STRIPE
           ].filter((pm) =>
-            (this.state.theme.payment_method_available || []).includes(pm),
+            (this.state.theme.payment_method_available_basket || []).includes(
+              pm,
+            ),
           )}
           clientSecret={this.state.clientSecret}
           clientSecretLoading={this.state.clientSecretLoading}

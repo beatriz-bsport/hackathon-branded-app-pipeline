@@ -2,19 +2,17 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import { colors } from '@bsport/common/lib/colors';
-// @ts-ignore
 import { themeDetail, themeUpdate } from './actions';
-// @ts-ignore
 import { ThemeState } from './types';
 
 const storage = window.localStorage;
 
-const initialState: ThemeState = Immutable<ThemeState>({
+const initialState: Immutable.Immutable<ThemeState> = Immutable<ThemeState>({
+  // @ts-ignore
   theme: {
     primary_color: colors.primary,
     secondary_color: colors.secondary,
     cover: null,
-    website: null,
   },
   createOrUpdate: {
     loading: false,
@@ -24,9 +22,9 @@ const initialState: ThemeState = Immutable<ThemeState>({
   error: null,
 });
 
-export default handleActions(
+export default handleActions<Immutable.Immutable<ThemeState>>(
   {
-    [themeDetail.success]: (state, { payload }) => {
+    [themeDetail.success.toString()]: (state, { payload }: any) => {
       try {
         storage.setItem('bsport:stripe:pk_key', payload.stripe_pk_key);
         storage.setItem('bsport:payment:currency_code', payload.currency);
@@ -42,18 +40,18 @@ export default handleActions(
       }
       return state.set('theme', payload);
     },
-    [themeDetail.isLoading]: (state, { payload }) => {
+    [themeDetail.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-    [themeDetail.error]: (state, { payload }) => {
+    [themeDetail.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [themeUpdate.error]: (state, { payload }) => {
+    [themeUpdate.error.toString()]: (state, { payload }) => {
       return state.setIn(['createOrUpdate', 'error'], payload);
     },
-    [themeUpdate.isLoading]: (state, { payload }) => {
+    [themeUpdate.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['createOrUpdate', 'loading'], payload);
     },
   },
   initialState,
-) as () => ThemeState;
+);

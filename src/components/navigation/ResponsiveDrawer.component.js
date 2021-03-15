@@ -733,6 +733,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             text: t('backofficeMenu.settings.paymentRules'),
           },
           {
+            to: '/settings/payment-methods',
+            dense: 'true',
+            text: t('backofficeMenu.settings.paymentMethod'),
+          },
+          {
             to: '/settings/company',
             dense: 'true',
             text: t('backofficeMenu.settings.company'),

@@ -6,11 +6,7 @@ import { connect } from 'react-redux';
 
 import { withRouter } from 'react-router-dom';
 import moment from 'moment-timezone';
-
-import {
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { requestSetupIntentSecretNoAuth as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
@@ -19,6 +15,8 @@ import { fetchContractDetail } from '../../libs/subscription/actions';
 import { getContract } from '../../libs/subscription/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { parseQueryString } from '../../http';
+import themeSelectors from '../../libs/theme/selectors';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
 import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
 import { postContractSubscriptionUnauthenticated as postContractSubscriptionUnauthenticatedAPI } from '../../libs/subscription/api';
 import Analytics from '../../components/analytics/Analytics.component';
@@ -35,15 +33,28 @@ type Props = {
   requestSetupIntentSecret: () => void,
   contract: ?Contract,
   fetchContractDetail: (number) => void,
+  companyTheme?: CompanyTheme,
+  fetchCompanyTheme: (companyId: number) => void,
+  theme: CompanyTheme,
 };
 
 type State = {
   processing: boolean,
+  companyId?: number,
 };
 
 export class ContractPayment extends React.Component<Props, State> {
+  state = {
+    companyId: null,
+  };
+
   componentDidMount() {
-    this.props.fetchContractDetail(this.props.contractId);
+    this.props.fetchContractDetail(this.props.contractId, {
+      onSuccess: (c) => {
+        this.setState({ companyId: c.company });
+        this.props.fetchCompanyTheme(c.company);
+      },
+    });
   }
 
   state = { processing: false };
@@ -74,6 +85,16 @@ export class ContractPayment extends React.Component<Props, State> {
   };
 
   render() {
+    if (!this.state.companyId || !this.props.theme) {
+      return (
+        <div className={this.props.classes.container}>
+          <div className={this.props.classes.loadingContainer}>
+            <CircularProgress />
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className={this.props.classes.container}>
         <SubscriptionPayment
@@ -87,21 +108,26 @@ export class ContractPayment extends React.Component<Props, State> {
           refreshSavedPaymentMethodList={() => {
             this.props.fetchPaymentMethodList({ member: this.props.memberId });
           }}
-          enabledPaymentMethods={[
-            BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-            BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-          ]}
+          enabledPaymentGroupMethodIdentifier={
+            this.props.companyTheme.payment_method_available_subscription
+          }
         />
       </div>
     );
   }
 }
 
-const styles = () => ({
+const styles = (theme) => ({
   container: {
     width: '100%',
     height: '100vh',
     backgroundColor: 'white',
+  },
+  loadingContainer: {
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -117,10 +143,12 @@ export default compose(
     (state, { contractId }) => ({
       contract: getContract(state, parseInt(contractId, 10)),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
+      companyTheme: themeSelectors.getTheme(state),
     }),
     {
       fetchContractDetail,
       fetchPaymentMethodList,
+      fetchCompanyTheme,
     },
   ),
   withHandlers({

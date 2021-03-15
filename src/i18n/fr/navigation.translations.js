@@ -65,6 +65,7 @@ exports.default = {
       broadcast: 'Visioconférence',
       notificationRule: 'Emails transactionnels',
       paymentRules: 'Règles de rémunération',
+      paymentMethod: 'Moyens de paiement',
       company: 'Entreprise',
       invoice: 'Facturation',
       waitingList: "Liste d'attente",

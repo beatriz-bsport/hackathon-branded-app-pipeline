@@ -266,7 +266,7 @@ export class CheckoutPayment extends React.Component<Props> {
                       PAYMENT_ENGINE_STRIPE
                     ].filter((pm) =>
                       (
-                        this.props.theme.payment_method_available || []
+                        this.props.theme.payment_method_available_basket || []
                       ).includes(pm),
                     )}
                     clientSecret={this.state.clientSecret}

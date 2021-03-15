@@ -75,6 +75,8 @@ import { MemberState } from '../libs/member/types';
 import { MarketplaceSettingState } from '../libs/marketplace/types';
 import { MembershipState } from '../libs/membership/types';
 import { ConsumerState } from '../libs/consumer-space/types';
+import { ThemeState } from '../libs/theme/types';
+
 import actionTypes from '../actions/auth.types';
 
 const rootReducer = (history: any) =>
@@ -155,7 +157,6 @@ export type RootState = {
   tag: any;
   order: any;
   waitingList: any;
-  theme: any;
   role: any;
   coupon: any;
   emailTemplate: any;
@@ -175,6 +176,7 @@ export type RootState = {
   marketingNotification: any;
   dashboardSettings: any;
   paymentPack: any;
+  theme: ThemeState;
   consumer: ConsumerState;
   membership: MembershipState;
   marketplace: MarketplaceSettingState;

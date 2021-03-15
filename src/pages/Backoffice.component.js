@@ -62,7 +62,7 @@ const MarketingRouter = asyncComponent(() =>
 const Dashboard = asyncComponent(() => import('./Dashboard.component'));
 
 const OfferFormPage = asyncComponent(() => import('./OfferFormPage.component'));
-const Settings = asyncComponent(() => import('./settings/Settings.pages'));
+const Settings = asyncComponent(() => import('./settings/Settings.router'));
 const OfferManagement = asyncComponent(() =>
   import('./offer-management/OfferManagement.page'),
 );

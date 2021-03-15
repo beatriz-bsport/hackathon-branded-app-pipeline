@@ -171,6 +171,9 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             fetchInvoiceListUnpaid={this.refreshDebtStatus}
             hidePositiveBalance
             asConsumer
+            availablePaymentMethodList={
+              this.props.payment_method_available_basket
+            }
           />
         </div>
         <Grid container direction="row" spacing={2}>
@@ -273,6 +276,8 @@ const mapStateToProps = (state: RootState) => ({
   favoriteEstablishment: getFavoriteEstablishment(state),
   unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
   invoiceLoading: state.invoice.list.loading,
+  payment_method_available_basket:
+    state.theme.theme.payment_method_available_basket,
 });
 
 const mapDispatchToProps = {

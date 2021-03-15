@@ -16,12 +16,8 @@ import { withRouter } from 'react-router-dom';
 import { replace as replaceAction } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 
-import {
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
-
 import { loadStripe } from '@stripe/stripe-js';
+import themeSelectors, { getStripePkKey } from '../../libs/theme/selectors';
 
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchPrivatePassBulk as fetchPrivatePassBulkAction } from '../../libs/private-service/actions';
@@ -40,8 +36,6 @@ import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../li
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import Analytics from '../../components/analytics/Analytics.component';
 
-import { getStripePkKey } from '../../libs/theme/selectors';
-
 const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
@@ -52,6 +46,7 @@ type Props = {
   contractList: Array<Contract>,
 
   goToUserSpace: () => void,
+  companyTheme: CompanyTheme,
 
   selected: number,
   setSelected: (number) => void,
@@ -179,10 +174,9 @@ export class MarketplaceContract extends React.Component<Props> {
                 refreshSavedPaymentMethodList={
                   this.props.fetchPaymentMethodList
                 }
-                enabledPaymentMethods={[
-                  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-                  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-                ]}
+                enabledPaymentGroupMethodIdentifier={
+                  this.props.companyTheme.payment_method_available_subscription
+                }
               />
             </Elements>
           </DialogContent>
@@ -206,7 +200,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withTranslation(),
+  withTranslation(['subscription', 'payment', 'invoice', 'translation']),
   withRouter,
   withStyles(styles),
   withState('paymentDialogOpen', 'setPaymentDialogOpen', false),
@@ -214,6 +208,7 @@ export default compose(
     (state) => ({
       contractList: withPaymentPack(getContractList)(state),
       contractLoading: state.subscription.contract.byMarketplace.loading,
+      companyTheme: themeSelectors.getTheme(state),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {

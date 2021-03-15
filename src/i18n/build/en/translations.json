@@ -2679,7 +2679,15 @@
                 "explain": "Are you sure you want to change the pass usage rules? This change is retroactive for purchases already made.",
                 "cancel": "Cancel",
                 "submit": "Delete"
-            }
+            },
+            "excludedSlots": {
+                "helperText": "Select the sessions for which the RDV card is compatible",
+                "cancel": "Cancel",
+                "submit": "Save",
+                "title": "Sessions of {{ service }}"
+            },
+            "forSlots": "Compatible sessions:",
+            "allSlots": "Compatible for all sessions"
         },
         "privatePass": {
             "delete": {

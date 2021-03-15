@@ -31,12 +31,12 @@ import { deleteWorkshop } from '../../libs/meta-activity/actions';
 import { checkCanDeleteMetaActivity as canDeleteWorkshopAPI } from '../../libs/meta-activity/api/common';
 
 import {
-  fetchFirstTimeNotifications as fetchNotificationsAction,
-  createFirstTimeNotification as createNotificationAction,
-  updateFirstTimeNotification as updateNotification,
-  deleteFirstTimeNotification as deleteNotification,
-} from '../../libs/booking/actions';
-import { getFirstTimeNotifications } from '../../libs/booking/selectors';
+  fetchMarketingNotificationList as fetchMarketingNotificationListAction,
+  createMarketingNotification as createMarketingNotificationAction,
+  updateMarketingNotification,
+  deleteMarketingNotification as deleteMarketingNotificationAction,
+} from '../../libs/marketing/actions';
+import { getBookingNotifications } from '../../libs/marketing/selectors';
 
 import {
   getAllEmailTemplatesSummaries,
@@ -205,9 +205,8 @@ export default compose(
       emailListLoading: state.emailTemplate.isLoading,
       emailDetailLoading: state.emailTemplate.detail.isLoading,
       notifications: {
-        items: getFirstTimeNotifications(state),
-        loading: state.booking.notification.loading,
-        updating: state.booking.notification.update.id,
+        items: getBookingNotifications(state),
+        loading: state.marketingNotification.loading,
       },
     }),
     {
@@ -218,13 +217,13 @@ export default compose(
       goToList: () => routerPush('/workshop-activity'),
       onEdit: (id) => routerPush(`/workshop-activity/${id}/edit`),
       createActivityOffers: (id) => routerPush(`/add-offers/${id}`),
-      fetchNotifications: fetchNotificationsAction,
       fetchEmailTemplatesSummaries,
       fetchEmailTemplateDetail: (id) => emailTemplateDetail(id),
       fetchEmailTemplateSummariesBulk: fetchEmailTemplateSummariesBulkAction,
-      createNotification: createNotificationAction,
-      updateNotification,
-      deleteNotification,
+      createNotification: createMarketingNotificationAction,
+      updateNotification: updateMarketingNotification,
+      deleteNotification: deleteMarketingNotificationAction,
+      fetchNotifications: fetchMarketingNotificationListAction,
     },
   ),
   withProps(({ fetchOffersByDay, fetchMetaActivityOffers, id }) => ({

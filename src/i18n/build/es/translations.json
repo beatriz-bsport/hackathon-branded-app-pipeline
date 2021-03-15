@@ -4295,7 +4295,15 @@
                 "cancel": "Cancelar",
                 "explain": "¿Estás seguro de que quieres cambiar las reglas para usar el pass? Este cambio es retroactivo para las compras ya realizadas.",
                 "title": "Modificación citas compatibles"
-            }
+            },
+            "excludedSlots": {
+                "helperText": "Seleccione las sesiones para las que la tarjeta RDV es compatible",
+                "cancel": "Cancelar",
+                "submit": "Salvar",
+                "title": "Sesiones de {{ service }}"
+            },
+            "forSlots": "Sesiones compatibles:",
+            "allSlots": "Compatible con todas las sesiones"
         },
         "selector": {
             "privateSlot": "Seleccionar la sesión",

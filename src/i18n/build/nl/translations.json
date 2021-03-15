@@ -684,7 +684,7 @@
             "lastSession": "De laatste sessie is op",
             "firstSessionAt": "in",
             "firstSessionOn": "De eerste sessie is op",
-            "timeSettings": "Tijd & datum",
+            "timeSettings": "Tijd en datum",
             "monthly": "Maandelijks",
             "weekly": "Wekelijks",
             "notRecurrent": "Eenmalig",
@@ -1034,7 +1034,7 @@
             },
             "lastDiscardBeforeMinutes": "Voor het begin van de workshop is de laatste annulering mogelijk tot",
             "lastBookingBeforeMinutes": "Voor het begin van de workshop is de laatste reservering mogelijk tot",
-            "imageUploaderRequireEditMessage": "Zodra je activiteit is aangemaakt, kun je extra afbeeldingen toevoegen.",
+            "imageUploaderRequireEditMessage": "Na het aanmaken van een activiteit kun je extra afbeeldingen toevoegen.",
             "addWorkshopActivity": "Een workshop toevoegen"
         },
         "activity": {
@@ -4525,7 +4525,15 @@
                 "title": "Compatibele afspraakwijziging",
                 "cancel": "Annuleren",
                 "submit": "Verwijderen"
-            }
+            },
+            "excludedSlots": {
+                "helperText": "Selecteer de afspraken waarmee deze afspraakkaart compatibel is",
+                "cancel": "Annuleer",
+                "submit": "Opslaan",
+                "title": "{{ service }} sessie(s)"
+            },
+            "forSlots": "Compatibele sessie(s):",
+            "allSlots": "Compatibel met alle sessies"
         },
         "privatePass": {
             "validForDuration": {
@@ -5128,7 +5136,7 @@
         "pricePerAdditionalBooking": "Bonus per reservering",
         "select": {
             "placeholderOverride": "Standaardregel",
-            "placeholder": "Kies een rekenmethode"
+            "placeholder": "Selecteer een Payroll"
         },
         "common": {
             "from": "Begin",
@@ -5777,7 +5785,7 @@
         "overrider": "Plaatsvervanger",
         "overrideSelectorTitle": "Instructeur",
         "color": "Kleurcode (Afspraakkaart)",
-        "showPerformance": "Te vergoeden",
+        "showPerformance": "Toon Payroll",
         "showActivities": "Bekijk activiteiten",
         "showDescription": "Toon beschrijving",
         "pleaseFill": "Vergeet niet om een instructeur toe te voegen!",
@@ -6174,7 +6182,7 @@
                     "booking": "Reserveringen",
                     "member": "Nieuwe leden",
                     "object": {
-                        "helperText": "Kies wat je wilt bekijken",
+                        "helperText": "Selecteer de info die je wilt visualiseren",
                         "placeholder": "Selecteer de data",
                         "isEmpty": "Geen data geselecteerd"
                     }

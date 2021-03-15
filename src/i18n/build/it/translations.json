@@ -449,7 +449,8 @@
             "noAvailableCredit": "Attenzione, non stai inserendo un prezzo. Sei sicuro del valore?",
             "signUpTitle": "Iscrizione",
             "explainNoEmailChange": "La modifica dell'e-mail impedirà all'insegnante di connettersi, solo lui può modificare la sua e-mail collegandosi al proprio account bsport",
-            "daily": "Quotidiano"
+            "daily": "Quotidiano",
+            "fifteenMin": "50 min"
         },
         "marketing": {
             "dashboard": "Pannello di controllo",
@@ -1826,7 +1827,15 @@
                 "submit": "Rimuovi",
                 "title": "Modifica dell'appuntamento compatibile",
                 "explain": "Sei sicuro di voler modificare le regole di utilizzo del pass? Questa modifica è retroattiva per gli acquisti già effettuati."
-            }
+            },
+            "excludedSlots": {
+                "helperText": "Selezionare le sessioni per le quali la scheda RDV è compatibile",
+                "cancel": "Cancella",
+                "submit": "Salva",
+                "title": "Sessioni del {{ service }}"
+            },
+            "forSlots": "Sessioni compatibili:",
+            "allSlots": "Compatibile con tutte le sessioni"
         },
         "privatePass": {
             "validForDuration": {
@@ -2238,7 +2247,14 @@
                 "cancel": "Annulla",
                 "dropHere": "Trascina e rilascia un video qui o fai clic per sfogliare il computer",
                 "title": "Carica un video",
-                "content": "Rilascia qui o seleziona un video"
+                "content": "Rilascia qui o seleziona un video",
+                "urlInputError": "Per favore, inserisci un url",
+                "urlInputLabel": "Link YouTube",
+                "type": {
+                    "url": "URL",
+                    "file": "Documento"
+                },
+                "submit": "Convalidare"
             },
             "lock": {
                 "accessDenied": "Non hai accesso a questo video",

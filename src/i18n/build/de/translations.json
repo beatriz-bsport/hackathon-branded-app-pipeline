@@ -4902,7 +4902,15 @@
                 "cancel": "Abbrechen",
                 "title": "Kompatible Änderung des Termins",
                 "explain": "Bist Du Dir sicher, dass Du die Regeln für die Verwendung der Kurskarte ändern möchtest? Diese Änderung gilt rückwirkend für bereits registrierte Einkäufe."
-            }
+            },
+            "excludedSlots": {
+                "cancel": "Stornieren",
+                "helperText": "Wähle den Termin aus, für den die Termin-Karte kompatibel ist",
+                "submit": "Speichern",
+                "title": "{{Service}} Termine"
+            },
+            "forSlots": "Kompatible Termine:",
+            "allSlots": "Kompatibel für alle Termine"
         },
         "selector": {
             "privateSlot": "Einen Kurs auswählen",

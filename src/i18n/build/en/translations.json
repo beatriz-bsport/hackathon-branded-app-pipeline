@@ -2715,7 +2715,7 @@
                 "isEmpty": "No appointment is compatible - unusable"
             },
             "form": {
-                "title": "Pass (appointments)",
+                "title": "Appointment Pass",
                 "managerOnly": {
                     "label": "Unavailable for client purchase"
                 },
@@ -2763,7 +2763,7 @@
                 "days": "Valid for {{ duration_days }} days"
             },
             "edit": "Edit",
-            "disabledTitle": "Archived passes (appointments)"
+            "disabledTitle": "Archived appointment passes"
         },
         "service": {
             "selector": {
@@ -2912,7 +2912,7 @@
                 }
             },
             "navigation": {
-                "goToPrivatePass": "Pass (appointments)"
+                "goToPrivatePass": "Appointment Pass"
             }
         },
         "privateEstablishment": {
@@ -4026,7 +4026,7 @@
                 "locked": "You can not buy this pass."
             },
             "privatePass": {
-                "error": "This pass for appointments isn't available"
+                "error": "This pass for appointments is not available"
             }
         },
         "myBasket": {
@@ -4749,7 +4749,7 @@
             },
             "buyableItemIdentifier": {
                 "10": "Pack",
-                "9": "Pass (appointments)",
+                "9": "Appointment Pass",
                 "3": "Credit",
                 "2": "Shop",
                 "1": "Pass"
@@ -5172,7 +5172,7 @@
                 },
                 "object_type": {
                     "paymentPack": "Pass",
-                    "privatePass": "Pass (appointments)",
+                    "privatePass": "Appointment Pass",
                     "label": "Subscription type",
                     "paymentCombo": "Pack"
                 },
@@ -5259,8 +5259,8 @@
                 "1": "SEPA transfer",
                 "0": "Credit card"
             },
-            "private_pass": "Pass (appointments)",
-            "privatePass": "Pass (appointments)",
+            "private_pass": "Appointment Pass",
+            "privatePass": "Appointment Pass",
             "note": "Note",
             "payment_method_group": {
                 "14": "Internal account",
@@ -5593,7 +5593,7 @@
             "discount": "Coupon",
             "private_bookings": "Reservations (appointment)",
             "shop": "Shop",
-            "private_cpasses": "Pass (appointments)",
+            "private_cpasses": "Appointment Pass",
             "payment_sumup": "Payment totals",
             "credit": "Credit",
             "basket": "Basket",
@@ -7312,7 +7312,7 @@
                 "has_not": "Does not have",
                 "has": "Has",
                 "first": "one of the appointment pass",
-                "name": "Pass (appointments)",
+                "name": "Appointment Pass",
                 "explanation": "Has bought appointment pass X at date Y, with Z credits remaining"
             },
             "attendanceTrue": "present",
@@ -7719,12 +7719,12 @@
         },
         "privatePass": {
             "del": {
-                "error": "Unable to delete this pass (appointments)",
-                "success": "Pass (appointments) deleted"
+                "error": "Unable to delete this appointment pass",
+                "success": "Appointment Pass deleted"
             },
             "restore": {
-                "error": "Unable to restore this pass (appointments)",
-                "success": "Pass (appointments) restored"
+                "error": "Unable to restore this Appointment Pass",
+                "success": "Appointment Pass restored"
             }
         },
         "metaActivity": {
@@ -7853,7 +7853,7 @@
             "product": "Products",
             "coaches": "Teachers",
             "privateService": {
-                "pass": "Pass (appointments)",
+                "pass": "Appointment Pass",
                 "services": "Appointments",
                 "title": "Appointments"
             },

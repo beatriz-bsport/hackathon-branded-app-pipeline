@@ -1928,9 +1928,9 @@
             "form": {
                 "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien",
                 "mailTitle": "Selecteer de te versturen e-mail",
-                "typeTitle": "Type melding",
-                "creditType": "Overig krediet",
-                "daysType": "Resterende geldigheidsduur in dagen",
+                "typeTitle": "Evenement",
+                "creditType": "Resterende kredieten",
+                "daysType": "Resterende geldigheid",
                 "mailSelection": "Kies een e-mail",
                 "smartListSelection": "Smartlist(s) selecteren (optioneel)",
                 "showMail": "E-mail tonen",
@@ -1946,12 +1946,12 @@
                 "submit": "Bevestigen"
             },
             "daysPast": {
-                "second": "dagen verloopt.",
-                "first": "Stuur een melding wanneer dit lidmaatschap binnen"
+                "second": "dag(en) verlopen is.",
+                "first": "Stuur deze melding wanneer dit lidmaatschap"
             },
             "daysLeft": {
                 "second": "dagen geldig is.",
-                "first": "Stuur een melding wanneer dit lidmaatschap nog"
+                "first": "Stuur deze melding wanneer dit lidmaatschap nog"
             },
             "creditsLeft": {
                 "second": "krediet(en) heeft.",
@@ -3286,28 +3286,28 @@
                 "chooseTime": {
                     "second_after": "uur (uren) na het einde van de reservering.",
                     "second_before": "uur/uren voor de sessie",
-                    "first": "Stuur e-mail"
+                    "first": "Verstuur deze melding"
                 },
-                "sendAfterMail": "Verstuur deze e-mail na het einde van de sessie(s)",
-                "sendBeforeMail": "Verstuur deze e-mail voor het begin van de sessie(s)",
-                "eventNb": "Informeer leden over sessie:",
+                "sendAfterMail": "Verstuur deze melding nadat de reservering afgelopen is",
+                "sendBeforeMail": "Verstuur deze melding voor het begin van de reservering",
+                "eventNb": "Selecteer welke reservering de melding activeert:",
                 "settingTitle": "Instellingen",
-                "typeTitle": "Type melding",
+                "typeTitle": "Evenement",
                 "title": "[Formulier] Melding",
                 "chooseKind": {
                     "notRefunded": "Te late annulering",
                     "refunded": "Terugbetaalde annulering",
-                    "absence": "Afwezigheid van een lid bij een sessie",
-                    "attendance": "Aanwezigheid van een lid bij een sessie",
-                    "title": "Mededeling over deze activiteit"
+                    "absence": "Afwezigheid",
+                    "attendance": "Aanwezigheid",
+                    "title": "Activiteit"
                 },
                 "chooseStatus": {
                     "cancelled": "Door leden geannuleerde reserveringen",
                     "valid": "Geldige reserveringen",
-                    "title": "Kies het type reservering die je wilt contacteren"
+                    "title": "Evenement"
                 },
-                "explain": "Je kunt je leden vóór of ná specifieke sessies contacteren aan de hand van verschillende criteria, bijvoorbeeld het aantal deelnemers, het aantal afwezigen of annuleringen.",
-                "notifyAllEvents": "Informeer leden over alle sessies"
+                "explain": "Voeg een melding toe om je leden automatisch te contacteren aan de hand van een aantal criteria.",
+                "notifyAllEvents": "Verstuur deze melding na iedere reservering"
             },
             "addNotification": "Melding(en) toevoegen"
         },
@@ -4226,6 +4226,17 @@
         },
         "companyOnboarding": {
             "error": "Je kunt deze informatie niet bewerken"
+        },
+        "paymentMethods": {
+            "methodPaymentBasket": "Eenmalige betalingen",
+            "methodPaymentSubscription": "Periodieke betalingen",
+            "save": "Opslaan",
+            "methodPaymentSubscriptionError": "Selecteer minimaal één betaalmethode",
+            "methodPaymentSubscriptionHelper": "Sta toe dat abonnementen (contracten) alleen met X betaald kunnen worden",
+            "methodPaymentBasketHelper": "Sta toe dat online betalingen, schuldenregelingen en betalingsachterstanden alleen met X betaald kunnen worden",
+            "subtitle2": "Als Systeembeheerder of Eigenaar heb je altijd toegang tot alle betaalmethoden.",
+            "subtitle": "Je kunt bepaalde betaalmethoden aan- en/of uitzetten voor je leden.",
+            "title": "Online betaling"
         }
     },
     "privateService": {
@@ -4897,7 +4908,7 @@
                 "chooseWhen": {
                     "after": "Stuur deze melding ná het einde van de reservering",
                     "before": "Stuur deze melding vóór het begin van de reservering",
-                    "title": "Type melding"
+                    "title": "Evenement"
                 },
                 "help": {
                     "valid": {
@@ -6800,7 +6811,7 @@
         "mandate": {
             "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT en Stripe (ons betalingssysteem) toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen volgens de voorwaarden van je contract met deze bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
             "email": "E-mailadres rekeninghouder",
-            "name": "Voornaam rekeninghouder"
+            "name": "Volledige naam van de rekeninghouder"
         },
         "paymentGroup": {
             "requiresAction": "De bank heeft de betaling niet geverifieerd (3DSecure).",
@@ -6980,7 +6991,8 @@
                 "general": "Algemeen",
                 "platform_billing": "BSPORT-abonnement",
                 "marketplaceSettings": "MarketPlace",
-                "widget": "Widgets"
+                "widget": "Widgets",
+                "paymentMethod": "Betaalmethoden"
             },
             "pass": "Cursuskaarten",
             "goBack": "Terug",

@@ -3579,7 +3579,7 @@
                 "last_name_label": {
                     "placeholder": "Last name label",
                     "label": "Last name label",
-                    "helperText": "Fill in the first name label"
+                    "helperText": "Fill in the last name label"
                 },
                 "offersFilling": "Display offers filling on marketplace calendar",
                 "default_booking_ordering": {
@@ -4344,7 +4344,13 @@
         "paymentMethods": {
             "subtitle2": "As the manager, you will always have access to all available payment methods.",
             "subtitle": "You can activate or deactivate the payment methods used by your members for their online payments.",
-            "title": "Online Payment"
+            "title": "Online Payment",
+            "save": "Save",
+            "methodPaymentSubscriptionError": "Please choose at least one payment method",
+            "methodPaymentSubscriptionHelper": "Authorize recurring payment (contracts) only via",
+            "methodPaymentSubscription": "Recurring payment",
+            "methodPaymentBasketHelper": "Authorize online payment for one time payment, customer debt only via",
+            "methodPaymentBasket": "One time payment"
         }
     },
     "datetime": {
@@ -7831,7 +7837,8 @@
                 "company": "Company",
                 "platform_billing": "Bsport subscription",
                 "marketplaceSettings": "Marketplace settings",
-                "widget": "Widget"
+                "widget": "Widget",
+                "paymentMethod": "Payment methods"
             },
             "pass": "Pass",
             "goBack": "Back",
@@ -7942,7 +7949,7 @@
             "level": "Level",
             "description": "Description",
             "category": "Category",
-            "name": "Last name",
+            "name": "Title",
             "bottomActions": {
                 "create": "Add"
             },
@@ -8009,7 +8016,7 @@
             "open": "Open",
             "deleteVideo": "Remove",
             "description": "Description",
-            "name": "Last name",
+            "name": "Title",
             "noVideo": "No video in this playlist",
             "playlist": "Playlist"
         }

@@ -45,6 +45,7 @@ export type Theme = {
   is_checking_balance: boolean;
   nb_to_check_balance: number;
   gender_max_shift_for_booking: boolean;
+  vod_providers: Array<number>;
 };
 
 export type ThemeState = {

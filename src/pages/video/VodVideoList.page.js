@@ -35,12 +35,14 @@ import VideoFormDialog from '../../libs/video/components/VideoFormDialog.compone
 import VideoUploadDialog from '../../libs/video/components/VideoUploadDialog.component';
 import VideoStreamDialog from '../../libs/video/components/VideoStreamDialog.component';
 import VideoSearchBar from '../../libs/video/components/VideoSearchBar.component';
+import themeSelectors from '../../libs/theme/selectors';
 
 type Props = {
   t: TFunction,
   location: Location,
   classes: Object,
   loading: boolean,
+  theme: CompanyTheme,
 
   searchParams: {
     coaches: string,
@@ -140,6 +142,7 @@ export class VodVideoListPage extends React.PureComponent<Props> {
         {!!this.props.videoToUpload && (
           <VideoUploadDialog
             video={this.props.videoToUpload}
+            videoProviderList={this.props.theme.vod_providers}
             onSubmit={() => {
               this.props.retrieveVideo(this.props.videoToUpload.id);
               this.props.closeUploadVideoForm();
@@ -204,6 +207,7 @@ export default compose(
       coaches: getAllCoaches(state),
       hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
       videoFilterableParams: state.video.filterableParams.items,
+      theme: themeSelectors.getTheme(state),
     }),
     {
       fetchVideoList: fetchVideoListAction,

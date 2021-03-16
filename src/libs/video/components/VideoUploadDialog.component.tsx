@@ -50,11 +50,18 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 export class VideoUploadDialog extends React.Component<Props, State> {
-  state = {
-    progress: 0,
-    isUploading: false,
-    videoStrategy: VideoProviderType.TYPE_FILE_UPLOAD,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      progress: 0,
+      isUploading: false,
+      videoStrategy: this.props.videoProviderList.includes(
+        VideoProvider.MUX_PROVIDER,
+      )
+        ? VideoProviderType.TYPE_FILE_UPLOAD
+        : VideoProviderType.TYPE_EXTERNAL_URL,
+    };
+  }
 
   file: any = null;
 
@@ -173,12 +180,22 @@ export class VideoUploadDialog extends React.Component<Props, State> {
                 <FormControlLabel
                   value={VideoProviderType.TYPE_FILE_UPLOAD}
                   control={<Radio />}
+                  disabled={
+                    !this.props.videoProviderList.includes(
+                      VideoProvider.MUX_PROVIDER,
+                    )
+                  }
                   label={this.props.t('video.upload.type.file')}
                 />
                 <FormControlLabel
                   value={VideoProviderType.TYPE_EXTERNAL_URL}
                   control={<Radio />}
                   label={this.props.t('video.upload.type.url')}
+                  disabled={
+                    !this.props.videoProviderList.includes(
+                      VideoProvider.EXTERNAL_URL_PROVIDER,
+                    )
+                  }
                 />
               </RadioGroup>
             </FormControl>

@@ -4340,6 +4340,11 @@
         },
         "companyOnboarding": {
             "error": "You cannot modify this information"
+        },
+        "paymentMethods": {
+            "subtitle2": "As the manager, you will always have access to all available payment methods.",
+            "subtitle": "You can activate or deactivate the payment methods used by your members for their online payments.",
+            "title": "Online Payment"
         }
     },
     "datetime": {

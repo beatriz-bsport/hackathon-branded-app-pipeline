@@ -17,6 +17,9 @@ type Props = {
   metadata: ReportMetadata,
   handleGenerate: (*) => void,
   exportLink?: string,
+  previousPage: int,
+  nextPage: int,
+  otherPages: int,
 };
 
 export default function ReportGeneration(props: Props) {
@@ -25,14 +28,20 @@ export default function ReportGeneration(props: Props) {
     result,
     resultLoading,
     handleGenerate,
+    handleGeneratePreviousPage,
+    handleGenerateNextPage,
     exportLink,
     metadata,
+    previousPage,
+    nextPage,
+    otherPages,
+    pageSize,
   } = props;
 
-  if (!report || report.loading || metadata.loading) {
+  if (!report || resultLoading || metadata.loading) {
     return <LinearProgress />;
   }
-
+  
   return (
     <div>
       <ReportGenerationForm
@@ -48,6 +57,12 @@ export default function ReportGeneration(props: Props) {
           result={result}
           loading={resultLoading}
           metadata={metadata}
+          previousPage={previousPage}
+          nextPage={nextPage}
+          otherPages={otherPages}
+          handleGeneratePreviousPage={handleGeneratePreviousPage}
+          handleGenerateNextPage={handleGenerateNextPage}
+          pageSize={pageSize}
         />
       </Paper>
     </div>

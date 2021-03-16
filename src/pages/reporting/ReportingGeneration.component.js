@@ -12,18 +12,22 @@ import withTitle from '../../hocs/with-title.hoc';
 
 import ReportGeneration from '../../libs/reporting/ReportGeneration.component';
 
-import {
-  reports,
-  reportResult,
-  reportMetadata,
-  urls,
-} from '../../resources/reporting';
+import { reports, reportMetadata, urls } from '../../resources/reporting';
+
+import { fetchReportGeneration } from '../../libs/reporting/actions';
 
 import type {
   ReportConfiguration,
   ReportExtractResult,
   ReportMetadata,
 } from '../../libs/reporting/types';
+import {
+  getReportRows,
+  getReportRowsLoading,
+  getNextPage,
+  getPreviousPage,
+  getOtherPages,
+} from '../../libs/reporting/selectors';
 
 type Props = {
   report: ReportConfiguration,
@@ -33,6 +37,13 @@ type Props = {
   fetchReports: () => void,
   fetchReportMetadata: () => void,
   handleGenerate: () => void,
+  handleGeneratePreviousPage: () => void,
+  handleGenerateNextPage: () => void,
+  reportStoreRows: Array<object>,
+  reportStoreRowsLoading: boolean,
+  previousPage: int,
+  nextPage: int,
+  otherPages: int,
 };
 
 export class ReportingGeneration extends React.Component<Props> {
@@ -65,17 +76,37 @@ export class ReportingGeneration extends React.Component<Props> {
   }
 
   render() {
-    const { report, result, handleGenerate, exportLink, metadata } = this.props;
-
+    const {
+      report,
+      handleGenerate,
+      handleGeneratePreviousPage,
+      handleGenerateNextPage,
+      exportLink,
+      metadata,
+      reportStoreRows,
+      reportStoreRowsLoading,
+      previousPage,
+      nextPage,
+      otherPages,
+      pageSize,
+    } = this.props;
     return (
       <div>
         <ReportGeneration
           report={report}
           metadata={metadata}
-          resultLoading={report.loading || result.loading || this.state.loading}
-          result={result.value}
+          resultLoading={
+            report.loading || reportStoreRowsLoading || this.state.loading
+          }
+          result={reportStoreRows}
           handleGenerate={handleGenerate}
+          handleGeneratePreviousPage={handleGeneratePreviousPage}
+          handleGenerateNextPage={handleGenerateNextPage}
           exportLink={exportLink}
+          previousPage={previousPage}
+          nextPage={nextPage}
+          otherPages={otherPages}
+          pageSize={pageSize}
         />
       </div>
     );
@@ -87,37 +118,70 @@ export default compose(
   connect(
     (state, { id }) => ({
       report: reports.selectors.get(state, id),
-      result: reportResult.selectors.get(state),
       metadata: reportMetadata.selectors.get(state),
+      reportStoreRows: getReportRows(state),
+      reportStoreRowsLoading: getReportRowsLoading(state),
+      nextPage: getNextPage(state),
+      previousPage: getPreviousPage(state),
+      otherPages: getOtherPages(state),
+      pageSize: state.reports.page_size,
     }),
     {
       fetchReportMetadata: reportMetadata.effects.get,
       fetchReports: reports.effects.fetchAll,
-      fetchExtractResult: reportResult.effects.generate,
+      fetchExtractResult: fetchReportGeneration,
     },
   ),
   withState('exportLink', 'setExportLink', null),
-  withProps(({ id, fetchExtractResult, result, setExportLink, report }) => ({
-    handleGenerate({ dateStart, dateEnd }, options) {
-      fetchExtractResult(
-        id,
-        report.date_type === 'range'
-          ? {
-              dateStart: dateStart.format('YYYY-MM-DD'),
-              dateEnd: dateEnd.clone().format('YYYY-MM-DD'),
-            }
-          : {
-              dateStart: dateStart.format('YYYY-MM-DD'),
-            },
+  withProps(
+    ({ id, fetchExtractResult, result, setExportLink, report, pageSize }) => ({
+      handleGenerate({ dateStart, dateEnd, page }, options) {
+        fetchExtractResult(
+          id,
+          report.date_type === 'range'
+            ? {
+                date_start: dateStart.format('YYYY-MM-DD'),
+                date_end: dateEnd.clone().format('YYYY-MM-DD'),
+                page_size: pageSize,
+                page: page || 1,
+              }
+            : {
+                date_start: dateStart.format('YYYY-MM-DD'),
+                page_size: pageSize,
+                page: page || 1,
+              },
+          options,
+        );
+        const params = {
+          fileformat: 'xlsx',
+          dateStart: dateStart.format('YYYY-MM-DD'),
+          dateEnd: dateEnd.clone().format('YYYY-MM-DD'),
+        };
+        const exportLink = result && urls.export(id, params);
+        setExportLink(exportLink);
+      },
+    }),
+  ),
+  withProps(({ report, previousPage, nextPage, handleGenerate }) => ({
+    handleGeneratePreviousPage({ dateStart, dateEnd }, options) {
+      handleGenerate(
+        {
+          dateStart: dateStart || moment(report.date_start),
+          dateEnd: dateEnd || moment(report.date_end),
+          page: previousPage,
+        },
         options,
       );
-      const params = {
-        fileformat: 'xlsx',
-        dateStart: dateStart.format('YYYY-MM-DD'),
-        dateEnd: dateEnd.clone().format('YYYY-MM-DD'),
-      };
-      const exportLink = result && urls.export(id, params);
-      setExportLink(exportLink);
+    },
+    handleGenerateNextPage({ dateStart, dateEnd }, options) {
+      handleGenerate(
+        {
+          dateStart: dateStart || moment(report.date_start),
+          dateEnd: dateEnd || moment(report.date_end),
+          page: nextPage,
+        },
+        options,
+      );
     },
   })),
   withTitle(({ report }) => (report && report.name) || ''),

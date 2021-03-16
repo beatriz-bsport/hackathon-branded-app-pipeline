@@ -24,7 +24,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-
+import IconButton from '@material-ui/core/IconButton';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import { TableFooter } from '@material-ui/core';
 import { getCurrencyDisplay } from '../theme/selectors';
 
 import type {
@@ -40,6 +43,11 @@ type Props = {
   loading?: boolean,
   t: TFunction,
   classes: { [string]: string },
+  reportStoreRows: Array<any>,
+  reportStoreRowsLoading: boolean,
+  previousPage: int,
+  nextPage: int,
+  otherPages: int,
 };
 
 /*
@@ -226,10 +234,54 @@ const TableSubHeader = ({
   );
   /* eslint-enable */
 };
-
+function TablePaginationActions(props: Props) {
+  const {
+    previousPage,
+    nextPage,
+    pageSize,
+    handleGeneratePreviousPage,
+    handleGenerateNextPage,
+    className,
+  } = props;
+  return (
+    <div className={className}>
+      <IconButton
+        onClick={handleGeneratePreviousPage}
+        disabled={!previousPage}
+        aria-label="previous page"
+      >
+        <KeyboardArrowLeft />
+        <Typography variant="caption">Previous page {previousPage}</Typography>
+      </IconButton>
+      <Typography variant="caption">Current page {nextPage - 1}</Typography>
+      <IconButton
+        onClick={handleGenerateNextPage}
+        disabled={!nextPage}
+        aria-label="next page"
+      >
+        <Typography variant="caption">Next Page {nextPage}</Typography>
+        <KeyboardArrowRight />
+      </IconButton>
+    </div>
+  );
+}
 export function ReportTable(props: Props) {
-  const { report, result, loading, classes, t, metadata } = props;
+  const {
+    report,
+    result,
+    loading,
+    classes,
+    t,
+    metadata,
+    previousPage,
+    nextPage,
+    otherPages,
+    handleGeneratePreviousPage,
+    handleGenerateNextPage,
+    pageSize,
+  } = props;
   const { columns } = report;
+
   const columnsConfigs = columns.map((c) => getColumn(metadata, report, c));
   const converters = columnsConfigs.map((c) => getConverter(c, classes, t));
 
@@ -242,17 +294,17 @@ export function ReportTable(props: Props) {
               <TableCell key={column}>{t(`columns.${column}`)}</TableCell>
             ))}
           </TableRow>
+          <TableRow>
+            <TablePaginationActions
+              previousPage={previousPage}
+              nextPage={nextPage}
+              handleGeneratePreviousPage={handleGeneratePreviousPage}
+              handleGenerateNextPage={handleGenerateNextPage}
+              className={classes.tableFooter}
+            />
+          </TableRow>
         </TableHead>
         <TableBody>
-          {!loading && !!result && (
-            <TableSubHeader
-              t={t}
-              classes={classes}
-              columnsConfigs={columnsConfigs}
-              converters={converters}
-              result={result}
-            />
-          )}
           {!loading && result
             ? result.map((row) => (
                 <TableRow
@@ -274,6 +326,17 @@ export function ReportTable(props: Props) {
               ))
             : null}
         </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TablePaginationActions
+              previousPage={previousPage}
+              nextPage={nextPage}
+              handleGeneratePreviousPage={handleGeneratePreviousPage}
+              handleGenerateNextPage={handleGenerateNextPage}
+              className={classes.tableFooter}
+            />
+          </TableRow>
+        </TableFooter>
       </Table>
     </div>
   );
@@ -283,7 +346,7 @@ ReportTable.defaultProps = {
   loading: false,
 };
 
-const styles = () => ({
+const styles = (theme) => ({
   responsive: {
     overflowX: 'scroll',
     maxWidth: 'calc(100vw - 300px)',
@@ -298,6 +361,10 @@ const styles = () => ({
     height: 'auto',
     backgroundColor: '#EFEFEF',
     position: 'relative',
+  },
+  tableFooter: {
+    flexShrink: 0,
+    marginLeft: theme.spacing(2.5),
   },
 });
 export default withStyles(styles)(withTranslation(['reporting'])(ReportTable));

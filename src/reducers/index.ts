@@ -55,7 +55,7 @@ import marketingNotification from '../libs/marketing/reducers';
 import dashboardSettings from '../libs/dashboard/reducers';
 import marketplace from '../libs/marketplace/reducers';
 import zoomAppReducers from '../libs/zoom-app/reducers';
-
+import reportGenerationState from '../libs/reporting/reducers';
 import { reducer } from '../resources';
 
 import { PrivateServiceState } from '../libs/private-service/types';
@@ -82,6 +82,7 @@ import actionTypes from '../actions/auth.types';
 const rootReducer = (history: any) =>
   combineReducers({
     '@api': reducer,
+    reports: reportGenerationState,
     router: connectRouter(history),
     communication: communicationReducers,
     checkout: checkoutReducers,

@@ -143,7 +143,8 @@
     "lint": "eslint ./src",
     "storybook": "yarn run start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "updateTranslation": "./scripts/sync-translations.sh"
+    "updateTranslation": "./scripts/sync-translations.sh",
+    "prepare": "husky install"
   },
   "browserslist": "> 0.25%",
   "eslintConfig": {
@@ -207,6 +208,7 @@
     "faker": "^4.1.0",
     "flow-bin": "0.114",
     "flow-coverage-report": "^0.6.0",
+    "husky": "^5.1.3",
     "jest": "^26.6.3",
     "json-beautify": "^1.1.1",
     "json-merger": "^1.1.2",

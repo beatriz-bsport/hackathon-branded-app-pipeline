@@ -1,0 +1,23 @@
+#!/bin/bash
+
+. "$(dirname "$0")/_/husky.sh"
+
+CYAN='\e[36m'
+NC='\033[0m'
+
+echo "${CYAN}COMMIT MSG HOOK"
+
+branch=$(git branch --show-current)
+match=$(echo $branch | grep -E -c "^[[:digit:]]+-.*" | cat)
+
+if [ $match = 1 ]
+then
+  echo "Append ticket name at the end of the message commit"
+  echo "${NC}"
+
+  message=$(cat $1)
+  issueNumber=$(echo $branch | grep -E -o "^[[:digit:]]+" | cat)
+  printf "$message\n[ISSUE: #$issueNumber]\n" > $1
+else
+  echo 'Branch name is not a valid ticket name'
+fi

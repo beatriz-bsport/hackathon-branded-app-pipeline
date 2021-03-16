@@ -425,6 +425,7 @@ exports.default = {
     excludedSlots: {
       title: 'Séances du {{ service }}',
       submit: 'Enregistrer',
+      isEmpty: 'Aucun type de séance configuré dans ce RDV!',
       cancel: 'Annuler',
       helperText:
         'Sélectionnez les sessions pour lesquelles la carte RDV est compatible',

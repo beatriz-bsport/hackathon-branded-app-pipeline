@@ -4,6 +4,7 @@ import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
+import WarningIcon from '@material-ui/icons/Warning';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -20,7 +21,9 @@ type Props = {
 
 export const PrivateSlotCompatibleServiceForm = (props: Props) => {
   const { compatiblePassByService, t, classes } = props;
-  const { slots } = (compatiblePassByService || {}).private_service || [];
+  const slots = (
+    (compatiblePassByService || {}).private_service || { slots: [] }
+  ).slots.filter((s) => !!s && s.avalable);
   const [unselectedSlots, setUnselectedSlots] = React.useState(
     (compatiblePassByService || {}).excluded_slot_ids || [],
   );
@@ -47,8 +50,16 @@ export const PrivateSlotCompatibleServiceForm = (props: Props) => {
   return (
     <div className={classes.contain}>
       <FormGroup className={classes.checkboxContain}>
-        {slots &&
-          slots.length &&
+        {!!slots && slots.length === 0 && (
+          <div className={classes.row}>
+            <WarningIcon coilor="textSecondary" />
+            <Typography variant="caption" color="textSecondary">
+              {t('privateServiceCompatibility.excludedSlots.isEmpty')}
+            </Typography>
+          </div>
+        )}
+        {!!slots &&
+          !!slots.length &&
           slots.map((slot) => (
             <FormControlLabel
               key={slot.id}
@@ -94,6 +105,14 @@ const styles = (theme) => ({
   },
   inputContain: {
     marginTop: theme.spacing(2),
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    '&>*': {
+      marginRight: theme.spacing(1),
+    },
   },
   buttonContainer: {
     marginTop: theme.spacing(2),

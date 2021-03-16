@@ -1642,6 +1642,12 @@
         },
         "companyOnboarding": {
             "error": "No puede modificar esta información"
+        },
+        "paymentMethods": {
+            "methodPaymentBasket": "Pago único",
+            "subtitle2": "Como manager, siempre tienes acceso a todos los métodos de pago disponibles.",
+            "subtitle": "Puedes activar o desactivar los métodos de pago utilizados por sus miembros al pagar en línea.",
+            "title": "Pago en línea"
         }
     },
     "datetime": {

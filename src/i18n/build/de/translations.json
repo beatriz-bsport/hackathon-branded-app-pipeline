@@ -6236,7 +6236,8 @@
                 "general": "Allgemein",
                 "platform_billing": "Bsport-Abonnement",
                 "marketplaceSettings": "Marketplace-Eintellungen",
-                "widget": "Widget"
+                "widget": "Widget",
+                "paymentMethod": "Zahlungsmethoden"
             },
             "myClub": "Mein Klub",
             "subscription": "Automatische Abbuchungen",
@@ -6804,6 +6805,17 @@
         },
         "companyOnboarding": {
             "error": "Diese Information kann nicht geändert werden"
+        },
+        "paymentMethods": {
+            "save": "Speichern",
+            "methodPaymentSubscriptionError": "Bitte wähle mindestens eine Zahlungsmethode aus",
+            "methodPaymentSubscriptionHelper": "Autorisiere die Zahlungen für Abonnements (Verträge) nur über",
+            "methodPaymentSubscription": "Wiederkehrende Zahlung",
+            "methodPaymentBasketHelper": "Autorisiere Warenkorbzahlungen, Schuldenregulierung und Zahlungsrückstände etc. nur durch",
+            "methodPaymentBasket": "Einmalzahlung",
+            "subtitle2": "Als Administrator hast Du immer Zugriff auf alle verfügbaren Zahlungsmethoden.",
+            "subtitle": "Du kannst die Zahlungsmethode aktivieren oder deaktivieren, die Deine Mitglieder beim online Zahlungen verwenden.",
+            "title": "Onlinebezahlung"
         }
     },
     "workshop": {

@@ -87,6 +87,10 @@ exports.default = {
       },
       urlInputLabel: 'Lien youtube',
       urlInputError: 'Veuillez saisir une url',
+      durationLabel: 'Durée de la video',
+      durationInputError: 'Veuillez specifier la durée de la video',
+      hours: 'Heures',
+      minutes: 'Minutes',
     },
     form: {
       edit: 'Modifier',

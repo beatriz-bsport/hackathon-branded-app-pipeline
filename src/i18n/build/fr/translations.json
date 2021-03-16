@@ -5181,7 +5181,12 @@
         "submit": "Valider",
         "type": { "file": "Fichier", "url": "Url" },
         "urlInputLabel": "Lien youtube",
-        "urlInputError": "Veuillez saisir une url"
+        "urlInputError": "Veuillez saisir une url",
+        "durationLabel": "Durée de la video",
+        "hours": "Heures",
+        "minutes": "Minutes",
+        "seconds": "Secondes",
+        "durationInputError": "Veuillez specifier la durée de la video"
       },
       "form": {
         "edit": "Modifier",

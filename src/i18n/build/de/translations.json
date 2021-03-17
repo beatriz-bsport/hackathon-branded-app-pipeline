@@ -4907,7 +4907,8 @@
                 "cancel": "Stornieren",
                 "helperText": "Wähle den Termin aus, für den die Termin-Karte kompatibel ist",
                 "submit": "Speichern",
-                "title": "{{Service}} Termine"
+                "title": "{{Service}} Termine",
+                "isEmpty": "In diesem Termin ist kein Sitzungstyp konfiguriert!"
             },
             "forSlots": "Kompatible Termine:",
             "allSlots": "Kompatibel für alle Termine"

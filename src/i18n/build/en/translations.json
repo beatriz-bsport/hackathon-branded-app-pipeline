@@ -2684,7 +2684,8 @@
                 "helperText": "Select the sessions for which the RDV card is compatible",
                 "cancel": "Cancel",
                 "submit": "Save",
-                "title": "Sessions of {{ service }}"
+                "title": "Sessions of {{ service }}",
+                "isEmpty": "No session type configured in this appointment!"
             },
             "forSlots": "Compatible sessions:",
             "allSlots": "Compatible for all sessions"
@@ -5442,7 +5443,7 @@
             "total_price_notax": "Billed price, tax excl.",
             "payment_note": "Payment note",
             "remaining_days": "Remaining days",
-            "payment_method_stripe": "CB",
+            "payment_method_stripe": "Credit Card",
             "payment_method_cash": "Cash",
             "payment_method_check": "Check",
             "payment_method_manual_credit_card": "CB (manual)",

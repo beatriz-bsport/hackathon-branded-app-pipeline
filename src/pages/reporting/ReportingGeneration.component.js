@@ -18,7 +18,6 @@ import { fetchReportGeneration } from '../../libs/reporting/actions';
 
 import type {
   ReportConfiguration,
-  ReportExtractResult,
   ReportMetadata,
 } from '../../libs/reporting/types';
 import {
@@ -31,19 +30,19 @@ import {
 
 type Props = {
   report: ReportConfiguration,
-  result: ReportExtractResult,
   metadata: ReportMetadata,
   exportLink: string,
   fetchReports: () => void,
   fetchReportMetadata: () => void,
-  handleGenerate: () => void,
+  handleGenerate: (*) => void,
   handleGeneratePreviousPage: () => void,
   handleGenerateNextPage: () => void,
   reportStoreRows: Array<object>,
   reportStoreRowsLoading: boolean,
-  previousPage: int,
-  nextPage: int,
-  otherPages: int,
+  previousPage: number,
+  nextPage: number,
+  otherPages: Array,
+  pageSize: number,
 };
 
 export class ReportingGeneration extends React.Component<Props> {
@@ -107,6 +106,7 @@ export class ReportingGeneration extends React.Component<Props> {
           nextPage={nextPage}
           otherPages={otherPages}
           pageSize={pageSize}
+          reportStoreRowsLoading={reportStoreRowsLoading}
         />
       </div>
     );
@@ -134,7 +134,14 @@ export default compose(
   ),
   withState('exportLink', 'setExportLink', null),
   withProps(
-    ({ id, fetchExtractResult, result, setExportLink, report, pageSize }) => ({
+    ({
+      id,
+      fetchExtractResult,
+      reportStoreRows,
+      setExportLink,
+      report,
+      pageSize,
+    }) => ({
       handleGenerate({ dateStart, dateEnd, page }, options) {
         fetchExtractResult(
           id,
@@ -157,7 +164,7 @@ export default compose(
           dateStart: dateStart.format('YYYY-MM-DD'),
           dateEnd: dateEnd.clone().format('YYYY-MM-DD'),
         };
-        const exportLink = result && urls.export(id, params);
+        const exportLink = reportStoreRows && urls.export(id, params);
         setExportLink(exportLink);
       },
     }),

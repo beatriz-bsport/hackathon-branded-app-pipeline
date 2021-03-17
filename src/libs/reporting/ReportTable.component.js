@@ -27,6 +27,7 @@ import TableCell from '@material-ui/core/TableCell';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import Divider from '@material-ui/core/Divider';
 import { TableFooter } from '@material-ui/core';
 import { getCurrencyDisplay } from '../theme/selectors';
 
@@ -37,17 +38,19 @@ import type {
 } from './types';
 
 type Props = {
+  resultLoading?: boolean,
+  reportStoreRowsLoading: boolean,
   report: ReportConfiguration,
   result: ReportExtractResult,
-  metadata: ReportMetadata,
-  loading?: boolean,
   t: TFunction,
   classes: { [string]: string },
   reportStoreRows: Array<any>,
-  reportStoreRowsLoading: boolean,
-  previousPage: int,
-  nextPage: int,
-  otherPages: int,
+  previousPage: number,
+  nextPage: number,
+  otherPages: Array<any>,
+  handleGeneratePreviousPage: (*) => void,
+  handleGenerateNextPage: (*) => void,
+  className: { [string]: string },
 };
 
 /*
@@ -160,116 +163,45 @@ function getColumn(metadata, report, column) {
   );
 }
 
-const TableSubHeader = ({
-  classes,
-  columnsConfigs,
-  converters,
-  result,
-  t,
-}: {
-  classes: Object,
-  columnsConfigs: Array<ColumnConfig>,
-  converters: Array<(Array<any>) => { value: any, cellProps: any }>,
-  result: Array<any>,
-  t: TFunction,
-}) => {
-  /* eslint-disable */
-  return (
-    <React.Fragment>
-      {!!columnsConfigs.filter((c) => c.summable).length && (
-        <React.Fragment>
-          <Typography variant="caption">{t('subheader.total')}</Typography>
-          <TableRow classes={{ root: classes.trRootSubheader }}>
-            {columnsConfigs.map((conf, idx) =>
-              conf.summable ? (
-                (() => {
-                  const { value, cellProps } = converters[idx](
-                    result
-                      .map((row) => row[idx])
-                      .reduce((acc, v) => acc + v, 0),
-                  );
-                  return (
-                    <TableCell
-                      key={columnsConfigs[idx].identifier}
-                      {...(cellProps || {})}
-                    >
-                      {value}
-                    </TableCell>
-                  );
-                })()
-              ) : (
-                <TableCell key={columnsConfigs[idx].identifier} />
-              ),
-            )}
-          </TableRow>
-        </React.Fragment>
-      )}
-      {!!columnsConfigs.filter((c) => c.averageable).length && (
-        <React.Fragment>
-          <Typography variant="caption">{t('subheader.average')}</Typography>
-          <TableRow classes={{ root: classes.trRootSubheader }}>
-            {columnsConfigs.map((conf, idx) =>
-              conf.averageable ? (
-                (() => {
-                  const { value, cellProps } = converters[idx](
-                    mean(result.map((row) => row[idx])),
-                  );
-                  return (
-                    <TableCell
-                      key={columnsConfigs[idx].identifier}
-                      {...(cellProps || {})}
-                    >
-                      {value}
-                    </TableCell>
-                  );
-                })()
-              ) : (
-                <TableCell key={columnsConfigs[idx].identifier} />
-              ),
-            )}
-          </TableRow>
-        </React.Fragment>
-      )}
-    </React.Fragment>
-  );
-  /* eslint-enable */
-};
 function TablePaginationActions(props: Props) {
   const {
     previousPage,
     nextPage,
-    pageSize,
+    otherPages,
     handleGeneratePreviousPage,
     handleGenerateNextPage,
     className,
+    reportStoreRowsLoading,
   } = props;
   return (
-    <div className={className}>
+    <TableRow className={className}>
       <IconButton
         onClick={handleGeneratePreviousPage}
-        disabled={!previousPage}
+        disabled={!previousPage || reportStoreRowsLoading}
         aria-label="previous page"
       >
+        <Typography variant="caption">{previousPage}</Typography>
         <KeyboardArrowLeft />
-        <Typography variant="caption">Previous page {previousPage}</Typography>
       </IconButton>
-      <Typography variant="caption">Current page {nextPage - 1}</Typography>
+      <Typography variant="caption">
+        {`Page ${nextPage - 1}/${otherPages ? otherPages.length : ''}`}
+      </Typography>
       <IconButton
         onClick={handleGenerateNextPage}
-        disabled={!nextPage}
+        disabled={!nextPage || reportStoreRowsLoading}
         aria-label="next page"
       >
-        <Typography variant="caption">Next Page {nextPage}</Typography>
         <KeyboardArrowRight />
+        <Typography variant="caption">{nextPage}</Typography>
       </IconButton>
-    </div>
+      <Divider />
+    </TableRow>
   );
 }
 export function ReportTable(props: Props) {
   const {
     report,
     result,
-    loading,
     classes,
     t,
     metadata,
@@ -278,7 +210,7 @@ export function ReportTable(props: Props) {
     otherPages,
     handleGeneratePreviousPage,
     handleGenerateNextPage,
-    pageSize,
+    reportStoreRowsLoading,
   } = props;
   const { columns } = report;
 
@@ -294,22 +226,26 @@ export function ReportTable(props: Props) {
               <TableCell key={column}>{t(`columns.${column}`)}</TableCell>
             ))}
           </TableRow>
-          <TableRow>
-            <TablePaginationActions
-              previousPage={previousPage}
-              nextPage={nextPage}
-              handleGeneratePreviousPage={handleGeneratePreviousPage}
-              handleGenerateNextPage={handleGenerateNextPage}
-              className={classes.tableFooter}
-            />
-          </TableRow>
+          <TablePaginationActions
+            previousPage={previousPage}
+            nextPage={nextPage}
+            otherPages={otherPages}
+            handleGeneratePreviousPage={handleGeneratePreviousPage}
+            handleGenerateNextPage={handleGenerateNextPage}
+            className={classes.tableFooter}
+            reportStoreRowsLoading={reportStoreRowsLoading}
+          />
         </TableHead>
         <TableBody>
-          {!loading && result
+          {result
             ? result.map((row) => (
                 <TableRow
                   key={row[0] + row[1]}
-                  classes={{ root: classes.trRoot }}
+                  classes={
+                    reportStoreRowsLoading
+                      ? { root: classes.trRootLoading }
+                      : { root: classes.trRoot }
+                  }
                 >
                   {columns.map((column, i) => {
                     const { value, cellProps } = converters[i](row[i]);
@@ -327,15 +263,15 @@ export function ReportTable(props: Props) {
             : null}
         </TableBody>
         <TableFooter>
-          <TableRow>
-            <TablePaginationActions
-              previousPage={previousPage}
-              nextPage={nextPage}
-              handleGeneratePreviousPage={handleGeneratePreviousPage}
-              handleGenerateNextPage={handleGenerateNextPage}
-              className={classes.tableFooter}
-            />
-          </TableRow>
+          <TablePaginationActions
+            previousPage={previousPage}
+            nextPage={nextPage}
+            otherPages={otherPages}
+            handleGeneratePreviousPage={handleGeneratePreviousPage}
+            handleGenerateNextPage={handleGenerateNextPage}
+            className={classes.tableFooter}
+            reportStoreRowsLoading={reportStoreRowsLoading}
+          />
         </TableFooter>
       </Table>
     </div>
@@ -356,6 +292,10 @@ const styles = (theme) => ({
   },
   trRoot: {
     height: 'auto',
+  },
+  trRootLoading: {
+    height: 'auto',
+    backgroundColor: theme.palette.action.hover,
   },
   trRootSubheader: {
     height: 'auto',

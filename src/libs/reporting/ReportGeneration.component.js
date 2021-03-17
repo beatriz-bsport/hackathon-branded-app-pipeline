@@ -15,11 +15,15 @@ type Props = {
   report: ReportConfiguration,
   result: ReportExtractResult,
   metadata: ReportMetadata,
+  handleGeneratePreviousPage: (*) => void,
+  handleGenerateNextPage: (*) => void,
   handleGenerate: (*) => void,
   exportLink?: string,
-  previousPage: int,
-  nextPage: int,
-  otherPages: int,
+  previousPage: number,
+  nextPage: number,
+  otherPages: Array,
+  pageSize: number,
+  reportStoreRowsLoading: boolean,
 };
 
 export default function ReportGeneration(props: Props) {
@@ -36,40 +40,50 @@ export default function ReportGeneration(props: Props) {
     nextPage,
     otherPages,
     pageSize,
+    reportStoreRowsLoading,
   } = props;
 
-  if (!report || resultLoading || metadata.loading) {
+  if (!report || metadata.loading) {
     return <LinearProgress />;
   }
-  
   return (
     <div>
-      <ReportGenerationForm
-        reportConfiguration={report}
-        onSubmit={handleGenerate}
-        exportLink={exportLink}
-        metadata={metadata}
-      />
-      {resultLoading ? <LinearProgress /> : null}
-      <Paper>
-        <ReportTable
-          report={report}
-          result={result}
-          loading={resultLoading}
+      {!report || metadata.loading ? (
+        <LinearProgress />
+      ) : (
+        <ReportGenerationForm
+          reportConfiguration={report}
+          onSubmit={handleGenerate}
+          exportLink={exportLink}
           metadata={metadata}
-          previousPage={previousPage}
-          nextPage={nextPage}
-          otherPages={otherPages}
-          handleGeneratePreviousPage={handleGeneratePreviousPage}
-          handleGenerateNextPage={handleGenerateNextPage}
-          pageSize={pageSize}
         />
-      </Paper>
+      )}
+
+      {reportStoreRowsLoading || resultLoading ? <LinearProgress /> : null}
+      {!report.loading ? (
+        <Paper>
+          <ReportTable
+            report={report}
+            result={result}
+            loading={resultLoading}
+            metadata={metadata}
+            previousPage={previousPage}
+            nextPage={nextPage}
+            otherPages={otherPages}
+            handleGeneratePreviousPage={handleGeneratePreviousPage}
+            handleGenerateNextPage={handleGenerateNextPage}
+            pageSize={pageSize}
+            reportStoreRowsLoading={reportStoreRowsLoading}
+          />
+        </Paper>
+      ) : null}
+
+      {reportStoreRowsLoading ? <LinearProgress /> : null}
     </div>
   );
 }
 
 ReportGeneration.defaultProps = {
-  resultLoading: true,
+  resultLoading: false,
   exportLink: null,
 };

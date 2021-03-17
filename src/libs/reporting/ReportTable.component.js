@@ -6,7 +6,6 @@ import React from 'react';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import mean from 'lodash/mean';
 /*
 import flow from 'lodash/flow';
 import countBy from 'lodash/countBy';
@@ -31,14 +30,9 @@ import Divider from '@material-ui/core/Divider';
 import { TableFooter } from '@material-ui/core';
 import { getCurrencyDisplay } from '../theme/selectors';
 
-import type {
-  ReportConfiguration,
-  ReportExtractResult,
-  ReportMetadata,
-} from './types';
+import type { ReportConfiguration, ReportExtractResult } from './types';
 
 type Props = {
-  resultLoading?: boolean,
   reportStoreRowsLoading: boolean,
   report: ReportConfiguration,
   result: ReportExtractResult,
@@ -51,6 +45,7 @@ type Props = {
   handleGeneratePreviousPage: (*) => void,
   handleGenerateNextPage: (*) => void,
   className: { [string]: string },
+  columnSpan: number,
 };
 
 /*
@@ -170,31 +165,32 @@ function TablePaginationActions(props: Props) {
     otherPages,
     handleGeneratePreviousPage,
     handleGenerateNextPage,
-    className,
     reportStoreRowsLoading,
+    columnSpan,
   } = props;
   return (
-    <TableRow className={className}>
-      <IconButton
-        onClick={handleGeneratePreviousPage}
-        disabled={!previousPage || reportStoreRowsLoading}
-        aria-label="previous page"
-      >
-        <Typography variant="caption">{previousPage}</Typography>
-        <KeyboardArrowLeft />
-      </IconButton>
-      <Typography variant="caption">
-        {`Page ${nextPage - 1}/${otherPages ? otherPages.length : ''}`}
-      </Typography>
-      <IconButton
-        onClick={handleGenerateNextPage}
-        disabled={!nextPage || reportStoreRowsLoading}
-        aria-label="next page"
-      >
-        <KeyboardArrowRight />
-        <Typography variant="caption">{nextPage}</Typography>
-      </IconButton>
-      <Divider />
+    <TableRow>
+      <TableCell colSpan={columnSpan}>
+        <IconButton
+          onClick={handleGeneratePreviousPage}
+          disabled={!previousPage || reportStoreRowsLoading}
+          aria-label="previous page"
+        >
+          <Typography variant="caption">{previousPage}</Typography>
+          <KeyboardArrowLeft />
+        </IconButton>
+        <Typography variant="caption">
+          {`Page ${nextPage - 1}/${otherPages ? otherPages.length : ''}`}
+        </Typography>
+        <IconButton
+          onClick={handleGenerateNextPage}
+          disabled={!nextPage || reportStoreRowsLoading}
+          aria-label="next page"
+        >
+          <KeyboardArrowRight />
+          <Typography variant="caption">{nextPage}</Typography>
+        </IconButton>
+      </TableCell>
     </TableRow>
   );
 }
@@ -232,15 +228,15 @@ export function ReportTable(props: Props) {
             otherPages={otherPages}
             handleGeneratePreviousPage={handleGeneratePreviousPage}
             handleGenerateNextPage={handleGenerateNextPage}
-            className={classes.tableFooter}
             reportStoreRowsLoading={reportStoreRowsLoading}
+            columnSpan={columns.length}
           />
         </TableHead>
         <TableBody>
           {result
-            ? result.map((row) => (
+            ? result.map((row, index) => (
                 <TableRow
-                  key={row[0] + row[1]}
+                  key={index}
                   classes={
                     reportStoreRowsLoading
                       ? { root: classes.trRootLoading }
@@ -269,8 +265,8 @@ export function ReportTable(props: Props) {
             otherPages={otherPages}
             handleGeneratePreviousPage={handleGeneratePreviousPage}
             handleGenerateNextPage={handleGenerateNextPage}
-            className={classes.tableFooter}
             reportStoreRowsLoading={reportStoreRowsLoading}
+            columnSpan={columns.length}
           />
         </TableFooter>
       </Table>
@@ -303,6 +299,7 @@ const styles = (theme) => ({
     position: 'relative',
   },
   tableFooter: {
+    width: '100%',
     flexShrink: 0,
     marginLeft: theme.spacing(2.5),
   },

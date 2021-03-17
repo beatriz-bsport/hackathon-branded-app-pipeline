@@ -41,10 +41,7 @@ Lint:
   script:
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure
-    - yarn lint --format gitlab
-  artifacts:
-    reports:
-      codequality: eslint-codequality.json
+    - yarn lint 
 
 
   except:
@@ -297,8 +294,6 @@ Promote to production:
 
 Label issue dev:
   extends: .Label issues Base
-  variables:
-
   only:
     - dev
   variables:

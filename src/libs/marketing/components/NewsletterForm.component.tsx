@@ -110,7 +110,6 @@ class NewsletterFormComponent extends React.PureComponent<Props, State> {
 const styles = (theme: Theme) => ({
   container: {
     maxWidth: 450,
-    minWidth: 450,
     padding: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',

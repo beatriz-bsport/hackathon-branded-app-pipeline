@@ -297,10 +297,14 @@ Promote to production:
 
 Label issue dev:
   extends: .Label issues Base
+  variables:
+
   only:
     - dev
   variables:
     ENVIRONMENT: dev
+    SOURCE_BRANCH: dev
+    DEST_BRANCH: master
 
 Label issue staging:
   extends: .Label issues Base
@@ -308,6 +312,8 @@ Label issue staging:
     - master
   variables:
     ENVIRONMENT: staging
+    SOURCE_BRANCH: master
+    DEST_BRANCH: production
 
 Label issue production:
   extends: .Label issues Base
@@ -315,6 +321,7 @@ Label issue production:
     - production
   variables:
     ENVIRONMENT: production
+    SOURCE_BRANCH: production
 
 
 # deploy-production:

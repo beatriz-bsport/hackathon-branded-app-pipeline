@@ -6,7 +6,7 @@ TOKEN="$CI_TOKEN_PRODUCT_MANAGEMENT_ACCESS_TOKEN"
 PROJECT="$CI_PROJECT_ID"
 LABEL="deployed::$ENVIRONMENT"
 
-COMMITS=$(git log --since=2.weeks)
+COMMITS=$(git log --since=2.weeks --R $SOURCE_BRANCH -not $DEST_BRANCH)
 MATCH=$(echo $COMMITS | grep -Ec "\[ISSUE: #[[:digit:]]+]")
 
 if [ $MATCH -gt 0 ]

@@ -1647,7 +1647,12 @@
             "methodPaymentBasket": "Pago único",
             "subtitle2": "Como manager, siempre tienes acceso a todos los métodos de pago disponibles.",
             "subtitle": "Puedes activar o desactivar los métodos de pago utilizados por sus miembros al pagar en línea.",
-            "title": "Pago en línea"
+            "title": "Pago en línea",
+            "save": "Salva",
+            "methodPaymentSubscriptionError": "Seleccione al menos un método de pago",
+            "methodPaymentSubscriptionHelper": "Autorizar los pagos de las suscripciones (contratos) sólo a través de",
+            "methodPaymentSubscription": "Pago periódico",
+            "methodPaymentBasketHelper": "Autorizar los pagos de la cesta de la compra, la liquidación de deudas y los pagos atrasados... sólo a través de"
         }
     },
     "datetime": {
@@ -4306,7 +4311,8 @@
                 "helperText": "Seleccione las sesiones para las que la tarjeta RDV es compatible",
                 "cancel": "Cancelar",
                 "submit": "Salvar",
-                "title": "Sesiones de {{ service }}"
+                "title": "Sesiones de {{ service }}",
+                "isEmpty": "No se ha configurado ningún tipo de sesión en esta cita!"
             },
             "forSlots": "Sesiones compatibles:",
             "allSlots": "Compatible con todas las sesiones"
@@ -6200,7 +6206,8 @@
                 "general": "General",
                 "platform_billing": "Suscripción a bsport",
                 "marketplaceSettings": "Parámetros marketplace",
-                "widget": "Widget"
+                "widget": "Widget",
+                "paymentMethod": "Medios de pago"
             },
             "pass": "Tarjeta de curso",
             "goBack": "Volver",

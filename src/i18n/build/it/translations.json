@@ -1832,7 +1832,8 @@
                 "helperText": "Selezionare le sessioni per le quali la scheda RDV è compatibile",
                 "cancel": "Cancella",
                 "submit": "Salva",
-                "title": "Sessioni del {{ service }}"
+                "title": "Sessioni del {{ service }}",
+                "isEmpty": "Nessun tipo di sessione configurato in questo appuntamento!"
             },
             "forSlots": "Sessioni compatibili:",
             "allSlots": "Compatibile con tutte le sessioni"
@@ -2398,7 +2399,8 @@
                 "general": "Generale",
                 "platform_billing": "Abbonamento bsport",
                 "marketplaceSettings": "Impostazioni marketplace",
-                "widget": "Widget"
+                "widget": "Widget",
+                "paymentMethod": "Modo di pagamento"
             },
             "myClub": "Il mio club",
             "subscription": "Addebiti",
@@ -3294,6 +3296,17 @@
         },
         "companyOnboarding": {
             "error": "Non puoi modificare questa informazione"
+        },
+        "paymentMethods": {
+            "save": "Salvare",
+            "methodPaymentSubscriptionError": "Si prega di selezionare almeno un metodo di pagamento",
+            "methodPaymentSubscriptionHelper": "Autorizzare i pagamenti per gli abbonamenti (contratti) solo tramite",
+            "methodPaymentSubscription": "Pagamento ricorrente",
+            "methodPaymentBasketHelper": "Autorizzare i pagamenti del carrello della spesa, il regolamento del debito e i pagamenti in ritardo... solo tramite",
+            "methodPaymentBasket": "Pagamento puntuale",
+            "subtitle2": "Come manager, hai sempre accesso a tutti i metodi di pagamento disponibili.",
+            "subtitle": "Puoi attivare o disattivare i metodi di pagamento usati dai tuoi membri quando pagano online.",
+            "title": "Pagamento online"
         }
     },
     "invoice": {

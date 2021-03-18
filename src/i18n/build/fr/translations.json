@@ -3556,7 +3556,7 @@
           "paymentPack": "Carte de cours",
           "paymentCombo": "Pack"
         },
-        "nb_interval": { "label": "Nombre de mois", "helperText": "Au minimum 2 mois" },
+        "nb_interval": { "label": "Nombre de mois", "helperText": "Au minimum 1 mois" },
         "recurrent_price": { "label": "Paiement mensuel" },
         "description": { "placeholder": "Nouvelle offre exclusive limitée", "label": "Description" },
         "managerOnly": { "label": "Invisible pour les clients" },

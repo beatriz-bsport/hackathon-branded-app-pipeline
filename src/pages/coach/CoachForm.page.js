@@ -27,6 +27,7 @@ import CoachEmailCheckDialog from '../../libs/associated-coach/components/CoachE
 import { mapFormData, unmap } from '../form.utils';
 
 import withTitle from '../../hocs/with-title.hoc';
+import { browserCountryCode } from '../../i18n';
 
 type Props = {
   initial: *,
@@ -46,7 +47,6 @@ type Props = {
   setIsEmailChecking: (boolean) => void,
   isEmailChecking: boolean,
   classes: Object,
-  country: string,
 };
 
 const CoachMap = {
@@ -103,7 +103,7 @@ export class CoachFormPage extends React.Component<Props> {
           onCancel={onCancel}
           initial={initialData}
           defaultEmail={this.props.initialEmail}
-          country={this.props.country}
+          country={browserCountryCode()}
         />
       </div>
     );
@@ -128,7 +128,6 @@ export default compose(
       pending: state.coach.upsert.loading,
       errors: state.coach.upsert.error,
       initial: coachId !== null ? getCoach(state, coachId) : null,
-      country: state.theme.theme.locale.split('_')[1],
     }),
     {
       fetchAssociatedCoachesList,

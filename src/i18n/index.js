@@ -121,3 +121,15 @@ Moment.locale(i18n.language);
 
 export default i18n;
 export { Moment, availableLanguages };
+
+export const browserCountryCode = () => {
+  if (navigator && navigator.language) {
+    if (/[a-z]{2}-[A-Z]{2}/.test(navigator.language)) {
+      return navigator.language.split('-')[1];
+    }
+    if (/[a-zA-Z]{2}/.test(navigator.language)) {
+      return navigator.language.toUpperCase();
+    }
+  }
+  return 'US';
+};

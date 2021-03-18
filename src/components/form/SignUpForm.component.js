@@ -26,6 +26,7 @@ import DelayedTextField from '../DelayedTextField.component';
 import AcceptTermsAndConditions from '../../libs/payment/components/AcceptTermsAndConditions.component';
 
 import type { ConsumerAddress } from '../../api/types';
+import { browserCountryCode } from '../../i18n';
 
 const STEP_GENERAL_INFORMATION = 0;
 const STEP_REQUEST_ADDRESS = 1;
@@ -57,6 +58,7 @@ type State = {
   gender: string,
   step: number,
 };
+
 export class SignUpForm extends Component<Props, State> {
   state = {
     step: STEP_GENERAL_INFORMATION,
@@ -276,6 +278,7 @@ export class SignUpForm extends Component<Props, State> {
         />
       );
     }
+
     return (
       <form onSubmit={this.goToAddressForm} className={classes.container}>
         <Grid container direction="row">
@@ -359,7 +362,7 @@ export class SignUpForm extends Component<Props, State> {
               </InputLabel>
               <PhoneInput
                 fullWidth
-                country="FR"
+                country={browserCountryCode()}
                 autoComplete="tel"
                 name="phonenumber"
                 value={this.state.phone}

@@ -57,11 +57,11 @@ export const SubscriptionContractCard = (props: Props) => {
           }
         />
       </FormControl>
-      <div className={props.classes.bottomRow}>
-        <div className={props.classes.buttonDateBlock}>
-          <Typography className={props.classes.buttonLeftText}>
-            {props.t('contract.actions.iwanttostarton')}
-          </Typography>
+      <div className={props.classes.buttonDateBlock}>
+        <Typography className={props.classes.buttonLeftText}>
+          {props.t('contract.actions.iwanttostarton')}
+        </Typography>
+        <div className={props.classes.column}>
           <MuiPickersUtilsProvider
             utils={MomentUtils}
             moment={Moment}
@@ -94,15 +94,16 @@ export const SubscriptionContractCard = (props: Props) => {
             />
           </MuiPickersUtilsProvider>
         </div>
-        <Button
-          variant="contained"
-          color="primary"
-          disabled={!props.acceptContract}
-          onClick={() => props.onPayRequest(props.date)}
-        >
-          {props.t('contract.actions.subscribe')}
-        </Button>
       </div>
+      <Button
+        variant="contained"
+        color="primary"
+        disabled={!props.acceptContract}
+        style={{ width: '100%' }}
+        onClick={() => props.onPayRequest(props.date)}
+      >
+        {props.t('contract.actions.subscribe')}
+      </Button>
     </div>
   );
 };
@@ -112,22 +113,27 @@ const styles = (theme) => ({
     backgroundColor: '#F8F8F8',
     padding: theme.spacing(2),
   },
-  bottomRow: {
-    flexDirection: 'row',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
   buttonDateBlock: {
     flexDirection: 'row',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
   textBlock: {
     marginBottom: theme.spacing(1),
   },
   buttonLeftText: {
     marginRight: theme.spacing(1),
+  },
+  column: {
+    display: 'flex',
+    flexDirection: 'column',
+    '&>*': {
+      marginBottom: theme.spacing(1),
+    },
   },
 });
 

@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import { Elements } from '@stripe/react-stripe-js';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Collapse from '@material-ui/core/Collapse';
-import Dialog from '@material-ui/core/Dialog';
+import Modal from '@material-ui/core/Modal';
 import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import moment from 'moment-timezone';
@@ -116,6 +116,7 @@ export class MarketplaceContract extends React.Component<Props> {
     if (this.props.contractLoading) {
       return <LinearProgress />;
     }
+    const dialogOffset = this.props.fullScreen ? '0%' : '50%';
     return (
       <div className={classes.container}>
         <List className={classes.list}>
@@ -155,32 +156,46 @@ export class MarketplaceContract extends React.Component<Props> {
             ))}
           </Paper>
         </List>
-        <Dialog
+        <Modal
           fullScreen={this.props.fullScreen}
           open={this.props.selected && this.props.paymentDialogOpen}
         >
-          <DialogContent>
-            <Elements stripe={stripePromise}>
-              <SubscriptionPayment
-                onCancel={() => this.props.setPaymentDialogOpen(false)}
-                onSubmit={this.onSubmit}
-                processing={this.state.processing}
-                requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-                savedPaymentMethodList={this.props.savedPaymentMethodList}
-                withCoupon
-                contract={this.props.contractList.find(
-                  (c) => c.id === this.props.selected,
-                )}
-                refreshSavedPaymentMethodList={
-                  this.props.fetchPaymentMethodList
-                }
-                enabledPaymentGroupMethodIdentifier={
-                  this.props.companyTheme.payment_method_available_subscription
-                }
-              />
-            </Elements>
-          </DialogContent>
-        </Dialog>
+          <>
+            <div
+              style={{
+                transform: `translate(-${dialogOffset}, -${dialogOffset})`,
+                top: dialogOffset,
+                left: dialogOffset,
+              }}
+              className={this.props.classes.modal}
+            >
+              <DialogContent>
+                <Elements stripe={stripePromise}>
+                  <SubscriptionPayment
+                    onCancel={() => this.props.setPaymentDialogOpen(false)}
+                    onSubmit={this.onSubmit}
+                    processing={this.state.processing}
+                    requestSetupIntentSecret={
+                      this.props.requestSetupIntentSecret
+                    }
+                    savedPaymentMethodList={this.props.savedPaymentMethodList}
+                    withCoupon
+                    contract={this.props.contractList.find(
+                      (c) => c.id === this.props.selected,
+                    )}
+                    refreshSavedPaymentMethodList={
+                      this.props.fetchPaymentMethodList
+                    }
+                    enabledPaymentGroupMethodIdentifier={
+                      this.props.companyTheme
+                        .payment_method_available_subscription
+                    }
+                  />
+                </Elements>
+              </DialogContent>
+            </div>
+          </>
+        </Modal>
       </div>
     );
   }
@@ -196,6 +211,11 @@ const styles = (theme) => ({
   list: {
     maxWidth: 800,
     width: '100%',
+  },
+  modal: {
+    position: 'absolute',
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: 8,
   },
 });
 

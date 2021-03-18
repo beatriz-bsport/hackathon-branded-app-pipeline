@@ -8,8 +8,9 @@ import {
 } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import ErrorIcon from '@material-ui/icons/Error';
-import Dialog from '@material-ui/core/Dialog';
+import Modal from '@material-ui/core/Modal';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -30,6 +31,7 @@ import { AVAILABLE_PAYMENT_METHOD_TYPE } from './helpers';
 const stripePromise = loadStripe(getStripePkKey());
 
 type Props = {
+  fullScreen: boolean,
   t: TFunction,
   onClose: () => void,
   onSuccess: () => void,
@@ -108,101 +110,115 @@ export class CollectPaymentMethod extends React.Component<Props> {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, fullScreen } = this.props;
+    const dialogOffset = fullScreen ? '0%' : '50%';
     return (
-      <Dialog open>
-        <DialogTitle>
-          {this.props.t('forms.paymentMethod.collect.title')}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {this.props.t('forms.paymentMethod.collect.content')}
-          </DialogContentText>
-          <div style={{ minWidth: 400 }}>
-            {this.state.processing && (
-              <div className={classes.centered}>
-                <CircularProgress />
-              </div>
-            )}
-            {!!this.state.success && (
+      <Modal open>
+        <>
+          <div
+            style={{
+              transform: `translate(-${dialogOffset}, -${dialogOffset})`,
+              top: dialogOffset,
+              left: dialogOffset,
+            }}
+            className={classes.modal}
+          >
+            <DialogTitle>
+              {this.props.t('forms.paymentMethod.collect.title')}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                {this.props.t('forms.paymentMethod.collect.content')}
+              </DialogContentText>
               <div>
-                <div className={classes.centered}>
-                  <CheckIcon
-                    style={{ height: 100, width: 100 }}
-                    color="primary"
-                  />
-                  <Typography className={classes.message}>
-                    {this.props.t('forms.paymentMethod.message.success')}
-                  </Typography>
-                </div>
-                <div className={classes.actions}>
-                  <Button onClick={this.props.onClose}>
-                    {this.props.t('forms.paymentMethod.actions.close')}
-                  </Button>
-                </div>
-              </div>
-            )}
-            {!!this.state.error && (
-              <div>
-                <div className={classes.centered}>
-                  <ErrorIcon
-                    style={{ height: 100, width: 100 }}
-                    color="secondary"
-                  />
-                  <Typography className={classes.message}>
-                    {this.props.t('forms.paymentMethod.message.error')}
-                  </Typography>
-                  {this.state.stripe_error_code ||
-                  this.state.stripe_decline_code ? (
-                    <StripeErrorCode
-                      errorCode={this.state.stripe_error_code}
-                      declineCode={this.state.stripe_decline_code}
-                    />
-                  ) : null}
-                </div>
-                <div className={classes.actions}>
-                  <Button onClick={this.props.onClose}>
-                    {this.props.t('forms.paymentMethod.actions.close')}
-                  </Button>
-                  <Button
-                    onClick={() =>
-                      this.setState({ error: null, success: null })
-                    }
-                  >
-                    {this.props.t('forms.paymentMethod.actions.retry')}
-                  </Button>
-                </div>
-              </div>
-            )}
-            {!this.state.error && !this.state.success && (
-              <form onSubmit={this.handleSubmit}>
-                <div style={this.state.processing ? { display: 'none' } : {}}>
-                  <div className={classes.sensitiveDataContainer}>
-                    <div className={classes.sensitiveData}>
-                      <Card />
+                {this.state.processing && (
+                  <div className={classes.centered}>
+                    <CircularProgress />
+                  </div>
+                )}
+                {!!this.state.success && (
+                  <div>
+                    <div className={classes.centered}>
+                      <CheckIcon
+                        style={{ height: 100, width: 100 }}
+                        color="primary"
+                      />
+                      <Typography className={classes.message}>
+                        {this.props.t('forms.paymentMethod.message.success')}
+                      </Typography>
+                    </div>
+                    <div className={classes.actions}>
+                      <Button onClick={this.props.onClose}>
+                        {this.props.t('forms.paymentMethod.actions.close')}
+                      </Button>
                     </div>
                   </div>
-                </div>
-                <div className={classes.actions}>
-                  <Button
-                    disabled={this.state.processing}
-                    onClick={this.props.onClose}
-                  >
-                    {this.props.t('forms.paymentMethod.actions.close')}
-                  </Button>
-                  <Button
-                    color="primary"
-                    disabled={this.state.processing}
-                    type="submit"
-                  >
-                    {this.props.t('forms.paymentMethod.actions.collect')}
-                  </Button>
-                </div>
-              </form>
-            )}
+                )}
+                {!!this.state.error && (
+                  <div>
+                    <div className={classes.centered}>
+                      <ErrorIcon
+                        style={{ height: 100, width: 100 }}
+                        color="secondary"
+                      />
+                      <Typography className={classes.message}>
+                        {this.props.t('forms.paymentMethod.message.error')}
+                      </Typography>
+                      {this.state.stripe_error_code ||
+                      this.state.stripe_decline_code ? (
+                        <StripeErrorCode
+                          errorCode={this.state.stripe_error_code}
+                          declineCode={this.state.stripe_decline_code}
+                        />
+                      ) : null}
+                    </div>
+                    <div className={classes.actions}>
+                      <Button onClick={this.props.onClose}>
+                        {this.props.t('forms.paymentMethod.actions.close')}
+                      </Button>
+                      <Button
+                        onClick={() =>
+                          this.setState({ error: null, success: null })
+                        }
+                      >
+                        {this.props.t('forms.paymentMethod.actions.retry')}
+                      </Button>
+                    </div>
+                  </div>
+                )}
+                {!this.state.error && !this.state.success && (
+                  <form onSubmit={this.handleSubmit}>
+                    <div
+                      style={this.state.processing ? { display: 'none' } : {}}
+                    >
+                      <div className={classes.sensitiveDataContainer}>
+                        <div className={classes.sensitiveData}>
+                          <Card />
+                        </div>
+                      </div>
+                    </div>
+                    <div className={classes.actions}>
+                      <Button
+                        disabled={this.state.processing}
+                        onClick={this.props.onClose}
+                      >
+                        {this.props.t('forms.paymentMethod.actions.close')}
+                      </Button>
+                      <Button
+                        color="primary"
+                        disabled={this.state.processing}
+                        type="submit"
+                      >
+                        {this.props.t('forms.paymentMethod.actions.collect')}
+                      </Button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            </DialogContent>
           </div>
-        </DialogContent>
-      </Dialog>
+        </>
+      </Modal>
     );
   }
 }
@@ -259,11 +275,19 @@ const styles = (theme) => ({
   mandate: {
     padding: theme.spacing(2),
   },
+  modal: {
+    position: 'absolute',
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: 8,
+    overflow: 'auto',
+    maxHeight: '100vh',
+  },
 });
 
 const CollectPaymentMethodCompose = compose(
   withTranslation(['payment']),
   withStyles(styles),
+  withMobileDialog(),
 )(CollectPaymentMethod);
 
 export default (props: Props) => (

@@ -113,7 +113,7 @@ type Props = {
   showActions: boolean,
   handleOpenOnSpotPaymentReport: () => void,
   fetchOnSpotPaymentReport: () => void,
-  showActions: boolean,
+  showCashBook: boolean,
 };
 
 type State = {
@@ -354,21 +354,23 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 ) : null}
                 {this.props.showActions && (
                   <React.Fragment>
-                    <Grid item>
-                      <IconButton
-                        onClick={() => {
-                          this.props.fetchOnSpotPaymentReport({
-                            name: this.props.t(
-                              'reporting:categories.on_spot_payments',
-                            ),
-                          });
-                          this.props.setOpenCash(true);
-                          this.props.fetchCashBook(this.props.theme.company);
-                        }}
-                      >
-                        <BusinessCenterIcon />
-                      </IconButton>
-                    </Grid>
+                    {this.props.showCashBook && (
+                      <Grid item>
+                        <IconButton
+                          onClick={() => {
+                            this.props.fetchOnSpotPaymentReport({
+                              name: this.props.t(
+                                'reporting:categories.on_spot_payments',
+                              ),
+                            });
+                            this.props.setOpenCash(true);
+                            this.props.fetchCashBook(this.props.theme.company);
+                          }}
+                        >
+                          <BusinessCenterIcon />
+                        </IconButton>
+                      </Grid>
+                    )}
                     <Grid item>
                       <IconButton onClick={this.props.openCreateMember}>
                         <PersonAddIcon />

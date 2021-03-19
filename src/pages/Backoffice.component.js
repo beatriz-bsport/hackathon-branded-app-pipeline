@@ -8,6 +8,7 @@ import { push } from 'connected-react-router';
 import Intercom from 'react-intercom';
 import { compose, withHandlers } from 'recompose';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { RoleType } from '@bsport/common/lib/master-data/user-role';
 import Analytics from '../components/analytics/Analytics.component';
 import RELEASE from '../release';
 
@@ -151,6 +152,7 @@ type Props = {
   updateCashBook: () => void,
   fetchOnSpotPaymentReport: () => void,
   onSpotPaymentReportId: number,
+  role: number,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -230,6 +232,7 @@ export class Backoffice extends Component<Props, State> {
 
   render() {
     const { classes } = this.props;
+
     // dirty handling of double login
     const token = getAuthToken();
     if (
@@ -298,6 +301,10 @@ export class Backoffice extends Component<Props, State> {
             openCalendar={this.props.openCalendar}
             push={this.props.pushRouter}
             fetchOnSpotPaymentReport={this.props.fetchOnSpotPaymentReport}
+            showCashBook={[
+              RoleType.USER_ROLE_NO_RESTRICTION,
+              RoleType.USER_ROLE_ADMIN,
+            ].includes(this.props.role)}
           >
             {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
             Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
@@ -355,6 +362,7 @@ export default compose(
       nbAlerting: alertingSelectors.countAlerting(state),
       username: state.auth.username,
       name: state.auth.name,
+      role: state.auth.role,
       theme: state.theme.theme,
       themeLoading: state.theme.loading,
       featureListLoading: state.company.feature.loading,

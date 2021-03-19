@@ -14,6 +14,7 @@ const initialState = Immutable({
   is_consumer: true,
   initializating: false,
   invalidFields: null,
+  role: null,
   emailExists: {
     loading: false,
     error: null,

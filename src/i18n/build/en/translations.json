@@ -1702,7 +1702,7 @@
             "generate": "Generate",
             "export": "Export",
             "minuteSmall": "min",
-            "daySmall": "j",
+            "daySmall": "d",
             "hourSmall": "h",
             "description": "Description",
             "download": "Download",

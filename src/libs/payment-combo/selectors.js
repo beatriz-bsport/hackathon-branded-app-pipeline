@@ -1,8 +1,11 @@
 // @flow
-
 import { createSelector } from 'reselect';
+import memoize from 'memoize-one';
+
+import { getPaymentPackById } from '../payment-packs/selectors';
 import type { State } from '../../state/types';
 import type { PaymentCombo } from './types';
+import { RootState } from '../../reducers';
 
 const _getPaymenComboIdList: (State) => Array<number> = (state) =>
   state.paymentCombo.allIds;
@@ -53,10 +56,34 @@ export const getPaymentComboPurchaseListByCombo: (
       purchase.payment_combo && purchase.payment_combo.id === paymentComboId,
   );
 
-const _getForBookingIds = (state: State) =>
+const _getForBookingIds = (state: RootState) =>
   state.paymentCombo.forBooking.allIds;
 
 export const getPaymentComboForBooking = createSelector(
   [_getForBookingIds, getPaymenComboDataDict],
   (ids, data) => ids.map((id) => data[id]),
+);
+
+export const withPaymentPack = memoize((selector: (State: RootState) => any) =>
+  createSelector(
+    [selector, getPaymentPackById],
+    (comboList, paymentPackData) => {
+      if (!Array.isArray(comboList)) {
+        return {
+          ...comboList,
+          payment_packs: comboList.payment_packs.map((pp) => ({
+            ...pp,
+            data: paymentPackData[pp.id] || {},
+          })),
+        };
+      }
+      return comboList.map((pc) => ({
+        ...pc,
+        payment_packs: pc.payment_packs.map((pp) => ({
+          ...pp,
+          data: paymentPackData[pp.id] || {},
+        })),
+      }));
+    },
+  ),
 );

@@ -1,3 +1,16 @@
+const {
+  OFFER_WAITING_LIST_STATUS_OPEN,
+  OFFER_WAITING_LIST_STATUS_FULL,
+  OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
+  OFFER_WAITING_LIST_STATUS_CONVERTIBLE,
+} = require('@bsport/common/lib/master-data/waiting-list-status');
+const {
+  OFFER_BOOKABLE_STATUS_BOOKABLE,
+  OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON,
+  OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE,
+  OFFER_BOOKABLE_STATUS_LOCKED,
+} = require('@bsport/common/lib/master-data/bookable-status');
+
 exports.default = {
   actions: {
     bill: 'Facturer',
@@ -90,6 +103,9 @@ exports.default = {
   bookingModule: {
     hasRegistered: 'Vous êtes inscrit à cette séance',
     isLoading: 'Recherche des séances...',
+    book: {
+      unknowError: 'Impossible de réserver, veuillez réessayer dans un moment',
+    },
     recurrent: {
       title: 'Séances futures',
       bookMultiple: 'Reserver',
@@ -98,11 +114,15 @@ exports.default = {
     section: {
       consumerPacks: 'Mes cartes de cours',
       contracts: 'Abonnements',
-      paymentPacks: 'Cartes de cours',
+      paymentPacks: "J'achète une carte de cours",
       paymentCombos: 'Offres promotionnelles',
+      contract: "Je m'abonne",
     },
     option: {
-      isAlreadyOnWaitingList: "Vous êtes inscrit en liste d'attente",
+      waitingListOpen:
+        "La séance est pleine, vous pouvez toutefois vous inscrire en liste d'attente. Nous vous préviendrons par email lorsqu'une place se libèrera",
+      isAlreadyOnWaitingList:
+        "Vous êtes inscrit en liste d'attente, nous vous préviendrons par email lorsqu'une place sera disponible.",
       isAlreadyRegistered:
         'La séance est complète, félicitations vous êtes bien inscrit !',
       isFull:
@@ -111,10 +131,9 @@ exports.default = {
     },
     offer: {
       isDisabled: 'La séance a été malheureusement été annulée.',
-      isTooLate:
-        'Les inscriptions ne sont plus possible, le délai de dernière inscription a été dépassé.',
+      isTooLate: 'Les inscriptions sont closes.',
       isTooSoon:
-        'Les inscriptions sont fermées pour le moment et ouvriront le {{ date }}.',
+        'Les inscriptions sont fermées pour le moment et ouvrirons le {{ date }}.',
       isWaitingListFull:
         "La séance est complète la liste d'attente est pleine.",
     },
@@ -246,5 +265,41 @@ exports.default = {
   memberGraph: {
     title: 'Récapitulatif des réservations',
     label: 'Réservations',
+  },
+  offer: {
+    similarOffer: {
+      title: 'Réserver plus de séances',
+      empty: 'Aucune séance trouvée',
+      showMore: 'Voir plus',
+    },
+    offerStatus: {
+      book: 'Inscription',
+      waiting_list: "Liste d'attente",
+      bookable_status: {
+        [OFFER_BOOKABLE_STATUS_BOOKABLE]: 'Inscriptions ouvertes',
+        [OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON]: 'Inscriptions fermées',
+        [OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE]: 'Inscriptions terminées',
+        [OFFER_BOOKABLE_STATUS_LOCKED]: 'Séance indisponible',
+      },
+      waiting_list_status: {
+        [OFFER_WAITING_LIST_STATUS_OPEN]: "Liste d'attente",
+        [OFFER_WAITING_LIST_STATUS_FULL]: "Liste d'attente pleine",
+        [OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED]: 'Inscrit sur liste',
+        [OFFER_WAITING_LIST_STATUS_CONVERTIBLE]: 'Réservation disponible!',
+      },
+    },
+    packTitle: 'Mon moyen de réservation',
+    noPackAvailable: 'Aucune carte de cours compatible avec cette séance !',
+    noPackAvailable_plural:
+      'Aucune carte de cours compatible avec ces séances !',
+    addSession: 'Ajouter une séance',
+    bookingsTitle: 'Je réserve',
+    mainButton: {
+      book: 'Reserver',
+      registerWaitingList: "M'inscrire sur liste d'attente",
+      numberOfBook: '{{count}} inscription',
+      numberOfBook_plural: '{{count}} inscriptions',
+    },
+    showMore: 'Voir plus',
   },
 };

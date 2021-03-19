@@ -1,5 +1,3 @@
-// @flow
-
 import { handleActions } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 
@@ -16,9 +14,11 @@ import {
   retrieveActions,
   retrieveByIdActions,
   bookedGenderActions,
+  offerStatusActions,
 } from './actions';
+import { OfferState } from './types';
 
-const initialState = Immutable({
+const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
   // event stuff (simplified offer objects)
   calendar: [],
   calendarByObject: {
@@ -28,7 +28,7 @@ const initialState = Immutable({
     error: null,
   },
   loading: true,
-  error: false,
+  error: null,
 
   // final version theorically
   byId: {},
@@ -41,6 +41,8 @@ const initialState = Immutable({
     items: [],
     loading: false,
     error: null,
+    lastFetched: null,
+    next_page: 1,
   },
 
   // Compatible Packs
@@ -48,6 +50,7 @@ const initialState = Immutable({
     items: [],
     loading: false,
     error: null,
+    lastFetched: null,
   },
 
   managerFilter: {
@@ -66,87 +69,107 @@ const initialState = Immutable({
     byId: {},
     allIds: [],
   },
+  lastFetched: null,
+  offerStatus: {
+    byId: {},
+    error: null,
+    loading: false,
+  },
 });
 
-export default handleActions(
+export default handleActions<Immutable.Immutable<OfferState>>(
   {
-    [offersByMetaActivity.isLoading]: (state, { payload }) => {
+    [offersByMetaActivity.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['calendarByObject', 'loading'], payload);
     },
-    [offersFilterActions.setOpen]: (state, { payload }) => {
+    [offersFilterActions.setOpen.toString()]: (state, { payload }) => {
       return state.setIn(['managerFilter', 'open'], payload);
     },
-    [offersFilterActions.toogleOpen]: (state) => {
+    [offersFilterActions.toogleOpen.toString()]: (state) => {
       return state.setIn(['managerFilter', 'open'], !state.managerFilter.open);
     },
-    [offersFilterActions.setFilters]: (state, { payload }) => {
+    [offersFilterActions.setFilters.toString()]: (state, { payload }) => {
       return state.setIn(['managerFilter', 'filters'], payload);
     },
-    [offersByMetaActivity.error]: (state, { payload }) => {
+    [offersByMetaActivity.error.toString()]: (state, { payload }) => {
       return state.setIn(['calendarByObject', 'error'], payload);
     },
-    [offersByMetaActivity.success]: (state, { payload }) => {
+    [offersByMetaActivity.success.toString()]: (state, { payload }) => {
       return state.setIn(['calendarByObject', 'metaActivity'], payload);
     },
-    [offersByEstablishment.success]: (state, { payload }) => {
+    [offersByEstablishment.success.toString()]: (state, { payload }) => {
       return state.setIn(['calendarByObject', 'establishment'], payload);
     },
-    [offers.isLoading]: (state, { payload }) => {
+    [offers.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['loading'], payload);
     },
-    [offers.error]: (state, { payload }) => {
+    [offers.error.toString()]: (state, { payload }) => {
       return state.setIn(['error'], payload);
     },
-    [offers.success]: (state, { payload }) => {
+    [offers.success.toString()]: (state, { payload }) => {
       return state
         .setIn(['calendar'], payload)
         .setIn(['lastFetched'], new Date());
     },
-    [similarOffers.isLoading]: (state, { payload }) => {
+    [similarOffers.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['similarOffers', 'loading'], payload);
     },
-    [similarOffers.error]: (state, { payload }) => {
+    [similarOffers.error.toString()]: (state, { payload }) => {
       return state.setIn(['similarOffers', 'error'], payload);
     },
-    [similarOffers.success]: (state, { payload }) => {
+    [similarOffers.success.toString()]: (state, { payload }) => {
       return state
         .setIn(['similarOffers', 'items'], payload)
         .setIn(['similarOffers', 'lastFetched'], new Date());
     },
-    [compatiblePacks.isLoading]: (state, { payload }) => {
+    [similarOffers.reset.toString()]: (state) => {
+      return state
+        .setIn(['similarOffers', 'items'], [])
+        .setIn(['similarOffers', 'next_page'], 1);
+    },
+    [similarOffers.successPaginated.toString()]: (state, { payload }) => {
+      return state
+        .setIn(
+          ['similarOffers', 'items'],
+          [...state.similarOffers.items, ...payload.results],
+        )
+        .setIn(['similarOffers', 'next_page'], payload.next_page)
+        .setIn(['similarOffers', 'lastFetched'], new Date());
+    },
+    [compatiblePacks.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['compatiblePacks', 'loading'], payload);
     },
-    [compatiblePacks.error]: (state, { payload }) => {
+    [compatiblePacks.error.toString()]: (state, { payload }) => {
       return state.setIn(['compatiblePacks', 'error'], payload);
     },
-    [compatiblePacks.success]: (state, { payload }) => {
+    [compatiblePacks.success.toString()]: (state, { payload }) => {
       return state
         .setIn(['compatiblePacks', 'items'], payload)
         .setIn(['compatiblePacks', 'lastFetched'], new Date());
     },
-    [offers.delete]: (state, { payload }) => {
+    [offers.delete.toString()]: (state, { payload }) => {
       const items = state.calendar.filter((o) => o.id !== payload);
       return state.set('calendar', items);
     },
-    [offerByDay.isLoading]: (state, { payload }) => {
+    [offerByDay.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['byDay', 'loading'], payload);
     },
-    [offerByDay.error]: (state, { payload }) => {
+    [offerByDay.error.toString()]: (state, { payload }) => {
       return state.setIn(['byDay', 'error'], payload);
     },
-    [retrieveActions.success]: (state, { payload }) => {
+    [retrieveActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['retrieve', 'data'], payload);
     },
-    [retrieveActions.error]: (state, { payload }) => {
+    [retrieveActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['retrieve', 'error'], payload);
     },
-    [retrieveActions.isLoading]: (state, { payload }) => {
+    [retrieveActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['retrieve', 'loading'], payload);
     },
-    [offerByDay.bulk]: (state, { payload }) => {
+    [offerByDay.bulk.toString()]: (state, { payload }) => {
       return state.setIn(['byId', payload.id], payload);
     },
-    [offerByDay.success]: (state, { payload }) => {
+    [offerByDay.success.toString()]: (state, { payload }) => {
       return state
         .merge(
           {
@@ -162,7 +185,7 @@ export default handleActions(
           payload.map((o) => o.id),
         );
     },
-    [offerMarketplaceListActions.success]: (state, { payload }) => {
+    [offerMarketplaceListActions.success.toString()]: (state, { payload }) => {
       return state
         .merge(
           {
@@ -178,19 +201,22 @@ export default handleActions(
           payload.map((o) => o.id),
         );
     },
-    [offerMarketplaceListActions.error]: (state, { payload }) => {
+    [offerMarketplaceListActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['marketplace', 'error'], payload);
     },
-    [offerMarketplaceListActions.isLoading]: (state, { payload }) => {
+    [offerMarketplaceListActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['marketplace', 'loading'], payload);
     },
-    [offerBulkActions.error]: (state, { payload }) => {
+    [offerBulkActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['bulk', 'error'], payload);
     },
-    [offerBulkActions.isLoading]: (state, { payload }) => {
+    [offerBulkActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['bulk', 'loading'], payload);
     },
-    [offerBulkActions.success]: (state, { payload }) => {
+    [offerBulkActions.success.toString()]: (state, { payload }) => {
       return state.merge(
         {
           byId: payload.reduce((acc, ps) => {
@@ -201,22 +227,22 @@ export default handleActions(
         { deep: true },
       );
     },
-    [retrieveByIdActions.error]: (state, { payload }) => {
+    [retrieveByIdActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['retrieve', 'error'], payload);
     },
-    [retrieveByIdActions.isLoading]: (state, { payload }) => {
+    [retrieveByIdActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['retrieve', 'loading'], payload);
     },
-    [retrieveByIdActions.success]: (state, { payload }) => {
+    [retrieveByIdActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['byId', payload.id], payload);
     },
-    [bookedGenderActions.isLoading]: (state, { payload }) => {
+    [bookedGenderActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['genderCount', 'loading'], payload);
     },
-    [bookedGenderActions.error]: (state, { payload }) => {
+    [bookedGenderActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['genderCount', 'error'], payload);
     },
-    [bookedGenderActions.success]: (state, { payload }) => {
+    [bookedGenderActions.success.toString()]: (state, { payload }) => {
       return state
         .setIn(
           ['genderCount', 'allIds'],
@@ -233,6 +259,15 @@ export default handleActions(
           },
           { deep: true },
         );
+    },
+    [offerStatusActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['offerStatus', 'loading'], payload);
+    },
+    [offerStatusActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['offerStatus', 'error'], payload);
+    },
+    [offerStatusActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['offerStatus', 'byId', payload.id], payload);
     },
   },
   initialState,

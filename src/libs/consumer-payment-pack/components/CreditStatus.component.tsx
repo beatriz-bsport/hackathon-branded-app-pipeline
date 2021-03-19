@@ -1,25 +1,30 @@
-// @flow
-
 import React from 'react';
+import { compose } from 'recompose';
 import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { Variant } from '@material-ui/core/styles/createTypography';
 
-import type { TFunction } from 'react-i18next';
-import type { ConsumerPaymentPack } from '../types';
-import type { PaymentPack } from '../../payment-packs/types';
+import { ConsumerPaymentPack } from '../types';
+import { PaymentPack } from '../../payment-packs/types';
 
-type Props = {
-  t: TFunction,
-  consumerPack: ?ConsumerPaymentPack,
-  paymentPack: ?PaymentPack,
+type OwnProps = {
+  consumerPack?: ConsumerPaymentPack<number | PaymentPack>;
+  paymentPack?: PaymentPack;
+  variant?: Variant;
 };
+
+type Props = OwnProps & WithTranslation;
 
 export const CreditStatus = (props: Props) => {
   const { paymentPack, consumerPack } = props;
   if (!consumerPack || !paymentPack) {
     return (
-      <Typography variant="caption" component="span" color="textSecondary">
+      <Typography
+        variant={props.variant || 'caption'}
+        component="span"
+        color="textSecondary"
+      >
         {' '}
         -{' '}
       </Typography>
@@ -34,7 +39,7 @@ export const CreditStatus = (props: Props) => {
   } = consumerPack;
   if (disabled && penalty_disabled_from && penalty_disabled_until) {
     return (
-      <Typography variant="caption" color="error">
+      <Typography variant={props.variant || 'caption'} color="error">
         {props.t('blockedCpp', {
           blocked_from: moment(penalty_disabled_from).format('L'),
           blocked_until: moment(penalty_disabled_until).format('L'),
@@ -44,7 +49,11 @@ export const CreditStatus = (props: Props) => {
   }
   if (unlimited) {
     return (
-      <Typography variant="caption" color="primary" component="span">
+      <Typography
+        variant={props.variant || 'caption'}
+        color="primary"
+        component="span"
+      >
         {`${props.t('unlimitedCredits')}`}
       </Typography>
     );
@@ -52,7 +61,7 @@ export const CreditStatus = (props: Props) => {
   return (
     <Typography
       component="span"
-      variant="caption"
+      variant={props.variant || 'caption'}
       color={available_credits / credits > 0.2 ? 'primary' : 'error'}
     >
       {`${available_credits} / ${credits} ${props.t('credits').toLowerCase()}`}
@@ -60,4 +69,6 @@ export const CreditStatus = (props: Props) => {
   );
 };
 
-export default withTranslation(['paymentPack'])(CreditStatus);
+export default compose<any, OwnProps>(withTranslation(['paymentPack']))(
+  CreditStatus,
+);

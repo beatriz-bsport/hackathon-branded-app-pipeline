@@ -8,7 +8,7 @@ export type ConsumerPaymentPackExtension = {
   id: number;
 };
 
-export type ConsumerPaymentPack = {
+export type ConsumerPaymentPack<PP = number> = {
   id: number;
   used_credits: number;
   available_credits: number;
@@ -18,7 +18,7 @@ export type ConsumerPaymentPack = {
   ending_date: string;
   member_id: number;
   bookings_this_week: number;
-  payment_pack: number;
+  payment_pack: PP;
   disabled: boolean;
   reverted: boolean;
   invoice: string;

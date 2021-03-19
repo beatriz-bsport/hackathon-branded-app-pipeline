@@ -22,7 +22,7 @@ import {
 } from './api';
 
 import { monitorBackgroundTask } from '../background-task/actions';
-import { PaymentPackMassExtension } from './types';
+import { ConsumerPaymentPack, PaymentPackMassExtension } from './types';
 
 export const byOfferByMember = {
   isLoading: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/IS_LOADING'),
@@ -320,7 +320,7 @@ export const resetConsumerPackForBooking = forBookingActions.reset;
 
 export function fetchConsumerPaymentPackForBooking(
   offer: number,
-  options: OptionCallback,
+  options: OptionCallback<ConsumerPaymentPack[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(forBookingActions.isLoading(true));

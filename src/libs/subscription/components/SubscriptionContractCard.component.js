@@ -35,7 +35,7 @@ export const SubscriptionContractCard = (props: Props) => {
   if (!props.contract) return <div />;
   return (
     <div className={props.classes.container}>
-      <Typography variant="h6">{props.t('contract.description')}</Typography>
+      <Typography variant="h6">{props.contract.name}</Typography>
       <TypographyMultiline className={props.classes.textBlock}>
         {props.contract.description}
       </TypographyMultiline>

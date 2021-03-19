@@ -3,7 +3,12 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
       }
     }
   },
@@ -34,7 +39,15 @@
     "i18next"
   ],
   "rules": {
-    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ],
     "react/require-default-props": 0,
     "react/default-props-match-prop-types": 0,
     "i18next/no-literal-string": 0,
@@ -74,12 +87,28 @@
     "react/self-closing-comp": 1,
     "react/sort-comp": 0,
     "babel/new-cap": 0,
-    "arrow-parens": ["error", "always"],
-    "object-curly-newline": ["off"],
-    "space-before-function-paren": ["off"],
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
+    "object-curly-newline": [
+      "off"
+    ],
+    "space-before-function-paren": [
+      "off"
+    ],
     "react/prefer-stateless-function": "off",
     "react/jsx-one-expression-per-line": "off",
-    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx", "tsx"]}],
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          "tsx"
+        ]
+      }
+    ],
     "flowtype/no-types-missing-file-annotation": 0,
     "radix": 0
   },
@@ -90,15 +119,26 @@
   },
   "overrides": [
     {
-      "files": [ "*.js" ],
+      "files": [
+        "*.js"
+      ],
       "excludedFiles": "**/*.translation*.js",
       "rules": {
-        "quotes": [ 2, "single" ]
+        "quotes": [
+          2,
+          "single"
+        ]
       }
     },
     {
-      "files": [ "*.ts", "*.tsx" ],
-      "excludedFiles": ["**/*.test.ts", "src/**/__test__/**"],
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "excludedFiles": [
+        "**/*.test.ts",
+        "src/**/__test__/**"
+      ],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "project": "tsconfig.json",
@@ -107,18 +147,22 @@
       "rules": {
         "no-await-in-loop": 0,
         "no-unused-vars": 0,
-	"import/no-named-as-default-member": "off",
-	"max-len": "off",
+        "import/no-named-as-default-member": "off",
+        "max-len": "off",
         "react/prop-types": 0,
         "@typescript-eslint/no-unused-vars": [
           "error"
         ],
+        "prefer-destructuring": "off",
         "no-shadow": "off",
         "@typescript-eslint/no-shadow": "error",
-        "no-unused-expressions": ["error", {
-          "allowShortCircuit": true,
-          "allowTernary": true
-        }]
+        "no-unused-expressions": [
+          "error",
+          {
+            "allowShortCircuit": true,
+            "allowTernary": true
+          }
+        ]
       }
     }
   ]

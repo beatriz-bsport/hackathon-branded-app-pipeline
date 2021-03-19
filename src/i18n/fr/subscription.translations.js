@@ -145,6 +145,20 @@ exports.default = {
     },
   },
   contract: {
+    item: {
+      identifier: 'Abonnement',
+      recurrentPriceLabel: '{{ recurrent_price  }}{{ currencyDisplay }}',
+      intervalLabel: {
+        month: 'Tous les mois',
+        month_plural: 'Tous les {{ interval }} mois',
+        week: 'Toutes les semaines',
+        week_plural: 'Tous les {{ interval }} semaines',
+        day: 'Tous les jours',
+        day_plural: 'Tous les {{ interval }} jours',
+        year: 'Tous les ans',
+        year_plural: 'Tous les {{ interval }} ans',
+      },
+    },
     yes: 'Oui',
     no: 'Non',
     registerManager: {

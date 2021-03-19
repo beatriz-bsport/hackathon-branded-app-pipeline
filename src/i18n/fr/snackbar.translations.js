@@ -370,6 +370,13 @@ exports.default = {
   consumerPass: {
     success: 'Votre achat a bien été enregistré !',
   },
+  bookerModule: {
+    pass: {
+      changed: 'La carte de cours pour réserver a du être modifiée',
+      nothingAvailable:
+        'Aucun pass ne permet de réserver en même temps ces séances',
+    },
+  },
   privateRecurrentRule: {
     createOrUpdate: {
       success: 'Rendez-vous récurrent enregistré avec succès',

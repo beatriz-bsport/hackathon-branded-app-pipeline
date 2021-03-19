@@ -19,6 +19,7 @@ export type Establishment = {
   easy_access: EasyAccess;
   disabled: boolean;
   associatedestablishment_set: number[];
+  tzname: string;
 };
 
 type Event_ = {

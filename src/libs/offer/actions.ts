@@ -1,5 +1,3 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 import {
   retrieveOffer as retrieveOfferAPI,
@@ -13,32 +11,47 @@ import {
   massDisableOffer as massDisableOfferAPI,
   restoreOffer as restoreOfferAPI,
   fetchBookedGender as fetchBookedGenderAPI,
+  fetchOfferStatus as fetchOfferStatusAPI,
+  postUserRegistration as postUserRegistrationAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import type { Dispatch, OptionCallback } from '../../state/types';
+import type { Offer } from '../../api/types';
+import { OfferFilter, OfferFilterData, OfferStatus } from './types';
 
 export const similarOffers = {
   isLoading: createAction('OFFERS/SIMILAR/IS_LOADING'),
   error: createAction('OFFERS/SIMILAR/ERROR'),
   success: createAction('OFFERS/SIMILAR/SUCCESS'),
+  successPaginated: createAction('OFFERS/SIMILAR/SUCCESS_PAGINATED'),
+  reset: createAction('OFFERS/SIMILAR/RESET'),
 };
+
+export const resetSimilarOffers = similarOffers.reset;
 
 export function fetchSimilarOffers(
   offerId: number,
   params: any = {},
-  options: OptionCallback,
+  options: OptionCallback<Offer[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(similarOffers.isLoading(true));
     dispatch(similarOffers.error(null));
-    dispatch(similarOffers.success([]));
     try {
       const response = await fetchSimilarOffersAPI(offerId, params);
-      dispatch(similarOffers.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
+      if (!response.data.results && !params.page) {
+        dispatch(similarOffers.success([]));
+        dispatch(similarOffers.success(response.data));
+        if (options && options.onSuccess) {
+          options.onSuccess(response.data);
+        }
+      } else {
+        dispatch(similarOffers.successPaginated(response.data));
+        if (options && options.onSuccess) {
+          options.onSuccess(response.data.results);
+        }
       }
     } catch (error) {
       dispatch(similarOffers.error(error));
@@ -163,6 +176,7 @@ export const offerByDay = {
   reset: createAction('OFFER/DAY/RESET'),
   bulk: createAction('OFFER/DAY/RESET'),
 };
+
 export function retrieveOfferAsManager(id: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(offerByDay.error(null));
@@ -203,9 +217,9 @@ export function refreshOffersByDay(params: any, options: OptionCallback) {
 
 export function fetchOffersByDay(
   day: {
-    year: number,
-    month: number,
-    day: number,
+    year: number;
+    month: number;
+    day: number;
   },
   options: OptionCallback,
 ) {
@@ -221,11 +235,10 @@ export const retrieveActions = {
   isLoading: createAction('OFFER/RETRIEVE/IS_LOADING'),
 };
 
-export function fetchOfferById(id: number, options: OptionCallback) {
+export function fetchOfferById(id: number, options: OptionCallback<Offer>) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveActions.isLoading(true));
     dispatch(retrieveActions.error(null));
-
     try {
       const response = await fetchByIdAPI(id);
       dispatch(retrieveActions.success(response.data));
@@ -289,7 +302,14 @@ export const offerMarketplaceListActions = {
 };
 
 export function fetchMarketplaceOfferList(
-  params: any,
+  params: {
+    company: number;
+    min_date: string;
+    max_date: string;
+    filters: OfferFilterData | OfferFilter;
+    is_workshop?: boolean;
+    available?: boolean;
+  },
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -297,8 +317,9 @@ export function fetchMarketplaceOfferList(
     dispatch(offerMarketplaceListActions.isLoading(true));
 
     try {
-      const filterData = {};
+      const filterData: OfferFilterData = {};
       const { filters } = params;
+      // do not delete this, migration
       if (filters) {
         if (filters.establishments && filters.establishments.length > 0) {
           filterData.establishment__in = filters.establishments;
@@ -364,13 +385,41 @@ export function fetchOfferBulk(ids: Array<number>, options: OptionCallback) {
   };
 }
 
+export const offerStatusActions = {
+  isLoading: createAction('OFFER/STATUS/IS_LOADING'),
+  error: createAction('OFFER/STATUS/ERROR'),
+  success: createAction('OFFER/STATUS/SUCCESS'),
+};
+
+export function fetchOfferStatus(
+  id: number,
+  options?: OptionCallback<OfferStatus>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerStatusActions.error(null));
+    dispatch(offerStatusActions.isLoading(true));
+
+    try {
+      const response = await fetchOfferStatusAPI(id);
+      const data = { ...response.data, id };
+      dispatch(offerStatusActions.success(data));
+      options && options.onSuccess && options.onSuccess(data);
+    } catch (error) {
+      dispatch(offerStatusActions.error(error));
+      options && options.onError && options.onError(error);
+    }
+
+    dispatch(offerStatusActions.isLoading(false));
+  };
+}
+
 export const retrieveByIdActions = {
   success: createAction('OFFER/RETRIEVE_BY_ID/SUCCESS'),
   error: createAction('OFFER/RETRIEVE_BY_ID/ERROR'),
   isLoading: createAction('OFFER/RETRIEVE_BY_ID/IS_LOADING'),
 };
 
-export function retrieveOffer(id: number, options: OptionCallback) {
+export function retrieveOffer(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveByIdActions.isLoading(true));
     dispatch(retrieveByIdActions.error(null));
@@ -396,8 +445,8 @@ export const massDisableActions = {
 
 export function disableMassOffers(
   dateInterval: {
-    start: string,
-    end: string,
+    start: string;
+    end: string;
   },
   filters: any,
   options: OptionCallback,
@@ -510,5 +559,25 @@ export function fetchBookedGenderBulk(
       if (options && options.onError) options.onError(error);
     }
     dispatch(bookedGenderActions.isLoading(false));
+  };
+}
+
+export const offerUserRegistrationAction = {
+  isLoading: createAction('OFFER/USER_REGISTRATION/IS_LOADING'),
+};
+
+export function offerUserRegistration(
+  data: Parameters<typeof postUserRegistrationAPI>[0],
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerUserRegistrationAction.isLoading(true));
+    try {
+      const response = await postUserRegistrationAPI(data);
+      options && options.onSuccess(response.data);
+    } catch (e) {
+      options && options.onError && options.onError(e);
+    }
+    dispatch(offerUserRegistrationAction.isLoading(false));
   };
 }

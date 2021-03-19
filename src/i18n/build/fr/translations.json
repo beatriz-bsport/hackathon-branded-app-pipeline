@@ -3430,6 +3430,12 @@
     },
     "privateConsumerPass": { "creditUpdate": { "success": "Crédits mis à jour", "error": "Impossible d'enregistrer le crédit" } },
     "consumerPass": { "success": "Votre achat a bien été enregistré !" },
+    "bookerModule": {
+      "pass": {
+        "changed": "La carte de cours pour réserver a du être modifiée",
+        "nothingAvailable": "Aucun pass ne permet de réserver en même temps ces séances"
+      }
+    },
     "privateRecurrentRule": {
       "createOrUpdate": {
         "success": "Rendez-vous récurrent enregistré avec succès",
@@ -3647,6 +3653,20 @@
       }
     },
     "contract": {
+      "item": {
+        "identifier": "Abonnement",
+        "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
+        "intervalLabel": {
+          "month": "Tous les mois",
+          "month_plural": "Tous les {{ interval }} mois",
+          "week": "Toutes les semaines",
+          "week_plural": "Tous les {{ interval }} semaines",
+          "day": "Tous les jours",
+          "day_plural": "Tous les {{ interval }} jours",
+          "year": "Tous les ans",
+          "year_plural": "Tous les {{ interval }} ans"
+        }
+      },
       "yes": "Oui",
       "no": "Non",
       "registerManager": {
@@ -3897,6 +3917,7 @@
     },
     "header": { "sum": "Somme", "average": "En moyenne" },
     "columns": {
+      "initial_price": "Prix d'achat",
       "accept_email": "Accepte les emails",
       "accept_sms": "Accepte les SMS",
       "coaches": "Professeurs",
@@ -4774,23 +4795,26 @@
     "bookingModule": {
       "hasRegistered": "Vous êtes inscrit à cette séance",
       "isLoading": "Recherche des séances...",
+      "book": { "unknowError": "Impossible de réserver, veuillez réessayer dans un moment" },
       "recurrent": { "title": "Séances futures", "bookMultiple": "Reserver", "backToRegistererChoice": "Retour" },
       "section": {
         "consumerPacks": "Mes cartes de cours",
         "contracts": "Abonnements",
-        "paymentPacks": "Cartes de cours",
-        "paymentCombos": "Offres promotionnelles"
+        "paymentPacks": "J'achète une carte de cours",
+        "paymentCombos": "Offres promotionnelles",
+        "contract": "Je m'abonne"
       },
       "option": {
-        "isAlreadyOnWaitingList": "Vous êtes inscrit en liste d'attente",
+        "waitingListOpen": "La séance est pleine, vous pouvez toutefois vous inscrire en liste d'attente. Nous vous préviendrons par email lorsqu'une place se libèrera",
+        "isAlreadyOnWaitingList": "Vous êtes inscrit en liste d'attente, nous vous préviendrons par email lorsqu'une place sera disponible.",
         "isAlreadyRegistered": "La séance est complète, félicitations vous êtes bien inscrit !",
         "isFull": "La séance est complète, vous pouvez vous inscrire en liste d'attente, vous serez prévenu par email lorsqu'une place se libèrera.",
         "registerOption": "M'inscrire en liste d'attente"
       },
       "offer": {
         "isDisabled": "La séance a été malheureusement été annulée.",
-        "isTooLate": "Les inscriptions ne sont plus possible, le délai de dernière inscription a été dépassé.",
-        "isTooSoon": "Les inscriptions sont fermées pour le moment et ouvriront le {{ date }}.",
+        "isTooLate": "Les inscriptions sont closes.",
+        "isTooSoon": "Les inscriptions sont fermées pour le moment et ouvrirons le {{ date }}.",
         "isWaitingListFull": "La séance est complète la liste d'attente est pleine."
       },
       "messages": {
@@ -4895,7 +4919,38 @@
         }
       }
     },
-    "memberGraph": { "title": "Récapitulatif des réservations", "label": "Réservations" }
+    "memberGraph": { "title": "Récapitulatif des réservations", "label": "Réservations" },
+    "offer": {
+      "similarOffer": { "title": "Réserver plus de séances", "empty": "Aucune séance trouvée", "showMore": "Voir plus" },
+      "offerStatus": {
+        "book": "Inscription",
+        "waiting_list": "Liste d'attente",
+        "bookable_status": {
+          "0": "Inscriptions ouvertes",
+          "1": "Inscriptions fermées",
+          "2": "Inscriptions terminées",
+          "4": "Séance indisponible"
+        },
+        "waiting_list_status": {
+          "0": "Liste d'attente",
+          "1": "Liste d'attente pleine",
+          "2": "Inscrit sur liste",
+          "3": "Réservation disponible!"
+        }
+      },
+      "packTitle": "Mon moyen de réservation",
+      "noPackAvailable": "Aucune carte de cours compatible avec cette séance !",
+      "noPackAvailable_plural": "Aucune carte de cours compatible avec ces séances !",
+      "addSession": "Ajouter une séance",
+      "bookingsTitle": "Je réserve",
+      "mainButton": {
+        "book": "Reserver",
+        "registerWaitingList": "M'inscrire sur liste d'attente",
+        "numberOfBook": "{{count}} inscription",
+        "numberOfBook_plural": "{{count}} inscriptions"
+      },
+      "showMore": "Voir plus"
+    }
   },
   "marketplace": {
     "selector": {

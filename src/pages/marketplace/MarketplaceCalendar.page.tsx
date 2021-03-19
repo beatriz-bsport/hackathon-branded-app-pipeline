@@ -56,6 +56,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import Analytics from '../../components/analytics/Analytics.component';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import { OfferFilterData } from '../../libs/offer/types';
 
 type OwnProps = {
   companyId: number;
@@ -302,7 +303,14 @@ const mapDispatchToProps = {
 };
 
 const mapWithHandlers = {
-  fetchOfferList: (props: Props) => (params: any) => {
+  fetchOfferList: (props: Props) => (params: {
+    company: number;
+    max_date: string;
+    min_date: string;
+    is_workshop?: boolean;
+    available?: boolean;
+    filters: OfferFilterData;
+  }) => {
     props.fetchOfferList(params, {
       onSuccess: (offerList: any) => {
         props.fetchEstablishmentBulk([

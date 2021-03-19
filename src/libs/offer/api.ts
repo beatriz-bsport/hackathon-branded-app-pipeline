@@ -1,4 +1,3 @@
-// @flow
 import {
   API_URI,
   API_V1_URI,
@@ -9,16 +8,25 @@ import {
   patchAuth,
   buildUrlParams,
 } from '../../http';
+import { OfferFilterData } from './types';
 
-export async function fetchAllEvents(params: *) {
+export async function fetchAllEvents(params: any) {
   return getAuth(`${API_V1_URI}/offer/minimal/${buildUrlParams(params)}`);
 }
 
-export async function fetchOffersByDay(params: *) {
+export async function fetchOffersByDay(params: any) {
   return getAuth(`${API_V1_URI}/offer/as_manager/${buildUrlParams(params)}`);
 }
 
-export async function fetchOffersList(params: *) {
+export async function fetchOffersList(
+  params: {
+    company: number;
+    min_date: string;
+    max_date: string;
+    available?: boolean;
+    is_workshop?: boolean;
+  } & OfferFilterData,
+) {
   return getAuth(`${API_V1_URI}/offer/${buildUrlParams(params)}`);
 }
 
@@ -26,8 +34,8 @@ export async function editLiveOffer({
   offerId,
   data,
 }: {
-  offerId: number,
-  data: *,
+  offerId: number;
+  data: any;
 }) {
   return putAuth(`${API_URI}/saas/offer/${offerId}/edit`, data);
 }
@@ -36,6 +44,20 @@ export async function fetchSimilarOffers(offerId: number, params: any) {
   return getAuth(
     `${API_V1_URI}/offer/${offerId}/similars/${buildUrlParams(params || {})}`,
   );
+}
+
+export async function fetchOfferStatus(offerId: number) {
+  return getAuth(`${API_V1_URI}/offer/${offerId}/bookable_status/`);
+}
+
+export async function postUserRegistration(data: {
+  consumer_payment_pack?: number;
+  payment_pack?: number;
+  payment_combo?: number;
+  email?: string;
+  offers: Array<{ offer_id: number; extra_data: any }>;
+}) {
+  return postAuth(` ${API_V1_URI}/offer/user_registration/`, data);
 }
 
 export async function fetchCompatiblePacks(offerId: number) {
@@ -54,12 +76,12 @@ export async function disableOffer({
   custom_selection,
   custom_selection_ids,
 }: {
-  offerId: number,
-  notify: ?boolean,
-  cashback: ?boolean,
-  deleteAll: ?boolean,
-  custom_selection: ?boolean,
-  custom_selection_ids: ?Array<number>,
+  offerId: number;
+  notify?: boolean;
+  cashback?: boolean;
+  deleteAll?: boolean;
+  custom_selection?: boolean;
+  custom_selection_ids?: Array<number>;
 }) {
   return patchAuth(`${API_URI}/saas/offer/${offerId}/disable/`, {
     available: false,
@@ -71,7 +93,7 @@ export async function disableOffer({
   });
 }
 
-export async function deleteOffer(offerId: number, data: *) {
+export async function deleteOffer(offerId: number, data: any) {
   return deleteAuth(`${API_URI}/saas/offer/${offerId}/disable/`, data || {});
 }
 
@@ -88,8 +110,8 @@ export async function massDisableOffer(
     start,
     end,
   }: {
-    start: string,
-    end: string,
+    start: string;
+    end: string;
   },
   filters: any,
 ) {
@@ -115,7 +137,7 @@ export async function restoreOffer(offerId: number) {
   return putAuth(`${API_V1_URI}/offer/${offerId}/restore/`);
 }
 
-export async function fetchBookedGender(params: *) {
+export async function fetchBookedGender(params: any) {
   return getAuth(`${API_V1_URI}/offer/booked_gender/${buildUrlParams(params)}`);
 }
 
@@ -131,4 +153,5 @@ export default {
   toogleWaitingListFreeze,
   fetchOffersList,
   fetchBookedGender,
+  fetchOfferStatus,
 };

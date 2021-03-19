@@ -50,6 +50,7 @@ exports.default = {
     average: 'En moyenne',
   },
   columns: {
+    initial_price: "Prix d'achat",
     accept_email: 'Accepte les emails',
     accept_sms: 'Accepte les SMS',
     coaches: 'Professeurs',

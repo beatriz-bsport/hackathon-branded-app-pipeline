@@ -84,6 +84,7 @@ import { NotificationRuleState } from '../libs/notification-rule/types';
 
 import actionTypes from '../actions/auth.types';
 import { EmailTemplateState } from '../libs/email-editor/types';
+import { OfferState } from '../libs/offer/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -172,7 +173,6 @@ export type RootState = {
   smartList: any;
   paymentCombo: any;
   reminder: any;
-  offer: any;
   webhook: any;
   partnership: any;
   activeCampaign: any;
@@ -184,6 +184,7 @@ export type RootState = {
   marketingNotification: MarketingNotificationState;
   notificationRule: NotificationRuleState;
   role: RoleState;
+  offer: OfferState;
   theme: ThemeState;
   consumer: ConsumerState;
   membership: MembershipState;

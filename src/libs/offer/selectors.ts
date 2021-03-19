@@ -1,5 +1,3 @@
-// @flow
-
 import { createSelector } from 'reselect';
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
@@ -13,18 +11,23 @@ import {
 } from '../meta-activity/selectors';
 import { getAllEstablishmentsDict } from '../establishment/selectors';
 import themeSelectors from '../theme/selectors';
+import { RootState } from '../../reducers';
+import { Offer } from './types';
+import { PaymentPack } from '../payment-packs/types';
 
-const getState = (state: State) => state.offer;
+const getState = (state: RootState) => state.offer;
 
-const getAll = (state: State) => getState(state).offers;
+const getAll = (state: RootState) => getState(state).offers;
 
-export const getDetailedOffer = (state: State) => getState(state).retrieve.data;
+export const getDetailedOffer = (state: RootState) =>
+  getState(state).retrieve.data;
 
-export const getOfferById = (state, id) => getState(state).byId[id];
+export const getOfferById = (state: RootState, id: number) =>
+  getState(state).byId[id];
 
 // this will remove the offers already ended simply
 export const todayOffers = createSelector(getAll, (offers) =>
-  offers.filter((offer) => {
+  offers.filter((offer: Offer) => {
     const momentDate = Moment();
     return (
       momentDate.isBefore(Moment(offer.date_start)) ||
@@ -33,17 +36,18 @@ export const todayOffers = createSelector(getAll, (offers) =>
   }),
 );
 
-export const compatiblePacksWithOffer = (state: State) =>
+export const compatiblePacksWithOffer = (state: RootState) =>
   state.offer.compatiblePacks.items;
 
 export const compatiblePacksWithOfferAndEnabled = createSelector(
   compatiblePacksWithOffer,
-  (items) => items.filter((pp) => !pp.disabled),
+  (items) => items.filter((pp: PaymentPack) => !pp.disabled),
 );
 
-export const _getSimilars = (state: State) => state.offer.similarOffers.items;
+export const _getSimilars = (state: RootState) =>
+  state.offer.similarOffers.items;
 
-export const withMetaActivity = memoize((selector: (State) => any) =>
+export const withMetaActivity = memoize((selector: (state: RootState) => any) =>
   createSelector(
     [selector, getMetaActivityAbstractDict, getWorkshopActivitiesDict],
     (offers, metaActivityData, workshopData) => {
@@ -67,37 +71,39 @@ export const withMetaActivity = memoize((selector: (State) => any) =>
   ),
 );
 
-export const withEstablishment = memoize((selector: (State) => any) =>
-  createSelector(
-    [selector, getAllEstablishmentsDict],
-    (offers, establishmentData) => {
-      if (!offers) return null;
-      if (!Array.isArray(offers)) {
-        return {
-          ...offers,
-          establishment_override: offers.establishment_override
-            ? establishmentData[offers.establishment_override] ||
-              offers.establishment_override
-            : null,
-          establishment: establishmentData[offers.establishment],
-        };
-      }
+export const withEstablishment = memoize(
+  (selector: (state: RootState) => any) =>
+    createSelector(
+      [selector, getAllEstablishmentsDict],
+      (offers, establishmentData) => {
+        if (!offers) return null;
+        if (!Array.isArray(offers)) {
+          return {
+            ...offers,
+            establishment_override: offers.establishment_override
+              ? establishmentData[offers.establishment_override] ||
+                offers.establishment_override
+              : null,
+            establishment: establishmentData[offers.establishment],
+          };
+        }
 
-      return offers
-        .filter((o) => !!o)
-        .map((o) => ({
-          ...o,
-          establishment_override: o.establishment_override
-            ? establishmentData[o.establishment_override] ||
-              o.establishment_override
-            : null,
-          establishment: establishmentData[o.establishment] || o.establishment,
-        }));
-    },
-  ),
+        return offers
+          .filter((o) => !!o)
+          .map((o) => ({
+            ...o,
+            establishment_override: o.establishment_override
+              ? establishmentData[o.establishment_override] ||
+                o.establishment_override
+              : null,
+            establishment:
+              establishmentData[o.establishment] || o.establishment,
+          }));
+      },
+    ),
 );
 
-export const withCoach = memoize((selector: (State) => any) =>
+export const withCoach = memoize((selector: (state: RootState) => any) =>
   createSelector([selector, getAllCoachesDict], (offers, coachData) => {
     if (!offers) return null;
     if (!Array.isArray(offers)) {
@@ -141,19 +147,19 @@ export const getSimilars = createSelector(
   },
 );
 
-export const getEventsByMetaActivity = (state: State) =>
+export const getEventsByMetaActivity = (state: RootState) =>
   state.offer.calendarByObject.metaActivity;
 
-export const getEventsByEstablishment = (state: State) =>
+export const getEventsByEstablishment = (state: RootState) =>
   state.offer.calendarByObject.establishment;
 
-export const getManagerFilters = (state: State) =>
+export const getManagerFilters = (state: RootState) =>
   state.offer.managerFilter.filters;
-export const getManagerFiltersOpen = (state: State) =>
+export const getManagerFiltersOpen = (state: RootState) =>
   state.offer.managerFilter.open;
 
-const _getOfferByDayIds = (state: State) => state.offer.byDay.allIds;
-export const _getOfferData = (state: State) => state.offer.byId;
+const _getOfferByDayIds = (state: RootState) => state.offer.byDay.allIds;
+export const _getOfferData = (state: RootState) => state.offer.byId;
 
 export const getOfferDataList = createSelector(_getOfferData, (offerData) =>
   Object.values(offerData),
@@ -205,7 +211,7 @@ export const getManagerOffersFiltered = createSelector(
   },
 );
 
-const _getMarketplaceIds = (state: State) => state.offer.marketplace.allIds;
+const _getMarketplaceIds = (state: RootState) => state.offer.marketplace.allIds;
 
 export const getMarketplaceOfferList = createSelector(
   [_getOfferData, _getMarketplaceIds],
@@ -220,7 +226,8 @@ export const getListCalendarOfferFromNow = createSelector(
       .filter((o) => moment(o.date_start).isSameOrAfter(moment())),
 );
 
-const _getBookedGenderOffer = (state: State) => state.offer.genderCount.byId;
+const _getBookedGenderOffer = (state: RootState) =>
+  state.offer.genderCount.byId;
 
 export const withGender = memoize((selector: (State) => any) =>
   createSelector([selector, _getBookedGenderOffer], (offers, genderData) => {
@@ -245,7 +252,7 @@ export const withGender = memoize((selector: (State) => any) =>
   }),
 );
 
-export const getOfferWithRelated = (state: State, id: number) => {
+export const getOfferWithRelated = (state: RootState, id: number) => {
   return withMetaActivity(
     withCoach(
       withEstablishment((state_) => {

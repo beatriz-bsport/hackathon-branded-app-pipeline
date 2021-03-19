@@ -7,6 +7,7 @@ import {
   push as pushRouter,
   goBack as goBackRouter,
 } from 'connected-react-router';
+import { Redirect } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
@@ -232,6 +233,15 @@ export class OfferPaymentPage extends Component<Props, State> {
     this.setState({ currentBasketOpen });
 
   render() {
+    if (
+      this.props.offer &&
+      this.props.offer.meta_activity &&
+      this.props.offer.meta_activity.is_workshop
+    ) {
+      return (
+        <Redirect to={`/payment/offer-booker-module/${this.props.offerId}`} />
+      );
+    }
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <Analytics theme={this.props.theme} />

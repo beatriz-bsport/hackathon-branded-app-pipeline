@@ -1,5 +1,3 @@
-// @flow
-
 export type ConsumerPaymentPackExtension = {
   note: string;
   date_created: string;
@@ -12,7 +10,7 @@ export type PaymentPack = {
   id: number;
   unlimited: boolean;
   name: string;
-  credits: number;
+  credits: number | null;
   base_price: number;
   tax: string;
   company: { name: string };

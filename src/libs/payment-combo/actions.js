@@ -174,7 +174,7 @@ export function fetchPaymentComboForBooking(
       });
       dispatch(paymentComboForBookingActions.success(response.data));
       dispatch(paymentComboForBookingActions.error(null));
-      if (options && options.onSuccess) options.onSuccess();
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
       dispatch(paymentComboForBookingActions.error(error));

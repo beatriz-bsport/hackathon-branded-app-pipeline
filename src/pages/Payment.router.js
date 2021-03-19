@@ -19,8 +19,8 @@ import withQueryParams from '../hocs/with-query-params.hoc';
 const OfferPaymentPage = asyncComponent(() =>
   import('./payment/OfferBooking.page'),
 );
-const OfferBookingPage = asyncComponent(() =>
-  import('./payment/OfferBooking.page'),
+const OfferBookingPageV2 = asyncComponent(() =>
+  import('./payment/OfferBookingV2/OfferBooking.page'),
 );
 const PaymentPackPreCheckout = asyncComponent(() =>
   import('./checkout/pre-checkout/PaymentPackPreCheckout.page'),
@@ -129,6 +129,7 @@ export class PaymentRouter extends React.Component<Props> {
     if (this.props.is_manager) {
       return <MarketplaceAsManager />;
     }
+
     return (
       <Switch>
         <Route path="/(|customer/)payment/checkout/" component={CheckoutPage} />
@@ -137,8 +138,8 @@ export class PaymentRouter extends React.Component<Props> {
           component={OfferPaymentPage}
         />
         <Route
-          path="/(|customer/)payment/offer_/:id"
-          component={OfferBookingPage}
+          path="/(|customer/)payment/offer-booker-module/:id"
+          component={OfferBookingPageV2}
         />
         <Route
           path="/(|customer/)payment/pass/:id"

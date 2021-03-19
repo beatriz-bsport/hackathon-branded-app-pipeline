@@ -1,9 +1,9 @@
-// @flow
-
+import { TFunction } from 'i18next';
 import moment from 'moment-timezone';
 import { formatAsDate, formatAsDatetime } from '../../utils/datetime';
 import type { ConsumerPaymentPack } from '../consumer-payment-pack/types';
 import type { VideoPurchase } from '../video/types';
+import { PaymentPack } from './types';
 
 export const getValidityInfo = (pack: PaymentPack, t: TFunction) => {
   let dateInfo = '';
@@ -60,6 +60,7 @@ export const getPaymentPackTimeLimitation = (paymentPack, baseDate) => {
       end: moment(JSON.parse(validity_daterange).upper),
     };
   }
+
   return {
     start: moment(baseDate || moment()),
     end: moment(baseDate || moment())

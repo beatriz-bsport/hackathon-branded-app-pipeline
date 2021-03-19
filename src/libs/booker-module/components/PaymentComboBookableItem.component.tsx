@@ -1,0 +1,53 @@
+import { makeStyles, Typography } from '@material-ui/core';
+import React from 'react';
+import { getCurrencyDisplay } from '../../theme/selectors';
+import { PaymentCombo } from '../../payment-combo/types';
+
+interface Props {
+  paymentCombo: PaymentCombo;
+}
+
+const PaymentPackComboItem = (props: Props) => {
+  const classes = useStyles(['paymentPack']);
+
+  const packs = [
+    ...props.paymentCombo.payment_packs.map(
+      (pp) => (pp.quantity > 1 ? `${pp.quantity}x ` : '') + pp.name,
+    ),
+    ...props.paymentCombo.shop_items.map(
+      (pp) => (pp.quantity > 1 ? `${pp.quantity}x ` : '') + pp.name,
+    ),
+    ...props.paymentCombo.private_passes.map(
+      (pp) => (pp.quantity > 1 ? `${pp.quantity}x ` : '') + pp.name,
+    ),
+  ];
+
+  return (
+    <div className={classes.itemContainer}>
+      <Typography variant="h6">
+        {props.paymentCombo.price}
+        {getCurrencyDisplay()}
+      </Typography>
+      <Typography variant="body1" color="textPrimary" align="left">
+        {props.paymentCombo.name}
+      </Typography>
+
+      {packs.map((pack) => (
+        <Typography variant="body2" color="textSecondary" align="left">
+          - {pack}
+        </Typography>
+      ))}
+    </div>
+  );
+};
+
+const useStyles = makeStyles(() => ({
+  itemContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+}));
+
+export default PaymentPackComboItem;

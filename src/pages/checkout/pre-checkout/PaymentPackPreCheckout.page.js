@@ -61,6 +61,7 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
               const { nextOffer } = parseQueryString(
                 this.props.location.search,
               );
+              const { force } = parseQueryString(this.props.location.search);
               Analytics.addPassToCart(paymentPack, 'payment_pack');
               this.props.addItemToBasket(
                 basket.id,
@@ -68,7 +69,7 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
                   buyable_item_identifier: BUYABLE_ITEM_PASS,
                   quantity: 1,
                   buyable_item_id: paymentPack.id,
-                  extra_data: { offer_next: nextOffer },
+                  extra_data: { offer_next: nextOffer, force },
                 },
                 {
                   onError: () => this.setState({ error: true }),

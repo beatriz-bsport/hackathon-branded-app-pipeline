@@ -216,7 +216,7 @@ export class PaymentPackCard extends Component<Props> {
       <div>
         {pack.disabled ? (
           <div className={classes.disabledLabel}>
-            <Typography color="error" variant="h6">
+            <Typography color="rror" variant="h6">
               {t('disabled')}
             </Typography>
           </div>

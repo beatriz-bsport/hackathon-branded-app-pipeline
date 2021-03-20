@@ -2731,7 +2731,7 @@
                     "label": "Price"
                 },
                 "tax": {
-                    "label": "TVA"
+                    "label": "VAT"
                 },
                 "actions": {
                     "submit": "Save",

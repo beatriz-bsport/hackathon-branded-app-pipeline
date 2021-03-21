@@ -78,7 +78,7 @@ export default function ReportGeneration(props: Props) {
         </Paper>
       ) : null}
 
-      {reportStoreRowsLoading ? <LinearProgress /> : null}
+      {reportStoreRowsLoading && result ? <LinearProgress /> : null}
     </div>
   );
 }

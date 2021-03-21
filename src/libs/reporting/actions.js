@@ -14,7 +14,11 @@ export function fetchReportGeneration(reportId: ?number, params: any) {
 
     try {
       const response = await api.fetchReportGeneration(reportId, params);
-      dispatch(reportGenerationDetail.success(response.data));
+      dispatch(
+        reportGenerationDetail.success({
+          [reportId]: response.data,
+        }),
+      );
       dispatch(reportGenerationDetail.isLoading(false));
     } catch (err) {
       console.error(err);

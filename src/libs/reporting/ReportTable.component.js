@@ -26,7 +26,6 @@ import TableCell from '@material-ui/core/TableCell';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import Divider from '@material-ui/core/Divider';
 import { TableFooter } from '@material-ui/core';
 import { getCurrencyDisplay } from '../theme/selectors';
 
@@ -180,7 +179,9 @@ function TablePaginationActions(props: Props) {
           <KeyboardArrowLeft />
         </IconButton>
         <Typography variant="caption">
-          {`Page ${nextPage - 1}/${otherPages ? otherPages.length : ''}`}
+          {`Page ${nextPage ? nextPage - 1 : previousPage + 1}/${
+            otherPages ? otherPages.length : ''
+          }`}
         </Typography>
         <IconButton
           onClick={handleGenerateNextPage}
@@ -217,11 +218,6 @@ export function ReportTable(props: Props) {
     <div className={classes.responsive}>
       <Table padding="dense">
         <TableHead>
-          <TableRow>
-            {columns.map((column) => (
-              <TableCell key={column}>{t(`columns.${column}`)}</TableCell>
-            ))}
-          </TableRow>
           <TablePaginationActions
             previousPage={previousPage}
             nextPage={nextPage}
@@ -231,6 +227,11 @@ export function ReportTable(props: Props) {
             reportStoreRowsLoading={reportStoreRowsLoading}
             columnSpan={columns.length}
           />
+          <TableRow>
+            {columns.map((column) => (
+              <TableCell key={column}>{t(`columns.${column}`)}</TableCell>
+            ))}
+          </TableRow>
         </TableHead>
         <TableBody>
           {result
@@ -258,17 +259,19 @@ export function ReportTable(props: Props) {
               ))
             : null}
         </TableBody>
-        <TableFooter>
-          <TablePaginationActions
-            previousPage={previousPage}
-            nextPage={nextPage}
-            otherPages={otherPages}
-            handleGeneratePreviousPage={handleGeneratePreviousPage}
-            handleGenerateNextPage={handleGenerateNextPage}
-            reportStoreRowsLoading={reportStoreRowsLoading}
-            columnSpan={columns.length}
-          />
-        </TableFooter>
+        {result && (
+          <TableFooter>
+            <TablePaginationActions
+              previousPage={previousPage}
+              nextPage={nextPage}
+              otherPages={otherPages}
+              handleGeneratePreviousPage={handleGeneratePreviousPage}
+              handleGenerateNextPage={handleGenerateNextPage}
+              reportStoreRowsLoading={reportStoreRowsLoading}
+              columnSpan={columns.length}
+            />
+          </TableFooter>
+        )}
       </Table>
     </div>
   );

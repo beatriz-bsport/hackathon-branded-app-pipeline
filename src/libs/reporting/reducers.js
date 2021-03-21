@@ -5,15 +5,18 @@ import { reportGenerationDetail } from './actions';
 
 const initialState: reportGenerationState = Immutable({
   reportResponse: {
-    result: [],
-    previous_page: null,
-    next_page: 1,
-    other_pages: [],
+    reportId: {
+      result: [],
+      previous_page: null,
+      next_page: 1,
+      other_pages: [],
+    },
   },
   allIds: null,
   loading: false,
   error: null,
   page_size: 100,
+  reportId: null,
 });
 export default handleActions(
   {

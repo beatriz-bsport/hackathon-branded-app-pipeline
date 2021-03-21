@@ -3,7 +3,7 @@
 import moment from 'moment-timezone';
 import React from 'react';
 
-import { compose, withProps, withState } from 'recompose';
+import { compose, withProps, withState, withHandlers } from 'recompose';
 
 import { connect } from 'react-redux';
 
@@ -119,11 +119,11 @@ export default compose(
     (state, { id }) => ({
       report: reports.selectors.get(state, id),
       metadata: reportMetadata.selectors.get(state),
-      reportStoreRows: getReportRows(state),
+      reportStoreRows: getReportRows(state, id),
       reportStoreRowsLoading: getReportRowsLoading(state),
-      nextPage: getNextPage(state),
-      previousPage: getPreviousPage(state),
-      otherPages: getOtherPages(state),
+      nextPage: getNextPage(state, id),
+      previousPage: getPreviousPage(state, id),
+      otherPages: getOtherPages(state, id),
       pageSize: state.reports.page_size,
     }),
     {
@@ -133,42 +133,33 @@ export default compose(
     },
   ),
   withState('exportLink', 'setExportLink', null),
-  withProps(
-    ({
-      id,
-      fetchExtractResult,
-      reportStoreRows,
-      setExportLink,
-      report,
-      pageSize,
-    }) => ({
-      handleGenerate({ dateStart, dateEnd, page }, options) {
-        fetchExtractResult(
-          id,
-          report.date_type === 'range'
-            ? {
-                date_start: dateStart.format('YYYY-MM-DD'),
-                date_end: dateEnd.clone().format('YYYY-MM-DD'),
-                page_size: pageSize,
-                page: page || 1,
-              }
-            : {
-                date_start: dateStart.format('YYYY-MM-DD'),
-                page_size: pageSize,
-                page: page || 1,
-              },
-          options,
-        );
-        const params = {
-          fileformat: 'xlsx',
-          dateStart: dateStart.format('YYYY-MM-DD'),
-          dateEnd: dateEnd.clone().format('YYYY-MM-DD'),
-        };
-        const exportLink = reportStoreRows && urls.export(id, params);
-        setExportLink(exportLink);
-      },
-    }),
-  ),
+  withProps(({ id, fetchExtractResult, setExportLink, report, pageSize }) => ({
+    handleGenerate({ dateStart, dateEnd, page }, options) {
+      fetchExtractResult(
+        id,
+        report.date_type === 'range'
+          ? {
+              date_start: dateStart.format('YYYY-MM-DD'),
+              date_end: dateEnd.clone().format('YYYY-MM-DD'),
+              page_size: pageSize,
+              page: page || 1,
+            }
+          : {
+              date_start: dateStart.format('YYYY-MM-DD'),
+              page_size: pageSize,
+              page: page || 1,
+            },
+        options,
+      );
+      const params = {
+        fileformat: 'xlsx',
+        dateStart: dateStart.format('YYYY-MM-DD'),
+        dateEnd: dateEnd.clone().format('YYYY-MM-DD'),
+      };
+      const exportLink = report && urls.export(id, params);
+      setExportLink(exportLink);
+    },
+  })),
   withProps(({ report, previousPage, nextPage, handleGenerate }) => ({
     handleGeneratePreviousPage({ dateStart, dateEnd }, options) {
       handleGenerate(

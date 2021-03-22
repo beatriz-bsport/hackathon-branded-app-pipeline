@@ -174,6 +174,7 @@ export class VideoUploadDialog extends React.Component<Props, State> {
               <RadioGroup
                 aria-label="provider-type"
                 name="provider-type"
+                disabled={this.state.isUploading}
                 value={this.state.videoStrategy}
                 onChange={this.onChangeProvider}
               >
@@ -183,7 +184,7 @@ export class VideoUploadDialog extends React.Component<Props, State> {
                   disabled={
                     !this.props.videoProviderList.includes(
                       VideoProvider.MUX_PROVIDER,
-                    )
+                    ) || this.state.isUploading
                   }
                   label={this.props.t('video.upload.type.file')}
                 />
@@ -194,7 +195,7 @@ export class VideoUploadDialog extends React.Component<Props, State> {
                   disabled={
                     !this.props.videoProviderList.includes(
                       VideoProvider.EXTERNAL_URL_PROVIDER,
-                    )
+                    ) || this.state.isUploading
                   }
                 />
               </RadioGroup>

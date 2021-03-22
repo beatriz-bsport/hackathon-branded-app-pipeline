@@ -133,6 +133,39 @@ export default compose(
     },
   ),
   withState('exportLink', 'setExportLink', null),
+  // withHandlers({
+  //   handleGenerate: (
+  //     id,
+  //     fetchExtractResult,
+  //     setExportLink,
+  //     report,
+  //     pageSize,
+  //   ) => ({ dateStart, dateEnd, page }, options) => {
+  //     fetchExtractResult(
+  //       id,
+  //       report.date_type === 'range'
+  //         ? {
+  //             date_start: dateStart.format('YYYY-MM-DD'),
+  //             date_end: dateEnd.clone().format('YYYY-MM-DD'),
+  //             page_size: pageSize,
+  //             page: page || 1,
+  //           }
+  //         : {
+  //             date_start: dateStart.format('YYYY-MM-DD'),
+  //             page_size: pageSize,
+  //             page: page || 1,
+  //           },
+  //       options,
+  //     );
+  //     const params = {
+  //       fileformat: 'xlsx',
+  //       dateStart: dateStart.format('YYYY-MM-DD'),
+  //       dateEnd: dateEnd.clone().format('YYYY-MM-DD'),
+  //     };
+  //     const exportLink = report && urls.export(id, params);
+  //     setExportLink(exportLink);
+  //   },
+  // }),
   withProps(({ id, fetchExtractResult, setExportLink, report, pageSize }) => ({
     handleGenerate({ dateStart, dateEnd, page }, options) {
       fetchExtractResult(

@@ -301,7 +301,7 @@ export class PaymentPackCard extends Component<Props> {
     const { pack, t } = this.props;
     return !this.props.onlyPublic && pack.id && pack.company ? (
       <CopyToClipboard
-        text={`${window.location.origin}/customer/payment/pass/${pack.id}/?membership=${pack.company}`}
+        text={`${window.location.origin}/customer/payment/pass/${pack.id}/?membership=${pack.company}&force=true`}
       >
         <ButtonBase
           id="button_pass_copy"

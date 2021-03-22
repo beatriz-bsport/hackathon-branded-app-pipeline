@@ -47,6 +47,7 @@ export const BankAccountForm = (props: Props) => {
       'SE',
       'FI',
       'DK',
+      'LU',
     ].includes(props.company.country)
   ) {
     content = (

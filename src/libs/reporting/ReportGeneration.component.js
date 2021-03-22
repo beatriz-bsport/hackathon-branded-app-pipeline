@@ -21,7 +21,7 @@ type Props = {
   exportLink?: string,
   previousPage: number,
   nextPage: number,
-  otherPages: Array,
+  otherPages: Array<number>,
   pageSize: number,
   reportStoreRowsLoading: boolean,
 };

@@ -41,7 +41,7 @@ type Props = {
   reportStoreRowsLoading: boolean,
   previousPage: number,
   nextPage: number,
-  otherPages: Array,
+  otherPages: Array<number>,
   pageSize: number,
 };
 

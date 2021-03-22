@@ -2407,7 +2407,8 @@
       "NO": "Norvège",
       "SE": "Sweden",
       "FI": "Finalande",
-      "DK": "Danemark"
+      "DK": "Danemark",
+      "LU": "Luxembourg"
     },
     "language": { "fr": "français", "en": "anglais", "de": "allemand", "it": "italien", "nl": "néerlandais", "es": "espagnol" }
   },

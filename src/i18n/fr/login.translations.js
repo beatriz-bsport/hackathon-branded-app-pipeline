@@ -99,6 +99,7 @@ exports.default = {
     SE: 'Sweden',
     FI: 'Finalande',
     DK: 'Danemark',
+    LU: 'Luxembourg',
   },
   language: {
     fr: 'français',

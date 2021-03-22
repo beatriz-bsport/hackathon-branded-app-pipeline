@@ -138,7 +138,7 @@ const SessionSelector: React.FC<Props> = (props) => {
 
   let coaches: Array<Coach | null> = [null];
 
-  if (props.showCoach) {
+  if (props.showCoach || props.choseCoach) {
     /* eslint-disable */
     coaches = props.coaches;
     /* eslint-enable */

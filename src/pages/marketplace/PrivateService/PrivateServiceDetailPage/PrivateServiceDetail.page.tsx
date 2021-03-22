@@ -327,6 +327,10 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
               <SessionSelector
                 sessionMoment={selectedSessionMoment}
                 showCoach={multipleCoach}
+                choseCoach={
+                  props.privateService.coach_attribution ===
+                  RESOURCE_ATTRIBUTION_CONSUMER
+                }
                 showEstablishment={multipleEstablishment}
                 coaches={
                   selectedCoaches?.length

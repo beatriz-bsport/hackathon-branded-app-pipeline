@@ -88,6 +88,7 @@ exports.default = {
     iAccept: "J'accepte les ",
     theTermsAndConditions: 'conditions générales de ventes.',
     generalTermsOfUse: " conditions générales d'utilisation",
+    waiver: 'décharge de responsabilité',
     close: 'Fermer',
   },
   returnedAmount: 'Remboursé: ',

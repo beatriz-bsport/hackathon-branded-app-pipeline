@@ -55,6 +55,7 @@ export class PaymentByCredit extends React.Component<Props, State> {
               this.props.setTermsAccepted(termsAccepted)
             }
             termsAndConditions={this.props.termsAndConditions}
+            type="theTermsAndConditions"
           />
         ) : null}
         <div className={this.props.classes.buttonContainer}>

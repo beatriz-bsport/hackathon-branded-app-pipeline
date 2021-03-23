@@ -445,47 +445,28 @@ export class MarketPlace extends Component<Props, State> {
             open={this.state.signupDialogOpen && !this.props.auth.authenticated}
             onClose={this.closeSignup}
           >
-            <Grid
-              container
-              direction="column"
-              spacing={2}
-              className={classes.signupContainer}
-            >
-              <Grid item>
-                <DialogTitle>{t('form.signUpTitle')}</DialogTitle>
-              </Grid>
-              <Grid item>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}
-                />
-              </Grid>
-              <Grid item>
-                <SignUpForm
-                  loading={this.props.auth.loading}
-                  theme={this.props.theme}
-                  emailExists={this.props.emailExists}
-                  checkEmailExistsLoading={this.props.checkEmailExistsLoading}
-                  checkEmailExists={this.props.checkEmailExists}
-                  onComplete={(data: *) =>
-                    this.signup(data, () => {
-                      this.props.fetchProfile({
-                        onSuccess: (profile) => {
-                          Analytics.signupSuccess(profile);
-                        },
-                      });
-                      this.props.fetchCurrentBasket(this.props.companyId);
-                    })
-                  }
-                  onCancel={() => this.setState({ signupDialogOpen: false })}
-                  consumerProfile={this.props.consumerProfile}
-                />
-              </Grid>
-            </Grid>
+            <DialogTitle>{t('form.signUpTitle')}</DialogTitle>
+            <div className={classes.signupContainer}>
+              <SignUpForm
+                loading={this.props.auth.loading}
+                theme={this.props.theme}
+                emailExists={this.props.emailExists}
+                checkEmailExistsLoading={this.props.checkEmailExistsLoading}
+                checkEmailExists={this.props.checkEmailExists}
+                onComplete={(data: *) =>
+                  this.signup(data, () => {
+                    this.props.fetchProfile({
+                      onSuccess: (profile) => {
+                        Analytics.signupSuccess(profile);
+                      },
+                    });
+                    this.props.fetchCurrentBasket(this.props.companyId);
+                  })
+                }
+                onCancel={() => this.setState({ signupDialogOpen: false })}
+                consumerProfile={this.props.consumerProfile}
+              />
+            </div>
           </Dialog>
           <Dialog
             open={this.state.loginDialogOpen && !this.props.auth.authenticated}
@@ -518,6 +499,7 @@ const styles = (theme) => ({
   signupContainer: {
     padding: theme.spacing(2),
     paddingTop: 0,
+    maxWidth: 400,
   },
   content: {
     overflowY: 'auto',

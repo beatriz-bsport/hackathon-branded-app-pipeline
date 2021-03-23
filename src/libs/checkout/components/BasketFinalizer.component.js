@@ -132,6 +132,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
                     accepted={this.props.termsAndConditionsAccepted}
                     onChecked={this.props.setTermsAndConditionsAccepted}
                     termsAndConditions={this.props.termsAndConditions}
+                    type="theTermsAndConditions"
                   />
                 )}
                 <Button

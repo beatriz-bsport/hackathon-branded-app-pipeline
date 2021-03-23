@@ -1,35 +1,36 @@
-// @flow
-
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { Theme as MaterialTheme } from '@material-ui/core';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
 import ColorInput from '../../../components/input/ColorInput.component';
 import type { Theme } from '../types';
 import AnalyticsDialog from './AnalyticsDialog.component';
+import { MaterialStyleType } from '../../../utils/types';
 
-type Props = {
-  theme: Theme,
-  onSubmit: (id: number, data: *) => void,
-  processing: boolean,
-  t: TFunction,
-  classes: Object,
-  openAnalyticsUsage: boolean,
-  setOpenAnalyticsUsage: (boolean) => void,
+type OwnProps = {
+  theme: Theme;
+  onSubmit: (id: number, data: any) => void;
+  processing: boolean;
+  openAnalyticsUsage: boolean;
+  setOpenAnalyticsUsage: (open: boolean) => void;
 };
+
+type Props = OwnProps &
+  WithTranslation &
+  MaterialStyleType<ReturnType<typeof styles>>;
 
 type State = {
-  theme: Theme,
+  theme: Theme;
 };
 
-function CompanyCoverPreview(props: { previewURL: string }) {
+function CompanyCoverPreview(props: { previewURL?: string }) {
   if (!props.previewURL) {
     return (
       <div
@@ -86,11 +87,12 @@ export class ThemeForm extends Component<Props, State> {
       this.state.theme.facebookURL === this.props.theme.facebookURL &&
       this.state.theme.general_terms_of_use ===
         this.props.theme.general_terms_of_use &&
-      this.state.theme.facebookPixelId === this.props.theme.facebookPixelId
+      this.state.theme.facebookPixelId === this.props.theme.facebookPixelId &&
+      this.state.theme.waiver === this.props.theme.waiver
     );
   };
 
-  handleCoverChange = (cover: ?File) => {
+  handleCoverChange = (cover?: File) => {
     if (cover && typeof cover !== 'string') {
       this.handleChange('cover')(cover);
     }
@@ -111,10 +113,13 @@ export class ThemeForm extends Component<Props, State> {
       'instagramURL',
       'general_terms_and_conditions',
       'general_terms_of_use',
+      'waiver',
+      // @ts-ignore
     ].map((key) => data.append(key, this.state.theme[key]));
     if (this.state.theme.cover && typeof this.state.theme.cover !== 'string') {
       data.append('cover', this.state.theme.cover);
     }
+
     this.props.onSubmit(this.props.theme.company, data);
   };
 
@@ -141,13 +146,17 @@ export class ThemeForm extends Component<Props, State> {
             <ColorInput
               label={t('forms.primary_color.label')}
               helperText={t('forms.primary_color.helperText')}
-              onChange={(color) => this.handleChange('primary_color')(color)}
+              onChange={(color: any) =>
+                this.handleChange('primary_color')(color)
+              }
               color={this.state.theme.primary_color}
             />
           </div>
           <div className={classes.horizontalInput}>
             <ColorInput
-              onChange={(color) => this.handleChange('secondary_color')(color)}
+              onChange={(color: any) =>
+                this.handleChange('secondary_color')(color)
+              }
               label={t('forms.secondary_color.label')}
               helperText={t('forms.secondary_color.helperText')}
               color={this.state.theme.secondary_color}
@@ -262,6 +271,19 @@ export class ThemeForm extends Component<Props, State> {
             }
           />
         </div>
+        <div className={classes.textField}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            multiline
+            rows={5}
+            placeholder={t('forms.waiver.placeholder')}
+            helperText={t('forms.waiver.helperText')}
+            label={t('forms.waiver.label')}
+            value={this.state.theme.waiver}
+            onChange={(ev) => this.handleChange('waiver')(ev.target.value)}
+          />
+        </div>
         <div className={classes.inputContainer}>
           <TextField
             className={classes.textfield}
@@ -297,7 +319,7 @@ export class ThemeForm extends Component<Props, State> {
 
         <div className={classes.buttonContainer}>
           <Button
-            onClick={() => this.onSubmit(this.state.theme)}
+            onClick={() => this.onSubmit()}
             disabled={this.checkChange() || this.props.processing}
             variant="contained"
             color="primary"
@@ -318,7 +340,7 @@ export class ThemeForm extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: MaterialTheme) => ({
   textfield: {
     minWidth: 480,
   },
@@ -352,6 +374,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
+  // @ts-ignore
   withStyles(styles),
   withTranslation(['theme']),
   withState('openAnalyticsUsage', 'setOpenAnalyticsUsage', false),

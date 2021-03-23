@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 
 import FormControl from '@material-ui/core/FormControl';
@@ -15,68 +14,89 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { Theme as MaterialTheme } from '@material-ui/core';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { GenderInput } from '../input';
 import AddressForm from './AddressForm.component';
 import DelayedTextField from '../DelayedTextField.component';
 import AcceptTermsAndConditions from '../../libs/payment/components/AcceptTermsAndConditions.component';
 
-import type { ConsumerAddress } from '../../api/types';
+import { ConsumerAddress } from '../../api/types';
+import { MaterialStyleType } from '../../utils/types';
+import { Theme } from '../../libs/theme/types';
 import { browserCountryCode } from '../../i18n';
 
 const STEP_GENERAL_INFORMATION = 0;
 const STEP_REQUEST_ADDRESS = 1;
 
-type Props = {
-  onComplete: (Object) => void,
-  onCancel: () => void,
-  t: TFunction,
-  classes: Object,
-  backToLogin: () => void,
-  emailExists: boolean,
-  theme: Object,
-  checkEmailExists: (email: string) => void,
-  checkEmailExistsLoading: boolean,
+interface SignupData {
+  email: string;
+  password: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  accept_sms: boolean;
+  accept_email: boolean;
+  username: string;
+  gender: string;
+  address?: ConsumerAddress;
+  acceptWaiver?: boolean;
+}
+
+type OwnProps = {
+  onComplete: (data: SignupData) => void;
+  onCancel: () => void;
+  backToLogin: () => void;
+  emailExists: boolean;
+  theme: Theme;
+  checkEmailExists: (email: string) => void;
+  checkEmailExistsLoading: boolean;
 };
 
+type Props = OwnProps &
+  WithTranslation &
+  MaterialStyleType<ReturnType<typeof styles>>;
+
 type State = {
-  email: string,
-  first_name: string,
-  last_name: string,
-  phone: string,
-  password: string,
-  passwordConfirm: string,
-  passwordIsConform: boolean,
-  passwordEqual: boolean,
-  accept_sms: boolean,
-  accept_email: boolean,
-  acceptPrivacyPolicy: boolean,
-  gender: string,
-  step: number,
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  password: string;
+  passwordConfirm: string;
+  accept_sms: boolean;
+  accept_email: boolean;
+  acceptPrivacyPolicy: boolean;
+  acceptWaiver: boolean;
+  gender: string;
+  address?: ConsumerAddress;
+  step: number;
 };
 
 export class SignUpForm extends Component<Props, State> {
-  state = {
-    step: STEP_GENERAL_INFORMATION,
-    email: '',
-    first_name: '',
-    last_name: '',
-    phone: '',
-    password: '',
-    passwordConfirm: '',
-    passwordIsConform: true,
-    passwordEqual: true,
-    accept_email: true,
-    accept_sms: true,
-    acceptPrivacyPolicy: false,
-    gender: 'F',
-  };
+  constructor(props: Props) {
+    super(props);
 
-  goToAddressForm = (event: Object) => {
+    this.state = {
+      step: STEP_GENERAL_INFORMATION,
+      email: '',
+      first_name: '',
+      last_name: '',
+      phone: '',
+      password: '',
+      passwordConfirm: '',
+      accept_email: true,
+      accept_sms: true,
+      acceptPrivacyPolicy: false,
+      acceptWaiver: !(props.theme && props.theme.waiver),
+      gender: 'F',
+    };
+  }
+
+  goToAddressForm = (event: any) => {
     event.preventDefault();
     if (!this.state.acceptPrivacyPolicy) {
       alert(this.props.t('form.signup.pleaseAcceptPrivacyPolicy'));
@@ -85,7 +105,7 @@ export class SignUpForm extends Component<Props, State> {
     this.setState({ step: STEP_REQUEST_ADDRESS });
   };
 
-  submitInfo = () => {
+  submitInfo = (address?: ConsumerAddress) => {
     const {
       email,
       password,
@@ -96,15 +116,16 @@ export class SignUpForm extends Component<Props, State> {
       accept_sms,
       accept_email,
       acceptPrivacyPolicy,
+      acceptWaiver,
       gender,
     } = this.state;
     const { t } = this.props;
-    if (!acceptPrivacyPolicy) {
+    if (!acceptPrivacyPolicy || !acceptWaiver) {
       alert(t('form.signup.pleaseAcceptPrivacyPolicy'));
       return;
     }
     if (password === passwordConfirm) {
-      this.props.onComplete({
+      const data: SignupData = {
         email,
         password,
         first_name,
@@ -114,50 +135,28 @@ export class SignUpForm extends Component<Props, State> {
         accept_email,
         username: email,
         gender,
-      });
+      };
+
+      if (address) {
+        data.address = address;
+      }
+
+      this.props.onComplete(data);
     }
   };
 
-  isPasswordConform = (password: string) => {
-    return password.length > 7;
-  };
-
-  onFormFieldChange = (id: string) => (event: Object) => {
+  onFormFieldChange = (id: string) => (event: any) => {
     const { value } = event.target;
-    // eslint-disable-next-line
-    this.setState((prevState) => ({
-      [id]: value,
-    }));
+    // @ts-ignore
+    this.setState({ [id]: value });
   };
 
-  onPasswordChange = (event: Object) => {
-    const password = event.target.value;
-    const passwordIsConform = this.isPasswordConform(password);
-    this.setState((prevState) => ({
-      password,
-      passwordEqual: password === prevState.passwordConfirm,
-      passwordIsConform,
-    }));
-  };
-
-  onPasswordConfirmChange = (event: Object) => {
-    const passwordConfirm = event.target.value;
-    this.setState((prevState) => ({
-      passwordConfirm,
-      passwordEqual: passwordConfirm === prevState.password,
-    }));
-  };
-
-  toogleSMS = (event: Object) => {
+  toggleSMS = (event: any) => {
     this.setState({ accept_sms: event.target.checked });
   };
 
-  toogleEmail = (event: Object) => {
+  toggleEmail = (event: any) => {
     this.setState({ accept_email: event.target.checked });
-  };
-
-  handleGender = (event: Object) => {
-    this.setState({ gender: event.target.value });
   };
 
   renderRGPD = () => {
@@ -170,7 +169,7 @@ export class SignUpForm extends Component<Props, State> {
             control={
               <Checkbox
                 checked={this.state.accept_email}
-                onChange={this.toogleEmail}
+                onChange={this.toggleEmail}
               />
             }
             label={t('form.signup.communication.email')}
@@ -179,7 +178,7 @@ export class SignUpForm extends Component<Props, State> {
             control={
               <Checkbox
                 checked={this.state.accept_sms}
-                onChange={this.toogleSMS}
+                onChange={this.toggleSMS}
               />
             }
             label={t('form.signup.communication.sms')}
@@ -189,98 +188,88 @@ export class SignUpForm extends Component<Props, State> {
     );
   };
 
-  receiveAddress = (data: ConsumerAddress) => {
-    const {
-      email,
-      password,
-      passwordConfirm,
-      first_name,
-      last_name,
-      phone,
-      accept_sms,
-      accept_email,
-      gender,
-    } = this.state;
-    if (password === passwordConfirm) {
-      this.props.onComplete({
-        email,
-        password,
-        first_name,
-        last_name,
-        phone,
-        accept_sms,
-        accept_email,
-        username: email,
-        gender,
-        address: data,
-      });
-    }
-  };
-
-  handleEmailChange = (ev: SyntheticEvent<HTMLEvent>) => {
+  handleEmailChange = (ev: any) => {
     const email = ev.target.value;
     this.props.checkEmailExists(email);
     this.setState({ email });
   };
 
   renderPrivacyPolicy = () => {
-    if (!this.props.theme || !this.props.theme.general_terms_and_conditions) {
-      return (
-        <FormControlLabel
-          label={
-            <Typography align="left" variant="body2">
-              {this.props.t('form.signup.iAcceptPrivacyPolicy')}
-              <a
-                href="https://bsport.io/blog/privacy_policy"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {this.props.t('form.signup.privacyPolicy').toLowerCase()}
-              </a>
-            </Typography>
-          }
-          control={
-            <Checkbox
-              checked={this.state.acceptPrivacyPolicy}
-              onChange={(event) =>
-                this.setState({
-                  acceptPrivacyPolicy: event.target.checked,
-                })
-              }
-            />
-          }
-        />
-      );
-    }
     return (
-      <AcceptTermsAndConditions
-        accepted={this.state.acceptPrivacyPolicy}
-        onChecked={(acceptPrivacyPolicy) =>
-          this.setState({ acceptPrivacyPolicy })
-        }
-        termsAndConditions={this.props.theme.general_terms_of_use}
-        generalTermsOfUse
-      />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+        }}
+      >
+        {!this.props.theme || !this.props.theme.general_terms_and_conditions ? (
+          <FormControlLabel
+            label={
+              <Typography align="left" variant="caption">
+                {this.props.t('form.signup.iAcceptPrivacyPolicy')}
+                <a
+                  href="https://bsport.io/blog/privacy_policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {this.props.t('form.signup.privacyPolicy').toLowerCase()}
+                </a>
+              </Typography>
+            }
+            control={
+              <Checkbox
+                checked={this.state.acceptPrivacyPolicy}
+                onChange={(event) =>
+                  this.setState({
+                    acceptPrivacyPolicy: event.target.checked,
+                  })
+                }
+              />
+            }
+          />
+        ) : (
+          <AcceptTermsAndConditions
+            accepted={this.state.acceptPrivacyPolicy}
+            onChecked={(acceptPrivacyPolicy: boolean) =>
+              this.setState({ acceptPrivacyPolicy })
+            }
+            termsAndConditions={this.props.theme.general_terms_of_use}
+            type="generalTermsOfUse"
+          />
+        )}
+
+        {this.props.theme && this.props.theme.waiver && (
+          <AcceptTermsAndConditions
+            accepted={this.state.acceptWaiver}
+            onChecked={(acceptWaiver: boolean) =>
+              this.setState({ acceptWaiver })
+            }
+            termsAndConditions={this.props.theme.waiver}
+            type="waiver"
+          />
+        )}
+      </div>
     );
   };
 
   render() {
     const { classes, t } = this.props;
-    const { passwordEqual, password, passwordConfirm, step } = this.state;
+    const { password, passwordConfirm, step } = this.state;
     if (step === STEP_REQUEST_ADDRESS) {
       return (
         <AddressForm
           onCancel={() => this.setState({ step: STEP_GENERAL_INFORMATION })}
           autoComplete
           onSkip={this.submitInfo}
-          onSubmit={this.receiveAddress}
+          onSubmit={this.submitInfo}
           submitText={t('form.signup.signupButton')}
         />
       );
     }
 
     return (
-      <form onSubmit={this.goToAddressForm} className={classes.container}>
+      <form onSubmit={this.goToAddressForm}>
         <Grid container direction="row">
           <Grid item xs={12} md={6}>
             <TextField
@@ -317,7 +306,7 @@ export class SignUpForm extends Component<Props, State> {
           <div className={classes.field}>
             <GenderInput
               value={this.state.gender}
-              onChange={this.handleGender}
+              onChange={this.onFormFieldChange('gender')}
               required
               fullWidth
             />
@@ -325,7 +314,7 @@ export class SignUpForm extends Component<Props, State> {
         </div>
         <Grid container direction="row">
           <Grid item xs={12} md={6}>
-            <div className={classes.emailInput}>
+            <div>
               <div className={classes.row}>
                 <DelayedTextField
                   fullWidth
@@ -369,7 +358,7 @@ export class SignUpForm extends Component<Props, State> {
                 selectCountryComponent={Select}
                 required
                 className={classes.phoneInput}
-                onChange={(phone) => this.setState({ phone })}
+                onChange={(phone: string) => this.setState({ phone })}
               />
             </FormControl>
           </Grid>
@@ -382,8 +371,8 @@ export class SignUpForm extends Component<Props, State> {
               required
               name="password"
               value={password}
-              error={!this.state.passwordIsConform}
-              onChange={this.onPasswordChange}
+              error={password.length && password.length < 8}
+              onChange={this.onFormFieldChange('password')}
               placeholder={t('form.password')}
               label={t('form.password')}
             />
@@ -395,8 +384,8 @@ export class SignUpForm extends Component<Props, State> {
               required
               name="passwordConfirm"
               value={passwordConfirm}
-              error={!passwordEqual}
-              onChange={this.onPasswordConfirmChange}
+              error={passwordConfirm.length && password !== passwordConfirm}
+              onChange={this.onFormFieldChange('passwordConfirm')}
               placeholder={t('form.signup.confirmPassword')}
               label={t('form.signup.confirmPasswordLabel')}
             />
@@ -416,7 +405,11 @@ export class SignUpForm extends Component<Props, State> {
             type="submit"
             color="primary"
             variant="contained"
-            disabled={!this.state.acceptPrivacyPolicy || this.props.emailExists}
+            disabled={
+              !this.state.acceptPrivacyPolicy ||
+              this.props.emailExists ||
+              !this.state.acceptWaiver
+            }
           >
             {t('form.signup.signupButton')}
           </Button>
@@ -426,8 +419,7 @@ export class SignUpForm extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
-  container: {},
+const styles = (theme: MaterialTheme) => ({
   rgpdControl: {
     marginTop: theme.spacing(2),
   },

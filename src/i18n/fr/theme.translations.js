@@ -143,6 +143,11 @@ exports.default = {
       helperText: 'Doivent être acceptées pour toute inscription',
       placeholder: "J'atteste avoir plus de 13 ans",
     },
+    waiver: {
+      label: 'Décharge de responsabilité',
+      helperText: 'Doivent être acceptées pour toute inscription',
+      placeholder: "J'atteste avoir plus de 13 ans",
+    },
     gtmId: {
       placeholder: 'GTM-XXXXXX',
       label: 'Google Tag ID',

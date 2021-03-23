@@ -270,6 +270,7 @@ export class PaymentIntentGathering extends Component<Props, State> {
             accepted={this.state.termsAccepted}
             onChecked={(termsAccepted) => this.setState({ termsAccepted })}
             termsAndConditions={this.props.termsAndConditions}
+            type="theTermsAndConditions"
           />
         ) : null}
         <div className={this.props.classes.buttonContainer}>

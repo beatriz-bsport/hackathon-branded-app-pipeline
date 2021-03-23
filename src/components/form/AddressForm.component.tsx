@@ -1,35 +1,43 @@
-// @flow
 import React, { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { Theme as MaterialTheme } from '@material-ui/core';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { compose } from 'recompose';
+import { MaterialStyleType } from '../../utils/types';
 
-type Props = {
-  onCancel: () => void,
-  onSubmit: (data: [*]) => void,
-  onChange: ?(id: string) => (Object) => void,
-  submitText: ?string,
-  autoComplete: ?boolean,
-  onSkip: ?() => void,
-  address_line_1: ?string,
-  address_line_2: ?string,
-  city: ?string,
-  zipcode: ?string,
-  country: ?string,
-  t: TFunction,
-  classes: Object,
+interface Address {
+  address_line_1?: string;
+  address_line_2?: string;
+  city?: string;
+  zipcode?: string;
+  country?: string;
+}
+
+type OwnProps = {
+  onCancel?: () => void;
+  onSkip?: () => void;
+  onSubmit?: (address: Address) => void;
+  onChange?: (
+    id: string,
+  ) => (value: React.ChangeEvent<HTMLInputElement>) => void;
+  submitText?: string;
+  autoComplete?: boolean;
+  address_line_1?: string;
+  address_line_2?: string;
+  city?: string;
+  zipcode?: string;
+  country?: string;
 };
-type State = {
-  address_line_1: ?string,
-  address_line_2: ?string,
-  city: ?string,
-  zipcode: ?string,
-  country: ?string,
-};
+
+type Props = OwnProps &
+  WithTranslation &
+  MaterialStyleType<ReturnType<typeof styles>>;
+
+type State = Address;
 
 export class AddressForm extends Component<Props, State> {
   /*
@@ -38,7 +46,7 @@ export class AddressForm extends Component<Props, State> {
 
    if uncontrolled, provides cancel/submit buttons
   */
-  state = {
+  state: State = {
     address_line_1: null,
     address_line_2: null,
     city: null,
@@ -46,7 +54,9 @@ export class AddressForm extends Component<Props, State> {
     country: null,
   };
 
-  handleChange = (id: string) => (event: Object) => {
+  handleChange = (id: keyof Address) => (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     event.persist();
     if (this.props.onChange) {
       this.props.onChange(id)(event);
@@ -55,38 +65,24 @@ export class AddressForm extends Component<Props, State> {
     }
   };
 
-  collectAddressData = (event: Object) => {
+  onSkip = () => {
+    this.props.onSkip();
+  };
+
+  onSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!this.props.onChange) {
-      const {
-        address_line_1,
-        address_line_2,
-        city,
-        zipcode,
-        country,
-      } = this.state;
-      this.props.onSubmit({
-        address_line_1,
-        address_line_2,
-        city,
-        zipcode,
-        country,
-      });
-    }
+    this.props.onSubmit(this.state);
   };
 
   render() {
-    const { classes, t, onCancel, autoComplete, onSkip } = this.props;
+    const { classes, t, onCancel, autoComplete } = this.props;
     return (
-      <form onSubmit={this.collectAddressData}>
+      <form onSubmit={this.onSubmit}>
         <div className={classes.container}>
           <TextField
             required
             autoComplete={autoComplete ? 'addres-line1' : null}
             value={this.state.address_line_1 || this.props.address_line_1}
-            shrink={Boolean(
-              this.state.address_line_1 || this.props.address_line_1,
-            )}
             name="address_line_1"
             fullWidth
             label={t('form.address.addressLine1')}
@@ -97,9 +93,6 @@ export class AddressForm extends Component<Props, State> {
             value={this.state.address_line_2 || this.props.address_line_2}
             autoComplete={autoComplete ? 'address-line2' : null}
             fullWidth
-            shrink={Boolean(
-              this.state.address_line_2 || this.props.address_line_2,
-            )}
             label={t('form.address.addressLine2')}
             onChange={this.handleChange('address_line_2')}
           />
@@ -109,7 +102,6 @@ export class AddressForm extends Component<Props, State> {
                 name="city"
                 value={this.state.city || this.props.city}
                 autoComplete={autoComplete ? 'city' : null}
-                shrink={Boolean(this.state.city || this.props.city)}
                 label={t('form.address.city')}
                 required
                 onChange={this.handleChange('city')}
@@ -120,7 +112,6 @@ export class AddressForm extends Component<Props, State> {
                 name="zipcode"
                 value={this.state.zipcode || this.props.zipcode}
                 autoComplete={autoComplete ? 'zipcode' : null}
-                shrink={Boolean(this.state.zipcode || this.props.zipcode)}
                 label={t('form.address.zipcode')}
                 required
                 onChange={this.handleChange('zipcode')}
@@ -131,7 +122,6 @@ export class AddressForm extends Component<Props, State> {
             <TextField
               name="country"
               value={this.state.country || this.props.country}
-              shrink={Boolean(this.state.country || this.props.country)}
               autoComplete={autoComplete ? 'country' : null}
               required
               label={t('form.address.country')}
@@ -139,7 +129,7 @@ export class AddressForm extends Component<Props, State> {
             />
           </div>
         </div>
-        {this.props.onChange ? null : (
+        {(this.props.onCancel || this.props.onSubmit || this.props.onSkip) && (
           <Grid
             container
             direction="row"
@@ -148,9 +138,11 @@ export class AddressForm extends Component<Props, State> {
             className={classes.bottomButtons}
           >
             <Grid item>
-              <Button color="secondary" onClick={onCancel}>
-                {t('common.previous')}
-              </Button>
+              {this.props.onCancel && (
+                <Button color="secondary" onClick={onCancel}>
+                  {t('common.previous')}
+                </Button>
+              )}
             </Grid>
             <Grid item>
               <Grid
@@ -160,17 +152,25 @@ export class AddressForm extends Component<Props, State> {
                 alignItems="center"
                 justify="flex-end"
               >
-                <Button id="btn-signup-skip" color="secondary" onClick={onSkip}>
-                  {t('common.skip')}
-                </Button>
-                <Button
-                  id="btn-signup"
-                  color="primary"
-                  variant="contained"
-                  type="submit"
-                >
-                  {this.props.submitText || t('form.save')}
-                </Button>
+                {this.props.onSkip && (
+                  <Button
+                    id="btn-signup-skip"
+                    color="secondary"
+                    onClick={this.onSkip}
+                  >
+                    {t('common.skip')}
+                  </Button>
+                )}
+                {this.props.onSubmit && (
+                  <Button
+                    id="btn-signup"
+                    color="primary"
+                    variant="contained"
+                    type="submit"
+                  >
+                    {this.props.submitText || t('form.save')}
+                  </Button>
+                )}
               </Grid>
             </Grid>
           </Grid>
@@ -180,7 +180,7 @@ export class AddressForm extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: MaterialTheme) => ({
   container: {
     padding: 0,
   },
@@ -195,4 +195,7 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(withTranslation()(AddressForm));
+export default compose<any, OwnProps>(
+  withStyles(styles),
+  withTranslation(),
+)(AddressForm);

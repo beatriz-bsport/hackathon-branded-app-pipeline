@@ -17,6 +17,7 @@ export type Theme = {
   default_booking_ordering: string;
   general_terms_and_conditions: string;
   general_terms_of_use: string;
+  waiver: string;
   email_sender_address: string;
   websiteURL: string;
   scheduleURL: string;

@@ -97,6 +97,7 @@ export const PaymentStripe = (props: Props) => {
                   accepted={props.termsAndConditionsAccepted}
                   onChecked={props.setTermsAndConditionsAccepted}
                   termsAndConditions={props.termsAndConditions}
+                  type="theTermsAndConditions"
                 />
               ) : null
             }

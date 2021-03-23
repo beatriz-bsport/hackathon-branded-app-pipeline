@@ -32,7 +32,7 @@ import { getAuth } from '../../http';
 import type { ReportConfiguration as ReportConfigurationType } from './types';
 
 type Props = {
-  isSubmitting: boolean,
+  isSubmitting_: boolean,
   t: TFunction,
   exportLink?: string,
   reportConfiguration: ReportConfigurationType,
@@ -57,7 +57,7 @@ const ReportGenerationSchema = Yup.object().shape({
 });
 
 function DownloadButton(props: DownloadButtonProps) {
-  const { exportLink, classes, t } = props;
+  const { exportLink, classes, t, isSubmitting_ } = props;
   return (
     <Button
       variant="contained"
@@ -72,7 +72,7 @@ function DownloadButton(props: DownloadButtonProps) {
         link.click();
         link.remove();
       })}
-      disabled={!exportLink}
+      disabled={!exportLink || isSubmitting_}
     >
       {t('common.export')}
       <CloudDownloadIcon className={classes.rightIcon} />
@@ -81,7 +81,7 @@ function DownloadButton(props: DownloadButtonProps) {
 }
 
 export function ReportGenerationForm(props: Props) {
-  const { t, isSubmitting, exportLink, classes, reportConfiguration } = props;
+  const { t, isSubmitting_, exportLink, classes, reportConfiguration } = props;
   return (
     <Form>
       <Grid container direction="row" justify="space-between">
@@ -123,8 +123,13 @@ export function ReportGenerationForm(props: Props) {
         </Grid>
         <Grid item>
           <Actions>
-            <DownloadButton exportLink={exportLink} classes={classes} t={t} />
-            <Submit disabled={isSubmitting}>{t('common.generate')}</Submit>
+            <DownloadButton
+              isSubmitting_={isSubmitting_}
+              exportLink={exportLink}
+              classes={classes}
+              t={t}
+            />
+            <Submit disabled={isSubmitting_}>{t('common.generate')}</Submit>
           </Actions>
         </Grid>
       </Grid>

@@ -3,7 +3,7 @@
 import moment from 'moment-timezone';
 import React from 'react';
 
-import { compose, withProps, withState } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
 
 import { connect } from 'react-redux';
 
@@ -133,41 +133,14 @@ export default compose(
     },
   ),
   withState('exportLink', 'setExportLink', null),
-  // withHandlers({
-  //   handleGenerate: (
-  //     id,
-  //     fetchExtractResult,
-  //     setExportLink,
-  //     report,
-  //     pageSize,
-  //   ) => ({ dateStart, dateEnd, page }, options) => {
-  //     fetchExtractResult(
-  //       id,
-  //       report.date_type === 'range'
-  //         ? {
-  //             date_start: dateStart.format('YYYY-MM-DD'),
-  //             date_end: dateEnd.clone().format('YYYY-MM-DD'),
-  //             page_size: pageSize,
-  //             page: page || 1,
-  //           }
-  //         : {
-  //             date_start: dateStart.format('YYYY-MM-DD'),
-  //             page_size: pageSize,
-  //             page: page || 1,
-  //           },
-  //       options,
-  //     );
-  //     const params = {
-  //       fileformat: 'xlsx',
-  //       dateStart: dateStart.format('YYYY-MM-DD'),
-  //       dateEnd: dateEnd.clone().format('YYYY-MM-DD'),
-  //     };
-  //     const exportLink = report && urls.export(id, params);
-  //     setExportLink(exportLink);
-  //   },
-  // }),
-  withProps(({ id, fetchExtractResult, setExportLink, report, pageSize }) => ({
-    handleGenerate({ dateStart, dateEnd, page }, options) {
+  withHandlers({
+    handleGenerate: ({
+      id,
+      fetchExtractResult,
+      setExportLink,
+      report,
+      pageSize,
+    }) => ({ dateStart, dateEnd, page }, options) => {
       fetchExtractResult(
         id,
         report.date_type === 'range'
@@ -192,9 +165,12 @@ export default compose(
       const exportLink = report && urls.export(id, params);
       setExportLink(exportLink);
     },
-  })),
-  withProps(({ report, previousPage, nextPage, handleGenerate }) => ({
-    handleGeneratePreviousPage({ dateStart, dateEnd }, options) {
+  }),
+  withHandlers({
+    handleGeneratePreviousPage: ({ handleGenerate, report, previousPage }) => (
+      { dateStart, dateEnd },
+      options,
+    ) => {
       handleGenerate(
         {
           dateStart: dateStart || moment(report.date_start),
@@ -204,7 +180,12 @@ export default compose(
         options,
       );
     },
-    handleGenerateNextPage({ dateStart, dateEnd }, options) {
+  }),
+  withHandlers({
+    handleGenerateNextPage: ({ handleGenerate, report, nextPage }) => (
+      { dateStart, dateEnd },
+      options,
+    ) => {
       handleGenerate(
         {
           dateStart: dateStart || moment(report.date_start),
@@ -214,6 +195,6 @@ export default compose(
         options,
       );
     },
-  })),
+  }),
   withTitle(({ report }) => (report && report.name) || ''),
 )(ReportingGeneration);

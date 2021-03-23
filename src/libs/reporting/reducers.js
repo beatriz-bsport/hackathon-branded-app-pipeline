@@ -15,7 +15,7 @@ const initialState: reportGenerationState = Immutable({
   allIds: null,
   loading: false,
   error: null,
-  page_size: 100,
+  page_size: 50,
   reportId: null,
 });
 export default handleActions(

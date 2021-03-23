@@ -187,12 +187,11 @@ function TablePaginationActions(props: PaginationProps) {
           disabled={!previousPage || reportStoreRowsLoading}
           aria-label="previous page"
         >
-          <Typography variant="caption">{previousPage}</Typography>
           <KeyboardArrowLeft />
         </IconButton>
         <Typography variant="caption">
           {`Page ${nextPage ? nextPage - 1 : previousPage + 1}/${
-            otherPages ? otherPages.length : ''
+            otherPages ? Math.max(otherPages.length, 1) : 1
           }`}
         </Typography>
         <IconButton
@@ -201,7 +200,6 @@ function TablePaginationActions(props: PaginationProps) {
           aria-label="next page"
         >
           <KeyboardArrowRight />
-          <Typography variant="caption">{nextPage}</Typography>
         </IconButton>
       </TableCell>
     </TableRow>

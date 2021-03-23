@@ -56,6 +56,7 @@ export default function ReportGeneration(props: Props) {
           onSubmit={handleGenerate}
           exportLink={exportLink}
           metadata={metadata}
+          isSubmitting_={reportStoreRowsLoading}
         />
       )}
 

@@ -29,12 +29,13 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { TableFooter } from '@material-ui/core';
 import { getCurrencyDisplay } from '../theme/selectors';
 
-import type { ReportConfiguration, ReportExtractResult } from './types';
+import type { ReportConfiguration, ReportMetadata } from './types';
 
-type Props = {
+type TableProps = {
   reportStoreRowsLoading: boolean,
   report: ReportConfiguration,
-  result: ReportExtractResult,
+  result: Array<any>,
+  metadata: ReportMetadata,
   t: TFunction,
   classes: { [string]: string },
   reportStoreRows: Array<any>,
@@ -44,6 +45,17 @@ type Props = {
   handleGeneratePreviousPage: (*) => void,
   handleGenerateNextPage: (*) => void,
   className: { [string]: string },
+  columnSpan: number,
+  value: String,
+};
+
+type PaginationProps = {
+  reportStoreRowsLoading: boolean,
+  previousPage: number,
+  nextPage: number,
+  otherPages: Array<any>,
+  handleGeneratePreviousPage: (*) => void,
+  handleGenerateNextPage: (*) => void,
   columnSpan: number,
 };
 
@@ -149,15 +161,15 @@ function getColumn(metadata, report, column) {
   const reportMetadata = metadata.value.find(
     (r) => r.category === report.category,
   );
-  return (
-    reportMetadata.columns.find((c) => c.identifier === column) || {
-      identifier: column,
-      datatype: 'string',
-    }
-  );
+  return reportMetadata
+    ? reportMetadata.columns.find((c) => c.identifier === column) || {
+        identifier: column,
+        datatype: 'string',
+      }
+    : null;
 }
 
-function TablePaginationActions(props: Props) {
+function TablePaginationActions(props: PaginationProps) {
   const {
     previousPage,
     nextPage,
@@ -195,7 +207,7 @@ function TablePaginationActions(props: Props) {
     </TableRow>
   );
 }
-export function ReportTable(props: Props) {
+export function ReportTable(props: TableProps) {
   const {
     report,
     result,

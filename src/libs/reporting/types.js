@@ -3,10 +3,11 @@
 export type ReportConfiguration = {
   id: number,
   name: string,
+  category: String,
   description: string,
   columns: string[],
-  date_start: date,
-  date_end: date,
+  date_start: Date,
+  date_end: Date,
 };
 
 export type ReportCategoryEnum = 'members' | 'payments' | 'products';
@@ -21,7 +22,14 @@ export type ReportMetadataColumn = {
   datatype: ReportMedadataDataType,
 };
 
-export type ReportMetadata = {
-  category: ReportCategoryEnum,
+export type ReportMetadataValue = {
+  global_category: ReportCategoryEnum,
+  category: String,
   columns: ReportMetadataColumn[],
+};
+
+export type ReportMetadata = {
+  value: ReportMetadataValue[],
+  loading: boolean,
+  error: ?boolean,
 };

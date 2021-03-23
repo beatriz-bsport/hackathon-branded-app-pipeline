@@ -3,7 +3,7 @@
 import moment from 'moment-timezone';
 import React from 'react';
 
-import { compose, withProps, withState, withHandlers } from 'recompose';
+import { compose, withProps, withState } from 'recompose';
 
 import { connect } from 'react-redux';
 

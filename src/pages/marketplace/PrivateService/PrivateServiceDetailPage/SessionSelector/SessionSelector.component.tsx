@@ -140,7 +140,8 @@ const SessionSelector: React.FC<Props> = (props) => {
 
   if (props.showCoach || props.choseCoach) {
     /* eslint-disable */
-    coaches = props.coaches;
+    coaches = props.coaches
+    if (!props.coaches.length) { coaches = null }
     /* eslint-enable */
   }
 
@@ -179,32 +180,47 @@ const SessionSelector: React.FC<Props> = (props) => {
           )}
 
           <div className={classes.sessionsContainer}>
-            {coaches.map((coach: Coach | null, i) => {
-              const sessions = getSessionsForCoachAndEstablishment(
-                coach,
-                selectedEstablishment,
-              );
+            {coaches ? (
+              coaches.map((coach: Coach | null, i) => {
+                const sessions = getSessionsForCoachAndEstablishment(
+                  coach,
+                  selectedEstablishment,
+                );
 
-              if (!sessions.length) {
-                return null;
-              }
+                if (!sessions.length) {
+                  return null;
+                }
 
-              return (
-                <div
-                  key={coach ? coach.id : i}
-                  className={classes.sessionItemContainer}
-                >
-                  <SessionForCoachSelector
-                    coach={coach}
-                    establishment={selectedEstablishment}
-                    sessions={sessions}
-                    timezoneName={props.timezoneName}
-                    durationMinutes={props.durationMinutes}
-                    onSessionSelect={props.onSessionSelect}
-                  />
-                </div>
-              );
-            })}
+                return (
+                  <div
+                    key={coach ? coach.id : i}
+                    className={classes.sessionItemContainer}
+                  >
+                    <SessionForCoachSelector
+                      coach={coach}
+                      establishment={selectedEstablishment}
+                      sessions={sessions}
+                      timezoneName={props.timezoneName}
+                      durationMinutes={props.durationMinutes}
+                      onSessionSelect={props.onSessionSelect}
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <div className={classes.sessionItemContainer}>
+                <SessionForCoachSelector
+                  establishment={selectedEstablishment}
+                  sessions={getSessionsForCoachAndEstablishment(
+                    null,
+                    selectedEstablishment,
+                  )}
+                  timezoneName={props.timezoneName}
+                  durationMinutes={props.durationMinutes}
+                  onSessionSelect={props.onSessionSelect}
+                />
+              </div>
+            )}
           </div>
         </Paper>
       </div>

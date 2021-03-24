@@ -8,7 +8,13 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
+import Collapse from '@material-ui/core/Collapse';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
+
+import {
+  START_ON_PURCHASE,
+  START_ON_FIRST_BOOKING,
+} from '@bsport/common/lib/master-data/payment-pack';
 
 import * as Yup from 'yup';
 import { Form, withFormik } from 'formik';
@@ -21,6 +27,7 @@ import {
   SwitchField,
   PriceField,
   Submit,
+  RadioGroupField,
 } from '../../../../components/forms';
 
 type Props = {
@@ -128,6 +135,34 @@ export const PrivatePassForm = (props: Props) => {
             fullWidth
           />
         </div>
+        <div style={{ paddingBottom: 24 }}>
+          <RadioGroupField
+            name="start_date_method"
+            choices={[
+              {
+                label: t('privatePass.form.start_date_method.on_purchase'),
+                value: START_ON_PURCHASE,
+              },
+              {
+                label: t('privatePass.form.start_date_method.on_booking'),
+                value: START_ON_FIRST_BOOKING,
+              },
+            ]}
+          />
+          <Collapse
+            in={props.values.start_date_method !== `${START_ON_PURCHASE}`}
+          >
+            <TextField
+              name="expiration_days_before_first_use"
+              label={t('privatePass.form.expirationDaysBeforeFirstUse.label')}
+              helperText={t(
+                'privatePass.form.expirationDaysBeforeFirstUse.helperText',
+              )}
+              type="number"
+              fullWidth
+            />
+          </Collapse>
+        </div>
       </div>
       <div className={classes.field} />
       <div className={classes.buttonContainer}>
@@ -188,6 +223,8 @@ export const PrivatePassSchema = Yup.object().shape({
   duration_days: Yup.number().required().integer().min(0),
   duration_months: Yup.number().required().integer().min(0),
   duration_years: Yup.number().required().integer().min(0),
+  start_date_method: Yup.number().required().integer().min(0).max(2),
+  expiration_days_before_first_use: Yup.number(),
   available_payment_method_identifiers: Yup.array()
     .of(Yup.number().integer())
     .min(1),
@@ -195,7 +232,11 @@ export const PrivatePassSchema = Yup.object().shape({
 
 export const PrivatePassFormikHOC = withFormik({
   mapPropsToValues: ({ initial }) => {
-    if (initial) return initial;
+    if (initial)
+      return {
+        ...initial,
+        start_date_method: `${initial.start_date_method}`,
+      };
 
     return {
       name: null,
@@ -208,6 +249,8 @@ export const PrivatePassFormikHOC = withFormik({
       duration_months: 0,
       duration_years: 1,
       available_payment_method_identifiers: [CB.id],
+      start_date_method: `${START_ON_PURCHASE}`,
+      expiration_days_before_first_use: 365,
     };
   },
   validationSchema: PrivatePassSchema,

@@ -504,6 +504,16 @@ exports.default = {
         helperText:
           'Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement CB sera proposé.',
       },
+      start_date_method: {
+        on_purchase: 'Débute à la facturation',
+        on_booking: 'Débute à la 1ère réservation',
+        on_attendance: 'Débute à la 1ère présence',
+      },
+      expirationDaysBeforeFirstUse: {
+        label: 'Expiration si aucun RDV initial',
+        helperText:
+          "Si la carte n'est pas consommé une première fois pendant ce nb de jour, elle sera rendue invalide",
+      },
       actions: {
         submit: 'Enregistrer',
         cancel: 'Annuler',

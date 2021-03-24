@@ -94,10 +94,10 @@
             "titlePaymentPack": "Groepsactiviteiten"
         },
         "debt": {
-            "explainPayment": "Dit bedrag wordt aan de club betaald om je debet te regulariseren",
-            "titlePaymentDialog": "Regularisatie voorschot",
+            "explainPayment": "Dit bedrag wordt aan de club betaald om je uitstaande schulden te betalen.",
+            "titlePaymentDialog": "Uitstaand bedrag betalen",
             "title": "VERSCHULDIGD BEDRAG:",
-            "regularize": "Regulariseren"
+            "regularize": "Betaling afronden"
         },
         "navigation": {
             "changeMembership": "Studio wijzigen",
@@ -206,7 +206,7 @@
                     "pass_name": "Naam afspraakkaart",
                     "pass_price": "Prijs afspraakkaart"
                 },
-                "name": "Afspraakkaart"
+                "name": "Afspraakkaarten"
             },
             "Booking": {
                 "tags": {
@@ -347,7 +347,7 @@
                 "paymentPackFormPage": "Cursuskaart maken",
                 "invoiceList": "Mijn transacties",
                 "invoiceCreatePage": "In rekening brengen",
-                "invoiceFormPage": "Factuur bewerken",
+                "invoiceFormPage": "Factuur",
                 "coachFormPage": "[Formulier] Instructeur",
                 "coachPerformance": "Prestaties instructeur",
                 "offerFormPage": "Creëer sessie",
@@ -513,7 +513,7 @@
             "products": "artikelen",
             "paymentCombo": "Pakketten",
             "return": "Terugbetaling",
-            "privatePass": "Afspraakkaart",
+            "privatePass": "Afspraakkaarten",
             "credit": "Krediet(en)",
             "payment": "Betaling",
             "goToSubscription": "Zie abonnement",
@@ -834,7 +834,7 @@
                     "is_deliverable": "Verzendkosten toevoegen",
                     "featured": "Raad dit product aan wanneer leden hun winkelmandje bevestigen",
                     "sell_only_on_provision": "Alleen verkopen als er voorraad is",
-                    "onsite_payment_available": "Accepteer betalingen in de studio",
+                    "onsite_payment_available": "Geef leden de mogelijkheid om betalingen later af te ronden (bijv. in de studio)",
                     "available_payment_method_identifiers": {
                         "helperText": "Selecteer tenminste één betaalmethode. Als het winkelmandje van een lid artikelen bevat waarvoor geen compatibele betaalmethode beschikbaar is, wordt een creditcard-betaling aangeboden.",
                         "label": "Geaccepteerde betaalmethoden"
@@ -1339,7 +1339,7 @@
             "showReport": "Rapportages",
             "list": {
                 "showMore": "Toon meer",
-                "isEmpty": "Nog geen e-mails verzonden"
+                "isEmpty": "Er zijn nog geen berichten naar dit lid verstuurd."
             },
             "report": {
                 "totalRead": "Aantal keer geopend",
@@ -1406,8 +1406,8 @@
             },
             "selectorPlaceholder": {
                 "shopitem": "Webshop",
-                "paymentPack": "Cursuskaart(en) | Groepsactiviteiten",
-                "privatePass": "Afspraakkaart(en) | Privésessies"
+                "paymentPack": "Cursuskaarten",
+                "privatePass": "Afspraakkaarten"
             },
             "content": "Inhoud",
             "actions": {
@@ -1574,7 +1574,7 @@
         "product_type": {
             "shop_item": "Webshop",
             "fee": "Tarieven",
-            "private_pass": "Afspraakkaart",
+            "private_pass": "Afspraakkaarten",
             "payment_pack": "Cursuskaarten",
             "top_up": "Saldo van het lid wijzigen",
             "payment_combo": "Pakketten",
@@ -1732,7 +1732,7 @@
             "nb_offers": "Aantal sessies",
             "nb_offers_cancelled": "Aantal geannuleerde sessies",
             "pk": "ID",
-            "private_pass": "Afspraakkaart",
+            "private_pass": "Afspraakkaarten",
             "note": "Notitie",
             "full_address": "Volledig adres",
             "birthday": "Geboortedatum",
@@ -1786,7 +1786,7 @@
             "discount": "Promoties",
             "private_bookings": "Reserveringen (op afspraak)",
             "shop": "Webshop",
-            "private_cpasses": "Afspraakkaart",
+            "private_cpasses": "Afspraakkaarten",
             "payment_sumup": "Totaal aantal betalingen",
             "credit": "Krediet(en)",
             "basket": "Winkelmandje",
@@ -1988,7 +1988,7 @@
         "form": {
             "paymentPack": {
                 "name": {
-                    "helperText": "Naam van dit pakket",
+                    "helperText": "Naam van de cursuskaart",
                     "label": "Naam"
                 },
                 "priceIncludingTax": {
@@ -2001,12 +2001,12 @@
                     "label": "Maximaal gebruik per week"
                 },
                 "newMemberOnly": "Alleen voor nieuwe leden",
-                "onsitePaymentAvailable": "Accepteer betalingen in de studio",
+                "onsitePaymentAvailable": "Geef leden de mogelijkheid om betalingen later af te ronden (bijv. in de studio)",
                 "expirationDaysBeforeFirstUse": {
                     "label": "Vervaldatum indien er geen eerste reservering wordt gemaakt",
                     "helperText": "Deze cursuskaart wordt ongeldig verklaart als er niet binnen zoveel dagen een reservering wordt gemaakt"
                 },
-                "managerOnly": "Niet zichtbaar voor leden",
+                "managerOnly": "Niet beschikbaar voor leden",
                 "helper": {
                     "starting_date": "Begin van de geldigheid van de cursuskaart. Laat dit veld leeg om het meteen geldig te verklaren",
                     "ending_date": "Einde van de geldigheid van de cursuskaart. Als dit veld leeg is blijft de cursuskaart geldig"
@@ -2084,7 +2084,7 @@
                 "full_vod_access": "Geeft toegang tot de VOD (indien beschikbaar)",
                 "maxBookingPerMonth": {
                     "helperText": "Laat dit veld leeg om geen limiet in te stellen",
-                    "label": "Maximaal maandgebruik"
+                    "label": "Maximaal gebruik per maand"
                 },
                 "penalty": {
                     "account": {
@@ -2247,13 +2247,13 @@
         "capacity": {
             "explain": "Capaciteit: {{capacity}} plaats",
             "explain_plural": "Capaciteit: {{capacity}} plaatsen",
-            "helperText": "Dit wordt alleen gebruikt om de beschikbaarheid voor afspraken te berekenen",
-            "label": "Zaal- of vestigingscapaciteit",
+            "helperText": "Dit wordt alleen gebruikt om de beschikbaarheid voor afspraken te berekenen.",
+            "label": "Maximale capaciteit",
             "placeholder": " "
         },
         "goBackToList": "Keer terug naar vestigingen",
         "update": {
-            "imageUploaderRequireEditMessage": "Zodra je activiteit is aangemaakt, heb je de mogelijkheid om extra afbeeldingen toe te voegen."
+            "imageUploaderRequireEditMessage": "Na het toevoegen van een vestiging heb je de mogelijkheid om extra afbeeldingen toe te voegen."
         },
         "forms": {
             "delete": {
@@ -2419,7 +2419,7 @@
             "createTitle": "Smartlists",
             "actions": {
                 "campaign": "Campagnes",
-                "configure": "Configureren"
+                "configure": "Configuratie"
             }
         },
         "filterCategory": {
@@ -2808,7 +2808,7 @@
         "selectToShowPreview": "Selecteer een e-mail",
         "noSmartLists": "Smartlists zijn specifieke segmenten van je ledenbestand. Voeg filters toe om een bepaalde doelgroep aan te maken en maak daarna een prachtige en persoonlijke e-mail aan om naar deze doelgroepen te sturen als onderdeel van je marketingcampagnes om aspecten als klantbehoud te verbeteren.",
         "delete": "Verwijderen",
-        "edit": "Configureren"
+        "edit": "Configuratie"
     },
     "metaActivity": {
         "forms": {
@@ -2865,12 +2865,12 @@
             }
         },
         "settings": {
-            "lastBookingBeforeMinutes": "Reserveren voor deze activiteit is mogelijk tot {{m}} voor aanvang van de sessie",
+            "lastBookingBeforeMinutes": "Leden kunnen zich tot {{m}} voor het begin van de sessie zich inschrijven.",
             "lastDiscardBeforeMinutes": "Je kunt tot {{m}} voor het begin van de sessie kosteloos annuleren.",
             "title": "Instellingen",
-            "firstBookingMinutesUntil": "Reserveringen zijn geblokkeerd voor {{m}} voor het begin van de sessie",
+            "firstBookingMinutesUntil": "Leden kunnen zich tot {{m}} in de toekomst zich voor deze sessie inschrijven.",
             "conditions": "Voorwaarden",
-            "autoDiscard": "De sessie wordt geannuleerd als er minder dan {{nb_bookings}} reservering(en) {{hours}} uur voor aanvang van de sessie zijn geregistreerd"
+            "autoDiscard": "Deze sessie wordt automatisch {{hours}} uur voor het begin van de sessie geannuleerd als er minder dan {{nb_bookings}} reservering(en) zijn."
         },
         "metaActivity": "Activiteit",
         "search": "Zoek een activiteit",
@@ -3120,13 +3120,13 @@
             "toSubscribe": "Inschrijven"
         },
         "merge": "Samenvoegen",
-        "regularizeBalance": "Regulariseren",
+        "regularizeBalance": "Betaling afronden",
         "cashoutBalance": "Uitbetalen",
         "creditAccountBalance": "Saldo",
         "showPaymentPack": "Zie cursuskaarten",
         "showSubscriptions": "Zie abonnementen",
         "relation": {
-            "pleaseSelectRelation": "Selecteer een relatie om de gedeelde cursuskaarten te zien"
+            "pleaseSelectRelation": "Selecteer een relatie om de gedeelde lidmaatschappen te zien"
         },
         "showInvoices": "Bekijk facturen",
         "birth": {
@@ -3485,7 +3485,7 @@
         "invoice": {
             "invoiceList": "Mijn transacties",
             "invoiceCreate": "In rekening brengen",
-            "invoiceEdit": "Factuur bewerken"
+            "invoiceEdit": "Factuur"
         },
         "coach": {
             "coachList": "Instructeurs",
@@ -3578,13 +3578,13 @@
             "form": {
                 "flat_fee": {
                     "label": "Inschrijfkosten",
-                    "helperText": "De inschrijfkosten worden aan de eerste factuur toegevoegd"
+                    "helperText": "De inschrijfkosten worden aan de eerste factuur toegevoegd."
                 },
                 "name": {
                     "label": "Naam"
                 },
                 "nb_interval": {
-                    "helperText": "Een abonnement moet minsten 2 maanden zijn",
+                    "helperText": "Abonnementen hebben een minimumtermijn van 2 maanden.",
                     "label": "Aantal maanden"
                 },
                 "description": {
@@ -3597,7 +3597,7 @@
                     "label": "Juridische kennisgeving"
                 },
                 "managerOnly": {
-                    "label": "Niet zichtbaar voor leden"
+                    "label": "Niet beschikbaar voor leden"
                 },
                 "autoRenewal": {
                     "label": "Automatisch verlengen"
@@ -3821,8 +3821,8 @@
             "dateStart": "Eerste facturering",
             "firstBilling": "Eerste factuurdatum",
             "payment_pack": "Cursuskaarten",
-            "private_pass": "Afspraakkaart",
-            "privatePass": "Afspraakkaart",
+            "private_pass": "Afspraakkaarten",
+            "privatePass": "Afspraakkaarten",
             "note": "Notitie",
             "payment_method_group": {
                 "14": "Krediet(en)",
@@ -3951,7 +3951,7 @@
             },
             "search": {
                 "cancel": "Annuleren",
-                "isEmpty": "Nog geen video's :(",
+                "isEmpty": "Deze videotheek is nog leeg :(",
                 "placeholder": "Zoeken"
             },
             "bottomActions": {
@@ -4010,7 +4010,7 @@
                 "viewTitle": "Weergaven",
                 "uploaded": "Geüpload op {{date}}",
                 "distinctViewers": "Unieke weergaven",
-                "viewsLastWeek": "Weergaven in de afgelopen 7 dagen",
+                "viewsLastWeek": "Aantal weergaven in de afgelopen 7 dagen",
                 "totalViews": "Totaal",
                 "views": "{{nb_views}} keer bekeken"
             },
@@ -4268,13 +4268,13 @@
                 "compatiblePrivatePass": "Een afspraakkaart factureren",
                 "emptyPrivateConsumerPass": "Dit lid bezit momenteel geen compatibel lidmaatschap.",
                 "emptyPrivatePass": "Geen compatibele afspraakkaart",
-                "privateConsumerPassNeedRefresh": "Vernieuw de lijst"
+                "privateConsumerPassNeedRefresh": "Verversen"
             },
             "delete": {
                 "consumer": {
                     "content": {
                         "discardable": "Weet je zeker dat je deze afspraak wilt annuleren? Je tegoed wordt teruggestort.",
-                        "notDiscardable": "Weet je zeker dat je deze afspraak wil annuleren? Je annuleert te laat. Je tegoed wordt niet teruggestort."
+                        "notDiscardable": "Weet je zeker dat je deze afspraak wil annuleren? Dit is geen kosteloze annulering, omdat je te laat annuleert."
                     },
                     "title": "Een afspraak annuleren",
                     "cancel": "Annuleren",
@@ -4563,7 +4563,7 @@
                     "helperText": "Geldigheid van dit lidmaatschap (in dagen) ",
                     "label": "Geldigheidsduur (in dagen) indien van toepassing"
                 },
-                "title": "Afspraakkaart",
+                "title": "Afspraakkaarten",
                 "managerOnly": {
                     "label": "Niet beschikbaar voor klanten maken"
                 },
@@ -4762,7 +4762,7 @@
                 "explainSetToHasOwnAvailabilitySlots": "Alleen te reserveren in bepaalde periodes",
                 "explainHasOwnAvailabilitySlots": "Klik op het potlood om de beschikbaarheid te wijzigen.",
                 "hasFutureSlot": "De beschikbaarheid is correct geconfigureerd.",
-                "noCapacity": "Zaal- of vestigingscapaciteit is niet geconfigureerd!",
+                "noCapacity": "Er is geen maximale capaciteit ingesteld!",
                 "totalCapacity": "Maximale capaciteit: {{capacity}} personen",
                 "noFutureSlot": "Er is geen beschikbaarheid geconfigureerd voor {{resourceName}}! Klik hier.",
                 "title": "Beschikbaarheid",
@@ -5203,7 +5203,7 @@
         "bookAnotherOption": "Schrijf me opnieuw op de wachtlijst in",
         "bookAnOption": "Me inschrijven op de wachtlijst",
         "hasOneOrMoreOption": "Je staat al op de wachtlijst",
-        "paymentComboSectionTitle": "Pakket",
+        "paymentComboSectionTitle": "Pakketten",
         "method": {
             "CB": "Creditcard",
             "CREDIT_ACCOUNT": "Betaal ter plaatse"
@@ -5904,7 +5904,7 @@
             "list": {
                 "isEmpty": "Geen gedeelde afsprakenkaart",
                 "create": "Een afspraakkaart delen",
-                "title": "Een afspraakkaart delen"
+                "title": "Gedeelde afspraakkaarten"
             }
         },
         "relationship": {
@@ -5931,7 +5931,7 @@
             "applies_to": {
                 "choices": {
                     "null": "Volledige winkelmand",
-                    "9": "Afspraakkaart",
+                    "9": "Afspraakkaarten",
                     "1": "Cursuskaarten",
                     "2": "Webshop",
                     "6": "Verzendkosten",
@@ -5955,7 +5955,7 @@
                 "label": "Naam"
             },
             "code": {
-                "helperText": "De code die naar de desbetreffende leden wordt gestuurd",
+                "helperText": "Dit is de code die leden moeten gebruiken om de promotiecode te activeren.",
                 "label": "Code"
             },
             "voucher_type": {
@@ -6363,7 +6363,7 @@
                 },
                 "offersFilling": "Toon het aantal reserveringen van een sessie op de agenda van je leden",
                 "acceptDoubleBooking": "Dubbele reserveringen aanvaarden (alleen voor groepsactiviteiten)",
-                "consumerRegularizeDebt": "Sta leden toe hun om verschuldigde bedragen met online betalingen te regulariseren",
+                "consumerRegularizeDebt": "Sta leden toe hun om uitstaande bedragen online te betalen",
                 "workshopsCustomer": "Toon workshops op de agenda van je leden",
                 "cancelledOffersCustomer": "Toon geannuleerde sessies op de agenda van je leden",
                 "calendarPersonalizationTitle": "Instellingen voor je agenda",
@@ -6568,8 +6568,8 @@
                 "label": "Krediet(en)"
             },
             "buyableItemIdentifier": {
-                "10": "Pakket",
-                "9": "Afspraakkaart",
+                "10": "Pakketten",
+                "9": "Afspraakkaarten",
                 "3": "Krediet(en)",
                 "2": "Webshop",
                 "1": "Cursuskaarten"
@@ -6916,11 +6916,11 @@
                 "name": "Check-in | Tablet"
             },
             "2": {
-                "description": "Check-in | Beperkt geeft alleen toegang om leden in te checken.",
+                "description": "Met Check-in | Beperkt kunnen medewerkers alleen leden inchecken.",
                 "name": "Check-in | Beperkt"
             },
             "1": {
-                "description": "Check-in | Uitgebreid geeft toegang tot het beheren van sessies (wijzigingen en annuleringen), de ledengegevens en het inchecken.",
+                "description": "Met Check-in | Uitgebreid kunnen medewerkers sessies wijzigen (tijd, plaatsvervanger, annuleren, etc.), de ledengegevens bekijken en leden inchecken.",
                 "name": "Check-in | Uitgebreid"
             },
             "0": {

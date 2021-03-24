@@ -209,7 +209,7 @@ export class SignUpForm extends Component<Props, State> {
               <Typography align="left" variant="caption">
                 {this.props.t('form.signup.iAcceptPrivacyPolicy')}
                 <a
-                  href="https://bsport.io/blog/privacy_policy"
+                  href="https://www.notion.so/RGPD-4b8e6a8a215a418a95f91197efd94847"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

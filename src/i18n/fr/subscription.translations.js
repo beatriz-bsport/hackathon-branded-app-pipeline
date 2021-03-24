@@ -42,7 +42,7 @@ exports.default = {
     noContent: 'Aucune souscription enregistrée',
   },
   noContracts:
-    'Les contrats vous permettront de facturer régulièrement (mensuellement) vos membres pour une carte de cours recréditée tous les mois.',
+    'Les contrats vous permettront de facturer régulièrement (mensuellement) vos membres pour une carte de cours recréditée tous les mois/jours/années.',
   subscription: {
     list: {
       title: 'Souscription en cours',
@@ -159,7 +159,7 @@ exports.default = {
     },
     paymentPack: 'Carte de cours associée',
     privatePass: 'Carte RDV associée',
-    duration: '{{month}} mois',
+    duration: '{{month}} factures',
     description: 'Description',
     legal: 'Mentions légales',
     actions: {
@@ -177,6 +177,16 @@ exports.default = {
       register: 'Abonner un membre',
       titleInactive: 'Contrats archivés',
     },
+    interval: {
+      month: 'mois',
+      month_plural: 'mois',
+      year: 'année',
+      year_plural: 'années',
+      day: 'jour',
+      day_plural: 'jours',
+      week: 'semaine',
+      week_plural: 'semaines',
+    },
     form: {
       title: 'Formulaire contrat',
       name: {
@@ -192,8 +202,30 @@ exports.default = {
         paymentCombo: 'Pack',
       },
       nb_interval: {
-        label: 'Nombre de mois',
-        helperText: 'Au minimum 1 mois',
+        label: 'Nombre de facturation(s)',
+      },
+      interval: {
+        label: 'Récurrence',
+        helperText: 'Fréquence de génération des factures / cartes',
+      },
+      recurrence: {
+        section: 'Récurrence',
+        explain:
+          'La souscription sera facturée tous les {{ recurrence_basis }} {{ interval }} sur une durée totale de {{ total_interval_duration }} {{ interval }} et génèrera {{ nb_interval }} factures',
+      },
+      recurrence_basis: {
+        label: 'Répéter tous les',
+        helperText: '',
+        intervalName: {
+          year: 'an',
+          year_plural: 'ans',
+          month: 'mois',
+          month_plural: 'mois',
+          day: 'jour',
+          day_plural: 'jours',
+          week: 'semaine',
+          week_plural: 'semaines',
+        },
       },
       recurrent_price: {
         label: 'Paiement mensuel',
@@ -293,17 +325,17 @@ exports.default = {
     status: 'Statut',
     subscribeAgain: 'Souscrire à nouveau',
     voucher: 'Offre spéciale',
-    trial_nb: 'Nombre de mois offerts',
+    trial_nb: 'Nombre de facturations offertes',
     recurrent_voucher: 'Réduction sur chaque facture',
     name: 'Nom',
     member: 'Membre',
     dateCreated: 'Date de création',
-    nbInterval: 'Nombre de mois',
+    nbInterval: "Nombre d'encaisssement",
     recurrent_price: 'Paiement récurrent',
     flat_fee: 'Frais de dossier',
     paymentPack: 'Carte de cours',
     privatePass: 'Carte RDV',
-    nbMonths: 'Nombre de mois',
+    nbMonths: "Nombre d'encaissement",
     dateStart: 'Première facturation',
     firstBilling: 'Premier encaissement',
     payment_pack: 'Carte de cours',
@@ -319,7 +351,7 @@ exports.default = {
     bsportCredit: 'Acompte client',
     credit: {
       explain:
-        "Le membre sera facturé sur son acompte interne chaque mois. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte bleue ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori.",
+        "Le membre sera facturé sur son acompte interne chaque facture. Utilisez cette méthode de paiement si vous n'avez pas (encore) accès à une méthode facturation telle que la carte bleue ou le virement IBAN. Vous pourrez mettre à jour le paiement à posteriori.",
     },
   },
   mandate: {

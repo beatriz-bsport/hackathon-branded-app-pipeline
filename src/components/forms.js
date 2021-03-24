@@ -663,6 +663,20 @@ export const DurationMinuteSelectField = withTranslation()(
   ),
 );
 
+export const IntervalRecurrenceSelectField = withTranslation(['contract'])(
+  (props: SelectFieldProps) => (
+    <SelectField
+      choices={[
+        { value: 'month', label: 'form.interval.month' },
+        { value: 'year', label: 'form.interval.year' },
+        { value: 'day', label: 'form.interval.day' },
+        { value: 'week', label: 'form.interval.week' },
+      ]}
+      {...props}
+    />
+  ),
+);
+
 export const CheckboxField = (props: Props) => {
   const { reverted, disabled, label, helperText, classes } = props;
   return (

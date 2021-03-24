@@ -507,6 +507,12 @@ exports.default = {
     twoWeeks: '2 semaines',
     oneMonth: '1 mois',
     never: 'Jamais',
+    interval: {
+      month: 'Mensuelle',
+      year: 'Annuelle',
+      week: 'Semaine',
+      day: 'Quotidienne',
+    },
   },
   marketing: {
     dashboard: 'Tableau de bord',

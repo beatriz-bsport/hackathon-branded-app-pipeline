@@ -8,6 +8,8 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import omit from 'lodash/omit';
+import Typography from '@material-ui/core/Typography';
+import InfoIcon from '@material-ui/icons/Info';
 
 import * as Yup from 'yup';
 import { withFormik } from 'formik';
@@ -19,6 +21,7 @@ import {
   PriceField,
   SwitchField,
   RadioGroupField,
+  IntervalRecurrenceSelectField,
 } from '../../../components/forms';
 import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
 import PrivatePassSelectorField from '../../private-service/components/pass/PrivatePassSelectorField.component';
@@ -89,14 +92,56 @@ export function SubscriptionContractFields(props: Props) {
           />
         </Collapse>
       </fieldset>
-      <TextField
-        name="nb_interval"
-        label={t('contract.form.nb_interval.label')}
-        helperText={t('contract.form.nb_interval.helperText')}
-        className={classes.field}
-        required
-        fullWidth
-      />
+      <fieldset className={classes.section}>
+        <legend>{t('contract.form.recurrence.section')}</legend>
+        <IntervalRecurrenceSelectField
+          name="interval"
+          label={t('contract.form.interval.label')}
+          helperText={t('contract.form.interval.helperText')}
+          className={classes.field}
+          required
+          fullWidth
+        />
+        <div className={classes.row}>
+          <Typography variant="body2">
+            {t('contract.form.recurrence_basis.label')}
+          </Typography>
+          <TextField name="recurrence_basis" required variant="outlined" />
+          <Typography variant="body2">
+            {t(
+              `contract.form.recurrence_basis.intervalName.${props.values.interval}`,
+              {
+                count: props.values.recurrence_basis,
+              },
+            )}
+          </Typography>
+        </div>
+        <TextField
+          name="nb_interval"
+          label={t('contract.form.nb_interval.label', {
+            interval: t(`contract.interval.${props.values.interval}`, {
+              count: props.values.recurrence_basis,
+            }),
+          })}
+          className={classes.field}
+          required
+          fullWidth
+        />
+        <div className={classes.recurrenceSumup}>
+          <InfoIcon className={classes.iconLeft} />
+          <Typography variant="body2" color="textSecondary">
+            {t('contract.form.recurrence.explain', {
+              recurrence_basis: props.values.recurrence_basis,
+              interval: t(`contract.interval.${props.values.interval}`, {
+                count: props.values.recurrence_basis,
+              }),
+              nb_interval: props.values.nb_interval,
+              total_interval_duration:
+                props.values.nb_interval * props.values.recurrence_basis,
+            })}
+          </Typography>
+        </div>
+      </fieldset>
       <PriceField
         name="recurrent_price"
         label={t('contract.form.recurrent_price.label')}
@@ -146,7 +191,17 @@ export function SubscriptionContractFields(props: Props) {
   );
 }
 const styles = (theme) => ({
-  field: { marginBottom: theme.spacing(3) },
+  recurrenceSumup: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconLeft: {
+    marginRight: theme.spacing(1),
+  },
+  field: {
+    marginBottom: theme.spacing(3),
+  },
   fieldMain: { marginBottom: theme.spacing(5) },
   section: {
     marginTop: theme.spacing(2),
@@ -154,11 +209,21 @@ const styles = (theme) => ({
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
   },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    '&>*': {
+      marginRight: theme.spacing(1),
+    },
+  },
 });
 
 export const SubscriptionContractFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
   nb_interval: Yup.number().integer().min(1).required(),
+  recurrence_basis: Yup.number().integer().min(1).required(),
+  interval: Yup.string().required(),
   recurrent_price: Yup.number().min(0),
   flat_fee: Yup.number(),
   payment_pack: Yup.number()
@@ -214,6 +279,8 @@ export const SubscriptionContractFormHoc = withFormik({
       recurrent_price: 0,
       flat_fee: 0,
       nb_interval: 12,
+      recurrence_basis: 1,
+      interval: 'month',
       payment_pack: null,
       private_pass: null,
       payment_combo: null,

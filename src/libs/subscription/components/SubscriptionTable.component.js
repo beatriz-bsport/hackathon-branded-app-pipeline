@@ -86,7 +86,7 @@ const getColumnData = (
               >
                 {
                   // eslint-disable-next-line
-		  addPayment && value.is_v2 && !value.hasEnded ? (
+		  addPayment && !value.hasEnded ? (
                     <RedButton
                       variant="outlined"
                       onClick={(ev) => {
@@ -95,18 +95,14 @@ const getColumnData = (
                       }}
                     >
                       <AddIcon />
-                      {value.is_v2
-                        ? t(
-                            `parameters.payment_method_group.${value.payment_method_identifier}`,
-                          )
-                        : t(`parameters.payment_method.${value.id}`)}
+                      {t(
+                        `parameters.payment_method_group.${value.payment_method_identifier}`,
+                      )}
                     </RedButton>
-                  ) : value.is_v2 ? (
+                  ) : (
                     t(
                       `parameters.payment_method_group.${value.payment_method_identifier}`,
                     )
-                  ) : (
-                    t(`parameters.payment_method.${value.id}`)
                   )
                 }
               </div>

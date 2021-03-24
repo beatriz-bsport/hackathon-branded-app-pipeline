@@ -1830,7 +1830,7 @@
             "title": "Openstaande facturen",
             "priceDue": "Verschuldigd bedrag: {{price_due, price}}.",
             "explainUneven": "Factuur <1> nr. {{uuid, uuid}} </1> staat nog open.",
-            "pricePayed": "Betaalde som: {{price_payed, price}}."
+            "pricePayed": "Betaald: {{price_payed, price}}."
         },
         "newOrder": {
             "price": "Bedrag: {{price, price}}.",
@@ -1851,13 +1851,13 @@
                 "title": "Online betalingen: uitgeschakeld"
             },
             "payout": {
-                "content": "We kunnen geen betalingen naar uw bankrekening uitvoeren, omdat deze niet bestaat of onjuist is geconfigureerd.",
+                "content": "Momenteel kunnen we je verdiensten niet uitbetalen, omdat je bankgegevens niet of onjuist geconfigureerd zijn.",
                 "title": "Ontbrekende bankgegevens"
             },
             "verification": {
-                "warning": "Online betalingen kunnen na deze datum <1> gedeactiveerd </1> zijn!",
-                "content": "Er zijn verschillende documenten in behandeling, u heeft tot <1> {{date}} </1> de tijd om uw account te verifiëren.",
-                "title": "Mijn studio beheren"
+                "warning": "Het is mogelijk dat online betalingen na <1> gedeactiveerd </1> worden!",
+                "content": "Er ontbreken verschillende documenten om het aanmaken van je account te voltooien. Je hebt tot <1>{{ date }}</1>  om je account te verifiëren.",
+                "title": "Mijn onderneming"
             }
         }
     },

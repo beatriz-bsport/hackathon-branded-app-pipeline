@@ -9,6 +9,7 @@ import {
   smartListDetailAction,
   updateSmartListAction,
   createSmartListAction,
+  smartListCopyAction,
   deleteSmartListAction,
   fetchSmartListFiltersAction,
   filterUpdateAction,
@@ -82,7 +83,6 @@ export default handleActions(
     [smartListDetailAction.isLoading]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-
     [createSmartListAction.success]: (state, { payload }) => {
       return state
         .merge(
@@ -104,6 +104,22 @@ export default handleActions(
     },
     [createSmartListAction.error]: (state, { payload }) => {
       return state.setIn(['upsert', 'error'], payload);
+    },
+    [smartListCopyAction.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            byId: { [payload.id]: payload },
+          },
+          { deep: true },
+        )
+        .update(
+          'allIds',
+          (myList, newId) => {
+            return myList.concat([newId]);
+          },
+          payload.id,
+        );
     },
     [updateSmartListAction.success]: (state, { payload }) => {
       return state.merge({ byId: { [payload.id]: payload } }, { deep: true });

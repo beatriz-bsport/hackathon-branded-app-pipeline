@@ -278,6 +278,10 @@ exports.default = {
       success: 'Smartlist supprimée',
       error: 'Impossible de supprimer la smartlist',
     },
+    duplicate: {
+      success: 'Smartlist dupliquée',
+      error: 'Imposible de dupliquer la smarlist',
+    },
   },
   subscription: {
     switchPaymentMethod: {

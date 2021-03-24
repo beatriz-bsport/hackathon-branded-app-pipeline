@@ -3290,7 +3290,8 @@
     "smartlist": {
       "create": { "success": "Smartlist créée avec succès", "error": "Impossible d'enregistrer la smartlist" },
       "update": { "success": "Smartlist mise à jour avec succès", "error": "Impossible d'enregistrer la smartlist" },
-      "delete": { "success": "Smartlist supprimée", "error": "Impossible de supprimer la smartlist" }
+      "delete": { "success": "Smartlist supprimée", "error": "Impossible de supprimer la smartlist" },
+      "duplicate": { "success": "Smartlist dupliquée", "error": "Imposible de dupliquer la smarlist" }
     },
     "subscription": {
       "switchPaymentMethod": { "success": "Méthode de paiement mise à jour", "error": "Impossible de modifier la méthode de paiement" },

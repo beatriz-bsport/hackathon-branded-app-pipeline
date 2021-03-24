@@ -124,20 +124,21 @@ export function copySmartList(
   options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    dispatch(createSmartListAction.isLoading(true));
-    dispatch(createSmartListAction.error(null));
+    dispatch(smartListCopyAction.isLoading(true));
+    dispatch(smartListCopyAction.error(null));
 
     try {
       const response = await copySmartListAPI(id);
-      dispatch(createSmartListAction.success(response.data));
+      dispatch(smartListCopyAction.success(response.data));
+      dispatch(snackbarSuccess('smartlist.duplicate.success'));
       if (options && options.onSuccess) {
         options.onSuccess(response.data.id);
       }
-      dispatch(createSmartListAction.error(null));
+      dispatch(smartListCopyAction.error(null));
     } catch (error) {
-      dispatch(createSmartListAction.error(error));
+      dispatch(smartListCopyAction.error(error));
     }
-    dispatch(createSmartListAction.isLoading(false));
+    dispatch(smartListCopyAction.isLoading(false));
   };
 }
 

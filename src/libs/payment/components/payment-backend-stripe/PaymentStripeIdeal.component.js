@@ -43,6 +43,7 @@ export const PaymentStripeIdeal = (props: {
   onCancel: () => void,
   termsAndConditionsAccepted: boolean,
   AcceptTermsAndConditionsComponent: React.Component,
+  forceDisabled?: boolean,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -141,7 +142,11 @@ export const PaymentStripeIdeal = (props: {
             color="primary"
             variant="contained"
             type="submit"
-            disabled={!stripe || !props.termsAndConditionsAccepted}
+            disabled={
+              props.forceDisabled ||
+              !stripe ||
+              !props.termsAndConditionsAccepted
+            }
           >
             {t('paymentPanel.actions.confirmPayment')}
           </Button>

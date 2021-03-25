@@ -65,3 +65,12 @@ export const fetchPaymentGroupList = async (params: any) => {
 export const fetchPayoutList = async (params: any) => {
   return getAuth(`${API_V1_URI}/payment/payout/${buildUrlParams(params)}`);
 };
+
+export const updatePaymentGroupPriceCts = async (
+  id: number,
+  price_cts: number,
+) => {
+  return postAuth(`${API_V1_URI}/payment/payment_group/${id}/update_price/`, {
+    price_cts,
+  });
+};

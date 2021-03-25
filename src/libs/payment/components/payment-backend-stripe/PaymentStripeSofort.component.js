@@ -15,6 +15,7 @@ type Props = {
   onCancel: () => void,
   termsAndConditionsAccepted: boolean,
   AcceptTermsAndConditionsComponent: React.Component,
+  forceDisabled?: boolean,
 };
 
 export const PaymentStripeSofort = (props: Props) => {
@@ -115,7 +116,11 @@ export const PaymentStripeSofort = (props: Props) => {
             color="primary"
             variant="contained"
             type="submit"
-            disabled={!stripe || !props.termsAndConditionsAccepted}
+            disabled={
+              props.forceDisabled ||
+              !stripe ||
+              !props.termsAndConditionsAccepted
+            }
           >
             {t('paymentPanel.actions.confirmPayment')}
           </Button>

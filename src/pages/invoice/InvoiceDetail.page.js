@@ -36,7 +36,10 @@ import {
   allocateDebt,
   fetchPlannedPaymentEventList,
 } from '../../libs/invoice/actions';
-import { fetchPaymentGroupList as fetchPaymentGroupListAction } from '../../libs/payment/actions';
+import {
+  updatePaymentGroupPriceCts,
+  fetchPaymentGroupList as fetchPaymentGroupListAction,
+} from '../../libs/payment/actions';
 import { fetchCompanyRoles } from '../../libs/role/actions';
 
 import InvoiceHeader from '../../libs/invoice/components/InvoiceHeader.component';
@@ -87,6 +90,11 @@ type Props = {
   fetchPaymentGroupRequiringActionList: () => void,
   paymentGroupRequiringActionList: Array<PaymentGroup>,
   payment_method_available_manager: number[],
+  updatePaymentGroupPriceCts: (
+    paymentGroupId: number,
+    priceCts: number,
+    options: OptionCallback,
+  ) => void,
 };
 
 type State = {
@@ -175,6 +183,24 @@ export class InvoiceDetail extends React.Component<Props, State> {
     );
   };
 
+  updatePaymentGroupPriceCts = (priceCts: number, options: OptionCallback) => {
+    this.setState({ clientSecretLoading: true });
+    this.props.updatePaymentGroupPriceCts(this.state.paymentGroupId, priceCts, {
+      onSuccess: (pg) => {
+        this.setState({
+          paymentGroupPriceCts: pg.price_cts,
+          clientSecretLoading: false,
+        });
+        if (options && options.onSuccess) options.onSuccess(pg);
+      },
+      onError: () => {
+        this.setState({
+          clientSecretLoading: false,
+        });
+      },
+    });
+  };
+
   render() {
     return (
       <div className={this.props.classes.container}>
@@ -246,6 +272,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
               paymentGroupId={this.state.paymentGroupId}
               termsAndConditionsAccepted
               paymentGroupPriceCts={this.state.paymentGroupPriceCts}
+              updatePriceCts={this.updatePaymentGroupPriceCts}
               amountToPay={parseFloat(
                 this.props.invoice.amount_due_cts -
                   this.props.invoice.amount_paid_cts,
@@ -352,6 +379,7 @@ export default compose(
       finalizeInvoice: finalizeInvoiceAction,
       updatePaymentMethod: updatePaymentMethodAction,
       allocateDebt,
+      updatePaymentGroupPriceCts,
     },
   ),
   withHandlers({

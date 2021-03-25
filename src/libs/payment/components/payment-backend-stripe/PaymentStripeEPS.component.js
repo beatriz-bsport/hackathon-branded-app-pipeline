@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 export const PaymentStripeEPS = (props: {
   clientSecret: string,
   onCancel: () => void,
+  forceDisabled?: boolean,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -80,7 +81,7 @@ export const PaymentStripeEPS = (props: {
             color="primary"
             variant="contained"
             type="submit"
-            disabled={!stripe}
+            disabled={props.forceDisabled || !stripe}
           >
             {t('paymentPanel.actions.confirmPayment')}
           </Button>

@@ -19,6 +19,9 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
 } from '@bsport/common/lib/master-data/payment-group';
 
+import SaveIcon from '@material-ui/icons/Save';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 import PaymentStripeCard from './PaymentStripeCard.component';
 import PaymentStripeSEPA from './PaymentStripeSEPA.component';
 import PaymentStripeBancontact from './PaymentStripeBancontact.component';
@@ -27,6 +30,7 @@ import PaymentStripeIdeal from './PaymentStripeIdeal.component';
 import PaymentStripeEPS from './PaymentStripeEPS.component';
 import PaymentStripeGiropay from './PaymentStripeGiropay.component';
 import PaymentStripeMobilePay from './PaymentStripeMobilePay.component';
+import PriceInput from '../../../../components/input/PriceInput.component';
 
 import PaymentMethodCardSelector from '../PaymentMethodCardSelector.component';
 import AcceptTermsAndConditions from '../AcceptTermsAndConditions.component';
@@ -48,6 +52,7 @@ type Props = {
   termsAndConditions: ?string,
   setTermsAndConditionsAccepted: (boolean) => void,
   termsAndConditionsAccepted: boolean,
+  updatePriceCts?: (priceCts: number, options: OptionCallback) => void,
 };
 
 const STRIPE_PAYMENT_METHOD_FORM_COMPONENT = {
@@ -67,15 +72,43 @@ export const PaymentStripe = (props: Props) => {
   const StripePaymentMethodForm =
     STRIPE_PAYMENT_METHOD_FORM_COMPONENT[props.paymentMethodSelected];
 
+  const [priceUpdaterOpen, setPriceUpdaterOpen] = React.useState(false);
+  const [priceUpdateAmount, setPriceUpdateAmount] = React.useState(
+    props.paymentGroupPriceCts / 100,
+  );
+
   return (
     <div className={classes.container}>
-      {!!props.paymentGroupPriceCts && (
+      {!!priceUpdaterOpen && (
+        <div className={classes.priceContainer}>
+          <PriceInput
+            value={priceUpdateAmount}
+            onChange={(e) => setPriceUpdateAmount(e.target.value)}
+          />
+          <IconButton
+            color="primary"
+            onClick={() =>
+              props.updatePriceCts(parseInt(priceUpdateAmount * 100, 10), {
+                onSuccess: () => setPriceUpdaterOpen(false),
+              })
+            }
+          >
+            <SaveIcon />
+          </IconButton>
+        </div>
+      )}
+      {!priceUpdaterOpen && !!props.paymentGroupPriceCts && (
         <div className={classes.priceContainer}>
           <Typography variant="h5">
             {`${(props.paymentGroupPriceCts / 100).toFixed(
               2,
             )} ${getCurrencyDisplay()}`}
           </Typography>
+          {!!props.updatePriceCts && (
+            <IconButton color="primary" onClick={setPriceUpdaterOpen}>
+              <EditIcon />
+            </IconButton>
+          )}
         </div>
       )}
       <PaymentMethodCardSelector
@@ -89,6 +122,7 @@ export const PaymentStripe = (props: Props) => {
             onSuccess={props.onSuccess}
             onError={props.onError}
             clientSecret={props.clientSecret}
+            forceDisabled={priceUpdaterOpen}
             onCancel={props.onCancel}
             memberId={props.memberId}
             AcceptTermsAndConditionsComponent={

@@ -8,6 +8,7 @@ import {
   fetchOnSpotPaymentReport as fetchOnSpotPaymentReportAPI,
   fetchPaymentGroupList as fetchPaymentGroupListAPI,
   fetchPayoutList as fetchPayoutListAPI,
+  updatePaymentGroupPriceCts as updatePaymentGroupPriceCtsAPI,
 } from './api';
 
 // Active campaign Account
@@ -118,5 +119,33 @@ export function fetchPayoutList(
       dispatch(listPayoutActions.error(err));
     }
     dispatch(listPayoutActions.isLoading(false));
+  };
+}
+
+export const updatePaymentGroupPriceCtsActions = {
+  isLoading: createAction('PAYMENT_GROUP/UPDATE_PRICE/LOADING'),
+  error: createAction('PAYMENT_GROUP/UPDATE_PRICE/ERROR'),
+  success: createAction('PAYMENT_GROUP/UPDATE_PRICE/SUCCESS'),
+};
+
+export function updatePaymentGroupPriceCts(
+  id: number,
+  price_cts: number,
+  options: OptionCallBack,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(updatePaymentGroupPriceCtsActions.isLoading(true));
+    dispatch(updatePaymentGroupPriceCtsActions.error(null));
+    try {
+      const response = await updatePaymentGroupPriceCtsAPI(id, price_cts);
+      dispatch(updatePaymentGroupPriceCtsActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(updatePaymentGroupPriceCtsActions.error(err));
+    }
+    dispatch(updatePaymentGroupPriceCtsActions.isLoading(false));
   };
 }

@@ -24,6 +24,7 @@ type Props = {
   error: ?Error,
   termsAndConditionsAccepted: boolean,
   AcceptTermsAndConditionsComponent: React.Component,
+  forceDisabled?: boolean,
 };
 
 const CARD_ELEMENT_OPTIONS = {
@@ -161,6 +162,7 @@ export const StripePaymentCard = (props: Props) => {
               color="primary"
               type="submit"
               disabled={
+                props.forceDisabled ||
                 !stripe ||
                 !elements ||
                 !props.clientSecret ||

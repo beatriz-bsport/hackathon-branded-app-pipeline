@@ -12,7 +12,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import WarningIcon from '@material-ui/icons/Warning';
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 import type { TFunction } from 'react-i18next';
 
 import {
@@ -44,6 +43,7 @@ type Props = {
   clientSecretError: ?boolean,
   clientSecretLoading: boolean,
   availablePaymentMethodList: ?Array<number>,
+  updatePriceCts?: (priceCts: number, options: OptionCallback) => void,
 };
 
 type State = {
@@ -121,7 +121,7 @@ export class PaymentDialog extends React.Component<Props, State> {
 
     return (
       <Dialog open classes={{ paper: classes.container }}>
-        <DialogContent>
+        <div className={classes.innerDialog}>
           <div className={classes.container}>
             <FormControl
               disabled={
@@ -191,6 +191,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                   clientSecret={this.props.clientSecret}
                   paymentGroupPriceCts={this.props.paymentGroupPriceCts}
                   onSuccess={this.onSuccess}
+                  updatePriceCts={this.props.updatePriceCts}
                   termsAndConditionsAccepted={
                     this.props.termsAndConditionsAccepted
                   }
@@ -218,7 +219,7 @@ export class PaymentDialog extends React.Component<Props, State> {
               )}
             </FormControl>
           </div>
-        </DialogContent>
+        </div>
       </Dialog>
     );
   }
@@ -235,6 +236,9 @@ const styles = (theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+  },
+  innerDialog: {
+    padding: theme.spacing(2),
   },
   errorContainer: {
     marginTop: theme.spacing(2),

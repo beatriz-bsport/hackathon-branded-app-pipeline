@@ -1270,10 +1270,10 @@
             "weekOf": "Week van {{date}}",
             "keys": {
                 "cancelled": "Geannuleerde reserveringen",
-                "created": "Gehandhaafde reserveringen"
+                "created": "Geldige reserveringen"
             },
-            "maintenedBookings": "{{nb}} gehandhaafde reservering",
-            "maintenedBookings_plural": "{{nb}} gehandhaafde reserveringen",
+            "maintenedBookings": "{{nb}} geldige reservering",
+            "maintenedBookings_plural": "{{nb}} geldige reserveringen",
             "cancelledBookings": "{{nb}} geannuleerde reservering",
             "cancelledBookings_plural": "{{nb}} geannuleerde reserveringen",
             "totalBookings": "{{nb}} reservering in totaal",
@@ -6208,7 +6208,7 @@
             "addChart": "Een grafiek toevoegen"
         },
         "booking": {
-            "popover": "Het totaal aantal geregistreerde reserveringen voor de geselecteerde datum/data. Je kunt filteren op annuleringen, te late annuleringen, enz.",
+            "popover": "Dit is het totaal aantal geregistreerde reserveringen voor de geselecteerde datum/data. Je kunt filteren op annuleringen, te late annuleringen, enz.",
             "caption": "Geregistreerde reserveringen",
             "title": "Reserveringen"
         }
@@ -6650,7 +6650,7 @@
                 "saveForLater": "Betaalmethode opslaan",
                 "showInvoice": "Factuur tonen",
                 "confirmPayment": "Betaling bevestigen",
-                "payAll": "Debiteur salderen",
+                "payAll": "Betalen",
                 "cancel": "Annuleren",
                 "revert": "Annuleren",
                 "pay": "Deze factuur betalen"

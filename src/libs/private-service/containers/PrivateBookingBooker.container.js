@@ -7,7 +7,6 @@ import moment from 'moment-timezone';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -249,11 +248,11 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
 
     const missingResources = this.missingResourceConf();
     return (
-      <Dialog open={open}>
+      <Dialog open={open} fullScreen={window.innerWidth < 400}>
         <DialogTitle>
           {moment(this.state.date_start).tz(this.props.timezone).format('LLLL')}
         </DialogTitle>
-        <DialogContent>
+        <div className={this.props.classes.innerDialog}>
           <MemberMinimalListItem member={this.state.member} />
           <DateTimeForm
             timezone={this.props.timezone}
@@ -346,7 +345,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
               )
             ) : null
           }
-        </DialogContent>
+        </div>
         <DialogActions>
           <Button onClick={this.onClose}>{t('bookerModule.cancel')}</Button>
         </DialogActions>
@@ -367,6 +366,9 @@ const styles = (theme) => ({
   },
   fieldset: {
     marginBottom: theme.spacing(3),
+  },
+  innerDialog: {
+    padding: theme.spacing(2),
   },
 });
 

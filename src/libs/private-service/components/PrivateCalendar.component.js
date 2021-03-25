@@ -21,6 +21,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import memoize from 'memoize-one';
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 
 import type { TFunction } from 'react-i18next';
 import FullCalendar from '@fullcalendar/react';
@@ -473,16 +474,21 @@ export class PrivateCalendar extends React.Component<Props, State> {
       this.props.resourceDatatypeView,
       this.props.customEventList,
     );
+    let initialView = 'timeGridWeek';
+    if (window.innerWidth < 400) {
+      initialView = 'timeGridDay';
+
+      if (this.props.resourceDatatypeView) {
+        initialView = 'resourceTimeGridDay';
+      }
+    } else if (this.props.resourceDatatypeView) {
+      initialView = 'resourceTimeGridThreeDays';
+    }
 
     return (
       <div className={classes.container}>
         <FullCalendar
           ref={this.calendarRef}
-          initialView={
-            this.props.resourceDatatypeView
-              ? 'resourceTimeGridThreeDays'
-              : 'timeGridWeek'
-          }
           plugins={[
             interactionPlugin,
             timeGridPlugin,
@@ -490,6 +496,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
             dayGridPlugin,
             // momentTimezonePlugin,
           ]}
+          initialView={initialView}
           timeZone={this.props.timezone}
           customButtons={{
             zoomIn: {
@@ -510,7 +517,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
           }}
           headerToolbar={{
             left: 'prev,next today',
-            center: 'title',
+            center: isWidthUp('sm', this.props.width) ? 'title' : '',
             right: this.props.resourceDatatypeView
               ? 'zoomOut,zoomIn resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
               : 'zoomOut,zoomIn timeGridDay,timeGridWeek,dayGridMonth',
@@ -630,4 +637,5 @@ export default compose(
   withTranslation(['privateService']),
   withMobileDialog(),
   withStyles(styles, { withTheme: true }),
+  withWidth(),
 )(PrivateCalendar);

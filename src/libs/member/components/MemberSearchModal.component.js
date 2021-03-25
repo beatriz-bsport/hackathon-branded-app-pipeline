@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
 
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Divider from '@material-ui/core/Divider';
@@ -64,9 +66,13 @@ const MemberListItem = (props: { member: Member, onClick: () => void }) => (
 );
 
 export function MemberSearchModal(props: Props) {
+  const theme = useTheme();
+
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   if (props.isOpenCreateForm) {
     return (
-      <Dialog open={props.open}>
+      <Dialog fullScreen={fullScreen} open={props.open}>
         <MemberForm
           onCancel={props.closeCreateForm}
           onSubmit={(data, options) =>
@@ -88,6 +94,7 @@ export function MemberSearchModal(props: Props) {
   return (
     <Dialog
       open={props.open}
+      fullScreen={fullScreen}
       scroll="paper"
       classes={{
         root: props.classes.root,

@@ -9,8 +9,10 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 import { withTranslation } from 'react-i18next';
+import Grid from '@material-ui/core/Grid';
 import type { TFunction } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
+import Divider from '@material-ui/core/Divider';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import PrivateCalendar from './PrivateCalendar.component';
@@ -87,59 +89,85 @@ type Props = {
 export const PrivateCalendarMultiResource = (props: Props) => (
   <div>
     <Paper square className={props.classes.header}>
-      {!!props.resourceAvailable && (
-        <ResourceSelector
-          collapse={props.collapsResourceSelector}
-          resourceAvailable={props.resourceAvailable}
-          resourceSelectedListIds={props.resourceSelectedListIds}
-          resourceDataLoading={props.resourceDataLoading}
-          onEditResourceConfiguration={props.onEditResourceConfiguration}
-          onChangeResourcesSelected={props.onChangeResourcesSelected}
-          setResourceFiltered={props.setResourceFiltered}
-        />
-      )}
-      <div className={props.classes.rowBetween}>
-        <div className={props.classes.row}>
-          {!!props.showOfferListToogle && (
-            <FormControlLabel
-              label={props.t('calendar.toogle.showOfferList')}
-              control={
-                <Checkbox
-                  checked={props.showOfferList}
-                  onChange={props.toogleShowOfferList}
-                />
-              }
-            />
-          )}
-          {!!props.showPrivateBookingToogle && (
-            <FormControlLabel
-              label={props.t('calendar.toogle.showPrivateBookings')}
-              control={
-                <Checkbox
-                  checked={props.showPrivateBookings}
-                  onChange={props.toogleShowPrivateBookings}
-                />
-              }
-            />
-          )}
-          {!!props.showCustomEventsToogle && (
-            <FormControlLabel
-              label={props.t('calendar.toogle.showCustomEvents')}
-              control={
-                <Checkbox
-                  checked={props.showCustomEvents}
-                  onChange={props.toogleShowCustomEvents}
-                />
-              }
-            />
-          )}
-        </div>
-        {!!props.resourcesByDatatype && !!props.resourcesByDatatype.length && (
-          <ResourceDatatypeFilter
-            resourcesByDatatype={props.resourcesByDatatype}
-            onResourceDatatypeFilterChange={props.setResourceFilter}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'stretch',
+          justifyContent: 'space-between',
+        }}
+      >
+        {!!props.resourceAvailable && (
+          <ResourceSelector
+            collapse={props.collapsResourceSelector}
+            resourceAvailable={props.resourceAvailable}
+            resourceSelectedListIds={props.resourceSelectedListIds}
+            resourceDataLoading={props.resourceDataLoading}
+            onEditResourceConfiguration={props.onEditResourceConfiguration}
+            onChangeResourcesSelected={props.onChangeResourcesSelected}
+            setResourceFiltered={props.setResourceFiltered}
           />
         )}
+      </div>
+      <Divider />
+      <div className={props.classes.rowBetween}>
+        <Grid container justify="flex-start" direction="row">
+          {!!props.showOfferListToogle && (
+            <Grid item xs={12} sm={3} md={2}>
+              <FormControlLabel
+                label={props.t('calendar.toogle.showOfferList')}
+                control={
+                  <Checkbox
+                    checked={props.showOfferList}
+                    onChange={props.toogleShowOfferList}
+                  />
+                }
+              />
+            </Grid>
+          )}
+          {!!props.showPrivateBookingToogle && (
+            <Grid item xs={12} sm={3} md={2}>
+              <FormControlLabel
+                label={props.t('calendar.toogle.showPrivateBookings')}
+                control={
+                  <Checkbox
+                    checked={props.showPrivateBookings}
+                    onChange={props.toogleShowPrivateBookings}
+                  />
+                }
+              />
+            </Grid>
+          )}
+          {!!props.showCustomEventsToogle && (
+            <Grid item xs={12} sm={3} md={2}>
+              <FormControlLabel
+                label={props.t('calendar.toogle.showCustomEvents')}
+                control={
+                  <Checkbox
+                    checked={props.showCustomEvents}
+                    onChange={props.toogleShowCustomEvents}
+                  />
+                }
+              />
+            </Grid>
+          )}
+          <div
+            style={{
+              display: 'flex',
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+            }}
+          >
+            {!!props.resourcesByDatatype &&
+              !!props.resourcesByDatatype.length && (
+                <ResourceDatatypeFilter
+                  resourcesByDatatype={props.resourcesByDatatype}
+                  onResourceDatatypeFilterChange={props.setResourceFilter}
+                />
+              )}
+          </div>
+        </Grid>
       </div>
     </Paper>
     {!!props.goToCalendar && (
@@ -215,10 +243,7 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   rowBetween: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    wdith: '100%',
   },
 });
 

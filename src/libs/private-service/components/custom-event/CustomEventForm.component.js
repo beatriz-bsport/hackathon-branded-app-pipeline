@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   container: {
-    minWidth: 400,
+    minWidth: 200,
   },
 }));
 

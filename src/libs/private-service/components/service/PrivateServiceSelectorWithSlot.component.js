@@ -62,7 +62,7 @@ export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
               );
             })()
           ) : (
-            <Typography color="textSecondary">
+            <Typography color="textSecondary" align="left">
               {this.props.t('service.selector.placeholder')}
             </Typography>
           )}
@@ -133,7 +133,7 @@ const styles = (theme) => ({
     border: `1px solid ${theme.palette.primary.main}`,
     backgroundColor: '#F8F8F8',
     borderRadius: theme.spacing(1),
-    minWidth: 300,
+    minWidth: 200,
     width: '100%',
     display: 'flex',
     alignItems: 'center',
@@ -146,7 +146,7 @@ const styles = (theme) => ({
     marginRight: theme.spacing(2),
   },
   menu: {
-    minWidth: 300,
+    minWidth: 200,
   },
   subheader: {
     backgroundColor: '#F4F4F4',

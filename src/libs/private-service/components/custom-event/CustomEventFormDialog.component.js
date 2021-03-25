@@ -4,10 +4,11 @@ import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { Form } from 'formik';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -31,13 +32,18 @@ type Props = {
 
 export const CustomEvenFormDialog = (props: Props) => {
   const { t } = props;
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const classes = useStyles();
+
   return (
-    <Dialog open={props.open}>
+    <Dialog fullScreen={fullScreen} open={props.open}>
       <Form>
         <DialogTitle>{t('customEvent.form.title')}</DialogTitle>
-        <DialogContent>
+        <div className={classes.innerDialog}>
           <CustomEventForm {...props} />
-        </DialogContent>
+        </div>
         <DialogActions>
           <Button disabled={props.isSubmitting} onClick={props.onClose}>
             {t('customEvent.form.actions.cancel')}
@@ -50,6 +56,12 @@ export const CustomEvenFormDialog = (props: Props) => {
     </Dialog>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  innerDialog: {
+    padding: theme.spacing(2),
+  },
+}));
 
 export default compose(
   withMobileDialog(),

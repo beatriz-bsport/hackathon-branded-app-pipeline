@@ -532,3 +532,19 @@ export async function deletePrivatePassMassExtension(id: number) {
     `${API_V1_URI}/private_service/private_pass_mass_extension/${id}`,
   );
 }
+
+export async function resourceAllocationChecker(
+  privateSlotId: number,
+  resource_type: string,
+  resource_id: number,
+  date: string,
+) {
+  return postAuth(
+    `${API_V1_URI}/private_service/private_slot/${privateSlotId}/get_resource_allocation/`,
+    {
+      resource_id,
+      resource_type,
+      date,
+    },
+  );
+}

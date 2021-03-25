@@ -44,6 +44,7 @@ import {
   fetchMember as fetchMemberAction,
 } from '../../member/actions';
 import { getLatest as getLatestMember } from '../../member/api';
+import { resourceAllocationChecker as resourceAllocationCheckerAPI } from '../api';
 
 import MissingResourceForBookingHelper from '../components/MissingResourceForBookingHelper.component';
 import PrivatePassCapabilities from '../components/PrivatePassCapabilities.component';
@@ -265,9 +266,11 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
             <SlotSearcherParams
               private_services={this.props.private_services}
               onConfigurationChange={this.handleConfigurationChange}
+              resourceAllocationChecker={resourceAllocationCheckerAPI}
               coachUnique
               establishmentUnique
               asManager
+              dateStart={this.state.date_start}
             />
             <MissingResourceForBookingHelper
               missingResources={missingResources}

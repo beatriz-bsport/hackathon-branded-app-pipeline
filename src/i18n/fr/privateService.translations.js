@@ -48,6 +48,11 @@ exports.default = {
     },
   },
   resource: {
+    allocationWarning: {
+      coach: "Ce professeur n'est pas disponible sur cet horaire",
+      establishment: "Cette salle n'est pas disponible à cet horaire",
+      showCalendar: 'Voir le calendrier',
+    },
     selector: {
       title: 'Voir les disponibilités',
     },

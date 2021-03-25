@@ -14,7 +14,10 @@ import ReportGeneration from '../../libs/reporting/ReportGeneration.component';
 
 import { reports, reportMetadata, urls } from '../../resources/reporting';
 
-import { fetchReportGeneration } from '../../libs/reporting/actions';
+import {
+  fetchReportGeneration,
+  fetchReportHeaders,
+} from '../../libs/reporting/actions';
 
 import type {
   ReportConfiguration,
@@ -26,23 +29,29 @@ import {
   getNextPage,
   getPreviousPage,
   getOtherPages,
+  getReportHeaders,
+  getReportHeadersLoading,
 } from '../../libs/reporting/selectors';
 
 type Props = {
+  loading: boolean,
   report: ReportConfiguration,
   metadata: ReportMetadata,
   exportLink: string,
   fetchReports: () => void,
   fetchReportMetadata: () => void,
   handleGenerate: (*) => void,
-  handleGeneratePreviousPage: () => void,
-  handleGenerateNextPage: () => void,
+  handleGeneratePreviousPage: (*) => void,
+  handleGenerateNextPage: (*) => void,
   reportStoreRows: Array<object>,
   reportStoreRowsLoading: boolean,
   previousPage: number,
   nextPage: number,
   otherPages: Array<number>,
   pageSize: number,
+  handleGenerateHeaders: (*) => void,
+  reportHeadersLoading: boolean,
+  reportHeaders: object,
 };
 
 export class ReportingGeneration extends React.Component<Props> {
@@ -61,6 +70,7 @@ export class ReportingGeneration extends React.Component<Props> {
       const dateStart = moment(this.props.report.date_start);
       const dateEnd = moment(this.props.report.date_end);
       this.props.handleGenerate({ dateStart, dateEnd });
+      this.props.handleGenerateHeaders();
     }
   }
 
@@ -71,6 +81,7 @@ export class ReportingGeneration extends React.Component<Props> {
       this.props.handleGenerate({ dateStart, dateEnd });
       this.props.fetchReports();
       this.props.fetchReportMetadata();
+      this.props.handleGenerateHeaders();
     }
   }
 
@@ -80,6 +91,9 @@ export class ReportingGeneration extends React.Component<Props> {
       handleGenerate,
       handleGeneratePreviousPage,
       handleGenerateNextPage,
+      handleGenerateHeaders,
+      reportHeaders,
+      reportHeadersLoading,
       exportLink,
       metadata,
       reportStoreRows,
@@ -107,6 +121,9 @@ export class ReportingGeneration extends React.Component<Props> {
           otherPages={otherPages}
           pageSize={pageSize}
           reportStoreRowsLoading={reportStoreRowsLoading}
+          handleGenerateHeaders={handleGenerateHeaders}
+          reportHeaders={reportHeaders}
+          reportHeadersLoading={reportHeadersLoading}
         />
       </div>
     );
@@ -125,11 +142,14 @@ export default compose(
       previousPage: getPreviousPage(state, id),
       otherPages: getOtherPages(state, id),
       pageSize: state.reports.page_size,
+      reportHeaders: getReportHeaders(state, id),
+      reportHeadersLoading: getReportHeadersLoading(state),
     }),
     {
       fetchReportMetadata: reportMetadata.effects.get,
       fetchReports: reports.effects.fetchAll,
       fetchExtractResult: fetchReportGeneration,
+      fecthRelatedHeaders: fetchReportHeaders,
     },
   ),
   withState('exportLink', 'setExportLink', null),
@@ -164,6 +184,11 @@ export default compose(
       };
       const exportLink = report && urls.export(id, params);
       setExportLink(exportLink);
+    },
+  }),
+  withHandlers({
+    handleGenerateHeaders: ({ id, fecthRelatedHeaders }) => (options) => {
+      fecthRelatedHeaders(id, options);
     },
   }),
   withHandlers({

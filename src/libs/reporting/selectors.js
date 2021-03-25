@@ -41,3 +41,16 @@ export const getOtherPages = (state, reportId) => {
 export const getPageSize = (state) => {
   return state.reports.reportResponse.page_size;
 };
+
+export const getReportHeaders = (state, reportId) => {
+  const headers = Object.keys(state.reports.reportHeaders).includes(
+    reportId.toString(),
+  )
+    ? state.reports.reportHeaders[reportId]
+    : null;
+  return headers;
+};
+
+export const getReportHeadersLoading = (state) => {
+  return state.reports.headersLoading;
+};

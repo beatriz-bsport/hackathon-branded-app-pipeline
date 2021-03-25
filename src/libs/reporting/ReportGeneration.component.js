@@ -7,8 +7,13 @@ import Paper from '@material-ui/core/Paper';
 
 import ReportGenerationForm from './ReportGenerationForm.component';
 import ReportTable from './ReportTable.component';
+import ReportTableHeaders from './ReportTableHeaders.component';
 
-import type { ReportConfiguration, ReportExtractResult } from './types';
+import type {
+  ReportConfiguration,
+  ReportExtractResult,
+  ReportMetadata,
+} from './types';
 
 type Props = {
   resultLoading?: boolean,
@@ -18,6 +23,9 @@ type Props = {
   handleGeneratePreviousPage: (*) => void,
   handleGenerateNextPage: (*) => void,
   handleGenerate: (*) => void,
+  handleGenerateHeaders: (*) => void,
+  reportHeaders: object,
+  reportHeadersLoading: boolean,
   exportLink?: string,
   previousPage: number,
   nextPage: number,
@@ -34,6 +42,9 @@ export default function ReportGeneration(props: Props) {
     handleGenerate,
     handleGeneratePreviousPage,
     handleGenerateNextPage,
+    handleGenerateHeaders,
+    reportHeaders,
+    reportHeadersLoading,
     exportLink,
     metadata,
     previousPage,
@@ -60,6 +71,11 @@ export default function ReportGeneration(props: Props) {
         />
       )}
 
+      <ReportTableHeaders
+        handleGenerateHeaders={handleGenerateHeaders}
+        reportHeaders={reportHeaders}
+        reportHeadersLoading={reportHeadersLoading}
+      />
       {reportStoreRowsLoading || resultLoading ? <LinearProgress /> : null}
       {!report.loading ? (
         <Paper>

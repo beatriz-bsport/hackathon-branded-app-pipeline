@@ -27,3 +27,24 @@ export function fetchReportGeneration(reportId: ?number, params: any) {
     }
   };
 }
+
+export const reportHeadersDetail = {
+  error: createAction('REPORT/HEADERS/ERROR'),
+  isLoading: createAction('REPORT/HEADERS/IS_LOADING'),
+  success: createAction('REPORT/HEADERS/SUCCESS'),
+};
+
+export function fetchReportHeaders(reportId: ?number, params: any) {
+  return async (dispatch: Dipsatch) => {
+    dispatch(reportHeadersDetail.isLoading(true));
+    dispatch(reportHeadersDetail.error(null));
+    try {
+      const response = await api.fetchReportHeaders(reportId, params);
+      dispatch(reportHeadersDetail.success({ [reportId]: response.data }));
+      dispatch(reportHeadersDetail.isLoading(false));
+    } catch (err) {
+      dispatch(reportHeadersDetail.error(err));
+      dispatch(reportHeadersDetail.isLoading(false));
+    }
+  };
+}

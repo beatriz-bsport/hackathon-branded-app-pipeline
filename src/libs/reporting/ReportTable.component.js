@@ -67,8 +67,7 @@ const findMostFrequent = flow(
   head,
 );
 */
-
-function getConverter(column, classes, t) {
+export function getConverter(column, classes, t) {
   if (!column || !column.datatype) {
     return (value) => ({ value });
   }
@@ -223,7 +222,6 @@ export function ReportTable(props: TableProps) {
 
   const columnsConfigs = columns.map((c) => getColumn(metadata, report, c));
   const converters = columnsConfigs.map((c) => getConverter(c, classes, t));
-
   return (
     <div className={classes.responsive}>
       <Table padding="dense">

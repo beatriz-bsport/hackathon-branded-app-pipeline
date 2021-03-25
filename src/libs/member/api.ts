@@ -132,6 +132,15 @@ export async function removeFile(fileId: number) {
   return deleteAuth(`${API_V1_URI}/member_file_upload/${fileId}`);
 }
 
+export async function adjustCreditWithoutPaymentNote(
+  memberId: number,
+  amount: number,
+) {
+  return postAuth(`${API_V1_URI}/member/${memberId}/adjust_credit/`, {
+    amount,
+  });
+}
+
 export default {
   updateMember,
   fetchMember,

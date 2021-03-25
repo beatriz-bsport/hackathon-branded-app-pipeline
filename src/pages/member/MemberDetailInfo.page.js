@@ -25,6 +25,7 @@ import {
   search as searchMembers,
   addFileToMember,
   removeFileFromMember,
+  adjustCreditWithoutPaymentNote,
 } from '../../libs/member/actions';
 import {
   getSearchedMembers,
@@ -150,6 +151,11 @@ type Props = {
   untagMember: (memberId: number, tagId: number) => void,
 
   goToCreditRegularization: (memberId: number, balance: number) => void,
+  adjustCreditWithoutPaymentNote: (
+    memberId: number,
+    amount: number,
+    options: OptionCallback,
+  ) => void,
 
   goToInvoice: (string) => void,
   payment_method_available_manager: number[],
@@ -202,6 +208,12 @@ export class MemberDetailPage extends Component<Props, State> {
     });
   };
 
+  adjustCreditWithoutPaymentNote = (amount: number) => {
+    this.props.adjustCreditWithoutPaymentNote(this.props.id, amount, {
+      onSuccess: () => this.props.fetchMember(this.props.id),
+    });
+  };
+
   render() {
     const { memberLoading, member, t } = this.props;
     const fileUploader = {
@@ -239,6 +251,7 @@ export class MemberDetailPage extends Component<Props, State> {
             asConsumer={false}
             balance={this.props.member.credit_account_balance}
             applyBalanceToUnpaidInvoices={this.applyBalanceToUnpaidInvoices}
+            adjustCreditWithoutPaymentNote={this.adjustCreditWithoutPaymentNote}
             fetchInvoiceListUnpaid={() => {
               this.props.fetchInvoiceListUnpaid();
               this.props.fetchMember(this.props.id);
@@ -381,6 +394,7 @@ export default compose(
       deleteNote,
       createTag: createOrUpdateTag,
       applyBalanceToUnpaid,
+      adjustCreditWithoutPaymentNote,
       createTagGroup: (data) =>
         createOrUpdateTagGroup({ ...data, kind: TAG_KIND_MEMBER.id }),
       updateTag: createOrUpdateTag,

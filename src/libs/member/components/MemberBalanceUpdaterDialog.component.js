@@ -3,14 +3,15 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import AlertIcon from '@material-ui/icons/Warning';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Typography from '@material-ui/core/Typography';
+import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import PriceInput from '../../../components/input/PriceInput.component';
@@ -33,20 +34,21 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
   const [balanceUpdateValue, selectBalanceUpdateValue] = React.useState(
     Math.abs(parseFloat(props.initialValue)),
   );
+  const [withoutPaymentNote, setWithoutPaymentNote] = React.useState(false);
   return (
     <Dialog open={props.open}>
       <form
         onSubmit={(ev) => {
           ev.preventDefault();
           if (balanceUpdateType === 'decaissement') {
-            props.onSubmit(-parseFloat(balanceUpdateValue));
+            props.onSubmit(-parseFloat(balanceUpdateValue), withoutPaymentNote);
           } else {
-            props.onSubmit(parseFloat(balanceUpdateValue));
+            props.onSubmit(parseFloat(balanceUpdateValue), withoutPaymentNote);
           }
         }}
       >
         <DialogTitle>{t('balance.updaterDialog.title')}</DialogTitle>
-        <DialogContent>
+        <div className={classes.innerDialog}>
           <FormControl>
             <InputLabel id="payment-method-select-label">
               {t('balance.updaterDialog.typeLabel')}
@@ -76,7 +78,25 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
                 inputProps: { step: 0.01, min: 0, max: 5000 },
               }}
             />
+            <div className={classes.checkboxRow}>
+              <Checkbox
+                checked={withoutPaymentNote}
+                onChange={(e, checked) => setWithoutPaymentNote(checked)}
+              />
+              <Typography variant="body2">
+                {t('balance.updaterDialog.withoutPaymentNote.label')}
+              </Typography>
+            </div>
+            {withoutPaymentNote && (
+              <div className={classes.row}>
+                <AlertIcon className={classes.iconLeft} />
+                <Typography color="error" variant="caption">
+                  {t('balance.updaterDialog.withoutPaymentNote.warning')}
+                </Typography>
+              </div>
+            )}
           </FormControl>
+
           <DialogContentText>
             <div className={classes.field}>
               <Typography>
@@ -91,7 +111,7 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
               </Typography>
             </div>
           </DialogContentText>
-        </DialogContent>
+        </div>
         <DialogActions>
           <Button onClick={props.onClose}>
             {t('balance.updaterDialog.actions.cancel')}
@@ -109,6 +129,25 @@ const useStyles = makeStyles((theme) => ({
   field: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
+  },
+  checkboxRow: {
+    marginTop: theme.spacing(1),
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  innerDialog: {
+    padding: theme.spacing(2),
+  },
+  iconLeft: {
+    marginRight: theme.spacing(1),
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: theme.spacing(1),
+    maxWidth: 400,
   },
 }));
 

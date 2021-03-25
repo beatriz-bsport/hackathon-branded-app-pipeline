@@ -28,6 +28,7 @@ type Props = {
   applyBalanceToUnpaidInvoices: () => void,
   fetchInvoiceListUnpaid: () => void,
   availablePaymentMethodList: number[],
+  adjustCreditWithoutPaymentNote: (number) => void,
 };
 
 export const MemberBillingProblemCard = (props: Props) => {
@@ -168,9 +169,15 @@ export const MemberBillingProblemCard = (props: Props) => {
           open
           initialValue={parseFloat(props.balance)}
           onClose={() => setAdjustBalanceDialogOpen(false)}
-          onSubmit={(arg) => {
-            setAmountToBill(arg);
-            setAdjustBalanceDialogOpen(false);
+          asManager={props.asConsumer === false}
+          onSubmit={(arg, withoutPaymentNote) => {
+            if (withoutPaymentNote) {
+              props.adjustCreditWithoutPaymentNote(arg);
+              setAdjustBalanceDialogOpen(false);
+            } else {
+              setAmountToBill(arg);
+              setAdjustBalanceDialogOpen(false);
+            }
           }}
         />
       )}

@@ -21,6 +21,7 @@ import {
   linkMeToCompany as linkMeToCompanyAPI,
   fetchCountObject as fetchCountObjectAPI,
   fetchCommunicationsPaginatedMembers as fetchCommunicationsPaginatedMembersAPI,
+  adjustCreditWithoutPaymentNote as adjustCreditWithoutPaymentNoteAPI,
 } from './api';
 
 import type { Member } from './types';
@@ -606,5 +607,39 @@ export function removeFileFromMember(
       dispatch(actionRemoveFileError(error));
     }
     dispatch(actionRemoveFileLoading(false));
+  };
+}
+
+export const adjustCreditWithoutPaymentNoteActions = {
+  isLoading: createAction('MEMBER/ADJUST_CREDIT/LOADING'),
+  error: createAction('MEMBER/ADJUST_CREDIT/ERROR'),
+  success: createAction('MEMBER/ADJUST_CREDIT/SUCCESS'),
+};
+
+export function adjustCreditWithoutPaymentNote(
+  memberId: number,
+  amount: number,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(adjustCreditWithoutPaymentNoteActions.isLoading(true));
+
+    try {
+      const response = await adjustCreditWithoutPaymentNoteAPI(
+        memberId,
+        amount,
+      );
+      dispatch(adjustCreditWithoutPaymentNoteActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(adjustCreditWithoutPaymentNoteActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(adjustCreditWithoutPaymentNoteActions.isLoading(false));
   };
 }

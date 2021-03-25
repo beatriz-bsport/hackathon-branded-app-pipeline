@@ -209,6 +209,11 @@ exports.default = {
       title: 'Ajustement de solde',
       typeLabel: "Type d'ajustement",
       balanceValueLabel: 'Montant',
+      withoutPaymentNote: {
+        label: 'Ne pas générer de reçu',
+        warning:
+          'Attention: nous ne garderons aucune trace de cette opération. À utiliser uniquement pour des ajustements exceptionnels.',
+      },
       explainDecaissement:
         'Un décaissement de {{ amount }} {{ currencyDisplay }} sera enregistré.',
       explainTopup:

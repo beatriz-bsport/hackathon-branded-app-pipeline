@@ -376,6 +376,7 @@ export class PrivateServiceBooker extends React.Component<Props, State> {
               }
               resourceAllocationChecker={this.props.resourceAllocationChecker}
               resourceType="coach"
+              privateSlotId={this.state.privateSlotId}
               t={this.props.t}
             />
           </div>

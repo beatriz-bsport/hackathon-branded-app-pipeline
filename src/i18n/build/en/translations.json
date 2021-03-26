@@ -3056,7 +3056,7 @@
                     "valid": "Valid booking",
                     "title": "Choose the type of appointment you want to notify"
                 },
-                "intro": "You can inform your clients before or/and after some appointments, regarding some rules such as number of bookings or cancellation",
+                "intro": "You can inform your clients before or/and after some appointments, regarding some rules such as number of bookings or cancellation.",
                 "title": "Add a notification"
             }
         },
@@ -3623,7 +3623,7 @@
                 "cancelledOffersCustomer": "Show canceled sessions on the client calendar",
                 "calendarPersonalizationTitle": "Calendar configuration",
                 "basket_expiration_days": {
-                    "alert": "Add the shopping cart expiration days",
+                    "alert": "Add the shopping cart expiration days!",
                     "placeholder": "Days before expiration",
                     "helperText": "Number of days before a client's shopping cart is automatically emptied",
                     "label": "Shopping cart expiration"
@@ -4840,7 +4840,7 @@
                 },
                 "debt": "Debit",
                 "explainTopup": "An increase of {{ amount }} € will be recorded in the member's balance.",
-                "explainDecaissement": "A decrease of {{ amount }} {{ currencyDisplay }} will be recorded in the member's balance",
+                "explainDecaissement": "A decrease of {{ amount }} {{ currencyDisplay }} will be recorded in the member's balance.",
                 "balanceValueLabel": "Amount",
                 "title": "Balance adjustment",
                 "typeLabel": "Adjustment type",
@@ -4858,7 +4858,7 @@
                     "placeholder": "john@doe.com"
                 },
                 "accountHolderName": {
-                    "placeholder": "Marie Dupont",
+                    "placeholder": "John Doe",
                     "label": "Account owner"
                 }
             },
@@ -4895,7 +4895,7 @@
                 "label": "Amount to collect"
             },
             "amountRemaining": "Remainder to pay: {{ amount }}",
-            "billingMoreThanNeeded": "If  you collect more than the amount of the bill, the surplus will be put in the balance of the client",
+            "billingMoreThanNeeded": "If you collect more than the amount of the bill, the surplus will be put in the balance of the client",
             "errorSecretExplain2": "If the issue is not resolved please contact us at dev+payment-intent@bsport.io",
             "errorSecretExplain1": "This paiement method is not available at the moment",
             "plannedPaymentEvent": {
@@ -5935,7 +5935,7 @@
             "extensionsTitle": "Validity extension",
             "refundTitle": "Associated reimbursement",
             "trackModifiedCreditTitle": "Credit history changed",
-            "penaltyAccount": "Additional billing of  {{account_value}} {{currencyDisplay }}",
+            "penaltyAccount": "Additional billing of {{account_value}} {{currencyDisplay }}",
             "penaltyBlock": "Card blocked for {{nb_days}} days",
             "penaltyTitle": "Penalties applied"
         },
@@ -8038,7 +8038,7 @@
         "upsellPackage": {
             "billOnce": "{{price_cts, price }}",
             "vod": {
-                "explainBilling": "  +1 {{price_cts, price }} /active client"
+                "explainBilling": "  +1 {{currencyDisplay }} /active client"
             },
             "billRecurrent": "{{price_cts, price }} / month",
             "otherAddonTitle": "Available Add-ons",

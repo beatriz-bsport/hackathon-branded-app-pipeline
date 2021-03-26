@@ -7,7 +7,7 @@ export const reportGenerationDetail = {
   isLoading: createAction('REPORT/GENERATE/IS_LOADING'),
   success: createAction('REPORT/GENERATE/SUCCESS'),
 };
-export function fetchReportGeneration(reportId: ?number, params: any) {
+export function fetchReportGeneration(reportId: ?number, params: any, options) {
   return async (dispatch: Dispatch) => {
     dispatch(reportGenerationDetail.isLoading(true));
     dispatch(reportGenerationDetail.error(null));
@@ -20,10 +20,12 @@ export function fetchReportGeneration(reportId: ?number, params: any) {
         }),
       );
       dispatch(reportGenerationDetail.isLoading(false));
+      if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
       dispatch(reportGenerationDetail.error(err));
       dispatch(reportGenerationDetail.isLoading(false));
+      if (options && options.onError) options.onError();
     }
   };
 }

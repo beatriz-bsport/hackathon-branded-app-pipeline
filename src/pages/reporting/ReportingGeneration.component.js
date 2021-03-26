@@ -69,8 +69,7 @@ export class ReportingGeneration extends React.Component<Props> {
     if (this.props.report.date_start) {
       const dateStart = moment(this.props.report.date_start);
       const dateEnd = moment(this.props.report.date_end);
-      this.props.handleGenerate({ dateStart, dateEnd });
-      this.props.handleGenerateHeaders();
+      this.handleGenerate({ dateStart, dateEnd });
     }
   }
 
@@ -78,20 +77,27 @@ export class ReportingGeneration extends React.Component<Props> {
     if (!!this.props.report.date_start && !prevProps.report.date_start) {
       const dateStart = moment(this.props.report.date_start);
       const dateEnd = moment(this.props.report.date_end);
-      this.props.handleGenerate({ dateStart, dateEnd });
+      this.handleGenerate({ dateStart, dateEnd });
       this.props.fetchReports();
       this.props.fetchReportMetadata();
-      this.props.handleGenerateHeaders();
     }
   }
+
+  handleGenerate = (params) => {
+    this.props.handleGenerate(params, {
+      onSuccess: () =>
+        this.props.handleGenerateHeaders({
+          date_start: moment(params.dateStart).format('YYYY-MM-DD'),
+          date_end: moment(params.dateEnd).format('YYYY-MM-DD'),
+        }),
+    });
+  };
 
   render() {
     const {
       report,
-      handleGenerate,
       handleGeneratePreviousPage,
       handleGenerateNextPage,
-      handleGenerateHeaders,
       reportHeaders,
       reportHeadersLoading,
       exportLink,
@@ -112,7 +118,7 @@ export class ReportingGeneration extends React.Component<Props> {
             report.loading || reportStoreRowsLoading || this.state.loading
           }
           result={reportStoreRows}
-          handleGenerate={handleGenerate}
+          handleGenerate={this.handleGenerate}
           handleGeneratePreviousPage={handleGeneratePreviousPage}
           handleGenerateNextPage={handleGenerateNextPage}
           exportLink={exportLink}
@@ -121,7 +127,6 @@ export class ReportingGeneration extends React.Component<Props> {
           otherPages={otherPages}
           pageSize={pageSize}
           reportStoreRowsLoading={reportStoreRowsLoading}
-          handleGenerateHeaders={handleGenerateHeaders}
           reportHeaders={reportHeaders}
           reportHeadersLoading={reportHeadersLoading}
         />

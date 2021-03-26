@@ -45,6 +45,10 @@ exports.default = {
     dayBookings: 'Réservations (cours collectif) par jour',
     video: 'Vidéo',
   },
+  header: {
+    sum: 'Somme',
+    average: 'En moyenne',
+  },
   columns: {
     accept_email: 'Accepte les emails',
     accept_sms: 'Accepte les SMS',

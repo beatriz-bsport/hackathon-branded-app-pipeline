@@ -11,65 +11,79 @@ function CardHeaders(props: Props) {
   const { headerDetails, headerTitle, classes, t } = props;
   const converters = headerDetails.map((c) => getConverter(c, classes, t));
   return (
-    <Grid item xs={12}>
-      <Typography>{headerTitle}</Typography>
-      {headerDetails.map((average, index) => (
-        <Grid xs={2}>
-          <Card
-            key={index}
-            elevation={1}
-            className={classes.cardStyle}
-            borderColor="#888"
-          >
-            <Typography variant="subtitle1">
-              {average.column_identifier.replace('_', ' ').toUpperCase()}
-            </Typography>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-                width: '100%',
-                paddingLeft: '2',
-              }}
+    <div>
+      <Typography className={classes.headerSectionTitle} variant="h6">
+        {t(`header.${(headerTitle || '').toLowerCase()}`)}
+      </Typography>
+      <Grid container direction="row">
+        {headerDetails.map((average, index) => (
+          <Grid xs={6} md={4} lg={2} spacing={1}>
+            <Card
+              key={index}
+              elevation={1}
+              className={classes.cardStyle}
+              borderColor="#888"
             >
-              <Typography
-                variant="h5"
-                className={classes.typographyValue}
-                {...(converters[index](average.column_value).cellProps || {})}
-              >
-                {converters[index](average.column_value).value}
+              <Typography variant="h5">
+                {t(`columns.${average.column_identifier}`)}
               </Typography>
-            </div>
-          </Card>
-        </Grid>
-      ))}
-    </Grid>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                  width: '100%',
+                  paddingLeft: '2',
+                }}
+              >
+                <Typography
+                  variant="h5"
+                  className={classes.typographyValue}
+                  {...(converters[index](average.column_value).cellProps || {})}
+                >
+                  {converters[index](average.column_value).value}
+                </Typography>
+              </div>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </div>
   );
 }
 export function ReportTableHeaders(props: Props) {
-  const { classes, reportHeaders } = props;
+  const { classes, t, reportHeaders } = props;
   return (
-    <Grid container spacing={1} xs={12} direction="column" alignItems="left">
+    <div className={classes.container}>
       {reportHeaders ? (
         <CardHeaders
           headerDetails={reportHeaders.averageable}
-          headerTitle="AVERAGE"
+          headerTitle="average"
           classes={classes}
+          t={t}
         />
       ) : null}
       {reportHeaders ? (
         <CardHeaders
           headerDetails={reportHeaders.summable}
-          headerTitle="SUM"
+          t={t}
+          headerTitle="sum"
           classes={classes}
         />
       ) : null}
-    </Grid>
+    </div>
   );
 }
 
 const styles = (theme) => ({
+  container: {
+    marginLeft: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+  },
+  headerSectionTitle: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+  },
   cardStyle: {
     paddingTop: theme.spacing(2),
     paddingRight: theme.spacing(2.0),
@@ -81,5 +95,5 @@ const styles = (theme) => ({
 });
 
 export default withStyles(styles)(
-  withTranslation(['headers'])(ReportTableHeaders),
+  withTranslation(['reporting'])(ReportTableHeaders),
 );

@@ -15,7 +15,16 @@ const fetchReportHeaders = async (reportId: number, params: any) => {
     )}`,
   );
 };
+const fetchExcelReporting = async (reportId: number, params: any) => {
+  return getAuth(
+    `${API_URI}/reporting/reports/${reportId}/export_async/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
 export default {
   fetchReportGeneration,
   fetchReportHeaders,
+  fetchExcelReporting,
 };

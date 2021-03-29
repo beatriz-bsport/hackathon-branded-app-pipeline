@@ -7,6 +7,7 @@ import categoryReducers from '../libs/category/reducers';
 import paymentReducers from './payment';
 import consumerReducers from '../libs/consumer-space/reducers';
 import snackbarReducer from './snackbar.reducers';
+import backgroundDialogReducer from './backgroundDialog.reducers';
 import searchReducer from './search.reducers';
 import network from '../libs/network/reducers';
 import companiesReducers from './companies.reducers';
@@ -56,6 +57,7 @@ import dashboardSettings from '../libs/dashboard/reducers';
 import marketplace from '../libs/marketplace/reducers';
 import zoomAppReducers from '../libs/zoom-app/reducers';
 import reportGenerationState from '../libs/reporting/reducers';
+
 import { reducer } from '../resources';
 
 import { PrivateServiceState } from '../libs/private-service/types';
@@ -102,6 +104,7 @@ const rootReducer = (history: any) =>
     invoice: invoiceReducers,
     paymentBackend,
     snackbar: snackbarReducer,
+    backgroundDialog: backgroundDialogReducer,
     search: searchReducer,
     companies: companiesReducers,
     shop: shopReducer,

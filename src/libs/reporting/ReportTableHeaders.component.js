@@ -16,7 +16,7 @@ function CardHeaders(props: Props) {
         {t(`header.${(headerTitle || '').toLowerCase()}`)}
       </Typography>
       <Grid container direction="row">
-        {headerDetails.map((average, index) => (
+        {headerDetails.map((colum, index) => (
           <Grid xs={6} md={4} lg={2} spacing={1}>
             <Card
               key={index}
@@ -25,7 +25,7 @@ function CardHeaders(props: Props) {
               borderColor="#888"
             >
               <Typography variant="h5">
-                {t(`columns.${average.column_identifier}`)}
+                {t(`columns.${colum.column_identifier}`)}
               </Typography>
               <div
                 style={{
@@ -39,9 +39,9 @@ function CardHeaders(props: Props) {
                 <Typography
                   variant="h5"
                   className={classes.typographyValue}
-                  {...(converters[index](average.column_value).cellProps || {})}
+                  {...(converters[index](colum.column_value).cellProps || {})}
                 >
-                  {converters[index](average.column_value).value}
+                  {converters[index](colum.column_value).value}
                 </Typography>
               </div>
             </Card>
@@ -55,7 +55,9 @@ export function ReportTableHeaders(props: Props) {
   const { classes, t, reportHeaders } = props;
   return (
     <div className={classes.container}>
-      {reportHeaders ? (
+      {reportHeaders &&
+      reportHeaders.averageable &&
+      reportHeaders.averageable.length !== 0 ? (
         <CardHeaders
           headerDetails={reportHeaders.averageable}
           headerTitle="average"
@@ -63,7 +65,9 @@ export function ReportTableHeaders(props: Props) {
           t={t}
         />
       ) : null}
-      {reportHeaders ? (
+      {reportHeaders &&
+      reportHeaders.summable &&
+      reportHeaders.summable.length !== 0 ? (
         <CardHeaders
           headerDetails={reportHeaders.summable}
           t={t}

@@ -26,12 +26,18 @@ type Props = {
   handleGenerateHeaders: (*) => void,
   reportHeaders: object,
   reportHeadersLoading: boolean,
-  exportLink?: string,
   previousPage: number,
   nextPage: number,
   otherPages: Array<number>,
   pageSize: number,
   reportStoreRowsLoading: boolean,
+  handleGenerate: () => void,
+  handleExcelExportation: () => void,
+  showDialog: boolean,
+  setShowDialog: () => void,
+  setShowDialog: (boolean: boolean) => void,
+  disableContinue: boolean,
+  setDisableContinue: (boolean: boolean) => void,
 };
 
 export default function ReportGeneration(props: Props) {
@@ -45,32 +51,36 @@ export default function ReportGeneration(props: Props) {
     handleGenerateHeaders,
     reportHeaders,
     reportHeadersLoading,
-    exportLink,
     metadata,
     previousPage,
     nextPage,
     otherPages,
     pageSize,
     reportStoreRowsLoading,
+    handleExcelExportation,
+    showDialog,
+    setShowDialog,
+    disableContinue,
+    setDisableContinue,
   } = props;
 
   if (!report || metadata.loading) {
     return <LinearProgress />;
   }
+
   return (
     <div>
-      {!report || metadata.loading ? (
-        <LinearProgress />
-      ) : (
-        <ReportGenerationForm
-          reportConfiguration={report}
-          onSubmit={handleGenerate}
-          exportLink={exportLink}
-          metadata={metadata}
-          isSubmitting_={reportStoreRowsLoading}
-        />
-      )}
-
+      <ReportGenerationForm
+        reportConfiguration={report}
+        onSubmit={handleGenerate}
+        metadata={metadata}
+        handleExcelExportation={handleExcelExportation}
+        showDialog={showDialog}
+        setShowDialog={setShowDialog}
+        disableContinue={disableContinue}
+        setDisableContinue={setDisableContinue}
+        isSubmitting_={reportStoreRowsLoading}
+      />
       <ReportTableHeaders
         handleGenerateHeaders={handleGenerateHeaders}
         reportHeaders={reportHeaders}
@@ -94,13 +104,11 @@ export default function ReportGeneration(props: Props) {
           />
         </Paper>
       ) : null}
-
       {reportStoreRowsLoading && result ? <LinearProgress /> : null}
     </div>
   );
 }
 
 ReportGeneration.defaultProps = {
-  resultLoading: false,
-  exportLink: null,
+  resultLoading: true,
 };

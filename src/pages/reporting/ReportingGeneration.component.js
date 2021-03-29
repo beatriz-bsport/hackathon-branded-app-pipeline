@@ -4,7 +4,7 @@ import moment from 'moment-timezone';
 import React from 'react';
 
 import { compose, withState, withHandlers } from 'recompose';
-
+import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -12,11 +12,12 @@ import withTitle from '../../hocs/with-title.hoc';
 
 import ReportGeneration from '../../libs/reporting/ReportGeneration.component';
 
-import { reports, reportMetadata, urls } from '../../resources/reporting';
+import { reports, reportMetadata } from '../../resources/reporting';
 
 import {
   fetchReportGeneration,
   fetchReportHeaders,
+  exportExcelReport,
 } from '../../libs/reporting/actions';
 
 import type {
@@ -37,7 +38,6 @@ type Props = {
   loading: boolean,
   report: ReportConfiguration,
   metadata: ReportMetadata,
-  exportLink: string,
   fetchReports: () => void,
   fetchReportMetadata: () => void,
   handleGenerate: (*) => void,
@@ -52,6 +52,12 @@ type Props = {
   handleGenerateHeaders: (*) => void,
   reportHeadersLoading: boolean,
   reportHeaders: object,
+  handleGenerate: () => void,
+  handleExcelExportation: () => void,
+  showDialog: boolean,
+  setShowDialog: (boolean: boolean) => void,
+  disableContinue: boolean,
+  setDisableContinue: (boolean: boolean) => void,
 };
 
 export class ReportingGeneration extends React.Component<Props> {
@@ -100,7 +106,6 @@ export class ReportingGeneration extends React.Component<Props> {
       handleGenerateNextPage,
       reportHeaders,
       reportHeadersLoading,
-      exportLink,
       metadata,
       reportStoreRows,
       reportStoreRowsLoading,
@@ -108,6 +113,11 @@ export class ReportingGeneration extends React.Component<Props> {
       nextPage,
       otherPages,
       pageSize,
+      handleExcelExportation,
+      showDialog,
+      setShowDialog,
+      disableContinue,
+      setDisableContinue,
     } = this.props;
     return (
       <div>
@@ -121,7 +131,7 @@ export class ReportingGeneration extends React.Component<Props> {
           handleGenerate={this.handleGenerate}
           handleGeneratePreviousPage={handleGeneratePreviousPage}
           handleGenerateNextPage={handleGenerateNextPage}
-          exportLink={exportLink}
+          handleExcelExportation={handleExcelExportation}
           previousPage={previousPage}
           nextPage={nextPage}
           otherPages={otherPages}
@@ -129,6 +139,10 @@ export class ReportingGeneration extends React.Component<Props> {
           reportStoreRowsLoading={reportStoreRowsLoading}
           reportHeaders={reportHeaders}
           reportHeadersLoading={reportHeadersLoading}
+          showDialog={showDialog}
+          setShowDialog={setShowDialog}
+          setDisableContinue={setDisableContinue}
+          disableContinue={disableContinue}
         />
       </div>
     );
@@ -136,6 +150,7 @@ export class ReportingGeneration extends React.Component<Props> {
 }
 
 export default compose(
+  withTranslation(),
   routerParamsToProps({ reportId: 'id:number' }),
   connect(
     (state, { id }) => ({
@@ -155,17 +170,16 @@ export default compose(
       fetchReports: reports.effects.fetchAll,
       fetchExtractResult: fetchReportGeneration,
       fecthRelatedHeaders: fetchReportHeaders,
+      fetchExcelReport: exportExcelReport,
     },
   ),
-  withState('exportLink', 'setExportLink', null),
+  withState('showDialog', 'setShowDialog', false),
+  withState('disableContinue', 'setDisableContinue', true),
   withHandlers({
-    handleGenerate: ({
-      id,
-      fetchExtractResult,
-      setExportLink,
-      report,
-      pageSize,
-    }) => ({ dateStart, dateEnd, page }, options) => {
+    handleGenerate: ({ id, fetchExtractResult, report, pageSize }) => (
+      { dateStart, dateEnd, page },
+      options,
+    ) => {
       fetchExtractResult(
         id,
         report.date_type === 'range'
@@ -182,13 +196,6 @@ export default compose(
             },
         options,
       );
-      const params = {
-        fileformat: 'xlsx',
-        dateStart: dateStart.format('YYYY-MM-DD'),
-        dateEnd: dateEnd.clone().format('YYYY-MM-DD'),
-      };
-      const exportLink = report && urls.export(id, params);
-      setExportLink(exportLink);
     },
   }),
   withHandlers({
@@ -224,6 +231,32 @@ export default compose(
         },
         options,
       );
+    },
+  }),
+  withHandlers({
+    handleExcelExportation: ({
+      id,
+      t,
+      report,
+      fetchExcelReport,
+      setShowDialog,
+      setDisableContinue,
+    }) => (values) => {
+      setShowDialog(true);
+      const backgroundDialog = {
+        message: t('reporting:export.ready', { name: report.name }),
+        title: t('reporting:export.category', { category: report.category }),
+      };
+      const params = {
+        fileformat: 'xlsx',
+        date_start: values.dateStart.format('YYYY-MM-DD'),
+        date_end: values.dateEnd.format('YYYY-MM-DD'),
+      };
+      setTimeout(() => setDisableContinue(false), 5000);
+      fetchExcelReport(id, params, {
+        backgroundDialog,
+        closeInitialDialog: () => setShowDialog(false),
+      });
     },
   }),
   withTitle(({ report }) => (report && report.name) || ''),

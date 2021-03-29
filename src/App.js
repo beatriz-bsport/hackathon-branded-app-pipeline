@@ -17,7 +17,7 @@ import LoadingBackoffice from './components/navigation/LoadingBackoffice.compone
 
 import SnackbarPile from './SnackbarPile.component';
 import BackgroundSnackbar from './BackgroundSnackbar.component';
-
+import BackgroundDialog from './BackgroundDialog.component';
 import Root from './Root';
 
 import initStore from './store';
@@ -61,6 +61,7 @@ export class App extends Component<{}, {}> {
                 >
                   <SnackbarPile />
                   <BackgroundSnackbar />
+                  <BackgroundDialog />
                   <Root />
                 </MuiPickersUtilsProvider>
               </Suspense>

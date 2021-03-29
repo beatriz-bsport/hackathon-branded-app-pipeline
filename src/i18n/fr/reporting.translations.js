@@ -260,4 +260,12 @@ exports.default = {
     empty: 'Aucun rapport ? Créer un premier rapport !',
     button_new: 'Je crée mon premier rapport',
   },
+  export: {
+    excel_report: 'Rapport Excel',
+    continue: 'Poursuivre la navigation',
+    processing: `Votre demande de rapport Excel est en cours de traitement. Vous serez notifié dès qu'il sera prêt.`,
+    generate: 'Générer',
+    ready: 'Votre rapport "{{ name }}" est prêt à être télécharger.',
+    category: 'Rapport Excel  : {{category}}',
+  },
 };

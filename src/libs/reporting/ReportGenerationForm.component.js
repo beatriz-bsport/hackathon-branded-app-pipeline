@@ -17,7 +17,12 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   AlertError,
   DateField,
@@ -25,19 +30,28 @@ import {
   Actions,
   defaultHandleSubmit,
 } from '../../components/forms';
-import withIntercomAction from '../../hocs/tracking/dispatch-action.hoc';
-
-import { getAuth } from '../../http';
 
 import type { ReportConfiguration as ReportConfigurationType } from './types';
 
 type Props = {
   isSubmitting_: boolean,
   t: TFunction,
-  exportLink?: string,
   reportConfiguration: ReportConfigurationType,
   classes: { [string]: string },
   reportConfiguration: Object,
+  handleExcelExportation: () => void,
+  showDialog: boolean,
+  setShowDialog: (boolean: boolean) => void,
+  disableContinue: boolean,
+  setDisableContinue: (boolean: boolean) => void,
+  values: Object,
+};
+type DownloadButtonProps = {
+  t: TFunction,
+  classes: Object,
+  handleExcelExportation: (object<any>) => void,
+  isSubmitting_: boolean,
+  values: Object,
 };
 
 const ReportGenerationSchema = Yup.object().shape({
@@ -57,22 +71,13 @@ const ReportGenerationSchema = Yup.object().shape({
 });
 
 function DownloadButton(props: DownloadButtonProps) {
-  const { exportLink, classes, t, isSubmitting_ } = props;
+  const { classes, t, handleExcelExportation, isSubmitting_ } = props;
   return (
     <Button
       variant="contained"
       color="secondary"
-      onClick={withIntercomAction('Exported a report')(async () => {
-        const response = await getAuth(exportLink);
-        const link = document.createElement('a');
-        link.setAttribute('type', 'hidden');
-        link.href = response.data;
-        link.download = response.data.split('/').pop();
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-      })}
-      disabled={!exportLink || isSubmitting_}
+      onClick={() => handleExcelExportation(props.values)}
+      disabled={isSubmitting_}
     >
       {t('common.export')}
       <CloudDownloadIcon className={classes.rightIcon} />
@@ -81,69 +86,126 @@ function DownloadButton(props: DownloadButtonProps) {
 }
 
 export function ReportGenerationForm(props: Props) {
-  const { t, isSubmitting_, exportLink, classes, reportConfiguration } = props;
+  const {
+    t,
+    isSubmitting_,
+    classes,
+    reportConfiguration,
+    handleExcelExportation,
+    showDialog,
+    setShowDialog,
+    disableContinue,
+    setDisableContinue,
+  } = props;
   return (
-    <Form>
-      <Grid container direction="row" justify="space-between">
-        <Grid item>
-          {reportConfiguration.date_type === 'none' ? (
-            <div />
-          ) : (
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <DateField
-                  name="dateStart"
-                  fullWidth
-                  label={t('common.from')}
-                />
-                <AlertError name="dateStart" />
-              </Grid>
-              <Hidden
-                only={
-                  reportConfiguration.date_type === 'range'
-                    ? []
-                    : ['xs', 'sm', 'md', 'lg', 'xl']
-                }
-              >
+    <React.Fragment>
+      <Dialog
+        open={showDialog}
+        onClose={
+          disableContinue
+            ? null
+            : () => {
+                setShowDialog(false);
+                setDisableContinue(true);
+              }
+        }
+        aria-labelledby="popup-excel-report"
+        aria-describedby="popup-excel-report"
+      >
+        <DialogTitle id="alert-dialog-title">
+          <div className={classes.flexTitle}>
+            {t('reporting:export.excel_report')}
+            {disableContinue && <CircularProgress color="primary" />}
+          </div>
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {t('reporting:export.processing')}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            disabled={disableContinue}
+            onClick={
+              disableContinue
+                ? null
+                : () => {
+                    setShowDialog(false);
+                    setDisableContinue(true);
+                  }
+            }
+            color="primary"
+            autoFocus
+          >
+            {t('reporting:export.continue')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Form>
+        <Grid container direction="row" justify="space-between">
+          <Grid item>
+            {reportConfiguration.date_type === 'none' ? (
+              <div />
+            ) : (
+              <Grid container spacing={2}>
                 <Grid item xs={6}>
                   <DateField
-                    name={
-                      reportConfiguration.date_type === 'range'
-                        ? 'dateEnd'
-                        : 'dateStart'
-                    }
+                    name="dateStart"
                     fullWidth
-                    label={t('common.until')}
+                    label={t('common.from')}
                   />
                   <AlertError name="dateStart" />
                 </Grid>
-              </Hidden>
-            </Grid>
-          )}
+                <Hidden
+                  only={
+                    reportConfiguration.date_type === 'range'
+                      ? []
+                      : ['xs', 'sm', 'md', 'lg', 'xl']
+                  }
+                >
+                  <Grid item xs={6}>
+                    <DateField
+                      name={
+                        reportConfiguration.date_type === 'range'
+                          ? 'dateEnd'
+                          : 'dateStart'
+                      }
+                      fullWidth
+                      label={t('common.until')}
+                    />
+                    <AlertError name="dateStart" />
+                  </Grid>
+                </Hidden>
+              </Grid>
+            )}
+          </Grid>
+          <Grid item>
+            <Actions>
+              <DownloadButton
+                classes={classes}
+                t={t}
+                values={props.values}
+                handleExcelExportation={handleExcelExportation}
+                isSubmitting_={isSubmitting_}
+              />
+              <Submit disabled={isSubmitting_}>{t('common.generate')}</Submit>
+            </Actions>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Actions>
-            <DownloadButton
-              isSubmitting_={isSubmitting_}
-              exportLink={exportLink}
-              classes={classes}
-              t={t}
-            />
-            <Submit disabled={isSubmitting_}>{t('common.generate')}</Submit>
-          </Actions>
-        </Grid>
-      </Grid>
-    </Form>
+      </Form>
+    </React.Fragment>
   );
 }
-
-ReportGenerationForm.defaultProps = {
-  exportLink: null,
-};
 
 const styles = (theme) => ({
   rightIcon: {
     marginLeft: theme.spacing(1),
+  },
+  flexTitle: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
 

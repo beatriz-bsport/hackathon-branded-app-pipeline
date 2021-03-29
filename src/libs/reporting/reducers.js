@@ -1,7 +1,11 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { reportGenerationDetail, reportHeadersDetail } from './actions';
+import {
+  reportGenerationDetail,
+  reportHeadersDetail,
+  exportingExcelReportActions,
+} from './actions';
 
 const initialState: reportGenerationState = Immutable({
   reportResponse: {
@@ -20,6 +24,11 @@ const initialState: reportGenerationState = Immutable({
   reportHeaders: {},
   headersLoading: false,
   headersError: null,
+  excelReportingReducer: {
+    loading: false,
+    link: null,
+    error: null,
+  },
 });
 export default handleActions(
   {
@@ -40,6 +49,15 @@ export default handleActions(
     },
     [reportHeadersDetail.error]: (state, { payload }) => {
       return state.set('headersError', payload);
+    },
+    [exportingExcelReportActions.success]: (state, { payload }) => {
+      return state.set('excelReportingReducer.link', payload);
+    },
+    [exportingExcelReportActions.isLoading]: (state, { payload }) => {
+      return state.set('excelReportingReducer.loading', payload);
+    },
+    [exportingExcelReportActions.error]: (state, { payload }) => {
+      return state.set('excelReportingReducer.error', payload);
     },
   },
   initialState,

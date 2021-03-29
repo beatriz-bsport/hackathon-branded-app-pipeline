@@ -234,7 +234,7 @@ export default compose(
     privateConsumerPassId: 'privateConsumerPassId:number',
   }),
   withState('relatedInvoice', 'setRelatedInvoice', null),
-  withState('filters', 'setFilters', {}),
+  withState('filters', 'setFilters', { reverted: false }),
   withState('open', 'setOpen', {}),
   connect(
     (state, { id, privateConsumerPassId, relatedInvoice }) => ({

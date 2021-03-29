@@ -129,37 +129,37 @@
     },
     "notificationRule": {
         "eventType": {
-            "453": "Roosterwijziging (lid)",
-            "452": "Nieuwe afspraak (lid)",
-            "451": "Afspraak geannuleerd en vergoed (lid)",
+            "453": "Tijd gewijzigd (voor leden)",
+            "452": "Nieuwe afspraak (voor leden)",
+            "451": "Afspraak geannuleerd en vergoed (voor leden)",
             "450": "Afspraak - te laat (lid)",
-            "403": "Roosterwijziging (instructeur)",
-            "402": "Nieuwe afspraak (instructeur)",
-            "401": "Afspraak geannuleerd en vergoed (instructeur)",
-            "400": "Afspraak te laat geannuleerd (instructeur)",
+            "403": "Tijd gewijzigd (voor medewerkers)",
+            "402": "Nieuwe afspraak (voor medewerkers)",
+            "401": "Afspraak geannuleerd en vergoed (voor medewerkers)",
+            "400": "Afspraak te laat geannuleerd (voor medewerkers)",
             "29": "Herinnering! De livestream begint over 15 minuten",
-            "28": "Betaling ontvangen",
-            "27": "Abonnement gestopt of beëindigd",
-            "26": "Abonnement gepauzeerd",
-            "25": "Betaalmethode gewijzigd",
-            "24": "Een lid heeft een abonnement afgesloten",
+            "28": "Betaling ontvangen (voor leden)",
+            "27": "Abonnement gestopt of beëindigd (voor leden)",
+            "26": "Abonnement gepauzeerd (voor leden)",
+            "25": "Betaalmethode gewijzigd (voor leden)",
+            "24": "Nieuw abonnement afgesloten (voor leden)",
             "21": "Nieuwe reservering",
-            "19": "Ledenregistratie (manager)",
-            "18": "Reservering geannuleerd: krediet vergoed",
-            "17": "Reservering geannuleerd: krediet niet vergoed",
+            "19": "Nieuw lid (voor medewerkers)",
+            "18": "Geannuleerde reservering: kosteloos en vergoed",
+            "17": "Geannuleerde reservering: krediet(en) niet vergoed",
             "16": "Sessie gewijzigd",
-            "14": "Een medewerker heeft een lid voor de wachtlijst afgemeld (voor manager)",
+            "14": "Een lid heeft een lid van de wachtlijst afgemeld (voor medewerkers)",
             "13": "Een lid heeft zich van de wachtlijst afgemeld (voor leden)",
             "12": "Een lid heeft zich op de wachtlijst ingeschreven",
             "10": "De plaats van een lid op de wachtlijst is verlopen",
-            "9": "Iemand heeft de wachtlijst verlaten: reserveren is mogelijk",
+            "9": "Een lid heeft de wachtlijst verlaten: reserveren is mogelijk",
             "8": "Reservering + aankoop via de cursuskaart",
             "7": "Cursuskaart gebruiken om te reserveren",
-            "6": "Ledenregistratie (voor leden)",
+            "6": "Nieuw lid (voor leden)",
             "3": "Sessie geannuleerd",
             "22": "Factuurbevestiging",
-            "300": "Van de wachtlijst kicken (lid heeft niet tijdig bevestigd)",
-            "601": "Te weinig reserveringen N uur voor het begin van de sessie",
+            "300": "Een lid dat niet tijdig heeft geantwoord van de wachtlijst verwijderen",
+            "601": "Automatische annulering: te weinig reserveringen X uur voor het begin van de sessie",
             "702": "Sanctie: er is een boete opgelegd (voor leden)",
             "701": "Sanctie: het lidmaatschap is geblokkeerd (voor leden)"
         },
@@ -261,7 +261,7 @@
             "waiting-list": "Wachtlijst",
             "booking": "Reservering",
             "offer": "Sessie",
-            "member": "Als lid registreren",
+            "member": "Ledenregistratie",
             "marketing": "Marketing",
             "invoice": "Facturering",
             "payment_pack": "Cursuskaarten"
@@ -274,7 +274,7 @@
             "active": "Activeer"
         },
         "marketingNotification": {
-            "birthday": "Verjaardagsmail"
+            "birthday": "Van harte gefeliciteerd!"
         }
     },
     "membership": {
@@ -1476,7 +1476,7 @@
             "invalidPassword": "Ongeldig wachtwoord"
         },
         "doubleLogin": {
-            "explain": "Heb je je tegelijkertijd met twee verschillende accounts aangemeld en weet je zeker dat je je ook in andere tabbladen/vensters hebt uitgelogd?",
+            "explain": "Je sessie is verlopen. Heb je je tegelijkertijd met twee verschillende accounts aangemeld en weet je zeker of je je andere tabbladen/vensters correct hebt afgesloten?",
             "disconnect": "Opnieuw inloggen"
         },
         "signup": {
@@ -1847,7 +1847,7 @@
         },
         "companyOnboarding": {
             "creation": {
-                "content": "Om online betalingen te kunnen ontvangen, dien je je wettelijke gegevens te controleren.",
+                "content": "Controleer je gegevens om online betalingen te ontvangen.",
                 "title": "Online betalingen: uitgeschakeld"
             },
             "payout": {
@@ -4366,7 +4366,7 @@
                 "showCustomEvents": "Persoonlijke afspraken"
             },
             "enableAvailability": "Beschikbaarheid toevoegen",
-            "createCustomEvent": "Een persoonlijke afspraak toevoegen"
+            "createCustomEvent": "Een taak toevoegen"
         },
         "slotSearcher": {
             "selectPrivateSlot": "Sessie",
@@ -4856,7 +4856,7 @@
             }
         },
         "noPrivateService": "In dit onderdeel kun je al je (semi-)privésessies toevoegen, beheren, wijzigen en verwijderen.",
-        "noPrivatePass": "Met afspraakkaarten kunnen leden zich inschrijven voor je (semi-)privésessies. Je kunt afspraakkaarten voor verschillende activiteiten aanmaken, bijv. Personal/Duo/etc. Training, zaalverhuur, massages enz. \n\nLet op! Vergeet niet om de compatibiliteit van de afspraakkaart in te stellen.",
+        "noPrivatePass": "Met afspraakkaarten kunnen leden zich inschrijven voor je (semi-)privésessies. Je kunt afspraakkaarten voor verschillende activiteiten aanmaken, bijv. Personal/Duo/etc. Training, zaalverhuur, massages enz. <br/>\n\nLet op! Vergeet niet om de compatibiliteit van de afspraakkaart correct in te stellen.",
         "customEvent": {
             "form": {
                 "actions": {
@@ -6088,7 +6088,7 @@
         "turnover": {
             "popover": "Som van alle gefactureerde betalingen",
             "caption": "Omzet",
-            "title": "Ontvangen betalingen"
+            "title": "Omzet"
         },
         "bookings": "Reserveringen",
         "dateRange": {
@@ -6687,8 +6687,8 @@
         },
         "balance": {
             "updaterDialog": {
-                "topup": "Ontvangen betalingen",
-                "debt": "Uitbetaling",
+                "topup": "Incasso",
+                "debt": "Debet",
                 "explainTopup": "Het saldo van het lid wordt met €{{ amount }} verhoogd.",
                 "explainDecaissement": "Er wordt een uitbetaling van €{{ amount }} {{ currencyDisplay }} geregistreerd.",
                 "title": "Het saldo aanpassen",
@@ -7054,7 +7054,7 @@
                 "tab": "Nieuw tabblad"
             },
             "dialogModeLabel": "Type pop-ups (voor het inloggen, betalen en het reserveren)",
-            "showFabLabel": "Zwevende knop op de ledenweergave"
+            "showFabLabel": "Een knop voor \"Mijn profiel\" op de ledenweergave"
         }
     },
     "platformBilling": {

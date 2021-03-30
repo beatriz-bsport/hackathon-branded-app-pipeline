@@ -1023,7 +1023,13 @@
             "signUpTitle": "Anmeldung",
             "explainNoEmailChange": "Wenn die E-Mail-Adresse geändert werden soll, wird es für Lehrer nicht möglich sein, sich einzuloggen. Nur Lehrer können E-Mail-Adressen ändern, indem Lehrer sich mit dem bsport-Konto verbinden",
             "daily": "Täglich",
-            "fifteenMin": "50 min"
+            "fifteenMin": "50 min",
+            "interval": {
+                "day": "Täglich",
+                "week": "Woche",
+                "year": "Jährlich",
+                "month": "Monatlich"
+            }
         },
         "booking": {
             "revertBookingExplain": {
@@ -2031,7 +2037,7 @@
         "pageTitle": "Staff",
         "roleDescription": {
             "4": {
-                "description": "Administrator, gleicher Zugagng wie der Leiter, kann aber gelöscht/erstellt werden",
+                "description": "Administrator, gleicher Zugang wie der Leiter, kann aber gelöscht/erstellt werden",
                 "name": "Administrator"
             },
             "3": {
@@ -4770,6 +4776,11 @@
             },
             "selector": {
                 "title": "Verfügbarkeiten anzeigen"
+            },
+            "allocationWarning": {
+                "showCalendar": "Kalender anzeigen",
+                "establishment": "Diese Einrichtung ist derzeit nicht verfügbar",
+                "coach": "Dieser Lehrer ist zu diesem Zeitpunkt nicht verfügbar"
             }
         },
         "privatePass": {
@@ -4813,6 +4824,14 @@
                 "title": "Terminkarte",
                 "full_vod_access": {
                     "label": "Bietet Zugang zu VOD, solange es zeitlich gültig ist"
+                },
+                "expirationDaysBeforeFirstUse": {
+                    "label": "Ablauf ohne ersten Termin"
+                },
+                "start_date_method": {
+                    "on_attendance": "Beginnt bei der ersten Anwesenheit",
+                    "on_booking": "Beginnt bei der ersten Buchung",
+                    "on_purchase": "Beginnt bei der Rechnungsstellung"
                 }
             },
             "parameters": {

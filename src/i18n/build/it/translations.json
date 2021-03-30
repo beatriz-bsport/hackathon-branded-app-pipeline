@@ -450,7 +450,13 @@
             "signUpTitle": "Iscrizione",
             "explainNoEmailChange": "La modifica dell'e-mail impedirà all'insegnante di connettersi, solo lui può modificare la sua e-mail collegandosi al proprio account bsport",
             "daily": "Quotidiano",
-            "fifteenMin": "50 min"
+            "fifteenMin": "50 min",
+            "interval": {
+                "day": "Quotidiano",
+                "week": "Settimana",
+                "year": "Annuale",
+                "month": "Mensile"
+            }
         },
         "marketing": {
             "dashboard": "Pannello di controllo",
@@ -1539,6 +1545,11 @@
             },
             "selector": {
                 "title": "Verificare la disponibilità"
+            },
+            "allocationWarning": {
+                "showCalendar": "Vedere il calendario",
+                "establishment": "Questa stanza non è disponibile in questo momento",
+                "coach": "Questo insegnante non è disponibile in questo orario"
             }
         },
         "pageTitles": {
@@ -1890,6 +1901,15 @@
                 },
                 "full_vod_access": {
                     "label": "Fornisci accesso ai video on demand finché risulta valido nel tempo"
+                },
+                "expirationDaysBeforeFirstUse": {
+                    "helperText": "Se la carta non viene utilizzata per la prima volta entro questo numero di giorni, non sarà più valida",
+                    "label": "Scadenza se nessun appuntamento iniziale"
+                },
+                "start_date_method": {
+                    "on_attendance": "Inizia alla 1a partecipazione",
+                    "on_booking": "Inizia con la 1a prenotazione",
+                    "on_purchase": "Iniziare alla data di fatturazione"
                 }
             },
             "delete": {
@@ -2255,7 +2275,11 @@
                     "url": "URL",
                     "file": "Documento"
                 },
-                "submit": "Convalidare"
+                "submit": "Convalidare",
+                "minutes": "Minuti",
+                "hours": "Ore",
+                "durationInputError": "Si prega di specificare la durata del video",
+                "durationLabel": "Lunghezza del video"
             },
             "lock": {
                 "accessDenied": "Non hai accesso a questo video",
@@ -2612,6 +2636,11 @@
             "facebookPixelId": {
                 "label": "Facebook Pixel Id",
                 "placeholder": "ID"
+            },
+            "waiver": {
+                "placeholder": "Certifico di avere più di 13 anni",
+                "helperText": "Per la registrazione devono essere accettati i seguenti elementi",
+                "label": "Rilascio di responsabilità"
             }
         },
         "pageTitles": {
@@ -2727,6 +2756,10 @@
             "update": {
                 "error": "Impossibile salvare la smartlist",
                 "success": "Smartlist aggiornata correttamente"
+            },
+            "duplicate": {
+                "error": "Impossibile duplicare la smarlist",
+                "success": "Smartlist duplicata"
             }
         },
         "subscription": {
@@ -3480,7 +3513,11 @@
                 "explainDecaissement": "Un pagamento di  {{ amount }} {{ currencyDisplay }} sarà registrato",
                 "balanceValueLabel": "Importo",
                 "typeLabel": "Tipo di regolazione",
-                "title": "Regolazione del saldo"
+                "title": "Regolazione del saldo",
+                "withoutPaymentNote": {
+                    "warning": "Attenzione: non terremo traccia di questa operazione. Utilizzare solo per regolazioni eccezionali.",
+                    "label": "Non generare una ricevuta"
+                }
             }
         },
         "paymentPanel": {
@@ -3739,7 +3776,7 @@
         },
         "paymentMethod": {
             "credit": {
-                "explain": "Il socio verrà fatturato sul suo conto interno ogni mese. Utilizza questo metodo di pagamento se non hai (ancora) accesso a un metodo di fatturazione come una carta di credito o un bonifico IBAN. È possibile aggiornare il pagamento in seguito."
+                "explain": "Il socio verrà fatturato sul suo conto interno ogni fatturazione. Utilizza questo metodo di pagamento se non hai (ancora) accesso a un metodo di fatturazione come una carta di credito o un bonifico IBAN. È possibile aggiornare il pagamento in seguito."
             },
             "sepa": "Addebito diretto SEPA",
             "bsportCredit": "Conto cliente",
@@ -3754,7 +3791,7 @@
         "parameters": {
             "parameters": "Impostazioni",
             "member": "Socio",
-            "nbMonths": "Numero di mesi",
+            "nbMonths": "Numero di collezioni",
             "payment_method": {
                 "2": "Sul conto",
                 "0": "Carta di credito",
@@ -3764,7 +3801,7 @@
             "name": "Nome",
             "dateCreated": "Data di creazione",
             "autoRenew": "Rinnovo automatico",
-            "nbInterval": "Numero di mesi",
+            "nbInterval": "Numero di collezioni",
             "recurrent_price": "Pagamento ricorrente",
             "flat_fee": "Spese amministrative",
             "paymentPack": "Tessera",
@@ -3774,7 +3811,7 @@
             "status": "Status",
             "subscribeAgain": "Iscriviti di nuovo",
             "voucher": "Offerta speciale",
-            "trial_nb": "Numero di mesi offerti",
+            "trial_nb": "Numero di fatturazione offerte",
             "recurrent_voucher": "Sconto su ogni fattura",
             "private_pass": "Pass per appuntamenti",
             "privatePass": "Pass per appuntamenti",
@@ -3816,7 +3853,7 @@
                     "label": "Nome del contratto"
                 },
                 "nb_interval": {
-                    "label": "Numero di mesi",
+                    "label": "Numero di fatturazione",
                     "helperText": "Almeno 2 mesi"
                 },
                 "recurrent_price": {
@@ -3848,10 +3885,31 @@
                 },
                 "error": {
                     "missingObject": "Questo campo è obbligatorio"
+                },
+                "recurrence_basis": {
+                    "intervalName": {
+                        "week": "setimana",
+                        "week_plural": "settimane",
+                        "day": "giorno",
+                        "day_plural": "giorni",
+                        "month": "mese",
+                        "month_plural": "mesi",
+                        "year": "anno",
+                        "year_plural": "anni"
+                    },
+                    "label": "Ripetere tutto"
+                },
+                "recurrence": {
+                    "explain": "L'abbonamento sarà fatturato ogni {{ recurrence_basis }} {{ interval }} per una durata totale di {{ total_interval_duration }} {{ interval }} e genererà {{ nb_interval }} fatture",
+                    "section": "Ricorrenza"
+                },
+                "interval": {
+                    "helperText": "Frequenza della generazione della fattura/carta",
+                    "label": "Ricorrenza"
                 }
             },
             "legal": "Informazioni legali",
-            "duration": "{{month}} mese",
+            "duration": "{{month}} fatture",
             "deleteForm": {
                 "actions": {
                     "confirm": "Rimuovi",
@@ -3863,7 +3921,17 @@
             "paymentPack": "Tessera associata",
             "no": "No",
             "yes": "Sì",
-            "privatePass": "Pass appuntamento associato"
+            "privatePass": "Pass appuntamento associato",
+            "interval": {
+                "week": "settimana",
+                "week_plural": "settimane",
+                "day": "giorno",
+                "day_plural": "giorni",
+                "year": "anno",
+                "year_plural": "anni",
+                "month": "mese",
+                "month_plural": "mesi"
+            }
         },
         "form": {
             "cancel": "Annulla",
@@ -3960,7 +4028,7 @@
             "email": "Email del titolare",
             "content": "Dando il tuo IBAN e confermando il tuo pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, a inviare le istruzioni di addebito alla tua banca in conformità con il piano di pagamento. Puoi richiedere un rimborso alla tua banca in base ai termini del contratto con essa. Il rimborso deve essere richiesto entro 8 settimane dal primo addebito."
         },
-        "noContracts": "I contratti ti permetteranno di fatturare regolarmente (mensilmente) i tuoi membri per una carta del corso riaccreditata ogni mese.",
+        "noContracts": "I contratti ti permetteranno di fatturare regolarmente (mensilmente) i tuoi membri per una carta del corso riaccreditata ogni mese/giorni/anni",
         "copyLink": "Copia il link nella pagina di pagamento",
         "listItem": {
             "valid": "Valido",
@@ -4243,6 +4311,18 @@
             "Products": "Prodotti",
             "Bookings": "Prenotazioni",
             "Club": "Club"
+        },
+        "export": {
+            "category": "Rapporto Excel: {{category}}",
+            "ready": "Il tuo rapporto \"{{ name }}\" è pronto per il download.",
+            "generate": "Genera",
+            "processing": "La tua richiesta di rapporto Excel è in fase di elaborazione. Sarai avvisato non appena sarà pronto.",
+            "continue": "Continua a navigare",
+            "excel_report": "Rapporto Excel"
+        },
+        "header": {
+            "average": "In media",
+            "sum": "Somma"
         }
     },
     "alerting": {
@@ -6130,7 +6210,8 @@
             "iAccept": "Accetto le ",
             "theTermsAndConditions": "termini e condizioni di vendita.",
             "close": "Chiudi",
-            "generalTermsOfUse": " Condizioni generali di utilizzo"
+            "generalTermsOfUse": " Condizioni generali di utilizzo",
+            "waiver": "disclaimer"
         },
         "explainOption": "Riceverai una notifica via email quando un posto sarà disponibile",
         "actions": {
@@ -6360,7 +6441,8 @@
             "DK": "Danimarca",
             "FI": "Finlandia",
             "SE": "Svezia",
-            "NO": "Norvegia"
+            "NO": "Norvegia",
+            "LU": "Lussemburgo"
         },
         "emailValidation": {
             "disconnect": "Cambia account",

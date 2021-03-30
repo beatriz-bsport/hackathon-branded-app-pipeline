@@ -1572,7 +1572,13 @@
             "noAvailableCredit": "Please note that you are not entering a price. Are you sure of the value?",
             "explainNoEmailChange": "Changing the email will hinder the teacher from connecting, only he can modify his email by connecting to his bsport account",
             "daily": "Daily",
-            "fifteenMin": "50 min"
+            "fifteenMin": "50 min",
+            "interval": {
+                "day": "Daily",
+                "week": "Week",
+                "year": "Yearly",
+                "month": "Monthly"
+            }
         },
         "shop": {
             "noProvisionUpdates": "No provision",

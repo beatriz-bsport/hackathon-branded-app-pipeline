@@ -1791,7 +1791,10 @@
           "confirm": "Modifier"
         }
       },
-      "item": { "explain": "Tous les {{dayOfWeek}} - {{time}}, {{delayWeek}} semaines avant" }
+      "item": {
+        "startFrom": "A partir du {{ date }}",
+        "explain": "Tous les {{dayOfWeek}} - {{time}}, {{delayWeek}} semaines avant"
+      }
     }
   },
   "relationship": {
@@ -3334,7 +3337,8 @@
     "privateRecurrentRule": {
       "createOrUpdate": {
         "success": "Rendez-vous récurrent enregistré avec succès",
-        "error": "Impossible d'enregistrer le rendez-vous récurrent"
+        "error": "Impossible d'enregistrer le rendez-vous récurrent",
+        "locked": "Une règle de récurrence existe déjà avec ces paramètres"
       },
       "delete": { "success": "Rendez-vous récurrent supprimé", "error": "Impossible de supprimer le rendez-vous récurrent" }
     },
@@ -4597,6 +4601,7 @@
       "recurrentRuleBooking": "Réservation récurrente",
       "form": {
         "title": "Programmer une récurrence",
+        "startFromDate": { "label": "Début de la récurrence le " },
         "timeGroup": "Date de la séance",
         "at": " à ",
         "dayOfWeek": { "label": "Jour de la semaine" },

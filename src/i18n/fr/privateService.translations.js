@@ -820,6 +820,7 @@ exports.default = {
       },
     },
     item: {
+      startFrom: 'A partir du {{ date }}',
       explain:
         'Tous les {{dayOfWeek}} - {{time}}, {{delayWeek}} semaines avant',
     },

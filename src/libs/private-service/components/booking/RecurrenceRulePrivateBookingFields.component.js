@@ -1,4 +1,5 @@
 // @flow
+import moment from 'moment-timezone';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import DateInput from '../../../../components/input/DateInput.component';
 
 type Props = {
   privateSlotSet?: boolean,
@@ -32,6 +34,12 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
     props.onTimeSettingChange({
       ...props.selectedSetting,
       [name]: value,
+    });
+  };
+  const fuckThisCode = (e) => {
+    props.onTimeSettingChange({
+      ...props.selectedSetting,
+      start_from_date: e.format('YYYY-MM-DD'),
     });
   };
   return (
@@ -93,6 +101,14 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
           />
         </div>
       )}
+      <div className={classes.row}>
+        <DateInput
+          onChange={fuckThisCode}
+          value={moment(props.selectedSetting.start_from_date)}
+          minDate={moment()}
+          label={t('booking:recurrenceRule.form.startFromDate.label')}
+        />
+      </div>
       <TextField
         type="number"
         name="nb_of_weeks"

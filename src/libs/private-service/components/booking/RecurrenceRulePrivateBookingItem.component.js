@@ -27,6 +27,7 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
   const {
     member,
     private_slot,
+    start_from_date,
     associated_coach,
     associated_establishment,
   } = recurrentPrivateBooking;
@@ -58,6 +59,8 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
     return <div>{member && member.name ? member.name : '-'}</div>;
   };
 
+  const from_date = moment(start_from_date).format('LL');
+
   return (
     <ListItem divider dense>
       {member && member.photo && !notShowMember && (
@@ -78,6 +81,13 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
             {!!private_slot && (
               <Typography color="secondary" variant="body2">
                 {private_slot.name}
+              </Typography>
+            )}
+            {!!start_from_date && (
+              <Typography color="secondary" variant="body2">
+                {t('privateService:recurrenceRule.item.startFrom', {
+                  date: from_date,
+                })}
               </Typography>
             )}
             {!!associated_establishment && (

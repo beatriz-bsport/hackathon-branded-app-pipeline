@@ -368,6 +368,7 @@ exports.default = {
     createOrUpdate: {
       success: 'Rendez-vous récurrent enregistré avec succès',
       error: "Impossible d'enregistrer le rendez-vous récurrent",
+      locked: 'Une règle de récurrence existe déjà avec ces paramètres',
     },
     delete: {
       success: 'Rendez-vous récurrent supprimé',

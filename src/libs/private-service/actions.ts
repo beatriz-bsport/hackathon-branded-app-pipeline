@@ -2,7 +2,11 @@ import { createAction } from 'redux-actions';
 import moment from 'moment-timezone';
 import uniq from 'lodash/uniq';
 
-import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
+import {
+  snackbarSuccess,
+  snackbarError,
+  snackbarWarning,
+} from '../../actions/snackbar.actions';
 
 import {
   // availability-slot
@@ -1840,8 +1844,12 @@ export function createOrUpdateRecurrenceRulePrivateBooking(
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
-      dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.error(err));
-      dispatch(snackbarError('privateRecurrentRule.createOrUpdate.error'));
+      if (err && err.response && err.response.status === 423) {
+        dispatch(snackbarWarning('privateRecurrentRule.createOrUpdate.locked'));
+      } else {
+        dispatch(createOrUpdateRecurrenceRulePrivateBookingActions.error(err));
+        dispatch(snackbarError('privateRecurrentRule.createOrUpdate.error'));
+      }
       if (options && options.onError) options.onError(err);
     }
     dispatch(

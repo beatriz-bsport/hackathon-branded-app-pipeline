@@ -36,6 +36,9 @@ exports.default = {
     recurrentRuleBooking: 'Réservation récurrente',
     form: {
       title: 'Programmer une récurrence',
+      startFromDate: {
+        label: 'Début de la récurrence le ',
+      },
       timeGroup: 'Date de la séance',
       at: ' à ',
       dayOfWeek: {

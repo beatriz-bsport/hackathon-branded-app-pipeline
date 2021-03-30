@@ -1,4 +1,5 @@
 // @flow
+import moment from 'moment-timezone';
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -85,6 +86,7 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
           day_of_week: props.initial.day_of_week,
           hour: props.initial.hour,
           minute: props.initial.minute,
+          start_from_date: props.initial.start_from_date,
         },
         notify_if_booked: props.initial.notify_if_booked,
       };
@@ -101,6 +103,7 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
           day_of_week: 0,
           hour: 11,
           minute: 0,
+          start_from_date: moment().format('YYYY-MM-DD'),
         },
         notify_if_booked: false,
       };
@@ -139,13 +142,20 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
   };
 
   handleTimeSettingChange = (time_setting: any) => {
-    const { nb_of_weeks, day_of_week, hour, minute } = time_setting;
+    const {
+      nb_of_weeks,
+      day_of_week,
+      hour,
+      minute,
+      start_from_date,
+    } = time_setting;
     this.setState({
       time_setting: {
         nb_of_weeks,
         day_of_week,
         hour,
         minute,
+        start_from_date,
       },
     });
   };

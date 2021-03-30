@@ -495,7 +495,13 @@
             "noAvailableCredit": "Tiene en cuenta que no estás ingresando un precio. ¿Estás seguro del valor?",
             "explainNoEmailChange": "Cambiar el email evitará que el maestro se conecte, solo él puede modificar su email conectándose a su cuenta bsport",
             "daily": "Diario",
-            "fifteenMin": "50 min"
+            "fifteenMin": "50 min",
+            "interval": {
+                "day": "Diario",
+                "week": "Semana",
+                "year": "Anual",
+                "month": "Mensualmente"
+            }
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -1349,7 +1355,8 @@
             "DK": "Dinamarca",
             "FI": "Finlandia",
             "SE": "Suecia",
-            "NO": "Noruega"
+            "NO": "Noruega",
+            "LU": "Luxemburgo"
         },
         "emailValidation": {
             "disconnect": "Cambiar de cuenta",
@@ -1809,7 +1816,8 @@
             "iAccept": "Acepto los ",
             "close": "Cerrar",
             "theTermsAndConditions": "Condiciones generales de venta.",
-            "generalTermsOfUse": " condiciones de uso"
+            "generalTermsOfUse": " condiciones de uso",
+            "waiver": "descargo de responsabilidad"
         },
         "forms": {
             "paymentIntent": {
@@ -2088,7 +2096,11 @@
                 "title": "Ajuste del balance",
                 "explainDecaissement": "Se registrará un desembolso de {{ amount }}  {{ currencyDisplay }}",
                 "balanceValueLabel": "Cantidad",
-                "typeLabel": "Tipo de ajuste"
+                "typeLabel": "Tipo de ajuste",
+                "withoutPaymentNote": {
+                    "warning": "Advertencia: no guardaremos ningún registro de esta operación. Utilizar sólo para ajustes excepcionales.",
+                    "label": "No generar un recibo"
+                }
             }
         },
         "paymentPanel": {
@@ -2335,15 +2347,15 @@
             "parameters": "Parámetros",
             "subscribeAgain": "Suscribir otra vez",
             "voucher": "Oferta especial",
-            "trial_nb": "Numero de meses ofrecidos",
+            "trial_nb": "Numero de facturas ofrecidas",
             "recurrent_voucher": "Descuento por cada mes",
             "name": "Nombre",
             "member": "Miembro",
             "dateCreated": "Fecho de registro",
-            "nbInterval": "Número de meses",
+            "nbInterval": "Número de recogidas",
             "recurrent_price": "Suscripción",
             "paymentPack": "Tarjeta de curso",
-            "nbMonths": "Número de meses",
+            "nbMonths": "Número de recogidas",
             "dateStart": "Primera facturación",
             "firstBilling": "Primero pago",
             "payment_pack": "Tarjeta de curso",
@@ -2376,7 +2388,7 @@
         },
         "paymentMethod": {
             "credit": {
-                "explain": "El miembro será facturado en su depósito interno cada mes. Utiliza este método de pago si (todavía) no tienes acceso a un método de facturación como una tarjeta de crédito o una transferencia IBAN. Puedes actualizar el pago a posteriori."
+                "explain": "El miembro será facturado en su depósito interno cada factura. Utiliza este método de pago si (todavía) no tienes acceso a un método de facturación como una tarjeta de crédito o una transferencia IBAN. Puedes actualizar el pago a posteriori."
             },
             "bsportCredit": "Anticipo cliente",
             "card": "Tarjeta de crédito",
@@ -2407,7 +2419,7 @@
                 },
                 "nb_interval": {
                     "helperText": "Al menos 2 meses",
-                    "label": "Número de meses"
+                    "label": "Número de facturas"
                 },
                 "name": {
                     "label": "Nombre del contrato"
@@ -2421,6 +2433,27 @@
                 },
                 "error": {
                     "missingObject": "Este campo es obligatorio"
+                },
+                "recurrence_basis": {
+                    "intervalName": {
+                        "week": "semana",
+                        "week_plural": "semanas",
+                        "day": "día",
+                        "day_plural": "días",
+                        "month": "mes",
+                        "month_plural": "meses",
+                        "year": "año",
+                        "year_plural": "años"
+                    },
+                    "label": "Repite todo"
+                },
+                "recurrence": {
+                    "explain": "La suscripción se facturará cada {{ recurrence_basis }} {{ interval }} sobre una duración total de {{ total_interval_duration }} {{ interval }} y generará {{ nb_interval }} facturas",
+                    "section": "Recurrencia"
+                },
+                "interval": {
+                    "helperText": "Frecuencia de generación de facturas/tarjetas",
+                    "label": "Recurrencia"
                 }
             },
             "list": {
@@ -2440,7 +2473,7 @@
             },
             "legal": "Notas legales",
             "description": "Descripción",
-            "duration": "{{month}} mes",
+            "duration": "{{month}} facturas",
             "registerManager": {
                 "actions": {
                     "cancel": "Cancelar"
@@ -2460,7 +2493,17 @@
             "paymentPack": "Tarjeta de curso asociada",
             "no": "No",
             "yes": "Sí",
-            "privatePass": "Tarjeta de cita asociada"
+            "privatePass": "Tarjeta de cita asociada",
+            "interval": {
+                "week": "semana",
+                "week_plural": "semanas",
+                "day": "día",
+                "day_plural": "días",
+                "year": "año",
+                "year_plural": "años",
+                "month": "mes",
+                "month_plural": "meses"
+            }
         },
         "plannedInvoice": {
             "priceUpdater": {
@@ -2554,7 +2597,7 @@
                 "label": "Factura {{uuid}} : {{price}}€"
             }
         },
-        "noContracts": "Los contratos te permitirán facturar a tus miembros regularmente (mensualmente) por una tarjeta de curso que se vuelve a acreditar cada mes.",
+        "noContracts": "Los contratos te permitirán facturar a tus miembros regularmente (mensualmente) por una tarjeta de curso que se vuelve a acreditar cada mes/días/años.",
         "save": "validar",
         "cancel": "cancelar",
         "events": {
@@ -2853,6 +2896,18 @@
             "Products": "Productos",
             "Bookings": "Reservas",
             "Club": "Club"
+        },
+        "export": {
+            "category": "Informe en Excel : {{category}}",
+            "ready": "Su informe \"{{ name }}\" está listo para ser descargado.",
+            "generate": "Generar",
+            "processing": "Su solicitud de informe en Excel está siendo procesada. Se le notificará tan pronto como esté listo.",
+            "continue": "Seguir navegando",
+            "excel_report": "Informe en Excel"
+        },
+        "header": {
+            "average": "Por término medio",
+            "sum": "Suma"
         }
     },
     "alerting": {
@@ -3929,6 +3984,15 @@
                 "title": "Tarjeta de cita",
                 "full_vod_access": {
                     "label": "Proporciona acceso a la VOD siempre que sea válido en el tiempo"
+                },
+                "expirationDaysBeforeFirstUse": {
+                    "helperText": "Si la tarjeta no se utiliza por primera vez durante este número de días, quedará invalidada",
+                    "label": "Caducidad si no hay cita inicial"
+                },
+                "start_date_method": {
+                    "on_attendance": "Comienza con la primera asistencia",
+                    "on_booking": "Comienza con la primera reserva",
+                    "on_purchase": "Iniciar la facturación"
                 }
             },
             "compatibleServices": {
@@ -4247,6 +4311,11 @@
             },
             "selector": {
                 "title": "Ver las disponibilidades"
+            },
+            "allocationWarning": {
+                "showCalendar": "Ver el calendario",
+                "establishment": "Esta habitación no está disponible en este momento",
+                "coach": "Este profesor no está disponible en este horario"
             }
         },
         "serviceGroup": {
@@ -4824,6 +4893,11 @@
             "facebookPixelId": {
                 "placeholder": "ID",
                 "label": "Facebook Pixel Id"
+            },
+            "waiver": {
+                "placeholder": "Certifico que soy mayor de 13 años",
+                "helperText": "Para la inscripción se debe aceptar lo siguiente",
+                "label": "Exención de responsabilidad"
             }
         },
         "pageTitles": {
@@ -5271,6 +5345,10 @@
             "create": {
                 "error": "No es posible guardar la smartlist",
                 "success": "Smartlist creada exitosamente"
+            },
+            "duplicate": {
+                "error": "Imposible duplicar la smarlist",
+                "success": "Duplicar la lista inteligente"
             }
         },
         "shop": {
@@ -6268,7 +6346,11 @@
                     "url": "URL",
                     "file": "Archivo"
                 },
-                "submit": "Guardar"
+                "submit": "Guardar",
+                "minutes": "Minutos",
+                "hours": "Horas",
+                "durationInputError": "Especifique la duración del vídeo",
+                "durationLabel": "Duración del vídeo"
             },
             "delete": {
                 "content": "¿Estás seguro de que quieres suprimir este video? Esta operación es irreversible.",

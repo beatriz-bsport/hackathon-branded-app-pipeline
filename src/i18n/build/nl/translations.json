@@ -326,7 +326,7 @@
         "countdown": {
             "seconds": "Seconden",
             "minutes": "Minuten",
-            "hours": "Uren"
+            "hours": "Uur"
         },
         "appbar": {
             "title": {
@@ -673,7 +673,7 @@
             "newMember": "Nieuw lid",
             "coach": "Instructeur",
             "establishment": "Vestiging",
-            "addingSessionFor": "Sessie(s) toevoegen voor: ",
+            "addingSessionFor": "Sessies toevoegen voor: ",
             "level": "Niveau",
             "effectif": "Beschikbare plaatsen",
             "caracteristics": "Kenmerken",
@@ -692,7 +692,7 @@
             "offerWillBeGenerated": "sessies worden toegevoegd.",
             "offersWillBeGenerated": "sessies worden toegevoegd.",
             "credit_price": "Vereiste krediet(en)",
-            "generateOffers": "Sessie(s) toevoegen",
+            "generateOffers": "Sessies toevoegen",
             "default_waiting_list_max_size": "Grootte van de wachtlijst",
             "password": "Wachtwoord",
             "signInPhoneInstruction": "Voer je telefoonnummer in. Je ontvangt per sms een bevestigingscode",
@@ -1048,7 +1048,7 @@
             "packsAvailable": "Compatibele cursuskaarten:",
             "orNcredits2": " credits)",
             "orNcredits1": "(of ",
-            "noOfferThisDay": "Vandaag zijn er helaas geen sessies. Selecteer een andere datum of begin met het toevoegen van sessies!",
+            "noOfferThisDay": "Vandaag zijn er geen sessies. Selecteer een andere datum of begin met het toevoegen van sessies!",
             "offersThisDay": "Sessie(s) van vandaag:",
             "category": "Categorie",
             "description": "Beschrijving",
@@ -1059,7 +1059,7 @@
             "color": "Kleurcode",
             "name": "Titel",
             "addActivity": "Een activiteit toevoegen",
-            "addOffers": "Sessie(s) toevoegen",
+            "addOffers": "Sessies toevoegen",
             "lastDiscardBeforeMinutes": "Geef aan tot wanneer leden voor het begin van de sessie kunnen annuleren (late-cancel)",
             "lastBookingBeforeMinutes": "Selecteer tot wanneer een lid zich kan inschrijven",
             "is_broadcast": "Dit is een livestream",

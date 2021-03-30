@@ -38,6 +38,8 @@ type Props = {
   shopItemList: Array<ShopItem>,
   privatePassList: Array<PrivatePass>,
   values: PaymentComboFieldsSchema,
+  privatePassListLoading: boolean,
+  relatedPrivatePass: Array<PrivatePass>,
 };
 
 function repeat(arr, n) {
@@ -147,20 +149,27 @@ export const PaymentComboForm = (props: Props) => (
                 if (id) push(id);
               }}
             />
-            {private_pass_ids.map((id, i) => {
-              const pass = props.privatePassList.find((pp) => pp.id === id);
-              if (pass) {
-                return (
-                  <PrivatePassListItem
-                    key={`${id}-${i}`}
-                    dense
-                    pass={pass}
-                    onDelete={() => remove(i)}
-                  />
+            {props.privatePassListLoading || !props.relatedPrivatePass ? (
+              <div>{props.relatedPrivatePass && <CircularProgress />}</div>
+            ) : (
+              private_pass_ids.map((id, i) => {
+                const passes = Object.values(props.relatedPrivatePass).concat(
+                  Object.values(props.privatePassList),
                 );
-              }
-              return <CircularProgress />;
-            })}
+                const pass = passes.find((pp) => pp.id === id);
+                if (pass) {
+                  return (
+                    <PrivatePassListItem
+                      key={`${id}-${i}`}
+                      dense
+                      pass={pass}
+                      onDelete={() => remove(i)}
+                    />
+                  );
+                }
+                return null;
+              })
+            )}
           </div>
         )}
       </FieldArray>

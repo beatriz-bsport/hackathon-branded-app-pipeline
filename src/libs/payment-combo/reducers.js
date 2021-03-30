@@ -10,11 +10,15 @@ import {
   paymentComboRetrieveActions,
   paymentComboPurchaseListActions,
   paymentComboForBookingActions,
+  relatedPrivatePassBulkActions,
 } from './actions';
 
 import type { PaymentComboState } from './types';
 
 const initialState: PaymentComboState = Immutable({
+  relatedPrivatePass: {
+    loading: false,
+  },
   byId: {},
   allIds: [],
   loading: false,
@@ -112,6 +116,32 @@ export default handleActions(
         .setIn(['purchase', 'items'], payload.results)
         .setIn(['purchase', 'page'], payload.page)
         .setIn(['purchase', 'count'], payload.count);
+    },
+    [relatedPrivatePassBulkActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['relatedPrivatePass', 'loading'], payload);
+    },
+    [relatedPrivatePassBulkActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['relatedPrivatePass', 'error'], payload);
+    },
+    [relatedPrivatePassBulkActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['relatedPrivatePass', 'byId'],
+          payload.reduce((acc, ps) => {
+            acc[ps.id] = ps;
+            return acc;
+          }, {}),
+        )
+        .setIn(
+          ['relatedPrivatePass', 'allIds'],
+          payload.map((pc) => pc.id),
+        );
     },
   },
   initialState,

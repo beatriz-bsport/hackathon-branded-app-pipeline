@@ -34,3 +34,9 @@ export const createOrUpdatePaymentCombo = async (data: PaymentComboPayload) => {
   }
   return postAuth(PAYMENT_COMBO_ENDOINT, data);
 };
+
+export const fetchPrivatePassList = (params?: any) => {
+  return getAuth(
+    `${API_V1_URI}/private_service/private_pass/${buildUrlParams(params)}`,
+  );
+};

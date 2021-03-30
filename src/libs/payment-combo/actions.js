@@ -1,6 +1,6 @@
 // @flow
-
 import { createAction } from 'redux-actions';
+import uniq from 'lodash/uniq';
 
 import {
   fetchPaymentComboList as fetchPaymentComboListAPI,
@@ -9,7 +9,7 @@ import {
   retrievePaymentCombo as retrievePaymentComboAPI,
   deletePaymentCombo as deletePaymentComboAPI,
 } from './api';
-
+import { fetchPrivatePassList as fetchPrivatePassListAPI } from '../private-service/api';
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import type { PaymentComboPayload } from './types';
 
@@ -182,5 +182,28 @@ export function fetchPaymentComboForBooking(
     }
 
     dispatch(paymentComboForBookingActions.isLoading(false));
+  };
+}
+
+export const relatedPrivatePassBulkActions = {
+  error: createAction('RELATED_PRIVATE_PASS/BULK/ERROR'),
+  isLoading: createAction('RELATED_PRIVATE_PASS/BULK/ISLOADING'),
+  success: createAction('RELATED_PRIVATE_PASS/BULK/SUCCESS'),
+};
+
+export function fetchRelatedPrivatePassBulk(ids: Array<number>) {
+  return async (dispatch: Dispatch) => {
+    dispatch(relatedPrivatePassBulkActions.isLoading(true));
+    dispatch(relatedPrivatePassBulkActions.error(null));
+    try {
+      const response = await fetchPrivatePassListAPI({
+        id__in: uniq(ids.filter((id) => !!id)),
+      });
+      dispatch(relatedPrivatePassBulkActions.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(relatedPrivatePassBulkActions.error(err));
+    }
+    dispatch(relatedPrivatePassBulkActions.isLoading(false));
   };
 }

@@ -39,6 +39,7 @@ export function PaymentComboFormDialog(props: Props) {
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
       fullScreen={fullScreen}
+      maxWidth={false}
     >
       <Form>
         <div className={classes.content}>

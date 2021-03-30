@@ -65,7 +65,6 @@ export function PrivatePassSelector(props: Props) {
         .sort((pp, pp_) => pp.name > pp_.name)
         .map((pp) => ({ value: pp.id, label: pp.name, pp }))
     : [];
-
   return (
     <Selector
       autofocus={autofocus}

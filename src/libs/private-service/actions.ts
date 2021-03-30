@@ -1343,8 +1343,20 @@ export function fetchPrivateConsumerPassList(
       const response = await fetchPrivateConsumerPassListAPI({
         ...(params || {}),
       });
-      dispatch(privateConsumerPassListActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
+      if (response.data && response.data.results) {
+        dispatch(
+          privateConsumerPassListActions.success({
+            ...response.data,
+            page: (params || {}).page,
+          }),
+        );
+        if (options && options.onSuccess) {
+          options.onSuccess(response.data.results);
+        }
+      } else {
+        dispatch(privateConsumerPassListActions.success(response.data));
+        if (options && options.onSuccess) options.onSuccess();
+      }
     } catch (err) {
       console.error(err);
       dispatch(privateConsumerPassListActions.error(null));
@@ -1576,9 +1588,21 @@ export function fetchPrivateBookings(
     dispatch(privateBookingListActions.error(null));
     try {
       const response = await fetchPrivateBookingsAPI(params);
-      dispatch(privateBookingListActions.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
+      if (response.data && response.data.results) {
+        dispatch(
+          privateBookingListActions.success({
+            ...response.data,
+            page: (params || {}).page,
+          }),
+        );
+        if (options && options.onSuccess) {
+          options.onSuccess(response.data.results);
+        }
+      } else {
+        dispatch(privateBookingListActions.success(response.data));
+        if (options && options.onSuccess) {
+          options.onSuccess(response.data);
+        }
       }
     } catch (err) {
       console.error(err);

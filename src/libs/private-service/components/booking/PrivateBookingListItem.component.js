@@ -62,6 +62,22 @@ export const PrivateBookingListItem = (props: Props) => {
         }
         secondary={
           <div>
+            {props.private_booking.private_consumer_pass &&
+              props.private_booking.private_consumer_pass.private_pass && (
+                <Typography color="primary" variant="caption">
+                  {`${
+                    props.private_booking.private_consumer_pass.private_pass
+                      .name
+                  } (${
+                    props.private_booking.private_consumer_pass.private_pass
+                      .credits -
+                    props.private_booking.private_consumer_pass.used_credits
+                  }/${
+                    props.private_booking.private_consumer_pass.private_pass
+                      .credits
+                  })`}
+                </Typography>
+              )}
             <Typography variant="body2">
               {`${formatAsDatetime(
                 props.private_booking.date_start,

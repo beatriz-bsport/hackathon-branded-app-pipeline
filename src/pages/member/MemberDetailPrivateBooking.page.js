@@ -21,6 +21,7 @@ import {
 } from 'recompose';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import PaginatedListStateful from '../../components/PaginatedListStateful.component';
+import PaginatedListBase from '../../components/PaginatedListBase.component';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -28,6 +29,7 @@ import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../.
 import { fetchAssociatedEstablishmentBulk as fetchAssociatedEstablishmentBulkAction } from '../../libs/establishment/actions';
 import {
   deletePrivateBooking as deletePrivateBookingAction,
+  resetPrivateBookings as resetPrivateBookingList,
   disablePrivateBooking as disablePrivateBookingAction,
   fetchPrivateBookings as fetchPrivateBookingListAction,
   fetchPrivateBooking as fetchPrivateBookingAction,
@@ -35,6 +37,7 @@ import {
   fetchPrivateSlot as fetchPrivateSlotAction,
   fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
   fetchPrivateConsumerPass as fetchPrivateConsumerPassAction,
+  fetchPrivateConsumerPassBulk as fetchPrivateConsumerPassBulkAction,
   attachCoachToPrivateBooking as attachCoachAction,
   restorePrivateBooking,
   fetchRecurrenceRulePrivateBooking as fetchRecurenceRulePrivateBookingAction,
@@ -70,6 +73,10 @@ type Props = {
   t: TFunction,
   classes: Object,
   id: number,
+
+  resetPrivateBookingList: () => void,
+  privateBookingCurrentPage: number,
+  bookingCount: number,
 
   goToConsumerPass: (memberId: number, consumerPassId: number) => void,
   fetchMember: (id: number) => void,
@@ -128,8 +135,11 @@ type Props = {
 };
 
 export class MemberDetailBooking extends Component<Props> {
+  componentWillMount() {
+    this.props.resetPrivateBookingList();
+  }
+
   componentDidMount() {
-    this.props.fetchPrivateBookings({ member: this.props.id });
     this.props.fetchMember(this.props.id);
     if (this.props.privateBookingId) {
       this.props.fetchPrivateBookingDetails();
@@ -161,11 +171,20 @@ export class MemberDetailBooking extends Component<Props> {
                 {t('privateBooking.bookings')}
               </Typography>
               <Divider />
-              <PaginatedListStateful
+              <PaginatedListBase
                 itemPerPage={5}
                 loading={this.props.privateBookingsLoading}
                 listProps={{ disablePadding: true }}
                 items={this.props.private_booking_list}
+                page={this.props.privateBookingCurrentPage || 0}
+                nbItems={this.props.bookingCount}
+                onPageRequested={(page, page_size) =>
+                  this.props.fetchPrivateBookings({
+                    member: this.props.id,
+                    page,
+                    page_size,
+                  })
+                }
                 renderItem={(b) => (
                   <PrivateBookingListItem
                     onClick={() =>
@@ -321,11 +340,13 @@ export default compose(
   withState('selectedRecurrentRule', 'setSelectedRecurrentRule', null),
   connect(
     (state, { privateBookingId }) => ({
-      private_booking_list: getPrivateBookingListBase(state),
+      private_booking_list: withRelatedFields(getPrivateBookingListBase)(state),
       private_booking: withRelatedFields(getPrivateBooking)(
         state,
         privateBookingId,
       ),
+      privateBookingCurrentPage: state.privateService.privateBooking.page,
+      bookingCount: state.privateService.privateBooking.count,
       privateBookingsLoading: state.privateService.privateBooking.loading,
       availableCoaches: getCoaches(state),
       recurrenceRulePrivateBooking: getRecurrenceRulePrivateBookingList(state),
@@ -340,10 +361,12 @@ export default compose(
       fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
       fetchAssociatedEstablishmentBulk: fetchAssociatedEstablishmentBulkAction,
       fetchPrivateConsumerPass: fetchPrivateConsumerPassAction,
+      fetchPrivateConsumerPassBulk: fetchPrivateConsumerPassBulkAction,
       fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
       fetchRecurrenceRulePrivateBooking: fetchRecurenceRulePrivateBookingAction,
       deleteRecurrenceRulePrivateBooking: deleteRecurrenceRulePrivateBookingAction,
       deletePrivateBooking: deletePrivateBookingAction,
+      resetPrivateBookingList,
       disablePrivateBooking: disablePrivateBookingAction,
       fetchMember: fetchMemberAction,
       attachCoach: attachCoachAction,
@@ -360,7 +383,10 @@ export default compose(
   ),
   connect((state, { private_booking }) => ({
     private_consumer_pass: private_booking
-      ? getPrivateConsumerPassDict(state)[private_booking.private_consumer_pass]
+      ? getPrivateConsumerPassDict(state)[
+          private_booking.private_consumer_pass.id ||
+            private_booking.private_consumer_pass
+        ]
       : null,
   })),
   withProps(({ private_booking, availableCoaches }) => ({
@@ -376,6 +402,21 @@ export default compose(
   withHandlers({
     onPrivateSlotClick: ({ goToPrivateService, private_booking }) => () =>
       goToPrivateService(private_booking.private_service.id),
+  }),
+  withHandlers({
+    fetchPrivateBookings: ({
+      fetchPrivateBookings,
+      fetchPrivateConsumerPassBulk,
+    }) => (params, options) =>
+      fetchPrivateBookings(params, {
+        onSuccess: (pbs) => {
+          if (options && options.onSuccess) options.onSuccess(pbs);
+          fetchPrivateConsumerPassBulk(
+            pbs.map((pb) => pb.private_consumer_pass),
+          );
+        },
+        onError: options && options.onError,
+      }),
   }),
   withState('bookingToDelete', 'setBookingToDelete', null),
   withStateHandlers(

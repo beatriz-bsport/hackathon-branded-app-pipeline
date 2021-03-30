@@ -652,9 +652,31 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       return state.setIn(['privateBooking', 'loading'], payload);
     },
     [privateBookingListActions.reset.toString()]: (state) => {
-      return state.setIn(['privateBooking', 'byId'], {});
+      return state
+        .setIn(['privateBooking', 'byId'], {})
+        .setIn(['privateBooking', 'allIds'], []);
     },
     [privateBookingListActions.success.toString()]: (state, { payload }) => {
+      if (payload && payload.results) {
+        return state
+          .setIn(
+            ['privateBooking', 'allIds'],
+            payload.results.map((cpp: any) => cpp.id),
+          )
+          .merge(
+            {
+              privateBooking: {
+                byId: payload.results.reduce((acc: any, ps: any) => {
+                  acc[ps.id] = ps;
+                  return acc;
+                }, {}),
+              },
+            },
+            { deep: true },
+          )
+          .setIn(['privateBooking', 'count'], payload.count)
+          .setIn(['privateBooking', 'page'], payload.page);
+      }
       return state
         .setIn(
           ['privateBooking', 'allIds'],
@@ -1242,6 +1264,26 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       state,
       { payload },
     ) => {
+      if (payload && payload.results) {
+        return state
+          .setIn(
+            ['privateConsumerPass', 'allIds'],
+            payload.results.map((pp: any) => pp.id),
+          )
+          .setIn(['privateConsumerPass', 'page'], payload.page)
+          .setIn(['privateConsumerPass', 'count'], payload.count)
+          .merge(
+            {
+              privateConsumerPass: {
+                byId: payload.results.reduce((acc: any, ps: any) => {
+                  acc[ps.id] = ps;
+                  return acc;
+                }, {}),
+              },
+            },
+            { deep: true },
+          );
+      }
       return state
         .setIn(
           ['privateConsumerPass', 'allIds'],

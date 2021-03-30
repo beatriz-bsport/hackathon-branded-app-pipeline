@@ -15,6 +15,7 @@ import {
 
 import { getAllPrivateSlotsDict } from './private-slot';
 import { _getPrivateServicesById } from './private-service';
+import { getPrivateConsumerPassDict } from './private-consumer-pass';
 
 import { getAllCoachesDict } from '../../associated-coach/selectors';
 import { getAllEstablishmentsDict } from '../../establishment/selectors';
@@ -46,6 +47,7 @@ export const withRelatedFields = memoize((selector) =>
 
       getMemberListData,
       getMemberDetailData,
+      getPrivateConsumerPassDict,
     ],
     (
       bookings,
@@ -55,6 +57,7 @@ export const withRelatedFields = memoize((selector) =>
       slotData,
       memberData,
       memberDetailData,
+      privateConsumerPassData,
     ) => {
       if (!bookings) return null;
       if (!Array.isArray(bookings)) {
@@ -64,6 +67,9 @@ export const withRelatedFields = memoize((selector) =>
           establishment: estalbishmentData[bookings.establishment],
           private_service: serviceData[bookings.private_service],
           private_slot: slotData[bookings.private_slot],
+          private_consumer_pass:
+            privateConsumerPassData[bookings.private_consumer_pass] ||
+            bookings.private_consumer_pass,
           member:
             memberData[bookings.member] || memberDetailData[bookings.member],
         };
@@ -75,6 +81,9 @@ export const withRelatedFields = memoize((selector) =>
         private_service: serviceData[b.private_service],
         private_slot: slotData[b.private_slot],
         member: memberData[b.member] || memberDetailData[b.member],
+        private_consumer_pass:
+          privateConsumerPassData[b.private_consumer_pass] ||
+          b.private_consumer_pass,
       }));
     },
   ),

@@ -11,7 +11,7 @@ import { push } from 'connected-react-router';
 import omit from 'lodash/omit';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import { getInvoice } from '../../libs/invoice/selectors';
-import PaginatedListStateful from '../../components/PaginatedListStateful.component';
+import PaginatedListBase from '../../components/PaginatedListBase.component';
 import { getMember } from '../../libs/member/selectors';
 import { fetchMember } from '../../libs/member/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -31,7 +31,6 @@ import {
   getPrivateConsumerPassList,
   getPrivateConsumerPass,
 } from '../../libs/private-service/selectors/private-consumer-pass';
-import { getPrivateBookingListBase } from '../../libs/private-service/selectors/private-booking';
 import PrivateConsumerPassBookerListItem from '../../libs/private-service/components/booking-module/PrivateConsumerPassBookerListItem.component';
 import PrivateConsumerPassExtensionCreateDialog from '../../libs/private-service/components/consumer-pass/PrivateConsumerPassExtensionCreateDialog.component';
 import PrivateConsumerPassDetail from '../../libs/private-service/components/consumer-pass/PrivateConsumerPassDetail.component';
@@ -64,6 +63,8 @@ type Props = {
   updatePrivateConsumerPassCredits: (...any) => void,
   privateConsumerPassLoading: boolean,
   resetPrivateConsumerPassListAction: () => void,
+  privateConsumerPassCount: number,
+  privateConsumerPassPage: number,
 
   deletePrivateConsumerPassExtension: (number, OptionCallback) => void,
   privateConsumerPassExtensionLoading: boolean,
@@ -97,10 +98,6 @@ type Props = {
 export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
   componentDidMount() {
     this.props.resetPrivateConsumerPassListAction();
-    this.props.fetchPrivateConsumerPassList({
-      ...this.props.filters,
-      member: this.props.id,
-    });
     this.props.fetchMember(this.props.id);
     if (this.props.privateConsumerPassId) {
       this.fetchPrivateConsumerPassDetail();
@@ -110,10 +107,6 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
   componentDidUpdate(prevProps: Props) {
     if (prevProps.filters !== this.props.filters) {
       this.props.resetPrivateConsumerPassListAction();
-      this.props.fetchPrivateConsumerPassList({
-        ...this.props.filters,
-        member: this.props.id,
-      });
       this.props.fetchMember(this.props.id);
     }
     if (
@@ -150,14 +143,24 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
               filters={this.props.filters}
             />
             <Divider />
-            <PaginatedListStateful
+            <PaginatedListBase
               itemPerPage={5}
               loading={
-                this.props.privateBookingsLoading &&
+                this.props.privateBookingsLoading ||
                 this.props.privateConsumerPassLoading
               }
               listProps={{ disablePadding: true }}
               items={this.props.private_consumer_pass_list}
+              nbItems={this.props.privateConsumerPassCount}
+              page={this.props.privateConsumerPassPage}
+              onPageRequested={(page, page_size) =>
+                this.props.fetchPrivateConsumerPassList({
+                  ...this.props.filters,
+                  member: this.props.id,
+                  page,
+                  page_size,
+                })
+              }
               renderItem={(pcp) => (
                 <PrivateConsumerPassBookerListItem
                   divider
@@ -176,7 +179,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
         <Grid item xs={12} lg={6}>
           {this.props.privateConsumerPassId ? (
             <PrivateConsumerPassDetail
-              private_booking_list={this.props.private_booking_list}
+              private_booking_list={this.props.private_booking_list || []}
               privateBookingsLoading={this.props.privateBookingsLoading}
               private_consumer_pass={this.props.privateConsumerPassSelected}
               disablePrivateBooking={this.props.disablePrivateBooking}
@@ -240,7 +243,9 @@ export default compose(
     (state, { id, privateConsumerPassId, relatedInvoice }) => ({
       member: getMember(state, id),
       private_consumer_pass_list: getPrivateConsumerPassList(state),
-      private_booking_list: getPrivateBookingListBase(state),
+      privateConsumerPassPage:
+        state.privateService.privateConsumerPass.page || 0,
+      privateConsumerPassCount: state.privateService.privateConsumerPass.count,
       privateConsumerPassInvoice: getInvoice(state, relatedInvoice),
       privateConsumerPassExtensionList:
         state.privateService.privateConsumerPass.extension.items,

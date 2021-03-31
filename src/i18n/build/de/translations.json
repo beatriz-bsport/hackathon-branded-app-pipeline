@@ -92,7 +92,7 @@
             "bsportCredit": "Anzahlung des Kundens",
             "sepa": "SEPA-Überweisung",
             "credit": {
-                "explain": "Dem Mitglied wird jeden Monat eine Rechnung über sein internes Konto ausgestellt. Verwende diese Zahlungsmethode, wenn Du (noch) keinen Zugang zu einer Rechnungsmethode wie Kreditkarte oder IBAN-Überweisung hats. Du kannst die Zahlung anschließend aktualisieren."
+                "explain": "Dem Mitglied wird jeden Monat eine Rechnung über sein internes Konto ausgestellt. Verwende diese Zahlungsmethode, wenn Du (noch) keinen Zugang zu einer Rechnungsmethode wie Kreditkarte oder IBAN-Überweisung hast. Du kannst die Zahlung anschließend aktualisieren."
             }
         },
         "contract": {
@@ -105,7 +105,7 @@
                     "label": "Name des Vertrags"
                 },
                 "nb_interval": {
-                    "label": "Anzahl der Monate",
+                    "label": "Rechnungsnummer (n)",
                     "helperText": "Mindestens 2 Monate"
                 },
                 "recurrent_price": {
@@ -134,6 +134,27 @@
                 },
                 "error": {
                     "missingObject": "Pflichtfeld"
+                },
+                "recurrence": {
+                    "explain": "Das Abonnement wird alle {{ recurrence_basis }} {{ interval }} über eine Gesamtdauer von {{ total_interval_duration }} {{ interval }} in Rechnung gestellt und generiert {{nb_interval}} Rechnungen",
+                    "section": "Wiederholung"
+                },
+                "interval": {
+                    "helperText": "Häufigkeit der Rechnungs- / Kartenerstellung",
+                    "label": "Wiederholung"
+                },
+                "recurrence_basis": {
+                    "intervalName": {
+                        "week": "Woche",
+                        "week_plural": "Wochen",
+                        "day": "Tag",
+                        "day_plural": "Tage",
+                        "month": "Monat",
+                        "month_plural": "Monate",
+                        "year": "Jahr",
+                        "year_plural": "Jahre"
+                    },
+                    "label": "Wiederhole jeden"
                 }
             },
             "description": "Beschreibung",
@@ -160,7 +181,7 @@
                 "isEmpty": "Kein verfügbarer Vertrag",
                 "titleInactive": "Archivierte Verträge"
             },
-            "duration": "{{month}} Monat(e)",
+            "duration": "{{Month}} Rechnungen",
             "legal": "Impressum",
             "deleteForm": {
                 "actions": {
@@ -173,7 +194,17 @@
             "paymentPack": "Verbundene Kurskarte",
             "no": "Nein",
             "yes": "Ja",
-            "privatePass": "Zugehörige Terminkarte"
+            "privatePass": "Zugehörige Terminkarte",
+            "interval": {
+                "week": "Woche",
+                "week_plural": "Wochen",
+                "day": "Tag",
+                "day_plural": "Tage",
+                "year": "Jahr",
+                "year_plural": "Jahre",
+                "month": "Monat",
+                "month_plural": "Monate"
+            }
         },
         "subscription": {
             "actions": {
@@ -1971,6 +2002,11 @@
             "facebookPixelId": {
                 "placeholder": "ID",
                 "label": "Facebook Pixel ID"
+            },
+            "waiver": {
+                "label": "Verzichtserklärung",
+                "placeholder": "Ich bestätige, dass ich über 13 Jahre alt bin",
+                "helperText": "Muss für jede Registrierung akzeptiert werden"
             }
         },
         "pageTitles": {
@@ -2749,6 +2785,18 @@
             "Products": "Produkte",
             "Bookings": "Buchungen",
             "Club": "Studio"
+        },
+        "export": {
+            "category": "Excel-Report: {{category}}",
+            "ready": "Dein Report \"{{name}}\" kann heruntergeladen werden.",
+            "generate": "Erstellen",
+            "processing": "Deine Excel-Report wird bearbeitet. Du wirst benachrichtigt, sobald der Prozess abgeschlossen ist.",
+            "continue": "Weiter surfen",
+            "excel_report": "Excel-Report"
+        },
+        "header": {
+            "average": "Im Durchschnitt",
+            "sum": "Summe"
         }
     },
     "snackbar": {
@@ -3045,6 +3093,10 @@
             "update": {
                 "success": "Smartlist erfolgreich aktualisiert",
                 "error": "Es ist unmöglich, die Smartlist zu speichern"
+            },
+            "duplicate": {
+                "error": "Die Smarlist kann nicht dupliziert werden",
+                "success": "Smartlist dupliziert"
             }
         },
         "subscription": {
@@ -3190,7 +3242,8 @@
             },
             "createOrUpdate": {
                 "error": "Wiederkehrende Termine können nicht gespeichert werden",
-                "success": "Wiederkehrender Termin erfolgreich gespeichert"
+                "success": "Wiederkehrender Termin erfolgreich gespeichert",
+                "locked": "Mit diesen Parametern existiert bereits eine Wiederholungsregel"
             }
         },
         "zoom": {
@@ -3339,7 +3392,11 @@
                 "topup": "Eingegangene Zahlungen",
                 "debt": "Auszahlung",
                 "explainTopup": "Eine Erhöhung von {{amount}} € wird im Guthaben des Mitglieds erfasst.",
-                "balanceValueLabel": "Betrag"
+                "balanceValueLabel": "Betrag",
+                "withoutPaymentNote": {
+                    "warning": "Bitte beachte: Wir werden keine Historie von diesem Vorgang behalten. Nur für außergewöhnliche Anpassungen verwenden.",
+                    "label": "Generiere keine Quittung"
+                }
             }
         },
         "paymentMethod": {
@@ -3521,7 +3578,8 @@
             "close": "Schließen",
             "iAccept": "Ich akzeptiere die ",
             "theTermsAndConditions": "allgemeine Verkaufsbedingungen.",
-            "generalTermsOfUse": " Allgemeine Geschäftsbedingungen"
+            "generalTermsOfUse": " Allgemeine Geschäftsbedingungen",
+            "waiver": "Verzichtserklärung"
         },
         "forms": {
             "paymentIntent": {
@@ -3826,7 +3884,11 @@
                     "url": "Url",
                     "file": "Datei"
                 },
-                "submit": "Bestätigen"
+                "submit": "Bestätigen",
+                "minutes": "Minuten",
+                "hours": "Stunden",
+                "durationInputError": "Bitte gib die Dauer des Videos an",
+                "durationLabel": "Videodauer"
             },
             "form": {
                 "edit": "Ändern",
@@ -4102,7 +4164,10 @@
                 },
                 "at": " bei ",
                 "timeGroup": "Datum des Kurses",
-                "title": "Plane eine Wiederholung"
+                "title": "Plane eine Wiederholung",
+                "startFromDate": {
+                    "label": "Beginn der Wiederholung am "
+                }
             },
             "recurrentRuleBooking": "Wiederkehrende Buchung",
             "item": {
@@ -4826,7 +4891,8 @@
                     "label": "Bietet Zugang zu VOD, solange es zeitlich gültig ist"
                 },
                 "expirationDaysBeforeFirstUse": {
-                    "label": "Ablauf ohne ersten Termin"
+                    "label": "Ablauf ohne ersten Termin",
+                    "helperText": "Wenn die Karte während dieser Anzahl von Tagen nicht zum ersten Mal verbraucht wird, wird sie ungültig"
                 },
                 "start_date_method": {
                     "on_attendance": "Beginnt bei der ersten Anwesenheit",
@@ -5073,7 +5139,8 @@
         },
         "recurrenceRule": {
             "item": {
-                "explain": "Alle {{dayOfWeek}} - {{time}}, {{delayWeek}} Wochen zuvor"
+                "explain": "Alle {{dayOfWeek}} - {{time}}, {{delayWeek}} Wochen zuvor",
+                "startFrom": "Ab {{ date }}"
             },
             "forms": {
                 "update": {
@@ -6465,7 +6532,8 @@
             "DK": "Dänemark",
             "FI": "Finnland",
             "SE": "Schweden",
-            "NO": "Norwegen"
+            "NO": "Norwegen",
+            "LU": "Luxemburg"
         },
         "signupCompany": {
             "form": {

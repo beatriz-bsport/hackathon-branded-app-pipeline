@@ -137,7 +137,7 @@
             "402": "Nieuwe afspraak (voor medewerkers)",
             "401": "Afspraak geannuleerd en vergoed (voor medewerkers)",
             "400": "Afspraak te laat geannuleerd (voor medewerkers)",
-            "29": "Herinnering! De livestream begint over 15 minuten",
+            "29": "Herinnering! Je livestream begint over 15 minuten",
             "28": "Betaling ontvangen (voor leden)",
             "27": "Abonnement gestopt of beëindigd (voor leden)",
             "26": "Abonnement gepauzeerd (voor leden)",
@@ -1940,8 +1940,8 @@
                     "confirm": "Verwijderen",
                     "content": "Weet je zeker dat je deze melding wilt verwijderen? Deze actie is definitief"
                 },
-                "smartListInclude": "Inbegrepen lijsten",
-                "smartList": "Uitgesloten lijsten"
+                "smartListInclude": "Inbegrepen Smartlists",
+                "smartList": "Uitgesloten Smartlists"
             },
             "addButton": "Een melding toevoegen",
             "form": {
@@ -1956,8 +1956,8 @@
                 "settingTitle": "Instellingen",
                 "hideMail": "E-mail verbergen",
                 "cancel": "Annuleren",
-                "smartListHelper": "Stuur GÉÉN melding als een lid tot één van de volgende lijsten behoort:",
-                "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende lijsten behoort:",
+                "smartListHelper": "Stuur GÉÉN melding als een lid tot één van de volgende Smartlists behoort:",
+                "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort:",
                 "noMailAvailable": "Geen e-mail beschikbaar, vergeet niet om een te maken",
                 "createSmartList": "Een Smartlist toevoegen",
                 "warning": "Door geen Smartlist(s) te selecteren of te gebruiken is het mogelijk dat je leden contacteert die recent een lidmaatschap hebben gekocht!",
@@ -1969,7 +1969,7 @@
                 "first": "Stuur een melding wanneer dit lidmaatschap"
             },
             "daysLeft": {
-                "second": "dagen geldig is.",
+                "second": "dag(en) geldig is.",
                 "first": "Stuur een melding wanneer dit lidmaatschap nog"
             },
             "creditsLeft": {
@@ -3334,7 +3334,7 @@
             "form": {
                 "title": "Periodieke afspraak inplannen",
                 "delayWeek": {
-                    "helperText": "Geef aan hoeveel weken een lid wordt ingeschreven",
+                    "helperText": "Geef aan hoeveel weken dit lid zal worden ingeschreven",
                     "label": "Aantal weken"
                 },
                 "metaActivity": {
@@ -3351,7 +3351,10 @@
                     "label": "Dag"
                 },
                 "at": " op ",
-                "timeGroup": "Cursusdata"
+                "timeGroup": "Cursusdata",
+                "startFromDate": {
+                    "label": "Begin de periodieke reservering op "
+                }
             },
             "deleteModal": {
                 "cancel": "Annuleren",
@@ -4418,10 +4421,10 @@
             "toogle": {
                 "showOfferList": "Groepsactiviteiten",
                 "showPrivateBookings": "Afspraken",
-                "showCustomEvents": "Persoonlijke afspraken"
+                "showCustomEvents": "Taken"
             },
             "enableAvailability": "Beschikbaarheid toevoegen",
-            "createCustomEvent": "Een taak toevoegen"
+            "createCustomEvent": "Een taak / persoonlijke afspraak toevoegen"
         },
         "slotSearcher": {
             "selectPrivateSlot": "Sessie",
@@ -4944,7 +4947,7 @@
                     "placeholder": "Afspraak met de bank",
                     "label": "Naam"
                 },
-                "title": "Persoonlijke afspraak"
+                "title": "Taak / Persoonlijke afspraak"
             },
             "actions": {
                 "delete": "Verwijderen"
@@ -5020,7 +5023,8 @@
         },
         "recurrenceRule": {
             "item": {
-                "explain": "Elke {{dayOfWeek}} om {{time}} - {{delayWeek}} week/weken van tevoren"
+                "explain": "Elke {{dayOfWeek}} om {{time}} - {{delayWeek}} week/weken van tevoren",
+                "startFrom": "Van {{ date }}"
             },
             "forms": {
                 "update": {
@@ -5803,7 +5807,8 @@
             },
             "createOrUpdate": {
                 "error": "Periodieke afspraak kon niet worden aangemaakt",
-                "success": "Periodieke afspraak succesvol aangemaakt"
+                "success": "Periodieke afspraak succesvol aangemaakt",
+                "locked": "Er bestaat al zo'n regel voor periodieke afspraken"
             }
         },
         "zoom": {

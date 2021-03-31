@@ -1435,7 +1435,7 @@
             },
             "invoice": {
                 "explainUnevenInvoice": "Total amount of items is {{totalInvoiceItems}}€ but total paymentsis {{ totalPayments }}€. Internal account will be credited/debited accordingly.",
-                "titleUnevenInvoice": "Uneven invoice",
+                "titleUnevenInvoice": "Unpaid invoice",
                 "activityHelper": "Chose the activity then the session",
                 "objectTypeLabel": "Object to bill",
                 "noPayedObject": "None",
@@ -5652,7 +5652,7 @@
         },
         "showMore": "Show more",
         "unevenInvoice": {
-            "title": "Uneven invoice",
+            "title": "Unpaid invoice",
             "explainUneven": "Invoice n°<1>{{uuid, uuid}}</1> is not even.",
             "priceDue": "Amount due: {{ price_due, price }}.",
             "pricePayed": "Amount paid: {{price_payed, price}}."

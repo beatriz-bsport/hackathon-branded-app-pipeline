@@ -371,7 +371,7 @@ const mapWithHandlers = {
   ) => {
     props.fetchBookingsAndPrivateBookings({
       page,
-      min_date: moment().format('YYYY-MM-DD'),
+      date_start: moment().format('YYYY-MM-DD'),
       member: props.membership.id,
       options: {
         onSuccess: (bookingsAndPrivateBookings) => {

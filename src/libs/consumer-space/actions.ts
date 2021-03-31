@@ -299,7 +299,6 @@ export enum BookingsAndPrivateBookingsTypeEnum {
 export function fetchBookingsAndPrivateBookings(args: {
   member: number;
   date_start: string;
-  min_date?: string;
   page?: number;
   options?: OptionCallback<BookingOrPrivateBooking[]>;
   type?: BookingsAndPrivateBookingsTypeEnum;
@@ -339,8 +338,7 @@ export function fetchBookingsAndPrivateBookings(args: {
           booking_status_code: BOOKING_STATUS_OK.id,
           ordering: 'offer__date_start',
         };
-        if (args.date_start) params.date_start = args.date_start;
-        if (args.min_date) params.min_date = args.min_date;
+        if (args.date_start) params.min_date = args.date_start;
 
         if (args.type === BookingsAndPrivateBookingsTypeEnum.past) {
           delete params.min_date;
@@ -365,8 +363,7 @@ export function fetchBookingsAndPrivateBookings(args: {
           page_size: pageSize,
           ordering: 'date_start', // -date_start
         };
-        if (args.date_start) params.date_start = args.date_start;
-        if (args.min_date) params.min_date = args.min_date;
+        if (args.date_start) params.date_start__gte = args.date_start;
 
         if (args.type === BookingsAndPrivateBookingsTypeEnum.past) {
           delete params.date_start__gte;

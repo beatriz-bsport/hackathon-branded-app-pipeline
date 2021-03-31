@@ -41,6 +41,7 @@ type Props = {
   checkEmailExistsLoading: boolean,
   checkEmailExists: (email: string) => void,
   membership: ?number,
+  is_premium: boolean,
 
   fetchCompanyTheme: (companyId: number) => void,
   theme: Theme,
@@ -92,6 +93,7 @@ export class ConsumerLoginPage extends Component<Props> {
       doEmailLogin,
       classes,
       t,
+      is_premium,
     } = this.props;
 
     if (authenticated) {
@@ -117,11 +119,13 @@ export class ConsumerLoginPage extends Component<Props> {
           {!!this.props.theme && this.props.membership && (
             <Analytics username="" theme={this.props.theme} />
           )}
-          <Hidden smDown>
-            <a href="https://calendly.com/bsport/demo">
-              <Typography variant="caption">{t('contactUs')}</Typography>
-            </a>
-          </Hidden>
+          {!is_premium && (
+            <Hidden smDown>
+              <a href="https://calendly.com/bsport/demo">
+                <Typography variant="caption">{t('contactUs')}</Typography>
+              </a>
+            </Hidden>
+          )}
         </div>
       );
     }
@@ -210,6 +214,7 @@ export default compose(
       errorFields: state.auth.invalidFields,
       checkEmailExistsLoading: state.auth.emailExists.loading,
       emailExists: state.auth.emailExists.exists,
+      is_premium: state.theme.theme.is_premium,
     }),
     mapDispatchToProps,
   ),

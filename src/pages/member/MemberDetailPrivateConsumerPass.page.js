@@ -28,6 +28,10 @@ import {
   resetPrivateConsumerPassList as resetPrivateConsumerPassListAction,
 } from '../../libs/private-service/actions';
 import {
+  fetchManagerFiltersSettings,
+  updateManagerFiltersSettings,
+} from '../../libs/dashboard/actions';
+import {
   getPrivateConsumerPassList,
   getPrivateConsumerPass,
 } from '../../libs/private-service/selectors/private-consumer-pass';
@@ -94,11 +98,17 @@ type Props = {
   open: any,
   setOpenValue: (name: string) => void,
   setFilterValue: (name: string, bool: Boolean) => void,
+  updateFiltersSettings: (*) => void,
+  userFiltersLoading: boolean,
 };
 
 export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
   componentDidMount() {
     this.props.resetPrivateConsumerPassListAction();
+    this.props.fetchPrivateConsumerPassList({
+      ...this.props.filters,
+      member: this.props.id,
+    });
     this.props.fetchMember(this.props.id);
     if (this.props.privateConsumerPassId) {
       this.fetchPrivateConsumerPassDetail();
@@ -109,6 +119,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
     if (prevProps.filters !== this.props.filters) {
       this.props.resetPrivateConsumerPassListAction();
       this.props.fetchMember(this.props.id);
+      this.props.updateFiltersSettings(this.props.filters);
     }
     if (
       this.props.privateConsumerPassId &&
@@ -133,6 +144,11 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
   };
 
   render() {
+    const dataLoading =
+      this.props.privateConsumerPassExtensionLoading ||
+      this.props.privateConsumerPassLoading ||
+      this.props.privateBookingsLoading ||
+      this.props.userFiltersLoading;
     return (
       <Grid container direction="row" spacing={3}>
         <Grid item xs={12} lg={6}>
@@ -141,7 +157,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
               setOpenValue={this.props.setOpenValue}
               setFiltersValue={this.props.setFilterValue}
               open={this.props.open}
-              filters={this.props.filters}
+              filters={!dataLoading && this.props.filters}
             />
             <Divider />
             <PaginatedListBase
@@ -260,6 +276,9 @@ export default compose(
         state,
         privateConsumerPassId,
       ),
+      userFilters: state.dashboardSettings.managerFiltersSettings.data.filters,
+      userFiltersLoading:
+        state.dashboardSettings.managerFiltersSettings.loading,
     }),
     {
       fetchPrivateConsumerPassList,
@@ -272,6 +291,8 @@ export default compose(
       deletePrivateBooking,
       disablePrivateBooking: disablePrivateBookingAction,
       createExtension: createPrivateConsumerPassExtension,
+      fetchManagerFilters: fetchManagerFiltersSettings,
+      updateManagerFilters: updateManagerFiltersSettings,
       fetchMember,
       resetPrivateConsumerPassListAction,
       onInvoiceClick: (uuid: string) => push(`/invoice/${uuid}`),
@@ -309,6 +330,25 @@ export default compose(
           [name]: value,
         });
       }
+    },
+  }),
+  withHandlers({
+    fetchFiltersSettings: ({ fetchManagerFilters, setFilters }) => () => {
+      fetchManagerFilters({
+        onSuccess: (payload) => {
+          setFilters(payload.filters.private_pass_filters);
+        },
+      });
+    },
+  }),
+  withHandlers({
+    updateFiltersSettings: ({ updateManagerFilters, userFilters }) => (
+      filters: object,
+    ) => {
+      updateManagerFilters({
+        ...userFilters,
+        private_pass_filters: filters,
+      });
     },
   }),
 )(MemberDetailPrivateConsumerPass);

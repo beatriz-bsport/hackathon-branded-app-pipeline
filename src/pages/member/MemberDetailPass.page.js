@@ -40,6 +40,10 @@ import {
   fetchConsumerPaymentPackCreditRefundList as fetchConsumerPaymentPackCreditRefundListAction,
   fetchConsumerPaymentPackPenalty as fetchConsumerPaymentPackPenaltyAction,
 } from '../../libs/consumer-payment-pack/actions';
+import {
+  fetchManagerFiltersSettings,
+  updateManagerFiltersSettings,
+} from '../../libs/dashboard/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchSpecificInvoice } from '../../libs/invoice/actions';
 
@@ -146,6 +150,8 @@ type Props = {
   open: any,
   setOpenValue: (name: string) => void,
   setFilterValue: (name: string, bool: Boolean) => void,
+  updateFiltersSettings: (*) => void,
+  userFiltersLoading: boolean,
 };
 
 type State = {
@@ -216,6 +222,7 @@ export class MemberDetailPass extends Component<Props, State> {
             cppList.map((cpp) => cpp.payment_pack),
           ),
       });
+      this.props.updateFiltersSettings(this.props.filters);
     }
 
     if (
@@ -253,6 +260,12 @@ export class MemberDetailPass extends Component<Props, State> {
   };
 
   render() {
+    const dataLoading =
+      this.props.consumerPackLoading ||
+      this.props.passExtensionsLoading ||
+      this.props.bookingLoading ||
+      this.props.refundLoading ||
+      this.props.userFiltersLoading;
     return (
       <Grid container direction="row" spacing={2}>
         <Grid item xs={12} lg={6}>
@@ -261,7 +274,7 @@ export class MemberDetailPass extends Component<Props, State> {
               setOpenValue={this.props.setOpenValue}
               setFiltersValue={this.props.setFilterValue}
               open={this.props.open}
-              filters={this.props.filters}
+              filters={!dataLoading && this.props.filters}
             />
             <Divider />
             <PaginatedListBase
@@ -440,7 +453,7 @@ export default compose(
   }),
   withTranslation(['paymentPack']),
   withStyles(styles),
-  withState('filters', 'setFilters', { reverted: false }),
+  withState('filters', 'setFilters', {}),
   withState('open', 'setOpen', {}),
   withState('openCreateExtension', 'setOpenCreateExtension', false),
   withState('relatedInvoice', 'setRelatedInvoice', null),
@@ -472,6 +485,9 @@ export default compose(
       bookingCount: state.booking.byConsumerPack.count,
       refundLoading: state.consumerPaymentPack.partialRefund.loading,
       timezone: state.theme.theme.timezone_name,
+      userFilters: state.dashboardSettings.managerFiltersSettings.data.filters,
+      userFiltersLoading:
+        state.dashboardSettings.managerFiltersSettings.loading,
     }),
     {
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),
@@ -493,6 +509,8 @@ export default compose(
       discardBookingAttendance,
       confirmBookingAttendance,
       fetchMember: fetchMemberAction,
+      fetchManagerFilters: fetchManagerFiltersSettings,
+      updateManagerFilters: updateManagerFiltersSettings,
 
       incrementCredit: (id_: number) => updateCreditAction(id_, 1),
       decrementCredit: (id_: number) => updateCreditAction(id_, -1),
@@ -585,6 +603,25 @@ export default compose(
       pageSize,
     ) => {
       fetchConsumerPaymentPackPenalty(consumerPassId, page, pageSize);
+    },
+  }),
+  withHandlers({
+    fetchFiltersSettings: ({ fetchManagerFilters, setFilters }) => () => {
+      fetchManagerFilters({
+        onSuccess: (payload) => {
+          setFilters(payload.filters.pass_filters);
+        },
+      });
+    },
+  }),
+  withHandlers({
+    updateFiltersSettings: ({ updateManagerFilters, userFilters }) => (
+      filters: object,
+    ) => {
+      updateManagerFilters({
+        ...userFilters,
+        pass_filters: filters,
+      });
     },
   }),
 )(MemberDetailPass);

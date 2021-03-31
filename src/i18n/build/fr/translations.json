@@ -438,7 +438,7 @@
       },
       "booking": {
         "myPrivateBooking": "Rendez-vous",
-        "intro": "Votre réservation au {{date}}",
+        "intro": "Votre réservation du {{date}}",
         "cancelBooking": "Annuler la réservation",
         "discardBookingTitle": "Annuler la réservation",
         "discardPossibleExplain": "Êtes-vous sûr de vouloir annuler cette réservation ? Votre crédit sera de nouveau utilisable.",

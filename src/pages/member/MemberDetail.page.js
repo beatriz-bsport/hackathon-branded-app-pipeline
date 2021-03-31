@@ -23,6 +23,7 @@ import {
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
+import { fetchManagerFiltersSettings } from '../../libs/dashboard/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 
 import { getMember } from '../../libs/member/selectors';
@@ -99,6 +100,7 @@ type Props = {
   savedPaymentMethodList: Array<PaymentMethod>,
   fetchCountObjects: (id: number) => void,
   infosOfMember: dict,
+  fetchFiltersSettings: () => void,
 };
 
 const MemberActions = (props: {
@@ -135,6 +137,7 @@ export class MemberDetail extends React.Component<Props> {
     if (Number.isInteger(this.props.id)) {
       this.props.fetchPaymentMethodList();
       this.props.fetchCountObjects(this.props.id);
+      this.props.fetchFiltersSettings();
     }
   }
 
@@ -379,6 +382,7 @@ export default compose(
       fetchPaymentMethodList: fetchPaymentMethodListAction,
       fetchCountObjects: (memberId: number) =>
         fetchCountObjectsAction(memberId),
+      fetchManagerFilters: fetchManagerFiltersSettings,
     },
   ),
   withHandlers({
@@ -415,6 +419,11 @@ export default compose(
     },
     fetchPaymentMethodList: ({ id, fetchPaymentMethodList }) => () =>
       fetchPaymentMethodList({ member: id }),
+  }),
+  withHandlers({
+    fetchFiltersSettings: ({ fetchManagerFilters }) => () => {
+      fetchManagerFilters();
+    },
   }),
   withTitle(({ member }) => (member ? member.name : '')),
 )(MemberDetail);

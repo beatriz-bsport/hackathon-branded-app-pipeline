@@ -37,6 +37,12 @@ import {
   fetchEstablishments as fetchEstablishmentList,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
 } from '../../libs/establishment/actions';
+
+import {
+  fetchManagerFiltersSettings,
+  updateManagerFiltersSettings,
+} from '../../libs/dashboard/actions';
+
 import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions';
 
 import { getDetailedOffer } from '../../libs/offer/selectors';
@@ -145,6 +151,9 @@ type Props = {
   fetchMemberBookingStatistics: () => void,
   chartRange: { start: string, end: string, kind: string },
   setChartRange: ({ start: string, end: string, kind: string }) => void,
+  updateFiltersSettings: (*) => void,
+  recurrentBookingLoading: boolean,
+  userFiltersLoading: boolean,
 };
 
 type State = {
@@ -186,13 +195,15 @@ export class MemberDetailBooking extends Component<Props, State> {
         BOOKING_PAGE_SIZE,
         this.props.filters,
         {
-          onSuccess: (bookings) =>
+          onSuccess: (bookings) => {
             this.props.retrieveConsumerPackBulk(
               bookings.map((b) => b.consumer_payment_pack),
-            ),
+            );
+          },
         },
       );
       this.props.fetchMemberBookingStatistics();
+      this.props.updateFiltersSettings(this.props.filters);
     }
     if (prevProps.chartRange !== this.props.chartRange) {
       this.props.fetchMemberBookingStatistics();
@@ -233,6 +244,11 @@ export class MemberDetailBooking extends Component<Props, State> {
 
   render() {
     const { primary_color } = this.props.theme;
+    const dataLoading =
+      this.props.bookingsLoading ||
+      this.props.consumerPackLoading ||
+      this.props.recurrentBookingLoading ||
+      this.props.userFiltersLoading;
     return (
       <Grid container direction="row" spacing={3}>
         <Grid
@@ -250,7 +266,7 @@ export class MemberDetailBooking extends Component<Props, State> {
                 setOpenValue={this.props.setOpenValue}
                 setFiltersValue={this.props.setFilterValue}
                 open={this.props.open}
-                filters={this.props.filters}
+                filters={!dataLoading && this.props.filters}
               />
               <Divider />
               <PaginatedListBase
@@ -384,7 +400,7 @@ export class MemberDetailBooking extends Component<Props, State> {
                 setOpenValue={this.props.setOpenValue}
                 setFiltersValue={this.props.setFilterValue}
                 open={this.props.open}
-                filters={this.props.filters}
+                filters={!dataLoading && this.props.filters}
               />
               {this.props.graphData.loading ? (
                 <Skeleton height={300} />
@@ -525,6 +541,9 @@ export default compose(
       timezone: state.theme.theme.timezone_name,
       establishmentList: getAvailableEstablishmentList(state),
       graphData: getStatisticTemporal(state, 'memberBooking', chartRange),
+      userFilters: state.dashboardSettings.managerFiltersSettings.data.filters,
+      userFiltersLoading:
+        state.dashboardSettings.managerFiltersSettings.loading,
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
@@ -547,6 +566,8 @@ export default compose(
       discardBookingAttendance: discardBookingAttendanceAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
       fetchBookingStatistics: fetchBookingStatisticsAction,
+      fetchManagerFilters: fetchManagerFiltersSettings,
+      updateManagerFilters: updateManagerFiltersSettings,
 
       incrementCredit: (id_) => updateCreditAction(id_, 1),
       decrementCredit: (id_) => updateCreditAction(id_, -1),
@@ -691,6 +712,25 @@ export default compose(
           [name]: value,
         });
       }
+    },
+  }),
+  withHandlers({
+    fetchFiltersSettings: ({ fetchManagerFilters, setFilters }) => () => {
+      fetchManagerFilters({
+        onSuccess: (payload) => {
+          setFilters(payload.filters.booking_filters);
+        },
+      });
+    },
+  }),
+  withHandlers({
+    updateFiltersSettings: ({ updateManagerFilters, userFilters }) => (
+      filters: object,
+    ) => {
+      updateManagerFilters({
+        ...userFilters,
+        booking_filters: filters,
+      });
     },
   }),
 )(MemberDetailBooking);

@@ -3372,7 +3372,10 @@
                 },
                 "at": " en ",
                 "timeGroup": "Fecha de la sesión",
-                "title": "Programar una recurrencia"
+                "title": "Programar una recurrencia",
+                "startFromDate": {
+                    "label": "Empieze la reserva recurrente el "
+                }
             },
             "recurrentRuleBooking": "Reserva recurrente",
             "item": {
@@ -4463,7 +4466,8 @@
         },
         "recurrenceRule": {
             "item": {
-                "explain": "Cada {{dayOfWeek}} - {{time}}, {{delayWeek}} semanas antes"
+                "explain": "Cada {{dayOfWeek}} - {{time}}, {{delayWeek}} semanas antes",
+                "startFrom": "Desde el {{ date }}"
             },
             "forms": {
                 "update": {
@@ -5656,7 +5660,8 @@
             },
             "createOrUpdate": {
                 "error": "Imposible guardar esta cita recurrente",
-                "success": "La cita recurrente se guardo con éxito"
+                "success": "La cita recurrente se guardo con éxito",
+                "locked": "La cita recurrente ya existe con esta regla"
             }
         },
         "zoom": {

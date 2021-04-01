@@ -10,6 +10,7 @@ import {
   fetchVideoAnalytics as fetchVideoAnalyticsAPI,
   fetchVideoViewAnalytics as fetchVideoViewAnalyticsAPI,
   fetchVideoFilterableParams as fetchVideoFilterableParamsAPI,
+  setProviderIdentifier as setProviderIdentifierAPI,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
@@ -346,3 +347,33 @@ export const fetchVideoFilterableParams = (params: any) => {
     dispatch(listVideoFilterableParamsActions.isLoading(false));
   };
 };
+
+export const setVideoProviderActions = {
+  isLoading: createAction('VIDEO/SET_PROVIDER/IS_LOADING'),
+  error: createAction('VIDEO/SET_PROVIDER/ERROR'),
+  success: createAction('VIDEO/SET_PROVIDER/SUCCESS'),
+};
+export function setVideoProviderIdentifier(
+  videoId: number,
+  providerIdentifier: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(setVideoProviderActions.isLoading(true));
+    dispatch(setVideoProviderActions.error(null));
+    try {
+      const response = await setProviderIdentifierAPI(videoId, {
+        provider_identifier: providerIdentifier,
+      });
+      dispatch(setVideoProviderActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(setVideoProviderActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(setVideoProviderActions.isLoading(false));
+  };
+}

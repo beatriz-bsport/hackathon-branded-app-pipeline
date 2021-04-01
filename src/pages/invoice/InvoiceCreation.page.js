@@ -9,10 +9,7 @@ import { push as pushRouter } from 'connected-react-router';
 import { compose, withHandlers } from 'recompose';
 import type { TFunction } from 'react-i18next';
 
-import {
-  BUYABLE_ITEM_PRIVATE_PASS,
-  BUYABLE_ITEM_CREDIT,
-} from '@bsport/common/lib/master-data/buyable-items';
+import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import { Moment } from '../../i18n';
 import { formatAsDate } from '../../utils/datetime';

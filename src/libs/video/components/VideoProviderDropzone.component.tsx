@@ -1,6 +1,7 @@
 import { Theme, Typography, withStyles } from '@material-ui/core';
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose, withProps } from 'recompose';
 import { MaterialStyleType } from '../../../utils/types';
@@ -23,6 +24,7 @@ class VideoProviderDropzone extends React.PureComponent<Props> {
   };
 
   onDropAccepted = async (files: Array<File>) => {
+    if (this.props.processing) return;
     if (files.length === 1) {
       /* eslint-disable-next-line */
       this.setState({ file: files[0] });
@@ -81,6 +83,7 @@ class VideoProviderDropzone extends React.PureComponent<Props> {
               };
               return (
                 <div style={styles} {...getRootProps()}>
+                  {this.props.processing && <CircularProgress />}
                   <input {...getInputProps()} />
                   <p>{this.props.t('video.upload.content')}</p>
 

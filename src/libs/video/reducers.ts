@@ -9,6 +9,7 @@ import {
   searchVideoActions,
   listVideoPurchaseActions,
   retrieveVideoAnalyticsActions,
+  setVideoProviderActions,
   listVideoViewsActions,
   listVideoFilterableParamsActions,
 } from './actions';
@@ -105,6 +106,9 @@ export default handleActions<Immutable.Immutable<VideoState>>(
     },
     [listVideoActions.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
+    },
+    [setVideoProviderActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload);
     },
     [listVideoActions.success.toString()]: (state, { payload }: any) => {
       const newAllIds =

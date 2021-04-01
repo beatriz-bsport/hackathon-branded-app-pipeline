@@ -49,6 +49,7 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
     private_consumer_pass.src_private_consumer_pass &&
     private_consumer_pass.src_private_consumer_pass.length;
   const expirationDate = getExpirationDate(private_consumer_pass);
+  const [processing, setProcessing] = React.useState(false);
   let { name } = private_pass;
   if (showMember) {
     name =
@@ -56,9 +57,22 @@ export const PrivateConsumerPassBookerListItem = (props: Props) => {
       ' - ';
   }
   const renderButton = () => {
+    if (processing) {
+      return <CircularProgress />;
+    }
     if (props.onBook) {
       return (
-        <Button color="primary" variant="outlined" onClick={props.onBook}>
+        <Button
+          color="primary"
+          variant="outlined"
+          onClick={() => {
+            setProcessing(true);
+            props.onBook({
+              onSuccess: () => setProcessing(false),
+              onError: () => setProcessing(false),
+            });
+          }}
+        >
           {t('bookerModule.useCredit')}
         </Button>
       );

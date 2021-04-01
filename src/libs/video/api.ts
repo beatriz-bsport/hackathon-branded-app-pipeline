@@ -77,3 +77,7 @@ export const fetchVideoFilterableParams = async (params?: any) => {
     `${API_V1_URI}/vod/video/filterable_parameters/${buildUrlParams(params)}`,
   );
 };
+
+export const setExternalUrl = async (videoId: number, data: any) => {
+  return postAuth(`${API_V1_URI}/vod/video/${videoId}/set_external_url/`, data);
+};

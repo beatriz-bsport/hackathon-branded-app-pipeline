@@ -83,7 +83,11 @@ exports.default = {
       submit: 'Valider',
       type: {
         file: 'Fichier',
-        url: 'Url',
+        fileExplain:
+          'Vous disposez du fichier video (mp4, avi, mov...), utilisez cette méthode pour uploader votre vidéo directement sur les serveurs de bsport.',
+        url: 'Youtube',
+        urlExplain:
+          'Votre vidéo est déjà disponible sur Youtube mais vous souhaitez la monétiser via le système de cartes de bsport.',
       },
       urlInputLabel: 'Lien youtube',
       urlInputError: 'Veuillez saisir une url',

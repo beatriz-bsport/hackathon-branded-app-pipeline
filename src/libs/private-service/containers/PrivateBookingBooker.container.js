@@ -182,6 +182,9 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
           if (options && options.onSuccess) options.onSuccess();
           this.onClose();
         },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
       },
     );
   };

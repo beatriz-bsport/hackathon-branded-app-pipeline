@@ -101,14 +101,20 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
           />
         </div>
       )}
-      <div className={classes.row}>
-        <DateInput
-          onChange={fuckThisCode}
-          value={moment(props.selectedSetting.start_from_date)}
-          minDate={moment()}
-          label={t('booking:recurrenceRule.form.startFromDate.label')}
-        />
-      </div>
+      {!props.privateSlotSet && props.selectedSetting && (
+        <div className={classes.row}>
+          <DateInput
+            onChange={fuckThisCode}
+            value={
+              props.selectedSetting
+                ? moment(props.selectedSetting.start_from_date)
+                : null
+            }
+            minDate={moment()}
+            label={t('booking:recurrenceRule.form.startFromDate.label')}
+          />
+        </div>
+      )}
       <TextField
         type="number"
         name="nb_of_weeks"

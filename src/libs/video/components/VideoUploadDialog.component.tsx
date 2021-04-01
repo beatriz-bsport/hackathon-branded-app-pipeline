@@ -13,30 +13,21 @@ import {
   DialogTitle,
   DialogContent,
 } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/styles';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
-import {
-  VideoProvider,
-  VideoProviderType,
-} from '@bsport/common/lib/master-data/video-provider';
+import { VideoProviderType } from '@bsport/common/lib/master-data/video-provider';
+import VideoUploadFormMUX from './VideoUploadFormMUX.component';
+import VideoUploadFormYoutube from './VideoUploadFormYoutube.component';
 
-import {
-  getUploadInstruction as getUploadInstructionAPI,
-  setProviderIdentifier,
-} from '../api';
 import { Video } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
-import VideoProviderUrl from './VideoProviderUrl.component';
-import VideoProviderDropzone from './VideoProviderDropzone.component';
-import { postAuth } from '../../../http';
 
 type State = {
-  progress: number;
   isUploading: boolean;
-  videoStrategy: VideoProviderType;
+  providerIdentifier: VideoProviderType;
 };
 
 type OwnProps = {
@@ -49,203 +40,127 @@ type Props = OwnProps &
   WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 
+const STEP_CHOSE_PROVIDER = 0;
+const STEP_FINISH = 1;
+
 export class VideoUploadDialog extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      progress: 0,
       isUploading: false,
-      videoStrategy: this.props.videoProviderList.includes(
-        VideoProvider.MUX_PROVIDER,
-      )
-        ? VideoProviderType.TYPE_FILE_UPLOAD
-        : VideoProviderType.TYPE_EXTERNAL_URL,
+      providerIdentifier: props.video.provider_identifier,
+      processing: false,
     };
   }
 
-  file: any = null;
-
-  DROPZONE_REF?: any;
-
-  URL_REF?: any;
-
-  updateProgressStatus = (evt: any) => {
-    if (evt.lengthComputable) {
-      this.setState({ progress: Math.round((evt.loaded / evt.total) * 100) });
+  getStep = () => {
+    if (this.props.video.provider_identifier_defined_by_user) {
+      return STEP_FINISH;
     }
+    return STEP_CHOSE_PROVIDER;
   };
 
-  onComplete = () => {
-    setTimeout(() => {
-      this.setState({ isUploading: false, progress: 0 });
-      this.props.onSubmit();
-    }, 5000);
-  };
+  submitProviderIdentifier = () => {
+    this.setState({
+      processing: true,
+    });
 
-  requestStrategy = async (params: {
-    method: string;
-    url: string;
-    providerStrategy: VideoProviderType;
-    body: any;
-  }) => {
-    const { method, url, providerStrategy, body } = params;
-
-    if (providerStrategy === VideoProviderType.TYPE_FILE_UPLOAD) {
-      const xhrObj = new XMLHttpRequest();
-      xhrObj.upload.addEventListener(
-        'progress',
-        this.updateProgressStatus,
-        false,
-      );
-      xhrObj.upload.addEventListener('load', this.onComplete, false);
-      xhrObj.open(method, url);
-      xhrObj.send(body);
-    } else {
-      const res = await postAuth(url, body);
-      if (res.status === 200) {
-        this.props.onSubmit();
-      }
-    }
-  };
-
-  onClickSubmit = async () => {
-    this.setState({ isUploading: true });
-    try {
-      let provider_identifier = VideoProvider.MUX_PROVIDER;
-      if (this.state.videoStrategy === VideoProviderType.TYPE_EXTERNAL_URL) {
-        provider_identifier = VideoProvider.EXTERNAL_URL_PROVIDER;
-      }
-
-      const providerData = { provider_identifier };
-      const response = await setProviderIdentifier(
-        this.props.video.id,
-        providerData,
-      );
-
-      if (response.status !== 200) {
-        throw new Error();
-      }
-
-      const { data } = await getUploadInstructionAPI(this.props.video.id);
-      const { providerType, method, url, bodyType, fields } = data;
-
-      let body = null;
-
-      if (providerType === VideoProviderType.TYPE_EXTERNAL_URL) {
-        body = this.URL_REF.prepareBody();
-      } else if (
-        providerType === VideoProviderType.TYPE_FILE_UPLOAD &&
-        this.DROPZONE_REF
-      ) {
-        body = this.DROPZONE_REF.prepareBody({
-          fields,
-          bodyType,
-        });
-      }
-
-      if (!body) {
-        this.setState({ isUploading: false });
-        return;
-      }
-
-      await this.requestStrategy({
-        method,
-        url,
-        providerStrategy: providerType,
-        body,
-      });
-    } catch (err) {
-      console.error(err);
-      this.setState({ isUploading: false });
-    }
-  };
-
-  onChangeProvider = (e: any) => {
-    this.setState({ videoStrategy: parseInt(e.target.value) });
+    this.props.submitProviderIdentifier(this.state.providerIdentifier, {
+      onSuccess: () => this.setState({ processing: false }),
+      onError: () => this.setState({ processing: false }),
+    });
   };
 
   render() {
+    if (this.getStep() === STEP_CHOSE_PROVIDER) {
+      return (
+        <Dialog open>
+          <DialogTitle>{this.props.t('video.upload.title')}</DialogTitle>
+          <DialogContent>
+            <div className={this.props.classes.container}>
+              <FormControl>
+                <RadioGroup
+                  aria-label="provider-type"
+                  name="provider-type"
+                  disabled={
+                    this.state.isUploading || this.props.video.upload_id
+                  }
+                  value={this.state.providerIdentifier}
+                  onChange={(ev) =>
+                    this.setState({
+                      providerIdentifier: parseInt(ev.target.value, 10),
+                    })
+                  }
+                >
+                  <FormControlLabel
+                    value={VideoProviderType.TYPE_FILE_UPLOAD}
+                    control={<Radio />}
+                    checked={
+                      this.state.providerIdentifier ===
+                      VideoProviderType.TYPE_FILE_UPLOAD
+                    }
+                    disabled={this.state.processing}
+                    label={this.props.t('video.upload.type.file')}
+                  />
+                  <Typography variant="caption">
+                    {this.props.t('video.upload.type.fileExplain')}
+                  </Typography>
+                  <FormControlLabel
+                    value={parseInt(VideoProviderType.TYPE_EXTERNAL_URL, 10)}
+                    control={<Radio />}
+                    checked={
+                      this.state.providerIdentifier ===
+                      VideoProviderType.TYPE_EXTERNAL_URL
+                    }
+                    label={this.props.t('video.upload.type.url')}
+                    disabled={this.state.processing}
+                  />
+                  <Typography variant="caption">
+                    {this.props.t('video.upload.type.urlExplain')}
+                  </Typography>
+                </RadioGroup>
+              </FormControl>
+            </div>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.props.onClose}>
+              {this.props.t('video.upload.cancel')}
+            </Button>
+
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.submitProviderIdentifier}
+              className={this.props.classes.marginLeft}
+              disabled={this.state.processing}
+            >
+              {this.props.t('video.upload.submit')}
+            </Button>
+          </DialogActions>
+        </Dialog>
+      );
+    }
     return (
       <Dialog open>
         <DialogTitle>{this.props.t('video.upload.title')}</DialogTitle>
         <DialogContent>
           <div className={this.props.classes.container}>
-            <FormControl>
-              <RadioGroup
-                aria-label="provider-type"
-                name="provider-type"
-                disabled={this.state.isUploading}
-                value={this.state.videoStrategy}
-                onChange={this.onChangeProvider}
-              >
-                <FormControlLabel
-                  value={VideoProviderType.TYPE_FILE_UPLOAD}
-                  control={<Radio />}
-                  disabled={
-                    !this.props.videoProviderList.includes(
-                      VideoProvider.MUX_PROVIDER,
-                    ) || this.state.isUploading
-                  }
-                  label={this.props.t('video.upload.type.file')}
-                />
-                <FormControlLabel
-                  value={VideoProviderType.TYPE_EXTERNAL_URL}
-                  control={<Radio />}
-                  label={this.props.t('video.upload.type.url')}
-                  disabled={
-                    !this.props.videoProviderList.includes(
-                      VideoProvider.EXTERNAL_URL_PROVIDER,
-                    ) || this.state.isUploading
-                  }
-                />
-              </RadioGroup>
-            </FormControl>
-
-            {this.state.videoStrategy ===
+            {this.props.video.provider_identifier ===
               VideoProviderType.TYPE_FILE_UPLOAD && (
-              <VideoProviderDropzone
-                fowardedRef={(ref) => {
-                  this.DROPZONE_REF = ref;
-                }}
+              <VideoUploadFormMUX
+                onClose={this.props.onClose}
+                video={this.props.video}
               />
             )}
-
-            {this.state.videoStrategy ===
+            {this.props.video.provider_identifier ===
               VideoProviderType.TYPE_EXTERNAL_URL && (
-              <VideoProviderUrl
-                fowardedRef={(ref) => {
-                  this.URL_REF = ref;
-                }}
-              />
-            )}
-
-            {this.state.isUploading && (
-              <LinearProgress
-                className={this.props.classes.marginTop}
-                variant="determinate"
-                value={this.state.progress}
+              <VideoUploadFormYoutube
+                onClose={this.props.onClose}
+                video={this.props.video}
               />
             )}
           </div>
         </DialogContent>
-        <DialogActions>
-          <Button
-            disabled={this.state.isUploading}
-            onClick={this.props.onClose}
-          >
-            {this.props.t('video.upload.cancel')}
-          </Button>
-
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.onClickSubmit}
-            className={this.props.classes.marginLeft}
-            disabled={this.state.isUploading}
-          >
-            {this.props.t('video.upload.submit')}
-          </Button>
-        </DialogActions>
       </Dialog>
     );
   }

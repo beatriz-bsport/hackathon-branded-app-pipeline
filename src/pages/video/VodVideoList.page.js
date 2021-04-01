@@ -18,16 +18,17 @@ import { getAllCoaches } from '../../libs/associated-coach/selectors';
 
 import {
   getVideoList,
+  getVideo,
   withCategory,
   withCoach,
 } from '../../libs/video/selectors';
 import {
   fetchVideoList as fetchVideoListAction,
   createOrUpdateVideo as createOrUpdateVideoAction,
-  retrieveVideo,
   deleteVideo as deleteVideoAction,
   fetchMoreVideo as fetchMoreVideoAction,
   fetchVideoFilterableParams as fetchVideoFilterableParamsAction,
+  setVideoProviderIdentifier,
 } from '../../libs/video/actions';
 
 import VideoCardList from '../../libs/video/components/VideoCardList.component';
@@ -70,10 +71,10 @@ type Props = {
   createOrUpdateVideo: (data: any, options: OptionCallback) => void,
   deleteVideo: (id: number) => void,
 
+  videoToUploadId: ?number,
   videoToUpload: ?Video,
   setVideoToUpload: (?Video) => void,
 
-  retrieveVideo: (id: number) => void,
   closeUploadVideoForm: () => void,
   createOpen: boolean,
   closeCreateDialog: () => void,
@@ -82,6 +83,8 @@ type Props = {
   goToDetail: (videoId: number) => void,
   fetchVideoFilterableParams: (params: any) => void,
   videoFilterableParams: { SCTs: Array<SCT>, coaches: Array<AssociatedCoach> },
+
+  submitVideoProviderIdentifier: (data: any, options: OptionCallback) => void,
 };
 
 const VideoMap = {
@@ -139,14 +142,11 @@ export class VodVideoListPage extends React.PureComponent<Props> {
             onClose={this.props.closeVideoStream}
           />
         )}
-        {!!this.props.videoToUpload && (
+        {!!this.props.videoToUploadId && (
           <VideoUploadDialog
             video={this.props.videoToUpload}
             videoProviderList={this.props.theme.vod_providers}
-            onSubmit={() => {
-              this.props.retrieveVideo(this.props.videoToUpload.id);
-              this.props.closeUploadVideoForm();
-            }}
+            submitProviderIdentifier={this.props.submitVideoProviderIdentifier}
             onClose={this.props.closeUploadVideoForm}
           />
         )}
@@ -199,9 +199,40 @@ export default compose(
     'searchParams',
     'setSearchParams',
   ]),
+  withStateHandlers(
+    {
+      editVideo: null,
+      createOpen: false,
+      videoToUploadId: null,
+      videoToStream: null,
+    },
+    {
+      openCreateForm: () => () => {
+        return {
+          createOpen: true,
+        };
+      },
+      setVideoToUpload: () => (videoToUpload) => ({
+        videoToUploadId: videoToUpload.id,
+      }),
+      closeUploadVideoForm: () => () => ({ videoToUploadId: null }),
+      closeVideoStream: () => () => ({ videoToStream: null }),
+      setVideoToStream: () => (videoToStream) => ({ videoToStream }),
+      closeCreateDialog: () => () => ({
+        createOpen: false,
+      }),
+      openEditForm: () => (editVideo) => {
+        return {
+          editVideo,
+        };
+      },
+      closeEditForm: () => () => ({ editVideo: null }),
+    },
+  ),
   connect(
-    (state) => ({
+    (state, { videoToUploadId }) => ({
       videoList: withCoach(withCategory(getVideoList))(state),
+      videoToUpload: getVideo(state, videoToUploadId),
       loading: state.video.loading,
       SCTs: state.category.SCTs,
       coaches: getAllCoaches(state),
@@ -212,12 +243,12 @@ export default compose(
     {
       fetchVideoList: fetchVideoListAction,
       fetchAssociatedCoachesList,
-      retrieveVideo,
       goToDetail: (videoId) => push(`/vod/video/${videoId}/`),
       deleteVideo: deleteVideoAction,
       createOrUpdateVideo: createOrUpdateVideoAction,
       fetchMoreVideo: fetchMoreVideoAction,
       fetchVideoFilterableParams: fetchVideoFilterableParamsAction,
+      submitVideoProviderIdentifier: setVideoProviderIdentifier,
     },
   ),
   withHandlers({
@@ -257,35 +288,13 @@ export default compose(
       });
     },
   }),
-  withStateHandlers(
-    {
-      editVideo: null,
-      createOpen: false,
-      videoToUpload: null,
-      videoToStream: null,
-    },
-    {
-      openCreateForm: () => () => {
-        return {
-          createOpen: true,
-        };
-      },
-      setVideoToUpload: () => (videoToUpload) => ({ videoToUpload }),
-      closeUploadVideoForm: () => () => ({ videoToUpload: null }),
-      closeVideoStream: () => () => ({ videoToStream: null }),
-      setVideoToStream: () => (videoToStream) => ({ videoToStream }),
-      closeCreateDialog: () => () => ({
-        createOpen: false,
-      }),
-      openEditForm: () => (editVideo) => {
-        return {
-          editVideo,
-        };
-      },
-      closeEditForm: () => () => ({ editVideo: null }),
-    },
-  ),
   withHandlers({
+    submitVideoProviderIdentifier: ({
+      submitVideoProviderIdentifier,
+      videoToUploadId,
+    }) => (data, options) => {
+      submitVideoProviderIdentifier(videoToUploadId, data, options);
+    },
     deleteVideo: ({
       deleteVideo,
       fetchVideoList,

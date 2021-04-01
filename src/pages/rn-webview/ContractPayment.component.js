@@ -46,13 +46,19 @@ type State = {
 export class ContractPayment extends React.Component<Props, State> {
   state = {
     companyId: null,
+    theme: null,
   };
 
   componentDidMount() {
     this.props.fetchContractDetail(this.props.contractId, {
       onSuccess: (c) => {
         this.setState({ companyId: c.company });
-        this.props.fetchCompanyTheme(c.company);
+        this.props.fetchCompanyTheme(c.company, {
+          onSuccess: (theme) =>
+            this.setState({
+              theme,
+            }),
+        });
       },
     });
   }
@@ -85,7 +91,7 @@ export class ContractPayment extends React.Component<Props, State> {
   };
 
   render() {
-    if (!this.state.companyId || !this.props.theme) {
+    if (!this.state.companyId || !this.state.theme) {
       return (
         <div className={this.props.classes.container}>
           <div className={this.props.classes.loadingContainer}>

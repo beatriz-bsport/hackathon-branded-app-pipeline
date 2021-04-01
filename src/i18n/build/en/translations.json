@@ -2371,6 +2371,11 @@
             },
             "selector": {
                 "title": "See the availabilities"
+            },
+            "allocationWarning": {
+                "showCalendar": "See the calendar",
+                "establishment": "This room is not available at this timeslot",
+                "coach": "This teacher is not available at this timeslot"
             }
         },
         "pageTitles": {
@@ -2761,6 +2766,15 @@
                 },
                 "full_vod_access": {
                     "label": "Provides access to VOD as long as it is valid over time"
+                },
+                "expirationDaysBeforeFirstUse": {
+                    "helperText": "If no first booking is made during this number of days; the pass expires and cannot be used",
+                    "label": "Expiration if no booking made"
+                },
+                "start_date_method": {
+                    "on_attendance": "Starts on 1st attendance",
+                    "on_booking": "Starts on booking date",
+                    "on_purchase": "Starts on billing date"
                 }
             },
             "validForDuration": {
@@ -2980,7 +2994,8 @@
         },
         "recurrenceRule": {
             "item": {
-                "explain": "Every {{dayOfWeek}} - {{time}}, {{delayWeek}} weeks before"
+                "explain": "Every {{dayOfWeek}} - {{time}}, {{delayWeek}} weeks before",
+                "startFrom": "From the {{ date }}"
             },
             "forms": {
                 "update": {
@@ -3722,6 +3737,11 @@
             "facebookPixelId": {
                 "placeholder": "ID",
                 "label": "Facebook Pixel Id"
+            },
+            "waiver": {
+                "placeholder": "I certify that I'm over the age of 13",
+                "helperText": "Must be accepted for any registration",
+                "label": "Liability waiver"
             }
         },
         "general_terms_and_conditions": {
@@ -3906,7 +3926,8 @@
             "DK": "Denmark",
             "FI": "Finland",
             "SE": "Sweden",
-            "NO": "Norway"
+            "NO": "Norway",
+            "LU": "Luxembourg"
         },
         "signupCompany": {
             "form": {
@@ -4605,7 +4626,8 @@
             "iAccept": "I accept the ",
             "theTermsAndConditions": "general terms and conditions.",
             "close": "Close",
-            "generalTermsOfUse": " General terms of use"
+            "generalTermsOfUse": " General terms of use",
+            "waiver": "Liability waiver"
         },
         "paymentComboSectionTitle": "Pack",
         "paymentMethod": {
@@ -4850,7 +4872,11 @@
                 "balanceValueLabel": "Amount",
                 "title": "Balance adjustment",
                 "typeLabel": "Adjustment type",
-                "topup": "Collection"
+                "topup": "Collection",
+                "withoutPaymentNote": {
+                    "warning": "Be careful : we don't keep any track of this operation. Only to be use with caution.",
+                    "label": "Without payment"
+                }
             }
         },
         "paymentPanel": {
@@ -5148,7 +5174,7 @@
                 "subscribe": "Subscribe",
                 "create": "Add a contract"
             },
-            "duration": "{{month}} months",
+            "duration": "{{month}} bills",
             "list": {
                 "title": "Contracts",
                 "isEmpty": "No contract",
@@ -5164,7 +5190,7 @@
                     "label": "Contract name"
                 },
                 "nb_interval": {
-                    "label": "Number of months",
+                    "label": "Number of bills",
                     "helperText": "Minimum is 2 months"
                 },
                 "managerOnly": {
@@ -5196,6 +5222,27 @@
                 },
                 "error": {
                     "missingObject": "This field is required"
+                },
+                "recurrence_basis": {
+                    "intervalName": {
+                        "week": "week",
+                        "week_plural": "weeks",
+                        "day": "day",
+                        "day_plural": "days",
+                        "month": "month",
+                        "month_plural": "months",
+                        "year": "year",
+                        "year_plural": "years"
+                    },
+                    "label": "Repeat every"
+                },
+                "recurrence": {
+                    "explain": "The subscription will be charged every {{ recurrence_basis }} {{ interval }} for a total duration of {{ total_interval_duration }} {{ interval }} and will create {{ nb_interval }} bills",
+                    "section": "Frequency"
+                },
+                "interval": {
+                    "label": "Frequency",
+                    "helperText": "How often will clients be charged?"
                 }
             },
             "deleteForm": {
@@ -5209,7 +5256,17 @@
             "paymentPack": "Associated pass",
             "no": "No",
             "yes": "Yes",
-            "privatePass": "Associated appointment card"
+            "privatePass": "Associated appointment card",
+            "interval": {
+                "week": "week",
+                "week_plural": "weeks",
+                "day": "day",
+                "day_plural": "days",
+                "year": "year",
+                "year_plural": "years",
+                "month": "month",
+                "month_plural": "months"
+            }
         },
         "recap": {
             "willBecharged": " will be charged ",
@@ -5257,15 +5314,15 @@
             "autoRenew": "Automatic renewal",
             "subscribeAgain": "Subscribe again",
             "voucher": "Promotion",
-            "trial_nb": "Free months (at the end)",
+            "trial_nb": "Number of free periods at the beginning",
             "recurrent_voucher": "Coupon on each bill",
             "name": "Name",
             "member": "Member",
             "dateCreated": "Date of creation",
-            "nbInterval": "Number of months",
+            "nbInterval": "Number of periods",
             "recurrent_price": "Recurring payment",
             "paymentPack": "Pass",
-            "nbMonths": "Number of months",
+            "nbMonths": "Number of periods",
             "dateStart": "First billing",
             "firstBilling": "First billing",
             "payment_pack": "Pass",
@@ -5294,7 +5351,7 @@
             "sepa": "SEPA debit",
             "card": "Card",
             "credit": {
-                "explain": "The member will be billed on his internal account each month. Use this payment method if you do not have (yet) access to a billing method such as a credit card or IBAN. You can update the subscription payment method later."
+                "explain": "The member will be billed on his internal account each periods. Use this payment method if you do not have (yet) access to a billing method such as a credit card or IBAN. You can update the subscription payment method later."
             },
             "bsportCredit": "Credit account"
         },
@@ -5352,7 +5409,7 @@
         },
         "save": "save",
         "cancel": "cancel",
-        "noContracts": "Contracts will allow you to regularly (monthly) bill your members for a pass that is re-credited every month.",
+        "noContracts": "Contracts will allow you to regularly bill your members for a pass that is re-credited every month/days/years.",
         "copyLink": "Copy link to payment page",
         "listItem": {
             "valid": "Valid",
@@ -5636,6 +5693,18 @@
             "Products": "Products",
             "Bookings": "Bookings",
             "Club": "Club"
+        },
+        "export": {
+            "category": "Excel report  : {{category}}",
+            "ready": "Your report \"{{ name }}\" is ready to be downloaded.",
+            "generate": "Generate",
+            "processing": "Your excel export is being built. You will be notified when it is ready to download.",
+            "continue": "Continue to navigate",
+            "excel_report": "Excel export"
+        },
+        "header": {
+            "average": "Average",
+            "sum": "Total"
         }
     },
     "alerting": {
@@ -5849,7 +5918,7 @@
                 "start_date_method": {
                     "on_purchase": "Starts on billing date",
                     "on_booking": "Starts on booking date",
-                    "on_attendance": "Start on 1st attendance"
+                    "on_attendance": "Starts on 1st attendance"
                 },
                 "timeSettingsTitle": "Pass validity",
                 "generalSettingsTitle": "General",
@@ -6599,7 +6668,10 @@
                 },
                 "at": " at ",
                 "timeGroup": "Date of the session",
-                "title": "Schedule a recurrence"
+                "title": "Schedule a recurrence",
+                "startFromDate": {
+                    "label": "Start the recurrent booking the "
+                }
             },
             "recurrentRuleBooking": "Recurrent booking",
             "item": {
@@ -7437,6 +7509,10 @@
             "create": {
                 "error": "Unable to save smartlist",
                 "success": "Smartlist successfully created"
+            },
+            "duplicate": {
+                "error": "Impossible to duplicate the smartlist",
+                "success": "Smartlist duplicated"
             }
         },
         "shop": {
@@ -7807,7 +7883,8 @@
             },
             "createOrUpdate": {
                 "success": "Recurring appointment successfully saved",
-                "error": "Impossible to save this recurring appointment"
+                "error": "Impossible to save this recurring appointment",
+                "locked": "Recurring appointment rule already exists with these settings"
             }
         },
         "zoom": {
@@ -7939,7 +8016,11 @@
                     "url": "URL",
                     "file": "File"
                 },
-                "submit": "Save"
+                "submit": "Save",
+                "minutes": "Minutes",
+                "hours": "Hours",
+                "durationInputError": "Please add video duration",
+                "durationLabel": "Video duration"
             },
             "delete": {
                 "cancel": "Cancel",

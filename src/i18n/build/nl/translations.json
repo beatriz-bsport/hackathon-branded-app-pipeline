@@ -96,7 +96,7 @@
         "debt": {
             "explainPayment": "Dit bedrag wordt aan de club betaald om je uitstaande schulden te betalen.",
             "titlePaymentDialog": "Uitstaand bedrag betalen",
-            "title": "VERSCHULDIGD BEDRAG:",
+            "title": "Openstaand bedrag:",
             "regularize": "Betaling afronden"
         },
         "navigation": {
@@ -1200,7 +1200,7 @@
             "CASH": "Contant geld",
             "HOLIDAY_CHECK": "Vakantiecheques",
             "CHECK": "Cheque",
-            "CB_MANUAL": "Online betaling (handmatig)",
+            "CB_MANUAL": "Creditcard (handmatig)",
             "CB": "Online betaling"
         },
         "pageTitle": {
@@ -1847,7 +1847,7 @@
         "showMore": "Zie meer",
         "unevenInvoice": {
             "title": "Openstaande facturen",
-            "priceDue": "Verschuldigd bedrag: {{price_due, price}}.",
+            "priceDue": "Openstaand nbdrag: {{price_due, price}}.",
             "explainUneven": "Factuur <1> nr. {{uuid, uuid}} </1> staat nog open.",
             "pricePayed": "Betaald: {{price_payed, price}}."
         },
@@ -2032,7 +2032,7 @@
                 },
                 "start_date_method": {
                     "on_booking": "Facturatie begint vanaf de 1e reservering",
-                    "on_attendance": "Facturatie vanaf de 1e deelname",
+                    "on_attendance": "Facturatie begint vanaf de 1e deelname",
                     "on_purchase": "Facturatie begint op de koopdatum"
                 },
                 "timeSettingsTitle": "Geldigheid",
@@ -2496,7 +2496,7 @@
             },
             "19": {
                 "name": "Algemeen",
-                "first": "een van de cursuskaarten",
+                "first": "een of meerdere van de volgende cursuskaarten",
                 "has": "Bezit",
                 "has_not": "Bezit niet",
                 "second": "en",
@@ -2543,7 +2543,7 @@
                     "second": "uur en",
                     "third": "Uur"
                 },
-                "explanation": "Heeft zijn Xe sessie van activiteit A gereserveerd in vestiging B...",
+                "explanation": "Heeft X reserveringen van Activiteit A in vestiging B gedaan...",
                 "first": "Heeft zich ",
                 "second_singular": "keer ingeschreven",
                 "second_plural": "keer ingeschreven",
@@ -2557,7 +2557,7 @@
             },
             "22": {
                 "name": "Aantal reserveringen",
-                "explanation": "X sessies van activiteit A geboekt op vestiging B met cursuskaart C...",
+                "explanation": "Heeft zich X keer voor Activiteit A in Vestiging B met Lidmaatschap C ingeschreven...",
                 "first": "Reserveerde",
                 "second": "sessies",
                 "activity": {
@@ -2714,7 +2714,7 @@
                 "6": "tussen twee"
             },
             "23": {
-                "explanation": "Boekte zijn/haar eerste sessie op ...",
+                "explanation": "Reserveerde voor het eerst op...",
                 "name": "Eerste reservering"
             },
             "undefined": {
@@ -2738,10 +2738,10 @@
                 "1": "minder dan (⩽)"
             },
             "501": {
-                "explanation": "Heeft de laatste reservering geboekt op...",
+                "explanation": "Reserveerde voor het laatst op...",
                 "second": "dag(en) geleden en heeft nog geen toekomstige reserveringen ingepland.",
                 "first": "De laatst reservering was meer dan",
-                "name": "Datum van de laatste reservering"
+                "name": "Laatste reservering"
             },
             "400": {
                 "explanation": "Heeft een wachtwoord bij BSPORT",
@@ -2973,7 +2973,7 @@
             "showMonth": "Maandoverzicht"
         },
         "liveOfferEdit": {
-            "editSimilarOffers": "Alle toekomstige sessies wijzigen.",
+            "editSimilarOffers": "Selecteer de te wijzigen sessies.",
             "unselectAll": "Deselecteer alles",
             "selectAll": "Selecteer alles",
             "select": "Selecteer de te wijzigen sessies",
@@ -3408,7 +3408,7 @@
         "warning": {
             "disconnect": "Uitloggen",
             "backToBackoffice": "Mijn Back Office openen",
-            "isManager": "Momenteel ben je als een medewerker ingelogd. <br/> Log uit om je MarketPlace/ledenweergave te bekijken."
+            "isManager": "Momenteel ben je als een medewerker ingelogd. Log uit om je MarketPlace/ledenweergave te bekijken."
         },
         "workshop": {
             "noWorkshopAvailable": "Momenteel zijn er geen workshops ingepland",
@@ -4034,8 +4034,10 @@
                 "urlInputError": "Plak hier een link",
                 "urlInputLabel": "Link naar YouTube",
                 "type": {
-                    "url": "Link",
-                    "file": "Bestand"
+                    "url": "YouTube",
+                    "file": "Bestand",
+                    "fileExplain": "Gebruik deze optie om je videobestand (MP4, MOV, AVI) op de servers van BSPORT te uploaden.",
+                    "urlExplain": "Je video is al beschikbaar op YouTube, maar je wilt een nieuwe inkomstenbron via BSPORT aanboren."
                 },
                 "submit": "Bevestigen",
                 "minutes": "Min.",
@@ -5255,7 +5257,7 @@
         "paymentMethod": {
             "2": "Cheque",
             "10": "Automatische betaling",
-            "0": "Online betalingen",
+            "0": "Creditcard",
             "1": "Contant geld",
             "4": "Creditcard (handmatig)",
             "5": "Vakantiecheques",

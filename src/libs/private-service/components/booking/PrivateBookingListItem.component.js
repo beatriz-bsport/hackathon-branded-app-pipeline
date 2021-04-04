@@ -10,7 +10,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import UpdateIcon from '@material-ui/icons/Update';
 import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, useTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
@@ -35,7 +35,7 @@ export const PrivateBookingListItem = (props: Props) => {
     }
     return '';
   };
-
+  const { t } = useTranslation(['privateService']);
   return (
     <ListItem
       divider={!!props.divider}
@@ -57,6 +57,15 @@ export const PrivateBookingListItem = (props: Props) => {
             <Typography color="primary">{getIsRecurrentBooking()}</Typography>
             <Typography variant="body2" inline>
               {getBookingStatusCode(props.t, props.private_booking)}
+            </Typography>
+            <Typography variant="body2" inline style={{ marginLeft: 'auto' }}>
+              {props.private_booking.booking_status_code !==
+                BOOKING_STATUS_OK.id &&
+                `${
+                  props.private_booking.was_refunded
+                    ? t('privateBooking.isRefunded')
+                    : t('privateBooking.notRefunded')
+                }`}
             </Typography>
           </div>
         }

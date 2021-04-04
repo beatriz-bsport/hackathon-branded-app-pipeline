@@ -22,10 +22,8 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import memoize from 'memoize-one';
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
-
 import type { TFunction } from 'react-i18next';
 import FullCalendar from '@fullcalendar/react';
-
 import timeGridPlugin from '@fullcalendar/timegrid';
 
 // import momentTimezonePlugin from '@fullcalendar/moment-timezone';
@@ -139,6 +137,8 @@ const privateBookingAsEvent = (resourceDatatypeView) => (pb) => {
     editable: false,
     extendedProps: {
       private_booking: pb.id,
+      private_booking_canceled: pb.date_canceled,
+      private_booking_refunded: pb.was_refunded,
     },
     textColor: 'black',
     classNames: [
@@ -485,6 +485,22 @@ export class PrivateCalendar extends React.Component<Props, State> {
     return offerList;
   };
 
+  handleEventRender = ({ event, el }) => {
+    if (
+      event._def.extendedProps.private_booking &&
+      event._def.extendedProps.private_booking_canceled
+    ) {
+      const cancellationInfo = event._def.extendedProps.private_booking_refunded
+        ? 'refunded'
+        : 'notrefunded';
+      const refundedChip = `<div class="InfoContainer ${cancellationInfo}"><i class="Info">&#8618;</i></div>`;
+      el.getElementsByClassName('fc-event-time')[0].insertAdjacentHTML(
+        'afterbegin',
+        refundedChip,
+      );
+    }
+  };
+
   render() {
     const { classes, t } = this.props;
     const { events, allDaySlot } = this.getAvailableSlotAsEvents(
@@ -557,6 +573,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
           select={this.select}
           dateClick={this.dateClick}
           events={events}
+          eventDidMount={this.handleEventRender}
           locale={i18n.language === 'en' ? 'en-GB' : i18n.language}
           slotDuration={
             // eslint-disable-next-line

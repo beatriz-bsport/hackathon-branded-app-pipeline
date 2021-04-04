@@ -119,6 +119,8 @@ exports.default = {
     restore: 'Restaurer le RDV',
     isCancelled: 'Annulé',
     isCancelledDate: 'Annulé le {{-date}} à {{time}}',
+    isRefunded: 'Remboursé',
+    notRefunded: 'Non-Remboursé',
     attachCoach: {
       title: 'Attribution au professeur',
       explain:

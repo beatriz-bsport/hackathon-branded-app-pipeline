@@ -2,6 +2,8 @@
 import React, { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Chip from '@material-ui/core/Chip';
+import Avatar from '@material-ui/core/Avatar';
 import moment from 'moment-timezone';
 import { compose, withStateHandlers } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -24,9 +26,11 @@ import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status
 import MemberListItem from '../../../member/components/MemberMinimalListItem.component';
 import type { PrivateBookingWithRelatedFields } from '../../types';
 import RedButton from '../../../../components/button/RedButton.component';
-
+import RedChip from '../../../../components/chip/RedChip.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
+
+import { getCurrencyDisplay } from '../../../theme/selectors';
 
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,
@@ -103,14 +107,39 @@ export const PrivateBookingCard = (props: Props) => {
     <div className={classes.container}>
       <div className={classes.header}>
         {props.private_booking.booking_status_code !== BOOKING_STATUS_OK.id ? (
-          <Typography variant="h6" color="error">
-            {private_booking.date_canceled
-              ? t('privateBooking.isCancelledDate', {
-                  date: moment(private_booking.date_canceled).format('L'),
-                  time: moment(private_booking.date_canceled).format('LT'),
-                })
-              : t('privateBooking.isCancelled')}
-          </Typography>
+          <div className={classes.firstRow}>
+            <Typography variant="h6" color="error">
+              {private_booking.date_canceled
+                ? t('privateBooking.isCancelledDate', {
+                    date: moment(private_booking.date_canceled).format('L'),
+                    time: moment(private_booking.date_canceled).format('LT'),
+                  })
+                : t('privateBooking.isCancelled')}
+            </Typography>
+            <div className={classes.chipContainer}>
+              {props.private_booking.was_refunded ? (
+                <Chip
+                  size="small"
+                  color="primary"
+                  label={
+                    <Typography variant="body2" color="white">
+                      {`${t('privateBooking.isRefunded')}`}
+                    </Typography>
+                  }
+                />
+              ) : (
+                <RedChip
+                  size="small"
+                  color="primary"
+                  label={
+                    <Typography variant="body2" color="white">
+                      {`${t('privateBooking.notRefunded')}`}
+                    </Typography>
+                  }
+                />
+              )}
+            </div>
+          </div>
         ) : null}
         <Typography variant="h4">
           {private_booking.private_slot.private_service.name}
@@ -199,6 +228,14 @@ const useStyles = makeStyles((theme) => ({
   },
   updatedTimeExplain: {
     marginTop: theme.spacing(1),
+  },
+  firstRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  chipContainer: {
+    paddingLeft: theme.spacing(3),
   },
 }));
 

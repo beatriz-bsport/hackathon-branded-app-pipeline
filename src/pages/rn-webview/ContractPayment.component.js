@@ -35,12 +35,12 @@ type Props = {
   fetchContractDetail: (number) => void,
   companyTheme?: CompanyTheme,
   fetchCompanyTheme: (companyId: number) => void,
-  theme: CompanyTheme,
 };
 
 type State = {
   processing: boolean,
   companyId?: number,
+  theme: CompanyTheme,
 };
 
 export class ContractPayment extends React.Component<Props, State> {

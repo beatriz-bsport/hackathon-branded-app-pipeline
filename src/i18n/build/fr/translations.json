@@ -2426,9 +2426,10 @@
       "MT": "Malte",
       "NO": "Norvège",
       "SE": "Sweden",
-      "FI": "Finalande",
+      "FI": "Finlande",
       "DK": "Danemark",
-      "LU": "Luxembourg"
+      "LU": "Luxembourg",
+      "CA": "Canada"
     },
     "language": { "fr": "français", "en": "anglais", "de": "allemand", "it": "italien", "nl": "néerlandais", "es": "espagnol" }
   },

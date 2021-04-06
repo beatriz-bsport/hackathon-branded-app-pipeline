@@ -97,9 +97,10 @@ exports.default = {
     MT: 'Malte',
     NO: 'Norvège',
     SE: 'Sweden',
-    FI: 'Finalande',
+    FI: 'Finlande',
     DK: 'Danemark',
     LU: 'Luxembourg',
+    CA: 'Canada',
   },
   language: {
     fr: 'français',

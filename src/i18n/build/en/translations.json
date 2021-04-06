@@ -6196,7 +6196,7 @@
         "settings": {
             "title": "Settings",
             "lastBookingBeforeMinutes": "Last booking is possible until {{m}} before the start of the session",
-            "lastDiscardBeforeMinutes": "Last discard booking is possible until {{m}} before start of the session",
+            "lastDiscardBeforeMinutes": "You can cancel your class without penalty up to {{m}} before the start of the class",
             "firstBookingMinutesUntil": "Customers can book only {{m}} at least before the session",
             "conditions": "Conditions",
             "autoDiscard": "The session will be cancelled if there are {{nb_bookings}} booking(s) or less {{hours}}h before the start of the session"
@@ -8013,8 +8013,10 @@
                 "urlInputError": "Please enter a url",
                 "urlInputLabel": "Youtube link",
                 "type": {
-                    "url": "URL",
-                    "file": "File"
+                    "url": "Youtube",
+                    "file": "File",
+                    "urlExplain": "If you have a video Youtube and want to limit to monetize it via bsport.",
+                    "fileExplain": "If you have a video file (mp4,avi,mov...), please use this to upload directly your video on our servers."
                 },
                 "submit": "Save",
                 "minutes": "Minutes",

@@ -110,6 +110,7 @@ exports.default = {
     nb_bookings_same_pass: 'Nb résa via même pass',
     checkout_items: 'Contenu du panier',
     credit_consumed: 'Crédit consommé',
+    credit_amount: 'Montant des crédits',
     total_payments: 'Total paiements',
     name: 'Nom',
     identifier: 'Identifiant',

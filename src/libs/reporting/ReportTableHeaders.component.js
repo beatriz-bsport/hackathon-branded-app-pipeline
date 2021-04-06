@@ -15,16 +15,16 @@ function CardHeaders(props: Props) {
       <Typography className={classes.headerSectionTitle} variant="h6">
         {t(`header.${(headerTitle || '').toLowerCase()}`)}
       </Typography>
-      <Grid container direction="row">
+      <Grid container direction="row" spacing={1}>
         {headerDetails.map((colum, index) => (
-          <Grid xs={6} md={4} lg={2} spacing={1}>
+          <Grid item xs={6} md={4} lg={2}>
             <Card
               key={index}
               elevation={1}
               className={classes.cardStyle}
               borderColor="#888"
             >
-              <Typography variant="h5">
+              <Typography variant="body2">
                 {t(`columns.${colum.column_identifier}`)}
               </Typography>
               <div

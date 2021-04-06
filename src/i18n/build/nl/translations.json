@@ -73,7 +73,7 @@
             "goToCalendar": "Toon de planning"
         },
         "dashboard": {
-            "noBooking": "Je hebt je nog niet voor een sessie ingeschreven",
+            "noBooking": "Je hebt je nog niet ingeschreven.",
             "noPackCurrentlyActive": "Je bezit nog geen geldig lidmaatschap",
             "showMore": "Toon meer",
             "currentPassTitle": "Mijn actieve lidmaatschappen",
@@ -104,7 +104,7 @@
             "logoff": "Afmelden",
             "profile": "Profiel",
             "subscription": "Abonnementen",
-            "invoice": "Factuur",
+            "invoice": "Facturen",
             "pack": "Cursuskaarten",
             "calendar": "Geschiedenis",
             "dashboard": "Overzicht",
@@ -122,7 +122,7 @@
         },
         "widget": {
             "noBookingPast": "Hier zie je je geschiedenis zodra je reserveringen hebt gemaakt!",
-            "noBookingFuture": "Je hebt je nog niet voor een sessie ingeschreven",
+            "noBookingFuture": "Je hebt je nog niet ingeschreven.",
             "pastBooking": "Geschiedenis",
             "futureBooking": "Mijn reserveringen"
         }
@@ -353,7 +353,7 @@
                 "offerFormPage": "Creëer sessie",
                 "metaActivityFormPage": "[Formulier] Activiteiten",
                 "metaActivityList": "Activiteiten",
-                "metaActivityEditForm": "[Formulier] Activiteiten",
+                "metaActivityEditForm": "[Formulier] Groepsactiviteiten",
                 "WorkshopActivityFormPage": "[Formulier] Workshops",
                 "workshopActivityList": "Workshops",
                 "metaActivity": "Activiteiten",
@@ -1421,7 +1421,7 @@
                 "submit": "Opslaan"
             },
             "manager_only": {
-                "label": "Niet beschikbaar voor klanten maken"
+                "label": "Niet beschikbaar voor leden"
             },
             "tax": {
                 "label": "Btw"
@@ -1608,7 +1608,7 @@
             "payment_date_date": "Betaaldatum",
             "product_price": "Productprijs",
             "total_price_notax": "Gefactureerd bedrag (excl. btw)",
-            "billing_date_start": "Datum van de eerste facturering",
+            "billing_date_start": "Eerste factuurdatum",
             "subshop_name": "Categorie",
             "payment_method": "Betaalmethode",
             "product": "Product",
@@ -2353,7 +2353,7 @@
                 "helperText": "selecteer activiteiten",
                 "helperSelectedText": "geselecteerde activiteiten",
                 "textFieldPlaceholder": "Zoek een activiteit",
-                "helperAllSelectedText": "alle activiteiten",
+                "helperAllSelectedText": "Alle activiteiten",
                 "warning": "Selecteer minimaal één activiteit"
             },
             "coaches": {
@@ -3610,7 +3610,7 @@
                     "label": "Factuurnummer(s)"
                 },
                 "description": {
-                    "placeholder": "Jaarlijkse VIP-abonnement",
+                    "placeholder": "Een exclusieve aanbieding",
                     "label": "Beschrijving"
                 },
                 "title": "[Formulier] Abonnement",
@@ -3651,7 +3651,7 @@
                     }
                 },
                 "recurrence": {
-                    "explain": "Dit abonnement wordt iedere {{ recurrence_basis }}{{ interval }} voor {{ total_interval_duration }}{{ interval }} lang gefactureerd. Er worden in totaal {{ nb_interval }} facturen aangemaakt.",
+                    "explain": "Dit abonnement wordt iedere {{ recurrence_basis }} {{ interval }} met een totale duur van{{ total_interval_duration }} {{ interval }}. Er zullen {{ nb_interval }} facturen aangemaakt.",
                     "section": "Instellingen"
                 },
                 "interval": {
@@ -3700,8 +3700,8 @@
             "interval": {
                 "week": "week",
                 "week_plural": "weken",
-                "day": "jaar",
-                "day_plural": "jaar",
+                "day": "dag",
+                "day_plural": "dagen",
                 "year": "jaar",
                 "year_plural": "jaar",
                 "month": "maand",
@@ -3872,7 +3872,7 @@
             "nbInterval": "Aantal incasso's",
             "paymentPack": "Cursuskaarten",
             "nbMonths": "Aantal incasso's",
-            "dateStart": "Eerste facturering",
+            "dateStart": "Eerste factuurdatum",
             "firstBilling": "Eerste factuurdatum",
             "payment_pack": "Cursuskaarten",
             "private_pass": "Afspraakkaarten",
@@ -4625,7 +4625,7 @@
                 },
                 "title": "Afspraakkaarten",
                 "managerOnly": {
-                    "label": "Niet beschikbaar voor klanten maken"
+                    "label": "Niet beschikbaar voor leden"
                 },
                 "name": {
                     "label": "Naam"
@@ -4682,7 +4682,7 @@
                 "nbCredits": "{{ credits}} krediet(en)",
                 "price": "{{ price, price}}",
                 "tax": "Btw: {{ tax }}%",
-                "managerOnly": "Niet beschikbaar voor klanten maken"
+                "managerOnly": "Niet beschikbaar voor leden"
             },
             "compatibleServices": {
                 "title": "Compatibele afspraken",
@@ -4707,7 +4707,7 @@
                     "label": "Naam"
                 },
                 "managerOnly": {
-                    "label": "Niet beschikbaar voor klanten maken"
+                    "label": "Niet beschikbaar voor leden"
                 },
                 "last_discard_minutes": {
                     "label": "Geef aan tot wanneer een lid kosteloos kan annuleren",
@@ -6514,7 +6514,7 @@
                 "placeholder": "Ik verklaar dat ik een medische verklaring heb en deze naar mijn studio zal brengen"
             },
             "general_terms_of_use": {
-                "placeholder": "Ik bevestig dat ik 13 jaar of ouder ben",
+                "placeholder": "Ik bevestig dat ik 13 jaar of ouder ben.",
                 "helperText": "Dit dient bij elke inschrijving te worden geaccepteerd.",
                 "label": "Algemene Gebruiksvoorwaarden"
             },
@@ -6692,7 +6692,7 @@
                 "clientAuthor": "Lid",
                 "author": "Opgemaakt door: {{ name }}",
                 "date": "Datum: {{ date }}",
-                "reverseInvoice": "Vergoeden via ",
+                "reverseInvoice": "Terugbetalen via ",
                 "sourceInvoice": "Factuur annuleren"
             },
             "editor": {
@@ -7208,7 +7208,7 @@
                 "lastName": "Familienaam",
                 "firstName": "Voornaam",
                 "email": "E-mailadres",
-                "title": "Blijf altijd op de hoogte via onze nieuwsbrief!"
+                "title": "Schrijf je hieronder in voor onze nieuwsbrief en ontvang interessante updates en artikelen."
             }
         }
     }

@@ -327,7 +327,7 @@
                 "iAcceptPrivacyPolicy": "Acepto los ",
                 "privacyPolicy": "Términos de servicio",
                 "emailExistsInDB2": "Iniciar sesión",
-                "emailExistsInDB1": "Este email ya está registrado porque estás registrado en un club o estudio usando bsport. Puedes utilizar los mismos identificadores."
+                "emailExistsInDB1": "Este correo ya está registrado porque estás registrado en un club o estudio usando bsport. Puedes utilizar los mismos identificadores."
             },
             "quickInvoice": {
                 "totalPurchase": "Compras",
@@ -1356,7 +1356,8 @@
             "FI": "Finlandia",
             "SE": "Suecia",
             "NO": "Noruega",
-            "LU": "Luxemburgo"
+            "LU": "Luxemburgo",
+            "CA": "Canada"
         },
         "emailValidation": {
             "disconnect": "Cambiar de cuenta",
@@ -6348,8 +6349,10 @@
                 "urlInputError": "Por favor, introduzca un url",
                 "urlInputLabel": "Enlace de Youtube",
                 "type": {
-                    "url": "URL",
-                    "file": "Archivo"
+                    "url": "Youtube",
+                    "file": "Archivo",
+                    "urlExplain": "Tu vídeo ya está disponible en Youtube pero quieres monetizarlo a través del sistema de tarjetas de bsport.",
+                    "fileExplain": "Si tienes el archivo de vídeo (mp4, avi, mov...), utiliza este método para subir tu vídeo directamente a los servidores de bsport."
                 },
                 "submit": "Guardar",
                 "minutes": "Minutos",

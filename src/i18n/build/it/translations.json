@@ -2126,7 +2126,8 @@
         },
         "recurrenceRule": {
             "item": {
-                "explain": "Ogni {{dayOfWeek}} - {{hours}}, {{delayWeek}} settimane prima"
+                "explain": "Ogni {{dayOfWeek}} - {{hours}}, {{delayWeek}} settimane prima",
+                "startFrom": "Dal {{ date }}"
             },
             "forms": {
                 "update": {
@@ -2272,8 +2273,10 @@
                 "urlInputError": "Per favore, inserisci un url",
                 "urlInputLabel": "Link YouTube",
                 "type": {
-                    "url": "URL",
-                    "file": "Documento"
+                    "url": "Youtube",
+                    "file": "Documento",
+                    "urlExplain": "Il tuo video è già disponibile su Youtube ma vuoi monetizzarlo tramite il sistema di carte di bsport.",
+                    "fileExplain": "Hai il file video (mp4, avi, mov...), usa questo metodo per caricare il tuo video direttamente sui server di bsport."
                 },
                 "submit": "Convalidare",
                 "minutes": "Minuti",
@@ -3186,7 +3189,8 @@
             },
             "createOrUpdate": {
                 "error": "Impossibile salvare l'appuntamento ricorrente",
-                "success": "Appuntamento ricorrente registrato con successo"
+                "success": "Appuntamento ricorrente registrato con successo",
+                "locked": "Esiste già una regola di ricorrenza con questi parametri"
             }
         },
         "zoom": {
@@ -5198,7 +5202,10 @@
                 },
                 "at": " a ",
                 "timeGroup": "Data della sessione",
-                "title": "Programma una ricorrenza"
+                "title": "Programma una ricorrenza",
+                "startFromDate": {
+                    "label": "Inizio della ricorrenza su "
+                }
             },
             "recurrentRuleBooking": "Prenotazione ricorrente",
             "item": {
@@ -6442,7 +6449,8 @@
             "FI": "Finlandia",
             "SE": "Svezia",
             "NO": "Norvegia",
-            "LU": "Lussemburgo"
+            "LU": "Lussemburgo",
+            "CA": "Canada"
         },
         "emailValidation": {
             "disconnect": "Cambia account",

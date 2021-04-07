@@ -79,6 +79,8 @@ import { openIntercomHelp } from '../../intercom';
 import type { Alerting } from '../../libs/alerting/types';
 import type { TempPasswordState } from '../../libs/login/types';
 import Config from '../../config';
+import { Permission } from '../../libs/role/types';
+import { checkRequiredPermissions } from '../../libs/role/utils';
 
 export const drawerWidth = 260;
 
@@ -114,6 +116,7 @@ type Props = {
   handleOpenOnSpotPaymentReport: () => void,
   fetchOnSpotPaymentReport: () => void,
   showCashBook: boolean,
+  permissions: Permission,
 };
 
 type State = {
@@ -156,6 +159,13 @@ class ResponsiveDrawer extends React.Component<Props, State> {
   renderMenuItem = (item: Object, i, isNested) => {
     const { classes, location } = this.props;
     const isActive = location.pathname.startsWith(item.to);
+
+    if (item.permission) {
+      if (!checkRequiredPermissions(item.permission, this.props.permissions)) {
+        return null;
+      }
+    }
+
     if (item === 'divider') {
       return <Divider key={i} />;
     }
@@ -502,28 +512,33 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('backofficeMenu.search'),
         icon: Search,
         className: classes.menuMobile,
+        permission: 'navigationMenu.search',
       },
       { type: 'divider', className: classes.menuMobile },
       {
         to: '/dashboard',
         text: t('backofficeMenu.dashboard'),
         icon: TrendingUp,
+        permission: 'navigationMenu.dashboard',
       },
       'divider',
       {
         to: '/calendar',
         icon: DateRangeIcon,
         text: t('backofficeMenu.calendar'),
+        permission: 'navigationMenu.calendar',
       },
       {
         to: '/private-service/calendar/',
         icon: ScheduleIcon,
         text: t('backofficeMenu.schedule'),
+        permission: 'navigationMenu.schedule',
       },
       {
         icon: BusinessCenterIcon,
         text: t('backofficeMenu.myClub'),
         type: 'nested',
+        permission: 'navigationMenu.myClub',
         nestedItems: [
           'divider',
           {
@@ -558,6 +573,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         icon: ShoppingCartIcon,
         text: t('backofficeMenu.product'),
         type: 'nested',
+        permission: 'navigationMenu.products',
         nestedItems: [
           'divider',
           {
@@ -598,6 +614,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('backofficeMenu.payment'),
         type: 'nested',
         defaultTo: '/invoice',
+        permission: 'navigationMenu.payments',
         nestedItems: [
           'divider',
           {
@@ -631,6 +648,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             : null,
         type: 'nested',
         defaultTo: '/smart-list',
+        permission: 'navigationMenu.marketing',
         nestedItems: [
           'divider',
           {
@@ -658,6 +676,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         icon: LaptopIcon,
         text: t('backofficeMenu.digital'),
         type: 'nested',
+        permission: 'navigationMenu.digitalOffer',
         nestedItems: [
           'divider',
           {
@@ -680,11 +699,13 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         to: '/member',
         icon: People,
         text: t('backofficeMenu.member'),
+        permission: 'navigationMenu.member',
       },
       {
         to: '/reporting',
         icon: DescriptionIcon,
         text: t('backofficeMenu.reporting'),
+        permission: 'navigationMenu.reporting',
       },
       'divider',
       {
@@ -692,6 +713,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         text: t('backofficeMenu.settings.settings'),
         type: 'nested',
         defaultTo: '/settings/general',
+        permission: 'navigationMenu.settings',
         nestedItems: [
           'divider',
           {

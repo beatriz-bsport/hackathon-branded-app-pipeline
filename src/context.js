@@ -5,3 +5,6 @@ export const Context = React.createContext({
   hideLeftMenuAction: () => {},
   showLeftMenuAction: () => {},
 });
+
+export const PermissionContext = React.createContext(null);
+PermissionContext.displayName = 'Permission';

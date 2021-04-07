@@ -42,6 +42,100 @@ exports.default = {
         confirm: 'Supprimer',
       },
     },
+    role: {
+      create: {
+        buttonCreate: 'Ajouter un rôle  ',
+        title: 'Création de rôle',
+        name: 'Nom',
+        description: 'Description',
+        restrictedUrl: 'URL Restreints',
+        restrictedUrlPlaceholder: 'ex: /member/',
+        permissions: 'Permissions',
+        showAdvanced: 'Voir plus',
+      },
+      delete: {
+        title: 'Suppression rôle',
+        content: 'Êtes-vous sûr de vouloir supprimer ce rôle ?',
+        cancel: 'Annuler',
+        confirm: 'Supprimer',
+      },
+    },
+  },
+  rolePermissions: {
+    appbarActions: {
+      _label: 'Actions appbar',
+      _helper: 'Création membre, rapport paiement sur place..',
+    },
+    search: {
+      _label: 'Recherche membre',
+    },
+    offer: {
+      _label: 'Séances',
+      create: {
+        _label: 'Création',
+      },
+      delete: {
+        _label: 'Annulation',
+      },
+      edit: {
+        _label: 'Modification',
+      },
+    },
+    member: {
+      _label: 'Membre',
+      create: {
+        _label: 'Création',
+      },
+      retrieve: {
+        _label: 'Accès fiche membre',
+      },
+      edit: {
+        _label: 'Modification',
+      },
+      search: {
+        _label: 'Recherche',
+      },
+    },
+    navigationMenu: {
+      _label: 'Menu de navigation',
+      search: {
+        _label: 'Recherche membre',
+        _helper: 'Mobile uniquement',
+      },
+      dashboard: {
+        _label: 'Dashboard',
+      },
+      calendar: {
+        _label: 'Calendrier',
+      },
+      schedule: {
+        _label: 'Emploi du temps',
+      },
+      myClub: {
+        _label: 'Mon Club',
+      },
+      products: {
+        _label: 'Produits',
+      },
+      payments: {
+        _label: 'Paiements',
+      },
+      marketing: {
+        _label: 'Marketing',
+      },
+      digitalOffer: {
+        _label: 'Offre digitale',
+      },
+      member: {
+        _label: 'Membre',
+      },
+      reporting: {
+        _label: 'Rapports',
+      },
+      settings: {
+        _label: 'Paramètres',
+      },
+    },
   },
   roleDescription: {
     [CHECKIN_APP_ROLE]: {

@@ -11,3 +11,7 @@ export type WithHandlerType<
 > = {
   [K in keyof T]: ReturnType<T[K]>;
 };
+
+export type DeepPartial<T> = {
+  [P in keyof T]?: DeepPartial<T[P]>;
+};

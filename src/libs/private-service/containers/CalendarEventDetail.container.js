@@ -29,7 +29,6 @@ import {
   getPrivateBooking,
   withRelatedFields,
 } from '../selectors/private-booking';
-import { getPermissions } from '../../role/selectors';
 import {
   fetchPrivateBooking as fetchPrivateBookingAction,
   fetchPrivateSlot as fetchPrivateSlotAction,
@@ -80,6 +79,7 @@ import {
   disableOffer as disableOfferAPI,
   deleteOffer as deleteOfferAPI,
 } from '../../offer/api';
+import CheckPermission from '../../role/components/CheckPermission.component';
 
 type Props = {
   offerId: number,
@@ -89,7 +89,6 @@ type Props = {
   openOfferEditModal: ?Offer,
   t: TFunction,
   classes: Object,
-  permission: Permission,
   privateBooking: ?PrivateBooking,
   offer: Offer,
   selectedPrivateBooking: ?PrivateBooking,
@@ -169,7 +168,6 @@ export class CalendarEventDetail extends React.Component<Props> {
     const {
       t,
       classes,
-      permission,
       goToMember,
       offer,
       privateBooking,
@@ -222,18 +220,18 @@ export class CalendarEventDetail extends React.Component<Props> {
           <OfferMinimalSummary offer={offer} />
           {offer.available ? (
             <div className={classes.buttonRow}>
-              {permission && permission.offer.edit ? (
+              <CheckPermission requiredPermissions="offer.edit">
                 <Button color="primary" onClick={this.props.openOfferEditModal}>
                   <EditIcon className={classes.iconLeft} />
                   <Hidden xsDown>{t('calendar.modifyOffer')}</Hidden>
                 </Button>
-              ) : null}
-              {permission && permission.offer.delete ? (
+              </CheckPermission>
+              <CheckPermission requiredPermissions="offer.delete">
                 <RedButton onClick={this.props.openOfferDeleteModal}>
                   <DeleteIcon className={classes.iconLeft} />
                   <Hidden xsDown>{t('calendar.deleteOffer')}</Hidden>
                 </RedButton>
-              ) : null}
+              </CheckPermission>
             </div>
           ) : null}
           <Link style={{ textDecoration: 'none' }} to={`/offer/${offer.id}`}>
@@ -410,6 +408,7 @@ export class CalendarEventDetail extends React.Component<Props> {
     );
   }
 }
+
 const styles = (theme) => ({
   loadingContainer: {
     minWidth: 400,
@@ -596,7 +595,6 @@ export default compose(
       ),
       privateBookingLoading:
         state.privateService.privateBooking.createOrUpdate.loading,
-      permission: getPermissions(state),
       theme: state.theme.theme,
       offer: withMetaActivity(withCoach(withEstablishment(getOfferById)))(
         state,

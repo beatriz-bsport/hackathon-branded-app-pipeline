@@ -48,7 +48,6 @@ import {
   registerToWaitingList as registerToWaitingListAction_,
   fetchByOffer as fetchBookingOptionByOfferAction,
 } from '../../libs/waiting-list/actions';
-import { getPermissions } from '../../libs/role/selectors';
 import {
   getOfferBookingListWithConsumerPack,
   getRecurrenceRuleBookingList,
@@ -156,8 +155,8 @@ export default compose(
       unpaidInvoiceList: withMember(withInvoiceItem(getInvoiceListUnpaid))(
         state,
       ),
+
       // buyable stuff
-      permission: getPermissions(state),
       availableBuyableItems: getBuyableItem(state),
       // theme
       company_theme: themeSelectors.getTheme(state),

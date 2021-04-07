@@ -23,7 +23,6 @@ import {
   getPlannedPaymentEventList,
 } from '../../libs/invoice/selectors';
 import { getPaymentGroupRequiringActionList } from '../../libs/payment/selectors';
-import { getPermissions } from '../../libs/role/selectors';
 import { formatAsDate } from '../../utils/datetime';
 import { fetchMember } from '../../libs/member/actions';
 import {
@@ -40,7 +39,7 @@ import {
   updatePaymentGroupPriceCts,
   fetchPaymentGroupList as fetchPaymentGroupListAction,
 } from '../../libs/payment/actions';
-import { fetchCompanyRoles } from '../../libs/role/actions';
+import { fetchCompanyUserRoles } from '../../libs/role/actions';
 
 import InvoiceHeader from '../../libs/invoice/components/InvoiceHeader.component';
 import InvoiceContent from '../../libs/invoice/components/InvoiceContent.component';
@@ -50,11 +49,12 @@ import { requestClientSecret as requestClientSecretAPI } from '../../libs/invoic
 
 import PaymentDialog from '../../libs/payment/components/PaymentDialog.component';
 import CreditMemberBadge from '../../libs/member/components/CreditMemberBadge.component';
+import CheckPermission from '../../libs/role/components/CheckPermission.component';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 
 type Props = {
-  fetchCompanyRoles: () => void,
+  fetchCompanyUserRoles: () => void,
   uuid: string,
   fetchInvoiceItemList: (params: any) => void,
   fetchMember: (number) => void,
@@ -63,7 +63,6 @@ type Props = {
   openPaymentDialog: () => void,
   paymentLoading: boolean,
   setOpenPaymentDialog: (boolean) => void,
-  permission: Permission,
   revertInvoice: (uuid: string) => void,
   classes: any,
   goToSubscription: (id: number) => void,
@@ -107,7 +106,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
 
   componentDidMount() {
     this.fetchInvoiceData();
-    this.props.fetchCompanyRoles();
+    this.props.fetchCompanyUserRoles();
   }
 
   fetchInvoiceData = () => {
@@ -290,30 +289,32 @@ export class InvoiceDetail extends React.Component<Props, State> {
           open={this.props.revertDialogOpen}
           onClose={this.props.closeRevertDialog}
         />
-        {this.props.permission.member.retrieve && this.props.invoice.member && (
-          <div className={this.props.classes.navigationButton}>
-            <Grow in={this.props.invoice && this.props.invoice.member}>
-              <CreditMemberBadge
-                credit={this.props.invoice.member.credit_account_balance}
-              >
-                <Fab
-                  variant="contained"
-                  color="secondary"
-                  onClick={() =>
-                    this.props.goToMemberPage(this.props.invoice.member.id)
-                  }
+        <CheckPermission requiredPermissions="member.retrieve">
+          {this.props.invoice.member && (
+            <div className={this.props.classes.navigationButton}>
+              <Grow in={this.props.invoice && this.props.invoice.member}>
+                <CreditMemberBadge
+                  credit={this.props.invoice.member.credit_account_balance}
                 >
-                  <PersonIcon />
-                  <Hidden xsDown>
-                    <span className={this.props.classes.rightText}>
-                      {this.props.invoice.member.name}
-                    </span>
-                  </Hidden>
-                </Fab>
-              </CreditMemberBadge>
-            </Grow>
-          </div>
-        )}
+                  <Fab
+                    variant="contained"
+                    color="secondary"
+                    onClick={() =>
+                      this.props.goToMemberPage(this.props.invoice.member.id)
+                    }
+                  >
+                    <PersonIcon />
+                    <Hidden xsDown>
+                      <span className={this.props.classes.rightText}>
+                        {this.props.invoice.member.name}
+                      </span>
+                    </Hidden>
+                  </Fab>
+                </CreditMemberBadge>
+              </Grow>
+            </div>
+          )}
+        </CheckPermission>
       </div>
     );
   }
@@ -356,7 +357,6 @@ export default compose(
       paymentLoading: state.invoice.payment.loading,
       invoiceItemLoading: state.invoice.invoiceItem.loading,
       plannedPaymentEventList: getPlannedPaymentEventList(state, uuid),
-      permission: getPermissions(state),
       paymentGroupRequiringActionList: getPaymentGroupRequiringActionList(
         state,
         uuid,
@@ -372,7 +372,7 @@ export default compose(
       fetchPaymentGroupList: fetchPaymentGroupListAction,
       fetchPlannedPaymentEventList,
       fetchMember,
-      fetchCompanyRoles,
+      fetchCompanyUserRoles,
       revertInvoice: revertInvoiceAction,
       goToMemberPage: (id) => pushRouter(`/member/${id}/`),
       goToInvoice: (uuid) => pushRouter(`/invoice/${uuid}/`),

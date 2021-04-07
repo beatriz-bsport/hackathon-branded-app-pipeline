@@ -25,7 +25,6 @@ import { fetchMemberBulk as fetchMemberBulkAction } from '../libs/member/actions
 import { fetchAssociatedCoachesList } from '../libs/associated-coach/actions';
 
 import { getCustomEventList } from '../libs/private-service/selectors/custom-event';
-import { getPermissions } from '../libs/role/selectors';
 import CustomEvenFormDialog from '../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import {
   getFilteredAvailabilitySlots,
@@ -45,6 +44,7 @@ import {
   fetchAvailabilitySlots,
   resetAvailabilitySlots,
 } from '../libs/private-service/actions';
+import { PermissionContext } from '../context';
 
 type Props = {
   classes: Object,
@@ -66,7 +66,6 @@ type Props = {
   fetchAssociatedCoachesList: (params: any) => void,
   resourcesByDatatype: Array<ResourceDataGroup>,
 
-  permission: ?Permission,
   pushToCalendar: () => void,
   fetchCustomEventList: () => void,
   resetCustomEvent: () => void,
@@ -74,7 +73,6 @@ type Props = {
   customEventData: any,
   availableCoaches: Array<Coach>,
   createOrUpdateCustomEvent: (data: any, options: OptionCallback) => void,
-  closeCustomEventDialog: () => void,
   resetAvailabilitySlots: () => void,
   fetchAvailabilitySlots: (params: any, options: OptionCallback) => void,
   availabilitySlots: Array<AvailabilitySlot>,
@@ -148,33 +146,37 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     const { classes } = this.props;
     return (
       <div className={classes.container}>
-        <PrivateCalendarWithControls
-          availabilitySlots={this.props.availabilitySlots}
-          goToCalendar={
-            !this.props.permission.navigation && this.props.permission.calendar
-              ? this.props.pushToCalendar
-              : null
-          }
-          timezone={this.props.theme.timezone_name}
-          customEventList={this.props.customEventList}
-          privateBookings={this.props.privateBookingList}
-          createCustomEvent={this.props.onRequestCustomEvent}
-          disableAvailabilitySlotDisplay
-          collapsResourceSelector
-          resourceAvailable={this.props.resourceData}
-          setResourceFiltered={this.props.setResourceFiltersArray}
-          goToMember={this.props.goToMember}
-          onDateChange={this.props.handleDateChange}
-          offerList={this.props.offerList}
-          resourcesByDatatype={this.props.resourcesByDatatype}
-          refreshOffers={this.props.fetchOfferList}
-          refreshPrivateBookings={this.props.fetchPrivateBookingList}
-          resourceSelectedListIds={this.props.resourceFiltersArray}
-          showOfferListToogle
-          showPrivateBookingToogle
-          showCustomEventsToogle
-          showHideCancelledEventsToggle
-        />
+        <PermissionContext.Consumer>
+          {(permissions) => (
+            <PrivateCalendarWithControls
+              availabilitySlots={this.props.availabilitySlots}
+              goToCalendar={
+                !permissions.navigation && permissions.calendar
+                  ? this.props.pushToCalendar
+                  : null
+              }
+              timezone={this.props.theme.timezone_name}
+              customEventList={this.props.customEventList}
+              privateBookings={this.props.privateBookingList}
+              createCustomEvent={this.props.onRequestCustomEvent}
+              disableAvailabilitySlotDisplay
+              collapsResourceSelector
+              resourceAvailable={this.props.resourceData}
+              setResourceFiltered={this.props.setResourceFiltersArray}
+              goToMember={this.props.goToMember}
+              onDateChange={this.props.handleDateChange}
+              offerList={this.props.offerList}
+              resourcesByDatatype={this.props.resourcesByDatatype}
+              refreshOffers={this.props.fetchOfferList}
+              refreshPrivateBookings={this.props.fetchPrivateBookingList}
+              resourceSelectedListIds={this.props.resourceFiltersArray}
+              showOfferListToogle
+              showPrivateBookingToogle
+              showCustomEventsToogle
+              showHideCancelledEventsToggle
+            />
+          )}
+        </PermissionContext.Consumer>
         {this.props.customEventData && (
           <CustomEvenFormDialog
             coaches={this.props.availableCoaches}
@@ -206,7 +208,6 @@ export default compose(
   }),
   connect(
     (state, { periodFilter, resourceFiltersArray }) => ({
-      permission: getPermissions(state),
       theme: state.theme.theme,
       availabilitySlots: withResourceColor(getFilteredAvailabilitySlots)(
         state,

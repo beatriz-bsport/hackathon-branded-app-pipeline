@@ -32,6 +32,7 @@ import { getAllEstablishments } from '../../libs/establishment/selectors';
 import CheckInAppBar from '../../libs/check-in/components/CheckInAppBar.component';
 import CheckInSignout from '../../libs/check-in/components/CheckInSignout.component';
 import CheckInRouter from './CheckIn.router';
+import { fetchCompanyRoles } from '../../libs/role/actions';
 
 type Props = {
   fetchEstablishments: () => void,
@@ -49,6 +50,8 @@ type Props = {
   classes: Object,
   push: (path: string) => void,
   goToCreateMember: (companyId: number) => void,
+  fetchCompanyRoles: () => void,
+  rolesLoading: boolean,
   t: TFunction,
 };
 
@@ -62,6 +65,7 @@ export class CheckInPage extends React.Component<Props, State> {
 
   componentWillMount() {
     this.props.fetchCompanyTheme();
+    this.props.fetchCompanyRoles();
     this.refreshData();
     this.setState({ loading: false });
   }
@@ -90,12 +94,14 @@ export class CheckInPage extends React.Component<Props, State> {
   };
 
   render() {
+    if (this.state.loading || this.props.rolesLoading) {
+      return <CircularProgress />;
+    }
+
     if (!this.props.permission.checkin) {
       return <Redirect to="/" />;
     }
-    if (this.state.loading) {
-      return <CircularProgress />;
-    }
+
     return (
       <MuiThemeProvider theme={getMUITheme(this.props.theme)}>
         <CheckInAppBar
@@ -163,6 +169,7 @@ export default compose(
       authError: state.auth.error,
       permission: getPermissions(state),
       establishments: getAllEstablishments(state),
+      rolesLoading: state.role.role.loading,
     }),
     {
       fetchSCT,
@@ -171,6 +178,7 @@ export default compose(
       fetchAllPaymentPacks,
       errorLogin,
       push,
+      fetchCompanyRoles,
       goToCreateMember: (companyId) =>
         push(`/external/${companyId}/add-member/`),
     },

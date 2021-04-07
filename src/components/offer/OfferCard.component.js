@@ -36,7 +36,8 @@ import RedButton from '../button/RedButton.component';
 
 import type { Offer } from '../../api/types';
 
-import type { Permission } from '../../libs/role/types';
+import { PermissionContext } from '../../context';
+import CheckPermission from '../../libs/role/components/CheckPermission.component';
 
 type Props = {
   t: TFunction,
@@ -45,7 +46,6 @@ type Props = {
   noHeader: ?boolean,
   onEditButtonClick: () => void,
   onDeleteButtonClick: () => void,
-  permission: Permission,
   companyId: number,
   snackbarSuccess: (string) => void,
   members: Array<Member>,
@@ -352,18 +352,24 @@ export class OfferCard extends Component<Props> {
               }
               className={this.props.classes.listButtonBase}
             >
-              <List dense>
-                {this.props.bookings
-                  .filter((b) => b.booking_status_code === 0)
-                  .map((b) => (
-                    <MemberMinimalListItem
-                      anonimize={!this.props.permission.member.search}
-                      firstBooking={b.first_in_company}
-                      member={this.props.members.find((m) => m.id === b.member)}
-                      key={b.id}
-                    />
-                  ))}
-              </List>
+              <PermissionContext.Consumer>
+                {(permissions) => (
+                  <List dense>
+                    {this.props.bookings
+                      .filter((b) => b.booking_status_code === 0)
+                      .map((b) => (
+                        <MemberMinimalListItem
+                          anonimize={permissions.member.search}
+                          firstBooking={b.first_in_company}
+                          member={this.props.members.find(
+                            (m) => m.id === b.member,
+                          )}
+                          key={b.id}
+                        />
+                      ))}
+                  </List>
+                )}
+              </PermissionContext.Consumer>
             </ButtonBase>
           ) : (
             <div className={this.props.classes.noBookings}>
@@ -445,7 +451,7 @@ export class OfferCard extends Component<Props> {
               <div>
                 <div className={this.props.classes.bottomBlock}>
                   <div className={this.props.classes.buttonContainer}>
-                    {this.props.permission.offer.edit ? (
+                    <CheckPermission requiredPermissions="offer.edit">
                       <div className={this.props.classes.button}>
                         <Button color="primary" onClick={onEditButtonClick}>
                           <EditIcon className={classes.iconLeft} />
@@ -454,8 +460,9 @@ export class OfferCard extends Component<Props> {
                           </Hidden>
                         </Button>
                       </div>
-                    ) : null}
-                    {this.props.permission.offer.delete ? (
+                    </CheckPermission>
+
+                    <CheckPermission requiredPermissions="offer.delete">
                       <div className={this.props.classes.button}>
                         <RedButton onClick={onDeleteButtonClick}>
                           <DeleteIcon className={classes.iconLeft} />
@@ -464,7 +471,7 @@ export class OfferCard extends Component<Props> {
                           </Hidden>
                         </RedButton>
                       </div>
-                    ) : null}
+                    </CheckPermission>
                   </div>
                   {offer.id && this.props.companyId ? (
                     <div className={this.props.classes.buttonContainer}>

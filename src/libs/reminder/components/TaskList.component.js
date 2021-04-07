@@ -206,16 +206,18 @@ export default compose(
   withState('showFuture', 'toogleShowFuture', false),
   withState('showPending', 'toogleShowPending', true),
   withState('editTaskFormData', 'setEditTaskFormData', null),
-  withProps(({ setTaskModalOpen, setEditTaskFormData, fetchRoles }) => ({
-    openTaskForm: () => {
-      setTaskModalOpen(true);
-      fetchRoles();
-    },
-    closeTaskForm: () => {
-      setTaskModalOpen(false);
-      setEditTaskFormData(null);
-    },
-  })),
+  withProps(
+    ({ setTaskModalOpen, setEditTaskFormData, fetchCompanyUserRoles }) => ({
+      openTaskForm: () => {
+        setTaskModalOpen(true);
+        fetchCompanyUserRoles();
+      },
+      closeTaskForm: () => {
+        setTaskModalOpen(false);
+        setEditTaskFormData(null);
+      },
+    }),
+  ),
   withProps(({ updateTaskStatus, toogleShowPast }) => ({
     updateTaskStatus: (id, status) => {
       updateTaskStatus(id, status, { onSuccess: () => toogleShowPast(true) });

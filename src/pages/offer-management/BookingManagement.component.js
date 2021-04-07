@@ -41,7 +41,8 @@ import BookingOptionForManager from '../../libs/waiting-list/components/BookingO
 import type { Booking, BookingOption } from '../../libs/booking/types';
 import type { Member } from '../../libs/member/types';
 import type { Invoice } from '../../libs/invoice/types';
-import type { Permission } from '../../libs/role/types';
+import { PermissionContext } from '../../context';
+import CheckPermission from '../../libs/role/components/CheckPermission.component';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
   const member = membersList.find((m) => m.id === id);
@@ -59,7 +60,6 @@ type Props = {
   offer: ?Offer,
 
   addToQuickInvoicePanel: (number) => void,
-  permission: Permission,
   bookingLoading: boolean,
   loading: boolean,
   booking_ordering: string,
@@ -114,33 +114,39 @@ export class BookingManagement extends React.PureComponent<Props, State> {
       .filter((b) => b.booking_status_code === BOOKING_STATUS_OK)
       .find((b) => b.member === member.id);
     return (
-      <MemberBookingHelper
-        anonimize={!this.props.permission.member.search}
-        key={member.id}
-        isFull={this.props.offer.is_full}
-        onClickBill={() => this.props.addToQuickInvoicePanel(member.id)}
-        onClickOption={() => {
-          this.props.registerToWaitingList(this.props.offer.id, member.id);
-          this.props.clearSearch();
-        }}
-        onClickRegister={() => {
-          this.props.handleMemberToRegister({
-            name: member.name,
-            photo: member.photo,
-            id: member.id,
-          });
-        }}
-        onClickListItem={
-          hasBooked ? () => this.props.addToQuickInvoicePanel(member.id) : null
-        }
-        showMember={
-          this.props.permission.member.retrieve
-            ? () => window.open(`/member/${member.id}/`)
-            : null
-        }
-        member={member}
-        hasBooked={hasBooked}
-      />
+      <PermissionContext.Consumer>
+        {(permissions) => (
+          <MemberBookingHelper
+            anonimize={!permissions.member.search}
+            key={member.id}
+            isFull={this.props.offer.is_full}
+            onClickBill={() => this.props.addToQuickInvoicePanel(member.id)}
+            onClickOption={() => {
+              this.props.registerToWaitingList(this.props.offer.id, member.id);
+              this.props.clearSearch();
+            }}
+            onClickRegister={() => {
+              this.props.handleMemberToRegister({
+                name: member.name,
+                photo: member.photo,
+                id: member.id,
+              });
+            }}
+            onClickListItem={
+              hasBooked
+                ? () => this.props.addToQuickInvoicePanel(member.id)
+                : null
+            }
+            showMember={
+              permissions.member.retrieve
+                ? () => window.open(`/member/${member.id}/`)
+                : null
+            }
+            member={member}
+            hasBooked={hasBooked}
+          />
+        )}
+      </PermissionContext.Consumer>
     );
   };
 
@@ -230,7 +236,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       flexDirection: 'row',
                     }}
                   >
-                    {!!this.props.permission.member.retrieve && (
+                    <CheckPermission requiredPermissions="member.retrieve">
                       <IconButton
                         onClick={(e) => {
                           e.stopPropagation();
@@ -241,36 +247,40 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       >
                         <MailIcon />
                       </IconButton>
-                    )}
+                    </CheckPermission>
                     <IconButton
                       onClick={this.props.openAddMemberModal}
                       color="primary"
                     >
                       <PersonAddIcon />
                     </IconButton>
-                    <SearchMember
-                      onChange={(event) => {
-                        this.setState({
-                          memberHistoryAnchor: null,
-                        });
-                        this.props.searchMembers(event.target.value);
-                      }}
-                      anonimize={!this.props.permission.member.search}
-                      value={this.props.searchedText}
-                      onReset={this.props.clearSearch}
-                      memberHistoryAnchor={this.state.memberHistoryAnchor}
-                      memberHistory={this.props.memberHistory || []}
-                      setMemberHistoryAnchor={(anchor) =>
-                        this.setState({ memberHistoryAnchor: anchor })
-                      }
-                      onClickRegister={(member) => {
-                        this.props.handleMemberToRegister({
-                          name: member.name,
-                          photo: member.photo,
-                          id: member.id,
-                        });
-                      }}
-                    />
+                    <PermissionContext.Consumer>
+                      {(permissions) => (
+                        <SearchMember
+                          onChange={(event) => {
+                            this.setState({
+                              memberHistoryAnchor: null,
+                            });
+                            this.props.searchMembers(event.target.value);
+                          }}
+                          anonimize={!permissions.member.search}
+                          value={this.props.searchedText}
+                          onReset={this.props.clearSearch}
+                          memberHistoryAnchor={this.state.memberHistoryAnchor}
+                          memberHistory={this.props.memberHistory || []}
+                          setMemberHistoryAnchor={(anchor) =>
+                            this.setState({ memberHistoryAnchor: anchor })
+                          }
+                          onClickRegister={(member) => {
+                            this.props.handleMemberToRegister({
+                              name: member.name,
+                              photo: member.photo,
+                              id: member.id,
+                            });
+                          }}
+                        />
+                      )}
+                    </PermissionContext.Consumer>
                   </div>
                 </div>
                 <div className={classes.bookingOrderingContainer}>
@@ -315,12 +325,16 @@ export class BookingManagement extends React.PureComponent<Props, State> {
               <Divider />
               <Collapse in={!!this.props.searchedText}>
                 <div className={classes.resultListContainer}>
-                  <ResultList
-                    items={this.props.searchedMembers}
-                    loading={this.props.memberSearchLoading}
-                    renderListComponent={this.renderSearchedMember}
-                    redirectToMember={this.props.permission.member.retrieve}
-                  />
+                  <PermissionContext>
+                    {(permissions) => (
+                      <ResultList
+                        items={this.props.searchedMembers}
+                        loading={this.props.memberSearchLoading}
+                        renderListComponent={this.renderSearchedMember}
+                        redirectToMember={permissions.member.retrieve}
+                      />
+                    )}
+                  </PermissionContext>
                 </div>
                 <Divider />
               </Collapse>
@@ -344,19 +358,28 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                   </Typography>
                 </div>
               )}
-              <BookingTable
-                redirectToMember={this.props.permission.member.retrieve}
-                newTab
-                members={this.props.members}
-                loading={this.props.loading}
-                bookings={this.props.bookings}
-                confirmBookingAttendance={this.props.confirmBookingAttendance}
-                discardBookingAttendance={this.props.discardBookingAttendance}
-                showQuickInvoiceButton
-                showRevertBookingButton
-                handleRevert={this.handleBookingRevert}
-                onQuickInvoiceClick={this.props.addToQuickInvoicePanel}
-              />
+              <PermissionContext.Consumer>
+                {(permissions) => (
+                  <BookingTable
+                    redirectToMember={permissions.member.retrieve}
+                    newTab
+                    members={this.props.members}
+                    loading={this.props.loading}
+                    bookings={this.props.bookings}
+                    confirmBookingAttendance={
+                      this.props.confirmBookingAttendance
+                    }
+                    discardBookingAttendance={
+                      this.props.discardBookingAttendance
+                    }
+                    showQuickInvoiceButton
+                    showRevertBookingButton
+                    handleRevert={this.handleBookingRevert}
+                    onQuickInvoiceClick={this.props.addToQuickInvoicePanel}
+                  />
+                )}
+              </PermissionContext.Consumer>
+
               {this.props.bookingOptionsPending &&
               this.props.bookingOptionsPending.length ? (
                 <WaitingListControlHeader
@@ -408,16 +431,23 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                     <Divider />
                     <List disablePadding>
                       {this.props.recurrenceRuleBookingList.map((r) => (
-                        <RecurrenceRuleBookingListItem
-                          key={r.id}
-                          recurrenceRuleBooking={r}
-                          onDelete={this.props.onDeleteRecurrenceRuleBooking}
-                          onClick={
-                            r.member && this.props.permission.member.retrieve
-                              ? () => this.props.goToMemberBooking(r.member.id)
-                              : null
-                          }
-                        />
+                        <PermissionContext>
+                          {(permissions) => (
+                            <RecurrenceRuleBookingListItem
+                              key={r.id}
+                              recurrenceRuleBooking={r}
+                              onDelete={
+                                this.props.onDeleteRecurrenceRuleBooking
+                              }
+                              onClick={
+                                r.member && permissions.member.retrieve
+                                  ? () =>
+                                      this.props.goToMemberBooking(r.member.id)
+                                  : null
+                              }
+                            />
+                          )}
+                        </PermissionContext>
                       ))}
                     </List>
                   </div>
@@ -446,6 +476,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
     );
   }
 }
+
 const styles = (theme) => ({
   containerRecurrentBooking: {
     width: '100%',

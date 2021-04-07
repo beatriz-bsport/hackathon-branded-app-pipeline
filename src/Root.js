@@ -129,7 +129,9 @@ export class Root extends Component<Props> {
           <Route path="/customer" component={ConsumerRouter} />
           <Route path="/m/" component={MarketPlace} />
           <Route path="/checkout" component={CheckoutRouter} />
+
           <Route path="/check-in" component={CheckIn} />
+
           <Route path="/rn-webview" component={RNWebView} />
           <Route path="/c/:companyId" component={ConsumerRouter} />
           <Route path="/c/" component={ConsumerRouter} />

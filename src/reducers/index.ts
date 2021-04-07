@@ -78,6 +78,7 @@ import { MarketplaceSettingState } from '../libs/marketplace/types';
 import { MembershipState } from '../libs/membership/types';
 import { ConsumerState } from '../libs/consumer-space/types';
 import { ThemeState } from '../libs/theme/types';
+import { RoleState } from '../libs/role/types';
 
 import actionTypes from '../actions/auth.types';
 
@@ -161,7 +162,6 @@ export type RootState = {
   tag: any;
   order: any;
   waitingList: any;
-  role: any;
   coupon: any;
   emailTemplate: any;
   relationship: any;
@@ -180,6 +180,7 @@ export type RootState = {
   marketingNotification: any;
   dashboardSettings: any;
   paymentPack: any;
+  role: RoleState;
   theme: ThemeState;
   consumer: ConsumerState;
   membership: MembershipState;

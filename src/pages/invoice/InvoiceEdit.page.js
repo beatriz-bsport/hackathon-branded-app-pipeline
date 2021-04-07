@@ -28,7 +28,7 @@ import {
 } from '../../libs/invoice/actions';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { getBuyableItem } from '../../libs/invoice/selectors';
-import { fetchCompanyRoles } from '../../libs/role/actions';
+import { fetchCompanyUserRoles } from '../../libs/role/actions';
 import withTitle from '../../hocs/with-title.hoc';
 import { formatAsDate } from '../../utils/datetime';
 import { fetchMember } from '../../libs/member/actions';
@@ -36,16 +36,16 @@ import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/action
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { fetchPaymentMethodList } from '../../libs/payment/actions';
-import { getPermissions } from '../../libs/role/selectors';
 
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 
 import type { Invoice } from '../../api/types';
 import type { Member } from '../../libs/member/types';
-import type { Permission } from '../../libs/role/types';
 
 import InvoiceForm from '../../libs/invoice/components/InvoiceForm.component';
 import RevertInvoiceDialog from '../../libs/invoice/dialog/RevertInvoiceDialog.component';
+import { PermissionContext } from '../../context';
+import CheckPermission from '../../libs/role/components/CheckPermission.component';
 
 type Props = {
   updatingInvoice: boolean,
@@ -58,7 +58,6 @@ type Props = {
 
   invoice: Invoice,
   member: Member,
-  permission: Permission,
 
   goBack: () => void,
   fetchInvoice: (uuid: string, options: OptionCallback) => void,
@@ -72,7 +71,7 @@ type Props = {
   updateInvoice: (invoiceData: InvoiceData) => void,
   revertInvoice: (uuid: string) => void,
 
-  fetchCompanyRoles: () => void,
+  fetchCompanyUserRoles: () => void,
 
   fetchPaymentList: (params: *) => void,
   fetchInvoiceItemList: (params: *) => void,
@@ -115,7 +114,7 @@ export class InvoiceFormPage extends Component<Props, State> {
     this.props.fetchShopItems();
     this.props.fetchAllPaymentPacks();
     this.fetchData();
-    this.props.fetchCompanyRoles();
+    this.props.fetchCompanyUserRoles();
     if (this.props.memberId) {
       this.props.fetchPaymentMethodList({ member: this.props.memberId });
     }
@@ -140,38 +139,42 @@ export class InvoiceFormPage extends Component<Props, State> {
 
     return (
       <div>
-        <InvoiceForm
-          updatePaymentMethod={this.props.updatePaymentMethod}
-          onSubmit={this.props.updateInvoice}
-          onCancel={this.props.goBack}
-          paymentItemList={this.props.invoice.payments}
-          invoiceItemList={this.props.invoice.invoice_items}
-          goToSubscription={this.props.goToSubscription}
-          isReturningPayment={this.props.isReturningPayment}
-          processing={updatingInvoice}
-          member={invoice.member}
-          availableBuyableItems={this.props.availableBuyableItems}
-          invoice={invoice}
-          savedPaymentMethodList={this.props.savedPaymentMethodList}
-          requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-          refreshSavedPaymentMethodList={() => {
-            this.props.fetchPaymentMethodList({
-              member: this.props.invoice.member.id,
-            });
-          }}
-          returnPayment={(payment) =>
-            this.props.returnPayment(payment, this.props.uuid)
-          }
-          revertInvoice={() => this.setState({ revertDialogOpen: true })}
-          goToMemberPage={
-            this.props.permission.member.retrieve &&
-            (() => goToMemberPage(invoice.member.id))
-          }
-          finalizeInvoice={(options) =>
-            this.props.finalizeInvoice(this.props.uuid, options)
-          }
-        />
-        {this.props.permission.member.retrieve && (
+        <PermissionContext.Consumer>
+          {(permissions) => (
+            <InvoiceForm
+              updatePaymentMethod={this.props.updatePaymentMethod}
+              onSubmit={this.props.updateInvoice}
+              onCancel={this.props.goBack}
+              paymentItemList={this.props.invoice.payments}
+              invoiceItemList={this.props.invoice.invoice_items}
+              goToSubscription={this.props.goToSubscription}
+              isReturningPayment={this.props.isReturningPayment}
+              processing={updatingInvoice}
+              member={invoice.member}
+              availableBuyableItems={this.props.availableBuyableItems}
+              invoice={invoice}
+              savedPaymentMethodList={this.props.savedPaymentMethodList}
+              requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+              refreshSavedPaymentMethodList={() => {
+                this.props.fetchPaymentMethodList({
+                  member: this.props.invoice.member.id,
+                });
+              }}
+              returnPayment={(payment) =>
+                this.props.returnPayment(payment, this.props.uuid)
+              }
+              revertInvoice={() => this.setState({ revertDialogOpen: true })}
+              goToMemberPage={
+                permissions.member.retrieve &&
+                (() => goToMemberPage(invoice.member.id))
+              }
+              finalizeInvoice={(options) =>
+                this.props.finalizeInvoice(this.props.uuid, options)
+              }
+            />
+          )}
+        </PermissionContext.Consumer>
+        <CheckPermission requiredPermissions="member.retrieve">
           <div className={this.props.classes.navigationButton}>
             <Grow in={this.props.invoice && this.props.invoice.member}>
               <CreditMemberBadge
@@ -194,7 +197,7 @@ export class InvoiceFormPage extends Component<Props, State> {
               </CreditMemberBadge>
             </Grow>
           </div>
-        )}
+        </CheckPermission>
 
         <RevertInvoiceDialog
           open={this.state.revertDialogOpen}
@@ -235,7 +238,6 @@ export default compose(
     (state) => ({
       memberLoading: state.member.loading,
       updatingInvoice: state.invoice.createOrUpdatePending,
-      permission: getPermissions(state),
       isReturningPayment: state.invoice.returnPayment.loading,
       availableBuyableItems: getBuyableItem(state),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
@@ -245,7 +247,7 @@ export default compose(
       fetchInvoiceItemList,
       fetchMember,
       fetchShopItems,
-      fetchCompanyRoles,
+      fetchCompanyUserRoles,
       fetchAllPaymentPacks,
       fetchPrivatePassList,
       goBack,

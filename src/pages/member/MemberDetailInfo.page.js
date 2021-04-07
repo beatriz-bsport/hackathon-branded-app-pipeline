@@ -59,7 +59,7 @@ import {
 import type { Task } from '../../libs/reminder/types';
 import type { OptionCallback } from '../../state/types';
 import { memberTaskListSelector } from '../../libs/reminder/selectors';
-import { fetchCompanyRoles } from '../../libs/role/actions';
+import { fetchCompanyUserRoles } from '../../libs/role/actions';
 
 import {
   // fetchInvoiceItemList as fetchInvoiceItemListAction,
@@ -127,7 +127,7 @@ type Props = {
   // TASK
   taskList: Array<Task>,
   taskLoading: ?boolean,
-  fetchRoles: () => void,
+  fetchCompanyUserRoles: () => void,
   staffList: Array<User>,
   createOrUpdateTask: (data: any, options: OptionCallback) => void,
   updateTaskStatus: (
@@ -268,7 +268,7 @@ export class MemberDetailPage extends Component<Props, State> {
             taskList={this.props.taskList}
             updateTaskStatus={this.props.updateTaskStatus}
             createOrUpdateTask={this.props.createOrUpdateTask}
-            fetchRoles={this.props.fetchRoles}
+            fetchCompanyUserRoles={this.props.fetchCompanyUserRoles}
             staffList={this.props.staffList}
             loading={this.props.taskLoading}
           />
@@ -384,7 +384,7 @@ export default compose(
       fetchPaymentMethodListActions: fetchPaymentMethodList,
       // fetchInvoiceItemList: fetchInvoiceItemListAction,
       sendCommunication,
-      fetchRoles: fetchCompanyRoles,
+      fetchRoles: fetchCompanyUserRoles,
       fetchMember,
       searchMembers,
       tagMember,

@@ -12,7 +12,7 @@ import { RoleType } from '@bsport/common/lib/master-data/user-role';
 import Analytics from '../components/analytics/Analytics.component';
 import RELEASE from '../release';
 
-import { Context } from '../context';
+import { Context, PermissionContext } from '../context';
 
 import { getAuthToken } from '../http';
 import { getTheme } from '../theme';
@@ -55,6 +55,7 @@ import alertingSelectors from '../libs/alerting/selectors';
 import { fetchAccessLevel } from '../actions/auth.actions';
 
 import type { TempPasswordState } from '../libs/login/types';
+import { fetchCompanyRoles } from '../libs/role/actions';
 
 const MarketingRouter = asyncComponent(() =>
   import('./marketing/Marketing.router'),
@@ -152,7 +153,9 @@ type Props = {
   updateCashBook: () => void,
   fetchOnSpotPaymentReport: () => void,
   onSpotPaymentReportId: number,
-  role: number,
+  roleId: number,
+  fetchCompanyRoles: () => void,
+  rolesLoading: boolean,
 };
 
 const BackofficeRoute = withSentryErrorReporting((props) => {
@@ -205,6 +208,7 @@ export class Backoffice extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchCompanyTheme();
+    this.props.fetchCompanyRoles();
     this.props.getFeatureList();
     this.setState({ authToken: getAuthToken() });
     this.props.checkEmailValidation();
@@ -250,7 +254,9 @@ export class Backoffice extends Component<Props, State> {
     if (
       ((this.props.themeLoading || this.props.featureListLoading) &&
         !this.props.location.pathname.includes('settings')) ||
-      this.props.checkingEmailValidation
+      this.props.checkingEmailValidation ||
+      this.props.rolesLoading ||
+      !this.props.permission
     ) {
       return <LoadingBackoffice />;
     }
@@ -272,70 +278,73 @@ export class Backoffice extends Component<Props, State> {
 
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <Context.Provider
-          value={{
-            ...this.state,
-            hideLeftMenuAction: this.hideLeftMenuAction.bind(this),
-            showLeftMenuAction: this.showLeftMenuAction.bind(this),
-          }}
-        >
-          <ResponsiveDrawer
-            logo={this.props.theme ? this.props.theme.cover : null}
-            fetchCashBook={this.props.fetchCashBook}
-            onSpotPaymentReportId={this.props.onSpotPaymentReportId}
-            theme={this.props.theme}
-            onSubmit={(data) => this.props.updateCashBook(data)}
-            alertings={this.props.alertings}
-            nbAlerting={this.props.nbAlerting}
-            deleteAlert={this.props.deleteAlert}
-            hidden={!this.props.permission.navigation}
-            disconnect={this.props.disconnect}
-            displayLeftMenu={this.state.displayLeftMenu}
-            fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
-            showSearch={this.props.permission.member.search}
-            showActions={this.props.permission.appbarActions}
-            tempPasswordState={this.props.tempPasswordState}
-            generateTempPassword={this.props.generateTempPassword}
-            fetchTempPassword={this.props.fetchTempPassword}
-            openCreateMember={this.props.openCreateMember}
-            openCalendar={this.props.openCalendar}
-            push={this.props.pushRouter}
-            fetchOnSpotPaymentReport={this.props.fetchOnSpotPaymentReport}
-            showCashBook={[
-              RoleType.USER_ROLE_NO_RESTRICTION,
-              RoleType.USER_ROLE_ADMIN,
-            ].includes(this.props.role)}
+        <PermissionContext.Provider value={this.props.permission}>
+          <Context.Provider
+            value={{
+              ...this.state,
+              hideLeftMenuAction: this.hideLeftMenuAction.bind(this),
+              showLeftMenuAction: this.showLeftMenuAction.bind(this),
+            }}
           >
-            {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
-            Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
-            Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
-              <Intercom
-                appID="q6foivp2"
-                email={this.props.username}
-                company={
-                  this.props.theme && this.props.theme.company_name
-                    ? {
-                        name: this.props.theme.company_name,
-                        id: this.props.theme.company,
-                      }
-                    : {}
-                }
-                {...(this.props.name ? { name: this.props.name } : {})}
-                user_id={this.props.username}
-                environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
-                release={RELEASE}
-                role={this.props.permission.name}
-                action_color={this.props.theme.primary_color}
-              />
-            ) : null}
-            <Analytics username={this.props.username} isInternal />
-            <main className={classes.content}>
-              <BackofficeRoute
-                vodEnabled={this.props.theme ? this.props.theme.vod : null}
-              />
-            </main>
-          </ResponsiveDrawer>
-        </Context.Provider>
+            <ResponsiveDrawer
+              logo={this.props.theme ? this.props.theme.cover : null}
+              fetchCashBook={this.props.fetchCashBook}
+              onSpotPaymentReportId={this.props.onSpotPaymentReportId}
+              theme={this.props.theme}
+              onSubmit={(data) => this.props.updateCashBook(data)}
+              alertings={this.props.alertings}
+              nbAlerting={this.props.nbAlerting}
+              deleteAlert={this.props.deleteAlert}
+              hidden={!this.props.permission.navigation}
+              disconnect={this.props.disconnect}
+              displayLeftMenu={this.state.displayLeftMenu}
+              fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
+              showSearch={this.props.permission.member.search}
+              showActions={this.props.permission.appbarActions}
+              tempPasswordState={this.props.tempPasswordState}
+              generateTempPassword={this.props.generateTempPassword}
+              fetchTempPassword={this.props.fetchTempPassword}
+              openCreateMember={this.props.openCreateMember}
+              openCalendar={this.props.openCalendar}
+              push={this.props.pushRouter}
+              fetchOnSpotPaymentReport={this.props.fetchOnSpotPaymentReport}
+              permissions={this.props.permission}
+              showCashBook={[
+                RoleType.USER_ROLE_NO_RESTRICTION,
+                RoleType.USER_ROLE_ADMIN,
+              ].includes(this.props.roleId)}
+            >
+              {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
+              Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+              Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ? (
+                <Intercom
+                  appID="q6foivp2"
+                  email={this.props.username}
+                  company={
+                    this.props.theme && this.props.theme.company_name
+                      ? {
+                          name: this.props.theme.company_name,
+                          id: this.props.theme.company,
+                        }
+                      : {}
+                  }
+                  {...(this.props.name ? { name: this.props.name } : {})}
+                  user_id={this.props.username}
+                  environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
+                  release={RELEASE}
+                  role={this.props.permission.name}
+                  action_color={this.props.theme.primary_color}
+                />
+              ) : null}
+              <Analytics username={this.props.username} isInternal />
+              <main className={classes.content}>
+                <BackofficeRoute
+                  vodEnabled={this.props.theme ? this.props.theme.vod : null}
+                />
+              </main>
+            </ResponsiveDrawer>
+          </Context.Provider>
+        </PermissionContext.Provider>
       </MuiThemeProvider>
     );
   }
@@ -362,7 +371,7 @@ export default compose(
       nbAlerting: alertingSelectors.countAlerting(state),
       username: state.auth.username,
       name: state.auth.name,
-      role: state.auth.role,
+      roleId: state.auth.role,
       theme: state.theme.theme,
       themeLoading: state.theme.loading,
       featureListLoading: state.company.feature.loading,
@@ -373,9 +382,12 @@ export default compose(
       is_consumer: state.auth.is_consumer && !state.auth.is_manager,
 
       tempPasswordState: getTempPasswordState(state),
+      roleById: state.role.role.byId,
+      rolesLoading: state.role.role.loading,
     }),
     {
       fetchCompanyTheme,
+      fetchCompanyRoles,
       getFeatureList,
       fetchAccessLevel,
       checkEmailValidation: checkEmailValidationAction,

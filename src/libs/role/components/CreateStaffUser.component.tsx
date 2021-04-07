@@ -1,5 +1,5 @@
-// @flow
 import React from 'react';
+import { compose } from 'recompose';
 
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
@@ -12,34 +12,43 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { Theme } from '@material-ui/core/styles';
 
-import { compose } from 'recompose';
+import { WithTranslation, withTranslation } from 'react-i18next';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
-
+// @ts-ignore
 import PasswordInput from '../../../components/input/PasswordInput.component';
-import type { Permission, UserRoleData } from '../types';
+import { Role, UserRoleData } from '../types';
+import { MaterialStyleType } from '../../../utils/types';
+import { OWNER_ROLE } from '../role-types';
+import { getRoleName } from '../utils';
 
-type Props = {
-  t: TFunction,
-  onSubmit: (UserRoleData) => void,
-  classes: Object,
-  open: boolean,
-  permissions: Array<Permission>,
-  onClose: () => void,
+type OwnProps = {
+  onSubmit: (
+    data: UserRoleData & {
+      first_name: string;
+      last_name: string;
+    },
+  ) => void;
+  open: boolean;
+  roles: Role[];
+  onClose: () => void;
 };
 
+type Props = OwnProps &
+  WithTranslation &
+  MaterialStyleType<ReturnType<typeof styles>>;
+
 type State = {
-  email: ?string,
-  first_name: string,
-  last_name: string,
-  password: ?string,
-  role: ?number,
+  email?: string | null;
+  password?: string | null;
+  role?: number | null;
+  first_name: string;
+  last_name: string;
 };
 
 export class CreateStaffUser extends React.Component<Props, State> {
-  state = {
+  state: State = {
     email: null,
     password: null,
     role: null,
@@ -47,7 +56,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
     first_name: '',
   };
 
-  onSubmit = (ev: SyntheticEvent<HTMLElement>) => {
+  onSubmit = (ev: any) => {
     ev.preventDefault();
     const { email, password, role, last_name, first_name } = this.state;
     if (!email || !password || !role) return;
@@ -100,7 +109,9 @@ export class CreateStaffUser extends React.Component<Props, State> {
                 required
                 type="password"
                 value={this.state.password}
-                onChange={(ev) => this.setState({ password: ev.target.value })}
+                onChange={(ev: any) =>
+                  this.setState({ password: ev.target.value })
+                }
               />
             </div>
             <FormControl className={classes.field}>
@@ -112,16 +123,16 @@ export class CreateStaffUser extends React.Component<Props, State> {
                 className={classes.selectRole}
                 value={this.state.role}
                 required
-                onChange={(ev) => {
+                onChange={(ev: any) => {
                   this.setState({ role: parseInt(ev.target.value, 10) });
                 }}
                 name="role"
               >
-                {this.props.permissions
-                  .filter((perm) => perm.editable)
-                  .map((perm) => (
-                    <MenuItem key={perm.id} value={perm.id}>
-                      {perm.name}
+                {this.props.roles
+                  .filter((role) => role.id !== OWNER_ROLE)
+                  .map((role) => (
+                    <MenuItem key={role.id} value={role.id}>
+                      {getRoleName(role, t)}
                     </MenuItem>
                   ))}
               </Select>
@@ -146,7 +157,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   field: {
     marginBottom: theme.spacing(1),
   },
@@ -155,7 +166,7 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   withTranslation(['role']),
   withStyles(styles),
 )(CreateStaffUser);

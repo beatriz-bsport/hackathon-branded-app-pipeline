@@ -45,7 +45,6 @@ import { getSimilars as getSimilarsOffers } from '../../libs/offer/selectors';
 import OfferCard from '../../components/offer/OfferCard.component';
 import TimeTable from '../../components/offer/TimeTable.component';
 import Calendar from '../../components/offer/Calendar.component';
-import { getPermissions } from '../../libs/role/selectors';
 import { getEnabledMetaActivities } from '../../libs/meta-activity/selectors';
 import { getActiveCoaches } from '../../libs/associated-coach/selectors';
 import { fetchAllActivities } from '../../libs/meta-activity/actions';
@@ -92,7 +91,6 @@ import MassDisablerDialog from '../../libs/offer/components/MassDisablerDialog.c
 import OfferFormWithActivity from '../../libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '../../libs/offer/DeleteOfferForm.component';
 import { createOffers as createOffersAPI } from '../../libs/meta-activity/api/meta-activity';
-import type { Permission } from '../../libs/role/types';
 import { DATE_FORMAT } from '../../utils/datetime';
 
 import CoachSelector from '../../libs/associated-coach/components/CoachSelector.component';
@@ -100,6 +98,8 @@ import EstablishmentSelector from '../../libs/establishment/components/Establish
 import MetaActivitySelector from '../../libs/meta-activity/components/MetaActivitySelector.component';
 
 import { monitorBackgroundTask } from '../../libs/background-task/actions';
+import CheckPermission from '../../libs/role/components/CheckPermission.component';
+import { PermissionContext } from '../../context';
 
 const styles = (theme) => ({
   container: {
@@ -169,7 +169,6 @@ type Props = {
   fetchBookingsByOffer: (params: any) => void,
   fetchBookingStatsOfTheWeek: () => void,
   fetchBookingInOfferStats: () => void,
-  permission: Permission,
   metaActivities: Array<MetaActivity>,
   offers: Array<Offer>,
   similarOffers: Array<Offer>,
@@ -739,6 +738,7 @@ export class Planning extends PureComponent<Props, State> {
       selectedOffer,
     } = this.props;
     const events_ = this.getDayOffers(events);
+
     return (
       <div className={classes.container}>
         {this.searchBar()}
@@ -749,36 +749,41 @@ export class Planning extends PureComponent<Props, State> {
           {isWidthUp('lg', width) || !selectedOffer ? (
             <Grid item xs={12} lg={6}>
               <div className={classes.panel}>
-                {!this.props.permission.navigation &&
-                  !!this.props.permission.calendar && (
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      style={{ width: '100%', margin: 8 }}
-                      onClick={this.props.pushToSchedule}
-                    >
-                      {this.props.t('openSchedule')}
-                      <ArrowForwardIcon style={{ marginLeft: 8 }} />
-                    </Button>
-                  )}
+                <CheckPermission requiredPermissions="navigation,calendar">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ width: '100%', margin: 8 }}
+                    onClick={this.props.pushToSchedule}
+                  >
+                    {this.props.t('openSchedule')}
+                    <ArrowForwardIcon style={{ marginLeft: 8 }} />
+                  </Button>
+                </CheckPermission>
                 <Paper style={{ width: '100%' }}>
-                  <Calendar
-                    showDownloader
-                    onRequestMassDisable={
-                      !!this.props.permission.offer.delete &&
-                      this.props.setMassDisablerStartDate
-                    }
-                    events={events_}
-                    onDateClick={this.loadDayData}
-                    date={this.props.date}
-                    filters={this.props.offerFilters}
-                    showCancelledOffers={
-                      this.props.offerFilters.available === undefined
-                        ? this.props.theme.show_cancelled_offers_manager
-                        : !this.props.offerFilters.available
-                    }
-                    setShowCancelledOffers={this.props.setShowCancelledOffers}
-                  />
+                  <PermissionContext.Consumer>
+                    {(permission) => (
+                      <Calendar
+                        showDownloader
+                        onRequestMassDisable={
+                          permission.offer.delete &&
+                          this.props.setMassDisablerStartDate
+                        }
+                        events={events_}
+                        onDateClick={this.loadDayData}
+                        date={this.props.date}
+                        filters={this.props.offerFilters}
+                        showCancelledOffers={
+                          this.props.offerFilters.available === undefined
+                            ? this.props.theme.show_cancelled_offers_manager
+                            : !this.props.offerFilters.available
+                        }
+                        setShowCancelledOffers={
+                          this.props.setShowCancelledOffers
+                        }
+                      />
+                    )}
+                  </PermissionContext.Consumer>
                   <TimeTable
                     onOfferSelected={this.selectOffer}
                     offers={offers}
@@ -789,9 +794,10 @@ export class Planning extends PureComponent<Props, State> {
                     selected={selectedOffer ? selectedOffer.id : null}
                   />
                 </Paper>
-                {this.props.permission.offer.create
-                  ? this.renderAddOffersButton()
-                  : null}
+
+                <CheckPermission requiredPermissions="offer.create">
+                  {this.renderAddOffersButton()}
+                </CheckPermission>
               </div>
               {!this.props.selectedOffer ? (
                 <div className={this.props.classes.noOfferMessage}>
@@ -828,7 +834,6 @@ export class Planning extends PureComponent<Props, State> {
                   onDeleteButtonClick={this.openDeleteModal}
                   onRestoreButtonClick={this.openRestoreModal}
                   goToOfferManagement={this.props.goToOfferManagement}
-                  permission={this.props.permission}
                   members={this.props.members}
                   membersLoading={
                     this.props.membersLoading || !this.props.members
@@ -924,7 +929,6 @@ export default compose(
         state.metaActivity.loading ||
         state.establishment.loading,
       similarOffers: getSimilarsOffers(state),
-      permission: getPermissions(state),
       offerFilters: state.offer.managerFilter.filters,
       offerByDayLoading: state.offer.byDay.loading,
 

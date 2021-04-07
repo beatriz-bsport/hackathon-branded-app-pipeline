@@ -34,7 +34,6 @@ import type { PaymentPack } from '../../libs/payment-packs/types';
 import type { Booking, BookingOption } from '../../libs/booking/types';
 import type { Member } from '../../libs/member/types';
 import type { Invoice } from '../../libs/invoice/types';
-import type { Permission } from '../../libs/role/types';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -57,7 +56,6 @@ type Props = {
   bookingOptionsPending: Array<BookingOption>,
   bookings: Array<Booking>,
   compatiblePacks: Array<PaymentPack>,
-  permission: Permission,
 
   unpaidInvoiceList: Array<Invoice>,
   fetchInvoice: () => void,
@@ -474,7 +472,6 @@ export class OfferManagement extends Component<Props, State> {
             openAddMemberModal={this.props.openAddMemberModal}
             onChangeBookingOrdering={this.props.onChangeBookingOrdering}
             members={this.props.members}
-            permission={this.props.permission}
             company_theme={this.props.company_theme}
             bookingOptionsPending={this.props.bookingOptionsPending}
             openMailDialog={this.props.openCommunicationDialog}

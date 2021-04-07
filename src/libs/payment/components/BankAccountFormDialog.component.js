@@ -11,9 +11,7 @@ export const BankAccountDialog = (props: Props) => {
 
   return (
     <Dialog open>
-      <DialogContent>
-        <BankAccountForm {...props} />
-      </DialogContent>
+      <BankAccountForm {...props} />
     </Dialog>
   );
 };

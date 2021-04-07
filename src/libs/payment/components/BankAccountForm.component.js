@@ -13,6 +13,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { getStripePkKey } from '../../theme/selectors';
 
 const stripePromise = loadStripe(getStripePkKey());
+alert(getStripePkKey());
 
 type Props = {
   company: Company,
@@ -113,7 +114,7 @@ export const BankAccountForm = (props: Props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  container: {},
+  container: { padding: theme.spacing(2) },
   title: {
     marginBottom: theme.spacing(2),
   },
@@ -149,6 +150,7 @@ const BankAccountFormComposed = compose(
       onClose,
       setLoading,
     }) => () => {
+      setLoading(true);
       stripe
         .createToken('bank_account', {
           account_number,
@@ -156,7 +158,10 @@ const BankAccountFormComposed = compose(
           country,
           currency,
         })
-        .then(({ token }) => {
+        .then((r) => {
+          console.log(r);
+          const { token } = r;
+
           setLoading(true);
           setError(false);
           onSubmit(token.id, {

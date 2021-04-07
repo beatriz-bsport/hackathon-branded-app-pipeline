@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import UndoIcon from '@material-ui/icons/Undo';
 import TodayIcon from '@material-ui/icons/Today';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -43,6 +44,15 @@ const Status: FC<{
 }> = ({ plannedInvoice, disabled }) => {
   const classes = useStyles();
   const { t } = useTranslation(['subscription']);
+  if (plannedInvoice.reverted) {
+    return (
+      <Tooltip title={t('plannedInvoiceStatus.reverted')}>
+        <span>
+          <UndoIcon color="error" className={classes.icon} />;
+        </span>
+      </Tooltip>
+    );
+  }
   switch (plannedInvoice.status) {
     case PENDING.id:
       if (disabled) {

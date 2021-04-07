@@ -3658,7 +3658,8 @@
       "canceled": "Annulé",
       "processing": "Paiement en cours de transfert",
       "failed": "Paiement refusé",
-      "succeeded": "Encaissé"
+      "succeeded": "Encaissé",
+      "reverted": "Annulé"
     },
     "subscriptionStatus": {
       "pending": "En cours de facturation",

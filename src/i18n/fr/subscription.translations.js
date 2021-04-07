@@ -286,6 +286,7 @@ exports.default = {
     processing: 'Paiement en cours de transfert',
     failed: 'Paiement refusé',
     succeeded: 'Encaissé',
+    reverted: 'Annulé',
   },
   subscriptionStatus: {
     pending: 'En cours de facturation',

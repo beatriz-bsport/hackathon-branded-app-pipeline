@@ -3891,7 +3891,8 @@
             "canceled": "Geannuleerd",
             "failed": "Betaling geweigerd",
             "succeeded": "Verzilverd",
-            "processing": "Betaling in behandeling"
+            "processing": "Betaling in behandeling",
+            "reverted": "Geannuleerd"
         },
         "form": {
             "check": "Controleren",

@@ -10,6 +10,8 @@ import PlatformInvoiceListItem from './PlatformInvoiceListItem.component';
 import PaymentMethodListItem from '../../payment/components/PaymentMethodListItem.component';
 import CollectPaymentMethod from '../../payment/components/CollectPaymentMethod.component';
 
+import { getCurrencyCode } from '../../theme/selectors';
+
 type Props = {
   platformInvoiceList: Array<PlatformInvoice>,
   collectPaymentMethodCBIsOpen: boolean,
@@ -57,12 +59,14 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
           </Paper>
         )}
         <div className={classes.addPaymentMethodButtonRow}>
-          <Button
-            onClick={() => props.setCollectPaymentMethodSepaIsOpen(true)}
-            variant="outlined"
-          >
-            {t('paymentMethod.actions.createSepa')}
-          </Button>
+          {(getCurrencyCode() || '').toLowerCase() === 'eur' && (
+            <Button
+              onClick={() => props.setCollectPaymentMethodSepaIsOpen(true)}
+              variant="outlined"
+            >
+              {t('paymentMethod.actions.createSepa')}
+            </Button>
+          )}
           <Button
             onClick={() => props.setCollectPaymentMethodCBIsOpen(true)}
             variant="outlined"

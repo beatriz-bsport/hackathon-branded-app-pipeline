@@ -148,7 +148,7 @@
             "18": "Geannuleerde reservering: kosteloos en vergoed",
             "17": "Geannuleerde reservering: krediet(en) niet vergoed",
             "16": "Sessie gewijzigd",
-            "14": "Een lid heeft een lid van de wachtlijst afgemeld (voor medewerkers)",
+            "14": "Een lid heeft zich van de wachtlijst afgemeld (voor medewerkers)",
             "13": "Een lid heeft zich van de wachtlijst afgemeld (voor leden)",
             "12": "Een lid heeft zich op de wachtlijst ingeschreven",
             "10": "De plaats van een lid op de wachtlijst is verlopen",
@@ -777,10 +777,10 @@
             "member": {
                 "referenceNumberHelper": "(Optioneel) Een lid krijgt automatisch een lidmaatschapsnummer toegewezen als dit veld leeg is",
                 "referenceNumber": "Lidmaatschapsnummer",
-                "barcodeHelper": "(optioneel) Je kunt deze streepjescode als toegangsbewijs gebruiken",
-                "barcode": "Streepjescode (cursuskaart)",
+                "barcodeHelper": "(Optioneel) Je kunt deze streepjescode als toegangsbewijs gebruiken",
+                "barcode": "Streepjescode",
                 "birthdayYear": "Geboortejaar",
-                "rgpdTitle": "Selecteer welke communicatiekanalen je accepteert voor promotiemateriaal:",
+                "rgpdTitle": "Geaccepteerde communicatiekanalen voor marketingdoeleinden:",
                 "phone": "Telefoonnummer",
                 "delete": {
                     "success": "Notitie verwijderd",
@@ -791,8 +791,8 @@
                     "error": "Fout bij het opslaan van de notitie"
                 },
                 "rgpd": {
-                    "sms": "Sms-meldingen",
-                    "email": "E-mailmeldingen"
+                    "sms": "Sms",
+                    "email": "E-mail"
                 }
             },
             "booking": {
@@ -832,9 +832,9 @@
                     "unlimitedProvision": "Geen voorraadbeheer",
                     "create": "Een product toevoegen",
                     "is_deliverable": "Verzendkosten toevoegen",
-                    "featured": "Raad dit product aan wanneer leden hun winkelmandje bevestigen",
+                    "featured": "Dit product tijdens het betalen aanraden",
                     "sell_only_on_provision": "Alleen verkopen als er voorraad is",
-                    "onsite_payment_available": "Geef leden de mogelijkheid om betalingen later af te ronden (bijv. in de studio)",
+                    "onsite_payment_available": "Later betalen toestaan (bijv. in de studio)",
                     "available_payment_method_identifiers": {
                         "helperText": "Selecteer tenminste één betaalmethode. Als het winkelmandje van een lid artikelen bevat waarvoor geen compatibele betaalmethode beschikbaar is, wordt een creditcard-betaling aangeboden.",
                         "label": "Geaccepteerde betaalmethoden"
@@ -1506,7 +1506,8 @@
             "FI": "Finland",
             "SE": "Zweden",
             "NO": "Noorwegen",
-            "LU": "Luxemburg"
+            "LU": "Luxemburg",
+            "CA": "Canada"
         },
         "signupCompany": {
             "form": {
@@ -2020,7 +2021,7 @@
                     "label": "Maximaal gebruik per week"
                 },
                 "newMemberOnly": "Alleen voor nieuwe leden",
-                "onsitePaymentAvailable": "Geef leden de mogelijkheid om betalingen later af te ronden (bijv. in de studio)",
+                "onsitePaymentAvailable": "Later betalen toestaan (bijv. in de studio)",
                 "expirationDaysBeforeFirstUse": {
                     "label": "Vervaldatum indien er geen eerste reservering wordt gemaakt",
                     "helperText": "Deze cursuskaart wordt ongeldig verklaart als er niet binnen zoveel dagen een reservering wordt gemaakt"

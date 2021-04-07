@@ -1528,7 +1528,7 @@
                     "create": "Add an item",
                     "is_deliverable": "Add delivery fees",
                     "featured": "Feature the product when confirming the basket",
-                    "sell_only_on_provision": "Sell ONLY IF there are some provision",
+                    "sell_only_on_provision": "Sell ONLY IF there is stock remaining",
                     "onsite_payment_available": "Propose to pay on-site",
                     "available_payment_method_identifiers": {
                         "helperText": "Select at least one payment method. If during checkout, items have non-compatible payment methods, credit card will be proposed.",

@@ -3881,8 +3881,10 @@
                 "urlInputError": "Bitte gib eine URL ein",
                 "urlInputLabel": "Youtube-Link",
                 "type": {
-                    "url": "Url",
-                    "file": "Datei"
+                    "url": "Youtube",
+                    "file": "Datei",
+                    "urlExplain": "Dein Video ist bereits auf Youtube verfügbar und du willst es über das bsport-Kartensystem monetarisieren.",
+                    "fileExplain": "Du hast die Videodatei (mp4, avi, mov ...), verwende diese Methode, um Dein Video direkt auf die bsport-Server hochzuladen."
                 },
                 "submit": "Bestätigen",
                 "minutes": "Minuten",
@@ -6533,7 +6535,8 @@
             "FI": "Finnland",
             "SE": "Schweden",
             "NO": "Norwegen",
-            "LU": "Luxemburg"
+            "LU": "Luxemburg",
+            "CA": "Kanada"
         },
         "signupCompany": {
             "form": {

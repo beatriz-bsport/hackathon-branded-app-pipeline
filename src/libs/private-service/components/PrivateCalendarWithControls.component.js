@@ -36,6 +36,10 @@ type Props = {
   setResourceFiltered: (Array<number>) => void,
   resourceDataLoading: boolean,
 
+  hideCancelledEvents: ?boolean,
+  toogleHideCancelledEvents: () => void,
+
+
   offerList: Array<Offer>,
   showOfferList: boolean,
   showOfferListToogle: boolean,
@@ -151,6 +155,19 @@ export const PrivateCalendarMultiResource = (props: Props) => (
               />
             </Grid>
           )}
+          {props.hideCancelledEvents !== undefined && (
+            <Grid item xs={12} sm={3} md={2}>
+              <FormControlLabel
+                label={props.t('calendar.toogle.hideCancelledEvents')}
+                control={
+                  <Checkbox
+                    checked={!props.hideCancelledEvents}
+                    onChange={props.toogleHideCancelledEvents}
+                  />
+                }
+              />
+            </Grid>
+          )}
           <div
             style={{
               display: 'flex',
@@ -196,6 +213,7 @@ export const PrivateCalendarMultiResource = (props: Props) => (
         privateBookings={
           props.showPrivateBookings ? props.privateBookings || [] : []
         }
+        hideCancelledEvents={props.hideCancelledEvents}
         offerList={props.showOfferList ? props.offerList || [] : []}
         availabilitySlotUpdating={props.availabilitySlotUpdating}
         goToMember={props.goToMember}
@@ -276,7 +294,12 @@ export default compose(
     },
   ),
   withStateHandlers(
-    { showPrivateBookings: true, showOfferList: true, showCustomEvents: true },
+    ({ showHideCancelledEventsToggle }) => ({
+      showPrivateBookings: true,
+      showOfferList: true,
+      showCustomEvents: true,
+      hideCancelledEvents: showHideCancelledEventsToggle ? true : undefined,
+    }),
     {
       toogleShowOfferList: ({ showOfferList }) => () => ({
         showOfferList: !showOfferList,
@@ -286,6 +309,9 @@ export default compose(
       }),
       toogleShowCustomEvents: ({ showCustomEvents }) => () => ({
         showCustomEvents: !showCustomEvents,
+      }),
+      toogleHideCancelledEvents: ({ hideCancelledEvents }) => () => ({
+        hideCancelledEvents: !hideCancelledEvents,
       }),
     },
   ),

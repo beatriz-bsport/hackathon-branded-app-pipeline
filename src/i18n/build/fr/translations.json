@@ -1398,7 +1398,12 @@
       "createCustomEvent": "Créer un RDV perso",
       "selectCoachToModifyAvailability": "Sélectionnez un professeur",
       "addBooking": "Enregistrer un rendez-vous",
-      "toogle": { "showOfferList": "Cours collectifs", "showPrivateBookings": "Rendez-vous", "showCustomEvents": "RDV perso" },
+      "toogle": {
+        "showOfferList": "Cours collectifs",
+        "showPrivateBookings": "Rendez-vous",
+        "showCustomEvents": "RDV perso",
+        "hideCancelledEvents": "Afficher les annulations"
+      },
       "form": {
         "title": { "enable": "Ajouter une disponibilité", "disable": "Supprimer une disponibilité" },
         "explain": "Modification jusqu'au :",

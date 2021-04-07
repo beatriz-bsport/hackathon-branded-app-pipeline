@@ -228,6 +228,7 @@ exports.default = {
       showOfferList: 'Cours collectifs',
       showPrivateBookings: 'Rendez-vous',
       showCustomEvents: 'RDV perso',
+      hideCancelledEvents: 'Afficher les annulations',
     },
 
     form: {

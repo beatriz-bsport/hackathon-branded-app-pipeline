@@ -465,12 +465,38 @@ export class PrivateCalendar extends React.Component<Props, State> {
     }
   };
 
+  hideCancelledPrivateBookings = (privateBookings, hideCancelledEvents) => {
+    if (hideCancelledEvents !== undefined) {
+      if (hideCancelledEvents === true) {
+        return privateBookings.filter(
+          (pb) => pb.booking_status_code === BOOKING_STATUS_OK.id,
+        );
+      }
+    }
+    return privateBookings;
+  };
+
+  hideCancelledOffers = (offerList, hideCancelledEvents) => {
+    if (hideCancelledEvents !== undefined) {
+      if (hideCancelledEvents === true) {
+        return offerList.filter((offer) => offer.available === true);
+      }
+    }
+    return offerList;
+  };
+
   render() {
     const { classes, t } = this.props;
     const { events, allDaySlot } = this.getAvailableSlotAsEvents(
       this.props.availabilitySlots,
-      this.props.privateBookings,
-      this.props.offerList,
+      this.hideCancelledPrivateBookings(
+        this.props.privateBookings,
+        this.props.hideCancelledEvents,
+      ),
+      this.hideCancelledOffers(
+        this.props.offerList,
+        this.props.hideCancelledEvents,
+      ),
       this.props.resourceDatatypeView,
       this.props.customEventList,
     );

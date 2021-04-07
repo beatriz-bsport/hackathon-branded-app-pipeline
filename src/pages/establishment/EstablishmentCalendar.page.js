@@ -169,6 +169,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           }
           showOfferListToogle
           showPrivateBookingToogle
+          showHideCancelledEventsToggle
           fetchAvailabilitySlots={this.fetchAvailabilitySlots}
           availabilitySlots={this.props.availabilitySlots}
           privateBookings={this.props.privateBookingList}

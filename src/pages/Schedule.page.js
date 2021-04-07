@@ -173,6 +173,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           showOfferListToogle
           showPrivateBookingToogle
           showCustomEventsToogle
+          showHideCancelledEventsToggle
         />
         {this.props.customEventData && (
           <CustomEvenFormDialog

@@ -39,7 +39,6 @@ type Props = {
   hideCancelledEvents: ?boolean,
   toogleHideCancelledEvents: () => void,
 
-
   offerList: Array<Offer>,
   showOfferList: boolean,
   showOfferListToogle: boolean,

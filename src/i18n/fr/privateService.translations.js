@@ -479,6 +479,9 @@ exports.default = {
       managerOnly: {
         label: 'Invisible pour les clients',
       },
+      new_member_only: {
+        label: 'Uniquement pour les nouveaux clients',
+      },
       name: {
         label: 'Nom',
       },

@@ -34,6 +34,9 @@ exports.default = {
     manager_only: {
       label: 'Invisible pour les clients',
     },
+    new_member_only: {
+      label: 'Uniquement pour les nouveaux clients',
+    },
     actions: {
       submit: 'Enregistrer',
       cancel: 'Annuler',

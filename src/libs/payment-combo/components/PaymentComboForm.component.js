@@ -202,6 +202,11 @@ export const PaymentComboForm = (props: Props) => (
         )}
       />
     </div>
+    <CheckboxField
+      label={props.t('form.new_member_only.label')}
+      name="new_member_only"
+      disabled={props.values.manager_only}
+    />
   </div>
 );
 
@@ -221,6 +226,7 @@ export const PaymentComboFieldsSchema = Yup.object().shape({
   price: Yup.number().min(0),
   tax: Yup.number().min(0).max(100),
   manager_only: Yup.boolean(),
+  new_member_only: Yup.boolean(),
   available_payment_method_identifiers: Yup.array()
     .of(Yup.number().integer())
     .min(1),
@@ -234,6 +240,7 @@ export const PaymentComboFormHoc = withFormik({
         payment_pack_ids: repeatQuantity(initial.payment_packs),
         shop_item_ids: repeatQuantity(initial.shop_items),
         private_pass_ids: repeatQuantity(initial.private_passes),
+        new_member_only: initial.new_member_only,
       };
     }
     return {
@@ -242,6 +249,7 @@ export const PaymentComboFormHoc = withFormik({
       price: 10,
       tax: 20,
       manager_only: false,
+      new_member_only: false,
       shop_item_ids: [],
       payment_pack_ids: [],
       private_pass_ids: [],

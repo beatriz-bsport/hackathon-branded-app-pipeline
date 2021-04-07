@@ -50,8 +50,6 @@ i18n
     */
     fallbackLng: (code) => {
       if (!code || code === 'en') return ['en'];
-      const fallbacks = [code];
-
       // We maintain en-US and en-AU. Some regions will prefer en-AU.
       if (code.startsWith('en')) return ['en'];
       if (code.startsWith('fr')) return ['fr'];

@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 import BankAccountForm from './BankAccountForm.component';
 
 type Props = { open: boolean };

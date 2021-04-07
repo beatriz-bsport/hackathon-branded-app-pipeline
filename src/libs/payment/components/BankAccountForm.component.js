@@ -13,7 +13,6 @@ import { loadStripe } from '@stripe/stripe-js';
 import { getStripePkKey } from '../../theme/selectors';
 
 const stripePromise = loadStripe(getStripePkKey());
-alert(getStripePkKey());
 
 type Props = {
   company: Company,
@@ -159,7 +158,6 @@ const BankAccountFormComposed = compose(
           currency,
         })
         .then((r) => {
-          console.log(r);
           const { token } = r;
 
           setLoading(true);

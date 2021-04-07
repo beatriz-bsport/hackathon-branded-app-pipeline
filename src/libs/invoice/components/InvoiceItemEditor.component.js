@@ -10,7 +10,6 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
 
 import {
   BUYABLE_ITEM_PASS,
@@ -26,7 +25,6 @@ import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelec
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
 import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
 
 type Props = {
   voucher: string,
@@ -57,7 +55,6 @@ const BuyableItemSelector = (props: {
   member: { credit_account_balance: number },
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation(['invoice']);
   switch (props.buyableItemIdentifier) {
     case BUYABLE_ITEM_PASS:
       return (
@@ -107,32 +104,6 @@ const BuyableItemSelector = (props: {
           onChange={(buyableItem) => props.onSelect(buyableItem)}
         />
       );
-    case BUYABLE_ITEM_CREDIT:
-      return (
-        <div>
-          <div className={classes.accountBalanceInfo}>
-            <Typography variant="h6">
-              {t('creditAccountBalance.current')}
-            </Typography>
-            <Typography
-              variant="h6"
-              color={
-                props.member.credit_account_balance <= 0 ? 'error' : 'primary'
-              }
-            >
-              {`${props.member.credit_account_balance} ${getCurrencyDisplay()}`}
-            </Typography>
-          </div>
-          <PriceInput
-            variant="outlined"
-            label={t('invoiceItem.credit.label')}
-            value={props.value}
-            onChange={(ev) => {
-              props.onSelect(ev.target.value);
-            }}
-          />
-        </div>
-      );
     default:
       return null;
   }
@@ -165,12 +136,6 @@ export const InvoiceItemEditor = (props: Props) => {
               `invoiceItem.buyableItemIdentifier.${BUYABLE_ITEM_SHOP_ITEM}`,
             )}
             value={BUYABLE_ITEM_SHOP_ITEM}
-          />
-          <Tab
-            label={t(
-              `invoiceItem.buyableItemIdentifier.${BUYABLE_ITEM_CREDIT}`,
-            )}
-            value={BUYABLE_ITEM_CREDIT}
           />
           <Tab
             label={t(

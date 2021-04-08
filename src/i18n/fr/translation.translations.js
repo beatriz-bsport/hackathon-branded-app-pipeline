@@ -547,6 +547,7 @@ exports.default = {
     },
     booking: {
       myPrivateBooking: 'Rendez-vous',
+      intro: 'Votre réservation du {{date}}',
       cancelBooking: 'Annuler la réservation',
       discardBookingTitle: 'Annuler la réservation',
       discardPossibleExplain:

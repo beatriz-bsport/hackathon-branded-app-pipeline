@@ -105,9 +105,12 @@ const styles = (theme) => ({
   footer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     paddingTop: theme.spacing(1),
     marginBottom: theme.spacing(2),
+    '&>*': {
+      marginRight: theme.spacing(1),
+    },
   },
   leftIcon: {
     marginRight: theme.spacing(1),

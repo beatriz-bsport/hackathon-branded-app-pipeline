@@ -36,7 +36,9 @@ export class ConsumerDashboardPassPanel extends React.PureComponent<Props> {
         this.props.privateConsumerPassList &&
         (this.props.consumerPackLoading ||
           this.props.privateConsumerPassLoading) ? (
-          <CircularProgress />
+          <div className={this.props.classes.loading}>
+            <CircularProgress />
+          </div>
         ) : null}
         {this.props.consumerPackList.length === 0 &&
         this.props.privateConsumerPassList.length === 0 &&
@@ -72,6 +74,13 @@ export class ConsumerDashboardPassPanel extends React.PureComponent<Props> {
 const styles = (theme) => ({
   sectionTitle: {
     marginBottom: theme.spacing(3),
+  },
+  loading: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: theme.spacing(4),
   },
 });
 

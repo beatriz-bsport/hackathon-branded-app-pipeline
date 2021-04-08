@@ -186,6 +186,7 @@ const styles = (theme: Theme) => ({
   },
   marginTop: {
     marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
   },
   fullWidth: {
     width: '100%',

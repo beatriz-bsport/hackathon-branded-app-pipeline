@@ -169,12 +169,14 @@ const localeList: Array<Locale> = [
     icon: CA_FLAG,
     currencyCode: 'cad',
     currencyDisplay: '$ C',
+    showLang: true,
   },
   {
     locale: 'fr_CA',
     icon: CA_FLAG,
     currencyCode: 'cad',
     currencyDisplay: '$ C',
+    showLang: true,
   },
 ];
 

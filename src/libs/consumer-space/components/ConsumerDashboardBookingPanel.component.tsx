@@ -25,11 +25,14 @@ type OwnProps = {
   showMoreBooking: () => void;
   membership: Membership;
   goToBroadcast?: (id: number) => void;
-  goToCalendar?: (params: {
-    f_metaActivities: string;
-    f_establishments: string;
-    f_coaches: string;
-  }) => void;
+  goToCalendar?: (
+    params: {
+      f_metaActivities: string;
+      f_establishments: string;
+      f_coaches: string;
+    },
+    metaActivityId: number,
+  ) => void;
   goToPrivateService?: () => void;
   onDiscardBooking: (booking: Booking) => void;
   onDiscardPrivateBooking: (privateBooking: PrivateBooking) => void;
@@ -88,7 +91,7 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
       calendarFilters.f_coaches = `[${booking.offer.coach.id}]`;
     }
 
-    this.props.goToCalendar(calendarFilters);
+    this.props.goToCalendar(calendarFilters, booking.meta_activity);
   };
 
   renderBookingOrPrivateBooking = (

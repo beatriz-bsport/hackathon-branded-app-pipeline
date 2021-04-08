@@ -64,6 +64,7 @@ import { fetchBookingsAndPrivateBookings as fetchBookingsAndPrivateBookingsActio
 import { getAllBookingAndPrivateBooking } from '../../libs/consumer-space/selectors';
 import { PrivateBooking } from '../../libs/private-service/types';
 import PrivateBookingCancellationDialog from '../../libs/private-service/components/booking/PrivateBookingCancellationDialog';
+import { MetaActivity } from '../../libs/meta-activity/types';
 
 type OwnProps = {
   companyId: number;
@@ -278,6 +279,7 @@ const mapStateToProps = (state: RootState) => ({
   invoiceLoading: state.invoice.list.loading,
   payment_method_available_basket:
     state.theme.theme.payment_method_available_basket,
+  metaActivitiesById: state.metaActivity.byId,
 });
 
 const mapDispatchToProps = {
@@ -350,12 +352,19 @@ const mapWithHandlers = {
   ) => {
     props.push(`/c/${props.membership.company}/broadcast/${bookingId}/`);
   },
-  goToCalendar: (props: OwnConnectedStateHandlerProps) => (params?: any) => {
+  goToCalendar: (props: OwnConnectedStateHandlerProps) => (
+    params: any,
+    metaActivityId: number,
+  ) => {
+    const metaActivity: MetaActivity = props.metaActivitiesById[metaActivityId];
+    const componentType =
+      metaActivity && metaActivity.is_workshop ? 'workshop' : 'calendar';
+
     props.push(
       `${urlToMarketplace(
         props.membership.company_name,
         props.membership.company.toString(),
-      )}/calendar/${buildUrlParams({ ...params, filtersOpen: true })}`,
+      )}/${componentType}/${buildUrlParams({ ...params, filtersOpen: true })}`,
     );
   },
   goToPrivateService: (props: OwnConnectedStateHandlerProps) => () => {

@@ -2894,7 +2894,7 @@
                     "label": "Last cancellation refundable up to"
                 },
                 "managerOnly": {
-                    "label": "Unavailable for client purchase"
+                    "label": "Invisible for clients"
                 },
                 "last_booking_minutes": {
                     "label": "Before class, the last booking is possible until"

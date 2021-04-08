@@ -74,7 +74,7 @@
         },
         "dashboard": {
             "noBooking": "Je hebt je nog niet ingeschreven.",
-            "noPackCurrentlyActive": "Je bezit nog geen geldig lidmaatschap",
+            "noPackCurrentlyActive": "Je bezit nog geen geldig lidmaatschap.",
             "showMore": "Toon meer",
             "currentPassTitle": "Mijn actieve lidmaatschappen",
             "nextBookingTitle": "Mijn reserveringen",
@@ -87,14 +87,14 @@
             "showCalendar": "Toon de planning",
             "titlePrivateBooking": "Afspraken",
             "titleBooking": "Groepsactiviteiten",
-            "accessLive": "Toegang tot de livestream"
+            "accessLive": "Online les openen"
         },
         "pack": {
-            "titlePrivatePack": "Op afspraak",
+            "titlePrivatePack": "Afspraken",
             "titlePaymentPack": "Groepsactiviteiten"
         },
         "debt": {
-            "explainPayment": "Dit bedrag wordt aan de club betaald om je uitstaande schulden te betalen.",
+            "explainPayment": "Dit bedrag wordt aan de studio betaald om je uitstaande schulden te betalen.",
             "titlePaymentDialog": "Uitstaand bedrag betalen",
             "title": "Openstaand bedrag:",
             "regularize": "Betaling afronden"
@@ -105,24 +105,24 @@
             "profile": "Profiel",
             "subscription": "Abonnementen",
             "invoice": "Facturen",
-            "pack": "Cursuskaarten",
+            "pack": "Lidmaatschappen",
             "calendar": "Geschiedenis",
             "dashboard": "Overzicht",
             "myVideos": "Mijn video's"
         },
         "unsubscriber": {
-            "success": "Je bent uitgeschreven",
+            "success": "Je bent uitgeschreven.",
             "error": "Fout tijdens het uitschrijven",
             "doUnsubscribe": "Uitschrijven",
-            "explain": "Wil je je voor alle nieuwsbrieven van je club uitschrijven?"
+            "explain": "Wil je je voor alle nieuwsbrieven van je studio uitschrijven?"
         },
         "myVideos": {
             "title": "Mijn video's",
             "gotToVOD": "Toon alle video's"
         },
         "widget": {
-            "noBookingPast": "Hier zie je je geschiedenis zodra je reserveringen hebt gemaakt!",
-            "noBookingFuture": "Je hebt je nog niet ingeschreven.",
+            "noBookingPast": "Hier staan al je vorige reserveringen.",
+            "noBookingFuture": "Je hebt je nog niet voor een activiteit ingeschreven.",
             "pastBooking": "Geschiedenis",
             "futureBooking": "Mijn reserveringen"
         }
@@ -420,7 +420,7 @@
                 "book": "Reserveer",
                 "notBookableYet": "Binnenkort"
             },
-            "passListTitle": "Cursuskaarten (voor groepslessen)",
+            "passListTitle": "Cursuskaarten (voor groepsactiviteiten)",
             "privatePassListTitle": "Afspraakkaarten",
             "noSessionToday": "Geen sessie",
             "showMarketplace": "Zie het rooster van ",
@@ -597,7 +597,8 @@
                 "discardPossibleExplain": "Weet je zeker dat je deze reservering wil annuleren? Je krediet(en) worden teruggestort.",
                 "discardBookingTitle": "Reservering annuleren",
                 "cancelBooking": "Reservering annuleren",
-                "myPrivateBooking": "Afspraak"
+                "myPrivateBooking": "Afspraak",
+                "intro": "Je reservering van {{date}}"
             },
             "help": {
                 "explainCancelBookingOption": "Deze verwijdering is definitief. Als je je opnieuw voor deze sessie aanmeldt, dan sluit je je achteraan de wachtlijst aan.",
@@ -2187,7 +2188,7 @@
         "notificationToolTip": "Melding(en) geactiveerd",
         "disabled": "Uitgeschakeld",
         "anyActivity": "Alle activiteiten",
-        "noRestrictionOnActivityType": "Alle activiteiten zijn compatibel met deze cursuskaart",
+        "noRestrictionOnActivityType": "Alle activiteiten zijn compatibel met deze cursuskaart.",
         "credit": {
             "updated": "Krediet(en) bijgewerkt!"
         },
@@ -3413,14 +3414,14 @@
             "isManager": "Momenteel ben je als een medewerker ingelogd. Log uit om je MarketPlace/ledenweergave te bekijken."
         },
         "workshop": {
-            "noWorkshopAvailable": "Momenteel zijn er geen workshops ingepland",
+            "noWorkshopAvailable": "Momenteel zijn er geen workshops ingepland.",
             "card": {
                 "showMore": "Meer informatie",
                 "book": "Reserveer",
                 "isPast": "Afgelopen",
                 "notAvailable": "Geannuleerd",
                 "duration": "Duur: {{duration}}",
-                "bookOption": "Wachtlijsten"
+                "bookOption": "Wachtlijst"
             }
         },
         "paymentCombo": {
@@ -3992,7 +3993,7 @@
             },
             "filter": {
                 "duration": {
-                    "all": "Elke duur",
+                    "all": "Duur",
                     "explain": "Tussen {{min}} en {{max}} min."
                 }
             },

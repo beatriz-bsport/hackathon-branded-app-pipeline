@@ -501,7 +501,8 @@
                 "noBookingOptions": "Nessuna prenotazione in lista d'attesa",
                 "noFutureBookings": "Nessuna prenotazione pianificata",
                 "noPastBookings": "Nessuna prenotazione effettuata in passato",
-                "cancelOption": "Annulla"
+                "cancelOption": "Annulla",
+                "intro": "La sua prenotazione a {{date}}"
             }
         },
         "navigation": {
@@ -1703,7 +1704,8 @@
             "toogle": {
                 "showOfferList": "Lezioni di gruppo",
                 "showPrivateBookings": "Appuntamenti",
-                "showCustomEvents": "Appuntamento personale"
+                "showCustomEvents": "Appuntamento personale",
+                "hideCancelledEvents": "Visualizza le cancellazioni"
             },
             "enableAvailability": "Aggiungi disponibilità oggi",
             "createCustomEvent": "Crea un appuntamento personale"
@@ -4013,7 +4015,8 @@
             "failed": "Pagamento rifiutato",
             "succeeded": "Incassato",
             "canceled": "Annullato",
-            "processing": "Pagamento in corso di trasferimento"
+            "processing": "Pagamento in corso di trasferimento",
+            "reverted": "Cancellato"
         },
         "action": {
             "stopExplain": "I pagamenti successivi verranno annullati e le relative fatture verranno eliminate. Se una prenotazione è stata registrata con un abbonamento per il quale la fattura è stata annullata, verrà annullata.",
@@ -4225,7 +4228,8 @@
             "accept_sms": "Accetta SMS",
             "stock_at_start": "Stock all'inizio del periodo",
             "stock_at_end": "Stock alla fine del periodo",
-            "payout_identifier": "Trasferimento"
+            "payout_identifier": "Trasferimento",
+            "credit_amount": "Importo del credito"
         },
         "payment_method": {
             "dispute": "Contenzioso",

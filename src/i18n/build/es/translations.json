@@ -545,7 +545,8 @@
                 "noFutureBookings": "Ninguna reserva prevista",
                 "noPastBookings": "Ninguna reserva anterior",
                 "cancelOption": "Cancelar",
-                "myPrivateBooking": "Cita"
+                "myPrivateBooking": "Cita",
+                "intro": "Su reserva en {{date}}"
             },
             "myPrivatePass": "Mis tarjetas de cita"
         },
@@ -2329,7 +2330,8 @@
             "canceled": "Cancelado",
             "failed": "Pago rechazado por el banco",
             "succeeded": "Cobrado",
-            "processing": "Transferencia de pago"
+            "processing": "Transferencia de pago",
+            "reverted": "Cancelado"
         },
         "subscriptionStatus": {
             "pending": "En el proceso de facturación",
@@ -2807,7 +2809,8 @@
             "stock_at_end": "Provisión al final del periodo",
             "accept_email": "Aceptar correos electrónicos",
             "accept_sms": "Aceptar SMS",
-            "payout_identifier": "Transferencia"
+            "payout_identifier": "Transferencia",
+            "credit_amount": "Importe de los créditos"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -4360,7 +4363,8 @@
             "toogle": {
                 "showPrivateBookings": "Citas",
                 "showOfferList": "Cursos de grupo",
-                "showCustomEvents": "Cita personal"
+                "showCustomEvents": "Cita personal",
+                "hideCancelledEvents": "Ver cancelaciones"
             },
             "addBooking": "Registrar una cita",
             "selectCoachToModifyAvailability": "Seleccionar un profesor",

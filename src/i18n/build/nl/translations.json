@@ -1767,7 +1767,8 @@
             "stock_at_start": "Voorraad (begin)",
             "accept_email": "E-mails accepteren",
             "accept_sms": "Sms'jes accepteren",
-            "payout_identifier": "Overschrijven"
+            "payout_identifier": "Overschrijven",
+            "credit_amount": "Aantal kredieten"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -4425,7 +4426,8 @@
             "toogle": {
                 "showOfferList": "Groepsactiviteiten",
                 "showPrivateBookings": "Afspraken",
-                "showCustomEvents": "Taken"
+                "showCustomEvents": "Taken",
+                "hideCancelledEvents": "Toon de annuleringen"
             },
             "enableAvailability": "Beschikbaarheid toevoegen",
             "createCustomEvent": "Een taak / persoonlijke afspraak toevoegen"

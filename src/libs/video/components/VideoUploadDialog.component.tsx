@@ -18,7 +18,6 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/styles';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-import { VideoProviderType } from '@bsport/common/lib/master-data/video-provider';
 import VideoUploadFormMUX from './VideoUploadFormMUX.component';
 import VideoUploadFormYoutube from './VideoUploadFormYoutube.component';
 
@@ -27,7 +26,7 @@ import { MaterialStyleType } from '../../../utils/types';
 
 type State = {
   isUploading: boolean;
-  providerIdentifier: VideoProviderType;
+  providerIdentifier: number;
 };
 
 type OwnProps = {
@@ -93,12 +92,9 @@ export class VideoUploadDialog extends React.Component<Props, State> {
                   }
                 >
                   <FormControlLabel
-                    value={VideoProviderType.TYPE_FILE_UPLOAD}
+                    value={2}
                     control={<Radio />}
-                    checked={
-                      this.state.providerIdentifier ===
-                      VideoProviderType.TYPE_FILE_UPLOAD
-                    }
+                    checked={this.state.providerIdentifier === 2}
                     disabled={this.state.processing}
                     label={this.props.t('video.upload.type.file')}
                   />
@@ -106,12 +102,9 @@ export class VideoUploadDialog extends React.Component<Props, State> {
                     {this.props.t('video.upload.type.fileExplain')}
                   </Typography>
                   <FormControlLabel
-                    value={parseInt(VideoProviderType.TYPE_EXTERNAL_URL, 10)}
+                    value={3}
                     control={<Radio />}
-                    checked={
-                      this.state.providerIdentifier ===
-                      VideoProviderType.TYPE_EXTERNAL_URL
-                    }
+                    checked={this.state.providerIdentifier === 3}
                     label={this.props.t('video.upload.type.url')}
                     disabled={this.state.processing}
                   />
@@ -145,15 +138,13 @@ export class VideoUploadDialog extends React.Component<Props, State> {
         <DialogTitle>{this.props.t('video.upload.title')}</DialogTitle>
         <DialogContent>
           <div className={this.props.classes.container}>
-            {this.props.video.provider_identifier ===
-              VideoProviderType.TYPE_FILE_UPLOAD && (
+            {this.props.video.provider_identifier === 2 && (
               <VideoUploadFormMUX
                 onClose={this.props.onClose}
                 video={this.props.video}
               />
             )}
-            {this.props.video.provider_identifier ===
-              VideoProviderType.TYPE_EXTERNAL_URL && (
+            {this.props.video.provider_identifier === 3 && (
               <VideoUploadFormYoutube
                 onClose={this.props.onClose}
                 video={this.props.video}

@@ -1292,7 +1292,8 @@
                 "discardPossibleExplain": "Are you sure you want to cancel this booking ? Your credit on your pass will be usable again.",
                 "discardBookingTitle": "Cancel booking",
                 "cancelBooking": "Cancel booking",
-                "myPrivateBooking": "Appointments"
+                "myPrivateBooking": "Appointments",
+                "intro": "Your reservation at {{date}}"
             },
             "help": {
                 "explainCancelBookingOption": "Deletion can not be reverted, if you subscribe again to the waiting-list, you will be at the end of it.",
@@ -2496,7 +2497,8 @@
             "toogle": {
                 "showOfferList": "Group classes",
                 "showPrivateBookings": "Appointments",
-                "showCustomEvents": "Personal appointments"
+                "showCustomEvents": "Personal appointments",
+                "hideCancelledEvents": "View cancellations"
             },
             "form": {
                 "title": {
@@ -3927,7 +3929,8 @@
             "FI": "Finland",
             "SE": "Sweden",
             "NO": "Norway",
-            "LU": "Luxembourg"
+            "LU": "Luxembourg",
+            "CA": "Canada"
         },
         "signupCompany": {
             "form": {
@@ -5294,7 +5297,8 @@
             "canceled": "Discarded",
             "failed": "Payment refused",
             "succeeded": "Billed",
-            "processing": "Payment processing"
+            "processing": "Payment processing",
+            "reverted": "Cancelled"
         },
         "subscriptionStatus": {
             "pending": "Billing pending",
@@ -5602,7 +5606,8 @@
             "stock_at_start": "Provision at the start of the period",
             "accept_email": "Accept emails",
             "accept_sms": "Accept SMS",
-            "payout_identifier": "Transfer"
+            "payout_identifier": "Transfer",
+            "credit_amount": "Amount of credits"
         },
         "yes": "Yes",
         "no": "No",

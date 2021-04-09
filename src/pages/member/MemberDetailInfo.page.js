@@ -49,6 +49,8 @@ import {
   deleteTagGroup,
   deleteTag,
 } from '../../libs/tag/actions';
+
+import { fetchPaymentMethodList } from '../../libs/payment/actions';
 import {
   fetchTaskListByMember as fetchTaskListByMemberAction,
   createOrUpdateTask as createOrUpdateTaskAction,
@@ -159,6 +161,8 @@ type Props = {
 
   goToInvoice: (string) => void,
   payment_method_available_manager: number[],
+  paymentMethod: Array<any>,
+  paymentMethodLoading: boolean,
 };
 
 type State = {
@@ -294,6 +298,9 @@ export class MemberDetailPage extends Component<Props, State> {
             openFileUploadDialog={() => this.setState({ fileToUpload: true })}
             uploadedFiles={member.files || []}
             deleteFile={(fileId) => this.setState({ fileToDelete: fileId })}
+            member={this.props.member}
+            paymentMethod={this.props.paymentMethod}
+            paymentMethodLoading={this.props.paymentMethodLoading}
           />
         </Grid>
         <MemberSearchModal
@@ -369,9 +376,12 @@ export default compose(
       invoiceLoading: state.invoice.list.loading,
       payment_method_available_manager:
         state.theme.theme.payment_method_available_manager,
+      paymentMethod: state.paymentBackend.paymentMethod.items,
+      paymentMethodLoading: state.paymentBackend.loading,
     }),
     {
       fetchInvoiceList: fetchInvoiceListAction,
+      fetchPaymentMethodListActions: fetchPaymentMethodList,
       // fetchInvoiceItemList: fetchInvoiceItemListAction,
       sendCommunication,
       fetchRoles: fetchCompanyRoles,
@@ -438,6 +448,11 @@ export default compose(
         unpaid: true,
         member: id,
       });
+    },
+  }),
+  withHandlers({
+    fetchMemberPaymentMethod: ({ fetchPaymentMethodListActions, id }) => () => {
+      fetchPaymentMethodListActions({ member: id });
     },
   }),
 )(MemberDetailPage);

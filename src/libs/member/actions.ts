@@ -23,7 +23,6 @@ import {
   fetchCommunicationsPaginatedMembers as fetchCommunicationsPaginatedMembersAPI,
   adjustCreditWithoutPaymentNote as adjustCreditWithoutPaymentNoteAPI,
 } from './api';
-
 import type { Member } from './types';
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';

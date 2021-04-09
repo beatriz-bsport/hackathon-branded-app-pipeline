@@ -99,6 +99,7 @@ exports.default = {
     title: 'Moyen de paiement',
     edit: 'Modifier',
     add: 'Ajouter',
+    none: 'Aucun moyen de paiment sauvergardé',
     isInternalExplain:
       'Acompte client (manuel): tous les mois une dette est automatiquement créée dans le compte du membre.',
     select: {

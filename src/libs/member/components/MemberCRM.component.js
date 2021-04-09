@@ -10,6 +10,7 @@ import TagPanel from '../../tag/components/TagPanel.component';
 import type { MemberNote } from '../types';
 import type { Tag, TagGroup } from '../../tag/types';
 import MemberFilesPanel from './MemberFilesPanel.component';
+import { MemberPaymentMethodPanel } from './MemberPaymentMethodPanel.component';
 
 type Props = {
   notes: Array<MemberNote>,
@@ -32,6 +33,8 @@ type Props = {
   tagGroupsLoading: boolean,
   deleteFile: (id: number) => void,
   uploadedFiles: any,
+  paymentMethod: Array<any>,
+  paymentMethodLoading: boolean,
 };
 
 export const MemberCRM = (props: Props) => (
@@ -73,6 +76,12 @@ export const MemberCRM = (props: Props) => (
       openFileUploadDialog={props.openFileUploadDialog}
       uploadedFiles={props.uploadedFiles}
       onDelete={props.deleteFile}
+    />
+    <div className={props.classes.separator} />
+    <MemberPaymentMethodPanel
+      memberId={props.memberId}
+      paymentMethod={props.paymentMethod}
+      paymentMethodLoading={props.paymentMethodLoading}
     />
   </Paper>
 );

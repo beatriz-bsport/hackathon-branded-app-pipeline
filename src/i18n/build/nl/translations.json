@@ -3882,7 +3882,7 @@
             "privatePass": "Afspraakkaarten",
             "note": "Notitie",
             "payment_method_group": {
-                "14": "Krediet(en)",
+                "14": "Intern saldo",
                 "2": "SEPA",
                 "1": "Creditcard"
             }
@@ -4009,7 +4009,7 @@
             },
             "search": {
                 "cancel": "Annuleren",
-                "isEmpty": "Deze videotheek is nog leeg :(",
+                "isEmpty": "Deze videotheek is nog leeg",
                 "placeholder": "Zoeken"
             },
             "bottomActions": {
@@ -6878,7 +6878,8 @@
             "isInternalExplain": "Handmatig toegewezen (via de Back Office). Het lid zal maandelijks in rekening worden gebracht.",
             "add": "Toevoegen",
             "edit": "Bewerken",
-            "title": "Betaalmethode"
+            "title": "Betaalmethode",
+            "none": "Geen opgeslagen betaalmethode"
         },
         "paymentEngine": {
             "label": {

@@ -296,7 +296,8 @@
             "failed": "Zahlung abgelehnt",
             "canceled": "Storniert",
             "pending": "In Bearbeitung",
-            "processing": "Zahlung wird überwiesen"
+            "processing": "Zahlung wird überwiesen",
+            "reverted": "Storniert"
         },
         "plannedInvoice": {
             "list": {
@@ -1123,7 +1124,8 @@
                 "cancelBooking": "Buchung stornieren",
                 "myPrivateBooking": "Termin",
                 "discardBookingTitle": "Buchung stornieren",
-                "waitingSlot": "In Bearbeitung"
+                "waitingSlot": "In Bearbeitung",
+                "intro": "Deine Buchung am {{date}}"
             },
             "help": {
                 "explainCancelBookingOption": "Die Löschung ist unwiderruflich. Wenn Du wieder diese Option für diesen Kurs wählst, wird Dein Platz in der Warteliste zurückgesetzt.",
@@ -2729,7 +2731,8 @@
             "stock_at_start": "Inventar zu Beginn des Zeitraums",
             "accept_email": "Akzeptiert E-Mails",
             "accept_sms": "Akzeptiert SMS",
-            "payout_identifier": "Überweisung"
+            "payout_identifier": "Überweisung",
+            "credit_amount": "Anzahl der Credits"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -3424,7 +3427,8 @@
             "isInternalExplain": "Kundeneinzahlung (manuell): Jeden Monat wird automatisch eine Schuld auf dem Konto des Mitglieds erstellt.",
             "add": "Hinzufügen",
             "edit": "Ändern",
-            "title": "Zahlungsmethode"
+            "title": "Zahlungsmethode",
+            "none": "Keine Zahlungsmethode gespeichert"
         },
         "table": {
             "nested": {
@@ -5023,7 +5027,8 @@
             "toogle": {
                 "showPrivateBookings": "Termine",
                 "showOfferList": "Kurse",
-                "showCustomEvents": "persönlicher Termin"
+                "showCustomEvents": "persönlicher Termin",
+                "hideCancelledEvents": "Stornierungen anzeigen"
             },
             "addBooking": "Einen Termin speichern",
             "selectCoachToModifyAvailability": "Einen Lehrer auswählen",

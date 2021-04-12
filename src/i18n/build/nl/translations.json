@@ -610,9 +610,9 @@
         },
         "marketing": {
             "noPromo": "Geen",
-            "promo": "Aanbieding ter waarde van ",
+            "promo": "Korting: ",
             "promoTitle": "Aanbieding",
-            "offersMatching": " soortgelijke sessies",
+            "offersMatching": " soortgelijk aanbod",
             "after": "Na ",
             "message": "Bericht",
             "estimatedTarget": "Aandeel betrokken gebruikers",
@@ -5256,7 +5256,7 @@
             "theTermsAndConditions": "algemene servicevoorwaarden.",
             "iAccept": "Ik aanvaard de ",
             "close": "Sluiten",
-            "generalTermsOfUse": " de algemene servicevoorwaarden",
+            "generalTermsOfUse": " algemene servicevoorwaarden",
             "waiver": "Waiver en vrijstelling"
         },
         "paymentMethod": {
@@ -6499,7 +6499,7 @@
             },
             "websiteURL": {
                 "label": "Link naar je eigen website",
-                "helperText": "Plak hier je website.",
+                "helperText": "Plak hier de link naar je website.",
                 "placeholder": "https://studio.nl/"
             },
             "scheduleURL": {
@@ -7150,7 +7150,7 @@
                 "tab": "Nieuw tabblad"
             },
             "dialogModeLabel": "Type pop-ups (voor het inloggen, betalen en het reserveren)",
-            "showFabLabel": "Een knop voor \"Mijn profiel\" op de ledenweergave"
+            "showFabLabel": "Een knop voor \"Mijn profiel\" op de widget"
         }
     },
     "platformBilling": {

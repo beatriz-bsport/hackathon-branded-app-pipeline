@@ -312,6 +312,7 @@ exports.default = {
         helperText:
           'Ex: 15 signifie 15 minutes que le membre peut réserver à 12h, 12h15, 12h30, etc... (recommandé)',
       },
+      durationError: 'Durée invalide (entre 15min et 1j)',
       people_capacity_used: {
         label: 'Nombre de personnes',
         helperText:
@@ -327,6 +328,7 @@ exports.default = {
       },
       cancel: 'Annuler',
       submit: 'Enregistrer',
+      pre_selected_choices: 'Durées prédéfinies',
     },
   },
   bookerModule: {

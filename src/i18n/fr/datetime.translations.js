@@ -66,6 +66,7 @@ exports.default = {
     twentyMinutes: '2O min',
     halfHour: '30 min',
     halfAndQuarterHour: '45 min',
+    fiftyMinutes: '50 min',
     oneHour: '1h',
     oneHourFifteen: '1h15',
     oneHourAndHalf: '1h30',

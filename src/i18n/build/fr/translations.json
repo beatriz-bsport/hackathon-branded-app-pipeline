@@ -1453,6 +1453,7 @@
           "label": "Avancé : intervalle de choix de réservation",
           "helperText": "Ex: 15 signifie 15 minutes que le membre peut réserver à 12h, 12h15, 12h30, etc... (recommandé)"
         },
+        "durationError": "Durée invalide (entre 15min et 1j)",
         "people_capacity_used": {
           "label": "Nombre de personnes",
           "helperText": "Si une salle est configurée, ce nombre sera utilisé pour mettre à jour son remplissage"
@@ -1460,7 +1461,8 @@
         "credit": { "label": "Nombre de crédit", "helperText": "Nombre de crédit nécessaire pour une réservation" },
         "duration_minutes": { "label": "Durée", "helperText": "Adapter les crédits nécessaire en fonction de la durée" },
         "cancel": "Annuler",
-        "submit": "Enregistrer"
+        "submit": "Enregistrer",
+        "pre_selected_choices": "Durées prédéfinies"
       }
     },
     "bookerModule": {
@@ -2874,6 +2876,7 @@
       "twentyMinutes": "2O min",
       "halfHour": "30 min",
       "halfAndQuarterHour": "45 min",
+      "fiftyMinutes": "50 min",
       "oneHour": "1h",
       "oneHourFifteen": "1h15",
       "oneHourAndHalf": "1h30",

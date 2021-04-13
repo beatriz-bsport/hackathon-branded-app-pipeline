@@ -2,17 +2,15 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
 import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import DurationInput from '../../../../components/input/DurationInputWithSelect.component';
 import NumericInput from '../../../../components/input/NumericInput.component';
-
 import { DURATION_CHOICES_SHORT } from '../../../../components/forms';
 
 type PrivateSlotData = any;
@@ -61,8 +59,18 @@ export class PrivateSlotForm extends React.Component<Props, State> {
     });
   };
 
+  onFormFieldChange = (value: *) => {
+    const updatedValue = value <= 1440 ? value : 1440;
+    this.setState({ duration_minutes: updatedValue });
+  };
+
   render() {
     const { t, classes, onCancel } = this.props;
+
+    const durationError =
+      this.state.duration_minutes > 1440 ||
+      !this.state.duration_minutes ||
+      this.state.duration_minutes < 15;
     return (
       <form onSubmit={this.onSubmit} className={classes.container}>
         <div className={classes.field}>
@@ -95,21 +103,18 @@ export class PrivateSlotForm extends React.Component<Props, State> {
           />
         </div>
         <div className={classes.field}>
-          <FormControl>
+          <FormControl className={classes.flexField}>
             <InputLabel>{t('slot.form.duration_minutes.label')}</InputLabel>
-            <Select
-              className={classes.selectField}
+            <DurationInput
+              required
               value={this.state.duration_minutes}
-              onChange={(ev) =>
-                this.setState({ duration_minutes: ev.target.value })
-              }
-            >
-              {DURATION_CHOICES_SHORT.slice(0, -1).map(({ value, label }) => (
-                <MenuItem key={value} value={value}>
-                  {t(`datetime:${label}`)}
-                </MenuItem>
-              ))}
-            </Select>
+              disallowedNullDuration={durationError}
+              durationError={t('slot.form.durationError')}
+              onChange={(e) => {
+                this.onFormFieldChange(e || 0);
+              }}
+              selectDurationChoices={DURATION_CHOICES_SHORT}
+            />
           </FormControl>
         </div>
         <div className={classes.field}>
@@ -130,7 +135,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
         </div>
         <div className={classes.buttonContainer}>
           <Button onClick={onCancel}>{t('slot.form.cancel')}</Button>
-          <Button type="submit" color="primary">
+          <Button type="submit" color="primary" disabled={durationError}>
             {t('slot.form.submit')}
           </Button>
         </div>
@@ -149,9 +154,17 @@ const styles = (theme) => ({
   },
   selectField: {
     minWidth: 140,
+    marginLeft: theme.spacing(2),
+    visibility: 'hidden',
   },
   field: {
     marginBottom: theme.spacing(1),
+  },
+  flexField: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap-reverse',
   },
 });
 

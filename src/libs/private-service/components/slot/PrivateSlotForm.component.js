@@ -119,9 +119,13 @@ export class PrivateSlotForm extends React.Component<Props, State> {
             label={t('slot.form.booking_interval_minutes.label')}
             helperText={t('slot.form.booking_interval_minutes.helperText')}
             value={this.state.booking_interval_minutes}
-            onChange={(ev) =>
-              this.setState({ booking_interval_minutes: ev.target.value })
-            }
+            onChange={(ev) => {
+              if (parseInt(ev.target.value, 10) < 10) {
+                this.setState({ booking_interval_minutes: '10' });
+              } else {
+                this.setState({ booking_interval_minutes: ev.target.value });
+              }
+            }}
           />
         </div>
         <div className={classes.buttonContainer}>

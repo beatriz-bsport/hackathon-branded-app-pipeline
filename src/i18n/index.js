@@ -48,11 +48,20 @@ i18n
       referenceLng: 'fr-FR',
     },
     */
-    fallbackLng: {
-      ca: ['es'],
-      'ca-ES': ['es'],
-      default: ['en', 'fr'],
+    fallbackLng: (code) => {
+      if (!code || code === 'en') return ['en'];
+      const fallbacks = [code];
+
+      // We maintain en-US and en-AU. Some regions will prefer en-AU.
+      if (code.startsWith('en')) return ['en'];
+      if (code.startsWith('fr')) return ['fr'];
+      if (code.startsWith('it')) return ['it'];
+      if (code.startsWith('nl')) return ['nl'];
+      if (code.startsWith('de')) return ['de'];
+      if (code.startsWith('ca')) return ['es'];
+      return ['en'];
     },
+
     // lng: 'fr-FR',
     detection: {
       order: ['navigator'],
@@ -63,7 +72,7 @@ i18n
     defaultNS: 'translation',
 
     debug: false, // !['production', 'test'].includes(process.env.NODE_ENV),
-    partialBundledLanguages: true,
+    partialBundledLanguages: false,
     supportedLngs: languages,
 
     interpolation: {

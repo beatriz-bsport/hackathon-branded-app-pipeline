@@ -44,7 +44,9 @@ export const BookingCancellationDialog = (props: Props) => {
       onClose={props.onClose}
     >
       <DialogTitle>
-        {props.booking && props.booking.offer
+        {props.booking &&
+        props.booking.offer &&
+        props.booking.offer.timezone_name
           ? props.t('consumer.booking.intro', {
               date: moment(props.booking.offer.date_start)
                 .tz(props.booking.offer.timezone_name)

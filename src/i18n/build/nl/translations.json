@@ -1144,7 +1144,7 @@
             "datetime": "Sessie",
             "activity": "Activiteit",
             "paymentMethod": "Betaalmethode",
-            "until": "Tot",
+            "until": "Maximaal",
             "from": "Van",
             "booking": "Reservering(en)",
             "saveAndAdd": "Opslaan en opnieuw toevoegen",
@@ -1436,7 +1436,10 @@
             "name": {
                 "label": "Naam"
             },
-            "title": "[Formulier] Pakket"
+            "title": "[Formulier] Pakket",
+            "new_member_only": {
+                "label": "Alleen voor nieuwe leden"
+            }
         },
         "list": {
             "buttons": {
@@ -2150,7 +2153,7 @@
         "disableConsumer": "Blok",
         "enableConsumer": "Ontgrendelen",
         "maxNBookingsByWeek1": "Tot ",
-        "maxNBookingsByWeek2": " reserveringen per week",
+        "maxNBookingsByWeek2": " reservering(en) per week",
         "validity": "Geldigheid:",
         "consumer": {
             "isFromShare": "Gedeeld met een ander account",
@@ -2241,7 +2244,7 @@
             "all": "Alle lidmaatschappen"
         },
         "multipleBookingTooltip": "Meerdere reserveringen",
-        "maxNBookingsByMonth2": " reserveringen per maand",
+        "maxNBookingsByMonth2": " reservering(en) per maand",
         "blockedCpp": "Deze cursuskaart is van {{-blocked_from}} tot en met {{-blocked_until}} geblokkeerd",
         "penalty": {
             "block": "Zodra {{nb_cancellations}} te late annuleringen binnen {{nb_days}} dagen worden geregistreerd, wordt deze cursuskaart voor {{days_blocked}} geblokkeerd.",
@@ -2857,7 +2860,7 @@
                     "activity_form": "Activiteit toevoegen",
                     "pass_form": "Een cursuskaart toevoegen (optioneel)",
                     "pass_list": "Afronden",
-                    "offer_form": "Sessie(s) toevoegen (optioneel)",
+                    "offer_form": "Sessies toevoegen (optioneel)",
                     "workshop_form": "Workshop toevoegen"
                 }
             }
@@ -2875,7 +2878,7 @@
         },
         "name": "Naam",
         "category": "Categorie",
-        "addOffers": "Sessie(s) toevoegen",
+        "addOffers": "Sessies toevoegen",
         "offersThisDay": "Sessie(s) van vandaag:",
         "description": "Beschrijving",
         "modal": {
@@ -4668,6 +4671,9 @@
                     "on_attendance": "Facturatie begint vanaf de 1e deelname",
                     "on_booking": "Facturatie begint vanaf de 1e reservering",
                     "on_purchase": "Facturatie begint op de koopdatum"
+                },
+                "new_member_only": {
+                    "label": "Alleen voor nieuwe leden"
                 }
             },
             "delete": {

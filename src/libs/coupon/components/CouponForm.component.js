@@ -24,6 +24,13 @@ import {
   VOUCHER_TYPE_AMOUNT,
 } from '@bsport/common/lib/master-data/coupon';
 import {
+  COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE,
+  COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE,
+  COUPON_SUBSCRIPTION_MODE_ALL_INVOICES,
+  COUPON_SUBSCRIPTION_MODE_NONE,
+} from '@bsport/common/lib/master-data/coupon-subscription-mode';
+
+import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_SHOP_ITEM,
   BUYABLE_ITEM_FEE,
@@ -85,6 +92,7 @@ export class CouponForm extends React.Component<Props, State> {
         minimum_amount: props.initial.minimum_amount,
         applies_to: props.initial.applies_to || ALL_BUYABLES,
         only_on_objects: props.initial.only_on_objects,
+        subscription_mode: props.initial.subscription_mode,
         voucher_type: props.initial.voucher_type,
         with_expiration_date: !!props.initial.expiration_date,
         expiration_date: props.initial.expiration_date
@@ -108,6 +116,7 @@ export class CouponForm extends React.Component<Props, State> {
         voucher_type: VOUCHER_TYPE_PERCENT,
         with_expiration_date: false,
         expiration_date: moment(),
+        subscription_mode: COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE,
       };
     }
   }
@@ -132,6 +141,7 @@ export class CouponForm extends React.Component<Props, State> {
       usage_total: this.state.usage_total,
       usage_per_member: this.state.usage_per_member,
       combinable: this.state.combinable,
+      subscription_mode: this.state.subscription_mode,
       minimum_amount: this.state.minimum_amount,
       applies_to:
         this.state.applies_to === ALL_BUYABLES ? null : this.state.applies_to,
@@ -201,6 +211,84 @@ export class CouponForm extends React.Component<Props, State> {
               onChange={this.handleChange('amount_off', true)}
             />
           </Collapse>
+        </FormControl>
+      </div>
+    );
+  };
+
+  renderSubscriptionModeConfig = () => {
+    const { t, classes } = this.props;
+    return (
+      <div>
+        <FormControl component="fieldset" className={classes.radioGroup}>
+          <RadioGroup
+            aria-label="Subscription mode"
+            name="subscription_mode"
+            value={this.state.subscription_mode}
+            onChange={(ev) =>
+              this.handleChange(
+                'subscription_mode',
+                false,
+              )(parseInt(ev.target.value, 10))
+            }
+          >
+            <FormControlLabel
+              value={COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE}
+              control={
+                <Radio
+                  checked={
+                    COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE ===
+                    this.state.subscription_mode
+                  }
+                />
+              }
+              label={t(
+                `form.subscription_mode.${COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE}`,
+              )}
+            />
+            <FormControlLabel
+              value={COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE}
+              control={
+                <Radio
+                  checked={
+                    COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE ===
+                    this.state.subscription_mode
+                  }
+                />
+              }
+              label={t(
+                `form.subscription_mode.${COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE}`,
+              )}
+            />
+            <FormControlLabel
+              value={COUPON_SUBSCRIPTION_MODE_ALL_INVOICES}
+              control={
+                <Radio
+                  checked={
+                    COUPON_SUBSCRIPTION_MODE_ALL_INVOICES ===
+                    this.state.subscription_mode
+                  }
+                />
+              }
+              label={t(
+                `form.subscription_mode.${COUPON_SUBSCRIPTION_MODE_ALL_INVOICES}`,
+              )}
+            />
+            <FormControlLabel
+              value={COUPON_SUBSCRIPTION_MODE_NONE}
+              control={
+                <Radio
+                  checked={
+                    COUPON_SUBSCRIPTION_MODE_NONE ===
+                    this.state.subscription_mode
+                  }
+                />
+              }
+              label={t(
+                `form.subscription_mode.${COUPON_SUBSCRIPTION_MODE_NONE}`,
+              )}
+            />
+          </RadioGroup>
         </FormControl>
       </div>
     );
@@ -505,6 +593,11 @@ export class CouponForm extends React.Component<Props, State> {
         </div>
 
         <Typography variant="h6" className={classes.sectionTitle}>
+          {t('form.section.subscription')}
+        </Typography>
+        {this.renderSubscriptionModeConfig()}
+
+        <Typography variant="h6" className={classes.sectionTitle}>
           {t('form.section.advanced')}
         </Typography>
         <Checkbox
@@ -561,7 +654,7 @@ const styles = (theme) => ({
   },
   sectionTitle: {
     width: '100%',
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
   },
   field: {
     width: '100%',

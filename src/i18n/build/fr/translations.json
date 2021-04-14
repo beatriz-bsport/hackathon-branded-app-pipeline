@@ -1921,6 +1921,7 @@
         "shopitem": "Sélectionner des produits du magasin (valable sur tous les produits si aucun n'est sélectionné)"
       },
       "section": {
+        "subscription": "Souscription (contrat)",
         "general": "Général",
         "availability": "Disponibilité",
         "usability": "Utilisation",
@@ -1931,6 +1932,12 @@
       "name": { "label": "Nom" },
       "code": { "label": "Code", "helperText": "Le code que vous transmettrez aux clients concernés" },
       "voucher_type": { "percent": "En pourcentage", "amount": "En valeur" },
+      "subscription_mode": {
+        "0": "Toutes les facturations",
+        "1": "Uniquement premier mois",
+        "2": "Uniquement premier cycle de facturation (avant renouvellement)",
+        "3": "Non utilisable"
+      },
       "percent_off": { "label": "Pourcentage de réduction" },
       "amount_off": { "label": "Montant de la réduction" },
       "is_active": { "label": "Actif", "helperText": "Un code non-actif n'est pas utilisable par les clients" },

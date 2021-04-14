@@ -7,6 +7,13 @@ const {
   BUYABLE_ITEM_PRIVATE_PASS,
 } = BUYABLE_ITEM;
 
+const {
+  COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE,
+  COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE,
+  COUPON_SUBSCRIPTION_MODE_ALL_INVOICES,
+  COUPON_SUBSCRIPTION_MODE_NONE,
+} = require('@bsport/common/lib/master-data/coupon-subscription-mode');
+
 exports.default = {
   list: {
     isEmpty: 'Aucun code promotionnel enregistré',
@@ -50,6 +57,7 @@ exports.default = {
         "Sélectionner des produits du magasin (valable sur tous les produits si aucun n'est sélectionné)",
     },
     section: {
+      subscription: 'Souscription (contrat)',
       general: 'Général',
       availability: 'Disponibilité',
       usability: 'Utilisation',
@@ -67,6 +75,13 @@ exports.default = {
     voucher_type: {
       percent: 'En pourcentage',
       amount: 'En valeur',
+    },
+    subscription_mode: {
+      [COUPON_SUBSCRIPTION_MODE_NONE]: 'Non utilisable',
+      [COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE]: 'Toutes les facturations',
+      [COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE]: 'Uniquement premier mois',
+      [COUPON_SUBSCRIPTION_MODE_ALL_INVOICES]:
+        'Uniquement premier cycle de facturation (avant renouvellement)',
     },
     percent_off: {
       label: 'Pourcentage de réduction',

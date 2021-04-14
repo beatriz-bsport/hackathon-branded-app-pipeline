@@ -3,7 +3,6 @@ import React, { memo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
-import Avatar from '@material-ui/core/Avatar';
 import moment from 'moment-timezone';
 import { compose, withStateHandlers } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -29,8 +28,6 @@ import RedButton from '../../../../components/button/RedButton.component';
 import RedChip from '../../../../components/chip/RedChip.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
 import EstablishmentListItem from '../../../establishment/components/EstablishmentListItem.component';
-
-import { getCurrencyDisplay } from '../../../theme/selectors';
 
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,

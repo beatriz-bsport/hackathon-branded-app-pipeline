@@ -4904,6 +4904,9 @@
                     "on_attendance": "Beginnt bei der ersten Anwesenheit",
                     "on_booking": "Beginnt bei der ersten Buchung",
                     "on_purchase": "Beginnt bei der Rechnungsstellung"
+                },
+                "new_member_only": {
+                    "label": "Nur für Neukunden"
                 }
             },
             "parameters": {
@@ -5536,6 +5539,9 @@
             },
             "description": {
                 "label": "Beschreibung"
+            },
+            "new_member_only": {
+                "label": "Nur für Neukunden"
             }
         },
         "list": {
@@ -7177,7 +7183,7 @@
             "calendarDisplay": "Wochenübersicht anzeigen (Kalender)",
             "listDisplay": "Wochenübersicht anzeigen",
             "cancel": "Abbrechen",
-            "responsiveDisplay": "Ansprechbare Anzeige",
+            "responsiveDisplay": "Responsive Anzeige",
             "widgetPreviewError": "Bitte beende die Konfiguration",
             "dialogTitle": "Widget-Anpassung",
             "linkToConfig": "Link zu dieser Konfiguration",

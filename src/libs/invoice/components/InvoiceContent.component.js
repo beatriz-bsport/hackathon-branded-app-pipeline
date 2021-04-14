@@ -9,6 +9,10 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import TextField from '@material-ui/core/TextField';
+import SaveIcon from '@material-ui/icons/Save';
+import CancelIcon from '@material-ui/icons/Cancel';
+import IconButton from '@material-ui/core/IconButton';
 import { INVOICE_TYPE_MIGRATION } from '@bsport/common/lib/master-data/invoice-type';
 import Tooltip from '../../../components/Tooltip.component';
 import { getCurrencyDisplay } from '../../theme/selectors';
@@ -32,6 +36,7 @@ type Props = {
   invoice: ?Invoice,
   invoiceItemLoading: boolean,
   invoiceItemList: Array<InvoiceItem>,
+  editCustomFooter: (OptionCallback) => void,
 };
 export const InvoiceContent = (props: Props) => {
   const classes = useStyles(props);
@@ -42,6 +47,10 @@ export const InvoiceContent = (props: Props) => {
     paymentItemList,
   } = props;
   const { t } = useTranslation(['invoice']);
+  const [editFooterOpen, setEditFooterOpen] = React.useState(false);
+  const [customFooterValue, setCustomFooterValue] = React.useState([
+    props.invoice.custom_footer,
+  ]);
 
   const is_reverse = props.invoice && props.invoice.source_invoice;
 
@@ -136,6 +145,48 @@ export const InvoiceContent = (props: Props) => {
             </div>
           </div>
         )}
+        {props.invoice.is_v2 && !editFooterOpen ? (
+          <div className={classes.footerSectionColumn}>
+            {!!props.invoice.custom_footer && (
+              <Typography
+                className={classes.customFooterContainer}
+                variant="caption"
+                color="textSecondary"
+              >
+                {props.invoice.custom_footer}
+              </Typography>
+            )}
+            <div>
+              <Button onClick={() => setEditFooterOpen(true)}>
+                {t('actions.addFooter')}
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div />
+        )}
+        {editFooterOpen && (
+          <div className={classes.footerSectionRow}>
+            <TextField
+              value={customFooterValue}
+              onChange={(ev) => setCustomFooterValue(ev.target.value)}
+              fullWidth
+              variant="outlined"
+            />
+            <IconButton onClick={() => setEditFooterOpen(false)}>
+              <CancelIcon />
+            </IconButton>
+            <IconButton
+              onClick={() =>
+                props.editCustomFooter(customFooterValue, {
+                  onSuccess: () => setEditFooterOpen(false),
+                })
+              }
+            >
+              <SaveIcon />
+            </IconButton>
+          </div>
+        )}
       </Paper>
       {!!props.finalizeInvoice &&
         props.invoice.invoice_type !== INVOICE_TYPE_MIGRATION && (
@@ -184,7 +235,14 @@ export const InvoiceContent = (props: Props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  paperContainer: { minHeight: '20vh', paddingBottom: theme.spacing(2) },
+  paperContainer: {
+    minHeight: '20vh',
+    paddingBottom: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'space-between',
+  },
   section: { marginBottom: theme.spacing(2) },
   divider: { marginBottom: theme.spacing(2) },
   sectionTitle: {
@@ -253,6 +311,25 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#DEDEDE',
     borderRadius: 8,
     border: '1px solid gray',
+  },
+  footerSectionRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    margin: theme.spacing(2),
+    marginBottom: 0,
+  },
+  customFooterContainer: {
+    padding: theme.spacing(2),
+    border: '1px solid #DEDEDE',
+    borderRadius: 8,
+  },
+  footerSectionColumn: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    margin: theme.spacing(2),
+    marginBottom: 0,
   },
 }));
 

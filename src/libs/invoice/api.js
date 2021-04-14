@@ -141,6 +141,12 @@ export async function fetchPlannedPaymentEvent(params: any = {}) {
   );
 }
 
+export async function editCustomFooter(uuid: string, custom_footer: string) {
+  return postAuth(`${API_V1_URI}/payment/invoices/${uuid}/update_footer/`, {
+    custom_footer,
+  });
+}
+
 export default {
   fetchAll,
   fetchSpecific,

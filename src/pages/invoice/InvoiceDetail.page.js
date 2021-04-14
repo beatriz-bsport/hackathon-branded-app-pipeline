@@ -33,6 +33,7 @@ import {
   finalizeInvoice as finalizeInvoiceAction,
   updatePaymentMethod as updatePaymentMethodAction,
   allocateDebt,
+  editCustomFooter as editCustomFooterAction,
   fetchPlannedPaymentEventList,
 } from '../../libs/invoice/actions';
 import {
@@ -58,6 +59,7 @@ type Props = {
   uuid: string,
   fetchInvoiceItemList: (params: any) => void,
   fetchMember: (number) => void,
+  editCustomFooter: (string, OptionCallback) => void,
   fetchPaymentList: (params: any) => void,
   invoice: Invoice,
   openPaymentDialog: () => void,
@@ -214,6 +216,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
               <InvoiceContent
                 invoice={this.props.invoice}
                 invoiceItemLoading={this.props.invoiceItemLoading}
+                editCustomFooter={this.props.editCustomFooter}
                 invoiceItemList={this.props.invoice.invoice_items.filter(
                   (ii) => !!ii,
                 )}
@@ -379,10 +382,13 @@ export default compose(
       finalizeInvoice: finalizeInvoiceAction,
       updatePaymentMethod: updatePaymentMethodAction,
       allocateDebt,
+      editCustomFooter: editCustomFooterAction,
       updatePaymentGroupPriceCts,
     },
   ),
   withHandlers({
+    editCustomFooter: ({ editCustomFooter, uuid }) => (customFooter, options) =>
+      editCustomFooter(uuid, customFooter, options),
     fetchPaymentGroupRequiringActionList: ({
       fetchPaymentGroupList,
       uuid,

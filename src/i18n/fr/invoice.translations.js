@@ -230,6 +230,7 @@ exports.default = {
   actions: {
     invoiceReverted: 'Facture annulée',
     revert: 'Annuler',
+    addFooter: 'Modifier la note de bas de facture',
     goToSubscription: 'Voir la souscription',
     goToPaymentEditor: 'Paiement',
     backToInvoiceItemEditor: 'Achat',

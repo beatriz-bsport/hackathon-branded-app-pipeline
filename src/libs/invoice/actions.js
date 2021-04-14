@@ -20,6 +20,7 @@ import {
   allocateDebtToInvoice as allocateDebtToInvoiceAPI,
   applyBalanceToUnpaid as applyBalanceToUnpaidAPI,
   fetchPlannedPaymentEvent as fetchPlannedPaymentEventAPI,
+  editCustomFooter as editCustomFooterAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
@@ -552,5 +553,37 @@ export function fetchPlannedPaymentEventList(
       }
     }
     dispatch(listPlannedPaymentEventActions.isLoading(false));
+  };
+}
+
+export const editCustomFooterActions = {
+  isLoading: createAction('INVOICE/EDIT_FOOTER/LOADING'),
+  error: createAction('INVOICE/EDIT_FOOTER/ERROR'),
+  success: createAction('INVOICE/EDIT_FOOTER/SUCCESS'),
+};
+
+export function editCustomFooter(
+  uuid: string,
+  customFooter: string,
+  options: ?OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(editCustomFooterActions.isLoading(true));
+    dispatch(editCustomFooterActions.error(null));
+
+    try {
+      const response = await editCustomFooterAPI(uuid, customFooter);
+      dispatch(editCustomFooterActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (e) {
+      console.error(e);
+      dispatch(editCustomFooterActions.error(e));
+      if (options && options.onError) {
+        options.onError(e);
+      }
+    }
+    dispatch(editCustomFooterActions.isLoading(false));
   };
 }

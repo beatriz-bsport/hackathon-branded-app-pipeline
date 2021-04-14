@@ -21,13 +21,13 @@ class CheckPermission extends React.PureComponent<Props> {
 
     if (requiredPermissions) {
       if (checkRequiredPermissions(requiredPermissions, permissions)) {
-        return children;
+        return children || null;
       }
     }
 
     if (check) {
       if (check(permissions)) {
-        return children;
+        return children || null;
       }
     }
 

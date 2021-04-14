@@ -15,6 +15,7 @@ import {
   listInvoiceItemActions,
   listInvoiceActions,
   listPlannedPaymentEventActions,
+  editCustomFooterActions,
   checkInvoiceInfoActions,
 } from './actions';
 
@@ -236,6 +237,9 @@ export default handleActions(
       return state.setIn(['createOrUpdate', 'error'], payload);
     },
     [createOrUpdateInvoiceActions.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.uuid], payload);
+    },
+    [editCustomFooterActions.success]: (state, { payload }) => {
       return state.setIn(['byId', payload.uuid], payload);
     },
     [listPlannedPaymentEventActions.isLoading]: (state, { payload }) => {

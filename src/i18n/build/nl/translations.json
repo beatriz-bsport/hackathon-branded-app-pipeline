@@ -422,7 +422,7 @@
             },
             "passListTitle": "Cursuskaarten (voor groepsactiviteiten)",
             "privatePassListTitle": "Afspraakkaarten",
-            "noSessionToday": "Geen sessie",
+            "noSessionToday": "Er zijn nog geen sessies ingepland.",
             "showMarketplace": "Zie het rooster van ",
             "backToCalendar": "Terug",
             "teacher": "Instructeur",
@@ -1049,14 +1049,14 @@
             "packsAvailable": "Compatibele cursuskaarten:",
             "orNcredits2": " credits)",
             "orNcredits1": "(of ",
-            "noOfferThisDay": "Vandaag zijn er geen sessies. Selecteer een andere datum of begin met het toevoegen van sessies!",
+            "noOfferThisDay": "Vandaag zijn er geen sessies. Selecteer een andere datum of begin met het toevoegen van sessies.",
             "offersThisDay": "Sessie(s) van vandaag:",
             "category": "Categorie",
             "description": "Beschrijving",
             "fillrate": "Gemiddelde bezetting",
             "totalCustomers": "Totaal aantal reserveringen",
             "grossVolume": "Omzet",
-            "noNextSlot": "Er zijn geen sessies ingepland.",
+            "noNextSlot": "Er zijn geen nog sessies ingepland.",
             "color": "Kleurcode",
             "name": "Titel",
             "addActivity": "Een activiteit toevoegen",
@@ -1309,7 +1309,7 @@
             "showMail": "Zie de e-mail",
             "mailSelection": "Kies een e-mail",
             "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien",
-            "noMailAvailable": "Nog geen e-mail beschikbaar. Maak er een aan",
+            "noMailAvailable": "Nog geen e-mail beschikbaar. Begin met het ontwerpen van je eerste e-mail.",
             "mailMissing": "Nog geen e-mail ingevoerd",
             "phoneMissing": "Nog geen telefoonnummer ingevoerd",
             "numberSms": "sms",
@@ -2307,7 +2307,7 @@
         "addButton": "Een zaal of vestiging toevoegen",
         "pleaseSelectOne": "Selecteer een studio op de kaart",
         "offers": "Agenda van de sessie(s):",
-        "noMoreOffers": "Er zijn geen sessies ingepland.",
+        "noMoreOffers": "Er zijn geen nog sessies ingepland.",
         "pleaseFill": "Vergeet niet om een vestiging toe te voegen!",
         "practical_info": {
             "label": "Toegangsinformatie",
@@ -3417,7 +3417,7 @@
             "isManager": "Momenteel ben je als een medewerker ingelogd. Log uit om je MarketPlace/ledenweergave te bekijken."
         },
         "workshop": {
-            "noWorkshopAvailable": "Momenteel zijn er geen workshops ingepland.",
+            "noWorkshopAvailable": "Er zijn nog geen workshops ingepland.",
             "card": {
                 "showMore": "Meer informatie",
                 "book": "Reserveer",
@@ -4012,7 +4012,7 @@
             },
             "search": {
                 "cancel": "Annuleren",
-                "isEmpty": "Deze videotheek is nog leeg",
+                "isEmpty": "Deze videotheek is leeg.",
                 "placeholder": "Zoeken"
             },
             "bottomActions": {
@@ -4392,7 +4392,9 @@
             "updateCoach": "Kies een nieuwe instructeur voor deze afspraak",
             "isCancelledDate": "Geannuleerd op {{-date}} om {{time}}",
             "restore": "Afspraak herstellen",
-            "bookings": "Afspraken"
+            "bookings": "Afspraken",
+            "notRefunded": "Niet terugbetaald",
+            "isRefunded": "Terugbetaald"
         },
         "privateService": {
             "delete": {
@@ -4843,8 +4845,8 @@
                 "explainHasOwnAvailabilitySlots": "Klik op het potlood om de beschikbaarheid te wijzigen.",
                 "hasFutureSlot": "De beschikbaarheid is correct geconfigureerd.",
                 "noCapacity": "Er is geen maximale capaciteit ingesteld!",
-                "totalCapacity": "Maximale capaciteit: {{capacity}} personen",
-                "noFutureSlot": "Er is geen beschikbaarheid geconfigureerd voor {{resourceName}}! Klik hier.",
+                "totalCapacity": "Maximale capaciteit: {{capacity}} persoon/personen",
+                "noFutureSlot": "De beschikbaarheid van {{resourceName}} is nog niet correct ingesteld. Klik hier om de beschikbaarheid te configureren.",
                 "title": "Beschikbaarheid",
                 "isAlwaysAvailable": "{{resourceName}} is te boeken zodra de zaal en/of de instructeurs beschikbaar zijn",
                 "changeIsAlwaysAvailable": "Bewerken"
@@ -6469,7 +6471,7 @@
                 "checkBalance": {
                     "shiftRatio": {
                         "explain": "Als een sessie meer dan {{numberCheck}} reserveringen heeft, worden er geen toekomstige reserveringen geaccepteerd die de onevenwichtigheid tussen MANNEN/VROUWEN groter maakt dan {{gender_max_shift_for_booking}} personen.",
-                        "helperText": "Beperk de onevenwichtigheid tussen MANNEN/VROUWEN tot {{gender_max_shift_for_booking}} personen",
+                        "helperText": "Beperk de onevenwichtigheid tussen MANNEN/VROUWEN tot {{gender_max_shift_for_booking}} personen.",
                         "placeholder": "Maximale onevenwichtigheid tussen MANNEN/VROUWEN"
                     },
                     "numberCheck": {
@@ -7004,6 +7006,24 @@
                     "cancel": "Annuleren",
                     "confirm": "Verwijderen"
                 }
+            },
+            "role": {
+                "delete": {
+                    "confirm": "Verwijderen",
+                    "cancel": "Annuleren",
+                    "content": "Weet je zeker dat je deze Rol wilt verwijderen?",
+                    "title": "Rol verwijderen"
+                },
+                "create": {
+                    "showAdvanced": "Meer zien",
+                    "permissions": "Bevoegdheden",
+                    "restrictedUrlPlaceholder": "Voorbeeld: /lid/",
+                    "restrictedUrl": "Geblokkeerde URLs",
+                    "description": "Beschrijving",
+                    "name": "Naam",
+                    "title": "Een rol toevoegen",
+                    "buttonCreate": "Een rol toevoegen  "
+                }
             }
         },
         "userRoles": "Personeelsaccounts",
@@ -7032,6 +7052,82 @@
             "5": {
                 "name": "Rapportages",
                 "description": "Dit geeft iemand alleen toegang tot Rapportages; dit kan handig voor je accountants zijn."
+            }
+        },
+        "rolePermissions": {
+            "appbarActions": {
+                "_helper": "Het toevoegen van leden, fysieke betalingen...",
+                "_label": "AppBar acties"
+            },
+            "navigationMenu": {
+                "settings": {
+                    "_label": "Instellingen"
+                },
+                "reporting": {
+                    "_label": "Rapportages"
+                },
+                "member": {
+                    "_label": "Leden"
+                },
+                "digitalOffer": {
+                    "_label": "Digitaal aanbod"
+                },
+                "marketing": {
+                    "_label": "Marketing"
+                },
+                "payments": {
+                    "_label": "Betalingen"
+                },
+                "products": {
+                    "_label": "Producten"
+                },
+                "myClub": {
+                    "_label": "Mijn studio"
+                },
+                "schedule": {
+                    "_label": "Rooster"
+                },
+                "calendar": {
+                    "_label": "Agenda"
+                },
+                "dashboard": {
+                    "_label": "Dashboard"
+                },
+                "search": {
+                    "_helper": "Alleen op mobiel",
+                    "_label": "Leden zoeken"
+                },
+                "_label": "Navigatiemenu"
+            },
+            "member": {
+                "search": {
+                    "_label": "Zoeken"
+                },
+                "edit": {
+                    "_label": "Wijzigen"
+                },
+                "retrieve": {
+                    "_label": "Toegang tot ledenbestand"
+                },
+                "create": {
+                    "_label": "Aanmaken"
+                },
+                "_label": "Lid"
+            },
+            "offer": {
+                "edit": {
+                    "_label": "Wijzigen"
+                },
+                "delete": {
+                    "_label": "Annuleren"
+                },
+                "create": {
+                    "_label": "Aanmaken"
+                },
+                "_label": "Sessies"
+            },
+            "search": {
+                "_label": "Leden zoeken"
             }
         }
     },

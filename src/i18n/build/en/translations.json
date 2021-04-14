@@ -2208,6 +2208,9 @@
             "available_payment_method_identifiers": {
                 "helperText": "Select at least one payment method. If during checkout, items have non-compatible payment methods, credit card will be proposed.",
                 "label": "Allowed payment methods"
+            },
+            "new_member_only": {
+                "label": "Only for new clients"
             }
         },
         "detail": {
@@ -2777,6 +2780,9 @@
                     "on_attendance": "Starts on 1st attendance",
                     "on_booking": "Starts on booking date",
                     "on_purchase": "Starts on billing date"
+                },
+                "new_member_only": {
+                    "label": "Only for new clients"
                 }
             },
             "validForDuration": {
@@ -4963,7 +4969,8 @@
             "isInternalExplain": "Client account (manual) : each month a charge will be applied to this member.",
             "add": "Add",
             "edit": "Modify",
-            "title": "Payment method"
+            "title": "Payment method",
+            "none": "No payment method has been saved"
         },
         "paymentEngine": {
             "label": {

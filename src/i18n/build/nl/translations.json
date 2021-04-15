@@ -1144,7 +1144,7 @@
             "datetime": "Sessie",
             "activity": "Activiteit",
             "paymentMethod": "Betaalmethode",
-            "until": "Maximaal",
+            "until": "Tot",
             "from": "Van",
             "booking": "Reservering(en)",
             "saveAndAdd": "Opslaan en opnieuw toevoegen",
@@ -1617,7 +1617,7 @@
             "subshop_name": "Categorie",
             "payment_method": "Betaalmethode",
             "product": "Product",
-            "payment_identifier": "Betalings-ID",
+            "payment_identifier": "Betaal-ID",
             "pass": "Cursuskaarten",
             "first_name": "Voornaam",
             "date_offer": "Datum en tijd",
@@ -1661,7 +1661,7 @@
             "activity_duration": "Duur",
             "member_identifier": "Gebruikers-ID",
             "payment_date": "Volledige betaaldatum",
-            "payment_date_time": "Tijd van betaling",
+            "payment_date_time": "Betaaltijd",
             "product_names": "Producten",
             "product_type": "Producttype",
             "start_date": "Volledige startdatum",
@@ -1680,7 +1680,7 @@
             "address": "Adres",
             "tax": "Btw",
             "voucher": "Korting",
-            "payment_note": "Betalingsbewijs",
+            "payment_note": "Betaalbewijs",
             "remaining_days": "Resterende dagen",
             "payment_method_stripe": "Creditcard",
             "payment_method_cash": "Contant geld",
@@ -3631,7 +3631,7 @@
                     "label": "Automatisch verlengen"
                 },
                 "recurrent_price": {
-                    "label": "Maandelijkse betaling"
+                    "label": "Doorlopende betaling"
                 },
                 "object_type": {
                     "paymentPack": "Cursuskaarten",
@@ -5446,7 +5446,7 @@
         },
         "paymentPack": {
             "createOrUpdate": {
-                "success": "Cursuskaart opgeslagen",
+                "success": "Wijzigingen opgeslagen",
                 "fail": "Fout bij opslaan van cursuskaart"
             },
             "credit": {
@@ -5916,7 +5916,7 @@
     "relationship": {
         "consumer_payment_pack_links": {
             "list": {
-                "isEmpty": "Geen gedeelde cursuskaart",
+                "isEmpty": "Geen gedeelde cursuskaarten",
                 "create": "Een cursuskaart delen",
                 "title": "Gedeelde cursuskaarten"
             },
@@ -6134,7 +6134,7 @@
     },
     "stripe": {
         "errors": {
-            "processing_error": "Er is een fout opgetreden tijdens het registreren van uw betaling. Probeer het over enkele ogenblikken opnieuw.",
+            "processing_error": "Je betaling kon niet worden verwerkt. Gelieve straks opnieuw proberen.",
             "incomplete_number": "Het kaartnummer is onvolledig.",
             "incomplete_expiry": "De vervaldatum van uw kaart is onvolledig.",
             "invalid_expiry_year_past": "De vervaldatum van uw kaart is verstreken.",
@@ -6150,7 +6150,7 @@
         },
         "error_code": {
             "payment_intent_authentication_failure": "De betaling is door uw bank geweigerd.",
-            "processing_error": "Er is een fout opgetreden tijdens het registreren van uw betaling. Probeer het over enkele ogenblikken opnieuw.",
+            "processing_error": "Je betaling kon niet worden verwerkt. Gelieve straks opnieuw proberen.",
             "incomplete_number": "Het kaartnummer is onvolledig.",
             "incomplete_expiry": "De vervaldatum van uw kaart is onvolledig.",
             "invalid_expiry_year_past": "De vervaldatum van uw kaart is verstreken.",
@@ -6630,7 +6630,7 @@
         },
         "payLater": {
             "explain": "Je wordt in de studio gevraagd om de betaling te voltooien. Tot die tijd wordt de factuur als onbetaald beschouwd.",
-            "submit": "Ter plaatse betalen"
+            "submit": "Later betalen"
         },
         "or": "of"
     },

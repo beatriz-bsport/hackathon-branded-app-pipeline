@@ -49,7 +49,7 @@ export const InvoiceContent = (props: Props) => {
   const { t } = useTranslation(['invoice']);
   const [editFooterOpen, setEditFooterOpen] = React.useState(false);
   const [customFooterValue, setCustomFooterValue] = React.useState([
-    props.invoice.custom_footer,
+    props.invoice ? props.invoice.custom_footer : '',
   ]);
 
   const is_reverse = props.invoice && props.invoice.source_invoice;

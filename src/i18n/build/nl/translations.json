@@ -182,7 +182,7 @@
                     "pass_credit_left": "Resterend krediet",
                     "pass_expiration": "Vervaldatum cursuskaart",
                     "pass_starting_date": "Begindatum cursuskaart",
-                    "pass_name": "Naam van deze cursuskaart",
+                    "pass_name": "Sub-tag toevoegen",
                     "pass_price": "Prijs cursuskaart"
                 },
                 "name": "Cursuskaarten"
@@ -2135,7 +2135,7 @@
             }
         },
         "details": {
-            "pleaseSelectAPack": "Selecteer een cursuskaart voor een gedetailleerd overzicht",
+            "pleaseSelectAPack": "Selecteer een lidmaatschap voor een gedetailleerd overzicht.",
             "shareAPass": "Een cursuskaart delen",
             "invoiceTitle": "Bijbehorende factuur",
             "bookingsTitle": "Bijbehorende reserveringen",
@@ -2150,7 +2150,7 @@
             "error": "Kan niet verwijderen",
             "success": "Cursuskaart verwijderd"
         },
-        "disableConsumer": "Blok",
+        "disableConsumer": "Blokkeer",
         "enableConsumer": "Ontgrendelen",
         "maxNBookingsByWeek1": "Tot ",
         "maxNBookingsByWeek2": " reservering(en) per week",
@@ -2193,7 +2193,7 @@
         "anyActivity": "Alle activiteiten",
         "noRestrictionOnActivityType": "Alle activiteiten zijn compatibel met deze cursuskaart.",
         "credit": {
-            "updated": "Krediet(en) bijgewerkt!"
+            "updated": "Wijzigingen opgeslagen"
         },
         "noConsumerPack": "Er zijn nog geen aankopen geregistreerd.",
         "reverted": "Factuur geannuleerd",
@@ -2919,8 +2919,8 @@
             "startingSoon": "Je online les begint over {{minutesLeft}} minuten.",
             "isAutoRefresh": "Je wordt automatisch 15 min. voor het begin van de online les automatisch naar de livestream doorverwezen.",
             "loadingSoon": "Bezig met laden...",
-            "activateVideo": "Begin met livestreamen",
-            "hasEnded": "Deze sessie is voorbij"
+            "activateVideo": "Online les beginnen",
+            "hasEnded": "De online les is afgelopen."
         },
         "disabled": "Geannuleerd",
         "credit_price": " Krediet(en)",
@@ -3065,7 +3065,7 @@
             "info": "Algemeen",
             "relation": "Relaties",
             "bookings": "Reserveringen",
-            "payment": "Facturering",
+            "payment": "Facturen",
             "privateBooking": "Afspraken",
             "privateConsumerPass": "Afspraakkaarten",
             "paymentPack": "Lidmaatschappen",
@@ -3357,7 +3357,7 @@
                     "label": "Dag"
                 },
                 "at": " op ",
-                "timeGroup": "Cursusdata",
+                "timeGroup": "Instellingen",
                 "startFromDate": {
                     "label": "Begin de periodieke reservering op "
                 }
@@ -5450,7 +5450,7 @@
                 "fail": "Fout bij opslaan van cursuskaart"
             },
             "credit": {
-                "updated": "Krediet(en) bijgewerkt!",
+                "updated": "Wijzigingen opgeslagen",
                 "error": "Fout bij opslaan"
             },
             "paymentPackDisabled": {
@@ -5698,7 +5698,7 @@
         },
         "privateConsumerPass": {
             "creditUpdate": {
-                "success": "Krediet(en) bijgewerkt!",
+                "success": "Wijzigingen opgeslagen",
                 "error": "Krediet kon niet worden opgeslagen"
             }
         },
@@ -5996,7 +5996,7 @@
                 }
             },
             "list": {
-                "isEmpty": "Geen gedeelde afsprakenkaart",
+                "isEmpty": "Geen gedeelde afspraakkaarten",
                 "create": "Een afspraakkaart delen",
                 "title": "Gedeelde afspraakkaarten"
             }
@@ -6043,7 +6043,8 @@
                 "usability": "Toepassingen",
                 "voucherConfig": "Korting",
                 "applies_to": "Instellingen",
-                "advanced": "Geavanceerd"
+                "advanced": "Geavanceerd",
+                "subscription": "Abonnement (contract)"
             },
             "name": {
                 "label": "Naam"
@@ -6092,6 +6093,12 @@
             },
             "usage_per_member": {
                 "label": "Gebruikslimiet per lid"
+            },
+            "subscription_mode": {
+                "3": "Niet-beschikbaar",
+                "2": "Alleen voor de 1e factuur (vóór de verlenging)",
+                "1": "Alleen voor de 1e maand",
+                "0": "Alle facturen"
             }
         },
         "list": {
@@ -6371,9 +6378,9 @@
                     "submit": "Verwijderen",
                     "cancel": "Annuleren"
                 },
-                "namePlaceholder": "Naam van de categorie",
+                "namePlaceholder": "Tag toevoegen",
                 "addTagGroup": "Een categorie toevoegen",
-                "edit": "Bewerk tags",
+                "edit": "Tags bewerken",
                 "deleteCategory": "Categorie verwijderen"
             },
             "tag": {
@@ -6686,7 +6693,8 @@
             "revert": "Annuleren",
             "invoiceReverted": "Factuur geannuleerd",
             "consumeBalance": "Met saldo betalen",
-            "explainPdfDraft": "Deze factuur is nog een concept. De .PDF is nog niet beschikbaar."
+            "explainPdfDraft": "Deze factuur is nog een concept. De .PDF is nog niet beschikbaar.",
+            "addFooter": "Voetnoot wijzigen"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "De factuur is definitief en kan dus niet meer worden bewerkt",
@@ -7056,7 +7064,7 @@
         },
         "rolePermissions": {
             "appbarActions": {
-                "_helper": "Het toevoegen van leden, fysieke betalingen...",
+                "_helper": "Het toevoegen van leden, het verwerken van fysieke betalingen, etc.",
                 "_label": "AppBar acties"
             },
             "navigationMenu": {
@@ -7107,12 +7115,12 @@
                     "_label": "Wijzigen"
                 },
                 "retrieve": {
-                    "_label": "Toegang tot ledenbestand"
+                    "_label": "Toegang tot het ledenbestand"
                 },
                 "create": {
-                    "_label": "Aanmaken"
+                    "_label": "Toevoegen"
                 },
-                "_label": "Lid"
+                "_label": "Ledenbestand"
             },
             "offer": {
                 "edit": {
@@ -7122,7 +7130,7 @@
                     "_label": "Annuleren"
                 },
                 "create": {
-                    "_label": "Aanmaken"
+                    "_label": "Toevoegen"
                 },
                 "_label": "Sessies"
             },

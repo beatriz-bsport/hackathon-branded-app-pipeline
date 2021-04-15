@@ -109,7 +109,7 @@
                     "helperText": "Mindestens 2 Monate"
                 },
                 "recurrent_price": {
-                    "label": "Monatliche Zahlung"
+                    "label": "Wiederkehrende Zahlung"
                 },
                 "managerOnly": {
                     "label": "Für Kunden unsichtbar"
@@ -2066,6 +2066,24 @@
                         "label": "Nachname"
                     }
                 }
+            },
+            "role": {
+                "delete": {
+                    "confirm": "Löschen",
+                    "cancel": "Stornieren",
+                    "content": "Möchten Sie diese Rolle wirklich entfernen?",
+                    "title": "Rollenlöschung"
+                },
+                "create": {
+                    "showAdvanced": "Mehr anzeigen",
+                    "permissions": "Berechtigungen",
+                    "restrictedUrlPlaceholder": "Beispiel: / member /",
+                    "restrictedUrl": "Eingeschränkte URLs",
+                    "description": "Beschreibung",
+                    "name": "Name",
+                    "title": "Rollenerstellung",
+                    "buttonCreate": "Füge eine Rolle hinzu  "
+                }
             }
         },
         "explainStaffDoNot": "Mit einem Staffzugang kann man sich aber nicht auf die App einloggen (sie ist nur für Lehrer und Schüler)",
@@ -2097,6 +2115,82 @@
             "5": {
                 "name": "Reports",
                 "description": "Zugriff nur auf Berichte, die beispielsweise für Deine Buchhaltung nützlich sind"
+            }
+        },
+        "rolePermissions": {
+            "navigationMenu": {
+                "settings": {
+                    "_label": "Einstellungen"
+                },
+                "reporting": {
+                    "_label": "Reports"
+                },
+                "member": {
+                    "_label": "Mitglied"
+                },
+                "digitalOffer": {
+                    "_label": "Digitales Angebot"
+                },
+                "marketing": {
+                    "_label": "Marketing"
+                },
+                "payments": {
+                    "_label": "Zahlungen"
+                },
+                "products": {
+                    "_label": "Produkte"
+                },
+                "myClub": {
+                    "_label": "Mein Klub"
+                },
+                "schedule": {
+                    "_label": "Stundenplan"
+                },
+                "calendar": {
+                    "_label": "Kalender"
+                },
+                "dashboard": {
+                    "_label": "Dashboard"
+                },
+                "search": {
+                    "_helper": "Nur mobil",
+                    "_label": "Mitgliedersuche"
+                },
+                "_label": "Navigationsmenü"
+            },
+            "member": {
+                "search": {
+                    "_label": "Suche"
+                },
+                "edit": {
+                    "_label": "Änderung"
+                },
+                "retrieve": {
+                    "_label": "Zugriff auf Mitgliedsdaten"
+                },
+                "create": {
+                    "_label": "Erstellung"
+                },
+                "_label": "Mitglied"
+            },
+            "offer": {
+                "edit": {
+                    "_label": "Änderung"
+                },
+                "delete": {
+                    "_label": "Stornierung"
+                },
+                "create": {
+                    "_label": "Erstellung"
+                },
+                "_label": "Kurse"
+            },
+            "search": {
+                "_label": "Mitgliedersuche"
+            },
+            "appbarActions": {
+                "_helper": "Mitgliedererstellung, Zahlungsbericht vor Ort.",
+                "_label": "Appbar-Aktionen"
             }
         }
     },
@@ -3305,7 +3399,8 @@
             "revert": "Abbrechen",
             "invoiceReverted": "Die Rechnung wurde storniert",
             "consumeBalance": "Zahle per Saldo",
-            "explainPdfDraft": "Die Rechnung ist noch in Entwurfsform, das PDF ist nicht verfügbar."
+            "explainPdfDraft": "Die Rechnung ist noch in Entwurfsform, das PDF ist nicht verfügbar.",
+            "addFooter": "Fußnote anpassen"
         },
         "invoice": {
             "editor": {
@@ -4428,7 +4523,8 @@
                 "availability": "Verfügbarkeit",
                 "usability": "Benutzung",
                 "applies_to": "Einstellungen",
-                "general": "Allgemein"
+                "general": "Allgemein",
+                "subscription": "Abonnement (Vertrag)"
             },
             "selectorPlaceholder": {
                 "paymentPack": "Kurskarten auswählen (gültig für alle Karten, wenn keine ausgewählt ist)",
@@ -4453,6 +4549,12 @@
             },
             "usage_total": {
                 "label": "Nutzungsbeschränkung für alle Mitglieder"
+            },
+            "subscription_mode": {
+                "3": "Unbrauchbar",
+                "2": "Nur erster Abrechnungszyklus (vor Verlängerung)",
+                "1": "Nur im ersten Monat",
+                "0": "Alle Abrechnungen"
             }
         },
         "list": {
@@ -4600,7 +4702,9 @@
             "updateCoach": "Einen neuen Lehrer für diesen Termin auswählen",
             "isCancelledDate": "Storniert am {{-date}} um {{time}}",
             "restore": "Den Termin wiederherstellen",
-            "bookings": "Termine"
+            "bookings": "Termine",
+            "notRefunded": "Nicht erstattet",
+            "isRefunded": "Erstattet"
         },
         "service": {
             "configuration": {

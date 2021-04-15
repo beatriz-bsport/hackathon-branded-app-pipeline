@@ -38,13 +38,13 @@ export const CustomEvenFormDialog = (props: Props) => {
   const classes = useStyles();
 
   return (
-    <Dialog fullScreen={fullScreen} open={props.open}>
+    <Dialog fullScreen={fullScreen} open={props.open} fullWidth>
       <Form>
         <DialogTitle>{t('customEvent.form.title')}</DialogTitle>
         <div className={classes.innerDialog}>
           <CustomEventForm {...props} />
         </div>
-        <DialogActions>
+        <DialogActions className={classes.bottomButton}>
           <Button disabled={props.isSubmitting} onClick={props.onClose}>
             {t('customEvent.form.actions.cancel')}
           </Button>
@@ -60,6 +60,10 @@ export const CustomEvenFormDialog = (props: Props) => {
 const useStyles = makeStyles((theme) => ({
   innerDialog: {
     padding: theme.spacing(2),
+  },
+  bottomButton: {
+    paddingRight: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 }));
 

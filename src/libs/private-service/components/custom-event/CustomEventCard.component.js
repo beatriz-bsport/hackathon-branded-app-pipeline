@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     padding: theme.spacing(2),
     minWidth: 200,
+    maxWidth: 400,
   },
   title: {
     marginBottom: theme.spacing(2),

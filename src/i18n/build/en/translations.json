@@ -5210,7 +5210,7 @@
                     "label": "Auto renewal"
                 },
                 "recurrent_price": {
-                    "label": "Monthly payment"
+                    "label": "Payment amount"
                 },
                 "contract": {
                     "label": "General terms and conditions of sales",

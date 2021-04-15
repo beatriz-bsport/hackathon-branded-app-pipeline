@@ -228,7 +228,7 @@ exports.default = {
         },
       },
       recurrent_price: {
-        label: 'Paiement mensuel',
+        label: 'Paiement récurrent',
       },
       description: {
         placeholder: 'Nouvelle offre exclusive limitée',

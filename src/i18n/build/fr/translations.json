@@ -3687,7 +3687,7 @@
             "week_plural": "semaines"
           }
         },
-        "recurrent_price": { "label": "Paiement mensuel" },
+        "recurrent_price": { "label": "Paiement récurrent" },
         "description": { "placeholder": "Nouvelle offre exclusive limitée", "label": "Description" },
         "managerOnly": { "label": "Invisible pour les clients" },
         "autoRenewal": { "label": "Renouvellement tacite" },

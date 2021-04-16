@@ -145,7 +145,7 @@ export const InvoiceContent = (props: Props) => {
             </div>
           </div>
         )}
-        {props.invoice.is_v2 && !editFooterOpen ? (
+        {!!props.invoice && props.invoice.is_v2 && !editFooterOpen ? (
           <div className={classes.footerSectionColumn}>
             {!!props.invoice.custom_footer && (
               <Typography
@@ -189,6 +189,7 @@ export const InvoiceContent = (props: Props) => {
         )}
       </Paper>
       {!!props.finalizeInvoice &&
+        !!props.invoice &&
         props.invoice.invoice_type !== INVOICE_TYPE_MIGRATION && (
           <div className={classes.buttonRow}>
             <Tooltip

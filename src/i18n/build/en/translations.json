@@ -1293,7 +1293,7 @@
                 "discardBookingTitle": "Cancel booking",
                 "cancelBooking": "Cancel booking",
                 "myPrivateBooking": "Appointments",
-                "intro": "Your reservation at {{date}}"
+                "intro": "Your booking on {{date}}"
             },
             "help": {
                 "explainCancelBookingOption": "Deletion can not be reverted, if you subscribe again to the waiting-list, you will be at the end of it.",
@@ -2479,7 +2479,9 @@
             "updateCoach": "Choose a new teacher for this appointment",
             "isCancelledDate": "Cancelled the {{-date}} at {{time}}",
             "restore": "Restore the appointment",
-            "bookings": "Appointments"
+            "bookings": "Appointments",
+            "notRefunded": "Not refunded",
+            "isRefunded": "Refunded"
         },
         "privateService": {
             "delete": {
@@ -3248,7 +3250,8 @@
                 "usability": "Usability",
                 "voucherConfig": "Coupon",
                 "applies_to": "Parameters",
-                "advanced": "Advance"
+                "advanced": "Advance",
+                "subscription": "Membership (contract)"
             },
             "name": {
                 "label": "Name"
@@ -3307,6 +3310,12 @@
             "actions": {
                 "cancel": "Cancel",
                 "submit": "Submit"
+            },
+            "subscription_mode": {
+                "3": "Non applicable",
+                "2": "Apply only on payments before auto-renewal",
+                "1": "Apply to first payment only",
+                "0": "Apply to all payments"
             }
         },
         "noDiscount": "No use of the coupon",
@@ -3564,6 +3573,22 @@
                     "success": "Access rights modified",
                     "error": "Impossible to modify access rights",
                     "errorEmail": "This email is already used for a teacher or member account"
+                }
+            },
+            "role": {
+                "delete": {
+                    "confirm": "Confirm",
+                    "cancel": "Cancel",
+                    "content": "Are you sure that you want to remove this access level?",
+                    "title": "Remove access level"
+                },
+                "create": {
+                    "showAdvanced": "See more",
+                    "permissions": "Permissions management",
+                    "description": "Description",
+                    "name": "Name",
+                    "title": "Define access level",
+                    "buttonCreate": "Add access level  "
                 }
             }
         },
@@ -8080,7 +8105,7 @@
                 "pleaseAuthenticated": "You must login to access this video",
                 "accessDenied": "You do not have access to this video",
                 "buyPass": "Buy a pass",
-                "useConsumerPass": "Unblock access"
+                "useConsumerPass": "Watch video"
             },
             "creditPrice": "Cost (credit)",
             "register": {

@@ -1260,6 +1260,9 @@
       }
     },
     "availabilitySlot": {
+      "coach": "Profsseur",
+      "establishment": "Lieu",
+      "private_service": "Service",
       "form": {
         "resourceSelector": {
           "title": "Modification créneau horaire",
@@ -1402,6 +1405,7 @@
       "createCustomEvent": "Créer un RDV perso",
       "selectCoachToModifyAvailability": "Sélectionnez un professeur",
       "addBooking": "Enregistrer un rendez-vous",
+      "customEvent": { "dateStart": "Date de début", "dateEnd": "Date de fin" },
       "toogle": {
         "showOfferList": "Cours collectifs",
         "showPrivateBookings": "Rendez-vous",
@@ -1473,6 +1477,7 @@
         "establishment": "Veuillez sélectionner le lieu"
       },
       "cancel": "Annuler",
+      "confirm": "Confirmer",
       "title": "Réservation RDV",
       "error": "Impossible de réserver sur cette date",
       "searchSlot": "Rechercher un créneau",

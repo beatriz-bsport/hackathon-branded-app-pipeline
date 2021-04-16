@@ -1,15 +1,15 @@
-// @flow
-
 import { createSelector } from 'reselect';
 
-import type { State } from '../../state/types';
+import { RootState } from '../../reducers';
 
-export const getMemberDetailData = (state) => state.member.detailData;
-const _getMemberListIds = (state) => state.member.allIds;
-const _getSearchedMemberIds = (state) => state.member.search.allIds || [];
-const _getMemberHistoryIds = (state) => state.member.historyListIds;
+export const getMemberDetailData = (state: RootState) =>
+  state.member.detailData;
+const _getMemberListIds = (state: RootState) => state.member.allIds;
+const _getSearchedMemberIds = (state: RootState) =>
+  state.member.search.allIds || [];
+const _getMemberHistoryIds = (state: RootState) => state.member.historyListIds;
 
-export const getMemberListData = (state) => state.member.listData;
+export const getMemberListData = (state: RootState) => state.member.listData;
 
 export const getAllMembers = createSelector(
   [getMemberListData, _getMemberListIds],
@@ -21,13 +21,13 @@ export const getSearchedMembers = createSelector(
   (ids, data) => ids.map((id) => data[id]).filter((m) => !!m),
 );
 
-export const getMember = (state: State, id: number) => {
+export const getMember = (state: RootState, id: number) => {
   const detail = getMemberDetailData(state)[id];
   if (detail) return detail;
   return getMemberListData(state)[id];
 };
 
-export const getMemberDetail = (state, id) => {
+export const getMemberDetail = (state: RootState, id: number) => {
   return getMemberDetailData(state)[id];
 };
 
@@ -37,9 +37,9 @@ export const getMemberHistory = createSelector(
 );
 
 export default { getAllMembers };
-export const getMemberDict = (state: State) => state.member.byId;
+export const getMemberDict = (state: RootState) => state.member.byId;
 
-export const getMemberListId = (state: State) =>
+export const getMemberListId = (state: RootState) =>
   state.member.communication.allPageIds;
 
 export const getPaginatedMembers = createSelector(

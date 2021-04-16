@@ -23,6 +23,7 @@ export const checkExistsAvailabilitySlots = (params: any = {}) => {
   );
 };
 
+/** TODO DEPRECATED */
 export const disableResourceAvailabilitySlot = (
   resourceData: any = {},
   obj: {
@@ -40,6 +41,26 @@ export const disableResourceAvailabilitySlot = (
     },
   );
 };
+
+export const disableAvailabilitySlotMultipleResource = (
+  resources: any = [],
+  obj: {
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
+  },
+) => {
+  return postAuth(
+    `${API_V1_URI}/private_service/availability_slot/remove_availability_multiple_resource/`,
+    {
+      resources,
+      ...obj,
+    },
+  );
+};
+
+/** TODO DEPRECATED */
 export const enableResourceAvailabilitySlot = (
   resourceData: any = {},
   obj: {
@@ -52,6 +73,21 @@ export const enableResourceAvailabilitySlot = (
   return postAuth(
     `${API_V1_URI}/private_service/availability_slot/add_availability/`,
     { ...resourceData, ...obj },
+  );
+};
+
+export const enableAvailabilitySlotMultipleResource = (
+  resources: any = [],
+  obj: {
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
+  },
+) => {
+  return postAuth(
+    `${API_V1_URI}/private_service/availability_slot/add_availability_multiple_resource/`,
+    { resources, ...obj },
   );
 };
 

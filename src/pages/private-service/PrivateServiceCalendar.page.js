@@ -37,8 +37,8 @@ import {
   fetchPrivateService,
   fetchPrivateBookings as fetchPrivateBookingListActions,
   fetchPrivateServiceResourceData,
-  disableResourceAvailabilitySlot,
-  enableResourceAvailabilitySlot,
+  disableAvailabilitySlotMultipleResource,
+  enableAvailabilitySlotMultipleResource,
   updateServiceResourceConfiguration,
   createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
   fetchCustomEventList as fetchCustomEventListAction,
@@ -80,8 +80,8 @@ type Props = {
     date_start: string,
     date_end: string,
   }) => void,
-  enableResourceAvailabilitySlot: (data: any) => void,
-  disableResourceAvailabilitySlot: (data: any) => void,
+  enableAvailabilitySlotMultipleResource: (data: any) => void,
+  disableAvailabilitySlotMultipleResource: (data: any) => void,
   periodFilter: { start: string, end: string },
 
   fetchPrivateServiceResourceData: (id: number, OptionCallback) => void,
@@ -193,11 +193,14 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   onCancelAvailabilityUpdate = () =>
     this.setState({ updateAvailabilitySlotData: null });
 
-  submitAvailabilitySlotUpdate = (resourceData: ResourceData) => {
+  submitAvailabilitySlotUpdate = (
+    resourceData: { [resourceDatatype: string]: string }[],
+  ) => {
     const {
       kind,
       data: [slotUpdateData, slotUpdateOptions],
     } = this.state.updateAvailabilitySlotData;
+
     const options = {
       onSuccess: (...args) => {
         this.fetchAvailabilitySlotsAllResource();
@@ -207,14 +210,14 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
       },
     };
     if (kind === 'enable') {
-      this.props.enableResourceAvailabilitySlot(
+      this.props.enableAvailabilitySlotMultipleResource(
         resourceData,
         slotUpdateData,
         options,
       );
     }
     if (kind === 'disable') {
-      this.props.disableResourceAvailabilitySlot(
+      this.props.disableAvailabilitySlotMultipleResource(
         resourceData,
         slotUpdateData,
         options,
@@ -344,8 +347,8 @@ export default compose(
       createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
       fetchFilteredMembers,
       fetchMemberBulk: fetchMemberBulkAction,
-      disableResourceAvailabilitySlot,
-      enableResourceAvailabilitySlot,
+      disableAvailabilitySlotMultipleResource,
+      enableAvailabilitySlotMultipleResource,
       onEditResourceConfiguration: updateServiceResourceConfiguration,
     },
   ),

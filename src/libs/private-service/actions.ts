@@ -15,7 +15,9 @@ import {
   fetchPrivateBookings as fetchPrivateBookingsAPI,
   fetchPrivateBooking as fetchPrivateBookingAPI,
   disableResourceAvailabilitySlot as disableResourceAvailabilitySlotAPI,
+  disableAvailabilitySlotMultipleResource as disableAvailabilitySlotMultipleResourceAPI,
   enableResourceAvailabilitySlot as enableResourceAvailabilitySlotAPI,
+  enableAvailabilitySlotMultipleResource as enableAvailabilitySlotMultipleResourceAPI,
   searchAvailableSlots as searchAvailableSlotsAPI,
   // private-service
   fetchAllPrivateServices as fetchAllPrivateServicesAPI,
@@ -319,6 +321,51 @@ export function enableResourceAvailabilitySlot(
   };
 }
 
+export function enableAvailabilitySlotMultipleResource(
+  resources: {
+    associated_establishment?: number;
+    establishment?: number;
+    associated_coach?: number;
+    coach?: number;
+    private_service?: number;
+  }[],
+  {
+    date_start,
+    date_end,
+    recurrence_until,
+    all_date_start,
+  }: {
+    date_start: string;
+    date_end: string;
+    recurrence_until?: string;
+    all_date_start: string[];
+  },
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(availabilitySlotUpdateActions.isLoading(true));
+    dispatch(availabilitySlotUpdateActions.error(null));
+    try {
+      await enableAvailabilitySlotMultipleResourceAPI(resources, {
+        date_start,
+        date_end,
+        recurrence_until,
+        all_date_start,
+      });
+      dispatch(availabilitySlotUpdateActions.success());
+      dispatch(availabilitySlotListActions.reset());
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(availabilitySlotListActions.error(null));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(availabilitySlotUpdateActions.isLoading(false));
+  };
+}
+
 export function disableResourceAvailabilitySlot(
   resourceData: any,
   {
@@ -349,6 +396,43 @@ export function disableResourceAvailabilitySlot(
       dispatch(
         fetchAvailabilitySlots({ ...resourceData, date_start, date_end }),
       );
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(availabilitySlotListActions.error(null));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(availabilitySlotUpdateActions.isLoading(false));
+  };
+}
+
+export function disableAvailabilitySlotMultipleResource(
+  resourceData: any[],
+  {
+    date_start,
+    date_end,
+    recurrence_until,
+    all_date_start,
+  }: {
+    recurrence_until?: string;
+    date_start: string;
+    date_end: string;
+    all_date_start: string[];
+  },
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(availabilitySlotUpdateActions.isLoading(true));
+    dispatch(availabilitySlotUpdateActions.error(null));
+    try {
+      await disableAvailabilitySlotMultipleResourceAPI(resourceData, {
+        date_start,
+        date_end,
+        recurrence_until,
+        all_date_start,
+      });
+      dispatch(availabilitySlotUpdateActions.success());
+      dispatch(availabilitySlotListActions.reset(resourceData));
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       console.error(err);
@@ -474,7 +558,7 @@ export const privateServiceListActions = {
 
 export function fetchAllPrivateServices(
   params: any = {},
-  options?: OptionCallback,
+  options?: OptionCallback<PrivateService[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceListActions.isLoading(true));
@@ -1449,7 +1533,7 @@ export function fetchPrivateConsumerPassByMember(
 export function fetchCompatiblePrivateConsumerPass(
   privateSlotId: number,
   params: any,
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateConsumerPassListActions.isLoading(true));
@@ -1552,8 +1636,8 @@ export function fetchPrivateConsumerPassBulk(ids: Array<number>) {
 
 export function fetchCompatiblePrivatePass(
   privateSlotId: number,
-  params: any,
-  options: OptionCallback,
+  params?: any,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privatePassListActions.isLoading(true));

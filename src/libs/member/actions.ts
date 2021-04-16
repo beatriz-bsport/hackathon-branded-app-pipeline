@@ -298,7 +298,7 @@ export function search(text: string) {
   };
 }
 
-export function fetchMember(id: number, options: OptionCallback) {
+export function fetchMember(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchMember());
 

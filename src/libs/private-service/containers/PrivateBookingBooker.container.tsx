@@ -1,7 +1,6 @@
-// @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withState, withHandlers } from 'recompose';
+import { compose, withHandlers, withStateHandlers } from 'recompose';
 import Dialog from '@material-ui/core/Dialog';
 import moment from 'moment-timezone';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -12,11 +11,10 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
-
+import { Theme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { getPrivatePassAvailable } from '../selectors/private-pass';
 import { getPrivateConsumerPassList } from '../selectors/private-consumer-pass';
 import { MemberMap } from '../../member/utils';
@@ -53,44 +51,36 @@ import RecurrenceRulePrivateBookingFields from '../components/booking/Recurrence
 import DateTimeForm from '../../../components/input/DateTimeInput.component';
 
 import { getMissingResourceForBooking } from '../utils';
+import { RootState } from '../../../reducers';
+import { PrivateService } from '../types';
+import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
+import { Member } from '../../member/types';
+import { OptionCallback } from '../../../state/types';
 
-type Props = {
-  t: TFunction,
-  classes: Object,
-  requestedSlot: ?string,
-  fetchAllPrivateServices: (OptionCallback) => void,
-  fetchEstablishmentBulk: (Array<number>) => void,
-  fetchCoachBulk: (Array<number>) => void,
-  fetchAllPrivateSlots: () => void,
-  fetchPass: (slotId: number, memberId: number) => void,
-  searchedMembers: Array<Member>,
-  private_services: Array<PrivateService>,
-  registerPrivateBooking: (data: any, options: OptionCallback) => void,
-  onClose: () => void,
-  open: boolean,
-  searchMembers: (string) => void,
-  id: number,
-  compatiblePassLoading: boolean,
-  processing: boolean,
-  billMemberPrivatePass: (memberId: number, passId: number) => void,
-  compatiblePrivatePass: Array<PrivatePass>,
-  compatiblePrivateConsumerPass: Array<ConsumerPrivatePass>,
-  notify_member: boolean,
-  setNotifyMember: (boolean) => void,
-  recurrenceRule: boolean,
-  setRecurrenceRule: (boolean) => void,
-  createRecurrentRule: (data: any, options: OptionCallback) => void,
-
-  createMember: (data: any, options: OptionCallback) => void,
-  timezone: string,
-  country: string,
+type OwnProps = {
+  open: boolean;
+  requestedSlot: string;
+  onClose: () => void;
 };
 
+type ConnectedProps = ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps;
+
+type StateHandlerType = typeof withStateHandlersInit &
+  WithHandlerType<typeof withStateHandlersSetter>;
+
+type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
+
+type Props = OwnAndConnectedProps &
+  WithHandlerType<typeof mapWithHandlers> &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
+
 type State = {
-  member: ?Member,
-  private_booking_data: any,
-  date_start: string,
-  nb_of_weeks: ?number,
+  member?: Member;
+  private_booking_data: any;
+  date_start: string;
+  nb_of_weeks?: number;
 };
 
 export class PrivateBookingBooker extends React.Component<Props, State> {
@@ -141,7 +131,8 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
       this.state.date_start,
     );
 
-  handleConfigurationChange = (private_booking_data) => {
+  // TODO(ts) any
+  handleConfigurationChange = (private_booking_data: any) => {
     const {
       coach,
       establishment,
@@ -262,7 +253,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
           <DateTimeForm
             timezone={this.props.timezone}
             value={this.state.date_start}
-            onChange={(date_start) => this.setState({ date_start })}
+            onChange={(date_start: string) => this.setState({ date_start })}
           />
           <Divider className={this.props.classes.divider} />
           <fieldset className={this.props.classes.fieldset}>
@@ -279,7 +270,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
             <MissingResourceForBookingHelper
               missingResources={missingResources}
               address={this.state.private_booking_data.address}
-              updateData={(data) =>
+              updateData={(data: any) =>
                 this.setState((prevState) => ({
                   private_booking_data: {
                     ...prevState.private_booking_data,
@@ -324,7 +315,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
           )}
           {
             // eslint-disable-next-line
-          missingResources.filter((l) => l !== 'address').length === 0 ? (
+            missingResources.filter((l) => l !== 'address').length === 0 ? (
               this.props.compatiblePassLoading || this.props.processing ? (
                 <LinearProgress
                   className={this.props.classes.loadingContainer}
@@ -336,7 +327,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
                     registerPrivateBooking={this.registerPrivateBooking}
                     createRecurrentRule={this.createRecurrentRule}
                     recurrenceRule={this.props.recurrenceRule}
-                    billMemberPrivatePass={(ppId) =>
+                    billMemberPrivatePass={(ppId: number) =>
                       this.props.billMemberPrivatePass(
                         this.state.member.id,
                         ppId,
@@ -361,7 +352,7 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   container: {},
   divider: {
     marginTop: theme.spacing(1),
@@ -379,107 +370,122 @@ const styles = (theme) => ({
   },
 });
 
-const MemberSearchContainer = compose(
-  connect(
-    (state) => ({
-      searchedMembers: getSearchedMembers(state),
-    }),
-    {
-      searchMembers,
-      createMember: createOrUpdateMember,
-    },
-  ),
-  withHandlers({
-    createMember: ({ createMember, fetchMember }) => (values, options) => {
-      if (!values.birthday) {
-        // eslint-disable-next-line
-        delete values.birthday;
-      }
-      const formData = mapFormData(values, MemberMap);
+const mapStateToProps = (state: RootState) => ({
+  private_services: getAvailablePrivateServices(state),
+  compatiblePassLoading:
+    state.privateService.privatePass.loading ||
+    state.privateService.privateConsumerPass.loading,
+  compatiblePrivatePass: getPrivatePassAvailable(state),
+  compatiblePrivateConsumerPass: getPrivateConsumerPassList(state),
+  timezone: state.theme.theme.timezone_name,
+  processing: state.privateService.privateBooking.createOrUpdate.loading,
+  country: state.theme.theme.locale.split('_')[1],
+  searchedMembers: getSearchedMembers(state),
+});
 
-      createMember(null, formData, {
-        onSuccess: () => {
-          getLatestMember()
-            .then((res) => {
-              fetchMember(res.data, options);
-            })
-            .catch((err) => {
-              console.error(err);
-            });
-        },
-      });
-    },
-  }),
-);
+const mapDispatchToProps = {
+  fetchAllPrivateServices: (options: OptionCallback<PrivateService[]>) =>
+    fetchAllPrivateServices({ mine: true }, options),
+  fetchAllPrivateSlots: () => fetchAllPrivateSlots({ mine: true }),
+  fetchEstablishmentBulk: fetchAssociatedEstablishmentBulk,
+  fetchCoachBulk: fetchAssociatedCoachBulk,
+  fetchMember: fetchMemberAction,
 
-export default compose(
+  fetchCompatiblePrivatePass: fetchCompatiblePrivatePassAction,
+  fetchCompatiblePrivateConsumerPass: fetchCompatiblePrivateConsumerPassAction,
+  registerPrivateBooking: registerPrivateBookingAction,
+  createRecurrentRule: createOrUpdateRecurrenceRulePrivateBooking,
+  searchMembers,
+  createMember: createOrUpdateMember,
+};
+
+type StateHandlerInit = {
+  notify_member: boolean;
+  recurrenceRule: boolean;
+};
+
+const withStateHandlersInit: StateHandlerInit = {
+  notify_member: true,
+  recurrenceRule: false,
+};
+
+const withStateHandlersSetter = {
+  setNotifyMember: () => (notify_member: boolean) => {
+    return { notify_member };
+  },
+  setRecurrenceRule: () => (recurrenceRule: boolean) => {
+    return { recurrenceRule };
+  },
+};
+
+const mapWithHandlers = {
+  billMemberPrivatePass: () => (memberId: number, privatePassId: number) =>
+    window.open(
+      `/invoice/bill-member/${memberId}?withPrivatePass=${privatePassId}`,
+    ),
+
+  registerPrivateBooking: (props: OwnAndConnectedProps) => (
+    data: any,
+    options: any,
+  ) => {
+    props.registerPrivateBooking(data, {
+      onSuccess: (b: any) => {
+        props.fetchMember(b.member);
+        if (options && options.onSuccess) {
+          options.onSuccess(b);
+        }
+      },
+    });
+  },
+  createRecurrentRule: (props: OwnAndConnectedProps) => (
+    data: any,
+    options: OptionCallback,
+  ) => {
+    props.createRecurrentRule(data, {
+      onSuccess: (b) => {
+        if (options && options.onSuccess) options.onSuccess(b);
+      },
+    });
+  },
+  fetchPass: (props: OwnAndConnectedProps) => (
+    privateSlotId: number,
+    memberId: number,
+    date: string,
+  ) => {
+    props.fetchCompatiblePrivatePass(privateSlotId);
+    props.fetchCompatiblePrivateConsumerPass(privateSlotId, {
+      member: memberId,
+      date,
+    });
+  },
+  createMember: (props: OwnAndConnectedProps) => (
+    values: any,
+    options: any,
+  ) => {
+    if (!values.birthday) {
+      // eslint-disable-next-line
+      delete values.birthday;
+    }
+    const formData = mapFormData(values, MemberMap);
+
+    props.createMember(null, formData, {
+      onSuccess: () => {
+        getLatestMember()
+          .then((res) => {
+            props.fetchMember(res.data, options);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      },
+    });
+  },
+};
+
+export default compose<any, OwnProps>(
   withTranslation(['privateService']),
   withStyles(styles),
-  withState('notify_member', 'setNotifyMember', true),
-  withState('recurrenceRule', 'setRecurrenceRule', false),
-  connect(
-    (state) => ({
-      private_services: getAvailablePrivateServices(state),
-      compatiblePassLoading:
-        state.privateService.privatePass.loading ||
-        state.privateService.privateConsumerPass.loading,
-      compatiblePrivatePass: getPrivatePassAvailable(state),
-      compatiblePrivateConsumerPass: getPrivateConsumerPassList(state),
-      timezone: state.theme.theme.timezone_name,
-      bookingProcessing:
-        state.privateService.privateBooking.createOrUpdate.loading,
-      country: state.theme.theme.locale.split('_')[1],
-    }),
-    {
-      fetchAllPrivateServices: (options) =>
-        fetchAllPrivateServices({ mine: true }, options),
-      fetchAllPrivateSlots: () => fetchAllPrivateSlots({ mine: true }),
-      fetchEstablishmentBulk: fetchAssociatedEstablishmentBulk,
-      fetchCoachBulk: fetchAssociatedCoachBulk,
-      fetchMember: fetchMemberAction,
-
-      fetchCompatiblePrivatePass: fetchCompatiblePrivatePassAction,
-      fetchCompatiblePrivateConsumerPass: fetchCompatiblePrivateConsumerPassAction,
-      registerPrivateBooking: registerPrivateBookingAction,
-      createRecurrentRule: createOrUpdateRecurrenceRulePrivateBooking,
-    },
-  ),
-  MemberSearchContainer,
-  withHandlers({
-    billMemberPrivatePass: () => (memberId: number, privatePassId) =>
-      window.open(
-        `/invoice/bill-member/${memberId}?withPrivatePass=${privatePassId}`,
-      ),
-
-    registerPrivateBooking: ({ registerPrivateBooking, fetchMember }) => (
-      data,
-      options,
-    ) => {
-      registerPrivateBooking(data, {
-        onSuccess: (b) => {
-          fetchMember(b.member);
-          if (options && options.onSuccess) {
-            options.onSuccess(b);
-          }
-        },
-      });
-    },
-    createRecurrentRule: ({ createRecurrentRule }) => (data, options) => {
-      createRecurrentRule(data, {
-        onSuccess: (b) => {
-          if (options && options.onSuccess) options.onSuccess(b);
-        },
-      });
-    },
-    fetchPass: ({
-      fetchCompatiblePrivatePass,
-      fetchCompatiblePrivateConsumerPass,
-    }) => (privateSlotId, memberId, date) => {
-      fetchCompatiblePrivatePass(privateSlotId);
-      fetchCompatiblePrivateConsumerPass(privateSlotId, {
-        member: memberId,
-        date,
-      });
-    },
-  }),
+  withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
+  connect(mapStateToProps, mapDispatchToProps),
+  withHandlers(mapWithHandlers),
 )(PrivateBookingBooker);

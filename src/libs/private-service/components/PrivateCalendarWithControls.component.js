@@ -23,6 +23,7 @@ import CalendarEventDetail from '../containers/CalendarEventDetail.container';
 import PrivateBookingBooker from '../containers/PrivateBookingBooker.container';
 
 import type { ResourceData } from '../types';
+import FabPrivateCalendar from './FabPrivateCalendar.component';
 
 type Props = {
   t: TFunction,
@@ -87,162 +88,182 @@ type Props = {
   resourceDatatypeFilter: any,
   collapsResourceSelector: any,
   customEventId: ?number,
+  privateCalendarDateStart: string,
+  setPrivateCalendarDateStart: () => void,
 };
 
-export const PrivateCalendarMultiResource = (props: Props) => (
-  <div>
-    <Paper square className={props.classes.header}>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'stretch',
-          justifyContent: 'space-between',
-        }}
-      >
-        {!!props.resourceAvailable && (
-          <ResourceSelector
-            collapse={props.collapsResourceSelector}
-            resourceAvailable={props.resourceAvailable}
-            resourceSelectedListIds={props.resourceSelectedListIds}
-            resourceDataLoading={props.resourceDataLoading}
-            onEditResourceConfiguration={props.onEditResourceConfiguration}
-            onChangeResourcesSelected={props.onChangeResourcesSelected}
-            setResourceFiltered={props.setResourceFiltered}
-          />
-        )}
-      </div>
-      <Divider />
-      <div className={props.classes.rowBetween}>
-        <Grid container justify="flex-start" direction="row">
-          {!!props.showOfferListToogle && (
-            <Grid item xs={12} sm={3} md={2}>
-              <FormControlLabel
-                label={props.t('calendar.toogle.showOfferList')}
-                control={
-                  <Checkbox
-                    checked={props.showOfferList}
-                    onChange={props.toogleShowOfferList}
-                  />
-                }
-              />
-            </Grid>
+export const PrivateCalendarMultiResource = (props: Props) => {
+  return (
+    <div className={props.classes.container}>
+      <Paper square className={props.classes.header}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'stretch',
+            justifyContent: 'space-between',
+          }}
+        >
+          {!!props.resourceAvailable && (
+            <ResourceSelector
+              collapse={props.collapsResourceSelector}
+              resourceAvailable={props.resourceAvailable}
+              resourceSelectedListIds={props.resourceSelectedListIds}
+              resourceDataLoading={props.resourceDataLoading}
+              onEditResourceConfiguration={props.onEditResourceConfiguration}
+              onChangeResourcesSelected={props.onChangeResourcesSelected}
+              setResourceFiltered={props.setResourceFiltered}
+            />
           )}
-          {!!props.showPrivateBookingToogle && (
-            <Grid item xs={12} sm={3} md={2}>
-              <FormControlLabel
-                label={props.t('calendar.toogle.showPrivateBookings')}
-                control={
-                  <Checkbox
-                    checked={props.showPrivateBookings}
-                    onChange={props.toogleShowPrivateBookings}
-                  />
-                }
-              />
-            </Grid>
-          )}
-          {!!props.showCustomEventsToogle && (
-            <Grid item xs={12} sm={3} md={2}>
-              <FormControlLabel
-                label={props.t('calendar.toogle.showCustomEvents')}
-                control={
-                  <Checkbox
-                    checked={props.showCustomEvents}
-                    onChange={props.toogleShowCustomEvents}
-                  />
-                }
-              />
-            </Grid>
-          )}
-          {props.hideCancelledEvents !== undefined && (
-            <Grid item xs={12} sm={3} md={2}>
-              <FormControlLabel
-                label={props.t('calendar.toogle.hideCancelledEvents')}
-                control={
-                  <Checkbox
-                    checked={!props.hideCancelledEvents}
-                    onChange={props.toogleHideCancelledEvents}
-                  />
-                }
-              />
-            </Grid>
-          )}
-          <div
-            style={{
-              display: 'flex',
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-            }}
-          >
-            {!!props.resourcesByDatatype &&
-              !!props.resourcesByDatatype.length && (
-                <ResourceDatatypeFilter
-                  resourcesByDatatype={props.resourcesByDatatype}
-                  onResourceDatatypeFilterChange={props.setResourceFilter}
+        </div>
+        <Divider />
+        <div className={props.classes.rowBetween}>
+          <Grid container justify="flex-start" direction="row">
+            {!!props.showOfferListToogle && (
+              <Grid item xs={12} sm={3} md={2}>
+                <FormControlLabel
+                  label={props.t('calendar.toogle.showOfferList')}
+                  control={
+                    <Checkbox
+                      checked={props.showOfferList}
+                      onChange={props.toogleShowOfferList}
+                    />
+                  }
                 />
-              )}
-          </div>
-        </Grid>
+              </Grid>
+            )}
+            {!!props.showPrivateBookingToogle && (
+              <Grid item xs={12} sm={3} md={2}>
+                <FormControlLabel
+                  label={props.t('calendar.toogle.showPrivateBookings')}
+                  control={
+                    <Checkbox
+                      checked={props.showPrivateBookings}
+                      onChange={props.toogleShowPrivateBookings}
+                    />
+                  }
+                />
+              </Grid>
+            )}
+            {!!props.showCustomEventsToogle && (
+              <Grid item xs={12} sm={3} md={2}>
+                <FormControlLabel
+                  label={props.t('calendar.toogle.showCustomEvents')}
+                  control={
+                    <Checkbox
+                      checked={props.showCustomEvents}
+                      onChange={props.toogleShowCustomEvents}
+                    />
+                  }
+                />
+              </Grid>
+            )}
+            {props.hideCancelledEvents !== undefined && (
+              <Grid item xs={12} sm={3} md={2}>
+                <FormControlLabel
+                  label={props.t('calendar.toogle.hideCancelledEvents')}
+                  control={
+                    <Checkbox
+                      checked={!props.hideCancelledEvents}
+                      onChange={props.toogleHideCancelledEvents}
+                    />
+                  }
+                />
+              </Grid>
+            )}
+            <div
+              style={{
+                display: 'flex',
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+              }}
+            >
+              {!!props.resourcesByDatatype &&
+                !!props.resourcesByDatatype.length && (
+                  <ResourceDatatypeFilter
+                    resourcesByDatatype={props.resourcesByDatatype}
+                    onResourceDatatypeFilterChange={props.setResourceFilter}
+                  />
+                )}
+            </div>
+          </Grid>
+        </div>
+      </Paper>
+      {!!props.goToCalendar && (
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ width: '100%', margin: 8 }}
+          onClick={props.goToCalendar}
+        >
+          {props.t('openCalendar')}
+          <ArrowForwardIcon style={{ marginLeft: 8 }} />
+        </Button>
+      )}
+      <div className={props.classes.content}>
+        <PrivateCalendar
+          disableResourceAvailabilitySlot={
+            props.disableResourceAvailabilitySlot
+          }
+          timezone={props.timezone}
+          createCustomEvent={props.createCustomEvent}
+          resources={props.resourceItemsFilter}
+          resourceDatatypeView={props.resourceDatatypeFilter}
+          customEventList={
+            props.showCustomEvents ? props.customEventList || [] : []
+          }
+          enableResourceAvailabilitySlot={props.enableResourceAvailabilitySlot}
+          availabilitySlots={props.availabilitySlots}
+          privateBookings={
+            props.showPrivateBookings ? props.privateBookings || [] : []
+          }
+          hideCancelledEvents={props.hideCancelledEvents}
+          offerList={props.showOfferList ? props.offerList || [] : []}
+          availabilitySlotUpdating={props.availabilitySlotUpdating}
+          goToMember={props.goToMember}
+          onDateChange={(data) => {
+            props.onDateChange(data);
+            props.setPrivateCalendarDateStart(data);
+          }}
+          onEventClick={props.handleEventClick}
+          onBookRequest={props.onRequestPrivateBooking}
+        />
+        <CalendarEventDetail
+          popoverAnchor={props.popoverAnchor}
+          fetchAvailabilitySlots={props.fetchAvailabilitySlots}
+          privateBookingId={props.privateBookingId}
+          offerId={props.offerId}
+          onClose={props.closePopover}
+          refreshOffers={props.refreshOffers}
+          customEventId={props.customEventId}
+          refreshPrivateBookings={props.refreshPrivateBookings}
+        />
+        <PrivateBookingBooker
+          open={props.privateBookerOpen}
+          requestedSlot={props.privateBookingRequestedSlot}
+          onClose={() => {
+            props.closePrivateBooker();
+            if (props.refreshPrivateBookings) props.refreshPrivateBookings();
+          }}
+        />
       </div>
-    </Paper>
-    {!!props.goToCalendar && (
-      <Button
-        variant="contained"
-        color="primary"
-        style={{ width: '100%', margin: 8 }}
-        onClick={props.goToCalendar}
-      >
-        {props.t('openCalendar')}
-        <ArrowForwardIcon style={{ marginLeft: 8 }} />
-      </Button>
-    )}
-    <div className={props.classes.content}>
-      <PrivateCalendar
-        disableResourceAvailabilitySlot={props.disableResourceAvailabilitySlot}
+
+      <FabPrivateCalendar
         timezone={props.timezone}
+        startDate={props.privateCalendarDateStart}
+        onSubmitPrivateServiceWithDate={props.onRequestPrivateBooking}
         createCustomEvent={props.createCustomEvent}
-        resources={props.resourceItemsFilter}
-        resourceDatatypeView={props.resourceDatatypeFilter}
-        customEventList={
-          props.showCustomEvents ? props.customEventList || [] : []
-        }
-        enableResourceAvailabilitySlot={props.enableResourceAvailabilitySlot}
-        availabilitySlots={props.availabilitySlots}
-        privateBookings={
-          props.showPrivateBookings ? props.privateBookings || [] : []
-        }
-        hideCancelledEvents={props.hideCancelledEvents}
-        offerList={props.showOfferList ? props.offerList || [] : []}
-        availabilitySlotUpdating={props.availabilitySlotUpdating}
-        goToMember={props.goToMember}
-        onDateChange={props.onDateChange}
-        onEventClick={props.handleEventClick}
-        onBookRequest={props.onRequestPrivateBooking}
-      />
-      <CalendarEventDetail
-        popoverAnchor={props.popoverAnchor}
-        fetchAvailabilitySlots={props.fetchAvailabilitySlots}
-        privateBookingId={props.privateBookingId}
-        offerId={props.offerId}
-        onClose={props.closePopover}
-        refreshOffers={props.refreshOffers}
-        customEventId={props.customEventId}
-        refreshPrivateBookings={props.refreshPrivateBookings}
-      />
-      <PrivateBookingBooker
-        open={props.privateBookerOpen}
-        requestedSlot={props.privateBookingRequestedSlot}
-        onClose={() => {
-          props.closePrivateBooker();
-          if (props.refreshPrivateBookings) props.refreshPrivateBookings();
-        }}
       />
     </div>
-  </div>
-);
+  );
+};
 
 const styles = (theme) => ({
+  container: {
+    position: 'relative',
+    width: '100%',
+  },
   header: {
     marginBottom: theme.spacing(2),
     marginLeft: theme.spacing(-2),
@@ -260,7 +281,7 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   rowBetween: {
-    wdith: '100%',
+    width: '100%',
   },
 });
 
@@ -268,7 +289,11 @@ export default compose(
   withTranslation(['privateService']),
   withStyles(styles),
   withStateHandlers(
-    { privateBookerOpen: false, privateBookingRequestedSlot: null },
+    {
+      privateBookerOpen: false,
+      privateBookingRequestedSlot: null,
+      privateCalendarDateStart: '',
+    },
     {
       closePrivateBooker: () => () => ({
         privateBookerOpen: false,
@@ -278,6 +303,12 @@ export default compose(
         privateBookerOpen: true,
         privateBookingRequestedSlot,
       }),
+      setPrivateCalendarDateStart: () => (data: {
+        date_start: string,
+        date_end: string,
+      }) => {
+        return { privateCalendarDateStart: data.date_start };
+      },
     },
   ),
   withStateHandlers(

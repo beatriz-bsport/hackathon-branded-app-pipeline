@@ -38,6 +38,9 @@ exports.default = {
     },
   },
   availabilitySlot: {
+    coach: 'Professeur',
+    establishment: 'Lieu',
+    private_service: 'Type de Rendez-vous',
     form: {
       resourceSelector: {
         title: 'Modification créneau horaire',
@@ -226,6 +229,11 @@ exports.default = {
     selectCoachToModifyAvailability: 'Sélectionnez un professeur',
     addBooking: 'Enregistrer un rendez-vous',
 
+    customEvent: {
+      dateStart: 'Date de début',
+      dateEnd: 'Date de fin',
+    },
+
     toogle: {
       showOfferList: 'Cours collectifs',
       showPrivateBookings: 'Rendez-vous',
@@ -335,6 +343,7 @@ exports.default = {
       establishment: 'Veuillez sélectionner le lieu',
     },
     cancel: 'Annuler',
+    confirm: 'Confirmer',
     title: 'Réservation RDV',
     error: 'Impossible de réserver sur cette date',
     searchSlot: 'Rechercher un créneau',

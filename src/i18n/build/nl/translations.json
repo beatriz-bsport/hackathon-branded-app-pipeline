@@ -521,7 +521,7 @@
             "noBookingsLeftOnPackInMonth": "Dit lidmaatschap kan deze maand niet meer worden gebruikt."
         },
         "invoice": {
-            "explainFinalize": "Let op: een definitieve factuur kan niet meer worden gewijzigd. Alle betalingen die in afwachting van incasso zijn gemarkeerd, worden als geïncasseerd beschouwd. Zodra de factuur is afgerond, kun je deze exporteren als .PDF",
+            "explainFinalize": "Let op: een definitieve factuur kan niet meer worden gewijzigd. Alle betalingen die in afwachting van incasso zijn gemarkeerd, worden als geïncasseerd beschouwd. Zodra de factuur is afgerond, kun je deze als een PDF exporteren.",
             "finalize": "Voltooi de factuur",
             "invoiceReverted": "Geannuleerde factuur",
             "revertExplainShop": "Aankopen van de webshop worden geannuleerd en de voorraad wordt gereset.",
@@ -1761,7 +1761,7 @@
             "amount_unpaid_remaining_cts": "Resterend bedrag",
             "amount_paid_cts": "Betaald bedrag",
             "amount_due_cts": "Aankoopbedrag",
-            "stripe_invoice_pdf": ".PDF",
+            "stripe_invoice_pdf": "PDF",
             "payment_method_giropay": "Giropay",
             "payment_method_bancontact": "Bancontact",
             "payment_method_sofort": "Sofort",
@@ -4391,7 +4391,7 @@
             },
             "updateCoach": "Kies een nieuwe instructeur voor deze afspraak",
             "isCancelledDate": "Geannuleerd op {{-date}} om {{time}}",
-            "restore": "Afspraak herstellen",
+            "restore": "De afspraak herstellen",
             "bookings": "Afspraken",
             "notRefunded": "Niet terugbetaald",
             "isRefunded": "Terugbetaald"
@@ -4436,7 +4436,11 @@
                 "hideCancelledEvents": "Toon de annuleringen"
             },
             "enableAvailability": "Beschikbaarheid toevoegen",
-            "createCustomEvent": "Een taak / persoonlijke afspraak toevoegen"
+            "createCustomEvent": "Een taak / persoonlijke afspraak toevoegen",
+            "customEvent": {
+                "dateEnd": "Einddatum",
+                "dateStart": "Startdatum"
+            }
         },
         "slotSearcher": {
             "selectPrivateSlot": "Sessie",
@@ -4556,7 +4560,8 @@
             },
             "recurrenceRule": {
                 "label": "Een periodieke afspraak toevoegen"
-            }
+            },
+            "confirm": "Bevestigen"
         },
         "consumerPass": {
             "expiresOn": "Verloopt op {{date}}",
@@ -4881,7 +4886,10 @@
                     "cancel": "Annuleren",
                     "submit": "Opslaan"
                 }
-            }
+            },
+            "private_service": "Dienst",
+            "establishment": "Vestiging",
+            "coach": "Instructeur"
         },
         "resource": {
             "form": {
@@ -4895,9 +4903,9 @@
             "unGroup": "Geen",
             "datatype": {
                 "establishment": "Vestigingen",
-                "coach": "Instructeur",
+                "coach": "Instructeurs",
                 "associated_establishment": "Vestigingen",
-                "associated_coach": "Instructeur",
+                "associated_coach": "Instructeurs",
                 "private_service": "Algemeen"
             },
             "selector": {
@@ -5756,7 +5764,7 @@
                 "success": "Afspraakkaart verwijderd"
             },
             "restore": {
-                "error": "Kan deze afspraakkaart niet herstellen",
+                "error": "Deze afspraakkaart kon niet worden hersteld",
                 "success": "Afspraakkaart hersteld"
             }
         },
@@ -6645,7 +6653,7 @@
         },
         "configuration": {
             "stripe_footer": "Voettekst factuur",
-            "explainStripeFooter": "Deze tekst verschijnt onderaan je facturen die men als .PDF kan downloaden. Voeg eventueel de juridische kennisgeving toe.",
+            "explainStripeFooter": "Deze tekst verschijnt onderaan je facturen die men als PDF kan downloaden. Voeg eventueel de juridische kennisgeving toe.",
             "submit_stripe_footer": "Bijwerken",
             "forms": {
                 "stripe_footer_placeholder": "Geen aanvullende informatie"
@@ -6693,7 +6701,7 @@
             "revert": "Annuleren",
             "invoiceReverted": "Factuur geannuleerd",
             "consumeBalance": "Met saldo betalen",
-            "explainPdfDraft": "Deze factuur is nog een concept. De .PDF is nog niet beschikbaar.",
+            "explainPdfDraft": "Deze factuur is nog een concept. De PDF is nog niet beschikbaar.",
             "addFooter": "Voetnoot wijzigen"
         },
         "uneditableMessage": {
@@ -6858,10 +6866,10 @@
             },
             "header": {
                 "missing": "Verschuldigd",
-                "pdf": ".PDF",
+                "pdf": "PDF",
                 "amount": "Bedrag",
                 "date": "Factuurdatum",
-                "id": "ID",
+                "id": "Factuurnummer",
                 "member": "Lid",
                 "invoiceType": "Type"
             },
@@ -6904,7 +6912,7 @@
             }
         },
         "invoiceInfo": {
-            "3": "Deze factuur is afkomstig van een gegevensoverdracht. Wegens juridische redenen kunnen we geen .PDF verstrekken of de factuur annuleren.",
+            "3": "Deze factuur is afkomstig van een gegevensoverdracht. Wegens juridische redenen kunnen we geen PDF verstrekken of de factuur annuleren.",
             "2": "Dit betaalbewijs toont de wijziging in het balans van je lid."
         },
         "invoiceType": {
@@ -7308,7 +7316,7 @@
             "sectionTitle": "Betaalmethoden"
         },
         "platformInvoice": {
-            "noInvoice": "Er zijn nog geen facturen beschikbaar. Je ziet ze hier als .PDF zodra je een factuur betaald hebt.",
+            "noInvoice": "Er zijn nog geen facturen beschikbaar. Je ziet ze hier als PDF zodra je een factuur betaald hebt.",
             "sectionTitle": "Mijn facturen",
             "label": "Factuur {{month}} / {{year}}"
         }

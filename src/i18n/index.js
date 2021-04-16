@@ -49,20 +49,20 @@ i18n
     },
     */
     fallbackLng: (code) => {
-      if (!code || code === 'en') return ['en'];
+      if (!code || code === 'en') return ['en', 'fr'];
       // We maintain en-US and en-AU. Some regions will prefer en-AU.
-      if (code.startsWith('en')) return ['en'];
-      if (code.startsWith('fr')) return ['fr'];
-      if (code.startsWith('it')) return ['it'];
-      if (code.startsWith('nl')) return ['nl'];
-      if (code.startsWith('de')) return ['de'];
-      if (code.startsWith('ca')) return ['es'];
-      return ['en'];
+      if (code.startsWith('en')) return ['en', 'fr'];
+      if (code.startsWith('fr')) return ['fr', 'en'];
+      if (code.startsWith('it')) return ['it', 'en', 'fr'];
+      if (code.startsWith('nl')) return ['nl', 'en', 'fr'];
+      if (code.startsWith('de')) return ['de', 'en', 'fr'];
+      if (code.startsWith('ca')) return ['es', 'en', 'fr'];
+      return ['en', 'fr'];
     },
 
     // lng: 'fr-FR',
     detection: {
-      order: ['navigator'],
+      order: ['navigator', 'cookie'],
     },
     load: 'languageOnly',
 

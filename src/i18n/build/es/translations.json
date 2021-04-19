@@ -782,7 +782,7 @@
             }
         },
         "booking": {
-            "wasRefunded": "Reembolsado",
+            "wasRefunded": "Crédito reembolsado",
             "success": "Réservation enregistrée",
             "revertBookingTitle": "Cancelar el registro",
             "revertBookingWithInvoiceImpossibleExplain": "Esta reserva ya ha sido pagada por el miembro y no se puede cancelar. Sin embargo, puedes pasar la reserva en \"Ausente\"",

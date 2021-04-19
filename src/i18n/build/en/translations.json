@@ -1041,7 +1041,7 @@
             },
             "revertBookingTitle": "Cancel booking",
             "success": "Booking saved",
-            "wasRefunded": "Refunded",
+            "wasRefunded": "Credit refunded",
             "cancelledFromWaitingList": "Removed from the waiting list",
             "notifyRevert": "Send a cancellation email",
             "refundRevert": "Refund credits used"

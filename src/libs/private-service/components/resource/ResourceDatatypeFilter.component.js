@@ -7,6 +7,7 @@ import Menu from '@material-ui/core/Menu';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
+import Hidden from '@material-ui/core/Hidden';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
@@ -21,14 +22,14 @@ type Props = {
 
 export const ResourceDatatypeFilter = (props: Props) => {
   return (
-    <div className={props.classes.container}>
+    <div>
       <Button
-        variant="contained"
         color="primary"
+        variant="outlined"
         onClick={(ev) => props.setAnchorEl(ev.currentTarget)}
       >
         <CategoryIcon className={props.classes.leftIcon} />
-        {props.t('resource.groupBy')}
+        <Hidden smDown>{props.t('resource.groupBy')}</Hidden>
       </Button>
       <Menu
         id="fade-menu"
@@ -64,9 +65,6 @@ export const ResourceDatatypeFilter = (props: Props) => {
 const styles = (theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
-  },
-  container: {
-    marginTop: theme.spacing(1),
   },
 });
 

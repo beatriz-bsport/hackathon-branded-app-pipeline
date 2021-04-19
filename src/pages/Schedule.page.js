@@ -7,7 +7,6 @@ import moment from 'moment-timezone';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { push } from 'connected-react-router';
 
 import flatten from 'lodash/flatten';
 import {
@@ -31,6 +30,7 @@ import {
   withResourceColor,
   getResourceDataList,
 } from '../libs/private-service/selectors/availability-slot';
+import AvailabilityUpdateResourceChoserDialog from '../libs/private-service/components/resource/AvailabilityUpdateResourceChoserDialog.component';
 
 import PrivateCalendarWithControls from '../libs/private-service/components/PrivateCalendarWithControls.component';
 
@@ -43,8 +43,9 @@ import {
   fetchResourceList,
   fetchAvailabilitySlots,
   resetAvailabilitySlots,
+  disableAvailabilitySlotMultipleResource,
+  enableAvailabilitySlotMultipleResource,
 } from '../libs/private-service/actions';
-import { PermissionContext } from '../context';
 
 import {
   fetchManagerRessourcesFilters as fetchManagerRessourcesFiltersAction,
@@ -71,7 +72,8 @@ type Props = {
   fetchAssociatedCoachesList: (params: any) => void,
   resourcesByDatatype: Array<ResourceDataGroup>,
 
-  pushToCalendar: () => void,
+  enableAvailabilitySlotMultipleResource: (data: any) => void,
+  disableAvailabilitySlotMultipleResource: (data: any) => void,
   fetchCustomEventList: () => void,
   resetCustomEvent: () => void,
 
@@ -100,6 +102,10 @@ const styles = (theme) => ({
 });
 
 export class CoachPrivateCalendar extends React.Component<Props> {
+  state = {
+    updateAvailabilitySlotData: null,
+  };
+
   componentDidMount() {
     this.props.resetPrivateBookings();
     this.props.fetchResourceList();
@@ -158,41 +164,95 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     });
   };
 
+  storeResourceAvailabilityUpdate = (kind: string) => (...data: any) => {
+    this.setState({
+      updateAvailabilitySlotData: {
+        data,
+        kind,
+      },
+    });
+  };
+
+  enableResourceAvailabilitySlot = this.storeResourceAvailabilityUpdate(
+    'enable',
+  );
+
+  disableResourceAvailabilitySlot = this.storeResourceAvailabilityUpdate(
+    'disable',
+  );
+
+  onCancelAvailabilityUpdate = () =>
+    this.setState({ updateAvailabilitySlotData: null });
+
+  submitAvailabilitySlotUpdate = (
+    resourceData: { [resourceDatatype: string]: string }[],
+  ) => {
+    const {
+      kind,
+      data: [slotUpdateData, slotUpdateOptions],
+    } = this.state.updateAvailabilitySlotData;
+
+    const options = {
+      onSuccess: (...args) => {
+        this.fetchAvailabilitySlotsAllResource();
+        if (slotUpdateOptions && slotUpdateOptions.onSuccess) {
+          slotUpdateOptions.onSuccess(...args);
+        }
+      },
+    };
+    if (kind === 'enable') {
+      this.props.enableAvailabilitySlotMultipleResource(
+        resourceData,
+        slotUpdateData,
+        options,
+      );
+    }
+    if (kind === 'disable') {
+      this.props.disableAvailabilitySlotMultipleResource(
+        resourceData,
+        slotUpdateData,
+        options,
+      );
+    }
+    this.onCancelAvailabilityUpdate();
+  };
+
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.container}>
-        <PermissionContext.Consumer>
-          {(permissions) => (
-            <PrivateCalendarWithControls
-              availabilitySlots={this.props.availabilitySlots}
-              goToCalendar={
-                !permissions.navigation && permissions.calendar
-                  ? this.props.pushToCalendar
-                  : null
-              }
-              timezone={this.props.theme.timezone_name}
-              customEventList={this.props.customEventList}
-              privateBookings={this.props.privateBookingList}
-              createCustomEvent={this.props.onRequestCustomEvent}
-              disableAvailabilitySlotDisplay
-              collapsResourceSelector
-              resourceAvailable={this.props.resourceData}
-              setResourceFiltered={this.props.setResourceFiltersArray}
-              goToMember={this.props.goToMember}
-              onDateChange={this.props.handleDateChange}
-              offerList={this.props.offerList}
-              resourcesByDatatype={this.props.resourcesByDatatype}
-              refreshOffers={this.props.fetchOfferList}
-              refreshPrivateBookings={this.props.fetchPrivateBookingList}
-              resourceSelectedListIds={this.props.resourceFiltersArray}
-              showOfferListToogle
-              showPrivateBookingToogle
-              showCustomEventsToogle
-              showHideCancelledEventsToggle
-            />
-          )}
-        </PermissionContext.Consumer>
+        <PrivateCalendarWithControls
+          enableResourceAvailabilitySlot={this.enableResourceAvailabilitySlot}
+          disableResourceAvailabilitySlot={this.disableResourceAvailabilitySlot}
+          availabilitySlots={this.props.availabilitySlots}
+          timezone={this.props.theme.timezone_name}
+          customEventList={this.props.customEventList}
+          privateBookings={this.props.privateBookingList}
+          createCustomEvent={this.props.onRequestCustomEvent}
+          disableAvailabilitySlotDisplay
+          collapsResourceSelector
+          resourceAvailable={this.props.resourceData}
+          setResourceFiltered={this.props.setResourceFiltersArray}
+          goToMember={this.props.goToMember}
+          onDateChange={this.props.handleDateChange}
+          offerList={this.props.offerList}
+          resourcesByDatatype={this.props.resourcesByDatatype}
+          refreshOffers={this.props.fetchOfferList}
+          refreshPrivateBookings={this.props.fetchPrivateBookingList}
+          resourceSelectedListIds={this.props.resourceFiltersArray}
+          showOfferListToogle
+          showPrivateBookingToogle
+          showCustomEventsToogle
+          showHideCancelledEventsToggle
+        />
+        {this.state.updateAvailabilitySlotData ? (
+          <AvailabilityUpdateResourceChoserDialog
+            resourceAvailable={this.props.resourceData}
+            onSubmit={this.submitAvailabilitySlotUpdate}
+            onClose={this.onCancelAvailabilityUpdate}
+            open={!!this.state.updateAvailabilitySlotData}
+          />
+        ) : null}
         {this.props.customEventData && (
           <CustomEvenFormDialog
             coaches={this.props.availableCoaches}
@@ -284,10 +344,11 @@ export default compose(
         }),
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchMemberBulk: fetchMemberBulkAction,
-      pushToCalendar: () => push('/calendar'),
       createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
       fetchManagerRessourcesFilters: fetchManagerRessourcesFiltersAction,
       updateManagerRessourcesFilters: updateManagerRessourcesFiltersAction,
+      disableAvailabilitySlotMultipleResource,
+      enableAvailabilitySlotMultipleResource,
     },
   ),
   withHandlers({

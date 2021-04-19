@@ -141,6 +141,22 @@ export const PrivateCalendarMultiResource = (props: Props) => {
             <ButtonBase onClick={props.toogleExand} disabledRipple>
               <Typography>{props.t('calendar.toogle.title')}</Typography>
             </ButtonBase>
+            <div
+              style={{
+                display: 'flex',
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+              }}
+            >
+              {!!props.resourcesByDatatype &&
+                !!props.resourcesByDatatype.length && (
+                  <ResourceDatatypeFilter
+                    resourcesByDatatype={props.resourcesByDatatype}
+                    onResourceDatatypeFilterChange={props.setResourceFilter}
+                  />
+                )}
+            </div>
           </div>
           <Collapse in={props.expanded}>
             <div className={props.classes.expandedInnerContainer}>
@@ -197,22 +213,6 @@ export const PrivateCalendarMultiResource = (props: Props) => {
                     />
                   </Grid>
                 )}
-                <div
-                  style={{
-                    display: 'flex',
-                    flex: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
-                  }}
-                >
-                  {!!props.resourcesByDatatype &&
-                    !!props.resourcesByDatatype.length && (
-                      <ResourceDatatypeFilter
-                        resourcesByDatatype={props.resourcesByDatatype}
-                        onResourceDatatypeFilterChange={props.setResourceFilter}
-                      />
-                    )}
-                </div>
               </Grid>
             </div>
           </Collapse>

@@ -1103,7 +1103,7 @@
             "add": "Anmelden",
             "onHold": "In Bearbeitung",
             "revertBookingWithInvoiceImpossibleExplain": "Diese Buchung ist bereits vom Mitglied bezahlt worden und kann nicht storniert werden. Du kannst die Buchung jedoch in \"Abwesend\" ändern",
-            "wasRefunded": "Zurückerstattet",
+            "wasRefunded": "Credit wurde erstattet",
             "fillRate": "Befüllungsrate",
             "cancelledFromWaitingList": "Hat die Warteliste verlassen",
             "notifyRevert": "Stornierungs-E-Mail senden",

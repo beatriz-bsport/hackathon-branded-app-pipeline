@@ -330,7 +330,7 @@
         },
         "appbar": {
             "title": {
-                "orderDetail": "Details bestellingen",
+                "orderDetail": "Details van de bestellingen",
                 "orderList": "Bestellingen",
                 "settings": "Instellingen",
                 "searchResults": "Zoeken",
@@ -344,14 +344,14 @@
                 "member": "Lid",
                 "members": "Leden",
                 "paymentPackList": "Cursuskaarten",
-                "paymentPackFormPage": "Cursuskaart maken",
+                "paymentPackFormPage": "Een cursuskaart toevoegen",
                 "invoiceList": "Mijn transacties",
                 "invoiceCreatePage": "In rekening brengen",
                 "invoiceFormPage": "Factuur",
                 "coachFormPage": "[Formulier] Instructeur",
-                "coachPerformance": "Prestaties instructeur",
-                "offerFormPage": "Creëer sessie",
-                "metaActivityFormPage": "[Formulier] Activiteiten",
+                "coachPerformance": "Prestaties van de instructeurs",
+                "offerFormPage": "Sessies toevoegen",
+                "metaActivityFormPage": "[Formulier] Groepsactiviteiten",
                 "metaActivityList": "Activiteiten",
                 "metaActivityEditForm": "[Formulier] Groepsactiviteiten",
                 "WorkshopActivityFormPage": "[Formulier] Workshops",
@@ -361,7 +361,7 @@
                 "coachList": "Instructeurs",
                 "shopManager": "Webshop",
                 "dashboard": "Dashboard",
-                "mergeMember": "Fuseer lid",
+                "mergeMember": "Lid samenvoegen",
                 "allCoachPerformance": "Overzicht",
                 "planning": "Agenda"
             }
@@ -1153,7 +1153,7 @@
             "firstname": "Voornaam",
             "previous": "Terug",
             "delete": "Verwijderen",
-            "show": "Zien",
+            "show": "Toon",
             "loading": "Laden...",
             "add": "Toevoegen",
             "notes": "Notities",
@@ -3567,7 +3567,7 @@
         "planning": "Agenda",
         "order": {
             "orderList": "Bestellingen",
-            "orderDetail": "Details bestelling"
+            "orderDetail": "Details van de bestelling"
         },
         "privateService": {
             "serviceList": "Op afspraak"
@@ -4137,7 +4137,7 @@
         },
         "detail": {
             "section": {
-                "title": "Status bestelling:",
+                "title": "Status van de bestelling:",
                 "deliveryInfo": "Bezorgadres",
                 "productDetail": "Details winkelmandje",
                 "invoice": "Gekoppelde factuur",
@@ -4505,7 +4505,9 @@
                 "duration_minutes": {
                     "label": "Duur",
                     "helperText": "Pas het benodigde krediet op de duur aan"
-                }
+                },
+                "pre_selected_choices": "Vooraf ingestelde tijden",
+                "durationError": "Ongeldige duur (tussen 15 min. en 1 dag)"
             }
         },
         "bookerModule": {
@@ -5104,7 +5106,8 @@
             "tenDays": "10 dagen",
             "twoWeeks": "2 weken",
             "oneMonth": "1 maand",
-            "never": "Nooit"
+            "never": "Nooit",
+            "fiftyMinutes": "50 min"
         },
         "never": "Nooit",
         "shortMinuteIdentifier": "min.",
@@ -5990,7 +5993,7 @@
                 "unlink": {
                     "cancel": "Annuleer",
                     "submit": "Stop",
-                    "explain": "Het delen wordt gestopt. De mastercard is nog steeds bruikbaar",
+                    "explain": "Het delen wordt gestopt. De mastercard is nog steeds bruikbaar.",
                     "title": "Stop delen"
                 },
                 "create": {

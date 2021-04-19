@@ -4630,7 +4630,8 @@
             "isAtHome": "Home-Kurs, Ihre Adresse wird bei der Buchung abgefragt",
             "recurrenceRule": {
                 "label": "Vereinbare einen wiederkehrenden Termin"
-            }
+            },
+            "confirm": "Bestätigen"
         },
         "privateBooking": {
             "updateTime": {
@@ -4900,7 +4901,10 @@
                     "submit": "Speichern",
                     "cancel": "Abbrechen"
                 }
-            }
+            },
+            "private_service": "Dienstleistung",
+            "establishment": "Einrichtung",
+            "coach": "Lehrer"
         },
         "slot": {
             "form": {
@@ -5146,7 +5150,11 @@
             "header": {
                 "threeDaysView": "3 Tage"
             },
-            "createCustomEvent": "Persönlichen Termin erstellen"
+            "createCustomEvent": "Persönlichen Termin erstellen",
+            "customEvent": {
+                "dateEnd": "Enddatum",
+                "dateStart": "Anfangsdatum"
+            }
         },
         "privateEstablishment": {
             "delete": {

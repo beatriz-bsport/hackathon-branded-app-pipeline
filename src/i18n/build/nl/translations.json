@@ -1023,7 +1023,7 @@
                 "offerIsAvailableChoiceRefund": "Weet je zeker dat je deze reservering wilt verwijderen?"
             },
             "revertBookingTitle": "Inschrijving annuleren",
-            "wasRefunded": "Vergoed",
+            "wasRefunded": "Krediet vergoed",
             "cancelledFromWaitingList": "Verwijderd van de wachtlijst",
             "notifyRevert": "Verstuur een annuleringsmail",
             "refundRevert": "Vergoed gebruikte kredieten"

@@ -7,6 +7,8 @@ import {
   updateDashboardSettings as updateDashboardSettingsAPI,
   fetchManagerFiltersSettings as fetchManagerFiltersSettingsAPI,
   updateManagerFiltersSettings as updateManagerFiltersSettingsAPI,
+  fetchManagerRessourceFilters as fetchManagerRessourceFiltersAPI,
+  updateManagerRessousrcesFilters as updateManagerRessousrcesFiltersAPI,
 } from './api';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import type { Dispatch, OptionCallback } from '../../state/types';
@@ -106,5 +108,44 @@ export function updateManagerFiltersSettings(filters: object) {
       dispatch(managerFiltersSettings.error(error));
     }
     dispatch(managerFiltersSettings.isLoading(false));
+  };
+}
+
+export const managerRessourcesFilters = {
+  isLoading: createAction('RESSOURCES/FILTERS/LOADING'),
+  success: createAction('RESSOURCES/FILTERS/SUCCESS'),
+  error: createAction('RESSOURCES/FILTERS/ERROR'),
+};
+
+export function fetchManagerRessourcesFilters(options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(managerRessourcesFilters.error(null));
+    dispatch(managerRessourcesFilters.isLoading(true));
+    try {
+      const response = await fetchManagerRessourceFiltersAPI();
+      dispatch(managerRessourcesFilters.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.filters[0].filters);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(managerRessourcesFilters.error(err));
+    }
+    dispatch(managerRessourcesFilters.isLoading(false));
+  };
+}
+
+export function updateManagerRessourcesFilters(filters: Object) {
+  return async (dispatch: Dispatch) => {
+    dispatch(managerRessourcesFilters.error(null));
+    dispatch(managerRessourcesFilters.isLoading(true));
+    try {
+      const response = await updateManagerRessousrcesFiltersAPI({ filters });
+      dispatch(managerRessourcesFilters.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(managerRessourcesFilters.error(err));
+    }
+    dispatch(managerRessourcesFilters.isLoading(false));
   };
 }

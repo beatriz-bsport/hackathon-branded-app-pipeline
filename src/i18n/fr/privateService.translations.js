@@ -239,6 +239,7 @@ exports.default = {
       showPrivateBookings: 'Rendez-vous',
       showCustomEvents: 'RDV perso',
       hideCancelledEvents: 'Afficher les annulations',
+      title: 'Afficher les filtres',
     },
 
     form: {

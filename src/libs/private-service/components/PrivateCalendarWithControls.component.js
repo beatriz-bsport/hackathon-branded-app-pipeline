@@ -13,8 +13,14 @@ import Grid from '@material-ui/core/Grid';
 import type { TFunction } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
-
+import Collapse from '@material-ui/core/Collapse';
+import Typography from '@material-ui/core/Typography';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import IconButton from '@material-ui/core/IconButton';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ButtonBase from '@material-ui/core/ButtonBase';
+
 import PrivateCalendar from './PrivateCalendar.component';
 import ResourceSelector from './resource/ResourceSelector.component';
 import ResourceDatatypeFilter from './resource/ResourceDatatypeFilter.component';
@@ -90,6 +96,9 @@ type Props = {
   customEventId: ?number,
   privateCalendarDateStart: string,
   setPrivateCalendarDateStart: () => void,
+  toogleExand: () => void,
+  expanded: boolean,
+  updateRessourcesFilters: (*) => void,
 };
 
 export const PrivateCalendarMultiResource = (props: Props) => {
@@ -113,81 +122,100 @@ export const PrivateCalendarMultiResource = (props: Props) => {
               onEditResourceConfiguration={props.onEditResourceConfiguration}
               onChangeResourcesSelected={props.onChangeResourcesSelected}
               setResourceFiltered={props.setResourceFiltered}
+              updateRessourcesFilters={props.updateRessourcesFilters}
             />
           )}
         </div>
         <Divider />
         <div className={props.classes.rowBetween}>
-          <Grid container justify="flex-start" direction="row">
-            {!!props.showOfferListToogle && (
-              <Grid item xs={12} sm={3} md={2}>
-                <FormControlLabel
-                  label={props.t('calendar.toogle.showOfferList')}
-                  control={
-                    <Checkbox
-                      checked={props.showOfferList}
-                      onChange={props.toogleShowOfferList}
-                    />
-                  }
-                />
-              </Grid>
-            )}
-            {!!props.showPrivateBookingToogle && (
-              <Grid item xs={12} sm={3} md={2}>
-                <FormControlLabel
-                  label={props.t('calendar.toogle.showPrivateBookings')}
-                  control={
-                    <Checkbox
-                      checked={props.showPrivateBookings}
-                      onChange={props.toogleShowPrivateBookings}
-                    />
-                  }
-                />
-              </Grid>
-            )}
-            {!!props.showCustomEventsToogle && (
-              <Grid item xs={12} sm={3} md={2}>
-                <FormControlLabel
-                  label={props.t('calendar.toogle.showCustomEvents')}
-                  control={
-                    <Checkbox
-                      checked={props.showCustomEvents}
-                      onChange={props.toogleShowCustomEvents}
-                    />
-                  }
-                />
-              </Grid>
-            )}
-            {props.hideCancelledEvents !== undefined && (
-              <Grid item xs={12} sm={3} md={2}>
-                <FormControlLabel
-                  label={props.t('calendar.toogle.hideCancelledEvents')}
-                  control={
-                    <Checkbox
-                      checked={!props.hideCancelledEvents}
-                      onChange={props.toogleHideCancelledEvents}
-                    />
-                  }
-                />
-              </Grid>
-            )}
-            <div
-              style={{
-                display: 'flex',
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
+          <div className={props.classes.collapseHeader}>
+            <IconButton
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                props.toogleExand();
               }}
             >
-              {!!props.resourcesByDatatype &&
-                !!props.resourcesByDatatype.length && (
-                  <ResourceDatatypeFilter
-                    resourcesByDatatype={props.resourcesByDatatype}
-                    onResourceDatatypeFilterChange={props.setResourceFilter}
-                  />
+              {props.expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+            <ButtonBase onClick={props.toogleExand} disabledRipple>
+              <Typography>{props.t('calendar.toogle.title')}</Typography>
+            </ButtonBase>
+          </div>
+          <Collapse in={props.expanded}>
+            <div className={props.classes.expandedInnerContainer}>
+              <Grid container justify="flex-start" direction="row">
+                {!!props.showOfferListToogle && (
+                  <Grid item xs={12} sm={3} md={2}>
+                    <FormControlLabel
+                      label={props.t('calendar.toogle.showOfferList')}
+                      control={
+                        <Checkbox
+                          checked={props.showOfferList}
+                          onChange={props.toogleShowOfferList}
+                        />
+                      }
+                    />
+                  </Grid>
                 )}
+                {!!props.showPrivateBookingToogle && (
+                  <Grid item xs={12} sm={3} md={2}>
+                    <FormControlLabel
+                      label={props.t('calendar.toogle.showPrivateBookings')}
+                      control={
+                        <Checkbox
+                          checked={props.showPrivateBookings}
+                          onChange={props.toogleShowPrivateBookings}
+                        />
+                      }
+                    />
+                  </Grid>
+                )}
+                {!!props.showCustomEventsToogle && (
+                  <Grid item xs={12} sm={3} md={2}>
+                    <FormControlLabel
+                      label={props.t('calendar.toogle.showCustomEvents')}
+                      control={
+                        <Checkbox
+                          checked={props.showCustomEvents}
+                          onChange={props.toogleShowCustomEvents}
+                        />
+                      }
+                    />
+                  </Grid>
+                )}
+                {props.hideCancelledEvents !== undefined && (
+                  <Grid item xs={12} sm={3} md={2}>
+                    <FormControlLabel
+                      label={props.t('calendar.toogle.hideCancelledEvents')}
+                      control={
+                        <Checkbox
+                          checked={!props.hideCancelledEvents}
+                          onChange={props.toogleHideCancelledEvents}
+                        />
+                      }
+                    />
+                  </Grid>
+                )}
+                <div
+                  style={{
+                    display: 'flex',
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'flex-end',
+                  }}
+                >
+                  {!!props.resourcesByDatatype &&
+                    !!props.resourcesByDatatype.length && (
+                      <ResourceDatatypeFilter
+                        resourcesByDatatype={props.resourcesByDatatype}
+                        onResourceDatatypeFilterChange={props.setResourceFilter}
+                      />
+                    )}
+                </div>
+              </Grid>
             </div>
-          </Grid>
+          </Collapse>
         </div>
       </Paper>
       {!!props.goToCalendar && (
@@ -247,14 +275,13 @@ export const PrivateCalendarMultiResource = (props: Props) => {
             if (props.refreshPrivateBookings) props.refreshPrivateBookings();
           }}
         />
+        <FabPrivateCalendar
+          timezone={props.timezone}
+          startDate={props.privateCalendarDateStart}
+          onSubmitPrivateServiceWithDate={props.onRequestPrivateBooking}
+          createCustomEvent={props.createCustomEvent}
+        />
       </div>
-
-      <FabPrivateCalendar
-        timezone={props.timezone}
-        startDate={props.privateCalendarDateStart}
-        onSubmitPrivateServiceWithDate={props.onRequestPrivateBooking}
-        createCustomEvent={props.createCustomEvent}
-      />
     </div>
   );
 };
@@ -283,6 +310,28 @@ const styles = (theme) => ({
   rowBetween: {
     width: '100%',
   },
+  collapseHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: theme.spacing(1),
+    '& > *': {
+      marginRight: theme.spacing(2),
+    },
+  },
+  expandedInnerContainer: {
+    borderLeft: '3px solid black',
+    paddingLeft: theme.spacing(1),
+    marginLeft: theme.spacing(2),
+    width: '100%',
+  },
+  dataFilterButton: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingRight: theme.spacing(3),
+  },
 });
 
 export default compose(
@@ -293,8 +342,10 @@ export default compose(
       privateBookerOpen: false,
       privateBookingRequestedSlot: null,
       privateCalendarDateStart: '',
+      expanded: false,
     },
     {
+      toogleExand: ({ expanded }) => () => ({ expanded: !expanded }),
       closePrivateBooker: () => () => ({
         privateBookerOpen: false,
         privateBookingRequestedSlot: null,

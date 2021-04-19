@@ -1260,9 +1260,9 @@
       }
     },
     "availabilitySlot": {
-      "coach": "Profsseur",
+      "coach": "Professeur",
       "establishment": "Lieu",
-      "private_service": "Service",
+      "private_service": "Type de Rendez-vous",
       "form": {
         "resourceSelector": {
           "title": "Modification créneau horaire",
@@ -1410,7 +1410,8 @@
         "showOfferList": "Cours collectifs",
         "showPrivateBookings": "Rendez-vous",
         "showCustomEvents": "RDV perso",
-        "hideCancelledEvents": "Afficher les annulations"
+        "hideCancelledEvents": "Afficher les annulations",
+        "title": "Afficher les filtres"
       },
       "form": {
         "title": { "enable": "Ajouter une disponibilité", "disable": "Supprimer une disponibilité" },

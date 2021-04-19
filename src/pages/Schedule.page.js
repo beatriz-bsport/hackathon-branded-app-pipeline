@@ -46,6 +46,11 @@ import {
 } from '../libs/private-service/actions';
 import { PermissionContext } from '../context';
 
+import {
+  fetchManagerRessourcesFilters as fetchManagerRessourcesFiltersAction,
+  updateManagerRessourcesFilters as updateManagerRessourcesFiltersAction,
+} from '../libs/dashboard/actions';
+
 type Props = {
   classes: Object,
   privateBookingList: Array<PrivateBooking>,
@@ -85,6 +90,8 @@ type Props = {
   theme: CompanyTheme,
 
   resourceFiltersArray: Array<Ressource>,
+  fetchRessourcesFilters: () => void,
+  updateManagerRessourcesFilters: (*) => void,
 };
 
 const styles = (theme) => ({
@@ -98,6 +105,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
     this.props.fetchResourceList();
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList({ disabled: false });
+    this.props.fetchRessourcesFilters();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -109,6 +117,14 @@ export class CoachPrivateCalendar extends React.Component<Props> {
       this.props.fetchOfferList();
       this.props.fetchCustomEventList();
       this.fetchAvailabilitySlotsAllResource();
+    }
+    if (prevProps.resourceFiltersArray !== this.props.resourceFiltersArray) {
+      this.props.updateManagerRessourcesFilters([
+        {
+          name: 'schedule',
+          filters: this.props.resourceFiltersArray,
+        },
+      ]);
     }
   }
 
@@ -247,6 +263,10 @@ export default compose(
       customEventList: getCustomEventList(state, periodFilter),
       resourceData: getResourceDataList(state),
       resourceDataLoading: state.privateService.resource.loading,
+      ressourceFilers:
+        state.dashboardSettings.managerRessourcesFilters.data.filter,
+      ressourceFiltersLoading:
+        state.dashboardSettings.managerRessourcesFilters.loading,
     }),
     {
       fetchPrivateBookings: fetchPrivateBookingsAction,
@@ -266,6 +286,8 @@ export default compose(
       fetchMemberBulk: fetchMemberBulkAction,
       pushToCalendar: () => push('/calendar'),
       createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
+      fetchManagerRessourcesFilters: fetchManagerRessourcesFiltersAction,
+      updateManagerRessourcesFilters: updateManagerRessourcesFiltersAction,
     },
   ),
   withHandlers({
@@ -338,6 +360,31 @@ export default compose(
         date_start__lte: periodFilter.end,
         page_size: null,
       });
+    },
+  }),
+  withHandlers({
+    fetchRessourcesFilters: ({
+      fetchManagerRessourcesFilters,
+      setResourceFiltersArray,
+    }) => () => {
+      fetchManagerRessourcesFilters({
+        onSuccess: (payload) => {
+          setResourceFiltersArray(payload);
+        },
+      });
+    },
+  }),
+  withHandlers({
+    updateRessourcesFilters: ({
+      updateManagerRessourcesFilters,
+      resourceFiltersArray,
+    }) => () => {
+      updateManagerRessourcesFilters([
+        {
+          name: 'schedule',
+          filters: resourceFiltersArray,
+        },
+      ]);
     },
   }),
 )(CoachPrivateCalendar);

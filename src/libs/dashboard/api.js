@@ -16,3 +16,11 @@ export async function fetchManagerFiltersSettings() {
 export async function updateManagerFiltersSettings(data: any) {
   return patchAuth(`${API_V1_URI}/dashboard/filters_settings/me/`, data);
 }
+
+export async function fetchManagerRessourceFilters() {
+  return getAuth(`${API_V1_URI}/dashboard/filters_ressources/me/`);
+}
+
+export async function updateManagerRessousrcesFilters(data: any) {
+  return patchAuth(`${API_V1_URI}/dashboard/filters_ressources/me/`, data);
+}

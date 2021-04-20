@@ -176,7 +176,6 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
         onSuccess: () => {
           if (WidgetUtils.isWidget()) {
             WidgetUtils.paymentSuccess();
-            return;
           }
 
           this.props.goToConsumerHome();

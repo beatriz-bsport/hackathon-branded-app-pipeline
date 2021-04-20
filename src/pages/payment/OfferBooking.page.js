@@ -501,7 +501,6 @@ export default compose(
         .then(() => {
           if (WidgetUtils.isWidget()) {
             WidgetUtils.paymentSuccess();
-            return;
           }
 
           push(`/c/${offer.company}/?from_direct_booking=${offer.id}`);

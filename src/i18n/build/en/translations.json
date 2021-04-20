@@ -2354,7 +2354,10 @@
                     "cancel": "Cancel",
                     "submit": "Save"
                 }
-            }
+            },
+            "private_service": "Appointment type",
+            "establishment": "Establishment",
+            "coach": "Teacher"
         },
         "resource": {
             "form": {
@@ -2503,7 +2506,8 @@
                 "showOfferList": "Group classes",
                 "showPrivateBookings": "Appointments",
                 "showCustomEvents": "Personal appointments",
-                "hideCancelledEvents": "View cancellations"
+                "hideCancelledEvents": "View cancellations",
+                "title": "Show filters"
             },
             "form": {
                 "title": {
@@ -2523,7 +2527,11 @@
             "header": {
                 "threeDaysView": "3 days"
             },
-            "createCustomEvent": "Create a personnal appointment"
+            "createCustomEvent": "Create a personnal appointment",
+            "customEvent": {
+                "dateEnd": "End date",
+                "dateStart": "Start date"
+            }
         },
         "selector": {
             "privateService": "Select your appointment",
@@ -2592,7 +2600,9 @@
                 "booking_interval_minutes": {
                     "helperText": "E.g: 15 means that the member can book at 12h, 12h15, 12h30, etc... (recommended)",
                     "label": "Advanced : booking interval choice"
-                }
+                },
+                "pre_selected_choices": "Predefined durations",
+                "durationError": "Invalid duration (between 15min and 1d)"
             }
         },
         "bookerModule": {
@@ -2647,7 +2657,8 @@
             },
             "recurrenceRule": {
                 "label": "Schedule a recurring appointment"
-            }
+            },
+            "confirm": "Confirm"
         },
         "consumerPass": {
             "current_credits": "{{ current_credits }}/{{credits}} credits",
@@ -3588,7 +3599,8 @@
                     "description": "Description",
                     "name": "Name",
                     "title": "Define access level",
-                    "buttonCreate": "Add access level  "
+                    "buttonCreate": "Add access level  ",
+                    "restrictedUrl": "Restricted URLs"
                 }
             }
         },
@@ -3619,6 +3631,82 @@
             "5": {
                 "name": "Reports",
                 "description": "Access only to reports, useful for your accountants for example"
+            }
+        },
+        "rolePermissions": {
+            "member": {
+                "retrieve": {
+                    "_label": "Member profile access"
+                },
+                "search": {
+                    "_label": "Search"
+                },
+                "edit": {
+                    "_label": "Edit"
+                },
+                "create": {
+                    "_label": "Create"
+                },
+                "_label": "Member"
+            },
+            "appbarActions": {
+                "_helper": "Member creation, on-site payment report..",
+                "_label": "Actions appbar"
+            },
+            "navigationMenu": {
+                "settings": {
+                    "_label": "Settings"
+                },
+                "reporting": {
+                    "_label": "Reports"
+                },
+                "member": {
+                    "_label": "Member"
+                },
+                "digitalOffer": {
+                    "_label": "Digital offer"
+                },
+                "marketing": {
+                    "_label": "Marketing"
+                },
+                "payments": {
+                    "_label": "Payments"
+                },
+                "products": {
+                    "_label": "Products"
+                },
+                "myClub": {
+                    "_label": "My Club"
+                },
+                "schedule": {
+                    "_label": "Schedule"
+                },
+                "calendar": {
+                    "_label": "Calendar"
+                },
+                "dashboard": {
+                    "_label": "Dashboard"
+                },
+                "search": {
+                    "_helper": "Only mobile",
+                    "_label": "Search members"
+                },
+                "_label": "Navigation menu"
+            },
+            "offer": {
+                "edit": {
+                    "_label": "Edit"
+                },
+                "delete": {
+                    "_label": "Cancel"
+                },
+                "create": {
+                    "_label": "Create"
+                },
+                "_label": "Sessions"
+            },
+            "search": {
+                "_label": "Search members"
             }
         }
     },
@@ -4498,7 +4586,8 @@
             "twoWeeks": "2 weeks",
             "oneMonth": "1 month",
             "never": "Never",
-            "oneHourFifteen": "1h15"
+            "oneHourFifteen": "1h15",
+            "fiftyMinutes": "50 min"
         }
     },
     "shop": {
@@ -4767,7 +4856,8 @@
             "invoiceReverted": "Invoice cancelled",
             "finalize": "Finalize (PDF)",
             "consumeBalance": "Pay via balance",
-            "explainPdfDraft": "The invoice is still a draft, pdf is not available."
+            "explainPdfDraft": "The invoice is still a draft, pdf is not available.",
+            "addFooter": "Modify invoice footnote"
         },
         "invoice": {
             "editor": {
@@ -5235,7 +5325,7 @@
                     "label": "Auto renewal"
                 },
                 "recurrent_price": {
-                    "label": "Payment amount"
+                    "label": "Recurring payment"
                 },
                 "contract": {
                     "label": "General terms and conditions of sales",
@@ -5484,7 +5574,7 @@
             "last_booking": "Previous booking",
             "next_booking": "Next booking",
             "concatenated_notes": "Notes",
-            "remaining_credits": "Remaining credits",
+            "remaining_credits": "Remaining credit today",
             "duration": "Duration (minutes)",
             "date_start": "Date full",
             "date_start_date": "Date",

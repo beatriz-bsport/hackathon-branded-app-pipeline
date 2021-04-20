@@ -488,7 +488,7 @@
             "playlist": "Wiedergabeliste"
         },
         "calendar": {
-            "pleaseSelectOffer": "Wähle einen Kurs aus, um die eingeschriebenen Mitglieder zu sehen",
+            "pleaseSelectOffer": "Wähle einen Kurs aus, um die angemeldeten Mitglieder zu sehen",
             "date": "Datum",
             "day": "Tag",
             "week": "Woche",
@@ -1089,14 +1089,14 @@
             "discard": "Abbrechen",
             "doNotAttend": "Abwesend",
             "attend": "Anwesend",
-            "revertBookingTitle": "Die Einschreibung stornieren",
+            "revertBookingTitle": "Die Anmeldung stornieren",
             "free": "Verfübarer Platz / Verfügbare Plätze",
             "confirmed": "Bestätigt",
             "source": "Herkunft",
             "nb_booking": "Anzahl der Plätze",
             "next": "Nächste :",
             "last": "Letzte :",
-            "noBookingOnThisOffer": "Momentan gibt es keine gespeicherte Buchungen für diesen Kurs",
+            "noBookingOnThisOffer": "Momentan sind keine Buchungen vorhanden für diesen Kurs",
             "pending": "Nicht eingelöst",
             "validated": "Bezahlt",
             "waitingUserConfirmation": "In Erwartung der Bestätigung durch den Kunden",
@@ -1104,14 +1104,14 @@
             "onHold": "In Bearbeitung",
             "revertBookingWithInvoiceImpossibleExplain": "Diese Buchung ist bereits vom Mitglied bezahlt worden und kann nicht storniert werden. Du kannst die Buchung jedoch in \"Abwesend\" ändern",
             "wasRefunded": "Credit wurde erstattet",
-            "fillRate": "Befüllungsrate",
+            "fillRate": "Auslastung",
             "cancelledFromWaitingList": "Hat die Warteliste verlassen",
             "notifyRevert": "Stornierungs-E-Mail senden",
             "refundRevert": "Rückerstattung gebrauchter Credits"
         },
         "consumer": {
             "booking": {
-                "discardImpossibleExplain": "Bist Du sich sicher, dass Du diese Buchung stornieren möchtest? Du stornierst nach Ablauf der Stornierungsfrist. Die Credits der Kurskarte verfallen (Allgemeine Nutzungsbedingungen des Studios).",
+                "discardImpossibleExplain": "Bist Du dir sicher, dass Du diese Buchung stornieren möchtest? Du stornierst nach Ablauf der Stornierungsfrist. Die Credits der Kurskarte verfallen (Allgemeine Nutzungsbedingungen des Studios).",
                 "discardPossibleExplain": "Bist Du sicher, dass Du diese Buchung stornieren möchtest? Deine Credits werden erstattet.",
                 "cancelOption": "Abbrechen",
                 "noPastBookings": "Keine vorherige Buchung",
@@ -1152,9 +1152,9 @@
                 "register": {
                     "forceNotify": "Eine Bestätigungs-E-Mail senden",
                     "passOwnedByMember": "Kurskarte(n), die das Mitglied besitzt",
-                    "registerToOffer": "Anmeldung an dem Kurs",
+                    "registerToOffer": "Anmeldung zum Kurs",
                     "passCompatibleNotOwnedByMember": "Rechnungsstellung einer neuen Kurskarte",
-                    "doNotConsumeCredit": "Keine Credits werden den Mitgliedern für die Anmeldung abgezogen"
+                    "doNotConsumeCredit": "Für diese Anmeldung werden den Mitgliedern keine Credits abgezogen"
                 }
             }
         },
@@ -1355,14 +1355,14 @@
                 "cancelled": "Stornierte Buchungen",
                 "created": "Beibehaltene Buchungen"
             },
-            "maintenedBookings": "{{nb}} Buchung beibehalten",
-            "maintenedBookings_plural": "{{nb}} Buchungen beibehalten",
+            "maintenedBookings": "{{nb}} Buchung",
+            "maintenedBookings_plural": "{{nb}} Buchungen",
             "cancelledBookings": "{{nb}} Buchung storniert",
             "cancelledBookings_plural": "{{nb}} Buchungen storniert",
             "totalBookings": "{{nb}} Buchung insgesamt",
             "totalBookings_plural": "{{nb}} Buchungen insgesamt",
             "offerFilteredBookingRecap": "Ihre Buchung am  {{date}}",
-            "weekOverview": "Übersicht Ihrer Woche"
+            "weekOverview": "Übersicht der Woche"
         },
         "show_cancelled_offers": "Abgesagte Stunden anzeigen",
         "quickInvoiceVoucher": "Wähle den Rabatt, der bei der Abrechnung des nächsten Passes angewendet werden soll",
@@ -2235,7 +2235,7 @@
                 "hideMail": "E-Mail verstecken",
                 "daysPastType": "Ablaufdatum",
                 "noMailAvailable": "Keine verfügbare E-Mail, erstellen eine E-Mail",
-                "daysType": "Verbleibende Gültigkeitstage",
+                "daysType": "Verbleibende Gültigkeit",
                 "mailSelection": "E-Mail auswählen",
                 "smartListSelection": "Liste auswählen (optional)",
                 "settingTitle": "Einstellungen",
@@ -2380,7 +2380,7 @@
                     "helperText": "Zeitraum in Tagen, für den die Karte nach dem Kauf gültig ist "
                 },
                 "maxBookingPerDay": {
-                    "label": "Maximaler Verbrauch pro Tag",
+                    "label": "Maximale Nutzung pro Tag",
                     "helperText": "Lasse das Feld leer, um keine Begrenzung festzulegen"
                 },
                 "full_vod_access": "Bietet Zugang zu VOD, solange es zeitlich gültig ist",
@@ -2852,7 +2852,7 @@
             "first_privatebooking": "Erstes Personal Training",
             "privateService": "Personal Training",
             "activityByCoach": "Aktivitäten und Workshops pro Lehrer",
-            "private_bookings": "Buchungen (Personal Training)",
+            "private_bookings": "Buchungen (Termine)",
             "payments": "Zahlungen",
             "bookings": "Buchungen (Kurse)",
             "offers": "Kurse",
@@ -3892,7 +3892,8 @@
             "halfHour": "30 Min",
             "twentyMinutes": "20 Min",
             "quarterHour": "15 Min",
-            "zeroMinute": "0 Min"
+            "zeroMinute": "0 Min",
+            "fiftyMinutes": "50 min"
         },
         "time": {
             "monthShort": {
@@ -4005,7 +4006,7 @@
                 }
             },
             "lock": {
-                "accessDenied": "Du hast keinen Zugang zu diesem Video",
+                "accessDenied": "Jetzt Zugang erhalten",
                 "pleaseAuthenticated": "Bitte melde Dich an, um das Video zu sehen",
                 "buyPass": "Kaufe eine Karte",
                 "useConsumerPass": "Freischalten"
@@ -4275,7 +4276,7 @@
                 "explain": "Alle {{dayOfWeek}} - {{hour}}: {{minute}}, {{delayWeek}} Wochen zuvor"
             },
             "recurrentBookings": "Wiederkehrende Buchungen",
-            "needConsumerPack": "Dieses Mitglied hat keine kompatible Kurskarte, es ist nicht möglich, eine Wiederholungsregel zu planen",
+            "needConsumerPack": "Dieses Mitglied hat keine kompatible Kurskarte, es ist nicht möglich, eine Wiederholungsregel einzurichten.",
             "createModal": {
                 "create": "Erstelle eine wiederkehrende Buchung",
                 "info": "Eine bereits vorhandene wiederkehrende Buchung kann nicht neu erstellt werden",
@@ -4782,7 +4783,7 @@
                     "label": "Unsichtbar für die Kunden"
                 },
                 "last_discard_minutes": {
-                    "helperText": "Wenn die Buchung zu spät storniert wurde, werden die verwendete Credits nicht zurückerstattet",
+                    "helperText": "Wenn die Buchung zu spät storniert wurde, werden die verwendeten Credits nicht zurückerstattet",
                     "label": "Letzte erstattungsfähige Stornierung bis zu"
                 },
                 "actions": {
@@ -4796,7 +4797,7 @@
                     "label": "Raum"
                 },
                 "coach": {
-                    "isEmpty": "Keine Lehrer eingerichtet !",
+                    "isEmpty": "Keine Lehrer eingeteilt!",
                     "label": "Lehrer"
                 },
                 "last_booking_minutes": {
@@ -4930,7 +4931,9 @@
                 "people_capacity_used": {
                     "label": "Anzahl der Teilnehmer",
                     "helperText": "Wenn ein Raum eingerichtet ist, wird diese Nummer zur Aktualisierung seines Füllstands verwendet"
-                }
+                },
+                "pre_selected_choices": "Voreingestellte Zeiten",
+                "durationError": "Ungültige Dauer (zwischen 15 Minuten und 1 Tag)"
             },
             "parameters": {
                 "credit": "{{ credit }} Credits"
@@ -5129,7 +5132,7 @@
                     "explain2": "{{ date_start }} - {{ date_end }}, jeden {{ day }}",
                     "explain1": "Änderung der Verfügbarkeit : "
                 },
-                "explain": "Änderung bis :",
+                "explain": "Änderung bis einschließlich:",
                 "title": {
                     "disable": "Eine Verfügbarkeit löschen",
                     "enable": "Eine Verfügbarkeit hinzufügen"
@@ -5139,7 +5142,8 @@
                 "showPrivateBookings": "Termine",
                 "showOfferList": "Kurse",
                 "showCustomEvents": "persönlicher Termin",
-                "hideCancelledEvents": "Stornierungen anzeigen"
+                "hideCancelledEvents": "Stornierungen anzeigen",
+                "title": "Filter anzeigen"
             },
             "addBooking": "Einen Termin speichern",
             "selectCoachToModifyAvailability": "Einen Lehrer auswählen",
@@ -6237,7 +6241,7 @@
         "invoiceItemDropdown": {
             "contentType": {
                 "10": "Packages",
-                "9": "Terminkarte",
+                "9": "Terminkarten",
                 "7": "Werbeaktion",
                 "6": "Versandkosten",
                 "2": "Produkte",
@@ -6249,8 +6253,8 @@
                 "4": "Datenmigration",
                 "3": "Andere",
                 "2": "Bsport Backoffice",
-                "1": "Web",
-                "0": "Applikation"
+                "1": "Webseite",
+                "0": "App"
             }
         },
         "resetModal": {
@@ -6277,7 +6281,7 @@
                 },
                 "aggregateHelper": "Beispiel: Zeigt die Entwicklung der Gesamtzahl der Mitglieder anstelle der Anzahl der neuen Mitglieder pro Monat an.",
                 "aggregate": "Zusammenfassen",
-                "name": "Graphentitel",
+                "name": "Titel",
                 "selector": {
                     "invoice": "Käufe",
                     "payment": "Zahlungen",
@@ -6550,7 +6554,7 @@
             "error_email_exists": "Es gibt bereits einen Lehrer mit dieser E-Mail, verwende das Formular zur Erstellung eines Lehrers",
             "linkByEmail": {
                 "emailPlaceHolder": "lehrer@bsport.io",
-                "explain": "Wenn diese E-Mail bereits in unserer Datenbank existiert, werden wir den Lehrer automatisch für Sie erstellen. Wenn Du die E-Mail eines Lehrers nicht kennst, lass dieses Feld leer.",
+                "explain": "Wenn diese E-Mail bereits in unserer Datenbank existiert, werden wir den Lehrer automatisch für Dich erstellen. Wenn Du die E-Mail eines Lehrers nicht kennst, lasse dieses Feld leer.",
                 "emailLabel": "E-Mail",
                 "title": "E-Mail-Adresse des Lehrers",
                 "submit": "Bestätigen",
@@ -6812,7 +6816,7 @@
         "offerManagement": {
             "bookingOrder": {
                 "firstname": "Nach Vornamen sortieren",
-                "lastname": "Nach Namen sortieren",
+                "lastname": "Nach Nachnamen sortieren",
                 "date": "Nach Datum sortieren"
             },
             "unevenQuickInvoices": "Rechnungen ohne Zahlungsmethode werden auf dieser Seite geöffnet. Bist Du Dir sicher, dass Du den Vorgang abbrechen möchtest?"
@@ -6825,10 +6829,10 @@
             "redirectLink": "Wenn Du nicht automatisch weitergeleitet wirst, benutze diesen Link:",
             "cantOpenLink": "Der Link zur Konferenz scheint falsch zu sein, bitte kontaktiere Deinen Klub {{ contact_email }}",
             "startingSoon": "Ihr Kurs beginnt in {{ minutesLeft }} Minuten",
-            "hasEnded": "Dieser Kurs ist fertig",
+            "hasEnded": "Dieser Kurs ist abgeschlossen",
             "isAutoRefresh": "Du wirst 15 Minuten vor Beginn des Kurses automatisch zur Videokonferenz weitergeleitet",
             "loadingSoon": "Es lädt...",
-            "activateVideo": "Video einschalten"
+            "activateVideo": "Starte Video"
         },
         "forms": {
             "old_date": "Alte Zeit :",
@@ -6846,7 +6850,7 @@
         "disabled": "Storniert",
         "extraordinaryEstablishment": "(provisorische Einrichtung)",
         "booking": {
-            "fillRate": "Befüllungsrate",
+            "fillRate": "Austlastung",
             "confirmed": "Bestätigt",
             "waiting": "Warteliste"
         },

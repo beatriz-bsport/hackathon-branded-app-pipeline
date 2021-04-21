@@ -546,7 +546,7 @@
                 "noPastBookings": "Ninguna reserva anterior",
                 "cancelOption": "Cancelar",
                 "myPrivateBooking": "Cita",
-                "intro": "Su reserva en {{date}}"
+                "intro": "Su reserva el {{date}}"
             },
             "myPrivatePass": "Mis tarjetas de cita"
         },
@@ -1746,7 +1746,8 @@
             "halfHour": "30 min",
             "twentyMinutes": "20 min",
             "quarterHour": "15 min",
-            "zeroMinute": "0 min"
+            "zeroMinute": "0 min",
+            "fiftyMinutes": "50 min"
         },
         "never": "Nunca"
     },
@@ -1986,7 +1987,8 @@
             "revert": "Cancelar",
             "invoiceReverted": "Factura cancelada",
             "consumeBalance": "Paga a través del balance",
-            "explainPdfDraft": "La factura sigue siendo un borrador, el pdf no está disponible."
+            "explainPdfDraft": "La factura sigue siendo un borrador, el pdf no está disponible.",
+            "addFooter": "Modificar la nota a pie de página de la factura"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "La factura se ha finalizado y, por lo tanto, ya no se puede editar",
@@ -2186,7 +2188,8 @@
             "isInternalExplain": "Cuenta de cliente (manual): cada mes se aplicará un cargo a este miembro.",
             "title": "Método de pago",
             "add": "Añadir",
-            "edit": "Modificar"
+            "edit": "Modificar",
+            "none": "No se ha guardado ningún método de pago"
         },
         "paymentEngine": {
             "label": {
@@ -2418,7 +2421,7 @@
                     "placeholder": "Nueva oferta exclusiva limitada"
                 },
                 "recurrent_price": {
-                    "label": "Mensualidad"
+                    "label": "Pago recurrente"
                 },
                 "nb_interval": {
                     "helperText": "Al menos 2 meses",
@@ -2647,7 +2650,7 @@
             "establishment": "Establecimiento",
             "activity": "Actividad",
             "pass": "Tarjeta de curso",
-            "remaining_credits": "Creditos remanentes",
+            "remaining_credits": "Crédito restante hoy",
             "duration": "Duración (minutos)",
             "date_start": "Fecha",
             "duration_minute": "Duración (minutos)",
@@ -3759,12 +3762,19 @@
                 "voucherConfig": "Reducción",
                 "usability": "Uso",
                 "availability": "Disponibilidad",
-                "general": "General"
+                "general": "General",
+                "subscription": "Suscripción (contrato)"
             },
             "selectorPlaceholder": {
                 "shopitem": "Seleccione productos de la tienda (válido en todos los productos si no se selecciona ninguno)",
                 "paymentPack": "Seleccionar tarjetas de curso (válido en todas las tarjetas si no se selecciona ninguna)",
                 "privatePass": "Seleccionar tarjetas de cita (válido en todas las tarjetas si no se selecciona ninguna)"
+            },
+            "subscription_mode": {
+                "3": "No aplicable",
+                "2": "Sólo se aplica a los pagos antes de la renovación automática",
+                "1": "Aplicar sólo al primer pago",
+                "0": "Aplicar a todos los pagos"
             }
         },
         "modal": {
@@ -4000,6 +4010,9 @@
                     "on_attendance": "Comienza con la primera asistencia",
                     "on_booking": "Comienza con la primera reserva",
                     "on_purchase": "Iniciar la facturación"
+                },
+                "new_member_only": {
+                    "label": "Sólo para clientes nuevos"
                 }
             },
             "compatibleServices": {
@@ -4105,7 +4118,9 @@
             "updateCoach": "Elige un nuevo profesor para esta cita",
             "isCancelledDate": "Cancelado el {{-date}} a las {{time}}",
             "restore": "Restaurar la cita",
-            "bookings": "Citas"
+            "bookings": "Citas",
+            "notRefunded": "No reembolsado",
+            "isRefunded": "Reembolsado"
         },
         "consumerPass": {
             "detail": {
@@ -4201,7 +4216,8 @@
             },
             "recurrenceRule": {
                 "label": "Programe una cita recurrente"
-            }
+            },
+            "confirm": "Confirmar"
         },
         "slot": {
             "form": {
@@ -4227,7 +4243,9 @@
                 "credit": {
                     "helperText": "Número de créditos necesarios para una reserva",
                     "label": "Número de créditos"
-                }
+                },
+                "pre_selected_choices": "Duraciones predefinidas",
+                "durationError": "Duración no válida (entre 15min y 1d)"
             },
             "parameters": {
                 "credit": "{{ credit }} crédito"
@@ -4364,7 +4382,8 @@
                 "showPrivateBookings": "Citas",
                 "showOfferList": "Cursos de grupo",
                 "showCustomEvents": "Cita personal",
-                "hideCancelledEvents": "Ver cancelaciones"
+                "hideCancelledEvents": "Ver cancelaciones",
+                "title": "Mostrar filtros"
             },
             "addBooking": "Registrar una cita",
             "selectCoachToModifyAvailability": "Seleccionar un profesor",
@@ -4375,7 +4394,11 @@
             "header": {
                 "threeDaysView": "3 días"
             },
-            "createCustomEvent": "Crea una cita personal"
+            "createCustomEvent": "Crea una cita personal",
+            "customEvent": {
+                "dateEnd": "Fecha de finalización",
+                "dateStart": "Fecha de inicio"
+            }
         },
         "privateServiceCompatibility": {
             "delete": {
@@ -4428,7 +4451,10 @@
                     "label": "Modificar para :",
                     "title": "Cambiar franja horaria"
                 }
-            }
+            },
+            "private_service": "Tipo de cita",
+            "establishment": "Establecimiento",
+            "coach": "Profesor"
         },
         "noPrivateService": "El miembro puede reservar una cita en la plaza que has elegido.",
         "noPrivatePass": "Las tarjetas de cita permiten a los miembros hacer una cita, define tus precios y términos aquí.",
@@ -4738,7 +4764,10 @@
             "name": {
                 "label": "Nombre"
             },
-            "title": "Formulario pack"
+            "title": "Formulario pack",
+            "new_member_only": {
+                "label": "Sólo para clientes nuevos"
+            }
         },
         "list": {
             "section": {
@@ -4964,6 +4993,24 @@
                         "label": "Apellido"
                     }
                 }
+            },
+            "role": {
+                "delete": {
+                    "confirm": "Confirmar",
+                    "cancel": "Cancelar",
+                    "content": "Está seguro de que quiere eliminar este nivel de acceso?",
+                    "title": "Eliminar el nivel de acceso"
+                },
+                "create": {
+                    "showAdvanced": "Ver más",
+                    "permissions": "Gestión de permisos",
+                    "restrictedUrlPlaceholder": "ex: /miembro/",
+                    "restrictedUrl": "URLs restringidos",
+                    "description": "Descripción",
+                    "name": "Nombre",
+                    "title": "Definir el nivel de acceso",
+                    "buttonCreate": "Añadir nivel de acceso  "
+                }
             }
         },
         "permissions": "Papeles disponibles",
@@ -4995,6 +5042,82 @@
             "5": {
                 "name": "Informes",
                 "description": "Acceso sólo a los informes, útil para sus contadores por ejemplo"
+            }
+        },
+        "rolePermissions": {
+            "navigationMenu": {
+                "settings": {
+                    "_label": "Parámetros"
+                },
+                "reporting": {
+                    "_label": "Informes"
+                },
+                "member": {
+                    "_label": "Miembro"
+                },
+                "digitalOffer": {
+                    "_label": "Oferta digital"
+                },
+                "marketing": {
+                    "_label": "Marketing"
+                },
+                "payments": {
+                    "_label": "Pagos"
+                },
+                "products": {
+                    "_label": "Productos"
+                },
+                "myClub": {
+                    "_label": "Mi Club"
+                },
+                "schedule": {
+                    "_label": "Horario"
+                },
+                "calendar": {
+                    "_label": "Calendario"
+                },
+                "dashboard": {
+                    "_label": "Dashboard"
+                },
+                "search": {
+                    "_helper": "Sólo móvil",
+                    "_label": "Buscar miembros"
+                },
+                "_label": "Menú de navegación"
+            },
+            "member": {
+                "search": {
+                    "_label": "Buscar"
+                },
+                "edit": {
+                    "_label": "Editar"
+                },
+                "retrieve": {
+                    "_label": "Acceso al perfil de los miembros"
+                },
+                "create": {
+                    "_label": "Crear"
+                },
+                "_label": "Miembro"
+            },
+            "offer": {
+                "edit": {
+                    "_label": "Editar"
+                },
+                "delete": {
+                    "_label": "Cancelar"
+                },
+                "create": {
+                    "_label": "Crear"
+                },
+                "_label": "Sesiones"
+            },
+            "search": {
+                "_label": "Buscar miembros"
+            },
+            "appbarActions": {
+                "_helper": "Creación de socios, informe de pago en sitio..",
+                "_label": "Actions appbar"
             }
         }
     },

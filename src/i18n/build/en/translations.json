@@ -3600,7 +3600,8 @@
                     "name": "Name",
                     "title": "Define access level",
                     "buttonCreate": "Add access level  ",
-                    "restrictedUrl": "Restricted URLs"
+                    "restrictedUrl": "Restricted URLs",
+                    "restrictedUrlPlaceholder": "ex: /member/"
                 }
             }
         },
@@ -5621,7 +5622,7 @@
             "amortized_price": "Deffered amount",
             "end_date": "End of validity",
             "credits": "Total credits",
-            "available_credits": "Available credits",
+            "available_credits": "Deferred credit",
             "product_names": "Products",
             "payment_price": "price",
             "payment_method_readable_identifier": "Payment method",

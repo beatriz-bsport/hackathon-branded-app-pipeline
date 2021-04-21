@@ -101,6 +101,7 @@ exports.default = {
     DK: 'Danemark',
     LU: 'Luxembourg',
     CA: 'Canada',
+    AE: 'Émirats Arabes Unis',
   },
   language: {
     fr: 'français',

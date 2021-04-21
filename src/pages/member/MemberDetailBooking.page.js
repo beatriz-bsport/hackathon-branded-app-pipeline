@@ -276,6 +276,7 @@ export class MemberDetailBooking extends Component<Props, State> {
                 items={this.props.bookings}
                 nbItems={this.props.bookingCount}
                 page={this.props.bookingCurrentPage}
+                additionalFilters={this.props.filters}
                 onPageRequested={(page, page_size) =>
                   this.props.fetchMemberBookingsList(page, page_size)
                 }
@@ -507,7 +508,6 @@ export default compose(
   routerParamsToProps({ id: 'id:number', bookingId: 'bookingId:number' }),
   withTranslation('booking'),
   withStyles(styles),
-  withState('filters', 'setFilters', {}),
   withState('open', 'setOpen', {}),
   withState('bookerInAvanceDialog', 'setBookerInAvanceDialog', false),
   withState('selectedRecurrentBooking', 'setSelectedRecurrentBooking', null),
@@ -580,6 +580,13 @@ export default compose(
         push(`/member/${memberId}/bookings/${bookingId}/`),
     },
   ),
+  withState('filters', 'setFilters', (props) => {
+    const { userFilters } = props;
+    if (userFilters && userFilters.private_pass_filters) {
+      return userFilters.booking_filters;
+    }
+    return {};
+  }),
   withHandlers({
     fetchRecurrenceRuleBooking: ({
       fetchRecurrenceRuleBooking,

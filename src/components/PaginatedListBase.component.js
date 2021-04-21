@@ -49,6 +49,12 @@ export class PaginatedList extends PureComponent<Props, State> {
     this.handlePageRequested(1);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.additionalFilters !== prevProps.additionalFilters) {
+      this.handlePageRequested(this.props.page);
+    }
+  }
+
   hasNext = () => {
     if (this.props.unknownNbItems) {
       return this.props.itemPerPage === this.props.items.length;

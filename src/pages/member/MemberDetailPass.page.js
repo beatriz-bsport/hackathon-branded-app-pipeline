@@ -283,6 +283,7 @@ export class MemberDetailPass extends Component<Props, State> {
               listProps={{ disablePadding: true }}
               items={this.props.consumerPacks}
               nbItems={this.props.consumerPackCount}
+              additionalFilters={this.props.filters}
               page={this.props.consumerPackCurrentPage}
               onPageRequested={(page, pageSize) =>
                 this.props.fetchConsumerPackList(page, pageSize)
@@ -453,7 +454,6 @@ export default compose(
   }),
   withTranslation(['paymentPack']),
   withStyles(styles),
-  withState('filters', 'setFilters', {}),
   withState('open', 'setOpen', {}),
   withState('openCreateExtension', 'setOpenCreateExtension', false),
   withState('relatedInvoice', 'setRelatedInvoice', null),
@@ -535,6 +535,13 @@ export default compose(
       fetchConsumerPaymentPackPenalty: fetchConsumerPaymentPackPenaltyAction,
     },
   ),
+  withState('filters', 'setFilters', (props) => {
+    const { userFilters } = props;
+    if (userFilters && userFilters.pass_filters) {
+      return userFilters.pass_filters;
+    }
+    return { reverted: false };
+  }),
   withStateHandlers(
     { consumerPaymentPackToRefund: null, showCreditRefund: true },
     {

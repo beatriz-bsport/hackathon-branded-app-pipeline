@@ -105,10 +105,6 @@ type Props = {
 export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
   componentDidMount() {
     this.props.resetPrivateConsumerPassListAction();
-    this.props.fetchPrivateConsumerPassList({
-      ...this.props.filters,
-      member: this.props.id,
-    });
     this.props.fetchMember(this.props.id);
     if (this.props.privateConsumerPassId) {
       this.fetchPrivateConsumerPassDetail();
@@ -118,7 +114,6 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
   componentDidUpdate(prevProps: Props) {
     if (prevProps.filters !== this.props.filters) {
       this.props.resetPrivateConsumerPassListAction();
-      this.props.fetchMember(this.props.id);
       this.props.updateFiltersSettings(this.props.filters);
     }
     if (
@@ -170,6 +165,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
               items={this.props.private_consumer_pass_list}
               nbItems={this.props.privateConsumerPassCount}
               page={this.props.privateConsumerPassPage}
+              additionalFilters={this.props.filters}
               onPageRequested={(page, page_size) =>
                 this.props.fetchPrivateConsumerPassList({
                   ...this.props.filters,
@@ -254,7 +250,6 @@ export default compose(
     privateConsumerPassId: 'privateConsumerPassId:number',
   }),
   withState('relatedInvoice', 'setRelatedInvoice', null),
-  withState('filters', 'setFilters', { reverted: false }),
   withState('open', 'setOpen', {}),
   connect(
     (state, { id, privateConsumerPassId, relatedInvoice }) => ({
@@ -304,6 +299,13 @@ export default compose(
         ),
     },
   ),
+  withState('filters', 'setFilters', (props) => {
+    const { userFilters } = props;
+    if (userFilters && userFilters.private_pass_filters) {
+      return userFilters.private_pass_filters;
+    }
+    return { reverted: false };
+  }),
   withState('openCreateExtension', 'setOpenCreateExtension', false),
   withTranslation(['privateService']),
   withHandlers({

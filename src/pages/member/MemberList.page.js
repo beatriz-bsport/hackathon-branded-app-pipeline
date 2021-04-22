@@ -80,6 +80,13 @@ export class Members extends Component<Props> {
     </div>
   );
 
+  fetchMemberList = (params: any = {}) => {
+    return fetchMemberList({
+      ...params,
+      company: 0,
+    });
+  };
+
   render() {
     const { addMember, goToMemberPage } = this.props;
 
@@ -89,7 +96,7 @@ export class Members extends Component<Props> {
           <MemberTable
             tagsExcluded={this.state.tagsExcluded}
             tagsIncluded={this.state.tagsIncluded}
-            fetch={fetchMemberList}
+            fetch={this.fetchMemberList}
             goToMember={goToMemberPage}
             addMember={addMember}
             customToolBar={this.tagFilterBar}

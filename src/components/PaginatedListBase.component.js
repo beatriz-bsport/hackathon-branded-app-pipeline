@@ -22,6 +22,7 @@ type Props = {
   listProps: any,
   nbItems: number,
   itemPerPage: number,
+  additionalFilters: ?any,
   unknownNbItems?: boolean,
   page: number,
   loading: ?boolean,

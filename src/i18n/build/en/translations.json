@@ -7135,7 +7135,7 @@
         },
         "mail": {
             "sendMail": "Send a mail",
-            "sendMailTitle": "Send a mail",
+            "sendMailTitle": "Send email",
             "cancel": "Cancel",
             "send": "Send",
             "noMailAvailable": "No mail available, think about creating one",

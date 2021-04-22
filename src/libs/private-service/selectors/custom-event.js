@@ -10,11 +10,15 @@ export const getCustomEventList = createSelector(
   [_getCustomEventData, periodFilterExtractor],
   (customEventData, periodFilter) => {
     if (periodFilter) {
-      return Object.values(customEventData).filter(
-        (v) =>
-          moment(v.date_start).isSameOrAfter(periodFilter.start) &&
-          moment(v.date_start).isSameOrBefore(periodFilter.end),
-      );
+      return Object.values(customEventData).filter((v) => {
+        return (
+          moment(v.date_start).isSameOrAfter(
+            moment(periodFilter.start),
+            'day',
+          ) &&
+          moment(v.date_start).isSameOrBefore(moment(periodFilter.end), 'day')
+        );
+      });
     }
     return Object.values(customEventData);
   },

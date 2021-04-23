@@ -61,6 +61,9 @@ exports.default = {
     category: 'Catégorie',
     description: 'Description',
     level: 'Niveau',
+    manager_only: "Non disponible à l'achat",
+    manager_only_helper:
+      "La vidéo ne sera pas disponible à l'achat, elle sera visible par les managers uniquement",
     status: {
       submitted: 'Brouillon',
       processing: 'En cours',

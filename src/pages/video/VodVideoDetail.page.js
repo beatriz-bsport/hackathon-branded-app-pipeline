@@ -81,7 +81,11 @@ export class VodVideoDetailPage extends React.Component<Props> {
         <Grid spacing={3} container direction="row">
           <Grid item xs={12} lg={8}>
             {this.props.video ? (
-              <VideoPlayerFull authenticated video={this.props.video} />
+              <VideoPlayerFull
+                authenticated
+                video={this.props.video}
+                managerOnly={this.props.video.manager_only}
+              />
             ) : null}
           </Grid>
           <Grid item xs={12} lg={4}>

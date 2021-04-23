@@ -56,6 +56,7 @@ import { fetchAccessLevel } from '../actions/auth.actions';
 
 import type { TempPasswordState } from '../libs/login/types';
 import { fetchCompanyRoles } from '../libs/role/actions';
+import GenericDialog from '../components/GenericDialog/GenericDialog';
 
 const MarketingRouter = asyncComponent(() =>
   import('./marketing/Marketing.router'),
@@ -342,6 +343,7 @@ export class Backoffice extends Component<Props, State> {
                 />
               </main>
             </ResponsiveDrawer>
+            <GenericDialog />
           </Context.Provider>
         </PermissionContext.Provider>
       </MuiThemeProvider>

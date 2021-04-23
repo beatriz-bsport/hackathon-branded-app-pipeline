@@ -21,6 +21,7 @@ export type Video<S = number, C = number> = {
   status: VideoStatusEnum;
   date_created: string;
   credit_price: number;
+  manager_only: boolean;
 };
 
 export type VideoPurchase = {

@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
@@ -17,6 +18,7 @@ type Props = {
   authenticated: boolean,
   requestVideoAccess: () => void,
   videoPlayerKey?: number,
+  managerOnly?: boolean,
 };
 export const VideoPlayerFull = (props: Props) => {
   const classes = useStyles();
@@ -49,6 +51,14 @@ export const VideoPlayerFull = (props: Props) => {
             />
           )}
         </div>
+        {props.managerOnly && (
+          <div className={classes.managerOnlyContainer}>
+            <VisibilityOffIcon />
+            <Typography className={classes.managerOnlyText} variant="body2">
+              {t('video.manager_only')}
+            </Typography>
+          </div>
+        )}
         {!!coaches.length && (
           <div className={classes.coachContainer}>
             {coaches.map((c) => (
@@ -90,6 +100,15 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  managerOnlyContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: theme.spacing(2),
+  },
+  managerOnlyText: {
+    marginLeft: theme.spacing(1),
   },
   timeIcon: {
     height: 26,

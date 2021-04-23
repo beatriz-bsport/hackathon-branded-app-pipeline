@@ -12,7 +12,11 @@ import ImageField from '../../../components/forms/ImageField.component';
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
 import CoachSelector from '../../associated-coach/components/CoachSelector.component';
 import CoachListItemBasic from '../../associated-coach/components/CoachListItemBasic.component';
-import { TextField, IntegerField } from '../../../components/forms';
+import {
+  TextField,
+  IntegerField,
+  CheckboxField,
+} from '../../../components/forms';
 import LevelSelectorField from '../../category/components/LevelSelectorField.component';
 
 type Props = {
@@ -117,6 +121,15 @@ export const VideoForm = (props: Props) => {
           helperText={t('video.form.creditPrice.helperText')}
         />
       </div>
+
+      <div className={classes.field}>
+        <CheckboxField
+          helperText={t('video.manager_only_helper')}
+          name="manager_only"
+          label={t('video.manager_only')}
+        />
+      </div>
+
       <div className={classes.field}>
         <TextField
           label={t('video.description')}
@@ -138,6 +151,11 @@ const useStyles = makeStyles((theme) => ({
   },
   field: {
     marginBottom: theme.spacing(2),
+  },
+  managerOnlyContainer: {
+    marginBottom: theme.spacing(4),
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   selectorWrapper: {
     backgroundColor: '#F4F4F4',
@@ -163,6 +181,7 @@ export const VideoSchema = Yup.object().shape({
   coaches: Yup.array().of(Yup.number()),
   SCT: Yup.number().integer(),
   credit_price: Yup.number().integer(),
+  manager_only: Yup.boolean(),
 });
 
 export const VideoFormHOC = withFormik({
@@ -172,6 +191,7 @@ export const VideoFormHOC = withFormik({
         ...initial,
         coaches: [...initial.coaches.map((ac) => ac.id)],
         SCT: initial.SCT ? initial.SCT.id : null,
+        manager_only: initial.manager_only,
       };
     }
     return {
@@ -182,6 +202,7 @@ export const VideoFormHOC = withFormik({
       SCT: null,
       level: 1,
       credit_price: 0,
+      manager_only: false,
     };
   },
   validationSchema: VideoSchema,
@@ -196,6 +217,7 @@ export const VideoFormHOC = withFormik({
       'coaches',
       'level',
       'credit_price',
+      'manager_only',
     ];
     const { cover_main } = values;
     const data = {

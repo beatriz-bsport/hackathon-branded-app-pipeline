@@ -251,6 +251,7 @@ const mapHandlers = {
       {
         status: VideoStatusEnum.processed,
         company: props.companyId,
+        is_marketplace: true,
         ...params,
       },
       1,

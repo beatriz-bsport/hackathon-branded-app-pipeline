@@ -7,10 +7,10 @@ import { push } from 'connected-react-router';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import Divider from '@material-ui/core/Divider';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import ViewSwitcher from '../../components/ViewSwitcher';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { mapFormData } from '../form.utils';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
@@ -31,6 +31,7 @@ import {
   setVideoProviderIdentifier,
 } from '../../libs/video/actions';
 
+import VideoCardGrid from '../../libs/video/components/VideoCardGrid.component';
 import VideoCardList from '../../libs/video/components/VideoCardList.component';
 import VideoFormDialog from '../../libs/video/components/VideoFormDialog.component';
 import VideoUploadDialog from '../../libs/video/components/VideoUploadDialog.component';
@@ -69,7 +70,7 @@ type Props = {
   setVideoToStream: (?Video) => void,
   closeVideoStream: () => void,
   createOrUpdateVideo: (data: any, options: OptionCallback) => void,
-  deleteVideo: (id: number) => void,
+  deleteVideo: (video: Video) => void,
 
   videoToUploadId: ?number,
   videoToUpload: ?Video,
@@ -85,6 +86,8 @@ type Props = {
   videoFilterableParams: { SCTs: Array<SCT>, coaches: Array<AssociatedCoach> },
 
   submitVideoProviderIdentifier: (data: any, options: OptionCallback) => void,
+  viewMode: string,
+  setViewMode: (viewMode: string) => void,
 };
 
 const VideoMap = {
@@ -96,6 +99,12 @@ const VideoMap = {
   level: 'level',
   coaches: 'coaches',
   credit_price: 'credit_price',
+  manager_only: 'manager_only',
+};
+
+const VIEW_MODE = {
+  grid: 'grid',
+  list: 'list',
 };
 
 export class VodVideoListPage extends React.PureComponent<Props> {
@@ -124,18 +133,39 @@ export class VodVideoListPage extends React.PureComponent<Props> {
             scts={this.props.videoFilterableParams.SCTs || []}
           />
         </div>
-        <Divider className={classes.divider} />
-        <VideoCardList
-          goToDetail={this.props.goToDetail}
-          videoList={this.props.videoList}
-          onEdit={this.props.openEditForm}
-          onDelete={this.props.deleteVideo}
-          onRequestUpload={this.props.setVideoToUpload}
-          onStream={this.props.setVideoToStream}
-          onShowMore={this.props.fetchMoreVideo}
-          hasMoreVideo={this.props.hasMoreVideo}
-          loading={this.props.loading}
-        />
+        <div className={classes.viewModeContainer}>
+          <ViewSwitcher
+            value={this.props.viewMode}
+            onChange={this.props.setViewMode}
+          />
+        </div>
+
+        {this.props.viewMode === 'grid' ? (
+          <VideoCardGrid
+            goToDetail={this.props.goToDetail}
+            videoList={this.props.videoList}
+            onEdit={this.props.openEditForm}
+            onDelete={this.props.deleteVideo}
+            onRequestUpload={this.props.setVideoToUpload}
+            onStream={this.props.setVideoToStream}
+            onShowMore={this.props.fetchMoreVideo}
+            hasMoreVideo={this.props.hasMoreVideo}
+            loading={this.props.loading}
+          />
+        ) : (
+          <VideoCardList
+            goToDetail={this.props.goToDetail}
+            videoList={this.props.videoList}
+            onEdit={this.props.openEditForm}
+            onDelete={this.props.deleteVideo}
+            onRequestUpload={this.props.setVideoToUpload}
+            onStream={this.props.setVideoToStream}
+            onShowMore={this.props.fetchMoreVideo}
+            hasMoreVideo={this.props.hasMoreVideo}
+            loading={this.props.loading}
+          />
+        )}
+
         {!!this.props.videoToStream && (
           <VideoStreamDialog
             video={this.props.videoToStream}
@@ -185,7 +215,7 @@ const styles = (theme) => ({
   searchContainer: {
     marginBottom: theme.spacing(2),
   },
-  divider: {
+  viewModeContainer: {
     marginBottom: theme.spacing(4),
   },
 });
@@ -205,6 +235,7 @@ export default compose(
       createOpen: false,
       videoToUploadId: null,
       videoToStream: null,
+      viewMode: VIEW_MODE.grid,
     },
     {
       openCreateForm: () => () => {
@@ -227,6 +258,7 @@ export default compose(
         };
       },
       closeEditForm: () => () => ({ editVideo: null }),
+      setViewMode: () => (viewMode: string) => ({ viewMode }),
     },
   ),
   connect(
@@ -299,8 +331,8 @@ export default compose(
       deleteVideo,
       fetchVideoList,
       fetchVideoFilterableParams,
-    }) => (id, options) => {
-      deleteVideo(id, {
+    }) => (video, options) => {
+      deleteVideo(video.id, {
         onSuccess: (...args) => {
           if (options && options.onSuccess) {
             options.onSuccess(...args);

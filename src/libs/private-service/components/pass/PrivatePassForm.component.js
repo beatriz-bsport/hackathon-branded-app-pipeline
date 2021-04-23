@@ -36,6 +36,7 @@ type Props = {
   classes: Object,
   onCancel: () => void,
   values: *,
+  initial: ?PrivatePass,
 };
 
 export const PrivatePassForm = (props: Props) => {
@@ -53,6 +54,7 @@ export const PrivatePassForm = (props: Props) => {
         <IntegerField
           name="credits"
           fullWidth
+          disabled={props.initial && props.initial.editable === false}
           label={t('privatePass.form.credits.label')}
           helperText={t('privatePass.form.credits.helperText')}
         />
@@ -122,6 +124,7 @@ export const PrivatePassForm = (props: Props) => {
             helperText={t('privatePass.form.durationDays.helperText')}
             InputProps={{ min: 0, max: 30, step: 1 }}
             fullWidth
+            disabled={props.initial && props.initial.editable === false}
           />
         </div>
         <div className={classes.row}>
@@ -132,6 +135,7 @@ export const PrivatePassForm = (props: Props) => {
             helperText={t('privatePass.form.durationMonths.helperText')}
             InputProps={{ min: 0, max: 24, step: 1 }}
             fullWidth
+            disabled={props.initial && props.initial.editable === false}
           />
         </div>
         <div className={classes.row}>
@@ -142,11 +146,13 @@ export const PrivatePassForm = (props: Props) => {
             helperText={t('privatePass.form.durationYears.helperText')}
             InputProps={{ min: 0, max: 30, step: 1 }}
             fullWidth
+            disabled={props.initial && props.initial.editable === false}
           />
         </div>
         <div style={{ paddingBottom: 24 }}>
           <RadioGroupField
             name="start_date_method"
+            disabled={props.initial && props.initial.editable === false}
             choices={[
               {
                 label: t('privatePass.form.start_date_method.on_purchase'),
@@ -164,6 +170,7 @@ export const PrivatePassForm = (props: Props) => {
             <TextField
               name="expiration_days_before_first_use"
               label={t('privatePass.form.expirationDaysBeforeFirstUse.label')}
+              disabled={props.initial && props.initial.editable === false}
               helperText={t(
                 'privatePass.form.expirationDaysBeforeFirstUse.helperText',
               )}

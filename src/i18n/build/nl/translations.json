@@ -4089,7 +4089,9 @@
             "noVideoPurchase": "Nog geen aankopen geregistreerd",
             "coverMain": {
                 "alert": "Een afbeelding is vereist"
-            }
+            },
+            "manager_only_helper": "Deze video kan alleen door managers worden bekeken.",
+            "manager_only": "Niet beschikbaar"
         }
     },
     "order": {

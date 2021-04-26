@@ -295,7 +295,6 @@ export class Backoffice extends Component<Props, State> {
               alertings={this.props.alertings}
               nbAlerting={this.props.nbAlerting}
               deleteAlert={this.props.deleteAlert}
-              hidden={!this.props.permission.navigation}
               disconnect={this.props.disconnect}
               displayLeftMenu={this.state.displayLeftMenu}
               fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}

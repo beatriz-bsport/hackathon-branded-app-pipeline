@@ -185,6 +185,90 @@ export function PaymentPackForm(props: Props) {
             />
           </Grid>
         </Grid>
+        {unlimited && (
+          <fieldset className={classes.fieldset} id="pass_penalty">
+            <legend className={classes.legend}>
+              {t('form.paymentPack.penalty.title')}
+            </legend>
+            <CheckboxField
+              name="penalty_active"
+              disabled={!editable}
+              label={t('form.paymentPack.penalty.checkbox')}
+            />
+            {penalty_active && (
+              <>
+                <Typography className={classes.penaltyExplain}>
+                  {t('form.paymentPack.penalty.explain', {
+                    nb_cancellations: penalty_nb_late_cancellations,
+                    nb_days: penalty_nb_days,
+                  })}
+                </Typography>
+                <div className={classes.paramContainer}>
+                  <div className={classes.inlineIntegerField}>
+                    <Typography variant="caption">
+                      {t('form.paymentPack.penalty.nb_cancellations')}
+                    </Typography>
+                    <IntegerField
+                      className={classes.integerField}
+                      name="penalty_nb_late_cancellations"
+                    />
+                  </div>
+                  <div className={classes.inlineIntegerField}>
+                    <Typography variant="caption">
+                      {t('form.paymentPack.penalty.nb_days')}
+                    </Typography>
+                    <IntegerField
+                      className={classes.integerField}
+                      name="penalty_nb_days"
+                    />
+                  </div>
+                </div>
+                <Typography>
+                  {t('form.paymentPack.penalty.kind.label')}
+                </Typography>
+                <RadioGroupField
+                  name="penalty_kind"
+                  choices={[
+                    {
+                      label: t('form.paymentPack.penalty.kind.block'),
+                      value: PENALTY_KIND_BLOCK_CPP,
+                    },
+                    {
+                      label: t('form.paymentPack.penalty.kind.account'),
+                      value: PENALTY_KIND_NEGATIVE_ACCOUNT,
+                    },
+                  ]}
+                />
+                {parseInt(penalty_kind, 10) === PENALTY_KIND_BLOCK_CPP && (
+                  <TextField
+                    name="penalty_days_blocked"
+                    label={t('form.paymentPack.penalty.block.label')}
+                    helperText={t('form.paymentPack.penalty.block.helperText', {
+                      nb_days: penalty_days_blocked,
+                    })}
+                    type="number"
+                    fullWidth
+                  />
+                )}
+                {parseInt(penalty_kind, 10) ===
+                  PENALTY_KIND_NEGATIVE_ACCOUNT && (
+                  <PriceField
+                    name="penalty_account_value"
+                    label={t('form.paymentPack.penalty.account.label')}
+                    helperText={t(
+                      'form.paymentPack.penalty.account.helperText',
+                      {
+                        value: penalty_account_value,
+                      },
+                    )}
+                    fullWidth
+                  />
+                )}
+              </>
+            )}
+          </fieldset>
+        )}
+
         <fieldset className={classes.fieldset} id="pass_availability">
           <legend className={classes.legend}>
             {t('form.paymentPack.timeSettingsTitle')}
@@ -424,90 +508,6 @@ export function PaymentPackForm(props: Props) {
             </Grid>
           </Grid>
         </fieldset>
-        {unlimited && (
-          <fieldset className={classes.fieldset} id="pass_penalty">
-            <legend className={classes.legend}>
-              {t('form.paymentPack.penalty.title')}
-            </legend>
-            <CheckboxField
-              name="penalty_active"
-              disabled={!editable}
-              label={t('form.paymentPack.penalty.checkbox')}
-            />
-            {penalty_active && (
-              <>
-                <Typography className={classes.penaltyExplain}>
-                  {t('form.paymentPack.penalty.explain', {
-                    nb_cancellations: penalty_nb_late_cancellations,
-                    nb_days: penalty_nb_days,
-                  })}
-                </Typography>
-                <div className={classes.paramContainer}>
-                  <div className={classes.inlineIntegerField}>
-                    <Typography variant="caption">
-                      {t('form.paymentPack.penalty.nb_cancellations')}
-                    </Typography>
-                    <IntegerField
-                      className={classes.integerField}
-                      name="penalty_nb_late_cancellations"
-                    />
-                  </div>
-                  <div className={classes.inlineIntegerField}>
-                    <Typography variant="caption">
-                      {t('form.paymentPack.penalty.nb_days')}
-                    </Typography>
-                    <IntegerField
-                      className={classes.integerField}
-                      name="penalty_nb_days"
-                    />
-                  </div>
-                </div>
-                <Typography>
-                  {t('form.paymentPack.penalty.kind.label')}
-                </Typography>
-                <RadioGroupField
-                  name="penalty_kind"
-                  choices={[
-                    {
-                      label: t('form.paymentPack.penalty.kind.block'),
-                      value: PENALTY_KIND_BLOCK_CPP,
-                    },
-                    {
-                      label: t('form.paymentPack.penalty.kind.account'),
-                      value: PENALTY_KIND_NEGATIVE_ACCOUNT,
-                    },
-                  ]}
-                />
-                {parseInt(penalty_kind, 10) === PENALTY_KIND_BLOCK_CPP && (
-                  <TextField
-                    name="penalty_days_blocked"
-                    label={t('form.paymentPack.penalty.block.label')}
-                    helperText={t('form.paymentPack.penalty.block.helperText', {
-                      nb_days: penalty_days_blocked,
-                    })}
-                    type="number"
-                    fullWidth
-                  />
-                )}
-                {parseInt(penalty_kind, 10) ===
-                  PENALTY_KIND_NEGATIVE_ACCOUNT && (
-                  <PriceField
-                    name="penalty_account_value"
-                    label={t('form.paymentPack.penalty.account.label')}
-                    helperText={t(
-                      'form.paymentPack.penalty.account.helperText',
-                      {
-                        value: penalty_account_value,
-                      },
-                    )}
-                    fullWidth
-                  />
-                )}
-              </>
-            )}
-          </fieldset>
-        )}
-
         <Actions>
           {props.onCancel ? (
             <Button onClick={props.onCancel}>

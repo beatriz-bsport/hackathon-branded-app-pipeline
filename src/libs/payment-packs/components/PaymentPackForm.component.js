@@ -123,7 +123,6 @@ export function PaymentPackForm(props: Props) {
               label={t('form.paymentPack.priceIncludingTax.label')}
               required
               fullWidth
-              disabled={!editable}
               helperText={t('form.paymentPack.priceIncludingTax.helperText')}
             />
           </Grid>
@@ -135,7 +134,6 @@ export function PaymentPackForm(props: Props) {
               type="number"
               required
               fullWidth
-              disabled={!editable}
               max={100}
               InputProps={{
                 inputProps: { min: 0, max: 100, step: 0.01 },
@@ -315,7 +313,6 @@ export function PaymentPackForm(props: Props) {
             <Grid item xs={12} id="full_vod_access">
               <CheckboxField
                 name="full_vod_access"
-                disabled={!editable}
                 label={t('form.paymentPack.full_vod_access')}
               />
             </Grid>
@@ -323,7 +320,6 @@ export function PaymentPackForm(props: Props) {
               <Grid item xs={12} id="only_vod_access">
                 <CheckboxField
                   name="only_vod_access"
-                  disabled={!editable}
                   label={t('form.paymentPack.only_vod_access')}
                 />
               </Grid>

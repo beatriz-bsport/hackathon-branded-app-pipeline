@@ -208,7 +208,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               </Typography>
             )}
             <CouponCodeForm
-              onSubmit={async (coupon_code) => {
+              onSubmit={async (coupon_code, options) => {
                 const { data } = await appliesToContractAPI(
                   coupon_code,
                   this.props.contract.id,
@@ -218,7 +218,8 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                     coupon_code,
                     voucher: data.voucher,
                   });
-                }
+                  if (options && options.onSuccess) options.onSuccess();
+                } else if (options && options.onError) options.onError();
               }}
             />
             <Divider />

@@ -590,7 +590,7 @@
             "pass": "Kurskarte",
             "members": "Meine Benutzer",
             "items": "Objekte",
-            "isRefreshing": "Ihre Website wird in Kürze bereit sein",
+            "isRefreshing": "Deine Website wird in Kürze bereit sein",
             "duplicate": "Duplizieren",
             "restore": "Wiederherstellen",
             "share": "Teilen"
@@ -1361,7 +1361,7 @@
             "cancelledBookings_plural": "{{nb}} Buchungen storniert",
             "totalBookings": "{{nb}} Buchung insgesamt",
             "totalBookings_plural": "{{nb}} Buchungen insgesamt",
-            "offerFilteredBookingRecap": "Ihre Buchung am  {{date}}",
+            "offerFilteredBookingRecap": "Deine Buchung am  {{date}}",
             "weekOverview": "Übersicht der Woche"
         },
         "show_cancelled_offers": "Abgesagte Stunden anzeigen",
@@ -1875,12 +1875,12 @@
             },
             "facebookURL": {
                 "placeholder": "https://facebook.com/mein-studio/",
-                "helperText": "Ihre Facebook-Seite",
+                "helperText": "Deine Facebook-Seite",
                 "label": "URL Facebook"
             },
             "scheduleURL": {
                 "placeholder": "https://studio.com/calendar/",
-                "helperText": "Standard-Link ihres Kalenders",
+                "helperText": "Standard-Link Deines Kalenders",
                 "label": "URL Planning"
             },
             "websiteURL": {
@@ -1978,7 +1978,7 @@
             "submit": "Speichern",
             "instagramURL": {
                 "placeholder": "https://instagram.com/mein-studio/",
-                "helperText": "Ihre Instagramseite",
+                "helperText": "Deine Instagramseite",
                 "label": "URL Instagram"
             },
             "general_terms_and_conditions": {
@@ -1987,12 +1987,12 @@
                 "label": "Allgemeine Verkaufsbedingungen"
             },
             "android_app_url": {
-                "helperText": "Ihre Android-App",
+                "helperText": "Deine Android-App",
                 "label": "URL der Android-App",
                 "placeholder": "https://play.google.com/store/apps/details?id=com.bsport"
             },
             "ios_app_url": {
-                "helperText": "Ihre iOS-App",
+                "helperText": "Deine iOS-App",
                 "label": "URL der iOS-App",
                 "placeholder": "https://apps.apple.com/de/app/id1356621554"
             },
@@ -3159,7 +3159,7 @@
             "success": "Die E-Mail wird gesendet"
         },
         "order": {
-            "success": "Ihre Zahlung wurde erfolgreich gespeichert"
+            "success": "Deine Zahlung wurde erfolgreich gespeichert"
         },
         "booking": {
             "register": {
@@ -3361,7 +3361,7 @@
                 "stripe_footer_placeholder": "Keine weitere Angabe"
             },
             "stripe_footer": "Fußzeile der Rechnung",
-            "explainStripeFooter": "Dieser Text wird am Ende Ihrer als PDF bearbeiteten Rechnungen angezeigt. Füge alle erforderlichen rechtlichen Hinweise hinzu.",
+            "explainStripeFooter": "Dieser Text wird am Ende Deiner als PDF bearbeiteten Rechnungen angezeigt. Füge alle erforderlichen rechtlichen Hinweise hinzu.",
             "nf525Button": "Herunterladen",
             "nf525Explain": "Bsport befolgt die NF525-Konformitätsverfahren. Hier kannst Du unser offizielles Zertifikat herunterladen.",
             "nf525": "Zertifizierung"
@@ -3697,7 +3697,7 @@
                     "close": "Schließen"
                 },
                 "collect": {
-                    "content": "Diese Zahlungsmethode wird in Ihrem Konto hinterlegt und vertragsgemäß in Rechnung gestellt.",
+                    "content": "Diese Zahlungsmethode wird in Deinem Konto hinterlegt und vertragsgemäß in Rechnung gestellt.",
                     "title": "Diese Zahlungsmethode hinzufügen"
                 },
                 "message": {
@@ -4060,7 +4060,9 @@
             "noVideoView": "Keine Views",
             "coverMain": {
                 "alert": "Bild ist erforderlich"
-            }
+            },
+            "manager_only_helper": "Das Video kann nicht gekauft werden, es ist nur für Admins sichtbar",
+            "manager_only": "Nicht zum Kauf verfügbar"
         },
         "playlist": {
             "description": "Beschreibung",
@@ -4628,7 +4630,7 @@
             "notifyMember": {
                 "label": "Eine Bestätigungs-E-Mail senden"
             },
-            "isAtHome": "Home-Kurs, Ihre Adresse wird bei der Buchung abgefragt",
+            "isAtHome": "Home-Kurs, Deine Adresse wird bei der Buchung abgefragt",
             "recurrenceRule": {
                 "label": "Vereinbare einen wiederkehrenden Termin"
             },
@@ -5514,10 +5516,10 @@
             "title": "Meine Videos"
         },
         "widget": {
-            "noBookingPast": "Keine Sitzung in Ihrem Verlauf",
-            "noBookingFuture": "Keine kommenden Sitzungen",
-            "pastBooking": "Geschichte",
-            "futureBooking": "Meine Vorbehalte"
+            "noBookingPast": "Keine Sitzung in Deinem Verlauf",
+            "noBookingFuture": "Keine bevorstehende Kurse",
+            "pastBooking": "Historie",
+            "futureBooking": "Meine Buchungen"
         }
     },
     "metaActivity": {
@@ -6129,46 +6131,46 @@
     "stripe": {
         "decline_code": {
             "do_not_honor": "Deine Bank hat die Zahlung abgelehnt, bitte kontaktiere Deinen Bankberater",
-            "generic_decline": "Die Bank hat ihre Zahlung abgelehnt",
-            "transaction_not_allowed": "Ihre Karte wurde von Ihrer Bank abgelehnt",
-            "restricted_card": "Ihre Karte wurde von Ihrer Bank abgelehnt",
+            "generic_decline": "Die Bank hat die Zahlung abgelehnt",
+            "transaction_not_allowed": "Deine Karte wurde von Deiner Bank abgelehnt",
+            "restricted_card": "Deine Karte wurde von Deiner Bank abgelehnt",
             "incorrect_number": "Die Kartennummer ist ungültig.",
-            "card_not_supported": "Ihre Karte wird nicht erkannt.",
-            "stolen_card": "Ihre Karte wurde von Ihrer Bank als gestohlen gemeldet",
+            "card_not_supported": "Deine Karte wird nicht erkannt.",
+            "stolen_card": "Deine Karte wurde von Deiner Bank als gestohlen gemeldet",
             "incorrect_cvc": "Der Sicherheitscode ist ungültig.",
             "withdrawal_count_limit_exceeded": "Zu hohe Abbuchung dieser Karte, abgelehnt.",
-            "insufficient_funds": "Ihre Karte ist nicht ausreichend gedeckt.",
+            "insufficient_funds": "Deine Karte ist nicht ausreichend gedeckt.",
             "none": " "
         },
         "error_code": {
             "unknown": "Netzwerkfehler, bitte versuche es in wenigen Augenblicken erneut",
-            "payment_intent_payment_attempt_failed": "Die Zahlung wurde von Ihrer Bank abgelehnt.",
-            "payment_intent_authentication_failure": "Die Zahlung wurde von Ihrer Bank abgelehnt.",
-            "expired_card": "Ihre Karte ist abgelaufen.",
-            "invalid_number": "Ihre Kartennummer ist ungültig.",
-            "invalid_expiry_year": "Das Ablaufdatum Ihrer Karte ist ungültig.",
-            "incomplete_expiry": "Das Ablaufdatum Ihrer Karte ist unvollständig.",
+            "payment_intent_payment_attempt_failed": "Die Zahlung wurde von Deiner Bank abgelehnt.",
+            "payment_intent_authentication_failure": "Die Zahlung wurde von Deiner Bank abgelehnt.",
+            "expired_card": "Deine Karte ist abgelaufen.",
+            "invalid_number": "Deine Kartennummer ist ungültig.",
+            "invalid_expiry_year": "Das Ablaufdatum Deiner Karte ist ungültig.",
+            "incomplete_expiry": "Das Ablaufdatum Deiner Karte ist unvollständig.",
             "incomplete_number": "Die Kartennummer ist unvollständig.",
             "processing_error": "Bei der Registrierung Deiner Zahlung ist ein Fehler aufgetreten. Bitte versuche es in wenigen Augenblicken erneut.",
             "card_declined": "Karte abgelehnt",
-            "incomplete_cvc": "Der Sicherheitscode auf Ihrer Karte ist unvollständig.",
-            "invalid_expiry_year_past": "Das Ablaufdatum Ihrer Karte ist bereits überschritten.",
+            "incomplete_cvc": "Der Sicherheitscode auf Deiner Karte ist unvollständig.",
+            "invalid_expiry_year_past": "Das Ablaufdatum Deiner Karte ist bereits überschritten.",
             "none": " "
         },
         "errors": {
             "unknown": "Netzwerkfehler, bitte versuche es in wenigen Augenblicken erneut",
-            "payment_intent_authentication_failure": "Die Zahlung wurde von Ihrer Bank abgelehnt.",
-            "expired_card": "Ihre Karte ist abgelaufen.",
-            "card_declined": "Ihre Karte wurde abgelehnt.",
-            "invalid_number": "Ihre Kartennummer ist ungültig.",
+            "payment_intent_authentication_failure": "Die Zahlung wurde von Deiner Bank abgelehnt.",
+            "expired_card": "Deine Karte ist abgelaufen.",
+            "card_declined": "Deine Karte wurde abgelehnt.",
+            "invalid_number": "Deine Kartennummer ist ungültig.",
             "processing_error": "Bei der Registrierung Deiner Zahlung ist ein Fehler aufgetreten. Bitte versuche es in wenigen Augenblicken erneut.",
-            "incorrect_cvc": "Der Sicherheitscode Ihrer Karte ist falsch.",
-            "incomplete_cvc": "Der Sicherheitscode auf Ihrer Karte ist unvollständig.",
-            "invalid_expiry_year": "Das Ablaufdatum Ihrer Karte ist ungültig.",
-            "invalid_expiry_year_past": "Das Ablaufdatum Ihrer Karte ist bereits überschritten.",
-            "incomplete_expiry": "Das Ablaufdatum Ihrer Karte ist unvollständig.",
+            "incorrect_cvc": "Der Sicherheitscode Deiner Karte ist falsch.",
+            "incomplete_cvc": "Der Sicherheitscode auf Deiner Karte ist unvollständig.",
+            "invalid_expiry_year": "Das Ablaufdatum Deiner Karte ist ungültig.",
+            "invalid_expiry_year_past": "Das Ablaufdatum Deiner Karte ist bereits überschritten.",
+            "incomplete_expiry": "Das Ablaufdatum Deiner Karte ist unvollständig.",
             "incomplete_number": "Die Kartennummer ist unvollständig.",
-            "insufficient_funds": "Ihre Karte ist nicht ausreichend gedeckt."
+            "insufficient_funds": "Deine Karte ist nicht ausreichend gedeckt."
         }
     },
     "dashboard": {
@@ -6663,7 +6665,8 @@
             "SE": "Schweden",
             "NO": "Norwegen",
             "LU": "Luxemburg",
-            "CA": "Kanada"
+            "CA": "Kanada",
+            "AE": "Vereinigte Arabische Emirate"
         },
         "signupCompany": {
             "form": {
@@ -6685,9 +6688,9 @@
                     "label": "E-Mail"
                 },
                 "name": {
-                    "helperText": "Dieser Name ist für Ihre Mitglieder sichtbar",
+                    "helperText": "Dieser Name ist für Deine Mitglieder sichtbar",
                     "placeholder": "Yoga Shala",
-                    "label": "Name Ihres Studios/Klubs/Unternehmens"
+                    "label": "Name Deines Studios/Klubs/Unternehmens"
                 },
                 "title": "Meine Informationen",
                 "timezone": {
@@ -6696,14 +6699,14 @@
             },
             "welcome": {
                 "next": "Weiter",
-                "content": "bsport ist ein Zusammenschluss von Enthusiasten, deren Ziel es ist, Ihre IT-Tools zu vereinfachen und Ihnen ein besseres Verständnis Ihrer Gemeinschaft zu ermöglichen.",
+                "content": "bsport ist ein Zusammenschluss von Enthusiasten, deren Ziel es ist, Deine IT-Tools zu vereinfachen und Dir ein besseres Verständnis Deiner Community zu ermöglichen.",
                 "title": "Herzlich Willkommen !"
             }
         },
         "emailValidation": {
             "disconnect": "Konto ändern",
             "goToLogin": "Zurück",
-            "linkExpired": "Ihren Bestätigungslink ist abgelaufen",
+            "linkExpired": "Dein Bestätigungslink ist abgelaufen",
             "hasSentAgain": "Die E-Mail wurde gesendet",
             "sendAgain": "Eine Bestätigungs-E-Mail nochmals senden",
             "success": "Deine Email wurde bestätigt, Du wirst in wenigen Sekunden umgeleitet.",
@@ -6757,9 +6760,9 @@
         },
         "parameters": {
             "allEstablishment": "Alle Räume",
-            "establishmentId": "Ihre Raum-ID sind : {{ establishmentIdList }}",
+            "establishmentId": "Deine Raum-IDs sind : {{ establishmentIdList }}",
             "enabled": "Aktiv",
-            "companyId": "Ihre Klub-ID lautet: {{ company }}"
+            "companyId": "Deine Klub-ID lautet: {{ company }}"
         },
         "requestDialog": {
             "close": "Verstanden",
@@ -6904,10 +6907,10 @@
                 "CONTACT_TAG": "Erstelle ein Kundenkonto bei bsport, wenn der potenzielle Kunde bei ActiveCampaign als 'won' markiert ist"
             },
             "account": {
-                "error": "Ihre Informationen sind falsch",
+                "error": "Deine Informationen sind falsch",
                 "dialogTitle": "Informationen über mein ActiveCampaign-Konto",
                 "helper": "Wo kann man diese Informationen finden ?",
-                "title": "Zugangsinformationen zu Ihrer ActiveCampaign API",
+                "title": "Zugangsinformationen zu Deiner ActiveCampaign API",
                 "helpContent": "Die URL und der Authentifizierungsschlüssel Deines ActiveCampaign-Kontos sind in Deinen Kontoeinstellungen verfügbar, indem Du auf die Rubrik \"Entwickler\" klickst.",
                 "helpTitle": "Wo kann ich meine Kontoinformationen finden?",
                 "token": "Authentifizierungs-Schlüssel",
@@ -6916,7 +6919,7 @@
             "cancel": "Abbrechen",
             "submit": "Bestätigen",
             "link": {
-                "helperForm": "Wähle eine Bsport Smartlist und verbinde sie mit einer Ihrer ActiveCampaign-Listen",
+                "helperForm": "Wähle eine Bsport Smartlist und verbinde sie mit einer Deiner ActiveCampaign-Listen",
                 "dialogTitle": "Eine Beziehung zwischen Listen ändern",
                 "smartListSelection": "Eine Smartlist auswählen",
                 "listActiveCampaignSelection": "Eine ActiveCampaign Liste auswählen",
@@ -6930,7 +6933,7 @@
         },
         "broadcast": {
             "submit": "Speichern",
-            "explainEnabled": "Aktiviert: bsport verwaltet Ihre Videokonferenzräume. Es ist nicht mögliche zwei Videokonferenzen gleichzeitig zu nutzen.",
+            "explainEnabled": "Aktiviert: bsport verwaltet Deine Videokonferenzräume. Es ist nicht mögliche zwei Videokonferenzen gleichzeitig zu nutzen.",
             "explainDisabled": "Deaktiviert: Du verwaltest selbst Deine Videokonferenz-Links, die für jeden Kurs konfiguriert werden müssen (über Zoom, usw.).",
             "is_whereby_integration_enabled": {
                 "label": "Integration whereby X bsport aktivieren"
@@ -7235,7 +7238,7 @@
     "platformBilling": {
         "featureRequest": {
             "close": "Schließen",
-            "content": "Wir haben Ihre Anfrage erhalten, vielen Dank für Ihr Interesse! Ihr bsport Account Manager wird sich in Kürze mit weiteren Informationen bei Ihnen melden.",
+            "content": "Wir haben Deine Anfrage erhalten, vielen Dank für Dein Interesse! Dein bsport Account Manager wird sich in Kürze mit weiteren Informationen bei Dir melden.",
             "title": "Add-on"
         },
         "platformBillingStage": {
@@ -7289,7 +7292,7 @@
             "codeSource": "Code anzeigen, der auf Website eingefügt werden muss",
             "copy": "Kopieren",
             "url": "Kalenderlink",
-            "code": "Widget auf Ihrer Website",
+            "code": "Widget auf Deiner Website",
             "choice": "Wähle aus, wie Du Dein Widget anzeigen möchtest",
             "visualisation": "Anzeigen",
             "widget": "Teile Deinen Kalender",

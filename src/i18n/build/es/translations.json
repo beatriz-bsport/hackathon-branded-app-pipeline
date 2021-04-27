@@ -832,7 +832,7 @@
             "all": "Todos los niveles",
             "beginner": "Principiante",
             "intermediate": "Intermediaro",
-            "intermediary": "Intermediario",
+            "intermediary": "Medio",
             "advanced": "Avanzado"
         },
         "time": {
@@ -3453,7 +3453,7 @@
             "waiting-list": "Lista de espera",
             "offer": "Sesión",
             "booking": "Reserva",
-            "member": "Creación de una cuenta de estudiante",
+            "member": "Creación de una cuenta de usuario/a",
             "private_booking": "Cita",
             "subscription": "Suscripción",
             "marketing": "Marketing",

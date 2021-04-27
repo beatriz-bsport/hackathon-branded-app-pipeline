@@ -4050,7 +4050,8 @@
             "SE": "Sweden",
             "NO": "Norway",
             "LU": "Luxembourg",
-            "CA": "Canada"
+            "CA": "Canada",
+            "AE": "United Arab Emirates"
         },
         "signupCompany": {
             "form": {
@@ -6382,7 +6383,7 @@
             }
         },
         "card": {
-            "copyLink": "Copy link to payment page",
+            "copyLink": "Copy link to booking page",
             "copied": "Link copied"
         },
         "offerManagement": {
@@ -8221,7 +8222,9 @@
             "noVideoPurchase": "No purchase recorded",
             "coverMain": {
                 "alert": "The picture is mandatory"
-            }
+            },
+            "manager_only_helper": "The video will not be available for purchase, it will be visible only to managers",
+            "manager_only": "Unavailable for purchase"
         },
         "playlist": {
             "bottomActions": {

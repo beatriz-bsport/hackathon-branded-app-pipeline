@@ -25,7 +25,7 @@ const MarketplaceBookButton = (props: Props) => {
   const { t } = useTranslation();
 
   const onClick = offer.is_full ? onClickBookOption : onClickBook;
-  let text = offer.is_full
+  let text = offer.full
     ? t('marketplace.bookButton.bookOption')
     : t('marketplace.bookButton.book');
   if (!isOfferInThePast(offer)) {
@@ -52,7 +52,6 @@ const MarketplaceBookButton = (props: Props) => {
       </div>
     );
   };
-
   return (
     <Button
       fullWidth

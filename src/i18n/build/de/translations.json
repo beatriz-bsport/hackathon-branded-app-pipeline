@@ -92,7 +92,7 @@
             "bsportCredit": "Anzahlung des Kundens",
             "sepa": "SEPA-Überweisung",
             "credit": {
-                "explain": "Dem Mitglied wird jeden Monat eine Rechnung über sein internes Konto ausgestellt. Verwende diese Zahlungsmethode, wenn Du (noch) keinen Zugang zu einer Rechnungsmethode wie Kreditkarte oder IBAN-Überweisung hast. Du kannst die Zahlung anschließend aktualisieren."
+                "explain": "Du kannst die Zahlungsmethoden aus- oder abwählen, die Deinen Mitgliedern bei einer Online Zahlung zur Verfügung stehen. Als Administrator hast Du immer Zugriff auf alle verfügbaren Zahlungsmethoden."
             }
         },
         "contract": {
@@ -136,7 +136,7 @@
                     "missingObject": "Pflichtfeld"
                 },
                 "recurrence": {
-                    "explain": "Das Abonnement wird alle {{ recurrence_basis }} {{ interval }} über eine Gesamtdauer von {{ total_interval_duration }} {{ interval }} in Rechnung gestellt und generiert {{nb_interval}} Rechnungen",
+                    "explain": "Das Abonnement wird alle {{ recurrence_basis }} {{ interval }} über eine Gesamtdauer von {{ total_interval_duration }} {{ interval }} n Rechnung gestellt und generiert {{nb_interval}} Rechnungen",
                     "section": "Wiederholung"
                 },
                 "interval": {
@@ -244,8 +244,8 @@
                     "explainWarning": "Vorsicht ! Diese Aktion ist unwiderruflich !",
                     "cancel": "Abbrechen",
                     "submit": "Speichern",
-                    "explain": "Die nächste Zahlung wird um die gleiche Anzahl von Tagen verschoben. Dies gilt auch bei zukünftigen Kurskarten",
-                    "explainInvoice": "Von welcher Rechnung (im Lieferumfang enthalten) möchten Sie das Abonnement verschieben?"
+                    "explain": "Die nächste Zahlung wird um die gleiche Anzahl an Tagen verschoben. Dies gilt auch für zukünftige Kurskarten",
+                    "explainInvoice": "Ab welcher Rechnung möchtest Du das Abonnement verschieben?"
                 }
             },
             "actionSection": "Verwalten",
@@ -288,7 +288,7 @@
         "subscriptionStatus": {
             "isPaused": "Pause",
             "hasEnded": "Rechnungsstellung fertig",
-            "pending": "Im Prozess der Rechnungsstellung",
+            "pending": "In Bearbeitung",
             "canceledOn": "Beendet am "
         },
         "plannedInvoiceStatus": {
@@ -411,7 +411,7 @@
                 "invoiceCreatePage": "In Rechnung stellen",
                 "coachFormPage": "Lehrer-Formular",
                 "coachPerformance": "Leistung des Lehrers",
-                "offerFormPage": "Erstellung eines Kurses",
+                "offerFormPage": "Erstellung eines Workshops",
                 "metaActivityFormPage": "Aktivität-Formular",
                 "metaActivityEditForm": "Aktivität-Formular",
                 "WorkshopActivityFormPage": "Event-Formular",
@@ -488,16 +488,16 @@
             "playlist": "Wiedergabeliste"
         },
         "calendar": {
-            "pleaseSelectOffer": "Wähle einen Kurs aus, um die angemeldeten Mitglieder zu sehen",
+            "pleaseSelectOffer": "Klicke auf einen Kurs, um die registrierten Mitglieder zu sehen",
             "date": "Datum",
-            "day": "Tag",
+            "day": "Tage",
             "week": "Woche",
             "month": "Monat",
             "today": "heute",
             "next": ">",
             "previous": "<",
-            "allDay": "Tag",
-            "deleteOffer": "Stornieren",
+            "allDay": "Tage",
+            "deleteOffer": "Abbrechen",
             "modifyOffer": "Ändern",
             "showWeek": "Woche ansehen",
             "showMonth": "Monat ansehen",
@@ -537,7 +537,7 @@
                 "edit": "Um ein Bild zu wechseln, ziehe das neue Bild mit der Maus oder klicke hier",
                 "new": "Um Bilder einzufügen, ziehe das Bild mit der Maus und lege es hier ab oder klicke hier"
             },
-            "cancel": "Stornieren",
+            "cancel": "Abbrechen",
             "create": "Erstellen",
             "sports": "Kategorien",
             "continue": "Weiter",
@@ -961,7 +961,7 @@
             "tenDays": "10 Tage",
             "oneWeek": "1 Woche",
             "twoDays": "2 Tage",
-            "oneDay": "1 Tag",
+            "oneDay": "1 Tage",
             "twelveHour": "12 Std.",
             "eightHour": "8 Std.",
             "sixHour": "6 Std.",
@@ -1043,7 +1043,7 @@
             "default_last_discard_minutes": "Letzte mögliche Stornierung vor",
             "default_last_booking_minutes": "Letzte mögliche Buchung vor",
             "newMember": "Neues Mitglied",
-            "addingSessionFor": "Erstellung des Kurses für : ",
+            "addingSessionFor": "Erstellung eines Workshops: ",
             "effectif": "Teilnehmeranzahl",
             "recurrence": "Wiederholung",
             "signInPhoneInstruction": "Bitte gib Deine Telefonnummer ein, ein Bestätigungscode wird per SMS geschickt",
@@ -1082,7 +1082,7 @@
                 "true": "angemeldet",
                 "null": "Warteliste"
             },
-            "cancelBooking": "Stornieren",
+            "cancelBooking": "Abbrechen",
             "cancelled": "Storniert",
             "confirm": "Bezahlen",
             "onWaitingList": "Auf Warteliste",
@@ -1276,7 +1276,7 @@
                     "min_bookings_nb": "Anzahl der Buchung(en):",
                     "emailRecipients": "Diese E-Mail wird an Staff mit der Rolle \"Leiter\" oder \"Administrator\" sowie an den Lehrer (oder Ersatzlehrer) des betreffenden Kurses gesendet.",
                     "checkbox": "Storniere den Kurs automatisch, wenn zu wenige Buchungen vorliegen",
-                    "explain": "Sende eine E-Mail-Benachrichtigung und storniere den Kurs, wenn {{bookings_nb}} Buchungen für den Beginn des Kurses oder weniger {{hours}} h vorliegen."
+                    "explain": "Sende eine E-Mail Benachrichtigung und storniere den Kurs, wenn x Buchungen bei Beginn des Kurses oder weniger als y Stunden vor Beginn vorliegen."
                 }
             }
         },
@@ -1365,7 +1365,7 @@
             "weekOverview": "Übersicht der Woche"
         },
         "show_cancelled_offers": "Abgesagte Stunden anzeigen",
-        "quickInvoiceVoucher": "Wähle den Rabatt, der bei der Abrechnung des nächsten Passes angewendet werden soll",
+        "quickInvoiceVoucher": "Wähle den Rabatt, der bei der Abrechnung der nächsten Kurskarte angewendet werden soll",
         "metaActivityNotificationToolTip": "Benachrichtigungen sind für diese Buchungen aktiviert",
         "quickInvoiceNoVoucher": "Lasse den Wert dieses Feldes auf 0, wenn Du keinen Rabatt anwenden möchtest"
     },
@@ -1955,7 +1955,7 @@
                 "basket_expiration_days": {
                     "alert": "Trage die Ablauftage des Einkaufswagens ein!",
                     "placeholder": "Tage vor Ablauf",
-                    "helperText": "Anzahl der Tage, vor denen der Warenkorb eines Kunden automatisch geleert wird",
+                    "helperText": "Anzahl der Tage, nach denen der Warenkorb automatisch geleert wird",
                     "label": "Ablauf des Einkaufswagens"
                 },
                 "cancelledOffersManager": "Standardmäßig werden stornierte Kurse im Admin-Kalender angezeigt",
@@ -2021,7 +2021,7 @@
             "eventDesc": "Beschreibung des Ereignisses",
             "gtmEvent": "GTM-Event Name",
             "fbPixelEvent": "FB Pixel Eventname",
-            "cancel": "Stornieren",
+            "cancel": "Abbrechen",
             "showBasket": "Wenn der Benutzer seinen Warenkorb anzeigt",
             "showPass": "Wenn der Benutzer eine Kurskarte anzeigt",
             "addPackToCart": "Wenn der Benutzer eine Package in den Warenkorb legt",
@@ -2070,7 +2070,7 @@
             "role": {
                 "delete": {
                     "confirm": "Löschen",
-                    "cancel": "Stornieren",
+                    "cancel": "Abbrechen",
                     "content": "Möchten Sie diese Rolle wirklich entfernen?",
                     "title": "Rollenlöschung"
                 },
@@ -2295,12 +2295,12 @@
             "paymentPack": {
                 "validByDaterange": "Die Karte ist für ein bestimmtes Datum gültig",
                 "delete": {
-                    "thereAreConsumers": "Achtung! Einige Mitglieder haben diese Kurskarte gekauft. Wenn Du sie löschst, können diese Mitglieder ihre verbleibende Credits weiterhin verwenden. Du kannst sie hier manuell auf Null stellen.\n\nDie Karte wird nicht mehr in Ihrem Shop für neue Käufer erscheinen.",
+                    "thereAreConsumers": "Achtung! Einige Mitglieder haben diese Kurskarte gekauft. Wenn Du sie archivierst, können diese Mitglieder ihre verbleibenden Credits weiterhin verwenden. Du kannst sie hier manuell auf Null stellen.\n\nDie Karte wird nicht mehr in Deinem Shop für neue Käufer erscheinen.",
                     "actions": {
                         "submit": "Löschen",
                         "cancel": "Abbrechen"
                     },
-                    "title": "Löschung der Karte :",
+                    "title": "Archivieren der Karte:",
                     "askConfirmation": "Vorsicht ! Diese Aktion ist unwiderruflich. Die Karte wird unsichtbar und nicht mehr zum Verkauf verfügbar werden."
                 },
                 "credits": {
@@ -2790,8 +2790,8 @@
             "canceled_bookings": "Anzahl der stornierten Buchungen",
             "c": "Lehrer",
             "private_slot": "Kursart",
-            "private_service": "Name Personal Training",
-            "date_first_privatebooking": "Datum erstes Personal Training",
+            "private_service": "Name Termine",
+            "date_first_privatebooking": "Datum erstes Termine",
             "activitiesest": "Aktivitäten pro Einrichtung",
             "date_last_update": "Datum",
             "coaches": "Lehrer",
@@ -2846,11 +2846,11 @@
             "first_booking": "Erster Kurs (Gruppe)",
             "activityByEst": "Aktivitäten und Workshops nach Einrichtung",
             "dayBookings": "Buchungen (Kurs) pro Tag",
-            "privateServiceEst": "Personal Training pro Einrichtung",
-            "privateServiceCoach": "Personal Training pro Lehrer",
+            "privateServiceEst": "Termine pro Einrichtung",
+            "privateServiceCoach": "Termine pro Lehrer",
             "cashbook": "Kassenbuch",
-            "first_privatebooking": "Erstes Personal Training",
-            "privateService": "Personal Training",
+            "first_privatebooking": "Erstes Termine",
+            "privateService": "Termine",
             "activityByCoach": "Aktivitäten und Workshops pro Lehrer",
             "private_bookings": "Buchungen (Termine)",
             "payments": "Zahlungen",
@@ -3481,7 +3481,7 @@
         "balance": {
             "updaterDialog": {
                 "explainDecaissement": "Eine Auszahlung von {{amount}} {{CurrencyDisplay}} wird erfasst.",
-                "typeLabel": "Passform",
+                "typeLabel": "Art der Zahlung",
                 "title": "Guthaben-Einstellungen",
                 "actions": {
                     "cancel": "Abbrechen",
@@ -3519,7 +3519,7 @@
             "select": {
                 "label": "Zahlungsmethode"
             },
-            "isInternalExplain": "Kundeneinzahlung (manuell): Jeden Monat wird automatisch eine Schuld auf dem Konto des Mitglieds erstellt.",
+            "isInternalExplain": "Kundenzahlung (manuell): Jeden Monat wird automatisch ein Saldo auf dem Konto des Mitglieds erstellt.",
             "add": "Hinzufügen",
             "edit": "Ändern",
             "title": "Zahlungsmethode",
@@ -3588,7 +3588,7 @@
                 "confirmPayment": "Bestätige Zahlung",
                 "payAll": "Kundenschulden begleichen",
                 "cancel": "Abbrechen",
-                "revert": "Stornieren",
+                "revert": "Abbrechen",
                 "pay": "Diese Rechnung bezahlen",
                 "bill": "Einziehen"
             },
@@ -3637,7 +3637,7 @@
         "plannedPaymentEvent": {
             "actions": {
                 "edit": "Bearbeiten",
-                "delete": "Stornieren",
+                "delete": "Abbrechen",
                 "registerNow": "Jetzt auszahlen"
             }
         },
@@ -4016,7 +4016,7 @@
             },
             "filter": {
                 "duration": {
-                    "all": "Jede Dauer",
+                    "all": "Jede Länge",
                     "explain": "Zwischen {{min}} und {{max}} Min"
                 }
             },
@@ -4045,7 +4045,7 @@
             },
             "analytics": {
                 "uploaded": "Video hochgeladen am {{date}}",
-                "distinctViewers": "Einzigartige Aufrufe",
+                "distinctViewers": "Einmaliger Aufruf",
                 "viewsLastWeek": "Letzten 7 Tage",
                 "totalViews": "Gesamt",
                 "dateCreated": "Online",
@@ -4057,7 +4057,7 @@
             "viewedOn": "Video gesehen am {{-date}} um {{hour}}",
             "boughtOn": "Kauf erfolgt am {{-date}}",
             "noVideoPurchase": "Kein Kauf registriert",
-            "noVideoView": "Keine Views",
+            "noVideoView": "Keine Aufrufe",
             "coverMain": {
                 "alert": "Bild ist erforderlich"
             },
@@ -4475,7 +4475,7 @@
             "addCoupon": {
                 "label": "Werbe-Code",
                 "placeholder": "spezial für die Rückkehr",
-                "cancel": "stornieren",
+                "cancel": "Abbrechen",
                 "submit": "Bestätigen"
             }
         },
@@ -4518,7 +4518,7 @@
             },
             "is_active": {
                 "label": "Aktiv",
-                "helperText": "Ein Code, der nicht aktiv ist, kann von Kunden nicht verwendet sein"
+                "helperText": "Ein Code, der nicht aktiv ist, kann von Kunden nicht verwendet werden"
             },
             "section": {
                 "advanced": "Erweitert",
@@ -4971,7 +4971,7 @@
             "form": {
                 "credits": {
                     "helperText": "Jeder Kurs kostet eine bestimmte Anzahl von Credits",
-                    "label": "Anzahl der eingeschlossenen Credits"
+                    "label": "Credits"
                 },
                 "actions": {
                     "cancel": "Abbrechen",
@@ -5111,7 +5111,7 @@
                 "explain": "Bist Du Dir sicher, dass Du die Regeln für die Verwendung der Kurskarte ändern möchtest? Diese Änderung gilt rückwirkend für bereits registrierte Einkäufe."
             },
             "excludedSlots": {
-                "cancel": "Stornieren",
+                "cancel": "Abbrechen",
                 "helperText": "Wähle den Termin aus, für den die Termin-Karte kompatibel ist",
                 "submit": "Speichern",
                 "title": "{{Service}} Termine",
@@ -5385,7 +5385,7 @@
         "campaign": {
             "list": {
                 "showMore": "Mehr anzeigen",
-                "isEmpty": "Momentan gibt es keine gesendete E-Mails"
+                "isEmpty": "Momentan gibt es keine gesendeten E-Mails"
             },
             "showMail": "E-Mail ansehen",
             "sentAt": "Am {{ date_created }} gesendet",
@@ -5466,7 +5466,7 @@
         "booking": {
             "showCalendar": "Kalender ansehen",
             "bookAgain": "Erneut buchen",
-            "discard": "Stornieren",
+            "discard": "Abbrechen",
             "titlePrivateBooking": "Termin",
             "titleBooking": "Kurs",
             "accessLive": "Livestream beitreten"
@@ -5568,7 +5568,7 @@
             "create": {
                 "steps": {
                     "workshop_form": "Erstellung eines Kurses",
-                    "offer_form": "Erstellung von Kursen (optional)",
+                    "offer_form": "Einrichten von Workshops (optional)",
                     "pass_list": "Fertigstellung",
                     "pass_form": "Erstellung einer Kurskarte (optional)",
                     "activity_form": "Erstellung der Aktivität"
@@ -5985,7 +5985,7 @@
         "actions": {
             "flagAsSent": "Versendet",
             "flagAsOnSiteDelivery": "Abholung vor Ort",
-            "flagAsCancelled": "Stornieren"
+            "flagAsCancelled": "Abbrechen"
         },
         "form": {
             "delivery": {
@@ -6387,7 +6387,7 @@
                     "linkButton": "Gemeinsam nutzen",
                     "submit": "Gemeinsam nutzen",
                     "previous": "Bisherige",
-                    "cancel": "Stornieren",
+                    "cancel": "Abbrechen",
                     "explain": "Diese Kurskarte wird zwischen den beiden Mitgliedern geteilt. Die Credits können von Beiden genutzt werden.",
                     "title": "Gemeinsame Terminkartennutzung"
                 }
@@ -6848,7 +6848,7 @@
         "credit_price": " Credits",
         "calendar": {
             "modifyOffer": "Ändern",
-            "deleteOffer": "Stornieren"
+            "deleteOffer": "Abbrechen"
         },
         "disabled": "Storniert",
         "extraordinaryEstablishment": "(provisorische Einrichtung)",
@@ -7035,7 +7035,7 @@
             "methodPaymentBasketHelper": "Autorisiere Warenkorbzahlungen, Schuldenregulierung und Zahlungsrückstände etc. nur durch",
             "methodPaymentBasket": "Einmalzahlung",
             "subtitle2": "Als Administrator hast Du immer Zugriff auf alle verfügbaren Zahlungsmethoden.",
-            "subtitle": "Du kannst die Zahlungsmethode aktivieren oder deaktivieren, die Deine Mitglieder beim online Zahlungen verwenden.",
+            "subtitle": "Du kannst die Zahlungsmethoden aus- oder abwählen, die Deinen Mitgliedern bei einer Online Zahlung zur Verfügung stehen.",
             "title": "Onlinebezahlung"
         }
     },
@@ -7055,7 +7055,7 @@
         },
         "modal": {
             "delete": {
-                "content": "Bist Du sicher, dass Du dieses Event löschen möchtest? Die Kurse und Buchungen werden nicht davon betroffen. Diese Aktion ist unwiderruflich.",
+                "content": "Bist Du sicher, dass Du dieses Event löschen möchtest? Die Kurse und vergangene Buchungen werden nicht davon betroffen.",
                 "confirm": "Löschen",
                 "cancel": "Abbrechen",
                 "title": "Ein Event löschen"

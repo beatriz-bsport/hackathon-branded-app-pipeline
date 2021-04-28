@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
+import MomentUtils from '@date-io/moment';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
@@ -66,14 +68,20 @@ export const PrivateBookingCard = (props: Props) => {
       <div className={classes.container}>
         <DialogTitle>{t('privateBooking.updateTime.title')}</DialogTitle>
         <DialogContent>
-          <InlineDateTimePicker
-            keyboard
-            ampm={false}
-            value={props.updatedTime || props.private_booking.date_start}
-            onChange={props.setUpdatedTime}
-            onError={console.error}
-            format="YYYY/MM/DD HH:mm"
-          />
+          <MuiPickersUtilsProvider
+            utils={MomentUtils}
+            moment={moment}
+            locale={moment.locale()}
+          >
+            <InlineDateTimePicker
+              keyboard
+              ampm={false}
+              value={props.updatedTime || props.private_booking.date_start}
+              onChange={props.setUpdatedTime}
+              onError={console.error}
+              format="YYYY/MM/DD HH:mm"
+            />
+          </MuiPickersUtilsProvider>
           <Typography
             className={classes.updatedTimeExplain}
             color="textSecondary"

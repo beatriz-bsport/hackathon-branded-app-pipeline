@@ -43,20 +43,27 @@ export const PaginatedSubscriptionList = (props: Props) => {
           <Divider />
         </div>
       )}
-      renderItem={(sub) => (
-        <SubscriptionRowItem
-          key={sub.id}
-          subscription={sub}
-          onClick={props.onClick ? () => props.onClick(sub) : null}
-        />
-      )}
+      renderItem={(sub) =>
+        sub ? (
+          <SubscriptionRowItem
+            key={sub.id}
+            subscription={sub}
+            onClick={props.onClick ? () => props.onClick(sub) : null}
+          />
+        ) : null
+      }
     />
   );
 };
 
 const useStyles = makeStyles((theme) => ({
   emptyContainer: {
-    padding: theme.spacing(2),
+    margin: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: 'F8F8F8',
   },
 }));

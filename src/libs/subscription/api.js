@@ -159,6 +159,24 @@ export const cancelPause = async (billingPlanId: number, id: number) => {
   );
 };
 
+export const fetchContractPauseList = async (params: any = {}) => {
+  return getAuth(
+    `${API_URI}/subscription/contract_pause/${buildUrlParams(params)}`,
+  );
+};
+
+export const fetchContractPause = async (id: number) => {
+  return getAuth(`${API_URI}/subscription/contract_pause/${id}/`);
+};
+
+export const fetchContractPauseInfo = async (data: any) => {
+  return postAuth(`${API_URI}/subscription/contract_pause/get_info/`, data);
+};
+
+export const createContractPause = async (data: any) => {
+  return postAuth(`${API_URI}/subscription/contract_pause/`, data);
+};
+
 export default {
   fetchSubscriptionList: fetchAll,
   fetchDetail,

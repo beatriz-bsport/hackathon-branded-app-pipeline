@@ -371,4 +371,50 @@ exports.default = {
     valid: 'Valide',
   },
   copyLink: 'Copier le lien vers la page de paiement',
+  contractPause: {
+    title: 'Pauses globales',
+    createdAt: 'Créé le {{at}}',
+    fromUntil:
+      'Uniquement si facturation prévue entre le {{from}} et le {{until}} inclus',
+    section: {
+      success: '{{nb}} souscriptions mise en pause',
+      error:
+        "{{nb}} souscriptions n'ont pas pu être mise en pause automatiquement",
+    },
+    actions: {
+      cancel: 'Annuler',
+      submit: 'Mettre en pause',
+      add: 'Mettre en pause',
+      verify: 'Vérifier',
+      previous: 'Précédent',
+    },
+    form: {
+      title: 'Mise en pause globale',
+      warning:
+        "Attention, sur certaines souscriptions, la mise en pause n'est pas réversible",
+      name: {
+        label: 'Note',
+        placeholder: 'Fermeture du studio toussaint',
+      },
+      days: {
+        label: 'Nombre de jours',
+        helperText:
+          'Nombre de jours pendant lequel les souscriptions seront en pause',
+      },
+      advanced: 'Avancé',
+      fromDate: {
+        label: 'Facturées entre le ',
+      },
+      untilDate: {
+        label: 'et le ',
+      },
+      validBillingPlan: 'Les souscriptions suivantes seront mises en pause',
+      invalidBillingPlan:
+        'Les souscriptions suivantes ne pourront pas être mises en pause en automatique',
+      dateFilter: {
+        label:
+          'Mettre en pause uniquement les souscriptions dont la facture intervient entre deux dates',
+      },
+    },
+  },
 };

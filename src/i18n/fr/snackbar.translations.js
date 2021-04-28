@@ -470,4 +470,10 @@ exports.default = {
       error: "Impossible d'enregistrer les modifications",
     },
   },
+  contractPause: {
+    create: {
+      error:
+        'Impossible de mettre en pause pour le moment, veuillez réessayer plus tard',
+    },
+  },
 };

@@ -17,6 +17,9 @@ import api, {
   cancelPause as cancelPauseAPI,
   updatePlannedInvoiceDate as updatePlannedInvoiceDateAPI,
   restoreContract as restoreContractAPI,
+  fetchContractPauseList as fetchContractPauseListAPI,
+  fetchContractPause as fetchContractPauseAPI,
+  createContractPause as createContractPauseAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -25,6 +28,7 @@ import {
   snackbarWarning,
   snackbarError,
 } from '../../actions/snackbar.actions';
+import { monitorBackgroundTask } from '../background-task/actions';
 
 import { fetchEventList } from '../event/actions';
 
@@ -682,5 +686,103 @@ export function updatePlannedInvoiceDate(
       if (options && options.onError) options.onError(err);
     }
     dispatch(updatePlannedInvoiceDateActions.isLoading(false));
+  };
+}
+
+export const listContractPauseActions = {
+  error: createAction('CONTRACT_PAUSE/LIST/ERROR'),
+  isLoading: createAction('CONTRACT_PAUSE/LIST/IS_LOADING'),
+  success: createAction('CONTRACT_PAUSE/LIST/SUCCESS'),
+  reset: createAction('CONTRACT_PAUSE/LIST/RESET'),
+};
+
+export function fetchContractPauseList(
+  params: any = {},
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listContractPauseActions.isLoading(true));
+    dispatch(listContractPauseActions.error(null));
+
+    try {
+      const response = await fetchContractPauseListAPI(params);
+      dispatch(listContractPauseActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (error) {
+      dispatch(listContractPauseActions.error(error));
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(listContractPauseActions.isLoading(false));
+  };
+}
+
+export const addContractPauseActions = {
+  error: createAction('CONTRACT_PAUSE/CREATE/ERROR'),
+  isLoading: createAction('CONTRACT_PAUSE/CREATE/IS_LOADING'),
+  success: createAction('CONTRACT_PAUSE/CREATE/SUCCESS'),
+};
+
+export function createContractPause(data: any = {}, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(addContractPauseActions.isLoading(true));
+    dispatch(addContractPauseActions.error(null));
+
+    try {
+      const response = await createContractPauseAPI(data);
+      dispatch(addContractPauseActions.success(response.data));
+
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            dispatch(fetchContractPause(response.data.id));
+          },
+        }),
+      );
+
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (error) {
+      dispatch(addContractPauseActions.error(error));
+      dispatch(snackbarError('contractPause.create.error'));
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(addContractPauseActions.isLoading(false));
+  };
+}
+
+export const retrieveContractPauseActions = {
+  error: createAction('CONTRACT_PAUSE/RETRIEVE/ERROR'),
+  isLoading: createAction('CONTRACT_PAUSE/RETRIEVE/IS_LOADING'),
+  success: createAction('CONTRACT_PAUSE/RETRIEVE/SUCCESS'),
+};
+
+export function fetchContractPause(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveContractPauseActions.isLoading(true));
+    dispatch(retrieveContractPauseActions.error(null));
+
+    try {
+      const response = await fetchContractPauseAPI(id);
+      dispatch(retrieveContractPauseActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(retrieveContractPauseActions.error(error));
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(retrieveContractPauseActions.isLoading(false));
   };
 }

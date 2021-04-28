@@ -162,4 +162,31 @@ export const getPlannedInvoiceList = createSelector(
   (ids, data) => ids.map((id) => data[id]).filter((pl) => !!pl),
 );
 
+const _getContractPauseData = (state) => state.subscription.contractPause.byId;
+const _getContractPauseIds = (state) => state.subscription.contractPause.allIds;
+
+export const getContractPauseList = createSelector(
+  [_getContractPauseIds, _getContractPauseData, _getSubscriptionData],
+  (ids, data, subData) =>
+    ids
+      .map((id) => data[id])
+      .map((cp) => {
+        return {
+          ...cp,
+          billing_plan_invalid_ids: [
+            ...cp.billing_plan_errors,
+            ...cp.billing_plan_impossible,
+          ].map((t) => t[0]),
+          billing_plan_success_ids: cp.billing_plan_success.map((t) => t[0]),
+          billing_plan_success: cp.billing_plan_success.map(
+            (id) => subData[id[0]],
+          ),
+          billing_plan_invalid: [
+            ...cp.billing_plan_errors,
+            ...cp.billing_plan_impossible,
+          ].map((id) => subData[id[0]]),
+        };
+      }),
+);
+
 export default { get };

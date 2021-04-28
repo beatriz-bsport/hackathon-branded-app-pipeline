@@ -76,6 +76,16 @@ export type Contract = {
   flat_fee: number;
 };
 
+export type ContractPause = {
+  company: number;
+  name: string;
+  days: number;
+  from_date?: string;
+  until_date?: string;
+  contract?: number;
+  id: number;
+};
+
 export type SubscriptionState = {
   byId: { [id: number]: Subscription };
   createOrUpdate: ErrorAndLoading;
@@ -97,5 +107,11 @@ export type SubscriptionState = {
     byMarketplace: ErrorAndLoading & {
       allIds: Array<number>;
     };
+  };
+  contractPause: ErrorAndLoading & {
+    allIds: Array<number>;
+    byId: { [id: number]: ContractPause };
+    page: number;
+    nextPage?: number;
   };
 };

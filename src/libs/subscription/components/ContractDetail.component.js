@@ -50,7 +50,7 @@ const ContractDetail = (props: Props) => {
           <Typography variant="h4">
             {t('contract.duration', { month: nb_interval })}
           </Typography>
-          <div clasName={classes.pricesContainer}>
+          <div className={classes.pricesContainer}>
             <Typography variant="h6" align="right">
               {`${t(
                 'contract.form.recurrent_price.label',

@@ -20,6 +20,9 @@ import {
   switchPaymentMethodActions,
   subscriptionBulkActions,
   listPlannedInvoiceActions,
+  listContractPauseActions,
+  addContractPauseActions,
+  retrieveContractPauseActions,
 } from './actions';
 
 import type { SubscriptionState } from './types';
@@ -81,6 +84,15 @@ const initialState: SubscriptionState = Immutable({
     page: 1,
   },
 
+  contractPause: {
+    byId: {},
+    allIds: [],
+    loading: false,
+    error: null,
+    nextPage: 1,
+    page: 0,
+  },
+
   contract: {
     loading: false,
     error: null,
@@ -138,6 +150,51 @@ export default handleActions(
         .setIn(['plannedInvoice', 'nextPage'], payload.next_page)
         .setIn(['plannedInvoice', 'page'], payload.page)
         .setIn(['plannedInvoice', 'count'], payload.count);
+    },
+    [retrieveContractPauseActions.success]: (state, { payload }) => {
+      return state.setIn(['contractPause', 'byId', payload.id], payload);
+    },
+    [addContractPauseActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['contractPause', 'byId', payload.id], payload)
+        .setIn(
+          ['contractPause', 'allIds'],
+          [payload.id, ...state.contractPause.allIds],
+        );
+    },
+    [listContractPauseActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['contractPause', 'loading'], payload);
+    },
+    [listContractPauseActions.error]: (state, { payload }) => {
+      return state.setIn(['contractPause', 'error'], payload);
+    },
+    [listContractPauseActions.reset]: (state) => {
+      return state
+        .setIn(['contractPause', 'nextPage'], 1)
+        .setIn(['contractPause', 'allIds'], []);
+    },
+    [listContractPauseActions.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            contractPause: {
+              byId: payload.results.reduce(
+                (acc, v) => ({ ...acc, [v.id]: v }),
+                {},
+              ),
+            },
+          },
+          {
+            deep: true,
+          },
+        )
+        .setIn(
+          ['contractPause', 'allIds'],
+          payload.results.map((cp) => cp.id),
+        )
+        .setIn(['contractPause', 'nextPage'], payload.next_page)
+        .setIn(['contractPause', 'page'], payload.page)
+        .setIn(['contractPause', 'count'], payload.count);
     },
     [subscriptionBulkActions.isLoading]: (state, { payload }) => {
       return state.setIn(['bulk', 'loading'], payload);

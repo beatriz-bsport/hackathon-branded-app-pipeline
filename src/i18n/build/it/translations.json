@@ -502,7 +502,7 @@
                 "noFutureBookings": "Nessuna prenotazione pianificata",
                 "noPastBookings": "Nessuna prenotazione effettuata in passato",
                 "cancelOption": "Annulla",
-                "intro": "La sua prenotazione a {{date}}"
+                "intro": "La sua prenotazione del {{date}}"
             }
         },
         "navigation": {
@@ -1283,6 +1283,9 @@
             },
             "tax": {
                 "label": "I.V.A."
+            },
+            "new_member_only": {
+                "label": "Solo per i nuovi clienti"
             }
         },
         "detail": {
@@ -1525,7 +1528,10 @@
                     "label": "Modifica per:",
                     "submit": "Iscriviti"
                 }
-            }
+            },
+            "private_service": "Tipo di appuntamento",
+            "establishment": "Luogo",
+            "coach": "Insegnante"
         },
         "resource": {
             "datatype": {
@@ -1650,7 +1656,9 @@
             "updateCoach": "Scegli un nuovo insegnante per questo appuntamento",
             "isCancelledDate": "Annullare {{-date}} alle {{time}}",
             "restore": "Fissare di nuovo l'appuntamento",
-            "bookings": "Appuntamenti"
+            "bookings": "Appuntamenti",
+            "notRefunded": "Non rimborsato",
+            "isRefunded": "Rimborsato"
         },
         "privateService": {
             "delete": {
@@ -1705,10 +1713,15 @@
                 "showOfferList": "Lezioni di gruppo",
                 "showPrivateBookings": "Appuntamenti",
                 "showCustomEvents": "Appuntamento personale",
-                "hideCancelledEvents": "Visualizza le cancellazioni"
+                "hideCancelledEvents": "Visualizza le cancellazioni",
+                "title": "Mostrare i filtri"
             },
             "enableAvailability": "Aggiungi disponibilità oggi",
-            "createCustomEvent": "Crea un appuntamento personale"
+            "createCustomEvent": "Crea un appuntamento personale",
+            "customEvent": {
+                "dateEnd": "Data di fine",
+                "dateStart": "Data d'inizio"
+            }
         },
         "selector": {
             "privateService": "Seleziona il tuo appuntamento",
@@ -1777,7 +1790,9 @@
                     "label": "Numero di crediti",
                     "helperText": "Numero di crediti richiesti per una prenotazione"
                 },
-                "title": "Allenamento"
+                "title": "Allenamento",
+                "pre_selected_choices": "Durate predefinite",
+                "durationError": "Durata non valida (tra 15min e 1g)"
             }
         },
         "bookerModule": {
@@ -1832,7 +1847,8 @@
             "title": "Prenotazione appuntanamento",
             "recurrenceRule": {
                 "label": "Fissare un appuntamento ricorrente"
-            }
+            },
+            "confirm": "Confermare"
         },
         "privateServiceCompatibility": {
             "delete": {
@@ -1912,6 +1928,9 @@
                     "on_attendance": "Inizia alla 1a partecipazione",
                     "on_booking": "Inizia con la 1a prenotazione",
                     "on_purchase": "Iniziare alla data di fatturazione"
+                },
+                "new_member_only": {
+                    "label": "Solo per i nuovi clienti"
                 }
             },
             "delete": {
@@ -5874,7 +5893,8 @@
                 "voucherConfig": "Riduzione",
                 "general": "Generale",
                 "applies_to": "Impostazioni",
-                "advanced": "Avanzato"
+                "advanced": "Avanzato",
+                "subscription": "Iscrizione (contratto)"
             },
             "is_active": {
                 "helperText": "Il codice non attivo non può essere utilizzato dai clienti",
@@ -5938,6 +5958,10 @@
             },
             "usage_per_member": {
                 "label": "Limite d'utilizzo per cliente"
+            },
+            "subscription_mode": {
+                "1": "Solo primo mese",
+                "0": "Tutte le fatturazioni"
             }
         },
         "noDiscount": "Nessun acquisto effettuato con il codice",

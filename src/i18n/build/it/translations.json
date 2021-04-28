@@ -2341,7 +2341,9 @@
                 "noPassAvailable": "Non hai un pass compatibile",
                 "buyPass": "Compra un pass",
                 "title": "Inizia"
-            }
+            },
+            "manager_only_helper": "Il video non sarà disponibile per l'acquisto, sarà visibile solo ai manager",
+            "manager_only": "Non disponibile per l'acquisto"
         },
         "playlist": {
             "open": "Aprire",
@@ -3413,7 +3415,8 @@
             "revert": "Annulla",
             "invoiceReverted": "Fattura annullata",
             "consumeBalance": "Paga tramite saldo",
-            "explainPdfDraft": "La fattura è ancora in fase di bozza, il pdf non è disponibile."
+            "explainPdfDraft": "La fattura è ancora in fase di bozza, il pdf non è disponibile.",
+            "addFooter": "Modificare la nota a piè di pagina"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "La fattura è stata finalizzata e pertanto non è più modificabile",
@@ -3626,7 +3629,8 @@
             "isInternalExplain": "Account cliente (manuale): ogni mese un debito viene creato automaticamente nel conto del membro.",
             "add": "Aggiungere",
             "edit": "Modificare",
-            "title": "Mezzo di pagamento"
+            "title": "Mezzo di pagamento",
+            "none": "Nessun mezzo di pagamento salvato"
         },
         "paymentEngine": {
             "label": {
@@ -4109,7 +4113,7 @@
             "membership_duration": "Periodo di validità",
             "membership_name": "Abbonamento",
             "membership_ID": "ID membro",
-            "available_credits": "Crediti disponibili",
+            "available_credits": "Crediti disponibili PCA",
             "voucher": "Riduzione",
             "private_service_name": "Appuntamento",
             "nb_bookings": "Numero di prenotazioni",
@@ -5961,7 +5965,9 @@
             },
             "subscription_mode": {
                 "1": "Solo primo mese",
-                "0": "Tutte le fatturazioni"
+                "0": "Tutte le fatturazioni",
+                "3": "Non utilizzabile",
+                "2": "Solo il primo ciclo di fatturazione (prima del rinnovo)"
             }
         },
         "noDiscount": "Nessun acquisto effettuato con il codice",
@@ -6172,7 +6178,8 @@
             "oneMonth": "1 mese",
             "never": "Mai",
             "eightHour": "8h",
-            "twelveHour": "12h"
+            "twelveHour": "12h",
+            "fiftyMinutes": "50 min"
         },
         "shortMinuteIdentifier": "min",
         "shortHourIdentifier": "h",
@@ -6478,7 +6485,8 @@
             "SE": "Svezia",
             "NO": "Norvegia",
             "LU": "Lussemburgo",
-            "CA": "Canada"
+            "CA": "Canada",
+            "AE": "Emirati Arabi Uniti"
         },
         "emailValidation": {
             "disconnect": "Cambia account",
@@ -7113,6 +7121,24 @@
                     "cancel": "Annulla",
                     "confirm": "Rimuovi"
                 }
+            },
+            "role": {
+                "delete": {
+                    "confirm": "Cancellare",
+                    "cancel": "Cancella",
+                    "content": "Sei sicuro di voler rimuovere questo ruolo?",
+                    "title": "Cancellazione del ruolo"
+                },
+                "create": {
+                    "showAdvanced": "Vedere di più",
+                    "permissions": "Permessi",
+                    "restrictedUrlPlaceholder": "ex: /membro/",
+                    "restrictedUrl": "URL limitati",
+                    "description": "Descrizione",
+                    "name": "Nome",
+                    "title": "Creazione di ruoli",
+                    "buttonCreate": "Aggiungere un ruolo  "
+                }
             }
         },
         "pageTitle": "Personale",
@@ -7140,6 +7166,82 @@
             "5": {
                 "name": "Report",
                 "description": "Accesso solo ai report, utile per i tuoi commercialisti per esempio"
+            }
+        },
+        "rolePermissions": {
+            "navigationMenu": {
+                "settings": {
+                    "_label": "Parametri"
+                },
+                "reporting": {
+                    "_label": "Rapporti"
+                },
+                "member": {
+                    "_label": "Membro"
+                },
+                "digitalOffer": {
+                    "_label": "Offerta digitale"
+                },
+                "marketing": {
+                    "_label": "Marketing"
+                },
+                "payments": {
+                    "_label": "Pagamenti"
+                },
+                "products": {
+                    "_label": "Prodotti"
+                },
+                "myClub": {
+                    "_label": "Il mio club"
+                },
+                "schedule": {
+                    "_label": "Orario"
+                },
+                "calendar": {
+                    "_label": "Calendario"
+                },
+                "dashboard": {
+                    "_label": "Dashboard"
+                },
+                "search": {
+                    "_helper": "Solo mobile",
+                    "_label": "Cerca membro"
+                },
+                "_label": "Menu di navigazione"
+            },
+            "member": {
+                "search": {
+                    "_label": "Cerca"
+                },
+                "edit": {
+                    "_label": "Modifica"
+                },
+                "retrieve": {
+                    "_label": "Accesso al file del membro"
+                },
+                "create": {
+                    "_label": "Creazione"
+                },
+                "_label": "Membro"
+            },
+            "offer": {
+                "edit": {
+                    "_label": "Modifica"
+                },
+                "delete": {
+                    "_label": "Annulazione"
+                },
+                "create": {
+                    "_label": "Creazione"
+                },
+                "_label": "Sessioni"
+            },
+            "search": {
+                "_label": "Cerca membro"
+            },
+            "appbarActions": {
+                "_helper": "Creazione di membri, rapporto di pagamento sul sito.",
+                "_label": "Azioni appbar"
             }
         }
     },

@@ -14,11 +14,14 @@ import NL_FLAG from './input/flags/NL.png';
 import IT_FLAG from './input/flags/IT.png';
 import DE_FLAG from './input/flags/DE.png';
 import EN_FLAG from './input/flags/EN.png';
+import US_FLAG from './input/flags/US.png';
 
 const countryFlag = {
   fr: FR_FLAG,
   de: DE_FLAG,
   en: EN_FLAG,
+  'en-GB': EN_FLAG,
+  'en-US': US_FLAG,
   nl: NL_FLAG,
   it: IT_FLAG,
   es: ES_FLAG,

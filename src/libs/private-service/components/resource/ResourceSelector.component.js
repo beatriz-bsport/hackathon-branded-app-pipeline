@@ -59,7 +59,7 @@ export const ResourceSelector = (props: PropsSelector) => {
   const classes = useStyles();
   if (props.collapse) {
     return (
-      <div className={classes.selectorContainer}>
+      <div className={classes.ressourceSelector}>
         <div className={classes.collapseHeader}>
           <IconButton
             size="small"
@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(0.5),
     width: '100%',
   },
-  selectorContainer: {
+  ressourceSelector: {
     overflowX: 'auto',
   },
   row: {

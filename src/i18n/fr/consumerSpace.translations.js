@@ -9,6 +9,7 @@ exports.default = {
     profile: 'Profil',
     logoff: 'Déconnecter',
     changeMembership: 'Changer de club',
+    pick_a_language: 'Sélectionner une langue',
   },
   myVideos: {
     title: 'Mes vidéos',

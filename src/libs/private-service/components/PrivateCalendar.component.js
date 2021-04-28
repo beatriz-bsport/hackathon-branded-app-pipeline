@@ -36,7 +36,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 
 import moment from 'moment-timezone';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-import i18n from '../../../i18n';
+import i18n, { Moment } from '../../../i18n';
 
 import './main.scss';
 import './custom.scss';
@@ -526,7 +526,6 @@ export class PrivateCalendar extends React.Component<Props, State> {
     } else if (this.props.resourceDatatypeView) {
       initialView = 'resourceTimeGridThreeDays';
     }
-
     return (
       <div className={classes.container}>
         <FullCalendar
@@ -575,6 +574,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
           events={events}
           eventDidMount={this.handleEventRender}
           locale={i18n.language === 'en' ? 'en-GB' : i18n.language}
+          firstDay={Moment.localeData()._week.dow}
           slotDuration={
             // eslint-disable-next-line
             `00:${15 * 2 ** this.props.zoomLevel}:00`

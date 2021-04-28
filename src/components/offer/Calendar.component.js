@@ -448,7 +448,7 @@ export class Calendar extends PureComponent<Props, State> {
   renderBulkDays = () => {
     const { displayMode } = this.state;
     const date = Moment(this.props.date, DATE_FORMAT);
-    const firstDayWeek = date.clone().startOf('isoWeek');
+    const firstDayWeek = date.clone().startOf('Week');
     const firstDayMonth = date.clone().startOf('month').startOf('week');
 
     switch (displayMode) {

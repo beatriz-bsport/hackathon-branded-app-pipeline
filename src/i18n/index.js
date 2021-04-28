@@ -73,7 +73,7 @@ i18n
 
     // lng: 'fr-FR',
     detection: {
-      order: ['navigator', 'cookie'],
+      order: ['localStorage', 'navigator', 'cookie'],
     },
     load: 'languageOnly',
 
@@ -115,7 +115,10 @@ const availableLanguages = [
     lang: 'fr',
   },
   {
-    lang: 'en',
+    lang: 'en-GB',
+  },
+  {
+    lang: 'en-US',
   },
   {
     lang: 'es',
@@ -144,6 +147,10 @@ const setLanguage = (lng: string) => {
   }
 };
 
+Moment.defineLocale('en-GB', {
+  parentLocale: 'en',
+  week: { dow: 1 },
+});
 export default i18n;
 export { Moment, availableLanguages, setLanguage };
 

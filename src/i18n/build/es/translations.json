@@ -1358,7 +1358,8 @@
             "SE": "Suecia",
             "NO": "Noruega",
             "LU": "Luxemburgo",
-            "CA": "Canada"
+            "CA": "Canada",
+            "AE": "Emiratos Árabes Unidos"
         },
         "emailValidation": {
             "disconnect": "Cambiar de cuenta",
@@ -2685,7 +2686,7 @@
             "amortized_price": "Compras diferidas",
             "end_date": "Fin de validez",
             "credits": "Creditos totales",
-            "available_credits": "Creditos disponibles",
+            "available_credits": "Creditos disponibles PCA",
             "payment_method_readable_identifier": "Modo de pago",
             "tax": "IVA",
             "voucher": "Descuento",
@@ -6556,7 +6557,9 @@
             "viewsListTitle": "Lista de vistas",
             "coverMain": {
                 "alert": "La foto es obligatoria"
-            }
+            },
+            "manager_only_helper": "El vídeo no se podrá comprar, sólo será visible para los administradores",
+            "manager_only": "No se puede comprar"
         },
         "playlist": {
             "bottomActions": {

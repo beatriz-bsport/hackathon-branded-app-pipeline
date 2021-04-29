@@ -27,6 +27,7 @@ import asyncComponent from './AsyncComponent';
 import FabWidget from './widgets/FabWidget';
 import { closeDialogAction, setDialogAction } from './store/actions.widget';
 import WidgetBridge from './widgets/WidgetBridge';
+import PassWidget from './widgets/Pass';
 
 const CalendarWidget = asyncComponent(() => import('./widgets/Calendar'));
 const VODWidget = asyncComponent(() => import('./widgets/Vod'));
@@ -113,6 +114,15 @@ class BsportWidget extends Component<Props> {
             theme={theme}
             onWindowOpen={this.onWindowOpen}
             dialogMode={dialogMode}
+          />
+        );
+      case 'pass':
+        return (
+          <PassWidget
+            companyId={companyId}
+            config={config[widgetType]}
+            store={store}
+            theme={theme}
           />
         );
       case 'newsletter':

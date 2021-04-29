@@ -6,11 +6,10 @@ import { withStyles } from '@material-ui/styles';
 import { MarketplaceWorkshopBase } from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';
 import { MarketplaceWorkshopData } from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-
+import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { RootState } from '../store/reducer';
 import '../../vendor/map.css';
-import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 
 const MarketplaceWorkshopBaseStyled = themify(MarketplaceWorkshopBase);
 

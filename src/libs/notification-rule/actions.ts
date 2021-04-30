@@ -1,5 +1,3 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 
@@ -52,7 +50,9 @@ export function fetchTagList(options: OptionCallback) {
   };
 }
 
-export function fetchNotificationRuleList(options?: OptionCallback) {
+export function fetchNotificationRuleList(
+  options?: OptionCallback<any /* TODO Types */>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(notificationRuleListActions.isLoading(true));
     dispatch(notificationRuleListActions.error(null));
@@ -62,7 +62,7 @@ export function fetchNotificationRuleList(options?: OptionCallback) {
       const response_generic_rules = await fetchNotificationRuleGenericListAPI();
 
       const { rules, tags } = response_generic_rules.data;
-      const genericRulesList = rules.map((r) => ({
+      const genericRulesList = rules.map((r: any) => ({
         ...r,
         email_template: Object.entries(tags).reduce(
           (acc, [tagName, tagValue]) => {
@@ -136,7 +136,10 @@ export const deleteNotificationRuleActions = {
   success: createAction('NOTIFICATION_RULE/DELETE/SUCCESS'),
 };
 
-export function deleteNotificationRule(id: number, options: OptionCallback) {
+export function deleteNotificationRule(
+  id: number,
+  options: OptionCallback<number>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteNotificationRuleActions.isLoading(true));
     dispatch(deleteNotificationRuleActions.error(null));

@@ -80,6 +80,7 @@ import { ConsumerState } from '../libs/consumer-space/types';
 import { ThemeState } from '../libs/theme/types';
 import { RoleState } from '../libs/role/types';
 import { MarketingNotificationState } from '../libs/marketing/types';
+import { NotificationRuleState } from '../libs/notification-rule/types';
 
 import actionTypes from '../actions/auth.types';
 import { EmailTemplateState } from '../libs/email-editor/types';
@@ -173,7 +174,6 @@ export type RootState = {
   reminder: any;
   offer: any;
   webhook: any;
-  notificationRule: any;
   partnership: any;
   activeCampaign: any;
   event: any;
@@ -182,6 +182,7 @@ export type RootState = {
   paymentPack: any;
   emailTemplate: EmailTemplateState;
   marketingNotification: MarketingNotificationState;
+  notificationRule: NotificationRuleState;
   role: RoleState;
   theme: ThemeState;
   consumer: ConsumerState;

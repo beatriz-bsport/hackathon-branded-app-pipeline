@@ -1,10 +1,9 @@
-// @flow
-
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
 import {
   emailDesignCreate,
@@ -18,19 +17,9 @@ import { snackbarError } from '../../actions/snackbar.actions';
 
 import { fetchTagList } from '../../libs/notification-rule/actions';
 import { getTagCategories } from '../../libs/notification-rule/selectors';
+import { RootState } from '../../reducers';
 
-type Props = {
-  company_id: number,
-  emailDesignCreate: (data: any) => void,
-  goToList: () => void,
-  goToListDetail: (id: number) => void,
-  snackbarError: (msg: string) => void,
-
-  fetchTagList: () => void,
-  tagCategories: { [string]: Array<string> },
-  hasBeenLoadedOnce: boolean,
-  setHasBeenLoaded: (?boolean) => void,
-};
+type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
 export class EmailTemplateCreate extends Component<Props> {
   componentWillMount() {
@@ -47,9 +36,9 @@ export class EmailTemplateCreate extends Component<Props> {
     this.props.setHasBeenLoaded();
   }
 
-  onSave = (id: number, data: *) => {
+  onSave = (id: number, data: any) => {
     this.props.emailDesignCreate(data, {
-      onSuccess: (templateId) => {
+      onSuccess: (templateId: number) => {
         this.props.goToListDetail(templateId);
       },
     });
@@ -58,7 +47,7 @@ export class EmailTemplateCreate extends Component<Props> {
   render() {
     return (
       <Context.Consumer>
-        {(context) => (
+        {(context: any) => (
           <EmailEditorPanel
             company_id={this.props.company_id}
             save_email={this.onSave}
@@ -75,22 +64,23 @@ export class EmailTemplateCreate extends Component<Props> {
   }
 }
 
+const mapStateToProps = (state: RootState) => ({
+  company_id: state.theme.theme.company,
+  tagCategories: getTagCategories(state),
+  hasBeenLoadedOnce: state.emailTemplate.hasBeenLoadedOnce,
+});
+
+const mapDispatchToProps = {
+  fetchTagList,
+  snackbarError,
+  emailDesignCreate,
+  setHasBeenLoaded: setEmailEditorHasBeenLoaded,
+  goToList: () => push('/email-template'),
+  goToListDetail: (id: number) => push(`/email-template/${id}`),
+};
+
 export default compose(
   withTranslation(['emailTemplate']),
-  withTitle(({ t }) => t('createTitle')),
-  connect(
-    (state) => ({
-      company_id: state.theme.theme.company,
-      tagCategories: getTagCategories(state),
-      hasBeenLoadedOnce: state.emailTemplate.hasBeenLoadedOnce,
-    }),
-    {
-      fetchTagList,
-      snackbarError,
-      emailDesignCreate,
-      setHasBeenLoaded: setEmailEditorHasBeenLoaded,
-      goToList: () => push('/email-template'),
-      goToListDetail: (id) => push(`/email-template/${id}`),
-    },
-  ),
+  withTitle(({ t }: { t: TFunction }) => t('createTitle')),
+  connect(mapStateToProps, mapDispatchToProps),
 )(EmailTemplateCreate);

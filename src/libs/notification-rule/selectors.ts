@@ -1,15 +1,13 @@
-// @flow
 import { createSelector } from 'reselect';
+import { RootState } from '../../reducers';
 
-import type { State } from '../../state/types';
-
-export const getEventList = (state: State) =>
+export const getEventList = (state: RootState) =>
   state.notificationRule.eventType.data;
 
-const getRuleData = (state: State) => state.notificationRule.rule.byId;
-const getRuleListIds = (state: State) => state.notificationRule.rule.allIds;
+const getRuleData = (state: RootState) => state.notificationRule.rule.byId;
+const getRuleListIds = (state: RootState) => state.notificationRule.rule.allIds;
 
-export const getTagCategories = (state: State) =>
+export const getTagCategories = (state: RootState) =>
   state.notificationRule.tag.data;
 
 const getRuleList = createSelector([getRuleData, getRuleListIds], (data, ids) =>

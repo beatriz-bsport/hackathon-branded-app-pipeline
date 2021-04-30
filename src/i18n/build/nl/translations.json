@@ -1982,7 +1982,13 @@
             "creditsLeft": {
                 "second": "krediet(en) heeft.",
                 "first": "Stuur een melding wanneer dit lidmaatschap nog"
-            }
+            },
+            "daysLeftLabel": "Melden wanneer de kaart nog {{day}} dag geldig is",
+            "daysLeftLabel_plural": "Melden wanneer de kaart nog {{day}} dagen geldig is",
+            "daysPastLabel": "Melden wanneer de kaart {{day}} dag verlopen is",
+            "daysPastLabel_plural": "Melden wanneer de kaart {{day}} dagen verlopen is",
+            "creditsLeftLabel": "Melden wanneer er nog {{count}} krediet over is",
+            "creditsLeftLabel_plural": "Melden wanneer er nog {{count}} kredieten over zijn"
         },
         "search": "Zoek een cursuskaart",
         "extension": {
@@ -2831,7 +2837,7 @@
             },
             "statTitle": "Statistieken"
         },
-        "selectToShowPreview": "Selecteer een e-mail",
+        "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
         "noSmartLists": "Smartlists zijn specifieke segmenten van je ledenbestand. Voeg filters toe om een bepaalde doelgroep aan te maken en maak daarna een prachtige en persoonlijke e-mail aan om naar deze doelgroepen te sturen als onderdeel van je marketingcampagnes om aspecten als klantbehoud te verbeteren.",
         "delete": "Verwijderen",
         "edit": "Configuratie"
@@ -3011,7 +3017,7 @@
         "search": "Zoek een sjabloon",
         "listTitle": "Mijn e-mails",
         "detail": "Gedetailleerde informatie",
-        "selectToShowPreview": "Selecteer een e-mail",
+        "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
         "create": "Een nieuwe e-mail ontwerpen",
         "templateListEmpty": "In dit onderdeel kun je prachtige, gepersonaliseerde en unieke e-mails met onze Drag-&-Drop Bewerker ontwerpen en gelijk vanuit je BSPORT-account automatisch versturen.",
         "modification_date": "Laatste wijziging op",
@@ -3333,7 +3339,16 @@
                     "title": "Evenement"
                 },
                 "explain": "Voeg een melding toe om je leden automatisch te contacteren aan de hand van een aantal criteria.",
-                "notifyAllEvents": "Stuur deze melding na iedere reservering"
+                "notifyAllEvents": "Stuur deze melding na iedere reservering",
+                "bookingNumber_n": "Reservering: {{notify_booking_nb}}",
+                "bookingNumber": "Alle reserveringen",
+                "bookingNumber_plural": "1e reservering",
+                "ifKind": {
+                    "notRefunded": "Wanneer de afspraak te laat is geannuleerd",
+                    "refunded": "Wanneer de reservering op tijd is geannuleerd",
+                    "absence": "Als het lid afwezig is",
+                    "attendance": "Als het lid aanwezig is"
+                }
             },
             "addNotification": "Een melding toevoegen"
         },
@@ -3558,7 +3573,8 @@
         },
         "marketing": {
             "marketingDashboard": "Dashboard",
-            "marketingRule": "Marketingstrategieën"
+            "marketingRule": "Marketingstrategieën",
+            "notifications": "Meldingen"
         },
         "settings": "Instellingen",
         "shop": "Mijn webshop",
@@ -5034,7 +5050,12 @@
                     "title": "Selecteer het type reservering dat je wilt contacteren"
                 },
                 "intro": "Je kunt je leden voor of na bepaalde afspraken een melding sturen op basis van verschillende criteria (bijv. het aantal reserveringen/annuleringen).",
-                "title": "Een melding toevoegen"
+                "title": "Een melding toevoegen",
+                "ifKind": {
+                    "notRefunded": "Wanneer de afspraak te laat is geannuleerd",
+                    "refunded": "Wanneer de afspraak op tijd is geannuleerd",
+                    "valid": "Als de reservering geldig is"
+                }
             },
             "tooltip": "Er zijn actieve meldingen voor dit type afspraak",
             "listItemPrimary": {
@@ -7237,7 +7258,8 @@
                 "cashDialogTitle": "Kasboek",
                 "close": "Sluiten",
                 "at": "om"
-            }
+            },
+            "marketingNotification": "Meldingen"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -7341,6 +7363,40 @@
                 "email": "E-mailadres",
                 "title": "Schrijf je hieronder in voor onze nieuwsbrief en ontvang interessante updates en artikelen."
             }
+        },
+        "notifications": {
+            "deleteDialogText": "Weet je zeker dat je deze regel wilt verwijderen? Deze actie is definitief.",
+            "createNotificationFabLabel": "Een melding toevoegen",
+            "notificationsEmpty": "Er is geen bestaande melding voor deze groep.",
+            "deleteDialogTitle": "De regel verwijderen",
+            "removeRule": "De regel verwijderen",
+            "editRule": "De regel wijzigen",
+            "paymentPackKind": {
+                "credit": "Aantal kredieten",
+                "validity": "Geldigheid"
+            },
+            "groupTitle": {
+                "paymentPack": "Cursuskaart",
+                "privateBooking": "Afspraak",
+                "booking": "Reservering"
+            },
+            "fabLabels": {
+                "payment_pack": "Cursuskaart",
+                "private_service": "Afspraak",
+                "establishment": "Vestiging",
+                "meta_activity": "Activiteit"
+            },
+            "cancel": "Annuleren",
+            "next": "Volgende",
+            "paymentPackPlaceholder": "Cursuskaart",
+            "selectIdentifierLabel": {
+                "payment_pack": "Selecteer een cursuskaart",
+                "private_service": "Selecteer een afspraak",
+                "establishment": "Selecteer een vestiging",
+                "meta_activity": "Selecteer een activiteit"
+            },
+            "createNotification": "[Formulier] Melding",
+            "selectNotificationRules": "Selecteer een regel voor een gedetailleerd overzicht."
         }
     }
 }

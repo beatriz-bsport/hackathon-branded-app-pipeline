@@ -4,6 +4,7 @@ import { compose } from 'recompose';
 import { MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import URI from 'urijs';
+import i18n from 'bsport-saas/src/i18n';
 
 // eslint-disable-next-line
 import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
@@ -56,6 +57,9 @@ window.env = { ...(window.env || {}), APP_CONTEXT: 'widget' };
 class BsportWidget extends Component<Props> {
   componentDidMount() {
     this.fetchData();
+    if (this.props.language) {
+      i18n.changeLanguage(this.props.language);
+    }
   }
 
   fetchData() {

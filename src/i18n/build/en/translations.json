@@ -3099,7 +3099,12 @@
                     "title": "Choose the type of appointment you want to notify"
                 },
                 "intro": "You can inform your clients before or/and after some appointments, regarding some rules such as number of bookings or cancellation.",
-                "title": "Add a notification"
+                "title": "Add a notification",
+                "ifKind": {
+                    "notRefunded": "If the appointment has been cancelled late",
+                    "refunded": "If the appointment has been cancelled on time",
+                    "valid": "If the appointment is valid"
+                }
             }
         },
         "marketplace": {
@@ -5968,13 +5973,19 @@
                 "first": "Notify when the pass has expired"
             },
             "daysLeft": {
-                "second": "days of validity remaining on the pass",
+                "second": "days",
                 "first": "Notify when when there is"
             },
             "creditsLeft": {
                 "second": "credits remaining",
                 "first": "Send an email when there is"
-            }
+            },
+            "daysPastLabel": "Notify when the pass has expired by {{day}} day",
+            "daysPastLabel_plural": "Notify when the pass has expired by {{day}} days",
+            "daysLeftLabel": "Notify when there is {{day}} day of validity left on the pass",
+            "daysLeftLabel_plural": "Notify when there are {{day}} days of validity left on the pass",
+            "creditsLeftLabel": "Notify when there is {{count}} credit left",
+            "creditsLeftLabel_plural": "Notify when there are {{credit}} credits left"
         },
         "search": "Search a pass",
         "extension": {
@@ -6768,7 +6779,10 @@
                 "typeTitle": "Notification type",
                 "explain": "You can notify your clients before or after certain sessions, depending on various criteria such as the number of attendances, absences or even cancellations.",
                 "title": "Notification form",
-                "notifyAllEvents": "Notify the member at each event"
+                "notifyAllEvents": "Notify the member at each event",
+                "ifKind": {
+                    "attendance": "If the member is present"
+                }
             },
             "addNotification": "Add a notification"
         },

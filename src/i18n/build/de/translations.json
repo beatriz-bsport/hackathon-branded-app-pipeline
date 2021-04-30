@@ -2277,13 +2277,19 @@
                 "first": "Benachrichtigen, wenn die Karte abgelaufen ist"
             },
             "daysLeft": {
-                "second": "Tage der Gültigkeit auf der Karte",
+                "second": "Tage",
                 "first": "Benachrichtigen, wenn es"
             },
             "creditsLeft": {
                 "second": "Credits verbleiben",
                 "first": "Benachrichtigen, wenn es"
-            }
+            },
+            "daysPastLabel": "Benachrichtigen, wenn die Karte seit {{day}} Tag abgelaufen ist",
+            "daysPastLabel_plural": "Benachrichtigen, wenn die Karte seit {{day}} Tage abgelaufen ist",
+            "daysLeftLabel": "Benachrichtigen, wenn auf der Karte noch {{day}} Gültigkeitstag verbleibt",
+            "daysLeftLabel_plural": "Benachrichtigen, wenn auf der Karte noch {{day}} Gültigkeitstage verbleibt",
+            "creditsLeftLabel": "Benachrichtigen, wenn {{credit}} Guthaben verbleibt",
+            "creditsLeftLabel_plural": "Benachrichtigen, wenn {{credit}} Guthaben verbleibt"
         },
         "link": {
             "copyLink": "Kopiere den Link zur Zahlungsseite",
@@ -4231,7 +4237,16 @@
                 "typeTitle": "Benachrichtigungstyp",
                 "title": "Benachrichtigungs-Formular",
                 "eventNb": "Benachrichtige das Mitglied während der Veranstaltung Nr.:",
-                "notifyAllEvents": "Benachrichtige das Mitglied bei jeder Veranstaltung"
+                "notifyAllEvents": "Benachrichtige das Mitglied bei jeder Veranstaltung",
+                "bookingNumber_n": "{{notify_booking_nb}}. Reservierung",
+                "bookingNumber": "Alle Buchungen",
+                "bookingNumber_plural": "erste Buchung",
+                "ifKind": {
+                    "notRefunded": "Wenn die Buchung nach Ablauf der Frist storniert wurde",
+                    "refunded": "Wenn die Buchung rechtzeitig storniert wurde",
+                    "absence": "Wenn das Mitglied abwesend ist",
+                    "attendance": "Wenn das Mitglied anwesend ist"
+                }
             },
             "addNotification": "Eine Benachrichtigung hinzufügen"
         },
@@ -5351,7 +5366,12 @@
                     "title": "Wähle die Art der Buchungen, die Du benachrichtigen möchtest"
                 },
                 "intro": "Du kannst deine Kunden vor oder nach bestimmten Terminen benachrichtigen, abhängig von verschiedenen Kriterien wie der Anzahl der Reservierungen oder Stornierungen.",
-                "title": "Eine Benachrichtigung hinzufügen"
+                "title": "Eine Benachrichtigung hinzufügen",
+                "ifKind": {
+                    "notRefunded": "Wenn die Buchung nach Ablauf der Frist storniert wurde",
+                    "refunded": "Wenn die Buchung rechtzeitig storniert wurde",
+                    "valid": "Wenn die Buchung gültig ist"
+                }
             }
         },
         "marketplace": {
@@ -6111,7 +6131,8 @@
         },
         "marketing": {
             "marketingDashboard": "Dashboard",
-            "marketingRule": "Marketing-Kampagnen"
+            "marketingRule": "Marketing-Kampagnen",
+            "notifications": "Benachrichtigungen"
         },
         "searchResults": "Suche",
         "settings": "Einstellungen",
@@ -6490,7 +6511,8 @@
                 "close": "Schließen",
                 "addAmount": "Betrag, der dem Kassenbuch hinzugefügt werden muss",
                 "todayStartAmount": "Anfangsbetrag im Kassenbuch"
-            }
+            },
+            "marketingNotification": "Benachrichtigungen"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
@@ -7330,6 +7352,40 @@
                 "email": "E-Mail-Adresse",
                 "title": "Abonniere unseren Newsletter"
             }
+        },
+        "notifications": {
+            "createNotificationFabLabel": "Benachrichtigung erstellen",
+            "notificationsEmpty": "Keine vorhandene Benachrichtigung für diese Gruppe",
+            "deleteDialogText": "Möchtest Du diese Regel wirklich löschen? Dieser Vorgang ist unwiderruflich",
+            "deleteDialogTitle": "Regel löschen",
+            "removeRule": "Regel löschen",
+            "editRule": "Regel anpassen",
+            "paymentPackKind": {
+                "credit": "Anzahl der Credits",
+                "validity": "Gültigkeit der Karte"
+            },
+            "groupTitle": {
+                "paymentPack": "Kurskarte",
+                "privateBooking": "Termin",
+                "booking": "Buchung"
+            },
+            "fabLabels": {
+                "payment_pack": "Kurskarte",
+                "private_service": "Termin",
+                "establishment": "Einrichtung",
+                "meta_activity": "Aktivität"
+            },
+            "cancel": "Abbrechen",
+            "next": "Weiter",
+            "paymentPackPlaceholder": "Kurskarte",
+            "selectIdentifierLabel": {
+                "payment_pack": "Eine Terminkarte auswählen",
+                "private_service": "Einen Termin auswählen",
+                "establishment": "Wähle eine Einrichtung aus",
+                "meta_activity": "Wähle eine Aktivität aus"
+            },
+            "createNotification": "Benachrichtigung-Formular",
+            "selectNotificationRules": "Wähle eine Regel aus, um die Details anzuzeigen"
         }
     }
 }

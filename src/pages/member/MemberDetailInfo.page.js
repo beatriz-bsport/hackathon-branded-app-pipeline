@@ -384,7 +384,7 @@ export default compose(
       fetchPaymentMethodListActions: fetchPaymentMethodList,
       // fetchInvoiceItemList: fetchInvoiceItemListAction,
       sendCommunication,
-      fetchRoles: fetchCompanyUserRoles,
+      fetchCompanyUserRoles,
       fetchMember,
       searchMembers,
       tagMember,

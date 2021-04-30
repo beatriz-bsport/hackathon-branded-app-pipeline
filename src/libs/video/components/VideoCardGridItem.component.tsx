@@ -74,7 +74,11 @@ export const VideoCardGridItem = (props: Props) => {
             <div>
               <div className={classes.header}>
                 <div className={classes.titleRow}>
-                  <Typography variant="h6" component="h3">
+                  <Typography
+                    variant="h6"
+                    component="h3"
+                    className={classes.title}
+                  >
                     {props.video.name}
                   </Typography>
                   <Typography
@@ -159,14 +163,17 @@ const useStyles = makeStyles((theme) => ({
   header: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
     paddingBottom: theme.spacing(1),
+  },
+  title: {
+    flex: 1,
+    maxWidth: '100%',
+    overflowWrap: 'anywhere',
   },
   titleRow: {
     display: 'flex',
     flexDirection: 'row',
-    width: '100%',
+    flex: 1,
     justifyContent: 'space-between',
     alignItems: 'baseline',
     '&>*': {
@@ -176,8 +183,7 @@ const useStyles = makeStyles((theme) => ({
   headerAction: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
     paddingLeft: theme.spacing(2),
   },
   coachContainer: {

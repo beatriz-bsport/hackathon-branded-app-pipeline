@@ -101,7 +101,7 @@ export class CalendarWidget extends Component<Props, State> {
         otherParams={{
           date: this.state.selectedDate,
           filtersOpen: this.state.filtersOpen,
-          onlyDay: '',
+          onlyDay: this.props.config.todayOnly ? 'true' : '',
         }}
         setOtherParams={this.setOtherParams}
         goToBook={this.onClickGoToBook}

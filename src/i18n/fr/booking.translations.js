@@ -193,6 +193,18 @@ exports.default = {
         refunded: 'Annulation remboursée',
         notRefunded: 'Annulation hors délai',
       },
+      ifKind: {
+        attendance: 'Si le membre est présent',
+        absence: 'Si le membre est absent',
+        refunded: 'Si la réservation a été annulée dans les temps',
+        notRefunded: 'Si la réservation a été annulée hors-délai',
+      },
+      // bookingNumber: 'Réservation N°{{notify_booking_nb}}',
+      bookingNumber_0: 'Toutes les réservations',
+      bookingNumber_1: '1ère réservation',
+      bookingNumber_2: '2ème réservation',
+      bookingNumber_3: '3ème réservation',
+      bookingNumber_n: '{{notify_booking_nb}}ème réservation',
       help: {
         text: 'Aide : la notification sera envoyée au membre lors de',
         attendance: 'sa présence n° {{notify_booking_nb}}',

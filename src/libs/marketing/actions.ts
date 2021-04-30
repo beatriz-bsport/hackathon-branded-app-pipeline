@@ -24,11 +24,10 @@ export function fetchMarketingNotificationList(
   return async (dispatch: Dispatch) => {
     dispatch(marketingNotificationListActions.isLoading(true));
     dispatch(marketingNotificationListActions.error(null));
-
+    let data = null;
     try {
       const response_custom = await fetchMarketingNotificationAPI(params);
-
-      const data = [...response_custom.data];
+      data = [...response_custom.data];
       dispatch(marketingNotificationListActions.success(data));
       if (options && options.onSuccess) {
         options.onSuccess(data);
@@ -42,6 +41,7 @@ export function fetchMarketingNotificationList(
     }
 
     dispatch(marketingNotificationListActions.isLoading(false));
+    return data;
   };
 }
 
@@ -53,7 +53,7 @@ export const deleteMarketingNotificationActions = {
 
 export function deleteMarketingNotification(
   id: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteMarketingNotificationActions.isLoading(true));
@@ -123,7 +123,7 @@ export const marketingNotificationCreateActions = {
 
 export function createMarketingNotification(
   data: any,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(marketingNotificationCreateActions.isLoading(true));
@@ -158,7 +158,7 @@ export const marketingNotificationUpdateActions = {
 export function updateMarketingNotification(
   id: number,
   data: any,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(marketingNotificationUpdateActions.isLoading(true));

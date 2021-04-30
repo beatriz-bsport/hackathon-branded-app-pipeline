@@ -130,9 +130,18 @@ exports.default = {
       first: "Notifier lorsqu'il reste",
       second: 'crédits',
     },
+    creditsLeftLabel: "Notifier lorsqu'il reste {{count}} crédit",
+    creditsLeftLabel_plural: "Notifier lorsqu'il reste {{credit}} crédits",
+    daysLeftLabel:
+      "Notifier lorsqu'il reste {{day}} jour de validité sur la carte",
+    daysLeftLabel_plural:
+      "Notifier lorsqu'il reste {{day}} jours de validité sur la carte",
+    daysPastLabel: 'Notifier lorsque la carte est expirée depuis {{day}} jour',
+    daysPastLabel_plural:
+      'Notifier lorsque la carte est expirée depuis {{day}} jours',
     daysLeft: {
       first: "Notifier lorsqu'il reste",
-      second: 'jours de validité sur la carte',
+      second: 'jours',
     },
     daysPast: {
       first: 'Notifier lorsque la carte est expirée depuis',

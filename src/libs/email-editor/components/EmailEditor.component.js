@@ -14,7 +14,7 @@ import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
 import Checkbox from '../../../components/input/Checkbox.component';
-import type { EmailTemplate } from '../types';
+import type { EmailTemplateDetail } from '../types';
 import i18n from '../../../i18n';
 
 type Props = {
@@ -22,7 +22,7 @@ type Props = {
   auto_save_email: (number, any) => void,
   auto_save_enabled: ?boolean,
   company_id: number,
-  emailLoad: EmailTemplate,
+  emailLoad: EmailTemplateDetail,
   t: TFunction,
   company_name: string,
   classes: Object,

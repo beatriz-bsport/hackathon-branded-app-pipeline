@@ -79,8 +79,10 @@ import { MembershipState } from '../libs/membership/types';
 import { ConsumerState } from '../libs/consumer-space/types';
 import { ThemeState } from '../libs/theme/types';
 import { RoleState } from '../libs/role/types';
+import { MarketingNotificationState } from '../libs/marketing/types';
 
 import actionTypes from '../actions/auth.types';
+import { EmailTemplateState } from '../libs/email-editor/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -163,7 +165,6 @@ export type RootState = {
   order: any;
   waitingList: any;
   coupon: any;
-  emailTemplate: any;
   relationship: any;
   network: any;
   login: any;
@@ -177,9 +178,10 @@ export type RootState = {
   activeCampaign: any;
   event: any;
   platformBilling: any;
-  marketingNotification: any;
   dashboardSettings: any;
   paymentPack: any;
+  emailTemplate: EmailTemplateState;
+  marketingNotification: MarketingNotificationState;
   role: RoleState;
   theme: ThemeState;
   consumer: ConsumerState;

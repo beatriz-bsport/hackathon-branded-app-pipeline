@@ -752,6 +752,11 @@ exports.default = {
         cancelledNotRefunded:
           'Réservation annulée et non remboursée (hors délai)',
       },
+      ifKind: {
+        valid: 'Si la réservation est valide',
+        refunded: 'Si la réservation a été annulée dans les temps',
+        notRefunded: 'Si la réservation a été annulée hors-délai',
+      },
       notifyNb: "Notifier le membre lors de l'évènement n° :",
       notifyAllEvents: 'Notifier le membre à chaque évènement',
       help: {

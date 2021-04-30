@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 
 import Hidden from '@material-ui/core/Hidden';
@@ -7,25 +6,28 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import ShareIcon from '@material-ui/icons/Share';
 import Fab from '@material-ui/core/Fab';
+import { Theme } from '@material-ui/core';
 import { compose } from 'recompose';
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import RedFab from './RedFab.component';
+import { MaterialStyleType } from '../../utils/types';
 
-type Props = {
-  t: TFunction,
-  classes: Object,
-  onEdit: ?() => void,
-  onShare: ?() => void,
-  onDelete: ?() => void,
-  onCreate: ?() => void,
-  onCreateLabel: ?string,
+type OwnProps = {
+  onEdit?: () => void;
+  onShare?: () => void;
+  onDelete?: () => void;
+  onCreate?: () => void;
+  onCreateLabel?: string;
 };
 
-export const BottomActionButtons = (props: Props) => (
+type Props = OwnProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
+
+export const BottomActionButtons: React.FC<Props> = (props: Props) => (
   <div className={props.classes.buttonContainer}>
     {props.onCreate ? (
       <Fab
@@ -85,7 +87,7 @@ export const BottomActionButtons = (props: Props) => (
     ) : null}
   </div>
 );
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   buttonContainer: {
     position: 'fixed',
     right: theme.spacing(2),
@@ -102,7 +104,7 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(),
 )(BottomActionButtons);

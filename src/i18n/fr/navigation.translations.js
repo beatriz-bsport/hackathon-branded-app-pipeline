@@ -78,7 +78,7 @@ exports.default = {
       settings: 'Paramètres',
       platform_billing: 'Abonnement bsport',
     },
-
+    marketingNotification: 'Notifications',
     myClub: 'Mon Club',
     subscription: 'Prélèvements',
     contract: 'Contrats',

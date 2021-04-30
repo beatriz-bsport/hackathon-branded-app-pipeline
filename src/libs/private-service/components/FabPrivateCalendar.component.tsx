@@ -6,21 +6,17 @@ import moment from 'moment-timezone';
 
 import {
   Button,
-  ButtonBase,
   Dialog,
   DialogActions,
   DialogTitle,
   Typography,
-  Fab,
   withStyles,
   Theme,
 } from '@material-ui/core';
 
-import AddIcon from '@material-ui/icons/Add';
-import CloseIcon from '@material-ui/icons/Close';
-
 import DateTimeForm from '../../../components/input/DateTimeInput.component';
 import { MaterialStyleType } from '../../../utils/types';
+import FabWithItems from '../../../components/button/FabWithItems';
 
 type OwnProps = {
   timezone: string;
@@ -37,7 +33,6 @@ type Props = OwnProps &
   WithTranslation;
 
 interface State {
-  openFab: boolean;
   privateBookerFabOpen: boolean;
   privateBookerDateStart: string;
 
@@ -51,7 +46,6 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
     super(props);
 
     this.state = {
-      openFab: false,
       privateBookerFabOpen: false,
       privateBookerDateStart: moment(props.startDate)
         .tz(props.timezone)
@@ -96,55 +90,24 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
   render() {
     return (
       <>
-        {this.state.openFab && (
-          <ButtonBase
-            className={this.props.classes.fabBackgroundContainer}
-            disableRipple={true}
-            onClick={() => this.setState({ openFab: false })}
-          />
-        )}
-
-        <div className={this.props.classes.fabContainer}>
-          {this.state.openFab && (
-            <>
-              <ButtonBase
-                className={this.props.classes.fabItem}
-                onClick={() => {
-                  this.setDefaultDates();
-                  this.setState({ openFab: false, privateBookerFabOpen: true });
-                }}
-              >
-                <Typography>{this.props.t('calendar.addBooking')}</Typography>
-              </ButtonBase>
-
-              {this.props.createCustomEvent && (
-                <ButtonBase
-                  className={this.props.classes.fabItem}
-                  onClick={() => {
-                    this.setDefaultDates();
-                    this.setState({ openFab: false, customEventOpen: true });
-                  }}
-                >
-                  <Typography>
-                    {this.props.t('calendar.createCustomEvent')}
-                  </Typography>
-                </ButtonBase>
-              )}
-            </>
-          )}
-
-          <Fab
-            color="primary"
-            aria-label="add"
-            onClick={() =>
-              this.setState((prevState) => ({
-                openFab: !prevState.openFab,
-              }))
-            }
-          >
-            {this.state.openFab ? <CloseIcon /> : <AddIcon />}
-          </Fab>
-        </div>
+        <FabWithItems
+          items={[
+            {
+              label: this.props.t('calendar.addBooking'),
+              onClick: () => {
+                this.setDefaultDates();
+                this.setState({ privateBookerFabOpen: true });
+              },
+            },
+            this.props.createCustomEvent && {
+              label: this.props.t('calendar.createCustomEvent'),
+              onClick: () => {
+                this.setDefaultDates();
+                this.setState({ customEventOpen: true });
+              },
+            },
+          ]}
+        />
 
         <Dialog
           open={this.state.privateBookerFabOpen}
@@ -251,34 +214,6 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
 }
 
 const styles = (theme: Theme) => ({
-  fabBackgroundContainer: {
-    width: '100%',
-    height: '100%',
-    position: 'fixed',
-    backgroundColor: '#00000033',
-    zIndex: 999,
-    top: 0,
-    left: 0,
-  },
-  fabContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    zIndex: 9999,
-    position: 'fixed',
-    bottom: 20,
-    right: 20,
-  },
-  fabItem: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    paddingTop: theme.spacing(0.5),
-    paddingBottom: theme.spacing(0.5),
-    marginBottom: theme.spacing(2),
-    borderRadius: 5,
-    backgroundColor: 'white',
-    'box-shadow': '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
-  },
   dialogDateContainer: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),

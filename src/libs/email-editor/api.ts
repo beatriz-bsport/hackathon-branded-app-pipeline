@@ -1,5 +1,3 @@
-// @flow
-
 import {
   API_V1_URI,
   getAuth,
@@ -15,7 +13,7 @@ export const fetchEmailTemplateDetail = async (id: number) => {
   return getAuth(`${MARKETING_EMAIL_URI}${id}/get_detail/`);
 };
 
-export const fetchEmailTemplatesSummaries = async (params: any) => {
+export const fetchEmailTemplatesSummaries = async (params?: any) => {
   return getAuth(`${MARKETING_EMAIL_URI}summary/${buildUrlParams(params)}`);
 };
 
@@ -27,10 +25,10 @@ export const createEmailTemplate = async (data: any) => {
   return postAuth(MARKETING_EMAIL_URI, data);
 };
 
-export const updateEmailTemplate = (id: string, data: *) => {
+export const updateEmailTemplate = (id: string | number, data: any) => {
   return patchAuth(`${MARKETING_EMAIL_URI}${id}/`, data);
 };
 
-export const deleteEmailTemplate = (id: string) => {
+export const deleteEmailTemplate = (id: string | number) => {
   return deleteAuth(`${MARKETING_EMAIL_URI}${id}/`);
 };

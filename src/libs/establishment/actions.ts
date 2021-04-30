@@ -48,6 +48,7 @@ export function deleteEstablishment(id: number, options?: OptionCallback) {
     }
   };
 }
+
 export const resetAction = createAction('ESTABLISHMENT/RESET/SUCCESS');
 
 export function resetEstablishments() {
@@ -263,11 +264,13 @@ function fetchEstablishmentBulkBase(
   return async (dispatch: ThunkDispatch<any, any, any>) => {
     dispatch(establishmentBulkRetrieveActions.isLoading(true));
     dispatch(establishmentBulkRetrieveActions.error(null));
+    let promise = null;
     try {
       const response = await fetchEstablishmentListAPI({
         page_size: 300,
         ...params,
       });
+      promise = response.data;
       dispatch(establishmentBulkRetrieveActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
@@ -275,6 +278,7 @@ function fetchEstablishmentBulkBase(
       if (options && options.onError) options.onError(error);
     }
     dispatch(establishmentBulkRetrieveActions.isLoading(false));
+    return promise;
   };
 }
 
@@ -293,7 +297,11 @@ export const fetchEstablishmentBulk = (
     if (ids_uniq.length === 0) {
       return;
     }
-    dispatch(fetchEstablishmentBulkBase({ id__in: ids_uniq }, options));
+    const res = await dispatch(
+      fetchEstablishmentBulkBase({ id__in: ids_uniq }, options),
+    );
+    /* eslint-disable-next-line */
+    return res;
   };
 };
 

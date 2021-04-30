@@ -64,6 +64,7 @@ import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import LaptopIcon from '@material-ui/icons/Laptop';
 import StorageIcon from '@material-ui/icons/Storage';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 
@@ -669,6 +670,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
                 ? t('backofficeMenu.alpha')
                 : null,
             text: t('backofficeMenu.sequence'),
+          },
+          {
+            to: '/notifications',
+            icon: NotificationsActiveIcon,
+            text: t('backofficeMenu.marketingNotification'),
           },
         ],
       },

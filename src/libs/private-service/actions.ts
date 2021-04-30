@@ -801,7 +801,7 @@ export const privateServiceBulkActions = {
 
 export function fetchPrivateServiceBulk(
   ids: Array<number>,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceBulkActions.isLoading(true));

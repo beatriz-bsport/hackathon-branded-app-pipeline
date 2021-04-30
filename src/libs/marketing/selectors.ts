@@ -1,14 +1,12 @@
 import { createSelector } from 'reselect';
+import { get, setWith } from 'lodash';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
+import { RootState } from '../../reducers';
+import { MarketingNotification } from './types';
 
-import type { State } from '../../state/types';
+export const BIRTHDAY_NOTIFICATION = 0;
 
-const BIRTHDAY_NOTIFICATION = 0;
-const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
-const BOOKING_CREATION_NOTIFICATION = 2;
-const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
-const CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT = 4;
-
-export const getAllMarketingNotification = (state: State) =>
+export const getAllMarketingNotification = (state: RootState) =>
   state.marketingNotification.notifications;
 
 export const getCelebrationBirthday = createSelector(
@@ -19,17 +17,20 @@ export const getCelebrationBirthday = createSelector(
     ),
 );
 
-const _getNotificationIds = (state: State) =>
+const _getNotificationIds = (state: RootState) =>
   state.marketingNotification.allIds;
 
-const _getNotifications = (state: State) => state.marketingNotification.byId;
+const _getNotifications = (state: RootState) =>
+  state.marketingNotification.byId;
 
 export const getPrivateBookingNotifications = createSelector(
   [_getNotificationIds, _getNotifications],
   (ids, data) => {
     return ids
       .map((id) => data[id])
-      .filter((notif) => notif.kind === PRIVATE_BOOKING_CREATION_NOTIFICATION);
+      .filter(
+        (notif) => notif.kind === NOTIFICATION_KIND.PRIVATE_BOOKING_CREATION,
+      );
   },
 );
 
@@ -38,7 +39,7 @@ export const getBookingNotifications = createSelector(
   (ids, data) => {
     return ids
       .map((id) => data[id])
-      .filter((notif) => notif.kind === BOOKING_CREATION_NOTIFICATION);
+      .filter((notif) => notif.kind === NOTIFICATION_KIND.BOOKING_CREATION);
   },
 );
 
@@ -49,11 +50,108 @@ export const getPaymentPackNotifications = createSelector(
       .map((id) => data[id])
       .filter((notif) =>
         [
-          CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
-          CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
+          NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME,
+          NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT,
           // @ts-ignore
         ].includes(notif.kind),
       );
+  },
+);
+
+export const getNotificationForMarketingPage = createSelector(
+  [_getNotificationIds, _getNotifications],
+  (ids, data) => {
+    return ids
+      .map((id) => data[id])
+      .filter((notif) =>
+        [
+          NOTIFICATION_KIND.PRIVATE_BOOKING_CREATION,
+          NOTIFICATION_KIND.BOOKING_CREATION,
+          NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_CREDIT,
+          NOTIFICATION_KIND.CONSUMER_PAYMENT_PACK_TIME,
+        ].includes(notif.kind),
+      );
+  },
+);
+
+export const getNotificationGrouped = createSelector(
+  [getNotificationForMarketingPage],
+  (notifications) => {
+    const byPaymentPack: { [key: string]: MarketingNotification[] } = {};
+    const bookings: {
+      [key: string]: {
+        identifier: 'meta_activity' | 'establishment' | 'private_service';
+        bySession: {
+          [key: string]: { [key: string]: MarketingNotification[] };
+        };
+      };
+    } = {};
+    const privateBookings = { ...bookings };
+
+    notifications.forEach((n) => {
+      const {
+        payment_pack_id,
+        establishment_id,
+        meta_activity_id,
+        private_service_id,
+        notify_booking_nb,
+        kind,
+      } = n.event_rules;
+
+      if (payment_pack_id !== undefined) {
+        if (byPaymentPack[payment_pack_id] === undefined) {
+          byPaymentPack[payment_pack_id] = [];
+        }
+        byPaymentPack[payment_pack_id].push(n);
+      }
+
+      if (meta_activity_id !== undefined && meta_activity_id !== null) {
+        const _path = [
+          meta_activity_id.toString(),
+          'bySession',
+          notify_booking_nb.toString(),
+          kind.toString(),
+        ];
+
+        !get(bookings, _path) && setWith(bookings, _path, [], Object);
+        bookings[meta_activity_id.toString()].identifier = 'meta_activity';
+        bookings[meta_activity_id.toString()].bySession[notify_booking_nb][
+          kind
+        ].push(n);
+      }
+      if (establishment_id !== undefined && establishment_id !== null) {
+        const _path = [
+          establishment_id.toString(),
+          'bySession',
+          notify_booking_nb.toString(),
+          kind.toString(),
+        ];
+
+        !get(bookings, _path) && setWith(bookings, _path, [], Object);
+        bookings[establishment_id.toString()].identifier = 'establishment';
+        bookings[establishment_id.toString()].bySession[notify_booking_nb][
+          kind
+        ].push(n);
+      }
+      if (private_service_id !== undefined && private_service_id !== null) {
+        const _path = [
+          private_service_id.toString(),
+          'bySession',
+          notify_booking_nb.toString(),
+          kind.toString(),
+        ];
+
+        !get(privateBookings, _path) &&
+          setWith(privateBookings, _path, [], Object);
+        privateBookings[private_service_id.toString()].identifier =
+          'private_service';
+        privateBookings[private_service_id.toString()].bySession[
+          notify_booking_nb
+        ][kind].push(n);
+      }
+    });
+
+    return { byPaymentPack, bookings, privateBookings };
   },
 );
 

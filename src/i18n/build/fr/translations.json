@@ -1743,6 +1743,11 @@
           "cancelledRefunded": "Réservation annulée et remboursée",
           "cancelledNotRefunded": "Réservation annulée et non remboursée (hors délai)"
         },
+        "ifKind": {
+          "valid": "Si la réservation est valide",
+          "refunded": "Si la réservation a été annulée dans les temps",
+          "notRefunded": "Si la réservation a été annulée hors-délai"
+        },
         "notifyNb": "Notifier le membre lors de l'évènement n° :",
         "notifyAllEvents": "Notifier le membre à chaque évènement",
         "help": {
@@ -4185,7 +4190,13 @@
         "smartListHelperInclude": "Envoyer un mail uniquement si le membre appartient à l'une des listes suivantes"
       },
       "creditsLeft": { "first": "Notifier lorsqu'il reste", "second": "crédits" },
-      "daysLeft": { "first": "Notifier lorsqu'il reste", "second": "jours de validité sur la carte" },
+      "creditsLeftLabel": "Notifier lorsqu'il reste {{count}} crédit",
+      "creditsLeftLabel_plural": "Notifier lorsqu'il reste {{credit}} crédits",
+      "daysLeftLabel": "Notifier lorsqu'il reste {{day}} jour de validité sur la carte",
+      "daysLeftLabel_plural": "Notifier lorsqu'il reste {{day}} jours de validité sur la carte",
+      "daysPastLabel": "Notifier lorsque la carte est expirée depuis {{day}} jour",
+      "daysPastLabel_plural": "Notifier lorsque la carte est expirée depuis {{day}} jours",
+      "daysLeft": { "first": "Notifier lorsqu'il reste", "second": "jours" },
       "daysPast": { "first": "Notifier lorsque la carte est expirée depuis", "second": "jours" }
     },
     "search": "Chercher une carte",
@@ -4793,6 +4804,17 @@
           "refunded": "Annulation remboursée",
           "notRefunded": "Annulation hors délai"
         },
+        "ifKind": {
+          "attendance": "Si le membre est présent",
+          "absence": "Si le membre est absent",
+          "refunded": "Si la réservation a été annulée dans les temps",
+          "notRefunded": "Si la réservation a été annulée hors-délai"
+        },
+        "bookingNumber_0": "Toutes les réservations",
+        "bookingNumber_1": "1ère réservation",
+        "bookingNumber_2": "2ème réservation",
+        "bookingNumber_3": "3ème réservation",
+        "bookingNumber_n": "{{notify_booking_nb}}ème réservation",
         "help": {
           "text": "Aide : la notification sera envoyée au membre lors de",
           "attendance": "sa présence n° {{notify_booking_nb}}",
@@ -4931,7 +4953,7 @@
       "workshopActivityFormPage": "Formulaire ateliers"
     },
     "paymentPack": { "paymentPackFormPage": "Formulaire carte de cours", "paymentPackList": "Cartes de cours" },
-    "marketing": { "marketingDashboard": "Dashboard", "marketingRule": "Stratégies marketing" },
+    "marketing": { "marketingDashboard": "Dashboard", "marketingRule": "Stratégies marketing", "notifications": "Notifications" },
     "settings": "Paramètres",
     "planning": "Planning",
     "shop": "Mon magasin",
@@ -5443,6 +5465,7 @@
         "settings": "Paramètres",
         "platform_billing": "Abonnement bsport"
       },
+      "marketingNotification": "Notifications",
       "myClub": "Mon Club",
       "subscription": "Prélèvements",
       "contract": "Contrats",
@@ -5529,6 +5552,33 @@
         "validate": "Valider"
       },
       "messages": { "error": "Impossible d'enregistrer votre email pour le moment", "success": "C'est enregistré !" }
+    },
+    "notifications": {
+      "selectNotificationRules": "Sélectionnez une règle pour voir les détails",
+      "createNotification": "Formulaire de notification",
+      "selectIdentifierLabel": {
+        "meta_activity": "Sélectionner une activité",
+        "establishment": "Sélectionner un établissement",
+        "private_service": "Sélectionner un rendez-vous",
+        "payment_pack": "Sélectionner une carte de cours"
+      },
+      "paymentPackPlaceholder": "Carte de cours",
+      "next": "Suivant",
+      "cancel": "Annuler",
+      "fabLabels": {
+        "meta_activity": "Activité",
+        "establishment": "Établissement",
+        "private_service": "Rendez-vous",
+        "payment_pack": "Carte de cours"
+      },
+      "groupTitle": { "booking": "Réservation", "privateBooking": "Rendez-vous", "paymentPack": "Carte de cours" },
+      "paymentPackKind": { "validity": "Validité de la carte", "credit": "Nombre de crédits" },
+      "editRule": "Modifier la règle",
+      "removeRule": "Supprimer la règle",
+      "deleteDialogTitle": "Supprimer la règle",
+      "deleteDialogText": "Etes vous sûr de vouloir supprimer cette règle ? Cette opération est définitive",
+      "notificationsEmpty": "Aucune notification existante pour ce groupe",
+      "createNotificationFabLabel": "Créer une notification"
     }
   }
 }

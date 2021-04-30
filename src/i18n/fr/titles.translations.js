@@ -74,6 +74,7 @@ exports.default = {
   marketing: {
     marketingDashboard: 'Dashboard',
     marketingRule: 'Stratégies marketing',
+    notifications: 'Notifications',
   },
   settings: 'Paramètres',
   planning: 'Planning',

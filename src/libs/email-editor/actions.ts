@@ -1,5 +1,3 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
@@ -19,6 +17,7 @@ import { getFreshEmailTemplateSummariesIds } from './selectors';
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
 import { createDictionnaryById, createIdList } from '../../actions/utils';
+import { RootState } from '../../reducers';
 
 export const emailTemplatesSummariesAction = {
   error: createAction('EMAIL/SUMMARIES/ERROR'),
@@ -60,7 +59,7 @@ export const emailTemplateBulkAction = {
 export function fetchEmailTemplateSummariesBulk(
   ids: Array<number>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState: () => State) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
     const freshEmailTemplateList = getFreshEmailTemplateSummariesIds(
       getState(),
     );
@@ -96,6 +95,7 @@ export const emailTemplateCompleteAction = {
   isLoading: createAction('EMAIL/COMPLETE/IS_LOADING'),
   success: createAction('EMAIL/COMPLETE/SUCCESS'),
 };
+
 export function emailTemplateComplete(id: number): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(emailTemplateCompleteAction.isLoading(true));

@@ -1,5 +1,3 @@
-// @flow
-
 import {
   API_URI,
   getAuth,
@@ -22,27 +20,27 @@ export const scalePaymentPackCredit = async (id: number, data: any) => {
   );
 };
 
-export async function create(data) {
+export async function create(data: any) {
   return postAuth(`${API_URI}/saas/payment-pack/add/`, data);
 }
 
-export async function fetchOne(id) {
+export async function fetchOne(id: number) {
   return getAuth(`${API_V1_URI}/payment-pack/payment-pack/${id}`);
 }
 
-export async function edit(data) {
+export async function edit(data: any) {
   return putAuth(`${API_URI}/saas/payment-pack/${data.id}/edit/`, data);
 }
 
-export async function patch(id, data) {
+export async function patch(id: number, data: any) {
   return patchAuth(`${API_URI}/saas/payment-pack/${id}/edit/`, data);
 }
 
-export async function disableConsumerPack(id) {
+export async function disableConsumerPack(id: number) {
   return patchAuth(`${API_URI}/saas/payment-pack/consumer/${id}/disable`);
 }
 
-export async function fetchPaymentPackList(params) {
+export async function fetchPaymentPackList(params: any) {
   return getAuth(
     `${API_V1_URI}/payment-pack/payment-pack/${buildUrlParams(params)}`,
   );
@@ -56,7 +54,7 @@ export async function fetchPaymentPackCompatibleList(params: any = {}) {
   );
 }
 
-export async function fetchCompanyPaymentPacks(companyId) {
+export async function fetchCompanyPaymentPacks(companyId: number) {
   return getAuth(
     `${API_V1_URI}/payment-pack/payment-pack/?company=${companyId}`,
   );

@@ -43,7 +43,7 @@ type Props = {
   sendCommunication: (any) => void,
   fetchEmailTemplatesSummaries: () => void,
   fetchEmailTemplateDetail: (id: number) => void,
-  email_templates_list: Array<EmailTemplate>,
+  email_templates_list: Array<EmailTemplateDetail>,
   email_templates_details: Array<EmailTemplateDetail>,
   emailListLoading: boolean,
   emailDetailLoading: boolean,

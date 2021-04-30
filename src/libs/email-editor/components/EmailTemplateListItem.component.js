@@ -21,7 +21,7 @@ import ListItemResponsiveAction from '../../../components/button/ListItemRespons
 import withConfirm from '../../../hocs/with-confirm.hoc';
 
 type Props = {
-  email_template: EmailTemplate,
+  email_template: EmailTemplateDetail,
   onClick: (any) => void,
   onClickDuplicate: (id: number) => void,
   onClickDelete: (id: number) => void,

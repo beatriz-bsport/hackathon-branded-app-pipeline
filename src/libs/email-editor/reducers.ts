@@ -16,26 +16,35 @@ import {
   setEmailEditorHasBeenLoaded,
 } from './actions';
 
-import type { email_template_state } from './types';
+import type { EmailTemplateState } from './types';
 
-const initialState: email_template_state = Immutable({
-  isLoading: false,
-  error: null,
-  byId: {},
-  hasBeenLoadedOnce: false,
-  allIds: [],
-  detail: { isLoading: false, error: null, byId: {} },
-  // Create or Update
-  upsert: {
+const initialState: Immutable.Immutable<EmailTemplateState> = Immutable<EmailTemplateState>(
+  {
     isLoading: false,
     error: null,
+    byId: {},
+    hasBeenLoadedOnce: false,
+    allIds: [],
+    detail: {
+      isLoading: false,
+      error: null,
+      byId: {},
+    },
+    // Create or Update
+    upsert: {
+      isLoading: false,
+      error: null,
+    },
   },
-});
+);
 
 export default handleActions(
   {
     // get name, id, and date of all templates for listing them
-    [emailTemplatesSummariesAction.success]: (state, { payload }) => {
+    [emailTemplatesSummariesAction.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state
         .merge(
           {
@@ -45,17 +54,20 @@ export default handleActions(
         )
         .set('allIds', payload.emailTemplatesIdList);
     },
-    [emailTemplatesSummariesAction.error]: (state, { payload }) => {
+    [emailTemplatesSummariesAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [setEmailEditorHasBeenLoaded]: (state) => {
+    [setEmailEditorHasBeenLoaded.toString()]: (state) => {
       return state.set('hasBeenLoadedOnce', true);
     },
-    [emailTemplatesSummariesAction.isLoading]: (state, { payload }) => {
+    [emailTemplatesSummariesAction.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.set('isLoading', payload);
     },
 
-    [emailTemplateBulkAction.success]: (state, { payload }) => {
+    [emailTemplateBulkAction.success.toString()]: (state, { payload }) => {
       return state
         .merge(
           {
@@ -65,40 +77,43 @@ export default handleActions(
         )
         .set('allIds', payload.emailTemplatesIdList);
     },
-    [emailTemplateBulkAction.error]: (state, { payload }) => {
+    [emailTemplateBulkAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [emailTemplateBulkAction.isLoading]: (state, { payload }) => {
+    [emailTemplateBulkAction.isLoading.toString()]: (state, { payload }) => {
       return state.set('isLoading', payload);
     },
 
     // Load the html end design of one specific template
-    [emailTemplateDetailAction.success]: (state, { payload }) => {
+    [emailTemplateDetailAction.success.toString()]: (state, { payload }) => {
       return state.merge({ detail: { byId: payload } }, { deep: true });
     },
 
-    [emailTemplateDetailAction.isLoading]: (state, { payload }) => {
+    [emailTemplateDetailAction.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['detail', 'isLoading'], payload);
     },
-    [emailTemplateDetailAction.error]: (state, { payload }) => {
+    [emailTemplateDetailAction.error.toString()]: (state, { payload }) => {
       return state.setIn(['detail', 'error'], payload);
     },
 
     // Get all infos about one template, used when go to edit page
-    [emailTemplateCompleteAction.success]: (state, { payload }) => {
+    [emailTemplateCompleteAction.success.toString()]: (state, { payload }) => {
       return state.merge(
         { byId: payload.summary, detail: { byId: payload.detail } },
         { deep: true },
       );
     },
-    [emailTemplateCompleteAction.isLoading]: (state, { payload }) => {
+    [emailTemplateCompleteAction.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['detail', 'isLoading'], payload);
     },
-    [emailTemplateCompleteAction.error]: (state, { payload }) => {
+    [emailTemplateCompleteAction.error.toString()]: (state, { payload }) => {
       return state.setIn(['detail', 'error'], payload);
     },
 
-    [createEmailDesignAction.success]: (state, { payload }) => {
+    [createEmailDesignAction.success.toString()]: (state, { payload }) => {
       // console.log(newList);
       // console.log(newList);
       return state
@@ -117,33 +132,32 @@ export default handleActions(
           payload.id,
         );
     },
-    [createEmailDesignAction.isLoading]: (state, { payload }) => {
+    [createEmailDesignAction.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);
     },
-    [createEmailDesignAction.error]: (state, { payload }) => {
+    [createEmailDesignAction.error.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'error'], payload);
     },
-    [updateEmailTemplateAction.success]: (state, { payload }) => {
+    [updateEmailTemplateAction.success.toString()]: (state, { payload }) => {
       return state.merge(
         { byId: payload.summary, detail: { byId: payload.detail } },
         { deep: true },
       );
     },
 
-    [updateEmailTemplateAction.isLoading]: (state, { payload }) => {
+    [updateEmailTemplateAction.isLoading.toString()]: (state, { payload }) => {
       return state.set('isLoading', payload);
     },
-    [updateEmailTemplateAction.error]: (state, { payload }) => {
+    [updateEmailTemplateAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-    [deleteEmailTemplateAction.isLoading]: (state, { payload }) => {
+    [deleteEmailTemplateAction.isLoading.toString()]: (state, { payload }) => {
       return state.set('isLoading', payload);
     },
-    [deleteEmailTemplateAction.error]: (state, { payload }) => {
+    [deleteEmailTemplateAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
-
-    [resetAction.success]: (state) => {
+    [resetAction.toString()]: (state) => {
       return state
         .setIn(['byId'], {})
         .setIn(['allIds'], [])

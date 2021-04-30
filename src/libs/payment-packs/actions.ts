@@ -1,5 +1,3 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
@@ -23,10 +21,10 @@ import {
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
-import { actionTypes as types } from './types';
+import { actionTypes as types, PaymentPack } from './types';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 
-import type { Dispatch, OptionCallback } from '../../state/types';
+import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 
 export const scalePaymentPackCreditActions = {
   isLoading: createAction('PAYMENT_PACK/SCALE_CREDIT/IS_LOADING'),
@@ -95,7 +93,7 @@ export const updatePaymentPackActions = {
   success: createAction('PAYMENT_PACK/PATCH/SUCCESS'),
 };
 
-export function patch(id: number, data: [*]) {
+export function patch(id: number, data: any) {
   return async (dispatch: Dispatch) => {
     dispatch(updatePaymentPackActions.isLoading(id));
     dispatch(updatePaymentPackActions.error(null));
@@ -135,8 +133,10 @@ export function fetchOne(id: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchOneAction.isLoading(true));
     dispatch(fetchOneAction.error(null));
+    let promise = null;
     try {
       const response = await fetchOneAPI(id);
+      promise = response.data;
       dispatch(fetchOneAction.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
@@ -149,10 +149,11 @@ export function fetchOne(id: number, options: OptionCallback) {
       }
     }
     dispatch(fetchOneAction.isLoading(false));
+    return promise;
   };
 }
 
-export function createOrUpdate(data: PaymentPackFormData, options = {}) {
+export function createOrUpdate(data: any, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(startCreateOrUpdate(data.id));
     dispatch(createOrUpdateFailed(null));
@@ -168,13 +169,13 @@ export function createOrUpdate(data: PaymentPackFormData, options = {}) {
       if (response.status === 200) {
         dispatch(createOrUpdateSuccess(response.data));
         dispatch(snackbarSuccess('paymentPack.createOrUpdate.success'));
-        if (options.onSuccess) options.onSuccess(response.data);
+        if (options && options.onSuccess) options.onSuccess(response.data);
       }
     } catch (err) {
       console.error(err);
       dispatch(createOrUpdateFailed(err));
       dispatch(snackbarError('paymentPack.createOrUpdate.fail'));
-      if (options.onError) options.onError();
+      if (options && options.onError) options.onError();
     }
   };
 }
@@ -182,11 +183,12 @@ export function createOrUpdate(data: PaymentPackFormData, options = {}) {
 export function startCreateOrUpdate(id: number) {
   return { type: types.PAYMENT_PACK_CREATEORUPDATE_START, id };
 }
+
 export function createOrUpdateSuccess(paymentPack: PaymentPack) {
   return { type: types.PAYMENT_PACK_CREATEORUPDATE_SUCCESS, paymentPack };
 }
 
-export function createOrUpdateFailed(error: ?Error) {
+export function createOrUpdateFailed(error?: Error) {
   return { type: types.PAYMENT_PACK_CREATEORUPDATE_FAIL, error };
 }
 
@@ -244,7 +246,10 @@ export const fetchMarketplacePacksAction = {
   success: createAction('PAYMENT_PACK/MARKETPLACE/SUCCESS'),
 };
 
-export function fetchMarketplacePacks(params: any, options): ThunkAction {
+export function fetchMarketplacePacks(
+  params: any,
+  options?: OptionCallback,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(fetchMarketplacePacksAction.isLoading(true));
     dispatch(fetchMarketplacePacksAction.error(null));
@@ -278,7 +283,7 @@ export const paymentPackBulkActions = {
 
 export function fetchPaymentPackBulk(
   ids: Array<number>,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     const ids_uniq = uniq(ids);
@@ -287,7 +292,6 @@ export function fetchPaymentPackBulk(
     }
     dispatch(paymentPackBulkActions.isLoading(true));
     dispatch(paymentPackBulkActions.error(null));
-
     try {
       const response = await fetchPaymentPackListAPI({
         id__in: ids_uniq,
@@ -309,6 +313,7 @@ export function fetchPaymentPackBulk(
     dispatch(paymentPackBulkActions.isLoading(false));
   };
 }
+
 export const notificationListActions = {
   isLoading: createAction('PAYMENT_PACK_NOTIFICATION/LIST/IS_LOADING'),
   error: createAction('PAYMENT_PACK_NOTIFICATION/LIST/ERROR'),
@@ -339,10 +344,7 @@ export const notificationCreateActions = {
   success: createAction('PAYMENT_PACK_NOTIFICATION/CREATE/SUCCESS'),
 };
 
-export function createPackNotification(
-  data: any,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
-) {
+export function createPackNotification(data: any, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(notificationCreateActions.isLoading(true));
     dispatch(notificationCreateActions.error(null));
@@ -367,7 +369,7 @@ export const notificationDeleteActions = {
 
 export function deletePackNotification(
   notificationData: any,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(notificationDeleteActions.isLoading(true));
@@ -393,10 +395,7 @@ export const notificationUpdateActions = {
   success: createAction('PAYMENT_PACK_NOTIFICATION/PATCH/SUCCESS'),
 };
 
-export function updatePackNotification(
-  data: any,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
-) {
+export function updatePackNotification(data: any, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(notificationUpdateActions.isLoading(data.id));
     dispatch(notificationUpdateActions.error(null));

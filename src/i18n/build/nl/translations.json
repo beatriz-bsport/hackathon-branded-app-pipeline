@@ -235,7 +235,8 @@
                     "subscription_flat_fee": "Inschrijfkosten",
                     "subscription_nb_months": "Aantal maanden",
                     "subscription_recurrent_price": "Maandelijks bedrag",
-                    "subscription_name": "Naam"
+                    "subscription_name": "Naam",
+                    "subscription_next_invoice_date": "Eerstvolgende factuurdatum"
                 },
                 "name": "Abonnementen"
             },
@@ -704,10 +705,10 @@
             "title": "Titel",
             "offer": {
                 "delete": {
-                    "explainModalities": "Let op: deze wijziging is definitief. Je sessie zal niet langer zichtbaar zijn voor je leden, maar je kunt het nog wel bekijken.",
+                    "explainModalities": "Let op: deze wijziging is definitief. De sessie zal niet langer zichtbaar voor je leden zijn.",
                     "explainNotify": "Een melding naar alle ingeschreven leden sturen",
                     "explainCreditBack": "Stort het tegoed op de cursuskaart terug",
-                    "explainHardDelete": "Deze sessie uit de lijst verwijderen? Let op: de sessie wordt onzichtbaar en deze actie is definitief! Als de sessie reserveringen bevat, worden deze niet verwijderd.",
+                    "explainHardDelete": "Wil je deze sessie verwijderen? Let op: deze actie is definitief en de sessie wordt onzichtbaar. Als een sessie reserveringen bevat kan het niet worden verwijderen.",
                     "buttonHardDelete": "Verwijderen"
                 },
                 "explainNotificationOnEdit": "De ingeschreven leden over de wijziging(en) informeren.",
@@ -727,9 +728,9 @@
                 "establishmentLabel": "Vestiging",
                 "coachLabel": "Instructeur",
                 "substituteCoachLabel": "Plaatsvervanger",
-                "establishmentChangeWarning": "Als de vestiging gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Als je een tijdelijke vestiging wilt aanstellen, gebruik dan het veld \"Tijdelijke vestiging\". Elke andere hier vastgelegde wijzigingen (instructeur, prijs, datum...) worden vervolgens ook op alle sessies toegepast.",
-                "coachChangeWarning": "Als de instructeur gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Als je een plaatsvervanger wilt aanstellen, gebruik dan het veld \"Plaatsvervanger\". Elke andere hier vastgelegde wijzigingen (inrichting, prijs, dag van de week ...) worden vervolgens ook op alle sessies toegepast.",
-                "levelChangeWarning": "Als het niveau van de cursus gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Elke andere hier vastgelegde wijzigingen (inrichting, prijs, dag van de week ...) worden vervolgens ook toegepast op alle sessies."
+                "establishmentChangeWarning": "Wanneer de vestiging van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Als je een tijdelijke vestiging wilt gebruiken, gebruik dan het veld \"Tijdelijke vestiging\". Alle andere wijzigingen (instructeur, prijs, etc.) worden vervolgens op alle sessies toegepast.",
+                "coachChangeWarning": "Wanneer de instructeur van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Alle andere wijzigingen (vestiging, prijs, etc.) worden vervolgens op alle sessies toegepast.",
+                "levelChangeWarning": "Wanneer het niveau van de activiteit gewijzigd wordt, geldt deze wijziging voor alle toekomstige sessies. Alle andere wijzigingen (vestiging, prijs, etc.) worden vervolgens op alle sessies toegepast."
             },
             "payment": {
                 "additionalInformationHelper": "Betalingskenmerk (optioneel)",
@@ -837,7 +838,7 @@
                     "sell_only_on_provision": "Alleen verkopen als er voorraad is",
                     "onsite_payment_available": "Later betalen toestaan (bijv. in de studio)",
                     "available_payment_method_identifiers": {
-                        "helperText": "Selecteer tenminste één betaalmethode. Als het winkelmandje van een lid artikelen bevat waarvoor geen compatibele betaalmethode beschikbaar is, wordt een creditcard-betaling aangeboden.",
+                        "helperText": "Selecteer ten minste één betaalmethode. Als er geen is geselecteerd, wordt een creditcardbetaling aangeboden.",
                         "label": "Geaccepteerde betaalmethoden"
                     }
                 },
@@ -861,7 +862,7 @@
                 "confirmPassword": "Bevestigen",
                 "password": "Wachtwoord",
                 "changePasswordTitle": "Wachtwoord wijzigen",
-                "tokenExpired": "Deze pagina is niet meer geldig. Stel je wachtwoord opnieuw in alsjeblieft",
+                "tokenExpired": "Deze pagina is verlopen. Gelieve je wachtwoord herstellen.",
                 "resetAgainPassword": "Herstelaanvraag"
             },
             "address": {
@@ -1016,17 +1017,17 @@
             "discard": "Annuleren",
             "doNotAttend": "Afwezig",
             "attend": "Aanwezig",
-            "revertBookingWithInvoiceImpossibleExplain": "Deze reservering is recent betaald en kan niet worden geannuleerd. Je kunt je wel als \"Afwezig\" melden",
+            "revertBookingWithInvoiceImpossibleExplain": "Deze reservering is betaald en kan niet worden geannuleerd. Je kunt wel aangeven dat deze persoon \"Afwezig\" is.",
             "revertBookingExplain": {
-                "offerIsNotAvailable": "De reservering wordt verwijderd. De sessie is al geannuleerd en tegoeden worden niet terugbetaald als je \"teruggave\" niet hebt aangevinkt bij het annuleren",
+                "offerIsNotAvailable": "De reservering wordt verwijderd. De sessie is al geannuleerd en tegoeden worden niet terugbetaald als je \"teruggave\" niet hebt aangevinkt bij het annuleren.",
                 "offerIsAvailable": "Weet je zeker dat je deze reservering wilt verwijderen? De gebruikte kredieten worden opnieuw gecrediteerd.",
                 "offerIsAvailableChoiceRefund": "Weet je zeker dat je deze reservering wilt verwijderen?"
             },
             "revertBookingTitle": "Inschrijving annuleren",
             "wasRefunded": "Krediet vergoed",
             "cancelledFromWaitingList": "Verwijderd van de wachtlijst",
-            "notifyRevert": "Verstuur een annuleringsmail",
-            "refundRevert": "Vergoed gebruikte kredieten"
+            "notifyRevert": "Een annuleringsmail sturen",
+            "refundRevert": "Gebruikte kredieten terugbetalen"
         },
         "workshopActivity": {
             "forms": {
@@ -1235,7 +1236,7 @@
                 },
                 "autoDiscard": {
                     "hours_before_start": "Aantal uur/uren voor het begin van de sessie:",
-                    "explain": "Annuleer de sessie en stuur een e-mail naar de ingeschreven leden indien er {{bookings_nb}} reservering(en) zijn of wanneer de sessie binnen {{hours}} uur begint.",
+                    "explain": "Annuleer sessies met ≤ {{bookings_nb}} reservering(en) {{hours}} uur voor het begin van de sessie. Ingeschreven leden ontvangen een melding van de annulering.",
                     "checkbox": "Annuleer sessies met te weinig reserveringen",
                     "emailRecipients": "Deze e-mail wordt verzonden naar accounts met de rol Eigenaar of Systeembeheerder, evenals naar de (plaatsvervangende) docent van de sessie in kwestie.",
                     "min_bookings_nb": "Aantal reserveringen:"
@@ -1408,7 +1409,7 @@
         },
         "form": {
             "available_payment_method_identifiers": {
-                "helperText": "Selecteer minimaal één betaalmethode. Als een lid geen compatibele betaalmethoden heeft, wordt een creditcard-betaling aangeboden.",
+                "helperText": "Selecteer ten minste één betaalmethode. Als er geen is geselecteerd, wordt een creditcardbetaling aangeboden.",
                 "label": "Geaccepteerde betaalmethoden"
             },
             "selectorPlaceholder": {
@@ -3344,10 +3345,10 @@
                 "bookingNumber": "Alle reserveringen",
                 "bookingNumber_plural": "1e reservering",
                 "ifKind": {
-                    "notRefunded": "Wanneer de afspraak te laat is geannuleerd",
+                    "notRefunded": "Wanneer de reservering te laat is geannuleerd",
                     "refunded": "Wanneer de reservering op tijd is geannuleerd",
-                    "absence": "Als het lid afwezig is",
-                    "attendance": "Als het lid aanwezig is"
+                    "absence": "Wanneer het lid afwezig is",
+                    "attendance": "Wanneer het lid aanwezig is"
                 }
             },
             "addNotification": "Een melding toevoegen"
@@ -4000,7 +4001,7 @@
                 "submit": "Opslaan"
             },
             "bottomActions": {
-                "create": "Toevoegen"
+                "create": "Een afspeellijst toevoegen"
             },
             "playlist": "Afspeellijsten"
         },
@@ -4033,7 +4034,7 @@
                 "placeholder": "Zoeken"
             },
             "bottomActions": {
-                "create": "Toevoegen"
+                "create": "Een video toevoegen"
             },
             "name": "Naam",
             "category": "Categorie",
@@ -4056,11 +4057,11 @@
                 "cancel": "Annuleren",
                 "content": "Upload of selecteer een video",
                 "urlInputError": "Plak hier een link",
-                "urlInputLabel": "Link naar YouTube",
+                "urlInputLabel": "De directe link naar je video op YouTube",
                 "type": {
                     "url": "YouTube",
                     "file": "Bestand",
-                    "fileExplain": "Gebruik deze optie om je videobestand (MP4, MOV, AVI) op de servers van BSPORT te uploaden.",
+                    "fileExplain": "Gebruik deze optie om je eigen videobestand (MP4, MOV, AVI) op de privéservers van BSPORT te plaatsen.",
                     "urlExplain": "Je video is al beschikbaar op YouTube, maar je wilt een nieuwe inkomstenbron via BSPORT aanboren."
                 },
                 "submit": "Bevestigen",
@@ -4317,7 +4318,7 @@
             "methodPaymentBasket": "Eenmalige betalingen",
             "methodPaymentSubscription": "Periodieke betalingen",
             "save": "Opslaan",
-            "methodPaymentSubscriptionError": "Selecteer minimaal één betaalmethode",
+            "methodPaymentSubscriptionError": "Selecteer ten minste één betaalmethode",
             "methodPaymentSubscriptionHelper": "Selecteer welke betaalmethode(n) je voor abonnementen (contracten) wilt accepteren:",
             "methodPaymentBasketHelper": "Selecteer welke betaalmethode(n) je voor eenmalige betalingen wilt accepteren:",
             "subtitle2": "Als Systeembeheerder of Eigenaar heb je altijd toegang tot alle betaalmethoden.",
@@ -4680,7 +4681,7 @@
                 },
                 "available_payment_method_identifiers": {
                     "label": "Geaccepteerde betaalmethoden",
-                    "helperText": "Selecteer tenminste één betaalmethode. Als het winkelmandje van een lid artikelen bevat waarvoor geen compatibele betaalmethode beschikbaar is, wordt een creditcard-betaling aangeboden."
+                    "helperText": "Selecteer ten minste één betaalmethode. Als er geen is geselecteerd, wordt een creditcardbetaling aangeboden."
                 },
                 "actions": {
                     "submit": "Opslaan",
@@ -5054,7 +5055,7 @@
                 "ifKind": {
                     "notRefunded": "Wanneer de afspraak te laat is geannuleerd",
                     "refunded": "Wanneer de afspraak op tijd is geannuleerd",
-                    "valid": "Als de reservering geldig is"
+                    "valid": "Wanneer de reservering geldig is"
                 }
             },
             "tooltip": "Er zijn actieve meldingen voor dit type afspraak",

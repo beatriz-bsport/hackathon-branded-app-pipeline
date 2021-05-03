@@ -108,7 +108,8 @@
             "pack": "Lidmaatschappen",
             "calendar": "Geschiedenis",
             "dashboard": "Overzicht",
-            "myVideos": "Mijn video's"
+            "myVideos": "Mijn video's",
+            "pick_a_language": "Selecteer een taal"
         },
         "unsubscriber": {
             "success": "Je bent uitgeschreven.",
@@ -1181,7 +1182,8 @@
             "isRefreshing": "Je interface is zo klaar",
             "duplicate": "Dupliceren",
             "restore": "Herstellen",
-            "share": "Delen"
+            "share": "Delen",
+            "pickALanguage": "Taal"
         },
         "members": {
             "form": {
@@ -1813,7 +1815,7 @@
             "offers": "Sessies",
             "members": "Leden",
             "cashbook": "Kasboek",
-            "on_spot_payments": "Cash betalingen",
+            "on_spot_payments": "Contante betalingen",
             "video": "Video",
             "unpaid_invoices": "Openstaande facturen"
         },
@@ -2264,7 +2266,7 @@
             "title": "De geldigheid voor alle leden verlengen",
             "minDate": "Niet eerder dan",
             "dateHelpText": "Verleng alle lidmaatschappen die tussen X en Y verlopen",
-            "helpText": "Hier kun je de geldigheid van dit lidmaatschap voor al je leden in één keer verlengen. Let op! Deze actie is definitief.",
+            "helpText": "Hier kun je de geldigheid van dit lidmaatschap voor al je leden in één keer verlengen. Let op: deze actie is definitief.",
             "listItemNbDays": "+ {{nbDays}} dag(en)",
             "createdAt": "Toegevoegd op: {{date}}",
             "listItemDate": "Verloopt tussen {{ minDate }} en {{ maxDate }}",
@@ -2841,7 +2843,17 @@
         "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
         "noSmartLists": "Smartlists zijn specifieke segmenten van je ledenbestand. Voeg filters toe om een bepaalde doelgroep aan te maken en maak daarna een prachtige en persoonlijke e-mail aan om naar deze doelgroepen te sturen als onderdeel van je marketingcampagnes om aspecten als klantbehoud te verbeteren.",
         "delete": "Verwijderen",
-        "edit": "Configuratie"
+        "edit": "Configuratie",
+        "tag_rules": {
+            "tag_group": "Naam van de groep",
+            "tag_name": "Naam van de tag",
+            "cancel": "Annuleren",
+            "display_tag_rules": "Toon tag-regels",
+            "associated_tag": "Bijbehorende tag",
+            "create": "Een regel toevoegen",
+            "tag_on_join_and_untag_on_left": "Tag indien aanwezig in de Smartlist",
+            "type_of_rule": "Type regel"
+        }
     },
     "metaActivity": {
         "forms": {
@@ -3078,7 +3090,8 @@
             "privateConsumerPass": "Afspraakkaarten",
             "paymentPack": "Lidmaatschappen",
             "invoices": "Facturen en abonnementen",
-            "contact": "Contact"
+            "contact": "Contact",
+            "vod": "Video On Demand"
         },
         "forms": {
             "merge": {
@@ -3155,7 +3168,7 @@
         "merge": "Samenvoegen",
         "regularizeBalance": "Betaling afronden",
         "cashoutBalance": "Uitbetalen",
-        "creditAccountBalance": "Saldo",
+        "creditAccountBalance": "Interne rekening (saldo)",
         "showPaymentPack": "Zie cursuskaarten",
         "showSubscriptions": "Zie abonnementen",
         "relation": {
@@ -3745,7 +3758,7 @@
             },
             "sepa": "Automatische incasso (SEPA)",
             "card": "Creditcard",
-            "bsportCredit": "Saldo"
+            "bsportCredit": "Interne rekening (saldo)"
         },
         "mandate": {
             "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT en Stripe, ons betaalsysteem, toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen volgens de voorwaarden van je contract met deze bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
@@ -3960,6 +3973,42 @@
         "end": {
             "renew": "Automatische verlenging",
             "noRenew": "Einde van het abonnement"
+        },
+        "contractPause": {
+            "form": {
+                "invalidBillingPlan": "De volgende abonnementen konden niet automatisch worden gepauzeerd",
+                "validBillingPlan": "De volgende abonnementen worden gepauzeerd",
+                "untilDate": {
+                    "label": "en "
+                },
+                "fromDate": {
+                    "label": "Gefactureerd tussen "
+                },
+                "advanced": "Geavanceerd",
+                "days": {
+                    "helperText": "Aantal dagen dat het abonnement wordt gepauzeerd",
+                    "label": "Aantal dagen"
+                },
+                "name": {
+                    "label": "Notitie"
+                },
+                "warning": "Let op: sommige abonnementen kunnen niet worden herstart",
+                "title": "Algemene pauze"
+            },
+            "actions": {
+                "previous": "Terug",
+                "verify": "Controleren",
+                "add": "Pauzeren",
+                "submit": "Pauzeren",
+                "cancel": "Annuleren"
+            },
+            "section": {
+                "error": "{{nb}} abonnementen konden niet worden gepauzeerd",
+                "success": "{{nb}} abonnementen gepauzeerd"
+            },
+            "fromUntil": "Alleen als de facturatie tussen {{from}} en {{until}} is",
+            "createdAt": "Gemaakt op {{at}}",
+            "title": "Algemene pauze"
         }
     },
     "coachPerformance": {
@@ -4110,6 +4159,12 @@
             },
             "manager_only_helper": "Deze video kan alleen door managers worden bekeken.",
             "manager_only": "Niet beschikbaar"
+        },
+        "details": {
+            "pleaseSelectVod": "Selecteer een aankoop om meer details te tonen",
+            "invoiceTitle": "Bijbehorende factuur",
+            "consumerPaymentPackTitle": "Gebruikte cursuskaart",
+            "title": "Details van de video"
         }
     },
     "order": {
@@ -4293,9 +4348,10 @@
                 "selectPrivateServiceTypeDetail": "Mijn afspraken",
                 "selectPrivateServiceTypeList": "Alle afspraken",
                 "selectPrivateServiceType": "Type",
-                "hidePrivatePass": "",
-                "hidePaymentPack": "",
-                "hidePaymentCombo": ""
+                "hidePrivatePass": "Toon geen afspraakkaarten",
+                "hidePaymentPack": "Toon geen cursuskaarten",
+                "hidePaymentCombo": "Toon geen pakketten",
+                "todayOnly": "Toon alleen de sessies van vandaag"
             },
             "componentType": {
                 "playlist": "Afspeellijst",
@@ -5713,6 +5769,11 @@
             "duplicate": {
                 "error": "Kan de Smartlist niet dupliceren",
                 "success": "Smartlist gedupliceerd"
+            },
+            "tag_rules": {
+                "limit_reached": "Er kunnen niet meer regels worden aangemaakt, omdat je het limiet (10 regels) al hebt bereikt",
+                "error": "Deze regel kan niet worden toegepast",
+                "success": "De automatische regel wordt toegepast"
             }
         },
         "webhook": {
@@ -5875,7 +5936,12 @@
         "consumerPass": {
             "success": "Je aankoop is ontvangen!"
         },
-        "copied": "Gekopieerd naar je klembord"
+        "copied": "Gekopieerd naar je klembord",
+        "contractPause": {
+            "create": {
+                "error": "Kan momenteel niet worden gepauzeerd. Probeer het later opnieuw"
+            }
+        }
     },
     "coach": {
         "performance": {
@@ -6483,7 +6549,7 @@
                 "default_attendance": {
                     "present": "Aanwezig",
                     "missing": "Afwezig",
-                    "title": "Standaardstatus van een reservering gemaakt door de leden"
+                    "title": "Standaardstatus wanneer een lid een reservering maakt"
                 },
                 "default_booking_ordering": {
                     "date": "Sorteer op: meest recente reservering",
@@ -7251,13 +7317,13 @@
             "message": "Marketing",
             "cashBook": {
                 "onSpotPaymentReport": "Toon betaaloverzicht",
-                "save": "Inschrijven",
+                "save": "Opslaan",
                 "of": "Van",
                 "amount": "Daginkomsten:",
                 "lastUpdated": "Laatste wijziging:",
                 "expectedAmount": "Verwacht bedrag: ",
                 "todayEndAmount": "Eindbedrag van vandaag",
-                "addAmount": "Bedrag dat aan het kasboek toegevoegd moet worden",
+                "addAmount": "Bedrag dat aan het kasboek moet worden toegevoegd",
                 "todayStartAmount": "Beginbedrag in kasboek",
                 "cashDialogTitle": "Kasboek",
                 "close": "Sluiten",
@@ -7301,7 +7367,10 @@
                 "tab": "Nieuw tabblad"
             },
             "dialogModeLabel": "Type pop-ups (voor het inloggen, betalen en het reserveren)",
-            "showFabLabel": "Een knop voor \"Mijn profiel\" op de widget"
+            "showFabLabel": "Een knop voor \"Mijn profiel\" op de widget",
+            "browserLanguage": "Browsertaal",
+            "languageHelper": "De widget zal standaard de hier geselecteerde taal gebruiken. Selecteer \"Browsertaal\" om de widget de gebruikerstaal van je leden te gebruiken.",
+            "pickALanguage": "Kies de standaardtaal"
         }
     },
     "platformBilling": {

@@ -129,4 +129,10 @@ exports.default = {
       uploaded: 'Video mise en ligne le {{date}}',
     },
   },
+  details: {
+    title: 'Détails de la vidéo',
+    consumerPaymentPackTitle: 'Carte de cours utilisée',
+    invoiceTitle: 'Facture asoociée',
+    pleaseSelectVod: 'Sélectionnez un achat pour voir les détails',
+  },
 };

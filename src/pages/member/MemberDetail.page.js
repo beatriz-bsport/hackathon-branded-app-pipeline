@@ -42,6 +42,7 @@ import {
   fetchAllPaymentPacks,
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
 } from '../../libs/payment-packs/actions';
+import { fetchNumberVideoPurchase } from '../../libs/video/actions';
 import { checkInvoiceInfoActions } from '../../libs/invoice/actions';
 import { fetchContractList as fetchContractListAction } from '../../libs/subscription/actions';
 
@@ -60,6 +61,7 @@ const MemberDetailRelation = asyncComponent(() =>
 const MemberDetailBooking = asyncComponent(() =>
   import('./MemberDetailBooking.page'),
 );
+const MemberDetailVod = asyncComponent(() => import('./MemberDetailVod.page'));
 const MemberDetailPayment = asyncComponent(() =>
   import('./MemberDetailPayment.page'),
 );
@@ -101,6 +103,8 @@ type Props = {
   fetchCountObjects: (id: number) => void,
   infosOfMember: dict,
   fetchFiltersSettings: () => void,
+  fetchNumberVideoPurchase: () => void,
+  videoPurchasedCount: number,
 };
 
 const MemberActions = (props: {
@@ -138,6 +142,7 @@ export class MemberDetail extends React.Component<Props> {
       this.props.fetchPaymentMethodList();
       this.props.fetchCountObjects(this.props.id);
       this.props.fetchFiltersSettings();
+      this.props.fetchNumberVideoPurchase({ member_id: this.props.id });
     }
   }
 
@@ -151,6 +156,7 @@ export class MemberDetail extends React.Component<Props> {
       id,
       member,
       infosOfMember,
+      videoPurchasedCount,
     } = this.props;
     return (
       <div className={classes.container}>
@@ -174,6 +180,14 @@ export class MemberDetail extends React.Component<Props> {
                   : ''
               } `}
               value="bookings"
+            />
+            <Tab
+              label={`${t('menu.vod')} ${
+                videoPurchasedCount && videoPurchasedCount !== 0
+                  ? `(${videoPurchasedCount})`
+                  : ''
+              } `}
+              value="vod"
             />
             <Tab
               label={`${t('menu.paymentPack')} ${
@@ -230,6 +244,12 @@ export class MemberDetail extends React.Component<Props> {
               path="/member/:id/bookings"
               component={MemberDetailBooking}
             />
+            <Route
+              exact
+              path="/member/:id/vod/:vodId/"
+              component={MemberDetailVod}
+            />
+            <Route exact path="/member/:id/vod" component={MemberDetailVod} />
             <Route
               exact
               path="/member/:id/pass/:consumerPassId"
@@ -369,6 +389,7 @@ export default compose(
       contractList: getAvailableContractListWithPaymentPack(state),
       invoiceInfo: state.invoice.invoiceInfo.data,
       savedPaymentMethodList: getSavedPaymentMethodList(state),
+      videoPurchasedCount: state.video.purchase.purchaseByMember,
     }),
     {
       fetchAllPaymentPacks,
@@ -383,6 +404,7 @@ export default compose(
       fetchCountObjects: (memberId: number) =>
         fetchCountObjectsAction(memberId),
       fetchManagerFilters: fetchManagerFiltersSettings,
+      fetchNumberVideoPurchase,
     },
   ),
   withHandlers({

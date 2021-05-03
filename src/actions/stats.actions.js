@@ -144,7 +144,6 @@ export function fetchBookingStatistics2(
     fetchStatistics(dispatch, identifier, params, fetchBookingStatisticsAPI);
   };
 }
-
 export function fetchBookingTimeslotStatistics(
   identifier: string,
   params: any,

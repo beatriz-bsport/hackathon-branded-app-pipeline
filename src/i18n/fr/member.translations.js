@@ -78,6 +78,7 @@ exports.default = {
     payment: 'Facturation',
     privateBooking: 'Rendez-vous',
     privateConsumerPass: 'Cartes RDV',
+    vod: 'VOD',
   },
   row: {
     headers: {

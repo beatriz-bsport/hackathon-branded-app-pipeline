@@ -29,6 +29,7 @@ const VodVideoAnalytics = (props: Props) => {
       </div>
     );
   }
+
   return (
     <div className={classes.container}>
       <div className={classes.header}>

@@ -6,6 +6,7 @@ import { getAllCoachesDict } from '../associated-coach/selectors';
 import { getAllMembers } from '../member/selectors';
 import { RootState } from '../../reducers';
 import { Video } from './types';
+import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
 import { SCT } from '../category/types';
 
 const getVideoListIds = (state: RootState) => state.video.list.allIds;
@@ -73,6 +74,29 @@ export const withCoach = memoize((selector: any) =>
 );
 
 const getVideoPurchases = (state: RootState) => state.video.purchase.items;
+
+export const getConsumerPurchaseVideos = (state: RootState, id: number) =>
+  state.video.purchase.items.filter((v) => v.member_id === id);
+
+export const getConsumerPurchaseVideosWithData = createSelector(
+  [getConsumerPurchaseVideos, getVideoData],
+  (purchases, videolist) =>
+    purchases.map((purchase) => ({
+      ...purchase,
+      video: Object.values(videolist).find((v) => v.id === purchase.video),
+    })),
+);
+
+export const getMemberVideoListWithConsumerPack = createSelector(
+  [getConsumerPurchaseVideosWithData, getConsumerPacksWithPaymentPack],
+  (purchaseVideos, consumerPacklist) =>
+    purchaseVideos.map((v) => ({
+      ...v,
+      consumer_payment_pack: consumerPacklist.find(
+        (cpp) => cpp.id === v.consumer_payment_pack,
+      ),
+    })),
+);
 
 export const getVideoPurchasesWithMember = createSelector(
   [getVideoPurchases, getAllMembers],

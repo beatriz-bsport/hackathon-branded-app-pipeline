@@ -4631,7 +4631,8 @@
       "contact": "Contact",
       "payment": "Facturation",
       "privateBooking": "Rendez-vous",
-      "privateConsumerPass": "Cartes RDV"
+      "privateConsumerPass": "Cartes RDV",
+      "vod": "VOD"
     },
     "row": { "headers": { "actions": "Actions" }, "update": "Modifier" },
     "paymentAction": { "toBill": "Facturer", "toSubscribe": "Souscrire" },
@@ -5393,6 +5394,12 @@
         "distinctViewers": "Vues uniques",
         "uploaded": "Video mise en ligne le {{date}}"
       }
+    },
+    "details": {
+      "title": "Détails de la vidéo",
+      "consumerPaymentPackTitle": "Carte de cours utilisée",
+      "invoiceTitle": "Facture asoociée",
+      "pleaseSelectVod": "Sélectionnez un achat pour voir les détails"
     }
   },
   "navigation": {

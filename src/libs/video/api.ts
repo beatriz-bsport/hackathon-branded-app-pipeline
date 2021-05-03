@@ -60,8 +60,26 @@ export const fetchVideoPurchase = async (params?: any) => {
   );
 };
 
+export const fetchNumberVideoPurchase = async (params?: any) => {
+  return getAuth(
+    `${API_V1_URI}/vod/video_purchase/get_number_videos_purchased/${buildUrlParams(
+      { ...(params || {}) },
+    )}`,
+  );
+};
 export const fetchVideoAnalytics = async (videoId: number) => {
   return getAuth(`${API_V1_URI}/vod/video_analytics/${videoId}/`);
+};
+
+export const fetchVideoAnalyticsbyMember = async (
+  videoId: number,
+  params: any,
+) => {
+  return getAuth(
+    `${API_V1_URI}/vod/video_analytics/${videoId}/get_analytics_per_member/${buildUrlParams(
+      { ...(params || {}) },
+    )}`,
+  );
 };
 
 export const fetchVideoViewAnalytics = async (params?: any) => {

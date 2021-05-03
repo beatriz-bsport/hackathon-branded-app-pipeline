@@ -8,10 +8,12 @@ import {
   bulkVideoActions,
   searchVideoActions,
   listVideoPurchaseActions,
+  numberVideoPurchaseActions,
   retrieveVideoAnalyticsActions,
   setVideoProviderActions,
   listVideoViewsActions,
   listVideoFilterableParamsActions,
+  retrieveVideoAnalyticsByMemberActions,
 } from './actions';
 import { Video, VideoState } from './types';
 
@@ -43,12 +45,18 @@ const initialState: Immutable.Immutable<VideoState> = Immutable<VideoState>({
     data: null,
     error: null,
   },
+  analyticsbyMember: {
+    loading: false,
+    error: null,
+    data: null,
+  },
   purchase: {
     loading: false,
     error: null,
     items: [],
     page: 1,
     count: 0,
+    purchaseByMember: 0,
   },
   views: {
     loading: false,
@@ -192,6 +200,24 @@ export default handleActions<Immutable.Immutable<VideoState>>(
     ) => {
       return state.setIn(['analytics', 'data'], payload);
     },
+    [retrieveVideoAnalyticsByMemberActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['analyticsbyMember', 'loading'], payload);
+    },
+    [retrieveVideoAnalyticsByMemberActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['analyticsbyMember', 'error'], payload);
+    },
+    [retrieveVideoAnalyticsByMemberActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['analyticsbyMember', 'data'], payload);
+    },
     [listVideoViewsActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['views', 'loading'], payload);
     },
@@ -221,6 +247,12 @@ export default handleActions<Immutable.Immutable<VideoState>>(
       { payload },
     ) => {
       return state.setIn(['filterableParams', 'items'], payload);
+    },
+    [numberVideoPurchaseActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['purchase', 'loading'], payload);
+    },
+    [numberVideoPurchaseActions.success]: (state, { payload }: any) => {
+      return state.setIn(['purchase', 'purchaseByMember'], payload);
     },
   },
   initialState,

@@ -9,7 +9,10 @@ import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
 import omit from 'lodash/omit';
-import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import {
+  BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_COMBO_ITEM,
+} from '@bsport/common/lib/master-data/buyable-items';
 import { getInvoice } from '../../libs/invoice/selectors';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import { getMember } from '../../libs/member/selectors';
@@ -135,6 +138,16 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
     this.props.fetchInvoiceByInvoiceItem(
       BUYABLE_ITEM_PRIVATE_PASS,
       this.props.privateConsumerPassId,
+      {
+        onError: () => {
+          setTimeout(() => {
+            this.props.fetchInvoiceByInvoiceItem(
+              BUYABLE_ITEM_COMBO_ITEM,
+              this.props.privateConsumerPassSelected.payment_combo_purchase_id,
+            );
+          }, 1500);
+        },
+      },
     );
   };
 
@@ -312,9 +325,19 @@ export default compose(
     fetchInvoiceByInvoiceItem: ({
       fetchInvoiceByInvoiceItem,
       setRelatedInvoice,
-    }) => (uuid, stuff) => {
-      fetchInvoiceByInvoiceItem(uuid, stuff, {
-        onSuccess: (inv) => setRelatedInvoice(inv.uuid),
+    }) => (buyableId, objectId, options) => {
+      fetchInvoiceByInvoiceItem(buyableId, objectId, {
+        onSuccess: (inv) => {
+          setRelatedInvoice(inv.uuid);
+          if (options && options.onSuccess) {
+            options.onSuccess(inv);
+          }
+        },
+        onError: (err) => {
+          if (options && options.onError) {
+            options.onError(err);
+          }
+        },
       });
     },
     setOpenValue: ({ setOpen, open }) => (name: string) => {

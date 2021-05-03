@@ -1722,7 +1722,8 @@
             "isRefreshing": "Your interface will be ready shortly",
             "duplicate": "Duplicate",
             "restore": "Restore",
-            "share": "Share"
+            "share": "Share",
+            "pickALanguage": "Language"
         },
         "members": {
             "form": {
@@ -1943,7 +1944,7 @@
                     "subscription_flat_fee": "Flat fee",
                     "subscription_payment_method": "Payment method",
                     "subscription_nb_days_pause": "Paused : nb of days",
-                    "subscription_next_invoice_date": ""
+                    "subscription_next_invoice_date": "Next billing date"
                 }
             },
             "BookingOption": {
@@ -2043,7 +2044,8 @@
             "profile": "Profile",
             "changeMembership": "Change club",
             "logoff": "Logout",
-            "myVideos": "My videos"
+            "myVideos": "My videos",
+            "pick_a_language": "Select language"
         },
         "pack": {
             "titlePaymentPack": "Class",
@@ -4477,7 +4479,11 @@
                 "selectPrivateServiceGroups": "Choose your categories",
                 "selectPrivateServiceTypeDetail": "My appointment",
                 "selectPrivateServiceTypeList": "All appointments",
-                "selectPrivateServiceType": "Type"
+                "selectPrivateServiceType": "Type",
+                "todayOnly": "Display daily sessions only",
+                "hidePaymentCombo": "Hide packs",
+                "hidePrivatePass": "Hide passes for private classes",
+                "hidePaymentPack": "Hide passes for group classes"
             },
             "componentType": {
                 "playlist": "Playlist",
@@ -7655,8 +7661,13 @@
                 "success": "Smartlist successfully created"
             },
             "duplicate": {
-                "error": "Impossible to duplicate the smartlist",
+                "error": "Unable to duplicate smarlist",
                 "success": "Smartlist duplicated"
+            },
+            "tag_rules": {
+                "limit_reached": "Impossible: You have reached the creation limit (10)",
+                "error": "Unable to apply this rule",
+                "success": "The automatic rule has been launched"
             }
         },
         "shop": {

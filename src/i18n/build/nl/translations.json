@@ -6750,7 +6750,7 @@
                 "clientAuthor": "Lid",
                 "author": "Opgemaakt door: {{ name }}",
                 "date": "Datum: {{ date }}",
-                "reverseInvoice": "Terugbetalen via ",
+                "reverseInvoice": "Terugbetaald via ",
                 "sourceInvoice": "Factuur annuleren"
             },
             "editor": {

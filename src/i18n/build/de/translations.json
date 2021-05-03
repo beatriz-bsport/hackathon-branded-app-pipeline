@@ -5846,7 +5846,8 @@
                     "subscription_name": "Name des Abonnements",
                     "subscription_payment_method": "Zahlungsmethode",
                     "subscription_recurrent_price": "Monatlich abgebuchter Betrag",
-                    "subscription_nb_days_pause": "Pause : Anzahl der Tage"
+                    "subscription_nb_days_pause": "Pause : Anzahl der Tage",
+                    "subscription_next_invoice_date": ""
                 },
                 "name": "Abonnement"
             },
@@ -7027,7 +7028,10 @@
                 "selectPrivateServiceGroups": "Wähle Deine Kategorien",
                 "selectPrivateServiceTypeDetail": "Mein Termin",
                 "selectPrivateServiceTypeList": "Alle Termine",
-                "selectPrivateServiceType": "Typ"
+                "selectPrivateServiceType": "Typ",
+                "hidePrivatePass": "",
+                "hidePaymentCombo": "",
+                "hidePaymentPack": ""
             },
             "componentType": {
                 "playlist": "Playlist",

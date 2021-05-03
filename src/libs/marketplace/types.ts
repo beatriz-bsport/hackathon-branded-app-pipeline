@@ -36,6 +36,7 @@ export type MarketplaceCommonFilter = {
 
 export type MarketplaceCalendarData = MarketplaceCommonFilter & {
   compactMode: true | false | null;
+  todayOnly?: boolean;
 };
 
 export type MarketplaceWorkshopData = MarketplaceCommonFilter;

@@ -143,6 +143,7 @@ exports.default = {
       hidePaymentPack: 'Ne pas afficher les cartes de cours',
       hidePrivatePass: 'Ne pas afficher les cartes de rendez-vous',
       hidePaymentCombo: 'Ne pas afficher les packs',
+      todayOnly: 'Afficher seulement les séances du jour',
     },
   },
   paymentMethods: {

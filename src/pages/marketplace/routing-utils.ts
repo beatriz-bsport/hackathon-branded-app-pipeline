@@ -1,3 +1,4 @@
+import moment from 'moment-timezone';
 import { buildUrlParams } from '../../http';
 import {
   MarketplaceCommonFilter,
@@ -84,6 +85,13 @@ export const fromConfigToUrl = (
   }
 
   if (component_type === 'calendar' && tabConfig.config.calendar) {
+    if (tabConfig.config.calendar.todayOnly) {
+      Object.assign(query, {
+        ...query,
+        onlyDay: true,
+        date: moment().format('YYYY-MM-DD'),
+      });
+    }
     path = 'calendar';
   }
   if (component_type === 'workshop') {

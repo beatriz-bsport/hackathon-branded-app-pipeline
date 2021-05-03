@@ -5,6 +5,8 @@ import {
   makeStyles,
   Select,
   MenuItem,
+  FormControlLabel,
+  Checkbox,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { MarketplaceCalendarData } from '../../types';
@@ -80,6 +82,24 @@ const MarketplaceCalendarSettingsForm: React.FC<Props> = (props) => {
         config={props.config}
         onChange={props.onChange}
       />
+
+      <FormControlLabel
+        className={classes.todayOnly}
+        control={
+          <Checkbox
+            checked={props.config.todayOnly}
+            onChange={() =>
+              props.onChange({
+                ...props.config,
+                todayOnly: !props.config.todayOnly,
+              })
+            }
+            name="checkedB"
+            color="primary"
+          />
+        }
+        label={t('settings:marketplaceSettings.createDialog.todayOnly')}
+      />
     </div>
   );
 };
@@ -95,6 +115,9 @@ const useStyles = makeStyles((theme) => ({
   },
   compactModeContainer: {
     marginTop: theme.spacing(4),
+  },
+  todayOnly: {
+    marginTop: theme.spacing(2),
   },
 }));
 

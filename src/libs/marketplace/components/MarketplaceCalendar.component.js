@@ -32,7 +32,6 @@ type Props = {
   selectedDate: *,
   offers: *[],
   loading: boolean,
-  dayOffers: *[],
   onClickOffer: () => void,
   coaches: *[],
   establishments: *[],
@@ -72,7 +71,6 @@ export class MarketplaceCalendar extends PureComponent<Props> {
       onSelectDate,
       selectedDate,
       offers,
-      dayOffers,
       coaches,
       establishments,
       metaActivities,
@@ -100,6 +98,10 @@ export class MarketplaceCalendar extends PureComponent<Props> {
       if (loading) {
         return <LoadingIndicator />;
       }
+      const today = Moment();
+      const dayOffers = offers.filter((o) => {
+        return Moment(o.date_start).isSame(today, 'day');
+      });
 
       return (
         <MarketplaceTimetable
@@ -140,7 +142,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
         />
         {
           // eslint-disable-next-line
-        loading ? (
+          loading ? (
             <LoadingIndicator />
           ) : isCompact && !isLarge ? (
             <MarketplaceTimetable

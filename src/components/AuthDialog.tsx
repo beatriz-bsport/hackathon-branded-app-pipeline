@@ -61,19 +61,9 @@ class AuthDialog extends React.PureComponent<Props> {
           open={this.props.showSignup && !this.props.authenticated}
           onClose={this.props.onSignupClose}
         >
-          <Grid container direction="column" spacing={2}>
-            <React.Suspense fallback={<CircularProgress />}>
-              <Grid item>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}
-                />
-              </Grid>
-              <Grid item className="cleanslate">
+          <React.Suspense fallback={<CircularProgress />}>
+            <div className="cleanslate" style={{ padding: 16 }}>
+              <div style={{ padding: 16 }}>
                 <SignUpFormStyled
                   loading={this.props.loading}
                   theme={this.props.theme}
@@ -84,9 +74,9 @@ class AuthDialog extends React.PureComponent<Props> {
                   onCancel={this.props.onSignupClose}
                   consumerProfile={this.props.consumerProfile}
                 />
-              </Grid>
-            </React.Suspense>
-          </Grid>
+              </div>
+            </div>
+          </React.Suspense>
         </Dialog>
       </>
     );

@@ -263,7 +263,7 @@ export const SubscriptionContractFormHoc = withFormik({
         private_pass: initial.private_pass
           ? initial.private_pass.id || initial.private_pass
           : null,
-        private_combo: initial.payment_combo
+        payment_combo: initial.payment_combo
           ? initial.payment_combo.id || initial.payment_combo
           : null,
         // eslint-disable-next-line

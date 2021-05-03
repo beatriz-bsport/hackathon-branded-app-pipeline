@@ -29,5 +29,9 @@ exports.default = {
       popup: 'Nouvelle fenêtre',
       iframe: 'Rester sur le site',
     },
+    pickALanguage: 'Choisir la langue par défaut',
+    languageHelper:
+      'Le widget aura par défaut le langue sélectionné ici. Sélectionner "Langue du navigateur" pour que la langue du widget s\'adapte automatiquement à la langue de votre client.',
+    browserLanguage: 'Langue du navigateur',
   },
 };

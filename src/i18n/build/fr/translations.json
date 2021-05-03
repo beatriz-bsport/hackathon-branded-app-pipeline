@@ -55,6 +55,7 @@
     },
     "members": { "form": { "title": "Nouveau membre" } },
     "common": {
+      "pickALanguage": "Langue",
       "share": "Partager",
       "duplicate": "Dupliquer",
       "isRefreshing": "Votre interface sera prête d'ici un petit instant",
@@ -5508,7 +5509,10 @@
       "widgetPreviewError": "Veuillez finir votre configuration",
       "dialogModeLabel": "Type de popup (login, paiement, réservation)",
       "showFabLabel": "Bouton flottant d'interface client",
-      "dialogMode": { "tab": "Nouvel onglet", "popup": "Nouvelle fenêtre", "iframe": "Rester sur le site" }
+      "dialogMode": { "tab": "Nouvel onglet", "popup": "Nouvelle fenêtre", "iframe": "Rester sur le site" },
+      "pickALanguage": "Choisir la langue par défaut",
+      "languageHelper": "Le widget aura par défaut le langue sélectionné ici. Sélectionner \"Langue du navigateur\" pour que la langue du widget s'adapte automatiquement à la langue de votre client.",
+      "browserLanguage": "Langue du navigateur"
     }
   },
   "platformBilling": {

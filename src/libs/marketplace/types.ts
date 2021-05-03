@@ -83,6 +83,7 @@ export type WidgetConfig = {
   parentElement: string;
   companyId: number;
   dialogMode: 0 | 1 | 2;
+  language?: string;
   widgetType: WidgetComponentsEnum;
   config: MarketplaceComponentConfig;
   showFab: boolean;

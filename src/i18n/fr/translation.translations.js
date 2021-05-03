@@ -78,6 +78,7 @@ exports.default = {
     },
   },
   common: {
+    pickALanguage: 'Langue',
     share: 'Partager',
     duplicate: 'Dupliquer',
     isRefreshing: "Votre interface sera prête d'ici un petit instant",

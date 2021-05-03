@@ -17,6 +17,17 @@ import 'moment/locale/it';
 
 const backendOptions = {};
 
+const STORAGE_LANGUAGE_KEY = 'bsport:selected-language';
+
+let selectedLanguagePreference;
+
+if (window.localStorage) {
+  const language = window.localStorage.getItem(STORAGE_LANGUAGE_KEY);
+  if (language) {
+    selectedLanguagePreference = language;
+  }
+}
+
 if (config.I18N_TRANSLATION_DOMAIN) {
   backendOptions.request = (options, url, payload, callback) => {
     const _url = `${config.I18N_TRANSLATION_DOMAIN}${url}`;
@@ -88,7 +99,7 @@ i18n
         return value;
       },
     },
-
+    lng: selectedLanguagePreference,
     react: {
       wait: true,
       useSuspense: true,
@@ -126,8 +137,15 @@ i18n.on('languageChanged', (lng) => {
 
 Moment.locale(i18n.language);
 
+const setLanguage = (lng: string) => {
+  i18n.changeLanguage(lng);
+  if (window.localStorage) {
+    window.localStorage.setItem(STORAGE_LANGUAGE_KEY, lng);
+  }
+};
+
 export default i18n;
-export { Moment, availableLanguages };
+export { Moment, availableLanguages, setLanguage };
 
 export const browserCountryCode = () => {
   if (navigator && navigator.language) {

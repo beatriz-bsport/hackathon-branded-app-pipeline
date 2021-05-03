@@ -62,9 +62,17 @@ export class WidgetCodeStringGenerator {
     config: MarketplaceComponentConfig;
     useIframe: boolean;
     dialogMode: 0 | 1 | 2;
+    language?: string;
     showFab: boolean;
   }) {
     const componentConfig = args.config[args.componentType];
+
+    let languageValue = '';
+    if (args.language && args.language !== 'none') {
+      languageValue = `
+        "language": "${args.language}",`;
+    }
+
     const code = `<script src="https://${
       Config.REACT_APP_CDN_DOMAIN
     }/scripts/widget.js"></script>
@@ -73,7 +81,7 @@ export class WidgetCodeStringGenerator {
         "parentElement": "bsport-widget",
         "companyId": ${args.company},
         "dialogMode": ${args.dialogMode},
-        "widgetType": "${args.componentType}",
+        "widgetType": "${args.componentType}",${languageValue} 
         "showFab": ${args.showFab},
         "config": {
             "${args.componentType}": {

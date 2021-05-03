@@ -11,6 +11,7 @@ import {
   MenuItem,
   Paper,
   Select,
+  Tooltip,
   Typography,
 } from '@material-ui/core';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
@@ -62,6 +63,7 @@ import { MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT } from '../../../libs/marketpla
 import { fetchVideoList } from '../../../libs/video/actions';
 import { getVideoList } from '../../../libs/video/selectors';
 import Config from '../../../config';
+import { LanguageSelect } from '../../../components/LanguageSelect';
 
 type OwnProps = {
   defaultValue?: {
@@ -82,6 +84,7 @@ interface State {
   componentType: WidgetComponentsEnum;
   useIframe: boolean;
   dialogMode: 0 | 1 | 2;
+  language?: string;
   config: MarketplaceComponentConfig;
   error: {
     privateServiceError: string;
@@ -99,6 +102,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       useIframe: false,
       dialogMode: DIALOG_MODE_IFRAME,
       config: MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT,
+      language: 'none',
       error: {
         privateServiceError: '',
         playlistError: '',
@@ -160,6 +164,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       componentType: this.state.componentType,
       config: this.state.config,
       useIframe: this.state.useIframe,
+      language: this.state.language,
       dialogMode: this.state.dialogMode,
       showFab: this.state.showFab,
     });
@@ -174,6 +179,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
         componentType: this.state.componentType,
         config: this.state.config,
         useIframe: false,
+        language: this.state.language,
         dialogMode: this.state.dialogMode,
         showFab: this.state.showFab,
       });
@@ -345,6 +351,20 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
             </Select>
           </FormControl>
 
+          <div className={classes.language}>
+            <div className={classes.languageSelect}>
+              <LanguageSelect
+                onChange={(language) => this.setState({ language })}
+                value={this.state.language}
+                label={t('widget:widget.pickALanguage')}
+                none={t('widget:widget.browserLanguage')}
+              />
+            </div>
+            <Tooltip title={t('widget:widget.languageHelper')}>
+              <HelpOutlineIcon />
+            </Tooltip>
+          </div>
+
           {!this.props.hideTypeSelector && (
             <div className={classes.componentType}>
               <MarketplaceComponentTypeSelector
@@ -470,6 +490,7 @@ const styles = (theme: Theme) => ({
     [theme.breakpoints.up('lg')]: {
       maxWidth: 450,
     },
+    zIndex: 99,
   },
   showFabContainer: {
     display: 'flex',
@@ -487,6 +508,17 @@ const styles = (theme: Theme) => ({
   dialogMode: {
     width: '100%',
     marginTop: theme.spacing(2),
+  },
+  language: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    flex: 1,
+    marginTop: theme.spacing(2),
+  },
+  languageSelect: {
+    minWidth: '100%',
+    marginRight: theme.spacing(1),
   },
   componentType: {
     marginTop: theme.spacing(4),

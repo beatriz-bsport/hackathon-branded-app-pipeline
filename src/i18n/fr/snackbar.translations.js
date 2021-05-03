@@ -280,7 +280,13 @@ exports.default = {
     },
     duplicate: {
       success: 'Smartlist dupliquée',
-      error: 'Imposible de dupliquer la smarlist',
+      error: 'Impossible de dupliquer la smarlist',
+    },
+    tag_rules: {
+      success: 'La règle automatique a été lancée',
+      error: "Impossible d'appliquer cette règle",
+      limit_reached:
+        'Impossible : Vous avez atteint la limite de création (10)',
     },
   },
   subscription: {

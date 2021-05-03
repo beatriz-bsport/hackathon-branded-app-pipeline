@@ -1,7 +1,6 @@
 // @flow
 
 import Immutable from 'seamless-immutable';
-
 import { handleActions } from 'redux-actions';
 
 import {
@@ -16,6 +15,10 @@ import {
   filterCreateAction,
   filterDeleteAction,
   smartListBulkAction,
+  smartListAutoTagListActions,
+  updateSmartListAutoTagActions,
+  deleteSmartListAutoTagAction,
+  createSmartListAutoTagActions,
 } from './actions';
 
 const initialState: smart_list_state = Immutable({
@@ -30,6 +33,12 @@ const initialState: smart_list_state = Immutable({
     error: null,
   },
   filter: {
+    loading: false,
+    error: null,
+  },
+  smartListTagRules: {
+    byId: [],
+    allIds: [],
     loading: false,
     error: null,
   },
@@ -215,6 +224,77 @@ export default handleActions(
     },
     [filterDeleteAction.error]: (state, { payload }) => {
       return state.setIn(['filter', 'error'], payload);
+    },
+    [smartListAutoTagListActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['smartListTagRules', 'loading'], payload);
+    },
+    [smartListAutoTagListActions.error]: (state, { payload }) => {
+      return state.setIn(['smartListTagRules', 'error'], payload);
+    },
+    [smartListAutoTagListActions.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            smartListTagRules: {
+              byId: payload.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(
+          ['smartListTagRules', 'allIds'],
+          payload.map((tg) => tg.id),
+        );
+    },
+    [createSmartListAutoTagActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['smartListTagRules', 'loading'], payload);
+    },
+    [createSmartListAutoTagActions.error]: (state, { payload }) => {
+      return state.setIn(['smartListTagRules', 'error'], payload);
+    },
+    [createSmartListAutoTagActions.success]: (state, { payload }) => {
+      return state
+        .merge(
+          {
+            smartListTagRules: {
+              byId: {
+                [payload.id]: payload,
+              },
+            },
+          },
+          { deep: true },
+        )
+        .updateIn(
+          ['smartListTagRules', 'allIds'],
+          (myList, newId) => {
+            return myList.concat([newId]);
+          },
+          payload.id,
+        );
+    },
+    [deleteSmartListAutoTagAction.isLoading]: (state, { payload }) => {
+      return state.setIn(['smartListTagRules', 'loading'], payload);
+    },
+    [deleteSmartListAutoTagAction.error]: (state, { payload }) => {
+      return state.setIn(['smartListTagRules', 'error'], payload);
+    },
+    [deleteSmartListAutoTagAction.success]: (state, { payload }) => {
+      const arr = state.smartListTagRules.allIds.filter(
+        (ids) => ids !== payload,
+      );
+      return state.setIn(['smartListTagRules', 'allIds'], arr);
+    },
+    [updateSmartListAutoTagActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['smartListTagRules', 'loading'], payload);
+    },
+    [updateSmartListAutoTagActions.error]: (state, { payload }) => {
+      return state.setIn(['smartListTagRules', 'error'], payload);
+    },
+    [updateSmartListAutoTagActions.success]: (state, { payload }) => {
+      return state.setIn(['smartListTagRules', 'byId', payload.id], payload);
     },
   },
   initialState,

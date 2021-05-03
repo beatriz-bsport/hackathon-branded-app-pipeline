@@ -1,5 +1,6 @@
 // @flow
 
+import objectAssign from 'object-assign';
 import { createSelector } from 'reselect';
 
 import Immutable from 'seamless-immutable';
@@ -34,3 +35,20 @@ export const getSmartListMembers = (state: State, id: number): any =>
 export const getFreshSmartListIds = createSelector(getAllSmartList, (sl) =>
   sl.map((list) => list.id),
 );
+
+export const getSmartListAutoTagDict = (state: State) =>
+  state.smartList.smartListTagRules.byId;
+
+export const getSmartListAutoTagIds = (state: State) =>
+  state.smartList.smartListTagRules.allIds;
+
+export const getSmartListAutoTag = createSelector(
+  [getSmartListAutoTagDict, getSmartListAutoTagIds],
+  (smartListAutoTagDict, IdList) =>
+    Immutable(IdList.map((pk) => smartListAutoTagDict[pk])),
+);
+
+export const getSmartListAutoTagFiltered = (state: State, id: number) =>
+  objectAssign
+    .values(state.smartList.smartListTagRules.byId)
+    .filter((tg) => tg.smartlist === id);

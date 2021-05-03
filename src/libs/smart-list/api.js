@@ -33,6 +33,25 @@ export const deleteSmartList = (id: string) => {
   return deleteAuth(`${SMART_LIST_URI}${id}/`);
 };
 
+export const fetchSmartListAutoTagRules = async () => {
+  return getAuth(`${API_V1_URI}/smartlist/tagrules/`);
+};
+
+export const createSmartListTagRules = async (data: any) => {
+  return postAuth(`${API_V1_URI}/smartlist/tagrules/`, data);
+};
+
+export const updateSmartListAutoTagRules = async (id: number, data: any) => {
+  return patchAuth(`${API_V1_URI}/smartlist/tagrules/${id}/`, data);
+};
+
+export const deleteSmartListAutoTagRules = (id: string) => {
+  return deleteAuth(`${API_V1_URI}/smartlist/tagrules/${id}/`);
+};
+
+export const applySmartListAutoTagRules = async (id: number) => {
+  return postAuth(`${SMART_LIST_URI}${id}/apply_smartlist_tag_rules/`);
+};
 // depreciated
 export const sendMail = async (id: number, email_template: number, subject) => {
   return postAuth(`${SMART_LIST_URI}${id}/contact_with_template/`, {

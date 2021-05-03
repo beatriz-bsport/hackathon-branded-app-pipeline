@@ -24,6 +24,11 @@ import {
   deleteFilter as deleteFilterAPI,
   updateFilter as updateFilterAPI,
   copySmartList as copySmartListAPI,
+  fetchSmartListAutoTagRules as fetchSmartListAutoTagRulesAPI,
+  createSmartListTagRules as createSmartListTagRulesAPI,
+  updateSmartListAutoTagRules as updateSmartListAutoTagRulesAPI,
+  deleteSmartListAutoTagRules as deleteSmartListAutoTagRulesAPI,
+  applySmartListAutoTagRules as applySmartListAutoTagRulesAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -334,5 +339,125 @@ export function deleteFilter(
       dispatch(filterDeleteAction.error(error));
     }
     dispatch(filterDeleteAction.isLoading(false));
+  };
+}
+
+export const smartListAutoTagListActions = {
+  error: createAction('SMARTLIST/AUTO-TAG/LIST/ERROR'),
+  isLoading: createAction('SMARTLIST/AUTO-TAG/LIST/LOADING'),
+  success: createAction('SMARTLIST/AUTO-TAG/LIST/SUCCESS'),
+};
+
+export function fetchAllAutoTagRules(): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(smartListAutoTagListActions.isLoading(true));
+    dispatch(smartListAutoTagListActions.error(null));
+    try {
+      const response = await fetchSmartListAutoTagRulesAPI();
+      dispatch(smartListAutoTagListActions.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(smartListAutoTagListActions.error(err));
+    }
+    dispatch(smartListAutoTagListActions.isLoading(false));
+  };
+}
+
+export const createSmartListAutoTagActions = {
+  error: createAction('SMART-LIST/AUTO-TAG/CREATE/ERROR'),
+  isLoading: createAction('SMART-LIST/AUTO-TAG/CREATE/IS_LOADING'),
+  success: createAction('SMARTLIST/AUTO-TAG/CREATE/SUCCESS'),
+};
+
+export function smartLitAutTagCreate(
+  data: any,
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(createSmartListAutoTagActions.isLoading(true));
+    dispatch(createSmartListAutoTagActions.error(null));
+
+    try {
+      const response = await createSmartListTagRulesAPI(data);
+      dispatch(createSmartListAutoTagActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(createSmartListAutoTagActions.error(error));
+      if (
+        error.response.data &&
+        error.response.data.msg === 'limit_of_ten_rules_reached'
+      ) {
+        dispatch(snackbarError('smartlist.tag_rules.limit_reached'));
+      }
+    }
+    dispatch(createSmartListAutoTagActions.isLoading(false));
+  };
+}
+
+export const updateSmartListAutoTagActions = {
+  error: createAction('SMART-LIST/AUTO-TAG/UPDATE/ERROR'),
+  isLoading: createAction('SMART-LIST/AUTO-TAG/UPDATE/IS_LOADING'),
+  success: createAction('SMARTLIST/AUTO-TAG/UPDATE/SUCCESS'),
+};
+
+export function updateSmartListAutoTag(
+  id: number,
+  data: any,
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateSmartListAutoTagActions.isLoading(true));
+    dispatch(updateSmartListAutoTagActions.error(null));
+    try {
+      const response = await updateSmartListAutoTagRulesAPI(id, data);
+      dispatch(updateSmartListAutoTagActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(updateSmartListAutoTagActions.error(err));
+    }
+    dispatch(updateSmartListAutoTagActions.isLoading(false));
+  };
+}
+
+export const deleteSmartListAutoTagAction = {
+  error: createAction('SMART-LIST/AUTO-TAG/DELETE/ERROR'),
+  isLoading: createAction('SMART-LIST/AUTO-TAG/DELETE/IS_LOADING'),
+  success: createAction('SMARTLIST/AUTO-TAG/DELETE/SUCCESS'),
+};
+
+export function smartListAutoTagDelete(id: number): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteSmartListAutoTagAction.isLoading(true));
+    dispatch(deleteSmartListAutoTagAction.error(null));
+    try {
+      await deleteSmartListAutoTagRulesAPI(id);
+      dispatch(deleteSmartListAutoTagAction.success(id));
+    } catch (error) {
+      dispatch(deleteSmartListAutoTagAction.error(error));
+    }
+    dispatch(deleteSmartListAutoTagAction.isLoading(false));
+  };
+}
+
+export const applySmartListAutotagRulesAction = {
+  error: createAction('SMART-LIST/AUTO-TAG/APPLY/ERROR'),
+  isLoading: createAction('SMART-LIST/AUTO-TAG/APPLY/IS_LOADING'),
+  success: createAction('SMARTLIST/AUTO-TAG/APPLY/SUCCESS'),
+};
+
+export function applySmartListAutoTagRules(id: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(applySmartListAutotagRulesAction.isLoading(true));
+    dispatch(applySmartListAutotagRulesAction.error(null));
+    try {
+      const response = await applySmartListAutoTagRulesAPI(id);
+      dispatch(applySmartListAutotagRulesAction.success(response));
+      dispatch(snackbarSuccess('smartlist.tag_rules.success'));
+    } catch (err) {
+      dispatch(applySmartListAutotagRulesAction.error(err));
+      dispatch(snackbarError('smartlist.tag_rules.error'));
+    }
+    dispatch(applySmartListAutotagRulesAction.isLoading(false));
   };
 }

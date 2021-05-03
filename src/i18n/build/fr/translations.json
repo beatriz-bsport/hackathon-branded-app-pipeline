@@ -3385,7 +3385,12 @@
       "create": { "success": "Smartlist créée avec succès", "error": "Impossible d'enregistrer la smartlist" },
       "update": { "success": "Smartlist mise à jour avec succès", "error": "Impossible d'enregistrer la smartlist" },
       "delete": { "success": "Smartlist supprimée", "error": "Impossible de supprimer la smartlist" },
-      "duplicate": { "success": "Smartlist dupliquée", "error": "Imposible de dupliquer la smarlist" }
+      "duplicate": { "success": "Smartlist dupliquée", "error": "Impossible de dupliquer la smarlist" },
+      "tag_rules": {
+        "success": "La règle automatique a été lancée",
+        "error": "Impossible d'appliquer cette règle",
+        "limit_reached": "Impossible : Vous avez atteint la limite de création (10)"
+      }
     },
     "subscription": {
       "switchPaymentMethod": { "success": "Méthode de paiement mise à jour", "error": "Impossible de modifier la méthode de paiement" },
@@ -5278,6 +5283,18 @@
       "after": "après",
       "comparators": { "1": "inférieur (⩽)", "2": "supérieur (⩾)", "5": "égal", "6": "entre deux" },
       "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" }
+    },
+    "tag_rules": {
+      "type_of_rule": "Type de règle",
+      "tag_on_join_and_untag_on_left": "Tagger si présent dans la smartlist",
+      "tag_on_join": "Tagger en entrée de smartlist",
+      "tag_on_left": "Tagger en sortie de smartlist",
+      "create": "Créer un règle",
+      "associated_tag": "Tag associé",
+      "display_tag_rules": "Afficher les règles de Tag",
+      "cancel": "Annuler",
+      "tag_name": "Nom du Tag",
+      "tag_group": "Nom du groupe"
     }
   },
   "coachPerformance": {

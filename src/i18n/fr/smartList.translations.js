@@ -461,4 +461,16 @@ exports.default = {
       selector: 'Choisir les produits',
     },
   },
+  tag_rules: {
+    type_of_rule: 'Type de règle',
+    tag_on_join_and_untag_on_left: 'Tagger si présent dans la smartlist',
+    tag_on_join: 'Tagger en entrée de smartlist',
+    tag_on_left: 'Tagger en sortie de smartlist',
+    create: 'Créer un règle',
+    associated_tag: 'Tag associé',
+    display_tag_rules: 'Afficher les règles de Tag',
+    cancel: 'Annuler',
+    tag_name: 'Nom du Tag',
+    tag_group: 'Nom du groupe',
+  },
 };

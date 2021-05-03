@@ -29,6 +29,8 @@ import {
 import {
   getSmartListFilters,
   getSmartList,
+  getSmartListAutoTag,
+  // getSmartListAutoTagFiltered,
 } from '../../libs/smart-list/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
@@ -38,6 +40,11 @@ import {
   updateFilter,
   deleteFilter,
   createFilter,
+  fetchAllAutoTagRules,
+  smartLitAutTagCreate,
+  updateSmartListAutoTag,
+  smartListAutoTagDelete,
+  applySmartListAutoTagRules,
 } from '../../libs/smart-list/actions';
 import {
   fetchSmartListMembers as fetchSmartListMembersAPI,
@@ -60,7 +67,7 @@ import { fetchTags } from '../../libs/tag/actions';
 import tagSelectors from '../../libs/tag/selectors';
 
 import FiltersPanel from '../../libs/smart-list/components/FiltersPanel.component';
-
+import AutoTagPanel from '../../libs/smart-list/components/AutoTagPanel.component';
 import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormDialog.component';
 import CommunicationDialog from '../../libs/communication/components/CommunicationDialog.component';
 
@@ -159,6 +166,12 @@ type Props = {
 
   classes: Object,
   memberTitle: string,
+  smartlistAutoTag: Array<any>,
+  createAutoTag: (data: object) => void,
+  deleteAutoTag: (id: number) => void,
+  updateAutoTag: (id: number, data: object) => void,
+  fetchAllAutoTagRulesAction: () => void,
+  smartlistAutoTagLoading: boolean,
 };
 
 type State = {
@@ -175,6 +188,7 @@ export class SmartListDetailMember extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchSmartListFilters(this.props.id);
     this.props.fetchTags();
+    this.props.fetchAllAutoTagRulesAction();
   }
 
   createFilter = (filter_identifier, filterData) => {
@@ -290,6 +304,17 @@ export class SmartListDetailMember extends Component<Props, State> {
           fetchItems={fetchItems}
           fetchBulkItems={fetchBulkItems}
           onRequestEmail={() => this.props.setOpenSendEmail(true)}
+        />
+        <AutoTagPanel
+          smartlistAutoTag={this.props.smartlistAutoTag.filter(
+            (tg) => tg.smartlist === this.props.id,
+          )}
+          smartlistAutoTagLoading={this.props.smartlistAutoTagLoading}
+          createAutoTag={this.props.createAutoTag}
+          deleteAutoTag={this.props.deleteAutoTag}
+          updateAutoTag={this.props.updateAutoTag}
+          tags={this.props.tags}
+          tag_groups={this.props.tag_groups}
         />
         <div className={this.props.classes.memberWrapper}>
           <ButtonBase
@@ -474,6 +499,8 @@ export default compose(
       },
 
       emailDetailLoading: state.emailTemplate.detail.isLoading,
+      smartlistAutoTag: getSmartListAutoTag(state, id),
+      smartlistAutoTagLoading: state.smartList.smartListTagRules.loading,
     }),
     {
       fetchSmartListFilters,
@@ -501,10 +528,38 @@ export default compose(
       goToCampaignList: (id) => push(`/smart-list/${id}/campaign/`),
       goToMember: (id) => push(`/member/${id}/`),
       goToEmailCreate: () => push('/email-template/create'),
+      fetchAllAutoTagRulesAction: fetchAllAutoTagRules,
+      createAutoTagAction: smartLitAutTagCreate,
+      updateAutoTagAction: updateSmartListAutoTag,
+      deleteAutoTagAction: smartListAutoTagDelete,
+      applySmartListTagRules: applySmartListAutoTagRules,
     },
   ),
   withHandlers({
     sendCommunication: ({ sendCommunication, id }) => (data) =>
       sendCommunication({ ...data, smartlist_id: id }),
+  }),
+  withHandlers({
+    createAutoTag: ({ createAutoTagAction, applySmartListTagRules, id }) => (
+      data,
+    ) => {
+      createAutoTagAction(
+        { ...data, smartlist: id },
+        {
+          onSuccess: () => applySmartListTagRules(id),
+        },
+      );
+    },
+    deleteAutoTag: ({ deleteAutoTagAction }) => (id) => {
+      deleteAutoTagAction(id);
+    },
+    updateAutoTag: ({ updateAutoTagAction, applySmartListTagRules, id }) => (
+      tg_id,
+      data,
+    ) => {
+      updateAutoTagAction(tg_id, data, {
+        onSuccess: () => applySmartListTagRules(id),
+      });
+    },
   }),
 )(SmartListDetailMember);

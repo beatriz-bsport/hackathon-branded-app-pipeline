@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 
 import { compose, withProps } from 'recompose';
@@ -6,9 +5,12 @@ import { compose, withProps } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
+import { Theme } from '@material-ui/core';
+
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { TFunction } from 'i18next';
+import { withRouter } from 'react-router';
 
 import {
   BUYABLE_ITEM_PASS,
@@ -20,9 +22,12 @@ import {
 // -----------------------------
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
+import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import MarketplacePassList from '../../libs/marketplace/components/MarketplacePassList.component';
 import MarketplacePrivatePassList from '../../libs/marketplace/components/MarketplacePrivatePassList.component';
 import MarketplacePaymentComboList from '../../libs/marketplace/components/MarketplacePaymentComboList.component';
+
+import withQueryParams from '../../hocs/with-query-params.hoc';
 
 import {
   getMarketplacePaymentPacks,
@@ -33,7 +38,6 @@ import {
 // -----------------------------
 import { addItemToBasket } from '../../libs/checkout/actions';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
-import type { Basket } from '../../libs/checkout/types';
 
 // private-service
 // -----------------------------
@@ -43,30 +47,24 @@ import { getPrivatePassAsConsumer } from '../../libs/private-service/selectors/p
 // payment-combo
 // -----------------------------
 import { getPaymentComboListAvailableOnline } from '../../libs/payment-combo/selectors';
-import type { PaymentCombo } from '../../libs/payment-combo/types';
 import { fetchMarketplacePacks } from '../../libs/payment-packs/actions';
 import withTitle from '../../hocs/with-title.hoc';
+import { RootState } from '../../reducers';
 
-type Props = {
-  companyId: number,
-  loading: boolean,
-  authenticated: boolean,
-
-  paymentPacks: Array<PaymentPack>,
-  privatePassList: Array<PrivatePass>,
-  paymentComboList: Array<PaymentCombo>,
-
-  fetchPaymentPacks: (params: any) => void,
-  fetchPrivatePassAsConsumerList: (companyId: number) => void,
-
-  requestSignUp: () => void,
-  toogleCurrentBasketOpen: (boolean) => void,
-  currentBasket: Basket,
-
-  pushPrivatePassCheckout: (packId: number, basketId: string) => void,
-  pushPackCheckout: (packId: number, basketId: string) => void,
-  pushComboCheckout: (comboId: number, basketId: string) => void,
+type OwnProps = {
+  params?: {
+    hidePaymentPack?: string;
+    hidePrivatePass?: string;
+    hidePaymentCombo?: string;
+  };
+  companyId: number;
+  requestSignUp: () => void;
+  toogleCurrentBasketOpen: (open: boolean) => void;
 };
+
+type Props = OwnProps &
+  ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps;
 
 export class MarketPlacePassPage extends Component<Props> {
   componentDidMount() {
@@ -74,6 +72,10 @@ export class MarketPlacePassPage extends Component<Props> {
   }
 
   fetchData = () => {
+    this.props.fetchPaymentComboList({
+      company: this.props.companyId,
+      manager_only: false,
+    });
     this.props.fetchPaymentPacks({
       company: this.props.companyId,
       manager_only: false,
@@ -94,9 +96,14 @@ export class MarketPlacePassPage extends Component<Props> {
     if (this.props.loading) {
       return <LinearProgress />;
     }
+
+    const hidePaymentPack = this.props?.params?.hidePaymentPack === 'true';
+    const hidePrivatePass = this.props?.params?.hidePrivatePass === 'true';
+    const hidePaymentCombo = this.props?.params?.hidePaymentCombo === 'true';
+
     return (
       <Grid container direction="row" justify="space-evenly">
-        {this.props.paymentComboList.length ? (
+        {this.props.paymentComboList.length && !hidePaymentCombo ? (
           <Grid item xs={12}>
             <MarketplacePaymentComboList
               paymentComboList={this.props.paymentComboList}
@@ -114,23 +121,26 @@ export class MarketPlacePassPage extends Component<Props> {
             />
           </Grid>
         ) : null}
-        <Grid item xs={11} md={5}>
-          <MarketplacePassList
-            paymentPacks={this.props.paymentPacks}
-            pushPackCheckout={(packId) => {
-              if (!this.props.authenticated) {
-                this.props.requestSignUp();
-              } else {
-                this.props.pushPackCheckout(
-                  packId,
-                  this.props.currentBasket.id,
-                );
-                this.props.toogleCurrentBasketOpen(true);
-              }
-            }}
-          />
-        </Grid>
-        {this.props.privatePassList.length ? (
+        {!hidePaymentPack && (
+          <Grid item xs={11} md={5}>
+            <MarketplacePassList
+              paymentPacks={this.props.paymentPacks}
+              pushPackCheckout={(packId) => {
+                if (!this.props.authenticated) {
+                  this.props.requestSignUp();
+                } else {
+                  this.props.pushPackCheckout(
+                    packId,
+                    this.props.currentBasket.id,
+                  );
+                  this.props.toogleCurrentBasketOpen(true);
+                }
+              }}
+            />
+          </Grid>
+        )}
+
+        {this.props.privatePassList.length && !hidePrivatePass ? (
           <Grid item xs={11} md={5}>
             <MarketplacePrivatePassList
               privatePassList={this.props.privatePassList}
@@ -153,7 +163,7 @@ export class MarketPlacePassPage extends Component<Props> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'row',
@@ -169,52 +179,55 @@ const styles = (theme) => ({
   },
 });
 
-export default compose(
-  withStyles(styles),
-  connect(
-    (state) => ({
-      paymentPacks: withEstablishments(
-        withMetaActivities(getMarketplacePaymentPacks),
-      )(state),
-      currentBasket: getCurrentBasket(state),
-      authenticated: state.auth.authenticated,
-      privatePassList: getPrivatePassAsConsumer(state),
-      paymentComboList: getPaymentComboListAvailableOnline(state),
-      loading: state.paymentPack.loading,
-      establishmentLoading: state.establishment.bulkRetrieve.loading,
-      activityLoading: state.metaActivity.loading,
+const mapStateToProps = (state: RootState) => ({
+  paymentPacks: withEstablishments(
+    withMetaActivities(getMarketplacePaymentPacks),
+  )(state),
+  currentBasket: getCurrentBasket(state),
+  authenticated: state.auth.authenticated,
+  privatePassList: getPrivatePassAsConsumer(state),
+  paymentComboList: getPaymentComboListAvailableOnline(state),
+  loading: state.paymentPack.loading,
+  establishmentLoading: state.establishment.bulkRetrieve.loading,
+  activityLoading: state.metaActivity.loading,
+});
+
+const mapDispatchToProps = {
+  fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+  fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+  fetchPaymentPacks: fetchMarketplacePacks,
+  fetchPrivatePassAsConsumerList,
+  pushPrivatePassCheckout: (packId: number, basketId: number) =>
+    addItemToBasket(basketId, {
+      buyable_item_identifier: BUYABLE_ITEM_PRIVATE_PASS,
+      quantity: 1,
+      buyable_item_id: packId,
+      extra_data: {},
     }),
-    {
-      fetchEstablishmentBulk: fetchEstablishmentBulkAction,
-      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
-      fetchPaymentPacks: fetchMarketplacePacks,
-      fetchPrivatePassAsConsumerList,
-      pushPrivatePassCheckout: (packId, basketId) =>
-        addItemToBasket(basketId, {
-          buyable_item_identifier: BUYABLE_ITEM_PRIVATE_PASS,
-          quantity: 1,
-          buyable_item_id: packId,
-          extra_data: {},
-        }),
-      pushPackCheckout: (packId, basketId) =>
-        addItemToBasket(basketId, {
-          buyable_item_identifier: BUYABLE_ITEM_PASS,
-          quantity: 1,
-          buyable_item_id: packId,
-          extra_data: {},
-        }),
-      pushComboCheckout: (comboId, basketId) =>
-        addItemToBasket(basketId, {
-          buyable_item_identifier: BUYABLE_ITEM_COMBO_ITEM,
-          quantity: 1,
-          buyable_item_id: comboId,
-          extra_data: {},
-        }),
-    },
-  ),
+  pushPackCheckout: (packId: number, basketId: number) =>
+    addItemToBasket(basketId, {
+      buyable_item_identifier: BUYABLE_ITEM_PASS,
+      quantity: 1,
+      buyable_item_id: packId,
+      extra_data: {},
+    }),
+  pushComboCheckout: (comboId: number, basketId: number) =>
+    addItemToBasket(basketId, {
+      buyable_item_identifier: BUYABLE_ITEM_COMBO_ITEM,
+      quantity: 1,
+      buyable_item_id: comboId,
+      extra_data: {},
+    }),
+  fetchPaymentComboList,
+};
+
+export const MarketplacePassBase = compose<any, OwnProps>(
+  // @ts-ignore
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps),
   withProps(
     ({ fetchPaymentPacks, fetchEstablishmentBulk, fetchMetaActivityBulk }) => ({
-      fetchPaymentPacks: (params) =>
+      fetchPaymentPacks: (params: any) =>
         fetchPaymentPacks(params, {
           onSuccess: (packList) => {
             fetchEstablishmentBulk(
@@ -232,3 +245,11 @@ export default compose(
     t('titles:marketplace.marketplacePass'),
   ),
 )(MarketPlacePassPage);
+
+export default compose<any, OwnProps>(
+  withRouter,
+  withQueryParams([
+    ['hidePaymentPack', 'hidePrivatePass', 'hidePaymentCombo'],
+    'params',
+  ]),
+)(MarketplacePassBase);

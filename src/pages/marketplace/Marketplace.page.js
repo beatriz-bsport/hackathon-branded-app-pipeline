@@ -43,7 +43,6 @@ import { fetchSCT } from '../../libs/category/actions';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import Config from '../../config';
 import { getMarketplaceRoute, fromConfigToUrl } from './routing-utils';
 import asyncComponent from '../../AsyncComponent';
@@ -92,8 +91,6 @@ type Props = {
   errorFields: ?{ email: ?string, password: ?string },
 
   fetchSCT: () => void,
-
-  fetchPaymentComboList: (params: any) => void,
 
   fetchCurrentBasket: (companyId: number) => void,
   currentBasket: ?Basket,
@@ -161,10 +158,6 @@ export class MarketPlace extends Component<Props, State> {
       this.props.fetchCurrentBasket(this.props.companyId);
       this.props.fetchProfile();
     }
-    this.props.fetchPaymentComboList({
-      company: this.props.companyId,
-      manager_only: false,
-    });
   };
 
   componentDidMount() {
@@ -557,8 +550,6 @@ export default compose(
       fetchCurrentBasket,
       addItemToBasket,
       removeItemFromBasket,
-
-      fetchPaymentComboList,
 
       // for signup/signin/profile
       fetchProfile,

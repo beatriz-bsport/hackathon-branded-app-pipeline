@@ -2817,7 +2817,10 @@
         "noTitleError": "Veuillez saisir un titre",
         "noServiceError": "Veuillez sélectionner un service",
         "noPlaylistError": "Veuillez sélectionner une playlist",
-        "dialogTitle": "Edition onglet"
+        "dialogTitle": "Edition onglet",
+        "hidePaymentPack": "Ne pas afficher les carte de cours",
+        "hidePrivatePass": "Ne pas afficher les carte de rendez-vous",
+        "hidePaymentCombo": "Ne pas afficher les packs"
       }
     },
     "paymentMethods": {

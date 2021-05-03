@@ -19,6 +19,7 @@ export enum WidgetComponentsEnum {
   'vod' = 'vod',
   'playlist' = 'playlist',
   'newsletter' = 'newsletter',
+  'pass' = 'pass',
 }
 
 export enum PrivateServicePageTypeEnum {
@@ -45,6 +46,12 @@ export type MarketplacePrivateServiceData = {
   privateGroups?: number[] | null;
 };
 
+export type MarketplacePassData = {
+  hidePaymentPack?: boolean;
+  hidePrivatePass?: boolean;
+  hidePaymentCombo?: boolean;
+};
+
 export type MarketplaceVODData = {
   videoId?: number;
 };
@@ -57,7 +64,7 @@ export type MarketplaceComponentConfig = {
   calendar?: MarketplaceCalendarData;
   workshop?: MarketplaceWorkshopData;
   privateService?: MarketplacePrivateServiceData;
-  pass?: {};
+  pass?: MarketplacePassData;
   vod?: {};
   subscription?: {};
   shop?: {};

@@ -18,6 +18,7 @@ import {
 } from '../../../private-service/types';
 import { Video } from '../../../video/types';
 import MarketplaceVodSettingsForm from './MarketplaceVodFormSettings.component';
+import MarketplacePassSettingsForm from './MarketplacePassSettingsForm';
 
 type Props = {
   componentType: MarketplaceComponentsEnum | WidgetComponentsEnum;
@@ -116,6 +117,17 @@ export default class MarketplaceSettingsFormSwitch extends React.PureComponent<P
               playlist: config,
             })
           }
+        />
+      );
+    }
+
+    if (this.props.componentType === MarketplaceComponentsEnum.pass) {
+      return (
+        <MarketplacePassSettingsForm
+          config={this.props.config.pass}
+          onChange={(config) => {
+            this.props.onChange({ ...this.props.config, pass: config });
+          }}
         />
       );
     }

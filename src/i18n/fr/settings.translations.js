@@ -140,6 +140,9 @@ exports.default = {
       noServiceError: 'Veuillez sélectionner un service',
       noPlaylistError: 'Veuillez sélectionner une playlist',
       dialogTitle: 'Edition onglet',
+      hidePaymentPack: 'Ne pas afficher les cartes de cours',
+      hidePrivatePass: 'Ne pas afficher les cartes de rendez-vous',
+      hidePaymentCombo: 'Ne pas afficher les packs',
     },
   },
   paymentMethods: {

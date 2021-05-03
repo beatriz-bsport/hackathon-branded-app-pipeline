@@ -19,6 +19,7 @@ import { consumerPayWithConsumerPaymentPack as payWithConsumerPaymentPackAPI } f
 import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
+import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import * as paymentActions from '../../actions/payment.actions';
 import MarketplaceWorkshop from '../../libs/marketplace/components/MarketplaceWorkshop.component';
 
@@ -78,6 +79,10 @@ type FinalProps = OwnProps &
 
 export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
   componentDidMount() {
+    this.props.fetchPaymentComboList({
+      company: this.props.companyId,
+      manager_only: false,
+    });
     this.fetchData();
   }
 
@@ -200,6 +205,7 @@ const mapDispatchToProps = {
   snackbarSuccess: snackbarSuccessAction,
   snackbarError: snackbarErrorAction,
   pushRouter: push,
+  fetchPaymentComboList,
 };
 
 const mapWithProps = (props: OwnProps & ConnectProps & WithTranslation) => ({

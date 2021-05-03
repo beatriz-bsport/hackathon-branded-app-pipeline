@@ -1,9 +1,6 @@
-// @flow
-
 import React from 'react';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose, withState } from 'recompose';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -16,42 +13,33 @@ import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import { Theme } from '@material-ui/core';
 
 import PaymentPackCard from '../../payment-packs/components/PaymentPackCard.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import PaymentPackItem from '../../payment-packs/components/PaymentPackBookableItem.component';
 import Analytics from '../../../components/analytics/Analytics.component';
+import { MaterialStyleType } from '../../../utils/types';
 
-type Props = {
-  t: TFunction,
-  selectedPass: *,
-  setSelectedPass: (*) => void,
-  paymentPacks: *[],
-  pushPackCheckout: (number) => void,
-  classes: Object,
+type OwnProps = {
+  paymentPacks: any[];
+  pushPackCheckout: (id: number) => void;
 };
 
+type Props = OwnProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation & {
+    selectedPass: any;
+    setSelectedPass: (pass: any) => void;
+  };
+
 const PaymentPackMarketplaceListItem = (props: {
-  paymentPack: PaymentPack,
-  onSelect: () => void,
-  onCartAdd: () => void,
-  t: TFunction,
+  paymentPack: any;
+  onSelect: () => void;
+  onCartAdd: () => void;
 }) => (
   <ListItem divider button onClick={props.onSelect}>
-    <ListItemText
-      primary={`${props.paymentPack.name} - ${
-        props.paymentPack.price
-      }${getCurrencyDisplay()}`}
-      secondary={
-        props.paymentPack.unlimited
-          ? props.t('paymentPack:unlimitedCredits')
-          : `${props.paymentPack.credits} ${props
-              .t('paymentPack:credits')
-              .toLowerCase()}`
-      }
-    />
-
+    <PaymentPackItem paymentPack={props.paymentPack} />
     <IconButton
       style={{ marginRight: 16 }}
       disableRipple
@@ -123,14 +111,15 @@ export function MarketplacePassList(props: Props) {
     </div>
   );
 }
-const styles = (theme) => ({
+
+const styles = (theme: Theme) => ({
   sectionTitle: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1) * 1,
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(),
   withState('selectedPass', 'setSelectedPass', null),

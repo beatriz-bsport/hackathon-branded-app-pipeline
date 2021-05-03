@@ -194,6 +194,7 @@ const TabCreation: React.FC<Props> = (props) => {
             MarketplaceComponentsEnum.workshop,
             MarketplaceComponentsEnum.playlist,
             MarketplaceComponentsEnum.vod,
+            MarketplaceComponentsEnum.pass,
           ].includes(componentType) && (
             <div className={classes.showMoreContainer}>
               <Button

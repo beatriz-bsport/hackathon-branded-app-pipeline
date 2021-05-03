@@ -91,6 +91,7 @@ export const fromConfigToUrl = (
   }
   if (component_type === 'pass') {
     path = 'pass';
+    Object.assign(query, tabConfig.config.pass);
   }
   if (component_type === 'subscription') {
     path = 'subscription';

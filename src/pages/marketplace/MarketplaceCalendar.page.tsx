@@ -49,6 +49,7 @@ import {
 import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '../../libs/associated-coach/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
+import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -147,6 +148,10 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   componentDidMount() {
     this.fetchData();
+    this.props.fetchPaymentComboList({
+      company: this.props.companyId,
+      manager_only: false,
+    });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -293,6 +298,7 @@ const mapDispatchToProps = {
   fetchPaymentPacks: paymentActions.fetchCompatiblePaymentPacks,
   fetchCompatiblePass: paymentActions.fetchCompatiblePass,
   addItemToBasket: addItemToBasketAction,
+  fetchPaymentComboList,
 };
 
 const mapWithHandlers = {

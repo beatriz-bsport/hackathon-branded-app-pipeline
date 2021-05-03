@@ -1,28 +1,30 @@
-// @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
-import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import { Theme } from '@material-ui/core';
 
 import { compose } from 'recompose';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
-import { getCurrencyDisplay } from '../../theme/selectors';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import Analytics from '../../../components/analytics/Analytics.component';
+import PaymentPackItem from '../../payment-packs/components/PaymentPackBookableItem.component';
+import { PrivatePass } from '../../private-service/types';
+import { MaterialStyleType } from '../../../utils/types';
 
-type Props = {
-  privatePassList: Array<PrivatePass>,
-  onAddBasket: (privatePassId: number) => void,
-  classes: Object,
-  t: TFunction,
+type OwnProps = {
+  privatePassList: Array<PrivatePass>;
+  onAddBasket: (privatePassId: number) => void;
 };
+
+type Props = OwnProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
 
 export const MarketplacePrivatePassList = (props: Props) => {
   if (!props.privatePassList || !props.privatePassList.length) {
@@ -41,10 +43,7 @@ export const MarketplacePrivatePassList = (props: Props) => {
         <List disablePadding dense>
           {props.privatePassList.map((pp) => (
             <ListItem divider key={pp.id}>
-              <ListItemText
-                primary={`${pp.name} - ${pp.price}${getCurrencyDisplay()}`}
-                secondary={`${pp.credits} crédit(s)`}
-              />
+              <PaymentPackItem paymentPack={pp} />
               <ListItemSecondaryAction>
                 <IconButton
                   color="primary"
@@ -64,14 +63,14 @@ export const MarketplacePrivatePassList = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   sectionTitle: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1) * 1,
   },
 });
 
-export default compose(
+export default compose<any, OwnProps>(
   withTranslation(),
   withStyles(styles),
 )(MarketplacePrivatePassList);

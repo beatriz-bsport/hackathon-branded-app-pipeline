@@ -4292,7 +4292,10 @@
                 "selectPrivateServiceGroups": "Kies je categorieën",
                 "selectPrivateServiceTypeDetail": "Mijn afspraken",
                 "selectPrivateServiceTypeList": "Alle afspraken",
-                "selectPrivateServiceType": "Type"
+                "selectPrivateServiceType": "Type",
+                "hidePrivatePass": "",
+                "hidePaymentPack": "",
+                "hidePaymentCombo": ""
             },
             "componentType": {
                 "playlist": "Afspeellijst",

@@ -409,6 +409,8 @@ exports.default = {
         label: 'et le ',
       },
       validBillingPlan: 'Les souscriptions suivantes seront mises en pause',
+      explainImpossible:
+        'Si un versement est en cours, ou prévu dans les 24h, la souscription ne peut pas être mise en pause automatiquement',
       invalidBillingPlan:
         'Les souscriptions suivantes ne pourront pas être mises en pause en automatique',
       dateFilter: {

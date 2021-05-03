@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import Switch from '@material-ui/core/Switch';
+import InfoIcon from '@material-ui/icons/Info';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
@@ -170,6 +171,12 @@ const ContractPauseFormDialog: React.FC<Props> = (props) => {
                 {t('contractPause.form.validBillingPlan')}
               </Typography>
             </div>
+            <div className={classes.grayBackground}>
+              <InfoIcon />
+              <Typography variant="caption">
+                {t('contractPause.form.explainImpossible')}
+              </Typography>
+            </div>
             <PaginatedSubscriptionList
               items={billingPlanValid
                 .slice((validPage - 1) * 6, validPage * 6)
@@ -262,6 +269,17 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(0.5),
     },
     marginLeft: theme.spacing(2),
+  },
+  grayBackground: {
+    backgroundColor: '#F8F8F8',
+    flexDirection: 'row',
+    display: 'flex',
+    padding: theme.spacing(2),
+    alignItems: 'center',
+    borderRadius: 8,
+    '&>*': {
+      marginRight: theme.spacing(2),
+    },
   },
 }));
 

@@ -1942,7 +1942,8 @@
                     "subscription_nb_months": "Number of months",
                     "subscription_flat_fee": "Flat fee",
                     "subscription_payment_method": "Payment method",
-                    "subscription_nb_days_pause": "Paused : nb of days"
+                    "subscription_nb_days_pause": "Paused : nb of days",
+                    "subscription_next_invoice_date": ""
                 }
             },
             "BookingOption": {

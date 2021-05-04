@@ -58,7 +58,7 @@ class BsportWidget extends Component<Props> {
   componentDidMount() {
     this.fetchData();
     if (this.props.language) {
-      i18n.changeLanguage(this.props.language);
+      setTimeout(() => i18n.changeLanguage(this.props.language), 100);
     }
   }
 

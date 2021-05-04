@@ -427,7 +427,8 @@
                     "label": "Anzahl der Tage"
                 },
                 "name": {
-                    "label": "Anmerkung"
+                    "label": "Anmerkung",
+                    "placeholder": "Studio geschlossen aufgrund von Feiertagen"
                 },
                 "warning": "Bitte beachte, dass bei einigen Abonnements die Pause nicht umkehrbar ist",
                 "title": "Globale Pause"
@@ -1926,7 +1927,12 @@
             "associated_tag": "Zugehöriges Tag",
             "create": "Erstelle eine Regel",
             "tag_on_join_and_untag_on_left": "Tag, falls in der Smartlist vorhanden",
-            "type_of_rule": "Regeltyp"
+            "type_of_rule": "Regeltyp",
+            "tag_group": "Name der Gruppe",
+            "tag_name": "Name der Markierung",
+            "display_tag_rules": "Markierungsregeln anzeigen",
+            "tag_on_left": "Markieren, wenn von der Smartliste genommen wird",
+            "tag_on_join": "Markieren, wenn auf der Smartlist"
         }
     },
     "theme": {

@@ -63,7 +63,7 @@ import { MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT } from '../../../libs/marketpla
 import { fetchVideoList } from '../../../libs/video/actions';
 import { getVideoList } from '../../../libs/video/selectors';
 import Config from '../../../config';
-import { LanguageSelect } from '../../../components/LanguageSelect';
+import { LanguageSelect } from '../../../components/button/LanguageButton.component';
 
 type OwnProps = {
   defaultValue?: {
@@ -102,7 +102,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       useIframe: false,
       dialogMode: DIALOG_MODE_IFRAME,
       config: MARKETPLACE_DEFAULT_CONFIG_BY_COMPONENT,
-      language: 'none',
+      language: props.i18n.language,
       error: {
         privateServiceError: '',
         playlistError: '',

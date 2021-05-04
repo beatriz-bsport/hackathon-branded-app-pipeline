@@ -65,4 +65,13 @@ exports.default = {
     error: 'Erreur lors de la désinscription',
     success: 'Vous avez bien été désinscrit(e)',
   },
+  language: {
+    fr: 'Français',
+    'en-US': 'Anglais (Etats-Unis)',
+    'en-GB': 'Anglais (Royaume-Uni)',
+    es: 'Espagnol',
+    de: 'Allemand',
+    it: 'Italien',
+    nl: 'Néerlandais',
+  },
 };

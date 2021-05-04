@@ -19,15 +19,6 @@ const backendOptions = {};
 
 const STORAGE_LANGUAGE_KEY = 'bsport:selected-language';
 
-let selectedLanguagePreference;
-
-if (window.localStorage) {
-  const language = window.localStorage.getItem(STORAGE_LANGUAGE_KEY);
-  if (language) {
-    selectedLanguagePreference = language;
-  }
-}
-
 if (config.I18N_TRANSLATION_DOMAIN) {
   backendOptions.request = (options, url, payload, callback) => {
     const _url = `${config.I18N_TRANSLATION_DOMAIN}${url}`;
@@ -99,7 +90,6 @@ i18n
         return value;
       },
     },
-    lng: selectedLanguagePreference,
     react: {
       wait: true,
       useSuspense: true,

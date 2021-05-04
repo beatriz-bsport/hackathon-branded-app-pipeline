@@ -33,11 +33,7 @@ const countryFlag = {
   es: ES_FLAG,
 };
 
-export class LanguageButton extends Component<Props> {
-  handleChange = (event) => {
-    i18n.changeLanguage(event.target.value);
-  };
-
+class LanguageSelectBase extends Component<Props> {
   renderMenuItem = (lng) => {
     const { classes } = this.props;
     return (
@@ -47,21 +43,20 @@ export class LanguageButton extends Component<Props> {
           src={countryFlag[lng.replace('-', '_')]}
           alt="text"
         />
-        {lng}
+        {this.props.t(`language.${lng}`)}
       </MenuItem>
     );
   };
 
   render() {
-    const { language } = i18n;
     const { t } = this.props;
     return (
       <FormControl>
         <Select
           labelId="langage-selector"
-          value={language}
+          value={this.props.value}
           onChange={(e) => {
-            this.handleChange(e);
+            this.props.handleChange(e);
             if (this.props.closeMenu) {
               return this.props.closeMenu();
             }
@@ -87,6 +82,13 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(
-  withTranslation(['consumerSpace'])(LanguageButton),
+export const LanguageSelect = withStyles(styles)(
+  withTranslation(['consumerSpace'])(LanguageSelectBase),
 );
+
+export default class extends Component<Props> {
+  render() {
+    const { language } = i18n;
+    return <LanguageSelect value={language} handleChange={this.handleChange} />;
+  }
+}

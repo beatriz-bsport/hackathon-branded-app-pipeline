@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
+import WidgetUtils from '../libs/widget/WidgetUtils';
 
 const DefaultTitle = 'Backoffice - bsport';
 
@@ -20,6 +21,9 @@ export function windowTitleToProps(WrappedComponent) {
     };
 
     componentWillMount() {
+      if (WidgetUtils.isWidget()) {
+        return;
+      }
       try {
         const observer = new MutationObserver(this.changeTitle);
         observer.observe(document.querySelector('title'), {
@@ -38,6 +42,9 @@ export function windowTitleToProps(WrappedComponent) {
 }
 
 const withTitle = (mapPropsToTitle: (any) => string) => {
+  if (WidgetUtils.isWidget()) {
+    return (WrappedComponent) => WrappedComponent;
+  }
   return (WrappedComponent: AbstractComponent<any>) => {
     class Wrapper extends Component<any> {
       componentWillUnmount() {

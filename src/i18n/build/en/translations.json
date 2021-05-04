@@ -5405,6 +5405,20 @@
                 "year_plural": "years",
                 "month": "month",
                 "month_plural": "months"
+            },
+            "item": {
+                "intervalLabel": {
+                    "year": "Every year",
+                    "year_plural": "Every {{ interval }} years",
+                    "day": "Every day",
+                    "day_plural": "Every {{ interval }} days",
+                    "week": "Every week",
+                    "week_plural": "Every {{ interval }} weeks",
+                    "month": "Every month",
+                    "month_plural": "Every {{ interval }} months"
+                },
+                "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
+                "identifier": "Membership"
             }
         },
         "recap": {
@@ -5573,6 +5587,42 @@
         "end": {
             "renew": "Auto-renew",
             "noRenew": "End the subscription"
+        },
+        "contractPause": {
+            "form": {
+                "dateFilter": {
+                    "label": "Only pause the subscriptions with invoices that are charged between two dates"
+                },
+                "invalidBillingPlan": "The following subscriptions cannot be paused automatically",
+                "explainImpossible": "If a payment is in progress, or expected within 24h, the subscription cannot be paused automatically",
+                "validBillingPlan": "The following subscriptions will be paused",
+                "untilDate": {
+                    "label": "and the "
+                },
+                "fromDate": {
+                    "label": "Billed between the "
+                },
+                "advanced": "Advanced",
+                "days": {
+                    "helperText": "Number of days the subscriptions will be paused",
+                    "label": "Number of days"
+                },
+                "name": {
+                    "label": "Note"
+                },
+                "warning": "Warning, on certain subscriptions, pausing cannot be undone"
+            },
+            "actions": {
+                "verify": "Verify",
+                "add": "Put on pause",
+                "submit": "Put on pause",
+                "cancel": "Cancel"
+            },
+            "section": {
+                "error": "{{nb}} subscriptions have not been able to be paused automatically",
+                "success": "{{nb}} subscriptions paused"
+            },
+            "createdAt": "Created {{at}}"
         }
     },
     "reporting": {
@@ -5743,7 +5793,8 @@
             "accept_email": "Accept emails",
             "accept_sms": "Accept SMS",
             "payout_identifier": "Transfer",
-            "credit_amount": "Amount of credits"
+            "credit_amount": "Amount of credits",
+            "initial_price": "Purchase price"
         },
         "yes": "Yes",
         "no": "No",
@@ -6547,7 +6598,8 @@
             "contact": "Contact",
             "privateBooking": "Appointments",
             "privateConsumerPass": "Appointments passes",
-            "relation": "Relationships"
+            "relation": "Relationships",
+            "vod": "VOD"
         },
         "row": {
             "headers": {
@@ -6641,7 +6693,8 @@
                 "consumerPacks": "My pass",
                 "contracts": "Subscription",
                 "paymentPacks": "Available pass",
-                "paymentCombos": "Special offers"
+                "paymentCombos": "Special offers",
+                "contract": "Sign up"
             },
             "option": {
                 "isAlreadyOnWaitingList": "You are enlisted on the waiting-list",
@@ -6666,7 +6719,10 @@
                 "bookMultiple": "Book",
                 "title": "Future sessions"
             },
-            "isLoading": "Looking for sessions..."
+            "isLoading": "Looking for sessions...",
+            "book": {
+                "unknowError": "Not possible to book, please try again later"
+            }
         },
         "details": {
             "pleaseSelectABooking": "Select a booking to see its details",
@@ -8051,7 +8107,17 @@
         "consumerPass": {
             "success": "Your purchase has been successfully saved !"
         },
-        "copied": "Copy to the clipboard"
+        "copied": "Copy to the clipboard",
+        "contractPause": {
+            "create": {
+                "error": "Not possible to pause for the time being, please try again later"
+            }
+        },
+        "bookerModule": {
+            "pass": {
+                "nothingAvailable": "No pass allows you to book these sessions at the same time"
+            }
+        }
     },
     "navigation": {
         "backofficeMenu": {

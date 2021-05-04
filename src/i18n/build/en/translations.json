@@ -4987,8 +4987,8 @@
             },
             "header": {
                 "pdf": "PDF",
-                "missing": "Remainder due",
-                "amount": "Amount due",
+                "missing": "Amount due",
+                "amount": "Total cost",
                 "date": "Invoice date",
                 "id": "Identifier",
                 "member": "Member",
@@ -5608,7 +5608,8 @@
                     "label": "Number of days"
                 },
                 "name": {
-                    "label": "Note"
+                    "label": "Note",
+                    "placeholder": "Studio closed Bank Holiday"
                 },
                 "warning": "Warning, on certain subscriptions, pausing cannot be undone",
                 "title": "Pause all subscriptions"
@@ -5625,7 +5626,8 @@
                 "success": "{{nb}} subscriptions paused"
             },
             "createdAt": "Created {{at}}",
-            "title": "Pause all subscriptions"
+            "title": "Pause all subscriptions",
+            "fromUntil": "Only if invoiced between {{from}} and {{until}} included"
         }
     },
     "reporting": {
@@ -6012,7 +6014,7 @@
             "form": {
                 "noMailAvailable": "No mail available, think about creating one",
                 "selectToShowPreview": "Select a mail to show preview",
-                "mailTitle": "Mail to send",
+                "mailTitle": "Email to send",
                 "typeTitle": "Notification type",
                 "creditType": "Remaining credits",
                 "daysType": "Period of validity",
@@ -6708,7 +6710,7 @@
             },
             "offer": {
                 "isDisabled": "Unfortunately the class has been canceled.",
-                "isTooLate": "Bookings are closed.",
+                "isTooLate": "Registrations are closed.",
                 "isWaitingListFull": "The class is full, and the waiting-list too.",
                 "isTooSoon": "Registrations are closed for the moment and will open on {{ date }}."
             },
@@ -6854,7 +6856,8 @@
                     "absence": "If the member is absent"
                 },
                 "bookingNumber": "All bookings",
-                "bookingNumber_plural": "1st booking"
+                "bookingNumber_plural": "1st booking",
+                "bookingNumber_n": "Booking nº{{notify_booking_nb}}"
             },
             "addNotification": "Add a notification"
         },
@@ -6911,7 +6914,7 @@
                 "create": "Create a recurrent booking"
             },
             "blockedBookings": "Your students can book up to {{days}} days before the start of the sessions for this activity, therefore we recommend that you schedule the recurrence over a longer period to avoid overcrowding.",
-            "notifyIfCanceled": "Send a reservation cancellation email",
+            "notifyIfCanceled": "Send a booking cancellation email",
             "notify": "Send a confirmation email upon the member's registration",
             "showLess": "Show less",
             "showMore": "Show more ({{count}})"
@@ -6937,7 +6940,8 @@
                 "waiting_list_status": {
                     "3": "Booking available!",
                     "1": "Waiting list full",
-                    "0": "Waiting list"
+                    "0": "Waiting list",
+                    "2": "On waiting list"
                 },
                 "bookable_status": {
                     "4": "Session unavailable",
@@ -7256,13 +7260,13 @@
             "statTitle": "Statistics"
         },
         "mail": {
-            "sendMail": "Send a mail",
+            "sendMail": "Send email",
             "sendMailTitle": "Send email",
             "cancel": "Cancel",
             "send": "Send",
             "noMailAvailable": "No mail available, think about creating one",
-            "sendSuccess": "Mail sending",
-            "sendError": "Error while sending mail"
+            "sendSuccess": "Email sending",
+            "sendError": "Error while sending email"
         },
         "smart_list": {
             "card": {
@@ -7704,7 +7708,7 @@
     },
     "snackbar": {
         "communication": {
-            "error": "Error while sending mail",
+            "error": "Error while sending email",
             "success": "Mail being sent"
         },
         "order": {
@@ -8498,7 +8502,38 @@
             }
         },
         "notifications": {
-            "selectNotificationRules": "Select a rule to view details"
+            "selectNotificationRules": "Select a rule to view details",
+            "createNotificationFabLabel": "Create a notification rule",
+            "notificationsEmpty": "No existing notification for this group",
+            "deleteDialogText": "Are you sure you want to delete this rule? This operation is final",
+            "deleteDialogTitle": "Delete rule",
+            "removeRule": "Delete rule",
+            "editRule": "Edit rule",
+            "paymentPackKind": {
+                "credit": "No. of credits",
+                "validity": "Pass validity"
+            },
+            "groupTitle": {
+                "paymentPack": "Pass for group classes",
+                "privateBooking": "Appointment",
+                "booking": "Booking"
+            },
+            "fabLabels": {
+                "private_service": "Appointment",
+                "payment_pack": "Pass for group classes",
+                "establishment": "Location",
+                "meta_activity": "Activity"
+            },
+            "cancel": "Cancel",
+            "next": "Next",
+            "paymentPackPlaceholder": "Pass for group classes",
+            "selectIdentifierLabel": {
+                "payment_pack": "Select a pass for group classes",
+                "private_service": "Select a private appointment",
+                "establishment": "Select a location",
+                "meta_activity": "Select an activity"
+            },
+            "createNotification": "Notification form"
         }
     }
 }

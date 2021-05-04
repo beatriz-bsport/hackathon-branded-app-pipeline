@@ -1776,7 +1776,8 @@
             "accept_email": "E-mails accepteren",
             "accept_sms": "Sms'jes accepteren",
             "payout_identifier": "Overschrijven",
-            "credit_amount": "Aantal kredieten"
+            "credit_amount": "Aantal kredieten",
+            "initial_price": "Koopprijs"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -3198,17 +3199,19 @@
                 "consumerPacks": "Mijn lidmaatschappen",
                 "contracts": "Abonnementen",
                 "paymentPacks": "Cursuskaarten",
-                "paymentCombos": "Promoties"
+                "paymentCombos": "Promoties",
+                "contract": "Ik meld me aan"
             },
             "option": {
                 "registerOption": "Me inschrijven op de wachtlijst",
-                "isAlreadyOnWaitingList": "Je staat op de wachtlijst",
+                "isAlreadyOnWaitingList": "Je staat op de wachtlijst. We laten je per e-mail weten wanneer er een plaats vrij komt.",
                 "isFull": "Deze sessie is volgeboekt! Als je je op de wachtlijst inschrijft zal je per e-mail worden geïnformeerd wanneer er een plaats vrijkomt.",
-                "isAlreadyRegistered": "De sessie is vol, gefeliciteerd, je hebt je ingeschreven!"
+                "isAlreadyRegistered": "De sessie is vol, gefeliciteerd, je hebt je ingeschreven!",
+                "waitingListOpen": "De sessie is vol, maar je kunt je op de wachtlijst inschrijven. We laten je per e-mail weten wanneer er een plaats vrij komt."
             },
             "offer": {
                 "isDisabled": "De sessie is helaas geannuleerd.",
-                "isTooLate": "Inschrijven is niet meer mogelijk. De deadline voor het inschrijven is verstreken.",
+                "isTooLate": "De inschrijvingen zijn gesloten.",
                 "isWaitingListFull": "De sessie en de wachtlijst zijn vol.",
                 "isTooSoon": "Inschrijvingen zijn tot {{ date }} gesloten."
             },
@@ -3223,7 +3226,10 @@
                 "bookMultiple": "Reserveer",
                 "title": "Toekomstige sessies"
             },
-            "isLoading": "Zoeken naar sessies..."
+            "isLoading": "Zoeken naar sessies...",
+            "book": {
+                "unknowError": "De reservering kon momenteel niet worden voltooid"
+            }
         },
         "details": {
             "pleaseSelectABooking": "Selecteer een reservering om de details te zien",
@@ -3293,7 +3299,7 @@
                     "booking": "Reservering n° {{notify_booking_nb}}",
                     "after": "Melding {{hours}} uur na de sessie",
                     "before": "Melding {{hours}} uur voor het begin van de sessie",
-                    "notRefunded": "Aantal annuleringen na deadline {{notify_booking_nb}}",
+                    "notRefunded": "Aantal te late annuleringen: {{notify_booking_nb}}",
                     "cancelledDeprecated": "Aantal annuleringen {{notify_booking_nb}}",
                     "bookingDeprecated": "Aantal reserveringen {{notify_booking_nb}}",
                     "refunded": "Aantal terugbetaalde annuleringen {{notify_booking_nb}}",
@@ -3312,12 +3318,12 @@
                     "cancellation": "zijn/haar annulering van de reservering n° {{notify_booking_nb}}",
                     "attendance": "{{notify_booking_nb}} keer heeft gereserveerd",
                     "booking": "zijn/haar reservering n° {{notify_booking_nb}}",
-                    "text": "Weetje: deze melding wordt verstuurd nadat een lid",
-                    "notRefunded": "aantal annuleringen na deadline {{notify_booking_nb}}",
+                    "text": "Weetje: deze melding wordt verstuurd nadat een lid.",
+                    "notRefunded": "{{notify_booking_nb}} keer te laat heeft geannuleerd.",
                     "refunded": "aantal terugbetaalde annuleringen {{notify_booking_nb}}",
                     "absence": "{{notify_booking_nb}} keer heeft geannuleerd.",
                     "allEvents": {
-                        "notRefunded": "Weetje: leden ontvangen deze melding elke keer dat zij te laat annuleren",
+                        "notRefunded": "Weetje: leden ontvangen deze melding elke keer dat zij te laat annuleren.",
                         "refunded": "Weetje: deze melding wordt bij elke terugbetaalde annulering verstuurd.",
                         "absence": "Weetje: deze melding wordt verstuurd elke keer een lid afwezig is.",
                         "attendance": "Weetje: deze melding wordt verstuurd elke keer een lid aanwezig is."
@@ -3427,6 +3433,41 @@
         "memberGraph": {
             "label": "Reserveringen",
             "title": "Overzicht van de reserveringen"
+        },
+        "offer": {
+            "showMore": "Toon meer",
+            "mainButton": {
+                "numberOfBook": "{{count}} reservering",
+                "numberOfBook_plural": "{{count}} reserveringen",
+                "registerWaitingList": "Op de wachtlijst inschrijven",
+                "book": "Reserveer"
+            },
+            "bookingsTitle": "Reserveer",
+            "addSession": "Sessies toevoegen",
+            "noPackAvailable": "Deze sessie heeft geen compatibele lidmaatschappen!",
+            "noPackAvailable_plural": "Deze sessies hebben geen compatibele lidmaatschappen!",
+            "packTitle": "Mijn reserveermethode",
+            "offerStatus": {
+                "waiting_list_status": {
+                    "3": "Reserveren is mogelijk!",
+                    "2": "Opgeslagen",
+                    "1": "Wachtlijst: vol",
+                    "0": "Wachtlijst"
+                },
+                "bookable_status": {
+                    "4": "Deze sessie is niet beschikbaar",
+                    "2": "Afgelopen",
+                    "1": "Gesloten",
+                    "0": "Open"
+                },
+                "waiting_list": "Wachtlijst",
+                "book": "Inschrijving"
+            },
+            "similarOffer": {
+                "showMore": "Toon meer",
+                "empty": "Geen sessies gevonden",
+                "title": "Meer sessies reserveren"
+            }
         }
     },
     "marketplace": {
@@ -3688,7 +3729,7 @@
                     }
                 },
                 "recurrence": {
-                    "explain": "Dit abonnement wordt iedere {{ recurrence_basis }} {{ interval }} met een totale duur van {{ total_interval_duration }} {{ interval }}. Er zullen {{ nb_interval }} facturen aangemaakt.",
+                    "explain": "Dit abonnement wordt iedere {{ recurrence_basis }} {{ interval }} verlengd, heeft een totaalduur van {{ total_interval_duration }} {{ interval }} en leden worden {{ nb_interval }} keer gefactureerd.",
                     "section": "Instellingen"
                 },
                 "interval": {
@@ -3743,6 +3784,20 @@
                 "year_plural": "jaar",
                 "month": "maand",
                 "month_plural": "maanden"
+            },
+            "item": {
+                "identifier": "Abonnement",
+                "intervalLabel": {
+                    "year": "Elk jaar",
+                    "year_plural": "Elke {{ interval }} jaar",
+                    "day": "Elke dag",
+                    "day_plural": "Elke {{ interval }} dagen",
+                    "week": "Elke week",
+                    "week_plural": "Elke {{ interval }} weken",
+                    "month": "Elke maand",
+                    "month_plural": "Elke {{ interval }} maanden"
+                },
+                "recurrentPriceLabel": "{{ currencyDisplay }}{{ recurrent_price  }}"
             }
         },
         "action": {
@@ -4250,7 +4305,7 @@
             "invoice": "Facturatie",
             "waitingList": "Wachtlijsten",
             "shop": "Webshop",
-            "role": "Personeel",
+            "role": "Medewerkers",
             "personalization": "Personalisering",
             "active_campaign": "ActiveCampaign",
             "partnership": "Vennootschap"
@@ -4382,7 +4437,7 @@
             "methodPaymentBasketHelper": "Selecteer welke betaalmethode(n) je voor eenmalige betalingen wilt accepteren:",
             "subtitle2": "Als Systeembeheerder of Eigenaar heb je altijd toegang tot alle betaalmethoden.",
             "subtitle": "Je kunt bepaalde betaalmethoden aan- en/of uitzetten voor je leden.",
-            "title": "Online betaling"
+            "title": "Online betalingen"
         }
     },
     "privateService": {
@@ -4465,7 +4520,7 @@
                     "title": "Een instructeur toewijzen",
                     "cancel": "Annuleren"
                 },
-                "explain": "Selecteer een instructeur om deze afspraak aan zijn/haar agenda toe te voegen",
+                "explain": "Selecteer een instructeur om deze afspraak aan zijn/haar agenda toe te voegen.",
                 "title": "Toewijzen aan de instructeur"
             },
             "updateCoach": "Kies een nieuwe instructeur voor deze afspraak",
@@ -5016,7 +5071,7 @@
             }
         },
         "selector": {
-            "privateService": "Selecteer je afspraak",
+            "privateService": "Selecteer een afspraak",
             "privateSlot": "Sessie"
         },
         "openCalendar": "Toon de planning",
@@ -5940,6 +5995,12 @@
         "contractPause": {
             "create": {
                 "error": "Kan momenteel niet worden gepauzeerd. Probeer het later opnieuw"
+            }
+        },
+        "bookerModule": {
+            "pass": {
+                "nothingAvailable": "Je kunt niet meerdere sessies tegelijk reserveren",
+                "changed": "De cursuskaart moest worden gewijzigd"
             }
         }
     },
@@ -6902,8 +6963,8 @@
             "updaterDialog": {
                 "topup": "Incasso",
                 "debt": "Debet",
-                "explainTopup": "Het saldo van het lid wordt met €{{ amount }} verhoogd.",
-                "explainDecaissement": "Er wordt een uitbetaling van €{{ amount }} {{ currencyDisplay }} geregistreerd.",
+                "explainTopup": "Het saldo de interne rekening van dit lid wordt met €{{ amount }} verhoogd.",
+                "explainDecaissement": "Het saldo van de interne rekening van dit lid wordt met {{ currencyDisplay }}{{ amount }} verlaagd.",
                 "title": "Het saldo aanpassen",
                 "actions": {
                     "cancel": "Annuleren",
@@ -6934,7 +6995,7 @@
             "dialog": {
                 "title": "Factuur annuleren",
                 "actions": {
-                    "confirm": "Vergoeden",
+                    "confirm": "Terugbetalen",
                     "cancel": "Annuleren"
                 }
             }
@@ -7093,12 +7154,12 @@
     "role": {
         "permissions": "Rollen en bevoegdheden",
         "explainStaffDo": "Je medewerkers kunnen via https://backoffice.bsport.io op hun telefoon, computer of tablet inloggen",
-        "explainStaffDoNot": "Alleen instructeurs en leden kunnen op de app inloggen. Een medewerker met een Personeelsaccount kan dat dus niet.",
+        "explainStaffDoNot": "Alleen instructeurs en leden kunnen op de app inloggen. Een medewerker met een Medewerkersaccount kan dat dus niet.",
         "forms": {
             "user": {
                 "create": {
                     "buttonLabel": "Een medewerker toevoegen",
-                    "title": "Een personeelsaccount toevoegen",
+                    "title": "Een medewerker toevoegen",
                     "email": {
                         "label": "E-mail"
                     },
@@ -7115,7 +7176,7 @@
                     }
                 },
                 "delete": {
-                    "title": "Verwijder personeelsaccount",
+                    "title": "Medewerkersaccount verwijderen",
                     "content": "Weet je zeker dat je dit account wilt verwijderen?",
                     "cancel": "Annuleren",
                     "confirm": "Verwijderen"
@@ -7140,8 +7201,8 @@
                 }
             }
         },
-        "userRoles": "Personeelsaccounts",
-        "pageTitle": "Personeel",
+        "userRoles": "Medewerkersaccount",
+        "pageTitle": "Medewerkers",
         "roleDescription": {
             "4": {
                 "description": "Systeembeheerders hebben dezelfde toegang als een Eigenaar, maar Systeembeheerders kunnen worden toegevoegd/verwijderd.",
@@ -7161,7 +7222,7 @@
             },
             "0": {
                 "name": "Eigenaar",
-                "description": "De Eigenaar heeft toegang tot alle functionaliteiten zonder beperkingen en kan Personeelsaccounts aanmaken."
+                "description": "De Eigenaar heeft toegang tot alle functionaliteiten zonder beperkingen en kan Medewerkersaccount aanmaken."
             },
             "5": {
                 "name": "Rapportages",
@@ -7293,7 +7354,7 @@
                 "partnership": "Integraties",
                 "webhook": "Webhook",
                 "personalization": "Personalisering",
-                "role": "Personeel",
+                "role": "Medewerkers",
                 "shop": "Webshop",
                 "waitingList": "Wachtlijsten",
                 "invoice": "Facturatie",
@@ -7340,7 +7401,7 @@
     },
     "widget": {
         "widget": {
-            "ownStyle": "Compatibiliteitsmodus (negeert het thema van je website)",
+            "ownStyle": "Compatibiliteitsmodus (negeert je website-thema)",
             "copyUrl": "Ga naar de link van je kalender",
             "codeSource": "Toon de code voor op je website.",
             "copy": "Kopiëren",
@@ -7356,17 +7417,17 @@
             "responsiveDisplay": "Responsieve weergave",
             "calendarDisplay": "Weekoverzicht (agenda)",
             "listDisplay": "Weekoverzicht (lijst)",
-            "linkToConfig": "Link voor deze configuratie",
+            "linkToConfig": "De link voor de configuratie van deze widget",
             "widgetPreviewError": "Voltooi je configuratie",
             "dialogTitle": "Je widget personaliseren",
-            "codeInfo": "De code voor op je website",
-            "creationPageInfo": "Personaliseer en filter je widgets om ze gemakkelijk op je website te integreren.",
+            "codeInfo": "De code voor deze widget voor op je website",
+            "creationPageInfo": "Personaliseer en filter je widgets en integreer ze gemakkelijk op je website.",
             "dialogMode": {
                 "iframe": "Op de website blijven",
                 "popup": "Nieuw venster",
                 "tab": "Nieuw tabblad"
             },
-            "dialogModeLabel": "Type pop-ups (voor het inloggen, betalen en het reserveren)",
+            "dialogModeLabel": "Type pop-up",
             "showFabLabel": "Een knop voor \"Mijn profiel\" op de widget",
             "browserLanguage": "Browsertaal",
             "languageHelper": "De widget zal standaard de hier geselecteerde taal gebruiken. Selecteer \"Browsertaal\" om de widget de gebruikerstaal van je leden te gebruiken.",

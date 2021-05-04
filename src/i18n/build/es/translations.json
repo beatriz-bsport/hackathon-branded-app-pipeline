@@ -3516,7 +3516,16 @@
                 "title": "Reservar más sesiones"
             },
             "noPackAvailable": "Ningún pase es compatible con esta sesión!",
-            "noPackAvailable_plural": "Ningún pase es compatible con estas sesiones!"
+            "noPackAvailable_plural": "Ningún pase es compatible con estas sesiones!",
+            "showMore": "Ver más",
+            "mainButton": {
+                "numberOfBook": "{{count}} inscripción",
+                "numberOfBook_plural": "{{count}} inscripciones",
+                "registerWaitingList": "Inscribirse en la lista de espera",
+                "book": "Reservar"
+            },
+            "bookingsTitle": "Reservar ahora",
+            "addSession": "Añadir una sesión"
         }
     },
     "marketplace": {
@@ -6576,7 +6585,8 @@
                 "todayStartAmount": "La cantidad inicial en el libro de caja",
                 "cashDialogTitle": "Libro de caja",
                 "close": "Cerrar"
-            }
+            },
+            "marketingNotification": "Notificaciones"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -6706,6 +6716,12 @@
             "name": "Nombre",
             "noVideo": "Ninguna video en esta playlist",
             "playlist": "Playlist"
+        },
+        "details": {
+            "pleaseSelectVod": "Seleccione una compra para ver los detalles",
+            "invoiceTitle": "Factura asociada",
+            "consumerPaymentPackTitle": "Pase utilizado",
+            "title": "Detalles del vídeo"
         }
     },
     "coachPerformance": {
@@ -7203,7 +7219,19 @@
         "mails": "Emails",
         "delete": "Suprimir",
         "edit": "Configurar",
-        "duplicate": "Duplicar"
+        "duplicate": "Duplicar",
+        "tag_rules": {
+            "tag_group": "Nombre del grupo",
+            "tag_name": "Nombre de la Tag",
+            "cancel": "Cancelar",
+            "display_tag_rules": "Mostrar las reglas de las tags",
+            "associated_tag": "Tag asociada",
+            "create": "Crear una regla",
+            "tag_on_left": "Tag si se sale de la smartlist",
+            "tag_on_join": "Tag si entra en la smartlist",
+            "tag_on_join_and_untag_on_left": "Tag si está presente en la smartlist",
+            "type_of_rule": "Tipo de regla"
+        }
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -7339,7 +7367,8 @@
         "settings": "Parámetros",
         "marketing": {
             "marketingRule": "Estrategias marketing",
-            "marketingDashboard": "Dashboard"
+            "marketingDashboard": "Dashboard",
+            "notifications": "Notificaciones"
         },
         "paymentPack": {
             "paymentPackList": "Tarjetas de curso",
@@ -7441,7 +7470,10 @@
                 "iframe": "Permanecer en la web"
             },
             "dialogModeLabel": "Tipo de popup (inicio de sesión, pago, reservas)",
-            "showFabLabel": "Botón de acción flotante de la interfaz del cliente"
+            "showFabLabel": "Botón de acción flotante de la interfaz del cliente",
+            "browserLanguage": "Idioma del navegador",
+            "languageHelper": "El widget estará por defecto en el idioma seleccionado aquí. Seleccione \"Idioma del navegador\" para que el idioma del widget se adapte automáticamente al idioma del usuario final.",
+            "pickALanguage": "Elija el idioma por defecto"
         }
     },
     "platformBilling": {
@@ -7507,6 +7539,40 @@
                 "email": "Dirección de correo electrónico",
                 "title": "Suscríbete al boletín de noticias"
             }
+        },
+        "notifications": {
+            "createNotificationFabLabel": "Crear una regla de notificación",
+            "notificationsEmpty": "No existe ninguna notificación para este grupo",
+            "deleteDialogText": "Está seguro de que quiere eliminar esta regla? Esta operación es definitiva",
+            "deleteDialogTitle": "Eliminar la regla",
+            "removeRule": "Eliminar la regla",
+            "editRule": "Editar regla",
+            "paymentPackKind": {
+                "credit": "Número de créditos",
+                "validity": "Validez del pase"
+            },
+            "groupTitle": {
+                "paymentPack": "Tarjeta de curso",
+                "privateBooking": "Cita",
+                "booking": "Reservar"
+            },
+            "fabLabels": {
+                "payment_pack": "Tarjeta de curso",
+                "private_service": "Cita",
+                "establishment": "Establecimiento",
+                "meta_activity": "Actividad"
+            },
+            "cancel": "Cancelar",
+            "next": "Siguiente",
+            "paymentPackPlaceholder": "Tarjetas de curso",
+            "selectIdentifierLabel": {
+                "payment_pack": "Seleccione una tarjeta de curso",
+                "private_service": "Seleccione una cita privada",
+                "establishment": "Seleccione una ubicación",
+                "meta_activity": "Seleccione una actividad"
+            },
+            "createNotification": "Formulario de notificación",
+            "selectNotificationRules": "Seleccione una regla para ver los detalles"
         }
     }
 }

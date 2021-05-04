@@ -87,6 +87,10 @@ export const LanguageSelect = withStyles(styles)(
 );
 
 export default class extends Component<Props> {
+  handleChange = (event) => {
+    i18n.changeLanguage(event.target.value);
+  };
+
   render() {
     const { language } = i18n;
     return <LanguageSelect value={language} handleChange={this.handleChange} />;

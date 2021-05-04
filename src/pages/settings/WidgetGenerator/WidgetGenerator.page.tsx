@@ -354,7 +354,9 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
           <div className={classes.language}>
             <div className={classes.languageSelect}>
               <LanguageSelect
-                onChange={(language) => this.setState({ language })}
+                handleChange={(e) =>
+                  this.setState({ language: e.target.value })
+                }
                 value={this.state.language}
                 label={t('widget:widget.pickALanguage')}
                 none={t('widget:widget.browserLanguage')}

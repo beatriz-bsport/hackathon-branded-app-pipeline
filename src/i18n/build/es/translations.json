@@ -3514,7 +3514,9 @@
                 "showMore": "Ver más",
                 "empty": "No se ha encontrado ninguna sesión",
                 "title": "Reservar más sesiones"
-            }
+            },
+            "noPackAvailable": "Ningún pase es compatible con esta sesión!",
+            "noPackAvailable_plural": "Ningún pase es compatible con estas sesiones!"
         }
     },
     "marketplace": {

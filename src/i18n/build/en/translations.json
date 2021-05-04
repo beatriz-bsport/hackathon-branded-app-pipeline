@@ -6924,7 +6924,9 @@
             "showMore": "See more",
             "mainButton": {
                 "registerWaitingList": "Register to waiting list",
-                "book": "Book"
+                "book": "Book",
+                "numberOfBook": "{{count}} enrollment",
+                "numberOfBook_plural": "{{count}} enrollments"
             },
             "bookingsTitle": "Book now",
             "addSession": "Add a session",
@@ -6938,9 +6940,13 @@
                     "0": "Waiting list"
                 },
                 "bookable_status": {
-                    "4": "Session unavailable"
+                    "4": "Session unavailable",
+                    "2": "Finished enrollments",
+                    "1": "Closed enrollments",
+                    "0": "Open enrollments"
                 },
-                "waiting_list": "Waiting list"
+                "waiting_list": "Waiting list",
+                "book": "Enrollment"
             },
             "similarOffer": {
                 "showMore": "See more",
@@ -8165,7 +8171,8 @@
         },
         "bookerModule": {
             "pass": {
-                "nothingAvailable": "No pass allows you to book these sessions at the same time"
+                "nothingAvailable": "No pass allows you to book these sessions at the same time",
+                "changed": "The pass to book must have been modified"
             }
         }
     },
@@ -8252,7 +8259,8 @@
                 "todayStartAmount": "Start amount in cash book",
                 "cashDialogTitle": "Cash book",
                 "close": "Close"
-            }
+            },
+            "marketingNotification": "Notifications"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -8382,6 +8390,12 @@
             "name": "Title",
             "noVideo": "No video in this playlist",
             "playlist": "Playlist"
+        },
+        "details": {
+            "pleaseSelectVod": "Select a purchase to view details",
+            "invoiceTitle": "Associated invoice",
+            "consumerPaymentPackTitle": "Pass used",
+            "title": "Details of the video"
         }
     },
     "platformBilling": {
@@ -8463,7 +8477,10 @@
             "dialogModeLabel": "Popup type (login, payment, bookings)",
             "widgetPreviewError": "Please finish the settings",
             "dialogTitle": "Personalized Widget",
-            "showFabLabel": "Client interface floating action button"
+            "showFabLabel": "Client interface floating action button",
+            "browserLanguage": "Browser language",
+            "languageHelper": "The widget will by default be in the language selected here. Select \"Browser language\" so the language on the widget automatically adapts to the language of the end user.",
+            "pickALanguage": "Choose the default language"
         }
     },
     "marketing": {
@@ -8479,6 +8496,9 @@
                 "email": "Email address",
                 "title": "Subscribe to the newsletter"
             }
+        },
+        "notifications": {
+            "selectNotificationRules": "Select a rule to view details"
         }
     }
 }

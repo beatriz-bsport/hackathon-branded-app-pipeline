@@ -5610,19 +5610,22 @@
                 "name": {
                     "label": "Note"
                 },
-                "warning": "Warning, on certain subscriptions, pausing cannot be undone"
+                "warning": "Warning, on certain subscriptions, pausing cannot be undone",
+                "title": "Pause all subscriptions"
             },
             "actions": {
                 "verify": "Verify",
                 "add": "Put on pause",
                 "submit": "Put on pause",
-                "cancel": "Cancel"
+                "cancel": "Cancel",
+                "previous": "Previous"
             },
             "section": {
                 "error": "{{nb}} subscriptions have not been able to be paused automatically",
                 "success": "{{nb}} subscriptions paused"
             },
-            "createdAt": "Created {{at}}"
+            "createdAt": "Created {{at}}",
+            "title": "Pause all subscriptions"
         }
     },
     "reporting": {
@@ -6692,15 +6695,16 @@
             "section": {
                 "consumerPacks": "My pass",
                 "contracts": "Subscription",
-                "paymentPacks": "Available pass",
+                "paymentPacks": "Buy pass",
                 "paymentCombos": "Special offers",
                 "contract": "Sign up"
             },
             "option": {
-                "isAlreadyOnWaitingList": "You are enlisted on the waiting-list",
+                "isAlreadyOnWaitingList": "You are registered on the waiting-list, we will inform you by email when a spot is available.",
                 "isFull": "The class is full, you can still register to the waiting-list. You will be notified by email if a slot becomes available.",
                 "registerOption": "Register to the waiting-list",
-                "isAlreadyRegistered": "The session is full, congratulations you are signed in !"
+                "isAlreadyRegistered": "The session is full, congratulations you are booked in !",
+                "waitingListOpen": "The session is full, however you can register to the waiting list. We will inform you by email when a spot is available"
             },
             "offer": {
                 "isDisabled": "Unfortunately the class has been canceled.",
@@ -6844,8 +6848,13 @@
                 "title": "Notification form",
                 "notifyAllEvents": "Notify the member at each event",
                 "ifKind": {
-                    "attendance": "If the member is present"
-                }
+                    "attendance": "If the member is present",
+                    "notRefunded": "If the booking has been cancelled too late",
+                    "refunded": "If the booking has been cancelled on time",
+                    "absence": "If the member is absent"
+                },
+                "bookingNumber": "All bookings",
+                "bookingNumber_plural": "1st booking"
             },
             "addNotification": "Add a notification"
         },
@@ -6910,6 +6919,34 @@
         "memberGraph": {
             "label": "Reservations",
             "title": "Summary of reservations"
+        },
+        "offer": {
+            "showMore": "See more",
+            "mainButton": {
+                "registerWaitingList": "Register to waiting list",
+                "book": "Book"
+            },
+            "bookingsTitle": "Book now",
+            "addSession": "Add a session",
+            "noPackAvailable": "No pass is compatible with this session!",
+            "noPackAvailable_plural": "No pass is compatible with these sessions!",
+            "packTitle": "My booking method",
+            "offerStatus": {
+                "waiting_list_status": {
+                    "3": "Booking available!",
+                    "1": "Waiting list full",
+                    "0": "Waiting list"
+                },
+                "bookable_status": {
+                    "4": "Session unavailable"
+                },
+                "waiting_list": "Waiting list"
+            },
+            "similarOffer": {
+                "showMore": "See more",
+                "empty": "No session found",
+                "title": "Book more sessions"
+            }
         }
     },
     "marketplace": {
@@ -7073,7 +7110,8 @@
         },
         "marketing": {
             "marketingDashboard": "Dashboard",
-            "marketingRule": "Marketing strategy"
+            "marketingRule": "Marketing strategy",
+            "notifications": "Notifications"
         },
         "planning": "Calendar",
         "settings": "Settings",
@@ -7617,7 +7655,19 @@
         },
         "noSmartLists": "Use smartlists to filter, analyze, and get to know your members better.",
         "delete": "Delete",
-        "edit": "Configure"
+        "edit": "Configure",
+        "tag_rules": {
+            "tag_group": "Name of group",
+            "tag_name": "Name of Tag",
+            "cancel": "Cancel",
+            "display_tag_rules": "Show Tag rules",
+            "associated_tag": "Associated tag",
+            "create": "Create a rule",
+            "tag_on_left": "Tag if leaving smartlist",
+            "tag_on_join_and_untag_on_left": "Tag if present in smartlist",
+            "tag_on_join": "Tag if entering smartlist",
+            "type_of_rule": "Type of rule"
+        }
     },
     "coachPerformance": {
         "fields": {

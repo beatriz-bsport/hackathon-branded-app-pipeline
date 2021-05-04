@@ -156,7 +156,8 @@
             "isRefreshing": "Tu interfaz estará lista en un momento",
             "duplicate": "Duplicar",
             "restore": "Restaurar",
-            "share": "Compartir"
+            "share": "Compartir",
+            "pickALanguage": "Idioma"
         },
         "pagination": {
             "rowPerPage": "Elementos por página",
@@ -1631,7 +1632,11 @@
                 "selectPrivateServiceGroups": "Elige tus categorías",
                 "selectPrivateServiceTypeDetail": "Mi cita",
                 "selectPrivateServiceTypeList": "Todas las citas",
-                "selectPrivateServiceType": "Tipo"
+                "selectPrivateServiceType": "Tipo",
+                "todayOnly": "Mostrar sólo las sesiones diarias",
+                "hidePaymentCombo": "Ocultar packs",
+                "hidePrivatePass": "Pases ocultos para clases particulares",
+                "hidePaymentPack": "Pases ocultos para las clases colectivas"
             },
             "componentType": {
                 "playlist": "Playlist",
@@ -2510,6 +2515,20 @@
                 "year_plural": "años",
                 "month": "mes",
                 "month_plural": "meses"
+            },
+            "item": {
+                "intervalLabel": {
+                    "year": "Cada año",
+                    "year_plural": "Cada {{ interval }} años",
+                    "day": "Cada día",
+                    "day_plural": "Cada {{ interval }} días",
+                    "week": "Cada semana",
+                    "week_plural": "Cada {{ interval }} meses",
+                    "month": "Cada mes",
+                    "month_plural": "Cada  {{ interval }} meses"
+                },
+                "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
+                "identifier": "Membresía"
             }
         },
         "plannedInvoice": {
@@ -2644,6 +2663,47 @@
         "end": {
             "renew": "Auto-renovación",
             "noRenew": "Termina la suscripción"
+        },
+        "contractPause": {
+            "form": {
+                "dateFilter": {
+                    "label": "Ponga en pausa sólo las suscripciones con facturas que se cobran entre dos fechas"
+                },
+                "invalidBillingPlan": "Las siguientes suscripciones no pueden pausarse automáticamente",
+                "explainImpossible": "Si un pago está en curso, o se espera que lo esté en las próximas 24 horas, la suscripción no se puede pausar automáticamente",
+                "validBillingPlan": "Las siguientes suscripciones quedarán en pausa",
+                "untilDate": {
+                    "label": "y el "
+                },
+                "fromDate": {
+                    "label": "Facturado entre el "
+                },
+                "advanced": "Avanzado",
+                "days": {
+                    "helperText": "Número de días que las suscripciones estarán en pausa",
+                    "label": "Number of days"
+                },
+                "name": {
+                    "placeholder": "Estudio cerrado en día festivo",
+                    "label": "Nota"
+                },
+                "warning": "Atención, en algunas suscripciones, la pausa no se puede deshacer",
+                "title": "Poner en pausa todas las suscripciones"
+            },
+            "actions": {
+                "previous": "Anteriormente",
+                "verify": "Verificar",
+                "add": "Poner en pausa",
+                "submit": "Poner en pausa",
+                "cancel": "Cancelar"
+            },
+            "section": {
+                "error": "{{nb}} las suscripciones no se han podido pausar automáticamente",
+                "success": "{{nb}} suscripciones en pausa"
+            },
+            "fromUntil": "Sólo si se factura entre {{from}} y {{until}} i incluido",
+            "createdAt": "Creado {{at}}",
+            "title": "Pausar todas las suscripciones"
         }
     },
     "reporting": {
@@ -2814,7 +2874,8 @@
             "accept_email": "Aceptar correos electrónicos",
             "accept_sms": "Aceptar SMS",
             "payout_identifier": "Transferencia",
-            "credit_amount": "Importe de los créditos"
+            "credit_amount": "Importe de los créditos",
+            "initial_price": "Precio de compra"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -3083,7 +3144,8 @@
             "privateConsumerPass": "Tarjetas de cita",
             "privateBooking": "Cita",
             "contact": "Contacto",
-            "relation": "Relaciones"
+            "relation": "Relaciones",
+            "vod": "VOD"
         },
         "row": {
             "headers": {
@@ -3233,20 +3295,22 @@
             "offer": {
                 "isWaitingListFull": "La sesión está llena, la lista de espera está llena.",
                 "isTooSoon": "El registro está cerrado por el momento y se abrirá el {{date}}.",
-                "isTooLate": "Las inscripciones ya no son posibles, se ha excedido el último plazo de inscripción.",
+                "isTooLate": "Las inscripciones están cerradas.",
                 "isDisabled": "La sesión fue desafortunadamente cancelada."
             },
             "option": {
                 "registerOption": "Registrar en la lista de espera",
                 "isFull": "La sesión está llena, puedes registrarse en la lista de espera, te le notificará por email cuando haya un espacio disponible.",
-                "isAlreadyOnWaitingList": "Estás en la lista de espera",
-                "isAlreadyRegistered": "La sesión está llena, ¡felicidades, estás bien registrado!"
+                "isAlreadyOnWaitingList": "Está inscrito en la lista de espera, le informaremos por correo electrónico cuando haya una plaza disponible.",
+                "isAlreadyRegistered": "La sesión está llena, ¡felicidades, estás bien registrado!",
+                "waitingListOpen": "La sesión está completa, pero puede inscribirse en la lista de espera. Le informaremos por correo electrónico cuando haya una plaza disponible"
             },
             "section": {
                 "paymentCombos": "Ofertas promocionales",
-                "paymentPacks": "Tarjetas de curso",
+                "paymentPacks": "Comprar tarjeta de curso",
                 "contracts": "Abonos",
-                "consumerPacks": "Mis tarjetas de curso"
+                "consumerPacks": "Mis tarjetas de curso",
+                "contract": "Inscríbete"
             },
             "hasRegistered": "Estás registrado para esta sesión",
             "recurrent": {
@@ -3254,7 +3318,10 @@
                 "title": "Sesiones futuras",
                 "bookMultiple": "Reservar"
             },
-            "isLoading": "Búsqueda de las sesiones..."
+            "isLoading": "Búsqueda de las sesiones...",
+            "book": {
+                "unknowError": "No es posible reservar, por favor, inténtelo más tarde"
+            }
         },
         "filters": {
             "notRefunded": "No reembolsada",
@@ -3350,7 +3417,16 @@
                     "title": "Elija el tipo de reserva que desea notificar"
                 },
                 "explain": "Puede notificar a sus clientes antes o después de ciertas sesiones, dependiendo de varios criterios como el número de asistencias, ausencias o incluso cancelaciones.",
-                "notifyAllEvents": "Notificar al miembro en cada evento"
+                "notifyAllEvents": "Notificar al miembro en cada evento",
+                "bookingNumber_n": "Reserva nº{{notify_booking_nb}}",
+                "bookingNumber": "Todas las reservas",
+                "bookingNumber_plural": "1ª reserva",
+                "ifKind": {
+                    "notRefunded": "Si la reserva se ha cancelado demasiado tarde",
+                    "refunded": "Si la reserva se ha cancelado a tiempo",
+                    "absence": "Si el miembro está ausente",
+                    "attendance": "Si el miembro está presente"
+                }
             },
             "addNotification": "Añadir una notificación"
         },
@@ -3415,6 +3491,30 @@
         "memberGraph": {
             "label": "Reservas",
             "title": "Resumen de las reservas"
+        },
+        "offer": {
+            "packTitle": "Mi método de reserva",
+            "offerStatus": {
+                "waiting_list_status": {
+                    "3": "Reserva disponible!",
+                    "2": "En lista de espera",
+                    "1": "Lista de espera llena",
+                    "0": "Lista de espera"
+                },
+                "bookable_status": {
+                    "4": "Sesión no disponible",
+                    "2": "Inscripciones terminadas",
+                    "1": "Inscripciones cerradas",
+                    "0": "Inscripciones abiertas"
+                },
+                "waiting_list": "Lista de espera",
+                "book": "Inscripción"
+            },
+            "similarOffer": {
+                "showMore": "Ver más",
+                "empty": "No se ha encontrado ninguna sesión",
+                "title": "Reservar más sesiones"
+            }
         }
     },
     "marketplace": {
@@ -3568,7 +3668,8 @@
                     "subscription_flat_fee": "Gastos de reserva",
                     "subscription_nb_months": "Número de meses",
                     "subscription_recurrent_price": "Cantidad mensual retirada",
-                    "subscription_name": "Nombre de la suscripción"
+                    "subscription_name": "Nombre de la suscripción",
+                    "subscription_next_invoice_date": "Próxima fecha de facturación"
                 },
                 "name": "Suscripción"
             },
@@ -3660,7 +3761,8 @@
             "pack": "Tarjeta de curso",
             "calendar": "Histórico",
             "dashboard": "Resumen",
-            "myVideos": "Mis videos"
+            "myVideos": "Mis videos",
+            "pick_a_language": "Seleccione el idioma"
         },
         "actions": {
             "goToCalendar": "Ver el calendario completo",
@@ -4582,7 +4684,12 @@
                     "title": "Elija el tipo de cita que desea notificar"
                 },
                 "intro": "Puedes informar a tus clientes antes o/y después de algunas citas, con respecto a algunas reglas como el número de reservas o la cancelación",
-                "title": "Añadir una notificación"
+                "title": "Añadir una notificación",
+                "ifKind": {
+                    "notRefunded": "Si la cita se ha cancelado con retraso",
+                    "refunded": "Si la cita se ha cancelado a tiempo",
+                    "valid": "Si la cita es válida"
+                }
             }
         },
         "marketplace": {
@@ -5482,6 +5589,11 @@
             "duplicate": {
                 "error": "Imposible duplicar la smarlist",
                 "success": "Duplicar la lista inteligente"
+            },
+            "tag_rules": {
+                "limit_reached": "Imposible: Has alcanzado el límite de creación (10)",
+                "error": "No se puede aplicar esta regla",
+                "success": "Se ha puesto en marcha la regla automática"
             }
         },
         "shop": {
@@ -5802,7 +5914,18 @@
         "consumerPass": {
             "success": "Tu compra ha sido registrada !"
         },
-        "copied": "Copiado en el portapapeles"
+        "copied": "Copiado en el portapapeles",
+        "contractPause": {
+            "create": {
+                "error": "No es posible hacer una pausa por el momento, por favor inténtelo más tarde"
+            }
+        },
+        "bookerModule": {
+            "pass": {
+                "nothingAvailable": "Ningún pase permite reservar estas sesiones al mismo tiempo",
+                "changed": "El pase para reservar debe haber sido modificado"
+            }
+        }
     },
     "paymentPack": {
         "consumer": {
@@ -6041,13 +6164,19 @@
                 "first": "Notificar cuando el pase haya expirado"
             },
             "daysLeft": {
-                "second": "días de validez que quedan en el pase",
+                "second": "días",
                 "first": "Notificar cuando quede"
             },
             "creditsLeft": {
                 "second": "créditos restantes",
                 "first": "Envía un email cuando haya"
-            }
+            },
+            "daysPastLabel": "Notificar cuando el pase ha caducado el {{day}} día",
+            "daysPastLabel_plural": "Notificar cuando el pase ha caducado el {{day}} días",
+            "daysLeftLabel": "Notificar cuando queda {{day}} día de validez del pase",
+            "daysLeftLabel_plural": "Notificar cuando queda {{day}} días de validez del pase",
+            "creditsLeftLabel": "Notificar cuando quedan {{count}} crédito",
+            "creditsLeftLabel_plural": "Notificar cuando quedan {{count}} créditos"
         },
         "notificationToolTip": "Se han establecido notificaciones para esta tarjeta",
         "noPaymentPack": "Las tarjetas de curso permiten a los miembros registrarse a las actividades, es necesario tener una tarjeta para registrarse.",

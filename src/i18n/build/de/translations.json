@@ -204,6 +204,20 @@
                 "year_plural": "Jahre",
                 "month": "Monat",
                 "month_plural": "Monate"
+            },
+            "item": {
+                "intervalLabel": {
+                    "year": "Jedes Jahr",
+                    "year_plural": "Jede {{ interval }} Jahre",
+                    "day": "Jeden Tag",
+                    "day_plural": "Jede {{ interval }} Tage",
+                    "week": "Jede Woche",
+                    "week_plural": "Jede {{ interval }} Wochen",
+                    "month": "Jeden Monat",
+                    "month_plural": "Jede {{ interval }} Monate"
+                },
+                "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
+                "identifier": "Abo"
             }
         },
         "subscription": {
@@ -392,6 +406,45 @@
         "end": {
             "renew": "Automatische Verlängerung",
             "noRenew": "Ende des Abonnements"
+        },
+        "contractPause": {
+            "form": {
+                "dateFilter": {
+                    "label": "Unterbreche nur Abonnements, für die die Rechnung zwischen zwei Daten erstellt wird"
+                },
+                "invalidBillingPlan": "Die folgenden Abonnements können nicht pausiert angehalten werden",
+                "explainImpossible": "Wenn eine Zahlung durchgeführt wird oder innerhalb von 24 Stunden eingezogen wird, kann das Abonnement nicht automatisch pausiert werden",
+                "validBillingPlan": "Nachfolgende Abonnements werden pausiert",
+                "untilDate": {
+                    "label": "und "
+                },
+                "fromDate": {
+                    "label": "In Rechnung gestellt zwischen "
+                },
+                "advanced": "Erweitert",
+                "days": {
+                    "helperText": "Anzahl der Tage, an denen Abonnements pausiert werden",
+                    "label": "Anzahl der Tage"
+                },
+                "name": {
+                    "label": "Anmerkung"
+                },
+                "warning": "Bitte beachte, dass bei einigen Abonnements die Pause nicht umkehrbar ist",
+                "title": "Globale Pause"
+            },
+            "actions": {
+                "previous": "Bisherige",
+                "verify": "Bestätigen",
+                "add": "Pausieren",
+                "submit": "Pausieren"
+            },
+            "section": {
+                "error": "{{nb}} Abonnements konnten nicht automatisch pausiert werden",
+                "success": "{{nb}} Abonnements wurden pausiert"
+            },
+            "fromUntil": "Nur wenn die Abrechnung zwischen {{from}} und {{until}} geplant ist",
+            "createdAt": "Erstellt am {{at}}",
+            "title": "Globale Pausen"
         }
     },
     "translation": {
@@ -593,7 +646,8 @@
             "isRefreshing": "Deine Website wird in Kürze bereit sein",
             "duplicate": "Duplizieren",
             "restore": "Wiederherstellen",
-            "share": "Teilen"
+            "share": "Teilen",
+            "pickALanguage": "Sprache"
         },
         "openSchedule": "Stundenplan ansehen",
         "login": {
@@ -1865,7 +1919,14 @@
         "duplicate": "Duplizieren",
         "noSmartLists": "Verwende Smartlists, um Deine Mitglieder besser zu sortieren und zu analysieren.",
         "delete": "Löschen",
-        "edit": "Einrichten"
+        "edit": "Einrichten",
+        "tag_rules": {
+            "cancel": "Stornieren",
+            "associated_tag": "Zugehöriges Tag",
+            "create": "Erstelle eine Regel",
+            "tag_on_join_and_untag_on_left": "Tag, falls in der Smartlist vorhanden",
+            "type_of_rule": "Regeltyp"
+        }
     },
     "theme": {
         "forms": {
@@ -2832,7 +2893,8 @@
             "accept_email": "Akzeptiert E-Mails",
             "accept_sms": "Akzeptiert SMS",
             "payout_identifier": "Überweisung",
-            "credit_amount": "Anzahl der Credits"
+            "credit_amount": "Anzahl der Credits",
+            "initial_price": "Kaufpreis"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -3200,6 +3262,11 @@
             "duplicate": {
                 "error": "Die Smarlist kann nicht dupliziert werden",
                 "success": "Smartlist dupliziert"
+            },
+            "tag_rules": {
+                "limit_reached": "Unmöglich: Du hast das Erstellungslimit erreicht (10)",
+                "error": "Diese Regel kann nicht angewendet werden",
+                "success": "Die automatische Regel wurde gestartet"
             }
         },
         "subscription": {
@@ -3358,7 +3425,18 @@
         "consumerPass": {
             "success": "Dein Kauf wurde abgeschlossen!"
         },
-        "copied": "In die Zwischenablage kopiert"
+        "copied": "In die Zwischenablage kopiert",
+        "contractPause": {
+            "create": {
+                "error": "Kann zu diesem Zeitpunkt nicht pausieren, versuche es später erneut"
+            }
+        },
+        "bookerModule": {
+            "pass": {
+                "nothingAvailable": "Mit keinem Pass kannst du diese Kurse gleichzeitig buchen",
+                "changed": "Die zu buchende Kurskarte musste geändert werden"
+            }
+        }
     },
     "invoice": {
         "configuration": {
@@ -4084,6 +4162,12 @@
             },
             "deleteVideo": "Löschen",
             "playlist": "Playlist"
+        },
+        "details": {
+            "pleaseSelectVod": "Wähle einen Kauf aus, um Details anzuzeigen",
+            "invoiceTitle": "Zugehörige Rechnung",
+            "consumerPaymentPackTitle": "Kurskarte verwendet",
+            "title": "Videodetails"
         }
     },
     "booking": {
@@ -4096,9 +4180,10 @@
         "bookingModule": {
             "option": {
                 "isFull": "Der Kurs ist voll. Du kannst dich auf die Warteliste eintragen. Du wirst per E-Mail benachrichtigt, sobald ein Platz frei wird.",
-                "isAlreadyOnWaitingList": "Du bist auf der Warteliste",
+                "isAlreadyOnWaitingList": "Du bist auf der Warteliste registriert, wir werden Dich per E-Mail benachrichtigen, wenn ein Platz frei ist.",
                 "registerOption": "Mich auf die Warteliste einschreiben",
-                "isAlreadyRegistered": "Der Kurs ist voll, herzlichen Glückwunsch, Du bist eingeschrieben!"
+                "isAlreadyRegistered": "Der Kurs ist voll, herzlichen Glückwunsch, Du bist eingeschrieben!",
+                "waitingListOpen": "Der Kurs ist voll, Du kannst dich jedoch auf der Warteliste registrieren. Wir werden Dich per E-Mail benachrichtigen, sobald ein Platz verfügbar ist"
             },
             "offer": {
                 "isDisabled": "Der Kurs wurde leider abgesagt.",
@@ -4108,9 +4193,10 @@
             },
             "section": {
                 "consumerPacks": "Meine Kurskarten",
-                "paymentPacks": "Kurskarten",
+                "paymentPacks": "Kurskarte kaufen",
                 "paymentCombos": "Werbeaktionen",
-                "contracts": "Abonnements"
+                "contracts": "Abonnements",
+                "contract": "Abonnieren"
             },
             "messages": {
                 "offerLocked": "Du kannst diesen Kurs nicht buchen",
@@ -4123,7 +4209,10 @@
                 "bookMultiple": "Buchen",
                 "title": "Zukünftige Kurse"
             },
-            "isLoading": "Kurse werden gesucht..."
+            "isLoading": "Kurse werden gesucht...",
+            "book": {
+                "unknowError": "Momentan kann nicht gebucht werden. Bitte versuche es später erneut"
+            }
         },
         "statusCode": {
             "cancelledByOffer": "Kurs von dem Klub storniert",
@@ -4311,6 +4400,41 @@
         "memberGraph": {
             "label": "Buchungen",
             "title": "Zusammenfassung der Buchungen"
+        },
+        "offer": {
+            "showMore": "Mehr anzeigen",
+            "mainButton": {
+                "numberOfBook": "{{count}} Buchung",
+                "numberOfBook_plural": "{{count}} Buchungen",
+                "registerWaitingList": "Auf die Warteliste setzen",
+                "book": "Buchen"
+            },
+            "bookingsTitle": "Buchen",
+            "addSession": "Kurs hinzufügen",
+            "noPackAvailable": "Keine Kurskarte ist mit diesem Kurs kompatibel!",
+            "noPackAvailable_plural": "Keine Kurskarte ist mit diesen Kursen kompatibel!",
+            "packTitle": "Meine Buchungsmethode",
+            "offerStatus": {
+                "waiting_list_status": {
+                    "3": "Buchung möglich!",
+                    "2": "Gelistet",
+                    "1": "Warteliste voll",
+                    "0": "Warteliste"
+                },
+                "bookable_status": {
+                    "4": "Kurs nicht verfügbar",
+                    "2": "Abgeschlossene Anmeldungen",
+                    "1": "Anmeldungen geschlossen",
+                    "0": "Anmeldung offen"
+                },
+                "waiting_list": "Warteliste",
+                "book": "Anmeldung"
+            },
+            "similarOffer": {
+                "showMore": "Mehr anzeigen",
+                "empty": "Kein Kurs gefunden",
+                "title": "Buche weitere Sitzungen"
+            }
         }
     },
     "member": {
@@ -4368,7 +4492,8 @@
             "invoices": "Rechnungen und Abonnements",
             "paymentPack": "Kurskarten",
             "relation": "Beziehungen",
-            "info": "Allgemein"
+            "info": "Allgemein",
+            "vod": "VOD"
         },
         "merge": "Fusionieren",
         "paymentAction": {
@@ -5519,7 +5644,8 @@
             "invoice": "Rechnungen",
             "pack": "Karten",
             "dashboard": "Überblick",
-            "myVideos": "Meine Videos"
+            "myVideos": "Meine Videos",
+            "pick_a_language": "Wähle eine Sprache"
         },
         "pack": {
             "titlePrivatePack": "Terminkarte",
@@ -5847,7 +5973,7 @@
                     "subscription_payment_method": "Zahlungsmethode",
                     "subscription_recurrent_price": "Monatlich abgebuchter Betrag",
                     "subscription_nb_days_pause": "Pause : Anzahl der Tage",
-                    "subscription_next_invoice_date": ""
+                    "subscription_next_invoice_date": "Nächstes Abrechnungsdatum"
                 },
                 "name": "Abonnement"
             },
@@ -7029,9 +7155,10 @@
                 "selectPrivateServiceTypeDetail": "Mein Termin",
                 "selectPrivateServiceTypeList": "Alle Termine",
                 "selectPrivateServiceType": "Typ",
-                "hidePrivatePass": "",
-                "hidePaymentCombo": "",
-                "hidePaymentPack": ""
+                "hidePrivatePass": "Terminkarten nicht anzeigen",
+                "hidePaymentCombo": "Packages nicht anzeigen",
+                "hidePaymentPack": "Kurskarten nicht anzeigen",
+                "todayOnly": "Nur die heutigen Kurse anzeigen"
             },
             "componentType": {
                 "playlist": "Playlist",
@@ -7340,7 +7467,10 @@
                 "tab": "Neuer Tab"
             },
             "dialogModeLabel": "Art des Popups (Login, Zahlung, Reservierung)",
-            "showFabLabel": "Floating-Taste für die Kundenschnittstelle"
+            "showFabLabel": "Floating-Taste für die Kundenschnittstelle",
+            "browserLanguage": "Browsersprache",
+            "languageHelper": "Das Widget verwendet standardmäßig die hier ausgewählte Sprache. Wähle \"Browsersprache\", damit Dz die Sprache des Widgets automatisch an die Sprache Deines Kunden anpasst.",
+            "pickALanguage": "Wähle die Standardsprache"
         }
     },
     "marketing": {

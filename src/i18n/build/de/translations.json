@@ -436,7 +436,8 @@
                 "previous": "Bisherige",
                 "verify": "Bestätigen",
                 "add": "Pausieren",
-                "submit": "Pausieren"
+                "submit": "Pausieren",
+                "cancel": "Abbrechen"
             },
             "section": {
                 "error": "{{nb}} Abonnements konnten nicht automatisch pausiert werden",
@@ -4745,7 +4746,7 @@
             "bookingCapabilities": {
                 "emptyConsumerPassList": "Du besitzt keine gültige Karte mit ausreichenden Credits",
                 "emptyPassList": "Keine kompatible Karte, bitte kontaktiere Deinen Klub",
-                "compatiblePassTitle": "Deine Karte, die für diesen Kurs gültig ist",
+                "compatiblePassTitle": "Kompatible Karten für diesen Kurs",
                 "compatibleConsumerPassTitle": "Deine gültigen Karten"
             },
             "step": {

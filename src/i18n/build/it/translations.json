@@ -4126,7 +4126,45 @@
             "noRenew": "Fine della sottoscrizione"
         },
         "contractPause": {
-            "title": "Interruzioni globali"
+            "title": "Interruzioni globali",
+            "form": {
+                "dateFilter": {
+                    "label": "Mettere in pausa solo gli abbonamenti che sono fatturati tra due date"
+                },
+                "invalidBillingPlan": "I seguenti abbonamenti non possono essere messi in pausa automaticamente",
+                "explainImpossible": "Se un pagamento è in corso, o previsto entro 24 ore, l'abbonamento non può essere messo in pausa automaticamente",
+                "validBillingPlan": "I seguenti abbonamenti saranno messi in pausa",
+                "untilDate": {
+                    "label": "e el "
+                },
+                "fromDate": {
+                    "label": "Fatturato tra "
+                },
+                "advanced": "Avanzato",
+                "days": {
+                    "helperText": "Numero di giorni durante i quali gli abbonamenti saranno messi in pausa",
+                    "label": "Numero di giorni"
+                },
+                "name": {
+                    "placeholder": "Chiusura dello studio",
+                    "label": "Nota"
+                },
+                "warning": "Si prega di notare che su alcuni abbonamenti, la pausa non è reversibile",
+                "title": "Pausa globale"
+            },
+            "actions": {
+                "previous": "Precedente",
+                "verify": "Controlla",
+                "add": "Pausa",
+                "submit": "Pausa",
+                "cancel": "Cancella"
+            },
+            "section": {
+                "error": "{{nb}} gli abbonamenti non possono essere messi in pausa automaticamente",
+                "success": "{{nb}} abbonamenti in pausa"
+            },
+            "fromUntil": "Solo se fatturati tra {{from}} e {{until}} compreso",
+            "createdAt": "Creato il {{at}}"
         }
     },
     "reporting": {
@@ -4297,7 +4335,8 @@
             "stock_at_start": "Stock all'inizio del periodo",
             "stock_at_end": "Stock alla fine del periodo",
             "payout_identifier": "Trasferimento",
-            "credit_amount": "Importo del credito"
+            "credit_amount": "Importo del credito",
+            "initial_price": "Prezzo d'acquisto"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -4532,13 +4571,19 @@
                 "first": "Inviare notifica quando il pass scade"
             },
             "daysLeft": {
-                "second": "Giorni validi rimanenti sulla carta",
+                "second": "Giorni",
                 "first": "Inviare notifica quando rimane"
             },
             "creditsLeft": {
                 "second": "Crediti restanti",
                 "first": "Invia un a e-mail quando c'è"
-            }
+            },
+            "daysPastLabel": "Notifica quando la carta scade {{day}} giorno fa",
+            "daysPastLabel_plural": "Notifica quando la carta scade {{day}} giorni fa",
+            "daysLeftLabel": "Notifica quando {{day}} giorno di validità rimangono sulla carta",
+            "daysLeftLabel_plural": "Notifica quando {{day}} giorni di validità rimangono sulla carta",
+            "creditsLeftLabel": "Notifica quando rimane {{count}} credito",
+            "creditsLeftLabel_plural": "Notifica quando rimane {{credit}} crediti"
         },
         "extension": {
             "create": {
@@ -5043,7 +5088,8 @@
             "contact": "Contatti",
             "payment": "Fatturazione",
             "privateBooking": "Appuntamenti",
-            "privateConsumerPass": "Pass per appuntamenti"
+            "privateConsumerPass": "Pass per appuntamenti",
+            "vod": "VOD"
         },
         "addMember": "Aggiungi il profilo di un membro",
         "name": "Nome",
@@ -5096,13 +5142,14 @@
         "bookingModule": {
             "section": {
                 "contracts": "Abbonamenti",
-                "paymentPacks": "Schede del corso",
+                "paymentPacks": "Compro una tessera",
                 "consumerPacks": "Le mie schede delle lezioni",
-                "paymentCombos": "Offerte promozionali"
+                "paymentCombos": "Offerte promozionali",
+                "contract": "Voglio iscrivermi"
             },
             "hasRegistered": "Sei registrato per questa sessione",
             "offer": {
-                "isTooLate": "Le registrazioni non sono più possibili, l'ultima scadenza di registrazione è stata superata.",
+                "isTooLate": "Le registrazioni non sono più possibili.",
                 "isWaitingListFull": "La sessione è piena, la lista di attesa è piena.",
                 "isDisabled": "La sessione è stata purtroppo annullata.",
                 "isTooSoon": "La registrazione è chiusa per il momento e si aprirà il {{date}}."
@@ -5115,15 +5162,19 @@
             "option": {
                 "isFull": "La sessione è piena, puoi registrarti nella lista d'attesa, riceverai una notifica via email quando un posto sarà disponibile.",
                 "registerOption": "Iscrivimi nella lista di attesa",
-                "isAlreadyOnWaitingList": "Sei già in lista d'attesa",
-                "isAlreadyRegistered": "La sessione è piena, congratulazioni, sei ben registrato!"
+                "isAlreadyOnWaitingList": "Sei già in lista d'attesa, ti avviseremo via e-mail quando ci sarà un posto disponibile.",
+                "isAlreadyRegistered": "La sessione è piena, congratulazioni, sei ben registrato!",
+                "waitingListOpen": "La sessione è piena, ma è possibile registrarsi nella lista d'attesa. Ti avviseremo via e-mail quando si renderà disponibile un posto"
             },
             "recurrent": {
                 "backToRegistererChoice": "Indietro",
                 "bookMultiple": "Prenota",
                 "title": "Sessioni future"
             },
-            "isLoading": "Cerca sessioni..."
+            "isLoading": "Cerca sessioni...",
+            "book": {
+                "unknowError": "Impossibile prenotare, si prega di riprovare tra un momento"
+            }
         },
         "details": {
             "offerTitle": "Sessione collegata",
@@ -5245,7 +5296,16 @@
                     "title": "Scegli il tipo di prenotazione che vuoi notificare"
                 },
                 "explain": "Puoi avvisare i tuoi clienti prima o dopo determinate sessioni, in base a diversi criteri come il numero di presenze, assenze o anche cancellazioni.",
-                "notifyAllEvents": "Notifica il membro per ogni evento"
+                "notifyAllEvents": "Notifica il membro per ogni evento",
+                "bookingNumber_n": "{{notify_booking_nb}} prenotazione",
+                "bookingNumber": "Tutte le prenotazioni",
+                "bookingNumber_plural": "1a prenotazione",
+                "ifKind": {
+                    "notRefunded": "Se la prenotazione è stata cancellata dopo la scadenza",
+                    "refunded": "Se la prenotazione è stata cancellata in tempo",
+                    "absence": "Se il membro è assente",
+                    "attendance": "Se il membro è presente"
+                }
             },
             "addNotification": "Aggiungi una notifica"
         },
@@ -5310,6 +5370,23 @@
         "memberGraph": {
             "label": "Prenotazioni",
             "title": "Sommario delle prenotazioni"
+        },
+        "offer": {
+            "offerStatus": {
+                "bookable_status": {
+                    "4": "Sessione non disponibile",
+                    "2": "Registrazioni completate",
+                    "1": "Registrazioni chiuse",
+                    "0": "Iscrizione aperta"
+                },
+                "waiting_list": "Lista d'attesa",
+                "book": "Registrazione"
+            },
+            "similarOffer": {
+                "showMore": "Vedere di più",
+                "empty": "Réserver d'autres sessions",
+                "title": "Prenota più sessioni"
+            }
         }
     },
     "smartList": {

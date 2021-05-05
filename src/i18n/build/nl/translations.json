@@ -126,6 +126,12 @@
             "noBookingFuture": "Je hebt je nog niet ergens voor ingeschreven.",
             "pastBooking": "Geschiedenis",
             "futureBooking": "Mijn reserveringen"
+        },
+        "language": {
+            "es": "Spaans",
+            "en-GB": "Brits-Engels",
+            "en-US": "Amerikaans-Engels",
+            "fr": "Frans"
         }
     },
     "notificationRule": {

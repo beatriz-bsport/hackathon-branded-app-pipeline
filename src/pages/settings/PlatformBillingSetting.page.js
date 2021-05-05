@@ -16,6 +16,7 @@ import {
   fetchUpsellPackageList,
   fetchUpsellPackageSubscribedList,
   requestUpsellPackage as requestUpsellPackageAction,
+  checkPlatformSubscriptionSetup as checkSubscriptionSetupAction,
 } from '../../libs/platform-billing/actions';
 import {
   getPlatformInvoiceList,
@@ -37,6 +38,7 @@ import CompanyPlatformBillingPaymentDetail from '../../libs/platform-billing/com
 import CompanyPlatformBillinGroupDetail from '../../libs/platform-billing/components/CompanyPlatformBillingGroupDetail.component';
 import FeatureRequestDialog from '../../libs/platform-billing/components/FeatureRequestDialog.component';
 import PayoutList from '../../libs/payment/components/PayoutList.component';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
 
 type Props = {
   loading: boolean,
@@ -98,6 +100,7 @@ export class PlatformBillingSettings extends React.Component<Props> {
           platformInvoiceList={this.props.platformInvoiceList}
           refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
           requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+          onCollectPaymentMethodSuccess={this.props.checkSubscriptionSetup}
           fetchMorePlatformInvoiceList={this.props.fetchPlatformInvoiceList}
         />
         <CompanyPlatformBillinGroupDetail
@@ -142,13 +145,23 @@ export default compose(
       fetchPlatformBillingStageList,
       fetchUpsellPackageList,
       fetchUpsellPackageSubscribedList,
+      checkSubscriptionSetup: checkSubscriptionSetupAction,
       requestUpsellPackage: requestUpsellPackageAction,
+      fetchCompanyTheme: fetchCompanyThemeAction,
       fetchPayoutList: fetchPayoutListAction,
       onOpenInvoice: (uuid) => push(`/invoice/${uuid}`),
     },
   ),
   withState('openFeatureRequest', 'setOpenFeatureRequest', false),
   withHandlers({
+    checkSubscriptionSetup: ({
+      checkSubscriptionSetup,
+      fetchCompanyTheme,
+    }) => () => {
+      checkSubscriptionSetup({
+        onSuccess: fetchCompanyTheme,
+      });
+    },
     fetchPayoutList: ({ fetchPayoutList }) => (params, options) =>
       fetchPayoutList({ ...(params || {}), page_size: 3 }, options),
     requestSetupIntentSecret: () => () =>

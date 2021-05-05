@@ -46,3 +46,9 @@ export const requestUpsellPackage = async (id: number) => {
     `${API_V1_URI}/platform_billing/upsell_package/${id}/request_feature/`,
   );
 };
+
+export const checkPlatformSubscriptionSetup = async () => {
+  return postAuth(
+    `${API_V1_URI}/platform_billing/platform_subscription/check_setup/`,
+  );
+};

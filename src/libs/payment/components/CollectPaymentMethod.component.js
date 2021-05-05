@@ -9,7 +9,12 @@ export const CollectPaymentMethod = (props: Props) => {
     return (
       <CollectPaymentMethodCard
         requestSetupIntentSecret={props.requestSetupIntentSecret}
-        onSuccess={props.refreshSavedPaymentMethodList}
+        onSuccess={() => {
+          props.refreshSavedPaymentMethodList();
+          if (props.onSuccess) {
+            props.onSuccess();
+          }
+        }}
         onClose={props.onClose}
       />
     );
@@ -19,7 +24,12 @@ export const CollectPaymentMethod = (props: Props) => {
     return (
       <CollectPaymentMethodSepa
         requestSetupIntentSecret={props.requestSetupIntentSecret}
-        onSuccess={props.refreshSavedPaymentMethodList}
+        onSuccess={() => {
+          props.refreshSavedPaymentMethodList();
+          if (props.onSuccess) {
+            props.onSuccess();
+          }
+        }}
         onClose={props.onClose}
       />
     );

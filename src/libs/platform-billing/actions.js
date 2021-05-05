@@ -11,6 +11,7 @@ import {
   retrieveSubscription as retrieveSubscriptionAPI,
   retrievePlatformBillingPlanGroup as retrievePlatformBillingPlanGroupAPI,
   requestUpsellPackage as requestUpsellPackageAPI,
+  checkPlatformSubscriptionSetup as checkPlatformSubscriptionSetupAPI,
 } from './api';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
@@ -230,5 +231,30 @@ export function requestUpsellPackage(id: number, options: OptionCallback) {
       if (options && options.onError) options.onError();
     }
     dispatch(requestUpsellPackageActions.isLoading(false));
+  };
+}
+
+export const checkPlatformSubscriptionSetupActions = {
+  isLoading: createAction('PLATFORM_SUBSCRIPTION/CHECK_SETUP/IS_LOADING'),
+  error: createAction('PLATFORM_SUBSCRIPTION/CHECK_SETUP/ERROR'),
+  success: createAction('PLATFORM_SUBSCRIPTION/CHECK_SETUP/SUCCESS'),
+};
+
+export function checkPlatformSubscriptionSetup(options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(checkPlatformSubscriptionSetupActions.isLoading(true));
+    dispatch(checkPlatformSubscriptionSetuperror(null));
+    try {
+      const response = await checkPlatformSubscriptionSetupAPI();
+      dispatch(checkPlatformSubscriptionSetupActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(checkPlatformSubscriptionSetupActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(checkPlatformSubscriptionSetupActions.isLoading(false));
   };
 }

@@ -5,7 +5,6 @@ import { Moment } from '../../i18n';
 
 import { getAllCoachesDict } from '../associated-coach/selectors';
 import {
-  getMetaActivitiesDict,
   getWorkshopActivitiesDict,
   getMetaActivityAbstractDict,
 } from '../meta-activity/selectors';

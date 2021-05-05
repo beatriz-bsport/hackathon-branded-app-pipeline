@@ -123,6 +123,7 @@ type Props = {
   email_templates_details: Array<any>,
   emailListLoading: boolean,
   emailDetailLoading: boolean,
+  allCoaches: Array<AssociatedCoach>,
 };
 
 export class PrivateServiceList extends React.Component<Props> {

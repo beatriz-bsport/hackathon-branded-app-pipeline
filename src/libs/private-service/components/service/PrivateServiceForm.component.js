@@ -41,6 +41,7 @@ type Props = {
   values: PrivateServiceData,
   establishments: Array<Establishment>,
   coaches: Array<Coach>,
+  allCoaches: Array<Coach>,
   onAddServiceGroup: ?() => void,
   serviceGroupList: Array<PrivateServiceGroup>,
 };

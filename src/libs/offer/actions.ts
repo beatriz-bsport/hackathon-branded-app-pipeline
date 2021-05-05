@@ -427,7 +427,7 @@ export function fetchOfferStatusList(
     try {
       const response = await fetchOfferStatusListAPI(ids, params);
       dispatch(offerStatusActions.list(response.data.results));
-      options && options.onSuccess && options.onSuccess(data);
+      options && options.onSuccess && options.onSuccess(response.data.results);
     } catch (error) {
       console.error(error);
       dispatch(offerStatusActions.error(error));

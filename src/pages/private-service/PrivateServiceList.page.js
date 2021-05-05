@@ -28,7 +28,10 @@ import {
 } from '../../libs/private-service/selectors/private-service';
 
 import { getAllEstablishmentsWithAssociatedId } from '../../libs/establishment/selectors';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors';
+import {
+  getActiveCoaches,
+  getAllCoaches,
+} from '../../libs/associated-coach/selectors';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import {
   fetchEstablishments,
@@ -86,6 +89,7 @@ type Props = {
   openServiceGroupToEdit: (ServiceGroup) => void,
 
   fetchMarketingNotificationList: (params: any) => void,
+  allCoaches: Array<AssociatedCoach>,
 };
 
 const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
@@ -166,6 +170,7 @@ export class PrivateServiceList extends React.Component<Props> {
             onCancel={this.closeForm}
             onSubmit={this.createOrUpdatePrivateService}
             coaches={this.props.availableCoaches}
+            allCoaches={this.props.allCoaches}
             establishments={this.props.availableEstablishments}
             serviceGroupList={this.props.serviceGroupList}
             onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}
@@ -247,6 +252,7 @@ export default compose(
       availableEstablishments: getAllEstablishmentsWithAssociatedId(state),
       privateServiceAvailableByGroup: getPrivateServiceListByGroup(state),
       selectedPrivateService: getPrivateServiceById(state, privateServiceId),
+      allCoaches: getAllCoaches(state),
     }),
     {
       fetchAllPrivateServices: () =>

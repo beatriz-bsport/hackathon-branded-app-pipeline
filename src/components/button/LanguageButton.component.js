@@ -21,6 +21,7 @@ type Props = {
   closeMenu: () => void,
   classes: Object,
   t: TFunction,
+  handleChange: (any) => void,
 };
 
 const countryFlag = {
@@ -86,7 +87,7 @@ export const LanguageSelect = withStyles(styles)(
   withTranslation(['consumerSpace'])(LanguageSelectBase),
 );
 
-export default class extends Component<Props> {
+export default class extends Component<any> {
   handleChange = (event) => {
     i18n.changeLanguage(event.target.value);
   };

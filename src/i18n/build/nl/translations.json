@@ -171,7 +171,7 @@
             "300": "Een lid dat niet tijdig heeft geantwoord van de wachtlijst verwijderen",
             "601": "Automatische annulering: te weinig reserveringen X uur voor het begin van de sessie",
             "702": "Sanctie: er is een boete opgelegd (voor leden)",
-            "701": "Sanctie: het lidmaatschap is geblokkeerd (voor leden)"
+            "701": "Sanctie: het lidmaatschap is tijdelijk geblokkeerd (voor leden)"
         },
         "tag": {
             "BookingOption": {
@@ -356,7 +356,7 @@
                 "members": "Leden",
                 "paymentPackList": "Cursuskaarten",
                 "paymentPackFormPage": "Een cursuskaart toevoegen",
-                "invoiceList": "Mijn transacties",
+                "invoiceList": "Transacties",
                 "invoiceCreatePage": "In rekening brengen",
                 "invoiceFormPage": "Factuur",
                 "coachFormPage": "[Formulier] Instructeur",
@@ -373,7 +373,7 @@
                 "shopManager": "Webshop",
                 "dashboard": "Dashboard",
                 "mergeMember": "Lid samenvoegen",
-                "allCoachPerformance": "Overzicht",
+                "allCoachPerformance": "Payroll overzicht",
                 "planning": "Agenda"
             }
         },
@@ -481,7 +481,7 @@
                 "DISPUTE": "Dispuut",
                 "OTHER": "Diverse",
                 "SUBSCRIPTION_CB": "Geplande betaling",
-                "CREDIT_ACCOUNT": "Interne rekening (tegoed)",
+                "CREDIT_ACCOUNT": "Interne rekening (saldo)",
                 "BANK_TRANSFER": "Overschrijving",
                 "AMEX": "AMEX",
                 "EVENT_BRITE": "EventBrite",
@@ -540,7 +540,7 @@
             "revertExplainCredits": "Het debet/krediet op de account van het lid wordt teruggeboekt.",
             "revertExplainPayment": "Creditcardbetalingen worden teruggestort op de rekening van het lid. Alle andere betaalmethoden worden verwijderd.",
             "revertImpossibleExplainSubscription": "Deze factuur is aan een abonnement gekoppeld. Je kunt een gekoppelde factuur niet annuleren, maar je kunt het abonnement en de laatste betaling wel stopzetten",
-            "explainDateChoser": "Kies de factuurdatum.",
+            "explainDateChoser": "Kies de factuurdatum:",
             "choseDate": "Factuurdatum",
             "revert": "Factuur annuleren",
             "reverted": "Geannuleerd",
@@ -1116,7 +1116,7 @@
             "booking_s": "Sessie(s)",
             "pass": "Cursuskaarten",
             "selected": "Geselecteerd",
-            "transactions": "Mijn transacties",
+            "transactions": "Transacties",
             "members": "Mijn gebruikers",
             "contact": "Contact",
             "sort": "Sorteren",
@@ -1206,7 +1206,7 @@
         "paymentMethod": {
             "OTHER": "Overige",
             "SUBSCRIPTION_CB": "Automatische betaling",
-            "CREDIT_ACCOUNT": "Betaal later",
+            "CREDIT_ACCOUNT": "Interne rekening (saldo)",
             "BANK_TRANSFER": "Overschrijving",
             "AMEX": "AMEX",
             "EVENT_BRITE": "EventBrite",
@@ -1248,7 +1248,7 @@
                 "autoDiscard": {
                     "hours_before_start": "Aantal uur/uren voor het begin van de sessie:",
                     "explain": "Annuleer sessies met ≤ {{bookings_nb}} reservering(en) {{hours}} uur voor het begin van de sessie. Ingeschreven leden ontvangen een melding van de annulering.",
-                    "checkbox": "Automatisch annuleer sessies met te weinig reserveringen",
+                    "checkbox": "Automatisch sessies met te weinig reserveringen annuleren",
                     "emailRecipients": "Deze e-mail wordt verzonden naar accounts met de rol Eigenaar of Systeembeheerder, evenals naar de (plaatsvervangende) docent van de sessie in kwestie.",
                     "min_bookings_nb": "Aantal reserveringen:"
                 }
@@ -1280,10 +1280,10 @@
             "gender": "Geslacht",
             "sport": "Activiteit"
         },
-        "blockBooking": "Blokkeer reserveringen van cursuskaarten van nieuwe leden",
+        "blockBooking": "Reserveringen van nieuwe leden blokkeren",
         "languageToolTip": "Beschikbaar in de webshop",
         "visibilityOfIconToolTip": "Niet zichtbaar",
-        "onlyNewMember": "Alleen reserveringen van cursuskaarten van nieuwe leden toestaan",
+        "onlyNewMember": "Alleen reserveringen van nieuwe leden accepteren",
         "replaceCoach": "Wijzig de instructeur",
         "bookingStatistics": {
             "weekOf": "Week van {{date}}",
@@ -1725,7 +1725,7 @@
             "stock_variation": "Verandering van de voorraad",
             "sales": "Verkoop",
             "ca": "Gerealiseerde omzet",
-            "supplier_price": "Prijs van de leverancier",
+            "supplier_price": "Leveranciersprijs",
             "slot_date_end": "Einde van de sessie",
             "establishment": "Vestiging",
             "date_created": "Aanmaakdatum",
@@ -2063,8 +2063,8 @@
                 },
                 "timeSettingsTitle": "Geldigheid",
                 "generalSettingsTitle": "Algemeen",
-                "validByDuration": "Deze cursuskaart is N aantal dagen na de aankoop geldig.",
-                "validByDaterange": "Deze cursuskaart tussen X en Y geldig.",
+                "validByDuration": "Deze cursuskaart is N aantal dagen na aankoop geldig.",
+                "validByDaterange": "Deze cursuskaart is tussen X en Y geldig.",
                 "durationDays": {
                     "helperText": "Geldigheidsduur in aantal dagen na aankoop ",
                     "label": "Geldigheidsduur (in dagen) indien van toepassing"
@@ -2075,7 +2075,7 @@
                 },
                 "durationYears": {
                     "label": "Geldigheidsduur (in jaren) indien van toepassing",
-                    "helperText": "Wordt aan het aantal dagen en maanden toegevoegd"
+                    "helperText": "Dit wordt aan het aantal dagen en maanden toegevoegd."
                 },
                 "actions": {
                     "skip": "Overslaan",
@@ -2085,7 +2085,7 @@
                 },
                 "activities": "Activiteit",
                 "restrictionsTitle": "Beperkingen",
-                "noneMeansAll": "Laat dit veld leeg om geen beperkingen op te leggen",
+                "noneMeansAll": "Laat dit veld leeg om geen beperkingen op te leggen.",
                 "update": {
                     "success": "Cursuskaart: de actie is succesvol uitgevoerd",
                     "error": "Cursuskaart: uitvoering mislukt"
@@ -2133,7 +2133,7 @@
                 },
                 "penalty": {
                     "account": {
-                        "helperText": "Dit lid moet een vooruitbetaling van €{{value}} voldoen",
+                        "helperText": "Leden moeten een boete t.w.v. €{{value}} betalen.",
                         "label": "Boetebedrag:"
                     },
                     "block": {
@@ -2143,10 +2143,10 @@
                     "kind": {
                         "account": "Een boetebedrag instellen",
                         "block": "Tijdelijk dit lidmaatschap blokkeren",
-                        "label": "Kies het type sanctie dat je wilt toepassen"
+                        "label": "Kies het type sanctie dat je wilt toepassen:"
                     },
                     "nb_days": "Aantal dagen:",
-                    "nb_cancellations": "Aantal annuleringen:",
+                    "nb_cancellations": "Aantal te late annuleringen:",
                     "explain": "Er wordt een sanctie toegepast wanneer een lid {{nb_cancellations}} keer te laat binnen {{nb_days}} dagen annuleert.",
                     "checkbox": "Een sanctie bij te veel te late annuleringen instellen",
                     "title": "Sancties"
@@ -2855,16 +2855,16 @@
         "delete": "Verwijderen",
         "edit": "Configuratie",
         "tag_rules": {
-            "tag_group": "Tag",
-            "tag_name": "Subtag",
+            "tag_group": "Hoofd-tag",
+            "tag_name": "Sub-tag",
             "cancel": "Annuleren",
             "display_tag_rules": "Tags",
             "associated_tag": "Bijbehorende tag",
             "create": "Een regel toevoegen",
-            "tag_on_join_and_untag_on_left": "Tag indien aanwezig in de Smartlist",
+            "tag_on_join_and_untag_on_left": "Tag als een lid zich in de Smartlist staat",
             "type_of_rule": "Type regel",
-            "tag_on_left": "Tag indien uit de Smartlist gezet",
-            "tag_on_join": "Tag indien in de Smartlist gezet"
+            "tag_on_left": "Tag als een lid de Smartlist heeft verlaten",
+            "tag_on_join": "Tag als een lid in de Smartlist is gezet"
         }
     },
     "metaActivity": {
@@ -3040,7 +3040,7 @@
         },
         "duplicate": "Dupliceren",
         "search": "Zoek een sjabloon",
-        "listTitle": "Mijn e-mails",
+        "listTitle": "E-mails",
         "detail": "Gedetailleerde informatie",
         "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
         "create": "Een nieuwe e-mail ontwerpen",
@@ -3073,7 +3073,7 @@
         "memberList": "Overzicht",
         "note": {
             "addNote": "Een notitie toevoegen",
-            "myNotes": "Mijn notities",
+            "myNotes": "Notities",
             "is_medical": "Essentiële notitie",
             "noNoteSaved": "Er is nog geen informatie opgeslagen.",
             "healthNotes": "Belangrijke informatie"
@@ -3083,7 +3083,7 @@
             "addButtonBlocked": "Verwijder documenten om nieuwe toe te voegen",
             "deletion": "Verwijdering",
             "imported": "Document geïmporteerd!",
-            "title": "Mijn documenten",
+            "title": "Documenten",
             "deleteFileMessage": "Weet je zeker dat je dit document wilt verwijderen?",
             "confirm": "Bevestigen",
             "add": "Een document toevoegen",
@@ -3209,7 +3209,7 @@
             "section": {
                 "consumerPacks": "Mijn lidmaatschappen",
                 "contracts": "Abonnementen",
-                "paymentPacks": "Een lidmaatschap aanschaffen",
+                "paymentPacks": "Lidmaatschappen",
                 "paymentCombos": "Promoties",
                 "contract": "Abonneren"
             },
@@ -3282,7 +3282,7 @@
             "refunded": "Terugbetaling",
             "pastBooking": "Verlopen reserveringen",
             "futureBooking": "Toekomstige reserveringen",
-            "time": "Ontwikkeling van de reserveringen",
+            "time": "Reserveringen",
             "attendance": "Aanwezigheid",
             "cancel": "Annulering",
             "consumerCanceled": "Annulering lid",
@@ -3379,7 +3379,12 @@
                     "refunded": "Wanneer de reservering op tijd is geannuleerd",
                     "absence": "Wanneer het lid afwezig is",
                     "attendance": "Wanneer het lid aanwezig is"
-                }
+                },
+                "bookingNumberFirst": "1e reservering",
+                "bookingNumberSecond": "2e reservering",
+                "bookingNumberThird": "3e reservering",
+                "bookingNumberAll": "Alle reserveringen",
+                "bookingNumberN": "Reservering: {{notify_booking_nb}}"
             },
             "addNotification": "Een melding toevoegen"
         },
@@ -3456,7 +3461,7 @@
             "bookingsTitle": "Reserveer",
             "addSession": "Sessies toevoegen",
             "noPackAvailable": "Deze sessie heeft geen compatibele lidmaatschappen!",
-            "noPackAvailable_plural": "Deze sessies hebben geen compatibele lidmaatschappen!",
+            "noPackAvailable_plural": "Deze sessies hebben geen compatibele lidmaatschappen. Je zal de sessies apart moeten reserveren!",
             "packTitle": "Mijn reserveringsmethode",
             "offerStatus": {
                 "waiting_list_status": {
@@ -3593,7 +3598,7 @@
             "metaActivityList": "Activiteiten"
         },
         "invoice": {
-            "invoiceList": "Mijn transacties",
+            "invoiceList": "Transacties",
             "invoiceCreate": "In rekening brengen",
             "invoiceEdit": "Factuur"
         },
@@ -3601,7 +3606,7 @@
             "coachList": "Instructeurs",
             "coachFormPage": "[Formulier] Instructeur",
             "coachPerformance": "Payroll voor {{name}}",
-            "allCoachPerformance": "Overzicht"
+            "allCoachPerformance": "Payroll overzicht"
         },
         "coupon": {
             "couponCreate": "[Formulier] Promotie",
@@ -3643,9 +3648,9 @@
             "notifications": "Meldingen"
         },
         "settings": "Instellingen",
-        "shop": "Mijn webshop",
+        "shop": "Webshop",
         "offerManagement": "Reserveringen",
-        "offerFormPage": "Nieuwe sessie aanmaken",
+        "offerFormPage": "Sessies toevoegen",
         "searchResults": "Zoeken",
         "planning": "Agenda",
         "order": {
@@ -3727,7 +3732,7 @@
                 },
                 "recurrence_basis": {
                     "helperText": " ",
-                    "label": "Wordt iedere",
+                    "label": "Dit abonnement wordt",
                     "intervalName": {
                         "week": "week vernieuwd",
                         "week_plural": "weken vernieuwd",
@@ -3820,7 +3825,7 @@
         },
         "paymentMethod": {
             "credit": {
-                "explain": "We gebruiken de interne rekening van dit lid voor de facturatie. Gebruik deze betaalmethode als het lid nog geen creditcard of IBAN heeft opgeslagen. Later kun je de betaling bijwerken."
+                "explain": "We gebruiken de interne rekening van dit lid voor de facturatie. Gebruik dit als het lid nog geen online-betaalmethode, zoals creditcard of IBAN, heeft opgeslagen. Dit kun je later wijzigen."
             },
             "sepa": "Automatische incasso (SEPA)",
             "card": "Creditcard",
@@ -3859,7 +3864,7 @@
             "switchPack": {
                 "form": {
                     "title": "Cursuskaart wijzigen",
-                    "explain": "Deze cursuskaart wordt gefactureerd i.o.v. de oude cursuskaart op alle toekomstige facturen. Sessies die met de oude cursuskaart geboekt zijn worden overgezet naar de nieuwe cursuskaart, zelfs als deze niet compatibel zijn.",
+                    "explain": "Deze cursuskaart wordt gefactureerd i.p.v. de oude cursuskaart op alle toekomstige facturen. Sessies die met de oude cursuskaart geboekt zijn worden overgezet naar de nieuwe cursuskaart, zelfs als deze niet compatibel zijn.",
                     "warning": "De facturatie blijft hetzelfde. Als je het maandelijkse bedrag wil verhogen/verlagen, wijzig dan elke maandelijkse betaling afzonderlijk.",
                     "cancel": "Annuleren",
                     "submit": "Opslaan"
@@ -4015,7 +4020,7 @@
             "provisionalTitle": "Overzicht van de betalingen",
             "paymentMethodTitle": "Betaalmethode"
         },
-        "noContracts": "In dit onderdeel kun je al je abonnementen lidmaatschappen dagelijks, wekelijks, maandelijks of jaarlijks automatisch verlengen en in rekening te brengen.",
+        "noContracts": "In dit onderdeel kun je al je abonnementen dagelijks, wekelijks, maandelijks of jaarlijks automatisch verlengen en in rekening te brengen.",
         "copyLink": "De directe link naar de betaalpagina kopiëren",
         "listItem": {
             "valid": "Geldig",
@@ -4062,7 +4067,7 @@
                 "warning": "Let op: sommige abonnementen kunnen na de pauze niet worden herstart.",
                 "title": "Algemene pauze",
                 "dateFilter": {
-                    "label": "Pauzeer alleen abonnementen die tussen deze twee data wordt gefactureerd"
+                    "label": "Pauzeer alleen abonnementen die tussen deze twee data worden gefactureerd"
                 },
                 "explainImpossible": "Een abonnement kan niet automatisch worden gepauzeerd als er momenteel een betaling wordt uitgevoerd of binnen 24 uur wordt verwacht."
             },
@@ -4206,8 +4211,8 @@
             "level": "Niveau",
             "creditPrice": "Kosten (in kredieten)",
             "register": {
-                "buyPass": "Een lidmaatschap aanschaffen",
-                "title": "Video afspelen",
+                "buyPass": "Toon lidmaatschappen",
+                "title": "Video On Demand",
                 "noPassAvailable": "Je bezit nog geen compatibel lidmaatschap."
             },
             "analytics": {
@@ -4359,10 +4364,10 @@
                 "empty": "Voer de URL van je API in"
             },
             "webhooks": {
-                "CLIENT_WON": "Maak een ledenaccount aan voor BSPORT wanneer een deal een prospect als \"WON\" markeert.",
+                "CLIENT_WON": "Maak een gebruikersaccount voor BSPORT aan wanneer een deal als \"WON\" is gemarkeerd.",
                 "helpContent": "De onderstaande acties vinden plaats zodra de bijbehorende gebeurtenis plaatsvindt op ActiveCampaign.",
                 "title": "Integreer ActiveCampaign met BSPORT",
-                "CONTACT_TAG": "Maak een ledenaccount aan voor BSPORT wanneer ActiveCampaign een prospect als \"WON\" heeft getagd.",
+                "CONTACT_TAG": "Maak een gebruikersaccount voor BSPORT aan wanneer een deal als “WON” is gemarkeerd.",
                 "helpTitle": "Hoe werkt synchronisatie?"
             },
             "link": {
@@ -4881,7 +4886,7 @@
                     "label": "Niet beschikbaar voor leden"
                 },
                 "last_discard_minutes": {
-                    "label": "Selecteer tot wanneer leden kosteloos kunnen annuleren voor het begin van een afspraak (late-cancel)",
+                    "label": "Selecteer tot wanneer leden kosteloos kunnen annuleren (late-cancel)",
                     "helperText": "Als de reservering te laat wordt geannuleerd, wordt het tegoed niet terugbetaald"
                 },
                 "establishmentResourceType": {
@@ -4895,7 +4900,7 @@
                     },
                     "isWithEstablishment": {
                         "isEmpty": "Geen zaal geconfigureerd!",
-                        "label": "In een van je vestigingen",
+                        "label": "Selecteer vestiging(en)",
                         "helperText": "Reserveren is alleen mogelijk als de zaal voldoende vrije plaatsen heeft"
                     }
                 },
@@ -4943,7 +4948,7 @@
                     "submit": "Opslaan"
                 },
                 "last_booking_minutes": {
-                    "label": "Selecteer tot wanneer leden zich kunnen inschrijven voor het begin van een afspraak"
+                    "label": "Selecteer tot wanneer leden zich kunnen inschrijven"
                 },
                 "paddingStart": {
                     "helperText": "De instructeur en/of vestiging wordt {{minutes}} minuten voor het begin van de afspraak als onbeschikbaar weergegeven",
@@ -4955,7 +4960,7 @@
                     "helperText": "De instructeur en/of de vestiging wordt {{minutes}} minuten na het einde van de afspraak als onbeschikbaar weergegeven",
                     "label": "Buffer (in minuten) na het einde van de afspraak"
                 },
-                "paddingTitle": "Beheer de beschikbaarheid"
+                "paddingTitle": "Beschikbaarheid"
             },
             "parameters": {
                 "establishments": {
@@ -5345,12 +5350,12 @@
                 "provisionHistory": "Voorraadgeschiedenis",
                 "title": "Productbeschrijving",
                 "parameters": "Instellingen",
-                "supplier_price": "Prijs leverancier",
+                "supplier_price": "Leveranciersprijs",
                 "marketplace_enabled": "Beschikbaar op de webshop",
                 "enabled": "Ja",
                 "disabled": "Nee",
                 "is_deliverable": "Verzendkosten",
-                "onsite_payment_available": "Betaal ter plaatse"
+                "onsite_payment_available": "Betaling ter plaatse"
             },
             "noDescription": "Geen beschrijving beschikbaar.",
             "selector": {
@@ -5371,9 +5376,9 @@
             "current_stock": "Huidige voorraad:",
             "noProvisionHistory": "Geen verkoopgeschiedenis",
             "form": {
-                "title": "Wijzig voorraad",
-                "quantityLabel": "Eenhe(i)d(en)",
-                "quantityHelperText": "Het aantal toe te voegen/te verwijderen producten",
+                "title": "Voorraadwijziging",
+                "quantityLabel": "Aantal",
+                "quantityHelperText": "Het aantal toe te voegen of te verwijderen producten.",
                 "cancel": "Annuleren",
                 "submit": "Opslaan"
             },
@@ -5444,7 +5449,7 @@
             "6": "AMEX",
             "7": "Storting",
             "8": "EventBrite",
-            "9": "Interne rekening (tegoed)",
+            "9": "Interne rekening (saldo)",
             "11": "Diverse",
             "label": "Betaalmethode",
             "12": "Processen",
@@ -5462,12 +5467,12 @@
         "paymentComboSectionTitle": "Pakketten",
         "method": {
             "CB": "Creditcard",
-            "CREDIT_ACCOUNT": "Betaal ter plaatse"
+            "CREDIT_ACCOUNT": "Betaling ter plaatse"
         },
         "forms": {
             "cancelPayment": "Terug",
             "credit": {
-                "explain": "Uw club wordt geïnformeerd over de afschrijving, u betaalt ter plaatse",
+                "explain": "Je studio wordt geïnformeerd over de afschrijving. De betaling gebeurt ter plaatse.",
                 "pay": "Bevestigen"
             },
             "paymentIntent": {
@@ -6022,7 +6027,7 @@
     },
     "coach": {
         "performance": {
-            "title": "Overzicht",
+            "title": "Payroll overzicht",
             "coachName": "Instructeur",
             "nbBookings": "Reserveringen",
             "nbOffersTotal": "Sessies",
@@ -6073,7 +6078,7 @@
         },
         "overrider": "Plaatsvervanger",
         "overrideSelectorTitle": "Instructeur",
-        "color": "Kleurcode (Afspraakkaart)",
+        "color": "Kleurcode",
         "showPerformance": "Toon Payroll",
         "showActivities": "Bekijk activiteiten",
         "showDescription": "Toon beschrijving",
@@ -6279,9 +6284,9 @@
             },
             "subscription_mode": {
                 "3": "Niet-beschikbaar",
-                "2": "Alleen op de 1e factuur toepassen (vóór de automatische verlenging)",
-                "1": "Alleen voor de 1e maand",
-                "0": "Alle facturen"
+                "2": "Alleen op de facturen die vóór de automatische verlenging plaatsvinden toepassen",
+                "1": "Alleen op de 1e facturatie toepassen",
+                "0": "Op alle facturen toepassen"
             }
         },
         "list": {
@@ -6407,7 +6412,7 @@
             "title": "Omzet van de abonnementen",
             "caption": "Omzet"
         },
-        "noData": "Geen gegevens om weer te geven",
+        "noData": "Er zijn nog geen gegevens om weer te geven.",
         "bookingSource": {
             "title": "Herkomst van de reserveringen",
             "saas": "BSPORT Back Office",
@@ -6417,7 +6422,7 @@
             "web": "Web"
         },
         "invoiceItems": {
-            "title": "Verkoop per productsoort",
+            "title": "Verkoop per product",
             "contentType": {
                 "1": "Cursuskaarten",
                 "6": "Verzendkosten",
@@ -6587,7 +6592,7 @@
             }
         },
         "panel": {
-            "title": "Mijn tags",
+            "title": "Tags",
             "noTagAvailable": "Nog geen tags aangemaakt"
         },
         "filter": {
@@ -6626,10 +6631,10 @@
                 "default_attendance": {
                     "present": "Aanwezig",
                     "missing": "Afwezig",
-                    "title": "Standaardstatus wanneer een lid een reservering maakt"
+                    "title": "Standaardstatus voor reserveringen"
                 },
                 "default_booking_ordering": {
-                    "date": "Sorteer op: meest recente reservering",
+                    "date": "Sorteer op: meest recent",
                     "firstname": "Sorteer op: voornaam (alfabetisch)",
                     "lastname": "Sorteer op: familienaam (alfabetisch)",
                     "title": "Kies de standaard sorteervolgorde voor reserveringen op je agenda"
@@ -6666,11 +6671,11 @@
                     },
                     "numberCheck": {
                         "helperText": "Wanneer {{number}} leden zich voor een sessie inschrijven, worden alleen reserveringen geaccepteerd als de onevenwichtigheid tussen MANNEN/VROUWEN minder is dan de volgende waarde.",
-                        "placeholder": "Controleer de onevenwichtigheid tussen MANNEN/VROUWEN wanneer het aantal reserveringen groter is dan"
+                        "placeholder": "Beperk reserveringen als de MAN / VROUW verhouding ≥"
                     },
-                    "checkbox": "Beperk het onevenwicht tussen MANNEN/VROUWEN voor je sessies"
+                    "checkbox": "Reguleer de MAN / VROUW verhouding voor je sessies"
                 },
-                "offerBalance": "Een regel instellen dat het aantal MANNEN / VROUWEN per sessie reguleert",
+                "offerBalance": "Een regel instellen dat de MAN / VROUW verhouding per sessie reguleert",
                 "showGenderOffer": "Toon het aantal inschreven MANNEN / VROUWEN op de agenda van je leden",
                 "hideCoach": "Toon de docentinformatie op de agenda van je leden"
             },
@@ -6758,8 +6763,8 @@
             "signupShow": "Wanneer een gebruiker het registratieformulier opent",
             "fbPixelEvent": "[Facebook Pixel] Evenement",
             "signupSuccess": "Wanneer een gebruiker een account heeft aangemaakt",
-            "contractPaymentSuccess": "Wanneer een gebruiker zich heeft aangemeld",
-            "contractShow": "Wanneer een gebruiker een abonnement selecteert",
+            "contractPaymentSuccess": "Wanneer een gebruiker een abonnement heeft gekocht",
+            "contractShow": "Wanneer een gebruiker op een abonnement klikt",
             "contractPaymentShow": "Wanneer een gebruiker zich op de betaalpagina van een abonnement bevindt",
             "showAnalyticsInformation": "Toon evenementen",
             "addPassToCart": "Wanneer een gebruiker een cursuskaart aan zijn/haar winkelmandje toevoegt",
@@ -6990,7 +6995,7 @@
                 "typeLabel": "Type aanpassing",
                 "withoutPaymentNote": {
                     "warning": "Let op! We kunnen deze betaling niet in het systeem registreren. Gebruik dit alleen in bijzondere situaties.",
-                    "label": "Geen bon aanmaken"
+                    "label": "Geen factuur aanmaken"
                 }
             }
         },
@@ -7137,7 +7142,7 @@
                 "label": "Automatisch het lidmaatschap van een lid belasten zodra er een plaats vrij komt."
             },
             "is_option_blocking": {
-                "helper": "Zolang een lid op de wachtlijst staat, wordt een plaats voor hem/haar gereserveerd tot hij/zij zich aanmeldt.",
+                "helper": "Zolang een lid op de wachtlijst staat, wordt er een plaats voor hem/haar vrij gehouden tot hij/zij zich aanmeldt.",
                 "label": "Beschikbare plaatsen reserveren voor leden die op de wachtlijst staan."
             },
             "autokick_delay": {
@@ -7206,7 +7211,7 @@
                     "title": "Rol verwijderen"
                 },
                 "create": {
-                    "showAdvanced": "Meer zien",
+                    "showAdvanced": "Toon meer",
                     "permissions": "Bevoegdheden",
                     "restrictedUrlPlaceholder": "Voorbeeld: /lid/",
                     "restrictedUrl": "Geblokkeerde URLs",
@@ -7440,7 +7445,7 @@
             "listDisplay": "Weekoverzicht (lijst)",
             "linkToConfig": "De link voor de configuratie van deze widget",
             "widgetPreviewError": "Voltooi je configuratie",
-            "dialogTitle": "Je widget personaliseren",
+            "dialogTitle": "[Formulier] Widget",
             "codeInfo": "De code voor deze widget voor op je website",
             "creationPageInfo": "Personaliseer en filter je widgets en integreer ze gemakkelijk op je website.",
             "dialogMode": {
@@ -7522,7 +7527,7 @@
         "notifications": {
             "deleteDialogText": "Weet je zeker dat je deze regel wilt verwijderen? Deze actie is definitief.",
             "createNotificationFabLabel": "Een melding toevoegen",
-            "notificationsEmpty": "Je hebt nog geen melding voor deze groep toegevoegd.",
+            "notificationsEmpty": "Je hebt nog geen meldingen voor deze groep toegevoegd.",
             "deleteDialogTitle": "De regel verwijderen",
             "removeRule": "De regel verwijderen",
             "editRule": "De regel wijzigen",

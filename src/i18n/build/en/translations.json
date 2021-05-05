@@ -894,8 +894,8 @@
                     "forceNotify": "Send a confirmation email",
                     "passCompatibleNotOwnedByMember": "Billing new pass",
                     "passOwnedByMember": "Pass owned",
-                    "registerToOffer": "Register to class",
-                    "doNotConsumeCredit": "Do not deduct credits to members for registration"
+                    "registerToOffer": "Book this class",
+                    "doNotConsumeCredit": "Do not deduct credits to members for this booking"
                 }
             }
         },
@@ -920,7 +920,7 @@
                 "bookOption": "Waiting-list",
                 "notBookableYet": "Soon"
             },
-            "passListTitle": "Pass (class)",
+            "passListTitle": "Group class passes",
             "privatePassListTitle": "Appointment Pass",
             "noSessionToday": "No session",
             "showMarketplace": "Show calendar of ",
@@ -1013,7 +1013,7 @@
             "source": "Source",
             "status": {
                 "false": "cancelled",
-                "true": "registered",
+                "true": "is booked in",
                 "null": "waiting-list"
             },
             "nb_booking": "Total available slots",
@@ -1025,9 +1025,9 @@
             "cancelled": "Cancelled",
             "pending": "Not cashed-in",
             "validated": "Paid",
-            "confirm": "Cash in",
+            "confirm": "Take payment",
             "waitingUserConfirmation": "Waiting for customer confirmation",
-            "add": "Register",
+            "add": "Book in",
             "onHold": "On hold",
             "onWaitingList": "On waiting-list",
             "discard": "Discard",
@@ -1098,7 +1098,7 @@
             "firstBookingMinutesUntil": "Limit bookings to sessions taking place before or in "
         },
         "calendar": {
-            "pleaseSelectOffer": "Select a session to show registered member",
+            "pleaseSelectOffer": "Select a session to show members that have booked in",
             "showWeek": "Display week",
             "showMonth": "Display month",
             "showMore": "+ {{ total}} additional sessions",
@@ -1146,7 +1146,7 @@
             "billingAnchor": "First payment",
             "intervalWeek": "Weekly",
             "intervalMonth": "Monthly",
-            "stillUnpaid": "To be cashed-in: ",
+            "stillUnpaid": "Remaining amount to be paid: ",
             "status": "Cashed-in",
             "addThisPaymentItem": "Add this payment",
             "noPaymentItem": "No saved payments",
@@ -1224,7 +1224,7 @@
             "revertExplainCredits": "Debit/credit on member account will be reverted.",
             "revertExplainPayment": "Credit card payments will be refunded on member account. All other payment methods will be deleted.",
             "revertImpossibleExplainSubscription": "This invoice is part of a subscription, you can not cancel an invoice from a subscription, but you can stop the subscription and cancel the last invoice.",
-            "explainDateChoser": "Please chose billing date. Credit card payment will still be cashed immediately",
+            "explainDateChoser": "Please choose billing date.",
             "choseDate": "Billing date",
             "revert": "Cancel the invoice",
             "reverted": "Cancelled",
@@ -1597,12 +1597,12 @@
             "manageOffer": "Manage my bookings",
             "myOpenedInvoices": "Quick invoicing",
             "noQuickInvoiceOpened": "No invoice opened",
-            "reCreateBooking": "Register again",
+            "reCreateBooking": "Book in again",
             "createBookingOption": "Waiting-list",
             "bill": "Bill",
-            "createBooking": "Register",
-            "hasBooked": "Registered",
-            "hasntBooked": "Not registered",
+            "createBooking": "Book in",
+            "hasBooked": "Is booked in",
+            "hasntBooked": "Is not booked in",
             "myBookings": "Bookings",
             "addInvoice": "Bill",
             "extraordinaryEstablishment": "(temporary location)",
@@ -2048,11 +2048,11 @@
             "pick_a_language": "Select language"
         },
         "pack": {
-            "titlePaymentPack": "Class",
+            "titlePaymentPack": "Group class",
             "titlePrivatePack": "Appointments"
         },
         "booking": {
-            "titleBooking": "Class",
+            "titleBooking": "Group class",
             "titlePrivateBooking": "Appointments",
             "showCalendar": "See calendar",
             "discard": "Cancel",
@@ -2214,7 +2214,7 @@
             "content": "Content",
             "selectorPlaceholder": {
                 "privatePass": "Appointment Pass",
-                "paymentPack": "Pass collective lesson",
+                "paymentPack": "Pass for group classes",
                 "shopitem": "Shop"
             },
             "available_payment_method_identifiers": {
@@ -2513,7 +2513,7 @@
             "enableRecurrentAvailability": "Add a recurrent availability",
             "disableRecurrentAvailability": "Cancel a recurrent availability",
             "selectCoachToModifyAvailability": "Select a teacher",
-            "addBooking": "Register an appointment",
+            "addBooking": "Book an appointment",
             "toogle": {
                 "showOfferList": "Group classes",
                 "showPrivateBookings": "Appointments",
@@ -3247,7 +3247,7 @@
     },
     "coupon": {
         "list": {
-            "isEmpty": "No coupon registered yet",
+            "isEmpty": "No discount code registered yet",
             "inactiveCoupons": "Coupons disabled or expired",
             "activeCoupons": "Active coupons"
         },
@@ -3269,7 +3269,7 @@
         "form": {
             "selectorPlaceholder": {
                 "privatePass": "Select appointment passes (valid on all passes if none selected)",
-                "paymentPack": "Select collective lesson passes (valid on all passes if none selected)",
+                "paymentPack": "Select group class passes (valid on all passes if none selected)",
                 "shopitem": "Select shop items (valid on all items if none selected)"
             },
             "section": {
@@ -3551,7 +3551,7 @@
             "card_declined": "Card declined",
             "payment_intent_authentication_failure": "Payment was declined by you bank.",
             "payment_intent_payment_attempt_failed": "The payment was declined by your bank.",
-            "processing_error": "An occurred while registering payment, please try again in a fe minutes.",
+            "processing_error": "An occurred while registering payment, please try again in a few minutes.",
             "unknown": "Network error, please retry in a few minutes"
         },
         "decline_code": {
@@ -3742,7 +3742,7 @@
                     "label": "Last name label",
                     "helperText": "Fill in the last name label"
                 },
-                "offersFilling": "Display offers filling on marketplace calendar",
+                "offersFilling": "Display number of spots available for each session on marketplace calendar",
                 "default_booking_ordering": {
                     "title": "Chose default booking sort order (booking management page)",
                     "lastname": "Sort by last name",
@@ -4131,7 +4131,7 @@
         "form": {
             "dumb_delay_minutes": {
                 "label": "Simple waiting-list",
-                "helper": "If a slot becomes available, the client has N minutes to register before the next one takes his slot."
+                "helper": "If a slot becomes available, the member has N minutes to book in before the next one takes his/her slot."
             },
             "smart_delay_percentage": {
                 "label": "Smart waiting-list",
@@ -4142,8 +4142,8 @@
                 "title": "Waiting-list management"
             },
             "auto_consume_pack": {
-                "helper": "If the member has a valid pass when a spot becomes available, he is automatically registered and his pass is charged. The pass that expires the earliest, and with the least amount of credit available, is used first.",
-                "label": "Automatically debit a pass and register the member when a spot becomes available."
+                "helper": "If the member has a valid pass when a spot becomes available, he/she is automatically booked in and a credit will be deducted from his/her pass. The pass that expires the earliest, and with the least amount of credits available, is used first.",
+                "label": "Automatically deduct credit(s) from a valid pass and book in the member when a spot becomes available."
             },
             "is_option_blocking": {
                 "helper": "As long as a member is on the waiting list, a spot is blocked for him/her while waiting for him/her to register.",
@@ -4166,7 +4166,7 @@
                 }
             }
         },
-        "explainWaitingListConf": "e.g: There is 3h left before the session, the client has {{ nbMinutesBeforeBookingOptionExpire }} minutes to register his booking before he goes back to the waiting-list.",
+        "explainWaitingListConf": "e.g: There is 3h left before the session, the client has {{ nbMinutesBeforeBookingOptionExpire }} minutes to make his booking before he goes back to the waiting-list.",
         "dialog": {
             "delete": {
                 "title": "Waiting-list removal",
@@ -4451,11 +4451,11 @@
                 "helpTitle": "How is done synchronisation ?",
                 "helpContent": "These actions are triggered when the associated event is raised on ActiveCampaign.",
                 "title": "Push ActiveCampaign informations to bsport",
-                "CLIENT_WON": "Create a client account on bsport when for a propect which is statued as 'WON' on a deal",
-                "CONTACT_TAG": "Create a client account on bsport when for a propect which is taged as 'won' on ActiveCampaign"
+                "CLIENT_WON": "Create a client account on bsport when for a prospect which is statued as 'WON' on a deal",
+                "CONTACT_TAG": "Create a client account on bsport when for a prospect which is tagged as 'won' on ActiveCampaign"
             },
             "link": {
-                "helpTitle": "How is done synchronisation ?",
+                "helpTitle": "How is synchronisation done?",
                 "helpContent": "Members of the smartlist are sent every night to the ActiveCampaign list. They appear as 'active'. Members who went out of the smartlist are pulled out of the ActiveCampaign list, their status is then 'unconfirmed'.",
                 "title": "Sending informations from bsport",
                 "add": "Add a link between lists",
@@ -4727,9 +4727,9 @@
     "payment": {
         "explainOption": "You will be notified by email when a slot will be free",
         "bookAnotherOption": "Add me again on the waiting-list",
-        "bookAnOption": "Register on waiting-list",
+        "bookAnOption": "Book on waiting-list",
         "availablePaymentPacks": "Compatible Passes: ",
-        "goBack": "Retour",
+        "goBack": "Go back",
         "hasOneOrMoreOption": "You are already on the waiting-list",
         "method": {
             "CB": "Credit card",
@@ -4759,7 +4759,7 @@
                     "title": "Add a payment method"
                 },
                 "message": {
-                    "error": "Cannot register this payment method",
+                    "error": "Unable to save this payment method",
                     "success": "Payment method saved successfully!"
                 }
             },
@@ -5019,7 +5019,7 @@
                 "balanceValueLabel": "Amount",
                 "title": "Balance adjustment",
                 "typeLabel": "Adjustment type",
-                "topup": "Collection",
+                "topup": "Charge",
                 "withoutPaymentNote": {
                     "warning": "Be careful : we don't keep any track of this operation. Only to be use with caution.",
                     "label": "Without payment"
@@ -5055,26 +5055,26 @@
                 "cancel": "Cancel",
                 "revert": "Cancel",
                 "pay": "Pay this invoice",
-                "bill": "Collect"
+                "bill": "Take payment"
             },
             "sumup": {
                 "amountRemaining": "Remaining amount to pay",
                 "amountDue": "Total due",
                 "title": "Sum up",
-                "amountPaid": "Collection"
+                "amountPaid": "Charge"
             },
             "date": {
-                "label": "Date of collection"
+                "label": "Payment date"
             },
             "paymentNote": {
-                "helperText": "(optional) check number, collection date...",
+                "helperText": "(optional) check number, payment date...",
                 "label": "Note"
             },
             "amount": {
-                "label": "Amount to collect"
+                "label": "Amount to charge"
             },
             "amountRemaining": "Remainder to pay: {{ amount }}",
-            "billingMoreThanNeeded": "If you collect more than the amount of the bill, the surplus will be put in the balance of the client",
+            "billingMoreThanNeeded": "If you charge more than the amount of the invoice, the difference in cost will be added to the client account balance",
             "errorSecretExplain2": "If the issue is not resolved please contact us at dev+payment-intent@bsport.io",
             "errorSecretExplain1": "This paiement method is not available at the moment",
             "plannedPaymentEvent": {
@@ -5131,7 +5131,7 @@
             "actions": {
                 "edit": "Modify",
                 "delete": "Cancel",
-                "registerNow": "Cash-in now"
+                "registerNow": "Take payment now"
             }
         },
         "mandate": {
@@ -5537,7 +5537,7 @@
             },
             "dateUpdater": {
                 "title": "Modify the future invoice",
-                "label": "Date of collection",
+                "label": "Payment date",
                 "actions": {
                     "submit": "Save",
                     "cancel": "Cancel"
@@ -5859,7 +5859,7 @@
             "total": "Total"
         },
         "categories": {
-            "dayBookings": "Reservations (group lesson) per day",
+            "dayBookings": "Bookings (group classes) per day",
             "privateServiceEst": "Appointment by establishment",
             "privateServiceCoach": "Appointment by teacher",
             "privateService": "Appointment",
@@ -5868,8 +5868,8 @@
             "workshop": "Workshops",
             "activities": "Activities",
             "first_privatebooking": "First appointment",
-            "first_attendance": "First presence (collective)",
-            "first_booking": "First session (collective)",
+            "first_attendance": "First presence (group classes)",
+            "first_booking": "First session (group classes)",
             "subscription": "Subscription",
             "discount": "Coupon",
             "private_bookings": "Reservations (appointment)",
@@ -5882,7 +5882,7 @@
             "invoices": "Purchases",
             "products": "Products",
             "payments": "Payments",
-            "bookings": "Reservations (group lesson)",
+            "bookings": "Bookings (group classes)",
             "offers": "Sessions",
             "members": "Members",
             "cashbook": "Cash book",
@@ -5947,7 +5947,7 @@
         },
         "companyOnboarding": {
             "creation": {
-                "content": "To be able to cash CB and SEPA payments, please check your legal information",
+                "content": "To be able to charge Credit Card and IBAN payments, please check your legal information",
                 "title": "Online payment disabled"
             },
             "payout": {
@@ -6430,7 +6430,7 @@
             "search": "Search an activity",
             "addActivity": "Add an activity"
         },
-        "noActivities": "Manage your activities here, an activity allows you to group together a set of sessions (usually collective) of the same disciplin.",
+        "noActivities": "Manage your activities here, an activity allows you to group together a set of sessions (usually collective) of the same practice.",
         "disabledMetaActivities": "Archived activities",
         "workshop": "Workshop"
     },
@@ -6721,7 +6721,7 @@
                 "isDisabled": "Unfortunately the class has been canceled.",
                 "isTooLate": "Registrations are closed.",
                 "isWaitingListFull": "The class is full, and the waiting-list too.",
-                "isTooSoon": "Registrations are closed for the moment and will open on {{ date }}."
+                "isTooSoon": "Bookings are closed for the moment and will open on {{ date }}."
             },
             "messages": {
                 "offerLocked": "You can't book this session",

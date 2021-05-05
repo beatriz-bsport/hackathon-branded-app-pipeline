@@ -118,7 +118,8 @@
             "female": "Donna",
             "duplicate": "Duplica",
             "restore": "Ristabilire",
-            "share": "Condividi"
+            "share": "Condividi",
+            "pickALanguage": "Lingua"
         },
         "offer": {
             "noPackAvailableForOfferPurchase": "Nessuna tessera compatibile con questa sessione!",
@@ -1008,7 +1009,8 @@
                     "subscription_recurrent_price": "Importo mensile addebitato",
                     "subscription_nb_months": "Numero di mesi",
                     "subscription_flat_fee": "Spese amministrative",
-                    "subscription_nb_days_pause": "Pausa: numero di giorni"
+                    "subscription_nb_days_pause": "Pausa: numero di giorni",
+                    "subscription_next_invoice_date": "Data della prossima fatturazione"
                 }
             },
             "PrivateConsumerPass": {
@@ -1143,7 +1145,8 @@
             "pack": "Tessera",
             "invoice": "Fattura",
             "subscription": "Abbonamento",
-            "myVideos": "I miei video"
+            "myVideos": "I miei video",
+            "pick_a_language": "Selezionare una lingua"
         },
         "debt": {
             "regularize": "Regolarizza",
@@ -2231,7 +2234,12 @@
                     "title": "Scegli la sessione su cui vuoi lasciare una notifica"
                 },
                 "intro": "Puoi informare i tuoi clienti prima e/o dopo alcune sessioni, riguardo alcune regole come il numero delle prenotazioni o le cancellazioni.",
-                "title": "Aggiungi una notifica"
+                "title": "Aggiungi una notifica",
+                "ifKind": {
+                    "notRefunded": "Se la prenotazione è stata cancellata dopo la scadenza",
+                    "refunded": "Se la prenotazione è stata cancellata in tempo",
+                    "valid": "Se la prenotazione è valida"
+                }
             }
         },
         "marketplace": {
@@ -2786,6 +2794,11 @@
             "duplicate": {
                 "error": "Impossibile duplicare la smarlist",
                 "success": "Smartlist duplicata"
+            },
+            "tag_rules": {
+                "limit_reached": "Impossibile: hai raggiunto il limite di creazione (10)",
+                "error": "Impossibile applicare questa regola",
+                "success": "La regola automatica è stata avviata"
             }
         },
         "subscription": {
@@ -3225,7 +3238,18 @@
         "consumerPass": {
             "success": "Il tuo acquisto è stato registrato!"
         },
-        "copied": "Copiato negli appunti"
+        "copied": "Copiato negli appunti",
+        "contractPause": {
+            "create": {
+                "error": "Impossibile mettere in pausa in questo momento, si prega di riprovare più tardi"
+            }
+        },
+        "bookerModule": {
+            "pass": {
+                "nothingAvailable": "Nessun pass permette di prenotare queste sessioni allo stesso tempo",
+                "changed": "La mappa del corso per la prenotazione ha dovuto essere modificata"
+            }
+        }
     },
     "settings": {
         "broadcast": {
@@ -3335,7 +3359,11 @@
                 "selectPrivateServiceTypeList": "Tutti gli appuntamenti",
                 "selectPrivateServiceTypeDetail": "Il mio appuntamento",
                 "selectPrivateServiceGroups": "Scegliete le vostre categorie",
-                "selectVideo": "Scegliere un video"
+                "selectVideo": "Scegliere un video",
+                "todayOnly": "Mostra solo le sessioni di oggi",
+                "hidePaymentCombo": "Non mostrare i pacchetti",
+                "hidePrivatePass": "Non mostrare le carte del corso",
+                "hidePaymentPack": "Non mostrare le carte del corso"
             },
             "componentType": {
                 "playlist": "Playlist",
@@ -3886,7 +3914,7 @@
                     "helperText": "Almeno 2 mesi"
                 },
                 "recurrent_price": {
-                    "label": "Pagamento mensile"
+                    "label": "Pagamento ricorrente"
                 },
                 "description": {
                     "placeholder": "Nuova offerta esclusiva limitata",
@@ -3960,6 +3988,20 @@
                 "year_plural": "anni",
                 "month": "mese",
                 "month_plural": "mesi"
+            },
+            "item": {
+                "intervalLabel": {
+                    "year": "Ogni anno",
+                    "year_plural": "Ogni {{ interval }} anni",
+                    "day": "Ogni giorni",
+                    "day_plural": "Ogni {{ interval }} giorno",
+                    "week": "Ogni settimana",
+                    "week_plural": "Ogni {{ interval }} settimana",
+                    "month": "Ogni mese",
+                    "month_plural": "Ogni {{ interval }} mese"
+                },
+                "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
+                "identifier": "Abbonamento"
             }
         },
         "form": {
@@ -4082,6 +4124,9 @@
         "end": {
             "renew": "Rinnovo automatico",
             "noRenew": "Fine della sottoscrizione"
+        },
+        "contractPause": {
+            "title": "Interruzioni globali"
         }
     },
     "reporting": {

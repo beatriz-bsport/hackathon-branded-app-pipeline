@@ -4889,11 +4889,11 @@
           "refunded": "Si la réservation a été annulée dans les temps",
           "notRefunded": "Si la réservation a été annulée hors-délai"
         },
-        "bookingNumber_0": "Toutes les réservations",
-        "bookingNumber_1": "1ère réservation",
-        "bookingNumber_2": "2ème réservation",
-        "bookingNumber_3": "3ème réservation",
-        "bookingNumber_n": "{{notify_booking_nb}}ème réservation",
+        "bookingNumberAll": "Toutes les réservations",
+        "bookingNumberFirst": "1ère réservation",
+        "bookingNumberSecond": "2ème réservation",
+        "bookingNumberThird": "3ème réservation",
+        "bookingNumberN": "{{notify_booking_nb}}ème réservation",
         "help": {
           "text": "Aide : la notification sera envoyée au membre lors de",
           "attendance": "sa présence n° {{notify_booking_nb}}",
@@ -4949,7 +4949,7 @@
       },
       "packTitle": "Mon moyen de réservation",
       "noPackAvailable": "Aucune carte de cours compatible avec cette séance !",
-      "noPackAvailable_plural": "Aucune carte de cours compatible avec ces séances !",
+      "noPackAvailable_plural": "Aucune carte de cours compatible avec ce groupe de séances en même temps. Vous devrez réserver en plusieurs fois.",
       "addSession": "Ajouter une séance",
       "bookingsTitle": "Je réserve",
       "mainButton": {

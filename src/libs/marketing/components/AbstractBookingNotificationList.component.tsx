@@ -41,10 +41,20 @@ const getLabelForKind = (
 };
 
 const getSessionLabel = (sessionNumber: number, t: TFunction) => {
-  const key = sessionNumber < 4 ? sessionNumber : 'n';
-  return t(`booking:notification.form.bookingNumber_${key}`, {
-    notify_booking_nb: sessionNumber,
-  });
+  switch (sessionNumber) {
+    case 0:
+      return t(`booking:notification.form.bookingNumberAll`);
+    case 1:
+      return t(`booking:notification.form.bookingNumberFirst`);
+    case 2:
+      return t(`booking:notification.form.bookingNumberSecond`);
+    case 3:
+      return t(`booking:notification.form.bookingNumberThird`);
+    default:
+      return t(`booking:notification.form.bookingNumberN`, {
+        notify_booking_nb: sessionNumber,
+      });
+  }
 };
 
 type OwnProps = {

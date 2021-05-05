@@ -2098,6 +2098,15 @@
             "noBookingFuture": "No upcoming bookings",
             "pastBooking": "History",
             "futureBooking": "My bookings"
+        },
+        "language": {
+            "nl": "Dutch",
+            "it": "Italian",
+            "de": "German",
+            "es": "Spanish",
+            "en-GB": "English (UK)",
+            "en-US": "English (US)",
+            "fr": "French"
         }
     },
     "reminder": {
@@ -8271,6 +8280,11 @@
             "close": "Close",
             "downloadChrome": "Download Google Chrome for free",
             "downloadFirefox": "Download Mozilla Firefox for free"
+        },
+        "paymentMethodMissing": {
+            "banner": "You have not entered a payment method for your bsport subscription. Please click here.",
+            "explain": "You have not entered a valid payment method, please confirm it to continue using your bsport subscription.",
+            "closeModal": "Close"
         }
     },
     "video": {

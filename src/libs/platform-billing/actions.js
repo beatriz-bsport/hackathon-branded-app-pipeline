@@ -243,7 +243,7 @@ export const checkPlatformSubscriptionSetupActions = {
 export function checkPlatformSubscriptionSetup(options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(checkPlatformSubscriptionSetupActions.isLoading(true));
-    dispatch(checkPlatformSubscriptionSetuperror(null));
+    dispatch(checkPlatformSubscriptionSetupActions.error(null));
     try {
       const response = await checkPlatformSubscriptionSetupAPI();
       dispatch(checkPlatformSubscriptionSetupActions.success(response.data));

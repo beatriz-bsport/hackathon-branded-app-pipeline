@@ -1,48 +1,44 @@
 // @flow
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import TodayIcon from '@material-ui/icons/Today';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import { compose } from 'recompose';
 import Slide from '@material-ui/core/Slide';
-import AlertIcon from '@material-ui/icons/Warning';
 
-import { withTranslation } from 'react-i18next';
-import type { TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   networkAvailable: boolean,
   environment: ?string,
-  t: TFunction,
-  classes: Object,
 };
 
 export const Banner = (props: Props) => {
+  const { t } = useTranslation(['titles']);
+  const classes = useStyles();
+
   return (
-    <div className={props.classes.container}>
+    <div className={classes.container}>
       <div style={{ visibility: 'visible' }}>
         <Slide in={!props.networkAvailable}>
           <ButtonBase
             onClick={() => document.location.reload(true)}
-            className={props.classes.errorBanner}
+            className={classes.errorBanner}
           >
-            <div className={props.classes.text}>
-              {props.t('banner.networkError')}
-            </div>
+            <div className={classes.text}>{t('banner.networkError')}</div>
           </ButtonBase>
         </Slide>
       </div>
       {props.environment === 'staging' ? (
-        <div className={props.classes.infoBanner}>
+        <div className={classes.infoBanner}>
           <div style={{ visibility: 'visible' }}>
             <a
               href="https://calendly.com/bsport/demoen?month=2020-07"
               style={{ textDecoration: 'none' }}
             >
               <Fab variant="extended" color="primary">
-                <TodayIcon className={props.classes.leftIcon} />
-                {props.t('banner.isStaging')}
+                <TodayIcon className={classes.leftIcon} />
+                {t('banner.isStaging')}
               </Fab>
             </a>
           </div>
@@ -52,7 +48,7 @@ export const Banner = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     zIndex: 999999,
     position: 'fixed',
@@ -92,6 +88,6 @@ const styles = (theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
   },
-});
+}));
 
-export default compose(withTranslation(['titles']), withStyles(styles))(Banner);
+export default Banner;

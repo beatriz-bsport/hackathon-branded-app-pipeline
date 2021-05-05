@@ -21,6 +21,7 @@ type Props = {
   setCollectPaymentMethodSepaIsOpen: (boolean) => void,
   requestSetupIntentSecret: () => void,
   refreshSavedPaymentMethodList: () => void,
+  onCollectPaymentMethodSuccess: ?() => void,
 };
 
 export const CompanyPlatformBillingDetail = (props: Props) => {

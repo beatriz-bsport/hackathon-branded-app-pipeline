@@ -11,9 +11,11 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
 
-const BillingBanner = (props: Props) => {
-  if (!props.paymentMethodMissing) return null;
+type Props = {
+  paymentMethodMissing: boolean;
+};
 
+const BillingBanner = (props: Props) => {
   const { t } = useTranslation(['navigation']);
   const classes = useStyles();
 
@@ -29,14 +31,14 @@ const BillingBanner = (props: Props) => {
     setTimeout(() => setCounter(0), 6000);
   };
   React.useEffect(() => {
-    setTimeout(
-      () => {
+    if (props.paymentMethodMissing) {
+      setTimeout(() => {
         setModalOpen(true);
         decrementCounter();
-      },
-      1000, //* 60 * 45
-    );
-  }, []);
+      }, 1000 * 60 * 45);
+    }
+  }, [props.paymentMethodMissing]);
+  if (!props.paymentMethodMissing) return null;
 
   if (shouldRedirect) {
     return <Redirect to="/settings/platform-billing" />;

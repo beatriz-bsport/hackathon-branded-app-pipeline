@@ -67,6 +67,8 @@ type Props = {
   payoutList: Array<Payout>,
   payoutLoading: boolean,
   onOpenInvoice: (uuid: string) => void,
+
+  checkSubscriptionSetup: () => void,
 };
 
 export class PlatformBillingSettings extends React.Component<Props> {

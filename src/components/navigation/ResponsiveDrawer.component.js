@@ -69,9 +69,6 @@ import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 
 import { colors } from '@bsport/common/lib/colors';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Slide from '@material-ui/core/Slide';
-import AlertIcon from '@material-ui/icons/Warning';
 import BillingBanner from './BillingBanner.component';
 import LanguageButton from '../button/LanguageButton.component';
 import TempPasswordDialog from '../../libs/login/components/TempPasswordDialog.component';
@@ -122,6 +119,7 @@ type Props = {
   fetchOnSpotPaymentReport: () => void,
   showCashBook: boolean,
   permissions: Permission,
+  paymentMethodMissing: boolean,
 };
 
 type State = {

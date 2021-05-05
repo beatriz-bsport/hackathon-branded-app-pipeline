@@ -225,7 +225,7 @@ export const PrivateServiceForm = (props: Props) => {
                     {coaches.map((id, i) => (
                       <CoachListItemBasic
                         key={`${id}-${i}`}
-                        coach={props.coaches.find((c) => c.id === id)}
+                        coach={props.allCoaches.find((c) => c.id === id)}
                         onDelete={() => remove(i)}
                       />
                     ))}

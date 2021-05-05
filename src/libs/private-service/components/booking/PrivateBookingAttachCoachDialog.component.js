@@ -23,16 +23,18 @@ export const PrivateBookingAttachCoachDialog = (props: Props) => {
       <DialogTitle>{t('privateBooking.attachCoach.title')}</DialogTitle>
       <DialogContent>
         <Typography>{t('privateBooking.attachCoach.explain')}</Typography>
-        {props.associatedCoachList.map((c) => (
-          <CoachListItem
-            noEdit
-            onCoachSelected={() => {
-              props.onSubmit({ coach: c.id });
-            }}
-            coach={c}
-            key={c.id}
-          />
-        ))}
+        {props.associatedCoachList
+          .filter((c) => !c.disabled)
+          .map((c) => (
+            <CoachListItem
+              noEdit
+              onCoachSelected={() => {
+                props.onSubmit({ coach: c.id });
+              }}
+              coach={c}
+              key={c.id}
+            />
+          ))}
       </DialogContent>
       <DialogActions>
         <Button onClick={props.onClose}>

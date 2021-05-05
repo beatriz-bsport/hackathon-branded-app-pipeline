@@ -210,6 +210,7 @@ export class PrivateServiceList extends React.Component<Props> {
             onCancel={this.closeForm}
             onSubmit={this.createOrUpdatePrivateService}
             coaches={this.props.availableCoaches}
+            allCoaches={this.props.allCoaches}
             establishments={this.props.availableEstablishments}
             serviceGroupList={this.props.serviceGroupList}
             onAddServiceGroup={this.props.onOpenServiceGroupCreateForm}

@@ -109,6 +109,7 @@ export class Root extends Component<Props> {
         {!WidgetUtils.isWidget() && (
           <Banner
             networkAvailable={this.props.networkAvailable}
+            paymentMethodMissing
             environment={Config.REACT_APP_SENTRY_ENVIRONMENT}
           />
         )}

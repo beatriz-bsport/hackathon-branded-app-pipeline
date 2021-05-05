@@ -6,6 +6,7 @@ import TodayIcon from '@material-ui/icons/Today';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { compose } from 'recompose';
 import Slide from '@material-ui/core/Slide';
+import AlertIcon from '@material-ui/icons/Warning';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -79,7 +80,14 @@ const styles = (theme) => ({
   text: {
     color: '#FEFEFE',
     fontSize: 14,
+    alignItems: 'center',
+    flexDirection: 'row',
+    display: 'flex',
     padding: theme.spacing(1) / 4,
+    '&>*': {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
   },
   leftIcon: {
     marginRight: theme.spacing(1),

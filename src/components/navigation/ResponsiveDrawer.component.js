@@ -69,6 +69,10 @@ import type { TFunction } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 
 import { colors } from '@bsport/common/lib/colors';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Slide from '@material-ui/core/Slide';
+import AlertIcon from '@material-ui/icons/Warning';
+import BillingBanner from './BillingBanner.component';
 import LanguageButton from '../button/LanguageButton.component';
 import TempPasswordDialog from '../../libs/login/components/TempPasswordDialog.component';
 import CashBookForm from '../../libs/cashbook/components/CashBookForm.component';
@@ -503,7 +507,13 @@ class ResponsiveDrawer extends React.Component<Props, State> {
       return (
         <div style={{ width: '100%' }}>
           {this.renderAppBar(true, hidden)}
-          <div className={classes.content}>{this.props.children}</div>;
+          <div className={classes.content}>
+            <BillingBanner
+              paymentMethodMissing={this.props.paymentMethodMissing}
+            />
+            {this.props.children}
+          </div>
+          ;
         </div>
       );
     }
@@ -913,7 +923,12 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           onClose={this.closeTempPasswordDialog}
           open={this.state.tempPasswordDialogOpen}
         />
-        <main className={classes.content}>{this.props.children}</main>
+        <main className={classes.content}>
+          <BillingBanner
+            paymentMethodMissing={this.props.paymentMethodMissing}
+          />
+          {this.props.children}
+        </main>
       </div>
     );
   }
@@ -1022,6 +1037,36 @@ const styles = (theme) => ({
   title: {
     [theme.breakpoints.down('sm')]: {
       paddingLeft: theme.spacing(4),
+    },
+  },
+  paymentMissingContainer: {
+    left: 0,
+    right: 0,
+    marginLeft: theme.spacing(-3),
+    marginRight: theme.spacing(-3),
+    marginTop: theme.spacing(-2),
+    paddingBottom: theme.spacing(2),
+    zIndex: 999,
+  },
+  errorBanner: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.palette.error.dark,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+  text: {
+    color: '#FEFEFE',
+    fontSize: 14,
+    alignItems: 'center',
+    flexDirection: 'row',
+    display: 'flex',
+    padding: theme.spacing(1) / 4,
+    '&>*': {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
     },
   },
 });

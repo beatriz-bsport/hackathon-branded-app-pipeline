@@ -308,6 +308,7 @@ export class Backoffice extends Component<Props, State> {
               showActions={this.props.permission.appbarActions}
               tempPasswordState={this.props.tempPasswordState}
               generateTempPassword={this.props.generateTempPassword}
+              paymentMethodMissing={this.props.theme.payment_method_missing}
               fetchTempPassword={this.props.fetchTempPassword}
               openCreateMember={this.props.openCreateMember}
               openCalendar={this.props.openCalendar}

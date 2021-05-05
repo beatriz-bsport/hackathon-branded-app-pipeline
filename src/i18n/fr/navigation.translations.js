@@ -1,4 +1,11 @@
 exports.default = {
+  paymentMethodMissing: {
+    closeModal: 'Fermer',
+    explain:
+      "Vous n'avez pas entré de méthode de paiement valide, veuillez la confirmer pour continuer d'utiliser votre abonnement bsport.",
+    banner:
+      "Vous n'avez pas entré de moyen de paiement pour votre abonnement bsport. Cliquez ici.",
+  },
   backofficeMenu: {
     cashBook: {
       close: 'Fermer',

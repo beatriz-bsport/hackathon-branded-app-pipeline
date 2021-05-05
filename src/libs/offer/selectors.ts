@@ -44,7 +44,7 @@ export const compatiblePacksWithOfferAndEnabled = createSelector(
   (items) => items.filter((pp: PaymentPack) => !pp.disabled),
 );
 
-export const _getSimilars = (state: RootState) =>
+export const getSimilars = (state: RootState) =>
   state.offer.similarOffers.items;
 
 export const withMetaActivity = memoize((selector: (state: RootState) => any) =>
@@ -123,28 +123,6 @@ export const withCoach = memoize((selector: (state: RootState) => any) =>
         : null,
     }));
   }),
-);
-
-export const getSimilars = createSelector(
-  [
-    _getSimilars,
-    getAllCoachesDict,
-    getMetaActivitiesDict,
-    getAllEstablishmentsDict,
-  ],
-  (offers, coachData, metaActivityData, establishmentData) => {
-    return offers.map((o) => ({
-      ...o,
-      establishment_override: o.establishment_override
-        ? establishmentData[o.establishment]
-        : null,
-      establishment: establishmentData[o.establishment],
-      coach: coachData[o.coach],
-      coach_override: o.coach_override ? coachData[o.coach_override] : null,
-      meta_activity: metaActivityData[o.meta_activity],
-    }));
-    // .filter((o) => o.establishment && o.coach && o.meta_activity);
-  },
 );
 
 export const getEventsByMetaActivity = (state: RootState) =>

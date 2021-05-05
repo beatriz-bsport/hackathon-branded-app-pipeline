@@ -269,6 +269,19 @@ export default handleActions<Immutable.Immutable<OfferState>>(
     [offerStatusActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['offerStatus', 'byId', payload.id], payload);
     },
+    [offerStatusActions.list.toString()]: (state, { payload }) => {
+      return state.merge(
+        {
+          offerStatus: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
+    },
   },
   initialState,
 );

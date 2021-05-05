@@ -23,18 +23,8 @@ export const ConsumerAppBar = (props) => {
             paper
             auth={props.auth}
             logo={props.theme && props.theme.cover}
-            goToUserSpace={() => props.goToUserSpace(props.companyId)}
-            currentBasket={props.currentBasket}
-            openCurrentBasket={
-              props.toogleCurrentBasketOpen &&
-              (() => props.toogleCurrentBasketOpen(true))
-            }
+            goToUserSpace={() => props.goToUserSpace(props.theme.company)}
             disconnect={props.disconnect}
-            onCancel={
-              props.setSelectedContract &&
-              (() => props.setSelectedContract(null))
-            }
-            requestSetupIntentSecret={props.requestSetupIntentSecret}
             companyId={props.companyId}
           />
         )}

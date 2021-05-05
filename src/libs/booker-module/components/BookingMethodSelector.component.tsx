@@ -200,13 +200,12 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
           !availablePaymentPacks.length &&
           !availableComboPacks.length && (
             <div className={classes.cannotBookContainer}>
+              <BlockIcon className={classes.noItemIcon} />
               <Typography>
                 {t('booking:offer.noPackAvailable', {
                   count: this.props.selectedOffers.length + 1,
                 })}
               </Typography>
-
-              <BlockIcon className={classes.noItemIcon} />
             </div>
           )}
 
@@ -417,17 +416,15 @@ const styles = (theme: Theme) => ({
   cannotBookContainer: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     flex: 1,
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    [theme.breakpoints.up('md')]: {
-      paddingLeft: 0,
-      paddingRight: 0,
-    },
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
   },
   noItemIcon: {
-    fontSize: 100,
+    fontSize: 140,
     marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(2),
   },
   showMoreContainer: {
     padding: theme.spacing(1),

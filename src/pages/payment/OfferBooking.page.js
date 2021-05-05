@@ -239,7 +239,9 @@ export class OfferPaymentPage extends Component<Props, State> {
       this.props.offer.meta_activity.is_workshop
     ) {
       return (
-        <Redirect to={`/payment/offer-booker-module/${this.props.offerId}`} />
+        <Redirect
+          to={`/payment/offer-booker-module/${this.props.offerId}?membership=${this.props.offer.meta_activity.company}`}
+        />
       );
     }
     return (

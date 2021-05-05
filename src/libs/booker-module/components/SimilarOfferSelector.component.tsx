@@ -108,6 +108,10 @@ class SimilarOffers extends React.PureComponent<Props> {
                   p={2}
                   className={classes.similarOfferItem}
                 >
+                  {!o.establishment && 'missing estab'}
+                  {!o.coach && 'missing coach'}
+                  {!offerStatus && 'mis status'}
+                  {!o.meta_activity && 'mis activity'}
                   <Skeleton
                     animation="wave"
                     width="50%"

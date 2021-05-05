@@ -291,6 +291,8 @@ exports.default = {
     packTitle: 'Mon moyen de réservation',
     noPackAvailable: 'Aucune carte de cours compatible avec cette séance !',
     noPackAvailable_plural:
+      'Aucune carte de cours compatible avec ce groupe de séances en même temps. Vous devrez réserver en plusieurs fois.',
+    noPackAvailable_plural:
       'Aucune carte de cours compatible avec ces séances !',
     addSession: 'Ajouter une séance',
     bookingsTitle: 'Je réserve',

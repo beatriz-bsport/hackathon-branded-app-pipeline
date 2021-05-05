@@ -50,6 +50,18 @@ export async function fetchOfferStatus(offerId: number) {
   return getAuth(`${API_V1_URI}/offer/${offerId}/bookable_status/`);
 }
 
+export async function fetchOfferStatusList(
+  id__in: Array<number>,
+  params: any = {},
+) {
+  return getAuth(
+    `${API_V1_URI}/offer/bookable_status_list/${buildUrlParams({
+      id__in,
+      ...params,
+    })}`,
+  );
+}
+
 export async function postUserRegistration(data: {
   consumer_payment_pack?: number;
   payment_pack?: number;

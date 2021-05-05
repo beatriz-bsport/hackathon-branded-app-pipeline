@@ -36,6 +36,7 @@ import {
 } from '../../../libs/offer/selectors';
 import {
   fetchOfferStatus,
+  fetchOfferStatusList,
   offerUserRegistration,
   fetchSimilarOffers,
   resetSimilarOffers,
@@ -95,6 +96,8 @@ type State = {
 };
 
 const DATE_FORMAT = 'YYYY-MM-DD';
+
+const SIMILAR_OFFER_PAGE_SIZE = 4;
 
 class OfferBooking extends React.PureComponent<Props, State> {
   state: State = {
@@ -324,7 +327,11 @@ class OfferBooking extends React.PureComponent<Props, State> {
       this.props.nextSimilarOfferPage &&
       this.props.fetchSimilarOffers(
         this.props.offer.id,
-        { wide: true, page: this.props.nextSimilarOfferPage, page_size: 4 },
+        {
+          wide: true,
+          page: this.props.nextSimilarOfferPage,
+          page_size: SIMILAR_OFFER_PAGE_SIZE,
+        },
         {
           onSuccess: (offers: Offer[]) => {
             this.props.fetchMetaActivityBulk(
@@ -342,7 +349,10 @@ class OfferBooking extends React.PureComponent<Props, State> {
             ];
 
             this.props.fetchCoachBulk(coachesId);
-            offers.map((o) => this.props.fetchOfferStatus(o.id));
+            this.props.fetchOfferStatusList(
+              offers.map((o) => o.id),
+              { page_size: SIMILAR_OFFER_PAGE_SIZE },
+            );
           },
         },
       );
@@ -631,7 +641,9 @@ const mapStateToProps = (state: RootState, props: OwnProps) => ({
   ) as Offer_FULL,
   offerStatus: state.offer.offerStatus.byId[props.id],
   offerStatusById: state.offer.offerStatus.byId,
-  similarOffers: getSimilars(state) as Offer_FULL[],
+  similarOffers: withMetaActivity(withCoach(withEstablishment(getSimilars)))(
+    state,
+  ) as Offer_FULL[],
   similarLoading: state.offer.similarOffers.loading,
   hasMoreSimilarOffer: !!state.offer.similarOffers.next_page,
   nextSimilarOfferPage: state.offer.similarOffers.next_page,
@@ -651,6 +663,7 @@ const mapDispatchToProps = {
   snackbarError: snackbarErrorAction,
   snackbarWarning: snackbarWarningAction,
   registerOption,
+  fetchOfferStatusList,
 };
 
 export default compose(

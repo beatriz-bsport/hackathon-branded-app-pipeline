@@ -12,6 +12,7 @@ import {
   restoreOffer as restoreOfferAPI,
   fetchBookedGender as fetchBookedGenderAPI,
   fetchOfferStatus as fetchOfferStatusAPI,
+  fetchOfferStatusList as fetchOfferStatusListAPI,
   postUserRegistration as postUserRegistrationAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
@@ -389,6 +390,7 @@ export const offerStatusActions = {
   isLoading: createAction('OFFER/STATUS/IS_LOADING'),
   error: createAction('OFFER/STATUS/ERROR'),
   success: createAction('OFFER/STATUS/SUCCESS'),
+  list: createAction('OFFER/STATUS/LIST'),
 };
 
 export function fetchOfferStatus(
@@ -405,6 +407,29 @@ export function fetchOfferStatus(
       dispatch(offerStatusActions.success(data));
       options && options.onSuccess && options.onSuccess(data);
     } catch (error) {
+      dispatch(offerStatusActions.error(error));
+      options && options.onError && options.onError(error);
+    }
+
+    dispatch(offerStatusActions.isLoading(false));
+  };
+}
+
+export function fetchOfferStatusList(
+  ids: Array<number>,
+  params: any = {},
+  options?: OptionCallback<OfferStatus>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(offerStatusActions.error(null));
+    dispatch(offerStatusActions.isLoading(true));
+
+    try {
+      const response = await fetchOfferStatusListAPI(ids, params);
+      dispatch(offerStatusActions.list(response.data.results));
+      options && options.onSuccess && options.onSuccess(data);
+    } catch (error) {
+      console.error(error);
       dispatch(offerStatusActions.error(error));
       options && options.onError && options.onError(error);
     }

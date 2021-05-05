@@ -56,7 +56,7 @@ class ActivitySummary extends React.PureComponent<Props> {
             <div className={classes.row}>
               <PersonIcon className={classes.leftIcon} />
               <Typography variant="caption">
-                {offer.coach_override
+                {offer.coach_override && offer.coach_override.user
                   ? offer.coach_override.user.name
                   : offer.coach.name}
               </Typography>

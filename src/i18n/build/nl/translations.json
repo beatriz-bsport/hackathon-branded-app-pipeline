@@ -1041,8 +1041,8 @@
                     "success": "Je workshop is opgeslagen"
                 }
             },
-            "lastDiscardBeforeMinutes": "Voor het begin van de workshop is de laatste annulering mogelijk tot",
-            "lastBookingBeforeMinutes": "Voor het begin van de workshop is de laatste reservering mogelijk tot",
+            "lastDiscardBeforeMinutes": "Selecteer tot wanneer leden kosteloos kunnen annuleren voor het begin van een workshop (late-cancel)",
+            "lastBookingBeforeMinutes": "Selecteer tot wanneer leden zich kunnen inschrijven voor het begin van een workshop",
             "imageUploaderRequireEditMessage": "Na het aanmaken van een activiteit kun je extra afbeeldingen toevoegen.",
             "addWorkshopActivity": "Een workshop toevoegen"
         },
@@ -1063,8 +1063,8 @@
             "name": "Titel",
             "addActivity": "Een activiteit toevoegen",
             "addOffers": "Sessies toevoegen",
-            "lastDiscardBeforeMinutes": "Geef aan tot wanneer leden voor het begin van de sessie kunnen annuleren (late-cancel)",
-            "lastBookingBeforeMinutes": "Selecteer tot wanneer een lid zich kan inschrijven",
+            "lastDiscardBeforeMinutes": "Selecteer tot wanneer leden kosteloos kunnen annuleren voor het begin van een sessie (late-cancel)",
+            "lastBookingBeforeMinutes": "Selecteer tot wanneer leden zich kunnen inschrijven voor het begin van een sessie",
             "is_broadcast": "Dit is een livestream",
             "settings": "Instellingen",
             "nextSlotAt": "De eerstvolgende sessie is op: ",
@@ -1239,7 +1239,7 @@
                 "autoDiscard": {
                     "hours_before_start": "Aantal uur/uren voor het begin van de sessie:",
                     "explain": "Annuleer sessies met ≤ {{bookings_nb}} reservering(en) {{hours}} uur voor het begin van de sessie. Ingeschreven leden ontvangen een melding van de annulering.",
-                    "checkbox": "Annuleer sessies met te weinig reserveringen",
+                    "checkbox": "Automatisch annuleer sessies met te weinig reserveringen",
                     "emailRecipients": "Deze e-mail wordt verzonden naar accounts met de rol Eigenaar of Systeembeheerder, evenals naar de (plaatsvervangende) docent van de sessie in kwestie.",
                     "min_bookings_nb": "Aantal reserveringen:"
                 }
@@ -2024,23 +2024,23 @@
         "form": {
             "paymentPack": {
                 "name": {
-                    "helperText": "Naam van de cursuskaart",
+                    "helperText": "Dit is de naam van de cursuskaart.",
                     "label": "Naam"
                 },
                 "priceIncludingTax": {
                     "label": "Prijs (incl. btw)",
-                    "helperText": "Dit is de verkoopprijs"
+                    "helperText": "Dit is de verkoopprijs."
                 },
                 "unlimited": "Onbeperkt",
                 "maxBookingPerWeek": {
-                    "helperText": "Laat dit veld leeg om geen limiet op te leggen",
+                    "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
                     "label": "Maximaal gebruik per week"
                 },
                 "newMemberOnly": "Alleen voor nieuwe leden",
                 "onsitePaymentAvailable": "Later betalen toestaan (bijv. in de studio)",
                 "expirationDaysBeforeFirstUse": {
-                    "label": "Vervaldatum indien er geen eerste reservering wordt gemaakt",
-                    "helperText": "Deze cursuskaart wordt ongeldig verklaart als er niet binnen zoveel dagen een reservering wordt gemaakt"
+                    "label": "De vervaldatum indien deze cursuskaart niet gebruikt wordt:",
+                    "helperText": "De geldigheid van deze cursuskaart verloopt na X aantal dagen als het niet gebruikt wordt."
                 },
                 "managerOnly": "Niet beschikbaar voor leden",
                 "helper": {
@@ -2101,7 +2101,7 @@
                 },
                 "credits": {
                     "label": "Krediet(en)",
-                    "helperText": "Aantal beschikbare krediet(en)",
+                    "helperText": "Dit is het aantal inbegrepen krediet(en). Laat dit veld leeg om het onbeperkt te maken.",
                     "bewareChange": "Als je het benodigde aantal krediet verhoogt/verlaagt, worden alle lidmaatschappen beïnvloed."
                 },
                 "until": "Tot ",
@@ -2110,16 +2110,16 @@
                 "sports": "Categorie",
                 "notEditable": "Deze cursuskaart is het resultaat van een migratie. Sommige velden kunnen niet worden gewijzigd om de geschiedenis te respecteren. Compatibele activiteiten / categorieën blijven wijzigbaar.",
                 "maxPurchasePerMember": {
-                    "helperText": "Laat dit veld leeg om geen limiet op te leggen",
+                    "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
                     "label": "Maximale aankoop per lid"
                 },
                 "maxBookingPerDay": {
-                    "helperText": "Laat dit veld leeg om geen limiet op te leggen",
+                    "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
                     "label": "Maximaal gebruik per dag"
                 },
                 "full_vod_access": "Geeft toegang tot de VOD (indien beschikbaar)",
                 "maxBookingPerMonth": {
-                    "helperText": "Laat dit veld leeg om geen limiet in te stellen",
+                    "helperText": "Laat dit veld leeg om geen limiet in te stellen.",
                     "label": "Maximaal gebruik per maand"
                 },
                 "penalty": {
@@ -2323,7 +2323,7 @@
         "practical_info": {
             "label": "Toegangsinformatie",
             "placeholder": "Code 1234 rechterdeur",
-            "helperText": "Deze informatie wordt alleen tijdens het reserveren weergegeven"
+            "helperText": "Deze informatie wordt tijdens het reserveren weergegeven."
         },
         "form": {
             "new": {
@@ -3685,7 +3685,7 @@
                 },
                 "nb_interval": {
                     "helperText": "Abonnementen hebben een minimumtermijn van 2 maanden.",
-                    "label": "Factuurnummer(s)"
+                    "label": "Aantal facturaties"
                 },
                 "description": {
                     "placeholder": "Een exclusieve aanbieding",
@@ -4624,11 +4624,11 @@
             },
             "form": {
                 "booking_interval_minutes": {
-                    "helperText": "Bijv. 15 betekent dat leden zich elke 15 minuten een reservering kunnen maken - 12:00, 12:15, 12:30, enz... (aanbevolen)",
+                    "helperText": "(Aanbevolen) Dit betekent dat leden elke X aantal minuten kunnen schrijven. Voorbeeld: bij 15 min. zien leden 12:00, 12:15, 12:30, enz.",
                     "label": "Geavanceerd: boekingskeuze-interval"
                 },
                 "people_capacity_used": {
-                    "helperText": "Als een zaal is geconfigureerd, wordt dit nummer gebruikt om de vulling bij te werken",
+                    "helperText": "Dit nummer wordt gebruikt om de capaciteit bij te werken.",
                     "label": "Aantal personen"
                 },
                 "cancel": "Annuleren",
@@ -4640,7 +4640,7 @@
                 },
                 "credit": {
                     "label": "Krediet(en)",
-                    "helperText": "Benodigd krediet voor een reservering"
+                    "helperText": "Dit is het benodigd aantal krediet(en) voor een reservering."
                 },
                 "duration_minutes": {
                     "label": "Duur",
@@ -4855,11 +4855,11 @@
         "service": {
             "form": {
                 "coach_consumer_attribution": {
-                    "helperText": "Het lid ziet en kiest de instructeur voordat hij/zij boekt. Indien niet aangevinkt, dient u een instructeur na elke reservering toe te wijzen",
+                    "helperText": "Leden kiezen zelf een vestiging voordat zij reserveren. Indien een lid geen keuze maakt, dan moet een medewerker een instructeur toewijzen.",
                     "label": "Sta de keuze van de instructeur toe bij het reserveren"
                 },
                 "establishment_consumer_attribution": {
-                    "helperText": "Het lid ziet en kiest de vestiging voordat hij/zij reserveert. Als het lid geen keuze maakt, zal BSPORT de zaalvulling proberen te optimaliseren",
+                    "helperText": "Leden kiezen zelf een vestiging voordat zij reserveren. Indien een lid geen keuze maakt, dan zal het systeem automatisch de capaciteit optimaliseren.",
                     "label": "Sta vestigingskeuze toe tijdens het reserveren"
                 },
                 "name": {
@@ -4870,7 +4870,7 @@
                     "label": "Niet beschikbaar voor leden"
                 },
                 "last_discard_minutes": {
-                    "label": "Geef aan tot wanneer een lid kosteloos kan annuleren",
+                    "label": "Selecteer tot wanneer leden kosteloos kunnen annuleren voor het begin van een afspraak (late-cancel)",
                     "helperText": "Als de reservering te laat wordt geannuleerd, wordt het tegoed niet terugbetaald"
                 },
                 "establishmentResourceType": {
@@ -4894,11 +4894,11 @@
                 },
                 "coach_capacity_used": {
                     "label": "Selecteer het maximaal aantal afspraken dat een instructeur tegelijk kan beheren",
-                    "helperText": "Voorbeeld: een instructeur kan 2 leden afzonderlijk bijstaan op 2 toestellen "
+                    "helperText": "Voorbeeld: een instructeur kan 2 leden afzonderlijk bijstaan op 2 toestellen. "
                 },
                 "use_full_establishment_capacity": {
                     "label": "Vereist de hele zaal",
-                    "helperText": "Schakel het selectievakje uit om tegelijkertijd meerdere activiteiten/afspraken in dezelfde ruimte toe te staan als de capaciteit dit toelaat"
+                    "helperText": "Schakel het selectievakje uit om tegelijkertijd meerdere activiteiten/afspraken in dezelfde ruimte toe te staan als de capaciteit dit toelaat."
                 },
                 "title": "Afspraak",
                 "createButton": "Een afspraak toevoegen",
@@ -4932,15 +4932,15 @@
                     "submit": "Opslaan"
                 },
                 "last_booking_minutes": {
-                    "label": "Geef aan tot wanneer een lid zich kan inschrijven"
+                    "label": "Selecteer tot wanneer leden zich kunnen inschrijven voor het begin van een afspraak"
                 },
                 "paddingStart": {
                     "helperText": "De instructeur en/of vestiging wordt {{minutes}} minuten voor het begin van de afspraak als onbeschikbaar weergegeven",
-                    "helperText0": "De instructeur en/of de vestiging zullen op de agenda als onbeschikbaar worden weergegeven zodra de afspraak begint.",
+                    "helperText0": "De agenda zal aangeven dat de instructeur(s) en/of vestiging(en) onbeschikbaar zijn.",
                     "label": "Buffer (in minuten) voor het begin van de afspraak"
                 },
                 "paddingEnd": {
-                    "helperText0": "Na het einde van de afspraak wordt de instructeur en/of vestiging weer als beschikbaar op de agenda weergegeven.",
+                    "helperText0": "De agenda zal aangeven dat de instructeur(s) en/of vestiging(en) weer beschikbaar zijn.",
                     "helperText": "De instructeur en/of de vestiging wordt {{minutes}} minuten na het einde van de afspraak als onbeschikbaar weergegeven",
                     "label": "Buffer (in minuten) na het einde van de afspraak"
                 },

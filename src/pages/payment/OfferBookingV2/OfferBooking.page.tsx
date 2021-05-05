@@ -302,12 +302,12 @@ class OfferBooking extends React.PureComponent<Props, State> {
     data.offers = offers;
     this.props.offerUserRegistration(data, {
       onSuccess: () => {
-        if (WidgetUtils.isWidget()) {
-          WidgetUtils.paymentSuccess();
-        }
-
         this.setState({ showLoader: false });
         if (data.consumer_payment_pack) {
+          if (WidgetUtils.isWidget()) {
+            WidgetUtils.paymentSuccess();
+          }
+
           this.props.push(
             `/c/${this.props.offer.company}/?from_direct_booking=${this.props.offer.id}`,
           );

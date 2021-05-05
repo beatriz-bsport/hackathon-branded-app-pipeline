@@ -6866,7 +6866,12 @@
                 },
                 "bookingNumber": "All bookings",
                 "bookingNumber_plural": "1st booking",
-                "bookingNumber_n": "Booking nº{{notify_booking_nb}}"
+                "bookingNumber_n": "Booking nº{{notify_booking_nb}}",
+                "bookingNumberFirst": "1st booking",
+                "bookingNumberSecond": "2nd booking",
+                "bookingNumberThird": "3rd booking",
+                "bookingNumberN": "{{notify_booking_nb}}th booking",
+                "bookingNumberAll": "All bookings"
             },
             "addNotification": "Add a notification"
         },
@@ -6942,7 +6947,7 @@
             },
             "bookingsTitle": "Book now",
             "addSession": "Add a session",
-            "noPackAvailable": "No pass is compatible with this session!",
+            "noPackAvailable": "No pass is compatible with all these sessions at the same time. You will need to book them separately!",
             "noPackAvailable_plural": "No pass is compatible with these sessions!",
             "packTitle": "My booking method",
             "offerStatus": {

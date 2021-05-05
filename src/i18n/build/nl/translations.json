@@ -131,7 +131,10 @@
             "es": "Spaans",
             "en-GB": "Brits-Engels",
             "en-US": "Amerikaans-Engels",
-            "fr": "Frans"
+            "fr": "Frans",
+            "nl": "Nederlands",
+            "it": "Italiaans",
+            "de": "Duits"
         }
     },
     "notificationRule": {
@@ -551,7 +554,7 @@
             "pass": "Cursuskaarten",
             "goBack": "Terug",
             "refresh": "Vernieuwen",
-            "logoff": "Uitloggen",
+            "logoff": "Afmelden",
             "payment": "Betalingen",
             "establishment": "Vestigingen",
             "member": "Leden",
@@ -595,7 +598,7 @@
                 "cancelOption": "Annuleren",
                 "noPastBookings": "Geen vorige reservering",
                 "noFutureBookings": "Geen reservering gepland",
-                "noBookingOptions": "Geen reserveringen op de wachtlijst",
+                "noBookingOptions": "Er staan geen reserveringen op de wachtlijst.",
                 "myOptions": "Reserveringen op de wachtlijst",
                 "myPastBookings": "Mijn eerdere reserveringen",
                 "myFutureBookings": "Volgende sessies",
@@ -620,7 +623,7 @@
             "noPromo": "Geen",
             "promo": "Korting: ",
             "promoTitle": "Aanbieding",
-            "offersMatching": " soortgelijk aanbod",
+            "offersMatching": " sessie(s)",
             "after": "Na ",
             "message": "Bericht",
             "estimatedTarget": "Aandeel betrokken gebruikers t.o.v. je ledenbestand",
@@ -635,7 +638,7 @@
             "averageBuy": "Gemiddelde waarde van de winkelmand",
             "sales": "Verkoop",
             "conversionRate": "Conversiepercentage",
-            "dashboard": "Dashboard"
+            "dashboard": "Campagnes"
         },
         "form": {
             "never": "Nooit",
@@ -1779,8 +1782,8 @@
             "payment_method_eps": "EPS",
             "stock_at_end": "Voorraad (einde)",
             "stock_at_start": "Voorraad (begin)",
-            "accept_email": "E-mails accepteren",
-            "accept_sms": "Sms'jes accepteren",
+            "accept_email": "Accepteert marketingmails",
+            "accept_sms": "Accepteert marketingsms'jes",
             "payout_identifier": "Overschrijven",
             "credit_amount": "Aantal kredieten",
             "initial_price": "Koopprijs"
@@ -2205,7 +2208,7 @@
         "availableOnFollowingEstablishments": "Vestigingen: ",
         "anySport": "Alle categorieën",
         "availableOnFollowingActivities": "Activiteiten: ",
-        "notificationToolTip": "Melding(en) geactiveerd",
+        "notificationToolTip": "Geactiveerde meldingen",
         "disabled": "Uitgeschakeld",
         "anyActivity": "Alle activiteiten",
         "noRestrictionOnActivityType": "Alle activiteiten zijn compatibel met deze cursuskaart.",
@@ -2859,7 +2862,9 @@
             "associated_tag": "Bijbehorende tag",
             "create": "Een regel toevoegen",
             "tag_on_join_and_untag_on_left": "Tag indien aanwezig in de Smartlist",
-            "type_of_rule": "Type regel"
+            "type_of_rule": "Type regel",
+            "tag_on_left": "Tag indien uit de Smartlist gezet",
+            "tag_on_join": "Tag indien in de Smartlist gezet"
         }
     },
     "metaActivity": {
@@ -2984,8 +2989,8 @@
         "manageOffer": "Reserveringen beheren",
         "massDisabler": {
             "explainLoading": "Een moment geduld alstublieft",
-            "explain": "Selecteer de periode waarover je je sessies wil annuleren. Leden die hebben geboekt, worden per e-mail op de hoogte gebracht en hun tegoed wordt automatisch teruggestort op de bijbehorende cursuskaart",
-            "explainWarning": "Waarschuwing! Deze actie is definitief.",
+            "explain": "Geef aan in welke periode je je sessies wilt annuleren. Leden die hebben gereserveerd worden per e-mail op de hoogte gebracht en hun kredieten worden teruggestort.",
+            "explainWarning": "Waarschuwing: deze actie is definitief!",
             "actions": {
                 "cancel": "Annuleren",
                 "submit": "Bevestigen",
@@ -2993,7 +2998,7 @@
             },
             "title": "In bulk annuleren",
             "secondWarningConfirm": "Weet je zeker dat je verder wilt gaan?",
-            "secondWarning": "Door op \"BEVESTIGEN\" te klikken worden de sessies binnen het geselecteerde periode geannuleerd. Deze actie is definitief."
+            "secondWarning": "Klik op \"BEVESTIGEN\" om de sessies in de geselecteerde periode te annuleren. Deze actie is definitief."
         },
         "bookingListEmpty": "Er zijn nog geen reserveringen geregistreerd.",
         "bookingList": "Reserveringen",
@@ -3209,7 +3214,7 @@
                 "contract": "Abonneren"
             },
             "option": {
-                "registerOption": "Me inschrijven op de wachtlijst",
+                "registerOption": "Op de wachtlijst inschrijven",
                 "isAlreadyOnWaitingList": "Je staat op de wachtlijst. We laten je per e-mail weten wanneer er een plaats vrij komt.",
                 "isFull": "Deze sessie is volgeboekt! Als je je op de wachtlijst inschrijft zal je per e-mail worden geïnformeerd wanneer er een plaats vrijkomt.",
                 "isAlreadyRegistered": "De sessie is vol, gefeliciteerd, je hebt je ingeschreven!",
@@ -3471,7 +3476,7 @@
             },
             "similarOffer": {
                 "showMore": "Toon meer",
-                "empty": "Geen sessies gevonden",
+                "empty": "Er zijn geen andere sessies.",
                 "title": "Meer sessies reserveren"
             }
         }
@@ -3489,7 +3494,7 @@
             }
         },
         "warning": {
-            "disconnect": "Uitloggen",
+            "disconnect": "Afmelden",
             "backToBackoffice": "Mijn Back Office openen",
             "isManager": "Momenteel ben je als een medewerker ingelogd. Log uit om je MarketPlace/ledenweergave te bekijken."
         },
@@ -3633,7 +3638,7 @@
             "paymentPackList": "Cursuskaarten"
         },
         "marketing": {
-            "marketingDashboard": "Dashboard",
+            "marketingDashboard": "Campagnes",
             "marketingRule": "Marketingcampagnes",
             "notifications": "Meldingen"
         },
@@ -3671,7 +3676,7 @@
         },
         "booking_option": {
             "cancel": {
-                "name": "Annuleer mijn plaats op wachtlijst",
+                "name": "Van de wachtlijst afmelden",
                 "description": "Wordt geactiveerd wanneer een lid of een manager een plaats op de wachtlijst annuleert"
             }
         },
@@ -4073,7 +4078,7 @@
                 "success": "{{nb}} abonnementen gepauzeerd"
             },
             "fromUntil": "Alleen als de facturatie tussen {{from}} en {{until}} is.",
-            "createdAt": "Op {{at}} doorgevoerd",
+            "createdAt": "Aanmaakdatum: {{at}}",
             "title": "Algemene pauze"
         }
     },
@@ -4432,7 +4437,7 @@
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
-            "link": "Uitloggen en mijn MarketPlace openen",
+            "link": "Afmelden en mijn MarketPlace openen",
             "explainMarketplace": "Je leden hebben op hun telefoon, computer en tablet toegang tot je MarketPlace (je agenda, webshop, Video On Demand, enz.). Hier kun je je MarketPlace volledig personaliseren!",
             "addButton": "Tabblad toevoegen"
         },
@@ -5451,8 +5456,8 @@
             "20": "Bancontact"
         },
         "explainOption": "Je ontvangt een e-mail wanneer er een plaats vrij komt",
-        "bookAnotherOption": "Schrijf me opnieuw op de wachtlijst in",
-        "bookAnOption": "Me inschrijven op de wachtlijst",
+        "bookAnotherOption": "Opnieuw op de wachtlijst inschrijven",
+        "bookAnOption": "Op de wachtlijst inschrijven",
         "hasOneOrMoreOption": "Je staat al op de wachtlijst",
         "paymentComboSectionTitle": "Pakketten",
         "method": {
@@ -5797,7 +5802,7 @@
                 },
                 "delete": {
                     "success": "Categorie verwijderd",
-                    "error": "Kan categorie niet verwijderen"
+                    "error": "De categorie kon niet worden verwijderd"
                 }
             },
             "item": {
@@ -6010,7 +6015,7 @@
         },
         "bookerModule": {
             "pass": {
-                "nothingAvailable": "Je kunt niet meerdere sessies tegelijk reserveren",
+                "nothingAvailable": "Het is niet mogelijk om meerdere sessies tegelijk te reserveren.",
                 "changed": "De compatibele cursuskaart is gewijzigd"
             }
         }
@@ -6551,15 +6556,15 @@
         "form": {
             "group": {
                 "delete": {
-                    "explain": "Waarschuwing! Als je een tag verwijdert zal dit al je leden beïnvloeden. Deze actie is definitief.",
+                    "explain": "Waarschuwing! Als je een hoofd-tag verwijdert zal dit al je leden beïnvloeden. Deze actie is definitief.",
                     "title": "Verwijderen",
                     "submit": "Verwijderen",
                     "cancel": "Annuleren"
                 },
-                "namePlaceholder": "Tag toevoegen",
-                "addTagGroup": "Een categorie toevoegen",
+                "namePlaceholder": "Hoofd-tag toevoegen",
+                "addTagGroup": "Een hoofd-tag toevoegen",
                 "edit": "Tags bewerken",
-                "deleteCategory": "Categorie verwijderen"
+                "deleteCategory": "Hoofd-tag verwijderen"
             },
             "tag": {
                 "namePlaceholder": "Subtag",
@@ -7382,7 +7387,7 @@
             "pass": "Cursuskaarten",
             "goBack": "Terug",
             "refresh": "Actualiseren",
-            "logoff": "Uitloggen",
+            "logoff": "Afmelden",
             "payment": "Betalingen",
             "establishment": "Vestigingen",
             "member": "Leden",
@@ -7408,6 +7413,11 @@
             "downloadChrome": "Download Google Chrome gratis",
             "downloadFirefox": "Download Mozilla Firefox gratis",
             "navigatorError": "Het lijkt erop dat uw webbrowser te oud is om onze services te gebruiken. U kunt fouten tegenkomen. We raden u aan om uw webbrowser up te daten: "
+        },
+        "paymentMethodMissing": {
+            "banner": "Je hebt geen geldige bankgegevens ingevoerd. Klik hier om je betaal- en bankgegevens te controleren en bij te werken om je account te kunnen blijven gebruiken.",
+            "explain": "Je hebt geen geldige bankgegevens ingevoerd. Gelieve je betaal- en bankgegevens controleren en bijwerken om je account te kunnen blijven gebruiken.",
+            "closeModal": "Sluiten"
         }
     },
     "widget": {

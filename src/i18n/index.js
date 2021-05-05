@@ -31,9 +31,6 @@ if (config.I18N_TRANSLATION_DOMAIN) {
   };
   backendOptions.crossDomain = true;
   backendOptions.withCredentials = true;
-  backendOptions.requestOptions = {
-    cache: 'public',
-  };
 }
 
 i18n

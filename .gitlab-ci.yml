@@ -21,16 +21,16 @@ stages:
 .Build widget:
   stage: build-widget
   allow_failure: true
+  trigger:
+    project: bsport/bsport-widget 
 
 Build widget dev:
   extends: .Build widget
+  trigger:
+    branch: dev
   only:
     refs:
       - dev
-      - feat-auto-build-widget
-  trigger:
-    project: bsport/bsport-widget 
-    branch: dev
 
 Build widget staging:
   extends: .Build widget
@@ -38,8 +38,15 @@ Build widget staging:
     refs:
       - master
   trigger:
-    project: bsport/bsport-widget 
     branch: master 
+
+Build widget production:
+  extends: .Build widget
+  only:
+    refs:
+      - production
+  trigger:
+    branch: production
 
 before_script:
   - OLD_VERSION=`echo "$(cat ./VERSION)"`

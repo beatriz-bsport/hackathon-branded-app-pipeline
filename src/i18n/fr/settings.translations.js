@@ -81,9 +81,9 @@ exports.default = {
         "Les actions ci dessous ont lieu dès que l'évènement associé se produit sur ActiveCampaign.",
       title: "Intégrer les informations d'ActiveCampaign sur bsport",
       CLIENT_WON:
-        "Créer un compte client sur bsport lorsque le propect est passé en statut 'WON' sur un deal",
+        "Créer un compte client sur bsport lorsque le prospect est passé en statut 'WON' sur un deal",
       CONTACT_TAG:
-        "Créer un compte client sur bsport lorsque le propect est tagé en 'won' sur ActiveCampaign",
+        "Créer un compte client sur bsport lorsque le prospect est tagé en 'won' sur ActiveCampaign",
     },
     link: {
       helpTitle: 'Comment se déroule la synchronisation ?',

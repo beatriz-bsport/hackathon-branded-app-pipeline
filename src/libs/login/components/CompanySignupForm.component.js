@@ -130,6 +130,7 @@ export const CompanySignupForm = (props: Props) => {
           fullWidth
           value={props.timezone_name}
           label={t('signupCompany.form.timezone.label')}
+          country={props.locale.slice(3, 6)}
           timezoneList={moment.tz.zonesForCountry(
             props.locale.slice(3, 6),
             true,

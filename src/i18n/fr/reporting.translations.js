@@ -44,6 +44,7 @@ exports.default = {
     privateServiceEst: 'Rendez-vous par etablissement',
     dayBookings: 'Réservations (cours collectif) par jour',
     video: 'Vidéo',
+    video_purchase: 'Achat vidéo',
   },
   header: {
     sum: 'Somme',
@@ -218,6 +219,8 @@ exports.default = {
     views_unique: 'Vues uniques',
     purchases: 'Achats',
     credit_price: 'Coût en crédit',
+    last_view: 'Dernière vue',
+    video_title: 'Titre vidéo',
   },
   yes: 'Oui',
   no: 'Non',

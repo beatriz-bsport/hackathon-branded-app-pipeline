@@ -71,9 +71,7 @@ const OfferManagement = asyncComponent(() =>
 );
 const SearchResults = asyncComponent(() => import('./SearchResults.component'));
 const Shop = asyncComponent(() => import('./shop/Shop.router'));
-const Reporting = asyncComponent(() =>
-  import('./reporting/Reporting.component'),
-);
+const Reporting = asyncComponent(() => import('./reporting/Reporting.router'));
 const PaymentCombo = asyncComponent(() =>
   import('./payment-combo/PaymentCombo.router'),
 );

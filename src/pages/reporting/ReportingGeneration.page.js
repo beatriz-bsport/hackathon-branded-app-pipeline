@@ -245,7 +245,9 @@ export default compose(
       setShowDialog(true);
       const backgroundDialog = {
         message: t('reporting:export.ready', { name: report.name }),
-        title: t('reporting:export.category', { category: report.category }),
+        title: t('reporting:export.category', {
+          category: t(`reporting:categories.${report.category}`),
+        }),
       };
       const params = {
         fileformat: 'xlsx',

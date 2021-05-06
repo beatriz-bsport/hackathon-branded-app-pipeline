@@ -3948,7 +3948,8 @@
       "privateServiceCoach": "Rendez-vous par professeur",
       "privateServiceEst": "Rendez-vous par etablissement",
       "dayBookings": "Réservations (cours collectif) par jour",
-      "video": "Vidéo"
+      "video": "Vidéo",
+      "video_purchase": "Achat vidéo"
     },
     "header": { "sum": "Somme", "average": "En moyenne" },
     "columns": {
@@ -4119,7 +4120,9 @@
       "views_total": "Vues",
       "views_unique": "Vues uniques",
       "purchases": "Achats",
-      "credit_price": "Coût en crédit"
+      "credit_price": "Coût en crédit",
+      "last_view": "Dernière vue",
+      "video_title": "Titre vidéo"
     },
     "yes": "Oui",
     "no": "Non",

@@ -15,8 +15,29 @@ stages:
   - build-deploy
   - promote
   - label-issues
+  - build-widget
 
+.Build widget:
+  stage: build-widget
 
+Build widget dev:
+  extends: .Build widget
+  only:
+    refs:
+      - dev
+      - feat-auto-build-widget
+  trigger:
+    project: bsport/bsport-widget 
+    branch: dev
+
+Build widget staging:
+  extends: .Build widget
+  only:
+    refs:
+      - master
+  trigger:
+    project: bsport/bsport-widget 
+    branch: master 
 
 before_script:
   - OLD_VERSION=`echo "$(cat ./VERSION)"`

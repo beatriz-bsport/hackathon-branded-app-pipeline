@@ -13,12 +13,14 @@ stages:
   # - e2e_tests
   - bump-version
   - build-deploy
+  - build-widget
   - promote
   - label-issues
   - build-widget
 
 .Build widget:
   stage: build-widget
+  allow_failure: true
 
 Build widget dev:
   extends: .Build widget

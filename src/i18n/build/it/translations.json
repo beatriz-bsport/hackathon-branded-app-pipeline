@@ -1190,6 +1190,15 @@
             "noBookingFuture": "Nessuna sessione imminente",
             "pastBooking": "Storia",
             "futureBooking": "Le mie prenotazioni"
+        },
+        "language": {
+            "fr": "Francese",
+            "en-US": "Inglese (Stati Uniti)",
+            "en-GB": "Inglese (Regno Unito)",
+            "es": "Spagnolo",
+            "de": "Tedesco",
+            "it": "Italiano",
+            "nl": "Olandese"
         }
     },
     "search": {
@@ -2367,6 +2376,12 @@
                 "create": "Inserisci"
             },
             "playlist": "Percorso"
+        },
+        "details": {
+            "consumerPaymentPackTitle": "Tessera usata",
+            "invoiceTitle": "Fattura associata",
+            "pleaseSelectVod": "Selezionare un acquisto per vedere i dettagli",
+            "title": "Dettagli del video"
         }
     },
     "coachPerformance": {
@@ -2479,13 +2494,19 @@
                 "todayStartAmount": "Importo iniziale nella cassa",
                 "cashDialogTitle": "Registratore di cassa",
                 "close": "chiudi"
-            }
+            },
+            "marketingNotification": "Notifiche"
         },
         "deprecatedNavigator": {
             "close": "Chiudi",
             "downloadChrome": "Download gratuito di Google Chrome",
             "downloadFirefox": "Scarica Mozilla Firefox gratuitamente",
             "navigatorError": "Sembra che il tuo browser sia troppo vecchio per utilizzare i nostri servizi. Potresti riscontrare errori, ti consigliamo di scaricare una versione più recente, in particolare: "
+        },
+        "paymentMethodMissing": {
+            "closeModal": "Chiudere",
+            "explain": "Non ha inserito un metodo di pagamento valido, deve confermarlo per continuare ad usare il suo abonnamento Bsport.",
+            "banner": "Non ha inserito nessun metodo di pagamento per il suo abonnamento Bsport. Clicca qui."
         }
     },
     "stripe": {
@@ -4190,7 +4211,7 @@
             "product_names": "Prodotti",
             "slot_date_end": "Fine sessione",
             "activity": "Attività",
-            "remaining_credits": "Crediti rimanenti",
+            "remaining_credits": "Credito rimanente oggi",
             "payment_date_time": "Tempo di pagamento",
             "payment_identifier": "ID pagamento",
             "membership_duration": "Periodo di validità",
@@ -5305,7 +5326,12 @@
                     "refunded": "Se la prenotazione è stata cancellata in tempo",
                     "absence": "Se il membro è assente",
                     "attendance": "Se il membro è presente"
-                }
+                },
+                "bookingNumberN": "{{notify_booking_nb}}° prenotazione",
+                "bookingNumberThird": "3° prenotazione",
+                "bookingNumberSecond": "2° prenotazione",
+                "bookingNumberFirst": "1° prenotazione",
+                "bookingNumberAll": "Tutte le prenotazioni"
             },
             "addNotification": "Aggiungi una notifica"
         },
@@ -5380,12 +5406,30 @@
                     "0": "Iscrizione aperta"
                 },
                 "waiting_list": "Lista d'attesa",
-                "book": "Registrazione"
+                "book": "Registrazione",
+                "waiting_list_status": {
+                    "0": "Lista d'attesa",
+                    "1": "Lista d'attesa completa",
+                    "2": "Registrato sulla lista",
+                    "3": "Registrazione disponibile!"
+                }
             },
             "similarOffer": {
                 "showMore": "Vedere di più",
                 "empty": "Réserver d'autres sessions",
                 "title": "Prenota più sessioni"
+            },
+            "packTitle": "Il mio modo di prenotazione",
+            "noPackAvailable": "Nessuna tessera compatibile con questa sessione !",
+            "noPackAvailable_plural": "Nessune tessere compatibili con questo gruppo di sessioni allo stesso tempo. Dovete prenotare in più volte.",
+            "addSession": "Aggiungere una sessione",
+            "showMore": "Vedere di più",
+            "bookingsTitle": "Mi prenoto",
+            "mainButton": {
+                "book": "Prenotare",
+                "registerWaitingList": "Registrarmi sulla lista d'attesa",
+                "numberOfBook": "{{count}} iscrizione",
+                "numberOfBook_plural": "{{count}} iscrizioni"
             }
         }
     },
@@ -5885,7 +5929,19 @@
         "exportList": "Esporta la smartlist",
         "noSmartLists": "Usa le smartlist per filtrare, analizzare e conoscere meglio i tuoi membri.",
         "delete": "Rimuovi",
-        "edit": "Configurazione"
+        "edit": "Configurazione",
+        "tag_rules": {
+            "tag_on_left": "Aggiungere un Tag in uscita della smarlist",
+            "tag_on_join_and_untag_on_left": "Aggiungere un Tag se presente nella smartlist",
+            "tag_group": "Nome del gruppo",
+            "type_of_rule": "Tipo di regola",
+            "tag_on_join": "Aggiungere un Tag in ingresso della smartlist",
+            "create": "Creare una regola",
+            "associated_tag": "Tag associato",
+            "display_tag_rules": "Mostrare le regole dei Tag",
+            "cancel": "Cancellare",
+            "tag_name": "Nome del Tag"
+        }
     },
     "relationship": {
         "member": {
@@ -6834,7 +6890,8 @@
         "searchResults": "Ricerca",
         "marketing": {
             "marketingDashboard": "Pannello di controllo",
-            "marketingRule": "Strategie di marketing"
+            "marketingRule": "Strategie di marketing",
+            "notifications": "Notifiche"
         },
         "banner": {
             "isStaging": "Prendi un appuntamento",
@@ -7396,7 +7453,10 @@
                 "iframe": "Rimanere sul sito"
             },
             "linkToConfig": "Collegamento a questa configurazione",
-            "showFabLabel": "Pulsante galleggiante dell'interfaccia cliente"
+            "showFabLabel": "Pulsante galleggiante dell'interfaccia cliente",
+            "pickALanguage": "Scegliere la lingua predefinita",
+            "languageHelper": "Il widget avrà la lingua selezionata qui. Selezionnare \"Lingua del browser\" cosi la lingua del widget si adatta automaticamente alla lingua del suo cliente.",
+            "browserLanguage": "Lingua del browser"
         }
     },
     "platformBilling": {
@@ -7462,6 +7522,40 @@
                 "email": "Indirizzo e mail",
                 "title": "Inscriviti alle newsletter"
             }
+        },
+        "notifications": {
+            "fabLabels": {
+                "establishment": "Struttura",
+                "private_service": "Appuntamento",
+                "meta_activity": "Attività",
+                "payment_pack": "Tessera"
+            },
+            "groupTitle": {
+                "booking": "Prenotazione",
+                "privateBooking": "Appuntamento",
+                "paymentPack": "Tessera"
+            },
+            "selectIdentifierLabel": {
+                "establishment": "Selezionare una struttura",
+                "meta_activity": "Selezionare un'attività",
+                "private_service": "Selezionare un appuntamento",
+                "payment_pack": "Selezionare una tessera"
+            },
+            "paymentPackPlaceholder": "Tessera",
+            "paymentPackKind": {
+                "credit": "Numero di crediti",
+                "validity": "Validità della tessera"
+            },
+            "selectNotificationRules": "Selezionare una regola per vedere i dettagli",
+            "createNotification": "Formulario di notifiche",
+            "next": "Seguente",
+            "cancel": "Cancellare",
+            "editRule": "Modificare la regola",
+            "deleteDialogTitle": "Rimuovere la regola",
+            "removeRule": "Rimuovere la regola",
+            "deleteDialogText": "È sicuro di voler rimuovere questa regola? Questa operazione è definitiva",
+            "notificationsEmpty": "Nessuna notifica esistente per questo gruppo",
+            "createNotificationFabLabel": "Creare una notifica"
         }
     }
 }

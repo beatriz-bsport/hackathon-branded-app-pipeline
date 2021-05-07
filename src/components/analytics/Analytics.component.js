@@ -113,6 +113,7 @@ class Analytics extends React.Component<Props> {
 
   static contractPaymentSuccess(contract) {
     GoogleAnalytics.contractPaymentSuccess(contract);
+    FacebookPixel.contractPaymentSuccess(contract);
   }
 
   static contractShow(c) {

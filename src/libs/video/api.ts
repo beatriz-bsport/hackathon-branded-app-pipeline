@@ -60,6 +60,10 @@ export const fetchVideoPurchase = async (params?: any) => {
   );
 };
 
+export const retrieveVideoPurchase = async (id: number) => {
+  return getAuth(`${API_V1_URI}/vod/video_purchase/${id}/`);
+};
+
 export const fetchNumberVideoPurchase = async (params?: any) => {
   return getAuth(
     `${API_V1_URI}/vod/video_purchase/get_number_videos_purchased/${buildUrlParams(

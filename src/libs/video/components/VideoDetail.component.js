@@ -4,7 +4,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
-import InfoIcon from '@material-ui/icons/Info';
 import type { TFunction } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
@@ -31,30 +30,11 @@ type Props = {
 
 export class VideoDetail extends Component<Props> {
   render() {
-    const { classes, t, video } = this.props;
-    if (!this.props.video) {
-      return (
-        <div className={classes.container}>
-          <div className={classes.emptyMessageContainer}>
-            <InfoIcon fontSize="large" color="disabled" />
-            <Typography
-              className={classes.emptyMessageText}
-              color="textSecondary"
-              variant="caption"
-            >
-              {t('details.pleaseSelectAVideo')}
-            </Typography>
-          </div>
-        </div>
-      );
-    }
-
-    if (this.props.loading) {
-      return <LinearProgress />;
-    }
+    const { classes, t } = this.props;
     return (
       <React.Fragment>
-        {!this.props.analytics.loading && (
+        {this.props.loading && <LinearProgress />}
+        {this.props.analytics ? (
           <div className={classes.detailContainer}>
             <Typography component="h2" variant="h5">
               {t('details.title')}
@@ -67,7 +47,7 @@ export class VideoDetail extends Component<Props> {
               }
             />
           </div>
-        )}
+        ) : null}
         {this.props.invoice ? (
           <div className={classes.detailContainer}>
             <Typography component="h3" variant="h6">
@@ -84,30 +64,34 @@ export class VideoDetail extends Component<Props> {
           </div>
         ) : null}
 
-        {video.consumer_payment_pack ? (
+        {this.props.video.consumer_payment_pack ? (
           <div className={classes.detailContainer}>
             <Typography component="h3" variant="h6">
               {t('details.consumerPaymentPackTitle')}
             </Typography>
             <Paper className={classes.paperContainer}>
               <ConsumerPackRowItem
-                consumerPack={video.consumer_payment_pack}
+                consumerPack={this.props.video.consumer_payment_pack}
                 paymentPack={
-                  video.consumer_payment_pack
-                    ? video.consumer_payment_pack.payment_pack
+                  this.props.video.consumer_payment_pack
+                    ? this.props.video.consumer_payment_pack.payment_pack
                     : null
                 }
                 onClick={() =>
                   this.props.onConsumerPassSelected(
-                    video.consumer_payment_pack.id,
+                    this.props.video.consumer_payment_pack.id,
                   )
                 }
                 hideConsumer
                 incrementCredit={() =>
-                  this.props.incrementCredit(video.consumer_payment_pack.id)
+                  this.props.incrementCredit(
+                    this.props.video.consumer_payment_pack.id,
+                  )
                 }
                 decrementCredit={() =>
-                  this.props.decrementCredit(video.consumer_payment_pack.id)
+                  this.props.decrementCredit(
+                    this.props.video.consumer_payment_pack.id,
+                  )
                 }
               />
             </Paper>

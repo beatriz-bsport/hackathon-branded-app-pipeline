@@ -13,6 +13,7 @@ import {
   fetchVideoFilterableParams as fetchVideoFilterableParamsAPI,
   setProviderIdentifier as setProviderIdentifierAPI,
   fetchVideoAnalyticsbyMember as fetchVideoAnalyticsbyMemberAPI,
+  retrieveVideoPurchase as retrieveVideoPurchaseAPI,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
@@ -297,6 +298,30 @@ export function fetchVideoPurchase(
       if (options && options.onError) options.onError(error);
     }
     dispatch(listVideoPurchaseActions.isLoading(false));
+  };
+}
+
+export const retrieveVideoPurchaseActions = {
+  isLoading: createAction('VIDEO_PURCHASE/RETRIEVE/IS_LOADING'),
+  error: createAction('VIDEO_PURCHASE/RETRIEVE/ERROR'),
+  success: createAction('VIDEO_PURCHASE/RETRIEVE/SUCCESS'),
+};
+export function retrieveVideoPurchase(id: number, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveVideoPurchaseActions.isLoading(true));
+    dispatch(retrieveVideoPurchaseActions.error(null));
+    try {
+      const response = await retrieveVideoPurchaseAPI(id);
+      dispatch(retrieveVideoPurchaseActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(retrieveVideoPurchaseActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(retrieveVideoPurchaseActions.isLoading(false));
   };
 }
 

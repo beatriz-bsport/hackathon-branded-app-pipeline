@@ -132,7 +132,7 @@ exports.default = {
   details: {
     title: 'Détails de la vidéo',
     consumerPaymentPackTitle: 'Carte de cours utilisée',
-    invoiceTitle: 'Facture asoociée',
+    invoiceTitle: 'Facture associée',
     pleaseSelectVod: 'Sélectionnez un achat pour voir les détails',
   },
 };

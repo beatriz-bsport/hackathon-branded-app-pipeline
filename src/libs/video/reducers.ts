@@ -8,6 +8,7 @@ import {
   bulkVideoActions,
   searchVideoActions,
   listVideoPurchaseActions,
+  retrieveVideoPurchaseActions,
   numberVideoPurchaseActions,
   retrieveVideoAnalyticsActions,
   setVideoProviderActions,
@@ -57,6 +58,7 @@ const initialState: Immutable.Immutable<VideoState> = Immutable<VideoState>({
     page: 1,
     count: 0,
     purchaseByMember: 0,
+    byId: {},
   },
   views: {
     loading: false,
@@ -105,6 +107,9 @@ export default handleActions<Immutable.Immutable<VideoState>>(
         },
         { deep: true },
       );
+    },
+    [bulkVideoActions.isLoading.toString()]: (state, { payload }: any) => {
+      return state.setIn(['loading'], payload);
     },
     [listVideoActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
@@ -183,7 +188,24 @@ export default handleActions<Immutable.Immutable<VideoState>>(
       return state
         .setIn(['purchase', 'page'], payload.page)
         .setIn(['purchase', 'count'], payload.count)
-        .setIn(['purchase', 'items'], payload.results);
+        .setIn(['purchase', 'items'], payload.results)
+        .merge(
+          {
+            purchase: {
+              byId: payload.results.reduce((acc, ps) => {
+                acc[ps.id] = ps;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [retrieveVideoPurchaseActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state.setIn(['purchase', 'byId', payload.id], payload);
     },
     [retrieveVideoAnalyticsActions.isLoading.toString()]: (
       state,

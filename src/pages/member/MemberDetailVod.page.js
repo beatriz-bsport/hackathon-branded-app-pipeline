@@ -9,7 +9,10 @@ import { withStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
-import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_PRIVATE_PASS,
+} from '@bsport/common/lib/master-data/buyable-items';
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 import themeSelectors from '../../libs/theme/selectors';
 import { getMember } from '../../libs/member/selectors';
@@ -22,18 +25,22 @@ import {
   fetchVideoBulk,
   retrieveVideo,
   fetchVideoAnalyticsbyMember,
+  retrieveVideoPurchase as retrieveVideoPurchaseAction,
 } from '../../libs/video/actions';
 import {
   retrieveConsumerPackBulk,
   updateCredit as updateCreditAction,
 } from '../../libs/consumer-payment-pack/actions';
-import { getMemberVideoListWithConsumerPack } from '../../libs/video/selectors';
+import {
+  withPack,
+  withVideoData,
+  getVideoPurchasedByMember,
+  getSelectedVideoPurchased,
+} from '../../libs/video/selectors';
 import PaginatedListBase from '../../components/PaginatedListBase.component';
 import VideoItemForManger from '../../libs/video/components/VideoItemForManager.component';
 import VideoDetail from '../../libs/video/components/VideoDetail.component';
-import paymentPackSelectors, {
-  getAll as getAllPaymentPacks,
-} from '../../libs/payment-packs/selectors';
+import paymentPackSelectors from '../../libs/payment-packs/selectors';
 import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
 import type {
   Video,
@@ -45,24 +52,18 @@ const VIDEO_PURCHASES_PAGE_SIZE = 5;
 type Props = {
   classes: *,
   fetchVideoPurchase: (page: number, page_size: number) => void,
-  fetchVideoDetails: () => void,
-  fetchVideoViews: () => void,
   vodId: ?number,
   id: number,
   selectVideo: (memberId: number, videoId: number) => void,
   unselectVideo: (memberId: number) => void,
   onPageRequested: (page: number, page_sizz: number) => void,
-  handleItemSelection: (
-    selectVideo: selectVideo,
-    purchaseVideo: VideoPurchase,
-  ) => void,
+  onSelectVideoPurchase: () => void,
   loading: boolean,
-  videos: object<VideoPurchase>,
+  purchasedVideoList: object<VideoPurchase>,
   videoCurrentPage: number,
-  selectedVideo: ?VideoPurchase,
+  selectedPurchasedVideo: ?VideoPurchase,
   getPass: (id: number) => void,
   getPaymentPack: (id: number) => PaymentPack,
-  consumerPackLoading: boolean,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
   analyticsbyMember: {
@@ -94,18 +95,7 @@ export class MemberDetailVod extends Component<Props, state> {
   componentDidMount() {
     this.props.fetchVideoPurchase(1, VIDEO_PURCHASES_PAGE_SIZE);
     if (this.props.vodId) {
-      this.props.fetchVideoDetails();
-      this.props.fetchVideoViews();
-    }
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (
-      this.props.vodId &&
-      (!prevProps.vodId || prevProps.vodId !== this.props.vodId)
-    ) {
-      this.props.fetchVideoDetails();
-      this.props.fetchVideoViews();
+      this.props.onSelectVideoPurchase(this.props.vodId);
     }
   }
 
@@ -139,29 +129,28 @@ export class MemberDetailVod extends Component<Props, state> {
                 itemPerPage={VIDEO_PURCHASES_PAGE_SIZE}
                 loading={this.props.loading}
                 listProps={{ disablePadding: true }}
-                items={this.props.videos}
+                items={this.props.purchasedVideoList}
                 nbItems={this.props.videoPurchasedCount}
                 page={this.props.videoCurrentPage}
                 onPageRequested={(page, page_size) =>
                   this.props.onPageRequested(page, page_size)
                 }
-                renderItem={(purchaseVideo) =>
-                  purchaseVideo.video && (
+                renderItem={(purchasedVideo) =>
+                  purchasedVideo.video && (
                     <VideoItemForManger
-                      onClick={() =>
-                        this.props.handleItemSelection(
-                          this.selectVideo,
-                          purchaseVideo,
-                        )
-                      }
+                      onClick={() => {
+                        this.props.onSelectVideoPurchase(purchasedVideo.id);
+                        this.selectVideo(purchasedVideo);
+                      }}
                       selected={
-                        this.props.selectedVideo &&
-                        this.props.selectedVideo.id === purchaseVideo.id
+                        this.props.selectedPurchasedVideo &&
+                        this.props.selectedPurchasedVideo.id ===
+                          purchasedVideo.id
                       }
-                      key={purchaseVideo.id}
-                      video={purchaseVideo}
+                      key={purchasedVideo.id}
+                      video={purchasedVideo}
                       memberId={this.props.id}
-                      date_created={purchaseVideo.date_created}
+                      date_created={purchasedVideo.date_created}
                     />
                   )
                 }
@@ -170,13 +159,13 @@ export class MemberDetailVod extends Component<Props, state> {
           </Grid>
         </Grid>
         <Grid item xs={12} lg={6}>
-          {this.props.selectedVideo && this.props.analyticsbyMember.data ? (
+          {this.props.selectedPurchasedVideo ? (
             <VideoDetail
               consumerPack={
-                this.props.selectedVideo &&
+                this.props.selectedPurchasedVideo &&
                 this.props.getPass(
                   parseInt(
-                    this.props.selectedVideo.consumer_payment_pack_id,
+                    this.props.selectedPurchasedVideo.consumer_payment_pack_id,
                     10,
                   ),
                 )
@@ -184,10 +173,10 @@ export class MemberDetailVod extends Component<Props, state> {
               getPaymentPack={this.props.getPaymentPack}
               decrementCredit={this.props.decrementCredit}
               incrementCredit={this.props.incrementCredit}
-              video={this.props.selectedVideo}
+              video={this.props.selectedPurchasedVideo}
               member={this.props.id}
               onConsumerPassSelected={this.goToConsumerPass}
-              loading={this.props.consumerPackLoading || this.props.loading}
+              loading={this.props.loading}
               analytics={this.props.analyticsbyMember}
               onInvoiceClick={this.props.onInvoiceClick}
               invoice={this.props.privateConsumerPassInvoice}
@@ -260,26 +249,24 @@ export default compose(
   withTranslation('booking'),
   withStyles(styles),
   withState('relatedInvoice', 'setRelatedInvoice', null),
-  withState('selectedVideo2', 'setSelectedvideo2', null),
   connect(
     (state, { id, vodId, relatedInvoice }) => ({
-      loading: state.video.loading || state.video.purchase.loading,
-      loading2:
+      loading:
         state.video.loading ||
         state.video.purchase.loading ||
-        (vodId && !state.video.analyticsbyMember.data),
+        state.consumerPaymentPack.loading ||
+        state.video.analyticsbyMember.loading,
       theme: themeSelectors.getTheme(state),
       member: getMember(state, id),
-      videos: getMemberVideoListWithConsumerPack(state, id),
-      selectedVideo: vodId
-        ? getMemberVideoListWithConsumerPack(state, id).find(
-            (purchaseVideos) => purchaseVideos.id === vodId,
-          )
-        : null,
+      purchasedVideoList: withPack(withVideoData(getVideoPurchasedByMember))(
+        state,
+        id,
+      ),
+      selectedPurchasedVideo: withPack(
+        withVideoData(getSelectedVideoPurchased),
+      )(state, vodId),
       videoPurchasedCount: state.video.purchase.purchaseByMember,
       videoCurrentPage: state.video.purchase.page,
-      paymentPacks: getAllPaymentPacks(state),
-      consumerPackLoading: state.consumerPaymentPack.loading,
       getPaymentPack: (id_: number) => paymentPackSelectors.get(state, id_),
       getPass: (id_: number) => getConsumerPack(state, id_),
       analyticsbyMember: {
@@ -303,25 +290,48 @@ export default compose(
       fetchVideoAnalyticsbyMemberAction: fetchVideoAnalyticsbyMember,
       fetchInvoiceByInvoiceItemAction: fetchInvoiceByInvoiceItem,
       fetchNumberVideoPurchaseAction: fetchNumberVideoPurchase,
+      retrieveVideoPurchase: retrieveVideoPurchaseAction,
     },
   ),
+
   withHandlers({
-    handleItemSelection: ({
+    onSelectVideoPurchase: ({
       setRelatedInvoice,
       fetchInvoiceByInvoiceItemAction,
-    }) => (selectVideo, purchaseVideo) => {
-      selectVideo(purchaseVideo);
-      if (purchaseVideo.consumer_payment_pack) {
-        fetchInvoiceByInvoiceItemAction(
-          BUYABLE_ITEM_PASS,
-          purchaseVideo.consumer_payment_pack.id,
-          {
-            onSuccess: (inv) => {
-              setRelatedInvoice(inv.uuid);
-            },
-          },
-        );
-      }
+      retrieveVideoPurchase,
+      retrieveVideoAction,
+      fetchVideoAnalyticsbyMemberAction,
+      id,
+    }) => (purchaseVideoId) => {
+      retrieveVideoPurchase(purchaseVideoId, {
+        onSuccess: (videoPurchase) => {
+          retrieveVideoAction(videoPurchase.video);
+          fetchVideoAnalyticsbyMemberAction(videoPurchase.video, {
+            member: id,
+          });
+          if (videoPurchase.consumer_payment_pack) {
+            fetchInvoiceByInvoiceItemAction(
+              BUYABLE_ITEM_PASS,
+              videoPurchase.consumer_payment_pack,
+              {
+                onSuccess: (inv) => {
+                  setRelatedInvoice(inv.uuid);
+                },
+              },
+            );
+          } else if (videoPurchase.private_consumer_pass) {
+            fetchInvoiceByInvoiceItemAction(
+              BUYABLE_ITEM_PRIVATE_PASS,
+              videoPurchase.private_consumer_pass,
+              {
+                onSuccess: (inv) => {
+                  setRelatedInvoice(inv.uuid);
+                },
+              },
+            );
+          }
+        },
+      });
     },
   }),
   withHandlers({
@@ -366,27 +376,6 @@ export default compose(
           },
         },
       );
-    },
-  }),
-  withHandlers({
-    fetchVideoDetails: ({ vodId, retrieveVideoAction, videos }) => () => {
-      if (videos && videos.length && vodId) {
-        const videoId = videos.find((vod) => vod.id === vodId);
-        retrieveVideoAction(videoId.video.id);
-      }
-    },
-    fetchVideoViews: ({
-      fetchVideoAnalyticsbyMemberAction,
-      vodId,
-      id,
-      videos,
-    }) => () => {
-      if (videos && videos.length && vodId) {
-        const videoId = videos.find((vod) => vod.id === vodId);
-        fetchVideoAnalyticsbyMemberAction(videoId.video.id, {
-          member: id,
-        });
-      }
     },
   }),
 )(MemberDetailVod);

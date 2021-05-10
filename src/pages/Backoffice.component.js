@@ -9,6 +9,7 @@ import Intercom from 'react-intercom';
 import { compose, withHandlers } from 'recompose';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import { RoleType } from '@bsport/common/lib/master-data/user-role';
+import clx from 'classnames';
 import Analytics from '../components/analytics/Analytics.component';
 import RELEASE from '../release';
 
@@ -111,6 +112,10 @@ const Subscription = asyncComponent(() =>
   import('./subscription/Subscription.router'),
 );
 
+const SpotScheduling = asyncComponent(() =>
+  import('./spot-scheduling/SpotScheduling.pages'),
+);
+
 type Props = {
   alertings: Array<Alerting>,
   nbAlerting: number,
@@ -185,6 +190,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route exact path="/search/results" component={SearchResults} />
       <Route path="/settings/:tab/" component={Settings} />
       <Route path="/coupon" component={Coupon} />
+      <Route path="/spot-scheduling" component={SpotScheduling} />
       <Route path="/empty" component={() => <div />} />
       {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
         props.vodEnabled) && <Route path="/vod" component={VodRouter} />}
@@ -337,7 +343,13 @@ export class Backoffice extends Component<Props, State> {
                 />
               ) : null}
               <Analytics username={this.props.username} isInternal />
-              <main className={classes.content}>
+              <main
+                className={clx({
+                  [classes.content]: true,
+                  [classes.fullContent]:
+                    this.props.location.pathname === '/spot-scheduling',
+                })}
+              >
                 <BackofficeRoute
                   vodEnabled={this.props.theme ? this.props.theme.vod : null}
                 />
@@ -355,6 +367,12 @@ const styles = (theme: Object) => ({
   content: {
     backgroundColor: theme.palette.background.default,
     flexGrow: 1,
+  },
+  fullContent: {
+    display: 'flex',
+    flex: 1,
+    width: '100%',
+    height: '100%',
   },
   toolbar: theme.mixins.toolbar,
   progress: {

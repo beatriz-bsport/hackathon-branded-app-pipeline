@@ -1031,13 +1031,10 @@
       "451": "Rendez-vous annulé - remboursé (élève)",
       "452": "Nouveau rendez-vous (élève)",
       "453": "Horaire modifié (élève)",
-      "510": "Paiement d'une souscription échoué",
-      "515": "Carte de cours de la souscription automatiquement désactivée",
-      "520": "Paiement d'une souscription échoué, sera retenté",
-      "530": "Litige sur paiement d'une souscription",
       "601": "Trop peu de réservations N heures avant le début de la séance",
       "701": "Pénalité carte de cours : carte bloquée (élève)",
-      "702": "Pénalité carte de cours : acompte créé (élève)"
+      "702": "Pénalité carte de cours : acompte créé (élève)",
+      "undefined": "Paiement d'une souscription échoué, sera retenté"
     }
   },
   "consumerSpace": {
@@ -5799,6 +5796,30 @@
         "opened_rate": "Taux d'ouverture",
         "total_mail_opened": "Nombre de mails ouverts"
       }
+    }
+  },
+  "spotScheduling": {
+    "toolsMenu": {
+      "title": "Boite à outils",
+      "sections": {
+        "edition": "Édition",
+        "walls": "Murs",
+        "place": "Emplacement",
+        "elements": "Éléments",
+        "custom": "Personnalisation"
+      },
+      "eraser": "Gomme",
+      "undo": "Précédent",
+      "redo": "Suivant",
+      "rotation": "Rotation",
+      "line": "Trait",
+      "rect": "Rectangle",
+      "spot": "Place",
+      "teacher": "Professeur",
+      "screen": "Écran",
+      "door": "Porte",
+      "customStroke": "Couleur des traits",
+      "customFill": "Couleur de remplissage"
     }
   }
 }

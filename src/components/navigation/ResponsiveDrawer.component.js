@@ -921,7 +921,13 @@ class ResponsiveDrawer extends React.Component<Props, State> {
           onClose={this.closeTempPasswordDialog}
           open={this.state.tempPasswordDialogOpen}
         />
-        <main className={classes.content}>
+        <main
+          className={
+            this.props.location.pathname === '/spot-scheduling'
+              ? classes.fullContent
+              : classes.content
+          }
+        >
           <BillingBanner
             paymentMethodMissing={this.props.paymentMethodMissing}
           />
@@ -1009,6 +1015,14 @@ const styles = (theme) => ({
     },
     paddingBottom: theme.spacing(1),
     paddingTop: theme.spacing(10),
+  },
+  fullContent: {
+    display: 'flex',
+    flex: 1,
+    marginTop: '56px', // toolbar height
+    [theme.breakpoints.up('sm')]: {
+      marginTop: '64px', // toolbar height
+    },
   },
   logo: {
     alignItems: 'center',

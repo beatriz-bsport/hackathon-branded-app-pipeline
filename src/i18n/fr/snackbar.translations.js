@@ -6,6 +6,8 @@ exports.default = {
     },
   },
   invoice: {
+    returnPaymentLocked:
+      'Impossible de rembourser ce paiement, votre compte Stripe est-il assez approvisionné ?',
     update: {
       success: 'Facture mise à jour avec succès',
     },

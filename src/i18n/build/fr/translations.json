@@ -2775,8 +2775,8 @@
         "helpTitle": "Comment se déroule la synchronisation ?",
         "helpContent": "Les actions ci dessous ont lieu dès que l'évènement associé se produit sur ActiveCampaign.",
         "title": "Intégrer les informations d'ActiveCampaign sur bsport",
-        "CLIENT_WON": "Créer un compte client sur bsport lorsque le propect est passé en statut 'WON' sur un deal",
-        "CONTACT_TAG": "Créer un compte client sur bsport lorsque le propect est tagé en 'won' sur ActiveCampaign"
+        "CLIENT_WON": "Créer un compte client sur bsport lorsque le prospect est passé en statut 'WON' sur un deal",
+        "CONTACT_TAG": "Créer un compte client sur bsport lorsque le prospect est tagé en 'won' sur ActiveCampaign"
       },
       "link": {
         "helpTitle": "Comment se déroule la synchronisation ?",
@@ -3285,6 +3285,7 @@
   "snackbar": {
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
     "invoice": {
+      "returnPaymentLocked": "Impossible de rembourser ce paiement, votre compte Stripe est-il assez approvisionné ?",
       "update": { "success": "Facture mise à jour avec succès" },
       "create": { "success": "Facture enregistrée" },
       "error": "Erreur lors de l'enregistrement - Annulé"

@@ -116,6 +116,9 @@ export function returnPayment(
     } catch (err) {
       dispatch(returnPaymentActions.error(err));
       if (options && options.onError) {
+        if (err.response && err.response.status_code === 423) {
+          dispatch(snackbarError('invoice.returnPaymentLocked'));
+        }
         options.onError(err);
       }
     }

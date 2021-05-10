@@ -5317,7 +5317,7 @@
             "description": "Description",
             "legal": "Legal agreement",
             "actions": {
-                "iAcceptCondition": "I accept the legal aggreement",
+                "iAcceptCondition": "I accept the legal agreement",
                 "iwanttostarton": "I want to start my subscription on : ",
                 "subscribe": "Subscribe",
                 "create": "Add a contract"

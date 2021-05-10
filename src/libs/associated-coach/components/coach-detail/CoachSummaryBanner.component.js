@@ -12,9 +12,12 @@ import Avatar from '@material-ui/core/Avatar';
 import Popover from '@material-ui/core/Popover';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
-
-import { PaymentRuleSelector } from '../../../payment-rules';
-import type { PaymentRule } from '../../../payment-rules';
+import {
+  COACH_PERFORMANCE_FOR_SESSION,
+  COACH_PERFORMANCE_FOR_APPOINTMENT,
+} from '@bsport/common/lib/master-data/coach_payment_rule';
+import CoachPaymentRuleSelector from '../../../coach-payment-rules/components/CoachPaymentRuleSelector.component';
+import type { CoachPaymentRule } from '../../../coach-payment-rules/types';
 
 import FACEBOOK_PNG from '../../../../public/images/facebook.png';
 import INSTAGRAM_PNG from '../../../../public/images/instagram.png';
@@ -28,9 +31,10 @@ type Props = {
   coach: CoachDetailed,
   t: TFunction,
   classes: Object,
-  paymentRules: PaymentRule[],
+  coachPaymentRulesByKind: Object<CoachPaymentRule[]>,
   togglePaymentRulePopover: (x: boolean) => void,
   setCoachPaymentRule: (id: number, ruleId: number) => void,
+  setCoachPrivatePaymentRule: (id: number, ruleId: number) => void,
   paymentRulePopoverOpen: boolean,
 };
 
@@ -41,7 +45,14 @@ class CoachSummaryCard extends React.Component<Props> {
   }
 
   renderPaymentRules = () => {
-    const { t, paymentRules, classes, coach, setCoachPaymentRule } = this.props;
+    const {
+      t,
+      classes,
+      coach,
+      setCoachPaymentRule,
+      setCoachPrivatePaymentRule,
+      coachPaymentRulesByKind,
+    } = this.props;
     return (
       <Grid
         container
@@ -53,11 +64,37 @@ class CoachSummaryCard extends React.Component<Props> {
           ref={this.refPaymentRuleSelector}
           id="button_teacher_paymentconfig"
         >
-          <PaymentRuleSelector
-            paymentRules={paymentRules}
-            selected={coach.default_payment_rule_id}
-            onChange={({ value }) => setCoachPaymentRule(coach.id, value)}
-          />
+          <Typography variant="subtitle2">
+            {t('paymentRules:paymentRules')}
+          </Typography>
+          {[
+            COACH_PERFORMANCE_FOR_SESSION,
+            COACH_PERFORMANCE_FOR_APPOINTMENT,
+          ].map((pay_rule_kind) => (
+            <div className={classes.flexPaymentSelector}>
+              <CoachPaymentRuleSelector
+                coachPaymentRulesList={coachPaymentRulesByKind[pay_rule_kind]}
+                selected={
+                  pay_rule_kind === COACH_PERFORMANCE_FOR_SESSION
+                    ? coach.coach_payment_rule_id
+                    : coach.private_coach_payment_rule_id
+                }
+                onChange={({ value }) => {
+                  return (
+                    (pay_rule_kind === COACH_PERFORMANCE_FOR_SESSION &&
+                      setCoachPaymentRule(coach.id, value)) ||
+                    (pay_rule_kind === COACH_PERFORMANCE_FOR_APPOINTMENT &&
+                      setCoachPrivatePaymentRule(coach.id, value))
+                  );
+                }}
+              />
+              <Typography>
+                {pay_rule_kind === COACH_PERFORMANCE_FOR_SESSION
+                  ? t('paymentRules:select.coachPaymentRuleForSessions')
+                  : t('paymentRules:select.coachPaymentRuleForPrivateService')}
+              </Typography>
+            </div>
+          ))}
         </div>
         <Popover
           open={this.props.paymentRulePopoverOpen}
@@ -193,6 +230,11 @@ const styles = (theme) => ({
   },
   popoverNoPaymentRule: {
     margin: theme.spacing(2),
+  },
+  flexPaymentSelector: {
+    display: 'flex',
+    justifyContent: 'start',
+    alignItems: 'center',
   },
 });
 

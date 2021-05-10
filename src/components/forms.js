@@ -809,7 +809,6 @@ export const RadioGroupField = (props: RadioFieldProps) => {
     </Field>
   );
 };
-
 type FormControlProps = {};
 
 const formControlStyles = (theme) => ({

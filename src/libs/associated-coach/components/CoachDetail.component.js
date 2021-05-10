@@ -9,6 +9,11 @@ import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
+import {
+  COACH_PERFORMANCE_FOR_SESSION,
+  COACH_PERFORMANCE_FOR_APPOINTMENT,
+} from '@bsport/common/lib/master-data/coach_payment_rule';
+import type { CoachPaymentRule } from '../../coach-payment-rules/types';
 import CoachSummaryBanner from './coach-detail/CoachSummaryBanner.component';
 import Description from './coach-detail/Description.component';
 
@@ -18,8 +23,9 @@ type Props = {
   t: TFunction,
   classes: Object,
   coach: CoachDetailed,
-  paymentRules: PaymentRule[],
+  coachPaymentRulesByKind: Object<CoachPaymentRule[]>,
   setCoachPaymentRule: (any) => void,
+  setCoachPrivatePaymentRule: (any) => void,
   startUpdateCoach: (coach: CoachDetailed) => void,
   goToCoachPerformance: (coach: CoachDetailed) => void,
 };
@@ -33,8 +39,15 @@ export class CoachDetail extends Component<Props, State> {
 
   remunerateCoach = () => {
     const { coach } = this.props;
-    const { paymentRules } = this.props;
-    if (paymentRules.find((p) => p.id === coach.default_payment_rule_id)) {
+    const { coachPaymentRulesByKind } = this.props;
+    if (
+      coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION].find(
+        (cpp) => cpp.id === coach.coach_payment_rule_id,
+      ) &&
+      coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT].find(
+        (cpp) => cpp.id === coach.private_coach_payment_rule_id,
+      )
+    ) {
       this.props.goToCoachPerformance(coach);
     } else {
       this.togglePaymentRulePopover(true);
@@ -42,7 +55,14 @@ export class CoachDetail extends Component<Props, State> {
   };
 
   render() {
-    const { coach, classes, paymentRules, setCoachPaymentRule, t } = this.props;
+    const {
+      coach,
+      classes,
+      setCoachPaymentRule,
+      setCoachPrivatePaymentRule,
+      t,
+      coachPaymentRulesByKind,
+    } = this.props;
     return (
       <Grid container direction="column" spacing={2} alignItems="center">
         <Grid item xs={12} lg={8} className={classes.fullWidth}>
@@ -51,18 +71,21 @@ export class CoachDetail extends Component<Props, State> {
               coach={coach}
               togglePaymentRulePopover={this.togglePaymentRulePopover}
               paymentRulePopoverOpen={this.state.paymentRulePopoverOpen}
-              paymentRules={paymentRules}
+              coachPaymentRulesByKind={coachPaymentRulesByKind}
               setCoachPaymentRule={setCoachPaymentRule}
+              setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
             />
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={this.remunerateCoach}
-              id="button_teacher_remunerate"
-            >
-              <EuroSymbolIcon className={classes.leftIcon} />
-              {t('showPerformance')}
-            </Button>
+            <div className={classes.leftButton}>
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={this.remunerateCoach}
+                id="button_teacher_remunerate"
+              >
+                <EuroSymbolIcon className={classes.leftIcon} />
+                {t('showPerformance')}
+              </Button>
+            </div>
           </Paper>
         </Grid>
         <Grid item xs={12} lg={8} className={classes.fullWidth}>
@@ -91,6 +114,9 @@ const styles = (theme) => ({
   expansionTitle: {
     marginBottom: theme.spacing(1),
     marginRight: theme.spacing(1),
+  },
+  leftButton: {
+    paddingTop: theme.spacing(1),
   },
   leftIcon: {
     marginRight: theme.spacing(1),

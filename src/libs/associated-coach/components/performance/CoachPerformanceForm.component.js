@@ -27,16 +27,10 @@ export function CoachPerformanceForm(props: Props) {
     <Form className={classes.alignCenter}>
       <DateField
         id="textfield_remuneration_beginning"
+        views={['year', 'month']}
         required
         name="dateStart"
-        label={t('common.from')}
-        className={classes.dateInput}
-      />
-      <DateField
-        id="textfield_remuneration_end"
-        required
-        name="dateEnd"
-        label={t('common.until')}
+        label={t('common.pick_a_month')}
         className={classes.dateInput}
       />
       <Submit
@@ -62,7 +56,6 @@ const styles = (theme) => ({
 
 const CoachPerformanceSchema = Yup.object().shape({
   dateStart: Yup.date(),
-  dateEnd: Yup.date(),
 });
 
 export default compose(
@@ -70,13 +63,15 @@ export default compose(
   withTranslation(['paymentRules', 'coachPerformance', 'translation']),
   withFormik({
     mapPropsToValues: () => ({
-      dateStart: Moment().subtract(1, 'month').startOf('day'),
-      dateEnd: Moment().startOf('day'),
+      dateStart: Moment().startOf('month'),
     }),
     validationSchema: CoachPerformanceSchema,
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
-      values.dateEnd.add(1, 'day');
-      onSubmit(values, {
+      const updateValues = {
+        ...values,
+        dateEnd: values.dateStart.add(1, 'M'),
+      };
+      onSubmit(updateValues, {
         onError: () => setSubmitting(false),
         onSuccess: () => setSubmitting(false),
       });

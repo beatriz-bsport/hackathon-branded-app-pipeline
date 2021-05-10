@@ -8,8 +8,8 @@ import {
   coachDetailAction,
   performance,
   upsert,
-  setPaymentRule,
-  sessionPaymentRule,
+  setCoachPaymentRuleActions,
+  setCoachPrivatePaymentRuleActions,
   bulkRetrieveActions,
   restoreActions,
 } from './actions';
@@ -95,28 +95,16 @@ export default handleActions(
     [upsert.success]: (state, { payload }) => {
       return state.merge({ byId: payload }, { deep: true });
     },
-    [setPaymentRule.success]: (state, { payload }) => {
+    [setCoachPaymentRuleActions.success]: (state, { payload }) => {
       return state.setIn(
-        ['byId', payload.coachId, 'default_payment_rule_id'],
-        payload.default_payment_rule_id,
+        ['byId', payload.coachId, 'coach_payment_rule_id'],
+        payload.coach_payment_rule_id,
       );
     },
-    [sessionPaymentRule.isLoading]: (state, { payload }) => {
-      return state.setIn(['upsert', 'loading'], payload);
-    },
-    [sessionPaymentRule.error]: (state, { payload }) => {
-      return state.setIn(['upsert', 'error'], payload);
-    },
-    [sessionPaymentRule.success]: (state, { payload }) => {
-      const index = state.performance[
-        payload.associatedCoachId
-      ].result.findIndex((s) => s.id === payload.sessionId);
-      const session =
-        state.performance[payload.associatedCoachId].result[index];
-      const updatedSession = { ...session, ...payload.data };
+    [setCoachPrivatePaymentRuleActions.success]: (state, { payload }) => {
       return state.setIn(
-        ['performance', payload.associatedCoachId, 'result', index],
-        updatedSession,
+        ['byId', payload.coachId, 'private_coach_payment_rule_id'],
+        payload.private_coach_payment_rule_id,
       );
     },
     [restoreActions.isLoading]: (state, { payload }) => {

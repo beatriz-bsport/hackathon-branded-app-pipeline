@@ -3,78 +3,132 @@
 import React, { Component } from 'react';
 import { compose, withState } from 'recompose';
 import { withTranslation } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import {
+  COACH_PAYMENT_RULE_FOR_SESSION,
+  COACH_PAYMENT_RULE_FOR_APPOINTMENT,
+} from '@bsport/common/lib/master-data/coach_payment_rule';
+import {
+  upsertCoachPaymentRule,
+  fetchAllCoachPaymentRules,
+  deleteCoachPaymentRule,
+  runCoachPaymenrRuleSimulation,
+  showDialog,
+  showSimulationDialog,
+} from '../../libs/coach-payment-rules/actions';
+import {
+  CoachPaymentRulesSelector,
+  CoachPaymentRuleByKindSelector,
+} from '../../libs/coach-payment-rules/selectors';
 
-import * as actions from '../../libs/payment-rules/actions';
-import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
-
-import PaymentRuleFormDialog from '../../libs/payment-rules/components/PaymentRuleFormDialog.component';
-import PaymentRuleTable from '../../libs/payment-rules/components/PaymentRuleTable.component';
-
-import type { PaymentRule } from '../../api/types';
+import CoachPaymentRuleFormDialog from '../../libs/coach-payment-rules/components/CoachPaymentRuleFormDialog.component';
+import CoachPaymentRuleTabs from '../../libs/coach-payment-rules/components/CoachPaymentRuleTabs.components';
+import CoachPaymentRuleSimulationDialog from '../../libs/coach-payment-rules/components/CoachPaymentRuleSimulationDialog.component.js';
+import type { CoachPaymentRule } from '../../libs/coach-payment-rules/types';
+import {
+  getAll as getPaymentPacks,
+  getEnabled as getPaymentPackAvailable,
+} from '../../libs/payment-packs/selectors';
+import FabWithItems from '../../components/button/FabWithItems';
 import withTitle from '../../hocs/with-title.hoc';
+import type { paymentPack } from '../../libs/payment-packs/types';
 
 type Props = {
-  loadPaymentRules: () => void,
+  fetchAllCoachPaymentRulesAction: () => void,
   classes: { [string]: string },
-  initial: ?PaymentRule,
-  upsertPaymentRule: (PaymentRule) => void,
-  removePaymentRule: (paymentRule) => void,
-  setInitial: (PaymentRule) => void,
+  t: TFunction,
+  initial: ?CoachPaymentRule,
+  ruleForSimulation: ?CoachPaymentRule,
+  upsertCoachPaymentRule: (CoachPaymentRule) => void,
+  removeCoachPaymentRule: (CoachPaymentRule) => void,
+  setInitial: (CoachPaymentRule) => void,
   error: ?Error,
-  rules: PaymentRule[],
+  rulesByKind: object<CoachPaymentRule[]>,
 } & {
   open: boolean,
+  simulationOpen: boolean,
   handleOpen: () => void,
   handleClose: () => void,
+  handleCloseSimulation: () => void,
+  runCoachPaymenrRuleSimulation: () => void,
+  paymentPackList: Array<paymentPack>,
+  simulationResult: Object<any>,
+  setRuleTypeCreation: (type: number) => void,
+  ruleTypeCreation: Number,
 };
 type State = {};
 
 export class PaymentRulesDashboard extends Component<Props, State> {
-  componentWillMount() {
-    this.props.loadPaymentRules();
+  componentDidMount() {
+    this.props.fetchAllCoachPaymentRulesAction();
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     return (
       <div>
-        <Fab
-          onClick={this.props.handleOpen}
-          className={classes.button}
-          color="primary"
-          id="button_remuneration_add"
-        >
-          <AddIcon />
-        </Fab>
+        <FabWithItems
+          items={[
+            {
+              label: t('fabButton.addNewForSession'),
+              onClick: () => {
+                this.props.setRuleTypeCreation(COACH_PAYMENT_RULE_FOR_SESSION);
+                this.props.handleOpen();
+              },
+            },
+            {
+              label: t('fabButton.addNewForRDV'),
+              onClick: () => {
+                this.props.setRuleTypeCreation(
+                  COACH_PAYMENT_RULE_FOR_APPOINTMENT,
+                );
+                this.props.handleOpen();
+              },
+            },
+          ]}
+        />
         {this.props.open ? (
-          <PaymentRuleFormDialog
+          <CoachPaymentRuleFormDialog
             open={this.props.open}
+            handleClose={this.props.handleClose}
+            handleOpen={this.props.handleOpen}
             initial={
-              this.props.initial &&
-              this.props.initial &&
-              this.props.initial.bonuses
+              this.props.initial && this.props.initial.bonus_coach_payment
                 ? {
                     ...this.props.initial,
-                    bonuses: [...this.props.initial.bonuses],
+                    bonus_coach_payment: [
+                      ...this.props.initial.bonus_coach_payment,
+                    ],
                   }
                 : this.props.initial
             }
-            handleOpen={this.props.handleOpen}
-            handleClose={this.props.handleClose}
-            onSubmit={this.props.upsertPaymentRule}
+            onSubmit={this.props.upsertCoachPaymentRule}
             error={this.props.error}
+            paymentPackList={this.props.paymentPackList}
+            ruleTypeCreation={this.props.ruleTypeCreation}
+          />
+        ) : null}
+        {this.props.simulationOpen && this.props.ruleForSimulation ? (
+          <CoachPaymentRuleSimulationDialog
+            open={this.props.simulationOpen}
+            onSubmit={this.props.runCoachPaymenrRuleSimulation}
+            handleCloseSimulation={this.props.handleCloseSimulation}
+            handlePrevious={(payment_rule) => {
+              this.props.setInitial(payment_rule);
+              this.props.handleOpen();
+            }}
+            coachPaymentRule={this.props.ruleForSimulation}
+            simulationResult={this.props.simulationResult}
           />
         ) : null}
         <Paper className={classes.table}>
-          <PaymentRuleTable
-            items={this.props.rules}
-            onDeletePaymentRule={this.props.removePaymentRule}
+          <CoachPaymentRuleTabs
+            items={this.props.rulesByKind}
+            onDeletePaymentRule={this.props.removeCoachPaymentRule}
             onEditPaymentRule={(paymentRule) => {
               this.props.setInitial(paymentRule);
               this.props.handleOpen();
@@ -102,9 +156,14 @@ const styles = (theme) => ({
 
 function mapStateToProps(state) {
   return {
-    open: state.paymentRules.dialog,
-    error: state.paymentRules.upsert.error,
-    rules: paymentRulesSelector(state),
+    open: state.coachPaymentRules.dialog,
+    simulationOpen: state.coachPaymentRules.simulationDialog,
+    error: state.coachPaymentRules.upsert.error,
+    rules: CoachPaymentRulesSelector(state),
+    paymentPacks: getPaymentPacks(state),
+    paymentPackList: getPaymentPackAvailable(state),
+    simulationResult: state.coachPaymentRules.simulation.result,
+    rulesByKind: CoachPaymentRuleByKindSelector(state),
   };
 }
 
@@ -113,15 +172,34 @@ export default compose(
   withTranslation(['paymentRules']),
   withTitle(({ t }) => t('pageTitle')),
   withState('initial', 'setInitial', null),
-  connect(mapStateToProps, (dispatch, { setInitial }) => ({
-    removePaymentRule: (p) => dispatch(actions.deletePaymentRule(p)),
-    handleOpen: () => dispatch(actions.showDialog(true)),
-    handleClose: () => {
-      dispatch(actions.showDialog(false));
-      setInitial(null);
-    },
-    upsertPaymentRule: (p, options) =>
-      dispatch(actions.upsertPaymentRule(p, options)),
-    loadPaymentRules: (p) => dispatch(actions.fetchPaymentRules(p)),
-  })),
+  withState(
+    'ruleTypeCreation',
+    'setRuleTypeCreation',
+    COACH_PAYMENT_RULE_FOR_SESSION,
+  ),
+  withState('ruleForSimulation', 'setRuleForSimulation'),
+  connect(
+    mapStateToProps,
+    (dispatch, { setInitial, setRuleForSimulation }) => ({
+      removeCoachPaymentRule: (p) => dispatch(deleteCoachPaymentRule(p)),
+      handleOpen: () => dispatch(showDialog(true)),
+      handleClose: () => {
+        dispatch(showDialog(false));
+        setInitial(null);
+      },
+      handleCloseSimulation: () => dispatch(showSimulationDialog(false)),
+      upsertCoachPaymentRule: (p) =>
+        dispatch(
+          upsertCoachPaymentRule(p, {
+            onSuccess: (payload) => {
+              dispatch(showSimulationDialog(true));
+              setRuleForSimulation(payload);
+            },
+          }),
+        ),
+      runCoachPaymenrRuleSimulation: (id, params) =>
+        dispatch(runCoachPaymenrRuleSimulation(id, params)),
+      fetchAllCoachPaymentRulesAction: fetchAllCoachPaymentRules,
+    }),
+  ),
 )(PaymentRulesDashboard);

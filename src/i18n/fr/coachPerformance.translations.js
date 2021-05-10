@@ -6,7 +6,12 @@ exports.default = {
     nb_bookings: 'Réservations',
     name: 'Nom de la séance',
     date: 'Date',
-    rule: 'Régle',
+    rule: 'Régle de rémunération de la séance',
+    confirmed_bookings: 'Participants',
+    cancelled_bookings: 'Réservations annulées',
+    total: 'Rémunération totale',
+    error:
+      "Il semble que des cours n'ont pas de règle de rémunération associée. Vous devez associer une règle de paiment à ces cours ou associer un règle de paiement au coach.",
   },
   table: {
     download: 'Télécharger',

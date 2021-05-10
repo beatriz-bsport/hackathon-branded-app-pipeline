@@ -14,6 +14,7 @@ import companiesReducers from './companies.reducers';
 import establishmentReducers from '../libs/establishment/reducers';
 import shopReducer from '../libs/shop/reducers';
 import paymentRulesReducer from '../libs/payment-rules/reducers';
+import CoachPaymentRuleReducer from '../libs/coach-payment-rules/reducers';
 import metaActivityReducers from '../libs/meta-activity/reducers';
 import subscriptionReducer from '../libs/subscription/reducers';
 import alertingReducer from '../libs/alerting/reducers';
@@ -94,6 +95,7 @@ const rootReducer = (history: any) =>
     communication: communicationReducers,
     checkout: checkoutReducers,
     paymentRules: paymentRulesReducer,
+    coachPaymentRules: CoachPaymentRuleReducer,
     payment: paymentReducers,
     consumer: consumerReducers,
     auth: authReducers,

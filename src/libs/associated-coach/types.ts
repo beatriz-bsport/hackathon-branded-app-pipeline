@@ -12,6 +12,7 @@ export type Coach = {
   email?: string;
   associated_coach_id: number;
   default_payment_rule_id?: number;
+  coach_payment_rule?: number;
   facebook_url?: string;
   instagram_url?: string;
   disabled: boolean;

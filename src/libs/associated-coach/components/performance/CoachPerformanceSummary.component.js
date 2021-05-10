@@ -6,41 +6,81 @@ import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withTranslation } from 'react-i18next';
-
+import {
+  COACH_PERFORMANCE_FOR_SESSION,
+  COACH_PERFORMANCE_FOR_APPOINTMENT,
+} from '@bsport/common/lib/master-data/coach_payment_rule';
 import Figure from '../../../../components/graph/Figure.component';
 import { getCurrencyDisplay } from '../../../theme/selectors';
+import type { CoachPerformance } from '../../../coach-payment-rules/types';
 
 type Props = {
-  nbBookings: number,
-  nbSessions: number,
-  total: number,
+  performances: Object<Array<CoachPerformance>>,
   t: (x: string) => string,
   classes: *,
 };
 
 export function CoachPerformanceSummary(props: Props) {
-  const { nbBookings, nbSessions, total, classes, t } = props;
+  const { performances, classes, t } = props;
 
+  const nbSessions = performances[COACH_PERFORMANCE_FOR_SESSION]
+    ? performances[COACH_PERFORMANCE_FOR_SESSION].length
+    : null;
+  const nbPrivateServices = performances[COACH_PERFORMANCE_FOR_APPOINTMENT]
+    ? performances[COACH_PERFORMANCE_FOR_APPOINTMENT].length
+    : null;
+  const nbBookings = performances[COACH_PERFORMANCE_FOR_SESSION]
+    ? performances[COACH_PERFORMANCE_FOR_SESSION].reduce(
+        (a, b) => a + (b.confirmed_bookings || 0),
+        0,
+      )
+    : null;
+  const nbPrivateServiceAttendants = performances[
+    COACH_PERFORMANCE_FOR_APPOINTMENT
+  ]
+    ? performances[COACH_PERFORMANCE_FOR_APPOINTMENT].reduce(
+        (a, b) => a + (b.confirmed_bookings || 0),
+        0,
+      )
+    : null;
+  const totalOnBookings = performances[COACH_PERFORMANCE_FOR_SESSION]
+    ? performances[COACH_PERFORMANCE_FOR_SESSION].reduce(
+        (a, b) => a + (parseFloat(b.coach_total_payment) || 0),
+        0,
+      )
+    : null;
+  const totalOnPrivateServices = performances[COACH_PERFORMANCE_FOR_APPOINTMENT]
+    ? performances[COACH_PERFORMANCE_FOR_APPOINTMENT].reduce(
+        (a, b) => a + (parseFloat(b.coach_total_payment) || 0),
+        0,
+      )
+    : null;
   return (
     <Grid container direction="row" spacing={2} className={classes.root}>
       <Grid item xs={12} md={4} id="nbOffersTotal">
         <Figure
           name={t('performance.nbOffersTotal')}
-          count={nbSessions || '-'}
+          count={nbSessions + nbPrivateServices || '-'}
           color="red"
         />
       </Grid>
       <Grid item xs={12} md={4} id="nbBookings">
         <Figure
           name={t('performance.nbBookings')}
-          count={nbBookings || '-'}
+          count={(nbBookings || 0) + (nbPrivateServiceAttendants || 0) || '-'}
           color="marine"
         />
       </Grid>
       <Grid item xs={12} md={4}>
         <Figure
           name={t('performance.payment')}
-          count={total ? `${total.toFixed(2)} ${getCurrencyDisplay()}` : '-'}
+          count={
+            totalOnBookings || totalOnPrivateServices
+              ? `${(
+                  (totalOnBookings || 0) + (totalOnPrivateServices || 0)
+                ).toFixed(2)} ${getCurrencyDisplay()}`
+              : '-'
+          }
           color="green"
         />
       </Grid>

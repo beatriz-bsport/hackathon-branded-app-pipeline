@@ -4,7 +4,7 @@ import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import { Dispatch } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { putAuth, API_URI } from '../../http';
+import { putAuth, API_V1_URI, buildUrlParams } from '../../http';
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import {
   updateCoach as updateCoachAPI,
@@ -232,23 +232,30 @@ export function fetchAssociatedCoachPerformance(
   };
 }
 
-export const setPaymentRule = {
+export const setCoachPaymentRuleActions = {
   success: createAction('COACH/PAYMENT_RULE/SUCCESS'),
 };
 
-export function setCoachPaymentRule(coachId: number, paymentRuleId: number) {
+export function setCoachPaymentRule(
+  coachId: number,
+  coachPaymentRuleId: number,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(upsert.isLoading(true));
     dispatch(upsert.error(null));
 
     try {
       await putAuth(
-        `${API_URI}/accounts/coaches/${coachId}/set_payment_rule/`,
-        { default_payment_rule_id: paymentRuleId },
+        `${API_V1_URI}/coach_payment_rules/set_coach_session_payment_rule/${buildUrlParams(
+          {
+            coachId,
+            coachPaymentRuleId,
+          },
+        )}`,
       );
       dispatch(snackbarSuccess('paymentRules.update.success'));
-      const payload = { coachId, default_payment_rule_id: paymentRuleId };
-      dispatch(setPaymentRule.success(payload));
+      const payload = { coachId, coach_payment_rule_id: coachPaymentRuleId };
+      dispatch(setCoachPaymentRuleActions.success(payload));
     } catch (err) {
       dispatch(snackbarError('paymentRules.update.error'));
       dispatch(upsert.error(err));
@@ -256,41 +263,38 @@ export function setCoachPaymentRule(coachId: number, paymentRuleId: number) {
     dispatch(upsert.isLoading(false));
   };
 }
-
-export const sessionPaymentRule = {
-  isLoading: createAction('SESSIONS/PAYMENT_RULE/IS_LOADING'),
-  error: createAction('SESSIONS/PAYMENT_RULE/ERROR'),
-  success: createAction('SESSIONS/PAYMENT_RULE/SUCCESS'),
+export const setCoachPrivatePaymentRuleActions = {
+  success: createAction('COACH/PRIVATE_PAYMENT_RULE/SUCCESS'),
 };
 
-export function setSessionPaymentRule(
-  associatedCoachId: number,
-  sessionId: number,
-  paymentRuleId: number,
+export function setCoachPrivatePaymentRule(
+  coachId: number,
+  coachPaymentRuleId: number,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(sessionPaymentRule.isLoading(true));
-    dispatch(sessionPaymentRule.error(null));
+    dispatch(upsert.isLoading(true));
+    dispatch(upsert.error(null));
 
     try {
-      const response = await putAuth(
-        `${API_URI}/bookings/sessions/${sessionId}/set_payment_rule/`,
-        { payment_rule_id: paymentRuleId },
-      );
-      dispatch(
-        sessionPaymentRule.success({
-          associatedCoachId,
-          sessionId,
-          data: response.data,
-        }),
+      await putAuth(
+        `${API_V1_URI}/coach_payment_rules/set_coach_private_payment_rule/${buildUrlParams(
+          {
+            coachId,
+            coachPaymentRuleId,
+          },
+        )}`,
       );
       dispatch(snackbarSuccess('paymentRules.update.success'));
-    } catch (error) {
-      console.error(error);
+      const payload = {
+        coachId,
+        private_coach_payment_rule_id: coachPaymentRuleId,
+      };
+      dispatch(setCoachPrivatePaymentRuleActions.success(payload));
+    } catch (err) {
       dispatch(snackbarError('paymentRules.update.error'));
-      dispatch(sessionPaymentRule.error(error));
+      dispatch(upsert.error(err));
     }
-    dispatch(sessionPaymentRule.isLoading(false));
+    dispatch(upsert.isLoading(false));
   };
 }
 

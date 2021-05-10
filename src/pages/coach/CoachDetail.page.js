@@ -10,15 +10,18 @@ import LinearProgress from '../../components/navigation/BackofficeLinearProgress
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
 
-import { fetchPaymentRules } from '../../libs/payment-rules/actions';
+import { fetchAllCoachPaymentRules } from '../../libs/coach-payment-rules/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { paymentRulesSelector } from '../../libs/payment-rules/selectors';
+import {
+  CoachPaymentRulesSelector,
+  CoachPaymentRuleByKindSelector,
+} from '../../libs/coach-payment-rules/selectors';
 import { getCoach } from '../../libs/associated-coach/selectors';
-import type { PaymentRule } from '../../libs/payment-rules';
-
+import type { CoachPaymentRule as CoachPaymentRuleType } from '../../libs/coach-payment-rules/types';
 import {
   startUpdate,
   setCoachPaymentRule,
+  setCoachPrivatePaymentRule,
   deleteCoach,
   fetchAssociatedCoach,
 } from '../../libs/associated-coach/actions';
@@ -31,8 +34,9 @@ import WidgetGeneratorDialog from '../settings/WidgetGenerator/WidgetGeneratorDi
 type Props = {
   coachId: number,
   coach: CoachDetailed,
-  paymentRules: PaymentRule[],
+  coachPaymentRulesByKind: Object<CoachPaymentRuleType[]>,
   setCoachPaymentRule: (any) => void,
+  setCoachPrivatePaymentRule: (any) => void,
   startUpdateCoach: (coach: CoachDetailed) => void,
   goToCoachPerformance: (coach: CoachDetailed) => void,
   goToList: () => void,
@@ -64,14 +68,15 @@ export class Coach extends React.Component<Props> {
     if (this.props.loading && !this.props.coach) {
       return <LinearProgress />;
     }
-    const { paymentRules, coach } = this.props;
+    const { coach, coachPaymentRulesByKind } = this.props;
     return (
       <div style={{ height: '100%' }}>
         {this.props.loading ? <LinearProgress /> : null}
         <CoachDetail
           coach={coach}
-          paymentRules={paymentRules}
+          coachPaymentRulesByKind={coachPaymentRulesByKind}
           setCoachPaymentRule={this.props.setCoachPaymentRule}
+          setCoachPrivatePaymentRule={this.props.setCoachPrivatePaymentRule}
           goToCoachPerformance={this.props.goToCoachPerformance}
           startUpdateCoach={this.props.startUpdateCoach}
         />
@@ -116,15 +121,17 @@ export default compose(
       loading: state.coach.loading,
       isCoach: state.auth.is_coach,
       isManager: state.auth.is_manager,
-      paymentRules: paymentRulesSelector(state),
+      coachPaymentRulesList: CoachPaymentRulesSelector(state),
+      coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
       coach: getCoach(state, coachId),
     }),
     {
       deleteCoach,
-      loadPaymentRules: fetchPaymentRules,
+      loadPaymentRules: fetchAllCoachPaymentRules,
       fetchAssociatedCoach,
       startUpdateCoach: startUpdate,
       setCoachPaymentRule,
+      setCoachPrivatePaymentRule,
       goToCreateCoach: () => routerPush('/coach/add'),
       goToCoachPerformance: (coach) =>
         routerPush(`/coach/${coach.associated_coach_id}/performance`),

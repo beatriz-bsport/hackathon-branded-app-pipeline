@@ -1813,7 +1813,6 @@ export function updatePrivateBookingCoach(
     dispatch(privateBookingCreateOrUpdateActions.isLoading(false));
   };
 }
-
 export function disablePrivateBooking(
   id: number,
   // @ts-ignore

@@ -13,8 +13,8 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 import AttachIcon from '@material-ui/icons/AttachFile';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 import CoachPaymentRuleSelector from '../../../coach-payment-rules/components/CoachPaymentRuleSelector.component';
 import type { CoachPaymentRule } from '../../../coach-payment-rules/types';
 import { downloadAsCsv } from '../../../../utils/downloader';
@@ -24,20 +24,20 @@ type Props = {
   performances: *[],
   t: TFunction,
   coachPaymentRulesList: Array<CoachPaymentRule>,
-  setSessionCoachPaymentRule: (
+  updatePrivateBookingCoachPaymentRule: (
     associatedCoachId: number,
-    sessionId: number,
-    coachPaymenrRuleId: number,
+    privateBookingId: number,
+    CoachPaymenrRuleId: number,
   ) => void,
   coach: Coach,
 };
 
-export function CoachPerformanceSessionTable(props: Props) {
+export function CoachPerformancePrivateServiceTable(props: Props) {
   const {
     t,
     coach,
     coachPaymentRulesList,
-    setSessionCoachPaymentRule,
+    updatePrivateBookingCoachPaymentRule,
     performances,
   } = props;
   const classes = useStyles();
@@ -65,7 +65,7 @@ export function CoachPerformanceSessionTable(props: Props) {
                 t('fields.rule'),
               ],
               performances.map((session) => [
-                session.session_name,
+                session.private_service_name,
                 moment(session.date_start).format('DD/MM/YYYY HH[:]mm'),
                 session.duration_minute,
                 session.confirmed_bookings,
@@ -108,39 +108,40 @@ export function CoachPerformanceSessionTable(props: Props) {
             </TableRow>
           )}
           {performances &&
-            performances.map((session) => (
+            performances.map((private_service) => (
               <TableRow
-                key={session.session_id}
-                className={session.error ? classes.tableRowError : null}
+                key={private_service.private_booking_id}
+                className={private_service.error ? classes.tableRowError : null}
               >
-                <TableCell>{session.session_name}</TableCell>
+                <TableCell>{private_service.private_service_name}</TableCell>
                 <TableCell>
-                  {moment(session.date_start).format('ddd Do MMM')}
+                  {moment(private_service.date_start).format('ddd Do MMM')}
                 </TableCell>
                 <TableCell>
-                  {moment(session.duration_minute).format('HH:mm')}
+                  {moment(private_service.duration_minute).format('HH:mm')}
                 </TableCell>
-                <TableCell>{session.confirmed_bookings}</TableCell>
-                <TableCell>{session.cancelled_bookings}</TableCell>
+                <TableCell>{private_service.confirmed_bookings}</TableCell>
+                <TableCell>{private_service.cancelled_bookings}</TableCell>
                 <TableCell>
-                  {session.base_remuneration} {getCurrencyDisplay()}
-                </TableCell>
-                <TableCell>
-                  {session.coach_bonus || 0} {getCurrencyDisplay()}
+                  {private_service.base_remuneration} {getCurrencyDisplay()}
                 </TableCell>
                 <TableCell>
-                  {session.coach_total_payment || 0} {getCurrencyDisplay()}
+                  {private_service.coach_bonus || 0} {getCurrencyDisplay()}
+                </TableCell>
+                <TableCell>
+                  {private_service.coach_total_payment || 0}{' '}
+                  {getCurrencyDisplay()}
                 </TableCell>
                 <TableCell>
                   <CoachPaymentRuleSelector
-                    id="payment_rule_per_session"
+                    id="payment_rule_per_private_service"
                     coachPaymentRulesList={coachPaymentRulesList}
-                    selected={session.coach_payment_rule}
+                    selected={private_service.coach_payment_rule}
                     isOverride
                     enableReset
                     onChange={({ value }) => {
-                      setSessionCoachPaymentRule(
-                        session.session_id,
+                      updatePrivateBookingCoachPaymentRule(
+                        private_service.private_booking_id,
                         value,
                         coach.associated_coach_id,
                       );
@@ -168,6 +169,7 @@ const useStyles = makeStyles(() => ({
     },
   },
 }));
+
 export default withTranslation(['coachPerformance'])(
-  CoachPerformanceSessionTable,
+  CoachPerformancePrivateServiceTable,
 );

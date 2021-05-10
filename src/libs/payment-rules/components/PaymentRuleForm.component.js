@@ -80,7 +80,7 @@ export function PaymentRuleFields(props: Props) {
       </div>
       {
         // eslint-disable-next-line
-      props.values.calculation_method ==
+        props.values.calculation_method ==
         PAYMENT_RULE_CALCULATION_MARGIN_VALUE ? (
           <React.Fragment>
             <PercentField
@@ -96,7 +96,7 @@ export function PaymentRuleFields(props: Props) {
       }
       {
         // eslint-disable-next-line
-      props.values.calculation_method == PAYMENT_RULE_CALCULATION_BOOKINGS ? (
+        props.values.calculation_method == PAYMENT_RULE_CALCULATION_BOOKINGS ? (
           <React.Fragment>
             <PriceField
               id="textfield_remuneration_fixedamount"

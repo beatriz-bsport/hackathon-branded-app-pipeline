@@ -32,6 +32,7 @@ import { fetchSCT } from '../libs/category/actions';
 import { fetchAllPaymentPacks } from '../libs/payment-packs/actions';
 import { fetchShopItemAsManager as fetchShop } from '../libs/shop/actions/shopitem';
 import { fetchPaymentRules } from '../libs/payment-rules/actions';
+import { fetchAllCoachPaymentRules } from '../libs/coach-payment-rules/actions';
 import { fetchOnSpotPaymentReport as fetchOnSpotPaymentReportAction } from '../libs/payment/actions';
 import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/associated-coach/actions';
 // -----------------------------
@@ -148,6 +149,7 @@ type Props = {
   fetchAllPaymentPacks: () => void,
   fetchShop: () => void,
   fetchPaymentRules: () => void,
+  fetchAllCoachPaymentRules: () => void,
   fetchAssociatedCoaches: () => void,
   pushRouter: (string) => void,
 
@@ -223,6 +225,7 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchAllPaymentPacks();
     this.props.fetchShop();
     this.props.fetchPaymentRules();
+    this.props.fetchAllCoachPaymentRules();
     this.props.fetchAssociatedCoaches();
   }
 
@@ -422,6 +425,7 @@ export default compose(
       fetchAllPaymentPacks,
       fetchShop,
       fetchPaymentRules,
+      fetchAllCoachPaymentRules,
       fetchAssociatedCoaches,
 
       generateTempPassword,

@@ -42,6 +42,14 @@ export const getCoachWithPaymentRule = createSelector(
   getActiveCoaches,
   (coaches) => coaches.filter((coach) => !!coach.default_payment_rule_id),
 );
+export const getCoachWithCoachPaymentRule = createSelector(
+  getActiveCoaches,
+  (coaches) =>
+    coaches.filter(
+      (coach) =>
+        !!coach.coach_payment_rule_id || !!coach.private_coach_payment_rule_id,
+    ),
+);
 
 export const associatedCoachSelector = {
   get: (state: RootState, coachId: number) =>

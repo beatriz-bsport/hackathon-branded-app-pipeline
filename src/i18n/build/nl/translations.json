@@ -3501,7 +3501,7 @@
         "warning": {
             "disconnect": "Afmelden",
             "backToBackoffice": "Mijn Back Office openen",
-            "isManager": "Momenteel ben je als een medewerker ingelogd. Log uit om je MarketPlace/ledenweergave te bekijken."
+            "isManager": "Momenteel ben je als een medewerker ingelogd. Meld je af om je ledenweergave (MarketPlace) te bekijken."
         },
         "workshop": {
             "noWorkshopAvailable": "Er zijn nog geen workshops ingepland.",

@@ -24,7 +24,7 @@ else
 	COMMITS=$(git log --since=2.weeks -R $SOURCE_BRANCH)
 fi
 
-MATCH=$(echo $COMMITS | grep -Ec "\[ISSUE: #[[:digit:]]+]")
+MATCH=$(echo $COMMITS | grep -Ec "\[ISSUE: #[[:digit:]]+]") || echo 'no label to labellize'
 
 if [ $MATCH -gt 0 ]
 then

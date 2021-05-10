@@ -431,7 +431,7 @@
                 "book": "Reserveer",
                 "notBookableYet": "Binnenkort"
             },
-            "passListTitle": "Cursuskaarten (voor groepsactiviteiten)",
+            "passListTitle": "Cursuskaarten (voor groepsactiviteiten en workshops)",
             "privatePassListTitle": "Afspraakkaarten",
             "noSessionToday": "Er zijn nog geen sessies ingepland.",
             "showMarketplace": "Zie het rooster van ",
@@ -3383,7 +3383,7 @@
                 "bookingNumberFirst": "1e reservering",
                 "bookingNumberSecond": "2e reservering",
                 "bookingNumberThird": "3e reservering",
-                "bookingNumberAll": "Alle reserveringen",
+                "bookingNumberAll": "Iedere reservering",
                 "bookingNumberN": "Reservering: {{notify_booking_nb}}"
             },
             "addNotification": "Een melding toevoegen"

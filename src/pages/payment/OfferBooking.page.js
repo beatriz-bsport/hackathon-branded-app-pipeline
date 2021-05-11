@@ -248,25 +248,24 @@ export class OfferPaymentPage extends Component<Props, State> {
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <Analytics theme={this.props.theme} />
         <div className={this.props.classes.subContainer}>
-          {!WidgetUtils.isWidget() && (
-            <MarketplaceAppBar
-              paper
-              auth={this.props.auth}
-              logo={this.props.theme && this.props.theme.cover}
-              goToUserSpace={() =>
-                this.props.offer &&
-                this.props.goToUserSpace(this.props.offer.company)
-              }
-              currentBasket={this.props.currentBasket}
-              openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
-              disconnect={() => {
-                this.props.disconnect();
-              }}
-              onCancel={() => this.props.setSelectedContract(null)}
-              requestSetupIntentSecret={this.requestSetupIntentSecret}
-              companyId={this.props.offer && this.props.offer.company}
-            />
-          )}
+          <MarketplaceAppBar
+            isWidget={WidgetUtils.isWidget()}
+            paper
+            auth={this.props.auth}
+            logo={this.props.theme && this.props.theme.cover}
+            goToUserSpace={() =>
+              this.props.offer &&
+              this.props.goToUserSpace(this.props.offer.company)
+            }
+            currentBasket={this.props.currentBasket}
+            openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
+            disconnect={() => {
+              this.props.disconnect();
+            }}
+            onCancel={() => this.props.setSelectedContract(null)}
+            requestSetupIntentSecret={this.requestSetupIntentSecret}
+            companyId={this.props.offer && this.props.offer.company}
+          />
           <div className={this.props.classes.container}>
             <PaymentContainer
               hidePaper

@@ -32,7 +32,8 @@ type Props = {
   requestLogin: () => void,
   websiteURL: ?string,
   logo: ?string,
-  paper: Boolean,
+  paper: boolean,
+  isWidget?: boolean,
 
   t: TFunction,
   classes: Object,
@@ -105,26 +106,31 @@ export class MarketplaceAppBar extends Component<Props, State> {
     const Wrapper = this.props.paper ? React.Fragment : Toolbar;
     return (
       <Wrapper>
-        {this.props.logo ? (
-          <ButtonBase
-            onClick={() => {
-              if (this.props.websiteURL) {
-                window.location.href = this.props.websiteURL;
-              }
-            }}
-          >
-            <img height={40} src={this.props.logo} alt="bsport logo" />
-          </ButtonBase>
-        ) : (
-          <Typography
-            className={classes.title}
-            variant="h6"
-            color="inherit"
-            noWrap
-          >
-            {title}
-          </Typography>
-        )}
+        {
+          // eslint-disable-next-line
+	  this.props.isWidget ? (
+            <div />
+          ) : this.props.logo ? (
+            <ButtonBase
+              onClick={() => {
+                if (this.props.websiteURL) {
+                  window.location.href = this.props.websiteURL;
+                }
+              }}
+            >
+              <img height={40} src={this.props.logo} alt="bsport logo" />
+            </ButtonBase>
+          ) : (
+            <Typography
+              className={classes.title}
+              variant="h6"
+              color="inherit"
+              noWrap
+            >
+              {title}
+            </Typography>
+          )
+        }
         <div className={classes.grow} />
         {this.props.currentBasket ? (
           <ButtonBase

@@ -220,22 +220,21 @@ export class CheckoutPayment extends React.Component<Props> {
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <div className={this.props.classes.subContainer}>
-          {!WidgetUtils.isWidget() && (
-            <div style={{ width: '100%' }}>
-              <MarketplaceAppBar
-                paper
-                auth={this.props.auth}
-                logo={this.props.theme && this.props.theme.cover}
-                goToUserSpace={() =>
-                  this.props.companyId &&
-                  this.props.goToUserSpace(this.props.companyId)
-                }
-                disconnect={() => {
-                  this.props.disconnect(this.props.goBack);
-                }}
-              />
-            </div>
-          )}
+          <div style={{ width: '100%' }}>
+            <MarketplaceAppBar
+              isWidget={WidgetUtils.isWidget()}
+              paper
+              auth={this.props.auth}
+              logo={this.props.theme && this.props.theme.cover}
+              goToUserSpace={() =>
+                this.props.companyId &&
+                this.props.goToUserSpace(this.props.companyId)
+              }
+              disconnect={() => {
+                this.props.disconnect(this.props.goBack);
+              }}
+            />
+          </div>
           <Analytics theme={this.props.theme} />
           <div className={this.props.classes.container}>
             <div className={this.props.classes.checkoutFlow}>

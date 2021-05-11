@@ -15,11 +15,30 @@ type OwnProps = {
   store: any,
   theme: Theme,
   config?: MarketplacePassData,
+  onWindowOpen: (url: string) => void,
 };
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 
 class PassWidget extends Component<Props> {
+  addComboToCart = (comboId: number) => {
+    const { PUBLIC_URL } = window.runtime.env;
+    const url = `${PUBLIC_URL}/customer/payment/combo/${comboId}`;
+    this.props.onWindowOpen(url);
+  };
+
+  addPaymentPackToCart = (packId: number) => {
+    const { PUBLIC_URL } = window.runtime.env;
+    const url = `${PUBLIC_URL}/customer/payment/pass/${packId}`;
+    this.props.onWindowOpen(url);
+  };
+
+  addPrivatePassToCart = (packId: number) => {
+    const { PUBLIC_URL } = window.runtime.env;
+    const url = `${PUBLIC_URL}/customer/payment/private-pass/${packId}?membership=${this.props.companyId}`;
+    this.props.onWindowOpen(url);
+  };
+
   render() {
     const params = {
       hidePaymentPack: 'false',
@@ -47,6 +66,9 @@ class PassWidget extends Component<Props> {
           store={store}
           theme={theme}
           params={params}
+          addComboToCart={this.addComboToCart}
+          addPaymentPackToCart={this.addPaymentPackToCart}
+          addPrivatePassToCart={this.addPrivatePassToCart}
         />
       </div>
     );

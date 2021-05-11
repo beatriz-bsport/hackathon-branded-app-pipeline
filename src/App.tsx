@@ -28,8 +28,9 @@ import asyncComponent from './AsyncComponent';
 import FabWidget from './widgets/FabWidget';
 import { closeDialogAction, setDialogAction } from './store/actions.widget';
 import WidgetBridge from './widgets/WidgetBridge';
-import PassWidget from './widgets/Pass';
 
+const PassWidget = asyncComponent(() => import('./widgets/Pass'));
+const ShopWidget = asyncComponent(() => import('./widgets/Shop'));
 const CalendarWidget = asyncComponent(() => import('./widgets/Calendar'));
 const VODWidget = asyncComponent(() => import('./widgets/Vod'));
 const PrivateServiceWidget = asyncComponent(
@@ -94,7 +95,6 @@ class BsportWidget extends Component<Props> {
             store={store}
             theme={theme}
             onWindowOpen={this.onWindowOpen}
-            dialogMode={dialogMode}
           />
         );
       case 'privateService':
@@ -127,8 +127,20 @@ class BsportWidget extends Component<Props> {
             config={config[widgetType]}
             store={store}
             theme={theme}
+            onWindowOpen={this.onWindowOpen}
           />
         );
+      case 'shop':
+        return (
+          <ShopWidget
+            companyId={companyId}
+            config={config[widgetType]}
+            store={store}
+            theme={theme}
+            onWindowOpen={this.onWindowOpen}
+          />
+        );
+
       case 'newsletter':
         return <NewsletterWidget companyId={companyId} theme={theme} />;
       default:

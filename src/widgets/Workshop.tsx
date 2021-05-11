@@ -19,7 +19,6 @@ type OwnProps = {
   store: any,
   theme: Theme,
   onWindowOpen: (url: string) => void,
-  dialogMode: number,
 };
 
 type Props = OwnProps &

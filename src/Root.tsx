@@ -70,6 +70,7 @@ const migrateOldProps = (props: any) => {
       'vod',
       'playlist',
       'pass',
+      'shop',
     ].includes(_props.widgetType)
   ) {
     _props.widgetType = WidgetComponentsEnum.calendar;

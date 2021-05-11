@@ -1213,16 +1213,18 @@ export const privatePassRetrieveActions = {
   success: createAction('PRIVATE_PASS/RETRIEVE/SUCCESS'),
 };
 
-export function fetchPrivatePassRetrieve(id: number) {
+export function fetchPrivatePassRetrieve(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(privatePassRetrieveActions.isLoading(true));
     dispatch(privatePassRetrieveActions.error(null));
     try {
       const response = await fetchPrivatePassRetrieveAPI(id);
       dispatch(privatePassRetrieveActions.success(response.data));
+      options && options.onSuccess && options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
       dispatch(privatePassRetrieveActions.error(err));
+      options && options.onError && options.onError(err);
     }
     dispatch(privatePassRetrieveActions.isLoading(false));
   };

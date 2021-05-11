@@ -60,6 +60,9 @@ type OwnProps = {
   companyId: number;
   requestSignUp: () => void;
   toogleCurrentBasketOpen: (open: boolean) => void;
+  addComboToCart?: (id: number) => void;
+  addPaymentPackToCart?: (id: number) => void;
+  addPrivatePassToCart?: (id: number) => void;
 };
 
 type Props = OwnProps &
@@ -92,6 +95,48 @@ export class MarketPlacePassPage extends Component<Props> {
     }
   }
 
+  addComboToCart = (comboId: number) => {
+    if (this.props.addComboToCart) {
+      this.props.addComboToCart(comboId);
+      return;
+    }
+
+    if (!this.props.authenticated) {
+      this.props.requestSignUp();
+    } else {
+      this.props.pushComboCheckout(comboId, this.props.currentBasket.id);
+      this.props.toogleCurrentBasketOpen(true);
+    }
+  };
+
+  addPaymentPackToCart = (packId: number) => {
+    if (this.props.addPaymentPackToCart) {
+      this.props.addPaymentPackToCart(packId);
+      return;
+    }
+
+    if (!this.props.authenticated) {
+      this.props.requestSignUp();
+    } else {
+      this.props.pushPackCheckout(packId, this.props.currentBasket.id);
+      this.props.toogleCurrentBasketOpen(true);
+    }
+  };
+
+  addPrivatePassToCart = (packId: number) => {
+    if (this.props.addPrivatePassToCart) {
+      this.props.addPrivatePassToCart(packId);
+      return;
+    }
+
+    if (!this.props.authenticated) {
+      this.props.requestSignUp();
+    } else {
+      this.props.pushPrivatePassCheckout(packId, this.props.currentBasket.id);
+      this.props.toogleCurrentBasketOpen(true);
+    }
+  };
+
   render() {
     if (this.props.loading) {
       return <LinearProgress />;
@@ -107,17 +152,7 @@ export class MarketPlacePassPage extends Component<Props> {
           <Grid item xs={12}>
             <MarketplacePaymentComboList
               paymentComboList={this.props.paymentComboList}
-              onAddBasket={(comboId) => {
-                if (!this.props.authenticated) {
-                  this.props.requestSignUp();
-                } else {
-                  this.props.pushComboCheckout(
-                    comboId,
-                    this.props.currentBasket.id,
-                  );
-                  this.props.toogleCurrentBasketOpen(true);
-                }
-              }}
+              onAddBasket={this.addComboToCart}
             />
           </Grid>
         ) : null}
@@ -125,17 +160,7 @@ export class MarketPlacePassPage extends Component<Props> {
           <Grid item xs={11} md={5}>
             <MarketplacePassList
               paymentPacks={this.props.paymentPacks}
-              pushPackCheckout={(packId) => {
-                if (!this.props.authenticated) {
-                  this.props.requestSignUp();
-                } else {
-                  this.props.pushPackCheckout(
-                    packId,
-                    this.props.currentBasket.id,
-                  );
-                  this.props.toogleCurrentBasketOpen(true);
-                }
-              }}
+              pushPackCheckout={this.addPaymentPackToCart}
             />
           </Grid>
         )}
@@ -144,17 +169,7 @@ export class MarketPlacePassPage extends Component<Props> {
           <Grid item xs={11} md={5}>
             <MarketplacePrivatePassList
               privatePassList={this.props.privatePassList}
-              onAddBasket={(packId) => {
-                if (!this.props.authenticated) {
-                  this.props.requestSignUp();
-                } else {
-                  this.props.pushPrivatePassCheckout(
-                    packId,
-                    this.props.currentBasket.id,
-                  );
-                  this.props.toogleCurrentBasketOpen(true);
-                }
-              }}
+              onAddBasket={this.addPrivatePassToCart}
             />
           </Grid>
         ) : null}
@@ -241,9 +256,6 @@ export const MarketplacePassBase = compose<any, OwnProps>(
     }),
   ),
   withTranslation(),
-  withTitle(({ t }: { t: TFunction }) =>
-    t('titles:marketplace.marketplacePass'),
-  ),
 )(MarketPlacePassPage);
 
 export default compose<any, OwnProps>(
@@ -252,4 +264,8 @@ export default compose<any, OwnProps>(
     ['hidePaymentPack', 'hidePrivatePass', 'hidePaymentCombo'],
     'params',
   ]),
+  withTranslation(),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:marketplace.marketplacePass'),
+  ),
 )(MarketplacePassBase);

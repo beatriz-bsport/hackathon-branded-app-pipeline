@@ -180,6 +180,7 @@ const styles = (theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    width: '100%',
   },
   shopitemCard: {
     width: '80%',

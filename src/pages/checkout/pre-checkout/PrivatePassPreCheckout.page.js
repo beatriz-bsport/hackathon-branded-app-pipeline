@@ -13,7 +13,6 @@ import { compose } from 'recompose';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import InfoIcon from '@material-ui/icons/Info';
 import type { TFunction } from 'react-i18next';
-import { payment as paymentActions } from '../../../actions';
 import themeSelectors from '../../../libs/theme/selectors';
 import type { Theme } from '../../../libs/theme/types';
 import { getTheme } from '../../../theme';
@@ -27,14 +26,17 @@ import { getCurrentBasket } from '../../../libs/checkout/selectors';
 import type { Basket } from '../../../libs/checkout/types';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import Analytics from '../../../components/analytics/Analytics.component';
+import { fetchPrivatePassRetrieve } from '../../../libs/private-service/actions';
+import { OptionCallback } from '../../../state/types';
 
 type Props = {
   theme: Theme,
   privatePassId: number,
   goBack: () => void,
-  fetchCurrentBasket: (companyId: number, options: ?OptionCallback) => void,
+  fetchCurrentBasket: (companyId: number, options?: OptionCallback) => void,
   addItemToBasket: (basketId: number, data: any, option: *) => void,
   goToCheckout: (companyId: number) => void,
+  fetchPrivatePassRetrieve: (packId, options?: OptionCallback) => void,
   urlParams: Object,
   classes: Object,
   t: TFunction,
@@ -49,9 +51,8 @@ export class PaymentPrivatePassPage extends Component<Props, State> {
     error: false,
   };
 
-  addItem = (basket: Basket) => {
+  addItem = (basket: Basket, companyId: number) => {
     const { privatePassId } = this.props;
-    const companyId = this.props.urlParams.membership;
 
     Analytics.addPassToCart(
       {
@@ -77,11 +78,20 @@ export class PaymentPrivatePassPage extends Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.fetchCurrentBasket(this.props.urlParams.membership, {
-      onSuccess: (basket) => this.addItem(basket),
-      onError: null,
-    });
+    if (this.props.urlParams && this.props.urlParams.membership !== undefined) {
+      this.fetchData(this.props.urlParams.membership);
+    } else {
+      this.props.fetchPrivatePassRetrieve(this.props.privatePassId, {
+        onSuccess: (pass) => this.fetchData(pass.company),
+      });
+    }
   }
+
+  fetchData = (companyId: number) => {
+    this.props.fetchCurrentBasket(companyId, {
+      onSuccess: (basket) => this.addItem(basket, companyId),
+    });
+  };
 
   goToPassMarketplace = () => {
     if (this.props.theme && this.props.theme.scheduleURL) {
@@ -161,7 +171,7 @@ export default compose(
       removeItemFromBasket,
       fetchCurrentBasket,
       goToCheckout: (companyId: number) => replace(`/checkout/${companyId}`),
-      fetchShopItem: paymentActions.fetchShopItem,
+      fetchPrivatePassRetrieve,
       goBack,
     },
   ),

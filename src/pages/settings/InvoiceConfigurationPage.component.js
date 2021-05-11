@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { compose } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -8,8 +8,12 @@ import { withTranslation } from 'react-i18next';
 import InvoiceConfigurationForm from '../../libs/invoice/components/InvoiceConfigurationForm.component';
 import {
   fetchInvoiceConfiguration,
-  patchInvoiceConfiguration,
+  patchInvoiceConfiguration as patchInvoiceConfigurationAction,
 } from '../../libs/invoice/actions';
+import {
+  snackbarSuccess as snackbarSuccessAction,
+  snackbarError as snackbarErrorAction,
+} from '../../actions/snackbar.actions';
 import withTitle from '../../hocs/with-title.hoc';
 
 type Props = {
@@ -65,7 +69,21 @@ export default compose(
     }),
     {
       fetchInvoiceConfiguration,
-      patchInvoiceConfiguration,
+      patchInvoiceConfiguration: patchInvoiceConfigurationAction,
+      snackbarSuccess: snackbarSuccessAction,
+      snackbarError: snackbarErrorAction,
     },
   ),
+  withHandlers({
+    patchInvoiceConfiguration: ({
+      patchInvoiceConfiguration,
+      snackbarSuccess,
+      snackbarError,
+    }) => (data) => {
+      patchInvoiceConfiguration(data, {
+        onSuccess: () => snackbarSuccess('settings.update.success'),
+        onError: () => snackbarError('settings.update.error'),
+      });
+    },
+  }),
 )(InvoiceConfigurationPage);

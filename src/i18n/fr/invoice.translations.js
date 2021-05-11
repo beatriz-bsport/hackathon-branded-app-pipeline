@@ -130,6 +130,7 @@ exports.default = {
       delete: 'Annuler',
       edit: 'Modifier',
     },
+    nextRetryDate: 'Le paiement sera retenté le {{ d }}',
   },
   paymentPanel: {
     amountRemaining: 'Reste à payer: {{ amount }}',
@@ -254,6 +255,20 @@ exports.default = {
   },
   configuration: {
     stripe_footer: 'Bas de page facture',
+    subscription: {
+      title: 'Souscription',
+      forms: {
+        activateSmartRetries: {
+          label: 'Activer Smart Retries sur les échecs de paiement',
+          helperText:
+            'bsport réessaiera automatiquement les paiements échoués des souscriptions, au meilleur moment.',
+        },
+        nbRetriesSubscriptionPayments: {
+          label: 'Nombres de tentatives après un échec de paiement',
+          helperText: 'Entre 0 et 5 tentatives',
+        },
+      },
+    },
     explainStripeFooter:
       'Ce texte apparaitra en bas de vos factures éditées en PDF, ajoutez toute mention légale nécessaire.',
     submit_stripe_footer: 'Mettre à jour',

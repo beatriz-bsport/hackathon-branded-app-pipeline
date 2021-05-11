@@ -5,6 +5,12 @@ exports.default = {
       error: 'Impossible de restaurer cette séance',
     },
   },
+  settings: {
+    update: {
+      success: 'Paramètres mis à jour',
+      error: 'Impossible de mettre à jour, veuillez réessayer plus tard',
+    },
+  },
   invoice: {
     returnPaymentLocked:
       'Impossible de rembourser ce paiement, votre compte Stripe est-il assez approvisionné ?',

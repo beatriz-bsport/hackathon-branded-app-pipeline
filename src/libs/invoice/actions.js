@@ -33,15 +33,21 @@ export const invoiceConfigurationPatchActions = {
   error: createAction('INVOICE-CONFIGURATION/PATCH/ERROR'),
 };
 
-export function patchInvoiceConfiguration(data: *) {
+export function patchInvoiceConfiguration(data: *, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(invoiceConfigurationPatchActions.isLoading(true));
     dispatch(invoiceConfigurationPatchActions.error(null));
     try {
       const response = await patchConfigurationAPI(data);
       dispatch(invoiceConfigurationDetailActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
       dispatch(invoiceConfigurationPatchActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
     }
     dispatch(invoiceConfigurationPatchActions.isLoading(false));
   };

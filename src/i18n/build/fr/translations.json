@@ -3144,7 +3144,10 @@
         "15": "Carte bleue (manuel)"
       }
     },
-    "plannedPaymentEvent": { "actions": { "registerNow": "Encaisser maintenant", "delete": "Annuler", "edit": "Modifier" } },
+    "plannedPaymentEvent": {
+      "actions": { "registerNow": "Encaisser maintenant", "delete": "Annuler", "edit": "Modifier" },
+      "nextRetryDate": "Le paiement sera retenté le {{ d }}"
+    },
     "paymentPanel": {
       "amountRemaining": "Reste à payer: {{ amount }}",
       "errorSecretExplain1": "Ce mode de paiement est indisponible pour le moment",
@@ -3228,6 +3231,16 @@
     },
     "configuration": {
       "stripe_footer": "Bas de page facture",
+      "subscription": {
+        "title": "Souscription",
+        "forms": {
+          "activateSmartRetries": {
+            "label": "Activer Smart Retries sur les échecs de paiement",
+            "helperText": "bsport réessaiera automatiquement les paiements échoués des souscriptions, au meilleur moment."
+          },
+          "nbRetriesSubscriptionPayments": { "label": "Nombres de tentatives après un échec de paiement", "helperText": "Entre 0 et 5 tentatives" }
+        }
+      },
       "explainStripeFooter": "Ce texte apparaitra en bas de vos factures éditées en PDF, ajoutez toute mention légale nécessaire.",
       "submit_stripe_footer": "Mettre à jour",
       "forms": { "stripe_footer_placeholder": "Aucune mention supplémentaire" },
@@ -3284,6 +3297,9 @@
   },
   "snackbar": {
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
+    "settings": {
+      "update": { "success": "Paramètres mis à jour", "error": "Impossible de mettre à jour, veuillez réessayer plus tard" }
+    },
     "invoice": {
       "returnPaymentLocked": "Impossible de rembourser ce paiement, votre compte Stripe est-il assez approvisionné ?",
       "update": { "success": "Facture mise à jour avec succès" },

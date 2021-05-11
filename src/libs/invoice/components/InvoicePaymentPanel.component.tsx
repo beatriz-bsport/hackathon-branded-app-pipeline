@@ -23,19 +23,24 @@ import { OptionCallback } from '../../../state/types';
 const InvoicePaymentStatus = (props: {
   amountToPayCts: number;
   isDraft: boolean;
+  hasPendingPlannedPaymentEvent: boolean;
 }) => {
   const classes = useStyles();
   return (
     <div className={classes.statusContainer}>
-      {!props.isDraft && props.amountToPayCts <= 0 && (
-        <CheckIcon color="primary" className={classes.statusIcon} />
-      )}
-      {!!props.isDraft && (
+      {!props.hasPendingPlannedPaymentEvent &&
+        !props.isDraft &&
+        props.amountToPayCts <= 0 && (
+          <CheckIcon color="primary" className={classes.statusIcon} />
+        )}
+      {(props.hasPendingPlannedPaymentEvent || !!props.isDraft) && (
         <HourglassEmptyIcon color="secondary" className={classes.statusIcon} />
       )}
-      {!props.isDraft && props.amountToPayCts > 0 && (
-        <CancelIcon color="error" className={classes.statusIcon} />
-      )}
+      {!props.hasPendingPlannedPaymentEvent &&
+        !props.isDraft &&
+        props.amountToPayCts > 0 && (
+          <CancelIcon color="error" className={classes.statusIcon} />
+        )}
     </div>
   );
 };
@@ -165,6 +170,10 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
     <div className={classes.container}>
       <div className={classes.innerContainer}>
         <InvoicePaymentStatus
+          hasPendingPlannedPaymentEvent={
+            props.plannedPaymentEventList &&
+            props.plannedPaymentEventList.length > 0
+          }
           amountToPayCts={amountToPayCts}
           isDraft={props.invoice.is_draft}
         />

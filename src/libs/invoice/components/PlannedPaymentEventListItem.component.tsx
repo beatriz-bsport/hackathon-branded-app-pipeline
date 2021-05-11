@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
+import RefreshIcon from '@material-ui/icons/Refresh';
 
 import { PlannedPaymentEvent } from '../types';
 
@@ -16,21 +17,40 @@ export const PlannedPaymentEventListItem = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
 
+  const { plannedPaymentEvent } = props;
+
   return (
     <div className={classes.container}>
       <div className={classes.row}>
-        <HourglassEmptyIcon className={classes.leftIcon} />
+        {plannedPaymentEvent.nb_retries > 0 ? (
+          <RefreshIcon className={classes.leftIcon} />
+        ) : (
+          <HourglassEmptyIcon className={classes.leftIcon} />
+        )}
         <div className={classes.leftColumn}>
           <Typography>
             {t(
-              `paymentMethod.label.${props.plannedPaymentEvent.payment_method_identifier}`,
+              `paymentMethod.label.${plannedPaymentEvent.payment_method_identifier}`,
             )}
           </Typography>
-          <div className={classes.row}>
-            <Typography color="textSecondary" variant="caption">
-              {moment(props.plannedPaymentEvent.future_date).format('L')}
-            </Typography>
-          </div>
+          {plannedPaymentEvent.nb_retries === 0 && (
+            <div className={classes.row}>
+              <Typography color="textSecondary" variant="caption">
+                {moment(plannedPaymentEvent.future_date).format('L')}
+              </Typography>
+            </div>
+          )}
+          {plannedPaymentEvent.nb_retries !== 0 && (
+            <div className={classes.row}>
+              <Typography color="textSecondary" variant="caption">
+                {t('plannedPaymentEvent.nextRetryDate', {
+                  d: moment(props.plannedPaymentEvent.next_retry_date).format(
+                    'LL',
+                  ),
+                })}
+              </Typography>
+            </div>
+          )}
         </div>
       </div>
       {/*

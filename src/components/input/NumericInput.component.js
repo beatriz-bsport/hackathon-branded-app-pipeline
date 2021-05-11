@@ -21,6 +21,7 @@ type Props = {
   helperText: ?string,
   classes: Object,
   variant: ?string,
+  onBlur: ?() => void,
 };
 
 export function NumericInput(props: Props) {
@@ -51,6 +52,7 @@ export function NumericInput(props: Props) {
       helperText={helperText}
       fullWidth={props.fullWidth}
       margin={props.margin}
+      onBlur={props.onBlur}
     />
   );
 }

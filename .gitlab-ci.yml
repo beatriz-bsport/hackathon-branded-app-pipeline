@@ -42,7 +42,8 @@ stages:
   # image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
   stage: build-deploy 
   tags:
-    - build-frontend
+    - high-ram
+    - kubernetes
   only:
     refs:
       - dev

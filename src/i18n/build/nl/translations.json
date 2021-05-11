@@ -5693,7 +5693,8 @@
             },
             "create": {
                 "success": "Factuur opgeslagen"
-            }
+            },
+            "returnPaymentLocked": "Deze terugbetaling kon niet worden voltooid. Weet je zeker dat je account met Stripe voldoende saldo heeft?"
         },
         "link": {
             "copied": "Link gekopieerd naar klembord"

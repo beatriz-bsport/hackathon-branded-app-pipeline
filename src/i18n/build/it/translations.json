@@ -3044,7 +3044,8 @@
             "error": "Errore durante la registrazione - Annullato",
             "update": {
                 "success": "Fattura aggiornata correttamente"
-            }
+            },
+            "returnPaymentLocked": "Impossibile rimborsare questo pagamento, ci sono abbastanza soldi nel tuo conto Stripe?"
         },
         "establishment": {
             "delete": {
@@ -5173,7 +5174,7 @@
                 "isTooLate": "Le registrazioni non sono più possibili.",
                 "isWaitingListFull": "La sessione è piena, la lista di attesa è piena.",
                 "isDisabled": "La sessione è stata purtroppo annullata.",
-                "isTooSoon": "La registrazione è chiusa per il momento e si aprirà il {{date}}."
+                "isTooSoon": "La registrazione è chiusa per il momento e si aprirà il {{ date }}."
             },
             "messages": {
                 "offerLocked": "Non è possibile prenotare questa sessione",

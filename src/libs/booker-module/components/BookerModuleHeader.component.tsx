@@ -116,6 +116,7 @@ const styles = (theme: Theme) => ({
     bottom: 0,
     right: 0,
     borderRadius: 2,
+    objectFit: 'cover',
   },
   content: {
     display: 'flex',

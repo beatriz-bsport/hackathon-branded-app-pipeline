@@ -10,8 +10,20 @@ stages:
   #   - prepare-image-docker
   #- static-analysis
   - build-deploy
+  - label-issues
 
 
+.Label issues Base:
+  image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:v1.0.1
+  stage: label-issues
+  tags:
+    - light
+    - kubernetes
+  only:
+    - dev
+    - master
+    - production
+  script: ./scripts/label-gitlab-issue.sh
 
 # Prepare Docker Builder Image:
 #   image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:v1.0.1

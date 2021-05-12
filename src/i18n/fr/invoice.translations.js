@@ -258,6 +258,18 @@ exports.default = {
     subscription: {
       title: 'Souscription',
       forms: {
+        revert_bookings_on_fail_subscription_payment: {
+          label: 'Annuler les réservations si le paiement échoue.',
+          warning:
+            'Attention, les réservations ne seront pas recrées si le paiement réussie !',
+          helperText:
+            'Si le paiement de la souscription échoue ou est déclaré comme litigieux, les réservations réalisées avec ces cartes seront annulées (et le crédit recrédité)',
+        },
+        disable_pass_on_fail_subscription_payment: {
+          label: 'Désactiver les cartes si le paiement échoue.',
+          helperText:
+            "Si le paiement de la souscription échoue ou est déclaré comme litigieux, les cartes de cours et de RDV de cette facture seront désactivées jusqu'à ce que la facture soit encaissée",
+        },
         activateSmartRetries: {
           label: 'Activer Smart Retries sur les échecs de paiement',
           helperText:

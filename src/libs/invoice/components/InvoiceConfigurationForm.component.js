@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import AttachIcon from '@material-ui/icons/Attachment';
 import { withTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
+import Collapse from '@material-ui/core/Collapse';
+import WarningIcon from '@material-ui/icons/Warning';
 import Switch from '@material-ui/core/Switch';
 import type { TFunction } from 'react-i18next';
 import NumberInput from '../../../components/input/NumericInput.component';
@@ -38,6 +40,10 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
         props.configuration.nb_retries_subscription_payments > 0,
       nb_retries_subscription_payments:
         props.configuration.nb_retries_subscription_payments,
+      disable_pass_on_fail_subscription_payment:
+        props.configuration.disable_pass_on_fail_subscription_payment,
+      revert_bookings_on_fail_subscription_payment:
+        props.configuration.revert_bookings_on_fail_subscription_payment,
     };
   }
 
@@ -109,19 +115,109 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             }
             value={this.state.nb_retries_subscription_payments}
           />
+          <div className={classes.inputContainer}>
+            <Switch
+              checked={this.state.disable_pass_on_fail_subscription_payment}
+              onChange={(ev) => {
+                const c = ev.target.checked;
+                this.setState((prevState) => ({
+                  disable_pass_on_fail_subscription_payment: c,
+                  revert_bookings_on_fail_subscription_payment: c
+                    ? prevState.revert_bookings_on_fail_subscription_payment
+                    : false,
+                }));
+              }}
+            />
+            <Typography>
+              {t(
+                'configuration.subscription.forms.disable_pass_on_fail_subscription_payment.label',
+              )}
+            </Typography>
+          </div>
+          <div className={classes.helperTextContainer}>
+            <Typography variant="caption">
+              {t(
+                'configuration.subscription.forms.disable_pass_on_fail_subscription_payment.helperText',
+              )}
+            </Typography>
+          </div>
+          <div className={classes.inputContainer}>
+            <Switch
+              disabled={!this.state.disable_pass_on_fail_subscription_payment}
+              checked={this.state.revert_bookings_on_fail_subscription_payment}
+              onChange={(ev) => {
+                this.setState({
+                  revert_bookings_on_fail_subscription_payment:
+                    ev.target.checked,
+                });
+              }}
+            />
+            <Typography
+              color={
+                this.state.disable_pass_on_fail_subscription_payment
+                  ? 'default'
+                  : 'textSecondary'
+              }
+            >
+              {t(
+                'configuration.subscription.forms.revert_bookings_on_fail_subscription_payment.label',
+              )}
+            </Typography>
+          </div>
+          <div className={classes.helperTextContainer}>
+            <Typography
+              variant="caption"
+              color={
+                this.state.disable_pass_on_fail_subscription_payment
+                  ? 'default'
+                  : 'textSecondary'
+              }
+            >
+              {t(
+                'configuration.subscription.forms.revert_bookings_on_fail_subscription_payment.helperText',
+              )}
+            </Typography>
+          </div>
+          <Collapse in={this.state.disable_pass_on_fail_subscription_payment}>
+            <div className={classes.warningContainer}>
+              <WarningIcon color="error" fontSize="small" />
+              <Typography
+                variant="caption"
+                color={
+                  this.state.disable_pass_on_fail_subscription_payment
+                    ? 'default'
+                    : 'textSecondary'
+                }
+              >
+                {t(
+                  'configuration.subscription.forms.revert_bookings_on_fail_subscription_payment.warning',
+                )}
+              </Typography>
+            </div>
+          </Collapse>
           <div className={classes.buttonContainer}>
             <Button
               color="primary"
               variant="contained"
               onClick={() =>
                 this.props.onSubmit({
+                  disable_pass_on_fail_subscription_payment: this.state
+                    .disable_pass_on_fail_subscription_payment,
+                  revert_bookings_on_fail_subscription_payment: this.state
+                    .revert_bookings_on_fail_subscription_payment,
                   nb_retries_subscription_payments: this.state
                     .nb_retries_subscription_payments,
                 })
               }
               disabled={
-                this.props.configuration.nb_retries_subscription_payments ===
-                  parseInt(this.state.nb_retries_subscription_payments, 10) ||
+                (this.props.configuration.nb_retries_subscription_payments ===
+                  parseInt(this.state.nb_retries_subscription_payments, 10) &&
+                  this.props.configuration
+                    .disable_pass_on_fail_subscription_payment ===
+                    this.state.disable_pass_on_fail_subscription_payment &&
+                  this.props.configuration
+                    .revert_bookings_on_fail_subscription_payment ===
+                    this.state.revert_bookings_on_fail_subscription_payment) ||
                 this.props.processing
               }
             >
@@ -224,6 +320,20 @@ const styles = (theme) => ({
   helperTextContainer: {
     marginTop: theme.spacing(-1),
     marginBottom: theme.spacing(2),
+  },
+  warningContainer: {
+    marginTop: theme.spacing(-1),
+    marginBottom: theme.spacing(2),
+    display: 'flex',
+    border: '1px solid red',
+    borderRadius: 8,
+    padding: theme.spacing(1),
+    backgroundColor: 'rgba(255, 50, 0, 0.1)',
+    flexDirection: 'row',
+    alignItems: 'center',
+    '&>*': {
+      marginRight: theme.spacing(1),
+    },
   },
 });
 

@@ -40,6 +40,7 @@ type OwnProps = {
   smartLists: any[];
   smartListLoading: boolean;
   metaActivities: MetaActivity[];
+  workshopList: MetaActivity[];
   establishments: Establishment[];
   privateServices: PrivateService[];
   paymentPacks: PaymentPack[];
@@ -97,7 +98,11 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
               createFromSource: { identifier, objectId },
             });
           }}
-          metaActivities={this.props.metaActivities}
+          metaActivities={
+            this.state.createFromSource.identifier === 'workshop'
+              ? this.props.workshopList
+              : this.props.metaActivities
+          }
           establishments={this.props.establishments}
           privateServices={this.props.privateServices}
           paymentPacks={this.props.paymentPacks}
@@ -143,7 +148,7 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
       }
     }
 
-    if (['meta_activity', 'establishment'].includes(identifier)) {
+    if (['meta_activity', 'establishment', 'workshop'].includes(identifier)) {
       return (
         <BookingCreationNotificationForm
           objectId={objectId}
@@ -215,6 +220,10 @@ export class NotificationFormGeneric extends React.PureComponent<Props, State> {
             {
               label: t('notifications.fabLabels.meta_activity'),
               onClick: () => this.onClickCreateForIdentifier('meta_activity'),
+            },
+            {
+              label: t('notifications.fabLabels.workshop'),
+              onClick: () => this.onClickCreateForIdentifier('workshop'),
             },
             {
               label: t('notifications.fabLabels.establishment'),

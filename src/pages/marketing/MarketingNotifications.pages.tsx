@@ -56,7 +56,10 @@ import { EmailTemplateSummary } from '../../libs/email-editor/types';
 import NotificationFormGeneric from '../../libs/marketing/components/NotificationFormGeneric';
 import { getAllSmartList } from '../../libs/smart-list/selectors';
 import { fetchAllSmartLists } from '../../libs/smart-list/actions';
-import { getPageEnabledMetaActivities } from '../../libs/meta-activity/selectors';
+import {
+  getPageEnabledMetaActivities,
+  getEnabledWorkshops,
+} from '../../libs/meta-activity/selectors';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import { _getPrivateServices } from '../../libs/private-service/selectors/private-service';
 import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
@@ -250,6 +253,7 @@ export class MarketingNotifications extends Component<Props, State> {
           onUpdateMarketingNotification={this.onEditNotification}
           onCreateMarketingNotification={this.props.createMarketingNotification}
           metaActivities={this.props.metaActivities}
+          workshopList={this.props.workshopList}
           establishments={this.props.establishments}
           privateServices={this.props.privateServices}
           paymentPacks={this.props.paymentPacks}
@@ -304,6 +308,7 @@ const mapStateToProps = (state: RootState) => ({
   smartLists: getAllSmartList(state),
   smartListLoading: state.smartList.isLoading,
   metaActivities: getPageEnabledMetaActivities(state),
+  workshopList: getEnabledWorkshops(state),
   establishments: getAvailableEstablishmentList(state),
   privateServices: _getPrivateServices(state),
   paymentPacks: getAllPaymentPacks(state),

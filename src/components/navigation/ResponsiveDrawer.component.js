@@ -680,7 +680,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             text: t('backofficeMenu.sequence'),
           },
           {
-            to: '/notifications',
+            to: '/marketing/notifications',
             icon: NotificationsActiveIcon,
             text: t('backofficeMenu.marketingNotification'),
           },

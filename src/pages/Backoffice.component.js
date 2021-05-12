@@ -112,10 +112,6 @@ const Subscription = asyncComponent(() =>
   import('./subscription/Subscription.router'),
 );
 
-const MarketingNotifications = asyncComponent(() =>
-  import('./marketing/MarketingNotifications.pages'),
-);
-
 type Props = {
   alertings: Array<Alerting>,
   nbAlerting: number,
@@ -181,7 +177,6 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route path="/establishment" component={Establishment} />
       <Route path="/smart-list" component={SmartList} />
       <Route path="/marketing" component={MarketingRouter} />
-      <Route path="/notifications" component={MarketingNotifications} />
       <Route path="/email-template" component={EmailTemplate} />
       <Route path="/reporting/" component={Reporting} />
       <Route path="/combo/" component={PaymentCombo} />

@@ -66,7 +66,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
       selectedPaymentPack: null,
     };
 
-    if (identifier === 'meta_activity') {
+    if (['meta_activity', 'workshop'].includes(identifier)) {
       state.selectedMetaActivity = [value];
     }
     if (identifier === 'establishment') {
@@ -87,7 +87,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
 
     let objectId = -1;
 
-    if (identifier === 'meta_activity') {
+    if (['meta_activity', 'workshop'].includes(identifier)) {
       /* eslint-disable-next-line */
       objectId = this.state.selectedMetaActivity[0];
     }
@@ -108,7 +108,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
   disableSubmit = () => {
     const { identifier } = this.props;
 
-    if (identifier === 'meta_activity') {
+    if (['meta_activity', 'workshop'].includes(identifier)) {
       return !this.state.selectedMetaActivity.length;
     }
     if (identifier === 'establishment') {
@@ -137,7 +137,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
               {t(`notifications.selectIdentifierLabel.${identifier}`)}
             </Typography>
 
-            {this.props.identifier === 'meta_activity' && (
+            {['meta_activity', 'workshop'].includes(this.props.identifier) && (
               <MetaActivitySelector
                 metaActivities={this.props.metaActivities || []}
                 closeMenuOnSelect
@@ -157,7 +157,7 @@ class NotificationSourceSelector extends React.PureComponent<Props, State> {
                   this.onChange('establishment', value);
                 }}
                 noMulti
-                closeMenuOnSelect={true}
+                closeMenuOnSelect
               />
             )}
 

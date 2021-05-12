@@ -21,6 +21,8 @@ type Props = {
   configuration: {
     stripe_footer: string,
     nb_retries_subscription_payments: number,
+    disable_pass_on_fail_subscription_payment: boolean,
+    revert_bookings_on_fail_subscription_payment: boolean,
   },
   processing: boolean,
   onSubmit: (*) => void,
@@ -29,6 +31,8 @@ type Props = {
 type State = {
   stripe_footer: string,
   nb_retries_subscription_payments: number,
+  disable_pass_on_fail_subscription_payment: boolean,
+  revert_bookings_on_fail_subscription_payment: boolean,
 };
 
 export class InvoiceConfigurationForm extends React.Component<Props, State> {

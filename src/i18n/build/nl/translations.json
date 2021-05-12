@@ -635,7 +635,7 @@
             "SMSSent": "Verzonden sms'jes",
             "action": "Actie",
             "totalBuy": "Totale omzet",
-            "averageBuy": "Gemiddelde waarde van de winkelmand",
+            "averageBuy": "Gemiddelde winkelmandwaarde",
             "sales": "Verkoop",
             "conversionRate": "Conversiepercentage",
             "dashboard": "Campagnes"
@@ -1303,7 +1303,7 @@
         "show_cancelled_offers": "Toon de geannuleerde sessies",
         "quickInvoiceNoVoucher": "Laat de waarde van dit veld op 0 staan als je geen korting wilt toepassen",
         "quickInvoiceVoucher": "Kies de korting die je wenst toe te passen bij het factureren van de volgende cursuskaart",
-        "metaActivityNotificationToolTip": "Er zijn meldingen ingesteld voor deze reserveringen"
+        "metaActivityNotificationToolTip": "Bevat automatische meldingen"
     },
     "communication": {
         "mail": {
@@ -1786,7 +1786,9 @@
             "accept_sms": "Accepteert marketingsms'jes",
             "payout_identifier": "Overschrijven",
             "credit_amount": "Aantal kredieten",
-            "initial_price": "Koopprijs"
+            "initial_price": "Koopprijs",
+            "last_view": "Laatst bekeken op",
+            "video_title": "Titel van de video"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -1827,7 +1829,8 @@
             "cashbook": "Kasboek",
             "on_spot_payments": "Contante betalingen",
             "video": "Video",
-            "unpaid_invoices": "Openstaande facturen"
+            "unpaid_invoices": "Openstaande facturen",
+            "video_purchase": "Gekochte video's"
         },
         "globalCategories": {
             "subheader": {
@@ -6709,12 +6712,12 @@
             },
             "websiteURL": {
                 "label": "Link naar je eigen website",
-                "helperText": "Plak hier de link naar je website.",
+                "helperText": "Plak hier de link naar de hoofdpagina van je eigen website.",
                 "placeholder": "https://studio.nl/"
             },
             "scheduleURL": {
                 "label": "Link naar je rooster",
-                "helperText": "Plak hier de link naar je rooster.",
+                "helperText": "Plak hier de link naar je rooster op je eigen website.",
                 "placeholder": "https://studio.nl/rooster/"
             },
             "submit": "Opslaan",
@@ -6857,6 +6860,15 @@
                     "activateSmartRetries": {
                         "helperText": "Het systeem zal automatisch mislukte betalingen voor abonnementen opnieuw uitvoeren.",
                         "label": "Activeer Smart Retries voor mislukte betalingen."
+                    },
+                    "revert_bookings_on_fail_subscription_payment": {
+                        "label": "Annuleer reserveringen als de betaling mislukt.",
+                        "warning": "Waarschuwing: annuleringen worden niet hersteld als de betaling vervolgens wel lukt!",
+                        "helperText": "Als de betaling voor het abonnement mislukt, worden de reserveringen geannuleerd en de kredieten zullen worden teruggestort."
+                    },
+                    "disable_pass_on_fail_subscription_payment": {
+                        "label": "Deactiveer het lidmaatschap als de betaling mislukt.",
+                        "helperText": "Als de betaling voor het abonnement mislukt, worden de cursus- en afspraakkaarten van deze factuur gedeactiveerd tot de factuur betaald is."
                     }
                 },
                 "title": "Abonnement"

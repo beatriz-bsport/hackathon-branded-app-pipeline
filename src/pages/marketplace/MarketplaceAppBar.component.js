@@ -70,9 +70,11 @@ export class MarketplaceAppBar extends Component<Props, State> {
           open={isMenuOpen}
           onClose={() => this.setState({ isMenuOpen: false })}
         >
-          <MenuItem onClick={this.props.goToUserSpace}>
-            {t('navigation.consumer.profile')}
-          </MenuItem>
+          {!this.props.isWidget && (
+            <MenuItem onClick={this.props.goToUserSpace}>
+              {t('navigation.consumer.profile')}
+            </MenuItem>
+          )}
           <MenuItem onClick={disconnect}>{t('navigation.logoff')}</MenuItem>
         </Menu>
       );
@@ -157,7 +159,11 @@ export class MarketplaceAppBar extends Component<Props, State> {
             aria-haspopup="true"
             color="inherit"
           />
-          <Hidden smDown>{this.renderAuthenticationInfo()}</Hidden>
+          {this.props.isWidget ? (
+            this.renderAuthenticationInfo()
+          ) : (
+            <Hidden smDown>{this.renderAuthenticationInfo()}</Hidden>
+          )}
         </ButtonBase>
       </Wrapper>
     );

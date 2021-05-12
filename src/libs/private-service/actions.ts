@@ -774,10 +774,12 @@ export function fetchPrivateSlotBulk(
   options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
+    const id__in = uniq(ids);
+    if (!id__in.length) return;
     dispatch(privateSlotBulkActions.isLoading(true));
     dispatch(privateSlotBulkActions.error(null));
     try {
-      const response = await fetchAllPrivateSlotsAPI({ id__in: uniq(ids) });
+      const response = await fetchAllPrivateSlotsAPI({ id__in });
       dispatch(privateSlotBulkActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
@@ -804,10 +806,12 @@ export function fetchPrivateServiceBulk(
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
+    const id__in = uniq(ids);
+    if (!id__in.length) return;
     dispatch(privateServiceBulkActions.isLoading(true));
     dispatch(privateServiceBulkActions.error(null));
     try {
-      const response = await fetchAllPrivateServicesAPI({ id__in: uniq(ids) });
+      const response = await fetchAllPrivateServicesAPI({ id__in });
       dispatch(privateServiceBulkActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
@@ -1105,11 +1109,13 @@ export const privatePassBulkActions = {
 
 export function fetchPrivatePassBulk(ids: Array<number>) {
   return async (dispatch: Dispatch) => {
+    const id__in = uniq(ids.filter((id) => !!id));
+    if (!id__in.length) return;
     dispatch(privatePassBulkActions.isLoading(true));
     dispatch(privatePassBulkActions.error(null));
     try {
       const response = await fetchPrivatePassListAPI({
-        id__in: uniq(ids.filter((id) => !!id)),
+        id__in,
       });
       dispatch(privatePassBulkActions.success(response.data));
     } catch (err) {
@@ -1619,11 +1625,14 @@ export const privateConsumerPassBulkActions = {
 
 export function fetchPrivateConsumerPassBulk(ids: Array<number>) {
   return async (dispatch: Dispatch) => {
+    const id__in = uniq(ids.filter((id) => !!id));
+    if (!id__in.length) return;
+
     dispatch(privateConsumerPassBulkActions.isLoading(true));
     dispatch(privateConsumerPassBulkActions.error(null));
     try {
       const response = await fetchPrivateConsumerPassListAPI({
-        id__in: uniq(ids.filter((id) => !!id)),
+        id__in,
       });
       dispatch(privateConsumerPassBulkActions.success(response.data));
     } catch (err) {

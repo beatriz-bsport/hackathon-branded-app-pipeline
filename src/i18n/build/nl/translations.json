@@ -6024,6 +6024,12 @@
                 "nothingAvailable": "Het is niet mogelijk om meerdere sessies tegelijk te reserveren.",
                 "changed": "De compatibele cursuskaart is gewijzigd"
             }
+        },
+        "settings": {
+            "update": {
+                "error": "De wijzigingen konden momenteel niet worden opgeslagen",
+                "success": "Instellingen bijgewerkt"
+            }
         }
     },
     "coach": {
@@ -6841,7 +6847,20 @@
             },
             "nf525Button": "Downloaden",
             "nf525Explain": "BSPORT volgt de NF252-nalevingsprocedures. Je kan het officiële certificaat hier downloaden.",
-            "nf525": "Certificatie"
+            "nf525": "Certificatie",
+            "subscription": {
+                "forms": {
+                    "nbRetriesSubscriptionPayments": {
+                        "label": "Aantal mislukte betalingen:",
+                        "helperText": "Tussen 0 en 5 pogingen"
+                    },
+                    "activateSmartRetries": {
+                        "helperText": "Het systeem zal automatisch mislukte betalingen voor abonnementen opnieuw uitvoeren.",
+                        "label": "Activeer Smart Retries voor mislukte betalingen."
+                    }
+                },
+                "title": "Abonnement"
+            }
         },
         "section": {
             "paymentList": {
@@ -7108,7 +7127,8 @@
                 "edit": "Bewerken",
                 "delete": "Annuleren",
                 "registerNow": "Uitbetalen"
-            }
+            },
+            "nextRetryDate": "Op {{ d }} proberen we opnieuw om de betaling te voltooien."
         },
         "mandate": {
             "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT en Stripe (ons betalingssysteem) toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen volgens de voorwaarden van je contract met deze bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",

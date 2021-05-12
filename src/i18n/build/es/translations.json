@@ -1555,7 +1555,7 @@
                 "helpTitle": "¿Cómo funciona la sincronización?"
             },
             "webhooks": {
-                "CONTACT_TAG": "Crear una cuenta de cliente en bsport cuando el proyecto esté etiquetado en 'won' en ActiveCampaign",
+                "CONTACT_TAG": "Crear una cuenta de cliente en bsport cuando el prospecto esté etiquetado en 'won' en ActiveCampaign",
                 "CLIENT_WON": "Crear una cuenta de cliente en bsport cuando el prospecto se establece en el estado \"WON\" en un trato",
                 "title": "Integrar las informaciones de ActiveCampaign en bsport",
                 "helpContent": "Las siguientes acciones tienen lugar tan pronto como se produce el evento asociado en ActiveCampaign.",
@@ -1944,7 +1944,25 @@
             },
             "nf525Button": "Descargar",
             "nf525Explain": "Bsport sigue los procedimientos de cumplimiento de NF525, puedes descargar nuestro certificado oficial aquí.",
-            "nf525": "Certificación"
+            "nf525": "Certificación",
+            "subscription": {
+                "forms": {
+                    "disable_pass_on_fail_subscription_payment": {
+                        "label": "Desactivar las tarjetas si falla el pago."
+                    },
+                    "revert_bookings_on_fail_subscription_payment": {
+                        "label": "Cancelar las reservas si no se paga."
+                    },
+                    "activateSmartRetries": {
+                        "label": "Activar los reintentos inteligentes en los pagos fallidos"
+                    },
+                    "nbRetriesSubscriptionPayments": {
+                        "label": "Número de intentos después de un pago fallido",
+                        "helperText": "Entre 0 y 5 intentos"
+                    }
+                },
+                "title": "Suscripción"
+            }
         },
         "section": {
             "paymentList": {
@@ -2219,7 +2237,8 @@
                 "edit": "Modificar",
                 "delete": "Cancelar",
                 "registerNow": "Recoge ahora"
-            }
+            },
+            "nextRetryDate": "El pago se retrasará hasta {{ d }}"
         },
         "mandate": {
             "content": "Poniendo su IBAN y confirmando el pago, autoriza a bsport y Stripe, nuestro sistema de pago a enviar la información de facturación a su banco con todas las futuras facturaciones. Puede solicitar un reembolso a su banco dependiendo de su contrato. El reembolso debe ser solicitado 8 semanas antes del primer pago.",
@@ -2875,7 +2894,9 @@
             "accept_sms": "Aceptar SMS",
             "payout_identifier": "Transferencia",
             "credit_amount": "Importe de los créditos",
-            "initial_price": "Precio de compra"
+            "initial_price": "Precio de compra",
+            "last_view": "Visto por última vez",
+            "video_title": "Título del vídeo"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -3426,7 +3447,12 @@
                     "refunded": "Si la reserva se ha cancelado a tiempo",
                     "absence": "Si el miembro está ausente",
                     "attendance": "Si el miembro está presente"
-                }
+                },
+                "bookingNumberAll": "Todas las reservas",
+                "bookingNumberFirst": "1ª reserva",
+                "bookingNumberThird": "3rd booking",
+                "bookingNumberSecond": "2ª reserva",
+                "bookingNumberN": "{{notify_booking_nb}}la reserva"
             },
             "addNotification": "Añadir una notificación"
         },
@@ -3515,7 +3541,7 @@
                 "empty": "No se ha encontrado ninguna sesión",
                 "title": "Reservar más sesiones"
             },
-            "noPackAvailable": "Ningún pase es compatible con esta sesión!",
+            "noPackAvailable": "Ningún pase es compatible con todas estas sesiones al mismo tiempo. Deberá reservarlas por separado.",
             "noPackAvailable_plural": "Ningún pase es compatible con estas sesiones!",
             "showMore": "Ver más",
             "mainButton": {
@@ -3799,6 +3825,15 @@
             "noBookingFuture": "No hay reservas futuras",
             "pastBooking": "Historia",
             "futureBooking": "Mis reservas"
+        },
+        "language": {
+            "fr": "Francés",
+            "en-US": "Inglés (EE.UU.)",
+            "en-GB": "Inglés (Reino Unido)",
+            "es": "Español",
+            "de": "Alemán",
+            "it": "Italiano",
+            "nl": "Holandés"
         }
     },
     "coupon": {
@@ -5472,7 +5507,8 @@
             },
             "update": {
                 "success": "Factura actualizada exitosamente"
-            }
+            },
+            "returnPaymentLocked": "No se puede reembolsar este pago, hay suficiente dinero en su cuenta de Stripe?"
         },
         "playlist": {
             "video": {
@@ -5935,6 +5971,11 @@
             "pass": {
                 "nothingAvailable": "Ningún pase permite reservar estas sesiones al mismo tiempo",
                 "changed": "El pase para reservar debe haber sido modificado"
+            }
+        },
+        "settings": {
+            "update": {
+                "error": "No se ha podido actualizar, por favor, inténtelo más tarde"
             }
         }
     },
@@ -6593,6 +6634,11 @@
             "downloadChrome": "Descarga Google Chrome gratis",
             "downloadFirefox": "Descarga Mozilla Firefox gratis",
             "navigatorError": "Parece que tu navegador es demasiado viejo para usar nuestros servicios. Puedes encontrar errores, le recomendamos que descargas una versión más reciente, en particular: "
+        },
+        "paymentMethodMissing": {
+            "closeModal": "Cerrar",
+            "explain": "No ha introducido un método de pago válido, por favor, confírmelo para seguir utilizando su suscripción a bsport.",
+            "banner": "No ha introducido un método de pago para su suscripción a bsport. Por favor, haga clic aquí."
         }
     },
     "video": {

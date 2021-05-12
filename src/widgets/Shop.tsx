@@ -18,7 +18,7 @@ type Props = OwnProps;
 class PassWidget extends Component<Props> {
   addToCart = (shopItemId: number) => {
     const { PUBLIC_URL } = window.runtime.env;
-    const url = `${PUBLIC_URL}/customer/payment/shop-item/${shopItemId}`;
+    const url = `${PUBLIC_URL}/customer/payment/shop-item/${shopItemId}?membership=${this.props.companyId}`;
     this.props.onWindowOpen(url);
   };
 

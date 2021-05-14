@@ -15,9 +15,9 @@ function CardHeaders(props: Props) {
       <Typography className={classes.headerSectionTitle} variant="h6">
         {t(`header.${(headerTitle || '').toLowerCase()}`)}
       </Typography>
-      <Grid container direction="row" spacing={1}>
+      <Grid container direction="row" spacing={2}>
         {headerDetails.map((colum, index) => (
-          <Grid item xs={6} md={4} lg={2}>
+          <Grid item xs={6} md={4} alignItems="stretch" lg={2}>
             <Card
               key={index}
               elevation={1}
@@ -89,6 +89,7 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(1),
   },
   cardStyle: {
+    height: '100%',
     paddingTop: theme.spacing(2),
     paddingRight: theme.spacing(2.0),
     paddingBottom: theme.spacing(2),

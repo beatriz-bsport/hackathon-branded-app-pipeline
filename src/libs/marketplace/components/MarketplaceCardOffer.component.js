@@ -121,8 +121,15 @@ export const MarketplaceCardOffer = (props: Props) => {
           ) : (
             `${formatAsTime(
               offer.date_start,
-              offer.establishment.tzname,
-            )} - ${formatAsTime(offerEndDate, offer.establishment.tzname)}`
+              offer.meta_activity && offer.meta_activity.is_broadcast
+                ? offer.establishment.tzname
+                : null,
+            )} - ${formatAsTime(
+              offerEndDate,
+              offer.meta_activity && offer.meta_activity.is_broadcast
+                ? offer.establishment.tzname
+                : null,
+            )}`
           )}
         </Typography>
         <Level

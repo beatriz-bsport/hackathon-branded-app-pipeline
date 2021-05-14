@@ -92,10 +92,14 @@ export const MarketplaceOffer = (props: Props) => {
                 <Typography inline>
                   {`${metaActivityName} ${formatAsTime(
                     offer.date_start,
-                    offer.establishment.tzname,
+                    offer.meta_activity && offer.meta_activity.is_broadcast
+                      ? offer.establishment.tzname
+                      : null,
                   )}-${formatAsTime(
                     moment(offer.date_start).add(offer.duration_minute),
-                    offer.establishment.tzname,
+                    offer.meta_activity && offer.meta_activity.is_broadcast
+                      ? offer.establishment.tzname
+                      : null,
                   )}`}
                 </Typography>
               )}

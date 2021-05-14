@@ -37,6 +37,10 @@ export const BookingConsumerItem = (props: Props) => {
   const { offer } = booking;
   if (!offer) return null;
   const { meta_activity, coach, establishment } = offer;
+  let dateStart = moment(offer.date_start);
+  if (establishment && meta_activity && !offer.meta_activity.is_broadcast) {
+    dateStart = dateStart.tz(establishment.tzname);
+  }
   return (
     <div className={classes.container}>
       <div className={classes.header}>
@@ -54,8 +58,8 @@ export const BookingConsumerItem = (props: Props) => {
           <AccessTimeIcon />
         </ListItemIcon>
         <ListItemText
-          primary={offer ? moment(offer.date_start).format('LL') : ' - '}
-          secondary={offer ? moment(offer.date_start).format('LT') : ' - '}
+          primary={offer ? dateStart.format('LL') : ' - '}
+          secondary={offer ? dateStart.format('LT') : ' - '}
         />
       </ListItem>
       <ListItem dense className={classes.translucentPaper}>

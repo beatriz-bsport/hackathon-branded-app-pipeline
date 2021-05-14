@@ -168,7 +168,10 @@ export class BookerModuleConsumer extends React.PureComponent<Props> {
       bookingOptionListConvertible,
       bookingOptionListUnconvertible,
     } = this.props;
-    const momentDate = moment(offer.date_start).tz(offer.establishment.tzname);
+    let momentDate = moment(offer.date_start);
+    if (offer.meta_activity && !offer.meta_activity.is_broadcast) {
+      momentDate = momentDate.tz(offer.establishment.tzname);
+    }
     const localDate = momentDate.format('LLLL');
     const localDateUpper =
       localDate[0].toUpperCase() + localDate.slice(1, localDate.length);

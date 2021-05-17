@@ -3271,6 +3271,12 @@
                 "nothingAvailable": "Nessun pass permette di prenotare queste sessioni allo stesso tempo",
                 "changed": "La mappa del corso per la prenotazione ha dovuto essere modificata"
             }
+        },
+        "settings": {
+            "update": {
+                "success": "Parametri aggiornati",
+                "error": "Impossibile aggiornare, riprovare più tardi"
+            }
         }
     },
     "settings": {
@@ -3429,7 +3435,29 @@
             },
             "nf525Button": "Scarica",
             "nf525Explain": "Bsport segue le procedure di conformità NF525, puoi scaricare il nostro certificato ufficiale qui.",
-            "nf525": "Certificazione"
+            "nf525": "Certificazione",
+            "subscription": {
+                "forms": {
+                    "revert_bookings_on_fail_subscription_payment": {
+                        "label": "Annullare le prenotazioni se il pagamento fallisce.",
+                        "warning": "Attenzione, le prenotazioni non saranno ricreate se il pagamento va a buon fine!",
+                        "helperText": "Se il pagamento dell'abbonamento fallisce o viene dichiarato contestato, le prenotazioni effettuate con queste carte saranno annullate (e il credito riaccreditato)"
+                    },
+                    "disable_pass_on_fail_subscription_payment": {
+                        "label": "Disabilita le carte se il pagamento fallisce.",
+                        "helperText": "Se il pagamento dell'abbonamento fallisce o viene dichiarato contestato, le schede dei corsi e degli appuntamenti per quella fattura saranno disattivate fino a quando la fattura non sarà riscossa"
+                    },
+                    "nbRetriesSubscriptionPayments": {
+                        "helperText": "Tra 0 e 5 tentativi",
+                        "label": "Numero di tentativi dopo un pagamento fallito"
+                    },
+                    "activateSmartRetries": {
+                        "label": "Abilita i tentativi intelligenti sui pagamenti falliti",
+                        "helperText": "bsport riprova automaticamente i pagamenti degli abbonamenti falliti al momento migliore."
+                    }
+                },
+                "title": "Abbonamento"
+            }
         },
         "returnPayment": {
             "modal": {
@@ -3704,7 +3732,8 @@
                 "edit": "Modificare",
                 "delete": "Annullare",
                 "registerNow": "Incassare ora"
-            }
+            },
+            "nextRetryDate": "Il pagamento sarà ritardato fino a {{ d }}"
         },
         "mandate": {
             "content": "Consegnando il tuo IBAN e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, ad inviare le istruzioni di addebito alla tua banca in accordo con il calendario di pagamento. Potete chiedere un rimborso alla vostra banca secondo i termini del vostro contratto con quest'ultima. Un rimborso deve essere richiesto entro 8 settimane dopo il primo addebito.",
@@ -4358,7 +4387,9 @@
             "stock_at_end": "Stock alla fine del periodo",
             "payout_identifier": "Trasferimento",
             "credit_amount": "Importo del credito",
-            "initial_price": "Prezzo d'acquisto"
+            "initial_price": "Prezzo d'acquisto",
+            "last_view": "Ultimo visto",
+            "video_title": "Titolo del video"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -4437,7 +4468,8 @@
             "cashbook": "Registratore di cassa",
             "on_spot_payments": "Pagamento in persona",
             "video": "Video",
-            "unpaid_invoices": "Fatture non pagate"
+            "unpaid_invoices": "Fatture non pagate",
+            "video_purchase": "Acquisto video"
         },
         "globalCategories": {
             "subheader": {

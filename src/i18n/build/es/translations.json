@@ -1948,13 +1948,17 @@
             "subscription": {
                 "forms": {
                     "disable_pass_on_fail_subscription_payment": {
-                        "label": "Desactivar las tarjetas si falla el pago."
+                        "label": "Desactivar las tarjetas si falla el pago.",
+                        "helperText": "Si el pago de la suscripción no se realiza o se declara impugnado, las tarjetas de cursos y citas de esa factura se desactivarán hasta que se cobre la factura"
                     },
                     "revert_bookings_on_fail_subscription_payment": {
-                        "label": "Cancelar las reservas si no se paga."
+                        "label": "Cancelar las reservas si no se paga.",
+                        "helperText": "Si el pago del abono no se realiza o se declara impugnado, las reservas realizadas con estas tarjetas se cancelarán (y se volverá a acreditar el crédito)",
+                        "warning": "Atención, ¡las reservas no se volverán a crear si el pago es exitoso!"
                     },
                     "activateSmartRetries": {
-                        "label": "Activar los reintentos inteligentes en los pagos fallidos"
+                        "label": "Activar los reintentos inteligentes en los pagos fallidos",
+                        "helperText": "bsport reintentará automáticamente los pagos de suscripción fallidos en el mejor momento."
                     },
                     "nbRetriesSubscriptionPayments": {
                         "label": "Número de intentos después de un pago fallido",
@@ -2975,7 +2979,8 @@
             "cashbook": "Libro de caja",
             "on_spot_payments": "Pagos en persona",
             "video": "Vídeo",
-            "unpaid_invoices": "Facturas impagadas"
+            "unpaid_invoices": "Facturas impagadas",
+            "video_purchase": "Compra de vídeos"
         },
         "globalCategories": {
             "subheader": {
@@ -5975,7 +5980,8 @@
         },
         "settings": {
             "update": {
-                "error": "No se ha podido actualizar, por favor, inténtelo más tarde"
+                "error": "No se ha podido actualizar, por favor, inténtelo más tarde",
+                "success": "Parámetros actualizados"
             }
         }
     },

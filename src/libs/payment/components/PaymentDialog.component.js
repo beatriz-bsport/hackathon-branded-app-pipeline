@@ -284,6 +284,13 @@ const styles = (theme) => ({
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
+  modal: {
+    position: 'absolute',
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: 8,
+    overflow: 'auto',
+    maxHeight: '100vh',
+  },
 });
 
 export default compose(

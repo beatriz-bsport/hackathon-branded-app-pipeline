@@ -4865,7 +4865,29 @@
             },
             "nf525Button": "Download",
             "nf525Explain": "Bsport follows the NF525 compliance procedures, you can download our official certificate here.",
-            "nf525": "Certification"
+            "nf525": "Certification",
+            "subscription": {
+                "forms": {
+                    "revert_bookings_on_fail_subscription_payment": {
+                        "label": "Cancel reservations if payment fails.",
+                        "warning": "Please note that reservations will not be recreated if the payment is successful!",
+                        "helperText": "If the subscription payment fails or is declared disputed, bookings made with these cards will be cancelled (and the credit re-credited)"
+                    },
+                    "disable_pass_on_fail_subscription_payment": {
+                        "label": "Deactivate cards if payment fails.",
+                        "helperText": "If the subscription payment fails or is declared disputed, the course and appointment cards for that invoice will be deactivated until the invoice is collected"
+                    },
+                    "nbRetriesSubscriptionPayments": {
+                        "helperText": "Between 0 and 5 attempts",
+                        "label": "Number of attempts after a failed payment"
+                    },
+                    "activateSmartRetries": {
+                        "label": "Enable Smart Retries on failed payments",
+                        "helperText": "bsport will automatically retry failed subscription payments at the best time."
+                    }
+                },
+                "title": "Subscription"
+            }
         },
         "actions": {
             "equilibrate": "Regularize (deposit)",
@@ -5132,7 +5154,8 @@
                 "edit": "Modify",
                 "delete": "Cancel",
                 "registerNow": "Take payment now"
-            }
+            },
+            "nextRetryDate": "The payment will be retried on {{ d }}"
         },
         "mandate": {
             "content": "By putting your IBAN and confirming the payment, you authorize bsport and Stripe, our payment system to send the billing information to your bank with all the future billings. You can ask a refund to your bank depending on your contract. A refund should be asked 8 weeks before the first payment.",
@@ -5808,7 +5831,9 @@
             "accept_sms": "Accept SMS",
             "payout_identifier": "Transfer",
             "credit_amount": "Amount of credits",
-            "initial_price": "Purchase price"
+            "initial_price": "Purchase price",
+            "last_view": "Last seen",
+            "video_title": "Video title"
         },
         "yes": "Yes",
         "no": "No",
@@ -5888,7 +5913,8 @@
             "cashbook": "Cash book",
             "on_spot_payments": "Payments in person",
             "video": "Video",
-            "unpaid_invoices": "Unpaid invoices"
+            "unpaid_invoices": "Unpaid invoices",
+            "video_purchase": "Video purchase"
         },
         "globalCategories": {
             "subheader": {
@@ -8040,7 +8066,8 @@
             },
             "update": {
                 "success": "Invoice updated"
-            }
+            },
+            "returnPaymentLocked": "Unable to refund this payment, is there enough money in your Stripe account?"
         },
         "privateConsumerPass": {
             "creditUpdate": {
@@ -8191,6 +8218,12 @@
             "pass": {
                 "nothingAvailable": "No pass allows you to book these sessions at the same time",
                 "changed": "The pass to book must have been modified"
+            }
+        },
+        "settings": {
+            "update": {
+                "success": "Updated parameters",
+                "error": "Unable to update, please try again later"
             }
         }
     },

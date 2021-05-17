@@ -9,9 +9,10 @@ import Radio from '@material-ui/core/Radio';
 import Divider from '@material-ui/core/Divider';
 import { compose } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import WarningIcon from '@material-ui/icons/Warning';
 import Typography from '@material-ui/core/Typography';
-import Dialog from '@material-ui/core/Dialog';
+import Modal from '@material-ui/core/Modal';
 import type { TFunction } from 'react-i18next';
 
 import {
@@ -119,108 +120,127 @@ export class PaymentDialog extends React.Component<Props, State> {
       return true;
     });
 
+    const dialogOffset = fullScreen ? '0%' : '50%';
     return (
-      <Dialog open classes={{ paper: classes.container }}>
-        <div className={classes.innerDialog}>
-          <div className={classes.container}>
-            <FormControl
-              disabled={
-                !this.props.clientSecret || !!this.props.clientSecretLoading
-              }
-              component="fieldset"
-            >
-              {availableEngineList.length > 1 && (
-                <RadioGroup
-                  row
-                  aria-label="position"
-                  name="position"
-                  defaultValue={`${defaultEngine}`}
-                  disabled={!!this.props.clientSecretLoading}
-                  onChange={(ev, value) =>
-                    this.setState({ paymentEngine: value })
+      <Modal open classes={{ paper: classes.container }}>
+        <>
+          <div
+            style={{
+              transform: `translate(-${dialogOffset}, -${dialogOffset})`,
+              top: dialogOffset,
+              left: dialogOffset,
+            }}
+            className={classes.modal}
+          >
+            <div className={classes.innerDialog}>
+              <div className={classes.container}>
+                <FormControl
+                  disabled={
+                    !this.props.clientSecret || !!this.props.clientSecretLoading
                   }
-                  className={classes.radioGroupContainer}
+                  component="fieldset"
                 >
-                  {[PAYMENT_ENGINE_STRIPE, PAYMENT_ENGINE_BSPORT].map(
-                    (engineIdentifier) => (
-                      <FormControlLabel
-                        value={`${engineIdentifier}`}
-                        control={<Radio color="primary" />}
-                        label={t(`paymentEngine.label.${engineIdentifier}`)}
-                        disabled={
-                          !availableEngineList.includes(engineIdentifier) ||
-                          !!this.props.clientSecretLoading
-                        }
-                        labelPlacement="bottom"
-                      />
-                    ),
+                  {availableEngineList.length > 1 && (
+                    <RadioGroup
+                      row
+                      aria-label="position"
+                      name="position"
+                      defaultValue={`${defaultEngine}`}
+                      disabled={!!this.props.clientSecretLoading}
+                      onChange={(ev, value) =>
+                        this.setState({ paymentEngine: value })
+                      }
+                      className={classes.radioGroupContainer}
+                    >
+                      {[PAYMENT_ENGINE_STRIPE, PAYMENT_ENGINE_BSPORT].map(
+                        (engineIdentifier) => (
+                          <FormControlLabel
+                            value={`${engineIdentifier}`}
+                            control={<Radio color="primary" />}
+                            label={t(`paymentEngine.label.${engineIdentifier}`)}
+                            disabled={
+                              !availableEngineList.includes(engineIdentifier) ||
+                              !!this.props.clientSecretLoading
+                            }
+                            labelPlacement="bottom"
+                          />
+                        ),
+                      )}
+                    </RadioGroup>
                   )}
-                </RadioGroup>
-              )}
-              {this.props.clientSecret && !this.props.clientSecretLoading ? (
-                <Divider className={classes.divider} />
-              ) : (
-                <LinearProgress className={classes.divider} />
-              )}
-              {!!this.props.clientSecretError && (
-                <div className={classes.errorContainer}>
-                  <WarningIcon className={classes.leftIcon} />
-                  <div className={classes.multilineTextContainer}>
-                    <Typography variant="caption" style={{ color: 'white' }}>
-                      {t('paymentPanel.errorSecretExplain1')}
-                    </Typography>
-                    <Typography variant="caption" style={{ color: 'white' }}>
-                      {t('paymentPanel.errorSecretExplain2')}
-                    </Typography>
-                  </div>
-                </div>
-              )}
-              {parseInt(this.state.paymentEngine, 10) ===
-                PAYMENT_ENGINE_STRIPE && (
-                <PaymentStripe
-                  paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
-                    PAYMENT_ENGINE_STRIPE
-                  ].filter((pm) => {
-                    if (this.props.availablePaymentMethodList) {
-                      return this.props.availablePaymentMethodList.length
-                        ? this.props.availablePaymentMethodList.includes(pm)
-                        : pm === PAYMENT_GROUP_METHOD_IDENTIFIER_CB;
-                    }
-                    return true;
-                  })}
-                  clientSecret={this.props.clientSecret}
-                  paymentGroupPriceCts={this.props.paymentGroupPriceCts}
-                  onSuccess={this.onSuccess}
-                  updatePriceCts={this.props.updatePriceCts}
-                  termsAndConditionsAccepted={
-                    this.props.termsAndConditionsAccepted
-                  }
-                  onError={this.props.onError}
-                  onCancel={this.props.onCancel}
-                  memberId={this.props.memberId}
-                />
-              )}
-              {parseInt(this.state.paymentEngine, 10) ===
-                PAYMENT_ENGINE_BSPORT && (
-                <PaymentBsportInternal
-                  paymentMethodChoices={
-                    PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT]
-                  }
-                  clientSecret={this.props.clientSecret}
-                  onSuccess={this.onSuccess}
-                  onError={this.props.onError}
-                  termsAndConditionsAccepted={
-                    this.props.termsAndConditionsAccepted
-                  }
-                  onCancel={this.props.onCancel}
-                  amountToPay={this.props.amountToPay}
-                  memberId={this.props.memberId}
-                />
-              )}
-            </FormControl>
+                  {this.props.clientSecret &&
+                  !this.props.clientSecretLoading ? (
+                    <Divider className={classes.divider} />
+                  ) : (
+                    <LinearProgress className={classes.divider} />
+                  )}
+                  {!!this.props.clientSecretError && (
+                    <div className={classes.errorContainer}>
+                      <WarningIcon className={classes.leftIcon} />
+                      <div className={classes.multilineTextContainer}>
+                        <Typography
+                          variant="caption"
+                          style={{ color: 'white' }}
+                        >
+                          {t('paymentPanel.errorSecretExplain1')}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          style={{ color: 'white' }}
+                        >
+                          {t('paymentPanel.errorSecretExplain2')}
+                        </Typography>
+                      </div>
+                    </div>
+                  )}
+                  {parseInt(this.state.paymentEngine, 10) ===
+                    PAYMENT_ENGINE_STRIPE && (
+                    <PaymentStripe
+                      paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
+                        PAYMENT_ENGINE_STRIPE
+                      ].filter((pm) => {
+                        if (this.props.availablePaymentMethodList) {
+                          return this.props.availablePaymentMethodList.length
+                            ? this.props.availablePaymentMethodList.includes(pm)
+                            : pm === PAYMENT_GROUP_METHOD_IDENTIFIER_CB;
+                        }
+                        return true;
+                      })}
+                      clientSecret={this.props.clientSecret}
+                      paymentGroupPriceCts={this.props.paymentGroupPriceCts}
+                      onSuccess={this.onSuccess}
+                      updatePriceCts={this.props.updatePriceCts}
+                      termsAndConditionsAccepted={
+                        this.props.termsAndConditionsAccepted
+                      }
+                      onError={this.props.onError}
+                      onCancel={this.props.onCancel}
+                      memberId={this.props.memberId}
+                    />
+                  )}
+                  {parseInt(this.state.paymentEngine, 10) ===
+                    PAYMENT_ENGINE_BSPORT && (
+                    <PaymentBsportInternal
+                      paymentMethodChoices={
+                        PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT]
+                      }
+                      clientSecret={this.props.clientSecret}
+                      onSuccess={this.onSuccess}
+                      onError={this.props.onError}
+                      termsAndConditionsAccepted={
+                        this.props.termsAndConditionsAccepted
+                      }
+                      onCancel={this.props.onCancel}
+                      amountToPay={this.props.amountToPay}
+                      memberId={this.props.memberId}
+                    />
+                  )}
+                </FormControl>
+              </div>
+            </div>
           </div>
-        </div>
-      </Dialog>
+        </>
+      </Modal>
     );
   }
 }
@@ -269,4 +289,5 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['invoice']),
   withStyles(styles),
+  withMobileDialog(),
 )(PaymentDialog);

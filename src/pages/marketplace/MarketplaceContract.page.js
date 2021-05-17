@@ -9,7 +9,6 @@ import { Elements } from '@stripe/react-stripe-js';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Collapse from '@material-ui/core/Collapse';
 import Modal from '@material-ui/core/Modal';
-import DialogContent from '@material-ui/core/DialogContent';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import moment from 'moment-timezone';
 import { withRouter } from 'react-router-dom';
@@ -169,7 +168,7 @@ export class MarketplaceContract extends React.Component<Props> {
               }}
               className={this.props.classes.modal}
             >
-              <DialogContent>
+              <div className={classes.padding}>
                 <Elements stripe={stripePromise}>
                   <SubscriptionPayment
                     onCancel={() => this.props.setPaymentDialogOpen(false)}
@@ -192,7 +191,7 @@ export class MarketplaceContract extends React.Component<Props> {
                     }
                   />
                 </Elements>
-              </DialogContent>
+              </div>
             </div>
           </>
         </Modal>
@@ -216,6 +215,9 @@ const styles = (theme) => ({
     position: 'absolute',
     backgroundColor: theme.palette.background.paper,
     borderRadius: 8,
+  },
+  padding: {
+    padding: theme.spacing(2),
   },
 });
 

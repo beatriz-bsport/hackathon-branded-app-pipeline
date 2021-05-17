@@ -120,7 +120,7 @@ export class PaymentDialog extends React.Component<Props, State> {
       return true;
     });
 
-    const dialogOffset = fullScreen ? '0%' : '50%';
+    const dialogOffset = this.props.fullScreen ? '0%' : '50%';
     return (
       <Modal open classes={{ paper: classes.container }}>
         <>

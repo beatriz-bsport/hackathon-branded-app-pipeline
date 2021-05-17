@@ -6442,7 +6442,7 @@
             "hasEnded": "This session has ended",
             "isAutoRefresh": "You will be redirected to the video 10 min before the start of the class",
             "loadingSoon": "Loading...",
-            "activateVideo": "Start broadcast"
+            "activateVideo": "Connect to the livestream"
         },
         "disabled": "Cancelled",
         "credit_price": " Credit",

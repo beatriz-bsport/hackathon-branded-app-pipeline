@@ -290,7 +290,7 @@
     },
     "membership": {
         "selector": {
-            "explainConsumer": "<1> BSPORT</2> helpt u om ieder aspect van uw studio te stroomlijnen. Vereenvoudig, automatiseer en centraliseer al uw handelingen vanuit één systeem. <3 /> Eén account, één wachtwoord!",
+            "explainConsumer": "<1> BSPORT Solution</2> helpt u om ieder aspect van uw studio te stroomlijnen. Vereenvoudig, automatiseer en centraliseer al uw handelingen vanuit één systeem. <3 /> Eén account, één wachtwoord!",
             "noMatchingCompany": "Geen resultaat",
             "placeholder": "Zoek een studio of vestiging..."
         }
@@ -302,7 +302,7 @@
         },
         "requestDialog": {
             "close": "Begrepen",
-            "explain": "Je hebt de integratie van BSPORT en ClassPass aangevraagd. Je accountmanager neemt spoedig contact met je op om deze aanvraag te valideren."
+            "explain": "Je hebt de integratie van BSPORT Solution en ClassPass aangevraagd. Je accountmanager neemt spoedig contact met je op om deze aanvraag te valideren."
         },
         "parameters": {
             "allEstablishment": "Alle zalen",
@@ -726,7 +726,7 @@
                 "explainRecursiveOfferDelete": "Wil je ALLE vergelijkbare sessies verwijderen?",
                 "broadcast_link": {
                     "error": "De link is verkeerd. Het moet beginnen met http:// of https:// en mag geen spaties bevatten",
-                    "explainZoomApp": "De link wordt automatisch door BSPORT via Zoom gemaakt."
+                    "explainZoomApp": "BSPORT Solution maakt automatisch de link via Zoom aan."
                 },
                 "changeEstablishment": "Wijzig de vestiging",
                 "changeCoach": "Instructeur bewerken",
@@ -1312,7 +1312,7 @@
             "missing": "Geen e-mail beschikbaar",
             "content": "Inhoud van de e-mail",
             "title": "Onderwerp van de e-mail",
-            "refreshText": "Ververs de pagina om de wijziging van de e-mail te zien",
+            "refreshText": "Ververs de pagina om de wijziging van de e-mail te zien.",
             "noObject": "Geen onderwerp",
             "refreshTextPhone": "Ververs de pagina om de wijzigingen door te voeren",
             "sendSms": "Nieuwe sms",
@@ -2478,11 +2478,11 @@
         },
         "filters": {
             "1": {
-                "second": " te   ",
+                "second": " -   ",
                 "third": "{{ currencyDisplay }}",
-                "explanation": "Heeft X {{ currencyDisplay }} op zijn/haar account",
-                "first": "Het huidige saldo van het lid wordt gebruikt om onbetaalde facturen te salderen. Het netto saldo wordt",
-                "name": "Schuld",
+                "explanation": "Heeft {{ currencyDisplay }}X op zijn/haar interne rekening",
+                "first": "Leden met een interne rekening (saldo) van",
+                "name": "Interne rekening (schuld)",
                 "between": "en"
             },
             "2": {
@@ -2773,9 +2773,9 @@
                 "name": "Laatste reservering"
             },
             "400": {
-                "explanation": "Heeft een wachtwoord bij BSPORT",
+                "explanation": "Heeft een wachtwoord bij BSPORT Solution",
                 "name": "Wachtwoord",
-                "explain": "Heeft een wachtwoord bij BSPORT"
+                "explain": "Heeft een wachtwoord bij BSPORT Solution"
             },
             "24": {
                 "date": {
@@ -2925,10 +2925,10 @@
             }
         },
         "settings": {
-            "lastBookingBeforeMinutes": "Leden kunnen zich tot {{m}} voor het begin van de sessie zich inschrijven.",
+            "lastBookingBeforeMinutes": "Leden kunnen zich tot {{m}} voor het begin van de sessie inschrijven.",
             "lastDiscardBeforeMinutes": "Leden kunnen tot {{m}} voor het begin van de sessie kosteloos annuleren.",
             "title": "Instellingen",
-            "firstBookingMinutesUntil": "Leden kunnen zich tot {{m}} in de toekomst zich voor deze sessie inschrijven.",
+            "firstBookingMinutesUntil": "Leden kunnen zich tot {{m}} in de toekomst voor deze sessie inschrijven.",
             "conditions": "Voorwaarden",
             "autoDiscard": "Deze sessie wordt automatisch {{hours}} uur voor het begin van de sessie geannuleerd als er minder dan {{nb_bookings}} reserveringen zijn."
         },
@@ -3443,7 +3443,7 @@
             "editModal": {
                 "success": "De periodieke reservering is gewijzigd"
             },
-            "blockedBookings": "Je leden kunnen zich tot {{days}} dagen voor het begin van deze activiteit inschrijven. We raden je aan om herhalende reserveringen voor lange(re) tijden toe te staan om overboekingen te voorkomen.",
+            "blockedBookings": "Je leden kunnen zich tot {{days}} dag(en) voor het begin van deze activiteit inschrijven. We raden aan om herhalende reserveringen voor langere tijden toe te staan om overboekingen te voorkomen.",
             "notifyIfCanceled": "Stuur een annuleringsmail",
             "notify": "Een bevestigingsmail versturen wanneer een lid zich registreert",
             "showLess": "Toon minder",
@@ -3835,7 +3835,7 @@
             "bsportCredit": "Interne rekening (saldo)"
         },
         "mandate": {
-            "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT en Stripe, ons betaalsysteem, toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen volgens de voorwaarden van je contract met deze bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
+            "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT Solution en Stripe (onze betaalprovider) toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen volgens de voorwaarden van je contract met deze bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
             "name": "Volledige naam",
             "email": "E-mailadres"
         },
@@ -4367,17 +4367,17 @@
                 "empty": "Voer de URL van je API in"
             },
             "webhooks": {
-                "CLIENT_WON": "Maak een gebruikersaccount voor BSPORT aan wanneer een deal als \"WON\" is gemarkeerd.",
+                "CLIENT_WON": "Maak een gebruikersaccount voor BSPORT Solution aan wanneer een deal als \"WON\" is gemarkeerd.",
                 "helpContent": "De onderstaande acties vinden plaats zodra de bijbehorende gebeurtenis plaatsvindt op ActiveCampaign.",
-                "title": "Integreer ActiveCampaign met BSPORT",
-                "CONTACT_TAG": "Maak een gebruikersaccount voor BSPORT aan wanneer een deal als “WON” is gemarkeerd.",
+                "title": "Integreer ActiveCampaign met BSPORT Solution",
+                "CONTACT_TAG": "Maak een gebruikersaccount voor BSPORT Solution aan wanneer een deal als “WON” is gemarkeerd.",
                 "helpTitle": "Hoe werkt synchronisatie?"
             },
             "link": {
                 "helpContent": "Leden van de Smartlist ontvangen elke avond een lijst van ActiveCampaign; hun status is dan 'actief'. Leden die de Smartlist hebben verlaten worden ook van de lijst van ActiveCampaign verwijderd; hun status is dan 'onbevestigd'.",
                 "helperForm": "Kies een Smartlist van BSPORT en koppel deze aan een van je lijsten op ActiveCampaign",
                 "helpTitle": "Hoe werkt synchronisatie?",
-                "title": "Informatie verzenden vanuit BSPORT",
+                "title": "Informatie verzenden vanuit BSPORT Solution",
                 "add": "Een link tussen de Smartlists toevoegen",
                 "dialogTitle": "Wijzig de link van een lijst",
                 "smartListSelection": "Kies een Smartlist",
@@ -4398,7 +4398,7 @@
             "submit": "Opslaan",
             "zoom": {
                 "explainValid": "Geldig account: de links van Zoom worden 15 minuten voor het begin van elke online les aangemaakt en verstuurd. De instructeur ontvangt een link om de online les te hosten, terwijl je ingeschreven leden een andere link ontvangen om deel te nemen. Waarschuwing! Controleer of je een Premium Zoom-account hebt, omdat Basis Zoom-accounts tot online sessies van 40 minuten zijn beperkt",
-                "enabled": "Activeer de integratie van BSPORT en Zoom",
+                "enabled": "Activeer de integratie van BSPORT Solution en Zoom",
                 "label": "Zoom configureren",
                 "explainInvalid": "Ongeldig account",
                 "revoke": "Zoom uitschakelen"
@@ -4570,14 +4570,14 @@
             },
             "form": {
                 "interval": {
-                    "explain1": "Beschikbaarheid wijzigen: ",
+                    "explain1": "Beschikbaarheid: ",
                     "explain2": "{{date_start}} - {{date_end}}, elke {{day}}"
                 },
                 "title": {
                     "disable": "Beschikbaarheid verwijderen",
                     "enable": "Beschikbaarheid toevoegen"
                 },
-                "explain": "Wijzigen tot:",
+                "explain": "Toevoegen tot en met:",
                 "actions": {
                     "cancel": "Annuleren",
                     "submit": "Opslaan"
@@ -4982,10 +4982,10 @@
                     "is_empty": "Geen instructeur nodig"
                 },
                 "last_discard_minutes": {
-                    "explain": "Annuleringen worden tot {{ days }} dag(en), {{ hours }} u. en {{ minutes }} min. voor het begin van de afspraak vergoed."
+                    "explain": "Leden kunnen afspraken tot {{ days }} dag(en), {{ hours }} u. en {{ minutes }} min. voor het begin van de afspraak kosteloos annuleren."
                 },
                 "last_booking_minutes": {
-                    "explain": "Je kunt tot {{days}} dag(en), {{hours}} u. en {{minutes}} min. voor het begin van de sessie reserveren."
+                    "explain": "Leden kunnen tot {{days}} dag(en), {{hours}} u. en {{minutes}} min. voor het begin van de afspraak reserveren."
                 }
             },
             "selector": {
@@ -5011,7 +5011,7 @@
                 "explainHasOwnAvailabilitySlots": "Klik op het potlood om de beschikbaarheid te wijzigen.",
                 "hasFutureSlot": "De beschikbaarheid is correct geconfigureerd.",
                 "noCapacity": "Er is geen maximale capaciteit ingesteld!",
-                "totalCapacity": "Maximale capaciteit: {{capacity}} persoon/personen",
+                "totalCapacity": "Maximale capaciteit: {{capacity}} lid/leden",
                 "noFutureSlot": "De beschikbaarheid van {{resourceName}} is nog niet correct ingesteld. Klik hier om de beschikbaarheid te configureren.",
                 "title": "Beschikbaarheid",
                 "isAlwaysAvailable": "{{resourceName}} is te boeken zodra de zaal en/of de instructeurs beschikbaar zijn",
@@ -5529,7 +5529,7 @@
                     "placeholder": "Jacques Chirac",
                     "label": "Rekeninghouder"
                 },
-                "content": "We gebruiken deze bankrekening om de via BSPORT ontvangen betalingen naar je over te schrijven.",
+                "content": "We gebruiken deze bankrekening om de via BSPORT Solution ontvangen betalingen naar je over te schrijven.",
                 "title": "Bankrekening",
                 "unknownCountry": "Dit moet handmatig gecontroleerd worden. Contacteer contact@bsport.io"
             }
@@ -7005,7 +7005,7 @@
             },
             "amountRemaining": "Resterend bedrag: {{ amount }}",
             "billingMoreThanNeeded": "Als je meer dan het factuurbedrag incasseert, wordt het saldo van het lid met het verschil verhoogd",
-            "errorSecretExplain2": "Neem contact op met dev+payment-intent@bsport.io als het probleem aanhoudt",
+            "errorSecretExplain2": "Neem contact op met dev+payment-intent@bsport.io als het probleem aanhoudt.",
             "errorSecretExplain1": "Deze betaalmethode is momenteel niet beschikbaar",
             "plannedPaymentEvent": {
                 "title": "Geplande betaling",
@@ -7111,7 +7111,7 @@
             "select": {
                 "label": "Betaalmethode"
             },
-            "isInternalExplain": "Handmatig toegewezen (via de Back Office). Het lid zal maandelijks in rekening worden gebracht.",
+            "isInternalExplain": "De interne rekening (saldo) zal maandelijks in rekening worden gebracht.",
             "add": "Toevoegen",
             "edit": "Bewerken",
             "title": "Betaalmethode",
@@ -7143,7 +7143,7 @@
             "nextRetryDate": "Op {{ d }} proberen we opnieuw om de betaling te voltooien."
         },
         "mandate": {
-            "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT en Stripe (ons betalingssysteem) toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen volgens de voorwaarden van je contract met deze bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
+            "content": "Door je IBAN op te geven en je betaling te bevestigen, geef je BSPORT Solution en Stripe (onze betaalprovider) toestemming om de incasso-instructies volgens het betalingsschema naar je bank te sturen. Je kunt bij je bank een terugbetaling aanvragen volgens de voorwaarden van je contract met deze bank. Een terugbetaling moet binnen 8 weken na de eerste afschrijving worden aangevraagd.",
             "email": "E-mailadres van de rekeninghouder",
             "name": "Volledige naam van de rekeninghouder"
         },
@@ -7263,7 +7263,7 @@
                 "name": "Systeembeheerder"
             },
             "3": {
-                "description": "Gebruik deze Rol als leden zichzelf via een tablet inchecken. Contacteer BSPORT voor meer informatie.",
+                "description": "Gebruik deze Rol als je wilt dat leden zichzelf via je tablet inchecken. Contacteer je Klantvertegenwoordiger voor meer informatie.",
                 "name": "Check-in | Tablet"
             },
             "2": {
@@ -7417,7 +7417,7 @@
                 "notificationRule": "Transactionele e-mails",
                 "broadcast": "Livestreamen",
                 "general": "Algemeen",
-                "platform_billing": "BSPORT-abonnement",
+                "platform_billing": "Abonnement",
                 "marketplaceSettings": "MarketPlace",
                 "widget": "Widgets",
                 "paymentMethod": "Betaalmethoden"

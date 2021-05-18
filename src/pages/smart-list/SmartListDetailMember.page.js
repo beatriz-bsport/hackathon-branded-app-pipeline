@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { compose, withHandlers, withState } from 'recompose';
+import { compose, withHandlers, withState, withProps } from 'recompose';
 import { push } from 'connected-react-router';
 import type { TFunction } from 'react-i18next';
 import { withTranslation } from 'react-i18next';
@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { uniq, uniqBy } from 'lodash';
 // import IconButton from '@material-ui/core/IconButton';
 
 // import EditIcon from '@material-ui/icons/Edit';
@@ -53,6 +54,8 @@ import {
 import {
   fetchPrivatePassList,
   fetchPrivatePassBulk,
+  fetchAllPrivateServices,
+  fetchPrivateServiceBulk,
 } from '../../libs/private-service/actions';
 import { sendCommunication as sendCommunicationAction } from '../../libs/communication/actions';
 import { fetchCommunicationsPaginatedMembers } from '../../libs/member/actions';
@@ -94,6 +97,11 @@ import {
 import { Coach } from '../../libs/associated-coach/types';
 
 import { getCoaches } from '../../libs/associated-coach/selectors';
+import {
+  _getPrivateServicesById,
+  getAvailablePrivateServices,
+} from '../../libs/private-service/selectors/private-service';
+import type { PrivateService } from '../../libs/private-service/types';
 
 type Props = {
   id: number,
@@ -102,6 +110,7 @@ type Props = {
   fetchSmartListFilters: (id: number) => void,
   fetchAllPaymentPacks: () => void,
   fetchPrivatePassList: () => void,
+  fetchAllPrivateServices: () => void,
   fetchAllActivities: () => void,
   fetchEmailTemplateDetail: (id: number) => void,
   fetchEmailTemplatesSummaries: () => void,
@@ -133,6 +142,7 @@ type Props = {
   payment_packs: Array<PaymentPack>,
   establishments: Array<Establishment>,
   privatePassList: Array<PrivatePass>,
+  privateServices: Array<PrivateService>,
   // privatePassList: Array<PrivatePass>,
   meta_activities: Array<MetaActivity>,
   email_templates_details: any,
@@ -149,11 +159,13 @@ type Props = {
   coachLoading: boolean,
   paymentPackLoading: boolean,
   privatePassLoading: boolean,
+  privateServiceLoading: boolean,
   fetchEstablishmentBulk: () => void,
   fetchMetaActivityBulk: () => void,
   fetchCoachBulk: () => void,
   fetchPaymentPackBulk: () => void,
   fetchPrivatePassBulk: () => void,
+  fetchPrivateServiceBulk: () => void,
   fetchCoaches: () => void,
   coaches: Array<Coach>,
   smartListUpdate: () => void,
@@ -201,8 +213,8 @@ export class SmartListDetailMember extends Component<Props, State> {
     });
   };
 
-  updateFilter = (filterNameId, data, filterId) => {
-    this.props.updateFilter(this.props.id, filterNameId, data, filterId, () => {
+  updateFilter = (filterNameId, filterId, data) => {
+    this.props.updateFilter(this.props.id, filterNameId, filterId, data, () => {
       this.setState((prevState) => ({
         onValueChangeActiveMemberFetch: !prevState.onValueChangeActiveMemberFetch,
       }));
@@ -275,6 +287,10 @@ export class SmartListDetailMember extends Component<Props, State> {
         fetchAction: this.props.fetchPrivatePassList,
         loading: this.props.privatePassLoading,
       },
+      private_services: {
+        fetchAction: this.props.fetchAllPrivateServices,
+        loading: this.props.privateServiceLoading,
+      },
     };
 
     const fetchBulkItems = {
@@ -283,6 +299,7 @@ export class SmartListDetailMember extends Component<Props, State> {
       payment_packs: this.props.fetchPaymentPackBulk,
       establishments: this.props.fetchEstablishmentBulk,
       private_passes: this.props.fetchPrivatePassBulk,
+      private_services: this.props.fetchPrivateServiceBulk,
     };
     return (
       <div>
@@ -294,6 +311,7 @@ export class SmartListDetailMember extends Component<Props, State> {
           deleteFilter={this.deleteFilter}
           payment_packs={this.props.payment_packs}
           private_passes={this.props.privatePassList}
+          private_services={this.props.privateServices}
           createFilter={this.createFilter}
           coaches={this.props.coaches}
           meta_activities={this.props.meta_activities}
@@ -477,6 +495,9 @@ export default compose(
       payment_packs: getPaymentPackEnabled(state),
       privatePassList: getPrivatePassAvailable(state),
       privatePassLoading: state.privateService.privatePass.loading,
+      availablePrivateService: getAvailablePrivateServices(state),
+      privateServicesById: _getPrivateServicesById(state),
+      privateServiceLoading: state.privateService.privateService.loading,
       meta_activities: getMetaActivities(state),
       metaActivityLoading: state.metaActivity.loading,
       establishmentLoading: state.establishment.loading,
@@ -511,6 +532,8 @@ export default compose(
       fetchPaymentPackBulk,
       fetchEstablishmentBulk,
       fetchPrivatePassList,
+      fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
+      fetchPrivateServiceBulk,
       fetchTags,
       updateFilter,
       fetchEstablishments,
@@ -533,6 +556,30 @@ export default compose(
       updateAutoTagAction: updateSmartListAutoTag,
       deleteAutoTagAction: smartListAutoTagDelete,
       applySmartListTagRules: applySmartListAutoTagRules,
+    },
+  ),
+  withProps(
+    ({ smartlist_filters, availablePrivateService, privateServicesById }) => {
+      let smartListServicesIds = [];
+
+      smartlist_filters.forEach((filter) => {
+        if (filter.private_services) {
+          smartListServicesIds = [
+            ...smartListServicesIds,
+            ...filter.private_services,
+          ];
+        }
+      });
+
+      const smartListServices = uniq(smartListServicesIds)
+        .map((id) => privateServicesById[id])
+        .filter((ps) => !!ps);
+
+      const all = [...smartListServices, ...availablePrivateService];
+
+      return {
+        privateServices: uniqBy(all, (ps) => ps.id),
+      };
     },
   ),
   withHandlers({

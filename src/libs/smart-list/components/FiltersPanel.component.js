@@ -41,11 +41,12 @@ import {
   EXPENSES_COMPLETE_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   PRIVATE_PASS_FILTER_IDENTIFIER,
+  WAIVER_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 import Config from '../../../config';
 
 import type { Establishment } from '../../establishment/types';
-import type { PrivatePass } from '../../private-service/types';
+import type { PrivatePass, PrivateService } from '../../private-service/types';
 
 import FilterCard from './FilterListItem.component';
 
@@ -61,6 +62,7 @@ const filtersList = {
     GENDER_FILTER_IDENTIFIER,
     TAG_FILTER_IDENTIFIER,
     USER_HAS_PASSWORD_FILTER,
+    WAIVER_FILTER_IDENTIFIER,
   ],
   [BOOKING]: [
     FIRST_BOOKING_FILTER_IDENTIFIER,
@@ -91,6 +93,7 @@ type Props = {
   establishments: Array<Establishment>,
   meta_activities: Array<any>,
   private_passes: Array<PrivatePass>,
+  private_services: Array<PrivateService>,
   tags: Array<any>,
   tag_groups: Array<any>,
   updateFilter: (
@@ -326,6 +329,7 @@ export class FiltersPanel extends Component<Props> {
                   onClickDelete={this.props.deleteFilter}
                   payment_packs={this.props.payment_packs}
                   private_passes={this.props.private_passes}
+                  private_services={this.props.private_services}
                   meta_activities={this.props.meta_activities}
                   establishments={this.props.establishments}
                   tag_groups={this.props.tag_groups}
@@ -341,6 +345,7 @@ export class FiltersPanel extends Component<Props> {
                   onClickDelete={this.cancelFilter}
                   payment_packs={this.props.payment_packs}
                   private_passes={this.props.private_passes}
+                  private_services={this.props.private_services}
                   meta_activities={this.props.meta_activities}
                   establishments={this.props.establishments}
                   new

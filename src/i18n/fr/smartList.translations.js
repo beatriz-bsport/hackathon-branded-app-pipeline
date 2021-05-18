@@ -21,6 +21,7 @@ const {
   BETWEEN_COMPARATOR,
   PRIVATE_PASS_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
+  WAIVER_FILTER_IDENTIFIER,
 } = SMARTLIST;
 
 const MEMBER_INFO = 1;
@@ -93,6 +94,13 @@ exports.default = {
       textFieldPlaceholder: 'Rechercher un professeur',
       helperAllSelectedText: 'tous les professeurs',
       warning: 'Sélectionnez au moins un professeur',
+    },
+    privateServices: {
+      helperText: 'selectionner des rendez-vous',
+      helperSelectedText: 'rendez-vous sélectionnées',
+      textFieldPlaceholder: 'Rechercher un rendez-vous',
+      helperAllSelectedText: 'tous les rendez-vous',
+      warning: 'Sélectionnez au moins un rendez-vous',
     },
   },
   noSmartLists:
@@ -395,6 +403,9 @@ exports.default = {
       private_pass: {
         first: 'avec les cartes RDV',
       },
+      private_service: {
+        first: 'avec les rendez-vous',
+      },
       coach: {
         first: 'avec les professeurs',
       },
@@ -434,6 +445,11 @@ exports.default = {
       explain: 'possède un mot de passe sur bsport',
       name: 'Mot de passe',
       explanation: 'Possède un mot de passe sur bsport',
+    },
+    [WAIVER_FILTER_IDENTIFIER]: {
+      explain: 'ayant accepté les décharges de responsabilité',
+      name: 'Décharge de responsabilité',
+      explanation: 'Ayant accepté les décharges de responsabilité',
     },
     [HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER]: {
       name: 'Validité de la carte de cours',

@@ -30,6 +30,7 @@ import {
   FILTER_BOOKING_LAST,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   PRIVATE_PASS_FILTER_IDENTIFIER,
+  WAIVER_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
 import CreditAccountFilter from './filters/CreditAccountFilter.component';
@@ -46,11 +47,12 @@ import UserHasPasswordFilter from './filters/UserHasPasswordFilter.component';
 import ExpensesCompleteFilter from './filters/ExpensesCompleteFilter.component';
 import PrivatePassFilter from './filters/PrivatePassFilter.component';
 import PrivateBookingsFilter from './filters/PrivateBookingsFilter.component';
+import WaiverFilter from './filters/WaiverFilter.component';
 
 import type { PaymentPack } from '../../payment-packs/types';
 import type { Establishment } from '../../establishment/types';
 import type { Coach } from '../../associated-coach/types';
-import type { PrivatePass } from '../../private-service/types';
+import type { PrivatePass, PrivateService } from '../../private-service/types';
 
 type Props = {
   payment_packs: Array<PaymentPack>,
@@ -58,6 +60,7 @@ type Props = {
   meta_activities: Array<any>,
   coaches: Array<Coach>,
   establishments: Array<Establishment>,
+  private_services: Array<PrivateService>,
   classes: Object,
   tag_groups: Array<any>,
   tags: Array<any>,
@@ -301,6 +304,17 @@ export class FilterCard extends Component<Props> {
             setNotNullableData={this.setNotNullableData}
           />
         );
+      case WAIVER_FILTER_IDENTIFIER:
+        return (
+          <WaiverFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: WAIVER_FILTER_IDENTIFIER,
+            }}
+            onChange={this.handleChange}
+            new={this.props.new}
+          />
+        );
       case BOOKINGS_FILTER_IDENTIFIER:
         return (
           <BookingsFilter
@@ -327,6 +341,7 @@ export class FilterCard extends Component<Props> {
             establishments={this.props.establishments}
             onChange={this.handleChange}
             private_passes={this.props.private_passes}
+            private_services={this.props.private_services}
             new={this.props.new}
             coaches={this.props.coaches}
             fetchItems={this.props.fetchItems}

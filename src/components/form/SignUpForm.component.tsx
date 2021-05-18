@@ -43,7 +43,8 @@ interface SignupData {
   username: string;
   gender: string;
   address?: ConsumerAddress;
-  acceptWaiver?: boolean;
+  accept_waiver?: boolean;
+  accept_privacy_policy?: boolean;
 }
 
 type OwnProps = {
@@ -135,6 +136,8 @@ export class SignUpForm extends Component<Props, State> {
         accept_email,
         username: email,
         gender,
+        accept_privacy_policy: acceptPrivacyPolicy,
+        accept_waiver: acceptWaiver,
       };
 
       if (address) {

@@ -56,7 +56,6 @@ exports.default = {
     accept_sms: 'Accepte les SMS',
     sum_attendance: 'Nombre de présents',
     sum__non_attendance: "Nombre de d'absences",
-    initial_price: "Prix d'achat",
     coaches: 'Professeurs',
     payout_identifier: 'Virement',
     recurrent_price: 'Montant',

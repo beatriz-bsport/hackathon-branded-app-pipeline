@@ -26,6 +26,8 @@ import EstablishmentListItem from '../../../establishment/components/Establishme
 import CoachListItem from '../../../associated-coach/components/CoachListItemBasic.component';
 import PrivatePassListItem from '../../../private-service/components/pass/PrivatePassListItem.component';
 import type { PrivatePass } from '../../../private-service/types';
+import { PrivateService } from '../../../private-service/types';
+import PrivateServiceListItem from '../../../private-service/components/service/PrivateServiceListItem.component';
 
 type Props = {
   filter_data: any,
@@ -37,6 +39,7 @@ type Props = {
   new: boolean,
   fetchBulkItems: any,
   private_passes: Array<PrivatePass>,
+  private_services: Array<PrivateService>,
   coaches: Array<any>,
   setNotNullableData: (Array<string>) => void,
   renderSelectorWarning: (string, boolean) => void,
@@ -44,7 +47,12 @@ type Props = {
 
 export class PrivateBookingsFilter extends Component<Props, state> {
   componentDidMount() {
-    const { establishments, private_passes, coaches } = this.props.filter_data;
+    const {
+      establishments,
+      private_passes,
+      coaches,
+      private_services,
+    } = this.props.filter_data;
     if (coaches && coaches.length === 1) {
       this.props.fetchBulkItems.coaches(coaches);
     }
@@ -54,12 +62,16 @@ export class PrivateBookingsFilter extends Component<Props, state> {
     if (private_passes && private_passes.length === 1) {
       this.props.fetchBulkItems.private_passes(private_passes);
     }
+    if (private_services && private_services.length === 1) {
+      this.props.fetchBulkItems.private_services(private_services);
+    }
     this.props.setNotNullableData(['comparator', 'value']);
     if (this.props.new) {
       this.props.onChange({
         at_home: false,
         establishments: [],
         private_passes: [],
+        private_services: [],
         coaches: [],
         coach_filter_active: false,
         private_pass_filter_active: false,
@@ -88,8 +100,10 @@ export class PrivateBookingsFilter extends Component<Props, state> {
       onChange,
       establishments,
       private_passes,
+      private_services,
       coaches,
     } = this.props;
+
     return (
       <div>
         <div className={classes.wrapper}>
@@ -342,6 +356,76 @@ export class PrivateBookingsFilter extends Component<Props, state> {
             )}
           </div>
         </div>
+
+        <div className={classes.inlineContainer}>
+          <Switch
+            checked={filter_data.private_service_filter_active}
+            onChange={() =>
+              onChange({
+                private_service_filter_active: !filter_data.private_service_filter_active,
+              })
+            }
+            value="checkedA"
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />{' '}
+          <div
+            className={
+              filter_data.private_service_filter_active
+                ? classes.inlineContainer
+                : classes.disabled
+            }
+          >
+            {this.props.t(
+              `filters.${filter_data.filter_identifier}.private_service.first`,
+            )}
+            <Selector
+              helperText={t('multiSelector.privateServices.helperText')}
+              helperSelectedText={t(
+                'multiSelector.privateServices.helperSelectedText',
+              )}
+              textFieldPlaceholder={t(
+                'multiSelector.privateServices.textFieldPlaceholder',
+              )}
+              renderItem={(item) => {
+                return <PrivateServiceListItem privateService={item} />;
+              }}
+              helperAllSelectedText={t(
+                'multiSelector.privateServices.helperAllSelectedText',
+              )}
+              fetchItems={this.props.fetchItems.private_services}
+              nameIdentifier="name"
+              selectAll={this.props.filter_data.select_all_private_services}
+              items={private_services}
+              selectedItems={filter_data.private_services}
+              onChange={(items, selectAll) => {
+                if (
+                  filter_data.private_services &&
+                  !(
+                    items.length === filter_data.private_services.length &&
+                    [...items].sort().every((value, index) => {
+                      return (
+                        value ===
+                        [...filter_data.private_services].sort()[index]
+                      );
+                    })
+                  )
+                ) {
+                  onChange({
+                    private_services: items,
+                    select_all_private_services: selectAll,
+                  });
+                }
+                if (!filter_data.private_services && items.length > 0) {
+                  onChange({
+                    private_services: items,
+                    select_all_private_services: selectAll,
+                  });
+                }
+              }}
+            />
+          </div>
+        </div>
+
         <div className={classes.inlineContainer}>
           <Switch
             checked={filter_data.date_filter_active}

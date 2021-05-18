@@ -5177,6 +5177,13 @@
         "textFieldPlaceholder": "Rechercher un professeur",
         "helperAllSelectedText": "tous les professeurs",
         "warning": "Sélectionnez au moins un professeur"
+      },
+      "privateServices": {
+        "helperText": "selectionner des rendez-vous",
+        "helperSelectedText": "rendez-vous sélectionnées",
+        "textFieldPlaceholder": "Rechercher un rendez-vous",
+        "helperAllSelectedText": "tous les rendez-vous",
+        "warning": "Sélectionnez au moins un rendez-vous"
       }
     },
     "noSmartLists": "Utilisez les smartlists afin de filtrer, analyser, et mieux connaitre vos membres.",
@@ -5349,6 +5356,7 @@
         "between": "et",
         "establishment": { "first": "dans les établissements", "second": "ou", "third": "à domicile" },
         "private_pass": { "first": "avec les cartes RDV" },
+        "private_service": { "first": "avec les rendez-vous" },
         "coach": { "first": "avec les professeurs" },
         "date": { "first": "ayant lieu" },
         "hour": { "first": "débutant entre", "second": "heures et", "third": "heures" }
@@ -5357,6 +5365,11 @@
         "explain": "possède un mot de passe sur bsport",
         "name": "Mot de passe",
         "explanation": "Possède un mot de passe sur bsport"
+      },
+      "410": {
+        "explain": "ayant accepté les décharges de responsabilité",
+        "name": "Décharge de responsabilité",
+        "explanation": "Ayant accepté les décharges de responsabilité"
       },
       "501": {
         "name": "Date dernière séance réservée",

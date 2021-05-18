@@ -35,6 +35,7 @@ import { fetchOnSpotPaymentReport as fetchOnSpotPaymentReportAction } from '../l
 import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/associated-coach/actions';
 // -----------------------------
 //
+//
 import { getPermissions } from '../libs/role/selectors';
 
 import { getTempPasswordState } from '../libs/login/selectors';

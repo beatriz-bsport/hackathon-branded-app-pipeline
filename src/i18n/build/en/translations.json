@@ -3317,7 +3317,7 @@
                 "label": "Total usage limit"
             },
             "only_on_first_checkout": {
-                "label": "First payment only"
+                "label": "First purchase only"
             },
             "combinable": {
                 "label": "Usable with other codes"

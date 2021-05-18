@@ -1788,7 +1788,11 @@
             "credit_amount": "Aantal kredieten",
             "initial_price": "Koopprijs",
             "last_view": "Laatst bekeken op",
-            "video_title": "Titel van de video"
+            "video_title": "Titel van de video",
+            "nb_canceled": "Aantal annuleringen",
+            "recurrent_price": "Bedrag",
+            "sum__non_attendance": "Aantal afwezigen",
+            "sum_attendance": "Aantal aanwezigen"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"

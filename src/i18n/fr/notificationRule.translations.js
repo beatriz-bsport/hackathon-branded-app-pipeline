@@ -31,6 +31,10 @@ const {
   NOTIFICATION_PRIVATE_BOOKING_CREATE_CONSUMER,
   NOTIFICATION_PRIVATE_BOOKING_UPDATETIME_COACH,
   NOTIFICATION_PRIVATE_BOOKING_UPDATETIME_CONSUMER,
+  NOTIFICATION_SUBSCRIPTION_PAYMENT_DISPUTED,
+  NOTIFICATION_SUBSCRIPTION_PASS_AUTO_DISABLED,
+  NOTIFICATION_SUBSCRIPTION_PAYMENT_FAILED_NO_RETRY,
+  NOTIFICATION_SUBSCRIPTION_PAYMENT_FAIL_WILL_RETRY,
 } = NOTIFICATION_EVENTS;
 
 // should import that from common
@@ -207,5 +211,13 @@ exports.default = {
       'Pénalité carte de cours : carte bloquée (élève)',
     [NOTIFICATION_CONSUMER_PAYMENT_PACK_PENALTY_ACCOUNT]:
       'Pénalité carte de cours : acompte créé (élève)',
+    [NOTIFICATION_SUBSCRIPTION_PAYMENT_DISPUTED]:
+      "Litige sur paiement d'une souscription",
+    [NOTIFICATION_SUBSCRIPTION_PASS_AUTO_DISABLED]:
+      'Carte de cours de la souscription automatiquement désactivée',
+    [NOTIFICATION_SUBSCRIPTION_PAYMENT_FAILED_NO_RETRY]:
+      "Paiement d'une souscription échoué",
+    [NOTIFICATION_SUBSCRIPTION_PAYMENT_FAIL_WILL_RETRY]:
+      "Paiement d'une souscription échoué, sera retenté",
   },
 };

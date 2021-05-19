@@ -133,7 +133,7 @@ exports.default = {
       isDisabled: 'La séance a été malheureusement été annulée.',
       isTooLate: 'Les inscriptions sont closes.',
       isTooSoon:
-        'Les inscriptions sont fermées pour le moment et ouvrirons le {{ date }}.',
+        'Les inscriptions sont fermées pour le moment et ouvriront le {{ date }}.',
       isWaitingListFull:
         "La séance est complète la liste d'attente est pleine.",
     },

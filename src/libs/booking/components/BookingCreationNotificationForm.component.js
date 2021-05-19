@@ -526,6 +526,9 @@ export default compose(
       } else if (identifier === 'meta_activity') {
         values.establishment_id = null;
         values.meta_activity_id = objectId;
+      } else if (identifier === 'workshop') {
+        values.establishment_id = null;
+        values.meta_activity_id = objectId;
       }
       return values;
     },

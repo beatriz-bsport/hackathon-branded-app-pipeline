@@ -15,7 +15,7 @@ export const MarketingRouter = () => {
     <Switch>
       <Route path="/marketing/rule/:id" component={MarketingRule} />
       <Route path="/marketing/notifications" component={MarketingNotifications} />
-      <Route path="/marketing" component={MarketingDashboard} />
+      <Route path="/marketing/strategies" component={MarketingDashboard} />
     </Switch>
   );
 };

@@ -671,7 +671,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             text: t('backofficeMenu.email_template'),
           },
           {
-            to: '/marketing',
+            to: '/marketing/strategies',
             icon: StorageIcon,
             subtext:
               Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'

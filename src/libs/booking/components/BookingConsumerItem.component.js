@@ -37,9 +37,9 @@ export const BookingConsumerItem = (props: Props) => {
   const { offer } = booking;
   if (!offer) return null;
   const { meta_activity, coach, establishment } = offer;
-  let dateStart = moment(offer.date_start);
+  const dateStart = moment(offer.date_start);
   if (establishment && meta_activity && !offer.meta_activity.is_broadcast) {
-    dateStart = dateStart.tz(establishment.tzname);
+    dateStart.tz(establishment.tzname);
   }
   return (
     <div className={classes.container}>

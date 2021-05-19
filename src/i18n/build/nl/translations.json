@@ -171,7 +171,11 @@
             "300": "Een lid dat niet tijdig heeft geantwoord van de wachtlijst verwijderen",
             "601": "Automatische annulering: te weinig reserveringen X uur voor het begin van de sessie",
             "702": "Sanctie: er is een boete opgelegd (voor leden)",
-            "701": "Sanctie: het lidmaatschap is tijdelijk geblokkeerd (voor leden)"
+            "701": "Sanctie: het lidmaatschap is tijdelijk geblokkeerd (voor leden)",
+            "530": "Geschil over de betaling voor een abonnement",
+            "520": "Het systeem zal mislukte betalingen voor een abonnement opnieuw proberen.",
+            "515": "De cursuskaart van het abonnement wordt automatisch gedeactiveerd.",
+            "510": "Mislukte betaling voor een abonnement"
         },
         "tag": {
             "BookingOption": {
@@ -2408,6 +2412,13 @@
                 "textFieldPlaceholder": "Vind een afspraakkaart",
                 "helperSelectedText": "Geselecteerde afspraakkaarten",
                 "helperText": "Kies een afspraakkaart"
+            },
+            "privateServices": {
+                "warning": "Selecteer minimaal één afspraak",
+                "helperAllSelectedText": "Alle afspraken",
+                "textFieldPlaceholder": "Een afspraak maken",
+                "helperSelectedText": "Geselecteerde afspraken",
+                "helperText": "Selecteer afspraken"
             }
         },
         "modal": {
@@ -2840,11 +2851,19 @@
                 "second": "afspraken",
                 "first": "Gereserveerd",
                 "explanation": "Reservering X met instructeur A in vestiging B met cursuskaart C...",
-                "name": "Aantal afspraken"
+                "name": "Aantal afspraken",
+                "private_service": {
+                    "first": "met afspraken"
+                }
             },
             "attendanceTrue": "aanwezig",
             "attendanceFalse": "afwezig",
-            "attendanceWarning": "Kies een status"
+            "attendanceWarning": "Kies een status",
+            "410": {
+                "explanation": "Heeft de Waiver / Vrijstellen aanvaard",
+                "name": "Waiver / Vrijstelling",
+                "explain": "Heeft de Waiver / Vrijstellen aanvaard"
+            }
         },
         "mails": "E-mails",
         "exportList": "Smartlist exporteren",
@@ -4401,7 +4420,7 @@
             "explainEnabled": "Ingeschakeld: BSPORT beheert de links van je online lessen. Je kunt 1 livestream tegelijk organiseren.",
             "submit": "Opslaan",
             "zoom": {
-                "explainValid": "Geldig account: de links van Zoom worden 15 minuten voor het begin van elke online les aangemaakt en verstuurd. De instructeur ontvangt een link om de online les te hosten, terwijl je ingeschreven leden een andere link ontvangen om deel te nemen. Waarschuwing! Controleer of je een Premium Zoom-account hebt, omdat Basis Zoom-accounts tot online sessies van 40 minuten zijn beperkt",
+                "explainValid": "We versturen automatisch de links van Zoom 15 minuten voor het begin van je online evenementen naar je instructeurs en je ingeschreven leden. Controleer of je Zoom Premium hebt, omdat sessies via Zoom Basic tot een lengte van 40 minuten beperkt zijn. Belangrijk: Zoom staat één integratie per licentie toe. Neem contact met onze Klantenservice op voor meer informatie over hoe je meerdere accounts kunt gebruiken.",
                 "enabled": "Activeer de integratie van BSPORT Solution en Zoom",
                 "label": "Zoom configureren",
                 "explainInvalid": "Ongeldig account",
@@ -5555,7 +5574,7 @@
                 "1": "Wordt verwerkt",
                 "0": "Gepauzeerd"
             },
-            "title": "Mijn incasso's"
+            "title": "Mijn uitbetalingen"
         }
     },
     "snackbar": {

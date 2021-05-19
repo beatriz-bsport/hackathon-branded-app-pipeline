@@ -8231,7 +8231,7 @@
         "backofficeMenu": {
             "coupon": "Coupon",
             "contract": "Contracts",
-            "subscription": "Withdrawals",
+            "subscription": "Subscriptions",
             "myClub": "My Club",
             "settings": {
                 "paymentRules": "Payment rates",
@@ -8273,7 +8273,7 @@
                 "pass": "Pass"
             },
             "beta": "beta",
-            "coachPerformance": "Teachers",
+            "coachPerformance": "Teacher Payroll",
             "myShop": "Shop",
             "product": "Products",
             "coaches": "Teachers",
@@ -8286,9 +8286,9 @@
             "alpha": "in development",
             "invoice": "Invoices",
             "workshopActivities": "Workshops",
-            "order": "Orders",
-            "email_template": "Emails",
-            "smart_list": "Smart lists",
+            "order": "Shop",
+            "email_template": "Templates",
+            "smart_list": "Smart Lists",
             "sequence": "Strategies",
             "requestTempPassword": "Authorize access",
             "combo": "Packs",

@@ -2594,6 +2594,7 @@
       "privatePass": { "error": "Cette carte de rendez-vous n'est pas disponible" }
     },
     "myBasket": {
+      "checkingPaymentStatus": "Veuillez patienter, nous vérifions le status de votre paiement",
       "finalize": { "steps": { "address": "Adresse", "payment": "Facturation" } },
       "title": "Mon panier",
       "isEmpty": "Votre panier est vide",

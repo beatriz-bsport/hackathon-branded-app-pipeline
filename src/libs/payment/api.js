@@ -56,6 +56,14 @@ export const getPaymentGroupStatus = async (id: number) => {
   return getAuth(`${API_V1_URI}/payment/payment_group/${id}/status/`);
 };
 
+export const getPaymentGroupStatusBySecret = async (
+  _payment_backend_id: string,
+) => {
+  return postAuth(`${API_V1_URI}/payment/payment_group/status_by_secret/`, {
+    _payment_backend_id,
+  });
+};
+
 export const fetchPaymentGroupList = async (params: any) => {
   return getAuth(
     `${API_V1_URI}/payment/payment_group/${buildUrlParams(params)}`,

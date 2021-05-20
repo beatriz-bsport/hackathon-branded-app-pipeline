@@ -21,6 +21,8 @@ exports.default = {
     },
   },
   myBasket: {
+    checkingPaymentStatus:
+      'Veuillez patienter, nous vérifions le status de votre paiement',
     finalize: {
       steps: {
         address: 'Adresse',

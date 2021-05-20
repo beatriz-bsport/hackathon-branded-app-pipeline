@@ -30,6 +30,7 @@ import {
   patchCurrentBasket,
   attachPayment as attachPaymentAction,
 } from '../../libs/checkout/actions';
+import withQueryParams from '../../hocs/with-query-params.hoc';
 import Analytics from '../../components/analytics/Analytics.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import CheckoutFlow from '../../libs/checkout/components/CheckoutFlow.component';
@@ -52,9 +53,12 @@ import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '../../libs/pa
 import { validateUnpaid as validateUnpaidAPI } from '../../libs/checkout/api';
 
 import { auth as authActions } from '../../actions';
+import { snackbarError } from '../../actions/snackbar.actions';
 
 import { fetchProfile } from '../../libs/consumer-space/actions';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
+
+import CheckPaymentStatus from './CheckPaymentStatus.component';
 
 type Props = {
   basket: ?Basket,
@@ -90,6 +94,10 @@ type Props = {
   fetchCurrentBasket: (companyId: number) => void,
   removeItemFromBasket: (basketId: string, data: any) => void,
   addItemToBasket: (basketId: string, data: any) => void,
+
+  snackbarError: (string) => void,
+  queryParams: any,
+  setQueryParams: (string, string) => void,
 };
 
 export class CheckoutPayment extends React.Component<Props> {
@@ -130,6 +138,13 @@ export class CheckoutPayment extends React.Component<Props> {
   }
 
   getSecret = () => {
+    if (
+      this.props.queryParams &&
+      this.props.queryParams.check_payment_intent &&
+      this.props.queryParams.redirect_status === 'succeeded'
+    ) {
+      return;
+    }
     this.setState({ clientSecretLoading: true });
     requestClientSecretAPI(PAYMENT_ENGINE_STRIPE, PAYMENT_INTENT_TYPE_BASKET, {
       basket: this.props.basket.id,
@@ -212,6 +227,30 @@ export class CheckoutPayment extends React.Component<Props> {
           <CircularProgress />
         </div>
       );
+    }
+    if (
+      this.props.queryParams &&
+      this.props.queryParams.check_payment_intent === 'true'
+    ) {
+      if (this.props.queryParams.redirect_status === 'succeeded') {
+        return (
+          <CheckPaymentStatus
+            paymentIntent={this.props.queryParams.payment_intent}
+            onFail={() => {
+              this.props.setQueryParams('check_payment_intent', 'false');
+              this.props.snackbarError('payment:failed');
+            }}
+            onSuccess={() => {
+              if (this.props.companyId) {
+                this.props.goToUserSpace(this.props.companyId);
+              }
+            }}
+          />
+        );
+      }
+      if (this.props.queryParams.redirect_status === 'failed') {
+        this.props.snackbarError('payment:failed');
+      }
     }
     const termsAndConditionsAccepted =
       this.state.termsAndConditionsAccepted ||
@@ -332,6 +371,11 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   routerParamsToProps({ companyId: 'companyId:number' }),
+  withQueryParams([
+    ['check_payment_intent', 'payment_intent', 'redirect_status'],
+    'queryParams',
+    'setQueryParams',
+  ]),
   withTranslation(['checkout', 'payment', 'invoice', 'login']),
   connect(
     (state) => ({
@@ -356,6 +400,7 @@ export default compose(
       fetchCurrentBasket: fetchCurrentBasketAction,
       patchCurrentBasket,
       attachPayment: attachPaymentAction,
+      snackbarError,
       attachCoupon,
       fetchCompanyTheme,
       fetchShopItemFeatured,

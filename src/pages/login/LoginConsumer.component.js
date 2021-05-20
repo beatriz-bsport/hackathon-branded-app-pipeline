@@ -190,6 +190,7 @@ const styles = (theme) => ({
     textAlign: 'center',
     padding: theme.spacing(6),
     width: '100%',
+    overflow: 'auto',
     height: '90vh',
     marginTop: '10vh',
     display: 'flex',

@@ -3250,7 +3250,7 @@
                 "isDisabled": "De sessie is helaas geannuleerd.",
                 "isTooLate": "De inschrijvingen zijn gesloten.",
                 "isWaitingListFull": "De sessie en de wachtlijst zijn vol.",
-                "isTooSoon": "Inschrijvingen zijn tot {{ date }} gesloten."
+                "isTooSoon": "Vanaf {{ date }} kan er gereserveerd worden."
             },
             "messages": {
                 "offerLocked": "Fout bij het inschrijven",
@@ -6844,7 +6844,8 @@
                 "checkoutBasket": "Afrekenen",
                 "payZero": "Mijn winkelmandje bevestigen"
             },
-            "isFinalized": "Je winkelmandje is gevalideerd"
+            "isFinalized": "Je winkelmandje is gevalideerd",
+            "checkingPaymentStatus": "Een moment geduld, we controleren de status van de betaling."
         },
         "paymentIntent": {
             "isProcessing": "Een moment geduld alstublieft"
@@ -7600,7 +7601,8 @@
                 "payment_pack": "Cursuskaarten",
                 "private_service": "Afspraak",
                 "establishment": "Vestiging",
-                "meta_activity": "Activiteit"
+                "meta_activity": "Activiteit",
+                "workshop": "Workshop"
             },
             "cancel": "Annuleren",
             "next": "Volgende",
@@ -7609,7 +7611,8 @@
                 "payment_pack": "Selecteer een cursuskaart",
                 "private_service": "Selecteer een afspraak",
                 "establishment": "Selecteer een vestiging",
-                "meta_activity": "Selecteer een activiteit"
+                "meta_activity": "Selecteer een activiteit",
+                "workshop": "Selecteer een workshop"
             },
             "createNotification": "[Formulier] Melding",
             "selectNotificationRules": "Selecteer een regel voor een gedetailleerd overzicht."

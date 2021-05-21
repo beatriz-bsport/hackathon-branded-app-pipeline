@@ -1251,10 +1251,13 @@ export function createOrUpdatePrivatePass(
       if (!id) {
         dispatch(fetchPrivatePassList());
       }
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
     } catch (err) {
       console.error(err);
       dispatch(privatePassCreateOrUpdateActions.error(err));
-      if (options && options.onError) options.onError();
+      if (options && options.onError) options.onError(err);
     }
     dispatch(privatePassCreateOrUpdateActions.isLoading(false));
   };

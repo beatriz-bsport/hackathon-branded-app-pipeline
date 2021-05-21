@@ -624,7 +624,7 @@
       "is_broadcast": "Cours live streaming",
       "lastBookingBeforeMinutes": "Avant le début du cours, dernière réservation possible",
       "lastDiscardBeforeMinutes": "Avant le début du cours, dernière annulation possible",
-      "firstBookingMinutesUntil": "Bloquer les réservations dans le futur au-dessus de ",
+      "firstBookingMinutesUntil": "Les élèves peuvent réserver les séances futures si elles débutent dans moins de ",
       "addOffers": "Ajouter des séances",
       "addActivity": "Ajouter une activité",
       "name": "Titre",

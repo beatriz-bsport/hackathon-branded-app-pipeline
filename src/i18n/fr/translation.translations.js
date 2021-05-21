@@ -765,7 +765,7 @@ exports.default = {
     lastDiscardBeforeMinutes:
       'Avant le début du cours, dernière annulation possible',
     firstBookingMinutesUntil:
-      'Bloquer les réservations dans le futur au-dessus de ',
+      'Les élèves peuvent réserver les séances futures si elles débutent dans moins de ',
     addOffers: 'Ajouter des séances',
     addActivity: 'Ajouter une activité',
     name: 'Titre',

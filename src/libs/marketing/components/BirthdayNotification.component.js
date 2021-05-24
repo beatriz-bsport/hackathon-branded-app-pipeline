@@ -55,7 +55,7 @@ export const BirthdayNotification = (props: Props) => {
             <EmailSelector
               emails={props.emailDesignList}
               value={(props.event || {}).email_design}
-              helperText={props.t('emailDesign.placeholder')}
+              helperText={props.t('emailDesign.birthdayPlaceholder')}
               onChange={(option) => {
                 if (!option) {
                   return props.onDeleteNotification(props.event.id);

@@ -67,7 +67,7 @@ export class RoleList extends React.PureComponent<Props> {
     return (
       <List disablePadding>
         {roles.map((role) => (
-          <ListItem divider={true} className={classes.item}>
+          <ListItem divider className={classes.item}>
             <div key={role.id}>
               <Typography variant="subtitle2">
                 {getRoleName(role, t)}

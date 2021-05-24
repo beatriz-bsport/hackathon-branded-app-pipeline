@@ -53,7 +53,7 @@ class BasketPage extends React.PureComponent<Props> {
                 basket={this.props.basket}
                 withPrice
                 loading={this.props.loading}
-                fullWidth={true}
+                fullWidth
                 onRemoveCheckoutItem={(data: any) =>
                   this.props.removeItemFromBasket(this.props.basket.id, data)
                 }

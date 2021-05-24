@@ -64,6 +64,7 @@ exports.default = {
   emailDesign: {
     placeholder: 'Généré par bsport',
     closePreview: 'Fermer',
+    birthdayPlaceholder: 'Choisir un mail',
   },
   marketingNotification: {
     birthday: "Courriel d'anniversaire",

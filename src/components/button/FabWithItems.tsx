@@ -55,7 +55,7 @@ class FabWithItems extends React.PureComponent<Props, State> {
         {this.state.openFab && (
           <ButtonBase
             className={this.props.classes.fabBackgroundContainer}
-            disableRipple={true}
+            disableRipple
             onClick={this.onClose}
           />
         )}

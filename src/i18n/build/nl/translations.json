@@ -173,7 +173,7 @@
             "702": "Sanctie: er is een boete opgelegd (voor leden)",
             "701": "Sanctie: het lidmaatschap is tijdelijk geblokkeerd (voor leden)",
             "530": "Geschil over de betaling voor een abonnement",
-            "520": "Het systeem zal mislukte betalingen voor een abonnement opnieuw proberen.",
+            "520": "Het systeem zal mislukte betalingen voor abonnementen opnieuw proberen.",
             "515": "De cursuskaart van het abonnement wordt automatisch gedeactiveerd.",
             "510": "Mislukte betaling voor een abonnement"
         },
@@ -5562,8 +5562,8 @@
         },
         "returnedAmount": "Vergoed: ",
         "payout": {
-            "isEmptyWarning": "NB: het is mogelijk dat incasso's van vóór 15 maart 2021 niet worden vermeld.",
-            "isEmpty": "Er zijn nog geen incasso's geregistreerd.",
+            "isEmptyWarning": "Het is mogelijk dat uitbetalingen van vóór 15 maart 2021 niet worden vermeld.",
+            "isEmpty": "Er zijn nog geen uitbetalingen geregistreerd.",
             "invoice": "Factuur {{ uuid }}",
             "seeMore": "Toon meer",
             "paymentNb": "{{nb}} betaling(en)",

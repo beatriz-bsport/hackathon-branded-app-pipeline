@@ -96,7 +96,7 @@ const styles = (theme: Theme) => ({
   },
   imageContainer: {
     width: '100%',
-    paddingTop: '56.25%',
+    height: `${(9 / 16) * 100}vw`,
     position: 'relative',
     [theme.breakpoints.up('md')]: {
       paddingTop: 0,

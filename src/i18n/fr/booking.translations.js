@@ -271,6 +271,7 @@ exports.default = {
       title: 'Réserver plus de séances',
       empty: 'Aucune séance trouvée',
       showMore: 'Voir plus',
+      selectAll: 'Tout sélectionner',
     },
     offerStatus: {
       book: 'Inscription',

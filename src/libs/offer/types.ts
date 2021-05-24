@@ -105,7 +105,11 @@ export type OfferState = ErrorAndLoading & {
   byDay: ErrorAndLoading & { allIds: number[] };
   retrieve: ErrorAndLoading & { data: Offer | null };
   bulk: ErrorAndLoading;
-  similarOffers: ErrorAndLoading & { items: Offer[]; lastFetched: Date | null };
+  similarOffers: ErrorAndLoading & {
+    items: Offer[];
+    lastFetched: Date | null;
+    next_page: number;
+  };
   compatiblePacks: ErrorAndLoading & { items: any[]; lastFetched: Date | null };
   marketplace: ErrorAndLoading & { allIds: number[] };
   genderCount: ErrorAndLoading & {

@@ -97,7 +97,7 @@ type State = {
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
-const SIMILAR_OFFER_PAGE_SIZE = 4;
+const SIMILAR_OFFER_PAGE_SIZE = 7;
 
 class OfferBooking extends React.PureComponent<Props, State> {
   state: State = {
@@ -119,6 +119,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
           onSuccess: this.setOfferConstraint,
         });
         this.setOfferConstraint();
+        this.fetchSimilarOffers();
       },
     });
   }
@@ -448,7 +449,6 @@ class OfferBooking extends React.PureComponent<Props, State> {
                       ? null
                       : () => {
                           this.setState({ showSimilarOffers: true });
-                          this.fetchSimilarOffers();
                         }
                   }
                   onClickRemoveOffer={this.onSelectOffer}
@@ -489,7 +489,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
             loading={this.props.similarLoading}
             offerStatusById={this.props.offerStatusById}
             resetSimilarOffers={this.props.resetSimilarOffers}
-            fetchSimilarOffers={this.fetchSimilarOffers}
+            onClickShowMore={this.fetchSimilarOffers}
             hasMoreSimilarOffer={this.props.hasMoreSimilarOffer}
           />
 

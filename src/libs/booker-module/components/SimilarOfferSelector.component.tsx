@@ -26,7 +26,7 @@ import {
 } from '@bsport/common/lib/master-data/bookable-status';
 
 import { MaterialStyleType } from '../../../utils/types';
-import { Offer_FULL } from '../../offer/types';
+import { Offer, Offer_FULL, OfferStatus } from '../../offer/types';
 import { OfferData } from '../types';
 import OfferItem from './OfferBookableItem.component';
 
@@ -36,27 +36,57 @@ type OwnProps = {
   onClose: () => void;
   selectedOffers: OfferData[];
   onSelectOffer: (offer: Offer_FULL) => void;
+  similarOffers: Offer[];
+  loading: boolean;
+  hasMoreSimilarOffer: boolean;
+  onClickShowMore: () => void;
+  offerStatusById: { [key: string]: OfferStatus };
 };
 
 type Props = OwnProps &
-  OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
 class SimilarOffers extends React.PureComponent<Props> {
+  get availableOffers() {
+    return this.props.similarOffers.filter((o) => {
+      return o.id !== this.props.offer.id;
+    });
+  }
+
+  componentDidUpdate = (prevProps: Props) => {
+    if (prevProps.selectedOffers !== this.props.selectedOffers) {
+      const displayedOffersCount =
+        this.availableOffers.length - this.props.selectedOffers.length;
+      displayedOffersCount === 0 &&
+        this.props.hasMoreSimilarOffer &&
+        this.props.onClickShowMore();
+    }
+  };
+
   componentWillMount = () => {
     this.props.resetSimilarOffers();
+  };
+
+  onClickSelectAllOffers = () => {
+    const offers = this.availableOffers.filter((o) => {
+      if (!this.props.selectedOffers.length) {
+        return true;
+      }
+
+      return !this.props.selectedOffers.find((so) => so.offer.id === o.id);
+    });
+
+    offers.forEach((o) => {
+      this.props.onSelectOffer(o);
+    });
   };
 
   render() {
     const { classes, t } = this.props;
 
-    const availableOffers = this.props.similarOffers.filter((o) => {
-      return o.id !== this.props.offer.id;
-    });
-
     const displayedOffersCount =
-      availableOffers.length - this.props.selectedOffers.length;
+      this.availableOffers.length - this.props.selectedOffers.length;
 
     return (
       <Drawer
@@ -76,10 +106,22 @@ class SimilarOffers extends React.PureComponent<Props> {
             <CloseIcon />
           </ButtonBase>
         </div>
+
         <Divider />
+
         {this.props.loading && (
           <div style={{ width: '100%' }}>
             <LinearProgress />
+          </div>
+        )}
+
+        {!this.props.loading && displayedOffersCount > 0 && (
+          <div className={classes.selectAllContainer}>
+            <ButtonBase onClick={this.onClickSelectAllOffers}>
+              <Typography color="primary">
+                {t('offer.similarOffer.selectAll').toUpperCase()}
+              </Typography>
+            </ButtonBase>
           </div>
         )}
 
@@ -93,7 +135,7 @@ class SimilarOffers extends React.PureComponent<Props> {
         )}
 
         <div className={classes.similarOffersContainer}>
-          {availableOffers.map((o) => {
+          {this.availableOffers.map((o) => {
             const offerStatus = this.props.offerStatusById[o.id];
             if (
               !o.establishment ||
@@ -157,7 +199,7 @@ class SimilarOffers extends React.PureComponent<Props> {
             );
           })}
           {!this.props.loading && this.props.hasMoreSimilarOffer && (
-            <Button color="primary" onClick={this.props.fetchSimilarOffers}>
+            <Button color="primary" onClick={this.props.onClickShowMore}>
               {t('offer.similarOffer.showMore')}
             </Button>
           )}
@@ -192,6 +234,10 @@ const styles = (theme: Theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
+  },
+  selectAllContainer: {
+    marginTop: theme.spacing(1),
+    paddingLeft: theme.spacing(5),
   },
   similarOfferItem: {
     display: 'flex',

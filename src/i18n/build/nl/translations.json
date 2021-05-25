@@ -175,7 +175,8 @@
             "530": "Geschil over de betaling voor een abonnement",
             "520": "Het systeem zal mislukte betalingen voor abonnementen opnieuw proberen.",
             "515": "De cursuskaart van het abonnement wordt automatisch gedeactiveerd.",
-            "510": "Mislukte betaling voor een abonnement"
+            "510": "Mislukte betaling voor een abonnement",
+            "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen."
         },
         "tag": {
             "BookingOption": {
@@ -3508,7 +3509,8 @@
             "similarOffer": {
                 "showMore": "Toon meer",
                 "empty": "Er zijn geen andere sessies.",
-                "title": "Meer sessies reserveren"
+                "title": "Meer sessies reserveren",
+                "selectAll": "Alles selecteren"
             }
         }
     },
@@ -6891,8 +6893,8 @@
                         "helperText": "Als de betaling voor het abonnement mislukt, worden de reserveringen geannuleerd en de kredieten zullen worden teruggestort."
                     },
                     "disable_pass_on_fail_subscription_payment": {
-                        "label": "Deactiveer het lidmaatschap als de betaling mislukt.",
-                        "helperText": "Als de betaling voor het abonnement mislukt, worden de cursus- en afspraakkaarten van deze factuur gedeactiveerd tot de factuur betaald is."
+                        "label": "Abonnementen deactiveren als de betaling mislukt.",
+                        "helperText": "Het systeem zal de cursus- en/of afspraakkaarten van de factuur in kwestie deactiveren als de betaling mislukt of wordt gedisputeerd."
                     }
                 },
                 "title": "Abonnement"

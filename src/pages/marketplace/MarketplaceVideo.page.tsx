@@ -187,10 +187,7 @@ const styles = (theme: any) => ({
   },
   playlistListItem: {
     padding: 8,
-    marginBottom: 8,
-    [theme.breakpoints.up('lg')]: {
-      marginBottom: 8,
-    },
+    display: 'flex',
     [theme.breakpoints.down('md')]: {
       flexBasis: `${100 / 3}%`,
     },
@@ -202,7 +199,6 @@ const styles = (theme: any) => ({
     },
   },
 });
-
 const mapStateToProps = (state: RootState) => ({
   playlistList: getPlaylistList(state),
   videoList: withVideoCoach(withVideoCategory(getVideoList))(state),

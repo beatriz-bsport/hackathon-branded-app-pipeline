@@ -21,7 +21,12 @@ const useStyles = makeStyles(() => ({
     boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
     transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
   },
-
+  container2: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: 260,
+  },
   playlistItem__image_wrapper: {
     position: 'relative',
     width: '100%',
@@ -56,17 +61,34 @@ const useStyles = makeStyles(() => ({
       backgroundColor: 'black',
     },
   },
-
   image_wrapper__playlist_icon: {
     marginLeft: '5px',
   },
-
   playlist_item__content: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start',
     padding: '8px',
     width: '100%',
+    minHeight: 92,
+  },
+  playlist_item_title: {
+    minHeight: 32,
+    maxHeight: 32,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 1,
+    '-webkit-box-orient': 'vertical',
+  },
+  playlist_item__description: {
+    minHeight: 60,
+    maxHeight: 60,
+    width: '100%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 3,
+    '-webkit-box-orient': 'vertical',
   },
 }));
 
@@ -75,8 +97,8 @@ const MarketplacePlaylistItem = (props: Props) => {
   const classes = useStyles();
 
   return (
-    <ButtonBase onClick={onClick}>
-      <div className={classes.container}>
+    <ButtonBase onClick={onClick} className={classes.container}>
+      <div className={classes.container2}>
         <div className={classes.playlistItem__image_wrapper}>
           <img src={imageUrl} className={classes.img} alt="playlist" />
           <div className={classes.image_wrapper__count_wrapper}>
@@ -91,11 +113,21 @@ const MarketplacePlaylistItem = (props: Props) => {
         </div>
 
         <div className={classes.playlist_item__content}>
-          <Typography variant="h6" component="h3">
+          <Typography
+            align="left"
+            variant="h6"
+            component="h3"
+            className={classes.playlist_item_title}
+          >
             {title}
           </Typography>
 
-          <Typography variant="body2" color="textSecondary" align="left">
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            align="left"
+            className={classes.playlist_item__description}
+          >
             {description}
           </Typography>
         </div>

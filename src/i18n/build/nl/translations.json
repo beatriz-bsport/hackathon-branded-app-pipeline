@@ -74,7 +74,7 @@
         },
         "dashboard": {
             "noBooking": "Je hebt je nog niet ergens voor ingeschreven.",
-            "noPackCurrentlyActive": "Je bezit nog geen geldig lidmaatschap.",
+            "noPackCurrentlyActive": "Je bezit nog geen geldige lidmaatschappen.",
             "showMore": "Toon meer",
             "currentPassTitle": "Mijn actieve lidmaatschappen",
             "nextBookingTitle": "Mijn reserveringen",
@@ -173,7 +173,7 @@
             "702": "Sanctie: er is een boete opgelegd (voor leden)",
             "701": "Sanctie: het lidmaatschap is tijdelijk geblokkeerd (voor leden)",
             "530": "Geschil over de betaling voor een abonnement",
-            "520": "Het systeem zal mislukte betalingen voor abonnementen opnieuw proberen.",
+            "520": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen.",
             "515": "De cursuskaart van het abonnement wordt automatisch gedeactiveerd.",
             "510": "Mislukte betaling voor een abonnement",
             "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen."
@@ -295,7 +295,7 @@
     },
     "membership": {
         "selector": {
-            "explainConsumer": "<1> BSPORT Solution</2> helpt u om ieder aspect van uw studio te stroomlijnen. Vereenvoudig, automatiseer en centraliseer al uw handelingen vanuit één systeem. <3 /> Eén account, één wachtwoord!",
+            "explainConsumer": "<1> BSPORT Solution</2> geeft je een totaalplaatje van al je activiteiten en informatie op één systeem, <3 /> Eén account en één wachtwoord voor alles!",
             "noMatchingCompany": "Geen resultaat",
             "placeholder": "Zoek een studio of vestiging..."
         }

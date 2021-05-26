@@ -9,6 +9,7 @@ import { setExternalUrl as setExternalUrlAPI } from '../api';
 
 interface OwnProps {
   fowardedRef: (ref: VideoProviderUrl) => void;
+  onClose: () => void;
 }
 
 type Props = OwnProps &
@@ -44,6 +45,8 @@ class VideoProviderUrl extends React.PureComponent<Props, State> {
           ? this.props.t('video.upload.durationInputError')
           : '',
       });
+
+      return;
     }
 
     const duration_second = this.state.minutes * 60 + this.state.hours * 3600;

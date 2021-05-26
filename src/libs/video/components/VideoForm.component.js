@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import pick from 'lodash/pick';
+import moment from 'moment-timezone';
 
 import { withFormik, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -22,6 +23,7 @@ import LevelSelectorField from '../../category/components/LevelSelectorField.com
 type Props = {
   coaches: Array<Coach>,
   SCTs: Array<SCT>,
+  initial: any,
 };
 export const VideoForm = (props: Props) => {
   const { t } = useTranslation(['video']);
@@ -122,6 +124,29 @@ export const VideoForm = (props: Props) => {
         />
       </div>
 
+      {props.initial && (
+        <>
+          <Typography>{t('video.upload.durationLabel')}</Typography>
+          <div className={classes.durationWrapper}>
+            <IntegerField
+              label={t('video.upload.hours')}
+              name="_duration_hours"
+              required
+              fullWidth
+              inputProps={{ maxLength: 500 }}
+            />
+
+            <IntegerField
+              label={t('video.upload.minutes')}
+              name="_duration_minutes"
+              required
+              fullWidth
+              inputProps={{ maxLength: 500 }}
+            />
+          </div>
+        </>
+      )}
+
       <div className={classes.field}>
         <CheckboxField
           helperText={t('video.manager_only_helper')}
@@ -152,6 +177,9 @@ const useStyles = makeStyles((theme) => ({
   field: {
     marginBottom: theme.spacing(2),
   },
+  durationWrapper: {
+    display: 'flex',
+  },
   managerOnlyContainer: {
     marginBottom: theme.spacing(4),
     display: 'flex',
@@ -178,6 +206,7 @@ export const VideoSchema = Yup.object().shape({
   cover_main: Yup.mixed().required(),
   name: Yup.string().required(),
   description: Yup.string().required(),
+  duration_second: Yup.number(),
   coaches: Yup.array().of(Yup.number()),
   SCT: Yup.number().integer(),
   credit_price: Yup.number().integer(),
@@ -187,11 +216,15 @@ export const VideoSchema = Yup.object().shape({
 export const VideoFormHOC = withFormik({
   mapPropsToValues: ({ initial }) => {
     if (initial) {
+      const duration = moment.duration(initial.duration_second, 'seconds');
+
       return {
         ...initial,
         coaches: [...initial.coaches.map((ac) => ac.id)],
         SCT: initial.SCT ? initial.SCT.id : null,
         manager_only: initial.manager_only,
+        _duration_minutes: duration.minutes(),
+        _duration_hours: duration.hours(),
       };
     }
     return {
@@ -229,6 +262,15 @@ export const VideoFormHOC = withFormik({
     if (initial && initial.id) {
       data.id = initial.id;
     }
+
+    if (initial) {
+      const hours = values._duration_hours;
+      const minutes = values._duration_minutes;
+
+      const duration_second = minutes * 60 + hours * 3600;
+      data.duration_second = duration_second;
+    }
+
     onSubmit(data, {
       onSuccess: () => {
         if (onSuccess && typeof onSuccess === 'function') onSuccess();

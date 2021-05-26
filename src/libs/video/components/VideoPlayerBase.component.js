@@ -106,7 +106,7 @@ export class VideoPlayerBase extends React.Component<Props> {
                   : {}
               }
               ref={this.onVideoJSRef}
-              className="video-js fluid"
+              className="video-js fluid vjs-big-play-centered"
             />
           </div>
         )}

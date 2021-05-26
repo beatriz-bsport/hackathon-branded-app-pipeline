@@ -233,6 +233,13 @@ const turnSearchParamsIntoQueryParams = (searchParams?: any) => {
   if (searchParams && searchParams.search) {
     params.search = searchParams.search;
   }
+
+  const { duration_second_range } = searchParams;
+
+  if (typeof duration_second_range === 'string') {
+    params.duration_second_range = duration_second_range;
+  }
+
   return params;
 };
 

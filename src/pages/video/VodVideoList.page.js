@@ -100,6 +100,7 @@ const VideoMap = {
   coaches: 'coaches',
   credit_price: 'credit_price',
   manager_only: 'manager_only',
+  duration_second: 'duration_second',
 };
 
 const VIEW_MODE = {

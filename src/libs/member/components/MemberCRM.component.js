@@ -35,6 +35,10 @@ type Props = {
   uploadedFiles: any,
   paymentMethod: Array<any>,
   paymentMethodLoading: boolean,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
 };
 
 export const MemberCRM = (props: Props) => (
@@ -82,6 +86,10 @@ export const MemberCRM = (props: Props) => (
       memberId={props.memberId}
       paymentMethod={props.paymentMethod}
       paymentMethodLoading={props.paymentMethodLoading}
+      detachPaymentMethod={props.detachPaymentMethod}
+      detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+      snackbarErrorMsg={props.snackbarErrorMsg}
+      snackbarSuccessMsg={props.snackbarSuccessMsg}
     />
   </Paper>
 );

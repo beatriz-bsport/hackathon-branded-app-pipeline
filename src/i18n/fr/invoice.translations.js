@@ -123,6 +123,17 @@ exports.default = {
       [PAYMENT_GROUP_METHOD_IDENTIFIER_EPS]: 'EPS',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY]: 'Giropay',
     },
+    detach: {
+      pm_deleted: 'Moyen de paiment supprimé',
+      last_payment_method:
+        'Impossible de supprimer votre unique moyen de paiement',
+      pm_associated_to_protected_bp:
+        'Impossible : Vous avez une souscription associée à ce moyent de paiment',
+      pm_associated_to_registered_ppe:
+        'Impossible : Vous avez une souscription associée à ce moyent de paiment',
+      pm_associated_to_pi:
+        'Impossible : Vous avez une souscription associée à ce moyent de paiment',
+    },
   },
   plannedPaymentEvent: {
     actions: {

@@ -31,9 +31,17 @@ import SubscriptionContractCard from '../../libs/subscription/components/Subscri
 import SubscriptionPayment from '../../libs/subscription/components/SubscriptionPayment.component';
 
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
-import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
+import {
+  fetchPaymentMethodList as fetchPaymentMethodListAction,
+  detachPaymentMethod,
+} from '../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import Analytics from '../../components/analytics/Analytics.component';
+
+import {
+  snackbarWarning,
+  snackbarSuccess,
+} from '../../actions/snackbar.actions';
 
 const stripePromise = loadStripe(getStripePkKey());
 
@@ -61,6 +69,11 @@ type Props = {
   requestSetupIntentSecret: () => void,
   fetchPaymentMethodList: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
+  detachPaymentMethodLoading: boolean,
+  companyId: number,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
 };
 
 export class MarketplaceContract extends React.Component<Props> {
@@ -189,6 +202,13 @@ export class MarketplaceContract extends React.Component<Props> {
                       this.props.companyTheme
                         .payment_method_available_subscription
                     }
+                    detachPaymentMethodLoading={
+                      this.props.detachPaymentMethodLoading
+                    }
+                    companyId={this.props.companyId}
+                    detachPaymentMethod={this.props.detachPaymentMethod}
+                    snackbarErrorMsg={this.props.snackbarErrorMsg}
+                    snackbarSuccessMsg={this.props.snackbarSuccessMsg}
                   />
                 </Elements>
               </div>
@@ -232,6 +252,9 @@ export default compose(
       contractLoading: state.subscription.contract.byMarketplace.loading,
       companyTheme: themeSelectors.getTheme(state),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
+      detachPaymentMethodLoading:
+        state.paymentBackend.detachPaymentMethod.loading,
+      companyId: state.marketplace.settings.company,
     }),
     {
       fetchMarketplaceContractList,
@@ -240,6 +263,9 @@ export default compose(
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       fetchPrivatePassBulk: fetchPrivatePassBulkAction,
       fetchPaymentMethodList: fetchPaymentMethodListAction,
+      detachPaymentMethodAction: detachPaymentMethod,
+      snackbarErrorMsg: snackbarWarning,
+      snackbarSuccessMsg: snackbarSuccess,
     },
   ),
   withHandlers({
@@ -289,4 +315,28 @@ export default compose(
       replace(pathname);
     },
   })),
+  withHandlers({
+    detachPaymentMethod: ({
+      detachPaymentMethodAction,
+      fetchpaymentMethod,
+      snackbarErrorMsg,
+      snackbarSuccessMsg,
+      companyId,
+      t,
+    }) => (pm_id, options) => {
+      detachPaymentMethodAction(
+        { company: companyId, payment_method_id: pm_id },
+        {
+          onSuccess: () => {
+            fetchpaymentMethod({ company: companyId });
+            snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
+            if (options && options.onSuccess) options.onSuccess();
+          },
+          onError: (data) => {
+            snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
+          },
+        },
+      );
+    },
+  }),
 )(MarketplaceContract);

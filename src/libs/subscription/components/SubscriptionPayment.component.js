@@ -103,6 +103,11 @@ type Props = {
   contract?: Contract,
   withCoupon?: boolean,
   withNote?: boolean,
+  detachPaymentMethodLoading: boolean,
+  companyId: number,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
 };
 
 type State = {
@@ -262,6 +267,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 <PaymentMethodList
                   showEmpty
                   isExpanded
+                  onDelete
                   savedPaymentMethodList={this.props.savedPaymentMethodList}
                   selectedSavedPaymentMethodId={
                     this.state.selectedSavedPaymentMethodId
@@ -277,6 +283,13 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                     })
                   }
                   disabled={this.state.loading || this.props.processing}
+                  detachPaymentMethodLoading={
+                    this.props.detachPaymentMethodLoading
+                  }
+                  companyId={this.props.companyId}
+                  detachPaymentMethod={this.props.detachPaymentMethod}
+                  snackbarErrorMsg={this.props.snackbarErrorMsg}
+                  snackbarSuccessMsg={this.props.snackbarSuccessMsg}
                 />
               )}
             </div>

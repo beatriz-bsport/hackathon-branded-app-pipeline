@@ -129,6 +129,19 @@ exports.default = {
       fail: "Erreur lors de l'enregistrement de la carte",
     },
   },
+  paymentMethod: {
+    detach: {
+      pm_deleted: 'Moyen de paiment supprimé',
+      last_payment_method:
+        'Impossible de supprimer votre unique moyen de paiement',
+      pm_associated_to_protected_bp:
+        'Impossible : Vous avez une souscription associée à ce moyent de paiment',
+      pm_associated_to_registered_ppe:
+        'Impossible : Vous avez une souscription associée à ce moyent de paiment',
+      pm_associated_to_pi:
+        'Impossible : Vous avez une souscription associée à ce moyent de paiment',
+    },
+  },
   coupon: {
     delete: {
       error: 'Impossible de supprimer cette promotion',

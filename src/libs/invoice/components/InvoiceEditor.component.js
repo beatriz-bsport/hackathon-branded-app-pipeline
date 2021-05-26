@@ -40,6 +40,10 @@ type Props = {
 
   requestSetupIntentSecret: () => void,
   refreshSavedPaymentMethodList: () => void,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
 };
 
 const NonEditableMessage = ({
@@ -133,6 +137,11 @@ export const InvoiceEditor = (props: Props) => {
                     0,
                   ) || 0
                 }
+                detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+                detachPaymentMethod={props.detachPaymentMethod}
+                snackbarErrorMsg={props.snackbarErrorMsg}
+                snackbarSuccessMsg={props.snackbarSuccessMsg}
+                memberId={props.member.id}
               />
             )}
           </div>

@@ -17,6 +17,10 @@ import { getUsersWithRole } from '../../libs/role/selectors';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
+  snackbarWarning,
+  snackbarSuccess,
+} from '../../actions/snackbar.actions';
+import {
   createOrUpdateNote as createOrUpdateMemberNote,
   deleteNote,
   fetchMember,
@@ -50,7 +54,10 @@ import {
   deleteTag,
 } from '../../libs/tag/actions';
 
-import { fetchPaymentMethodList } from '../../libs/payment/actions';
+import {
+  fetchPaymentMethodList,
+  detachPaymentMethod,
+} from '../../libs/payment/actions';
 import {
   fetchTaskListByMember as fetchTaskListByMemberAction,
   createOrUpdateTask as createOrUpdateTaskAction,
@@ -163,6 +170,10 @@ type Props = {
   payment_method_available_manager: number[],
   paymentMethod: Array<any>,
   paymentMethodLoading: boolean,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
 };
 
 type State = {
@@ -263,6 +274,10 @@ export class MemberDetailPage extends Component<Props, State> {
             availablePaymentMethodList={
               this.props.payment_method_available_manager
             }
+            detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
+            snackbarErrorMsg={this.props.snackbarErrorMsg}
+            snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+            detachPaymentMethod={this.props.detachPaymentMethod}
           />
           <TaskList
             taskList={this.props.taskList}
@@ -301,6 +316,10 @@ export class MemberDetailPage extends Component<Props, State> {
             member={this.props.member}
             paymentMethod={this.props.paymentMethod}
             paymentMethodLoading={this.props.paymentMethodLoading}
+            detachPaymentMethod={this.props.detachPaymentMethod}
+            detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
+            snackbarErrorMsg={this.props.snackbarErrorMsg}
+            snackbarSuccessMsg={this.props.snackbarSuccessMsg}
           />
         </Grid>
         <MemberSearchModal
@@ -356,7 +375,7 @@ export class MemberDetailPage extends Component<Props, State> {
 
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
-  withTranslation(['member']),
+  withTranslation(['member', 'invoice']),
   connect(
     (state, { id }) => ({
       memberLoading: state.member.loading,
@@ -377,11 +396,14 @@ export default compose(
       payment_method_available_manager:
         state.theme.theme.payment_method_available_manager,
       paymentMethod: state.paymentBackend.paymentMethod.items,
-      paymentMethodLoading: state.paymentBackend.loading,
+      paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
+      detachPaymentMethodLoading:
+        state.paymentBackend.detachPaymentMethod.loading,
     }),
     {
       fetchInvoiceList: fetchInvoiceListAction,
       fetchPaymentMethodListActions: fetchPaymentMethodList,
+      detachPaymentMethodAction: detachPaymentMethod,
       // fetchInvoiceItemList: fetchInvoiceItemListAction,
       sendCommunication,
       fetchCompanyUserRoles,
@@ -417,6 +439,8 @@ export default compose(
       createOrUpdateTask: createOrUpdateTaskAction,
       updateTaskStatus,
       goToInvoice: (uuid) => routerPush(`/invoice/${uuid}/`),
+      snackbarErrorMsg: snackbarWarning,
+      snackbarSuccessMsg: snackbarSuccess,
     },
   ),
   withProps(({ fetchTaskListByMember, id }) => ({
@@ -453,6 +477,30 @@ export default compose(
   withHandlers({
     fetchMemberPaymentMethod: ({ fetchPaymentMethodListActions, id }) => () => {
       fetchPaymentMethodListActions({ member: id });
+    },
+  }),
+  withHandlers({
+    detachPaymentMethod: ({
+      detachPaymentMethodAction,
+      fetchMemberPaymentMethod,
+      snackbarErrorMsg,
+      snackbarSuccessMsg,
+      id,
+      t,
+    }) => (pm_id, options) => {
+      detachPaymentMethodAction(
+        { member: id, payment_method_id: pm_id },
+        {
+          onSuccess: () => {
+            fetchMemberPaymentMethod({ member: id });
+            snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
+            if (options && options.onSuccess) options.onSuccess();
+          },
+          onError: (data) => {
+            snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
+          },
+        },
+      );
     },
   }),
 )(MemberDetailPage);

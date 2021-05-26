@@ -118,12 +118,17 @@ const IbanForm = (props: PropsIban) => {
 type Props = {
   onError: (Error) => void,
   onSuccess: () => void,
-  memberId: number,
+  memberId: ?number,
+  companyId: ?number,
   clientSecret: string,
   onCancel: () => void,
   termsAndConditionsAccepted: boolean,
   AcceptTermsAndConditionsComponent: React.Component,
   forceDisabled?: boolean,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
 };
 
 export const PaymentStripeSEPA = (props: Props) => {
@@ -141,12 +146,12 @@ export const PaymentStripeSEPA = (props: Props) => {
   const [paymentMethodSelected, setPaymentMethodSelected] = React.useState(
     null,
   );
-
+  const [detechPmId, setDetachPmId] = React.useState(null);
   React.useEffect(() => {
     fetchPaymentMethodListAPI({ member: props.memberId }).then((r) =>
       setPaymentMethodList(r.data.filter((pm) => pm.type === 'sepa_debit')),
     );
-  }, [props.clientSecret]);
+  }, [props.clientSecret, detechPmId]);
 
   const [billingDetails, setBillingDetails] = React.useState({
     name: '',
@@ -222,6 +227,13 @@ export const PaymentStripeSEPA = (props: Props) => {
           isExpandable={false}
           paymentMethodType="sepa_debit"
           onSelect={setPaymentMethodSelected}
+          setDetachPmId={setDetachPmId}
+          memberId={props.memberId}
+          detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+          detachPaymentMethod={props.detachPaymentMethod}
+          snackbarErrorMsg={props.snackbarErrorMsg}
+          snackbarSuccessMsg={props.snackbarSuccessMsg}
+          companyId={props.companyId}
         />
       )}
       <div className={classes.actionRow}>

@@ -51,6 +51,10 @@ type Props = {
   savedPaymentMethodList: Array<PaymentMethod>,
   requestSetupIntentSecret: () => void,
   refreshSavedPaymentMethodList: () => void,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
 };
 
 type State = {
@@ -232,6 +236,10 @@ export class InvoiceForm extends React.Component<Props, State> {
             onSubmit={this.onSubmit}
             finalizeInvoice={this.props.finalizeInvoice}
             goToSubscription={this.props.goToSubscription}
+            detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
+            detachPaymentMethod={this.props.detachPaymentMethod}
+            snackbarErrorMsg={this.props.snackbarErrorMsg}
+            snackbarSuccessMsg={this.props.snackbarSuccessMsg}
           />
         </Grid>
         <UnevenInvoiceDialog

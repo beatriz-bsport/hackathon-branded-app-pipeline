@@ -21,7 +21,10 @@ import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/action
 import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
 import { fetchMember } from '../../libs/member/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
-import { fetchPaymentMethodList } from '../../libs/payment/actions';
+import {
+  fetchPaymentMethodList,
+  detachPaymentMethod,
+} from '../../libs/payment/actions';
 
 import type { Member } from '../../libs/member/types';
 import { getMember } from '../../libs/member/selectors';
@@ -37,6 +40,11 @@ import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import InvoiceForm from '../../libs/invoice/components/InvoiceForm.component';
 import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+
+import {
+  snackbarWarning,
+  snackbarSuccess,
+} from '../../actions/snackbar.actions';
 
 type Props = {
   member: ?Member,
@@ -62,6 +70,10 @@ type Props = {
   fetchPaymentMethodList: (params: any) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   requestSetupIntentSecret: () => void,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
 };
 
 type State = {
@@ -138,6 +150,10 @@ export class InvoiceCreatePage extends Component<Props, State> {
           refreshSavedPaymentMethodList={() => {
             this.props.fetchPaymentMethodList({ member: this.props.id });
           }}
+          detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
+          detachPaymentMethod={this.props.detachPaymentMethod}
+          snackbarErrorMsg={this.props.snackbarErrorMsg}
+          snackbarSuccessMsg={this.props.snackbarSuccessMsg}
         />
         <InvoiceDateDialog
           open={this.state.dateDialogOpen}
@@ -172,6 +188,8 @@ export default compose(
       member: getMember(state, id),
       availableBuyableItems: getBuyableItem(state),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
+      detachPaymentMethodLoading:
+        state.paymentBackend.detachPaymentMethod.loading,
     }),
     {
       fetchShopItems,
@@ -186,6 +204,9 @@ export default compose(
       goToMemberPage: (id) => pushRouter(`/member/${id}/`),
       goToSubscription: (id) => pushRouter(`/subscription/${id}/`),
       fetch: fetchMember,
+      detachPaymentMethodAction: detachPaymentMethod,
+      snackbarErrorMsg: snackbarWarning,
+      snackbarSuccessMsg: snackbarSuccess,
     },
   ),
   withHandlers({
@@ -208,4 +229,28 @@ export default compose(
         member ? member.name : ' '
       }`,
   ),
+  withHandlers({
+    detachPaymentMethod: ({
+      detachPaymentMethodAction,
+      fetchMemberPaymentMethod,
+      snackbarErrorMsg,
+      snackbarSuccessMsg,
+      id,
+      t,
+    }) => (pm_id, options) => {
+      detachPaymentMethodAction(
+        { member: id, payment_method_id: pm_id },
+        {
+          onSuccess: () => {
+            fetchMemberPaymentMethod({ member: id });
+            snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
+            if (options && options.onSuccess) options.onSuccess();
+          },
+          onError: (data) => {
+            snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
+          },
+        },
+      );
+    },
+  }),
 )(InvoiceCreatePage);

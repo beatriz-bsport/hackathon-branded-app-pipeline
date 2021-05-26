@@ -9,6 +9,7 @@ import {
   fetchPaymentGroupList as fetchPaymentGroupListAPI,
   fetchPayoutList as fetchPayoutListAPI,
   updatePaymentGroupPriceCts as updatePaymentGroupPriceCtsAPI,
+  detachPaymentMetod as detachPaymentMetodAPI,
 } from './api';
 
 // Active campaign Account
@@ -38,6 +39,32 @@ export function fetchPaymentMethodList(
   };
 }
 
+export const detachPaymentMethodActions = {
+  isLoading: createAction('PAYMENT_METHOD/DETACH/LOADING'),
+  error: createAction('PAYMENT_METHOD/DETACH/ERROR'),
+  success: createAction('PATMENT_METHOD/DETACH/SUCCESS'),
+};
+export function detachPaymentMethod(params: any, options: OptionCallBack) {
+  return async (dispatch: Dispatch) => {
+    dispatch(detachPaymentMethodActions.error(null));
+    dispatch(detachPaymentMethodActions.isLoading(true));
+    try {
+      const response = await detachPaymentMetodAPI(params);
+      dispatch(detachPaymentMethodActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.msg);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(detachPaymentMethodActions.success({}));
+      if (options && options.onError) {
+        options.onError(err.response.data.msg);
+      }
+      dispatch(detachPaymentMethodActions.error(err.response.data));
+    }
+    dispatch(detachPaymentMethodActions.isLoading(false));
+  };
+}
 export const onSpotPaymentReportActions = {
   isLoading: createAction('ON-SPOT-PAYMENT/REPORT/LOADING'),
   error: createAction('ON-SPOT-PAYMENT/REPORT/ERROR'),

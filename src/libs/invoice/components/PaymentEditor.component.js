@@ -44,6 +44,11 @@ type Props = {
   refreshSavedPaymentMethodList: () => void,
   onAddPaymentItem: (paramsDict: any) => void,
   savedPaymentMethodList: ?Array<PaymentMethodList>,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
+  memberId: ?number,
 };
 
 const PaymentItemForm = (props: Props) => {
@@ -78,6 +83,11 @@ const PaymentItemForm = (props: Props) => {
                 stripe_charge_id: payment_method_id,
               });
             }}
+            detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+            detachPaymentMethod={props.detachPaymentMethod}
+            snackbarErrorMsg={props.snackbarErrorMsg}
+            snackbarSuccessMsg={props.snackbarSuccessMsg}
+            memberId={props.memberId}
           />
         </div>
       );
@@ -98,6 +108,11 @@ const PaymentItemForm = (props: Props) => {
                 stripe_charge_id: payment_method_id,
               });
             }}
+            detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+            detachPaymentMethod={props.detachPaymentMethod}
+            snackbarErrorMsg={props.snackbarErrorMsg}
+            snackbarSuccessMsg={props.snackbarSuccessMsg}
+            memberId={props.memberId}
           />
         </div>
       );
@@ -140,6 +155,11 @@ export const PaymentEditor = (props: {
   refreshSavedPaymentMethodList: () => void,
   savedPaymentMethodList: ?Array<PaymentMethodList>,
   requestSetupIntentSecret: () => void,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
+  memberId: ?number,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
@@ -219,6 +239,11 @@ export const PaymentEditor = (props: {
         }}
         payment_note={props.payment_note}
         setPaymentNote={props.setPaymentNote}
+        detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+        detachPaymentMethod={props.detachPaymentMethod}
+        snackbarErrorMsg={props.snackbarErrorMsg}
+        snackbarSuccessMsg={props.snackbarSuccessMsg}
+        memberId={props.memberId}
       />
     </div>
   );

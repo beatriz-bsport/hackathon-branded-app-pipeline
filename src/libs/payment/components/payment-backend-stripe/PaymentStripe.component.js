@@ -44,6 +44,7 @@ type Props = {
   selectPaymentMethod: (number) => void,
   paymentMethodChoices: Array<number>,
   memberId: number,
+  companyId: number,
   clientSecret: string,
   onCancel: () => void,
   onSuccess: () => void,
@@ -53,6 +54,10 @@ type Props = {
   setTermsAndConditionsAccepted: (boolean) => void,
   termsAndConditionsAccepted: boolean,
   updatePriceCts?: (priceCts: number, options: OptionCallback) => void,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
 };
 
 const STRIPE_PAYMENT_METHOD_FORM_COMPONENT = {
@@ -125,6 +130,11 @@ export const PaymentStripe = (props: Props) => {
             forceDisabled={priceUpdaterOpen}
             onCancel={props.onCancel}
             memberId={props.memberId}
+            detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+            detachPaymentMethod={props.detachPaymentMethod}
+            snackbarErrorMsg={props.snackbarErrorMsg}
+            snackbarSuccessMsg={props.snackbarSuccessMsg}
+            companyId={props.companyId}
             AcceptTermsAndConditionsComponent={
               props.termsAndConditions ? (
                 <AcceptTermsAndConditions

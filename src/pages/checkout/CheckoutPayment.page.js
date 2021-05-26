@@ -41,7 +41,10 @@ import type { Theme } from '../../libs/theme/types';
 import themeSelectors from '../../libs/theme/selectors';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
-import { fetchPaymentMethodList } from '../../libs/payment/actions';
+import {
+  fetchPaymentMethodList,
+  detachPaymentMethod,
+} from '../../libs/payment/actions';
 
 import { getShopItemFeaturedList } from '../../libs/shop/selectors';
 import { fetchShopItemFeatured } from '../../libs/shop/actions/shopitem';
@@ -53,7 +56,11 @@ import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '../../libs/pa
 import { validateUnpaid as validateUnpaidAPI } from '../../libs/checkout/api';
 
 import { auth as authActions } from '../../actions';
-import { snackbarError } from '../../actions/snackbar.actions';
+import {
+  snackbarError,
+  snackbarWarning,
+  snackbarSuccess,
+} from '../../actions/snackbar.actions';
 
 import { fetchProfile } from '../../libs/consumer-space/actions';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
@@ -73,7 +80,7 @@ type Props = {
   classes: Object,
   fetchCurrentBasket: (companyId: number) => void,
   patchCurrentBasket: (data: any) => void,
-  fetchPaymentMethodList: (params: any) => void,
+  fetchpaymentMethod: (params: any) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   attachCoupon: (
     code: string,
@@ -98,6 +105,10 @@ type Props = {
   snackbarError: (string) => void,
   queryParams: any,
   setQueryParams: (string, string) => void,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
 };
 
 export class CheckoutPayment extends React.Component<Props> {
@@ -117,7 +128,7 @@ export class CheckoutPayment extends React.Component<Props> {
   componentDidUpdate(prevProps: Props) {
     if (prevProps.companyId !== this.props.companyId && this.props.companyId) {
       this.props.fetchCurrentBasket(this.props.companyId);
-      this.props.fetchPaymentMethodList({ company: this.props.companyId });
+      this.props.fetchpaymentMethod({ company: this.props.companyId });
     }
     if (
       this.props.basket &&
@@ -171,7 +182,7 @@ export class CheckoutPayment extends React.Component<Props> {
       this.getSecret();
     }
     if (this.props.companyId) {
-      this.props.fetchPaymentMethodList({ company: this.props.companyId });
+      this.props.fetchpaymentMethod({ company: this.props.companyId });
     }
   }
 
@@ -318,6 +329,13 @@ export class CheckoutPayment extends React.Component<Props> {
                     clientSecretLoading={this.state.clientSecretLoading}
                     onSuccess={this.onSuccess}
                     memberId={this.props.basket.member}
+                    detachPaymentMethodLoading={
+                      this.props.detachPaymentMethodLoading
+                    }
+                    detachPaymentMethod={this.props.detachPaymentMethod}
+                    snackbarErrorMsg={this.props.snackbarErrorMsg}
+                    snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                    companyId={this.props.companyId}
                   />
                 }
               />
@@ -386,6 +404,8 @@ export default compose(
       theme: themeSelectors.getTheme(state),
       shopItemList: getShopItemFeaturedList(state),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
+      detachPaymentMethodLoading:
+        state.paymentBackend.detachPaymentMethod.loading,
     }),
     {
       disconnect: authActions.disconnect,
@@ -404,7 +424,10 @@ export default compose(
       attachCoupon,
       fetchCompanyTheme,
       fetchShopItemFeatured,
-      fetchPaymentMethodList,
+      fetchpaymentMethod: fetchPaymentMethodList,
+      detachPaymentMethodAction: detachPaymentMethod,
+      snackbarErrorMsg: snackbarWarning,
+      snackbarSuccessMsg: snackbarSuccess,
     },
   ),
   withHandlers({
@@ -424,6 +447,30 @@ export default compose(
       }
 
       replace(`/c/${basket.company}/?from_basket=${basket.id}`);
+    },
+  }),
+  withHandlers({
+    detachPaymentMethod: ({
+      detachPaymentMethodAction,
+      fetchpaymentMethod,
+      snackbarErrorMsg,
+      snackbarSuccessMsg,
+      companyId,
+      t,
+    }) => (pm_id, options) => {
+      detachPaymentMethodAction(
+        { company: companyId, payment_method_id: pm_id },
+        {
+          onSuccess: () => {
+            fetchpaymentMethod({ company: companyId });
+            snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
+            if (options && options.onSuccess) options.onSuccess();
+          },
+          onError: (data) => {
+            snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
+          },
+        },
+      );
     },
   }),
   withState('basketError', 'setBasketError', null),

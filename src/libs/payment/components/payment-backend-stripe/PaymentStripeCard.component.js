@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { compose, withState } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +15,7 @@ import { fetchPaymentMethodList as fetchPaymentMethodListAPI } from '../../api';
 
 type Props = {
   memberId: number,
+  companyId: number,
   onSuccess: (() => void) => void,
   onError: (() => void) => void,
   setError: (?boolean) => void,
@@ -25,6 +27,10 @@ type Props = {
   termsAndConditionsAccepted: boolean,
   AcceptTermsAndConditionsComponent: React.Component,
   forceDisabled?: boolean,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
 };
 
 const CARD_ELEMENT_OPTIONS = {
@@ -74,12 +80,13 @@ export const StripePaymentCard = (props: Props) => {
   const [paymentMethodSelected, setPaymentMethodSelected] = React.useState(
     null,
   );
+  const [hasDetached, setHasDetached] = React.useState(null);
 
   React.useEffect(() => {
     fetchPaymentMethodListAPI({ member: props.memberId }).then((r) =>
       setPaymentMethodList(r.data.filter((pm) => pm.type === 'card')),
     );
-  }, [props.clientSecret]);
+  }, [props.clientSecret, hasDetached]);
 
   const handleSubmit = async (event) => {
     // We don't want to let default form submission happen here,
@@ -147,6 +154,13 @@ export const StripePaymentCard = (props: Props) => {
           isExpandable={false}
           paymentMethodType="card"
           onSelect={setPaymentMethodSelected}
+          setHasDetached={setHasDetached}
+          memberId={props.memberId}
+          detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+          detachPaymentMethod={props.detachPaymentMethod}
+          snackbarErrorMsg={props.snackbarErrorMsg}
+          snackbarSuccessMsg={props.snackbarSuccessMsg}
+          companyId={props.companyId}
         />
       )}
       <div className={classes.conditionRow}>

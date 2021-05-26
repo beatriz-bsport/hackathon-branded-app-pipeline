@@ -7,19 +7,20 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, withTranslation } from 'react-i18next';
+import type { TFunction } from 'react-i18next';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
-
 import { PaymentMethod } from '../types';
 
 type Props = {
   paymentMethod: PaymentMethod;
-
+  t: TFunction;
   selected?: boolean;
   onClick: (id?: string) => void;
   onDelete?: (id: string) => void;
   onEdit?: (id: string) => void;
+  snackbarSuccessMsg2: (msg: string) => void;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
 export const PaymentMethodListItem: FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
-
   return (
     <ListItem
       button={!!props.onClick}
@@ -72,9 +72,21 @@ export const PaymentMethodListItem: FC<Props> = (props) => {
           </Button>
         </ListItemSecondaryAction>
       )}
-      {props.onDelete && (
+      {props.detachPaymentMethod && (
         <ListItemSecondaryAction>
-          <IconButton onClick={() => props.onDelete(props.paymentMethod.id)}>
+          <IconButton
+            onClick={() => {
+              props.detachPaymentMethod(props.paymentMethod.id, {
+                onSuccess: () => {
+                  props.setHasDetached &&
+                    props.setHasDetached(props.paymentMethod.id);
+                },
+              });
+            }}
+            disabled={
+              props.disableDuringDetach || props.detachPaymentMethodLoading
+            }
+          >
             <DeleteIcon />
           </IconButton>
         </ListItemSecondaryAction>
@@ -83,4 +95,4 @@ export const PaymentMethodListItem: FC<Props> = (props) => {
   );
 };
 
-export default PaymentMethodListItem;
+export default withTranslation(['invoice'])(PaymentMethodListItem);

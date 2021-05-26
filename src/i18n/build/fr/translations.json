@@ -3147,6 +3147,13 @@
         "13": "Giropay",
         "14": "Acompte client (dette)",
         "15": "Carte bleue (manuel)"
+      },
+      "detach": {
+        "pm_deleted": "Moyen de paiment supprimé",
+        "last_payment_method": "Impossible de supprimer votre unique moyen de paiement",
+        "pm_associated_to_protected_bp": "Impossible : Vous avez une souscription associée à ce moyent de paiment",
+        "pm_associated_to_registered_ppe": "Impossible : Vous avez une souscription associée à ce moyent de paiment",
+        "pm_associated_to_pi": "Impossible : Vous avez une souscription associée à ce moyent de paiment"
       }
     },
     "plannedPaymentEvent": {
@@ -3358,6 +3365,15 @@
       "paymentPackEnabled": { "success": "Carte de cours restaurée", "error": "Impossible de restaurer la carte" },
       "credit": { "updated": "Crédits mis à jour", "error": "Erreur lors de l'enregistrement" },
       "createOrUpdate": { "success": "Carte de cours enregistrée", "fail": "Erreur lors de l'enregistrement de la carte" }
+    },
+    "paymentMethod": {
+      "detach": {
+        "pm_deleted": "Moyen de paiment supprimé",
+        "last_payment_method": "Impossible de supprimer votre unique moyen de paiement",
+        "pm_associated_to_protected_bp": "Impossible : Vous avez une souscription associée à ce moyent de paiment",
+        "pm_associated_to_registered_ppe": "Impossible : Vous avez une souscription associée à ce moyent de paiment",
+        "pm_associated_to_pi": "Impossible : Vous avez une souscription associée à ce moyent de paiment"
+      }
     },
     "coupon": {
       "delete": { "error": "Impossible de supprimer cette promotion", "success": "Code promotionel supprimé" },
@@ -5535,7 +5551,7 @@
         "urlInputLabel": "Lien youtube",
         "urlInputError": "Veuillez saisir une url",
         "durationLabel": "Durée de la video",
-        "durationInputError": "Veuillez specifier la durée de la video",
+        "durationInputError": "Veuillez saisir la durée de la vidéo",
         "hours": "Heures",
         "minutes": "Minutes"
       },

@@ -11,6 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { withState, compose } from 'recompose';
 
 import PaymentMethodListItem from './PaymentMethodListItem.component';
@@ -32,11 +33,19 @@ type Props = {
   collectPaymentMethodIsOpen: boolean,
   requestSetupIntentSecret: () => void,
   paymentMethodType: string,
+  setHasDetached: (string) => void,
+  detachPaymentMethodLoading: boolean,
+  companyId: ?number,
+  memberId: ?number,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
 };
 
 export const PaymentMethodList = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
+  const [disableDuringDetach, setDisableDuringDetach] = React.useState(false);
   if (
     !props.showEmpty &&
     (!props.savedPaymentMethodList || !props.savedPaymentMethodList.length)
@@ -60,6 +69,7 @@ export const PaymentMethodList = (props: Props) => {
         <ExpandMoreIcon />
       </ButtonBase>
       <Divider />
+      {disableDuringDetach && <LinearProgress />}
       <Collapse in={props.isExpanded || !props.isExpandable}>
         {relevantSavedPaymentMethodList
           .filter(
@@ -74,6 +84,18 @@ export const PaymentMethodList = (props: Props) => {
               disabled={props.disabled}
               selected={pm.id === props.selectedSavedPaymentMethodId}
               onClick={props.onSelect}
+              setHasDetached={props.setHasDetached}
+              disableDuringDetach={disableDuringDetach}
+              setDisableDuringDetach={setDisableDuringDetach}
+              detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+              companyId={props.companyId}
+              memberId={props.memberId}
+              refreshSavedPaymentMethodList={
+                props.refreshSavedPaymentMethodList
+              }
+              detachPaymentMethod={props.detachPaymentMethod}
+              snackbarErrorMsg={props.snackbarErrorMsg}
+              snackbarSuccessMsg={props.snackbarSuccessMsg}
             />
           ))}
         {!!props.requestSetupIntentSecret && (

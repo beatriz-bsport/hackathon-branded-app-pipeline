@@ -8,6 +8,7 @@ import {
   onSpotPaymentReportActions,
   listPaymentGroupActions,
   listPayoutActions,
+  detachPaymentMethodActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -33,6 +34,11 @@ const initialState = Immutable({
     allIds: [],
     byId: {},
     nextPage: 1,
+  },
+  detachPaymentMethod: {
+    loading: false,
+    error: null,
+    msg: {},
   },
 });
 
@@ -72,6 +78,15 @@ export default handleActions(
     },
     [listSavedPaymentMethodListActions.error]: (state, { payload }) => {
       return state.setIn(['paymentMethod', 'error'], payload);
+    },
+    [detachPaymentMethodActions.success]: (state, { payload }) => {
+      return state.setIn(['detachPaymentMethod', 'msg'], payload);
+    },
+    [detachPaymentMethodActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['detachPaymentMethod', 'loading'], payload);
+    },
+    [detachPaymentMethodActions.error]: (state, { payload }) => {
+      return state.setIn(['detachPaymentMethod', 'error'], payload);
     },
     [onSpotPaymentReportActions.success]: (state, { payload }) => {
       return state.setIn(['onSpotPaymentReport', 'id'], payload[0].id);

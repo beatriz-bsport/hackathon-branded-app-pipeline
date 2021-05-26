@@ -46,6 +46,10 @@ type Props = {
   clientSecretLoading: boolean,
   availablePaymentMethodList: ?Array<number>,
   updatePriceCts?: (priceCts: number, options: OptionCallback) => void,
+  detachPaymentMethodLoading: boolean,
+  detachPaymentMethod: (pm_id: string) => void,
+  snackbarErrorMsg: (msg: string) => void,
+  snackbarSuccessMsg: (msg: string) => void,
 };
 
 type State = {
@@ -217,6 +221,12 @@ export class PaymentDialog extends React.Component<Props, State> {
                       onError={this.props.onError}
                       onCancel={this.props.onCancel}
                       memberId={this.props.memberId}
+                      detachPaymentMethodLoading={
+                        this.props.detachPaymentMethodLoading
+                      }
+                      detachPaymentMethod={this.props.detachPaymentMethod}
+                      snackbarErrorMsg={this.props.snackbarErrorMsg}
+                      snackbarSuccessMsg={this.props.snackbarSuccessMsg}
                     />
                   )}
                   {parseInt(this.state.paymentEngine, 10) ===

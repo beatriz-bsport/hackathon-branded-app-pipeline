@@ -7,6 +7,7 @@ import {
   API_URI,
   postAuth,
   buildUrlParams,
+  putAuth,
 } from '../../http';
 
 export const fetchPaymentMethodList = async (params: any = {}) => {
@@ -14,7 +15,13 @@ export const fetchPaymentMethodList = async (params: any = {}) => {
     `${API_V1_URI}/payment/payment_method/${buildUrlParams(params)}`,
   );
 };
-
+export const detachPaymentMetod = async (params: any = {}) => {
+  return putAuth(
+    `${API_V1_URI}/payment/payment_method/detach_payment_method/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
 export const fetchOnSpotPaymentReport = async (params: any = {}) => {
   return getAuth(
     `${API_URI}/reporting/on-spot-payment/${buildUrlParams(params)}`,

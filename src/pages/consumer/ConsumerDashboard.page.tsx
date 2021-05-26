@@ -65,6 +65,14 @@ import { getAllBookingAndPrivateBooking } from '../../libs/consumer-space/select
 import { PrivateBooking } from '../../libs/private-service/types';
 import PrivateBookingCancellationDialog from '../../libs/private-service/components/booking/PrivateBookingCancellationDialog';
 import { MetaActivity } from '../../libs/meta-activity/types';
+import {
+  detachPaymentMethod,
+  fetchPaymentMethodList,
+} from '../../libs/payment/actions';
+import {
+  snackbarWarning,
+  snackbarSuccess,
+} from '../../actions/snackbar.actions';
 
 type OwnProps = {
   companyId: number;
@@ -175,6 +183,10 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             availablePaymentMethodList={
               this.props.payment_method_available_basket
             }
+            detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
+            detachPaymentMethod={this.props.detachPaymentMethod}
+            snackbarErrorMsg={this.props.snackbarErrorMsg}
+            snackbarSuccessMsg={this.props.snackbarSuccessMsg}
           />
         </div>
         <Grid container direction="row" spacing={2}>
@@ -280,6 +292,7 @@ const mapStateToProps = (state: RootState) => ({
   payment_method_available_basket:
     state.theme.theme.payment_method_available_basket,
   metaActivitiesById: state.metaActivity.byId,
+  detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
 });
 
 const mapDispatchToProps = {
@@ -307,6 +320,10 @@ const mapDispatchToProps = {
   fetchMembership: fetchMembershipAction,
   cancelBookingOption: cancelBookingOptionAction,
   fetchBookingsAndPrivateBookings: fetchBookingsAndPrivateBookingsAction,
+  detachPaymentMethodAction: detachPaymentMethod,
+  fetchMemberPaymentMethod: fetchPaymentMethodList,
+  snackbarErrorMsg: snackbarWarning,
+  snackbarSuccessMsg: snackbarSuccess,
 };
 
 type StateHandlerInit = {
@@ -441,6 +458,28 @@ const mapWithHandlers = {
       },
       { mine: true, reverted: false, current: true, disabled: false },
     ),
+  detachPaymentMethod: ({
+    detachPaymentMethodAction,
+    fetchMemberPaymentMethod,
+    snackbarErrorMsg,
+    snackbarSuccessMsg,
+    membership,
+    t,
+  }) => (pm_id, options) => {
+    detachPaymentMethodAction(
+      { member: membership.id, payment_method_id: pm_id },
+      {
+        onSuccess: () => {
+          fetchMemberPaymentMethod({ member: membership.id });
+          snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
+          if (options && options.onSuccess) options.onSuccess();
+        },
+        onError: (data) => {
+          snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
+        },
+      },
+    );
+  },
 };
 export default compose(
   withTranslation(['consumerSpace']),

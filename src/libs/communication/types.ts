@@ -1,7 +1,16 @@
+import { ErrorAndLoading } from '../types';
+
 export type MemberMailData = {
   members: Array<number>;
   subject: string;
   body: string;
+};
+
+export type MarketingNotificationMailStat = {
+  id: string;
+  total_recipients: number;
+  total_read: number;
+  total_click: number;
 };
 
 export type Recipient = {
@@ -62,6 +71,9 @@ export type MailState = {
       page?: number;
       count: number;
     };
+  };
+  marketingNotification: ErrorAndLoading & {
+    byId: { [key: string]: MarketingNotificationMailStat };
   };
   campaign: {
     byId: { [uuid: string]: Campaign };

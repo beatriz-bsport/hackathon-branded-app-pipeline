@@ -1,12 +1,20 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { Theme, Typography, withStyles } from '@material-ui/core';
+import {
+  ButtonBase,
+  Collapse,
+  Theme,
+  Typography,
+  withStyles,
+} from '@material-ui/core';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import AvTimerIcon from '@material-ui/icons/AvTimer';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
-import { MaterialStyleType } from '../../../utils/types';
+import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import { MarketingNotification } from '../types';
 import { PaymentPack } from '../../../api/types';
 import MarketingNotificationsList from './NotificationsList.Component';
@@ -17,13 +25,28 @@ type OwnProps = {
   paymentPackById: { [key: string]: PaymentPack };
   onClickNotification: (notification: MarketingNotification) => void;
   emailSummariesById: { [key: string]: EmailTemplateSummary };
+  onUpdateNotification: (
+    id: number,
+    data: DeepPartial<MarketingNotification>,
+  ) => void;
 };
 
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-export class PaymentPackNotificationList extends React.PureComponent<Props> {
+interface State {
+  hideById: { [key: string]: boolean | undefined };
+}
+
+export class PaymentPackNotificationList extends React.PureComponent<
+  Props,
+  State
+> {
+  state: State = {
+    hideById: {},
+  };
+
   render() {
     const { classes, t } = this.props;
 
@@ -54,45 +77,67 @@ export class PaymentPackNotificationList extends React.PureComponent<Props> {
           if (paymentPack) {
             return (
               <div className={classes.paymentPackItem}>
-                <Typography variant="h5" color="primary">
-                  {paymentPack.name}
-                </Typography>
+                <ButtonBase
+                  className={classes.buttonTitleContainer}
+                  onClick={() => {
+                    this.setState((prevState: State) => ({
+                      hideById: {
+                        ...prevState.hideById,
+                        [id]: !prevState.hideById[id],
+                      },
+                    }));
+                  }}
+                >
+                  <Typography variant="h5" color="primary">
+                    {paymentPack.name}
+                  </Typography>
 
-                {!!byTime.length && (
-                  <div className={classes.byKindContainer}>
-                    <div className={classes.titleContainer}>
-                      <AvTimerIcon />
-                      <Typography className={classes.title}>
-                        {t('notifications.paymentPackKind.validity')}
-                      </Typography>
-                    </div>
-                    <div className={classes.notificationsContainer}>
-                      <MarketingNotificationsList
-                        notifications={byTime}
-                        emailSummariesById={this.props.emailSummariesById}
-                        onClickNotification={this.props.onClickNotification}
-                      />
-                    </div>
-                  </div>
-                )}
+                  {!this.state.hideById[id] ? (
+                    <ExpandLessIcon />
+                  ) : (
+                    <ExpandMoreIcon />
+                  )}
+                </ButtonBase>
 
-                {!!byCredits.length && (
-                  <div className={classes.byKindContainer}>
-                    <div className={classes.titleContainer}>
-                      <ConfirmationNumberIcon />
-                      <Typography className={classes.title}>
-                        {t('notifications.paymentPackKind.credit')}
-                      </Typography>
+                <Collapse in={!this.state.hideById[id]}>
+                  {!!byTime.length && (
+                    <div className={classes.byKindContainer}>
+                      <div className={classes.titleContainer}>
+                        <AvTimerIcon />
+                        <Typography className={classes.title}>
+                          {t('notifications.paymentPackKind.validity')}
+                        </Typography>
+                      </div>
+                      <div className={classes.notificationsContainer}>
+                        <MarketingNotificationsList
+                          notifications={byTime}
+                          emailSummariesById={this.props.emailSummariesById}
+                          onClickNotification={this.props.onClickNotification}
+                          onUpdateNotification={this.props.onUpdateNotification}
+                        />
+                      </div>
                     </div>
-                    <div className={classes.notificationsContainer}>
-                      <MarketingNotificationsList
-                        notifications={byCredits}
-                        emailSummariesById={this.props.emailSummariesById}
-                        onClickNotification={this.props.onClickNotification}
-                      />
+                  )}
+
+                  {!!byCredits.length && (
+                    <div className={classes.byKindContainer}>
+                      <div className={classes.titleContainer}>
+                        <ConfirmationNumberIcon />
+                        <Typography className={classes.title}>
+                          {t('notifications.paymentPackKind.credit')}
+                        </Typography>
+                      </div>
+                      <div className={classes.notificationsContainer}>
+                        <MarketingNotificationsList
+                          notifications={byCredits}
+                          emailSummariesById={this.props.emailSummariesById}
+                          onClickNotification={this.props.onClickNotification}
+                          onUpdateNotification={this.props.onUpdateNotification}
+                        />
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </Collapse>
               </div>
             );
           }
@@ -122,6 +167,11 @@ const styles = (theme: Theme) => ({
   titleContainer: {
     display: 'flex',
     flexDirection: 'row',
+  },
+  buttonTitleContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   title: {
     marginLeft: theme.spacing(2),

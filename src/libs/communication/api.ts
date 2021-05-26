@@ -1,5 +1,3 @@
-// @flow
-
 import { API_V1_URI, postAuth, getAuth, buildUrlParams } from '../../http';
 import type { MemberMailData } from './types';
 
@@ -28,6 +26,13 @@ export const fetchCampaignList = async (params: any) => {
 
 export const fetchCampaignReport = async (id: number) => {
   return getAuth(`${API_V1_URI}/communication/email/${id}/report/`);
+};
+
+export const fetchCampaignSummary = async (params: { id: number }) => {
+  return postAuth(
+    `${API_V1_URI}/communication/email/campaign_summary/`,
+    params,
+  );
 };
 
 export const fetchCampaign = async (id: number) => {

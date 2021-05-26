@@ -2,6 +2,7 @@ import React from 'react';
 import {
   ButtonBase,
   Paper,
+  Switch,
   Theme,
   Typography,
   withStyles,
@@ -13,7 +14,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events';
 
 import { MarketingNotification } from '../types';
-import { MaterialStyleType } from '../../../utils/types';
+import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import { EmailTemplateSummary } from '../../email-editor/types';
 
 const getLabelForRules = (
@@ -55,6 +56,10 @@ const getLabelForRules = (
 type OwnProps = {
   notifications: MarketingNotification[];
   onClickNotification: (notification: MarketingNotification) => void;
+  onUpdateNotification: (
+    id: number,
+    data: DeepPartial<MarketingNotification>,
+  ) => void;
   emailSummariesById: { [key: string]: EmailTemplateSummary };
 };
 
@@ -102,10 +107,23 @@ export class MarketingNotificationsList extends React.PureComponent<Props> {
                 })}
                 onClick={() => this.props.onClickNotification(notif)}
               >
-                <Typography>{getLabelForRules(notif, t)}</Typography>
-                <Typography variant="caption" color="textSecondary">
-                  {emailTitle}
-                </Typography>
+                <div className={classes.contentContainer}>
+                  <Typography>{getLabelForRules(notif, t)}</Typography>
+                  <Typography variant="caption" color="textSecondary">
+                    {t('marketing:notifications.mail')}: {emailTitle}
+                  </Typography>
+                </div>
+
+                <div>
+                  <Switch
+                    checked={notif.active}
+                    onChange={() =>
+                      this.props.onUpdateNotification(notif.id, {
+                        active: !notif.active,
+                      })
+                    }
+                  />
+                </div>
               </ButtonBase>
             </div>
           );
@@ -129,9 +147,8 @@ const styles = (theme: Theme) => ({
   },
   notificationListItem: {
     display: 'flex',
-    flexDirection: 'column',
+    width: '100%',
     flex: 1,
-    alignItems: 'flex-start',
     padding: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
@@ -141,6 +158,12 @@ const styles = (theme: Theme) => ({
     borderBottomWidth: 1,
     borderStyle: 'solid',
     borderColor: '#CCC',
+  },
+  contentContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    flex: 1,
   },
 });
 

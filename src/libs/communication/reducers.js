@@ -12,6 +12,7 @@ import {
   recipientListActions,
   recipientBulkActions,
   campaignByMemberActions,
+  marketingNotificationCampaignDetailActions,
 } from './actions';
 
 import type { MailState } from './types';
@@ -57,6 +58,11 @@ const initialState: MailState = Immutable({
       next_page: null,
       count: 0,
     },
+  },
+  marketingNotification: {
+    byId: {},
+    loading: false,
+    error: null,
   },
 });
 
@@ -186,6 +192,27 @@ export default handleActions(
     },
     [campaignByMemberActions.error]: (state, { payload }) => {
       return state.setIn(['campaign', 'byMember', 'error'], payload);
+    },
+    [marketingNotificationCampaignDetailActions.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['marketingNotification', 'loading'], payload);
+    },
+    [marketingNotificationCampaignDetailActions.error]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['marketingNotification', 'error'], payload);
+    },
+    [marketingNotificationCampaignDetailActions.success]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['marketingNotification', 'byId', payload.id],
+        payload,
+      );
     },
   },
   initialState,

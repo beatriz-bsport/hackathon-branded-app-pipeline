@@ -45,6 +45,7 @@ import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
 } from '../../libs/email-editor/selectors';
+import { fetchMarketingNotificationCampaignSummary } from '../../libs/communication/actions';
 import { getAll as getAllPaymentPacks } from '../../libs/payment-packs/selectors';
 
 import { MaterialStyleType } from '../../utils/types';
@@ -162,6 +163,7 @@ export class MarketingNotifications extends Component<Props, State> {
 
   onClickNotification = async (notification: MarketingNotification) => {
     this.setState({ emailTemplateLoading: true });
+    this.props.fetchMarketingNotificationCampaignSummary(notification.id);
     await this.props.fetchEmailTemplateComplete(notification.email_design);
     this.setState({
       selectedNotification: notification,
@@ -185,7 +187,16 @@ export class MarketingNotifications extends Component<Props, State> {
 
   onEditNotification = async (id: number, n: MarketingNotification) => {
     this.setState({ editNotification: null });
-    this.props.updateMarketingNotification(id, n);
+    this.props.updateMarketingNotification(id, n, {
+      onSuccess: (data: MarketingNotification) => {
+        if (
+          this.state.selectedNotification &&
+          this.state.selectedNotification.id === data.id
+        ) {
+          this.setState({ selectedNotification: data });
+        }
+      },
+    });
   };
 
   render() {
@@ -212,12 +223,14 @@ export class MarketingNotifications extends Component<Props, State> {
             privateServiceById={this.props.privateServicebyId}
             onClickNotification={this.onClickNotification}
             emailSummariesById={this.props.emailSummariesById}
+            onUpdateNotification={this.props.updateMarketingNotification}
           />
           <PaymentPackNotificationList
             notificationsByPaymentPack={this.props.notifications.byPaymentPack}
             paymentPackById={this.props.paymentPackById}
             onClickNotification={this.onClickNotification}
             emailSummariesById={this.props.emailSummariesById}
+            onUpdateNotification={this.props.updateMarketingNotification}
           />
 
           <div className={classes.bottomPaddingFix} />
@@ -227,13 +240,22 @@ export class MarketingNotifications extends Component<Props, State> {
           <EmailTemplateForNotifications
             emailSummary={this.selectedEmailTemplateSummary}
             emailDetails={this.selectedEmailTemplateDetail}
-            loading={this.state.emailTemplateLoading}
+            loading={
+              this.state.emailTemplateLoading ||
+              this.props.notificationStatLoading
+            }
             onClickEdit={() =>
               this.setState((prevState: State) => ({
                 editNotification: prevState.selectedNotification,
               }))
             }
             onClickRemove={this.onClickRemove}
+            selectedNotification={this.state.selectedNotification}
+            establishmentById={this.props.establishmentById}
+            metaActivityBydId={this.props.metaActivityById}
+            privateServiceById={this.props.privateServicebyId}
+            paymentPackById={this.props.paymentPackById}
+            notificationsStatById={this.props.notificationsStatById}
           />
         </div>
 
@@ -300,6 +322,8 @@ const mapStateToProps = (state: RootState) => ({
   metaActivityById: state.metaActivity.byId,
   emailSummariesById: getAllEmailTemplatesDict(state),
   emailDetailById: getEmailTemplatesDetail(state),
+  notificationsStatById: state.communication.marketingNotification.byId,
+  notificationStatLoading: state.communication.marketingNotification.loading,
   emailDetailLoading: state.emailTemplate.detail.isLoading,
   emailListLoading: state.emailTemplate.isLoading,
   emailSummaryList: getAllEmailTemplatesSummaries(
@@ -312,6 +336,7 @@ const mapStateToProps = (state: RootState) => ({
   establishments: getAvailableEstablishmentList(state),
   privateServices: _getPrivateServices(state),
   paymentPacks: getAllPaymentPacks(state),
+  comm: state.communication,
 });
 
 const mapDispatchToProps = {
@@ -333,6 +358,7 @@ const mapDispatchToProps = {
   fetchEstablishments,
   fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
   fetchAllPaymentPacks,
+  fetchMarketingNotificationCampaignSummary,
 };
 
 export default compose(

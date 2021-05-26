@@ -10,6 +10,7 @@ import {
   sendMailToMembersFromTemplate as sendMailToMembersFromTemplateAPI,
   sendSmsToMembers as sendSmsToMembersAPI,
   sendCommunication as sendCommunicationAPI,
+  fetchCampaignSummary as fetchCampaignSummaryAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
@@ -51,6 +52,7 @@ export function mailMembers(data: MemberMailData): ThunkAction {
     dispatch(membersMailAction.isloading(false));
   };
 }
+
 export function mailMembersFromTemplate(data: MemberMailData): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(membersMailAction.isloading(true));
@@ -172,6 +174,43 @@ export function fetchCampaign(
       if (options && options.onError) options.onError(error);
     }
     dispatch(campaignDetailActions.isLoading(false));
+  };
+}
+
+export const marketingNotificationCampaignDetailActions = {
+  error: createAction('MARKETING_NOTIFICATION_CAMPAIGN/DETAIL/ERROR'),
+  isLoading: createAction('MARKETING_NOTIFICATION_CAMPAIGN/DETAIL/LOADING'),
+  success: createAction('MARKETING_NOTIFICATION_CAMPAIGN/DETAIL/SUCCESS'),
+};
+
+export function fetchMarketingNotificationCampaignSummary(
+  id: string | number,
+  options: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(marketingNotificationCampaignDetailActions.isLoading(true));
+    dispatch(marketingNotificationCampaignDetailActions.error(null));
+    try {
+      const response = await fetchCampaignSummaryAPI({
+        key: 'marketing_notification_id',
+        value: id,
+      });
+
+      const data = {
+        id,
+        ...response.data,
+      };
+
+      dispatch(marketingNotificationCampaignDetailActions.success(data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(marketingNotificationCampaignDetailActions.error(error));
+      console.error(error);
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(marketingNotificationCampaignDetailActions.isLoading(false));
   };
 }
 

@@ -1,7 +1,15 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { Theme, Typography, withStyles } from '@material-ui/core';
+import {
+  ButtonBase,
+  Collapse,
+  Theme,
+  Typography,
+  withStyles,
+} from '@material-ui/core';
 import EventIcon from '@material-ui/icons/Event';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { TFunction } from 'i18next';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import {
@@ -9,7 +17,7 @@ import {
   PRIVATEBOOKING_EVENT_RULES,
 } from '@bsport/common/lib/master-data/notification-rule-events';
 
-import { MaterialStyleType } from '../../../utils/types';
+import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import { MarketingNotification } from '../types';
 import { Establishment } from '../../establishment/types';
 import { MetaActivity } from '../../meta-activity/types';
@@ -80,13 +88,25 @@ type OwnProps = {
   metaActivityBydId: { [key: string]: MetaActivity };
   privateServiceById: { [key: string]: PrivateService };
   emailSummariesById: { [key: string]: EmailTemplateSummary };
+  onUpdateNotification: (
+    id: number,
+    data: DeepPartial<MarketingNotification>,
+  ) => void;
 };
 
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-export class BookingNotificationList extends React.PureComponent<Props> {
+interface State {
+  hideById: { [key: string]: boolean | undefined };
+}
+
+export class BookingNotificationList extends React.PureComponent<Props, State> {
+  state: State = {
+    hideById: {},
+  };
+
   renderByKind = (byKind: { [key: string]: MarketingNotification[] }) => {
     const { classes, t } = this.props;
 
@@ -100,6 +120,7 @@ export class BookingNotificationList extends React.PureComponent<Props> {
                 notifications={notifications}
                 emailSummariesById={this.props.emailSummariesById}
                 onClickNotification={this.props.onClickNotification}
+                onUpdateNotification={this.props.onUpdateNotification}
               />
             </div>
           );
@@ -185,10 +206,31 @@ export class BookingNotificationList extends React.PureComponent<Props> {
           const name = this.getLabel(key, group.identifier);
           return (
             <div className={classes.itemContainer}>
-              <Typography color="primary" variant="h5">
-                {name}
-              </Typography>
-              {this.renderSession(group.bySession)}
+              <ButtonBase
+                className={classes.buttonTitleContainer}
+                onClick={() => {
+                  this.setState((prevState: State) => ({
+                    hideById: {
+                      ...prevState.hideById,
+                      [key]: !prevState.hideById[key],
+                    },
+                  }));
+                }}
+              >
+                <Typography color="primary" variant="h5">
+                  {name}
+                </Typography>
+
+                {!this.state.hideById[key] ? (
+                  <ExpandLessIcon />
+                ) : (
+                  <ExpandMoreIcon />
+                )}
+              </ButtonBase>
+
+              <Collapse in={!this.state.hideById[key]}>
+                {this.renderSession(group.bySession)}
+              </Collapse>
             </div>
           );
         })}
@@ -228,11 +270,15 @@ const styles = (theme: Theme) => ({
     marginBottom: theme.spacing(4),
     marginTop: theme.spacing(4),
   },
+  buttonTitleContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
   itemContainer: {
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
-    width: '100%',
+    width: '100 %',
     marginBottom: theme.spacing(2),
   },
   bySessionItem: {

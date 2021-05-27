@@ -316,7 +316,11 @@ export default compose(
         { offer: offerId, withNotes: true },
         {
           onSuccess: (memberList) => {
-            fetchInvoiceListUnpaid({ member__in: memberList.map((m) => m.id) });
+            if (memberList && memberList.length) {
+              fetchInvoiceListUnpaid({
+                member__in: memberList.map((m) => m.id),
+              });
+            }
           },
         },
       );
@@ -370,9 +374,11 @@ export default compose(
 
             {
               onSuccess: (memberList) => {
-                fetchInvoiceListUnpaid({
-                  member__in: memberList.map((m) => m.id),
-                });
+                if (memberList && memberList.length) {
+                  fetchInvoiceListUnpaid({
+                    member__in: memberList.map((m) => m.id),
+                  });
+                }
               },
             },
           );
@@ -395,9 +401,11 @@ export default compose(
             offerId,
             {
               onSuccess: (bookingList) => {
-                fetchInvoiceListUnpaid({
-                  member__in: bookingList.map((b) => b.member),
-                });
+                if (bookingList && bookingList.length) {
+                  fetchInvoiceListUnpaid({
+                    member__in: bookingList.map((b) => b.member),
+                  });
+                }
               },
             },
             ordering_field,

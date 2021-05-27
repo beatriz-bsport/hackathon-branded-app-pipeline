@@ -533,7 +533,7 @@
             "credit": "Krediet(en)",
             "payment": "Betaling",
             "goToSubscription": "Zie abonnement",
-            "invoiceFromSubscriptionThusNotEditable": "Deze factuur is aan een abonnement gekoppeld en kan daarom niet worden gewijzigd. Wijzig het abonnement zelf om veranderingen door te voeren",
+            "invoiceFromSubscriptionThusNotEditable": "Deze factuur is aan een abonnement gekoppeld en kan daarom niet worden gewijzigd. Wijzig het abonnement zelf om veranderingen door te voeren.",
             "noBookingsLeftOnPackInMonth": "Dit lidmaatschap kan deze maand niet meer worden gebruikt."
         },
         "invoice": {
@@ -2075,8 +2075,8 @@
                 },
                 "timeSettingsTitle": "Geldigheid",
                 "generalSettingsTitle": "Algemeen",
-                "validByDuration": "Deze cursuskaart is N aantal dagen na aankoop geldig.",
-                "validByDaterange": "Deze cursuskaart is tussen X en Y geldig.",
+                "validByDuration": "Deze cursuskaart is N aantal dagen na aankoop geldig",
+                "validByDaterange": "Deze cursuskaart is tussen X en Y geldig",
                 "durationDays": {
                     "helperText": "Geldigheidsduur in aantal dagen na aankoop ",
                     "label": "Geldigheidsduur (in dagen) indien van toepassing"
@@ -2145,7 +2145,7 @@
                 },
                 "penalty": {
                     "account": {
-                        "helperText": "Leden moeten een boete t.w.v. €{{value}} betalen.",
+                        "helperText": "Leden krijgen een boete t.w.v. €{{value}} op hun interne rekening.",
                         "label": "Boetebedrag:"
                     },
                     "block": {
@@ -2784,7 +2784,7 @@
             },
             "501": {
                 "explanation": "Reserveerde voor het laatst op...",
-                "second": "dag(en) geleden en heeft nog geen toekomstige reserveringen ingepland.",
+                "second": "dag(en) geleden en er zijn nog geen toekomstige reserveringen ingepland.",
                 "first": "De laatst reservering was meer dan",
                 "name": "Laatste reservering"
             },
@@ -3451,7 +3451,7 @@
             "item": {
                 "explain": "Alle voorgaande weken {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}}"
             },
-            "explain": "Dit lid wordt altijd {{ delayWeek }} weken van tevoren voor sessies op {{ dayOfWeek}} om {{hour}}:{{minute}} ingeschreven. Leden worden alleen ingeschreven als zij een compatibel of geldig lidmaatschap bezitten.",
+            "explain": "Dit lid wordt altijd {{ delayWeek }} weken van tevoren voor sessies op {{ dayOfWeek}} om {{hour}}:{{minute}} ingeschreven. Leden moeten een compatibel en geldig lidmaatschap bezitten om te kunnen worden ingeschreven.",
             "needConsumerPack": "Dit lid bezit niet de juiste cursuskaart. Het is niet mogelijk om een herhalende reservering in te plannen",
             "recurrentBookings": "Herhalende reserveringen",
             "actions": {
@@ -4220,7 +4220,7 @@
                 "submit": "Bevestigen",
                 "minutes": "Min.",
                 "hours": "Uur",
-                "durationInputError": "Geef aan hoe lang de video duurt",
+                "durationInputError": "Vermeld de duur van de video",
                 "durationLabel": "Duur van de video"
             },
             "form": {
@@ -6058,6 +6058,15 @@
                 "error": "De wijzigingen konden momenteel niet worden opgeslagen",
                 "success": "Instellingen bijgewerkt"
             }
+        },
+        "paymentMethod": {
+            "detach": {
+                "pm_associated_to_pi": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
+                "pm_associated_to_registered_ppe": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
+                "pm_associated_to_protected_bp": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
+                "last_payment_method": "Je enige betaalmethode kan niet worden verwijderd",
+                "pm_deleted": "Betaalmethode verwijderd"
+            }
         }
     },
     "coach": {
@@ -6944,7 +6953,7 @@
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "De factuur is nu aangemaakt en kan niet meer worden bewerkt.",
-            "invoiceFromSubscriptionThusNotEditable": "Deze factuur is aan een abonnement gekoppeld en kan daarom niet worden gewijzigd. Wijzig het abonnement zelf om veranderingen door te voeren",
+            "invoiceFromSubscriptionThusNotEditable": "Deze factuur is aan een abonnement gekoppeld en kan daarom niet worden gewijzigd. Wijzig het abonnement zelf om veranderingen door te voeren.",
             "invoiceRevertedThusNotEditable": "De factuur is geannuleerd en kan niet worden gewijzigd"
         },
         "invoice": {
@@ -7141,7 +7150,14 @@
             "add": "Toevoegen",
             "edit": "Bewerken",
             "title": "Betaalmethode",
-            "none": "Er is nog geen betaalmethode opgeslagen."
+            "none": "Er is nog geen betaalmethode opgeslagen.",
+            "detach": {
+                "last_payment_method": "Je enige betaalmethode kan niet worden verwijderd",
+                "pm_associated_to_pi": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
+                "pm_associated_to_registered_ppe": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
+                "pm_associated_to_protected_bp": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
+                "pm_deleted": "Betaalmethode verwijderd"
+            }
         },
         "paymentEngine": {
             "label": {

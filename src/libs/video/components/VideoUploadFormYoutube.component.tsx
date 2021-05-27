@@ -34,7 +34,7 @@ class VideoProviderUrl extends React.PureComponent<Props, State> {
   };
 
   submit = async () => {
-    const hasDuration = this.state.minutes + this.state.hours > 1;
+    const hasDuration = this.state.minutes + this.state.hours > 0;
 
     const hasUrl = !!this.state.url;
 

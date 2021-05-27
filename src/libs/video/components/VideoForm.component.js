@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import pick from 'lodash/pick';
 import moment from 'moment-timezone';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 
 import { withFormik, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -19,11 +20,12 @@ import {
   CheckboxField,
 } from '../../../components/forms';
 import LevelSelectorField from '../../category/components/LevelSelectorField.component';
+import { Video } from '../types';
 
 type Props = {
   coaches: Array<Coach>,
   SCTs: Array<SCT>,
-  initial: any,
+  initial?: Video,
 };
 export const VideoForm = (props: Props) => {
   const { t } = useTranslation(['video']);
@@ -124,28 +126,30 @@ export const VideoForm = (props: Props) => {
         />
       </div>
 
-      {props.initial && (
-        <>
-          <Typography>{t('video.upload.durationLabel')}</Typography>
-          <div className={classes.durationWrapper}>
-            <IntegerField
-              label={t('video.upload.hours')}
-              name="_duration_hours"
-              required
-              fullWidth
-              inputProps={{ maxLength: 500 }}
-            />
+      {props.initial &&
+        props.initial.provider_identifier ===
+          VideoProvider.EXTERNAL_URL_PROVIDER && (
+          <>
+            <Typography>{t('video.upload.durationLabel')}</Typography>
+            <div className={classes.durationWrapper}>
+              <IntegerField
+                label={t('video.upload.hours')}
+                name="_duration_hours"
+                required
+                fullWidth
+                inputProps={{ maxLength: 500 }}
+              />
 
-            <IntegerField
-              label={t('video.upload.minutes')}
-              name="_duration_minutes"
-              required
-              fullWidth
-              inputProps={{ maxLength: 500 }}
-            />
-          </div>
-        </>
-      )}
+              <IntegerField
+                label={t('video.upload.minutes')}
+                name="_duration_minutes"
+                required
+                fullWidth
+                inputProps={{ maxLength: 500 }}
+              />
+            </div>
+          </>
+        )}
 
       <div className={classes.field}>
         <CheckboxField
@@ -206,11 +210,16 @@ export const VideoSchema = Yup.object().shape({
   cover_main: Yup.mixed().required(),
   name: Yup.string().required(),
   description: Yup.string().required(),
-  duration_second: Yup.number(),
   coaches: Yup.array().of(Yup.number()),
   SCT: Yup.number().integer(),
   credit_price: Yup.number().integer(),
   manager_only: Yup.boolean(),
+  _duration_minutes: Yup.number().when('_duration_hours', {
+    is: (value) => value > 0,
+    then: Yup.number(),
+    otherwise: Yup.number().min(1),
+  }),
+  _duration_hours: Yup.number(),
 });
 
 export const VideoFormHOC = withFormik({
@@ -263,7 +272,10 @@ export const VideoFormHOC = withFormik({
       data.id = initial.id;
     }
 
-    if (initial) {
+    if (
+      initial &&
+      initial.provider_identifier === VideoProvider.EXTERNAL_URL_PROVIDER
+    ) {
       const hours = values._duration_hours;
       const minutes = values._duration_minutes;
 

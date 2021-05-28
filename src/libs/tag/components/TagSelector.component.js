@@ -101,7 +101,8 @@ const styles = () => ({
     alignItems: 'center',
   },
   userInput: {
-    width: 200,
+    minWidth: '5rem',
+    width: '18rem',
   },
 });
 

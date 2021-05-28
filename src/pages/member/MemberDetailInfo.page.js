@@ -337,7 +337,10 @@ export class MemberDetailPage extends Component<Props, State> {
         <TagDeleteDialog
           open={!!this.state.tagToDelete}
           onClose={() => this.setState({ tagToDelete: null })}
-          onSubmit={() => this.props.deleteTag(this.state.tagToDelete)}
+          onSubmit={() => {
+            this.props.deleteTag(this.state.tagToDelete);
+            this.setState({ tagToDelete: null });
+          }}
         />
         <FileUploadDialog
           open={!!this.state.fileToUpload}
@@ -364,9 +367,10 @@ export class MemberDetailPage extends Component<Props, State> {
         <TagGroupDeleteDialog
           open={!!this.state.tagGroupToDelete}
           onClose={() => this.setState({ tagGroupToDelete: null })}
-          onSubmit={() =>
-            this.props.deleteTagGroup(this.state.tagGroupToDelete)
-          }
+          onSubmit={() => {
+            this.props.deleteTagGroup(this.state.tagGroupToDelete);
+            this.setState({ tagGroupToDelete: null });
+          }}
         />
       </Grid>
     );

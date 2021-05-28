@@ -136,6 +136,7 @@ type SingleValueProps = {
   children: React.Node,
   innerProps: *,
 };
+
 function SingleValue(props: SingleValueProps) {
   return (
     <Typography
@@ -153,8 +154,11 @@ type ValueContainerProps = {
 };
 function ValueContainer(props: ValueContainerProps) {
   return (
-    <div className={props.selectProps.classes.valueContainer}>
-      <Typography noWrap>{props.children}</Typography>
+    <div
+      id="value-container"
+      className={props.selectProps.classes.valueContainer}
+    >
+      {props.children}
     </div>
   );
 }
@@ -247,10 +251,17 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
     input: (base) => ({
       ...base,
       flex: 1,
+      position: 'fixed',
       color: theme.palette.text.primary,
       '& input': {
         font: 'inherit',
       },
+    }),
+    singleValue: (base) => ({
+      ...base,
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
     }),
   };
   const SelectComponent =
@@ -268,7 +279,6 @@ function IntegrationReactSelect(props: IntegrationReactSelectProps) {
     }
     return suggestionValues.find((s) => s.value === selectedValues);
   };
-
   return (
     <div className={`${className || ''} ${classes.root}`}>
       <SelectComponent
@@ -306,10 +316,10 @@ const styles = (theme) => ({
     padding: theme.spacing(1),
   },
   valueContainer: {
-    // flexWrap: 'wrap',
     flex: 1,
     alignItems: 'center',
-    // overflow: 'hidden',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
   },
   chip: {

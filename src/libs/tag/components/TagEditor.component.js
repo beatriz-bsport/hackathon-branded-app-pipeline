@@ -2,7 +2,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-
 import { compose, withState } from 'recompose';
 
 import type { TagGroup, Tag } from '../types';
@@ -61,7 +60,12 @@ export function TagEditor(props: Props) {
 
   return (
     <div className={classes.container}>
-      <Typography variant="subtitle2">{tagGroup.name}</Typography>
+      <div style={{ minWidth: '100px' }}>
+        <Typography variant="subtitle2" noWrap>
+          {tagGroup.name}
+        </Typography>
+      </div>
+
       <div className={classes.tagSelectorContainer}>
         {props.createMode ? (
           <TagCreator

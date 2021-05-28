@@ -1031,13 +1031,10 @@
       "451": "Rendez-vous annulé - remboursé (élève)",
       "452": "Nouveau rendez-vous (élève)",
       "453": "Horaire modifié (élève)",
-      "510": "Paiement d'une souscription échoué",
-      "515": "Carte de cours de la souscription automatiquement désactivée",
-      "520": "Paiement d'une souscription échoué, sera retenté",
-      "530": "Litige sur paiement d'une souscription",
       "601": "Trop peu de réservations N heures avant le début de la séance",
       "701": "Pénalité carte de cours : carte bloquée (élève)",
-      "702": "Pénalité carte de cours : acompte créé (élève)"
+      "702": "Pénalité carte de cours : acompte créé (élève)",
+      "undefined": "Paiement d'une souscription échoué, sera retenté"
     }
   },
   "consumerSpace": {
@@ -5392,11 +5389,6 @@
         "name": "Mot de passe",
         "explanation": "Possède un mot de passe sur bsport"
       },
-      "410": {
-        "explain": "ayant accepté les décharges de responsabilité",
-        "name": "Décharge de responsabilité",
-        "explanation": "Ayant accepté les décharges de responsabilité"
-      },
       "501": {
         "name": "Date dernière séance réservée",
         "first": "La dernière séance réservée a eu lieu il y a plus de",
@@ -5452,7 +5444,12 @@
       "before": "avant",
       "after": "après",
       "comparators": { "1": "inférieur (⩽)", "2": "supérieur (⩾)", "5": "égal", "6": "entre deux" },
-      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" }
+      "durations_comparators": { "1": "moins de (⩽)", "2": "plus de (⩾)", "5": "exactement", "6": "entre deux" },
+      "undefined": {
+        "explain": "ayant accepté les décharges de responsabilité",
+        "name": "Décharge de responsabilité",
+        "explanation": "Ayant accepté les décharges de responsabilité"
+      }
     },
     "tag_rules": {
       "type_of_rule": "Type de règle",

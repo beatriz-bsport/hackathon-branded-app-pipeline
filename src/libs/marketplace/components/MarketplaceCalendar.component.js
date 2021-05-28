@@ -124,7 +124,6 @@ export class MarketplaceCalendar extends PureComponent<Props> {
         variant="activity"
       />
     );
-
     return (
       <div className={classes.container}>
         <Calendar

@@ -100,13 +100,19 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
       .format(DATE_FORMAT);
 
     this.props.fetchMetaActivityBulk(this.props.filters.activity__in || []);
-
+    const optionalParams: any = {};
+    if (this.props.theme) {
+      if (!this.props.theme.show_cancelled_offers_customer) {
+        optionalParams.available = true;
+      }
+    }
     this.props.fetchOfferList({
       company: this.props.companyId,
       min_date,
       max_date,
       is_workshop: true,
       ...this.props.filters,
+      ...optionalParams,
     });
   };
 
@@ -117,7 +123,6 @@ export class MarketplaceWorkshopPage extends React.Component<FinalProps> {
 
   render() {
     const { classes, offers } = this.props;
-
     return (
       <div className={classes.container}>
         <div className={classes.column}>

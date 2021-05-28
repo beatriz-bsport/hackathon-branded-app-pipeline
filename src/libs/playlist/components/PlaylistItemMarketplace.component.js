@@ -79,6 +79,7 @@ const useStyles = makeStyles(() => ({
     display: '-webkit-box',
     '-webkit-line-clamp': 1,
     '-webkit-box-orient': 'vertical',
+    overflowWrap: 'anywhere',
   },
   playlist_item__description: {
     minHeight: 60,
@@ -89,6 +90,7 @@ const useStyles = makeStyles(() => ({
     display: '-webkit-box',
     '-webkit-line-clamp': 3,
     '-webkit-box-orient': 'vertical',
+    overflowWrap: 'anywhere',
   },
 }));
 

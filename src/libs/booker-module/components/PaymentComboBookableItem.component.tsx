@@ -2,6 +2,7 @@ import { makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
 import { getCurrencyDisplay } from '../../theme/selectors';
 import { PaymentCombo } from '../../payment-combo/types';
+import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
 
 interface Props {
   paymentCombo: PaymentCombo;
@@ -31,7 +32,16 @@ const PaymentPackComboItem = (props: Props) => {
       <Typography variant="body1" color="textPrimary" align="left">
         {props.paymentCombo.name}
       </Typography>
-
+      <TypographyWithShowMore
+        maxCharacterCount={100}
+        component="div"
+        multiline
+        variant="body2"
+        color="textPrimary"
+        style={{ textAlign: 'left' }}
+      >
+        {props.paymentCombo.description}
+      </TypographyWithShowMore>
       {packs.map((pack) => (
         <Typography variant="body2" color="textSecondary" align="left">
           - {pack}

@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import { getCurrencyDisplay } from '../../theme/selectors';
 import { PaymentCombo } from '../types';
+import TypographyWithShowMore from '../../../components/TypographyWithShowMore.component';
 
 interface Props {
   paymentCombo: PaymentCombo;
@@ -39,7 +40,6 @@ const PaymentPackComboItem = (props: Props) => {
   if (totalItemsPrice > props.paymentCombo.price) {
     showTotalPrice = true;
   }
-
   return (
     <div className={classes.itemContainer}>
       <div className={classes.priceContainer}>
@@ -58,6 +58,16 @@ const PaymentPackComboItem = (props: Props) => {
       <Typography variant="body1" color="textPrimary" align="left">
         {props.paymentCombo.name}
       </Typography>
+      <TypographyWithShowMore
+        maxCharacterCount={65}
+        alignButtonRight
+        component="div"
+        multiline
+        variant="body2"
+        color="textPrimary"
+      >
+        {props.paymentCombo.description}
+      </TypographyWithShowMore>
 
       {packs.map((pack) => (
         <Typography variant="body2" color="textSecondary" align="left">
@@ -70,7 +80,7 @@ const PaymentPackComboItem = (props: Props) => {
 
 const useStyles = makeStyles((theme: Theme) => ({
   itemContainer: {
-    width: '100%',
+    width: '15rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',

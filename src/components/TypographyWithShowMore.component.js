@@ -17,9 +17,10 @@ type Props = {
   setShowFullText: (boolean) => void,
   showFullText: boolean,
   maxCharacterCount?: number,
+  alignButtonRight: ?boolean,
 };
 
-export const TypographyWithSowMore = (props: Props) => {
+export const TypographyWithShowMore = (props: Props) => {
   const TypographyComponent = props.multiline
     ? TypographyMultiline
     : Typography;
@@ -37,26 +38,42 @@ export const TypographyWithSowMore = (props: Props) => {
         }`}
       </TypographyComponent>
       {textIsLong ? (
-        <ButtonBase
-          disableRipple
-          onClick={(ev) => {
-            ev.stopPropagation();
-            props.setShowFullText(!props.showFullText);
-          }}
-          className={props.classes.showMoreButton}
+        <div
+          className={
+            props.alignButtonRight
+              ? props.classes.buttonRightContainer
+              : props.classes.buttonLeftContainer
+          }
         >
-          <Typography variant="caption" color="secondary">
-            {props.showFullText
-              ? props.t('text.showLessText')
-              : props.t('text.showMoreText')}
-          </Typography>
-        </ButtonBase>
+          <ButtonBase
+            disableRipple
+            onClick={(ev) => {
+              ev.stopPropagation();
+              props.setShowFullText(!props.showFullText);
+            }}
+            className={props.classes.showMoreButton}
+          >
+            <Typography variant="caption" color="secondary">
+              {props.showFullText
+                ? props.t('text.showLessText')
+                : props.t('text.showMoreText')}
+            </Typography>
+          </ButtonBase>
+        </div>
       ) : null}
     </div>
   );
 };
 
 const styles = (theme) => ({
+  buttonLeftContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+  },
+  buttonRightContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
   showMoreButton: {
     marginTop: theme.spacing(-1.5),
     marginBottom: theme.spacing(1),
@@ -73,4 +90,4 @@ export default compose(
   withStyles(styles),
   withState('showFullText', 'setShowFullText', false),
   withTranslation(['common']),
-)(TypographyWithSowMore);
+)(TypographyWithShowMore);

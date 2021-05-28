@@ -41,7 +41,7 @@ export const VideoPlayerFull = (props: Props) => {
           <AccessTimeIcon className={classes.timeIcon} />
           <Typography className={classes.timeTypography} variant="body2">
             {t('video.durationMinute', {
-              minute: parseInt(props.video.duration_second / 60, 10) + 1,
+              minute: parseInt(props.video.duration_second / 60, 10),
             })}
           </Typography>
           {!!(props.video && props.video.SCT && props.video.SCT.SCS) && (

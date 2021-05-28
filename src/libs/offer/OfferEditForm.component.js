@@ -400,7 +400,6 @@ export class EditLiveOfferForm extends Component<Props, State> {
     const hasErrorCredit =
       parseInt(this.state.credit_price_override, 10) === 0 ||
       this.state.credit_price_override > 4;
-
     return (
       <div className={this.props.classes.container}>
         <div className={this.props.classes.fieldGroup}>

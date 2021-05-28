@@ -383,9 +383,7 @@ export class CalendarEventDetail extends React.Component<Props> {
                   offer={offer}
                   coaches={this.props.coaches}
                   establishments={this.props.establishments}
-                  metaActivities={this.props.metaActivities.filter(
-                    (ma) => ma.customer_enabled && !ma.is_workshop,
-                  )}
+                  metaActivities={this.props.metaActivities}
                   is_whereby_integration_enabled={
                     this.props.theme &&
                     this.props.theme.is_whereby_integration_enabled &&

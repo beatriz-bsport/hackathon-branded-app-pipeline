@@ -92,7 +92,6 @@ export default withTranslation(['metaActivity'])(
     } else if (variant === 'workshop') {
       placeholder = t('workshop');
     }
-
     return (
       <div style={{ zIndex: 9999 }}>
         <Select

@@ -26,7 +26,7 @@ export const getMetaActivities = createSelector(
 );
 
 export const getEnabledMetaActivities = createSelector(
-  getMetaActivitiesDict,
+  getMetaActivityAbstractDict,
   (metactivities) =>
     Immutable(Object.values(metactivities)).filter(
       (ma) => !!ma.customer_enabled,

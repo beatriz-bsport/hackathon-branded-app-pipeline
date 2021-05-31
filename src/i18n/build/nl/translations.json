@@ -269,7 +269,8 @@
         },
         "emailDesign": {
             "closePreview": "Sluiten",
-            "placeholder": "Sjabloon van BSPORT"
+            "placeholder": "Sjabloon van BSPORT",
+            "birthdayPlaceholder": "Kies een e-mailadres"
         },
         "ruleGroup": {
             "private_booking": "Afspraken",
@@ -2716,7 +2717,7 @@
                         "9": "Meer dan X dag(en) geleden",
                         "11": "Er zijn meer dan X dagen en minder dan Y dagen",
                         "10": "X dag(en) geleden",
-                        "4": "In meer dan X dagen",
+                        "4": "Over X dagen",
                         "5": "In minder dan X dagen"
                     },
                     "11": {
@@ -3291,8 +3292,8 @@
         "wasRefunded": "Terugbetaald",
         "statusCode": {
             "cancelledByOffer": "Sessie geannuleerd door de studio",
-            "cancelledByManager": "Annulering manager",
-            "cancelledByConsumer": "Annulering lid",
+            "cancelledByManager": "Geannuleerd (manager)",
+            "cancelledByConsumer": "Geannuleerd (leden)",
             "cancelledByOfferDate": "De sessie is door de studio op {{-date}} om {{time}} geannuleerd",
             "cancelledByConsumerDate": "Door het lid op {{-date}} om {{time}} geannuleerd",
             "cancelledByManagerDate": "Door de studio op {{-date}} om {{time}} geannuleerd"
@@ -3306,14 +3307,14 @@
         "filters": {
             "notRefunded": "Niet terugbetaald",
             "isRefunded": "Terugbetaald",
-            "refunded": "Terugbetaling",
+            "refunded": "Terugbetalingen",
             "pastBooking": "Verlopen reserveringen",
             "futureBooking": "Toekomstige reserveringen",
-            "time": "Reserveringen",
+            "time": "Ontwikkeling",
             "attendance": "Aanwezigheid",
-            "cancel": "Annulering",
-            "consumerCanceled": "Annulering lid",
-            "managerCanceled": "Annulering manager",
+            "cancel": "Annuleringen",
+            "consumerCanceled": "Geannuleerd (leden)",
+            "managerCanceled": "Geannuleerd (manager)",
             "canceled": "Sessie geannuleerd",
             "absent": "Afwezig",
             "present": "Aanwezig",
@@ -3321,7 +3322,7 @@
             "withoutRecurrentBookings": "Eenmalige reserveringen",
             "withRecurrentBookings": "Periodieke reserveringen",
             "recurrentBooking": "Reserveringen",
-            "notCancelled": "Niet-geannuleerd"
+            "notCancelled": "Geldig"
         },
         "creditConsumed": "{{credit_consumed}} krediet",
         "creditConsumed_plural": "{{credit_consumed}} kredieten",
@@ -6298,10 +6299,10 @@
                 "label": "Gebruikslimiet"
             },
             "only_on_first_checkout": {
-                "label": "Is alleen op de 1e aankoop geldig"
+                "label": "Deze promotiecode is alleen op de 1e aankoop geldig"
             },
             "combinable": {
-                "label": "Kan met andere codes gecombineerd worden"
+                "label": "Deze promotiecode mag met andere codes gecombineerd worden"
             },
             "actions": {
                 "cancel": "Annuleren",

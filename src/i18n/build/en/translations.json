@@ -1095,7 +1095,7 @@
                     "success": "Activity saved"
                 }
             },
-            "firstBookingMinutesUntil": "Limit bookings to sessions taking place before or in "
+            "firstBookingMinutesUntil": "Members can book future sessions scheduled in less than "
         },
         "calendar": {
             "pleaseSelectOffer": "Select a session to show members that have booked in",
@@ -1891,7 +1891,8 @@
         },
         "emailDesign": {
             "placeholder": "Handled by bsport",
-            "closePreview": "Close"
+            "closePreview": "Close",
+            "birthdayPlaceholder": "Select an email"
         },
         "tag": {
             "Offer": {
@@ -2015,7 +2016,11 @@
             "22": "Invoice confirmation",
             "601": "Too few bookings N hours before the start of the session",
             "702": "Pass penalty: charge on account created (student)",
-            "701": "Pass penalty: pass blocked (student)"
+            "701": "Pass penalty: pass blocked (student)",
+            "530": "Dispute over payment of a subscription",
+            "520": "Failed payment of a subscription will be retried",
+            "515": "Pass of the subscription automatically deactivated",
+            "510": "Failed payment for a subscription"
         },
         "messages": {
             "createOrUpdate": {
@@ -4216,7 +4221,8 @@
                 "checkoutBasket": "Buy",
                 "payZero": "Confirm my basket"
             },
-            "isFinalized": "Your cart has been validated"
+            "isFinalized": "Your cart has been validated",
+            "checkingPaymentStatus": "Please wait, we are checking the status of your payment"
         },
         "payLater": {
             "submit": "Pay on site",

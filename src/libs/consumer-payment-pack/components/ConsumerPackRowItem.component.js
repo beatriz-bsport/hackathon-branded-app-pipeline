@@ -195,6 +195,18 @@ export class ConsumerPackRowItem extends Component<Props> {
         >
           <ExposureNeg1Icon />
         </IconButton>
+        {consumerPack.disabled && this.props.unblock && (
+          <Button
+            onClick={(ev) => {
+              ev.preventDefault();
+              ev.stopPropagation();
+              this.props.unblock(consumerPack.id);
+            }}
+            variant="outlined"
+          >
+            {t('enableConsumer')}
+          </Button>
+        )}
       </div>
     );
   };

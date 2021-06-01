@@ -90,6 +90,12 @@ export async function subCreditToConsumerPack(id: number, nbCredit: number) {
   );
 }
 
+export async function unblock(id: number) {
+  return postAuth(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/${id}/unblock/`,
+  );
+}
+
 export async function fetchConsumerPaymentPackCompatibleList(params: any) {
   return postAuth(
     `${API_V1_URI}/payment-pack/consumer-payment-pack/compatible/`,

@@ -19,6 +19,7 @@ import {
   createMassExtension as createMassExtensionAPI,
   fetchMassExtensions as fetchMassExtensionsAPI,
   deleteMassExtension as deleteMassExtensionAPI,
+  unblock as unblockAPI,
 } from './api';
 
 import { monitorBackgroundTask } from '../background-task/actions';
@@ -160,6 +161,26 @@ export function updateCredit(consumerPackId: number, nbCredit: number) {
         dispatch(snackbarSuccess('paymentPack.credit.updated'));
       }
     } catch (err) {
+      dispatch(updateConsumerPack.error(err));
+      dispatch(snackbarError('paymentPack.credit.error'));
+    }
+    dispatch(
+      updateConsumerPack.isLoading({ id: consumerPackId, loading: false }),
+    );
+  };
+}
+
+export function unblock(consumerPackId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      updateConsumerPack.isLoading({ id: consumerPackId, loading: true }),
+    );
+    try {
+      const response = await unblockAPI(consumerPackId);
+      dispatch(updateConsumerPack.success(response.data));
+      dispatch(snackbarSuccess('paymentPack.credit.updated'));
+    } catch (err) {
+      console.error(err);
       dispatch(updateConsumerPack.error(err));
       dispatch(snackbarError('paymentPack.credit.error'));
     }

@@ -33,6 +33,7 @@ import {
   fetchByMember as fetchConsumerPackByMemberAction,
   retrieveConsumerPackBulk,
   updateCredit as updateCreditAction,
+  unblock,
   fetchPackExtensions,
   deletePackExtension,
   createPackExtension,
@@ -89,6 +90,8 @@ type Props = {
   deleteBooking: (id: number, data: any) => void,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,
+  unblock: (id: number) => void,
+
   discardBookingAttendance: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
   goToRelationship: (memberId: number) => void,
@@ -301,6 +304,7 @@ export class MemberDetailPass extends Component<Props, State> {
                   paymentPack={cpp.payment_pack}
                   incrementCredit={() => this.props.incrementCredit(cpp.id)}
                   decrementCredit={() => this.props.decrementCredit(cpp.id)}
+                  unblock={() => this.props.unblock(cpp.id)}
                   onClick={() =>
                     this.props.onSelectConsumerPass(this.props.id, cpp.id)
                   }
@@ -514,6 +518,7 @@ export default compose(
 
       incrementCredit: (id_: number) => updateCreditAction(id_, 1),
       decrementCredit: (id_: number) => updateCreditAction(id_, -1),
+      unblock,
       refundConsumerPaymentPack: refundConsumerPaymentPackActions,
 
       fetchInvoice: (uuid: string, options) =>

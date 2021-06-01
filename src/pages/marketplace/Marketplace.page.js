@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-
+import URI from 'urijs';
 import { compose, withProps, withHandlers } from 'recompose';
 import { withRouter } from 'react-router';
 
@@ -127,6 +127,7 @@ type Props = {
   settingsLoading: boolean,
   tabSelected: ?number,
   fetchMarketplaceSettings: (companyId: string) => void,
+  location: any,
 };
 
 type State = {
@@ -152,11 +153,55 @@ export class MarketPlace extends Component<Props, State> {
 
   fetchData = () => {
     this.props.fetchCompanyTheme(this.props.companyId);
-    this.props.fetchMarketplaceSettings(this.props.companyId);
+    this.props.fetchMarketplaceSettings(this.props.companyId, {
+      onSuccess: this.sanitizeURL,
+    });
     this.props.fetchSCT();
     if (this.props.auth.authenticated) {
       this.props.fetchCurrentBasket(this.props.companyId);
       this.props.fetchProfile();
+    }
+  };
+
+  sanitizeURL = () => {
+    const { settings } = this.props;
+
+    if (
+      !this.props.subcomponent &&
+      settings &&
+      settings.config &&
+      settings.config.length
+    ) {
+      this.handleTabChange(null, 0);
+    }
+
+    const uri = URI(window.location.href);
+    const urlSearchParams = new URLSearchParams(uri.query());
+    const paramsJson = Object.fromEntries(urlSearchParams);
+
+    if (paramsJson.tabSelected === undefined) {
+      let componentType = this.props.subcomponent;
+      if (componentType === 'private-service') {
+        componentType = 'privateService';
+      }
+
+      if (uri.pathname().includes('vod/playlist')) {
+        componentType = 'playlist';
+      }
+
+      const index = this.props.settings.config.findIndex(
+        (tab) => tab.component_type === componentType,
+      );
+
+      if (index > -1) {
+        paramsJson.tabSelected = index;
+      }
+
+      uri.query(paramsJson);
+      const pathname = uri.pathname();
+      const query = uri.query();
+      const newUrl = `${pathname}?${query}`;
+      this.props.replace(newUrl);
     }
   };
 
@@ -173,6 +218,11 @@ export class MarketPlace extends Component<Props, State> {
     ) {
       this.fetchData();
     }
+
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      this.sanitizeURL();
+    }
+
     /* eslint-disable-next-line */
     if (isNaN(this.props.companyId)) {
       this.props.replace('/');
@@ -180,9 +230,9 @@ export class MarketPlace extends Component<Props, State> {
   }
 
   handleTabChange = (event: SyntheticEvent<HTMLElement>, value: number) => {
-    const { tabSelected } = this.props;
+    // const { tabSelected } = this.props;
 
-    if (parseInt(tabSelected, 10) === parseInt(value, 10)) return;
+    // if (parseInt(tabSelected, 10) === parseInt(value, 10)) return;
 
     const tabConfig: MarketplaceTabConfig = this.props.settings.config[
       value.toString()

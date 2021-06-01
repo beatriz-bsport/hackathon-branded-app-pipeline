@@ -73,6 +73,11 @@ import {
   snackbarWarning,
   snackbarSuccess,
 } from '../../actions/snackbar.actions';
+import {
+  fromConfigToUrl,
+  getMarketplaceRoute,
+} from '../marketplace/routing-utils';
+import { MarketplaceTabConfig } from '../../libs/marketplace/types';
 
 type OwnProps = {
   companyId: number;
@@ -156,12 +161,12 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
         <div className={this.props.classes.header}>
           <div>
             <Button
-              onClick={() => this.props.goToCalendar()}
+              onClick={this.props.goToHomeTab}
               color="primary"
               variant="contained"
             >
               <TodayIcon className={this.props.classes.iconLeft} />
-              {this.props.t('actions.goToCalendar')}
+              {this.props.t('actions.goToHome')}
             </Button>
           </div>
         </div>
@@ -293,6 +298,7 @@ const mapStateToProps = (state: RootState) => ({
     state.theme.theme.payment_method_available_basket,
   metaActivitiesById: state.metaActivity.byId,
   detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
+  marketplaceSettings: state.marketplace.settings,
 });
 
 const mapDispatchToProps = {
@@ -458,14 +464,19 @@ const mapWithHandlers = {
       },
       { mine: true, reverted: false, current: true, disabled: false },
     ),
-  detachPaymentMethod: ({
-    detachPaymentMethodAction,
-    fetchMemberPaymentMethod,
-    snackbarErrorMsg,
-    snackbarSuccessMsg,
-    membership,
-    t,
-  }) => (pm_id, options) => {
+  detachPaymentMethod: (props: OwnConnectedStateHandlerProps) => (
+    pm_id: string,
+    options: any,
+  ) => {
+    const {
+      detachPaymentMethodAction,
+      fetchMemberPaymentMethod,
+      snackbarErrorMsg,
+      snackbarSuccessMsg,
+      membership,
+      t,
+    } = props;
+
     detachPaymentMethodAction(
       { member: membership.id, payment_method_id: pm_id },
       {
@@ -474,10 +485,22 @@ const mapWithHandlers = {
           snackbarSuccessMsg(t('invoice:paymentMethod.detach.pm_deleted'));
           if (options && options.onSuccess) options.onSuccess();
         },
-        onError: (data) => {
+        onError: (data: any) => {
           snackbarErrorMsg(t(`invoice:paymentMethod.detach.${data}`));
         },
       },
+    );
+  },
+  goToHomeTab: (props: Props) => () => {
+    const tabConfig: MarketplaceTabConfig = props.marketplaceSettings.config[0];
+    const path = fromConfigToUrl(tabConfig, { tabSelected: 0 });
+
+    props.push(
+      getMarketplaceRoute(
+        props.companyTheme.company_name,
+        props.companyId,
+        path,
+      ),
     );
   },
 };

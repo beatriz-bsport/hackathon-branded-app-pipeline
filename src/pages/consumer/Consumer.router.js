@@ -2,12 +2,13 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import { compose } from 'recompose';
+import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 
 import asyncComponent from '../../AsyncComponent';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getAuthToken } from '../../http';
+import { fetchMarketplaceSettings } from '../../libs/marketplace/actions';
 
 const ConsumerHome = asyncComponent(() => import('./ConsumerHome.page'));
 const ConsumerSpacePreSelector = asyncComponent(() =>
@@ -63,9 +64,28 @@ export const ConsumerRouter = (props: Props) => {
 
 export default compose(
   routerParamsToProps({ companyId: 'companyId:number' }),
-  connect((state) => ({
-    authenticated: state.auth.authenticated,
-    isManager: state.auth.is_manager,
-    username: state.auth.username,
-  })),
+  connect(
+    (state) => ({
+      authenticated: state.auth.authenticated,
+      isManager: state.auth.is_manager,
+      username: state.auth.username,
+      theme: state.theme.theme,
+    }),
+    {
+      fetchMarketplaceSettings,
+    },
+  ),
+  lifecycle({
+    componentWillMount() {
+      let id = this.props.companyId;
+      /* eslint-disable-next-line */
+      if (isNaN(id) || id === undefined) {
+        if (this.props.theme.company !== undefined) {
+          id = this.props.theme.company;
+        }
+      }
+
+      this.props.fetchMarketplaceSettings(id);
+    },
+  }),
 )(ConsumerRouter);

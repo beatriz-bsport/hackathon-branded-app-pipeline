@@ -50,6 +50,7 @@ exports.default = {
     noBookingPast: 'Aucune séance dans votre historique',
   },
   actions: {
+    goToHome: 'Voir tous les services',
     goToCalendar: 'Voir le calendrier complet',
     goToPass: 'Voir toutes les cartes de cours',
     goToSubscription: 'Voir tous les abonnements',

@@ -27,6 +27,12 @@ import type { Membership } from '../../libs/membership/types';
 import type { Booking } from '../../libs/booking/types';
 import type { PrivateBooking } from '../../libs/private-service/types';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
+import { RootState } from '../../reducers';
+import { MarketplaceTabConfig } from '../../libs/marketplace/types';
+import {
+  fromConfigToUrl,
+  getMarketplaceRoute,
+} from '../marketplace/routing-utils';
 
 type Props = {
   timezone: string,
@@ -76,7 +82,7 @@ export class ConsumerBooking extends React.Component<Props> {
 
 export default compose(
   connect(
-    (state) => ({
+    (state: RootState) => ({
       bookings: getConsumerBookingListWithConsumerPack(state),
       bookingCurrentPage: state.booking.asConsumer.page,
       bookingsLoading: state.booking.asConsumer.loading,
@@ -87,6 +93,7 @@ export default compose(
 
       private_booking_list: getPrivateBookingListBase(state),
       privateBookingsLoading: state.privateService.privateBooking.loading,
+      marketplaceSettings: state.marketplace.settings,
     }),
     {
       fetchBookingsAsConsumer: fetchBookingsAsConsumerAction,
@@ -99,7 +106,7 @@ export default compose(
       deleteBooking: cancelBookingAction,
       discardBookingAttendance: discardBookingAttendanceAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
-      goToCalendar: (name, id) => push(urlToMarketplace(name, id)),
+      push,
     },
   ),
   withHandlers({
@@ -120,5 +127,22 @@ export default compose(
             },
           ),
       }),
+    goToCalendar: (props: Props) => (
+      companyName: string,
+      companyId: string,
+    ) => {
+      const index = props.marketplaceSettings.config.findIndex(
+        (tab) => tab.component_type === 'calendar',
+      );
+      if (index > -1) {
+        const tabConfig: MarketplaceTabConfig =
+          props.marketplaceSettings.config[index];
+        const path = fromConfigToUrl(tabConfig, { tabSelected: index });
+
+        props.push(getMarketplaceRoute(companyName, props.companyId, path));
+      } else {
+        push(urlToMarketplace(companyName, companyId));
+      }
+    },
   }),
 )(ConsumerBooking);

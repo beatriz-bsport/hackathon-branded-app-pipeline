@@ -70,7 +70,8 @@
         "actions": {
             "goToSubscription": "Toon alle abonnementen",
             "goToPass": "Toon alle lidmaatschappen",
-            "goToCalendar": "Toon de planning"
+            "goToCalendar": "Toon de planning",
+            "goToHome": "Alle diensten bekijken"
         },
         "dashboard": {
             "noBooking": "Je hebt je nog niet ergens voor ingeschreven.",
@@ -7153,7 +7154,7 @@
             "title": "Betaalmethode",
             "none": "Er is nog geen betaalmethode opgeslagen.",
             "detach": {
-                "last_payment_method": "Je enige betaalmethode kan niet worden verwijderd",
+                "last_payment_method": "Je hebt één geregistreerde betaalmethode, deze kan niet worden verwijderd.",
                 "pm_associated_to_pi": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
                 "pm_associated_to_registered_ppe": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
                 "pm_associated_to_protected_bp": "Je kunt dit niet verwijderen, omdat er een abonnement aan deze betaalmethode is gekoppeld",
@@ -7634,7 +7635,39 @@
                 "workshop": "Selecteer een workshop"
             },
             "createNotification": "[Formulier] Melding",
-            "selectNotificationRules": "Selecteer een regel voor een gedetailleerd overzicht."
+            "selectNotificationRules": "Selecteer een regel voor een gedetailleerd overzicht.",
+            "stats": {
+                "opened_rate": "Aantal keer geopend",
+                "total_mail_opened": "Aantal geopende e-mails",
+                "total_mail_send": "Aantal verzonden e-mails"
+            },
+            "mailTitle": "Voorvertoning",
+            "mail": "E-mail ",
+            "statisticDetails": "Statistieken",
+            "notificationDetails": "Details"
+        }
+    },
+    "spotScheduling": {
+        "toolsMenu": {
+            "customFill": "Opvulkleur",
+            "customStroke": "Lijnkleur",
+            "door": "Deur",
+            "screen": "Scherm",
+            "teacher": "Instructeur",
+            "spot": "Plaats",
+            "rect": "Rechthoek",
+            "line": "Lijn",
+            "rotation": "Draai",
+            "redo": "Verder",
+            "undo": "Terug",
+            "eraser": "Gum",
+            "sections": {
+                "custom": "Personalisatie",
+                "elements": "Elementen",
+                "place": "Plaats",
+                "walls": "Muren",
+                "edition": "Bewerken"
+            }
         }
     }
 }

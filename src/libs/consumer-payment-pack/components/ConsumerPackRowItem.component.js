@@ -41,6 +41,8 @@ type Props = {
   paymentPack: ?PaymentPack,
   button: ?Node,
 
+  unblock: ?(id: number) => void,
+
   onClick: ?() => void,
   incrementCredit: (id: number) => void,
   decrementCredit: (id: number) => void,

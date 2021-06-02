@@ -48,6 +48,11 @@ exports.default = {
       title: 'Souscription en cours',
     },
     actionSection: 'Gérer',
+    listItem: {
+      startingAt: 'Débute le {{ d }}',
+      nextBillingDate: 'Prochaine facturation le {{ d }}',
+      recurrencePriceIs: 'Récurrence de {{ amount }}{{currencyDisplay}}',
+    },
     invoicesSection: 'Factures',
     pauseSection: 'Pauses',
     switchPack: {

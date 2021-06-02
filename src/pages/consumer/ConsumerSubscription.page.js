@@ -20,7 +20,7 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
-import SubscriptionTable from '../../libs/subscription/components/SubscriptionTable.component';
+import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   fetchSubscriptionListByMember,
   switchSubscriptionPaymentMethod as switchSubscriptionPaymentMethodAction,
@@ -28,6 +28,7 @@ import {
 import { getSubscriptionListByMember } from '../../libs/subscription/selectors';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 import SubscriptionPaymentMethodSwitcherDialog from '../../libs/subscription/components/SubscriptionPaymentMethodSwitcherDialog.component';
+import SubscriptionListItem from '../../libs/subscription/components/billing-plan/SubscriptionListItem.component';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
@@ -39,7 +40,6 @@ type Props = {
   subscriptionList: Array<Subscription>,
   membership: Membership,
   classes: Object,
-  subscriptionCount: number,
   subscriptionLoading: boolean,
   fetchSubscriptionListByMember: (
     member: number,
@@ -59,6 +59,11 @@ type Props = {
 };
 
 export class ConsumerSubscription extends React.Component<Props> {
+  componentDidMount() {
+    this.fetchSubscriptionList(1, {});
+    this.props.fetchPaymentMethodList();
+  }
+
   fetchSubscriptionList = (page: number, params) => {
     this.props.fetchSubscriptionListByMember(this.props.membership.id, {
       page,
@@ -76,6 +81,7 @@ export class ConsumerSubscription extends React.Component<Props> {
   render() {
     return (
       <div className={this.props.classes.table}>
+        {this.props.subscriptionLoading && <BackofficeLinearProgress />}
         <div className={this.props.classes.header}>
           <Button
             onClick={() =>
@@ -91,15 +97,13 @@ export class ConsumerSubscription extends React.Component<Props> {
             {this.props.t('actions.goToSubscription')}
           </Button>
         </div>
-        <SubscriptionTable
-          showOnlyCore
-          subscriptionList={this.props.subscriptionList}
-          loading={this.props.subscriptionLoading}
-          goToSubscription={this.selectSubscription}
-          count={this.props.subscriptionCount}
-          onPageChange={this.fetchSubscriptionList}
-          addPayment={this.props.setSwitchPaymentMethodDialogOpen}
-        />
+        {this.props.subscriptionList.map((sub) => (
+          <SubscriptionListItem
+            subscription={sub}
+            changePaymentMethod={this.props.setSwitchPaymentMethodDialogOpen}
+            paymentMethodList={this.props.savedPaymentMethodList}
+          />
+        ))}
         <Dialog open={!!this.props.subscriptionSelected}>
           {this.props.subscriptionSelected ? (
             <DialogTitle>{this.props.subscriptionSelected.name}</DialogTitle>
@@ -164,8 +168,10 @@ export default compose(
   connect(
     (state) => ({
       subscriptionList: getSubscriptionListByMember(state),
-      subscriptionLoading: state.subscription.byMember.loading,
-      subscriptionCount: state.subscription.byMember.count,
+      subscriptionLoading:
+        state.subscription.byMember.loading ||
+        state.subscription.loading ||
+        state.subscription.list.loading,
       savedPaymentMethodList: getSavedPaymentMethodList(state),
     }),
     {

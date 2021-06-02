@@ -11,17 +11,8 @@ import RedButton from '../../../components/button/RedButton.component';
 import { formatAsDate } from '../../../utils/datetime';
 import { getCurrencyDisplay } from '../../theme/selectors';
 import type { Subscription } from '../types';
+import { getStatus } from '../utils';
 
-const BILLING_PLAN_STATUS_HAS_STARTED = 2;
-const BILLING_PLAN_STATUS_HAS_STOPPED = 3;
-const BILLING_PLAN_STATUS_HAS_ENDED = 4;
-
-const getStatus = (status, t) => {
-  if (status === BILLING_PLAN_STATUS_HAS_STARTED) return t('status.hasStarted');
-  if (status === BILLING_PLAN_STATUS_HAS_ENDED) return t('status.hasEnded');
-  if (status === BILLING_PLAN_STATUS_HAS_STOPPED) return t('status.hasStopped');
-  return t('status.hasNotStartedYet');
-};
 const renderRows = (subscriptions, t) => {
   return subscriptions.map((sub) => ({
     key: sub.id,

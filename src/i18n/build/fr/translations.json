@@ -1031,10 +1031,13 @@
       "451": "Rendez-vous annulé - remboursé (élève)",
       "452": "Nouveau rendez-vous (élève)",
       "453": "Horaire modifié (élève)",
+      "510": "Paiement d'une souscription échoué",
+      "515": "Carte de cours de la souscription automatiquement désactivée",
+      "520": "Paiement d'une souscription échoué, sera retenté",
+      "530": "Litige sur paiement d'une souscription",
       "601": "Trop peu de réservations N heures avant le début de la séance",
       "701": "Pénalité carte de cours : carte bloquée (élève)",
-      "702": "Pénalité carte de cours : acompte créé (élève)",
-      "undefined": "Paiement d'une souscription échoué, sera retenté"
+      "702": "Pénalité carte de cours : acompte créé (élève)"
     }
   },
   "consumerSpace": {
@@ -3707,6 +3710,11 @@
     "subscription": {
       "list": { "title": "Souscription en cours" },
       "actionSection": "Gérer",
+      "listItem": {
+        "startingAt": "Débute le {{ d }}",
+        "nextBillingDate": "Prochaine facturation le {{ d }}",
+        "recurrencePriceIs": "Récurrence de {{ amount }}{{currencyDisplay}}"
+      },
       "invoicesSection": "Factures",
       "pauseSection": "Pauses",
       "switchPack": {

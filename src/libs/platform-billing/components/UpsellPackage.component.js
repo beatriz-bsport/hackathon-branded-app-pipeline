@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import CheckIcon from '@material-ui/icons/Check';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
+import TodayIcon from '@material-ui/icons/Today';
 import { makeStyles } from '@material-ui/core/styles';
 import SMSIcon from '@material-ui/icons/Sms';
 import HelpOutlinedIcon from '@material-ui/icons/HelpOutline';
@@ -23,6 +24,7 @@ const WHEREBY = 3;
 const VOD = 2;
 const SMS = 4;
 const ZOOM_APP = 5;
+const DAILY_PAIMENT = 6;
 
 type Props = {
   upsellPackage: UpsellPackage,
@@ -89,6 +91,63 @@ const UpsellPackageCustomApp = (props: Props) => {
       <div className={classes.upsellContent}>
         <div className={classes.iconContainer}>
           <MobileFriendlyIcon className={classes.icon} />
+        </div>
+        <div className={classes.innerContainer}>
+          <div>
+            <Typography variant="h6">{upsellPackage.name}</Typography>
+            <div className={classes.innerDescription}>
+              {upsellPackage.description_html ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: props.upsellPackage.description_html,
+                  }}
+                />
+              ) : (
+                <Typography>{upsellPackage.description}</Typography>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={classes.buttonContainer}>
+        {!!props.onKnowMore && !upsellPackage.subscribed && (
+          <Button
+            variant="outlined"
+            onClick={() => props.onKnowMore(upsellPackage.id)}
+          >
+            <HelpOutlinedIcon className={classes.iconLeft} />
+            {t('upsellPackage.knowMore')}
+          </Button>
+        )}
+        <Button
+          disabled={upsellPackage.subscribed}
+          variant="contained"
+          color="primary"
+          onClick={() => props.onRequestUpsell(upsellPackage.id)}
+        >
+          <CheckIcon className={classes.iconLeft} />
+          {upsellPackage.is_recurrent
+            ? t('upsellPackage.billRecurrent', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })
+            : t('upsellPackage.billOnce', {
+                price_cts: (upsellPackage.price_cts / 100).toFixed(2),
+              })}
+        </Button>
+      </div>
+    </Paper>
+  );
+};
+
+const UpsellPackageDailyPayment = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['platformBilling']);
+  const { upsellPackage } = props;
+  return (
+    <Paper className={classes.paperContainer}>
+      <div className={classes.upsellContent}>
+        <div className={classes.iconContainer}>
+          <TodayIcon className={classes.icon} />
         </div>
         <div className={classes.innerContainer}>
           <div>
@@ -358,6 +417,7 @@ const UpsellPackageZoomApp = (props: Props) => {
 const UPSELL_REGISTRY = {
   [CUSTOM_APP]: UpsellPackageCustomApp,
   [WHEREBY]: UpsellPackageWhereby,
+  [DAILY_PAIMENT]: UpsellPackageDailyPayment,
   [VOD]: UpsellPackageVod,
   [SMS]: UpsellPackageSMS,
   [ZOOM_APP]: UpsellPackageZoomApp,

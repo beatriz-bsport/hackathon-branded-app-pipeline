@@ -78,6 +78,13 @@ type CoachPerformanceProps = {
     paymentRuleId: number,
     associatedCoachId: number,
   ) => void,
+  updatePrivateBookingCoachPaymentRule: (
+    associatedCoachId: number,
+    privateBookingId: number,
+    CoachPaymenrRuleId: number,
+  ) => void,
+  setCoachPaymentRule: (coachId: number, paymentRuleId: number) => void,
+  setCoachPrivatePaymentRule: (coachId: number, paymentRuleId: number) => void,
 };
 
 const useStyles = makeStyles((theme) => ({

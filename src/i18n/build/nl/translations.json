@@ -348,7 +348,7 @@
         },
         "appbar": {
             "title": {
-                "orderDetail": "Details van de bestellingen",
+                "orderDetail": "Besteloverzicht",
                 "orderList": "Bestellingen",
                 "settings": "Instellingen",
                 "searchResults": "Zoeken",
@@ -370,17 +370,17 @@
                 "coachPerformance": "Payroll van de instructeurs",
                 "offerFormPage": "Sessies toevoegen",
                 "metaActivityFormPage": "[Formulier] Groepsactiviteiten",
-                "metaActivityList": "Activiteiten",
+                "metaActivityList": "Groepsactiviteiten",
                 "metaActivityEditForm": "[Formulier] Groepsactiviteiten",
                 "WorkshopActivityFormPage": "[Formulier] Workshops",
                 "workshopActivityList": "Workshops",
-                "metaActivity": "Activiteiten",
+                "metaActivity": "Groepsactiviteiten",
                 "offerManagement": "Reserveringen",
                 "coachList": "Instructeurs",
                 "shopManager": "Webshop",
                 "dashboard": "Dashboard",
                 "mergeMember": "Lid samenvoegen",
-                "allCoachPerformance": "Payroll overzicht",
+                "allCoachPerformance": "Payroll",
                 "planning": "Agenda"
             }
         },
@@ -421,7 +421,7 @@
             },
             "shop": {
                 "isEmpty": "Momenteel zijn er geen producten in de webshop beschikbaar.",
-                "addToCard": "Aan mijn winkelmandje toevoegen",
+                "addToCard": "Winkelmandje",
                 "noDescription": "Geen beschrijving beschikbaar.",
                 "tabName": "Webshop"
             },
@@ -855,7 +855,7 @@
                     "sell_only_on_provision": "Alleen verkopen als er voorraad is",
                     "onsite_payment_available": "Later betalen toestaan (bijv. in de studio)",
                     "available_payment_method_identifiers": {
-                        "helperText": "Selecteer ten minste één betaalmethode. Als er geen is geselecteerd, wordt een creditcardbetaling aangeboden.",
+                        "helperText": "Selecteer ten minste één betaalmethode. Als je geen enkele betaalmethode selecteert, dan biedt het systeem automatisch een creditcardbetaling aan.",
                         "label": "Geaccepteerde betaalmethoden"
                     }
                 },
@@ -1253,7 +1253,7 @@
                     "success": "Activiteit aangemaakt"
                 },
                 "autoDiscard": {
-                    "hours_before_start": "Aantal uur/uren voor het begin van de sessie:",
+                    "hours_before_start": "Aantal uur voor het begin van de sessie:",
                     "explain": "Annuleer sessies met ≤ {{bookings_nb}} reservering(en) {{hours}} uur voor het begin van de sessie. Ingeschreven leden ontvangen een melding van de annulering.",
                     "checkbox": "Automatisch sessies met te weinig reserveringen annuleren",
                     "emailRecipients": "Deze e-mail wordt verzonden naar accounts met de rol Eigenaar of Systeembeheerder, evenals naar de (plaatsvervangende) docent van de sessie in kwestie.",
@@ -1314,18 +1314,18 @@
     },
     "communication": {
         "mail": {
-            "error": "De e-mail is niet verzonden, probeer het later opnieuw",
+            "error": "Probeer het later opnieuw om de e-mail te versturen",
             "success": "E-mail verzonden",
             "missing": "Geen e-mail beschikbaar",
             "content": "Inhoud van de e-mail",
             "title": "Onderwerp van de e-mail",
-            "refreshText": "Ververs de pagina om de wijziging van de e-mail te zien.",
+            "refreshText": "Ververs de pagina om de wijzigingen in de e-mail te zien.",
             "noObject": "Geen onderwerp",
-            "refreshTextPhone": "Ververs de pagina om de wijzigingen door te voeren",
+            "refreshTextPhone": "Ververs de pagina om de wijzigingen te zien",
             "sendSms": "Nieuwe sms",
             "hideMail": "E-mail verbergen",
             "count": "tekens",
-            "showMail": "Zie de e-mail",
+            "showMail": "E-mail tonen",
             "mailSelection": "Kies een e-mail",
             "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
             "noMailAvailable": "Nog geen e-mail beschikbaar. Begin met het ontwerpen van je eerste e-mail.",
@@ -1333,7 +1333,7 @@
             "phoneMissing": "Nog geen telefoonnummer ingevoerd",
             "numberSms": "sms",
             "contentSms": "Inhoud van de sms",
-            "selectTemplate": "Selecteer een e-mail om de voorvertoning te zien.",
+            "selectTemplate": "Selecteer een e-mailsjabloon",
             "writeMail": "Nieuwe e-mail",
             "dialogTitle": "Communicatie"
         },
@@ -1427,7 +1427,7 @@
         },
         "form": {
             "available_payment_method_identifiers": {
-                "helperText": "Selecteer ten minste één betaalmethode. Als er geen is geselecteerd, wordt een creditcardbetaling aangeboden.",
+                "helperText": "Selecteer ten minste één betaalmethode. Als je geen enkele betaalmethode selecteert, dan biedt het systeem automatisch een creditcardbetaling aan.",
                 "label": "Geaccepteerde betaalmethoden"
             },
             "selectorPlaceholder": {
@@ -1963,7 +1963,7 @@
                 "second": "krediet(en) heeft."
             },
             "2": {
-                "second": "dagen",
+                "second": "dagen verstreken.",
                 "first": "Stuur een melding als de cursuskaart sinds verlopen is "
             },
             "listItem": {
@@ -2557,7 +2557,7 @@
                     "first_has_expire": "liep af op"
                 },
                 "infoIcon": "Onbeperkte cursuskaarten zijn altijd inbegrepen",
-                "explanation": "Heeft cursuskaart A gekocht op Y datum met X krediet(en)",
+                "explanation": "Heeft cursuskaart A op B gekocht en heeft nog C krediet(en) over",
                 "date_bought": {
                     "first": "aankoopdatum:"
                 }
@@ -2571,7 +2571,7 @@
                     "first": "Verlaten winkelmande",
                     "second": "dagen"
                 },
-                "name": "Filter op datum voor het afhaken (niet-betaald winkelmandje)",
+                "name": "Filter op datum voor het afhaken (niet-betaalde winkelmandjes)",
                 "between": "en"
             },
             "21": {
@@ -2590,7 +2590,7 @@
                     "second": "uur en",
                     "third": "Uur"
                 },
-                "explanation": "Heeft X reserveringen van Activiteit A in vestiging B gedaan...",
+                "explanation": "Heeft A reserveringen van activiteit B in vestiging C gedaan",
                 "first": "Heeft zich ",
                 "second_singular": "keer ingeschreven",
                 "second_plural": "keer ingeschreven",
@@ -2604,7 +2604,7 @@
             },
             "22": {
                 "name": "Aantal reserveringen",
-                "explanation": "Heeft zich X keer voor Activiteit A in Vestiging B met Lidmaatschap C ingeschreven...",
+                "explanation": "Heeft zich A keer voor activiteit B in vestiging C met lidmaatschap D ingeschreven",
                 "first": "Reserveerde",
                 "second": "sessies",
                 "activity": {
@@ -2640,27 +2640,27 @@
                         "first": "op of voor"
                     },
                     "2": {
-                        "first": "tussen de",
-                        "second": "en de"
+                        "first": "tussen",
+                        "second": "en"
                     },
                     "3": {
                         "first": "de"
                     },
                     "4": {
-                        "first": "in meer dan",
+                        "first": "Over",
                         "second": "dagen"
                     },
                     "7": {
-                        "first": "in meer dan",
+                        "first": "over",
                         "second": "dagen en minder dan",
                         "third": "dagen"
                     },
                     "8": {
-                        "first": "Er zijn minder",
+                        "first": "Minder dan",
                         "second": "dagen"
                     },
                     "9": {
-                        "first": "er zijn meer",
+                        "first": "voor",
                         "second": "dagen"
                     },
                     "10": {
@@ -2668,26 +2668,26 @@
                         "first": "er zijn "
                     },
                     "11": {
-                        "first": "er zijn meer dan",
+                        "first": "van",
                         "second": "dagen en minder dan",
                         "third": "dagen"
                     },
                     "5": {
-                        "first": "in minder dan",
+                        "first": "binnen",
                         "second": "dagen"
                     },
                     "6": {
-                        "first": "in ",
+                        "first": "binnen ",
                         "second": "dagen"
                     }
                 },
                 "selectduration": {
                     "6": {
                         "second": "dagen",
-                        "first": "In"
+                        "first": "Binnen"
                     },
                     "7": {
-                        "first": "In meer dan",
+                        "first": "Over",
                         "second": "dagen",
                         "third": "dagen en minder dan"
                     },
@@ -2696,28 +2696,28 @@
                         "second": "dagen"
                     },
                     "9": {
-                        "first": "Er zijn meer dan",
+                        "first": "Over",
                         "second": "dagen"
                     },
                     "10": {
-                        "first": "Er is ",
-                        "second": "dagen"
+                        "first": " ",
+                        "second": "dagen geleden"
                     },
                     "4": {
-                        "first": "in meer dan",
+                        "first": "Over",
                         "second": "dagen"
                     },
                     "5": {
-                        "first": "in minder dan",
+                        "first": "Binnen",
                         "second": "dagen"
                     },
                     "selector": {
                         "6": "Binnen X dagen",
-                        "7": "In meer dan X dagen en minder dan Y dagen",
+                        "7": "Binnen X dagen, maar minder dan Y dagen",
                         "8": "Minder dan X dagen geleden",
-                        "9": "Meer dan X dag(en) geleden",
-                        "11": "Er zijn meer dan X dagen en minder dan Y dagen",
-                        "10": "X dag(en) geleden",
+                        "9": "Meer dan X dagen geleden",
+                        "11": "Er zijn meer dan X dagen, maar minder dan Y dagen verstreken",
+                        "10": "X dagen geleden",
                         "4": "Over X dagen",
                         "5": "In minder dan X dagen"
                     },
@@ -2742,7 +2742,7 @@
                 "booked": "gereserveerd"
             },
             "all": "Alle",
-            "active_filters": "Actieve filter(s) op deze Smartlist",
+            "active_filters": "Actieve filters op deze Smartlist",
             "add_filter": "Een filter toevoegen",
             "add": "Toevoegen",
             "before": "voor",
@@ -2757,11 +2757,11 @@
             "durations_comparators": {
                 "1": "minder dan (⩽)",
                 "2": "meer dan (⩾)",
-                "5": "precies",
-                "6": "tussen twee"
+                "5": "gelijk aan (=)",
+                "6": "tussen"
             },
             "23": {
-                "explanation": "Reserveerde voor het eerst op...",
+                "explanation": "Reserveerde voor het eerst op",
                 "name": "Eerste reservering"
             },
             "undefined": {
@@ -2776,16 +2776,16 @@
             "18": {
                 "name": "Inschrijfdatum",
                 "first": "Inschrijfdatum:   ",
-                "explanation": "Lid geworden op..."
+                "explanation": "Is lid geworden op"
             },
             "comparators": {
-                "6": "tussen twee",
+                "6": "tussen",
                 "5": "gelijk aan",
                 "2": "meer dan (⩾)",
                 "1": "minder dan (⩽)"
             },
             "501": {
-                "explanation": "Reserveerde voor het laatst op...",
+                "explanation": "Reserveerde voor het laatst op",
                 "second": "dag(en) geleden en er zijn nog geen toekomstige reserveringen ingepland.",
                 "first": "De laatst reservering was meer dan",
                 "name": "Laatste reservering"
@@ -2828,7 +2828,7 @@
                 "has": "Beschikt over",
                 "first": "een van de afspraakkaarten",
                 "name": "Afspraakkaarten",
-                "explanation": "Heeft cursuskaart X in periode Y gekocht en heeft Z krediet(en) over."
+                "explanation": "Heeft afspraakkaart A op B gekocht en heeft nog C krediet(en) over"
             },
             "26": {
                 "hour": {
@@ -2853,7 +2853,7 @@
                 "between": "en",
                 "second": "afspraken",
                 "first": "Gereserveerd",
-                "explanation": "Reservering X met instructeur A in vestiging B met cursuskaart C...",
+                "explanation": "Heeft A reserveringen met instructeur B in vestiging C met afspraakkaart D gemaakt",
                 "name": "Aantal afspraken",
                 "private_service": {
                     "first": "met afspraken"
@@ -3376,8 +3376,8 @@
                 },
                 "chooseKindTitle": "Gebeurtenis die de melding activeert",
                 "chooseTime": {
-                    "second_after": "uur/uren na het einde van de sessie.",
-                    "second_before": "uur/uren voor het begin van de sessie.",
+                    "second_after": "uur na het einde van de sessie.",
+                    "second_before": "uur voor het begin van de sessie.",
                     "first": "Verstuur deze melding"
                 },
                 "sendAfterMail": "Stuur deze melding nadat de sessie afgelopen is",
@@ -3545,7 +3545,7 @@
             }
         },
         "paymentCombo": {
-            "addToCart": "Aan mijn winkelmandje toevoegen"
+            "addToCart": "Winkelmandje"
         }
     },
     "selfCheckIn": {
@@ -3685,7 +3685,7 @@
         "planning": "Agenda",
         "order": {
             "orderList": "Bestellingen",
-            "orderDetail": "Details van de bestelling"
+            "orderDetail": "Besteloverzicht"
         },
         "privateService": {
             "serviceList": "Afspraken"
@@ -4137,9 +4137,9 @@
             "duration": "Duur",
             "nb_bookings": "Reserveringen",
             "date": "Datum",
-            "rule": "Payroll-regel",
+            "rule": "Payroll-regel per sessie",
             "name": "Sessie",
-            "error": "Het lijkt erop dat sommige activiteiten niet aan een payroll-regel zijn gekoppeld. Koppel je activiteiten en instructeurs aan je payroll-regels om de payroll te gebruiken.",
+            "error": "Het lijkt erop dat sommige activiteiten niet aan een payroll-regel zijn gekoppeld. Koppel je activiteiten en instructeurs aan je payroll-regels om de functie te gebruiken.",
             "total": "Vergoeding (totaal)",
             "cancelled_bookings": "Annuleringen",
             "confirmed_bookings": "Deelnemers"
@@ -4179,7 +4179,7 @@
             "filter": {
                 "duration": {
                     "all": "Duur",
-                    "explain": "Tussen {{min}} en {{max}} min."
+                    "explain": "Tussen {{min}} en {{max}} minuten"
                 }
             },
             "showMore": "Toon meer",
@@ -4329,7 +4329,7 @@
             "section": {
                 "title": "Status van de bestelling:",
                 "deliveryInfo": "Bezorgadres",
-                "productDetail": "Details winkelmandje",
+                "productDetail": "Besteloverzicht",
                 "invoice": "Gekoppelde factuur",
                 "member": "Koper"
             }
@@ -4527,7 +4527,7 @@
                 "pleaseSelectCoachAndSlot": "Selecteer eerst de instructeur en de sessie",
                 "cancel": "Annuleren",
                 "compatiblePrivatePass": "Een afspraakkaart factureren",
-                "emptyPrivateConsumerPass": "Dit lid bezit momenteel geen compatibel lidmaatschap.",
+                "emptyPrivateConsumerPass": "Dit lid bezit momenteel nog geen compatibele afspraakkaart.",
                 "emptyPrivatePass": "Geen compatibele afspraakkaart",
                 "privateConsumerPassNeedRefresh": "Verversen"
             },
@@ -4855,7 +4855,7 @@
                 },
                 "available_payment_method_identifiers": {
                     "label": "Geaccepteerde betaalmethoden",
-                    "helperText": "Selecteer ten minste één betaalmethode. Als er geen is geselecteerd, wordt een creditcardbetaling aangeboden."
+                    "helperText": "Selecteer ten minste één betaalmethode. Als je geen enkele betaalmethode selecteert, dan biedt het systeem automatisch een creditcardbetaling aan."
                 },
                 "actions": {
                     "submit": "Opslaan",
@@ -4902,7 +4902,7 @@
             "compatibleServices": {
                 "title": "Compatibele afspraken",
                 "add": "Toevoegen",
-                "isEmpty": "Waarschuwing! Er is geen compatibele afspraak ingesteld."
+                "isEmpty": "Waarschuwing! Je hebt nog geen compatibele afspraak/afspraken ingesteld."
             },
             "edit": "Wijzigen",
             "disabledTitle": "Gearchiveerde afspraakkaarten"
@@ -5192,8 +5192,8 @@
                 "next": "Volgende",
                 "chooseTime": {
                     "second": {
-                        "after": "uur/uren na het einde van de sessie.",
-                        "before": "uur/uren voor de sessie"
+                        "after": "uur na het einde van de afspraak.",
+                        "before": "uur voor het begin van de afspraak"
                     },
                     "first": "Een melding sturen",
                     "title": "Instellingen"
@@ -5402,7 +5402,7 @@
             },
             "action": {
                 "edit": "Bewerken",
-                "addToCard": "Aan mijn winkelmandje toevoegen",
+                "addToCard": "Winkelmandje",
                 "delete": "Verwijderen"
             }
         },
@@ -5446,11 +5446,11 @@
         "bookingThreshold": "Aantal reserveringen (incl.)",
         "pricePerAdditionalBooking": "Bonus per reservering",
         "select": {
-            "placeholderOverride": "Er is geen payroll-regel aan deze sessie gekoppeld.",
+            "placeholderOverride": "Standaard payroll-regel voor deze instructeur",
             "placeholder": "Selecteer een Payroll",
             "coachPaymentRuleForPrivateService": "Afspraken",
             "coachPaymentRuleForSessions": "Groepsactiviteiten en workshops",
-            "reset": "Regel resetten"
+            "reset": "Payroll-regel ontkoppelen"
         },
         "common": {
             "from": "Begin",
@@ -5489,10 +5489,11 @@
                 "for": "Voor",
                 "helper": "Controleer hier of je payroll-regels met je verwachtingen overeenkomen.",
                 "resultTitle": "Resultaten van de payroll simulatie",
-                "title": "Payroll simulatie"
+                "title": "Payroll simulatie",
+                "which": "Uitbetaler"
             },
             "Errors": {
-                "lowerIntervalTypeError": "Het min. interval moet gelijk of minder zijn dan 0.",
+                "lowerIntervalTypeError": "Het onderste interval moet gelijk of minder dan 0 zijn.",
                 "taxeRateTypeError": "Het btw-tarief moet een getal tussen 0 en 100 zijn.",
                 "taxeRateRequired": "Het veld \"Btw\" is een verplicht veld als je dit hebt aangevinkt.",
                 "percentagebaseRemunerationTypeError": "De procentuele vergoeding moet een getal 0 en 100 zijn.",
@@ -5501,9 +5502,12 @@
                 "baseRemunerationRequired": "Het veld \"Vast bedrag\" is een verplicht veld als je dit hebt aangevinkt.",
                 "invalideUpperInterval": "De maximale interval moet een getal zijn.",
                 "invalideIntervals": "Je kunt intervallen voor bonussen niet combineren.",
-                "invalidLowerInterval": "Het max. interval moet groter dan het min. interval zijn.",
-                "invalidBonusAmount": "De bonus moet gelijk of groter zijn dan 0,1.",
-                "nameRequired": "Dit veld is verplicht."
+                "invalidLowerInterval": "Het bovenste interval moet groter dan het onderste interval zijn.",
+                "invalidBonusAmount": "De bonus moet gelijk of groter dan 0,1 zijn.",
+                "nameRequired": "Dit veld is verplicht.",
+                "invalidMaximum": "Het maximumtarief moet groter dan het minimumtarief zijn.",
+                "invalidCancelledBookingRules": "Als je verschillende bonussen voor afwezige studenten wilt gebruiken, dan moet je hieronder minimaal één type payroll-regel instellen.",
+                "invalidMinimum": "Het minimumtarief moet groter of gelijk aan het vaste bedrag zijn."
             },
             "Bonuses": {
                 "bonus_rules": "Bonusregels",
@@ -5526,12 +5530,12 @@
             "max_remuneration": "Max.",
             "min_remuneration": "Min.",
             "remunerationLimits": "Bonus beperken",
-            "differentRemunerationForCancellation": "Andere payroll-regels toepassen voor afwezige leden ",
+            "differentRemunerationForCancellation": "Andere payroll-regels voor afwezige leden toepassen ",
             "addRemunerationOnCancellation": "Betaal instructeurs voor afwezige leden en te late annuleringen",
             "percentage_base": "Percentage",
             "base_remuneration": "Vast bedrag",
             "forCancelledBookings": "Afwezige leden en te late annuleringen meetellen",
-            "forConfirmedBookings": "Geldt alleen voor leden die aanwezig zijn",
+            "forConfirmedBookings": "Geldt alleen voor aanwezige leden",
             "calculationMethod": "Rekenmethode",
             "actions": "Acties",
             "coaches": "Instructeurs",
@@ -5547,7 +5551,7 @@
             "addNewForRDV": "Afspraken",
             "addNewForSession": "Groepsactiviteiten en workshops"
         },
-        "paymentRules": "Payroll"
+        "paymentRules": "Payroll-regels"
     },
     "payment": {
         "generalTermsAndConditions": {
@@ -5810,7 +5814,7 @@
                 "success": "Factuur succesvol bijgewerkt"
             },
             "create": {
-                "success": "Factuur opgeslagen"
+                "success": "Factuur succesvol opgeslagen"
             },
             "returnPaymentLocked": "Deze terugbetaling kon niet worden voltooid. Weet je zeker dat je account met Stripe voldoende saldo heeft?"
         },
@@ -6244,7 +6248,7 @@
             },
             "form": {
                 "create": {
-                    "explain": "Deze cursuskaart wordt gedeeld tussen de twee leden; beiden kunnen het beschikbare krediet gebruiken.",
+                    "explain": "Deze cursuskaart wordt door meerdere leden gedeeld. Ieder gekoppeld lid kan de kredieten gebruiken.",
                     "title": "Een cursuskaart delen",
                     "previous": "Terug",
                     "submit": "Delen",
@@ -6313,7 +6317,7 @@
                     "submit": "Deel",
                     "previous": "Vorige",
                     "cancel": "Annuleer",
-                    "explain": "Deze afsprakenkaart wordt tussen leden gedeeld. Beide leden kunnen de kredieten gebruiken.",
+                    "explain": "Deze afspraakkaart wordt door meerdere leden gedeeld. Ieder gekoppeld lid kan de kredieten gebruiken.",
                     "title": "Afsprakenkaart delen"
                 }
             },
@@ -6794,7 +6798,7 @@
                     "alert": "Geef de vervaldagen van het mandje op!",
                     "placeholder": "Aantal dagen voor de vervaldatum",
                     "helperText": "Dit is het aantal dagen voordat een ongebruikt winkelmandje automatisch wordt geleegd.",
-                    "label": "Vervaldatum van het winkelmandje"
+                    "label": "Vervaldatum van een winkelmandje"
                 },
                 "cancelledOffersManager": "Toon geannuleerde sessies op de agenda van je Back Office",
                 "checkBalance": {
@@ -6935,17 +6939,17 @@
                 }
             },
             "title": "Mijn winkelmandje",
-            "isEmpty": "Je winkelmandje is nog leeg",
+            "isEmpty": "Je winkelmandje is nog leeg.",
             "featured": "Onze aanbevelingen",
             "error": {
-                "invalidBasket": "Je winkelmandje bevatte artikelen die niet meer beschikbaar zijn. Er is geen betaling uitgevoerd."
+                "invalidBasket": "Je winkelmandje bevatte artikelen die niet meer beschikbaar zijn - er is geen betaling uitgevoerd."
             },
             "actions": {
                 "closeBasket": "Doorgaan met winkelen",
                 "checkoutBasket": "Afrekenen",
                 "payZero": "Mijn winkelmandje bevestigen"
             },
-            "isFinalized": "Je winkelmandje is gevalideerd",
+            "isFinalized": "Je winkelmandje is bevestigd.",
             "checkingPaymentStatus": "Een moment geduld, we controleren de status van de betaling."
         },
         "paymentIntent": {
@@ -6984,15 +6988,15 @@
                     },
                     "activateSmartRetries": {
                         "helperText": "Het systeem zal automatisch mislukte betalingen voor abonnementen opnieuw uitvoeren.",
-                        "label": "Activeer Smart Retries voor mislukte betalingen."
+                        "label": "Activeer Smart Retries voor mislukte betalingen"
                     },
                     "revert_bookings_on_fail_subscription_payment": {
-                        "label": "Annuleer reserveringen als de betaling mislukt.",
+                        "label": "Annuleer de gekoppelde reserveringen als de betaling mislukt",
                         "warning": "Waarschuwing: annuleringen worden niet hersteld als de betaling vervolgens wel lukt!",
                         "helperText": "Als de betaling voor het abonnement mislukt, worden de reserveringen geannuleerd en de kredieten zullen worden teruggestort."
                     },
                     "disable_pass_on_fail_subscription_payment": {
-                        "label": "Abonnementen deactiveren als de betaling mislukt.",
+                        "label": "Deactiveer abonnementen als de betaling mislukt",
                         "helperText": "Het systeem zal de cursus- en/of afspraakkaarten van de factuur in kwestie deactiveren als de betaling mislukt of wordt gedisputeerd."
                     }
                 },
@@ -7013,7 +7017,7 @@
             }
         },
         "invoiceItem": {
-            "voucher": "Korting: €{{ voucher }}",
+            "voucher": "Korting: {{ voucher }}",
             "quantity": "Aantal",
             "credit": {
                 "label": "Krediet(en)"

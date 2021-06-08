@@ -70,6 +70,15 @@ class SimilarOffers extends React.PureComponent<Props> {
 
   onClickSelectAllOffers = () => {
     const offers = this.availableOffers.filter((o) => {
+      const offerStatus = this.props.offerStatusById[o.id];
+
+      const isBookable =
+        offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE;
+
+      if (!isBookable) {
+        return false;
+      }
+
       if (!this.props.selectedOffers.length) {
         return true;
       }

@@ -78,11 +78,6 @@ type CoachPerformanceProps = {
     paymentRuleId: number,
     associatedCoachId: number,
   ) => void,
-  updatePrivateBookingCoachPaymentRule: (
-    associatedCoachId: number,
-    privateBookingId: number,
-    CoachPaymenrRuleId: number,
-  }) => void,
   setCoachPaymentRule: (
     coachId: number,
     paymentRuleId: number,

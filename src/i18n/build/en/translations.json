@@ -4693,10 +4693,10 @@
         "addNew": "New payment configuration",
         "select": {
             "placeholder": "Select a payment configuration",
-            "placeholderOverride": "No rule associated with session",
+            "placeholderOverride": "Coach's Default Payroll Rule",
             "coachPaymentRuleForPrivateService": "Appointments",
             "coachPaymentRuleForSessions": "Group classes & Workshops",
-            "reset": "Disassociate rule"
+            "reset": "Use the teacher's default payroll rule"
         },
         "common": {
             "from": "From",
@@ -4772,16 +4772,16 @@
             "paymentPackPlaceHolder": "Select passes",
             "excludePaymentPack": "Exclude certain passes",
             "bonusForEachReservationInInterval": "Add a bonus for each appointment in intervals",
-            "fixedBonusbyInterval": "Add a fixed bonus by interval",
-            "cancellationBaseHelper": "Help : By ticking this box the teacher will not receive any bonus payment on the marginal value of cancelled bookings",
+            "fixedBonusbyInterval": "Add a fixed bonus for each threshold",
+            "cancellationBaseHelper": "By ticking this box the teacher will not receive any bonus payment on the marginal value of cancelled bookings.",
             "taxeLongHelper": "Help : All percentages are calculated on the marginal value of each booking excluding tax. The added tax applies to the marginal value as well as all fix and bonus.",
-            "taxeConciseHelper": "Help : All percentages are calculated on the marginal value of each booking excluding tax.",
+            "taxeConciseHelper": "All percentages are calculated on the marginal value of each booking excluding tax.",
             "add_taxe_rate": "Tax to be added",
             "taxe_rate": "Calculation ATI",
             "max_remuneration": "Maximum",
             "min_remuneration": "Minimum",
             "remunerationLimits": "Payment limits",
-            "differentRemunerationForCancellation": "Apply different payment rules when counting absent students ",
+            "differentRemunerationForCancellation": "Apply different payroll rules when counting absentees ",
             "addRemunerationOnCancellation": "Compensate teacher in the case of a late cancellation and absence",
             "percentage_base": "Percentage",
             "base_remuneration": "Fixed pay",

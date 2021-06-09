@@ -103,7 +103,6 @@ export const CoachPerformanceTabs = (props: Props) => {
         indicatorColor="primary"
         textColor="primary"
         onChange={handleChange}
-        aria-label="disabled tabs example"
       >
         <Tab
           label={`${t('tabs.session')}(${

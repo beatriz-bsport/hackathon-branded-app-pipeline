@@ -111,6 +111,14 @@ export async function fetchConsumerPaymentPackPenalty(params: any) {
   );
 }
 
+export async function fetchConsumerPaymentPackMaxoutBooking(params: any) {
+  return postAuth(
+    `${API_V1_URI}/payment-pack/consumer-payment-pack/maxout_booking/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
+
 export default {
   fetchByOfferByMember,
   fetchExtensions,

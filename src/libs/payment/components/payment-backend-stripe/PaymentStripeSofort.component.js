@@ -16,6 +16,8 @@ type Props = {
   termsAndConditionsAccepted: boolean,
   AcceptTermsAndConditionsComponent: React.Component,
   forceDisabled?: boolean,
+  userDefaultName?: string,
+  userDefaultEmail?: string,
 };
 
 export const PaymentStripeSofort = (props: Props) => {
@@ -24,8 +26,8 @@ export const PaymentStripeSofort = (props: Props) => {
 
   const [processing, setProcessing] = React.useState(false);
   const [country, setCountry] = React.useState('DE');
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
+  const [name, setName] = React.useState(props.userDefaultName);
+  const [email, setEmail] = React.useState(props.userDefaultEmail);
   const [errorMessage, setErrorMessage] = React.useState(null);
 
   const { t } = useTranslation(['invoice']);

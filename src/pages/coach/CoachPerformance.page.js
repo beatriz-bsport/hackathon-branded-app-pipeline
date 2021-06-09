@@ -2,7 +2,13 @@
 
 import React from 'react';
 
-import { compose, withProps, withHandlers } from 'recompose';
+import {
+  compose,
+  withProps,
+  withHandlers,
+  withState,
+  withStateHandlers,
+} from 'recompose';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
@@ -41,21 +47,21 @@ import type {
 
 type Props = {
   loading: boolean,
+  performanceLoading: boolean,
   fetchAssociatedCoachesList: () => void,
   performances: Array<CoachPerformanceType>,
   classes: Object,
   onSubmit: () => void,
-  setSessionCoachPaymentRule: (
+  setSessionCoachPaymentRule: (data: {
     associatedCoachId: number,
     sessionId: number,
     CoachPaymenrRuleId: number,
-  ) => void,
-  updatePrivateBookingCoachPaymentRule: (
+  }) => void,
+  updatePrivateBookingCoachPaymentRule: (data: {
     associatedCoachId: number,
     privateBookingId: number,
     CoachPaymenrRuleId: number,
-  ) => void,
-  associatedCoachId: number,
+  }) => void,
   fetchAllCoachPaymentRules: () => void,
   coach: Coach,
   coachPaymentRulesByKind: Object<CoachPaymentRuleType[]>,
@@ -71,6 +77,7 @@ export class CoachPerformance extends React.Component<Props> {
     const {
       classes,
       loading,
+      performanceLoading,
       performances,
       onSubmit,
       coachPaymentRulesByKind,
@@ -79,27 +86,24 @@ export class CoachPerformance extends React.Component<Props> {
     return (
       <div className={classes.container}>
         <AppBar position="static" color="default" className={classes.bar}>
-          <CoachPerformanceForm onSubmit={onSubmit} loading={loading} />
+          <CoachPerformanceForm
+            onSubmit={onSubmit}
+            loading={loading || performanceLoading}
+          />
         </AppBar>
         <CoachPerformanceSummary performances={performances} />
         <Paper>
-          {loading ? <LinearProgress /> : null}
+          {loading || performanceLoading ? <LinearProgress /> : null}
           <CoachPerformanceTabs
             coach={coach}
             allPerformance={performances}
             coachPaymentRulesByKind={coachPaymentRulesByKind}
-            updatePrivateBookingCoachPaymentRule={(...args) =>
-              this.props.updatePrivateBookingCoachPaymentRule(
-                this.props.associatedCoachId,
-                ...args,
-              )
+            updatePrivateBookingCoachPaymentRule={(data) =>
+              this.props.updatePrivateBookingCoachPaymentRule(data)
             }
-            setSessionCoachPaymentRule={(...args) =>
-              this.props.setSessionCoachPaymentRule(
-                this.props.associatedCoachId,
-                ...args,
-              )
-            }
+            setSessionCoachPaymentRule={(data) => {
+              this.props.setSessionCoachPaymentRule(data);
+            }}
           />
         </Paper>
       </div>
@@ -125,6 +129,7 @@ export default compose(
   withStyles(styles),
   withTranslation(['paymentRules']),
   mapParamsToProps(['associatedCoachId']),
+  withState('formDates', 'setFormDates', {}),
   withProps((props) => ({
     associatedCoachId: +props.associatedCoachId,
   })),
@@ -151,10 +156,18 @@ export default compose(
     {
       fetchAllCoachPaymentRules,
       fetchAssociatedCoachesList,
-      setSessionCoachPaymentRule,
-      updatePrivateBookingCoachPaymentRule,
+      setSessionCoachPaymentRuleAction: setSessionCoachPaymentRule,
+      updatePrivateBookingCoachPaymentRuleAction: updatePrivateBookingCoachPaymentRule,
       fetchCoachSessionPerformance: fetchCoachSessionPerformanceAction,
       fetchCoachPrivateServicePerformance: fetchCoachPrivateServicePerformanceAction,
+    },
+  ),
+  withStateHandlers(
+    { performanceLoading: false },
+    {
+      setPerformanceLoading: () => (loading) => ({
+        performanceLoading: loading,
+      }),
     },
   ),
   withHandlers({
@@ -162,20 +175,68 @@ export default compose(
       associatedCoachId,
       fetchCoachSessionPerformance,
       fetchCoachPrivateServicePerformance,
-    }) => (data: Object, options) => {
+      setFormDates,
+      setPerformanceLoading,
+    }) => async (data: Object, options) => {
       const { dateStart, dateEnd } = data;
-      fetchCoachSessionPerformance(
-        associatedCoachId,
-        dateStart.unix(),
-        dateEnd.unix(),
-        options,
-      );
-      fetchCoachPrivateServicePerformance(
-        associatedCoachId,
-        dateStart.unix(),
-        dateEnd.unix(),
-        options,
-      );
+      setFormDates({ dateStart: dateStart.unix(), dateEnd: dateEnd.unix() });
+      setPerformanceLoading(true);
+      const promises = [
+        fetchCoachSessionPerformance(
+          {
+            associatedCoachId,
+            start_timestamp: dateStart.unix(),
+            end_timestamp: dateEnd.unix(),
+          },
+          options,
+        ),
+        fetchCoachPrivateServicePerformance(
+          {
+            associatedCoachId,
+            start_timestamp: dateStart.unix(),
+            end_timestamp: dateEnd.unix(),
+          },
+          options,
+        ),
+      ];
+      await Promise.all(promises);
+      setPerformanceLoading(false);
+    },
+  }),
+  withHandlers({
+    setSessionCoachPaymentRule: ({
+      setSessionCoachPaymentRuleAction,
+      fetchCoachSessionPerformance,
+      formDates,
+    }) => (data) => {
+      setSessionCoachPaymentRuleAction(data, {
+        onSuccess: (payload) => {
+          fetchCoachSessionPerformance({
+            associatedCoachId: payload.associatedCoachId,
+            start_timestamp: formDates.dateStart,
+            end_timestamp: formDates.dateEnd,
+            sessionId: payload.sessionId,
+          });
+        },
+      });
+    },
+  }),
+  withHandlers({
+    updatePrivateBookingCoachPaymentRule: ({
+      updatePrivateBookingCoachPaymentRuleAction,
+      fetchCoachPrivateServicePerformance,
+      formDates,
+    }) => (data) => {
+      updatePrivateBookingCoachPaymentRuleAction(data, {
+        onSuccess: (payload) => {
+          fetchCoachPrivateServicePerformance({
+            associatedCoachId: payload.associatedCoachId,
+            start_timestamp: formDates.dateStart,
+            end_timestamp: formDates.dateEnd,
+            privateBookingId: payload.privateBookingId,
+          });
+        },
+      });
     },
   }),
   withTitle(({ t, coach }: { t: TFunction, coach: Coach }) =>

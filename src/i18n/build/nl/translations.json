@@ -174,8 +174,8 @@
             "702": "Sanctie: er is een boete opgelegd (voor leden)",
             "701": "Sanctie: het lidmaatschap is tijdelijk geblokkeerd (voor leden)",
             "530": "Geschil over de betaling voor een abonnement",
-            "520": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen.",
-            "515": "De cursuskaart van het abonnement wordt automatisch gedeactiveerd.",
+            "520": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen",
+            "515": "De cursuskaart van het abonnement wordt automatisch gedeactiveerd",
             "510": "Mislukte betaling voor een abonnement",
             "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen."
         },
@@ -768,7 +768,7 @@
                 "paymentLabel": "Een transactie toevoegen",
                 "title": "Een betaling registreren",
                 "backToInvoiceItemList": "Terug naar de lijst",
-                "dateStartPaymentPack": "Cursuskaart begint op"
+                "dateStartPaymentPack": "De startdatum van de cursuskaart is"
             },
             "quickInvoice": {
                 "paymentDue": "Openstaande betalingen",
@@ -3356,9 +3356,9 @@
                 "submit": "Bevestigen",
                 "help": {
                     "cancellation": "zijn/haar annulering van de reservering n° {{notify_booking_nb}}",
-                    "attendance": "{{notify_booking_nb}} keer heeft gereserveerd",
+                    "attendance": "als een lid {{notify_booking_nb}} keer heeft gereserveerd.",
                     "booking": "zijn/haar reservering n° {{notify_booking_nb}}",
-                    "text": "Weetje: deze melding wordt verstuurd nadat een lid.",
+                    "text": "Deze melding wordt automatisch verstuurd",
                     "notRefunded": "{{notify_booking_nb}} keer te laat heeft geannuleerd.",
                     "refunded": "aantal terugbetaalde annuleringen {{notify_booking_nb}}",
                     "absence": "{{notify_booking_nb}} keer heeft geannuleerd.",
@@ -3366,7 +3366,7 @@
                         "notRefunded": "Weetje: leden ontvangen deze melding elke keer dat zij te laat annuleren.",
                         "refunded": "Weetje: deze melding wordt bij elke terugbetaalde annulering verstuurd.",
                         "absence": "Weetje: deze melding wordt verstuurd elke keer een lid afwezig is.",
-                        "attendance": "Weetje: deze melding wordt verstuurd elke keer een lid aanwezig is."
+                        "attendance": "Deze melding wordt automatisch iedere keer verstuurd wanneer een lid aanwezig."
                     }
                 },
                 "choicesKind": {
@@ -3399,7 +3399,7 @@
                     "title": "Evenement"
                 },
                 "explain": "Voeg een melding toe om je leden automatisch te contacteren aan de hand van een aantal criteria.",
-                "notifyAllEvents": "Stuur deze melding na iedere reservering",
+                "notifyAllEvents": "Deze melding bij elke reservering versturen",
                 "bookingNumber_n": "Reservering: {{notify_booking_nb}}",
                 "bookingNumber": "Alle reserveringen",
                 "bookingNumber_plural": "1e reservering",
@@ -3942,6 +3942,11 @@
             },
             "invoice": {
                 "label": "Factuur {{uuid}} : €{{price}}"
+            },
+            "listItem": {
+                "recurrencePriceIs": "Periodieke betaling: {{currencyDisplay}}{{ amount }}",
+                "nextBillingDate": "Eerstvolgende facturatie: {{ d }}",
+                "startingAt": "Startdatum: {{ d }}"
             }
         },
         "pause": {
@@ -4132,8 +4137,12 @@
             "duration": "Duur",
             "nb_bookings": "Reserveringen",
             "date": "Datum",
-            "rule": "Regel",
-            "name": "Sessie"
+            "rule": "Payroll-regel",
+            "name": "Sessie",
+            "error": "Het lijkt erop dat sommige activiteiten niet aan een payroll-regel zijn gekoppeld. Koppel je activiteiten en instructeurs aan je payroll-regels om de payroll te gebruiken.",
+            "total": "Vergoeding (totaal)",
+            "cancelled_bookings": "Annuleringen",
+            "confirmed_bookings": "Deelnemers"
         },
         "table": {
             "download": "Downloaden",
@@ -4619,7 +4628,7 @@
                 "showPrivateBookings": "Afspraken",
                 "showCustomEvents": "Taken / Persoonlijke afspraken",
                 "hideCancelledEvents": "Toon de annuleringen",
-                "title": "Toon filters"
+                "title": "Filter op activiteit"
             },
             "enableAvailability": "Beschikbaarheid toevoegen",
             "createCustomEvent": "Een taak / persoonlijke afspraak toevoegen",
@@ -5437,12 +5446,16 @@
         "bookingThreshold": "Aantal reserveringen (incl.)",
         "pricePerAdditionalBooking": "Bonus per reservering",
         "select": {
-            "placeholderOverride": "Standaardregel",
-            "placeholder": "Selecteer een Payroll"
+            "placeholderOverride": "Er is geen payroll-regel aan deze sessie gekoppeld.",
+            "placeholder": "Selecteer een Payroll",
+            "coachPaymentRuleForPrivateService": "Afspraken",
+            "coachPaymentRuleForSessions": "Groepsactiviteiten en workshops",
+            "reset": "Regel resetten"
         },
         "common": {
             "from": "Begin",
-            "until": "Einde"
+            "until": "Einde",
+            "pick_a_month": "Kies een maand"
         },
         "calculate": "Bereken",
         "title": "Salarisoverzicht van {{name}}",
@@ -5459,7 +5472,82 @@
         "rules": "Regels",
         "save": "Opslaan",
         "name": "Naam",
-        "pageTitle": "Payroll"
+        "pageTitle": "Payroll",
+        "coach_payment_rules": {
+            "Simulator": {
+                "student_did_not_attend": "Afwezige leden",
+                "student_attended": "Aanwezige leden",
+                "total_payment": "Laatste betaling",
+                "bonus": "Bonus (totaal)",
+                "marginValue": "Marginale waarde",
+                "forCancelledBookings": "Aantal afwezigen",
+                "forConfirmedBookings": "Aantal aanwezigen",
+                "forEachBooking": "Per reservering",
+                "cancellations": "Afwezigen en te late annuleringen",
+                "and": "En",
+                "students": "Leden",
+                "for": "Voor",
+                "helper": "Controleer hier of je payroll-regels met je verwachtingen overeenkomen.",
+                "resultTitle": "Resultaten van de payroll simulatie",
+                "title": "Payroll simulatie"
+            },
+            "Errors": {
+                "lowerIntervalTypeError": "Het min. interval moet gelijk of minder zijn dan 0.",
+                "taxeRateTypeError": "Het btw-tarief moet een getal tussen 0 en 100 zijn.",
+                "taxeRateRequired": "Het veld \"Btw\" is een verplicht veld als je dit hebt aangevinkt.",
+                "percentagebaseRemunerationTypeError": "De procentuele vergoeding moet een getal 0 en 100 zijn.",
+                "percentagebaseRemunerationRequired": "Het veld \"Percentage\" is een verplicht veld als je dit hebt aangevinkt.",
+                "baseRemunerationTypeError": "Het vaste bedrag moet een positief getal zijn.",
+                "baseRemunerationRequired": "Het veld \"Vast bedrag\" is een verplicht veld als je dit hebt aangevinkt.",
+                "invalideUpperInterval": "De maximale interval moet een getal zijn.",
+                "invalideIntervals": "Je kunt intervallen voor bonussen niet combineren.",
+                "invalidLowerInterval": "Het max. interval moet groter dan het min. interval zijn.",
+                "invalidBonusAmount": "De bonus moet gelijk of groter zijn dan 0,1.",
+                "nameRequired": "Dit veld is verplicht."
+            },
+            "Bonuses": {
+                "bonus_rules": "Bonusregels",
+                "forEachBooking": "per reservering",
+                "bookingsThresholds": "Reserveringen (incl. interval)",
+                "to": "tot",
+                "from": "Van",
+                "addBonus": "EEN BONUSREGEL TOEVOEGEN",
+                "bonus": "Bonus"
+            },
+            "paymentPackPlaceHolder": "Selecteer cursuskaarten",
+            "excludePaymentPack": "Bepaalde lidmaatschappen uitsluiten",
+            "bonusForEachReservationInInterval": "Een bonus per reservering van dit interval toevoegen",
+            "fixedBonusbyInterval": "Een vaste bonus per interval toevoegen",
+            "cancellationBaseHelper": "Vink dit vak aan om geen bonus over de marginale waarde van annuleringen uit te betalen.",
+            "taxeLongHelper": "Alle percentages worden over de marginale waarde per reservering excl. btw berekend. De btw wordt ook op de marginale waarde, vaste bedragen en bonussen toegepast.",
+            "taxeConciseHelper": "Weetje: alle percentages worden over de marginale waarde per reservering excl. btw berekend.",
+            "add_taxe_rate": "Toe te voegen btw",
+            "taxe_rate": "Incl. btw",
+            "max_remuneration": "Max.",
+            "min_remuneration": "Min.",
+            "remunerationLimits": "Bonus beperken",
+            "differentRemunerationForCancellation": "Andere payroll-regels toepassen voor afwezige leden ",
+            "addRemunerationOnCancellation": "Betaal instructeurs voor afwezige leden en te late annuleringen",
+            "percentage_base": "Percentage",
+            "base_remuneration": "Vast bedrag",
+            "forCancelledBookings": "Afwezige leden en te late annuleringen meetellen",
+            "forConfirmedBookings": "Geldt alleen voor leden die aanwezig zijn",
+            "calculationMethod": "Rekenmethode",
+            "actions": "Acties",
+            "coaches": "Instructeurs",
+            "name": "Naam",
+            "addNewCoachPaymentRule": "Een nieuwe payroll-regel toevoegen"
+        },
+        "tabs": {
+            "all": "Selecteer alles",
+            "appointment": "Afspraken",
+            "session": "Groepsactiviteiten en workshops"
+        },
+        "fabButton": {
+            "addNewForRDV": "Afspraken",
+            "addNewForSession": "Groepsactiviteiten en workshops"
+        },
+        "paymentRules": "Payroll"
     },
     "payment": {
         "generalTermsAndConditions": {
@@ -5735,7 +5823,7 @@
                 "error": "Fout bij bewerken"
             },
             "create": {
-                "error": "Fout bij aanmaken",
+                "error": "Fout bij het aanmaken",
                 "success": "Regel toegevoegd"
             },
             "delete": {
@@ -6936,7 +7024,8 @@
                 "3": "Krediet(en)",
                 "2": "Webshop",
                 "1": "Cursuskaarten"
-            }
+            },
+            "discount": "Korting"
         },
         "actions": {
             "finalize": "Afronden (PDF)",
@@ -7658,7 +7747,7 @@
             "rect": "Rechthoek",
             "line": "Lijn",
             "rotation": "Draai",
-            "redo": "Verder",
+            "redo": "Volgende",
             "undo": "Terug",
             "eraser": "Gum",
             "sections": {
@@ -7667,7 +7756,8 @@
                 "place": "Plaats",
                 "walls": "Muren",
                 "edition": "Bewerken"
-            }
+            },
+            "title": "Hulpmiddelen"
         }
     }
 }

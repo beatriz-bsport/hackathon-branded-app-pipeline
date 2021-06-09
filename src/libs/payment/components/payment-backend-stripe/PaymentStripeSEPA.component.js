@@ -129,6 +129,8 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
+  userDefaultName?: string,
+  userDefaultEmail?: string,
 };
 
 export const PaymentStripeSEPA = (props: Props) => {
@@ -154,8 +156,8 @@ export const PaymentStripeSEPA = (props: Props) => {
   }, [props.clientSecret, detechPmId]);
 
   const [billingDetails, setBillingDetails] = React.useState({
-    name: '',
-    email: '',
+    name: props.userDefaultName || '',
+    email: props.userDefaultEmail || '',
   });
 
   const handleSubmit = async (event) => {
@@ -234,6 +236,8 @@ export const PaymentStripeSEPA = (props: Props) => {
           snackbarErrorMsg={props.snackbarErrorMsg}
           snackbarSuccessMsg={props.snackbarSuccessMsg}
           companyId={props.companyId}
+          sepaDefaultName={props.userDefaultName}
+          sepaDefaultEmail={props.userDefaultEmail}
         />
       )}
       <div className={classes.actionRow}>

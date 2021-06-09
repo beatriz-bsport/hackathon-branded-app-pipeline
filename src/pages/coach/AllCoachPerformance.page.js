@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { compose, withHandlers, withStateHandlers } from 'recompose';
+import { compose, withHandlers, withStateHandlers, withState } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
@@ -33,6 +33,7 @@ import {
   fetchCoachSessionPerformanceAction,
   fetchCoachPrivateServicePerformanceAction,
   setSessionCoachPaymentRule,
+  setPrivateBookingCoachPaymentRule as updatePrivateBookingCoachPaymentRule,
 } from '../../libs/coach-payment-rules/actions';
 import {
   CoachPaymentRulesSelector,
@@ -57,13 +58,26 @@ type CoachPerformanceProps = {
   performance: CoachPerformanceType,
   coachPaymentRulesByKind: Object<CoachPaymentRuleType[]>,
   coach: Coach,
-  setSessionCoachPaymentRule: (
+  setSessionCoachPaymentRule: (data: {
     associatedCoachId: number,
     sessionId: number,
     CoachPaymenrRuleId: number,
+  }) => void,
+  updatePrivateBookingCoachPaymentRule: (data: {
+    associatedCoachId: number,
+    privateBookingId: number,
+    CoachPaymenrRuleId: number,
+  }) => void,
+  setCoachPaymentRule: (
+    coachId: number,
+    paymentRuleId: number,
+    associatedCoachId: number,
   ) => void,
-  setCoachPaymentRule: (coachId: number, paymentRuleId: number) => void,
-  setCoachPrivatePaymentRule: (coachId: number, paymentRuleId: number) => void,
+  setCoachPrivatePaymentRule: (
+    coachId: number,
+    paymentRuleId: number,
+    associatedCoachId: number,
+  ) => void,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -128,9 +142,17 @@ function CoachPerformance(props: CoachPerformanceProps) {
                 onChange={({ value }) => {
                   return (
                     (pay_rule_kind === COACH_PERFORMANCE_FOR_SESSION &&
-                      props.setCoachPaymentRule(coach.id, value)) ||
+                      props.setCoachPaymentRule(
+                        coach.id,
+                        value,
+                        coach.associated_coach_id,
+                      )) ||
                     (pay_rule_kind === COACH_PERFORMANCE_FOR_APPOINTMENT &&
-                      props.setCoachPrivatePaymentRule(coach.id, value))
+                      props.setCoachPrivatePaymentRule(
+                        coach.id,
+                        value,
+                        coach.associated_coach_id,
+                      ))
                   );
                 }}
               />
@@ -142,15 +164,16 @@ function CoachPerformance(props: CoachPerformanceProps) {
       <Paper>
         {loading ? <LinearProgress /> : null}
         <CoachPerformanceTabs
+          loading={props.performance}
           coach={coach}
           allPerformance={performance}
           coachPaymentRulesByKind={coachPaymentRulesByKind}
-          setSessionCoachPaymentRule={(...args) =>
-            props.setSessionCoachPaymentRule(
-              props.coach.associated_coach_id,
-              ...args,
-            )
+          updatePrivateBookingCoachPaymentRule={(data) =>
+            props.updatePrivateBookingCoachPaymentRule(data)
           }
+          setSessionCoachPaymentRule={(data) => {
+            props.setSessionCoachPaymentRule(data);
+          }}
         />
       </Paper>
     </div>
@@ -166,11 +189,16 @@ type Props = {
   loading: boolean,
   classes: Object,
   coachPaymentRulesByKind: Object<CoachPaymentRuleType[]>,
-  setSessionCoachPaymentRule: (
+  setSessionCoachPaymentRule: (data: {
     associatedCoachId: number,
     sessionId: number,
     CoachPaymenrRuleId: number,
-  ) => void,
+  }) => void,
+  updatePrivateBookingCoachPaymentRule: (data: {
+    associatedCoachId: number,
+    privateBookingId: number,
+    CoachPaymenrRuleId: number,
+  }) => void,
   setCoachPrivatePaymentRule: (coachId: number, paymentRuleId: number) => void,
   setCoachPaymentRule: (coachId: number, paymentRuleId: number) => void,
   t: TFunction,
@@ -245,8 +273,11 @@ export class AllCoachPerformance extends React.Component<Props> {
               t={this.props.t}
               coach={coach}
               key={coach.id}
-              loading={this.props.loading}
+              loading={this.props.loading || this.props.performanceLoading}
               setSessionCoachPaymentRule={this.props.setSessionCoachPaymentRule}
+              updatePrivateBookingCoachPaymentRule={
+                this.props.updatePrivateBookingCoachPaymentRule
+              }
               coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
               setCoachPaymentRule={this.props.setCoachPaymentRule}
               setCoachPrivatePaymentRule={this.props.setCoachPrivatePaymentRule}
@@ -280,6 +311,7 @@ const styles = (theme) => ({
 });
 export default compose(
   withStyles(styles),
+  withState('formDates', 'setFormDates', {}),
   connect(
     (state) => ({
       coachPaymentRulesList: CoachPaymentRulesSelector(state),
@@ -291,11 +323,12 @@ export default compose(
       )(state),
     }),
     {
-      setSessionCoachPaymentRule,
+      setSessionCoachPaymentRuleAction: setSessionCoachPaymentRule,
+      updatePrivateBookingCoachPaymentRuleAction: updatePrivateBookingCoachPaymentRule,
       fetchAssociatedCoachesList,
       fetchCoachSessionPerformance: fetchCoachSessionPerformanceAction,
       fetchCoachPrivateServicePerformance: fetchCoachPrivateServicePerformanceAction,
-      setCoachPaymentRule,
+      setCoachPaymentRuleAction: setCoachPaymentRule,
       setCoachPrivatePaymentRule,
       fetchAllCoachPaymentRules,
       getAssociatedCoachSessionPerformance,
@@ -315,22 +348,28 @@ export default compose(
       fetchCoachSessionPerformance,
       fetchCoachPrivateServicePerformance,
       setPerformanceLoading,
+      setFormDates,
     }) => async (data: Object, options) => {
       const { dateStart, dateEnd } = data;
+      setFormDates({ dateStart: dateStart.unix(), dateEnd: dateEnd.unix() });
       setPerformanceLoading(true);
       const promises = associatedCoachWithCoachPaymentRuleAndPerformance.map(
         (coach) => {
           return (
             fetchCoachSessionPerformance(
-              coach.associated_coach_id,
-              dateStart.unix(),
-              dateEnd.unix(),
+              {
+                associatedCoachId: coach.associated_coach_id,
+                start_timestamp: dateStart.unix(),
+                end_timestamp: dateEnd.unix(),
+              },
               options,
             ),
             fetchCoachPrivateServicePerformance(
-              coach.associated_coach_id,
-              dateStart.unix(),
-              dateEnd.unix(),
+              {
+                associatedCoachId: coach.associated_coach_id,
+                start_timestamp: dateStart.unix(),
+                end_timestamp: dateEnd.unix(),
+              },
               options,
             )
           );
@@ -338,6 +377,96 @@ export default compose(
       );
       await Promise.all(promises);
       setPerformanceLoading(false);
+    },
+  }),
+  withHandlers({
+    setCoachPaymentRule: ({
+      setCoachPaymentRuleAction,
+      fetchCoachSessionPerformance,
+      setPerformanceLoading,
+      formDates,
+    }) => (
+      coachId: number,
+      paymentRuleId: number,
+      associatedCoachId: number,
+    ) => {
+      setCoachPaymentRuleAction(coachId, paymentRuleId);
+      setPerformanceLoading(true);
+      fetchCoachSessionPerformance({
+        associatedCoachId,
+        start_timestamp: formDates.dateStart,
+        end_timestamp: formDates.dateEnd,
+      });
+      setPerformanceLoading(false);
+    },
+  }),
+  withHandlers({
+    updatePrivateBookingCoachPaymentRule: ({
+      updatePrivateBookingCoachPaymentRuleAction,
+      fetchCoachPrivateServicePerformance,
+      setPerformanceLoading,
+      formDates,
+    }) => (
+      coachId: number,
+      paymentRuleId: number,
+      associatedCoachId: number,
+    ) => {
+      updatePrivateBookingCoachPaymentRuleAction(coachId, paymentRuleId);
+      setPerformanceLoading(true);
+      fetchCoachPrivateServicePerformance({
+        associatedCoachId,
+        start_timestamp: formDates.dateStart,
+        end_timestamp: formDates.dateEnd,
+      });
+      setPerformanceLoading(false);
+    },
+  }),
+  withHandlers({
+    setSessionCoachPaymentRule: ({
+      setSessionCoachPaymentRuleAction,
+      fetchCoachSessionPerformance,
+      formDates,
+      setPerformanceLoading,
+    }) => (data) => {
+      setSessionCoachPaymentRuleAction(data, {
+        onSuccess: async (payload) => {
+          setPerformanceLoading(true);
+          const promises = [
+            fetchCoachSessionPerformance({
+              associatedCoachId: payload.associatedCoachId,
+              start_timestamp: formDates.dateStart,
+              end_timestamp: formDates.dateEnd,
+              sessionId: payload.sessionId,
+            }),
+          ];
+          await Promise.all(promises);
+          setPerformanceLoading(false);
+        },
+      });
+    },
+  }),
+  withHandlers({
+    updatePrivateBookingCoachPaymentRule: ({
+      updatePrivateBookingCoachPaymentRuleAction,
+      fetchCoachPrivateServicePerformance,
+      formDates,
+      setPerformanceLoading,
+    }) => (data) => {
+      updatePrivateBookingCoachPaymentRuleAction(data, {
+        onSuccess: async (payload) => {
+          setPerformanceLoading(true);
+          const promises = [
+            fetchCoachPrivateServicePerformance({
+              associatedCoachId: payload.associatedCoachId,
+              start_timestamp: formDates.dateStart,
+              end_timestamp: formDates.dateEnd,
+              privateBookingId: payload.privateBookingId,
+            }),
+          ];
+          await Promise.all(promises);
+          setPerformanceLoading(false);
+        },
+      });
     },
   }),
   withTranslation(),

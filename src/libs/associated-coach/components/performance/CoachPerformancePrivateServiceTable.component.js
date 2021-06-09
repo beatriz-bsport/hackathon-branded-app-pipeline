@@ -140,11 +140,11 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                     isOverride
                     enableReset
                     onChange={({ value }) => {
-                      updatePrivateBookingCoachPaymentRule(
-                        private_service.private_booking_id,
-                        value,
-                        coach.associated_coach_id,
-                      );
+                      updatePrivateBookingCoachPaymentRule({
+                        privateBookingId: private_service.private_booking_id,
+                        coachPaymentRuleId: value,
+                        associatedCoachId: coach.associated_coach_id,
+                      });
                     }}
                   />
                 </TableCell>

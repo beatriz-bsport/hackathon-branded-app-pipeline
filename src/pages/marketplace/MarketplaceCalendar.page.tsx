@@ -407,7 +407,9 @@ const mapWithHandlers = {
       return;
     }
 
-    props.pushAction(`/customer/payment/offer/${id}?membership=${companyId}`);
+    props.pushAction(
+      `/payment/offer-booker-module/${id}?membership=${companyId}`,
+    );
   },
 
   goToBookOption: (props: Props) => (id: number, companyId: number) => {
@@ -415,7 +417,10 @@ const mapWithHandlers = {
       props.goToBookOption(id, companyId);
       return;
     }
-    props.pushAction(`/customer/payment/offer/${id}?membership=${companyId}`);
+
+    props.pushAction(
+      `/payment/offer-booker-module/${id}?membership=${companyId}`,
+    );
   },
 };
 

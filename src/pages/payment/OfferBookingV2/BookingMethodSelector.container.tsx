@@ -24,13 +24,16 @@ import {
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../../libs/payment/api';
 import { Offer_FULL, OfferStatus } from '../../../libs/offer/types';
 import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
-import { OfferConstraint, OfferData, SelectedPack } from './OfferBooking.page';
+import { OfferConstraint, SelectedPack } from './OfferBooking.page';
 import { RootState } from '../../../reducers';
 import {
   getConsumerPaymentPackForBooking,
   withPaymentPack as withPaymentPackForConsumer,
 } from '../../../libs/consumer-payment-pack/selectors';
-import { ConsumerPaymentPack } from '../../../libs/consumer-payment-pack/types';
+import {
+  ConsumerPaymentPack,
+  MaxoutBooking,
+} from '../../../libs/consumer-payment-pack/types';
 import { PaymentPack } from '../../../libs/payment-packs/types';
 import { PaymentCombo } from '../../../libs/payment-combo/types';
 import {
@@ -43,7 +46,10 @@ import {
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
 } from '../../../libs/payment-packs/actions';
 import { fetchPaymentComboForBooking } from '../../../libs/payment-combo/actions';
-import { fetchConsumerPaymentPackForBooking } from '../../../libs/consumer-payment-pack/actions';
+import {
+  fetchConsumerPaymentPackForBooking,
+  fetchConsumerPaymentPackMaxoutBooking,
+} from '../../../libs/consumer-payment-pack/actions';
 import { getPaymentPackTimeLimitation } from '../../../libs/payment-packs/utils';
 import BookingMethodSelector from '../../../libs/booker-module/components/BookingMethodSelector.component';
 
@@ -57,6 +63,7 @@ import {
   getContractForBooking,
   withPaymentPack as withPaymentPackForContract,
 } from '../../../libs/subscription/selectors';
+import { OfferData } from '../../../libs/booker-module/types';
 
 type OwnProps = {
   offerId: number;
@@ -81,6 +88,7 @@ type Props = OwnProps &
 
 type State = {
   consumerPacksLoaded: boolean;
+  consumerPacksMaxoutLoaded: boolean;
   paymentPacksLoaded: boolean;
   paymentComboPacksLoaded: boolean;
 };
@@ -90,6 +98,7 @@ export class OfferState extends React.PureComponent<Props, State> {
     consumerPacksLoaded: false,
     paymentComboPacksLoaded: false,
     paymentPacksLoaded: false,
+    consumerPacksMaxoutLoaded: false,
   };
 
   componentDidMount() {
@@ -102,10 +111,21 @@ export class OfferState extends React.PureComponent<Props, State> {
   fetchConsumerPaymentPack = () => {
     this.props.fetchConsumerPaymentPackForBooking(this.props.offerId, {
       onSuccess: (cppList) => {
-        const ids = cppList.map((cpp) => cpp.payment_pack);
-        cppList.length === 0 && this.setState({ consumerPacksLoaded: true });
-        this.props.fetchPaymentPackBulk(ids, {
-          onSuccess: () => this.setState({ consumerPacksLoaded: true }),
+        const cpp_ids = cppList.map((cpp) => cpp.id);
+        const pp_ids = cppList.map((cpp) => cpp.payment_pack);
+        cppList.length === 0 &&
+          this.setState({
+            consumerPacksLoaded: true,
+            consumerPacksMaxoutLoaded: true,
+          });
+
+        this.props.fetchPaymentPackBulk(pp_ids, {
+          onSuccess: () => {
+            this.setState({ consumerPacksLoaded: true });
+          },
+        });
+        this.props.fetchConsumerPaymentPackMaxoutBooking(cpp_ids, {
+          onSuccess: () => this.setState({ consumerPacksMaxoutLoaded: true }),
         });
       },
     });
@@ -217,6 +237,7 @@ export class OfferState extends React.PureComponent<Props, State> {
     if (
       !this.state.consumerPacksLoaded ||
       !this.state.paymentPacksLoaded ||
+      !this.state.consumerPacksMaxoutLoaded ||
       !this.state.paymentComboPacksLoaded ||
       !this.props.offer ||
       !this.props.offer.meta_activity ||
@@ -337,11 +358,45 @@ const getAvailableConsumerPack = memoize(
   (
     offersConstraint: OfferConstraint,
     consumerPaymentPackList: ConsumerPaymentPack<PaymentPack>[],
+    consumerPaymentPackMaxoutBooking: { [key: string]: MaxoutBooking },
+    selectedOffer: Offer_FULL[],
+    offer,
     tz_name,
   ) => {
     const { credit, minDate, maxDate } = offersConstraint;
     return consumerPaymentPackList.filter((cpp) => {
+      const maxout = consumerPaymentPackMaxoutBooking[cpp.id];
+
+      let matchMaxout = true;
+
+      if (maxout) {
+        Object.values(maxout).forEach((period) => {
+          period.forEach((maxout_data) => {
+            let matchingOffers = 0;
+
+            const maxoutStart = moment(maxout_data.start_date);
+            const maxoutEnd = moment(maxout_data.end_date);
+
+            [offer, ...selectedOffer].forEach((o: Offer_FULL) => {
+              const offerStart = moment(o.date_start);
+
+              if (
+                offerStart.isSameOrAfter(maxoutStart) &&
+                offerStart.isSameOrBefore(maxoutEnd)
+              ) {
+                matchingOffers += 1;
+              }
+            });
+
+            if (matchingOffers > maxout_data.booking_available) {
+              matchMaxout = false;
+            }
+          });
+        });
+      }
+
       return (
+        matchMaxout &&
         (cpp.payment_pack.unlimited || cpp.available_credits >= credit) &&
         moment(cpp.starting_date)
           .tz(tz_name)
@@ -358,13 +413,74 @@ const getAvailablePaymentPacks = memoize(
   (
     offersConstraint: OfferConstraint,
     paymentPackList: PaymentPack[],
+    selectedOffer: Offer_FULL[],
+    offer: Offer_FULL,
     tz_name: string,
   ) => {
     const { credit, minDate, maxDate } = offersConstraint;
 
     return paymentPackList.filter((pp) => {
+      const byDay = {};
+      const byWeek = {};
+      const byMonth = {};
+
+      [offer, ...selectedOffer].forEach((o) => {
+        const date = moment(o.date_start);
+        const dayOfYear = date.dayOfYear();
+        const weekNumber = date.week();
+        const month = date.month();
+
+        if (!byDay[dayOfYear]) {
+          byDay[dayOfYear] = 1;
+        } else {
+          byDay[dayOfYear] += 1;
+        }
+
+        if (!byWeek[weekNumber]) {
+          byWeek[weekNumber] = 1;
+        } else {
+          byWeek[weekNumber] += 1;
+        }
+
+        if (!byMonth[month]) {
+          byMonth[month] = 1;
+        } else {
+          byMonth[month] += 1;
+        }
+      });
+
+      let matchMaxBookingNumber = true;
+
+      Object.values(byDay).forEach((bookingNumber) => {
+        if (
+          pp.max_bookings_per_day !== null &&
+          bookingNumber > pp.max_bookings_per_day
+        ) {
+          matchMaxBookingNumber = false;
+        }
+      });
+
+      Object.values(byWeek).forEach((bookingNumber) => {
+        if (
+          pp.max_bookings_per_week !== null &&
+          bookingNumber > pp.max_bookings_per_week
+        ) {
+          matchMaxBookingNumber = false;
+        }
+      });
+
+      Object.values(byMonth).forEach((bookingNumber) => {
+        if (
+          pp.max_bookings_per_month !== null &&
+          bookingNumber > pp.max_bookings_per_month
+        ) {
+          matchMaxBookingNumber = false;
+        }
+      });
+
       const { start, end } = getPaymentPackTimeLimitation(pp, minDate);
       return (
+        matchMaxBookingNumber &&
         (pp.unlimited || pp.credits >= credit) &&
         start.tz(tz_name).isSameOrBefore(moment(minDate).tz(tz_name)) &&
         end.tz(tz_name).isSameOrAfter(moment(maxDate).tz(tz_name))
@@ -372,32 +488,46 @@ const getAvailablePaymentPacks = memoize(
     });
   },
 );
-
 const getAvailableComboPacks = memoize(
   (
     offersConstraint: OfferConstraint,
     paymentComboList: PaymentCombo[],
+    selectedOffers: Offer_FULL[],
+    offer: Offer_FULL,
+    paymentPackById: { [key: string]: PaymentPack },
     tz_name: string,
   ) => {
     const { credit, minDate, maxDate } = offersConstraint;
-    return paymentComboList.filter(
-      (pc) =>
-        !!pc.payment_packs
-          .filter((pp) => !!pp.data)
-          .find((ppForCombo) => {
-            const { start, end } = getPaymentPackTimeLimitation(
-              ppForCombo.data,
-              minDate,
-            );
+    return paymentComboList.filter((pc) => {
+      const paymentPacks = pc.payment_packs
+        .filter((comboItem) => !!comboItem.data)
+        .map((comboItem) => comboItem.data);
 
-            return (
-              (ppForCombo.data.unlimited ||
-                ppForCombo.data.credits >= credit) &&
-              start.tz(tz_name).isSameOrBefore(moment(minDate).tz(tz_name)) &&
-              end.tz(tz_name).isSameOrAfter(moment(maxDate).tz(tz_name))
-            );
-          }),
-    );
+      const availablePaymentPacks = getAvailablePaymentPacks(
+        offersConstraint,
+        paymentPacks,
+        selectedOffers,
+        offer,
+        tz_name,
+      );
+
+      return pc.payment_packs
+        .filter((comboItem) => {
+          return !!availablePaymentPacks.find((pp) => pp.id === comboItem.id);
+        })
+        .find((comboItem) => {
+          const { start, end } = getPaymentPackTimeLimitation(
+            comboItem.data,
+            minDate,
+          );
+
+          return (
+            (comboItem.data.unlimited || comboItem.data.credits >= credit) &&
+            start.tz(tz_name).isSameOrBefore(moment(minDate).tz(tz_name)) &&
+            end.tz(tz_name).isSameOrAfter(moment(maxDate).tz(tz_name))
+          );
+        });
+    });
   },
 );
 
@@ -408,6 +538,9 @@ const mapHandlers = {
     return getAvailableConsumerPack(
       props.offersConstraint,
       props.consumerPaymentPackList,
+      props.cppMaxoutBookings,
+      props.selectedOffers.map((data) => data.offer),
+      props.offer,
       props.offer.timezone_name,
     );
   },
@@ -415,6 +548,8 @@ const mapHandlers = {
     return getAvailablePaymentPacks(
       props.offersConstraint,
       props.paymentPackList,
+      props.selectedOffers.map((data) => data.offer),
+      props.offer,
       props.offer.timezone_name,
     );
   },
@@ -422,6 +557,9 @@ const mapHandlers = {
     return getAvailableComboPacks(
       props.offersConstraint,
       props.paymentComboList,
+      props.selectedOffers,
+      props.offer,
+      props.paymentPacksById,
       props.offer.timezone_name,
     );
   },
@@ -446,6 +584,8 @@ const mapStateToProps = (state: RootState) => ({
   ) as PaymentCombo[],
   offerStatusById: state.offer.offerStatus.byId,
   contractList: withPaymentPackForContract(getContractForBooking)(state),
+  cppMaxoutBookings: state.consumerPaymentPack.maxout_booking.byId,
+  paymentPacksById: state.paymentPack.byId,
 });
 
 const mapDispatchToProps = {
@@ -455,6 +595,7 @@ const mapDispatchToProps = {
   fetchPaymentComboForBooking,
   fetchContractForBooking: fetchContractForBookingAction,
   resetContractForBooking: resetContractForBookingAction,
+  fetchConsumerPaymentPackMaxoutBooking,
 };
 
 export default compose<any, OwnProps>(

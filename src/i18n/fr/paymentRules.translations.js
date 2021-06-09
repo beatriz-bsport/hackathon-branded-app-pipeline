@@ -20,8 +20,8 @@ exports.default = {
   addNew: 'Nouveau paramétrage de rémunération',
   select: {
     placeholder: 'Choississez une règle de calcul',
-    placeholderOverride: 'Aucune règle associée à la séance',
-    reset: 'Dissocier la règle',
+    placeholderOverride: 'Règle par défaut du coach',
+    reset: 'Utiliser la règle par défaut du coach',
     coachPaymentRuleForSessions: 'Cours collectifs & Ateliers',
     coachPaymentRuleForPrivateService: 'Rendez-vous',
   },
@@ -72,7 +72,7 @@ exports.default = {
     addRemunerationOnCancellation:
       "Rémunérer le professeur en cas d'annulation hors délai ou absence",
     differentRemunerationForCancellation:
-      'Appliquer des règles bonus différents pour le décompte des élèves absents ',
+      'Appliquer des règles bonus différentes pour le décompte des élèves absents ',
     remunerationLimits: 'Rémunérations limites',
     min_remuneration: 'Minimum',
     max_remuneration: 'Maximum',
@@ -84,9 +84,9 @@ exports.default = {
       'Aide : Tous les pourcentages sont calculés sur la valeur marginale de chaque réservation hors taxe. La taxe ajoutée s’applique sur la valeur marginale ainsi que l’ensemble des fixes et des bonus.',
     cancellationBaseHelper:
       'Aide : En cochant cette case le coach ne percevera pas de rémunération supplémentaire sur la valeur marginale des réservations annulées',
-    fixedBonusbyInterval: 'Ajouter un bonus fixe par interval',
+    fixedBonusbyInterval: 'Ajouter un bonus fixe par intervalle',
     bonusForEachReservationInInterval:
-      "Ajouter un bonus pour chaque réservation de l'interval",
+      "Ajouter un bonus pour chaque réservation de l'intervalle",
     excludePaymentPack: 'Exclure certaines cartes',
     paymentPackPlaceHolder: 'Selectionner des cartes de cours',
     Bonuses: {
@@ -100,6 +100,10 @@ exports.default = {
     },
     Errors: {
       nameRequired: 'Le nom est un champ obligatoire.',
+      invalidMinimum:
+        'La rémunération minimale doit être supérieure ou égale à la base fixe',
+      invalidMaximum:
+        'La rémunération maximale doit être supérieure à la rémunération minimale',
       invalidBonusAmount: 'Le bonus doit être supérieur ou égal à 0.1.',
       invalidLowerInterval:
         "L'intervalle supérieur doit être supérieur à l'intervalle inférieur.",
@@ -119,6 +123,8 @@ exports.default = {
       taxeRateTypeError: 'La taxe doit être un nombre compris entre 0 et 100.',
       lowerIntervalTypeError:
         "L'interval inférieur doit être un nombre inférieur ou égale à 0",
+      invalidCancelledBookingRules:
+        'Si vous souhaitez appliquer des bonus différents pour les élèves absents vous devez définir au moins un bonus ou une base par pourcentage dans la section ci-dessous.',
     },
     Simulator: {
       title: 'Simulateur de rémunérations',

@@ -31,6 +31,8 @@ export const CollectPaymentMethod = (props: Props) => {
           }
         }}
         onClose={props.onClose}
+        defaultName={props.defaultName}
+        defaultEmail={props.defaultEmail}
       />
     );
   }

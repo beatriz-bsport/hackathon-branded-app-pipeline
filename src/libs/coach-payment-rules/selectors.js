@@ -8,7 +8,7 @@ import {
   COACH_PERFORMANCE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import type { State } from '../../state/types';
-import { getCoach } from '../associated-coach/selectors';
+import { associatedCoachSelector } from '../associated-coach/selectors';
 import type { CoachPaymentRule } from './types';
 
 export const CoachPaymentSelector = (state: State, id: number) =>
@@ -20,7 +20,7 @@ export const CoachPaymentRulesSelector = (state: State) =>
       ...rule,
       coaches: lodash.compact(
         rule.associated_coach.map((coachId: number) =>
-          getCoach(state, coachId),
+          associatedCoachSelector.get(state, coachId),
         ),
       ),
     }));
@@ -34,7 +34,7 @@ export const CoachPaymentRuleByKindSelector = (state: State) => {
         ...rule,
         coaches: lodash.compact(
           rule.associated_coach.map((coachId: number) =>
-            getCoach(state, coachId),
+            associatedCoachSelector.get(state, coachId),
           ),
         ),
       })),
@@ -44,8 +44,8 @@ export const CoachPaymentRuleByKindSelector = (state: State) => {
       .map((rule: CoachPaymentRule) => ({
         ...rule,
         coaches: lodash.compact(
-          rule.associated_coach.map((coachId: number) =>
-            getCoach(state, coachId),
+          rule.private_associated_coach.map((coachId: number) =>
+            associatedCoachSelector.get(state, coachId),
           ),
         ),
       })),

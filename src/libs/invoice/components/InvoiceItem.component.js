@@ -34,7 +34,11 @@ export const InvoiceItem = (props: Props) => {
           className={invoiceItem.reverted ? classes.revert : null}
         >
           {(invoiceItem.subtitle || '') +
-            (voucher ? t('invoiceItem.voucher', { voucher }) : '')}
+            (voucher
+              ? `${t('invoiceItem.voucher', {
+                  voucher,
+                })} ${getCurrencyDisplay()}`
+              : '')}
         </Typography>
       </div>
 

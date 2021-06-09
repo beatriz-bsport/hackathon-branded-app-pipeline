@@ -31,6 +31,8 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
+  sepaDefaultName?: string,
+  sepaDefaultEmail?: string,
 };
 
 const CARD_ELEMENT_OPTIONS = {
@@ -161,6 +163,8 @@ export const StripePaymentCard = (props: Props) => {
           snackbarErrorMsg={props.snackbarErrorMsg}
           snackbarSuccessMsg={props.snackbarSuccessMsg}
           companyId={props.companyId}
+          sepaDefaultName={props.sepaDefaultName}
+          sepaDefaultEmail={props.sepaDefaultEmail}
         />
       )}
       <div className={classes.conditionRow}>

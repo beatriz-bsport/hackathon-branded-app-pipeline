@@ -763,7 +763,7 @@
             "reviews": "Opinión clientes: ",
             "explainImage": "Recomendado: 1920x1080 jpeg (fullHD)",
             "color": "Código de colores",
-            "firstBookingMinutesUntil": "Bloquear las reservas en el futuro arriba ",
+            "firstBookingMinutesUntil": "Los miembros pueden reservar futuras sesiones programadas en menos de ",
             "is_broadcast": "Curso streaming en vivo"
         },
         "workshopActivity": {
@@ -3636,7 +3636,11 @@
             "22": "Confirmación de factura",
             "601": "Muy pocas reservas N horas antes del comienzo de la sesión",
             "701": "Penalización de tarjeta de curso: tarjeta bloqueada (estudiante)",
-            "702": "Penalización de tarjeta de curso: cargo en la cuenta creada (estudiante)"
+            "702": "Penalización de tarjeta de curso: cargo en la cuenta creada (estudiante)",
+            "530": "Disputa sobre el pago de una suscripción",
+            "520": "El pago fallido de una suscripción se volverá a intentar",
+            "515": "Tarjeta de curso del abono desactivado automáticamente",
+            "510": "Pago fallido de una suscripción"
         },
         "tag": {
             "BookingOption": {
@@ -3729,7 +3733,8 @@
         },
         "emailDesign": {
             "closePreview": "Cerrar",
-            "placeholder": "Generado por bsport"
+            "placeholder": "Generado por bsport",
+            "birthdayPlaceholder": "Seleccione un correo electrónico"
         },
         "pageTitle": "Emails transaccionales",
         "caption": {
@@ -3809,7 +3814,8 @@
         "actions": {
             "goToCalendar": "Ver el calendario completo",
             "goToSubscription": "Ver todas las suscripciones",
-            "goToPass": "Ver todas las tarjetas de curso"
+            "goToPass": "Ver todas las tarjetas de curso",
+            "goToHome": "Ver todos los servicios"
         },
         "congratulation": {
             "cancel": "Cerrar",
@@ -5325,11 +5331,13 @@
         "calculate": "Calcular",
         "common": {
             "until": "Final",
-            "from": "Inicio"
+            "from": "Inicio",
+            "pick_a_month": "Elija un mes"
         },
         "select": {
-            "placeholderOverride": "Regla por defecto",
-            "placeholder": "Elige una regla de cálculo"
+            "placeholderOverride": "No hay reglas asociadas a la sesión",
+            "placeholder": "Elige una regla de cálculo",
+            "coachPaymentRuleForSessions": "Clases y talleres en grupo"
         },
         "addNew": "Nuevo ajuste de la compensación",
         "cancel": "Cancelar",
@@ -5346,7 +5354,30 @@
         "save": "Guardar",
         "add": "Añadir",
         "rules": "Reglas",
-        "pageTitle": "Reglas de remuneración"
+        "pageTitle": "Reglas de remuneración",
+        "coach_payment_rules": {
+            "taxeLongHelper": "Ayuda : Todos los porcentajes se calculan sobre el valor marginal de cada reserva sin impuestos. El impuesto añadido se aplica al valor marginal así como a todos los fijos y bonos.",
+            "taxeConciseHelper": "Ayuda: Todos los porcentajes están calculados sobre el valor marginal de cada reserva sin impuestos.",
+            "add_taxe_rate": "Impuesto a añadir",
+            "max_remuneration": "Máximo",
+            "min_remuneration": "Mínimo",
+            "remunerationLimits": "Límites de pago",
+            "differentRemunerationForCancellation": "Aplicar diferentes reglas de pago al contar los alumnos ausentes ",
+            "addRemunerationOnCancellation": "Compensar al profesor en caso de cancelación y ausencia tardía",
+            "percentage_base": "Porcentaje",
+            "base_remuneration": "Pago fijo",
+            "forCancelledBookings": "Para cancelaciones y ausencias tardías",
+            "forConfirmedBookings": "Para los estudiantes que están presentes",
+            "calculationMethod": "Método de cálculo",
+            "actions": "Acciones",
+            "coaches": "Profesores",
+            "name": "Nombre",
+            "addNewCoachPaymentRule": "Nueva norma de pago"
+        },
+        "tabs": {
+            "all": "Todos los cursos"
+        },
+        "paymentRules": "Reglas de remuneración"
     },
     "checkout": {
         "myBasket": {
@@ -5367,7 +5398,8 @@
                     "address": "Dirección"
                 }
             },
-            "isFinalized": "Su cesta ha sido validada"
+            "isFinalized": "Su cesta ha sido validada",
+            "checkingPaymentStatus": "Por favor, espere, estamos comprobando el estado de su pago"
         },
         "autoAdd": {
             "paymentPack": {

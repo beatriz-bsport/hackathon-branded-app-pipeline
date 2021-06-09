@@ -26,7 +26,14 @@ type Props = {
 export function CoachPaymentRuleFormDialog(props: Props) {
   const { t, open, handleClose, isSubmitting } = props;
   return (
-    <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose}>
+    <Dialog
+      fullWidth
+      maxWidth="md"
+      open={open}
+      onClose={handleClose}
+      disableBackdropClick
+      disableEscapeKeyDown
+    >
       <Form>
         <DialogTitle id="form-dialog-title">
           {t('coach_payment_rules.addNewCoachPaymentRule')}

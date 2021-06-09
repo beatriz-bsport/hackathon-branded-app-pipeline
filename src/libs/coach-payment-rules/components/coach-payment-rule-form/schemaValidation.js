@@ -52,6 +52,7 @@ export const coachPaymentRuleFieldsSchema = Yup.object().shape({
     .typeError(
       'paymentRules:coach_payment_rules.Errors.baseRemunerationTypeError',
     ),
+  base_remuneration_for_cancellation: Yup.number(),
   percentage_base_confirmed_bookings: Yup.number()
     .min(0)
     .max(100)
@@ -62,13 +63,41 @@ export const coachPaymentRuleFieldsSchema = Yup.object().shape({
       'paymentRules:coach_payment_rules.Errors.percentagebaseRemunerationTypeError',
     ),
   min_remuneration: Yup.number().required(),
-  max_remuneration: Yup.number().required(),
+  // .test(
+  //   'min-superior-to-base',
+  //   'paymentRules:coach_payment_rules.Errors.invalidMinimum',
+  //   function (item) {
+  //     return item >= this.parent.base_remuneration;
+  //   },
+  // ),
+  max_remuneration: Yup.number()
+    .required()
+    .test(
+      'max-superior-to-min',
+      'paymentRules:coach_payment_rules.Errors.invalidMaximum',
+      function (item) {
+        return item > this.parent.min_remuneration;
+      },
+    ),
   tax_rate: Yup.number()
     .min(0)
     .max(100)
     .required('paymentRules:coach_payment_rules.Errors.taxeRateRequired')
     .typeError('paymentRules:coach_payment_rules.Errors.taxeRateTypeError'),
-  exclude_cancelled_from_confirmed_bookings: Yup.boolean(),
+  exclude_cancelled_from_confirmed_bookings: Yup.boolean().test(
+    'exlude_cancelled_from_confirmed_bookings',
+    'paymentRules:coach_payment_rules.Errors.invalidCancelledBookingRules',
+    function (item) {
+      if (item && this.parent.remuneration_on_cancellation) {
+        return (
+          this.parent.bonus_for_cancelled_bookings.length !== 0 ||
+          this.parent.percentage_base_cancelled_bookings !== 0 ||
+          this.parent.base_remuneration_for_cancellation !== 0
+        );
+      }
+      return true;
+    },
+  ),
   excluded_payment_packs: Yup.array().of(Yup.number()),
   bonus_for_confirmed_bookings: bonusCoachPaymentRuleArraySchema,
   bonus_for_cancelled_bookings: bonusCoachPaymentRuleArraySchema,

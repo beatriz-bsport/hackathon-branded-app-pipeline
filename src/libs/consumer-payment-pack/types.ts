@@ -29,6 +29,18 @@ export type ConsumerPaymentPack<PP = number> = {
   penalty_disabled_until: string | null;
 };
 
+export type MaxoutBookingData = {
+  start_date: string;
+  end_date: string;
+  booking_available: number;
+};
+
+export type MaxoutBooking = {
+  days: MaxoutBookingData[];
+  weeks: MaxoutBookingData[];
+  months: MaxoutBookingData[];
+};
+
 export type ConsumerPaymentPackPenalty = {
   id: number;
   date_created: string;
@@ -71,4 +83,9 @@ export type ConsumerPaymentPackState = ErrorAndLoading & {
   byMember: ErrorAndLoading & WithPagination & { allIds: number[] };
   forBooking: ErrorAndLoading & { allIds: number[] };
   penalty: ErrorAndLoading & WithPagination & { items: number[] };
+  maxout_booking: ErrorAndLoading & {
+    byId: {
+      [key: string]: MaxoutBooking;
+    };
+  };
 };

@@ -336,6 +336,8 @@ export class CheckoutPayment extends React.Component<Props> {
                     snackbarErrorMsg={this.props.snackbarErrorMsg}
                     snackbarSuccessMsg={this.props.snackbarSuccessMsg}
                     companyId={this.props.companyId}
+                    sepaDefaultName={this.props.auth.name}
+                    sepaDefaultEmail={this.props.auth.username}
                   />
                 }
               />

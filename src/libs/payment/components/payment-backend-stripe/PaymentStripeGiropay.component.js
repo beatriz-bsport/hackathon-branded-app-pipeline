@@ -13,12 +13,13 @@ export const PaymentStripeGiropay = (props: {
   clientSecret: string,
   onCancel: () => void,
   forceDisabled?: boolean,
+  userDefaultName?: string,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
 
   const [processing, setProcessing] = React.useState(false);
-  const [name, setName] = React.useState('');
+  const [name, setName] = React.useState(props.userDefaultName || '');
   const [errorMessage, setErrorMessage] = React.useState(null);
 
   const { t } = useTranslation(['invoice']);

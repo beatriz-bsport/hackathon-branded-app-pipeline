@@ -22,6 +22,7 @@ export type CoachPaymentRule = {
   excluded_payment_packs: Array<number>,
   bonuses: Array<BonusCoachPaymentRule>,
   associated_coach: Array<number>,
+  private_associated_coach: Array<number>,
 };
 
 export type CoachPerformance = {

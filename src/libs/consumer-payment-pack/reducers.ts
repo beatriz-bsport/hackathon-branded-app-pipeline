@@ -16,6 +16,7 @@ import {
   listConsumerPaymentPackCompatibleActions,
   listConsumerPaymentPackPenaltyActions,
   massExtensionActions,
+  consumerPaymentPackMaxoutBookingAction,
 } from './actions';
 
 import { ConsumerPaymentPackState } from './types';
@@ -96,6 +97,11 @@ const initialState = Immutable<ConsumerPaymentPackState>({
     count: 0,
   },
   byId: {},
+  maxout_booking: {
+    byId: {},
+    error: null,
+    loading: false,
+  },
 });
 
 export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
@@ -341,6 +347,18 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
     },
     [listConsumerPaymentPackPenaltyActions.isLoading]: (state, { payload }) => {
       return state.setIn(['penalty', 'loading'], payload);
+    },
+    [consumerPaymentPackMaxoutBookingAction.isLoading]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['maxout_booking', 'loading'], payload);
+    },
+    [consumerPaymentPackMaxoutBookingAction.error]: (state, { payload }) => {
+      return state.setIn(['maxout_booking', 'error'], payload);
+    },
+    [consumerPaymentPackMaxoutBookingAction.success]: (state, { payload }) => {
+      return state.merge({ maxout_booking: { byId: payload } }, { deep: true });
     },
     [listConsumerPaymentPackCompatibleActions.error]: (state, { payload }) => {
       return state.setIn(['penalty', 'error'], payload);

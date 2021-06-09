@@ -139,11 +139,11 @@ export function CoachPerformanceSessionTable(props: Props) {
                     isOverride
                     enableReset
                     onChange={({ value }) => {
-                      setSessionCoachPaymentRule(
-                        session.session_id,
-                        value,
-                        coach.associated_coach_id,
-                      );
+                      setSessionCoachPaymentRule({
+                        sessionId: session.session_id,
+                        coachPaymentRuleId: value,
+                        associatedCoachId: coach.associated_coach_id,
+                      });
                     }}
                   />
                 </TableCell>

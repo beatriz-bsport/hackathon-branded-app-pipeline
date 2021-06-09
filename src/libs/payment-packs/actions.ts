@@ -305,7 +305,9 @@ export function fetchPaymentPackBulk(
           paymentPacksById,
         }),
       );
-      if (options && options.onSuccess) options.onSuccess();
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
     } catch (err) {
       dispatch(paymentPackBulkActions.error(err));
       if (options && options.onError) options.onError();

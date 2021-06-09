@@ -44,13 +44,15 @@ export const PaymentStripeIdeal = (props: {
   termsAndConditionsAccepted: boolean,
   AcceptTermsAndConditionsComponent: React.Component,
   forceDisabled?: boolean,
+  userDefaultName?: string,
+  userDefaultEmail?: string,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
 
   const [processing, setProcessing] = React.useState(false);
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
+  const [name, setName] = React.useState(props.userDefaultName || '');
+  const [email, setEmail] = React.useState(props.userDefaultEmail || '');
   const [errorMessage, setErrorMessage] = React.useState(null);
 
   const [saveForLater, setSaveForLater] = React.useState(false);

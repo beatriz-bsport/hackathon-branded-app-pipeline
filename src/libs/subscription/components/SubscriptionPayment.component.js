@@ -108,6 +108,9 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
+
+  sepaDefaultName?: string,
+  sepaDefaultEmail?: string,
 };
 
 type State = {
@@ -290,6 +293,8 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                   detachPaymentMethod={this.props.detachPaymentMethod}
                   snackbarErrorMsg={this.props.snackbarErrorMsg}
                   snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                  sepaDefaultName={this.props.sepaDefaultName}
+                  sepaDefaultEmail={this.props.sepaDefaultEmail}
                 />
               )}
             </div>
@@ -324,6 +329,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     );
   }
 }
+
 const styles = (theme) => ({
   title: {
     padding: theme.spacing(2),

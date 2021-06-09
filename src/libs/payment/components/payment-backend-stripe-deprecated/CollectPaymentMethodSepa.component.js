@@ -42,18 +42,24 @@ type Props = {
   stripe: Stripe,
   elements: StripeElement,
   classes: Object,
+  defaultName?: string,
+  defaultEmail?: string,
 };
 
 export class CollectPaymentMethod extends React.Component<Props> {
-  state = {
-    error: false,
-    clientSecret: null,
-    success: null,
-    billing_details: {
-      name: '',
-      email: '',
-    },
-  };
+  constructor(props: Props) {
+    super();
+
+    this.state = {
+      error: false,
+      clientSecret: null,
+      success: null,
+      billing_details: {
+        name: props.defaultName || '',
+        email: props.defaultEmail || '',
+      },
+    };
+  }
 
   componentDidMount() {
     this.props

@@ -74,6 +74,7 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
+  auth: any,
 };
 
 export class MarketplaceContract extends React.Component<Props> {
@@ -209,6 +210,8 @@ export class MarketplaceContract extends React.Component<Props> {
                     detachPaymentMethod={this.props.detachPaymentMethod}
                     snackbarErrorMsg={this.props.snackbarErrorMsg}
                     snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                    sepaDefaultName={this.props.auth.name}
+                    sepaDefaultEmail={this.props.auth.username}
                   />
                 </Elements>
               </div>
@@ -255,6 +258,7 @@ export default compose(
       detachPaymentMethodLoading:
         state.paymentBackend.detachPaymentMethod.loading,
       companyId: state.marketplace.settings.company,
+      auth: state.auth,
     }),
     {
       fetchMarketplaceContractList,

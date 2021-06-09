@@ -10,32 +10,30 @@ export const fetchCoachPaymentRules = async () => {
   return getAuth(`${API_V1_URI}/coach_payment_rules/get_coach_payment_rules/`);
 };
 
-export const fetchCoachSessionPerformance = async (
+export const fetchCoachSessionPerformance = async (params: {
   associatedCoachId: number,
   start_timestamp: number,
   end_timestamp: number,
-) => {
+  sessionId: ?number,
+}) => {
   return getAuth(
     `${API_V1_URI}/coach_payment_rules/get_coach_session_performance/${buildUrlParams(
       {
-        associatedCoachId,
-        start_timestamp,
-        end_timestamp,
+        ...params,
       },
     )}`,
   );
 };
-export const fetchCoachPrivateServicePerformance = async (
+export const fetchCoachPrivateServicePerformance = async (params: {
   associatedCoachId: number,
   start_timestamp: number,
   end_timestamp: number,
-) => {
+  privateBookingId: number,
+}) => {
   return getAuth(
     `${API_V1_URI}/coach_payment_rules/get_coach_private_service_performance/${buildUrlParams(
       {
-        associatedCoachId,
-        start_timestamp,
-        end_timestamp,
+        ...params,
       },
     )}`,
   );

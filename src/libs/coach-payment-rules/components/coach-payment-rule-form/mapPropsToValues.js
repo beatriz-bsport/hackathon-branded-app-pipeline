@@ -72,6 +72,7 @@ export const mapInitalPropsToValues = (initial, ruleTypeCreation) => {
     base_remuneration_type_confirmed: FIXED_BASE_REMUNERATION,
     base_remuneration_type_cancellation: FIXED_BASE_REMUNERATION,
     remuneration_on_cancellation: false,
+    base_remuneration_for_cancellation: 0,
     exclude_cancelled_from_confirmed_bookings: false,
     include_taxe: false,
     base_remuneration: 0,
@@ -85,6 +86,7 @@ export const mapInitalPropsToValues = (initial, ruleTypeCreation) => {
     bonus_for_confirmed_bookings: [],
     bonus_for_cancelled_bookings: [],
     associated_coach: [],
+    private_associated_coach: [],
   };
 };
 

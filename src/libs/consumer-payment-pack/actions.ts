@@ -20,6 +20,7 @@ import {
   fetchMassExtensions as fetchMassExtensionsAPI,
   deleteMassExtension as deleteMassExtensionAPI,
   unblock as unblockAPI,
+  fetchConsumerPaymentPackMaxoutBooking as fetchConsumerPaymentPackMaxoutBookingAPI,
 } from './api';
 
 import { monitorBackgroundTask } from '../background-task/actions';
@@ -223,6 +224,39 @@ export function fetchConsumerPaymentPackCreditRefundList(
       }
     }
     dispatch(partialRefundActions.isLoading(false));
+  };
+}
+
+export const consumerPaymentPackMaxoutBookingAction = {
+  isLoading: createAction('CONSUMER_PACK/MAX_OUT/IS_LOADING'),
+  error: createAction('CONSUMER_PACK/MAX_OUT/ERROR'),
+  success: createAction('CONSUMER_PACK/MAX_OUT/SUCCESS'),
+};
+
+export function fetchConsumerPaymentPackMaxoutBooking(
+  consumer_payment_pack_ids: number[],
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(consumerPaymentPackMaxoutBookingAction.isLoading(true));
+    dispatch(consumerPaymentPackMaxoutBookingAction.error(null));
+    try {
+      const response = await fetchConsumerPaymentPackMaxoutBookingAPI({
+        id__in: consumer_payment_pack_ids,
+      });
+
+      dispatch(consumerPaymentPackMaxoutBookingAction.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(consumerPaymentPackMaxoutBookingAction.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(consumerPaymentPackMaxoutBookingAction.isLoading(false));
   };
 }
 

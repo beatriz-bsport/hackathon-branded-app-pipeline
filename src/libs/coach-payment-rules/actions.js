@@ -98,6 +98,7 @@ export const coachPaymentSimulation = {
   error: createAction('COACH_PAYMENT_RULES/SIMULATION/ERROR'),
   isLoading: createAction('COACH_PAYMENT_RULES/SIMULATION/IS_LOADING'),
   success: createAction('COACH_PAYMENT_RULES/SIMULATION/SUCCESS'),
+  reset: createAction('COACH_PAYMENT_RULES/SIMULATION/RESET'),
 };
 
 export function runCoachPaymenrRuleSimulation(id: number, params: object) {
@@ -113,7 +114,6 @@ export function runCoachPaymenrRuleSimulation(id: number, params: object) {
     dispatch(coachPaymentSimulation.isLoading(false));
   };
 }
-
 export const coachSessionPerformanceActions = {
   error: createAction('COACH/PERFORMANCE2/ERROR'),
   isLoading: createAction('COACH/PERFORMANCE2/IS_LOADING'),
@@ -121,24 +121,24 @@ export const coachSessionPerformanceActions = {
 };
 
 export function fetchCoachSessionPerformanceAction(
-  associatedCoachId: number,
-  start_timestamp: number,
-  end_timestamp: number,
+  params: {
+    associatedCoachId: number,
+    start_timestamp: number,
+    end_timestamp: number,
+    sessionId: ?number,
+  },
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(coachSessionPerformanceActions.isLoading(true));
     dispatch(coachSessionPerformanceActions.error(null));
     try {
-      const response = await fetchCoachSessionPerformance(
-        associatedCoachId,
-        start_timestamp,
-        end_timestamp,
-      );
+      const response = await fetchCoachSessionPerformance(params);
       dispatch(
         coachSessionPerformanceActions.success({
-          associatedCoachId,
+          associatedCoachId: params.associatedCoachId,
           data: response.data,
+          sessionId: params.sessionId,
         }),
       );
       if (options && options.onSuccess) options.onSuccess();
@@ -158,24 +158,24 @@ export const coachPrivateServicePerformanceActions = {
 };
 
 export function fetchCoachPrivateServicePerformanceAction(
-  associatedCoachId: number,
-  start_timestamp: number,
-  end_timestamp: number,
+  params: {
+    associatedCoachId: number,
+    start_timestamp: number,
+    end_timestamp: number,
+    privateBookingId: number,
+  },
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(coachPrivateServicePerformanceActions.isLoading(true));
     dispatch(coachPrivateServicePerformanceActions.error(null));
     try {
-      const response = await fetchCoachPrivateServicePerformance(
-        associatedCoachId,
-        start_timestamp,
-        end_timestamp,
-      );
+      const response = await fetchCoachPrivateServicePerformance(params);
       dispatch(
         coachPrivateServicePerformanceActions.success({
-          associatedCoachId,
+          associatedCoachId: params.associatedCoachId,
           data: response.data,
+          privateBookingId: params.privateBookingId,
         }),
       );
       if (options && options.onSuccess) options.onSuccess();
@@ -193,9 +193,8 @@ export const sessionCoachPaymentRule = {
   success: createAction('SESSIONS/COACH_PAYMENT_RULE/SUCCESS'),
 };
 export function setSessionCoachPaymentRule(
-  associatedCoachId: number,
-  sessionId: number,
-  coachPaymentRuleId: number,
+  { associatedCoachId, sessionId, coachPaymentRuleId },
+  options: ?OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(sessionCoachPaymentRule.isLoading(true));
@@ -214,6 +213,8 @@ export function setSessionCoachPaymentRule(
         }),
       );
       dispatch(snackbarSuccess('paymentRules.update.success'));
+      if (options && options.onSuccess)
+        options.onSuccess({ associatedCoachId, sessionId });
     } catch (error) {
       console.error(error);
       dispatch(snackbarError('paymentRules.update.error'));
@@ -229,10 +230,8 @@ export const setPrivateBookingCoachPaymentRuleActions = {
   success: createAction('PRIVATE_BOOKING/COACH_PAYMENT_RULE/SUCCESS'),
 };
 export function setPrivateBookingCoachPaymentRule(
-  associatedCoachId: number,
-  privateBookingId: number,
-  coachPaymentRuleId: number,
-  options: OptionCallback,
+  { associatedCoachId, privateBookingId, coachPaymentRuleId },
+  options: ?OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(setPrivateBookingCoachPaymentRuleActions.isLoading(true));
@@ -251,6 +250,8 @@ export function setPrivateBookingCoachPaymentRule(
         }),
       );
       dispatch(snackbarSuccess('paymentRules.update.success'));
+      if (options && options.onSuccess)
+        options.onSuccess({ associatedCoachId, privateBookingId });
     } catch (error) {
       console.error(error);
       dispatch(snackbarError('paymentRules.update.error'));

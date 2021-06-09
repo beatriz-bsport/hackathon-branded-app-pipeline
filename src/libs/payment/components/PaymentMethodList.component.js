@@ -40,6 +40,9 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
+
+  sepaDefaultName?: string,
+  sepaDefaultEmail?: string,
 };
 
 export const PaymentMethodList = (props: Props) => {
@@ -96,6 +99,8 @@ export const PaymentMethodList = (props: Props) => {
               detachPaymentMethod={props.detachPaymentMethod}
               snackbarErrorMsg={props.snackbarErrorMsg}
               snackbarSuccessMsg={props.snackbarSuccessMsg}
+              sepaDefaultName={props.sepaDefaultName}
+              sepaDefaultEmail={props.sepaDefaultEmail}
             />
           ))}
         {!!props.requestSetupIntentSecret && (
@@ -118,6 +123,8 @@ export const PaymentMethodList = (props: Props) => {
           paymentMethodType={props.paymentMethodType}
           refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
           onClose={() => props.setCollectPaymentMethodIsOpen(false)}
+          defaultName={props.sepaDefaultName}
+          defaultEmail={props.sepaDefaultEmail}
         />
       )}
     </div>

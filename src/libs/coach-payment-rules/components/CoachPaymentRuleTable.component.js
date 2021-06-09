@@ -52,7 +52,24 @@ export function CoachPaymentRuleTable(props: Props) {
         {props.items.map((rule) => (
           <TableRow key={rule.id}>
             <TableCell>{rule.name}</TableCell>
-            <TableCell>{rule.base_remuneration}</TableCell>
+
+            <TableCell>
+              {
+                // eslint-disable-next-line
+                parseFloat(rule.base_remuneration) === 0
+                  ? rule.bonus_coach_payment.find(
+                      (bonus) => bonus.applicability === 0 && bonus.kind === 2,
+                    )
+                    ? `${
+                        rule.bonus_coach_payment.find(
+                          (bonus) =>
+                            bonus.applicability === 0 && bonus.kind === 2,
+                        ).bonus
+                      }%`
+                    : 0
+                  : rule.base_remuneration
+              }
+            </TableCell>
             <TableCell>{rule.min_remuneration}</TableCell>
             <TableCell>{rule.max_remuneration}</TableCell>
             <TableCell>{rule.coaches.map((c) => c.name).join(', ')}</TableCell>

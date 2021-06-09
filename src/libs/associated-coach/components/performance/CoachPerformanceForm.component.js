@@ -19,6 +19,7 @@ type Props = {
   classes: Object,
   isSubmitting: boolean,
   disabled: ?boolean,
+  loading: boolean,
 };
 
 export function CoachPerformanceForm(props: Props) {
@@ -37,7 +38,7 @@ export function CoachPerformanceForm(props: Props) {
         id="button_remuneration_calculate"
         variant="outlined"
         color="secondary"
-        disabled={isSubmitting || !!props.disabled}
+        disabled={isSubmitting || !!props.disabled || props.loading}
       >
         {t('calculate')}
       </Submit>
@@ -67,11 +68,11 @@ export default compose(
     }),
     validationSchema: CoachPerformanceSchema,
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
-      const updateValues = {
+      const timeIntervalValue = {
         ...values,
-        dateEnd: values.dateStart.add(1, 'M'),
+        dateEnd: Moment(values.dateStart).endOf('month'),
       };
-      onSubmit(updateValues, {
+      onSubmit(timeIntervalValue, {
         onError: () => setSubmitting(false),
         onSuccess: () => setSubmitting(false),
       });

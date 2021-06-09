@@ -19,6 +19,7 @@ import {
   runCoachPaymenrRuleSimulation,
   showDialog,
   showSimulationDialog,
+  coachPaymentSimulation,
 } from '../../libs/coach-payment-rules/actions';
 import {
   CoachPaymentRulesSelector,
@@ -54,6 +55,7 @@ type Props = {
   handleOpen: () => void,
   handleClose: () => void,
   handleCloseSimulation: () => void,
+  handlePrevious: () => void,
   runCoachPaymenrRuleSimulation: () => void,
   paymentPackList: Array<paymentPack>,
   simulationResult: Object<any>,
@@ -118,8 +120,7 @@ export class PaymentRulesDashboard extends Component<Props, State> {
             onSubmit={this.props.runCoachPaymenrRuleSimulation}
             handleCloseSimulation={this.props.handleCloseSimulation}
             handlePrevious={(payment_rule) => {
-              this.props.setInitial(payment_rule);
-              this.props.handleOpen();
+              this.props.handlePrevious(payment_rule);
             }}
             coachPaymentRule={this.props.ruleForSimulation}
             simulationResult={this.props.simulationResult}
@@ -187,7 +188,17 @@ export default compose(
         dispatch(showDialog(false));
         setInitial(null);
       },
-      handleCloseSimulation: () => dispatch(showSimulationDialog(false)),
+      handleCloseSimulation: () => {
+        dispatch(showSimulationDialog(false));
+        setInitial(null);
+        dispatch(coachPaymentSimulation.reset());
+      },
+      handlePrevious: (payment_rule) => {
+        setInitial(payment_rule);
+        dispatch(showDialog(true));
+        dispatch(showSimulationDialog(false));
+        dispatch(coachPaymentSimulation.reset());
+      },
       upsertCoachPaymentRule: (p) =>
         dispatch(
           upsertCoachPaymentRule(p, {

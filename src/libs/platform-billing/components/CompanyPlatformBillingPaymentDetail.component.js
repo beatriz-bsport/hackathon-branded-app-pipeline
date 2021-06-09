@@ -22,6 +22,8 @@ type Props = {
   requestSetupIntentSecret: () => void,
   refreshSavedPaymentMethodList: () => void,
   onCollectPaymentMethodSuccess: ?() => void,
+  sepaDefaultName?: string,
+  sepaDefaultEmail?: string,
 };
 
 export const CompanyPlatformBillingDetail = (props: Props) => {
@@ -83,6 +85,8 @@ export const CompanyPlatformBillingDetail = (props: Props) => {
             onSuccess={props.onCollectPaymentMethodSuccess}
             refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
             onClose={() => props.setCollectPaymentMethodSepaIsOpen(false)}
+            defaultName={props.sepaDefaultName}
+            defaultEmail={props.sepaDefaultEmail}
           />
         )}
         {props.collectPaymentMethodCBIsOpen && (

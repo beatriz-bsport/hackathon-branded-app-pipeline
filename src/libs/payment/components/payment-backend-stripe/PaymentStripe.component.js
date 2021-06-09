@@ -58,6 +58,9 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
+
+  sepaDefaultName?: string,
+  sepaDefaultEmail?: string,
 };
 
 const STRIPE_PAYMENT_METHOD_FORM_COMPONENT = {
@@ -146,6 +149,8 @@ export const PaymentStripe = (props: Props) => {
               ) : null
             }
             termsAndConditionsAccepted={props.termsAndConditionsAccepted}
+            userDefaultName={props.sepaDefaultName}
+            userDefaultEmail={props.sepaDefaultEmail}
           />
         </Elements>
       </div>

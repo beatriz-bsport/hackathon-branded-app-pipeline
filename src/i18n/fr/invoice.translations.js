@@ -315,7 +315,8 @@ exports.default = {
       label: 'Crédit',
     },
     quantity: 'Quantité',
-    voucher: 'Réduction: {{ voucher }} €',
+    voucher: 'Réduction: {{ voucher }}',
+    discount: 'Réduction',
   },
   section: {
     invoiceItemList: {

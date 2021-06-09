@@ -84,7 +84,27 @@ export default handleActions(
     [coachPaymentSimulation.error]: (state, { payload }) => {
       return state.setIn(['simulation', 'error'], payload);
     },
+    [coachPaymentSimulation.reset]: (state) => {
+      return state.setIn(['simulation', 'result'], {});
+    },
     [coachSessionPerformanceActions.success]: (state, { payload }) => {
+      if (payload.sessionId) {
+        const index = state.performance.session.byAssociatedCoachId[
+          payload.associatedCoachId
+        ].findIndex(
+          (sessionperf) => sessionperf.session_id === payload.sessionId,
+        );
+        return state.setIn(
+          [
+            'performance',
+            'session',
+            'byAssociatedCoachId',
+            payload.associatedCoachId,
+            index,
+          ],
+          payload.data[0],
+        );
+      }
       return state.setIn(
         [
           'performance',
@@ -102,6 +122,24 @@ export default handleActions(
       return state.setIn(['performance', 'error'], payload);
     },
     [coachPrivateServicePerformanceActions.success]: (state, { payload }) => {
+      if (payload.privateBookingId) {
+        const index = state.performance.private_service.byAssociatedCoachId[
+          payload.associatedCoachId
+        ].findIndex(
+          (privateperf) =>
+            privateperf.private_booking_id === payload.privateBookingId,
+        );
+        return state.setIn(
+          [
+            'performance',
+            'private_service',
+            'byAssociatedCoachId',
+            payload.associatedCoachId,
+            index,
+          ],
+          payload.data[0],
+        );
+      }
       return state.setIn(
         [
           'performance',

@@ -2080,7 +2080,8 @@
         "actions": {
             "goToSubscription": "See all subscriptions",
             "goToPass": "See all pass",
-            "goToCalendar": "See club schedule"
+            "goToCalendar": "See club schedule",
+            "goToHome": "View all services"
         },
         "debt": {
             "explainPayment": "This amount will be sent to the club in order to regularize your debt",
@@ -4457,8 +4458,8 @@
                 "helpTitle": "How is done synchronisation ?",
                 "helpContent": "These actions are triggered when the associated event is raised on ActiveCampaign.",
                 "title": "Push ActiveCampaign informations to bsport",
-                "CLIENT_WON": "Create a client account on bsport when for a prospect which is statued as 'WON' on a deal",
-                "CONTACT_TAG": "Create a client account on bsport when for a prospect which is tagged as 'won' on ActiveCampaign"
+                "CLIENT_WON": "Create a client account on bsport when a prospect status moves to 'WON' on a deal",
+                "CONTACT_TAG": "Create a client account on bsport when a prospect is tagged as 'won' on ActiveCampaign"
             },
             "link": {
                 "helpTitle": "How is synchronisation done?",
@@ -4692,11 +4693,15 @@
         "addNew": "New payment configuration",
         "select": {
             "placeholder": "Select a payment configuration",
-            "placeholderOverride": "Teacher default rule"
+            "placeholderOverride": "No rule associated with session",
+            "coachPaymentRuleForPrivateService": "Appointments",
+            "coachPaymentRuleForSessions": "Group classes & Workshops",
+            "reset": "Disassociate rule"
         },
         "common": {
             "from": "From",
-            "until": "Until"
+            "until": "Until",
+            "pick_a_month": "Pick a Month"
         },
         "calculate": "Compute",
         "title": "Teacher payment for {{name}}",
@@ -4728,7 +4733,76 @@
             "error": "Error during deletion",
             "success": "Rate removed"
         },
-        "pageTitle": "Payment rates"
+        "pageTitle": "Payment rates",
+        "coach_payment_rules": {
+            "Simulator": {
+                "student_did_not_attend": "Absent student",
+                "student_attended": "Present student",
+                "total_payment": "Final payment",
+                "marginValue": "Marginal value",
+                "forCancelledBookings": "Number of absences",
+                "forConfirmedBookings": "Number of students",
+                "forEachBooking": "for each booking",
+                "cancellations": "absences or late cancellations",
+                "and": "And",
+                "students": "students",
+                "for": "For",
+                "resultTitle": "Result of your simulation (teacher payments)",
+                "title": "Payment rule simulator"
+            },
+            "Errors": {
+                "lowerIntervalTypeError": "The inferior interval needs to be an inferior number or equal to 0",
+                "taxeRateTypeError": "The tax rate has to be a number between 0 and 100.",
+                "taxeRateRequired": "Tax is a required field if you have ticked the box \"Calculate ATI\" above.",
+                "percentagebaseRemunerationRequired": "The compensation by percentage is a required field if you ticked the box above.",
+                "baseRemunerationTypeError": "The base pay needs to be a positive number.",
+                "invalideUpperInterval": "The superior interval must be a number.",
+                "invalidLowerInterval": "The superior interval must be higher than the inferior interval.",
+                "invalidBonusAmount": "The bonus must be above or equal to 0.1.",
+                "nameRequired": "The name is a mandatory field."
+            },
+            "Bonuses": {
+                "bonus_rules": "Bonus rules",
+                "forEachBooking": "for each booking",
+                "to": "to",
+                "from": "From",
+                "addBonus": "ADD A BONUS RULE",
+                "bonus": "Bonus"
+            },
+            "paymentPackPlaceHolder": "Select passes",
+            "excludePaymentPack": "Exclude certain passes",
+            "bonusForEachReservationInInterval": "Add a bonus for each appointment in intervals",
+            "fixedBonusbyInterval": "Add a fixed bonus by interval",
+            "cancellationBaseHelper": "Help : By ticking this box the teacher will not receive any bonus payment on the marginal value of cancelled bookings",
+            "taxeLongHelper": "Help : All percentages are calculated on the marginal value of each booking excluding tax. The added tax applies to the marginal value as well as all fix and bonus.",
+            "taxeConciseHelper": "Help : All percentages are calculated on the marginal value of each booking excluding tax.",
+            "add_taxe_rate": "Tax to be added",
+            "taxe_rate": "Calculation ATI",
+            "max_remuneration": "Maximum",
+            "min_remuneration": "Minimum",
+            "remunerationLimits": "Payment limits",
+            "differentRemunerationForCancellation": "Apply different payment rules when counting absent students ",
+            "addRemunerationOnCancellation": "Compensate teacher in the case of a late cancellation and absence",
+            "percentage_base": "Percentage",
+            "base_remuneration": "Fixed pay",
+            "forCancelledBookings": "For late cancellations and absences",
+            "forConfirmedBookings": "For students that are present",
+            "calculationMethod": "Calculation method",
+            "actions": "Actions",
+            "coaches": "Teachers",
+            "name": "Name",
+            "addNewCoachPaymentRule": "New payment rule"
+        },
+        "tabs": {
+            "all": "All classes",
+            "appointment": "Appointment",
+            "session": "Group classes & Workshops"
+        },
+        "fabButton": {
+            "addNewForRDV": "Appointment",
+            "addNewForSession": "Group classes & Workshops"
+        },
+        "paymentRules": "Payment rules"
     },
     "payment": {
         "explainOption": "You will be notified by email when a slot will be free",
@@ -5136,7 +5210,10 @@
             "add": "Add",
             "edit": "Modify",
             "title": "Payment method",
-            "none": "No payment method has been saved"
+            "none": "No payment method has been saved",
+            "detach": {
+                "pm_deleted": "Deleted payment method"
+            }
         },
         "paymentEngine": {
             "label": {
@@ -5332,6 +5409,10 @@
             },
             "invoice": {
                 "label": "Invoice {{uuid}} : {{price}}€"
+            },
+            "listItem": {
+                "nextBillingDate": "Next billing on {{ d }}",
+                "startingAt": "Starts the {{ d }}"
             }
         },
         "contract": {
@@ -8230,6 +8311,11 @@
             "update": {
                 "success": "Updated parameters",
                 "error": "Unable to update, please try again later"
+            }
+        },
+        "paymentMethod": {
+            "detach": {
+                "pm_deleted": "Payment method deleted"
             }
         }
     },

@@ -249,7 +249,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <ColorInput
             color={this.props.strokeColor}
             onChange={this.props.onStrokeColorChange}
-            transparentColorAvailable={true}
+            transparentColorAvailable
           />
         </div>
 
@@ -258,7 +258,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <ColorInput
             color={this.props.fillColor}
             onChange={this.props.onFillColorChange}
-            transparentColorAvailable={true}
+            transparentColorAvailable
           />
         </div>
       </div>

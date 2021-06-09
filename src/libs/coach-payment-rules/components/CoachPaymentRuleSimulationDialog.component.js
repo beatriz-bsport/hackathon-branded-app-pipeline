@@ -57,7 +57,14 @@ export const CoachPaymentRuleSimulationDialog = (props: Props) => {
         };
   const [simulationParams, setSimulationParams] = useState(initialFieldsState);
   return (
-    <Dialog fullWidth maxWidth="md" open={open} onClose={handleCloseSimulation}>
+    <Dialog
+      fullWidth
+      maxWidth="md"
+      open={open}
+      onClose={handleCloseSimulation}
+      disableBackdropClick
+      disableEscapeKeyDown
+    >
       <DialogTitle id="form-dialog-title">
         {t('coach_payment_rules.Simulator.title')}
         <Typography variant="body2">
@@ -261,20 +268,6 @@ export const CoachPaymentRuleSimulationDialog = (props: Props) => {
                         color="green"
                       />
                     </Grid>
-                    {coachPaymentRule.kind ===
-                      COACH_PAYMENT_RULE_FOR_SESSION && (
-                      <Grid item xs={6}>
-                        <Figure
-                          name={t('coach_payment_rules.Simulator.bonus')}
-                          count={`${getCurrencyDisplay()}
-                      ${
-                        props.simulationResult[props.coachPaymentRule.id]
-                          .bonus || 0
-                      }`}
-                          color="blue"
-                        />
-                      </Grid>
-                    )}
                   </Grid>
                 )}
             </div>

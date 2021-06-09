@@ -700,9 +700,9 @@
             "credits": "Kosten in krediet(en)",
             "priceCategory": "Facturatie",
             "duration_minute": "Duur",
-            "lastSession": "De laatste sessie is op",
+            "lastSession": "Einddatum",
             "firstSessionAt": "in",
-            "firstSessionOn": "De eerste sessie is op",
+            "firstSessionOn": "Startdatum",
             "timeSettings": "Tijd en datum",
             "monthly": "Maandelijks",
             "weekly": "Wekelijks",
@@ -728,9 +728,9 @@
                     "explainHardDelete": "Wil je deze sessie verwijderen? Let op: deze actie is definitief en de sessie wordt onzichtbaar. Als een sessie reserveringen bevat kan het niet worden verwijderen.",
                     "buttonHardDelete": "Verwijderen"
                 },
-                "explainNotificationOnEdit": "De ingeschreven leden over de wijziging(en) informeren.",
-                "explainRecursiveOfferEdit": "Wil je ALLE vergelijkbare sessies wijzigen?",
-                "explainRecursiveOfferDelete": "Wil je ALLE vergelijkbare sessies verwijderen?",
+                "explainNotificationOnEdit": "Ingeschreven leden over de wijziging(en) informeren",
+                "explainRecursiveOfferEdit": "Wil je alle vergelijkbare sessies wijzigen?",
+                "explainRecursiveOfferDelete": "Wil je alle vergelijkbare sessies verwijderen?",
                 "broadcast_link": {
                     "error": "De link is verkeerd. Het moet beginnen met http:// of https:// en mag geen spaties bevatten",
                     "explainZoomApp": "BSPORT Solution maakt automatisch de link via Zoom aan."
@@ -738,7 +738,7 @@
                 "changeEstablishment": "Wijzig de vestiging",
                 "changeCoach": "Instructeur bewerken",
                 "changeDate": "Wijzig de tijd / datum",
-                "cancelTitle": "Sessie annuleren",
+                "cancelTitle": "Sessies annuleren",
                 "deleteTitle": "Sessie verwijderen",
                 "warningPackonEdit": "Het is mogelijk dat na deze wijziging(en) bepaalde lidmaatschappen niet meer compatibel zijn. Vergeet niet om de compatibiliteit van je cursuskaarten voor je vestiging(en)/instructeur(s) te controleren.",
                 "substituteEstablishmentLabel": "Vestiging (tijdelijke plaats)",
@@ -949,8 +949,8 @@
             "attendant": "aanwezig(en)",
             "noEmptyDuration": "De duur kan enkel positief zijn",
             "restoreModal": {
-                "explain": "De annulering van deze sessie is ongedaan gemaakt; leden kunnen zich dus weer voor deze sessie inschrijven. Geannuleerde reserveringen worden echter niet hersteld.",
-                "title": "Herstel sessie"
+                "explain": "De annulering van deze sessie is ongedaan gemaakt. Leden kunnen zich dus weer voor deze sessie inschrijven. Geannuleerde reserveringen worden niet hersteld.",
+                "title": "Sessies herstellen"
             },
             "unpaidInvoices": "Openstaande facturen"
         },
@@ -1120,7 +1120,7 @@
             "nothing": "Geen",
             "date": "Datum",
             "offers": "Sessies",
-            "booking_s": "Sessie(s)",
+            "booking_s": "Sessies",
             "pass": "Cursuskaarten",
             "selected": "Geselecteerd",
             "transactions": "Transacties",
@@ -2230,7 +2230,7 @@
             "updated": "Wijzigingen opgeslagen"
         },
         "noConsumerPack": "Er zijn nog geen aankopen geregistreerd.",
-        "reverted": "Factuur geannuleerd",
+        "reverted": "Geannuleerde facturen",
         "link": {
             "copied": "Link gekopieerd",
             "copyLink": "De directe link naar de betaalpagina kopiëren"
@@ -2271,8 +2271,8 @@
             "isActive": "Actief",
             "isExpired": "Verlopen",
             "invoice": "Factuur",
-            "reverted": "Factuur geannuleerd",
-            "notReverted": "Niet-geannuleerde factuur",
+            "reverted": "Geannuleerde facturen",
+            "notReverted": "Niet-geannuleerde facturen",
             "credits": "Krediet(en)",
             "expiration": "Geldigheid",
             "all": "Alle lidmaatschappen"
@@ -2287,7 +2287,7 @@
         },
         "only_vod_access": "Alleen beschikbaar voor Video On Demand",
         "massExtension": {
-            "title": "De geldigheid voor alle leden verlengen",
+            "title": "[Formulier] Geldigheid verlengen",
             "minDate": "Niet eerder dan",
             "dateHelpText": "Verleng alle lidmaatschappen die tussen X en Y verlopen",
             "helpText": "Hier kun je de geldigheid van dit lidmaatschap voor al je leden in één keer verlengen. Let op: deze actie is definitief.",
@@ -2996,8 +2996,8 @@
             "deleteOffer": "Annuleren"
         },
         "forms": {
-            "old_date": "Oude rooster:",
-            "new_date": "Nieuw rooster:",
+            "old_date": "Origineel:",
+            "new_date": "Wijziging:",
             "delete": {
                 "buttonHardDelete": "Verwijderen"
             }
@@ -3040,7 +3040,7 @@
             "showMonth": "Maandoverzicht"
         },
         "liveOfferEdit": {
-            "editSimilarOffers": "Selecteer de te wijzigen sessies.",
+            "editSimilarOffers": "Selecteer de te wijzigen sessies",
             "unselectAll": "Deselecteer alles",
             "selectAll": "Selecteer alles",
             "select": "Selecteer de te wijzigen sessies",
@@ -3404,14 +3404,14 @@
                 "bookingNumber": "Alle reserveringen",
                 "bookingNumber_plural": "1e reservering",
                 "ifKind": {
-                    "notRefunded": "Wanneer de reservering te laat is geannuleerd",
-                    "refunded": "Wanneer de reservering op tijd is geannuleerd",
-                    "absence": "Wanneer het lid afwezig is",
-                    "attendance": "Wanneer het lid aanwezig is"
+                    "notRefunded": "Te late annulering",
+                    "refunded": "Tijdige annulering",
+                    "absence": "Afwezigheid",
+                    "attendance": "Aanwezigheid"
                 },
-                "bookingNumberFirst": "1e reservering",
-                "bookingNumberSecond": "2e reservering",
-                "bookingNumberThird": "3e reservering",
+                "bookingNumberFirst": "Reservering: 1",
+                "bookingNumberSecond": "Reservering: 2",
+                "bookingNumberThird": "Reservering: 3",
                 "bookingNumberAll": "Iedere reservering",
                 "bookingNumberN": "Reservering: {{notify_booking_nb}}"
             },
@@ -3623,8 +3623,8 @@
             "memberFormPage": "[Formulier] Lid"
         },
         "metaActivity": {
-            "metaActivityEditForm": "[Formulier] Activiteiten",
-            "metaActivityFormPage": "[Formulier] Activiteiten",
+            "metaActivityEditForm": "[Formulier] Groepsactiviteiten",
+            "metaActivityFormPage": "[Formulier] Groepsactiviteiten",
             "metaActivityList": "Activiteiten"
         },
         "invoice": {
@@ -4763,7 +4763,7 @@
         "consumerPass": {
             "expiresOn": "Verloopt op: {{date}}",
             "current_credits": "{{current_credits}} / {{credits}} krediet(en)",
-            "isReverted": "Factuur geannuleerd",
+            "isReverted": "Geannuleerde facturen",
             "detail": {
                 "invoice": "Gekoppelde factuur",
                 "booking": "Gekoppelde afspraken",
@@ -5180,8 +5180,8 @@
             "isActive": "Actief",
             "isExpired": "Verlopen",
             "invoice": "Factuur",
-            "reverted": "Factuur geannuleerd",
-            "notReverted": "Niet-geannuleerde factuur",
+            "reverted": "Geannuleerde facturen",
+            "notReverted": "Niet-geannuleerde facturen",
             "credits": "Krediet(en)",
             "expiration": "Geldigheid",
             "all": "Alle lidmaatschappen"
@@ -5450,7 +5450,7 @@
             "placeholder": "Selecteer een Payroll",
             "coachPaymentRuleForPrivateService": "Afspraken",
             "coachPaymentRuleForSessions": "Groepsactiviteiten en workshops",
-            "reset": "Payroll-regel ontkoppelen"
+            "reset": "Standaardregel van de instructeur gebruiken"
         },
         "common": {
             "from": "Begin",
@@ -5482,15 +5482,15 @@
                 "marginValue": "Marginale waarde",
                 "forCancelledBookings": "Aantal afwezigen",
                 "forConfirmedBookings": "Aantal aanwezigen",
-                "forEachBooking": "Per reservering",
-                "cancellations": "Afwezigen en te late annuleringen",
+                "forEachBooking": "per reservering",
+                "cancellations": "afwezigen en te late annuleringen",
                 "and": "En",
-                "students": "Leden",
+                "students": "leden",
                 "for": "Voor",
                 "helper": "Controleer hier of je payroll-regels met je verwachtingen overeenkomen.",
-                "resultTitle": "Resultaten van de payroll simulatie",
+                "resultTitle": "Resultaten van je payroll simulatie",
                 "title": "Payroll simulatie",
-                "which": "Uitbetaler"
+                "which": "Verdiensten:"
             },
             "Errors": {
                 "lowerIntervalTypeError": "Het onderste interval moet gelijk of minder dan 0 zijn.",
@@ -5524,7 +5524,7 @@
             "fixedBonusbyInterval": "Een vaste bonus per interval toevoegen",
             "cancellationBaseHelper": "Vink dit vak aan om geen bonus over de marginale waarde van annuleringen uit te betalen.",
             "taxeLongHelper": "Alle percentages worden over de marginale waarde per reservering excl. btw berekend. De btw wordt ook op de marginale waarde, vaste bedragen en bonussen toegepast.",
-            "taxeConciseHelper": "Weetje: alle percentages worden over de marginale waarde per reservering excl. btw berekend.",
+            "taxeConciseHelper": "Alle percentages worden over de marginale waarde per reservering excl. btw berekend.",
             "add_taxe_rate": "Toe te voegen btw",
             "taxe_rate": "Incl. btw",
             "max_remuneration": "Max.",
@@ -5540,7 +5540,7 @@
             "actions": "Acties",
             "coaches": "Instructeurs",
             "name": "Naam",
-            "addNewCoachPaymentRule": "Een nieuwe payroll-regel toevoegen"
+            "addNewCoachPaymentRule": "[Formulier] Payroll-regel"
         },
         "tabs": {
             "all": "Selecteer alles",
@@ -6649,7 +6649,7 @@
         "form": {
             "duration": {
                 "hour": "Uur:",
-                "hour_plural": "Uren:",
+                "hour_plural": "Uur:",
                 "day": "Dag:",
                 "day_plural": "Dagen:",
                 "minute": "Minuut:",
@@ -7041,7 +7041,7 @@
             "goToPaymentEditor": "Betaling",
             "goToSubscription": "Toon abonnement",
             "revert": "Annuleren",
-            "invoiceReverted": "Factuur geannuleerd",
+            "invoiceReverted": "Geannuleerde facturen",
             "consumeBalance": "Met saldo betalen",
             "explainPdfDraft": "Deze factuur is nog een concept. De PDF is nog niet beschikbaar.",
             "addFooter": "Voetnoot wijzigen"
@@ -7708,18 +7708,18 @@
             "groupTitle": {
                 "paymentPack": "Cursuskaarten",
                 "privateBooking": "Afspraken",
-                "booking": "Reserveringen"
+                "booking": "Groepsactiviteiten"
             },
             "fabLabels": {
                 "payment_pack": "Cursuskaarten",
-                "private_service": "Afspraak",
-                "establishment": "Vestiging",
-                "meta_activity": "Activiteit",
-                "workshop": "Workshop"
+                "private_service": "Afspraken",
+                "establishment": "Vestigingen",
+                "meta_activity": "Groepsactiviteiten",
+                "workshop": "Workshops"
             },
             "cancel": "Annuleren",
             "next": "Volgende",
-            "paymentPackPlaceholder": "Cursuskaart",
+            "paymentPackPlaceholder": "Cursuskaarten",
             "selectIdentifierLabel": {
                 "payment_pack": "Selecteer een cursuskaart",
                 "private_service": "Selecteer een afspraak",

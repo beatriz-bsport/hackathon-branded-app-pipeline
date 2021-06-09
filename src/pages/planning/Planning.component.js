@@ -461,9 +461,7 @@ export class Planning extends PureComponent<Props, State> {
           <DialogContent>
             <OfferEditForm
               offer={selectedOffer}
-              metaActivities={this.props.metaActivities.filter(
-                (ma) => ma.customer_enabled && !ma.is_workshop,
-              )}
+              metaActivities={this.props.metaActivities}
               coaches={coaches}
               establishments={establishments}
               is_whereby_integration_enabled={

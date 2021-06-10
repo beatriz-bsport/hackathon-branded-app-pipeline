@@ -4756,10 +4756,13 @@
                 "taxeRateRequired": "Tax is a required field if you have ticked the box \"Calculate ATI\" above.",
                 "percentagebaseRemunerationRequired": "The compensation by percentage is a required field if you ticked the box above.",
                 "baseRemunerationTypeError": "The base pay needs to be a positive number.",
-                "invalideUpperInterval": "The superior interval must be a number.",
-                "invalidLowerInterval": "The superior interval must be higher than the inferior interval.",
-                "invalidBonusAmount": "The bonus must be above or equal to 0.1.",
-                "nameRequired": "The name is a mandatory field."
+                "invalideUpperInterval": "The upper interval must be a number.",
+                "invalidLowerInterval": "The upper interval must be higher than the lower interval.",
+                "invalidBonusAmount": "The bonus must be greater than or equal to 0.1.",
+                "nameRequired": "The name is a mandatory field.",
+                "invalideIntervals": "The intersection of intervals for bonuses of the same type is not allowed.",
+                "invalidMaximum": "The maximum remuneration must be higher than the minimum remuneration",
+                "invalidMinimum": "The minimum remuneration must be equal to or higher than the fixed base"
             },
             "Bonuses": {
                 "bonus_rules": "Bonus rules",
@@ -4767,11 +4770,12 @@
                 "to": "to",
                 "from": "From",
                 "addBonus": "ADD A BONUS RULE",
-                "bonus": "Bonus"
+                "bonus": "Bonus",
+                "bookingsThresholds": "Bookings (including threshold limits)"
             },
             "paymentPackPlaceHolder": "Select passes",
             "excludePaymentPack": "Exclude certain passes",
-            "bonusForEachReservationInInterval": "Add a bonus for each appointment in intervals",
+            "bonusForEachReservationInInterval": "Add a bonus for each appointment in the interval",
             "fixedBonusbyInterval": "Add a fixed bonus for each threshold",
             "cancellationBaseHelper": "By ticking this box the teacher will not receive any bonus payment on the marginal value of cancelled bookings.",
             "taxeLongHelper": "Help : All percentages are calculated on the marginal value of each booking excluding tax. The added tax applies to the marginal value as well as all fix and bonus.",

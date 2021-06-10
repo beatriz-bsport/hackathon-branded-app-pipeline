@@ -794,9 +794,9 @@
                 "cantAddSameName": "Er bestaat al een activiteit met dezelfde naam!"
             },
             "member": {
-                "referenceNumberHelper": "(Optioneel) Een lid krijgt automatisch een lidmaatschapsnummer toegewezen als dit veld leeg is",
+                "referenceNumberHelper": "(Optioneel) Een lid krijgt automatisch een lidmaatschapsnummer toegewezen als dit veld leeg is.",
                 "referenceNumber": "Lidmaatschapsnummer",
-                "barcodeHelper": "(Optioneel) Je kunt deze streepjescode als toegangsbewijs gebruiken",
+                "barcodeHelper": "(Optioneel) Je kunt deze streepjescode als toegangsbewijs gebruiken.",
                 "barcode": "Streepjescode",
                 "birthdayYear": "Geboortejaar",
                 "rgpdTitle": "Geaccepteerde communicatiekanalen voor marketingdoeleinden:",
@@ -2981,7 +2981,7 @@
             "isAutoRefresh": "Je wordt automatisch 15 min. voor het begin van de online les automatisch naar de livestream doorverwezen.",
             "loadingSoon": "Bezig met laden...",
             "activateVideo": "Online les beginnen",
-            "hasEnded": "De online les is afgelopen."
+            "hasEnded": "Deze online les is afgelopen."
         },
         "disabled": "Geannuleerd",
         "credit_price": " Krediet(en)",
@@ -4403,10 +4403,10 @@
                 "empty": "Voer de URL van je API in"
             },
             "webhooks": {
-                "CLIENT_WON": "Maak een gebruikersaccount voor BSPORT Solution aan wanneer een deal als \"WON\" is gemarkeerd.",
+                "CLIENT_WON": "Maak een gebruikersaccount voor BSPORT Solution aan wanneer een deal als \"WON\" is gemarkeerd",
                 "helpContent": "De onderstaande acties vinden plaats zodra de bijbehorende gebeurtenis plaatsvindt op ActiveCampaign.",
                 "title": "Integreer ActiveCampaign met BSPORT Solution",
-                "CONTACT_TAG": "Maak een gebruikersaccount voor BSPORT Solution aan wanneer een deal als “WON” is gemarkeerd.",
+                "CONTACT_TAG": "Maak een gebruikersaccount voor BSPORT Solution aan wanneer een prospect als “WON” is gemarkeerd op ActiveCampaign",
                 "helpTitle": "Hoe werkt synchronisatie?"
             },
             "link": {
@@ -5440,7 +5440,7 @@
         },
         "add": "Toevoegen",
         "base_price": "Basis",
-        "include_tax": "Inclusief btw",
+        "include_tax": "Incl. btw",
         "calculation_method": "Rekenmethode",
         "actions": "Acties",
         "bookingThreshold": "Aantal reserveringen (incl.)",
@@ -5493,7 +5493,7 @@
                 "which": "Verdiensten:"
             },
             "Errors": {
-                "lowerIntervalTypeError": "Het onderste interval moet gelijk of minder dan 0 zijn.",
+                "lowerIntervalTypeError": "Het onderste interval moet gelijk of minder dan 1 zijn.",
                 "taxeRateTypeError": "Het btw-tarief moet een getal tussen 0 en 100 zijn.",
                 "taxeRateRequired": "Het veld \"Btw\" is een verplicht veld als je dit hebt aangevinkt.",
                 "percentagebaseRemunerationTypeError": "De procentuele vergoeding moet een getal 0 en 100 zijn.",
@@ -5516,7 +5516,8 @@
                 "to": "tot",
                 "from": "Van",
                 "addBonus": "EEN BONUSREGEL TOEVOEGEN",
-                "bonus": "Bonus"
+                "bonus": "Bonus",
+                "forInterval": "voor alle intervallen"
             },
             "paymentPackPlaceHolder": "Selecteer cursuskaarten",
             "excludePaymentPack": "Bepaalde lidmaatschappen uitsluiten",
@@ -5526,7 +5527,7 @@
             "taxeLongHelper": "Alle percentages worden over de marginale waarde per reservering excl. btw berekend. De btw wordt ook op de marginale waarde, vaste bedragen en bonussen toegepast.",
             "taxeConciseHelper": "Alle percentages worden over de marginale waarde per reservering excl. btw berekend.",
             "add_taxe_rate": "Toe te voegen btw",
-            "taxe_rate": "Incl. btw",
+            "taxe_rate": "Btw berekenen",
             "max_remuneration": "Max.",
             "min_remuneration": "Min.",
             "remunerationLimits": "Bonus beperken",
@@ -7675,7 +7676,7 @@
             "sectionTitle": "Betaalmethoden"
         },
         "platformInvoice": {
-            "noInvoice": "Er zijn nog geen facturen beschikbaar. Je ziet ze hier als PDF zodra je een factuur betaald hebt.",
+            "noInvoice": "Je facturen komen hier als PDF te staan zodra je ze betaald hebt. Momenteel zijn er nog geen facturen beschikbaar.",
             "sectionTitle": "Mijn facturen",
             "label": "Factuur {{month}} / {{year}}"
         }

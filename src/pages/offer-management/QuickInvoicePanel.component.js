@@ -143,6 +143,8 @@ export class QuickInvoicePanel extends React.Component<Props, State> {
             ).toFixed(2)}
             onCancel={() => this.props.setInvoiceToBill(null)}
             availablePaymentMethodList={this.props.availablePaymentMethodList}
+            defaultUserName={this.props.invoiceToBill.member.name}
+            defaultUserEmail={this.props.invoiceToBill.member.email}
           />
         )}
       </Paper>

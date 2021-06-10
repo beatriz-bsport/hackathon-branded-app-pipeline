@@ -18,6 +18,7 @@ import MemberBalanceUpdaterDialog from './MemberBalanceUpdaterDialog.component';
 import { getCurrencyDisplay } from '../../theme/selectors';
 import InvoiceTable from '../../invoice/components/InvoiceTable.component';
 import { requestClientSecret as requestClientSecretAPI } from '../../invoice/api';
+import { Member } from '../types';
 
 type Props = {
   balance: string,
@@ -25,6 +26,7 @@ type Props = {
   goToInvoice: (string, ?Invoice) => void,
   unpaidInvoiceList: Array<Invoice>,
   memberId: number,
+  member: Member,
   asConsumer: boolean,
   applyBalanceToUnpaidInvoices: () => void,
   fetchInvoiceListUnpaid: () => void,
@@ -228,6 +230,8 @@ export const MemberBillingProblemCard = (props: Props) => {
           detachPaymentMethodLoading={props.detachPaymentMethodLoading}
           snackbarErrorMsg={props.snackbarErrorMsg}
           snackbarSuccessMsg={props.snackbarSuccessMsg}
+          defaultUserName={props.member ? props.member.name : ''}
+          defaultUserEmail={props.member ? props.member.email : ''}
         />
       )}
     </Paper>

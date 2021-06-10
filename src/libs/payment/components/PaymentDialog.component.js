@@ -50,6 +50,8 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
+  defaultUserName?: string,
+  defaultUserEmail?: string,
 };
 
 type State = {
@@ -227,6 +229,8 @@ export class PaymentDialog extends React.Component<Props, State> {
                       detachPaymentMethod={this.props.detachPaymentMethod}
                       snackbarErrorMsg={this.props.snackbarErrorMsg}
                       snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                      sepaDefaultName={this.props.defaultUserName}
+                      sepaDefaultEmail={this.props.defaultUserEmail}
                     />
                   )}
                   {parseInt(this.state.paymentEngine, 10) ===

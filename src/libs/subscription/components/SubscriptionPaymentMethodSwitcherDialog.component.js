@@ -36,6 +36,7 @@ export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Pro
         </Dialog>
       );
     }
+
     return (
       <Dialog open={this.props.open}>
         <DialogContent>
@@ -50,6 +51,8 @@ export class SubscriptionPaymentMethodSwitcherDialog extends React.Component<Pro
             processing={this.props.processing}
             savedPaymentMethodList={this.props.savedPaymentMethodList}
             requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            sepaDefaultName={this.props.member ? this.props.member.name : ''}
+            sepaDefaultEmail={this.props.member ? this.props.member.email : ''}
           />
         </DialogContent>
       </Dialog>

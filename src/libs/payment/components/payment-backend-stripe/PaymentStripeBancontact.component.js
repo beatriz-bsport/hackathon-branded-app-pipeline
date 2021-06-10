@@ -24,7 +24,7 @@ export function PaymentStripeBancontact(props: {
 
   const [processing, setProcessing] = React.useState(false);
   const [name, setName] = React.useState(props.userDefaultName || '');
-  const [email, setEmail] = React.useState(props.userDefaultEmail);
+  const [email, setEmail] = React.useState(props.userDefaultEmail || '');
   const [errorMessage, setErrorMessage] = React.useState(null);
 
   const { t } = useTranslation(['invoice']);

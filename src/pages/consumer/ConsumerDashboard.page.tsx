@@ -19,6 +19,7 @@ import ConsumerDashboardHeader from '../../libs/consumer-space/components/Consum
 import ConsumerDashboardPassPanel from '../../libs/consumer-space/components/ConsumerDashboardPassPanel.component';
 import ConsumerDashboardBookingOptionPanel from '../../libs/consumer-space/components/ConsumerDashboardBookingOptionPanel.component';
 import { fetchMembership as fetchMembershipAction } from '../../libs/membership/actions';
+import { fetchMember } from '../../libs/member/actions';
 
 import { getFavoriteEstablishment } from '../../libs/establishment/selectors';
 import { getFavoriteMetaActivity } from '../../libs/meta-activity/selectors';
@@ -78,6 +79,7 @@ import {
   getMarketplaceRoute,
 } from '../marketplace/routing-utils';
 import { MarketplaceTabConfig } from '../../libs/marketplace/types';
+import { getMember } from '../../libs/member/selectors';
 
 type OwnProps = {
   companyId: number;
@@ -116,6 +118,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
       min_date: moment().format('YYYY-MM-DD'),
     });
     this.props.fetchInvoiceListUnpaid();
+    this.props.fetchMember(this.props.membership.id);
   }
 
   refreshDebtStatus = () => {
@@ -192,6 +195,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             detachPaymentMethod={this.props.detachPaymentMethod}
             snackbarErrorMsg={this.props.snackbarErrorMsg}
             snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+            member={this.props.member}
           />
         </div>
         <Grid container direction="row" spacing={2}>
@@ -275,7 +279,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState, props) => ({
   bookingsAndPrivateBookings: getAllBookingAndPrivateBooking(state),
   bookingsAndPrivateBookingsLoading:
     state.consumer.bookingAndPrivateBooking.loading,
@@ -299,6 +303,7 @@ const mapStateToProps = (state: RootState) => ({
   metaActivitiesById: state.metaActivity.byId,
   detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
   marketplaceSettings: state.marketplace.settings,
+  member: getMember(state, props.membership.id),
 });
 
 const mapDispatchToProps = {
@@ -326,6 +331,7 @@ const mapDispatchToProps = {
   fetchMembership: fetchMembershipAction,
   cancelBookingOption: cancelBookingOptionAction,
   fetchBookingsAndPrivateBookings: fetchBookingsAndPrivateBookingsAction,
+  fetchMember,
   detachPaymentMethodAction: detachPaymentMethod,
   fetchMemberPaymentMethod: fetchPaymentMethodList,
   snackbarErrorMsg: snackbarWarning,

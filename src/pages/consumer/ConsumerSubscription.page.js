@@ -35,6 +35,9 @@ import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../l
 
 import type { Subscription } from '../../libs/subscription/types';
 import type { Membership } from '../../libs/membership/types';
+import { fetchMember } from '../../libs/member/actions';
+import { getMember } from '../../libs/member/selectors';
+import { Member } from '../../libs/member/types';
 
 type Props = {
   subscriptionList: Array<Subscription>,
@@ -56,12 +59,15 @@ type Props = {
   requestSetupIntentSecret: () => void,
   fetchPaymentMethodList: () => void,
   savedPaymentMethodList: Array<PaymentMethod>,
+  fetchMember: () => void,
+  member: Member,
 };
 
 export class ConsumerSubscription extends React.Component<Props> {
   componentDidMount() {
     this.fetchSubscriptionList(1, {});
     this.props.fetchPaymentMethodList();
+    this.props.fetchMember(this.props.membership.id);
   }
 
   fetchSubscriptionList = (page: number, params) => {
@@ -140,12 +146,14 @@ export class ConsumerSubscription extends React.Component<Props> {
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
             ]}
+            member={this.props.member}
           />
         ) : null}
       </div>
     );
   }
 }
+
 const styles = (theme) => ({
   table: {
     marginBottom: theme.spacing(2),
@@ -166,13 +174,14 @@ export default compose(
   withStyles(styles),
   withState('subscriptionSelected', 'selectSubscription', null),
   connect(
-    (state) => ({
+    (state, ownProps) => ({
       subscriptionList: getSubscriptionListByMember(state),
       subscriptionLoading:
         state.subscription.byMember.loading ||
         state.subscription.loading ||
         state.subscription.list.loading,
       savedPaymentMethodList: getSavedPaymentMethodList(state),
+      member: getMember(state, ownProps.membership.id),
     }),
     {
       fetchPaymentMethodList: fetchPaymentMethodListAction,
@@ -180,6 +189,7 @@ export default compose(
       goToSubscription: (name, id) =>
         push(`${urlToMarketplace(name, id)}/subscription`),
       switchSubscriptionPaymentMethod: switchSubscriptionPaymentMethodAction,
+      fetchMember,
     },
   ),
   withState(

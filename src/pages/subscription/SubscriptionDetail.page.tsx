@@ -193,6 +193,7 @@ export class SubscriptionDetail extends Component<Props> {
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
               BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
             ]}
+            member={this.props.memberById[this.props.subscription.member]}
           />
         ) : null}
         {this.props.scheduledStopDialogOpen ? (
@@ -269,6 +270,7 @@ export default compose(
       eventPage: getSubscriptionEventState(state).page,
       eventLoading: getSubscriptionEventState(state).loading,
       savedPaymentMethodList: getSavedPaymentMethodList(state),
+      memberById: state.member.detailData,
     }),
     {
       cancelPause: cancelPauseAction,

@@ -283,6 +283,8 @@ export class InvoiceDetail extends React.Component<Props, State> {
               availablePaymentMethodList={
                 this.props.payment_method_available_manager
               }
+              defaultUserName={this.props.invoice.member.name}
+              defaultUserEmail={this.props.invoice.member.email}
             />
           )}
         </Grid>

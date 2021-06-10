@@ -260,6 +260,7 @@ export class MemberDetailPage extends Component<Props, State> {
           />
           <MemberBillingProblemCard
             invoiceLoading={this.props.invoiceLoading}
+            member={this.props.member}
             memberId={this.props.id}
             unpaidInvoiceList={this.props.unpaidInvoiceList}
             onClickInvoice={this.props.goToInvoice}

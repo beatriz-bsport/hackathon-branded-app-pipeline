@@ -10,11 +10,18 @@ import {
   sharedConsumerPackCreateOrUpdateActions,
   sharedPrivateConsumerPassListActions,
   sharedPrivateConsumerPassCreateOrUpdateActions,
+  listRelatedMembersActions,
 } from './actions';
 
 import type { RelationshipState } from './types';
 
 const initialState: RelationshipState = Immutable({
+  my_related_members: {
+    list: [],
+    loading: false,
+    error: null,
+  },
+
   member_relation: {
     loading: false,
     error: null,
@@ -103,6 +110,16 @@ export default handleActions(
     },
     [sharedPrivateConsumerPassListActions.error]: (state, { payload }) => {
       return state.setIn(['private_consumer_pass_link', 'error'], payload);
+    },
+
+    [listRelatedMembersActions.success]: (state, { payload }) => {
+      return state.setIn(['my_related_members', 'list'], payload);
+    },
+    [listRelatedMembersActions.error]: (state, { payload }) => {
+      return state.setIn(['my_related_members', 'error'], payload);
+    },
+    [listRelatedMembersActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['my_related_members', 'isLoading'], payload);
     },
 
     [sharedPrivateConsumerPassCreateOrUpdateActions.error]: (

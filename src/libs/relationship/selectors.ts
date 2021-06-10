@@ -1,14 +1,14 @@
 // @flow
 
 import { createSelector } from 'reselect';
-import type { State } from '../../state/types';
-import type { MemberRelation } from './types';
+import { RootState } from '../../reducers';
+import { MemberRelation } from './types';
 
 import { getAllMembers } from '../member/selectors';
 import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
 import { getPrivateConsumerPassList } from '../private-service/selectors/private-consumer-pass';
 
-const _getMemberRelations = (state: State): Array<MemberRelation> =>
+const _getMemberRelations = (state: RootState): Array<MemberRelation> =>
   state.relationship.member_relation.items;
 
 export const getMemberRelations = createSelector(
@@ -25,10 +25,10 @@ export const getMemberRelations = createSelector(
     }),
 );
 
-export const getMemberRelationById = (state: State, id: number) =>
+export const getMemberRelationById = (state: RootState, id: number) =>
   getMemberRelations(state).find((mr) => mr.id === id);
 
-const _getConsumerPackLinks = (state: State) =>
+const _getConsumerPackLinks = (state: RootState) =>
   state.relationship.consumer_payment_pack_link.items;
 
 export const getAllSharedConsumerPaymentPacks = createSelector(
@@ -48,14 +48,14 @@ export const getAllSharedConsumerPaymentPacks = createSelector(
 );
 
 export const getSharedConsumerPacksByRelation = (
-  state: State,
+  state: RootState,
   relationId: number,
 ) =>
   getAllSharedConsumerPaymentPacks(state).filter(
     (scpp) => scpp.member_relation === relationId,
   );
 
-const _getPrivateConsumerPassLinks = (state: State) =>
+const _getPrivateConsumerPassLinks = (state: RootState) =>
   state.relationship.private_consumer_pass_link.items;
 
 export const getAllSharedPrivateConsumerPasses = createSelector(
@@ -75,9 +75,12 @@ export const getAllSharedPrivateConsumerPasses = createSelector(
 );
 
 export const getSharedPrivateConsumerPassesByRelation = (
-  state: State,
+  state: RootState,
   relationId: number,
 ) =>
   getAllSharedPrivateConsumerPasses(state).filter(
     (spcp) => spcp.member_relation === relationId,
   );
+
+export const getMyRelatedMemberList = (state: RootState) =>
+  state.relationship.my_related_members.list;

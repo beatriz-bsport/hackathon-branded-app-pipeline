@@ -24,6 +24,7 @@ import { NotificationRuleState } from '../libs/notification-rule/types';
 import { MarketingNotificationState } from '../libs/marketing/types';
 import { PartnershipState } from '../libs/partnership/types';
 import { DashboardSettingsState } from '../libs/dashboard/types';
+import { RelationshipState } from '../libs/relationship/types';
 
 import { BackgroundTaskState } from '../libs/background-task/types';
 import { RootState } from '../reducers';
@@ -56,6 +57,7 @@ export type State = {
   backgroundTask: BackgroundTaskState;
   marketingNotification: MarketingNotificationState;
   dashboardSettings: DashboardSettingsState;
+  relationship: RelationshipState;
 };
 export type Action = SearchAction | AuthAction;
 

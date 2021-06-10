@@ -1,39 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
-import moment from 'moment-timezone';
-import { Box, Theme, Typography, withStyles } from '@material-ui/core';
+import { Box, Theme, withStyles } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
-import BlockIcon from '@material-ui/icons/Block';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import flatten from 'lodash/flatten';
-import memoize from 'memoize-one';
 
-import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
-import {
-  OFFER_WAITING_LIST_STATUS_CONVERTIBLE,
-  OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
-  OFFER_WAITING_LIST_STATUS_FULL,
-  OFFER_WAITING_LIST_STATUS_OPEN,
-} from '@bsport/common/lib/master-data/waiting-list-status';
+import { OFFER_WAITING_LIST_STATUS_CONVERTIBLE } from '@bsport/common/lib/master-data/waiting-list-status';
 import {
   OFFER_BOOKABLE_STATUS_BOOKABLE,
   OFFER_BOOKABLE_STATUS_FULL,
-  OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON,
 } from '@bsport/common/lib/master-data/bookable-status';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../../libs/payment/api';
 import { Offer_FULL, OfferStatus } from '../../../libs/offer/types';
 import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
-import { OfferConstraint, SelectedPack } from './OfferBooking.page';
 import { RootState } from '../../../reducers';
 import {
   getConsumerPaymentPackForBooking,
   withPaymentPack as withPaymentPackForConsumer,
 } from '../../../libs/consumer-payment-pack/selectors';
-import {
-  ConsumerPaymentPack,
-  MaxoutBooking,
-} from '../../../libs/consumer-payment-pack/types';
+import { ConsumerPaymentPack } from '../../../libs/consumer-payment-pack/types';
 import { PaymentPack } from '../../../libs/payment-packs/types';
 import { PaymentCombo } from '../../../libs/payment-combo/types';
 import {
@@ -50,8 +36,14 @@ import {
   fetchConsumerPaymentPackForBooking,
   fetchConsumerPaymentPackMaxoutBooking,
 } from '../../../libs/consumer-payment-pack/actions';
-import { getPaymentPackTimeLimitation } from '../../../libs/payment-packs/utils';
 import BookingMethodSelector from '../../../libs/booker-module/components/BookingMethodSelector.component';
+import {
+  getAvailableConsumerPack,
+  getAvailablePaymentPacks,
+  getAvailableComboPacks,
+  OfferConstraint,
+  SelectedPack,
+} from '../../../libs/booker-module/utils';
 
 import SubscriptionContractBooking from '../SubscriptionBooking.component';
 
@@ -72,6 +64,7 @@ type OwnProps = {
   company?: number;
   selectedOffers: OfferData[];
   offersConstraint?: OfferConstraint;
+  loading: boolean;
   selectedPack: SelectedPack;
   onPackChange: (selectedPack: SelectedPack) => void;
 };
@@ -175,85 +168,31 @@ export class OfferState extends React.PureComponent<Props, State> {
     return this.props.requestSetupIntentSecret(this.props.offer.company);
   };
 
+  renderLoadingBlock = () => {
+    const { classes } = this.props;
+    return (
+      <div className={classes.skeletonContainer}>
+        <Skeleton animation="wave" width="40%" variant="text" height={30} />
+        <Box mt={2} />
+        <Skeleton animation="wave" width="100%" variant="rect" height={50} />
+        <Box mt={2} />
+        <Skeleton animation="wave" width="100%" variant="rect" height={50} />
+        <Box mt={2} />
+        <Skeleton animation="wave" width="100%" variant="rect" height={50} />
+      </div>
+    );
+  };
+
   render() {
-    const { classes, t, offerStatus } = this.props;
-
-    if (offerStatus && this.props.offer && this.props.offer.meta_activity) {
-      const isBookable =
-        offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE;
-      const isWaitingList =
-        offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_FULL &&
-        offerStatus.waiting_list_status ===
-          OFFER_WAITING_LIST_STATUS_CONVERTIBLE;
-
-      let message = t('booking:bookingModule.offer.isTooLate');
-      let TheIcon = BlockIcon;
-
-      if (
-        offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON
-      ) {
-        const date = moment(this.props.offer.date_start)
-          .tz(this.props.offer.timezone_name)
-          .subtract(this.props.offer.meta_activity.first_booking_minutes_until)
-          .format('LL');
-        message = t('booking:bookingModule.offer.isTooSoon', { date });
-        TheIcon = HourglassEmptyIcon;
-      }
-      if (offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_FULL) {
-        if (
-          offerStatus.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL
-        ) {
-          message = t('booking:bookingModule.offer.isWaitingListFull');
-        } else if (
-          offerStatus.waiting_list_status ===
-          OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED
-        ) {
-          message = t('booking:bookingModule.option.isAlreadyOnWaitingList');
-          TheIcon = HourglassEmptyIcon;
-        } else if (
-          offerStatus.waiting_list_status === OFFER_WAITING_LIST_STATUS_OPEN
-        ) {
-          message = t('booking:bookingModule.option.waitingListOpen');
-          TheIcon = HourglassEmptyIcon;
-        }
-      }
-
-      if (!isBookable && !isWaitingList) {
-        return (
-          <div className={classes.cannotBookContainer}>
-            <TheIcon className={classes.noItemIcon} />
-            <Typography
-              color="textSecondary"
-              align="center"
-              className={classes.canNotBookMessage}
-            >
-              {message}
-            </Typography>
-          </div>
-        );
-      }
-    }
-
+    const { offerStatus, loading } = this.props;
     if (
+      loading ||
       !this.state.consumerPacksLoaded ||
       !this.state.paymentPacksLoaded ||
       !this.state.consumerPacksMaxoutLoaded ||
-      !this.state.paymentComboPacksLoaded ||
-      !this.props.offer ||
-      !this.props.offer.meta_activity ||
-      !offerStatus
+      !this.state.paymentComboPacksLoaded
     ) {
-      return (
-        <div className={classes.skeletonContainer}>
-          <Skeleton animation="wave" width="40%" variant="text" height={30} />
-          <Box mt={2} />
-          <Skeleton animation="wave" width="100%" variant="rect" height={50} />
-          <Box mt={2} />
-          <Skeleton animation="wave" width="100%" variant="rect" height={50} />
-          <Box mt={2} />
-          <Skeleton animation="wave" width="100%" variant="rect" height={50} />
-        </div>
-      );
+      return this.renderLoadingBlock();
     }
 
     let bookableCount =
@@ -321,218 +260,10 @@ const styles = (theme: Theme) => ({
       paddingRight: 0,
     },
   },
-  titleContainer: {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    [theme.breakpoints.up('md')]: {
-      paddingLeft: 0,
-      paddingRight: 0,
-    },
-  },
-  marginTop: {
-    marginTop: theme.spacing(2),
-  },
-  cannotBookContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    border: '1px solid #DEDEDE',
-    borderRadius: 12,
-    padding: theme.spacing(4),
-    [theme.breakpoints.up('md')]: {
-      paddingLeft: 0,
-      paddingRight: 0,
-    },
-  },
-  noItemIcon: {
-    fontSize: 160,
-  },
-  canNotBookMessage: {
-    marginTop: theme.spacing(2),
-    maxWidth: 500,
-  },
 });
 
-const getAvailableConsumerPack = memoize(
-  (
-    offersConstraint: OfferConstraint,
-    consumerPaymentPackList: ConsumerPaymentPack<PaymentPack>[],
-    consumerPaymentPackMaxoutBooking: { [key: string]: MaxoutBooking },
-    selectedOffer: Offer_FULL[],
-    offer,
-    tz_name,
-  ) => {
-    const { credit, minDate, maxDate } = offersConstraint;
-    return consumerPaymentPackList.filter((cpp) => {
-      const maxout = consumerPaymentPackMaxoutBooking[cpp.id];
-
-      let matchMaxout = true;
-
-      if (maxout) {
-        Object.values(maxout).forEach((period) => {
-          period.forEach((maxout_data) => {
-            let matchingOffers = 0;
-
-            const maxoutStart = moment(maxout_data.start_date);
-            const maxoutEnd = moment(maxout_data.end_date);
-
-            [offer, ...selectedOffer].forEach((o: Offer_FULL) => {
-              const offerStart = moment(o.date_start);
-
-              if (
-                offerStart.isSameOrAfter(maxoutStart) &&
-                offerStart.isSameOrBefore(maxoutEnd)
-              ) {
-                matchingOffers += 1;
-              }
-            });
-
-            if (matchingOffers > maxout_data.booking_available) {
-              matchMaxout = false;
-            }
-          });
-        });
-      }
-
-      return (
-        matchMaxout &&
-        (cpp.payment_pack.unlimited || cpp.available_credits >= credit) &&
-        moment(cpp.starting_date)
-          .tz(tz_name)
-          .isSameOrBefore(moment(minDate).tz(tz_name)) &&
-        moment(cpp.ending_date)
-          .tz(tz_name)
-          .isSameOrAfter(moment(maxDate).tz(tz_name))
-      );
-    });
-  },
-);
-
-const getAvailablePaymentPacks = memoize(
-  (
-    offersConstraint: OfferConstraint,
-    paymentPackList: PaymentPack[],
-    selectedOffer: Offer_FULL[],
-    offer: Offer_FULL,
-    tz_name: string,
-  ) => {
-    const { credit, minDate, maxDate } = offersConstraint;
-
-    return paymentPackList.filter((pp) => {
-      const byDay = {};
-      const byWeek = {};
-      const byMonth = {};
-
-      [offer, ...selectedOffer].forEach((o) => {
-        const date = moment(o.date_start);
-        const dayOfYear = date.dayOfYear();
-        const weekNumber = date.week();
-        const month = date.month();
-
-        if (!byDay[dayOfYear]) {
-          byDay[dayOfYear] = 1;
-        } else {
-          byDay[dayOfYear] += 1;
-        }
-
-        if (!byWeek[weekNumber]) {
-          byWeek[weekNumber] = 1;
-        } else {
-          byWeek[weekNumber] += 1;
-        }
-
-        if (!byMonth[month]) {
-          byMonth[month] = 1;
-        } else {
-          byMonth[month] += 1;
-        }
-      });
-
-      let matchMaxBookingNumber = true;
-
-      Object.values(byDay).forEach((bookingNumber) => {
-        if (
-          pp.max_bookings_per_day !== null &&
-          bookingNumber > pp.max_bookings_per_day
-        ) {
-          matchMaxBookingNumber = false;
-        }
-      });
-
-      Object.values(byWeek).forEach((bookingNumber) => {
-        if (
-          pp.max_bookings_per_week !== null &&
-          bookingNumber > pp.max_bookings_per_week
-        ) {
-          matchMaxBookingNumber = false;
-        }
-      });
-
-      Object.values(byMonth).forEach((bookingNumber) => {
-        if (
-          pp.max_bookings_per_month !== null &&
-          bookingNumber > pp.max_bookings_per_month
-        ) {
-          matchMaxBookingNumber = false;
-        }
-      });
-
-      const { start, end } = getPaymentPackTimeLimitation(pp, minDate);
-      return (
-        matchMaxBookingNumber &&
-        (pp.unlimited || pp.credits >= credit) &&
-        start.tz(tz_name).isSameOrBefore(moment(minDate).tz(tz_name)) &&
-        end.tz(tz_name).isSameOrAfter(moment(maxDate).tz(tz_name))
-      );
-    });
-  },
-);
-const getAvailableComboPacks = memoize(
-  (
-    offersConstraint: OfferConstraint,
-    paymentComboList: PaymentCombo[],
-    selectedOffers: Offer_FULL[],
-    offer: Offer_FULL,
-    paymentPackById: { [key: string]: PaymentPack },
-    tz_name: string,
-  ) => {
-    const { credit, minDate, maxDate } = offersConstraint;
-    return paymentComboList.filter((pc) => {
-      const paymentPacks = pc.payment_packs
-        .filter((comboItem) => !!comboItem.data)
-        .map((comboItem) => comboItem.data);
-
-      const availablePaymentPacks = getAvailablePaymentPacks(
-        offersConstraint,
-        paymentPacks,
-        selectedOffers,
-        offer,
-        tz_name,
-      );
-
-      return pc.payment_packs
-        .filter((comboItem) => {
-          return !!availablePaymentPacks.find((pp) => pp.id === comboItem.id);
-        })
-        .find((comboItem) => {
-          const { start, end } = getPaymentPackTimeLimitation(
-            comboItem.data,
-            minDate,
-          );
-
-          return (
-            (comboItem.data.unlimited || comboItem.data.credits >= credit) &&
-            start.tz(tz_name).isSameOrBefore(moment(minDate).tz(tz_name)) &&
-            end.tz(tz_name).isSameOrAfter(moment(maxDate).tz(tz_name))
-          );
-        });
-    });
-  },
-);
-
 const mapHandlers = {
-  requestSetupIntentSecret: () => (companyId) =>
+  requestSetupIntentSecret: () => (companyId: number) =>
     requestSetupIntentSecretAPI(null, companyId),
   getAvailableConsumerPack: (props: OwnAndConnectedProps) => () => {
     return getAvailableConsumerPack(
@@ -559,7 +290,6 @@ const mapHandlers = {
       props.paymentComboList,
       props.selectedOffers,
       props.offer,
-      props.paymentPacksById,
       props.offer.timezone_name,
     );
   },

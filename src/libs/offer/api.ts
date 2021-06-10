@@ -46,8 +46,10 @@ export async function fetchSimilarOffers(offerId: number, params: any) {
   );
 }
 
-export async function fetchOfferStatus(offerId: number) {
-  return getAuth(`${API_V1_URI}/offer/${offerId}/bookable_status/`);
+export async function fetchOfferStatus(offerId: number, params: any = {}) {
+  return getAuth(
+    `${API_V1_URI}/offer/${offerId}/bookable_status/${buildUrlParams(params)}`,
+  );
 }
 
 export async function fetchOfferStatusList(

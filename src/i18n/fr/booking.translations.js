@@ -132,6 +132,7 @@ exports.default = {
     offer: {
       isDisabled: 'La séance a été malheureusement été annulée.',
       isTooLate: 'Les inscriptions sont closes.',
+      isAlreadyRegistered: 'Vous êtes déjà inscrit à cette séance',
       isTooSoon:
         'Les inscriptions sont fermées pour le moment et ouvriront le {{ date }}.',
       isWaitingListFull:
@@ -295,6 +296,8 @@ exports.default = {
       'Aucune carte de cours compatible avec ce groupe de séances en même temps. Vous devrez réserver en plusieurs fois.',
     addSession: 'Ajouter une séance',
     bookingsTitle: 'Je réserve',
+    bookingsTitleFor: 'Je réserve pour {{name}}',
+    bookingForMe: 'moi',
     mainButton: {
       book: 'Reserver',
       registerWaitingList: "M'inscrire sur liste d'attente",

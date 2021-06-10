@@ -395,6 +395,7 @@ export const offerStatusActions = {
 
 export function fetchOfferStatus(
   id: number,
+  params: any = {},
   options?: OptionCallback<OfferStatus>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -402,7 +403,7 @@ export function fetchOfferStatus(
     dispatch(offerStatusActions.isLoading(true));
 
     try {
-      const response = await fetchOfferStatusAPI(id);
+      const response = await fetchOfferStatusAPI(id, params);
       const data = { ...response.data, id };
       dispatch(offerStatusActions.success(data));
       options && options.onSuccess && options.onSuccess(data);

@@ -24,6 +24,16 @@ type MemberCountData = {
   nb_subscriptions: number;
 };
 
+export type MemberMinimal = {
+  id: number;
+  name: string;
+  credit_account_balance: number;
+  email: string;
+  consumer: number;
+  date_joined: string;
+  phone: string;
+};
+
 export type Member = {
   id: number;
   name: string;

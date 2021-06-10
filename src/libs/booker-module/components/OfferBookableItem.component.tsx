@@ -81,7 +81,7 @@ const OfferStatus = ({ offerStatus }) => {
 
 export const OfferBookableItem = (props) => {
   const classes = useStyles();
-  const { t } = useTranslation(['datetime']);
+  const { t } = useTranslation(['datetime', 'booking']);
 
   const { offer } = props;
 
@@ -91,61 +91,69 @@ export const OfferBookableItem = (props) => {
   const coach = (offer && offer.coach_override) || offer.coach;
   const coachName = (coach && coach.name) || '';
 
-  const disabled = !props.isWaitingList && !props.isBookable;
-
-  const onClick = !disabled && (() => props.onAdd && props.onAdd(props.offer));
+  const onClick =
+    !props.disabled && (() => props.onAdd && props.onAdd(props.offer));
 
   return (
-    <ButtonBase
-      disableRipple={!onClick || props.onRemove}
-      onClick={!props.onRemove && onClick}
-      className={clx([
-        classes.container,
-        disabled ? classes.disableContainer : null,
-      ])}
-    >
-      {disabled && <div className={classes.disableOverlay} />}
-      <div className={classes.time}>
-        <Typography variant="h6">
-          {moment(props.offer.date_start)
-            .tz(props.offer.timezone_name)
-            .format('LT')}
-        </Typography>
-        <Typography color="textSecondary">
-          {formatMinutes(props.offer.duration_minute, t)}
-        </Typography>
-      </div>
-      <div className={classes.generalInfo}>
-        <Typography>
-          {`${moment(props.offer.date_start)
-            .tz(props.offer.timezone_name)
-            .format('LL')}, ${moment(props.offer.date_start)
-            .tz(props.offer.timezone_name)
-            .format('dddd')}`}
-        </Typography>
-        <Typography variant="body2" align="left">
-          <strong>{coachName}</strong>
-        </Typography>
-        <Typography variant="caption" align="left">
-          {establishmentTitle}
-        </Typography>
-        <div className={classes.rightPanel}>
-          {props.onRemove ? (
-            <IconButton
-              onClick={() => props.onRemove(props.offer)}
-              className={classes.deleteButton}
-            >
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          ) : (
-            <div />
-          )}
-          {!!props.offerStatus && (
-            <OfferStatus offerStatus={props.offerStatus} />
-          )}
+    <>
+      <ButtonBase
+        disableRipple={!onClick || props.onRemove}
+        onClick={!props.onRemove && onClick}
+        className={clx([
+          classes.container,
+          props.disabled ? classes.disableContainer : null,
+        ])}
+      >
+        {props.disabled && <div className={classes.disableOverlay} />}
+        <div className={classes.time}>
+          <Typography variant="h6">
+            {moment(props.offer.date_start)
+              .tz(props.offer.timezone_name)
+              .format('LT')}
+          </Typography>
+          <Typography color="textSecondary">
+            {formatMinutes(props.offer.duration_minute, t)}
+          </Typography>
         </div>
-      </div>
-    </ButtonBase>
+        <div className={classes.generalInfo}>
+          <Typography>
+            {`${moment(props.offer.date_start)
+              .tz(props.offer.timezone_name)
+              .format('LL')}, ${moment(props.offer.date_start)
+              .tz(props.offer.timezone_name)
+              .format('dddd')}`}
+          </Typography>
+          <Typography variant="body2" align="left">
+            <strong>{coachName}</strong>
+          </Typography>
+          <Typography variant="caption" align="left">
+            {establishmentTitle}
+          </Typography>
+          <div className={classes.rightPanel}>
+            {props.onRemove ? (
+              <IconButton
+                onClick={() => props.onRemove(props.offer)}
+                className={classes.deleteButton}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            ) : (
+              <div />
+            )}
+            {!!props.offerStatus && (
+              <OfferStatus offerStatus={props.offerStatus} />
+            )}
+          </div>
+        </div>
+      </ButtonBase>
+      {props.isRegistered && (
+        <div className={classes.hasRegisteredContainer}>
+          <Typography variant="caption" className={classes.hasRegisteredTypo}>
+            {t('booking:bookingModule.hasRegistered')}
+          </Typography>
+        </div>
+      )}
+    </>
   );
 };
 
@@ -193,6 +201,14 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     backgroundColor: 'rgba(255, 255, 255, .5)',
     zIndex: 9999,
+  },
+  hasRegisteredContainer: {
+    paddingLeft: theme.spacing(0.5),
+    borderLeft: '1px solid rgba(80, 80, 80, .1)',
+    borderRight: '1px solid rgba(80, 80, 80, .1)',
+  },
+  hasRegisteredTypo: {
+    color: 'green',
   },
 }));
 

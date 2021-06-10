@@ -16,9 +16,10 @@ import {
   unlinkPrivateConsumerPassLink as unlinkPrivateConsumerPassLinkAPI,
   relinkPrivateConsumerPassLink as relinkPrivateConsumerPassLinkAPI,
   deleteRelation as deleteRelationAPI,
+  fetchRelatedMemberList as fetchRelatedMemberListAPI,
 } from './api';
 
-import type { Dispatch, OptionCallback } from '../../state/types';
+import { Dispatch, OptionCallback } from '../../state/types';
 
 export const memberRelationCreateOrUpdateActions = {
   isLoading: createAction('MEMBER_RELATION/CREATE_OR_UPDATE/LOADING'),
@@ -27,8 +28,8 @@ export const memberRelationCreateOrUpdateActions = {
 };
 
 export function createOrUpdateRelation(
-  relationData: *,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  relationData: any,
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(memberRelationCreateOrUpdateActions.isLoading(true));
@@ -113,7 +114,7 @@ export const sharedConsumerPackCreateOrUpdateActions = {
 export function linkToMemberRelation(
   consumerPackId: number,
   relationId: number,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(sharedConsumerPackCreateOrUpdateActions.isLoading(true));
@@ -143,7 +144,7 @@ export function linkToMemberRelation(
 
 export function unlinkConsumerPaymentPackLink(
   consumerPackLinkId: number,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(sharedConsumerPackCreateOrUpdateActions.isLoading(true));
@@ -167,7 +168,7 @@ export function unlinkConsumerPaymentPackLink(
 
 export function relinkConsumerPaymentPackLink(
   consumerPackLinkId: number,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(sharedConsumerPackCreateOrUpdateActions.isLoading(true));
@@ -228,7 +229,7 @@ export const sharedPrivateConsumerPassCreateOrUpdateActions = {
 export function linkPrivatePassToMemberRelation(
   privateConsumerPassId: number,
   relationId: number,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.isLoading(true));
@@ -260,7 +261,7 @@ export function linkPrivatePassToMemberRelation(
 
 export function unlinkPrivateConsumerPassLink(
   privateConsumerPassLinkId: number,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.isLoading(true));
@@ -284,7 +285,7 @@ export function unlinkPrivateConsumerPassLink(
 
 export function relinkPrivateConsumerPassLink(
   privateConsumerPassLinkId: number,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
+  options: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.isLoading(true));
@@ -312,10 +313,7 @@ export const deleteRelationActions = {
   success: createAction('RELATIONSHIP/DELETE/SUCCESS'),
 };
 
-export function deleteRelation(
-  id: number,
-  options: ?{ onSuccess: ?() => void, onError: ?() => void },
-) {
+export function deleteRelation(id: number, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteRelationActions.isLoading(true));
     dispatch(deleteRelationActions.error(null));
@@ -327,5 +325,30 @@ export function deleteRelation(
       dispatch(snackbarError('relationship.delete.error'));
       if (options && options.onSuccess) options.onSuccess();
     }
+  };
+}
+
+export const listRelatedMembersActions = {
+  isLoading: createAction('RELATIONSHIP/RELATED_MEMBER/IS_LOADING'),
+  error: createAction('RELATIONSHIP/RELATED_MEMBER/ERROR'),
+  success: createAction('RELATIONSHIP/RELATED_MEMBER/SUCCESS'),
+};
+
+export function fetchMyRelatedMemberList(
+  company: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listRelatedMembersActions.isLoading(true));
+    dispatch(listRelatedMembersActions.error(null));
+    try {
+      const response = await fetchRelatedMemberListAPI(company);
+      dispatch(listRelatedMembersActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      dispatch(listRelatedMembersActions.error(err));
+      if (options && options.onSuccess) options.onSuccess();
+    }
+    dispatch(listRelatedMembersActions.isLoading(false));
   };
 }

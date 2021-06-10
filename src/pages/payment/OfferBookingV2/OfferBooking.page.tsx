@@ -11,20 +11,14 @@ import {
   withStyles,
 } from '@material-ui/core';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
-import moment from 'moment';
+import BlockIcon from '@material-ui/icons/Block';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
-import {
-  OFFER_WAITING_LIST_STATUS_OPEN,
-  OFFER_WAITING_LIST_STATUS_CONVERTIBLE,
-} from '@bsport/common/lib/master-data/waiting-list-status';
-import {
-  OFFER_BOOKABLE_STATUS_FULL,
-  OFFER_BOOKABLE_STATUS_BOOKABLE,
-} from '@bsport/common/lib/master-data/bookable-status';
 import { RootState } from '../../../reducers';
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
+
+import themeSelectors from '../../../libs/theme/selectors';
 
 import { registerToWaitingList as registerOption } from '../../../libs/waiting-list/actions';
 import {
@@ -35,7 +29,6 @@ import {
   withMetaActivity,
 } from '../../../libs/offer/selectors';
 import {
-  fetchOfferStatus,
   fetchOfferStatusList,
   offerUserRegistration,
   fetchSimilarOffers,
@@ -59,24 +52,21 @@ import OfferListSummary from '../../../libs/booker-module/components/OfferListSu
 
 import { OfferData } from '../../../libs/booker-module/types';
 
-import { ConsumerPaymentPack } from '../../../libs/consumer-payment-pack/types';
-import { PaymentPack } from '../../../libs/payment-packs/types';
-import { PaymentCombo } from '../../../libs/payment-combo/types';
 import WidgetUtils from '../../../libs/widget/WidgetUtils';
 
+import { getMyRelatedMemberList } from '../../../libs/relationship/selectors';
+import { fetchMyRelatedMemberList } from '../../../libs/relationship/actions';
+
 import BookingMethodSelector from './BookingMethodSelector.container';
-
-export type OfferConstraint = {
-  credit: number;
-  minDate?: string;
-  maxDate?: string;
-};
-
-export type SelectedPack = {
-  consumerPaymentPack?: ConsumerPaymentPack<PaymentPack> | null;
-  paymentPackCombo?: PaymentCombo | null;
-  paymentPack?: PaymentPack | null;
-};
+import {
+  getOfferContraints,
+  SelectedPack,
+  getCanIBook,
+  getOfferFeature,
+  getMainOfferNotBookableReason,
+  OfferConstraint,
+} from '../../../libs/booker-module/utils';
+import { MemberMinimal } from '../../../libs/member/types';
 
 type OwnProps = { id: number };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
@@ -93,15 +83,15 @@ type State = {
   offersConstraint: OfferConstraint;
   selectedPack: SelectedPack;
   showLoader: boolean;
+  selectedMember?: MemberMinimal;
 };
-
-const DATE_FORMAT = 'YYYY-MM-DD';
 
 const SIMILAR_OFFER_PAGE_SIZE = 7;
 
 class OfferBooking extends React.PureComponent<Props, State> {
   state: State = {
     showSimilarOffers: false,
+    selectedPack: {},
     offersConstraint: {
       credit: 0,
     },
@@ -115,36 +105,14 @@ class OfferBooking extends React.PureComponent<Props, State> {
         this.props.fetchEstablishmentBulk([o.establishment]);
         this.props.fetchCoachBulk([o.coach, o.coach_override]);
         this.props.fetchMetaActivityBulk([o.meta_activity]);
-        this.props.fetchOfferStatus(this.props.id, {
-          onSuccess: this.setOfferConstraint,
-        });
-        this.setOfferConstraint();
+        this.fetchOfferStatusList([o.id]);
         this.fetchSimilarOffers();
+        this.props.fetchMyRelatedMemberList(o.company);
       },
     });
   }
 
-  setOfferConstraint = () => {
-    if (this.props.offer && this.props.offerStatus) {
-      let credit = 0;
-      if (
-        this.props.offerStatus &&
-        this.props.offerStatus.bookable_status ===
-          OFFER_BOOKABLE_STATUS_BOOKABLE
-      ) {
-        credit = this.props.offer.credit_price;
-        this.setState({
-          offersConstraint: {
-            credit,
-            minDate: moment(this.props.offer.date_start).format(DATE_FORMAT),
-            maxDate: moment(this.props.offer.date_start).format(DATE_FORMAT),
-          },
-        });
-      }
-    }
-  };
-
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     if (
       this.state.selectedPack !== prevState.selectedPack &&
       !!prevState.selectedPack
@@ -159,124 +127,68 @@ class OfferBooking extends React.PureComponent<Props, State> {
       if (this.state.showSimilarOffers) {
         if (!pass) {
           this.props.snackbarError('bookerModule.pass.nothingAvailable');
-        } else if (pass.name) {
-          this.props.snackbarWarning('bookerModule.pass.changed', {
-            name: pass.name,
-          });
+        } else {
+          this.props.snackbarWarning('bookerModule.pass.changed');
         }
       }
     }
   }
 
-  onSelectOffer = (offer: Offer_FULL) => {
-    const index = this.state.selectedOffers.findIndex(
-      (offerData) => offerData.offer.id === offer.id,
+  openSimilarOfferSelector = () => {
+    this.setState({ showSimilarOffers: true });
+  };
+
+  closeSimilarOfferSelector = () => {
+    this.setState({ showSimilarOffers: false });
+  };
+
+  onClickRemoveOffer = (offer: Offer_FULL) => {
+    this.setState(
+      (prevState) => ({
+        selectedOffers: prevState.selectedOffers.filter(
+          (o) => !(o.offer.id === offer.id),
+        ),
+      }),
+      this.updateOfferConstraints,
     );
+  };
 
-    this.setState((prevState: State) => {
-      const selectedOffers = [...prevState.selectedOffers];
-      index === -1
-        ? selectedOffers.push({ offer, extra_data: {} })
-        : selectedOffers.splice(index, 1);
+  updateOfferConstraints = () => {
+    this.setState((prevState: State) => ({
+      offersConstraint: getOfferContraints(
+        this.props.offer,
+        prevState.selectedOffers,
+        this.props.offerStatusById,
+      ),
+    }));
+  };
 
-      let credit = 0;
-      if (
-        this.props.offerStatus &&
-        this.props.offerStatus.bookable_status ===
-          OFFER_BOOKABLE_STATUS_BOOKABLE
-      ) {
-        credit = this.props.offer.credit_price;
-      }
-
-      let minDate = moment(this.props.offer.date_start);
-      let maxDate = minDate;
-
-      const selectedBookable = selectedOffers.filter((o) => {
-        const offerStatus = this.props.offerStatusById[o.offer.id];
-        return offerStatus?.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE;
-      });
-
-      selectedBookable.forEach((offerData) => {
-        credit += offerData.offer.credit_price;
-        const dateStart = moment(offerData.offer.date_start);
-        if (dateStart.isBefore(minDate)) {
-          minDate = dateStart;
-        }
-        if (dateStart.isAfter(maxDate)) {
-          maxDate = dateStart;
-        }
-      });
-
-      return {
-        selectedOffers,
-        offersConstraint: {
-          credit,
-          minDate: minDate.format(DATE_FORMAT),
-          maxDate: maxDate.format(DATE_FORMAT),
-        },
-      };
-    });
+  onSelectOffer = (offer: Offer_FULL) => {
+    if (
+      this.state.selectedOffers.findIndex((o) => o.offer.id === offer.id) !== -1
+    ) {
+      return;
+    }
+    this.setState(
+      (prevState: State) => ({
+        selectedOffers: [
+          ...prevState.selectedOffers,
+          { offer, extra_data: {} },
+        ],
+      }),
+      this.updateOfferConstraints,
+    );
   };
 
   showBookingButton = () => {
-    const offerStatus = this.props.offerStatusById[this.props.id];
-
-    if (!this.props.offer || !offerStatus) {
-      return false;
-    }
-
-    const isBookable =
-      offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE ||
-      (offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_FULL &&
-        offerStatus.waiting_list_status ===
-          OFFER_WAITING_LIST_STATUS_CONVERTIBLE);
-    const isWaitingList =
-      offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_FULL &&
-      offerStatus.waiting_list_status === OFFER_WAITING_LIST_STATUS_OPEN;
-
-    if (!isBookable && !isWaitingList) {
-      return false;
-    }
-
-    let bookableCount = 0;
-    [
-      this.props.id,
-      ...this.state.selectedOffers.map((offerData) => offerData.offer.id),
-    ].forEach((id) => {
-      if (
-        this.props.offerStatusById[id] &&
-        this.props.offerStatusById[id].bookable_status ===
-          OFFER_BOOKABLE_STATUS_BOOKABLE
-      ) {
-        bookableCount += 1;
-      }
-    });
-
-    if (
-      bookableCount > 0 &&
-      !this.state.selectedPack?.consumerPaymentPack &&
-      !this.state.selectedPack?.paymentPack &&
-      !this.state.selectedPack?.paymentPackCombo
-    ) {
-      return false;
-    }
-
-    return true;
-  };
-
-  onClickWaitingList = (options) => {
-    this.setState({ showLoader: true });
-    this.props.registerOption(this.props.offer.id, null, {
-      onSuccess: (...args) => {
-        this.props.push(`/c/${this.props.offer.company}/`);
-        this.setState({ showLoader: false });
-        if (options && options.onSuccess) options.onSuccess(...args);
-      },
-      onError: (err) => {
-        this.setState({ showLoader: false });
-        if (options && options.onError) options.onError(err);
-      },
-    });
+    const { areBookable, areWaitingList } = getCanIBook(
+      this.props.offerStatusById,
+      this.props.offer,
+      this.state.selectedOffers,
+      this.state.selectedPack,
+      this.props.theme.accept_double_booking,
+    );
+    return areBookable || areWaitingList;
   };
 
   onClickBook = () => {
@@ -290,21 +202,49 @@ class OfferBooking extends React.PureComponent<Props, State> {
       data.payment_combo = this.state.selectedPack.paymentPackCombo.id;
     }
 
-    const offers: { offer_id: number; extra_data: any }[] = [
-      { offer_id: this.props.id, extra_data: {} },
-    ];
-    this.state.selectedOffers.forEach((offerData) => {
-      offers.push({
+    data.offers = [
+      { offer: this.props.offer, extra_data: {} },
+      ...this.state.selectedOffers,
+    ]
+      .filter(
+        (offerData) =>
+          getOfferFeature(
+            offerData.offer,
+            this.props.offerStatusById,
+            this.props.theme.accept_double_booking,
+          ).isBookable,
+      )
+      .map((offerData) => ({
         offer_id: offerData.offer.id,
-        extra_data: offerData.extra_data,
-      });
-    });
+        extra_data: {
+          ...(offerData.extra_data || {}),
+          booking_for_member: this.state.selectedMember
+            ? this.state.selectedMember.id
+            : null,
+        },
+      }));
 
-    data.offers = offers;
+    data.waiting_list = [
+      { offer: this.props.offer, extra_data: {} },
+      ...this.state.selectedOffers,
+    ]
+      .filter(
+        (offerData) =>
+          getOfferFeature(
+            offerData.offer,
+            this.props.offerStatusById,
+            this.props.theme.accept_double_booking,
+          ).isWaitingList,
+      )
+      .map((offerData) => ({ offer_id: offerData.offer.id }));
+
     this.props.offerUserRegistration(data, {
       onSuccess: () => {
         this.setState({ showLoader: false });
-        if (data.consumer_payment_pack) {
+        if (
+          data.consumer_payment_pack ||
+          (data.waiting_list.length && !data.offers.length)
+        ) {
           if (WidgetUtils.isWidget()) {
             WidgetUtils.paymentSuccess();
           }
@@ -350,13 +290,37 @@ class OfferBooking extends React.PureComponent<Props, State> {
             ];
 
             this.props.fetchCoachBulk(coachesId);
-            this.props.fetchOfferStatusList(
-              offers.map((o) => o.id),
-              { page_size: SIMILAR_OFFER_PAGE_SIZE },
-            );
+            this.fetchOfferStatusList(offers.map((o) => o.id));
           },
         },
       );
+  };
+
+  fetchOfferStatusList = (offerIds: number[]) => {
+    this.props.fetchOfferStatusList(
+      offerIds,
+      {
+        page_size: SIMILAR_OFFER_PAGE_SIZE,
+        ...(this.state.selectedMember
+          ? { booking_for_member: this.state.selectedMember.id }
+          : {}),
+      },
+      { onSuccess: this.updateOfferConstraints },
+    );
+  };
+
+  selectMember = (selectedMemberId?: number) => {
+    this.setState(
+      {
+        selectedOffers: [],
+        selectedMember: selectedMemberId
+          ? this.props.relatedMemberList.find(
+              (m: MemberMinimal) => m.id === selectedMemberId,
+            )
+          : null,
+      },
+      () => this.fetchOfferStatusList([this.props.offer.id]),
+    );
   };
 
   renderBookButton = () => {
@@ -380,11 +344,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
       <div className={classes.bookingButtonContainer}>
         <div className={classes.bookingButtonContainer2}>
           <Button
-            onClick={
-              isRegisteringForWaitingList
-                ? this.onClickWaitingList
-                : this.onClickBook
-            }
+            onClick={this.onClickBook}
             className={classes.bookingButton}
             variant="contained"
             color="primary"
@@ -416,11 +376,75 @@ class OfferBooking extends React.PureComponent<Props, State> {
   };
 
   getIsRegisteringForWaitingList = () => {
+    const { areBookable, areWaitingList } = getCanIBook(
+      this.props.offerStatusById,
+      this.props.offer,
+      this.props.offer ? [{ offer: this.props.offer }] : [],
+      this.state.selectedPack,
+      this.props.theme.accept_double_booking,
+    );
+    return areWaitingList && !areBookable;
+  };
+
+  renderBookingMethodSelector = () => {
+    const offerStatus = this.props.offerStatusById[this.props.offer.id];
+
+    const {
+      isBookable,
+      isWaitingList,
+      loading,
+      isRegistered,
+      isRegisteredWaitingList,
+    } = getOfferFeature(
+      this.props.offer,
+      this.props.offerStatusById,
+      this.props.theme.accept_double_booking,
+    );
+
+    if (!loading && !isBookable) {
+      const { message, icon } = getMainOfferNotBookableReason(
+        this.props.offer,
+        offerStatus,
+        {
+          isBookable,
+          isWaitingList,
+          isRegistered,
+          isRegisteredWaitingList,
+        },
+        this.props.t,
+      );
+
+      let TheIcon = BlockIcon;
+      if (icon === 'wait') TheIcon = HourglassEmptyIcon;
+      if (icon === 'block') TheIcon = BlockIcon;
+
+      return (
+        <div className={this.props.classes.cannotBookContainer}>
+          <TheIcon className={this.props.classes.noItemIcon} />
+          <Typography
+            color="textSecondary"
+            align="center"
+            className={this.props.classes.canNotBookMessage}
+          >
+            {message}
+          </Typography>
+        </div>
+      );
+    }
     return (
-      this.props.offerStatus &&
-      this.props.offerStatus.waiting_list_status ===
-        OFFER_WAITING_LIST_STATUS_OPEN &&
-      this.props.offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_FULL
+      <BookingMethodSelector
+        offerId={this.props.id}
+        offer={this.props.offer}
+        company={this.props.offer.company}
+        offersConstraint={this.state.offersConstraint}
+        offerStatus={offerStatus}
+        selectedPack={this.state.selectedPack}
+        onPackChange={(selectedPack) => this.setState({ selectedPack })}
+        selectedOffers={this.state.selectedOffers}
+        loading={
+          loading || !this.props.offer || !this.props.offer.meta_activity
+        }
+      />
     );
   };
 
@@ -440,39 +464,34 @@ class OfferBooking extends React.PureComponent<Props, State> {
               <div className={classes.inverseDivider1} />
             </Hidden>
             <div className={classes.responsiveContainer}>
-              <div className={classes.offerContainer}>
-                <OfferListSummary
-                  offer={this.props.offer}
-                  offerStatus={this.props.offerStatus}
-                  onClickAddMoreOffer={
-                    this.getIsRegisteringForWaitingList()
-                      ? null
-                      : () => {
-                          this.setState({ showSimilarOffers: true });
-                        }
-                  }
-                  onClickRemoveOffer={this.onSelectOffer}
-                  selectedOffers={this.state.selectedOffers}
-                  offerStatusById={this.props.offerStatusById}
-                />
+              <div className={classes.offerGroupContainer}>
+                <div className={classes.offerContainer}>
+                  <OfferListSummary
+                    offer={this.props.offer}
+                    offerStatus={this.props.offerStatusById[this.props.id]}
+                    member={this.state.selectedMember}
+                    onSelectMember={this.selectMember}
+                    relatedMemberList={this.props.relatedMemberList}
+                    onClickAddMoreOffer={
+                      this.showBookingButton() &&
+                      !this.getIsRegisteringForWaitingList()
+                        ? () => this.openSimilarOfferSelector()
+                        : null
+                    }
+                    onClickRemoveOffer={this.onClickRemoveOffer}
+                    selectedOffers={this.state.selectedOffers}
+                    offerStatusById={this.props.offerStatusById}
+                    acceptDoubleBooking={this.props.theme.accept_double_booking}
+                  />
+                </div>
               </div>
+
               <Hidden mdUp>
                 <div className={classes.inverseDivider2} />
               </Hidden>
 
               <div className={classes.packsContainer}>
-                <BookingMethodSelector
-                  offerId={this.props.id}
-                  offer={this.props.offer}
-                  company={this.props.offer.company}
-                  offersConstraint={this.state.offersConstraint}
-                  offerStatus={this.props.offerStatus}
-                  selectedPack={this.state.selectedPack}
-                  onPackChange={(selectedPack) =>
-                    this.setState({ selectedPack })
-                  }
-                  selectedOffers={this.state.selectedOffers}
-                />
+                {this.renderBookingMethodSelector()}
                 <div style={{ height: 100, width: '100%' }} />
                 {this.showBookingButton() && this.renderBookButton()}
               </div>
@@ -484,13 +503,14 @@ class OfferBooking extends React.PureComponent<Props, State> {
             selectedOffers={this.state.selectedOffers}
             onSelectOffer={this.onSelectOffer}
             open={this.state.showSimilarOffers}
-            onClose={() => this.setState({ showSimilarOffers: false })}
+            onClose={this.closeSimilarOfferSelector}
             similarOffers={this.props.similarOffers}
             loading={this.props.similarLoading}
             offerStatusById={this.props.offerStatusById}
             resetSimilarOffers={this.props.resetSimilarOffers}
             onClickShowMore={this.fetchSimilarOffers}
             hasMoreSimilarOffer={this.props.hasMoreSimilarOffer}
+            acceptDoubleBooking={this.props.theme.accept_double_booking}
           />
 
           <Backdrop
@@ -548,9 +568,6 @@ const styles = (theme: Theme) => ({
   },
   offerContainer: {
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      flex: 1,
-    },
   },
   packsContainer: {
     display: 'flex',
@@ -632,6 +649,36 @@ const styles = (theme: Theme) => ({
   iconLeft: {
     marginRight: theme.spacing(1),
   },
+  offerGroupContainer: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      flex: 1,
+    },
+    flexDirection: 'column',
+    '&>*': {
+      marginBottom: theme.spacing(2),
+    },
+  },
+  canNotBookMessage: {
+    marginTop: theme.spacing(2),
+    maxWidth: 500,
+  },
+  noItemIcon: {
+    fontSize: 160,
+  },
+  cannotBookContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingLeft: theme.spacing(1),
+    border: '1px solid #DEDEDE',
+    borderRadius: 12,
+    padding: theme.spacing(4),
+    [theme.breakpoints.up('md')]: {
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
+  },
 });
 
 const mapStateToProps = (state: RootState, props: OwnProps) => ({
@@ -639,7 +686,6 @@ const mapStateToProps = (state: RootState, props: OwnProps) => ({
     state,
     props.id,
   ) as Offer_FULL,
-  offerStatus: state.offer.offerStatus.byId[props.id],
   offerStatusById: state.offer.offerStatus.byId,
   similarOffers: withMetaActivity(withCoach(withEstablishment(getSimilars)))(
     state,
@@ -647,19 +693,21 @@ const mapStateToProps = (state: RootState, props: OwnProps) => ({
   similarLoading: state.offer.similarOffers.loading,
   hasMoreSimilarOffer: !!state.offer.similarOffers.next_page,
   nextSimilarOfferPage: state.offer.similarOffers.next_page,
+  relatedMemberList: getMyRelatedMemberList(state),
+  theme: themeSelectors.getTheme(state),
 });
 
 const mapDispatchToProps = {
   fetchOffer,
   fetchEstablishmentBulk,
   fetchCoachBulk,
+  fetchMyRelatedMemberList,
   fetchMetaActivityBulk,
-  fetchOfferStatus,
   offerUserRegistration,
   push,
   fetchSimilarOffers,
   resetSimilarOffers,
-  goToUserSpace: (id) => push(`/c/${id}/`),
+  goToUserSpace: (id: number) => push(`/c/${id}/`),
   snackbarError: snackbarErrorAction,
   snackbarWarning: snackbarWarningAction,
   registerOption,

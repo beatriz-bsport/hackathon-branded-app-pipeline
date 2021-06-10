@@ -25,7 +25,6 @@ const persistConfig = {
   storage,
   whitelist: [
     'auth',
-    'offer',
     'paymentPack',
     'category',
     'refresh',

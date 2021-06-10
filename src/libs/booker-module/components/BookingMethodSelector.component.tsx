@@ -45,7 +45,6 @@ enum CollapsePackEnum {
   consumerPacks,
   paymentPacks,
   paymentCombo,
-  contract,
 }
 
 type Props = OwnProps &
@@ -111,7 +110,6 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
       availableConsumerPacks,
       availablePaymentPacks,
       availableComboPacks,
-      contractList,
     } = this.props;
 
     const selectedPack: SelectedPack = {};
@@ -120,9 +118,6 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
     if (availableConsumerPacks.length) {
       selectedPack.consumerPaymentPack = availableConsumerPacks[0];
       openPacks = CollapsePackEnum.consumerPacks;
-    } else if (contractList.length) {
-      selectedPack.contract = contractList[0];
-      openPacks = CollapsePackEnum.contract;
     } else if (availablePaymentPacks.length) {
       selectedPack.paymentPack = availablePaymentPacks[0];
       openPacks = CollapsePackEnum.paymentPacks;
@@ -140,7 +135,6 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
       availableConsumerPacks,
       availablePaymentPacks,
       availableComboPacks,
-      contractList,
     } = this.props;
 
     let selectedPack = this.props.selectedPack;
@@ -148,11 +142,6 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
     if (id === CollapsePackEnum.consumerPacks) {
       if (availableConsumerPacks.length) {
         selectedPack = { consumerPaymentPack: availableConsumerPacks[0] };
-      }
-    }
-    if (id === CollapsePackEnum.contract) {
-      if (contractList.length) {
-        selectedPack = { contract: contractList[0] };
       }
     }
     if (id === CollapsePackEnum.paymentPacks) {
@@ -260,8 +249,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
           <div className={classes.marginTop}>
             <CollapsibleSection
               title={t('booking:bookingModule.section.contract')}
-              in={this.state.openPacks === CollapsePackEnum.contract}
-              onSwitch={() => this.openPacks(CollapsePackEnum.contract)}
+              in
             >
               {contractList.map((contract) => {
                 if (!contract) {

@@ -19,16 +19,13 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 import CloseIcon from '@material-ui/icons/Close';
 
-import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
-import {
-  OFFER_BOOKABLE_STATUS_BOOKABLE,
-  OFFER_BOOKABLE_STATUS_FULL,
-} from '@bsport/common/lib/master-data/bookable-status';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 
 import { MaterialStyleType } from '../../../utils/types';
 import { Offer, Offer_FULL, OfferStatus } from '../../offer/types';
 import { OfferData } from '../types';
 import OfferItem from './OfferBookableItem.component';
+import { getOfferFeature } from '../utils';
 
 type OwnProps = {
   offer?: Offer_FULL;
@@ -36,7 +33,7 @@ type OwnProps = {
   onClose: () => void;
   selectedOffers: OfferData[];
   onSelectOffer: (offer: Offer_FULL) => void;
-  similarOffers: Offer[];
+  similarOffers: { [id: number]: Offer }[];
   loading: boolean;
   hasMoreSimilarOffer: boolean;
   onClickShowMore: () => void;
@@ -159,10 +156,6 @@ class SimilarOffers extends React.PureComponent<Props> {
                   p={2}
                   className={classes.similarOfferItem}
                 >
-                  {!o.establishment && 'missing estab'}
-                  {!o.coach && 'missing coach'}
-                  {!offerStatus && 'mis status'}
-                  {!o.meta_activity && 'mis activity'}
                   <Skeleton
                     animation="wave"
                     width="50%"
@@ -179,12 +172,15 @@ class SimilarOffers extends React.PureComponent<Props> {
               );
             }
 
-            const isBookable =
-              offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE;
-            const isWaitingList =
-              offerStatus.bookable_status === OFFER_BOOKABLE_STATUS_FULL &&
-              offerStatus.waiting_list_status ===
-                OFFER_WAITING_LIST_STATUS_OPEN;
+            const {
+              isBookable,
+              isWaitingList,
+              noInteraction,
+            } = getOfferFeature(
+              o,
+              this.props.offerStatusById,
+              this.props.acceptDoubleBooking,
+            );
 
             const isSelected = Boolean(
               this.props.selectedOffers.find(
@@ -197,6 +193,7 @@ class SimilarOffers extends React.PureComponent<Props> {
                 <div className={classes.similarOfferItem}>
                   <OfferItem
                     offer={o}
+                    disabled={noInteraction}
                     offerStatus={offerStatus}
                     isBookable={isBookable}
                     isWaitingList={isWaitingList}

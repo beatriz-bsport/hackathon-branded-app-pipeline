@@ -12,11 +12,11 @@ export async function fetchMemberRelations(memberId: number) {
   return getAuth(`${API_V1_URI}/member/${memberId}/relations/`);
 }
 
-export async function createRelation(data: *) {
+export async function createRelation(data: any) {
   return postAuth(`${API_V1_URI}/relationship/member/`, data);
 }
 
-export async function updateRelation(relationId: number, data: *) {
+export async function updateRelation(relationId: number, data: any) {
   return patchAuth(`${API_V1_URI}/relationship/member/${relationId}/`, data);
 }
 
@@ -90,4 +90,10 @@ export async function relinkPrivateConsumerPassLink(
 
 export async function deleteRelation(id: number) {
   return deleteAuth(`${API_V1_URI}/relationship/member/${id}/`);
+}
+
+export async function fetchRelatedMemberList(company: number) {
+  return postAuth(`${API_V1_URI}/relationship/member/my_related_members/`, {
+    company,
+  });
 }

@@ -1,6 +1,4 @@
 import {
-  FIXED_BASE_REMUNERATION,
-  PERCENTAGE_BASE_REMUNERATION,
   BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CONFIRMED_BOOKING,
   BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
   BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE,
@@ -28,15 +26,15 @@ export const mapInitalPropsToValues = (initial, ruleTypeCreation) => {
       : 0;
     return {
       ...initial,
+      add_overall_base_remuneration:
+        parseFloat(initial.base_remuneration) !== 0,
+      add_base_remuneration_for_cancellation:
+        parseFloat(initial.base_remuneration_for_cancellation) !== 0,
+      add_percentage_base_confirmed_bookings: purcentage_base_exists_confirmed_bookings,
+      add_percentage_base_cancelled_bookings: purcentage_base_exists_cancelled_bookings,
       excluded_payment_packs: [...initial.excluded_payment_packs],
       percentage_base_confirmed_bookings: purcentage_base_confirmed_bookings,
       percentage_base_cancelled_bookings: purcentage_base_cancelled_bookings,
-      base_remuneration_type_confirmed: purcentage_base_exists_confirmed_bookings
-        ? PERCENTAGE_BASE_REMUNERATION
-        : FIXED_BASE_REMUNERATION,
-      base_remuneration_type_cancellation: purcentage_base_exists_cancelled_bookings
-        ? PERCENTAGE_BASE_REMUNERATION
-        : FIXED_BASE_REMUNERATION,
       remuneration_on_cancellation:
         initial.bonus_coach_payment.find(
           (bonus) =>
@@ -69,8 +67,9 @@ export const mapInitalPropsToValues = (initial, ruleTypeCreation) => {
     coach_payment_rule: null,
     kind: ruleTypeCreation,
     name: '',
-    base_remuneration_type_confirmed: FIXED_BASE_REMUNERATION,
-    base_remuneration_type_cancellation: FIXED_BASE_REMUNERATION,
+    add_overall_base_remuneration: false,
+    add_percentage_base_confirmed_bookings: false,
+    add_percentage_base_cancelled_bookings: false,
     remuneration_on_cancellation: false,
     base_remuneration_for_cancellation: 0,
     exclude_cancelled_from_confirmed_bookings: false,

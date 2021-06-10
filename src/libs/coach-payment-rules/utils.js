@@ -24,7 +24,7 @@ export const bonusCoachPaymentRuleConstructor = (
       BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CONFIRMED_BOOKING,
     kind: params.kind || BONUS_COACH_PAYMENT_RULE_FIXED_VLAUE,
     bonus: params.bonus || 0,
-    lower_interval: params.lower_interval || 0,
+    lower_interval: params.lower_interval || 1,
     upper_interval: params.upper_interval || null,
   };
 };

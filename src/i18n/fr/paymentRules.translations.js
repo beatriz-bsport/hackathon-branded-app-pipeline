@@ -96,6 +96,7 @@ exports.default = {
       to: 'à',
       bookingsThresholds: 'Réservations (bornes incluses)',
       forEachBooking: 'pour chaque réservation',
+      forInterval: "pour tout l'intervalle",
       bonus_rules: 'Règles de bonus',
     },
     Errors: {
@@ -122,7 +123,7 @@ exports.default = {
         "La taxe est un champ obligatoire si vous avez coché la case 'Calcul TTC' ci-dessus.",
       taxeRateTypeError: 'La taxe doit être un nombre compris entre 0 et 100.',
       lowerIntervalTypeError:
-        "L'interval inférieur doit être un nombre inférieur ou égale à 0",
+        "L'interval inférieur doit être un nombre inférieur ou égale à 1",
       invalidCancelledBookingRules:
         'Si vous souhaitez appliquer des bonus différents pour les élèves absents vous devez définir au moins un bonus ou une base par pourcentage dans la section ci-dessous.',
     },

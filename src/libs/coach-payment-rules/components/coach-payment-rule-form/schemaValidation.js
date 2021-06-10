@@ -7,6 +7,7 @@ export const bonusCoachPaymentRuleSchema = Yup.object().shape({
   kind: Yup.number(),
   bonus: Yup.number()
     .min(0)
+    .max(999999)
     .test('bonus-gt-zero', 'bonus_gt_zero', function (item) {
       return item >= 0.1
         ? true
@@ -17,7 +18,8 @@ export const bonusCoachPaymentRuleSchema = Yup.object().shape({
           });
     }),
   lower_interval: Yup.number()
-    .min(0, 'paymentRules:coach_payment_rules.lowerIntervalTypeError')
+    .min(1, 'paymentRules:coach_payment_rules.lowerIntervalTypeError')
+    .max(999999)
     .typeError('paymentRules:coach_payment_rules.lowerIntervalTypeError')
     .test('interval-check', 'Invalid interval', function (item) {
       const valid_interval = this.parent.upper_interval > item;
@@ -31,6 +33,7 @@ export const bonusCoachPaymentRuleSchema = Yup.object().shape({
     }),
   upper_interval: Yup.number()
     .min(0)
+    .max(999999)
     .nullable(true)
     .typeError('paymentRules:coach_payment_rules.Errors.invalideUpperInterval'),
 });
@@ -46,13 +49,15 @@ export const coachPaymentRuleFieldsSchema = Yup.object().shape({
     'paymentRules:coach_payment_rules.Errors.nameRequired',
   ),
   base_remuneration: Yup.number()
+    .min(0)
+    .max(999999)
     .required(
       'paymentRules:coach_payment_rules.Errors.baseRemunerationRequired',
     )
     .typeError(
       'paymentRules:coach_payment_rules.Errors.baseRemunerationTypeError',
     ),
-  base_remuneration_for_cancellation: Yup.number(),
+  base_remuneration_for_cancellation: Yup.number().min(0).max(999999),
   percentage_base_confirmed_bookings: Yup.number()
     .min(0)
     .max(100)
@@ -62,15 +67,10 @@ export const coachPaymentRuleFieldsSchema = Yup.object().shape({
     .typeError(
       'paymentRules:coach_payment_rules.Errors.percentagebaseRemunerationTypeError',
     ),
-  min_remuneration: Yup.number().required(),
-  // .test(
-  //   'min-superior-to-base',
-  //   'paymentRules:coach_payment_rules.Errors.invalidMinimum',
-  //   function (item) {
-  //     return item >= this.parent.base_remuneration;
-  //   },
-  // ),
+  min_remuneration: Yup.number().required().min(0).max(999999),
   max_remuneration: Yup.number()
+    .min(0)
+    .max(999999)
     .required()
     .test(
       'max-superior-to-min',

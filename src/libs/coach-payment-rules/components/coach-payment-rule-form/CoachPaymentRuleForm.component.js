@@ -23,11 +23,11 @@ import Collapse from '@material-ui/core/Collapse';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormGroup from '@material-ui/core/FormGroup';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import Radio from '@material-ui/core/Radio';
+import CheckBox from '@material-ui/core/Checkbox';
+import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {
   FIXED_BASE_REMUNERATION,
-  PERCENTAGE_BASE_REMUNERATION,
   BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CONFIRMED_BOOKING,
   BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
   BONUS_COACH_PAYMENT_RULE_EVERY_BOOKING,
@@ -99,70 +99,88 @@ export function CoachPaymentRuleFields(props: Props) {
         required
       />
       <AlertError name="name" />
+      {props.values.kind === COACH_PAYMENT_RULE_FOR_SESSION && (
+        <React.Fragment>
+          <FormControlLabel
+            control={
+              <CheckBox
+                id="checkbox_base_remuneration"
+                name="add_overall_base_remuneration"
+                checked={props.values.add_overall_base_remuneration}
+                onClick={() => {
+                  setFieldValue(
+                    'add_overall_base_remuneration',
+                    !props.values.add_overall_base_remuneration,
+                  );
+                  setFieldValue('base_remuneration', 0);
+                }}
+              />
+            }
+            label={t('coach_payment_rules.base_remuneration')}
+          />
+          <Collapse in={props.values.add_overall_base_remuneration}>
+            <PriceField
+              id="pricefield_base_remuneration"
+              name="base_remuneration"
+              fullWidth
+            />
+            <AlertError name="base_remuneration" />
+          </Collapse>
+        </React.Fragment>
+      )}
       <Typography variant="h6">
         {t('coach_payment_rules.forConfirmedBookings')}
       </Typography>
       <Typography variant="subtitle1">
         {t('coach_payment_rules.calculationMethod')}
       </Typography>
+      {props.values.kind === COACH_PAYMENT_RULE_FOR_APPOINTMENT && (
+        <React.Fragment>
+          <FormControlLabel
+            control={
+              <CheckBox
+                id="checkbox_base_remuneration"
+                name="add_overall_base_remuneration"
+                checked={props.values.add_overall_base_remuneration}
+                onClick={() => {
+                  setFieldValue(
+                    'add_overall_base_remuneration',
+                    !props.values.add_overall_base_remuneration,
+                  );
+                  setFieldValue('base_remuneration', 0);
+                }}
+              />
+            }
+            label={t('coach_payment_rules.base_remuneration')}
+          />
+          <Collapse in={props.values.add_overall_base_remuneration}>
+            <PriceField
+              id="pricefield_base_remuneration"
+              name="base_remuneration"
+              fullWidth
+            />
+            <AlertError name="base_remuneration" />
+          </Collapse>
+        </React.Fragment>
+      )}
       <FormControlLabel
         control={
-          <Radio
-            id="checkbox_base_remuneration"
-            checked={
-              props.values.base_remuneration_type_confirmed ===
-              FIXED_BASE_REMUNERATION
-            }
+          <CheckBox
+            id="checkbox_percentage_base"
+            name="add_percentage_base_confirmed_bookings"
+            checked={props.values.add_percentage_base_confirmed_bookings}
             onClick={() => {
               setFieldValue(
-                'base_remuneration_type_confirmed',
-                FIXED_BASE_REMUNERATION,
+                'add_percentage_base_confirmed_bookings',
+                !props.values.add_percentage_base_confirmed_bookings,
               );
               setFieldValue('percentage_base_confirmed_bookings', 0);
             }}
           />
         }
-        label={t('coach_payment_rules.base_remuneration')}
-      />
-
-      <Collapse
-        in={
-          props.values.base_remuneration_type_confirmed ===
-          FIXED_BASE_REMUNERATION
-        }
-      >
-        <PriceField
-          id="pricefield_base_remuneration"
-          name="base_remuneration"
-          fullWidth
-        />
-        <AlertError name="base_remuneration" />
-      </Collapse>
-      <FormControlLabel
-        control={
-          <Radio
-            id="checkbox_percentage_base"
-            checked={
-              props.values.base_remuneration_type_confirmed ===
-              PERCENTAGE_BASE_REMUNERATION
-            }
-            onClick={() => {
-              setFieldValue(
-                'base_remuneration_type_confirmed',
-                PERCENTAGE_BASE_REMUNERATION,
-              );
-              setFieldValue('base_remuneration', 0);
-            }}
-          />
-        }
         label={t('coach_payment_rules.percentage_base')}
       />
-      <Collapse
-        in={
-          props.values.base_remuneration_type_confirmed ===
-          PERCENTAGE_BASE_REMUNERATION
-        }
-      >
+      <Collapse in={props.values.add_percentage_base_confirmed_bookings}>
         <PercentField
           step={0.1}
           id="percentfield_percentage_base"
@@ -288,7 +306,11 @@ export function CoachPaymentRuleFields(props: Props) {
                                   'coach_payment_rules.Bonuses.forEachBooking',
                                 )}
                               </Typography>
-                            ) : null}
+                            ) : (
+                              <Typography variant="subtitle2">
+                                {t('coach_payment_rules.Bonuses.forInterval')}
+                              </Typography>
+                            )}
                           </TableCell>
                           <TableCell
                             align="left"
@@ -387,25 +409,31 @@ export function CoachPaymentRuleFields(props: Props) {
           setFieldValue('base_remuneration_for_cancellation', 0);
         }}
       />
-      <CheckboxField
-        id="checkbox_exclude_cancelled_from_confirmed_bookings"
-        name="exclude_cancelled_from_confirmed_bookings"
-        label={t('coach_payment_rules.differentRemunerationForCancellation')}
-        disabled={!props.values.remuneration_on_cancellation}
-        checked={
-          props.values.exclude_cancelled_from_confirmed_bookings &&
-          props.values.remuneration_on_cancellation
-        }
-        onClick={() => {
-          setFieldValue(
-            'exclude_cancelled_from_confirmed_bookings',
-            !props.values.exclude_cancelled_from_confirmed_bookings,
-          );
-          if (!props.values.exclude_cancelled_from_confirmed_bookings) {
-            setFieldValue('bonus_for_cancelled_bookings', []);
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Switch
+              id="checkbox_exclude_cancelled_from_confirmed_bookings"
+              name="exclude_cancelled_from_confirmed_bookings"
+              disabled={!props.values.remuneration_on_cancellation}
+              checked={
+                props.values.exclude_cancelled_from_confirmed_bookings &&
+                props.values.remuneration_on_cancellation
+              }
+              onClick={() => {
+                setFieldValue(
+                  'exclude_cancelled_from_confirmed_bookings',
+                  !props.values.exclude_cancelled_from_confirmed_bookings,
+                );
+                if (!props.values.exclude_cancelled_from_confirmed_bookings) {
+                  setFieldValue('bonus_for_cancelled_bookings', []);
+                }
+              }}
+            />
           }
-        }}
-      />
+          label={t('coach_payment_rules.differentRemunerationForCancellation')}
+        />
+      </FormGroup>
       <Collapse
         in={
           props.values.exclude_cancelled_from_confirmed_bookings &&
@@ -420,74 +448,60 @@ export function CoachPaymentRuleFields(props: Props) {
           {t('coach_payment_rules.calculationMethod')}
         </Typography>
         <FormGroup>
-          <FormControlLabel
-            control={
-              <Radio
-                id="checkbox_base_remuneration"
-                checked={
-                  props.values.base_remuneration_type_cancellation ===
-                  FIXED_BASE_REMUNERATION
-                }
-                onClick={() => {
-                  setFieldValue(
-                    'base_remuneration_type_cancellation',
-                    FIXED_BASE_REMUNERATION,
-                  );
-                  setFieldValue('percentage_base_cancelled_bookings', 0);
-                }}
-              />
-            }
-            label={t('coach_payment_rules.base_remuneration')}
-          />
-
-          {props.values.kind === COACH_PAYMENT_RULE_FOR_SESSION && (
-            <FormHelperText>
-              {t('coach_payment_rules.cancellationBaseHelper')}
-            </FormHelperText>
-          )}
-
           {props.values.kind === COACH_PAYMENT_RULE_FOR_APPOINTMENT && (
-            <Collapse
-              in={
-                props.values.base_remuneration_type_cancellation ===
-                FIXED_BASE_REMUNERATION
-              }
-            >
-              <PriceField
-                id="pricefield_base_remuneration_for_cancellation"
-                name="base_remuneration_for_cancellation"
-                fullWidth
+            <React.Fragment>
+              <FormControlLabel
+                control={
+                  <CheckBox
+                    id="checkbox_base_remuneration"
+                    name="add_base_remuneration_for_cancellation"
+                    checked={
+                      props.values.add_base_remuneration_for_cancellation
+                    }
+                    onClick={() => {
+                      setFieldValue(
+                        'add_base_remuneration_for_cancellation',
+                        !props.values.add_base_remuneration_for_cancellation,
+                      );
+                      setFieldValue('base_remuneration_for_cancellation', 0);
+                    }}
+                  />
+                }
+                label={t('coach_payment_rules.base_remuneration')}
               />
-              <AlertError name="base_remuneration_for_cancellation" />
-            </Collapse>
+              <Collapse
+                in={props.values.add_base_remuneration_for_cancellation}
+              >
+                <PriceField
+                  id="pricefield_base_remuneration_for_cancellation"
+                  name="base_remuneration_for_cancellation"
+                  fullWidth
+                />
+                <AlertError name="base_remuneration_for_cancellation" />
+              </Collapse>
+            </React.Fragment>
           )}
         </FormGroup>
         <FormControlLabel
           control={
-            <Radio
+            <CheckBox
               id="checkbox_percentage_base"
-              name="percentage_base"
-              checked={
-                props.values.base_remuneration_type_cancellation ===
-                PERCENTAGE_BASE_REMUNERATION
-              }
+              name="add_percentage_base_cancelled_bookings"
+              checked={props.values.add_percentage_base_cancelled_bookings}
               onClick={() => {
                 setFieldValue(
-                  'base_remuneration_type_cancellation',
-                  PERCENTAGE_BASE_REMUNERATION,
+                  'add_percentage_base_cancelled_bookings',
+                  !props.values.add_percentage_base_cancelled_bookings,
                 );
-                setFieldValue('base_remuneration_for_cancellation', 0);
+                if (!props.values.add_percentage_base_cancelled_bookings) {
+                  setFieldValue('percentage_base_cancelled_bookings', 0);
+                }
               }}
             />
           }
           label={t('coach_payment_rules.percentage_base')}
         />
-        <Collapse
-          in={
-            props.values.base_remuneration_type_cancellation ===
-            PERCENTAGE_BASE_REMUNERATION
-          }
-        >
+        <Collapse in={props.values.add_percentage_base_cancelled_bookings}>
           <PercentField
             step={0.1}
             id="percentfield_percentage_base_cancellation"
@@ -611,7 +625,11 @@ export function CoachPaymentRuleFields(props: Props) {
                                     'coach_payment_rules.Bonuses.forEachBooking',
                                   )}
                                 </Typography>
-                              ) : null}
+                              ) : (
+                                <Typography variant="subtitle2">
+                                  {t('coach_payment_rules.Bonuses.forInterval')}
+                                </Typography>
+                              )}
                             </TableCell>
                             <TableCell
                               align="left"
@@ -838,10 +856,7 @@ export const CoachPaymentRuleFormHoc = withFormik({
                 : [],
           }),
     };
-    if (
-      values.base_remuneration_type_confirmed === PERCENTAGE_BASE_REMUNERATION
-    ) {
-      valuesWithConcatBonuses.base_remuneration = 0;
+    if (values.percentage_base_confirmed_bookings !== 0) {
       valuesWithConcatBonuses.bonus_coach_payment.push(
         bonusCoachPaymentRuleConstructor(values.id, {
           // eslint-disable-next-line
@@ -853,11 +868,7 @@ export const CoachPaymentRuleFormHoc = withFormik({
         }),
       );
     }
-    if (
-      values.base_remuneration_type_cancellation ===
-        PERCENTAGE_BASE_REMUNERATION &&
-      values.exclude_cancelled_from_confirmed_bookings
-    ) {
+    if (values.percentage_base_cancelled_bookings !== 0) {
       valuesWithConcatBonuses.bonus_coach_payment.push(
         bonusCoachPaymentRuleConstructor(values.id, {
           // eslint-disable-next-line
@@ -876,14 +887,19 @@ export const CoachPaymentRuleFormHoc = withFormik({
       valuesWithConcatBonuses.base_remuneration_for_cancellation = 0;
     }
     const {
-      base_remuneration_type_confirmed,
+      add_base_remuneration_for_cancellation,
+      add_overall_base_remuneration,
+      add_percentage_base_cancelled_bookings,
+      add_percentage_base_confirmed_bookings,
+      percentage_base_cancelled_bookings,
+      percentage_base_confirmed_bookings,
       base_remuneration_type_cancellation,
       remuneration_on_cancellation,
       include_taxe,
       bonus_for_confirmed_bookings,
       bonus_for_cancelled_bookings,
       coaches,
-      percentage_base_confirmed_bookings,
+
       ...cleanedValue
     } = valuesWithConcatBonuses;
     onSubmit(cleanedValue, {

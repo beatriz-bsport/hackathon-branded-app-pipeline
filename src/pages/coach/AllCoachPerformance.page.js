@@ -17,8 +17,8 @@ import type { TFunction } from 'react-i18next';
 import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
-  computePerformanceSynthese,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
+import { computePerformanceSynthese } from '../../libs/coach-payment-rules/utils';
 import { downloadAsCsv } from '../../utils/downloader';
 import type { CoachPaymentRule as CoachPaymentRuleType } from '../../libs/coach-payment-rules/types';
 
@@ -265,6 +265,7 @@ export class AllCoachPerformance extends React.Component<Props> {
                 this.props.t('coach:performance.nbConfirmedBookings'),
                 this.props.t('coach:performance.nbCancelledBookings'),
               ],
+
               computePerformanceSynthese(
                 this.props.associatedCoachWithCoachPaymentRuleAndPerformance,
               ).map((perf) => [
@@ -405,14 +406,20 @@ export default compose(
       paymentRuleId: number,
       associatedCoachId: number,
     ) => {
-      setCoachPaymentRuleAction(coachId, paymentRuleId);
-      setPerformanceLoading(true);
-      fetchCoachSessionPerformance({
-        associatedCoachId,
-        start_timestamp: formDates.dateStart,
-        end_timestamp: formDates.dateEnd,
+      setCoachPaymentRuleAction(coachId, paymentRuleId, {
+        onSuccess: async () => {
+          setPerformanceLoading(true);
+          const promises = [
+            fetchCoachSessionPerformance({
+              associatedCoachId,
+              start_timestamp: formDates.dateStart,
+              end_timestamp: formDates.dateEnd,
+            }),
+          ];
+          await Promise.all(promises);
+          setPerformanceLoading(false);
+        },
       });
-      setPerformanceLoading(false);
     },
   }),
   withHandlers({
@@ -426,14 +433,20 @@ export default compose(
       paymentRuleId: number,
       associatedCoachId: number,
     ) => {
-      updatePrivateBookingCoachPaymentRuleAction(coachId, paymentRuleId);
-      setPerformanceLoading(true);
-      fetchCoachPrivateServicePerformance({
-        associatedCoachId,
-        start_timestamp: formDates.dateStart,
-        end_timestamp: formDates.dateEnd,
+      updatePrivateBookingCoachPaymentRuleAction(coachId, paymentRuleId, {
+        onSuccess: async () => {
+          setPerformanceLoading(true);
+          const promises = [
+            fetchCoachPrivateServicePerformance({
+              associatedCoachId,
+              start_timestamp: formDates.dateStart,
+              end_timestamp: formDates.dateEnd,
+            }),
+          ];
+          await Promise.all(promises);
+          setPerformanceLoading(false);
+        },
       });
-      setPerformanceLoading(false);
     },
   }),
   withHandlers({

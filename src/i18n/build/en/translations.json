@@ -4736,42 +4736,49 @@
         "pageTitle": "Payment rates",
         "coach_payment_rules": {
             "Simulator": {
-                "student_did_not_attend": "Absent student",
-                "student_attended": "Present student",
+                "student_did_not_attend": "Absentees",
+                "student_attended": "Present students",
                 "total_payment": "Final payment",
                 "marginValue": "Marginal value",
-                "forCancelledBookings": "Number of absences",
+                "forCancelledBookings": "Number of absentees",
                 "forConfirmedBookings": "Number of students",
-                "forEachBooking": "for each booking",
-                "cancellations": "absences or late cancellations",
+                "forEachBooking": "per booking",
+                "cancellations": "absentees or late cancellations",
                 "and": "And",
                 "students": "students",
                 "for": "For",
-                "resultTitle": "Result of your simulation (teacher payments)",
-                "title": "Payment rule simulator"
+                "resultTitle": "Results of your simulation (teacher payroll)",
+                "title": "Payroll rule simulator",
+                "bonus": "Total bonus",
+                "which": "Earnings",
+                "helper": "Check here that your payroll rule matches your expectations"
             },
             "Errors": {
-                "lowerIntervalTypeError": "The inferior interval needs to be an inferior number or equal to 0",
+                "lowerIntervalTypeError": "The smaller threshold needs to be a number equal to or less than 1",
                 "taxeRateTypeError": "The tax rate has to be a number between 0 and 100.",
-                "taxeRateRequired": "Tax is a required field if you have ticked the box \"Calculate ATI\" above.",
-                "percentagebaseRemunerationRequired": "The compensation by percentage is a required field if you ticked the box above.",
-                "baseRemunerationTypeError": "The base pay needs to be a positive number.",
+                "taxeRateRequired": "Tax is a required field if you have ticked the box \"Calculate Tax\" above.",
+                "percentagebaseRemunerationRequired": "This field is mandatory if you have ticked the \"Percentage\" box.",
+                "baseRemunerationTypeError": "Fixed Pay needs to be a positive number.",
                 "invalideUpperInterval": "The upper interval must be a number.",
                 "invalidLowerInterval": "The upper interval must be higher than the lower interval.",
                 "invalidBonusAmount": "The bonus must be greater than or equal to 0.1.",
-                "nameRequired": "The name is a mandatory field.",
+                "nameRequired": "This field is mandatory.",
                 "invalideIntervals": "The intersection of intervals for bonuses of the same type is not allowed.",
                 "invalidMaximum": "The maximum remuneration must be higher than the minimum remuneration",
-                "invalidMinimum": "The minimum remuneration must be equal to or higher than the fixed base"
+                "invalidMinimum": "The minimum remuneration must be equal to or higher than the fixed base",
+                "invalidCancelledBookingRules": "If you want to apply different bonuses for absent students you must define at least one bonus or a percentage basis in the section below.",
+                "percentagebaseRemunerationTypeError": "Percentage pay must be a number between 0 and 100.",
+                "baseRemunerationRequired": "This is a mandatory field if you have ticked the 'Fixed Pay' box above."
             },
             "Bonuses": {
                 "bonus_rules": "Bonus rules",
-                "forEachBooking": "for each booking",
+                "forEachBooking": "per booking",
                 "to": "to",
                 "from": "From",
                 "addBonus": "ADD A BONUS RULE",
                 "bonus": "Bonus",
-                "bookingsThresholds": "Bookings (including threshold limits)"
+                "bookingsThresholds": "Bookings (including threshold limits)",
+                "forInterval": "for the whole interval"
             },
             "paymentPackPlaceHolder": "Select passes",
             "excludePaymentPack": "Exclude certain passes",
@@ -5216,7 +5223,9 @@
             "title": "Payment method",
             "none": "No payment method has been saved",
             "detach": {
-                "pm_deleted": "Deleted payment method"
+                "pm_deleted": "Deleted payment method",
+                "pm_associated_to_protected_bp": "You have a subscription associated with this payment method, you must delete the subscription first.",
+                "last_payment_method": "You must have at least one payment method"
             }
         },
         "paymentEngine": {

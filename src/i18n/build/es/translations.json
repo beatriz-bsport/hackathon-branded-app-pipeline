@@ -2387,10 +2387,10 @@
             "name": "Nombre",
             "member": "Miembro",
             "dateCreated": "Fecho de registro",
-            "nbInterval": "Número de recogidas",
+            "nbInterval": "Número de pagos recurrentes",
             "recurrent_price": "Suscripción",
             "paymentPack": "Tarjeta de curso",
-            "nbMonths": "Número de recogidas",
+            "nbMonths": "Número de pagos recurrentes",
             "dateStart": "Primera facturación",
             "firstBilling": "Primero pago",
             "payment_pack": "Tarjeta de curso",
@@ -3066,7 +3066,7 @@
             "modifyOffer": "Modificar",
             "deleteOffer": "Cancelar"
         },
-        "manageOffer": "Manejar las reservas",
+        "manageOffer": "Gestionar las reservas",
         "forms": {
             "delete": {
                 "buttonHardDelete": "Suprimir"

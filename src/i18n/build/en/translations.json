@@ -1084,7 +1084,7 @@
             "is_broadcast": "Live streaming class",
             "settings": "Parameters",
             "nextSlotAt": "Next session at ",
-            "explainImage": "Recommandation: 1920x1080 jpeg (fullHD)",
+            "explainImage": "Recommendation: 1920x1080 jpeg (fullHD)",
             "forms": {
                 "update": {
                     "error": "Impossible to update activity",
@@ -1779,14 +1779,14 @@
                 "autoDiscard": {
                     "hours_before_start": "Hour(s) before the session :",
                     "min_bookings_nb": "Number of booking(s) :",
-                    "emailRecipients": "This mail will be sent to accounts with the role of Owner or Admin, as well as to the teacher (or substitute) of the session in question.",
+                    "emailRecipients": "An email  will be sent to Owner and Admin accounts, as well as to the teacher (or substitute) of this session.",
                     "explain": "Cancel the session and send a notification by mail to the students if there are {{bookings_nb}} booking(s) or less {{hours}}h before the start of the session.",
                     "checkbox": "Cancel sessions with too few bookings"
                 }
             }
         },
         "report": {
-            "delete": "Erase report"
+            "delete": "Delete report"
         },
         "private_service": "Appointments",
         "button": {
@@ -1811,7 +1811,7 @@
             "sport": "Sport",
             "gaveUp": "Quit since"
         },
-        "languageToolTip": "Available on the web marketplace",
+        "languageToolTip": "Available on the marketplace",
         "visibilityOfIconToolTip": "Unavailable",
         "blockBooking": "Only possible to book with passes of new customers",
         "replaceCoach": "Change the teacher",
@@ -3096,7 +3096,7 @@
                 },
                 "help": {
                     "cancelledNotRefunded": {
-                        "notifyAll": "Help: the notification will be sent to the member for each of their late cancellations for this type of appointment",
+                        "notifyAll": "The notification will be sent to the member for every late cancellations for this appointment",
                         "default": "Help: the notification will be sent to the member when it is late-canceled for the {{notifyNb}}th time, for this type of appointment"
                     },
                     "cancelledRefunded": {
@@ -3675,7 +3675,7 @@
             },
             "appbarActions": {
                 "_helper": "Member creation, on-site payment report..",
-                "_label": "Actions appbar"
+                "_label": "Action bar"
             },
             "navigationMenu": {
                 "settings": {
@@ -3758,7 +3758,7 @@
                 "default_attendance": {
                     "title": "Default status of booking made by a student",
                     "missing": "Absent",
-                    "present": "Attendee"
+                    "present": "Present"
                 },
                 "calendar": {
                     "police": {
@@ -4348,7 +4348,7 @@
         "deliveryFee": {
             "name": "Name",
             "fee": "Delivery fee",
-            "free_threshold": "Free delivery threshold",
+            "free_threshold": "Minimum spending for free delivery",
             "offeredAboveAmount": "Offered above {{ free_threshold, price }} order",
             "modal": {
                 "delete": {
@@ -4364,7 +4364,7 @@
                 "feeLabel": "Delivery fee",
                 "nameLabel": "Name",
                 "freeThresholdLabel": "Free if above",
-                "freeThresholdHelper": "If order price is above this threshold, the delivery fee will offered to the customer",
+                "freeThresholdHelper": "When order price is above this amount delivery is free",
                 "onCancel": "Cancel",
                 "onSubmit": "Save"
             }
@@ -4782,8 +4782,8 @@
             },
             "paymentPackPlaceHolder": "Select passes",
             "excludePaymentPack": "Exclude certain passes",
-            "bonusForEachReservationInInterval": "Add a bonus for each appointment in the interval",
-            "fixedBonusbyInterval": "Add a fixed bonus for each threshold",
+            "bonusForEachReservationInInterval": "Add a bonus for each individual booking in this range",
+            "fixedBonusbyInterval": "Add a fixed bonus for this range",
             "cancellationBaseHelper": "By ticking this box the teacher will not receive any bonus payment on the marginal value of cancelled bookings.",
             "taxeLongHelper": "Help : All percentages are calculated on the marginal value of each booking excluding tax. The added tax applies to the marginal value as well as all fix and bonus.",
             "taxeConciseHelper": "All percentages are calculated on the marginal value of each booking excluding tax.",
@@ -4965,8 +4965,8 @@
                         "helperText": "If the subscription payment fails or is declared disputed, bookings made with these cards will be cancelled (and the credit re-credited)"
                     },
                     "disable_pass_on_fail_subscription_payment": {
-                        "label": "Deactivate cards if payment fails.",
-                        "helperText": "If the subscription payment fails or is declared disputed, the course and appointment cards for that invoice will be deactivated until the invoice is collected"
+                        "label": "Block passes if payment fails.",
+                        "helperText": "If the subscription payment fails or is disputed, all passes related included in this invoice will be blocked until total amount is paid."
                     },
                     "nbRetriesSubscriptionPayments": {
                         "helperText": "Between 0 and 5 attempts",
@@ -5553,7 +5553,7 @@
                     "month": "Every month",
                     "month_plural": "Every {{ interval }} months"
                 },
-                "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
+                "recurrentPriceLabel": "{{ currencyDisplay }}{{ recurrent_price  }}",
                 "identifier": "Membership"
             }
         },
@@ -7851,7 +7851,11 @@
             "nb_bookings": "Bookings",
             "name": "Session name",
             "date": "Date",
-            "rule": "Rule"
+            "rule": "Activity Payroll Rule",
+            "error": "This activity has no payroll rule associated. Please choose a payroll rule and associate a payroll rule to the teacher",
+            "total": "Payout",
+            "cancelled_bookings": "Absentees",
+            "confirmed_bookings": "Attendees"
         },
         "table": {
             "download": "Download",
@@ -8489,7 +8493,7 @@
                 "submit": "Save",
                 "minutes": "Minutes",
                 "hours": "Hours",
-                "durationInputError": "Please add video duration",
+                "durationInputError": "Please enter the video duration",
                 "durationLabel": "Video duration"
             },
             "delete": {
@@ -8707,18 +8711,53 @@
                 "private_service": "Appointment",
                 "payment_pack": "Pass for group classes",
                 "establishment": "Location",
-                "meta_activity": "Activity"
+                "meta_activity": "Activity",
+                "workshop": "Workshop"
             },
             "cancel": "Cancel",
             "next": "Next",
             "paymentPackPlaceholder": "Pass for group classes",
             "selectIdentifierLabel": {
                 "payment_pack": "Select a pass for group classes",
-                "private_service": "Select a private appointment",
+                "private_service": "Select a appointment",
                 "establishment": "Select a location",
-                "meta_activity": "Select an activity"
+                "meta_activity": "Select an activity",
+                "workshop": "Select a workshop"
             },
-            "createNotification": "Notification form"
+            "createNotification": "Notification form",
+            "stats": {
+                "total_mail_opened": "Number of emails opened",
+                "opened_rate": "Percentage viewed",
+                "total_mail_send": "Number of mails sent"
+            },
+            "mail": "Email ",
+            "notificationDetails": "Notification Overview",
+            "mailTitle": "Preview mail",
+            "statisticDetails": "Statistics"
+        }
+    },
+    "spotScheduling": {
+        "toolsMenu": {
+            "door": "Door",
+            "spot": "Spot",
+            "rect": "Square",
+            "line": "Draw",
+            "rotation": "Rotate",
+            "eraser": "Rubber",
+            "sections": {
+                "custom": "Customize Colour",
+                "elements": "Other Elements",
+                "place": "Position",
+                "walls": "Room Shape",
+                "edition": "Edit"
+            },
+            "title": "Toolbox",
+            "customFill": "Fill colour",
+            "customStroke": "Line color",
+            "screen": "Screen",
+            "teacher": "Teacher",
+            "undo": "Previous",
+            "redo": "Next"
         }
     }
 }

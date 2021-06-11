@@ -5939,7 +5939,9 @@
             "last_view": "Last seen",
             "video_title": "Video title",
             "sum__non_attendance": "Number of absentees",
-            "sum_attendance": "Number of attendees"
+            "sum_attendance": "Number of attendees",
+            "nb_canceled": "Number of cancellations",
+            "recurrent_price": "Amount"
         },
         "yes": "Yes",
         "no": "No",
@@ -6853,7 +6855,7 @@
                 "isDisabled": "Unfortunately the class has been canceled.",
                 "isTooLate": "Registrations are closed.",
                 "isWaitingListFull": "The class is full, and the waiting-list too.",
-                "isTooSoon": "Bookings are closed for the moment and will open on {{ date }}."
+                "isTooSoon": "Bookings for this activity opens on {{ date }}. Please try again later."
             },
             "messages": {
                 "offerLocked": "You can't book this session",
@@ -7101,7 +7103,8 @@
             "similarOffer": {
                 "showMore": "See more",
                 "empty": "No session found",
-                "title": "Book more sessions"
+                "title": "Book more sessions",
+                "selectAll": "Select all"
             }
         }
     },
@@ -7361,6 +7364,13 @@
                 "textFieldPlaceholder": "Find an appointment pass",
                 "helperSelectedText": "selected appointment pass",
                 "helperText": "select appointment pass"
+            },
+            "privateServices": {
+                "warning": "Select an appointment",
+                "helperAllSelectedText": "all appointments",
+                "textFieldPlaceholder": "Find an appointment",
+                "helperSelectedText": "selected appointments",
+                "helperText": "select appointments"
             }
         },
         "selectToShowPreview": "Please select a template",
@@ -7783,7 +7793,10 @@
                 "second": "appointment",
                 "first": "Has booked",
                 "explanation": "A booked X appointments with teacher A, in location B, with the pass C ...",
-                "name": "Number of appointments"
+                "name": "Number of appointments",
+                "private_service": {
+                    "first": "with appointments"
+                }
             },
             "25": {
                 "expiration": {
@@ -7807,7 +7820,12 @@
             },
             "attendanceTrue": "present",
             "attendanceFalse": "absent",
-            "attendanceWarning": "Select a status"
+            "attendanceWarning": "Select a status",
+            "410": {
+                "explanation": "Select those who have accepted the terms and conditions",
+                "name": "Liability waiver",
+                "explain": "Select those who have accepted the terms and conditions"
+            }
         },
         "noSmartLists": "Use smartlists to filter, analyze, and get to know your members better.",
         "delete": "Delete",

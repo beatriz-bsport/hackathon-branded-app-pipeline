@@ -4754,7 +4754,7 @@
                 "helper": "Check here that your payroll rule matches your expectations"
             },
             "Errors": {
-                "lowerIntervalTypeError": "The smaller threshold needs to be a number equal to or less than 1",
+                "lowerIntervalTypeError": "The lower interval must be a number less than or equal to 1",
                 "taxeRateTypeError": "The tax rate has to be a number between 0 and 100.",
                 "taxeRateRequired": "Tax is a required field if you have ticked the box \"Calculate Tax\" above.",
                 "percentagebaseRemunerationRequired": "This field is mandatory if you have ticked the \"Percentage\" box.",

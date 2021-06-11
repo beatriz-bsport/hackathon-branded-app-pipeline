@@ -1224,7 +1224,7 @@
             "revertExplainCredits": "Debit/credit on member account will be reverted.",
             "revertExplainPayment": "Credit card payments will be refunded on member account. All other payment methods will be deleted.",
             "revertImpossibleExplainSubscription": "This invoice is part of a subscription, you can not cancel an invoice from a subscription, but you can stop the subscription and cancel the last invoice.",
-            "explainDateChoser": "Please choose billing date.",
+            "explainDateChoser": "Please choose a billing date. (Only for accounting purposes)",
             "choseDate": "Billing date",
             "revert": "Cancel the invoice",
             "reverted": "Cancelled",
@@ -1779,7 +1779,7 @@
                 "autoDiscard": {
                     "hours_before_start": "Hour(s) before the session :",
                     "min_bookings_nb": "Number of booking(s) :",
-                    "emailRecipients": "An email  will be sent to Owner and Admin accounts, as well as to the teacher (or substitute) of this session.",
+                    "emailRecipients": "An email will be automatically sent to Owner and Admin accounts, as well as to the teacher (or substitute) of this session.",
                     "explain": "Cancel the session and send a notification by mail to the students if there are {{bookings_nb}} booking(s) or less {{hours}}h before the start of the session.",
                     "checkbox": "Cancel sessions with too few bookings"
                 }
@@ -4966,7 +4966,7 @@
                     },
                     "disable_pass_on_fail_subscription_payment": {
                         "label": "Block passes if payment fails.",
-                        "helperText": "If the subscription payment fails or is disputed, all passes related included in this invoice will be blocked until total amount is paid."
+                        "helperText": "If the subscription payment fails or is disputed, all passes related included in this invoice will be blocked until the total amount is paid."
                     },
                     "nbRetriesSubscriptionPayments": {
                         "helperText": "Between 0 and 5 attempts",
@@ -7082,8 +7082,8 @@
             },
             "bookingsTitle": "Book now",
             "addSession": "Add a session",
-            "noPackAvailable": "No pass is compatible with all these sessions at the same time. You will need to book them separately!",
-            "noPackAvailable_plural": "No pass is compatible with these sessions!",
+            "noPackAvailable": "This session does not have any compatible memberships!",
+            "noPackAvailable_plural": "These sessions do not have any compatible memberships",
             "packTitle": "My booking method",
             "offerStatus": {
                 "waiting_list_status": {
@@ -8486,7 +8486,7 @@
                 "urlInputError": "Please enter a url",
                 "urlInputLabel": "Youtube link",
                 "type": {
-                    "url": "Youtube",
+                    "url": "YouTube",
                     "file": "File",
                     "urlExplain": "If you have a video Youtube and want to limit to monetize it via bsport.",
                     "fileExplain": "If you have a video file (mp4,avi,mov...), please use this to upload directly your video on our servers."

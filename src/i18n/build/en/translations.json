@@ -4760,7 +4760,7 @@
                 "percentagebaseRemunerationRequired": "This field is mandatory if you have ticked the \"Percentage\" box.",
                 "baseRemunerationTypeError": "Fixed Pay needs to be a positive number.",
                 "invalideUpperInterval": "The upper interval must be a number.",
-                "invalidLowerInterval": "The upper interval must be higher than the lower interval.",
+                "invalidLowerInterval": "The upper range must be higher than the lower range.",
                 "invalidBonusAmount": "The bonus must be greater than or equal to 0.1.",
                 "nameRequired": "This field is mandatory.",
                 "invalideIntervals": "The intersection of intervals for bonuses of the same type is not allowed.",
@@ -5509,7 +5509,8 @@
                         "year": "year",
                         "year_plural": "years"
                     },
-                    "label": "Repeat every"
+                    "label": "Repeat every",
+                    "helperText": " "
                 },
                 "recurrence": {
                     "explain": "The subscription will be charged every {{ recurrence_basis }} {{ interval }} for a total duration of {{ total_interval_duration }} {{ interval }} and will create {{ nb_interval }} bills",

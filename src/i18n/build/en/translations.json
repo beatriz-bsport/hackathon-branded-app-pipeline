@@ -5429,7 +5429,7 @@
             "listItem": {
                 "nextBillingDate": "Next billing on {{ d }}",
                 "startingAt": "Starting on the {{ d }}",
-                "recurrencePriceIs": "Recurrence of {{currencyDisplay}}{{amount }}"
+                "recurrencePriceIs": "Recurring payment of {{currencyDisplay}}{{amount }}"
             }
         },
         "contract": {

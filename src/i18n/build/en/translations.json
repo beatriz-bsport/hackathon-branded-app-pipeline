@@ -5053,7 +5053,8 @@
                 "3": "Credit",
                 "2": "Shop",
                 "1": "Pass"
-            }
+            },
+            "discount": "Discount"
         },
         "invoiceInfoDialog": {
             "actions": {
@@ -5224,8 +5225,10 @@
             "none": "No payment method has been saved",
             "detach": {
                 "pm_deleted": "Deleted payment method",
-                "pm_associated_to_protected_bp": "You have a subscription associated with this payment method, you must delete the subscription first.",
-                "last_payment_method": "You must have at least one payment method"
+                "pm_associated_to_protected_bp": "Impossible: You have a subscription associated with this payment method",
+                "last_payment_method": "You must have at least one payment method",
+                "pm_associated_to_pi": "Impossible: You have a subscription associated with this payment method",
+                "pm_associated_to_registered_ppe": "Impossible: You have a subscription associated with this payment method"
             }
         },
         "paymentEngine": {
@@ -5425,7 +5428,8 @@
             },
             "listItem": {
                 "nextBillingDate": "Next billing on {{ d }}",
-                "startingAt": "Starts the {{ d }}"
+                "startingAt": "Starts the {{ d }}",
+                "recurrencePriceIs": "Recurrence of {{amount }}{{currencyDisplay}}"
             }
         },
         "contract": {
@@ -5933,7 +5937,9 @@
             "credit_amount": "Amount of credits",
             "initial_price": "Purchase price",
             "last_view": "Last seen",
-            "video_title": "Video title"
+            "video_title": "Video title",
+            "sum__non_attendance": "Number of absentees",
+            "sum_attendance": "Number of attendees"
         },
         "yes": "Yes",
         "no": "No",
@@ -8328,7 +8334,11 @@
         },
         "paymentMethod": {
             "detach": {
-                "pm_deleted": "Payment method deleted"
+                "pm_deleted": "Payment method deleted",
+                "pm_associated_to_pi": "Impossible: You have a subscription associated with this payment method",
+                "pm_associated_to_registered_ppe": "Impossible: You have a subscription associated with this payment method",
+                "pm_associated_to_protected_bp": "Impossible: You have a subscription associated with this payment method",
+                "last_payment_method": "Unable to delete your only payment method"
             }
         }
     },

@@ -4760,7 +4760,7 @@
                 "percentagebaseRemunerationRequired": "This field is mandatory if you have ticked the \"Percentage\" box.",
                 "baseRemunerationTypeError": "Fixed Pay needs to be a positive number.",
                 "invalideUpperInterval": "The upper interval must be a number.",
-                "invalidLowerInterval": "The upper range must be higher than the lower range.",
+                "invalidLowerInterval": "The superior interval must be higher than the inferior interval.",
                 "invalidBonusAmount": "The bonus must be greater than or equal to 0.1.",
                 "nameRequired": "This field is mandatory.",
                 "invalideIntervals": "The intersection of intervals for bonuses of the same type is not allowed.",

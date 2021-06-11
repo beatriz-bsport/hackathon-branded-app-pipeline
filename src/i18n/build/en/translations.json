@@ -6856,7 +6856,7 @@
                 "isDisabled": "Unfortunately the class has been canceled.",
                 "isTooLate": "Registrations are closed.",
                 "isWaitingListFull": "The class is full, and the waiting-list too.",
-                "isTooSoon": "Bookings for this activity opens on {{ date }}. Please try again later."
+                "isTooSoon": "Booking for this activity opens on {{ date }}. Please try again later."
             },
             "messages": {
                 "offerLocked": "You can't book this session",
@@ -7367,7 +7367,7 @@
                 "helperText": "select appointment pass"
             },
             "privateServices": {
-                "warning": "Select an appointment",
+                "warning": "Select at least one appointment",
                 "helperAllSelectedText": "all appointments",
                 "textFieldPlaceholder": "Find an appointment",
                 "helperSelectedText": "selected appointments",
@@ -7823,9 +7823,9 @@
             "attendanceFalse": "absent",
             "attendanceWarning": "Select a status",
             "410": {
-                "explanation": "Select those who have accepted the terms and conditions",
+                "explanation": "Select those who have accepted your liability waiver",
                 "name": "Liability waiver",
-                "explain": "Select those who have accepted the terms and conditions"
+                "explain": "Select those who have accepted your liability waiver"
             }
         },
         "noSmartLists": "Use smartlists to filter, analyze, and get to know your members better.",
@@ -7853,9 +7853,9 @@
             "name": "Session name",
             "date": "Date",
             "rule": "Activity Payroll Rule",
-            "error": "This activity has no payroll rule associated. Please choose a payroll rule and associate a payroll rule to the teacher",
-            "total": "Payout",
-            "cancelled_bookings": "Absentees",
+            "error": "This activity has no payroll rule associated. Please choose a payroll rule and associate a payroll rule to the teacher.",
+            "total": "Total Payout",
+            "cancelled_bookings": "Cancelled bookings",
             "confirmed_bookings": "Attendees"
         },
         "table": {

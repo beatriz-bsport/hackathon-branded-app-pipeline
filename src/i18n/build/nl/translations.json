@@ -379,7 +379,7 @@
                 "coachList": "Instructeurs",
                 "shopManager": "Webshop",
                 "dashboard": "Dashboard",
-                "mergeMember": "Lid samenvoegen",
+                "mergeMember": "Leden samenvoegen",
                 "allCoachPerformance": "Payroll",
                 "planning": "Agenda"
             }
@@ -434,11 +434,11 @@
             "bookButton": {
                 "isPast": "Afgelopen",
                 "notAvailable": "Geannuleerd",
-                "bookOption": "Wachtlijsten",
+                "bookOption": "Wachtlijst",
                 "book": "Reserveer",
                 "notBookableYet": "Binnenkort"
             },
-            "passListTitle": "Cursuskaarten (voor groepsactiviteiten en workshops)",
+            "passListTitle": "Cursuskaarten",
             "privatePassListTitle": "Afspraakkaarten",
             "noSessionToday": "Er zijn nog geen sessies ingepland.",
             "showMarketplace": "Zie het rooster van ",
@@ -921,7 +921,7 @@
             "myOpenedInvoices": "Snel in rekening brengen",
             "noQuickInvoiceOpened": "Begin met het toevoegen van producten.",
             "reCreateBooking": "Schrijf je opnieuw in",
-            "createBookingOption": "Wachtlijsten",
+            "createBookingOption": "Wachtlijst",
             "bill": "In rekening brengen",
             "createBooking": "Inschrijven",
             "hasBooked": "Ingeschreven",
@@ -1004,7 +1004,7 @@
             "seeCustomers": "Bekijk reserveringen",
             "free": "Beschikbare plaats(en)",
             "confirmed": "Bevestigd",
-            "waiting": "Wachtlijsten",
+            "waiting": "Wachtlijst",
             "lastBooking": "Volgende les",
             "sources": {
                 "MAN": "Handleiding",
@@ -2176,7 +2176,7 @@
             "extensionsTitle": "Geldigheid verlengen",
             "refundTitle": "Bijbehorende terugbetaling",
             "trackModifiedCreditTitle": "Geschiedenis van kredietwijzigingen",
-            "penaltyAccount": "Extra facturatie t.w.v. €{{account_value}} {{currencyDisplay }}",
+            "penaltyAccount": "Extra facturatie t.w.v. {{currencyDisplay }}{{account_value}}",
             "penaltyBlock": "Deze cursuskaart is {{nb_days}} geblokkeerd",
             "penaltyTitle": "Sanctie(s) toegepast"
         },
@@ -2988,7 +2988,7 @@
         "booking": {
             "confirmed": "Bevestigd",
             "fillRate": "Bezettingsgraad",
-            "waiting": "Wachtlijsten"
+            "waiting": "Wachtlijst"
         },
         "extraordinaryEstablishment": "(tijdelijke plaats)",
         "calendar": {
@@ -3141,8 +3141,8 @@
                 "cancel": "Annuleren",
                 "submit": "Samenvoegen",
                 "error": "Kan leden niet samenvoegen",
-                "srcMember": "Samen te voegen lid (verwijderd)",
-                "dstMember": "Te behouden lid",
+                "srcMember": "We verwijderen dit account",
+                "dstMember": "We bewaren dit account",
                 "title": "Voeg lid samen",
                 "explainCredit": "De interne aanbetaling van het lid wordt overgedragen",
                 "success": "Samengevoegde leden",
@@ -3619,7 +3619,7 @@
         "member": {
             "memberForm": "Een lid toevoegen",
             "members": "Leden",
-            "mergeMember": "Lid samenvoegen",
+            "mergeMember": "Leden samenvoegen",
             "memberFormPage": "[Formulier] Lid"
         },
         "metaActivity": {
@@ -4133,7 +4133,7 @@
         "fixedPriceForAdditionalBookingHelper": "Het vaste bedrag dat voor elke sessie met voldoende reserveringen geldt",
         "fields": {
             "bonus": "Bonus",
-            "base": "Basis",
+            "base": "Vast bedrag",
             "duration": "Duur",
             "nb_bookings": "Reserveringen",
             "date": "Datum",
@@ -4159,7 +4159,7 @@
             "name": "Naam",
             "description": "Beschrijving",
             "deleteVideo": "Verwijderen",
-            "open": "Openen",
+            "open": "Open",
             "form": {
                 "cancel": "Annuleren",
                 "submit": "Opslaan"
@@ -4363,7 +4363,7 @@
             "paymentRules": "Payroll",
             "company": "Onderneming",
             "invoice": "Facturatie",
-            "waitingList": "Wachtlijsten",
+            "waitingList": "Wachtlijst",
             "shop": "Webshop",
             "role": "Medewerkers",
             "personalization": "Personalisering",
@@ -5439,7 +5439,7 @@
             }
         },
         "add": "Toevoegen",
-        "base_price": "Basis",
+        "base_price": "Vast bedrag",
         "include_tax": "Incl. btw",
         "calculation_method": "Rekenmethode",
         "actions": "Acties",
@@ -5449,7 +5449,7 @@
             "placeholderOverride": "Standaard payroll-regel voor deze instructeur",
             "placeholder": "Selecteer een Payroll",
             "coachPaymentRuleForPrivateService": "Afspraken",
-            "coachPaymentRuleForSessions": "Groepsactiviteiten en workshops",
+            "coachPaymentRuleForSessions": "Groepsactiviteiten en Workshops",
             "reset": "Standaardregel van de instructeur gebruiken"
         },
         "common": {
@@ -5546,11 +5546,11 @@
         "tabs": {
             "all": "Selecteer alles",
             "appointment": "Afspraken",
-            "session": "Groepsactiviteiten en workshops"
+            "session": "Groepsactiviteiten en Workshops"
         },
         "fabButton": {
             "addNewForRDV": "Afspraken",
-            "addNewForSession": "Groepsactiviteiten en workshops"
+            "addNewForSession": "Groepsactiviteiten en Workshops"
         },
         "paymentRules": "Payroll-regels"
     },
@@ -5877,7 +5877,7 @@
                 "error": "Kan leden niet samenvoegen",
                 "srcMember": "Lid dat moet worden samengevoegd (verwijderd)",
                 "dstMember": "Lid behouden",
-                "title": "Lid samenvoegen",
+                "title": "Leden samenvoegen",
                 "submit": "Samenvoegen",
                 "explainCredit": "Interne account van lid overmaken",
                 "explainBookingsAndPassAndInvoiceAndNotes": "Cursuskaarten, reserveringen, facturen en aantekeningen worden overgemaakt.",
@@ -7548,7 +7548,7 @@
                 "personalization": "Personalisering",
                 "role": "Medewerkers",
                 "shop": "Webshop",
-                "waitingList": "Wachtlijsten",
+                "waitingList": "Wachtlijst",
                 "invoice": "Facturatie",
                 "company": "Onderneming",
                 "paymentRules": "Payroll",
@@ -7600,10 +7600,10 @@
         "widget": {
             "ownStyle": "Compatibiliteitsmodus (negeert je website-thema)",
             "copyUrl": "Ga naar de link van je agenda",
-            "codeSource": "Toon de code voor op je website.",
+            "codeSource": "Toon de code van de widget voor op je website.",
             "copy": "Kopiëren",
             "url": "De link naar je agenda",
-            "code": "Widget op je website",
+            "code": "De widget voor op je website",
             "choice": "Weergave",
             "visualisation": "Weergave",
             "widget": "Deel je agenda",
@@ -7617,12 +7617,12 @@
             "linkToConfig": "De link voor de configuratie van deze widget",
             "widgetPreviewError": "Voltooi je configuratie",
             "dialogTitle": "[Formulier] Widget",
-            "codeInfo": "De code voor deze widget voor op je website",
+            "codeInfo": "De code van deze widget voor op je website",
             "creationPageInfo": "Personaliseer en filter je widgets en integreer ze gemakkelijk op je website.",
             "dialogMode": {
-                "iframe": "Op de website blijven",
-                "popup": "Nieuw venster",
-                "tab": "Nieuw tabblad"
+                "iframe": "Op mijn website blijven",
+                "popup": "Nieuw venster openen",
+                "tab": "Nieuw tabblad openen"
             },
             "dialogModeLabel": "Type pop-up",
             "showFabLabel": "Een knop voor \"Mijn profiel\" op de widget",
@@ -7657,10 +7657,10 @@
         },
         "upsellPackage": {
             "vod": {
-                "explainBilling": "  + 1 {{currencyDisplay }} / actief lid"
+                "explainBilling": "  +{{currencyDisplay }}1 / actief lid"
             },
-            "otherAddonTitle": "Beschikbare Add-Ons",
-            "myAddonTitle": "Mijn Add-Ons",
+            "otherAddonTitle": "Beschikbare aanvullende diensten",
+            "myAddonTitle": "Mijn aanvullende diensten",
             "knowMore": "Meer informatie",
             "billRecurrent": "{{price_cts, price }} / maand",
             "billOnce": "{{price_cts, price }}",
@@ -7673,7 +7673,7 @@
                 "createCard": "Creditcard toevoegen",
                 "createSepa": "IBAN toevoegen"
             },
-            "sectionTitle": "Betaalmethoden"
+            "sectionTitle": "Mijn betaalmethoden"
         },
         "platformInvoice": {
             "noInvoice": "Je facturen komen hier als PDF te staan zodra je ze betaald hebt. Momenteel zijn er nog geen facturen beschikbaar.",

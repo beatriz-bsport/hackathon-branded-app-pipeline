@@ -4778,7 +4778,7 @@
                 "addBonus": "ADD A BONUS RULE",
                 "bonus": "Bonus",
                 "bookingsThresholds": "Bookings (including threshold limits)",
-                "forInterval": "for the whole interval"
+                "forInterval": "for the whole range"
             },
             "paymentPackPlaceHolder": "Select passes",
             "excludePaymentPack": "Exclude certain passes",
@@ -5428,7 +5428,7 @@
             },
             "listItem": {
                 "nextBillingDate": "Next billing on {{ d }}",
-                "startingAt": "Starts the {{ d }}",
+                "startingAt": "Starting on the {{ d }}",
                 "recurrencePriceIs": "Recurrence of {{amount }}{{currencyDisplay}}"
             }
         },
@@ -8334,7 +8334,7 @@
         },
         "paymentMethod": {
             "detach": {
-                "pm_deleted": "Payment method deleted",
+                "pm_deleted": "Payment method removed",
                 "pm_associated_to_pi": "Impossible: You have a subscription associated with this payment method",
                 "pm_associated_to_registered_ppe": "Impossible: You have a subscription associated with this payment method",
                 "pm_associated_to_protected_bp": "Impossible: You have a subscription associated with this payment method",

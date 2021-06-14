@@ -918,7 +918,7 @@
                 "isPast": "Past",
                 "notAvailable": "Cancelled",
                 "bookOption": "Waiting-list",
-                "notBookableYet": "Soon"
+                "notBookableYet": "Booking unavailable"
             },
             "passListTitle": "Group class passes",
             "privatePassListTitle": "Appointment Pass",
@@ -8539,7 +8539,7 @@
             },
             "lock": {
                 "pleaseAuthenticated": "You must login to access this video",
-                "accessDenied": "You do not have access to this video",
+                "accessDenied": "Please click on the button below to access this video",
                 "buyPass": "Buy a pass",
                 "useConsumerPass": "Watch video"
             },

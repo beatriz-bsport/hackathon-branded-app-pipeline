@@ -32,6 +32,7 @@ type Props = {
 
 type State = {
   stripe_footer: string,
+  activateSmartRetries: boolean,
   show_company_email_in_invoice: boolean,
   nb_retries_subscription_payments: number,
   disable_pass_on_fail_subscription_payment: boolean,
@@ -53,8 +54,6 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
         props.configuration.disable_pass_on_fail_subscription_payment,
       revert_bookings_on_fail_subscription_payment:
         props.configuration.revert_bookings_on_fail_subscription_payment,
-      show_company_email_in_invoice:
-        props.configuration.show_company_email_in_invoice,
     };
   }
 

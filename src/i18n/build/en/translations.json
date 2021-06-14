@@ -951,7 +951,7 @@
             "calendar": "Calendar",
             "sessionThisDay": "Session this day:",
             "vod": "VOD",
-            "playlist": "Playlist"
+            "playlist": "Video Playlist"
         },
         "time": {
             "month": {
@@ -1057,8 +1057,8 @@
                     "success": "Workshop saved"
                 }
             },
-            "lastDiscardBeforeMinutes": "A late cancel is authorized before",
-            "lastBookingBeforeMinutes": "Before workshop, last booking is possible until",
+            "lastDiscardBeforeMinutes": "Before the workshop, a late cancellation is authorized with a refunded credit before",
+            "lastBookingBeforeMinutes": "Before the workshop starts, booking is possible X amount of time before",
             "imageUploaderRequireEditMessage": "After creation, you will be able to add more images.",
             "addWorkshopActivity": "Add a workshop"
         },
@@ -1079,8 +1079,8 @@
             "name": "Title",
             "addActivity": "Add an activity",
             "addOffers": "Add sessions",
-            "lastDiscardBeforeMinutes": "A late cancel is authorized before",
-            "lastBookingBeforeMinutes": "Before class, last booking is possible until",
+            "lastDiscardBeforeMinutes": "Before the class, a late cancellation is authorized with a refunded credit",
+            "lastBookingBeforeMinutes": "Before the class, last booking is possible X amount of time before",
             "is_broadcast": "Live streaming class",
             "settings": "Parameters",
             "nextSlotAt": "Next session at ",
@@ -1275,7 +1275,7 @@
             "digital": "Digital Offer",
             "podcast": "Podcasts",
             "video": "Video library",
-            "playlist": "Playlist"
+            "playlist": "Video Playlist"
         },
         "consumer": {
             "booking": {
@@ -2934,7 +2934,7 @@
                     "label": "Invisible for clients"
                 },
                 "last_booking_minutes": {
-                    "label": "Before class, the last booking is possible until"
+                    "label": "How long before the class starts is the last booking possible"
                 },
                 "paddingEnd": {
                     "helperText0": "On the calendar, the teacher and/or establishment will be marked as available again at the end of the appointment",
@@ -3688,7 +3688,7 @@
                     "_label": "Member"
                 },
                 "digitalOffer": {
-                    "_label": "Digital offer"
+                    "_label": "VOD"
                 },
                 "marketing": {
                     "_label": "Marketing"
@@ -3737,7 +3737,7 @@
     "theme": {
         "forms": {
             "themePersonalization": {
-                "names_label_info": "Change label of first name and last name fields in subscription forms",
+                "names_label_info": "Personalize first name and last name on sign up form",
                 "first_name_label": {
                     "placeholder": "First name label",
                     "label": "First name label",
@@ -3750,13 +3750,13 @@
                 },
                 "offersFilling": "Display number of spots available for each session on marketplace calendar",
                 "default_booking_ordering": {
-                    "title": "Chose default booking sort order (booking management page)",
+                    "title": "Modify the order in which bookings are displayed on manage my booking page :",
                     "lastname": "Sort by last name",
                     "firstname": "Sort by first name",
                     "date": "Sort by most recent"
                 },
                 "default_attendance": {
-                    "title": "Default status of booking made by a student",
+                    "title": "Determine the default status of member bookings",
                     "missing": "Absent",
                     "present": "Present"
                 },
@@ -3783,7 +3783,7 @@
                     },
                     "title": "Include your own CSS code to customize your schedule"
                 },
-                "consumerRegularizeDebt": "The customer can regularize his deposit online",
+                "consumerRegularizeDebt": "The member can pay their debt online",
                 "acceptDoubleBooking": "Accept double bookings",
                 "workshopsCustomer": "Show workshops on the customer calendar",
                 "cancelledOffersCustomer": "Show canceled sessions on the client calendar",
@@ -4383,7 +4383,7 @@
         "pageTitle": "Settings",
         "tab": {
             "general": "General",
-            "paymentRules": "Rates",
+            "paymentRules": "Teacher Payment Rates",
             "notificationRule": "Transactional emails",
             "company": "Company",
             "broadcast": "Streaming",
@@ -4502,7 +4502,7 @@
                 "hidePaymentPack": "Hide passes for group classes"
             },
             "componentType": {
-                "playlist": "Playlist",
+                "playlist": "Video Playlist",
                 "shop": "Shop",
                 "subscription": "Subscription",
                 "vod": "VOD",
@@ -4733,7 +4733,7 @@
             "error": "Error during deletion",
             "success": "Rate removed"
         },
-        "pageTitle": "Payment rates",
+        "pageTitle": "Teacher Payment rates",
         "coach_payment_rules": {
             "Simulator": {
                 "student_did_not_attend": "Absentees",
@@ -5841,7 +5841,7 @@
             "payment_method_stripe": "Credit Card",
             "payment_method_cash": "Cash",
             "payment_method_check": "Check",
-            "payment_method_manual_credit_card": "CB (manual)",
+            "payment_method_manual_credit_card": "Credit card",
             "payment_method_holiday_check": "Holiday Check",
             "payment_method_amex": "AMEX",
             "payment_method_bank_transfer": "Transfer",
@@ -5986,7 +5986,7 @@
         },
         "list": {
             "empty": "No reports here? Create a new one now!",
-            "button_new": "I create my first report"
+            "button_new": "Create a report"
         },
         "subheader": {
             "average": "Mean",
@@ -8372,7 +8372,7 @@
             "subscription": "Subscriptions",
             "myClub": "My Club",
             "settings": {
-                "paymentRules": "Payment rates",
+                "paymentRules": "Teacher Payment rates",
                 "notificationRule": "Transactional emails",
                 "broadcast": "Streaming",
                 "general": "General",
@@ -8431,7 +8431,7 @@
             "requestTempPassword": "Authorize access",
             "combo": "Packs",
             "marketing_automation": "Marketing automation",
-            "digital": "Digital Offer",
+            "digital": "VOD",
             "podcast": "Podcasts",
             "playlist": "Playlist",
             "video": "Video library",

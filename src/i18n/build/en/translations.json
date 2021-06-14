@@ -4781,28 +4781,29 @@
                 "forInterval": "for the whole range"
             },
             "paymentPackPlaceHolder": "Select passes",
-            "excludePaymentPack": "Exclude certain passes",
+            "excludePaymentPack": "Ignore bookings made with some passes",
             "bonusForEachReservationInInterval": "Add a bonus for each individual booking in this range",
             "fixedBonusbyInterval": "Add a fixed bonus for this range",
             "cancellationBaseHelper": "By ticking this box the teacher will not receive any bonus payment on the marginal value of cancelled bookings.",
             "taxeLongHelper": "Help : All percentages are calculated on the marginal value of each booking excluding tax. The added tax applies to the marginal value as well as all fix and bonus.",
-            "taxeConciseHelper": "All percentages are calculated on the marginal value of each booking excluding tax.",
+            "taxeConciseHelper": "All bonuses calculated on a percentage of the marginal value, will discounted of your country VAT rate.",
             "add_taxe_rate": "Tax to be added",
-            "taxe_rate": "Calculation ATI",
+            "taxe_rate": "Exclude your country VAT from the computation of margin value",
             "max_remuneration": "Maximum",
             "min_remuneration": "Minimum",
             "remunerationLimits": "Payment limits",
-            "differentRemunerationForCancellation": "Apply different payroll rules when counting absentees ",
+            "differentRemunerationForCancellation": "Apply different payroll rules when when counting absentees and late-cancel ",
             "addRemunerationOnCancellation": "Compensate teacher in the case of a late cancellation and absence",
-            "percentage_base": "Percentage",
-            "base_remuneration": "Fixed pay",
+            "percentage_base": "Add a percentage of the margin value of the bookings",
+            "base_remuneration": "Add a fixed based pay",
             "forCancelledBookings": "For late cancellations and absences",
             "forConfirmedBookings": "For students that are present",
             "calculationMethod": "Calculation method",
             "actions": "Actions",
             "coaches": "Teachers",
             "name": "Name",
-            "addNewCoachPaymentRule": "New payment rule"
+            "addNewCoachPaymentRule": "New payment rule",
+            "base_remuneration_helper": "This amount will always be added to the session pay"
         },
         "tabs": {
             "all": "All classes",
@@ -4952,7 +4953,8 @@
             "explainStripeFooter": "This text will appear at the bottom of the invoices edited in PDF, please add any legal relevant information.",
             "submit_stripe_footer": "Update",
             "forms": {
-                "stripe_footer_placeholder": "No additional legal information"
+                "stripe_footer_placeholder": "No additional legal information",
+                "show_company_email_in_invoice": "Show your company email address on invoices"
             },
             "nf525Button": "Download",
             "nf525Explain": "Bsport follows the NF525 compliance procedures, you can download our official certificate here.",
@@ -4978,7 +4980,8 @@
                     }
                 },
                 "title": "Subscription"
-            }
+            },
+            "invoiceGeneral": "Invoice PDF"
         },
         "actions": {
             "equilibrate": "Regularize (deposit)",
@@ -6856,7 +6859,8 @@
                 "isDisabled": "Unfortunately the class has been canceled.",
                 "isTooLate": "Registrations are closed.",
                 "isWaitingListFull": "The class is full, and the waiting-list too.",
-                "isTooSoon": "Booking for this activity opens on {{ date }}. Please try again later."
+                "isTooSoon": "Booking for this activity opens on {{ date }}. Please try again later.",
+                "isAlreadyRegistered": "You are already registered to this session"
             },
             "messages": {
                 "offerLocked": "You can't book this session",
@@ -7083,7 +7087,7 @@
             "bookingsTitle": "Book now",
             "addSession": "Add a session",
             "noPackAvailable": "This session does not have any compatible memberships!",
-            "noPackAvailable_plural": "These sessions do not have any compatible memberships",
+            "noPackAvailable_plural": "No single pass is compatible with all these sessions simultaneously. Please book them separately.",
             "packTitle": "My booking method",
             "offerStatus": {
                 "waiting_list_status": {
@@ -7106,7 +7110,9 @@
                 "empty": "No session found",
                 "title": "Book more sessions",
                 "selectAll": "Select all"
-            }
+            },
+            "bookingForMe": "me",
+            "bookingsTitleFor": "I book for {{name}}"
         }
     },
     "marketplace": {

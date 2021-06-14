@@ -27,7 +27,7 @@ export const fabShowLogin = () => (dispatch: Dispatch, getState: any) => {
       url,
       dialogMode: DIALOG_MODE_IFRAME,
       isFabContext: true,
-    }),
+    })
   );
 };
 
@@ -53,7 +53,7 @@ export const fabShowProfile = () => (dispatch: Dispatch, getState: any) => {
 };
 export const fabShowSubscription = () => (
   dispatch: Dispatch,
-  getState: any
+  getState: any,
 ) => {
   const { company, company_name } = getState().theme.theme;
   const { PUBLIC_URL } = window.runtime.env;
@@ -65,5 +65,5 @@ export const setSaasBasketCount = createAction('SET_SAAS_BASKET');
 export const setSaasBookingsCount = createAction('SET_SAAS_BOOKINGS');
 
 export const refreshVODRequestAccessFlagAction = createAction(
-  'REFRESH_VOD_REQUEST_ACCESS_FLAG',
+  'REFRESH_VOD_REQUEST_ACCESS_FLAG'
 );

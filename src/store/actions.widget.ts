@@ -27,7 +27,7 @@ export const fabShowLogin = () => (dispatch: Dispatch, getState: any) => {
       url,
       dialogMode: DIALOG_MODE_IFRAME,
       isFabContext: true,
-    })
+    }),
   );
 };
 
@@ -45,10 +45,23 @@ export const fabShowBookings = () => (dispatch: Dispatch, getState: any) => {
   dispatch(setDialogAction({ url, dialogMode: DIALOG_MODE_IFRAME }));
 };
 
+export const fabShowProfile = () => (dispatch: Dispatch, getState: any) => {
+  const { company, company_name } = getState().theme.theme;
+  const { PUBLIC_URL } = window.runtime.env;
+  const url = `${PUBLIC_URL}/widget/${company_name}/${company}/profile?context=widget`;
+  dispatch(setDialogAction({ url, dialogMode: DIALOG_MODE_IFRAME }));
+};
+export const fabShowSubscription =
+  () => (dispatch: Dispatch, getState: any) => {
+    const { company, company_name } = getState().theme.theme;
+    const { PUBLIC_URL } = window.runtime.env;
+    const url = `${PUBLIC_URL}/widget/${company_name}/${company}/subscription?context=widget`;
+    dispatch(setDialogAction({ url, dialogMode: DIALOG_MODE_IFRAME }));
+  };
 export const setSaasAuthenticated = createAction('SET_SAAS_AUTHENTICATED');
 export const setSaasBasketCount = createAction('SET_SAAS_BASKET');
 export const setSaasBookingsCount = createAction('SET_SAAS_BOOKINGS');
 
 export const refreshVODRequestAccessFlagAction = createAction(
-  'REFRESH_VOD_REQUEST_ACCESS_FLAG'
+  'REFRESH_VOD_REQUEST_ACCESS_FLAG',
 );

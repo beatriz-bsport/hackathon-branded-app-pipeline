@@ -23,7 +23,7 @@ type ConnectProps = ReturnType<typeof mapStateToProps>
 
 type Props = OwnProps & ConnectProps &
   ReturnType<typeof mapWithProps> & {
-} & MaterialStyleType<ReturnType<typeof styles>>;
+  } & MaterialStyleType<ReturnType<typeof styles>>;
 
 interface State {
   showSuccessSnackbar: boolean

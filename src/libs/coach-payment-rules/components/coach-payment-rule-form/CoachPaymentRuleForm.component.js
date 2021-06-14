@@ -23,7 +23,6 @@ import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormGroup from '@material-ui/core/FormGroup';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from '@material-ui/core/Button';
 import CheckBox from '@material-ui/core/Checkbox';
 import Switch from '@material-ui/core/Switch';
@@ -92,7 +91,6 @@ export function CoachPaymentRuleFields(props: Props) {
   const toogleExcludePaymentPack = () =>
     setOpenExcludePaymentPack(!openExcludePaymentPack);
 
-  console.log('errors', props.errors);
   return (
     <div>
       <PopoverCoachPaymentRuleForm
@@ -389,29 +387,29 @@ export function CoachPaymentRuleFields(props: Props) {
                       </TableFooter>
                     </React.Fragment>
                   )}
-                  <Button
-                    aria-haspopup="true"
-                    aria-owns={anchorEl ? 'bonus-popover' : undefined}
-                    variant="outlined"
-                    onClick={(event) =>
-                      handlePopover(
-                        event,
-                        BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CONFIRMED_BOOKING,
-                      )
-                    }
-                    className={classes.footerAddButton}
-                  >
-                    <AddIcon color="secondary" />
-                    <Typography variant="subtitle2" color="secondary">
-                      {t('coach_payment_rules.Bonuses.addBonus')}
-                    </Typography>
-                  </Button>
                 </Table>
+                <Button
+                  aria-haspopup="true"
+                  aria-owns={anchorEl ? 'bonus-popover' : undefined}
+                  variant="outlined"
+                  color="primary"
+                  onClick={(event) =>
+                    handlePopover(
+                      event,
+                      BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CONFIRMED_BOOKING,
+                    )
+                  }
+                  className={classes.footerAddButton}
+                >
+                  <AddIcon color="secondary" />
+                  {t('coach_payment_rules.Bonuses.addBonus')}
+                </Button>
               </TableContainer>
             )}
           </FieldArray>
         </React.Fragment>
       )}
+      <div className={classes.spaceDivider} />
 
       <CheckboxField
         id="checkbox_add_remuneration_on_cancellation"
@@ -718,25 +716,23 @@ export function CoachPaymentRuleFields(props: Props) {
                       </TableFooter>
                     </React.Fragment>
                   )}
-                  <Button
-                    aria-haspopup="true"
-                    aria-owns={anchorEl ? 'bonus-popover' : undefined}
-                    variant="outlined"
-                    onClick={(event) =>
-                      handlePopover(
-                        event,
-                        BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
-                      )
-                    }
-                    className={classes.footerAddButton}
-                    variant="outlined"
-                  >
-                    <AddIcon color="secondary" />
-                    <Typography variant="subtitle2" color="secondary">
-                      {t('coach_payment_rules.Bonuses.addBonus')}
-                    </Typography>
-                  </Button>
                 </Table>
+                <Button
+                  aria-haspopup="true"
+                  aria-owns={anchorEl ? 'bonus-popover' : undefined}
+                  variant="outlined"
+                  color="primary"
+                  onClick={(event) =>
+                    handlePopover(
+                      event,
+                      BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
+                    )
+                  }
+                  className={classes.footerAddButton}
+                >
+                  <AddIcon color="secondary" />
+                  {t('coach_payment_rules.Bonuses.addBonus')}
+                </Button>
               </div>
             )}
           </FieldArray>

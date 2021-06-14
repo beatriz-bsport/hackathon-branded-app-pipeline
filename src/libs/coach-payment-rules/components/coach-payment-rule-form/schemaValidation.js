@@ -22,7 +22,7 @@ export const bonusCoachPaymentRuleSchema = Yup.object().shape({
     .max(999999)
     .typeError('paymentRules:coach_payment_rules.lowerIntervalTypeError')
     .test('interval-check', 'Invalid interval', function (item) {
-      const valid_interval = this.parent.upper_interval > item;
+      const valid_interval = this.parent.upper_interval >= item;
       return valid_interval
         ? true
         : this.createError({

@@ -152,7 +152,7 @@ class FabWidget extends React.PureComponent<Props, State> {
             timeout={this.state.showActions ? 0 : 600}
           >
             <Tooltip
-              title={t('navigation:backofficeMenu.profile')}
+              title={t('navigation:backofficeMenu.consumer.profile')}
               placement="right"
             >
               <ButtonBase
@@ -171,7 +171,7 @@ class FabWidget extends React.PureComponent<Props, State> {
             timeout={this.state.showActions ? 0 : 600}
           >
             <Tooltip
-              title={t('navigation:backofficeMenu.Subscription')}
+              title={t('navigation:backofficeMenu.consumer.subscription')}
               placement="right"
             >
               <ButtonBase

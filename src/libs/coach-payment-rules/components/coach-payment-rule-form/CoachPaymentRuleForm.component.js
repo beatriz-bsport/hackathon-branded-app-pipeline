@@ -9,6 +9,7 @@ import { withFormik, FieldArray } from 'formik';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
@@ -23,6 +24,7 @@ import Collapse from '@material-ui/core/Collapse';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormGroup from '@material-ui/core/FormGroup';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Button from '@material-ui/core/Button';
 import CheckBox from '@material-ui/core/Checkbox';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -81,6 +83,16 @@ export function CoachPaymentRuleFields(props: Props) {
     [BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING]:
       props.values.bonus_for_cancelled_bookings,
   };
+
+  const [openLimitSection, setOpenLimitSection] = React.useState(false);
+  const [openExcludePaymentPack, setOpenExcludePaymentPack] = React.useState(
+    false,
+  );
+  const toogleLimitSection = () => setOpenLimitSection(!openLimitSection);
+  const toogleExcludePaymentPack = () =>
+    setOpenExcludePaymentPack(!openExcludePaymentPack);
+
+  console.log('errors', props.errors);
   return (
     <div>
       <PopoverCoachPaymentRuleForm
@@ -118,6 +130,9 @@ export function CoachPaymentRuleFields(props: Props) {
             }
             label={t('coach_payment_rules.base_remuneration')}
           />
+          <FormHelperText>
+            {t('coach_payment_rules.base_remuneration_helper')}
+          </FormHelperText>
           <Collapse in={props.values.add_overall_base_remuneration}>
             <PriceField
               id="pricefield_base_remuneration"
@@ -128,11 +143,9 @@ export function CoachPaymentRuleFields(props: Props) {
           </Collapse>
         </React.Fragment>
       )}
+      <div className={classes.spaceDivider} />
       <Typography variant="h6">
         {t('coach_payment_rules.forConfirmedBookings')}
-      </Typography>
-      <Typography variant="subtitle1">
-        {t('coach_payment_rules.calculationMethod')}
       </Typography>
       {props.values.kind === COACH_PAYMENT_RULE_FOR_APPOINTMENT && (
         <React.Fragment>
@@ -192,9 +205,6 @@ export function CoachPaymentRuleFields(props: Props) {
 
       {props.values.kind === COACH_PAYMENT_RULE_FOR_SESSION && (
         <React.Fragment>
-          <Typography variant="subtitle2">
-            {t('coach_payment_rules.Bonuses.bonus_rules')}
-          </Typography>
           <FieldArray name="bonus_for_confirmed_bookings">
             {({
               remove,
@@ -205,170 +215,184 @@ export function CoachPaymentRuleFields(props: Props) {
             }) => (
               <TableContainer>
                 <Table size="small">
-                  <TableHead>
-                    <TableRow classes={lodash.pick(classes, ['root'])}>
-                      <TableCell colSpan={2} className={classes.dense}>
-                        {t('coach_payment_rules.Bonuses.bookingsThresholds')}
-                      </TableCell>
-                      <TableCell colSpan={2} className={classes.dense}>
-                        {t('coach_payment_rules.Bonuses.bonus')}
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {bonus_for_confirmed_bookings.map((bonus, i) => (
-                      <React.Fragment>
-                        <TableRow
-                          key={bonus.id}
-                          classes={lodash.pick(classes, ['root'])}
-                        >
-                          <TableCell
-                            align="left"
-                            padding="none"
-                            size="small"
-                            className={classes.dense}
-                          >
-                            <TextField
-                              type="number"
-                              name={`bonus_for_confirmed_bookings.${i}.lower_interval`}
-                              onBlur={() =>
-                                replace(i, bonus_for_confirmed_bookings[i])
-                              }
-                              InputProps={{
-                                inputProp: {
-                                  min:
-                                    i - 1 > 0
-                                      ? bonus_for_confirmed_bookings[i - 1]
-                                          .lower_interval
-                                      : 0,
-                                },
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    {t('coach_payment_rules.Bonuses.from')}
-                                  </InputAdornment>
-                                ),
-                              }}
-                              margin="none"
-                              className={classes.tableCell}
-                              size="small "
-                            />
-                          </TableCell>
-                          <TableCell
-                            align="left"
-                            padding="none"
-                            size="small"
-                            className={classes.dense}
-                          >
-                            <TextField
-                              type="number"
-                              name={`bonus_for_confirmed_bookings.${i}.upper_interval`}
-                              onBlur={() =>
-                                replace(i, bonus_for_confirmed_bookings[i])
-                              }
-                              InputProps={{
-                                inputProp: {
-                                  min: bonus.lower_interval + 1,
-                                },
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    {t('coach_payment_rules.Bonuses.to')}
-                                  </InputAdornment>
-                                ),
-                              }}
-                              margin="none"
-                              className={classes.tableCell}
-                              size="small"
-                            />
-                          </TableCell>
-                          <TableCell
-                            align="left"
-                            padding="none"
-                            size="small"
-                            className={classes.dense}
-                          >
-                            <PriceField
-                              name={`bonus_for_confirmed_bookings.${i}.bonus`}
-                              margin="none"
-                              className={classes.tableCell}
-                              size="small "
-                            />
-                          </TableCell>
-                          <TableCell
-                            align="left"
-                            padding="none"
-                            size="small"
-                            className={classes.dense}
-                          >
-                            {bonus.kind ===
-                            BONUS_COACH_PAYMENT_RULE_EVERY_BOOKING ? (
-                              <Typography variant="subtitle2">
-                                {t(
-                                  'coach_payment_rules.Bonuses.forEachBooking',
-                                )}
-                              </Typography>
-                            ) : (
-                              <Typography variant="subtitle2">
-                                {t('coach_payment_rules.Bonuses.forInterval')}
-                              </Typography>
+                  {bonus_for_confirmed_bookings.length > 0 && (
+                    <React.Fragment>
+                      <Typography variant="subtitle2">
+                        {t('coach_payment_rules.Bonuses.bonus_rules')}
+                      </Typography>
+                      <TableHead>
+                        <TableRow classes={lodash.pick(classes, ['root'])}>
+                          <TableCell colSpan={2} className={classes.dense}>
+                            {t(
+                              'coach_payment_rules.Bonuses.bookingsThresholds',
                             )}
                           </TableCell>
-                          <TableCell
-                            align="left"
-                            padding="none"
-                            size="small"
-                            className={classes.dense}
-                          >
-                            <IconButton
-                              onClick={() => remove(i)}
-                              aria-label="Delete"
-                            >
-                              <ClearIcon />
-                            </IconButton>
+                          <TableCell colSpan={2} className={classes.dense}>
+                            {t('coach_payment_rules.Bonuses.bonus')}
                           </TableCell>
                         </TableRow>
-                        <TableRow key={`error${bonus.id}`}>
-                          {props.errors.bonus_for_confirmed_bookings &&
-                          props.errors.bonus_for_confirmed_bookings[i] ? (
-                            <TableCell
-                              key={`error${bonus.id}`}
-                              align="center"
-                              padding="none"
-                              size="small"
-                              colSpan={5}
-                              className={classes.dense}
+                      </TableHead>
+                      <TableBody>
+                        {bonus_for_confirmed_bookings.map((bonus, i) => (
+                          <React.Fragment>
+                            <TableRow
+                              key={bonus.id}
+                              classes={lodash.pick(classes, ['root'])}
                             >
-                              <AlertError
-                                name={`bonus_for_confirmed_bookings.${i}.lower_interval`}
-                              />
-                              <AlertError
-                                name={`bonus_for_confirmed_bookings.${i}.upper_interval`}
-                              />
-                              <AlertError
-                                name={`bonus_for_confirmed_bookings.${i}.interval`}
-                              />
-                              <AlertError
-                                name={`bonus_for_confirmed_bookings.${i}.bonus`}
-                              />
-                            </TableCell>
+                              <TableCell
+                                align="left"
+                                padding="none"
+                                size="small"
+                                className={classes.dense}
+                              >
+                                <TextField
+                                  type="number"
+                                  name={`bonus_for_confirmed_bookings.${i}.lower_interval`}
+                                  onBlur={() =>
+                                    replace(i, bonus_for_confirmed_bookings[i])
+                                  }
+                                  InputProps={{
+                                    inputProp: {
+                                      min:
+                                        i - 1 > 0
+                                          ? bonus_for_confirmed_bookings[i - 1]
+                                              .lower_interval
+                                          : 0,
+                                    },
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        {t('coach_payment_rules.Bonuses.from')}
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                                  margin="none"
+                                  className={classes.tableCell}
+                                  size="small "
+                                />
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                padding="none"
+                                size="small"
+                                className={classes.dense}
+                              >
+                                <TextField
+                                  type="number"
+                                  name={`bonus_for_confirmed_bookings.${i}.upper_interval`}
+                                  onBlur={() =>
+                                    replace(i, bonus_for_confirmed_bookings[i])
+                                  }
+                                  InputProps={{
+                                    inputProp: {
+                                      min: bonus.lower_interval + 1,
+                                    },
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        {t('coach_payment_rules.Bonuses.to')}
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                                  margin="none"
+                                  className={classes.tableCell}
+                                  size="small"
+                                />
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                padding="none"
+                                size="small"
+                                className={classes.dense}
+                              >
+                                <PriceField
+                                  name={`bonus_for_confirmed_bookings.${i}.bonus`}
+                                  margin="none"
+                                  className={classes.tableCell}
+                                  size="small "
+                                />
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                padding="none"
+                                size="small"
+                                className={classes.dense}
+                              >
+                                {bonus.kind ===
+                                BONUS_COACH_PAYMENT_RULE_EVERY_BOOKING ? (
+                                  <Typography variant="subtitle2">
+                                    {t(
+                                      'coach_payment_rules.Bonuses.forEachBooking',
+                                    )}
+                                  </Typography>
+                                ) : (
+                                  <Typography variant="subtitle2">
+                                    {t(
+                                      'coach_payment_rules.Bonuses.forInterval',
+                                    )}
+                                  </Typography>
+                                )}
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                padding="none"
+                                size="small"
+                                className={classes.dense}
+                              >
+                                <IconButton
+                                  onClick={() => remove(i)}
+                                  aria-label="Delete"
+                                >
+                                  <ClearIcon />
+                                </IconButton>
+                              </TableCell>
+                            </TableRow>
+                            <TableRow key={`error${bonus.id}`}>
+                              {props.errors.bonus_for_confirmed_bookings &&
+                              props.errors.bonus_for_confirmed_bookings[i] ? (
+                                <TableCell
+                                  key={`error${bonus.id}`}
+                                  align="center"
+                                  padding="none"
+                                  size="small"
+                                  colSpan={5}
+                                  className={classes.dense}
+                                >
+                                  <AlertError
+                                    name={`bonus_for_confirmed_bookings.${i}.lower_interval`}
+                                  />
+                                  <AlertError
+                                    name={`bonus_for_confirmed_bookings.${i}.upper_interval`}
+                                  />
+                                  <AlertError
+                                    name={`bonus_for_confirmed_bookings.${i}.interval`}
+                                  />
+                                  <AlertError
+                                    name={`bonus_for_confirmed_bookings.${i}.bonus`}
+                                  />
+                                </TableCell>
+                              ) : null}
+                            </TableRow>
+                          </React.Fragment>
+                        ))}
+                      </TableBody>
+                      <TableFooter>
+                        <TableCell colSpan={5}>
+                          {!TestBonusesIntervalConformity(
+                            bonus_for_confirmed_bookings,
+                          ) ? (
+                            <Typography variant="body2" color="error">
+                              {t(
+                                'coach_payment_rules.Errors.invalideIntervals',
+                              )}
+                            </Typography>
                           ) : null}
-                        </TableRow>
-                      </React.Fragment>
-                    ))}
-                  </TableBody>
-                  <TableFooter>
-                    <TableCell colSpan={5}>
-                      {!TestBonusesIntervalConformity(
-                        bonus_for_confirmed_bookings,
-                      ) ? (
-                        <Typography variant="body2" color="error">
-                          {t('coach_payment_rules.Errors.invalideIntervals')}
-                        </Typography>
-                      ) : null}
-                    </TableCell>
-                  </TableFooter>
-                  <ButtonBase
+                        </TableCell>
+                      </TableFooter>
+                    </React.Fragment>
+                  )}
+                  <Button
                     aria-haspopup="true"
                     aria-owns={anchorEl ? 'bonus-popover' : undefined}
+                    variant="outlined"
                     onClick={(event) =>
                       handlePopover(
                         event,
@@ -381,7 +405,7 @@ export function CoachPaymentRuleFields(props: Props) {
                     <Typography variant="subtitle2" color="secondary">
                       {t('coach_payment_rules.Bonuses.addBonus')}
                     </Typography>
-                  </ButtonBase>
+                  </Button>
                 </Table>
               </TableContainer>
             )}
@@ -434,6 +458,7 @@ export function CoachPaymentRuleFields(props: Props) {
           label={t('coach_payment_rules.differentRemunerationForCancellation')}
         />
       </FormGroup>
+      <div className={classes.spaceDivider} />
       <Collapse
         in={
           props.values.exclude_cancelled_from_confirmed_bookings &&
@@ -443,9 +468,6 @@ export function CoachPaymentRuleFields(props: Props) {
         <AlertError name="exclude_cancelled_from_confirmed_bookings" />
         <Typography className={classes.cancellationTitle} variant="h6">
           {t('coach_payment_rules.forCancelledBookings')}
-        </Typography>
-        <Typography variant="subtitle1">
-          {t('coach_payment_rules.calculationMethod')}
         </Typography>
         <FormGroup>
           {props.values.kind === COACH_PAYMENT_RULE_FOR_APPOINTMENT && (
@@ -510,287 +532,309 @@ export function CoachPaymentRuleFields(props: Props) {
           />
         </Collapse>
         {props.values.kind === COACH_PAYMENT_RULE_FOR_SESSION && (
-          <React.Fragment>
-            <Typography variant="subtitle2">
-              {t('coach_payment_rules.Bonuses.bonus_rules')}
-            </Typography>
-            <FieldArray name="bonus_for_cancelled_bookings">
-              {({
-                remove,
-                replace,
-                form: {
-                  values: { bonus_for_cancelled_bookings },
-                },
-              }) => (
-                <div>
-                  <Table size="small">
-                    <TableHead>
-                      <TableRow classes={lodash.pick(classes, ['root'])}>
-                        <TableCell colSpan={2} className={classes.dense}>
-                          {t('coach_payment_rules.Bonuses.bookingsThresholds')}
-                        </TableCell>
-                        <TableCell colSpan={2} className={classes.dense}>
-                          {t('coach_payment_rules.Bonuses.bonus')}
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {bonus_for_cancelled_bookings.map((bonus, i) => (
-                        <React.Fragment>
-                          <TableRow
-                            key={bonus.id}
-                            classes={lodash.pick(classes, ['root'])}
-                          >
-                            <TableCell
-                              align="left"
-                              padding="none"
-                              size="small"
-                              className={classes.dense}
-                            >
-                              <TextField
-                                type="number"
-                                name={`bonus_for_cancelled_bookings.${i}.lower_interval`}
-                                onBlur={() =>
-                                  replace(i, bonus_for_cancelled_bookings[i])
-                                }
-                                InputProps={{
-                                  inputProp: {
-                                    min:
-                                      i - 1 > 0
-                                        ? bonus_for_cancelled_bookings[i - 1]
-                                            .lower_interval
-                                        : 0,
-                                  },
-                                  startAdornment: (
-                                    <InputAdornment position="start">
-                                      {t('coach_payment_rules.Bonuses.from')}
-                                    </InputAdornment>
-                                  ),
-                                }}
-                                margin="none"
-                                className={classes.tableCell}
-                                size="small "
-                              />
-                            </TableCell>
-                            <TableCell
-                              align="left"
-                              padding="none"
-                              size="small"
-                              className={classes.dense}
-                            >
-                              <TextField
-                                type="number"
-                                name={`bonus_for_cancelled_bookings.${i}.upper_interval`}
-                                onBlur={() =>
-                                  replace(i, bonus_for_cancelled_bookings[i])
-                                }
-                                InputProps={{
-                                  inputProp: { min: bonus.lower_interval + 1 },
-                                  startAdornment: (
-                                    <InputAdornment position="start">
-                                      {t('coach_payment_rules.Bonuses.to')}
-                                    </InputAdornment>
-                                  ),
-                                }}
-                                margin="none"
-                                className={classes.tableCell}
-                                size="small"
-                              />
-                            </TableCell>
-                            <TableCell
-                              align="left"
-                              padding="none"
-                              size="small"
-                              className={classes.dense}
-                            >
-                              <PriceField
-                                name={`bonus_for_cancelled_bookings.${i}.bonus`}
-                                margin="dense"
-                                fullWidth
-                                onBlur={() =>
-                                  replace(i, bonus_for_cancelled_bookings[i])
-                                }
-                              />
-                            </TableCell>
-                            <TableCell
-                              align="left"
-                              padding="none"
-                              size="small"
-                              className={classes.dense}
-                            >
-                              {bonus.kind ===
-                              BONUS_COACH_PAYMENT_RULE_EVERY_BOOKING ? (
-                                <Typography variant="subtitle2">
-                                  {t(
-                                    'coach_payment_rules.Bonuses.forEachBooking',
-                                  )}
-                                </Typography>
-                              ) : (
-                                <Typography variant="subtitle2">
-                                  {t('coach_payment_rules.Bonuses.forInterval')}
-                                </Typography>
-                              )}
-                            </TableCell>
-                            <TableCell
-                              align="left"
-                              padding="none"
-                              size="small"
-                              className={classes.dense}
-                            >
-                              <IconButton
-                                onClick={() => remove(i)}
-                                aria-label="Delete"
-                              >
-                                <ClearIcon />
-                              </IconButton>
-                            </TableCell>
-                          </TableRow>
-                          <TableRow key={`error${bonus.id}`}>
-                            {props.errors.bonus_for_cancelled_bookings &&
-                            props.errors.bonus_for_cancelled_bookings[i] ? (
-                              <TableCell
-                                key={`error${bonus.id}`}
-                                align="center"
-                                padding="none"
-                                size="small"
-                                colSpan={5}
-                                className={classes.dense}
-                              >
-                                <AlertError
-                                  name={`bonus_for_cancelled_bookings.${i}.lower_interval`}
-                                />
-                                <AlertError
-                                  name={`bonus_for_cancelled_bookings.${i}.upper_interval`}
-                                />
-                                <AlertError
-                                  name={`bonus_for_cancelled_bookings.${i}.interval`}
-                                />
-                                <AlertError
-                                  name={`bonus_for_cancelled_bookings.${i}.bonus`}
-                                />
-                              </TableCell>
-                            ) : null}
-                          </TableRow>
-                        </React.Fragment>
-                      ))}
-                    </TableBody>
-                    <TableFooter>
-                      <TableCell colSpan={5}>
-                        {!TestBonusesIntervalConformity(
-                          bonus_for_cancelled_bookings,
-                        ) ? (
-                          <Typography variant="body2" color="error">
-                            {t('coach_payment_rules.Errors.invalideIntervals')}
-                          </Typography>
-                        ) : null}
-                      </TableCell>
-                    </TableFooter>
-                    <ButtonBase
-                      aria-haspopup="true"
-                      aria-owns={anchorEl ? 'bonus-popover' : undefined}
-                      onClick={(event) =>
-                        handlePopover(
-                          event,
-                          BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
-                        )
-                      }
-                      className={classes.footerAddButton}
-                    >
-                      <AddIcon color="secondary" />
-                      <Typography variant="subtitle2" color="secondary">
-                        {t('coach_payment_rules.Bonuses.addBonus')}
-                      </Typography>
-                    </ButtonBase>
-                  </Table>
-                </div>
-              )}
-            </FieldArray>
-          </React.Fragment>
-        )}
-      </Collapse>
-      <Typography className={classes.limitsTitle} variant="h6">
-        {t('coach_payment_rules.remunerationLimits')}
-      </Typography>
-      <PriceField
-        id="min_remuneration"
-        name="min_remuneration"
-        label={t('coach_payment_rules.min_remuneration')}
-        required
-        fullWidth
-      />
-      <AlertError name="min_remuneration" />
-      <PriceField
-        id="max_remuneration"
-        name="max_remuneration"
-        label={t('coach_payment_rules.max_remuneration')}
-        required
-        fullWidth
-      />
-      <AlertError name="max_remuneration" />
-      <FormGroup>
-        <CheckboxField
-          id="checkbox_taxe_rate"
-          name="checkbox_taxe_rate"
-          label={t('coach_payment_rules.taxe_rate')}
-          checked={props.values.include_taxe}
-          onClick={() =>
-            setFieldValue('include_taxe', !props.values.include_taxe)
-          }
-        />
-        {!props.values.include_taxe && (
-          <FormHelperText>
-            {t('coach_payment_rules.taxeConciseHelper')}
-          </FormHelperText>
-        )}
-      </FormGroup>
-      <Collapse in={props.values.include_taxe}>
-        <PercentField
-          step={0.1}
-          id="percentageField_taxe_rate"
-          name="tax_rate"
-          label={t('coach_payment_rules.add_taxe_rate')}
-          fullWidth
-        />
-        <AlertError name="tax_rate" />
-        <FormHelperText>
-          {t('coach_payment_rules.taxeLongHelper')}
-        </FormHelperText>
-      </Collapse>
-      {props.values.kind === COACH_PAYMENT_RULE_FOR_SESSION && (
-        <React.Fragment>
-          <Typography className={classes.limitsTitle} variant="h6">
-            {t('coach_payment_rules.excludePaymentPack')}
-          </Typography>
-          <FieldArray name="excluded_payment_packs">
+          <FieldArray name="bonus_for_cancelled_bookings">
             {({
-              push,
               remove,
+              replace,
               form: {
-                values: { excluded_payment_packs },
+                values: { bonus_for_cancelled_bookings },
               },
             }) => (
               <div>
-                <PaymentPackSelector
-                  paymentPacks={props.paymentPackList}
-                  nullCurrentValue
-                  helperText={props.t(
-                    'coach_payment_rules.paymentPackPlaceHolder',
+                <Table size="small">
+                  {bonus_for_cancelled_bookings.length > 0 && (
+                    <React.Fragment>
+                      <Typography variant="subtitle2">
+                        {t('coach_payment_rules.Bonuses.bonus_rules')}
+                      </Typography>
+                      <TableHead>
+                        <TableRow classes={lodash.pick(classes, ['root'])}>
+                          <TableCell colSpan={2} className={classes.dense}>
+                            {t(
+                              'coach_payment_rules.Bonuses.bookingsThresholds',
+                            )}
+                          </TableCell>
+                          <TableCell colSpan={2} className={classes.dense}>
+                            {t('coach_payment_rules.Bonuses.bonus')}
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {bonus_for_cancelled_bookings.map((bonus, i) => (
+                          <React.Fragment>
+                            <TableRow
+                              key={bonus.id}
+                              classes={lodash.pick(classes, ['root'])}
+                            >
+                              <TableCell
+                                align="left"
+                                padding="none"
+                                size="small"
+                                className={classes.dense}
+                              >
+                                <TextField
+                                  type="number"
+                                  name={`bonus_for_cancelled_bookings.${i}.lower_interval`}
+                                  onBlur={() =>
+                                    replace(i, bonus_for_cancelled_bookings[i])
+                                  }
+                                  InputProps={{
+                                    inputProp: {
+                                      min:
+                                        i - 1 > 0
+                                          ? bonus_for_cancelled_bookings[i - 1]
+                                              .lower_interval
+                                          : 0,
+                                    },
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        {t('coach_payment_rules.Bonuses.from')}
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                                  margin="none"
+                                  className={classes.tableCell}
+                                  size="small "
+                                />
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                padding="none"
+                                size="small"
+                                className={classes.dense}
+                              >
+                                <TextField
+                                  type="number"
+                                  name={`bonus_for_cancelled_bookings.${i}.upper_interval`}
+                                  onBlur={() =>
+                                    replace(i, bonus_for_cancelled_bookings[i])
+                                  }
+                                  InputProps={{
+                                    inputProp: {
+                                      min: bonus.lower_interval + 1,
+                                    },
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        {t('coach_payment_rules.Bonuses.to')}
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                                  margin="none"
+                                  className={classes.tableCell}
+                                  size="small"
+                                />
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                padding="none"
+                                size="small"
+                                className={classes.dense}
+                              >
+                                <PriceField
+                                  name={`bonus_for_cancelled_bookings.${i}.bonus`}
+                                  margin="dense"
+                                  fullWidth
+                                  onBlur={() =>
+                                    replace(i, bonus_for_cancelled_bookings[i])
+                                  }
+                                />
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                padding="none"
+                                size="small"
+                                className={classes.dense}
+                              >
+                                {bonus.kind ===
+                                BONUS_COACH_PAYMENT_RULE_EVERY_BOOKING ? (
+                                  <Typography variant="subtitle2">
+                                    {t(
+                                      'coach_payment_rules.Bonuses.forEachBooking',
+                                    )}
+                                  </Typography>
+                                ) : (
+                                  <Typography variant="subtitle2">
+                                    {t(
+                                      'coach_payment_rules.Bonuses.forInterval',
+                                    )}
+                                  </Typography>
+                                )}
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                padding="none"
+                                size="small"
+                                className={classes.dense}
+                              >
+                                <IconButton
+                                  onClick={() => remove(i)}
+                                  aria-label="Delete"
+                                >
+                                  <ClearIcon />
+                                </IconButton>
+                              </TableCell>
+                            </TableRow>
+                            <TableRow key={`error${bonus.id}`}>
+                              {props.errors.bonus_for_cancelled_bookings &&
+                              props.errors.bonus_for_cancelled_bookings[i] ? (
+                                <TableCell
+                                  key={`error${bonus.id}`}
+                                  align="center"
+                                  padding="none"
+                                  size="small"
+                                  colSpan={5}
+                                  className={classes.dense}
+                                >
+                                  <AlertError
+                                    name={`bonus_for_cancelled_bookings.${i}.lower_interval`}
+                                  />
+                                  <AlertError
+                                    name={`bonus_for_cancelled_bookings.${i}.upper_interval`}
+                                  />
+                                  <AlertError
+                                    name={`bonus_for_cancelled_bookings.${i}.interval`}
+                                  />
+                                  <AlertError
+                                    name={`bonus_for_cancelled_bookings.${i}.bonus`}
+                                  />
+                                </TableCell>
+                              ) : null}
+                            </TableRow>
+                          </React.Fragment>
+                        ))}
+                      </TableBody>
+                      <TableFooter>
+                        <TableCell colSpan={5}>
+                          {!TestBonusesIntervalConformity(
+                            bonus_for_cancelled_bookings,
+                          ) ? (
+                            <Typography variant="body2" color="error">
+                              {t(
+                                'coach_payment_rules.Errors.invalideIntervals',
+                              )}
+                            </Typography>
+                          ) : null}
+                        </TableCell>
+                      </TableFooter>
+                    </React.Fragment>
                   )}
-                  onChange={(id) => {
-                    if (id) push(id);
-                  }}
-                />
-                {excluded_payment_packs.map((id, i) => (
-                  <PaymentPackListItem
-                    key={`${id}-${i}`}
-                    dense
-                    pack={props.paymentPackList.find((pp) => pp.id === id)}
-                    onDelete={() => remove(i)}
-                  />
-                ))}
+                  <Button
+                    aria-haspopup="true"
+                    aria-owns={anchorEl ? 'bonus-popover' : undefined}
+                    variant="outlined"
+                    onClick={(event) =>
+                      handlePopover(
+                        event,
+                        BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
+                      )
+                    }
+                    className={classes.footerAddButton}
+                    variant="outlined"
+                  >
+                    <AddIcon color="secondary" />
+                    <Typography variant="subtitle2" color="secondary">
+                      {t('coach_payment_rules.Bonuses.addBonus')}
+                    </Typography>
+                  </Button>
+                </Table>
               </div>
             )}
           </FieldArray>
+        )}
+      </Collapse>
+      <div className={classes.spaceDivider} />
+      <div className={classes.row}>
+        <Typography className={classes.limitsTitle} variant="h6">
+          {t('coach_payment_rules.remunerationLimits')}
+        </Typography>
+        <IconButton onClick={toogleLimitSection}>
+          <ExpandMoreIcon />
+        </IconButton>
+      </div>
+      <Collapse in={openLimitSection}>
+        <PriceField
+          id="min_remuneration"
+          name="min_remuneration"
+          label={t('coach_payment_rules.min_remuneration')}
+          required
+          fullWidth
+        />
+        <AlertError name="min_remuneration" />
+        <PriceField
+          id="max_remuneration"
+          name="max_remuneration"
+          label={t('coach_payment_rules.max_remuneration')}
+          required
+          fullWidth
+        />
+        <AlertError name="max_remuneration" />
+      </Collapse>
+      <Collapse
+        in={
+          props.values.percentage_base_cancelled_bookings ||
+          props.values.percentage_base_confirmed_bookings
+        }
+      >
+        <FormGroup>
+          <CheckboxField
+            id="checkbox_taxe_rate"
+            name="checkbox_taxe_rate"
+            label={t('coach_payment_rules.taxe_rate')}
+            checked={props.values.exclude_default_tax_rate_from_margin_rate}
+            onClick={() =>
+              setFieldValue(
+                'exclude_default_tax_rate_from_margin_rate',
+                !props.values.exclude_default_tax_rate_from_margin_rate,
+              )
+            }
+          />
+          <FormHelperText>
+            {t('coach_payment_rules.taxeConciseHelper')}
+          </FormHelperText>
+        </FormGroup>
+      </Collapse>
+      {props.values.kind === COACH_PAYMENT_RULE_FOR_SESSION && (
+        <React.Fragment>
+          <div className={classes.row}>
+            <Typography className={classes.limitsTitle} variant="h6">
+              {t('coach_payment_rules.excludePaymentPack')}
+            </Typography>
+            <IconButton onClick={toogleExcludePaymentPack}>
+              <ExpandMoreIcon />
+            </IconButton>
+          </div>
+          <Collapse in={openExcludePaymentPack}>
+            <FieldArray name="excluded_payment_packs">
+              {({
+                push,
+                remove,
+                form: {
+                  values: { excluded_payment_packs },
+                },
+              }) => (
+                <div>
+                  <PaymentPackSelector
+                    paymentPacks={props.paymentPackList}
+                    nullCurrentValue
+                    helperText={props.t(
+                      'coach_payment_rules.paymentPackPlaceHolder',
+                    )}
+                    onChange={(id) => {
+                      if (id) push(id);
+                    }}
+                  />
+                  {excluded_payment_packs.map((id, i) => (
+                    <PaymentPackListItem
+                      key={`${id}-${i}`}
+                      dense
+                      pack={props.paymentPackList.find((pp) => pp.id === id)}
+                      onDelete={() => remove(i)}
+                    />
+                  ))}
+                </div>
+              )}
+            </FieldArray>
+          </Collapse>
         </React.Fragment>
       )}
     </div>
@@ -821,6 +865,15 @@ const styles = (theme) => ({
   dense: {
     paddingLeft: 0,
     paddingRight: 0,
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  spaceDivider: {
+    marginTop: theme.spacing(3),
   },
 });
 
@@ -880,9 +933,6 @@ export const CoachPaymentRuleFormHoc = withFormik({
         }),
       );
     }
-    if (values.include_taxe === false) {
-      valuesWithConcatBonuses.tax_rate = 0;
-    }
     if (values.kind === COACH_PAYMENT_RULE_FOR_SESSION) {
       valuesWithConcatBonuses.base_remuneration_for_cancellation = 0;
     }
@@ -895,10 +945,11 @@ export const CoachPaymentRuleFormHoc = withFormik({
       percentage_base_confirmed_bookings,
       base_remuneration_type_cancellation,
       remuneration_on_cancellation,
-      include_taxe,
+      exclude_default_tax_rate_from_margin_rate,
       bonus_for_confirmed_bookings,
       bonus_for_cancelled_bookings,
       coaches,
+      tax_rate,
 
       ...cleanedValue
     } = valuesWithConcatBonuses;

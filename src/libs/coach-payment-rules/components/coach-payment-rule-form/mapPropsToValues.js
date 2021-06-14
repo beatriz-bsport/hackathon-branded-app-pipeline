@@ -48,7 +48,6 @@ export const mapInitalPropsToValues = (initial, ruleTypeCreation) => {
             BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
         ) &&
           !initial.exclude_cancelled_from_confirmed_bookings),
-      include_taxe: parseFloat(initial.tax_rate) !== 0,
       bonus_for_confirmed_bookings: initial.bonus_coach_payment.filter(
         (bonus) =>
           bonus.applicability ===
@@ -73,14 +72,13 @@ export const mapInitalPropsToValues = (initial, ruleTypeCreation) => {
     remuneration_on_cancellation: false,
     base_remuneration_for_cancellation: 0,
     exclude_cancelled_from_confirmed_bookings: false,
-    include_taxe: false,
     base_remuneration: 0,
     percentage_base_confirmed_bookings: 0,
     percentage_base_cancelled_bookings: 0,
     min_remuneration: 0,
-    max_remuneration: 0,
-    tax_rate: 0,
+    max_remuneration: 1000,
     excluded_payment_packs: [],
+    exclude_default_tax_rate_from_margin_rate: false,
     bonus_coach_payment: [],
     bonus_for_confirmed_bookings: [],
     bonus_for_cancelled_bookings: [],

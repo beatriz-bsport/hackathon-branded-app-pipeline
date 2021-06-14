@@ -67,19 +67,22 @@ exports.default = {
     calculationMethod: 'Méthode de calcul',
     forConfirmedBookings: 'Pour les élèves présents',
     forCancelledBookings: 'Pour les annulations hors délai et abscences',
-    base_remuneration: 'Base fixe',
-    percentage_base: 'Pourcentage',
+    base_remuneration: 'Définir une base de rémunération fixe',
+    base_remuneration_helper:
+      'Ce montant sera toujours ajouté à la rémunération de la séance / RDV',
+    percentage_base:
+      'Ajouter un pourcentage de la valeur marginale des réservations',
     addRemunerationOnCancellation:
       "Rémunérer le professeur en cas d'annulation hors délai ou absence",
     differentRemunerationForCancellation:
-      'Appliquer des règles bonus différentes pour le décompte des élèves absents ',
+      'Appliquer des règles bonus différentes pour le décompte des élèves absents ou annulation hors-délai ',
     remunerationLimits: 'Rémunérations limites',
     min_remuneration: 'Minimum',
     max_remuneration: 'Maximum',
-    taxe_rate: 'Calcul TTC',
+    taxe_rate: 'Exclure la TVA du calcul de la valeur marginale (pourcentage)',
     add_taxe_rate: 'Taxe à ajouter',
     taxeConciseHelper:
-      'Aide : Tous les pourcentages sont calculés sur la valuer marginale de chaque réservation hors taxe.',
+      'Le bonus en pourcentage, calculé à partir de la valeur marginale, sera retranché de la TVA en vigueur.',
     taxeLongHelper:
       'Aide : Tous les pourcentages sont calculés sur la valeur marginale de chaque réservation hors taxe. La taxe ajoutée s’applique sur la valeur marginale ainsi que l’ensemble des fixes et des bonus.',
     cancellationBaseHelper:
@@ -87,7 +90,7 @@ exports.default = {
     fixedBonusbyInterval: 'Ajouter un bonus fixe par intervalle',
     bonusForEachReservationInInterval:
       "Ajouter un bonus pour chaque réservation de l'intervalle",
-    excludePaymentPack: 'Exclure certaines cartes',
+    excludePaymentPack: 'Exclure les réservations de certaines cartes',
     paymentPackPlaceHolder: 'Selectionner des cartes de cours',
     Bonuses: {
       bonus: 'Bonus',

@@ -79,11 +79,7 @@ export const coachPaymentRuleFieldsSchema = Yup.object().shape({
         return item > this.parent.min_remuneration;
       },
     ),
-  tax_rate: Yup.number()
-    .min(0)
-    .max(100)
-    .required('paymentRules:coach_payment_rules.Errors.taxeRateRequired')
-    .typeError('paymentRules:coach_payment_rules.Errors.taxeRateTypeError'),
+  exclude_default_tax_rate_from_margin_rate: Yup.boolean(),
   exclude_cancelled_from_confirmed_bookings: Yup.boolean().test(
     'exlude_cancelled_from_confirmed_bookings',
     'paymentRules:coach_payment_rules.Errors.invalidCancelledBookingRules',

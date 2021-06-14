@@ -3,6 +3,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -20,6 +21,7 @@ type Props = {
   t: TFunction,
   configuration: {
     stripe_footer: string,
+    show_company_email_in_invoice: boolean,
     nb_retries_subscription_payments: number,
     disable_pass_on_fail_subscription_payment: boolean,
     revert_bookings_on_fail_subscription_payment: boolean,
@@ -30,6 +32,7 @@ type Props = {
 
 type State = {
   stripe_footer: string,
+  show_company_email_in_invoice: boolean,
   nb_retries_subscription_payments: number,
   disable_pass_on_fail_subscription_payment: boolean,
   revert_bookings_on_fail_subscription_payment: boolean,
@@ -40,6 +43,8 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
     super(props);
     this.state = {
       stripe_footer: props.configuration.stripe_footer,
+      show_company_email_in_invoice:
+        props.configuration.show_company_email_in_invoice,
       activateSmartRetries:
         props.configuration.nb_retries_subscription_payments > 0,
       nb_retries_subscription_payments:
@@ -48,6 +53,8 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
         props.configuration.disable_pass_on_fail_subscription_payment,
       revert_bookings_on_fail_subscription_payment:
         props.configuration.revert_bookings_on_fail_subscription_payment,
+      show_company_email_in_invoice:
+        props.configuration.show_company_email_in_invoice,
     };
   }
 
@@ -235,6 +242,23 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
         <Paper className={classes.paper}>
           <div className={classes.header}>
             <Typography variant="h6" component="h3">
+              {t('configuration.invoiceGeneral')}
+            </Typography>
+          </div>
+          <div className={classes.inputContainer}>
+            <Checkbox
+              checked={this.state.show_company_email_in_invoice}
+              onChange={(ev) => {
+                const c = ev.target.checked;
+                this.setState({ show_company_email_in_invoice: c });
+              }}
+            />
+            <Typography>
+              {t('configuration.forms.show_company_email_in_invoice')}
+            </Typography>
+          </div>
+          <div className={classes.header}>
+            <Typography variant="h6" component="h3">
               {t('configuration.stripe_footer')}
             </Typography>
           </div>
@@ -255,11 +279,16 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
               onClick={() =>
                 this.props.onSubmit({
                   stripe_footer: this.state.stripe_footer,
+                  show_company_email_in_invoice: this.state
+                    .show_company_email_in_invoice,
                 })
               }
               disabled={
-                this.props.configuration.stripe_footer ===
-                  this.state.stripe_footer || this.props.processing
+                (this.props.configuration.show_company_email_in_invoice ===
+                  this.state.show_company_email_in_invoice &&
+                  this.props.configuration.stripe_footer ===
+                    this.state.stripe_footer) ||
+                this.props.processing
               }
             >
               {t('configuration.submit_stripe_footer')}

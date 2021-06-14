@@ -3324,6 +3324,7 @@
     },
     "configuration": {
       "stripe_footer": "Bas de page facture",
+      "invoiceGeneral": "Facture PDF",
       "subscription": {
         "title": "Souscription",
         "forms": {
@@ -3345,7 +3346,10 @@
       },
       "explainStripeFooter": "Ce texte apparaitra en bas de vos factures éditées en PDF, ajoutez toute mention légale nécessaire.",
       "submit_stripe_footer": "Mettre à jour",
-      "forms": { "stripe_footer_placeholder": "Aucune mention supplémentaire" },
+      "forms": {
+        "stripe_footer_placeholder": "Aucune mention supplémentaire",
+        "show_company_email_in_invoice": "Afficher l'email de contact de votre entreprise sur les factures"
+      },
       "nf525": "Certification",
       "nf525Explain": "Bsport suit les procédures de mise en confiormité NF525, vous pouvez ici télécharger notre attestation officielle.",
       "nf525Button": "Télécharger"

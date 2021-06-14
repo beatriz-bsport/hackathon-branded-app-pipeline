@@ -266,6 +266,7 @@ exports.default = {
   },
   configuration: {
     stripe_footer: 'Bas de page facture',
+    invoiceGeneral: 'Facture PDF',
     subscription: {
       title: 'Souscription',
       forms: {
@@ -297,6 +298,8 @@ exports.default = {
     submit_stripe_footer: 'Mettre à jour',
     forms: {
       stripe_footer_placeholder: 'Aucune mention supplémentaire',
+      show_company_email_in_invoice:
+        "Afficher l'email de contact de votre entreprise sur les factures",
     },
     nf525: 'Certification',
     nf525Explain:

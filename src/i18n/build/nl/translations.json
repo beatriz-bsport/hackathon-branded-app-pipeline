@@ -3253,7 +3253,8 @@
                 "isDisabled": "De sessie is helaas geannuleerd.",
                 "isTooLate": "De inschrijvingen zijn gesloten.",
                 "isWaitingListFull": "De sessie en de wachtlijst zijn vol.",
-                "isTooSoon": "Vanaf {{ date }} kan er gereserveerd worden."
+                "isTooSoon": "Vanaf {{ date }} kan er gereserveerd worden.",
+                "isAlreadyRegistered": "Je hebt je al ingeschreven voor deze sessie."
             },
             "messages": {
                 "offerLocked": "Fout bij het inschrijven",
@@ -3513,7 +3514,9 @@
                 "empty": "Er zijn geen andere sessies.",
                 "title": "Meer sessies reserveren",
                 "selectAll": "Alles selecteren"
-            }
+            },
+            "bookingForMe": "Mezelf",
+            "bookingsTitleFor": "Reserveren voor {{name}}"
         }
     },
     "marketplace": {
@@ -5520,28 +5523,29 @@
                 "forInterval": "voor alle intervallen"
             },
             "paymentPackPlaceHolder": "Selecteer cursuskaarten",
-            "excludePaymentPack": "Bepaalde lidmaatschappen uitsluiten",
+            "excludePaymentPack": "De reserveringen van bepaalde lidmaatschappen uitsluiten",
             "bonusForEachReservationInInterval": "Een bonus per reservering van dit interval toevoegen",
             "fixedBonusbyInterval": "Een vaste bonus per interval toevoegen",
             "cancellationBaseHelper": "Vink dit vak aan om geen bonus over de marginale waarde van annuleringen uit te betalen.",
             "taxeLongHelper": "Alle percentages worden over de marginale waarde per reservering excl. btw berekend. De btw wordt ook op de marginale waarde, vaste bedragen en bonussen toegepast.",
             "taxeConciseHelper": "Alle percentages worden over de marginale waarde per reservering excl. btw berekend.",
             "add_taxe_rate": "Toe te voegen btw",
-            "taxe_rate": "Btw berekenen",
+            "taxe_rate": "Het btw-tarief over de marginale waarde niet in de berekening opnemen",
             "max_remuneration": "Max.",
             "min_remuneration": "Min.",
             "remunerationLimits": "Bonus beperken",
-            "differentRemunerationForCancellation": "Andere payroll-regels voor afwezige leden toepassen ",
+            "differentRemunerationForCancellation": "Andere payroll-regels voor afwezige leden en te late annuleringen toepassen ",
             "addRemunerationOnCancellation": "Betaal instructeurs voor afwezige leden en te late annuleringen",
-            "percentage_base": "Percentage",
-            "base_remuneration": "Vast bedrag",
+            "percentage_base": "Een percentage over de marginale waarde van de reserveringen toevoegen",
+            "base_remuneration": "Een vast bedrag toevoegen",
             "forCancelledBookings": "Afwezige leden en te late annuleringen meetellen",
             "forConfirmedBookings": "Geldt alleen voor aanwezige leden",
             "calculationMethod": "Rekenmethode",
             "actions": "Acties",
             "coaches": "Instructeurs",
             "name": "Naam",
-            "addNewCoachPaymentRule": "[Formulier] Payroll-regel"
+            "addNewCoachPaymentRule": "[Formulier] Payroll-regel",
+            "base_remuneration_helper": "Een vast bedrag wordt altijd standaard toegevoegd."
         },
         "tabs": {
             "all": "Selecteer alles",
@@ -6976,7 +6980,8 @@
             "explainStripeFooter": "Deze tekst verschijnt onderaan je facturen die men als PDF kan downloaden. Voeg eventueel de juridische kennisgeving toe.",
             "submit_stripe_footer": "Bijwerken",
             "forms": {
-                "stripe_footer_placeholder": "Geen aanvullende informatie"
+                "stripe_footer_placeholder": "Geen aanvullende informatie",
+                "show_company_email_in_invoice": "Toon je zakelijke e-mailadres op je facturen"
             },
             "nf525Button": "Downloaden",
             "nf525Explain": "BSPORT volgt de NF252-nalevingsprocedures. Je kan het officiële certificaat hier downloaden.",
@@ -7002,7 +7007,8 @@
                     }
                 },
                 "title": "Abonnement"
-            }
+            },
+            "invoiceGeneral": "Factuur (PDF)"
         },
         "section": {
             "paymentList": {

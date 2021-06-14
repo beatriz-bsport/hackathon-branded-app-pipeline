@@ -81,9 +81,10 @@ class FabWidget extends React.PureComponent<Props, State> {
   };
 
   onClickSubscription = () => {
-    this.setState({ showActions: false })
+    this.setState({ showActions: false });
     this.props.fabShowSubscription();
-  }
+  };
+
   render() {
     const { classes, t } = this.props;
     return (

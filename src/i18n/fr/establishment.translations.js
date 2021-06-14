@@ -80,4 +80,17 @@ exports.default = {
   },
   notificationToolTip:
     'Des notifications sont définies pour les réservations concernant cet établissement',
+  spotScheduling: {
+    title: 'Plan de salle',
+    subtitle:
+      'Utilisé pour le spot scheduling. Permet à vos élèves de réserver l’emplacement qu’ils souhaitent dans la salle.',
+    add: 'Ajouter une salle',
+    delete: {
+      title: 'Suppression plan de salle',
+      content:
+        'Êtes-vous sûr de vouloir supprimer ce plan de salle ? Cette opération est irréversible.',
+    },
+    placeCount: '{{count}} places',
+    untitled: 'Sans titre',
+  },
 };

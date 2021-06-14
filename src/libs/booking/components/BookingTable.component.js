@@ -33,6 +33,8 @@ type Props = {
   handleRevert: (booking: Booking) => void,
   discardBookingAttendance: (id: number) => void,
   confirmBookingAttendance: (id: number) => void,
+  spotSchedulingEnabled?: boolean,
+  onClickChangeSpot: (booking: Booking) => void,
 };
 
 export class BookingTable extends PureComponent<Props> {
@@ -52,6 +54,7 @@ export class BookingTable extends PureComponent<Props> {
       handleRevert,
       onQuickInvoiceClick,
       bookings,
+      onClickChangeSpot,
     } = this.props;
 
     if (loading || !bookings) {
@@ -71,7 +74,7 @@ export class BookingTable extends PureComponent<Props> {
           {t('booking.noBookingOnThisOffer')}
         </Typography>
       );
-      }
+    }
     return (
       <List disablePadding dense>
         {[
@@ -92,12 +95,15 @@ export class BookingTable extends PureComponent<Props> {
             handleRevert={() => handleRevert(b)}
             discardBookingAttendance={() => discardBookingAttendance(b.id)}
             confirmBookingAttendance={() => confirmBookingAttendance(b.id)}
+            spotSchedulingEnabled={this.props.spotSchedulingEnabled}
+            onClickChangeSpot={onClickChangeSpot}
           />
         ))}
       </List>
     );
   }
 }
+
 const styles = (theme) => ({
   loadingContainer: {
     display: 'flex',

@@ -73,6 +73,7 @@ type Props = {
   initializating: boolean,
   networkAvailable: boolean,
   fetchAccessLevel: (token: string) => void,
+  location: any,
 };
 
 export class Root extends Component<Props> {
@@ -91,6 +92,20 @@ export class Root extends Component<Props> {
      */
     if (query.context && query.context === 'widget') {
       WidgetUtils.setWidgetContext();
+    }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.location !== this.props.location) {
+      if (this.props.location && this.props.location.pathname) {
+        if (this.props.location.pathname.includes('/spot-scheduling')) {
+          document.body.style.overflowX = 'hidden';
+          document.body.style.overflowY = 'hidden';
+        } else {
+          document.body.style.overflowX = 'visible';
+          document.body.style.overflowY = 'visible';
+        }
+      }
     }
   }
 

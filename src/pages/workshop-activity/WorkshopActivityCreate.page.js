@@ -41,6 +41,9 @@ import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
 import { Establishment } from '../../libs/establishment/types';
+import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
+import { getRoomBlueprints } from '../../libs/spot-scheduling/selector';
+import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 
 type StepType = {
   id: number,
@@ -77,6 +80,8 @@ type Props = {
 
   t: TFunction,
   companyTheme: CompanyTheme,
+  fetchRoomBlueprints: () => void,
+  roomBlueprints: Array<RoomBlueprint>,
 };
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -110,6 +115,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
   componentWillMount() {
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList();
+    this.props.fetchRoomBlueprints();
   }
 
   renderActivityStep = () => (
@@ -159,6 +165,7 @@ export class WorkshopActivityFormPage extends Component<Props> {
       onSubmit={this.props.createOffers}
       processing={this.props.offerIsProcessing}
       onCancel={() => this.props.goToWorkshop(this.props.upsertedWorkshop.id)}
+      roomBlueprints={this.props.roomBlueprints}
     />
   );
 
@@ -227,6 +234,7 @@ export default compose(
         ...getEnabledWorkshops(state),
       ],
       upsertedWorkshop: state.metaActivity.upsert.data,
+      roomBlueprints: getRoomBlueprints(state),
     }),
     {
       upsertWorkshopActivity: upsert,
@@ -237,6 +245,7 @@ export default compose(
       fetchAllOffers: fetchAllOffersActions,
       fetchEstablishments,
       fetchAssociatedCoachesList,
+      fetchRoomBlueprints,
     },
   ),
   //

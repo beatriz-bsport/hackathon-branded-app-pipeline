@@ -99,6 +99,7 @@ type Props = {
   recurrentBookingCurrentPage: number,
   recurrentBookingItemPerPage: number,
   recurrentBookingCount: number,
+  onClickChangeSpot: (booking: Booking) => void,
 };
 
 type State = {
@@ -376,6 +377,8 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                     showRevertBookingButton
                     handleRevert={this.handleBookingRevert}
                     onQuickInvoiceClick={this.props.addToQuickInvoicePanel}
+                    spotSchedulingEnabled={!!this.props.offer.room_blueprint}
+                    onClickChangeSpot={this.props.onClickChangeSpot}
                   />
                 )}
               </PermissionContext.Consumer>

@@ -73,6 +73,7 @@ export type Offer<C = number, E = number, M = number> = {
   establishment: E;
   meta_activity: M;
   timezone_name: string;
+  room_blueprint?: number;
 };
 
 export type Offer_FULL = Offer<Coach, Establishment, MetaActivity>;
@@ -88,6 +89,7 @@ export type OfferStatus = {
   offer_status: number;
   bookable_status: number;
   waiting_list_status: number;
+  taken_spots: number[];
 };
 
 export type OfferState = ErrorAndLoading & {

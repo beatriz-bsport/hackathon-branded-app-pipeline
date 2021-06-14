@@ -21,6 +21,7 @@ import {
   createRecurrenceRuleBooking as createRecurrenceRuleBookingAPI,
   deleteRecurrenceRuleBooking as deleteRecurrenceRuleBookingAPI,
   updateRecurrenceRuleBooking as updateRecurrenceRuleBookingAPI,
+  setSpotForMember,
 } from './api';
 
 // @ts-ignore
@@ -60,7 +61,7 @@ export const updateActions = {
   error: createAction('BOOKING/UDPATE/ERROR'),
 };
 
-function updateBooking(
+export function updateBooking(
   id: number,
   data: any,
   options?: OptionCallback,
@@ -83,6 +84,14 @@ function updateBooking(
     dispatch(updateActions.isLoading(false));
   };
 }
+
+export const setSpotForBooking = (
+  id: number,
+  spot_id: number,
+  options?: OptionCallback,
+) => {
+  return updateBooking(id, { spot_id }, options, setSpotForMember);
+};
 
 export const discardAttendance = (id: number, options?: OptionCallback) =>
   updateBooking(id, {}, options, discardAttendanceAPI);
@@ -597,6 +606,7 @@ export function deleteRecurrenceRuleBooking(
     dispatch(deleteRecurrenceRuleBookingActions.isLoading(false));
   };
 }
+
 export const updateRecurrenceRuleBookingActions = {
   isLoading: createAction('RECURENCE_RULE_BOOKING/EDIT/IS_LOADING'),
   error: createAction('RECURENCE_RULE_BOOKING/EDIT/ERROR'),

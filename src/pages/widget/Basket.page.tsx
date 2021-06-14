@@ -39,6 +39,10 @@ class BasketPage extends React.PureComponent<Props> {
     this.props.push(`/checkout/${this.props.companyId}?&context=widget`);
   };
 
+  onItemExpire = () => {
+    this.props.fetchCurrentBasket(this.props.companyId);
+  };
+
   render() {
     const { classes, t } = this.props;
 
@@ -60,6 +64,7 @@ class BasketPage extends React.PureComponent<Props> {
                 onAddCheckoutItem={(data: any) =>
                   this.props.addItemToBasket(this.props.basket.id, data)
                 }
+                onItemExpire={this.onItemExpire}
               />
             </div>
 

@@ -12,6 +12,7 @@ import BasketConsumer from './BasketConsumer.component';
 
 import BasketFinalizer from './BasketFinalizer.component';
 import ShopItemFeaturedBanner from './ShopItemFeaturedBanner.component';
+import { CheckoutItem } from '../types';
 
 type Props = {
   basket: Basket,
@@ -42,6 +43,7 @@ type Props = {
 
   termsAndConditionsAccepted: boolean,
   setTermsAndConditionsAccepted: (boolean) => void,
+  onItemExpire: (item: CheckoutItem) => void,
 };
 
 export const CheckoutFlow = (props: Props) => (
@@ -59,6 +61,7 @@ export const CheckoutFlow = (props: Props) => (
         onAddCheckoutItem={(data) =>
           props.addItemToBasket(props.basket.id, data)
         }
+        onItemExpire={props.onItemExpire}
       />
     </Paper>
     {props.shopItemList.length ? (

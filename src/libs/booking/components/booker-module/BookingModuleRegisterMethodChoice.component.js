@@ -38,6 +38,7 @@ type Props = {
   }) => void,
   offer?: Offer,
   cppMaxoutBookingsByCpp?: { [cpp_id: string]: MaxoutBooking },
+  disableMultiBooking?: boolean,
 };
 
 export const BookingModuleRegisterMethodChoice = (props: Props) => {
@@ -46,6 +47,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
   const [voucher, setVoucher] = useState(0);
   const [voucherDialogOpen, setVoucherDialogOpen] = useState(false);
   const [selectedPack, setSelectedPack] = useState(null);
+
   return (
     <div className={classes.container}>
       <Typography variant="h6" component="h4">
@@ -84,11 +86,18 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
             <ConsumerPackRowItem
               key={cp.id}
               hideConsumer
+              {...{
+                onBook: props.disableMultiBooking
+                  ? () => props.registerToOffer({ consumerPaymentPack: cp })
+                  : undefined,
+              }}
               onBookOne={() =>
                 props.registerToOffer({ consumerPaymentPack: cp })
               }
-              onBookMultiple={() =>
-                props.onBookMultiple({ consumerPaymentPack: cp })
+              onBookMultiple={
+                props.disableMultiBooking
+                  ? undefined
+                  : () => props.onBookMultiple({ consumerPaymentPack: cp })
               }
               consumerPack={cp}
               paymentPack={cp.payment_pack}
@@ -120,8 +129,10 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                   setSelectedPack(pack);
                   setVoucherDialogOpen(true);
                 }}
-                onBookMultiple={() =>
-                  props.onBookMultiple({ paymentPack: pack })
+                onBookMultiple={
+                  props.disableMultiBooking
+                    ? undefined
+                    : () => props.onBookMultiple({ paymentPack: pack })
                 }
                 divider
                 key={pack.id}

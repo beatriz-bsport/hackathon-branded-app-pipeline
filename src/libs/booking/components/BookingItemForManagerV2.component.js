@@ -48,12 +48,13 @@ import { formatAsDatetime, formatAsDate } from '../../../utils/datetime';
 import type { PaymentPack } from '../../../libs/payment-packs/types';
 // eslint-disable-next-line
 import type { Member } from '../../../libs/member/types';
+import { Booking } from '../types';
 
 type Props = {
   t: TFunction,
   classes: Object,
   heading: ?string,
-  booking: Object,
+  booking: Booking,
   member: Member,
 
   disabled?: boolean,
@@ -73,6 +74,8 @@ type Props = {
   handleRevert: () => void,
   confirmBookingAttendance: () => void,
   discardBookingAttendance: () => void,
+  spotSchedulingEnabled?: boolean,
+  onClickChangeSpot: (booking: Booking) => void,
 };
 
 const getPackDate = (consumerPack) => {
@@ -232,6 +235,20 @@ export class BookingItemForManager extends Component<Props, State> {
               <CancelIcon />
             </ListItemIcon>
           </MenuItem>
+
+          {this.props.spotSchedulingEnabled && this.props.onClickChangeSpot && (
+            <MenuItem
+              onClick={closeAndAction(() =>
+                this.props.onClickChangeSpot(booking),
+              )}
+            >
+              <ListItemText>
+                {typeof booking.spot_id === 'number'
+                  ? t('changeSpot')
+                  : t('setSpot')}
+              </ListItemText>
+            </MenuItem>
+          )}
         </Menu>
       </ListItemSecondaryAction>
     );
@@ -248,6 +265,12 @@ export class BookingItemForManager extends Component<Props, State> {
       handleRevert,
       classes,
     } = this.props;
+
+    const closeAndAction = (actionCallback) => (e: SyntheticEvent<any>) => {
+      e.stopPropagation();
+      actionCallback();
+      this.setState({ menuAnchor: null });
+    };
 
     return (
       <div>
@@ -304,6 +327,38 @@ export class BookingItemForManager extends Component<Props, State> {
                 <CancelIcon />
               </IconButton>
             ) : null}
+
+            {this.props.spotSchedulingEnabled && this.props.onClickChangeSpot && (
+              <>
+                <IconButton
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    this.setState({ menuAnchor: event.currentTarget });
+                  }}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+
+                <Menu
+                  id="simple-menu"
+                  anchorEl={this.state.menuAnchor}
+                  open={Boolean(this.state.menuAnchor)}
+                  onClose={closeAndAction(() => {})}
+                >
+                  <MenuItem
+                    onClick={closeAndAction(() =>
+                      this.props.onClickChangeSpot(booking),
+                    )}
+                  >
+                    <ListItemText>
+                      {typeof booking.spot_id === 'number'
+                        ? t('changeSpot')
+                        : t('setSpot')}
+                    </ListItemText>
+                  </MenuItem>
+                </Menu>
+              </>
+            )}
           </div>
         </Hidden>
       </div>
@@ -496,6 +551,19 @@ export class BookingItemForManager extends Component<Props, State> {
                         </Typography>
                       );
                     })}
+
+                    {this.props.spotSchedulingEnabled &&
+                      (typeof this.props.booking.spot_id === 'number' ? (
+                        <Typography variant="body2">
+                          {t('placeNumber', {
+                            count: this.props.booking.spot_id,
+                          })}
+                        </Typography>
+                      ) : (
+                        <Typography variant="body2" color="error">
+                          {t('noSpotAttributed')}
+                        </Typography>
+                      ))}
                   </div>
                 }
               />

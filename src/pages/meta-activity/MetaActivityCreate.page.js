@@ -41,6 +41,9 @@ import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions'
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 import { Establishment } from '../../libs/establishment/types';
 import type { PaymentPack } from '../../libs/payment-packs/types';
+import { getRoomBlueprints } from '../../libs/spot-scheduling/selector';
+import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
+import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 
 type StepType = {
   id: number,
@@ -79,6 +82,8 @@ type Props = {
   goToPaymentPackCreate: () => void,
   resetPaymentPacks: () => void,
   companyTheme: CompanyTheme,
+  fetchRoomBlueprints: () => void,
+  roomBlueprints: Array<RoomBlueprint>,
 };
 
 const MetaActivityMap = {
@@ -114,6 +119,7 @@ export class MetaActivityFormPage extends Component<Props> {
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList();
     this.props.resetPaymentPacks();
+    this.props.fetchRoomBlueprints();
   }
 
   renderActivityStep = () => (
@@ -135,6 +141,7 @@ export class MetaActivityFormPage extends Component<Props> {
       metaActivity={this.props.upsertedMetaActivity}
       coaches={this.props.coaches}
       establishments={this.props.establishments}
+      roomBlueprints={this.props.roomBlueprints}
       error={this.props.offerHadError}
       processing={this.props.offerIsProcessing}
       discardButtonText={this.props.t('common.skip')}
@@ -223,6 +230,7 @@ export default compose(
         page: state.paymentPack.byActivity.page,
         loading: state.paymentPack.byActivity.loading,
       },
+      roomBlueprints: getRoomBlueprints(state),
     }),
     {
       goBack,
@@ -234,6 +242,7 @@ export default compose(
       goToMetaActivity: (id: number) => push(`/activity/${id}/general`),
       goToPaymentPackCreate: () => push('/payment-pack/add'),
       fetchAllOffers: fetchAllOffersAction,
+      fetchRoomBlueprints,
     },
   ),
   //

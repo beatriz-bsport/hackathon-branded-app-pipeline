@@ -67,6 +67,13 @@ import {
   OfferConstraint,
 } from '../../../../libs/booker-module/utils';
 import { MemberMinimal } from '../../../../libs/member/types';
+import {
+  fetchRoomBlueprintDetail,
+  fetchAssetForBlueprint,
+} from '../../../../libs/spot-scheduling/actions';
+import { getAssetByBlueprintByIdentifier } from '../../../../libs/spot-scheduling/selector';
+
+import OfferSpotSelector from './OfferSpotSelector';
 
 type OwnProps = { id: number };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
@@ -84,6 +91,7 @@ type State = {
   selectedPack: SelectedPack;
   showLoader: boolean;
   selectedMember?: MemberMinimal;
+  showSpotSelector: boolean;
 };
 
 const SIMILAR_OFFER_PAGE_SIZE = 7;
@@ -97,17 +105,22 @@ class OfferBooking extends React.PureComponent<Props, State> {
     },
     selectedOffers: [],
     showLoader: false,
+    showSpotSelector: false,
   };
 
   componentDidMount() {
     this.props.fetchOffer(this.props.id, {
-      onSuccess: (o: any) => {
+      onSuccess: (o) => {
         this.props.fetchEstablishmentBulk([o.establishment]);
         this.props.fetchCoachBulk([o.coach, o.coach_override]);
         this.props.fetchMetaActivityBulk([o.meta_activity]);
         this.fetchOfferStatusList([o.id]);
         this.fetchSimilarOffers();
         this.props.fetchMyRelatedMemberList(o.company);
+        if (o && !!o.room_blueprint) {
+          this.props.fetchRoomBlueprintDetail(o.room_blueprint);
+          this.props.fetchAssetForBlueprint({ blueprint: o.room_blueprint });
+        }
       },
     });
   }
@@ -192,6 +205,30 @@ class OfferBooking extends React.PureComponent<Props, State> {
   };
 
   onClickBook = () => {
+    let showSpotSelector = false;
+
+    if (
+      this.props.offer &&
+      typeof this.props.offer.room_blueprint === 'number'
+    ) {
+      showSpotSelector = true;
+    }
+
+    this.state.selectedOffers.forEach((offerData) => {
+      if (typeof offerData.offer.room_blueprint === 'number') {
+        showSpotSelector = true;
+      }
+    });
+
+    if (showSpotSelector) {
+      this.setState({ showSpotSelector: true });
+      return;
+    }
+
+    this.bookOffers();
+  };
+
+  bookOffers = (selectedSpot?: { offer: number; spot: number }[]) => {
     this.setState({ showLoader: true });
     const data: any = {};
     if (this.state.selectedPack.consumerPaymentPack) {
@@ -214,15 +251,29 @@ class OfferBooking extends React.PureComponent<Props, State> {
             this.props.theme.accept_double_booking,
           ).isBookable,
       )
-      .map((offerData) => ({
-        offer_id: offerData.offer.id,
-        extra_data: {
-          ...(offerData.extra_data || {}),
-          booking_for_member: this.state.selectedMember
-            ? this.state.selectedMember.id
-            : null,
-        },
-      }));
+      .map((offerData) => {
+        const _data = {
+          offer_id: offerData.offer.id,
+          extra_data: {
+            ...(offerData.extra_data || {}),
+            booking_for_member: this.state.selectedMember
+              ? this.state.selectedMember.id
+              : null,
+          },
+        };
+
+        if (selectedSpot) {
+          const spotForOffer = selectedSpot.find(
+            (current) => current.offer === offerData.offer.id,
+          );
+
+          if (spotForOffer) {
+            _data.extra_data.spot_id = spotForOffer.spot;
+          }
+        }
+
+        return _data;
+      });
 
     data.waiting_list = [
       { offer: this.props.offer, extra_data: {} },
@@ -240,6 +291,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
 
     this.props.offerUserRegistration(data, {
       onSuccess: () => {
+        // TODO handle data.error_code
         this.setState({ showLoader: false });
         if (
           data.consumer_payment_pack ||
@@ -291,6 +343,18 @@ class OfferBooking extends React.PureComponent<Props, State> {
 
             this.props.fetchCoachBulk(coachesId);
             this.fetchOfferStatusList(offers.map((o) => o.id));
+
+            const roomBlueprintIds = new Set();
+            offers.forEach((o) => {
+              if (typeof o.room_blueprint === 'number') {
+                room_blueprintIds.add(o.room_blueprint);
+              }
+            });
+
+            roomBlueprintIds.forEach((blueprint: number) => {
+              this.props.fetchRoomBlueprintDetail(blueprint);
+              this.props.fetchAssetForBlueprint({ blueprint });
+            });
           },
         },
       );
@@ -384,6 +448,11 @@ class OfferBooking extends React.PureComponent<Props, State> {
       this.props.theme.accept_double_booking,
     );
     return areWaitingList && !areBookable;
+  };
+
+  onSubmitSpot = (selectedSpot: { offer: number; spot: number }[]) => {
+    this.bookOffers(selectedSpot);
+    this.setState({ showSpotSelector: false });
   };
 
   renderBookingMethodSelector = () => {
@@ -512,6 +581,20 @@ class OfferBooking extends React.PureComponent<Props, State> {
             hasMoreSimilarOffer={this.props.hasMoreSimilarOffer}
             acceptDoubleBooking={this.props.theme.accept_double_booking}
           />
+
+          {this.state.showSpotSelector && (
+            <OfferSpotSelector
+              offer={this.props.offer}
+              selectedOffer={this.state.selectedOffers}
+              roomBlueprintsById={this.props.roomBlueprintsById}
+              assetByIdBlueprintByIdentifier={
+                this.props.assetByIdBlueprintByIdentifier
+              }
+              onCancel={() => this.setState({ showSpotSelector: false })}
+              offerStatusById={this.props.offerStatusById}
+              onSubmit={this.onSubmitSpot}
+            />
+          )}
 
           <Backdrop
             className={classes.backdrop}
@@ -695,6 +778,8 @@ const mapStateToProps = (state: RootState, props: OwnProps) => ({
   nextSimilarOfferPage: state.offer.similarOffers.next_page,
   relatedMemberList: getMyRelatedMemberList(state),
   theme: themeSelectors.getTheme(state),
+  roomBlueprintsById: state.spotScheduling.roomBlueprint.byId,
+  assetByIdBlueprintByIdentifier: getAssetByBlueprintByIdentifier(state),
 });
 
 const mapDispatchToProps = {
@@ -712,6 +797,8 @@ const mapDispatchToProps = {
   snackbarWarning: snackbarWarningAction,
   registerOption,
   fetchOfferStatusList,
+  fetchRoomBlueprintDetail,
+  fetchAssetForBlueprint,
 };
 
 export default compose(

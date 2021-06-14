@@ -38,6 +38,9 @@ import DurationInput from '../../components/input/DurationInput.component';
 import DateTimeInput from '../../components/input/DateTimeInput.component';
 import type { Coach, MetaActivity, Establishment } from '../../api/types';
 import { MaterialStyleType } from '../../utils/types';
+import { RoomBlueprint } from '../spot-scheduling/types';
+import RoomBlueprintSelector from '../spot-scheduling/component/RoomBlueprintSelector.component';
+import SpotSchedulingHelper from '../spot-scheduling/utils';
 
 const styles = (theme: Theme) => ({
   paperContainer: {
@@ -66,7 +69,10 @@ const styles = (theme: Theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
   },
-  marginTop: {
+  marginTop1: {
+    marginTop: theme.spacing(1),
+  },
+  marginTop2: {
     marginTop: theme.spacing(2),
   },
   marginLeft: {
@@ -78,6 +84,7 @@ type OwnProps = {
   coaches: Array<Coach>;
   establishments: Array<Establishment>;
   metaActivity: MetaActivity;
+  roomBlueprints: RoomBlueprint[];
   classes: Object;
   selectedDate: Object;
   discardButtonText?: string;
@@ -93,6 +100,7 @@ type OwnProps = {
     level?: number;
     duration_minute: number;
     broadcast_link: string;
+    room_blueprint?: number;
   }) => void;
 
   is_whereby_integration_enabled: boolean;
@@ -120,6 +128,7 @@ type State = {
   // hour: any; // TODO check this
   coach?: number;
   establishment?: number;
+  roomBlueprint?: number;
   credits: string;
   level?: number;
   effectif?: string;
@@ -128,6 +137,15 @@ type State = {
 };
 
 export class OfferForm extends Component<Props, State> {
+  get effectif() {
+    let effectif = parseInt(this.state.effectif);
+    /* eslint-disable-next-line */
+    if (isNaN(effectif)) {
+      effectif = 0;
+    }
+    return effectif;
+  }
+
   constructor(props: Props) {
     super(props);
 
@@ -175,13 +193,14 @@ export class OfferForm extends Component<Props, State> {
       effectif,
       waiting_list_max_size,
       establishment,
+      roomBlueprint,
       coach,
       credits,
       duration_minute,
       broadcast_link,
     } = this.state;
 
-    this.props.onSubmit({
+    const offer: any = {
       dates: datesToGenerate.map((d) => d.unix()),
       establishment,
       coach,
@@ -191,7 +210,13 @@ export class OfferForm extends Component<Props, State> {
       credits,
       duration_minute,
       broadcast_link,
-    });
+    };
+
+    if (roomBlueprint) {
+      offer.room_blueprint = roomBlueprint;
+    }
+
+    this.props.onSubmit(offer);
   };
 
   generateRecurrenceDates = (
@@ -295,6 +320,22 @@ export class OfferForm extends Component<Props, State> {
     }));
   };
 
+  roomBluePrintError = () => {
+    if (this.state.roomBlueprint) {
+      const roomBlueprint = this.props.roomBlueprints.find(
+        (r) => r.id === this.state.roomBlueprint,
+      );
+
+      if (
+        roomBlueprint &&
+        SpotSchedulingHelper.getSpotCount(roomBlueprint) < this.effectif
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   renderSummary = () => {
     const { t } = this.props;
     const nbOffer = this.getDates().length;
@@ -356,7 +397,14 @@ export class OfferForm extends Component<Props, State> {
   };
 
   renderSpecificities = () => {
-    const { establishments, coaches, t } = this.props;
+    const { establishments, roomBlueprints, coaches, t } = this.props;
+
+    const roomBlueprintsForEstablishment = roomBlueprints.filter(
+      (roomBlueprint: RoomBlueprint) => {
+        return roomBlueprint.establishment === this.state.establishment;
+      },
+    );
+
     return (
       <Grid container direction="column" spacing={1}>
         <Grid item>
@@ -378,10 +426,45 @@ export class OfferForm extends Component<Props, State> {
               this.onFormFieldChange('establishment')(
                 establishment ? establishment.id : null,
               );
+              !establishment && this.onFormFieldChange('roomBlueprint')(null);
             }}
             placeholder={t('establishment:search')}
           />
         </Grid>
+
+        {!!roomBlueprintsForEstablishment.length && (
+          <Grid item>
+            <RoomBlueprintSelector
+              id="roomBlueprint"
+              roomBlueprints={roomBlueprintsForEstablishment}
+              value={this.props.roomBlueprints.find(
+                (room) => room.id === this.state.roomBlueprint,
+              )}
+              onChange={(roomBlueprint: RoomBlueprint) => {
+                this.onFormFieldChange('roomBlueprint')(
+                  roomBlueprint ? roomBlueprint.id : null,
+                );
+              }}
+              placeholder={t('spotScheduling:search')}
+            />
+
+            {!this.roomBluePrintError() && !this.state.roomBlueprint && (
+              <Typography
+                color="textSecondary"
+                className={this.props.classes.marginTop1}
+              >
+                {t('spotScheduling:searchHelper')}
+              </Typography>
+            )}
+
+            {this.roomBluePrintError() && (
+              <Typography color="error">
+                {t('spotScheduling:effectifError')}
+              </Typography>
+            )}
+          </Grid>
+        )}
+
         <Grid item>
           <CoachSelector
             id="coach"
@@ -590,7 +673,7 @@ export class OfferForm extends Component<Props, State> {
               </Grid>
 
               {this.state.recurrence === WEEKLY && (
-                <Grid item className={classes.marginTop}>
+                <Grid item className={classes.marginTop2}>
                   <Grid container direction="row" spacing={1}>
                     {[0, 1, 2, 3, 4, 5, 6].map((i) => {
                       const day = moment().startOf('week').add(i, 'days');
@@ -648,7 +731,12 @@ export class OfferForm extends Component<Props, State> {
           />
         ) : (
           <Button
-            disabled={!this.state.establishment || !this.state.coach}
+            disabled={
+              !this.state.establishment ||
+              !this.state.coach ||
+              !this.effectif ||
+              this.roomBluePrintError()
+            }
             variant="contained"
             color="primary"
             type="submit"

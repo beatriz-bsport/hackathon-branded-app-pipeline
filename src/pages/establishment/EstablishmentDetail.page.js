@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { compose, withProps, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
@@ -52,6 +50,19 @@ import {
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
 } from '../../libs/email-editor/actions';
 import WidgetGeneratorDialog from '../settings/WidgetGenerator/WidgetGeneratorDialog';
+import {
+  createRoomBlueprint as createRoomBlueprintAction,
+  deleteRoomBlueprint,
+  fetchAssetForBlueprint,
+  fetchRoomBlueprints,
+} from '../../libs/spot-scheduling/actions';
+import {
+  getAssetForEstablishment,
+  getRoomBlueprintsForEstablishment,
+} from '../../libs/spot-scheduling/selector';
+import { RoomBlueprint } from '../../libs/spot-scheduling/types';
+import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
+import CanvasPreviewDialog from '../../libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 
@@ -84,6 +95,15 @@ type Props = {
   createNotification: (date: any) => void,
   updateMarketingNotification: (id: number, data: any) => void,
   deleteMarketingNotification: (id: number) => void,
+  fetchRoomBlueprints: () => void,
+  fetchAssetForBlueprint: () => void,
+  createRoomBlueprint: () => void,
+  roomBlueprints: RoomBlueprint[],
+  gotoSpotSchedulingEditor: (r: RoomBlueprint) => void,
+  deleteRoomBlueprint: (r: RoomBlueprint) => void,
+  assetsByBlueprintByIdentifier: any,
+  setPreviewBlueprint: (r: RoomBlueprint) => void,
+  previewBlueprint: RoomBlueprint | null,
 };
 
 type State = {
@@ -98,12 +118,15 @@ export class EstablishmentDetails extends React.Component<Props, State> {
   componentDidMount() {
     this.props.fetchEstablishmentBulk([this.props.id]);
     this.props.fetchNotificationsAndTemplates();
+    this.props.fetchRoomBlueprints({ establishment: this.props.id });
+    this.props.fetchAssetForBlueprint({ establishment: this.props.id });
   }
 
   render() {
     if (this.props.loading || !this.props.establishment) {
       return <LinearProgress />;
     }
+
     return (
       <div className={this.props.classes.container}>
         <EstablishmentDetail
@@ -126,6 +149,11 @@ export class EstablishmentDetails extends React.Component<Props, State> {
           createNotification={this.props.createNotification}
           updateNotification={this.props.updateMarketingNotification}
           deleteNotification={this.props.deleteMarketingNotification}
+          onCreateRoomBlueprint={this.props.createRoomBlueprint}
+          onDeleteRoomBlueprint={this.props.deleteRoomBlueprint}
+          onEditRoomBlueprint={this.props.gotoSpotSchedulingEditor}
+          onPreviewRoomBlueprint={this.props.setPreviewBlueprint}
+          roomBlueprints={this.props.roomBlueprints}
         />
         <BottomActionButtons
           onEdit={() => this.props.startUpdateEstablishment(this.props.id)}
@@ -153,6 +181,17 @@ export class EstablishmentDetails extends React.Component<Props, State> {
             },
           }}
         />
+
+        <CanvasPreviewDialog
+          open={this.props.previewBlueprint}
+          roomBlueprint={this.props.previewBlueprint}
+          assets={
+            this.props.assetsByBlueprintByIdentifier[
+              { id: '', ...this.props.previewBlueprint }.id
+            ]
+          }
+          onClose={() => this.props.setPreviewBlueprint(null)}
+        />
       </div>
     );
   }
@@ -168,7 +207,9 @@ export default compose(
   withStyles(styles),
   withTranslation(),
   withState('openWidgetDialog', 'setOpenWidgetDialog', false),
+  withState('previewBlueprint', 'setPreviewBlueprint', null),
   routerParamsToProps({ id: 'id:number' }),
+  withTranslation(['establishment']),
   connect(
     (state, { id }) => ({
       establishment: getEstablishment(state, id),
@@ -183,6 +224,9 @@ export default compose(
         items: getBookingNotifications(state),
         loading: state.marketingNotification.loading,
       },
+      theme: state.theme.theme,
+      roomBlueprints: getRoomBlueprintsForEstablishment(state, id),
+      assetsByBlueprintByIdentifier: getAssetForEstablishment(state, id),
     }),
     {
       fetchEstablishmentBulk,
@@ -201,6 +245,11 @@ export default compose(
       createMarketingNotification: createMarketingNotificationAction,
       updateMarketingNotification,
       deleteMarketingNotification: deleteMarketingNotificationAction,
+      createRoomBlueprint: createRoomBlueprintAction,
+      deleteRoomBlueprint,
+      fetchRoomBlueprints,
+      fetchAssetForBlueprint,
+      pushRouter: push,
     },
   ),
   withProps(({ fetchOffersByDay, fetchEstablishmentEvents, id }) => ({
@@ -247,6 +296,38 @@ export default compose(
           fetchNotificationsAndTemplates();
         },
       });
+    },
+    createRoomBlueprint: ({
+      pushRouter,
+      createRoomBlueprint,
+      theme,
+      id,
+      t,
+    }) => () => {
+      createRoomBlueprint(
+        {
+          name: t('spotScheduling.untitled'),
+          company: theme.company,
+          establishment: id,
+        },
+        {
+          onSuccess: (data) => {
+            pushRouter(`/spot-scheduling/${data.id}`);
+          },
+        },
+      );
+    },
+    gotoSpotSchedulingEditor: ({ pushRouter }) => (room: RoomBlueprint) => {
+      pushRouter(`/spot-scheduling/${room.id}`);
+    },
+    deleteRoomBlueprint: ({ t, deleteRoomBlueprint }) => async (
+      room: RoomBlueprint,
+    ) => {
+      const confirm = await showDeleteDialog(
+        t('spotScheduling.delete.title'),
+        t('spotScheduling.delete.content'),
+      );
+      if (confirm) deleteRoomBlueprint(room.id);
     },
   }),
   withTitle(({ establishment }) => {

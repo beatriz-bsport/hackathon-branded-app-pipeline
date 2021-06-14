@@ -185,25 +185,27 @@ export class BookingModuleManager extends PureComponent<Props> {
                 consumerPack={this.props.registererObject.consumerPaymentPack}
               />
             )}
-            <div className={this.props.classes.bookButtonWideContainer}>
-              <Button
-                className={this.props.classes.bookButtonWide}
-                disabled={
-                  !this.props.consumerPacks ||
-                  this.props.consumerPacks.length === 0
-                }
-                variant="outlined"
-                onClick={() => this.props.openRecurrenceRuleForm()}
-              >
-                {t('booking:recurrenceRule.recurrentRuleBooking')}
-              </Button>
-              {(!this.props.consumerPacks ||
-                this.props.consumerPacks.length === 0) && (
-                <Tooltip title={t('booking:recurrenceRule.needConsumerPack')}>
-                  <InfoOutlinedIcon className={this.props.classes.icon} />
-                </Tooltip>
-              )}
-            </div>
+            {!!this.props.offer.room_blueprint && (
+              <div className={this.props.classes.bookButtonWideContainer}>
+                <Button
+                  className={this.props.classes.bookButtonWide}
+                  disabled={
+                    !this.props.consumerPacks ||
+                    this.props.consumerPacks.length === 0
+                  }
+                  variant="outlined"
+                  onClick={() => this.props.openRecurrenceRuleForm()}
+                >
+                  {t('booking:recurrenceRule.recurrentRuleBooking')}
+                </Button>
+                {(!this.props.consumerPacks ||
+                  this.props.consumerPacks.length === 0) && (
+                  <Tooltip title={t('booking:recurrenceRule.needConsumerPack')}>
+                    <InfoOutlinedIcon className={this.props.classes.icon} />
+                  </Tooltip>
+                )}
+              </div>
+            )}
 
             {!!this.props.registererObject.paymentPack && (
               <PaymentPackListItem
@@ -229,6 +231,7 @@ export class BookingModuleManager extends PureComponent<Props> {
                 }
                 offer={this.props.offer}
                 cppMaxoutBookingsByCpp={this.props.cppMaxoutBookingsByCpp}
+                disableMultiBooking={!!this.props.offer.room_blueprint}
               />
             )}
             {this.props.step === OFFER_CHOICE && (

@@ -12,6 +12,7 @@ export function mapFormData(base, map) {
       }
     }
   }
+
   return formData;
 }
 

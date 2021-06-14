@@ -49,7 +49,7 @@ export class ImageField extends Component<Props, State> {
             <input
               accept="image/*"
               className={classes.input}
-              id="avatar-loader-button"
+              id={this.props.id || 'avatar-loader-button'}
               {...lodash.omit(field, ['value'])}
               {...this.inputProps}
               onChange={(e) => {
@@ -64,7 +64,10 @@ export class ImageField extends Component<Props, State> {
               }}
               type="file"
             />
-            <label htmlFor="avatar-loader-button" style={{ cursor: 'pointer' }}>
+            <label
+              htmlFor={this.props.id || 'avatar-loader-button'}
+              style={{ cursor: 'pointer' }}
+            >
               <Grid
                 container
                 item
@@ -108,6 +111,7 @@ export class ImageField extends Component<Props, State> {
     );
   }
 }
+
 function getUrl(previewUrl, value) {
   return previewUrl || (typeof value === 'string' ? value : null);
 }

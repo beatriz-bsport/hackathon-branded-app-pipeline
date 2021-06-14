@@ -116,7 +116,7 @@ export function PaymentStripeBancontact(props: {
           </Typography>
         </div>
       </div>
-      <div className={classes.row}>
+      <div className={classes.conditions}>
         {props.AcceptTermsAndConditionsComponent}
       </div>
       <div className={classes.actionRow}>
@@ -159,6 +159,14 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  conditions: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginLeft: theme.spacing(1.5),
   },
   actionRow: {
     display: 'flex',

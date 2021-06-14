@@ -12,6 +12,7 @@ import { compose } from 'recompose';
 import CheckoutItemListItem from './CheckoutItemListItem.component';
 
 import type { Basket, CheckoutItemData } from '../types';
+import { CheckoutItem } from '../types';
 import { getCurrencyDisplay } from '../../theme/selectors';
 
 type Props = {
@@ -23,6 +24,7 @@ type Props = {
   t: TFunction,
   loading: ?boolean,
   fullWidth?: boolean,
+  onItemExpire: (item: CheckoutItem) => void,
 };
 
 export const BasketConsumer = (props: Props) => {
@@ -50,6 +52,7 @@ export const BasketConsumer = (props: Props) => {
                 })
               }
               onAddOne={() => props.onAddCheckoutItem({ ...ci, quantity: 1 })}
+              onItemExpire={props.onItemExpire}
             />
           ))
         ) : (

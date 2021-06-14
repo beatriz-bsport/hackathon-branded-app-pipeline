@@ -11,6 +11,7 @@ interface State<S> {
 export interface WithUndoRedo<S> {
   current: S;
   setStateWithHistory: (s: DeepPartial<S>) => void;
+  setInitialState: (s: DeepPartial<S>) => void;
   undo: () => void;
   redo: () => void;
 }
@@ -83,6 +84,7 @@ const withUndoRedoState = (initialState: any) => {
             {...this.props}
             current={this.state.current}
             setStateWithHistory={this.setStateWithHistory}
+            setInitialState={this.setInitial}
             undo={this.undo}
             redo={this.redo}
           />

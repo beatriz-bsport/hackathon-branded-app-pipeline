@@ -240,7 +240,7 @@ export const PaymentStripeSEPA = (props: Props) => {
           sepaDefaultEmail={props.userDefaultEmail}
         />
       )}
-      <div className={classes.actionRow}>
+      <div className={classes.conditions}>
         {props.AcceptTermsAndConditionsComponent}
       </div>
       <div className={classes.actionRow}>
@@ -293,6 +293,14 @@ const useStyles = makeStyles((theme) => ({
   mandate: {
     padding: theme.spacing(2),
     maxWidth: 700,
+  },
+  conditions: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'alignItems',
+    justifyContent: 'space-between',
+    marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(1.5),
   },
   actionRow: {
     display: 'flex',

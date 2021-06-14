@@ -80,6 +80,15 @@ import {
 } from '../marketplace/routing-utils';
 import { MarketplaceTabConfig } from '../../libs/marketplace/types';
 import { getMember } from '../../libs/member/selectors';
+import {
+  fetchAssetForBlueprint,
+  fetchRoomBlueprintDetail,
+} from '../../libs/spot-scheduling/actions';
+import { Offer } from '../../libs/offer/types';
+import { Coach } from '../../libs/associated-coach/types';
+import { Establishment } from '../../libs/establishment/types';
+import { getAssetByBlueprintByIdentifier } from '../../libs/spot-scheduling/selector';
+import CanvasPreviewDialog from '../../libs/spot-scheduling/component/SpotPreview/CanvasPreviewDialog.Component';
 
 type OwnProps = {
   companyId: number;
@@ -212,6 +221,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
               loading={this.props.bookingsAndPrivateBookingsLoading}
               hasMore={this.props.hasMoreBookingsAndPrivateBookings}
               goToPrivateService={this.props.goToPrivateService}
+              onClickBlueprintPreview={this.props.previewSpotHandler}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -253,6 +263,20 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             )
           }
         />
+
+        {this.props.spotPreview && (
+          <CanvasPreviewDialog
+            open
+            roomBlueprint={
+              this.props.roomBlueprintById[this.props.spotPreview.blueprint]
+            }
+            assets={
+              this.props.assetForBlueprint[this.props.spotPreview.blueprint]
+            }
+            selectedSpot={this.props.spotPreview.spot}
+            onClose={() => this.props.setSpotPreview(null)}
+          />
+        )}
       </div>
     );
   }
@@ -304,6 +328,8 @@ const mapStateToProps = (state: RootState, props) => ({
   detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
   marketplaceSettings: state.marketplace.settings,
   member: getMember(state, props.membership.id),
+  roomBlueprintById: state.spotScheduling.roomBlueprint.byId,
+  assetForBlueprint: getAssetByBlueprintByIdentifier(state),
 });
 
 const mapDispatchToProps = {
@@ -336,18 +362,22 @@ const mapDispatchToProps = {
   fetchMemberPaymentMethod: fetchPaymentMethodList,
   snackbarErrorMsg: snackbarWarning,
   snackbarSuccessMsg: snackbarSuccess,
+  fetchRoomBlueprintDetail,
+  fetchAssetForBlueprint,
 };
 
 type StateHandlerInit = {
   bookingToCancel: Booking | null;
   privateBookingToCancel: PrivateBooking | null;
   optionToCancel: number | null;
+  spotPreview: { blueprint: number; spot: number } | null;
 };
 
 const withStateHandlersInit: StateHandlerInit = {
   bookingToCancel: null,
   privateBookingToCancel: null,
   optionToCancel: null,
+  spotPreview: null,
 };
 
 const withStateHandlersSetter = {
@@ -361,6 +391,11 @@ const withStateHandlersSetter = {
   },
   setOptionToCancel: () => (optionToCancel: number | null) => {
     return { optionToCancel };
+  },
+  setSpotPreview: () => (
+    spotPreview: { blueprint: number; spot: number } | null,
+  ) => {
+    return { spotPreview };
   },
 };
 
@@ -508,6 +543,16 @@ const mapWithHandlers = {
         path,
       ),
     );
+  },
+  previewSpotHandler: (props: OwnConnectedStateHandlerProps) => (
+    booking: Booking<Offer<Coach, Establishment, MetaActivity>>,
+  ) => {
+    props.fetchRoomBlueprintDetail(booking.offer.room_blueprint);
+    props.fetchAssetForBlueprint({ blueprint: booking.offer.room_blueprint });
+    props.setSpotPreview({
+      blueprint: booking.offer.room_blueprint,
+      spot: booking.spot_id,
+    });
   },
 };
 export default compose(

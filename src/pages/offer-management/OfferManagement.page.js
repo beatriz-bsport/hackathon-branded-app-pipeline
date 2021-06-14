@@ -21,6 +21,7 @@ import {
   fetchOfferById as fetchOfferByIdAction,
   toogleWaitingListFreeze as toogleWaitingListFreezeAction,
   fetchCompatiblePacks as fetchCompatiblePacksAction,
+  fetchOfferStatus as fetchOfferStatusAction,
 } from '../../libs/offer/actions';
 import {
   compatiblePacksWithOfferAndEnabled,
@@ -42,6 +43,7 @@ import {
   createRecurrenceRuleBooking,
   deleteRecurrenceRuleBooking,
   updateRecurrenceRuleBooking,
+  setSpotForBooking as setSpotForBookingAction,
 } from '../../libs/booking/actions';
 import {
   discardBookingOption as discardBookingOptionAction,
@@ -99,6 +101,13 @@ import withTitle from '../../hocs/with-title.hoc';
 import OfferManagementComponent from './OfferManagement.component';
 
 import type { Offer } from '../../api/types';
+import {
+  fetchAssetForBlueprint as fetchAssetForBlueprintAction,
+  fetchRoomBlueprintDetail as fetchRoomBlueprintDetailAction,
+} from '../../libs/spot-scheduling/actions';
+import { RootState } from '../../reducers';
+import { getAssetByBlueprintByIdentifier } from '../../libs/spot-scheduling/selector';
+import { Booking } from '../../libs/booking/types';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -119,7 +128,7 @@ export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withTranslation(),
   connect(
-    (state) => ({
+    (state: RootState) => ({
       // offer
       offer: getDetailedOffer(state),
       offerLoading: state.offer.retrieve.loading,
@@ -162,6 +171,9 @@ export default compose(
       company_theme: themeSelectors.getTheme(state),
       payment_method_available_manager:
         state.theme.theme.payment_method_available_manager,
+      roomBlueprintById: state.spotScheduling.roomBlueprint.byId,
+      assetsForBlueprintById: getAssetByBlueprintByIdentifier(state),
+      offerStatusById: state.offer.offerStatus.byId,
     }),
     {
       fetchOffer: fetchOfferByIdAction,
@@ -217,6 +229,9 @@ export default compose(
       fetchInvoiceItemList: fetchInvoiceItemListAction,
       createOrUpdateInvoice: createOrUpdateInvoiceAction,
       resetQuickInvoices,
+      fetchRoomBlueprintDetail: fetchRoomBlueprintDetailAction,
+      fetchAssetForBlueprint: fetchAssetForBlueprintAction,
+      fetchOfferStatus: fetchOfferStatusAction,
 
       // move
       goToCalendar: (date) =>
@@ -224,6 +239,7 @@ export default compose(
       goToOffer: (id) => replaceRouter(`/offer/${id}`),
       push: routerPush,
       goToMember: (id) => routerPush(`/member/${id}/`),
+      setSpotForBooking: setSpotForBookingAction,
     },
   ),
   withHandlers({
@@ -264,16 +280,19 @@ export default compose(
     },
   }),
   withHandlers({
-    addBooking: ({ refresh, registerBooking }) => (
+    addBooking: ({ refresh, registerBooking, fetchOfferStatus }) => (
       consumerPaymentPackId,
       data,
       ordering_field,
     ) => {
       registerBooking(consumerPaymentPackId, data, {
-        onSuccess: () => refresh(ordering_field),
+        onSuccess: () => {
+          fetchOfferStatus(data.offer);
+          refresh(ordering_field);
+        },
       });
     },
-    deleteBooking: ({ refresh, cancelBooking }) => (
+    deleteBooking: ({ refresh, cancelBooking, fetchOfferStatus, id }) => (
       bookingId,
       ordering_field,
       options,
@@ -281,6 +300,7 @@ export default compose(
     ) => {
       cancelBooking(bookingId, data || {}, {
         onSuccess: () => {
+          fetchOfferStatus(id);
           refresh(ordering_field);
           if (options && options.onSuccess) {
             options.onSuccess();
@@ -299,8 +319,21 @@ export default compose(
       fetchMemberBulk,
       offerId,
       fetchInvoiceListUnpaid,
+      fetchRoomBlueprintDetail,
+      fetchAssetForBlueprint,
+      fetchOfferStatus,
     }) => (ordering_field) => {
-      fetchOffer(offerId);
+      fetchOffer(offerId, {
+        onSuccess: (offer: Offer) => {
+          if (offer.room_blueprint) {
+            fetchRoomBlueprintDetail(offer.room_blueprint);
+            fetchAssetForBlueprint({
+              blueprint: offer.room_blueprint,
+            });
+          }
+        },
+      });
+      fetchOfferStatus(offerId);
       fetchBookingsByOffer(
         offerId,
         {
@@ -366,9 +399,11 @@ export default compose(
       fetchInvoiceListUnpaid,
       id,
       fetchFilteredMembers,
+      fetchOfferStatus,
     }) => (data) => {
       createQuickInvoice(data, {
         onSuccess: (invoice) => {
+          fetchOfferStatus(id);
           fetchFilteredMembers(
             { offer: id, withNotes: true },
 
@@ -427,6 +462,16 @@ export default compose(
           refreshFilteredMembers({ offer });
         },
         onError: options && options.onError,
+      });
+    },
+    setSpotForBooking: ({ setSpotForBooking, fetchOfferStatus, id }) => (
+      booking?: Booking,
+      spot_id: number,
+    ) => {
+      setSpotForBooking(booking.id, spot_id, {
+        onSuccess: () => {
+          fetchOfferStatus(id);
+        },
       });
     },
   }),

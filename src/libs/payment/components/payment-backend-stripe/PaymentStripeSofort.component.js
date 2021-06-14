@@ -107,7 +107,7 @@ export const PaymentStripeSofort = (props: Props) => {
           </div>
         </div>
       </div>
-      <div className={classes.actionRow}>
+      <div className={classes.conditions}>
         {props.AcceptTermsAndConditionsComponent}
       </div>
       <div className={classes.actionRow}>
@@ -143,6 +143,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     marginBottom: theme.spacing(4),
+  },
+  conditions: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(1.5),
   },
   actionRow: {
     display: 'flex',

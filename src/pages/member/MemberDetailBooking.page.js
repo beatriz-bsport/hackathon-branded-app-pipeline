@@ -16,6 +16,7 @@ import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
 import Skeleton from '@material-ui/lab/Skeleton';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { getAssetByBlueprintByIdentifier } from '../../libs/spot-scheduling/selector';
 import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
 
 import PaginatedListBase from '../../components/PaginatedListBase.component';
@@ -32,6 +33,7 @@ import {
   deleteRecurrenceRuleBooking as deleteRecurrenceRuleBookingAction,
   createRecurrenceRuleBooking as createRecurrenceRuleBookingAction,
   updateRecurrenceRuleBooking as updateRecurrenceRuleBookingAction,
+  setSpotForBooking,
 } from '../../libs/booking/actions';
 import {
   fetchEstablishments as fetchEstablishmentList,
@@ -43,11 +45,18 @@ import {
   updateManagerFiltersSettings,
 } from '../../libs/dashboard/actions';
 
-import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions';
+import {
+  fetchOfferById as fetchOfferByIdAction,
+  fetchOfferStatus as fetchOfferStatusAction,
+} from '../../libs/offer/actions';
 
 import { getDetailedOffer } from '../../libs/offer/selectors';
 
 import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
+import {
+  fetchAssetForBlueprint as fetchAssetForBlueprintAction,
+  fetchRoomBlueprintDetail as fetchRoomBlueprintDetailAction,
+} from '../../libs/spot-scheduling/actions';
 
 import {
   retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
@@ -87,6 +96,9 @@ import { fetchBookingStatistics2 as fetchBookingStatisticsAction } from '../../a
 import { getStatisticTemporal } from '../../libs/statistics/selectors';
 import ChartRange from '../../libs/dashboard/components/ChartRange.component';
 import type { Theme } from '../../libs/theme/types';
+import AsyncSpotSelector, {
+  asyncSelectSpotForBlueprint,
+} from '../../libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
 
 type Props = {
   classes: *,
@@ -127,6 +139,13 @@ type Props = {
   consumerPackLoading: boolean,
   offer: ?Offer,
 
+  fetchRoomBlueprintDetail: (number) => void,
+  roomBlueprintById: { [number]: RoomBlueprint },
+  fetchAssetForBlueprint: (number) => void,
+  fetchOfferStatus: (number) => void,
+  offerStatusById: { [number]: OfferStatus },
+  assetsForBlueprintById: { [number]: AssetForBlueprint },
+
   filters: any,
   open: any,
   setOpenValue: (name: string) => void,
@@ -154,6 +173,7 @@ type Props = {
   updateFiltersSettings: (*) => void,
   recurrentBookingLoading: boolean,
   userFiltersLoading: boolean,
+  setSpotForBooking: () => void,
 };
 
 type State = {
@@ -242,6 +262,13 @@ export class MemberDetailBooking extends Component<Props, State> {
     }
   };
 
+  onClickChangeSpot = async (booking: Booking) => {
+    const spot_id = await asyncSelectSpotForBlueprint(booking.offer);
+    if (spot_id !== undefined) {
+      this.props.setSpotForBooking(booking.id, spot_id);
+    }
+  };
+
   render() {
     const { primary_color } = this.props.theme;
     const dataLoading =
@@ -280,7 +307,7 @@ export class MemberDetailBooking extends Component<Props, State> {
                 onPageRequested={(page, page_size) =>
                   this.props.fetchMemberBookingsList(page, page_size)
                 }
-                renderItem={(b) => (
+                renderItem={(b: Booking) => (
                   <BookingItemForManagerV2
                     onClick={() => this.selectBooking(b)}
                     showRevertBookingButton
@@ -300,6 +327,8 @@ export class MemberDetailBooking extends Component<Props, State> {
                     confirmBookingAttendance={() =>
                       this.props.confirmBookingAttendance(b.id)
                     }
+                    spotSchedulingEnabled={typeof b.spot_id === 'number'}
+                    onClickChangeSpot={this.onClickChangeSpot}
                   />
                 )}
               />
@@ -462,6 +491,17 @@ export class MemberDetailBooking extends Component<Props, State> {
             this.setState({ bookingToRevert: null })
           }
         />
+
+        <AsyncSpotSelector
+          fetchRoomBlueprintDetail={this.props.fetchRoomBlueprintDetail}
+          roomBlueprintById={this.props.roomBlueprintById}
+          fetchAssetForBlueprint={this.props.fetchAssetForBlueprint}
+          fetchOfferStatus={this.props.fetchOfferStatus}
+          fetchOfferById={this.props.fetchOffer}
+          offer={this.props.offer}
+          offerStatusById={this.props.offerStatusById}
+          assetsForBlueprintById={this.props.assetsForBlueprintById}
+        />
       </Grid>
     );
   }
@@ -544,6 +584,10 @@ export default compose(
       userFilters: state.dashboardSettings.managerFiltersSettings.data.filters,
       userFiltersLoading:
         state.dashboardSettings.managerFiltersSettings.loading,
+
+      roomBlueprintById: state.spotScheduling.roomBlueprint.byId,
+      assetsForBlueprintById: getAssetByBlueprintByIdentifier(state),
+      offerStatusById: state.offer.offerStatus.byId,
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
@@ -578,6 +622,11 @@ export default compose(
       unselectBooking: (memberId) => push(`/member/${memberId}/bookings`),
       selectBooking: (memberId, bookingId) =>
         push(`/member/${memberId}/bookings/${bookingId}/`),
+      setSpotForBooking,
+
+      fetchRoomBlueprintDetail: fetchRoomBlueprintDetailAction,
+      fetchAssetForBlueprint: fetchAssetForBlueprintAction,
+      fetchOfferStatus: fetchOfferStatusAction,
     },
   ),
   withState('filters', 'setFilters', (props) => {

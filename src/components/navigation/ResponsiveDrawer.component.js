@@ -923,7 +923,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
         />
         <main
           className={
-            this.props.location.pathname === '/spot-scheduling'
+            this.props.location.pathname.includes('/spot-scheduling')
               ? classes.fullContent
               : classes.content
           }
@@ -1018,6 +1018,7 @@ const styles = (theme) => ({
   },
   fullContent: {
     display: 'flex',
+    flexDirection: 'column',
     flex: 1,
     marginTop: '56px', // toolbar height
     [theme.breakpoints.up('sm')]: {

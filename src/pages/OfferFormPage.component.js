@@ -24,6 +24,9 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '../libs/meta-activity/selectors';
+import { fetchRoomBlueprints } from '../libs/spot-scheduling/actions';
+import { getRoomBlueprints } from '../libs/spot-scheduling/selector';
+import { RoomBlueprint } from '../libs/spot-scheduling/types';
 
 type Props = {
   match: Object,
@@ -37,6 +40,8 @@ type Props = {
   fetchAssociatedCoachesList: () => void,
   goBack: () => void,
   timezone: string,
+  roomBlueprints: RoomBlueprint[],
+  fetchRoomBlueprints: () => void,
 };
 
 type State = {
@@ -58,6 +63,7 @@ export class OfferFormPage extends Component<Props, State> {
     this.metaActivityId = parseInt(this.props.match.params.id, 10);
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList();
+    this.props.fetchRoomBlueprints();
   }
 
   createOffers = async (data: Object) => {
@@ -112,6 +118,7 @@ export class OfferFormPage extends Component<Props, State> {
               error={error}
               onCancel={goBack}
               timezone={this.props.timezone}
+              roomBlueprints={this.props.roomBlueprints}
             />
           </Paper>
         </Grid>
@@ -132,12 +139,14 @@ export default withTranslation()(
       establishments: getAvailableEstablishmentList(state),
       loading: state.metaActivity.loading,
       timezone: state.theme.theme.timezone_name,
+      roomBlueprints: getRoomBlueprints(state),
     }),
     {
       fetchEstablishments,
       fetchAssociatedCoachesList,
       fetchAllOffers: fetchAllOffersAction,
       goBack: goBackAction,
+      fetchRoomBlueprints,
     },
   )(
     withTitle(({ t }: { t: TFunction }) => t('titles:offerFormPage'))(

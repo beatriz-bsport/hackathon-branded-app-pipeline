@@ -41,6 +41,10 @@ export const cancelBooking = async (id: number, data: any = {}) => {
   return postAuth(`${API_V1_URI}/booking/${id}/cancel/`, data);
 };
 
+export const setSpotForMember = async (id: number, data: any = {}) => {
+  return postAuth(`${API_V1_URI}/booking/${id}/set_spot_for_member/`, data);
+};
+
 export const registerBooking = async (
   consumer_payment_pack: number,
   data: {

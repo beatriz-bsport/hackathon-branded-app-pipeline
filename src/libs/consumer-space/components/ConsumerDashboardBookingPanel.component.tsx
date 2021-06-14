@@ -20,6 +20,10 @@ import type { Membership } from '../../membership/types';
 import { BookingOrPrivateBooking } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import { PrivateBooking } from '../../private-service/types';
+import { Offer } from '../../offer/types';
+import { Coach } from '../../associated-coach/types';
+import { Establishment } from '../../establishment/types';
+import { MetaActivity } from '../../meta-activity/types';
 
 type OwnProps = {
   showMoreBooking: () => void;
@@ -42,6 +46,9 @@ type OwnProps = {
   hasMore: boolean;
   fullWidth?: boolean;
   hideTitle?: boolean;
+  onClickBlueprintPreview?: (
+    booking: Booking<Offer<Coach, Establishment, MetaActivity>>,
+  ) => void;
 };
 
 type Props = OwnProps &
@@ -112,6 +119,7 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
             onDiscard={this.props.onDiscardBooking}
             goToBroadcast={this.props.goToBroadcast}
             goToCalendar={this.props.goToCalendar ? this.goToCalendar : null}
+            onClickBlueprintPreview={this.props.onClickBlueprintPreview}
           />
         </div>
       );

@@ -1206,10 +1206,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bsport/common@^2.3.8":
-  version "2.3.8"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-2.3.8.tgz#f5cf9d8d0fa24bfe5c7bcdd5c147d958017ffb7b"
-  integrity sha512-SGLZnsn1KY+Zyf4ZqWFoQvu9gSZCmmhM2scp9Sxh4D4PZ/wScqFsCsac2qZMSAUS8wMPCzBRxdfMUdjk6+zqFQ==
+"@bsport/common@^2.3.9":
+  version "2.3.9"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-2.3.9.tgz#b781d6a738f09fc0d0479a34aa5114c7f230c6a2"
+  integrity sha512-8DAZKwHDkix3GO3hO0mMUHfGDCvCnnv89CzlVxZ8e1X65ZYHxjxW+tad28Mfw4Hr1HIcDfEN4O/EtleafOdKgQ==
   dependencies:
     "@types/node" "^14.14.21"
     eslint-plugin-babel "^5.3.1"
@@ -3120,6 +3120,11 @@
   integrity sha512-f+fD/fQAo3BCbCDlrUpznF1A5Zp9rB0noS5vnoormHSIPFKL0Z2DcUJ3Gxp5ytH4uLRNxy7AwYUC9exZzqGMAw==
   dependencies:
     "@types/yargs-parser" "*"
+
+"@types/yup@^0.29.11":
+  version "0.29.11"
+  resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.29.11.tgz#d654a112973f5e004bf8438122bd7e56a8e5cd7e"
+  integrity sha512-9cwk3c87qQKZrT251EDoibiYRILjCmxBvvcb4meofCmx1vdnNcR9gyildy5vOHASpOKMsn42CugxUvcwK5eu1g==
 
 "@typescript-eslint/eslint-plugin-tslint@^4.11.0":
   version "4.14.0"

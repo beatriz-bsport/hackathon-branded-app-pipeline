@@ -180,6 +180,7 @@ export function updateMarketingNotification(
         options.onError(error);
       }
     }
+
     dispatch(marketingNotificationUpdateActions.isLoading(false));
   };
 }

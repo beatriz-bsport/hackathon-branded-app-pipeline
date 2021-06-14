@@ -100,6 +100,9 @@ import MetaActivitySelector from '../../libs/meta-activity/components/MetaActivi
 import { monitorBackgroundTask } from '../../libs/background-task/actions';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
 import { PermissionContext } from '../../context';
+import { getRoomBlueprints } from '../../libs/spot-scheduling/selector';
+import { fetchRoomBlueprints } from '../../libs/spot-scheduling/actions';
+import { RoomBlueprint } from '../../libs/spot-scheduling/types';
 
 const styles = (theme) => ({
   container: {
@@ -219,6 +222,8 @@ type Props = {
 
   monitorBackgroundTask: (uuid: string, options?: OptionCallback) => void,
   restoreOffer: (offerId: number, options: any) => void,
+  fetchRoomBlueprints: () => void,
+  roomBlueprints: Array<RoomBlueprint>,
 };
 
 type State = {
@@ -262,6 +267,7 @@ export class Planning extends PureComponent<Props, State> {
     this.props.fetchAssociatedCoachesList();
     this.props.fetchEstablishments();
     this.props.fetchAllActivities({ customer_enabled: true });
+    this.props.fetchRoomBlueprints();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -454,6 +460,7 @@ export class Planning extends PureComponent<Props, State> {
       fetchSimilarOffers,
       similarOfferLoading,
       similarOffers,
+      roomBlueprints,
     } = this.props;
     const { editModalOpened, editOfferProcessing } = this.state;
     const { selectedOffer } = this.props;
@@ -467,6 +474,7 @@ export class Planning extends PureComponent<Props, State> {
               metaActivities={this.props.metaActivities}
               coaches={coaches}
               establishments={establishments}
+              roomBlueprints={roomBlueprints}
               is_whereby_integration_enabled={
                 this.props.theme &&
                 this.props.theme.is_whereby_integration_enabled &&
@@ -501,6 +509,7 @@ export class Planning extends PureComponent<Props, State> {
             activitiesLoading={this.props.activitiesLoading}
             coaches={coaches}
             establishments={establishments}
+            roomBlueprints={this.props.roomBlueprints}
             onSubmit={this.createOffers}
             onCancel={this.closeCreateOffersModal}
             processing={creatingOffers}
@@ -955,6 +964,7 @@ export default compose(
             start: moment(date).startOf('week'),
             end: moment(date).endOf('week'),
           }),
+      roomBlueprints: getRoomBlueprints(state),
     }),
     {
       goBack: goBackRouter,
@@ -976,6 +986,7 @@ export default compose(
       monitorBackgroundTask,
       restoreOffer,
       fetchBookedGender: fetchBookedGenderAction,
+      fetchRoomBlueprints,
     },
   ),
   withHandlers({

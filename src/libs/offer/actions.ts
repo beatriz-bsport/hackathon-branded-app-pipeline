@@ -19,8 +19,7 @@ import { monitorBackgroundTask } from '../background-task/actions';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
 import type { Dispatch, OptionCallback } from '../../state/types';
-import type { Offer } from '../../api/types';
-import { OfferFilter, OfferFilterData, OfferStatus } from './types';
+import { OfferFilter, OfferFilterData, OfferStatus, Offer } from './types';
 
 export const similarOffers = {
   isLoading: createAction('OFFERS/SIMILAR/IS_LOADING'),
@@ -236,7 +235,7 @@ export const retrieveActions = {
   isLoading: createAction('OFFER/RETRIEVE/IS_LOADING'),
 };
 
-export function fetchOfferById(id: number, options: OptionCallback<Offer>) {
+export function fetchOfferById(id: number, options?: OptionCallback<Offer>) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveActions.isLoading(true));
     dispatch(retrieveActions.error(null));
@@ -445,7 +444,7 @@ export const retrieveByIdActions = {
   isLoading: createAction('OFFER/RETRIEVE_BY_ID/IS_LOADING'),
 };
 
-export function retrieveOffer(id: number, options?: OptionCallback) {
+export function retrieveOffer(id: number, options?: OptionCallback<Offer>) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveByIdActions.isLoading(true));
     dispatch(retrieveByIdActions.error(null));

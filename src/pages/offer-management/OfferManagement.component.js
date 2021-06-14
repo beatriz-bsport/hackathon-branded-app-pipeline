@@ -34,6 +34,15 @@ import type { PaymentPack } from '../../libs/payment-packs/types';
 import type { Booking, BookingOption } from '../../libs/booking/types';
 import type { Member } from '../../libs/member/types';
 import type { Invoice } from '../../libs/invoice/types';
+import { Offer, OfferStatus } from '../../libs/offer/types';
+import {
+  AssetForBlueprint,
+  RoomBlueprint,
+} from '../../libs/spot-scheduling/types';
+import OfferManagementRoomBlueprint from './OfferManagementRoomBlueprint.component';
+import AsyncSpotSelector, {
+  asyncSelectSpotForBlueprint,
+} from '../../libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -90,6 +99,13 @@ type Props = {
   goToMember: (id: number) => void,
   snackbarSuccess: (msg: string) => void,
   country: string,
+
+  fetchRoomBlueprintDetail: (number) => void,
+  roomBlueprintById: { [number]: RoomBlueprint },
+  fetchAssetForBlueprint: (number) => void,
+  fetchOfferStatus: (number) => void,
+  offerStatusById: { [number]: OfferStatus },
+  assetsForBlueprintById: { [number]: AssetForBlueprint },
 
   createMember: (id: ?number, data: [*], options: *, offerId: number) => void,
   createInvoice: ([*], number, number) => void,
@@ -161,6 +177,12 @@ type Props = {
   recurrentBookingOnPageRequested: () => void,
   recurrentBookingCount: number,
   payment_method_available_manager: number[],
+  roomBlueprintById: { [key: string]: RoomBlueprint },
+  assetsForBlueprintById: {
+    [key: string]: { [key: string]: AssetForBlueprint },
+  },
+  offerStatusById: { [key: string]: OfferStatus },
+  setSpotForBooking: () => void,
 };
 
 type State = {
@@ -206,9 +228,9 @@ export class OfferManagement extends Component<Props, State> {
     }));
   };
 
-  registerToOffer = (
+  registerToOffer = async (
     memberId: number,
-    offerId: number,
+    offerId: number | number[],
     registererObject: PaymentPack | ConsumerPaymentPack,
     {
       notify_member,
@@ -216,11 +238,31 @@ export class OfferManagement extends Component<Props, State> {
     }: { notify_member: boolean, keep_credits: boolean },
     voucher?: number,
   ) => {
+    let spot_id = null;
+    if (this.props.offer.room_blueprint) {
+      spot_id = await asyncSelectSpotForBlueprint();
+      if (typeof spot_id !== 'number') {
+        return;
+      }
+    }
+
     if (registererObject.paymentPack) {
+      const offers_data = [];
+
+      const ids = typeof offerId === 'number' ? [offerId] : offerId;
+
+      ids.forEach((offer_id) => {
+        const data = { offer_id, extra_data: {} };
+        if (typeof spot_id === 'number') {
+          data.extra_data.spot_id = spot_id;
+        }
+        offers_data.push(data);
+      });
+
       this.props.createQuickUnevenInvoice(
         {
           paymentPackId: registererObject.paymentPack.id,
-          offerId,
+          offers_data,
           keep_credits,
           notify_member,
           is_v2: true,
@@ -236,6 +278,7 @@ export class OfferManagement extends Component<Props, State> {
           keep_credits,
           notify_member,
           offer: offerId,
+          spot_id,
         },
         this.props.booking_ordering,
       );
@@ -331,6 +374,14 @@ export class OfferManagement extends Component<Props, State> {
       },
       data,
     );
+  };
+
+  onClickChangeSpot = async (booking: Booking) => {
+    const spot_id = await asyncSelectSpotForBlueprint();
+
+    if (typeof spot_id === 'number') {
+      this.props.setSpotForBooking(booking, spot_id);
+    }
   };
 
   addToQuickInvoicePanel = (memberId: number) => {
@@ -503,6 +554,7 @@ export class OfferManagement extends Component<Props, State> {
             onDeleteRecurrenceRuleBooking={
               this.props.onDeleteRecurrenceRuleBooking
             }
+            onClickChangeSpot={this.onClickChangeSpot}
           />
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -510,6 +562,15 @@ export class OfferManagement extends Component<Props, State> {
             !!this.props.offer.broadcast_info && (
               <OfferBroadcastHelper offer={this.props.offer} />
             )}
+
+          {!!this.props.offer.room_blueprint && (
+            <OfferManagementRoomBlueprint
+              offer={this.props.offer}
+              roomBlueprintById={this.props.roomBlueprintById}
+              assetsForBlueprintById={this.props.assetsForBlueprintById}
+              offerStatusById={this.props.offerStatusById}
+            />
+          )}
 
           <QuickInvoicePanel
             unevenSavedInvoices={uniqBy(this.props.unpaidInvoiceList, 'uuid')}
@@ -596,6 +657,19 @@ export class OfferManagement extends Component<Props, State> {
             members={members}
             mailDefaultTitle={this.props.offer ? this.props.offer.name : ''}
             sendCommunication={this.props.sendCommunication}
+          />
+        )}
+
+        {!!this.props.offer.room_blueprint && (
+          <AsyncSpotSelector
+            fetchRoomBlueprintDetail={this.props.fetchRoomBlueprintDetail}
+            roomBlueprintById={this.props.roomBlueprintById}
+            fetchAssetForBlueprint={this.props.fetchAssetForBlueprint}
+            fetchOfferStatus={this.props.fetchOfferStatus}
+            fetchOfferById={this.props.fetchOffer}
+            offer={this.props.offer}
+            offerStatusById={this.props.offerStatusById}
+            assetsForBlueprintById={this.props.assetsForBlueprintById}
           />
         )}
       </Grid>

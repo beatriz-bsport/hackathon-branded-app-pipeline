@@ -1,133 +1,175 @@
 import { withStyles } from '@material-ui/styles';
 import React from 'react';
+import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import { CircularProgress } from '@material-ui/core';
+import { push } from 'connected-react-router';
+import { withTranslation } from 'react-i18next';
+import { ROOM_BLUEPRINT_ERROR_CODE } from '@bsport/common/lib/master-data/spot-scheduling';
 
 import { MaterialStyleType } from '../../utils/types';
-import CanvasToolsMenu from './CanvasSvg/CanvasToolsMenu.component';
-import { CanvasElement } from './CanvasSvg/tools/BaseClasses/Base.tool';
-import withUndoRedoState, {
-  WithUndoRedo,
-} from '../../hocs/undo-redo-state.hoc';
-import CanvasViewController from './CanvasSvg/CanvasViewController';
+import CanvasEditorComponent from '../../libs/spot-scheduling/CanvasSvg/CanvasEditor.component';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { RootState } from '../../reducers';
+
 import {
-  CANVAS_SELECTABLE_TOOLS,
-  CanvasSelectableToolsEnum,
-  CanvasSelectableToolStrategy,
-} from './CanvasSvg/tools/CanvasStrategy';
+  createAssetForBlueprint,
+  fetchAssetForBlueprint,
+  fetchRoomBlueprintDetail,
+  fetchRoomBlueprints,
+  updateRoomBlueprint,
+} from '../../libs/spot-scheduling/actions';
+import { RoomBlueprint } from '../../libs/spot-scheduling/types';
+import {
+  getAssetByIdentifier,
+  getRoomBlueprints,
+} from '../../libs/spot-scheduling/selector';
+import { snackbar } from '../../actions/snackbar.actions';
+import { OptionCallback } from '../../state/types';
 
-type UndoRedoState = {
-  elements: CanvasElement<any>[];
-  strokeColor?: string;
-  fillColor?: string;
+type OwnProps = {
+  id: number;
 };
 
-type Props = MaterialStyleType<ReturnType<typeof styles>> &
-  WithUndoRedo<UndoRedoState>;
+type Props = OwnProps &
+  ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps &
+  MaterialStyleType<ReturnType<typeof styles>>;
 
-type State = {
-  selectedTool: CanvasSelectableToolsEnum;
-};
-
-class SpotSchedulingPages extends React.PureComponent<Props, State> {
-  state: State = {
-    selectedTool: CANVAS_SELECTABLE_TOOLS.pointer,
-  };
-
-  get tool() {
-    return CanvasSelectableToolStrategy[this.state.selectedTool];
+class SpotSchedulingPages extends React.PureComponent<Props> {
+  componentDidMount() {
+    this.props.fetchRoomBlueprintDetail(this.props.id);
+    this.props.fetchRoomBlueprints();
+    this.props.fetchAssetForBlueprint({ blueprint: this.props.id });
   }
 
-  componentDidMount = () => {
-    window.addEventListener('keydown', this.onKeyDown);
+  onSave = async (roomBlueprint: RoomBlueprint) => {
+    await this.props.updateRoomBlueprint(
+      this.props.roomBlueprint.id,
+      roomBlueprint,
+      {
+        onSuccess: () => this.props.success('spotScheduling:saved'),
+        onError: (error) => {
+          const error_code = error?.reponse?.data?.error?.code;
+          if (
+            error_code === ROOM_BLUEPRINT_ERROR_CODE.LESS_SPOT_THAN_EFFECTIF
+          ) {
+            this.props.error('spotScheduling:errorLessSpotThanEffectif');
+          } else {
+            this.props.error('spotScheduling:saveError');
+          }
+        },
+      },
+    );
   };
 
-  onKeyDown = (e: any) => {
-    if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) {
-      e.preventDefault();
-      this.toolCancel();
+  onUpdateImages = async (
+    images: { spot_free: any; spot_taken: any },
+    options: OptionCallback,
+  ) => {
+    const spot_free = new FormData();
+    spot_free.append('blueprint', this.props.id.toString());
+    spot_free.append('identifier', 'spot_free');
+    spot_free.append('asset', images.spot_free);
+
+    const spot_taken = new FormData();
+    spot_taken.append('blueprint', this.props.id.toString());
+    spot_taken.append('identifier', 'spot_taken');
+    spot_taken.append('asset', images.spot_taken);
+
+    let error = false;
+
+    const promise = [
+      this.props.createAssetForBlueprint(spot_free, {
+        onError: () => {
+          error = true;
+        },
+      }),
+      this.props.createAssetForBlueprint(spot_taken, {
+        onError: () => {
+          error = true;
+        },
+      }),
+    ];
+
+    await Promise.all(promise);
+
+    if (error) {
+      this.props.error('spotScheduling:saveError');
+      options && options.onError && options.onError();
+    } else {
+      this.props.success('spotScheduling:saved');
+      options && options.onSuccess && options.onSuccess();
     }
   };
 
-  toolCancel = () => {
-    let res = true;
-    if (this.tool && this.tool.onCancel) {
-      res = !!this.tool.onCancel();
-    }
-    res && this.setState({ selectedTool: CANVAS_SELECTABLE_TOOLS.pointer });
-  };
-
-  onChangeTool = (_selectedTool: CanvasSelectableToolsEnum) => {
-    Object.values(CanvasSelectableToolStrategy).forEach((tool) => {
-      if (tool.onCancel) {
-        tool.onCancel();
-      }
-    });
-
-    let selectedTool = _selectedTool;
-    if (this.state.selectedTool === _selectedTool) {
-      selectedTool = CANVAS_SELECTABLE_TOOLS.pointer;
-    }
-
-    this.setState({ selectedTool });
+  onExit = () => {
+    this.props.push(
+      `/establishment/details/${this.props.roomBlueprint.establishment}`,
+    );
   };
 
   render() {
     const { classes } = this.props;
 
     return (
-      <div className={classes.container}>
-        <CanvasViewController
-          elements={this.props.current.elements}
-          selectedTool={this.state.selectedTool}
-          strokeColor={this.props.current.strokeColor}
-          fillColor={this.props.current.fillColor}
-          onElementsChange={(elements: CanvasElement<any>[]) =>
-            this.props.setStateWithHistory({ elements })
-          }
-        />
-
-        <CanvasToolsMenu
-          selectedTool={this.state.selectedTool}
-          onSelectTool={this.onChangeTool}
-          onClickUndo={this.props.undo}
-          onClickRedo={this.props.redo}
-          strokeColor={this.props.current.strokeColor}
-          fillColor={this.props.current.fillColor}
-          onStrokeColorChange={(strokeColor) =>
-            this.props.setStateWithHistory({
-              strokeColor: strokeColor || 'transparent',
-            })
-          }
-          onFillColorChange={(fillColor) =>
-            this.props.setStateWithHistory({
-              fillColor: fillColor || 'transparent',
-            })
-          }
-        />
+      <div className={classes.containerSpotScheduling}>
+        {this.props.roomBlueprint ? (
+          <CanvasEditorComponent
+            blueprints={this.props.allBlueprints}
+            selectedRoomBlueprint={this.props.roomBlueprint}
+            onSave={this.onSave}
+            onUpdateImages={this.onUpdateImages}
+            assets={this.props.assets}
+            onExit={this.onExit}
+          />
+        ) : (
+          <div className={classes.fullCenter}>
+            <CircularProgress />
+          </div>
+        )}
       </div>
     );
   }
 }
 
 const styles = () => ({
-  container: {
-    display: 'flex',
-    width: '100%',
-    height: '100%',
-  },
-  svgContainer: {
+  containerSpotScheduling: {
     display: 'flex',
     flex: 1,
-    flexDirection: 'column',
+    height: '100%',
+  },
+  fullCenter: {
+    display: 'flex',
+    flex: 1,
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
+
+const mapStateToProps = (state: RootState, props: OwnProps) => ({
+  roomBlueprint: state.spotScheduling.roomBlueprint.byId[props.id],
+  allBlueprints: getRoomBlueprints(state),
+  assets: getAssetByIdentifier(state, props.id),
+});
+
+const mapDispatchToProps = {
+  fetchRoomBlueprintDetail,
+  fetchRoomBlueprints,
+  updateRoomBlueprint,
+  fetchAssetForBlueprint,
+  createAssetForBlueprint,
+  push,
+  success: snackbar.success,
+  error: snackbar.error,
+};
 
 export default compose(
   // @ts-ignore
   withStyles(styles),
-  withUndoRedoState({
-    elements: [],
-    strokeColor: 'black',
-    fillColor: undefined,
-  }),
+  routerParamsToProps({ id: 'id:number' }),
+  connect(mapStateToProps, mapDispatchToProps),
+  withTranslation(['spotScheduling']),
 )(SpotSchedulingPages);

@@ -225,6 +225,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: -theme.spacing(1),
+    marginLeft: theme.spacing(1.5),
   },
   actionRow: {
     marginTop: theme.spacing(1),

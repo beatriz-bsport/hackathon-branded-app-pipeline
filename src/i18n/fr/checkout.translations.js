@@ -49,4 +49,5 @@ exports.default = {
       'Votre moyen de paiement vous sera demandé sur place avant votre séance. Avant cela, la facture sera considérée comme impayée.',
   },
   or: 'ou',
+  expire_in: 'Expire dans ',
 };

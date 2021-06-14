@@ -80,6 +80,9 @@ import {
   deleteOffer as deleteOfferAPI,
 } from '../../offer/api';
 import CheckPermission from '../../role/components/CheckPermission.component';
+import { fetchRoomBlueprints } from '../../spot-scheduling/actions';
+import { getRoomBlueprints } from '../../spot-scheduling/selector';
+import { RoomBlueprint } from '../../spot-scheduling/types';
 
 type Props = {
   offerId: number,
@@ -141,11 +144,14 @@ type Props = {
 
   customEvent: ?CustomEvent,
   deleteCustomEvent: (number) => void,
+  roomBlueprints: RoomBlueprint[],
+  fetchRoomBlueprints: () => void,
 };
 
 export class CalendarEventDetail extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAllActivities();
+    this.props.fetchRoomBlueprints();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -383,6 +389,7 @@ export class CalendarEventDetail extends React.Component<Props> {
                   offer={offer}
                   coaches={this.props.coaches}
                   establishments={this.props.establishments}
+                  roomBlueprints={this.props.roomBlueprints}
                   metaActivities={this.props.metaActivities}
                   is_whereby_integration_enabled={
                     this.props.theme &&
@@ -454,6 +461,7 @@ const OfferEditorContainer = compose(
       coaches: getActiveCoaches(state),
       establishments: getAllEstablishments(state),
       metaActivities: getEnabledMetaActivities(state),
+      roomBlueprints: getRoomBlueprints(state),
     }),
     {
       fetchSimilarOffers: fetchSimilarOffersAction,
@@ -462,6 +470,7 @@ const OfferEditorContainer = compose(
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchCoachBulk: fetchCoachBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      fetchRoomBlueprints,
     },
   ),
   withHandlers({

@@ -30,10 +30,10 @@ export type RecurrenceRuleBooking = {
   notify_if_booked: boolean;
 };
 
-export type Booking = {
+export type Booking<Offer = number> = {
   name: string;
   nb_bookings: number;
-  offer: number;
+  offer: Offer;
   id: number;
   member: number;
   booking_status_code: number;
@@ -48,6 +48,7 @@ export type Booking = {
   consumer_payment_pack: ConsumerPaymentPack;
   was_refunded: false;
   first_in_company: false;
+  spot_id: number | null;
 };
 
 export type BookingOption = {

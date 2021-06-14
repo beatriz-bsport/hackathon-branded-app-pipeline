@@ -192,7 +192,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route exact path="/search/results" component={SearchResults} />
       <Route path="/settings/:tab/" component={Settings} />
       <Route path="/coupon" component={Coupon} />
-      <Route path="/spot-scheduling" component={SpotScheduling} />
+      <Route path="/spot-scheduling/:id" component={SpotScheduling} />
       <Route path="/empty" component={() => <div />} />
       {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
         props.vodEnabled) && <Route path="/vod" component={VodRouter} />}
@@ -349,8 +349,9 @@ export class Backoffice extends Component<Props, State> {
               <main
                 className={clx({
                   [classes.content]: true,
-                  [classes.fullContent]:
-                    this.props.location.pathname === '/spot-scheduling',
+                  [classes.fullContent]: this.props.location.pathname.includes(
+                    '/spot-scheduling',
+                  ),
                 })}
               >
                 <BackofficeRoute

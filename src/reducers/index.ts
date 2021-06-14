@@ -58,6 +58,7 @@ import dashboardSettings from '../libs/dashboard/reducers';
 import marketplace from '../libs/marketplace/reducers';
 import zoomAppReducers from '../libs/zoom-app/reducers';
 import reportGenerationState from '../libs/reporting/reducers';
+import spotSchedulingReducers from '../libs/spot-scheduling/reducers';
 
 import { reducer } from '../resources';
 
@@ -86,6 +87,7 @@ import { NotificationRuleState } from '../libs/notification-rule/types';
 import actionTypes from '../actions/auth.types';
 import { EmailTemplateState } from '../libs/email-editor/types';
 import { OfferState } from '../libs/offer/types';
+import { SpotSchedulingState } from '../libs/spot-scheduling/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -148,6 +150,7 @@ const rootReducer = (history: any) =>
     dashboardSettings,
     marketplace,
     zoomApp: zoomAppReducers,
+    spotScheduling: spotSchedulingReducers,
   });
 
 export type RootState = {
@@ -182,6 +185,7 @@ export type RootState = {
   platformBilling: any;
   dashboardSettings: any;
   paymentPack: any;
+  spotScheduling: SpotSchedulingState;
   emailTemplate: EmailTemplateState;
   marketingNotification: MarketingNotificationState;
   notificationRule: NotificationRuleState;

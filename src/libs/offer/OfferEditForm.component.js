@@ -26,6 +26,9 @@ import DateTimeInput from '../../components/input/DateTimeInput.component';
 
 import MetaActivitySelector from '../meta-activity/components/MetaActivitySelector.component';
 import FeatureListProvider from '../company/hocs/feature-list-provider.hoc';
+import { RoomBlueprint } from '../spot-scheduling/types';
+import RoomBlueprintSelector from '../spot-scheduling/component/RoomBlueprintSelector.component';
+import SpotSchedulingHelper from '../spot-scheduling/utils';
 
 type Props = {
   processing: boolean,
@@ -38,6 +41,7 @@ type Props = {
   similarOffers: Array<Offer>,
   coaches: Array<Coach>,
   establishments: Array<Establishment>,
+  roomBlueprints: RoomBlueprint[],
 
   onCancel: () => void,
   fetchSimilarOffers: (id: number) => void,
@@ -118,6 +122,7 @@ export class EditLiveOfferForm extends Component<Props, State> {
       notifyConsumers: false,
       broadcast_link: props.offer.broadcast_link || '',
       establishment: props.offer.establishment.id,
+      roomBlueprint: props.offer.room_blueprint,
       establishment_override: props.offer.establishment_override
         ? props.offer.establishment_override.id
         : null,
@@ -272,7 +277,13 @@ export class EditLiveOfferForm extends Component<Props, State> {
         'DD/MM/YYYY hh:mm',
       );
     }
+
     appendModifiedData(this.initialOfferState, this.state, data);
+
+    if (this.props.offer.room_blueprint !== this.state.roomBlueprint) {
+      data.room_blueprint = this.state.roomBlueprint;
+    }
+
     this.props.onConfirm({ offerId: offer.id, data });
   };
 
@@ -318,7 +329,8 @@ export class EditLiveOfferForm extends Component<Props, State> {
               !(
                 getModifiedFields(this.initialOfferState, this.state).length ||
                 this.hasChangedDatetime()
-              )
+              ) ||
+              this.roomBluePrintError()
             }
           >
             {t('common.confirm')}
@@ -374,7 +386,8 @@ export class EditLiveOfferForm extends Component<Props, State> {
                 !(
                   getModifiedFields(this.initialOfferState, this.state)
                     .length || this.hasChangedDatetime()
-                )
+                ) ||
+                this.roomBluePrintError()
               }
               onClick={this.onConfirmGatherInfoStep}
             >
@@ -384,6 +397,33 @@ export class EditLiveOfferForm extends Component<Props, State> {
         </Grid>
       </Grid>
     );
+  };
+
+  roomBluePrintError = () => {
+    if (this.state.roomBlueprint) {
+      const roomBlueprint = this.props.roomBlueprints.find(
+        (r) => r.id === this.state.roomBlueprint,
+      );
+
+      let effectif =
+        typeof this.state.effectif === 'string'
+          ? parseInt(this.state.effectif)
+          : this.state.effectif;
+
+      /* eslint-disable-next-line */
+      if (isNaN(effectif)) {
+        effectif = 0;
+      }
+
+      if (
+        roomBlueprint &&
+        typeof this.state.effectif === 'number' &&
+        SpotSchedulingHelper.getSpotCount(roomBlueprint) < effectif
+      ) {
+        return true;
+      }
+    }
+    return false;
   };
 
   renderWarning = () => (
@@ -400,6 +440,13 @@ export class EditLiveOfferForm extends Component<Props, State> {
     const hasErrorCredit =
       parseInt(this.state.credit_price_override, 10) === 0 ||
       this.state.credit_price_override > 4;
+
+    const roomBlueprintsForEstablishment = this.props.roomBlueprints.filter(
+      (roomBlueprint: RoomBlueprint) => {
+        return roomBlueprint.establishment === this.state.establishment;
+      },
+    );
+
     return (
       <div className={this.props.classes.container}>
         <div className={this.props.classes.fieldGroup}>
@@ -577,6 +624,50 @@ export class EditLiveOfferForm extends Component<Props, State> {
             />
           </div>
         </div>
+
+        {roomBlueprintsForEstablishment.length && (
+          <div className={this.props.classes.fieldGroup}>
+            <Typography variant="subtitle2">
+              {this.props.t('spotScheduling:roomBlueprints')}
+            </Typography>
+
+            <div className={this.props.classes.groupContainer}>
+              <div className={this.props.classes.borderBar} />
+
+              <div className={this.props.classes.blueprintSelectorContainer}>
+                <RoomBlueprintSelector
+                  id="roomBlueprint"
+                  roomBlueprints={roomBlueprintsForEstablishment}
+                  value={this.props.roomBlueprints.find(
+                    (room) => room.id === this.state.roomBlueprint,
+                  )}
+                  onChange={(roomBlueprint: RoomBlueprint) => {
+                    this.onFormFieldChange('roomBlueprint')(
+                      roomBlueprint ? roomBlueprint.id : null,
+                    );
+                  }}
+                  placeholder={this.props.t('spotScheduling:search')}
+                />
+
+                {!this.roomBluePrintError() && !this.state.roomBlueprint && (
+                  <Typography
+                    color="textSecondary"
+                    className={this.props.classes.marginTop1}
+                  >
+                    {this.props.t('spotScheduling:searchHelper')}
+                  </Typography>
+                )}
+
+                {this.roomBluePrintError() && (
+                  <Typography color="error">
+                    {this.props.t('spotScheduling:effectifError')}
+                  </Typography>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
         <FeatureListProvider>
           {(featureList) => {
             const hasZoomApp = !!(
@@ -725,6 +816,14 @@ const styles = (theme) => ({
   groupContainer: {
     display: 'flex',
     width: '100%',
+  },
+  blueprintSelectorContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+  },
+  marginTop1: {
+    marginTop: theme.spacing(1),
   },
 });
 

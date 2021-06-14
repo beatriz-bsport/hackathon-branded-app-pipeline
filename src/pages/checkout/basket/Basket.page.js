@@ -181,6 +181,13 @@ export class BasketPage extends React.Component<Props> {
     }
   }
 
+  onItemExpire = () => {
+    const _this = this;
+    setTimeout(() => {
+      _this.props.fetchCurrentBasket(this.props.companyId);
+    }, 1500);
+  };
+
   onSuccess = (callback) => {
     getPaymentGroupStatusAPI(this.state.paymentGroupId)
       .then((r) => {
@@ -281,6 +288,7 @@ export class BasketPage extends React.Component<Props> {
               termsAndConditions={this.props.theme.general_terms_and_conditions}
               setTermsAndConditionsAccepted={this.setTermsAndConditionsAccepted}
               termsAndConditionsAccepted={termsAndConditionsAccepted}
+              onItemExpire={this.onItemExpire}
               validateUnpaid={this.validateUnpaid}
               paymentModule={
                 <PaymentStripe

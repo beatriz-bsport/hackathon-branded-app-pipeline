@@ -11,6 +11,7 @@ import { compose } from 'recompose';
 import type { TFunction } from 'react-i18next';
 import OfferForm from './OfferForm.component';
 import MetaActivitySelector from '../meta-activity/components/MetaActivitySelectorWithCard.component';
+import { RoomBlueprint } from '../spot-scheduling/types';
 
 const STEP_META_ACTIVITY_CHOSER = 0;
 const STEP_OFFER_FORM = 1;
@@ -18,6 +19,7 @@ const STEP_OFFER_FORM = 1;
 type Props = {
   metaActivities: Array<MetaActivity>,
   establishments: Array<Establishment>,
+  roomBlueprints: Array<RoomBlueprint>,
   coaches: Array<Coach>,
   onCancel: () => void,
   processing: boolean,
@@ -102,6 +104,7 @@ export class OfferFormWithActivity extends Component<Props, State> {
         coaches={coaches}
         timezone={this.props.timezone}
         establishments={establishments}
+        roomBlueprints={this.props.roomBlueprints}
         metaActivity={selectedMetaActivity}
         onSubmit={this.onSubmit}
         onCancel={onCancel}

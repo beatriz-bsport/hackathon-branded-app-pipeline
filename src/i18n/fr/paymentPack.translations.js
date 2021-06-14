@@ -90,7 +90,7 @@ exports.default = {
     listItem: {
       mail: 'Mail ',
       deleteModal: {
-        title: 'Supression notification',
+        title: 'Suppression notification',
         cancel: 'annuler',
         confirm: 'Supprimer',
         content:

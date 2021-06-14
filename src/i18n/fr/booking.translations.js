@@ -174,6 +174,11 @@ exports.default = {
   wasRefunded: 'Remboursé',
   creditConsumed: '{{credit_consumed}} crédit',
   creditConsumed_plural: '{{credit_consumed}} crédits',
+  placeNumber: 'Place {{count}}',
+  noSpotAttributed: 'Aucune place attribuée',
+  changeSpot: 'Changer la place',
+  setSpot: 'Attribuer une place',
+
   statusCode: {
     cancelledByManager: 'Annulation manager',
     cancelledByManagerDate: 'Annulation manager le {{-date}} à {{time}}',

@@ -33,6 +33,7 @@ exports.default = {
     discard: 'Annuler',
     bookAgain: 'Réserver de nouveau',
     accessLive: 'Accéder au live',
+    spotNumber: 'Place {{count}}',
   },
   dashboard: {
     favoriteTitle: 'Suggestion de réservation',

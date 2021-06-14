@@ -3208,7 +3208,7 @@
       "title": "Moyen de paiement",
       "edit": "Modifier",
       "add": "Ajouter",
-      "none": "Aucun moyen de paiment sauvergardé",
+      "none": "Aucun moyen de paiement sauvergardé",
       "isInternalExplain": "Acompte client (manuel): tous les mois une dette est automatiquement créée dans le compte du membre.",
       "select": { "label": "Moyen de paiement" },
       "label": {
@@ -3230,11 +3230,11 @@
         "15": "Carte bleue (manuel)"
       },
       "detach": {
-        "pm_deleted": "Moyen de paiment supprimé",
+        "pm_deleted": "Moyen de paiement supprimé",
         "last_payment_method": "Impossible de supprimer votre unique moyen de paiement",
-        "pm_associated_to_protected_bp": "Impossible : Vous avez une souscription associée à ce moyent de paiment",
-        "pm_associated_to_registered_ppe": "Impossible : Vous avez une souscription associée à ce moyent de paiment",
-        "pm_associated_to_pi": "Impossible : Vous avez une souscription associée à ce moyent de paiment"
+        "pm_associated_to_protected_bp": "Impossible : Vous avez une souscription associée à ce moyen de paiement",
+        "pm_associated_to_registered_ppe": "Impossible : Vous avez une souscription associée à ce moyen de paiement",
+        "pm_associated_to_pi": "Impossible : Vous avez une souscription associée à ce moyen de paiement"
       }
     },
     "plannedPaymentEvent": {
@@ -3454,11 +3454,11 @@
     },
     "paymentMethod": {
       "detach": {
-        "pm_deleted": "Moyen de paiment supprimé",
+        "pm_deleted": "Moyen de paiement supprimé",
         "last_payment_method": "Impossible de supprimer votre unique moyen de paiement",
-        "pm_associated_to_protected_bp": "Impossible : Vous avez une souscription associée à ce moyent de paiment",
-        "pm_associated_to_registered_ppe": "Impossible : Vous avez une souscription associée à ce moyent de paiment",
-        "pm_associated_to_pi": "Impossible : Vous avez une souscription associée à ce moyent de paiment"
+        "pm_associated_to_protected_bp": "Impossible : Vous avez une souscription associée à ce moyen de paiement",
+        "pm_associated_to_registered_ppe": "Impossible : Vous avez une souscription associée à ce moyen de paiement",
+        "pm_associated_to_pi": "Impossible : Vous avez une souscription associée à ce moyen de paiement"
       }
     },
     "coupon": {
@@ -4069,14 +4069,14 @@
       "accept_email": "Accepte les emails",
       "accept_sms": "Accepte les SMS",
       "sum_attendance": "Nombre de présents",
-      "sum__non_attendance": "Nombre de d'absences",
+      "sum__non_attendance": "Nombre d'absences",
       "coaches": "Professeurs",
       "payout_identifier": "Virement",
       "recurrent_price": "Montant",
       "private_service_name": "Rendez-vous",
       "nb_bookings": "Nombre de réservation",
       "stock_at_start": "Stock en début de période",
-      "nb_canceled": "Nombre dèannulation",
+      "nb_canceled": "Nombre d'annulation",
       "stock_at_end": "Stock en fin de période",
       "nb_offers": "Nombre de séances",
       "birthday": "Date de naissance",

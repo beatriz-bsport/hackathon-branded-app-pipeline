@@ -99,7 +99,7 @@ exports.default = {
     title: 'Moyen de paiement',
     edit: 'Modifier',
     add: 'Ajouter',
-    none: 'Aucun moyen de paiment sauvergardé',
+    none: 'Aucun moyen de paiement sauvergardé',
     isInternalExplain:
       'Acompte client (manuel): tous les mois une dette est automatiquement créée dans le compte du membre.',
     select: {
@@ -124,15 +124,15 @@ exports.default = {
       [PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY]: 'Giropay',
     },
     detach: {
-      pm_deleted: 'Moyen de paiment supprimé',
+      pm_deleted: 'Moyen de paiement supprimé',
       last_payment_method:
         'Impossible de supprimer votre unique moyen de paiement',
       pm_associated_to_protected_bp:
-        'Impossible : Vous avez une souscription associée à ce moyent de paiment',
+        'Impossible : Vous avez une souscription associée à ce moyen de paiement',
       pm_associated_to_registered_ppe:
-        'Impossible : Vous avez une souscription associée à ce moyent de paiment',
+        'Impossible : Vous avez une souscription associée à ce moyen de paiement',
       pm_associated_to_pi:
-        'Impossible : Vous avez une souscription associée à ce moyent de paiment',
+        'Impossible : Vous avez une souscription associée à ce moyen de paiement',
     },
   },
   plannedPaymentEvent: {

@@ -171,7 +171,7 @@ class FabWidget extends React.PureComponent<Props, State> {
             timeout={this.state.showActions ? 0 : 600}
           >
             <Tooltip
-              title={t('navigation:backofficeMenu.consumer.subscription')}
+              title={t('navigation:backofficeMenu.consumer.subscriptions')}
               placement="right"
             >
               <ButtonBase

@@ -945,8 +945,8 @@
             "broadcast_link": "De link naar de online les",
             "effectif": "Beschikbare plaatsen",
             "maxBookingsNb": "plaatsen",
-            "nonAttendant": "afwezig(en)",
-            "attendant": "aanwezig(en)",
+            "nonAttendant": "Afwezig",
+            "attendant": "aanwezig",
             "noEmptyDuration": "De duur kan enkel positief zijn",
             "restoreModal": {
                 "explain": "De annulering van deze sessie is ongedaan gemaakt. Leden kunnen zich dus weer voor deze sessie inschrijven. Geannuleerde reserveringen worden niet hersteld.",
@@ -2975,7 +2975,7 @@
     },
     "offer": {
         "video": {
-            "cantOpenLink": "De link voor deze livestream lijkt onjuist, neem contact op met je studio {{contact_email}}",
+            "cantOpenLink": "De link voor deze online lijkt onjuist. Neem contact op met de studio: {{contact_email}}",
             "redirectLink": "Als u niet automatisch wordt doorgestuurd, gebruikt dan deze link:",
             "startingSoon": "Je online les begint over {{minutesLeft}} minuten.",
             "isAutoRefresh": "Je wordt automatisch 15 min. voor het begin van de online les automatisch naar de livestream doorverwezen.",
@@ -4602,7 +4602,7 @@
         "calendar": {
             "selectCoachToModifyAvailability": "Selecteer een instructeur",
             "header": {
-                "threeDaysView": "3 dagen"
+                "threeDaysView": "3 Dagen"
             },
             "form": {
                 "interval": {

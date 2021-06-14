@@ -140,7 +140,6 @@ class BsportWidget extends Component<Props> {
             onWindowOpen={this.onWindowOpen}
           />
         );
-
       case 'newsletter':
         return <NewsletterWidget companyId={companyId} theme={theme} />;
       default:
@@ -196,6 +195,7 @@ class BsportWidget extends Component<Props> {
               <FabWidget
                 companyId={this.props.companyId}
                 companyName={this.props.theme.company_name}
+                onWindowOpen={this.onWindowOpen}
               />
             )}
           </MuiThemeProvider>

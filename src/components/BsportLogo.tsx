@@ -7,8 +7,8 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { compose } from 'recompose';
 
 type OwnProps = {
-  theme: Theme;
-}
+  theme: Theme,
+};
 
 type Props = OwnProps & MaterialStyleType<ReturnType<any>>;
 

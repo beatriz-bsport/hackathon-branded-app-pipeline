@@ -31,6 +31,7 @@ import {
 type OwnProps = {
   companyId: number,
   companyName: string,
+  onWindowOpen: (url: string) => void,
 };
 
 type Props = OwnProps &
@@ -71,9 +72,16 @@ class FabWidget extends React.PureComponent<Props, State> {
     WidgetBridge.onLogout();
   };
 
+  onClickProfile = () => {
+    this.setState({ showActions: false });
+    const { PUBLIC_URL } = window.runtime.env;
+    const url = `${PUBLIC_URL}/c/${this.props.companyId}/profile/`;
+    console.log(url);
+    this.props.onWindowOpen(url);
+  };
+
   render() {
     const { classes, t } = this.props;
-
     return (
       <Portal container={document.body}>
         <Fade in={this.state.showActions} mountOnEnter unmountOnExit>
@@ -130,6 +138,25 @@ class FabWidget extends React.PureComponent<Props, State> {
                     <ShoppingBasketIcon fontSize="small" color="inherit" />
                   </div>
                 </Badge>
+              </ButtonBase>
+            </Tooltip>
+          </Grow>
+
+          <Grow
+            in={this.state.showActions && this.props.authenticated}
+            timeout={this.state.showActions ? 0 : 600}
+          >
+            <Tooltip
+              title={t('navigation:backofficeMenu.profile')}
+              placement="right"
+            >
+              <ButtonBase
+                onClick={this.onClickProfile}
+                classes={{ root: classes.radius50 }}
+              >
+                <div className={classes.actionButton}>
+                  <PersonIcon fontSize="small" color="inherit" />
+                </div>
               </ButtonBase>
             </Tooltip>
           </Grow>

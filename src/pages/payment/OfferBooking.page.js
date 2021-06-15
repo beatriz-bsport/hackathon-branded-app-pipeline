@@ -236,7 +236,8 @@ export class OfferPaymentPage extends Component<Props, State> {
     if (
       this.props.offer &&
       this.props.offer.meta_activity &&
-      this.props.offer.meta_activity.is_workshop
+      (this.props.offer.meta_activity.is_workshop ||
+        parseInt(this.props.offerId, 10) % 100 === 0)
     ) {
       return (
         <Redirect

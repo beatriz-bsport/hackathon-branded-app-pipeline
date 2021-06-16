@@ -1,6 +1,8 @@
+import { memoize } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { RootState } from '../../reducers';
+import { getMembership } from '../membership/selectors';
 
 export const getMemberDetailData = (state: RootState) =>
   state.member.detailData;
@@ -30,6 +32,14 @@ export const getMember = (state: RootState, id: number) => {
 export const getMemberDetail = (state: RootState, id: number) => {
   return getMemberDetailData(state)[id];
 };
+
+export const getMemberThroughMembership = memoize(
+  (selector: (state: RootState) => any) =>
+    createSelector([selector, getMembership], (memberdetail, membership) => {
+      if (!memberdetail || !membership) return null;
+      return memberdetail[membership.id];
+    }),
+);
 
 export const getMemberHistory = createSelector(
   [getMemberListData, _getMemberHistoryIds],

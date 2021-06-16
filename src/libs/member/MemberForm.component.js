@@ -8,17 +8,17 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import FormControl from '@material-ui/core/FormControl';
 import * as Yup from 'yup';
 import { withFormik, Form, connect as formikConnect } from 'formik';
-
 import { compose, withPropsOnChange, withProps, withState } from 'recompose';
+import { FormLabel } from '@material-ui/core';
 import i18n, { browserCountryCode, Moment } from '../../i18n';
 import { getAuth, postAuth, API_URI } from '../../http';
-
-import AvatarField from '../../components/forms/AvatarField.component';
-
+import AvatarFieldWithButton from '../../components/forms/AvatarFieldWithButton.component';
 import {
-  MultipleCheckboxField,
+  CheckboxField,
   TextField,
   DelayTextField,
   PhoneField,
@@ -26,10 +26,15 @@ import {
   Actions,
   Submit,
   DateField,
-  AddressFields,
 } from '../../components/forms';
 import AlertExistingUser from './AlertExistingUser.component';
 import { DATE_FORMAT } from '../../utils/datetime';
+import type { SignUpFormConfigDict } from '../sign-up-form/types';
+import {
+  USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY,
+  USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY,
+  USER_STATUS_VALIDATION_COMPLETED,
+} from './utils';
 
 const styles = (theme) => ({
   redPaperContainer: {
@@ -39,17 +44,24 @@ const styles = (theme) => ({
   paperContainer: {
     padding: theme.spacing(3),
   },
-  textInput: {
-    marginRight: theme.spacing(1),
-  },
-  formControl: {
-    minWidth: 130,
-    marginRight: theme.spacing(1),
-  },
   mergeTitle: {
     display: 'flex',
     justifyContent: 'center',
     marginBottom: theme.spacing(2),
+  },
+  memberGreeting: {
+    paddingBottom: theme.spacing(2),
+  },
+  photoContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  gridColumn: {
+    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+  },
+  title: {
+    marginBottom: theme.spacing(1),
   },
 });
 
@@ -57,7 +69,6 @@ type Props = {
   classes: Object,
   t: TFunction,
   isSubmitting: boolean,
-  theme: Object,
   emailExists: *,
   variant?: 'merge-form' | '',
   disabled?: boolean,
@@ -65,12 +76,16 @@ type Props = {
   memberId: number,
   emailExistsError: boolean,
   hideManagerStuff: boolean,
+  managerFormConfig: ?SignUpFormConfigDict,
   onCancel?: () => void,
   checkUserExists: ({ email?: string, phonenumber?: string }) => void,
   goToMember: (number) => void,
   goToMerge: (number, number) => void,
 
   linkMember: (number) => void,
+  userStatus: number,
+  initial: object,
+  errors: *,
 };
 
 const Effect = formikConnect(
@@ -127,7 +142,62 @@ const MemberExistsBanner = (props: {
     />
   );
 };
-
+const MemberFormTitle = (props: { t: TFunction }) => {
+  const { t } = props;
+  return (
+    <>
+      <Typography component="h2" variant="h6">
+        {t('member:forms.title')}
+      </Typography>
+      <Divider />
+    </>
+  );
+};
+const MemberGreetingBanner = (props: {
+  userStatus: number,
+  t: TFunction,
+  initial: object,
+}) => {
+  const { userStatus, t, initial } = props;
+  if (userStatus === USER_STATUS_VALIDATION_COMPLETED) {
+    return null;
+  }
+  if (userStatus === USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY) {
+    return (
+      <>
+        <Typography variant="h5">
+          {t('member:forms.needInformationValidation.welcome', {
+            firstname: initial.firstname,
+          })}
+        </Typography>
+        <Typography variant="h6">
+          {t('member:forms.needInformationValidation.subtitle.memberOfCompany')}
+        </Typography>
+        <Typography variant="body1">
+          {t('member:forms.needInformationValidation.legend.memberOfCompany')}
+        </Typography>
+      </>
+    );
+  }
+  if (userStatus === USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY) {
+    return (
+      <>
+        <Typography variant="h5">
+          {t('member:forms.needInformationValidation.welcome', {
+            firstname: initial.firstname,
+          })}
+        </Typography>
+        <Typography variant="h6">
+          {t('member:forms.needInformationValidation.subtitle.notMemberYet')}
+        </Typography>
+        <Typography variant="body1">
+          {t('member:forms.needInformationValidation.legend.notMemberYet')}
+        </Typography>
+      </>
+    );
+  }
+  return null;
+};
 const checkIfMemberExists = (
   currentFormikState,
   nextFormikState,
@@ -140,6 +210,26 @@ const checkIfMemberExists = (
   }
 };
 
+const renderConfirmButtonText = (userStatus: number) => {
+  if (userStatus === USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY) {
+    return 'member:forms.needInformationValidation.button.notMemberYet';
+  }
+  if (userStatus === USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY) {
+    return 'member:forms.needInformationValidation.button.memberOfCompany';
+  }
+  return 'translation:form.send';
+};
+
+const renderCancelButtonText = (userStatus: number) => {
+  if (userStatus === USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY) {
+    return 'translation:common.disconnect';
+  }
+  if (userStatus === USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY) {
+    return 'translation:common.disconnect';
+  }
+  return 'translation:common.cancel';
+};
+
 export function MemberForm(props: Props) {
   const {
     classes,
@@ -149,8 +239,24 @@ export function MemberForm(props: Props) {
     variant,
     checkUserExists,
     hideManagerStuff,
+    managerFormConfig,
+    userStatus,
   } = props;
   const mdSize = variant === 'merge-form' ? 12 : 6;
+  const validationErrors = () => {
+    const { errors } = props;
+    if (errors) {
+      const errors_array = Object.keys(errors);
+      return errors_array.filter(
+        (error) =>
+          error === 'accept_email' ||
+          error === 'accept_sms' ||
+          error === 'waiver',
+      );
+    }
+    return [];
+  };
+
   return (
     <div>
       {variant === 'merge-form' || hideManagerStuff ? null : (
@@ -163,6 +269,7 @@ export function MemberForm(props: Props) {
           memberId={props.memberId}
         />
       )}
+
       <div
         className={
           variant === 'merge-form' && disabled
@@ -174,11 +281,25 @@ export function MemberForm(props: Props) {
           <div className={classes.mergeTitle}>
             <Typography variant="h6" component="h2">
               {disabled
-                ? t('member:forms.merge.srcMember')
+                ? t('c.merge.srcMember')
                 : t('member:forms.merge.dstMember')}
             </Typography>
           </div>
         ) : null}
+
+        {userStatus ? (
+          <Grid className={classes.memberGreeting}>
+            <MemberGreetingBanner
+              userStatus={userStatus}
+              t={t}
+              initial={props.initial}
+            />
+          </Grid>
+        ) : (
+          <div className={classes.title}>
+            <MemberFormTitle userStatus={userStatus} t={t} />
+          </div>
+        )}
         <Form>
           <Effect
             onChange={(prev, nxt) =>
@@ -186,68 +307,96 @@ export function MemberForm(props: Props) {
             }
           />
           <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <AvatarField name="avatar" disabled={disabled} />
-            </Grid>
-            <Grid item xs={12} md={mdSize}>
-              <TextField
-                shrink="true"
-                name="firstname"
-                label={
-                  props.theme && props.theme.first_name_label
-                    ? props.theme.first_name_label
-                    : t('translation:form.firstname')
-                }
-                required
-                disabled={disabled}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={mdSize}>
-              <TextField
-                name="lastname"
-                shrink="true"
-                label={
-                  props.theme && props.theme.last_name_label
-                    ? props.theme.last_name_label
-                    : t('translation:form.lastname')
-                }
-                required
-                fullWidth
-                disabled={disabled}
-              />
-            </Grid>
-            <Grid item xs={12} md={mdSize}>
-              <GenderField
-                name="gender"
-                label={t('translation:form.gender')}
-                fullWidth
-                required
-                disabled={disabled}
-              />
-            </Grid>
-            <Grid item xs={12} md={mdSize}>
-              {variant === 'merge-form' ? (
+            {((managerFormConfig && managerFormConfig.photo.show_on_edition) ||
+              !managerFormConfig) && (
+              <Grid item xs={12} className={classes.photoContainer}>
+                <AvatarFieldWithButton
+                  name="avatar"
+                  disabled={disabled}
+                  required={
+                    hideManagerStuff &&
+                    managerFormConfig.photo.mandatory_on_creation
+                  }
+                  buttonText={t('translation:form.modify')}
+                />
+              </Grid>
+            )}
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={mdSize}>
                 <TextField
-                  name="email"
                   shrink="true"
-                  label={t('translation:form.email')}
-                  type="email"
+                  name="firstname"
+                  label={
+                    managerFormConfig.first_name.label ||
+                    t('translation:form.firstname')
+                  }
+                  required
+                  disabled={disabled}
                   fullWidth
-                  required={!!props.fromConsumerAccess}
-                  disabled={disabled || variant === 'merge-form'}
                 />
-              ) : (
-                <DelayTextField
-                  name="email"
-                  label={t('translation:form.email')}
-                  type="email"
+              </Grid>
+              <Grid item xs={12} md={mdSize}>
+                <TextField
+                  name="lastname"
+                  shrink="true"
+                  label={
+                    managerFormConfig.last_name.label ||
+                    t('translation:form.lastname')
+                  }
+                  required
                   fullWidth
-                  required={!!props.fromConsumerAccess}
-                  disabled={disabled || variant === 'merge-form'}
+                  disabled={disabled}
                 />
-              )}
+              </Grid>
+              <Grid item xs={12} md={mdSize}>
+                {variant === 'merge-form' ? (
+                  <TextField
+                    name="email"
+                    shrink="true"
+                    label={
+                      managerFormConfig.email.label ||
+                      t('translation:form.email')
+                    }
+                    type="email"
+                    fullWidth
+                    required={!!props.fromConsumerAccess}
+                    disabled={disabled || variant === 'merge-form'}
+                  />
+                ) : (
+                  <DelayTextField
+                    name="email"
+                    label={
+                      managerFormConfig.email.label ||
+                      t('translation:form.email')
+                    }
+                    type="email"
+                    fullWidth
+                    required={!!props.fromConsumerAccess}
+                    disabled={disabled || variant === 'merge-form'}
+                  />
+                )}
+              </Grid>
+              <Grid item xs={12} md={mdSize}>
+                {((managerFormConfig &&
+                  managerFormConfig.gender.show_on_edition) ||
+                  !managerFormConfig) && (
+                  <GenderField
+                    name="gender"
+                    label={
+                      managerFormConfig.gender.label ||
+                      t('translation:form.gender')
+                    }
+                    fullWidth
+                    required={
+                      hideManagerStuff &&
+                      managerFormConfig.gender.mandatory_on_creation
+                    }
+                    disabled={disabled}
+                  />
+                )}
+              </Grid>
             </Grid>
+
             {hideManagerStuff ? null : (
               <Grid item xs={12} md={mdSize}>
                 <TextField
@@ -274,61 +423,38 @@ export function MemberForm(props: Props) {
             )}
             <Grid item xs={12} md={mdSize}>
               <Grid container direction="row" spacing={2}>
-                <Grid item>
-                  <DateField
-                    format="DD/MM/YYYY"
-                    keyboard
-                    required={!!props.fromConsumerAccess}
-                    mask={(value) => {
-                      if (value) {
-                        return [
-                          /\d/,
-                          /\d/,
-                          '/',
-                          /\d/,
-                          /\d/,
-                          '/',
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                        ];
+                {((managerFormConfig &&
+                  managerFormConfig.birthday.show_on_edition) ||
+                  !managerFormConfig) && (
+                  <Grid item>
+                    <DateField
+                      keyboard
+                      format="L"
+                      required={
+                        !!props.fromConsumerAccess ||
+                        (hideManagerStuff &&
+                          managerFormConfig.birthday.mandatory_on_creation)
                       }
-                      return [];
-                    }}
-                    openToYearSelection
-                    clearable
-                    disabled={disabled}
-                    label={t('translation:form.birthday')}
-                    name="birthday"
-                    returnMoment={false}
-                    disableFuture
-                    clearLabel={t('translation:form.clearDate')}
-                    cancelLabel={t('translation:common.cancel')}
-                    initialFocusedDate="1990/01/01"
-                  />
-                </Grid>
+                      openToYearSelection
+                      clearable
+                      disabled={disabled}
+                      label={
+                        managerFormConfig.birthday.label ||
+                        t('translation:form.birthday')
+                      }
+                      name="birthday"
+                      returnMoment={false}
+                      disableFuture
+                      clearLabel={t('translation:form.clearDate')}
+                      cancelLabel={t('translation:common.cancel')}
+                      initialFocusedDate="1990/01/01"
+                    />
+                  </Grid>
+                )}
                 {hideManagerStuff ? null : (
                   <Grid item>
                     <DateField
                       required={!!props.fromConsumerAccess}
-                      mask={(value) => {
-                        if (value) {
-                          return [
-                            /\d/,
-                            /\d/,
-                            '/',
-                            /\d/,
-                            /\d/,
-                            '/',
-                            /\d/,
-                            /\d/,
-                            /\d/,
-                            /\d/,
-                          ];
-                        }
-                        return [];
-                      }}
                       keyboard
                       name="date_joined"
                       disabled={disabled}
@@ -340,50 +466,224 @@ export function MemberForm(props: Props) {
               </Grid>
             </Grid>
             <Grid item xs={12} md={mdSize}>
-              <PhoneField
-                name="phone"
-                label={t('translation:form.phone')}
-                fullWidth
-                required={!!props.fromConsumerAccess}
-                disabled={disabled}
-                country={browserCountryCode()}
-              />
+              <Grid container direction="row" spacing={2}>
+                {((managerFormConfig &&
+                  managerFormConfig.phone.show_on_edition) ||
+                  !managerFormConfig) && (
+                  <Grid item md={12} xs={12}>
+                    <PhoneField
+                      name="phone"
+                      label={t('translation:form.phone')}
+                      fullWidth
+                      required={
+                        !!props.fromConsumerAccess ||
+                        (hideManagerStuff &&
+                          managerFormConfig.phone.mandatory_on_creation)
+                      }
+                      disabled={disabled}
+                      country={browserCountryCode()}
+                    />
+                  </Grid>
+                )}
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={mdSize}>
-              <AddressFields
-                name="address"
-                required={!!props.fromConsumerAccess}
-                label={t('translation:form.address')}
-                disabled={disabled}
-              />
+            <Grid container xs={12} md={12} direction="row">
+              <Grid item xs={12} md={mdSize}>
+                <div className={classes.gridColumn}>
+                  {((managerFormConfig &&
+                    managerFormConfig.address_line_1.show_on_edition) ||
+                    !managerFormConfig) && (
+                    <TextField
+                      required={
+                        !!props.fromConsumerAccess ||
+                        (hideManagerStuff &&
+                          managerFormConfig.address_line_1
+                            .mandatory_on_creation)
+                      }
+                      name="address_line_1"
+                      fullWidth
+                      disabled={!!disabled}
+                      label={
+                        managerFormConfig.address_line_1.label ||
+                        t('form.address.addressLine1')
+                      }
+                    />
+                  )}
+                  {((managerFormConfig &&
+                    managerFormConfig.address_line_2.show_on_edition) ||
+                    !managerFormConfig) && (
+                    <TextField
+                      name="address_line_2"
+                      required={
+                        !!props.fromConsumerAccess ||
+                        (hideManagerStuff &&
+                          managerFormConfig.address_line_2
+                            .mandatory_on_creation)
+                      }
+                      fullWidth
+                      disabled={!!disabled}
+                      label={
+                        managerFormConfig.address_line_2.label ||
+                        t('form.address.addressLine2')
+                      }
+                    />
+                  )}
+                  <Grid container direction="row" spacing={2}>
+                    {((managerFormConfig &&
+                      managerFormConfig.zipcode.show_on_edition) ||
+                      !managerFormConfig) && (
+                      <Grid item>
+                        <TextField
+                          name="zipcode"
+                          label={
+                            managerFormConfig.zipcode.label ||
+                            t('form.address.zipcode')
+                          }
+                          disabled={!!disabled}
+                          required={
+                            !!props.fromConsumerAccess ||
+                            (hideManagerStuff &&
+                              managerFormConfig.zipcode.mandatory_on_creation)
+                          }
+                        />
+                      </Grid>
+                    )}
+                    {((managerFormConfig &&
+                      managerFormConfig.city.show_on_edition) ||
+                      !managerFormConfig) && (
+                      <Grid item>
+                        <TextField
+                          name="city"
+                          label={
+                            managerFormConfig.city.label ||
+                            t('form.address.city')
+                          }
+                          disabled={!!disabled}
+                          required={
+                            !!props.fromConsumerAccess ||
+                            (hideManagerStuff &&
+                              managerFormConfig.city.mandatory_on_creation)
+                          }
+                        />
+                      </Grid>
+                    )}
+                  </Grid>
+                  {((managerFormConfig &&
+                    managerFormConfig.country.show_on_edition) ||
+                    !managerFormConfig) && (
+                    <TextField
+                      name="country"
+                      required={
+                        !!props.fromConsumerAccess ||
+                        (hideManagerStuff &&
+                          managerFormConfig.country.mandatory_on_creation)
+                      }
+                      disabled={!!disabled}
+                      label={
+                        managerFormConfig.country.label ||
+                        t('form.address.country')
+                      }
+                    />
+                  )}
+                </div>
+              </Grid>
+              <Grid item xs={6} md={mdSize}>
+                <div className={classes.gridColumn}>
+                  <Grid conatiner direction="column">
+                    {((managerFormConfig &&
+                      managerFormConfig.emergency_contact.show_on_edition) ||
+                      !managerFormConfig) && (
+                      <TextField
+                        name="emergency_contact"
+                        label={
+                          managerFormConfig.emergency_contact.label ||
+                          t('translation:form.emergencyContact')
+                        }
+                        fullWidth
+                        required={
+                          !!props.fromConsumerAccess ||
+                          (hideManagerStuff &&
+                            managerFormConfig.emergency_contact
+                              .mandatory_on_creation)
+                        }
+                        disabled={disabled}
+                      />
+                    )}
+                  </Grid>
+                  <Grid item xs={12} md={12}>
+                    <FormControl>
+                      {((managerFormConfig &&
+                        (managerFormConfig.accept_email.show_on_edition ||
+                          managerFormConfig.accept_sms.show_on_edition)) ||
+                        !managerFormConfig) && (
+                        <Grid item xs={12} md={12}>
+                          <FormLabel>
+                            {t('translation:form.member.rgpdTitle')}
+                          </FormLabel>
+                        </Grid>
+                      )}
+
+                      <Grid item xs={12} md={12}>
+                        {((managerFormConfig &&
+                          managerFormConfig.accept_email.show_on_edition) ||
+                          !managerFormConfig) && (
+                          <CheckboxField
+                            id="checkbox_accept_email"
+                            name="accept_email"
+                            disabled={disabled}
+                            label={t('translation:form.member.rgpd.email')}
+                          />
+                        )}
+                      </Grid>
+                      <Grid item xs={12} md={12}>
+                        {((managerFormConfig &&
+                          managerFormConfig.accept_sms.show_on_edition) ||
+                          !managerFormConfig) && (
+                          <CheckboxField
+                            id="checkbox_accept_sms"
+                            name="accept_sms"
+                            disabled={disabled}
+                            label={t('translation:form.member.rgpd.sms')}
+                          />
+                        )}
+                      </Grid>
+                      <Grid item xs={12} md={12}>
+                        {((managerFormConfig &&
+                          managerFormConfig.waiver.show_on_edition) ||
+                          !managerFormConfig) && (
+                          <CheckboxField
+                            id="checkbox_waiver"
+                            name="waiver"
+                            disabled={disabled}
+                            label={t('translation:form.member.waiver')}
+                          />
+                        )}
+                      </Grid>
+                    </FormControl>
+                  </Grid>
+                </div>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={mdSize}>
-              <MultipleCheckboxField
-                choices={[
-                  {
-                    id: 'accept_email',
-                    optionLabel: t('translation:form.member.rgpd.email'),
-                  },
-                  {
-                    id: 'accept_sms',
-                    optionLabel: t('translation:form.member.rgpd.sms'),
-                  },
-                ]}
-                label={t('translation:form.member.rgpdTitle')}
-                name="rgpd"
-                disabled={disabled}
-              />
-            </Grid>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {validationErrors() &&
+                validationErrors().map((error) => {
+                  return (
+                    <Typography color="error">
+                      {t(`translation:form.member.errors.${error}`)}
+                    </Typography>
+                  );
+                })}
+            </div>
             <Grid item xs={12}>
               {!disabled ? (
                 <Actions>
                   {props.onCancel ? (
                     <Button onClick={props.onCancel} disabled={isSubmitting}>
-                      {t('translation:common.cancel')}
+                      {t(renderCancelButtonText(userStatus))}
                     </Button>
                   ) : null}
                   <Submit disabled={isSubmitting || props.emailExists}>
-                    {t('translation:form.send')}
+                    {t(renderConfirmButtonText(userStatus))}
                   </Submit>
                 </Actions>
               ) : null}
@@ -413,29 +713,123 @@ export function MemberForm(props: Props) {
 const phoneRegExp = /^\+?1?\d{9,15}$/;
 
 const MemberSchema = Yup.object().shape({
-  firstname: Yup.string(),
-  lastname: Yup.string(),
-  email: Yup.string().nullable(),
+  firstname: Yup.string().test(
+    'first_name_required',
+    'Required',
+    function (item) {
+      return this.parent.managerFormConfig.first_name.mandatory_on_creation
+        ? !!item
+        : true;
+    },
+  ),
+  lastname: Yup.string().test(
+    'last_name_required',
+    'Required',
+    function (item) {
+      return this.parent.managerFormConfig.last_name.mandatory_on_creation
+        ? !!item
+        : true;
+    },
+  ),
+  email: Yup.string().test('email_required', 'Required', function (item) {
+    return this.parent.managerFormConfig.email.mandatory_on_creation
+      ? !!item
+      : true;
+  }),
+  gender: Yup.string().test('gender_required', 'Required', function (item) {
+    return this.parent.managerFormConfig.gender.mandatory_on_creation
+      ? !!item
+      : true;
+  }),
+  birthday: Yup.string().test('birthday_required', 'Required', function (item) {
+    return this.parent.managerFormConfig.birthday.mandatory_on_creation
+      ? !!item
+      : true;
+  }),
   phone: Yup.string()
     .nullable()
-    .notRequired()
-    .matches(phoneRegExp, i18n.t('member:forms.phone.error')),
-  gender: Yup.string().matches(/(F|M|X)/),
-  birthday: Yup.string().nullable().notRequired(),
+    .matches(phoneRegExp, i18n.t('member:forms.phone.error'))
+    .test('phone_required', 'Required', function (item) {
+      return this.parent.managerFormConfig.phone.mandatory_on_creation
+        ? !!item
+        : true;
+    }),
+  emergency_contact: Yup.string().test(
+    'emergency_contact_required',
+    'Required',
+    function (item) {
+      return this.parent.managerFormConfig.emergency_contact
+        .mandatory_on_creation
+        ? !!item
+        : true;
+    },
+  ),
+  address_line_1: Yup.string().test(
+    'address_line_1_required',
+    'Required',
+    function (item) {
+      return this.parent.managerFormConfig.address_line_1.mandatory_on_creation
+        ? !!item
+        : true;
+    },
+  ),
+  address_line_2: Yup.string().test(
+    'address_line_2_required',
+    'Required',
+    function (item) {
+      return this.parent.managerFormConfig.address_line_2.mandatory_on_creation
+        ? !!item
+        : true;
+    },
+  ),
+
+  city: Yup.string().test('city_required', 'Required', function (item) {
+    return this.parent.managerFormConfig.city.mandatory_on_creation
+      ? !!item
+      : true;
+  }),
+  country: Yup.string().test('country_required', 'Required', function (item) {
+    return this.parent.managerFormConfig.country.mandatory_on_creation
+      ? !!item
+      : true;
+  }),
+  zipcode: Yup.string().test('zipcode_required', 'Required', function (item) {
+    return this.parent.managerFormConfig.zipcode.mandatory_on_creation
+      ? !!item
+      : true;
+  }),
+  avatar: Yup.string().test('avatar_required', 'Required', function (item) {
+    return this.parent.managerFormConfig.photo.mandatory_on_creation
+      ? !!item
+      : true;
+  }),
+  accept_sms: Yup.boolean().test(
+    'accept_sms_required',
+    'Required',
+    function (item) {
+      return this.parent.managerFormConfig.accept_sms.mandatory_on_creation
+        ? item
+        : true;
+    },
+  ),
+  accept_email: Yup.boolean().test(
+    'accept_email_required',
+    'Required',
+    function (item) {
+      return this.parent.managerFormConfig.accept_email.mandatory_on_creation
+        ? item
+        : true;
+    },
+  ),
+  waiver: Yup.boolean().test('waiver_required', 'Required', function (item) {
+    return this.parent.managerFormConfig.waiver.mandatory_on_creation
+      ? item
+      : true;
+  }),
   barcode: Yup.string().nullable(),
   membership_ID: Yup.string().nullable(),
   date_joined: Yup.string().nullable(),
-  rgpd: Yup.object().shape({}).nullable(),
-  address: Yup.object().nullable().shape({
-    address_line_1: Yup.string(),
-    address_line_2: Yup.string(),
-    city: Yup.string(),
-    country: Yup.string(),
-    zipcode: Yup.string(),
-  }),
-  avatar: Yup.object().nullable(),
 });
-
 export default compose(
   withStyles(styles),
   withTranslation(['translation', 'member']),
@@ -495,22 +889,22 @@ export default compose(
     },
   })),
   withFormik({
-    mapPropsToValues: ({ initial }) =>
-      initial || {
+    mapPropsToValues: ({ initial, managerFormConfig }) =>
+      (initial && { ...initial, managerFormConfig }) || {
         avatar: '',
         firstname: '',
         lastname: '',
         email: '',
         phone: '',
+        emergency_contact: '',
         gender: 'F',
         birthday: undefined,
         membership_ID: '',
         barcode: '',
         date_joined: Moment().format(DATE_FORMAT),
-        rgpd: {
-          accept_sms: true,
-          accept_email: true,
-        },
+        accept_sms: true,
+        accept_email: true,
+        waiver: false,
         address: {
           address_line_1: '',
           address_line_2: '',
@@ -518,12 +912,14 @@ export default compose(
           country: '',
           zipcode: '',
         },
+        managerFormConfig,
       },
     enableReinitialize: true,
 
     validationSchema: MemberSchema,
     handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
-      let { avatar } = values;
+      const { managerFormConfig, ...cleanedValues } = values;
+      let { avatar } = cleanedValues;
       if (typeof avatar === 'string' && avatar.includes('data:image/')) {
         const byteString = atob(avatar.split(',')[1]);
         const mimeString = avatar.split(',')[0].split(':')[1].split(';')[0];
@@ -542,13 +938,13 @@ export default compose(
         );
       }
       const data = {
-        ...values,
+        ...cleanedValues,
         avatar: typeof avatar !== 'string' ? avatar : undefined,
-        email: values.email || '',
+        email: cleanedValues.email || '',
         birthday:
-          values &&
-          values.birthday &&
-          Moment(values.birthday).format('DD/MM/YYYY'),
+          cleanedValues &&
+          cleanedValues.birthday &&
+          Moment(cleanedValues.birthday).format('DD/MM/YYYY'),
       };
       onSubmit(data, {
         onSuccess: () => setSubmitting(false),

@@ -95,6 +95,25 @@ exports.default = {
   },
   merge: 'Fusionner',
   forms: {
+    title: 'Informations utilisateur',
+    needInformationValidation: {
+      welcome: 'Bonjour {{first_name}}',
+      subtitle: {
+        notMemberYet:
+          'Il semblerait que ce soit la première fois que vous vous connectez à ce studio',
+        memberOfCompany: 'Dites nous en plus sur vous.',
+      },
+      legend: {
+        notMemberYet:
+          'Souhaitez vous transmettre vos informations pour vous y inscrire ? ',
+        memberOfCompany:
+          'Pour continuer votre navigation veuillez compléter les informations requises ci-dessous',
+      },
+      button: {
+        notMemberYet: 'Transmettre les informations',
+        memberOfCompany: 'Compléter mes informations',
+      },
+    },
     merge: {
       success: 'Membres fusionnés',
       seeMemberPage: ' Voir la page du membre',

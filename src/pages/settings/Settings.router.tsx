@@ -28,7 +28,7 @@ import CompanyOnboardingSettingPage from './CompanyOnboardingSetting.page';
 import PlatformBillingSettingPage from './PlatformBillingSetting.page';
 import PaymentMethodSettings from './PaymentMethodSettings/PaymentMethodSettings.pages';
 import MarketplaceSettings from './MarketplaceSettingsPages/MarketplaceSettings.pages';
-
+import FormsConfiguration from './FormsConfiguration.pages';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -101,6 +101,7 @@ export const Settings = (props: Props) => {
           path="/settings/personalization"
           component={SettingsPersonalizePage}
         />
+        <Route exact path="/settings/forms" component={FormsConfiguration} />
         <Route
           exact
           path="/settings/webhook"

@@ -756,6 +756,11 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             text: t('backofficeMenu.settings.personalization'),
           },
           {
+            to: '/settings/forms',
+            dense: 'true',
+            text: t('backofficeMenu.settings.forms'),
+          },
+          {
             to: '/settings/broadcast',
             dense: 'true',
             text: t('backofficeMenu.settings.broadcast'),

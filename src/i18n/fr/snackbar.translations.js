@@ -593,4 +593,9 @@ exports.default = {
         'Impossible de mettre en pause pour le moment, veuillez réessayer plus tard',
     },
   },
+  signup: {
+    emailAlreadyExists: 'Cet email est déjà utilisé',
+    failedCreation:
+      "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
+  },
 };

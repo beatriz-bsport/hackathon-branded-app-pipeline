@@ -17,7 +17,6 @@ import { parseQueryString, buildUrlParams } from '../../http';
 
 import asyncComponent from '../../AsyncComponent';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
-
 import {
   getConsumerMembershipList,
   getMembership,
@@ -26,7 +25,9 @@ import {
   fetchMembershipListAsConsumer,
   linkMeToCompany,
   setActiveActions,
+  requestMembershipValidation,
 } from '../../libs/membership/actions';
+
 import { getOfferWithRelated } from '../../libs/offer/selectors';
 
 import { fetchBasketGeneratedObjects as fetchBasketGeneratedObjectsAction } from '../../libs/checkout/actions';
@@ -49,6 +50,7 @@ import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs
 import CongratulationDialog from '../../libs/consumer-space/components/CongratulationDialog.component';
 import { fetchSubscriptionListByMember } from '../../libs/subscription/actions';
 import { getSubscriptionByMemberPendingAction } from '../../libs/subscription/selectors';
+import MemberShipValidationWrapper from './MemberShipValidationWrapper.component';
 
 const ConsumerDashboard = asyncComponent(() =>
   import('./ConsumerDashboard.page'),
@@ -71,6 +73,7 @@ type Props = {
   linkMeToCompany: ({ company: number }) => void,
   theme: Theme,
   fetchCompanyTheme: (id: number) => void,
+
   goToMembershipPage: (path: string) => void,
   push: (path: string) => void,
   buildUrl: (string) => string,
@@ -98,6 +101,10 @@ type Props = {
 
   fetchCountObjects: () => void,
   infosOfMember: dict,
+
+  requestMembershipValidation: ({ company: number }) => void,
+  missingInformation: boolean,
+  isValidating: boolean,
 };
 
 export class ConsumerHome extends React.Component<Props> {
@@ -108,8 +115,10 @@ export class ConsumerHome extends React.Component<Props> {
     if (this.props.from_direct_booking) {
       this.props.fetchOfferBulk([parseInt(this.props.from_direct_booking, 10)]);
     }
-    this.props.linkMeToCompany({ company: this.props.companyId });
+    // this.props.linkMeToCompany({ company: this.props.companyId });
+
     this.props.fetchCompanyTheme(this.props.companyId);
+
     this.props.fetchMembershipListAsConsumer({ page_size: 2 });
     this.props.setActiveActions(this.props.companyId);
   }
@@ -136,81 +145,94 @@ export class ConsumerHome extends React.Component<Props> {
   );
 
   render() {
-    if (!this.props.membership) {
-      return <ConsumerLoading />;
-    }
-
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <ConsumerDrawer
-          disconnect={this.props.disconnect}
-          infosOfMember={this.props.infosOfMember}
-          buildUrl={this.props.buildUrl}
-          logo={this.props.theme ? this.props.theme.cover : null}
-          showCredit={
-            this.props.theme && this.props.theme.consumer_regularize_debt
-          }
-          membership={this.props.membership}
-          subscriptionPendingActionCount={
-            this.props.subscriptionPendingActionCount
-          }
-          hasMultipleMembership={
-            this.props.membershipList && this.props.membershipList.length > 1
-          }
-        >
-          <CongratulationDialog
-            basketGeneratedObjects={this.props.basketGeneratedObjects}
-            offerBooked={
-              this.props.offerBooked && this.props.offerBooked.length
-                ? this.props.offerBooked[0]
-                : null
-            }
-            onCancel={this.props.resetCongratulations}
-            goToCalendar={this.props.goToCalendar}
-            open={!!this.props.from_basket || !!this.props.from_direct_booking}
-          />
-          <Analytics username={this.props.username} theme={this.props.theme} />
-          <div className={this.props.classes.container}>
-            <Switch>
-              <Route
-                path="/c/:companyId/booking/"
-                render={this.attachConsumerProps(ConsumerBooking)}
-              />
-              <Route
-                path="/c/:companyId/vod/"
-                render={this.attachConsumerProps(ConsumerVOD)}
-              />
-              <Route
-                path="/c/:companyId/broadcast/:bookingId/"
-                render={this.attachConsumerProps(ConsumerBookingBroadcast)}
-              />
-              <Route
-                path="/c/:companyId/pack/"
-                render={this.attachConsumerProps(ConsumerPack)}
-              />
-              <Route
-                path="/c/:companyId/invoice/"
-                render={this.attachConsumerProps(ConsumerInvoice)}
-              />
-              <Route
-                path="/c/:companyId/subscription/"
-                render={this.attachConsumerProps(ConsumerSubscription)}
-              />
-              <Route
-                path="/c/:companyId/profile/"
-                render={this.attachConsumerProps(ConsumerProfile)}
-              />
-              <Route
-                path="/c/:companyId/home/"
-                render={this.attachConsumerProps(ConsumerDashboard)}
-              />
-              <Route
-                path="/c/:companyId/"
-                render={this.attachConsumerProps(ConsumerDashboard)}
-              />
-            </Switch>
-          </div>
-        </ConsumerDrawer>
+        <MemberShipValidationWrapper companyId={this.props.companyId}>
+          <>
+            {this.props.membership ? (
+              <ConsumerDrawer
+                disconnect={this.props.disconnect}
+                infosOfMember={this.props.infosOfMember}
+                buildUrl={this.props.buildUrl}
+                logo={this.props.theme ? this.props.theme.cover : null}
+                showCredit={
+                  this.props.theme && this.props.theme.consumer_regularize_debt
+                }
+                membership={this.props.membership}
+                subscriptionPendingActionCount={
+                  this.props.subscriptionPendingActionCount
+                }
+                hasMultipleMembership={
+                  this.props.membershipList &&
+                  this.props.membershipList.length > 1
+                }
+              >
+                <CongratulationDialog
+                  basketGeneratedObjects={this.props.basketGeneratedObjects}
+                  offerBooked={
+                    this.props.offerBooked && this.props.offerBooked.length
+                      ? this.props.offerBooked[0]
+                      : null
+                  }
+                  onCancel={this.props.resetCongratulations}
+                  goToCalendar={this.props.goToCalendar}
+                  open={
+                    !!this.props.from_basket || !!this.props.from_direct_booking
+                  }
+                />
+
+                <Analytics
+                  username={this.props.username}
+                  theme={this.props.theme}
+                />
+                <div className={this.props.classes.container}>
+                  <Switch>
+                    <Route
+                      path="/c/:companyId/booking/"
+                      render={this.attachConsumerProps(ConsumerBooking)}
+                    />
+                    <Route
+                      path="/c/:companyId/vod/"
+                      render={this.attachConsumerProps(ConsumerVOD)}
+                    />
+                    <Route
+                      path="/c/:companyId/broadcast/:bookingId/"
+                      render={this.attachConsumerProps(
+                        ConsumerBookingBroadcast,
+                      )}
+                    />
+                    <Route
+                      path="/c/:companyId/pack/"
+                      render={this.attachConsumerProps(ConsumerPack)}
+                    />
+                    <Route
+                      path="/c/:companyId/invoice/"
+                      render={this.attachConsumerProps(ConsumerInvoice)}
+                    />
+                    <Route
+                      path="/c/:companyId/subscription/"
+                      render={this.attachConsumerProps(ConsumerSubscription)}
+                    />
+                    <Route
+                      path="/c/:companyId/profile/"
+                      render={this.attachConsumerProps(ConsumerProfile)}
+                    />
+                    <Route
+                      path="/c/:companyId/home/"
+                      render={this.attachConsumerProps(ConsumerDashboard)}
+                    />
+                    <Route
+                      path="/c/:companyId/"
+                      render={this.attachConsumerProps(ConsumerDashboard)}
+                    />
+                  </Switch>
+                </div>
+              </ConsumerDrawer>
+            ) : (
+              <ConsumerLoading />
+            )}
+          </>
+        </MemberShipValidationWrapper>
       </MuiThemeProvider>
     );
   }
@@ -233,6 +255,9 @@ export default compose(
   connect(
     (state, { companyId, from_direct_booking }) => ({
       membership: getMembership(state, companyId),
+      isValidating: state.membership.memberShipValidation.loading,
+      missingInformation:
+        state.membership.memberShipValidation.missingInformation,
       theme: themeSelectors.getTheme(state),
       infosOfMember: state.member.count.data,
       membershipList: getConsumerMembershipList(state),
@@ -247,6 +272,7 @@ export default compose(
     }),
     {
       linkMeToCompany,
+      requestMembershipValidation,
       fetchMembershipListAsConsumer,
       fetchCompanyTheme,
       push: pushRouter,

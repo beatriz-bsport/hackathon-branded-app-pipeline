@@ -12,27 +12,37 @@ import { connect } from 'react-redux';
 import Fade from '@material-ui/core/Fade';
 import { parseQueryString } from '../../http';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
+import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
+import { getSignUpFormConfiguration } from '../../libs/sign-up-form/selectors';
 import { disconnect } from '../../actions/auth.actions';
 import themeSelectors from '../../libs/theme/selectors';
 import { getTheme } from '../../theme';
-
-import LoginPro from './LoginPro.component';
-import ValidateEmailWithTokenPage from './ValidateEmailWithToken.page';
-import LoginConsumer from './LoginConsumer.component';
 import asyncComponent from '../../AsyncComponent';
 
-import Signout from './Signout.component';
-import ResetPassword from './ResetPassword.component';
-import ChangePassword from './ChangePassword.component';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 
+const Signout = asyncComponent(() => import('./Signout.page'));
+
+const ValidateEmailWithTokenPage = asyncComponent(() =>
+  import('./ValidateEmailWithToken.page'),
+);
+
+const LoginPage = asyncComponent(() => import('./Login.page'));
+
+const ResetPassword = asyncComponent(() => import('./ResetPassword.page'));
+
+const ChangePassword = asyncComponent(() => import('./ChangePassword.page'));
+
+const DoubleLogin = asyncComponent(() => import('./DoubleLogin.page'));
+
 const CompanyOnboardingRouter = asyncComponent(() =>
-  import('./CompanyOnboarding.router'),
+  import('./company-onboarding/CompanyOnboarding.router'),
 );
 
 type Props = {
   membership: ?string,
   fetchCompanyTheme: (string) => void,
+  fetchSignFormUpConfiguration: ({ membership: ?string }) => void,
   classes: Object,
   theme: CompanyTheme,
   loginProcessing: boolean,
@@ -44,6 +54,9 @@ export class LoginRouter extends React.Component<Props> {
     if (this.props.membership) {
       this.props.fetchCompanyTheme(this.props.membership);
     }
+    this.props.fetchSignFormUpConfiguration({
+      membership: this.props.membership,
+    });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -103,8 +116,7 @@ export class LoginRouter extends React.Component<Props> {
               <Switch>
                 <Route path="/login/signout" component={Signout} />
                 <Route path="/login/reset_password" component={ResetPassword} />
-                <Route path="/login/pro" component={LoginPro} />
-                <Route path="/login/customer" component={LoginConsumer} />
+                <Route path="/login/customer" component={LoginPage} />
                 <Route
                   path="/login/company_onboarding/:activeStep/"
                   component={CompanyOnboardingRouter}
@@ -125,7 +137,8 @@ export class LoginRouter extends React.Component<Props> {
                   path="/login/change_password/:uid/:token"
                   component={ChangePassword}
                 />
-                <Route path="/login" component={LoginConsumer} />
+                <Route path="/login/double-login" component={DoubleLogin} />
+                <Route path="/login" component={LoginPage} />
               </Switch>
             </Paper>
           </Grid>
@@ -169,10 +182,12 @@ export default compose(
   connect(
     (state, { membership }) => ({
       theme: !!membership && themeSelectors.getTheme(state),
+      signUpConfig: getSignUpFormConfiguration(state),
       loginProcessing: state.auth.loading,
     }),
     {
       fetchCompanyTheme,
+      fetchSignFormUpConfiguration,
       disconnect,
     },
   ),

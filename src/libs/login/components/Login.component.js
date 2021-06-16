@@ -13,10 +13,10 @@ import HelpIcon from '@material-ui/icons/Help';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
-import RedButton from '../../button/RedButton.component';
-import PasswordInput from '../../input/PasswordInput.component';
+import RedButton from '../../../components/button/RedButton.component';
+import PasswordInput from '../../../components/input/PasswordInput.component';
 
-import { FormField } from '../../input';
+import FormField from '../../../components/input/FormField.component';
 import { openIntercomHelp } from '../../../intercom';
 
 const styles = (theme) => ({

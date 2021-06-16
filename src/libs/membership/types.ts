@@ -24,4 +24,11 @@ export type MembershipState = {
       allIds: Array<number>;
     };
   link: ErrorAndLoading;
+  memberShipValidation: ErrorAndLoading & {
+    missingInformation: {
+      validated: boolean;
+      fields: Array<string>;
+      status: number;
+    };
+  };
 };

@@ -107,8 +107,10 @@
       "create": "Créer",
       "or": "ou",
       "cancel": "Annuler",
+      "disconnect": "Se déconnecter",
       "confirm": "Confirmer",
       "name": "Nom",
+      "emergencyContact": "En cas d'urgence",
       "recipient": "Destinataire",
       "recipients": "Destinataires",
       "status": "Status",
@@ -195,6 +197,7 @@
       "noProvisionUpdates": "Aucun stock"
     },
     "form": {
+      "modify": "Modifier",
       "waiting_list_max_size": "Taille de la liste d'attente",
       "explainNoEmailChange": "Changer l'email empêchera le professeur de se connecter, lui seul peut modifier son email en se connectant à son compte bsport",
       "signUpTitle": "Inscription",
@@ -260,13 +263,19 @@
         "rgpd": { "email": "Accepte les notification par email", "sms": "Accepte les notifications SMS" },
         "createOrUpdate": { "error": "Erreur lors de l'enregistrement de la note", "success": "Note enregistrée" },
         "delete": { "error": "Erreur lors de la suppression de la note", "success": "Note supprimée" },
+        "waiver": "Accepte les termes de la décharge de responsabilité",
         "phone": "Téléphone",
         "rgpdTitle": "Moyen de communication accepté par le membre (promotions, marketing, smartlist etc...)",
         "birthdayYear": "Année de naissance",
         "barcode": "Code-barre (carte)",
         "barcodeHelper": "(optionnel) utilisez ce code pour vos carte d'accès",
         "referenceNumber": "Numéro d'adhérent",
-        "referenceNumberHelper": "(optionnel) si vide un numéro sera automatiquement créé"
+        "referenceNumberHelper": "(optionnel) si vide un numéro sera automatiquement créé",
+        "errors": {
+          "accept_sms": "Vous devez accepter les notifications par SMS",
+          "accept_email": "Vous devez accepter les notifications par Email",
+          "waiver": "vous devez accepter la décharge de responsabilité"
+        }
       },
       "metaActivity": { "cantAddSameName": "Une activité du même nom existe déjà !" },
       "signup": {
@@ -277,9 +286,34 @@
         "confirmPassword": "Mot de passe",
         "rgpdTitle": "Comment préférez-vous que les professeurs vous contactent pour les annulations/changement d'heure ?",
         "communication": { "email": "par email", "sms": "par SMS" },
+        "addProfilePicture": "Ajouter une photo de profil",
         "signupButton": "S'inscrire",
         "iAcceptPrivacyPolicy": "J'accepte les ",
-        "privacyPolicy": "Conditions générales d'utilisation"
+        "privacyPolicy": "Conditions générales d'utilisation",
+        "fields": {
+          "first_name": "Prénom",
+          "last_name": "Nom de Famille",
+          "email": "Adresse email",
+          "password": "Mot de passe",
+          "passwordConfirm": "Confirmation du mot de passe",
+          "gender": "sexe",
+          "address_line_1": "Addresse",
+          "address_line_2": "Complément d'adresse",
+          "zipcode": "Code Postal",
+          "country": "Pays",
+          "phone": "N° de téléphone ",
+          "birthday": "Date de naissance",
+          "city": "Ville",
+          "emergency_contact": "Contact d'urgence",
+          "general_terms_and_conditions_accepted": "J'accepte les conditions générales d'utilisation",
+          "waiver": "J'accepte les décharges de responsabilité",
+          "accept_email": "J’accepte d'être notifié par email pour des informations liés à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )",
+          "accept_sms": "J’accepte d'être notifié par SMS pour des informations liés à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )"
+        },
+        "error": {
+          "password": "Le mot de passe doit contenir au moins 6 caractères",
+          "passwordConfirm": "Les mots de passe ne correspondent pas"
+        }
       },
       "quickInvoice": { "totalPurchase": "Achats", "totalPayment": "Paiements", "paymentDue": "Paiement dû" },
       "invoice": {
@@ -375,9 +409,11 @@
       "birthday": "Date de naissance",
       "clearDate": "Effacer",
       "phone": "Numéro de téléphone",
+      "emergencyContact": "Contact d'urgence",
       "email": "Adresse email",
       "description": "Description",
       "send": "Enregistrer",
+      "completeInformation": "Compléter mes informations",
       "discard": "Annuler",
       "name": "Nom",
       "SCT": "Catégorie",
@@ -2399,6 +2435,43 @@
         "title": "Intégration ZOOM",
         "text": "Si vous avez déjà renseigné des liens de visioconférences manuellement sur vos séances, ils seront supprimés pour être remplacés par des liens zoom générés automatiquement. Les meetings déjà créés sur le calendrier ZOOM devront être supprimés à la main, ils seront remplacés par des meetings créés automatiquement."
       }
+    },
+    "signUpForm": {
+      "fields": {
+        "first_name": "Prénom",
+        "last_name": "Nom",
+        "email": "Email",
+        "gender": "Genre",
+        "main_phone": "Téléphone Principal",
+        "phone": "Téléphone Principal",
+        "birthdate": "Date de naissance",
+        "address": "Adresse",
+        "additionnal_address_info": "Complément d'adresse",
+        "city": "Ville",
+        "country": "Pays",
+        "zip_code": "Code Postal",
+        "zipcode": "Code Postal",
+        "profile_picture": "Photo de Profil",
+        "emergency_contact": "Contact d'urgence",
+        "email_notification": "Accepte les notifications par email",
+        "sms_notification": "Accepte les notifications par SMS",
+        "accept_email": "Accepte les notifications par email",
+        "accept_sms": "Accepte les notifications par SMS",
+        "cgu": "Conditions Générales d'Utilisation",
+        "general_terms_and_conditions_accepted": "Conditions Générales d'Utilisation",
+        "waiver": "Décharge de responsabilité"
+      },
+      "title": "Formulaire d'inscription",
+      "account_creation": "Création d'un compte",
+      "account_modification": "Edition d'un compte",
+      "field_identifier": "Champs",
+      "label": "Label",
+      "show": "Afficher",
+      "required": "Obligatoire",
+      "editable": "Modifiable",
+      "save": "Sauvegarder",
+      "success": "Configuration sauvegardée",
+      "error": "Un problème est survenue"
     }
   },
   "common": {
@@ -3790,7 +3863,11 @@
     "dashboard": {
       "save": { "success": "Les modifications ont été enregistrées", "error": "Impossible d'enregistrer les modifications" }
     },
-    "contractPause": { "create": { "error": "Impossible de mettre en pause pour le moment, veuillez réessayer plus tard" } }
+    "contractPause": { "create": { "error": "Impossible de mettre en pause pour le moment, veuillez réessayer plus tard" } },
+    "signup": {
+      "emailAlreadyExists": "Cet email est déjà utilisé",
+      "failedCreation": "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes"
+    }
   },
   "coach": {
     "noCoachs": "Aucun professeur enregistré, gérez ici vos profs, intervenants, ainsi que leur rémunération.",
@@ -5039,6 +5116,19 @@
     "paymentAction": { "toBill": "Facturer", "toSubscribe": "Souscrire" },
     "merge": "Fusionner",
     "forms": {
+      "title": "Informations utilisateur",
+      "needInformationValidation": {
+        "welcome": "Bonjour {{first_name}}",
+        "subtitle": {
+          "notMemberYet": "Il semblerait que ce soit la première fois que vous vous connectez à ce studio",
+          "memberOfCompany": "Dites nous en plus sur vous."
+        },
+        "legend": {
+          "notMemberYet": "Souhaitez vous transmettre vos informations pour vous y inscrire ? ",
+          "memberOfCompany": "Pour continuer votre navigation veuillez compléter les informations requises ci-dessous"
+        },
+        "button": { "notMemberYet": "Transmettre les informations", "memberOfCompany": "Compléter mes informations" }
+      },
       "merge": {
         "success": "Membres fusionnés",
         "seeMemberPage": " Voir la page du membre",
@@ -5979,7 +6069,8 @@
         "partnership": "Partenariat",
         "active_campaign": "ActiveCampaign",
         "settings": "Paramètres",
-        "platform_billing": "Abonnement bsport"
+        "platform_billing": "Abonnement bsport",
+        "forms": "Formulaires"
       },
       "marketingNotification": "Notifications",
       "myClub": "Mon Club",

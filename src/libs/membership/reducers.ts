@@ -6,9 +6,11 @@ import {
   retrieveActions,
   setActiveActions,
   linkActions,
+  requestMemberShipValidationActions,
 } from './actions';
 
 import { Membership, MembershipState } from './types';
+import { USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY } from '../member/utils';
 
 const initialState: Immutable.Immutable<MembershipState> = Immutable<MembershipState>(
   {
@@ -29,6 +31,15 @@ const initialState: Immutable.Immutable<MembershipState> = Immutable<MembershipS
     link: {
       loading: false,
       error: null,
+    },
+    memberShipValidation: {
+      loading: false,
+      error: null,
+      missingInformation: {
+        validated: true,
+        fields: [],
+        status: USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY,
+      },
     },
   },
 );
@@ -79,6 +90,27 @@ export default handleActions<Immutable.Immutable<MembershipState>>(
     },
     [linkActions.success.toString()]: (state, { payload }: any) => {
       return state.setIn(['byId', payload.company], payload);
+    },
+    [requestMemberShipValidationActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['memberShipValidation', 'loading'], payload);
+    },
+    [requestMemberShipValidationActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['memberShipValidation', 'error'], payload);
+    },
+    [requestMemberShipValidationActions.success.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state.setIn(
+        ['memberShipValidation', 'missingInformation'],
+        payload,
+      );
     },
   },
   initialState,

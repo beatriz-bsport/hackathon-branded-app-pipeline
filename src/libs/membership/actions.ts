@@ -5,6 +5,7 @@ import {
   fetchMembershipList as fetchMembershipListAPI,
   fetchMembership as fetchMembershipAPI,
   linkMeToCompany as linkMeToCompanyAPI,
+  requestMembershipValidation as requestMembershipValidationAPI,
 } from './api';
 import type { Dispatch, OptionCallback, State } from '../../state/types';
 
@@ -115,5 +116,37 @@ export function linkMeToCompany(
       }
     }
     dispatch(linkActions.isLoading(false));
+  };
+}
+
+export const requestMemberShipValidationActions = {
+  success: createAction('MEMBERSHIP/VALIDATION/SUCCESS'),
+  isLoading: createAction('MEMBERSHIP/VALIDATION/IS_LOADING'),
+  error: createAction('MEMBERSHIP/VALIDATION/ERROR'),
+};
+
+export function requestMembershipValidation(
+  data: { company?: number },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(requestMemberShipValidationActions.isLoading(true));
+    try {
+      const response = await requestMembershipValidationAPI(data);
+      dispatch(requestMemberShipValidationActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      Sentry.captureException(err);
+      dispatch(requestMemberShipValidationActions.error(err));
+
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(requestMemberShipValidationActions.isLoading(false));
   };
 }

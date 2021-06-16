@@ -16,13 +16,27 @@ import type { TFunction } from 'react-i18next';
 import themeSelectors from '../../libs/theme/selectors';
 import { parseQueryString } from '../../http';
 import { openIntercomHelp } from '../../intercom';
+import {
+  signupV2 as signup,
+  checkEmailExists,
+  requestLogin,
+} from '../../actions/auth.actions';
 
-import { auth as authActions } from '../../actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
+import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
+import {
+  getSignUpFormConfiguration,
+  getSignUpFormConfigurationDict,
+} from '../../libs/sign-up-form/selectors';
 
 import Analytics from '../../components/analytics/Analytics.component';
-import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
-import SignUpForm from '../../components/form/SignUpForm.component';
+import Login from '../../libs/login/components/Login.component';
+import CustomSignUpForm from '../../libs/sign-up-form/components/CustomSignUpForm.component';
+
+import type {
+  SignUpFormConfig,
+  signUpConfigDict,
+} from '../../libs/sign-up-form/types';
 
 type Props = {
   authenticated: boolean,
@@ -33,7 +47,7 @@ type Props = {
     email: string,
     password: string,
   }) => void,
-  signup: (data: [*]) => void,
+  signup: (data: [*], formData: formData) => void,
   location: Object,
   t: TFunction,
   classes: Object,
@@ -44,7 +58,11 @@ type Props = {
   is_premium: boolean,
 
   fetchCompanyTheme: (companyId: number) => void,
+  fetchSignFormUpConfiguration: ({ membership: ?string }) => void,
   theme: Theme,
+  signUpConfig: SignUpFormConfig,
+  signUpConfigDict: signUpConfigDict,
+  signUpConfigLoading: boolean,
 };
 
 const STEPS = {
@@ -62,6 +80,9 @@ export class ConsumerLoginPage extends Component<Props> {
     if (this.props.membership) {
       this.props.fetchCompanyTheme(this.props.membership);
     }
+    this.props.fetchSignFormUpConfiguration({
+      membership: this.props.membership,
+    });
   }
 
   switchToSignUp = () => {
@@ -76,12 +97,11 @@ export class ConsumerLoginPage extends Component<Props> {
     });
   };
 
-  signup = (data: *) => {
+  signup = (formdata: *, options: OptionCallback) => {
     if (this.props.membership) {
-      this.props.signup({ ...data, membership: this.props.membership });
-    } else {
-      this.props.signup(data);
+      formdata.append('membership', this.props.membership);
     }
+    this.props.signup(formdata, options);
   };
 
   render() {
@@ -109,7 +129,7 @@ export class ConsumerLoginPage extends Component<Props> {
     if (step === STEPS.WELCOME) {
       return (
         <div className={classes.container}>
-          <ConsumerLogin
+          <Login
             doEmailLogin={doEmailLogin}
             error={errorLogin}
             errorFields={errorFields}
@@ -129,7 +149,6 @@ export class ConsumerLoginPage extends Component<Props> {
         </div>
       );
     }
-
     return (
       <div className={classes.container}>
         <div>
@@ -146,16 +165,22 @@ export class ConsumerLoginPage extends Component<Props> {
               <HelpIcon />
             </IconButton>
           </div>
-          <SignUpForm
-            loading={loginProcessing}
-            onComplete={this.signup}
-            onCancel={this.cancelSignUp}
-            theme={this.props.theme}
-            emailExists={this.props.emailExists}
-            checkEmailExistsLoading={this.props.checkEmailExistsLoading}
-            checkEmailExists={this.props.checkEmailExists}
-            backToLogin={() => this.setState({ step: STEPS.WELCOME })}
-          />
+          {!this.props.signUpConfigLoading &&
+            this.props.signUpConfig &&
+            this.props.signUpConfig.poll_fields && (
+              <CustomSignUpForm
+                loading={loginProcessing}
+                onComplete={this.signup}
+                onCancel={this.cancelSignUp}
+                theme={this.props.theme}
+                emailExists={this.props.emailExists}
+                checkEmailExistsLoading={this.props.checkEmailExistsLoading}
+                checkEmailExists={this.props.checkEmailExists}
+                signUpConfig={this.props.signUpConfig}
+                signUpConfigDict={this.props.signUpConfigDict}
+                waiver={this.props.theme.waiver}
+              />
+            )}
         </div>
         {!!this.props.theme && this.props.membership && (
           <Analytics username="" theme={this.props.theme} />
@@ -173,14 +198,24 @@ function mapDispatchToProps(dispatch, props) {
   };
   return {
     fetchCompanyTheme,
+    fetchSignFormUpConfiguration,
     doEmailLogin({ email, password }) {
-      dispatch(authActions.requestLogin(email, password, opts));
+      dispatch(requestLogin(email, password, opts));
     },
-    signup(data) {
-      dispatch(authActions.signup(data, opts));
-    },
-    checkEmailExists(email) {
-      dispatch(authActions.checkEmailExists(email));
+    signup(formdata, options) {
+      dispatch(
+        checkEmailExists(formdata.get('email'), {
+          onError: options && options.onError,
+          onSuccess: () =>
+            dispatch(
+              signup(formdata, {
+                membership: props.membership,
+                next: props.next,
+                onError: options && options.onError,
+              }),
+            ),
+        }),
+      );
     },
   };
 }
@@ -205,6 +240,7 @@ export default compose(
   withRouter,
   withProps((props) => ({
     membership: parseQueryString(props.location.search).membership,
+    next: parseQueryString(props.location.search).next,
   })),
   connect(
     (state, { membership }) => ({
@@ -216,6 +252,9 @@ export default compose(
       checkEmailExistsLoading: state.auth.emailExists.loading,
       emailExists: state.auth.emailExists.exists,
       is_premium: state.theme.theme.is_premium,
+      signUpConfig: getSignUpFormConfiguration(state),
+      signUpConfigDict: getSignUpFormConfigurationDict(state),
+      signUpConfigLoading: state.poll.signUpForm.loading,
     }),
     mapDispatchToProps,
   ),

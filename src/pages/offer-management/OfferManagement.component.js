@@ -615,7 +615,7 @@ export class OfferManagement extends Component<Props, State> {
             <MemberForm
               onCancel={this.props.closeAddMemberModal}
               onSubmit={this.createMember}
-              initial={{ birthday: null, rgpd: ['accept_email', 'accept_sms'] }}
+              initial={{ birthday: null }}
               goToMember={this.props.goToMember}
               goToMemberList={() => {}}
               snackbarSuccess={this.props.snackbarSuccess}

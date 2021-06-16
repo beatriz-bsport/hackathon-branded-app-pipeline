@@ -6,6 +6,17 @@ export type User = {
   photo: string;
 };
 
+export type UserProfile = {
+  first_name: string;
+  last_name: string;
+  photo: string;
+  email: string;
+  phonenumber: string;
+  birthday: string;
+  emergency_contact: string;
+  gender: string;
+};
+
 export type MemberNote = {
   id: number;
   text: string;
@@ -61,6 +72,7 @@ export type Member = {
   files: string;
   general_terms_and_conditions_date_accepted: string | null;
   general_terms_and_conditions_accepted: boolean | null;
+  waiver_accepted: string;
 };
 
 export type MemberState = ErrorAndLoading & {

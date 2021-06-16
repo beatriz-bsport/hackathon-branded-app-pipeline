@@ -29,4 +29,26 @@ export function unmap(ob, map) {
   return newOb;
 }
 
-export default { mapFormData, unmap };
+export function mapFormDataWithObject(base, map, keyExecptionsList) {
+  const formData = new FormData();
+  for (const [key, value] of Object.entries(base)) {
+    if (!(typeof map[key] === 'boolean') && !map[key]) {
+      throw new Error(`Mapping for key ${key} does not exist.`);
+    }
+    if (value !== undefined) {
+      if (Array.isArray(value)) {
+        formData.append(map[key], JSON.stringify(value));
+      } else if (
+        typeof value === 'object' &&
+        !keyExecptionsList.includes(key)
+      ) {
+        formData.append(map[key], JSON.stringify(value));
+      } else {
+        formData.append(map[key], value);
+      }
+    }
+  }
+  return formData;
+}
+
+export default { mapFormData, mapFormDataWithObject, unmap };

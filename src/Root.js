@@ -21,12 +21,7 @@ import WidgetUtils from './libs/widget/WidgetUtils';
 const MarketPlace = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
 );
-const LoginRouter = asyncComponent(() =>
-  import('./pages/login/LoginRouter.component'),
-);
-const DoubleLogin = asyncComponent(() =>
-  import('./pages/login/DoubleLogin.component'),
-);
+const LoginRouter = asyncComponent(() => import('./pages/login/Login.router'));
 const UserspaceSwitcher = asyncComponent(() =>
   import('./pages/UserspaceSwitcher.component'),
 );
@@ -141,7 +136,6 @@ export class Root extends Component<Props> {
           />
           <Route path="/sentry" component={SentryTestError} />
           <Route path="/login" component={LoginRouter} />
-          <Route path="/double-login" component={DoubleLogin} />
           <Route
             path="/c/:companyId/unsubscribe/:unsubscribe_uuid"
             component={ConsumerUnsubscribe}

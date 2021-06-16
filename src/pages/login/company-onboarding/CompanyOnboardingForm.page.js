@@ -3,16 +3,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { compose, withProps, withHandlers } from 'recompose';
-import { createCompany as createCompanyAction } from '../../libs/company/actions';
-import { parseQueryString } from '../../http';
+import { createCompany as createCompanyAction } from '../../../libs/company/actions';
+import { parseQueryString } from '../../../http';
 import {
   checkEmailExists,
   requestLogin as requestLoginAction,
-} from '../../actions/auth.actions';
+} from '../../../actions/auth.actions';
 
-import CompanyOnboardingForm from '../../libs/login/components/CompanySignupForm.component';
+import CompanyOnboardingForm from '../../../libs/login/components/CompanySignupForm.component';
 
-import type { OptionCallback } from '../../state/types';
+import type { OptionCallback } from '../../../state/types';
 
 type Props = {
   checkEmailExists: (email: string) => void,

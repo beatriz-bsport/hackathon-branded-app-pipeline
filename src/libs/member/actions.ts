@@ -4,6 +4,7 @@ import { createAction } from 'redux-actions';
 import * as Sentry from '@sentry/react';
 import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
 import {
+  fetchMyUserProfileAPI,
   updateMember,
   addMember,
   updateNote,
@@ -393,6 +394,26 @@ export function createOrUpdateMember(
   };
 }
 
+export const fetchMyUserProfileActions = {
+  isLoading: createAction('USER_PROFILE/ME/LOADING'),
+  error: createAction('USER_PROFILE/ME/ERROR'),
+  success: createAction('USER_PROFILE/ME/SUCCESS'),
+};
+export function fetchMyUserProfile(options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchMyUserProfileActions.isLoading(true));
+    try {
+      const response = await fetchMyUserProfileAPI();
+      dispatch(fetchMyUserProfileActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchMyUserProfileActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(fetchMyUserProfileActions.isLoading(false));
+  };
+}
 export function actionCreateOrUpdateMember(memberData: any) {
   return { type: actionTypes.MEMBER_CREATE_OR_UPDATE, member: memberData };
 }

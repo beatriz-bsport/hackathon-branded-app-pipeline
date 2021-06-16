@@ -5,13 +5,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 import { push } from 'connected-react-router';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { checkEmailValidation as checkEmailValidationAPI } from '../../libs/login/api';
-import { requestValidationEmail as requestValidationEmailAction } from '../../libs/login/actions';
-import EmailValidation from '../../libs/login/components/EmailValidation.component';
-import { disconnect as disconnectAction } from '../../actions/auth.actions';
+import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import { checkEmailValidation as checkEmailValidationAPI } from '../../../libs/login/api';
+import { requestValidationEmail as requestValidationEmailAction } from '../../../libs/login/actions';
+import EmailValidation from '../../../libs/login/components/EmailValidation.component';
+import { disconnect as disconnectAction } from '../../../actions/auth.actions';
 
-import type { OptionCallback } from '../../state/types';
+import type { OptionCallback } from '../../../state/types';
 
 type Props = {
   requestValidationEmail: (options: OptionCallback) => void,

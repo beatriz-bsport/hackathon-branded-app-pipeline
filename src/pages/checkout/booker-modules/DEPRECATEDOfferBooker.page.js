@@ -9,7 +9,6 @@ import {
 } from 'connected-react-router';
 import { Redirect } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
 import withStyles from '@material-ui/core/styles/withStyles';

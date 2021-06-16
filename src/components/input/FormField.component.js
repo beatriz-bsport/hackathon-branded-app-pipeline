@@ -138,8 +138,6 @@ export class FormField extends Component<Props, State> {
     this.props.onChange(id)(formattedInput, error);
   };
 
-  uploadHandler = () => {};
-
   getItem = (elt) => {
     const { id, disabled } = this.props;
     switch (id) {
@@ -191,7 +189,11 @@ export class FormField extends Component<Props, State> {
     const InputProps =
       id === 'default_price' || id === 'price'
         ? {
-            endAdornment: <InputAdornment position="end">{getCurrencyDisplay()}</InputAdornment>,
+            endAdornment: (
+              <InputAdornment position="end">
+                {getCurrencyDisplay()}
+              </InputAdornment>
+            ),
           }
         : {};
 

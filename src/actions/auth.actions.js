@@ -8,6 +8,8 @@ import api from '../api';
 import types from './auth.types';
 import type { Dispatch, ThunkAction } from '../state/types';
 import WidgetUtils from '../libs/widget/WidgetUtils';
+import { snackbarError } from './snackbar.actions';
+import { USER_EMAIL_EXISTS } from '../api/constants';
 
 export const initiateInterface = createAction('initiate');
 
@@ -130,15 +132,17 @@ export function checkEmailExistsSuccess(exists: boolean) {
   return { type: types.CHECK_EMAIL_EXISTS_SUCCESS, exists };
 }
 
-export function checkEmailExists(email: string) {
+export function checkEmailExists(email: string, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(checkEmailExistsLoading(true));
     try {
       const response = await api.auth.checkEmailExists(email);
       dispatch(checkEmailExistsSuccess(response.data.exists));
+      if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       dispatch(checkEmailExistsError(error));
       dispatch(checkEmailExistsSuccess(false));
+      if (options && options.onError) options.onError();
     }
     dispatch(checkEmailExistsLoading(false));
   };
@@ -245,16 +249,49 @@ export function signup(
         response &&
         response.status === 200 &&
         response.data &&
-        response.data.message
+        response.data.error_code === USER_EMAIL_EXISTS
       ) {
-        alert(response.data.message);
+        dispatch(snackbarError('signup.emailAlreadyExists'));
       }
     } catch (err) {
-      /* eslint-disable */
-      alert(
-        "Impossible de créer votre compte pour le moment, veuillez réessayer d'ici quelques minutes",
-      );
-      /* eslint-enable */
+      dispatch(snackbarError('signup.failedCreation'));
+    }
+    return dispatch(errorLogin());
+  };
+}
+
+export function signupV2(
+  formaData: any,
+  options: ?{ next: ?ThunkAction, onDone: ?() => void, onError?: () => void },
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await api.auth.signup(formaData);
+      if (response && response.status === 201) {
+        return dispatch(
+          requestLogin(
+            formaData.get('email'),
+            formaData.get('password'),
+            options,
+          ),
+        );
+      }
+      if (
+        response &&
+        response.status === 200 &&
+        response.data &&
+        response.data.error_code === USER_EMAIL_EXISTS
+      ) {
+        dispatch(snackbarError('signup.emailAlreadyExists'));
+        if (options && options.onError) {
+          options.onError();
+        }
+      }
+    } catch (err) {
+      dispatch(snackbarError('signup.failedCreation'));
+      if (options && options.onError) {
+        options.onError();
+      }
     }
     return dispatch(errorLogin());
   };

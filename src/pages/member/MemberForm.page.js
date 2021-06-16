@@ -22,6 +22,9 @@ import themeSelectors from '../../libs/theme/selectors';
 
 import { mapFormData, unmap } from '../form.utils';
 import withTitle from '../../hocs/with-title.hoc';
+import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
+import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
+import type { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
 
 type Props = {
   id: number,
@@ -35,10 +38,13 @@ type Props = {
   onSubmit: (*) => void,
   onCancel: () => void,
   country: string,
+  managerFormConfig: SignUpFormConfigDict,
+  fetchSignFormUpConfiguration: () => void,
 };
 
 export class MemberFormPage extends Component<Props> {
   async componentDidMount() {
+    this.props.fetchSignFormUpConfiguration();
     if (this.props.id) {
       this.props.fetchMemberInitial(this.props.id);
     }
@@ -52,8 +58,8 @@ export class MemberFormPage extends Component<Props> {
     const initialData = initial
       ? {
           ...unmap(initial, MemberMap),
-          rgpd: [],
           date_joined: moment(initial.date_joined),
+          waiver: !!initial.waiver_accepted,
         }
       : {
           birthday: null,
@@ -64,15 +70,7 @@ export class MemberFormPage extends Component<Props> {
       if (initial.phone_number) {
         initialData.phone = initial.phone_number;
       }
-      if (initial.accept_email) {
-        initialData.rgpd.push('accept_email');
-      }
-      if (initial.accept_sms) {
-        initialData.rgpd.push('accept_sms');
-      }
       delete initialData.address;
-    } else {
-      initialData.rgpd = ['accept_email', 'accept_sms'];
     }
     return (
       <Paper>
@@ -87,6 +85,7 @@ export class MemberFormPage extends Component<Props> {
           goToMemberList={this.props.goToMemberList}
           snackbarSuccess={this.props.snackbarSuccess}
           country={this.props.country}
+          managerFormConfig={this.props.managerFormConfig.poll_fields}
         />
       </Paper>
     );
@@ -103,9 +102,11 @@ export default compose(
       initial: id !== null ? getMember(state, id) : null,
       theme: themeSelectors.getTheme(state),
       country: state.theme.theme.locale.split('_')[1],
+      managerFormConfig: getSignUpFormConfigurationDict(state),
     }),
     {
       fetchMemberInitial: fetchMember,
+      fetchSignFormUpConfiguration,
       upsertMember: createOrUpdateMember,
       onCancel: goBack,
       goToMember: (pk) => pushRouter(`/member/${pk}/`),

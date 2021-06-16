@@ -12,8 +12,6 @@ export type Theme = {
   currency_display: string;
   is_whereby_integration_allowed: boolean;
   is_whereby_integration_enabled: boolean;
-  first_name_label: string;
-  last_name_label: string;
   default_booking_ordering: string;
   general_terms_and_conditions: string;
   general_terms_of_use: string;

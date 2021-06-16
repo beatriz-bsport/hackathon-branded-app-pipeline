@@ -70,6 +70,10 @@ export async function updateMember(data: any) {
   return putAuth(`${API_V1_URI}/member/${data.get('id')}/`, data);
 }
 
+export async function fetchMyUserProfileAPI() {
+  return getAuth(`${API_V1_URI}/member/me/`);
+}
+
 export async function merge(src: number, dst: number) {
   return postAuth(`${API_V1_URI}/member/merge/`, { src, dst });
 }

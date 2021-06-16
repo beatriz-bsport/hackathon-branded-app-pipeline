@@ -10,6 +10,7 @@ export const MemberMap = {
   city: 'address.city',
   country: 'address.country',
   phone: 'phone.phone_number',
+  emergency_contact: 'emergency_contact',
   gender: 'gender',
   avatar: 'photo',
   barcode: 'barcode',
@@ -18,6 +19,9 @@ export const MemberMap = {
   rgpd: 'rgpd',
   date_joined: 'date_joined',
   address: 'address',
+  accept_email: 'accept_email',
+  accept_sms: 'accept_sms',
+  waiver: 'waiver',
 };
 
 export const anonymizeEmail = (email: ?string) => {
@@ -29,3 +33,7 @@ export const anonymizeEmail = (email: ?string) => {
     base.slice(0, 2) + '*'.repeat(Math.max(base.length - 2, 0));
   return `${anonymizedBase}@${domain}`;
 };
+
+export const USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY = 2;
+export const USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY = 1;
+export const USER_STATUS_VALIDATION_COMPLETED = 0;

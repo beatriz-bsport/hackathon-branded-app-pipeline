@@ -10,6 +10,7 @@ import { unmap } from '../../../pages/form.utils';
 import { MemberMap } from '../utils';
 import type { Member } from '../types';
 import MemberForm from '../MemberForm.component';
+import type { SignUpFormConfigDict } from '../../sign-up-form/types';
 
 type Props = {
   dstMember: ?Member,
@@ -20,23 +21,19 @@ type Props = {
 
   onSubmit: (data: *, options: any) => void,
   switchSrcDst: (src: number, dst: number) => void,
+
+  managerFormConfig: ?SignUpFormConfigDict,
 };
 
 const prepareData = (initial) => {
   const initialData = {
     ...unmap(initial, MemberMap),
-    rgpd: [],
     date_joined: moment(initial.date_joined),
+    waiver: !!initial.waiver_accepted,
   };
 
   if (initial.phone_number) {
     initialData.phone = initial.phone_number;
-  }
-  if (initial.accept_email) {
-    initialData.rgpd.push('accept_email');
-  }
-  if (initial.accept_sms) {
-    initialData.rgpd.push('accept_sms');
   }
   delete initialData.address;
   return initialData;
@@ -58,6 +55,7 @@ export class MemberMergeForm extends Component<Props> {
             ignoreMail="true"
             onSubmit={(data, options) => this.props.onSubmit(data, options)}
             country={this.props.country}
+            managerFormConfig={this.props.managerFormConfig}
           />
           <div className={classes.buttonContainer}>
             <Button size="large" onClick={() => this.props.switchSrcDst()}>
@@ -69,6 +67,7 @@ export class MemberMergeForm extends Component<Props> {
             variant="merge-form"
             disabled
             initial={prepareData(this.props.srcMember)}
+            managerFormConfig={this.props.managerFormConfig}
           />
         </div>
       </div>

@@ -192,6 +192,7 @@ export type Member = {
   id: number;
   general_terms_and_conditions_date_accepted: string;
   general_terms_and_conditions_accepted: string;
+  emergency_contact: string | null;
 };
 
 export type MemberDetailed = {

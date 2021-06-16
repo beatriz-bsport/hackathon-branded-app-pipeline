@@ -21,6 +21,9 @@ import {
   createOrUpdateMember,
 } from '../../libs/member/actions';
 import { mapFormData } from '../form.utils';
+import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
+import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
+import type { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
 
 type Props = {
   src: number,
@@ -32,6 +35,9 @@ type Props = {
   onSubmit: (data: *, options: any) => void,
   replace: (path: string) => void,
   country: string,
+  fetchSignFormUpConfiguration: () => void,
+  managerFormConfigLoading: boolean,
+  managerFormConfig: SignUpFormConfigDict,
 };
 
 type State = {
@@ -52,6 +58,7 @@ export class MemberMergeFormPage extends Component<Props, State> {
   fetchData = () => {
     this.props.fetchMember(this.props.src);
     this.props.fetchMember(this.props.dst);
+    this.props.fetchSignFormUpConfiguration();
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -83,14 +90,18 @@ export class MemberMergeFormPage extends Component<Props, State> {
   render() {
     return (
       <div>
-        <MemberMergeForm
-          srcMember={this.props.srcMember}
-          dstMember={this.props.dstMember}
-          switchSrcDst={this.switchSrcDst}
-          goToMember={this.props.goToMember}
-          onSubmit={this.preSubmit}
-          country={this.props.country}
-        />
+        {!this.props.managerFormConfigLoading && (
+          <MemberMergeForm
+            srcMember={this.props.srcMember}
+            dstMember={this.props.dstMember}
+            switchSrcDst={this.switchSrcDst}
+            goToMember={this.props.goToMember}
+            onSubmit={this.preSubmit}
+            country={this.props.country}
+            managerFormConfig={this.props.managerFormConfig.poll_fields}
+          />
+        )}
+
         <MemberConfirmMergeDialog
           open={this.state.showConfirmDialog}
           onClose={this.closeDialog}
@@ -108,6 +119,8 @@ export default compose(
       srcMember: getMember(state, src),
       dstMember: getMember(state, dst),
       country: state.theme.theme.locale.split('_')[1],
+      managerFormConfig: getSignUpFormConfigurationDict(state),
+      managerFormConfigLoading: state.poll.signUpForm.loading,
     }),
     {
       fetchMember,
@@ -117,6 +130,7 @@ export default compose(
         pushRouter(`/member/merge/${dst}/into/${src}`),
       mergeMembers: mergeMembersAction,
       upsertMember: createOrUpdateMember,
+      fetchSignFormUpConfiguration,
     },
   ),
   withProps(({ goToMember, mergeMembers, upsertMember, dst, src }) => ({

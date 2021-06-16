@@ -21,25 +21,8 @@ import {
 import { getEstablishment } from '../../libs/establishment/selectors';
 import EstablishmentForm from '../../libs/establishment/components/EstablishmentForm.component';
 import withTitle from '../../hocs/with-title.hoc';
+import { mapFormDataWithObject } from '../form.utils';
 
-export function mapFormData(base, map) {
-  const formData = new FormData();
-  for (const [key, value] of Object.entries(base)) {
-    if (!(typeof map[key] === 'boolean') && !map[key]) {
-      throw new Error(`Mapping for key ${key} does not exist.`);
-    }
-    if (value !== undefined) {
-      if (Array.isArray(value)) {
-        formData.append(map[key], JSON.stringify(value));
-      } else if (typeof value === 'object' && key !== 'cover') {
-        formData.append(map[key], JSON.stringify(value));
-      } else {
-        formData.append(map[key], value);
-      }
-    }
-  }
-  return formData;
-}
 type Props = {
   upsertEstablishmentV2: (*) => void,
   goToEstablishmentList: () => void,
@@ -87,7 +70,7 @@ export class EstablishmentFormPage extends Component<Props> {
     }
     this.props.upsertEstablishmentV2(
       this.props.update ? this.props.update.id : null,
-      mapFormData(updatedData, establishmentMap),
+      mapFormDataWithObject(updatedData, establishmentMap, ['cover']),
       {
         onSuccess: () => {
           this.props.fetchEstablishments();

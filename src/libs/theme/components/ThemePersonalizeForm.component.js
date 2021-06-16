@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
@@ -59,8 +58,6 @@ export class ThemePersonalize extends Component<Props, State> {
     return (
       this.state.theme.show_offers_filling ===
         this.props.theme.show_offers_filling &&
-      this.state.theme.last_name_label === this.props.theme.last_name_label &&
-      this.state.theme.first_name_label === this.props.theme.first_name_label &&
       this.state.theme.accept_double_booking ===
         this.props.theme.accept_double_booking &&
       this.state.theme.consumer_regularize_debt ===
@@ -95,8 +92,6 @@ export class ThemePersonalize extends Component<Props, State> {
       'show_offers_filling',
       'consumer_regularize_debt',
       'accept_double_booking',
-      'first_name_label',
-      'last_name_label',
       'default_booking_ordering',
       'default_attendance',
       'show_cancelled_offers_customer',
@@ -125,43 +120,6 @@ export class ThemePersonalize extends Component<Props, State> {
     const { t, classes } = this.props;
     return (
       <div>
-        <Typography className={classes.namesHeader}>
-          {t('forms.themePersonalization.names_label_info')}
-        </Typography>
-        <div className={classes.inputContainer}>
-          <div className={classes.horizontalInput}>
-            <TextField
-              variant="outlined"
-              placeholder={t(
-                'forms.themePersonalization.first_name_label.placeholder',
-              )}
-              helperText={t(
-                'forms.themePersonalization.first_name_label.helperText',
-              )}
-              label={t('forms.themePersonalization.first_name_label.label')}
-              value={this.state.theme.first_name_label}
-              onChange={(ev) =>
-                this.handleChange('first_name_label')(ev.target.value)
-              }
-            />
-          </div>
-          <div className={classes.horizontalInput}>
-            <TextField
-              variant="outlined"
-              placeholder={t(
-                'forms.themePersonalization.last_name_label.placeholder',
-              )}
-              helperText={t(
-                'forms.themePersonalization.last_name_label.helperText',
-              )}
-              label={t('forms.themePersonalization.last_name_label.label')}
-              value={this.state.theme.last_name_label}
-              onChange={(ev) =>
-                this.handleChange('last_name_label')(ev.target.value)
-              }
-            />
-          </div>
-        </div>
         <div className={classes.inputContainer}>
           <Switch
             checked={this.state.theme.consumer_regularize_debt}

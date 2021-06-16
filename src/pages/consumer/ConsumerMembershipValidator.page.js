@@ -7,29 +7,37 @@ import { push } from 'connected-react-router';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getMembership } from '../../libs/membership/selectors';
-import {
-  fetchMembership,
-  linkMeToCompany,
-} from '../../libs/membership/actions';
+
 import ConsumerLoading from '../../libs/consumer-space/components/ConsumerLoading.component';
-import type { OptionCallback } from '../../state/types';
+import MemberShipValidationWrapper from './MemberShipValidationWrapper.component';
 
 type Props = {
-  linkMeToCompany: ({ company: number }, options: OptionCallback) => void,
   companyId: number,
   goToConsumerHome: (id: number) => void,
+  isValidated: boolean,
 };
 
 export class ConsumerMembershipValidator extends React.Component<Props> {
   componentWillMount() {
-    this.props.linkMeToCompany(
-      { company: this.props.companyId },
-      { onSuccess: () => this.props.goToConsumerHome(this.props.companyId) },
-    );
+    if (this.props.isValidated) {
+      this.props.goToConsumerHome(this.props.companyId);
+    }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (
+      prevProps.isValidated !== this.props.isValidated &&
+      this.props.isValidated
+    )
+      this.props.goToConsumerHome(this.props.companyId);
   }
 
   render() {
-    return <ConsumerLoading />;
+    return (
+      <MemberShipValidationWrapper companyId={this.props.companyId}>
+        <ConsumerLoading />
+      </MemberShipValidationWrapper>
+    );
   }
 }
 
@@ -39,10 +47,10 @@ export default compose(
     (state, { companyId }) => ({
       authenticated: state.auth.authenticated,
       membership: getMembership(state, companyId),
+      isValidated:
+        state.membership.memberShipValidation.missingInformation.validated,
     }),
     {
-      fetchMembership,
-      linkMeToCompany,
       goToConsumerHome: (id) => push(`/c/${id}/`),
     },
   ),

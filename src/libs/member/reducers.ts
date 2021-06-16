@@ -10,6 +10,7 @@ import {
   memberBulkActions,
   memberCountObject,
   memberListPaginatedActions,
+  fetchMyUserProfileActions,
 } from './actions';
 import { Member, MemberNote, MemberState } from './types';
 
@@ -53,6 +54,11 @@ const initialState = Immutable({
     allIdsWithoutEmail: [],
     allIds: [],
     page: 1,
+  },
+  userProfile: {
+    loading: true,
+    error: null,
+    profile: {},
   },
 });
 
@@ -311,7 +317,15 @@ export default function memberReducers(state = initialState, action: any) {
       }
       return state;
     }
-
+    case fetchMyUserProfileActions.error.toString(): {
+      return state.setIn(['userProfile', 'error'], action.payload);
+    }
+    case fetchMyUserProfileActions.isLoading.toString(): {
+      return state.setIn(['userProfile', 'loading'], action.payload);
+    }
+    case fetchMyUserProfileActions.success.toString(): {
+      return state.setIn(['userProfile', 'profile'], action.payload);
+    }
     default:
       return state;
   }

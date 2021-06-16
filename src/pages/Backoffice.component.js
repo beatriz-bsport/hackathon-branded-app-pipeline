@@ -263,7 +263,7 @@ export class Backoffice extends Component<Props, State> {
     ) {
       return (
         <Redirect
-          to={`${'/double-login?membership='}${this.props.theme.company}`}
+          to={`${'/login/double-login?membership='}${this.props.theme.company}`}
         />
       );
     }

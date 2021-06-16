@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 
 import CompanyOnboardingWelcomePage from './CompanyOnboardingWelcome.page';
 import CompanyOnboardingFormPage from './CompanyOnboardingForm.page';

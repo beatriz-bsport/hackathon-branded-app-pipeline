@@ -25,9 +25,9 @@ import type { TFunction } from 'react-i18next';
 import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 
-import ConsumerLogin from '../../components/consumer/login/ConsumerLogin.component';
+import Login from '../../libs/login/components/Login.component';
 import MarketplaceAppBar from './MarketplaceAppBar.component';
-import SignUpForm from '../../components/form/SignUpForm.component';
+import CustomSignUpForm from '../../libs/sign-up-form/components/CustomSignUpForm.component';
 import Analytics from '../../components/analytics/Analytics.component';
 import { parseQueryString } from '../../http';
 
@@ -36,6 +36,7 @@ import {
   removeItemFromBasket,
   fetchCurrentBasket,
 } from '../../libs/checkout/actions';
+
 import { getCurrentBasket } from '../../libs/checkout/selectors';
 import type { Basket } from '../../libs/checkout/types';
 
@@ -48,7 +49,16 @@ import { getMarketplaceRoute, fromConfigToUrl } from './routing-utils';
 import asyncComponent from '../../AsyncComponent';
 
 import { auth as authActions } from '../../actions';
-
+import { signupV2 } from '../../actions/auth.actions';
+import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
+import {
+  getSignUpFormConfiguration,
+  getSignUpFormConfigurationDict,
+} from '../../libs/sign-up-form/selectors';
+import type {
+  SignUpFormConfig,
+  signUpConfigDict,
+} from '../../libs/sign-up-form/types';
 import { fetchProfile } from '../../libs/consumer-space/actions';
 
 import MarketplaceBasketDialog from './MarketplaceBasketDialog.component';
@@ -58,6 +68,7 @@ import {
   MarketplaceTabConfig,
 } from '../../libs/marketplace/types';
 import { fetchMarketplaceSettings } from '../../libs/marketplace/actions';
+import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 
 const MarketplacePassPage = asyncComponent(() =>
   import('./MarketplacePass.page'),
@@ -113,13 +124,12 @@ type Props = {
   goToUserSpace: () => void,
 
   auth: *,
-  consumerProfile: *,
 
   t: TFunction,
   classes: Object,
 
   disconnect: () => void,
-  signup: (data: *, callback: () => void) => void,
+  signup: (formdata: *, callback: () => void) => void,
   fetchCompanyTheme: () => void,
   theme: any,
   settings: MarketplaceSettings,
@@ -127,6 +137,10 @@ type Props = {
   tabSelected: ?number,
   fetchMarketplaceSettings: (companyId: string) => void,
   location: any,
+
+  fetchSignFormUpConfiguration: () => void,
+  signUpConfig: SignUpFormConfig,
+  signUpConfigDict: signUpConfigDict,
 };
 
 type State = {
@@ -156,7 +170,6 @@ export class MarketPlace extends Component<Props, State> {
     });
     this.props.fetchSCT();
     if (this.props.auth.authenticated) {
-      this.props.fetchCurrentBasket(this.props.companyId);
       this.props.fetchProfile();
     }
   };
@@ -205,6 +218,7 @@ export class MarketPlace extends Component<Props, State> {
 
   componentDidMount() {
     this.fetchData();
+    this.props.fetchSignFormUpConfiguration();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -318,9 +332,13 @@ export class MarketPlace extends Component<Props, State> {
   toogleCurrentBasketOpen = (currentBasketOpen: boolean) =>
     this.setState({ currentBasketOpen });
 
-  signup = (data: *, callback: () => void) => {
-    const data_ = { ...data, membership: this.props.companyId };
-    this.props.signup(data_, callback);
+  signup = (formdata: any, options) => {
+    if (this.props.companyId) {
+      formdata.append('membership', this.props.companyId);
+      this.props.signup(formdata, options);
+    } else {
+      this.props.signup(formdata, options);
+    }
   };
 
   toogleSignUp = (value: boolean) => {
@@ -398,132 +416,150 @@ export class MarketPlace extends Component<Props, State> {
     }
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
-        <Analytics
-          username={(this.props.auth && this.props.auth.username) || ''}
-          theme={this.props.theme}
-        />
-        <div className={classes.container}>
-          <MarketplaceAppBar
-            logo={this.props.theme.cover}
-            websiteURL={this.props.theme.websiteURL}
-            auth={this.props.auth}
-            goToUserSpace={() => this.props.goToUserSpace(this.props.companyId)}
-            currentBasket={this.props.currentBasket}
-            openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
-            requestSignUp={() => this.toogleSignUp(true)}
-            requestLogin={() => this.toogleLogin(true)}
-            disconnect={() => {
-              this.props.disconnect();
-            }}
+        <MemberShipValidationWrapper companyId={this.props.companyId}>
+          <Analytics
+            username={(this.props.auth && this.props.auth.username) || ''}
+            theme={this.props.theme}
           />
-          {!this.props.hideAppBar ? (
-            <AppBarMUI position="relative" color="default">
-              <Tabs
-                onChange={this.handleTabChange}
-                textColor="primary"
-                indicatorColor="primary"
-                variant="scrollable"
-                value={parseInt(this.props.tabSelected, 10)}
-              >
-                {(
-                  (this.props.settings.config && this.props.settings.config.tabs
-                    ? []
-                    : this.props.settings.config) || []
-                ).map((tab, i) => {
-                  if (
-                    tab.componentType === MarketplaceComponentsEnum.vod &&
-                    !(
-                      Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-                      this.props.theme.vod
-                    )
-                  ) {
-                    return null;
-                  }
+          <div className={classes.container}>
+            <MarketplaceAppBar
+              logo={this.props.theme.cover}
+              websiteURL={this.props.theme.websiteURL}
+              auth={this.props.auth}
+              goToUserSpace={() =>
+                this.props.goToUserSpace(this.props.companyId)
+              }
+              currentBasket={this.props.currentBasket}
+              openCurrentBasket={() => this.toogleCurrentBasketOpen(true)}
+              requestSignUp={() => this.toogleSignUp(true)}
+              requestLogin={() => this.toogleLogin(true)}
+              disconnect={() => {
+                this.props.disconnect();
+              }}
+            />
+            {!this.props.hideAppBar ? (
+              <AppBarMUI position="relative" color="default">
+                <Tabs
+                  onChange={this.handleTabChange}
+                  textColor="primary"
+                  indicatorColor="primary"
+                  variant="scrollable"
+                  value={parseInt(this.props.tabSelected, 10)}
+                >
+                  {(
+                    (this.props.settings.config &&
+                    this.props.settings.config.tabs
+                      ? []
+                      : this.props.settings.config) || []
+                  ).map((tab, i) => {
+                    if (
+                      tab.componentType === MarketplaceComponentsEnum.vod &&
+                      !(
+                        Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+                        this.props.theme.vod
+                      )
+                    ) {
+                      return null;
+                    }
 
-                  let { title } = tab;
-                  if (!title) {
-                    title = this.getDefaultTitleForComponent(
-                      tab.component_type,
-                    );
-                  }
+                    let { title } = tab;
+                    if (!title) {
+                      title = this.getDefaultTitleForComponent(
+                        tab.component_type,
+                      );
+                    }
 
-                  return <Tab value={i} label={title} />;
-                })}
-              </Tabs>
-            </AppBarMUI>
-          ) : null}
-          <div className={classes.content}>{this.renderContent()}</div>
-          <MarketplaceBasketDialog
-            open={!!this.state.currentBasketOpen}
-            basket={this.props.currentBasket}
-            onCancel={() => this.toogleCurrentBasketOpen(false)}
-            loading={this.props.currentBasketLoading}
-            onRemoveCheckoutItem={(data) =>
-              this.props.removeItemFromBasket(this.props.currentBasket.id, data)
-            }
-            onAddCheckoutItem={(data) =>
-              this.props.addItemToBasket(this.props.currentBasket.id, data)
-            }
-            goToCheckout={() =>
-              this.props.goToCheckout(this.props.currentBasket.company)
-            }
-          />
-          <Dialog
-            open={this.state.loginDialogOpen && !this.props.auth.authenticated}
-            onClose={() => this.toogleLogin(false)}
-          >
-            <DialogContent>
-              <ConsumerLogin
-                doEmailLogin={this.doEmailLogin}
-                errorFields={this.props.errorFields}
-                error={this.props.auth.error}
-                loading={this.props.auth.loading}
-                requestSignUp={() => this.toogleSignUp(true)}
-              />
-            </DialogContent>
-          </Dialog>
-          <Dialog
-            open={this.state.signupDialogOpen && !this.props.auth.authenticated}
-            onClose={this.closeSignup}
-          >
-            <DialogTitle>{t('form.signUpTitle')}</DialogTitle>
-            <div className={classes.signupContainer}>
-              <SignUpForm
-                loading={this.props.auth.loading}
-                theme={this.props.theme}
-                emailExists={this.props.emailExists}
-                checkEmailExistsLoading={this.props.checkEmailExistsLoading}
-                checkEmailExists={this.props.checkEmailExists}
-                onComplete={(data: *) =>
-                  this.signup(data, () => {
-                    this.props.fetchProfile({
-                      onSuccess: (profile) => {
-                        Analytics.signupSuccess(profile);
+                    return <Tab value={i} label={title} />;
+                  })}
+                </Tabs>
+              </AppBarMUI>
+            ) : null}
+            <div className={classes.content}>{this.renderContent()}</div>
+            <MarketplaceBasketDialog
+              open={!!this.state.currentBasketOpen}
+              basket={this.props.currentBasket}
+              onCancel={() => this.toogleCurrentBasketOpen(false)}
+              loading={this.props.currentBasketLoading}
+              onRemoveCheckoutItem={(data) =>
+                this.props.removeItemFromBasket(
+                  this.props.currentBasket.id,
+                  data,
+                )
+              }
+              onAddCheckoutItem={(data) =>
+                this.props.addItemToBasket(this.props.currentBasket.id, data)
+              }
+              goToCheckout={() =>
+                this.props.goToCheckout(this.props.currentBasket.company)
+              }
+            />
+            <Dialog
+              open={
+                this.state.loginDialogOpen && !this.props.auth.authenticated
+              }
+              onClose={() => this.toogleLogin(false)}
+            >
+              <DialogContent>
+                <Login
+                  doEmailLogin={this.doEmailLogin}
+                  errorFields={this.props.errorFields}
+                  error={this.props.auth.error}
+                  loading={this.props.auth.loading}
+                  requestSignUp={() => this.toogleSignUp(true)}
+                />
+              </DialogContent>
+            </Dialog>
+            <Dialog
+              open={
+                this.state.signupDialogOpen && !this.props.auth.authenticated
+              }
+              onClose={this.closeSignup}
+            >
+              <DialogTitle>{t('form.signUpTitle')}</DialogTitle>
+              <div className={classes.signupContainer}>
+                <CustomSignUpForm
+                  loading={this.props.auth.loading}
+                  theme={this.props.theme}
+                  emailExists={this.props.emailExists}
+                  checkEmailExistsLoading={this.props.checkEmailExistsLoading}
+                  checkEmailExists={this.props.checkEmailExists}
+                  signUpConfig={this.props.signUpConfig}
+                  signUpConfigDict={this.props.signUpConfigDict}
+                  onComplete={(formdata: *, options: OptionCallback) =>
+                    this.signup(formdata, {
+                      onError: options && options.onError,
+                      onSuccess: () => {
+                        this.props.fetchProfile({
+                          onSuccess: (profile) => {
+                            Analytics.signupSuccess(profile);
+                          },
+                        });
                       },
-                    });
-                    this.props.fetchCurrentBasket(this.props.companyId);
-                  })
-                }
-                onCancel={() => this.setState({ signupDialogOpen: false })}
-                consumerProfile={this.props.consumerProfile}
-              />
-            </div>
-          </Dialog>
-          <Dialog
-            open={this.state.loginDialogOpen && !this.props.auth.authenticated}
-            onClose={() => this.toogleLogin(false)}
-          >
-            <DialogContent>
-              <ConsumerLogin
-                doEmailLogin={this.doEmailLogin}
-                errorFields={this.props.errorFields}
-                error={this.props.auth.error}
-                loading={this.props.auth.loading}
-                requestSignUp={() => this.toogleSignUp(true)}
-              />
-            </DialogContent>
-          </Dialog>
-        </div>
+                    })
+                  }
+                  onCancel={() => this.setState({ signupDialogOpen: false })}
+                  waiver={this.props.theme.waiver}
+                />
+              </div>
+            </Dialog>
+            <Dialog
+              open={
+                this.state.loginDialogOpen && !this.props.auth.authenticated
+              }
+              onClose={() => this.toogleLogin(false)}
+            >
+              <DialogContent>
+                <nogin
+                  doEmailLogin={this.doEmailLogin}
+                  errorFields={this.props.errorFields}
+                  error={this.props.auth.error}
+                  loading={this.props.auth.loading}
+                  requestSignUp={() => this.toogleSignUp(true)}
+                />
+              </DialogContent>
+            </Dialog>
+          </div>
+        </MemberShipValidationWrapper>
       </MuiThemeProvider>
     );
   }
@@ -540,7 +576,7 @@ const styles = (theme) => ({
   signupContainer: {
     padding: theme.spacing(2),
     paddingTop: 0,
-    maxWidth: 400,
+    maxWidth: 600,
   },
   content: {
     overflowY: 'auto',
@@ -577,6 +613,7 @@ export default compose(
   connect(
     (state: RootState) => ({
       auth: state.auth,
+      loginProcessing: state.auth.loading,
       currentBasket: getCurrentBasket(state),
       currentBasketLoading: state.checkout.basket.current.loading,
       consumerProfile: state.consumer.profile,
@@ -587,6 +624,9 @@ export default compose(
       errorFields: state.auth.invalidFields,
       checkEmailExistsLoading: state.auth.emailExists.loading,
       emailExists: state.auth.emailExists.exists,
+      signUpConfig: getSignUpFormConfiguration(state),
+      signUpConfigDict: getSignUpFormConfigurationDict(state),
+      signUpConfigLoading: state.poll.signUpForm.loading,
     }),
     {
       // General information
@@ -603,13 +643,13 @@ export default compose(
       fetchProfile,
       goToUserSpace: (id) => pushRouter(`/c/${id}/`),
       goToCheckout: (companyId) => pushRouter(`/checkout/${companyId}/`),
-      signup: (data: *, callback: () => void) =>
-        authActions.signup(data, { onDone: callback }),
+      signupAction: signupV2,
       doEmailLogin: ({ email, password }, callback) =>
         authActions.requestLogin(email, password, { onDone: callback }),
       disconnect: authActions.disconnect,
       checkEmailExists: authActions.checkEmailExists,
       push: pushRouter,
+      fetchSignFormUpConfiguration,
 
       // navigation
       replace,
@@ -618,5 +658,17 @@ export default compose(
   withHandlers({
     goToTab: ({ companyName, companyId, push }) => (path) =>
       push(getMarketplaceRoute(companyName, companyId, path)),
+  }),
+  withHandlers({
+    signup: ({ signupAction, checkEmailExists }) => (formdata, options) => {
+      checkEmailExists(formdata.get('email'), {
+        onError: options && options.onError,
+        onSuccess: () =>
+          signupAction(formdata, {
+            onError: options && options.onError,
+          }),
+      });
+      if (options && options.onSuccess) options.onSuccess();
+    },
   }),
 )(MarketPlace);

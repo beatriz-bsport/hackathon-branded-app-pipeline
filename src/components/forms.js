@@ -223,12 +223,6 @@ export const DurationField = withStyles(styles)(
           const days = parseInt(total / (60 * 24), 10);
           const hours = parseInt((total - days * 24 * 60) / 60, 10);
           const minutes = total - days * 24 * 60 - hours * 60;
-          /*
-              onChange={(date) => {
-                setFieldValue(props.name, date);
-              }}
-      error={!!(touched[field.name] && errors[field.name])}
-      */
           return (
             <MuiFormControl
               style={{
@@ -683,7 +677,7 @@ export const CheckboxField = (props: Props) => {
     <FormControl>
       <Field
         {...props}
-        render={({ field, form: { setFieldValue } }) => (
+        render={({ field, form: { setFieldValue, touched, errors } }) => (
           <FormControlLabel
             label={label}
             id="checkbox"
@@ -698,6 +692,7 @@ export const CheckboxField = (props: Props) => {
                 onChange={() => {
                   setFieldValue(field.name, !field.value);
                 }}
+                error={!!(touched[field.name] && errors[field.name])}
               />
             }
           />

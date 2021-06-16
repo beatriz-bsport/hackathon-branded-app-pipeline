@@ -11,3 +11,7 @@ export const fetchMembership = async (id: number) => {
 export async function linkMeToCompany(data: any) {
   return postAuth(`${API_V1_URI}/membership/link_to_company/`, data);
 }
+
+export async function requestMembershipValidation(data: any) {
+  return postAuth(`${API_V1_URI}/membership/need_membership_validation/`, data);
+}

@@ -3,6 +3,7 @@ import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import Dialog from '@material-ui/core/Dialog';
@@ -20,6 +21,9 @@ import {
   fetchPaymentMethodList,
   detachPaymentMethod,
 } from '../../libs/payment/actions';
+import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
+import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
+import type { SignUpFormConfigDict } from '../../libs/sign-up-form/types';
 import { MemberMap } from '../../libs/member/utils';
 import themeSelectors from '../../libs/theme/selectors';
 
@@ -52,6 +56,9 @@ type Props = {
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
+  fetchSignFormUpConfiguration: (membership: string) => void,
+  managerFormConfig: SignUpFormConfigDict,
+  managerFormConfigLoading: boolean,
 };
 
 export class ConsumerProfile extends React.Component<Props> {
@@ -69,6 +76,9 @@ export class ConsumerProfile extends React.Component<Props> {
   componentDidUpdate(prevProps) {
     if (!prevProps.membership && this.props.membership) {
       this.fetchData();
+      this.props.fetchSignFormUpConfiguration({
+        membership: this.props.membership.company,
+      });
     }
   }
 
@@ -86,8 +96,8 @@ export class ConsumerProfile extends React.Component<Props> {
     const initialData = initial
       ? {
           ...unmap(initial, MemberMap),
-          rgpd: [],
           date_joined: moment(initial.date_joined),
+          waiver: !!initial.waiver_accepted,
         }
       : {
           birthday: null,
@@ -98,15 +108,7 @@ export class ConsumerProfile extends React.Component<Props> {
       if (initial.phone_number) {
         initialData.phone = initial.phone_number;
       }
-      if (initial.accept_email) {
-        initialData.rgpd.push('accept_email');
-      }
-      if (initial.accept_sms) {
-        initialData.rgpd.push('accept_sms');
-      }
       delete initialData.address;
-    } else {
-      initialData.rgpd = ['accept_email', 'accept_sms'];
     }
 
     return (
@@ -122,16 +124,19 @@ export class ConsumerProfile extends React.Component<Props> {
         </Grid>
 
         <Dialog open={this.props.editMember}>
-          <MemberForm
-            hideManagerStuff
-            onCancel={() => this.props.setEditMember(false)}
-            memberId={this.props.membership.id}
-            theme={this.props.theme}
-            onSubmit={this.props.onUpdateMember}
-            initial={initialData}
-            snackbarSuccess={this.props.snackbarSuccess}
-            country={this.props.country}
-          />
+          {!this.props.managerFormConfigLoading && (
+            <MemberForm
+              hideManagerStuff
+              managerFormConfig={this.props.managerFormConfig.poll_fields}
+              onCancel={() => this.props.setEditMember(false)}
+              memberId={this.props.membership.id}
+              theme={this.props.theme}
+              onSubmit={this.props.onUpdateMember}
+              initial={initialData}
+              snackbarSuccess={this.props.snackbarSuccess}
+              country={this.props.country}
+            />
+          )}
         </Dialog>
         <Grid item xs={12} md={6}>
           <Paper className={this.props.classes.paymentContainer}>
@@ -166,6 +171,8 @@ export default compose(
       memberLoading: state.member.loading,
       member: getMemberDetail(state, membership && membership.id),
       theme: themeSelectors.getTheme(state),
+      managerFormConfig: getSignUpFormConfigurationDict(state),
+      managerFormConfigLoading: state.poll.signUpForm.loading,
       country: state.theme.theme.locale.split('_')[1],
       paymentMethod: state.paymentBackend.paymentMethod.items,
       paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
@@ -174,6 +181,8 @@ export default compose(
     }),
     {
       fetchMember: fetchMemberAction,
+      fetchSignFormUpConfiguration,
+      push: pushRouter,
       upsertMember: (id, data, options) =>
         createOrUpdateMember(id, data, options),
       fetchPaymentMethodListActions: fetchPaymentMethodList,

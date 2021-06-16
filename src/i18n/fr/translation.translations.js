@@ -130,8 +130,10 @@ exports.default = {
     create: 'Créer',
     or: 'ou',
     cancel: 'Annuler',
+    disconnect: 'Se déconnecter',
     confirm: 'Confirmer',
     name: 'Nom',
+    emergencyContact: "En cas d'urgence",
     recipient: 'Destinataire',
     recipients: 'Destinataires',
     status: 'Status',
@@ -228,6 +230,7 @@ exports.default = {
     noProvisionUpdates: 'Aucun stock',
   },
   form: {
+    modify: 'Modifier',
     waiting_list_max_size: "Taille de la liste d'attente",
     explainNoEmailChange:
       "Changer l'email empêchera le professeur de se connecter, lui seul peut modifier son email en se connectant à son compte bsport",
@@ -333,6 +336,7 @@ exports.default = {
         error: 'Erreur lors de la suppression de la note',
         success: 'Note supprimée',
       },
+      waiver: 'Accepte les termes de la décharge de responsabilité',
       phone: 'Téléphone',
       rgpdTitle:
         'Moyen de communication accepté par le membre (promotions, marketing, smartlist etc...)',
@@ -342,6 +346,11 @@ exports.default = {
       referenceNumber: "Numéro d'adhérent",
       referenceNumberHelper:
         '(optionnel) si vide un numéro sera automatiquement créé',
+      errors: {
+        accept_sms: 'Vous devez accepter les notifications par SMS',
+        accept_email: 'Vous devez accepter les notifications par Email',
+        waiver: 'vous devez accepter la décharge de responsabilité',
+      },
     },
     metaActivity: {
       cantAddSameName: 'Une activité du même nom existe déjà !',
@@ -359,9 +368,37 @@ exports.default = {
         email: 'par email',
         sms: 'par SMS',
       },
+      addProfilePicture: 'Ajouter une photo de profil',
       signupButton: "S'inscrire",
       iAcceptPrivacyPolicy: "J'accepte les ",
       privacyPolicy: "Conditions générales d'utilisation",
+      fields: {
+        first_name: 'Prénom',
+        last_name: 'Nom de Famille',
+        email: 'Adresse email',
+        password: 'Mot de passe',
+        passwordConfirm: 'Confirmation du mot de passe',
+        gender: 'sexe',
+        address_line_1: 'Addresse',
+        address_line_2: "Complément d'adresse",
+        zipcode: 'Code Postal',
+        country: 'Pays',
+        phone: 'N° de téléphone ',
+        birthday: 'Date de naissance',
+        city: 'Ville',
+        emergency_contact: "Contact d'urgence",
+        general_terms_and_conditions_accepted:
+          "J'accepte les conditions générales d'utilisation",
+        waiver: "J'accepte les décharges de responsabilité",
+        accept_email:
+          "J’accepte d'être notifié par email pour des informations liés à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )",
+        accept_sms:
+          "J’accepte d'être notifié par SMS pour des informations liés à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )",
+      },
+      error: {
+        password: 'Le mot de passe doit contenir au moins 6 caractères',
+        passwordConfirm: 'Les mots de passe ne correspondent pas',
+      },
     },
     quickInvoice: {
       totalPurchase: 'Achats',
@@ -477,9 +514,11 @@ exports.default = {
     birthday: 'Date de naissance',
     clearDate: 'Effacer',
     phone: 'Numéro de téléphone',
+    emergencyContact: "Contact d'urgence",
     email: 'Adresse email',
     description: 'Description',
     send: 'Enregistrer',
+    completeInformation: 'Compléter mes informations',
     discard: 'Annuler',
     name: 'Nom',
     SCT: 'Catégorie',

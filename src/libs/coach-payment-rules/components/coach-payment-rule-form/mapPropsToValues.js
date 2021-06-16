@@ -78,7 +78,7 @@ export const mapInitalPropsToValues = (initial, ruleTypeCreation) => {
     min_remuneration: 0,
     max_remuneration: 1000,
     excluded_payment_packs: [],
-    exclude_default_tax_rate_from_margin_rate: false,
+    exclude_default_tax_rate_from_margin_value: false,
     bonus_coach_payment: [],
     bonus_for_confirmed_bookings: [],
     bonus_for_cancelled_bookings: [],

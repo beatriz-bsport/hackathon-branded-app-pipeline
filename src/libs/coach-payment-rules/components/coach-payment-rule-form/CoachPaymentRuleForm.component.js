@@ -776,11 +776,11 @@ export function CoachPaymentRuleFields(props: Props) {
             id="checkbox_taxe_rate"
             name="checkbox_taxe_rate"
             label={t('coach_payment_rules.taxe_rate')}
-            checked={props.values.exclude_default_tax_rate_from_margin_rate}
+            checked={props.values.exclude_default_tax_rate_from_margin_value}
             onClick={() =>
               setFieldValue(
-                'exclude_default_tax_rate_from_margin_rate',
-                !props.values.exclude_default_tax_rate_from_margin_rate,
+                'exclude_default_tax_rate_from_margin_value',
+                !props.values.exclude_default_tax_rate_from_margin_value,
               )
             }
           />
@@ -941,7 +941,6 @@ export const CoachPaymentRuleFormHoc = withFormik({
       percentage_base_confirmed_bookings,
       base_remuneration_type_cancellation,
       remuneration_on_cancellation,
-      exclude_default_tax_rate_from_margin_rate,
       bonus_for_confirmed_bookings,
       bonus_for_cancelled_bookings,
       coaches,

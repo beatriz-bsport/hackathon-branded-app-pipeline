@@ -15,6 +15,7 @@ import type { TagState } from './types';
 const initialState: TagState = Immutable({
   tag: {
     items: [],
+    byId: {},
     loading: false,
     error: null,
     createOrUpdate: {
@@ -24,6 +25,7 @@ const initialState: TagState = Immutable({
   },
   group: {
     items: [],
+    byId: {},
     loading: false,
     error: null,
     createOrUpdate: {
@@ -44,7 +46,17 @@ export default handleActions(
       return state.setIn(['tag', 'error'], payload);
     },
     [tagListActions.success]: (state, { payload }) => {
-      return state.setIn(['tag', 'items'], payload);
+      return state.setIn(['tag', 'items'], payload).merge(
+        {
+          tag: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
     },
     [tagCreateOrUpdateActions.isLoading]: (state, { payload }) => {
       return state.setIn(['tag', 'createOrUpdate', 'loading'], payload);
@@ -59,9 +71,6 @@ export default handleActions(
       }
       return state.setIn(['tag', 'items', idx], payload);
     },
-    [tagListActions.success]: (state, { payload }) => {
-      return state.setIn(['tag', 'items'], payload);
-    },
     // GROUP
     // --------
     [tagGroupListActions.isLoading]: (state, { payload }) => {
@@ -71,7 +80,17 @@ export default handleActions(
       return state.setIn(['group', 'error'], payload);
     },
     [tagGroupListActions.success]: (state, { payload }) => {
-      return state.setIn(['group', 'items'], payload);
+      return state.setIn(['group', 'items'], payload).merge(
+        {
+          group: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
     },
     [tagGroupCreateOrUpdateActions.isLoading]: (state, { payload }) => {
       return state.setIn(['group', 'createOrUpdate', 'loading'], payload);
@@ -85,9 +104,6 @@ export default handleActions(
         idx = state.group.items.length;
       }
       return state.setIn(['group', 'items', idx], payload);
-    },
-    [tagGroupListActions.success]: (state, { payload }) => {
-      return state.setIn(['group', 'items'], payload);
     },
   },
   initialState,

@@ -24,6 +24,14 @@ import { getShopItemsAvailable as getShopItems } from '../../libs/shop/selectors
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { PrivatePass } from '../../libs/private-service/types';
 import { getPrivatePassAvailable as getPrivatePass } from '../../libs/private-service/selectors/private-pass';
+import { fetchTags } from '../../libs/tag/actions';
+import {
+  withTags,
+  getTagGroupList,
+  getTagsDict,
+  getTagGroupsDict,
+} from '../../libs/tag/selectors';
+import type { TagGroup, Tag, TagGroupAPI } from '../../libs/tag/types';
 
 type Props = {
   createOrUpdateLoading: boolean,
@@ -36,6 +44,11 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   shopItems: Array<ShopItem>,
   privatePasses: Array<PrivatePass>,
+  fetchTags: () => void,
+  tagGroupWithTags: Array<TagGroup>,
+  allTagsDict: Object<Tag>,
+  allTagGroupDict: Object<TagGroupAPI>,
+  tagsLoading: boolean,
 };
 
 export class CouponCreate extends Component<Props> {
@@ -43,6 +56,7 @@ export class CouponCreate extends Component<Props> {
     this.props.fetchAllPaymentPacks();
     this.props.fetchAllShop();
     this.props.fetchPrivatePassList();
+    this.props.fetchTags();
   }
 
   render() {
@@ -57,6 +71,10 @@ export class CouponCreate extends Component<Props> {
             paymentPacks={this.props.paymentPacks}
             shopItems={this.props.shopItems}
             privatePasses={this.props.privatePasses}
+            tagGroupWithTags={this.props.tagGroupWithTags}
+            allTagsDict={this.props.allTagsDict}
+            allTagGroupDict={this.props.allTagGroupDict}
+            tagsLoading={this.props.tagsLoading}
           />
         </Paper>
       </div>
@@ -83,14 +101,19 @@ export default compose(
   connect(
     (state) => ({
       createOrUpdateLoading: state.coupon.coupon.createOrUpdate.loading,
+      tagsLoading: state.tag.tag.loading || state.tag.group.loading,
       paymentPacks: getPaymentPacks(state),
       shopItems: getShopItems(state),
       privatePasses: getPrivatePass(state),
+      tagGroupWithTags: withTags(getTagGroupList)(state),
+      allTagsDict: getTagsDict(state),
+      allTagGroupDict: getTagGroupsDict(state),
     }),
     {
       fetchAllPaymentPacks,
       fetchAllShop,
       fetchPrivatePassList,
+      fetchTags,
       createCouponAction: createCoupon,
       goToCouponList: () => push('/coupon'),
     },

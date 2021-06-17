@@ -14,6 +14,14 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import MenuItem from '@material-ui/core/MenuItem';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import ClearIcon from '@material-ui/icons/Clear';
+import Divider from '@material-ui/core/Divider';
 import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
@@ -54,6 +62,7 @@ import type { Coupon } from '../types';
 import { PaymentPack } from '../../payment-packs/types';
 import { ShopItem } from '../../shop/types';
 import { PrivatePass } from '../../private-service/types';
+import type { TagGroup, Tag, TagGroupAPI } from '../../tag/types';
 
 const ALL_BUYABLES = 100;
 
@@ -69,10 +78,16 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   shopItems: Array<ShopItem>,
   privatePasses: Array<PrivatePass>,
+  tagGroupWithTags: Array<TagGroup>,
+  allTagsDict: Object<Tag>,
+  allTagGroupDict: Object<TagGroupAPI>,
+  tagsLoading: boolean,
 };
 type State = {
   ...Coupon,
   with_expiration_date: boolean,
+  selected_tag_group?: number,
+  tag_selection_error?: String,
 };
 
 export class CouponForm extends React.Component<Props, State> {
@@ -98,6 +113,10 @@ export class CouponForm extends React.Component<Props, State> {
         expiration_date: props.initial.expiration_date
           ? moment(props.initial.expiration_date, 'YYYY-MM-DD')
           : null,
+        whitelist_tags: props.initial.whitelist_tags,
+        blacklist_tags: props.initial.blacklist_tags,
+        selected_tag_group: null,
+        tag_selection_error: null,
       };
     } else {
       this.state = {
@@ -117,6 +136,10 @@ export class CouponForm extends React.Component<Props, State> {
         with_expiration_date: false,
         expiration_date: moment(),
         subscription_mode: COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE,
+        whitelist_tags: [],
+        blacklist_tags: [],
+        selected_tag_group: null,
+        tag_selection_error: null,
       };
     }
   }
@@ -126,6 +149,22 @@ export class CouponForm extends React.Component<Props, State> {
       this.setState({ [key]: value.target.value });
     } else {
       this.setState({ [key]: value });
+    }
+  };
+
+  handleTagSelectionError = (
+    updated_tags_list: Array<number>,
+    state_list: Array<number>,
+  ) => {
+    const tag_verification =
+      updated_tags_list.filter((tagId) => state_list.includes(tagId)).length !==
+      0;
+    if (tag_verification) {
+      this.handleChange('tag_selection_error')(
+        this.props.t('form.tag.select.error'),
+      );
+    } else {
+      this.handleChange('tag_selection_error')(null);
     }
   };
 
@@ -147,6 +186,10 @@ export class CouponForm extends React.Component<Props, State> {
         this.state.applies_to === ALL_BUYABLES ? null : this.state.applies_to,
       voucher_type: this.state.voucher_type,
       only_on_objects: this.state.only_on_objects,
+      whitelist_tags: this.state.whitelist_tags,
+      blacklist_tags: this.state.blacklist_tags,
+      selected_tag_group: this.state.selected_tag_group,
+      tag_selection_error: this.state.tag_selection_error,
     };
     if (this.state.with_expiration_date && this.state.is_active) {
       data.expiration_date = moment(
@@ -156,8 +199,18 @@ export class CouponForm extends React.Component<Props, State> {
     } else {
       data.expiration_date = null;
     }
-
-    this.props.onSubmit(data);
+    if (
+      data.whitelist_tags.filter((tagId) => data.blacklist_tags.includes(tagId))
+        .length !== 0
+    ) {
+      this.handleChange('tag_selection_error')(
+        this.props.t('form.tag.select.error'),
+      );
+    }
+    const { selected_tag_group, tag_selection_error, ...cleaneadData } = data;
+    if (!tag_selection_error) {
+      this.props.onSubmit(cleaneadData);
+    }
   };
 
   renderVoucherConfig = () => {
@@ -529,6 +582,128 @@ export class CouponForm extends React.Component<Props, State> {
     );
   };
 
+  renderTags = (tag_list_kind: string) => {
+    const {
+      tagGroupWithTags,
+      allTagsDict,
+      allTagGroupDict,
+      t,
+      classes,
+    } = this.props;
+    return (
+      <React.Fragment>
+        <Typography variant="subtitle2" className={classes.sectionTitle}>
+          {t(`form.section.${tag_list_kind}`)}
+        </Typography>
+        <Divider />
+        <div className={classes.flexFormControl}>
+          <FormControl style={{ paddingRight: 10 }}>
+            <Select
+              labelId="tag-group-select"
+              value={this.state.selected_tag_group}
+              onChange={(event) =>
+                this.handleChange(
+                  'selected_tag_group',
+                  false,
+                )(event.target.value)
+              }
+            >
+              {tagGroupWithTags.map((group) => (
+                <MenuItem key={group.id} value={group.id}>
+                  {group.name}
+                </MenuItem>
+              ))}
+            </Select>
+            <FormHelperText>
+              {`${t('form.tag.select.tag_group')}`}
+            </FormHelperText>
+          </FormControl>
+          <FormControl>
+            <Select
+              labelId="tag-select"
+              disabled={!this.state.selected_tag_group}
+              value={null}
+              onChange={(event) => {
+                const newObjects = [...this.state[tag_list_kind]];
+                newObjects.push(event.target.value);
+                this.handleChange(tag_list_kind)(newObjects);
+                this.handleChange('selected_tag_group', false)(null);
+                this.handleTagSelectionError(
+                  newObjects,
+                  tag_list_kind === 'whitelist_tags'
+                    ? this.state.blacklist_tags
+                    : this.state.whitelist_tags,
+                );
+              }}
+            >
+              {this.state.selected_tag_group &&
+                tagGroupWithTags
+                  .find((tg) => tg.id === this.state.selected_tag_group)
+                  .tags.map((tag) => (
+                    <MenuItem key={tag.id} value={tag.id}>
+                      {tag.name}
+                    </MenuItem>
+                  ))}
+            </Select>
+            <FormHelperText>{`${t('form.tag.select.tag')}`}</FormHelperText>
+          </FormControl>
+        </div>
+        <List style={{ width: '100%' }}>
+          {this.state[tag_list_kind] &&
+          this.state[tag_list_kind].length !== 0 ? (
+            this.state[tag_list_kind].map((tag) => (
+              <React.Fragment>
+                <div
+                  key={`${tag_list_kind}${tag.id}`}
+                  className={classes.tagListItemContainer}
+                >
+                  <ListItemText
+                    secondary={`${t('form.tag.tag_group')} : ${
+                      allTagsDict[tag]
+                        ? allTagGroupDict[allTagsDict[tag].group].name
+                        : null
+                    }`}
+                    secondaryTypographyProps={{ variant: 'subtitle2' }}
+                    className={classes.tagListItem}
+                  />
+                  <ListItemText
+                    primary={`${t('form.tag.tag')} : ${
+                      allTagsDict[tag] ? allTagsDict[tag].name : null
+                    }`}
+                    primaryTypographyProps={{ variant: 'subtitle2' }}
+                    className={classes.tagListItem}
+                  />
+                  <IconButton
+                    edge="end"
+                    onClick={() => {
+                      const newObjects = [...this.state[tag_list_kind]];
+                      this.handleChange(tag_list_kind)(
+                        newObjects.filter((tagId) => tagId !== tag),
+                      );
+                      this.handleTagSelectionError(
+                        newObjects.filter((tagId) => tagId !== tag),
+                        tag_list_kind === 'whitelist_tags'
+                          ? this.state.blacklist_tags
+                          : this.state.whitelist_tags,
+                      );
+                    }}
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                </div>
+                <Divider />
+              </React.Fragment>
+            ))
+          ) : (
+            <Typography variant="body1">
+              {t('form.tag.select.empty_tag_list')}
+            </Typography>
+          )}
+        </List>
+      </React.Fragment>
+    );
+  };
+
   render() {
     const { t, classes } = this.props;
     return (
@@ -625,6 +800,16 @@ export class CouponForm extends React.Component<Props, State> {
             label={t('form.minimum_amount.label')}
           />
         </div>
+        <Typography variant="h6" className={classes.sectionTitle}>
+          {t('form.section.tags')}
+        </Typography>
+        {this.state.tag_selection_error && (
+          <Typography color="error">
+            {t(this.state.tag_selection_error)}
+          </Typography>
+        )}
+        {!this.props.tagsLoading && this.renderTags('whitelist_tags')}
+        {!this.props.tagsLoading && this.renderTags('blacklist_tags')}
         <div className={classes.buttonContainer}>
           <Button onClick={this.props.onCancel}>
             {t('form.actions.cancel')}
@@ -634,7 +819,7 @@ export class CouponForm extends React.Component<Props, State> {
             type="submit"
             color="primary"
             className={classes.actionButton}
-            disabled={this.props.processing}
+            disabled={this.props.processing || this.state.tag_selection_error}
           >
             {t('form.actions.submit')}
           </Button>
@@ -674,6 +859,23 @@ const styles = (theme) => ({
     marginLeft: theme.spacing(1),
   },
   fullWidth: { width: '100%' },
+  flexFormControl: {
+    display: 'flex',
+    direction: 'row',
+    width: '100%',
+  },
+  tagListItemContainer: {
+    display: 'flex',
+    direction: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  tagListItem: {
+    maxWidth: '40%',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 });
 
 export default compose(

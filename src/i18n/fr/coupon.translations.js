@@ -34,6 +34,9 @@ exports.default = {
     member_uses: 'utilisations par membre',
     member_use: 'utilisation par membre',
     limitation: 'Limité à',
+    whitelist_tags:
+      'Disponible uniquement pour les membres ayant certains tags',
+    blacklist_tags: 'Indisponible pour les membres ayant certains tags',
   },
   noDiscount: 'Aucun achat effectué avec le code',
   modal: {
@@ -64,6 +67,10 @@ exports.default = {
       voucherConfig: 'Réduction',
       applies_to: 'Paramètres',
       advanced: 'Avancé',
+      tags: 'Tags',
+      whitelist_tags: 'Utilisable seulement par les membres disposant du tag',
+      blacklist_tags:
+        'Non - utilisable seulement par les membres disposant du tag',
     },
     name: {
       label: 'Nom',
@@ -129,6 +136,16 @@ exports.default = {
     actions: {
       cancel: 'Annuler',
       submit: 'Valider',
+    },
+    tag: {
+      tag_group: 'Groupe',
+      tag: 'Tag',
+      select: {
+        tag_group: 'Choisissez un groupe de tags',
+        tag: 'Sélectionnez un tag',
+        empty_tag_list: 'Auncun tag sélectionné',
+        error: 'Un même tag ne peut pas être présent dans les deux listes',
+      },
     },
   },
   createCoupon: 'Ajouter un code',

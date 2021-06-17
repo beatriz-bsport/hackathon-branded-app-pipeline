@@ -1934,7 +1934,9 @@
       "uses": "Utilisations",
       "member_uses": "utilisations par membre",
       "member_use": "utilisation par membre",
-      "limitation": "Limité à"
+      "limitation": "Limité à",
+      "whitelist_tags": "Disponible uniquement pour les membres ayant certains tags",
+      "blacklist_tags": "Indisponible pour les membres ayant certains tags"
     },
     "noDiscount": "Aucun achat effectué avec le code",
     "modal": {
@@ -1957,7 +1959,10 @@
         "usability": "Utilisation",
         "voucherConfig": "Réduction",
         "applies_to": "Paramètres",
-        "advanced": "Avancé"
+        "advanced": "Avancé",
+        "tags": "Tags",
+        "whitelist_tags": "Utilisable seulement par les membres disposant du tag",
+        "blacklist_tags": "Non - utilisable seulement par les membres disposant du tag"
       },
       "name": { "label": "Nom" },
       "code": { "label": "Code", "helperText": "Le code que vous transmettrez aux clients concernés" },
@@ -1988,7 +1993,17 @@
           "null": "Ensemble du panier"
         }
       },
-      "actions": { "cancel": "Annuler", "submit": "Valider" }
+      "actions": { "cancel": "Annuler", "submit": "Valider" },
+      "tag": {
+        "tag_group": "Groupe",
+        "tag": "Tag",
+        "select": {
+          "tag_group": "Choisissez un groupe de tags",
+          "tag": "Sélectionnez un tag",
+          "empty_tag_list": "Auncun tag sélectionné",
+          "error": "Un même tag ne peut pas être présent dans les deux listes"
+        }
+      }
     },
     "createCoupon": "Ajouter un code",
     "code": {

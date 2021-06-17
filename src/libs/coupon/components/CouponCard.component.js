@@ -126,6 +126,24 @@ export const CouponCard = (props: Props) => {
           />
         </ListItem>
       </List>
+      {props.coupon.whitelist_tags &&
+      props.coupon.whitelist_tags.length !== 0 ? (
+        <ListItem>
+          <ListItemIcon>
+            <ArrowRightIcon />
+          </ListItemIcon>
+          <ListItemText primary={t('card.whitelist_tags')} />
+        </ListItem>
+      ) : null}
+      {props.coupon.blacklist_tags &&
+      props.coupon.blacklist_tags.length !== 0 ? (
+        <ListItem>
+          <ListItemIcon>
+            <ArrowRightIcon />
+          </ListItemIcon>
+          <ListItemText primary={t('card.blacklist_tags')} />
+        </ListItem>
+      ) : null}
       <div className={classes.actionButtons}>
         <Button color="primary" onClick={props.goToEdit}>
           {props.t('detail.seeParameters')}

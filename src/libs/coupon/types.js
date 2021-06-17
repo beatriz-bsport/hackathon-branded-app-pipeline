@@ -28,6 +28,8 @@ export type Coupon = {
   combinable: boolean,
   minimum_amount: number,
   name: string,
+  whitelist_tags: Array<number>,
+  blacklist_tags: Array<number>,
 };
 
 export type CouponState = {

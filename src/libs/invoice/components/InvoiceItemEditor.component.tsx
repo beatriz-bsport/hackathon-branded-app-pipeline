@@ -125,7 +125,7 @@ const InvoiceItemEditor = (props: Props) => {
       props.onAddBuyableItem(buyableItemIdentifier, {
         buyable_item_id: 0,
         price: parseFloat(`${buyableItemId}`).toFixed(2),
-        voucher: parseFloat(`${voucher}`).toFixed(2),
+        voucher: parseFloat(`${voucher || 0}`).toFixed(2),
         name: t('invoiceItem.credit.label'),
       });
     } else {
@@ -138,7 +138,7 @@ const InvoiceItemEditor = (props: Props) => {
           ...buyableItem,
           buyable_item_id: buyableItem.id,
           price: parseFloat(buyableItem.price).toFixed(2),
-          voucher: parseFloat(`${voucher}`).toFixed(2),
+          voucher: parseFloat(`${voucher || '0.00'}`).toFixed(2),
         });
       }
     }

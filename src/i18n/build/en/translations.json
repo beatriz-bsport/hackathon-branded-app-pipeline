@@ -8363,15 +8363,11 @@
         },
         "paymentMethod": {
             "detach": {
-<<<<<<< HEAD
                 "pm_deleted": "Payment method removed",
                 "pm_associated_to_pi": "Impossible: You have a subscription associated with this payment method",
                 "pm_associated_to_registered_ppe": "Impossible: You have a subscription associated with this payment method",
                 "pm_associated_to_protected_bp": "Impossible: You have a subscription associated with this payment method",
                 "last_payment_method": "Unable to delete your only payment method"
-=======
-                "pm_deleted": "Payment method deleted"
->>>>>>> chore(translate): update (English) translation
             }
         }
     },

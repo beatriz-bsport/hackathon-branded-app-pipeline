@@ -83,7 +83,10 @@ exports.default = {
   row: {
     headers: {
       actions: 'Actions',
+      newsletter_email: 'Accepte les emails',
     },
+    yes: 'Oui',
+    no: 'Non',
     update: 'Modifier',
   },
   paymentAction: {

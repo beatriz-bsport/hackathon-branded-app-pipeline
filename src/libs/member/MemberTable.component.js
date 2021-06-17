@@ -56,6 +56,14 @@ const getColumnData = (t) => {
         sort: false,
       },
     },
+    {
+      name: 'accept_email',
+      label: t('row.headers.newsletter_email'),
+      options: {
+        filter: false,
+        sort: false,
+      },
+    },
   ];
 };
 
@@ -71,12 +79,23 @@ const renderActions = (id, goToMemberPage, t) => (
   </Button>
 );
 const renderRow = (member, t, goToMemberPage) => {
-  const { credit_account_balance, date_joined, name, id } = member;
+  const {
+    credit_account_balance,
+    date_joined,
+    name,
+    id,
+    accept_email,
+  } = member;
   return {
     name,
     date_joined: formatAsDate(date_joined),
     credit_account_balance: renderCreditAccountBalance(credit_account_balance),
     actions: renderActions(id, goToMemberPage, t),
+    accept_email: (
+      <Typography color={accept_email ? 'primary' : 'error'}>
+        {accept_email ? t('row.yes') : t('row.no')}
+      </Typography>
+    ),
   };
 };
 

@@ -4863,7 +4863,12 @@
       "privateConsumerPass": "Cartes RDV",
       "vod": "VOD"
     },
-    "row": { "headers": { "actions": "Actions" }, "update": "Modifier" },
+    "row": {
+      "headers": { "actions": "Actions", "newsletter_email": "Accepte les emails" },
+      "yes": "Oui",
+      "no": "Non",
+      "update": "Modifier"
+    },
     "paymentAction": { "toBill": "Facturer", "toSubscribe": "Souscrire" },
     "merge": "Fusionner",
     "forms": {

@@ -51,6 +51,7 @@ exports.default = {
       bookings: 'Mes réservations ',
       profile: 'Mon Profil',
       order: 'Mes commandes',
+      subscriptions: 'Mes souscriptions',
     },
     reporting: 'Rapports',
     search: 'Rechercher',

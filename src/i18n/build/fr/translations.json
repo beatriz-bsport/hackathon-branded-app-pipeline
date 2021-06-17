@@ -5748,7 +5748,8 @@
         "pass": "Cartes de cours",
         "bookings": "Mes réservations ",
         "profile": "Mon Profil",
-        "order": "Mes commandes"
+        "order": "Mes commandes",
+        "subscriptions": "Mes souscriptions"
       },
       "reporting": "Rapports",
       "search": "Rechercher",

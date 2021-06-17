@@ -44,6 +44,7 @@ type Props = {
   membership: Membership,
   classes: Object,
   subscriptionLoading: boolean,
+  hideButtonOnWidget: boolean,
   fetchSubscriptionListByMember: (
     member: number,
     { page: number, page_size: number },
@@ -84,25 +85,32 @@ export class ConsumerSubscription extends React.Component<Props> {
     );
   };
 
+  renderButton = () => {
+    if (!this.props.hideButtonOnWidget) {
+      return (
+        <Button
+          onClick={() =>
+            this.props.goToSubscription(
+              this.props.membership.company_name,
+              this.props.membership.company,
+            )
+          }
+          color="primary"
+          variant="contained"
+        >
+          <ReceiptIcon className={this.props.classes.iconLeft} />
+          {this.props.t('actions.goToSubscription')}
+        </Button>
+      );
+    }
+    return null;
+  };
+
   render() {
     return (
       <div className={this.props.classes.table}>
         {this.props.subscriptionLoading && <BackofficeLinearProgress />}
-        <div className={this.props.classes.header}>
-          <Button
-            onClick={() =>
-              this.props.goToSubscription(
-                this.props.membership.company_name,
-                this.props.membership.company,
-              )
-            }
-            color="primary"
-            variant="contained"
-          >
-            <ReceiptIcon className={this.props.classes.iconLeft} />
-            {this.props.t('actions.goToSubscription')}
-          </Button>
-        </div>
+        <div className={this.props.classes.header}>{this.renderButton()}</div>
         {this.props.subscriptionList.map((sub) => (
           <SubscriptionListItem
             subscription={sub}

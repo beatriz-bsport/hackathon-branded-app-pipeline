@@ -172,7 +172,7 @@ export default compose(
     }) => (values, options) => {
       if (!values.birthday) {
         // eslint-disable-next-line
-        delete values.birthday;
+          delete values.birthday;
       }
       const formData = mapFormData(values, MemberMap);
 

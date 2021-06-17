@@ -14,6 +14,10 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 const BridgeWidget = asyncComponent(() => import('./BridgeWidget.page'));
 const Basket = asyncComponent(() => import('./Basket.page'));
+const ProfileWidgetPage = asyncComponent(() => import('./Profile.page'));
+const ConsumerSubscription = asyncComponent(
+  () => import('./ConsumerSubscription.page'),
+);
 const BookingsAndPrivateBookings = asyncComponent(
   () => import('./BookingsAndPrivateBookings.page'),
 );
@@ -43,6 +47,14 @@ class WidgetRouter extends React.Component<Props> {
           <Route
             path="/widget/:companyName/:companyId/bookings/"
             component={BookingsAndPrivateBookings}
+          />
+          <Route
+            path="/widget/:companyName/:companyId/profile/"
+            component={ProfileWidgetPage}
+          />
+          <Route
+            path="/widget/:companyName/:companyId/subscription/"
+            component={ConsumerSubscription}
           />
         </Switch>
       </MuiThemeProvider>

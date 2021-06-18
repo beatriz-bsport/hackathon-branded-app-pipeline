@@ -88,6 +88,7 @@ export class EstablishmentFormPage extends Component<Props> {
     this.props.upsertEstablishmentV2(
       this.props.update ? this.props.update.id : null,
       mapFormData(updatedData, establishmentMap),
+      { onSuccess: this.props.goToEstablishmentList() },
     );
   };
 

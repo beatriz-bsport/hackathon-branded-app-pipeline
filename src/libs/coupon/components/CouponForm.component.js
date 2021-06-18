@@ -86,7 +86,7 @@ type Props = {
 type State = {
   ...Coupon,
   with_expiration_date: boolean,
-  selected_tag_group?: number,
+  selected_tag_group?: Object<number>,
   tag_selection_error?: String,
 };
 
@@ -115,7 +115,7 @@ export class CouponForm extends React.Component<Props, State> {
           : null,
         whitelist_tags: props.initial.whitelist_tags,
         blacklist_tags: props.initial.blacklist_tags,
-        selected_tag_group: null,
+        selected_tag_group: { whitelist_tags: null, blacklist_tags: null },
         tag_selection_error: null,
       };
     } else {
@@ -138,7 +138,7 @@ export class CouponForm extends React.Component<Props, State> {
         subscription_mode: COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE,
         whitelist_tags: [],
         blacklist_tags: [],
-        selected_tag_group: null,
+        selected_tag_group: { whitelist_tags: null, blacklist_tags: null },
         tag_selection_error: null,
       };
     }
@@ -600,12 +600,14 @@ export class CouponForm extends React.Component<Props, State> {
           <FormControl style={{ paddingRight: 10 }}>
             <Select
               labelId="tag-group-select"
-              value={this.state.selected_tag_group}
+              value={this.state.selected_tag_group[tag_list_kind]}
               onChange={(event) =>
-                this.handleChange(
-                  'selected_tag_group',
-                  false,
-                )(event.target.value)
+                this.setState((prevState) => ({
+                  selected_tag_group: {
+                    ...prevState.selected_tag_group,
+                    [tag_list_kind]: event.target.value,
+                  },
+                }))
               }
             >
               {tagGroupWithTags.map((group) => (
@@ -621,13 +623,16 @@ export class CouponForm extends React.Component<Props, State> {
           <FormControl>
             <Select
               labelId="tag-select"
-              disabled={!this.state.selected_tag_group}
+              disabled={!this.state.selected_tag_group[tag_list_kind]}
               value={null}
               onChange={(event) => {
                 const newObjects = [...this.state[tag_list_kind]];
                 newObjects.push(event.target.value);
                 this.handleChange(tag_list_kind)(newObjects);
-                this.handleChange('selected_tag_group', false)(null);
+                this.handleChange(
+                  'selected_tag_group',
+                  false,
+                )({ whitelist_tags: null, blacklist_tags: null });
                 this.handleTagSelectionError(
                   newObjects,
                   tag_list_kind === 'whitelist_tags'
@@ -636,9 +641,12 @@ export class CouponForm extends React.Component<Props, State> {
                 );
               }}
             >
-              {this.state.selected_tag_group &&
+              {this.state.selected_tag_group[tag_list_kind] &&
                 tagGroupWithTags
-                  .find((tg) => tg.id === this.state.selected_tag_group)
+                  .find(
+                    (tg) =>
+                      tg.id === this.state.selected_tag_group[tag_list_kind],
+                  )
                   .tags.map((tag) => (
                     <MenuItem key={tag.id} value={tag.id}>
                       {tag.name}
@@ -649,56 +657,51 @@ export class CouponForm extends React.Component<Props, State> {
           </FormControl>
         </div>
         <List style={{ width: '100%' }}>
-          {this.state[tag_list_kind] &&
-          this.state[tag_list_kind].length !== 0 ? (
-            this.state[tag_list_kind].map((tag) => (
-              <React.Fragment>
-                <div
-                  key={`${tag_list_kind}${tag.id}`}
-                  className={classes.tagListItemContainer}
-                >
-                  <ListItemText
-                    secondary={`${t('form.tag.tag_group')} : ${
-                      allTagsDict[tag]
-                        ? allTagGroupDict[allTagsDict[tag].group].name
-                        : null
-                    }`}
-                    secondaryTypographyProps={{ variant: 'subtitle2' }}
-                    className={classes.tagListItem}
-                  />
-                  <ListItemText
-                    primary={`${t('form.tag.tag')} : ${
-                      allTagsDict[tag] ? allTagsDict[tag].name : null
-                    }`}
-                    primaryTypographyProps={{ variant: 'subtitle2' }}
-                    className={classes.tagListItem}
-                  />
-                  <IconButton
-                    edge="end"
-                    onClick={() => {
-                      const newObjects = [...this.state[tag_list_kind]];
-                      this.handleChange(tag_list_kind)(
-                        newObjects.filter((tagId) => tagId !== tag),
-                      );
-                      this.handleTagSelectionError(
-                        newObjects.filter((tagId) => tagId !== tag),
-                        tag_list_kind === 'whitelist_tags'
-                          ? this.state.blacklist_tags
-                          : this.state.whitelist_tags,
-                      );
-                    }}
+          {this.state[tag_list_kind] && this.state[tag_list_kind].length !== 0
+            ? this.state[tag_list_kind].map((tag) => (
+                <React.Fragment>
+                  <div
+                    key={`${tag_list_kind}${tag.id}`}
+                    className={classes.tagListItemContainer}
                   >
-                    <ClearIcon />
-                  </IconButton>
-                </div>
-                <Divider />
-              </React.Fragment>
-            ))
-          ) : (
-            <Typography variant="body1">
-              {t('form.tag.select.empty_tag_list')}
-            </Typography>
-          )}
+                    <ListItemText
+                      secondary={`${t('form.tag.tag_group')} : ${
+                        allTagsDict[tag]
+                          ? allTagGroupDict[allTagsDict[tag].group].name
+                          : null
+                      }`}
+                      secondaryTypographyProps={{ variant: 'subtitle2' }}
+                      className={classes.tagListItem}
+                    />
+                    <ListItemText
+                      primary={`${t('form.tag.tag')} : ${
+                        allTagsDict[tag] ? allTagsDict[tag].name : null
+                      }`}
+                      primaryTypographyProps={{ variant: 'subtitle2' }}
+                      className={classes.tagListItem}
+                    />
+                    <IconButton
+                      edge="end"
+                      onClick={() => {
+                        const newObjects = [...this.state[tag_list_kind]];
+                        this.handleChange(tag_list_kind)(
+                          newObjects.filter((tagId) => tagId !== tag),
+                        );
+                        this.handleTagSelectionError(
+                          newObjects.filter((tagId) => tagId !== tag),
+                          tag_list_kind === 'whitelist_tags'
+                            ? this.state.blacklist_tags
+                            : this.state.whitelist_tags,
+                        );
+                      }}
+                    >
+                      <ClearIcon />
+                    </IconButton>
+                  </div>
+                  <Divider />
+                </React.Fragment>
+              ))
+            : null}
         </List>
       </React.Fragment>
     );

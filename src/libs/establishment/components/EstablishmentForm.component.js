@@ -36,20 +36,20 @@ type Props = {
 };
 
 type State = {
-  title: ?string,
-  specific_info: ?string,
-  practical_info: ?string,
-  location: ?{
-    address: ?string,
-    address_line_1: ?string,
-    address_line_2: ?string,
-    zipcode: ?string,
-    city: ?string,
-    country: ?string,
+  title: string,
+  specific_info: string,
+  practical_info: string,
+  location: {
+    address: string,
+    address_line_1: string,
+    address_line_2: string,
+    zipcode: string,
+    city: string,
+    country: string,
     geometry: Object<number>,
   },
   cover: ?string,
-  capacity: ?number,
+  capacity: number,
 };
 
 export class EstablishmentForm extends Component<Props, State> {
@@ -114,9 +114,11 @@ export class EstablishmentForm extends Component<Props, State> {
       capacity,
       practical_info,
       location: location && {
-        address:
-          location.address_line_1 &&
-          location.address_line_1.concat('', location.address_line_2 || ''),
+        address: location.address_line_1
+          .concat(' ', location.address_line_2 || '')
+          .concat(', ', location.zipcode || '')
+          .concat(' ', location.city || '')
+          .concat(', ', location.country || ''),
         address_line_1: location.address_line_1,
         address_line_2: location.address_line_2,
         city: location.city,

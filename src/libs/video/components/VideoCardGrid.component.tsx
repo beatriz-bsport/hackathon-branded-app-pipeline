@@ -21,6 +21,7 @@ type Props = {
   onShowMore: () => void;
   onStream: (v: Video<SCT, Coach>) => void;
   goToDetail: (id: number) => void;
+  onDuplicate: (v: Video<SCT, Coach>) => void;
 };
 
 export const VideoCardList = (props: Props) => {
@@ -38,6 +39,7 @@ export const VideoCardList = (props: Props) => {
             onRequestUpload={props.onRequestUpload}
             onStream={props.onStream}
             goToDetail={() => props.goToDetail(v.id)}
+            onDuplicate={props.onDuplicate}
             withStatus
           />
         </Grid>

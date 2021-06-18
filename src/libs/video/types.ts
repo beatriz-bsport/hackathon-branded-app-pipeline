@@ -1,3 +1,4 @@
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 import { ErrorAndLoading, WithPagination } from '../types';
 import { Coach } from '../associated-coach/types';
 import { SCT } from '../category/types';
@@ -22,6 +23,7 @@ export type Video<S = number, C = number> = {
   date_created: string;
   credit_price: number;
   manager_only: boolean;
+  provider_identifier: VideoProvider;
 };
 
 export type VideoPurchase = {

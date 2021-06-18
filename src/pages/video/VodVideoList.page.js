@@ -29,6 +29,8 @@ import {
   fetchMoreVideo as fetchMoreVideoAction,
   fetchVideoFilterableParams as fetchVideoFilterableParamsAction,
   setVideoProviderIdentifier,
+  removeVideoSource,
+  duplicateVideo,
 } from '../../libs/video/actions';
 
 import VideoCardGrid from '../../libs/video/components/VideoCardGrid.component';
@@ -38,6 +40,8 @@ import VideoUploadDialog from '../../libs/video/components/VideoUploadDialog.com
 import VideoStreamDialog from '../../libs/video/components/VideoStreamDialog.component';
 import VideoSearchBar from '../../libs/video/components/VideoSearchBar.component';
 import themeSelectors from '../../libs/theme/selectors';
+import { Video } from '../../libs/video/types';
+import { showDeleteDialog } from '../../components/GenericDialog/CustomDialogs';
 
 type Props = {
   t: TFunction,
@@ -88,6 +92,8 @@ type Props = {
   submitVideoProviderIdentifier: (data: any, options: OptionCallback) => void,
   viewMode: string,
   setViewMode: (viewMode: string) => void,
+  removeVideoSource: () => void,
+  onDuplicateVideo: (v: Video) => void,
 };
 
 const VideoMap = {
@@ -152,6 +158,7 @@ export class VodVideoListPage extends React.PureComponent<Props> {
             onShowMore={this.props.fetchMoreVideo}
             hasMoreVideo={this.props.hasMoreVideo}
             loading={this.props.loading}
+            onDuplicate={this.props.onDuplicateVideo}
           />
         ) : (
           <VideoCardList
@@ -164,6 +171,7 @@ export class VodVideoListPage extends React.PureComponent<Props> {
             onShowMore={this.props.fetchMoreVideo}
             hasMoreVideo={this.props.hasMoreVideo}
             loading={this.props.loading}
+            onDuplicate={this.props.onDuplicateVideo}
           />
         )}
 
@@ -198,6 +206,7 @@ export class VodVideoListPage extends React.PureComponent<Props> {
             onSubmit={this.props.createOrUpdateVideo}
             initial={this.props.editVideo}
             onClose={this.props.closeEditForm}
+            onRemoveVideoSource={this.props.removeVideoSource}
           />
         )}
         <BottomActionButtons
@@ -282,6 +291,8 @@ export default compose(
       fetchMoreVideo: fetchMoreVideoAction,
       fetchVideoFilterableParams: fetchVideoFilterableParamsAction,
       submitVideoProviderIdentifier: setVideoProviderIdentifier,
+      removeVideoSourceAction: removeVideoSource,
+      duplicateVideo,
     },
   ),
   withHandlers({
@@ -365,6 +376,24 @@ export default compose(
             fetchVideoList();
           }
         },
+      });
+    },
+    removeVideoSource: (props) => async (video: Video) => {
+      const res = await showDeleteDialog(
+        props.t('video.form.video_source.change_popup_title'),
+        props.t('video.form.video_source.change_popup_text'),
+      );
+      if (res) {
+        props.closeEditForm();
+        await props.removeVideoSourceAction(video.id);
+        props.setVideoToUpload(video);
+      }
+    },
+  }),
+  withHandlers({
+    onDuplicateVideo: (props) => (video: Video) => {
+      props.duplicateVideo(video.id, {
+        onSuccess: () => props.fetchVideoList(),
       });
     },
   }),

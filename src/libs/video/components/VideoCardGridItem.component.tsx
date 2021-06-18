@@ -11,6 +11,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import DeleteIcon from '@material-ui/icons/Delete';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import VideoStatus from './VideoStatus.component';
@@ -30,6 +31,7 @@ type Props = {
   onRequestUpload: (v: Video<SCT, Coach>) => void;
   onStream: (v: Video<SCT, Coach>) => void;
   goToDetail: () => void;
+  onDuplicate: (v: Video<SCT, Coach>) => void;
 };
 
 const DeleteWithConfirm = withConfirm(IconButton, 'onClick', {
@@ -81,18 +83,19 @@ export const VideoCardGridItem = (props: Props) => {
                   >
                     {props.video.name}
                   </Typography>
-                  <Typography
-                    color="textSecondary"
-                    variant="body2"
-                    component="p"
-                  >
-                    {t('video.durationMinute', {
-                      minute: parseInt(props.video.duration_second / 60, 10),
-                    })}
-                  </Typography>
                 </div>
 
                 <div className={classes.headerAction}>
+                  {!!props.onDuplicate && (
+                    <IconButton
+                      size="small"
+                      color="primary"
+                      onClick={() => props.onDuplicate(props.video)}
+                    >
+                      <FileCopyIcon />
+                    </IconButton>
+                  )}
+
                   {!!props.onEdit && (
                     <IconButton
                       size="small"
@@ -112,12 +115,22 @@ export const VideoCardGridItem = (props: Props) => {
                   )}
                 </div>
               </div>
-              {props.video.SCT && (
-                <SCT
-                  SCTName={props.video.SCT.name}
-                  parentCategory={props.video.SCT.SCS.id}
-                />
-              )}
+
+              <div className={classes.row}>
+                <div className={classes.flex1}>
+                  {props.video.SCT && (
+                    <SCT
+                      SCTName={props.video.SCT.name}
+                      parentCategory={props.video.SCT.SCS.id}
+                    />
+                  )}
+                </div>
+                <Typography color="textSecondary" variant="body2" component="p">
+                  {t('video.durationMinute', {
+                    minute: parseInt(props.video.duration_second / 60, 10),
+                  })}
+                </Typography>
+              </div>
               <div className={classes.descriptionContainer}>
                 <TypographyWithShowMore
                   multiline
@@ -184,6 +197,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'flex-start',
     paddingLeft: theme.spacing(2),
+  },
+  row: {
+    display: 'flex',
+  },
+  flex1: {
+    flex: 1,
   },
   coachContainer: {
     paddingLeft: theme.spacing(2),

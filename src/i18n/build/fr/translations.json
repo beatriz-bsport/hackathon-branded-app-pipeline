@@ -5693,8 +5693,18 @@
         "creditPrice": {
           "label": "Coût en crédit",
           "helperText": "Laissé à zéro pour que la vidéo soit accessible à tous vos adhérents"
-        }
+        },
+        "video_source": {
+          "title": "Vidéo",
+          "youtube_video": "Vidéo Youtube",
+          "uploaded_video": "Fichier uploadé",
+          "edit_button": "Changer la vidéo",
+          "change_popup_title": "Changer la vidéo",
+          "change_popup_text": "Attention la vidéo actuelle sera supprimée, les données statistiques seront réinitialisées. Les membres ayant achetés l'ancienne vidéo disposeront désormais de la nouvelle."
+        },
+        "video_label": "Vidéo"
       },
+      "duplicate": "Dupliquer",
       "noVideoPurchase": "Aucun achat enregistré",
       "noVideoView": "Aucune vue",
       "boughtOn": "Achat effectué le {{-date}}",

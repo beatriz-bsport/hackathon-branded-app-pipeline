@@ -13,6 +13,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
@@ -31,6 +32,7 @@ type OwnProps = {
   onDelete: (v: Video<SCT, Coach>) => void;
   onRequestUpload: (v: Video<SCT, Coach>) => void;
   goToDetail: (id: number) => void;
+  onDuplicate: (v: Video<SCT, Coach>) => void;
 };
 
 type Props = OwnProps &
@@ -94,6 +96,12 @@ export class VideoCardListItem extends React.PureComponent<Props> {
                 onClick: () => this.props.onRequestUpload(this.props.video),
                 color: 'secondary',
               },
+            {
+              icon: FileCopyIcon,
+              label: t('video:video.duplicate'),
+              color: 'primary',
+              onClick: () => this.props.onDuplicate(this.props.video),
+            },
             {
               icon: EditIcon,
               label: t('common.edit'),

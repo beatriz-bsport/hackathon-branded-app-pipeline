@@ -22,6 +22,10 @@ export const createOrUpdateVideo = async (data: any = {}) => {
   return postAuth(`${API_V1_URI}/vod/video/`, data);
 };
 
+export const duplicateVideo = async (id: string) => {
+  return postAuth(`${API_V1_URI}/vod/video/${id}/duplicate/`);
+};
+
 export const deleteVideo = async (id: number) => {
   return deleteAuth(`${API_V1_URI}/vod/video/${id}/`);
 };
@@ -33,6 +37,11 @@ export const attachFile = async (id: number, file: Object) => {
 export const getUploadInstruction = async (id: number) => {
   return postAuth(`${API_V1_URI}/vod/video/${id}/upload_instruction/`);
 };
+
+export const removeVideoSource = async (id: number) => {
+  return postAuth(`${API_V1_URI}/vod/video/${id}/remove_video_source/`);
+};
+
 export const setProviderIdentifier = async (
   id: number,
   data: { provider_identifier: number },

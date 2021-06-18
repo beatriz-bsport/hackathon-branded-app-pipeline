@@ -14,6 +14,8 @@ import {
   setProviderIdentifier as setProviderIdentifierAPI,
   fetchVideoAnalyticsbyMember as fetchVideoAnalyticsbyMemberAPI,
   retrieveVideoPurchase as retrieveVideoPurchaseAPI,
+  removeVideoSource as removeVideoSourceAPI,
+  duplicateVideo as duplicateVideoAPI,
 } from './api';
 
 import { snackbarSuccess, snackbarError } from '../../actions/snackbar.actions';
@@ -212,11 +214,33 @@ export function createOrUpdateVideo(data: any, options?: OptionCallback) {
   };
 }
 
+export function duplicateVideo(id: string, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOrUpdateVideoActions.isLoading(true));
+    dispatch(createOrUpdateVideoActions.error(null));
+    try {
+      const response = await duplicateVideoAPI(id);
+      dispatch(createOrUpdateVideoActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+      dispatch(snackbarSuccess('video.createOrUpdate.success'));
+    } catch (err) {
+      console.error(err);
+      dispatch(createOrUpdateVideoActions.error(err));
+      if (options && options.onError) options.onError();
+      dispatch(snackbarError('video.createOrUpdate.error'));
+    }
+    dispatch(createOrUpdateVideoActions.isLoading(false));
+  };
+}
+
 export const deleteVideoActions = {
   isLoading: createAction('VIDEO/DELETE/IS_LOADING'),
   error: createAction('VIDEO/DELETE/ERROR'),
   success: createAction('VIDEO/DELETE/SUCCESS'),
 };
+
 export function deleteVideo(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteVideoActions.isLoading(true));
@@ -238,11 +262,33 @@ export function deleteVideo(id: number, options?: OptionCallback) {
   };
 }
 
+export function removeVideoSource(id: number, options?: OptionCallback<Video>) {
+  return async (dispatch: Dispatch) => {
+    dispatch(createOrUpdateVideoActions.isLoading(true));
+    dispatch(createOrUpdateVideoActions.error(null));
+    try {
+      const res = await removeVideoSourceAPI(id);
+      dispatch(createOrUpdateVideoActions.success(res.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(res.data);
+      }
+      dispatch(snackbarSuccess('video.delete.success'));
+    } catch (err) {
+      console.error(err);
+      dispatch(createOrUpdateVideoActions.error(err));
+      if (options && options.onError) options.onError();
+      dispatch(snackbarError('video.delete.error'));
+    }
+    dispatch(deleteVideoActions.isLoading(false));
+  };
+}
+
 export const registerVideoActions = {
   isLoading: createAction('VIDEO/REGISTER/IS_LOADING'),
   error: createAction('VIDEO/REGISTER/ERROR'),
   success: createAction('VIDEO/REGISTER/SUCCESS'),
 };
+
 export function registerVideo(id: number, data: any, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(registerVideoActions.isLoading(true));
@@ -269,6 +315,7 @@ export const listVideoPurchaseActions = {
   error: createAction('VIDEO_PURCHASE/LIST/ERROR'),
   success: createAction('VIDEO_PURCHASE/LIST/SUCCESS'),
 };
+
 export function fetchVideoPurchase(
   page: number,
   page_size: number,
@@ -306,6 +353,7 @@ export const retrieveVideoPurchaseActions = {
   error: createAction('VIDEO_PURCHASE/RETRIEVE/ERROR'),
   success: createAction('VIDEO_PURCHASE/RETRIEVE/SUCCESS'),
 };
+
 export function retrieveVideoPurchase(id: number, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveVideoPurchaseActions.isLoading(true));
@@ -348,6 +396,7 @@ export const retrieveVideoAnalyticsActions = {
   error: createAction('VIDEO_ANALYTICS/LIST/ERROR'),
   success: createAction('VIDEO_ANALYTICS/LIST/SUCCESS'),
 };
+
 export function fetchVideoAnalytics(videoId: number) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveVideoAnalyticsActions.isLoading(true));
@@ -368,6 +417,7 @@ export const retrieveVideoAnalyticsByMemberActions = {
   error: createAction('VIDEO_ANALYTICS/MEMBER/ERROR'),
   success: createAction('VIDEO_ANALYTICS/MEMBER/SUCCESS'),
 };
+
 export function fetchVideoAnalyticsbyMember(
   videoId: number,
   params: any,
@@ -393,6 +443,7 @@ export const listVideoViewsActions = {
   error: createAction('VIDEO_VIEWS/LIST/ERROR'),
   success: createAction('VIDEO_VIEWS/LIST/SUCCESS'),
 };
+
 export function fetchVideoViews(
   page: number,
   page_size: number,
@@ -450,6 +501,7 @@ export const setVideoProviderActions = {
   error: createAction('VIDEO/SET_PROVIDER/ERROR'),
   success: createAction('VIDEO/SET_PROVIDER/SUCCESS'),
 };
+
 export function setVideoProviderIdentifier(
   videoId: number,
   providerIdentifier: number,

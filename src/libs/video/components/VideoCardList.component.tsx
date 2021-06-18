@@ -25,6 +25,7 @@ type Props = {
   onShowMore: () => void;
   onStream: (v: Video<SCT, Coach>) => void;
   goToDetail: (id: number) => void;
+  onDuplicate: (v: Video<SCT, Coach>) => void;
 };
 
 export const VideoCardList = (props: Props) => {
@@ -44,6 +45,7 @@ export const VideoCardList = (props: Props) => {
               onStream={props.onStream}
               goToDetail={props.goToDetail}
               withStatus
+              onDuplicate={props.onDuplicate}
             />
           ))}
         </List>

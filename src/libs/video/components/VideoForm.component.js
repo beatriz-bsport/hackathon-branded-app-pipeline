@@ -3,9 +3,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import pick from 'lodash/pick';
 import moment from 'moment-timezone';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
+import { VideoStatus } from '@bsport/common/lib/master-data/video';
 
 import { withFormik, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -26,10 +28,12 @@ type Props = {
   coaches: Array<Coach>,
   SCTs: Array<SCT>,
   initial?: Video,
+  onRemoveVideoSource: (v: Video) => void,
 };
 export const VideoForm = (props: Props) => {
   const { t } = useTranslation(['video']);
   const classes = useStyles();
+
   return (
     <div className={classes.container}>
       <div className={classes.field}>
@@ -127,6 +131,7 @@ export const VideoForm = (props: Props) => {
       </div>
 
       {props.initial &&
+        props.initial.status !== VideoStatus.CREATED &&
         props.initial.provider_identifier ===
           VideoProvider.EXTERNAL_URL_PROVIDER && (
           <>
@@ -170,6 +175,32 @@ export const VideoForm = (props: Props) => {
           rows={10}
         />
       </div>
+
+      {props.initial && props.initial.status !== VideoStatus.CREATED && (
+        <fieldset>
+          <legend className={classes.legend}>
+            {t('video.form.video_source.title')}
+          </legend>
+
+          <div className={classes.videoSourceContent}>
+            <Typography variant="subtitle1" color="textSecondary">
+              {props.initial.provider_identifier ===
+              VideoProvider.EXTERNAL_URL_PROVIDER
+                ? t('video.form.video_source.youtube_video')
+                : t('video.form.video_source.uploaded_video')}
+            </Typography>
+
+            <Button
+              color="primary"
+              variant="outlined"
+              className={classes.videoSourceButton}
+              onClick={() => props.onRemoveVideoSource(props.initial)}
+            >
+              {t('video.form.video_source.edit_button').toUpperCase()}
+            </Button>
+          </div>
+        </fieldset>
+      )}
     </div>
   );
 };
@@ -188,6 +219,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4),
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  videoSourceContent: {
+    marginTop: theme.spacing(-2),
+  },
+  videoSourceButton: {
+    marginTop: theme.spacing(2),
   },
   selectorWrapper: {
     backgroundColor: '#F4F4F4',

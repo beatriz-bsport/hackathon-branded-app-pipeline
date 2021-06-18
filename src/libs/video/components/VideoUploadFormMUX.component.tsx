@@ -8,10 +8,7 @@ import { withStyles } from '@material-ui/styles';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import {
-  VideoProvider,
-  VideoProviderType,
-} from '@bsport/common/lib/master-data/video-provider';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 
 import {
   getUploadInstruction as getUploadInstructionAPI,
@@ -24,7 +21,6 @@ import VideoProviderDropzone from './VideoProviderDropzone.component';
 type State = {
   progress: number;
   isUploading: boolean;
-  videoStrategy: VideoProviderType;
 };
 
 type OwnProps = {

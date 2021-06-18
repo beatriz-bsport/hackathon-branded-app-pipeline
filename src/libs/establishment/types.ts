@@ -70,3 +70,13 @@ export type EstablishmentState = {
   };
   updated: boolean;
 };
+
+export type establishmentAddressInput = {
+  address: string;
+  address_line_1: string;
+  address_line_2: string;
+  city: string;
+  country: string;
+  zipcode: string;
+  location: object;
+};

@@ -16,6 +16,7 @@ import {
   resetAction,
   associatedEstablishmentListActions,
   establishmentBulkRetrieveActions,
+  UpdateOrCreateEstablishmentsActionsV2,
 } from './actions';
 import { EstablishmentState } from './types';
 
@@ -139,6 +140,15 @@ export default handleActions(
     },
     [associatedEstablishmentListActions.success]: (state, { payload }) => {
       return state.setIn(['associatedEstablishment', 'items'], payload);
+    },
+    [UpdateOrCreateEstablishmentsActionsV2.isLoading]: (state, { payload }) => {
+      return state.setIn(['upsert', 'loading'], payload);
+    },
+    [UpdateOrCreateEstablishmentsActionsV2.error]: (state, { payload }) => {
+      return state.setIn(['upsert', 'error'], payload);
+    },
+    [UpdateOrCreateEstablishmentsActionsV2.success]: (state, { payload }) => {
+      return state.setIn(['byId', payload.id], payload.data);
     },
   },
   initialState,

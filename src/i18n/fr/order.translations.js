@@ -31,7 +31,7 @@ exports.default = {
   detail: {
     section: {
       title: 'Status de la commande :',
-      deliveryInfo: 'Addresse de livraison',
+      deliveryInfo: 'Adresse de livraison',
       productDetail: 'Détails du panier',
       invoice: 'Facture liée',
       member: 'Acheteur',

@@ -2671,6 +2671,15 @@
       "create": { "title": "Nouvel établissement" },
       "update": { "title": "Édition des informations" }
     },
+    "location": {
+      "search_address": "Rechercher une adresse",
+      "address": "Adresse",
+      "address_line_1": "Adresse ligne 1",
+      "address_line_2": "Adresse ligne 2",
+      "city": "Ville",
+      "zip_code": "Code Postal",
+      "country": "Pays"
+    },
     "notificationToolTip": "Des notifications sont définies pour les réservations concernant cet établissement"
   },
   "order": {
@@ -2689,7 +2698,7 @@
     "detail": {
       "section": {
         "title": "Status de la commande :",
-        "deliveryInfo": "Addresse de livraison",
+        "deliveryInfo": "Adresse de livraison",
         "productDetail": "Détails du panier",
         "invoice": "Facture liée",
         "member": "Acheteur"

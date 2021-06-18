@@ -7,6 +7,7 @@ import {
   deleteAuth,
   buildUrlParams,
 } from '../../http';
+import type { establishmentAddressInput } from './types';
 
 export async function addEstablishment(data: any) {
   return postAuth(`${API_URI}/saas/establishments/add`, data);
@@ -20,6 +21,15 @@ export async function updateEstablishment(data: any) {
   return putAuth(`${API_URI}/saas/establishments/${data.get('id')}`, data);
 }
 
+export async function addEstablishmentV2(data: establishmentAddressInput) {
+  return postAuth(`${API_V1_URI}/establishment/`, data);
+}
+export async function updateEstablishmentV2(
+  id: number,
+  data: establishmentAddressInput,
+) {
+  return putAuth(`${API_V1_URI}/establishment/${id}/`, data);
+}
 export async function fetchEstablishment(id: number) {
   return getAuth(`${API_URI}/saas/establishment/${id}/`);
 }

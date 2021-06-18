@@ -12,19 +12,36 @@ import type { TFunction } from 'react-i18next';
 
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
-  createOrUpdateEstablishment,
+  createOrUpdateEstablishmentV2,
   addImageToEstablishment,
   removeImageFromEstablishment,
   fetchEstablishments,
 } from '../../libs/establishment/actions';
 import { getEstablishment } from '../../libs/establishment/selectors';
 import EstablishmentForm from '../../libs/establishment/components/EstablishmentForm.component';
-
-import { mapFormData } from '../form.utils';
+// import { mapFormData } from '../form.utils';
 import withTitle from '../../hocs/with-title.hoc';
 
+export function mapFormData(base, map) {
+  const formData = new FormData();
+  for (const [key, value] of Object.entries(base)) {
+    if (!(typeof map[key] === 'boolean') && !map[key]) {
+      throw new Error(`Mapping for key ${key} does not exist.`);
+    }
+    if (value !== undefined) {
+      if (Array.isArray(value)) {
+        formData.append(map[key], JSON.stringify(value));
+      } else if (typeof value === 'object' && key !== 'cover') {
+        formData.append(map[key], JSON.stringify(value));
+      } else {
+        formData.append(map[key], value);
+      }
+    }
+  }
+  return formData;
+}
 type Props = {
-  upsertEstablishment: (*) => void,
+  upsertEstablishmentV2: (*) => void,
   goToEstablishmentList: () => void,
   addImage: (number, File) => void,
   removeImage: (number, number) => void,
@@ -33,6 +50,21 @@ type Props = {
   pending: boolean,
   update: *,
   isNew: boolean,
+};
+const establishmentMap = {
+  id: 'id',
+  title: 'title',
+  cover: 'cover',
+  location: 'location',
+  specific_info: 'specific_info',
+  easy_access: 'easy_access',
+  associatedestablishment_set: 'associatedestablishment_set',
+  tzname: 'tzname',
+  practical_info: 'practical_info',
+  capacity: 'capacity',
+  on_booking_notification: 'on_booking_notification',
+  disabled: 'disabled',
+  has_next_slots: 'has_next_slots',
 };
 
 export class EstablishmentFormPage extends Component<Props> {
@@ -43,22 +75,20 @@ export class EstablishmentFormPage extends Component<Props> {
   }
 
   createEstablishment = async (data: *) => {
-    const formData = mapFormData(data, {
-      title: 'title',
-      specific_info: 'specific_info',
-      practical_info: 'practical_info',
-      x: 'location.geometry.x',
-      y: 'location.geometry.y',
-      address: 'location.address',
-      cover: 'cover',
-      capacity: 'capacity',
-    });
-
-    if (this.props.update) {
-      formData.append('id', this.props.update.id);
+    const updatedData = {
+      ...(this.props.update && this.props.update),
+      ...data,
+    };
+    const { cover } = updatedData;
+    if (typeof cover !== 'string' && !!updatedData.cover) {
+      updatedData.cover = cover;
+    } else {
+      delete updatedData.cover;
     }
-
-    this.props.upsertEstablishment(formData);
+    this.props.upsertEstablishmentV2(
+      this.props.update ? this.props.update.id : null,
+      mapFormData(updatedData, establishmentMap),
+    );
   };
 
   render() {
@@ -76,16 +106,14 @@ export class EstablishmentFormPage extends Component<Props> {
           onRemoveImage: (id: number) => removeImage(establishmentId, id),
         };
     return (
-      <div>
-        <EstablishmentForm
-          onSubmit={this.createEstablishment}
-          processing={this.props.pending}
-          initial={update}
-          update={this.props.update}
-          imageUploader={imageUploader}
-          onCancel={this.props.goToEstablishmentList}
-        />
-      </div>
+      <EstablishmentForm
+        onSubmit={this.createEstablishment}
+        processing={this.props.pending}
+        initial={update}
+        update={this.props.update}
+        imageUploader={imageUploader}
+        onCancel={this.props.goToEstablishmentList}
+      />
     );
   }
 }
@@ -104,7 +132,7 @@ export default compose(
     }),
     {
       fetchEstablishments,
-      upsertEstablishment: createOrUpdateEstablishment,
+      upsertEstablishmentV2: createOrUpdateEstablishmentV2,
       addImage: addImageToEstablishment,
       removeImage: removeImageFromEstablishment,
       goToEstablishmentList: () => push('/establishment'),

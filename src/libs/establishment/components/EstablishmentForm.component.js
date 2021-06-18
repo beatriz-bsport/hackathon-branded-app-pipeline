@@ -39,42 +39,72 @@ type State = {
   title: ?string,
   specific_info: ?string,
   practical_info: ?string,
-  location: ?{ x: number, y: number },
-  address: ?string,
+  location: ?{
+    address: ?string,
+    address_line_1: ?string,
+    address_line_2: ?string,
+    zipcode: ?string,
+    city: ?string,
+    country: ?string,
+    geometry: Object<number>,
+  },
   cover: ?string,
+  capacity: ?number,
 };
 
 export class EstablishmentForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
     if (props.initial) {
       this.state = {
         title: props.initial.title,
         specific_info: props.initial.specific_info,
         practical_info: props.initial.practical_info,
-        address: props.initial.location.address,
-        capacity: props.initial.capacity,
         location: {
-          x: props.initial.location.longitude,
-          y: props.initial.location.latitude,
+          address: props.initial.location.address,
+          address_line_1: props.initial.location.address_line_1,
+          address_line_2: props.initial.location.address_line_2,
+          zipcode: props.initial.location.zipcode,
+          city: props.initial.location.city,
+          country: props.initial.location.country,
+          geometry: {
+            x: props.initial.location.latitude,
+            y: props.initial.location.longitude,
+          },
         },
+        capacity: props.initial.capacity,
         cover: props.initial.cover,
       };
     } else {
-      this.state = { capacity: 30 };
+      this.state = {
+        title: '',
+        specific_info: '',
+        practical_info: '',
+        location: {
+          address: '',
+          address_line_1: '',
+          address_line_2: '',
+          zipcode: '',
+          city: '',
+          country: '',
+          geometry: {
+            x: 0,
+            y: 0,
+          },
+        },
+        capacity: 30,
+        cover: '',
+      };
     }
   }
 
   onSubmit = (e: SyntheticEvent<HTMLElement>) => {
     e.preventDefault();
-
     const {
       title,
       specific_info,
       practical_info,
       location,
-      address,
       cover,
       capacity,
     } = this.state;
@@ -83,20 +113,29 @@ export class EstablishmentForm extends Component<Props, State> {
       specific_info,
       capacity,
       practical_info,
-      x: location && location.x,
-      y: location && location.y,
-      address,
+      location: location && {
+        address:
+          location.address_line_1 &&
+          location.address_line_1.concat('', location.address_line_2 || ''),
+        address_line_1: location.address_line_1,
+        address_line_2: location.address_line_2,
+        city: location.city,
+        country: location.country,
+        zipcode: location.zipcode,
+        geometry: location.geometry,
+      },
     };
     if (cover && typeof cover !== 'string') {
       data.cover = cover;
     }
-
     this.props.onSubmit(data);
   };
 
-  onFormFieldChange = (id: string) => (value) => {
+  onFormFieldChange = (id: string) => (value: any) => {
     if (id === 'location') {
-      this.setState({ location: value.location, address: value.address });
+      this.setState({
+        location: { ...value },
+      });
     } else {
       this.setState({ [id]: value });
     }
@@ -201,11 +240,16 @@ export class EstablishmentForm extends Component<Props, State> {
                 <LocationInput
                   id="location"
                   required
-                  value={{
-                    address: this.state.address,
-                    location: this.state.location,
+                  value={
+                    this.state.location &&
+                    this.state.location.address && {
+                      ...this.state.location,
+                    }
+                  }
+                  onChange={(data) => {
+                    this.setState({ location: { ...data } });
                   }}
-                  onChange={this.onFormFieldChange('location')}
+                  t={this.props.t}
                 />
               </Grid>
               <Grid item container justify="flex-start">

@@ -5,11 +5,14 @@ import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
 import { ThunkDispatch } from 'redux-thunk';
+import { Dispatch } from 'react';
 import {
   fetchAllEstablishments as fetchEstablishmentListAPI,
   fetchEstablishment as fetchEstablishmentAPI,
   fetchEstablishmentFavorite as fetchEstablishmentFavoriteAPI,
   updateEstablishment as updateEstablishmentAPI,
+  updateEstablishmentV2 as updateEstablishmentV2API,
+  addEstablishmentV2 as addEstablishmentV2API,
   addEstablishment as addEstablishmentAPI,
   deleteEstablishment as deleteEstablishmentAPI,
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAPI,
@@ -22,6 +25,8 @@ import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { getFreshEstablishmentIds } from './selectors';
 import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
+
+import type { establishmentAddressInput } from './types';
 
 export const deleteActions = {
   isLoading: createAction('ESTABLISHMENT/DELETE/IS_LOADING'),
@@ -144,6 +149,37 @@ export function createOrUpdateEstablishment(establishmentData: FormData) {
     }
 
     dispatch(upsertIsLoading(false));
+  };
+}
+export const UpdateOrCreateEstablishmentsActionsV2 = {
+  isLoading: createAction('ESTABLISHMENTV2/UPSERT/IS_LOADING'),
+  error: createAction('ESTABLISHMENTV2/UPSERT/ERROR'),
+  success: createAction('ESTABLISHMENTV2/UPSERT/SUCCESS'),
+};
+export function createOrUpdateEstablishmentV2(
+  id?: number,
+  data: establishmentAddressInput,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(UpdateOrCreateEstablishmentsActionsV2.isLoading(true));
+    dispatch(UpdateOrCreateEstablishmentsActionsV2.error(false));
+    try {
+      const response = id
+        ? await updateEstablishmentV2API(id, data)
+        : await addEstablishmentV2API(data);
+      dispatch(
+        UpdateOrCreateEstablishmentsActionsV2.success({
+          id: id || response.data.id,
+          data: response.data,
+        }),
+      );
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(UpdateOrCreateEstablishmentsActionsV2.error(err));
+    }
+    dispatch(UpdateOrCreateEstablishmentsActionsV2.isLoading(false));
   };
 }
 

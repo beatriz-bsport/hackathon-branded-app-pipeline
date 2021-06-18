@@ -66,8 +66,9 @@ exports.default = {
     actions: 'Actions',
     calculationMethod: 'Méthode de calcul',
     forConfirmedBookings: 'Pour les élèves présents',
-    forCancelledBookings: 'Pour les annulations hors délai et abscences',
-    base_remuneration: 'Définir une base de rémunération fixe',
+    forCancelledBookings: 'Pour les annulations hors délai et absences',
+    set_base_remuneration: 'Définir une base de rémunération fixe',
+    base_remuneration: 'Base fixe',
     base_remuneration_helper:
       'Ce montant sera toujours ajouté à la rémunération de la séance / RDV',
     percentage_base:

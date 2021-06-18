@@ -261,10 +261,10 @@ export const CoachPaymentRuleSimulationDialog = (props: Props) => {
                       <Figure
                         name={t('coach_payment_rules.Simulator.total_payment')}
                         count={`${getCurrencyDisplay()}
-                      ${
+                      ${(
                         props.simulationResult[props.coachPaymentRule.id]
                           .remuneration || 0
-                      }`}
+                      ).toFixed(2)}`}
                         color="green"
                       />
                     </Grid>

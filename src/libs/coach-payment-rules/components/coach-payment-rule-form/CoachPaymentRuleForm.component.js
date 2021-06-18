@@ -126,7 +126,7 @@ export function CoachPaymentRuleFields(props: Props) {
                 }}
               />
             }
-            label={t('coach_payment_rules.base_remuneration')}
+            label={t('coach_payment_rules.set_base_remuneration')}
           />
           <FormHelperText>
             {t('coach_payment_rules.base_remuneration_helper')}
@@ -162,7 +162,7 @@ export function CoachPaymentRuleFields(props: Props) {
                 }}
               />
             }
-            label={t('coach_payment_rules.base_remuneration')}
+            label={t('coach_payment_rules.set_base_remuneration')}
           />
           <Collapse in={props.values.add_overall_base_remuneration}>
             <PriceField
@@ -487,7 +487,7 @@ export function CoachPaymentRuleFields(props: Props) {
                     }}
                   />
                 }
-                label={t('coach_payment_rules.base_remuneration')}
+                label={t('coach_payment_rules.set_base_remuneration')}
               />
               <Collapse
                 in={props.values.add_base_remuneration_for_cancellation}
@@ -513,9 +513,7 @@ export function CoachPaymentRuleFields(props: Props) {
                   'add_percentage_base_cancelled_bookings',
                   !props.values.add_percentage_base_cancelled_bookings,
                 );
-                if (!props.values.add_percentage_base_cancelled_bookings) {
-                  setFieldValue('percentage_base_cancelled_bookings', 0);
-                }
+                setFieldValue('percentage_base_cancelled_bookings', 0);
               }}
             />
           }

@@ -189,7 +189,7 @@ const InvoiceItemEditor = (props: Props) => {
 
         if (item) {
           const price = getPriceForItem(item, buyableItemIdentifier);
-          const priceNumber = parseInt(price).toFixed(2);
+          const priceNumber = parseFloat(price).toFixed(2);
           const newVoucher = ((priceNumber * percent) / 100).toFixed(2);
           setVoucher(newVoucher);
         }

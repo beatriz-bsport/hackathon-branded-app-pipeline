@@ -112,6 +112,9 @@ exports.default = {
       submit: 'Fusionner',
     },
     error: 'Impossible de sauvegarder le membre',
+    phone: {
+      error: 'Numéro de téléphone invalide',
+    },
     create: {
       title: 'Nouveau membre',
       success: 'Membre créé avec succès',

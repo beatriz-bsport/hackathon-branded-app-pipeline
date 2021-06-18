@@ -12,9 +12,9 @@ import * as Yup from 'yup';
 import { withFormik, Form, connect as formikConnect } from 'formik';
 
 import { compose, withPropsOnChange, withProps, withState } from 'recompose';
+import i18n, { browserCountryCode, Moment } from '../../i18n';
 import { getAuth, postAuth, API_URI } from '../../http';
 
-import { browserCountryCode, Moment } from '../../i18n';
 import AvatarField from '../../components/forms/AvatarField.component';
 
 import {
@@ -411,11 +411,16 @@ export function MemberForm(props: Props) {
   );
 }
 
+const phoneRegExp = /^\+?1?\d{9,15}$/;
+
 const MemberSchema = Yup.object().shape({
   firstname: Yup.string(),
   lastname: Yup.string(),
   email: Yup.string().nullable(),
-  phone: Yup.string().nullable().notRequired(),
+  phone: Yup.string()
+    .nullable()
+    .notRequired()
+    .matches(phoneRegExp, i18n.t('member:forms.phone.error')),
   gender: Yup.string().matches(/(F|M|X)/),
   birthday: Yup.string().nullable().notRequired(),
   barcode: Yup.string().nullable(),

@@ -25,7 +25,7 @@ import {
 } from '@bsport/common/lib/master-data/payment-group';
 
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
-import { appliesToContract as appliesToContractAPI } from '../../coupon/api';
+import { appliesToContract } from '../../coupon/api';
 
 import PaymentMethodList from '../../payment/components/PaymentMethodList.component';
 import { getCurrencyDisplay } from '../../theme/selectors';
@@ -111,6 +111,7 @@ type Props = {
 
   sepaDefaultName?: string,
   sepaDefaultEmail?: string,
+  memberId: string,
 };
 
 type State = {
@@ -173,6 +174,22 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     }
   };
 
+  applyCoupon = async (coupon_code: string, options: any) => {
+    const { data } = await appliesToContract(
+      coupon_code,
+      this.props.contract.id,
+      this.props.memberId,
+    );
+
+    if (data.can_be_applied) {
+      this.setState({
+        coupon_code,
+        voucher: data.voucher,
+      });
+      if (options && options.onSuccess) options.onSuccess();
+    } else if (options && options.onError) options.onError();
+  };
+
   render() {
     const {
       paymentMethod,
@@ -214,21 +231,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 ).toFixed(2)} ${getCurrencyDisplay()}`}
               </Typography>
             )}
-            <CouponCodeForm
-              onSubmit={async (coupon_code, options) => {
-                const { data } = await appliesToContractAPI(
-                  coupon_code,
-                  this.props.contract.id,
-                );
-                if (data.can_be_applied) {
-                  this.setState({
-                    coupon_code,
-                    voucher: data.voucher,
-                  });
-                  if (options && options.onSuccess) options.onSuccess();
-                } else if (options && options.onError) options.onError();
-              }}
-            />
+            <CouponCodeForm onSubmit={this.applyCoupon} />
             <Divider />
           </div>
         )}

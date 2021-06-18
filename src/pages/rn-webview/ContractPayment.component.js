@@ -117,6 +117,7 @@ export class ContractPayment extends React.Component<Props, State> {
           enabledPaymentGroupMethodIdentifier={
             this.props.companyTheme.payment_method_available_subscription
           }
+          memberId={this.props.memberId}
         />
       </div>
     );

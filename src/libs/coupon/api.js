@@ -6,6 +6,7 @@ import {
   patchAuth,
   deleteAuth,
   buildUrlParams,
+  post,
 } from '../../http';
 
 const COUPON_URI = `${API_V1_URI}/coupon/`;
@@ -30,7 +31,16 @@ export const createCoupon = async (data: *) => {
 export const appliesToContract = async (
   coupon_code: string,
   contract: number,
+  member?: number,
 ) => {
+  if (member !== undefined) {
+    return post(`${COUPON_URI}applies_to_contract/`, {
+      coupon_code,
+      contract,
+      member,
+    });
+  }
+
   return postAuth(`${COUPON_URI}applies_to_contract/`, {
     coupon_code,
     contract,

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import * as Sentry from '@sentry/react';
 
 import {
   PAYMENT_INTENT_TYPE_INVOICE,
@@ -78,6 +79,7 @@ export const MemberBillingProblemCard = (props: Props) => {
         console.error(err);
         setClientSecretLoading(false);
         setClientSecretError(true);
+        Sentry.captureException(err);
       });
   };
 

@@ -436,6 +436,14 @@ exports.default = {
         label:
           'Mettre en pause uniquement les souscriptions dont la facture intervient entre deux dates',
       },
+      paymentPackActions: {
+        title: 'Comportement des cartes',
+        doNotChange: 'Ne pas modifier la carte facturée',
+        extendTillNextInvoice:
+          "Étendre la durée de validité de la carte facturée jusqu'à la prochaine facture",
+        disableTillNextInvoice:
+          "Désactiver la carte facturée jusqu'à la prochaine facturation",
+      },
     },
   },
 };

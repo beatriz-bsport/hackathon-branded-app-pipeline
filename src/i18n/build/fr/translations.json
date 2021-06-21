@@ -4042,7 +4042,13 @@
         "validBillingPlan": "Les souscriptions suivantes seront mises en pause",
         "explainImpossible": "Si un versement est en cours, ou prévu dans les 24h, la souscription ne peut pas être mise en pause automatiquement",
         "invalidBillingPlan": "Les souscriptions suivantes ne pourront pas être mises en pause en automatique",
-        "dateFilter": { "label": "Mettre en pause uniquement les souscriptions dont la facture intervient entre deux dates" }
+        "dateFilter": { "label": "Mettre en pause uniquement les souscriptions dont la facture intervient entre deux dates" },
+        "paymentPackActions": {
+          "title": "Comportement des cartes",
+          "doNotChange": "Ne pas modifier la carte facturée",
+          "extendTillNextInvoice": "Étendre la durée de validité de la carte facturée jusqu'à la prochaine facture",
+          "disableTillNextInvoice": "Désactiver la carte facturée jusqu'à la prochaine facturation"
+        }
       }
     }
   },

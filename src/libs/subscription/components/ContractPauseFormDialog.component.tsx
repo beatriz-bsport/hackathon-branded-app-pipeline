@@ -14,8 +14,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
+import FormControl from '@material-ui/core/FormControl';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 
 import moment from 'moment-timezone';
+import { SubscriptionPause } from '@bsport/common/lib/master-data/subscription-pause';
 
 import DateInput from '../../../components/input/DateInput.component';
 import NumericInput from '../../../components/input/NumericInput.component';
@@ -40,6 +44,7 @@ const ContractPauseFormDialog: React.FC<Props> = (props) => {
 
   const [name, setName] = React.useState('');
   const [days, setDays] = React.useState(15);
+  const [packsType, setPacksType] = React.useState(1);
 
   const [from_date, setFromDate] = React.useState(
     moment().format('YYYY-MM-DD'),
@@ -88,6 +93,7 @@ const ContractPauseFormDialog: React.FC<Props> = (props) => {
         days,
         from_date: dateFilter ? from_date : null,
         until_date: dateFilter ? until_date : null,
+        action_pack_kind: packsType,
       },
       { onSuccess: () => setProcessing(false) },
     );
@@ -116,6 +122,42 @@ const ContractPauseFormDialog: React.FC<Props> = (props) => {
                 label={t('contractPause.form.days.label')}
                 helperText={t('contractPause.form.days.helperText')}
               />
+
+              <Typography variant="h5" className={classes.marginTop}>
+                {t('contractPause.form.paymentPackActions.title')}
+              </Typography>
+
+              <FormControl component="fieldset">
+                <RadioGroup
+                  aria-label="subscription_pause"
+                  name="subscription_pause"
+                  value={packsType}
+                  onChange={(ev) => setPacksType(parseInt(ev.target.value))}
+                >
+                  <FormControlLabel
+                    value={SubscriptionPause.PAUSE_PACK_NONE}
+                    control={<Radio />}
+                    label={t(
+                      'contractPause.form.paymentPackActions.doNotChange',
+                    )}
+                  />
+                  <FormControlLabel
+                    value={SubscriptionPause.PAUSE_PACK_EXTEND}
+                    control={<Radio />}
+                    label={t(
+                      'contractPause.form.paymentPackActions.extendTillNextInvoice',
+                    )}
+                  />
+                  <FormControlLabel
+                    value={SubscriptionPause.PAUSE_PACK_DISABLE}
+                    control={<Radio />}
+                    label={t(
+                      'contractPause.form.paymentPackActions.disableTillNextInvoice',
+                    )}
+                  />
+                </RadioGroup>
+              </FormControl>
+
               <div className={classes.advancedContainer}>
                 <div className={classes.row}>
                   <IconButton onClick={() => toogleCollapse(!collapse)}>
@@ -280,6 +322,9 @@ const useStyles = makeStyles((theme) => ({
     '&>*': {
       marginRight: theme.spacing(2),
     },
+  },
+  marginTop: {
+    marginTop: theme.spacing(1),
   },
 }));
 

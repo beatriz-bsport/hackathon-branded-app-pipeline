@@ -39,7 +39,6 @@ type Props = {
   onlyInternal: ?boolean,
   asConsumer: ?boolean,
   paymentGroupId: number,
-  fullScreen: boolean,
   paymentGroupPriceCts: number,
   termsAndConditionsAccepted: boolean,
   clientSecretError: ?boolean,

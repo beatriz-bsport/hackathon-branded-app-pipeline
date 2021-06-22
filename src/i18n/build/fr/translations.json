@@ -5706,7 +5706,7 @@
           "uploaded_video": "Fichier uploadé",
           "edit_button": "Changer la vidéo",
           "change_popup_title": "Changer la vidéo",
-          "change_popup_text": "Attention la vidéo actuelle sera supprimée, les données statistiques seront réinitialisées. Les membres ayant achetés l'ancienne vidéo disposeront désormais de la nouvelle."
+          "change_popup_text": "Attention la vidéo actuelle sera supprimée. Les membres ayant achetés l'ancienne vidéo disposeront désormais de la nouvelle."
         },
         "video_label": "Vidéo"
       },

@@ -119,7 +119,7 @@ exports.default = {
         edit_button: 'Changer la vidéo',
         change_popup_title: 'Changer la vidéo',
         change_popup_text:
-          "Attention la vidéo actuelle sera supprimée, les données statistiques seront réinitialisées. Les membres ayant achetés l'ancienne vidéo disposeront désormais de la nouvelle.",
+          "Attention la vidéo actuelle sera supprimée. Les membres ayant acheté l'ancienne vidéo disposeront désormais de la nouvelle.",
       },
       video_label: 'Vidéo',
     },

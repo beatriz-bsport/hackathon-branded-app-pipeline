@@ -46,7 +46,7 @@ type State = {
     zipcode: string,
     city: string,
     country: string,
-    geometry: Object<number>,
+    geometry: object,
   },
   cover: ?string,
   capacity: number,
@@ -152,7 +152,15 @@ export class EstablishmentForm extends Component<Props, State> {
         <Button onClick={this.props.onCancel}>
           {this.props.t('form.discard')}
         </Button>
-        <Button variant="contained" color="primary" type="submit">
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          disabled={
+            !!this.state.location.geometry &&
+            (!this.state.location.geometry.x || !this.state.location.geometry.y)
+          }
+        >
           {this.props.t('form.send')}
         </Button>
       </div>

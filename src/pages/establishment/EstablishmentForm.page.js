@@ -10,6 +10,7 @@ import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
 
+import { LinearProgress } from '@material-ui/core';
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   createOrUpdateEstablishmentV2,
@@ -19,7 +20,6 @@ import {
 } from '../../libs/establishment/actions';
 import { getEstablishment } from '../../libs/establishment/selectors';
 import EstablishmentForm from '../../libs/establishment/components/EstablishmentForm.component';
-// import { mapFormData } from '../form.utils';
 import withTitle from '../../hocs/with-title.hoc';
 
 export function mapFormData(base, map) {
@@ -88,7 +88,12 @@ export class EstablishmentFormPage extends Component<Props> {
     this.props.upsertEstablishmentV2(
       this.props.update ? this.props.update.id : null,
       mapFormData(updatedData, establishmentMap),
-      { onSuccess: this.props.goToEstablishmentList() },
+      {
+        onSuccess: () => {
+          this.props.fetchEstablishments();
+          this.props.goToEstablishmentList();
+        },
+      },
     );
   };
 
@@ -106,6 +111,10 @@ export class EstablishmentFormPage extends Component<Props> {
           onAddImage: (file: File) => addImage(establishmentId, file),
           onRemoveImage: (id: number) => removeImage(establishmentId, id),
         };
+
+    if (!this.props.update && this.props.establishmentId) {
+      return <LinearProgress />;
+    }
     return (
       <EstablishmentForm
         onSubmit={this.createEstablishment}

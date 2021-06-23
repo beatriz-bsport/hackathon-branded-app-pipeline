@@ -89,6 +89,7 @@ export async function disableOffer({
   deleteAll,
   custom_selection,
   custom_selection_ids,
+  force,
 }: {
   offerId: number;
   notify?: boolean;
@@ -96,6 +97,7 @@ export async function disableOffer({
   deleteAll?: boolean;
   custom_selection?: boolean;
   custom_selection_ids?: Array<number>;
+  force: boolean;
 }) {
   return patchAuth(`${API_URI}/saas/offer/${offerId}/disable/`, {
     available: false,
@@ -104,6 +106,7 @@ export async function disableOffer({
     deleteAll,
     custom_selection,
     custom_selection_ids,
+    force,
   });
 }
 

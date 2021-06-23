@@ -367,6 +367,7 @@ export class Planning extends PureComponent<Props, State> {
     deleteAll: ?boolean,
     custom_selection: ?boolean,
     custom_selection_ids: ?Array<number>,
+    force: boolean,
   }) => {
     this.setState({ deletingOffer: true });
     try {
@@ -377,6 +378,7 @@ export class Planning extends PureComponent<Props, State> {
         offerId,
         custom_selection,
         custom_selection_ids,
+        force,
       } = data;
       const response = await disableOfferAPI({
         offerId,
@@ -385,6 +387,7 @@ export class Planning extends PureComponent<Props, State> {
         deleteAll,
         custom_selection,
         custom_selection_ids,
+        force,
       });
       if (response.status === 200) {
         const backgroundTaskUuid = response.headers['x-background-task-uuid'];
@@ -550,6 +553,7 @@ export class Planning extends PureComponent<Props, State> {
                 deleteAll,
                 custom_selection,
                 custom_selection_ids,
+                force,
               }) =>
                 this.onCancelOffer({
                   offerId: selectedOffer.id,
@@ -558,6 +562,7 @@ export class Planning extends PureComponent<Props, State> {
                   deleteAll,
                   custom_selection,
                   custom_selection_ids,
+                  force,
                 })
               }
               onHardDelete={(data) =>

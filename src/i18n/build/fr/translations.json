@@ -325,6 +325,9 @@
         "explainRecursiveOfferEdit": "Voulez-vous modifier TOUTES les séances similaires selon ces nouvelles conditions ?",
         "explainNotificationOnEdit": "Voulez-vous informer vos clients de cette modification ?",
         "delete": {
+          "advanced": "Avancé",
+          "force": "Supprimer même si des réservations sont enregistrées",
+          "explainForceDanger": "Attention ! Les réservations seront définitivement supprimées. Si vous n'avez pas remboursé le crédit, vous perdrez toute trace de son utilisation. Veuillez vérifier attentivement l'état de vos réservations et cartes de cours avant la suppression.",
           "buttonHardDelete": "Supprimer",
           "explainHardDelete": "Supprimer la séance de la liste ? Attention celle-ci deviendra invisible, cette opération est irréversible ! Si la séance contient des réservations, elle ne sera pas supprimée.",
           "explainCreditBack": "Retourner les crédits dépensés aux clients sur leur carte de cours",
@@ -5706,7 +5709,7 @@
           "uploaded_video": "Fichier uploadé",
           "edit_button": "Changer la vidéo",
           "change_popup_title": "Changer la vidéo",
-          "change_popup_text": "Attention la vidéo actuelle sera supprimée. Les membres ayant achetés l'ancienne vidéo disposeront désormais de la nouvelle."
+          "change_popup_text": "Attention la vidéo actuelle sera supprimée. Les membres ayant acheté l'ancienne vidéo disposeront désormais de la nouvelle."
         },
         "video_label": "Vidéo"
       },

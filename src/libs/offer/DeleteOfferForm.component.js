@@ -9,6 +9,11 @@ import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
+import WarningIcon from '@material-ui/icons/Warning';
+import Collapse from '@material-ui/core/Collapse';
+import IconButton from '@material-ui/core/IconButton';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Divider from '@material-ui/core/Divider';
 import Hidden from '@material-ui/core/Hidden';
 import { withTranslation } from 'react-i18next';
 
@@ -42,6 +47,7 @@ export class DeleteOfferForm extends Component<Props, State> {
     notify: true,
     cashback: true,
     deleteAll: false,
+    force: false,
     similarOffersWithSelectedStatus: (this.props.similarOffers || []).map(
       (so) => ({
         ...so,
@@ -131,6 +137,7 @@ export class DeleteOfferForm extends Component<Props, State> {
         deleteAll,
         custom_selection,
         custom_selection_ids,
+        force: this.state.force,
       });
     }
     deleteAll =
@@ -178,6 +185,38 @@ export class DeleteOfferForm extends Component<Props, State> {
             unselectAll={this.unselectAll}
             handleChange={this.handleChangeSelection}
           />
+          <div className={classes.rowRight}>
+            <IconButton
+              onClick={() =>
+                this.setState((prevState) => ({
+                  showForce: !prevState.showForce,
+                }))
+              }
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+            <Typography variant="h6">
+              {t('form.offer.delete.advanced')}
+            </Typography>
+          </div>
+          <Divider />
+          <Collapse in={this.state.showForce}>
+            <div className={classes.rowPadded}>
+              <Switch
+                checked={this.state.force}
+                onChange={() =>
+                  this.setState((prevState) => ({ force: !prevState.force }))
+                }
+              />
+              <Typography>{t('form.offer.delete.force')}</Typography>
+            </div>
+            <div className={classes.danger}>
+              <WarningIcon className={classes.iconLeft} />
+              <Typography variant="caption">
+                {t('form.offer.delete.explainForceDanger')}
+              </Typography>
+            </div>
+          </Collapse>
         </div>
       );
     }
@@ -278,8 +317,33 @@ const styles = (theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  rowPadded: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  rowRight: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
   explainNotify: {
     marginLeft: theme.spacing(2),
+  },
+  danger: {
+    marginTop: theme.spacing(1),
+    padding: theme.spacing(2),
+    borderRadius: 8,
+    border: `1px solid ${theme.palette.error.dark}`,
+    flexDirection: 'row',
+    alignItems: 'center',
+    display: 'flex',
+  },
+  iconLeft: {
+    marginRight: theme.spacing(2),
   },
 });
 

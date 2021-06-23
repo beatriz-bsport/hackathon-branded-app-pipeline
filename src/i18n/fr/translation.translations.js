@@ -421,6 +421,10 @@ exports.default = {
       explainNotificationOnEdit:
         'Voulez-vous informer vos clients de cette modification ?',
       delete: {
+        advanced: 'Avancé',
+        force: 'Supprimer même si des réservations sont enregistrées',
+        explainForceDanger:
+          "Attention ! Les réservations seront définitivement supprimées. Si vous n'avez pas remboursé le crédit, vous perdrez toute trace de son utilisation. Veuillez vérifier attentivement l'état de vos réservations et cartes de cours avant la suppression.",
         buttonHardDelete: 'Supprimer',
         explainHardDelete:
           'Supprimer la séance de la liste ? Attention celle-ci deviendra invisible, cette opération est irréversible ! Si la séance contient des réservations, elle ne sera pas supprimée.',

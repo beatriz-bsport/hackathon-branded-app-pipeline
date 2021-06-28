@@ -9,7 +9,11 @@ import moment from 'moment-timezone';
 
 const getTimezoneListExtended = (timezoneList, country) => {
   if (country === 'FR') {
-    return [...timezoneList, moment.tz.zone('Indian/Reunion')];
+    return [
+      ...timezoneList,
+      moment.tz.zone('Indian/Reunion'),
+      moment.tz.zone('America/Martinique'),
+    ];
   }
   if (country === 'US') {
     return [...timezoneList, moment.tz.zone('America/Jamaica')];

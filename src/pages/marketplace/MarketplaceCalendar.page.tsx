@@ -60,7 +60,6 @@ import { OfferFilterData } from '../../libs/offer/types';
 
 type OwnProps = {
   companyId: number;
-  authenticated: boolean;
   startWeekThisWeekday?: boolean;
   compactMode: boolean;
   requestSignUp: () => void;
@@ -216,22 +215,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           offer={this.state.offer}
           showBookingButton
           hideCoach={this.props.theme && this.props.theme.hideCoach}
-          displayPacksInformation
           onClose={this.closeOfferDialog}
           open={!!this.state.offerId}
-          compatibleConsumerPacks={this.props.compatibleConsumerPacks}
-          compatiblePaymentPacks={this.props.compatiblePaymentPacks}
-          fetchPassData={() => {
-            this.props.fetchPaymentPacks(this.state.offerId);
-            this.props.fetchCompatiblePass(this.state.offerId);
-          }}
-          goToPackPayment={this.props.goToPackPayment}
-          goToPaymentComboPayment={this.props.goToPaymentComboPayment}
-          paymentComboList={this.props.paymentComboList}
           goToOfferPayment={this.goToBook}
-          onBookFromPack={(packId: number) =>
-            this.props.onBookOfferFromPack(this.state.offerId, packId)
-          }
           mapContainerClassName={this.props.mapContainerClassName}
         />
         <MarketplaceCalendarComponent
@@ -366,40 +352,6 @@ const mapWithHandlers = {
           }
         }
       });
-  },
-  goToPaymentComboPayment: (props: Props) => (
-    comboId: number,
-    offerId: number,
-  ) => {
-    if (!props.authenticated) {
-      props.requestSignUp();
-    } else {
-      props.addItemToBasket(props.currentBasket.id, {
-        buyable_item_identifier: BUYABLE_ITEM_COMBO_ITEM,
-        quantity: 1,
-        buyable_item_id: comboId,
-        extra_data: { offer_next: offerId },
-      });
-      props.toogleCurrentBasketOpen(true);
-    }
-  },
-  goToPackPayment: (props: Props) => (packId: number, offerId: number) => {
-    if (props.goToPackPayment) {
-      props.goToPackPayment(packId, offerId);
-      return;
-    }
-
-    if (!props.authenticated) {
-      props.requestSignUp();
-    } else {
-      props.addItemToBasket(props.currentBasket.id, {
-        buyable_item_identifier: BUYABLE_ITEM_PASS,
-        quantity: 1,
-        buyable_item_id: packId,
-        extra_data: { offer_next: offerId },
-      });
-      props.toogleCurrentBasketOpen(true);
-    }
   },
   goToBook: (props: Props) => (id: number, companyId: number) => {
     if (props.goToBook) {

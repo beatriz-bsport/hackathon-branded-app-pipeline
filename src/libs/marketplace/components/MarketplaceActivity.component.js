@@ -43,23 +43,12 @@ import type { PaymentCombo } from '../../payment-combo/types';
 
 type Props = {
   offer: Offer,
-  offerId: number,
-  offer: Offer,
   showBookingButton: ?boolean,
-  displayPacksInformation: ?boolean,
-  compatibleConsumerPacks: Array<ConsumerPaymentPack>,
-  compatiblePaymentPacks: Array<PaymentPack>,
   goToOfferPayment: (offer: Offer) => void,
   hideCoach: boolean,
   hideMap: ?boolean,
 
-  goToPackPayment: (packId: number, offerId: number, companyId: number) => void,
-  onBookFromPack: (consumerPaymentPack: number) => void,
-  fetchPassData: (id: number) => void,
   onClose: () => void,
-
-  paymentComboList: Array<PaymentCombo>,
-  goToPaymentComboPayment: (id, offerId) => void,
 
   t: TFunction,
   classes: Object,
@@ -67,10 +56,6 @@ type Props = {
 };
 
 export class MarketPlaceActivity extends React.Component<Props> {
-  componentDidMount() {
-    this.props.fetchPassData(this.props.offerId);
-  }
-
   getSocialLink = (url: string) => {
     if (url && !url.toLowerCase().includes('http')) {
       return `http://${url}`;
@@ -178,44 +163,6 @@ export class MarketPlaceActivity extends React.Component<Props> {
     return null;
   };
 
-  renderPaymentCombo = () => {
-    const { t, compatiblePaymentPacks, paymentComboList } = this.props;
-    if (!paymentComboList) return null;
-    const compatiblePackIds = compatiblePaymentPacks.map((pp) => pp.id);
-
-    const relevantPaymentComboList = paymentComboList.filter((pc) =>
-      pc.payment_packs
-        .map((pp) => pp.id)
-        .some((id) => compatiblePackIds.includes(id)),
-    );
-
-    if (relevantPaymentComboList.length > 0) {
-      return (
-        <div>
-          <Typography
-            variant="h6"
-            component="h2"
-            className={this.props.classes.title}
-          >
-            {t('payment:paymentComboSectionTitle')}
-          </Typography>
-          <List disablePadding className={this.props.classes.listPaymentPacks}>
-            {relevantPaymentComboList.map((pc) => (
-              <PaymentComboBuyableItem
-                key={pc.id}
-                paymentCombo={pc}
-                onClick={() =>
-                  this.props.goToPaymentComboPayment(pc.id, this.props.offer.id)
-                }
-              />
-            ))}
-          </List>
-        </div>
-      );
-    }
-    return null;
-  };
-
   render() {
     const { offer, classes, onClose, t } = this.props;
     if (
@@ -292,62 +239,6 @@ export class MarketPlaceActivity extends React.Component<Props> {
               })}
             </Typography>
             {this.renderCoachBanner()}
-            {this.props.displayPacksInformation &&
-            !WidgetUtils.isWidget() &&
-            !!this.props.compatibleConsumerPacks.length ? (
-              <div>
-                <Typography variant="h6" className={classes.title}>
-                  {t('offer.compatiblePacks')}
-                </Typography>
-                {this.props.compatibleConsumerPacks.map((p) => (
-                  <ConsumerPackCheckout
-                    creditPrice={offer.credit_price}
-                    key={p.id}
-                    offerId={offer.id}
-                    consumerPack={p}
-                    divider
-                    onBookFromPack={() => this.props.onBookFromPack(p.id)}
-                  />
-                ))}
-              </div>
-            ) : null}
-            {this.props.displayPacksInformation
-              ? this.renderPaymentCombo()
-              : null}
-            {this.props.displayPacksInformation &&
-            !WidgetUtils.isWidget() &&
-            !!this.props.compatiblePaymentPacks.length ? (
-              <div>
-                <Typography variant="h6" className={classes.title}>
-                  {t('offer.compatiblePacks')}
-                </Typography>
-                <div className={classes.listPaymentPacks}>
-                  {this.props.compatiblePaymentPacks.map((p) => (
-                    <div key={p.id}>
-                      <PaymentPackSummary
-                        paymentPack={p}
-                        buyButton={
-                          <Button
-                            variant="outlined"
-                            color="primary"
-                            onClick={() =>
-                              this.props.goToPackPayment(
-                                p.id,
-                                this.props.offerId,
-                                offer.meta_activity.company,
-                              )
-                            }
-                          >
-                            <AddShoppingCartIcon className={classes.leftIcon} />
-                            {`${p.price} ${getCurrencyDisplay()}`}
-                          </Button>
-                        }
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : null}
             <Typography variant="h6" className={classes.title}>
               {establishment.title}
             </Typography>

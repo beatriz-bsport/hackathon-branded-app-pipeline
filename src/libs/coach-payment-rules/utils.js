@@ -62,6 +62,7 @@ export const computePerformanceSynthese = (CoachesWithPerformances) => {
             parseFloat(perf.confirmed_bookings) || 0;
           accumulator.cancelledBookings +=
             parseFloat(perf.cancelled_bookings) || 0;
+
           return accumulator;
         },
         {
@@ -84,25 +85,29 @@ export const computePerformanceSynthese = (CoachesWithPerformances) => {
       ),
     ),
   );
+
   const syntheseaccu = synthese[0]
     .concat(synthese[1])
     .reduce(function (newArr, synth) {
-      const index = newArr.findIndex((toto) => toto.id === synth.id);
-      if (index && index !== -1) {
-        newArr.splice(index, index, {
-          ...newArr[index],
-          nbSessions: newArr[index].nbSessions + synth.nbSessions,
-          payment: newArr[index].payment + synth.payment,
-          bonus: newArr[index].bonus + synth.bonus,
+      const buffer = newArr;
+      const index = buffer.findIndex(
+        (accumulator) => accumulator.id === synth.id,
+      );
+      if ((index || index === 0) && index !== -1) {
+        buffer[index] = {
+          ...buffer[index],
+          payment: buffer[index].payment + synth.payment,
+          bonus: buffer[index].bonus + synth.bonus,
           confirmedBookings:
-            newArr[index].confirmedBookings + synth.confirmedBookings,
+            buffer[index].confirmedBookings + synth.confirmedBookings,
           cancelledBookings:
-            newArr[index].cancelledBookings + synth.cancelledBookings,
-        });
+            buffer[index].cancelledBookings + synth.cancelledBookings,
+        };
       } else {
-        newArr.push(synth);
+        buffer.push(synth);
       }
-      return newArr;
+      return buffer;
     }, []);
+
   return syntheseaccu;
 };

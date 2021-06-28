@@ -256,7 +256,7 @@ export class AllCoachPerformance extends React.Component<Props> {
                 this.props.t('coach:performance.coachName'),
                 this.props.t('coach:performance.payment'),
                 this.props.t('coach:performance.bonus'),
-                this.props.t('coach:performance.nbBookings'),
+                this.props.t('coach:performance.nbOffersTotal'),
                 this.props.t('coach:performance.nbConfirmedBookings'),
                 this.props.t('coach:performance.nbCancelledBookings'),
               ],

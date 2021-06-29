@@ -19,6 +19,7 @@ import CoachPaymentRuleSelector from '../../../coach-payment-rules/components/Co
 import type { CoachPaymentRule } from '../../../coach-payment-rules/types';
 import { downloadAsCsv } from '../../../../utils/downloader';
 import { getCurrencyDisplay } from '../../../theme/selectors';
+import { formatMinutes } from '../../../../utils/datetime';
 
 type Props = {
   performances: *[],
@@ -122,7 +123,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                   ).format('LT')}`}
                 </TableCell>
                 <TableCell>
-                  {moment(private_service.duration_minute).format('HH:mm')}
+                  {formatMinutes(private_service.duration_minute, t)}
                 </TableCell>
                 <TableCell>{private_service.confirmed_bookings}</TableCell>
                 <TableCell>{private_service.cancelled_bookings}</TableCell>

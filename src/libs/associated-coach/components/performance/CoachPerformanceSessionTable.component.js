@@ -19,6 +19,7 @@ import CoachPaymentRuleSelector from '../../../coach-payment-rules/components/Co
 import type { CoachPaymentRule } from '../../../coach-payment-rules/types';
 import { downloadAsCsv } from '../../../../utils/downloader';
 import { getCurrencyDisplay } from '../../../theme/selectors';
+import { formatMinutes } from '../../../../utils/datetime';
 
 type Props = {
   performances: *[],
@@ -43,6 +44,7 @@ export function CoachPerformanceSessionTable(props: Props) {
   const classes = useStyles();
   const coach_payment_error =
     performances && performances.find((perf) => perf.error);
+
   return (
     <div>
       <div className={classes.flexHeaderContainer}>
@@ -122,7 +124,7 @@ export function CoachPerformanceSessionTable(props: Props) {
                   ).format('LT')}`}
                 </TableCell>
                 <TableCell>
-                  {moment(session.duration_minute).format('HH:mm')}
+                  {formatMinutes(session.duration_minute, t)}
                 </TableCell>
                 <TableCell>{session.confirmed_bookings}</TableCell>
                 <TableCell>{session.cancelled_bookings}</TableCell>

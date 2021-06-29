@@ -257,7 +257,7 @@ export function setCoachPaymentRule(
       dispatch(snackbarSuccess('paymentRules.update.success'));
       const payload = { coachId, coach_payment_rule_id: coachPaymentRuleId };
       dispatch(setCoachPaymentRuleActions.success(payload));
-      if (options.onSuccess) options.onSuccess();
+      if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(snackbarError('paymentRules.update.error'));
       dispatch(upsert.error(err));
@@ -293,7 +293,7 @@ export function setCoachPrivatePaymentRule(
         private_coach_payment_rule_id: coachPaymentRuleId,
       };
       dispatch(setCoachPrivatePaymentRuleActions.success(payload));
-      if (options.onSuccess) options.onSuccess();
+      if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(snackbarError('paymentRules.update.error'));
       dispatch(upsert.error(err));

@@ -9,7 +9,6 @@ import Icon from '@material-ui/core/Icon';
 import ListItemText from '@material-ui/core/ListItemText';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
-import Popover from '@material-ui/core/Popover';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 import {
@@ -32,18 +31,11 @@ type Props = {
   t: TFunction,
   classes: Object,
   coachPaymentRulesByKind: Object<CoachPaymentRule[]>,
-  togglePaymentRulePopover: (x: boolean) => void,
   setCoachPaymentRule: (id: number, ruleId: number) => void,
   setCoachPrivatePaymentRule: (id: number, ruleId: number) => void,
-  paymentRulePopoverOpen: boolean,
 };
 
 class CoachSummaryCard extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-    this.refPaymentRuleSelector = React.createRef();
-  }
-
   renderPaymentRules = () => {
     const {
       t,
@@ -96,23 +88,6 @@ class CoachSummaryCard extends React.Component<Props> {
             </div>
           ))}
         </div>
-        <Popover
-          open={this.props.paymentRulePopoverOpen}
-          anchorEl={this.refPaymentRuleSelector.current}
-          onClose={() => this.props.togglePaymentRulePopover(false)}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          <Typography className={classes.popoverNoPaymentRule}>
-            {t('paymentRules:setPaymentRuleSetForCoachFirst')}
-          </Typography>
-        </Popover>
       </Grid>
     );
   };

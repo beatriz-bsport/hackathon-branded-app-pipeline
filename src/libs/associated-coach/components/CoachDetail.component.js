@@ -9,15 +9,9 @@ import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 
 import { withTranslation } from 'react-i18next';
 import type { TFunction } from 'react-i18next';
-import {
-  COACH_PERFORMANCE_FOR_SESSION,
-  COACH_PERFORMANCE_FOR_APPOINTMENT,
-} from '@bsport/common/lib/master-data/coach_payment_rule';
 import type { CoachPaymentRule } from '../../coach-payment-rules/types';
 import CoachSummaryBanner from './coach-detail/CoachSummaryBanner.component';
 import Description from './coach-detail/Description.component';
-
-type State = { paymentRulePopoverOpen: boolean };
 
 type Props = {
   t: TFunction,
@@ -30,30 +24,7 @@ type Props = {
   goToCoachPerformance: (coach: CoachDetailed) => void,
 };
 
-export class CoachDetail extends Component<Props, State> {
-  state = { paymentRulePopoverOpen: false };
-
-  togglePaymentRulePopover = (status: boolean) => {
-    this.setState({ paymentRulePopoverOpen: status });
-  };
-
-  remunerateCoach = () => {
-    const { coach } = this.props;
-    const { coachPaymentRulesByKind } = this.props;
-    if (
-      coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION].find(
-        (cpp) => cpp.id === coach.coach_payment_rule_id,
-      ) &&
-      coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT].find(
-        (cpp) => cpp.id === coach.private_coach_payment_rule_id,
-      )
-    ) {
-      this.props.goToCoachPerformance(coach);
-    } else {
-      this.togglePaymentRulePopover(true);
-    }
-  };
-
+export class CoachDetail extends Component<Props> {
   render() {
     const {
       coach,
@@ -69,8 +40,6 @@ export class CoachDetail extends Component<Props, State> {
           <Paper className={classes.paperContainer}>
             <CoachSummaryBanner
               coach={coach}
-              togglePaymentRulePopover={this.togglePaymentRulePopover}
-              paymentRulePopoverOpen={this.state.paymentRulePopoverOpen}
               coachPaymentRulesByKind={coachPaymentRulesByKind}
               setCoachPaymentRule={setCoachPaymentRule}
               setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
@@ -79,7 +48,7 @@ export class CoachDetail extends Component<Props, State> {
               <Button
                 color="primary"
                 variant="contained"
-                onClick={this.remunerateCoach}
+                onClick={() => this.props.goToCoachPerformance(coach)}
                 id="button_teacher_remunerate"
               >
                 <EuroSymbolIcon className={classes.leftIcon} />

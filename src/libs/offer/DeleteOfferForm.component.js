@@ -291,7 +291,8 @@ export class DeleteOfferForm extends Component<Props, State> {
                 if (
                   offerWasCancelled &&
                   (this.props.offer.nb_bookings > 0 ||
-                    this.props.offer.nb_option > 0)
+                    this.props.offer.nb_option > 0) &&
+                  !this.state.force
                 ) {
                   this.props.setOpenDeleteDialog(true);
                 } else this.onConfirm();

@@ -8,10 +8,6 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { isEqual } from 'lodash';
 import moment from 'moment-timezone';
 
-import {
-  BUYABLE_ITEM_PASS,
-  BUYABLE_ITEM_COMBO_ITEM,
-} from '@bsport/common/lib/master-data/buyable-items';
 import { TFunction } from 'i18next';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import withReplaceQueryParams from '../../hocs/with-replace-query-params.hoc';

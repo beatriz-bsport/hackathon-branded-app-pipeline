@@ -17,11 +17,9 @@ import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
 import Icon from '@material-ui/core/Icon';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { colors } from '@bsport/common/lib/colors';
 
 import FACEBOOK_PNG from '../../../public/images/facebook.png';
@@ -30,16 +28,8 @@ import INSTAGRAM_PNG from '../../../public/images/instagram.png';
 import Map from '../../../components/map/Map.component';
 import TypographyMultiline from '../../../components/TypographyMultiline.component';
 
-import ConsumerPackCheckout from '../../consumer-payment-pack/components/ConsumerPaymentPackListItemCheckout.component';
-import PaymentComboBuyableItem from '../../payment-combo/components/PaymentComboBuyableItem.component';
-import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSummary.component';
-import { getCurrencyDisplay } from '../../theme/selectors';
-
 import { isOfferInThePast } from '../utils';
 import { formatMinutes } from '../../../utils/datetime';
-import WidgetUtils from '../../widget/WidgetUtils';
-
-import type { PaymentCombo } from '../../payment-combo/types';
 
 type Props = {
   offer: Offer,

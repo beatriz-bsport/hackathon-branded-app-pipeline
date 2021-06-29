@@ -3322,7 +3322,7 @@
             "present": "Aanwezig",
             "all": "Alle reserveringen",
             "withoutRecurrentBookings": "Eenmalige reserveringen",
-            "withRecurrentBookings": "Periodieke reserveringen",
+            "withRecurrentBookings": "Terugkerende reserveringen",
             "recurrentBooking": "Reserveringen",
             "notCancelled": "Geldig"
         },
@@ -3420,7 +3420,7 @@
         },
         "recurrenceRule": {
             "form": {
-                "title": "Periodieke afspraak inplannen",
+                "title": "Terugkerende afspraak inplannen",
                 "delayWeek": {
                     "helperText": "Geef aan hoeveel weken dit lid zal worden ingeschreven",
                     "label": "Aantal weken"
@@ -3441,7 +3441,7 @@
                 "at": " op ",
                 "timeGroup": "Instellingen",
                 "startFromDate": {
-                    "label": "Startdatum periodieke reservering "
+                    "label": "Startdatum terugkerende reservering "
                 }
             },
             "deleteModal": {
@@ -3449,7 +3449,7 @@
                 "confirm": "Verwijderen",
                 "content": "Het verwijderen van de herhalingsregel resulteert in de annulering van alle toekomstige reserveringen die deze regel volgen.",
                 "title": "Verwijder herhalingsregel",
-                "success": "De periodieke reservering is verwijderd"
+                "success": "De terugkerende reservering is verwijderd"
             },
             "item": {
                 "explain": "Alle voorgaande weken {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}}"
@@ -3463,12 +3463,12 @@
             },
             "recurrentRuleBooking": "Herhalende reservering",
             "createModal": {
-                "create": "Een periodieke reservering toevoegen",
-                "info": "Het is niet mogelijk om een bestaande periodieke reservering te dupliceren",
-                "success": "De periodieke reservering is aangemaakt."
+                "create": "Een terugkerende reservering toevoegen",
+                "info": "Je kunt geen bestaande terugkerende reserveringen dupliceren",
+                "success": "De terugkerende reservering is aangemaakt."
             },
             "editModal": {
-                "success": "De periodieke reservering is gewijzigd"
+                "success": "De terugkerende reservering is gewijzigd"
             },
             "blockedBookings": "Je leden kunnen zich tot {{days}} dag(en) voor het begin van deze activiteit inschrijven. We raden aan om herhalende reserveringen voor langere tijden toe te staan om overboekingen te voorkomen.",
             "notifyIfCanceled": "Stuur een annuleringsmail",
@@ -3947,7 +3947,7 @@
                 "label": "Factuur {{uuid}} : €{{price}}"
             },
             "listItem": {
-                "recurrencePriceIs": "Periodieke betaling: {{currencyDisplay}}{{ amount }}",
+                "recurrencePriceIs": "Terugkerende betaling: {{currencyDisplay}}{{ amount }}",
                 "nextBillingDate": "Eerstvolgende facturatie: {{ d }}",
                 "startingAt": "Startdatum: {{ d }}"
             }
@@ -4493,7 +4493,7 @@
         },
         "paymentMethods": {
             "methodPaymentBasket": "Eenmalige betalingen",
-            "methodPaymentSubscription": "Periodieke betalingen",
+            "methodPaymentSubscription": "Terugkerende betalingen",
             "save": "Opslaan",
             "methodPaymentSubscriptionError": "Selecteer ten minste één betaalmethode",
             "methodPaymentSubscriptionHelper": "Selecteer welke betaalmethode(n) je voor abonnementen (contracten) wilt accepteren:",
@@ -4623,8 +4623,8 @@
                 }
             },
             "disableAvailability": "Beschikbaarheid verwijderen",
-            "enableRecurrentAvailability": "Periodieke beschikbaarheid toevoegen",
-            "disableRecurrentAvailability": "Periodieke beschikbaarheid verwijderen",
+            "enableRecurrentAvailability": "Terugkerende beschikbaarheid toevoegen",
+            "disableRecurrentAvailability": "Terugkerende beschikbaarheid verwijderen",
             "addBooking": "Een afspraak inplannen",
             "toogle": {
                 "showOfferList": "Groepsactiviteiten",
@@ -4752,14 +4752,14 @@
                 "privateSlot": "Sessie",
                 "coach": "Instructeur",
                 "date": "Datum",
-                "rule": "Periodieke afspraken"
+                "rule": "Terugkerende afspraken"
             },
             "useCredit": "Reserveer",
             "notifyMember": {
                 "label": "Een bevestigingsmail versturen"
             },
             "recurrenceRule": {
-                "label": "Een periodieke afspraak toevoegen"
+                "label": "Een terugkerende afspraak toevoegen"
             },
             "confirm": "Bevestigen"
         },
@@ -5259,17 +5259,17 @@
                     "content": "Het wijzigen van deze regel leidt tot aanpassingen in toekomstige afspraken die via deze regel gemaakt zijn.",
                     "confirm": "Wijzig",
                     "cancel": "Annuleer",
-                    "title": "Periodieke afspraak wijzigen"
+                    "title": "Terugkerende afspraak wijzigen"
                 },
                 "delete": {
                     "confirm": "Verwijder",
                     "cancel": "Annuleer",
-                    "content": "Het annuleren van de periodieke afspraak leidt tot de annulering van toekomstige afspraken die via deze regel zijn geregistreerd.",
-                    "title": "Een periodieke afspraak annuleren"
+                    "content": "Het annuleren van de terugkerende afspraak leidt tot de annulering van toekomstige afspraken die via deze regel zijn geregistreerd.",
+                    "title": "Een terugkerende afspraak annuleren"
                 }
             },
             "form": {
-                "title": "Een periodieke reservering inplannen",
+                "title": "Een terugkerende reservering inplannen",
                 "notify_member": "Een bevestigingsmail versturen",
                 "timeGroup": "Instellingen",
                 "configuration": "Reserveringen"
@@ -5279,9 +5279,9 @@
                 "close": "Sluit"
             },
             "createModal": {
-                "create": "Een periodieke afspraak toevoegen"
+                "create": "Een terugkerende afspraak toevoegen"
             },
-            "recurrentBookings": "Periodieke afspraken"
+            "recurrentBookings": "Terugkerende afspraken"
         },
         "marketplace": {
             "isEmpty": "Geen afspraken beschikbaar."
@@ -5537,7 +5537,7 @@
             "differentRemunerationForCancellation": "Andere payroll-regels voor afwezige leden en te late annuleringen toepassen ",
             "addRemunerationOnCancellation": "Betaal instructeurs voor afwezige leden en te late annuleringen",
             "percentage_base": "Een percentage over de marginale waarde van de reserveringen toevoegen",
-            "base_remuneration": "Een vast bedrag toevoegen",
+            "base_remuneration": "Vast bedrag toevoegen",
             "forCancelledBookings": "Afwezige leden en te late annuleringen meetellen",
             "forConfirmedBookings": "Geldt alleen voor aanwezige leden",
             "calculationMethod": "Rekenmethode",
@@ -6122,13 +6122,13 @@
         },
         "privateRecurrentRule": {
             "delete": {
-                "error": "Periodieke afspraak kon niet worden verwijderd",
-                "success": "Periodieke afspraak verwijderen"
+                "error": "Terugkerende afspraak kon niet worden verwijderd",
+                "success": "Terugkerende afspraak verwijderen"
             },
             "createOrUpdate": {
-                "error": "Periodieke afspraak kon niet worden aangemaakt",
-                "success": "Periodieke afspraak succesvol aangemaakt",
-                "locked": "Er bestaat al zo'n regel voor periodieke afspraken"
+                "error": "Terugkerende afspraak kon niet worden aangemaakt",
+                "success": "Terugkerende afspraak succesvol aangemaakt",
+                "locked": "Er bestaat al zo'n regel voor terugkerende afspraken"
             }
         },
         "zoom": {

@@ -2122,8 +2122,8 @@
                     "cancel": "Cancelar",
                     "submit": "Enviar"
                 },
-                "topup": "Colección",
-                "debt": "Desembolso",
+                "topup": "Añadir dinero",
+                "debt": "Quitar dinero",
                 "explainTopup": "Se registrará un aumento de {{ amount }} € en el saldo del miembro.",
                 "title": "Ajuste del balance",
                 "explainDecaissement": "Se registrará un desembolso de {{ amount }}  {{ currencyDisplay }}",
@@ -2152,7 +2152,7 @@
             },
             "actions": {
                 "saveForLaterAsSEPA": "El mandato se registrará como \"SEPA\"",
-                "bill": "Colección",
+                "bill": "Pagar",
                 "saveForLater": "Guarda este método de pago",
                 "showInvoice": "Ver la factura",
                 "confirmPayment": "Confirmar el pago",
@@ -2168,7 +2168,7 @@
             },
             "sumup": {
                 "amountRemaining": "La cantidad restante a pagar",
-                "amountPaid": "Colección",
+                "amountPaid": "Pagado",
                 "amountDue": "Total debido",
                 "title": "Resumen"
             },

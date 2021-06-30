@@ -66,7 +66,9 @@ export function CoachPerformanceSessionTable(props: Props) {
               ],
               performances.map((session) => [
                 session.session_name,
-                moment(session.date_start).format('DD/MM/YYYY HH[:]mm'),
+                `${moment(session.date_start).format('L')} ${moment(
+                  session.date_start,
+                ).format('LT')}`,
                 session.duration_minute,
                 session.confirmed_bookings,
                 session.cancelled_bookings,
@@ -115,7 +117,9 @@ export function CoachPerformanceSessionTable(props: Props) {
               >
                 <TableCell>{session.session_name}</TableCell>
                 <TableCell>
-                  {moment(session.date_start).format('ddd Do MMM')}
+                  {`${moment(session.date_start).format('L')} ${moment(
+                    session.date_start,
+                  ).format('LT')}`}
                 </TableCell>
                 <TableCell>
                   {moment(session.duration_minute).format('HH:mm')}

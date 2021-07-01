@@ -119,10 +119,18 @@ class WidgetBridge extends React.PureComponent<Props> {
     const url = `${PUBLIC_URL}/widget/${companyName}/${companyId}/bridge?context=widget`;
     const key = `${companyId}-${companyName}`;
 
+    const bridgeId = '@bsport-bridge-iframe';
+
+    const existingBridge = document.getElementById(bridgeId);
+
+    if (existingBridge) {
+      return <span />;
+    }
+
     return (
       <Portal container={document.body}>
         <iframe
-          id="@bsport-bridge-iframe"
+          id={bridgeId}
           title="bsport-bridge"
           key={key}
           src={url}

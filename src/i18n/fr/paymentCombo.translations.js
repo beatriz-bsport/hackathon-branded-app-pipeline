@@ -19,6 +19,10 @@ exports.default = {
   },
   form: {
     title: 'Formulaire pack',
+    maxPurchasePerMember: {
+      label: 'Achat maximum par membre',
+      helperText: 'Laisser vide pour ne pas imposer de limite',
+    },
     name: {
       label: 'Nom',
     },

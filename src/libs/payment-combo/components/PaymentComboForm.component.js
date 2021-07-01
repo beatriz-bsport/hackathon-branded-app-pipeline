@@ -75,6 +75,14 @@ export const PaymentComboForm = (props: Props) => (
         required
       />
     </div>
+    <TextField
+      id="textfield_restrictions_maxpurchase"
+      label={props.t('form.maxPurchasePerMember.label')}
+      type="number"
+      fullWidth
+      name="max_purchase_per_member"
+      helperText={props.t('form.maxPurchasePerMember.helperText')}
+    />
     <fieldset className={props.classes.fieldset}>
       <legend>{props.t('form.content')}</legend>
       <FieldArray name="payment_pack_ids">
@@ -214,6 +222,7 @@ const styles = (theme) => ({
   description: {
     marginTop: theme.spacing(4),
   },
+  max_purchase_per_member: null,
   fieldset: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
@@ -223,6 +232,7 @@ const styles = (theme) => ({
 export const PaymentComboFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
   description: Yup.string().required(),
+  max_purchase_per_member: Yup.number().nullable(),
   price: Yup.number().min(0),
   tax: Yup.number().min(0).max(100),
   manager_only: Yup.boolean(),
@@ -246,6 +256,7 @@ export const PaymentComboFormHoc = withFormik({
     return {
       name: '',
       description: '',
+      max_purchase_per_member: 0,
       price: 10,
       tax: 20,
       manager_only: false,

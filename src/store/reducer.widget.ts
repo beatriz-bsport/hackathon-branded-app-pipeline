@@ -4,7 +4,7 @@ import URI from 'urijs';
 
 import {
   refreshVODRequestAccessFlagAction,
-  setDialogAction,
+  openUserInteractionPortal,
   setSaasAuthenticated,
   setSaasBasketCount,
   setSaasBookingsCount,
@@ -37,12 +37,12 @@ export const initialState: Immutable.Immutable<WidgetState> = Immutable<WidgetSt
       basketCount: null,
       bookingsCount: null,
     },
-  }
+  },
 );
 
 export default handleActions<Immutable.Immutable<WidgetState>>(
   {
-    [setDialogAction.toString()]: (state, { payload }: any) => {
+    [openUserInteractionPortal.toString()]: (state, { payload }: any) => {
       const uri = URI(payload.url);
       uri.toString() && uri.addQuery('open_at', Date.now());
 
@@ -64,9 +64,9 @@ export default handleActions<Immutable.Immutable<WidgetState>>(
     [refreshVODRequestAccessFlagAction.toString()]: (state) => {
       return state.setIn(
         ['saas', 'requestVideoAccessRefreshFlag'],
-        state.requestVideoAccessRefreshFlag + 1
+        state.requestVideoAccessRefreshFlag + 1,
       );
     },
   },
-  initialState
+  initialState,
 );

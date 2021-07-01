@@ -2,7 +2,12 @@ import React from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
-import { ButtonBase } from '@material-ui/core';
+import {
+  ButtonBase,
+  CircularProgress,
+  Dialog,
+  DialogContent,
+} from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
@@ -28,14 +33,78 @@ import { Theme } from 'bsport-saas/src/libs/theme/types';
 import { getMarketplaceRoute } from 'bsport-saas/src/pages/marketplace/routing-utils';
 import { auth as authActions } from 'bsport-saas/src/actions';
 
-import asyncComponent from '../AsyncComponent';
-
 import '../../vendor/video.css';
 
+// BEGIN DEPREACTED TO DELETE BECAUSE WE WILL ADD A DEDICATED PAGE TO BUY VOD
+// ----------------------------------------------------------------------
+
+import SignUpForm from 'bsport-saas/src/components/form/SignUpForm.component';
+import ConsumerLogin from 'bsport-saas/src/components/consumer/login/ConsumerLogin.component';
 import { RootState } from '../store/reducer';
 import { getEnv } from '../utils/utils';
 
-const AuthDialog = asyncComponent(() => import('../components/AuthDialog'));
+const ConsumerLoginStyled = themify(ConsumerLogin);
+const SignUpFormStyled = themify(SignUpForm);
+
+type AuthOwnProps = {
+  showLogin: boolean,
+  showSignup: boolean,
+  authenticated: boolean,
+  loading: boolean,
+  error: any,
+  errorFields: any,
+  emailExists: boolean,
+  checkEmailExists: boolean,
+  checkEmailExistsLoading: boolean,
+  theme: Theme,
+  onLogin: (data: any) => void,
+  onSignup: (data: any) => void,
+  onLoginClose: () => void,
+  onSignupClose: () => void,
+  onSignupShow: () => void,
+};
+
+const AuthDialog = (props: AuthOwnProps) => {
+  return (
+    <>
+      <Dialog open={props.showLogin} onClose={props.onLoginClose}>
+        <DialogContent>
+          <React.Suspense fallback={<CircularProgress />}>
+            <ConsumerLoginStyled
+              doEmailLogin={props.onLogin}
+              errorFields={props.errorFields}
+              error={props.error}
+              loading={props.loading}
+              requestSignUp={props.onSignupShow}
+            />
+          </React.Suspense>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={props.showSignup} onClose={props.onSignupClose}>
+        <React.Suspense fallback={<CircularProgress />}>
+          <div className="cleanslate" style={{ padding: 16 }}>
+            <div style={{ padding: 16 }}>
+              <SignUpFormStyled
+                loading={props.loading}
+                theme={props.theme}
+                emailExists={props.emailExists}
+                checkEmailExistsLoading={props.checkEmailExistsLoading}
+                checkEmailExists={props.checkEmailExists}
+                onComplete={props.onSignup}
+                onCancel={props.onSignupClose}
+                consumerProfile={props.consumerProfile}
+              />
+            </div>
+          </div>
+        </React.Suspense>
+      </Dialog>
+    </>
+  );
+};
+
+// END DEPREACTED
+// --------------------------------------------------------------------------------
 
 type OwnProps = {
   companyId: number,
@@ -67,15 +136,15 @@ interface State {
 }
 
 const MarketPlaceVideoStyled = themify(
-  MarketplaceVideoDataProvider(MarketplaceVideo),
+  MarketplaceVideoDataProvider(MarketplaceVideo)
 );
 
 const MarketplaceVideoDetailStyled = themify(
-  MarketplaceVideoDetailDataProvider(MarketplaceVideoDetail),
+  MarketplaceVideoDetailDataProvider(MarketplaceVideoDetail)
 );
 
 const MarketplacePlaylistStyled = themify(
-  MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailPage),
+  MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailPage)
 );
 
 class VODWidget extends React.PureComponent<Props, State> {
@@ -119,7 +188,7 @@ class VODWidget extends React.PureComponent<Props, State> {
     const path = getMarketplaceRoute(
       this.props.theme.company_name,
       this.props.companyId,
-      'pass',
+      'pass'
     );
     const url = `${PUBLIC_URL}${path}?authToken=${this.props.auth.token}`;
     window.open(url, '_blank');
@@ -292,5 +361,5 @@ const mapDispatchToProps = {
 export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(VODWidget);

@@ -26,8 +26,6 @@ type OwnProps = {
   dialogMode?: number;
 }
 
-type ConnectProps = ReturnType<typeof mapStateToProps>
-  & typeof mapDispatchToProps;
 
 type Props = OwnProps & ConnectProps &
   ReturnType<typeof mapWithProps> & {};
@@ -96,7 +94,6 @@ export class CalendarWidget extends Component<Props, State> {
         {...this.props}
         companyId={this.props.companyId}
         compactMode={this.props.config ? this.props.config.compactMode : undefined}
-        authenticated={this.props.authenticated}
         filters={this.state.filters}
         setFilters={this.setFilters}
         otherParams={{
@@ -117,13 +114,6 @@ export class CalendarWidget extends Component<Props, State> {
 }
 
 
-const mapStateToProps = (state: RootState) => ({
-  authenticated: state.auth.authenticated,
-  token: state.auth.token,
-});
-
-const mapDispatchToProps = {};
-
 const mapWithProps = (props: ConnectProps & OwnProps) => ({
   goToPackPayment: (packId: number, offerId: number) => {
     window.open(
@@ -141,7 +131,6 @@ const mapWithProps = (props: ConnectProps & OwnProps) => ({
 });
 
 export default compose<any, OwnProps>(
-  connect(mapStateToProps, mapDispatchToProps),
   CalendarDataContainer,
   withProps(mapWithProps)
 )(CalendarWidget);

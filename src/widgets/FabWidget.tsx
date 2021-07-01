@@ -23,7 +23,7 @@ import { connect } from 'react-redux';
 import WidgetBridge from './WidgetBridge';
 import { RootState } from '../store/reducer';
 import {
-  closeDialogAction,
+  closeUserInteractionPortal,
   fabShowBasket,
   fabShowBookings,
   fabShowLogin,
@@ -324,7 +324,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = {
-  closeDialogAction,
+  closeUserInteractionPortal,
   fabShowLogin,
   fabShowBasket,
   fabShowBookings,
@@ -336,5 +336,5 @@ export default compose<any, OwnProps>(
   // @ts-ignore
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
-  withTranslation(['checkout', 'navigation']),
+  withTranslation(['checkout', 'navigation'])
 )(FabWidget);

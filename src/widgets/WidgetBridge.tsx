@@ -7,9 +7,8 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { snackbarSuccess } from 'bsport-saas/src/actions/snackbar.actions';
 
 import {
-  closeDialogAction,
   refreshVODRequestAccessFlagAction,
-  setDialogAction,
+  closeUserInteractionPortal,
   setSaasAuthenticated,
   setSaasBasketCount,
   setSaasBookingsCount,
@@ -83,14 +82,14 @@ class WidgetBridge extends React.PureComponent<Props> {
               break;
 
             case WidgetMessageType.PAYMENT_SUCCESS:
-              this.props.setDialogAction({ url: '', dialogMode: 0 });
+              this.props.closeUserInteractionPortal();
               this.props.refreshVODRequestAccessFlagAction();
               this.props.snackbarSuccess('snackbar:consumerPass.success');
               break;
 
             case WidgetMessageType.LOGIN_SUCCESS:
               if (this.props.isFabContext) {
-                this.props.closeDialogAction();
+                this.props.closeUserInteractionPortal();
               }
               break;
 
@@ -148,8 +147,7 @@ const mapDispatchToProps = {
   setSaasAuthenticated,
   setSaasBasketCount,
   setSaasBookingsCount,
-  closeDialogAction,
-  setDialogAction,
+  closeUserInteractionPortal,
   refreshVODRequestAccessFlagAction,
   snackbarSuccess: (s: string) => snackbarSuccess(s),
 };

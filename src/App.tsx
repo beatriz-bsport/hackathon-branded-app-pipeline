@@ -26,7 +26,10 @@ import 'bsport-saas/src/index.scss';
 
 import asyncComponent from './AsyncComponent';
 import FabWidget from './widgets/FabWidget';
-import { closeDialogAction, setDialogAction } from './store/actions.widget';
+import {
+  closeUserInteractionPortal,
+  openUserInteractionPortal,
+} from './store/actions.widget';
 import WidgetBridge from './widgets/WidgetBridge';
 
 const PassWidget = asyncComponent(() => import('./widgets/Pass'));
@@ -34,11 +37,13 @@ const ShopWidget = asyncComponent(() => import('./widgets/Shop'));
 const CalendarWidget = asyncComponent(() => import('./widgets/Calendar'));
 const VODWidget = asyncComponent(() => import('./widgets/Vod'));
 const PrivateServiceWidget = asyncComponent(
-  () => import('./widgets/PrivateService'),
+  () => import('./widgets/PrivateService')
 );
 const WorkshopWidget = asyncComponent(() => import('./widgets/Workshop'));
 const NewsletterWidget = asyncComponent(() => import('./widgets/Newsletter'));
-const Dialog = asyncComponent(() => import('./components/Dialog.component'));
+const UserInteractionPortal = asyncComponent(
+  () => import('./components/UserInteractionPortal.component'),
+);
 
 const Snackbar = themify(connect(...SnackbarDataProvider)(SnackbarPile));
 
@@ -70,7 +75,7 @@ class BsportWidget extends Component<Props> {
 
   onWindowOpen = (url: string) => {
     const uri = URI(url).addQuery('context', 'widget');
-    this.props.setDialogAction({
+    this.props.openUserInteractionPortal({
       url: uri.toString(),
       dialogMode: this.props.dialogMode,
     });
@@ -176,10 +181,10 @@ class BsportWidget extends Component<Props> {
             )}
             <Snackbar theme={this.props.theme} />
 
-            <Dialog
+            <UserInteractionPortal
               url={this.props.dialog.url}
               dialogMode={this.props.dialog.dialogMode}
-              onClose={this.props.closeDialogAction}
+              onClose={this.props.closeUserInteractionPortal}
               isBasket={
                 this.props.dialog.url &&
                 this.props.dialog.url.match(/\/basket\?context=widget/)
@@ -225,12 +230,12 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = {
   fetchSCT,
   fetchCompanyTheme,
-  setDialogAction,
-  closeDialogAction,
+  openUserInteractionPortal,
+  closeUserInteractionPortal,
 };
 
 export default compose(
   // @ts-ignore
   withStyles(styles),
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps)
 )(BsportWidget);

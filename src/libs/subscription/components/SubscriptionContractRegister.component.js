@@ -151,7 +151,7 @@ export const SubscriptionContractRegistrationManagerDialog = (props: Props) => {
             <DatePicker
               value={props.date}
               onChange={props.setDate}
-              format="DD/MM/YYYY"
+              format="L"
               required
               mask={(value) => {
                 if (value) {

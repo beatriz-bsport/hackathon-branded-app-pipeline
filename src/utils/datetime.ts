@@ -5,7 +5,7 @@ export const DATE_FORMAT = 'YYYY-MM-DD';
 
 export function formatAsDate(date: string) {
   const momentDate = moment(date);
-  return momentDate.format('DD/MM/YYYY');
+  return momentDate.format('L');
 }
 
 export function formatAsTime(date: string, tzname: string) {
@@ -52,17 +52,13 @@ export function formatMinutes(minutesNumber: number, t: TFunction) {
  */
 export function formatAsTitle(date: string) {
   const _date = moment(date, 'YYYY-MM-DD');
+
   const weekDays = moment.weekdaysShort(true);
   const dayShort = weekDays[_date.weekday()];
-  let dayDate = `${_date.date()}`;
-  if (dayDate.length < 2) {
-    dayDate = `0${dayDate}`;
-  }
 
-  let month = `${_date.month() + 1}`;
-  if (month.length < 2) {
-    month = `0${month}`;
-  }
+  const dateStr = moment(date, 'YYYY-MM-DD')
+    .format('L')
+    .replace(new RegExp(`[^.]?${moment().format('YYYY')}.?`), '');
 
-  return `${dayShort} ${dayDate}/${month}`;
+  return `${dayShort} ${dateStr}`;
 }

@@ -14,6 +14,7 @@ import 'moment/locale/de';
 import 'moment/locale/nl';
 import 'moment/locale/es';
 import 'moment/locale/it';
+import 'moment/locale/en-gb';
 
 const backendOptions = {};
 
@@ -122,6 +123,10 @@ const availableLanguages = [
 ];
 
 i18n.on('languageChanged', (lng) => {
+  if (lng === 'en-GB') {
+    Moment.locale('en-gb');
+    return;
+  }
   Moment.locale(lng);
 });
 
@@ -134,10 +139,6 @@ const setLanguage = (lng: string) => {
   }
 };
 
-Moment.defineLocale('en-GB', {
-  parentLocale: 'en',
-  week: { dow: 1 },
-});
 export default i18n;
 export { Moment, availableLanguages, setLanguage };
 

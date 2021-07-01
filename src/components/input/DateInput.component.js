@@ -46,7 +46,7 @@ export function DateInput(props: Props) {
       locale={Moment.locale()}
     >
       <DatePicker
-        format="DD/MM/YYYY"
+        format="L"
         value={value}
         required={required}
         disabled={disabled}

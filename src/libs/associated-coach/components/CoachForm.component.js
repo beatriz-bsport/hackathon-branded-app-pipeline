@@ -105,7 +105,7 @@ export function CoachForm(props: Props) {
           </Grid>
           <Grid item xs={12} md={6}>
             <DateField
-              format="DD/MM/YYYY"
+              format="L"
               openToYearSelection
               clearable
               label={t('form.birthday')}

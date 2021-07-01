@@ -330,7 +330,6 @@ export function MemberForm(props: Props) {
                         return [];
                       }}
                       keyboard
-                      format="YYYY-MM-DD"
                       name="date_joined"
                       disabled={disabled}
                       label={t('member:date_joined')}

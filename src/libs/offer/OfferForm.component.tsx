@@ -555,7 +555,7 @@ export class OfferForm extends Component<Props, State> {
                     <Grid item>
                       <DatePicker
                         id="last_date_picker"
-                        format="DD/MM/YYYY"
+                        format="L"
                         keyboard
                         required
                         returnMoment={false}

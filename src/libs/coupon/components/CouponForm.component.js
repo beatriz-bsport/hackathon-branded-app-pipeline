@@ -365,7 +365,7 @@ export class CouponForm extends React.Component<Props, State> {
           locale={Moment.locale()}
         >
           <DatePicker
-            format="DD/MM/YYYY"
+            format="L"
             keyboard
             mask={(value) => {
               if (value) {
@@ -396,7 +396,7 @@ export class CouponForm extends React.Component<Props, State> {
             }
             clearLabel={t('form.expiration_date.clear_date')}
             cancelLabel={t('form.expiration_date.cancel')}
-            initialFocusedDate={moment().format('YYYY-MM-DD')}
+            initialFocusedDate={moment().format('L')}
           />
         </MuiPickersUtilsProvider>
       </div>

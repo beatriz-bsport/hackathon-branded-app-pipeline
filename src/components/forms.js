@@ -204,7 +204,7 @@ export const DateField = (props: DateFieldProps) => {
             onChange={(date) => {
               setFieldValue(props.name, date);
             }}
-            format="DD/MM/YYYY"
+            format="L"
             error={!!(touched[field.name] && errors[field.name])}
           />
         </MuiPickersUtilsProvider>

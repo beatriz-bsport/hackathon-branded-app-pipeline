@@ -88,7 +88,7 @@ export const StatsPanel = (props: Props) => {
           locale={Moment.locale()}
         >
           <DatePicker
-            format="DD/MM/YYYY"
+            format="L"
             keyboard
             label={t('dashboard:dateRange.start')}
             returnMoment={false}
@@ -100,7 +100,7 @@ export const StatsPanel = (props: Props) => {
             className={props.classes.datePicker}
           />
           <DatePicker
-            format="DD/MM/YYYY"
+            format="L"
             keyboard
             label={t('dashboard:dateRange.end')}
             returnMoment={false}

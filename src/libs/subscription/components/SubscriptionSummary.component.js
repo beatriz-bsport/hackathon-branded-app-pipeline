@@ -41,8 +41,7 @@ const renderStatus = (
   if (canceled_at) {
     return (
       <Typography color="error">
-        {t('subscriptionStatus.canceledOn') +
-          moment(canceled_at).format('DD/MM/YYYY')}
+        {t('subscriptionStatus.canceledOn') + moment(canceled_at).format('L')}
       </Typography>
     );
   }

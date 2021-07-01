@@ -114,7 +114,7 @@ export function getConverter(column, classes, t) {
     }
     if (datatype === 'date') {
       return {
-        value: value ? moment(value, 'YYYY-MM-DD').format('DD/MM/YYYY') : '',
+        value: value ? moment(value, 'YYYY-MM-DD').format('L') : '',
       };
     }
     if (datatype === 'dow') {
@@ -131,9 +131,7 @@ export function getConverter(column, classes, t) {
     if (datatype === 'datetime') {
       if (value) {
         return {
-          value: moment(value, 'YYYY-MM-DD[,] HH[:]mm').format(
-            'DD MMM YYYY HH[h]mm',
-          ),
+          value: moment(value, 'YYYY-MM-DD[,] HH[:]mm').format('L HH[h]mm'),
         };
       }
       return '';

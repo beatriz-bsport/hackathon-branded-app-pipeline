@@ -134,9 +134,9 @@ export class CalendarPicker extends Component<Props, state> {
         <Typography variant="body2">
           {`${t(
             `filters.calendarPicker.text.${date_filter_type}.first`,
-          )} ${moment(date).format('DD/MM/YYYY')} ${t(
+          )} ${moment(date).format('L')} ${t(
             `filters.calendarPicker.text.${date_filter_type}.second`,
-          )} ${moment(date_second).format('DD/MM/YYYY')}`}
+          )} ${moment(date_second).format('L')}`}
         </Typography>
       );
     }
@@ -165,7 +165,7 @@ export class CalendarPicker extends Component<Props, state> {
         <Typography variant="body2">
           {`${t(
             `filters.calendarPicker.text.${date_filter_type}.first`,
-          )} ${moment(date).format('DD/MM/YYYY')}`}
+          )} ${moment(date).format('L')}`}
         </Typography>
       );
     }

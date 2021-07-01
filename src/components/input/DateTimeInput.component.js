@@ -37,7 +37,7 @@ export function DateTimeForm(props: Props) {
       >
         <DatePicker
           id="date_picker"
-          format="DD/MM/YYYY"
+          format="L"
           keyboard
           disabled={props.disabled}
           value={props.value}

@@ -286,7 +286,7 @@ export class FormField extends Component<Props, State> {
             locale={Moment.locale()}
           >
             <DatePicker
-              format="DD/MM/YYYY"
+              format="L"
               keyboard
               disabled={disabled}
               value={selectedDate}

@@ -93,7 +93,7 @@ export class RecurrentAvailabilityFormDialog extends React.Component<
                 keyboard
                 value={this.state.date}
                 disablePast
-                format="DD/MM/YYYY"
+                format="L"
                 onChange={this.handleDateChange}
                 mask={(value) => {
                   if (value) {

@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -55,11 +56,32 @@ type Props = {
 
 export class ConsumerProfile extends React.Component<Props> {
   componentDidMount() {
+    if (this.props.membership) {
+      this.fetchData();
+    }
+  }
+
+  fetchData = () => {
     this.props.fetchMember(this.props.membership.id);
     this.props.fetchMemberPaymentMethod();
+  };
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.membership && this.props.membership) {
+      this.fetchData();
+    }
   }
 
   render() {
+    if (!this.props.membership) {
+      return (
+        <Grid container className={this.props.classes.flexGrid} spacing={2}>
+          <Grid item xs={12} md={6}>
+            <CircularProgress />
+          </Grid>
+        </Grid>
+      );
+    }
     const initial = this.props.member;
     const initialData = initial
       ? {
@@ -142,7 +164,7 @@ export default compose(
   connect(
     (state, { membership }) => ({
       memberLoading: state.member.loading,
-      member: getMemberDetail(state, membership.id),
+      member: getMemberDetail(state, membership && membership.id),
       theme: themeSelectors.getTheme(state),
       country: state.theme.theme.locale.split('_')[1],
       paymentMethod: state.paymentBackend.paymentMethod.items,

@@ -61,7 +61,7 @@ const RecapSubscription = (props: RecapProps) => (
         color="primary"
         inline
       >
-        {moment(props.dateStart).format('DD/MM/YYYY') || '--/--/----'}
+        {moment(props.dateStart).format('L') || '--/--/----'}
       </Typography>
       <Typography inline>{`${props.t('recap.to')}`}</Typography>
       <Typography
@@ -70,9 +70,7 @@ const RecapSubscription = (props: RecapProps) => (
         inline
       >
         {props.nbPeriod
-          ? moment(props.dateStart)
-              .add('months', props.nbPeriod)
-              .format('DD/MM/YYYY')
+          ? moment(props.dateStart).add('months', props.nbPeriod).format('L')
           : '--/--/----'}
       </Typography>
     </div>
